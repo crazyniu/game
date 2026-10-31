@@ -1,12 +1,12 @@
-# T16 — 小鸟归巢原创PRD与文档入口
+# T16 — Original bird-home PRD and AI documentation system
 
-范围：参考代码与多款Sorting Puzzle第一方描述，编写中文产品PRD和40关独立玩法目录，更新README/AGENTS并保持CLAUDE入口一致。仅文档，不改游戏代码/数据/美术，不创建Issue，不合并/部署/发布。
+Scope: use the existing code and first-party Sorting Puzzle descriptions to create a Chinese product PRD, 40 level cards, AI reading routes and single-owner specifications; update README/AGENTS and keep CLAUDE aligned. The user authorized subsequent code/README updates and GitHub submission, then required complete, classified, unambiguous documentation and independent review first. This stage changes documentation only; no game code/data/art, merge, deployment or release.
 
-验收：
+Acceptance:
 
-- 明确现行v2与新版规划，研究事实/推断/设计分开，保留原始来源。
-- 自动归巢统一核心；蛋和临时枝写出选择/代价/回退/边界，不将已有短枝篮箱称创新。
-- 40关各有数量/目标/布局合同、玩法步骤、主决策、差异、节奏与验收；最多2类特殊机制，每五关舒缓。
-- 三组先行灰盒与数值推演，不伪称新Core已解或真人已测。
-- 链接、规则/状态机/数量内部一致性、仅文档变更、旧源码与现关卡保持不变。
-- 保留机器分工、资源门槛、Claude提交审核规则；先交父任务审稿；用户随后明确要求更新代码并都提到GitHub，授权本任务文档/代码独立分支提交推送与草稿PR，原永久流程不改。
+- docs/README identifies status labels, MUST/SHOULD and the minimum reading set per task. Rules, interaction/animation, data/save, validation, code mapping and research each have one owner; legacy material is explicitly archived.
+- Keep automatic homing as the common core. Define patterned eggs and temporary short perches with choices, costs, rollback and boundaries. Existing short perches/baskets/crates are not new inventions; manual dispatch/gates remain optional.
+- Every one of 40 cards states counts, targets/layout constraints, steps, decisions, differences, pacing and checks. At most two special-mechanic families and a relaxation beat every five levels. Missing arrays/certificates must remain explicitly unimplemented.
+- Three grayboxes, exact Given/When/Then cases, stable IDs/schema/hash/migration, atomic save timing and failure handling. Never claim new Core/runtime/player proof from document arithmetic.
+- Check links, terminology/fields, rules/state/quantities and whitespace. Preserve existing source, runtime levels and assets.
+- Preserve machine roles, asset gates and the permanent review workflow. This task's explicit submission exception is not a permanent bypass; independent documentation review precedes submission/implementation.

@@ -1,49 +1,60 @@
-# T16 — 小鸟归巢原创PRD交付与核对记录
+# T16 — Bird-home AI documentation delivery and verification
 
-日期：2026-10-31。状态：**文档已写入并完成本轮静态/算术核对，已按本次用户明确授权进入文档分支提交/草稿PR阶段；未实施新玩法。实际远端SHA/PR以交付回复为准。**
+Date: 2026-10-31. Status: **independent documentation review passed**, including the final GWT12/SaveError correction. Publishing the documentation branch/draft PR is authorized; no new game implementation has started. User authorization for later code work remains active, subject to the next-stage 251/runtime/resource gates.
 
-## 路径、基线与保护
+## Workspace and concurrent changes
 
-- 本次独立检出：`/Users/apple/Documents/Codex/2026-10-31/task-2/game`。
-- 工作分支：`t16-bird-home-prd`；HEAD/base：`dbc69fabbcc6e3af5f41a239c4905c9639144336`（最新检出时的远端main）。最初检出b53c36f，随后快进保留远端新增协作/测试说明；无用户改动被覆盖。
-- Mac原项目`/Users/apple/Documents/projects/game`仅读取，保持其原有状态；未修改代码、场景、关卡JSON、美术、音频或本机配置，未关闭任何Unity进程。
-- 仅以下九个Markdown文件变更；文档包仅包含这九个文件，不含.git、凭据、用户数据或整个仓库。
+- Isolated checkout: `/Users/apple/Documents/Codex/2026-10-31/task-2/game`, branch `t16-bird-home-prd`.
+- Initially reviewed `dbc69fabbcc6e3af5f41a239c4905c9639144336`; before publication fetched `dad0f7fe8bc51e85373476e2ba8291bdf4c1936d`, which rewrites AGENTS/CLAUDE in English. Preserve its language policy and remote terminal instructions while integrating reviewed authority/safety corrections; do not overwrite the concurrent update with the older Chinese entry files.
+- Earlier local-only draft commit `0b546b9ab7e9f11f67919a251757eada31337e32` predates the complete split specs. It was never pushed as an unfinished delivery. Final published SHA/PR are reported by the task, not inferred from this historical SHA.
+- Original Mac project `/Users/apple/Documents/projects/game` was read only. No game code, scene, level JSON, assets, networking, pairing/configuration or Unity process was changed.
+- Exactly 16 documentation files belong to this task. Review packages contain these files only, without .git, credentials or the whole repository.
 
-## 交付文件
+## Deliverables and ownership
 
-| 文件 | 内容 |
+| File | Responsibility |
 | --- | --- |
-| [README](../README.md) | 零上下文入口，现行v2/新版规划、工程路径、运行/验证与协作 |
-| [主PRD](../docs/PRD.md) | 统一自动归巢核心、固定纹样蛋、临时短枝、状态/事件/恢复、动画与验收 |
-| [40关目录](../docs/LEVEL_DESIGN.md) | 全40关参数/目标/玩法/差异/节奏/专项验收，三个灰盒与逐步推演 |
-| [同类研究](../docs/SORTING_RESEARCH.md) | 七款已复取第一方资料及一条补充线索，官方事实/未验证/采纳取舍分开 |
-| [DESIGN](../docs/DESIGN.md) | 改为现行v2基线，修正短枝容量/存储状态，去掉机制照搬与唯一权威冲突，保留历史 |
-| [AGENTS](../AGENTS.md) | 增加文档职责与验证、资源验收门槛；保留机器和Git审核原约束 |
-| [CLAUDE](../CLAUDE.md) | 同步公共入口与文档职责，避免两种协作说明冲突 |
-| [T16需求](T16_bird_home_prd.md) | 本轮范围与验收 |
-| 本报告 | 实际检查、未验证边界与提交门槛 |
+| [README](../README.md) | Concise project state/navigation |
+| [AGENTS](../AGENTS.md), [CLAUDE](../CLAUDE.md) | Execution, language, reading, review and resource constraints |
+| [docs router](../docs/README.md) | Ownership, status vocabulary and minimum reading sets |
+| [PRD](../docs/PRD.md) | Product goals, scope and six decision families |
+| [RULES](../docs/spec/RULES.md) | Terms, pre/postconditions, illegal actions/rollback, eggs, temporary perches and deterministic stabilization |
+| [40 level cards](../docs/LEVEL_DESIGN.md) | Counts/targets/layout contracts, steps, differences, pacing and three grayboxes |
+| [Interaction/animation](../docs/spec/INTERACTION_ANIMATION.md) | Input states, timings, SaveError affordances, retained star/hint policies and asset gates |
+| [Data/save](../docs/spec/DATA_SAVE.md) | Schema/IDs/hash vector, commit-before-presentation, retries and old/unknown save versions |
+| [Validation](../docs/spec/VALIDATION.md) | Proof states/certificates, 18 precise GWT cases and stage gates |
+| [Code map](../docs/spec/CODE_MAP.md) | Implemented v2 differences and the single implementation dependency order |
+| [Research](../docs/SORTING_RESEARCH.md) | Seven accessible first-party sources plus an explicitly unverified supplemental lead |
+| [DESIGN router](../docs/DESIGN.md) | Legacy link compatibility without competing rules |
+| [Archived v2 record](../docs/archive/DESIGN_V2.md) | Historical design; old instructions are not executable authority |
+| [Task specification](T16_bird_home_prd.md), this report | Scope, evidence, limitations and publication boundary |
 
-## 已完成检查
+## Checks actually completed
 
-- `git diff --check`：通过。已跟踪差异和新文件均仅Markdown；游戏代码与现行40关数据无变化。
-- 40张设计卡ID连续01–40；每卡Q恰覆盖该卡K种，无重复/遗漏；P在K至10之间。人工核对最多两类特殊机制、每五关舒缓、首次引入分开、临时枝初空cap4/5且不盖箱。
-- 相对文件链接与文内锚点检查通过（包括本报告）；外部研究链接以第一方网页实际读取为准，Xaria复取失败已明确降为补充线索。
-- 独立规范化当前JSON确认40关全v2，复核L4/L6/L7与L9/L10换种等价。它说明旧精确键去重不足，不改变运行状态键。
-- 使用临时Python算术模型核对L01/L02/L03/L05及G1/G2/G3的鸟数、每步端部/容量、蛋一次孵化、临时枝状态和最终全归巢。**这是独立文档推演，不是项目新Core、A*最优证明、Unity运行或真人测试。** 所有新版正式关仍标未运行。
-- 规则审查明确：蛋带可辨纹样/固定种类、不直接移动、不跨蛋扩run、本次锁Count；临时枝Unused→Armed→稳定化空时Retired，固定ID，普通枝不退役；完成含睡眠，睡眠后归巢不重计；新A*不能未经证明沿用旧块数下界。
-- 仅文档改动，未运行会重写场景的Unity脚本，未生成游戏截图，不将历史测试数字写作本轮结果。
+- Local file/anchor links, 40 sequential cards/complete target sets, at-most-two special families and relaxation pacing; `git diff --check` passes. Exact current counts are also in the review manifest.
+- Read the existing JSON: all 40 levels are version2. Canonical species-renaming confirms equivalent L4/L6/L7 and L9/L10 layouts; this diagnoses content duplication without changing runtime state keys.
+- An independent temporary Python arithmetic model replayed L01/L02/L03/L05/G1/G2/G3 to all collected, checking token counts/endpoints/capacity/egg and temporary states: 4/4/4/4/6/6/4 moves. **This is not the project's new Core, optimality proof, Unity run or player test.**
+- Hash vector independently computed and rechecked by the parent: 1320 canonical UTF-8 bytes; SHA-256 `7b22db03e9ececf99c7fea9626a773ae26e60d77d3a78bdaa2ece385f80317de`. Default omission normalizes identically; swapping same-species token IDs changes the hash.
+- Two review batches fixed submission versus merge authority, fixed shelves-array ordering rather than S10/S2 lexical sorting, stable-state Undo/Hint/Restart, L12 egg/target consistency, stage scope, networking/configuration permission and protection of pre-existing scene edits.
+- Technical corrections define token extraction/append order, immutable candidate/sequence retry in SaveError, same-round reveal-all-then-process crate batches, atomic logical commit before presentation, one dependency-order owner and explicit retained first-version star/hint policy. GWT12 no longer says to discard the retry candidate.
+- RULES uses a globally legal partial-transfer example: source [A,B,B] to ordinary five-seat B4 moves one, leaving [A,B]/B5 without completion. The A4 + run3 seven-A example is labeled a local capacity-function fixture only, not a legal six-bird campaign level.
+- Combined rollback fixture: temporary A2 completes normal A4; homing opens a crate containing B5+eggB; B hatches/homes; empty temporary perch retires at the end. One Undo restores everything. A temporary source cannot both empty and leave an egg behind.
+- No Unity scripts/screenshots/new game animations ran for these documentation edits. Historical 163 EditMode / 14 PlayMode passed numbers are not reported as this run's result.
 
-静态检查脚本与详细算术结果保留在任务临时目录`/tmp/perch-doc-review.py`、`/tmp/perch-doc-review-results.json`；它们不是交付游戏代码，不加入仓库。生成的文档包位于本次任务工作区的`perch-sort-prd-review.zip`，供父任务读取审稿。
+Temporary verification scripts/results live under `/tmp/perch-doc-review*` and `/tmp/perch-content-hash-vector.json`; they are not business code or staged deliverables. Versioned review bundles in the task workspace contain complete readable document contents; final GitHub content supersedes earlier bundles.
 
-## 剩余边界与后续实施
+## Read-only 251 and asset preflight
 
-- 新蛋/临时枝代码、schema、存档迁移、下界/求解、教学与资源均未实施；35关只有参数与布局合同，未产出完整初始数组（前五关给精确样板）。不能宣称新版40关已经可解或可玩。
-- 三个灰盒尚无真实新Core/实机证据，正式关无新版最优证书、真人记录或设备验收；需先样板验证再扩量。
-- 评级奖章、分层提示是候选改进，未改变现行UI/代码；主动起飞/风闸不是首版必做。
-- T12开发仍暂停；发布身份/模块等沿原清单，不在本次执行。
+- Existing paired Orca environment `root@192.168.1.251` is reachable through its already configured tunnel when the local command has network permission. Default sandbox status failed; an approved read-only status check succeeded. No endpoint, credential, tunnel or service was created/changed.
+- Registered actual repository: `/home/developer/Projects/game`; terminal user `dev`; main at `dad0f7f`, clean when inspected. One existing main worktree and an idle terminal were observed. A separate read-only diagnostic terminal was used; the existing session was not typed into or stopped. These observations do not prove no other developer is active; use a separate implementation worktree/branch after the next gate.
+- `python3` and `git` are on PATH. `dotnet`, `mono`, `csc`, `mcs` and `Unity` were not on PATH; the checked common Unity editor directories were absent. No compiler/editor was installed. Unity compilation/tests still require the Mac; a future standalone C# toolchain would need separate setup/authority.
+- `art/ui_kit/egg_on.png` and `egg_off.png` are 128x128 RGBA HUD progress icons. Their manifest explicitly describes unspeckled active/inactive progress eggs, not species-marked gameplay eggs; do not claim they satisfy the new token artwork requirement.
+- Existing approved sources include 1024x256 RGBA perch, 512x384 basket, 1024x320 crate, 512x512 nest and 1024x1024 front bird poses. These were only inventoried/read; no originals were modified.
+- No species-specific egg/hatching set or temporary-perch Unused/Armed/Retired set was found in searched paths/manifests. Needed: recognizable species markings, hatch/fragment presentation, four/five-seat temporary-perch state art/markers and pivots/bounds/64px grayscale/in-context acceptance. Existing sprites can inform style, not substitute unreviewed approximate assets. Core can advance independently; related presentation waits for asset acceptance.
 
-## 提交/推送门槛
+## Remaining gates and authorization
 
-保留[AGENTS](../AGENTS.md)原文：**“不提交 git，由 Claude 审完后提交。”** 以及251开发/Claude审核提交流程。本轮已完成可审阅结果，按父任务要求先交审稿；没有尝试越过门槛、没有Git提交/推送，也没有远端提交SHA或草稿PR可交付。HEAD SHA是审阅基线，不是本轮新提交。
-
-这不是自动审批拒绝。本次提交例外已经有用户明确授权；其余251开发、Mac仅测试、资源先验收等约束仍有效。代码实施先确认251的合法执行通路；不把文档阶段完成写成整个代码任务完成，不自动合并或部署。
+- Formal01-05 have exact design samples; the other35 cards are layout contracts without complete arrays. Every revised level remains pending new Core certificates/runtime/player/device proof. Do not claim the new40 are already solved or playable.
+- Rules/schema3/save5, solver lower-bound migration, tutorial/hint wiring and new resource production are not implemented. Manual dispatch/gates, efficiency medals and layered hints remain optional.
+- Documentation review passed. The user explicitly requested code/README updates and GitHub submission; that authorizes this task's isolated documentation commit/push/draft PR exception. The permanent default "Do not commit to git; Claude commits after review" remains in AGENTS. Do not merge, deploy or release without explicit authority.
+- Next-stage business implementation waits for the parent to verify the published docs and 251 path/resource plan. Do not edit business code on the Mac or contact another external AI/coordinator. This documentation delivery is not completion of the overall game implementation request.
