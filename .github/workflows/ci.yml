@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/
+            ci/
+            **/*.cs
+            **/*.json
+            **/*.asmdef
+            **/*.sh
+            **/*.py
+      - name: Check changed files
+        id: changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: python3 ci/check_changes.py
+      - name: Set up .NET for Core tests
+        if: steps.changes.outputs.core == 'true'
+        uses: actions/setup-dotnet@v6.0.0
+        with:
+          dotnet-version: '8.0.x'
+      - name: Run existing Core tests
+        if: steps.changes.outputs.core == 'true'
+        run: dotnet test ci/CoreTests.csproj --configuration Release --nologo
+      - name: Validate Actions workflows
+        if: steps.changes.outputs.workflows == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download v1.7.12 --repo rhysd/actionlint --pattern actionlint_1.7.12_linux_amd64.tar.gz --dir "$RUNNER_TEMP"
+          tar -xzf "$RUNNER_TEMP/actionlint_1.7.12_linux_amd64.tar.gz" -C "$RUNNER_TEMP" actionlint
+          "$RUNNER_TEMP/actionlint" -shellcheck=''
