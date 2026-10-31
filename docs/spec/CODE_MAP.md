@@ -13,6 +13,7 @@
 | 归巢释放该枝继续可用 | SRC-BIRD2完成群飞走后失去该枝，v4仅在完成时Retired；普通搬空不退役 |
 | List<int>物种，无egg token | 固定token ID/species/form；问号蛋身份隐藏，非提前纹样预告 |
 | 旧星级由Undo+Restart计数，Hint每关终身3次 | 有源新版改免费无限帮助/最佳操作；旧政策仅历史，不得带入 |
+| 无R07额外枝完整事务 | 新增AddBranch/末枝S(P+1)/辅助身份和分类记录，免费一条N座；旧40见证不算此事务测试 |
 | 存档v4按关号回放From/To | v4设计campaign隔离，目标saveVersion6/schema4/rules4，完整稳定快照；详DATA_SAVE |
 | 关卡网格/旧设置与手写动画现状 | 世界地图是USER新目标，UI图标/静音/开源优先约束待实施；不能因为现代码写法就豁免 |
 
@@ -23,7 +24,7 @@ T16纹样蛋、任意清空临时枝、schema3/save5、旧60纸面回放是已�
 ## 2. 未来实施的唯一依赖顺序（需要另行授权）
 
 1. 证据/规则/固定内容和未知边界独立审查；这不是代码授权。
-2. 251隔离分支实现纯Core/schema4：N可变、token与隐藏egg、Home/Retired、clone/key/Undo、固定数据校验；不混旧目标/箱字段。
+2. 251隔离分支实现纯Core/schema4：N可变、token与隐藏egg、Home/Retired、R07 AddBranch与assistPolicyVersion、clone/key/Undo、固定数据校验；不混旧目标/箱字段。
 3. 新Solver合法回放/证明状态，未知不无解；重新证明含孵化的启发式，不能沿旧块数下界宣称最优。
 4. save6/campaign迁移、原子写档/SaveError、地图进度和回调代次。
 5. 已授权后锁定/试验单一开源主补间库、批准新资产（需要振翅clip/帧、蛋孵化、完成枝退场）；无验收资产不能拿静图或近似重绘顶替，Core独立工作可继续。
