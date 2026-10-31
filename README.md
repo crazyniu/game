@@ -1,5 +1,7 @@
 # 小鸟归巢 · Perch Sort
 
+T21 feature-branch checkpoint: the isolated two-move first-level scene and real wingbeat/Home presentation are implemented and recorded. Open `PerchSort/Assets/Scenes/FirstLevel.unity`; see [current delivery evidence](tasks/T21_report.md). Legacy Game/default BuildSettings and the other39 runtime levels remain unchanged. The explicit local Player build is next; fullsave6/mobile acceptance is pending.
+
 Unity6000.6.7f1竖屏排序益智项目。**Production remains v2/40; T21 isolated bird-only Core and the LitMotion desktop dependency checkpoint are implemented/tested, not completed production UI or full v4/save6.** First-level implementation is authorized; no automatic merge/deployment. [T21 evidence](tasks/T21_report.md).
 
 AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩阵](docs/MECHANIC_EVIDENCE.md)。无同行依据的旧自拟玩法已撤回/隔离，不能从旧代码、历史报告或资源存在推定恢复。

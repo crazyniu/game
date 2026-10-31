@@ -1,3 +1,13 @@
+## T21 current checkpoint — first-level runtime slice
+
+The feature branch now includes the adopted N4/K2/P3 two-transfer first level in `Assets/Scenes/FirstLevel.unity`, its accepted red/blue six-pose wing cycles, supported forest/perches, single native-masked receiving nest, icon-only HUD and complete Home→Retire→victory→Replay presentation. Open that scene and Play; `Perch Sort/Build First Level Slice` regenerates only its own references/scene. `FirstLevelPlayerBuilder.BuildMac` is the explicit local Player entry; its build has not yet been run at this checkpoint. Legacy Game.unity and default BuildSettings remain unchanged.
+
+Actual evidence at3e5f5fac183cd9ddde05e8686c2779a5a38eb4fe:238 real Unity frames/10.367s, both Homes, victory and exact Replay; stable native540×960 HUD and real wing/rim occlusion. The silent10.182s MP4 preserves actual captured timing. Independent frame review found noP1/P2 visual blocker; short overlap at the shared entrance remains a presentation limitation. One exact Unity Editor Search startup exception is retained as an environment diagnostic, not a game error or clean-console claim.
+
+Tests are scoped:23/23 Core tests atb9577ff;4/4 Flow/HUD tests at902be36; the affected pointer-pause test rechecked1/1 at3e5f5fa. No full-suite, physical-device, audio-recording, mobile/AOT or fullsave6/40-level migration pass is claimed. The first-level Player build is the next concrete action, not a running background job.
+
+Stable screenshot Library libfile_5522a3443ac08191b8beceb8f952f812 version1; actual silent replay libfile_5bca5b834b608191b29b797667241fb1 version1. Home body/crest/received actual frames:libfile_0bb21394da88819185da66b069cc56d7,libfile_a617c032584881918564094358d45bdb,libfile_8ad285119d288191a1087eea110305c2. Old report sections below are historical checkpoints, not current user-decision gates.
+
 # T21 checkpoint — first-level foundation and asset review
 
 ## Scope and baseline

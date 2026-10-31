@@ -1,3 +1,7 @@
+## Current T21 bounded runtime implementation
+
+The feature branch adds `Assets/Scripts/FirstLevel/` (Flow/Bird/Board/Entry/Hud/Assets), its isolated `FirstLevel.unity` and explicit Editor build/capture entries. It binds only adopted B: N4/K2/P3, AAA/BBBA/B, with real six-pose wings and Moved→Home→Retired→victory→Replay. [T21 current report](../../tasks/T21_report.md) owns named-commit evidence and limitations. Legacy code below remains the v2 map; this is not a full schema4/save6/catalog/Hint/ExtraBranch implementation.
+
 # 现行v2实现与同行依据v4差异
 
 2026-10-31 · 只读实现盘点。当前工程Unity6000.6.7f1，运行JSON仍40关version2；本页不定义玩法，唯一规则[RULES](RULES.md)。Production remains v2. T21 has an isolated bird-only Core foundation (18 focused Unity tests at f3813da, then only 2 added tests at 2d85437; no combined20-test rerun). LitMotion2.0.2 pin0b4c588ee75a07198841d92aab653e6b39445089 resolved and desktop compile/one smoke witness passed at a740b85. Production UI/asset binding, full v4/save6 and runtime acceptance remain incomplete.
