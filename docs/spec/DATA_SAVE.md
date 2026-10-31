@@ -163,7 +163,7 @@ Undo为一个新事务：恢复最近Transfer或AddBranch前完整快照，弹�
 
 ## 5. 世界进度与旧档处理
 
-进度saveVersion6：completedLevelIds、bestMoveCountByLevel（无辅助）、bestAssistedMoveCountByLevel（有辅助）、currentLevel、可选seenWorldIntro、总静音设置；world/level解锁按MAP_PROGRESSION由已提交completed集合推导，不能与另存unlock布尔互相矛盾。当前局快照含完整Undo历史，退出后可继续无限撤销，不静默截断；压缩/delta必须证明等价恢复。
+进度saveVersion6：completedLevelIds、bestMoveCountByLevel（无辅助）、bestAssistedMoveCountByLevel（有辅助）、currentLevel、可选seenWorldIntro、`audioMuted`（§5.1）；world/level解锁按MAP_PROGRESSION由已提交completed集合推导，不能与另存unlock布尔互相矛盾。当前局快照含完整Undo历史，退出后可继续无限撤销，不静默截断；压缩/delta必须证明等价恢复。
 
 | 输入 | 唯一处理策略 |
 | --- | --- |
@@ -175,6 +175,16 @@ Undo为一个新事务：恢复最近Transfer或AddBranch前完整快照，弹�
 | 主档坏/校验失败 | 尝试身份兼容且完整bak；无可用备份则保留坏档，安全开启对应新局并提示，不能混合半新半旧 |
 
 旧campaign星级不折算新地图解锁，旧同号新关不视为已完成。存档路径/产品名/平台目录变化要未来授权实现时记录并验收，本轮未改路径或配置。
+
+<a id="global-mute"></a>
+
+### 5.1 单一总静音字段（E工程合同，未实施）
+
+- save6进度根字段`audioMuted:boolean`，true=音乐、游戏音效、点击声全部静音；false=允许这些声音按既有固定配置播放，仍服从系统静音/平台限制。只存这一个声音开关，不增加音量/百分比或分通道字段；这是本项目工程选择，不是同行原作字段或默认值。
+- 首次安装且无可迁移偏好时默认false。菜单与暂停声音钮共用同一值：true显示sound_off、点击恢复；false显示sound、点击静音。无障碍名说明下一动作，不加可见标签；外观仍由UI_SPEC拥有。
+- 静音偏好不属于关卡Undo历史；Undo、Restart、切关及campaign成绩归档不重置它。设置保存沿§4原子写入/读回核验，串行更新最新进度，不能用旧设置快照覆盖关卡进度。失败提示未保存，不谎称成功；会话内已选静音仍生效，下次启动读取最后成功保存值。不为声音开关增加玩法操作数/Undo项。
+- 迁移先保留原档只读副本。对已识别旧版本，只有经旧源码/格式确认的有效总静音布尔值才按其已核实语义映射，保留用户选择，不按旧键名称猜测。已识别旧版本确实无声音设置，或未实施的早期save6草稿仅缺本设置字段时，显式补false并记录设置迁移；此例外绝不允许补齐缺失玩法/辅助身份或恢复本应拒绝的局面。
+- 未知版本仍按§5隔离拒写；设置类型错误、冲突或旧语义未核实时保留原件，不静默强转/覆盖。核实前会话保守静音并提示设置未能读取，不把临时静音当已迁移偏好。旧键适配、保存失败和跨启动持久化仍须未来实现验收，本轮未运行这些测试。
 
 ## 6. R07运行格式补充与拒绝条件（E）
 
