@@ -13,7 +13,7 @@
 | [MECHANIC_EVIDENCE](MECHANIC_EVIDENCE.md) | 全量玩法系统来源/资格/撤回与缺口，USER/E/P/O区分 | 官方文案不是安装实测，旧代码不是同行证据 |
 | [SORTING_RESEARCH](SORTING_RESEARCH.md) | 原游戏可离线阅读的玩法/操作/例子与迁移差异 | 链接只是出处，不能缺文字算法 |
 | [PRD](PRD.md) | 产品范围/取舍/目标 | 不另定义算法 |
-| [RULES](spec/RULES.md) | R01..R06有效玩法、动作/完成/回退/未定功能边界 | 没有参数的加枝不可让AI自由补值 |
+| [RULES](spec/RULES.md) | R01..R07有效玩法、动作/完成/回退/未定功能边界 | 普通加枝遵R07明确合同；逐次扩高/经济待证不可自由补值 |
 | [MAP_PROGRESSION](MAP_PROGRESSION.md) | 用户指定世界进度、唯一章节/森林主题分配与门槛 | 未定概念不是已验收资源；环境不影响规则 |
 | [LEVEL_DESIGN](LEVEL_DESIGN.md) | 每关教学/决策/节奏 | 题目多不等于策略丰富 |
 | [LEVEL_SIMULATIONS](LEVEL_SIMULATIONS.md)与四份固定附录 | 全40精确初态/逐步回放、可见视图/证据限制 | 非运行JSON、非最优/Unity/公平证书 |
