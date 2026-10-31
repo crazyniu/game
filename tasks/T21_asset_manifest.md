@@ -1,63 +1,40 @@
-# T21 — First-level assets and layout review
+# T21 — Accepted first-level integration assets
 
-2026-10-31 UTC. **REVIEW_CANDIDATE / NOT_PRODUCTION_ACCEPTED.** No new View/UI, scene, runtime level, original art or payment policy is implemented by this preparation. [T21 report](T21_report.md) owns actual code/test results; [event handoff](T21_event_motion_map.md) is design only. [UI_SPEC](../docs/UI_SPEC.md#approved-forest-style) owns art/layout approval and [INTERACTION](../docs/spec/INTERACTION_ANIMATION.md) owns timing. This file does not create a second rule or timing authority.
+2026-10-31 UTC. **STATIC_ASSETS_ACCEPTED_FOR_INTEGRATION; RUNTIME_VISUAL_ACCEPTANCE_PENDING.** The user delegates ordinary design decisions. Adopted B is N4/K2/P3 with fixed AAA / BBBA / B, and one upper receiving nest. No further ordinary user confirmation is required. [RULES](../docs/spec/RULES.md) owns gameplay, [UI_SPEC §4.2](../docs/UI_SPEC.md#l01-adopted-layout) owns selected first-level geometry, [INTERACTION](../docs/spec/INTERACTION_ANIMATION.md) owns timing/input. Runtime acceptance is separate from this asset gate.
 
-## 1. Portable review material
+## Production integration set
 
-| Item | Library identity | What it proves |
+All new derived files are under `PerchSort/Assets/Art/Resources/FirstLevelArt/`; no original `art/` or accepted legacy file is overwritten.
+
+| Files | Accepted static checks | Integration boundary |
 | --- | --- | --- |
-| A: formal five-branch content | `libfile_7b1e887236d08191a32f821521dd7a62` | Static1080x1920 position/count diagram; not runtime or final art |
-| B: three-branch proposal | `libfile_1750472c41e08191ad70f0baad48c2c7` | Static1080x1920 alternative; not adopted |
-| 64px color/grayscale on light/dark | `libfile_0cfb22ebee48819187c4ebc2b67046cb` | Native64px review in96px cells, not device/user acceptance |
-| Fixed-body wing loop/contact, version1 | `libfile_526006582e348191bde8e40378a7ca97` / `libfile_d36189aea0cc8191bae98f810a9f704c` | Six distinct wing shapes around the same body/head; not Unity |
-| Shared-mask nest trial/stages | `libfile_b4a7756c55108191b60a07e1a7715542` / `libfile_1e22954c14f881918727000f5f11e63a` | Seam-free offline occlusion trial; not full reception animation |
-| Review bundle | `libfile_298e200dddd081918336ba6bc356bc0e` |26 explicitly selected PNG/GIF/JSON/Markdown entries; source candidates, frames, measurements and diagrams; no repository, credentials or executable helper |
+| red_idle, red_flight_01..06 PNG |512×512 RGBA; one stable body/face, actual six wing poses; folded standing wings; single alpha16 component, zero nonzero-alpha border pixels | Real takeoff/flight/flare/fold sequences must be wired and recorded in Unity |
+| blue_idle, blue_flight_01..06 PNG |Same frame/foot registration; distinct blue plumage and two-feather crest; same face across all7 poses | Colors plus three/two-feather crest remain; grayscale contact is reviewer evidence, not colorblind user testing |
+| forest_background PNG |New dimensional forest in the approved direction; no birds, branches, controls or text; foreground side trunks provide support | One first-level forest only; not a promise that future forests reuse/recolor this image |
+| perch PNG |2172×724 RGBA, warm dimensional wood and left-root rope; actual wood contact points measured | Mirror for right attachment; do not put the wallmost bird on the rope |
+| nest_front_mask PNG |512×512, same UV as original nest; original foreground alpha retained; cutoff0.5 hides every final bird pose completely | Render original complete nest once; scope native SpriteMask to homing actors only, VisibleOutsideMask; no separate filtered front/back sprites |
 
-The bundle manifest identifies each file by size/SHA256. Its source/control paths are provenance, not mandatory files on another AI's machine. The prose below is self-contained; opening Library is only required to inspect/download images or reproduce measurements. All raw/static images remain assets or diagrams, never claims of completed game animation.
+The transfer archive contained18 selected files including the14 PNG bird poses, three environment/mask images and the bird source/registration manifest. Archive SHA256: `32258500ccb20ce58b913814289d4cb1232c32fba5c1d4dd1df322fef9792b43`. Source PNGs remain preserved. The separate `integration_manifest.json` records the actual derived-file hashes and this acceptance boundary; the original candidate manifest is provenance, not a contradictory runtime-pass claim.
 
-## 2. Source inventory and registration
+Reuse original nest, existing wood square, existing icons/fonts and audio. Do not use the old2D character position diagrams as production art. The extra generated trunk is an unused source candidate and is not required or included; the accepted backdrop already contains proper side trunks.
 
-| Resource | Actual data | Readiness |
-| --- | --- | --- |
-| Approved forest direction | Reference `libfile_c46acb69a7a481918645ce2d319d70c1`, actually materialized/viewed | Direction and supported-branch principles only |
-| New red body/head/feet/tail | Built-in image-generation candidate `exec-fb7883a2-0ced-424d-9230-ef69bca04827.png`,1254x1254 RGBA; SHA256 `fdef057f4da2fe0e828bf9d79282b6832817b3bf3be87f76819e27e6fc44f4e5` | Same body pixels across poses; no accepted standing/landing clip |
-| Independent red wings | Built-in image-generation candidate `exec-ba1b1742-01d1-4ea9-b03b-d474780291eb.png`,1536x1024 RGBA;12 major components/six pairs; SHA256 `aeb7be7e02631e43fd2cca9f4093e71bb44aa87ff4029a7a60fc62c2a57dd913` | Complete rounded roots; six tiny1–2px flecks excluded from temporary component extraction |
-| Registered composites | Six512x512 RGBA frames; one constant body scale0.26 and wing scale0.66 | Manual shoulder targets(185,315)/(327,315), not approved Unity pivots |
-| Existing nest mother | `art/raw/env/nest.png`,512x512 RGBA; SHA256 `1b5cab029d8e2ec9489f3d54cd97071aea206fa02f1a467dde6facbfce527352` | Original preserved; one-source shared-mask trial, contour not accepted |
-| Layout placeholders | Existing background/perch/nest and matched legacy bird01/02/03 illustrations; existing pause/restart/sound symbols | Identify species/positions only; no new2.5D art acceptance or final button skin implied |
-| Structural drawings | Schematic tree connectors and nest ropes drawn only on review canvases | Explain support; not sliced production environment artwork |
+## Registered geometry
 
-The flight registration uses a colored-foot centroid approximately(624.447,1027.075); the nest test used a lower contact choice approximately(624.474,1078). They are **not interchangeable**. An accepted pose manifest must provide one actor reference, per-state/frame offsets and the actual final standing/landing contact line. The old(512,870) pivot applies only to legacy illustrations in these layout diagrams. Never assign it to the new body or claim a landing pass from a stationary flap GIF.
+- All bird frames use top-origin source foot contact pivot(256,439) in512×512, Unity normalized(0.5,0.142578125). The old colored-foot centroid425 and legacy1024 pivot do not define standing contact. Tail feathers below439 do not define the foot plane.
+- Identical body/head per species across idle+6 flight frames. Body alpha≥250 holdout avoids wing bleed beneath nearly opaque face pixels. Blue flight01's one disconnected alpha16 pixel was removed only from its derived export; source masters are unchanged.
+- Logical branch centers S1(-333,200), S2(333,-60), S3(-333,-320). Render branch347.52×80 at logical center plus(-13.44,-10) for left branches, (+13.44,-10) for the right.
+- Four left source wood-surface points are(420,321),(920,351),(1420,358),(1920,315). Resulting foot X offsets are[-120,-40,40,120]; foot Y offsets[-5.469613,-8.784530,-9.558011,-4.806630]. Right branches mirror X only. Geometry keeps80 design-px slot spacing. Root rope lies at logical X±174.4 and overlaps the visible foreground tree, not an invented floating support.
+- Receiver frame300×300 at(0,640), original nest pivot(0.5,0.5). Home final foot maps to nest-source(256,435) at bird scale0.35; all14 actual poses have zero visible pixels under the accepted mask cutoff. Approach samples at150/250 have no visible premature masking. Do not move the final foot to450: that exposes pixels through the bowl bottom.
+- Continuous-alpha compositing previously reported99.215%; this was not incomplete entry geometry. Native mask-style binary cutoff0.5 gives100% occlusion at the435 endpoint. Earlier independently resampled front/back images were rejected and are not production inputs.
 
-The temporary compositor uses a disclosed body alpha>=250 foreground holdout to prevent1/255 moving-wing color bleed beneath nearly opaque face pixels. Source PNG/body pixels remain untouched. This is a tested candidate layering policy, not an accepted production material/rig.
+## Internal acceptance evidence
 
-## 3. Checks completed once for this preparation
+The producing agent checked14 actual PNGs for real RGBA/zero corners/bounds, body and face stability, closed-wing roots, source provenance and common sole registration. A separate reviewer opened the standing/flight/contact images and recomputed the actual14-mask endings and four wood-surface positions. Root reviewed the same images against the approved forest direction. Native64 color/grayscale review retains recognizable eye/beak/crest features; no claim of human colorblind or device acceptance follows from hashes.
 
-- All six512px and64px PNGs have actual alpha0..255, semitransparent edges, four zero-alpha corners, and zero nonzero-alpha boundary pixels. Minimum alpha16 margin is32px at512 and4px at64. Opaque contact-sheet backgrounds are not the transparency evidence.
-- At64px, color and grayscale face-feature regions each have one distinct buffer; complete frames each have six distinct buffers. The body/head remains constant while wings change. Gray conversion uses linear-light Rec709; alpha is retained. Eyes/beak/body and raised/horizontal/lowered wings were visibly inspected; poses4/5 remain relatively similar. This is a reviewer observation, not user/colorblind playtesting.
-- The512 and64 review GIFs decode to nine frames/six distinct images, with suggested0.1s frames. The rate/manual pivots are not approved timing or import settings. Actual Unity motion, normal-size interaction and device performance remain untested.
-- Shared-mask nest: resample the complete mother once, derive the same target-pixel contour, render the mother once and clip only the arriving bird. Native512/target300 at0/.25/.5px offsets give zero reconstruction error. Twenty distinct diagnostic frames keep bird alpha1 and show0→99.215% occlusion. No fade conceals the bird; the unfinished last reception/removal is not certified.
-- Rejected earlier scheme: independent bilinear front/back sprites at300 changed225pixels by up to62.75LSB. It is not an import recipe. A source-pixel reconstruction pass cannot override that failure. Production needs the accepted same-UV/native scoped-mask solution and runtime verification.
+GIFs demonstrate multiple wing silhouettes around a stable face; they are offline resource previews, not gameplay. The final first-level runtime still needs real-time entrance, selection, push-off, wingbeats/flight, flare/feet contact, Home front-rim occlusion, branch exit, particles, audio, input lock, Undo and Replay evidence. Standalone asset acceptance does not certify these sequences.
 
-## 4. Exact A/B content and candidate positions
+## Historical review material
 
-All positions are **UNACCEPTED design px**, center-origin1080x1920, X right/Y up. [Layout metadata](T21_layout_review.json) is the single exact position transcription for these review images; it also explicitly distinguishes native canvas bottom-left coordinates. Images contain labels only as review annotations, not proposed product text labels.
+A/five-branch diagram: Library `libfile_7b1e887236d08191a32f821521dd7a62`. B/three-branch diagram: `libfile_1750472c41e08191ad70f0baad48c2c7`. Both were static1080×1920 review canvases with old bird placeholders, not runtime. The selected B logic/layout supersedes the earlier request to choose A/B. Old red-only loop `libfile_526006582e348191bde8e40378a7ca97`, nest diagnostic `libfile_b4a7756c55108191b60a07e1a7715542`, and review bundle `libfile_298e200dddd081918336ba6bc356bc0e` remain historical evidence only.
 
-| Choice | Content, wall to exposed | Branch roots | Meaning |
-| --- | --- | --- | --- |
-| A | N4/K3/P5; S1=A3B,S2=B3C,S3=C3A,S4/S5 empty;12 birds | S1(-333,210),S2(333,150),S3(-333,-90),S4(333,-150),S5(-333,-390) | Current documented content; four-transfer existence witness, no optimality claim |
-| B | N4/K2/P3; S1=A3,S2=B3A,S3=B;8 birds/no empty branch | S1(-333,200),S2(333,-60),S3(-333,-320) | Two-transfer proposal; adopting it requires explicit product/document changes first |
-
-A witness: S1→S4 B1; S3→S1 A1/Home A; S2→S3 C1/Home C; S2→S4 B3/Home B. B proposed witness (as recorded in metadata): S2→S1 A1/Home A; S3→S2 B1/Home B. Moving the three B from S2→S3 instead is another legal two-transfer route, not a required additional step. Completed branches retire; ordinary empty branches remain. No diagram changes RULES or the formal initial arrays.
-
-Common receiver candidate: one nest at(0,640),300x300, with schematic suspension from(±190,960) to(±130,640). N4 branch image320x80 is drawn at rootY−10; legacy contact line=rootY−2.8125. Four left slots use rootX+[-120,-40,40,120], right slots rootX+[120,40,-40,-120]. Existing legacy full bird canvas136x136 uses its real foot pivot. Token positions mirror on right branches; label text always lists logical order left-to-right. Roots visibly connect to schematic trunks nearx±520. No extra decorative playable branches or future-addition positions are drawn.
-
-The badge/pause/rounded-square control prototypes are review placement, not approved skins. Initial Undo is hidden while its slot remains reserved; no hint quota, expansion, stars, currency or false Next button is shown. New2.5D character envelopes, UI-D43 coordinates and actual device/touch safety remain pending.
-
-## 5. Remaining gates and precise decisions
-
-Required decisions: choose A or B content; approve/adjust the chosen branch layout and upper-center receiver; review the red bird's appearance/wing rhythm and the nest-rim contour. Choosing content alone does not accept artwork, every coordinate or runtime behavior. Do not silently adopt B or interpret a static diagram as asset/UI acceptance.
-
-Still missing/unaccepted: new-style standing/idle, takeoff, turning, landing/wing-fold and contact transitions; blue/yellow family as needed after content choice; production root/stump/receiver mask/button slices; final pose/import manifest; full first-level runtime binding and recording. Existing icon/font/audio ingredients do not clear these gates. Only one red character's provisional flap cycle was checked here.
-
-After those gates, [event handoff](T21_event_motion_map.md) describes preserving Before token views, consuming Moved→Home→Retired with true IDs, then reconciling After. A pure Session or imported library is not durable save, completed animation or production UI. No additional Core/full-suite testing or later-level work was started by this preparation.
+No economy, SDK, later levels/worlds, new gameplay mechanism or automatic merge is authorized by this asset acceptance.

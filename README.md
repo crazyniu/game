@@ -1,6 +1,6 @@
 # 小鸟归巢 · Perch Sort
 
-Unity6000.6.7f1竖屏排序益智项目。**当前运行代码仍v2/40关；这里新增的是同行依据版v4文档，尚未实施。** 本任务只整理文档和临时独立玩法分析，不改源码/运行关卡/场景/素材，不安装库，不自动合并/部署。
+Unity6000.6.7f1竖屏排序益智项目。**Production remains v2/40; T21 isolated bird-only Core and the LitMotion desktop dependency checkpoint are implemented/tested, not completed production UI or full v4/save6.** First-level implementation is authorized; no automatic merge/deployment. [T21 evidence](tasks/T21_report.md).
 
 AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩阵](docs/MECHANIC_EVIDENCE.md)。无同行依据的旧自拟玩法已撤回/隔离，不能从旧代码、历史报告或资源存在推定恢复。
 
@@ -18,4 +18,6 @@ AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩�
 
 世界均为不同森林，主题候选阔叶林/竹林/秋日枫林/雪松林，不加环境机关。统一美术风格与树枝摆放原则已由用户确认，唯一约束见[UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style)；小鸟允许依此重新设计，现有原素材不覆盖。具体生产素材/地图布局仍未验收，不能将风格确认当作实现授权。清晰图标不重复可见文字，规则形按钮、简单静音开关，无音量滑条。动画优先单一开源库，不能静图冒动画；现单张fly资源尚不等于真实振翅。
 
-工程入口`PerchSort/Assets/Scenes/Game.unity`，Core为纯C#；原`PerchSort/Assets/Resources/Levels/levels.json`未更改。未来代码/素材实施须另有授权，251开发、Mac测试。旧T16规则与60路径已[失效](docs/archive/T16_WITHDRAWN.md)；当前40新独立模型回放不等于Unity/最优或20个蛋关盲玩公平通过。
+工程入口`PerchSort/Assets/Scenes/Game.unity`，Core为纯C#；原`PerchSort/Assets/Resources/Levels/levels.json`未更改。T21首关实现已授权，251开发、Mac测试；普通设计决定由团队推进，生产素材/布局须内部技术与独立视觉QA，不等待重复用户确认；后续关卡/商业化不因此获准。旧T16规则与60路径已[失效](docs/archive/T16_WITHDRAWN.md)；当前40新独立模型回放不等于Unity/最优或20个蛋关盲玩公平通过。
+
+Adopted L01: N4/K2/P3, S1=AAA/S2=BBBA/S3=B, two Transfers, no empty branches; RULES owns its sole campaign/level exception. First-level presentation uses one upper receiving nest and staggered supported branches; production acceptance remains pending.

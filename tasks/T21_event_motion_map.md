@@ -1,3 +1,5 @@
+> CURRENT AUTHORITY: Use adopted B only: three branches at (-333,200),(333,-60),(-333,-320), single upper receiving nest (0,640). These are the internally selected layout baseline; historical A/user-choice notes below do not authorize five-branch production. The source old-bird diagrams remain review evidence only. New action sprites must pass internal QA before dependent View wiring.
+
 # First-level event-to-motion handoff — DESIGN ONLY
 
 2026-10-31 UTC. Scope: one complete first-level slice, not all40 or a global View rewrite. PROPOSED / NOT_ACCEPTED / NOT_IMPLEMENTED_UI. No production source, scene, material or asset is written by this handoff. P5 is the current documented board; P3 remains a proposal pending the user's decision. This file is not permission to choose P3 or start new UI before asset/layout acceptance.

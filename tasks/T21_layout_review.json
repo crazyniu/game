@@ -1202,5 +1202,49 @@
       ],
       "witnessMoveCount" : 2
     }
-  ]
+  ],
+  "currentDecision" : {
+    "adopted": "B",
+    "authority": "Latest user instruction delegates ordinary decisions; coordinator adopts B",
+    "status": "ADOPTED_LOGICAL_CONTENT_AND_LAYOUT_BASELINE",
+    "N": 4,
+    "K": 2,
+    "P": 3,
+    "arrays": [
+      [
+        "A",
+        "A",
+        "A"
+      ],
+      [
+        "B",
+        "B",
+        "B",
+        "A"
+      ],
+      [
+        "B"
+      ]
+    ],
+    "nestCenter": [
+      0,
+      640
+    ],
+    "branchCenters": [
+      [
+        -333,
+        200
+      ],
+      [
+        333,
+        -60
+      ],
+      [
+        -333,
+        -320
+      ]
+    ],
+    "originalDiagrams": "Historical static review; old bird placeholders are not production assets",
+    "assetGate": "Internal technical and independent visual acceptance before dependent UI"
+  }
 }

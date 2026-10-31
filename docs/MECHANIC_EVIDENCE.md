@@ -80,7 +80,7 @@
 | M36 日任务/排名/活动 | SRC-QUEST/P有日任务金币/竞争，SRC-NUT/P日挑战 | 有依据但非当前固定40关核心 | 不编重置时区、奖励表、网络同步合同 |
 | M37 无广告/IAP/体力 | 项目范围约束；SRC-SIMPLE/P无付费帮助，SRC-QUEST/SRC-BIRD2等实有广告/IAP | 可选择不采商业化，必须明示是我方范围 | 有同行广告不要求照搬；不能声称全部竞品无广告 |
 | M38 不限时、无步数失败 | SRC-LEAF/SRC-QUEST/P无时间限制；SRC-BIRD2/P无步数上限但有时间/生命模式 | 可采用低压力主线 | 同类不同模式不能互相覆盖 |
-| M39 动态增加鸟种/枝数 | SRC-AZURA/SRC-TVC/P随进度增加 | 可用于跨关固定策划；默认K+2枝/两空来自SRC-SIMPLE，移植到6/8座关是我方明确组合配置 | 不运行时按表现随机调盘；具体40数组是本项目自编内容 |
+| M39 动态增加鸟种/枝数 | SRC-AZURA/SRC-TVC/P随进度增加 | 可用于跨关固定策划；02–40默认K+2枝/两空来自SRC-SIMPLE；L01 K2/P3/零空为已采纳项目教学例外，非竞品原值；移植到6/8座关是我方明确组合配置 | 不运行时按表现随机调盘；具体40数组是本项目自编内容 |
 | M40 前5教学/每5舒缓/最多2特殊类 | 旧设计策划策略非同行已核公式 | 仅作为我方内容组织/验收目标，非玩法规则 | 不声称同行统一每5关舒缓或实测有效 |
 | M41 主动放飞+风闸 | 无本轮排序同行依据 | 撤回有效/可选需求 | 不保留模糊未来入口让AI顺手实现 |
 | M42 三同清除 | Goods邻近三消；本轮EXO正文复取失败 | 不采用，移出核心 | 不将鸟排序混三消；失败链接不作关键证据 |
@@ -98,7 +98,7 @@
 1. 撤回M17/M18/M31/M32/M41；目标队列、睡眠、精确条件箱及单鸟篮M10–14/M21隔离。旧60条回放曾在旧规则下通过，不再证明修订规则，受影响旧报告/附录必须标历史失效。
 2. 普通加枝已由SRC-WSWEB及RULES R07闭环；加高、收集容器、成长等“功能有来源、具体参数未证”必须分开：固定初盘不禁止局内增加空间，也不能凭一行商店介绍编价格/次数/格数。只有参数/触发足够明确后才能进入可执行合同。
 3. 每个有效玩法字段须能回指本矩阵条目和可访问第一方原文。工程协议标E、用户约束标USER，允许可靠实施；不得把任何工程便利变成新的通关/惩罚机制。
-4. 本页不是给AI补空白的许可。若RULES仍出现无出处算法，先停相关规则，其他已证模块可继续；本任务仍只改文档，不执行游戏实现/素材制作。
+4. 本页不是给AI补空白的许可。若RULES仍出现无出处算法，先停相关规则，其他已证模块可继续；T21 first-level implementation is authorized separately; ordinary decisions proceed under internal technical/independent visual QA. This evidence page does not authorize broader levels, unsupported rules or payment work.
 
 ## 6. 本轮规则选择回执
 
@@ -109,3 +109,5 @@ RULES v4采用：SRC-LEAF端部同类接收；SRC-SIMPLE的min(run,free)、一�
 ## 7. 普通加枝补证回执
 
 本轮追加直接读取SRC-WSWEB的浏览器玩法文字，不声称已安装或操作验证；网站明确浏览器版与Android为不同产品，品牌归属不用于额外背书。M22现为有据机制的明确迁移：新增一个普通空容器→一条本关N座普通枝；免费、Undo事务、保存和成绩分组分别标项目范围/E。合理的容量适配和可靠性协议无需冒称竞品原值，也不应因商店未公开源码而把整个功能永久挂起。其余M23/M24/M35未获对应精确依据，仍不激活。
+
+T21 content adoption: RULES §2.1 limits N4/K2/P3/no-empty to campaign bird-home-peer-v4/level01; other39 retain the standard profile. This authored lesson uses unchanged sourced movement/completion rules, not a newly attributed competitor mechanic. Current primary replays total472 Transfers; historical474 totals include the superseded four-transfer L01.

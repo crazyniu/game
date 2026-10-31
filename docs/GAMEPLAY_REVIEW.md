@@ -1,5 +1,7 @@
 # Gameplay review of rules v4 (T20)
 
+**T21 adoption update:** under delegated ordinary-design authority, this review's L01 N4/K2/P3 two-transfer tutorial is ADOPTED. RULES §2.1 and FIXED_01_10 own the effective exception. One upper receiving nest/staggered supported branches are selected, subject to internal technical and independent visual QA. Statistics below describe the pre-adoption40; all other proposals remain unadopted. Historical requests for repeated user approval are not current blockers.
+
 2026-10-31 · Review and proposals only. Nothing here changes [RULES](spec/RULES.md), the fixed levels or code. Adopting a proposal means editing RULES and the owning documents first.
 
 ## 1. Verdict

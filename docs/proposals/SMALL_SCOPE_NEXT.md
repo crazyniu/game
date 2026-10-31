@@ -6,19 +6,19 @@
 
 The T21 isolated bird-only Core foundation is IMPLEMENTED at PR [#7](https://github.com/crazyniu/game/pull/7), source checkpoint `f3813dae7ee84244838f681b5be947694f9ff46f`. Its focused Unity 6000.6.7f1 EditMode run passed 18/18, failed 0, skipped 0; see [T21 report](../../tasks/T21_report.md). This proves the tested Core slice, **not** production binding, a playable UI, full v4/schema4/save6, mobile support, or animation acceptance. Existing v2 production binding remains separate.
 
-Formal L01 remains N4/K3/P5 in [FIXED_01_10](../levels/FIXED_01_10.md#关卡01). GAMEPLAY_REVIEW's N4/K2/P3 two-move introduction is PROPOSED, pending the user's configuration decision. Do not silently adopt it, change K/P constraints, or expand the formal campaign to preserve a prototype. The review's later K/layout/egg/capacity suggestions are also proposals, not amendments to RULES.
+L01 N4/K2/P3 two-transfer tutorial is now ADOPTED under delegated ordinary-design authority; RULES §2.1 and [FIXED_01_10](../levels/FIXED_01_10.md#关卡01) own the sole campaign/level exception. One upper receiving nest/staggered supported branches are selected, subject to internal technical and independent visual QA. No repeated user confirmation blocks ordinary decisions. Later K/layout/egg/capacity suggestions remain proposals.
 
 | Item | Research / proposal | Approved scope | Implemented | Tested |
 | --- | --- | --- | --- | --- |
 | Existing v4 rule baseline | Owning RULES | Effective specification; production rollout separate | Bird-only isolated Core subset | Focused 18 EditMode tests at the checkpoint above |
-| Formal L01 / K2-P3 alternative | Existing formal fixture / alternative proposal | Formal fixture unchanged; alternative pending user | Neither selected as new production UI | Core fixture tests do not approve a layout |
+| Adopted L01 K2/P3 | Former alternative now effective tutorial | Sole RULES §2.1 exception; other39 unchanged | Production binding pending | Prior Core tests do not prove new-profile runtime/visual acceptance |
 | First-level visuals and motion | Forest style approved; assets/layout individually gated | T21 first-level work only, subject to those gates | See T21 report/dependency note; no completed production slice | Normal-speed runtime acceptance pending |
 | A / B / C below | Source facts plus explicitly separate project proposals | None adopted | None | No new complete puzzle witness |
 | Monetization | Research/proposal only | No policy change | No ad SDK, IAP or store work | Not run |
 
 First-level acceptance has three separate stages; finishing one does not claim the next:
 
-1. **Behavior:** settle the L01 choice, review the matching fixed data and rule/schema changes if required, then verify selection, legal/illegal/partial transfer, Home/retirement, Undo and identical Restart. Keep this checkpoint bird-only; no later-world migration.
+1. **Behavior:** use the adopted L01 profile and verify the fixed data/rule-schema exception, then verify selection, legal/illegal/partial transfer, Home/retirement, Undo and identical Restart. Keep this checkpoint bird-only; no later-world migration.
 2. **Assets/layout:** accept sliced bird wing-cycle and feet/pivot, supported forest branches, receiving-nest entrance/front-back masks, regular icon controls and exact layout. Preserve originals. Style approval, a generated GIF or a motion-library pin is not production acceptance. [UI_SPEC](../UI_SPEC.md) owns this gate.
 3. **Runtime video:** after accepted inputs, bind entrance → selection → actual wingbeats and curved flight → feet-on-branch landing → true nest entry/occlusion → branch exit → celebration and action sounds. Check input lock, repeated taps, Undo/Restart and background/resume. Use the one suitable primary open-source tween library tracked in [T21 motion dependency](../../tasks/T21_motion_dependency.md); a manifest pin is not compatibility or animation proof. Record normal-speed Unity runtime video; static screenshots are only layout evidence.
 

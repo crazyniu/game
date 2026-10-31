@@ -1,6 +1,6 @@
 # Evidence-based data, stable transactions, and saves
 
-schema 4 / rules 4 / save 6 (design target, not implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.
+schema 4 / rules 4 / save 6 (full design target; isolated bird-only T21 subset implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.
 
 ## 1. Identity and static format
 
@@ -11,7 +11,7 @@ schema 4 / rules 4 / save 6 (design target, not implemented) · 2026-10-31. RULE
 | catalogRevision | Root metadata, increasing positive integer; excluded from individual level content hashes |
 | levelId / worldId | 1..40 / A,B,C,D; MAP_PROGRESSION owns the exact mapping |
 | flockSize | N∈{4,6,8}; all branch capacities and totals per species within a level=N; no per-branch capacity overrides |
-| shelves | Fixed array P=K+2, K=3..8, P≤10, strictly IDs S1..SP; initially two empty branches, no completed flocks/exposed-end eggs/adjacent eggs |
+| shelves | Strict IDs S1..SP; default02–40 P=K+2/K3..8/P≤10/two empty branches; only campaign/level01 uses §1.1 N4/K2/P3/zero-empty tutorial; no initial completed flocks/exposed-end eggs/adjacent eggs |
 | shelves[].side | `left|right`, display only; odd S numbers left, even right, row=floor((number-1)/2) |
 | shelves[].tokens | Wall→exposed end; Token array length≤N; including eggs, exactly N of each species 0..K-1 |
 | Token.id | Unique stable ASCII ID within a level; production candidates assign `Lnn-Sj-kk` by initial expansion order; hatching/movement/Undo do not change IDs |
@@ -22,13 +22,19 @@ Identifiers match `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`. Use fixed array indices, no
 
 The 40 static initial boards still contain only P branches, without a preinstalled extra branch. R07 AddBranch is a runtime transaction appending S(P+1) under §3; ReserveGrow still awaits parameters. Assistance policy is separately versioned as assistPolicyVersion=1, without changing the static schema 4 hash/H04 vector. Every runtime snapshot, Undo, Hint, and certificate must carry this identity dimension; do not guess defaults. All initial states are fixed; loading must not randomly fill empty arrays or call AI generation.
 
+### 1.1 Campaign-keyed tutorial exception
+
+For schemaVersion=4, rulesVersion=4, campaignId=bird-home-peer-v4, levelId=1, worldId=A, derive profile l01-two-flock-v1 from identity, never from an optional caller override. Require flockSize4, exactly S1..S3, species0..1 each4, no eggs/empty branches, and exact authored species arrays [0,0,0], [1,1,1,0], [1]; IDs follow the normal initial-token convention. Other identities retain standard admission; released02–40 remain K3..8/P=K+2/two empty. Reject K2/P3/no-empty outside the exception; never infer permission from array length.
+
+No new serialized field is introduced; canonical root keys remain unchanged. Changed L01 gets a new contentHash; increment catalogRevision on future export and invalidate prior L01 replay/Undo under the existing revised-hash policy. Other39 payloads/hashes remain unchanged. R07 base P is profile-derived: L01 false means3 branches, true means4 including S4.
+
 ## 2. Canonical hash and new test vector
 
 Validate all required fields, types, IDs/counts/world membership first, then take fixed hash root keys `schemaVersion,rulesVersion,campaignId,levelId,worldId,flockSize,shelves`; each branch has exactly `id,side,tokens`, each token exactly `id,species,form`. These required fields cannot be omitted; old temporary/crate/baskets default rules are not retained. Metadata catalogRevision/contentHash/proofStatus/solverMinMoves belongs only in the explicit export metadata area, outside the logical payload hash.
 
 Object keys use ascending ASCII order, without whitespace/newlines/BOM, encoded UTF-8. Integers are decimal without leading zeros/negative zero/fractions/exponents; enums/IDs are ASCII only; booleans/null use lowercase JSON; arrays retain fixed order. SHA-256 of canonical bytes is lowercase 64 hex. Species/branch permutation deduplication is offline content review; never sort runtime arrays for hashing.
 
-The following **H04 serialization fixture** is not production L01 and uses local levelId=1; K3/N4/P5, 4 of each species, two empty branches, no initially completed flock. It has no optimality certificate and cannot authorize release. The old H01 1320-byte vector remains only in the T16 archive and does not apply to this schema.
+The following **H04 serialization-only historical fixture** is not production L01: its old local levelId=1 payload remains K3/N4/P5. Preserve canonical bytes/hash for serialization testing only. It must now fail full current campaign/L01-profile validation and must never load as campaign content; only §1.1 is current L01. This grants no validation bypass or extra runtime profile. The old H01 1320-byte vector remains only in the T16 archive and does not apply to this schema.
 
 ```json
 {

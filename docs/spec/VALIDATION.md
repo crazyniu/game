@@ -11,11 +11,11 @@
 
 ## 2. 新40固定入库闸门
 
-每关N4/6/8、每种含蛋总N、P=K+2、两空、所有枝同N；初始无遮挡外露无蛋/无完整群/无相邻蛋。检查species连续范围、稳定ID/数组原序、世界归属、hash与禁止旧字段。Replay/Restart/重进逐字段相同，不运行生成器/随机换种。
+每关N4/6/8、每种含蛋总N、02–40按P=K+2/两空，01仅按RULES §2.1的N4/K2/P3/零空profile；所有枝同N；初始无遮挡外露无蛋/无完整群/无相邻蛋。检查species连续范围、稳定ID/数组原序、世界归属、hash与禁止旧字段。Replay/Restart/重进逐字段相同，不运行生成器/随机换种。
 
 每步锁run/Count，目标余量截断，孵化不追飞；Home只一次且对应枝Retired；普通搬空仍Available；每种remaining+Home×N=N。全胜要求K种全部Home且无token；不以满枝视觉/没有下一步代替胜利。
 
-新候选见[LEVEL_SIMULATIONS](../LEVEL_SIMULATIONS.md)。本轮40条主路线共474次Move，20关含隐藏蛋；全部独立模型见证，最优、项目Core、Unity和真人均未测。旧附录正文已替换，不是换个版本名沿用旧结果。内容结构标准化通过只能排直接同构，不能证明每关决策好玩。
+新候选见[LEVEL_SIMULATIONS](../LEVEL_SIMULATIONS.md)。本轮40条主路线共472次主路线Move（另核L01两步替代路线），20关含隐藏蛋；全部独立模型见证，最优、项目Core、Unity和真人均未测。旧附录正文已替换，不是换个版本名沿用旧结果。内容结构标准化通过只能排直接同构，不能证明每关决策好玩。
 
 ## 3. 精确Given/When/Then（均为新规则断言，非已实现测试）
 
@@ -37,7 +37,7 @@
 | V14 | 前世界最后关成功事务 | 结果演出/回地图 | 完成集合驱动下一世界开放且首关可玩；不靠星/金币；重复回调不开第二遍 |
 | V15 | 图标按钮已有明确含义 | 显示功能 | 无同义可见文字；保可访问名称；规则形按钮，无音量滑条/百分比 |
 | V16 | 只有一张fly图或一张结算图 | 声称动画完成 | 验收失败：需真实振翅/轨迹/入巢遮挡及动态结算序列、可播放运行录屏 |
-| V17 | 未验收蛋/振翅资源或动画库未测 | 请求实现/交付 | 当前无授权不执行；未来有授权也先验资源/库兼容，不能拿静图代替 |
+| V17 | 未验收蛋/振翅资源或动画库未测 | 请求实现/交付 | T21 scope is authorized, but internal technical/independent visual resource QA and library compatibility still gate integration; no static-image substitute or blanket bypass |
 | V18 | 旧targets/crate/temporary或未知version | 新格式读取 | 拒绝并备份，不静默忽略；旧证书/旧回放不可当新证明 |
 
 局部夹具若不列全棋盘，必须标只测函数；不能称可直接运行LevelValidator的正式关。若将来引入相邻蛋须先补原作证据再改RULES/配置和重验；本版禁止该配置，不为保旧路径暗补规则。
@@ -69,10 +69,20 @@ NOT_RUN未执行；UNKNOWN预算耗尽/取消/无法确定；SOLVED_UPPER_BOUND�
 | V25 | Hint运行时AddBranch或Undo加枝 | Hint旧结果返回；新查询 | 旧代次/辅助状态不匹配即丢弃；新Hint仅搜索当前枝Transfer，不偷偷AddBranch；未知不报无解 |
 | V26 | 成功路径含/不含已撤回的AddBranch | Won记成绩 | 按当前extraBranchAdded分助力/无助力两个最少Transfer记录；两类均正常解锁，不加奖励/惩罚 |
 
-所有新快照/历史须校验assistPolicyVersion和extraBranchAdded与P/P+1长度一致；false+多枝、true+缺末枝、重复ID、未知动作、Undo强删含鸟枝均拒绝。静态H04 hash保持不变不意味着运行辅助身份可省略。40条474 Move旧新模型见证仅为无AddBranch子集；扩容事务用例/真实存盘/动画/额外枝触控仍待新Core与设备验证。加枝不能替代20蛋关按可见信息的公平验收。
+所有新快照/历史须校验assistPolicyVersion和extraBranchAdded与P/P+1长度一致；false+多枝、true+缺末枝、重复ID、未知动作、Undo强删含鸟枝均拒绝。静态H04 hash保持不变不意味着运行辅助身份可省略。当前40条主路线472 Move模型见证仅为无AddBranch子集；扩容事务用例/真实存盘/动画/额外枝触控仍待新Core与设备验证。加枝不能替代20蛋关按可见信息的公平验收。
 
 ### 临时文档模型回放记录（2026-10-31）
 
 对N=4/6/8分别使用完整局部夹具K3/P5：S1=[A×(N−1),B]、S2=[B×(N−1),C]、S3=[C×(N−1),A]、S4/S5=[]；均无蛋，每种N只。执行：AddBranch S6→重复AddBranch拒绝→S1→S6 B1→Undo Transfer→Undo AddBranch→重新AddBranch→S1→S6 B1→S2→S5 C1→S2→S6 B(N−1)（B Home/S6 Retired）→JSON快照拷贝恢复→Undo末Transfer→重建固定初态。核对枝数量/ID/容量、每色守恒、0步加枝、退役不返额度、历史恢复；临时JavaScript模型共216条断言通过。
 
 首轮夹具误在未移走S2外端C时尝试B入枝，按规则被拒；补上S2→S5揭示步骤后重跑通过，未为测试改规则。这里仅是独立文档模型，不是项目Core/真实磁盘/并发/Hint/UI测试，也不覆盖蛋公平；V24/V25和设备测试仍NOT_RUN。
+
+## 7. Adopted L01 profile regression requirements (T21)
+
+V27: only campaign bird-home-peer-v4/level01/worldA uses N4/K2/P3, S1=AAA/S2=BBBA/S3=B, zero empty. Reject this exception at level02 or another campaign; reject old K3/P5 L01 as current content. H04 remains serialization-only historical bytes, not valid current L01.
+
+V28: enumerate initial legal Transfers: exactly S2→S1 A1. Independently replay second moves S2→S3 B3 and S3→S2 B1 to victory in2 Transfers. Both conserve A4/B4; ordinary emptied source remains Available. AddBranch is optional S4/N4, not required; free-assistance policy is unchanged.
+
+V29: new L01 hash invalidates prior L01 Undo/certificates under DATA_SAVE; unchanged other39 payloads must remain byte-identical. Profile adoption/paper replay do not imply new Unity/profile runtime tests passed. Preserve the18-plus2 separate prior test scopes.
+
+T21 first-level implementation is authorized. Before UI integration, perform internal technical and independent visual asset/layout QA, then normal-speed in-engine recording and focused input/background checks. Do not wait for ordinary user decisions or waive the production asset gate.

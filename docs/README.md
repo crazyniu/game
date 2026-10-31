@@ -1,6 +1,6 @@
 # AI文档路由：先证据，再读唯一合同
 
-2026-10-31. Production remains v2; T21 adds an isolated bird-only Core: 18 focused Unity tests passed at f3813da, then only 2 added tests passed at 2d85437 (not a combined 20-test rerun). Production UI/asset binding and full v4/save6 remain incomplete; see [T21 report](../tasks/T21_report.md). 用户新要求取代旧“自行创新”：所有玩法有同类同行证据，不明边界移出有效需求，不能按名字补造。USER约束、同行事实与E工程协议分别标记。
+2026-10-31. Production remains v2; T21 adds an isolated bird-only Core: 18 focused Unity tests passed at f3813da, then only 2 added tests passed at 2d85437 (not a combined 20-test rerun). T21 first-level implementation is authorized; L01 now uses the adopted N4/K2/P3 profile (RULES §2.1). Internal technical/independent visual asset QA remains mandatory. Production UI/asset binding and full v4/save6 remain incomplete; see [T21 report](../tasks/T21_report.md). 用户新要求取代旧“自行创新”：所有玩法有同类同行证据，不明边界移出有效需求，不能按名字补造。USER约束、同行事实与E工程协议分别标记。
 
 ## 1. 状态与用语
 
