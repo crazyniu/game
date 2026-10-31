@@ -17,9 +17,9 @@ namespace PerchSort.FirstLevelRuntime
             public SpriteRenderer Active, Stump;
         }
         private static readonly Vector3[] Roots = {
-            new Vector3(-3.33f, 2f), new Vector3(3.33f, -.6f), new Vector3(-3.33f, -3.2f)
+            new Vector3(-2.022f, 2f), new Vector3(2.022f, -.6f), new Vector3(-2.022f, -3.2f)
         };
-        private static readonly float[] FootY = { -.05469613f, -.08784530f, -.09558011f, -.04806630f };
+        private static readonly float[] FootY = { -.09571823f, -.15372928f, -.16726519f, -.08411603f };
         private readonly Dictionary<string, FirstLevelBird> birds = new Dictionary<string, FirstLevelBird>();
         private readonly List<MotionHandle> motions = new List<MotionHandle>();
         private readonly HashSet<long> presented = new HashSet<long>();
@@ -46,17 +46,17 @@ namespace PerchSort.FirstLevelRuntime
                 root.SetParent(transform, false); root.localPosition = Roots[i];
                 bool right = i % 2 == 1;
                 var active = Sprite("Available branch", root, assets.Branch, 5);
-                active.transform.localPosition = new Vector3(right ? .1344f : -.1344f, -.1f);
+                active.transform.localPosition = new Vector3(right ? .2352f : -.2352f, -.175f);
                 active.transform.localScale = new Vector3(
-                    3.4752f / assets.Branch.bounds.size.x, .8f / assets.Branch.bounds.size.y, 1);
+                    6.0816f / assets.Branch.bounds.size.x, 1.4f / assets.Branch.bounds.size.y, 1);
                 active.flipX = right;
                 var stump = Sprite("Retired supported stump", root, assets.RetiredStump, 5);
-                stump.transform.localPosition = new Vector3(right ? 1.584f : -1.584f, -.1f);
+                stump.transform.localPosition = new Vector3(right ? 2.772f : -2.772f, -.175f);
                 stump.transform.localScale = active.transform.localScale;
                 stump.flipX = right; stump.gameObject.SetActive(false);
                 var hit = root.gameObject.AddComponent<BoxCollider2D>();
-                hit.offset = new Vector2(right ? .1344f : -.1344f, .45f);
-                hit.size = new Vector2(3.4752f, 1.5f);
+                hit.offset = new Vector2(right ? .2352f : -.2352f, .65f);
+                hit.size = new Vector2(6.0816f, 2f);
                 root.gameObject.AddComponent<FirstLevelBranchHit>().Configure(this, index);
                 branches.Add(new BranchVisual { Root = root, Active = active, Stump = stump });
             }
@@ -78,7 +78,7 @@ namespace PerchSort.FirstLevelRuntime
         public Vector3 Slot(int branch, int slot)
         {
             bool right = branch % 2 == 1;
-            float x = -1.2f + slot * .8f;
+            float x = -2.1f + slot * 1.4f;
             return Roots[branch] + new Vector3(right ? -x : x, FootY[slot], 0);
         }
 

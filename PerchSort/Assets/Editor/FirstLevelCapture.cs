@@ -109,6 +109,8 @@ public static class FirstLevelCapture
                 Render(camera, Width, Height, Path.Combine(Output, filename), true);
                 document.frames.Add(Sample(camera, now, filename,
                     EditorApplication.timeSinceStartup - costStart));
+                if (document.frames.Count <= 4)
+                    document.visualSnapshots.Add(DescribeVisuals("first_frames", filename, now));
                 lastSample = now;
                 lastUnityFrame = Time.frameCount;
                 if (document.frames.Count % 24 == 0) WriteMetadata();
@@ -219,6 +221,8 @@ public static class FirstLevelCapture
         string filename = "key_" + label + "_1080x1920.png";
         Render(camera, 1080, 1920, Path.Combine(Output, filename), false);
         document.keyFrames.Add(new ActionRecord { elapsedSeconds = now, action = label, file = filename });
+        if (label == "intro_complete")
+            document.visualSnapshots.Add(DescribeVisuals("first_stable", filename, now));
     }
 
     private static void Render(Camera camera, int width, int height, string path, bool reuse)
@@ -253,12 +257,72 @@ public static class FirstLevelCapture
         }
     }
 
+
+    private static bool IsKnownEditorSearchStartup(string message, string stack, LogType type)
+    {
+        if (type != LogType.Exception && type != LogType.Error) return false;
+        string text = stack ?? "";
+        string normalized = text.Replace('\\', '/');
+        string condition = message ?? "";
+        return condition.StartsWith("ArgumentOutOfRangeException:", StringComparison.Ordinal) &&
+            condition.Contains("Index was out of range.") &&
+            condition.Contains("Parameter name: index") &&
+            text.Contains("UnityEditor.Search.SearchDatabase") &&
+            text.Contains("UnityEditor.Search.SearchInit.IndexationOnStartup") &&
+            !normalized.Contains("Assets/Scripts/FirstLevel") &&
+            !text.Contains("PerchSort.FirstLevelRuntime") &&
+            !text.Contains("PerchSort.Core.FirstLevel");
+    }
+
+    private static VisualSnapshot DescribeVisuals(string label, string frame, double now)
+    {
+        return new VisualSnapshot {
+            label = label, frame = frame, elapsedSeconds = now,
+            spriteRenderers = UnityEngine.Object.FindObjectsByType<SpriteRenderer>(
+                FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .Select(renderer => DescribeSprite(renderer.gameObject, renderer.sprite,
+                    renderer.sharedMaterial, renderer.enabled, "SpriteRenderer"))
+                .OrderBy(reference => reference.objectPath).ToArray(),
+            uiImages = UnityEngine.Object.FindObjectsByType<UnityEngine.UI.Image>(
+                FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .Select(image => DescribeSprite(image.gameObject, image.sprite,
+                    image.canvasRenderer.materialCount > 0 ? image.canvasRenderer.GetMaterial(0) : image.material,
+                    image.enabled, "UI.Image"))
+                .OrderBy(reference => reference.objectPath).ToArray()
+        };
+    }
+
+    private static SpriteReference DescribeSprite(GameObject owner, Sprite sprite, Material material,
+        bool enabled, string kind)
+    {
+        var path = new List<string>();
+        for (Transform current = owner.transform; current != null; current = current.parent)
+            path.Add(current.name);
+        path.Reverse();
+        Texture2D texture = sprite ? sprite.texture : null;
+        return new SpriteReference {
+            kind = kind, objectPath = string.Join("/", path), scene = owner.scene.path, enabled = enabled,
+            spriteName = sprite ? sprite.name : "", spriteInstanceId = sprite ? sprite.GetInstanceID() : 0,
+            spriteAssetPath = sprite ? AssetDatabase.GetAssetPath(sprite) : "",
+            textureName = texture ? texture.name : "", textureInstanceId = texture ? texture.GetInstanceID() : 0,
+            textureAssetPath = texture ? AssetDatabase.GetAssetPath(texture) : "",
+            materialName = material ? material.name : "",
+            shaderName = material && material.shader ? material.shader.name : ""
+        };
+    }
+
     private static void LogReceived(string message, string stack, LogType type)
     {
         if (!Running || document == null) return;
-        if (type == LogType.Warning || type == LogType.Error || type == LogType.Exception || type == LogType.Assert)
-            document.logs.Add(new LogRecord { type = type.ToString(), message = message, stack = stack });
-        if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert) fatalLog = message + "\n" + stack;
+        bool environment = IsKnownEditorSearchStartup(message, stack, type);
+        document.logs.Add(new LogRecord {
+            type = type.ToString(), message = message, stack = stack,
+            elapsedSeconds = Time.realtimeSinceStartupAsDouble - started,
+            classification = environment ? "editor_environment_search_startup" : "runtime_or_other"
+        });
+        if (environment) document.environmentDiagnosticCount++;
+        else if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert)
+            fatalLog = message + "\n" + stack;
     }
 
     private static void Finish(bool success, string message)
@@ -300,11 +364,16 @@ public static class FirstLevelCapture
         public string stateAuthority = "Core committed state may be ahead of in-progress presentation";
         public string utcStarted, unityVersion, graphicsDevice, outputDirectory, result, finalStateKey;
         public bool success;
+        public int environmentDiagnosticCount;
+        public string environmentDiagnosticBoundary =
+            "Only the exact Editor Search startup ArgumentOutOfRange/index stack is classified as environment; " +
+            "all logs remain recorded and runtime/other errors remain fatal. Success is not a clean Editor-console claim.";
         public int width = Width, height = Height, requestedFps = 24;
         public double elapsedSeconds;
         public List<FrameRecord> frames = new List<FrameRecord>();
         public List<ActionRecord> actions = new List<ActionRecord>(), keyFrames = new List<ActionRecord>();
         public List<LogRecord> logs = new List<LogRecord>();
+        public List<VisualSnapshot> visualSnapshots = new List<VisualSnapshot>();
     }
     [Serializable] private sealed class FrameRecord
     {
@@ -316,5 +385,22 @@ public static class FirstLevelCapture
         public long sequence;
     }
     [Serializable] private sealed class ActionRecord { public double elapsedSeconds; public string action, file; }
-    [Serializable] private sealed class LogRecord { public string type, message, stack; }
+    [Serializable] private sealed class VisualSnapshot
+    {
+        public string label, frame;
+        public double elapsedSeconds;
+        public SpriteReference[] spriteRenderers, uiImages;
+    }
+    [Serializable] private sealed class SpriteReference
+    {
+        public string kind, objectPath, scene, spriteName, spriteAssetPath, textureName, textureAssetPath;
+        public string materialName, shaderName;
+        public int spriteInstanceId, textureInstanceId;
+        public bool enabled;
+    }
+    [Serializable] private sealed class LogRecord
+    {
+        public string type, message, stack, classification;
+        public double elapsedSeconds;
+    }
 }

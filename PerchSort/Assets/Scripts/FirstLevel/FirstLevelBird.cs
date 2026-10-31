@@ -68,7 +68,7 @@ namespace PerchSort.FirstLevelRuntime
         private void Pose(FirstLevelPose pose)
         {
             body.sprite = pose.Sprite;
-            float scale = 1.36f * pose.Sprite.pixelsPerUnit / pose.Sprite.rect.width;
+            float scale = 2.5f * pose.Sprite.pixelsPerUnit / pose.Sprite.rect.width;
             body.transform.localScale = Vector3.one * scale;
             body.transform.localPosition = pose.RendererOffset * scale;
             body.color = Color.white; // No alpha fade conceals an unsuccessful nest mask.

@@ -59,7 +59,7 @@ namespace PerchSort.FirstLevelRuntime
             badge.color = new Color(1f, .96f, .86f);
             Label("LevelNumber", badge.rectTransform, "1", Vector2.zero, new Vector2(180, 80), 56);
             pauseButton = MakeButton("Pause", gameLayer, assets.PauseIcon, new Vector2(420, 850), 130,
-                () => { if (Interactive()) RunAction(pause); });
+                () => { if (CanRequestPause()) RunAction(pause); });
             undoButton = MakeButton("Undo", gameLayer, assets.UndoIcon, new Vector2(-262, -800), 130,
                 () => { if (Interactive() && flow.CanUndo) RunAction(undo); });
             restartButton = MakeButton("Restart", gameLayer, assets.RestartIcon, new Vector2(0, -800), 130,
@@ -166,8 +166,10 @@ namespace PerchSort.FirstLevelRuntime
             if (wanted != modal) { if (wanted == Modal.None) HideModal(); else ShowModal(wanted); }
             // Recompute after modal changes so external Resume/Bind cannot leave stale locks.
             bool canAct = Interactive();
-            gameGroup.interactable = gameGroup.blocksRaycasts = canAct;
-            SetButton(pauseButton, canAct);
+            bool canPause = CanRequestPause();
+            // Only Pause remains a live touch target while the committed event chain plays.
+            gameGroup.interactable = gameGroup.blocksRaycasts = canAct || canPause;
+            SetButton(pauseButton, canPause);
             SetButton(undoButton, canAct && flow != null && flow.CanUndo);
             SetButton(restartButton, canAct); SetButton(muteButton, canAct);
             homeGroup.interactable = homeGroup.blocksRaycasts = homeVisible && modal == Modal.None;
@@ -179,6 +181,10 @@ namespace PerchSort.FirstLevelRuntime
 
         private bool Interactive() => !homeVisible && flow != null && flow.IsInteractive &&
             modal == Modal.None && !closing;
+
+        private bool CanRequestPause() => !homeVisible && flow != null &&
+            modal == Modal.None && !closing &&
+            (flow.IsInteractive || flow.Phase == FirstLevelPhase.Presenting);
 
         private void ShowModal(Modal kind)
         {
@@ -330,7 +336,8 @@ namespace PerchSort.FirstLevelRuntime
             var target = hit.gameObject.AddComponent<Image>();
             target.color = Color.clear; target.raycastTarget = true;
             var visual = Picture("Wood", hit, assets.ButtonSkin, Vector2.zero, Vector2.one * visualSize);
-            visual.type = Image.Type.Sliced;
+            visual.type = Image.Type.Simple;
+            visual.preserveAspect = true;
             var image = Picture("Icon", visual.rectTransform, icon, Vector2.zero, Vector2.one * (visualSize * .52f));
             image.preserveAspect = true;
             var value = new IconButton { Button = hit.gameObject.AddComponent<Button>(), Visual = visual.rectTransform, Icon = image };
@@ -450,9 +457,8 @@ namespace PerchSort.FirstLevelRuntime
             if (!initialized || Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame ||
                 closing || modal != Modal.None && !modalStable) return;
             if (modal == Modal.Pause) NavigateModal(pause);
-            else if (Interactive() || !homeVisible && modal == Modal.None && flow != null &&
-                flow.Phase == FirstLevelPhase.Presenting)
-                RunAction(pause); // Flow coalesces this into its one pending pause request.
+            else if (CanRequestPause())
+                RunAction(pause); // Flow coalesces touch/Escape into its one pending pause request.
         }
     }
 }

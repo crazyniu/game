@@ -2,7 +2,8 @@
   "name": "PerchSort.FirstLevel.PlayModeTests",
   "references": [
     "PerchSort.Core",
-    "PerchSort.FirstLevel"
+    "PerchSort.FirstLevel",
+    "Unity.ugui"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

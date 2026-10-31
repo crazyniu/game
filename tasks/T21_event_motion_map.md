@@ -1,4 +1,4 @@
-> CURRENT AUTHORITY: Use adopted B only: three branches at (-333,200),(333,-60),(-333,-320), single upper receiving nest (0,640). These are the internally selected layout baseline; historical A/user-choice notes below do not authorize five-branch production. The source old-bird diagrams remain review evidence only. New action sprites must pass internal QA before dependent View wiring.
+> CURRENT AUTHORITY: Use adopted B only: three branches at (-202.2,200),(202.2,-60),(-202.2,-320), single upper receiving nest (0,640). Full bird canvas250 and branch608.16×140 follow UI_SPEC §4.2. These are the internally selected layout baseline; historical A/user-choice notes below do not authorize five-branch production. The source old-bird diagrams remain review evidence only. New action sprites must pass internal QA before dependent View wiring.
 
 # First-level event-to-motion handoff — DESIGN ONLY
 

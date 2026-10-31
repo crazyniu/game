@@ -1232,19 +1232,41 @@
     ],
     "branchCenters": [
       [
-        -333,
+        -202.2,
         200
       ],
       [
-        333,
+        202.2,
         -60
       ],
       [
-        -333,
+        -202.2,
         -320
       ]
     ],
     "originalDiagrams": "Historical static review; old bird placeholders are not production assets",
-    "assetGate": "Internal technical and independent visual acceptance before dependent UI"
+    "assetGate": "Internal technical and independent visual acceptance before dependent UI",
+    "birdCanvasDesign": 250,
+    "branchRenderSize": [
+      608.16,
+      140
+    ],
+    "branchVisualLeftOffset": [
+      -23.52,
+      -17.5
+    ],
+    "branchFootXLeft": [
+      -210,
+      -70,
+      70,
+      210
+    ],
+    "branchFootY": [
+      -9.571823,
+      -15.372928,
+      -16.726519,
+      -8.411603
+    ],
+    "geometryReason": "Actual Unity first-frame UI review: improve bird size and usable middle space, without changing fixed content or branch count"
   }
 }

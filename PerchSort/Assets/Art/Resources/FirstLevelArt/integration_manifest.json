@@ -20,38 +20,38 @@
     724
   ],
   "branchRenderSize": [
-    347.52,
-    80
+    608.16,
+    140
   ],
   "branchCenters": [
     [
-      -333,
+      -202.2,
       200
     ],
     [
-      333,
+      202.2,
       -60
     ],
     [
-      -333,
+      -202.2,
       -320
     ]
   ],
   "branchVisualLeftOffset": [
-    -13.44,
-    -10
+    -23.52,
+    -17.5
   ],
   "branchFootXLeft": [
-    -120,
-    -40,
-    40,
-    120
+    -210,
+    -70,
+    70,
+    210
   ],
   "branchFootY": [
-    -5.469613,
-    -8.78453,
-    -9.558011,
-    -4.80663
+    -9.571823,
+    -15.372928,
+    -16.726519,
+    -8.411603
   ],
   "nestCenter": [
     0,
@@ -153,5 +153,7 @@
       "bytes": 108308,
       "sha256": "900eaa80e4b1d98fef12c5089d09c0c777c4f39cecba67b98a2269964bfa08b9"
     }
-  ]
+  ],
+  "birdCanvasDesign": 250,
+  "geometryReason": "Actual Unity first-frame UI review: improve bird size and usable middle space, without changing fixed content or branch count"
 }
