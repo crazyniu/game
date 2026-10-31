@@ -115,17 +115,47 @@ namespace PerchSort.Core.FirstLevel
             Sequence = sequence;
         }
 
-        // Current documented fixture; not an automatic selection of a production level.
+        // Approved L01 B: a narrow N4/K2/P3 tutorial exception to the later-level shape.
         public static State CreateDocumentedFirstLevel()
         {
-            int[][] species = { new[] { 0, 0, 0, 1 }, new[] { 1, 1, 1, 2 },
-                new[] { 2, 2, 2, 0 }, Array.Empty<int>(), Array.Empty<int>() };
-            return new State(4, 3, species.Select((birds, index) =>
+            int[][] species = { new[] { 0, 0, 0 }, new[] { 1, 1, 1, 0 }, new[] { 1 } };
+            var state = new State(4, 2, species.Select((birds, index) =>
                 new Branch("S" + (index + 1), birds.Select((s, slot) =>
                     new Token("L01-S" + (index + 1) + "-" + (slot + 1).ToString("D2", CultureInfo.InvariantCulture), s)))));
+            state.ValidateInitialLevelContract(1);
+            return state;
         }
 
         public static State CreateInitial() => CreateDocumentedFirstLevel();
+
+        // Bird-only opening validation for this isolated slice, not a 40-level/schema loader.
+        // Later documented N6/N8 configurations remain valid; egg support is outside this type.
+        public void ValidateInitialLevelContract(int levelId)
+        {
+            if (levelId < 1 || levelId > 40) throw new ArgumentOutOfRangeException(nameof(levelId));
+            if (MoveCount != 0 || Sequence != 0 || Branches.Any(b => b.Retired))
+                throw new ArgumentException("An initial level must have zero counters and no retired branches.");
+            if (levelId != 1)
+            {
+                if (SpeciesCount < 3 || Branches.Count != SpeciesCount + 2 ||
+                    Branches.Count(b => b.Tokens.Count == 0) != 2)
+                    throw new ArgumentException("Later bird-only openings require K3..8, P=K+2 and two empty branches.");
+                return;
+            }
+
+            int[][] expected = { new[] { 0, 0, 0 }, new[] { 1, 1, 1, 0 }, new[] { 1 } };
+            if (FlockSize != 4 || SpeciesCount != 2 || Branches.Count != 3)
+                throw new ArgumentException("L01 alone uses the approved N4/K2/P3 tutorial exception.");
+            for (int i = 0; i < expected.Length; i++)
+            {
+                var b = Branches[i];
+                if (!b.Tokens.Select(t => t.Species).SequenceEqual(expected[i]) ||
+                    !b.Tokens.Select(t => t.Id).SequenceEqual(expected[i].Select((_, slot) =>
+                        "L01-S" + (i + 1) + "-" + (slot + 1).ToString("D2", CultureInfo.InvariantCulture))))
+                    throw new ArgumentException("L01 must preserve its approved fixed arrays and token IDs.");
+            }
+        }
+
         public State Clone() => new State(FlockSize, SpeciesCount, Branches, MoveCount, Sequence);
         internal State WithCounters(int moves, long sequence) => new State(FlockSize, SpeciesCount, Branches, moves, sequence);
 

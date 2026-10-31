@@ -8,6 +8,16 @@ namespace PerchSort.Tests
 {
     public sealed class FirstLevelV4Tests
     {
+        // Explicit former K3/P5 rule fixture. It is not the adopted production L01.
+        private static Slice.State CreateLegacyThreeSpeciesFixture()
+        {
+            int[][] rows = { new[] { 0, 0, 0, 1 }, new[] { 1, 1, 1, 2 },
+                new[] { 2, 2, 2, 0 }, Array.Empty<int>(), Array.Empty<int>() };
+            return new Slice.State(4, 3, rows.Select((row, index) =>
+                new Slice.Branch("S" + (index + 1), row.Select((species, slot) =>
+                    new Slice.Token("Legacy-L01-S" + (index + 1) + "-" + (slot + 1).ToString("D2"), species)))));
+        }
+
         private static Slice.State Fixture(params int[][] rows)
         {
             return new Slice.State(4, 3, rows.Select((row, index) =>
@@ -24,16 +34,16 @@ namespace PerchSort.Tests
         }
 
         [Test]
-        public void DocumentedFixtureHasFixedFourBirdFlocksAndStableIds()
+        public void LegacyThreeSpeciesFixtureHasFixedFourBirdFlocksAndStableIds()
         {
-            var a = Slice.State.CreateDocumentedFirstLevel();
-            var b = Slice.State.CreateDocumentedFirstLevel();
+            var a = CreateLegacyThreeSpeciesFixture();
+            var b = CreateLegacyThreeSpeciesFixture();
             Assert.That(a.GetStateKey(), Is.EqualTo(b.GetStateKey()));
             Assert.That(a.FlockSize, Is.EqualTo(4));
             Assert.That(a.SpeciesCount, Is.EqualTo(3));
             Assert.That(a.Branches.Select(x => x.Id), Is.EqualTo(new[] { "S1", "S2", "S3", "S4", "S5" }));
             Assert.That(a.Branches[0].Tokens.Select(t => t.Id),
-                Is.EqualTo(new[] { "L01-S1-01", "L01-S1-02", "L01-S1-03", "L01-S1-04" }));
+                Is.EqualTo(new[] { "Legacy-L01-S1-01", "Legacy-L01-S1-02", "Legacy-L01-S1-03", "Legacy-L01-S1-04" }));
             Assert.That(a.Branches.Take(3).Select(x => x.Tokens.Select(t => t.Species).ToArray()),
                 Is.EqualTo(new[] { new[] { 0, 0, 0, 1 }, new[] { 1, 1, 1, 2 }, new[] { 2, 2, 2, 0 } }));
             Assert.That(a.Branches.Count(x => x.Tokens.Count == 0), Is.EqualTo(2));
@@ -42,9 +52,9 @@ namespace PerchSort.Tests
         }
 
         [Test]
-        public void FourStepWitnessHomesAndRetiresWithoutLosingTokenIdentity()
+        public void LegacyFourStepWitnessHomesAndRetiresWithoutLosingTokenIdentity()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             var originalIds = session.State.Branches.SelectMany(b => b.Tokens).Select(t => t.Id).ToArray();
             var departed = new List<string>();
             int[,] moves = { { 0, 3 }, { 2, 0 }, { 1, 2 }, { 1, 3 } };
@@ -98,7 +108,7 @@ namespace PerchSort.Tests
         [Test]
         public void WholeRunKeepsTokenOrderRatherThanReversingFlightOrder()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             Assert.That(session.TryMove(0, 3, out _), Is.True);
             string[] ids = session.State.Branches[0].Tokens.Select(t => t.Id).ToArray();
             Assert.That(session.TryMove(0, 4, out var result), Is.True);
@@ -111,7 +121,7 @@ namespace PerchSort.Tests
         [Test]
         public void HomeEventRetainsCompleteFlockAfterLogicalBranchIsCleared()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             session.TryMove(0, 3, out _);
             string arriving = session.State.Branches[2].Tokens.Last().Id;
             var expected = session.State.Branches[0].Tokens.Select(t => t.Id).Concat(new[] { arriving }).ToArray();
@@ -130,7 +140,7 @@ namespace PerchSort.Tests
         [TestCase(0, 0)] [TestCase(3, 4)] [TestCase(0, 1)]
         public void IllegalMoveDoesNotMutateCountersHistoryOrSnapshot(int from, int to)
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             var state = session.State;
             string key = state.GetStateKey();
             Assert.That(session.TryMove(from, to, out var result), Is.False);
@@ -144,7 +154,7 @@ namespace PerchSort.Tests
         [Test]
         public void RetiredBranchCannotBeSourceOrDestinationAndOrdinaryEmptyCan()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             session.TryMove(0, 3, out _);
             session.TryMove(2, 0, out _);
             Assert.That(Slice.Rules.LegalCount(session.State, 2, 0), Is.Zero);
@@ -158,7 +168,7 @@ namespace PerchSort.Tests
         [Test]
         public void UndoRestoresHomeRetirementAndOriginalIdsButSequenceIsMonotonic()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             session.TryMove(0, 3, out _);
             var before = session.State.Clone();
             session.TryMove(2, 0, out _);
@@ -184,7 +194,7 @@ namespace PerchSort.Tests
         [Test]
         public void RestartRestoresFixedInitialBoardAndClearsHistory()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             var initial = session.State.Clone();
             session.TryMove(0, 3, out _);
             session.TryMove(2, 0, out _);
@@ -203,7 +213,7 @@ namespace PerchSort.Tests
         [Test]
         public void CloneOwnsBranchesAndTokensAndPublicCollectionsCannotBeMutated()
         {
-            var state = Slice.State.CreateDocumentedFirstLevel();
+            var state = CreateLegacyThreeSpeciesFixture();
             var clone = state.Clone();
             Assert.That(clone.GetStateKey(), Is.EqualTo(state.GetStateKey()));
             Assert.That(clone.Branches[0], Is.Not.SameAs(state.Branches[0]));
@@ -213,22 +223,9 @@ namespace PerchSort.Tests
         }
 
         [Test]
-        public void ConfigurationCanRepresentSmallerReviewedFixtureWithoutSelectingItForProduction()
-        {
-            var rows = new[] { new[] { 0, 0, 0 }, new[] { 1, 1, 1, 0 }, new[] { 1 } };
-            var branches = rows.Select((row, i) => new Slice.Branch("S" + (i + 1),
-                row.Select((s, j) => new Slice.Token("C-" + i + "-" + j, s))));
-            var session = new Slice.Session(new Slice.State(4, 2, branches));
-            Assert.That(session.TryMove(1, 0, out _), Is.True);
-            Assert.That(session.TryMove(2, 1, out _), Is.True);
-            Assert.That(session.State.IsWon, Is.True);
-            Assert.That(Slice.State.CreateDocumentedFirstLevel().SpeciesCount, Is.EqualTo(3));
-        }
-
-        [Test]
         public void NonFullDifferentSpeciesTargetRejectsWithoutChangingSession()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             Assert.That(session.TryMove(0, 3, out _), Is.True);
             var before = session.State;
             string key = before.GetStateKey();
@@ -253,7 +250,7 @@ namespace PerchSort.Tests
         [Test]
         public void UndoAfterWonRestoresLastFlockAndKeepsEarlierHomes()
         {
-            var session = new Slice.Session();
+            var session = new Slice.Session(CreateLegacyThreeSpeciesFixture());
             Assert.That(session.TryMove(0, 3, out _), Is.True);
             Assert.That(session.TryMove(2, 0, out _), Is.True);
             Assert.That(session.TryMove(1, 2, out _), Is.True);
@@ -281,8 +278,8 @@ namespace PerchSort.Tests
                     Is.EqualTo(beforeLastMove.Branches[i].Tokens.Select(t => t.Species)));
             }
             Assert.That(restored.Branches[1].Tokens.Select(t => t.Id),
-                Is.EqualTo(new[] { "L01-S2-01", "L01-S2-02", "L01-S2-03" }));
-            Assert.That(restored.Branches[3].Tokens.Select(t => t.Id), Is.EqualTo(new[] { "L01-S1-04" }));
+                Is.EqualTo(new[] { "Legacy-L01-S2-01", "Legacy-L01-S2-02", "Legacy-L01-S2-03" }));
+            Assert.That(restored.Branches[3].Tokens.Select(t => t.Id), Is.EqualTo(new[] { "Legacy-L01-S1-04" }));
             Assert.That(restored.Branches.Select(b => b.Retired),
                 Is.EqualTo(new[] { true, false, true, false, false }));
             Assert.That(restored.HomedSpecies, Is.EqualTo(new[] { 0, 2 }));
@@ -296,10 +293,136 @@ namespace PerchSort.Tests
         }
 
         [Test]
+        public void AdoptedTutorialUsesTwoFixedSpeciesAndThreeBranches()
+        {
+            var initial = Slice.State.CreateInitial();
+            var documented = Slice.State.CreateDocumentedFirstLevel();
+            var session = new Slice.Session();
+            Assert.That(initial.GetStateKey(), Is.EqualTo(documented.GetStateKey()));
+            Assert.That(session.State.GetStateKey(), Is.EqualTo(initial.GetStateKey()));
+            Assert.That(initial.FlockSize, Is.EqualTo(4));
+            Assert.That(initial.SpeciesCount, Is.EqualTo(2));
+            Assert.That(initial.Branches.Select(b => b.Id), Is.EqualTo(new[] { "S1", "S2", "S3" }));
+            Assert.That(initial.Branches.Select(b => b.Tokens.Select(t => t.Species).ToArray()),
+                Is.EqualTo(new[] { new[] { 0, 0, 0 }, new[] { 1, 1, 1, 0 }, new[] { 1 } }));
+            Assert.That(initial.Branches.Count(b => b.Tokens.Count == 0), Is.Zero);
+            Assert.That(initial.Branches.Any(b => b.Retired), Is.False);
+            Assert.That(initial.Branches.SelectMany(b => b.Tokens).Select(t => t.Id),
+                Is.EqualTo(new[] { "L01-S1-01", "L01-S1-02", "L01-S1-03",
+                    "L01-S2-01", "L01-S2-02", "L01-S2-03", "L01-S2-04", "L01-S3-01" }));
+            Assert.That(Slice.Rules.GetLegalMoves(initial).Select(m => $"{m.FromIndex}>{m.ToIndex}:{m.Count}"),
+                Is.EqualTo(new[] { "1>0:1" }));
+            AssertConserved(initial);
+        }
+
+        [Test]
+        public void AdoptedTutorialTwoMovesConserveIdsAndHomeRetireInOrder()
+        {
+            var session = new Slice.Session();
+            var ids = session.State.Branches.SelectMany(b => b.Tokens).Select(t => t.Id).ToArray();
+            var departed = new List<string>();
+            int[,] moves = { { 1, 0 }, { 2, 1 } };
+            string[][] expectedHomeIds = {
+                new[] { "L01-S1-01", "L01-S1-02", "L01-S1-03", "L01-S2-04" },
+                new[] { "L01-S2-01", "L01-S2-02", "L01-S2-03", "L01-S3-01" } };
+            for (int i = 0; i < 2; i++)
+            {
+                Assert.That(session.TryMove(moves[i, 0], moves[i, 1], out var result), Is.True);
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result.Run, Is.EqualTo(1));
+                Assert.That(result.Events.Select(e => e.Kind),
+                    Is.EqualTo(new[] { Slice.EventKind.Moved, Slice.EventKind.Home, Slice.EventKind.Retired }));
+                Assert.That(result.Events[1].BranchIndex, Is.EqualTo(moves[i, 1]));
+                Assert.That(result.Events[1].TokenIds, Is.EqualTo(expectedHomeIds[i]));
+                departed.AddRange(result.Events[1].TokenIds);
+                var remaining = session.State.Branches.SelectMany(b => b.Tokens).Select(t => t.Id);
+                Assert.That(remaining.Concat(departed), Is.EquivalentTo(ids));
+                Assert.That(remaining.Concat(departed).Distinct().Count(), Is.EqualTo(8));
+                Assert.That(session.State.MoveCount, Is.EqualTo(i + 1));
+                Assert.That(session.State.Sequence, Is.EqualTo(i + 1));
+                Assert.That(session.State.IsWon, Is.EqualTo(i == 1));
+                AssertConserved(session.State);
+            }
+            Assert.That(session.State.HomedSpecies, Is.EqualTo(new[] { 0, 1 }));
+            Assert.That(session.State.Branches.Select(b => b.Retired), Is.EqualTo(new[] { true, true, false }));
+            Assert.That(session.State.Branches.All(b => b.Tokens.Count == 0), Is.True);
+            Assert.That(session.State.IsDeadlock, Is.False);
+        }
+
+        [Test]
+        public void AdoptedTutorialUndoAfterWonAndRestartRestoreExactDistribution()
+        {
+            var session = new Slice.Session();
+            var initial = session.State.Clone();
+            Assert.That(session.TryMove(1, 0, out _), Is.True);
+            var afterFirst = session.State.Clone();
+            Assert.That(session.TryMove(2, 1, out _), Is.True);
+            var won = session.State;
+            Assert.That(won.IsWon, Is.True);
+
+            Assert.That(session.Undo(), Is.True);
+
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.That(session.State.Branches[i].Tokens.Select(t => t.Id),
+                    Is.EqualTo(afterFirst.Branches[i].Tokens.Select(t => t.Id)));
+                Assert.That(session.State.Branches[i].Retired, Is.EqualTo(afterFirst.Branches[i].Retired));
+            }
+            Assert.That(session.State.Branches[1].Tokens.Select(t => t.Id),
+                Is.EqualTo(new[] { "L01-S2-01", "L01-S2-02", "L01-S2-03" }));
+            Assert.That(session.State.Branches[2].Tokens.Select(t => t.Id), Is.EqualTo(new[] { "L01-S3-01" }));
+            Assert.That(session.State.HomedSpecies, Is.EqualTo(new[] { 0 }));
+            Assert.That(session.State.MoveCount, Is.EqualTo(1));
+            Assert.That(session.State.Sequence, Is.EqualTo(3));
+            Assert.That(session.State.IsWon, Is.False);
+            Assert.That(session.UndoCount, Is.EqualTo(1));
+            Assert.That(won.IsWon, Is.True);
+            AssertConserved(session.State);
+
+            session.Restart();
+
+            Assert.That(session.State.Branches.SelectMany(b => b.Tokens).Select(t => t.Id),
+                Is.EqualTo(initial.Branches.SelectMany(b => b.Tokens).Select(t => t.Id)));
+            Assert.That(session.State.Branches.All(b => !b.Retired), Is.True);
+            Assert.That(session.State.HomedSpecies, Is.Empty);
+            Assert.That(session.State.MoveCount, Is.Zero);
+            Assert.That(session.State.Sequence, Is.EqualTo(4));
+            Assert.That(session.UndoCount, Is.Zero);
+            Assert.That(session.Undo(), Is.False);
+            AssertConserved(session.State);
+        }
+
+        [Test]
+        public void InitialLevelContractScopesTutorialExceptionAndKeepsLaterFlockSizes()
+        {
+            var initial = Slice.State.CreateInitial();
+            Assert.DoesNotThrow(() => initial.ValidateInitialLevelContract(1));
+            Assert.Throws<ArgumentException>(() => initial.ValidateInitialLevelContract(2));
+            var legacy = CreateLegacyThreeSpeciesFixture();
+            Assert.Throws<ArgumentException>(() => legacy.ValidateInitialLevelContract(1));
+            Assert.DoesNotThrow(() => legacy.ValidateInitialLevelContract(2));
+            foreach (int n in new[] { 4, 6, 8 })
+            {
+                int[][] rows = { Enumerable.Repeat(0, n - 1).Concat(new[] { 1 }).ToArray(),
+                    Enumerable.Repeat(1, n - 1).Concat(new[] { 2 }).ToArray(),
+                    Enumerable.Repeat(2, n - 1).Concat(new[] { 0 }).ToArray(),
+                    Array.Empty<int>(), Array.Empty<int>() };
+                var later = new Slice.State(n, 3, rows.Select((row, i) =>
+                    new Slice.Branch("S" + (i + 1), row.Select((species, slot) =>
+                        new Slice.Token("Later-" + i + "-" + slot, species)))));
+                Assert.DoesNotThrow(() => later.ValidateInitialLevelContract(2));
+            }
+            var changed = initial.Branches.ToArray();
+            changed[1] = new Slice.Branch("S2", changed[1].Tokens.Reverse());
+            var differentLayout = new Slice.State(4, 2, changed);
+            Assert.Throws<ArgumentException>(() => differentLayout.ValidateInitialLevelContract(1));
+        }
+
+        [Test]
         public void InvalidFixtureConservationAndDuplicateIdsAreRejected()
         {
             Assert.Throws<ArgumentException>(() => Fixture(new[] { 0 }, Array.Empty<int>(), Array.Empty<int>()));
-            var initial = Slice.State.CreateDocumentedFirstLevel();
+            var initial = CreateLegacyThreeSpeciesFixture();
             var branches = initial.Branches.ToArray();
             branches[1] = new Slice.Branch("S2", initial.Branches[1].Tokens.Select((t, i) =>
                 new Slice.Token(i == 0 ? initial.Branches[0].Tokens[0].Id : t.Id, t.Species)));
