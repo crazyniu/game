@@ -298,42 +298,168 @@ namespace PerchSort.Core.FirstLevel
         }
     }
 
-    // In-memory stable transactions only. Persistence must confirm a candidate before presentation.
+    public enum TransactionKind { Transfer, Undo, Restart }
+
+    public sealed class TransferHistoryItem
+    {
+        public string ActionType => "Transfer";
+        public State Before { get; }
+        public int FromIndex { get; }
+        public int ToIndex { get; }
+        public int Count { get; }
+        public string SourceId => Before.Branches[FromIndex].Id;
+        public string TargetId => Before.Branches[ToIndex].Id;
+
+        public TransferHistoryItem(State before, int fromIndex, int toIndex, int count)
+        {
+            if (before == null) throw new ArgumentNullException(nameof(before));
+            if (fromIndex < 0 || toIndex < 0 || fromIndex >= before.Branches.Count ||
+                toIndex >= before.Branches.Count || fromIndex == toIndex || count < 1)
+                throw new ArgumentException("A transfer history item requires valid endpoints and count.");
+            Before = before.Clone(); FromIndex = fromIndex; ToIndex = toIndex; Count = count;
+        }
+
+        public TransferHistoryItem Clone() => new TransferHistoryItem(Before, FromIndex, ToIndex, Count);
+    }
+
+    public sealed class PreparedTransaction
+    {
+        private readonly Session owner;
+        public TransactionKind Kind { get; }
+        public State Before { get; }
+        public State After { get; }
+        public IReadOnlyList<TransferHistoryItem> History { get; }
+        public MoveResult Move { get; }
+
+        internal PreparedTransaction(Session owner, TransactionKind kind, State before, State after,
+            IEnumerable<TransferHistoryItem> history, MoveResult move = null)
+        {
+            this.owner = owner; Kind = kind; Before = before.Clone(); After = after.Clone(); Move = move;
+            History = new ReadOnlyCollection<TransferHistoryItem>(history.Select(h => h.Clone()).ToList());
+        }
+
+        internal bool BelongsTo(Session session) => ReferenceEquals(owner, session);
+    }
+
+    // Prepare stable candidates without changing authority; commit only after the caller confirms saving.
     public sealed class Session
     {
         private readonly State initial;
-        private readonly Stack<State> history = new Stack<State>();
+        private readonly List<TransferHistoryItem> history = new List<TransferHistoryItem>();
         public State State { get; private set; }
         public int UndoCount => history.Count;
+        public IReadOnlyList<TransferHistoryItem> History =>
+            new ReadOnlyCollection<TransferHistoryItem>(history.Select(h => h.Clone()).ToList());
 
-        public Session() : this(global::PerchSort.Core.FirstLevel.State.CreateDocumentedFirstLevel()) { }
+        public Session() : this(global::PerchSort.Core.FirstLevel.State.CreateInitial()) { }
         public Session(State initialState)
         {
             initial = initialState?.Clone() ?? throw new ArgumentNullException(nameof(initialState));
             State = initial.Clone();
         }
 
+        // Restore is deliberately scoped to adopted bird-only L01, not a campaign/schema loader.
+        public Session(State initialState, State currentState, IEnumerable<TransferHistoryItem> restoredHistory)
+            : this(initialState)
+        {
+            initial.ValidateInitialLevelContract(1);
+            if (currentState == null) throw new ArgumentNullException(nameof(currentState));
+            if (restoredHistory == null) throw new ArgumentNullException(nameof(restoredHistory));
+            var records = restoredHistory.Select(h => h?.Clone() ??
+                throw new ArgumentException("A history record cannot be null.")).ToList();
+            var expected = initial;
+            for (int i = 0; i < records.Count; i++)
+            {
+                var item = records[i];
+                ValidateStateIdentity(item.Before);
+                if (item.Before.MoveCount != i || item.Before.Sequence < expected.Sequence ||
+                    LogicalKey(item.Before) != LogicalKey(expected) ||
+                    !Rules.TryApply(item.Before, item.FromIndex, item.ToIndex, out var next, out var move) ||
+                    move.Count != item.Count)
+                    throw new ArgumentException("History must replay the exact legal transfer path.");
+                expected = next;
+            }
+            ValidateStateIdentity(currentState);
+            if (currentState.MoveCount != records.Count || currentState.Sequence < expected.Sequence ||
+                LogicalKey(currentState) != LogicalKey(expected))
+                throw new ArgumentException("Current snapshot must match the replayed history.");
+            history.AddRange(records);
+            State = currentState.Clone();
+        }
+
+        public bool PrepareMove(int from, int to, out PreparedTransaction transaction)
+        {
+            transaction = null;
+            if (!Rules.TryApply(State, from, to, out var candidate, out var move)) return false;
+            var nextHistory = history.Select(h => h.Clone()).ToList();
+            nextHistory.Add(new TransferHistoryItem(State, from, to, move.Count));
+            transaction = new PreparedTransaction(this, TransactionKind.Transfer, State, candidate, nextHistory, move);
+            return true;
+        }
+
+        public bool PrepareUndo(out PreparedTransaction transaction)
+        {
+            transaction = null;
+            if (history.Count == 0) return false;
+            var previous = history[history.Count - 1].Before;
+            var candidate = previous.WithCounters(previous.MoveCount, checked(State.Sequence + 1));
+            transaction = new PreparedTransaction(this, TransactionKind.Undo, State, candidate,
+                history.Take(history.Count - 1));
+            return true;
+        }
+
+        public PreparedTransaction PrepareRestart() =>
+            new PreparedTransaction(this, TransactionKind.Restart, State,
+                initial.WithCounters(0, checked(State.Sequence + 1)), Array.Empty<TransferHistoryItem>());
+
+        public bool CommitPreparedTransaction(PreparedTransaction transaction)
+        {
+            if (transaction == null || !transaction.BelongsTo(this) ||
+                transaction.Before.GetStateKey() != State.GetStateKey()) return false;
+            var committed = transaction.After.Clone();
+            var committedHistory = transaction.History.Select(h => h.Clone()).ToList();
+            State = committed;
+            history.Clear();
+            history.AddRange(committedHistory);
+            return true;
+        }
+
+        public bool CommitPrepared(MoveResult move)
+        {
+            if (move == null || move.Before.GetStateKey() != State.GetStateKey() ||
+                !PrepareMove(move.FromIndex, move.ToIndex, out var transaction) ||
+                transaction.Move.Count != move.Count ||
+                transaction.After.GetStateKey() != move.After.GetStateKey()) return false;
+            return CommitPreparedTransaction(transaction);
+        }
+
+        // In-memory convenience methods preserve the existing slice API.
         public bool TryMove(int from, int to, out MoveResult result)
         {
-            if (!Rules.TryApply(State, from, to, out var candidate, out result)) return false;
-            history.Push(State);
-            State = candidate;
+            result = null;
+            if (!PrepareMove(from, to, out var transaction) || !CommitPreparedTransaction(transaction)) return false;
+            var move = transaction.Move;
+            result = new MoveResult(move.FromIndex, move.ToIndex, move.Count, move.Run,
+                move.Before, State, move.Events.ToList());
             return true;
         }
 
-        public bool Undo()
-        {
-            if (history.Count == 0) return false;
-            var restored = history.Peek().WithCounters(history.Peek().MoveCount, checked(State.Sequence + 1));
-            history.Pop();
-            State = restored;
-            return true;
-        }
+        public bool Undo() => PrepareUndo(out var transaction) && CommitPreparedTransaction(transaction);
+        public void Restart() => CommitPreparedTransaction(PrepareRestart());
 
-        public void Restart()
+        private static string LogicalKey(State state) =>
+            state.WithCounters(state.MoveCount, state.MoveCount).GetStateKey();
+
+        private void ValidateStateIdentity(State state)
         {
-            State = initial.WithCounters(0, checked(State.Sequence + 1));
-            history.Clear();
+            if (state.FlockSize != initial.FlockSize || state.SpeciesCount != initial.SpeciesCount ||
+                state.Branches.Count != initial.Branches.Count)
+                throw new ArgumentException("Restored state must keep the adopted initial configuration.");
+            var identities = initial.Branches.SelectMany(b => b.Tokens)
+                .ToDictionary(t => t.Id, t => t.Species, StringComparer.Ordinal);
+            foreach (var token in state.Branches.SelectMany(b => b.Tokens))
+                if (!identities.TryGetValue(token.Id, out int species) || species != token.Species)
+                    throw new ArgumentException("Restored token IDs and species must come from the fixed initial board.");
         }
     }
 }

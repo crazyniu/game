@@ -47,3 +47,8 @@ The isolated module is [FirstLevelV4](../../PerchSort/Assets/Scripts/Core/FirstL
 ## 3. 历史数值不得冒充当前验证
 
 旧Hint节点6000/UI等待1.5s、星级公式、163个EditMode/14个PlayMode通过/8Explicit跳过是旧记录，不是新版政策或本次测试结果。系统减动效/地图/移动IL2CPP仍未验证；LitMotion仅上述pin解析、desktop编译和1条smoke见证通过，不是运行补间或移动验收。新提示预算只影响Unknown，不能借历史值恢复收费或限次。
+
+
+## 4. T22 reviewed first-level persistence handoff
+
+[FirstLevelPersistence](../../PerchSort/Assets/Scripts/FirstLevel/FirstLevelPersistence.cs) is an isolated L01-only save6 adapter layered on the active T21 Core/session scaffold. T22 uses platform JSON parsing, whole-structure preflight before recoverable semantics, typed-purpose audio retry, normalized-path process-local serialization and post-staging conflict readback. The [T22 report](../../tasks/T22_report.md) records85 focused source tests and explicitly excludes production scene integration and cross-process same-path writing. Earlier54-case evidence did not establish composition safety and is superseded for this final source.
