@@ -1,0 +1,317 @@
+{
+  "asset_count": 17,
+  "assets": [
+    {
+      "asset": "panel_wood",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        510
+      ]
+    },
+    {
+      "asset": "btn_primary",
+      "size": [
+        512,
+        132
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        124
+      ]
+    },
+    {
+      "asset": "btn_primary_pressed",
+      "size": [
+        512,
+        132
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        8,
+        510,
+        130
+      ]
+    },
+    {
+      "asset": "btn_secondary",
+      "size": [
+        512,
+        112
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        104
+      ]
+    },
+    {
+      "asset": "btn_secondary_pressed",
+      "size": [
+        512,
+        112
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        8,
+        510,
+        110
+      ]
+    },
+    {
+      "asset": "btn_round",
+      "size": [
+        224,
+        224
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        5,
+        2,
+        219,
+        216
+      ]
+    },
+    {
+      "asset": "btn_round_pressed",
+      "size": [
+        224,
+        224
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        5,
+        8,
+        219,
+        222
+      ]
+    },
+    {
+      "asset": "paper_inner",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        510
+      ]
+    },
+    {
+      "asset": "toggle_track_on",
+      "size": [
+        160,
+        80
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        158,
+        78
+      ]
+    },
+    {
+      "asset": "toggle_track_off",
+      "size": [
+        160,
+        80
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        158,
+        78
+      ]
+    },
+    {
+      "asset": "toggle_knob",
+      "size": [
+        80,
+        80
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        78,
+        78
+      ]
+    },
+    {
+      "asset": "slider_track",
+      "size": [
+        512,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        46
+      ]
+    },
+    {
+      "asset": "slider_fill",
+      "size": [
+        512,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        510,
+        46
+      ]
+    },
+    {
+      "asset": "slider_knob",
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        94,
+        94
+      ]
+    },
+    {
+      "asset": "hud_bar",
+      "size": [
+        1024,
+        160
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        1022,
+        158
+      ]
+    },
+    {
+      "asset": "tip_card",
+      "size": [
+        768,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        2,
+        766,
+        510
+      ]
+    },
+    {
+      "asset": "vine_divider",
+      "size": [
+        1024,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        2,
+        1024,
+        46
+      ]
+    }
+  ],
+  "pressed_exact_6px_and_0_92": true,
+  "vine_opposite_edge_pixels_equal": true,
+  "visual_review": [
+    "contact_a_light.png",
+    "contact_a_dark.png"
+  ]
+}

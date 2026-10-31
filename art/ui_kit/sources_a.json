@@ -1,0 +1,72 @@
+[
+  {
+    "name": "panel_wood",
+    "path": "source_a/panel_wood.png",
+    "prompt": "Original square wooden nine-slice panel with inset cream paper; 512x512, radius 48, warm brown 2-3px outline, treehouse style, transparent, no text."
+  },
+  {
+    "name": "btn_primary",
+    "path": "source_a/btn_primary.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. A blank leaf-green pill/capsule button with exact width-to-height ratio 512:132 (3.88:1), semicircular ends radius 66 at target scale. Main face leafy subtle smooth texture #7DBB4B at top to #4E8A2E bottom, dark green inner border #2F5A1B and thin warm brown outer contour. Very subtle leaf grain, bright upper rim, raised bottom bevel. No individual leaves attached. Straight long parallel horizontal edges. Leave 6px transparent space below button in 512x132 final layout for depressed-state motion."
+  },
+  {
+    "name": "btn_secondary",
+    "path": "source_a/btn_secondary.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. A blank creamy paper/fabric capsule button exact width-to-height ratio 512:112 (4.57:1), rounded ends. Cream #FFF3D0 to #F2DDA2, fine tan inner border #B98F55 and thin warm brown outer contour. Smooth subtle paper fiber, bright upper rim and raised bottom bevel. No stitches or holes. Straight horizontal long edges. Leave 6px transparent space below button in final 512x112 layout."
+  },
+  {
+    "name": "btn_round",
+    "path": "source_a/btn_round.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. A perfectly circular blank wooden button target 224x224. Golden honey wood #D9A566 to #B97F45, smooth rounded bevel, subtle simple wood grain inside, bright upper-left lip, soft darker lower-right edge. Symmetric circle, no outer attachments. Face totally blank. Leave small transparent margin for later 6px depression."
+  },
+  {
+    "name": "paper_inner",
+    "path": "source_a/paper_inner.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. A single square blank cream paper inner panel target 512x512. Rounded corners radius 32, warm cream #FFF6DD, delicate very low contrast paper fibers, thin warm tan contour, very subtle bevel. No wooden frame. Near uniform blank center for nine-slice; all shading constrained to narrow 24px edge."
+  },
+  {
+    "name": "toggle_track_on",
+    "path": "source_a/toggle_track_on.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One empty on-state toggle track without knob. Target 160x80 ratio 2:1 capsule. Thick braided wicker/vine rim warm honey tan #D9A566, recessed green inset #7DBB4B to #4E8A2E. No knob, no egg, no words. Precisely symmetrical pill silhouette. Fine braided loops confined to perimeter."
+  },
+  {
+    "name": "toggle_track_off",
+    "path": "source_a/toggle_track_off.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One empty off-state toggle track without knob. Target 160x80 ratio 2:1 capsule. Thick braided wicker/vine rim warm honey tan #D9A566, recessed muted cream-tan inset #CDBB93. No knob, no egg, no words. Precisely symmetrical pill silhouette. Fine braided loops confined to perimeter."
+  },
+  {
+    "name": "toggle_knob",
+    "path": "source_a/toggle_knob.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One tiny plump cream egg knob, target 80x80. A simple upright rounded oval egg silhouette that fills almost a square, warm cream #FFF3D0 with subtle gold lower-right shade, small clean upper-left shine. No spots, no face, no nest. Thin warm brown outline."
+  },
+  {
+    "name": "slider_track",
+    "path": "source_a/slider_track.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One isolated long thin honey wood empty slider track. Width to height of actual sprite precisely 512:48. A rounded capsule wooden rim with a warm brown recessed center channel. ALL pixels beyond the brown outline must be completely transparent alpha zero: NO glow, NO cast shadow, NO backdrop, NO haze, NO surface, NO halo, NO ambient vignette. Only light and shade inside wooden outline. Fully self-contained crisp cutout object. Center smooth stretchable horizontal wood grain, no knobs, no fill."
+  },
+  {
+    "name": "slider_fill",
+    "path": "source_a/slider_fill.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. A single long very thin green slider fill strip target 512x48, ratio 10.67:1. Rounded capsule ends. Rich leaf green #7DBB4B top to #4E8A2E bottom, subtle upper edge shine, narrow warm brown outline. No wooden rim, no knobs, no decorations. Middle perfectly straight and simple for stretching horizontally. Entire thin bar centered."
+  },
+  {
+    "name": "slider_knob",
+    "path": "source_a/slider_knob.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One small leaf-shaped slider knob target 96x96. Single plump rounded fresh green leaf tilted diagonally from lower-left short stem to upper-right tip. #7DBB4B to #4E8A2E, elegant central vein and 4 fine lateral veins, thin warm brown outline, shiny left upper edge, soft shaded lower-right. Isolated one leaf, no buttons behind it."
+  },
+  {
+    "name": "hud_bar",
+    "path": "source_a/hud_bar.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One blank very wide low wooden HUD sign target 1024x160, width-to-height 6.4:1. Rounded corners radius 32px, warm honey #D9A566 to #B97F45 wood, thin warm brown edge, subtle lengthwise grain. No attachments, ropes, nails, holes, leaves, icons or text. Straight top/bottom, center stretchable, decorative grain knots restricted to rounded ends. Nice broad blank face. Very tiny transparent margin."
+  },
+  {
+    "name": "tip_card",
+    "path": "source_a/tip_card.png",
+    "prompt": "Use case: background-extraction. Edit the provided blank parchment scroll image. Keep the scroll itself, its curled top and bottom edges, warm cream material, outline and blank central writing area exactly. REMOVE all the brown studio background outside the scroll, including ALL glow, vignette, cast shadow and haze. Every pixel outside actual paper outline must be transparent alpha=0. Deliver one clean transparent cutout scroll PNG, no checkerboard, no other background, no text. Preserve the paper artwork and its warm brown contour."
+  },
+  {
+    "name": "vine_divider",
+    "path": "source_a/vine_divider.png",
+    "prompt": "Use case: ui-mockup. ONE original blank production 2D UI sprite for warm handcrafted treehouse cartoon bird game. Real transparent alpha outside silhouette, no background or checkerboard. Rich polished hand-painted cartoon shading, clean thin warm brown #5A3A22 outline 2-3 pixels at target resolution, upper-left light, gentle lower-right soft shadow, warm wooden/leaf/cream materials. Front orthographic view, no perspective, no text, no icons, no extra ornament, no watermark. Image is just the one requested sprite, entire outline visible. Precise horizontal straight middle edges for nine-slice, all curved detail confined to ends. One seamless horizontal tiling vine divider texture target 1024x48. Extremely thin long horizontal brown vine with small alternating leaves in muted green #7DBB4B/#4E8A2E. Straight vine exits exact left and right image edges at same y, same tangent and thickness so tiles connect seamlessly. Six to eight tiny leaves within narrow height, warm brown outline. Transparent above and below. No curls hanging beyond height, no text, no knots or decorations. The vine is continuous across the whole width, no rounded caps at ends."
+  }
+]

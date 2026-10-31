@@ -1,0 +1,52 @@
+bird_01: 1024x1024 RGBA; alpha 0..255; bounds (214, 97, 810, 871); feet y=870
+bird_01_blink: 1024x1024 RGBA; alpha 0..255; bounds (214, 97, 810, 871); feet y=870
+bird_01_sleep: 1024x1024 RGBA; alpha 0..255; bounds (197, 209, 827, 871); feet y=870
+bird_01_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 75, 1002, 892); airborne
+bird_02: 1024x1024 RGBA; alpha 0..255; bounds (202, 111, 822, 871); feet y=870
+bird_02_blink: 1024x1024 RGBA; alpha 0..255; bounds (202, 111, 822, 871); feet y=870
+bird_02_sleep: 1024x1024 RGBA; alpha 0..255; bounds (178, 262, 844, 871); feet y=870
+bird_02_fly: 1024x1024 RGBA; alpha 0..255; bounds (24, 141, 1002, 841); airborne
+bird_03: 1024x1024 RGBA; alpha 0..255; bounds (205, 112, 819, 871); feet y=870
+bird_03_blink: 1024x1024 RGBA; alpha 0..255; bounds (205, 112, 819, 871); feet y=870
+bird_03_sleep: 1024x1024 RGBA; alpha 0..255; bounds (184, 215, 841, 871); feet y=870
+bird_03_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 110, 1002, 872); airborne
+bird_04: 1024x1024 RGBA; alpha 0..255; bounds (116, 166, 909, 902); feet y=870
+bird_04_blink: 1024x1024 RGBA; alpha 0..255; bounds (116, 166, 909, 902); feet y=870
+bird_04_sleep: 1024x1024 RGBA; alpha 0..255; bounds (109, 343, 915, 895); feet y=870
+bird_04_fly: 1024x1024 RGBA; alpha 0..255; bounds (21, 117, 1001, 949); airborne
+bird_05: 1024x1024 RGBA; alpha 0..255; bounds (212, 327, 813, 871); feet y=870
+bird_05_blink: 1024x1024 RGBA; alpha 0..255; bounds (212, 327, 813, 871); feet y=870
+bird_05_sleep: 1024x1024 RGBA; alpha 0..255; bounds (202, 394, 821, 871); feet y=870
+bird_05_fly: 1024x1024 RGBA; alpha 0..255; bounds (195, 346, 829, 851); airborne
+bird_06: 1024x1024 RGBA; alpha 0..255; bounds (289, 49, 735, 871); feet y=870
+bird_06_blink: 1024x1024 RGBA; alpha 0..255; bounds (289, 49, 735, 871); feet y=870
+bird_06_sleep: 1024x1024 RGBA; alpha 0..255; bounds (265, 174, 759, 871); feet y=870
+bird_06_fly: 1024x1024 RGBA; alpha 0..255; bounds (21, 77, 1002, 845); airborne
+bird_07: 1024x1024 RGBA; alpha 0..255; bounds (270, 111, 754, 871); feet y=870
+bird_07_blink: 1024x1024 RGBA; alpha 0..255; bounds (270, 111, 754, 871); feet y=870
+bird_07_sleep: 1024x1024 RGBA; alpha 0..255; bounds (240, 259, 785, 871); feet y=870
+bird_07_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 83, 1003, 898); airborne
+bird_08: 1024x1024 RGBA; alpha 0..255; bounds (209, 110, 815, 871); feet y=870
+bird_08_blink: 1024x1024 RGBA; alpha 0..255; bounds (209, 110, 815, 871); feet y=870
+bird_08_sleep: 1024x1024 RGBA; alpha 0..255; bounds (167, 302, 857, 871); feet y=870
+bird_08_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 77, 1002, 904); airborne
+bird_09: 1024x1024 RGBA; alpha 0..255; bounds (128, 112, 895, 871); feet y=870
+bird_09_blink: 1024x1024 RGBA; alpha 0..255; bounds (128, 112, 895, 871); feet y=870
+bird_09_sleep: 1024x1024 RGBA; alpha 0..255; bounds (104, 234, 919, 871); feet y=870
+bird_09_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 147, 1002, 832); airborne
+bird_10: 1024x1024 RGBA; alpha 0..255; bounds (270, 110, 754, 871); feet y=870
+bird_10_blink: 1024x1024 RGBA; alpha 0..255; bounds (270, 110, 754, 871); feet y=870
+bird_10_sleep: 1024x1024 RGBA; alpha 0..255; bounds (230, 201, 793, 871); feet y=870
+bird_10_fly: 1024x1024 RGBA; alpha 0..255; bounds (22, 124, 1002, 858); airborne
+bird_01 blink: all RGBA differences confined to eye-area bounds (403, 354, 642, 436); outside identical
+bird_02 blink: all RGBA differences confined to eye-area bounds (358, 272, 663, 375); outside identical
+bird_03 blink: all RGBA differences confined to eye-area bounds (396, 360, 641, 453); outside identical
+bird_04 blink: all RGBA differences confined to eye-area bounds (389, 275, 635, 367); outside identical
+bird_05 blink: all RGBA differences confined to eye-area bounds (430, 466, 595, 532); outside identical
+bird_06 blink: all RGBA differences confined to eye-area bounds (447, 166, 646, 252); outside identical
+bird_07 blink: all RGBA differences confined to eye-area bounds (365, 292, 660, 386); outside identical
+bird_08 blink: all RGBA differences confined to eye-area bounds (360, 230, 675, 350); outside identical
+bird_09 blink: all RGBA differences confined to eye-area bounds (364, 253, 661, 361); outside identical
+bird_10 blink: all RGBA differences confined to eye-area bounds (366, 285, 664, 385); outside identical
+12 row layouts: 140px canvas width / 156px slot spacing; minimum visible gap 47.58px; dove adjacent gap 60.71px.
+PASS: 40 assets; real transparency; no clipping; 30 grounded frames y=870; blink changes only eye areas; dove <=62%; no row overlap.

@@ -1,0 +1,4 @@
+{
+  "name": "PerchSort.Audio.Editor",
+  "includePlatforms": ["Editor"]
+}

@@ -1,0 +1,969 @@
+{
+  "birdFeetYFromTop": 870,
+  "alphaNoiseCutoff": 8,
+  "assets": {
+    "bird_01": {
+      "file": "raw/birds/bird_01.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        208,
+        131,
+        816,
+        871
+      ],
+      "footCenterPixels": [
+        594.12,
+        870
+      ],
+      "unityPivot": [
+        0.580195,
+        0.150391
+      ],
+      "sourceFeetY": 1161
+    },
+    "bird_02": {
+      "file": "raw/birds/bird_02.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        118,
+        131,
+        905,
+        871
+      ],
+      "footCenterPixels": [
+        606.66,
+        870
+      ],
+      "unityPivot": [
+        0.592441,
+        0.150391
+      ],
+      "sourceFeetY": 1157
+    },
+    "bird_03": {
+      "file": "raw/birds/bird_03.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        188,
+        131,
+        836,
+        871
+      ],
+      "footCenterPixels": [
+        583.6,
+        870
+      ],
+      "unityPivot": [
+        0.569922,
+        0.150391
+      ],
+      "sourceFeetY": 1169
+    },
+    "bird_04": {
+      "file": "raw/birds/bird_04.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        128,
+        131,
+        895,
+        898
+      ],
+      "footCenterPixels": [
+        650.7,
+        870
+      ],
+      "unityPivot": [
+        0.635449,
+        0.150391
+      ],
+      "sourceFeetY": 1110
+    },
+    "bird_05": {
+      "file": "raw/birds/bird_05.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        121,
+        131,
+        903,
+        871
+      ],
+      "footCenterPixels": [
+        630.33,
+        870
+      ],
+      "unityPivot": [
+        0.615557,
+        0.150391
+      ],
+      "sourceFeetY": 1159
+    },
+    "bird_06": {
+      "file": "raw/birds/bird_06.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        234,
+        131,
+        789,
+        871
+      ],
+      "footCenterPixels": [
+        518.15,
+        870
+      ],
+      "unityPivot": [
+        0.506006,
+        0.150391
+      ],
+      "sourceFeetY": 1176
+    },
+    "bird_07": {
+      "file": "raw/birds/bird_07.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        177,
+        131,
+        846,
+        871
+      ],
+      "footCenterPixels": [
+        423.79,
+        870
+      ],
+      "unityPivot": [
+        0.413857,
+        0.150391
+      ],
+      "sourceFeetY": 1165
+    },
+    "bird_08": {
+      "file": "raw/birds/bird_08.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        112,
+        424,
+        912,
+        871
+      ],
+      "footCenterPixels": [
+        694.2,
+        870
+      ],
+      "unityPivot": [
+        0.67793,
+        0.150391
+      ],
+      "sourceFeetY": 1039
+    },
+    "bird_09": {
+      "file": "raw/birds/bird_09.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        123,
+        131,
+        900,
+        871
+      ],
+      "footCenterPixels": [
+        623.45,
+        870
+      ],
+      "unityPivot": [
+        0.608838,
+        0.150391
+      ],
+      "sourceFeetY": 1150
+    },
+    "bird_10": {
+      "file": "raw/birds/bird_10.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "alphaBounds": [
+        112,
+        189,
+        912,
+        871
+      ],
+      "footCenterPixels": [
+        457.66,
+        870
+      ],
+      "unityPivot": [
+        0.446934,
+        0.150391
+      ],
+      "sourceFeetY": 1128
+    },
+    "perch": {
+      "file": "raw/env/perch.png",
+      "size": [
+        1024,
+        256
+      ],
+      "mode": "RGBA",
+      "standingYFromTop": 105,
+      "slotCentersX": [
+        188,
+        404,
+        620,
+        836
+      ]
+    },
+    "tree_crown": {
+      "file": "raw/env/tree_crown.png",
+      "size": [
+        1536,
+        768
+      ],
+      "mode": "RGBA"
+    },
+    "background": {
+      "file": "raw/env/background.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGB"
+    },
+    "icon_1024": {
+      "file": "raw/ui/icon_1024.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    "crate": {
+      "file": "raw/env/crate.png",
+      "size": [
+        1024,
+        320
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        14,
+        12,
+        1010,
+        308
+      ],
+      "unityPivot": [
+        0.5,
+        0.05
+      ],
+      "anchorPixelsFromTop": [
+        512,
+        304
+      ],
+      "usage": "整根栖木及上方鸟的木箱遮罩",
+      "source": "source/v2/crate.png",
+      "batch": "T10a",
+      "textRectPixelsFromTop": [
+        140,
+        132,
+        820,
+        246
+      ]
+    },
+    "basket": {
+      "file": "raw/env/basket.png",
+      "size": [
+        512,
+        384
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        16,
+        24,
+        496,
+        360
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        256.0,
+        192.0
+      ],
+      "usage": "单鸟临时篮子",
+      "source": "source/v2/basket.png",
+      "batch": "T10a",
+      "birdStandingPixelsFromTop": [
+        256,
+        190
+      ]
+    },
+    "nest": {
+      "file": "raw/env/nest.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        16,
+        55,
+        495,
+        457
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        256.0,
+        256.0
+      ],
+      "usage": "顶部目标空巢，中央叠鸟图标",
+      "source": "source/v2/nest.png",
+      "batch": "T10a",
+      "iconCenterPixelsFromTop": [
+        256,
+        248
+      ],
+      "iconSafeRadiusPixels": 84
+    },
+    "nest_done": {
+      "file": "raw/env/nest_done.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        16,
+        54,
+        496,
+        458
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        256.0,
+        256.0
+      ],
+      "usage": "同巢三蛋完成态",
+      "source": "source/v2/nest_done.png",
+      "batch": "T10a",
+      "iconCenterPixelsFromTop": [
+        256,
+        248
+      ]
+    },
+    "zzz": {
+      "file": "raw/fx/zzz.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        12,
+        18,
+        244,
+        238
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "睡眠 Z 气泡",
+      "source": "source/v2/zzz.png",
+      "batch": "T10a"
+    },
+    "sparkle": {
+      "file": "raw/fx/sparkle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        26,
+        12,
+        230,
+        244
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "四角星闪光",
+      "source": "source/v2/sparkle.png",
+      "batch": "T10a"
+    },
+    "check": {
+      "file": "raw/fx/check.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        12,
+        12,
+        244,
+        243
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "绿色完成徽章",
+      "source": "source/v2/check.png",
+      "batch": "T10a"
+    },
+    "feather": {
+      "file": "raw/fx/feather.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        15,
+        12,
+        241,
+        244
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "归巢飘落羽毛",
+      "source": "source/v2/feather.png",
+      "batch": "T10a"
+    },
+    "ring": {
+      "file": "raw/fx/ring.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        12,
+        17,
+        244,
+        239
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "柔和金色光环",
+      "source": "source/v2/ring.png",
+      "batch": "T10a"
+    },
+    "confetti_01": {
+      "file": "raw/fx/confetti_01.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        12,
+        46,
+        244,
+        209
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "珊瑚红矩形纸片",
+      "source": "source/v2/confetti_01.png",
+      "batch": "T10a"
+    },
+    "confetti_02": {
+      "file": "raw/fx/confetti_02.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        19,
+        12,
+        237,
+        244
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "青色三角纸片",
+      "source": "source/v2/confetti_02.png",
+      "batch": "T10a"
+    },
+    "confetti_03": {
+      "file": "raw/fx/confetti_03.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        28,
+        12,
+        228,
+        244
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "淡紫卷曲纸片",
+      "source": "source/v2/confetti_03.png",
+      "batch": "T10a"
+    },
+    "trophy": {
+      "file": "raw/ui/trophy.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        16,
+        66,
+        1008,
+        957
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        512.0,
+        512.0
+      ],
+      "usage": "结算金奖杯",
+      "source": "source/v2/trophy.png",
+      "batch": "T10a"
+    },
+    "star": {
+      "file": "raw/ui/star.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        12,
+        17,
+        244,
+        238
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        128.0,
+        128.0
+      ],
+      "usage": "五角金星奖励",
+      "source": "source/v2/star.png",
+      "batch": "T10a"
+    },
+    "closed_eye": {
+      "file": "raw/fx/closed_eye.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        16,
+        53,
+        112,
+        75
+      ],
+      "unityPivot": [
+        0.5,
+        0.5
+      ],
+      "anchorPixelsFromTop": [
+        64.0,
+        64.0
+      ],
+      "usage": "单条闭眼弧线；现有鸟优先使用睡眠版",
+      "source": "source/v2/closed_eye.png",
+      "batch": "T10a"
+    },
+    "bird_01s": {
+      "file": "raw/birds/bird_01s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        208,
+        131,
+        816,
+        871
+      ],
+      "unityPivot": [
+        0.580195,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        594.12,
+        870
+      ],
+      "usage": "第 1 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_01s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        594.12,
+        870
+      ],
+      "baseAsset": "bird_01",
+      "feetYFromTop": 870
+    },
+    "bird_02s": {
+      "file": "raw/birds/bird_02s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        118,
+        131,
+        905,
+        871
+      ],
+      "unityPivot": [
+        0.592441,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        606.66,
+        870
+      ],
+      "usage": "第 2 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_02s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        606.66,
+        870
+      ],
+      "baseAsset": "bird_02",
+      "feetYFromTop": 870
+    },
+    "bird_03s": {
+      "file": "raw/birds/bird_03s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        188,
+        131,
+        836,
+        871
+      ],
+      "unityPivot": [
+        0.569922,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        583.6,
+        870
+      ],
+      "usage": "第 3 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_03s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        583.6,
+        870
+      ],
+      "baseAsset": "bird_03",
+      "feetYFromTop": 870
+    },
+    "bird_04s": {
+      "file": "raw/birds/bird_04s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        128,
+        131,
+        895,
+        898
+      ],
+      "unityPivot": [
+        0.635449,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        650.7,
+        870
+      ],
+      "usage": "第 4 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_04s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        650.7,
+        870
+      ],
+      "baseAsset": "bird_04",
+      "feetYFromTop": 870
+    },
+    "bird_05s": {
+      "file": "raw/birds/bird_05s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        121,
+        131,
+        903,
+        871
+      ],
+      "unityPivot": [
+        0.615557,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        630.33,
+        870
+      ],
+      "usage": "第 5 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_05s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        630.33,
+        870
+      ],
+      "baseAsset": "bird_05",
+      "feetYFromTop": 870
+    },
+    "bird_06s": {
+      "file": "raw/birds/bird_06s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        234,
+        131,
+        788,
+        871
+      ],
+      "unityPivot": [
+        0.506006,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        518.15,
+        870
+      ],
+      "usage": "第 6 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_06s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        518.15,
+        870
+      ],
+      "baseAsset": "bird_06",
+      "feetYFromTop": 870
+    },
+    "bird_07s": {
+      "file": "raw/birds/bird_07s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        177,
+        131,
+        846,
+        871
+      ],
+      "unityPivot": [
+        0.413857,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        423.79,
+        870
+      ],
+      "usage": "第 7 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_07s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        423.79,
+        870
+      ],
+      "baseAsset": "bird_07",
+      "feetYFromTop": 870
+    },
+    "bird_08s": {
+      "file": "raw/birds/bird_08s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        112,
+        424,
+        912,
+        871
+      ],
+      "unityPivot": [
+        0.67793,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        694.2,
+        870
+      ],
+      "usage": "第 8 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_08s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        694.2,
+        870
+      ],
+      "baseAsset": "bird_08",
+      "feetYFromTop": 870
+    },
+    "bird_09s": {
+      "file": "raw/birds/bird_09s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        123,
+        131,
+        900,
+        871
+      ],
+      "unityPivot": [
+        0.608838,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        623.45,
+        870
+      ],
+      "usage": "第 9 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_09s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        623.45,
+        870
+      ],
+      "baseAsset": "bird_09",
+      "feetYFromTop": 870
+    },
+    "bird_10s": {
+      "file": "raw/birds/bird_10s.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        112,
+        190,
+        912,
+        871
+      ],
+      "unityPivot": [
+        0.446934,
+        0.150391
+      ],
+      "anchorPixelsFromTop": [
+        457.66,
+        870
+      ],
+      "usage": "第 10 种鸟的闭眼睡眠版",
+      "source": "source/v2/bird_10s.png",
+      "batch": "T10a",
+      "footCenterPixels": [
+        457.66,
+        870
+      ],
+      "baseAsset": "bird_10",
+      "feetYFromTop": 870
+    }
+  }
+}

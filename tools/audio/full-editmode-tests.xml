@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="99" result="Passed" total="99" passed="99" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:54Z" duration="11.9774976">
+  <test-suite type="TestSuite" id="1000" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="99" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:54Z" duration="11.977498" total="99" passed="99" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1015" name="PerchSort.Audio.EditModeTests.dll" fullname="/private/tmp/perch-t6.aXgINB/PerchSort/Library/ScriptAssemblies/PerchSort.Audio.EditModeTests.dll" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.057596" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26796" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1016" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.057372" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1017" name="Tests" fullname="PerchSort.Tests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.057265" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1018" name="Audio" fullname="PerchSort.Tests.Audio" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.057131" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="AudioManagerTests" fullname="PerchSort.Tests.Audio.AudioManagerTests" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.056777" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1014" name="DeliveredResourceUsesRequiredImportSettings" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.023937" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1007" name="DeliveredResourceUsesRequiredImportSettings(&quot;select&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;select&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="155755496" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.019429" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="DeliveredResourceUsesRequiredImportSettings(&quot;move&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;move&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="506712909" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000288" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="DeliveredResourceUsesRequiredImportSettings(&quot;collect&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;collect&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1465109464" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000134" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="DeliveredResourceUsesRequiredImportSettings(&quot;win&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;win&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="30694392" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000118" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="DeliveredResourceUsesRequiredImportSettings(&quot;error&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;error&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="523606115" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000109" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="DeliveredResourceUsesRequiredImportSettings(&quot;undo&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;undo&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="908448184" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000109" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="DeliveredResourceUsesRequiredImportSettings(&quot;click&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;click&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="267804030" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000106" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1005" name="MissingResourcesWarnOncePerClipAndDoNotThrow" fullname="PerchSort.Tests.Audio.AudioManagerTests.MissingResourcesWarnOncePerClipAndDoNotThrow" methodname="MissingResourcesWarnOncePerClipAndDoNotThrow" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1994636602" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.003438" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[AudioManager: missing audio 'select'.
+AudioManager: missing audio 'select'.
+AudioManager: missing audio 'move'.
+AudioManager: missing audio 'move'.
+AudioManager: missing audio 'bgm_loop'.
+AudioManager: missing audio 'bgm_loop'.
+]]></output>
+              </test-case>
+              <test-case id="1004" name="MusicSwitchHonorsPendingPlayAndExplicitStop" fullname="PerchSort.Tests.Audio.AudioManagerTests.MusicSwitchHonorsPendingPlayAndExplicitStop" methodname="MusicSwitchHonorsPendingPlayAndExplicitStop" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="330724060" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.023118" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1006" name="RepeatedPlaybackReusesFixedPool" fullname="PerchSort.Tests.Audio.AudioManagerTests.RepeatedPlaybackReusesFixedPool" methodname="RepeatedPlaybackReusesFixedPool" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1095835734" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000711" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1002" name="SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" fullname="PerchSort.Tests.Audio.AudioManagerTests.SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" methodname="SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="509128114" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000460" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1003" name="ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" fullname="PerchSort.Tests.Audio.AudioManagerTests.ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" methodname="ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1947540642" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000240" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1112" name="PerchSort.Core.EditModeTests.dll" fullname="/private/tmp/perch-t6.aXgINB/PerchSort/Library/ScriptAssemblies/PerchSort.Core.EditModeTests.dll" runstate="Runnable" testcasecount="87" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:54Z" duration="11.915955" total="87" passed="87" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26796" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1113" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="87" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:54Z" duration="11.914784" total="87" passed="87" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1114" name="Tests" fullname="PerchSort.Tests" runstate="Runnable" testcasecount="87" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:54Z" duration="11.914366" total="87" passed="87" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1019" name="CoreTests" fullname="PerchSort.Tests.CoreTests" classname="PerchSort.Tests.CoreTests" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:45Z" duration="3.214771" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1036" name="AnOpenDestinationPreventsDeadlock" fullname="PerchSort.Tests.CoreTests.AnOpenDestinationPreventsDeadlock" methodname="AnOpenDestinationPreventsDeadlock" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1450569800" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.001031" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1033" name="AnyRemainingBirdPreventsWinning" fullname="PerchSort.Tests.CoreTests.AnyRemainingBirdPreventsWinning" methodname="AnyRemainingBirdPreventsWinning" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="342873050" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:42Z" duration="0.000071" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1049" name="ApplyUndoRoundTripHoldsFor1000RandomSequences" fullname="PerchSort.Tests.CoreTests.ApplyUndoRoundTripHoldsFor1000RandomSequences" methodname="ApplyUndoRoundTripHoldsFor1000RandomSequences" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="273035172" result="Passed" start-time="2026-10-31 05:47:42Z" end-time="2026-10-31 05:47:45Z" duration="3.201890" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Seed 20261031: 1000 sequences, 32286 moves, 50 collections, all undone.
+]]></output>
+            </test-case>
+            <test-case id="1044" name="CloneHasIndependentBirdListsFlagsAndMetadata" fullname="PerchSort.Tests.CoreTests.CloneHasIndependentBirdListsFlagsAndMetadata" methodname="CloneHasIndependentBirdListsFlagsAndMetadata" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="289222023" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.001636" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1034" name="CollectingLastSpeciesWinsImmediately" fullname="PerchSort.Tests.CoreTests.CollectingLastSpeciesWinsImmediately" methodname="CollectingLastSpeciesWinsImmediately" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1146835153" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000273" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1030" name="CollectionUsesBoardCapacity" fullname="PerchSort.Tests.CoreTests.CollectionUsesBoardCapacity" methodname="CollectionUsesBoardCapacity" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1637514767" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000091" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1027" name="CompletingUniformPerchClearsItAndReportsCollection" fullname="PerchSort.Tests.CoreTests.CompletingUniformPerchClearsItAndReportsCollection" methodname="CompletingUniformPerchClearsItAndReportsCollection" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1896946639" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000736" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1039" name="ConsecutiveUndosRestoreEveryPreviousState" fullname="PerchSort.Tests.CoreTests.ConsecutiveUndosRestoreEveryPreviousState" methodname="ConsecutiveUndosRestoreEveryPreviousState" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="586830379" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000632" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1048" name="DefaultCapacityIsFourAndReservedFlagsAreFalse" fullname="PerchSort.Tests.CoreTests.DefaultCapacityIsFourAndReservedFlagsAreFalse" methodname="DefaultCapacityIsFourAndReservedFlagsAreFalse" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="13100664" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000086" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1024" name="DifferentSpeciesMayBeStacked" fullname="PerchSort.Tests.CoreTests.DifferentSpeciesMayBeStacked" methodname="DifferentSpeciesMayBeStacked" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="753610755" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000103" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1032" name="EmptyBoardIsWonAndIsNotDeadlocked" fullname="PerchSort.Tests.CoreTests.EmptyBoardIsWonAndIsNotDeadlocked" methodname="EmptyBoardIsWonAndIsNotDeadlocked" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1034021574" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000142" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1021" name="EmptySourceIsRejectedWithoutChangingBoard" fullname="PerchSort.Tests.CoreTests.EmptySourceIsRejectedWithoutChangingBoard" methodname="EmptySourceIsRejectedWithoutChangingBoard" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1843032171" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000108" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1026" name="EnumeratingMovesDoesNotChangeBoard" fullname="PerchSort.Tests.CoreTests.EnumeratingMovesDoesNotChangeBoard" methodname="EnumeratingMovesDoesNotChangeBoard" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="306194905" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000089" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1035" name="FullMixedBoardIsDeadlocked" fullname="PerchSort.Tests.CoreTests.FullMixedBoardIsDeadlocked" methodname="FullMixedBoardIsDeadlocked" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="226833481" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000075" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1028" name="FullMixedPerchIsNotCollected" fullname="PerchSort.Tests.CoreTests.FullMixedPerchIsNotCollected" methodname="FullMixedPerchIsNotCollected" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1348800578" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000084" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1022" name="FullTargetIsRejectedWithoutChangingBoard" fullname="PerchSort.Tests.CoreTests.FullTargetIsRejectedWithoutChangingBoard" methodname="FullTargetIsRejectedWithoutChangingBoard" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="2121273814" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000069" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1045" name="JsonRoundTripPreservesContentsFlagsAndMetadata" fullname="PerchSort.Tests.CoreTests.JsonRoundTripPreservesContentsFlagsAndMetadata" methodname="JsonRoundTripPreservesContentsFlagsAndMetadata" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="615362462" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000985" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1025" name="LegalMovesContainEveryOpenDestinationExactlyOnce" fullname="PerchSort.Tests.CoreTests.LegalMovesContainEveryOpenDestinationExactlyOnce" methodname="LegalMovesContainEveryOpenDestinationExactlyOnce" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="826931262" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.001687" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1020" name="MoveTakesOnlyRightmostBirdAndAppendsToTarget" fullname="PerchSort.Tests.CoreTests.MoveTakesOnlyRightmostBirdAndAppendsToTarget" methodname="MoveTakesOnlyRightmostBirdAndAppendsToTarget" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="775195789" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000156" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1029" name="PartialUniformPerchIsNotCollected" fullname="PerchSort.Tests.CoreTests.PartialUniformPerchIsNotCollected" methodname="PartialUniformPerchIsNotCollected" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="670280658" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000082" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1040" name="RejectedMoveDoesNotEnterUndoHistory" fullname="PerchSort.Tests.CoreTests.RejectedMoveDoesNotEnterUndoHistory" methodname="RejectedMoveDoesNotEnterUndoHistory" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1197957139" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000165" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1031" name="ReservedFlagsDoNotRestrictMovesOrCollection" fullname="PerchSort.Tests.CoreTests.ReservedFlagsDoNotRestrictMovesOrCollection" methodname="ReservedFlagsDoNotRestrictMovesOrCollection" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1319009761" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000288" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1041" name="RestartRestoresInitialStateAndClearsUndoHistory" fullname="PerchSort.Tests.CoreTests.RestartRestoresInitialStateAndClearsUndoHistory" methodname="RestartRestoresInitialStateAndClearsUndoHistory" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1350593075" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000188" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1023" name="SamePerchIsRejectedWithoutChangingBoard" fullname="PerchSort.Tests.CoreTests.SamePerchIsRejectedWithoutChangingBoard" methodname="SamePerchIsRejectedWithoutChangingBoard" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1903079973" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000080" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1042" name="SessionKeepsItsOwnInitialAndCurrentState" fullname="PerchSort.Tests.CoreTests.SessionKeepsItsOwnInitialAndCurrentState" methodname="SessionKeepsItsOwnInitialAndCurrentState" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="457946515" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000139" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1037" name="SingleOccupiedPerchHasNoDistinctDestination" fullname="PerchSort.Tests.CoreTests.SingleOccupiedPerchHasNoDistinctDestination" methodname="SingleOccupiedPerchHasNoDistinctDestination" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1585021768" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000072" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1047" name="StableHashIncludesOrderBoundariesMetadataAndFlags" fullname="PerchSort.Tests.CoreTests.StableHashIncludesOrderBoundariesMetadataAndFlags" methodname="StableHashIncludesOrderBoundariesMetadataAndFlags" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="868541410" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000516" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1046" name="StableHashMatchesFixedLittleEndianFnvVector" fullname="PerchSort.Tests.CoreTests.StableHashMatchesFixedLittleEndianFnvVector" methodname="StableHashMatchesFixedLittleEndianFnvVector" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1655634222" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000089" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1038" name="UndoRestoresCollectedPerchAndSource" fullname="PerchSort.Tests.CoreTests.UndoRestoresCollectedPerchAndSource" methodname="UndoRestoresCollectedPerchAndSource" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="620056917" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000166" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1043" name="UndoWithoutHistoryLeavesStateUnchanged" fullname="PerchSort.Tests.CoreTests.UndoWithoutHistoryLeavesStateUnchanged" methodname="UndoWithoutHistoryLeavesStateUnchanged" classname="PerchSort.Tests.CoreTests" runstate="Runnable" seed="1287560076" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000079" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1050" name="LevelTests" fullname="PerchSort.Tests.LevelTests" classname="PerchSort.Tests.LevelTests" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:54Z" duration="8.691159" total="54" passed="54" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1057" name="BudgetExhaustionIsUnknownNotUnsolvableOrSolved" fullname="PerchSort.Tests.LevelTests.BudgetExhaustionIsUnknownNotUnsolvableOrSolved" methodname="BudgetExhaustionIsUnknownNotUnsolvableOrSolved" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="440982674" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.005546" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1107" name="CatalogDifficultyIncreasesAcrossTheCampaign" fullname="PerchSort.Tests.LevelTests.CatalogDifficultyIncreasesAcrossTheCampaign" methodname="CatalogDifficultyIncreasesAcrossTheCampaign" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1891592189" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.041359" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1056" name="DeadlockedBoardIsUnsolvable" fullname="PerchSort.Tests.LevelTests.DeadlockedBoardIsUnsolvable" methodname="DeadlockedBoardIsUnsolvable" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1685552232" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000258" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1055" name="FullUniformInputStillNeedsAnActualCollectionMove" fullname="PerchSort.Tests.LevelTests.FullUniformInputStillNeedsAnActualCollectionMove" methodname="FullUniformInputStillNeedsAnActualCollectionMove" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="691160525" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000365" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1059" name="GeneratorIsDeterministicAndItsReverseWitnessIsLegal" fullname="PerchSort.Tests.LevelTests.GeneratorIsDeterministicAndItsReverseWitnessIsLegal" methodname="GeneratorIsDeterministicAndItsReverseWitnessIsLegal" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2142303420" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.006315" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1060" name="GeneratorRejectsAnUnverifiedBudgetLimitedLevel" fullname="PerchSort.Tests.LevelTests.GeneratorRejectsAnUnverifiedBudgetLimitedLevel" methodname="GeneratorRejectsAnUnverifiedBudgetLimitedLevel" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="180424631" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.000599" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1061" name="JsonRoundTripPreservesCatalogAndJaggedPerches" fullname="PerchSort.Tests.LevelTests.JsonRoundTripPreservesCatalogAndJaggedPerches" methodname="JsonRoundTripPreservesCatalogAndJaggedPerches" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1003162852" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.024144" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1058" name="PrunedSolverAgreesWithPlainBfsOnSmallArrangements" fullname="PerchSort.Tests.LevelTests.PrunedSolverAgreesWithPlainBfsOnSmallArrangements" methodname="PrunedSolverAgreesWithPlainBfsOnSmallArrangements" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="721845201" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.002033" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1106" name="ShippedLevelHasValidatedCountsAndExactShortestSolution" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:54Z" duration="8.593889" total="40" passed="40" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1066" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(1)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(1)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1769670222" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.004088" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 1: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1067" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(2)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(2)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="328359837" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003079" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 2: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1068" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(3)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(3)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1931552039" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003206" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 3: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1069" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(4)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(4)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1025548848" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 4: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1070" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(5)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(5)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1301160352" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.005836" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 5: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1071" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(6)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(6)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="524864284" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.004597" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 6: 4 moves, 12 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1072" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(7)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(7)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1759610595" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.013471" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 7: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1073" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(8)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(8)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1242634782" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.004541" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 8: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1074" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(9)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(9)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1415813870" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.005730" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 9: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1075" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(10)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(10)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1838031402" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003421" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 10: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1076" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(11)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(11)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1874323461" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003722" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 11: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1077" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(12)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(12)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="659226744" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003327" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 12: 5 moves, 19 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1078" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(13)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(13)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1442807766" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003737" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 13: 6 moves, 28 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1079" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(14)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(14)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="119448786" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.004749" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 14: 6 moves, 28 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1080" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(15)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(15)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="641947306" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.006721" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 15: 6 moves, 28 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1081" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(16)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(16)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="945365923" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003281" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 16: 6 moves, 28 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1082" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(17)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(17)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="736119951" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003851" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 17: 6 moves, 28 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1083" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(18)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(18)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="979631002" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.007888" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 18: 7 moves, 39 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1084" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(19)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(19)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2110400393" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.006059" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 19: 7 moves, 39 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1085" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(20)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(20)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1788068746" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.003336" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 20: 7 moves, 39 nodes, 0.000s
+]]></output>
+              </test-case>
+              <test-case id="1086" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(21)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(21)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1560915239" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.081186" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 21: 11 moves, 1933 nodes, 0.076s
+]]></output>
+              </test-case>
+              <test-case id="1087" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(22)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(22)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1561797057" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:45Z" duration="0.111104" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 22: 11 moves, 2092 nodes, 0.107s
+]]></output>
+              </test-case>
+              <test-case id="1088" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(23)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(23)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1085158633" result="Passed" start-time="2026-10-31 05:47:45Z" end-time="2026-10-31 05:47:46Z" duration="0.094038" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 23: 11 moves, 2046 nodes, 0.091s
+]]></output>
+              </test-case>
+              <test-case id="1089" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(24)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(24)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1443187072" result="Passed" start-time="2026-10-31 05:47:46Z" end-time="2026-10-31 05:47:46Z" duration="0.232995" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 24: 12 moves, 4222 nodes, 0.227s
+]]></output>
+              </test-case>
+              <test-case id="1090" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(25)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(25)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1462087471" result="Passed" start-time="2026-10-31 05:47:46Z" end-time="2026-10-31 05:47:46Z" duration="0.210704" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 25: 12 moves, 3736 nodes, 0.207s
+]]></output>
+              </test-case>
+              <test-case id="1091" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(26)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(26)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="712583546" result="Passed" start-time="2026-10-31 05:47:46Z" end-time="2026-10-31 05:47:46Z" duration="0.279269" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 26: 13 moves, 3523 nodes, 0.276s
+]]></output>
+              </test-case>
+              <test-case id="1092" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(27)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(27)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1361067171" result="Passed" start-time="2026-10-31 05:47:46Z" end-time="2026-10-31 05:47:47Z" duration="0.353882" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 27: 13 moves, 4693 nodes, 0.351s
+]]></output>
+              </test-case>
+              <test-case id="1093" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(28)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(28)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2112110156" result="Passed" start-time="2026-10-31 05:47:47Z" end-time="2026-10-31 05:47:47Z" duration="0.342353" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 28: 13 moves, 4365 nodes, 0.339s
+]]></output>
+              </test-case>
+              <test-case id="1094" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(29)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(29)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1165331872" result="Passed" start-time="2026-10-31 05:47:47Z" end-time="2026-10-31 05:47:48Z" duration="0.606152" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 29: 14 moves, 7296 nodes, 0.603s
+]]></output>
+              </test-case>
+              <test-case id="1095" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(30)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(30)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2115698350" result="Passed" start-time="2026-10-31 05:47:48Z" end-time="2026-10-31 05:47:48Z" duration="0.365584" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 30: 13 moves, 5986 nodes, 0.361s
+]]></output>
+              </test-case>
+              <test-case id="1096" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(31)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(31)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="808797380" result="Passed" start-time="2026-10-31 05:47:48Z" end-time="2026-10-31 05:47:48Z" duration="0.437207" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 31: 13 moves, 6704 nodes, 0.434s
+]]></output>
+              </test-case>
+              <test-case id="1097" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(32)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(32)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2013749773" result="Passed" start-time="2026-10-31 05:47:48Z" end-time="2026-10-31 05:47:49Z" duration="0.343339" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 32: 13 moves, 5828 nodes, 0.338s
+]]></output>
+              </test-case>
+              <test-case id="1098" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(33)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(33)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="136870784" result="Passed" start-time="2026-10-31 05:47:49Z" end-time="2026-10-31 05:47:49Z" duration="0.532029" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 33: 14 moves, 6461 nodes, 0.529s
+]]></output>
+              </test-case>
+              <test-case id="1099" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(34)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(34)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1252505205" result="Passed" start-time="2026-10-31 05:47:49Z" end-time="2026-10-31 05:47:50Z" duration="0.279997" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 34: 13 moves, 4832 nodes, 0.277s
+]]></output>
+              </test-case>
+              <test-case id="1100" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(35)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(35)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1296450140" result="Passed" start-time="2026-10-31 05:47:50Z" end-time="2026-10-31 05:47:50Z" duration="0.825184" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 35: 15 moves, 9954 nodes, 0.822s
+]]></output>
+              </test-case>
+              <test-case id="1101" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(36)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(36)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="715793755" result="Passed" start-time="2026-10-31 05:47:50Z" end-time="2026-10-31 05:47:51Z" duration="0.399176" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 36: 14 moves, 7291 nodes, 0.396s
+]]></output>
+              </test-case>
+              <test-case id="1102" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(37)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(37)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="827986229" result="Passed" start-time="2026-10-31 05:47:51Z" end-time="2026-10-31 05:47:52Z" duration="0.829193" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 37: 15 moves, 9483 nodes, 0.826s
+]]></output>
+              </test-case>
+              <test-case id="1103" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(38)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(38)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1436734127" result="Passed" start-time="2026-10-31 05:47:52Z" end-time="2026-10-31 05:47:52Z" duration="0.636185" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 38: 14 moves, 10020 nodes, 0.633s
+]]></output>
+              </test-case>
+              <test-case id="1104" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(39)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(39)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="994723731" result="Passed" start-time="2026-10-31 05:47:52Z" end-time="2026-10-31 05:47:52Z" duration="0.033378" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 39: 13 moves, 618 nodes, 0.030s
+]]></output>
+              </test-case>
+              <test-case id="1105" name="ShippedLevelHasValidatedCountsAndExactShortestSolution(40)" fullname="PerchSort.Tests.LevelTests.ShippedLevelHasValidatedCountsAndExactShortestSolution(40)" methodname="ShippedLevelHasValidatedCountsAndExactShortestSolution" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="863768695" result="Passed" start-time="2026-10-31 05:47:52Z" end-time="2026-10-31 05:47:54Z" duration="1.494155" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Level 40: 16 moves, 13113 nodes, 1.491s
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1053" name="SolverFindsKnownMinimumAndPreservesInput" fullname="PerchSort.Tests.LevelTests.SolverFindsKnownMinimumAndPreservesInput" classname="PerchSort.Tests.LevelTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.002575" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1051" name="SolverFindsKnownMinimumAndPreservesInput(2,3)" fullname="PerchSort.Tests.LevelTests.SolverFindsKnownMinimumAndPreservesInput(2,3)" methodname="SolverFindsKnownMinimumAndPreservesInput" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="2087472633" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.001427" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="SolverFindsKnownMinimumAndPreservesInput(4,3)" fullname="PerchSort.Tests.LevelTests.SolverFindsKnownMinimumAndPreservesInput(4,3)" methodname="SolverFindsKnownMinimumAndPreservesInput" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1794002873" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.000056" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1054" name="SolverHandlesAlreadyWonState" fullname="PerchSort.Tests.LevelTests.SolverHandlesAlreadyWonState" methodname="SolverHandlesAlreadyWonState" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1283210425" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.000081" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1065" name="ValidatorRejectsInvalidLevelData" fullname="PerchSort.Tests.LevelTests.ValidatorRejectsInvalidLevelData" classname="PerchSort.Tests.LevelTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.010143" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1062" name="ValidatorRejectsInvalidLevelData(&quot;birdCount&quot;)" fullname="PerchSort.Tests.LevelTests.ValidatorRejectsInvalidLevelData(&quot;birdCount&quot;)" methodname="ValidatorRejectsInvalidLevelData" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="380955135" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.003356" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="ValidatorRejectsInvalidLevelData(&quot;illegalId&quot;)" fullname="PerchSort.Tests.LevelTests.ValidatorRejectsInvalidLevelData(&quot;illegalId&quot;)" methodname="ValidatorRejectsInvalidLevelData" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="1592646980" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.002956" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="ValidatorRejectsInvalidLevelData(&quot;perchCount&quot;)" fullname="PerchSort.Tests.LevelTests.ValidatorRejectsInvalidLevelData(&quot;perchCount&quot;)" methodname="ValidatorRejectsInvalidLevelData" classname="PerchSort.Tests.LevelTests" runstate="Runnable" seed="285986669" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.003611" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestFixture" id="1108" name="PersistenceTests" fullname="PerchSort.Tests.PersistenceTests" classname="PerchSort.Tests.PersistenceTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.007713" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1111" name="SettingsRoundTripAllFlagsAndPublishSavedValues" fullname="PerchSort.Tests.PersistenceTests.SettingsRoundTripAllFlagsAndPublishSavedValues" methodname="SettingsRoundTripAllFlagsAndPublishSavedValues" classname="PerchSort.Tests.PersistenceTests" runstate="Runnable" seed="376884846" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.003061" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1110" name="UnlocksAreSequentialAndCompletionSurvivesReplaySave" fullname="PerchSort.Tests.PersistenceTests.UnlocksAreSequentialAndCompletionSurvivesReplaySave" methodname="UnlocksAreSequentialAndCompletionSurvivesReplaySave" classname="PerchSort.Tests.PersistenceTests" runstate="Runnable" seed="550265217" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.002619" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1109" name="VersionOneMigratesCompletionAndKeepsCurrentMoves" fullname="PerchSort.Tests.PersistenceTests.VersionOneMigratesCompletionAndKeepsCurrentMoves" methodname="VersionOneMigratesCompletionAndKeepsCurrentMoves" classname="PerchSort.Tests.PersistenceTests" runstate="Runnable" seed="12747829" result="Passed" start-time="2026-10-31 05:47:54Z" end-time="2026-10-31 05:47:54Z" duration="0.001538" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/DefaultCompany/PerchSort/TestResults.xml
+Saving results to: /Users/apple/Library/Application Support/DefaultCompany/PerchSort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

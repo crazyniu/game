@@ -1,0 +1,8 @@
+{
+  "name": "PerchSort.View",
+  "references": [
+    "PerchSort.Core",
+    "Unity.ugui",
+    "PerchSort.Audio"
+  ]
+}

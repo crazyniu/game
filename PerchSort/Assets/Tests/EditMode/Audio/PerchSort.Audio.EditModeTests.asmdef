@@ -1,0 +1,6 @@
+{
+  "name": "PerchSort.Audio.EditModeTests",
+  "references": ["PerchSort.Audio"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

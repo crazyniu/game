@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.0550887">
+  <test-suite type="TestSuite" id="1000" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.055089" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1015" name="PerchSort.Audio.EditModeTests.dll" fullname="/private/tmp/perch-t6.aXgINB/PerchSort/Library/ScriptAssemblies/PerchSort.Audio.EditModeTests.dll" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.051085" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="25833" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1016" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.050831" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1017" name="Tests" fullname="PerchSort.Tests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.050693" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1018" name="Audio" fullname="PerchSort.Tests.Audio" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.047376" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="AudioManagerTests" fullname="PerchSort.Tests.Audio.AudioManagerTests" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.046911" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1014" name="DeliveredResourceUsesRequiredImportSettings" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.021999" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1007" name="DeliveredResourceUsesRequiredImportSettings(&quot;select&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;select&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="189832935" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.017555" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="DeliveredResourceUsesRequiredImportSettings(&quot;move&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;move&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1083697192" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000275" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="DeliveredResourceUsesRequiredImportSettings(&quot;collect&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;collect&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="660739351" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000121" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="DeliveredResourceUsesRequiredImportSettings(&quot;win&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;win&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1645227643" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000107" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="DeliveredResourceUsesRequiredImportSettings(&quot;error&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;error&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1296509436" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000119" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="DeliveredResourceUsesRequiredImportSettings(&quot;undo&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;undo&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1350954186" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000101" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="DeliveredResourceUsesRequiredImportSettings(&quot;click&quot;)" fullname="PerchSort.Tests.Audio.AudioManagerTests.DeliveredResourceUsesRequiredImportSettings(&quot;click&quot;)" methodname="DeliveredResourceUsesRequiredImportSettings" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="2004186371" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000101" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1005" name="MissingResourcesWarnOncePerClipAndDoNotThrow" fullname="PerchSort.Tests.Audio.AudioManagerTests.MissingResourcesWarnOncePerClipAndDoNotThrow" methodname="MissingResourcesWarnOncePerClipAndDoNotThrow" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1191931699" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.003503" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[AudioManager: missing audio 'select'.
+AudioManager: missing audio 'select'.
+AudioManager: missing audio 'move'.
+AudioManager: missing audio 'move'.
+AudioManager: missing audio 'bgm_loop'.
+AudioManager: missing audio 'bgm_loop'.
+]]></output>
+              </test-case>
+              <test-case id="1004" name="MusicSwitchHonorsPendingPlayAndExplicitStop" fullname="PerchSort.Tests.Audio.AudioManagerTests.MusicSwitchHonorsPendingPlayAndExplicitStop" methodname="MusicSwitchHonorsPendingPlayAndExplicitStop" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="894032239" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.015134" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1006" name="RepeatedPlaybackReusesFixedPool" fullname="PerchSort.Tests.Audio.AudioManagerTests.RepeatedPlaybackReusesFixedPool" methodname="RepeatedPlaybackReusesFixedPool" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="2121180989" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000651" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1002" name="SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" fullname="PerchSort.Tests.Audio.AudioManagerTests.SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" methodname="SfxSwitchStopsExistingVoicesAndAllowsImmediateReenable" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1690681018" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000422" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1003" name="ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" fullname="PerchSort.Tests.Audio.AudioManagerTests.ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" methodname="ThrottleIsPerEffectAndAllowsExactlyFiftyMilliseconds" classname="PerchSort.Tests.Audio.AudioManagerTests" runstate="Runnable" seed="1577937267" result="Passed" start-time="2026-10-31 05:46:29Z" end-time="2026-10-31 05:46:29Z" duration="0.000233" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/DefaultCompany/PerchSort/TestResults.xml
+Saving results to: /Users/apple/Library/Application Support/DefaultCompany/PerchSort/TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

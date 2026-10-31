@@ -1,0 +1,58 @@
+[
+  {
+    "id": "bird_02_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-4d29dd0f-ab15-4a94-af77-9edde1c06a6b.png"
+  },
+  {
+    "id": "bird_03_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-b01dd3ca-8c2d-4845-a752-99bd0500c128.png"
+  },
+  {
+    "id": "bird_05_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-87116851-731a-4775-823c-19dea3dbc044.png"
+  },
+  {
+    "id": "bird_06_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-9c52de06-0252-4cc2-92bf-33bb84015924.png"
+  },
+  {
+    "id": "bird_07_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-73536795-1048-4682-9545-f3955d2f087a.png"
+  },
+  {
+    "id": "bird_08_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-cc731664-7fe3-4b91-92ab-339820a6dfb0.png"
+  },
+  {
+    "id": "bird_09_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-dcff96f8-b834-4b2c-84c7-3605ad911696.png"
+  },
+  {
+    "id": "bird_10_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-02093030-d2dc-4f83-ac13-9c95dfe9f181.png"
+  }
+]

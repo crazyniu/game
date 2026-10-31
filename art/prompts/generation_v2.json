@@ -1,0 +1,260 @@
+{
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "date": "2026-10-31",
+  "generations": [
+    {
+      "id": "crate",
+      "prompt": "Use case: stylized-concept. Create one original 2D cartoon game asset: an extra-wide wooden slatted transport crate, width-to-height 3.2:1, almost frontal view with tiny visible top and right side. Horizontal golden honey wood planks, dark warm brown outlines, rounded corners, soft bright cream highlights upper left and caramel shading lower right, matching a cute hand-painted bird puzzle game's honey wooden branch and rounded red cardinal. Crate conceals an entire 4-bird perch, so front must be solid opaque, with a few narrow dark ventilation slits near upper edge only, a tiny brass padlock at right. Broad center front remains plain uninterrupted wood for later text overlay. No letters, words, numbers, birds, scenery or ground shadow. Center single whole object, modest transparent margin, true RGBA transparent background, no white outline or checkerboard. Target canvas 1024x320."
+    },
+    {
+      "id": "basket",
+      "prompt": "Use case: stylized-concept. One original game sprite for a cute bird puzzle: soft bright 2D cartoon, clean warm dark brown contour, rounded shapes, simple cel-painted shading, cream highlight upper left and soft amber shadow lower right. Broad readable shapes at 64px, not photorealistic. True transparent RGBA background, isolated centered complete object with safe margin, no floor shadow, white sticker outline, checkerboard, watermark or lettering. Subject: one small honey-colored woven basket, no handle, open oval rim viewed slightly from above, roomy pale empty interior for one bird to stand in. Short rounded bowl, simple broad interlacing strips, very little fine texture. No bird, eggs or contents. Canvas 512x384."
+    },
+    {
+      "id": "nest",
+      "prompt": "Use case: stylized-concept. One original game sprite for a cute bird puzzle: soft bright 2D cartoon, clean warm dark brown contour, rounded shapes, simple cel-painted shading, cream highlight upper left and soft amber shadow lower right. Broad readable shapes at 64px, not photorealistic. True transparent RGBA background, isolated centered complete object with safe margin, no floor shadow, white sticker outline, checkerboard, watermark or lettering. Subject: one shallow round empty bird nest made from a few large smooth interwoven twigs and pale straw, viewed slightly from above. Pale cream circular empty center for an overlaid bird icon, uncluttered smooth center, no eggs or bird. Warm honey twig rim, roughly circular overall silhouette. Canvas 512x512."
+    },
+    {
+      "id": "trophy",
+      "prompt": "Use case: stylized-concept. One original game sprite for a cute bird puzzle: soft bright 2D cartoon, clean warm dark brown contour, rounded shapes, simple cel-painted shading, cream highlight upper left and soft amber shadow lower right. Broad readable shapes at 64px, not photorealistic. True transparent RGBA background, isolated centered complete object with safe margin, no floor shadow, white sticker outline, checkerboard, watermark or lettering. Subject: one cheerful golden trophy cup with two chunky curved handles, short stem and broad rounded gold pedestal. Large bowl with smooth empty front, simple gleaming cream highlights and amber shadow facets. Symmetric frontal three-quarter-light view. No star decoration, badge, number, writing, ribbons, floating sparkles or extra objects. Canvas 1024x1024."
+    },
+    {
+      "id": "basket_edge_fix",
+      "prompt": "Edit this basket sprite. Remove ALL white sticker border around the outside silhouette and inside any handle holes. The outermost visible contour MUST be warm dark brown touching alpha transparency directly, like a normal game sprite. Preserve the object's shape, colors, shading, interior cream highlights, composition and geometry. Remove stray speckles outside the object. Output true transparent RGBA. No white halo, no white outline anywhere along silhouette. Do not add text.",
+      "reference": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-8ca5c68e-7da0-44ac-bc6a-191e078ca3a8.png"
+    },
+    {
+      "id": "nest_edge_fix",
+      "prompt": "Edit this nest sprite. Remove ALL white sticker border around the outside silhouette and inside any handle holes. The outermost visible contour MUST be warm dark brown touching alpha transparency directly, like a normal game sprite. Preserve the object's shape, colors, shading, interior cream highlights, composition and geometry. Remove stray speckles outside the object. Output true transparent RGBA. No white halo, no white outline anywhere along silhouette. Do not add text.",
+      "reference": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-7bacf5e0-6f9e-480e-850c-26051d4ae78e.png"
+    },
+    {
+      "id": "trophy_edge_fix",
+      "prompt": "Edit this trophy sprite. Remove ALL white sticker border around the outside silhouette and inside any handle holes. The outermost visible contour MUST be warm dark brown touching alpha transparency directly, like a normal game sprite. Preserve the object's shape, colors, shading, interior cream highlights, composition and geometry. Remove stray speckles outside the object. Output true transparent RGBA. No white halo, no white outline anywhere along silhouette. Do not add text.",
+      "reference": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-64835a39-6a08-49ab-abb4-fe9b498686e4.png"
+    },
+    {
+      "id": "nest_done",
+      "reference": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-030f6212-8ff6-4a5b-b80e-354f9ed6faf9.png",
+      "prompt": "Edit target: this exact original nest. Preserve nest silhouette, twig arrangement, lighting, palette, framing, camera and all outer edges exactly. Add exactly three small smooth pastel cream eggs in a triangular cluster at the center, with a subtle warm honey glow confined inside the nest. Eggs occupy half the empty center. Keep dark brown silhouette touching true alpha transparency, no white outer outline. No lettering, birds or extra objects."
+    },
+    {
+      "id": "zzz",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: one small pale lavender rounded sleep thought-bubble with a short bottom-left tail, containing a single chunky lavender Z sleep symbol. The Z is the only permitted character and must be instantly readable, no other writing. Warm brown bubble contour. Canvas 256x256."
+    },
+    {
+      "id": "sparkle",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: one single four-point golden sparkle, vertically elongated with four concave curved sides and exactly four sharp tips. Pale cream core, amber lower-right facets, thin dark caramel outline. No extra stars or dots. Canvas 256x256."
+    },
+    {
+      "id": "check",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: one mint-green circular completion badge bearing a large thick dark forest-green check mark. Soft upper-left cream glint, dark warm-brown outer rim, slightly pillowy volume, simple clean shape. No writing. Canvas 256x256."
+    },
+    {
+      "id": "feather",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: one single soft pale teal and cream bird feather drifting diagonally, quill bottom left, rounded taper tip upper right. A few broad feather barbs and a curved central shaft, warm brown silhouette, no tiny filaments. Canvas 256x256."
+    },
+    {
+      "id": "ring",
+      "prompt": "Use case: stylized-concept. One original bird puzzle game effect: a soft thin circular golden light ring viewed straight-on, perfectly open truly transparent center, softly feathered translucent outer glow, pale honey/cream upper-left light and warm amber lower-right tint. Simple luminous circular loop, no outline needed for this light effect. Isolated on true transparent RGBA. No white background, disk, floor, shadow, text, stars, dots or other objects. Center whole ring within generous transparent safe margins. Canvas 256x256."
+    },
+    {
+      "id": "star",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: one single plump golden FIVE-point reward star, large simple cream highlight upper left and amber shading lower right, warm brown outermost contour. No face, eyes, mouth, ribbons, sparkles or other objects. Canvas 256x256."
+    },
+    {
+      "id": "closed_eye",
+      "prompt": "Use case: stylized-concept. Original simple 2D cartoon sleeping-eye overlay sprite: exactly ONE smooth dark warm brown shallow U-shaped curved closed-eyelid stroke, slightly tapered rounded ends, center of curve lower than both tips. Plain flat single thick line on genuine RGBA transparent background. No eyeball, no eye socket, no face, eyelashes, highlights, shadow, white border, letters or any other objects. Center stroke horizontally in square canvas 128x128; stroke spans 75 percent of width and 20 percent of height. Crisp but antialiased."
+    },
+    {
+      "id": "confetti_01",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: exactly ONE small coral-red confetti paper piece shaped as a gently curved wide rectangle tilted diagonally. Clearly a single paper scrap with one broad fold highlight, thin brown contour, flat graphic look. No other fragments. Canvas 256x256."
+    },
+    {
+      "id": "confetti_02",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: exactly ONE small teal confetti paper piece shaped as a simple rounded triangle tilted diagonally. Clearly a single paper scrap with one broad fold highlight, thin brown contour, flat graphic look. No other fragments. Canvas 256x256."
+    },
+    {
+      "id": "confetti_03",
+      "prompt": "Use case: stylized-concept. One original 2D bird puzzle game sprite, soft bright cartoon with rounded simple shapes, clean warm DARK BROWN outer contour directly touching transparent alpha, cream highlights upper left and soft colored shading lower right. Readable at 64px. True transparent RGBA background, centered whole object and safe margin. No scenery, floor shadow, lettering, watermark. The outermost border is dark brown: never white, never a sticker border. Subject: exactly ONE small lavender confetti paper piece shaped as a short curled ribbon with a simple S silhouette and two squared ends. Clearly one little paper scrap with one broad fold highlight, thin brown contour, flat graphic look. No other fragments. Canvas 256x256."
+    },
+    {
+      "id": "bird_01s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_01.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_02s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_02.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_03s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_03.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_04s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_04.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_05s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_05.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_06s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_06.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_07s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_07.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_08s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_08.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_09s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_09.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    },
+    {
+      "id": "bird_10s",
+      "reference": "/Users/apple/Documents/projects/game/art/raw/birds/bird_10.png",
+      "prompt": "Precise localized edit of this original bird game sprite: replace its single visible open oval eye, pupil, eyeball and white glint with face-colored feathers and ONE thin warm dark-brown shallow U-shaped closed eyelid, relaxed asleep. Only change the eye region, keep EVERY other shape, feather marking, colors, proportions, head angle, silhouette, feet, position and canvas framing identical. Preserve cheek blush. Do not squat, move or recolor bird. Keep original true transparent RGBA background. No ground shadow, white border, text, Z, speech bubble or other decoration. Same 1024x1024 canvas."
+    }
+  ],
+  "selected": [
+    {
+      "id": "crate",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-bd7bf3ac-fd76-46b8-b0eb-d5a21a1662d5.png",
+      "source": "source/v2/crate.png"
+    },
+    {
+      "id": "basket",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-b2195615-ee41-4082-bbb4-425d7777c69a.png",
+      "source": "source/v2/basket.png"
+    },
+    {
+      "id": "nest",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-030f6212-8ff6-4a5b-b80e-354f9ed6faf9.png",
+      "source": "source/v2/nest.png"
+    },
+    {
+      "id": "nest_done",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-fbe29830-21e3-4463-8efa-d2f8f371b6ed.png",
+      "source": "source/v2/nest_done.png"
+    },
+    {
+      "id": "zzz",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-32860621-84b3-479a-ab26-355c74c3c7e2.png",
+      "source": "source/v2/zzz.png"
+    },
+    {
+      "id": "sparkle",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-3c5af48a-bc1c-4864-a5e1-0138e2abce2a.png",
+      "source": "source/v2/sparkle.png"
+    },
+    {
+      "id": "check",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-4ea7e292-29f4-45ae-894a-cc262b52ce5e.png",
+      "source": "source/v2/check.png"
+    },
+    {
+      "id": "feather",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-d0e63504-794e-4628-92fe-89d543161657.png",
+      "source": "source/v2/feather.png"
+    },
+    {
+      "id": "ring",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-b4d6f408-a3ea-4197-9936-e0f50f9b7755.png",
+      "source": "source/v2/ring.png"
+    },
+    {
+      "id": "confetti_01",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-5a37526b-025c-4f4c-9bbe-b01ce567396d.png",
+      "source": "source/v2/confetti_01.png"
+    },
+    {
+      "id": "confetti_02",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-1eeec6ec-7c5a-4a63-bc01-1f97553ba914.png",
+      "source": "source/v2/confetti_02.png"
+    },
+    {
+      "id": "confetti_03",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-465e573a-a1f4-4797-ba3f-5dcee42f44ea.png",
+      "source": "source/v2/confetti_03.png"
+    },
+    {
+      "id": "trophy",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-3c38d95d-4ae0-40be-aab2-bdf83e3ea1ce.png",
+      "source": "source/v2/trophy.png"
+    },
+    {
+      "id": "star",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-9c51827f-b511-4be0-a229-7b1822208e42.png",
+      "source": "source/v2/star.png"
+    },
+    {
+      "id": "closed_eye",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-334695f3-0e30-463d-ac78-e41ab4963fc7.png",
+      "source": "source/v2/closed_eye.png"
+    },
+    {
+      "id": "bird_01s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-c0506ad2-24dd-45c6-840d-726d583b83d8.png",
+      "source": "source/v2/bird_01s.png"
+    },
+    {
+      "id": "bird_02s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-31a78e7e-37bf-4e99-b5c9-4ffa5b35a570.png",
+      "source": "source/v2/bird_02s.png"
+    },
+    {
+      "id": "bird_03s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-c10bb70e-8180-4800-a289-b313d54b3110.png",
+      "source": "source/v2/bird_03s.png"
+    },
+    {
+      "id": "bird_04s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-1e4edf42-7c42-458b-ab1d-99271f0e70c0.png",
+      "source": "source/v2/bird_04s.png"
+    },
+    {
+      "id": "bird_05s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-8506177b-0bd9-495f-b13b-b98bdaf5b2b2.png",
+      "source": "source/v2/bird_05s.png"
+    },
+    {
+      "id": "bird_06s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-fb160cf1-bee4-41cf-874c-066333d347fb.png",
+      "source": "source/v2/bird_06s.png"
+    },
+    {
+      "id": "bird_07s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-93f4526c-23f3-4e6a-900d-0592048de4a5.png",
+      "source": "source/v2/bird_07s.png"
+    },
+    {
+      "id": "bird_08s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-cb522ae0-aedc-4a9a-b617-844ed5bcb6c6.png",
+      "source": "source/v2/bird_08s.png"
+    },
+    {
+      "id": "bird_09s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-6df6ce89-25bb-4612-96ef-423102068ac9.png",
+      "source": "source/v2/bird_09s.png"
+    },
+    {
+      "id": "bird_10s",
+      "generatedPath": "/Users/apple/.codex/generated_images/01a190f6-31fb-71c3-b438-18430a58cacf/exec-0eaa20e2-c894-43cd-af9a-459fc1899ce7.png",
+      "source": "source/v2/bird_10s.png"
+    }
+  ]
+}

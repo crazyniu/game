@@ -1,0 +1,21 @@
+$ python3 art/tools/check_assets.py
+PASS raw/birds/bird_01.png  1024x1024
+PASS raw/birds/bird_02.png  1024x1024
+PASS raw/birds/bird_03.png  1024x1024
+PASS raw/birds/bird_04.png  1024x1024
+PASS raw/birds/bird_05.png  1024x1024
+PASS raw/birds/bird_06.png  1024x1024
+PASS raw/birds/bird_07.png  1024x1024
+PASS raw/birds/bird_08.png  1024x1024
+PASS raw/birds/bird_09.png  1024x1024
+PASS raw/birds/bird_10.png  1024x1024
+PASS raw/env/perch.png  1024x256
+PASS raw/env/tree_crown.png  1536x768
+PASS raw/env/background.png  1080x1920
+PASS raw/ui/icon_1024.png  1024x1024
+PASS contact_sheet.png  1440x780
+PASS contact_sheet_gray_64.png  500x252
+
+PASS: 14 production assets + 2 contact sheets; 10 RGBA birds; transparent corners/margins; aligned feet.
+Visual review: contact_sheet_gray_64.png and qa/alpha_edges.png (readability and fringe are human checks).
+Exit code: 0

@@ -1,0 +1,324 @@
+{
+  "pack": "T11b5",
+  "generator": "built-in image_gen",
+  "reference": [
+    "contact_b_light.png",
+    "icon_back.png",
+    "icon_sound.png",
+    "btn_round_red.png",
+    "btn_primary.png",
+    "btn_orange.png"
+  ],
+  "processing": "Crop to alpha > 8 bounding box with 3 source-pixel margin; preserve alpha within crop; premultiplied-alpha Lanczos aspect-preserving fit centered on exact RGBA canvas. Icon content bound 172px; button content bound 210px. Pressed buttons shifted down 6px and RGB multiplied by 0.92.",
+  "scope_extension": {
+    "coordinator_message": "msg_ac510cb5572f",
+    "decision": "Add green/orange round buttons and pressed states, 224x224; show new icons on wood/red/green/orange round buttons."
+  },
+  "assets": [
+    {
+      "name": "icon_play",
+      "file": "icon_play.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        23,
+        10,
+        168,
+        182
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "0f3716999bad0a9881f3ccb9057a8bf5d34aba0af784145518f393cd2cb5b10d",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_play.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-670f85cc-dccc-40bc-918a-369dfc4f524f.png",
+      "prompt": "Use case: style-transfer. Create one original Perch Sort UI icon icon_play, matching the attached icon_back style exactly. The reference is STYLE ONLY: replace the left arrow with a single solid right-pointing equilateral play TRIANGLE, NO shaft. Rounded corners. Cream #FFF3D0 fill, dark-brown #5A3A22 clear rounded outline of same relative weight as reference, soft upper-left cream highlight, very subtle tan inner bevel at lower-right. Bold simple geometry legible at 64px. Front view, one centered isolated symbol occupies 78% of square with transparent padding, true transparent background. No enclosing button, disk, frame, text, letters, logo, watermark, scenery or cast shadow. Deliver just one square PNG icon.",
+      "source_crop": [
+        234,
+        157,
+        1023,
+        1096
+      ]
+    },
+    {
+      "name": "icon_next",
+      "file": "icon_next.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        10,
+        18,
+        182,
+        174
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "3b3588b80fe0314dab8eac9437dcb798fb9efdbd3f40f5d25779d1aed16de93a",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_next.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-dc892354-b29c-4eda-985e-bb57683aeccf.png",
+      "prompt": "Use case: style-transfer. Create one original Perch Sort UI icon icon_next, matching the attached icon_back style exactly. The reference is STYLE ONLY: replace the left arrow with a solid right-pointing play triangle followed by ONE vertical rounded bar, separated with a clear transparent gap. Rounded corners. Cream #FFF3D0 fill, dark-brown #5A3A22 rounded contour same relative weight as reference, soft upper-left cream highlight, subtle tan inner bevel at lower-right. Bold simple geometry legible at 64px. Front view, centered isolated next symbol fills 78% of square with transparent padding, true transparent background. No enclosing button, disk, frame, text, letters, logo, watermark, scenery or cast shadow. Deliver just one square PNG icon.",
+      "source_crop": [
+        165,
+        208,
+        1095,
+        1052
+      ]
+    },
+    {
+      "name": "icon_levels",
+      "file": "icon_levels.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        10,
+        14,
+        182,
+        178
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "06a3eb49123e5380ba45bca281369d66b75174b1e51ff887296407d98c79fc29",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_levels.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-ad3c954f-42ef-43a8-b35e-2ab60b25b161.png",
+      "prompt": "Use case: style-transfer. Create one original Perch Sort UI icon icon_levels, matching the attached icon_back style exactly. The reference is STYLE ONLY: replace the arrow with exactly FOUR identical rounded squares arranged in a regular 2 by 2 grid with equal clear transparent horizontal and vertical gaps. Each tile cream #FFF3D0 fill, dark-brown #5A3A22 rounded contour same relative weight as reference, soft upper-left cream highlight, subtle tan inner bevel at lower-right. Rounded linear plus solid-fill icon family. Bold simple geometry legible at 64px. Front view, centered isolated grid symbol fills 78% of square with transparent padding, true transparent background. No enclosing button, disk, frame, text, numbers, letters, logo, watermark, scenery or cast shadow. Deliver just one square PNG icon.",
+      "source_crop": [
+        136,
+        164,
+        1117,
+        1099
+      ]
+    },
+    {
+      "name": "icon_sound_off",
+      "file": "icon_sound_off.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        10,
+        17,
+        182,
+        174
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "64450165ad16cf1808de3d65c07074e189a11bf8b3067ff0662881da79c97979",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_sound_off.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-faea0a06-259c-4c82-b542-aea39c8c9931.png",
+      "prompt": "Use case: precise-object-edit. Edit attached Perch Sort icon_sound into icon_sound_off. Preserve the EXACT SAME speaker silhouette, orientation, cream #FFF3D0 fill, dark brown #5A3A22 outline, soft upper-left highlight and tan lower-right bevel. Remove BOTH curved sound-wave strokes completely so their area becomes transparent. Add ONE diagonal rounded cream-filled dark-brown-outlined slash running from lower-left to upper-right across the speaker, clearly indicating muted sound. Keep original speaker shape recognizable, no X, no waves. Front facing original rounded icon family, bold simple geometry legible at 64px. Single icon centered on square with generous transparent padding, true transparent alpha. No enclosing button, disk, frame, text, letters, logos, watermark, scenery or cast shadow.",
+      "source_crop": [
+        125,
+        183,
+        1120,
+        1091
+      ]
+    },
+    {
+      "name": "icon_question",
+      "file": "icon_question.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        37,
+        10,
+        155,
+        182
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "a50c5c8b0bc88beb7199e3fcdb48883b2da85b3f940efda3ada58a1f6d74f0a6",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_question.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-4c884109-a05a-444d-b2b9-8c59c8d8acb8.png",
+      "prompt": "Use case: style-transfer. Create one original Perch Sort UI icon icon_question, matching attached icon_back style exactly. The reference is STYLE ONLY: replace the arrow with a single thick rounded QUESTION MARK symbol, including its distinct circular dot separated by transparent gap below the hook. Cream #FFF3D0 fill, dark-brown #5A3A22 rounded contour same relative weight as reference, soft upper-left cream highlight, subtle tan inner bevel at lower-right. Rounded linear plus solid-fill icon family. Bold simple geometry legible at 64px. Front view, centered isolated symbol fills 78% of square with transparent padding, true transparent background. No enclosing button, disk, frame, additional text, letters, logo, watermark, scenery or cast shadow. The question mark is the sole requested symbol. Deliver just one square PNG icon.",
+      "source_crop": [
+        268,
+        114,
+        990,
+        1168
+      ]
+    },
+    {
+      "name": "icon_flag",
+      "file": "icon_flag.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        23,
+        10,
+        169,
+        182
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "7a7eefa7773c34aa9d258dbd4ebbced5b64bf0d16f4f13eeb136bd22ba18f012",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/icon_flag.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-a27e0d54-af30-4699-abd2-e69089b28c78.png",
+      "prompt": "Use case: style-transfer. Create one original Perch Sort UI icon icon_flag, matching attached icon_back style exactly. The reference is STYLE ONLY: replace the arrow with one SMALL FLAG, upright thick rounded pole on left and one simple softly waving rectangular flag attached to top extending to the right. Entire flag cloth AND pole use cream #FFF3D0 fill, dark-brown #5A3A22 rounded contour same relative weight as reference, soft upper-left cream highlight, subtle tan inner bevel at lower-right. Rounded linear plus solid-fill icon family. No emblem on flag. Bold simple geometry legible at 64px. Front view, centered isolated flag symbol fills 78% of square with transparent padding, true transparent background. No enclosing button, disk, frame, text, numbers, letters, logo, watermark, scenery, ground or cast shadow. Deliver just one square PNG icon.",
+      "source_crop": [
+        217,
+        123,
+        1093,
+        1158
+      ]
+    },
+    {
+      "name": "btn_round_green",
+      "file": "btn_round_green.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        7,
+        7,
+        217,
+        216
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "a6bc9376e113ba76d634995cabb32974ca5c9ffbd5b00f32b7c7bdb6d11b24c7",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/btn_round_green.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-0a201db6-4074-418f-a15d-3f993e51776e.png",
+      "prompt": "Use case: precise-object-edit. Create btn_round_green for Perch Sort UI. Image 1 btn_round_red is the EDIT TARGET: preserve its EXACT circular silhouette, raised rounded rim, warm dark-brown #5A3A22 thin outer contour, front view, soft upper-left highlight, subtle lower-right edge shading and painted material. Change ONLY its red fill into the rich leaf green palette of image 2 btn_primary, with the same restrained leaf-like surface texture and green gradient. Image 2 is COLOR/MATERIAL REFERENCE ONLY, do NOT copy its capsule shape. One blank round circular green button, absolutely NO icon or text, no letters, logo, watermark, no surroundings. Centered on square, true transparent alpha background, button approximately 94% of canvas diameter with small transparent padding. Existing wooden round button shape family, exact circle, not oval.",
+      "source_crop": [
+        35,
+        22,
+        1216,
+        1199
+      ]
+    },
+    {
+      "name": "btn_round_green_pressed",
+      "file": "btn_round_green_pressed.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        7,
+        13,
+        217,
+        222
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "08c67cd7390dd597e0b895915992ee9bc69389bf966a0cd2307d7635f19c1816",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "derived_from": "btn_round_green",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    {
+      "name": "btn_round_orange",
+      "file": "btn_round_orange.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        7,
+        7,
+        217,
+        216
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "ca9e35909bea5af218be542bef8ee57bb4d1a6ce8e87c792a0d6ed31b7cfa13c",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "source": "source_d/btn_round_orange.png",
+      "original_source": "/Users/apple/.codex/generated_images/01a19147-3ad2-7101-bade-9ca9a339befe/exec-b4258590-794e-4b0d-b92d-c4d5ace2cb46.png",
+      "prompt": "Use case: precise-object-edit. Create btn_round_orange for Perch Sort UI. Image 1 btn_round_red is the EDIT TARGET: preserve its EXACT circular silhouette, raised rounded rim, warm dark-brown #5A3A22 thin outer contour, front view, soft upper-left highlight, subtle lower-right edge shading and painted material. Change ONLY its red fill into the warm golden-orange palette of image 2 btn_orange with same restrained painted surface and orange gradient. Image 2 is COLOR/MATERIAL REFERENCE ONLY, do NOT copy its capsule shape. One blank round circular orange button, absolutely NO icon or text, no letters, logo, watermark, no surroundings. Centered on square, true transparent alpha background, button approximately 94% of canvas diameter with small transparent padding. Existing wooden round button shape family, exact circle, not oval.",
+      "source_crop": [
+        22,
+        21,
+        1225,
+        1217
+      ]
+    },
+    {
+      "name": "btn_round_orange_pressed",
+      "file": "btn_round_orange_pressed.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "alpha_bbox": [
+        7,
+        13,
+        217,
+        222
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "8976d7e54f7fe565872b5c5deef318d7da5a7a7048075b304ed0ec8f2418467c",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "derived_from": "btn_round_orange",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    }
+  ],
+  "contact_sheets": [
+    "contact_d_light.png",
+    "contact_d_icons_64.png"
+  ],
+  "validation": {
+    "asset_count": 10,
+    "icons_192_rgba": true,
+    "buttons_224_rgba": true,
+    "transparent_corners": true,
+    "alpha_min_max": [
+      0,
+      255
+    ],
+    "pressed_down_6_rgb_0_92_exact": true,
+    "existing_files_hash_unchanged": 88
+  },
+  "visual_review": {
+    "icons_64": "Six symbols distinguishable on light/dark and all four button colors; next bar, question dot and four level cells remain separated. Compared to existing back/pause/sound at 64px.",
+    "contact_sheet": "Wood/red/green/orange each display all six icons, plus 112px normal/pressed new button pairs.",
+    "status": "Worker visual review complete; coordinator acceptance pending."
+  }
+}

@@ -1,0 +1,1117 @@
+{
+  "canvas": [
+    1024,
+    1024
+  ],
+  "coordinates": "top-left; bbox right/bottom exclusive",
+  "sample_only": false,
+  "assets": {
+    "bird_01": {
+      "file": "bird_01.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        214,
+        97,
+        810,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 774
+    },
+    "bird_01_blink": {
+      "file": "bird_01_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        214,
+        97,
+        810,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        403,
+        354,
+        642,
+        436
+      ]
+    },
+    "bird_01_sleep": {
+      "file": "bird_01_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        197,
+        209,
+        827,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_01_fly": {
+      "file": "bird_01_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        75,
+        1002,
+        892
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_02": {
+      "file": "bird_02.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        202,
+        111,
+        822,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_02_blink": {
+      "file": "bird_02_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        202,
+        111,
+        822,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        358,
+        272,
+        663,
+        375
+      ]
+    },
+    "bird_02_sleep": {
+      "file": "bird_02_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        178,
+        262,
+        844,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_02_fly": {
+      "file": "bird_02_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        24,
+        141,
+        1002,
+        841
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_03": {
+      "file": "bird_03.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        205,
+        112,
+        819,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_03_blink": {
+      "file": "bird_03_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        205,
+        112,
+        819,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        396,
+        360,
+        641,
+        453
+      ]
+    },
+    "bird_03_sleep": {
+      "file": "bird_03_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        184,
+        215,
+        841,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_03_fly": {
+      "file": "bird_03_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        110,
+        1002,
+        872
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_04": {
+      "file": "bird_04.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        116,
+        166,
+        909,
+        902
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 705
+    },
+    "bird_04_blink": {
+      "file": "bird_04_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        116,
+        166,
+        909,
+        902
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        389,
+        275,
+        635,
+        367
+      ]
+    },
+    "bird_04_sleep": {
+      "file": "bird_04_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        109,
+        343,
+        915,
+        895
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_04_fly": {
+      "file": "bird_04_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        21,
+        117,
+        1001,
+        949
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_05": {
+      "file": "bird_05.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        272,
+        97,
+        753,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 774,
+      "bodyWidthWithoutTail": 423,
+      "totalVisibleWidth": 481,
+      "bodyBoundsWithoutTail": [
+        301,
+        97,
+        724,
+        871
+      ],
+      "tailSideExposurePixels": [
+        29,
+        29
+      ],
+      "measurementNote": "T10e: height includes head tuft and feet, excludes fan tail; width includes folded wings. bird_01 height reference 774px."
+    },
+    "bird_05_blink": {
+      "file": "bird_05_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        272,
+        97,
+        753,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        402,
+        237,
+        621,
+        325
+      ],
+      "eyeRegionBounds": [
+        [
+          400,
+          235,
+          483,
+          326
+        ],
+        [
+          539,
+          235,
+          623,
+          326
+        ]
+      ]
+    },
+    "bird_05_sleep": {
+      "file": "bird_05_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        237,
+        363,
+        787,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_05_fly": {
+      "file": "bird_05_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        158,
+        1002,
+        811
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_06": {
+      "file": "bird_06.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        289,
+        49,
+        735,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 821,
+      "coordinatorAdjustment": "Standing/blink/sleep uniformly enlarged 8%; height tolerance exception approved. Flight retains original approximately 980px wingspan to avoid clipping, with center shifted to match enlarged standing sprite."
+    },
+    "bird_06_blink": {
+      "file": "bird_06_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        289,
+        49,
+        735,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "coordinatorAdjustment": "Standing/blink/sleep uniformly enlarged 8%; height tolerance exception approved. Flight retains original approximately 980px wingspan to avoid clipping, with center shifted to match enlarged standing sprite.",
+      "changedBounds": [
+        447,
+        166,
+        646,
+        252
+      ]
+    },
+    "bird_06_sleep": {
+      "file": "bird_06_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        265,
+        174,
+        759,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "coordinatorAdjustment": "Standing/blink/sleep uniformly enlarged 8%; height tolerance exception approved. Flight retains original approximately 980px wingspan to avoid clipping, with center shifted to match enlarged standing sprite."
+    },
+    "bird_06_fly": {
+      "file": "bird_06_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        21,
+        77,
+        1002,
+        845
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "coordinatorAdjustment": "Standing/blink/sleep uniformly enlarged 8%; height tolerance exception approved. Flight retains original approximately 980px wingspan to avoid clipping, with center shifted to match enlarged standing sprite."
+    },
+    "bird_07": {
+      "file": "bird_07.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        270,
+        111,
+        754,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_07_blink": {
+      "file": "bird_07_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        270,
+        111,
+        754,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        365,
+        292,
+        660,
+        386
+      ]
+    },
+    "bird_07_sleep": {
+      "file": "bird_07_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        240,
+        259,
+        785,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_07_fly": {
+      "file": "bird_07_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        83,
+        1003,
+        898
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_08": {
+      "file": "bird_08.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        209,
+        110,
+        815,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_08_blink": {
+      "file": "bird_08_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        209,
+        110,
+        815,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        360,
+        230,
+        675,
+        350
+      ]
+    },
+    "bird_08_sleep": {
+      "file": "bird_08_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        167,
+        302,
+        857,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_08_fly": {
+      "file": "bird_08_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        77,
+        1002,
+        904
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_09": {
+      "file": "bird_09.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        128,
+        112,
+        895,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_09_blink": {
+      "file": "bird_09_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        128,
+        112,
+        895,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        364,
+        253,
+        661,
+        361
+      ]
+    },
+    "bird_09_sleep": {
+      "file": "bird_09_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        104,
+        234,
+        919,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_09_fly": {
+      "file": "bird_09_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        147,
+        1002,
+        832
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_10": {
+      "file": "bird_10.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        270,
+        110,
+        754,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "standingHeightWithoutTail": 760
+    },
+    "bird_10_blink": {
+      "file": "bird_10_blink.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        270,
+        110,
+        754,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ],
+      "changedBounds": [
+        366,
+        285,
+        664,
+        385
+      ]
+    },
+    "bird_10_sleep": {
+      "file": "bird_10_sleep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        230,
+        201,
+        793,
+        871
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": false,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    },
+    "bird_10_fly": {
+      "file": "bird_10_fly.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "footAnchorPixels": [
+        512,
+        870
+      ],
+      "visibleBounds": [
+        22,
+        124,
+        1002,
+        858
+      ],
+      "recommendedDisplayWidth": 140,
+      "displayWidthMeaning": "full 1024px canvas width",
+      "airborne": true,
+      "unityPivot": [
+        0.5,
+        0.150390625
+      ]
+    }
+  },
+  "acceptedOverrides": [
+    "Coordinator approved front samples bird_01/bird_04 and retains their visual proportions.",
+    "Species width differences accepted in place of strict 40-55%; visual distinction and no row overlap take priority.",
+    "bird_06 standing/blink/sleep enlarged 8%; flight retains approximately980px span to fit canvas, center aligned to enlarged standing.",
+    "Flying footAnchorPixels is the common virtual anchor; feet are tucked and do not contact y870."
+  ]
+}

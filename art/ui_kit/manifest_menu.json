@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "task": "T11b3",
+  "spec": "docs/UI_SPEC.md §3.1",
+  "coordinate_convention": {
+    "asset_pixels": "origin top-left, x right, y down, pixels; bbox is left/top inclusive, right/bottom exclusive",
+    "menu_ui": "origin center, x right, y up, pixels",
+    "uv": "normalized 0..1; top-left unless field explicitly says bottom-left",
+    "foot_anchor": "midpoint between both feet at the sole baseline"
+  },
+  "assets": {
+    "logo_perch_sort": {
+      "file": "logo_perch_sort.png",
+      "size": [
+        1536,
+        640
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        21,
+        29,
+        1482,
+        621
+      ],
+      "sha256": "7efc762baa0fe4f5570be99e1b6e0fb63e36839c9de93ef60a0ebcabd3beebb9"
+    },
+    "menu_tree": {
+      "file": "menu_tree.png",
+      "size": [
+        1536,
+        1280
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        29,
+        25,
+        1507,
+        1256
+      ],
+      "sha256": "bb19d60535816d36fae1580404e3bdfc825274aa0563ad4ad3770852bac57902"
+    },
+    "blink_bird_01": {
+      "file": "blink_bird_01.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        625,
+        348,
+        730,
+        457
+      ],
+      "sha256": "e1311aba675c7d9628a1ca60500d0b1dab617647f08c012b657d04c883e10dc2"
+    },
+    "blink_bird_03": {
+      "file": "blink_bird_03.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        650,
+        337,
+        760,
+        448
+      ],
+      "sha256": "f691c020ef0602ed75e082970e09932df1c15097839b5457920d70c7b88368b5"
+    },
+    "blink_bird_05": {
+      "file": "blink_bird_05.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        709,
+        237,
+        822,
+        348
+      ],
+      "sha256": "cc8921e14896f649db127de88fe28ae5a06a5f39366d1a84fca3f489aa4281ba"
+    },
+    "fly_bird_01": {
+      "file": "fly_bird_01.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        102,
+        17,
+        989,
+        1003
+      ],
+      "sha256": "947056edd3cd057bfec2ec8a3bab3ceaa514ab86b80490a1d52b63613a3b15d0"
+    },
+    "fly_bird_03": {
+      "file": "fly_bird_03.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        71,
+        993,
+        1005
+      ],
+      "sha256": "14ead2a0d5d857b63b2f981bb30e4151c8cfe6ba1e14099a507b397b57fcfaf9"
+    },
+    "fly_bird_05": {
+      "file": "fly_bird_05.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        34,
+        33,
+        996,
+        1024
+      ],
+      "sha256": "738a9fee6ca959acfaffdbaca328123dd3f0b3beabd9e22d5fa20ceb2365452f"
+    },
+    "contact_menu": {
+      "file": "contact_menu.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "sha256": "0f14bf85eee599895ae1495d87ea62be0f53ad7872c3494be4fb0a76711312b1"
+    }
+  },
+  "tree": {
+    "file": "menu_tree.png",
+    "size": [
+      1536,
+      1280
+    ],
+    "bird_slots": [
+      {
+        "bird": "bird_01",
+        "foot_px": [
+          418,
+          896
+        ]
+      },
+      {
+        "bird": "bird_03",
+        "foot_px": [
+          768,
+          896
+        ]
+      },
+      {
+        "bird": "bird_05",
+        "foot_px": [
+          1135,
+          896
+        ]
+      }
+    ]
+  },
+  "birds": [
+    {
+      "id": "bird_01",
+      "standing_file": "../raw/birds/bird_01.png",
+      "standing_sha256": "9bac75815a49cfa05682776993c09415a4b7db36944662339a9dbbc841b33149",
+      "standing_size": [
+        1024,
+        1024
+      ],
+      "standing_foot_anchor_px": [
+        594,
+        860
+      ],
+      "standing_foot_anchor_uv_top_left": [
+        0.580078,
+        0.839844
+      ],
+      "standing_unity_pivot_bottom_left": [
+        0.580078,
+        0.160156
+      ],
+      "tree_foot_position_px": [
+        418,
+        896
+      ],
+      "tree_foot_position_uv_top_left": [
+        0.272135,
+        0.7
+      ],
+      "blink": {
+        "file": "blink_bird_01.png",
+        "type": "same_canvas_eye_overlay",
+        "composite": "source_over",
+        "size": [
+          1024,
+          1024
+        ],
+        "local_offset_px": [
+          0,
+          0
+        ],
+        "overlay_bbox_px": [
+          625,
+          348,
+          730,
+          457
+        ],
+        "outside_eye_bbox_identical": true
+      },
+      "flight": {
+        "file": "fly_bird_01.png",
+        "size": [
+          1024,
+          1024
+        ],
+        "facing": "right",
+        "pose": "wings_spread_upstroke",
+        "frames": 1
+      },
+      "preview_canvas_size": [
+        270,
+        270
+      ]
+    },
+    {
+      "id": "bird_03",
+      "standing_file": "../raw/birds/bird_03.png",
+      "standing_sha256": "837d44ecd2fea98c65cd63870be49ac1beda4e528cf97b65986d6898d9c5d2e5",
+      "standing_size": [
+        1024,
+        1024
+      ],
+      "standing_foot_anchor_px": [
+        584,
+        860
+      ],
+      "standing_foot_anchor_uv_top_left": [
+        0.570312,
+        0.839844
+      ],
+      "standing_unity_pivot_bottom_left": [
+        0.570312,
+        0.160156
+      ],
+      "tree_foot_position_px": [
+        768,
+        896
+      ],
+      "tree_foot_position_uv_top_left": [
+        0.5,
+        0.7
+      ],
+      "blink": {
+        "file": "blink_bird_03.png",
+        "type": "same_canvas_eye_overlay",
+        "composite": "source_over",
+        "size": [
+          1024,
+          1024
+        ],
+        "local_offset_px": [
+          0,
+          0
+        ],
+        "overlay_bbox_px": [
+          650,
+          337,
+          760,
+          448
+        ],
+        "outside_eye_bbox_identical": true
+      },
+      "flight": {
+        "file": "fly_bird_03.png",
+        "size": [
+          1024,
+          1024
+        ],
+        "facing": "right",
+        "pose": "wings_spread_upstroke",
+        "frames": 1
+      },
+      "preview_canvas_size": [
+        270,
+        270
+      ]
+    },
+    {
+      "id": "bird_05",
+      "standing_file": "../raw/birds/bird_05.png",
+      "standing_sha256": "09b149bec63570ed20988c3d7ee86851268b978ed29f26ab7dfe97c5be31c898",
+      "standing_size": [
+        1024,
+        1024
+      ],
+      "standing_foot_anchor_px": [
+        622,
+        860
+      ],
+      "standing_foot_anchor_uv_top_left": [
+        0.607422,
+        0.839844
+      ],
+      "standing_unity_pivot_bottom_left": [
+        0.607422,
+        0.160156
+      ],
+      "tree_foot_position_px": [
+        1135,
+        896
+      ],
+      "tree_foot_position_uv_top_left": [
+        0.738932,
+        0.7
+      ],
+      "blink": {
+        "file": "blink_bird_05.png",
+        "type": "same_canvas_eye_overlay",
+        "composite": "source_over",
+        "size": [
+          1024,
+          1024
+        ],
+        "local_offset_px": [
+          0,
+          0
+        ],
+        "overlay_bbox_px": [
+          709,
+          237,
+          822,
+          348
+        ],
+        "outside_eye_bbox_identical": true
+      },
+      "flight": {
+        "file": "fly_bird_05.png",
+        "size": [
+          1024,
+          1024
+        ],
+        "facing": "right",
+        "pose": "wings_spread_upstroke",
+        "frames": 1
+      },
+      "preview_canvas_size": [
+        270,
+        270
+      ]
+    }
+  ],
+  "preview": {
+    "file": "contact_menu.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "background": "../raw/env/background.png",
+    "layer_order": [
+      "background",
+      "menu_tree",
+      "bird_01",
+      "bird_03",
+      "bird_05",
+      "logo_perch_sort"
+    ],
+    "logo": {
+      "center_ui_px": [
+        0,
+        420
+      ],
+      "display_size_px": [
+        860,
+        358
+      ],
+      "top_left_px": [
+        110,
+        361
+      ]
+    },
+    "tree": {
+      "center_ui_px": [
+        0,
+        80
+      ],
+      "display_size_px": [
+        900,
+        750
+      ],
+      "top_left_px": [
+        90,
+        505
+      ]
+    },
+    "bird_canvas_top_left_px": {
+      "bird_01": [
+        178,
+        803
+      ],
+      "bird_03": [
+        386,
+        803
+      ],
+      "bird_05": [
+        591,
+        803
+      ]
+    },
+    "scope": "Art composition only, no buttons/subtitle/progress; coordinator approved msg_79cc710e33d8"
+  },
+  "integration_notes": [
+    "Place each standing bird using its sole anchor on its tree slot.",
+    "Blink overlay must use identical canvas size, pivot, local position, tint and transform as its standing sprite; hide it when eye is open. Do not trim overlay or independently auto-fit it.",
+    "Flight sprites face right and contain one spread-wing pose each; movement and return animation are for the integration task.",
+    "Respect Reduce motion in UI code per UI_SPEC; this task changes no runtime code."
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "pack": "T11b2",
+  "generator": "built-in image_gen",
+  "reference": "docs/UI_SPEC.md sections 1, 2, 5; art/contact_v2_light.png",
+  "processing": "Preserve generated alpha. Premultiplied-alpha Lanczos resize; aspect-preserving fit centered on exact RGBA output canvas.",
+  "assets": [
+    {
+      "name": "level_cell_done",
+      "file": "level_cell_done.png",
+      "width": 300,
+      "height": 340,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-6f5c68fe-dcc1-4fb4-b9fc-357ed12ab5e4.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. Completed-level upright wooden plaque in a 300:340 shape. Honey wood #D9A566 to #B97F45, softly rounded corners, fine restrained woodgrain, gold #FFC93C perimeter trim. Three small EMPTY recessed five-point star slots in gray taupe #CDBB93 aligned horizontally near bottom, center otherwise blank for runtime level number. No filled stars. Front facing. Keep complete plaque inside frame. Deliver a single PNG asset for level_cell_done.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        18,
+        15,
+        282,
+        327
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "d40b07528eb27283bb99b1f44e0b3473cc336d7e98db5f2d686790bb87673622",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "displaySize": [
+        150,
+        170
+      ]
+    },
+    {
+      "name": "level_cell_current",
+      "file": "level_cell_current.png",
+      "width": 300,
+      "height": 340,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-f1578b50-e6a2-4214-9e19-22ae77d0679d.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. Current-level upright wooden plaque in a 300:340 shape. Softly rounded rectangle, restrained woodgrain, leaf-green face gradient #7DBB4B to #4E8A2E, dark #2F5A1B rim, subtle cream upper left highlight. Center completely blank for runtime level number. Front facing, no symbols. A restrained pale green glow around outer edge may provide current selection base. Deliver a single PNG asset for level_cell_current.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        0,
+        0,
+        295,
+        335
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "ae793bc2eadf23cb25557b885f66044a2bb41080e597f856fca70b84478ec94f",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "displaySize": [
+        150,
+        170
+      ]
+    },
+    {
+      "name": "level_cell_open",
+      "file": "level_cell_open.png",
+      "width": 300,
+      "height": 340,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-8a8a4c5c-5b0c-4876-8ca4-f58e07b9ee5e.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. Playable-level upright wooden plaque in a 300:340 shape. Softly rounded rectangle, honey wood #D9A566 to #B97F45 border and inset cream face #FFF3D0 to #F2DDA2 with subtle hand-painted texture. Center completely blank for runtime level number. Front facing, no symbols. Deliver a single PNG asset for level_cell_open.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        32,
+        18,
+        294,
+        335
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "30eb93de6ba9cb9d4d30fac7a913fc88ca46e84a09460313ddd787e875d7bec5",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "displaySize": [
+        150,
+        170
+      ]
+    },
+    {
+      "name": "level_cell_locked",
+      "file": "level_cell_locked.png",
+      "width": 300,
+      "height": 340,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-3175c277-7d3f-4186-9363-ec7e6e737e22.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. Locked-level upright wooden plaque in a 300:340 shape. Softly rounded rectangle, desaturated gray-taupe wooden face and dark warm-brown contour, restrained woodgrain. A SMALL clearly legible dark-brown padlock with cream highlight at lower center; leave upper two-thirds completely blank for runtime number. Front facing. Deliver a single PNG asset for level_cell_locked.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        37,
+        28,
+        290,
+        327
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "9e359210f05463ec165369c992b4ff6ee555eade862d07a20da9017d7e35df41",
+      "nineSlice": false,
+      "preserveAspect": true,
+      "displaySize": [
+        150,
+        170
+      ]
+    },
+    {
+      "name": "star_on",
+      "file": "star_on.png",
+      "width": 256,
+      "height": 256,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-cd16bae3-9895-4918-9942-e00155898e36.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One rounded five-point GOLD star #FFC93C with caramel shading, cream upper-left highlight, smooth dark warm-brown outline. No face, no particles. Front facing. Deliver a single PNG asset for star_on.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        15,
+        22,
+        241,
+        235
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "089a5ea708c94ba8f2db99035a2da4e1f1977800b8ee18e891441cd1fdeae9da",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "star_off",
+      "file": "star_off.png",
+      "width": 256,
+      "height": 256,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-a9879325-76dc-4617-ab4b-4bbe06738df0.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One empty recessed rounded five-point star slot, matte gray-taupe #CDBB93 fill, dark warm-brown outline, subtly inset bevel, no shine, no face, no particles. Same silhouette as a standard rounded reward star. Front facing. Deliver a single PNG asset for star_off.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        17,
+        23,
+        239,
+        233
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "4b37bd106d6dbd5227db9487d4137f53d3659042292282515bd259e5578862b3",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "egg_on",
+      "file": "egg_on.png",
+      "width": 128,
+      "height": 128,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-98df5520-d846-4705-956e-1073edac5b03.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One upright plump bird egg, softly pointed top, pale cream #FFF3D0 with warm golden #FFC93C lower shading and upper-left cream highlight. Bright completed HUD progress egg. Dark-brown contour, no face, no nest, no speckles. Deliver a single PNG asset for egg_on.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        23,
+        11,
+        104,
+        123
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "dec81a9cd008f46e246f0e98ba7318e3df14a27cc94a6cda59a2a3317eb0254d",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "egg_off",
+      "file": "egg_off.png",
+      "width": 128,
+      "height": 128,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-c17d1ac3-23f6-448e-aa19-489802289699.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One upright plump bird egg, softly pointed top, muted gray-taupe #CDBB93 fill and subtly darker lower-right shading. Inactive HUD progress egg. Dark-brown contour, matte, no face, no nest, no speckles. Deliver a single PNG asset for egg_off.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        24,
+        16,
+        104,
+        116
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "f6153f8aa5e8baed83f6fc9ac9718ae5c712dbe4f4b9f0fc4293fc11a780cd8c",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "hand_pointer",
+      "file": "hand_pointer.png",
+      "width": 256,
+      "height": 256,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-87b0b423-84e6-479c-94fd-cd015aeeaa7e.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One cartoon cream-colored glove hand pointing up: long index finger extended vertically upward, remaining three fingers folded clearly with thumb at side, simple cuff at bottom. Warm dark-brown contour and soft cream/tan shading. No sleeve, no click ring (separate asset), no sparkles. Deliver a single PNG asset for hand_pointer.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        61,
+        10,
+        204,
+        249
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "f4fe76541f9d273c54599702508d669a62f22f0ac160cbb276160d4666df4d03",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "tap_ripple",
+      "file": "tap_ripple.png",
+      "width": 256,
+      "height": 256,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-8913332f-8b81-426f-8042-e6bc4f2e456c.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One clean circular tap ripple ring, complete unbroken concentric cream-and-warm-gold narrow ring around a fully transparent center, soft outer transparent falloff. Flat front view circle, no perspective, no hand, no particles. Suitable for looped tutorial tap animation. Deliver a single PNG asset for tap_ripple.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        6,
+        11,
+        254,
+        237
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "580ac99f3eb86b9d6a49a87d0394844ae593a9c440cc806c841c5c31c9d41a48",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_pause",
+      "file": "icon_pause.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-fa65b60c-fb0d-4da6-af7b-ae45e389df56.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. Two equal parallel vertical rounded bars, pause symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_pause.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        18,
+        14,
+        158,
+        178
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "97ed19df3f9d6949662e623cb7875771156cae736a1cef96421858ba0ae40bec",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_undo",
+      "file": "icon_undo.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-f6f87edf-54f2-40db-ae32-f4d75fdf38f8.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A curved backward arrow: arrowhead points LEFT at upper left and tail curves down/right into a short hook. Clearly a single-step undo symbol, not a full circle. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_undo.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        12,
+        15,
+        183,
+        180
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "4b259f80be0873c586671f47fce3251afc045e743040d9317eff95bab13d4775",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_restart",
+      "file": "icon_restart.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-91ef7749-ec22-4a6b-b86c-445d48e0a670.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A single clockwise near-complete circular arrow with a broad arrowhead at upper-right and a clear small gap, restart symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_restart.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        8,
+        183,
+        187
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "e22f49fe00d9de3427a658901e4d487b699ade4bd4be6ecd6028e008c2f28377",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_hint",
+      "file": "icon_hint.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-93b3977a-c52f-4c23-b923-ae31f29d9ee0.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A simple rounded light bulb with thick filament and short base, hint symbol. No rays or sparkles. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_hint.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        28,
+        8,
+        171,
+        186
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "1e1939fbb6b39637439076e11baadc9d91b71c7a44bdc8ecb703c202019232d5",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_back",
+      "file": "icon_back.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-4ae3aef8-d93d-4acd-a584-81911387570a.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One thick single leftward arrow with rounded corners and short shaft, back symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_back.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        12,
+        27,
+        180,
+        171
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "98c75d5a870a41440f38bcc7472ba2144c73aa21533d466dfff50e946dee2a40",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_home",
+      "file": "icon_home.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-3067fd1d-4818-4513-8120-a3f59f4f835f.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One simple house silhouette: pitched roof, square body, one open doorway, no chimney, home symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_home.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        9,
+        10,
+        183,
+        180
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "e01828ee221b6483902dfb96fd18a6e737cce5e46256a5b0e781818c146124a9",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_sound",
+      "file": "icon_sound.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-2a66ce10-23cb-4cb6-ba6f-8d6d3edb04c1.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A simple speaker silhouette facing right with TWO clear curved sound-wave strokes to its right, sound enabled symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_sound.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        12,
+        23,
+        186,
+        175
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "347b68cdec0be6a13c9a90a1811097bae166363f19392e23cd97046ea6aaf833",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_music",
+      "file": "icon_music.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-9da6a103-a283-4982-8836-fe9b08028012.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A pair of joined musical eighth notes with round note heads, music symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_music.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        9,
+        10,
+        183,
+        183
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "13cdfbd699617c5e5af27f81c2ccaf2b33ced40c5aaf251a43b68eef2071068f",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_vibrate",
+      "file": "icon_vibrate.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-06329418-c05e-43a4-8a2f-3e2e2f37af02.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A simple upright phone outline with cream filled screen and ONE zigzag vibration stroke on each side, vibration symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_vibrate.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        13,
+        12,
+        178,
+        177
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "05a20fd8a2f857ed705ba6e123619f72c794b589f4534a01afb6accf4d534b35",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_lock",
+      "file": "icon_lock.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-2c4fa74d-08be-4441-b2de-0160f9cc921b.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A simple closed padlock with broad rounded rectangular body and thick arch shackle and a clearly open keyhole, lock symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_lock.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        24,
+        9,
+        181,
+        191
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "9bc630f77767e1b7023e330fe96a0166e06e15a236e82b9f07fc6cc0b4895aae",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_globe",
+      "file": "icon_globe.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-1dbd822f-424b-41c7-b9fa-899b14bc4314.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. A simple globe circle with one vertical longitude ellipse and one horizontal equator, language symbol. No continents. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_globe.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        9,
+        9,
+        183,
+        181
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "de207d28eb7fbdd468ba3eb821c04f12dfd7c5bc46247953cd611826809e73a5",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_close",
+      "file": "icon_close.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-54ae0729-84ab-487d-8213-96a8b97d417f.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One simple thick diagonal X with rounded stroke ends, close symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_close.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        21,
+        25,
+        170,
+        187
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "f3bcebe5fc771f21de497b5b977c4e9e439f258369db4922d2a3e56c51e91061",
+      "nineSlice": false,
+      "preserveAspect": true
+    },
+    {
+      "name": "icon_check",
+      "file": "icon_check.png",
+      "width": 192,
+      "height": 192,
+      "source": "/Users/apple/.codex/generated_images/01a19125-8fb3-7ce0-8988-1d9c546836fb/exec-29b26c8c-df9d-4192-90f8-2a565dba39d5.png",
+      "prompt": "Use case: stylized-concept. Asset for Perch Sort, a cozy hand-painted forest bird sorting mobile game. Original polished 2D cartoon UI object, warm dark-brown #5A3A22 rounded contour, soft upper-left cream highlight and gentle lower-right shaded edge, simple rounded silhouette. Same world as hand-painted honey wood perches and woven nests. Isolated centered single object, generous 9% transparent padding, true transparent alpha background. No text, numbers, letters, logos, watermark, scenery, border or backdrop. Avoid pure white highlights; use cream #FFF3D0. One simple broad checkmark with rounded ends, short left arm and longer rising right arm, confirmation symbol. Icon in a coherent rounded linear plus solid-fill family. Cream #FFF3D0 fill, dark brown #5A3A22 clear outline, subtle tan inner bevel only. No enclosing button, disk or decorative frame. Bold simple geometry recognizable at 64px. Symbol fills 78% of square. Deliver a single PNG asset for icon_check.",
+      "mode": "RGBA",
+      "alpha_bbox": [
+        6,
+        23,
+        189,
+        178
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "sha256": "9f9dd3c37adb7eb1b0a9cf1c553fe6fbc7a1bd45b1fe1e999fa7921d7ef8643a",
+      "nineSlice": false,
+      "preserveAspect": true
+    }
+  ],
+  "contact_sheets": [
+    "contact_b_light.png",
+    "contact_b_dark.png",
+    "contact_b_icons_64.png"
+  ],
+  "validation": {
+    "asset_count": 23,
+    "exact_sizes": true,
+    "all_rgba": true,
+    "transparent_corners": true,
+    "alpha_min_max": [
+      0,
+      255
+    ]
+  },
+  "approved_spec_exception": {
+    "scope": "UI_SPEC section 2 nine-slice requirement",
+    "decision": "Deliver level plaques as fixed 300x340 sprites displayed proportionally at 150x170; all other B assets also proportional sprites. No nine-slice borders.",
+    "coordinator_message": "msg_4796ec067b93",
+    "approved_at": "2026-10-31T09:00:24Z"
+  },
+  "visual_review": {
+    "light_dark_edges": "No visible white matte fringe in delivered contact sheets; current plaque and tap ripple retain intentional soft glow.",
+    "icons_64": "All 13 symbols distinguishable on cream and forest-dark backgrounds; undo, restart, and back have distinct shapes.",
+    "status": "Worker visual review complete; coordinator acceptance pending."
+  }
+}

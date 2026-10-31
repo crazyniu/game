@@ -1,0 +1,58 @@
+[
+  {
+    "id": "bird_01",
+    "prompt": "Use case: identity-preserve. Create ONE original game sprite from the supplied original red cardinal reference. Turn the bird to face the player EXACTLY FRONT ON: symmetric round body, two fully visible oval eyes facing forward, centered orange conical beak, two small feet. Keep character identity: tall two-peaked red crest, charcoal face mask surrounding BOTH eyes and beak, cream belly, ONE cream stripe on each folded red wing, short red tail visible behind. Same soft polished 2D cartoon style, warm brown #5A3A22 outline, upper-left light, gentle feather shading, chibi head about 45% of overall height. Standing awake, neutral friendly expression. Square 1024x1024 RGBA transparent canvas; centered x=512, body width 490 pixels (48% of canvas), foot soles exactly at y=870. Entire character fits with transparent margins. No perch, ground, shadow, text, watermark, border, other birds or props. True transparent background.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-2bfc6497-4843-49cb-a791-c708b449d437.png"
+  },
+  {
+    "id": "bird_01_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-f256ba5b-b8f2-4b5d-9a48-170be6d3c563.png"
+  },
+  {
+    "id": "bird_01_sleep",
+    "prompt": "Use case: identity-preserve. Edit this exact front-facing original bird into its SLEEPING pose. Same character, exact species features and palette, same front-facing symmetrical face and body. Close BOTH eyes into peaceful brown curved eyelids. Crouch down, tuck the short legs and let the body settle lower over its feet; gently squash the body to be visibly shorter and a little rounder/wider than standing, while retaining the same head/beak size and same folded wings and recognizable feather markings. Keep the two feet just visible under the belly at the same floor baseline. Keep crest / long tail identity exactly as in reference. Warm brown #5A3A22 outlines, soft cartoon shading, light upper-left. Single bird on real transparency, no sleep letters, Z symbols, bubbles, branch, ground, shadows, other props or white border. Keep original canvas and horizontal center. This is the lowered sleeping state, visibly different from a standing blink.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-fa59c6dc-7d6a-43c5-b7cc-8d9e0a05faff.png"
+  },
+  {
+    "id": "bird_01_fly",
+    "prompt": "Use case: identity-preserve. Edit the exact supplied front-facing original bird sprite into a front-facing FLYING frame. Same bird identity, face, head size, crest or crown, eye shape, beak, cream chest and colors. Open both eyes and spread BOTH wings symmetrically to the upper left and upper right, clearly wide and lifted with separated feather tips. Preserve the recognizable cream single wing stripe for a red cardinal / diamond shoulder patch for the green parrot. Feet TUCKED UP against underside of belly, no dangling standing legs. Tail remains visible behind body, retaining short red cardinal tail or two long narrow green parrot tail feathers. Rounded chibi body, warm brown #5A3A22 outlines, polished soft 2D cartoon, upper-left light. Square canvas with generous transparent margins around crest, wings, tail and feet, no clipped wing tips. Body remains horizontally centered, same frontal character proportions. One bird, genuine transparency, no branch, ground, shadow, white border, motion lines, text or props.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-bdf93812-0a54-4c06-973c-0b316a3b7e5b.png"
+  },
+  {
+    "id": "bird_04",
+    "prompt": "Use case: identity-preserve. Create ONE original front-facing green long-tailed parrot game sprite from the supplied original parrot. EXACT frontal face and body, both oval brown eyes fully visible, large centered orange downward-hooked beak with clearly visible hooked tip. Keep bright green head, creamy patches around both eyes, cream belly, dark emerald folded wings with large light-green DIAMOND shoulder patches on each wing. Two distinct long slender tail feathers emerge from behind the body and angle slightly outward/down to either side, recognizable from front, ends below foot line but within canvas. Symmetric round chibi body, head about 45% overall height excluding tail, smooth round crown different from cardinal's pointed crest. Same polished soft 2D cartoon, warm brown #5A3A22 outline, upper-left illumination, gentle feather shading. Standing awake friendly neutral face, two orange feet. Square 1024x1024 RGBA canvas, body centered x=512, body width 480 pixels, soles at y=870; tail tips at y=950. Transparent margin around all edges. No branch, ground, shadow, lettering, watermark, border or extra subjects. True transparent background.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-da3eee2d-2211-4615-b9db-f8180e56acc7.png"
+  },
+  {
+    "id": "bird_04_blink",
+    "prompt": "Use case: precise-object-edit. Edit this exact supplied original front-facing bird sprite to its idle BLINK frame. Change ONLY the two open oval eyes into two gently curved closed eyelids drawn with the same warm brown outline. Restore surrounding face feather color where the eye balls were. Both eyelids clearly closed and relaxed. Preserve exactly the entire original image outside the small eye regions: same silhouette, crest, feathers, beak, cheeks, body, wings, tail, legs, feet, shading, scale and position. Do not lower body or move feet. One isolated bird, true transparent background. No text, extra elements, branch, shadow or border.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-4296df7e-f820-41b4-9b0f-bb02ec50a854.png"
+  },
+  {
+    "id": "bird_04_sleep",
+    "prompt": "Use case: identity-preserve. Edit this exact front-facing original bird into its SLEEPING pose. Same character, exact species features and palette, same front-facing symmetrical face and body. Close BOTH eyes into peaceful brown curved eyelids. Crouch down, tuck the short legs and let the body settle lower over its feet; gently squash the body to be visibly shorter and a little rounder/wider than standing, while retaining the same head/beak size and same folded wings and recognizable feather markings. Keep the two feet just visible under the belly at the same floor baseline. Keep crest / long tail identity exactly as in reference. Warm brown #5A3A22 outlines, soft cartoon shading, light upper-left. Single bird on real transparency, no sleep letters, Z symbols, bubbles, branch, ground, shadows, other props or white border. Keep original canvas and horizontal center. This is the lowered sleeping state, visibly different from a standing blink.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-470f463d-dbe4-4792-8880-b175968dac7b.png"
+  },
+  {
+    "id": "bird_04_fly",
+    "prompt": "Use case: identity-preserve. Edit the exact supplied front-facing original bird sprite into a front-facing FLYING frame. Same bird identity, face, head size, crest or crown, eye shape, beak, cream chest and colors. Open both eyes and spread BOTH wings symmetrically to the upper left and upper right, clearly wide and lifted with separated feather tips. Preserve the recognizable cream single wing stripe for a red cardinal / diamond shoulder patch for the green parrot. Feet TUCKED UP against underside of belly, no dangling standing legs. Tail remains visible behind body, retaining short red cardinal tail or two long narrow green parrot tail feathers. Rounded chibi body, warm brown #5A3A22 outlines, polished soft 2D cartoon, upper-left light. Square canvas with generous transparent margins around crest, wings, tail and feet, no clipped wing tips. Body remains horizontally centered, same frontal character proportions. One bird, genuine transparency, no branch, ground, shadow, white border, motion lines, text or props.",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "generated": "/Users/apple/.codex/generated_images/01a1913b-9360-71b1-9f19-d930fe58601b/exec-84a099ff-268a-4ab8-a9f5-52c911b25b7e.png"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "PerchSort.Core.EditModeTests",
+  "rootNamespace": "PerchSort.Tests",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.UI",
+    "PerchSort.Audio"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "PerchSort.UI",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.View",
+    "Unity.ugui",
+    "Unity.TextMeshPro",
+    "Unity.InputSystem",
+    "PerchSort.Audio"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "PerchSort.Gameplay.PlayModeTests",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.View",
+    "PerchSort.UI",
+    "Unity.ugui",
+    "PerchSort.Audio",
+    "Unity.TextMeshPro"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -1,0 +1,26 @@
+PASS raw/env/crate.png 1024x320 RGBA alpha=(0, 255) clearBorder=8px transparent=44951 partial=280863
+PASS raw/env/basket.png 512x384 RGBA alpha=(0, 255) clearBorder=8px transparent=71225 partial=124440
+PASS raw/env/nest.png 512x512 RGBA alpha=(0, 255) clearBorder=8px transparent=119573 partial=141337
+PASS raw/env/nest_done.png 512x512 RGBA alpha=(0, 255) clearBorder=8px transparent=118555 partial=142402
+PASS raw/fx/zzz.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=31120 partial=33865
+PASS raw/fx/sparkle.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=52990 partial=12067
+PASS raw/fx/check.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=23296 partial=41699
+PASS raw/fx/feather.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=40117 partial=24824
+PASS raw/fx/ring.png 256x256 RGBA alpha=(0, 253) clearBorder=8px transparent=40937 partial=24599
+PASS raw/fx/confetti_01.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=45688 partial=19419
+PASS raw/fx/confetti_02.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=38690 partial=26365
+PASS raw/fx/confetti_03.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=46651 partial=18373
+PASS raw/ui/trophy.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=539966 partial=505872
+PASS raw/ui/star.png 256x256 RGBA alpha=(0, 255) clearBorder=8px transparent=35514 partial=29469
+PASS raw/fx/closed_eye.png 128x128 RGBA alpha=(0, 255) clearBorder=8px transparent=15846 partial=362
+PASS raw/birds/bird_01s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=839336 partial=207702
+PASS raw/birds/bird_02s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=713644 partial=333119
+PASS raw/birds/bird_03s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=799881 partial=247086
+PASS raw/birds/bird_04s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=796476 partial=250231
+PASS raw/birds/bird_05s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=665511 partial=381115
+PASS raw/birds/bird_06s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=890445 partial=156374
+PASS raw/birds/bird_07s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=821775 partial=224854
+PASS raw/birds/bird_08s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=890814 partial=155905
+PASS raw/birds/bird_09s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=708286 partial=338565
+PASS raw/birds/bird_10s.png 1024x1024 RGBA alpha=(0, 255) clearBorder=8px transparent=787216 partial=259618
+PASS 25 production assets; ring center transparent; 10 sleeping birds touch y=870.

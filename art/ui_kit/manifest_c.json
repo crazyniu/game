@@ -1,0 +1,348 @@
+{
+  "version": 1,
+  "task": "T11b4",
+  "generator": "built-in image_gen",
+  "units": "source PNG pixels",
+  "slice_order": "L/R/T/B; measured inward from full canvas edges",
+  "alpha": "straight RGBA; premultiplied-alpha Lanczos resizing; original alpha retained inside crop",
+  "pressed": "6px down, RGB multiplied by 0.92; no extra runtime displacement needed",
+  "preview_widths": [
+    320,
+    512,
+    720
+  ],
+  "ribbon_preview_widths": [
+    640,
+    1024,
+    1600
+  ],
+  "round_button": "uniform scaling only; preview diameters 112/168/224px",
+  "scope_addition": "Coordinator msg_45e5c6a5f9d8: icon_settings.png 192x192",
+  "assets": {
+    "ribbon_title": {
+      "file": "ribbon_title.png",
+      "width": 1024,
+      "height": 200,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 200,
+        "R": 200,
+        "T": 24,
+        "B": 40
+      },
+      "resize_mode": "nine_slice",
+      "usage": "暖红标题绸带；两端折角固定",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-2ff3d105-8951-4a70-85af-278b30ae3444.png",
+      "source_crop_box": [
+        55,
+        158,
+        2117,
+        523
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        1020,
+        196
+      ]
+    },
+    "btn_orange": {
+      "file": "btn_orange.png",
+      "width": 512,
+      "height": 132,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 70,
+        "R": 70,
+        "T": 16,
+        "B": 16
+      },
+      "resize_mode": "nine_slice",
+      "usage": "橙色次操作胶囊按钮",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-6ff46f61-067d-46bc-9ca9-e3dbf3a604b7.png",
+      "source_crop_box": [
+        54,
+        132,
+        1964,
+        604
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        508,
+        122
+      ]
+    },
+    "btn_orange_pressed": {
+      "file": "btn_orange_pressed.png",
+      "width": 512,
+      "height": 132,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 70,
+        "R": 70,
+        "T": 16,
+        "B": 16
+      },
+      "resize_mode": "nine_slice",
+      "usage": "橙色次操作胶囊按钮按下态",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-6ff46f61-067d-46bc-9ca9-e3dbf3a604b7.png",
+      "source_crop_box": [
+        54,
+        132,
+        1964,
+        604
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        508,
+        122
+      ],
+      "derived_from": "btn_orange",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "btn_red": {
+      "file": "btn_red.png",
+      "width": 512,
+      "height": 112,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 60,
+        "R": 60,
+        "T": 14,
+        "B": 14
+      },
+      "resize_mode": "nine_slice",
+      "usage": "红色危险操作胶囊按钮",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-6a2952d2-e990-4c1c-b1e6-bac042054c05.png",
+      "source_crop_box": [
+        39,
+        148,
+        1942,
+        604
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        508,
+        102
+      ]
+    },
+    "btn_red_pressed": {
+      "file": "btn_red_pressed.png",
+      "width": 512,
+      "height": 112,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 60,
+        "R": 60,
+        "T": 14,
+        "B": 14
+      },
+      "resize_mode": "nine_slice",
+      "usage": "红色危险操作胶囊按钮按下态",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-6a2952d2-e990-4c1c-b1e6-bac042054c05.png",
+      "source_crop_box": [
+        39,
+        148,
+        1942,
+        604
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        508,
+        102
+      ],
+      "derived_from": "btn_red",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "btn_round_red": {
+      "file": "btn_round_red.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "resize_mode": "uniform",
+      "usage": "红色关闭圆钮底；icon_close 另叠加",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-8f604bdd-48c5-41a6-bce9-0aef9cfb8617.png",
+      "source_crop_box": [
+        112,
+        117,
+        1141,
+        1135
+      ],
+      "placement_xywh": [
+        5,
+        2,
+        214,
+        214
+      ]
+    },
+    "btn_round_red_pressed": {
+      "file": "btn_round_red_pressed.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "resize_mode": "uniform",
+      "usage": "红色关闭圆钮底；icon_close 另叠加按下态",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-8f604bdd-48c5-41a6-bce9-0aef9cfb8617.png",
+      "source_crop_box": [
+        112,
+        117,
+        1141,
+        1135
+      ],
+      "placement_xywh": [
+        5,
+        2,
+        214,
+        214
+      ],
+      "derived_from": "btn_round_red",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "pill_wood": {
+      "file": "pill_wood.png",
+      "width": 512,
+      "height": 120,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 70,
+        "R": 70,
+        "T": 16,
+        "B": 16
+      },
+      "resize_mode": "nine_slice",
+      "usage": "关卡名、步数、星数 HUD 木牌胶囊",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-d2cb6b18-7721-4a29-811a-3978fc1b19e5.png",
+      "source_crop_box": [
+        25,
+        210,
+        1857,
+        622
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        508,
+        116
+      ]
+    },
+    "badge_red": {
+      "file": "badge_red.png",
+      "width": 96,
+      "height": 96,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "resize_mode": "uniform",
+      "usage": "提示次数红色圆角标；数字另叠加",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-382ed177-16d0-4769-be62-c2b6088cb286.png",
+      "source_crop_box": [
+        209,
+        203,
+        1046,
+        1044
+      ],
+      "placement_xywh": [
+        2,
+        2,
+        92,
+        92
+      ]
+    },
+    "glow_rays": {
+      "file": "glow_rays.png",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "resize_mode": "uniform",
+      "usage": "通关星后方旋转金色光芒；中心轴 0.5,0.5",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-7c4ee139-8733-4656-bede-f7c8a41f17aa.png",
+      "source_crop_box": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "placement_xywh": [
+        12,
+        12,
+        1000,
+        1000
+      ]
+    },
+    "icon_settings": {
+      "file": "icon_settings.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "resize_mode": "uniform",
+      "usage": "设置齿轮；奶油填色、深棕描边",
+      "source_generated_path": "/Users/apple/.codex/generated_images/01a1913b-a5ae-7991-8d4f-789549b65c2d/exec-6aa30705-c3db-4729-bafb-862228622f38.png",
+      "source_crop_box": [
+        91,
+        98,
+        1160,
+        1142
+      ],
+      "placement_xywh": [
+        12,
+        12,
+        168,
+        168
+      ]
+    }
+  },
+  "generation_prompts": {
+    "ribbon_title": "Use case: ui-mockup. Generate ONE original game UI asset, a blank warm-red silk title ribbon banner on genuinely transparent background. Target asset proportions 1024 wide by 200 high, shown straight-on horizontally, centered with a small transparent margin. Charming polished hand-painted casual forest/treehouse mobile-game style: warm dark-brown thin outline #5A3A22, softly painted surface and top-left highlight, softly shaded lower edge. Main silk warm red #E0573E. Broad perfectly straight rectangular middle band, empty for later title text, straight parallel horizontal top and bottom edges. Folded fishtail ribbon ends at both left and right, visible darker folded-under corners. All folds and tails confined within outermost 18% at each end, center 64% uniform and horizontally stretchable for nine-slice UI. Fine satin texture only, no decorative shapes in middle. No text, letters, numbers, logos, symbols, icons, objects or extra assets. No backdrop, no checkerboard, no cast shadow outside silhouette.",
+    "btn_orange": "Use case: ui-mockup. Generate ONE original blank orange capsule button for a charming hand-painted casual forest mobile game UI. Genuine transparent alpha background. Front-on horizontal capsule, width:height approximately 4.15:1, straight parallel top and bottom edges across center and semicircular endcaps. Thin deep warm brown outline #5A3A22, warmly shaded narrow raised rim, soft top-left edge highlight. Orange surface vertical gradient #FFA53A at top to #E87B1E at bottom. Subtle painterly surface, rounded softly beveled edges, same artisanal treehouse feel as illustrated wood and green leaf buttons, no plastic photorealism. Empty uncluttered center for separate white text later. Uniform vertically shaded central horizontal stretch zone; no central motifs. Whole capsule completely visible with transparent padding. No text, letters, symbols, icons, leaves, extra objects, floor shadows, background, checkerboard. Single asset only. Target final canvas 512 by 132 pixels.",
+    "btn_red": "Use case: ui-mockup. Generate ONE original blank red capsule button for a charming hand-painted casual forest mobile game UI. Genuine transparent alpha background. Front-on horizontal capsule, width:height approximately 5:1, straight parallel top and bottom edges across center and semicircular endcaps. Thin deep warm brown outline #5A3A22, warmly shaded narrow raised rim, soft top-left edge highlight. Warm red surface vertical gradient #E8604A at top to #C23F2C at bottom. Subtle painterly surface, rounded softly beveled edges, artisanal illustrated treehouse style, no plastic photorealism. Empty uncluttered center for separate white text later. Uniform vertically shaded central horizontal stretch zone; no central motifs. Whole capsule completely visible with transparent padding. No text, letters, symbols, icons, leaves, extra objects, floor shadows, background, checkerboard. Single asset only. Target final canvas 512 by 112 pixels.",
+    "btn_round_red": "Use case: ui-mockup. ONE original blank red round button for hand-painted casual forest/treehouse mobile game UI, genuine transparent background. Perfect circular face front-on, no perspective or oval. Warm red #E8604A at upper face softly shaded into #C23F2C below, thin deep warm brown #5A3A22 outer outline, narrow beveled rim, top-left warm highlight and soft lower-right internal shading, subtle hand-painted texture, rounded friendly shape. Empty red center for a separate cream X icon later, DO NOT include the X or any icon. Whole circle visible, centered, transparent padding all around. Canvas target 224 by 224 pixels. No text, no symbols, no backdrop/checkerboard, no outside drop shadow, no extra object, no metal or plastic photorealism.",
+    "pill_wood": "Use case: ui-mockup. Generate ONE original blank wooden capsule nameplate for a charming hand-painted casual forest/treehouse mobile game HUD. Genuine transparent background. Straight front-facing horizontal capsule with semicircular ends, width:height about 4.5:1. Smooth warm honey natural wood colors #D9A566 to #B97F45, thin deep warm brown #5A3A22 outline, softly rounded beveled wood edges, golden upper-left rim highlight, lower-right internal shading. Very subtle horizontal hand-painted grain lines, long unobstructed center for separate HUD text. Main center top and bottom edges straight, parallel, seamless horizontally stretchable middle. Keep all knots and end grain in the rounded endcaps; sparse low contrast center grain. Whole asset visible, transparent padding, target 512 by 120 pixels. No text, letters, icons, nails, ropes, leaves, protruding decorations, extra objects, floor shadow, checkerboard or background.",
+    "badge_red": "Use case: ui-mockup. ONE original empty small red circular notification badge for a charming hand-painted casual forest mobile game UI. Genuine transparent background. Perfect circular button-like medallion, front view, centered. Bright warm red #E8604A softly shaded to #C23F2C, thin deep warm brown #5A3A22 outline, modest upper-left cream-red highlight, tiny softly shaded bevel, large blank solid center for a separate hint-count numeral later. Simple readable silhouette at 96 by 96 pixels. Whole circle visible with transparent padding. Painted friendly treehouse illustration, not photorealistic plastic. Absolutely no numeral, text, icon, symbols, decorative objects, white border, drop shadow, checkerboard or backdrop. One blank red circle only.",
+    "glow_rays": "Use case: ui-mockup. ONE original golden radial light rays effect sprite, genuine transparent alpha background, square target 1024 by 1024. For a polished illustrated casual forest mobile game victory-star celebration. Centered rotational radial sunburst with about 14 broad tapered golden beams, alternating long and short beams, radiating evenly in all directions around exact canvas center. Golden yellow #FFC93C with pale warm yellow inner light, semi-transparent painted soft edges, beams fading gradually to fully transparent ends before the canvas boundary. Subtle central luminous haze, long clear angular ray shapes, balanced circular silhouette, no dark outline. Empty effect only for layering BEHIND existing stars: absolutely NO star icons, no sun face, no circle badge, no object, no text, no sparkles, no extra motifs, no checkerboard, no black or colored background. Whole soft effect visible with ample transparent corners. Alpha transparency is essential.",
+    "icon_settings": "Use case: ui-mockup. ONE original settings gear icon for hand-painted casual forest/treehouse mobile game, genuine transparent alpha background. Single centered friendly symmetrical cogwheel with eight chunky rounded teeth and a circular transparent hole at center. Cream fill #FFF3D0, softly shaded honey cream #F2DDA2 on lower-right edges, continuous deep warm brown outline #5A3A22 of moderate thickness, gentle upper-left ivory highlight, subtle illustrated beveled volume. Match a soft cream X close icon with rounded strokes and brown outline; clean readable mobile-game symbol, no thin details. Front view, gear circular overall, no perspective. Target final canvas 192 by 192 pixels, whole cog visible with transparent padding. No text, no extra gear, no badge, no button background, no leaf, no metallic color, no photorealism, no floor shadow, no checkerboard."
+  }
+}

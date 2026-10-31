@@ -1,0 +1,291 @@
+{
+  "version": 1,
+  "task": "T11b1",
+  "generator": "built-in image_gen",
+  "units": "source PNG pixels",
+  "slice_order": "L/R/T/B; measured inward from full canvas edges",
+  "alpha": "straight RGBA; resizing uses premultiplied alpha",
+  "pressed": "6px down, RGB multiplied by 0.92; no extra runtime displacement needed",
+  "round_button": "Coordinator confirmed uniform 112/168/224px preview; never stretch horizontally",
+  "panel_corner_radius_target": 48,
+  "preview_widths": [
+    320,
+    512,
+    720
+  ],
+  "assets": {
+    "panel_wood": {
+      "file": "panel_wood.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 80,
+        "R": 80,
+        "T": 80,
+        "B": 80
+      },
+      "usage": "弹窗/设置木框和奶油内纸",
+      "resize_mode": "nine_slice",
+      "source": "source_a/panel_wood.png"
+    },
+    "btn_primary": {
+      "file": "btn_primary.png",
+      "width": 512,
+      "height": 132,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 70,
+        "R": 70,
+        "T": 16,
+        "B": 16
+      },
+      "usage": "主操作树叶绿胶囊按钮",
+      "resize_mode": "nine_slice",
+      "source": "source_a/btn_primary.png"
+    },
+    "btn_primary_pressed": {
+      "file": "btn_primary_pressed.png",
+      "width": 512,
+      "height": 132,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 70,
+        "R": 70,
+        "T": 16,
+        "B": 16
+      },
+      "usage": "主操作树叶绿胶囊按钮按下态",
+      "resize_mode": "nine_slice",
+      "source": "source_a/btn_primary.png",
+      "derived_from": "btn_primary",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "btn_secondary": {
+      "file": "btn_secondary.png",
+      "width": 512,
+      "height": 112,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 60,
+        "R": 60,
+        "T": 14,
+        "B": 14
+      },
+      "usage": "次操作奶油胶囊按钮",
+      "resize_mode": "nine_slice",
+      "source": "source_a/btn_secondary.png"
+    },
+    "btn_secondary_pressed": {
+      "file": "btn_secondary_pressed.png",
+      "width": 512,
+      "height": 112,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 60,
+        "R": 60,
+        "T": 14,
+        "B": 14
+      },
+      "usage": "次操作奶油胶囊按钮按下态",
+      "resize_mode": "nine_slice",
+      "source": "source_a/btn_secondary.png",
+      "derived_from": "btn_secondary",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "btn_round": {
+      "file": "btn_round.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "usage": "圆形木底图标按钮；等比显示112px",
+      "resize_mode": "uniform",
+      "source": "source_a/btn_round.png"
+    },
+    "btn_round_pressed": {
+      "file": "btn_round_pressed.png",
+      "width": 224,
+      "height": 224,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "usage": "圆形木底图标按钮；等比显示112px按下态",
+      "resize_mode": "uniform",
+      "source": "source_a/btn_round.png",
+      "derived_from": "btn_round",
+      "translation_px": [
+        0,
+        6
+      ],
+      "rgb_multiplier": 0.92
+    },
+    "paper_inner": {
+      "file": "paper_inner.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 40,
+        "R": 40,
+        "T": 40,
+        "B": 40
+      },
+      "usage": "独立奶油纸内底",
+      "resize_mode": "nine_slice",
+      "source": "source_a/paper_inner.png"
+    },
+    "toggle_track_on": {
+      "file": "toggle_track_on.png",
+      "width": 160,
+      "height": 80,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 40,
+        "R": 40,
+        "T": 18,
+        "B": 18
+      },
+      "usage": "开启藤编滑轨",
+      "resize_mode": "nine_slice",
+      "source": "source_a/toggle_track_on.png"
+    },
+    "toggle_track_off": {
+      "file": "toggle_track_off.png",
+      "width": 160,
+      "height": 80,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 40,
+        "R": 40,
+        "T": 18,
+        "B": 18
+      },
+      "usage": "关闭藤编滑轨",
+      "resize_mode": "nine_slice",
+      "source": "source_a/toggle_track_off.png"
+    },
+    "toggle_knob": {
+      "file": "toggle_knob.png",
+      "width": 80,
+      "height": 80,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "usage": "奶油蛋形开关旋钮",
+      "resize_mode": "uniform",
+      "source": "source_a/toggle_knob.png"
+    },
+    "slider_track": {
+      "file": "slider_track.png",
+      "width": 512,
+      "height": 48,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 26,
+        "R": 26,
+        "T": 12,
+        "B": 12
+      },
+      "usage": "木制滑条底轨",
+      "resize_mode": "nine_slice",
+      "source": "source_a/slider_track.png"
+    },
+    "slider_fill": {
+      "file": "slider_fill.png",
+      "width": 512,
+      "height": 48,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 26,
+        "R": 26,
+        "T": 12,
+        "B": 12
+      },
+      "usage": "树叶绿滑条填充；显示于轨道内槽",
+      "resize_mode": "nine_slice",
+      "source": "source_a/slider_fill.png"
+    },
+    "slider_knob": {
+      "file": "slider_knob.png",
+      "width": 96,
+      "height": 96,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "usage": "叶片滑条旋钮",
+      "resize_mode": "uniform",
+      "source": "source_a/slider_knob.png"
+    },
+    "hud_bar": {
+      "file": "hud_bar.png",
+      "width": 1024,
+      "height": 160,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 96,
+        "R": 96,
+        "T": 24,
+        "B": 24
+      },
+      "usage": "顶部HUD木牌",
+      "resize_mode": "nine_slice",
+      "source": "source_a/hud_bar.png"
+    },
+    "tip_card": {
+      "file": "tip_card.png",
+      "width": 768,
+      "height": 512,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 90,
+        "R": 90,
+        "T": 100,
+        "B": 100
+      },
+      "usage": "纸卷轴引导卡",
+      "resize_mode": "nine_slice",
+      "source": "source_a/tip_card.png"
+    },
+    "vine_divider": {
+      "file": "vine_divider.png",
+      "width": 1024,
+      "height": 48,
+      "mode": "RGBA",
+      "nine_slice": {
+        "L": 0,
+        "R": 0,
+        "T": 0,
+        "B": 0
+      },
+      "usage": "横向重复平铺藤条分隔",
+      "resize_mode": "tile_x",
+      "source": "source_a/vine_divider.png"
+    }
+  }
+}
