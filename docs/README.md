@@ -19,7 +19,7 @@
 | [LEVEL_SIMULATIONS](LEVEL_SIMULATIONS.md)与四份固定附录 | 全40精确初态/逐步回放、可见视图/证据限制 | 非运行JSON、非最优/Unity/公平证书 |
 | [DATA_SAVE](spec/DATA_SAVE.md) | schema4/rules4/save6身份、hash、存档/事务/迁移 | 工程协议不冒充竞品实现 |
 | [INTERACTION](spec/INTERACTION_ANIMATION.md) | AN时间键、输入/前后台/表现 | 时长是项目调参，非同行测量 |
-| [UI_SPEC](UI_SPEC.md) | 静态尺寸/安全区/命中目标、用户图标/按钮/静音硬约束 | 旧星槽/双巢等资源尺寸不是有效玩法 |
+| [UI_SPEC](UI_SPEC.md) | [已确认美术风格与树枝摆放](UI_SPEC.md#approved-forest-style)、静态尺寸/安全区/命中目标、用户图标/按钮/静音硬约束 | 风格确认不是生产素材/坐标/运行验收；旧星槽/双巢等资源尺寸不是有效玩法 |
 | [ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md) | 分镜/未来获授权实现/验收模板 | 模板不是执行许可 |
 | [ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md) | 开源优先、单主库选型/许可/兼容、动态验收 | 未安装/实测，不可静图冒动画 |
 | [VALIDATION](spec/VALIDATION.md) | V用例/证书/公平/设备/运行证据 | Unknown不是无解 |
