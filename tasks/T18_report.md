@@ -8,7 +8,7 @@
 
 Adopted source-backed combination: Leafy end-run/same-color-or-empty capacity rules; Simple Games explicit partial transfer, operation count, K+2/two empty containers, free unlimited Undo/Hint; Bird Sort2 completed flock flies away and its branch is lost; Quest question eggs; Simple4 and BOOPFUN6/8 units disclosed as bird-capacity adaptations. User-authored constraints own fixed levels/forest worlds/UI/animation priorities, while stable IDs/atomic saves/cancellation are engineering protocols.
 
-Removed/quarantined: dual targets, sleep freeze/queue chains, exact count/species crates, single-bird baskets/mixed short capacities; withdrawn known-species patterned eggs, arbitrary-empty temporary-perch retirement, wind gates, Undo-based star penalty and lifetime3 Hint policy. Extra branches, reserve-container growth, collectors, skins/coins have peer evidence but incomplete exact parameters, so remain non-executable pending data. No invented costs, slot increment, quota, stars or economy thresholds.
+Removed/quarantined: dual targets, sleep freeze/queue chains, exact count/species crates, single-bird baskets/mixed short capacities; withdrawn known-species patterned eggs, arbitrary-empty temporary-perch retirement, wind gates, Undo-based star penalty and lifetime3 Hint policy. At initial publication extra branches, reserve growth, collectors and skins/coins were pending. Post-review R07 now closes ordinary extra branches with browser-specific source evidence and disclosed project integration; reserve growth, collectors and skins/coins remain non-executable pending data. No invented costs, slot increment, quota, stars or economy thresholds.
 
 ## Deliverables and validation
 
@@ -29,3 +29,15 @@ Current FlyRun uses a single fly sprite plus translation/rotation/scale. This is
 ## Untested / pending
 
 No project Core/optimality/Unity/actual Undo/save/device/audio/real-animation/player test ran. Twenty hidden-egg levels have full-information witnesses only; visible-information fairness is pending. No package was installed. Unity6000.6.7f1 mobile IL2CPP/AOT/stripping/cancellation compatibility and new clip/resource acceptance remain pending. Documentation does not authorize implementation. Draft PR remains unmerged until separately reviewed/authorized.
+
+## Post-review R07 closure (remote Markdown only)
+
+Read WaterSort.in /play directly: its browser-specific controls/objective describe one extra empty container per level, ordinary four-unit capacity and rebuilding the same level. The page distinguishes its browser version from the Android product; no Android behavior or actual interactive test is inferred. Home/About retrieval failed, so those pages are not used as evidence.
+
+R07 adopts one ordinary N-capacity empty branch, free under this project's non-commercial scope. N is the disclosed bird-capacity adaptation, not a competitor bird number. Stable appended ID S(P+1), zero Transfer count, atomic AddBranch/Undo/Restart/resume, completion retirement, explicit Hint action set and separate assisted/unassisted minimum-Transfer records are documented engineering integration, not new rewards. Assistance classification follows the current path; Undo of AddBranch restores the unassisted state. Static 40 initial boards/H04 hash are unchanged; running snapshots/certificates additionally require assistPolicyVersion=1 and extraBranchAdded.
+
+Aligned evidence/research/PRD/RULES/DATA_SAVE/VALIDATION/UI/interaction/level summaries/routes/agent guidance. ANIMATION_PROMPTS is owned by a separate agent and was not overwritten. Added UI-D41/42 are proposed new affordance/space contracts, not accepted artwork; original controls/assets are not redrawn. New cutouts and layout/device acceptance remain prerequisites to UI implementation.
+
+Temporary JavaScript document model: N4/N6/N8 fixtures, 216 assertions passed for add/repeat rejection, transfer, ordered Undo, extra-branch homing/retirement, JSON snapshot copy and restart. First trial correctly rejected a mistaken fixture move with C still blocking B; inserted the legal reveal step and reran, without weakening rules. Exact trace is in VALIDATION. This is not project code, disk/Hint/concurrency, eggs, Unity or device verification. The 40 original unaided witnesses are not assistance-runtime certificates. Twenty hidden-egg levels still have no visible-information fairness acceptance.
+
+Remote updates use latest per-file blob SHAs on t18-evidence-based-prd only. No runtime code/data/assets were changed, no merge/deployment was requested; final remote commit/readback checks are reported separately after publication.
