@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 using LitMotion;
 
 namespace PerchSort.FirstLevelRuntime
@@ -7,7 +6,6 @@ namespace PerchSort.FirstLevelRuntime
     public sealed class FirstLevelBird : MonoBehaviour
     {
         private SpriteRenderer body;
-        private SortingGroup sorting;
         private FirstLevelSpeciesArt art;
         private MotionHandle wingMotion;
         private int wingGeneration;
@@ -18,7 +16,6 @@ namespace PerchSort.FirstLevelRuntime
         public void Initialize(string tokenId, int species, FirstLevelSpeciesArt acceptedArt, Material material)
         {
             TokenId = tokenId; Species = species; art = acceptedArt;
-            sorting = gameObject.AddComponent<SortingGroup>();
             var child = new GameObject("Accepted pose");
             child.transform.SetParent(transform, false);
             body = child.AddComponent<SpriteRenderer>();
@@ -26,7 +23,7 @@ namespace PerchSort.FirstLevelRuntime
             SetIdle();
         }
 
-        public void SetOrder(int order) => sorting.sortingOrder = order;
+        public void SetOrder(int order) => body.sortingOrder = order;
         public void SetHomeMask(bool enabled) => body.maskInteraction = enabled ?
             SpriteMaskInteraction.VisibleOutsideMask : SpriteMaskInteraction.None;
 
