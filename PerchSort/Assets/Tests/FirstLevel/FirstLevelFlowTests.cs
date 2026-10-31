@@ -14,7 +14,7 @@ namespace PerchSort.FirstLevelTests
         public void AdoptedTwoMoveLevelLocksInputAndPresentsWholeHomeBeforeVictory()
         {
             var view = new DeferredPresentation();
-            using (var flow = new FirstLevelFlow(State.CreateInitial(), view))
+            using (var flow = new FirstLevelFlow(State.CreateInitial(), view, new FirstLevelNoOpPersistence()))
             {
                 Assert.That(flow.Current.Branches.Count, Is.EqualTo(3));
                 flow.Start();
@@ -57,7 +57,7 @@ namespace PerchSort.FirstLevelTests
         public void UndoAndReplayRestoreTheSameApprovedBoardAndIgnoreOldMoveCallbacks()
         {
             var view = new DeferredPresentation();
-            using (var flow = new FirstLevelFlow(State.CreateInitial(), view))
+            using (var flow = new FirstLevelFlow(State.CreateInitial(), view, new FirstLevelNoOpPersistence()))
             {
                 string initial = BoardSignature(flow.Current);
                 flow.Start(); view.CompleteEntrance();
@@ -91,7 +91,7 @@ namespace PerchSort.FirstLevelTests
         public void BackgroundAndPresentationErrorsCannotLetOldCallbacksUnlockANewGeneration()
         {
             var view = new DeferredPresentation();
-            using (var flow = new FirstLevelFlow(State.CreateInitial(), view))
+            using (var flow = new FirstLevelFlow(State.CreateInitial(), view, new FirstLevelNoOpPersistence()))
             {
                 flow.Start(); view.CompleteEntrance();
                 flow.Pick(1); flow.Pick(0);
@@ -117,6 +117,78 @@ namespace PerchSort.FirstLevelTests
                 view.CompleteEntrance();
                 Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.Idle));
             }
+        }
+
+        [Test]
+        public void FailedSaveKeepsOldAuthorityAndRetriesTheSamePreparedTransaction()
+        {
+            var view = new DeferredPresentation();
+            var save = new ControlledPersistence();
+            using (var flow = new FirstLevelFlow(State.CreateInitial(), view, save))
+            {
+                flow.Start(); view.CompleteEntrance();
+                string initial = flow.Current.GetStateKey();
+                flow.Pick(1);
+                Assert.That(flow.Pick(0), Is.False);
+                Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.SaveError));
+                Assert.That(flow.Current.GetStateKey(), Is.EqualTo(initial));
+                Assert.That(flow.UndoCount, Is.Zero);
+                Assert.That(view.LastMove, Is.Null);
+                Assert.That(flow.Pick(2), Is.False);
+                Assert.That(flow.Restart(), Is.False);
+                Assert.That(flow.Undo(), Is.False);
+                var prepared = save.Prepared;
+                flow.Suspend(); flow.ResumeFromBackground();
+                Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.SaveError));
+
+                Assert.That(flow.RetrySave(), Is.True);
+                Assert.That(save.PrepareCalls, Is.EqualTo(1));
+                Assert.That(save.RetryCalls, Is.EqualTo(1));
+                Assert.That(save.Prepared, Is.SameAs(prepared));
+                Assert.That(flow.Current.MoveCount, Is.EqualTo(1));
+                Assert.That(flow.Current.Sequence, Is.EqualTo(1));
+                Assert.That(flow.UndoCount, Is.EqualTo(1));
+                Assert.That(view.LastMove, Is.SameAs(prepared.Move));
+                Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.Presenting));
+                Assert.That(flow.RetrySave(), Is.False);
+                view.CompleteMove();
+                Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.Idle));
+            }
+        }
+
+        [Test]
+        public void RestoreLoadsFullUndoWithoutReplayingCommittedEvents()
+        {
+            var session = new Session(State.CreateInitial());
+            Assert.That(session.TryMove(1, 0, out _), Is.True);
+            var restored = new Session(State.CreateInitial(), session.State, session.History);
+            var view = new DeferredPresentation();
+            using (var flow = new FirstLevelFlow(restored, view, new FirstLevelNoOpPersistence(), true))
+            {
+                flow.Start();
+                Assert.That(flow.Phase, Is.EqualTo(FirstLevelPhase.Idle));
+                Assert.That(view.EntranceDone, Is.Null);
+                Assert.That(view.LastMove, Is.Null);
+                Assert.That(view.VictoryCalls, Is.Zero);
+                Assert.That(flow.UndoCount, Is.EqualTo(1));
+                Assert.That(flow.Undo(), Is.True);
+                Assert.That(flow.Current.MoveCount, Is.Zero);
+                Assert.That(flow.Current.Sequence, Is.EqualTo(2));
+                view.CompleteRestore();
+                Assert.That(BoardSignature(flow.Current), Is.EqualTo(BoardSignature(State.CreateInitial())));
+            }
+        }
+
+        private sealed class ControlledPersistence : IFirstLevelTransactionPersistence
+        {
+            public bool IsReadOnly => false;
+            public PreparedTransaction Prepared;
+            public int PrepareCalls, RetryCalls;
+            public FirstLevelSaveCandidate Prepare(PreparedTransaction transaction)
+            { PrepareCalls++; Prepared = transaction; return null; }
+            public FirstLevelCommitOutcome Commit(FirstLevelSaveCandidate candidate) => FirstLevelCommitOutcome.NotCommitted;
+            public FirstLevelCommitOutcome Retry(FirstLevelSaveCandidate candidate)
+            { RetryCalls++; return FirstLevelCommitOutcome.Committed; }
         }
 
         private static string BoardSignature(State state) => string.Join("|",

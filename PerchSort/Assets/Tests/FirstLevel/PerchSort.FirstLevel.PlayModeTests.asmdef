@@ -3,7 +3,8 @@
   "references": [
     "PerchSort.Core",
     "PerchSort.FirstLevel",
-    "Unity.ugui"
+    "Unity.ugui",
+    "PerchSort.Audio"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using PerchSort.Audio;
 using PerchSort.Core.FirstLevel;
 using UnityEngine;
@@ -21,6 +22,12 @@ namespace PerchSort.FirstLevelRuntime
         private Coroutine pendingEntrance;
         private int entranceVersion;
         private AudioManager audioManager;
+        private FirstLevelPersistence persistence;
+        // Tests/capture set this before Start and restore null afterward.
+        public static string SaveDirectoryOverride { get; set; }
+        public string SaveDirectory => string.IsNullOrEmpty(SaveDirectoryOverride) ?
+            Path.Combine(Application.persistentDataPath,"first-level-v4","bird-home-peer-v4") :
+            Path.GetFullPath(SaveDirectoryOverride);
         public FirstLevelFlow Flow { get; private set; }
         public FirstLevelBoard Board { get; private set; }
         public FirstLevelHud Hud { get; private set; }
@@ -41,13 +48,14 @@ namespace PerchSort.FirstLevelRuntime
                 acceptedAssets.ValidateOrThrow(initial.SpeciesCount);
                 audioManager=AudioManager.Instance;
                 if(audioManager==null)audioManager=new GameObject("First-level audio").AddComponent<AudioManager>();
-                else muted=!(audioManager.SfxEnabled && audioManager.MusicEnabled);
+                persistence=new FirstLevelPersistence(SaveDirectory);
                 ApplyMute();
                 var board=new GameObject("First-level runtime board");board.transform.SetParent(safeWorld,false);
                 Board=board.AddComponent<FirstLevelBoard>();Board.Initialize(acceptedAssets);
                 Board.Failed+=OnViewFailure;
                 Hud=safeHud.gameObject.AddComponent<FirstLevelHud>();
                 Hud.Initialize(acceptedAssets,safeHud,TogglePause,Undo,Restart,Home,PlayFresh,ToggleMute,()=>muted);
+                Hud.BindRetrySave(RetrySave);
                 started=true;ApplySafeArea();PlayFresh();
             }
             catch(Exception exception)
@@ -60,15 +68,29 @@ namespace PerchSort.FirstLevelRuntime
         {
             if(!started)return;
             CancelPendingEntrance();
+            if(homeVisible && Flow!=null)
+            {
+                Board.gameObject.SetActive(true);Hud.Bind(Flow,()=>Board.LastHomedSpecies);
+                homeVisible=false;Hud.SetHomeVisible(false);IsReady=true;
+                audioManager.SwitchMusic(MusicPage.Game);
+                Flow.ResumeFromBackground();
+                return;
+            }
+            if(Flow==null)BindLoadedSession(persistence.Load());
+        }
+
+        private void BindLoadedSession(FirstLevelLoadResult loaded)
+        {
             Flow?.Dispose();
+            muted=loaded.AudioMuted;ApplyMute();
             Board.gameObject.SetActive(true);
-            var initial=State.CreateInitial();initial.ValidateInitialLevelContract(1);
-            Flow=new FirstLevelFlow(initial,Board);
-            Board.Bind(Flow);
-            Flow.PresentationFailed+=OnFlowFailure;
-            Hud.Bind(Flow,()=>Board.LastHomedSpecies);
-            homeVisible=false;Hud.SetHomeVisible(false);
-            audioManager.SwitchMusic(MusicPage.Game);IsReady=true;
+            Flow=new FirstLevelFlow(loaded.Session ?? new Session(State.CreateInitial()),
+                Board,persistence,loaded.HasSnapshot,loaded.IsReadOnly?loaded.Notice:null);
+            Board.Bind(Flow);Flow.PresentationFailed+=OnFlowFailure;
+            Hud.Bind(Flow,()=>Board.LastHomedSpecies);Hud.RefreshAudio();
+            Hud.ShowUnsavedNotice(loaded.Notice);
+            homeVisible=false;Hud.SetHomeVisible(false);IsReady=true;
+            audioManager.SwitchMusic(MusicPage.Game);
             if(engineWarm)Flow.Start();
             else pendingEntrance=StartCoroutine(StartAfterTwoFrames(Flow,entranceVersion));
         }
@@ -96,15 +118,26 @@ namespace PerchSort.FirstLevelRuntime
         {
             if(Flow!=null && !(Flow.IsInteractive || Flow.Phase==FirstLevelPhase.Paused ||
                 Flow.Phase==FirstLevelPhase.Won || Flow.Phase==FirstLevelPhase.Faulted ||
+                Flow.Phase==FirstLevelPhase.SaveError ||
                 (Flow.Phase==FirstLevelPhase.Created && pendingEntrance!=null)))return;
             CancelPendingEntrance();
-            Flow?.Dispose();Flow=null;
+            Flow?.Suspend(); // Keep the same pending candidate/Undo stack, including uncertain saves.
             Board.Cancel();Board.gameObject.SetActive(false);
             Hud.Bind(null,()=>Board.LastHomedSpecies);Hud.SetHomeVisible(true);
             homeVisible=true;IsReady=false;audioManager.SwitchMusic(MusicPage.Menu);
         }
 
-        public void Restart(){if(homeVisible || pendingEntrance!=null)PlayFresh();else Flow?.Restart();}
+        public void Restart()
+        {
+            if(homeVisible){PlayFresh();return;}
+            if(pendingEntrance!=null && Flow!=null && Flow.Phase==FirstLevelPhase.Created)
+            {
+                CancelPendingEntrance();
+                pendingEntrance=StartCoroutine(StartAfterTwoFrames(Flow,entranceVersion));
+                return;
+            }
+            Flow?.Restart();
+        }
         public void Undo()=>Flow?.Undo();
         public void TogglePause()
         {
@@ -115,7 +148,58 @@ namespace PerchSort.FirstLevelRuntime
 
         public void ToggleMute()
         {
+            if(Flow!=null && Flow.HasPendingSave)return;
             muted=!muted;ApplyMute();Hud.RefreshAudio();
+            try
+            {
+                var outcome=persistence.SaveAudioMuted(muted);
+                if(outcome==FirstLevelCommitOutcome.Committed)Hud.ShowUnsavedNotice(null);
+                else
+                {
+                    Hud.ShowUnsavedNotice("Sound setting is not saved.");
+                    if(outcome==FirstLevelCommitOutcome.Uncertain)
+                        Flow?.ReportExternalSaveError("The sound setting save is uncertain. Retry to verify it.");
+                }
+            }
+            catch(Exception)
+            {
+                Hud.ShowUnsavedNotice("Sound setting is not saved.");
+                Flow?.ReportExternalSaveError("The sound setting save needs verification. Retry or return Home.");
+            }
+        }
+
+        public void RetrySave()
+        {
+            if(Flow==null)return;
+            if(Flow.HasPendingSave)
+            {
+                if(Flow.RetrySave())RefreshSettingsNotice();
+                return;
+            }
+            if(persistence.HasPendingCandidate)
+            {
+                var outcome=persistence.RetryPendingAudio();
+                if(outcome!=FirstLevelCommitOutcome.Uncertain)
+                {
+                    Flow.ResumeAfterSettingsVerification();RefreshSettingsNotice();
+                }
+                return;
+            }
+            // Read-only unknown/corrupt/conflicting data is only re-read here.
+            // Do not discard it, restart, or replace it with the initial board.
+            var retryStore=new FirstLevelPersistence(SaveDirectory);
+            var loaded=retryStore.Load();
+            if(loaded.IsReadOnly)
+            {
+                Flow.ReportExternalSaveError(loaded.Notice ?? "Save remains read-only. Return Home or exit.");
+                return;
+            }
+            CancelPendingEntrance();persistence=retryStore;BindLoadedSession(loaded);
+        }
+
+        private void RefreshSettingsNotice()
+        {
+            Hud.ShowUnsavedNotice(muted==persistence.AudioMuted?null:"Sound setting is not saved.");
         }
         private void ApplyMute()
         {

@@ -12,7 +12,7 @@ namespace PerchSort.FirstLevelRuntime
     [DisallowMultipleComponent]
     public sealed class FirstLevelHud : MonoBehaviour
     {
-        private enum Modal { None, Pause, Result, NoMoves, Error }
+        private enum Modal { None, Pause, Result, NoMoves, Error, SaveError }
 
         private sealed class IconButton
         {
@@ -26,11 +26,11 @@ namespace PerchSort.FirstLevelRuntime
         private FirstLevelFlow flow;
         private Func<int> lastHomedSpecies;
         private Func<bool> isMuted;
-        private Action pause, undo, restart, home, play, toggleMute;
+        private Action pause, undo, restart, home, play, toggleMute, retrySave;
         private RectTransform root, gameLayer, homeLayer, modalLayer, panel;
         private CanvasGroup gameGroup, homeGroup, modalGroup;
         private Image overlay, resultBird;
-        private TMP_Text errorText;
+        private TMP_Text errorText, unsavedText;
         private readonly List<IconButton> buttons = new List<IconButton>();
         private readonly List<IconButton> modalButtons = new List<IconButton>();
         private IconButton pauseButton, undoButton, restartButton, muteButton, homeMute, playButton;
@@ -39,7 +39,7 @@ namespace PerchSort.FirstLevelRuntime
         private Modal modal;
         private bool initialized, subscribed, homeVisible = true, modalStable, closing, resultPhase;
         private int modalVersion;
-        private string error;
+        private string error, unsavedNotice;
 
         public void Initialize(FirstLevelAssets acceptedAssets, RectTransform safeRoot,
             Action pause, Action undo, Action restart, Action home, Action play,
@@ -98,8 +98,17 @@ namespace PerchSort.FirstLevelRuntime
             resultBird.preserveAspect = true;
             errorText = Label("BriefError", panel, "", new Vector2(0, 120), new Vector2(600, 180), 36);
             errorText.richText = false; errorText.textWrappingMode = TextWrappingModes.NoWrap;
+            // Necessary failure status only; it never claims a save succeeded.
+            unsavedText = Label("UnsavedNotice", root, "", new Vector2(0, -910), new Vector2(900, 60), 32);
+            unsavedText.richText = false;
+            unsavedText.textWrappingMode = TextWrappingModes.NoWrap;
+            unsavedText.overflowMode = TextOverflowModes.Ellipsis;
+            unsavedText.color = new Color(1f, .94f, .79f);
+            unsavedText.outlineColor = new Color(.25f, .14f, .07f);
+            unsavedText.outlineWidth = .15f;
 
             initialized = true;
+            ApplyUnsavedNotice();
             HideModal();
             RefreshAudio();
             Refresh();
@@ -112,6 +121,26 @@ namespace PerchSort.FirstLevelRuntime
             error = null;
             Subscribe();
             if (initialized) { HideModal(); Refresh(); }
+        }
+
+        public void BindRetrySave(Action retry)
+        {
+            retrySave = retry;
+            if (initialized) RefreshModalButtons();
+        }
+
+        public void ShowUnsavedNotice(string message)
+        {
+            unsavedNotice = string.IsNullOrWhiteSpace(message) ? null :
+                message.Substring(0, Math.Min(message.Length, 80));
+            if (initialized) ApplyUnsavedNotice();
+        }
+
+        private void ApplyUnsavedNotice()
+        {
+            unsavedText.text = unsavedNotice ?? "";
+            unsavedText.gameObject.SetActive(unsavedNotice != null);
+            unsavedText.transform.SetAsLastSibling();
         }
 
         public void SetHomeVisible(bool visible)
@@ -155,7 +184,9 @@ namespace PerchSort.FirstLevelRuntime
             // Hiding the object preserves the fixed Undo slot; neighbours never move.
             undoButton.Button.gameObject.SetActive(showGame && flow.UndoCount > 0);
 
-            Modal wanted = !string.IsNullOrEmpty(error) ? Modal.Error : Modal.None;
+            // Persistence failure has its own recovery action, never presentation Restart.
+            Modal wanted = !homeVisible && flow != null && flow.Phase == FirstLevelPhase.SaveError
+                ? Modal.SaveError : !string.IsNullOrEmpty(error) ? Modal.Error : Modal.None;
             if (wanted == Modal.None && !homeVisible && flow != null)
             {
                 if (flow.Phase == FirstLevelPhase.Paused) wanted = Modal.Pause;
@@ -176,6 +207,7 @@ namespace PerchSort.FirstLevelRuntime
             SetButton(playButton, homeVisible && modal == Modal.None);
             SetButton(homeMute, homeVisible && modal == Modal.None);
             if (modal == Modal.Error) errorText.text = error ?? "Please restart.";
+            if (modal == Modal.SaveError) errorText.text = SaveFailureText();
             RefreshModalButtons();
         }
 
@@ -186,6 +218,9 @@ namespace PerchSort.FirstLevelRuntime
             modal == Modal.None && !closing &&
             (flow.IsInteractive || flow.Phase == FirstLevelPhase.Presenting);
 
+        private string SaveFailureText() => flow != null && flow.SaveIsUncertain
+            ? "Save uncertain" : "Save failed";
+
         private void ShowModal(Modal kind)
         {
             HideModal();
@@ -194,7 +229,7 @@ namespace PerchSort.FirstLevelRuntime
             modalGroup.interactable = false; modalGroup.blocksRaycasts = true;
             foreach (var b in modalButtons) b.Button.gameObject.SetActive(false);
             resultBird.gameObject.SetActive(kind == Modal.Result);
-            errorText.gameObject.SetActive(kind == Modal.Error || kind == Modal.NoMoves);
+            errorText.gameObject.SetActive(kind == Modal.Error || kind == Modal.NoMoves || kind == Modal.SaveError);
             if (kind == Modal.Pause)
             {
                 continueButton.Button.gameObject.SetActive(true);
@@ -221,6 +256,8 @@ namespace PerchSort.FirstLevelRuntime
             if (kind == Modal.Pause) continueButton.Icon.sprite = assets.PlayIcon;
             if (kind == Modal.NoMoves) errorText.text = "No moves";
             else if (kind == Modal.Error) errorText.text = error ?? "Please restart.";
+            else if (kind == Modal.SaveError) errorText.text = SaveFailureText();
+            replayButton.Button.gameObject.name = kind == Modal.SaveError ? "RetrySave" : "Replay";
             if (kind == Modal.Result)
             {
                 int species = lastHomedSpecies != null ? lastHomedSpecies() : 0;
@@ -254,7 +291,8 @@ namespace PerchSort.FirstLevelRuntime
                     panel.localScale = Vector3.one; modalGroup.alpha = 1;
                     modalStable = true;
                     RefreshModalButtons();
-                    var first = kind == Modal.Pause ? continueButton : replayButton;
+                    var first = kind == Modal.Pause ? continueButton :
+                        kind == Modal.SaveError && retrySave == null ? resultHome : replayButton;
                     if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(first.Button.gameObject);
                 })
                 .Bind(t =>
@@ -272,6 +310,7 @@ namespace PerchSort.FirstLevelRuntime
             if (modal == Modal.Result) allowed &= flow != null && flow.Phase == FirstLevelPhase.Won;
             modalGroup.interactable = allowed;
             foreach (var b in modalButtons) SetButton(b, allowed);
+            if (modal == Modal.SaveError) SetButton(replayButton, allowed && retrySave != null);
         }
 
         private void NavigateModal(Action action)
@@ -279,6 +318,17 @@ namespace PerchSort.FirstLevelRuntime
             if (!modalStable || closing) return;
             if (modal == Modal.Result && (flow == null || flow.Phase != FirstLevelPhase.Won)) return;
             if (modal == Modal.NoMoves && action == pause) action = undo;
+            if (modal == Modal.SaveError)
+            {
+                // Retry keeps the exact pending transaction; it must not create a new move
+                // or invoke the fixed-board Restart path, including on uncertain readback.
+                if (action == restart)
+                {
+                    if (retrySave == null) return;
+                    action = retrySave;
+                }
+                else if (action != home) return;
+            }
             bool restartFromError = modal == Modal.Error && action == restart;
             closing = true; RefreshModalButtons();
             int version = ++modalVersion;
