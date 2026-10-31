@@ -6,7 +6,7 @@ Unity 6000.6.7f1 竖屏小鸟归类益智游戏（原创题材/美术/文案）�
 | 机器 | 角色 |
 |---|---|
 | **251**（Linux，192.168.1.251，`~/Projects/game`） | 开发：Claude 拆任务/写验收/验收/决策，Codex 写代码、出图。**无 Unity Editor**，不能编译或跑测试。 |
-| **Mac**（192.168.1.242，Orca 环境 `Mac-Image-Worker`，旧路径 `/Users/apple/Documents/projects/game`） | 只做测试：Unity 编译、EditMode/PlayMode 测试、截图。不在 Mac 上改代码。 |
+| **Mac**（192.168.1.232，Orca 环境 `Mac-Image-Worker`，旧路径 `/Users/apple/Documents/projects/game`） | 只做测试：Unity 编译、EditMode/PlayMode 测试、截图。不在 Mac 上改代码。 |
 
 旧流程中 Mac 上的 Claude 不再使用。
 
