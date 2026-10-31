@@ -10,3 +10,5 @@ Acceptance:
 - Add user-required sequential forest worlds, icon-only regular controls, minimal mute toggles, open-source animation priority and no static-image animation substitutes.
 - Split independent modules among agents with non-overlapping ownership and one integration review. Only current repository documentation is writable; analysis remains outside production paths.
 - Commit/push only reviewed Markdown and open a draft PR. Preserve original workspaces/concurrent changes. Do not merge automatically or interpret design work as implementation authority.
+
+Post-review closure: use the browser-specific WaterSort.in one-empty-container source for R07, disclose N-capacity/free-help project choices, and specify Undo/Restart/persistence/Hint/layout/assisted records without adding an economy. Keep original 40 unaided witnesses and hidden-egg fairness limits. Remote GitHub Markdown updates on the existing draft branch are authorized while the primary execution environment is unavailable; do not touch production files or merge.
