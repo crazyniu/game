@@ -1,6 +1,6 @@
 # AI文档路由：先证据，再读唯一合同
 
-2026-10-31。当前实现v2，新设计v4；本轮只文档，不代码/关卡入库/素材制作/安装动画库。用户新要求取代旧“自行创新”：所有玩法有同类同行证据，不明边界移出有效需求，不能按名字补造。USER约束、同行事实与E工程协议分别标记。
+2026-10-31. Production remains v2; T21 adds an isolated bird-only Core: 18 focused Unity tests passed at f3813da, then only 2 added tests passed at 2d85437 (not a combined 20-test rerun). Production UI/asset binding and full v4/save6 remain incomplete; see [T21 report](../tasks/T21_report.md). 用户新要求取代旧“自行创新”：所有玩法有同类同行证据，不明边界移出有效需求，不能按名字补造。USER约束、同行事实与E工程协议分别标记。
 
 ## 1. 状态与用语
 
@@ -21,7 +21,7 @@
 | [INTERACTION](spec/INTERACTION_ANIMATION.md) | AN时间键、输入/前后台/表现 | 时长是项目调参，非同行测量 |
 | [UI_SPEC](UI_SPEC.md) | [已确认美术风格与树枝摆放](UI_SPEC.md#approved-forest-style)、静态尺寸/安全区/命中目标、用户图标/按钮/静音硬约束 | 风格确认不是生产素材/坐标/运行验收；旧星槽/双巢等资源尺寸不是有效玩法 |
 | [ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md) | 分镜/未来获授权实现/验收模板 | 模板不是执行许可 |
-| [ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md) | 开源优先、单主库选型/许可/兼容、动态验收 | 未安装/实测，不可静图冒动画 |
+| [ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md) | 开源优先、单主库选型/许可/兼容、动态验收 | LitMotion 2.0.2 pin 0b4c588ee75a07198841d92aab653e6b39445089 resolved on Mac; desktop compile and 1 smoke witness passed at a740b85. Runtime motion/mobile acceptance remains pending; static images are not animation proof. |
 | [VALIDATION](spec/VALIDATION.md) | V用例/证书/公平/设备/运行证据 | Unknown不是无解 |
 | [CODE_MAP](spec/CODE_MAP.md) | 现实现差异与未来唯一依赖顺序 | 代码阶段仍需独立用户授权 |
 
@@ -41,3 +41,5 @@ Gameplay review and proposals (T20): [GAMEPLAY_REVIEW](GAMEPLAY_REVIEW.md).
 Small-scope next-step proposal (first level first): [SMALL_SCOPE_NEXT](proposals/SMALL_SCOPE_NEXT.md).
 
 本轮交付与未测边界见[T18报告](../tasks/T18_report.md)。旧[T16撤回记录](archive/T16_WITHDRAWN.md)、[v2档案](archive/DESIGN_V2.md)、[UI历史](archive/UI_SPEC_HISTORY.md)、旧任务报告仅历史；[DESIGN](DESIGN.md)只兼容导航。旧“唯一DESIGN”、原创新临时枝、纹样蛋/队列/箱/星级条款不覆盖本路由。
+
+First-level preparation only: [asset/layout review and decisions](../tasks/T21_asset_manifest.md) → [event-to-motion handoff](../tasks/T21_event_motion_map.md) → [exact review metadata](../tasks/T21_layout_review.json). These are unaccepted design inputs, not production UI or changed formal levels.

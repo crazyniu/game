@@ -31,3 +31,9 @@ The current formal first-level layout remains N4/K3/P5. GAMEPLAY_REVIEW's N4/K2/
 Before full first-level integration: receive those configuration/visual decisions, finish required derived-asset manifests and small-size checks, then implement entrance→selection→wingbeats/flight→landing→Home/nest entry→retirement→celebration/audio through the accepted assets and single primary library. Record a normal-speed in-engine first-level video and focused input checks. Do not claim the first level, full v4/save6,40-level quality or mobile release is complete.
 
 At this checkpoint all invoked test/asset helper commands have ended. No ongoing background production implementation is implied by this report.
+
+## Independent preparation completed after this checkpoint
+
+[Asset/readiness manifest](T21_asset_manifest.md), [event-to-motion design handoff](T21_event_motion_map.md) and [exact A/B review metadata](T21_layout_review.json) are now recorded. A/B are static1080x1920 diagrams using old matched-family birds only as species placeholders; positions/art remain candidates. A Library:libfile_7b1e887236d08191a32f821521dd7a62; B:libfile_1750472c41e08191ad70f0baad48c2c7. Native64px color/grayscale/light-dark contact:libfile_0cfb22ebee48819187c4ebc2b67046cb. Review bundle:libfile_298e200dddd081918336ba6bc356bc0e. Raw alpha corners/edges pass; min64px margin4px; constant face and six real wing poses. These are technical/reviewer checks, not user/device/Unity acceptance. No extra Core or full-suite tests ran in this preparation.
+
+Independent preparation commands are finished. Required user decisions are A versus B logical content, the chosen branch/receiver layout and supports, red-bird appearance/tempo and nest-rim contour. Content choice alone is not approval of art or every coordinate. No later-level work or background production implementation is running.
