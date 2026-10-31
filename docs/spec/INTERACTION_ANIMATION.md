@@ -1,84 +1,84 @@
-# 小鸟归巢：交互、表现与输入安全
+# Perch Sort: interaction, presentation, and input safety
 
-2026-10-31 · 同行证据修订稿 · 文档合同，未实现、未跑Unity。玩法只由[RULES](RULES.md)和[证据矩阵](../MECHANIC_EVIDENCE.md)准入；本页不得用动画、控件或旧资源偷偷加回已撤回规则。固定布局不等于禁止局内加空间。
+2026-10-31 · Same-genre evidence revision · Documentation contract, not implemented; Unity has not been run. Gameplay is admitted only through [RULES](RULES.md) and the [evidence matrix](../MECHANIC_EVIDENCE.md). This page must not quietly restore withdrawn rules through animation, controls, or old assets. A fixed layout does not prohibit adding space during play.
 
-## 1. 证据、项目基线与工程协议分别标记
+## 1. Separate evidence, project baselines, and engineering protocols
 
-- **同行玩法依据**：Leafy Bird Sort的来源→目标、同色外端与有限容量；Mobirix的问号蛋/Undo/额外树枝；Bird Sort2的完成群飞走后失去该枝；BOOPFUN备用瓶与逐次加高。采用与否/具体边界以RULES为准，本页不因同行列过某工具便自动实现它。
-- **PROJECT_VISUAL_BASELINE**：静态资源/尺寸在[UI_SPEC](../UI_SPEC.md)。下表时长/弧线/错峰沿此前表现建议，都是项目调参值，不是上述竞品实测。其目的为表达已确认逻辑，不改变动作数、容量或触发条件。
-- **ENGINEERING_SAFETY**：完整事务、原子保存、过期回调、禁止双击并发等是可靠性要求，见[DATA_SAVE](DATA_SAVE.md)；不是声称同行已经如此实现。
-- **WITHDRAWN**：双激活目标队列、未来群睡眠唤醒、RevealAfter/RevealSpecies精确箱条件、纹样预告物种蛋、首次接收后任意腾空退休枝、风闸、Undo/Restart惩罚星级与每关3次提示。不播放这些动作；旧代码/素材存在不等于新需求有效。
+- **Same-genre gameplay evidence**: Leafy Bird Sort's source→destination input, same-color exposed ends, and limited capacity; Mobirix's question-mark eggs/Undo/extra branches; Bird Sort 2's loss of a branch after a completed flock flies away; BOOPFUN's reserve bottles and repeated height increases. RULES determines adoption and exact boundaries; listing a tool in another product does not automatically authorize implementing it here.
+- **PROJECT_VISUAL_BASELINE**: Static assets/dimensions are in [UI_SPEC](../UI_SPEC.md). The durations/arcs/staggering below retain earlier presentation suggestions. All are project tuning values, not measurements of those competitors. They express approved logic without changing action counts, capacity, or triggers.
+- **ENGINEERING_SAFETY**: Complete transactions, atomic saves, stale callbacks, and protection against concurrent double taps are reliability requirements; see [DATA_SAVE](DATA_SAVE.md). They do not claim that competitors use the same implementation.
+- **WITHDRAWN**: Dual-active target queues, sleeping/waking future flocks, exact RevealAfter/RevealSpecies crate conditions, eggs whose patterns announce species, branches that retire whenever emptied after first receiving birds, wind gates, Undo/Restart penalty stars, and 3 hints per level. Do not animate these actions; old code/assets do not establish valid new requirements.
 
-来源文字已自包含于[研究](../SORTING_RESEARCH.md)，可核查原页：[Leafy](https://play.google.com/store/apps/details?id=com.leaf.birdsort&hl=en)、[Mobirix](https://play.google.com/store/apps/details?id=com.mobirix.ldbis&hl=en)、[Bird Sort2](https://play.google.com/store/apps/details?id=com.globalplay.birdsort2.color.puzzle&hl=en-US)、[BOOPFUN](https://play.google.com/store/apps/details?id=com.boopfun.watersort)。
+Source descriptions are self-contained in [research](../SORTING_RESEARCH.md). Original pages: [Leafy](https://play.google.com/store/apps/details?id=com.leaf.birdsort&hl=en), [Mobirix](https://play.google.com/store/apps/details?id=com.mobirix.ldbis&hl=en), [Bird Sort 2](https://play.google.com/store/apps/details?id=com.globalplay.birdsort2.color.puzzle&hl=en-US), [BOOPFUN](https://play.google.com/store/apps/details?id=com.boopfun.watersort).
 
-## 2. 时间与路径单值表
+## 2. Single-source timing and path table
 
-本页拥有时间键AN01..AN14；秒用s，位移用design px。布局仅引用UI-D。所有未进入RULES有效配置的事件，即使下表有表现建议，也不得创建。每关采用统一N座、每种N鸟，N=4/6/8；配置、最大连续段及完成条件唯一归RULES R01/R02/R04。AN06只消费已确认的Home事件，AN07随后表现该完成枝Retired；两个事件不能互换为“鸟搬空就退”。N只鸟错峰群飞的时长为单鸟飞行时间+(N−1)×起飞间隔，再加独立落位/接收阶段；不得固定把N写成6，也不能凭动画推断每种固定六只。
+This page owns AN01..AN14 timing keys; seconds use s and displacement uses design px. Reference UI-D for layout. Events outside RULES' effective configuration must not be created even if this table suggests their presentation. Each level uses uniform capacity N and N birds per species, N=4/6/8; RULES R01/R02/R04 alone own configuration, maximum runs, and completion conditions. AN06 consumes only confirmed Home events; AN07 then presents that completed branch's Retired event. These cannot be substituted with retirement whenever birds leave a branch empty. Staggered flight of N birds takes one bird's flight time+(N−1)×takeoff interval, plus separate landing/reception stages; do not hardcode N as 6 or infer six birds per species from animation.
 
-| 键/事件 | 表现与稳定终态 | 项目建议时间/幅度（非同行实测） |
+| Key/event | Presentation and stable end state | Suggested project timing/amplitude (not competitor measurements) |
 | --- | --- | --- |
-| AN01 菜单退场 | Logo/按钮/装饰淡出至只剩背景，完成后再进入AN02，不与棋盘重影 | 0.25s |
-| AN02 关卡进入 | 读取固定初态；先定位枝与接收/进度视觉，再依次显示对应槽位的鸟；已移除的目标队列不出现 | 棋盘段0.55–1.05s，枝间约0.05s；加载另计 |
-| AN03 选中/取消 | 仅规则允许的外露可搬段抬起/描边，取消回原槽；不选择内层同种 | 抬30design px，0.12–0.18s |
-| AN04 非法反馈 | 原位短描边，不搬token、不计操作；无来源或目标能力不明时不伪装可点 | 0.12–0.18s；减动画不抖动 |
-| AN05 跨枝飞行 | 沿现角色造型使用验收多帧/骨骼clip转身与真实周期振翅，单fly图平移不通过，按已提交Count逐只沿弧线到实际槽位，脚底接枝后收翅回弹 | 单鸟0.35–0.45s；错峰0.05–0.07s；落位0.12–0.18s |
-| AN06 完成群归家 | 只消费规则已确认完成事件；逐只飞向现鸟巢，接近/收翅/入口前后遮挡与落脚接收有真实阶段，不依据顶部旧队列决定资格，不再睡眠 | 单鸟0.50–0.60s，错峰约0.06s；末段接收0.20–0.35s |
-| AN07 完成枝退场 | 本版采用SRC-BIRD2式完成失枝，在该完成群安全离开后收起原枝，保留原位置ID；普通腾空绝不触发 | 0.20–0.35s；可和末段接收衔接，不能盖过因果 |
-| AN08 问号蛋揭示 | 采用SRC-QUEST的问号蛋，只在合法Hatch事件时：蛋轻摇/裂壳、同一token原位变鸟；视觉不预告隐藏物种、不临时重抽 | 0.25–0.40s；边界不足时停用该关，不用动画填算法 |
-| AN09 加入额外普通枝 | 只消费R07已提交BranchAdded，显示预留S(P+1)空枝；不洗牌、不移动原枝/鸟。逐次扩高仍待证，不混用此事件。输入锁至显现完成；后台直接恢复提交终态 | 新枝显现0.20–0.35s，仅项目表现调参；容量N和次数只由R07拥有 |
-| AN10 Undo恢复 | 恢复整笔前态，包含完成枝是否可用、鸟与已批准辅助状态；不发重复完成/奖励 | 0.10–0.20s |
-| AN11 按钮 | 按下scale1→0.92，松开经1.06回1；Play/Next可点稳定态呼吸；禁用不触发 | 按下0.08s、松开0.18s；呼吸1↔1.05/周期1.6s |
-| AN12 弹窗 | 打开scale0.85→1.05→1，alpha先入；关闭scale1→0.9且alpha退出；模态防穿透 | 打开0.25s/前0.10s淡入；关闭0.15s |
-| AN13 遮罩/HUD | 遮罩alpha取UI_SPEC；暂停/设置/无路面板只遮罩压暗，胜利独立淡HUD | 遮罩淡入0.20s，胜利HUD淡出0.20s |
-| AN14 通关庆祝 | 最后完成演出后显示既定奖杯/鸟/彩纸及导航；不凭素材自动点亮三颗星、发币或增加成长数值 | 彩纸约2.2s，主体稳定后可点，不必等彩纸结束 |
+| AN01 Menu exit | Fade Logo/buttons/decorations to background only; finish before AN02, without overlapping board images | 0.25s |
+| AN02 Level entry | Read the fixed initial state; position branches and reception/progress visuals, then show birds in their corresponding slots in sequence; omit the removed target queue | Board stage 0.55–1.05s, about 0.05s between branches; loading is additional |
+| AN03 Select/cancel | Raise/outline only the exposed movable run allowed by rules; cancel returns it to its original slots; do not select inner birds of the same species | Raise 30 design px, 0.12–0.18s |
+| AN04 Invalid feedback | Brief outline in place; no token movement or action count; do not imply interactivity without a source or with unknown destination capability | 0.12–0.18s; no shake with reduced motion |
+| AN05 Cross-branch flight | Use accepted multiframe/skeletal clips with the existing character design for turning and real periodic wingbeats; translating a single fly image fails acceptance. Move committed Count birds in staggered arcs to actual slots, then fold wings and settle after feet contact the branch | Per bird 0.35–0.45s; stagger 0.05–0.07s; landing 0.12–0.18s |
+| AN06 Completed flock goes home | Consume only completion events confirmed by rules; fly birds individually toward the existing nest, with real approach/wing-folding/front-and-back entrance occlusion/landing reception stages; do not use the old top queue to determine eligibility; no sleeping | Per bird 0.50–0.60s, stagger about 0.06s; final reception 0.20–0.35s |
+| AN07 Completed branch exit | This revision adopts SRC-BIRD2-style branch loss after completion: retract the original branch after its completed flock safely leaves; retain its positional ID; ordinary emptying never triggers it | 0.20–0.35s; may connect to final reception without obscuring causality |
+| AN08 Question-mark egg reveal | Use SRC-QUEST's question-mark egg only on a valid Hatch event: slight wobble/cracked shell, then the same token becomes a bird in place; do not reveal hidden species early or reroll it | 0.25–0.40s; disable the level if boundaries are insufficient; animation must not fill algorithm gaps |
+| AN09 Add an extra ordinary branch | Consume only R07's committed BranchAdded; reveal reserved empty branch S(P+1); no shuffling or movement of original branches/birds. Repeated height increases remain pending evidence and must not share this event. Lock input until reveal completes; background recovery restores the committed end state directly | New branch reveal 0.20–0.35s, project presentation tuning only; R07 alone owns capacity N and usage count |
+| AN10 Undo restoration | Restore the entire prior state, including completed branch availability, birds, and approved assistance state; do not repeat completion/rewards | 0.10–0.20s |
+| AN11 Buttons | Press scale 1→0.92, release via 1.06 back to1; Play/Next may breathe while stable and interactive; disabled buttons do not trigger | Press 0.08s, release 0.18s; breathing 1↔1.05/period 1.6s |
+| AN12 Dialogs | Open scale 0.85→1.05→1 with alpha entering first; close scale 1→0.9 with alpha exit; prevent input through modals | Open 0.25s/fade in during first 0.10s; close 0.15s |
+| AN13 Overlay/HUD | Overlay alpha comes from UI_SPEC; pause/settings/no-moves panels darken only through the overlay; victory fades HUD separately | Overlay fade-in0.20s, victory HUD fade-out 0.20s |
+| AN14 Victory celebration | After the final completion presentation, show the established trophy/bird/confetti and navigation; assets do not automatically authorize lighting three stars, awarding coins, or increasing progression values | Confetti about 2.2s; interactive once the main content is stable, without waiting for confetti to end |
 
-飞行起止来自已提交前后快照的真实槽位，使用角色脚底pivot；曲线控制点只影响表现，不能改变token切片原序、数量或ID。左右镜像不反转规则数组。局内空间新增/失去后不压缩固定ID。归家容器是现有主题表达，不自动引入锁笼/目标排队；尚未证实的开箱逻辑无专属有效动画。
+Flight endpoints come from actual slots in committed before/after snapshots, using the character's foot pivot. Curve control points affect presentation only, never token slice order, count, or IDs. Horizontal mirroring does not reverse rule arrays. Adding/losing space during play does not compact fixed IDs. The home container is existing thematic presentation, not an automatic introduction of locked cages/target queues; unverified crate-opening logic has no dedicated effective animation.
 
-## 3. 输入与事务契约（工程可靠性）
+## 3. Input and transaction contract (engineering reliability)
 
-`Loading→Entering→Idle↔Selected→Resolving→Presenting→Idle/Won/NoMoves`。存档失败走`SaveError`，具体保留候选/重试/读回只见DATA_SAVE，不在本页另立策略。
+`Loading→Entering→Idle↔Selected→Resolving→Presenting→Idle/Won/NoMoves`. Save failures enter `SaveError`; DATA_SAVE alone specifies candidate retention/retry/readback, without a separate policy here.
 
-| 状态 | 可接受 | 拒绝/退出条件 |
+| State | Accepted | Rejection/exit conditions |
 | --- | --- | --- |
-| Loading/Entering | 系统后台/退出 | 拒棋盘/辅助/Next；固定初态加载且全落稳才Idle |
-| Idle | 合法来源、规则已批准且可用的Undo/Restart/Hint/扩展动作、暂停 | 没有准入规则或参数的按钮不激活；无效请求不改局 |
-| Selected | 合法目标、同源/空白取消、可用辅助/暂停 | 有效辅助先取消选择；非法目标短反馈回Idle；无效辅助不改选择 |
-| Resolving/Presenting | 系统后台；暂停最多暂存一个请求 | 不缓存移动/Undo/Restart/Hint/扩展/Next；稳定提交且全事件播放/视图同步后解锁 |
-| SaveError | DATA_SAVE规定的核验重试、返回菜单/退出 | 不播未经确认成功的动作，不制造第二候选，不永久卡Resolving |
-| Paused/Settings | 模态控件 | 棋盘/HUD不能穿透；关闭回稳定态 |
-| Won | 本关有效Next（末关无）、Replay、Home | 不再搬鸟，不重复发奖/跨两关 |
-| NoMoves | 可用Undo/Restart及已明确批准的辅助 | 无合法移动不自动推定全局无解；辅助未获规则准入不能以广告加枝“救场” |
+| Loading/Entering | System background/exit | Reject board/assistance/Next; enter Idle only after the fixed initial state loads and everything settles |
+| Idle | Valid source, approved and available Undo/Restart/Hint/expansion actions, pause | Do not activate buttons without admitted rules or parameters; invalid requests do not change the board |
+| Selected | Valid destination, same-source/blank cancel, available assistance/pause | Valid assistance cancels selection first; invalid destination gives brief feedback and returns to Idle; invalid assistance preserves selection |
+| Resolving/Presenting | System background; at most one pending pause request | Do not queue moves/Undo/Restart/Hint/expansion/Next; unlock after stable commit and all event playback/view synchronization |
+| SaveError | Verification/retry defined by DATA_SAVE, return to menu/exit | Do not play unconfirmed success, create a second candidate, or remain permanently stuck in Resolving |
+| Paused/Settings | Modal controls | No board/HUD input through modal; close to stable state |
+| Won | Valid Next for this level (none on final level), Replay, Home | No further bird movement, duplicate rewards, or skipping two levels |
+| NoMoves | Available Undo/Restart and explicitly approved assistance | No legal moves does not imply global unsolvability; assistance without rule admission cannot rescue play through an advertised extra branch |
 
-Undo无历史时隐藏并保留原HUD槽；无效请求不改选择。Undo与Hint采用SRC-SIMPLE的免费不限次，不加广告/货币/每关消耗次数。一次只运行一个提示查询，答案要匹配当前关卡hash/稳定状态与代次，过期结果不执行、不覆盖高亮。不得从旧角标恢复每关3次/6000节点/1.5秒等产品配额；搜索预算只能由数据/验证工程合同规定，不当同行玩法事实。
+Hide Undo without history, retaining its original HUD slot; invalid requests preserve selection. Undo and Hint adopt SRC-SIMPLE's free unlimited use, without ads/currency/per-level consumption counts. Run only one hint query at a time; answers must match the current level hash/stable state/generation, and stale results must neither execute nor overwrite highlighting. Do not restore product quotas such as 3 per level/6000 nodes/1.5 seconds from old badges; search budgets belong only to data/validation engineering contracts, not competitor gameplay facts.
 
-完整逻辑候选先稳定并确认原子提交，再播放事件；动画回调不能推进完成/奖励。每次装载增加viewGeneration，后台恢复按稳定快照同步，旧协程不能解锁新关。选中/弹性/粒子是临时视觉态，不作为存档权威。
+Stabilize the full logical candidate and confirm atomic commit before playing events; animation callbacks cannot advance completion/rewards. Increment viewGeneration on every load; background recovery synchronizes from the stable snapshot, and old coroutines cannot unlock a new level. Selection/spring effects/particles are transient visuals, not save authority.
 
-## 4. 信息、评分、声音与可达性
+## 4. Information, scoring, sound, and accessibility
 
-Leafy支持少步高分，但未公开分数/星级公式；本版按RULES记录历史最佳操作数，Undo/Restart不另设惩罚分，具体计数/恢复由RULES与DATA_SAVE拥有。因此不沿用“Undo+Restart=0三星、1–3二星”等惩罚，也不发明替代公式。已有星槽/进度牌仅是尺寸基线，当前有效规则未给具体计算时不驱动它们；保留最高星、星解锁、金币奖励等也不能由美术自动推定。成长/提示限额/道具成本全部按证据矩阵准入，缺完整参数就待证，不让未来AI猜。
+Leafy supports higher scores for fewer moves without publishing score/star formulas. This revision records historical best action counts under RULES, without separate Undo/Restart penalties; RULES and DATA_SAVE own counting/restoration. Do not retain penalties such as “Undo+Restart=0 gives three stars, 1–3 gives two,” or invent replacement formulas. Existing star slots/progress signs are dimension baselines only; do not drive them without effective calculation rules. Artwork cannot imply retaining highest stars, star-based unlocking, or coin rewards. Progression/hint quotas/item costs require evidence-matrix admission; incomplete parameters remain pending evidence for future AI rather than guesses.
 
-问号蛋的隐藏身份不能用物种纹样/剪影、提示高亮、音色、无障碍描述或预览泄露；相同初态在Restart/Replay不随机改变。是否采用蛋取RULES；未采用则不使用AN08。隐信息公平须单独做仅用玩家可见信息的策略验收，不能只用全知解。
+Do not leak question-mark eggs' hidden identity through species patterns/silhouettes, hint highlights, timbre, accessibility descriptions, or previews. Restart/Replay do not randomize the same initial state. RULES decides whether eggs are adopted; otherwise do not use AN08. Hidden-information fairness requires separate strategy acceptance using only player-visible information, beyond an omniscient solution.
 
-减动画取消大弧线/弹性/密粒子，保留实际鸟数、完成失枝、辅助空间变化和导航次序。系统读取尚未接入，不宣称已支持；不加新设置入口。静音/灰度不能使可见鸟种、容量和不可用枝难以分辨。沿用既有动作短声；完成/获胜每事件只播一次，鸟群错峰需限音效叠加。新增音效/触感仅表现建议，不改变操作/奖励，不新增系统授权或设置。
+Reduced motion removes large arcs/spring effects/dense particles while preserving actual bird counts, branch loss after completion, assistance-space changes, and navigation order. System preference reading is not integrated; do not claim support or add a settings entry. Muting/grayscale must not obscure visible species, capacity, or unavailable branches. Retain existing short action sounds; play completion/victory once per event and limit overlapping sound from staggered flocks. New sounds/haptics are presentation suggestions only: no changed actions/rewards or additional system permissions/settings.
 
-验收每项给真实运行六帧时间采样及录屏；静态分镜标“示意”。输入锁/真实触控逻辑尺寸/安全区/后台/声音须实际交互或设备试验，不能用图片代替。新派生资源需验收后才能未来接入，本任务不制作资源。
+Provide six timed frames and a recording from actual runtime for every acceptance item; label static storyboards “illustrative.” Input locks/actual logical touch dimensions/safe areas/background behavior/sound require interaction or device tests, never images as substitutes. New derived assets require acceptance before future integration; this task creates no assets.
 
-## 5. 世界地图与图标规范（用户明确要求）
+## 5. World map and icon conventions (explicit user requirements)
 
-四世界分配、顺序解锁和Replay边界唯一见[MAP_PROGRESSION](../MAP_PROGRESSION.md)，本页不重复分段/门槛。当前主题概念并非验收定版，未来不能据概念图覆盖原UI；地图节点位置/页面布置未定先标PENDING_LAYOUT。解锁/进入仅导航，不改变固定关卡初态。
+[MAP_PROGRESSION](../MAP_PROGRESSION.md) alone owns four-world allocation, sequential unlocking, and Replay boundaries; do not repeat divisions/thresholds here. Current theme concepts are not accepted final assets and must not overwrite original UI. Mark undecided map-node positions/page layout PENDING_LAYOUT. Unlocking/entry are navigation only and do not change fixed initial states.
 
-按钮只用规则形圆形/圆角矩形，能用图标表达的操作仅图标，不再图标旁加重复可见标签。无障碍名称供辅助技术读取，不是可见按钮文案；关卡编号、必要错误消息不受此限。设置保持既定单一声音按钮；音乐、游戏音效、点击声仅静音/恢复，可共用总静音，不增加音量滑条/百分比或擅拆三个新控件。地图锁/已通关/当前节点用状态图标区分，不用异形热区代替规则形按钮。
+Buttons use regular circles/rounded rectangles. Use icons alone where clear, without duplicate visible labels beside them. Accessibility names serve assistive technology and are not visible button text; level numbers and necessary error messages are exempt. Settings retain the established single sound button; music/game effects/click sounds only mute/unmute and may share global mute. Do not add volume sliders/percentages or independently split them into three controls. Map locked/completed/current states use status icons, not irregular hit regions in place of regular buttons.
 
-## 6. 真实动画与开源库优先级（USER_REQUIREMENT）
+## 6. Real animation and open-source library priority (USER_REQUIREMENT)
 
-所有动画位置必须呈现时间上的真实变化，不能用一张固定图冒充起飞/落枝/入巢/结算完成。飞行动画同时有可见振翅与轨迹；入巢有接近/进入/接收过程；结算有面板、角色或粒子等阶段序列。背景/原始姿势帧可以是静态资产，最终须按时间组合出动作；不能靠相机截图或文字声称“已动”。
+Every animation location must visibly change over time; a fixed image cannot stand in for completed takeoff/landing/nest entry/results. Flight combines visible wingbeats and a trajectory; nest entry includes approach/entry/reception; results include a staged sequence of panels, characters, or particles. Backgrounds/raw pose frames may be static assets, but must combine into actions over time; camera screenshots or text cannot prove motion.
 
-优先用适用开源动画库完成现有补间需求，单一主补间库，不另手写重复的补间基础设施。具体候选、许可证、Unity兼容及选型状态唯一归[ANIMATION_LIBRARIES](ANIMATION_LIBRARIES.md)，不得把候选写成已选型/安装或把DOTween写成MIT。当前仅文档，不安装包。库负责表现，不接管R01..R07逻辑；后台取消/代次/原子提交约束不变。
+Prefer a suitable open-source animation library for existing tween needs, with one primary tween library and no duplicate hand-written tween infrastructure. [ANIMATION_LIBRARIES](ANIMATION_LIBRARIES.md) alone owns candidates, licenses, Unity compatibility, and selection status; do not describe candidates as selected/installed or DOTween as MIT. Documentation only now; no package installation. Libraries own presentation, not R01..R07 logic; background cancellation/generation/atomic commit constraints remain.
 
-验收必须提供真实运行录屏，不能只交静图；还需检查每个声称完成的动画位置是否确有动态序列。用户指定的图标、规则形按钮、简洁设置与静音开关同属USER_REQUIREMENT，不伪托为同行原规则。
+Acceptance requires actual runtime recordings, beyond static images, and checks that every claimed animation location has a dynamic sequence. User-specified icons, regular buttons, simple settings, and mute controls are also USER_REQUIREMENT, not attributed to competitor rules.
 
-## 7. R07 AddBranch输入闭环
+## 7. Complete R07 AddBranch input flow
 
-Idle/Selected/NoMoves且extraBranchAdded=false可调用；有效调用先取消选中及当前Hint，再锁输入，构造一笔AddBranch候选，原子保存成功后才播放AN09。双击不排队、不产生第二枝；失败按SaveError保同序号候选。已使用、Won、Paused/Settings、Resolving/Presenting均不能添加。
+Callable in Idle/Selected/NoMoves with extraBranchAdded=false; a valid call cancels selection and the current Hint, locks input, and constructs one AddBranch candidate. Play AN09 only after atomic save succeeds. Double taps are not queued and cannot create a second branch; failure retains the same-sequence candidate under SaveError. Addition is unavailable after use or in Won, Paused/Settings, or Resolving/Presenting.
 
-NoMoves模态的加枝控件与底层HUD同位置但归模态所有，底层不接射线；成功后按新合法Transfer集合关闭或保留NoMoves，不从广告/商店返回。Undo按最近事务恢复末枝存在性与额外枝状态，AN10只同步快照，不重新结算Home。Restart/退出恢复遵DATA_SAVE；新枝满群时仍播AN06→AN07，普通腾空不退役。入口布局唯一见UI_SPEC UI-D41/42；新增切图未验收不得实施。
+The NoMoves modal owns its add-branch control at the same location as the underlying HUD, which receives no raycasts. After success, close or retain NoMoves according to the new legal Transfer set, without returning from ads/store. Undo restores the final branch's existence and extra-branch state according to the latest transaction; AN10 synchronizes snapshots only, without resolving Home again. DATA_SAVE owns Restart/exit recovery. A full completed flock on the new branch still plays AN06→AN07; ordinary emptying does not retire it. UI_SPEC UI-D41/42 alone own entry layout; implementation is prohibited until new sliced assets pass acceptance.

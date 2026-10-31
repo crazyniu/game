@@ -1,64 +1,64 @@
-# Perch Sort — 发布前清单
+# Perch Sort — pre-release checklist
 
-核对日期：2026-10-31；Unity 6000.6.7f1。以下均为上架前待办，不代表已经创建账号、签名、上传或发布。当前游戏离线运行，无账号、广告、内购、分析与数据收集；进度与设置仅保存在设备本地。
+Checked 2026-10-31; Unity 6000.6.7f1. Everything below remains pre-store work, without implying accounts, signing, uploads, or release already exist. The current game runs offline, without accounts, ads, in-app purchases, analytics, or data collection; progress/settings stay on the device.
 
-## 身份、账号与签名
+## Identity, accounts, and signing
 
-- [ ] 注册并验证 Google Play Console / Apple Developer Program 主体、联系人与双重验证，确认团队角色、地区、协议、税务及欧盟 trader 状态等适用要求；个人新账号的测试/生产访问门槛以控制台要求为准。
-- [ ] **公司名 `TODO_COMPANY` 与 Android applicationId / iOS bundle id `com.todo.perchsort` 全是占位；上架前必须替换，且发布后不可更改。** 确定真实主体和唯一反向域名标识后，同时更新 `Assets/Editor/ReleaseSettings.cs` 与商店记录。不要用占位标识上传。
-- [ ] 当前 `productName=Perch Sort`、版本 `0.1.0`、Android versionCode `1`、iOS buildNumber `1`；每次上传递增构建号。公司名/产品名影响 Unity 本地存档目录，正式身份冻结后再做升级存档验证。
-- [ ] Android 创建上传密钥、启用 Play App Signing，记录证书指纹和恢复负责人；密钥、alias 密码放密码库/CI secret，离线加密备份，禁止放仓库或日志。
-- [ ] iOS 在正确 Team 下创建 App ID、签名证书和 provisioning profile，验证 capabilities 与实际用途一致；证书私钥、恢复资料和 App Store Connect API key 由受限密码库保管。
+- [ ] Register and verify Google Play Console / Apple Developer Program entities, contacts, and two-factor authentication; confirm team roles, regions, agreements, tax, EU trader status, and other applicable requirements. Follow console requirements for new personal accounts' testing/production-access gates.
+- [ ] **Company name `TODO_COMPANY` and Android applicationId / iOS bundle id `com.todo.perchsort` are all placeholders; replace before submission, and they cannot change after release.** Once the real entity and unique reverse-domain identifier are decided, update both `Assets/Editor/ReleaseSettings.cs` and store records. Do not upload placeholder identities.
+- [ ] Current `productName=Perch Sort`, version `0.1.0`, Android versionCode `1`, iOS buildNumber `1`; increment build numbers for every upload. Company/product names affect Unity's local save directory; verify upgrade saves after production identity freezes.
+- [ ] Create Android upload keys, enable Play App Signing, and record certificate fingerprints/recovery ownership. Store keys/alias passwords in a password vault/CI secret with encrypted offline backup, never repository/logs.
+- [ ] Create iOS App ID, signing certificates, and provisioning profile under the correct Team; verify capabilities match actual use. Keep certificate private keys, recovery material, and App Store Connect API keys in a restricted vault.
 
-## 工具链与构建配置
+## Toolchain and build configuration
 
-- [ ] Unity Hub 为 **6000.6.7f1** 安装 Android Build Support（SDK/NDK Tools 与 OpenJDK）和 iOS Build Support。本机 T7 验证时仅有 MacStandaloneSupport / WebGLSupport，未构建 Android/iOS。
-- [ ] Android 使用最低 API **26 / Android 8.0**、目标 API **36 / Android 16**、ARM64、IL2CPP；Unity 6000.6 官方工具链为 SDK 36、NDK r27c、OpenJDK 17。Google Play 自 2026-08-31 对普通新应用/更新要求目标 API 36。发布时再次核对控制台及官方要求。[Unity 系统要求](https://docs.unity.com/en-us/engine/6000.6/manual/get-started/install-and-upgrade/getting-started-installing-unity/system-requirements)、[Google Play 目标 API](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en)
-- [ ] iOS 最低部署版本 **15.0**，使用 **Xcode 26+ / iOS 26 SDK+** 构建提交；最低系统版本不是构建 SDK 版本。本机模块未安装，此组合的实际归档与签名仍待复核。[Apple 提交要求](https://developer.apple.com/news/upcoming-requirements/)
-- [ ] 在 Unity 执行 **Perch Sort → Apply Release Settings**（命令行 `bash scripts/apply_release_settings.sh`）；幂等配置竖屏、标识、版本、图标、权限及遥测。`run_tests.sh` 的场景重建也会应用该开发占位配置；正式发布前先更新脚本内身份/版本。
-- [ ] Android/iOS 模块安装后重跑配置，确认平台图标槽全部填入。默认图标为原始 `art/raw/ui/icon_1024.png` 的字节相同副本；Android adaptive 保留完整平面插画作背景、透明前景，不伪造抠图。必须在圆形、圆角矩形和厂商蒙版下检查鸟冠、尾羽与脚部裁切；若需调整，另产派生资源，不覆盖原件。
-- [ ] 确认 Portrait 锁定、关闭横屏及倒置旋转；iPad 当前 requiresFullScreen=true，真机复核系统窗口行为与安全区。Unity 默认启动 Logo / Splash 已关闭（Unity 6 Personal 也允许）；验证真机冷启动到首帧无长时间空白。[Unity 官方说明](https://unity.com/blog/unity-is-canceling-the-runtime-fee)
-- [ ] 生成 Release AAB / Xcode Archive；检查 ARM64、16 KB page-size 兼容性与最终 merged AndroidManifest。无相机、麦克风、定位、存储等危险权限；`VIBRATE` 为正常权限，游戏仅 Collect / Win 调用。不应有 INTERNET、AD_ID、广告/支付/统计 SDK；不得把 Editor 能通过当作最终包权限证明。
-- [ ] 最终包审查 iOS Info.plist、entitlements、隐私清单和 required-reason API 声明（包括 Unity 自身生成内容），只声明实际使用项；禁用 Development Build、Script Debugging 和网络诊断。
+- [ ] Install Android Build Support (SDK/NDK Tools and OpenJDK) and iOS Build Support for **6000.6.7f1** through Unity Hub. Local T7 verification had only MacStandaloneSupport / WebGLSupport, without Android/iOS builds.
+- [ ] Android minimum API **26 / Android 8.0**, target API **36 / Android 16**, ARM 64, IL2CPP; Unity 6000.6 official toolchain uses SDK 36, NDK r27c, OpenJDK 17. From 2026-08-31 Google Play requires target API36 for ordinary new apps/updates. Recheck console/official requirements at release. [Unity system requirements](https://docs.unity.com/en-us/engine/6000.6/manual/get-started/install-and-upgrade/getting-started-installing-unity/system-requirements), [Google Play target API](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en)
+- [ ] iOS minimum deployment **15.0**; build submissions with **Xcode 26+ / iOS 26 SDK+**. Minimum OS is not build SDK version. Local modules are absent; actual archiving/signing of this combination still needs rechecking. [Apple submission requirements](https://developer.apple.com/news/upcoming-requirements/)
+- [ ] In Unity run **Perch Sort → Apply Release Settings** (CLI `bash scripts/apply_release_settings.sh`), idempotently configuring portrait orientation, identity, version, icons, permissions, and telemetry. Scene rebuilding in `run_tests.sh` also applies this development-placeholder configuration; update script identities/versions before production release.
+- [ ] After installing Android/iOS modules, rerun configuration and confirm every platform icon slot is filled. Default icon is a byte-identical copy of original `art/raw/ui/icon_1024.png`; Android adaptive uses the complete flat illustration as background and a transparent foreground, without a fake cutout. Check crest/tail/feet cropping under circular, rounded-rectangle, and manufacturer masks. Any adjustment needs a derived asset, without overwriting originals.
+- [ ] Confirm Portrait lock and disable landscape/upside-down rotation. iPad currently has requiresFullScreen=true; recheck system window behavior/safe areas on device. Unity default Logo / Splash is disabled (also allowed in Unity 6 Personal); verify no prolonged blank cold-start period before the first frame. [Unity official statement](https://unity.com/blog/unity-is-canceling-the-runtime-fee)
+- [ ] Generate Release AAB / Xcode Archive; check ARM 64,16 KB page-size compatibility, and final merged AndroidManifest. No dangerous camera/microphone/location/storage permissions; `VIBRATE` is a normal permission used only for Collect / Win. No INTERNET, AD_ID, advertising/payment/analytics SDKs should exist; Editor acceptance does not prove final package permissions.
+- [ ] Review final iOS Info.plist, entitlements, privacy manifests, and required-reason API declarations (including Unity-generated content), declaring only actual use. Disable Development Build, Script Debugging, and network diagnostics.
 
-## 隐私、分级和审核说明
+## Privacy, ratings, and review notes
 
-- [ ] 发布可公开访问的隐私政策网页（正文、有效日期、真实主体及联系邮箱），说明不收集/分享/追踪数据，进度设置仅在本地、重置进度与卸载的影响，若设备系统备份存在则说明其边界。游戏无账号，不添加虚假的账号删除流程。
-- [ ] Google Play Data safety 按最终构建填写“无数据收集、无分享”；无广告、无内购、无需登录。即使不收集数据仍填写表单并提供隐私政策；引擎或 SDK 后续变化必须重新审查。[Google Data safety](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en)
-- [ ] App Store Connect App Privacy 按实际填写 “No, we do not collect data from this app”，不追踪、不申请 ATT；确保最终包和第三方依赖吻合，不能只凭产品意图填写。[Apple App Privacy](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy/)
-- [ ] Google IARC / Apple 新版年龄问卷：如实回答卡通鸟类益智、无暴力血腥、无性内容、赌博/模拟赌博、药物、恐怖、聊天/UGC、网页自由访问、付费随机物品；不要自行保证评级结果。
-- [ ] 明确目标年龄及是否主动面向儿童；如选儿童/家庭类别，另核对相应商店政策及素材/外链限制，不因画风可爱自动勾选。审核备注说明离线玩法、40 关、可撤销/重开、无账号无需审核凭据。
+- [ ] Publish a publicly accessible privacy-policy page with text, effective date, real entity, and contact email. Explain no data collection/sharing/tracking, local progress/settings, reset/uninstall effects, and system-backup boundaries if applicable. No accounts means no fabricated account-deletion flow.
+- [ ] Complete Google Play Data safety from the final build: no collection/sharing, ads, purchases, or login. Even without collection, submit the form and privacy policy; re-review future engine/SDK changes. [Google Data safety](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en)
+- [ ] Complete App Store Connect App Privacy accurately as “No, we do not collect data from this app,” with no tracking/ATT request. Verify final package/dependencies match; product intent alone is insufficient. [Apple App Privacy](https://developer.apple.com/help/app-store-connect/manage-app-information/manage-app-privacy/)
+- [ ] Google IARC / Apple's new age questionnaire: accurately describe cartoon-bird puzzles, no violence/gore, sexual content, gambling/simulated gambling, drugs, horror, chat/UGC, unrestricted web access, or paid random items. Do not guarantee the rating outcome yourself.
+- [ ] Decide target ages and whether actively targeting children. Children's/family categories require separate policy and asset/external-link checks; cute art is not automatic grounds to select them. Review notes explain offline play,40 levels, Undo/restart, no accounts, and no review credentials needed.
 
-## 商店素材
+## Store assets
 
-| 平台 / 素材 | 计划尺寸与要求 | 待办 |
+| Platform/asset | Planned dimensions and requirements | To do |
 | --- | --- | --- |
-| Google Play 图标 | 512×512 PNG，≤1024 KB；区别于设备 launcher 图标 | [ ] 由 1024 源另导出，检查小尺寸辨识 |
-| Google Play feature graphic | 1024×500，JPEG 或 24-bit PNG，无 alpha | [ ] 制作真实玩法宣传图 |
-| Google Play 手机截图 | 至少 2 张，建议 4–8 张 1080×1920，PNG/JPEG；单边 320–3840，长边不超短边两倍 | [ ] 真实 Release 手机运行重拍主菜单、棋盘、收集、通关、设置 |
-| Google Play 平板截图 | 支持平板时补 7/10 英寸实际布局截图 | [ ] 不拉伸手机画面 |
-| Apple App Icon | 1024×1024、无透明、无预烘焙圆角 | [ ] 模块生成资产目录并在 Archive 验证 |
-| Apple iPhone 大屏截图 | 可选 1260×2736 / 1290×2796 / 1320×2868 竖屏，按当前 Connect 槽位；每组 1–10 张 | [ ] 真实匹配设备尺寸拍摄 |
-| Apple iPad 13 英寸截图 | 2064×2752 或 2048×2732 竖屏；支持 iPad 时必需 | [ ] 真机/模拟器验证布局后拍摄 |
-| 双平台文案与链接 | 标题、简短说明/副标题、完整说明、关键词/分类、版权、支持邮箱/URL、隐私 URL、版本说明；按各字段当前字数限制 | [ ] 英文与计划发行语言逐项审校 |
-| 可选预览视频 | 另按商店当前视频规格制作；非本轮交付 | [ ] 不包含不存在的功能 |
+| Google Play icon | 512×512 PNG,≤1024 KB; distinct from device launcher icon | [ ] Export separately from 1024 source and check small-size recognition |
+| Google Play feature graphic | 1024×500, JPEG or24-bit PNG, no alpha | [ ] Create promotional image showing real gameplay |
+| Google Play phone screenshots | At least 2, suggested 4–8 at1080×1920, PNG/JPEG; each side 320–3840, long side at most twice short side | [ ] Retake main menu, board, collection, victory, settings in real Release phone runtime |
+| Google Play tablet screenshots | Actual 7/10-inch layouts if supporting tablets | [ ] Do not stretch phone views |
+| Apple App Icon | 1024×1024, no transparency or prebaked rounded corners | [ ] Generate asset catalog through module and verify Archive |
+| Apple large-screen iPhone screenshots | Portrait 1260×2736 /1290×2796 /1320×2868 as current Connect slots permit;1–10 per set | [ ] Capture actual matching device sizes |
+| Apple 13-inch iPad screenshots | Portrait 2064×2752 or2048×2732; required with iPad support | [ ] Capture after device/simulator layout verification |
+| Both platforms' text/links | Title, short description/subtitle, full description, keywords/category, copyright, support email/URL, privacy URL, release notes; current limits per field | [ ] Review English and planned release languages individually |
+| Optional preview video | Follow current store video specifications separately; outside this delivery | [ ] Do not include nonexistent features |
 
-尺寸依据：[Google Play 素材](https://support.google.com/googleplay/android-developer/answer/9866151?hl=en-GB&rd=1)、[Apple 截图规格](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/)。`build/screens/*.png` 是 Editor Play Mode 的 1080×1920 验收图，**不是已验证的所有设备商店截图**；第 11 张明确显示 Reduce motion 开启。
+Dimension sources: [Google Play assets](https://support.google.com/googleplay/android-developer/answer/9866151?hl=en-GB&rd=1), [Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/). `build/screens/*.png` are 1080×1920 Editor Play Mode acceptance images, **not verified store screenshots for all devices**; image 11 explicitly shows Reduce motion enabled.
 
-## 真机与发布闸门
+## Device and release gates
 
-| 测试组 | 至少覆盖 | 通过标准 |
+| Test group | Minimum coverage | Pass criteria |
 | --- | --- | --- |
-| Android 最低端 | API 26、ARM64、低内存设备 | 冷启动/连续游戏/存档正常，无危险权限弹窗 |
-| Android 当前系统 | API 35/36，至少两种厂商，含 16 KB 页面设备 | edge-to-edge/刘海/手势返回、图标蒙版、旋转锁定正确 |
-| iPhone | 最低 iOS 15 可用设备 + 当前 iOS 的刘海/Dynamic Island 设备 | 启动、前后台/来电中断、静音开关、设置重启保存、触控正常 |
-| iPad / Android 平板 | 4:3 与宽屏、安全区/系统窗口 | 竖屏、棋盘和文字无裁切、按钮可触达 |
-| 音频与震动 | 手机外放 + 耳机；支持/无震动硬件 | 7 音效事件对应，静音立即停止，菜单/场景切换无重叠管理器；无 BGM 时无错误；Collect/Win 才震动、Error 不震动 |
-| 动效与输入 | 默认/Reduce motion 两档，快速连续点下一关与返回菜单 | 淡出淡入设计总时长 0.20 s，无遗留遮罩/输入锁；减动效无抖动/粒子且能通关撤销 |
-| 存档与离线 | 飞行模式、杀进程重开、上一版本升级、重置取消/确认 | 不依赖网络；进度/开关保存；重置不删设置；正式身份目录下升级不丢档 |
-| 性能与稳定性 | 连续 20 分钟，关 1/20/40，反复前后台/通关 | 无异常、持续对象/音源增长、明显帧卡或音频疲劳 |
+| Minimum Android | API26, ARM 64, low-memory device | Cold start/continuous play/saves work; no dangerous-permission dialogs |
+| Current Android | API35/36, at least two manufacturers, including 16 KB page device | Correct edge-to-edge/notch/gesture back, icon masks, rotation lock |
+| iPhone | Available minimum iOS 15 device + current iOS notch/Dynamic Island device | Correct launch, background/foreground/call interruption, mute switch, settings persistence after restart, touch |
+| iPad / Android tablet | 4:3 and widescreen, safe areas/system windows | Portrait; unclipped board/text; reachable buttons |
+| Audio/haptics | Phone speakers + headphones; with/without vibration hardware | 7 sound events match; mute stops immediately; no overlapping managers on menu/scene changes; no error without BGM; vibrate only Collect/Win, never Error |
+| Motion/input | Default/Reduce motion, rapid repeated Next/menu-back taps | Designed fade-out/in total 0.20 s, no lingering overlay/input lock; reduced motion has no shake/particles and permits completion/Undo |
+| Saves/offline | Airplane mode, process kill/restart, previous-version upgrade, reset cancel/confirm | No network dependency; progress/toggles saved; reset preserves settings; upgrade retains saves under production identity directory |
+| Performance/stability | Continuous 20 minutes, levels 1/20/40, repeated background/foreground/victory | No exceptions, persistent object/audio-source growth, noticeable stutter, or audio fatigue |
 
-- [ ] 运行 `bash scripts/run_tests.sh` 全绿并归档 XML、日志。
-- [ ] 运行 `bash scripts/screenshots.sh`，逐张验收 11 张真实 Play Mode 图；真人听音和真机触感单独签字。
-- [ ] 真机签名包完成上述矩阵，检查离线启动和运行网络行为、权限、签名、身份与版本，不把源配置或 Editor 测试代替包验收。
-- [ ] 由账号所有者确认最终占位清零、素材、政策表单及签名；再进入内部测试 / TestFlight，按控制台实际要求逐步放量。本任务没有执行上传或发布。
+- [ ] Run `bash scripts/run_tests.sh` fully green and archive XML/logs.
+- [ ] Run `bash scripts/screenshots.sh`; individually accept 11 actual Play Mode images. Human listening/device haptics require separate sign-off.
+- [ ] Complete the matrix with signed device packages; check offline launch/runtime network behavior, permissions, signing, identity, version. Source configuration/Editor tests do not replace package acceptance.
+- [ ] Account owner confirms all placeholders removed, assets, policy forms, and signing; then enter internal testing / TestFlight and gradually roll out under actual console requirements. This task performed no upload/release.

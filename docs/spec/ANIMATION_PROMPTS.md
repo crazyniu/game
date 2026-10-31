@@ -1,91 +1,91 @@
-# 小鸟归巢：有证据约束的AI表现任务模板
+# Perch Sort: evidence-constrained AI presentation task templates
 
-2026-10-31 · 文档修订稿，当前不执行、不生成图、不写游戏代码。写提示词不授权未来实施。所有机制先查[证据矩阵](../MECHANIC_EVIDENCE.md)与[RULES](RULES.md)；地图分段/解锁只取[MAP_PROGRESSION](../MAP_PROGRESSION.md)，库选型/许可证只取[ANIMATION_LIBRARIES](ANIMATION_LIBRARIES.md)；静态数字只取[UI_SPEC](../UI_SPEC.md)，时长/输入只取[INTERACTION](INTERACTION_ANIMATION.md)。引用文件必须随任务附全文或相关完整表，让无联网/无仓库访问的AI也能读到，不只扔链接。
+2026-10-31 · Documentation revision; no execution, image generation, or game coding now. Writing prompts does not authorize future implementation. First check the [evidence matrix](../MECHANIC_EVIDENCE.md) and [RULES](RULES.md) for every mechanism. Read only [MAP_PROGRESSION](../MAP_PROGRESSION.md) for map divisions/unlocks, [ANIMATION_LIBRARIES](ANIMATION_LIBRARIES.md) for library selection/licenses, [UI_SPEC](../UI_SPEC.md) for static numbers, and [INTERACTION](INTERACTION_ANIMATION.md) for timing/input. Attach referenced documents in full or their complete relevant tables so AI without internet/repository access can read them; links alone are insufficient.
 
-## 1. 选任务前缀，再复制共同契约和动作块
+## 1. Choose a task prefix, then copy the shared contract and action blocks
 
-| 模式 | 可复制前缀 | 必交结果 |
+| Mode | Reusable prefix | Required output |
 | --- | --- | --- |
-| D分镜 | 你是设计分镜AI。本任务只输出分镜/资源清单，不写代码、不产游戏资产。 | 按阶段列触发、输入、姿态/轨迹/pivot、时间键、结束状态、输入锁、减少动画与验收；图若另获授权生成也标设计示意 |
-| I未来获授权实现 | 你是表现实现AI。先核对本任务明确授权范围、仓库机器分工与资产验收门槛；只实施授权部分，提示词本身不是授权。 | 与已提交逻辑事件绑定的实现、取消/重入处理、运行证据和未验证项；缺资产/规则边界不猜 |
-| A验收 | 你是只读验收AI；除本任务另有明确许可外不改文件。 | 逐合同键PASS/FAIL/NOT_RUN，真实时序/交互/设备证据，不拿概念图当实机 |
+| D Storyboard | You are a storyboard design AI. Output storyboards/asset lists only; do not write code or produce game assets. | For each stage list trigger, input, pose/trajectory/pivot, timing key, end state, input lock, reduced motion, and acceptance; images separately authorized for generation must still be labeled design illustrations |
+| I Future authorized implementation | You are a presentation implementation AI. First verify this task's explicit authorization, repository machine roles, and asset acceptance gates. Implement only authorized scope; the prompt itself is not authorization. | Implementation bound to committed logical events, cancellation/reentry handling, runtime evidence, and unverified items; do not guess missing assets/rule boundaries |
+| A Acceptance | You are a read-only acceptance AI; do not modify files unless separately explicitly authorized for this task. | PASS/FAIL/NOT_RUN per contract key with actual timing/interaction/device evidence; concept images are not device evidence |
 
-## 2. 共同契约（每次必须附带）
+## 2. Shared contract (always attach)
 
 ```text
-输入：本任务授权、RULES有效版本/R01..R07、固定关卡hash、assistPolicyVersion、extraBranchAdded、前后稳定快照、带token ID的已提交事件、真实槽位、批准的资源/pivot、INTERACTION AN01..AN14和输入表、UI_SPEC必要UI-D行。缺输入先列缺口，不自由生成规则。
-本版每关N=4/6/8、每种N；来源外露同种run到空/同端且有空间，实际搬量由RULES给定（SRC-SIMPLE的min边界），表现不得自行拆组/追加新孵鸟。完成群自动Home后该枝退场（SRC-BIRD2），不是普通腾空就折断。问号蛋（SRC-QUEST）数据固定、身份对玩家隐藏，不能用纹样/轮廓/预览泄露。
-不存在双目标队列、未来群睡眠、精确条件箱、单座篮、混容量短枝或原Unused/Armed临时枝；禁止从旧素材/历史动画恢复它们。普通加枝已由RULES R07闭环，按UI-D41/42和AN09表现已提交BranchAdded；免费、非强制，基础40见证不使用它。逐次加高/收集容器/经济仍未准入，不擅画其容量、费用或购买按钮。
-美术统一读取UI_SPEC §4.1（approved-forest-style）：风格与树枝摆放已获确认，小鸟可按此重新设计；原素材保留，新生产素材/具体布局仍须先完整验收。不得以风格许可覆盖原件、把近似图冒作已验收切图，或直接启动实现；已定版鸟巢/枝/UI不擅自重画。所有动画相关位置必须真实随时间变化，不用固定图冒充完成；飞行要振翅+轨迹，入巢要进入过程，结算要动态阶段/粒子。静态素材可组合为动作但不能只显示单张图。优先已批准的单一开源主补间库，不手写重复补间框架；选型/许可证状态读ANIMATION_LIBRARIES，未授权不安装，不能声称DOTween是MIT。布局用design px，不混PNG像素/pt/dp；脚底pivot对槽位，透明画布不是可见身宽。曲线只改表现，保持token原序和ID。
-逻辑完整事务稳定并确认原子保存后才演出；动画不能决定奖励或规则。SaveError不播成功，后台/返回依稳定快照恢复；旧viewGeneration回调不能解锁新局。全链锁、不缓存连点；末只落稳再播已算后续事件。
-新风格按钮用UI_SPEC §4.1规定的圆角方形；旧圆钮仅作为现状记录，不能未经素材验收直接替换；能图标就只图标，不加重复可见文字，无障碍名称不是标签。设置简洁，只静音/恢复，不加slider/百分比或拆多个未批准项。声音/触感不改变玩法，系统不允许则安静呈现。
-每个分镜列：任务模式→触发/前置→所需资产和不可变项→阶段/时间键/起止/层级/pivot→输入/后台/重入→终态→减动画/声音→禁止项→验收与未测边界。时长为项目建议非同行实测，不编新数字。
+Inputs: task authorization, effective RULES version/R01..R07, fixed-level hash, assistPolicyVersion, extraBranchAdded, before/after stable snapshots, committed events with token IDs, actual slots, approved assets/pivots, INTERACTION AN01..AN14 and input table, and required UI_SPEC UI-D rows. List missing inputs first; do not invent rules.
+This revision uses N=4/6/8 per level and N per species. Exposed same-species source runs move to empty/matching ends with space; RULES supplies the actual amount (SRC-SIMPLE's min boundary). Presentation cannot split groups independently or append newly hatched birds. After a completed flock automatically goes Home, its branch exits (SRC-BIRD2); ordinary emptying does not break it. Question-mark egg (SRC-QUEST) data is fixed and hidden from players; no pattern/silhouette/preview leaks.
+There are no dual-target queues, sleeping future flocks, exact conditional crates, single-seat baskets, mixed-capacity short branches, or old Unused/Armed temporary branches; do not restore them from old assets/history. RULES R07 fully defines ordinary addition; present committed BranchAdded under UI-D41/42 and AN09. It is free and optional, and the base 40 witnesses do not use it. Repeated height growth/collection containers/economy remain unadmitted; do not draw invented capacities, costs, or purchase buttons.
+Read UI_SPEC §4.1 (approved-forest-style) for unified art: style and branch placement are approved, birds may be redesigned accordingly, originals remain preserved, and new production assets/specific layouts still require complete prior acceptance. Style permission cannot overwrite originals, pass approximate images off as accepted sliced assets, or directly start implementation; do not independently redraw final nests/branches/UI. Every animation location must genuinely change over time, without fixed images posing as completion: flight needs wingbeats+trajectory, nest entry needs an entry process, and results need dynamic stages/particles. Static assets may combine into actions but cannot remain one image. Prefer the approved single open-source primary tween library, without duplicate hand-written infrastructure. Read ANIMATION_LIBRARIES for selection/license status; do not install without authority or claim DOTween is MIT. Layout uses design px, not PNG pixels/pt/dp; foot pivots align to slots, transparent canvas width is not visible body width. Curves change presentation only, preserving token order and IDs.
+Present only after the complete logical transaction stabilizes and atomic saving is confirmed; animation cannot decide rewards/rules. SaveError does not play success; background/back recovery uses stable snapshots. Old viewGeneration callbacks cannot unlock a new board. Lock the entire chain without queuing repeated taps; play computed subsequent events only after the last bird settles.
+New-style buttons use rounded squares under UI_SPEC §4.1; old round buttons are current-state records and cannot be directly replaced before asset acceptance. Use icons alone where clear without duplicate visible text; accessibility names are not labels. Keep settings simple with mute/unmute only, without sliders/percentages or multiple unapproved settings. Sound/haptics do not alter gameplay; present silently where the system disallows them.
+Each storyboard lists: task mode→trigger/preconditions→required assets/invariants→stages/timing keys/start/end/layers/pivots→input/background/reentry→final state→reduced motion/sound→prohibitions→acceptance/untested boundaries. Durations are project suggestions, not competitor measurements; invent no numbers.
 ```
 
-## 3. 动作块
+## 3. Action blocks
 
-### AP01 关卡开始：小鸟怎么出现
+### AP01 Level start: how birds appear
 
 ```text
-触发固定关卡成功加载、Next或Restart；时间键AN01/AN02，UI-D07..10/34/36/38。来自菜单先Logo/按钮退场只留背景，再进入棋盘段；两段串行，加载另计，Restart不重播菜单。枝按固定位置出现，鸟逐只落真实初始槽、减速收翅站稳。问号蛋仍显示问号，不展示预定species；失效的双巢/睡眠/箱不入场。加载及入场锁棋盘和辅助，视图同步/全部落稳才Idle。减动画短淡入保留位置和身份；验收重复进入同hash初盘一致，无Logo重影或提前点选。
+Trigger: successful fixed-level load, Next, or Restart; keys AN01/AN02, UI-D07..10/34/36/38. From menu, exit Logo/buttons to background only before the board stage; stages are serial, loading additional, and Restart does not replay the menu. Branches appear at fixed positions; birds individually land in actual initial slots, decelerate, fold wings, and settle. Question-mark eggs retain question marks without exposing predetermined species; no invalidated dual nests/sleep/crates enter. Lock board/assistance during loading/entry; Idle begins only after view synchronization and all landings. Reduced motion uses short fades preserving positions/identities. Acceptance: repeated same-hash entry produces identical initial boards, without Logo ghosts or early selection.
 ```
 
-### AP02 选中、取消与非法操作
+### AP02 Selection, cancellation, and invalid actions
 
 ```text
-触发Idle合法来源，AN03/AN04。只抬可搬的外露run，内层同种不抬；点同源/空白取消。非法目标原位反馈，不动鸟/不计操作；实际Transfer才以已提交Count飞行。无效辅助不改选择，有效Undo/Restart/Hint先取消。减动画保留描边；验收非连续同种、无空间、部分容纳、已完成退场位置、无历史Undo与提示忙碌。
+Trigger: valid source in Idle, AN03/AN04. Raise only the movable exposed run, not inner same-species birds; tap same source/blank to cancel. Invalid destinations give feedback in place without moving birds/counting actions; only an actual Transfer flies its committed Count. Invalid assistance preserves selection; valid Undo/Restart/Hint cancels it first. Reduced motion retains outlines. Test separated same-species birds, no space, partial fit, completed retired locations, Undo without history, and busy hints.
 ```
 
-### AP03 起飞、跨枝、落枝
+### AP03 Takeoff, cross-branch flight, and landing
 
 ```text
-触发已提交Transfer，AN05、UI-D36/38。收选中态→用经验收且符合UI_SPEC §4.1的角色（可保留现角色，亦可使用另行验收的新设计）并配验收多帧/骨骼clip转身和真实振翅；单fly图平移不通过→按Count逐只错峰弧线→脚底落目标槽→收翅回弹。起止来自快照，左右镜像不反转逻辑数组，最终ID相对序不受视觉先飞顺序影响。孵出的鸟不能追加入已锁本次Count。末只落稳才播已算Hatch/Home等后续事件。减动画取消大弧线/弹性短淡切；验收真实六帧/录屏、脚底/层级/数量、连续点击及后台重入。整群总长随N和错峰计算，不能固定六鸟。
+Trigger: committed Transfer, AN05, UI-D36/38. Clear selection→use accepted characters compliant with UI_SPEC §4.1 (retained current characters or separately accepted redesigns) and accepted multiframe/skeletal clips for turning and real wingbeats; translating a single fly image fails→stagger Count birds along arcs→land feet in target slots→fold wings and settle. Snapshot endpoints apply; horizontal mirroring does not reverse logical arrays, and visual takeoff order does not alter final relative ID order. Newly hatched birds cannot join the locked Count. Play computed Hatch/Home and later events only after the last bird settles. Reduced motion removes large arcs/spring effects, using short fade transitions. Acceptance: six actual timed frames/recording, feet/layers/counts, repeated taps, background reentry. Total flock duration derives from N and staggering, never a fixed six birds.
 ```
 
-### AP04 完成群归家／进入鸟巢
+### AP04 Completed flock goes home / enters the nest
 
 ```text
-触发RULES确认的Home事件，AN06，鸟巢资源仅是本项目“回家”主题表达。先附UI_SPEC UI-D43完整合同及所需接收布局/入口anchor/遮挡输入；该布局目前PENDING_LAYOUT，未批准只列缺口，禁止借UI-D37旧双队列坐标或数量实施。按当前N只已完成群依次沿弧线进入现有鸟巢，接近时收翅、脚底/入口对齐，使用已验收的鸟巢前后层资源实现遮挡，实际进入后再缩小淡出，末鸟轻亮/对勾；不允许飞离屏幕、单图平移或瞬间删鸟替代实际入巢。入口或前后层资源未验收时先列为资产缺口，不擅用归家出口替代，也不重画已定版鸟巢。用户“入笼/进笼”不代表新增锁笼/钥匙玩法。不等待顶部双巢资格，不睡眠，不靠动画生成目标顺序。
-该群全部安全离开后衔接AP05完成枝退场。只接受逻辑已完成事件，动画不计算完成/奖励。减动画保留归群→枝退场顺序；验收不同N、完成与普通搬空区别、归家期间连点/后台，不飞向过期视图坐标。
+Trigger: RULES-confirmed Home, AN06. Nest assets are only this project's going-home theme. First attach the complete UI_SPEC UI-D43 contract and required receiving layout/entrance anchor/occlusion inputs. Layout is currently PENDING_LAYOUT; if unapproved, list gaps only, without borrowing UI-D37's old dual-queue coordinates/counts for implementation. The current N completed birds enter the existing nest individually along arcs, folding wings on approach, aligning feet/entrance, and using accepted front/back nest layers for occlusion. Shrink/fade only after actual entry; the last bird gives a slight glow/check. Offscreen flight, single-image translation, or instant deletion cannot replace actual entry. Unaccepted entrance/front/back assets are gaps, not permission to substitute a home exit or redraw final nests. User wording “入笼/进笼” (entering a cage) does not introduce locked cages/keys. Do not wait for top dual-nest eligibility, sleep, or generate target order through animation.
+After the whole flock safely leaves, continue AP05 completed-branch exit. Consume logical completion events only; animation does not calculate completion/rewards. Reduced motion preserves flock-home→branch-exit order. Test differing N, completion versus ordinary emptying, repeated taps/background during home flight, and no flight to stale view coordinates.
 ```
 
-### AP05 完成枝退场（替代已撤回的临时枝）
+### AP05 Completed branch exit (replacing withdrawn temporary branches)
 
 ```text
-SRC-BIRD2依据是排序完成一群飞走后失去该枝；仅消费Home之后的Retired事件，时间键AN07。让全部鸟安全离枝，再原位收拢/淡出枝并保留不可用痕迹和固定ID；不能因来源普通搬空、首次接过鸟或剩最后一只而触发。无Unused/Armed寿命标记、无坠鸟伤害。Undo恢复该完成事务前鸟/枝可用性；减动画用状态替换而非折断。验收普通搬空仍可用、完成才退场、Undo/Restart恢复；缺对应资产报待验收，不重画旧枝。
+SRC-BIRD2 supports losing a branch after a sorted flock flies away. Consume only Retired after Home, key AN07. Let every bird safely leave, then retract/fade the branch in place while retaining an unavailable trace and fixed ID. Ordinary source emptying, first receiving birds, or one bird remaining cannot trigger it. No Unused/Armed lifetime flags or falling-bird harm. Undo restores birds/branch availability before the completion transaction; reduced motion uses state replacement rather than breaking. Test ordinary emptied branches remaining usable, retirement only on completion, Undo/Restart restoration. Report missing corresponding assets as pending acceptance; do not redraw old branches.
 ```
 
-### AP06 问号蛋孵化
+### AP06 Question-mark egg hatching
 
 ```text
-SRC-QUEST只依据鸟前移走后?蛋孵化，具体合法边界取RULES。收到已提交Hatch后使用AN08：轻摇/裂壳→原位固定物种鸟→脚底站稳；孵化不增加token/随机换种，不靠点击或计时孵化。揭示前只画问号，禁止壳纹、剪影、声音或无障碍文本泄露种类。重开同题物种不变，Undo回原问号，不能重新抽。本版初态禁止相邻蛋，不演示自拟连蛋链；刚孵鸟不能追加本次run。减动画壳到鸟短切，保留先后。验收隐藏信息、守恒、固定重开、前端不提前曝光。
+SRC-QUEST supports ? eggs hatching after birds in front move away; take exact legal boundaries from RULES. On committed Hatch, use AN08: slight wobble/cracked shell→fixed-species bird in place→settled feet. Hatching neither adds tokens nor randomizes species; no tap/timer hatching. Before reveal draw only a question mark; shell patterns, silhouettes, sounds, and accessibility text cannot leak species. Restart retains species and Undo restores the question mark without rerolls. Adjacent initial eggs are prohibited in this revision; do not demonstrate invented consecutive-egg chains. Newly hatched birds cannot append to the current run. Reduced motion uses a short shell-to-bird transition preserving order. Test hidden information, conservation, fixed restart, and no premature frontend disclosure.
 ```
 
-### AP07 结束、庆祝与按钮解锁
+### AP07 Ending, celebration, and button unlocking
 
 ```text
-触发最后Home/退场演出完且已Won，AN12..14，UI-D23..30。HUD退场→遮罩和既定面板→奖杯鸟庆祝/彩纸→主体稳定开放Replay/Home/合法Next。只展示RULES批准的通关及按当前成功路径分组的有/无加枝最佳操作数结果，不调用撤回的Undo惩罚星级，不因有三颗星素材就自动点满、发币或发皮肤。
-末关没有越界Next；普通关Next指向固定下一关且遵地图已解锁状态。奖励/导航单次幂等，彩纸未结束可在主体稳定后操作。减动画短淡入静态结果；验收末关、重复Next、后台、声音一次，概念图不能代替运行证明。
+Trigger: final Home/retirement presentation complete and Won committed, AN12..14, UI-D23..30. HUD exit→overlay/established panel→trophy-bird celebration/confetti→main content stable, open Replay/Home/valid Next. Show only RULES-approved completion and best action-count results grouped by current successful path with/without branch addition. Do not invoke withdrawn Undo penalty stars or automatically fill three stars/award coins/skins because those assets exist.
+Final level has no out-of-range Next; ordinary Next targets the fixed next level subject to map unlock state. Rewards/navigation are idempotent and occur once; interaction may begin after main content stabilizes before confetti ends. Reduced motion uses short fade-in of static results. Test final level, repeated Next, background, once-only sounds; concept images cannot replace runtime proof.
 ```
 
-### AP08 辅助、加载、返回与设置
+### AP08 Assistance, loading, back, and settings
 
 ```text
-AN09..13，静态按钮尺寸取对应UI-D。Undo/Hint免费不限次，按钮不显示旧3次额度/收费广告；Hint未知或过期不谎称无解，不替玩家自动移动。一次只查一请求，状态变动丢弃旧答案。普通加枝仅按RULES R07：有效稳定态可用一次免费N座枝，不增加Transfer操作数，是独立可Undo/保存事务；先确认提交，再用AN09显示UI-D42预留末槽，不移动原枝/鸟。UI-D41入口仅图标，无价格/广告/文字角标；NoMoves由模态入口调用同一事务，不穿透HUD。已使用或Won不可再加；退役不返还额度。Undo须先撤后续移动再撤AddBranch，Restart恢复未加枝固定初态；续局保留辅助状态。Hint只搜索当前枝上的Transfer，不自动替玩家AddBranch。逐次加高/经济仍未准入，不画其数字/购买入口。
-按压反馈不缩命中区，禁用不触发；无历史Undo隐藏留槽，死局Restart取UI-D33。Loading/Presenting不缓存连点，返回/暂停防穿透；SaveError按DATA_SAVE核验同一候选而非自动重做动作，AddBranch重试不重复追加末枝。设置为单一静音开关，外观遵UI_SPEC §4.1，旧圆钮仅为现状；音乐/游戏声/点击声共用DATA_SAVE §5.1的audioMuted布尔，任务须附该节完整合同。菜单/暂停声音状态和图标同步，不另猜旧键/默认值，禁止滑条/百分比。减动画按钮比例固定、模态短淡切；验收真实安全区/44pt或48dp换算、静音、连点锁和写档失败。
+AN09..13; corresponding UI-D keys own static button dimensions. Undo/Hint are free/unlimited, without old 3-use quota/payment ads. Unknown/stale Hint results do not falsely claim unsolvability or automatically move birds. Query once at a time; discard old answers when state changes. Ordinary addition follows RULES R07 only: once in a valid stable state, a free N-seat branch, no Transfer action-count increase, separate Undoable/saved transaction. Confirm commit before AN09 reveals UI-D42's reserved final slot without moving original birds/branches. UI-D41 entry is icon-only, without price/ad/text badges. NoMoves uses its modal entry for the same transaction, never through HUD. No further addition after use or Won; retirement does not refund usage. Undo later moves before undoing AddBranch; Restart restores the unassisted fixed initial state; resume retains assistance state. Hint searches only Transfers on current branches and never automatically AddBranch. Repeated height growth/economy remain unadmitted; do not draw numbers/purchase entries.
+Press feedback does not shrink hit regions; disabled buttons do not trigger. Hide Undo without history while retaining its slot; no-moves Restart uses UI-D33. Loading/Presenting never queues repeated taps; back/pause prevent input through overlays. SaveError verifies the same candidate under DATA_SAVE rather than automatically repeating actions; AddBranch retry does not append twice. Settings use one mute toggle, styled under UI_SPEC §4.1; old round buttons are current-state records. Music/game/click sounds share DATA_SAVE §5.1's audioMuted boolean; attach that complete section. Menu/pause sound state/icons synchronize; do not guess legacy keys/defaults; no sliders/percentages. Reduced motion fixes button scale and uses short modal fades. Test actual safe area/44pt or48dp conversion, mute, repeated-tap locks, and save failures.
 ```
 
-### AP09 世界地图及章节切换
+### AP09 World map and chapter transitions
 
 ```text
-输入MAP_PROGRESSION全文及固定节点/进度；世界分段与解锁只按其合同，禁止另定阈值。统一美术风格及树枝摆放按UI_SPEC §4.1已确认；具体林型生产素材/地图布局仍未验收。固定节点内容和进度由数据给出，地图不能随机重排或修改关卡初态。
-沿UI-U/UI-S统一画布/安全区/规则形图标按钮；锁/当前/通关状态用图标和轮廓，不仅色相。编号可见，返回/进入等能图标就不用重复文字，无障碍名称单独提供。节点坐标/新背景/动效资源未定标PENDING_LAYOUT，不改旧棋盘按钮尺寸、不拿概念图直接切资源。
-分镜：地图稳定→选择合法已解锁节点→关闭地图输入→进入固定关卡AP01；返回时先读稳定进度再呈现地图，重复回调不能重复解锁。换世界沿同一布局骨架、短过渡，不新增复杂菜单。验收MAP_PROGRESSION指定章节边界、末关、已通关Replay与锁态，无越界或额外星门槛。
+Inputs: complete MAP_PROGRESSION and fixed nodes/progress. Use its world divisions/unlock contract only, without new thresholds. Unified art style/branch placement is approved under UI_SPEC §4.1; specific forest production assets/map layouts remain unaccepted. Data supplies fixed node content/progress; maps cannot randomly rearrange or alter level initial states.
+Use UI-U/UI-S unified canvas/safe areas/regular icon buttons. Locked/current/completed states use icons and outlines, beyond hue alone. Numbers are visible; use back/entry icons without duplicate text where clear; accessibility names are separate. Mark undecided node coordinates/new backgrounds/motion assets PENDING_LAYOUT; do not change old board button dimensions or slice concept images directly into assets.
+Storyboard: stable map→select legal unlocked node→close map input→enter fixed level AP01. On return, read stable progress before showing the map; duplicate callbacks cannot unlock twice. World changes retain one layout skeleton with short transitions, without complex menus. Test chapter boundaries specified by MAP_PROGRESSION, final level, completed-level Replay, and locks, without out-of-range navigation or additional star gates.
 ```
 
-## 4. 通用验收模板
+## 4. Common acceptance template
 
 ```text
-按已授范围验收，列每项合同键及PASS/FAIL/NOT_RUN：token种类/数量/ID顺序；脚底/槽位/透明画布；AN键实测时序；普通搬空与完成失枝；问号不泄露；全链输入/后台代次；免费辅助且未知不谎报无解；AddBranch仅追加一次、辅助身份/Hint失效、Undo/Restart/续局、普通搬空与完成退枝；地图章节边界；UI-D43接收布局输入/批准状态及真实入口遮挡；静音/灰度/减动画；audioMuted首次默认、已知旧值迁移、未知/损坏设置保守处理、菜单/暂停同步、Undo/Restart不重置及跨启动保存失败；真实触控安全区；SaveError/Undo与重复奖励。
-真实运行记录六帧带时间戳、可播放录屏和交互证据；逐项核查全部动画位置确有随时间变化而非固定图，开源库实际选型/许可/单主库约束与文档一致。缺设备/引擎/已验收资产即NOT_RUN，别拿旧v2记录/静图/概念图或全知求解器结果替代本版本体验验收。
+Accept only authorized scope, listing every contract key with PASS/FAIL/NOT_RUN: token species/count/ID order; feet/slots/transparent canvas; measured AN timing; ordinary emptying versus completed-branch loss; no question-mark leaks; entire input chain/background generation; free assistance with no false unsolvability on unknown results; AddBranch appends once, assistance identity/Hint invalidation, Undo/Restart/resume, ordinary emptying versus completion retirement; map chapter boundaries; UI-D43 receiving-layout inputs/approval and real entrance occlusion; mute/grayscale/reduced motion; audioMuted first-run default, known old-value migration, conservative unknown/corrupt settings handling, menu/pause synchronization, no Undo/Restart reset, cross-launch persistence failures; real touch safe areas; SaveError/Undo/duplicate rewards.
+Record six timestamped frames, playable runtime recordings, and interaction evidence. Check every animation location really changes over time rather than displaying a fixed image, and actual open-source library selection/licenses/single-primary-library constraints match documentation. Missing devices/engine/accepted assets mean NOT_RUN; old v2 records/static images/concepts/omniscient-solver results cannot substitute for this version's experience acceptance.
 ```

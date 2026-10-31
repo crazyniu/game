@@ -1,34 +1,34 @@
-# 同行依据版数据、稳定事务与存档
+# Evidence-based data, stable transactions, and saves
 
-schema4 / rules4 / save6（设计目标，未实施）· 2026-10-31。玩法权威RULES，出处MECHANIC_EVIDENCE，世界归MAP_PROGRESSION。本页定义E工程可靠性协议；它们不冒充竞品源码，也不增加奖励/通关条件。
+schema 4 / rules 4 / save 6 (design target, not implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.
 
-## 1. 身份与静态格式
+## 1. Identity and static format
 
-| 字段 | 类型/约束 |
+| Field | Type/constraints |
 | --- | --- |
-| schemaVersion / rulesVersion | 整数4 / 4；旧schema3/rules3不可按缺省4读 |
-| campaignId | `bird-home-peer-v4`，与旧`perch-sort-v2`/T16`bird-home-v3`隔离 |
-| catalogRevision | 根目录元数据，正整数递增；不入单关内容hash |
-| levelId / worldId | 1..40 / A,B,C,D，精确映射由MAP_PROGRESSION拥有 |
-| flockSize | N∈{4,6,8}，同关所有枝容量及每种总数=N，无单枝capacity覆盖 |
-| shelves | 固定数组P=K+2，K=3..8、P≤10，ID严格S1..SP；初态两空，无已完成群/露端蛋/相邻蛋 |
-| shelves[].side | `left|right`，只影响显示；S奇数left、偶数right，行=floor((编号-1)/2) |
-| shelves[].tokens | 墙→露端；Token数组长度≤N；含蛋，每种0..K-1恰N |
-| Token.id | 关内唯一ASCII稳定ID，正式候选按`Lnn-Sj-kk`从初始展开序号分配；孵化/移动/Undo不改ID |
-| Token.species / form | 0..K-1整数 / `bird|egg`；egg身份固定但显示层不得提前公开 |
-| contentHash / proof | 导出元数据，不入自身hash；无最优证明不填solverMinMoves，使用null和明确proofStatus |
+| schemaVersion / rulesVersion | Integer 4 / 4; old schema 3/rules 3 must not default to4 |
+| campaignId | `bird-home-peer-v4`, isolated from old `perch-sort-v2`/T16 `bird-home-v3` |
+| catalogRevision | Root metadata, increasing positive integer; excluded from individual level content hashes |
+| levelId / worldId | 1..40 / A,B,C,D; MAP_PROGRESSION owns the exact mapping |
+| flockSize | N∈{4,6,8}; all branch capacities and totals per species within a level=N; no per-branch capacity overrides |
+| shelves | Fixed array P=K+2, K=3..8, P≤10, strictly IDs S1..SP; initially two empty branches, no completed flocks/exposed-end eggs/adjacent eggs |
+| shelves[].side | `left|right`, display only; odd S numbers left, even right, row=floor((number-1)/2) |
+| shelves[].tokens | Wall→exposed end; Token array length≤N; including eggs, exactly N of each species 0..K-1 |
+| Token.id | Unique stable ASCII ID within a level; production candidates assign `Lnn-Sj-kk` by initial expansion order; hatching/movement/Undo do not change IDs |
+| Token.species / form | Integer 0..K-1 / `bird|egg`; egg identity is fixed but presentation must not disclose it early |
+| contentHash / proof | Export metadata, excluded from its own hash; without optimality proof, solverMinMoves is null with explicit proofStatus |
 
-标识符匹配`[A-Za-z0-9][A-Za-z0-9._-]{0,63}`。按固定数组下标，不按S10/S2词典排序。关卡初始枝均Available，退役是运行态，不写初始Retired。没有targets/Asleep/CompletedCount/crate/baskets/temporary字段；旧字段、同关额外capacity、未知字段全部拒绝，不能静默忽略后当合法新关。
+Identifiers match `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`. Use fixed array indices, not lexicographic S10/S2 sorting. All initial branches are Available; retirement is runtime state, not initial Retired data. There are no targets/Asleep/CompletedCount/crate/baskets/temporary fields; reject old fields, extra capacity within a level, and unknown fields rather than silently ignoring them and treating the level as valid.
 
-静态40初盘仍只有P枝，不预置额外枝。R07 AddBranch属于运行事务，按§3追加S(P+1)；ReserveGrow仍待参。辅助策略版本单列assistPolicyVersion=1，不改变本页静态schema4 hash/H04向量；它是所有运行快照、Undo、Hint及证书必须携带的身份维度，不允许缺省猜测。所有初态固定，不能在加载时随机补空数组或调用AI生成。
+The 40 static initial boards still contain only P branches, without a preinstalled extra branch. R07 AddBranch is a runtime transaction appending S(P+1) under §3; ReserveGrow still awaits parameters. Assistance policy is separately versioned as assistPolicyVersion=1, without changing the static schema 4 hash/H04 vector. Every runtime snapshot, Undo, Hint, and certificate must carry this identity dimension; do not guess defaults. All initial states are fixed; loading must not randomly fill empty arrays or call AI generation.
 
-## 2. 规范hash与新测试向量
+## 2. Canonical hash and new test vector
 
-先校验完整required字段、类型、ID/数量/世界归属，再取固定hash根键`schemaVersion,rulesVersion,campaignId,levelId,worldId,flockSize,shelves`；每枝恰`id,side,tokens`，每token恰`id,species,form`。本版不允许省略这些必填项，不保留旧temporary/crate/baskets默认规则。元数据catalogRevision/contentHash/proofStatus/solverMinMoves只在明确导出元数据区，不参与逻辑正文哈希。
+Validate all required fields, types, IDs/counts/world membership first, then take fixed hash root keys `schemaVersion,rulesVersion,campaignId,levelId,worldId,flockSize,shelves`; each branch has exactly `id,side,tokens`, each token exactly `id,species,form`. These required fields cannot be omitted; old temporary/crate/baskets default rules are not retained. Metadata catalogRevision/contentHash/proofStatus/solverMinMoves belongs only in the explicit export metadata area, outside the logical payload hash.
 
-对象键ASCII升序，无空白/换行/BOM，UTF-8；整数十进制无前导零/负零/小数/指数；枚举/ID只ASCII，布尔/null按JSON小写；数组保留固定顺序。对规范字节SHA-256为小写64hex。物种/枝置换去重属于离线内容审查，绝不排序运行数组来哈希。
+Object keys use ascending ASCII order, without whitespace/newlines/BOM, encoded UTF-8. Integers are decimal without leading zeros/negative zero/fractions/exponents; enums/IDs are ASCII only; booleans/null use lowercase JSON; arrays retain fixed order. SHA-256 of canonical bytes is lowercase 64 hex. Species/branch permutation deduplication is offline content review; never sort runtime arrays for hashing.
 
-以下为**H04序列化测试夹具**，不是正式L01，使用局部levelId=1；K3/N4/P5、各类4只、两空、无初始完成群；不带最优证书，不可据此发布。旧H01 1320字节向量只留T16档案，不适用于本schema。
+The following **H04 serialization fixture** is not production L01 and uses local levelId=1; K3/N4/P5, 4 of each species, two empty branches, no initially completed flock. It has no optimality certificate and cannot authorize release. The old H01 1320-byte vector remains only in the T16 archive and does not apply to this schema.
 
 ```json
 {
@@ -131,67 +131,67 @@ schema4 / rules4 / save6（设计目标，未实施）· 2026-10-31。玩法权�
 }
 ```
 
-规范字节（代码块末尾换行不计）：
+Canonical bytes (excluding the code block’s trailing newline):
 
 ```text
 {"campaignId":"bird-home-peer-v4","flockSize":4,"levelId":1,"rulesVersion":4,"schemaVersion":4,"shelves":[{"id":"S1","side":"left","tokens":[{"form":"bird","id":"H04-S1-01","species":0},{"form":"bird","id":"H04-S1-02","species":0},{"form":"bird","id":"H04-S1-03","species":0},{"form":"bird","id":"H04-S1-04","species":1}]},{"id":"S2","side":"right","tokens":[{"form":"bird","id":"H04-S2-01","species":1},{"form":"bird","id":"H04-S2-02","species":1},{"form":"bird","id":"H04-S2-03","species":1},{"form":"bird","id":"H04-S2-04","species":2}]},{"id":"S3","side":"left","tokens":[{"form":"bird","id":"H04-S3-01","species":2},{"form":"bird","id":"H04-S3-02","species":2},{"form":"bird","id":"H04-S3-03","species":2},{"form":"bird","id":"H04-S3-04","species":0}]},{"id":"S4","side":"right","tokens":[]},{"id":"S5","side":"left","tokens":[]}],"worldId":"A"}
 ```
 
-字节数`850`；SHA-256 `9118d0cd992312c9fe385e100b4ece328efbb39d48f28752286dffa78cb3ec79`。交换同种不同token IDs的数组位置改变hash；删除form必填字段拒绝，不做猜测归一化。本轮只临时脚本重算，非项目序列化实现测试。
+Byte count `850`; SHA-256 `9118d0cd992312c9fe385e100b4ece328efbb39d48f28752286dffa78cb3ec79`. Swapping array positions of different token IDs of the same species changes the hash; reject a missing required form field rather than normalizing by guesswork. This round recalculated it only with a temporary script, not a test of the project serialization implementation.
 
-## 3. 运行快照和状态键
+## 3. Runtime snapshots and state keys
 
-StableSnapshot包含：身份与contentHash、assistPolicyVersion=1、extraBranchAdded布尔、按原枝顺序的token数组、每枝Available/Retired、已Home种集合、操作数、带actionType的Undo快照栈、已提交actionSequence、进度引用。Retired必须空且与对应Home事件一致；每种remaining+N×isHome=N。无Asleep/队列/箱/临时三态。Clone必须深拷贝所有可变数组，不共享鸟/壳对象。
+StableSnapshot contains identity and contentHash, assistPolicyVersion=1, boolean extraBranchAdded, token arrays in original branch order, each branch's Available/Retired state, the Home species set, action count, an Undo snapshot stack with actionType, committed actionSequence, and a progress reference. Retired branches must be empty and consistent with the corresponding Home event; for each species remaining+N×isHome=N. No Asleep/queue/crates/temporary three-state lifecycle. Clone must deeply copy all mutable arrays without shared bird/shell objects.
 
-状态键用于精确回放/提示：rules/schema/campaign/level/hash、assistPolicyVersion、extraBranchAdded、完整枝ID/数组长度、token ID/形态/species与顺序、枝态、Home集合；提示身份再绑定actionSequence与viewGeneration。不能只比较物种而合并蛋形态/退役差异。操作数影响成绩但不改变合法动作，可从搜索等价键单独管理；若实现忽略token ID作求解压缩，必须给可恢复映射，不能改变精确回放键。
+Exact replay/hint state keys contain rules/schema/campaign/level/hash, assistPolicyVersion, extraBranchAdded, complete branch IDs/array length, token IDs/forms/species/order, branch states, and the Home set; hint identity additionally binds actionSequence and viewGeneration. Comparing only species must not merge egg-form/retirement differences. Action count affects results but not legal actions and may be managed separately from search equivalence keys; solver compression that ignores token IDs must provide a reversible mapping without changing exact replay keys.
 
-## 4. 稳定事务、原子提交和SaveError
+## 4. Stable transactions, atomic commit, and SaveError
 
-Transfer或AddBranch输入→从旧StableSnapshot构造独立候选→RULES完整稳定化→生成有序事件/候选Undo/操作数→序列化候选→原子确认成功→替换内存权威快照→Presenting。**逻辑完整先提交，之后才演出**；动画不负责Home/Retire/解锁。
+Transfer or AddBranch input→construct an independent candidate from the old StableSnapshot→complete RULES stabilization→generate ordered events/candidate Undo/action count→serialize candidate→confirm atomic success→replace the authoritative in-memory snapshot→Presenting. **Commit complete logic before presentation**; animation does not own Home/Retire/unlocking.
 
-存档使用同目录临时文件，完成写入与校验后原子替换主档，维护上一兼容成功备份；需在目标平台验证真实原子边界。禁止逐字段覆盖主档。无法确认替换结果先读回核验身份/序号/候选hash，不能盲重做动作。
+Use a temporary file in the same directory, atomically replacing the main save after writing and validation, while retaining the previous compatible successful backup. Verify actual atomic boundaries on target platforms. Never overwrite the main save field by field. If replacement success is uncertain, read back identity/sequence/candidate hash before retrying; never blindly repeat the action.
 
-`candidateSequence=lastCommittedSequence+1`。未确认成功前不增加已提交序号。写失败进入SaveError，保留**同一不可变候选字节/同一序号/事件**：
+`candidateSequence=lastCommittedSequence+1`. Do not increment the committed sequence before confirmed success. Write failure enters SaveError, retaining **the same immutable candidate bytes/sequence/events**:
 
-1. 重试先读回核验，若主档已有同一序号及候选hash→承认已提交，仅接续表现，不重复记操作/奖励。
-2. 确认尚未提交→用同一候选字节和同一序号重试，不重新跑规则/抽蛋/多加1步。再次失败仍SaveError且旧棋盘/历史/进度保持。
-3. 读回结果不确定或身份冲突→保持只读错误态，不演出成功，不接受新动作。返回菜单可只读显示；退出保留待核验证据。确认未提交才可丢弃候选回旧稳定局。
+1. Retry reads back for verification first. If the main save already has the same sequence and candidate hash→recognize the commit and continue presentation only, without duplicate action counts/rewards.
+2. If confirmed uncommitted→retry the same bytes and sequence, without rerunning rules/rerolling eggs/adding 1 move. Another failure remains SaveError with the old board/history/progress preserved.
+3. Uncertain readback or conflicting identity→remain in a read-only error state, without success presentation or new actions. Return to menu may show read-only content; exit retains evidence awaiting verification. Discard the candidate and return to the old stable board only after confirming it was not committed.
 
-正常后台/恢复：已提交则恢复完整稳定终态，不恢复半程Transform/协程；原子提交前强杀则读上一成功快照。选中只是视觉，不存；重新进入增viewGeneration，旧协程/Hint/音效回调无效，不可解锁新局。
+Normal background/recovery: a committed action restores the complete stable end state, not halfway Transforms/coroutines; a forced exit before atomic commit reads the previous successful snapshot. Selection is visual only and not saved. Reentry increments viewGeneration; old coroutine/Hint/sound callbacks are invalid and cannot unlock the new board.
 
-Undo为一个新事务：恢复最近Transfer或AddBranch前完整快照，弹历史、恢复操作数及extraBranchAdded/枝集合，成功序号仍递增；失败保留Undo前局。Undo不会再执行完成退役规则，避免空枝误退。Restart为新事务，重建同hash固定初态P枝、extraBranchAdded=false、清本局历史/操作数；保留最佳成绩/通关/静音。没有Undo扣星或Hint消耗账本。
+Undo is a new transaction: restore the full snapshot before the latest Transfer or AddBranch, pop history, restore action count and extraBranchAdded/branch set, and still increment the successful sequence. Failure preserves the pre-Undo board. Undo does not rerun completion/retirement rules, preventing erroneous empty-branch retirement. Restart is a new transaction rebuilding the same-hash fixed initial P branches, extraBranchAdded=false, and clearing current history/action count; retain best results/completion/mute. No Undo star penalty or Hint consumption ledger.
 
-## 5. 世界进度与旧档处理
+## 5. World progress and legacy saves
 
-进度saveVersion6：completedLevelIds、bestMoveCountByLevel（无辅助）、bestAssistedMoveCountByLevel（有辅助）、currentLevel、可选seenWorldIntro、`audioMuted`（§5.1）；world/level解锁按MAP_PROGRESSION由已提交completed集合推导，不能与另存unlock布尔互相矛盾。当前局快照含完整Undo历史，退出后可继续无限撤销，不静默截断；压缩/delta必须证明等价恢复。
+Progress saveVersion 6: completedLevelIds, bestMoveCountByLevel (unassisted), bestAssistedMoveCountByLevel (assisted), currentLevel, optional seenWorldIntro, and `audioMuted` (§5.1). Derive world/level unlocks from the committed completed set under MAP_PROGRESSION; separately saved unlock booleans must not conflict. The current snapshot includes full Undo history, allowing unlimited Undo after resuming without silent truncation; compression/deltas must prove equivalent restoration.
 
-| 输入 | 唯一处理策略 |
+| Input | Sole handling policy |
 | --- | --- |
-| 实际旧进度version4/rules2 | 先保留原档只读副本，归档旧campaign成绩/关号/星/提示；新campaign从01开始，不回放From/To到新布局 |
-| T16设计schema3/rules3/save5 | 尚未实施，若遇实验档隔离为legacy试验；不当真实用户迁移已验证，不自动映射新关 |
-| 新campaign同level同hash且assistPolicyVersion=1 | 恢复快照/Undo/操作数/额外枝；目标世界归属检查一致，按下述运行校验拒绝矛盾状态 |
-| 同campaign修订hash | 备份旧局及最佳历史并标oldHash；新布局重开当前已开放关，旧证书/Undo失效；提示无消耗无需额度迁移 |
-| 未知version / 缺失或未知assistPolicyVersion / 未知玩法字段 | 保留原件/备份并拒绝写入该档，不用默认值吞掉；显示可理解错误；不得覆盖唯一证据 |
-| 主档坏/校验失败 | 尝试身份兼容且完整bak；无可用备份则保留坏档，安全开启对应新局并提示，不能混合半新半旧 |
+| Actual legacy progress version 4/rules 2 | Preserve a read-only original copy first; archive old campaign results/level numbers/stars/hints; new campaign starts at01, without replaying From/To against new layouts |
+| T16 design schema 3/rules 3/save 5 | Not implemented; isolate any experimental save as a legacy experiment, without claiming verified real-user migration or automatically mapping new levels |
+| New campaign, same level/hash, assistPolicyVersion=1 | Restore snapshot/Undo/action count/extra branch; verify target world membership and reject contradictory states using runtime validation below |
+| Same campaign, revised hash | Back up the old board and best history with oldHash; restart the currently unlocked level on its new layout; old certificates/Undo are invalid; free hints need no quota migration |
+| Unknown version / missing or unknown assistPolicyVersion / unknown gameplay fields | Preserve original/backup and refuse writes to that save; do not swallow errors with defaults; show an understandable error; never overwrite the only evidence |
+| Corrupt main save/failed validation | Try an identity-compatible complete bak; if none is usable, preserve the corrupt save, safely start the corresponding new board with a notice, and never mix partial old/new states |
 
-旧campaign星级不折算新地图解锁，旧同号新关不视为已完成。存档路径/产品名/平台目录变化要未来授权实现时记录并验收，本轮未改路径或配置。
+Old campaign stars do not convert to new map unlocks; a new level sharing an old number is not completed automatically. Record and accept save-path/product-name/platform-directory changes during future authorized implementation; this round changed no paths/configuration.
 
 <a id="global-mute"></a>
 
-### 5.1 单一总静音字段（E工程合同，未实施）
+### 5.1 Single global mute field (E engineering contract, not implemented)
 
-- save6进度根字段`audioMuted:boolean`，true=音乐、游戏音效、点击声全部静音；false=允许这些声音按既有固定配置播放，仍服从系统静音/平台限制。只存这一个声音开关，不增加音量/百分比或分通道字段；这是本项目工程选择，不是同行原作字段或默认值。
-- 首次安装且无可迁移偏好时默认false。菜单与暂停声音钮共用同一值：true显示sound_off、点击恢复；false显示sound、点击静音。无障碍名说明下一动作，不加可见标签；外观仍由UI_SPEC拥有。
-- 静音偏好不属于关卡Undo历史；Undo、Restart、切关及campaign成绩归档不重置它。设置保存沿§4原子写入/读回核验，串行更新最新进度，不能用旧设置快照覆盖关卡进度。失败提示未保存，不谎称成功；会话内已选静音仍生效，下次启动读取最后成功保存值。不为声音开关增加玩法操作数/Undo项。
-- 迁移先保留原档只读副本。对已识别旧版本，只有经旧源码/格式确认的有效总静音布尔值才按其已核实语义映射，保留用户选择，不按旧键名称猜测。已识别旧版本确实无声音设置，或未实施的早期save6草稿仅缺本设置字段时，显式补false并记录设置迁移；此例外绝不允许补齐缺失玩法/辅助身份或恢复本应拒绝的局面。
-- 未知版本仍按§5隔离拒写；设置类型错误、冲突或旧语义未核实时保留原件，不静默强转/覆盖。核实前会话保守静音并提示设置未能读取，不把临时静音当已迁移偏好。旧键适配、保存失败和跨启动持久化仍须未来实现验收，本轮未运行这些测试。
+- save 6 progress root field `audioMuted:boolean`: true=mute music, game effects, and click sounds; false=allow them under existing fixed configuration, still subject to system mute/platform restrictions. Store only this sound toggle, without volume/percentage/per-channel fields. This is a project engineering choice, not a competitor's original field/default.
+- Default false on first installation without a migratable preference. Menu and pause sound buttons share the value: true shows sound_off and clicking unmutes; false shows sound and clicking mutes. Accessibility names describe the next action without visible labels; UI_SPEC still owns appearance.
+- Mute preference is outside level Undo history; Undo, Restart, level changes, and campaign-result archiving do not reset it. Save settings through §4 atomic writing/readback verification, serially updating the latest progress so stale setting snapshots cannot overwrite level progress. Report failure as unsaved, never successful; the session's selected mute still applies, and next launch reads the last successfully saved value. The sound toggle adds no gameplay action count/Undo entry.
+- Preserve a read-only original before migration. For recognized old versions, map only a valid global-mute boolean whose semantics are verified against old source/format; retain user choice rather than guessing from old key names. If a recognized old version genuinely has no sound setting, or an unimplemented early save 6 draft lacks only this setting field, explicitly supply false and record settings migration. This exception never permits filling missing gameplay/assistance identity or restoring an otherwise rejected board.
+- Unknown versions remain isolated and unwritable under §5. Wrong setting types, conflicts, or unverified old semantics require preserving the original without silent coercion/overwrite. Until verified, conservatively mute the session and report that settings could not be read; do not treat temporary mute as a migrated preference. Old-key adapters, save failure, and persistence across launches still require future implementation acceptance; none were tested this round.
 
-## 6. R07运行格式补充与拒绝条件（E）
+## 6. R07 runtime format additions and rejection conditions (E)
 
-- `extraBranchAdded=false`时快照恰P枝，ID严格S1..SP；true时恰P+1枝，最后ID为S(P+1)，side依编号奇偶，容量由flockSize推导。动态最多11枝（静态P≤10）；不能向静态shelves加入该枝、不能用E1等别名破坏ID解析。true且末枝Retired合法，仍不返还额度。
-- 每笔历史项为`{actionType:Transfer|AddBranch,before:StableSnapshotWithoutHistory}`，before包含完整辅助字段；不递归嵌套整栈。Transfer记录sourceId/targetId/Count供回放；AddBranch记录addedBranchId=S(P+1)，不伪造source/Count。所有可变数据深拷贝。
-- AddBranch候选只在false→true时append空Available枝；操作数不变，actionSequence增加1。Undo弹AddBranch前必须已撤回全部后续事务，当前末枝必须空且Available；恢复before并移除末枝。状态/事件不匹配即拒绝坏历史，不能清掉鸟后强行通过。
-- Snapshot canonicalization沿§2键/UTF-8规则，但运行snapshotHash覆盖辅助版本/布尔、完整枝态、token、Home、操作数与事务序号；不含动画坐标。静态contentHash和运行snapshotHash不能混名。证书另标`actionSet=TRANSFER_ONLY|TRANSFER_AND_ADD_BRANCH`；已有40见证只属于前者、初态extraBranchAdded=false。
-- 已提交AddBranch后强杀/返回菜单/加载恢复true及同一末枝；保存失败复用同候选字节/序号，不重复append。Restart候选回基础P枝和false；只有提交成功才显示其初态。
-- Won时extraBranchAdded=false更新bestMoveCountByLevel，否则更新bestAssistedMoveCountByLevel；各自取最小Transfer数，未完成为null。Undo撤回AddBranch恢复false，故分类按当前路径而非“这次打开页面曾点过”。这是E比较分组，不增加奖励、门槛或星级；两类成功都正常解锁世界。
-- 未实施的早期save6草稿若缺辅助身份，不默默补false；备份并提示从固定初态重开，禁止恢复可能丢失枝的局面。已有旧v2进度仍按§5归档。字段增加不声称实际迁移已跑过。
+- With `extraBranchAdded=false`, snapshots contain exactly P branches with strict IDs S1..SP; with true, exactly P+1 branches, final ID S(P+1), side by number parity, capacity derived from flockSize. Dynamic maximum 11 branches (static P≤10); do not add the branch to static shelves or break ID parsing with aliases such as E1. True with a Retired final branch is legal and does not refund usage.
+- Each history item is `{actionType:Transfer|AddBranch,before:StableSnapshotWithoutHistory}`; before includes complete assistance fields, without recursively nesting the entire stack. Transfer records sourceId/targetId/Count for replay; AddBranch records addedBranchId=S(P+1), without fabricated source/Count. Deep-copy all mutable data.
+- An AddBranch candidate appends an empty Available branch only on false→true; action count is unchanged and actionSequence increases by1. Undo may pop AddBranch only after undoing all later transactions; the current final branch must be empty and Available. Restore before and remove the final branch. Reject bad history on state/event mismatch rather than deleting birds to force acceptance.
+- Snapshot canonicalization follows §2 key/UTF-8 rules, but runtime snapshotHash covers assistance version/boolean, complete branch states, tokens, Home, action count, and transaction sequence, excluding animation coordinates. Static contentHash and runtime snapshotHash must not share names. Certificates additionally mark `actionSet=TRANSFER_ONLY|TRANSFER_AND_ADD_BRANCH`; existing 40 witnesses belong only to the former with initial extraBranchAdded=false.
+- After committed AddBranch, forced exit/menu return/load restore true and the same final branch; save failure reuses the same candidate bytes/sequence without duplicate append. Restart candidates restore base P branches and false; show that initial state only after successful commit.
+- At Won, extraBranchAdded=false updates bestMoveCountByLevel; otherwise update bestAssistedMoveCountByLevel. Each takes the minimum Transfer count, with null for incomplete levels. Undoing AddBranch restores false, so classification follows the current path rather than whether addition was clicked sometime during this page visit. This is E comparison grouping, without rewards, thresholds, or stars; both success classes unlock worlds normally.
+- Early unimplemented save 6 drafts missing assistance identity must not silently default false. Back up and offer restart from the fixed initial state; do not restore a board that may lose a branch. Existing old v2 progress is still archived under §5. Adding fields does not claim that actual migration has run.
