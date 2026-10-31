@@ -4,7 +4,7 @@
 
 ## 1. 四层证据不可混用
 
-1. 同行证据：每项玩法指向已核第一方具体文字，USER约束和E协议分别标记；功能名字没有精确算法时不可补猜。缺证项退出有效规则。
+1. 同行证据：每项玩法指向已核第一方具体文字，USER约束、明示项目迁移和E协议分别标记；功能名字没有精确算法时不可补猜。R07由SRC-WSWEB明确的一空容器机制迁移，N容量/免费范围/事务集成为项目决定，不要求伪造每项竞品原数。缺证项退出有效规则。
 2. 固定初态与独立见证：每关有明确N/K/P/数组/蛋形态和合法完整路径；临时分析逐步核对。它只证明模型/初盘下一条解存在。
 3. 项目Core/最优：用将来新Core回放同hash；求解分未知/上界/Exact/穷尽无解，不能用独立分析当代码通过。
 4. 真实游戏/玩家/设备：输入、Undo/磁盘、动态表现、隐藏信息公平、地图/声音/安全区与移动平台运行，必须实测，不以截图代替录屏。
@@ -46,7 +46,7 @@
 
 NOT_RUN未执行；UNKNOWN预算耗尽/取消/无法确定；SOLVED_UPPER_BOUND有完整合法见证但未证最优；PROVEN_EXACT最短证明+回放；PROVEN_UNSOLVABLE穷尽有限空间。搜索找到20步只是upperBound20；证明18最短才能写Exact18。实际无合法一步只证明局部NoMoves。
 
-证书绑定rules/schema/campaign/catalog/level/hash、求解器版本、动作/Count、预算/访问节点、终局键。包含蛋或完成退枝后必须重新证明启发式可采纳；旧块数减一下界不能直接套。可先h=0正确搜索。正式bestMoveCount是玩家实际成功最少记录，不伪装理论minMoves；提示只需有效解首步，仍免费不限次。
+证书绑定rules/schema/campaign/catalog/level/hash、assistPolicyVersion=1、actionSet及extraBranchAdded/动态枝态、求解器版本、动作类型/Transfer Count、预算/访问节点、终局键。包含蛋或完成退枝后必须重新证明启发式可采纳；旧块数减一下界不能直接套。可先h=0正确搜索。正式bestMoveCount是玩家实际成功最少记录，不伪装理论minMoves；提示只需有效解首步，仍免费不限次。
 
 ## 5. 真人、设备、素材与库验收
 
@@ -55,3 +55,24 @@ NOT_RUN未执行；UNKNOWN预算耗尽/取消/无法确定；SOLVED_UPPER_BOUND�
 保留灰度/色觉、真实刘海/手势、design px到pt/dp换算、静音/减动效可辨状态。用户要求所有动画位置真实动态：运行录屏+关键帧时间戳，不能只PNG或单图平移冒振翅；地图/按钮无重复文字、规则形、静音开关验收分别做。LitMotion等库/IL2CPP/AOT/裁剪/场景销毁/池回收取消边界见ANIMATION_LIBRARIES。本轮无安装/编译/Unity/设备测试。
 
 未来代码/数据测试遵AGENTS，不能删测试/造绿或以旧163/14数字代替新规则结果。当前文档-only改动不用启动Unity重建场景。
+
+## 6. 加枝专项断言（V19–V26，文档用例；非Unity测试）
+
+| ID | Given | When | Then |
+| --- | --- | --- | --- |
+| V19 | N4、P5、false，稳定且未Won | AddBranch后再次点击 | 仅S6一条空Available枝，true，操作数不变、序号+1；第二次无效果 |
+| V20 | N6/P6或N8/P8 | AddBranch | 分别追加S7/N6或S9/N8；原token/蛋/枝ID/位置不变，总鸟数不变；无局内随机 |
+| V21 | AddBranch→合法Transfer到末枝 | 连续Undo两次 | 首次恢复空末枝且true；第二次删除末枝恢复false和原操作数；不能直接撤除含鸟枝 |
+| V22 | 额外枝外端A(N−1)，源A1 | Transfer补满→Undo | Home+Retire但extraBranchAdded仍true、不返枝；Undo恢复两枝及Available，不新开第二枝 |
+| V23 | true且末枝有鸟或已Retired | 保存后重进；再Restart | 重进保同枝/额度/历史；Restart只在成功提交后回P枝、false、固定初态且清历史 |
+| V24 | AddBranch候选提交结果不确定/重复回调 | 读回重试/强杀恢复 | 相同序号与候选hash确认，只append一次；未提交恢复旧局，绝不丢鸟或产生P+2枝 |
+| V25 | Hint运行时AddBranch或Undo加枝 | Hint旧结果返回；新查询 | 旧代次/辅助状态不匹配即丢弃；新Hint仅搜索当前枝Transfer，不偷偷AddBranch；未知不报无解 |
+| V26 | 成功路径含/不含已撤回的AddBranch | Won记成绩 | 按当前extraBranchAdded分助力/无助力两个最少Transfer记录；两类均正常解锁，不加奖励/惩罚 |
+
+所有新快照/历史须校验assistPolicyVersion和extraBranchAdded与P/P+1长度一致；false+多枝、true+缺末枝、重复ID、未知动作、Undo强删含鸟枝均拒绝。静态H04 hash保持不变不意味着运行辅助身份可省略。40条474 Move旧新模型见证仅为无AddBranch子集；扩容事务用例/真实存盘/动画/额外枝触控仍待新Core与设备验证。加枝不能替代20蛋关按可见信息的公平验收。
+
+### 临时文档模型回放记录（2026-10-31）
+
+对N=4/6/8分别使用完整局部夹具K3/P5：S1=[A×(N−1),B]、S2=[B×(N−1),C]、S3=[C×(N−1),A]、S4/S5=[]；均无蛋，每种N只。执行：AddBranch S6→重复AddBranch拒绝→S1→S6 B1→Undo Transfer→Undo AddBranch→重新AddBranch→S1→S6 B1→S2→S5 C1→S2→S6 B(N−1)（B Home/S6 Retired）→JSON快照拷贝恢复→Undo末Transfer→重建固定初态。核对枝数量/ID/容量、每色守恒、0步加枝、退役不返额度、历史恢复；临时JavaScript模型共216条断言通过。
+
+首轮夹具误在未移走S2外端C时尝试B入枝，按规则被拒；补上S2→S5揭示步骤后重跑通过，未为测试改规则。这里仅是独立文档模型，不是项目Core/真实磁盘/并发/Hint/UI测试，也不覆盖蛋公平；V24/V25和设备测试仍NOT_RUN。
