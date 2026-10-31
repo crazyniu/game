@@ -1,141 +1,141 @@
-# 小鸟归巢：UI单值规范（同行证据修订版）
+# Perch Sort: single-value UI specification (same-genre evidence revision)
 
-2026-10-31。**本次只整理文档；§4.1记录用户已确认的美术风格与树枝摆放，未重画UI、修改代码或完成生产素材/运行视觉验收。** 本页拥有静态尺寸/位置/外观/缩放/触控目标；动画时间与输入语义唯一归[INTERACTION](spec/INTERACTION_ANIMATION.md)，可复制任务模板见[ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md)。旧叠加版本已[归档](archive/UI_SPEC_HISTORY.md)，不再与本页并列。
+2026-10-31. **Documentation only this round; §4.1 records the user-approved art style and branch placement. No UI redraw, code change, or production-asset/runtime visual acceptance was completed.** This page owns static dimensions/positions/appearance/scaling/touch targets. [INTERACTION](spec/INTERACTION_ANIMATION.md) alone owns timing/input semantics; reusable task templates are in [ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md). Old overlapping versions are [archived](archive/UI_SPEC_HISTORY.md), no longer parallel authorities.
 
-依据：既有UI v1.3批准基线与只读源码记录，含末条0.72遮罩修正；本页静态尺寸不是同行玩法证据，也不是本轮视觉实测。标签：**既定**=原规范最终条款；**代码事实**=源码中当前值，非运行验收；**DESIGNED**=新增验收目标，未实测。不得以“整理”为由改变已验收切图或让旧v1/v1.1值复活。玩法准入唯一见[证据矩阵](MECHANIC_EVIDENCE.md)和[RULES](spec/RULES.md)；保留一项旧资源尺寸不等于保留它对应的旧玩法。
+Basis: existing approved UI v1.3 baseline and read-only source records, including the final 0.72 overlay correction. Static dimensions here are neither same-genre gameplay evidence nor visual runtime tests this round. Labels: **Established**=final clause of the previous specification; **Code fact**=current source value, not runtime acceptance; **DESIGNED**=new acceptance target, untested. Reorganization must not change accepted sliced assets or revive old v1/v1.1 values. Gameplay admission belongs only to the [evidence matrix](MECHANIC_EVIDENCE.md) and [RULES](spec/RULES.md); retaining an old asset dimension does not retain its old mechanic.
 
-## 1. 单位与坐标（UI-U）
+## 1. Units and coordinates (UI-U)
 
-- UI-U01：参考设计画布1080×1920；全部布局数字单位为**design px**。中心原点，X向右、Y向上；Ø表示直径。它不是PNG源像素、设备物理像素、iOS pt或Android dp。
-- UI-U02：容器/图标框与实际PNG非透明范围分开。完整鸟显示框为136×136（含透明区域），不是可见鸟身宽。
-- UI-U03：未写“局部”的位置相对安全区设计根中心；局部坐标必须叠加表中父容器坐标。禁止拿嵌套局部坐标当屏幕坐标。
+- UI-U01: Reference design canvas 1080×1920; all layout numbers use **design px**. Origin at center, X rightward, Y upward; Ø means diameter. These are not PNG source pixels, device physical pixels, iOS pt, or Android dp.
+- UI-U02: Distinguish container/icon frames from actual nontransparent PNG bounds. The complete bird display frame is136×136 (including transparency), not visible body width.
+- UI-U03: Positions without “local” are relative to the safe-area design root center. Add local coordinates to the parent container coordinates in the table; nested local coordinates must not be treated as screen coordinates.
 
-## 2. 单值尺寸与位置（UI-D）
+## 2. Single-source dimensions and positions (UI-D)
 
-本表是尺寸唯一入口；其他文件/提示词引用UI-D键，不另填竞争数值。除独立命中目标外均是视觉Rect。
+This table alone owns dimensions; other documents/prompts reference UI-D keys without competing values. All are visual Rects except independent hit targets.
 
-| 键/元素 | 尺寸、中心、资源/限制 | 状态/出处 |
+| Key/element | Dimensions, center, asset/limits | Status/source |
 | --- | --- | --- |
-| UI-D01 菜单树冠 | 900×750，(0,80) | 代码事实：BuildMenu |
-| UI-D02 菜单Logo | 860×358，(0,420) | 代码事实 |
-| UI-D03 Play | Ø260绿，(0,-330)，icon_play | 既定尺寸+代码位置 |
-| UI-D04 Levels | Ø150橙，(0,-565)，icon_levels | 既定尺寸+代码位置 |
-| UI-D05 菜单设置 | Ø150木底，(420,850)，icon_settings | 代码事实 |
-| UI-D06 菜单进度牌 | 480×90，(0,-780)，字号32 | 代码事实 |
-| UI-D07 HUD暂停 | Ø130，(-420,850)，icon_pause | 代码事实 |
-| UI-D08 HUD关卡牌 | 240×100，(0,850)，数字56，无Level文字 | 既定+代码事实 |
-| UI-D09 HUD Undo/Hint/Restart | 各Ø130，X=-262/0/+262，Y=-800；无Undo时留原槽不重排 | 既定类型+代码坐标；隐藏行为按INTERACTION |
-| UI-D10 Hint旧角标 | 60×70，相对Hint(48,45)，数字框52×52/字号32 | 仅旧代码尺寸；旧每关3次策略已撤回，不凭该角标创建额度 |
-| UI-D11 关卡页返回 | Ø150，绝对(-396,820)，父header(0,820) | 代码事实 |
-| UI-D12 旧关卡页星数牌 | 185×85，绝对(355,820) | 仅旧代码尺寸；新版评分待RULES准入，不据资源复活旧星级 |
-| UI-D13 滚动视口 | 804×1440，(0,-40)，底边-760，底部渐隐120 | 既定+代码事实 |
-| UI-D14 关卡格 | 150×170，4列；列中心距186/行中心距200，即净距36/30；无章节条 | 既定+LevelGrid代码；不能因“方块”改成150×150 |
-| UI-D15 关卡数字 | 已解锁64深棕#5A3A22无描边；锁定白字深描边 | 既定 |
-| UI-D16 设置面板 | 560×460，(0,0)，无标题；只一个声音开关 | 既定 |
-| UI-D17 设置关闭 | Ø150红，局部(215,165)，icon_close | 代码事实；允许现有角徽式外越面板，仍须在安全区 |
-| UI-D18 设置声音 | Ø200木底，(0,0)，sound/sound_off | 既定+代码事实 |
-| UI-D19 暂停面板 | 760×760，(0,0)，无标题 | 代码事实 |
-| UI-D20 暂停关闭 | Ø150红，局部(315,315) | 代码事实 |
-| UI-D21 暂停继续 | Ø220绿，局部(0,130)，icon_play | 代码事实 |
-| UI-D22 暂停重开/主页/声音 | Ø150木底，局部X=-220/0/+220、Y=-170 | 代码事实 |
-| UI-D23 胜利面板 | 860×1120，(0,0) | 既定 |
-| UI-D24 胜利横幅 | 922×180，(0,520)，无文字、不可点 | 既定 |
-| UI-D25 左/中/右星槽 | 150/180/150；(-190,540)/(0,560)/(190,540) | 仅保留既定资产尺寸；旧Undo/Restart惩罚星级撤回，不能自动点星 |
-| UI-D26 奖杯鸟父层 | 680×300，(0,180) | 代码事实 |
-| UI-D27 奖杯 | 250×290，父层局部(145,0)，绝对(145,180) | 代码事实 |
-| UI-D28 结算鸟 | 完整图框340×340，局部(-145,-12.1328125)，绝对(-145,167.8671875) | 代码公式-135+(870/1024-0.5)×340；不是可见羽毛框 |
-| UI-D29 Next | Ø220绿，(0,-220)，icon_next；末关不显示 | 既定 |
-| UI-D30 Replay/Home | Ø150橙；Replay左(-150,-420)，Home右(150,-420) | 既定+代码明确左右 |
-| UI-D31 死局面板 | 760×640，(0,0) | 既定 |
-| UI-D32 死局图示 | 红圆底Ø160，(0,130)，内问号96×96；不可点 | 既定+代码事实 |
-| UI-D33 死局Undo/Restart | Ø200绿/橙，(-150,-130)/(150,-130)；无历史只显示Restart并居中(0,-130) | 既定+代码事实 |
-| UI-D34 引导气泡 | Y=420，宽≤760；不得盖任何鸟/巢/枝 | 既定；密集关存在布局风险，未再实机核验 |
-| UI-D35 Skip | Ø130木底、icon_next；位置沿现引导布局，不擅填新坐标 | 既定尺寸 |
-| UI-D36 棋盘/枝行 | Y∈[-620,620]，两列同行对齐；行距min(260,1240/行数) | 既定+代码事实 |
-| UI-D37 旧版目标鸟巢 | 水平居中Y=700；激活180，等待110/透明度70% | IMPLEMENTED_V2尺寸记录；新主线不启用双激活/等待队列，不能据该尺寸恢复玩法 |
-| UI-D38 棋盘鸟 | 完整显示框136×136，槽宽80，脚底依manifest/pivot落枝 | 已有T15b尺寸基线，不能冒充可见身宽 |
+| UI-D01 Menu canopy | 900×750, (0,80) | Code fact: BuildMenu |
+| UI-D02 Menu Logo | 860×358, (0,420) | Code fact |
+| UI-D03 Play | Ø260 green, (0,-330), icon_play | Established size+code position |
+| UI-D04 Levels | Ø150 orange, (0,-565), icon_levels | Established size+code position |
+| UI-D05 Menu settings | Ø150 wood base, (420,850), icon_settings | Code fact |
+| UI-D06 Menu progress sign | 480×90, (0,-780), font size 32 | Code fact |
+| UI-D07 HUD pause | Ø130, (-420,850), icon_pause | Code fact |
+| UI-D08 HUD level sign | 240×100, (0,850), number 56, no Level text | Established+code fact |
+| UI-D09 HUD Undo/Hint/Restart | Each Ø130, X=-262/0/+262, Y=-800; preserve the slot without rearrangement when Undo is absent | Established types+code coordinates; INTERACTION owns hiding behavior |
+| UI-D10 Old Hint badge | 60×70, relative to Hint(48,45), number frame 52×52/font size 32 | Old code dimensions only; old 3-per-level policy withdrawn; do not create a quota from this badge |
+| UI-D11 Level-page back | Ø150, absolute(-396,820), parent header(0,820) | Code fact |
+| UI-D12 Old level-page star sign | 185×85, absolute(355,820) | Old code dimensions only; new scoring awaits RULES admission; assets cannot revive old stars |
+| UI-D13 Scroll viewport | 804×1440, (0,-40), bottom edge-760, bottom fade 120 | Established+code fact |
+| UI-D14 Level cell | 150×170,4 columns; column center spacing 186/row center spacing 200, hence clear gaps 36/30; no chapter strip | Established+LevelGrid code; “tile” does not permit changing to150×150 |
+| UI-D15 Level number | Unlocked 64 dark brown#5A3A22 without outline; locked white with dark outline | Established |
+| UI-D16 Settings panel | 560×460, (0,0), no title; one sound toggle only | Established |
+| UI-D17 Settings close | Ø150 red, local(215,165), icon_close | Code fact; existing corner-badge protrusion beyond panel is allowed, still within safe area |
+| UI-D18 Settings sound | Ø200 wood base, (0,0), sound/sound_off | Established+code fact |
+| UI-D19 Pause panel | 760×760, (0,0), no title | Code fact |
+| UI-D20 Pause close | Ø150 red, local(315,315) | Code fact |
+| UI-D21 Pause continue | Ø220 green, local(0,130), icon_play | Code fact |
+| UI-D22 Pause restart/home/sound | Ø150 wood base, local X=-220/0/+220, Y=-170 | Code fact |
+| UI-D23 Victory panel | 860×1120, (0,0) | Established |
+| UI-D24 Victory banner | 922×180, (0,520), no text, noninteractive | Established |
+| UI-D25 Left/center/right star slots | 150/180/150; (-190,540)/(0,560)/(190,540) | Retain established asset dimensions only; old Undo/Restart penalty stars withdrawn; no automatic star lighting |
+| UI-D26 Trophy/bird parent layer | 680×300, (0,180) | Code fact |
+| UI-D27 Trophy | 250×290, parent-local(145,0), absolute(145,180) | Code fact |
+| UI-D28 Results bird | Complete frame 340×340, local(-145,-12.1328125), absolute(-145,167.8671875) | Code formula-135+(870/1024-0.5)×340; not visible feather bounds |
+| UI-D29 Next | Ø220 green, (0,-220), icon_next; absent on final level | Established |
+| UI-D30 Replay/Home | Ø150 orange; Replay left(-150,-420), Home right(150,-420) | Established+explicit left/right in code |
+| UI-D31 No-moves panel | 760×640, (0,0) | Established |
+| UI-D32 No-moves illustration | Red circle Ø160, (0,130), inner question mark 96×96; noninteractive | Established+code fact |
+| UI-D33 No-moves Undo/Restart | Ø200 green/orange, (-150,-130)/(150,-130); without history show only Restart centered at(0,-130) | Established+code fact |
+| UI-D34 Tutorial bubble | Y=420, width≤760; must not cover any bird/nest/branch | Established; dense levels pose a layout risk, not retested on device |
+| UI-D35 Skip | Ø130 wood base, icon_next; retain current tutorial positioning without inventing coordinates | Established size |
+| UI-D36 Board/branch rows | Y∈[-620,620], two columns aligned on each row; row spacing min(260,1240/row count) | Established+code fact |
+| UI-D37 Legacy target nests | Horizontally centered Y=700; active 180, waiting 110/opacity 70% | IMPLEMENTED_V2 dimension record; new main campaign has no dual-active/waiting queue; these dimensions cannot restore it |
+| UI-D38 Board birds | Complete display frame 136×136, slot width 80, foot placement on branch follows manifest/pivot | Existing T15b size baseline, not visible body width |
 
-### 2.1 图标框、净距与触控不是同一数值
+### 2.1 Icon frames, clear gaps, and touch targets are different values
 
-UI-D39：UiTheme.Round中图标框=按钮直径×0.6，居中、preserveAspect；因此容器内边距各约0.2D。PNG本身的透明留白另算，不能为填满图标框裁掉脚/冠/尾。图标不接收射线，当前按钮Image的视觉Rect同时充当命中Rect。
+UI-D39: In UiTheme.Round, icon frame=button diameter×0.6, centered with preserveAspect, giving approximately 0.2D padding per side. PNG transparency is additional; do not crop feet/crest/tail to fill the icon frame. Icons receive no raycasts; the current button Image's visual Rect also serves as its hit Rect.
 
-UI-D40：HUD相邻中心距262、视觉净距132；菜单Play/Levels中心距235、视觉净距30；胜利Replay/Home净距150；死局双钮净距100。旧文“HUD150间距”的歧义由当前代码坐标消解；这里是视觉净距，不是扩展命中区后的净距。
+UI-D40: HUD adjacent center spacing 262/visual clear gap 132; menu Play/Levels center spacing 235/visual clear gap 30; victory Replay/Home clear gap 150; no-moves pair clear gap 100. Current code coordinates resolve the old “HUD150 spacing” ambiguity. These are visual clear gaps, not gaps after expanding hit regions.
 
-## 3. 缩放、安全区与设备命中目标（UI-S）
+## 3. Scaling, safe area, and device touch targets (UI-S)
 
-**代码事实**：SceneBuilder配置CanvasScaler=ScaleWithScreenSize，referenceResolution取UI-U01，ScreenMatchMode=Expand，Canvas=ScreenSpaceCamera、planeDistance=5、sortingOrder=100。Expand不使用MatchWidthOrHeight，不虚构match=0.5。
+**Code fact**: SceneBuilder sets CanvasScaler=ScaleWithScreenSize, referenceResolution=UI-U01, ScreenMatchMode=Expand, Canvas=ScreenSpaceCamera, planeDistance=5, sortingOrder=100. Expand does not use MatchWidthOrHeight; do not invent match=0.5.
 
-SafeAreaLayout当前计算：视口宽`Vw=min(W,9H/16)`并居中；将视口与Screen.safeArea求交得到SafeRect，`s=min(SafeRect.width/1080,SafeRect.height/1920)`。HUD localScale=s/Canvas.scaleFactor，最终design px映射为s个渲染像素；根中心对齐安全交集中心。背景独立铺满视口。targetTexture截图使用整个输出作安全区，不代表真实刘海/手势通过。
+SafeAreaLayout currently computes viewport width `Vw=min(W,9H/16)` and centers it, intersects the viewport with Screen.safeArea to get SafeRect, then `s=min(SafeRect.width/1080,SafeRect.height/1920)`. HUD localScale=s/Canvas.scaleFactor; each design px finally maps to s rendered pixels, with root centered on the safe intersection. Background independently fills the viewport. targetTexture screenshots use the whole output as safe area and do not prove real notch/gesture acceptance.
 
-| 计算样例（无安全区扣除） | 视口尺寸 | s | HUD直径的物理像素预测 | 验证状态 |
+| Calculation example (no safe-area deductions) | Viewport | s | Predicted HUD diameter in physical pixels | Verification status |
 | --- | --- | --- | --- | --- |
-| 1080×1920 | 1080×1920 | 1 | UI-D09×1 | 只按源码公式推算 |
-| 1080×2340 | 1080×2340 | 1 | UI-D09×1，额外高度不拉伸内容 | 同上 |
-| 1440×1920 | 1080×1920，左右各180留边 | 1 | UI-D09×1 | 同上，不宣称设备实测 |
-| 720×1280 | 720×1280 | 2/3 | UI-D09×2/3 | 同上 |
-| 实际刘海/手势设备 | 视口∩真实safeArea | 按公式记录 | 同时记录物理/逻辑比例 | PENDING设备验收 |
+| 1080×1920 | 1080×1920 | 1 | UI-D09×1 | Inferred from source formula only |
+| 1080×2340 | 1080×2340 | 1 | UI-D09×1; extra height does not stretch content | Same |
+| 1440×1920 | 1080×1920,180 margin each side | 1 | UI-D09×1 | Same; no device-test claim |
+| 720×1280 | 720×1280 | 2/3 | UI-D09×2/3 | Same |
+| Actual notch/gesture device | Viewport∩actual safeArea | Record from formula | Also record physical/logical ratio | PENDING device acceptance |
 
-**UI-S01 / DESIGNED验收目标**：iOS触控区至少44×44pt；Android至少48×48dp。以实际设备像素/pt或density换算：`hitDesignWidth≥targetLogical×physicalPixelsPerLogicalUnit/s`，高度同理。不能把视觉Ø130design px直接说成44pt/48dp。允许在未来获授权后扩大透明命中Rect，但不得放大定版图像、相互覆盖、盖角标/邻钮或侵入手势区。当前未独立扩边，不能宣称已经达标。来源：[Apple Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)、[Android触控目标](https://developer.android.com/guide/topics/ui/accessibility/views/apps-views)。
+**UI-S01 / DESIGNED acceptance target**: Touch areas at least 44×44pt on iOS and 48×48dp on Android. Convert using actual device pixels/pt or density: `hitDesignWidth≥targetLogical×physicalPixelsPerLogicalUnit/s`, likewise for height. Visual Ø130 design px cannot directly be called 44pt/48dp. Future authorization may permit expanding transparent hit Rects, without enlarging final images, overlapping each other, covering badges/neighbors, or entering gesture areas. No independent expansion exists now; do not claim compliance. Sources: [Apple Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons), [Android touch targets](https://developer.android.com/guide/topics/ui/accessibility/views/apps-views).
 
-## 4. 外观和状态（UI-V）
+## 4. Appearance and states (UI-V)
 
-- UI-V01：当前资产保留原木/奶油/树叶绿/橙色基线；已确认新风格与圆角方按钮目标见[§4.1](#approved-forest-style)，具体新世界生产素材仍待验收。不使用异形外轮廓/不规则热区。旧圆钮与关卡格尺寸作为现状保留，不凭风格确认直接改图或改实现。能用图标表达只显示图标，不加重复可见标签；无障碍名称单独提供，关卡编号/必要错误文案可保留。禁用/隐藏/加载/返回行为由INTERACTION拥有。
-- UI-V02：Fredoka+Noto Sans CJK回退。白色亮字用深棕#5A3A22描边，奶油说明正文深棕无描边；普通文字≥32design px，关卡数字按UI-D15。按钮无文字；引导最多6英文词/10汉字。不恢复已删版本号、语言/振动/减动画入口；声音只有静音/恢复，无滑条、百分比或音量数字。音乐、游戏声、点击声沿已定版单一总静音控制，不自行拆新设置项。状态键/默认/迁移唯一取[DATA_SAVE §5.1](spec/DATA_SAVE.md#global-mute)：`audioMuted=true`显示sound_off、点击恢复；false显示sound、点击静音。菜单与暂停声音钮共享同一状态，无障碍名说明下一动作，不加可见文字。
-- UI-V03：遮罩最终唯一颜色/透明度为**Linear空间黑#000、alpha0.72**，不是旧0.5。暂停/设置/死局HUD保留原色仅被遮罩压暗，不加第二层禁用灰；通关HUD退场按INTERACTION时间合同。
-- UI-V04：主菜单打开设置时保留菜单在遮罩下；任何模态必须盖住全部可交互画面，棋盘不能穿透弹窗层。
-- UI-V05：鸟巢保留为本项目已有“归家”视觉资产，不能据此自动创建目标队列、睡眠唤醒或指定顺序。用户称“入笼/进笼”不授权把鸟巢重画为锁笼。旧救援箱/盖笼只留旧版记录，具体开箱条件未通过证据门槛，不进新版有效UI。
+- UI-V01: Current assets retain the wood/cream/leaf-green/orange baseline. Approved new style and rounded-square button targets are in [§4.1](#approved-forest-style); specific new-world production assets remain pending acceptance. No irregular silhouettes/hit regions. Retain old round-button/level-cell dimensions as current-state records; style approval does not directly authorize art or implementation changes. Use icons alone where clear, without duplicate visible labels; accessibility names are separate. Level numbers/necessary error text may remain. INTERACTION owns disabled/hidden/loading/back behavior.
+- UI-V02: Fredoka+Noto Sans CJK fallback. Bright white text uses dark brown#5A3A22 outlines; cream explanatory body text uses dark brown without outlines. Ordinary text≥32 design px; level numbers follow UI-D15. Buttons have no text; tutorial maximum 6 English words/10 Chinese characters. Do not restore removed version numbers or language/vibration/reduced-motion entries. Sound only mutes/unmutes, without sliders, percentages, or volume numbers. Music/game/click sounds retain the established single global mute; do not independently split new settings. [DATA_SAVE §5.1](spec/DATA_SAVE.md#global-mute) alone owns state keys/defaults/migration: `audioMuted=true` shows sound_off, click to unmute; false shows sound, click to mute. Menu/pause sound buttons share state; accessibility names describe the next action without visible text.
+- UI-V03: The sole final overlay color/opacity is **Linear-space black#000, alpha 0.72**, not old 0.5. Pause/settings/no-moves HUD retains original colors darkened only by the overlay, without a second disabled gray layer; victory HUD exit follows INTERACTION timing.
+- UI-V04: Opening settings from the main menu retains the menu beneath the overlay. Every modal covers the entire interactive view; board input must not pass through dialog layers.
+- UI-V05: Nests remain existing project “going home” visual assets, without automatically creating target queues, sleep/wake behavior, or a required order. User wording “入笼/进笼” (entering a cage) does not authorize redrawing nests as locked cages. Old rescue crates/covered cages remain legacy records only; exact opening conditions failed the evidence gate and are excluded from effective new UI.
 
 
 <a id="approved-forest-style"></a>
 
-### 4.1 已确认美术方向与树枝约束（USER_APPROVED_STYLE）
+### 4.1 Approved art direction and branch constraints (USER_APPROVED_STYLE)
 
-2026-10-31用户确认美术风格并要求“尤其是树枝的摆放”，随后明确：“每一个世界里面的这些场景是不一样的，主要是把树枝的这些地方约束里面就行了。”本小节是该约束的唯一权威。参考图 `exec-43a79abe-d0f5-4e6a-af25-2b122c564363.png`（Library：`libfile_c46acb69a7a481918645ce2d319d70c1`）仅确认美术方向与摆放原则，不是统一场景模板。
+On 2026-10-31 the user approved the art style and emphasized “尤其是树枝的摆放” (especially the placement of branches), then clarified: “每一个世界里面的这些场景是不一样的，主要是把树枝的这些地方约束里面就行了。” (The scenes in each world are different; mainly just include the constraints on these branch areas.) This subsection alone owns that constraint. Reference image `exec-43a79abe-d0f5-4e6a-af25-2b122c564363.png` (Library: `libfile_c46acb69a7a481918645ce2d319d70c1`) approves art direction and placement principles only, not a uniform scene template.
 
-- **树枝须有环境支撑**：根部能看出与树干生长连接或可信的绳结悬挂关系，禁止脱离场景的悬空横条；枝条有自然厚度与弯曲。枝条向当前世界布局中的可操作区域自然伸展；相邻层错开并保留鸟与枝的点选空间，不遮挡鸟种识别或合法落点。参考图左右错落伸入是有效摆放示例，不要求每个世界照搬同样两侧树干、构图或坐标。
-- **落脚与可操作性**：鸟脚底真实落枝，不悬空、不穿枝；枝间留出可辨认鸟种、点选与搬移的空间。按每关真实N/K/P、固定初盘和[RULES R07](spec/RULES.md)加枝合同安排容量与位置，稳定ID、预留加枝、不重排原枝的规则不变。图中关卡12、六枝、十二鸟与坐标都不是关卡参数或运行验收。
-- **世界不同，方向一致**：圆润立体卡通2.5D小鸟和柔和森林纵深是已确认美术方向。四世界依[MAP_PROGRESSION](MAP_PROGRESSION.md)使用不同森林场景；树种、树形、色调、装饰和构图可以不同，不能机械复用同图换色，也不锁定相同暖木配色。各场景都遵守上述树枝连接、落脚与可读空间约束。
-- **资产边界**：小鸟允许依已确认方向重新设计，不再要求未来必须沿用原2D鸟。现有原素材保留，不覆盖 `art/` 或以近似图冒充已验收切图。新生产素材须先完成并验收透明度、风格、pivot/边界、64px/灰度辨认与场景内效果；读取既定流程、完成所需切图/模型验收并取得实现授权后才可开发UI。风格确认不是生产素材、具体布局或动态运行验收，本次不改代码/素材/场景。
-- **旧记录与新方向分开**：新风格控件采用圆角方按钮、纯图标及必要数字。旧圆钮尺寸、UI-D36同排网格及UI-D42网格候选保留为现状/旧提案，不覆盖本节树枝摆放原则，也不据此擅填新坐标或直接替换已验收UI。
+- **Branches need environmental support**: Their roots visibly grow from trunks or have credible rope suspension; no floating horizontal bars detached from the scene. Branches have natural thickness and curves, extending naturally into the current world's playable area. Stagger adjacent layers and retain bird/branch touch space without obscuring species recognition or legal landing points. The reference's staggered left/right extensions are a valid example, not a requirement to copy the same side trunks, composition, or coordinates into every world.
+- **Foot placement and usability**: Bird feet genuinely rest on branches, without hovering/intersection; leave space between branches for species recognition, selection, and movement. Arrange capacity/positions using each level's actual N/K/P, fixed initial board, and [RULES R07](spec/RULES.md) addition contract. Stable IDs, reserved addition space, and no rearrangement of original branches remain unchanged. The image's level 12, six branches, twelve birds, and coordinates are not level parameters or runtime acceptance.
+- **Different worlds, consistent direction**: Rounded, dimensional cartoon 2.5D birds and soft forest depth are the approved art direction. Four worlds use different forest scenes under [MAP_PROGRESSION](MAP_PROGRESSION.md). Tree species/shapes, palettes, decoration, and composition may differ; do not mechanically recolor the same image or lock every world to the same warm-wood palette. Every scene follows the connection, foot-placement, and readable-space constraints above.
+- **Asset boundaries**: Birds may be redesigned in the approved direction; future work need not retain the old 2D birds. Preserve existing originals; do not overwrite `art/` or present approximate images as accepted sliced assets. New production assets must first complete acceptance for transparency, style, pivot/bounds,64px/grayscale recognition, and in-scene appearance. Read the established process, finish required sliced-asset/model acceptance, and obtain implementation authorization before UI development. Style approval is not production-asset, exact-layout, or dynamic-runtime acceptance; this round changes no code/assets/scenes.
+- **Separate legacy records from new direction**: New-style controls use rounded-square buttons, icons only, and necessary numbers. Old round-button dimensions, UI-D36 aligned grids, and UI-D42 grid candidates remain current-state/old-proposal records; they neither override this branch-placement section nor authorize invented coordinates or direct replacement of accepted UI.
 
-## 5. 玩法移除、差异与验收
+## 5. Removed mechanics, differences, and acceptance
 
-本轮移出有效UI：已知物种纹样蛋；首次承接后任意腾空退休的4/5临时枝；双激活巢/未来群睡眠；RevealAfter/RevealSpecies条件箱；Undo/Restart惩罚星级；每关3次Hint；风闸。保留旧像素或历史文档均不能作为采用这些玩法的理由。问号蛋、完成群飞走后失枝、加枝/备用空间的确切采用范围只读RULES；不得把完成失枝画成临时枝空了就折断。普通加枝已由RULES R07准入，新增位置/图标采用下述DESIGNED合同，仍需新增资源/布局验收；逐次加高/收集容器未准入，不放假按钮。
+Removed from effective UI this round: known-species patterned eggs;4/5 temporary branches retiring whenever emptied after first use; dual-active nests/sleeping future flocks; RevealAfter/RevealSpecies conditional crates; Undo/Restart penalty stars;3 Hints per level; wind gates. Old pixels/history cannot justify adopting them. Read RULES alone for exact adoption of question-mark eggs, branch loss after a completed flock flies away, and added branches/reserve space. Do not depict completion-based branch loss as breaking a temporary branch whenever empty. RULES R07 now admits ordinary branch addition; new placement/icons follow the DESIGNED contract below but still require new asset/layout acceptance. Repeated height increases/collection containers are not admitted; do not show fake buttons.
 
-只读发现：HUD Undo现代码只设interactable，而新版交互合同无历史隐藏且留槽；PanelMotion入场即interactable不等于主体稳定后开放结果按钮；ShowPause忙碌直接返回与新版暂存请求不同；系统减动画读取未接入。只记录，不在本任务修改。
+Read-only findings: HUD Undo currently only sets interactable, while the new interaction contract hides it without history and preserves its slot. PanelMotion becoming interactable on entry does not equal opening result buttons after main content stabilizes. ShowPause returning immediately while busy differs from the new pending-request contract. System reduced-motion reading is not integrated. Record only; no changes in this task.
 
-UI-D34固定气泡位置与“不遮棋盘”可能在密集关冲突；须记录实际重叠并评审，不能私自挪定版UI或缩鸟。设备命中区/安全区、长屏/平板及现代码与合同差异均PENDING，不用概念图冒充运行验收。验收截图/录屏与输入测试见[VALIDATION](spec/VALIDATION.md)。
+UI-D34's fixed bubble position may conflict with “do not cover the board” on dense levels; record actual overlaps for review rather than independently moving accepted UI or shrinking birds. Device hit regions/safe areas, tall screens/tablets, and code/contract differences are all PENDING; concept images cannot stand in for runtime acceptance. See [VALIDATION](spec/VALIDATION.md) for screenshots/recordings/input tests.
 
-出处代码（只读）：SceneBuilder.Build、SafeAreaLayout.Apply/ViewportFor、GameHudPages各Build、SettingsPanel.Build、UiTheme.Round、LevelGrid.Build、GameHud.Refresh；角色资产manifest见art/raw/birds_front。实际接口/字段未实现部分见[CODE_MAP](spec/CODE_MAP.md)。
+Source code (read-only): SceneBuilder.Build, SafeAreaLayout.Apply/ViewportFor, GameHudPages Build methods, SettingsPanel.Build, UiTheme.Round, LevelGrid.Build, GameHud.Refresh; character manifest at art/raw/birds_front. See [CODE_MAP](spec/CODE_MAP.md) for unimplemented interfaces/fields.
 
-## 6. 新世界地图：导航合同与未定布局
+## 6. New world map: navigation contract and undecided layout
 
-世界分配、解锁和进度规则的唯一权威是[MAP_PROGRESSION](MAP_PROGRESSION.md)。这些来自用户明确要求，非同行数字猜测；本页不重复分段。统一风格/树枝摆放已确认（§4.1），具体地图布局和生产素材未验收，尚未替换已验收UI。
+[MAP_PROGRESSION](MAP_PROGRESSION.md) alone owns world allocation, unlocking, and progress. These are explicit user requirements, not guesses at competitor numbers; do not repeat divisions here. Unified style/branch placement is approved (§4.1); specific map layout and production assets remain unaccepted and have not replaced accepted UI.
 
-本轮不填伪“既定”节点坐标/背景切图/动画资源：地图页标PENDING_LAYOUT，未来经明确授权和验收后新增UI-D键。画布单位/安全区/触控目标仍用UI-U/UI-S，节点只规则形图标按钮；可见关卡编号保留，无障碍名称不画成标签。锁、当前、通关等用图标与轮廓信息表达，不能只换色；世界切换/进入返回保持同一布局骨架，禁新增复杂菜单。
+Do not invent “established” node coordinates/background slices/animation assets this round. Mark map pages PENDING_LAYOUT, adding UI-D keys only after future explicit authorization and acceptance. Canvas units/safe areas/touch targets retain UI-U/UI-S; nodes use regular icon buttons only. Visible level numbers remain; accessibility names are not drawn as labels. Locked/current/completed states use icons and outlines, beyond color alone. World switching/entry/back retain one layout skeleton without complex new menus.
 
-RULES统一每关N=4/6/8的枝容量与每种鸟数，R07额外枝同N；本页UI-D36/38是原项目显示基线，不证明8鸟密度已能放下。未来必须实际验证8槽/新枝状态与气泡、HUD的间距，不擅缩鸟或改已定值以伪造通过。
+RULES sets per-level branch capacity and birds per species uniformly to N=4/6/8, with R07's extra branch also N. UI-D36/38 are original project display baselines, not proof that 8 birds fit. Future testing must verify 8-slot/new-branch states against bubble/HUD spacing; do not shrink birds or change established values to fabricate a pass.
 
-## 7. 用户硬约束与动画交付
+## 7. User constraints and animation delivery
 
-**USER_REQUIREMENT**：能图标就只图标；规则形按钮；简洁菜单设置；音乐/游戏音效/点击音效只有静音/恢复，沿既定单一总静音，不新增slider/百分比。这些是用户要求，不作为同行证据。
+**USER_REQUIREMENT**: Icons alone where clear; regular button shapes; simple menus/settings; music/game/click effects only mute/unmute through the established single global mute, without new sliders/percentages. These are user requirements, not competitor evidence.
 
-所有动画相关位置不得以固定图片充完成：鸟真实振翅并沿轨迹移动、实际进入归家容器、结算有动态阶段/角色/粒子。静态背景/原始帧允许作为素材，但整体动作必须随时间变化。优先单一开源主补间库，选型/许可只见[ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md)；未选型未安装，不在此处私加包或基础设施。交付必须运行录屏，截图只补充布局证据。
+No animation location may use a fixed image as completed animation: birds genuinely flap while following trajectories, actually enter the home container, and results have dynamic stages/characters/particles. Static backgrounds/raw frames may be assets, but overall actions must change over time. Prefer one open-source primary tween library; [ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md) alone owns selection/licenses. No final selection or installation exists; do not independently add packages/infrastructure here. Delivery requires runtime recordings; screenshots supplement layout evidence only.
 
-## 8. 普通加枝的新增布局合同（DESIGNED，非已验收UI）
+## 8. New layout contract for ordinary branch addition (DESIGNED, not accepted UI)
 
-只定义未来新增空间；下列原网格/圆钮候选不代表新风格布局验收，视觉摆放优先遵§4.1。风格记录不授权重画或替换原HUD、鸟图和已验收切图。RULES R07采用后不得再把整个加枝功能写成参数待证；此处的视觉资源/设备验收与玩法合同就绪分开。
+Define future added space only. Original grid/round-button candidates below do not establish new-style layout acceptance; visual placement follows §4.1 first. Style records do not authorize redraw/replacement of original HUD, bird images, or accepted sliced assets. After RULES R07 adoption, do not describe the entire addition feature as awaiting parameters; separate visual asset/device acceptance from gameplay contract readiness.
 
-- **UI-D41 加枝入口候选**：沿现圆形按钮体系Ø130，中心(420,-800)，原UI-D09三个按钮不移动；图标为普通枝+加号，不叠可见“加枝”文字；可访问名“添加一条空树枝”。此位置是本项目新增布局候选，不是已定版新图或竞品数据。原Restart中心262到420的视觉净距28design px；必须以UI-S01验证扩大命中区不重叠/不越安全区，未通过则提布局评审，禁止擅改原按钮或缩鸟来造通过。
-- 可用时显示入口；已添加后保留原槽、禁用且有已用标记，无广告/货币/次数角标。Won隐藏。动画/SaveError/暂停设置锁定。NoMoves时同位置的按钮由模态层单独拥有并调用同一AddBranch事务，底层HUD仍不可穿透；原死局图示和双按钮不移动、不重绘。
-- **UI-D42 额外枝槽**：逻辑编号P+1，side奇数left/偶数right，行floor(P/2)。进入关卡即为P+1位置预留网格空间，按UI-D36用总行数ceil((P+1)/2)计算行距；未AddBranch时末槽不画枝、不接受射线，不能伪装已有第三空枝。AddBranch只显现末槽，不重排S1..SP，不移动已有鸟；Undo移除此槽显示，Restart恢复未占用槽。静态P≤10时预留最多6行，当前40实际最大P8则5行。
-- 不因Home/Retire压缩槽位；新增枝完成后同样退场留位。容纳N8鸟、最多动态11枝、UI-D34气泡和安全区必须用真实验收素材做可辨性与触控检查；理论行距不等于设备布局通过。
-- 新加枝图标/派生枝资源缺少时先完成并验收切图，不能拿近似重画替代既定素材。本次只有文档，不制作素材或启动UI开发；此门槛不撤回已明确的R07 Core/存档合同。
+- **UI-D41 Addition entry candidate**: Follow the current round-button system, Ø130, center(420,-800), leaving all three UI-D09 buttons unmoved. Icon=ordinary branch+plus, without visible “Add branch” text; accessible name “Add an empty branch.” This is a project layout candidate, not final new artwork or competitor data. Original Restart center 262 to420 gives visual clear gap 28 design px; UI-S01 must verify expanded hit regions do not overlap or leave safe areas. Failure requires layout review, without independently changing original buttons or shrinking birds to force a pass.
+- Show the entry when available; after addition retain its slot, disabled with a used indicator and no ad/currency/usage-count badge. Hide in Won. Lock during animation/SaveError/pause/settings. In NoMoves, the modal layer separately owns the button at the same location and calls the same AddBranch transaction; underlying HUD remains inaccessible. Do not move/redraw the original no-moves illustration or two buttons.
+- **UI-D42 Extra branch slot**: Logical number P+1, side odd left/even right, row floor(P/2). Reserve grid space for P+1 on level entry, calculating row spacing under UI-D36 with total rows ceil((P+1)/2). Before AddBranch the final slot draws no branch and receives no raycasts; it must not pretend to be a third existing empty branch. AddBranch reveals only that slot without rearranging S1..SP or moving birds. Undo removes its display; Restart restores an unoccupied slot. Static P≤10 reserves at most 6 rows; current 40 levels actually max at P8, hence 5 rows.
+- Do not compact slots after Home/Retire; the added branch also exits on completion and leaves its slot. Check recognizability and touch using actual accepted assets for N8 birds, up to11 dynamic branches, UI-D34 bubble, and safe area; theoretical row spacing is not device-layout acceptance.
+- If new addition icons/derived branch assets are missing, finish and accept sliced assets first; approximate redraws cannot replace established assets. Documentation only now, without asset creation or UI development; this gate does not withdraw R07's explicit Core/save contract.
 
-## 9. 新版接收鸟巢布局门槛
+## 9. New receiving-nest layout gate
 
-**UI-D43 新版接收巢 / PENDING_LAYOUT**：真实入巢是已确认要求，接收巢的数量、位置、显示尺寸、入口anchor及前后遮挡层尚未定版。UI-D37只记录旧双激活/等待队列，不得借其坐标、尺寸或激活/等待数量当新版接收布局，也不能让Home事件自行生成视觉参数。
+**UI-D43 New receiving nest / PENDING_LAYOUT**: Real nest entry is an approved requirement. Receiving-nest count, placement, display dimensions, entrance anchor, and front/back occlusion layers are not final. UI-D37 records only the old dual-active/waiting queue; do not borrow its coordinates, dimensions, or active/waiting counts for the new reception layout, or let Home events generate visual parameters.
 
-未来接收布局任务必须附：所处世界与场景构图、真实N/K/P及R07预留状态、符合§4.1且已验收的鸟/巢资源与pivot/可见边界、HUD/引导气泡/安全区范围，以及待批准的接收巢数量/位置/尺寸、入口anchor（注明父坐标系）和前后层遮挡关系。四世界场景可以各不相同，继续遵守§4.1树枝环境连接、落脚与可操作空间约束，不强制同一构图。缺输入先列缺口，不编造坐标或覆盖既定UI。
+Future receiving-layout tasks must attach: world and scene composition; actual N/K/P and R07 reservation state; accepted birds/nests compliant with §4.1 plus pivots/visible bounds; HUD/tutorial bubble/safe-area bounds; and proposed receiving-nest count/positions/dimensions, entrance anchor (with parent coordinate system), and front/back occlusion relationships awaiting approval. All four worlds may have different scenes while retaining §4.1's environmental branch connections, foot placement, and usable-space constraints, without forcing one composition. List missing inputs first; do not invent coordinates or overwrite established UI.
 
-布局/资源验收须确认：鸟从巢前真实经过入口进入内部，脚底/入口对齐、前后层遮挡可信，实际进入后才缩小淡出；N=4/6/8及加枝状态下不遮挡可辨鸟种、合法落点或操作按钮。截图核布局，带时间采样的真实运行录屏核进入/遮挡，不用屏外出口或瞬间删除替代入巢。缺少遮挡切图时先按既定流程完成并验收派生资源，原件不覆盖；尚未批准的布局或未验收的生产素材不得进入UI实现。当前只有文档，坐标、生产素材和运行效果仍未验收；本条不改变RULES完成逻辑，不增加目标队列或实施授权。
+Layout/asset acceptance must confirm birds actually pass from in front of the nest through its entrance into the interior, with aligned feet/entrance and credible front/back occlusion, shrinking/fading only after actual entry. N=4/6/8 and added-branch states must not obscure recognizable species, legal landing points, or controls. Screenshots check layout; timed actual runtime recordings check entry/occlusion. Offscreen exits or instant deletion cannot replace nest entry. Missing occlusion slices require completing/accepting derived assets through the established process without overwriting originals; unapproved layouts/unaccepted production assets cannot enter UI implementation. Documentation only now; coordinates, production assets, and runtime appearance remain unaccepted. This clause does not change RULES completion logic, add target queues, or authorize implementation.

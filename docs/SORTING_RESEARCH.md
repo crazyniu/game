@@ -1,105 +1,105 @@
-# 分类整理益智：同行规则文字手册
+# Sorting puzzles: a textual guide to same-genre rules
 
-2026-10-31联网复核。Sort Puzzle / Sorting Puzzle即分类整理益智；Water Sort倒液体，Ball Sort移球，Bird Sort移鸟，Nut Sort移螺母。主要共享“取外露同类→空/同类接收→容量规划”的循环，不等于三消或按大小排序。
+Online recheck 2026-10-31. Sort Puzzle / Sorting Puzzle means categorization puzzles: Water Sort pours liquids, Ball Sort moves balls, Bird Sort moves birds, and Nut Sort moves nuts. They chiefly share the loop “take exposed matching items→receive on empty/matching ends→plan capacity,” rather than match-three or ordering by size.
 
-**本页不用打开外链也能读懂玩法。** 商店/官网是开发者第一方陈述，未安装实测；没有写出的算法不靠常识补成事实。具体需求的采纳/撤回和出处键见[完整证据矩阵](MECHANIC_EVIDENCE.md)，当前唯一规则见[RULES](spec/RULES.md)。自拟局部例子只解释规则，非竞品原关卡或完整解题证明。旧“凭合理性补创新”研究结论已撤回。
+**This page explains gameplay without requiring external links.** Store/official pages are developers' first-party statements, not installed playtests; do not fill unpublished algorithms from common sense and call them facts. See the [complete evidence matrix](MECHANIC_EVIDENCE.md) for adoption/withdrawal/source keys and [RULES](spec/RULES.md) for the sole effective rules. Locally authored examples only explain mechanics; they are neither original competitor levels nor complete solution proofs. The old research conclusion allowing innovation based on plausibility is withdrawn.
 
-## SRC-LEAF：Bird Sort / Leafy Games
+## SRC-LEAF: Bird Sort / Leafy Games
 
-**原游戏文字规则**：先点要移动的鸟，再点目标枝。只能取外端，相连同色要一起搬；目标必须为空或外端同色，枝有有限容量。少步得高分；卡住可回退或重开；无倒计时，提供鸟、枝和背景外观解锁。
+**Original game's textual rules**: Tap the bird to move, then the destination branch. Take only from the outer end; connected same-color birds move together. The destination must be empty or have a matching outer end, within finite capacity. Fewer moves score higher; Undo or restart when stuck. No countdown; bird/branch/background appearances can be unlocked.
 
-**例子（自拟）**：外端A2挡着B，先给A2找到空枝或A端，才能露B。资料未讲余量只够一只时截断还是拒绝，不能从“整群”推定该边界。
+**Example (locally authored)**: Outer-end A2 birds block B; find an empty branch or A end for A2 before exposing B. The source does not say whether a destination with room for only one truncates or rejects the move; “whole flock” cannot establish that boundary.
 
-**我方采用/差异**：采用点选、端部群和空/同类端；容量截断另由SRC-SIMPLE支持。记录最佳操作数有依据，但没有依据写Undo扣星公式。外观功能存在不证明价格/奖励数量。
+**Project adoption/differences**: Adopt selection, end runs, and empty/matching-end reception; SRC-SIMPLE separately supports capacity truncation. Best action-count recording has evidence, but no Undo star-penalty formula does. Appearance features do not establish prices/reward quantities.
 
-定位：About→HOW TO PLAY/FEATURES。[第一方出处](https://play.google.com/store/apps/details?id=com.leaf.birdsort&hl=en)。
+Locator: About→HOW TO PLAY/FEATURES. [First-party source](https://play.google.com/store/apps/details?id=com.leaf.birdsort&hl=en).
 
-## SRC-SIMPLE：Simple Games / Water Sort
+## SRC-SIMPLE: Simple Games / Water Sort
 
-**原游戏文字规则**：每管4单位、每色4单位，颜色数K加两空管。点来源再目标，非空来源可把顶层连续同色尽量倒到空或同色顶的有余量目标，放不下的留源；不合法点击不执行、不惩罚。一次倒算一步，完成时各管为空或满管单色。每关由同一seed复现，先找到完整解才出题。
+**Original game's textual rules**: Each tube holds 4 units, each color totals 4, with K colors plus two empty tubes. Select source then destination. A nonempty source pours as much of its continuous same-color top run as fits into an empty or matching-top destination; excess remains at source. Invalid taps do nothing and incur no penalty. One pour counts as one move. At completion, every tube is empty or full of one color. Each level reproduces from the same seed and is offered only after finding a complete solution.
 
-**帮助/终局**：免费不限次Undo回退一次倒水及步数；Hint给当前已找到解的首步，不自动倒。搜索没找到不等于证明死局。没有额外空管购买。
+**Assistance/end state**: Free unlimited Undo reverses one pour and its move count. Hint gives the first step of a currently found solution without automatically pouring. Failed search does not prove a dead end. No purchase of extra empty tubes.
 
-**我方采用/差异**：移植min(run,free)、一步计数、免费帮助、固定同题与可解验证；本项目固定策划数组而非运行时生成。4为直接容量依据；6/8来自SRC-BOOP。完成后失枝来自SRC-BIRD2，不声称此水游戏也失管。
+**Project adoption/differences**: Transfer min(run,free), one-action counting, free assistance, fixed puzzles, and solvability validation. This project authors fixed arrays rather than generating at runtime. Capacity 4 is directly supported here;6/8 come from SRC-BOOP. Branch loss on completion comes from SRC-BIRD2, without claiming this water game loses tubes.
 
-定位：Pouring/The tubes/Moves/Questions。[开发者规则说明](https://pixapps.ai/simple-games/games/water-sort/en/)。
+Locator: Pouring/The tubes/Moves/Questions. [Developer rules](https://pixapps.ai/simple-games/games/water-sort/en/).
 
-## SRC-QUEST：Bird Sort Quest / mobirix
+## SRC-QUEST: Bird Sort Quest / mobirix
 
-**原游戏文字规则**：触鸟令其到另一枝，只能移动枝末鸟，目标有空间，空枝可接。把同种聚枝；鸟前方位置移空后，问号蛋孵化。可重开；有Undo与额外枝工具、鸟/枝/背景外观、日任务金币和排名。
+**Original game's textual rules**: Touch birds to move them to another branch; only branch-end birds move, the destination needs space, and empty branches accept them. Gather matching birds on branches. Question-mark eggs hatch after birds in front move away. Restart, Undo/extra-branch tools, bird/branch/background appearances, daily-task coins, and rankings are available.
 
-**例子（自拟）**：可动B挡住?蛋，B离开后揭示下一鸟；揭示前不能假定它是当前想要的A。
+**Example (locally authored)**: Movable B blocks a ? egg; moving B reveals the next bird. Before reveal, do not assume it is the desired A.
 
-**我方采用/差异**：采用前鸟移开揭蛋；蛋的隐藏身份按用户要求固定于关卡，不重开抽种。原文没有“蛋壳预告物种纹样”，旧已知色蛋撤回。加枝功能明确，但几座/几次/价格未公开，不能补数。连蛋及和完成退枝组合需独立验证；不声称安装实测已过。
+**Project adoption/differences**: Adopt revealing eggs after front birds move away. The user's fixed-level requirement fixes hidden egg species in level data, without rerolling on restart. The source does not describe shell patterns announcing species; old known-color eggs are withdrawn. Extra branches are explicit, but seats/uses/prices are unpublished and cannot be supplied by guesswork. Consecutive eggs and combinations with completion-based branch loss require separate validation; no claim of successful installed playtests.
 
-定位：How to Play/Features。[第一方出处](https://play.google.com/store/apps/details?id=com.mobirix.ldbis&hl=en)。
+Locator: How to Play/Features. [First-party source](https://play.google.com/store/apps/details?id=com.mobirix.ldbis&hl=en).
 
-## SRC-BIRD2：Bird Sort 2 / FALCON
+## SRC-BIRD2: Bird Sort 2 / FALCON
 
-**原游戏文字规则**：点鸟再点枝，同类聚集。整理好一群让其飞走后，会失去该枝，不能再拿它做下一次整理。官方还列额外枝、逐步返回、洗牌、破同色及计时冻结工具，并有时间/生命限制模式；声称关卡不用道具也可过。
+**Original game's textual rules**: Tap birds then a branch to gather matching birds. Once a completed flock flies away, its branch is lost and cannot serve the next sorting operation. Official text also lists extra branches, stepwise return, shuffling, breaking same-color restrictions, and timer-freeze tools, with time/life-limited modes. It claims levels are solvable without items.
 
-**例子（自拟）**：完成A群同时减少一个可用枝，下一群必须利用剩余位置；不能把空掉的完成枝当新缓冲。
+**Example (locally authored)**: Completing flock A also removes one usable branch; the next flock must use remaining space. The emptied completed branch is not a fresh buffer.
 
-**我方采用/差异**：仅采用“完成群→飞走→该枝不可用”。不采原自拟“接过鸟后，任何清空即收枝”；普通转出至空不等于完成。容量/群大小没有在该页定数，我方4/6/8另有出处。时间/生命/洗牌不因采用失枝自动进入主线。
+**Project adoption/differences**: Adopt only “complete flock→fly away→branch unavailable.” Reject the old invented rule “after receiving birds, any emptying retracts the branch”; ordinary emptying through transfer is not completion. The page fixes neither capacity nor flock size; our 4/6/8 have separate sources. Time/lives/shuffling do not automatically enter the main campaign with branch loss.
 
-定位：HOW TO PLAY第2条。[第一方出处](https://play.google.com/store/apps/details?id=com.globalplay.birdsort2.color.puzzle&hl=en-US)。
+Locator: HOW TO PLAY item 2. [First-party source](https://play.google.com/store/apps/details?id=com.globalplay.birdsort2.color.puzzle&hl=en-US).
 
-## SRC-BOOP：Water Sort / BOOPFUN
+## SRC-BOOP: Water Sort / BOOPFUN
 
-**原游戏文字规则**：点瓶再点另一瓶，空瓶或同色顶、有余量方可倒，填成单色完成。有6/8层长瓶、问号隐藏色和只进不出的收集瓶；支持Undo/重开/提示，备用瓶可反复触控变高。离线不限时；官方也说明广告及补充Undo的广告方式。
+**Original game's textual rules**: Tap a bottle then another; pour only into an empty or matching-top bottle with space, completing single-color fills. Includes 6/8-layer long bottles, question-mark hidden colors, and collection bottles that accept input but cannot pour out. Supports Undo/restart/hints; repeatedly tapping reserve bottles makes them taller. Offline and untimed; official text also describes ads and ads replenishing Undo.
 
-**例子（自拟）**：收集瓶接受A后不能把A倒回，不同于普通周转瓶；备用容器变高改变局内可用空间。
+**Example (locally authored)**: A collection bottle receiving A cannot pour it back, unlike an ordinary buffer. A taller reserve container changes usable space during play.
 
-**我方采用/差异**：6/8作为容量来源；加空间/逐次扩高是有据功能，精确初高、步长、上限、次数、费用仍待证。固定初盘不禁止局内扩展。收集容器与扩容参数未明的部分不进正式40关数值配置，不自编广告/金币救援。
+**Project adoption/differences**: Use 6/8 as capacity sources. Added space/repeated height growth are sourced features, while exact initial height, increment, maximum, uses, and costs remain pending evidence. Fixed initial boards do not prohibit in-level expansion. Collection containers and unspecified expansion parameters stay outside formal 40-level numeric configurations; do not invent ad/coin rescue systems.
 
-定位：HOW TO PLAY/WHAT'S INSIDE。[第一方出处](https://play.google.com/store/apps/details?id=com.boopfun.watersort)。
+Locator: HOW TO PLAY/WHAT'S INSIDE. [First-party source](https://play.google.com/store/apps/details?id=com.boopfun.watersort).
 
-## SRC-CUTIE：Cutie Sort / Easetouch
+## SRC-CUTIE: Cutie Sort / Easetouch
 
-**独立代码参考：**[Cutie Sort 玩法参考（1.111版，仅供研究）](references/CUTIE_SORT_GAMEPLAY_REFERENCE.md)单独记录选猫、移动、匹配、订单/等待、过关、特殊机制、道具与未知边界。普通端点选组、每层配置容量、满组后立即按组计入进度等有静态证据；执行层的数量裁剪不证明所有输入入口都允许部分移动，完成检查也没有额外等待订单动画送达的条件。原始输入哈希与方法定位随文保留。
+**Independent code reference:** [Cutie Sort gameplay reference (version 1.111, research only)](references/CUTIE_SORT_GAMEPLAY_REFERENCE.md) separately records cat selection, movement, matching, orders/waiting, completion, special mechanisms, items, and unknown boundaries. Static evidence supports ordinary end-group selection, configured capacity per layer, and immediate group-based progress after a full match. Execution-layer count clipping does not prove that every input entry permits partial moves, and completion checks do not additionally wait for order-delivery animation. Original input hashes and method locators remain in the reference.
 
-该参考不依赖本轮手机操作观察，也不把历史片段的六只容量推广到所有关卡。它不更改下面已有的采纳/隔离决定或本项目 RULES；规则重新采纳需独立评审。
+This reference does not rely on phone observations this round or generalize historical six-cat clips to all levels. It changes neither the adoption/quarantine decisions below nor project RULES; readmission requires separate review.
 
-**官方文字明确**：点猫放另一开放架，按色聚架，整理全部完成；存在额外层、箱子、撤销、交换、扩容。文案不含双目标激活数、睡眠冻结、每组六只、累计/指定种箱公式或扩容数字。
+**Official text explicitly states**: Tap cats onto another open shelf, group by color, and finish sorting all cats. Extra layers, crates, Undo, swap, and expansion exist. Text does not specify dual-active target counts, sleep freezing, six per flock, cumulative/specified-species crate formulas, or expansion numbers.
 
-**旧录像记录与本轮边界**：前轮视频记录过六猫、顶部目标刷新、趴睡、箱和篮；本轮没有重验可定位时间与完整边界。记录不是没有价值，但不能用它补写一套精确公式并声称联网已证。尤其睡眠是否冻结、哪次完成开哪个箱，需要对应实录与反例。
+**Old video records and this round's limits**: Earlier video notes recorded six cats, top-target refreshes, sleeping poses, crates, and baskets. This round did not recheck locatable timestamps or complete boundaries. The notes have value but cannot supply a complete precise formula claimed as verified online. In particular, whether sleep freezes movement and which completion opens which crate require corresponding footage and counterexamples.
 
-**我方决定**：保留研究事实，双目标/睡眠/精确条件箱/单鸟篮从本轮有效规则隔离。Swap仅有名称不说明交换对象；expand仅说明存在，不编格数。不能为保旧40关继续沿用无来源边界。
+**Project decision**: Retain research facts, quarantining dual targets/sleep/exact conditional crates/single-bird baskets from effective rules this round. Swap's name does not identify swap objects; expand establishes existence, not slot counts. Preserving 40 old levels cannot justify retaining unsourced boundaries.
 
-定位：How to Play/Key Features。[官方](https://play.google.com/store/apps/details?id=sort.casual.color.cat.puzzle.match&hl=en)；旧参考[视频1](https://www.youtube.com/watch?v=fZHsuXpTwEE)/[视频2](https://www.youtube.com/watch?v=onptn300img)。
+Locator: How to Play/Key Features. [Official](https://play.google.com/store/apps/details?id=sort.casual.color.cat.puzzle.match&hl=en); old reference [video 1](https://www.youtube.com/watch?v=fZHsuXpTwEE)/[video 2](https://www.youtube.com/watch?v=onptn300img).
 
-## SRC-NUT：Nut Sort Mania / Gameware
+## SRC-NUT: Nut Sort Mania / Gameware
 
-**原游戏文字规则**：顶部同色螺母移到空杆或同顶色杆；短、中、长杆改变空间。可回退/提示/加杆，官方称无隐藏随机碰运气、全关不需道具可解，有诊断与日挑战；也有短时间挑战模式。
+**Original game's textual rules**: Move same-color top nuts onto an empty or matching-top rod; short/medium/long rods change space. Undo/hints/add rod are available. Official claims include no hidden randomness requiring luck, all levels solvable without items, diagnostics, and daily challenges; short timed challenges also exist.
 
-**我方采用/差异**：借鉴容量与无需道具验证的方向；具体4/5短枝不是该页给出的数字。当前40关采用同关统一容量，不因异长度有依据就编一套五座枝规则。智能诊断的算法/收费/预算没公开，不能保证任意状态即时正确。
+**Project adoption/differences**: Reference capacity planning and validation without items; the page does not supply specific 4/5 short-branch numbers. Current 40 levels use uniform capacity within a level; evidence of differing lengths does not authorize inventing five-seat branches. Smart-diagnostic algorithms/prices/budgets are unpublished, so do not guarantee instant correctness in every state.
 
-定位：Features/How to play/Fair Play/Smart Assist。[开发者页面](https://www.gamewareeurope.com/Public/games?id=nutsort)。
+Locator: Features/How to play/Fair Play/Smart Assist. [Developer page](https://www.gamewareeurope.com/Public/games?id=nutsort).
 
-## 其他已核系统（非全部进入首版）
+## Other verified systems (not all enter the first version)
 
-| 来源 | 原游戏文字可确认内容 | 本项目处理/未知 |
+| Source | Confirmed in original game's text | Project handling/unknowns |
 | --- | --- | --- |
-| SRC-GURU：[Guru Ball Sort](https://play.google.com/store/apps/details?id=ball.sort.puzzle.color.sorting.bubble.games&hl=en) | 顶球同色接收且有空间，4球瓶，Undo/加瓶/重开，离线不限时 | 容量/帮助参考；不从单球文案推全部模式永远逐球；费用未证 |
-| SRC-MAGIC：[Magic Water](https://play.google.com/store/apps/details?id=com.magic.relaxing.water.sort.colorgame.puzzle&hl=en) | 遮布/冰块/锁柜/卷帘/问号水；地图推进、壁纸、动作音效；洗牌/加管和活动 | 地图可作为用户所要世界地图的同类依据；机关精确触发/价格不明，不能补创；不采用体力转盘 |
-| SRC-AZURA：[Azura Bird Sort](https://play.google.com/store/apps/details?id=com.birdsort.color.sortpuzzle&hl=en) | 回退/重开/加枝，少步整理，过关金币解锁物品与背景，增加颜色/鸟数 | 成长系统存在有据，金币数/售价/解锁表待证；不编经济曲线 |
-| SRC-TVC：[TVC Bird Sort](https://play.google.com/store/apps/details?id=com.birdsort.colorpuzzle&hl=en) | 鸟种与枝数随关增加 | 只支持跨关难度维度，不证明单纯加鸟即可好玩 |
+| SRC-GURU: [Guru Ball Sort](https://play.google.com/store/apps/details?id=ball.sort.puzzle.color.sorting.bubble.games&hl=en) | Matching-top reception with space,4-ball bottles, Undo/add bottle/restart, offline and untimed | Capacity/assistance reference; single-ball wording does not prove every mode always moves one ball at a time; costs unverified |
+| SRC-MAGIC: [Magic Water](https://play.google.com/store/apps/details?id=com.magic.relaxing.water.sort.colorgame.puzzle&hl=en) | Covers/ice/locked cabinets/shutters/question-mark water; map progress, wallpapers, action sounds; shuffle/add tube/events | Map supports the user's requested world map; exact mechanism triggers/prices unknown and must not be invented; no stamina/spinner adoption |
+| SRC-AZURA: [Azura Bird Sort](https://play.google.com/store/apps/details?id=com.birdsort.color.sortpuzzle&hl=en) | Undo/restart/add branch, fewer-move sorting, completion coins unlocking items/backgrounds, increasing colors/bird counts | Progression feature is sourced; coin quantities/prices/unlock tables await evidence; no invented economy curve |
+| SRC-TVC: [TVC Bird Sort](https://play.google.com/store/apps/details?id=com.birdsort.colorpuzzle&hl=en) | Species and branch counts increase across levels | Supports cross-level difficulty dimensions only, not proof that simply adding birds makes play enjoyable |
 
-## 世界地图、成长和动画要求的证据归属
+## Evidence ownership for world maps, progression, and animation requirements
 
-用户要求世界地图和逐世界解锁，这是USER_REQUIREMENT；SRC-SIMPLE也有顺序关卡解锁，SRC-MAGIC有冒险地图，[Bluebook的Magic Sort](https://apps.apple.com/gb/app/magic-sort-water-sorting/id6481261917)介绍明确排序并建设/探索不同主题城镇。Bluebook产品不可误认成GrandGames同名游戏。四个区域01–08/09–18/19–28/29–40是本项目暂定配置，不是竞品原值；不自行加星门槛、奖励数或金币建设公式。
+The user's world-map/sequential-world-unlock request is USER_REQUIREMENT. SRC-SIMPLE also has sequential level unlocking, SRC-MAGIC an adventure map, and [Bluebook's Magic Sort](https://apps.apple.com/gb/app/magic-sort-water-sorting/id6481261917) explicitly describes sorting while building/exploring differently themed towns. Do not confuse Bluebook's product with GrandGames' identically named game. Four regions 01–08/09–18/19–28/29–40 are this project's provisional configuration, not competitor values; do not add star thresholds, reward quantities, or coin-building formulas.
 
-[Splashscreen Bird Sort](https://splashscreen.games/game/bird-sort)为父任务已核的主题路线线索，本子任务直接复取被限制，不作关键规则唯一依据。用户另要求动画开源优先、静态图不得冒充运行动画；这是交付/技术偏好，动画库许可和兼容性另文核查，不是新玩法。
+[Splashscreen Bird Sort](https://splashscreen.games/game/bird-sort) is a themed-route lead verified by the parent task; direct retrieval in this subtask was restricted and it is not the sole basis for any key rule. The user also requires open-source animation priority and forbids static images standing in for runtime animation. These are delivery/technical preferences, with library licenses/compatibility checked separately, not new gameplay.
 
-## 研究到需求的使用规矩
+## Rules for moving research into requirements
 
-1. 所有玩法都要有证据键和采用差异；“有某个机关”不等于知道它全部公式。无法证实的细节移出有效需求。
-2. 固定40关是用户约束；关卡布局是本项目策划内容，规则来自以上同行组合。组合是否可玩仍需新规则回放与真人验收，不能拿旧60条路径背书。
-3. 用户地图、图标不重复文字、规则形按钮、声音/音乐/点击仅静音开关属于USER；稳定ID、原子存档、输入锁/路径/pivot与时长属于工程/表现合同，不冒称同行玩法参数。
-4. 不重画或复制同行美术、不搬原作关卡；本次只整理文档，不实施代码、运行数据或素材。
+1. Every mechanic needs an evidence key and adoption differences; existence of a mechanism does not establish all formulas. Unverifiable details leave effective requirements.
+2. Fixed 40 levels are a user constraint; layouts are project-authored content using the sourced combination above. Playability still requires new-rule replays and human acceptance, without citing old 60 paths as proof.
+3. User maps, icons without duplicate text, regular button shapes, and mute-only music/sound/click controls are USER. Stable IDs, atomic saves, input locks/paths/pivots/timings are engineering/presentation contracts, not claimed competitor gameplay parameters.
+4. Do not redraw/copy competitor art or transplant original levels. This round only organizes documents, without implementing code, runtime data, or assets.
 
-## SRC-WSWEB：WaterSort.in浏览器版补充（普通加枝）
+## SRC-WSWEB: WaterSort.in browser supplement (ordinary branch addition)
 
-2026-10-31直接读取[浏览器玩法页面](https://www.watersort.in/play)的Objective、Controls和浏览器/Android区别小节。页面明确单瓶四单位、每关一额外空瓶及重建同题；这是该网页自身产品规则的一手陈述，不代表已核Galaxy Android实现，也没有进行浏览器交互实测。
+On 2026-10-31, directly read Objective, Controls, and browser/Android differences on the [browser gameplay page](https://www.watersort.in/play). It explicitly states four units per bottle, one extra empty bottle per level, and reconstruction of the same puzzle. This is a first-party statement about that website's own product, not verification of Galaxy Android implementation; no browser interaction playtest occurred.
 
-我方仅迁移“新增一普通容量空容器”：鸟枝容量取已定义N，而非硬写同行鸟产品也是六/八座。免费采用项目无商业化范围；回退、稳定ID、存档、操作数和助力记录由RULES R07明示为项目/E集成，不冒充源站未公开边界。该来源不证明逐次加高或金币经济；它们继续待证。
+Transfer only “add one empty ordinary-capacity container”: bird-branch capacity uses defined N rather than claiming a sourced bird product also has six/eight seats. Free use follows the project's noncommercial scope. RULES R07 explicitly identifies Undo, stable IDs, saves, action counts, and assistance records as project/E integration, not unpublished source-site boundaries. This source does not prove repeated height growth or coin economies; they remain pending evidence.

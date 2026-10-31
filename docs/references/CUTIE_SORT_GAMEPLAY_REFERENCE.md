@@ -1,230 +1,230 @@
-# Cutie Sort 玩法参考（仅供研究）
+# Cutie Sort gameplay reference (research only)
 
-整理日期：2026-10-31。分析对象：**Cutie Sort 1.111 / versionCode 1111**，包名 `sort.casual.color.cat.puzzle.match`，Unity 容器声明版本 `2021.3.56f2`。
+Compiled 2026-10-31. Analysis target: **Cutie Sort 1.111 / versionCode 1111**, package `sort.casual.color.cat.puzzle.match`, Unity container declared version `2021.3.56f2`.
 
-本文是对该版本静态代码与原生指令的文字判读，**不是 Perch Sort 的规则、需求或实现授权**。本项目规则仍由 [RULES](../spec/RULES.md) 管理；本项目的需求状态、有效规则与实施边界以当前规范为准，不因本参考而改变。
+This is a textual interpretation of static code and native instructions for that version, **not Perch Sort rules, requirements, or implementation authorization**. [RULES](../spec/RULES.md) still governs this project's rules; current specifications determine requirement status, effective rules, and implementation boundaries, unchanged by this reference.
 
-证据分为三类：
+Evidence has three categories:
 
-- **已确认**：有可定位的代码或原生指令支持本文所述的局部行为；选组、容量、匹配、进度及死锁等关键条件另以固定范围 ARM64 指令核对。局部确认不等于完整恢复调用链。
-- **部分清楚**：恢复了数据结构、部分调用或局部操作，但完整条件、回调或上游事件仍有缺口。
-- **未确认**：只有声明、名字、损坏方法体或未解出的配置，不能据此补写规则。
+- **approved**: Locatable code or native instructions support the described local behavior; key selection, capacity, matching, progress, and deadlock conditions were additionally checked against ARM 64 instructions within fixed ranges. Local confirmation does not mean the complete call chain was recovered.
+- **Partly understood**: Data structures, some calls, or local operations were recovered, but complete conditions, callbacks, or upstream events have gaps.
+- **Unconfirmed**: Only declarations, names, damaged method bodies, or undecoded configuration exist; do not fill in rules from them.
 
-本次规则结论不依赖手机操作观察。反编译结果中有大量未解析加载、错误转换和占位；输出了 `.cs` 文件不等于完整恢复了源码。Ghidra 的异常路径还可能延伸到相邻函数，因此判读以原始方法的固定地址/字节范围为边界，不能把长伪代码尾部当成额外规则。
+These conclusions do not rely on phone-play observations. Decompiled output contains many unresolved loads, incorrect conversions, and placeholders; producing `.cs` files does not equal complete source recovery. Ghidra exception paths may also extend into neighboring functions, so interpretation is bounded by each original method's fixed address/byte range; long pseudocode tails cannot count as extra rules.
 
-## 1. 主玩法与布局
+## 1. Main gameplay and layouts
 
-普通模式的主流程可以概括为：
+The ordinary-mode flow can be summarized as:
 
-**从可选端取同类猫组 → 检查目标 → 分配空座并移动 → 检查满层匹配 → 进入订单或等待 → 更新完成组数 → 检查过关。**
+**Take a matching cat group from the selectable end → check destination → assign empty seats and move → check full-layer match → enter order or waiting state → update completed-group count → check level completion.**
 
-代码声明了四类布局，不能假设它们所有细则相同：
+Code declares four layout types; do not assume identical details:
 
-| 布局 | 代码名称 | 本次可读范围 |
+| Layout | Code name | Readable scope this round |
 | --- | --- | --- |
-| 普通双列 | `NormalDoubleColumn` | 普通选组、目标条件、匹配与进度的关键路径已核对 |
-| 交错长窝 | `LongNestStaggered` | 能确认布局类型存在，未完整还原全部方向和操作差异 |
-| 整理平台 | `CatOrganize` | 有独立的选组/接收、平台目标与按猫数计数路径 |
-| 竖向长窝 | `VerticalLongNest` | 能确认布局类型存在，未完整还原全部交互细则 |
+| Ordinary double column | `NormalDoubleColumn` | Key paths for ordinary selection, destination conditions, matching, and progress checked |
+| Staggered long nest | `LongNestStaggered` | Layout existence confirmed; all direction/operation differences not fully recovered |
+| Sorting platforms | `CatOrganize` | Separate selection/reception, platform targets, and per-cat counting paths |
+| Vertical long nest | `VerticalLongNest` | Layout existence confirmed; full interaction details not recovered |
 
-数据不是单层色块列表：关卡包含多个猫窝，猫窝包含多个层，每层有配置猫数据；运行时的猫记录自己的 `Id`、`SitIdx`、`layer`、所属猫窝、属性和动作状态。**“同类”由猫 ID 判断，不是直接比较画面颜色值。**
+Data is not a single-layer color-block list: levels contain nests, nests contain layers, and layers contain configured cat data. Runtime cats track `Id`, `SitIdx`, `layer`, owning nest, attributes, and action state. **Matching is determined by cat ID, not direct comparison of displayed color values.**
 
-## 2. 猫怎么选
+## 2. Selecting cats
 
-### 2.1 普通模式：从座位号最大的端点开始
+### 2.1 Ordinary mode: start at the highest seat index
 
-**已确认：**
+**approved:**
 
-1. `GetSelectableCat` 遍历当前层非空猫，选择 `SitIdx` 最大的一只，再检查它能否操作。
-2. `GetSelectableGroup` 将当前层非空猫按 `SitIdx` 降序排列，比较器是 `b.SitIdx.CompareTo(a.SitIdx)`。
-3. 从排序后的首只开始，连续收取同 ID、可操作的前缀；遇到不同 ID 或不可操作猫就停止。
+1. `GetSelectableCat` traverses non-null cats in the current layer, chooses the greatest `SitIdx`, then checks operability.
+2. `GetSelectableGroup` sorts non-null cats in descending `SitIdx`, using comparator `b.SitIdx.CompareTo(a.SitIdx)`.
+3. Starting at the first sorted cat, collect a continuous prefix of matching-ID operable cats; stop at another ID or an inoperable cat.
 
-因此不能绕过端点上的阻挡猫，任意抽取中间猫。这里的“连续”指排序列表的前缀；普通组选取循环没有独立检查每个座位编号必须相差1。
+Thus players cannot bypass an endpoint blocker to extract an arbitrary middle cat. “Continuous” here means a prefix of the sorted list; the ordinary group-selection loop does not independently require adjacent seat indices to differ by1.
 
-最大座位号不是通用的“屏幕最左/最右/最上”。普通横排定位对 `Column == 1` 会反转局部 X 的推进方向，最终屏幕方向还受布局与猫窝 Transform 影响。
+Highest seat index is not universally screen-left/right/top. Ordinary horizontal placement reverses local X progression for `Column == 1`; final screen direction also depends on layout and nest Transform.
 
-### 2.2 单只猫的可操作门禁
+### 2.2 Individual cat operability gate
 
-`GetCanOperate(bool)` 已确认同时检查状态和类型：
+`GetCanOperate(bool)` is confirmed to check both state and type:
 
-| 项目 | 通过条件 |
+| Item | Passing condition |
 | --- | --- |
-| 默认动作状态 | `Idle(0)` 或 `Pick(5)` |
-| 特定可选参数开启 | 额外允许 `Put(7)`；默认参数为 false |
-| 猫属性 | `Normal(0)` 或 `BlindBox(1)` |
+| Default action state | `Idle(0)` or `Pick(5)` |
+| Specific optional parameter enabled | Additionally permits `Put(7)`; default parameter false |
+| Cat attribute | `Normal(0)` or `BlindBox(1)` |
 
-`Moving`、`Matching`、`PendingMatch` 等状态不通过这套门禁。`Question`、`Fixed`、`Frozen` 在保持对应属性时也不通过；这不等于它们永远不能变成普通猫或参与其他处理。
+`Moving`, `Matching`, and `PendingMatch` do not pass this gate. Neither do `Question`, `Fixed`, or `Frozen` while retaining those attributes; this does not mean they can never become ordinary cats or enter other handling.
 
-**未确认：**每个输入入口何时允许 `Put` 快速再次选择，以及点按、拖动、引导限制之间的完整优先级。
+**Unconfirmed:** When each input entry permits quick reselection during `Put`, and the full priority among taps, dragging, and tutorial restrictions.
 
-### 2.3 CatOrganize 的差异
+### 2.3 CatOrganize differences
 
-整理模式的 `GetOrganizeSelectableGroup` 同样要求 ID 相同且可操作，但还检查**变换后的座位索引连续**；其布尔方向参数使预期索引按 `+1` 或 `-1` 推进。
+`GetOrganizeSelectableGroup` likewise requires matching IDs and operability, but additionally checks **contiguity of transformed seat indices**; its boolean direction parameter advances the expected index by `+1` or `-1`.
 
-**未确认：**该方向参数在所有平台、布局和实际屏幕方向中的完整映射。不能把此严格座位检查套给普通组选取函数。
+**Unconfirmed:** Complete mapping of that direction parameter across all platforms, layouts, and actual screen directions. Do not apply this strict seat check to ordinary group selection.
 
-## 3. 猫怎么移动
+## 3. Moving cats
 
-### 3.1 容量与空座
+### 3.1 Capacity and empty seats
 
-**已确认：**当前层容量来自配置 `_nestData.LayerDataArray[CurLayer].CatDataArray.Count`，与当前运行时已经坐了多少只猫不同。缺失相关数据时才回退为3。
+**approved:** Current-layer capacity comes from configured `_nestData.LayerDataArray[CurLayer].CatDataArray.Count`, distinct from current runtime occupancy. It falls back to3 only when relevant data is missing.
 
-因此“所有猫窝容量都是3”或“每架固定六只”都不能作为这个版本的通用代码规则。历史录像里出现六只的架子，只能说明对应片段的配置。
+Therefore neither “all nests have capacity3” nor “every shelf has six cats” is a universal code rule in this version. Six-cat shelves in historical videos establish only those clips' configurations.
 
-`GetAvailableEmptySitIdxs(requested)` 会收集当前层已占用的座位号，再从 `0` 到 `capacity-1` 枚举空位；返回数量不超过 `requested`，也不超过实际空座数。
+`GetAvailableEmptySitIdxs(requested)` collects occupied indices in the current layer, then enumerates empty seats from `0` to `capacity-1`; the returned count exceeds neither `requested` nor actual empty seats.
 
-### 3.2 普通目标接收条件
+### 3.2 Ordinary destination conditions
 
-普通目标谓词中已核对的条件包括：
+Checked ordinary-destination predicate conditions include:
 
-- 来源和目标不是同一个猫窝。
-- 目标未退场，操作类型为 `Normal`，并通过 `CanPutIn()`。
-- 目标有端点猫时，端点猫 ID 必须与移入猫兼容；空目标不要求先有同 ID 猫。
-- 空座数量至少满足本次传入的 `requested`。
+- Source and destination are different nests.
+- Destination is not retired, has operation type `Normal`, and passes `CanPutIn()`.
+- If the destination has an endpoint cat, its ID must be compatible with incoming cats; an empty destination does not require an existing matching cat.
+- Empty seats must satisfy the supplied `requested` count.
 
-`CanPutIn` 只是部分门禁：普通属性会通过；`Video`、`VideoTempHolder` 还要求相关特殊元素存在且其 GameObject 不处于激活状态。它本身没有包办容量、ID、引导和控制器限制。
+`CanPutIn` is only a partial gate: ordinary attributes pass; `Video` and `VideoTempHolder` additionally require relevant special elements to exist with inactive GameObjects. It does not cover all capacity, ID, tutorial, and controller restrictions.
 
-整理模式的 `CanAcceptOrganizeGroup` 另有输入 ID 大于0、非 retiring、非 `CantOperate`、当前层有效等检查；候选数量必须小于容量。候选为空可接受任意正 ID，非空时首猫 ID 必须相等。该函数不接收移动组数量，不能单凭它证明整组一定放得下。
+Sorting mode's `CanAcceptOrganizeGroup` separately checks input ID greater than 0, non-retiring state, not `CantOperate`, valid current layer, and other conditions; candidate count must be below capacity. An empty candidate accepts any positive ID; otherwise its first cat's ID must match. This function receives no moving-group count and cannot alone prove the entire group fits.
 
-### 3.3 整组移动与部分移动：仍有边界
+### 3.3 Whole-group and partial movement: boundaries remain
 
-执行器已确认使用：
+The executor is confirmed to use:
 
-`处理数量 = min(已选猫数量, 分配到的目标座位数量)`
+`processedCount = min(selectedCatCount, assignedDestinationSeatCount)`
 
-但是，目标高亮候选路径又明确把**整组选中猫数**传给容量预检。其他实际输入路径的 `requested` 传值与组合条件没有全部闭合。
+However, the destination-highlighting candidate path explicitly supplies **the full selected-group count** to the capacity precheck. Other real input paths' `requested` arguments and combined conditions are not fully resolved.
 
-因此目前只能确认执行层有数量裁剪能力，**不能写成“空位不足时所有入口都允许只搬一部分”**。具体入口是否允许、裁剪时保留哪几只，仍需进一步证据。
+Only execution-layer count clipping is confirmed; **do not state that all input entries permit partial moves when space is insufficient**. Which entries allow it and which cats remain after clipping require more evidence.
 
-### 3.4 数据归属与动画
+### 3.4 Data ownership and animation
 
-恢复的 `ChangeToNextCatNest` 路径可看到：从源集合移除猫，更新所属窝和层，加入目标集合，写入 `SitIdx`，然后进入 `Moving` 与移动动画流程。`ChangeNestResort` 还会重设父节点并刷新排序。
+The recovered `ChangeToNextCatNest` path removes cats from the source collection, updates owning nest/layer, adds them to the destination, writes `SitIdx`, then enters `Moving` and movement animation. `ChangeNestResort` also reparents and refreshes sorting.
 
-这些是已恢复的局部顺序；**完整事务边界、动画回调先后、取消/中断、快速再选及异常回退仍未全部还原**。不能把损坏的 tween 参数或丢失的回调直接当可执行实现。
+These are recovered local sequences; **complete transaction boundaries, animation callback order, cancellation/interruption, quick reselection, and exception rollback remain incompletely recovered**. Damaged tween parameters or missing callbacks are not executable implementation guidance.
 
-## 4. 怎么匹配
+## 4. Matching
 
-`CheckCatMatch` 中已确认的检查包括：
+Confirmed checks in `CheckCatMatch` include:
 
-1. 当前窝不是 `TempHolder` 或 `VideoTempHolder`。
-2. 当前层运行时猫数量等于该层配置容量。
-3. 猫对象有效，ID 非负，并且全部相同。
-4. 不含 `Moving`、`Put`、`PendingMatch` 状态的猫。
-5. 不含仍满足 `Conditions >= 1` 的 `Question` 猫；这里的 Conditions 读取猫配置的 `param1`。
+1. Current nest is neither `TempHolder` nor `VideoTempHolder`.
+2. Current-layer runtime cat count equals configured capacity for that layer.
+3. Cat objects are valid, IDs nonnegative, and all IDs match.
+4. No cats are in `Moving`, `Put`, or `PendingMatch` states.
+5. No `Question` cat still satisfies `Conditions >= 1`; Conditions here reads cat configuration `param1`.
 
-整理模式还检查平台 `OrganizeData.TargetCatId` 为正且等于本组 ID。成功路径使平台不可操作，并把本层猫数量报告给 `OnOrganizePlatformCollected`。
+Sorting mode also requires positive platform `OrganizeData.TargetCatId` matching the group's ID. Success makes the platform inoperable and reports the layer's cat count to `OnOrganizePlatformCollected`.
 
-以上是已确认的门槛；布局、特殊元素和调度辅助条件没有全部还原，不能把清单当成所有模式的完整充分条件。
+These gates are confirmed, but layout, special-element, and scheduling helper conditions are not all recovered. The list is not a complete set of sufficient conditions for all modes.
 
-### 4.1 普通满组：订单或等待
+### 4.1 Ordinary full groups: order or waiting
 
-| 检查结果 | 正常分支的行为 |
+| Check result | Ordinary branch behavior |
 | --- | --- |
-| `HasShownOrder(id)` 为 true | 复制当前层猫列表，调用 `TriggerOrderMatch(id, cats, nest)` |
-| 为 false | 对本层猫调用 `SleepAni()`；该方法把状态写为 `PendingMatch(6)`，原位等待 |
+| `HasShownOrder(id)` true | Copy the current layer cat list and call `TriggerOrderMatch(id, cats, nest)` |
+| false | Call `SleepAni()` for this layer's cats; it sets state `PendingMatch(6)` to wait in place |
 
-`HasShownOrder` 不只是查订单列表里有没有同 ID：其辅助判断还涉及 `ShowPosIndex`、位置占用和视频锁。位置占用 helper 的完整含义未展开，不能把 false 全解释为“完全没有这种订单”。
+`HasShownOrder` does more than search an order list for the same ID: helpers also involve `ShowPosIndex`, position occupancy, and video locks. The occupancy helper's complete meaning is not expanded; false cannot always mean no order of that species exists.
 
-**两条普通成功路径都会立即 `Percent += 1`，报告匹配并调用 `CheckComplete`，不用等待订单飞行动画送达。** 等待中的 `PendingMatch` 又会阻止本层反复通过这一路匹配检查。
+**Both ordinary success paths immediately perform `Percent += 1`, report the match, and call `CheckComplete`, without waiting for order-flight delivery.** Waiting `PendingMatch` then prevents the same layer from repeatedly passing this matching path.
 
-### 4.2 匹配后不一定统一“露下一层”
+### 4.2 Matching does not always uniformly expose the next layer
 
-订单路径包含 `MarkRetiring`、`RemoveMatchedCats`，后续还有从窝列表移除、消失、回收和重新布局。
+The order path includes `MarkRetiring`, `RemoveMatchedCats`, and later removal from the nest list, disappearance, recycling, and relayout.
 
-`RemoveMatchedCats` 本身只是从当前层及托盘列表移除猫，没有直接 `CurLayer++`，也没有在该方法内调用 `UpdateLayer`。
+`RemoveMatchedCats` itself only removes cats from current-layer and tray lists; it neither directly performs `CurLayer++` nor calls `UpdateLayer` inside that method.
 
-另一个 `UpdateLayer(true, ...)` 方法可在其初始完成检查未终止流程时推进 `CurLayer`；某个清理协程确实调用它，但现有证据未把该协程与所有普通订单/等待分支完整连接。
+A separate `UpdateLayer(true, ...)` can advance `CurLayer` if its initial completion check does not end the flow. One cleanup coroutine does call it, but existing evidence does not completely connect that coroutine to every ordinary order/waiting branch.
 
-**未确认：**哪些布局、匹配分支会切层，哪些会整窝退场，回调先后如何配合。不能写成每次匹配都自动露下一层。
+**Unconfirmed:** Which layouts/matching branches change layers, which retire the entire nest, and how callback order coordinates them. Do not claim every match automatically exposes the next layer.
 
-## 5. 怎么过关
+## 5. Level completion
 
-`Percent` 是原始整数进度计数，`TotalPercent` 是目标，不是天然的0～100百分比。
+`Percent` is a raw integer progress count and `TotalPercent` its target, not inherently a0～100 percentage.
 
-初始化遍历所有配置窝、所有层，统计 `CatID != -1` 的猫条目，并记住遇到的第一个非空层的配置猫列表长度作为参考容量。
+Initialization traverses all configured nests/layers, counts cat entries with `CatID != -1`, and remembers the configured cat-list length of the first nonempty layer as reference capacity.
 
-| 布局 | `TotalPercent` 的初始化 | 成功后推进 |
+| Layout | `TotalPercent` initialization | Progress after success |
 | --- | --- | --- |
-| 普通及其他非 `CatOrganize` 布局 | 有效猫条目总数除以参考容量，使用整数除法；容量无效时为0 | 每次普通成功匹配加1，按组数计 |
-| `CatOrganize` | 有效猫条目总数 | 增加本次收集猫数，并限制不超过目标，按猫数计 |
+| Ordinary and other non-`CatOrganize` layouts | Valid cat-entry total divided by reference capacity using integer division;0 if capacity is invalid | Each ordinary successful match adds 1, counting groups |
+| `CatOrganize` | Total valid cat entries | Add collected cat count, capped at the target, counting cats |
 
-`CheckComplete` 的核心条件：
+Core `CheckComplete` condition:
 
 `TotalPercent > 0 && Percent >= TotalPercent`
 
-方法在其接受的状态下转入 `Completed`；已完成状态会返回 true。代码接受的检查状态包含 `Initialized`、`InProgress`、`Paused`，但这不证明玩家能在暂停时继续操作，调用时机是另一条链。
+Within accepted states, the method enters `Completed`; an already completed state returns true. Accepted checking states include `Initialized`, `InProgress`, and `Paused`, but this does not prove players can act while paused; invocation timing belongs to another chain.
 
-**这个检查函数没有额外要求全部猫窝为空或全部订单动画送达。** 因而历史文字“全部目标实际收集完才结算”不能继续作为该版本的源码规则。成功界面、动画收尾和完整调用时机仍未全部恢复。
+**This check does not additionally require all nests empty or all order animations delivered.** Historical wording that results occur only after every target is physically collected cannot remain this version's source-code rule. The success interface, animation cleanup, and complete invocation timing remain incompletely recovered.
 
-## 6. 特殊猫和猫窝
+## 6. Special cats and nests
 
-| 机制 | 已确认的代码行为 | 尚未看清 |
+| Mechanism | Confirmed code behavior | Still unclear |
 | --- | --- | --- |
-| 盲盒猫 `BlindBox` | `CatMatch` 且事件参数为1时，条件归零并调用打开；移动事件另有表现切换 | 参数1的上游含义；不能直接说任意消除一次就揭开 |
-| 问号猫 `Question` | 收到 `CatLayerChange`，且自身 layer 等于所在窝 CurLayer 时，条件归零、打开并变为 `Normal` | 首次展示和动画事件的全部时机 |
-| 固定/冰冻猫 `Fixed/Frozen` | 当前类型不通过普通可操作门禁 | 没有完整恢复独立实现和解除条件，不能凭枚举补规则 |
-| 遮挡箱 `Box` | `CatMatch` 且剩余条件大于0时，每次减1；归零进入打开动画，存在恢复窝操作状态的处理 | 匹配事件是否广播给所有箱、初始次数及完整动画事件链 |
-| 指定猫箱 `Find` | 还要求事件参数等于配置猫 ID；专用剩余次数减1，归零后打开，存在恢复 `Normal` 操作状态的处理 | 初始次数怎样精确从配置计算；不能推成要几只或几组 |
-| 魔法窝 `Magic` | `LayerChange` 事件使 Conditions 减1，条件不大于0时隐藏元素 | 各层变化的全部发送点；不能换算成每走一步减一次 |
-| 视频窝 `Video` | 成功回调、关卡未完成及对应解锁预检通过后才发解锁事件 | 普通 Video 的全部分支、配置条件和成本 |
-| 视频临时窝 `VideoTempHolder` | 解锁后确实变为 `TempHolder`，恢复 `Normal` 操作类型 | 实际关卡容量、初始次数和完整启用条件 |
-| 传送带/移动窝 `Conveyor/Movable` | 传送带有专用层号、托盘分支；移动窝有配置和分支声明 | 自动触发、方向、距离、频率及完整移动规则 |
+| Blind-box cat `BlindBox` | On `CatMatch` with event parameter 1, clear conditions and call opening; movement events have separate presentation changes | Upstream meaning of parameter 1; cannot state any single elimination reveals it |
+| Question cat `Question` | On `CatLayerChange`, if its layer equals its nest's CurLayer, clear conditions, open, and become `Normal` | Complete timing of first display and animation events |
+| Fixed/frozen cats `Fixed/Frozen` | Current type fails ordinary operability gate | Independent implementation/release conditions not fully recovered; enum names cannot supply rules |
+| Covering box `Box` | On `CatMatch` with remaining conditions>0, decrement 1; zero enters opening animation, with handling to restore nest operability | Whether matching broadcasts to every box, initial counts, and complete animation event chain |
+| Specified-cat box `Find` | Also requires event parameter equal configured cat ID; decrement dedicated remaining count 1, open at zero, with handling restoring `Normal` operation | Exact calculation of initial count from configuration; cannot infer cats or groups required |
+| Magic nest `Magic` | `LayerChange` decrements Conditions 1; hide element when conditions≤0 | All layer-change senders; cannot convert to one decrement per move |
+| Video nest `Video` | Unlock event only after success callback, level not completed, and corresponding unlock precheck passed | All ordinary Video branches, configuration conditions, and costs |
+| Video temporary nest `VideoTempHolder` | Unlocking does change it to `TempHolder` and restores `Normal` operation | Actual level capacities, initial counts, and complete activation conditions |
+| Conveyor/movable nest `Conveyor/Movable` | Conveyor has dedicated layer numbers/tray branches; movable nests have configuration/branch declarations | Automatic triggers, directions, distance, frequency, and complete movement rules |
 
-这些处理器证明相关机制有代码，不证明它们在所有关卡都启用。具体初值、出现关数和开关所在资源/远程参数未恢复。
+Handlers prove code exists for these mechanisms, not that every level enables them. Resources/remote parameters for initial values, appearance levels, and switches were not recovered.
 
-## 7. 道具和撤回
+## 7. Items and Undo
 
-以下按代码作用命名，不声称是商店展示名：
+Names below describe code effects, without claiming store display names:
 
-| 内部道具 ID | 可确认作用 | 不能据此推出 |
+| Internal item ID | Confirmed effect | Cannot infer |
 | --- | --- | --- |
-| `1003` | 撤回：使用历史记录，涉及回原窝、取消待匹配、恢复座位/层及部分进度回退 | 无限撤回、任意深度、已回收订单窝一定可逆、完整原子回滚 |
-| `1004` | 选择一个窝，执行 `SortOneCatNest`；含问号猫显露、席位调整及历史记录 | 全盘随机洗牌、具体优先排序规则 |
-| `1005` | 找到 `GetUnlockableVideoCatNest()` 返回的已有可解锁窝，发送 Video 解锁事件 | 任意位置新建空窝、固定增加某个容量 |
+| `1003` | Undo using history, involving return to original nest, cancellation of pending matching, seat/layer restoration, and some progress rollback | Unlimited Undo, arbitrary depth, guaranteed reversal of recycled order nests, complete atomic rollback |
+| `1004` | Select one nest and execute `SortOneCatNest`, including question-cat reveal, seat adjustment, and history | Whole-board random shuffling or exact sorting priorities |
+| `1005` | Find an existing unlockable nest returned by `GetUnlockableVideoCatNest()` and send Video unlock event | Creating empty nests anywhere or adding a fixed capacity |
 
-物品系统将免费剩余次数与实际库存合并为有效数量。具体扣费顺序、价格、解锁关数和全部效果参数没有恢复。
+The item system combines remaining free uses with actual inventory into effective quantity. Exact consumption order, prices, unlock levels, and all effect parameters were not recovered.
 
-撤回资格首先受正在撤回、正在整理、正在使用整理道具及内部忙碌计数限制，之后还委托其他判定。历史记录包含猫、源/目标窝、源/目标座位和层，以及整理产生的座位变化和收集信息。
+Undo eligibility is first restricted by ongoing Undo/sorting/sorting-item use and an internal busy count, then delegates further checks. History includes cats, source/destination nests, source/destination seats/layers, and seat changes/collection information produced by sorting.
 
-**未确认：**能退几步、已提交订单和回收窝是否可逆、冻结/隐藏状态是否全部还原、失败动画怎样处理、何时消费道具才算成功。长恢复方法的对象和布尔表达式损坏，不能直接当完整撤回算法。
+**Unconfirmed:** Undo depth, reversibility of submitted orders/recycled nests, complete frozen/hidden-state restoration, failed-animation handling, and when item consumption counts as successful. Objects and boolean expressions in long restoration methods are damaged, so they are not a complete Undo algorithm.
 
-## 8. 死锁、救援和失败
+## 8. Deadlocks, rescue, and failure
 
-`CheckDeadlock` 已核对的顺序为：
+Verified `CheckDeadlock` order:
 
-1. 仅 `Initialized` / `InProgress` 继续；其余状态跳过。
-2. 整理模式在目标无效或已达目标时跳过；其他布局在没有订单或某内部计数大于0时跳过。内部计数的完整含义未知。
-3. 还需通过一个未完整解释的前置 predicate。
-4. 非整理模式若排除暂存区后没有有意义动作，先尝试 `SpecialDeadlockGuideControl.TryStartFromTopDeadlock`；救援启动成功就返回。
-5. 再检查 `HasMeaningfulMove()`；仍有动作就返回。
-6. 无有意义动作时发送消息。**该方法内没有直接改为 `Failed`。**
+1. Continue only in `Initialized` / `InProgress`; skip other states.
+2. Skip sorting mode if target invalid/already reached; skip other layouts without orders or with an internal count>0. The count's full meaning is unknown.
+3. An incompletely explained prerequisite predicate must also pass.
+4. In non-sorting mode, if no meaningful move exists excluding temporary storage, first try `SpecialDeadlockGuideControl.TryStartFromTopDeadlock`; return if rescue starts successfully.
+5. Check `HasMeaningfulMove()` again; return if a move remains.
+6. Send a message if no meaningful move exists. **This method does not directly enter `Failed`.**
 
-特殊死锁引导中能看到等待、选目标、放入临时窝等阶段，以及防止重复启动的 load-version 信息；具体选哪只猫、哪一排和哪一个临时窝的 helper 尚未全部恢复。
+Special deadlock guidance has waiting, target selection, and placement into temporary nests, plus load-version information preventing duplicate starts. Helpers selecting exact cats, rows, and temporary nests remain incompletely recovered.
 
-不能把“空位满了”直接等同立即失败，也不能把这段动作扫描当成数学上证明整盘无解的求解器。死锁消息到失败弹窗、复活及后续操作的完整链路仍未知。
+Full occupancy is not immediate failure, and this action scan is not a mathematical solver proving the whole board unsolvable. The complete chain from deadlock messages to failure dialogs, revival, and subsequent actions remains unknown.
 
-## 9. 未确认事项清单
+## 9. Unconfirmed items
 
-1. 每个点按/拖放入口是否允许部分移组，以及裁剪时选哪几只。
-2. 所有布局的物理端点、输入优先级、快速再选和完整动画回调顺序。
-3. 特殊猫/窝的全部条件初值、事件广播范围、解除/切层/整窝退场链路。
-4. 订单位置占用、队列替换和锁状态的完整调度。
-5. 撤回深度、特殊状态恢复、消费时机与失败处理。
-6. 无意义动作过滤、救援目标选择、死锁消息到最终失败/复活的完整流程。
-7. 每关实际摆法、所有容量配置、出现关数、商品价格和远程开关。关卡 JSON 未解出，不能用规则代码编造这些内容。
-8. 完整可用求解器和最优性。代码中的 `G/H/F` 及部分状态结构不等于已恢复可运行 A* 或已证明所有关可解。
+1. Whether every tap/drag-and-drop entry permits partial group movement, and which cats clipping selects.
+2. Physical endpoints, input priorities, quick reselection, and complete animation callback order across layouts.
+3. All initial conditions, event-broadcast scope, and release/layer-change/whole-nest-exit chains for special cats/nests.
+4. Complete scheduling of order-position occupancy, queue replacement, and locks.
+5. Undo depth, special-state restoration, consumption timing, and failure handling.
+6. Meaningless-move filtering, rescue target selection, and complete deadlock-message→final failure/revival flow.
+7. Actual level layouts, every capacity configuration, appearance levels, item prices, and remote switches. Level JSON was not decoded; rule code cannot fabricate it.
+8. A complete usable solver and optimality. Code `G/H/F` and some state structures do not equal a recovered runnable A* or proof that all levels are solvable.
 
-## 10. 对 Perch Sort 的参考边界
+## 10. Reference boundaries for Perch Sort
 
-可以参考的是“端点分组、状态与动作分离、满组与实际送达分离、目标队列造成等待、条件事件开空间”等问题如何被处理；哪些体验值得采用仍需独立设计与验证。
+Useful references concern how the game handles endpoint grouping, separation of state/actions, full matches versus actual delivery, waiting caused by target queues, and event-conditioned space opening. Which experiences to adopt still needs independent design/validation.
 
-本项目的容量、部分移动、隐藏信息、额外枝和撤回等规则由自身规范与采纳记录决定，不能倒写成竞品已证实事实；已经撤回或隔离的旧规则不因这份参考恢复。本文不改变本项目任何运行规则、关卡、场景或素材，也不授权照搬原作代码、美术、文案或关卡。
+Project specifications and adoption records decide capacity, partial movement, hidden information, extra branches, Undo, and other rules; do not rewrite project choices as verified competitor facts. This reference does not restore withdrawn/quarantined rules. It changes no project runtime rules, levels, scenes, or assets and does not authorize copying original code, art, text, or levels.
 
-## 附录 A：输入身份与证据记录
+## Appendix A: input identity and evidence records
 
-分析输入是一个主 APK 和四个配置分包。此处保留身份记录，正文无需依赖已删除的逆向代码才能阅读。
+Analysis inputs were one main APK and four configuration splits. Identity records remain here; reading the text does not require deleted reverse-engineered code.
 
-| APK | 字节数 | SHA-256 |
+| APK | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `Cutie Sort.apk` | 157583466 | `2bfb6cc78e4b012c93e057745a94158439e3c588e55947d68b96a38edd4384af` |
 | `split_config.arm64_v8a.apk` | 24151501 | `2356285995297d38195e08109961c497d48eb19d18b0628b3cff121eae07a390` |
@@ -232,34 +232,34 @@
 | `split_config.xxhdpi.apk` | 207037 | `df599d7a4a4f2970215ce78bfdd62e14cf38cdebc6e80b82dea733d98398077d` |
 | `split_config.zh.apk` | 90521 | `004226b24b8120ff518ff66197630703201302923e3db709ce9fa39290df1c67` |
 
-工具记录：REA `6.7.0`、JADX provider `0.7.1`、Cpp2IL `2022.1.0-development.1743+b5ad444b82267cb1e4b88b8b373c008105bdea52`、ILSpy `9.1.0.7988`、Il2CppDumper `6.7.46`、Ghidra `12.1.4`。
+Tool record: REA `6.7.0`, JADX provider `0.7.1`, Cpp 2IL `2022.1.0-development.1743+b5ad444b82267cb1e4b88b8b373c008105bdea52`, ILSpy `9.1.0.7988`, Il2CppDumper `6.7.46`, Ghidra `12.1.4`.
 
-恢复时尝试578个顶层游戏类型，576个输出 C#，两个 UI 类型的整类恢复失败，另逐成员输出285项、失败17项。记录了9045个游戏原生方法范围，九个关键方法生成过伪代码。**这些是导出覆盖统计，不是语义正确率。** 没有恢复出关卡 JSON。
+Recovery attempted 578 top-level game types;576 produced C#, two UI classes failed whole-class recovery, and per-member output additionally produced 285 items with 17 failures. Recorded 9045 native game-method ranges and generated pseudocode for nine key methods. **These are export coverage statistics, not semantic accuracy rates.** No level JSON was recovered.
 
-下列是当时使用的部分方法定位，RVA 属于该版本 ARM64 `libil2cpp.so`，不是文件行号或可直接运行的地址：
+Some method locators used at the time follow. RVAs belong to that version's ARM 64 `libil2cpp.so`, not file line numbers or directly runnable addresses:
 
-| 方法/用途 | RVA |
+| Method/purpose | RVA |
 | --- | --- |
 | `CatNest.GetSelectableCat` | `0xa002ec` |
-| `CatNest.GetSelectableGroup` / 降序比较器 | `0xa069f0` / `0xa0929c` |
+| `CatNest.GetSelectableGroup` / descending comparator | `0xa069f0` / `0xa0929c` |
 | `CatInstance.GetCanOperate` | `0xbe5808` |
 | `CatNest.LayerCapacity` getter | `0x9fff50` |
 | `CatNest.GetAvailableEmptySitIdxs` | `0xa0528c` |
-| 普通目标谓词 / 目标高亮入口 | `0xb4b788` / `0xb5a280` |
-| 移动执行器 `XdV...` | `0xb47938` |
+| Ordinary destination predicate / target-highlighting entry | `0xb4b788` / `0xb5a280` |
+| Movement executor `XdV...` | `0xb47938` |
 | `CatNest.CanAcceptOrganizeGroup` / `GetOrganizeSelectableGroup` | `0xa00834` / `0xa01160` |
 | `CatNest.CheckCatMatch` | `0x9fc6e8` |
 | `CatInstance.SleepAni` | `0xbe0168` |
 | `CatNest.RemoveMatchedCats` / `UpdateLayer` | `0xa015ac` / `0xa07e04` |
-| `LevelControl.TotalPercent` getter / 目标初始化 | `0xb44168` / `0xb540bc` |
+| `LevelControl.TotalPercent` getter / target initialization | `0xb44168` / `0xb540bc` |
 | `LevelControl.OnOrganizePlatformCollected` | `0xb5d09c` |
 | `LevelControl.CheckComplete` | `0xb57388` |
 | `LevelControl.CanUseRevocation` / `CheckDeadlock` | `0xb4993c` / `0xb4f038` |
 
-按用户要求，文字整理完成并检查后，已清理逆向代码与应用专用中间产物；原始导出 APK 保留在本地 Git 忽略目录。今后若要复核原始分支，需要从上述同哈希输入重新分析；本记录不冒充保留了完整、可复现的开发源码。
+As requested by the user, reverse-engineered code and app-specific intermediate artifacts were cleaned after textual documentation and checks; original exported APKs remain in a local Git-ignored directory. Rechecking original branches requires analyzing the same-hash inputs above again. This record does not claim to retain complete reproducible development source code.
 
-## 附录 B：与早期材料的关系
+## Appendix B: relationship to earlier material
 
-早期[分类整理研究](../SORTING_RESEARCH.md)还引用了录像和公开介绍。那些记录保留其各自的证据身份，不能把某段录像的六只容量推广为本版本所有关卡，也不能把画面上的订单送达顺序替代本节已核对的进度计数。
+Earlier [sorting research](../SORTING_RESEARCH.md) also cited videos and public descriptions. Those retain their own evidence identities: one clip's six-cat capacity cannot generalize to all levels in this version, and visible order-delivery sequence cannot replace the progress counting checked here.
 
-公开来源仅供进一步溯源：[官方商店](https://play.google.com/store/apps/details?id=sort.casual.color.cat.puzzle.match&hl=en)、[历史视频1](https://www.youtube.com/watch?v=fZHsuXpTwEE)、[历史视频2](https://www.youtube.com/watch?v=onptn300img)。它们不是本轮静态判读的替代证据，也不代表本轮做了逐关实机验收。
+Public sources for further tracing only: [official store](https://play.google.com/store/apps/details?id=sort.casual.color.cat.puzzle.match&hl=en), [historical video 1](https://www.youtube.com/watch?v=fZHsuXpTwEE), [historical video 2](https://www.youtube.com/watch?v=onptn300img). They do not replace this round's static interpretation or imply level-by-level device acceptance this round.
