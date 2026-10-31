@@ -1,6 +1,13 @@
 # Perch Sort — 协作说明（Claude 读这里；Codex 读 AGENTS.md，内容一致）
 
-Unity 6000.6.7f1 竖屏小鸟归类益智游戏（原创题材/美术/文案）。权威设计：`docs/DESIGN.md`；UI 规范：`docs/UI_SPEC.md`；上架清单：`docs/RELEASE_CHECKLIST.md`；历史任务与验收报告：`tasks/T*.md`（最新 T15b）。
+Unity 6000.6.7f1 竖屏小鸟归巢排序益智游戏。先读 [README](README.md)。新版产品设计：[PRD](docs/PRD.md)、[40关目录](docs/LEVEL_DESIGN.md)、[同类研究](docs/SORTING_RESEARCH.md)；现行v2实现基线：[DESIGN](docs/DESIGN.md)；既有UI：[UI_SPEC](docs/UI_SPEC.md)（内部最新修订优先）；上架清单：[RELEASE_CHECKLIST](docs/RELEASE_CHECKLIST.md)。新版文档是评审稿，蛋/临时栖枝及新40关未实现；历史任务报告只证明当时版本，本轮见 [T16报告](tasks/T16_report.md)。
+
+## 文档职责与验证
+
+- 用户当前明确指令优先。PRD/关卡目录定义新版意图，DESIGN描述v2运行基线；规划不自动改实现。改Core规则或数据前先更新对应文档并获得实施授权，不用历史任务覆盖新要求。
+- 同类研究区分官方描述、实测与我们的设计。新关最优解、盲玩/纹样可读性、实机验收分别举证；搜索超预算=未知，旧40关证书不能复用于新布局。
+- 新资源另出派生，不覆盖原件；真实RGBA透明、风格/脚底/包围盒正确，64px及灰度可辨，接入后实机截图/时间采样验收。不能把占位图或静态帧称为可播放动画。
+- 仅文档改动检查链接、状态/规则一致性和数量；代码/数据改动按下述Unity流程与新内容求解回放验证，实际记录失败/跳过，不为凑数删测试。
 
 ## 机器与分工（2026-10-31 起）
 | 机器 | 角色 |
