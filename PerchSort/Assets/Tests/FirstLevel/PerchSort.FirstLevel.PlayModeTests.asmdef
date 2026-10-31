@@ -1,0 +1,10 @@
+{
+  "name": "PerchSort.FirstLevel.PlayModeTests",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.FirstLevel"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

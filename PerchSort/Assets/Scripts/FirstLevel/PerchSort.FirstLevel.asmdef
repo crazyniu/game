@@ -1,0 +1,12 @@
+{
+  "name": "PerchSort.FirstLevel",
+  "rootNamespace": "PerchSort.FirstLevelRuntime",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.Audio",
+    "Unity.ugui",
+    "Unity.TextMeshPro",
+    "Unity.InputSystem",
+    "LitMotion"
+  ]
+}

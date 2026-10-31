@@ -1,0 +1,368 @@
+{
+  "status": "TECHNICAL_CHECKPOINT_PENDING_INDEPENDENT_VISUAL_QA",
+  "productionAccepted": false,
+  "runtimeImported": false,
+  "scope": "first level red/blue only; no yellow, no UI/Unity code",
+  "files": [
+    {
+      "file": "red_idle.png",
+      "plannedResourcesName": "red_idle",
+      "bytes": 108308,
+      "sha256": "900eaa80e4b1d98fef12c5089d09c0c777c4f39cecba67b98a2269964bfa08b9",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_01.png",
+      "plannedResourcesName": "red_flight_01",
+      "bytes": 166317,
+      "sha256": "82948580ebb0ddf4b47a25221b288347afb03d652220d370fe1c00816f6c6982",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_02.png",
+      "plannedResourcesName": "red_flight_02",
+      "bytes": 150020,
+      "sha256": "8859f78cca516702ee8b1ca727574f67e295bf1d8dfc1a7b1f32deba46fc2a40",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_03.png",
+      "plannedResourcesName": "red_flight_03",
+      "bytes": 139616,
+      "sha256": "848ea6178a0b28c60bdc5eb3ae9047a2a6309d55e605928257c52e3e4e61bc20",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_04.png",
+      "plannedResourcesName": "red_flight_04",
+      "bytes": 135341,
+      "sha256": "9bc60a0d375fb8333af47efd320b4809afd73c054945cca6e135b5a3f4e67c9b",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_05.png",
+      "plannedResourcesName": "red_flight_05",
+      "bytes": 131900,
+      "sha256": "8a3b273f36271cbf575d3c6b9cd24844c1badf32bd92e37a2467b58362211094",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "red_flight_06.png",
+      "plannedResourcesName": "red_flight_06",
+      "bytes": 137537,
+      "sha256": "e852a2991a1be2ef6d42cebebe94878e23d40a199eafec62f1d03a0a770e8147",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_idle.png",
+      "plannedResourcesName": "blue_idle",
+      "bytes": 110872,
+      "sha256": "b38561c0174bc53467cf5770080b9aaf983645bfd652b1aa1463939c4d8f77ec",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_01.png",
+      "plannedResourcesName": "blue_flight_01",
+      "bytes": 169287,
+      "sha256": "ebbcfa74f544be269245f7b29247b0b2043a750fe8c357fb77385afaf5112276",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_02.png",
+      "plannedResourcesName": "blue_flight_02",
+      "bytes": 153124,
+      "sha256": "3fc52cad47aa5aa2be306bd023a8f980ddadb92e77de841e3065743e82dd3927",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_03.png",
+      "plannedResourcesName": "blue_flight_03",
+      "bytes": 143044,
+      "sha256": "11449212d61d815ed635ca884f46f14e6c809865e635ec04f5aa8bb1fa60169b",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_04.png",
+      "plannedResourcesName": "blue_flight_04",
+      "bytes": 139126,
+      "sha256": "a3d065e38db921c2ce528682185cea37cdc9e073e507c8ab3b22769d32409753",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_05.png",
+      "plannedResourcesName": "blue_flight_05",
+      "bytes": 135604,
+      "sha256": "facd497a2fe42d1f4428def3d00e6251755a4aa8b41d9b9a0b01de6b7217c541",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    },
+    {
+      "file": "blue_flight_06.png",
+      "plannedResourcesName": "blue_flight_06",
+      "bytes": 141468,
+      "sha256": "fe8409dc31ef19df349e96338c309141a2d06253af34b0168c35c8332400f3cc",
+      "canvas": [
+        512,
+        512
+      ],
+      "pngColorType": 6,
+      "pivotPixelsTopLeft": [
+        256,
+        439
+      ],
+      "pivotNormalizedUnityBottomLeft": [
+        0.5,
+        0.142578125
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "file": "exec-fb7883a2-0ced-424d-9230-ef69bca04827.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "sha256": "fdef057f4da2fe0e828bf9d79282b6832817b3bf3be87f76819e27e6fc44f4e5",
+      "sourceUnchanged": true
+    },
+    {
+      "file": "exec-ba1b1742-01d1-4ea9-b03b-d474780291eb.png",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sha256": "aeb7be7e02631e43fd2cca9f4093e71bb44aa87ff4029a7a60fc62c2a57dd913",
+      "sourceUnchanged": true
+    },
+    {
+      "file": "exec-066af8ee-bd74-49fc-9ff6-2c3359448ed2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "sha256": "7145d7a1832f6e4bcecfa3b9f7864c1a3a04a66ba86d688ae86f75c7b9185073",
+      "sourceUnchanged": true
+    },
+    {
+      "file": "exec-270971ed-8f18-4f0a-960f-73b64e4baa6f.png",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sha256": "93f0673bbd1d7674a0fffc3cb08d89779dfa3c49da3ad0c96dd1a86ef98f75f3",
+      "sourceUnchanged": true
+    },
+    {
+      "file": "exec-a8fcd863-9f84-4358-bd63-a7bc483db957.png",
+      "canvas": [
+        1536,
+        1024
+      ],
+      "sha256": "7b06b29123efec1a73e161baf9f5910af60ca04cd838e822fb6b8144b1812865",
+      "sourceUnchanged": true
+    }
+  ],
+  "registration": {
+    "canvas": [
+      512,
+      512
+    ],
+    "footCentroidPixelsTopLeft": [
+      256,
+      425
+    ],
+    "soleContactPixelsTopLeft": [
+      256,
+      439
+    ],
+    "unityNormalizedBottomOriginPivot": [
+      0.5,
+      0.142578125
+    ],
+    "bodyScale": 0.26,
+    "flightWingScale": 0.66,
+    "foldWingScale": 0.25,
+    "foldRotationsDegrees": [
+      -35,
+      35
+    ],
+    "manualShouldersPixels": [
+      [
+        185,
+        315
+      ],
+      [
+        327,
+        315
+      ]
+    ],
+    "note": "source body centroids measured independently; shoulders/wing rotation are recorded candidate choices for independent visual QA"
+  },
+  "policies": {
+    "body": "same body/head/feet/tail per species for every idle/flight frame",
+    "holdout": "body alpha>=250 occludes underlying wings in composition; no original images rewritten",
+    "cleanup": "only derived isolated alpha16 components of <=2 pixels removed; blueflight01 at(424,196), all others none",
+    "reviewTiming": "stand/fly/fold GIF demonstration only, not accepted takeoff/landing timing"
+  },
+  "evidence": {
+    "registration": "registration-manifest.json",
+    "smallReview": "native64-review.json",
+    "gifDecode": "gif-verification.json"
+  }
+}
