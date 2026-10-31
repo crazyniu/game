@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using LitMotion;
+using PerchSort.Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -400,7 +401,10 @@ namespace PerchSort.FirstLevelRuntime
             value.Button.colors = colors;
             value.Button.onClick.AddListener(() =>
             {
-                if (value.Button.IsActive() && value.Button.IsInteractable()) action?.Invoke();
+                if (!value.Button.IsActive() || !value.Button.IsInteractable()) return;
+                action?.Invoke();
+                // Honor the resulting global mute state, including the mute button itself.
+                AudioManager.Instance?.Play(Sfx.Click);
             });
             var trigger = hit.gameObject.AddComponent<EventTrigger>();
             AddPointer(trigger, EventTriggerType.PointerDown, () => Press(value, true));
