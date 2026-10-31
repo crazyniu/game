@@ -8,7 +8,7 @@ Date: 2026-10-31. Scope: dependency preparation for the separately authorized fi
 - Add only com.annulusgames.lit-motion, pinned to the immutable commit below rather than a moving branch or tag.
 - Keep the existing v2 animation implementation unchanged until the production asset/UI acceptance gate is met.
 - Author this manifest and note on 251 only. Do not run installers or compilers on 251, manually edit packages-lock.json, or commit these changes from this agent.
-- The coordinator will ask Unity Package Manager to resolve the package and run one compatibility compile in an isolated Mac test copy. Only that generated and reviewed lockfile may return to the 251 branch.
+- Isolated Mac UPM resolution and one filtered compatibility compile/test completed successfully (record below). Only the exact generated and reviewed lockfile may return to the 251 branch; this agent does not edit it manually.
 
 ## Selected package and primary evidence
 
@@ -25,7 +25,7 @@ Date: 2026-10-31. Scope: dependency preparation for the separately authorized fi
 
 The exact pinned upstream package manifest and license were read as first-party evidence. Its package ID and version match the selected dependency. MIT permits the planned integration while requiring retention of the copyright and license notice with copies/substantial portions. Keep the upstream notice with redistributed package code; this license does not grant rights to third-party artwork or audio.
 
-The owning specification remains authoritative for single-primary-library selection, asset acceptance, and motion behavior. Its older research-only installation status describes the documentation stage; this task advances only manifest pinning, not installation or runtime acceptance.
+The owning specification remains authoritative for single-primary-library selection, asset acceptance, and motion behavior. This task now records manifest pinning plus a scoped desktop resolution/compile result; first-level motion integration and runtime animation acceptance remain separate gates.
 
 ## Dependency compatibility record
 
@@ -35,7 +35,7 @@ The owning specification remains authoritative for single-primary-library select
 | com.unity.collections | 1.5.1 | 6.6.0, built-in |
 | com.unity.mathematics | 1.0.1 | 1.4.0, built-in |
 
-The project lock was inspected read-only on 251. Larger version numbers, especially across major releases, are not evidence of source/binary compatibility. Do not downgrade, add direct overrides, replace built-in packages, or edit their lock entries to force a result. If Unity cannot resolve or compile this pin, report the exact package conflict/compiler diagnostic to the coordinator before changing package policy.
+The original project lock was inspected read-only on 251. The isolated Mac run resolved this pin without dependency version changes: the generated lock adds the LitMotion Git entry and changes Burst depth from 2 to 1 only; no package was removed. This establishes the scoped desktop compile result below, not cross-platform or general cross-major compatibility. Do not downgrade packages, add direct overrides, replace built-in packages, or manually edit the lock to force a result. Report any later package conflict/compiler diagnostic before changing package policy.
 
 ## Acceptance and verification status
 
@@ -44,14 +44,14 @@ The project lock was inspected read-only on 251. Larger version numbers, especia
 | Exact package ID/version/commit and MIT primary sources | VERIFIED by reading the pinned upstream package manifest and license |
 | Preserve all existing manifest dependencies; add only the selected pin | Checked by comparing parsed manifest dictionaries before/after |
 | Manifest JSON syntax and whitespace | Checked on 251; this is not a Unity package-resolution test |
-| Lockfile integrity during 251 authoring | Read-only; before/after bytes must remain identical |
-| Unity Package Manager resolution | NOT_RUN by this agent; isolated Mac validation pending |
-| Unity 6000.6.7f1 compatibility compile | NOT_RUN by this agent; coordinator owns isolated Mac evidence |
+| Lockfile integrity during 251 authoring | Original bytes preserved; exact Mac-generated lock transfer/review is owned by the coordinator, without manual edits |
+| Unity Package Manager resolution | PASS in isolated Mac test copy at source a740b85044e2ad8a418bcd94b0ec691ebaa0e2ff; resolved the exact pinned Git SHA |
+| Unity 6000.6.7f1 compatibility compile | PASS for the single filtered witness test below; exit 0, no C# compiler errors; not a full-suite result |
 | iOS/Android IL2CPP, AOT and stripping | NOT_RUN; desktop compile cannot satisfy these gates |
 | First-level runtime tween integration and animation acceptance | NOT_IMPLEMENTED in this step |
 | Existing v2 motion replacement | NOT_STARTED; asset/UI acceptance gate still applies |
 
-A manifest URL is an authored dependency request. Do not report the package as installed, compatible, or integrated until the corresponding Mac evidence exists. The coordinator must review the generated lock diff, actual resolved commit, dependency changes and compiler result, then record the result separately. Unexpected transitive changes remain review items rather than being accepted merely because UPM generated them.
+Coordinator-supplied Mac execution evidence: Unity 6000.6.7f1 completed at 2026-10-31 15:46:58 UTC, source a740b85044e2ad8a418bcd94b0ec691ebaa0e2ff, filter FirstLevelV4Tests.FourStepWitnessHomesAndRetiresWithoutLosingTokenIdentity: 1 passed / 0 failed / 0 skipped; process exit 0 and no C# compiler errors. This agent records that result rather than claiming to have rerun it on 251. UPM resolved LitMotion commit 0b4c588ee75a07198841d92aab653e6b39445089. The generated lock diff only adds that Git entry and changes Burst dependency depth 2 to 1; existing dependency versions remain unchanged. The coordinator transfers the exact generated lock back to 251. This proves scoped desktop package resolution/compilation and one pure-Core witness; it does not prove any LitMotion runtime sequence, wingbeat, UI integration, cancellation, mobile, AOT or performance behavior.
 
 ## Boundaries before future first-level integration
 

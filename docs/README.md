@@ -38,4 +38,6 @@
 
 Gameplay review and proposals (T20): [GAMEPLAY_REVIEW](GAMEPLAY_REVIEW.md).
 
+Small-scope next-step proposal (first level first): [SMALL_SCOPE_NEXT](proposals/SMALL_SCOPE_NEXT.md).
+
 本轮交付与未测边界见[T18报告](../tasks/T18_report.md)。旧[T16撤回记录](archive/T16_WITHDRAWN.md)、[v2档案](archive/DESIGN_V2.md)、[UI历史](archive/UI_SPEC_HISTORY.md)、旧任务报告仅历史；[DESIGN](DESIGN.md)只兼容导航。旧“唯一DESIGN”、原创新临时枝、纹样蛋/队列/箱/星级条款不覆盖本路由。

@@ -226,6 +226,76 @@ namespace PerchSort.Tests
         }
 
         [Test]
+        public void NonFullDifferentSpeciesTargetRejectsWithoutChangingSession()
+        {
+            var session = new Slice.Session();
+            Assert.That(session.TryMove(0, 3, out _), Is.True);
+            var before = session.State;
+            string key = before.GetStateKey();
+            int historyCount = session.UndoCount;
+            Assert.That(before.Branches[0].Tokens.Count, Is.EqualTo(3));
+            Assert.That(before.FlockSize - before.Branches[0].Tokens.Count, Is.EqualTo(1));
+            Assert.That(before.Branches[0].Tokens.Last().Species, Is.Zero);
+            Assert.That(before.Branches[1].Tokens.Last().Species, Is.EqualTo(2));
+            Assert.That(Slice.Rules.GetRun(before, 1), Is.EqualTo(1));
+
+            Assert.That(session.TryMove(1, 0, out var result), Is.False);
+
+            Assert.That(result, Is.Null);
+            Assert.That(session.State, Is.SameAs(before));
+            Assert.That(session.State.GetStateKey(), Is.EqualTo(key));
+            Assert.That(session.UndoCount, Is.EqualTo(historyCount));
+            Assert.That(session.State.MoveCount, Is.EqualTo(1));
+            Assert.That(session.State.Sequence, Is.EqualTo(1));
+            AssertConserved(session.State);
+        }
+
+        [Test]
+        public void UndoAfterWonRestoresLastFlockAndKeepsEarlierHomes()
+        {
+            var session = new Slice.Session();
+            Assert.That(session.TryMove(0, 3, out _), Is.True);
+            Assert.That(session.TryMove(2, 0, out _), Is.True);
+            Assert.That(session.TryMove(1, 2, out _), Is.True);
+            var beforeLastMove = session.State.Clone();
+            Assert.That(beforeLastMove.HomedSpecies, Is.EqualTo(new[] { 0, 2 }));
+            Assert.That(session.TryMove(1, 3, out _), Is.True);
+            var won = session.State;
+            Assert.That(won.IsWon, Is.True);
+            Assert.That(won.Branches[3].Retired, Is.True);
+            Assert.That(won.Branches.All(b => b.Tokens.Count == 0), Is.True);
+            Assert.That(won.MoveCount, Is.EqualTo(4));
+            Assert.That(won.Sequence, Is.EqualTo(4));
+
+            Assert.That(session.Undo(), Is.True);
+
+            var restored = session.State;
+            for (int i = 0; i < restored.Branches.Count; i++)
+            {
+                Assert.That(restored.Branches[i].Id, Is.EqualTo(beforeLastMove.Branches[i].Id));
+                Assert.That(restored.Branches[i].Retired, Is.EqualTo(beforeLastMove.Branches[i].Retired));
+                Assert.That(restored.Branches[i].HomeSpecies, Is.EqualTo(beforeLastMove.Branches[i].HomeSpecies));
+                Assert.That(restored.Branches[i].Tokens.Select(t => t.Id),
+                    Is.EqualTo(beforeLastMove.Branches[i].Tokens.Select(t => t.Id)));
+                Assert.That(restored.Branches[i].Tokens.Select(t => t.Species),
+                    Is.EqualTo(beforeLastMove.Branches[i].Tokens.Select(t => t.Species)));
+            }
+            Assert.That(restored.Branches[1].Tokens.Select(t => t.Id),
+                Is.EqualTo(new[] { "L01-S2-01", "L01-S2-02", "L01-S2-03" }));
+            Assert.That(restored.Branches[3].Tokens.Select(t => t.Id), Is.EqualTo(new[] { "L01-S1-04" }));
+            Assert.That(restored.Branches.Select(b => b.Retired),
+                Is.EqualTo(new[] { true, false, true, false, false }));
+            Assert.That(restored.HomedSpecies, Is.EqualTo(new[] { 0, 2 }));
+            Assert.That(restored.MoveCount, Is.EqualTo(3));
+            Assert.That(restored.Sequence, Is.EqualTo(5));
+            Assert.That(restored.IsWon, Is.False);
+            Assert.That(session.UndoCount, Is.EqualTo(3));
+            Assert.That(won.IsWon, Is.True);
+            Assert.That(beforeLastMove.Sequence, Is.EqualTo(3));
+            AssertConserved(restored);
+        }
+
+        [Test]
         public void InvalidFixtureConservationAndDuplicateIdsAreRejected()
         {
             Assert.Throws<ArgumentException>(() => Fixture(new[] { 0 }, Array.Empty<int>(), Array.Empty<int>()));

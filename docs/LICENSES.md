@@ -37,3 +37,10 @@ are listed in `scripts/audio/requirements.txt`; their software licenses remain
 applicable to those tools themselves. Source and reproduction instructions are
 in `scripts/audio/README.md`; measured per-file metadata is in
 `audio_src/MANIFEST.md` and `audio_src/analysis.json`.
+
+## LitMotion 2.0.2 — first-level motion dependency
+
+- Author/copyright: Yusuke Nakada, 2023; package by Annulus Games.
+- Source: [immutable commit 0b4c588ee75a07198841d92aab653e6b39445089](https://github.com/annulusgames/LitMotion/tree/0b4c588ee75a07198841d92aab653e6b39445089).
+- License: MIT. The exact upstream root LICENSE is retained at [licenses/LitMotion-MIT.txt](licenses/LitMotion-MIT.txt), because the UPM subdirectory package does not include that root file. Preserve this notice when redistributing the package code.
+- Scope: the sole selected primary tween dependency; [T21](../tasks/T21_motion_dependency.md) records its pin and scoped desktop verification. The code license does not license third-party artwork/audio or certify runtime/mobile behavior.
