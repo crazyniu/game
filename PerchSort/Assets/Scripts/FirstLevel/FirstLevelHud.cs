@@ -35,7 +35,7 @@ namespace PerchSort.FirstLevelRuntime
         private readonly List<IconButton> modalButtons = new List<IconButton>();
         private IconButton pauseButton, undoButton, restartButton, muteButton, homeMute, playButton;
         private IconButton continueButton, modalRestart, modalHome, modalMute, replayButton, resultHome;
-        private MotionHandle panelMotion, hudFade;
+        private MotionHandle panelMotion, hudFade, resultWingMotion;
         private Modal modal;
         private bool initialized, subscribed, homeVisible = true, modalStable, closing, resultPhase;
         private int modalVersion;
@@ -97,7 +97,7 @@ namespace PerchSort.FirstLevelRuntime
             resultBird = Picture("LastHomedBird", panel, null, new Vector2(0, 110), new Vector2(240, 240));
             resultBird.preserveAspect = true;
             errorText = Label("BriefError", panel, "", new Vector2(0, 120), new Vector2(600, 180), 36);
-            errorText.richText = false; errorText.enableWordWrapping = true;
+            errorText.richText = false; errorText.textWrappingMode = TextWrappingModes.NoWrap;
 
             initialized = true;
             HideModal();
@@ -219,7 +219,22 @@ namespace PerchSort.FirstLevelRuntime
             {
                 int species = lastHomedSpecies != null ? lastHomedSpecies() : 0;
                 species = Mathf.Clamp(species, 0, assets.Species.Length - 1);
-                resultBird.sprite = assets.Species[species].Idle.Sprite;
+                var art = assets.Species[species];
+                int wingVersion = modalVersion;
+                int[] cycle = { 0, 1, 2, 3, 4, 5, 4, 3, 2, 1 };
+                resultBird.sprite = art.WingCycle[0].Sprite;
+                resultBird.preserveAspect = true;
+                // Real registered silhouettes, using the same ten-phase clock as Bird.
+                resultWingMotion = LMotion.Create(0f, 10f, .36f)
+                    .WithLoops(-1)
+                    .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
+                    .Bind(value =>
+                    {
+                        if (this == null || wingVersion != modalVersion ||
+                            modal != Modal.Result || resultBird == null) return;
+                        resultBird.sprite = art.WingCycle[
+                            cycle[Mathf.Min(9, Mathf.FloorToInt(value))]].Sprite;
+                    });
             }
 
             int version = modalVersion;
@@ -258,6 +273,7 @@ namespace PerchSort.FirstLevelRuntime
             if (!modalStable || closing) return;
             if (modal == Modal.Result && (flow == null || flow.Phase != FirstLevelPhase.Won)) return;
             if (modal == Modal.NoMoves && action == pause) action = undo;
+            bool restartFromError = modal == Modal.Error && action == restart;
             closing = true; RefreshModalButtons();
             int version = ++modalVersion;
             panelMotion.TryCancel();
@@ -266,7 +282,11 @@ namespace PerchSort.FirstLevelRuntime
                 .WithOnComplete(() =>
                 {
                     if (this == null || version != modalVersion) return;
-                    HideModal(); RunAction(action); Refresh();
+                    HideModal();
+                    // Clear only the accepted Error Replay's stale message. A new failure
+                    // raised by the restart callback can immediately open a fresh error.
+                    if (restartFromError) error = null;
+                    RunAction(action); Refresh();
                 })
                 .Bind(t =>
                 {
@@ -278,7 +298,7 @@ namespace PerchSort.FirstLevelRuntime
 
         private void HideModal()
         {
-            modalVersion++; panelMotion.TryCancel();
+            modalVersion++; panelMotion.TryCancel(); resultWingMotion.TryCancel();
             modal = Modal.None; modalStable = closing = false;
             if (modalLayer != null) modalLayer.gameObject.SetActive(false);
         }
@@ -430,7 +450,9 @@ namespace PerchSort.FirstLevelRuntime
             if (!initialized || Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame ||
                 closing || modal != Modal.None && !modalStable) return;
             if (modal == Modal.Pause) NavigateModal(pause);
-            else if (Interactive()) RunAction(pause);
+            else if (Interactive() || !homeVisible && modal == Modal.None && flow != null &&
+                flow.Phase == FirstLevelPhase.Presenting)
+                RunAction(pause); // Flow coalesces this into its one pending pause request.
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using PerchSort.Audio;
 using PerchSort.Core.FirstLevel;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace PerchSort.FirstLevelRuntime
@@ -104,11 +103,6 @@ namespace PerchSort.FirstLevelRuntime
             Hud?.ShowError("Unable to present this level. Replay to recover.");
         }
 
-        private void Update()
-        {
-            if(Keyboard.current!=null && Keyboard.current.escapeKey.wasPressedThisFrame && !homeVisible)
-                TogglePause();
-        }
         private void LateUpdate()
         {
             if(!started)return;

@@ -282,13 +282,16 @@ namespace PerchSort.FirstLevelRuntime
         private void PlayHome(MoveEvent e, Action completed)
         {
             int left=e.TokenIds.Count; LastHomedSpecies=e.Species;
-            AudioManager.Instance.Play(Sfx.Collect);
+            AudioManager.Instance.Play(Sfx.Flutter);
             Vector3 mouth=new Vector3(0,6.4f+(256-310)*3f/512,0);
             Vector3 inside=new Vector3(0,6.4f+(256-435)*3f/512,0);
             for(int j=0;j<e.TokenIds.Count;j++)
             {
                 var bird=birds[e.TokenIds[j]];var start=bird.transform.localPosition;
-                bird.BeginWings();bird.SetOrder(150+j);bird.SetHomeMask(true);
+                // Approach in front of the near rim; mask only after reaching
+                // the mouth, otherwise a bird approaching from below disappears
+                // through the rim and pops back into view before entering.
+                bird.BeginWings();bird.SetOrder(150+j);bird.SetHomeMask(false);
                 Animate(.8f,t=>
                 {
                     float elapsed=t*.8f;
@@ -300,6 +303,7 @@ namespace PerchSort.FirstLevelRuntime
                     }
                     else
                     {
+                        bird.SetHomeMask(true);
                         bird.SetFolded();
                         float u=Mathf.Clamp01((elapsed-.55f)/.25f);
                         bird.transform.localPosition=Vector3.Lerp(mouth,inside,u);
@@ -311,7 +315,11 @@ namespace PerchSort.FirstLevelRuntime
                     // At source y435 and scale.35 all accepted poses are behind
                     // the binary front-rim mask. Do not fade in front of the nest.
                     RemoveBird(bird.TokenId);
-                    if(--left==0){working[e.BranchIndex].Clear();completed();}
+                    if(--left==0)
+                    {
+                        AudioManager.Instance.Play(Sfx.Collect);
+                        working[e.BranchIndex].Clear();completed();
+                    }
                 },(e.TokenIds.Count-1-j)*.06f);
             }
         }
