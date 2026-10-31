@@ -23,6 +23,10 @@ Unity 6000.6.7f1 竖屏小鸟归类益智游戏（原创题材/美术/文案）�
      --title Mac-Test --command "git fetch && git checkout <分支> && git pull --ff-only && bash scripts/run_tests.sh" --json
    orca terminal read --environment Mac-Image-Worker --terminal <handle> --json
    ```
+   - 跑之前 Mac 上**不能开着 Unity 编辑器**打开本工程（否则 batchmode 秒退 exit 1），请用户退出编辑器，不要替用户强杀。
+   - `run_tests.sh` 会让 SceneBuilder 重写 `Assets/Scenes/Game.unity`，仅 fileID 重新编号；若分支本身没改场景，测完 `git checkout -- PerchSort/Assets/Scenes/Game.unity` 丢弃。
+   - PlayMode 当前 14/22 通过、8 个是代码里标注的有意 Skip（Level10/20/30/40 等延后项），不算失败。
+   - 取截图到 251：Mac 上临时 `python3 -m http.server 8765 --bind 0.0.0.0 -d build/screens/flow &`，251 上 `curl` 到 `/tmp/perch-screens/flow/`，取完立即 kill（Mac→251 无免密 SSH）。
    Mac IP 变了导致连不上时，改 251 上 `~/.orca/orca-environments.json` 里的 `endpoint`（配对凭据不变）。`build/` 已被 gitignore，不要提交测试产物。
 4. 验收通过 → 合并到 `main` 并 push；不通过 → 带具体问题清单让 Codex 返工。
 5. Mac 上若 Unity 改写了 `.meta`/`ProjectSettings`（例如 SceneBuilder、ReleaseSettings），把这些改动从 Mac 提交到同一分支 push，251 再 pull，避免两边分叉。
