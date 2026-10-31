@@ -302,9 +302,9 @@ public static class FirstLevelCapture
         Texture2D texture = sprite ? sprite.texture : null;
         return new SpriteReference {
             kind = kind, objectPath = string.Join("/", path), scene = owner.scene.path, enabled = enabled,
-            spriteName = sprite ? sprite.name : "", spriteInstanceId = sprite ? sprite.GetInstanceID() : 0,
+            spriteName = sprite ? sprite.name : "",
             spriteAssetPath = sprite ? AssetDatabase.GetAssetPath(sprite) : "",
-            textureName = texture ? texture.name : "", textureInstanceId = texture ? texture.GetInstanceID() : 0,
+            textureName = texture ? texture.name : "",
             textureAssetPath = texture ? AssetDatabase.GetAssetPath(texture) : "",
             materialName = material ? material.name : "",
             shaderName = material && material.shader ? material.shader.name : ""
@@ -395,7 +395,6 @@ public static class FirstLevelCapture
     {
         public string kind, objectPath, scene, spriteName, spriteAssetPath, textureName, textureAssetPath;
         public string materialName, shaderName;
-        public int spriteInstanceId, textureInstanceId;
         public bool enabled;
     }
     [Serializable] private sealed class LogRecord
