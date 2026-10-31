@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using PerchSort.Audio;
 using PerchSort.Core.FirstLevel;
 using UnityEngine;
@@ -16,7 +17,9 @@ namespace PerchSort.FirstLevelRuntime
         private Vector2Int lastOutput;
         private Rect lastSafe;
         private float lastCanvasScale;
-        private bool muted, homeVisible, started;
+        private bool muted, homeVisible, started, engineWarm;
+        private Coroutine pendingEntrance;
+        private int entranceVersion;
         private AudioManager audioManager;
         public FirstLevelFlow Flow { get; private set; }
         public FirstLevelBoard Board { get; private set; }
@@ -56,6 +59,7 @@ namespace PerchSort.FirstLevelRuntime
         public void PlayFresh()
         {
             if(!started)return;
+            CancelPendingEntrance();
             Flow?.Dispose();
             Board.gameObject.SetActive(true);
             var initial=State.CreateInitial();initial.ValidateInitialLevelContract(1);
@@ -64,20 +68,43 @@ namespace PerchSort.FirstLevelRuntime
             Flow.PresentationFailed+=OnFlowFailure;
             Hud.Bind(Flow,()=>Board.LastHomedSpecies);
             homeVisible=false;Hud.SetHomeVisible(false);
-            audioManager.SwitchMusic(MusicPage.Game);IsReady=true;Flow.Start();
+            audioManager.SwitchMusic(MusicPage.Game);IsReady=true;
+            if(engineWarm)Flow.Start();
+            else pendingEntrance=StartCoroutine(StartAfterTwoFrames(Flow,entranceVersion));
+        }
+
+        private IEnumerator StartAfterTwoFrames(FirstLevelFlow expected, int version)
+        {
+            long generation=expected.Generation;
+            // Created is already a locked loading phase. Do not start LitMotion on
+            // the cold scene's first unscaled delta or override Unity's clock.
+            yield return null;
+            yield return null;
+            if(!isActiveAndEnabled || version!=entranceVersion || Flow!=expected ||
+                expected.Generation!=generation || expected.Phase!=FirstLevelPhase.Created)yield break;
+            pendingEntrance=null;engineWarm=true;expected.Start();
+        }
+
+        private void CancelPendingEntrance()
+        {
+            entranceVersion++;
+            if(pendingEntrance!=null)StopCoroutine(pendingEntrance);
+            pendingEntrance=null;
         }
 
         public void Home()
         {
             if(Flow!=null && !(Flow.IsInteractive || Flow.Phase==FirstLevelPhase.Paused ||
-                Flow.Phase==FirstLevelPhase.Won || Flow.Phase==FirstLevelPhase.Faulted))return;
+                Flow.Phase==FirstLevelPhase.Won || Flow.Phase==FirstLevelPhase.Faulted ||
+                (Flow.Phase==FirstLevelPhase.Created && pendingEntrance!=null)))return;
+            CancelPendingEntrance();
             Flow?.Dispose();Flow=null;
             Board.Cancel();Board.gameObject.SetActive(false);
             Hud.Bind(null,()=>Board.LastHomedSpecies);Hud.SetHomeVisible(true);
             homeVisible=true;IsReady=false;audioManager.SwitchMusic(MusicPage.Menu);
         }
 
-        public void Restart(){if(homeVisible)PlayFresh();else Flow?.Restart();}
+        public void Restart(){if(homeVisible || pendingEntrance!=null)PlayFresh();else Flow?.Restart();}
         public void Undo()=>Flow?.Undo();
         public void TogglePause()
         {
@@ -150,6 +177,7 @@ namespace PerchSort.FirstLevelRuntime
         }
         private void OnDestroy()
         {
+            CancelPendingEntrance();
             if(Board!=null)Board.Failed-=OnViewFailure;
             Flow?.Dispose();Flow=null;IsReady=false;
         }

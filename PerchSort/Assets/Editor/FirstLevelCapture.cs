@@ -21,6 +21,9 @@ public static class FirstLevelCapture
     private static FirstLevelEntry entry;
     private static RenderTexture target;
     private static Texture2D pixels;
+    private static Camera captureCamera;
+    private static RenderTexture previousCameraTarget;
+    private static int targetReadyFrame = -1;
     private static CaptureDocument document;
     private static double started, lastSample, nextAction;
     private static int stage, lastUnityFrame = -1;
@@ -102,11 +105,19 @@ public static class FirstLevelCapture
             if (!string.IsNullOrEmpty(fatalLog)) throw new InvalidOperationException(fatalLog);
             if (!entry) entry = UnityEngine.Object.FindAnyObjectByType<FirstLevelEntry>();
             Camera camera = Camera.main;
+            if (!camera) return;
+            if (!captureCamera)
+            {
+                if (!entry || !entry.IsReady) return;
+                PrepareTarget(camera);
+                return;
+            }
+            if (Time.frameCount <= targetReadyFrame) return;
             if (camera && now - lastSample >= Interval && Time.frameCount != lastUnityFrame)
             {
                 double costStart = EditorApplication.timeSinceStartup;
                 string filename = "render_" + document.frames.Count.ToString("D6", CultureInfo.InvariantCulture) + ".png";
-                Render(camera, Width, Height, Path.Combine(Output, filename), true);
+                Render(camera, Path.Combine(Output, filename));
                 document.frames.Add(Sample(camera, now, filename,
                     EditorApplication.timeSinceStartup - costStart));
                 if (document.frames.Count <= 4)
@@ -218,42 +229,42 @@ public static class FirstLevelCapture
     {
         Camera camera = Camera.main;
         if (!camera) throw new InvalidOperationException("Main camera missing at a key stage.");
-        string filename = "key_" + label + "_1080x1920.png";
-        Render(camera, 1080, 1920, Path.Combine(Output, filename), false);
+        string filename = "key_" + label + "_540x960.png";
+        Render(camera, Path.Combine(Output, filename));
         document.keyFrames.Add(new ActionRecord { elapsedSeconds = now, action = label, file = filename });
         if (label == "intro_complete")
             document.visualSnapshots.Add(DescribeVisuals("first_stable", filename, now));
     }
 
-    private static void Render(Camera camera, int width, int height, string path, bool reuse)
+    private static void PrepareTarget(Camera camera)
     {
-        RenderTexture texture;
-        Texture2D image;
-        if (reuse)
-        {
-            if (!target) { target = new RenderTexture(width, height, 24); target.Create(); }
-            if (!pixels) pixels = new Texture2D(width, height, TextureFormat.RGB24, false);
-            texture = target; image = pixels;
-        }
-        else
-        {
-            texture = new RenderTexture(width, height, 24); texture.Create();
-            image = new Texture2D(width, height, TextureFormat.RGB24, false);
-        }
-        RenderTexture previousActive = RenderTexture.active, previousTarget = camera.targetTexture;
+        captureCamera = camera;
+        previousCameraTarget = camera.targetTexture;
+        target = new RenderTexture(Width, Height, 24);
+        target.Create();
+        pixels = new Texture2D(Width, Height, TextureFormat.RGB24, false);
+        camera.targetTexture = target;
+        entry.ApplySafeArea();
+        Canvas.ForceUpdateCanvases();
+        targetReadyFrame = Time.frameCount;
+    }
+
+    private static void Render(Camera camera, string path)
+    {
+        if (camera != captureCamera || camera.targetTexture != target)
+            throw new InvalidOperationException("The fixed capture camera/target changed.");
+        RenderTexture previousActive = RenderTexture.active;
         try
         {
-            camera.targetTexture = texture;
             Canvas.ForceUpdateCanvases();
             camera.Render();
-            RenderTexture.active = texture;
-            image.ReadPixels(new Rect(0, 0, width, height), 0, 0); image.Apply();
-            File.WriteAllBytes(path, image.EncodeToPNG());
+            RenderTexture.active = target;
+            pixels.ReadPixels(new Rect(0, 0, Width, Height), 0, 0); pixels.Apply();
+            File.WriteAllBytes(path, pixels.EncodeToPNG());
         }
         finally
         {
-            camera.targetTexture = previousTarget; RenderTexture.active = previousActive;
-            if (!reuse) { texture.Release(); UnityEngine.Object.DestroyImmediate(texture); UnityEngine.Object.DestroyImmediate(image); }
+            RenderTexture.active = previousActive;
         }
     }
 
@@ -337,8 +348,15 @@ public static class FirstLevelCapture
             document.finalStateKey = entry && entry.Flow != null ? entry.Flow.Current.GetStateKey() : "";
             WriteMetadata();
         }
+        if (captureCamera) captureCamera.targetTexture = previousCameraTarget;
+        if (entry) entry.ApplySafeArea();
+        Canvas.ForceUpdateCanvases();
+        if (target && RenderTexture.active == target) RenderTexture.active = null;
         if (target) { target.Release(); UnityEngine.Object.DestroyImmediate(target); target = null; }
         if (pixels) { UnityEngine.Object.DestroyImmediate(pixels); pixels = null; }
+        captureCamera = null;
+        previousCameraTarget = null;
+        targetReadyFrame = -1;
         SessionState.SetInt(Prefix + "ExitCode", success ? 0 : 1);
         SessionState.SetBool(Prefix + "Finishing", true);
         Debug.Log("FirstLevelCapture " + (success ? "PASS: " : "FAIL: ") + message + " Output: " + Output);
