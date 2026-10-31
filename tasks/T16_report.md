@@ -1,3 +1,5 @@
+> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/T16_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
+
 # T16 — Bird-home documentation and tabletop validation
 
 2026-10-31. Current scope: **documentation only**, including fixed-level tabletop simulation, research text and animation/UI prompt specifications. No game code, runtime levels, scenes or new assets were implemented. Future implementation requires separate explicit user authorization. The user authorized this documentation PR's final merge after complete independent review; the parent performs that final review/scope check, with no early merge or deployment.

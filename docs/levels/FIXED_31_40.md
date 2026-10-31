@@ -1,454 +1,448 @@
-# 第31–40关：固定候选与纸面完整回放
+# 第31–40关：v4固定布局与独立纸面回放
 
-2026-10-31 · DESIGNED / INDEPENDENT_REPLAY_PASS / PENDING_GRAYBOX。这是本批**固定初态唯一权威**；[设计卡](../LEVEL_DESIGN.md)只拥有教学/节奏，[模拟入口](../LEVEL_SIMULATIONS.md)拥有记号与证据边界，[RULES](../spec/RULES.md)拥有算法。仅Markdown候选，未修改游戏关卡JSON。
+2026-10-31 · FIXED_CANDIDATE_V4 / INDEPENDENT_REPLAY_PASS。**本页已完全替换旧R4内容；旧目标队列、睡眠、条件箱、纹样预告蛋、临时枝任意清空退役及篮/异容量配置均不适用。** 本页不是运行JSON、最优证书或Unity记录。
 
-数组末项外露，`蛋(A)`是一只固定A种蛋，普通`E`始终是E鸟。`A3`精确等于三只A，不是随机数量；展开原序分配token ID。未列机关不存在。Complete/Sleep与Complete/Home表示本次首次成组六只、完成数+1；AutoHome不重复加数。表内接收临时枝事件包含首次Armed或已Armed再次接收，具体三态已在完整快照标出。
+规则唯一归[RULES](../spec/RULES.md)，来源键见[MECHANIC_EVIDENCE](../MECHANIC_EVIDENCE.md)，课程归[LEVEL_DESIGN](../LEVEL_DESIGN.md)，证据边界见[LEVEL_SIMULATIONS](../LEVEL_SIMULATIONS.md)。
 
-每条主路/对照路由独立文档模型逐步校验合法性、锁run/Count、稳定化、每种六只守恒及全空终态；不是项目Core/Unity/最优/真人证书。下面数值是路线长度，不是solverMinMoves。固定内容不得运行时生成、换色或换seed。
+每关N为所有枝统一容量、每种总数N；P=K+2，开局恰两空枝。数组墙→外露端；普通字母是鸟。`?(A)`表示策划固定为A的蛋，**玩家只看见?，不能读出A**；表/回放展示的是全信息分析视图，不证明盲玩公平。所有初始数组、鸟种/形态/位置固定，无运行随机；v4正式初态禁止相邻蛋，未证实的连蛋精确孵化不属于有效玩法。普通搬空不退役；完整同种N群自动归巢并使所在枝Retired；不使用额外枝也能走下列路径。
 
 ## 关卡31
 
-K6/P8；Q=`A,F,C,D,E,B`。C/D两睡眠，A一操作后自动连收；非Unity Undo验收。
+错开的同类；世界D 雪松林；N=6，K=5，P=7；所有枝相同容量；每种含蛋共6token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `A3 · C3` | 普通枝 |
-| S2 | 6 | `F3 · D3` | 普通枝 |
-| S3 | 6 | `C3` | 普通枝 |
-| S4 | 6 | `D3` | 普通枝 |
-| S5 | 6 | `A3` | 普通枝 |
-| S6 | 6 | `F3 · E3` | 普通枝 |
-| S7 | 6 | `E3 · B3` | 普通枝 |
-| S8 | 6 | `B3` | 普通枝 |
+| S1 | 6 | `A · D2 · A3` | `A · D2 · A3` |
+| S2 | 6 | `B · C2 · B3` | `B · C2 · B3` |
+| S3 | 6 | `C · E · B2 · C2` | `C · E · B2 · C2` |
+| S4 | 6 | `A2 · D4` | `A2 · D4` |
+| S5 | 6 | `E · C · E4` | `E · C · E4` |
+| S6 | 6 | `∅` | `∅` |
+| S7 | 6 | `∅` | `∅` |
 
-### 主路线（6步，非最优证明）
+本关固定结构：15个初始连续段、0颗问号蛋。主路13步，仅存在性见证。首次归巢在第6步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S3 C3；Complete/Sleep C@S3；run=3,Count=3 | 1 / 无 / AF | S1=[A3]；S2=[F3 · D3]；S3=[C6][睡眠]；S4=[D3]；S5=[A3]；S6=[F3 · E3]；S7=[E3 · B3]；S8=[B3] |
-| 2 | Move S2→S4 D3；Complete/Sleep D@S4；run=3,Count=3 | 2 / 无 / AF | S1=[A3]；S2=[F3]；S3=[C6][睡眠]；S4=[D6][睡眠]；S5=[A3]；S6=[F3 · E3]；S7=[E3 · B3]；S8=[B3] |
-| 3 | Move S1→S5 A3；Complete/Home A@S5；AutoHome C@S3；AutoHome D@S4；run=3,Count=3 | 3 / ACD / FE | S1=[∅]；S2=[F3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[F3 · E3]；S7=[E3 · B3]；S8=[B3] |
-| 4 | Move S7→S8 B3；Complete/Sleep B@S8；run=3,Count=3 | 4 / ACD / FE | S1=[∅]；S2=[F3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[F3 · E3]；S7=[E3]；S8=[B6][睡眠] |
-| 5 | Move S6→S7 E3；Complete/Home E@S7；AutoHome B@S8；run=3,Count=3 | 5 / ACDEB / F | S1=[∅]；S2=[F3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[F3]；S7=[∅]；S8=[∅] |
-| 6 | Move S2→S6 F3；Complete/Home F@S6；run=3,Count=3 | 6 / AFCDEB / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
+| 1 | Move S2→S6 B3（run=3，Count=3） | 无 | S1=[A · D2 · A3]；S2=[B · C2]；S3=[C · E · B2 · C2]；S4=[A2 · D4]；S5=[E · C · E4]；S6=[B3]；S7=[∅] |
+| 2 | Move S3→S2 C2（run=2，Count=2） | 无 | S1=[A · D2 · A3]；S2=[B · C4]；S3=[C · E · B2]；S4=[A2 · D4]；S5=[E · C · E4]；S6=[B3]；S7=[∅] |
+| 3 | Move S3→S6 B2（run=2，Count=2） | 无 | S1=[A · D2 · A3]；S2=[B · C4]；S3=[C · E]；S4=[A2 · D4]；S5=[E · C · E4]；S6=[B5]；S7=[∅] |
+| 4 | Move S5→S3 E4（run=4，Count=4） | 无 | S1=[A · D2 · A3]；S2=[B · C4]；S3=[C · E5]；S4=[A2 · D4]；S5=[E · C]；S6=[B5]；S7=[∅] |
+| 5 | Move S2→S5 C4（run=4，Count=4） | 无 | S1=[A · D2 · A3]；S2=[B]；S3=[C · E5]；S4=[A2 · D4]；S5=[E · C5]；S6=[B5]；S7=[∅] |
+| 6 | Move S2→S6 B1（run=1，Count=1）；Home B@S6；Retire S6 | B | S1=[A · D2 · A3]；S2=[∅]；S3=[C · E5]；S4=[A2 · D4]；S5=[E · C5]；S6=[∅][Retired]；S7=[∅] |
+| 7 | Move S3→S2 E5（run=5，Count=5） | B | S1=[A · D2 · A3]；S2=[E5]；S3=[C]；S4=[A2 · D4]；S5=[E · C5]；S6=[∅][Retired]；S7=[∅] |
+| 8 | Move S5→S3 C5（run=5，Count=5）；Home C@S3；Retire S3 | B,C | S1=[A · D2 · A3]；S2=[E5]；S3=[∅][Retired]；S4=[A2 · D4]；S5=[E]；S6=[∅][Retired]；S7=[∅] |
+| 9 | Move S2→S5 E5（run=5，Count=5）；Home E@S5；Retire S5 | B,C,E | S1=[A · D2 · A3]；S2=[∅]；S3=[∅][Retired]；S4=[A2 · D4]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅] |
+| 10 | Move S4→S2 D4（run=4，Count=4） | B,C,E | S1=[A · D2 · A3]；S2=[D4]；S3=[∅][Retired]；S4=[A2]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅] |
+| 11 | Move S1→S4 A3（run=3，Count=3） | B,C,E | S1=[A · D2]；S2=[D4]；S3=[∅][Retired]；S4=[A5]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅] |
+| 12 | Move S1→S2 D2（run=2，Count=2）；Home D@S2；Retire S2 | B,C,D,E | S1=[A]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[A5]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅] |
+| 13 | Move S1→S4 A1（run=1，Count=1）；Home A@S4；Retire S4 | A,B,C,D,E | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡32
 
-K6/P8；Q=`B,E,A,F,D,C`。E先第二步开箱；B先第四步才开箱，两条具体见证八/九步非最优。
+双蛋回流；世界D 雪松林；N=6，K=5，P=7；所有枝相同容量；每种含蛋共6token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP；SRC-QUEST（?蛋）。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `E5 · A` | 普通枝 |
-| S2 | 6 | `B5 · F` | 普通枝 |
-| S3 | 6 | `C5 · D` | 普通枝；盖箱 RevealSpecies=E |
-| S4 | 6 | `A5` | 普通枝 |
-| S5 | 6 | `F5 · E` | 普通枝 |
-| S6 | 6 | `D5 · C` | 普通枝 |
-| S7 | 6 | `B` | 普通枝 |
-| S8 | 4 | `∅` | 普通枝 |
+| S1 | 6 | `A3 · D3` | `A3 · D3` |
+| S2 | 6 | `B2 · ?(B) · E · C · D` | `B2 · ? · E · C · D` |
+| S3 | 6 | `C · D · B2 · E · C` | `C · D · B2 · E · C` |
+| S4 | 6 | `A3 · C2 · E` | `A3 · C2 · E` |
+| S5 | 6 | `E · B · ?(D) · C · E2` | `E · B · ? · C · E2` |
+| S6 | 6 | `∅` | `∅` |
+| S7 | 6 | `∅` | `∅` |
 
-### 主路线（8步，非最优证明）
+本关固定结构：20个初始连续段、2颗问号蛋。主路17步，仅存在性见证。首次归巢在第8步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。孵化见第9,14步；未孵化种类对玩家隐藏。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S8 A1；run=1,Count=1 | 0 / 无 / BE | S1=[E5]；S2=[B5 · F]；S3=[C5 · D][盖箱]；S4=[A5]；S5=[F5 · E]；S6=[D5 · C]；S7=[B]；S8=[A] |
-| 2 | Move S5→S1 E1；Complete/Home E@S1；Reveal S3；run=1,Count=1 | 1 / E / BA | S1=[∅]；S2=[B5 · F]；S3=[C5 · D]；S4=[A5]；S5=[F5]；S6=[D5 · C]；S7=[B]；S8=[A] |
-| 3 | Move S8→S4 A1；Complete/Home A@S4；run=1,Count=1 | 2 / EA / BF | S1=[∅]；S2=[B5 · F]；S3=[C5 · D]；S4=[∅]；S5=[F5]；S6=[D5 · C]；S7=[B]；S8=[∅] |
-| 4 | Move S2→S5 F1；Complete/Home F@S5；run=1,Count=1 | 3 / EAF / BD | S1=[∅]；S2=[B5]；S3=[C5 · D]；S4=[∅]；S5=[∅]；S6=[D5 · C]；S7=[B]；S8=[∅] |
-| 5 | Move S7→S2 B1；Complete/Home B@S2；run=1,Count=1 | 4 / BEAF / DC | S1=[∅]；S2=[∅]；S3=[C5 · D]；S4=[∅]；S5=[∅]；S6=[D5 · C]；S7=[∅]；S8=[∅] |
-| 6 | Move S6→S1 C1；run=1,Count=1 | 4 / BEAF / DC | S1=[C]；S2=[∅]；S3=[C5 · D]；S4=[∅]；S5=[∅]；S6=[D5]；S7=[∅]；S8=[∅] |
-| 7 | Move S3→S6 D1；Complete/Home D@S6；run=1,Count=1 | 5 / BEAFD / C | S1=[C]；S2=[∅]；S3=[C5]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
-| 8 | Move S1→S3 C1；Complete/Home C@S3；run=1,Count=1 | 6 / BEAFDC / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
+| 1 | Move S1→S6 D3（run=3，Count=3） | 无 | S1=[A3]；S2=[B2 · ?(B) · E · C · D]；S3=[C · D · B2 · E · C]；S4=[A3 · C2 · E]；S5=[E · B · ?(D) · C · E2]；S6=[D3]；S7=[∅] |
+| 2 | Move S2→S6 D1（run=1，Count=1） | 无 | S1=[A3]；S2=[B2 · ?(B) · E · C]；S3=[C · D · B2 · E · C]；S4=[A3 · C2 · E]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[∅] |
+| 3 | Move S3→S2 C1（run=1，Count=1） | 无 | S1=[A3]；S2=[B2 · ?(B) · E · C2]；S3=[C · D · B2 · E]；S4=[A3 · C2 · E]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[∅] |
+| 4 | Move S4→S3 E1（run=1，Count=1） | 无 | S1=[A3]；S2=[B2 · ?(B) · E · C2]；S3=[C · D · B2 · E2]；S4=[A3 · C2]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[∅] |
+| 5 | Move S2→S7 C2（run=2，Count=2） | 无 | S1=[A3]；S2=[B2 · ?(B) · E]；S3=[C · D · B2 · E2]；S4=[A3 · C2]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C2] |
+| 6 | Move S3→S2 E2（run=2，Count=2） | 无 | S1=[A3]；S2=[B2 · ?(B) · E3]；S3=[C · D · B2]；S4=[A3 · C2]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C2] |
+| 7 | Move S4→S7 C2（run=2，Count=2） | 无 | S1=[A3]；S2=[B2 · ?(B) · E3]；S3=[C · D · B2]；S4=[A3]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C4] |
+| 8 | Move S1→S4 A3（run=3，Count=3）；Home A@S4；Retire S4 | A | S1=[∅]；S2=[B2 · ?(B) · E3]；S3=[C · D · B2]；S4=[∅][Retired]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C4] |
+| 9 | Move S2→S1 E3（run=3，Count=3）；Hatch S2 → B | A | S1=[E3]；S2=[B3]；S3=[C · D · B2]；S4=[∅][Retired]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C4] |
+| 10 | Move S3→S2 B2（run=2，Count=2） | A | S1=[E3]；S2=[B5]；S3=[C · D]；S4=[∅][Retired]；S5=[E · B · ?(D) · C · E2]；S6=[D4]；S7=[C4] |
+| 11 | Move S3→S6 D1（run=1，Count=1） | A | S1=[E3]；S2=[B5]；S3=[C]；S4=[∅][Retired]；S5=[E · B · ?(D) · C · E2]；S6=[D5]；S7=[C4] |
+| 12 | Move S3→S7 C1（run=1，Count=1） | A | S1=[E3]；S2=[B5]；S3=[∅]；S4=[∅][Retired]；S5=[E · B · ?(D) · C · E2]；S6=[D5]；S7=[C5] |
+| 13 | Move S5→S1 E2（run=2，Count=2） | A | S1=[E5]；S2=[B5]；S3=[∅]；S4=[∅][Retired]；S5=[E · B · ?(D) · C]；S6=[D5]；S7=[C5] |
+| 14 | Move S5→S7 C1（run=1，Count=1）；Hatch S5 → D；Home C@S7；Retire S7 | A,C | S1=[E5]；S2=[B5]；S3=[∅]；S4=[∅][Retired]；S5=[E · B · D]；S6=[D5]；S7=[∅][Retired] |
+| 15 | Move S5→S6 D1（run=1，Count=1）；Home D@S6；Retire S6 | A,C,D | S1=[E5]；S2=[B5]；S3=[∅]；S4=[∅][Retired]；S5=[E · B]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 16 | Move S5→S2 B1（run=1，Count=1）；Home B@S2；Retire S2 | A,B,C,D | S1=[E5]；S2=[∅][Retired]；S3=[∅]；S4=[∅][Retired]；S5=[E]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 17 | Move S1→S5 E5（run=5，Count=5）；Home E@S5；Retire S5 | A,B,C,D,E | S1=[∅]；S2=[∅][Retired]；S3=[∅]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-### 对照路线1（9步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S2→S8 F1；run=1,Count=1 | 0 / 无 / BE | S1=[E5 · A]；S2=[B5]；S3=[C5 · D][盖箱]；S4=[A5]；S5=[F5 · E]；S6=[D5 · C]；S7=[B]；S8=[F] |
-| 2 | Move S7→S2 B1；Complete/Home B@S2；run=1,Count=1 | 1 / B / EA | S1=[E5 · A]；S2=[∅]；S3=[C5 · D][盖箱]；S4=[A5]；S5=[F5 · E]；S6=[D5 · C]；S7=[∅]；S8=[F] |
-| 3 | Move S1→S2 A1；run=1,Count=1 | 1 / B / EA | S1=[E5]；S2=[A]；S3=[C5 · D][盖箱]；S4=[A5]；S5=[F5 · E]；S6=[D5 · C]；S7=[∅]；S8=[F] |
-| 4 | Move S5→S1 E1；Complete/Home E@S1；Reveal S3；run=1,Count=1 | 2 / BE / AF | S1=[∅]；S2=[A]；S3=[C5 · D]；S4=[A5]；S5=[F5]；S6=[D5 · C]；S7=[∅]；S8=[F] |
-| 5 | Move S8→S5 F1；Complete/Home F@S5；run=1,Count=1 | 3 / BEF / AD | S1=[∅]；S2=[A]；S3=[C5 · D]；S4=[A5]；S5=[∅]；S6=[D5 · C]；S7=[∅]；S8=[∅] |
-| 6 | Move S2→S4 A1；Complete/Home A@S4；run=1,Count=1 | 4 / BEAF / DC | S1=[∅]；S2=[∅]；S3=[C5 · D]；S4=[∅]；S5=[∅]；S6=[D5 · C]；S7=[∅]；S8=[∅] |
-| 7 | Move S6→S1 C1；run=1,Count=1 | 4 / BEAF / DC | S1=[C]；S2=[∅]；S3=[C5 · D]；S4=[∅]；S5=[∅]；S6=[D5]；S7=[∅]；S8=[∅] |
-| 8 | Move S3→S6 D1；Complete/Home D@S6；run=1,Count=1 | 5 / BEAFD / C | S1=[C]；S2=[∅]；S3=[C5]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
-| 9 | Move S1→S3 C1；Complete/Home C@S3；run=1,Count=1 | 6 / BEAFDC / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
-
-
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡33
 
-K6/P8；Q=`C,A,F,B,E,D`。A2只出1保Armed，再接第二蛋排A1；与26一次接收不同。
+八座首次汇合；世界D 雪松林；N=8，K=5，P=7；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `C3 · 蛋(C) · A2` | 普通枝 |
-| S2 | 6 | `F4 · 蛋(F) · A` | 普通枝 |
-| S3 | 6 | `B2 · A3` | 普通枝 |
-| S4 | 6 | `D4 · 蛋(D) · B` | 普通枝 |
-| S5 | 6 | `C2` | 普通枝 |
-| S6 | 6 | `E5 · B` | 普通枝 |
-| S7 | 6 | `D · F · B2 · E` | 普通枝 |
-| S8 | 5 | `∅` | 临时Unused |
+| S1 | 8 | `A5 · B · C2` | `A5 · B · C2` |
+| S2 | 8 | `B · D · B2 · E · A2 · C` | `B · D · B2 · E · A2 · C` |
+| S3 | 8 | `C2 · B2 · E3 · C` | `C2 · B2 · E3 · C` |
+| S4 | 8 | `D · B · C2 · D3 · B` | `D · B · C2 · D3 · B` |
+| S5 | 8 | `E4 · D3 · A` | `E4 · D3 · A` |
+| S6 | 8 | `∅` | `∅` |
+| S7 | 8 | `∅` | `∅` |
 
-### 主路线（13步，非最优证明）
+本关固定结构：21个初始连续段、0颗问号蛋。主路20步，仅存在性见证。首次归巢在第7步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S8 A2；接收临时枝 S8；Hatch C@S1；run=2,Count=2 | 0 / 无 / CA | S1=[C4]；S2=[F4 · 蛋(F) · A]；S3=[B2 · A3]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 2 | Move S8→S3 A1；run=2,Count=1 | 0 / 无 / CA | S1=[C4]；S2=[F4 · 蛋(F) · A]；S3=[B2 · A4]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A][Armed] |
-| 3 | Move S2→S8 A1；接收临时枝 S8；Hatch F@S2；run=1,Count=1 | 0 / 无 / CA | S1=[C4]；S2=[F5]；S3=[B2 · A4]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 4 | Move S1→S5 C4；Complete/Home C@S5；run=4,Count=4 | 1 / C / AF | S1=[∅]；S2=[F5]；S3=[B2 · A4]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 5 | Move S3→S1 A4；run=4,Count=4 | 1 / C / AF | S1=[A4]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 6 | Move S8→S1 A2；Complete/Home A@S1；Retire S8；run=2,Count=2 | 2 / CA / FB | S1=[∅]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[∅][Retired] |
-| 7 | Move S7→S1 E1；run=1,Count=1 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2]；S8=[∅][Retired] |
-| 8 | Move S7→S3 B2；run=2,Count=2 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B4]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F]；S8=[∅][Retired] |
-| 9 | Move S4→S3 B1；Hatch D@S4；run=1,Count=1 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B5]；S4=[D5]；S5=[∅]；S6=[E5 · B]；S7=[D · F]；S8=[∅][Retired] |
-| 10 | Move S6→S3 B1；Complete/Home B@S3；run=1,Count=1 | 3 / CAB / FE | S1=[E]；S2=[F5]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[E5]；S7=[D · F]；S8=[∅][Retired] |
-| 11 | Move S1→S6 E1；Complete/Home E@S6；run=1,Count=1 | 4 / CABE / FD | S1=[∅]；S2=[F5]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[∅]；S7=[D · F]；S8=[∅][Retired] |
-| 12 | Move S7→S2 F1；Complete/Home F@S2；run=1,Count=1 | 5 / CAFBE / D | S1=[∅]；S2=[∅]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[∅]；S7=[D]；S8=[∅][Retired] |
-| 13 | Move S7→S4 D1；Complete/Home D@S4；run=1,Count=1 | 6 / CAFBED / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅][Retired] |
+| 1 | Move S1→S6 C2（run=2，Count=2） | 无 | S1=[A5 · B]；S2=[B · D · B2 · E · A2 · C]；S3=[C2 · B2 · E3 · C]；S4=[D · B · C2 · D3 · B]；S5=[E4 · D3 · A]；S6=[C2]；S7=[∅] |
+| 2 | Move S2→S6 C1（run=1，Count=1） | 无 | S1=[A5 · B]；S2=[B · D · B2 · E · A2]；S3=[C2 · B2 · E3 · C]；S4=[D · B · C2 · D3 · B]；S5=[E4 · D3 · A]；S6=[C3]；S7=[∅] |
+| 3 | Move S3→S6 C1（run=1，Count=1） | 无 | S1=[A5 · B]；S2=[B · D · B2 · E · A2]；S3=[C2 · B2 · E3]；S4=[D · B · C2 · D3 · B]；S5=[E4 · D3 · A]；S6=[C4]；S7=[∅] |
+| 4 | Move S4→S1 B1（run=1，Count=1） | 无 | S1=[A5 · B2]；S2=[B · D · B2 · E · A2]；S3=[C2 · B2 · E3]；S4=[D · B · C2 · D3]；S5=[E4 · D3 · A]；S6=[C4]；S7=[∅] |
+| 5 | Move S5→S2 A1（run=1，Count=1） | 无 | S1=[A5 · B2]；S2=[B · D · B2 · E · A3]；S3=[C2 · B2 · E3]；S4=[D · B · C2 · D3]；S5=[E4 · D3]；S6=[C4]；S7=[∅] |
+| 6 | Move S1→S7 B2（run=2，Count=2） | 无 | S1=[A5]；S2=[B · D · B2 · E · A3]；S3=[C2 · B2 · E3]；S4=[D · B · C2 · D3]；S5=[E4 · D3]；S6=[C4]；S7=[B2] |
+| 7 | Move S2→S1 A3（run=3，Count=3）；Home A@S1；Retire S1 | A | S1=[∅][Retired]；S2=[B · D · B2 · E]；S3=[C2 · B2 · E3]；S4=[D · B · C2 · D3]；S5=[E4 · D3]；S6=[C4]；S7=[B2] |
+| 8 | Move S2→S3 E1（run=1，Count=1） | A | S1=[∅][Retired]；S2=[B · D · B2]；S3=[C2 · B2 · E4]；S4=[D · B · C2 · D3]；S5=[E4 · D3]；S6=[C4]；S7=[B2] |
+| 9 | Move S2→S7 B2（run=2，Count=2） | A | S1=[∅][Retired]；S2=[B · D]；S3=[C2 · B2 · E4]；S4=[D · B · C2 · D3]；S5=[E4 · D3]；S6=[C4]；S7=[B4] |
+| 10 | Move S2→S4 D1（run=1，Count=1） | A | S1=[∅][Retired]；S2=[B]；S3=[C2 · B2 · E4]；S4=[D · B · C2 · D4]；S5=[E4 · D3]；S6=[C4]；S7=[B4] |
+| 11 | Move S2→S7 B1（run=1，Count=1） | A | S1=[∅][Retired]；S2=[∅]；S3=[C2 · B2 · E4]；S4=[D · B · C2 · D4]；S5=[E4 · D3]；S6=[C4]；S7=[B5] |
+| 12 | Move S3→S2 E4（run=4，Count=4） | A | S1=[∅][Retired]；S2=[E4]；S3=[C2 · B2]；S4=[D · B · C2 · D4]；S5=[E4 · D3]；S6=[C4]；S7=[B5] |
+| 13 | Move S3→S7 B2（run=2，Count=2） | A | S1=[∅][Retired]；S2=[E4]；S3=[C2]；S4=[D · B · C2 · D4]；S5=[E4 · D3]；S6=[C4]；S7=[B7] |
+| 14 | Move S3→S6 C2（run=2，Count=2） | A | S1=[∅][Retired]；S2=[E4]；S3=[∅]；S4=[D · B · C2 · D4]；S5=[E4 · D3]；S6=[C6]；S7=[B7] |
+| 15 | Move S4→S3 D4（run=4，Count=4） | A | S1=[∅][Retired]；S2=[E4]；S3=[D4]；S4=[D · B · C2]；S5=[E4 · D3]；S6=[C6]；S7=[B7] |
+| 16 | Move S4→S6 C2（run=2，Count=2）；Home C@S6；Retire S6 | A,C | S1=[∅][Retired]；S2=[E4]；S3=[D4]；S4=[D · B]；S5=[E4 · D3]；S6=[∅][Retired]；S7=[B7] |
+| 17 | Move S4→S7 B1（run=1，Count=1）；Home B@S7；Retire S7 | A,B,C | S1=[∅][Retired]；S2=[E4]；S3=[D4]；S4=[D]；S5=[E4 · D3]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 18 | Move S3→S4 D4（run=4，Count=4） | A,B,C | S1=[∅][Retired]；S2=[E4]；S3=[∅]；S4=[D5]；S5=[E4 · D3]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 19 | Move S5→S4 D3（run=3，Count=3）；Home D@S4；Retire S4 | A,B,C,D | S1=[∅][Retired]；S2=[E4]；S3=[∅]；S4=[∅][Retired]；S5=[E4]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 20 | Move S2→S5 E4（run=4，Count=4）；Home E@S5；Retire S5 | A,B,C,D,E | S1=[∅][Retired]；S2=[∅]；S3=[∅]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-### 对照路线1（13步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S2→S8 A1；接收临时枝 S8；Hatch F@S2；run=1,Count=1 | 0 / 无 / CA | S1=[C3 · 蛋(C) · A2]；S2=[F5]；S3=[B2 · A3]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A][Armed] |
-| 2 | Move S1→S8 A2；接收临时枝 S8；Hatch C@S1；run=2,Count=2 | 0 / 无 / CA | S1=[C4]；S2=[F5]；S3=[B2 · A3]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A3][Armed] |
-| 3 | Move S8→S3 A1；run=3,Count=1 | 0 / 无 / CA | S1=[C4]；S2=[F5]；S3=[B2 · A4]；S4=[D4 · 蛋(D) · B]；S5=[C2]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 4 | Move S1→S5 C4；Complete/Home C@S5；run=4,Count=4 | 1 / C / AF | S1=[∅]；S2=[F5]；S3=[B2 · A4]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 5 | Move S3→S1 A4；run=4,Count=4 | 1 / C / AF | S1=[A4]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[A2][Armed] |
-| 6 | Move S8→S1 A2；Complete/Home A@S1；Retire S8；run=2,Count=2 | 2 / CA / FB | S1=[∅]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2 · E]；S8=[∅][Retired] |
-| 7 | Move S7→S1 E1；run=1,Count=1 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B2]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F · B2]；S8=[∅][Retired] |
-| 8 | Move S7→S3 B2；run=2,Count=2 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B4]；S4=[D4 · 蛋(D) · B]；S5=[∅]；S6=[E5 · B]；S7=[D · F]；S8=[∅][Retired] |
-| 9 | Move S4→S3 B1；Hatch D@S4；run=1,Count=1 | 2 / CA / FB | S1=[E]；S2=[F5]；S3=[B5]；S4=[D5]；S5=[∅]；S6=[E5 · B]；S7=[D · F]；S8=[∅][Retired] |
-| 10 | Move S6→S3 B1；Complete/Home B@S3；run=1,Count=1 | 3 / CAB / FE | S1=[E]；S2=[F5]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[E5]；S7=[D · F]；S8=[∅][Retired] |
-| 11 | Move S1→S6 E1；Complete/Home E@S6；run=1,Count=1 | 4 / CABE / FD | S1=[∅]；S2=[F5]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[∅]；S7=[D · F]；S8=[∅][Retired] |
-| 12 | Move S7→S2 F1；Complete/Home F@S2；run=1,Count=1 | 5 / CAFBE / D | S1=[∅]；S2=[∅]；S3=[∅]；S4=[D5]；S5=[∅]；S6=[∅]；S7=[D]；S8=[∅][Retired] |
-| 13 | Move S7→S4 D1；Complete/Home D@S4；run=1,Count=1 | 6 / CAFBED / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅][Retired] |
-
-
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡34
 
-K6/P8；Q=`D,B,E,A,F,C`。双篮先占B/D，B打开种类箱而计数箱仍闭，D再开计数箱；两条件分时。
+八座单蛋挑战；世界D 雪松林；N=8，K=5，P=7；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP；SRC-QUEST（?蛋）。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `D5 · B` | 普通枝 |
-| S2 | 6 | `B5 · D` | 普通枝 |
-| S3 | 6 | `E5 · A` | 普通枝；盖箱 RevealAfter=2 |
-| S4 | 6 | `F5 · C` | 普通枝；盖箱 RevealSpecies=B |
-| S5 | 6 | `A5 · F` | 普通枝 |
-| S6 | 6 | `C5 · E` | 普通枝 |
-| S7 | 6 | `∅` | 普通枝 |
-| S8 | 6 | `∅` | 普通枝 |
-| T1 | 1 | `∅` | 篮 |
-| T2 | 1 | `∅` | 篮 |
+| S1 | 8 | `A · E2 · D2 · E · A2` | `A · E2 · D2 · E · A2` |
+| S2 | 8 | `B4 · ?(B) · B · D · B` | `B4 · ? · B · D · B` |
+| S3 | 8 | `C4 · D · E · C2` | `C4 · D · E · C2` |
+| S4 | 8 | `A · D3 · E3 · A` | `A · D3 · E3 · A` |
+| S5 | 8 | `D · A · E · B · A2 · C2` | `D · A · E · B · A2 · C2` |
+| S6 | 8 | `∅` | `∅` |
+| S7 | 8 | `∅` | `∅` |
 
-### 主路线（9步，非最优证明）
+本关固定结构：24个初始连续段、1颗问号蛋。主路23步，仅存在性见证。首次归巢在第18步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。孵化见第12步；未孵化种类对玩家隐藏。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→T1 B1；run=1,Count=1 | 0 / 无 / DB | S1=[D5]；S2=[B5 · D]；S3=[E5 · A][盖箱]；S4=[F5 · C][盖箱]；S5=[A5 · F]；S6=[C5 · E]；S7=[∅]；S8=[∅]；T1=[B]；T2=[∅] |
-| 2 | Move S2→T2 D1；run=1,Count=1 | 0 / 无 / DB | S1=[D5]；S2=[B5]；S3=[E5 · A][盖箱]；S4=[F5 · C][盖箱]；S5=[A5 · F]；S6=[C5 · E]；S7=[∅]；S8=[∅]；T1=[B]；T2=[D] |
-| 3 | Move T1→S2 B1；Complete/Home B@S2；Reveal S4；run=1,Count=1 | 1 / B / DE | S1=[D5]；S2=[∅]；S3=[E5 · A][盖箱]；S4=[F5 · C]；S5=[A5 · F]；S6=[C5 · E]；S7=[∅]；S8=[∅]；T1=[∅]；T2=[D] |
-| 4 | Move T2→S1 D1；Complete/Home D@S1；Reveal S3；run=1,Count=1 | 2 / DB / EA | S1=[∅]；S2=[∅]；S3=[E5 · A]；S4=[F5 · C]；S5=[A5 · F]；S6=[C5 · E]；S7=[∅]；S8=[∅]；T1=[∅]；T2=[∅] |
-| 5 | Move S4→S7 C1；run=1,Count=1 | 2 / DB / EA | S1=[∅]；S2=[∅]；S3=[E5 · A]；S4=[F5]；S5=[A5 · F]；S6=[C5 · E]；S7=[C]；S8=[∅]；T1=[∅]；T2=[∅] |
-| 6 | Move S5→S4 F1；Complete/Sleep F@S4；run=1,Count=1 | 3 / DB / EA | S1=[∅]；S2=[∅]；S3=[E5 · A]；S4=[F6][睡眠]；S5=[A5]；S6=[C5 · E]；S7=[C]；S8=[∅]；T1=[∅]；T2=[∅] |
-| 7 | Move S3→S5 A1；Complete/Home A@S5；AutoHome F@S4；run=1,Count=1 | 4 / DBAF / EC | S1=[∅]；S2=[∅]；S3=[E5]；S4=[∅]；S5=[∅]；S6=[C5 · E]；S7=[C]；S8=[∅]；T1=[∅]；T2=[∅] |
-| 8 | Move S6→S3 E1；Complete/Home E@S3；run=1,Count=1 | 5 / DBEAF / C | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5]；S7=[C]；S8=[∅]；T1=[∅]；T2=[∅] |
-| 9 | Move S7→S6 C1；Complete/Home C@S6；run=1,Count=1 | 6 / DBEAFC / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；T1=[∅]；T2=[∅] |
+| 1 | Move S1→S6 A2（run=2，Count=2） | 无 | S1=[A · E2 · D2 · E]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A · D3 · E3 · A]；S5=[D · A · E · B · A2 · C2]；S6=[A2]；S7=[∅] |
+| 2 | Move S4→S6 A1（run=1，Count=1） | 无 | S1=[A · E2 · D2 · E]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A · D3 · E3]；S5=[D · A · E · B · A2 · C2]；S6=[A3]；S7=[∅] |
+| 3 | Move S1→S4 E1（run=1，Count=1） | 无 | S1=[A · E2 · D2]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A · D3 · E4]；S5=[D · A · E · B · A2 · C2]；S6=[A3]；S7=[∅] |
+| 4 | Move S1→S7 D2（run=2，Count=2） | 无 | S1=[A · E2]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A · D3 · E4]；S5=[D · A · E · B · A2 · C2]；S6=[A3]；S7=[D2] |
+| 5 | Move S4→S1 E4（run=4，Count=4） | 无 | S1=[A · E6]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A · D3]；S5=[D · A · E · B · A2 · C2]；S6=[A3]；S7=[D2] |
+| 6 | Move S4→S7 D3（run=3，Count=3） | 无 | S1=[A · E6]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[A]；S5=[D · A · E · B · A2 · C2]；S6=[A3]；S7=[D5] |
+| 7 | Move S4→S6 A1（run=1，Count=1） | 无 | S1=[A · E6]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[∅]；S5=[D · A · E · B · A2 · C2]；S6=[A4]；S7=[D5] |
+| 8 | Move S1→S4 E6（run=6，Count=6） | 无 | S1=[A]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A4]；S7=[D5] |
+| 9 | Move S1→S6 A1（run=1，Count=1） | 无 | S1=[∅]；S2=[B4 · ?(B) · B · D · B]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D5] |
+| 10 | Move S2→S1 B1（run=1，Count=1） | 无 | S1=[B]；S2=[B4 · ?(B) · B · D]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D5] |
+| 11 | Move S2→S7 D1（run=1，Count=1） | 无 | S1=[B]；S2=[B4 · ?(B) · B]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D6] |
+| 12 | Move S2→S1 B1（run=1，Count=1）；Hatch S2 → B | 无 | S1=[B2]；S2=[B5]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D6] |
+| 13 | Move S1→S2 B2（run=2，Count=2） | 无 | S1=[∅]；S2=[B7]；S3=[C4 · D · E · C2]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D6] |
+| 14 | Move S3→S1 C2（run=2，Count=2） | 无 | S1=[C2]；S2=[B7]；S3=[C4 · D · E]；S4=[E6]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D6] |
+| 15 | Move S3→S4 E1（run=1，Count=1） | 无 | S1=[C2]；S2=[B7]；S3=[C4 · D]；S4=[E7]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D6] |
+| 16 | Move S3→S7 D1（run=1，Count=1） | 无 | S1=[C2]；S2=[B7]；S3=[C4]；S4=[E7]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D7] |
+| 17 | Move S1→S3 C2（run=2，Count=2） | 无 | S1=[∅]；S2=[B7]；S3=[C6]；S4=[E7]；S5=[D · A · E · B · A2 · C2]；S6=[A5]；S7=[D7] |
+| 18 | Move S5→S3 C2（run=2，Count=2）；Home C@S3；Retire S3 | C | S1=[∅]；S2=[B7]；S3=[∅][Retired]；S4=[E7]；S5=[D · A · E · B · A2]；S6=[A5]；S7=[D7] |
+| 19 | Move S5→S6 A2（run=2，Count=2） | C | S1=[∅]；S2=[B7]；S3=[∅][Retired]；S4=[E7]；S5=[D · A · E · B]；S6=[A7]；S7=[D7] |
+| 20 | Move S5→S2 B1（run=1，Count=1）；Home B@S2；Retire S2 | B,C | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[E7]；S5=[D · A · E]；S6=[A7]；S7=[D7] |
+| 21 | Move S5→S4 E1（run=1，Count=1）；Home E@S4；Retire S4 | B,C,E | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[D · A]；S6=[A7]；S7=[D7] |
+| 22 | Move S5→S6 A1（run=1，Count=1）；Home A@S6；Retire S6 | A,B,C,E | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[D]；S6=[∅][Retired]；S7=[D7] |
+| 23 | Move S5→S7 D1（run=1，Count=1）；Home D@S7；Retire S7 | A,B,C,D,E | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅]；S6=[∅][Retired]；S7=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡35
 
-K6/P8；Q=`E,A,D,C,B,F`。K6低混杂舒缓大段，和30同族，目标顺序/排布不同。
+雪松林歇脚；世界D 雪松林；N=6，K=4，P=6；所有枝相同容量；每种含蛋共6token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `E3 · A3` | 普通枝 |
-| S2 | 6 | `A3 · D3` | 普通枝 |
-| S3 | 6 | `D3 · C3` | 普通枝 |
-| S4 | 6 | `C3 · B3` | 普通枝 |
-| S5 | 6 | `B3 · F3` | 普通枝 |
-| S6 | 6 | `F3` | 普通枝 |
-| S7 | 6 | `∅` | 普通枝 |
-| S8 | 6 | `E3` | 普通枝 |
+| S1 | 6 | `D3 · A3` | `D3 · A3` |
+| S2 | 6 | `B · C · A3 · B` | `B · C · A3 · B` |
+| S3 | 6 | `C3 · B · C2` | `C3 · B · C2` |
+| S4 | 6 | `D · B3 · D2` | `D · B3 · D2` |
+| S5 | 6 | `∅` | `∅` |
+| S6 | 6 | `∅` | `∅` |
 
-### 主路线（7步，非最优证明）
+本关固定结构：12个初始连续段、0颗问号蛋。主路9步，仅存在性见证。首次归巢在第4步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S7 A3；run=3,Count=3 | 0 / 无 / EA | S1=[E3]；S2=[A3 · D3]；S3=[D3 · C3]；S4=[C3 · B3]；S5=[B3 · F3]；S6=[F3]；S7=[A3]；S8=[E3] |
-| 2 | Move S8→S1 E3；Complete/Home E@S1；run=3,Count=3 | 1 / E / AD | S1=[∅]；S2=[A3 · D3]；S3=[D3 · C3]；S4=[C3 · B3]；S5=[B3 · F3]；S6=[F3]；S7=[A3]；S8=[∅] |
-| 3 | Move S5→S6 F3；Complete/Sleep F@S6；run=3,Count=3 | 2 / E / AD | S1=[∅]；S2=[A3 · D3]；S3=[D3 · C3]；S4=[C3 · B3]；S5=[B3]；S6=[F6][睡眠]；S7=[A3]；S8=[∅] |
-| 4 | Move S4→S5 B3；Complete/Sleep B@S5；run=3,Count=3 | 3 / E / AD | S1=[∅]；S2=[A3 · D3]；S3=[D3 · C3]；S4=[C3]；S5=[B6][睡眠]；S6=[F6][睡眠]；S7=[A3]；S8=[∅] |
-| 5 | Move S3→S4 C3；Complete/Sleep C@S4；run=3,Count=3 | 4 / E / AD | S1=[∅]；S2=[A3 · D3]；S3=[D3]；S4=[C6][睡眠]；S5=[B6][睡眠]；S6=[F6][睡眠]；S7=[A3]；S8=[∅] |
-| 6 | Move S2→S3 D3；Complete/Home D@S3；AutoHome C@S4；AutoHome B@S5；AutoHome F@S6；run=3,Count=3 | 5 / EDCBF / A | S1=[∅]；S2=[A3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[A3]；S8=[∅] |
-| 7 | Move S7→S2 A3；Complete/Home A@S2；run=3,Count=3 | 6 / EADCBF / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅] |
+| 1 | Move S1→S5 A3（run=3，Count=3） | 无 | S1=[D3]；S2=[B · C · A3 · B]；S3=[C3 · B · C2]；S4=[D · B3 · D2]；S5=[A3]；S6=[∅] |
+| 2 | Move S4→S1 D2（run=2，Count=2） | 无 | S1=[D5]；S2=[B · C · A3 · B]；S3=[C3 · B · C2]；S4=[D · B3]；S5=[A3]；S6=[∅] |
+| 3 | Move S2→S4 B1（run=1，Count=1） | 无 | S1=[D5]；S2=[B · C · A3]；S3=[C3 · B · C2]；S4=[D · B4]；S5=[A3]；S6=[∅] |
+| 4 | Move S2→S5 A3（run=3，Count=3）；Home A@S5；Retire S5 | A | S1=[D5]；S2=[B · C]；S3=[C3 · B · C2]；S4=[D · B4]；S5=[∅][Retired]；S6=[∅] |
+| 5 | Move S3→S2 C2（run=2，Count=2） | A | S1=[D5]；S2=[B · C3]；S3=[C3 · B]；S4=[D · B4]；S5=[∅][Retired]；S6=[∅] |
+| 6 | Move S3→S4 B1（run=1，Count=1） | A | S1=[D5]；S2=[B · C3]；S3=[C3]；S4=[D · B5]；S5=[∅][Retired]；S6=[∅] |
+| 7 | Move S2→S3 C3（run=3，Count=3）；Home C@S3；Retire S3 | A,C | S1=[D5]；S2=[B]；S3=[∅][Retired]；S4=[D · B5]；S5=[∅][Retired]；S6=[∅] |
+| 8 | Move S4→S2 B5（run=5，Count=5）；Home B@S2；Retire S2 | A,B,C | S1=[D5]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D]；S5=[∅][Retired]；S6=[∅] |
+| 9 | Move S1→S4 D5（run=5，Count=5）；Home D@S4；Retire S4 | A,B,C,D | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡36
 
-K7/P9；Q=`A,G,C,F,B,E,D`。第一排普通枝，前四步临时Unused；第二排首次用临时枝；早用也可赢多一步。
+八座双揭示；世界D 雪松林；N=8，K=5，P=7；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP；SRC-QUEST（?蛋）。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `A3 · 蛋(A)2 · G` | 普通枝 |
-| S2 | 6 | `G5 · A` | 普通枝 |
-| S3 | 6 | `C3 · 蛋(C)2 · F` | 普通枝 |
-| S4 | 6 | `F5 · C` | 普通枝 |
-| S5 | 6 | `B5 · E` | 普通枝 |
-| S6 | 6 | `E5 · D` | 普通枝 |
-| S7 | 6 | `D5 · B` | 普通枝 |
-| S8 | 6 | `∅` | 普通枝 |
-| S9 | 4 | `∅` | 临时Unused |
+| S1 | 8 | `A6 · ?(C) · A` | `A6 · ? · A` |
+| S2 | 8 | `B4 · E3 · B` | `B4 · E3 · B` |
+| S3 | 8 | `C · A · C2 · D3 · E` | `C · A · C2 · D3 · E` |
+| S4 | 8 | `C3 · D5` | `C3 · D5` |
+| S5 | 8 | `E2 · B · ?(B) · B · E2 · C` | `E2 · B · ? · B · E2 · C` |
+| S6 | 8 | `∅` | `∅` |
+| S7 | 8 | `∅` | `∅` |
 
-### 主路线（13步，非最优证明）
+本关固定结构：19个初始连续段、2颗问号蛋。主路18步，仅存在性见证。首次归巢在第8步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。孵化见第1,13步；未孵化种类对玩家隐藏。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S2→S8 A1；run=1,Count=1 | 0 / 无 / AG | S1=[A3 · 蛋(A)2 · G]；S2=[G5]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[A]；S9=[∅][Unused] |
-| 2 | Move S1→S2 G1；Hatch A@S1；Complete/Home G@S2；run=1,Count=1 | 1 / G / AC | S1=[A3 · 蛋(A) · A]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[A]；S9=[∅][Unused] |
-| 3 | Move S1→S8 A1；Hatch A@S1；run=1,Count=1 | 1 / G / AC | S1=[A4]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[A2]；S9=[∅][Unused] |
-| 4 | Move S1→S8 A4；Complete/Home A@S8；run=4,Count=4 | 2 / AG / CF | S1=[∅]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Unused] |
-| 5 | Move S3→S9 F1；接收临时枝 S9；Hatch C@S3；run=1,Count=1 | 2 / AG / CF | S1=[∅]；S2=[∅]；S3=[C3 · 蛋(C) · C]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[F][Armed] |
-| 6 | Move S4→S1 C1；run=1,Count=1 | 2 / AG / CF | S1=[C]；S2=[∅]；S3=[C3 · 蛋(C) · C]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[F][Armed] |
-| 7 | Move S3→S1 C1；Hatch C@S3；run=1,Count=1 | 2 / AG / CF | S1=[C2]；S2=[∅]；S3=[C4]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[F][Armed] |
-| 8 | Move S3→S1 C4；Complete/Home C@S1；run=4,Count=4 | 3 / AGC / FB | S1=[∅]；S2=[∅]；S3=[∅]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[F][Armed] |
-| 9 | Move S9→S4 F1；Complete/Home F@S4；Retire S9；run=1,Count=1 | 4 / AGCF / BE | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 10 | Move S5→S1 E1；run=1,Count=1 | 4 / AGCF / BE | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[B5]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 11 | Move S7→S5 B1；Complete/Home B@S5；run=1,Count=1 | 5 / AGCFB / ED | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[E5 · D]；S7=[D5]；S8=[∅]；S9=[∅][Retired] |
-| 12 | Move S6→S7 D1；Complete/Home D@S7；run=1,Count=1 | 6 / AGCFBD / E | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[E5]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
-| 13 | Move S1→S6 E1；Complete/Home E@S6；run=1,Count=1 | 7 / AGCFBED / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
+| 1 | Move S1→S6 A1（run=1，Count=1）；Hatch S1 → C | 无 | S1=[A6 · C]；S2=[B4 · E3 · B]；S3=[C · A · C2 · D3 · E]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E2 · C]；S6=[A]；S7=[∅] |
+| 2 | Move S5→S1 C1（run=1，Count=1） | 无 | S1=[A6 · C2]；S2=[B4 · E3 · B]；S3=[C · A · C2 · D3 · E]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E2]；S6=[A]；S7=[∅] |
+| 3 | Move S3→S5 E1（run=1，Count=1） | 无 | S1=[A6 · C2]；S2=[B4 · E3 · B]；S3=[C · A · C2 · D3]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[A]；S7=[∅] |
+| 4 | Move S1→S7 C2（run=2，Count=2） | 无 | S1=[A6]；S2=[B4 · E3 · B]；S3=[C · A · C2 · D3]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[A]；S7=[C2] |
+| 5 | Move S1→S6 A6（run=6，Count=6） | 无 | S1=[∅]；S2=[B4 · E3 · B]；S3=[C · A · C2 · D3]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[A7]；S7=[C2] |
+| 6 | Move S3→S1 D3（run=3，Count=3） | 无 | S1=[D3]；S2=[B4 · E3 · B]；S3=[C · A · C2]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[A7]；S7=[C2] |
+| 7 | Move S3→S7 C2（run=2，Count=2） | 无 | S1=[D3]；S2=[B4 · E3 · B]；S3=[C · A]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[A7]；S7=[C4] |
+| 8 | Move S3→S6 A1（run=1，Count=1）；Home A@S6；Retire S6 | A | S1=[D3]；S2=[B4 · E3 · B]；S3=[C]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[∅][Retired]；S7=[C4] |
+| 9 | Move S3→S7 C1（run=1，Count=1） | A | S1=[D3]；S2=[B4 · E3 · B]；S3=[∅]；S4=[C3 · D5]；S5=[E2 · B · ?(B) · B · E3]；S6=[∅][Retired]；S7=[C5] |
+| 10 | Move S4→S1 D5（run=5，Count=5）；Home D@S1；Retire S1 | A,D | S1=[∅][Retired]；S2=[B4 · E3 · B]；S3=[∅]；S4=[C3]；S5=[E2 · B · ?(B) · B · E3]；S6=[∅][Retired]；S7=[C5] |
+| 11 | Move S4→S7 C3（run=3，Count=3）；Home C@S7；Retire S7 | A,C,D | S1=[∅][Retired]；S2=[B4 · E3 · B]；S3=[∅]；S4=[∅]；S5=[E2 · B · ?(B) · B · E3]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 12 | Move S5→S3 E3（run=3，Count=3） | A,C,D | S1=[∅][Retired]；S2=[B4 · E3 · B]；S3=[E3]；S4=[∅]；S5=[E2 · B · ?(B) · B]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 13 | Move S5→S4 B1（run=1，Count=1）；Hatch S5 → B | A,C,D | S1=[∅][Retired]；S2=[B4 · E3 · B]；S3=[E3]；S4=[B]；S5=[E2 · B2]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 14 | Move S2→S4 B1（run=1，Count=1） | A,C,D | S1=[∅][Retired]；S2=[B4 · E3]；S3=[E3]；S4=[B2]；S5=[E2 · B2]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 15 | Move S2→S3 E3（run=3，Count=3） | A,C,D | S1=[∅][Retired]；S2=[B4]；S3=[E6]；S4=[B2]；S5=[E2 · B2]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 16 | Move S2→S4 B4（run=4，Count=4） | A,C,D | S1=[∅][Retired]；S2=[∅]；S3=[E6]；S4=[B6]；S5=[E2 · B2]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 17 | Move S5→S4 B2（run=2，Count=2）；Home B@S4；Retire S4 | A,B,C,D | S1=[∅][Retired]；S2=[∅]；S3=[E6]；S4=[∅][Retired]；S5=[E2]；S6=[∅][Retired]；S7=[∅][Retired] |
+| 18 | Move S3→S5 E6（run=6，Count=6）；Home E@S5；Retire S5 | A,B,C,D,E | S1=[∅][Retired]；S2=[∅]；S3=[∅]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-### 对照路线1（14步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S2→S9 A1；接收临时枝 S9；run=1,Count=1 | 0 / 无 / AG | S1=[A3 · 蛋(A)2 · G]；S2=[G5]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[A][Armed] |
-| 2 | Move S1→S2 G1；Hatch A@S1；Complete/Home G@S2；run=1,Count=1 | 1 / G / AC | S1=[A3 · 蛋(A) · A]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[A][Armed] |
-| 3 | Move S1→S9 A1；接收临时枝 S9；Hatch A@S1；run=1,Count=1 | 1 / G / AC | S1=[A4]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[A2][Armed] |
-| 4 | Move S1→S9 A2；接收临时枝 S9；run=4,Count=2 | 1 / G / AC | S1=[A2]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[A4][Armed] |
-| 5 | Move S9→S1 A4；Complete/Home A@S1；Retire S9；run=4,Count=4 | 2 / AG / CF | S1=[∅]；S2=[∅]；S3=[C3 · 蛋(C)2 · F]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 6 | Move S3→S2 F1；Hatch C@S3；run=1,Count=1 | 2 / AG / CF | S1=[∅]；S2=[F]；S3=[C3 · 蛋(C) · C]；S4=[F5 · C]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 7 | Move S4→S1 C1；run=1,Count=1 | 2 / AG / CF | S1=[C]；S2=[F]；S3=[C3 · 蛋(C) · C]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 8 | Move S3→S1 C1；Hatch C@S3；run=1,Count=1 | 2 / AG / CF | S1=[C2]；S2=[F]；S3=[C4]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 9 | Move S3→S1 C4；Complete/Home C@S1；run=4,Count=4 | 3 / AGC / FB | S1=[∅]；S2=[F]；S3=[∅]；S4=[F5]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 10 | Move S2→S4 F1；Complete/Home F@S4；run=1,Count=1 | 4 / AGCF / BE | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[B5 · E]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 11 | Move S5→S1 E1；run=1,Count=1 | 4 / AGCF / BE | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[B5]；S6=[E5 · D]；S7=[D5 · B]；S8=[∅]；S9=[∅][Retired] |
-| 12 | Move S7→S5 B1；Complete/Home B@S5；run=1,Count=1 | 5 / AGCFB / ED | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[E5 · D]；S7=[D5]；S8=[∅]；S9=[∅][Retired] |
-| 13 | Move S6→S7 D1；Complete/Home D@S7；run=1,Count=1 | 6 / AGCFBD / E | S1=[E]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[E5]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
-| 14 | Move S1→S6 E1；Complete/Home E@S6；run=1,Count=1 | 7 / AGCFBED / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
-
-
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡37
 
-K7/P9；Q=`B,F,G,D,A,C,E`。F种类箱先开，箱内B触发累计2箱；临时A待新长枝接回。
+六种同场；世界D 雪松林；N=8，K=6，P=8；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `F5 · A` | 普通枝 |
-| S2 | 6 | `B5 · F` | 普通枝 |
-| S3 | 6 | `E5 · D` | 普通枝；盖箱 RevealAfter=2 |
-| S4 | 6 | `G5 · B` | 普通枝；盖箱 RevealSpecies=F |
-| S5 | 6 | `A5 · G` | 普通枝 |
-| S6 | 6 | `D5 · C` | 普通枝 |
-| S7 | 6 | `C5 · E` | 普通枝 |
-| S8 | 6 | `∅` | 普通枝 |
-| S9 | 5 | `∅` | 临时Unused |
+| S1 | 8 | `A · F2 · A3 · E2` | `A · F2 · A3 · E2` |
+| S2 | 8 | `B6 · D2` | `B6 · D2` |
+| S3 | 8 | `C5 · D2 · C` | `C5 · D2 · C` |
+| S4 | 8 | `B2 · A2 · C2 · D2` | `B2 · A2 · C2 · D2` |
+| S5 | 8 | `D2 · E6` | `D2 · E6` |
+| S6 | 8 | `A2 · F6` | `A2 · F6` |
+| S7 | 8 | `∅` | `∅` |
+| S8 | 8 | `∅` | `∅` |
 
-### 主路线（9步，非最优证明）
+本关固定结构：17个初始连续段、0颗问号蛋。主路13步，仅存在性见证。首次归巢在第2步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S9 A1；接收临时枝 S9；run=1,Count=1 | 0 / 无 / BF | S1=[F5]；S2=[B5 · F]；S3=[E5 · D][盖箱]；S4=[G5 · B][盖箱]；S5=[A5 · G]；S6=[D5 · C]；S7=[C5 · E]；S8=[∅]；S9=[A][Armed] |
-| 2 | Move S2→S1 F1；Complete/Home F@S1；Reveal S4；run=1,Count=1 | 1 / F / BG | S1=[∅]；S2=[B5]；S3=[E5 · D][盖箱]；S4=[G5 · B]；S5=[A5 · G]；S6=[D5 · C]；S7=[C5 · E]；S8=[∅]；S9=[A][Armed] |
-| 3 | Move S4→S2 B1；Complete/Home B@S2；Reveal S3；run=1,Count=1 | 2 / BF / GD | S1=[∅]；S2=[∅]；S3=[E5 · D]；S4=[G5]；S5=[A5 · G]；S6=[D5 · C]；S7=[C5 · E]；S8=[∅]；S9=[A][Armed] |
-| 4 | Move S5→S4 G1；Complete/Home G@S4；run=1,Count=1 | 3 / BFG / DA | S1=[∅]；S2=[∅]；S3=[E5 · D]；S4=[∅]；S5=[A5]；S6=[D5 · C]；S7=[C5 · E]；S8=[∅]；S9=[A][Armed] |
-| 5 | Move S9→S5 A1；Complete/Home A@S5；Retire S9；run=1,Count=1 | 4 / BFGA / DC | S1=[∅]；S2=[∅]；S3=[E5 · D]；S4=[∅]；S5=[∅]；S6=[D5 · C]；S7=[C5 · E]；S8=[∅]；S9=[∅][Retired] |
-| 6 | Move S7→S1 E1；run=1,Count=1 | 4 / BFGA / DC | S1=[E]；S2=[∅]；S3=[E5 · D]；S4=[∅]；S5=[∅]；S6=[D5 · C]；S7=[C5]；S8=[∅]；S9=[∅][Retired] |
-| 7 | Move S6→S7 C1；Complete/Home C@S7；run=1,Count=1 | 5 / BFGAC / DE | S1=[E]；S2=[∅]；S3=[E5 · D]；S4=[∅]；S5=[∅]；S6=[D5]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
-| 8 | Move S3→S6 D1；Complete/Home D@S6；run=1,Count=1 | 6 / BFGDAC / E | S1=[E]；S2=[∅]；S3=[E5]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
-| 9 | Move S1→S3 E1；Complete/Home E@S3；run=1,Count=1 | 7 / BFGDACE / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired] |
+| 1 | Move S1→S7 E2（run=2，Count=2） | 无 | S1=[A · F2 · A3]；S2=[B6 · D2]；S3=[C5 · D2 · C]；S4=[B2 · A2 · C2 · D2]；S5=[D2 · E6]；S6=[A2 · F6]；S7=[E2]；S8=[∅] |
+| 2 | Move S5→S7 E6（run=6，Count=6）；Home E@S7；Retire S7 | E | S1=[A · F2 · A3]；S2=[B6 · D2]；S3=[C5 · D2 · C]；S4=[B2 · A2 · C2 · D2]；S5=[D2]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 3 | Move S2→S5 D2（run=2，Count=2） | E | S1=[A · F2 · A3]；S2=[B6]；S3=[C5 · D2 · C]；S4=[B2 · A2 · C2 · D2]；S5=[D4]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 4 | Move S4→S5 D2（run=2，Count=2） | E | S1=[A · F2 · A3]；S2=[B6]；S3=[C5 · D2 · C]；S4=[B2 · A2 · C2]；S5=[D6]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 5 | Move S3→S4 C1（run=1，Count=1） | E | S1=[A · F2 · A3]；S2=[B6]；S3=[C5 · D2]；S4=[B2 · A2 · C3]；S5=[D6]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 6 | Move S3→S5 D2（run=2，Count=2）；Home D@S5；Retire S5 | D,E | S1=[A · F2 · A3]；S2=[B6]；S3=[C5]；S4=[B2 · A2 · C3]；S5=[∅][Retired]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 7 | Move S4→S3 C3（run=3，Count=3）；Home C@S3；Retire S3 | C,D,E | S1=[A · F2 · A3]；S2=[B6]；S3=[∅][Retired]；S4=[B2 · A2]；S5=[∅][Retired]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 8 | Move S4→S1 A2（run=2，Count=2） | C,D,E | S1=[A · F2 · A5]；S2=[B6]；S3=[∅][Retired]；S4=[B2]；S5=[∅][Retired]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 9 | Move S2→S4 B6（run=6，Count=6）；Home B@S4；Retire S4 | B,C,D,E | S1=[A · F2 · A5]；S2=[∅]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[A2 · F6]；S7=[∅][Retired]；S8=[∅] |
+| 10 | Move S6→S2 F6（run=6，Count=6） | B,C,D,E | S1=[A · F2 · A5]；S2=[F6]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[A2]；S7=[∅][Retired]；S8=[∅] |
+| 11 | Move S1→S6 A5（run=5，Count=5） | B,C,D,E | S1=[A · F2]；S2=[F6]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[A7]；S7=[∅][Retired]；S8=[∅] |
+| 12 | Move S1→S2 F2（run=2，Count=2）；Home F@S2；Retire S2 | B,C,D,E,F | S1=[A]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[A7]；S7=[∅][Retired]；S8=[∅] |
+| 13 | Move S1→S6 A1（run=1，Count=1）；Home A@S6；Retire S6 | A,B,C,D,E,F | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅][Retired]；S6=[∅][Retired]；S7=[∅][Retired]；S8=[∅] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡38
 
-K7/P9；Q=`C,G,A,B,F,D,E`。篮拆G1+普通短枝接G2，再收大run；熟悉组合舒缓。
+长群深层练习；世界D 雪松林；N=6，K=6，P=8；所有枝相同容量；每种含蛋共6token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `C3 · G3` | 普通枝 |
-| S2 | 6 | `G3 · A3` | 普通枝 |
-| S3 | 6 | `A3 · B3` | 普通枝 |
-| S4 | 6 | `B3 · F3` | 普通枝 |
-| S5 | 6 | `F3 · D3` | 普通枝 |
-| S6 | 6 | `D3 · E3` | 普通枝 |
-| S7 | 6 | `E3 · C3` | 普通枝 |
-| S8 | 6 | `∅` | 普通枝 |
-| S9 | 5 | `∅` | 普通枝 |
-| T1 | 1 | `∅` | 篮 |
+| S1 | 6 | `A3 · F · A · E` | `A3 · F · A · E` |
+| S2 | 6 | `B2 · E · F2 · B` | `B2 · E · F2 · B` |
+| S3 | 6 | `C4 · E · C` | `C4 · E · C` |
+| S4 | 6 | `D3 · B · D2` | `D3 · B · D2` |
+| S5 | 6 | `E2 · C · A · F · E` | `E2 · C · A · F · E` |
+| S6 | 6 | `A · F2 · D · B2` | `A · F2 · D · B2` |
+| S7 | 6 | `∅` | `∅` |
+| S8 | 6 | `∅` | `∅` |
 
-### 主路线（10步，非最优证明）
+本关固定结构：23个初始连续段、0颗问号蛋。主路22步，仅存在性见证。首次归巢在第10步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→T1 G1；run=3,Count=1 | 0 / 无 / CG | S1=[C3 · G2]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3 · F3]；S5=[F3 · D3]；S6=[D3 · E3]；S7=[E3 · C3]；S8=[∅]；S9=[∅]；T1=[G] |
-| 2 | Move S1→S9 G2；run=2,Count=2 | 0 / 无 / CG | S1=[C3]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3 · F3]；S5=[F3 · D3]；S6=[D3 · E3]；S7=[E3 · C3]；S8=[∅]；S9=[G2]；T1=[G] |
-| 3 | Move S7→S1 C3；Complete/Home C@S1；run=3,Count=3 | 1 / C / GA | S1=[∅]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3 · F3]；S5=[F3 · D3]；S6=[D3 · E3]；S7=[E3]；S8=[∅]；S9=[G2]；T1=[G] |
-| 4 | Move S6→S7 E3；Complete/Sleep E@S7；run=3,Count=3 | 2 / C / GA | S1=[∅]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3 · F3]；S5=[F3 · D3]；S6=[D3]；S7=[E6][睡眠]；S8=[∅]；S9=[G2]；T1=[G] |
-| 5 | Move S5→S6 D3；Complete/Sleep D@S6；run=3,Count=3 | 3 / C / GA | S1=[∅]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3 · F3]；S5=[F3]；S6=[D6][睡眠]；S7=[E6][睡眠]；S8=[∅]；S9=[G2]；T1=[G] |
-| 6 | Move S4→S5 F3；Complete/Sleep F@S5；run=3,Count=3 | 4 / C / GA | S1=[∅]；S2=[G3 · A3]；S3=[A3 · B3]；S4=[B3]；S5=[F6][睡眠]；S6=[D6][睡眠]；S7=[E6][睡眠]；S8=[∅]；S9=[G2]；T1=[G] |
-| 7 | Move S3→S4 B3；Complete/Sleep B@S4；run=3,Count=3 | 5 / C / GA | S1=[∅]；S2=[G3 · A3]；S3=[A3]；S4=[B6][睡眠]；S5=[F6][睡眠]；S6=[D6][睡眠]；S7=[E6][睡眠]；S8=[∅]；S9=[G2]；T1=[G] |
-| 8 | Move S2→S3 A3；Complete/Home A@S3；AutoHome B@S4；AutoHome F@S5；AutoHome D@S6；AutoHome E@S7；run=3,Count=3 | 6 / CABFDE / G | S1=[∅]；S2=[G3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[G2]；T1=[G] |
-| 9 | Move S9→S2 G2；run=2,Count=2 | 6 / CABFDE / G | S1=[∅]；S2=[G5]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅]；T1=[G] |
-| 10 | Move T1→S2 G1；Complete/Home G@S2；run=1,Count=1 | 7 / CGABFDE / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅]；T1=[∅] |
+| 1 | Move S1→S7 E1（run=1，Count=1） | 无 | S1=[A3 · F · A]；S2=[B2 · E · F2 · B]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F · E]；S6=[A · F2 · D · B2]；S7=[E]；S8=[∅] |
+| 2 | Move S5→S7 E1（run=1，Count=1） | 无 | S1=[A3 · F · A]；S2=[B2 · E · F2 · B]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F]；S6=[A · F2 · D · B2]；S7=[E2]；S8=[∅] |
+| 3 | Move S1→S8 A1（run=1，Count=1） | 无 | S1=[A3 · F]；S2=[B2 · E · F2 · B]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F]；S6=[A · F2 · D · B2]；S7=[E2]；S8=[A] |
+| 4 | Move S1→S5 F1（run=1，Count=1） | 无 | S1=[A3]；S2=[B2 · E · F2 · B]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F2]；S6=[A · F2 · D · B2]；S7=[E2]；S8=[A] |
+| 5 | Move S1→S8 A3（run=3，Count=3） | 无 | S1=[∅]；S2=[B2 · E · F2 · B]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F2]；S6=[A · F2 · D · B2]；S7=[E2]；S8=[A4] |
+| 6 | Move S2→S1 B1（run=1，Count=1） | 无 | S1=[B]；S2=[B2 · E · F2]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F2]；S6=[A · F2 · D · B2]；S7=[E2]；S8=[A4] |
+| 7 | Move S6→S1 B2（run=2，Count=2） | 无 | S1=[B3]；S2=[B2 · E · F2]；S3=[C4 · E · C]；S4=[D3 · B · D2]；S5=[E2 · C · A · F2]；S6=[A · F2 · D]；S7=[E2]；S8=[A4] |
+| 8 | Move S4→S6 D2（run=2，Count=2） | 无 | S1=[B3]；S2=[B2 · E · F2]；S3=[C4 · E · C]；S4=[D3 · B]；S5=[E2 · C · A · F2]；S6=[A · F2 · D3]；S7=[E2]；S8=[A4] |
+| 9 | Move S4→S1 B1（run=1，Count=1） | 无 | S1=[B4]；S2=[B2 · E · F2]；S3=[C4 · E · C]；S4=[D3]；S5=[E2 · C · A · F2]；S6=[A · F2 · D3]；S7=[E2]；S8=[A4] |
+| 10 | Move S6→S4 D3（run=3，Count=3）；Home D@S4；Retire S4 | D | S1=[B4]；S2=[B2 · E · F2]；S3=[C4 · E · C]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F2]；S7=[E2]；S8=[A4] |
+| 11 | Move S2→S6 F2（run=2，Count=2） | D | S1=[B4]；S2=[B2 · E]；S3=[C4 · E · C]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E2]；S8=[A4] |
+| 12 | Move S2→S7 E1（run=1，Count=1） | D | S1=[B4]；S2=[B2]；S3=[C4 · E · C]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E3]；S8=[A4] |
+| 13 | Move S1→S2 B4（run=4，Count=4）；Home B@S2；Retire S2 | B,D | S1=[∅]；S2=[∅][Retired]；S3=[C4 · E · C]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E3]；S8=[A4] |
+| 14 | Move S3→S1 C1（run=1，Count=1） | B,D | S1=[C]；S2=[∅][Retired]；S3=[C4 · E]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E3]；S8=[A4] |
+| 15 | Move S3→S7 E1（run=1，Count=1） | B,D | S1=[C]；S2=[∅][Retired]；S3=[C4]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E4]；S8=[A4] |
+| 16 | Move S1→S3 C1（run=1，Count=1） | B,D | S1=[∅]；S2=[∅][Retired]；S3=[C5]；S4=[∅][Retired]；S5=[E2 · C · A · F2]；S6=[A · F4]；S7=[E4]；S8=[A4] |
+| 17 | Move S5→S1 F2（run=2，Count=2） | B,D | S1=[F2]；S2=[∅][Retired]；S3=[C5]；S4=[∅][Retired]；S5=[E2 · C · A]；S6=[A · F4]；S7=[E4]；S8=[A4] |
+| 18 | Move S5→S8 A1（run=1，Count=1） | B,D | S1=[F2]；S2=[∅][Retired]；S3=[C5]；S4=[∅][Retired]；S5=[E2 · C]；S6=[A · F4]；S7=[E4]；S8=[A5] |
+| 19 | Move S5→S3 C1（run=1，Count=1）；Home C@S3；Retire S3 | B,C,D | S1=[F2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[E2]；S6=[A · F4]；S7=[E4]；S8=[A5] |
+| 20 | Move S5→S7 E2（run=2，Count=2）；Home E@S7；Retire S7 | B,C,D,E | S1=[F2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅]；S6=[A · F4]；S7=[∅][Retired]；S8=[A5] |
+| 21 | Move S6→S1 F4（run=4，Count=4）；Home F@S1；Retire S1 | B,C,D,E,F | S1=[∅][Retired]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅]；S6=[A]；S7=[∅][Retired]；S8=[A5] |
+| 22 | Move S6→S8 A1（run=1，Count=1）；Home A@S8；Retire S8 | A,B,C,D,E,F | S1=[∅][Retired]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅][Retired]；S5=[∅]；S6=[∅]；S7=[∅][Retired]；S8=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡39
 
-K8/P10；Q=`D,H,F,A,G,C,B,E`。四座临时枝服务首群后退，五座跨目标更新再退；有错误退役死局反例。
+双揭示挑战；世界D 雪松林；N=8，K=6，P=8；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP；SRC-QUEST（?蛋）。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `D3 · 蛋(D)2 · H` | 普通枝 |
-| S2 | 6 | `H3 · 蛋(H)2 · F` | 普通枝 |
-| S3 | 6 | `F5 · D` | 普通枝 |
-| S4 | 6 | `A3 · 蛋(A)2 · G` | 普通枝 |
-| S5 | 6 | `G5 · A` | 普通枝 |
-| S6 | 6 | `C5 · B` | 普通枝 |
-| S7 | 6 | `B5 · E` | 普通枝 |
-| S8 | 6 | `E5 · C` | 普通枝 |
-| S9 | 4 | `∅` | 临时Unused |
-| S10 | 5 | `∅` | 临时Unused |
+| S1 | 8 | `E2 · ?(F) · A5` | `E2 · ? · A5` |
+| S2 | 8 | `F3 · B · C2 · B2` | `F3 · B · C2 · B2` |
+| S3 | 8 | `C2 · F · C2 · B2 · C` | `C2 · F · C2 · B2 · C` |
+| S4 | 8 | `D · E2 · A · D4` | `D · E2 · A · D4` |
+| S5 | 8 | `D · ?(D) · A · E4 · D` | `D · ? · A · E4 · D` |
+| S6 | 8 | `C · A · B3 · F3` | `C · A · B3 · F3` |
+| S7 | 8 | `∅` | `∅` |
+| S8 | 8 | `∅` | `∅` |
 
-### 主路线（17步，非最优证明）
+本关固定结构：25个初始连续段、2颗问号蛋。主路23步，仅存在性见证。首次归巢在第11步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。孵化见第1,22步；未孵化种类对玩家隐藏。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S3→S9 D1；接收临时枝 S9；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D][Armed]；S10=[∅][Unused] |
-| 2 | Move S1→S10 H1；接收临时枝 S10；Hatch D@S1；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D) · D]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D][Armed]；S10=[H][Armed] |
-| 3 | Move S1→S9 D1；接收临时枝 S9；Hatch D@S1；run=1,Count=1 | 0 / 无 / DH | S1=[D4]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D2][Armed]；S10=[H][Armed] |
-| 4 | Move S1→S9 D2；接收临时枝 S9；run=4,Count=2 | 0 / 无 / DH | S1=[D2]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D4][Armed]；S10=[H][Armed] |
-| 5 | Move S9→S1 D4；Complete/Home D@S1；Retire S9；run=4,Count=4 | 1 / D / HF | S1=[∅]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 6 | Move S2→S3 F1；Hatch H@S2；Complete/Home F@S3；run=1,Count=1 | 2 / DF / HA | S1=[∅]；S2=[H3 · 蛋(H) · H]；S3=[∅]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 7 | Move S2→S10 H1；接收临时枝 S10；Hatch H@S2；run=1,Count=1 | 2 / DF / HA | S1=[∅]；S2=[H4]；S3=[∅]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H2][Armed] |
-| 8 | Move S2→S10 H3；接收临时枝 S10；run=4,Count=3 | 2 / DF / HA | S1=[∅]；S2=[H]；S3=[∅]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H5][Armed] |
-| 9 | Move S10→S2 H5；Complete/Home H@S2；Retire S10；run=5,Count=5 | 3 / DHF / AG | S1=[∅]；S2=[∅]；S3=[∅]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 10 | Move S5→S1 A1；run=1,Count=1 | 3 / DHF / AG | S1=[A]；S2=[∅]；S3=[∅]；S4=[A3 · 蛋(A)2 · G]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 11 | Move S4→S5 G1；Hatch A@S4；Complete/Home G@S5；run=1,Count=1 | 4 / DHFG / AC | S1=[A]；S2=[∅]；S3=[∅]；S4=[A3 · 蛋(A) · A]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 12 | Move S4→S1 A1；Hatch A@S4；run=1,Count=1 | 4 / DHFG / AC | S1=[A2]；S2=[∅]；S3=[∅]；S4=[A4]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 13 | Move S4→S1 A4；Complete/Home A@S1；run=4,Count=4 | 5 / DHFAG / CB | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 14 | Move S6→S1 B1；run=1,Count=1 | 5 / DHFAG / CB | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 15 | Move S8→S6 C1；Complete/Home C@S6；run=1,Count=1 | 6 / DHFAGC / BE | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[B5 · E]；S8=[E5]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 16 | Move S7→S8 E1；Complete/Home E@S8；run=1,Count=1 | 7 / DHFAGCE / B | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[B5]；S8=[∅]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 17 | Move S1→S7 B1；Complete/Home B@S7；run=1,Count=1 | 8 / DHFAGCBE / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired]；S10=[∅][Retired] |
+| 1 | Move S1→S7 A5（run=5，Count=5）；Hatch S1 → F | 无 | S1=[E2 · F]；S2=[F3 · B · C2 · B2]；S3=[C2 · F · C2 · B2 · C]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B3 · F3]；S7=[A5]；S8=[∅] |
+| 2 | Move S6→S1 F3（run=3，Count=3） | 无 | S1=[E2 · F4]；S2=[F3 · B · C2 · B2]；S3=[C2 · F · C2 · B2 · C]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B3]；S7=[A5]；S8=[∅] |
+| 3 | Move S2→S6 B2（run=2，Count=2） | 无 | S1=[E2 · F4]；S2=[F3 · B · C2]；S3=[C2 · F · C2 · B2 · C]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[∅] |
+| 4 | Move S3→S2 C1（run=1，Count=1） | 无 | S1=[E2 · F4]；S2=[F3 · B · C3]；S3=[C2 · F · C2 · B2]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[∅] |
+| 5 | Move S2→S8 C3（run=3，Count=3） | 无 | S1=[E2 · F4]；S2=[F3 · B]；S3=[C2 · F · C2 · B2]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C3] |
+| 6 | Move S3→S2 B2（run=2，Count=2） | 无 | S1=[E2 · F4]；S2=[F3 · B3]；S3=[C2 · F · C2]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C3] |
+| 7 | Move S3→S8 C2（run=2，Count=2） | 无 | S1=[E2 · F4]；S2=[F3 · B3]；S3=[C2 · F]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C5] |
+| 8 | Move S3→S1 F1（run=1，Count=1） | 无 | S1=[E2 · F5]；S2=[F3 · B3]；S3=[C2]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C5] |
+| 9 | Move S3→S8 C2（run=2，Count=2） | 无 | S1=[E2 · F5]；S2=[F3 · B3]；S3=[∅]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C7] |
+| 10 | Move S2→S3 B3（run=3，Count=3） | 无 | S1=[E2 · F5]；S2=[F3]；S3=[B3]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C7] |
+| 11 | Move S1→S2 F5（run=5，Count=5）；Home F@S2；Retire S2 | F | S1=[E2]；S2=[∅][Retired]；S3=[B3]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A · B5]；S7=[A5]；S8=[C7] |
+| 12 | Move S6→S3 B5（run=5，Count=5）；Home B@S3；Retire S3 | B,F | S1=[E2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C · A]；S7=[A5]；S8=[C7] |
+| 13 | Move S6→S7 A1（run=1，Count=1） | B,F | S1=[E2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[C]；S7=[A6]；S8=[C7] |
+| 14 | Move S6→S8 C1（run=1，Count=1）；Home C@S8；Retire S8 | B,C,F | S1=[E2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E2 · A · D4]；S5=[D · ?(D) · A · E4 · D]；S6=[∅]；S7=[A6]；S8=[∅][Retired] |
+| 15 | Move S4→S6 D4（run=4，Count=4） | B,C,F | S1=[E2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E2 · A]；S5=[D · ?(D) · A · E4 · D]；S6=[D4]；S7=[A6]；S8=[∅][Retired] |
+| 16 | Move S4→S7 A1（run=1，Count=1） | B,C,F | S1=[E2]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E2]；S5=[D · ?(D) · A · E4 · D]；S6=[D4]；S7=[A7]；S8=[∅][Retired] |
+| 17 | Move S1→S4 E2（run=2，Count=2） | B,C,F | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E4]；S5=[D · ?(D) · A · E4 · D]；S6=[D4]；S7=[A7]；S8=[∅][Retired] |
+| 18 | Move S5→S6 D1（run=1，Count=1） | B,C,F | S1=[∅]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D · E4]；S5=[D · ?(D) · A · E4]；S6=[D5]；S7=[A7]；S8=[∅][Retired] |
+| 19 | Move S4→S1 E4（run=4，Count=4） | B,C,F | S1=[E4]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[D]；S5=[D · ?(D) · A · E4]；S6=[D5]；S7=[A7]；S8=[∅][Retired] |
+| 20 | Move S4→S6 D1（run=1，Count=1） | B,C,F | S1=[E4]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅]；S5=[D · ?(D) · A · E4]；S6=[D6]；S7=[A7]；S8=[∅][Retired] |
+| 21 | Move S5→S1 E4（run=4，Count=4）；Home E@S1；Retire S1 | B,C,E,F | S1=[∅][Retired]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅]；S5=[D · ?(D) · A]；S6=[D6]；S7=[A7]；S8=[∅][Retired] |
+| 22 | Move S5→S7 A1（run=1，Count=1）；Hatch S5 → D；Home A@S7；Retire S7 | A,B,C,E,F | S1=[∅][Retired]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅]；S5=[D2]；S6=[D6]；S7=[∅][Retired]；S8=[∅][Retired] |
+| 23 | Move S5→S6 D2（run=2，Count=2）；Home D@S6；Retire S6 | A,B,C,D,E,F | S1=[∅][Retired]；S2=[∅][Retired]；S3=[∅][Retired]；S4=[∅]；S5=[∅]；S6=[∅][Retired]；S7=[∅][Retired]；S8=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-### 对照路线1（17步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S3→S9 D1；接收临时枝 S9；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D][Armed]；S10=[∅][Unused] |
-| 2 | Move S1→S10 H1；接收临时枝 S10；Hatch D@S1；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D) · D]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D][Armed]；S10=[H][Armed] |
-| 3 | Move S1→S9 D1；接收临时枝 S9；Hatch D@S1；run=1,Count=1 | 0 / 无 / DH | S1=[D4]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D2][Armed]；S10=[H][Armed] |
-| 4 | Move S1→S9 D2；接收临时枝 S9；run=4,Count=2 | 0 / 无 / DH | S1=[D2]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[D4][Armed]；S10=[H][Armed] |
-| 5 | Move S9→S1 D4；Complete/Home D@S1；Retire S9；run=4,Count=4 | 1 / D / HF | S1=[∅]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 6 | Move S5→S1 A1；run=1,Count=1 | 1 / D / HF | S1=[A]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A)2 · G]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 7 | Move S4→S5 G1；Hatch A@S4；Complete/Sleep G@S5；run=1,Count=1 | 2 / D / HF | S1=[A]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A3 · 蛋(A) · A]；S5=[G6][睡眠]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 8 | Move S4→S1 A1；Hatch A@S4；run=1,Count=1 | 2 / D / HF | S1=[A2]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[A4]；S5=[G6][睡眠]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 9 | Move S4→S1 A4；Complete/Sleep A@S1；run=4,Count=4 | 3 / D / HF | S1=[A6][睡眠]；S2=[H3 · 蛋(H)2 · F]；S3=[F5]；S4=[∅]；S5=[G6][睡眠]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 10 | Move S2→S3 F1；Hatch H@S2；Complete/Home F@S3；AutoHome A@S1；AutoHome G@S5；run=1,Count=1 | 4 / DFAG / HC | S1=[∅]；S2=[H3 · 蛋(H) · H]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H][Armed] |
-| 11 | Move S2→S10 H1；接收临时枝 S10；Hatch H@S2；run=1,Count=1 | 4 / DFAG / HC | S1=[∅]；S2=[H4]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H2][Armed] |
-| 12 | Move S2→S10 H3；接收临时枝 S10；run=4,Count=3 | 4 / DFAG / HC | S1=[∅]；S2=[H]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[H5][Armed] |
-| 13 | Move S10→S2 H5；Complete/Home H@S2；Retire S10；run=5,Count=5 | 5 / DHFAG / CB | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 14 | Move S6→S1 B1；run=1,Count=1 | 5 / DHFAG / CB | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[C5]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 15 | Move S8→S6 C1；Complete/Home C@S6；run=1,Count=1 | 6 / DHFAGC / BE | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[B5 · E]；S8=[E5]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 16 | Move S7→S8 E1；Complete/Home E@S8；run=1,Count=1 | 7 / DHFAGCE / B | S1=[B]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[B5]；S8=[∅]；S9=[∅][Retired]；S10=[∅][Retired] |
-| 17 | Move S1→S7 B1；Complete/Home B@S7；run=1,Count=1 | 8 / DHFAGCBE / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅][Retired]；S10=[∅][Retired] |
-
-
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
-
-### 错误退役反例（不通关）（6步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S4→S10 G1；接收临时枝 S10；Hatch A@S4；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A3 · 蛋(A) · A]；S5=[G5 · A]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Unused]；S10=[G][Armed] |
-| 2 | Move S5→S9 A1；接收临时枝 S9；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A3 · 蛋(A) · A]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[A][Armed]；S10=[G][Armed] |
-| 3 | Move S4→S9 A1；接收临时枝 S9；Hatch A@S4；run=1,Count=1 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A4]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[A2][Armed]；S10=[G][Armed] |
-| 4 | Move S4→S9 A2；接收临时枝 S9；run=4,Count=2 | 0 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A2]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[A4][Armed]；S10=[G][Armed] |
-| 5 | Move S9→S4 A4；Complete/Sleep A@S4；Retire S9；run=4,Count=4 | 1 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A6][睡眠]；S5=[G5]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[G][Armed] |
-| 6 | Move S10→S5 G1；Complete/Sleep G@S5；Retire S10；run=1,Count=1 | 2 / 无 / DH | S1=[D3 · 蛋(D)2 · H]；S2=[H3 · 蛋(H)2 · F]；S3=[F5 · D]；S4=[A6][睡眠]；S5=[G6][睡眠]；S6=[C5 · B]；S7=[B5 · E]；S8=[E5 · C]；S9=[∅][Retired]；S10=[∅][Retired] |
-
-第6步后A/G睡眠、两临时枝退役，枚举全部有序来源/目标对为0合法移动且未胜利。仅说明此局面无路；Undo最后一步只恢复S10，不能凭空恢复已退S9。连续撤销全部6步或Restart回固定初盘，再走主路可恢复；独立模型回放不证明Unity撤销已实现。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。
 
 ## 关卡40
 
-K8/P10；Q=`A,H,C,E,B,G,D,F`。阈值1：首个未来满组即开箱，不等两群预排；终章无蛋/临时枝，主路长连收。
+雪松林归巢终章；世界D 雪松林；N=8，K=4，P=6；所有枝相同容量；每种含蛋共8token；开局两空。
 
-| 固定ID | 容量 | 固定初始数组（墙→露端） | 类型/条件 |
+来源：SRC-LEAF/SRC-SIMPLE（端部、接收与移动）；SRC-BIRD2（完成飞走失枝）；容量SRC-BOOP。
+
+| 固定ID | 容量 | 策划完整初始数组 | 玩家初始可见数组 |
 | --- | --- | --- | --- |
-| S1 | 6 | `A3 · H3` | 普通枝 |
-| S2 | 6 | `H3 · C3` | 普通枝 |
-| S3 | 6 | `C3 · E3` | 普通枝；盖箱 RevealAfter=1 |
-| S4 | 6 | `E3 · B3` | 普通枝 |
-| S5 | 6 | `B3 · G3` | 普通枝 |
-| S6 | 6 | `G3 · D3` | 普通枝 |
-| S7 | 6 | `D3 · F3` | 普通枝 |
-| S8 | 6 | `F3 · A3` | 普通枝 |
-| S9 | 6 | `∅` | 普通枝 |
-| S10 | 6 | `∅` | 普通枝 |
+| S1 | 8 | `A · D2 · A2 · B · A2` | `A · D2 · A2 · B · A2` |
+| S2 | 8 | `C2 · B6` | `C2 · B6` |
+| S3 | 8 | `C · B · A · C5` | `C · B · A · C5` |
+| S4 | 8 | `D5 · A2 · D` | `D5 · A2 · D` |
+| S5 | 8 | `∅` | `∅` |
+| S6 | 8 | `∅` | `∅` |
 
-### 主路线（9步，非最优证明）
+本关固定结构：14个初始连续段、0颗问号蛋。主路12步，仅存在性见证。首次归巢在第9步，之后该枝不再参与排序。本见证未发生容量截断，不证明所有路线都不会发生。
 
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
+### 完整合法见证
+
+| 步 | 玩家动作和自动事件 | 已归巢种类 | 稳定后所有位置（分析视图） |
 | --- | --- | --- | --- |
-| 1 | Move S1→S9 H3；run=3,Count=3 | 0 / 无 / AH | S1=[A3]；S2=[H3 · C3]；S3=[C3 · E3][盖箱]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3 · D3]；S7=[D3 · F3]；S8=[F3 · A3]；S9=[H3]；S10=[∅] |
-| 2 | Move S8→S1 A3；Complete/Home A@S1；Reveal S3；run=3,Count=3 | 1 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3 · D3]；S7=[D3 · F3]；S8=[F3]；S9=[H3]；S10=[∅] |
-| 3 | Move S7→S8 F3；Complete/Sleep F@S8；run=3,Count=3 | 2 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3 · D3]；S7=[D3]；S8=[F6][睡眠]；S9=[H3]；S10=[∅] |
-| 4 | Move S6→S7 D3；Complete/Sleep D@S7；run=3,Count=3 | 3 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[H3]；S10=[∅] |
-| 5 | Move S5→S6 G3；Complete/Sleep G@S6；run=3,Count=3 | 4 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[H3]；S10=[∅] |
-| 6 | Move S4→S5 B3；Complete/Sleep B@S5；run=3,Count=3 | 5 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3]；S5=[B6][睡眠]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[H3]；S10=[∅] |
-| 7 | Move S3→S4 E3；Complete/Sleep E@S4；run=3,Count=3 | 6 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3]；S4=[E6][睡眠]；S5=[B6][睡眠]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[H3]；S10=[∅] |
-| 8 | Move S2→S3 C3；Complete/Home C@S3；AutoHome E@S4；AutoHome B@S5；AutoHome G@S6；AutoHome D@S7；AutoHome F@S8；run=3,Count=3 | 7 / ACEBGDF / H | S1=[∅]；S2=[H3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[H3]；S10=[∅] |
-| 9 | Move S9→S2 H3；Complete/Home H@S2；run=3,Count=3 | 8 / AHCEBGDF / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅]；S10=[∅] |
+| 1 | Move S2→S5 B6（run=6，Count=6） | 无 | S1=[A · D2 · A2 · B · A2]；S2=[C2]；S3=[C · B · A · C5]；S4=[D5 · A2 · D]；S5=[B6]；S6=[∅] |
+| 2 | Move S3→S2 C5（run=5，Count=5） | 无 | S1=[A · D2 · A2 · B · A2]；S2=[C7]；S3=[C · B · A]；S4=[D5 · A2 · D]；S5=[B6]；S6=[∅] |
+| 3 | Move S1→S3 A2（run=2，Count=2） | 无 | S1=[A · D2 · A2 · B]；S2=[C7]；S3=[C · B · A3]；S4=[D5 · A2 · D]；S5=[B6]；S6=[∅] |
+| 4 | Move S1→S5 B1（run=1，Count=1） | 无 | S1=[A · D2 · A2]；S2=[C7]；S3=[C · B · A3]；S4=[D5 · A2 · D]；S5=[B7]；S6=[∅] |
+| 5 | Move S1→S3 A2（run=2，Count=2） | 无 | S1=[A · D2]；S2=[C7]；S3=[C · B · A5]；S4=[D5 · A2 · D]；S5=[B7]；S6=[∅] |
+| 6 | Move S4→S1 D1（run=1，Count=1） | 无 | S1=[A · D3]；S2=[C7]；S3=[C · B · A5]；S4=[D5 · A2]；S5=[B7]；S6=[∅] |
+| 7 | Move S1→S6 D3（run=3，Count=3） | 无 | S1=[A]；S2=[C7]；S3=[C · B · A5]；S4=[D5 · A2]；S5=[B7]；S6=[D3] |
+| 8 | Move S3→S1 A5（run=5，Count=5） | 无 | S1=[A6]；S2=[C7]；S3=[C · B]；S4=[D5 · A2]；S5=[B7]；S6=[D3] |
+| 9 | Move S3→S5 B1（run=1，Count=1）；Home B@S5；Retire S5 | B | S1=[A6]；S2=[C7]；S3=[C]；S4=[D5 · A2]；S5=[∅][Retired]；S6=[D3] |
+| 10 | Move S2→S3 C7（run=7，Count=7）；Home C@S3；Retire S3 | B,C | S1=[A6]；S2=[∅]；S3=[∅][Retired]；S4=[D5 · A2]；S5=[∅][Retired]；S6=[D3] |
+| 11 | Move S4→S1 A2（run=2，Count=2）；Home A@S1；Retire S1 | A,B,C | S1=[∅][Retired]；S2=[∅]；S3=[∅][Retired]；S4=[D5]；S5=[∅][Retired]；S6=[D3] |
+| 12 | Move S4→S6 D5（run=5，Count=5）；Home D@S6；Retire S6 | A,B,C,D | S1=[∅][Retired]；S2=[∅]；S3=[∅][Retired]；S4=[∅]；S5=[∅][Retired]；S6=[∅][Retired] |
 
+终态：全部K种归巢、所有token为空、恰K条完成枝Retired，最初及中途普通搬空枝不因空而退休；每种现存token+已收集数量在每步均等于N。全程未使用扩枝、加高、提示、广告或付费。
 
-### 对照路线1（10步，非最优证明）
-
-| 步 | 玩家动作/自动事件顺序 | 完成数 / 已归巢 / 当前 | 稳定后全部容器 |
-| --- | --- | --- | --- |
-| 1 | Move S7→S9 F3；run=3,Count=3 | 0 / 无 / AH | S1=[A3 · H3]；S2=[H3 · C3]；S3=[C3 · E3][盖箱]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3 · D3]；S7=[D3]；S8=[F3 · A3]；S9=[F3]；S10=[∅] |
-| 2 | Move S6→S7 D3；Complete/Sleep D@S7；Reveal S3；run=3,Count=3 | 1 / 无 / AH | S1=[A3 · H3]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3 · G3]；S6=[G3]；S7=[D6][睡眠]；S8=[F3 · A3]；S9=[F3]；S10=[∅] |
-| 3 | Move S5→S6 G3；Complete/Sleep G@S6；run=3,Count=3 | 2 / 无 / AH | S1=[A3 · H3]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F3 · A3]；S9=[F3]；S10=[∅] |
-| 4 | Move S1→S10 H3；run=3,Count=3 | 2 / 无 / AH | S1=[A3]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F3 · A3]；S9=[F3]；S10=[H3] |
-| 5 | Move S8→S1 A3；Complete/Home A@S1；run=3,Count=3 | 3 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F3]；S9=[F3]；S10=[H3] |
-| 6 | Move S9→S8 F3；Complete/Sleep F@S8；run=3,Count=3 | 4 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3 · B3]；S5=[B3]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[∅]；S10=[H3] |
-| 7 | Move S4→S5 B3；Complete/Sleep B@S5；run=3,Count=3 | 5 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3 · E3]；S4=[E3]；S5=[B6][睡眠]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[∅]；S10=[H3] |
-| 8 | Move S3→S4 E3；Complete/Sleep E@S4；run=3,Count=3 | 6 / A / HC | S1=[∅]；S2=[H3 · C3]；S3=[C3]；S4=[E6][睡眠]；S5=[B6][睡眠]；S6=[G6][睡眠]；S7=[D6][睡眠]；S8=[F6][睡眠]；S9=[∅]；S10=[H3] |
-| 9 | Move S2→S3 C3；Complete/Home C@S3；AutoHome E@S4；AutoHome B@S5；AutoHome G@S6；AutoHome D@S7；AutoHome F@S8；run=3,Count=3 | 7 / ACEBGDF / H | S1=[∅]；S2=[H3]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅]；S10=[H3] |
-| 10 | Move S10→S2 H3；Complete/Home H@S2；run=3,Count=3 | 8 / AHCEBGDF / 全部完成 | S1=[∅]；S2=[∅]；S3=[∅]；S4=[∅]；S5=[∅]；S6=[∅]；S7=[∅]；S8=[∅]；S9=[∅]；S10=[∅] |
-
-
-终态：全部目标已收集；全部容器无token，临时枝若启用已退役；物种每步守恒。项目最优证明/Unity/真人/设备/实际Undo存档均未验证。
+验收边界：该路径由独立文档模型按完整species状态复算，非项目Core/Unity、非最优、非实际Undo/存档/音画或真人通过。含蛋关还须可见信息公平性验证；无此证据不得宣称玩家无需试错就能知道下一步。

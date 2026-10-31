@@ -1,3 +1,5 @@
+> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/T16_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
+
 # T16 — Original bird-home PRD and AI documentation system
 
 Scope: use the existing code and first-party Sorting Puzzle descriptions to create a Chinese product PRD, 40 level cards, AI reading routes and single-owner specifications; update README/AGENTS and keep CLAUDE aligned. The latest user clarification limits this task to complete, classified documentation, document-level gameplay simulation, and documentation publication. This task does not authorize game source, runtime level/scene or artwork implementation. Future implementation needs separate explicit authorization. The user authorized merging the final documentation PR only after completion and independent scope/review checks; no early merge or deployment.

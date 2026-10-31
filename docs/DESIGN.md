@@ -1,9 +1,9 @@
-# 设计文档入口（兼容旧链接）
+# 设计文档兼容入口
 
-本文件保留供历史任务链接访问，不再承载第二套规则。
+本文件只导航，不定义另一套规则。
 
-- 新版产品目标：[PRD](PRD.md)；AI阅读路由：[docs导航](README.md)。
-- 唯一新版规则：[RULES](spec/RULES.md)；现行代码与迁移差异：[CODE_MAP](spec/CODE_MAP.md)。
-- 历史v2设计与当时里程碑：[归档记录](archive/DESIGN_V2.md)，仅说明旧实现，不覆盖新版规范。
+- [PRD4](PRD.md)→[证据矩阵](MECHANIC_EVIDENCE.md)→[RULES4](spec/RULES.md)。
+- [文档路由](README.md)说明唯一权威与最少阅读；[CODE_MAP](spec/CODE_MAP.md)区分现行v2与新设计。
+- [v2历史](archive/DESIGN_V2.md)与[T16撤回说明](archive/T16_WITHDRAWN.md)不是有效需求。旧纹样蛋、任意清空临时枝、旧目标/睡眠/箱边界不因旧文件仍存在而恢复。
 
-当前代码仍运行v2。新版蛋/临时枝、课程和40关合同是设计稿，尚未实施；本轮不调用旧生成器覆盖运行内容。
+本次仅文档，新规则/关卡/世界地图/动画库均未实施。不运行旧生成器覆盖生产数据。
