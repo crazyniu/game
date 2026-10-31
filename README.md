@@ -1,31 +1,21 @@
 # 小鸟归巢 · Perch Sort
 
-Unity **6000.6.7f1** 竖屏离线排序益智游戏：搬移外露同种鸟群，凑齐并按鸟巢目标回家。
+Unity6000.6.7f1竖屏排序益智项目。**当前运行代码仍v2/40关；这里新增的是同行依据版v4文档，尚未实施。** 本任务只整理文档和临时独立玩法分析，不改源码/运行关卡/场景/素材，不安装库，不自动合并/部署。
 
-**当前代码v2已有40关；新版纹样蛋、临时短枝与40关设计是评审稿，尚未实现/落库/获得新证书。** 本次任务只整理与评审文档、桌面玩法推演及文档提交，不授权游戏代码、运行关卡、场景或素材实施；未来实施须另行明确授权。
+AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩阵](docs/MECHANIC_EVIDENCE.md)。无同行依据的旧自拟玩法已撤回/隔离，不能从旧代码、历史报告或资源存在推定恢复。
 
-## AI从这里读
-
-1. [AGENTS](AGENTS.md)：执行地点、Git/审核和资源门槛。
-2. [docs导航](docs/README.md)：唯一权威归属、状态标签、按任务的最少阅读集合。
-3. [主PRD](docs/PRD.md)：目标与范围；[40关玩法](docs/LEVEL_DESIGN.md)：每关参数/步骤/差异/验收。
-
-| 需要查什么 | 文档 |
+| 内容 | 唯一入口 |
 | --- | --- |
-| 唯一规则/事务 | [RULES](docs/spec/RULES.md) |
-| 40关固定初盘/完整纸面回放 | [LEVEL_SIMULATIONS](docs/LEVEL_SIMULATIONS.md)（40主线+20对照，不是Unity/最优证明） |
-| 动画、交互、输入锁 | [INTERACTION_ANIMATION](docs/spec/INTERACTION_ANIMATION.md) |
-| 动画AI提示词/按钮尺寸 | [ANIMATION_PROMPTS](docs/spec/ANIMATION_PROMPTS.md) · [UI_SPEC](docs/UI_SPEC.md) |
-| schema、版本、存档提交/迁移 | [DATA_SAVE](docs/spec/DATA_SAVE.md) |
-| 求解、公平性、精确用例、阶段验收 | [VALIDATION](docs/spec/VALIDATION.md) |
-| 现行代码与新版差异 | [CODE_MAP](docs/spec/CODE_MAP.md) |
-| 同类来源与采纳理由 | [SORTING_RESEARCH](docs/SORTING_RESEARCH.md) |
-| 既有视觉/上架/本轮证据 | [UI_SPEC](docs/UI_SPEC.md) · [发布清单](docs/RELEASE_CHECKLIST.md) · [T16报告](tasks/T16_report.md) |
+| 产品/有效规则/现实现差异 | [PRD4](docs/PRD.md) · [RULES4](docs/spec/RULES.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
+| 同行原玩法文字与证据资格 | [研究手册](docs/SORTING_RESEARCH.md) · [50项矩阵](docs/MECHANIC_EVIDENCE.md) |
+| 40固定关卡/新模型回放 | [教学卡](docs/LEVEL_DESIGN.md) · [固定附录与证据](docs/LEVEL_SIMULATIONS.md) |
+| 世界/森林主题/顺序解锁 | [MAP_PROGRESSION](docs/MAP_PROGRESSION.md) |
+| 已确认美术风格/树枝摆放/尺寸与图标约束 | [UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style) · [尺寸记录](docs/UI_SPEC.md) |
+| 动画/输入/可复制AI模板/开源库 | [INTERACTION](docs/spec/INTERACTION_ANIMATION.md) · [PROMPTS](docs/spec/ANIMATION_PROMPTS.md) · [LIBRARIES](docs/spec/ANIMATION_LIBRARIES.md) |
+| schema/存档/验收/本轮记录 | [DATA_SAVE](docs/spec/DATA_SAVE.md) · [VALIDATION](docs/spec/VALIDATION.md) · [T18报告](tasks/T18_report.md) |
 
-每关内容/玩法固定，重开、重玩和重新进入不随机换盘；差异来自跨关设计。新版保留自动归巢与等待连锁，轮换经典腾位、长短枝/篮周转、探蛋、条件救援、临时空间、目标顺序六类决策。每关最多两类特殊机制，每五关舒缓。无广告/内购/体力；手动放飞风闸仅后续候选。
+每关初态固定；普通加枝已补同类来源与RULES R07完整合同，免费一条本关N座空枝。备用容器逐次扩高仍待参数；固定不代表禁止扩空间。已采规则为端部同类整理、容量内部分搬移、问号蛋、完成群飞走后失枝、免费无限回退/提示与最佳操作记录。具体数值/组合迁移和未证边界在证据表，不声称单一竞品原套装。
 
-## 工程与验证
+世界均为不同森林，主题候选阔叶林/竹林/秋日枫林/雪松林，不加环境机关。统一美术风格与树枝摆放原则已由用户确认，唯一约束见[UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style)；小鸟允许依此重新设计，现有原素材不覆盖。具体生产素材/地图布局仍未验收，不能将风格确认当作实现授权。清晰图标不重复可见文字，规则形按钮、简单静音开关，无音量滑条。动画优先单一开源库，不能静图冒动画；现单张fly资源尚不等于真实振翅。
 
-用固定版本Unity Hub打开`PerchSort/`，入口`PerchSort/Assets/Scenes/Game.unity`。`Assets/Scripts/Core`（工程内）为纯C#；View/UI/Audio负责表现。现行数据`PerchSort/Assets/Resources/Levels/levels.json`仍是40关v2，不调用旧生成器覆盖新版设计。
-
-开发在251，Mac仅测试/截图；运行前确认工程未被Editor占用，不强杀用户编辑器。实际命令/测试基线与失败/跳过要求见AGENTS和VALIDATION。本轮未重跑Unity，新关必须重新证明和实机核验。原始美术不覆盖，新资源先验收；不自动合并、部署或发布。
+工程入口`PerchSort/Assets/Scenes/Game.unity`，Core为纯C#；原`PerchSort/Assets/Resources/Levels/levels.json`未更改。未来代码/素材实施须另有授权，251开发、Mac测试。旧T16规则与60路径已[失效](docs/archive/T16_WITHDRAWN.md)；当前40新独立模型回放不等于Unity/最优或20个蛋关盲玩公平通过。
