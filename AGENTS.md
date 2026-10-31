@@ -7,6 +7,7 @@ Unity 6000.6.7f1 portrait bird-home sorting puzzle. Read [README](README.md), th
 - Talk to the user in Chinese. Existing Chinese docs (`docs/*.md`, older `tasks/*.md`) stay as they are unless a task says otherwise. This user-directed Chinese PRD/spec deliverable retains its requested language; new task specifications/reports, agent entry files, code comments and commits use English.
 
 ## Document ownership and verification
+- This PR/task is documentation and document-level gameplay simulation only. Design contracts, review completion and environment readiness do not authorize game code, runtime data, scenes or new artwork. Any future implementation requires separate explicit user authorization.
 - Current explicit user instructions take precedence. PRD/level cards describe product intent; RULES owns rule semantics; CODE_MAP describes v2. DESIGN is a compatibility router, not another rule source. Plans do not silently change runtime behavior.
 - Separate official descriptions, actual tests and our design choices. New-level optimal proof, visible-information fairness and runtime acceptance need separate evidence. Search budget exhaustion is unknown; old v2 certificates do not prove new layouts.
 - New assets are derived files, never replacements for approved originals. Verify real RGBA transparency, style, pivots/bounds, 64px/grayscale recognition, then in-context screenshots and timed runtime samples. Static frames are not proof of playable animation.

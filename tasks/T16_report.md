@@ -1,6 +1,6 @@
 # T16 — Bird-home AI documentation delivery and verification
 
-Date: 2026-10-31. Status: **independent documentation review passed**, including the final GWT12/SaveError correction. Publishing the documentation branch/draft PR is authorized; no new game implementation has started. User authorization for later code work remains active, subject to the next-stage 251/runtime/resource gates.
+Date: 2026-10-31. Status: **independent documentation review passed**, including the final GWT12/SaveError correction. Publishing the documentation branch/draft PR is authorized; no new game implementation has started. The user subsequently clarified that this task is documentation and document-level simulation only. No game implementation is authorized; future implementation requires separate explicit authorization.
 
 ## Workspace and concurrent changes
 
@@ -56,5 +56,13 @@ Temporary verification scripts/results live under `/tmp/perch-doc-review*` and `
 
 - Formal01-05 have exact design samples; the other35 cards are layout contracts without complete arrays. Every revised level remains pending new Core certificates/runtime/player/device proof. Do not claim the new40 are already solved or playable.
 - Rules/schema3/save5, solver lower-bound migration, tutorial/hint wiring and new resource production are not implemented. Manual dispatch/gates, efficiency medals and layered hints remain optional.
-- Documentation review passed. The user explicitly requested code/README updates and GitHub submission; that authorizes this task's isolated documentation commit/push/draft PR exception. The permanent default "Do not commit to git; Claude commits after review" remains in AGENTS. Do not merge, deploy or release without explicit authority.
-- Next-stage business implementation waits for the parent to verify the published docs and 251 path/resource plan. Do not edit business code on the Mac or contact another external AI/coordinator. This documentation delivery is not completion of the overall game implementation request.
+- Documentation review passed. The latest clarification authorizes this task's isolated documentation publication only, not game implementation. Earlier code-phase authorization wording was an incorrect scope interpretation and is superseded. The permanent default "Do not commit to git; Claude commits after review" remains in AGENTS. The user separately authorized merging the completed documentation PR, but the parent must finish the final review/scope check first; no early merge, deployment or release.
+- All game-code/new-art implementation is stopped and not authorized by this task. The next work is document-level simulation/diversity review and animation-prompt/UI documentation only. Do not edit business code on either machine or contact an external AI/coordinator.
+
+## Documentation-only stop verification (latest clarification)
+
+No T17 implementation specification, business source, runtime JSON, scene or new artwork was written. The only 251 mutation was creating a clean isolated checkout at `/home/developer/Projects/game-t17` from the already-published documentation branch. Both 251 checkouts were clean when checked; the task-owned diagnostic shell is confirmed exited. Existing user terminals were untouched. Both Mac checkouts were also clean before this documentation erratum. No file-writing implementation/build command remains.
+
+Six existing style-reference images were copied outside the repository to the task artifact directory and uploaded for reference only; no source image content was edited and no art generation was invoked. These references are not approved new gameplay assets. The clean 251 checkout is retained, not deleted or reset; there are no uncommitted non-document changes needing backup/rollback.
+
+A concurrent merge advanced the PR branch to d981e2d and imported main's CI files. GitHub PR scope still shows exactly the original16 Markdown files against main; those CI changes were from another main-line task, not authored here. Future document expansion remains Markdown only.
