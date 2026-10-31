@@ -37,3 +37,6 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+
+# Local reference APK inputs and their manifest
+/References/CutieSort/
