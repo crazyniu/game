@@ -1,44 +1,49 @@
-# Perch Sort — 协作说明（Codex 读这里；Claude 读 CLAUDE.md，内容一致）
+# Perch Sort — collaboration guide (Codex reads this; Claude reads CLAUDE.md with the same content)
 
-Unity 6000.6.7f1 竖屏小鸟归类益智游戏（原创题材/美术/文案）。权威设计：`docs/DESIGN.md`；UI 规范：`docs/UI_SPEC.md`；上架清单：`docs/RELEASE_CHECKLIST.md`；历史任务与验收报告：`tasks/T*.md`（最新 T15b）。
+Unity 6000.6.7f1 portrait bird-sorting puzzle game (original theme, art and text). Authoritative design: `docs/DESIGN.md`; UI spec: `docs/UI_SPEC.md`; release checklist: `docs/RELEASE_CHECKLIST.md`; past task specs and acceptance reports: `tasks/T*.md` (latest: T15b).
 
-## 机器与分工（2026-10-31 起）
-| 机器 | 角色 |
+## Language
+- Everything written for AI agents (CLAUDE.md, AGENTS.md, new task specs and reports, code comments, commit messages) is in **English**.
+- Talk to the user in Chinese. Existing Chinese docs (`docs/*.md`, older `tasks/*.md`) stay as they are unless a task says otherwise.
+
+## Machines and roles (since 2026-10-31)
+| Machine | Role |
 |---|---|
-| **251**（Linux，192.168.1.251，`~/Projects/game`） | 开发：Claude 拆任务/写验收/验收/决策，Codex 写代码、出图。**无 Unity Editor**，不能编译或跑测试。 |
-| **Mac**（192.168.1.232，Orca 环境 `Mac-Image-Worker`，旧路径 `/Users/apple/Documents/projects/game`） | 只做测试：Unity 编译、EditMode/PlayMode 测试、截图。不在 Mac 上改代码。 |
+| **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex writes code and produces images. **No Unity Editor** — cannot compile or run tests. |
+| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Testing only: Unity compile, EditMode/PlayMode tests, screenshots. Do not edit code on the Mac. |
 
-旧流程中 Mac 上的 Claude 不再使用。
+The Mac-side Claude from the old workflow is retired.
 
-## Git 流程（两边同一个仓库 `origin = github.com/crazyniu/game`）
-1. 251 从 `main` 开分支 `t<编号>-<简述>`，Codex 实现，Claude 审代码后提交并 push。
-2. Mac：`git fetch && git checkout <分支> && git pull`，然后运行
-   - `bash scripts/run_tests.sh`（会先 SceneBuilder 重建场景；EditMode ≥101、PlayMode ≥11 全绿）
-   - `bash scripts/screenshots.sh`（截图在 `build/screens/flow/`）
-   跑之前确认没有其它 Unity 进程。
-3. 测试结果/截图回到 251：251 直接远程驱动 Mac（不可达时才请用户手动跑）：
+## Git workflow (one repo on both machines, `origin = github.com/crazyniu/game`)
+1. On 251, branch from `main` as `t<number>-<short-name>`. Codex implements; Claude reviews, commits and pushes.
+2. On the Mac: `git fetch && git checkout <branch> && git pull --ff-only`, then
+   - `bash scripts/run_tests.sh` (runs SceneBuilder first; requires EditMode ≥101 and PlayMode ≥11 passing, zero failures)
+   - `bash scripts/screenshots.sh` (output in `build/screens/flow/`)
+3. 251 drives the Mac remotely; ask the user to run things by hand only when the Mac is unreachable:
    ```bash
    orca status --environment Mac-Image-Worker --json
    orca terminal create --environment Mac-Image-Worker --worktree path:/Users/apple/Documents/projects/game \
-     --title Mac-Test --command "git fetch && git checkout <分支> && git pull --ff-only && bash scripts/run_tests.sh" --json
+     --title Mac-Test --command "git fetch && git checkout <branch> && git pull --ff-only && bash scripts/run_tests.sh" --json
+   orca terminal send --environment Mac-Image-Worker --terminal <handle> --text "<cmd>" --enter --json
    orca terminal read --environment Mac-Image-Worker --terminal <handle> --json
    ```
-   - 跑之前 Mac 上**不能开着 Unity 编辑器**打开本工程（否则 batchmode 秒退 exit 1），请用户退出编辑器，不要替用户强杀。
-   - `run_tests.sh` 会让 SceneBuilder 重写 `Assets/Scenes/Game.unity`，仅 fileID 重新编号；若分支本身没改场景，测完 `git checkout -- PerchSort/Assets/Scenes/Game.unity` 丢弃。
-   - PlayMode 当前 14/22 通过、8 个是代码里标注的有意 Skip（Level10/20/30/40 等延后项），不算失败。
-   - 取截图到 251：Mac 上临时 `python3 -m http.server 8765 --bind 0.0.0.0 -d build/screens/flow &`，251 上 `curl` 到 `/tmp/perch-screens/flow/`，取完立即 kill（Mac→251 无免密 SSH）。
-   Mac IP 变了导致连不上时，改 251 上 `~/.orca/orca-environments.json` 里的 `endpoint`（配对凭据不变）。`build/` 已被 gitignore，不要提交测试产物。
-4. 验收通过 → 合并到 `main` 并 push；不通过 → 带具体问题清单让 Codex 返工。
-5. Mac 上若 Unity 改写了 `.meta`/`ProjectSettings`（例如 SceneBuilder、ReleaseSettings），把这些改动从 Mac 提交到同一分支 push，251 再 pull，避免两边分叉。
+   - The Unity Editor must **not** have this project open on the Mac, or batchmode exits immediately with code 1. Ask the user to quit the editor; never kill it yourself.
+   - `run_tests.sh` makes SceneBuilder rewrite `Assets/Scenes/Game.unity` with renumbered fileIDs only. If the branch did not intentionally change the scene, discard it afterwards: `git checkout -- PerchSort/Assets/Scenes/Game.unity`.
+   - Baseline on `main` (2026-10-31): EditMode 163/163; PlayMode 14 passed, 0 failed, 8 intentionally skipped in code (Level10/20/30/40 smoke tests and other deferred items). Skips are not failures.
+   - Fetching screenshots to 251 (the Mac has no passwordless SSH to 251): on the Mac start `python3 -m http.server 8765 --bind 0.0.0.0 -d build/screens/flow &`, `curl` the files into `/tmp/perch-screens/flow/` on 251, then kill the server immediately.
+   - If the Mac's IP changes, edit `endpoint` in `~/.orca/orca-environments.json` on 251; the pairing credentials stay valid.
+   - `build/` is gitignored; never commit test output.
+4. Accepted → merge into `main` and push. Rejected → send Codex back with a concrete list of issues.
+5. If Unity on the Mac rewrites `.meta` files or `ProjectSettings` (e.g. SceneBuilder, ReleaseSettings) in a way the task needs, commit those from the Mac to the same branch and push, then pull on 251, so the two sides never diverge.
 
-## 纪律
-- Core（`Assets/Scripts/Core`）纯 C#、不引用 UnityEngine；逻辑与动画分离。改 Core 规则或关卡前先更新 `docs/DESIGN.md` 并经用户同意。
-- 不改 `art/` 原件；新资源另出派生文件。
-- 每个任务写 `tasks/T<n>_<name>.md`（需求+验收标准）和 `tasks/T<n>_report.md`（交付说明）。
-- 保持原创：题材、美术、命名、数值、文案都自己定，不照搬任何现有游戏的素材或文字。
-- T12 内容扩量暂停，关卡保持 40 关；T14 上架需用户提供账号/包名（当前 `com.todo.perchsort` 是占位）。
+## Rules
+- Core (`Assets/Scripts/Core`) is pure C# with no UnityEngine references; logic and animation stay separate. Update `docs/DESIGN.md` and get the user's approval before changing Core rules or levels.
+- Never modify originals under `art/`; produce derived files instead.
+- Every task gets `tasks/T<n>_<name>.md` (requirements + acceptance criteria) and `tasks/T<n>_report.md` (delivery notes).
+- Stay original: theme, art, names, numbers and text are our own; never copy assets or text from any existing game.
+- T12 (more levels) is paused; keep 40 levels. T14 (store release) needs an account and package name from the user (`com.todo.perchsort` is a placeholder).
 
-## Codex 专用
-- 只做协调者（Claude）派发的当前任务；有歧义用 `orca orchestration ask`，不要自行猜测扩大范围。
-- 251 上无法运行 Unity：写完代码后自查编译风险（命名空间、asmdef 引用、序列化字段），在报告里列出需要在 Mac 上验证的点。
-- 不提交 git，由 Claude 审完后提交。
+## Codex only
+- Do only the current task dispatched by the coordinator (Claude). For anything ambiguous, use `orca orchestration ask`; do not guess or widen scope.
+- 251 cannot run Unity: after writing code, self-check compile risks (namespaces, asmdef references, serialized fields) and list in the report what must be verified on the Mac.
+- Do not commit to git; Claude commits after review.
