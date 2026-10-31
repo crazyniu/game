@@ -13,14 +13,16 @@ Unity **6000.6.7f1** 竖屏离线排序益智游戏：搬移外露同种鸟群�
 | 需要查什么 | 文档 |
 | --- | --- |
 | 唯一规则/事务 | [RULES](docs/spec/RULES.md) |
+| 40关固定初盘/完整纸面回放 | [LEVEL_SIMULATIONS](docs/LEVEL_SIMULATIONS.md)（40主线+20对照，不是Unity/最优证明） |
 | 动画、交互、输入锁 | [INTERACTION_ANIMATION](docs/spec/INTERACTION_ANIMATION.md) |
+| 动画AI提示词/按钮尺寸 | [ANIMATION_PROMPTS](docs/spec/ANIMATION_PROMPTS.md) · [UI_SPEC](docs/UI_SPEC.md) |
 | schema、版本、存档提交/迁移 | [DATA_SAVE](docs/spec/DATA_SAVE.md) |
 | 求解、公平性、精确用例、阶段验收 | [VALIDATION](docs/spec/VALIDATION.md) |
 | 现行代码与新版差异 | [CODE_MAP](docs/spec/CODE_MAP.md) |
 | 同类来源与采纳理由 | [SORTING_RESEARCH](docs/SORTING_RESEARCH.md) |
 | 既有视觉/上架/本轮证据 | [UI_SPEC](docs/UI_SPEC.md) · [发布清单](docs/RELEASE_CHECKLIST.md) · [T16报告](tasks/T16_report.md) |
 
-新版保留自动归巢与等待连锁，轮换经典腾位、长短枝/篮周转、探蛋、条件救援、临时空间、目标顺序六类决策。每关最多两类特殊机制，每五关舒缓。无广告/内购/体力；手动放飞风闸仅后续候选。
+每关内容/玩法固定，重开、重玩和重新进入不随机换盘；差异来自跨关设计。新版保留自动归巢与等待连锁，轮换经典腾位、长短枝/篮周转、探蛋、条件救援、临时空间、目标顺序六类决策。每关最多两类特殊机制，每五关舒缓。无广告/内购/体力；手动放飞风闸仅后续候选。
 
 ## 工程与验证
 

@@ -1,6 +1,6 @@
 # Perch Sort — collaboration guide (Codex reads this; Claude reads CLAUDE.md with the same content)
 
-Unity 6000.6.7f1 portrait bird-home sorting puzzle. Read [README](README.md), then the [AI reading router](docs/README.md). The sole new-rule authority is [RULES](docs/spec/RULES.md); [CODE_MAP](docs/spec/CODE_MAP.md) separates implemented v2 from planned changes. PRD, level cards and research have separate owners in the router. New eggs, temporary perches and revised levels are not implemented; evidence and scope are in [T16 report](tasks/T16_report.md).
+Unity 6000.6.7f1 portrait bird-home sorting puzzle. Read [README](README.md), then the [AI reading router](docs/README.md). The sole new-rule authority is [RULES](docs/spec/RULES.md); [CODE_MAP](docs/spec/CODE_MAP.md) separates implemented v2 from planned changes. PRD, level cards, fixed-layout/replay appendices and research have separate owners in the router. UI_SPEC owns static UI-D dimensions; INTERACTION owns timings/input; ANIMATION_PROMPTS offers storyboard, separately authorized implementation and acceptance templates without granting execution authority. New eggs, temporary perches and revised levels are not implemented; evidence and scope are in [T16 report](tasks/T16_report.md).
 
 ## Language
 - Everything written for AI agents (CLAUDE.md, AGENTS.md, new task specs and reports, code comments, commit messages) is in **English**.
