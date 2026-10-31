@@ -20,7 +20,7 @@ schema4 / rules4 / save6（设计目标，未实施）· 2026-10-31。玩法权�
 
 标识符匹配`[A-Za-z0-9][A-Za-z0-9._-]{0,63}`。按固定数组下标，不按S10/S2词典排序。关卡初始枝均Available，退役是运行态，不写初始Retired。没有targets/Asleep/CompletedCount/crate/baskets/temporary字段；旧字段、同关额外capacity、未知字段全部拒绝，不能静默忽略后当合法新关。
 
-基础40不含ExtraBranch/ReserveGrow动作或伪造数值字段。它们有功能证据但仍待参数，今后激活须新schema/配置+可回放事务，不能把当前schema没有字段解释成产品永远禁止扩容。所有初态固定，不能在加载时随机补空数组或调用AI生成。
+静态40初盘仍只有P枝，不预置额外枝。R07 AddBranch属于运行事务，按§3追加S(P+1)；ReserveGrow仍待参。辅助策略版本单列assistPolicyVersion=1，不改变本页静态schema4 hash/H04向量；它是所有运行快照、Undo、Hint及证书必须携带的身份维度，不允许缺省猜测。所有初态固定，不能在加载时随机补空数组或调用AI生成。
 
 ## 2. 规范hash与新测试向量
 
@@ -141,13 +141,13 @@ schema4 / rules4 / save6（设计目标，未实施）· 2026-10-31。玩法权�
 
 ## 3. 运行快照和状态键
 
-StableSnapshot包含：身份与contentHash、按原枝顺序的token数组、每枝Available/Retired、已Home种集合、操作数、Undo快照栈、已提交actionSequence、进度引用。Retired必须空且与对应Home事件一致；每种remaining+N×isHome=N。无Asleep/队列/箱/临时三态。Clone必须深拷贝所有可变数组，不共享鸟/壳对象。
+StableSnapshot包含：身份与contentHash、assistPolicyVersion=1、extraBranchAdded布尔、按原枝顺序的token数组、每枝Available/Retired、已Home种集合、操作数、带actionType的Undo快照栈、已提交actionSequence、进度引用。Retired必须空且与对应Home事件一致；每种remaining+N×isHome=N。无Asleep/队列/箱/临时三态。Clone必须深拷贝所有可变数组，不共享鸟/壳对象。
 
-状态键用于精确回放/提示：rules/schema/campaign/level/hash、token ID/形态/species与顺序、枝态、Home集合；提示身份再绑定actionSequence与viewGeneration。不能只比较物种而合并蛋形态/退役差异。操作数影响成绩但不改变合法动作，可从搜索等价键单独管理；若实现忽略token ID作求解压缩，必须给可恢复映射，不能改变精确回放键。
+状态键用于精确回放/提示：rules/schema/campaign/level/hash、assistPolicyVersion、extraBranchAdded、完整枝ID/数组长度、token ID/形态/species与顺序、枝态、Home集合；提示身份再绑定actionSequence与viewGeneration。不能只比较物种而合并蛋形态/退役差异。操作数影响成绩但不改变合法动作，可从搜索等价键单独管理；若实现忽略token ID作求解压缩，必须给可恢复映射，不能改变精确回放键。
 
 ## 4. 稳定事务、原子提交和SaveError
 
-Transfer输入→从旧StableSnapshot构造独立候选→RULES完整稳定化→生成有序事件/候选Undo/操作数→序列化候选→原子确认成功→替换内存权威快照→Presenting。**逻辑完整先提交，之后才演出**；动画不负责Home/Retire/解锁。
+Transfer或AddBranch输入→从旧StableSnapshot构造独立候选→RULES完整稳定化→生成有序事件/候选Undo/操作数→序列化候选→原子确认成功→替换内存权威快照→Presenting。**逻辑完整先提交，之后才演出**；动画不负责Home/Retire/解锁。
 
 存档使用同目录临时文件，完成写入与校验后原子替换主档，维护上一兼容成功备份；需在目标平台验证真实原子边界。禁止逐字段覆盖主档。无法确认替换结果先读回核验身份/序号/候选hash，不能盲重做动作。
 
@@ -159,19 +159,29 @@ Transfer输入→从旧StableSnapshot构造独立候选→RULES完整稳定化�
 
 正常后台/恢复：已提交则恢复完整稳定终态，不恢复半程Transform/协程；原子提交前强杀则读上一成功快照。选中只是视觉，不存；重新进入增viewGeneration，旧协程/Hint/音效回调无效，不可解锁新局。
 
-Undo为一个新事务：恢复最近Transfer前快照，弹历史、恢复操作数，成功序号仍递增；失败保留Undo前局。Undo不会再执行完成退役规则，避免空枝误退。Restart为新事务，重建同hash固定初态、清本局历史/操作数；保留最佳成绩/通关/静音。没有Undo扣星或Hint消耗账本。
+Undo为一个新事务：恢复最近Transfer或AddBranch前完整快照，弹历史、恢复操作数及extraBranchAdded/枝集合，成功序号仍递增；失败保留Undo前局。Undo不会再执行完成退役规则，避免空枝误退。Restart为新事务，重建同hash固定初态P枝、extraBranchAdded=false、清本局历史/操作数；保留最佳成绩/通关/静音。没有Undo扣星或Hint消耗账本。
 
 ## 5. 世界进度与旧档处理
 
-进度saveVersion6：completedLevelIds、bestMoveCountByLevel、currentLevel、可选seenWorldIntro、总静音设置；world/level解锁按MAP_PROGRESSION由已提交completed集合推导，不能与另存unlock布尔互相矛盾。当前局快照含完整Undo历史，退出后可继续无限撤销，不静默截断；压缩/delta必须证明等价恢复。
+进度saveVersion6：completedLevelIds、bestMoveCountByLevel（无辅助）、bestAssistedMoveCountByLevel（有辅助）、currentLevel、可选seenWorldIntro、总静音设置；world/level解锁按MAP_PROGRESSION由已提交completed集合推导，不能与另存unlock布尔互相矛盾。当前局快照含完整Undo历史，退出后可继续无限撤销，不静默截断；压缩/delta必须证明等价恢复。
 
 | 输入 | 唯一处理策略 |
 | --- | --- |
 | 实际旧进度version4/rules2 | 先保留原档只读副本，归档旧campaign成绩/关号/星/提示；新campaign从01开始，不回放From/To到新布局 |
 | T16设计schema3/rules3/save5 | 尚未实施，若遇实验档隔离为legacy试验；不当真实用户迁移已验证，不自动映射新关 |
-| 新campaign同level同hash | 恢复快照/Undo/操作数；目标世界归属检查一致 |
+| 新campaign同level同hash且assistPolicyVersion=1 | 恢复快照/Undo/操作数/额外枝；目标世界归属检查一致，按下述运行校验拒绝矛盾状态 |
 | 同campaign修订hash | 备份旧局及最佳历史并标oldHash；新布局重开当前已开放关，旧证书/Undo失效；提示无消耗无需额度迁移 |
-| 未知version / 未知玩法字段 | 保留原件/备份并拒绝写入该档，不用默认值吞掉；显示可理解错误；不得覆盖唯一证据 |
+| 未知version / 缺失或未知assistPolicyVersion / 未知玩法字段 | 保留原件/备份并拒绝写入该档，不用默认值吞掉；显示可理解错误；不得覆盖唯一证据 |
 | 主档坏/校验失败 | 尝试身份兼容且完整bak；无可用备份则保留坏档，安全开启对应新局并提示，不能混合半新半旧 |
 
 旧campaign星级不折算新地图解锁，旧同号新关不视为已完成。存档路径/产品名/平台目录变化要未来授权实现时记录并验收，本轮未改路径或配置。
+
+## 6. R07运行格式补充与拒绝条件（E）
+
+- `extraBranchAdded=false`时快照恰P枝，ID严格S1..SP；true时恰P+1枝，最后ID为S(P+1)，side依编号奇偶，容量由flockSize推导。动态最多11枝（静态P≤10）；不能向静态shelves加入该枝、不能用E1等别名破坏ID解析。true且末枝Retired合法，仍不返还额度。
+- 每笔历史项为`{actionType:Transfer|AddBranch,before:StableSnapshotWithoutHistory}`，before包含完整辅助字段；不递归嵌套整栈。Transfer记录sourceId/targetId/Count供回放；AddBranch记录addedBranchId=S(P+1)，不伪造source/Count。所有可变数据深拷贝。
+- AddBranch候选只在false→true时append空Available枝；操作数不变，actionSequence增加1。Undo弹AddBranch前必须已撤回全部后续事务，当前末枝必须空且Available；恢复before并移除末枝。状态/事件不匹配即拒绝坏历史，不能清掉鸟后强行通过。
+- Snapshot canonicalization沿§2键/UTF-8规则，但运行snapshotHash覆盖辅助版本/布尔、完整枝态、token、Home、操作数与事务序号；不含动画坐标。静态contentHash和运行snapshotHash不能混名。证书另标`actionSet=TRANSFER_ONLY|TRANSFER_AND_ADD_BRANCH`；已有40见证只属于前者、初态extraBranchAdded=false。
+- 已提交AddBranch后强杀/返回菜单/加载恢复true及同一末枝；保存失败复用同候选字节/序号，不重复append。Restart候选回基础P枝和false；只有提交成功才显示其初态。
+- Won时extraBranchAdded=false更新bestMoveCountByLevel，否则更新bestAssistedMoveCountByLevel；各自取最小Transfer数，未完成为null。Undo撤回AddBranch恢复false，故分类按当前路径而非“这次打开页面曾点过”。这是E比较分组，不增加奖励、门槛或星级；两类成功都正常解锁世界。
+- 未实施的早期save6草稿若缺辅助身份，不默默补false；备份并提示从固定初态重开，禁止恢复可能丢失枝的局面。已有旧v2进度仍按§5归档。字段增加不声称实际迁移已跑过。
