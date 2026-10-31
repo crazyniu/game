@@ -16,7 +16,14 @@ Unity 6000.6.7f1 竖屏小鸟归类益智游戏（原创题材/美术/文案）�
    - `bash scripts/run_tests.sh`（会先 SceneBuilder 重建场景；EditMode ≥101、PlayMode ≥11 全绿）
    - `bash scripts/screenshots.sh`（截图在 `build/screens/flow/`）
    跑之前确认没有其它 Unity 进程。
-3. 测试结果/截图回到 251：Mac 可达时用 Orca `--environment Mac-Image-Worker` 远程执行并读取；不可达时由用户手动跑并把输出/截图发过来。`build/` 已被 gitignore，不要提交测试产物。
+3. 测试结果/截图回到 251：251 直接远程驱动 Mac（不可达时才请用户手动跑）：
+   ```bash
+   orca status --environment Mac-Image-Worker --json
+   orca terminal create --environment Mac-Image-Worker --worktree path:/Users/apple/Documents/projects/game \
+     --title Mac-Test --command "git fetch && git checkout <分支> && git pull --ff-only && bash scripts/run_tests.sh" --json
+   orca terminal read --environment Mac-Image-Worker --terminal <handle> --json
+   ```
+   Mac IP 变了导致连不上时，改 251 上 `~/.orca/orca-environments.json` 里的 `endpoint`（配对凭据不变）。`build/` 已被 gitignore，不要提交测试产物。
 4. 验收通过 → 合并到 `main` 并 push；不通过 → 带具体问题清单让 Codex 返工。
 5. Mac 上若 Unity 改写了 `.meta`/`ProjectSettings`（例如 SceneBuilder、ReleaseSettings），把这些改动从 Mac 提交到同一分支 push，251 再 pull，避免两边分叉。
 
