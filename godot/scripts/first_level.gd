@@ -108,7 +108,9 @@ func _button(parent: Node, text: String, rect: Rect2, action: Callable, icon_nam
 	button.text = text
 	button.add_theme_font_override("font", font)
 	button.add_theme_font_size_override("font_size", 42)
-	button.add_theme_color_override("font_color", Color("fff1cf"))
+	# Existing dark-brown palette remains readable on the accepted cream button skin.
+	for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_disabled_color", "font_focus_color", "font_hover_pressed_color"]:
+		button.add_theme_color_override(color_name, Color("5a3a22"))
 	var skin := StyleBoxTexture.new()
 	skin.texture = load("res://assets/ui/panel_wood.png")
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
@@ -117,10 +119,11 @@ func _button(parent: Node, text: String, rect: Rect2, action: Callable, icon_nam
 		button.text = ""
 		button.tooltip_text = text
 		var icon := TextureRect.new()
+		# Ignore native texture dimensions before assigning a texture or geometry.
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.texture = load("res://assets/ui/icon_%s.png" % icon_name)
 		icon.position = rect.size * 0.2
 		icon.size = rect.size * 0.6
-		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(icon)
@@ -142,7 +145,7 @@ func _build_ui() -> void:
 	ui.add_child(hud)
 	_label(hud, "Level 1", Rect2(330, 50, 420, 90), 58)
 	moves_label = _label(hud, "Moves: 0", Rect2(330, 140, 420, 70), 38)
-	_button(hud, "Settings", Rect2(870, 65, 130, 130), request_pause, "pause")
+	_button(hud, "Settings", Rect2(870, 65, 130, 130), request_pause, "settings")
 	undo_button = _button(hud, "Undo", Rect2(213, 1695, 130, 130), undo, "undo")
 	restart_button = _button(hud, "Restart", Rect2(737, 1695, 130, 130), restart, "restart")
 	_label(hud, "Tap a bird, then a matching branch", Rect2(90, 1490, 900, 90), 34)

@@ -33,6 +33,19 @@ func run() -> void:
 	await process_frame
 	check(scene.actors.size() == 8, "Eight stable bird actors")
 	check(scene.branches.size() == 3, "Three supported branches")
+	for child in scene.hud.get_children():
+		if child is Button:
+			for icon in child.get_children():
+				if icon is TextureRect:
+					check(icon.size.is_equal_approx(child.size * 0.6), "HUD icon retains 60 percent design size")
+					check(Rect2(Vector2.ZERO, child.size).encloses(icon.get_rect()), "HUD icon remains inside button bounds")
+					if child.tooltip_text == "Settings":
+						check(icon.texture.resource_path == "res://assets/ui/icon_settings.png", "Settings binds accepted gear icon")
+	var text_button = scene._button(scene.hud, "Replay", Rect2(0, 0, 440, 110), func(): pass)
+	for color_name in ["font_color", "font_hover_color", "font_pressed_color", "font_disabled_color", "font_focus_color", "font_hover_pressed_color"]:
+		check(text_button.get_theme_color(color_name) == Color("5a3a22"), "Button text uses readable dark palette: " + color_name)
+	text_button.queue_free()
+
 	check(scene.modal.size == scene.get_viewport_rect().size, "Modal blocks the entire viewport")
 	check(scene.session.snapshot() == Rules.initial_state(), "Exact authored initial board")
 	check(not scene.undo_button.visible, "Undo hidden without history")

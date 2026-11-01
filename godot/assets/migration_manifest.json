@@ -212,6 +212,12 @@
       "source": "PerchSort/Assets/Audio/Resources/flutter.wav",
       "sha256": "c13dc96406fd3d640b80f00751a05989df6ee130bcde4444055ff3429c007d8d",
       "bytes": 26504
+    },
+    {
+      "path": "godot/assets/ui/icon_settings.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_settings.png",
+      "sha256": "6b147ce29b6b21e74a9f75600d2de5896b4dd968bfe9eab7e44b1458d59d532b",
+      "bytes": 37479
     }
   ]
 }
