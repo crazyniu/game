@@ -1,21 +1,20 @@
-# 小鸟归巢 · Perch Sort
+# Bird Home · Godot migration
 
-Unity6000.6.7f1竖屏排序益智项目。**当前运行代码仍v2/40关；这里新增的是同行依据版v4文档，尚未实施。** 本任务只整理文档和临时独立玩法分析，不改源码/运行关卡/场景/素材，不安装库，不自动合并/部署。
+The active project is **`godot/project.godot`**, native GDScript. The user requested switching the current bird game from Unity to Godot and stopping other feature expansion while the framework is migrated. **Migration is IN PROGRESS.** See [current status/gap matrix](docs/GODOT_MIGRATION.md); do not infer completed/mobile-tested status from the new directory.
 
-AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩阵](docs/MECHANIC_EVIDENCE.md)。无同行依据的旧自拟玩法已撤回/隔离，不能从旧代码、历史报告或资源存在推定恢复。
+Cloud Godot4.6.3 is the primary test environment; local Godot4.7.2 is fallback only if cloud testing cannot proceed. No251 access or transfer. Unity `PerchSort/`, scripts and historical reports remain reference material, not the active entry or current test workflow.
 
-| 内容 | 唯一入口 |
-| --- | --- |
-| 产品/有效规则/现实现差异 | [PRD4](docs/PRD.md) · [RULES4](docs/spec/RULES.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
-| 同行原玩法文字与证据资格 | [研究手册](docs/SORTING_RESEARCH.md) · [50项矩阵](docs/MECHANIC_EVIDENCE.md) |
-| 40固定关卡/新模型回放 | [教学卡](docs/LEVEL_DESIGN.md) · [固定附录与证据](docs/LEVEL_SIMULATIONS.md) |
-| 世界/森林主题/顺序解锁 | [MAP_PROGRESSION](docs/MAP_PROGRESSION.md) |
-| 已确认美术风格/树枝摆放/尺寸与图标约束 | [UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style) · [尺寸记录](docs/UI_SPEC.md) |
-| 动画/输入/可复制AI模板/开源库 | [INTERACTION](docs/spec/INTERACTION_ANIMATION.md) · [PROMPTS](docs/spec/ANIMATION_PROMPTS.md) · [LIBRARIES](docs/spec/ANIMATION_LIBRARIES.md) |
-| schema/存档/验收/本轮记录 | [DATA_SAVE](docs/spec/DATA_SAVE.md) · [VALIDATION](docs/spec/VALIDATION.md) · [T18报告](tasks/T18_report.md) |
+## Scope
 
-每关初态固定；普通加枝已补同类来源与RULES R07完整合同，免费一条本关N座空枝。备用容器逐次扩高仍待参数；固定不代表禁止扩空间。已采规则为端部同类整理、容量内部分搬移、问号蛋、完成群飞走后失枝、免费无限回退/提示与最佳操作记录。具体数值/组合迁移和未证边界在证据表，不声称单一竞品原套装。
+Port the fixed two-transfer L01 (N4/K2/P3, AAA/BBBA/B), native rules/session/Undo/Restart, isolated persistence, existing six-frame birds/selection/flight/Home/retired branch-root fade, English/Fredoka UI and audio. Godot native Tween replaces LitMotion. Native save version1 does not overwrite Unity save6. The other39 levels and economy/help-skill designs are not thereby implemented. Approved shop/skill/settings images are preserved, not redrawn or newly expanded.
 
-世界均为不同森林，主题候选阔叶林/竹林/秋日枫林/雪松林，不加环境机关。统一美术风格与树枝摆放原则已由用户确认，唯一约束见[UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style)；小鸟允许依此重新设计，现有原素材不覆盖。具体生产素材/地图布局仍未验收，不能将风格确认当作实现授权。清晰图标不重复可见文字，规则形按钮、简单静音开关，无音量滑条。动画优先单一开源库，不能静图冒动画；现单张fly资源尚不等于真实振翅。
+## Read and run
 
-工程入口`PerchSort/Assets/Scenes/Game.unity`，Core为纯C#；原`PerchSort/Assets/Resources/Levels/levels.json`未更改。未来代码/素材实施须另有授权，251开发、Mac测试。旧T16规则与60路径已[失效](docs/archive/T16_WITHDRAWN.md)；当前40新独立模型回放不等于Unity/最优或20个蛋关盲玩公平通过。
+- [AGENTS](AGENTS.md): cloud-first execution, ownership, migration-only merge authority and boundaries.
+- [Docs router](docs/README.md) → [Migration](docs/GODOT_MIGRATION.md) → [Rules](docs/spec/RULES.md).
+- [Godot code map](docs/spec/CODE_MAP.md), [save contract](docs/spec/DATA_SAVE.md), [animation](docs/spec/ANIMATION_LIBRARIES.md), [validation](docs/spec/VALIDATION.md).
+- [Product](docs/PRD.md), [fixed levels](docs/LEVEL_SIMULATIONS.md), [UI approvals](docs/UI_SPEC.md), [design-only economy](docs/spec/ECONOMY_SHOP.md).
+
+From the repository root, use `godot --headless --path godot --editor --quit` to import/parse, then `GODOT_BIN=godot bash scripts/run_tests.sh` as documented in GODOT_MIGRATION; `godot --path godot` runs the main scene when display access is authorized. Commands are workflow instructions, not pass claims. Exact aggregate/CI commands and outcomes are recorded by the integrator. No Unity Editor/TestRunner is needed for active migration verification.
+
+The user authorized submitting/merging the completed migration after necessary review/CI. No deployment, bypassed protections or automatic approval on the user's behalf. Native/headless checks do not certify signed Android/iOS packages, actual mobile input or final visual/audio acceptance.

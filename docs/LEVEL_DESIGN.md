@@ -1,10 +1,12 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # 小鸟归巢：v4固定40关课程与玩法目录
 
 2026-10-31 · **有来源规则的固定关卡设计；未入运行JSON。** 本次重做全部旧40关，旧目标队列/睡眠/条件箱/已知种蛋/临时枝清空退役不再有效。完整固定初态和回放只在[四份附录](LEVEL_SIMULATIONS.md)，本页只拥有教学目的、重点动作、差异和节奏。唯一算法见[RULES](spec/RULES.md)，来源及移除理由见[MECHANIC_EVIDENCE](MECHANIC_EVIDENCE.md)。
 
 ## 1. 共同合同
 
-所有关卡固定种类/数量/形态/初始顺序/位置，重开同盘。四世界阔叶林/竹林/秋日枫林/雪松林仅是视觉候选、未定美术，不引入环境规则。所有枝同一N，每种N，K+2枝恰两空。全关从01起都知道同种完整群会归巢并失去该枝；新世界不是以后才引入的失枝规则。?蛋策划种类固定，玩家只见问号；不是纹样预告；正式配置禁止相邻egg。扩枝采用RULES R07的免费一条N座空枝，但基本胜利路线不依赖它；逐次扩高/金币仍不擅填。
+所有关卡固定种类/数量/形态/初始顺序/位置，重开同盘。四世界阔叶林/竹林/秋日枫林/雪松林仅是视觉候选、未定美术，不引入环境规则。所有枝同一N，每种N，02–40为K+2枝/两空；01按RULES §2.1为N4/K2/P3/零空教学。全关从01起都知道同种完整群会归巢并失去该枝；新世界不是以后才引入的失枝规则。?蛋策划种类固定，玩家只见问号；不是纹样预告；正式配置禁止相邻egg。扩枝采用RULES R07的免费一条N座空枝，但基本胜利路线不依赖它；逐次扩高/金币仍不擅填。
 
 容量4引用SRC-SIMPLE，6/8引用SRC-BOOP；端部群与接收引用SRC-LEAF，min(run,free)引用SRC-SIMPLE，完成飞走失枝引用SRC-BIRD2，?蛋引用SRC-QUEST。跨题材/跨产品组合已明说，不能称原作某个真实关卡。本项目固定布局为独立策划，不复制竞品整关。
 
@@ -12,8 +14,8 @@
 
 | 关卡/课程角色 | 固定参数和特殊对象 | 完整路径中的玩法/决策 | 差异与专项验收 |
 | --- | --- | --- | --- |
-| 01 三群第一次归巢 / 教学 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡01) | 先Move S1→S4 B1（run=1，Count=1）；第2步首次归巢失枝，后续不得再借该枝。 | 6段/0蛋；4步见证非最优。首次教四座完整群、归巢即失枝。 |
-| 02 拆开交错小段 / 练习 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡02) | 先Move S1→S4 B2（run=2，Count=2）；第3步首次归巢失枝，后续不得再借该枝。 | 10段/0蛋；8步见证非最优。具体段顺序/依赖见固定数组，不能只换颜色宣称不同。与前关比较：N4→4、K3→3、段6→10、蛋0→0；不同初态有独立结构签名。 |
+| 01 First homecoming / 教学 | N4/K2/P3；?蛋0；零空枝；仅01的profile例外；[完整固定配置](levels/FIXED_01_10.md#关卡01) | Unique first move S2→S1 A1 (run1/Count1), immediately Home A/Retire S1; then either direction joins B3+B1. | 4段/0蛋；2步主见证与另一条2步完整路径。First match pays off immediately; both legal second moves finish. |
+| 02 拆开交错小段 / 练习 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡02) | 先Move S1→S4 B2（run=2，Count=2）；第3步首次归巢失枝，后续不得再借该枝。 | 10段/0蛋；8步见证非最优。具体段顺序/依赖见固定数组，不能只换颜色宣称不同。与前关比较：N4→4、K2→3、段4→10、蛋0→0；不同初态有独立结构签名。 |
 | 03 先露出内层 / 练习 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡03) | 先Move S2→S4 C2（run=2，Count=2）；第5步首次归巢失枝，后续不得再借该枝。 | 9段/0蛋；7步见证非最优。具体段顺序/依赖见固定数组，不能只换颜色宣称不同。与前关比较：N4→4、K3→3、段10→9、蛋0→0；不同初态有独立结构签名。 |
 | 04 空枝分工 / 练习 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡04) | 先Move S2→S4 B1（run=1，Count=1）；第4步首次归巢失枝，后续不得再借该枝。 | 8段/0蛋；6步见证非最优。具体段顺序/依赖见固定数组，不能只换颜色宣称不同。与前关比较：N4→4、K3→3、段9→8、蛋0→0；不同初态有独立结构签名。 |
 | 05 先合再腾位 / 练习 | N4/K3/P5；?蛋0；无其他机关；[完整固定配置](levels/FIXED_01_10.md#关卡05) | 先Move S1→S4 A2（run=2，Count=2）；第4步首次归巢失枝，后续不得再借该枝。 | 8段/0蛋；6步见证非最优。具体段顺序/依赖见固定数组，不能只换颜色宣称不同。与前关比较：N4→4、K3→3、段8→8、蛋0→0；不同初态有独立结构签名。 |

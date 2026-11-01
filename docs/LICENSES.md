@@ -1,3 +1,9 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+## Current Godot migration license scope
+
+Godot engine/Tween is MIT-licensed; include required engine notices in distributions. See https://godotengine.org/license/ . Reused Fredoka font retains its SIL OFL notice; existing project-original PNG/WAV provenance below remains. The old TextMeshPro atlas/shaders/Unity Companion License resources stay in the legacy project and are not assumed licensed for native Godot redistribution. Import standalone font/image/audio sources with verified provenance, not Unity package internals. LitMotion's retained MIT notice remains relevant to legacy code distribution but LitMotion is not a current Godot dependency. Actual native asset inventory/notices must be verified before export.
+
 # Third-party licenses
 
 ## Fredoka
@@ -37,3 +43,10 @@ are listed in `scripts/audio/requirements.txt`; their software licenses remain
 applicable to those tools themselves. Source and reproduction instructions are
 in `scripts/audio/README.md`; measured per-file metadata is in
 `audio_src/MANIFEST.md` and `audio_src/analysis.json`.
+
+## LitMotion 2.0.2 — first-level motion dependency
+
+- Author/copyright: Yusuke Nakada, 2023; package by Annulus Games.
+- Source: [immutable commit 0b4c588ee75a07198841d92aab653e6b39445089](https://github.com/annulusgames/LitMotion/tree/0b4c588ee75a07198841d92aab653e6b39445089).
+- License: MIT. The exact upstream root LICENSE is retained at [licenses/LitMotion-MIT.txt](licenses/LitMotion-MIT.txt), because the UPM subdirectory package does not include that root file. Preserve this notice when redistributing the package code.
+- Scope: the sole selected primary tween dependency; [T21](../tasks/T21_motion_dependency.md) records its pin and scoped desktop verification. The code license does not license third-party artwork/audio or certify runtime/mobile behavior.

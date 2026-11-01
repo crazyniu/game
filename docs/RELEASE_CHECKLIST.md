@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current Godot export/release boundary
+
+Migration completion and store release are different outcomes. The current primary gate is a native cloud first-level build/test. Export real Android/iOS platform artifacts using Godot export presets and matching export templates when prerequisites are available; record missing templates/SDK/toolchains/signing identities explicitly. A project folder, screenshot, Linux binary or HTML page is not an Android/iOS package. iOS tooling/signing may need a supported host; local fallback is used only after the cloud limitation is established and within existing permissions.
+
+No store upload/deployment is authorized by the migration merge request. Do not substitute placeholder company/package identities for actual approved release identity. Keep export credentials out of source; export presets and per-user credentials have separate handling. The Unity release settings and store checklist below are historical reference and must not be executed as current Godot steps. Current export status is maintained in GODOT_MIGRATION; do not mark unchecked historical tasks complete.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Perch Sort — pre-release checklist
 
 Checked 2026-10-31; Unity 6000.6.7f1. Everything below remains pre-store work, without implying accounts, signing, uploads, or release already exist. The current game runs offline, without accounts, ads, in-app purchases, analytics, or data collection; progress/settings stay on the device.

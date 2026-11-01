@@ -1,6 +1,16 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current Godot persistence boundary
+
+The native migration uses **Godot binary save version1**, separate from all Unity save6 and proposed economy save7 documents below. Data-only `var_to_bytes`/`bytes_to_var` use object serialization/deserialization disabled; do not use the object-enabled counterparts. The save store owns a Godot `user://` namespace and never reads/writes Unity PlayerPrefs or old Unity save paths by assumption. The current filename is `user://first-level-godot-v1/first-level.godot-save-v1.bin`; exact envelope and scoped test status are recorded in GODOT_MIGRATION.
+
+Persist a complete stable rules/session/Undo/progress/settings payload with explicit native version/identity and validation. Candidate-save failure preserves the previous stable state; uncertain replacement requires readback, never blind double-commit. Preserve unknown/corrupt bytes and a known-good backup. UI animation cannot determine commit success. Engine transition does not prove old-save compatibility: no automatic Unity import, no same-number mapping of campaigns and no claim of full40 or economy migration. The following JSON/schema/save6 formats describe legacy/future contracts, not the bytes currently written by native SaveStore.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Evidence-based data, stable transactions, and saves
 
-schema 4 / rules 4 / save 6 (design target, not implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.
+schema 4 / rules 4 / save 6 (full design target; isolated bird-only T21 subset implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.
 
 ## 1. Identity and static format
 
@@ -11,7 +21,7 @@ schema 4 / rules 4 / save 6 (design target, not implemented) · 2026-10-31. RULE
 | catalogRevision | Root metadata, increasing positive integer; excluded from individual level content hashes |
 | levelId / worldId | 1..40 / A,B,C,D; MAP_PROGRESSION owns the exact mapping |
 | flockSize | N∈{4,6,8}; all branch capacities and totals per species within a level=N; no per-branch capacity overrides |
-| shelves | Fixed array P=K+2, K=3..8, P≤10, strictly IDs S1..SP; initially two empty branches, no completed flocks/exposed-end eggs/adjacent eggs |
+| shelves | Strict IDs S1..SP; default02–40 P=K+2/K3..8/P≤10/two empty branches; only campaign/level01 uses §1.1 N4/K2/P3/zero-empty tutorial; no initial completed flocks/exposed-end eggs/adjacent eggs |
 | shelves[].side | `left|right`, display only; odd S numbers left, even right, row=floor((number-1)/2) |
 | shelves[].tokens | Wall→exposed end; Token array length≤N; including eggs, exactly N of each species 0..K-1 |
 | Token.id | Unique stable ASCII ID within a level; production candidates assign `Lnn-Sj-kk` by initial expansion order; hatching/movement/Undo do not change IDs |
@@ -22,13 +32,19 @@ Identifiers match `[A-Za-z0-9][A-Za-z0-9._-]{0,63}`. Use fixed array indices, no
 
 The 40 static initial boards still contain only P branches, without a preinstalled extra branch. R07 AddBranch is a runtime transaction appending S(P+1) under §3; ReserveGrow still awaits parameters. Assistance policy is separately versioned as assistPolicyVersion=1, without changing the static schema 4 hash/H04 vector. Every runtime snapshot, Undo, Hint, and certificate must carry this identity dimension; do not guess defaults. All initial states are fixed; loading must not randomly fill empty arrays or call AI generation.
 
+### 1.1 Campaign-keyed tutorial exception
+
+For schemaVersion=4, rulesVersion=4, campaignId=bird-home-peer-v4, levelId=1, worldId=A, derive profile l01-two-flock-v1 from identity, never from an optional caller override. Require flockSize4, exactly S1..S3, species0..1 each4, no eggs/empty branches, and exact authored species arrays [0,0,0], [1,1,1,0], [1]; IDs follow the normal initial-token convention. Other identities retain standard admission; released02–40 remain K3..8/P=K+2/two empty. Reject K2/P3/no-empty outside the exception; never infer permission from array length.
+
+No new serialized field is introduced; canonical root keys remain unchanged. Changed L01 gets a new contentHash; increment catalogRevision on future export and invalidate prior L01 replay/Undo under the existing revised-hash policy. Other39 payloads/hashes remain unchanged. R07 base P is profile-derived: L01 false means3 branches, true means4 including S4.
+
 ## 2. Canonical hash and new test vector
 
 Validate all required fields, types, IDs/counts/world membership first, then take fixed hash root keys `schemaVersion,rulesVersion,campaignId,levelId,worldId,flockSize,shelves`; each branch has exactly `id,side,tokens`, each token exactly `id,species,form`. These required fields cannot be omitted; old temporary/crate/baskets default rules are not retained. Metadata catalogRevision/contentHash/proofStatus/solverMinMoves belongs only in the explicit export metadata area, outside the logical payload hash.
 
 Object keys use ascending ASCII order, without whitespace/newlines/BOM, encoded UTF-8. Integers are decimal without leading zeros/negative zero/fractions/exponents; enums/IDs are ASCII only; booleans/null use lowercase JSON; arrays retain fixed order. SHA-256 of canonical bytes is lowercase 64 hex. Species/branch permutation deduplication is offline content review; never sort runtime arrays for hashing.
 
-The following **H04 serialization fixture** is not production L01 and uses local levelId=1; K3/N4/P5, 4 of each species, two empty branches, no initially completed flock. It has no optimality certificate and cannot authorize release. The old H01 1320-byte vector remains only in the T16 archive and does not apply to this schema.
+The following **H04 serialization-only historical fixture** is not production L01: its old local levelId=1 payload remains K3/N4/P5. Preserve canonical bytes/hash for serialization testing only. It must now fail full current campaign/L01-profile validation and must never load as campaign content; only §1.1 is current L01. This grants no validation bypass or extra runtime profile. The old H01 1320-byte vector remains only in the T16 archive and does not apply to this schema.
 
 ```json
 {
@@ -159,7 +175,7 @@ Use a temporary file in the same directory, atomically replacing the main save a
 
 Normal background/recovery: a committed action restores the complete stable end state, not halfway Transforms/coroutines; a forced exit before atomic commit reads the previous successful snapshot. Selection is visual only and not saved. Reentry increments viewGeneration; old coroutine/Hint/sound callbacks are invalid and cannot unlock the new board.
 
-Undo is a new transaction: restore the full snapshot before the latest Transfer or AddBranch, pop history, restore action count and extraBranchAdded/branch set, and still increment the successful sequence. Failure preserves the pre-Undo board. Undo does not rerun completion/retirement rules, preventing erroneous empty-branch retirement. Restart is a new transaction rebuilding the same-hash fixed initial P branches, extraBranchAdded=false, and clearing current history/action count; retain best results/completion/mute. No Undo star penalty or Hint consumption ledger.
+Undo is a new transaction: restore the full snapshot before the latest Transfer or AddBranch, pop history, restore action count and extraBranchAdded/branch set, and still increment the successful sequence. Failure preserves the pre-Undo board. Undo does not rerun completion/retirement rules, preventing erroneous empty-branch retirement. Restart is a new transaction rebuilding the same-hash fixed initial P branches, extraBranchAdded=false, and clearing current history/action count; retain best results/completion/mute. The existing save6 contract has no Undo star penalty or Hint consumption ledger. Future save7 introduces the separate help inventory/allowance ledger in §8; never retrofit unknown fields into strict save6.
 
 ## 5. World progress and legacy saves
 
@@ -170,7 +186,7 @@ Progress saveVersion 6: completedLevelIds, bestMoveCountByLevel (unassisted), be
 | Actual legacy progress version 4/rules 2 | Preserve a read-only original copy first; archive old campaign results/level numbers/stars/hints; new campaign starts at01, without replaying From/To against new layouts |
 | T16 design schema 3/rules 3/save 5 | Not implemented; isolate any experimental save as a legacy experiment, without claiming verified real-user migration or automatically mapping new levels |
 | New campaign, same level/hash, assistPolicyVersion=1 | Restore snapshot/Undo/action count/extra branch; verify target world membership and reject contradictory states using runtime validation below |
-| Same campaign, revised hash | Back up the old board and best history with oldHash; restart the currently unlocked level on its new layout; old certificates/Undo are invalid; free hints need no quota migration |
+| Same campaign, revised hash | Back up the old board and best history with oldHash; restart the currently unlocked level on its new layout; old certificates/Undo are invalid; this existing save6 profile has no hint quota; future economy migration is separately specified in §8 |
 | Unknown version / missing or unknown assistPolicyVersion / unknown gameplay fields | Preserve original/backup and refuse writes to that save; do not swallow errors with defaults; show an understandable error; never overwrite the only evidence |
 | Corrupt main save/failed validation | Try an identity-compatible complete bak; if none is usable, preserve the corrupt save, safely start the corresponding new board with a notice, and never mix partial old/new states |
 
@@ -178,7 +194,7 @@ Old campaign stars do not convert to new map unlocks; a new level sharing an old
 
 <a id="global-mute"></a>
 
-### 5.1 Single global mute field (E engineering contract, not implemented)
+### 5.1 Existing single global mute contract (save6; new two-switch design in §9)
 
 - save 6 progress root field `audioMuted:boolean`: true=mute music, game effects, and click sounds; false=allow them under existing fixed configuration, still subject to system mute/platform restrictions. Store only this sound toggle, without volume/percentage/per-channel fields. This is a project engineering choice, not a competitor's original field/default.
 - Default false on first installation without a migratable preference. Menu and pause sound buttons share the value: true shows sound_off and clicking unmutes; false shows sound and clicking mutes. Accessibility names describe the next action without visible labels; UI_SPEC still owns appearance.
@@ -195,3 +211,36 @@ Old campaign stars do not convert to new map unlocks; a new level sharing an old
 - After committed AddBranch, forced exit/menu return/load restore true and the same final branch; save failure reuses the same candidate bytes/sequence without duplicate append. Restart candidates restore base P branches and false; show that initial state only after successful commit.
 - At Won, extraBranchAdded=false updates bestMoveCountByLevel; otherwise update bestAssistedMoveCountByLevel. Each takes the minimum Transfer count, with null for incomplete levels. Undoing AddBranch restores false, so classification follows the current path rather than whether addition was clicked sometime during this page visit. This is E comparison grouping, without rewards, thresholds, or stars; both success classes unlock worlds normally.
 - Early unimplemented save 6 drafts missing assistance identity must not silently default false. Back up and offer restart from the fixed initial state; do not restore a board that may lose a branch. Existing old v2 progress is still archived under §5. Adding fields does not claim that actual migration has run.
+
+
+## 7. T22 isolated L01 save adapter (reviewed development handoff)
+
+The adapter supports only adopted bird-only L01, save6/schema4/rules4, campaign bird-home-peer-v4, assistance=false. Exact fixed identity/contentHash, token conservation, Home/Retired state, legal complete Undo replay, move count and committed sequence are checked. AddBranch, eggs, later levels and v2 migration remain outside this adapter. The caller supplies first-level-v4/bird-home-peer-v4; v2 paths are untouched.
+
+The platform .NET JSON reader parses the full bounded document. Exact root identity and a whole-document preflight validate all known nested fields/types/identity/enums before any recoverable board/history/hash semantic validation. Thus bad state cannot hide a later unknown progress/token/history field or wrong mute type. Unknown or unreadable structure remains untouched/read-only even with a compatible backup. Only recognized, structurally supported semantic/state/hash damage may recover a full compatible backup, preserving corrupt evidence and the only good bak. Truncated or undecidable identity does not become a writable old backup.
+
+Candidate bytes/sequence are immutable. RetryPendingAudio accepts only internally marked setting candidates; misrouting a prepared, NotCommitted or Uncertain gameplay candidate throws before I/O, without committing or discarding it. Gameplay consumers retain the same PreparedTransaction and candidate until confirmed Committed, then commit Core and present. NotCommitted may leave IsReadOnly=false but still retain a pending gameplay candidate; IsReadOnly alone is not permission for a new action. Load.IsReadOnly locks input, and fallback initial state must never be treated as a writable new installation.
+
+Mutable operations share a process-local gate by normalized full save path. Concurrent stores loaded on old bytes serialize; a stale store reports Uncertain/read-only instead of overwriting a newer confirmed document. Readback runs again after temporary-file validation immediately before replace. This detects observed staging conflicts, not arbitrary external writes after the final check. The contract requires a single cooperating process per physical save location, with no symlink/path aliases; there is no cross-process lock or atomic compare-and-swap guarantee. Editor and Player may share the default persistent directory: use separate save-directory overrides for simultaneous tests, or keep only one writable process. Simultaneous Editor/Player same-path writing is unsupported/unverified.
+
+Missing-only early save6 audioMuted defaults false with a migration notice; wrong types remain conservative-muted/read-only. Settings serialize against the latest confirmed progress and add no game sequence/Undo item.
+
+85 focused tests passed, zero failures/skips, in an isolated Mac Unity source assembly, including24 corruption-plus-unknown combinations, purpose routing and separate-instance same-path overlap. Production scene/controller wiring, physical/mobile/AOT, all40 levels, legacy migration and actual power-loss durability remain unverified. [T22 report](../../tasks/T22_report.md) records exact evidence and integration restrictions.
+
+## 8. Future economy save7 contract — DESIGN_ONLY, not current save6 code
+
+[ECONOMY_SHOP §7–10](ECONOMY_SHOP.md#7-local-data-and-transactions) specifies the adopted future design: saveVersion7, economyVersion1, helpPolicyVersion2; static schema4/rules4 authored payloads remain unchanged. R07 assistPolicyVersion1 remains independently meaningful. Current T22 strict save6 adapter and its tests remain unchanged; do not add unrecognized economy fields to its documents or claim migration has run.
+
+Future save7 atomically serializes wallet/sequence/journal, first-clear and replay receipts, UTC replay-day counter, owned skins/equipment, help ownership/tiers/inventory, exactly3 equipped IDs, frozen active-run equipment, free Hint/Rewind allowance, purchased-use count, Shuffle-used/skill-assisted flags, board/history and ad receipts. No currency, inventory, free-use or assistance-use ledger belongs in restorable board Undo. Start/Restart restores free per-attempt allowances and limits without refunding inventory. Rewind pops existing before snapshots; Shuffle adds a full before snapshot and actionType=Shuffle, preserves tokens/branch shape, and is reversible without restoring consumed stock or attempt flag. Unknown commands/fields/versions remain preserved/read-only.
+
+Exact runtime state keys/certificates include help policy, complete Shuffle-relevant state and action set. A Shuffle run writes a separate bestSkillAssistedMoveCountByLevel, never either preexisting unassisted or branch-only bucket, even if Shuffle was undone. All success categories share progression/reward eligibility. Old save6 certificates cannot be upgraded by changing a version label.
+
+One serialized mutation gate handles board and economy together. First clear commits progress plus base50 and reward receipt together; ad completion only adds the once-keyed bonus50. Purchase debit plus entitlement/tier/charge is one immutable candidate. Hint receipt or Rewind/Shuffle board plus consumption is one candidate. Unknown commit outcome requires readback of the same ID/hash, never a new debit or speculative refund. Source save backups and one-time migration receipts are mandatory. Same-campaign recognized completions get one compensating50 each and no retroactive ads; old rules2 numbers do not map to new campaign wins. Preserve verified historical permanent entitlements if evidence exists; do not invent released customers or paid rights.
+
+See ECONOMY_SHOP for exact field invariants, offline clock limitations, callbacks, repair/refund behavior and migration cases. Acceptance EC01–EC18 is NOT_RUN for implementation; documentation adoption is not a data-format/code rollout.
+
+## 9. Approved two-switch settings design — runtime adaptation pending
+
+The user individually approved the settings visual reference `libfile_3f0c206e9d648191a8bc34b22b13fcbf` on 2026-11-01; [UI_SPEC §11](../UI_SPEC.md#11-three-page-specific-visual-approvals-2026-11-01) owns the precise approval identity and limits. New settings design has independent binary Music and Sound switches: Music affects background music, Sound affects game effects plus UI/click audio. This supersedes the old one-switch design for the new page only. Existing runtime/save6 remains `audioMuted`; no code or migration changed through this documentation.
+
+Future adapter work must preserve a recognized saved global choice: old muted maps to both new channels muted; old unmuted maps to both unmuted. Unknown/wrong-type settings retain existing preservation/read-only safety rather than guessed coercion. Separate persisted booleans and their atomic save/version migration belong to future authorized implementation; never add unknown fields into the strict current save6 adapter or claim two-switch persistence tested. Continue applying the existing global value until the adapted UI/audio/save implementation is accepted. Visual approval is not acceptance of production slices, runtime audio routing, tests, SDKs or additional execution permissions.

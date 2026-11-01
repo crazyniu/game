@@ -23,20 +23,22 @@ jobs:
         with:
           fetch-depth: 2
           persist-credentials: false
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            .github/workflows/
-            ci/
-            **/*.cs
-            **/*.json
-            **/*.asmdef
-            **/*.sh
-            **/*.py
       - name: Check changed files
         id: changes
         env:
           EVENT_NAME: ${{ github.event_name }}
         run: python3 ci/check_changes.py
+      - name: Install pinned Godot for migration checks
+        if: steps.changes.outputs.godot == 'true'
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.3-stable/Godot_v4.6.3-stable_linux.x86_64.zip
+          echo "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3  $RUNNER_TEMP/godot.zip" | sha256sum --check
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot-bin"
+          chmod +x "$RUNNER_TEMP/godot-bin/Godot_v4.6.3-stable_linux.x86_64"
+          echo "GODOT_BIN=$RUNNER_TEMP/godot-bin/Godot_v4.6.3-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Run native Godot tests
+        if: steps.changes.outputs.godot == 'true'
+        run: bash scripts/run_tests.sh
       - name: Set up .NET for Core tests
         if: steps.changes.outputs.core == 'true'
         uses: actions/setup-dotnet@v6.0.0

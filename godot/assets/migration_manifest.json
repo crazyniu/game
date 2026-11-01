@@ -1,0 +1,223 @@
+{
+  "status": "BYTE_IDENTICAL_COPY_OF_EXISTING_INTEGRATION_ASSETS",
+  "runtime_visual_acceptance": "PENDING_GRAPHICAL_CAPTURE_AND_REVIEW",
+  "scope": "Native Godot L01 only; no newly designed UI slices",
+  "files": [
+    {
+      "path": "godot/assets/Fredoka-OFL.txt",
+      "source": "PerchSort/Assets/Fonts/OFL.txt",
+      "sha256": "5c9e7eee5c6b25f4b05b8d53b2e470ea4962f9ced742d044a98f7d95d1375bab",
+      "bytes": 4388
+    },
+    {
+      "path": "godot/assets/Fredoka-Medium.ttf",
+      "source": "PerchSort/Assets/Fonts/Fredoka-Medium.ttf",
+      "sha256": "8289743e129467a57319e6cd06cb28e501fa5f57c9a8cb655e71f11ecbc9adf3",
+      "bytes": 50124
+    },
+    {
+      "path": "godot/assets/art/red_flight_06.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_06.png",
+      "sha256": "e852a2991a1be2ef6d42cebebe94878e23d40a199eafec62f1d03a0a770e8147",
+      "bytes": 137537
+    },
+    {
+      "path": "godot/assets/art/red_idle.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_idle.png",
+      "sha256": "900eaa80e4b1d98fef12c5089d09c0c777c4f39cecba67b98a2269964bfa08b9",
+      "bytes": 108308
+    },
+    {
+      "path": "godot/assets/art/forest_background.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/forest_background.png",
+      "sha256": "757649f51540c0a3d2c55827ee99b9c9b8d812f9ad7ae9f0046eab033e014c9d",
+      "bytes": 2442671
+    },
+    {
+      "path": "godot/assets/art/perch.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/perch.png",
+      "sha256": "cb5e867339d5c7cfa596544be7e6ca15a38cdc1563d52bd66a904ff44986e424",
+      "bytes": 674036
+    },
+    {
+      "path": "godot/assets/art/nest_front_mask.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/nest_front_mask.png",
+      "sha256": "f91bf099f0363998254c59384944eea2bad120342d26a066c76bc0138c395fb6",
+      "bytes": 14837
+    },
+    {
+      "path": "godot/assets/art/red_flight_05.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_05.png",
+      "sha256": "8a3b273f36271cbf575d3c6b9cd24844c1badf32bd92e37a2467b58362211094",
+      "bytes": 131900
+    },
+    {
+      "path": "godot/assets/art/blue_flight_04.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_04.png",
+      "sha256": "a3d065e38db921c2ce528682185cea37cdc9e073e507c8ab3b22769d32409753",
+      "bytes": 139126
+    },
+    {
+      "path": "godot/assets/art/blue_flight_01.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_01.png",
+      "sha256": "ebbcfa74f544be269245f7b29247b0b2043a750fe8c357fb77385afaf5112276",
+      "bytes": 169287
+    },
+    {
+      "path": "godot/assets/art/red_flight_04.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_04.png",
+      "sha256": "9bc60a0d375fb8333af47efd320b4809afd73c054945cca6e135b5a3f4e67c9b",
+      "bytes": 135341
+    },
+    {
+      "path": "godot/assets/art/blue_flight_06.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_06.png",
+      "sha256": "fe8409dc31ef19df349e96338c309141a2d06253af34b0168c35c8332400f3cc",
+      "bytes": 141468
+    },
+    {
+      "path": "godot/assets/art/blue_idle.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_idle.png",
+      "sha256": "b38561c0174bc53467cf5770080b9aaf983645bfd652b1aa1463939c4d8f77ec",
+      "bytes": 110872
+    },
+    {
+      "path": "godot/assets/art/red_flight_01.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_01.png",
+      "sha256": "82948580ebb0ddf4b47a25221b288347afb03d652220d370fe1c00816f6c6982",
+      "bytes": 166317
+    },
+    {
+      "path": "godot/assets/art/blue_flight_02.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_02.png",
+      "sha256": "3fc52cad47aa5aa2be306bd023a8f980ddadb92e77de841e3065743e82dd3927",
+      "bytes": 153124
+    },
+    {
+      "path": "godot/assets/art/red_flight_03.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_03.png",
+      "sha256": "848ea6178a0b28c60bdc5eb3ae9047a2a6309d55e605928257c52e3e4e61bc20",
+      "bytes": 139616
+    },
+    {
+      "path": "godot/assets/art/nest.png",
+      "source": "PerchSort/Assets/Art/Resources/env/nest.png",
+      "sha256": "1b5cab029d8e2ec9489f3d54cd97071aea206fa02f1a467dde6facbfce527352",
+      "bytes": 307167
+    },
+    {
+      "path": "godot/assets/art/blue_flight_03.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_03.png",
+      "sha256": "11449212d61d815ed635ca884f46f14e6c809865e635ec04f5aa8bb1fa60169b",
+      "bytes": 143044
+    },
+    {
+      "path": "godot/assets/art/red_flight_02.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/red_flight_02.png",
+      "sha256": "8859f78cca516702ee8b1ca727574f67e295bf1d8dfc1a7b1f32deba46fc2a40",
+      "bytes": 150020
+    },
+    {
+      "path": "godot/assets/art/blue_flight_05.png",
+      "source": "PerchSort/Assets/Art/Resources/FirstLevelArt/blue_flight_05.png",
+      "sha256": "facd497a2fe42d1f4428def3d00e6251755a4aa8b41d9b9a0b01de6b7217c541",
+      "bytes": 135604
+    },
+    {
+      "path": "godot/assets/ui/icon_home.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_home.png",
+      "sha256": "e01828ee221b6483902dfb96fd18a6e737cce5e46256a5b0e781818c146124a9",
+      "bytes": 33401
+    },
+    {
+      "path": "godot/assets/ui/icon_sound.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_sound.png",
+      "sha256": "347b68cdec0be6a13c9a90a1811097bae166363f19392e23cd97046ea6aaf833",
+      "bytes": 28760
+    },
+    {
+      "path": "godot/assets/ui/icon_pause.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_pause.png",
+      "sha256": "97ed19df3f9d6949662e623cb7875771156cae736a1cef96421858ba0ae40bec",
+      "bytes": 22230
+    },
+    {
+      "path": "godot/assets/ui/icon_play.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_play.png",
+      "sha256": "0f3716999bad0a9881f3ccb9057a8bf5d34aba0af784145518f393cd2cb5b10d",
+      "bytes": 25628
+    },
+    {
+      "path": "godot/assets/ui/icon_close.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_close.png",
+      "sha256": "f3bcebe5fc771f21de497b5b977c4e9e439f258369db4922d2a3e56c51e91061",
+      "bytes": 30469
+    },
+    {
+      "path": "godot/assets/ui/panel_wood.png",
+      "source": "PerchSort/Assets/Art/ui_kit/panel_wood.png",
+      "sha256": "e5aba44047121832578beef72838fd017919e7593486c863a1138a0b466273bd",
+      "bytes": 323391
+    },
+    {
+      "path": "godot/assets/ui/icon_sound_off.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_sound_off.png",
+      "sha256": "64450165ad16cf1808de3d65c07074e189a11bf8b3067ff0662881da79c97979",
+      "bytes": 31526
+    },
+    {
+      "path": "godot/assets/ui/icon_undo.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_undo.png",
+      "sha256": "4b259f80be0873c586671f47fce3251afc045e743040d9317eff95bab13d4775",
+      "bytes": 27890
+    },
+    {
+      "path": "godot/assets/ui/icon_restart.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_restart.png",
+      "sha256": "e22f49fe00d9de3427a658901e4d487b699ade4bd4be6ecd6028e008c2f28377",
+      "bytes": 33303
+    },
+    {
+      "path": "godot/assets/audio/nest_home.wav",
+      "source": "PerchSort/Assets/Audio/Resources/nest_home.wav",
+      "sha256": "cece177190ff854e78c61464c636ddb92302d69e65da00d665ae192eaf03a0a2",
+      "bytes": 141164
+    },
+    {
+      "path": "godot/assets/audio/bgm_game.wav",
+      "source": "PerchSort/Assets/Audio/Resources/bgm_game.wav",
+      "sha256": "072a5f39269fa7943b995b33011d5b67648ad9b43faa3698a5246e2672a2463b",
+      "bytes": 15876044
+    },
+    {
+      "path": "godot/assets/audio/chirp_01.wav",
+      "source": "PerchSort/Assets/Audio/Resources/chirp_01.wav",
+      "sha256": "a809ab576c3bfd2e44325f8cdbc256fd591f7efbc1cfbe0c9a969478a0b14ce0",
+      "bytes": 18566
+    },
+    {
+      "path": "godot/assets/audio/ui_tap.wav",
+      "source": "PerchSort/Assets/Audio/Resources/ui_tap.wav",
+      "sha256": "961cedb7298c7b05872b7c03cf5e3e1560436eb7a7a890336de748a563835a04",
+      "bytes": 8864
+    },
+    {
+      "path": "godot/assets/audio/win_fanfare.wav",
+      "source": "PerchSort/Assets/Audio/Resources/win_fanfare.wav",
+      "sha256": "b4725db66cb7c1bcd362ebf6cca298c5de853be92c8e6605e8bc05c36b1ef5f0",
+      "bytes": 352844
+    },
+    {
+      "path": "godot/assets/audio/flutter.wav",
+      "source": "PerchSort/Assets/Audio/Resources/flutter.wav",
+      "sha256": "c13dc96406fd3d640b80f00751a05989df6ee130bcde4444055ff3429c007d8d",
+      "bytes": 26504
+    },
+    {
+      "path": "godot/assets/ui/icon_settings.png",
+      "source": "PerchSort/Assets/Art/ui_kit/icon_settings.png",
+      "sha256": "6b147ce29b6b21e74a9f75600d2de5896b4dd968bfe9eab7e44b1458d59d532b",
+      "bytes": 37479
+    }
+  ]
+}

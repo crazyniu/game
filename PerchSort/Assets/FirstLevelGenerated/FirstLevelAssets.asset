@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa044ee6e274de28151cf482a2b5f0c, type: 3}
+  m_Name: FirstLevelAssets
+  m_EditorClassIdentifier: PerchSort.FirstLevel::PerchSort.FirstLevelRuntime.FirstLevelAssets
+  AcceptedForRuntime: 1
+  ReviewIdentity: T21 static internal QA accepted; in-context/runtime acceptance pending
+  Species:
+  - SpeciesKey: red
+    Idle:
+      Sprite: {fileID: 21300000, guid: c8770844cadc042718a5137ac6fdb127, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 1
+    Folded:
+      Sprite: {fileID: 21300000, guid: c8770844cadc042718a5137ac6fdb127, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 1
+    WingCycle:
+    - Sprite: {fileID: 21300000, guid: acdd123985cf64e3e9068954f7d35d27, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: acc065cf217d14fe5a501f3ea0ff9453, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: d5b88f585cb524085bcac928a963d810, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: 00610dd4072944448813c5f52c596c6c, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: 17c6912aa71ca43e0bf5a435d178e084, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: e1821e27a1c894a7fa033f915b5552d1, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+  - SpeciesKey: blue
+    Idle:
+      Sprite: {fileID: 21300000, guid: 3afc6e23f12f24b9fbcbaf50f1d07578, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 1
+    Folded:
+      Sprite: {fileID: 21300000, guid: 3afc6e23f12f24b9fbcbaf50f1d07578, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 1
+    WingCycle:
+    - Sprite: {fileID: 21300000, guid: 2eea950f9689545f4823a9126cf75fe2, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: 1e3beeb7757ff4179bf65cbddb5fe928, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: dc1bb56f565fd41358bb3343bef19d1d, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: 0c277e3514f054f8f9984dae004fbc36, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: b6ab01960a15248849f33618ce6c604e, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+    - Sprite: {fileID: 21300000, guid: 3c7060e7b4e954c02ace00bd678652a3, type: 3}
+      AnchorFromTop: {x: 0.5, y: 0.8574219}
+      IsFootContact: 0
+  Background: {fileID: 21300000, guid: ec3898cd6436e480fb20daab16081932, type: 3}
+  Branch: {fileID: 21300000, guid: e559cceb1f2444972978027358db6679, type: 3}
+  RetiredStump: {fileID: 21300000, guid: 9bef3d7d4192043c287a3669fec3c4fb, type: 2}
+  Nest: {fileID: 21300000, guid: 796fb216205974a96a3a1fa893fc8f3e, type: 3}
+  NestFrontMask: {fileID: 21300000, guid: 7c1729df6489c400fa2527c30ba4da4f, type: 3}
+  ButtonSkin: {fileID: 21300000, guid: 22a1e0f5f5d954bd1a23d8897274a9d5, type: 3}
+  PanelSkin: {fileID: 21300000, guid: 22a1e0f5f5d954bd1a23d8897274a9d5, type: 3}
+  HandIcon: {fileID: 21300000, guid: 288582e1032d74d0a981f416899610b5, type: 3}
+  SpriteMaterial: {fileID: 2100000, guid: 59b0ee79187f64862a4b4b13729db50c, type: 2}
+  ParticleMaterial: {fileID: 2100000, guid: 05c6c26fbab52467684bd98ce5281c1c, type: 2}
+  PauseIcon: {fileID: 21300000, guid: c3e27b13fb22540eea2eb2aac5ce6961, type: 3}
+  UndoIcon: {fileID: 21300000, guid: f5d206abe69894c48b9de248f5747ba9, type: 3}
+  RestartIcon: {fileID: 21300000, guid: 3bd3770730b794eccbe84dd6033ddd71, type: 3}
+  HomeIcon: {fileID: 21300000, guid: 88f1d857d14094db4a3e093dffd69a12, type: 3}
+  PlayIcon: {fileID: 21300000, guid: 730eaa59f10454fe88f3568656e35294, type: 3}
+  CloseIcon: {fileID: 21300000, guid: 2c3e22f1666144086be90efb9f322e80, type: 3}
+  SoundIcon: {fileID: 21300000, guid: dff007e2969ec4c7cb5559bfb360ee25, type: 3}
+  MutedIcon: {fileID: 21300000, guid: c826c92cb49c54aa28fe7713d00dc693, type: 3}
+  Font: {fileID: 11400000, guid: 8e611f4ab28034e47937c98d202c1805, type: 2}

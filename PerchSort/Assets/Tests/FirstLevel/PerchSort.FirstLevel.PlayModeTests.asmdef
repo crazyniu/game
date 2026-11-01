@@ -1,0 +1,12 @@
+{
+  "name": "PerchSort.FirstLevel.PlayModeTests",
+  "references": [
+    "PerchSort.Core",
+    "PerchSort.FirstLevel",
+    "Unity.ugui",
+    "PerchSort.Audio"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
