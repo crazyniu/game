@@ -31,6 +31,8 @@ namespace PerchSort.FirstLevelRuntime
         private RectTransform root, gameLayer, homeLayer, modalLayer, panel;
         private CanvasGroup gameGroup, homeGroup, modalGroup;
         private Image overlay, resultBird;
+        private RectTransform viewportRoot;
+        private readonly Vector3[] viewportCorners = new Vector3[4];
         private TMP_Text errorText, unsavedText;
         private readonly List<IconButton> buttons = new List<IconButton>();
         private readonly List<IconButton> modalButtons = new List<IconButton>();
@@ -54,9 +56,12 @@ namespace PerchSort.FirstLevelRuntime
 
             root = Rect("FirstLevelHud", safeRoot, Vector2.zero, Vector2.zero);
             Stretch(root);
+            var canvas = safeRoot.GetComponentInParent<Canvas>();
+            viewportRoot = canvas != null ? (RectTransform)canvas.rootCanvas.transform : null;
             gameLayer = Rect("GameControls", root, Vector2.zero, Vector2.zero);
             Stretch(gameLayer); gameGroup = gameLayer.gameObject.AddComponent<CanvasGroup>();
             var badge = Picture("LevelBadge", gameLayer, assets.ButtonSkin, new Vector2(0, 850), new Vector2(240, 100));
+            badge.type = Image.Type.Sliced;
             badge.color = new Color(1f, .96f, .86f);
             Label("LevelNumber", badge.rectTransform, "1", Vector2.zero, new Vector2(180, 80), 56);
             pauseButton = MakeButton("Pause", gameLayer, assets.PauseIcon, new Vector2(420, 850), 130,
@@ -77,7 +82,9 @@ namespace PerchSort.FirstLevelRuntime
 
             modalLayer = Rect("ModalInputBlock", root, Vector2.zero, Vector2.zero);
             Stretch(modalLayer); modalGroup = modalLayer.gameObject.AddComponent<CanvasGroup>();
-            overlay = modalLayer.gameObject.AddComponent<Image>();
+            // Only the dimmer spans the camera viewport. Panel layout stays in
+            // the safe 1080x1920 design root, including on tall/inset displays.
+            overlay = Picture("ViewportOverlay", modalLayer, null, Vector2.zero, Vector2.zero);
             overlay.color = new Color(0, 0, 0, .72f); overlay.raycastTarget = true;
             panel = Rect("Panel", modalLayer, Vector2.zero, new Vector2(760, 760));
             var panelImage = panel.gameObject.AddComponent<Image>();
@@ -109,6 +116,8 @@ namespace PerchSort.FirstLevelRuntime
             unsavedText.outlineWidth = .15f;
 
             initialized = true;
+            Canvas.willRenderCanvases += FitOverlayToViewport;
+            FitOverlayToViewport();
             ApplyUnsavedNotice();
             HideModal();
             RefreshAudio();
@@ -478,14 +487,35 @@ namespace PerchSort.FirstLevelRuntime
             subscribed = false;
         }
 
+        private void FitOverlayToViewport()
+        {
+            if (!initialized || viewportRoot == null || overlay == null) return;
+            viewportRoot.GetWorldCorners(viewportCorners);
+            Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+            Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+            foreach (var corner in viewportCorners)
+            {
+                Vector2 local = modalLayer.InverseTransformPoint(corner);
+                min = Vector2.Min(min, local); max = Vector2.Max(max, local);
+            }
+            overlay.rectTransform.anchoredPosition = (min + max) * .5f;
+            overlay.rectTransform.sizeDelta = max - min;
+        }
+
         private void OnEnable()
         {
             Subscribe();
-            if (initialized) { root.gameObject.SetActive(true); Refresh(); }
+            if (initialized)
+            {
+                Canvas.willRenderCanvases -= FitOverlayToViewport;
+                Canvas.willRenderCanvases += FitOverlayToViewport;
+                root.gameObject.SetActive(true); Refresh();
+            }
         }
 
         private void OnDisable()
         {
+            Canvas.willRenderCanvases -= FitOverlayToViewport;
             Unsubscribe(); CancelMotion();
             if (root != null) root.gameObject.SetActive(false);
         }
@@ -502,6 +532,7 @@ namespace PerchSort.FirstLevelRuntime
 
         private void OnDestroy()
         {
+            Canvas.willRenderCanvases -= FitOverlayToViewport;
             Unsubscribe(); CancelMotion();
             if (root != null) Destroy(root.gameObject);
         }
