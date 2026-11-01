@@ -30,12 +30,12 @@
 | V07 | 源[id1:A,id2:A]、目标[id3:A]且N4 | 搬2，即使id2先动画起飞 | 目标逻辑[id3,id1,id2]，不按视觉反序、回放/hash保持 |
 | V08 | 初始?蛋species固定为B | Restart/回放/退出重进 | 同ID同种同位；孵前图案、音频、可访问名称均不泄露B；不抽种 |
 | V09 | 当前没有合法Transfer但未全Home | UI检查 | NoMoves给免费Undo/Restart；不是全局穷尽无解、不扣资源 |
-| V10 | Hint找到合法完整路径但未证最优 | 返回当前有效首步 | 可高亮合法首步，不收费不限次、不自动走；Unknown/超时不报无解 |
+| V10 | Hint找到合法完整路径但未证最优 | 返回当前有效首步 | Only current verified preview may display after helpPolicyVersion2 free-use/inventory commit; no auto-move; Unknown/stale/cancel consumes nothing and never claims impossible |
 | V11 | Hint搜索中玩家移动/重进 | 旧结果返回 | stateKey/actionSequence/viewGeneration不符即丢弃，无旧高亮/解锁穿透 |
 | V12 | 已提交稳定Home+Retire，动画一半 | 后台/强杀恢复 | 恢复整个已提交终态；提交前崩溃只恢复上一成功档，无半群/半枝 |
 | V13 | 已提交序号7，候选8写档失败 | 重试/结果不确定 | SaveError保同字节/同8；先读回核验，成功只提交一次；失败仍旧局7，不演成功 |
 | V14 | 前世界最后关成功事务 | 结果演出/回地图 | 完成集合驱动下一世界开放且首关可玩；不靠星/金币；重复回调不开第二遍 |
-| V15 | 图标按钮已有明确含义 | 显示功能 | 无同义可见文字；保可访问名称；规则形按钮，无音量滑条/百分比 |
+| V15 | 图标按钮已有明确含义 | 显示功能 | Production baseline retains accessible names/regular controls/no volume sliders; current UI_SPEC §10 design drafts may use necessary labels/new appearances, with final visual acceptance pending |
 | V16 | 只有一张fly图或一张结算图 | 声称动画完成 | 验收失败：需真实振翅/轨迹/入巢遮挡及动态结算序列、可播放运行录屏 |
 | V17 | 未验收蛋/振翅资源或动画库未测 | 请求实现/交付 | T21 scope is authorized, but internal technical/independent visual resource QA and library compatibility still gate integration; no static-image substitute or blanket bypass |
 | V18 | 旧targets/crate/temporary或未知version | 新格式读取 | 拒绝并备份，不静默忽略；旧证书/旧回放不可当新证明 |
@@ -46,7 +46,7 @@
 
 NOT_RUN未执行；UNKNOWN预算耗尽/取消/无法确定；SOLVED_UPPER_BOUND有完整合法见证但未证最优；PROVEN_EXACT最短证明+回放；PROVEN_UNSOLVABLE穷尽有限空间。搜索找到20步只是upperBound20；证明18最短才能写Exact18。实际无合法一步只证明局部NoMoves。
 
-证书绑定rules/schema/campaign/catalog/level/hash、assistPolicyVersion=1、actionSet及extraBranchAdded/动态枝态、求解器版本、动作类型/Transfer Count、预算/访问节点、终局键。包含蛋或完成退枝后必须重新证明启发式可采纳；旧块数减一下界不能直接套。可先h=0正确搜索。正式bestMoveCount是玩家实际成功最少记录，不伪装理论minMoves；提示只需有效解首步，仍免费不限次。
+证书绑定rules/schema/campaign/catalog/level/hash、assistPolicyVersion=1、actionSet及extraBranchAdded/动态枝态、求解器版本、动作类型/Transfer Count、预算/访问节点、终局键。包含蛋或完成退枝后必须重新证明启发式可采纳；旧块数减一下界不能直接套。可先h=0正确搜索。正式bestMoveCount是玩家实际成功最少记录，不伪装理论minMoves；提示仍需有效解；current helpPolicyVersion2 free-per-attempt/inventory replaces unlimited use。
 
 ## 5. 真人、设备、素材与库验收
 
@@ -86,3 +86,11 @@ V28: enumerate initial legal Transfers: exactly S2→S1 A1. Independently replay
 V29: new L01 hash invalidates prior L01 Undo/certificates under DATA_SAVE; unchanged other39 payloads must remain byte-identical. Profile adoption/paper replay do not imply new Unity/profile runtime tests passed. Preserve the18-plus2 separate prior test scopes.
 
 T21 first-level implementation is authorized. Before UI integration, perform internal technical and independent visual asset/layout QA, then normal-speed in-engine recording and focused input/background checks. Do not wait for ordinary user decisions or waive the production asset gate.
+
+## 9. Economy/help-policy acceptance — all runtime cases NOT_RUN
+
+[ECONOMY_SHOP §11](ECONOMY_SHOP.md#11-acceptance-cases) owns EC01–EC18: first-clear/replay anti-duplication, completed/canceled/failed/late ads, atomic purchase/equip/upgrade/refill, free-per-attempt allowances, stock/caps, Rewind snapshots, no-egg verified Shuffle, zero-coin solvability, uncertain writes, strict3-slot equipment, skin recognition, save migration and offline limits. These are acceptance requirements, not passed tests.
+
+New help-policy certificates bind helpPolicyVersion2, actual action set including Shuffle when used, full before/after state, authored candidate-plan/catalog revision, permutation identity and current verified continuation. Existing472-Transfer base witnesses and R07 experiments remain valid only for their documented models/action sets, not as new skill certificates. Do not mutate authored base layouts or relabel old evidence. Every future Shuffle state needs a verified continuation and separate Core/runtime tests. Current save6 tests are not save7 migration tests.
+
+Documentation-only verification: check local links, price/reward arithmetic, conflicting current policies and before/after integrity. Do not run Unity or infer runtime readiness from this document update. UI exploration text/style exceptions do not waive eventual64px/grayscale/occlusion/real-motion/asset QA.

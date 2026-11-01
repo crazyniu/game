@@ -16,7 +16,7 @@ The feature branch adds `Assets/Scripts/FirstLevel/` (Flow/Bird/Board/Entry/Hud/
 | RevealAfter/RevealSpecies含睡眠完成事件 | 条件公式隔离；v4没有箱字段、完成数开箱链 |
 | 归巢释放该枝继续可用 | SRC-BIRD2完成群飞走后失去该枝，v4仅在完成时Retired；普通搬空不退役 |
 | List<int>物种，无egg token | 固定token ID/species/form；问号蛋身份隐藏，非提前纹样预告 |
-| 旧星级由Undo+Restart计数，Hint每关终身3次 | 有源新版改免费无限帮助/最佳操作；旧政策仅历史，不得带入 |
+| 旧星级由Undo+Restart计数，Hint每关终身3次 | Current design keeps free Undo/Restart and replaces Hint with ECONOMY_SHOP free-per-attempt/inventory; old lifetime3-hint policy remains withdrawn, not implemented anew |
 | 无R07额外枝完整事务 | 新增AddBranch/末枝S(P+1)/辅助身份和分类记录，免费一条N座；旧40见证不算此事务测试 |
 | 存档v4按关号回放From/To | v4设计campaign隔离，目标saveVersion6/schema4/rules4，完整稳定快照；详DATA_SAVE |
 | 关卡网格/旧设置与手写动画现状 | 世界地图是USER新目标，UI图标/静音/开源优先约束待实施；不能因为现代码写法就豁免 |
@@ -46,9 +46,15 @@ The isolated module is [FirstLevelV4](../../PerchSort/Assets/Scripts/Core/FirstL
 
 ## 3. 历史数值不得冒充当前验证
 
-旧Hint节点6000/UI等待1.5s、星级公式、163个EditMode/14个PlayMode通过/8Explicit跳过是旧记录，不是新版政策或本次测试结果。系统减动效/地图/移动IL2CPP仍未验证；LitMotion仅上述pin解析、desktop编译和1条smoke见证通过，不是运行补间或移动验收。新提示预算只影响Unknown，不能借历史值恢复收费或限次。
+旧Hint节点6000/UI等待1.5s、星级公式、163个EditMode/14个PlayMode通过/8Explicit跳过是旧记录，不是新版政策或本次测试结果。系统减动效/地图/移动IL2CPP仍未验证；LitMotion仅上述pin解析、desktop编译和1条smoke见证通过，不是运行补间或移动验收。新提示预算只影响Unknown，不能借历史值恢复旧收费/终身限次；当前ECONOMY_SHOP初始调参另有明确USER设计依据。
 
 
 ## 4. T22 reviewed first-level persistence handoff
 
 [FirstLevelPersistence](../../PerchSort/Assets/Scripts/FirstLevel/FirstLevelPersistence.cs) is an isolated L01-only save6 adapter layered on the active T21 Core/session scaffold. T22 uses platform JSON parsing, whole-structure preflight before recoverable semantics, typed-purpose audio retry, normalized-path process-local serialization and post-staging conflict readback. The [T22 report](../../tasks/T22_report.md) records85 focused source tests and explicitly excludes production scene integration and cross-process same-path writing. Earlier54-case evidence did not establish composition safety and is superseded for this final source.
+
+## Current economy/help design versus implementation (2026-11-01)
+
+[ECONOMY_SHOP](ECONOMY_SHOP.md) and RULES §9 now define coin skins/shop, four help skills/three slots, consumable stock/upgrades, rewards/voluntary doubling and deterministic authored Shuffle candidates. ALL are DESIGN_ONLY in this update. No corresponding wallet/shop/ad SDK/IAP/save7 code or new certificate is claimed. Existing save6/T22 code and first-level scene/wingbeat/Home implementation remain unchanged and present. Current code evidence is not replaced by a conceptual mockup.
+
+Future implementation requires separate Core/help actions, catalog/permutation data, save7 adapter, transaction/UI bindings and fresh tests under the approved workflow. This is a dependency description, not a new task queue or execution permission. Existing v2/save6 data cannot silently accept unknown economy fields. Visual selection, accepted production cutouts and the proposed side-trunk receiver remain pending; neither docs nor static images prove those implemented.

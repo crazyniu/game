@@ -1,6 +1,6 @@
 # 小鸟归巢：同行依据版PRD
 
-PRD4 · 2026-10-31 · 有效设计，T21仅bird-only Core部分实施。替代T16的自拟机制主案；先读[50项证据矩阵](MECHANIC_EVIDENCE.md)，再读[RULES](spec/RULES.md)。T21首关实现与普通设计决定已获授权；Core/依赖验证见T21报告，生产UI与完整v4/save6尚未完成。保留内部技术/独立视觉素材QA，不自动合并/部署。
+PRD4 · updated 2026-11-01 · Current design; the isolated T21 first-level scene/wingbeat/Home implementation exists, while full campaign and economy runtime remain incomplete. 替代T16的自拟机制主案；先读[50项证据矩阵](MECHANIC_EVIDENCE.md)，再读[RULES](spec/RULES.md)。T21首关实现与普通设计决定已获授权；Core/依赖验证见T21报告，生产UI与完整v4/save6尚未完成。保留内部技术/独立视觉素材QA，不自动合并/部署。
 
 ## 1. 产品与证据边界
 
@@ -16,7 +16,7 @@ PRD4 · 2026-10-31 · 有效设计，T21仅bird-only Core部分实施。替代T1
 | 每关统一容量4/6/8、各类同数；02–40为K+2枝/两空，01为已采纳N4/K2/P3/零空教学 | Simple的4单位与两空配置、BOOPFUN的6/8层迁移；具体固定布局是我方策划，不声称复制某个原关 |
 | 完整同种群自动归家，并失去该完成枝 | Bird Sort2已明确；取消旧“任意搬空就退枝”，普通搬空仍可用 |
 | 问号蛋前鸟移走才孵 | Bird Sort Quest；用户要求species固定，但玩家孵前不知道，不画纹样预告；盲玩公平还需验证 |
-| 免费无限回退/重开/提示、最佳操作记录、不限时 | Simple/Leaf等已有先例；Hint需合法胜利路径首步，不必全局最优，未知不称无解 |
+| 免费无限回退/重开；提示依帮助技能合同；最佳操作记录、不限时 | Simple/Leaf等已有先例；Hint需合法胜利路径首步，不必全局最优，未知不称无解 |
 | 每局可选免费加一条N座空枝 | WaterSort.in浏览器版每关一空容器迁移，容量沿本关N；Undo/保存/助力记录为项目E；不外推Android规则 |
 | 世界地图/顺序解锁/分主题环境 | 用户明确要求；同行地图/主题世界仅作为参考，不把我方关数或门槛说成原作值 |
 
@@ -32,15 +32,15 @@ PRD4 · 2026-10-31 · 有效设计，T21仅bird-only Core部分实施。替代T1
 
 ## 4. 已证功能、未定参数和商业化
 
-额外普通树枝已补SRC-WSWEB同类明确来源：每当前局可选免费一条N座空枝，Undo/Restart/保存/Hint/成绩分类由RULES R07闭环；容量N为本项目适配，不是竞品鸟座位原数。仅L01改为两步教学，其余39不变；当前40主路共472次无助力Transfer。备用容器逐次加高、只进不出收集容器、外观/金币成长仍缺精确边界/价格/奖励，退出可执行数值需求；不臆造收费或逐格扩高公式。
+额外普通树枝已补SRC-WSWEB同类明确来源：每当前局可选免费一条N座空枝，Undo/Restart/保存/Hint/成绩分类由RULES R07闭环；容量N为本项目适配，不是竞品鸟座位原数。仅L01改为两步教学，其余39不变；当前40主路共472次无助力Transfer。Reserve growth and one-way collectors remain pending. Coin skins/help skills now have the explicit initial tuning table in ECONOMY_SHOP; those values are project decisions, not competitor measurements.
 
-首版主线不采广告/IAP/体力/竞速/随机洗牌；这是项目范围选择，不能误称同行都无商业化。不把无解关靠付费扩容补救。星级与金币阈值未定，仅保留有依据的最佳操作记录与通关进度。
+Current design adopts coin-only skins, four help skills/three slots, consumable inventory/permanent tiers, first-clear coins and voluntary ad doubling under [ECONOMY_SHOP](spec/ECONOMY_SHOP.md). Undo/Restart remain free; Hint now has free-per-attempt then inventory policy. Shuffle is player-initiated and uses authored deterministic candidate plans, not random new levels. No real-money IAP quotation/integration, energy, forced ads or pay-to-complete boards. Stars remain undefined. All economy/skill runtime is DESIGN_ONLY; optional ad SDK is not integrated.
 
 ## 5. UI与动画硬约束（USER）
 
 静态尺寸唯一归[UI_SPEC](UI_SPEC.md)，时序/输入归[INTERACTION](spec/INTERACTION_ANIMATION.md)，模板归[ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md)，开源选型归[ANIMATION_LIBRARIES](spec/ANIMATION_LIBRARIES.md)。
 
-能用清晰图标表达就只放图标，不叠可见同义文字；可访问名称仍保留。只用统一规则形按钮、不用异形按钮，设置/菜单简洁。声音、游戏音乐、点击音效只有静音开关，不做音量滑条或百分比；必要编号/错误说明可用文字。
+Production baseline: 能用清晰图标表达就只放图标，不叠可见同义文字；可访问名称仍保留。只用统一规则形按钮、不用异形按钮，设置/菜单简洁。声音、游戏音乐、点击音效只有静音开关，不做音量滑条或百分比；必要编号/错误说明可用文字。
 
 所有动画优先成熟开源库、单一主补间库，不重复手写基础设施；动画位置禁止用一张固定图片冒充完成。飞行有真正振翅/轨迹/收翅落脚，入巢有进入/遮挡阶段，结算有时间序列与粒子。静态背景可以静态；库许可不等于素材版权。角色/布局遵UI_SPEC §4.1及内部技术/独立视觉QA，原件保留；T21首关单上方接收巢/错落支撑枝已采纳，完整运行效果未验收。
 
@@ -49,3 +49,7 @@ PRD4 · 2026-10-31 · 有效设计，T21仅bird-only Core部分实施。替代T1
 先[docs路由](README.md)→证据→任务唯一权威，不把旧档案当有效需求。T21首关实现已授权，在251开发、Mac测试，遵AGENTS内部资源/审核门槛；普通决定不再等待用户重复确认。其余未采纳提案不因此转为规则或开发任务。
 
 交付应写：有效需求和同行出处、明确迁移差异、未证/撤回项、新旧证据失效、实际验证命令、失败/未知、固定关卡附录、草稿PR SHA。最终游戏/真人/设备边界见[VALIDATION](spec/VALIDATION.md)。
+
+## 7. Current design-exploration exception
+
+The user’s 2026-11-01 direction permits design drafts to depart from existing UI constraints and use necessary functional text. Show actual prices, inventory, levels, purchase/upgrade/equip and reward states rather than decorative placeholder panels. Do not require a thick wooden button base to explore a design. This is a scoped exploration exception: existing originals, safe interaction, final visual selection and accepted slices still gate production implementation. A side-trunk receiving area is proposed; exact coordinates/occlusion assets and final visual choice remain pending. The existing upper-nest T21 slice is not erased or retrospectively declared unimplemented.

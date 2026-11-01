@@ -10,13 +10,13 @@
 | R02 搬移 | 点源再点目标，只取露端连续同种；空/同种端且有余量；Count=min(run,free) | SRC-LEAF支持鸟端群/接收条件；SRC-SIMPLE明确截断规则、一次操作一步。不同来源组合公开标示，不冒充Leaf也明确部分搬移 |
 | R03 问号蛋 | 固定隐藏物种，前鸟移开露端后原位孵化；没有种类纹样预告 | SRC-QUEST问号蛋与前鸟触发；固定隐藏数据遵USER，原作是否随机未知；锁run属于E协议；相邻蛋精确边界未核，移出当前配置 |
 | R04 完成与失枝 | 同枝N只已孵化同种完整群自动飞回家，同时该完成枝退出后续整理 | SRC-BIRD2明确完成群飞走失去枝；完整群数N按R01配置。没有目标等待、睡眠冻结、满组箱事件 |
-| R05 撤销与重开 | 免费无限Undo/Restart；Undo退回最近一次Transfer或AddBranch及其全部事件/步数；Restart固定初态 | SRC-LEAF支持回退/重开，SRC-SIMPLE明确无限免费Undo和回退步数；整快照协议见DATA_SAVE |
+| R05 撤销与重开 | 免费无限Undo/Restart；Undo restores the latest Transfer/AddBranch, or Shuffle under §9, including board events/move count but not economy/usage ledgers；Restart固定初态 | SRC-LEAF支持回退/重开，SRC-SIMPLE明确无限免费Undo和回退步数；整快照协议见DATA_SAVE |
 | R07 额外普通枝 | 每当前局至多一条额外空枝，容量等于本关N；免费、非强制；精确事务见§8 | SRC-WSWEB网页明确每关一空容器；N容量是本项目鸟主题适配；免费为项目非商业化配置，Undo/持久化为E协议 |
-| R06 提示/成绩 | 免费不限次Hint，给当前已验证胜利路线的合法首步；记录最佳操作数，不扣Undo星级 | SRC-SIMPLE的无限免费解路径/最佳步数；SRC-LEAF少步高分。不要求提示证明最优，不编三星阈值或终身3次配额 |
+| R06 提示/成绩 | Help-policy v2: Hint has one free use per attempt, then owned charges; free unlimited Undo/Restart remain separate. See §9 and ECONOMY_SHOP. Best Transfer counts remain separate from rewards. | Verified-path hint derives from SRC-SIMPLE; new allowance, coin inventory and tiers are explicit USER-directed project adaptations, not competitor prices. |
 
 本版是有出处的排序规则迁移组合，不是任何一款竞品的全套复制。未进入有效规则：前二目标队列/未轮到睡眠/累计或指定种箱/0–2单鸟篮/混容量短枝；提前告知蛋种类、首次接鸟后任意搬空退枝、风闸、Undo扣星及终身3提示全部撤回。其旧实现/观察只能在CODE_MAP和历史记录中阅读，不能按旧字段补回。
 
-额外普通枝已由R07/§8定义完整采用合同；逐次扩高、只进不出容器、金币与皮肤商店仍见§7。固定初盘不等于禁止局内扩空间；本40基础配置及原见证均不使用AddBranch。
+额外普通枝已由R07/§8定义完整采用合同；逐次扩高、只进不出容器仍见§7待参区。金币与皮肤商店采用§9及ECONOMY_SHOP。固定初盘不等于禁止局内扩空间；本40基础配置及原见证均不使用AddBranch。
 
 ## 2. R01 棋盘/信息与术语
 
@@ -60,13 +60,13 @@ The unique legal first Transfer is S2→S1 A1, immediately Home A/Retire S1. Eit
 
 Won为全部种类Home且无token；不以“看起来每枝单色”提前完成不满群。NoMoves只是当前无合法Transfer，不等于完整搜索证明全局无解；可选R07加枝或免费Undo/Restart，不扣生命/体力/金币。没有倒计时或最大操作数失败。
 
-Undo恢复最近一个Transfer或AddBranch前的全部token、蛋形态、枝状态、Home集合、操作数和辅助状态；包括已飞群与退役枝。例末只补成完整A→A Home+该枝Retired，Undo后A回枝并Available。**不执行“空就退役”二次归一化**。Restart清本局历史并从同hash固定资源复建，重开不能抽蛋种或改盘。退出恢复按存档身份，不从动画坐标回放。
+Under helpPolicyVersion2, Undo also covers Shuffle before-snapshots while preserving spent currency/charges and attempt-use flags (§9). Undo恢复最近一个Transfer或AddBranch前的全部token、蛋形态、枝状态、Home集合、操作数和辅助状态；包括已飞群与退役枝。例末只补成完整A→A Home+该枝Retired，Undo后A回枝并Available。**不执行“空就退役”二次归一化**。Restart清本局历史并从同hash固定资源复建，重开不能抽蛋种或改盘。退出恢复按存档身份，不从动画坐标回放。
 
 ## 6. R06 帮助与成绩
 
-提示免费不限次且不自动走子；只在当前稳定stateKey/事务序号仍匹配、返回一条完整合法胜利路径时高亮其首步。没有必要伪证最优首步；非最优解也是可验证解。搜索预算耗尽/取消/失效返回Unknown、不扣任何次数/资源，也不声称无解；后台只保留一个搜索，结果过期丢弃。预算是可配置工程上限，不是玩家体力或费用。
+Current design: Hint uses helpPolicyVersion2 (one free use per attempt, then inventory; §9), never auto-moves; 只在当前稳定stateKey/事务序号仍匹配、返回一条完整合法胜利路径时高亮其首步。没有必要伪证最优首步；非最优解也是可验证解。搜索预算耗尽/取消/失效返回Unknown、不扣任何次数/资源，也不声称无解；后台只保留一个搜索，结果过期丢弃。预算是可配置工程上限，不是玩家体力或费用。
 
-操作数从0开始，每Transfer+1；Undo恢复前操作数；Restart重新0。每关分别保留无加枝路径与有加枝路径的最小成功通关操作数（E公平比较记录，不新增奖励）；按Won时extraBranchAdded分类，Undo完全撤回AddBranch后恢复无加枝类别。Hint/Undo/Restart不触发星级罚则；星级数值/金币/经验阈值没有充分证据，目前不计、不发、不展示假星。旧星槽资源尺寸可留历史，但不是要求新版必须亮三颗。
+操作数从0开始，每Transfer+1；Undo恢复前操作数；Restart重新0。For runs without any Shuffle commit, 每关分别保留无加枝路径与有加枝路径的最小成功通关操作数（E公平比较记录，不新增奖励）；这两类按Won时extraBranchAdded分类；Shuffle runs instead use the separate §9 skill-assisted bucket，Undo完全撤回AddBranch后恢复无加枝类别。Hint/Undo/Restart不触发星级罚则；Stars/XP remain undefined; do not fabricate them. Coin rewards now follow ECONOMY_SHOP and never depend on a star threshold or move-count target. Runtime reward implementation remains pending. 旧星槽资源尺寸可留历史，但不是要求新版必须亮三颗。
 
 ## 7. 有据待参功能与严格边界
 
@@ -75,10 +75,10 @@ Undo恢复最近一个Transfer或AddBranch前的全部token、蛋形态、枝状
 | ExtraBranch | SRC-QUEST/SRC-BIRD2/SRC-AZURA有额外枝；SRC-WSWEB明确每关一空容器 | DESIGNED：已进入R07/§8；免费一条N座空枝，非逐格扩高；不得再标为全部参数待证 |
 | ReserveGrow | SRC-BOOP备用瓶逐次加高 | PENDING_PARAMETERS：初高/增量/上限/收费未知；不得自写+1座、一天3次等 |
 | Collector | SRC-BOOP只可进不可出 | PENDING_PARAMETERS：色绑定/完整后处理未知；不加入正式40 |
-| Skins/Coins | SRC-LEAF/SRC-QUEST/SRC-AZURA外观解锁/金币 | RESEARCH_ONLY：有功能依据，无完整价格/奖励表；世界地图先按通关解锁，不伪造金币经济 |
+| Skins/Coins | SRC-LEAF/SRC-QUEST/SRC-AZURA support cosmetics/completion coins; current USER direction adds purchases/upgrades/voluntary doubling | CURRENT DESIGN: ECONOMY_SHOP owns explicit project tuning and transactions; runtime DESIGN_ONLY. Map unlocks remain completion-based, not coin-gated. |
 | Stars | 同行有少步高分，具体星阈值未定 | RESEARCH_ONLY；不保旧Undo扣星公式 |
 
-今后若要激活仍待参/研究的功能，先补可定位同行规则/参数证据并评审组合，再改本页、schema、UI和证书；不得让开发AI按名字猜规则。世界地图和主题解锁是用户明确要求，唯一合同见[MAP_PROGRESSION](../MAP_PROGRESSION.md)，与以上未定经济分开。
+Economy and help skills are now adopted design under §9, not included in the remaining research-only restriction. 今后若要激活其他仍待参/研究的功能，先补可定位同行规则/参数证据并评审组合，再改本页、schema、UI和证书；不得让开发AI按名字猜规则。世界地图和主题解锁是用户明确要求，唯一合同见[MAP_PROGRESSION](../MAP_PROGRESSION.md)，Map progression remains independent of the now-defined coin economy.
 
 ## 8. R07 ExtraBranch：完整局内加枝合同
 
@@ -89,6 +89,16 @@ Undo恢复最近一个Transfer或AddBranch前的全部token、蛋形态、枝状
 - **事务和步数**：AddBranch自身是一笔可撤销、可保存的玩家动作，操作数不增加（操作数只计Transfer）；生成BranchAdded事件，先原子确认再演出。它不触发Hatch/Home，不改变已归巢种。加入后重新检查合法Transfer集合并恢复Idle/NoMoves；未知不称无解。
 - **后续规则**：新枝与普通枝同样接收和移出；普通搬空保持Available，N只同种bird完成则Home后Retired；该枝即使Retired仍保留在数组和快照，不可再补一枝。胜利条件仍为全部种类Home且无token，不要求所有空枝退役。
 - **Undo/Restart/续局**：历史记录区分Transfer与AddBranch，严格后进先出；先撤回加枝之后的移动，才可撤回AddBranch，撤回时移除当时仍空的末枝并恢复false及原操作数。不可删掉仍承载鸟的枝。Undo回退加枝恢复可用资格，是回退当前路径而非购买第二条；没有累计消耗账本。Restart清历史/末枝、重建同hash初盘并恢复false；退出续局必须保留true及枝内容/退役/历史，不能靠重进刷枝。
-- **Hint与成绩**：Hint只搜索当前真实枝集合上的Transfer，不把AddBranch放进隐藏搜索动作，也不代玩家消费帮助。无结果按Unknown或已证明无解区分，可提示手动加枝但不能声称一定救活。AddBranch/Undo/Restart使旧Hint失效。成绩以当前成功路径是否含AddBranch分类；两类各记最少Transfer，不加星/金币/倍率。
+- **Hint与成绩**：Hint只搜索当前真实枝集合上的Transfer，不把AddBranch放进隐藏搜索动作，也不代玩家消费帮助。无结果按Unknown或已证明无解区分，可提示手动加枝但不能声称一定救活。AddBranch/Undo/Restart使旧Hint失效。Existing branch-only scores classify by AddBranch. Under helpPolicyVersion2, any committed Shuffle uses a separate skill-assisted score category (§9), even if undone. Coin rewards are identical for all successful categories; no score-based reward multiplier.
 - **身份与证明**：辅助协议`assistPolicyVersion=1`以及`extraBranchAdded`必须写入完整快照、精确stateKey、Undo及证书身份，不能只凭基础contentHash复用辅助状态。仅L01初态按§2.1修订，其余39不变；472次主路线Transfer见证继续只证明无AddBranch子集，不证明新动作、保存或UI已实现。
 - **显示与验收**：新枝预留位置/图标/触控见UI_SPEC，BranchAdded表现见INTERACTION AN09，保存约束见DATA_SAVE，反例见VALIDATION V19–V26。Original assets remain preserved; new production slices/layout require internal technical and independent visual QA. T21 first-level implementation is authorized; style/QA authority remains UI_SPEC §4.1.20蛋关盲玩公平仍PENDING，额外枝不替代该验收。
+
+## 9. Current help-skill and economy design extension (helpPolicyVersion2)
+
+[ECONOMY_SHOP §4](ECONOMY_SHOP.md#4-four-skill-contract) is incorporated as the normative detailed help-skill policy. This explicit user-directed design supersedes old unlimited-Hint and economy-RESEARCH_ONLY clauses; it does not retroactively change code or measured evidence. Four help skills are Hint, Extra Branch, Rewind and Shuffle; three distinct owned skills are equipped, default Hint/Extra Branch/Rewind. Basic Undo/Restart remain unlimited/free and outside slots. Each attempt grants one free Hint/Rewind use; Restart resets free allowances, not spent inventory. Additional purchased-inventory uses total at most three per attempt. Extra Branch remains exactly R07, one free N-seat branch; no second/paid capacity. Hint tiers provide up to1/2 verified visible steps, Rewind atomically undoes up to3/6 existing actions. Price/inventory/reward policy is solely ECONOMY_SHOP.
+
+Shuffle is an explicit player action, at most once per attempt, only without remaining eggs. It applies authored deterministic permutation candidates to current occupied slots, preserving all tokens/branch occupancy/Home/retired states and the fixed level initial data; never randomly generate a new level. Only a current candidate with a verified winning continuation may commit; failure/Unknown consumes nothing. The full candidate selection, Undo and safety contract is ECONOMY_SHOP §4.2. Shuffle adds zero Transfer moves, records a complete before snapshot, and its Undo does not restore spent inventory or once-per-attempt use. Rewind may pop Transfer/AddBranch/Shuffle history using their recorded snapshots; no duplicate 'rewind' forward entry is added.
+
+R07 assistPolicyVersion1 remains the branch-state protocol; new helpPolicyVersion2 separately identifies skill economy/limits. Certificates and exact state identity must additionally bind help policy and Shuffle history/usage. Existing Transfer-only and Transfer+AddBranch witnesses remain evidence only for those action sets; never relabel them as Shuffle certificates. Any Shuffle commit marks the attempt skill-assisted even if undone, with a separate bestTransfer count bucket; neither it nor purchases improve legacy unassisted records. Restart starts a new attempt. All categories unlock progression and receive the same eligible completion coins. No skill is required to solve authored base levels; no new paywall, timer, life or hidden-egg reveal is introduced.
+
+Runtime status: DESIGN_ONLY for this extension. The existing isolated L01 code, save6 adapter and named tests are not claimed to implement helpPolicyVersion2/save7 or validate Shuffle. New Core, transaction, visibility and runtime tests are required.

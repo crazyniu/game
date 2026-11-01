@@ -16,8 +16,9 @@ Active capture pipeline: `scripts/screenshots.sh` → `Screenshots.Capture` → 
 | --- | --- | --- |
 | [MECHANIC_EVIDENCE](MECHANIC_EVIDENCE.md) | 全量玩法系统来源/资格/撤回与缺口，USER/E/P/O区分 | 官方文案不是安装实测，旧代码不是同行证据 |
 | [SORTING_RESEARCH](SORTING_RESEARCH.md)及[Cutie Sort参考](references/CUTIE_SORT_GAMEPLAY_REFERENCE.md) | 原游戏可离线阅读的玩法/操作/例子与迁移差异；版本化静态分析仅供研究 | 链接只是出处；竞品参考不修改有效规则 |
+| [ECONOMY_SHOP](spec/ECONOMY_SHOP.md) | Current coin-only shop/help-skill/reward design, initial tuning, migration/transactions | DESIGN_ONLY; no SDK/IAP/real-money quotes; future save7 is not current save6 |
 | [PRD](PRD.md) | 产品范围/取舍/目标 | 不另定义算法 |
-| [RULES](spec/RULES.md) | R01..R07有效玩法、动作/完成/回退/未定功能边界 | 普通加枝遵R07明确合同；逐次扩高/经济待证不可自由补值 |
+| [RULES](spec/RULES.md) | R01..R07有效玩法、动作/完成/回退/未定功能边界 | 普通加枝遵R07明确合同；逐次扩高待证；经济采用ECONOMY_SHOP的明示项目初始调参，不冒称竞品值 |
 | [MAP_PROGRESSION](MAP_PROGRESSION.md) | 用户指定世界进度、唯一章节/森林主题分配与门槛 | 未定概念不是已验收资源；环境不影响规则 |
 | [LEVEL_DESIGN](LEVEL_DESIGN.md) | 每关教学/决策/节奏 | 题目多不等于策略丰富 |
 | [LEVEL_SIMULATIONS](LEVEL_SIMULATIONS.md)与四份固定附录 | 全40精确初态/逐步回放、可见视图/证据限制 | 非运行JSON、非最优/Unity/公平证书 |
@@ -34,10 +35,10 @@ Active capture pipeline: `scripts/screenshots.sh` → `Screenshots.Capture` → 
 | 任务 | 顺序 |
 | --- | --- |
 | 产品评审 | PRD→证据矩阵→相关同行文字→RULES |
-| 规则/数据 | 证据矩阵→RULES全篇→DATA_SAVE→CODE_MAP→VALIDATION |
+| 规则/数据 | 证据矩阵→RULES全篇→ECONOMY_SHOP→DATA_SAVE→CODE_MAP→VALIDATION |
 | 关卡策划 | RULES→MAP_PROGRESSION→对应卡→对应10关固定附录→VALIDATION |
 | UI/动画 | UI_SPEC→INTERACTION→ANIMATION_LIBRARIES→所需PROMPTS→RULES事件 |
-| 地图/成长 | MAP_PROGRESSION→证据矩阵成长项→UI_SPEC→DATA_SAVE；未知经济不补猜 |
+| 地图/成长 | MAP_PROGRESSION→证据矩阵成长项→UI_SPEC→DATA_SAVE；经济/帮助技能→ECONOMY_SHOP；当前设计不是runtime实现 |
 | 验收/存档 | VALIDATION→DATA_SAVE→相关规则/内容hash→AGENTS |
 
 Gameplay review and proposals (T20): [GAMEPLAY_REVIEW](GAMEPLAY_REVIEW.md).
@@ -47,3 +48,5 @@ Small-scope next-step proposal (first level first): [SMALL_SCOPE_NEXT](proposals
 本轮交付与未测边界见[T18报告](../tasks/T18_report.md)。旧[T16撤回记录](archive/T16_WITHDRAWN.md)、[v2档案](archive/DESIGN_V2.md)、[UI历史](archive/UI_SPEC_HISTORY.md)、旧任务报告仅历史；[DESIGN](DESIGN.md)只兼容导航。旧“唯一DESIGN”、原创新临时枝、纹样蛋/队列/箱/星级条款不覆盖本路由。
 
 First-level preparation only: [asset/layout review and decisions](../tasks/T21_asset_manifest.md) → [event-to-motion handoff](../tasks/T21_event_motion_map.md) → [exact review metadata](../tasks/T21_layout_review.json). These are unaccepted design inputs, not production UI or changed formal levels.
+
+Current design update (2026-11-01): the user-directed shop and help-skill policy replaces old research-only economy and unlimited-Hint design statements, without rewriting historical competitor evidence. RULES incorporates ECONOMY_SHOP §4; DATA_SAVE separates future save7 from implemented save6. UI_SPEC owns the limited new design-exploration exception and pending side-trunk reception proposal. Old first-level implementation evidence and T26 entry cleanup remain preserved.
