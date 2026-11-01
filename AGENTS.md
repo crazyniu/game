@@ -6,7 +6,9 @@ User requirements: fixed authored levels, forest-only worlds and sequential worl
 
 ## Language
 - Everything written for AI agents (CLAUDE.md, AGENTS.md, new task specs and reports, code comments, commit messages) is in **English**.
-- Talk to the user in Chinese. Existing Chinese docs (`docs/*.md`, older `tasks/*.md`) stay as they are unless a task says otherwise. This user-directed Chinese PRD/spec deliverable retains its requested language; new task specifications/reports, agent entry files, code comments and commits use English.
+- All player-visible game UI is English, including titles, buttons, shop, skills, settings, tutorials and status/error text. Use the existing licensed game font (Fredoka or the verified repository font) for titles/entry labels/buttons; never substitute unreviewed system-font text and call it approved artwork. Keep the existing i18n structure and approved visual layouts.
+- Continue talking to the user in Chinese unless they separately request a conversation-language change. Existing historical Chinese docs/reports are preserved; new agent-facing work is English. The request for English game UI is not permission to delete localization support.
+- Preserve the current multiple bird colors/palette while the phrase about retaining extra colors is unresolved. Do not remove colors or interpret it as a confirmed multilingual feature request.
 
 ## Document ownership and verification
 - The user requests task decomposition and parallel agents for suitable independent modules. Assign non-overlapping file ownership, share one rule contract and integrate with one consistency review. This does not authorize contacting external people/services or other models.
@@ -16,35 +18,28 @@ User requirements: fixed authored levels, forest-only worlds and sequential worl
 - New assets are derived files, never replacements for approved originals. Verify real RGBA transparency, style, pivots/bounds, 64px/grayscale recognition, then in-context screenshots and timed runtime samples. Static frames are not proof of playable animation.
 - Documentation-only edits need links, quantities and contract consistency checks. Code/data changes need the Unity workflow and new-rule replay/certificates, reporting failures, explicit skips and untested boundaries honestly.
 
-## Machines and roles (since 2026-10-31)
-| Machine | Role |
-|---|---|
-| **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex writes code and produces images. **No Unity Editor** — cannot compile or run tests. |
-| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Testing only: Unity compile, EditMode/PlayMode tests, screenshots. Do not edit code on the Mac. |
+## Current execution model: local computer + cloud (2026-11-01)
 
-The Mac-side Claude from the old workflow is retired.
+The user's latest direction supersedes the former 251-development/Mac-test-only workflow. The user's local computer may produce code and derived assets and run authorized Unity checks. Cloud agents handle documentation, design preparation, independent review and explicitly assigned code work in parallel. This changes where authorized work may occur; it does not expand the approved feature scope or override tool/runtime permissions.
 
-## Git workflow (one repo on both machines, `origin = github.com/crazyniu/game`)
-1. On 251, branch from `main` as `t<number>-<short-name>`. Codex implements; Claude reviews, commits and pushes.
-2. On the Mac: `git fetch && git checkout <branch> && git pull --ff-only`, then
-   - `bash scripts/run_tests.sh` (runs SceneBuilder first; requires EditMode ≥101 and PlayMode ≥11 passing, zero failures)
-   - `bash scripts/screenshots.sh` (output in `build/screens/flow/`)
-3. 251 drives the Mac remotely; ask the user to run things by hand only when the Mac is unreachable:
-   ```bash
-   orca status --environment Mac-Image-Worker --json
-   orca terminal create --environment Mac-Image-Worker --worktree path:/Users/apple/Documents/projects/game \
-     --title Mac-Test --command "git fetch && git checkout <branch> && git pull --ff-only && bash scripts/run_tests.sh" --json
-   orca terminal send --environment Mac-Image-Worker --terminal <handle> --text "<cmd>" --enter --json
-   orca terminal read --environment Mac-Image-Worker --terminal <handle> --json
-   ```
-   - The Unity Editor must **not** have this project open on the Mac, or batchmode exits immediately with code 1. Ask the user to quit the editor; never kill it yourself.
-   - `run_tests.sh` may make SceneBuilder rewrite `Assets/Scenes/Game.unity`. Record status/diff before running and preserve user edits. Restore that file only after confirming it had no pre-existing user changes and every resulting difference is disposable output from this run; otherwise keep it for review. Never blindly checkout over user work.
-   - Baseline on `main` (2026-10-31): EditMode 163/163; PlayMode 14 passed, 0 failed, 8 intentionally skipped in code (Level10/20/30/40 smoke tests and other deferred items). Skips are not failures.
-   - Prefer an existing authorized artifact/file channel for screenshots. A temporary HTTP server, especially one bound to 0.0.0.0, requires actual permission covering its directory, interfaces and lifetime before starting; stop it after transfer. This guide and documentation edits grant no authority to expose network services, a whole repository or credentials.
-   - If the Mac IP changes, inspect the existing environment read-only first. Updating the Orca endpoint is a configuration mutation requiring applicable authority/permission; documentation edits do not authorize it. Do not generate or disclose pairing credentials.
-   - `build/` is gitignored; never commit test output.
-4. Accepted → use the existing task submission authority to commit/push an isolated branch and open a draft PR for review. Rejected → return with concrete issues. **Merging into main, deployment or release each require explicit user authorization; passing acceptance is not that authorization.**
-5. Compare generated `.meta`/`ProjectSettings` changes with the pre-run record, preserving user edits. Only necessary task-generated changes that have been reviewed and authorized for submission may be committed to the same branch and pulled on 251. Never auto-include unrelated changes.
+**251 is retired from this workflow. Do not connect to it or perform any read, write, inspection, sync, transfer or remote command involving it.** Do not reconnect to recover files or migrate its old data. Leave its existing data untouched. Old reports preserve history, not permission to reuse that route. Do not invent a new endpoint or use a different channel to bypass this prohibition.
+
+| Executor | Current role |
+| --- | --- |
+| User's local computer | Authorized code/derived-asset production and Unity compilation/tests; direct local collaboration, not a test-only machine. Inspect the actual available environment and checkout before work. |
+| Cloud workspace | Parallel specs/design preparation, independent review and assigned authorized code; no claim that a local path exists remotely or that Unity is installed here. |
+| 251 | No access or transfer. Historical data remains where it is; not a migration source. |
+
+Use multiple agents for independent modules with disjoint file ownership. Each assignment states baseline commit, owned paths, shared rule/API/asset contract, acceptance boundary and integration owner. Do not let two agents edit the same scene, prefab, catalog, save schema or other shared file concurrently. One integrator reconciles changes and verifies the combined result. Uncommitted local work is not submitted work; record modified paths and actual commit/test evidence honestly. Coordinate blockers without silently pausing or reprioritizing already authorized development.
+
+## Current Git and verification workflow (`origin = github.com/crazyniu/game`)
+
+1. On the authorized local or cloud checkout, inspect branch/head and dirty status first. Continue the coordinator's assigned branch; for a new approved task use the project `t<number>-<short-name>` convention from its explicitly selected baseline. Preserve unrelated user changes. Do not switch a dirty worktree or overwrite newer work merely to match an old report.
+2. Each agent implements only its assigned files. The integrator reviews the diff, resolves shared-contract changes and submits through the existing coordinator/role authority. This execution change does not independently authorize a commit, push, merge or deployment outside the active task's permissions. Accepted submission remains an isolated branch/draft PR; no automatic merge/release.
+3. On the user's local computer, use the existing Unity workflow when authorized: `bash scripts/run_tests.sh` and, where capture is authorized, `bash scripts/screenshots.sh`. Check the current scripts and task-specific acceptance criteria first; historical test totals are not a current pass. Report pass/fail/skip/not-run separately. Cloud code changes still require appropriate integration and local Unity verification when cloud Unity is unavailable.
+4. Do not forcibly close the user's Unity Editor. If it has the project open and blocks batchmode, ask the user to close it or use an already authorized compatible workflow. Record dirty state before tools that may regenerate scenes; restore generated changes only after confirming the preimage was clean and every discarded change is disposable output. Preserve user scenes, `.meta` and ProjectSettings edits.
+5. Player/window access, capture and other runtime permissions remain independent. The new local-production direction does not approve a previously denied Player-window action or transfer. Use only currently authorized tools/file channels. No temporary HTTP exposure, pairing/endpoint mutation or credential disclosure is implied. Never route any artifact through 251.
+6. Only include reviewed, task-owned changes in a submission. Keep `build/` output untracked. Verify remote head before reporting a push and report the exact tested commit; do not present a local modification, mocked screen or historical test report as a new runtime pass.
 
 ## Rules
 - Core (`Assets/Scripts/Core`) is pure C# with no UnityEngine references; logic and animation stay separate. Update the owning specification (rules: `docs/spec/RULES.md`) and code-difference index, and obtain implementation authorization before changing Core rules/levels. DESIGN only routes legacy links; do not add a second rule definition.
@@ -54,12 +49,16 @@ The Mac-side Claude from the old workflow is retired.
 - T12 (more levels) is paused; keep 40 levels. T14 (store release) needs an account and package name from the user (`com.todo.perchsort` is a placeholder).
 
 ## Codex only
-- Do only the current task dispatched by the coordinator (Claude). For anything ambiguous, use `orca orchestration ask`; do not guess or widen scope.
-- 251 cannot run Unity: after writing code, self-check compile risks (namespaces, asmdef references, serialized fields) and list in the report what must be verified on the Mac.
+- Do only the current task dispatched by the coordinator. Resolve ambiguity through the active task/coordinator channel; do not require a legacy remote orchestration route or widen scope.
+- Self-check compile risks (namespaces, asmdef references, serialized fields); run authorized Unity verification on the local computer, or report it NOT_RUN when unavailable. Cloud code is not runtime-accepted without the required integration checks. Never use 251 for verification or retrieval.
 - Do not commit to git; Claude commits after review.
 
 ## Current shop/help-skill design scope (2026-11-01)
 
 The user authorizes autonomous completion of economy, shop, help-skill specifications and design exploration. [ECONOMY_SHOP](docs/spec/ECONOMY_SHOP.md) is the current design contract: coin-only skins, four help skills/three slots, purchase inventory and permanent upgrades, completion coins and voluntary ad doubling. Undo/Restart stay free and outside slots; the previous unlimited-Hint/noncommercial-design restriction is superseded by the explicit free-per-attempt/inventory policy. Initial tuning needs no repeated approval. Runtime remains DESIGN_ONLY: no live ad SDK, IAP prices/integration, merge or deployment is authorized by these documents. Current save6 code is not future save7.
 
-For this design exploration only, the latest user permits necessary functional text and alternatives to existing UI appearance constraints. No mandatory thick-wood button base may block exploration. This is not a global cancellation of production readability, accepted-art preservation or asset QA. Visual selection and accepted production slices remain pending; side-trunk reception is a proposal, not accepted coordinates. Do not overwrite T21’s existing first-level implementation or claim it does not exist. Shuffle is player-initiated, uses authored deterministic candidate plans, preserves authored initial layouts and needs new help-policy/candidate certificates; old witnesses do not prove the new skills.
+For this design exploration only, the latest user permits necessary functional text and alternatives to existing UI appearance constraints. No mandatory thick-wood button base may block exploration. This is not a global cancellation of production readability, accepted-art preservation or asset QA. The skin-shop, help-skills and settings page directions/layouts are individually approved as recorded in UI_SPEC §11; their faithful English copy update is permitted without a wholesale redraw. Other visual selection and production slices remain pending; side-trunk reception is a proposal, not accepted coordinates. Do not overwrite T21’s existing first-level implementation or claim it does not exist. Shuffle is player-initiated, uses authored deterministic candidate plans, preserves authored initial layouts and needs new help-policy/candidate certificates; old witnesses do not prove the new skills.
+
+## Reference-led component layout
+
+Follow the user's photographed same-genre reference and established component placement rather than inventing a new navigation pattern: top utilities/coin balance, bottom help-item row, centered settings modal and full shop view. Preserve the three approved page layouts; English copy/font binding does not authorize wholesale repainting or replacing approved slices. Do not introduce a sidebar/drawer layout. Necessary functional text is permitted; approved-art production gates remain unchanged. UI_SPEC owns these current details.

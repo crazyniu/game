@@ -46,10 +46,16 @@ Production baseline: 能用清晰图标表达就只放图标，不叠可见同�
 
 ## 6. AI阅读与交付
 
-先[docs路由](README.md)→证据→任务唯一权威，不把旧档案当有效需求。T21首关实现已授权，在251开发、Mac测试，遵AGENTS内部资源/审核门槛；普通决定不再等待用户重复确认。其余未采纳提案不因此转为规则或开发任务。
+先[docs路由](README.md)→证据→任务唯一权威，不把旧档案当有效需求。T21首关实现已授权；the current workflow uses local-computer production/Unity plus parallel cloud work, never 251 access/transfer, under AGENTS resource/review gates; 普通决定不再等待用户重复确认。其余未采纳提案不因此转为规则或开发任务。
 
 交付应写：有效需求和同行出处、明确迁移差异、未证/撤回项、新旧证据失效、实际验证命令、失败/未知、固定关卡附录、草稿PR SHA。最终游戏/真人/设备边界见[VALIDATION](spec/VALIDATION.md)。
 
 ## 7. Current design-exploration exception
 
 The user’s 2026-11-01 direction permits design drafts to depart from existing UI constraints and use necessary functional text. Show actual prices, inventory, levels, purchase/upgrade/equip and reward states rather than decorative placeholder panels. Do not require a thick wooden button base to explore a design. This is a scoped exploration exception: existing originals, safe interaction, final visual selection and accepted slices still gate production implementation. A side-trunk receiving area is proposed; exact coordinates/occlusion assets and final visual choice remain pending. The existing upper-nest T21 slice is not erased or retrospectively declared unimplemented.
+
+## 8. Current execution, language and layout direction
+
+The latest user instruction replaces the former 251-only development and Mac-test-only split: the local computer may produce code/assets and run Unity; cloud agents work in parallel on disjoint assigned files, design/docs/review and authorized code. Do not access or migrate 251 data. Player/window permissions are independent. No uncommitted implementation is reported as submitted or validated.
+
+All game-visible UI is English using the verified existing game font for entry/title/button text. Preserve i18n architecture and existing color variety; the ambiguous extra-color wording does not authorize color deletion or new multilingual requirements. Conversation with the user is not switched to English. Follow the photographed same-genre component layout and preserve the approved skin/skill/settings compositions; no invented sidebar/drawer or whole-page redraw for translation. These changes do not expand economy or payment scope.
