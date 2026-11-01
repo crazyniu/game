@@ -1,0 +1,1 @@
+{"name":"T23.Audio.PlayModeTests","references":["PerchSort.Core","PerchSort.FirstLevel","PerchSort.Audio","Unity.ugui","Unity.Collections"],"optionalUnityReferences":["TestAssemblies"]}

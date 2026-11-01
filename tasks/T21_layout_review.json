@@ -1,0 +1,1272 @@
+{
+  "diagrams" : [
+    {
+      "animationEvidence" : false,
+      "assets" : [
+        "existing background\/perch\/nest",
+        "birds_front\/bird_01,02,03 legacy matched-family illustrations",
+        "existing icon_pause\/restart\/sound"
+      ],
+      "badge" : {
+        "centerDesign" : [
+          0,
+          850
+        ],
+        "number" : 1,
+        "size" : [
+          240,
+          100
+        ]
+      },
+      "birdCount" : 12,
+      "bottom" : {
+        "restartDesign" : [
+          0,
+          -720
+        ],
+        "size" : [
+          130,
+          130
+        ],
+        "soundDesign" : [
+          262,
+          -720
+        ],
+        "undoSlotDesign" : [
+          -262,
+          -720
+        ],
+        "undoVisible" : false
+      },
+      "branchAnnotationOrder" : "labels list logical wall-to-exposed order; token positions on right branches run right-to-left; labels themselves remain left-to-right",
+      "branchConnectorDesign" : {
+        "structuralPlaceholder" : true,
+        "trunkX" : [
+          -520,
+          520
+        ],
+        "visiblePerchOuterX" : [
+          -483,
+          483
+        ]
+      },
+      "branchCount" : 5,
+      "branches" : [
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : 207.1875,
+          "id" : "S1",
+          "perchCenterDesign" : [
+            -333,
+            200
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            -333,
+            210
+          ],
+          "side" : "left",
+          "species" : [
+            "A",
+            "A",
+            "A",
+            "B"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                87,
+                1167.1875
+              ],
+              "feetDesign" : [
+                -453,
+                207.1875
+              ],
+              "fullCanvasRect" : [
+                19,
+                1146.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                47.421875,
+                1167.0546875,
+                126.578125,
+                1269.8515625
+              ]
+            },
+            {
+              "feetCanvas" : [
+                167,
+                1167.1875
+              ],
+              "feetDesign" : [
+                -373,
+                207.1875
+              ],
+              "fullCanvasRect" : [
+                99,
+                1146.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 1,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                127.421875,
+                1167.0546875,
+                206.578125,
+                1269.8515625
+              ]
+            },
+            {
+              "feetCanvas" : [
+                247,
+                1167.1875
+              ],
+              "feetDesign" : [
+                -293,
+                207.1875
+              ],
+              "fullCanvasRect" : [
+                179,
+                1146.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 2,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                207.421875,
+                1167.0546875,
+                286.578125,
+                1269.8515625
+              ]
+            },
+            {
+              "feetCanvas" : [
+                327,
+                1167.1875
+              ],
+              "feetDesign" : [
+                -213,
+                207.1875
+              ],
+              "fullCanvasRect" : [
+                259,
+                1146.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 3,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                285.828125,
+                1167.0546875,
+                368.171875,
+                1267.9921875
+              ]
+            }
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : 147.1875,
+          "id" : "S2",
+          "perchCenterDesign" : [
+            333,
+            140
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            333,
+            150
+          ],
+          "side" : "right",
+          "species" : [
+            "B",
+            "B",
+            "B",
+            "C"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                993,
+                1107.1875
+              ],
+              "feetDesign" : [
+                453,
+                147.1875
+              ],
+              "fullCanvasRect" : [
+                925,
+                1086.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                951.828125,
+                1107.0546875,
+                1034.171875,
+                1207.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                913,
+                1107.1875
+              ],
+              "feetDesign" : [
+                373,
+                147.1875
+              ],
+              "fullCanvasRect" : [
+                845,
+                1086.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 1,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                871.828125,
+                1107.0546875,
+                954.171875,
+                1207.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                833,
+                1107.1875
+              ],
+              "feetDesign" : [
+                293,
+                147.1875
+              ],
+              "fullCanvasRect" : [
+                765,
+                1086.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 2,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                791.828125,
+                1107.0546875,
+                874.171875,
+                1207.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                753,
+                1107.1875
+              ],
+              "feetDesign" : [
+                213,
+                147.1875
+              ],
+              "fullCanvasRect" : [
+                685,
+                1086.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 3,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 819,
+                "xMin" : 205,
+                "yMaxExclusive" : 871,
+                "yMin" : 112
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "C",
+              "visibleAlphaBoundsCanvas" : [
+                712.2265625,
+                1107.0546875,
+                793.7734375,
+                1207.859375
+              ]
+            }
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : -92.8125,
+          "id" : "S3",
+          "perchCenterDesign" : [
+            -333,
+            -100
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            -333,
+            -90
+          ],
+          "side" : "left",
+          "species" : [
+            "C",
+            "C",
+            "C",
+            "A"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                87,
+                867.1875
+              ],
+              "feetDesign" : [
+                -453,
+                -92.8125
+              ],
+              "fullCanvasRect" : [
+                19,
+                846.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 819,
+                "xMin" : 205,
+                "yMaxExclusive" : 871,
+                "yMin" : 112
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "C",
+              "visibleAlphaBoundsCanvas" : [
+                46.2265625,
+                867.0546875,
+                127.7734375,
+                967.859375
+              ]
+            },
+            {
+              "feetCanvas" : [
+                167,
+                867.1875
+              ],
+              "feetDesign" : [
+                -373,
+                -92.8125
+              ],
+              "fullCanvasRect" : [
+                99,
+                846.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 1,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 819,
+                "xMin" : 205,
+                "yMaxExclusive" : 871,
+                "yMin" : 112
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "C",
+              "visibleAlphaBoundsCanvas" : [
+                126.2265625,
+                867.0546875,
+                207.7734375,
+                967.859375
+              ]
+            },
+            {
+              "feetCanvas" : [
+                247,
+                867.1875
+              ],
+              "feetDesign" : [
+                -293,
+                -92.8125
+              ],
+              "fullCanvasRect" : [
+                179,
+                846.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 2,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 819,
+                "xMin" : 205,
+                "yMaxExclusive" : 871,
+                "yMin" : 112
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "C",
+              "visibleAlphaBoundsCanvas" : [
+                206.2265625,
+                867.0546875,
+                287.7734375,
+                967.859375
+              ]
+            },
+            {
+              "feetCanvas" : [
+                327,
+                867.1875
+              ],
+              "feetDesign" : [
+                -213,
+                -92.8125
+              ],
+              "fullCanvasRect" : [
+                259,
+                846.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 3,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                287.421875,
+                867.0546875,
+                366.578125,
+                969.8515625
+              ]
+            }
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : -152.8125,
+          "id" : "S4",
+          "perchCenterDesign" : [
+            333,
+            -160
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            333,
+            -150
+          ],
+          "side" : "right",
+          "species" : [
+
+          ],
+          "tokens" : [
+
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : -392.8125,
+          "id" : "S5",
+          "perchCenterDesign" : [
+            -333,
+            -400
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            -333,
+            -390
+          ],
+          "side" : "left",
+          "species" : [
+
+          ],
+          "tokens" : [
+
+          ]
+        }
+      ],
+      "canvas" : [
+        1080,
+        1920
+      ],
+      "coordinateSystem" : "design root center, X right Y up; canvas origin bottom-left",
+      "flockSize" : 4,
+      "kind" : "static layout review, not runtime, not accepted production art",
+      "name" : "layout_A_formal",
+      "nestSupportDesign" : {
+        "anchors" : [
+          [
+            -190,
+            960
+          ],
+          [
+            190,
+            960
+          ]
+        ],
+        "attachments" : [
+          [
+            -130,
+            640
+          ],
+          [
+            130,
+            640
+          ]
+        ],
+        "structuralPlaceholder" : true,
+        "type" : "schematic rope hanger"
+      },
+      "pause" : {
+        "centerDesign" : [
+          420,
+          850
+        ],
+        "size" : [
+          130,
+          130
+        ]
+      },
+      "receivingNest" : {
+        "centerDesign" : [
+          0,
+          640
+        ],
+        "size" : [
+          300,
+          300
+        ],
+        "status" : "candidate"
+      },
+      "speciesCount" : 3,
+      "status" : "documented formal layout, visual position candidate",
+      "witness" : [
+        {
+          "count" : 1,
+          "from" : "S1",
+          "to" : "S4"
+        },
+        {
+          "count" : 1,
+          "from" : "S3",
+          "to" : "S1"
+        },
+        {
+          "count" : 1,
+          "from" : "S2",
+          "to" : "S3"
+        },
+        {
+          "count" : 3,
+          "from" : "S2",
+          "to" : "S4"
+        }
+      ],
+      "witnessMoveCount" : 4
+    },
+    {
+      "animationEvidence" : false,
+      "assets" : [
+        "existing background\/perch\/nest",
+        "birds_front\/bird_01,02,03 legacy matched-family illustrations",
+        "existing icon_pause\/restart\/sound"
+      ],
+      "badge" : {
+        "centerDesign" : [
+          0,
+          850
+        ],
+        "number" : 1,
+        "size" : [
+          240,
+          100
+        ]
+      },
+      "birdCount" : 8,
+      "bottom" : {
+        "restartDesign" : [
+          0,
+          -720
+        ],
+        "size" : [
+          130,
+          130
+        ],
+        "soundDesign" : [
+          262,
+          -720
+        ],
+        "undoSlotDesign" : [
+          -262,
+          -720
+        ],
+        "undoVisible" : false
+      },
+      "branchAnnotationOrder" : "labels list logical wall-to-exposed order; token positions on right branches run right-to-left; labels themselves remain left-to-right",
+      "branchConnectorDesign" : {
+        "structuralPlaceholder" : true,
+        "trunkX" : [
+          -520,
+          520
+        ],
+        "visiblePerchOuterX" : [
+          -483,
+          483
+        ]
+      },
+      "branchCount" : 3,
+      "branches" : [
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : 197.1875,
+          "id" : "S1",
+          "perchCenterDesign" : [
+            -333,
+            190
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            -333,
+            200
+          ],
+          "side" : "left",
+          "species" : [
+            "A",
+            "A",
+            "A"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                87,
+                1157.1875
+              ],
+              "feetDesign" : [
+                -453,
+                197.1875
+              ],
+              "fullCanvasRect" : [
+                19,
+                1136.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                47.421875,
+                1157.0546875,
+                126.578125,
+                1259.8515625
+              ]
+            },
+            {
+              "feetCanvas" : [
+                167,
+                1157.1875
+              ],
+              "feetDesign" : [
+                -373,
+                197.1875
+              ],
+              "fullCanvasRect" : [
+                99,
+                1136.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 1,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                127.421875,
+                1157.0546875,
+                206.578125,
+                1259.8515625
+              ]
+            },
+            {
+              "feetCanvas" : [
+                247,
+                1157.1875
+              ],
+              "feetDesign" : [
+                -293,
+                197.1875
+              ],
+              "fullCanvasRect" : [
+                179,
+                1136.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 2,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                207.421875,
+                1157.0546875,
+                286.578125,
+                1259.8515625
+              ]
+            }
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : -62.8125,
+          "id" : "S2",
+          "perchCenterDesign" : [
+            333,
+            -70
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            333,
+            -60
+          ],
+          "side" : "right",
+          "species" : [
+            "B",
+            "B",
+            "B",
+            "A"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                993,
+                897.1875
+              ],
+              "feetDesign" : [
+                453,
+                -62.8125
+              ],
+              "fullCanvasRect" : [
+                925,
+                876.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                951.828125,
+                897.0546875,
+                1034.171875,
+                997.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                913,
+                897.1875
+              ],
+              "feetDesign" : [
+                373,
+                -62.8125
+              ],
+              "fullCanvasRect" : [
+                845,
+                876.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 1,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                871.828125,
+                897.0546875,
+                954.171875,
+                997.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                833,
+                897.1875
+              ],
+              "feetDesign" : [
+                293,
+                -62.8125
+              ],
+              "fullCanvasRect" : [
+                765,
+                876.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 2,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                791.828125,
+                897.0546875,
+                874.171875,
+                997.9921875
+              ]
+            },
+            {
+              "feetCanvas" : [
+                753,
+                897.1875
+              ],
+              "feetDesign" : [
+                213,
+                -62.8125
+              ],
+              "fullCanvasRect" : [
+                685,
+                876.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 3,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 810,
+                "xMin" : 214,
+                "yMaxExclusive" : 871,
+                "yMin" : 97
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "A",
+              "visibleAlphaBoundsCanvas" : [
+                713.421875,
+                897.0546875,
+                792.578125,
+                999.8515625
+              ]
+            }
+          ]
+        },
+        {
+          "arrayOrder" : "wall to exposed",
+          "capacity" : 4,
+          "feetLineDesignY" : -322.8125,
+          "id" : "S3",
+          "perchCenterDesign" : [
+            -333,
+            -330
+          ],
+          "perchSize" : [
+            320,
+            80
+          ],
+          "rootDesign" : [
+            -333,
+            -320
+          ],
+          "side" : "left",
+          "species" : [
+            "B"
+          ],
+          "tokens" : [
+            {
+              "feetCanvas" : [
+                87,
+                637.1875
+              ],
+              "feetDesign" : [
+                -453,
+                -322.8125
+              ],
+              "fullCanvasRect" : [
+                19,
+                616.734375,
+                136,
+                136
+              ],
+              "opaqueBottomMinusFootAnchorPx" : -0.1328125,
+              "slot" : 0,
+              "sourceAlphaBounds" : {
+                "coordinate" : "source bitmap pixel rows, origin top-left",
+                "threshold" : "alpha > 8\/255",
+                "xMaxExclusive" : 822,
+                "xMin" : 202,
+                "yMaxExclusive" : 871,
+                "yMin" : 111
+              },
+              "sourcePivotTopLeft" : [
+                512,
+                870
+              ],
+              "species" : "B",
+              "visibleAlphaBoundsCanvas" : [
+                45.828125,
+                637.0546875,
+                128.171875,
+                737.9921875
+              ]
+            }
+          ]
+        }
+      ],
+      "canvas" : [
+        1080,
+        1920
+      ],
+      "coordinateSystem" : "design root center, X right Y up; canvas origin bottom-left",
+      "flockSize" : 4,
+      "kind" : "static layout review, not runtime, not accepted production art",
+      "name" : "layout_B_proposal",
+      "nestSupportDesign" : {
+        "anchors" : [
+          [
+            -190,
+            960
+          ],
+          [
+            190,
+            960
+          ]
+        ],
+        "attachments" : [
+          [
+            -130,
+            640
+          ],
+          [
+            130,
+            640
+          ]
+        ],
+        "structuralPlaceholder" : true,
+        "type" : "schematic rope hanger"
+      },
+      "pause" : {
+        "centerDesign" : [
+          420,
+          850
+        ],
+        "size" : [
+          130,
+          130
+        ]
+      },
+      "receivingNest" : {
+        "centerDesign" : [
+          0,
+          640
+        ],
+        "size" : [
+          300,
+          300
+        ],
+        "status" : "candidate"
+      },
+      "speciesCount" : 2,
+      "status" : "NOT_ADOPTED proposal, awaiting user choice",
+      "witness" : [
+        {
+          "count" : 1,
+          "from" : "S2",
+          "to" : "S1"
+        },
+        {
+          "count" : 1,
+          "from" : "S3",
+          "to" : "S2"
+        }
+      ],
+      "witnessMoveCount" : 2
+    }
+  ],
+  "currentDecision" : {
+    "adopted": "B",
+    "authority": "Latest user instruction delegates ordinary decisions; coordinator adopts B",
+    "status": "ADOPTED_LOGICAL_CONTENT_AND_LAYOUT_BASELINE",
+    "N": 4,
+    "K": 2,
+    "P": 3,
+    "arrays": [
+      [
+        "A",
+        "A",
+        "A"
+      ],
+      [
+        "B",
+        "B",
+        "B",
+        "A"
+      ],
+      [
+        "B"
+      ]
+    ],
+    "nestCenter": [
+      0,
+      640
+    ],
+    "branchCenters": [
+      [
+        -202.2,
+        200
+      ],
+      [
+        202.2,
+        -60
+      ],
+      [
+        -202.2,
+        -320
+      ]
+    ],
+    "originalDiagrams": "Historical static review; old bird placeholders are not production assets",
+    "assetGate": "Internal technical and independent visual acceptance before dependent UI",
+    "birdCanvasDesign": 250,
+    "branchRenderSize": [
+      608.16,
+      140
+    ],
+    "branchVisualLeftOffset": [
+      -23.52,
+      -17.5
+    ],
+    "branchFootXLeft": [
+      -210,
+      -70,
+      70,
+      210
+    ],
+    "branchFootY": [
+      -9.571823,
+      -15.372928,
+      -16.726519,
+      -8.411603
+    ],
+    "geometryReason": "Actual Unity first-frame UI review: improve bird size and usable middle space, without changing fixed content or branch count"
+  }
+}

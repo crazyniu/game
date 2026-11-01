@@ -63,7 +63,7 @@
 | M24 只进不出收集容器 | SRC-BOOP/P只可倒入不可倒出 | 有来源候选；未核细节不进正式40关 | 非普通满组锁；种类绑定/完成清空未知 |
 | M25 隐藏色层 | SRC-BOOP/SRC-MAGIC/P问号/隐藏 | 可参考信息揭示，不等于纹样蛋 | 提示提前看种/窥视道具没有依据 |
 | M26 Swap交换 | SRC-CUTIE/P有swap名称 | 隔离，不能只凭名称实现任意交换 | 交换两鸟/两整枝/不限颜色均未知 |
-| M27 Shuffle洗牌 | SRC-BIRD2/SRC-MAGIC/P有洗牌 | 未采用；与固定关卡用户要求区分初盘和局内 | 有依据不强制全采；不加进正式策略 |
+| M27 Shuffle洗牌 | SRC-BIRD2/SRC-MAGIC/P explicitly list changing bird orders / Shuffle | Current USER-directed design adopts bounded authored deterministic candidate plans and verifies current continuation; details RULES §9/ECONOMY_SHOP §4 | Source establishes feature, not exact distribution/fees; no runtime random new levels, no old certificate reuse; runtime DESIGN_ONLY |
 | M28 破同色、计时冻结/生命 | SRC-BIRD2/P有这些工具和限制 | 未采用；当前只取排序/完成退枝方向 | 不创造我们自己的工具效果/资源表 |
 
 ## 4. 全量盘点：辅助、成长、表现与工程
@@ -71,16 +71,16 @@
 | 项ID / 原有项 | 同行依据 | 本项目决定 | 差异/缺口 |
 | --- | --- | --- | --- |
 | M29 Undo/Restart | SRC-LEAF/SRC-QUEST/P支持；SRC-SIMPLE/P免费无限Undo | 可采用免费回退/重开 | 不将永久Hint额度、Undo扣星偷偷绑定 |
-| M30 提示 | SRC-SIMPLE/P免费不限次，显示当前可解路径首步；SRC-NUT/P解局诊断 | 可采用求解路径首步，不自动执行 | 找到可解路径不必最优；预算超限是未知 |
+| M30 提示 | SRC-SIMPLE/P free unlimited verified first-step hint; original source fact unchanged | Current project helpPolicyVersion2 supersedes our old free-unlimited policy: free allowance per attempt then coin inventory; Hint tiers1/2 steps | USER-directed commercial/convenience adaptation, not attributed to competitor; Unknown/stale results consume nothing |
 | M31 每关终身3次提示 | 无已核依据；旧代码不是同行证据 | 撤回固定3次政策 | 不用旧UI角标证明同行如此 |
 | M32 Undo+Restart扣三星 | SRC-LEAF/P只说少步高分 | 撤回0次3星/1–3两星/≥4一星公式 | Undo次数与操作效率不是同一指标 |
 | M33 少步成绩 | SRC-LEAF/SRC-AZURA/P少步得高分/少步排序 | 可采用记录最佳操作数 | 不编星阈值、最优比率或奖励倍率 |
-| M34 鸟/枝/背景外观 | SRC-LEAF/SRC-QUEST/P外观解锁/切换 | 有来源功能保留在范围评审 | 不默认无限解锁或每关奖励具体数量 |
-| M35 金币过关成长 | SRC-AZURA/P通关金币解锁物品/背景 | 有来源、待完整经济证据；非凭空创造新鱼币 | 金币数量/售价/掉落曲线未公开，退出可执行参数 |
+| M34 鸟/枝/背景外观 | SRC-LEAF/SRC-QUEST/P cosmetic unlock/change | Adopted coin-only same-color skin catalog and one optional pure decoration in ECONOMY_SHOP | Project prices are initial tuning; assets/visual selection not accepted by this document |
+| M35 金币过关成长 | SRC-AZURA/P completion coins unlock items/backgrounds | Adopted design in ECONOMY_SHOP: first-clear/replay reward and shop table under USER direction | Values are project tuning, not competitor measurements; runtime/SDK not implemented |
 | M36 日任务/排名/活动 | SRC-QUEST/P有日任务金币/竞争，SRC-NUT/P日挑战 | 有依据但非当前固定40关核心 | 不编重置时区、奖励表、网络同步合同 |
-| M37 无广告/IAP/体力 | 项目范围约束；SRC-SIMPLE/P无付费帮助，SRC-QUEST/SRC-BIRD2等实有广告/IAP | 可选择不采商业化，必须明示是我方范围 | 有同行广告不要求照搬；不能声称全部竞品无广告 |
+| M37 广告/IAP/体力范围 | Previous noncommercial policy was a project choice; USER now requests voluntary double coins | Optional rewarded-ad design only; no forced ads, real-money IAP, energy or payment SDK | Rovio official reward-ad support is adjacent-puzzle monetization evidence; exact2x is USER, idempotency is E |
 | M38 不限时、无步数失败 | SRC-LEAF/SRC-QUEST/P无时间限制；SRC-BIRD2/P无步数上限但有时间/生命模式 | 可采用低压力主线 | 同类不同模式不能互相覆盖 |
-| M39 动态增加鸟种/枝数 | SRC-AZURA/SRC-TVC/P随进度增加 | 可用于跨关固定策划；默认K+2枝/两空来自SRC-SIMPLE，移植到6/8座关是我方明确组合配置 | 不运行时按表现随机调盘；具体40数组是本项目自编内容 |
+| M39 动态增加鸟种/枝数 | SRC-AZURA/SRC-TVC/P随进度增加 | 可用于跨关固定策划；02–40默认K+2枝/两空来自SRC-SIMPLE；L01 K2/P3/零空为已采纳项目教学例外，非竞品原值；移植到6/8座关是我方明确组合配置 | 不运行时按表现随机调盘；具体40数组是本项目自编内容 |
 | M40 前5教学/每5舒缓/最多2特殊类 | 旧设计策划策略非同行已核公式 | 仅作为我方内容组织/验收目标，非玩法规则 | 不声称同行统一每5关舒缓或实测有效 |
 | M41 主动放飞+风闸 | 无本轮排序同行依据 | 撤回有效/可选需求 | 不保留模糊未来入口让AI顺手实现 |
 | M42 三同清除 | Goods邻近三消；本轮EXO正文复取失败 | 不采用，移出核心 | 不将鸟排序混三消；失败链接不作关键证据 |
@@ -96,16 +96,24 @@
 ## 5. 原需求退出与验收门槛
 
 1. 撤回M17/M18/M31/M32/M41；目标队列、睡眠、精确条件箱及单鸟篮M10–14/M21隔离。旧60条回放曾在旧规则下通过，不再证明修订规则，受影响旧报告/附录必须标历史失效。
-2. 普通加枝已由SRC-WSWEB及RULES R07闭环；加高、收集容器、成长等“功能有来源、具体参数未证”必须分开：固定初盘不禁止局内增加空间，也不能凭一行商店介绍编价格/次数/格数。只有参数/触发足够明确后才能进入可执行合同。
+2. 普通加枝已由SRC-WSWEB及RULES R07闭环；加高、收集容器、成长等“功能有来源、具体参数未证”必须分开：固定初盘不禁止局内增加空间。经济数值现由用户授权明确项目调参，见ECONOMY_SHOP；不得伪称竞品价格/次数/格数。其他待参机制仍需明确参数/触发。
 3. 每个有效玩法字段须能回指本矩阵条目和可访问第一方原文。工程协议标E、用户约束标USER，允许可靠实施；不得把任何工程便利变成新的通关/惩罚机制。
-4. 本页不是给AI补空白的许可。若RULES仍出现无出处算法，先停相关规则，其他已证模块可继续；本任务仍只改文档，不执行游戏实现/素材制作。
+4. 本页不是给AI补空白的许可。若RULES仍出现无出处算法，先停相关规则，其他已证模块可继续；T21 first-level implementation is authorized separately; ordinary decisions proceed under internal technical/independent visual QA. This evidence page does not authorize broader levels, unsupported rules or payment work.
 
-## 6. 本轮规则选择回执
+## 6. Historical v4 adoption receipt (before the 2026-11-01 economy update)
 
-RULES v4采用：SRC-LEAF端部同类接收；SRC-SIMPLE的min(run,free)、一次移动一步、免费不限次Undo/Hint、默认K+2/两空和无惩罚；SRC-BIRD2完成群飞走失枝；SRC-QUEST问号蛋前鸟移开孵化。每关统一N取4/6/8是把SRC-SIMPLE四单位与SRC-BOOP六/八层移植为栖位容量，按同类整理完成同一物种；不是声称某个竞品同时使用这些全部规则。蛋固定数据遵USER，对玩家隐藏。事务先锁run/Count、Hatch后不追飞是E实现协议，不改变来源允许搬移量。未采用双目标/睡眠/条件箱/篮/同关短枝/原临时枝。普通加枝采用SRC-WSWEB同类机制并由R07完整定义；逐次加高/收集容器仍待证，不能把未定值写进固定40关。
+Historical selection; current Hint/Shuffle/economy policy is superseded by §8 and RULES §9. RULES v4当时采用：SRC-LEAF端部同类接收；SRC-SIMPLE的min(run,free)、一次移动一步、免费不限次Undo/Hint、默认K+2/两空和无惩罚；SRC-BIRD2完成群飞走失枝；SRC-QUEST问号蛋前鸟移开孵化。每关统一N取4/6/8是把SRC-SIMPLE四单位与SRC-BOOP六/八层移植为栖位容量，按同类整理完成同一物种；不是声称某个竞品同时使用这些全部规则。蛋固定数据遵USER，对玩家隐藏。事务先锁run/Count、Hatch后不追飞是E实现协议，不改变来源允许搬移量。未采用双目标/睡眠/条件箱/篮/同关短枝/原临时枝。普通加枝采用SRC-WSWEB同类机制并由R07完整定义；逐次加高/收集容器仍待证，不能把未定值写进固定40关。
 
 本版正式配置禁止相邻egg：其原作精确孵化边界尚未核实，不以E协议名义加入自拟玩法。已根据此限制移除L21的相邻蛋并重新回放；旧相邻蛋见证不复用。所有世界仅为不同森林，林型只视觉，不增加天气/环境规则。
 
 ## 7. 普通加枝补证回执
 
-本轮追加直接读取SRC-WSWEB的浏览器玩法文字，不声称已安装或操作验证；网站明确浏览器版与Android为不同产品，品牌归属不用于额外背书。M22现为有据机制的明确迁移：新增一个普通空容器→一条本关N座普通枝；免费、Undo事务、保存和成绩分组分别标项目范围/E。合理的容量适配和可靠性协议无需冒称竞品原值，也不应因商店未公开源码而把整个功能永久挂起。其余M23/M24/M35未获对应精确依据，仍不激活。
+本轮追加直接读取SRC-WSWEB的浏览器玩法文字，不声称已安装或操作验证；网站明确浏览器版与Android为不同产品，品牌归属不用于额外背书。M22现为有据机制的明确迁移：新增一个普通空容器→一条本关N座普通枝；免费、Undo事务、保存和成绩分组分别标项目范围/E。合理的容量适配和可靠性协议无需冒称竞品原值，也不应因商店未公开源码而把整个功能永久挂起。M23/M24 remain pending. M35 is now adopted under the explicit 2026-11-01 user-directed economy design, with project tuning disclosed, not as competitor measured values.
+
+T21 content adoption: RULES §2.1 limits N4/K2/P3/no-empty to campaign bird-home-peer-v4/level01; other39 retain the standard profile. This authored lesson uses unchanged sourced movement/completion rules, not a newly attributed competitor mechanic. Current primary replays total472 Transfers; historical474 totals include the superseded four-transfer L01.
+
+## 8. Shop/help-skill adoption receipt (2026-11-01)
+
+Current design is [ECONOMY_SHOP](spec/ECONOMY_SHOP.md), with offline-readable source summaries in §2. Prior references to free unlimited Hint or unparameterized economy above record earlier decisions/source facts only where explicitly historical; current policy is RULES §9. Source evidence does not prove our price/upgrade table. USER authorized purchases, upgrades, multiple same-color skins, default three help slots and voluntary double rewards; numeric tuning and conservative limits are disclosed project adaptations. Rewind is bulk existing Undo, Hint is existing verified-path presentation, Extra Branch retains R07, Shuffle uses authored candidate permutations with fresh current-state verification. No verified official sorting-skill upgrade table was found; do not attribute1→2-step or3→6-Undo tiers to a competitor. Rovio upgrade-outfit search result is supplementary only, with direct fetch failure disclosed, never a core admission source.
+
+SRC-BIRD2 and SRC-MAGIC were directly reread 2026-11-01: their developer listings explicitly support Shuffle/Undo/extra space, but not our precise algorithm, costs or solvability gate. [Rovio reward ads](https://roviosupport.helpshift.com/hc/en/4-angry-birds-dream-blast/faq/3064-how-do-advertisements-work-in-dream-blast/) supports optional completed-video rewards with availability limits, not our exact multiplier. No SDK, IAP or real-money purchase is implemented. Historical source/withdrawal records remain intact.

@@ -1,0 +1,3907 @@
+fileFormatVersion: 2
+guid: e559cceb1f2444972978027358db6679
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3123973929842080319
+    second: perch_0
+  - first:
+      213: -3653830966948724449
+    second: perch_1
+  - first:
+      213: -5902824412024144948
+    second: perch_2
+  - first:
+      213: -5550517246785541274
+    second: perch_3
+  - first:
+      213: 4109752245137246447
+    second: perch_4
+  - first:
+      213: -5482368410188539789
+    second: perch_5
+  - first:
+      213: -44258614692123837
+    second: perch_6
+  - first:
+      213: 1032463323272719962
+    second: perch_7
+  - first:
+      213: -433001415031612823
+    second: perch_8
+  - first:
+      213: -7207553007132425289
+    second: perch_9
+  - first:
+      213: 8247789002999527780
+    second: perch_10
+  - first:
+      213: 8924492606831715897
+    second: perch_11
+  - first:
+      213: 7819150723216289139
+    second: perch_12
+  - first:
+      213: 2747395727029114720
+    second: perch_13
+  - first:
+      213: 9013016732979812518
+    second: perch_14
+  - first:
+      213: 1137939906536235508
+    second: perch_15
+  - first:
+      213: 5646778947589309128
+    second: perch_16
+  - first:
+      213: -7157964592709906527
+    second: perch_17
+  - first:
+      213: 7566791793997887933
+    second: perch_18
+  - first:
+      213: -6700509700649689308
+    second: perch_19
+  - first:
+      213: 1805765052840148588
+    second: perch_20
+  - first:
+      213: 268226186482632817
+    second: perch_21
+  - first:
+      213: 8329845083152754544
+    second: perch_22
+  - first:
+      213: 6968124788041360480
+    second: perch_23
+  - first:
+      213: -3109844295986788525
+    second: perch_24
+  - first:
+      213: 7366403532227003943
+    second: perch_25
+  - first:
+      213: 778988580947579307
+    second: perch_26
+  - first:
+      213: 8326597398123834567
+    second: perch_27
+  - first:
+      213: -8568814320346155132
+    second: perch_28
+  - first:
+      213: -5905480664796635794
+    second: perch_29
+  - first:
+      213: 41533787729427119
+    second: perch_30
+  - first:
+      213: -6407304334323849361
+    second: perch_31
+  - first:
+      213: 307655836518952931
+    second: perch_32
+  - first:
+      213: -6358882803834851381
+    second: perch_33
+  - first:
+      213: -6309532963376914673
+    second: perch_34
+  - first:
+      213: -5233933285966154478
+    second: perch_35
+  - first:
+      213: 8402014269915099684
+    second: perch_36
+  - first:
+      213: -1855539049228087184
+    second: perch_37
+  - first:
+      213: -5402007709005453880
+    second: perch_38
+  - first:
+      213: -292636894779809955
+    second: perch_39
+  - first:
+      213: -4821328017530574022
+    second: perch_40
+  - first:
+      213: 7206536757635732588
+    second: perch_41
+  - first:
+      213: -4306620350601706574
+    second: perch_42
+  - first:
+      213: 1165281090954491422
+    second: perch_43
+  - first:
+      213: -2103312611562283819
+    second: perch_44
+  - first:
+      213: -2794656259897654787
+    second: perch_45
+  - first:
+      213: -8124087057452317976
+    second: perch_46
+  - first:
+      213: -4060614425519923479
+    second: perch_47
+  - first:
+      213: -8605718263323435144
+    second: perch_48
+  - first:
+      213: 5673379417820508294
+    second: perch_49
+  - first:
+      213: -5315472207113053978
+    second: perch_50
+  - first:
+      213: -5212989501000177645
+    second: perch_51
+  - first:
+      213: 8125433812242866271
+    second: perch_52
+  - first:
+      213: -6446914107124204101
+    second: perch_53
+  - first:
+      213: -1156856343535918267
+    second: perch_54
+  - first:
+      213: -2276889123916783406
+    second: perch_55
+  - first:
+      213: -3155029766105791838
+    second: perch_56
+  - first:
+      213: -2916548965894894042
+    second: perch_57
+  - first:
+      213: -8026944768680236186
+    second: perch_58
+  - first:
+      213: 7574882320610091281
+    second: perch_59
+  - first:
+      213: -3925169939207978288
+    second: perch_60
+  - first:
+      213: 6139495412717310846
+    second: perch_61
+  - first:
+      213: -1050684927502932495
+    second: perch_62
+  - first:
+      213: -5117147319180214804
+    second: perch_63
+  - first:
+      213: -6820127351586599610
+    second: perch_64
+  - first:
+      213: 8644261872564199636
+    second: perch_65
+  - first:
+      213: 3896665685455732275
+    second: perch_66
+  - first:
+      213: -1504793875463000998
+    second: perch_67
+  - first:
+      213: 1366939299547735237
+    second: perch_68
+  - first:
+      213: -5210408591869760746
+    second: perch_69
+  - first:
+      213: -5187716481700820411
+    second: perch_70
+  - first:
+      213: -1552680357131854005
+    second: perch_71
+  - first:
+      213: 2251316102423794131
+    second: perch_72
+  - first:
+      213: 8647932615370200314
+    second: perch_73
+  - first:
+      213: 2803077419571562040
+    second: perch_74
+  - first:
+      213: -5608028956590109601
+    second: perch_75
+  - first:
+      213: -9015104984938779389
+    second: perch_76
+  - first:
+      213: 1448608844256372583
+    second: perch_77
+  - first:
+      213: -4134863138597513361
+    second: perch_78
+  - first:
+      213: -7732620589340777913
+    second: perch_79
+  - first:
+      213: 8542205384979641302
+    second: perch_80
+  - first:
+      213: -2632953023995961882
+    second: perch_81
+  - first:
+      213: 9085214452563867538
+    second: perch_82
+  - first:
+      213: -7529796490585811724
+    second: perch_83
+  - first:
+      213: -8373375889677958081
+    second: perch_84
+  - first:
+      213: -4620898530380102924
+    second: perch_85
+  - first:
+      213: -8564817164463397330
+    second: perch_86
+  - first:
+      213: 5366546055981332867
+    second: perch_87
+  - first:
+      213: 2888981740050199382
+    second: perch_88
+  - first:
+      213: 2244007931758061678
+    second: perch_89
+  - first:
+      213: 3055274346322019597
+    second: perch_90
+  - first:
+      213: -3419395183996907404
+    second: perch_91
+  - first:
+      213: -6144099121410181852
+    second: perch_92
+  - first:
+      213: 2088343431700464998
+    second: perch_93
+  - first:
+      213: 3959513619849859128
+    second: perch_94
+  - first:
+      213: 6106621614937924158
+    second: perch_95
+  - first:
+      213: -1763112322966022495
+    second: perch_96
+  - first:
+      213: -7115702985742035590
+    second: perch_97
+  - first:
+      213: -581324096246292024
+    second: perch_98
+  - first:
+      213: -3525065124339111952
+    second: perch_99
+  - first:
+      213: 4456900555735859362
+    second: perch_100
+  - first:
+      213: -2606286024552666084
+    second: perch_101
+  - first:
+      213: -7199204838288981055
+    second: perch_102
+  - first:
+      213: -4135217067530683105
+    second: perch_103
+  - first:
+      213: -9165719561110895590
+    second: perch_104
+  - first:
+      213: -487361140564927710
+    second: perch_105
+  - first:
+      213: -204102151424991812
+    second: perch_106
+  - first:
+      213: -4578884017047264078
+    second: perch_107
+  - first:
+      213: 7110167316268354830
+    second: perch_108
+  - first:
+      213: 1823905699010607925
+    second: perch_109
+  - first:
+      213: -4869218085129801810
+    second: perch_110
+  - first:
+      213: -1198685756855387659
+    second: perch_111
+  - first:
+      213: 5483428531103880797
+    second: perch_112
+  - first:
+      213: 7957580152178164439
+    second: perch_113
+  - first:
+      213: 3197868894706011765
+    second: perch_114
+  - first:
+      213: 4576963011022251762
+    second: perch_115
+  - first:
+      213: 130178796300546067
+    second: perch_116
+  - first:
+      213: -6980935149761982020
+    second: perch_117
+  - first:
+      213: -6864811701504719583
+    second: perch_118
+  - first:
+      213: 4329438847478332504
+    second: perch_119
+  - first:
+      213: -5650403857423192620
+    second: perch_120
+  - first:
+      213: 1966503771313043583
+    second: perch_121
+  - first:
+      213: -1884192552232133045
+    second: perch_122
+  - first:
+      213: 1423037529888949259
+    second: perch_123
+  - first:
+      213: 3849778658081872496
+    second: perch_124
+  - first:
+      213: -6889609293427425621
+    second: perch_125
+  - first:
+      213: -3630878764458272967
+    second: perch_126
+  - first:
+      213: 4657814422096096015
+    second: perch_127
+  - first:
+      213: 8324481099181245407
+    second: perch_128
+  - first:
+      213: -6950287279766628247
+    second: perch_129
+  - first:
+      213: 2677431786893530012
+    second: perch_130
+  - first:
+      213: 7187330110413708240
+    second: perch_131
+  - first:
+      213: 261826238601795592
+    second: perch_132
+  - first:
+      213: -5825088525112884632
+    second: perch_133
+  - first:
+      213: -8518180587896331204
+    second: perch_134
+  - first:
+      213: 5252522593097784138
+    second: perch_135
+  - first:
+      213: -2118898304117283755
+    second: perch_136
+  - first:
+      213: -7790462041331204200
+    second: perch_137
+  - first:
+      213: 1823252931711350380
+    second: perch_138
+  - first:
+      213: -6974814507709367499
+    second: perch_139
+  - first:
+      213: -1267766203031852283
+    second: perch_140
+  - first:
+      213: -8818742515345900899
+    second: perch_141
+  - first:
+      213: 1023628782164223103
+    second: perch_142
+  - first:
+      213: 4958154106215295900
+    second: perch_143
+  - first:
+      213: -1355681603886082602
+    second: perch_144
+  - first:
+      213: 1239333903705209680
+    second: perch_145
+  - first:
+      213: -4405564382310609969
+    second: perch_146
+  - first:
+      213: -5108011983891236449
+    second: perch_147
+  - first:
+      213: 6124565669804156449
+    second: perch_148
+  - first:
+      213: -6533578669794360268
+    second: perch_149
+  - first:
+      213: -1109378122628635254
+    second: perch_150
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: perch_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2143
+        height: 706
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c58e28234a65a4d0800000000000000
+      internalID: -3123973929842080319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_1
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 633
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1103b9281cfa4dc0800000000000000
+      internalID: -3653830966948724449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_2
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 620
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccbfbc5c874f41ea0800000000000000
+      internalID: -5902824412024144948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_3
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 626
+        width: 100
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b2ba1d8f998f2b0800000000000000
+      internalID: -5550517246785541274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_4
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 640
+        width: 65
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8054e74e5c80930800000000000000
+      internalID: 4109752245137246447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_5
+      rect:
+        serializedVersion: 2
+        x: 2130
+        y: 634
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37893ee4af6bae3b0800000000000000
+      internalID: -5482368410188539789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_6
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 619
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34b66014603c26ff0800000000000000
+      internalID: -44258614692123837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_7
+      rect:
+        serializedVersion: 2
+        x: 1707
+        y: 619
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e2a4b1ceb045e00800000000000000
+      internalID: 1032463323272719962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_8
+      rect:
+        serializedVersion: 2
+        x: 2081
+        y: 624
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a9cc5d18badf9f0800000000000000
+      internalID: -433001415031612823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_9
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 610
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b3c21e2ab0a9fb90800000000000000
+      internalID: -7207553007132425289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_10
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 580
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 469f82a4668067270800000000000000
+      internalID: 8247789002999527780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_11
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 594
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 936edceedba2adb70800000000000000
+      internalID: 8924492606831715897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_12
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 598
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37dab86b724338c60800000000000000
+      internalID: 7819150723216289139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_13
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 601
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0671ffe7bd5b02620800000000000000
+      internalID: 2747395727029114720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_14
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 578
+        width: 46
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a8d9e337faa41d70800000000000000
+      internalID: 9013016732979812518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_15
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 592
+        width: 35
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f165d0e056cacf00800000000000000
+      internalID: 1137939906536235508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_16
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 596
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c20730f8836d5e40800000000000000
+      internalID: 5646778947589309128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_17
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 602
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1afc3b0a02dc9ac90800000000000000
+      internalID: -7157964592709906527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_18
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 533
+        width: 55
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9b59acb05a20960800000000000000
+      internalID: 7566791793997887933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_19
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 592
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42f57b69de10303a0800000000000000
+      internalID: -6700509700649689308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_20
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 590
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ef95a8fbd5f0910800000000000000
+      internalID: 1805765052840148588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_21
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 595
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17841c4ab4ee8b300800000000000000
+      internalID: 268226186482632817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_22
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 594
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 077aa5f38fd899370800000000000000
+      internalID: 8329845083152754544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_23
+      rect:
+        serializedVersion: 2
+        x: 892
+        y: 594
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 064acc57390c3b060800000000000000
+      internalID: 6968124788041360480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_24
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 594
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 357cee6e61d97d4d0800000000000000
+      internalID: -3109844295986788525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_25
+      rect:
+        serializedVersion: 2
+        x: 935
+        y: 580
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 726c292dbf8ba3660800000000000000
+      internalID: 7366403532227003943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_26
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 586
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba15773bcf58fca00800000000000000
+      internalID: 778988580947579307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_27
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 583
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ccecd6a7340e8370800000000000000
+      internalID: 8326597398123834567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_28
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 580
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487bc7176c4751980800000000000000
+      internalID: -8568814320346155132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_29
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 586
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6ddbdabf948b0ea0800000000000000
+      internalID: -5905480664796635794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_30
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 586
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faaf9c782ce839000800000000000000
+      internalID: 41533787729427119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_31
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 586
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f676ec0c7aea417a0800000000000000
+      internalID: -6407304334323849361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_32
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 570
+        width: 43
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3efa9c07a53054400800000000000000
+      internalID: 307655836518952931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_33
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 562
+        width: 22
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf651dd7c5b0c7a0800000000000000
+      internalID: -6358882803834851381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_34
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 578
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f1d4bf2390078a0800000000000000
+      internalID: -6309532963376914673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_35
+      rect:
+        serializedVersion: 2
+        x: 1237
+        y: 577
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 215f4ef28655d57b0800000000000000
+      internalID: -5233933285966154478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_36
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 576
+        width: 9
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4227d047673f99470800000000000000
+      internalID: 8402014269915099684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_37
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 586
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 070d4e7d01dcf36e0800000000000000
+      internalID: -1855539049228087184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_38
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 585
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5eec61c963805b0800000000000000
+      internalID: -5402007709005453880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_39
+      rect:
+        serializedVersion: 2
+        x: 1561
+        y: 585
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5fd97e6b4850fbf0800000000000000
+      internalID: -292636894779809955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_40
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 582
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ba37966b3371db0800000000000000
+      internalID: -4821328017530574022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_41
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 579
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c645cabcff2c20460800000000000000
+      internalID: 7206536757635732588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_42
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 569
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b3caebcb9fcb34c0800000000000000
+      internalID: -4306620350601706574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_43
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 577
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1672d17af8eb2010800000000000000
+      internalID: 1165281090954491422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_44
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 552
+        width: 18
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dc1b38d2588fc2e0800000000000000
+      internalID: -2103312611562283819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_45
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 564
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df18a7730f26739d0800000000000000
+      internalID: -2794656259897654787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_46
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 568
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e2c4305dd1714f80800000000000000
+      internalID: -8124087057452317976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_47
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 552
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eede0da1bcc5a7c0800000000000000
+      internalID: -4060614425519923479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_48
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 561
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87fd385a5d8529880800000000000000
+      internalID: -8605718263323435144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_49
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 570
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680343b8584ebbe40800000000000000
+      internalID: 5673379417820508294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_50
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 570
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e89091b036ab36b0800000000000000
+      internalID: -5315472207113053978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_51
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 562
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3182b0f1badb7a7b0800000000000000
+      internalID: -5212989501000177645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_52
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 497
+        width: 136
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f502fa8700753c070800000000000000
+      internalID: 8125433812242866271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_53
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 561
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbd386bd6c5f786a0800000000000000
+      internalID: -6446914107124204101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_54
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 562
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543626be84502ffe0800000000000000
+      internalID: -1156856343535918267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_55
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 554
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d06dffb76dd660e0800000000000000
+      internalID: -2276889123916783406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_56
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 564
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a20b7fc4251734d0800000000000000
+      internalID: -3155029766105791838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_57
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 562
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62e4dc50b265687d0800000000000000
+      internalID: -2916548965894894042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_58
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 557
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b622fe2409a9090800000000000000
+      internalID: -8026944768680236186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_59
+      rect:
+        serializedVersion: 2
+        x: 1390
+        y: 558
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 111e95f46536f1960800000000000000
+      internalID: 7574882320610091281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_60
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 568
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d2877a9cbef689c0800000000000000
+      internalID: -3925169939207978288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_61
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 562
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e73d727ac8ed33550800000000000000
+      internalID: 6139495412717310846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_62
+      rect:
+        serializedVersion: 2
+        x: 1534
+        y: 562
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f5a45d00a73b61f0800000000000000
+      internalID: -1050684927502932495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_63
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 560
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cedbbe000ad3cf8b0800000000000000
+      internalID: -5117147319180214804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_64
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 546
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d41cdee4a0a51a0800000000000000
+      internalID: -6820127351586599610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_65
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 536
+        width: 9
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d064a3bf5696f770800000000000000
+      internalID: 8644261872564199636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_66
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 542
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33efa06abccb31630800000000000000
+      internalID: 3896665685455732275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_67
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 528
+        width: 41
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5c28d861f5ed1be0800000000000000
+      internalID: -1504793875463000998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_68
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 542
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c46013fc0858f210800000000000000
+      internalID: 1366939299547735237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_69
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 535
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ba5faddf8e0b7b0800000000000000
+      internalID: -5210408591869760746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_70
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 544
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54a88c878578108b0800000000000000
+      internalID: -5187716481700820411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_71
+      rect:
+        serializedVersion: 2
+        x: 885
+        y: 530
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4fdd6f0175c37ae0800000000000000
+      internalID: -1552680357131854005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_72
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 546
+        width: 13
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d1561231184e3f10800000000000000
+      internalID: 2251316102423794131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_73
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 529
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af4d7ac15e0a30870800000000000000
+      internalID: 8647932615370200314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_74
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 502
+        width: 63
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8364b7fcf0886e620800000000000000
+      internalID: 2803077419571562040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_75
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 506
+        width: 78
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5c875860674c22b0800000000000000
+      internalID: -5608028956590109601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_76
+      rect:
+        serializedVersion: 2
+        x: 1166
+        y: 556
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30deedfb7c9e3e280800000000000000
+      internalID: -9015104984938779389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_77
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 506
+        width: 51
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 767e36c911e7a1410800000000000000
+      internalID: 1448608844256372583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_78
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 558
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f67d90502e30e96c0800000000000000
+      internalID: -4134863138597513361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_79
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 538
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 742a87d0b8630b490800000000000000
+      internalID: -7732620589340777913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_80
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 548
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d3f3220a820c8670800000000000000
+      internalID: 8542205384979641302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_81
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 538
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed1e66bc2fd57bd0800000000000000
+      internalID: -2632953023995961882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_82
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 537
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2977059b86a251e70800000000000000
+      internalID: 9085214452563867538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_83
+      rect:
+        serializedVersion: 2
+        x: 1022
+        y: 544
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f456a38cf9c08790800000000000000
+      internalID: -7529796490585811724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_84
+      rect:
+        serializedVersion: 2
+        x: 1249
+        y: 514
+        width: 49
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f34ccec0efacbcb80800000000000000
+      internalID: -8373375889677958081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_85
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 532
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f2c199e4454fdfb0800000000000000
+      internalID: -4620898530380102924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_86
+      rect:
+        serializedVersion: 2
+        x: 1301
+        y: 500
+        width: 74
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e26adf1da28a32980800000000000000
+      internalID: -8564817164463397330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_87
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 544
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3897a89643dc97a40800000000000000
+      internalID: 5366546055981332867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_88
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 544
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 653384a0699b71820800000000000000
+      internalID: 2888981740050199382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_89
+      rect:
+        serializedVersion: 2
+        x: 1532
+        y: 529
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e68299d1351542f10800000000000000
+      internalID: 2244007931758061678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_90
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 522
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0543e794d3866a20800000000000000
+      internalID: 3055274346322019597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_91
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 498
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 470de27623edb80d0800000000000000
+      internalID: -3419395183996907404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_92
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 522
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4257e83e666cbbaa0800000000000000
+      internalID: -6144099121410181852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_93
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 522
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 665c68f59494bfc10800000000000000
+      internalID: 2088343431700464998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_94
+      rect:
+        serializedVersion: 2
+        x: 1438
+        y: 498
+        width: 33
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 830d87aa8a403f630800000000000000
+      internalID: 3959513619849859128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_95
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 513
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e32e81821041fb450800000000000000
+      internalID: 6106621614937924158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_96
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 522
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a61f720faa2887e0800000000000000
+      internalID: -1763112322966022495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_97
+      rect:
+        serializedVersion: 2
+        x: 2115
+        y: 178
+        width: 28
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a75d8a7c5d1ff3d90800000000000000
+      internalID: -7115702985742035590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_98
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 156
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c16ddf70d8bee7f0800000000000000
+      internalID: -581324096246292024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_99
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 156
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f726ad22f3741fc0800000000000000
+      internalID: -3525065124339111952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_100
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 151
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a080e711771add30800000000000000
+      internalID: 4456900555735859362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_101
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 144
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c297b5bac94dbd0800000000000000
+      internalID: -2606286024552666084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_102
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 146
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c30384b759471c90800000000000000
+      internalID: -7199204838288981055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_103
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 143
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1d73b48cf1cc96c0800000000000000
+      internalID: -4135217067530683105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_104
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 130
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14c2290f92dcc080800000000000000
+      internalID: -9165719561110895590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_105
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 136
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22b5c43ff9b8c39f0800000000000000
+      internalID: -487361140564927710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_106
+      rect:
+        serializedVersion: 2
+        x: 1548
+        y: 128
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd9b66bc22ea2df0800000000000000
+      internalID: -204102151424991812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_107
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 134
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b42f281f398470c0800000000000000
+      internalID: -4578884017047264078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_108
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 138
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0d84cbb0836ca260800000000000000
+      internalID: 7110167316268354830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_109
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 130
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b765dd190df4910800000000000000
+      internalID: 1823905699010607925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_110
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 128
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaf2ee523ff0d6cb0800000000000000
+      internalID: -4869218085129801810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_111
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 114
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f97051b7a96d5fe0800000000000000
+      internalID: -1198685756855387659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_112
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 128
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5650b3523d091c40800000000000000
+      internalID: 5483428531103880797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_113
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 126
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d24742ccf00f6e60800000000000000
+      internalID: 7957580152178164439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_114
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 112
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57e093311dc116c20800000000000000
+      internalID: 3197868894706011765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_115
+      rect:
+        serializedVersion: 2
+        x: 1585
+        y: 128
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f66516db93a48f30800000000000000
+      internalID: 4576963011022251762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_116
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 97
+        width: 9
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31038ceecec7ec100800000000000000
+      internalID: 130178796300546067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_117
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 111
+        width: 23
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb11666c77cbe1f90800000000000000
+      internalID: -6980935149761982020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_118
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 112
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 125cdd9f02a4bb0a0800000000000000
+      internalID: -6864811701504719583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_119
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 93
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85cf8b481b1451c30800000000000000
+      internalID: 4329438847478332504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_120
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 93
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dd2bc8f0abb591b0800000000000000
+      internalID: -5650403857423192620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_121
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 86
+        width: 7
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f787492d2cc6a4b10800000000000000
+      internalID: 1966503771313043583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_122
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 88
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4e54cb4bd00ad5e0800000000000000
+      internalID: -1884192552232133045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_123
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 85
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0484170815afb310800000000000000
+      internalID: 1423037529888949259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_124
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 77
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07a99d2ea492d6530800000000000000
+      internalID: 3849778658081872496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_125
+      rect:
+        serializedVersion: 2
+        x: 1884
+        y: 97
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bae3700b9d03360a0800000000000000
+      internalID: -6889609293427425621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_126
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 95
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93794fd30078c9dc0800000000000000
+      internalID: -3630878764458272967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_127
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 83
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0baabae981e3a040800000000000000
+      internalID: 4657814422096096015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_128
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 69
+        width: 11
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3c628647f768370800000000000000
+      internalID: 8324481099181245407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_129
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 80
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96818921b8e9b8f90800000000000000
+      internalID: -6950287279766628247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_130
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 81
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93d0284606282520800000000000000
+      internalID: 2677431786893530012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_131
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 78
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0db9da2c7a68eb360800000000000000
+      internalID: 7187330110413708240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_132
+      rect:
+        serializedVersion: 2
+        x: 1673
+        y: 82
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8089cb8a39132a300800000000000000
+      internalID: 261826238601795592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_133
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 89
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 862417b59d0292fa0800000000000000
+      internalID: -5825088525112884632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_134
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 63
+        width: 48
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c34afc5f2e759c980800000000000000
+      internalID: -8518180587896331204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_135
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 77
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4b9e482875b4e840800000000000000
+      internalID: 5252522593097784138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_136
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 71
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55469e308392892e0800000000000000
+      internalID: -2118898304117283755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_137
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 59
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89ff94e8c08b2e390800000000000000
+      internalID: -7790462041331204200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_138
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 64
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c663852a1ee7d4910800000000000000
+      internalID: 1823252931711350380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_139
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 55
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53bfdbdc82b743f90800000000000000
+      internalID: -6974814507709367499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_140
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 53
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b6a02fa5df76ee0800000000000000
+      internalID: -1267766203031852283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_141
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 49
+        width: 12
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a3c2fe7688d9580800000000000000
+      internalID: -8818742515345900899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_142
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 53
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f74a3c634f8a43e00800000000000000
+      internalID: 1023628782164223103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_143
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 47
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9b6b92e3e6eec440800000000000000
+      internalID: 4958154106215295900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_144
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 63
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d596d393c6af2de0800000000000000
+      internalID: -1355681603886082602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_145
+      rect:
+        serializedVersion: 2
+        x: 1786
+        y: 63
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05b72708e9ff23110800000000000000
+      internalID: 1239333903705209680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_146
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 48
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb4345398a4cd2c0800000000000000
+      internalID: -4405564382310609969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_147
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 47
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9979bff922bc19b0800000000000000
+      internalID: -5108011983891236449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_148
+      rect:
+        serializedVersion: 2
+        x: 957
+        y: 33
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 126aa300704def450800000000000000
+      internalID: 6124565669804156449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_149
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 37
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43486d2f0d01455a0800000000000000
+      internalID: -6533578669794360268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: perch_150
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 31
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a856127a972ba90f0800000000000000
+      internalID: -1109378122628635254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
