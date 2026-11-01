@@ -30,7 +30,7 @@ namespace PerchSort.FirstLevelRuntime
         private Action pause, undo, restart, home, play, toggleMute, retrySave;
         private RectTransform root, gameLayer, homeLayer, modalLayer, panel;
         private CanvasGroup gameGroup, homeGroup, modalGroup;
-        private Image overlay, resultBird;
+        private Image overlay, homeBackground, resultBird;
         private RectTransform viewportRoot;
         private readonly Vector3[] viewportCorners = new Vector3[4];
         private TMP_Text errorText, unsavedText;
@@ -74,8 +74,8 @@ namespace PerchSort.FirstLevelRuntime
 
             homeLayer = Rect("HomeCover", root, Vector2.zero, Vector2.zero);
             Stretch(homeLayer); homeGroup = homeLayer.gameObject.AddComponent<CanvasGroup>();
-            var cover = homeLayer.gameObject.AddComponent<Image>();
-            cover.color = new Color(0, 0, 0, .28f); cover.raycastTarget = true;
+            homeBackground = Picture("ViewportHomeBackground", homeLayer, null, Vector2.zero, Vector2.zero);
+            homeBackground.color = new Color(0, 0, 0, .28f); homeBackground.raycastTarget = true;
             playButton = MakeButton("Play", homeLayer, assets.PlayIcon, new Vector2(0, -330), 220,
                 () => { if (homeVisible && modal == Modal.None) RunAction(play); });
             homeMute = MakeButton("HomeMute", homeLayer, assets.SoundIcon, new Vector2(420, 850), 130, ToggleMute);
@@ -116,8 +116,8 @@ namespace PerchSort.FirstLevelRuntime
             unsavedText.outlineWidth = .15f;
 
             initialized = true;
-            Canvas.willRenderCanvases += FitOverlayToViewport;
-            FitOverlayToViewport();
+            Canvas.willRenderCanvases += FitBackgroundsToViewport;
+            FitBackgroundsToViewport();
             ApplyUnsavedNotice();
             HideModal();
             RefreshAudio();
@@ -487,19 +487,27 @@ namespace PerchSort.FirstLevelRuntime
             subscribed = false;
         }
 
-        private void FitOverlayToViewport()
+        private void FitBackgroundsToViewport()
         {
-            if (!initialized || viewportRoot == null || overlay == null) return;
+            if (!initialized || viewportRoot == null) return;
             viewportRoot.GetWorldCorners(viewportCorners);
+            FitViewportBackground(overlay);
+            FitViewportBackground(homeBackground);
+        }
+
+        private void FitViewportBackground(Image background)
+        {
+            if (background == null) return;
+            var parent = background.rectTransform.parent;
             Vector2 min = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
             Vector2 max = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
             foreach (var corner in viewportCorners)
             {
-                Vector2 local = modalLayer.InverseTransformPoint(corner);
+                Vector2 local = parent.InverseTransformPoint(corner);
                 min = Vector2.Min(min, local); max = Vector2.Max(max, local);
             }
-            overlay.rectTransform.anchoredPosition = (min + max) * .5f;
-            overlay.rectTransform.sizeDelta = max - min;
+            background.rectTransform.anchoredPosition = (min + max) * .5f;
+            background.rectTransform.sizeDelta = max - min;
         }
 
         private void OnEnable()
@@ -507,15 +515,15 @@ namespace PerchSort.FirstLevelRuntime
             Subscribe();
             if (initialized)
             {
-                Canvas.willRenderCanvases -= FitOverlayToViewport;
-                Canvas.willRenderCanvases += FitOverlayToViewport;
+                Canvas.willRenderCanvases -= FitBackgroundsToViewport;
+                Canvas.willRenderCanvases += FitBackgroundsToViewport;
                 root.gameObject.SetActive(true); Refresh();
             }
         }
 
         private void OnDisable()
         {
-            Canvas.willRenderCanvases -= FitOverlayToViewport;
+            Canvas.willRenderCanvases -= FitBackgroundsToViewport;
             Unsubscribe(); CancelMotion();
             if (root != null) root.gameObject.SetActive(false);
         }
@@ -532,7 +540,7 @@ namespace PerchSort.FirstLevelRuntime
 
         private void OnDestroy()
         {
-            Canvas.willRenderCanvases -= FitOverlayToViewport;
+            Canvas.willRenderCanvases -= FitBackgroundsToViewport;
             Unsubscribe(); CancelMotion();
             if (root != null) Destroy(root.gameObject);
         }

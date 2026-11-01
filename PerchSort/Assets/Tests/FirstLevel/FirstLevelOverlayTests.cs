@@ -152,6 +152,106 @@ namespace PerchSort.FirstLevelTests
             Assert.That(failures, Is.Empty, string.Join("\n", failures));
         }
 
+        [UnityTest]
+        public IEnumerator HomeCoverViewportFitsAcrossComponentVisibilityAndResize()
+        {
+            CreateHud();
+            var failures = new List<string>();
+            var metrics = new StringBuilder();
+            metrics.AppendLine("Native HUD component visibility sequence; not physical Home/Play input, Player/window, or visual acceptance.");
+            string[] args = Environment.GetCommandLineArgs();
+            int flag = Array.IndexOf(args, "-t25HomeOutput");
+            string directory = flag >= 0 && flag + 1 < args.Length ? args[flag + 1] :
+                Path.Combine(Path.GetTempPath(), "t25-homecover-probe");
+            Directory.CreateDirectory(directory);
+            var sizes = new[] { new Vector2Int(1080, 1920), new Vector2Int(1080, 2340),
+                new Vector2Int(1080, 2340), new Vector2Int(1080, 2340), new Vector2Int(1080, 1920) };
+            bool[] visible = { true, true, false, true, true };
+            string[] names = { "standard-home", "tall-home", "tall-game-component",
+                "tall-home-return", "standard-home-after-resize" };
+
+            for (int i = 0; i < sizes.Length; i++)
+            {
+                SetTarget(sizes[i].x, sizes[i].y);
+                yield return null;
+                Canvas.ForceUpdateCanvases();
+                Rect viewport = camera.pixelRect;
+                float scale = Mathf.Min(viewport.width / 1080, viewport.height / 1920);
+                safeRoot.localScale = Vector3.one * scale / canvas.scaleFactor;
+                safeRoot.anchoredPosition = Vector2.zero;
+                hud.SetHomeVisible(visible[i]);
+                yield return null;
+                Canvas.ForceUpdateCanvases();
+                var home = (RectTransform)safeRoot.Find("FirstLevelHud/HomeCover");
+                var image = home.GetComponentsInChildren<Image>(true).Single(x =>
+                    x.sprite == null && x.raycastTarget && Mathf.Abs(x.color.a - .28f) < .001f);
+                var playButton = (RectTransform)home.Find("Play");
+                var muteButton = (RectTransform)home.Find("Mute");
+                if (playButton.anchoredPosition != new Vector2(0, -330) ||
+                    muteButton.anchoredPosition != new Vector2(420, 850))
+                    failures.Add(names[i] + ": safe-local Play/Mute coordinates changed");
+                if (image.IsActive() != visible[i])
+                    failures.Add(names[i] + ": background visibility does not follow the Home component");
+                Rect actual = ScreenRect(image.rectTransform);
+                if (visible[i] && (Mathf.Abs(actual.xMin - viewport.xMin) > 1 ||
+                    Mathf.Abs(actual.yMin - viewport.yMin) > 1 ||
+                    Mathf.Abs(actual.xMax - viewport.xMax) > 1 ||
+                    Mathf.Abs(actual.yMax - viewport.yMax) > 1))
+                    failures.Add(names[i] + ": Home background bounds " + actual + " differ from viewport " + viewport);
+
+                var points = new[] {
+                    new Vector2(viewport.xMin + 3, viewport.yMin + 3),
+                    new Vector2(viewport.xMin + 3, viewport.yMax - 3),
+                    new Vector2(viewport.xMax - 3, viewport.yMin + 3),
+                    new Vector2(viewport.xMax - 3, viewport.yMax - 3)
+                };
+                foreach (var point in points)
+                {
+                    var hits = new List<RaycastResult>();
+                    raycaster.Raycast(new PointerEventData(events) { position = point }, hits);
+                    bool blocked = hits.Count > 0 && hits[0].gameObject == image.gameObject;
+                    if (blocked != visible[i])
+                        failures.Add(names[i] + ": Home corner raycast blocking differs from visibility: " + point);
+                }
+                if (visible[i])
+                {
+                    foreach (var button in new[] { playButton, muteButton })
+                    {
+                        var hits = new List<RaycastResult>();
+                        Vector2 point = RectTransformUtility.WorldToScreenPoint(camera, button.position);
+                        raycaster.Raycast(new PointerEventData(events) { position = point }, hits);
+                        if (hits.Count == 0 || hits[0].gameObject != button.gameObject)
+                            failures.Add(names[i] + ": Home background covers its button: " + button.name);
+                    }
+                }
+
+                camera.Render();
+                var previous = RenderTexture.active;
+                RenderTexture.active = target;
+                var pixels = new Texture2D(target.width, target.height, TextureFormat.RGB24, false);
+                try
+                {
+                    pixels.ReadPixels(new Rect(0, 0, target.width, target.height), 0, 0); pixels.Apply();
+                    File.WriteAllBytes(Path.Combine(directory, names[i] + ".png"), pixels.EncodeToPNG());
+                    foreach (var point in points)
+                    {
+                        var color = pixels.GetPixel(Mathf.FloorToInt(point.x), Mathf.FloorToInt(point.y));
+                        float value = (color.r + color.g + color.b) / 3;
+                        metrics.AppendLine(names[i] + " corner=" + point + " meanRGB=" + value.ToString("F6"));
+                        if (visible[i] ? value > .95f : value < .98f)
+                            failures.Add(names[i] + ": Home background pixels disagree with component visibility: " + point);
+                    }
+                }
+                finally { RenderTexture.active = previous; Object.DestroyImmediate(pixels); }
+                metrics.AppendLine(names[i] + " output=" + sizes[i] + " viewport=" + viewport +
+                    " background=" + actual + " visible=" + image.IsActive() +
+                    " Play=" + playButton.anchoredPosition + " Mute=" + muteButton.anchoredPosition);
+            }
+            File.WriteAllText(Path.Combine(directory, "geometry.txt"),
+                metrics.ToString() + Environment.NewLine + string.Join(Environment.NewLine, failures));
+            Assert.That(failures, Is.Empty, string.Join(Environment.NewLine, failures));
+        }
+
         [Test]
         public void LevelBadgeUsesImportedNineSliceWhileButtonsKeepTheirSimpleAspect()
         {
