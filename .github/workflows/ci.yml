@@ -32,7 +32,7 @@ jobs:
         if: steps.changes.outputs.godot == 'true'
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.3-stable/Godot_v4.6.3-stable_linux.x86_64.zip
-          echo "d0bc2113065e481c9c2c2b2c2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3  $RUNNER_TEMP/godot.zip" | sha256sum --check
+          echo "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3  $RUNNER_TEMP/godot.zip" | sha256sum --check
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot-bin"
           chmod +x "$RUNNER_TEMP/godot-bin/Godot_v4.6.3-stable_linux.x86_64"
           echo "GODOT_BIN=$RUNNER_TEMP/godot-bin/Godot_v4.6.3-stable_linux.x86_64" >> "$GITHUB_ENV"
