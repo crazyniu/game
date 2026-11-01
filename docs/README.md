@@ -1,3 +1,11 @@
+# AI documentation router — Godot active
+
+Read AGENTS → [GODOT_MIGRATION](GODOT_MIGRATION.md) → the owning contract. Current project `godot/project.godot`; native GDScript and built-in Tween. Cloud4.6.3 first, local4.7.2 only fallback. Migration in progress; Unity is retained only as reference. The user paused other feature expansion and authorized merge only after migration completion/review/CI, not deployment.
+
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+## Retained product/rule routing and historical engine checkpoints
+
 Current T21 runtime slice: [first-level scene/evidence](../tasks/T21_report.md) now covers the two-transfer tutorial and real wingbeat/masked Home presentation. Read that current checkpoint before historical 'Core only/no UI' notes below. Full schema4/save6/40-level migration and local Player acceptance remain pending.
 
 Active capture pipeline: `scripts/screenshots.sh` → `Screenshots.Capture` → `FirstFiveCaptureSequence`/`CaptureRoutine`; `scripts/screenshots_aspect.sh` → `Screenshots.CaptureAspect` → `AspectCaptureSequence`. The isolated first-level runtime capture remains separate. [T26](../tasks/T26_report.md) removes only the uncalled RunV2 capture cluster and 11 proven-unused imported flat UI PNGs with metadata; this does not retire v2 runtime or migrate the default scene. Current UI imports use `UIAssetBuilder` with `art/ui_kit` → `Assets/Art/ui_kit`. Preserved `art/ui_sources/generate_ui.py` and its README are historical source archives, not the normal build pipeline: their literal output is `Assets/Art/UI`, while the retired tracked imports were in lowercase `Assets/Art/ui` (distinct on case-sensitive filesystems; potentially aliases on case-insensitive ones). Do not run that archived generator as a current rebuild step.

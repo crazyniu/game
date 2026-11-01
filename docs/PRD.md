@@ -1,3 +1,7 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+Current product execution: native Godot framework migration only. Existing game-rule/content/visual design decisions remain reference contracts; other feature expansion is stopped by explicit user instruction. The native runtime milestone is fixed bird-only L01 with Undo/Restart/persistence/presentation, not all40 levels or implemented economy/help skills. Godot save version1 does not implement or overwrite Unity save6/design-only economy save7. User authorization permits migration submission/merge after required review/CI, not deployment. Refer to GODOT_MIGRATION for actual implemented/tested state.
+
 # 小鸟归巢：同行依据版PRD
 
 PRD4 · updated 2026-11-01 · Current design; the isolated T21 first-level scene/wingbeat/Home implementation exists, while full campaign and economy runtime remain incomplete. 替代T16的自拟机制主案；先读[50项证据矩阵](MECHANIC_EVIDENCE.md)，再读[RULES](spec/RULES.md)。T21首关实现与普通设计决定已获授权；Core/依赖验证见T21报告，生产UI与完整v4/save6尚未完成。保留内部技术/独立视觉素材QA，不自动合并/部署。

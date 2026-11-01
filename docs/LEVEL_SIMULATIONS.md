@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # 40关v4固定候选与模拟证据
 
 2026-10-31 · **旧R4全量INVALIDATED；新v4 40/40固定配置独立回放通过。** 全40主路线共472次主路线合法移动（另核L01第二条2步路径），逐步核对容量/端部run/蛋/归巢失枝/守恒和全归巢终态；不是项目Core、最优、真人或Unity验证。

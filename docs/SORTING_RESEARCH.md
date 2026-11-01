@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # Sorting puzzles: a textual guide to same-genre rules
 
 Online recheck 2026-10-31. Sort Puzzle / Sorting Puzzle means categorization puzzles: Water Sort pours liquids, Ball Sort moves balls, Bird Sort moves birds, and Nut Sort moves nuts. They chiefly share the loop “take exposed matching items→receive on empty/matching ends→plan capacity,” rather than match-three or ordering by size.

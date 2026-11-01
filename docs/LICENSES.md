@@ -1,3 +1,9 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+## Current Godot migration license scope
+
+Godot engine/Tween is MIT-licensed; include required engine notices in distributions. See https://godotengine.org/license/ . Reused Fredoka font retains its SIL OFL notice; existing project-original PNG/WAV provenance below remains. The old TextMeshPro atlas/shaders/Unity Companion License resources stay in the legacy project and are not assumed licensed for native Godot redistribution. Import standalone font/image/audio sources with verified provenance, not Unity package internals. LitMotion's retained MIT notice remains relevant to legacy code distribution but LitMotion is not a current Godot dependency. Actual native asset inventory/notices must be verified before export.
+
 # Third-party licenses
 
 ## Fredoka

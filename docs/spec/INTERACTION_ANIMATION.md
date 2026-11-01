@@ -1,3 +1,11 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current engine binding for interaction
+
+The state machine/input-lock/event-order requirements are engine-independent and remain applicable to the migrated L01. Godot native nodes/input, Tween callbacks and scene lifecycle replace Unity component/coroutine/timeScale APIs. Session commits stable candidate/save first, then view consumes Moved→Home→Retired events. Native scene teardown/restart invalidates stale callback generations; there is no active asmdef/UnityEngine dependency. Keep English/Fredoka text and existing audio, selected/standing/flight poses; no new shop/skills behavior is developed during the framework migration. Current test/visual evidence is in GODOT_MIGRATION, not inherited from the legacy sections below.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Perch Sort: interaction, presentation, and input safety
 
 2026-10-31 · Same-genre evidence revision · Documentation contract, not implemented; Unity has not been run. Gameplay is admitted only through [RULES](RULES.md) and the [evidence matrix](../MECHANIC_EVIDENCE.md). This page must not quietly restore withdrawn rules through animation, controls, or old assets. A fixed layout does not prohibit adding space during play.

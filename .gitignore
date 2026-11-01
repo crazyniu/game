@@ -40,3 +40,9 @@ sysinfo.txt
 
 # Local reference APK inputs and their manifest
 /References/CutieSort/
+
+# Godot generated import/cache and local exported builds
+.godot/
+*.tmp
+/godot/export_credentials.cfg
+/godot/build/

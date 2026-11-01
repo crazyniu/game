@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # 小鸟归巢：v4固定40关课程与玩法目录
 
 2026-10-31 · **有来源规则的固定关卡设计；未入运行JSON。** 本次重做全部旧40关，旧目标队列/睡眠/条件箱/已知种蛋/临时枝清空退役不再有效。完整固定初态和回放只在[四份附录](LEVEL_SIMULATIONS.md)，本页只拥有教学目的、重点动作、差异和节奏。唯一算法见[RULES](spec/RULES.md)，来源及移除理由见[MECHANIC_EVIDENCE](MECHANIC_EVIDENCE.md)。

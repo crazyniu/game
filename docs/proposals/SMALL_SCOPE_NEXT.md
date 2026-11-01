@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # Small-scope next step: finish level 01, then review one variation
 
 2026-10-31 · PROPOSAL, not a second PRD. Read [GAMEPLAY_REVIEW](../GAMEPLAY_REVIEW.md) for the user's content critique and [RULES](../spec/RULES.md) for effective rules. This note changes no rule, formal level, price, or production asset approval.

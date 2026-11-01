@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current Godot implementation map
+
+Active source root: `godot/`, entry `project.godot`. Native `core/first_level_rules.gd` is a pure RefCounted rules model; the nested `FirstLevelRules.Session`, `core/save_store.gd`, `scripts/first_level.gd` and `scripts/bird_actor.gd` are being integrated by separate owners. Inspect actual current files and GODOT_MIGRATION before assuming a planned path exists. Core preserves fixed L01/Transfer/Home/retirement; candidate commit and save precede presentation. Scene nodes/Control/Sprite2D, native Tween and AudioStreamPlayer replace Unity scene/MonoBehaviour/RectTransform/LitMotion/AudioSource bindings.
+
+The legacy Unity inventory and historical test counts below are retained for comparison only. They do not mean Unity remains the default engine, nor that native Godot implementation or tests have passed. Current native test/commit outcomes belong exclusively in GODOT_MIGRATION. Later39 levels, eggs, economy/help skills and save7 are not part of the first native runtime milestone. No251 access; cloud-first/local-fallback applies.
+
+## Retained legacy/reference details (not current engine workflow)
+
 ## Current T21 bounded runtime implementation
 
 The feature branch adds `Assets/Scripts/FirstLevel/` (Flow/Bird/Board/Entry/Hud/Assets), its isolated `FirstLevel.unity` and explicit Editor build/capture entries. It binds only adopted B: N4/K2/P3, AAA/BBBA/B, with real six-pose wings and Moved→Home→Retired→victory→Replay. [T21 current report](../../tasks/T21_report.md) owns named-commit evidence and limitations. The committed first-level persistence integration uses the bounded save6 adapter. Legacy Game remains the default entry; this is not a full campaign/schema4/save6/catalog/Hint/ExtraBranch rollout. T27/T28 new behavior remains unsubmitted/unrun and Player acceptance is pending.

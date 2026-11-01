@@ -18,6 +18,7 @@ core = any(
     or p.as_posix() == ".github/workflows/ci.yml"
     for p in paths
 )
+godot = any(p.as_posix().startswith(("godot/", "scripts/")) or p.as_posix() in ("ci/check_changes.py", ".github/workflows/ci.yml") for p in paths)
 workflows = any(p.as_posix().startswith(".github/workflows/") for p in paths)
 checked = 0
 for path in paths:
@@ -35,4 +36,5 @@ for path in paths:
     checked += 1
 print(f"Checked {checked} changed JSON/assembly/script files. Core tests: {core}; workflows: {workflows}.")
 with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+    output.write(f"godot={str(godot).lower()}\n")
     output.write(f"core={str(core).lower()}\nworkflows={str(workflows).lower()}\n")

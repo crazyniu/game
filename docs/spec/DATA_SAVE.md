@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current Godot persistence boundary
+
+The native migration uses **Godot binary save version1**, separate from all Unity save6 and proposed economy save7 documents below. Data-only `var_to_bytes`/`bytes_to_var` use object serialization/deserialization disabled; do not use the object-enabled counterparts. The save store owns a Godot `user://` namespace and never reads/writes Unity PlayerPrefs or old Unity save paths by assumption. The current filename is `user://first-level-godot-v1/first-level.godot-save-v1.bin`; exact envelope and scoped test status are recorded in GODOT_MIGRATION.
+
+Persist a complete stable rules/session/Undo/progress/settings payload with explicit native version/identity and validation. Candidate-save failure preserves the previous stable state; uncertain replacement requires readback, never blind double-commit. Preserve unknown/corrupt bytes and a known-good backup. UI animation cannot determine commit success. Engine transition does not prove old-save compatibility: no automatic Unity import, no same-number mapping of campaigns and no claim of full40 or economy migration. The following JSON/schema/save6 formats describe legacy/future contracts, not the bytes currently written by native SaveStore.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Evidence-based data, stable transactions, and saves
 
 schema 4 / rules 4 / save 6 (full design target; isolated bird-only T21 subset implemented) · 2026-10-31. RULES owns gameplay, MECHANIC_EVIDENCE owns sources, and MAP_PROGRESSION owns worlds. This page defines E engineering reliability protocols; they neither claim to describe competitor source code nor add rewards/completion conditions.

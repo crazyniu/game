@@ -1,3 +1,11 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Godot migration adaptation for animation briefs
+
+Retain the behavioral requirements below, not the Unity implementation recipes. A current brief targets Godot Node2D/Control, Sprite2D or frame sequences, native Tween and AudioStreamPlayer; no MonoBehaviour/Animator/ParticleSystem/LitMotion or UPM installation is required. Preserve six-frame movement, actual nest occlusion and combined retired-branch/root fading. Use current stable session/event data and native SaveStore; no success motion before a confirmed commit. Reuse approved source assets and page designs rather than generating new features/art during migration. Runtime and capture evidence is Godot-specific; old Unity samples are only comparison references.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Perch Sort: evidence-constrained AI presentation task templates
 
 2026-10-31 · Documentation revision; no execution, image generation, or game coding now. Writing prompts does not authorize future implementation. First check the [evidence matrix](../MECHANIC_EVIDENCE.md) and [RULES](RULES.md) for every mechanism. Read only [MAP_PROGRESSION](../MAP_PROGRESSION.md) for map divisions/unlocks, [ANIMATION_LIBRARIES](ANIMATION_LIBRARIES.md) for library selection/licenses, [UI_SPEC](../UI_SPEC.md) for static numbers, and [INTERACTION](INTERACTION_ANIMATION.md) for timing/input. Attach referenced documents in full or their complete relevant tables so AI without internet/repository access can read them; links alone are insufficient.

@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # 世界地图、主题与通关进度（USER唯一合同）
 
 2026-10-31 · DESIGNED / 未实现 / 统一风格与树枝摆放已确认，具体地图布局及生产素材未验收（[UI_SPEC §4.1](UI_SPEC.md#approved-forest-style)）。世界地图、过关后顺序开放世界来自用户明确要求，不是我们虚构同行机制。用户举10关只是例子，本项目按课程分为8/10/10/12关。同行参考：[Bluebook Magic Sort](https://apps.apple.com/gb/app/magic-sort-water-sorting/id6481261917)明确不同主题城镇；[Simple Games](https://pixapps.ai/simple-games/games/water-sort/en/)明确顺序解锁/已解锁同题重玩。均未证明下面章节数/主题或整世界门槛是原作值。

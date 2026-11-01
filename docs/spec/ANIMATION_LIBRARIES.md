@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Current primary animation: Godot built-in Tween
+
+Godot native Tween is the sole current primary tween mechanism; LitMotion is legacy Unity reference, not an install prerequisite. Godot is open source under MIT; retain engine and reused-asset license notices. Create a tween through `Node.create_tween()` or `SceneTree.create_tween()`, not `Tween.new()`; bind its lifetime to the presentation owner and invalidate stale callbacks on restart/view-generation change. Native Sprite2D/AnimatedSprite2D frame sequencing uses the existing six accepted flight poses, with standing/selected states, not a translated single fly sprite. A small amount of event orchestration is appropriate; do not add a second framework.
+
+Use Tween position/rotation/scale/modulate for travel/entry/fade, and native audio players for existing sounds. Finished flock retirement fades branch and supporting root as one visual unit; it does not alter Core completion. Pause/background/repeated taps/Undo/Restart must consume committed state exactly once. Headless tests cannot prove wingbeat readability, mask occlusion, input feel or sound. Read the official APIs and current evidence in GODOT_MIGRATION. All library-selection instructions below are preserved Unity-era evidence only.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Open-source animation options, licenses, and compatibility gates
 
 2026-10-31 · **LitMotion 2.0.2 selected and pinned; isolated Mac UPM resolution and scoped Unity 6000.6.7f1 compile PASS. Motion/UI integration, accepted motion assets, runtime animation and mobile IL2CPP remain NOT_RUN.** See the [T21 execution record](../../tasks/T21_motion_dependency.md) for the exact source SHA, filtered test and limits. This page alone owns selection/licenses; INTERACTION owns animation durations and RULES owns gameplay. The user requires open-source libraries where suitable, one primary tween library, and no fixed images standing in for completed animation anywhere. These are USER constraints, not competitor rules.

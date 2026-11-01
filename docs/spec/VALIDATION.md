@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](../GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Native Godot migration validation gates
+
+Run cloud-native Godot import/parser, pure rules/session/Undo/Restart tests, native SaveStore roundtrip/corruption/unknown/failure tests and first-level scene smoke tests. Use the actual aggregate entry and evidence in GODOT_MIGRATION. Linux headless startup alone is not an interactive/render/audio pass. Independently check fixed3/4/1 token conservation, exactly two legal tutorial transfers to win, branch/root retirement, repeated input, pause/restart/reentry, save failures and stale callbacks. Test changes are not complete until the combined revision passes; preserve failures and distinguish skipped/not-run cases.
+
+Historical Unity EditMode/PlayMode/IL2CPP/Player test counts below are reference evidence, never the current runner. Paper40-level certificates do not prove native40-level support. Android/iOS export templates, SDK/signing, real produced packages and device testing each need separate status; do not infer any from native first-level tests. No251 access. Cloud-first, local only on an actual cloud blocker. The user authorized migration merge after necessary review/CI; no deployment or bypassed branch protections.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # 同行依据版验收与证明边界
 
 规则4/schema4/save6设计 · 2026-10-31。仅文档与独立临时模型分析，非游戏实现。有效规则见RULES，来源MECHANIC_EVIDENCE；旧T16 60回放和旧39死局整体失效，不能续用旧最优数/证书。

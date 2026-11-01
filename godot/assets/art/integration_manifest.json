@@ -1,0 +1,159 @@
+{
+  "status": "STATIC_ASSETS_ACCEPTED_FOR_INTEGRATION",
+  "runtimeVisualAcceptance": "PENDING",
+  "sourceOriginalsPreserved": true,
+  "scope": "L01 two-flock tutorial only",
+  "birdCanvas": [
+    512,
+    512
+  ],
+  "birdFootPivotTopLeft": [
+    256,
+    439
+  ],
+  "unityBirdPivot": [
+    0.5,
+    0.142578125
+  ],
+  "branchTexture": [
+    2172,
+    724
+  ],
+  "branchRenderSize": [
+    608.16,
+    140
+  ],
+  "branchCenters": [
+    [
+      -202.2,
+      200
+    ],
+    [
+      202.2,
+      -60
+    ],
+    [
+      -202.2,
+      -320
+    ]
+  ],
+  "branchVisualLeftOffset": [
+    -23.52,
+    -17.5
+  ],
+  "branchFootXLeft": [
+    -210,
+    -70,
+    70,
+    210
+  ],
+  "branchFootY": [
+    -9.571823,
+    -15.372928,
+    -16.726519,
+    -8.411603
+  ],
+  "nestCenter": [
+    0,
+    640
+  ],
+  "nestSize": [
+    300,
+    300
+  ],
+  "nestMaskCutoff": 0.5,
+  "nestFinalFootSource": [
+    256,
+    435
+  ],
+  "nestFinalBirdScale": 0.35,
+  "files": [
+    {
+      "name": "blue_flight_01.png",
+      "bytes": 169287,
+      "sha256": "ebbcfa74f544be269245f7b29247b0b2043a750fe8c357fb77385afaf5112276"
+    },
+    {
+      "name": "blue_flight_02.png",
+      "bytes": 153124,
+      "sha256": "3fc52cad47aa5aa2be306bd023a8f980ddadb92e77de841e3065743e82dd3927"
+    },
+    {
+      "name": "blue_flight_03.png",
+      "bytes": 143044,
+      "sha256": "11449212d61d815ed635ca884f46f14e6c809865e635ec04f5aa8bb1fa60169b"
+    },
+    {
+      "name": "blue_flight_04.png",
+      "bytes": 139126,
+      "sha256": "a3d065e38db921c2ce528682185cea37cdc9e073e507c8ab3b22769d32409753"
+    },
+    {
+      "name": "blue_flight_05.png",
+      "bytes": 135604,
+      "sha256": "facd497a2fe42d1f4428def3d00e6251755a4aa8b41d9b9a0b01de6b7217c541"
+    },
+    {
+      "name": "blue_flight_06.png",
+      "bytes": 141468,
+      "sha256": "fe8409dc31ef19df349e96338c309141a2d06253af34b0168c35c8332400f3cc"
+    },
+    {
+      "name": "blue_idle.png",
+      "bytes": 110872,
+      "sha256": "b38561c0174bc53467cf5770080b9aaf983645bfd652b1aa1463939c4d8f77ec"
+    },
+    {
+      "name": "forest_background.png",
+      "bytes": 2442671,
+      "sha256": "757649f51540c0a3d2c55827ee99b9c9b8d812f9ad7ae9f0046eab033e014c9d"
+    },
+    {
+      "name": "nest_front_mask.png",
+      "bytes": 14837,
+      "sha256": "f91bf099f0363998254c59384944eea2bad120342d26a066c76bc0138c395fb6"
+    },
+    {
+      "name": "perch.png",
+      "bytes": 674036,
+      "sha256": "cb5e867339d5c7cfa596544be7e6ca15a38cdc1563d52bd66a904ff44986e424"
+    },
+    {
+      "name": "red_flight_01.png",
+      "bytes": 166317,
+      "sha256": "82948580ebb0ddf4b47a25221b288347afb03d652220d370fe1c00816f6c6982"
+    },
+    {
+      "name": "red_flight_02.png",
+      "bytes": 150020,
+      "sha256": "8859f78cca516702ee8b1ca727574f67e295bf1d8dfc1a7b1f32deba46fc2a40"
+    },
+    {
+      "name": "red_flight_03.png",
+      "bytes": 139616,
+      "sha256": "848ea6178a0b28c60bdc5eb3ae9047a2a6309d55e605928257c52e3e4e61bc20"
+    },
+    {
+      "name": "red_flight_04.png",
+      "bytes": 135341,
+      "sha256": "9bc60a0d375fb8333af47efd320b4809afd73c054945cca6e135b5a3f4e67c9b"
+    },
+    {
+      "name": "red_flight_05.png",
+      "bytes": 131900,
+      "sha256": "8a3b273f36271cbf575d3c6b9cd24844c1badf32bd92e37a2467b58362211094"
+    },
+    {
+      "name": "red_flight_06.png",
+      "bytes": 137537,
+      "sha256": "e852a2991a1be2ef6d42cebebe94878e23d40a199eafec62f1d03a0a770e8147"
+    },
+    {
+      "name": "red_idle.png",
+      "bytes": 108308,
+      "sha256": "900eaa80e4b1d98fef12c5089d09c0c777c4f39cecba67b98a2269964bfa08b9"
+    }
+  ],
+  "birdCanvasDesign": 250,
+  "geometryReason": "Actual Unity first-frame UI review: improve bird size and usable middle space, without changing fixed content or branch count"
+}

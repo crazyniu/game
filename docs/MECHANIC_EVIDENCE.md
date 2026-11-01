@@ -1,3 +1,7 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+Current product execution: native Godot framework migration only. Existing game-rule/content/visual design decisions remain reference contracts; other feature expansion is stopped by explicit user instruction. The native runtime milestone is fixed bird-only L01 with Undo/Restart/persistence/presentation, not all40 levels or implemented economy/help skills. Godot save version1 does not implement or overwrite Unity save6/design-only economy save7. User authorization permits migration submission/merge after required review/CI, not deployment. Refer to GODOT_MIGRATION for actual implemented/tested state.
+
 # 玩法与系统证据矩阵（有效需求的证据闸门）
 
 核查：2026-10-31。本次为联网第一方文字核查；未安装这些产品、未重播完整录像或测量动画。当前规则以[RULES](spec/RULES.md)为准；本页拥有出处/证据资格，不另定义算法。所有旧关卡/旧代码都不能反过来证明同行做法。

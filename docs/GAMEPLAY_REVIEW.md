@@ -1,3 +1,5 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
 # Gameplay review of rules v4 (T20)
 
 **T21 adoption update:** under delegated ordinary-design authority, this review's L01 N4/K2/P3 two-transfer tutorial is ADOPTED. RULES §2.1 and FIXED_01_10 own the effective exception. One upper receiving nest/staggered supported branches are selected, subject to internal technical and independent visual QA. Statistics below describe the pre-adoption40; all other proposals remain unadopted. Historical requests for repeated user approval are not current blockers.

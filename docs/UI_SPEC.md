@@ -1,3 +1,13 @@
+> **T30 current-engine scope (2026-11-01):** [GODOT_MIGRATION](GODOT_MIGRATION.md) owns active implementation, cloud-first testing and gaps. Unity/C#/LitMotion/PlayerPrefs/Canvas/asmdef commands, APIs, dimensions and test results retained below are **legacy evidence/reference, not active Godot instructions or pass claims**. Engine-independent rule/content/asset-approval requirements remain; current engine mappings are in the migration matrix. Other feature expansion is stopped during migration. Native save version1 is isolated from Unity save6 and design-only economy save7.
+
+# Godot UI migration binding — preserve approved art
+
+The three approved skin/skills/settings page identities, original assets, English copy/game-font requirement and reference-led component layout remain valid. No new page expansion or redraw is authorized by the framework change. Native Godot Control anchors/containers and CanvasLayer replace Unity CanvasScaler/RectTransform; TextureRect/Sprite2D and parent z-order/clipping replace SpriteRenderer/Unity masks. Fredoka is loaded as a native FontFile/Theme asset, not a TextMeshPro SDF material. Reuse only independently licensed font/image/audio source files; Unity package shaders/TMP resources are not automatically portable.
+
+Legacy1080×1920 design geometry is a reference, not an instruction to copy center-origin Y-up coordinates unchanged into Godot's top-left/Y-down Control space. Convert reference anchors explicitly, check portrait resizing/safe areas and nonoverlapping hit regions. Never claim touch compliance from desktop pixels alone. Render inherited six-frame flight and real nest-entry layering; fade the entire retired branch/root unit. Godot runtime layout/motion/audio acceptance remains distinct from approved source image layouts. The tables and implementation formulas below retain historical Unity provenance; current native mappings and verified results are in GODOT_MIGRATION.
+
+## Retained legacy/reference details (not current engine workflow)
+
 # Perch Sort: single-value UI specification (same-genre evidence revision)
 
 2026-10-31. **Documentation only this round; §4.1 records the user-approved art style and branch placement. No UI redraw, code change, or production-asset/runtime visual acceptance was completed.** This page owns static dimensions/positions/appearance/scaling/touch targets. [INTERACTION](spec/INTERACTION_ANIMATION.md) alone owns timing/input semantics; reusable task templates are in [ANIMATION_PROMPTS](spec/ANIMATION_PROMPTS.md). Old overlapping versions are [archived](archive/UI_SPEC_HISTORY.md), no longer parallel authorities.
