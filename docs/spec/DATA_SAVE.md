@@ -184,7 +184,7 @@ Old campaign stars do not convert to new map unlocks; a new level sharing an old
 
 <a id="global-mute"></a>
 
-### 5.1 Single global mute field (E engineering contract, not implemented)
+### 5.1 Existing single global mute contract (save6; new two-switch design in §9)
 
 - save 6 progress root field `audioMuted:boolean`: true=mute music, game effects, and click sounds; false=allow them under existing fixed configuration, still subject to system mute/platform restrictions. Store only this sound toggle, without volume/percentage/per-channel fields. This is a project engineering choice, not a competitor's original field/default.
 - Default false on first installation without a migratable preference. Menu and pause sound buttons share the value: true shows sound_off and clicking unmutes; false shows sound and clicking mutes. Accessibility names describe the next action without visible labels; UI_SPEC still owns appearance.
@@ -228,3 +228,9 @@ Exact runtime state keys/certificates include help policy, complete Shuffle-rele
 One serialized mutation gate handles board and economy together. First clear commits progress plus base50 and reward receipt together; ad completion only adds the once-keyed bonus50. Purchase debit plus entitlement/tier/charge is one immutable candidate. Hint receipt or Rewind/Shuffle board plus consumption is one candidate. Unknown commit outcome requires readback of the same ID/hash, never a new debit or speculative refund. Source save backups and one-time migration receipts are mandatory. Same-campaign recognized completions get one compensating50 each and no retroactive ads; old rules2 numbers do not map to new campaign wins. Preserve verified historical permanent entitlements if evidence exists; do not invent released customers or paid rights.
 
 See ECONOMY_SHOP for exact field invariants, offline clock limitations, callbacks, repair/refund behavior and migration cases. Acceptance EC01–EC18 is NOT_RUN for implementation; documentation adoption is not a data-format/code rollout.
+
+## 9. Approved two-switch settings design — runtime adaptation pending
+
+The user individually approved the settings visual reference `libfile_3f0c206e9d648191a8bc34b22b13fcbf` on 2026-11-01; [UI_SPEC §11](../UI_SPEC.md#11-three-page-specific-visual-approvals-2026-11-01) owns the precise approval identity and limits. New settings design has independent binary Music and Sound switches: Music affects background music, Sound affects game effects plus UI/click audio. This supersedes the old one-switch design for the new page only. Existing runtime/save6 remains `audioMuted`; no code or migration changed through this documentation.
+
+Future adapter work must preserve a recognized saved global choice: old muted maps to both new channels muted; old unmuted maps to both unmuted. Unknown/wrong-type settings retain existing preservation/read-only safety rather than guessed coercion. Separate persisted booleans and their atomic save/version migration belong to future authorized implementation; never add unknown fields into the strict current save6 adapter or claim two-switch persistence tested. Continue applying the existing global value until the adapted UI/audio/save implementation is accepted. Visual approval is not acceptance of production slices, runtime audio routing, tests, SDKs or additional execution permissions.
