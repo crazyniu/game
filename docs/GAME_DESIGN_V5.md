@@ -24,6 +24,10 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 | Space | add an extra container | **Growing branches**: the tree grows a seat each time a flock goes home; short **twigs** that store but never complete |
 | Combo | none / score multipliers | **Chorus**: consecutive homecomings fill a Song meter that pays out a free booster |
 | Boosters | undo, hint, add tube, shuffle | Themed tools, each one the antidote to one world mechanic (Owl Eye, Morning Bell, Scarecrow, Spring Rain) |
+| Completion | a full group simply disappears; order of completion rarely matters | **Homecoming gifts**: every species leaves a different gift when its flock gets home, so *which flock you finish first* is the main strategic decision (§6.5) |
+| Moving | only the contiguous end run moves | **Mama bird**: moving a mama also pulls her chicks out from anywhere on that branch, leapfrogging other birds (§6.6) |
+| Containers | containers are passive | **Swivel branch**: tap the knot to flip a branch end-for-end (§6.7) |
+| Time | timers or none | **Day and night**: the sky turns every few moves; night owls only move at night (§6.8) |
 | Meta | coins, skins, backgrounds | **Aviary** collection with personalities and outfits; birdhouse styles; world map of forests |
 
 ## 1. Core rules
@@ -33,9 +37,9 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - **Tap a branch** with a movable tip bird → select it: the run of same-species awake birds at the tip hops up (selected). Tap the same branch or empty space → cancel.
 - **Tap a target branch** → the run flies over if the target has a free seat and is empty or its tip bird is the same species (an awake bird or a sleeping bird of that species; see §6.2). Count = min(run, free seats). Illegal target → the selected birds shake their heads, selection cancels, nothing else changes.
 - **Flock home**: when a branch holds N awake birds of one species (N = the level's flock size, not the branch's current seat count), they cheer, then fly one by one into **their species' birdhouse** at the top. The branch stays and becomes an ordinary empty branch.
-- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) song effects of each homecoming (wake-ups §6.2, branch growth §6.4), (4) Chorus update §7, (5) win check.
+- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) effects of each homecoming in branch index order: the species' homecoming gift (§6.5), then wake-ups (§6.2) and branch growth (§6.4), (4) Chorus update §7, (5) win check.
 - **Win**: every species is home. **No lose state**: if no legal move exists, show a gentle "stuck" bubble pointing at Undo and the boosters.
-- **Moves**: each successful transfer = 1 move. Undo (free, unlimited) restores the full previous state including move count, Chorus and booster effects of that move (consumed boosters are refunded on undo of the booster action itself).
+- **Moves**: each successful transfer = 1 move; a swivel (§6.7) = 1 move. Day/night counts moves (§6.8). Undo (free, unlimited) restores the full previous state including move count, Chorus and booster effects of that move (consumed boosters are refunded on undo of the booster action itself).
 - **Stars**: moves ≤ par → 3 stars; ≤ par+3 → 2; otherwise 1. Using boosters does not reduce stars (calm pillar). Best stars per level are saved.
 - **Coins**: §8.
 - **Restart** and **sound mute** live in the settings panel.
@@ -102,6 +106,7 @@ Each species is an original character, distinct by silhouette AND color (must re
 | snow | Flurry | white, lilac wing tips, crown of three lilac dots | shy; quirk: shivers and fluffs up | 14 |
 | ember | Ember | warm orange, flame-shaped three-feather crest | energetic; quirk: flaps wings in place | 19 |
 | ink | Inky | deep navy with a white star spot on the chest | calm; quirk: looks up at the sky, star spot twinkles | 26 |
+| hoot | Hoot | round tawny owl chick with big amber eyes and feather ear tufts (nocturnal) | sleepy by day; quirk: rotates head left-right | 33 |
 | crow | Rook (special) | slate-grey crow with a crooked smile and a shiny trinket | trickster; quirk: tosses its trinket | 21 |
 
 ### 4.2 Special bird looks
@@ -164,6 +169,43 @@ Each mechanic is taught by one tutorial level with hands only (no text) and then
 - **Twig**: a short branch with capacity 2 (thinner art). It accepts and releases birds normally but can never complete a flock.
 - **Growing branch**: a branch whose current capacity starts below N (2 or 3). Each time any flock flies home, every growing branch gains +1 seat up to N (rule order step 3). Birds never fall off; seats only grow. A growing branch that has reached N behaves like a normal branch.
 
+### 6.5 Homecoming gifts (ours, core identity, from level 3)
+
+Every species leaves one fixed gift the moment its flock gets home. The gift icon is painted on that species' birdhouse sign, so the player can always see what finishing each flock will do. Gifts are deterministic and the solver models them. Planning which flock to complete first is the heart of the game from World 1 on.
+
+| Species | Gift | Exact effect |
+| --- | --- | --- |
+| sunny | Wake-up song | every sleeping bird on the board wakes |
+| sky | Gentle breeze | every egg on the board turns see-through: its species is shown (it still hatches only when exposed) |
+| berry | Encore | +2 notes on the Song meter (§7) |
+| mint | Gardener | every growing branch +1 seat (on top of the normal +1), and the lowest-index twig becomes a full branch of capacity N (its birds stay) |
+| cocoa | Grumpy stare | every crow on the same row or an adjacent row of the branch the flock left flies away |
+| snow | Light step | the next transfer may land on **any** tip with a free seat (species rule ignored once); shown as a feather on the bottom bar until used; undo restores it |
+| ember | Warm glow | every egg on the board hatches immediately (even if covered; the hatched bird keeps its seat) |
+| ink | Night call | day and night switch immediately (§6.8) |
+| hoot | Moonbeam | the next 3 moves count as night for nocturnal birds |
+
+Level design rule: from level 3 on every level must have at least one meaningful ordering decision (the solver must find that a different completion order changes the minimum moves or solvability).
+
+### 6.6 Mama bird and chicks (World 2, from level 15)
+
+- A **mama** is a normal bird of her species wearing a little bow; **chicks** are smaller birds of the same species (they count as full birds for flocks and seats).
+- When a moving run contains a mama, after the run lands, the chicks of her species on the **source branch** follow her one by one, from the tip side to the root side, even if other birds sit between them, as long as the target has free seats.
+- Chicks without their mama move like normal birds. A mama never pulls chicks from other branches.
+- Example: source `[A-chick, B, B, A-mama]` → empty target: mama flies, then the chick leapfrogs out: source `[B, B]`, target `[A-mama, A-chick]`. One move.
+
+### 6.7 Swivel branch (World 3, from level 24)
+
+- A swivel branch has a wooden knot at its root. Tapping the knot (not the birds) flips the order of its birds end-for-end: the old root bird becomes the tip. It costs 1 move and is undoable.
+- Eggs that become the tip hatch (rule order step 1 applies to the swivelled branch). A swivel never completes a flock by itself unless its N birds are already all the same species.
+- The knot is a separate 120×120 hit area at the screen edge; tapping the birds still selects them normally.
+
+### 6.8 Day and night (World 4, from level 33)
+
+- The level has `dayLength` (e.g. 5). A sun/moon dial on the HUD shows moves left until the sky turns. After every `dayLength` moves, day and night swap (sky, lighting and ambient change).
+- **Nocturnal species** (`ink` and the owl `hoot`) are asleep during the day (cannot be selected, block birds behind them, still accept same-species landings) and awake at night. Day species stay awake at night.
+- Undo restores the phase and the counter. Hint and solver include the phase in the state.
+
 ## 7. Chorus (ours)
 
 - A **homecoming move** is a move that sends at least one flock home.
@@ -218,10 +260,10 @@ Four forest worlds × 10 levels = 40 levels for v5 release. All worlds are fores
 
 | World | Levels | Scene kit (branch / bush / limb / birdhouse) | Variants (rotated per level) | Ambient | New mechanic | Booster |
 | --- | --- | --- | --- | --- | --- | --- |
-| W1 Spring Woods | 1–10 | oak branch, round leafy bush, oak limb, wooden house with moss roof | morning, noon, golden hour, light rain | petals, butterflies | mystery egg (L6) | Owl Eye |
-| W2 Bamboo Grove | 11–20 | bamboo cane perches from bamboo clumps, bamboo limb, bamboo house with leaf roof | mist morning, noon, dusk lanterns, drizzle | mist, drifting bamboo leaves | sleepy bird (L11) | Morning Bell |
-| W3 Maple Autumn | 21–30 | maple branch with red leaves, maple bush, limb, red-roof cabin house | crisp morning, noon, sunset, windy | falling maple leaves | crow + twig (L21) | Scarecrow |
-| W4 Snow Pine | 31–40 | snowy pine branch, pine bush, limb with snow, log house with snow cap | snowy morning, noon, blue hour, aurora night (L40) | snowfall, breath puffs | growing branch (L31) | Spring Rain |
+| W1 Spring Woods | 1–10 | oak branch, round leafy bush, oak limb, wooden house with moss roof | morning, noon, golden hour, light rain | petals, butterflies | homecoming gifts (L3), mystery egg (L6) | Owl Eye |
+| W2 Bamboo Grove | 11–20 | bamboo cane perches from bamboo clumps, bamboo limb, bamboo house with leaf roof | mist morning, noon, dusk lanterns, drizzle | mist, drifting bamboo leaves | sleepy bird (L11), mama and chicks (L15) | Morning Bell |
+| W3 Maple Autumn | 21–30 | maple branch with red leaves, maple bush, limb, red-roof cabin house | crisp morning, noon, sunset, windy | falling maple leaves | crow + twig (L21), swivel branch (L24) | Scarecrow |
+| W4 Snow Pine | 31–40 | snowy pine branch, pine bush, limb with snow, log house with snow cap | snowy morning, noon, blue hour, aurora night (L40) | snowfall, breath puffs | growing branch (L31), day and night (L33) | Spring Rain |
 
 Scene rule: each level JSON names `world` and `variant`; two consecutive levels never share a variant; every 10th level uses the world's special variant (light rain, dusk lanterns, sunset, aurora). Branch layout also changes per level (rows, which sides, twigs).
 
@@ -244,14 +286,14 @@ Roles: T = teach (one new thing, short), P = practice, C = challenge, R = rest (
 | Levels | K | Spare branches | Mechanics | Roles |
 | --- | --- | --- | --- | --- |
 | 1–2 | 2 | 1–2 | core | T, T (Firefly at 2) |
-| 3–5 | 3 | 2 | core; L4 teaches Sapling | T, P, P |
+| 3–5 | 3 | 2 | homecoming gifts (L3 T, using berry Encore); L4 teaches Sapling | T, P, P |
 | 6–10 | 3–4 | 2 | eggs (L6 T); L7 Owl Eye | T, P, C, R, C |
-| 11–15 | 4–5 | 2 | sleepy (L11 T); L12 Morning Bell; eggs mixed | T, P, P, R, C |
-| 16–20 | 5 | 2 | sleepy + eggs | P, C, R, C, C |
-| 21–25 | 5–6 | 2 + 1 twig | crow + twig (L21 T); L22 Scarecrow | T, P, P, R, C |
-| 26–30 | 6 | 2 + twig | crow + eggs + sleepy | P, C, R, C, C |
-| 31–35 | 6–7 | 2 growing | growing branch (L31 T); L32 Spring Rain | T, P, P, R, C |
-| 36–40 | 7 | mixed | everything | P, C, R, C, C (L40 finale) |
+| 11–15 | 4–5 | 2 | sleepy (L11 T); L12 Morning Bell; eggs mixed | T, P, P, R, T |
+| 16–20 | 5 | 2 | mama and chicks (L15 T), sleepy + eggs | P, C, R, C, C |
+| 21–25 | 5–6 | 2 + 1 twig | crow + twig (L21 T); L22 Scarecrow; swivel (L24 T) | T, P, P, T, C |
+| 26–30 | 6 | 2 + twig | swivel, crow, eggs, sleepy mixed | P, C, R, C, C |
+| 31–32 | 6 | 2 growing | growing branch (L31 T); L32 Spring Rain | T, P |
+| 33–40 | 6–7 | mixed | day and night (L33 T), then everything | T, P, R, C, P, C, R, C (L40 finale) |
 
 Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 80%; P: 40–80%; C: 5–40% with at least one tempting dead end; R: ≥ 70% and ≤ 10 moves. Neighbouring levels must differ in layout or mechanic.
 
