@@ -9,6 +9,11 @@ if ! "$unity_editor" -batchmode -nographics -quit -projectPath "$repo_root/Perch
     tail -n 80 "$repo_root/build/scene-build.log"
     exit 1
 fi
+if ! "$unity_editor" -batchmode -nographics -quit -projectPath "$repo_root/PerchSort" \
+    -executeMethod V5SceneBuilder.Build -logFile "$repo_root/build/v5-scene-build.log"; then
+    tail -n 80 "$repo_root/build/v5-scene-build.log"
+    exit 1
+fi
 for platform in EditMode PlayMode; do
     if [ "$platform" = EditMode ]; then
         results="$repo_root/build/test-results.xml"

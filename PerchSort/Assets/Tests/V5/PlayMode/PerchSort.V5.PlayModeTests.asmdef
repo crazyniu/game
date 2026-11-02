@@ -1,0 +1,6 @@
+{
+  "name": "PerchSort.V5.PlayModeTests",
+  "references": ["PerchSort.V5.Core", "PerchSort.V5.Game", "Unity.ugui"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}

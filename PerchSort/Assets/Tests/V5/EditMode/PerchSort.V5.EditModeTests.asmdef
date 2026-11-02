@@ -1,0 +1,7 @@
+{
+  "name": "PerchSort.V5.EditModeTests",
+  "references": ["PerchSort.V5.Core", "PerchSort.V5.Game"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}
