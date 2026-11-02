@@ -25,6 +25,7 @@ namespace PerchSort.V5.Game
 
         private Sprite Placeholder(string name)
         {
+            if (name == "limb_top") return LimbPlaceholder();
             const int size = 64;
             Color color = new Color(1f, 0.95f, 0.8f);
             bool circle = name.StartsWith("bird_") || name == "coin" || name.Contains("round");
@@ -50,6 +51,34 @@ namespace PerchSort.V5.Game
             texture.SetPixels32(pixels);
             texture.Apply(false, true);
             var sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100);
+            generated.Add(sprite);
+            generated.Add(texture);
+            return sprite;
+        }
+
+        private Sprite LimbPlaceholder()
+        {
+            const float pixelScale = 4;
+            int width = Mathf.RoundToInt(V5Layout.Limb.width / pixelScale);
+            int height = Mathf.RoundToInt(V5Layout.Limb.height / pixelScale);
+            var pixels = new Color32[width * height];
+            var brown = new Color32(132, 85, 44, 255);
+            Vector2 hookCenter = V5Layout.HookPoint - Vector2.up * 12;
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                {
+                    Vector2 point = new Vector2((x + 0.5f) * pixelScale, V5Layout.Limb.height - (y + 0.5f) * pixelScale);
+                    float radius = (point - hookCenter).sqrMagnitude;
+                    bool bar = point.y >= V5Layout.HookY - 80 && point.y <= V5Layout.HookY - 45;
+                    bool stem = Mathf.Abs(point.x - V5Layout.HookPoint.x) <= 5 &&
+                        point.y >= V5Layout.HookY - 45 && point.y <= hookCenter.y;
+                    bool hook = radius >= 6 * 6 && radius <= 12 * 12;
+                    pixels[y * width + x] = bar || stem || hook ? brown : new Color32(0, 0, 0, 0);
+                }
+            var texture = new Texture2D(width, height, TextureFormat.RGBA32, false) { name = "V5 fallback limb and hook" };
+            texture.SetPixels32(pixels);
+            texture.Apply(false, true);
+            var sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), 100);
             generated.Add(sprite);
             generated.Add(texture);
             return sprite;

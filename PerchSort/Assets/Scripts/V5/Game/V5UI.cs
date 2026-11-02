@@ -1,5 +1,4 @@
 using System;
-using LitMotion;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +8,6 @@ namespace PerchSort.V5.Game
 {
     public static class V5UI
     {
-        public static readonly Vector2 DesignSize = new Vector2(1080, 1920);
         public static readonly Color Ink = new Color32(90, 58, 34, 255);
 
         // All authored points are top-left design coordinates, not screen pixels.
@@ -54,17 +52,18 @@ namespace PerchSort.V5.Game
         }
 
         public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
-            string background, Vector2 point, Vector2 size, Action click)
+            Vector2 point, Action click, bool primary = false)
         {
-            var image = Image(parent, accessibleName, art.Get(background), point, size);
+            Vector2 size = Vector2.one * (primary ? V5Layout.PrimaryButtonSize : V5Layout.SecondaryButtonSize);
+            var image = Image(parent, accessibleName,
+                art.Get(primary ? V5Layout.PrimaryButtonSprite : V5Layout.SecondaryButtonSprite), point, size);
             image.raycastTarget = true;
-            var button = image.gameObject.AddComponent<Button>();
+            var button = image.gameObject.AddComponent<V5Button>();
             button.targetGraphic = image;
-            button.transition = Selectable.Transition.ColorTint;
+            button.transition = Selectable.Transition.None;
             button.navigation = new Navigation { mode = Navigation.Mode.None };
-            Image(image.transform, "Icon", art.Get(icon), size * 0.5f, size * 0.62f);
+            Image(image.transform, "Icon", art.Get(icon), size * 0.5f, size * V5Layout.ButtonIconRatio);
             button.onClick.AddListener(() => click());
-            image.gameObject.AddComponent<V5ButtonFeedback>();
             return button;
         }
 
@@ -77,25 +76,6 @@ namespace PerchSort.V5.Game
         }
     }
 
-    public sealed class V5ButtonFeedback : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
-    {
-        private V5Motion motion;
-        private Button button;
-        private void Awake() { motion = gameObject.AddComponent<V5Motion>(); button = GetComponent<Button>(); }
-        public void OnPointerDown(PointerEventData data)
-        {
-            if (button.IsInteractable()) Animate(0.92f, 0.08f, Ease.Linear);
-        }
-        public void OnPointerUp(PointerEventData data) => Animate(1, 0.18f, Ease.OutBack);
-        public void OnPointerExit(PointerEventData data) => Animate(1, 0.18f, Ease.OutBack);
-        private void Animate(float target, float duration, Ease ease)
-        {
-            motion.CancelAll();
-            Vector3 start = transform.localScale;
-            motion.Play(duration, t => transform.localScale = Vector3.LerpUnclamped(start, Vector3.one * target, t), ease: ease);
-        }
-        private void OnDisable() { if (motion != null) motion.CancelAll(); transform.localScale = Vector3.one; }
-    }
 
     public sealed class V5EmptyClick : MonoBehaviour, IPointerClickHandler
     {
@@ -126,7 +106,7 @@ namespace PerchSort.V5.Game
             designRect.anchoredPosition = Vector2.zero;
             float width = size.x * safe.width / Screen.width;
             float height = size.y * safe.height / Screen.height;
-            designRect.localScale = Vector3.one * Mathf.Min(width / 1080f, height / 1920f);
+            designRect.localScale = Vector3.one * Mathf.Min(width / V5Layout.DesignWidth, height / V5Layout.DesignHeight);
         }
     }
 }

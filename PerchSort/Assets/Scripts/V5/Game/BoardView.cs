@@ -18,8 +18,8 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets)
         {
             root = owner; art = assets;
-            branchLayer = V5UI.Rect(transform, "Branches", V5UI.DesignSize * 0.5f, V5UI.DesignSize);
-            birdLayer = V5UI.Rect(transform, "Birds", V5UI.DesignSize * 0.5f, V5UI.DesignSize);
+            branchLayer = V5UI.Rect(transform, "Branches", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            birdLayer = V5UI.Rect(transform, "Birds", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
         }
 
         public void Rebuild(BoardState state)
@@ -28,20 +28,21 @@ namespace PerchSort.V5.Game
             foreach (var bird in birds.Values) V5UI.Dispose(bird.gameObject);
             foreach (var branch in branches) V5UI.Dispose(branch.gameObject);
             birds.Clear(); branches.Clear();
+            int rowCount = 0;
+            foreach (var branch in state.Branches) rowCount = Mathf.Max(rowCount, branch.Row + 1);
             for (int b = 0; b < state.Branches.Count; b++)
             {
                 var branch = state.Branches[b];
-                float y = 720 + branch.Row * 300 + (branch.IsRight ? 40 : 0);
+                Rect hit = V5Layout.BranchHit(branch.Row, rowCount, branch.IsRight);
                 // Hit areas meet at the center without overlapping, even where the art overlaps.
-                var view = V5UI.Rect(branchLayer, "B" + b, new Vector2(branch.IsRight ? 810 : 270, y - 60),
-                    new Vector2(540, 210)).gameObject.AddComponent<BranchView>();
-                view.Configure(root, art, branch, b);
+                var view = V5UI.Rect(branchLayer, "B" + b, hit.center, hit.size).gameObject.AddComponent<BranchView>();
+                view.Configure(root, art, branch, b, rowCount);
                 branches.Add(view);
                 for (int slot = 0; slot < branch.Birds.Count; slot++)
                 {
                     var bird = branch.Birds[slot];
                     Vector2 point = view.Slot(slot);
-                    var birdView = V5UI.Rect(birdLayer, "Bird " + bird.Id, point, new Vector2(150, 150))
+                    var birdView = V5UI.Rect(birdLayer, "Bird " + bird.Id, point, V5Layout.BirdDisplaySize)
                         .gameObject.AddComponent<BirdView>();
                     birdView.Configure(bird, art, point);
                     birds.Add(bird.Id, birdView);
@@ -103,12 +104,12 @@ namespace PerchSort.V5.Game
                 {
                     var bird = birds[home.BirdIds[i]];
                     float delay = i * 0.1f;
-                    bird.Cheer(() => bird.Fly(HudView.DoorPoint, delay, true, () =>
+                    bird.Cheer(() => bird.Fly(root.Hud.DoorPosition(), delay, true, () =>
                     {
                         root.Hud.HomeArrival();
                         root.PlaySound(Sfx.Collect);
                         if (--remaining == 0) next();
-                    }));
+                    }, root.Hud.DoorPosition));
                 }
             }
 

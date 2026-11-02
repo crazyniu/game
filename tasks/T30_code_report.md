@@ -101,3 +101,49 @@ Changes in `PerchSort/Assets/Editor/V5/V5Capture.cs`:
 Local verification: a temporary C#9 console harness compiled the actual capture source against substituted Unity API seams and passed **16 control-flow assertions**, covering the graphics guard/no output side effects, empty/all-unloaded setups, loaded/mixed setups, motion/render-target cleanup, restoration exceptions, batch success exit and interactive non-exit. This verifies the changed control flow, not real Unity scene restoration, graphics or PNG validity; the harness was not added to the project.
 
 Remaining: coordinator's targeted Mac rerun must confirm graphics-enabled capture exits 0 with the three real images, and `-nographics` fails with the new message before writing images. No existing gameplay code, tests, scenes or art changed in this follow-up.
+
+## T31 — v5.1 layout rework
+
+Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [v5 design section 3](../docs/GAME_DESIGN_V5.md#3-screen-layout-v51-portrait-design-canvas-1080x1920-origin-top-left-y-downward). The coordinator resolved the initial contradictions before implementation: settings/close are 150px, tracker center is y=663, replay/home centers are x=305/775, and the 40px separation rule applies to independent HUD groups, not decorative overlap or nested pill contents.
+
+### Element changes
+
+| Element | Implemented layout/behavior |
+| --- | --- |
+| Shared layout | New `V5Layout` owns the section-3 dimensions, positions, derived bounds, row-pitch rule, button styling values and panel geometry; HUD, board, panels, safe-area scaling and capture dimensions consume it. |
+| Buttons | One `V5Button` presentation: wood 150px for every secondary control, green 200px only for Next; disabled controls retain their sprites at alpha 0.45/scale 0.9 and reject clicks. Re-enabling restores the normal presentation. Removed the old separate feedback component and round-purple settings use. |
+| Coins/settings | Coin pill starts at x=48, y center 130; icon is 64px with 24px padding, and the bounded number area is left-aligned/autosized. Settings is a wood 150px button centered at (957,130). |
+| Limb/house | Load `limb_top` at 1080x320 behind the HUD. Missing art uses a generated transparent brown bar with a hook ending at (540,235), not a claimed production asset. The house is 300x340 with a top-center pivot at that hook and a separate four-second ±2-degree LitMotion sway; house punch and sway do not overwrite each other. |
+| Home flight | Bird home-flight endpoints now follow the current door position while the house sways/punches, instead of the removed static door coordinate. Existing transfer timing/rules remain unchanged. |
+| Flock tracker | One 380x96 pill at (540,663), 40px below the house. It contains a 72px wood level badge/font 44 and one 64px idle icon per initial species, with the specified 28px/40px internal gaps. Unhomed icons use alpha 0.4 plus an outline; homed icons are full color with a small green vector check. Removed the old level pill/loose goal dots. |
+| Board | Row count comes from the current board; pitch is `min(300,800/rowCount)` around y=1160. L1 left-row centers are 1010/1310; right branches retain +40. Add Branch re-centers the three-row board, and Undo restores the two-row layout. Bird sizes, slot pitch, first-slot offset and non-overlapping branch hit regions are retained. |
+| Bottom bar | Three wood 150px controls at x=300/540/780, y=1760: 90px clear gaps, bottom edge 1835. No labels beneath them. |
+| Win panel | 860x900 at (540,1010), scale-in from 0.6; ribbon bottom clears the 150px star row by 40px, stars have 30px gaps at y=870, reward is at y=1060 with a 64px coin/font 56/20px gap. Replay/Next/Home at x=305/540/775 and y=1330 have 60px clear gaps. |
+| Settings panel | 700x520 at (540,1010); sound/restart are wood 150px controls at x=400/680, y=1040. The wood 150px close button is inset 24px at top-right; the closest button gap is 41px. |
+| Lifecycle | Sway uses the existing linked/cancellable LitMotion helper; Undo/Restart reset and restart the ambient sway while canceling transient feedback. Destruction cancels the linked motions. |
+
+### Files changed
+
+- Added `PerchSort/Assets/Scripts/V5/Game/V5Layout.cs` and `V5Button.cs`.
+- Updated `PerchSort/Assets/Scripts/V5/Game/{V5UI,V5Art,V5GameRoot,HudView,BoardView,BranchView,BirdView,WinPanel,SettingsPanel}.cs`.
+- Updated `PerchSort/Assets/Editor/V5/V5Capture.cs` to use the shared canvas dimensions.
+- Added `PerchSort/Assets/Tests/V5/EditMode/V5LayoutTests.cs` and `V5ButtonTests.cs`; added the explicit `Unity.ugui` reference to that test asmdef.
+- Appended this section to `tasks/T30_code_report.md`.
+
+No Core rules, level data, scenes, artwork, package files, scripts or files outside ownership were edited. No commit was made.
+
+### Tests and available verification
+
+Added **12 layout EditMode cases** covering all independent HUD pairs at the reference size, tool safe-area containment, two-row centering/right offsets, one/three/four-row pitch behavior, disjoint hit regions, hook/house/tracker attachment, nested pill/text clearance, and win/settings panel gaps. Added **one button EditMode regression** for disabled appearance/click rejection followed by successful re-enable/click. Existing V5 test sources were unchanged; none asserted old positions, so no old assertions were re-pinned.
+
+A temporary, checksum-verified .NET SDK compiled the actual `V5Layout` and Core sources as C#9 and ran a geometry/session smoke, with lightweight substitutes only for Unity's `Vector2`, `Rect` and `Mathf` arithmetic:
+
+```text
+C#9 syntax: 25 files, zero syntax errors.
+Layout/Core smoke PASS: 84 assertions against actual C#9 source.
+HUD min gap=40; settings min gap=41; win gaps=60; tool bottom=1835; row centers=1010/1310.
+```
+
+The smoke also exercised the authored L1 win, Add Branch's three-row re-centering, and Undo's restored row count. The updated asmdef JSON parsed successfully. A targeted callsite check found no remaining old `V5UI.DesignSize`, static HUD door/coin points, `V5ButtonFeedback`, or round-purple button use; Next is the sole primary-button call.
+
+**Not verified on Linux:** Unity semantic compilation/NUnit execution, real HUD renders at phone/tablet safe areas, typography/art clearance, the limb sprite/rope visual join, four-second sway, moving-door home flights, real pointer/button transitions, or animation cancellation during runtime. The coordinator must run the existing Mac test/capture workflow and inspect start/after-move/win/settings surfaces with production art; static bounds checks are not screenshots or animation proof.
