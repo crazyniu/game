@@ -1,0 +1,72 @@
+{
+  "levels": [
+    {
+      "id": 32,
+      "world": 4,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 4,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "ember"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "ember"
+          ],
+          "kind": "growing",
+          "seats": 3
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "mint"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "egg:snow",
+            "snow"
+          ],
+          "kind": "twig"
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow"
+          ],
+          "kind": "twig"
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": []
+        }
+      ]
+    }
+  ]
+}

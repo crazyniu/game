@@ -3,32 +3,19 @@ using System.Collections.Generic;
 
 namespace PerchSort.V5.Core
 {
-    public abstract class GameEvent { }
-    public sealed class Transferred : GameEvent
+    public readonly struct BoosterResult
     {
-        public int From { get; }
-        public int To { get; }
-        public int TargetStart { get; }
-        public IReadOnlyList<int> BirdIds { get; }
-        public int Count => BirdIds.Count;
-        internal Transferred(int from, int to, int targetStart, int[] ids)
-        { From = from; To = to; TargetStart = targetStart; BirdIds = Array.AsReadOnly(ids); }
+        public bool Applied { get; }
+        public SolveResult Hint { get; }
+        internal BoosterResult(bool applied, SolveResult hint = null) { Applied = applied; Hint = hint; }
     }
-    public sealed class FlockHome : GameEvent
-    {
-        public int Branch { get; }
-        public Species Species { get; }
-        public IReadOnlyList<int> BirdIds { get; }
-        internal FlockHome(int branch, Species species, int[] ids)
-        { Branch = branch; Species = species; BirdIds = Array.AsReadOnly(ids); }
-    }
-    public sealed class Won : GameEvent { }
 
     public sealed class GameSession
     {
         private readonly BoardState initial;
         private readonly Stack<BoardState> history = new Stack<BoardState>();
         private readonly List<GameEvent> events = new List<GameEvent>();
+        private readonly ResolutionBuffer resolution = new ResolutionBuffer();
         public BoardState State { get; private set; }
         public IReadOnlyList<GameEvent> Events { get; }
         public int SelectedBranch { get; private set; } = -1;
@@ -36,102 +23,97 @@ namespace PerchSort.V5.Core
         public int MoveCount => State.Moves;
         public int Stars => StarsFor(MoveCount, Par);
         public bool CanUndo => history.Count > 0;
-        public GameSession(LevelDef level)
+        // Persist these outputs externally; Core owns no global progression or economy state.
+        public SongState Song => State.Song;
+        public BoosterInventory Inventory => State.Inventory;
+
+        public GameSession(LevelDef level, SongState song = default, BoosterInventory inventory = null)
         {
-            initial = level.CreateBoard(); State = initial.Clone(); Par = level.par;
+            if (level == null) throw new ArgumentNullException(nameof(level));
+            initial = level.CreateBoard(song, inventory); State = initial.Clone(); Par = level.par;
             Events = events.AsReadOnly();
         }
         public static int StarsFor(int moves, int par) => moves <= par ? 3 : moves <= par + 3 ? 2 : 1;
         public bool Select(int branch)
         {
             events.Clear();
-            if (State.IsWon || branch == SelectedBranch || branch < 0 || branch >= State.Branches.Count ||
-                State.Branches[branch].Birds.Count == 0)
+            if (State.IsWon || branch == SelectedBranch || (uint)branch >= State.Branches.Count ||
+                State.Branches[branch].RunCount == 0)
             { SelectedBranch = -1; return false; }
             SelectedBranch = branch; return true;
         }
         public void CancelSelection() { SelectedBranch = -1; }
         public bool TryMove(int from, int to)
         {
-            events.Clear(); SelectedBranch = -1;
+            ClearPresentation();
             if (!CanMove(State, from, to)) return false;
             history.Push(State.Clone());
-            ApplyMove(State, from, to, events);
+            GameRules.Transfer(State, from, to, events, resolution);
             return true;
+        }
+        public bool Swivel(int branch)
+        {
+            ClearPresentation();
+            if (!CanSwivel(State, branch)) return false;
+            history.Push(State.Clone());
+            GameRules.Swivel(State, branch, events, resolution);
+            return true;
+        }
+        public bool TryAction(Move move)
+        {
+            switch (move.Kind)
+            {
+                case MoveKind.Transfer: return TryMove(move.From, move.To);
+                case MoveKind.Swivel: return Swivel(move.From);
+                default: ClearPresentation(); return false;
+            }
+        }
+        public BoosterResult UseBooster(BoosterKind kind, int maxStates = 100000, int maxMilliseconds = 3000)
+        {
+            ClearPresentation();
+            if (State.IsWon || State.Inventory[kind] == 0) return new BoosterResult(false);
+            SolveResult hint = null;
+            if (kind == BoosterKind.Firefly)
+            {
+                hint = Solver.Solve(State, maxStates, maxMilliseconds);
+                if (hint.Status != SolveStatus.Solved || hint.Moves.Count == 0) return new BoosterResult(false, hint);
+            }
+            else if (!GameRules.BoosterHasEffect(State, kind)) return new BoosterResult(false);
+            history.Push(State.Clone());
+            GameRules.Booster(State, kind, true, events, resolution);
+            return new BoosterResult(true, hint);
         }
         public bool Undo()
         {
-            events.Clear(); SelectedBranch = -1;
+            ClearPresentation();
             if (history.Count == 0) return false;
             State = history.Pop(); return true;
         }
         public void Restart()
         {
-            State = initial.Clone(); history.Clear(); events.Clear(); SelectedBranch = -1;
+            State = initial.Clone(); history.Clear(); ClearPresentation();
         }
+        // Authorized L1 HUD compatibility until T34: free Sapling effect, shared once-per-level allowance.
         public bool AddBranch()
         {
-            events.Clear(); SelectedBranch = -1;
-            if (State.AddedBranch || State.IsWon) return false;
+            ClearPresentation();
+            if (!GameRules.BoosterHasEffect(State, BoosterKind.Sapling)) return false;
             history.Push(State.Clone());
-            int slot = 0;
-            while (true)
-            {
-                bool occupied = false;
-                foreach (var branch in State.Branches)
-                    if (branch.Row == slot / 2 && branch.IsRight == (slot % 2 == 1)) { occupied = true; break; }
-                if (!occupied) break;
-                slot++;
-            }
-            State.BranchItems.Add(new BranchState(State.Capacity, slot % 2 == 1, slot / 2, Array.Empty<Bird>()));
-            State.AddedBranch = true;
+            GameRules.Booster(State, BoosterKind.Sapling, false, events, resolution);
             return true;
         }
-        public static bool CanMove(BoardState state, int from, int to)
-        {
-            if (state.IsWon || from == to || from < 0 || to < 0 || from >= state.Branches.Count || to >= state.Branches.Count)
-                return false;
-            var source = state.Branches[from]; var target = state.Branches[to];
-            if (source.Birds.Count == 0 || target.FreeSlots == 0) return false;
-            return target.Birds.Count == 0 || source.Birds[source.Birds.Count - 1].Species.Equals(target.Birds[target.Birds.Count - 1].Species);
-        }
+        public static bool CanMove(BoardState state, int from, int to) => GameRules.CanTransfer(state, from, to);
+        public static bool CanSwivel(BoardState state, int branch) => GameRules.CanSwivel(state, branch);
         public static bool HasLegalMove(BoardState state)
         {
             for (int from = 0; from < state.Branches.Count; from++)
+            {
+                if (CanSwivel(state, from)) return true;
                 for (int to = 0; to < state.Branches.Count; to++)
                     if (CanMove(state, from, to)) return true;
+            }
             return false;
         }
-        // Solver and session use the same transition. A null event sink avoids presentation allocations during search.
-        internal static void ApplyMove(BoardState state, int from, int to, List<GameEvent> output)
-        {
-            var source = state.BranchItems[from]; var target = state.BranchItems[to];
-            int count = Math.Min(source.RunCount, target.FreeSlots);
-            int start = source.Items.Count - count;
-            int targetStart = target.Items.Count;
-            int[] ids = output == null ? null : new int[count];
-            for (int i = 0; i < count; i++)
-            {
-                var bird = source.Items[start + i];
-                target.Items.Add(bird);
-                if (ids != null) ids[i] = bird.Id;
-            }
-            source.Items.RemoveRange(start, count); state.Moves++;
-            output?.Add(new Transferred(from, to, targetStart, ids));
-            for (int b = 0; b < state.BranchItems.Count; b++)
-            {
-                var branch = state.BranchItems[b];
-                if (branch.Items.Count != branch.Capacity || branch.RunCount != branch.Capacity) continue;
-                var species = branch.Items[0].Species;
-                if (output != null)
-                {
-                    var homeIds = new int[branch.Items.Count];
-                    for (int i = 0; i < homeIds.Length; i++) homeIds[i] = branch.Items[i].Id;
-                    output.Add(new FlockHome(b, species, homeIds));
-                }
-                branch.Items.Clear(); state.HomeItems.Add(species);
-            }
-            if (state.IsWon) output?.Add(new Won());
-        }
+        private void ClearPresentation() { events.Clear(); SelectedBranch = -1; }
     }
 }

@@ -1,0 +1,65 @@
+{
+  "levels": [
+    {
+      "id": 25,
+      "world": 3,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 4,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "snow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "snow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "cocoa",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [],
+          "kind": "twig"
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "crow"
+          ],
+          "kind": "swivel"
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "sky"
+          ]
+        }
+      ]
+    }
+  ]
+}

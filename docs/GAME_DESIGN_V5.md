@@ -1,6 +1,6 @@
 # Perch Sort v5 — complete game design (owner: Claude)
 
-2026-11-03 (v5.2). The user rejected the v2 runtime and the v4 document set as not fun and visually weak, and assigned all gameplay, UI, bird and animation decisions to Claude ("你来定玩法和 UI", "小鸟这块怎么创新、玩法怎么创新，都由你来定"), with same-genre screenshots as **style direction only**, and asked for innovation rather than copying the genre. This page is the single authority for the v5 runtime and all future v5 tasks. It supersedes `docs/spec/RULES.md` (v4), `docs/UI_SPEC.md`, `docs/MAP_PROGRESSION.md` and the v4 evidence process **for v5**; v2 code and the old docs stay untouched as history.
+2026-11-03 (v5.3). Chinese summary for the user: [GAMEPLAY_V5_CN.md](GAMEPLAY_V5_CN.md) (the English page wins on any conflict). The user rejected the v2 runtime and the v4 document set as not fun and visually weak, and assigned all gameplay, UI, bird and animation decisions to Claude ("你来定玩法和 UI", "小鸟这块怎么创新、玩法怎么创新，都由你来定"), with same-genre screenshots as **style direction only**, and asked for innovation rather than copying the genre. This page is the single authority for the v5 runtime and all future v5 tasks. It supersedes `docs/spec/RULES.md` (v4), `docs/UI_SPEC.md`, `docs/MAP_PROGRESSION.md` and the v4 evidence process **for v5**; v2 code and the old docs stay untouched as history.
 
 Originality: theme, bird characters, names, mechanics marked "ours", palette, layout numbers and text are ours. Do not copy any existing game's characters, logos, text, art, level layouts or exact numbers.
 
@@ -37,12 +37,28 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - **Tap a branch** with a movable tip bird → select it: the run of same-species awake birds at the tip hops up (selected). Tap the same branch or empty space → cancel.
 - **Tap a target branch** → the run flies over if the target has a free seat and is empty or its tip bird is the same species (an awake bird or a sleeping bird of that species; see §6.2). Count = min(run, free seats). Illegal target → the selected birds shake their heads, selection cancels, nothing else changes.
 - **Flock home**: when a branch holds N awake birds of one species (N = the level's flock size, not the branch's current seat count), they cheer, then fly one by one into **their species' birdhouse** at the top. The branch stays and becomes an ordinary empty branch.
-- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) effects of each homecoming in branch index order: the species' homecoming gift (§6.5), then wake-ups (§6.2) and branch growth (§6.4), (4) Chorus update §7, (5) win check.
+- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) effects of each homecoming in branch index order: the species' homecoming gift (§6.5), then wake-ups (§6.2) and branch growth (§6.4), (4) **cascade**: if steps 1–3 changed anything (a hatch, wake, growth or twig upgrade), repeat steps 1–3 over all branches until nothing changes (homecomings from a cascade belong to the same move, so one move can send several flocks home), (5) Chorus update §7, (6) win check. Light step (snow gift) is granted in step 3 and only applies to the next action.
 - **Win**: every species is home. **No lose state**: if no legal move exists, show a gentle "stuck" bubble pointing at Undo and the boosters.
 - **Moves**: each successful transfer = 1 move; a swivel (§6.7) = 1 move. Day/night counts moves (§6.8). Undo (free, unlimited) restores the full previous state including move count, Chorus and booster effects of that move (consumed boosters are refunded on undo of the booster action itself).
 - **Stars**: moves ≤ par → 3 stars; ≤ par+3 → 2; otherwise 1. Using boosters does not reduce stars (calm pillar). Best stars per level are saved.
 - **Coins**: §8.
 - **Restart** and **sound mute** live in the settings panel.
+
+## 1.1 Rule clarifications (binding, from T32 review)
+
+- 0. Yes, the T32 schema supersedes the old §12.
+- 1. Gifts and Chorus are always active engine-wide in every level, including L1 ("from level 3" is a level-design statement). In L1 sunny/sky gifts simply have no target. Keep the existing free AddBranch() as a compatibility wrapper: it performs the Sapling effect WITHOUT consuming inventory (the L1 HUD keeps using it until T34). UseBooster(Sapling) consumes inventory. Both share the one-per-level flag. Booster inventory is a session input (default empty) and output; L1 behaviour/tests unchanged.
+- 2. Initial phase = day. dayLength=0 means no day/night at all: nocturnal species behave as normal birds. With dayLength>0: a counter counts successful transfers and swivels; after the move has fully resolved (including the cascade) and the counter reaches dayLength, the phase toggles, the counter resets to 0, then run the cascade again (newly awake nocturnals may complete flocks; those homecomings belong to the same move). Nocturnal sleep is derived, not a flag: a nocturnal bird is asleep iff (phase==day && moonbeamMovesLeft==0) || it has the authored :sleep flag. Authored :sleep persists at night until woken. Wakes (sunny gift, Morning Bell, same-species landing, adjacent-row song) clear only the authored flag; they cannot make a nocturnal awake during day. Ink gift: toggles phase immediately and resets the counter to 0 (inside step 3; cascade continues). Hoot moonbeam: sets moonbeamMovesLeft=3, counting the next 3 moves, excluding the granting move; decremented after each later move fully resolves; it only overrides nocturnal day-sleep, the displayed phase is unchanged.
+- 3. Each wave: step 2 scans branches in index order, removes ALL currently complete flocks, then step 3 applies their gifts in the same order, then wake/growth effects. Same-species landing wakes are applied in step 3 of the transfer's first wave even when no flock goes home. Every wave rechecks exposed eggs on all branches. Initial exposed eggs / complete flocks are forbidden by the level validator; Core does not auto-resolve on load (they resolve after the first action).
+- 4. Light step: consumed only by the next successful transfer (even if that target was legal anyway); survives swivel, boosters and illegal attempts; still requires a free seat and never lands on an egg tip. Mama pulls only awake chicks; sleeping chicks stay.
+- 5. Chorus: within a homecoming move each homed flock increments chain by 1. A transfer or swivel that homes nothing resets chain to 0 after resolution. Notes per flock: 1 base + 1 bonus if its chain step > 1. Meter overflow carries; every time it reaches 5 it pays out immediately (several payouts possible) and subtracts 5. Berry encore notes are added in step 3 in gift order and can trigger payout immediately. Win coin bonus = 5 x (number of flocks whose chain step > 1), accumulated in the session. Payout is deterministic, no RNG: pool = boosters unlocked at or before the current level id (unlock levels from §8.1, excluding Undo), in fixed order Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain; pick pool[payoutCount mod pool.Count], payoutCount is part of the meter state (session input/output), increments per payout; undo reverts everything.
+- 6. Boosters cost no move and no phase tick and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps and notes). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
+- EggWobbled: yes, add it.
+- (a) Empty payout pool: no payout and nothing subtracted; the meter keeps its notes (it may exceed 5 and is displayed as full). At the first note event in a level whose pool is non-empty, pay out floor(notes/5) times in the usual rotation and keep the remainder.
+- (b) Per homecoming, in branch index order: [that flock's gift, then its adjacent-row song wake, then its growth +1]. Same-species landing wakes of the transfer are applied first in step 3 of the first wave, before any homecoming effects.
+- (c) Approved exactly as you propose: counter increments at move start; resolve all waves; toggle only if the surviving counter reaches dayLength; an ink gift that already flipped and reset to 0 prevents a second scheduled flip in that move.
+- (d) Yes: with dayLength=0 the ink and hoot gifts are no-ops that still emit the Gift event; phase stays Day, counter 0, moonbeam 0.
+- Default variant noon is correct.
 
 ## 2. Level 1 ("First Flight") — implemented in T30
 
@@ -106,7 +122,7 @@ Each species is an original character, distinct by silhouette AND color (must re
 | snow | Flurry | white, lilac wing tips, crown of three lilac dots | shy; quirk: shivers and fluffs up | 14 |
 | ember | Ember | warm orange, flame-shaped three-feather crest | energetic; quirk: flaps wings in place | 19 |
 | ink | Inky | deep navy with a white star spot on the chest | calm; quirk: looks up at the sky, star spot twinkles | 26 |
-| hoot | Hoot | round tawny owl chick with big amber eyes and feather ear tufts (nocturnal) | sleepy by day; quirk: rotates head left-right | 33 |
+| hoot | Hoot | round pale-tawny owl chick, heart-shaped white facial disc, very large amber eyes, tiny star-patterned nightcap, NO ear tufts (nocturnal) | sleepy by day; quirk: rotates head left-right | 33 |
 | crow | Rook (special) | slate-grey crow with a crooked smile and a shiny trinket | trickster; quirk: tosses its trinket | 21 |
 
 ### 4.2 Special bird looks
@@ -299,9 +315,9 @@ Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 8
 
 ## 12. Data and validation
 
-`levels.json` level fields: `id, world, variant, capacity (N), par, branches[] {side, row, kind: normal|twig|growing, seats (current capacity, growing only), birds[] of "species" | "species:sleep" | "egg:species" | "crow"}`. Level 1 stays as in §2 (missing fields default: world 1, variant morning, kind normal).
+`levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. Level 1 stays as in §2 (missing fields default: world 1, variant noon, dayLength 0, kind normal). Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.
 
-A Python tool `tools/levels/v5_levels.py` (run on 251) validates every level: species counts, solvable without boosters by exhaustive search, computes par = shortest solution length, random-play win rate (1000 runs) and dead-state share, and checks the role gate. Core C# has a matching solver used by the Firefly hint and by EditMode tests that re-verify par for every level.
+A Python tool `tools/levels/v5_levels.py` (run on 251) validates every level: counts, solvable without boosters by exhaustive search, par = shortest solution, random-play win rate (1000 runs), dead-state share, the role gate (§11) and the ordering rule (§6.5). Core C# has a matching solver used by the Firefly hint and by EditMode tests that re-verify par for every level.
 
 ## 13. Development roadmap
 
