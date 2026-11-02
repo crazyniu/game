@@ -1,0 +1,11 @@
+{
+  "name": "swivel_knot",
+  "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A round warm oak WOODEN KNOT control, circular cross-section face with growth rings, softly rounded bark edge. A single clearly legible clockwise circular arrow CARVED into the wood, dark brown recessed carving, nearly circular with one triangular arrowhead. Front-facing icon, no text. Match branch wood material.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-2d3e946b-9f33-4021-bb50-f9ed16b4849e.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/swivel_knot.png",
+  "tool": "image_gen.imagegen"
+}

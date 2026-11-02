@@ -1,0 +1,12 @@
+{
+  "name": "egg_idle",
+  "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A single mystery egg: speckled CREAM egg sitting upright in a small shallow warm-brown TWIG NEST. A soft question mark '?' is formed only by a cluster of fine brown speckles on the front of the egg, not a printed glyph or painted badge. Egg is softly rounded, softly lit, no face. Square canvas. Egg spans approximately x=31%..69%, y=18%..81%; nest spans x=15%..85%, y=77%..95.3%. Nest bottom baseline y=95.3%. Warm oak twig material matches reference.  Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png",
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-e4fdf551-5056-418c-a07d-e4ba273c73b4.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/egg_idle.png",
+  "tool": "image_gen.imagegen"
+}

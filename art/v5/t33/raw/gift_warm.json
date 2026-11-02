@@ -1,0 +1,11 @@
+{
+  "name": "gift_warm",
+  "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a single small friendly FLAME with a smaller central white flame cutout. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-14725cfe-afb0-4ec0-bb04-28be140ef5ee.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/gift_warm.png",
+  "tool": "image_gen.imagegen"
+}

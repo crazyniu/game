@@ -1,0 +1,11 @@
+{
+  "name": "bird_crow_fly_down_v2",
+  "prompt": "Use case: precise-object-edit. Repair the attached Rook crow downstroke sprite. It accidentally has an extra small arm/wing holding a trinket on the right side of its chest. REMOVE that entire extra bent arm and restore clean grey chest feathering there. The bird must have EXACTLY TWO WINGS TOTAL, one on each side, both extended outward and DOWN below shoulder. Hold the small silver trinket by its loop in the BEAK instead, hanging just under the beak. Preserve the exact body size, head crest, face, tail, tucked orange feet, canvas and lighting. Do not add any other limbs or hands. Keep feather edges clean, true transparent background, no shadow, no words, no checkerboard. Full body inside square canvas.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t33/raw/bird_crow_fly_down.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-bb275757-00f8-4fae-b24f-60ef54437e29.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_crow_fly_down_v2.png",
+  "tool": "image_gen.imagegen"
+}

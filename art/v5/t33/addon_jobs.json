@@ -1,0 +1,129 @@
+[
+  {
+    "name": "bird_hoot_idle",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A completely original PALE TAWNY/CREAM round owl chick named Hoot. Heart-shaped WHITE facial disc, extremely large glossy AMBER eyes, tiny star-patterned deep blue NIGHTCAP drooping to one side, soft grey-brown speckled wings. NO ear tufts, no horns, no upright head feathers. Round smooth head under the tiny cap; light body must read differently from a dark brown owl. Three-quarter toward viewer, facing RIGHT, orange feet planted, wings at sides. Match Sunny's BODY SCALE and registration: square canvas, torso crown excluding hat around y29%, belly bottom87%, feet bottoms95.3%, torso width46-50%. Whole character safely framed, no ground, single bird.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png",
+      "/home/developer/Projects/game/art/v5/t33/raw/bird_cocoa_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "mama_bow",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A small soft pink fabric BOW accessory ONLY, two rounded fabric loops, central knot, two short tails. Front view, symmetrical, softly padded textile, rosy pink. No bird, no head. For overlay atop a bird's head, clean readable silhouette.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "chick_fluff",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. An isolated tiny pale cream baby-bird downy FEATHER TUFT accessory ONLY: three soft fuzzy curved wisps rising from a compact fluffy base, warm cream with subtle gold highlights. No body, face, bird, or head. Clean little silhouette readable at 32px.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "swivel_knot",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A round warm oak WOODEN KNOT control, circular cross-section face with growth rings, softly rounded bark edge. A single clearly legible clockwise circular arrow CARVED into the wood, dark brown recessed carving, nearly circular with one triangular arrowhead. Front-facing icon, no text. Match branch wood material.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_wake",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a white musical eighth note beside a small rising SUN with short rays. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_breeze",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a single flowing WIND SWIRL with three sweeping curved strokes. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_encore",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: exactly TWO connected musical eighth NOTES, playful upright stems. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_gardener",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a small WATERING CAN tilted gently, with three droplets. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_stare",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a pair of GRUMPY EYES with inward lowered eyebrows, cute determined rather than scary, no full face. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_lightstep",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a single soft curved FEATHER with a clean tapering quill. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_warm",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a single small friendly FLAME with a smaller central white flame cutout. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_night",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a rounded CRESCENT MOON. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "gift_moonbeam",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a small crescent MOON above one broad RAY of moonlight shining down. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "dial_sun",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a simple friendly full SUN disk with short rounded rays, no face. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "dial_moon",
+    "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: a simple crescent MOON with one tiny four-point star tucked nearby, no face. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "night_overlay",
+    "prompt": "Original game full-screen translucent atmospheric OVERLAY ONLY, portrait 9:16. Deep midnight-blue at top softly graduating to transparent smoky blue at bottom, approximate 55 percent opacity overall. Only seven tiny softly glowing pale stars in the uppermost quarter, very sparse. Middle and lower area smooth uninterrupted blue tint; no scene, no tree, no horizon, no landscape, no moon, no text. Transparent alpha background. Intended to composite over an existing forest background, not replace it.",
+    "refs": [],
+    "transparent": true
+  }
+]

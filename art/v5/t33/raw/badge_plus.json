@@ -1,0 +1,11 @@
+{
+  "name": "badge_plus",
+  "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A simple leaf-GREEN circular badge with a thick white circular outline and one bold WHITE PLUS '+' exactly centered. Faint glossy upper-left sheen. One perfect round disc, centered square canvas, transparent outside. Final size 64x64, very simple and readable. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-a40f0af1-80b0-45a2-be40-43daddc0697c.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/badge_plus.png",
+  "tool": "image_gen.imagegen"
+}

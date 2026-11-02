@@ -1,0 +1,3947 @@
+{
+  "expected": 108,
+  "delivered": 108,
+  "missing": [],
+  "failed": [],
+  "preexisting_files_checked": 93,
+  "preexisting_files_changed": [
+    "art/v5/tools/process_t31_limb.py"
+  ],
+  "runtime_validation": "Not run: development machine has no Unity Editor",
+  "files": [
+    {
+      "file": "bird_sunny_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        39,
+        43,
+        217,
+        247
+      ],
+      "solid_bounds": [
+        41,
+        45,
+        215,
+        245
+      ],
+      "partial_alpha_pixels": 7051,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "461193732fef54e90f12da9f439b13042f150a8c9ed6c35c41f02978e3600486",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sunny_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        45,
+        7,
+        214,
+        247
+      ],
+      "solid_bounds": [
+        47,
+        10,
+        211,
+        245
+      ],
+      "partial_alpha_pixels": 5998,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "8dfaaf6b21d3829bd7d2a84f10c636312a0200bda81b03953b91eecd56d258e3",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sunny_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        24,
+        34,
+        232,
+        248
+      ],
+      "solid_bounds": [
+        26,
+        36,
+        230,
+        245
+      ],
+      "partial_alpha_pixels": 17825,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "17a9da832f89903e4fb37f90578cbb42e18c990a7e8e031b39ecc4c3fa7da2d2",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sunny_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        54,
+        39,
+        202,
+        247
+      ],
+      "solid_bounds": [
+        56,
+        41,
+        200,
+        245
+      ],
+      "partial_alpha_pixels": 7732,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "5fcd074352280ea8efe8370c7a1689f41482b7bbfec2c5747b7fb901eb1c7d4b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sky_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        70,
+        19,
+        190,
+        247
+      ],
+      "solid_bounds": [
+        72,
+        21,
+        188,
+        245
+      ],
+      "partial_alpha_pixels": 3958,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "54f9959f9dcb4e3034c313b87403fdac2d5c703fdca2d8a119c15d6a6fb59ffb",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sky_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        73,
+        21,
+        191,
+        247
+      ],
+      "solid_bounds": [
+        75,
+        24,
+        189,
+        245
+      ],
+      "partial_alpha_pixels": 5444,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "003087bf001a56cd5b992aaa6b79878b81e5fe0c39bb4f95b27701387edf6ce2",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sky_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        32,
+        16,
+        224,
+        247
+      ],
+      "solid_bounds": [
+        34,
+        18,
+        222,
+        245
+      ],
+      "partial_alpha_pixels": 5409,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "6a6dcce8a5d073ac21e5417084b7ee41afe54b52f98d40d2425d74b40880adce",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_sky_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        69,
+        30,
+        189,
+        247
+      ],
+      "solid_bounds": [
+        71,
+        33,
+        187,
+        245
+      ],
+      "partial_alpha_pixels": 4748,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "d8a562fef4ba51f7941fcff27ea11e92b146e35c43000b096194f4680370213b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        41,
+        12,
+        201,
+        247
+      ],
+      "solid_bounds": [
+        43,
+        14,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 5306,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "131827e43210b9f61c76c5d15305023a340f7fa626b7ddffe79e40b75f3fb47f",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        41,
+        10,
+        201,
+        247
+      ],
+      "solid_bounds": [
+        43,
+        12,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 3329,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "6a46faa3aabe28e285f0df0a0fc0d9e81c3b300ffe70c6b6471c230ffd32fec7",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        41,
+        11,
+        203,
+        248
+      ],
+      "solid_bounds": [
+        43,
+        14,
+        201,
+        245
+      ],
+      "partial_alpha_pixels": 4087,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "7d00bb8ea2d522392b6d3bc8b0bf8196344f97ecb044bd321d3b6f845cb26afe",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        41,
+        11,
+        208,
+        247
+      ],
+      "solid_bounds": [
+        43,
+        12,
+        205,
+        245
+      ],
+      "partial_alpha_pixels": 5617,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "e3121c08f9f21cee67a165367990978f602e72b656cf22bfa9a4c76237e6ffa5",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        21,
+        11,
+        235,
+        226
+      ],
+      "solid_bounds": [
+        24,
+        14,
+        233,
+        224
+      ],
+      "partial_alpha_pixels": 4729,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 223,
+      "sha256": "af77b99bc7c87534edff59d8ba5c4264062a90a14b231fef6b8f4c90e738c2a7",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_berry_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        13,
+        11,
+        243,
+        246
+      ],
+      "solid_bounds": [
+        15,
+        13,
+        240,
+        243
+      ],
+      "partial_alpha_pixels": 4580,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 242,
+      "sha256": "a8e1d047198368f32d333dec7e4fd97745ee3c0fb3df6ff363a1ef09561313bf",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_berry_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        25,
+        11,
+        231,
+        247
+      ],
+      "solid_bounds": [
+        27,
+        13,
+        229,
+        245
+      ],
+      "partial_alpha_pixels": 6524,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "3674dbc168fbf25466bf9bf2e492135c1d685a6b74600dec7d79ee4c10f59061",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_berry_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        50,
+        14,
+        202,
+        248
+      ],
+      "solid_bounds": [
+        52,
+        16,
+        200,
+        245
+      ],
+      "partial_alpha_pixels": 3647,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "10cc36fb88c4df3a0aa41e40b93088e20a8e5de7dce1391f5cfafff6c28e191b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        15,
+        205,
+        247
+      ],
+      "solid_bounds": [
+        52,
+        16,
+        203,
+        245
+      ],
+      "partial_alpha_pixels": 8836,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "e95cd4fe21ef01a8b5c948ce87a4c003d78a167b5bcd4d2a1cf4cd89421f264d",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        15,
+        206,
+        247
+      ],
+      "solid_bounds": [
+        51,
+        16,
+        203,
+        245
+      ],
+      "partial_alpha_pixels": 2552,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "c725826d95c0c91102ecaa04a0b48d283d26f846a12018b6824c6e73bb51f8b3",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        13,
+        216,
+        247
+      ],
+      "solid_bounds": [
+        51,
+        15,
+        214,
+        245
+      ],
+      "partial_alpha_pixels": 3121,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "eeeb1e3e89d450bd646cebebdd6c168fb9be7f5a87c076eca33370f5bc066ec1",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        14,
+        220,
+        247
+      ],
+      "solid_bounds": [
+        51,
+        17,
+        218,
+        245
+      ],
+      "partial_alpha_pixels": 3224,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "72326eaa4e463dc5978beb5362d1d2ee921133c40dc02fe76eafda5b29f726f7",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        18,
+        16,
+        236,
+        227
+      ],
+      "solid_bounds": [
+        21,
+        16,
+        234,
+        225
+      ],
+      "partial_alpha_pixels": 3903,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 224,
+      "sha256": "8a352cf3b3e785df3ffcc4018fd43511f202d3e1372888ec2ea0ddfb042e3a08",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_mint_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        18,
+        13,
+        237,
+        234
+      ],
+      "solid_bounds": [
+        21,
+        15,
+        235,
+        232
+      ],
+      "partial_alpha_pixels": 3220,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 231,
+      "sha256": "6a4a874a48aa19cd0a4ec7025dbd92180dc249d3bd625e11e0decf058734c3f7",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_mint_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        19,
+        13,
+        240,
+        247
+      ],
+      "solid_bounds": [
+        21,
+        16,
+        237,
+        245
+      ],
+      "partial_alpha_pixels": 4306,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "5dac6785b6347cad435e4654e4a63cd9200b02503c7b23e3245865e6ff613bae",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_mint_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        55,
+        21,
+        203,
+        247
+      ],
+      "solid_bounds": [
+        57,
+        24,
+        201,
+        245
+      ],
+      "partial_alpha_pixels": 2836,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "1c6057c524d17cf268bead8ff7261202fe860479863f229a6b3a7d7ae8e452bd",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        50,
+        48,
+        201,
+        247
+      ],
+      "solid_bounds": [
+        52,
+        51,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 4350,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "9c46a87e0ef9e643b8c7b340a980096d2437f568b59d640dd313630bc8748d28",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        47,
+        201,
+        247
+      ],
+      "solid_bounds": [
+        51,
+        49,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 2335,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "47eac4c566256c4791d98d233dc4ae22be08f41ab5c88c3c788c7a17a3c03f9c",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        50,
+        205,
+        248
+      ],
+      "solid_bounds": [
+        51,
+        51,
+        203,
+        245
+      ],
+      "partial_alpha_pixels": 2769,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "509875a6d73ab6a7768074e2a1dbdd06a32452a0862ccff42a234eecd94cc73a",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        48,
+        43,
+        204,
+        247
+      ],
+      "solid_bounds": [
+        50,
+        44,
+        202,
+        245
+      ],
+      "partial_alpha_pixels": 3063,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "ead6fbaae91da0b8a90bd6338d27979effd83552627695d0fad8aca2b62dacb6",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        18,
+        48,
+        232,
+        227
+      ],
+      "solid_bounds": [
+        20,
+        50,
+        230,
+        224
+      ],
+      "partial_alpha_pixels": 3279,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 223,
+      "sha256": "dd2af836e77a8a4c9039087152aa4ebd3f4e83b04267055ed5273c84eaf57982",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_cocoa_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        15,
+        48,
+        241,
+        238
+      ],
+      "solid_bounds": [
+        17,
+        50,
+        239,
+        236
+      ],
+      "partial_alpha_pixels": 3137,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 235,
+      "sha256": "2154957da98679d1306e14417c0d230cb8a1adef294dfa13f7ad8aa4bb685581",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_cocoa_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        23,
+        47,
+        233,
+        248
+      ],
+      "solid_bounds": [
+        25,
+        49,
+        231,
+        245
+      ],
+      "partial_alpha_pixels": 4217,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "943311150fce4a051b3eb00ee2a51870c5ec660464716aa392f94a285837748d",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_cocoa_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        52,
+        57,
+        200,
+        248
+      ],
+      "solid_bounds": [
+        55,
+        57,
+        198,
+        245
+      ],
+      "partial_alpha_pixels": 2462,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "d696261e5c517d7fcefb1e2f07974d5c0c5753abbb75830121a4890a79f2c41e",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        50,
+        53,
+        203,
+        248
+      ],
+      "solid_bounds": [
+        52,
+        55,
+        200,
+        245
+      ],
+      "partial_alpha_pixels": 5100,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "3e334537499feb866f26ea729a1fe0ed1bf5b8fb1084633fd444f5abab776f2f",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        50,
+        51,
+        203,
+        247
+      ],
+      "solid_bounds": [
+        52,
+        54,
+        201,
+        245
+      ],
+      "partial_alpha_pixels": 2290,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "dfdf0de571936429ad209ed6b2a0d3b14bab865598ff7495ff8e25a59be24eda",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        50,
+        51,
+        202,
+        247
+      ],
+      "solid_bounds": [
+        52,
+        53,
+        200,
+        245
+      ],
+      "partial_alpha_pixels": 4076,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "12972667cb50aaa1357eff63ae6eee719705aa9f4bed286dcc38cb94a43b0b57",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        48,
+        52,
+        203,
+        247
+      ],
+      "solid_bounds": [
+        50,
+        54,
+        201,
+        245
+      ],
+      "partial_alpha_pixels": 3004,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "0d0ad8fe8c39c45dd93d0221c26f410116af6548253c87f6cdc84bb640b1de74",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        2,
+        39,
+        253,
+        229
+      ],
+      "solid_bounds": [
+        5,
+        41,
+        251,
+        227
+      ],
+      "partial_alpha_pixels": 6307,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 226,
+      "sha256": "04e7dc2c14154ec16f66e24a25a02f05421d4a05fb390e7bbcd91a8ff6a0dd27",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_hoot_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        3,
+        52,
+        253,
+        250
+      ],
+      "solid_bounds": [
+        5,
+        55,
+        250,
+        248
+      ],
+      "partial_alpha_pixels": 3712,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 247,
+      "sha256": "7dde0aa408954ca7c789a123db6645dadd0d1d0790a9d7824e3a4ab81ff19898",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_hoot_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        16,
+        52,
+        240,
+        248
+      ],
+      "solid_bounds": [
+        18,
+        55,
+        237,
+        245
+      ],
+      "partial_alpha_pixels": 3869,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "c9186c57ed5280704be6e3840fed156ca00cb3f4d245b72c67f1e33f23381098",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_hoot_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        49,
+        52,
+        204,
+        248
+      ],
+      "solid_bounds": [
+        51,
+        54,
+        202,
+        245
+      ],
+      "partial_alpha_pixels": 2591,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "32c8d05c317709c1234bad7671d1d22e6a327ac301ed637edfc11bd5915048a2",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        51,
+        28,
+        205,
+        247
+      ],
+      "solid_bounds": [
+        54,
+        31,
+        202,
+        245
+      ],
+      "partial_alpha_pixels": 4525,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "cf53c9cd5197a0bf631a0a4d282c35cb72603f29193661c34fe65fa6ee81ef87",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        51,
+        28,
+        205,
+        248
+      ],
+      "solid_bounds": [
+        53,
+        30,
+        203,
+        245
+      ],
+      "partial_alpha_pixels": 2410,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "b5485ba5a0ac2c97098c91df91d2691cf34fd3425d3e5ab288335be1f669aba3",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        62,
+        28,
+        200,
+        247
+      ],
+      "solid_bounds": [
+        64,
+        31,
+        198,
+        245
+      ],
+      "partial_alpha_pixels": 5018,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "09d97aa672256628bf0cb5c83d1539597b4a8da280dd237507de7ca3b4018bd3",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        36,
+        29,
+        222,
+        247
+      ],
+      "solid_bounds": [
+        38,
+        30,
+        220,
+        245
+      ],
+      "partial_alpha_pixels": 7170,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "6e7181f2f05a0210bb66a69351eab708b61330493cb55e8d3153dfa643866770",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        18,
+        28,
+        241,
+        224
+      ],
+      "solid_bounds": [
+        21,
+        31,
+        239,
+        221
+      ],
+      "partial_alpha_pixels": 4391,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 220,
+      "sha256": "7221f2d4c0d28ec2153218dbec2b6333a6dea537f4dc5b43547d052028f225cb",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_snow_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        13,
+        27,
+        245,
+        242
+      ],
+      "solid_bounds": [
+        15,
+        29,
+        243,
+        240
+      ],
+      "partial_alpha_pixels": 3711,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 239,
+      "sha256": "bd9f9e14dc0c3353661c2cd2a6fdc22db7d63a95584c92a1bf66284a8c9b96e0",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_snow_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        19,
+        26,
+        237,
+        247
+      ],
+      "solid_bounds": [
+        21,
+        29,
+        234,
+        245
+      ],
+      "partial_alpha_pixels": 5445,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "e6074823f22f1c32ce87208da1ba0eda0ea90cba0a4e80771b0a542204329e82",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_snow_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        54,
+        38,
+        203,
+        247
+      ],
+      "solid_bounds": [
+        56,
+        40,
+        200,
+        245
+      ],
+      "partial_alpha_pixels": 4437,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "b7e627ddc43ec5e2c277f7c0e9cc1527f6ee45ba6431382ce04eed76ab5d92d0",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        55,
+        17,
+        201,
+        248
+      ],
+      "solid_bounds": [
+        58,
+        19,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 4825,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "40de97297423417fdd7fb6b2d9189c7d833ace29bfeac60b1f7c3d0d54462ba1",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        55,
+        15,
+        202,
+        247
+      ],
+      "solid_bounds": [
+        57,
+        17,
+        199,
+        245
+      ],
+      "partial_alpha_pixels": 2406,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "0481e94ac7458275347287972c20c9248485366775685404f64b648510be296b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        30,
+        16,
+        225,
+        248
+      ],
+      "solid_bounds": [
+        32,
+        18,
+        223,
+        245
+      ],
+      "partial_alpha_pixels": 3524,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "fea98327db5d3534b2e3d92fb64fffa5d0e535395c97a31c0889325513dad0cc",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        14,
+        16,
+        242,
+        248
+      ],
+      "solid_bounds": [
+        17,
+        18,
+        240,
+        245
+      ],
+      "partial_alpha_pixels": 3785,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "a1976656f48ff3e1161e059e97dc8603a081fe986f38029efd1e86a5cfce399f",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        16,
+        16,
+        238,
+        227
+      ],
+      "solid_bounds": [
+        19,
+        18,
+        235,
+        225
+      ],
+      "partial_alpha_pixels": 4703,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 224,
+      "sha256": "7836ae0ebb63f778a5a80d90ca09fae6cd1e3389fa721336146c86b9da5a38da",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_ember_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        10,
+        17,
+        246,
+        246
+      ],
+      "solid_bounds": [
+        12,
+        19,
+        244,
+        243
+      ],
+      "partial_alpha_pixels": 3509,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 242,
+      "sha256": "b67940114dcfa7e0da15273842c7845dbe906534b963fdd8eb500dc3c8d6056d",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_ember_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        24,
+        16,
+        232,
+        247
+      ],
+      "solid_bounds": [
+        26,
+        18,
+        230,
+        245
+      ],
+      "partial_alpha_pixels": 4089,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "7dc155c82948bd77ab8ea8bbd27d35f17d22f5ea0177442a5f91d982e28246ef",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ember_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        58,
+        22,
+        200,
+        248
+      ],
+      "solid_bounds": [
+        60,
+        24,
+        198,
+        245
+      ],
+      "partial_alpha_pixels": 5973,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "faaac8d6c15cc37728c1ab1b60c85065dc7b272639b21574322f76108a9c1c06",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        56,
+        59,
+        199,
+        247
+      ],
+      "solid_bounds": [
+        58,
+        61,
+        197,
+        245
+      ],
+      "partial_alpha_pixels": 4088,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "85d631cbcce481004761ac8473f42cee3a6d434c4e1202bbd5cdcbc55b0d3418",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        55,
+        58,
+        200,
+        248
+      ],
+      "solid_bounds": [
+        58,
+        60,
+        197,
+        245
+      ],
+      "partial_alpha_pixels": 1905,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "08c881c19b535f71fdf588e0f5cbe087c3dd4ebdbe3dbb145977d8c2d91e0b6b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        56,
+        59,
+        200,
+        248
+      ],
+      "solid_bounds": [
+        58,
+        61,
+        198,
+        245
+      ],
+      "partial_alpha_pixels": 2035,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "f76255cce41557636198dd583353a60d72ded750fb42ce888bc8571e28467e9b",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        55,
+        58,
+        200,
+        247
+      ],
+      "solid_bounds": [
+        58,
+        60,
+        198,
+        245
+      ],
+      "partial_alpha_pixels": 2612,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "22b9ec081c0b824610326d524d3a67ea06e04f4f53cc337b8326c81fdb41283c",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        19,
+        55,
+        238,
+        225
+      ],
+      "solid_bounds": [
+        21,
+        58,
+        235,
+        223
+      ],
+      "partial_alpha_pixels": 4134,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 222,
+      "sha256": "57fd02e87db60d8739e5f9f72b29dbb9a2470c8a15454de6f27281232a906979",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_ink_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        9,
+        58,
+        248,
+        240
+      ],
+      "solid_bounds": [
+        11,
+        60,
+        246,
+        238
+      ],
+      "partial_alpha_pixels": 3376,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 237,
+      "sha256": "a41ba7d2eaf565d639083cc2c9b850033ce9518767decca3c28fb9492fd02269",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_ink_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        21,
+        57,
+        235,
+        247
+      ],
+      "solid_bounds": [
+        24,
+        60,
+        232,
+        245
+      ],
+      "partial_alpha_pixels": 3423,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "c044d4ecfff8ad02a65ab4347f0437bf069e4eee12a85fa0d539908dc49bfa34",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_ink_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        59,
+        62,
+        199,
+        248
+      ],
+      "solid_bounds": [
+        61,
+        64,
+        197,
+        245
+      ],
+      "partial_alpha_pixels": 2465,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "ddfb9dce6b66e5c6ad10f27280898fbd525465a1f9156632ec624aa8f6adbd5f",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        30,
+        18,
+        216,
+        247
+      ],
+      "solid_bounds": [
+        32,
+        19,
+        213,
+        245
+      ],
+      "partial_alpha_pixels": 3526,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "cc00e11b86ba3b679840da50f23648b4ccb4cbae798a3cb001f0ba87bc9ebba8",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_blink.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        30,
+        18,
+        216,
+        248
+      ],
+      "solid_bounds": [
+        32,
+        19,
+        214,
+        245
+      ],
+      "partial_alpha_pixels": 2764,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "d3f8335e9af3e55d52b460dd19b1685c1fc572c503fe6b6421099b6a385084f2",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_quirk1.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        28,
+        16,
+        229,
+        247
+      ],
+      "solid_bounds": [
+        31,
+        19,
+        227,
+        245
+      ],
+      "partial_alpha_pixels": 3989,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "a40cfdd67cae439f4bc35527aced15014b4566de2aeee59b5a28af9f295e370a",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_quirk2.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        28,
+        19,
+        211,
+        247
+      ],
+      "solid_bounds": [
+        30,
+        20,
+        209,
+        245
+      ],
+      "partial_alpha_pixels": 3449,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "79c49c28dc95f83a093a4bf57130ed77bf8b01a0cef7509a5e90f1dcbd8c4328",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_fly_up.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        7,
+        19,
+        248,
+        227
+      ],
+      "solid_bounds": [
+        10,
+        20,
+        245,
+        225
+      ],
+      "partial_alpha_pixels": 4361,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 224,
+      "sha256": "2256d4fee3e6731687c473f1f19ff9102a540f3cdfe7599ce3f7fd8a1e162212",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_crow_fly_down.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        9,
+        18,
+        250,
+        253
+      ],
+      "solid_bounds": [
+        11,
+        20,
+        248,
+        251
+      ],
+      "partial_alpha_pixels": 3215,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 250,
+      "sha256": "b99834d5c7cf8718d425fbc516606ef11b6cb9bf988a9146ee3851625903d5fd",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      },
+      "note": "Airborne: feet tucked; idle body registration retained. Solid bottom is wing/feet bound, not a standing baseline."
+    },
+    {
+      "file": "bird_crow_cheer.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        13,
+        16,
+        243,
+        248
+      ],
+      "solid_bounds": [
+        16,
+        19,
+        241,
+        245
+      ],
+      "partial_alpha_pixels": 5063,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "6a9f901863213639752feabeb99c907e2fc5912e1322557edca4228030a16c12",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "bird_crow_sleep.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        34,
+        18,
+        217,
+        247
+      ],
+      "solid_bounds": [
+        37,
+        20,
+        214,
+        245
+      ],
+      "partial_alpha_pixels": 3924,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "6c05a60292a53117504518397da17360cf293e772b291560e4dce4f91e6117ee",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "egg_idle.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        33,
+        44,
+        223,
+        248
+      ],
+      "solid_bounds": [
+        35,
+        46,
+        221,
+        245
+      ],
+      "partial_alpha_pixels": 7268,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "d3370ba67f04cce2cdfd798403351c97e5d53d2c9f77c1ab5d637627061a42d1",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "egg_wobble_l.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        33,
+        45,
+        223,
+        248
+      ],
+      "solid_bounds": [
+        35,
+        48,
+        221,
+        245
+      ],
+      "partial_alpha_pixels": 2352,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "0042f454d9fe6b88adaf6225f32d1a58d2b775e36ba03ad194da570a6b022986",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "egg_wobble_r.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        32,
+        45,
+        223,
+        248
+      ],
+      "solid_bounds": [
+        35,
+        47,
+        221,
+        245
+      ],
+      "partial_alpha_pixels": 2668,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "0f3562ad382dab212b7f3f5f95542bfe9fbf72e44221e8497d8d3648d8fa75c1",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "egg_crack.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        33,
+        43,
+        223,
+        247
+      ],
+      "solid_bounds": [
+        35,
+        45,
+        221,
+        245
+      ],
+      "partial_alpha_pixels": 2397,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "8048c535d045e944fe141d79717ca869619c4128dc3aa7d8d3a2ee7cb0690038",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "egg_shell.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        32,
+        100,
+        223,
+        247
+      ],
+      "solid_bounds": [
+        35,
+        103,
+        221,
+        245
+      ],
+      "partial_alpha_pixels": 3428,
+      "hidden_rgb_zero": true,
+      "solid_bottom_y": 244,
+      "sha256": "4a448e5dc7ddbf522d850de1b077b358f085ed60e58b13a062f4d8823165ec40",
+      "expected_size": [
+        256,
+        256
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true,
+        "standing_baseline": true
+      }
+    },
+    {
+      "file": "zzz.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        21,
+        19,
+        107,
+        109
+      ],
+      "solid_bounds": [
+        24,
+        22,
+        105,
+        106
+      ],
+      "partial_alpha_pixels": 4699,
+      "hidden_rgb_zero": true,
+      "sha256": "a3d8d13702047e163ee6436d1290e5f4143c9bb61b44ab5acd50da7d755cd516",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "twig_left.png",
+      "size": [
+        420,
+        90
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        32,
+        420,
+        80
+      ],
+      "solid_bounds": [
+        0,
+        33,
+        419,
+        79
+      ],
+      "partial_alpha_pixels": 3538,
+      "hidden_rgb_zero": true,
+      "sha256": "5d22230d0e8e27a6e7af804c343bbe1e5f7bb50bb96f766ed7018ea25967eaa5",
+      "expected_size": [
+        420,
+        90
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "roof_band.png",
+      "size": [
+        300,
+        60
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        4,
+        296,
+        56
+      ],
+      "solid_bounds": [
+        4,
+        4,
+        296,
+        56
+      ],
+      "partial_alpha_pixels": 1737,
+      "hidden_rgb_zero": true,
+      "sha256": "68eae177f4f057bfd1500c6e82e8293d161467b150cbb8573a420314e3b7d4e6",
+      "expected_size": [
+        300,
+        60
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_firefly.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        9,
+        188,
+        182
+      ],
+      "solid_bounds": [
+        4,
+        9,
+        188,
+        175
+      ],
+      "partial_alpha_pixels": 4409,
+      "hidden_rgb_zero": true,
+      "sha256": "6c5a278d07d22625dc135a82038a6e464d9de2a526513c6f8b47a0d530a5d9c1",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_sapling.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        8,
+        4,
+        183,
+        188
+      ],
+      "solid_bounds": [
+        8,
+        4,
+        183,
+        188
+      ],
+      "partial_alpha_pixels": 3067,
+      "hidden_rgb_zero": true,
+      "sha256": "46e54442470d93e65ad907786e58c5d6406f23a1c724e19609c7fe4f3de58f22",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_owl_eye.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        11,
+        188,
+        180
+      ],
+      "solid_bounds": [
+        4,
+        11,
+        188,
+        180
+      ],
+      "partial_alpha_pixels": 3745,
+      "hidden_rgb_zero": true,
+      "sha256": "ed1fc04a247a1cfe3cb5b83a236dec5754144343335fe813e0146738367a1c06",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_bell.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        33,
+        4,
+        158,
+        188
+      ],
+      "solid_bounds": [
+        33,
+        4,
+        158,
+        188
+      ],
+      "partial_alpha_pixels": 6587,
+      "hidden_rgb_zero": true,
+      "sha256": "15a7f1b81e4106567969ceeecee8fc84f7b188e505ac55b7eb29a7bfc48daa1b",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_scarecrow.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        21,
+        4,
+        170,
+        188
+      ],
+      "solid_bounds": [
+        21,
+        4,
+        170,
+        188
+      ],
+      "partial_alpha_pixels": 3045,
+      "hidden_rgb_zero": true,
+      "sha256": "88fd67f5d1c15c22a997e5f8c2b9c1de4f741866245ee65e4174a5de6e62e16c",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "icon_rain.png",
+      "size": [
+        192,
+        192
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        31,
+        4,
+        161,
+        188
+      ],
+      "solid_bounds": [
+        31,
+        4,
+        161,
+        188
+      ],
+      "partial_alpha_pixels": 3397,
+      "hidden_rgb_zero": true,
+      "sha256": "453f155e3af6076025741c0e9a05369cc74dba45e38cd1c821dd26cee9f9504a",
+      "expected_size": [
+        192,
+        192
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "badge_count.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        2,
+        2,
+        61,
+        62
+      ],
+      "solid_bounds": [
+        2,
+        2,
+        61,
+        62
+      ],
+      "partial_alpha_pixels": 440,
+      "hidden_rgb_zero": true,
+      "sha256": "40b70512009dae6cdc4eec6290c94dc57cc4fdaeeedcd15f7060b21f03ac6b6f",
+      "expected_size": [
+        64,
+        64
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "badge_plus.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        2,
+        2,
+        61,
+        62
+      ],
+      "solid_bounds": [
+        2,
+        2,
+        61,
+        62
+      ],
+      "partial_alpha_pixels": 428,
+      "hidden_rgb_zero": true,
+      "sha256": "52fb59689bc27a5a73ef0f3ae7a35f6d714c8cea82cbe02eb583dcf57b587042",
+      "expected_size": [
+        64,
+        64
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "bg_w1_morning.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "sha256": "7f8a0a9f70b8b4c015a255d8a1615daea9d5885fb1a3f3ce8df62006d2ffbb54",
+      "expected_size": [
+        1080,
+        1920
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "bg_w1_golden.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "sha256": "5b533702ec5b8d6120e7b90189eae26c581764171851ce39ef67656f5711ac7c",
+      "expected_size": [
+        1080,
+        1920
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "bg_w1_rain.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "sha256": "87012de33bd17079675e7f03de54ec084a90813ea220c8b519a9805a305a1b27",
+      "expected_size": [
+        1080,
+        1920
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "petal.png",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        3,
+        2,
+        61,
+        62
+      ],
+      "solid_bounds": [
+        3,
+        2,
+        61,
+        62
+      ],
+      "partial_alpha_pixels": 871,
+      "hidden_rgb_zero": true,
+      "sha256": "a768ae251b574c7b0651966d94577030ff11193c55125f7f525eff5d7f034704",
+      "expected_size": [
+        64,
+        64
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "raindrop.png",
+      "size": [
+        32,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        8,
+        10,
+        25,
+        51
+      ],
+      "solid_bounds": [
+        10,
+        13,
+        23,
+        49
+      ],
+      "partial_alpha_pixels": 311,
+      "hidden_rgb_zero": true,
+      "sha256": "21761e174a942abbbca7a6d3bb40b1007d7ce65aa1dfd8beb7f4656d773c9f72",
+      "expected_size": [
+        32,
+        64
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "mama_bow.png",
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        2,
+        21,
+        94,
+        75
+      ],
+      "solid_bounds": [
+        2,
+        21,
+        94,
+        75
+      ],
+      "partial_alpha_pixels": 1096,
+      "hidden_rgb_zero": true,
+      "sha256": "42641614391a1b6706b9c530300a8c58ed3a278e8e1eacaf23bf17d22a8a9d40",
+      "expected_size": [
+        96,
+        96
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "chick_fluff.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        7,
+        124,
+        120
+      ],
+      "solid_bounds": [
+        4,
+        7,
+        124,
+        120
+      ],
+      "partial_alpha_pixels": 5839,
+      "hidden_rgb_zero": true,
+      "sha256": "2c1a760b88eb22f89917481f1dcb54296a94cb9e543e065df846e2107c46ca1a",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "swivel_knot.png",
+      "size": [
+        160,
+        160
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        5,
+        4,
+        155,
+        156
+      ],
+      "solid_bounds": [
+        5,
+        4,
+        155,
+        156
+      ],
+      "partial_alpha_pixels": 3315,
+      "hidden_rgb_zero": true,
+      "sha256": "8fb7708f2d196d50e6d64bd93fad1a2ce31b755c0875128c0959c734d58a3547",
+      "expected_size": [
+        160,
+        160
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_wake.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        9,
+        124,
+        119
+      ],
+      "solid_bounds": [
+        4,
+        9,
+        124,
+        119
+      ],
+      "partial_alpha_pixels": 2168,
+      "hidden_rgb_zero": true,
+      "sha256": "7add47c1572750cf383cc1def82a7a7f3916111880ea2e49d363328cb26cbeba",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_breeze.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        12,
+        124,
+        116
+      ],
+      "solid_bounds": [
+        4,
+        12,
+        124,
+        116
+      ],
+      "partial_alpha_pixels": 1995,
+      "hidden_rgb_zero": true,
+      "sha256": "d46509e6ad75493674903349e0b55db1b5486a0688fb54bb738bfd97222a8fbe",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_encore.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        5,
+        4,
+        123,
+        124
+      ],
+      "solid_bounds": [
+        5,
+        4,
+        123,
+        124
+      ],
+      "partial_alpha_pixels": 1936,
+      "hidden_rgb_zero": true,
+      "sha256": "4d336a1caf03844da35bb492b44bdad1e04552887efbe226124a794f9b30f819",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_gardener.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        26,
+        124,
+        101
+      ],
+      "solid_bounds": [
+        4,
+        26,
+        124,
+        101
+      ],
+      "partial_alpha_pixels": 1352,
+      "hidden_rgb_zero": true,
+      "sha256": "725694bc18b4fbd1107bfca92730382982ca7ae3e79c96b684d5ec7c4c02399b",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_stare.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        31,
+        124,
+        96
+      ],
+      "solid_bounds": [
+        4,
+        31,
+        124,
+        96
+      ],
+      "partial_alpha_pixels": 1626,
+      "hidden_rgb_zero": true,
+      "sha256": "02cada44021ef2591720936fb6e68eec58d03a22d09a2e7b9c5fdc74f71428e8",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_lightstep.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        13,
+        4,
+        115,
+        124
+      ],
+      "solid_bounds": [
+        13,
+        4,
+        115,
+        124
+      ],
+      "partial_alpha_pixels": 1089,
+      "hidden_rgb_zero": true,
+      "sha256": "2da3548a25954a2a0803e146cba788c555b56f7f9ed84ab7eb2239aeef573b8b",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_warm.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        16,
+        4,
+        111,
+        124
+      ],
+      "solid_bounds": [
+        16,
+        4,
+        111,
+        124
+      ],
+      "partial_alpha_pixels": 1280,
+      "hidden_rgb_zero": true,
+      "sha256": "cab09b51c678693c807c5672dc12a546f8bf689ee2b9cb14869a1193b4929651",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_night.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        12,
+        4,
+        116,
+        124
+      ],
+      "solid_bounds": [
+        12,
+        4,
+        116,
+        124
+      ],
+      "partial_alpha_pixels": 1393,
+      "hidden_rgb_zero": true,
+      "sha256": "32b81660d727719023d811a6ecfcb8790adc5973260245b5e3dc166c102a7ef9",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "gift_moonbeam.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        28,
+        4,
+        99,
+        124
+      ],
+      "solid_bounds": [
+        28,
+        4,
+        99,
+        124
+      ],
+      "partial_alpha_pixels": 956,
+      "hidden_rgb_zero": true,
+      "sha256": "6e45b8db84827f5d5e30a2195b2e283f0785d1980a8f29b30c3b32106c64c58f",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "dial_sun.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        5,
+        4,
+        122,
+        124
+      ],
+      "solid_bounds": [
+        5,
+        4,
+        122,
+        124
+      ],
+      "partial_alpha_pixels": 2048,
+      "hidden_rgb_zero": true,
+      "sha256": "6816ee89da0bf235f97c39da4b8d9e5a877bd5b0d3002bd57be62f34bf080d94",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "dial_moon.png",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        6,
+        4,
+        121,
+        124
+      ],
+      "solid_bounds": [
+        6,
+        4,
+        121,
+        124
+      ],
+      "partial_alpha_pixels": 1908,
+      "hidden_rgb_zero": true,
+      "sha256": "e6fcf572cfa12ea4d5f957d1ff561698469f4a9dfe17c9ed556b18cdc80d8895",
+      "expected_size": [
+        128,
+        128
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    },
+    {
+      "file": "night_overlay.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 140,
+      "alpha_max": 140,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 2073600,
+      "hidden_rgb_zero": true,
+      "sha256": "246ab1e0219e9812df859142ccf695be3fdd7f6fcea1762289f9aa479406747f",
+      "expected_size": [
+        1080,
+        1920
+      ],
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "alpha": true,
+        "hidden_rgb_zero": true
+      }
+    }
+  ]
+}

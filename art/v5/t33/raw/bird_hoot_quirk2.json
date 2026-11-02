@@ -1,0 +1,11 @@
+{
+  "name": "bird_hoot_quirk2",
+  "prompt": "Use case: identity-preserve. Edit this Hoot reference into one production key frame. Keep exactly the same pale tawny cream round owl, heart-shaped white facial disc, amber eyes, grey-brown speckled wings, tiny star-patterned blue nightcap, NO ear tufts. Preserve the same square canvas, BODY SCALE and torso location, camera, feather texture and warm upper-left lighting. Quirk key pose B: turn the HEAD farther toward RIGHT, inquisitive wide amber eyes, while body and feet remain unchanged. Clearly different head direction from pose A. Retain facial disc and cap. Whole bird safely within canvas, never scale body down to fit wings. Transparent alpha background, single bird, no floor, shadow, border, text or decorations.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t33/raw/bird_hoot_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-ac6e4a94-4f89-4181-bc36-fd8981b76856.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_hoot_quirk2.png",
+  "tool": "image_gen.imagegen"
+}

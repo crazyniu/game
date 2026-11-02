@@ -1,0 +1,11 @@
+{
+  "name": "petal",
+  "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. ONE soft pink blossom PETAL, gently curved teardrop-shaped delicate petal with a small crease, rounded upper edge, warm pink rim and pale center, tiny glossy highlight. A single object for ambient particles, no flower, no stem. Square canvas, final64px. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-9b530a83-440a-4300-8a0f-80f2b47a7266.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/petal.png",
+  "tool": "image_gen.imagegen"
+}
