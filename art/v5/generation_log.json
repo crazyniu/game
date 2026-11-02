@@ -1,0 +1,266 @@
+[
+  {
+    "name": "bg_forest_day",
+    "raw": "raw/bg_forest_day.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-8b9f6ec6-fac2-482b-a6f2-fd9a2099b368.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": false,
+    "reference": null
+  },
+  {
+    "name": "branch_left",
+    "raw": "raw/branch_left.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-8e59169a-67ce-451e-b7c7-08d31ae8676d.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "bush_edge",
+    "raw": "raw/bush_edge.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-4f6d5d10-a8bb-465e-832c-72cfd3a62f5f.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "birdhouse",
+    "raw": "raw/birdhouse.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-dbb9599b-0a4f-4a92-bc30-cb9201ecd0a1.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "bird_sunny_idle",
+    "raw": "raw/bird_sunny_idle.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-d318a2b4-1caf-4f86-885f-871c0f57cd6c.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "bird_sky_idle",
+    "raw": "raw/bird_sky_idle.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-e5ba78d7-9bdb-491b-bccd-31dfd1d0fee3.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "bird_sunny_blink",
+    "raw": "raw/bird_sunny_blink.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-84db5e59-6d16-4b3f-bf41-d90d210dd205.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sunny_idle.png"
+  },
+  {
+    "name": "bird_sunny_fly_up",
+    "raw": "raw/bird_sunny_fly_up.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-e20c05e1-075e-486b-a279-6fc4c4947370.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sunny_idle.png"
+  },
+  {
+    "name": "bird_sunny_fly_down",
+    "raw": "raw/bird_sunny_fly_down.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-b22aa7f9-362e-4a67-9b68-43a385d0d20f.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sunny_idle.png"
+  },
+  {
+    "name": "bird_sky_blink",
+    "raw": "raw/bird_sky_blink.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-296bd639-6b2f-4f65-935a-60fe7caa13a3.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sky_idle.png"
+  },
+  {
+    "name": "bird_sky_fly_up",
+    "raw": "raw/bird_sky_fly_up.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-e5dd7810-b1ae-4609-963c-8847710e4329.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sky_idle.png"
+  },
+  {
+    "name": "bird_sky_fly_down",
+    "raw": "raw/bird_sky_fly_down.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-fbe7b98f-e3be-49e6-b1ae-4ab4d78235bd.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": "raw/bird_sky_idle.png"
+  },
+  {
+    "name": "btn_square_green",
+    "raw": "raw/btn_square_green.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-85c7b907-e31b-4a4b-8df6-155b9f8d8e80.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "btn_square_wood",
+    "raw": "raw/btn_square_wood.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-6cf9c4d0-8dd4-49b8-8716-dd4ceb5638d0.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "btn_round_purple",
+    "raw": "raw/btn_round_purple.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-51716941-0861-4f1d-9fdb-c65e45522689.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_undo",
+    "raw": "raw/icon_undo.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-3729c8e4-b178-4183-8b4d-748411c1b988.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_hint",
+    "raw": "raw/icon_hint.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-1a7f4cba-cc54-475e-a514-eb65b1dc391d.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_add_branch",
+    "raw": "raw/icon_add_branch.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-bbda04c3-2102-4c14-92e2-f0fb98be8894.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_settings",
+    "raw": "raw/icon_settings.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-b499df44-8843-41b0-9e3c-9b416520a73b.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_restart",
+    "raw": "raw/icon_restart.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-44d892e4-b3a9-4241-a154-8e83206bb08d.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_sound_on",
+    "raw": "raw/icon_sound_on.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-8ebe28c9-811f-45a4-8f35-8d989c13b55d.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_sound_off",
+    "raw": "raw/icon_sound_off.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-955d8a56-67d6-47cc-8fcb-c4e7058ede51.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_close",
+    "raw": "raw/icon_close.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-e5f2315d-75ef-46b4-8b13-caec562440f5.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_next",
+    "raw": "raw/icon_next.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-484a438b-9eea-423b-b906-e70da78d0a70.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "icon_home",
+    "raw": "raw/icon_home.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-c9c5d77b-a4c0-4e92-9d74-71036a96c838.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "coin",
+    "raw": "raw/coin.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-c871bfc1-c1d5-4901-8363-14230ebc0954.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "pill_cream",
+    "raw": "raw/pill_cream.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-fa4c7246-95e3-4829-a649-d2d732e91f69.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "panel_win",
+    "raw": "raw/panel_win.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-ea83bde2-bef8-48bc-a9a5-b5aa881b9578.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "ribbon",
+    "raw": "raw/ribbon.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-602d5df7-634c-42a5-9cf9-01f41d3fa7ef.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "star_full",
+    "raw": "raw/star_full.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-271684b8-6b96-41f3-a98b-94dea3abf644.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "star_empty",
+    "raw": "raw/star_empty.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-38b9e0d4-b2f2-4f28-b776-24d7d58f2d60.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "sparkle",
+    "raw": "raw/sparkle.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-358b958a-2021-4a8b-9f53-bba68d1f27d7.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  },
+  {
+    "name": "hand_pointer",
+    "raw": "raw/hand_pointer.png",
+    "generator_output": "/home/developer/.codex/generated_images/01a19ceb-dd70-7af0-ae2d-8ef324d189fc/exec-79b65218-6c66-4ba8-90be-9fca2e34b46b.png",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "reference": null
+  }
+]
