@@ -122,7 +122,7 @@ Each species is an original character, distinct by silhouette AND color (must re
 | snow | Flurry | white, lilac wing tips, crown of three lilac dots | shy; quirk: shivers and fluffs up | 14 |
 | ember | Ember | warm orange, flame-shaped three-feather crest | energetic; quirk: flaps wings in place | 19 |
 | ink | Inky | deep navy with a white star spot on the chest | calm; quirk: looks up at the sky, star spot twinkles | 26 |
-| hoot | Hoot | round tawny owl chick with big amber eyes and feather ear tufts (nocturnal) | sleepy by day; quirk: rotates head left-right | 33 |
+| hoot | Hoot | round pale-tawny owl chick, heart-shaped white facial disc, very large amber eyes, tiny star-patterned nightcap, NO ear tufts (nocturnal) | sleepy by day; quirk: rotates head left-right | 33 |
 | crow | Rook (special) | slate-grey crow with a crooked smile and a shiny trinket | trickster; quirk: tosses its trinket | 21 |
 
 ### 4.2 Special bird looks

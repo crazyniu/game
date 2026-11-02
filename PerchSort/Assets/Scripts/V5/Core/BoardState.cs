@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace PerchSort.V5.Core
 {
     public readonly struct Species : IEquatable<Species>
     {
         public string Id { get; }
+        public bool IsCrow => Id == "crow";
+        public bool IsNocturnal => Id == "ink" || Id == "hoot";
         public Species(string id)
         {
             if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Species needs an id.", nameof(id));
@@ -18,20 +19,74 @@ namespace PerchSort.V5.Core
         public override string ToString() => Id;
     }
 
+    [Flags]
+    public enum BirdFlags { None = 0, Egg = 1, Asleep = 2, Mama = 4, Chick = 8, RevealedEgg = 16 }
+    public enum BranchKind { Normal, Twig, Growing, Swivel }
+    public enum DayPhase { Day, Night }
+    public enum BoosterKind { Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain }
+
     public readonly struct Bird
     {
         public int Id { get; }
         public Species Species { get; }
-        public Bird(int id, Species species) { Id = id; Species = species; }
+        public BirdFlags Flags { get; }
+        public bool IsEgg => (Flags & BirdFlags.Egg) != 0;
+        // Authored sleep only; use BoardState.IsAsleep for effective day/night sleep.
+        public bool IsAsleep => (Flags & BirdFlags.Asleep) != 0;
+        public bool IsMama => (Flags & BirdFlags.Mama) != 0;
+        public bool IsChick => (Flags & BirdFlags.Chick) != 0;
+        public bool IsRevealedEgg => (Flags & BirdFlags.RevealedEgg) != 0;
+        public Bird(int id, Species species, BirdFlags flags = BirdFlags.None)
+        { Id = id; Species = species; Flags = flags; }
+        internal Bird WithFlags(BirdFlags flags) => new Bird(Id, Species, flags);
+    }
+
+    public readonly struct SongState
+    {
+        public int Notes { get; }
+        public int PayoutCount { get; }
+        public SongState(int notes, int payoutCount = 0)
+        {
+            if (notes < 0 || payoutCount < 0) throw new ArgumentOutOfRangeException(nameof(notes));
+            Notes = notes; PayoutCount = payoutCount;
+        }
+    }
+
+    public sealed class BoosterInventory
+    {
+        internal const int KindCount = 6;
+        private readonly int[] counts;
+        public int this[BoosterKind kind] => counts[Index(kind)];
+        public BoosterInventory(IReadOnlyDictionary<BoosterKind, int> values = null)
+        {
+            counts = new int[KindCount];
+            if (values == null) return;
+            foreach (var pair in values)
+            {
+                if (pair.Value < 0) throw new ArgumentOutOfRangeException(nameof(values));
+                counts[Index(pair.Key)] = pair.Value;
+            }
+        }
+        private BoosterInventory(int[] values) { counts = (int[])values.Clone(); }
+        private static int Index(BoosterKind kind)
+        {
+            if ((uint)kind >= KindCount) throw new ArgumentOutOfRangeException(nameof(kind));
+            return (int)kind;
+        }
+        internal void Add(BoosterKind kind, int count) { counts[Index(kind)] += count; }
+        public BoosterInventory Clone() => new BoosterInventory(counts);
     }
 
     public sealed class BranchState
     {
         internal readonly List<Bird> Items;
+        // The owner supplies derived sleep without duplicating phase state on every branch.
+        internal BoardState Owner;
         public IReadOnlyList<Bird> Birds { get; }
         public bool IsRight { get; }
         public int Row { get; }
-        public int Capacity { get; }
+        public BranchKind Kind { get; internal set; }
+        public int Capacity { get; internal set; }
         public int FreeSlots => Capacity - Items.Count;
         public int RunCount
         {
@@ -39,18 +94,26 @@ namespace PerchSort.V5.Core
             {
                 int count = Items.Count;
                 if (count == 0) return 0;
+                var tip = Items[count - 1];
+                if (tip.IsEgg || Owner.IsAsleep(tip)) return 0;
                 int start = count - 1;
-                while (start > 0 && Items[start - 1].Species.Equals(Items[count - 1].Species)) start--;
+                while (start > 0)
+                {
+                    var bird = Items[start - 1];
+                    if (bird.IsEgg || Owner.IsAsleep(bird) || !bird.Species.Equals(tip.Species)) break;
+                    start--;
+                }
                 return count - start;
             }
         }
-        internal BranchState(int capacity, bool right, int row, IEnumerable<Bird> birds)
+        internal BranchState(int capacity, bool right, int row, IEnumerable<Bird> birds, BranchKind kind = BranchKind.Normal)
         {
-            Capacity = capacity; IsRight = right; Row = row;
-            Items = new List<Bird>(birds);
+            Capacity = capacity; IsRight = right; Row = row; Kind = kind;
+            Items = new List<Bird>(capacity);
+            Items.AddRange(birds);
             Birds = Items.AsReadOnly();
         }
-        internal BranchState Clone() => new BranchState(Capacity, IsRight, Row, Items);
+        internal BranchState Clone() => new BranchState(Capacity, IsRight, Row, Items, Kind);
     }
 
     public sealed class BoardState
@@ -59,73 +122,49 @@ namespace PerchSort.V5.Core
         internal readonly List<Species> HomeItems;
         public IReadOnlyList<BranchState> Branches { get; }
         public IReadOnlyList<Species> HomedSpecies { get; }
+        public int LevelId { get; }
+        public int World { get; }
+        public string Variant { get; }
         public int SpeciesCount { get; }
         public int Capacity { get; }
+        public int DayLength { get; }
         public int Moves { get; internal set; }
         public bool AddedBranch { get; internal set; }
+        public bool LightStep { get; internal set; }
+        public DayPhase Phase { get; internal set; }
+        public int PhaseCounter { get; internal set; }
+        public int MoonbeamMovesLeft { get; internal set; }
+        public int Chain { get; internal set; }
+        public int ChorusCoins { get; internal set; }
+        public int SongNotes { get; internal set; }
+        public int PayoutCount { get; internal set; }
+        public SongState Song => new SongState(SongNotes, PayoutCount);
+        public BoosterInventory Inventory { get; internal set; }
         public bool IsWon => HomeItems.Count == SpeciesCount;
-        internal BoardState(int capacity, int speciesCount, List<BranchState> branches)
+        public bool NocturnalDaySleep => DayLength > 0 && Phase == DayPhase.Day && MoonbeamMovesLeft == 0;
+        public bool IsAsleep(Bird bird) => !bird.IsEgg && (bird.IsAsleep || (bird.Species.IsNocturnal && NocturnalDaySleep));
+        internal BoardState(int levelId, int world, string variant, int capacity, int speciesCount,
+            int dayLength, List<BranchState> branches, BoosterInventory inventory = null)
         {
-            Capacity = capacity; SpeciesCount = speciesCount; BranchItems = branches;
-            HomeItems = new List<Species>();
+            LevelId = levelId; World = world; Variant = variant; Capacity = capacity;
+            SpeciesCount = speciesCount; DayLength = dayLength; BranchItems = branches;
+            HomeItems = new List<Species>(speciesCount);
             Branches = BranchItems.AsReadOnly(); HomedSpecies = HomeItems.AsReadOnly();
+            Inventory = inventory ?? new BoosterInventory();
+            foreach (var branch in branches) branch.Owner = this;
         }
         public BoardState Clone()
         {
-            var branches = new List<BranchState>(BranchItems.Count);
+            var branches = new List<BranchState>(BranchItems.Count + 1);
             foreach (var branch in BranchItems) branches.Add(branch.Clone());
-            var copy = new BoardState(Capacity, SpeciesCount, branches) { Moves = Moves, AddedBranch = AddedBranch };
+            var copy = new BoardState(LevelId, World, Variant, Capacity, SpeciesCount, DayLength, branches, Inventory.Clone())
+            {
+                Moves = Moves, AddedBranch = AddedBranch, LightStep = LightStep, Phase = Phase,
+                PhaseCounter = PhaseCounter, MoonbeamMovesLeft = MoonbeamMovesLeft,
+                Chain = Chain, ChorusCoins = ChorusCoins, SongNotes = SongNotes, PayoutCount = PayoutCount
+            };
             copy.HomeItems.AddRange(HomeItems);
             return copy;
         }
-    }
-
-    [Serializable]
-    public sealed class LevelCatalog { public LevelDef[] levels; }
-
-    // Field DTOs are deserialized by the Unity layer; Core has no engine dependency.
-    [Serializable]
-    public sealed class LevelDef
-    {
-        public int id;
-        public int capacity;
-        public int par;
-        public BranchDef[] branches;
-        public BoardState CreateBoard()
-        {
-            if (id < 1 || capacity < 1 || par < 0 || branches == null || branches.Length == 0)
-                throw new ArgumentException("Invalid level header.");
-            var counts = new Dictionary<Species, int>();
-            var slots = new HashSet<string>(StringComparer.Ordinal);
-            var result = new List<BranchState>(branches.Length + 1);
-            int nextId = 0;
-            foreach (var branch in branches)
-            {
-                if (branch == null || (branch.side != "L" && branch.side != "R") || branch.row < 0 ||
-                    branch.birds == null || branch.birds.Length > capacity || !slots.Add(branch.side + branch.row))
-                    throw new ArgumentException("Invalid branch definition.");
-                var birds = new List<Bird>(branch.birds.Length);
-                foreach (string id in branch.birds)
-                {
-                    var species = new Species(id);
-                    counts.TryGetValue(species, out int count);
-                    counts[species] = count + 1;
-                    birds.Add(new Bird(nextId++, species));
-                }
-                result.Add(new BranchState(capacity, branch.side == "R", branch.row, birds));
-            }
-            if (counts.Count == 0) throw new ArgumentException("A level needs birds.");
-            foreach (int count in counts.Values)
-                if (count != capacity) throw new ArgumentException("Each species must have exactly capacity birds.");
-            return new BoardState(capacity, counts.Count, result);
-        }
-    }
-
-    [Serializable]
-    public sealed class BranchDef
-    {
-        public string side;
-        public int row;
-        public string[] birds;
     }
 }
