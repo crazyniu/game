@@ -5,6 +5,7 @@ using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public static class V5Capture
@@ -13,6 +14,8 @@ public static class V5Capture
     public static void Run()
     {
         if (EditorApplication.isPlaying) throw new InvalidOperationException("V5Capture.Run is an edit-mode capture.");
+        if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
+            throw new InvalidOperationException("V5Capture.Run requires a graphics device; remove -nographics and run with graphics available. No captures were written.");
         if (!File.Exists(V5SceneBuilder.ScenePath)) throw new FileNotFoundException("Run V5SceneBuilder.Build before capture.");
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         var previousScenes = EditorSceneManager.GetSceneManagerSetup();
@@ -45,12 +48,17 @@ public static class V5Capture
         }
         finally
         {
-            if (camera != null) camera.targetTexture = null;
-            RenderTexture.active = previousActive;
-            if (target != null) { target.Release(); UnityEngine.Object.DestroyImmediate(target); }
-            EditorSceneManager.RestoreSceneManagerSetup(previousScenes);
-            V5Motion.Instant = previousInstant;
+            try
+            {
+                if (camera != null) camera.targetTexture = null;
+                RenderTexture.active = previousActive;
+                if (target != null) { target.Release(); UnityEngine.Object.DestroyImmediate(target); }
+                if (Array.Exists(previousScenes, scene => scene.isLoaded))
+                    EditorSceneManager.RestoreSceneManagerSetup(previousScenes);
+            }
+            finally { V5Motion.Instant = previousInstant; }
         }
+        if (Application.isBatchMode) EditorApplication.Exit(0);
     }
 
     private static void Capture(V5GameRoot root, RenderTexture target, string path)

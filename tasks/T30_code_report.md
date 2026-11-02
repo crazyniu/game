@@ -86,3 +86,18 @@ Permanent test cases written: **16 EditMode cases** and **3 PlayMode cases**. Pl
 5. Verify real audio playback/mute, first-play-only tutorial, replay/relaunch persistence and scene transitions back to v2. These rely on Unity runtime and were not simulated with fake Unity APIs.
 
 No claim is made that the slice has passed visual acceptance or Unity semantic compilation. The delivered builders/tests/capture path are ready for the coordinator's Mac verification and compile-error feedback.
+
+## Capture cleanup follow-up
+
+Coordinator-provided Mac results supersede the earlier compilation/test uncertainty: Unity compilation passed, EditMode **179/179**, PlayMode **17 passed / 8 skipped**. Graphics-enabled `V5Capture.Run` produced three distinct real PNGs, but cleanup threw `Invalid SceneManagerSetup: No loaded scene found`; `-nographics` instead produced blank identical PNGs. These reported results were accepted without rerunning the failing baseline.
+
+Changes in `PerchSort/Assets/Editor/V5/V5Capture.cs`:
+
+- Reject `SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null` before opening scenes or writing output, with an explicit instruction to remove `-nographics`.
+- Restore the saved scene setup only if at least one saved scene is loaded.
+- Reset `V5Motion.Instant` in an inner `finally`, even if scene restoration fails.
+- Call `EditorApplication.Exit(0)` only after successful capture and cleanup in batch mode; interactive captures do not close the editor, and failure paths never request a success exit.
+
+Local verification: a temporary C#9 console harness compiled the actual capture source against substituted Unity API seams and passed **16 control-flow assertions**, covering the graphics guard/no output side effects, empty/all-unloaded setups, loaded/mixed setups, motion/render-target cleanup, restoration exceptions, batch success exit and interactive non-exit. This verifies the changed control flow, not real Unity scene restoration, graphics or PNG validity; the harness was not added to the project.
+
+Remaining: coordinator's targeted Mac rerun must confirm graphics-enabled capture exits 0 with the three real images, and `-nographics` fails with the new message before writing images. No existing gameplay code, tests, scenes or art changed in this follow-up.
