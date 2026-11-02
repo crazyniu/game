@@ -321,6 +321,8 @@ Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 8
 - (4) "Layout" = branch geometry (branch count, sides/rows, kinds). Neighbours must differ in branch geometry OR in mechanic set; bird arrangement alone does not count. The alternating sequence may start on L or R.
 - (5) Yes, use a reachable decision witness: from the start state or a state on an optimal line, two different next-homecoming species choices that are both reachable, where one leads to a strictly worse proven minimum or to a proven dead end. The same witness format is fine for C's tempting dead end; "tempting" = the losing line is reachable within <=3 moves of the start by legal moves, ideally through a homecoming move.
 - (6) Exact closure preferred. When it exceeds the budget, report a clearly labelled bound for dead-state share; acceptance needs par and the decision witness proven, plus the random-play win rate inside the role gate. Memory guard: cap the search at 4 GiB and report Unknown beyond it.
+- (A) Count follow-on appearances within the same world after the debut, not per §11 row: each mechanic needs at least 2 levels besides its teach level, between its teach level and the end of its world (mama: L16-20; swivel: L25-30; growth: L32-40; the rest as before). Older mechanics may also appear in later worlds.
+- (B) Use the explicit reveal-count proxy, labelled as such: the number of still-covered egg identities exposed by Owl Eye at the best moment. No information-state proof is required. Owl Eye levels need proxy >= 2.
 
 
 ## 12. Data and validation
