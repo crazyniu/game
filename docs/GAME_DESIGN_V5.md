@@ -313,6 +313,16 @@ Roles: T = teach (one new thing, short), P = practice, C = challenge, R = rest (
 
 Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 80%; P: 40–80%; C: 5–40% with at least one tempting dead end; R: ≥ 70% and ≤ 10 moves. Neighbouring levels must differ in layout or mechanic.
 
+### 11.1 Level authoring rules (binding, from T35 review)
+
+- (1) Yes: booster-introduction levels keep their own role gate (L4/7/12/22/32 are P with 40-80%); the <=6 moves / >=80% teach gate applies only to T levels. A booster intro level shows an optional, clearly useful booster opportunity while keeping a proven no-booster solution. Have the tool report the booster value: par with that one booster used at the best moment vs par without (for Owl Eye: the number of egg-dependent guesses avoided). Require booster value >= 2 moves for Sapling/Bell/Scarecrow/Rain levels.
+- (2) Mechanics are allowed mixes after their debut, not mandatory on every level. Within each §11 range, every listed mechanic must appear in at least 2 levels besides its teach level. Species: first appearance exactly on the listed debut level (the debut level must contain it), never earlier.
+- (3) Canonical variant ids: world 1: morning, noon, golden, rain. World 2: mist, noon, lanterns, drizzle. World 3: morning, noon, sunset, windy. World 4: morning, noon, bluehour, aurora. Specials (rain, lanterns, sunset, aurora) are used ONLY on levels 10, 20, 30, 40; the other levels rotate the remaining three with no two consecutive equal. L1 = noon.
+- (4) "Layout" = branch geometry (branch count, sides/rows, kinds). Neighbours must differ in branch geometry OR in mechanic set; bird arrangement alone does not count. The alternating sequence may start on L or R.
+- (5) Yes, use a reachable decision witness: from the start state or a state on an optimal line, two different next-homecoming species choices that are both reachable, where one leads to a strictly worse proven minimum or to a proven dead end. The same witness format is fine for C's tempting dead end; "tempting" = the losing line is reachable within <=3 moves of the start by legal moves, ideally through a homecoming move.
+- (6) Exact closure preferred. When it exceeds the budget, report a clearly labelled bound for dead-state share; acceptance needs par and the decision witness proven, plus the random-play win rate inside the role gate. Memory guard: cap the search at 4 GiB and report Unknown beyond it.
+
+
 ## 12. Data and validation
 
 `levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. Level 1 stays as in §2 (missing fields default: world 1, variant noon, dayLength 0, kind normal). Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.
