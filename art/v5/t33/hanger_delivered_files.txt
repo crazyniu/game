@@ -1,0 +1,2 @@
+PerchSort/Assets/Resources/V5/Art/limb_top_plain.png
+PerchSort/Assets/Resources/V5/Art/rope_segment.png

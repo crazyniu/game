@@ -24,16 +24,11 @@ namespace PerchSort.V5.Game
 
         public const float LimbHeight = 320;
         public static readonly Rect Limb = new Rect(0, 0, DesignWidth, LimbHeight);
-        public const float HookY = 235;
-        public static readonly Vector2 HookPoint = new Vector2(CenterX, HookY);
+        public const float HookY = 245;
         public const float HouseWidth = 300;
         public const float HouseHeight = 340;
-        public const float HouseCenterY = HookY + HouseHeight / 2;
-        public const float HouseBottom = HookY + HouseHeight;
         public const float HouseSwayDegrees = 2;
         public const float HouseSwaySeconds = 4;
-        public const float HouseDoorFromHook = 195;
-        public static readonly Rect House = Centered(new Vector2(CenterX, HouseCenterY), new Vector2(HouseWidth, HouseHeight));
 
         public const float CoinPillLeft = 48;
         public const float TopHudY = 130;
@@ -57,12 +52,12 @@ namespace PerchSort.V5.Game
         // Beside the coin pill: 42px clearance; 212px clear of Settings.
         public static readonly Rect SongPill = new Rect(350, 85, 320, 90);
         public static readonly Vector2 LightStepPoint = new Vector2(985, 1595);
-        public static float SpeciesHouseWidth(int count) => Mathf.Min(300, (840f - (count - 1) * 20) / count);
+        public static float SpeciesHouseWidth(int count) => Mathf.Min(HouseWidth, (840f - (count - 1) * 20) / count);
         public static Rect SpeciesHouse(int index, int count)
         {
             float width = SpeciesHouseWidth(count);
             float total = count * width + (count - 1) * 20;
-            return new Rect(210 + (840 - total) * 0.5f + index * (width + 20), 245, width, width * 340 / 300);
+            return new Rect(210 + (840 - total) * 0.5f + index * (width + 20), HookY, width, width * HouseHeight / HouseWidth);
         }
         public static Rect GiftSign(int index, int count)
         {
@@ -70,6 +65,13 @@ namespace PerchSort.V5.Game
             float size = Mathf.Min(64, house.width * 0.7f);
             return Centered(new Vector2(house.center.x, house.yMax + 40 + size * 0.5f), Vector2.one * size);
         }
+        public static float RopeStart(float x)
+        {
+            // Start inside the curved timber; its alpha silhouette masks the rope's upper end.
+            float offset = x / CenterX - 1;
+            return 150 - 90 * offset * offset;
+        }
+
 
         public const float BoardTop = 760;
         public const float BoardBottom = 1560;
@@ -79,7 +81,6 @@ namespace PerchSort.V5.Game
         public const float RightRowOffset = 40;
         public const float BranchWidth = 600;
         public const float BranchHeight = 112.5f;
-        public const float RightBranchLeft = DesignWidth - BranchWidth;
         public const float BirdSize = 150;
         public const float BirdSlotPitch = 120;
         public const float FirstBirdSlot = 110;
@@ -89,11 +90,8 @@ namespace PerchSort.V5.Game
         public const float BranchHitWidth = DesignWidth / 2;
         public static readonly Vector2 BirdDisplaySize = Vector2.one * BirdSize;
         public static readonly Vector2 BranchDisplaySize = new Vector2(BranchWidth, BranchHeight);
-        public static readonly Vector2 BranchHitSize = new Vector2(BranchHitWidth, BranchHitHeight);
         public static readonly Vector2 BushSize = new Vector2(240, 200);
-        public static readonly Vector2 BranchHintSize = new Vector2(480, 18);
         public const float BushAboveBranch = 15;
-        public const float BranchHintBelowBranch = 17;
         public static float RowPitch(int rowCount) => Mathf.Min(MaximumRowPitch, BoardHeight / Mathf.Max(1, rowCount));
         public static float BirdScale(int rowCount) => Mathf.Clamp(RowPitch(rowCount) / 220, 0.72f, 1);
         public static float RowY(int row, int rowCount, bool right = false) => BoardCenterY +
@@ -116,9 +114,6 @@ namespace PerchSort.V5.Game
         public const int ToolCount = 4;
         public static Rect ToolButton(int index) => Centered(new Vector2(ToolFirstX + index * ToolPitch, ToolY), Vector2.one * SecondaryButtonSize);
         public static readonly Rect StuckBubble = Centered(new Vector2(CenterX, 1595), new Vector2(740, 100));
-        public const float StuckFontSize = 36;
-        public const float StuckTextPadding = 20;
-        public const float StuckPointerSize = 60;
 
         public const float PanelCenterY = 1010;
         public const float PanelDimAlpha = 0.6f;

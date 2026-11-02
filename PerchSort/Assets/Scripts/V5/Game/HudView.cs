@@ -16,7 +16,7 @@ namespace PerchSort.V5.Game
         private Image phaseIcon;
         private GameObject phaseGroup, feather, stuck, chorus;
         private V5Motion motion;
-        private RectTransform housesLayer, effects;
+        private RectTransform housesLayer, ropesLayer, effects;
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Image[] notes = new Image[5];
         private readonly Button[] tools = new Button[4];
@@ -25,22 +25,24 @@ namespace PerchSort.V5.Game
         private readonly BoosterKind[] kinds = new BoosterKind[4];
         private readonly int[] inventory = new int[V5ViewModel.BoosterCount];
         private Button settings;
+        private bool contextMechanic;
         private TextMeshProUGUI levelNumber;
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public int DisplayedSong { get; private set; }
+        public BoosterKind ContextBooster => kinds[3];
 
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
         {
             root = owner; art = assets; font = typeface;
             motion = gameObject.AddComponent<V5Motion>();
-            V5UI.Image(transform, "Top limb", art.Get("limb_top"), V5Layout.Limb.center, V5Layout.Limb.size);
+            art.Rope(transform, "Level sign rope", V5Layout.LevelSign.center.x, V5Layout.RopeStart(V5Layout.LevelSign.center.x), V5Layout.LevelSign.yMin);
+            ropesLayer = V5UI.Rect(transform, "House ropes", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            V5UI.Image(transform, "Top limb", art.OptionalRopeArt("limb_top_plain") ?? art.Get("limb_top"), V5Layout.Limb.center, V5Layout.Limb.size);
             V5UI.Image(transform, "Coin pill", art.Get("pill_cream"), V5Layout.CoinPill.center, V5Layout.CoinPill.size);
             V5UI.Image(transform, "Coin", art.Get("coin"), V5Layout.CoinIcon.center, V5Layout.CoinIcon.size);
             coins = V5UI.Text(transform, "Coins", "0", font, V5Layout.CoinNumber.center, V5Layout.CoinNumber.size, 46);
             coins.alignment = TextAlignmentOptions.MidlineLeft; coins.enableAutoSizing = true; coins.fontSizeMin = 20; coins.fontSizeMax = 46;
             settings = V5UI.Button(transform, art, "Settings", "icon_settings", V5Layout.SettingsButton.center, root.OpenSettings);
-            var signRope = V5UI.Image(transform, "Level sign rope", null, new Vector2(V5Layout.LevelSign.center.x, 222), new Vector2(5, 46));
-            signRope.color = new Color32(151, 100, 44, 255);
             var sign = V5UI.Image(transform, "Level sign (hold for picker)", art.Get("btn_square_wood"), V5Layout.LevelSign.center, V5Layout.LevelSign.size);
             sign.raycastTarget = true; sign.gameObject.AddComponent<V5LongPress>().Configure(root.OpenLevelPicker);
             levelNumber = V5UI.Text(sign.transform, "Level", "1", font, V5Layout.LevelSign.size * 0.5f, V5Layout.LevelSign.size, 44);
@@ -78,6 +80,7 @@ namespace PerchSort.V5.Game
         {
             Cancel();
             foreach (var house in houses.Values) V5UI.Dispose(house.gameObject);
+            for (int i = ropesLayer.childCount - 1; i >= 0; i--) V5UI.Dispose(ropesLayer.GetChild(i).gameObject);
             houses.Clear();
             var species = new List<string>();
             foreach (var branch in state.Branches)
@@ -87,9 +90,10 @@ namespace PerchSort.V5.Game
             for (int i = 0; i < species.Count; i++)
             {
                 var house = V5UI.Rect(housesLayer, species[i] + " house", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize).gameObject.AddComponent<BirdhouseView>();
-                house.Configure(art, species[i], i, species.Count); houses.Add(species[i], house);
+                house.Configure(art, species[i], i, species.Count, ropesLayer); houses.Add(species[i], house);
             }
-            kinds[1] = BoosterKind.Firefly; kinds[2] = BoosterKind.Sapling; kinds[3] = V5ViewModel.WorldBooster(state.World);
+            kinds[1] = BoosterKind.Firefly; kinds[2] = BoosterKind.Sapling;
+            kinds[3] = V5ViewModel.ContextBooster(state, out contextMechanic);
             for (int i = 1; i < tools.Length; i++)
             {
                 tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Get(V5ViewModel.Icon(kinds[i]));
@@ -125,7 +129,7 @@ namespace PerchSort.V5.Game
             for (int i = 1; i < tools.Length; i++)
             {
                 int count = inventory[(int)kinds[i]];
-                tools[i].interactable = !blocked && !session.State.IsWon &&
+                tools[i].interactable = !blocked && !session.State.IsWon && (i != 3 || contextMechanic) &&
                     (kinds[i] != BoosterKind.Firefly || !root.HintPending) &&
                     (count == 0 || session.BoosterHasEffect(kinds[i]));
             }
@@ -158,8 +162,20 @@ namespace PerchSort.V5.Game
         public void Payout(SongPayout payout, Action done)
         {
             SetNotes(Mathf.Max(0, DisplayedSong - 5));
-            FlyIcon(V5ViewModel.Icon(payout.Booster), V5Layout.SongPill.center, BoosterPoint(payout.Booster),
-                () => { inventory[(int)payout.Booster]++; DrawCounts(); done(); });
+            bool visible = false;
+            for (int i = 1; i < kinds.Length; i++) visible |= kinds[i] == payout.Booster && tools[i].gameObject.activeSelf;
+            FlyIcon(V5ViewModel.Icon(payout.Booster), V5Layout.SongPill.center, BoosterPoint(payout.Booster), () =>
+            {
+                inventory[(int)payout.Booster]++; DrawCounts();
+                if (visible) { done(); return; }
+                // Preview above slot four; its underlying button keeps its own identity and action.
+                var preview = V5UI.Image(effects, "Awarded " + payout.Booster + " +1", art.Get("pill_cream"),
+                    new Vector2(845, 1595), new Vector2(130, 90));
+                V5UI.Image(preview.transform, "Award", art.Get(V5ViewModel.Icon(payout.Booster)), new Vector2(37, 45), Vector2.one * 54);
+                V5UI.Text(preview.transform, "Award count", "+1", font, new Vector2(97, 45), new Vector2(56, 60), 32);
+                motion.Play(0.65f, t => preview.transform.localScale = Vector3.one * (0.9f + 0.1f * Mathf.Sin(t * Mathf.PI)),
+                    () => { V5UI.Dispose(preview.gameObject); done(); });
+            });
         }
         public void Chorus(int chain)
         {

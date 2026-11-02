@@ -17,6 +17,26 @@ namespace PerchSort.V5.Game
             sprites.Add(name, sprite);
             return sprite;
         }
+        // Only the coordinator-approved, in-flight rope delivery may be absent.
+        public Sprite OptionalRopeArt(string name)
+        {
+            if (sprites.TryGetValue(name, out var sprite)) return sprite;
+            sprite = Resources.Load<Sprite>("V5/Art/" + name);
+            if (sprite != null) sprites.Add(name, sprite);
+            return sprite;
+        }
+        public void Rope(Transform parent, string name, float x, float top, float bottom, float width = 5)
+        {
+            var sprite = OptionalRopeArt("rope_segment");
+            var image = V5UI.Image(parent, name, sprite, new Vector2(x, (top + bottom) * 0.5f), new Vector2(width, bottom - top));
+            if (sprite == null) image.color = new Color32(151, 100, 44, 255);
+            else
+            {
+                image.type = UnityEngine.UI.Image.Type.Tiled;
+                image.pixelsPerUnitMultiplier = sprite.rect.width / width / image.pixelsPerUnit;
+            }
+        }
+
 
         public Sprite Background(int world, string variant)
         {

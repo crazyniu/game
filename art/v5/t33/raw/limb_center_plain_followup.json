@@ -1,0 +1,11 @@
+{
+  "name": "limb_center_plain_followup",
+  "prompt": "Use case: precise-object-edit. Edit target is the attached cropped game limb image. Remove ONLY the vertical wrapped rope, central knot and hanging rope loop completely. Repaint the small area of the warm golden wooden limb previously covered by the rope, continuing the existing horizontal wood grain and rounded shading smoothly from both sides. The limb continues horizontally through both image edges. Preserve the exact limb silhouette, position, thickness, warm upper-left light, wood color, knot at far right edge, original framing and transparent background. The repaired limb should have a nearly straight gently curved top and bottom across the central patch. Below the limb must be entirely transparent: no cord, knot, hook, loop or other hanging object. Same image aspect ratio and framing. No new leaves or scenery.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t33/raw/limb_center_edit_target.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-0b5d402b-9560-400f-91a0-884af647aa9b.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/limb_center_plain_followup.png",
+  "tool": "image_gen.imagegen"
+}
