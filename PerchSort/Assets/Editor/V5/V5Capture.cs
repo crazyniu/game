@@ -29,7 +29,7 @@ public static class V5Capture
             EditorSceneManager.OpenScene(V5SceneBuilder.ScenePath, OpenSceneMode.Single);
             camera = Camera.main;
             if (camera == null) throw new InvalidOperationException("V5 scene has no camera.");
-            target = new RenderTexture(1080, 1920, 24);
+            target = new RenderTexture((int)V5Layout.DesignWidth, (int)V5Layout.DesignHeight, 24);
             target.Create();
             camera.targetTexture = target;
             var root = UnityEngine.Object.FindAnyObjectByType<V5GameRoot>();
@@ -70,10 +70,10 @@ public static class V5Capture
         Canvas.ForceUpdateCanvases();
         root.RenderCamera.Render();
         RenderTexture.active = target;
-        var image = new Texture2D(1080, 1920, TextureFormat.RGB24, false);
+        var image = new Texture2D(target.width, target.height, TextureFormat.RGB24, false);
         try
         {
-            image.ReadPixels(new Rect(0, 0, 1080, 1920), 0, 0);
+            image.ReadPixels(new Rect(0, 0, target.width, target.height), 0, 0);
             image.Apply();
             File.WriteAllBytes(path, image.EncodeToPNG());
         }

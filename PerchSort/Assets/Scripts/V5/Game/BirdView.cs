@@ -23,11 +23,11 @@ namespace PerchSort.V5.Game
             string prefix = "bird_" + bird.Species.Id;
             idle = art.Get(prefix + "_idle"); blink = art.Get(prefix + "_blink");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
-            graphic = V5UI.Image(transform, prefix, idle, new Vector2(75, 75), new Vector2(150, 150));
+            graphic = V5UI.Image(transform, prefix, idle, V5Layout.BirdDisplaySize * 0.5f, V5Layout.BirdDisplaySize);
             graphicRect = graphic.rectTransform;
             // The art contract puts the feet at y=244 in a 256px frame.
             graphicRect.pivot = new Vector2(0.5f, 12f / 256f);
-            graphicRect.anchoredPosition = new Vector2(75, -143f);
+            graphicRect.anchoredPosition = new Vector2(V5Layout.BirdSize / 2, -143f);
             motion = gameObject.AddComponent<V5Motion>();
             breathing = gameObject.AddComponent<V5Motion>();
             blinking = gameObject.AddComponent<V5Motion>();
@@ -83,15 +83,20 @@ namespace PerchSort.V5.Game
             }, () => graphicRect.localRotation = Quaternion.identity);
         }
 
-        public void Fly(Vector2 destination, float delay, bool home, Action arrived)
+        public void Fly(Vector2 destination, float delay, bool home, Action arrived, Func<Vector2> movingDestination = null)
         {
             Cancel();
             selected = false;
             Vector2 start = rect.anchoredPosition;
             Vector2 end = new Vector2(destination.x, -destination.y);
-            Vector2 control = (start + end) * 0.5f + Vector2.up * 320;
             motion.Play(0.45f, t =>
             {
+                if (movingDestination != null)
+                {
+                    Vector2 point = movingDestination();
+                    end = new Vector2(point.x, -point.y);
+                }
+                Vector2 control = (start + end) * 0.5f + Vector2.up * 320;
                 float inverse = 1 - t;
                 rect.anchoredPosition = inverse * inverse * start + 2 * inverse * t * control + t * t * end;
                 graphic.sprite = ((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown;

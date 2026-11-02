@@ -10,7 +10,7 @@ namespace PerchSort.V5.Game
         private V5Art art;
         private RectTransform body;
         private TextMeshProUGUI rewardLabel;
-        private readonly Image[] stars = new Image[3];
+        private readonly Image[] stars = new Image[V5Layout.StarCount];
         private V5Motion motion;
         private Button next, replay, home;
         public bool IsOpen => gameObject.activeSelf;
@@ -19,21 +19,28 @@ namespace PerchSort.V5.Game
         {
             art = assets;
             var dim = gameObject.AddComponent<Image>();
-            dim.color = new Color(0, 0, 0, 0.6f); dim.raycastTarget = true;
-            body = V5UI.Image(transform, "Win panel", art.Get("panel_win"), new Vector2(540, 960), new Vector2(860, 900)).rectTransform;
+            dim.color = new Color(0, 0, 0, V5Layout.PanelDimAlpha); dim.raycastTarget = true;
+            body = V5UI.Image(transform, "Win panel", art.Get("panel_win"), V5Layout.WinPanel.center, V5Layout.WinPanel.size).rectTransform;
             body.GetComponent<Image>().raycastTarget = true;
-            V5UI.Image(body, "Ribbon", art.Get("ribbon"), new Vector2(430, 75), new Vector2(900, 200));
-            for (int i = 0; i < 3; i++)
+            V5UI.Image(body, "Ribbon", art.Get("ribbon"), V5Layout.InParent(V5Layout.WinPanel, V5Layout.Ribbon.center), V5Layout.Ribbon.size);
+            for (int i = 0; i < V5Layout.StarCount; i++)
             {
-                Vector2 point = new Vector2(230 + i * 200, 280);
-                V5UI.Image(body, "Star slot " + i, art.Get("star_empty"), point, new Vector2(170, 170));
-                stars[i] = V5UI.Image(body, "Earned star " + i, art.Get("star_full"), point, new Vector2(170, 170));
+                Rect bounds = V5Layout.Star(i);
+                Vector2 point = V5Layout.InParent(V5Layout.WinPanel, bounds.center);
+                V5UI.Image(body, "Star slot " + i, art.Get("star_empty"), point, bounds.size);
+                stars[i] = V5UI.Image(body, "Earned star " + i, art.Get("star_full"), point, bounds.size);
             }
-            V5UI.Image(body, "Reward coin", art.Get("coin"), new Vector2(350, 455), new Vector2(80, 80));
-            rewardLabel = V5UI.Text(body, "Coin reward", "+25", font, new Vector2(465, 455), new Vector2(160, 90), 64);
-            next = V5UI.Button(body, art, "Next level", "icon_next", "btn_square_green", new Vector2(430, 650), new Vector2(230, 170), root.Restart);
-            replay = V5UI.Button(body, art, "Replay level", "icon_restart", "btn_square_wood", new Vector2(205, 675), new Vector2(140, 140), root.Restart);
-            home = V5UI.Button(body, art, "Home", "icon_home", "btn_square_wood", new Vector2(655, 675), new Vector2(140, 140), root.Restart);
+            V5UI.Image(body, "Reward coin", art.Get("coin"),
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.RewardCoin.center), V5Layout.RewardCoin.size);
+            rewardLabel = V5UI.Text(body, "Coin reward", "+25", font,
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.RewardText.center), V5Layout.RewardText.size, V5Layout.RewardFontSize);
+            rewardLabel.alignment = TextAlignmentOptions.MidlineLeft;
+            next = V5UI.Button(body, art, "Next level", "icon_next",
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.NextButton.center), root.Restart, primary: true);
+            replay = V5UI.Button(body, art, "Replay level", "icon_restart",
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.ReplayButton.center), root.Restart);
+            home = V5UI.Button(body, art, "Home", "icon_home",
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.HomeButton.center), root.Restart);
             motion = gameObject.AddComponent<V5Motion>();
             gameObject.SetActive(false);
         }
@@ -44,13 +51,13 @@ namespace PerchSort.V5.Game
             motion.CancelAll();
             rewardLabel.text = "+" + reward;
             next.interactable = replay.interactable = home.interactable = false;
-            body.localScale = Vector3.one * 0.6f;
+            body.localScale = Vector3.one * V5Layout.WinInitialScale;
             for (int i = 0; i < stars.Length; i++)
             {
                 stars[i].gameObject.SetActive(i < earnedStars);
                 stars[i].rectTransform.localScale = Vector3.zero;
             }
-            motion.Play(0.35f, t => body.localScale = Vector3.one * Mathf.LerpUnclamped(0.6f, 1, t), () =>
+            motion.Play(0.35f, t => body.localScale = Vector3.one * Mathf.LerpUnclamped(V5Layout.WinInitialScale, 1, t), () =>
             {
                 for (int i = 0; i < earnedStars; i++)
                 {
@@ -71,12 +78,12 @@ namespace PerchSort.V5.Game
             }
             for (int i = 0; i < 5; i++)
             {
-                var coin = V5UI.Image(transform, "Flying reward coin", art.Get("coin"), new Vector2(460, 965), new Vector2(65, 65));
-                Vector2 start = new Vector2(460 + i * 12, 965);
+                var coin = V5UI.Image(transform, "Flying reward coin", art.Get("coin"), V5Layout.RewardCoin.center, V5Layout.RewardCoin.size);
+                Vector2 start = V5Layout.RewardCoin.center + Vector2.right * (i * 12);
                 bool last = i == 4;
                 motion.Play(0.65f, t =>
                 {
-                    Vector2 point = Vector2.Lerp(start, HudView.CoinPoint, t) + Vector2.up * (-150 * Mathf.Sin(t * Mathf.PI));
+                    Vector2 point = Vector2.Lerp(start, V5Layout.CoinIcon.center, t) + Vector2.up * (-150 * Mathf.Sin(t * Mathf.PI));
                     coin.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
                     coin.rectTransform.localScale = Vector3.one * Mathf.Lerp(1, 0.65f, t);
                 }, () =>
