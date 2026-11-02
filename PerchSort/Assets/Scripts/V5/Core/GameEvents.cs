@@ -5,6 +5,13 @@ namespace PerchSort.V5.Core
 {
     public abstract class GameEvent { }
 
+    // Presentation boundary only; rule resolution and search do not depend on this event.
+    public sealed class ResolutionWave : GameEvent
+    {
+        internal static readonly ResolutionWave Instance = new ResolutionWave();
+        private ResolutionWave() { }
+    }
+
     public readonly struct BirdTravel
     {
         public int BirdId { get; }

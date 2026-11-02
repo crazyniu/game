@@ -9,7 +9,7 @@ namespace PerchSort.V5.Game
     {
         private V5Art art;
         private RectTransform body;
-        private TextMeshProUGUI rewardLabel;
+        private TextMeshProUGUI rewardLabel, chorusLabel;
         private readonly Image[] stars = new Image[V5Layout.StarCount];
         private V5Motion motion;
         private Button next, replay, home;
@@ -35,21 +35,24 @@ namespace PerchSort.V5.Game
             rewardLabel = V5UI.Text(body, "Coin reward", "+25", font,
                 V5Layout.InParent(V5Layout.WinPanel, V5Layout.RewardText.center), V5Layout.RewardText.size, V5Layout.RewardFontSize);
             rewardLabel.alignment = TextAlignmentOptions.MidlineLeft;
+            V5UI.Image(body, "Chorus bonus", art.Get("gift_encore"), new Vector2(320, 607.5f), Vector2.one * 40);
+            chorusLabel = V5UI.Text(body, "Chorus coin bonus", "", font, new Vector2(450, 607.5f), new Vector2(180, 40), 30);
             next = V5UI.Button(body, art, "Next level", "icon_next",
-                V5Layout.InParent(V5Layout.WinPanel, V5Layout.NextButton.center), root.Restart, primary: true);
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.NextButton.center), root.NextLevel, primary: true);
             replay = V5UI.Button(body, art, "Replay level", "icon_restart",
                 V5Layout.InParent(V5Layout.WinPanel, V5Layout.ReplayButton.center), root.Restart);
             home = V5UI.Button(body, art, "Home", "icon_home",
-                V5Layout.InParent(V5Layout.WinPanel, V5Layout.HomeButton.center), root.Restart);
+                V5Layout.InParent(V5Layout.WinPanel, V5Layout.HomeButton.center), root.OpenLevelPicker);
             motion = gameObject.AddComponent<V5Motion>();
             gameObject.SetActive(false);
         }
 
-        public void Show(int earnedStars, int reward)
+        public void Show(int earnedStars, int reward, int chorusCoins)
         {
             gameObject.SetActive(true);
             motion.CancelAll();
             rewardLabel.text = "+" + reward;
+            chorusLabel.text = "+" + chorusCoins;
             next.interactable = replay.interactable = home.interactable = false;
             body.localScale = Vector3.one * V5Layout.WinInitialScale;
             for (int i = 0; i < stars.Length; i++)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace PerchSort.V5.Game
 {
-    // Top-left design coordinates. Values follow GAME_DESIGN_V5 section 3, including its T31 corrections.
+    // Top-left design coordinates, GAME_DESIGN_V5 sections 3 and 10.
     public static class V5Layout
     {
         public const float DesignWidth = 1080;
@@ -51,27 +51,25 @@ namespace PerchSort.V5.Game
         public const float SettingsCenterX = SettingsRight - SecondaryButtonSize / 2;
         public static readonly Rect SettingsButton = Centered(new Vector2(SettingsCenterX, TopHudY), Vector2.one * SecondaryButtonSize);
 
-        public const float TrackerWidth = 380;
-        public const float TrackerHeight = 96;
-        public const float TrackerCenterY = HouseBottom + MinimumHudGap + TrackerHeight / 2;
-        public const float LevelBadgeSize = 72;
         public const float LevelBadgeFontSize = 44;
-        public const float BadgeSpeciesGap = 28;
-        public const float SpeciesIconSize = 64;
-        public const float SpeciesIconGap = 40;
-        public const float UnhomedAlpha = 0.4f;
-        public const float SpeciesOutlineWidth = 2;
-        public const float HomeCheckSize = 24;
-        public const float HomeCheckStroke = 5;
-        public static readonly Rect Tracker = Centered(new Vector2(CenterX, TrackerCenterY), new Vector2(TrackerWidth, TrackerHeight));
-        public static float TrackerContentWidth(int speciesCount) => LevelBadgeSize + BadgeSpeciesGap +
-            speciesCount * SpeciesIconSize + (speciesCount - 1) * SpeciesIconGap;
-        public static Rect LevelBadge(int speciesCount) => Centered(new Vector2(
-            Tracker.xMin + (TrackerWidth - TrackerContentWidth(speciesCount)) / 2 + LevelBadgeSize / 2,
-            TrackerCenterY), Vector2.one * LevelBadgeSize);
-        public static Rect SpeciesIcon(int index, int speciesCount) => Centered(new Vector2(
-            LevelBadge(speciesCount).xMax + BadgeSpeciesGap + SpeciesIconSize / 2 + index * (SpeciesIconSize + SpeciesIconGap),
-            TrackerCenterY), Vector2.one * SpeciesIconSize);
+        public static readonly Rect LevelSign = new Rect(48, 245, 100, 100);
+        public static readonly Rect PhaseDial = new Rect(48, 385, 100, 130);
+        // Beside the coin pill: 42px clearance; 212px clear of Settings.
+        public static readonly Rect SongPill = new Rect(350, 85, 320, 90);
+        public static readonly Vector2 LightStepPoint = new Vector2(985, 1595);
+        public static float SpeciesHouseWidth(int count) => Mathf.Min(300, (840f - (count - 1) * 20) / count);
+        public static Rect SpeciesHouse(int index, int count)
+        {
+            float width = SpeciesHouseWidth(count);
+            float total = count * width + (count - 1) * 20;
+            return new Rect(210 + (840 - total) * 0.5f + index * (width + 20), 245, width, width * 340 / 300);
+        }
+        public static Rect GiftSign(int index, int count)
+        {
+            Rect house = SpeciesHouse(index, count);
+            float size = Mathf.Min(64, house.width * 0.7f);
+            return Centered(new Vector2(house.center.x, house.yMax + 40 + size * 0.5f), Vector2.one * size);
+        }
 
         public const float BoardTop = 760;
         public const float BoardBottom = 1560;
@@ -96,24 +94,26 @@ namespace PerchSort.V5.Game
         public static readonly Vector2 BranchHintSize = new Vector2(480, 18);
         public const float BushAboveBranch = 15;
         public const float BranchHintBelowBranch = 17;
-        public static float RowPitch(int rowCount) => Mathf.Min(MaximumRowPitch, BoardHeight / rowCount);
+        public static float RowPitch(int rowCount) => Mathf.Min(MaximumRowPitch, BoardHeight / Mathf.Max(1, rowCount));
+        public static float BirdScale(int rowCount) => Mathf.Clamp(RowPitch(rowCount) / 220, 0.72f, 1);
         public static float RowY(int row, int rowCount, bool right = false) => BoardCenterY +
             (row - (rowCount - 1) * 0.5f) * RowPitch(rowCount) + (right ? RightRowOffset : 0);
         public static Rect BranchHit(int row, int rowCount, bool right) => Centered(new Vector2(
             right ? DesignWidth - BranchHitWidth / 2 : BranchHitWidth / 2,
-            RowY(row, rowCount, right) - BranchHitLift), BranchHitSize);
-        public static Vector2 BirdSlot(int slot, float branchY, bool right)
+            RowY(row, rowCount, right) - BranchHitLift * BirdScale(rowCount)),
+            new Vector2(BranchHitWidth, Mathf.Min(BranchHitHeight * BirdScale(rowCount), RowPitch(rowCount))));
+        public static Vector2 BirdSlot(int slot, float branchY, bool right, float scale = 1)
         {
-            float x = FirstBirdSlot + BirdSlotPitch * slot;
-            return new Vector2(right ? DesignWidth - x : x, branchY - BirdCenterAboveBranch);
+            float x = FirstBirdSlot + BirdSlotPitch * slot * scale;
+            return new Vector2(right ? DesignWidth - x : x, branchY - BirdCenterAboveBranch * scale);
         }
 
         public const float ToolY = 1760;
-        public const float ToolFirstX = 300;
-        public const float ToolPitch = 240;
+        public const float ToolFirstX = 225;
+        public const float ToolPitch = 210;
         public const float ToolGap = ToolPitch - SecondaryButtonSize;
         public const float ToolBottom = ToolY + SecondaryButtonSize / 2;
-        public const int ToolCount = 3;
+        public const int ToolCount = 4;
         public static Rect ToolButton(int index) => Centered(new Vector2(ToolFirstX + index * ToolPitch, ToolY), Vector2.one * SecondaryButtonSize);
         public static readonly Rect StuckBubble = Centered(new Vector2(CenterX, 1595), new Vector2(740, 100));
         public const float StuckFontSize = 36;

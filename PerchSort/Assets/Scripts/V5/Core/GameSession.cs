@@ -83,6 +83,33 @@ namespace PerchSort.V5.Core
             GameRules.Booster(State, kind, true, events, resolution);
             return new BoosterResult(true, hint);
         }
+        // The caller searches a detached snapshot off-thread and rejects stale results before committing.
+        public bool TryUseFirefly(Move hint)
+        {
+            ClearPresentation();
+            if (State.IsWon || State.Inventory[BoosterKind.Firefly] == 0 ||
+                !(hint.Kind == MoveKind.Swivel ? CanSwivel(State, hint.From) : CanMove(State, hint.From, hint.To)))
+                return false;
+            history.Push(State.Clone());
+            GameRules.Booster(State, BoosterKind.Firefly, true, events, resolution);
+            return true;
+        }
+
+        // Purchases are external economy transactions, not undoable board actions.
+        public void GrantBooster(BoosterKind kind, int count)
+        {
+            if (count < 1) throw new ArgumentOutOfRangeException(nameof(count));
+            if (State.Inventory[kind] > int.MaxValue - count || initial.Inventory[kind] > int.MaxValue - count)
+                throw new ArgumentOutOfRangeException(nameof(count));
+            foreach (var snapshot in history)
+                if (snapshot.Inventory[kind] > int.MaxValue - count) throw new ArgumentOutOfRangeException(nameof(count));
+            State.Inventory.Add(kind, count);
+            initial.Inventory.Add(kind, count);
+            foreach (var snapshot in history) snapshot.Inventory.Add(kind, count);
+        }
+
+        public bool BoosterHasEffect(BoosterKind kind) => kind == BoosterKind.Firefly
+            ? !State.IsWon && HasLegalMove(State) : GameRules.BoosterHasEffect(State, kind);
         public bool Undo()
         {
             ClearPresentation();
