@@ -53,16 +53,16 @@ Rules that apply to every screen: (1) **one button family**: every button is the
 | Background | full screen `bg_forest_day` |
 | Top limb | `limb_top` (1080x320, from the two top canopies, a thick tree limb crossing the top with a rope hook at x=540, y=235), drawn above the background, below HUD. Fills the gap between the canopies. |
 | Coin pill | top-left, 260x90, left edge x=48, center y=130 (below the safe-area top inset). Coin icon 64 + number, 24 px padding, number left-aligned after the icon. |
-| Settings | top-right, wood square 120x120, right edge x=1032, center y=130 |
+| Settings | top-right, wood square 150x150, right edge x=1032 (center x=957), right edge x=1032, center y=130 |
 | Birdhouse | 300x340, hanging from the limb hook: rope loop top at (540, 235), so house center y=405, bottom y=575. Gentle sway animation +-2 degrees (4 s loop) pivoting on the hook. |
-| Flock tracker | one cream pill 380x96 centered at (540, 650) (24 px below the house): [level badge] [species icon 64] [species icon 64]. Level badge is a 72x72 wood square with the level number (font 44) at the pill's left, then 28 px gap, icons 40 px apart. Species not yet home show their bird icon dimmed to 40% with a small lock-free outline; home shows full color plus a small green check at the corner. This replaces the old level pill and the loose dots. |
+| Flock tracker | one cream pill 380x96 centered at (540, 663) (40 px below the house bottom 575, so it spans y 615 to 711): [level badge] [species icon 64] [species icon 64]. Level badge is a 72x72 wood square with the level number (font 44) at the pill's left, then 28 px gap, icons 40 px apart. Species not yet home show their bird icon dimmed to 40% with a small lock-free outline; home shows full color plus a small green check at the corner. This replaces the old level pill and the loose dots. |
 | Board area | vertical band y 760 to 1560 (800 px). Rows are centered in the band: row pitch = min(300, 800 / rowCount); the group of rows is centered at y=1160. Level 1 (2 rows): y=1010 and y=1310. Left branches span x 0 to 600, right branches 480 to 1080, right rows offset +40 px in y as before. |
 | Bird slots | unchanged: bird 150x150, slot pitch 120, first slot 110 px from the screen edge, feet on the branch top line |
 | Bottom bar | tool buttons: wood squares 150x150 at x=300/540/780, center y=1760 (gap between buttons 90). Undo, Hint, Add Branch. Under each, nothing. Bar bottom edge 1835 stays inside the safe area. |
 
-**Win panel** (centered, scale from 0.6): `panel_win` 860x900 at (540, 1010); ribbon overlaps the top edge but its bottom must sit 40 px above the first star row; stars 3 x 150 in a row at y=870, 30 px apart; coin reward row at y=1060 (coin 64 + "+25" font 56, 20 px gap); buttons at y=1330: replay (wood 150) at x=360, **next (green 200) at x=540**, home (wood 150) at x=720, gaps 60. Dim overlay behind: black alpha 0.6.
+**Win panel** (centered, scale from 0.6): `panel_win` 860x900 at (540, 1010); ribbon overlaps the top edge but its bottom must sit 40 px above the first star row; stars 3 x 150 in a row at y=870, 30 px apart; coin reward row at y=1060 (coin 64 + "+25" font 56, 20 px gap); buttons at y=1330: replay (wood 150) at x=305, **next (green 200) at x=540**, home (wood 150) at x=775, clear gaps 60. Dim overlay behind: black alpha 0.6.
 
-**Settings panel**: `panel_win` scaled to 700x520 centered at (540, 1010); sound toggle (wood 150) at x=400 and restart (wood 150) at x=680, both y=1040; close (wood 120) at the panel top-right corner, inset 24 px. No text.
+**Settings panel**: `panel_win` scaled to 700x520 centered at (540, 1010); sound toggle (wood 150) at x=400 and restart (wood 150) at x=680, both y=1040; close (wood 150) at the panel top-right corner, inset 24 px. No text.
 
 ## 4. Visual style (for art generation)
 
