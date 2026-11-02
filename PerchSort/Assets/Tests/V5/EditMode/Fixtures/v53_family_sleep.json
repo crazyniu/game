@@ -1,0 +1,55 @@
+{
+  "levels": [
+    {
+      "id": 16,
+      "world": 2,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 2,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny:chick",
+            "sky",
+            "sky",
+            "sunny:mama"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 5,
+          "birds": [
+            "berry:sleep",
+            "berry",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": []
+        }
+      ]
+    }
+  ]
+}

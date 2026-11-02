@@ -153,11 +153,15 @@ namespace PerchSort.V5.Core
             Inventory = inventory ?? new BoosterInventory();
             foreach (var branch in branches) branch.Owner = this;
         }
-        public BoardState Clone()
+        public BoardState Clone() => Clone(true);
+        // Search disables all economy mutations and never uses boosters, so its inventory is read-only.
+        internal BoardState CloneForSearch() => Clone(false);
+        private BoardState Clone(bool copyInventory)
         {
             var branches = new List<BranchState>(BranchItems.Count + 1);
             foreach (var branch in BranchItems) branches.Add(branch.Clone());
-            var copy = new BoardState(LevelId, World, Variant, Capacity, SpeciesCount, DayLength, branches, Inventory.Clone())
+            var copy = new BoardState(LevelId, World, Variant, Capacity, SpeciesCount, DayLength, branches,
+                copyInventory ? Inventory.Clone() : Inventory)
             {
                 Moves = Moves, AddedBranch = AddedBranch, LightStep = LightStep, Phase = Phase,
                 PhaseCounter = PhaseCounter, MoonbeamMovesLeft = MoonbeamMovesLeft,
