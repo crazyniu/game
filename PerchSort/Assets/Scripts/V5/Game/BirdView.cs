@@ -143,7 +143,9 @@ namespace PerchSort.V5.Game
                     graphic.sprite = ((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown;
                     body.localRotation = Quaternion.Euler(0, 0, (end.x >= start.x ? -12 : 12) * Mathf.Sin(t * Mathf.PI));
                     float shrink = home ? Mathf.Lerp(1, 0.4f, t) : 1;
-                    body.localScale = Scale(shrink, shrink);
+                    // The perched body pivots at its feet. Shrink the centered flight frame, not that pivot.
+                    rect.localScale = Vector3.one * shrink;
+                    body.localScale = Scale();
                 }, () =>
                 {
                     landed(); body.localRotation = Quaternion.identity;
@@ -207,7 +209,7 @@ namespace PerchSort.V5.Game
         {
             if (motion == null) return;
             motion.CancelAll(); breathing.CancelAll(); blinking.CancelAll(); looking.CancelAll();
-            facing = 1; body.localScale = Scale(); body.localRotation = Quaternion.identity;
+            facing = 1; rect.localScale = Vector3.one; body.localScale = Scale(); body.localRotation = Quaternion.identity;
             graphic.sprite = RestFrame; acting = false;
         }
     }
