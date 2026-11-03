@@ -1,0 +1,11 @@
+{
+  "name": "rope_segment_followup",
+  "prompt": "Use case: stylized-concept. Production texture sprite of ONE straight vertical twisted golden-tan hemp ROPE matching the warm rope wrapped around the limb in the supplied reference: same golden straw color, soft dimensional twisted strands, warm light from upper left and subtle brown grooves. Portrait canvas. A continuous rope passes straight through the TOP and BOTTOM image borders; there are NO end caps, NO fraying, NO knots, NO loop, NO branch, NO wood, NO background shadow. Rope centered, approximately 14 percent of canvas width, constant thickness, evenly repeating diagonal twists, uniform brightness along its height. It must read as an endless vertically tileable texture with the top and bottom at identical twist phase. Transparent alpha everywhere beside the rope. Single straight rope only, no other objects.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-4002221a-37ed-460f-a00b-0f8999fd398a.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/rope_segment_followup.png",
+  "tool": "image_gen.imagegen"
+}

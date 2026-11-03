@@ -1,0 +1,11 @@
+{
+  "name": "bird_cocoa_sleep",
+  "prompt": "Use case: identity-preserve. Edit the attached Perch Sort cocoa idle bird into one sleep animation key frame. The input is the identity and registration reference. Keep EXACTLY this original character, colors, distinctive head features, feather texture, proportions, lighting, orange feet and 3/4 facing RIGHT camera. Do not add an outfit or change species. Sleep pose: both eyes fully closed, beak closed, head drooped slightly, body slightly slumped, wings relaxed at sides, both feet standing at original baseline. Preserve species colors and signature features. NO Z, NO Zzz, NO bubbles, NO words or particles. Preserve the reference's square canvas, BODY SCALE and BODY LOCATION; do not zoom in or fit bird to extended wings. Keep head, crest, wings and toes fully within safe canvas margins. Transparent background with actual alpha, no scenery, ground shadow, labels, motion lines or decorative extras. Single bird only.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t33/raw/bird_cocoa_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-9f39a6af-9772-44b3-9ae5-b145bbe32758.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_cocoa_sleep.png",
+  "tool": "image_gen.imagegen"
+}

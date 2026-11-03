@@ -1,0 +1,12 @@
+{
+  "name": "bird_hoot_idle",
+  "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A completely original PALE TAWNY/CREAM round owl chick named Hoot. Heart-shaped WHITE facial disc, extremely large glossy AMBER eyes, tiny star-patterned deep blue NIGHTCAP drooping to one side, soft grey-brown speckled wings. NO ear tufts, no horns, no upright head feathers. Round smooth head under the tiny cap; light body must read differently from a dark brown owl. Three-quarter toward viewer, facing RIGHT, orange feet planted, wings at sides. Match Sunny's BODY SCALE and registration: square canvas, torso crown excluding hat around y29%, belly bottom87%, feet bottoms95.3%, torso width46-50%. Whole character safely framed, no ground, single bird.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png",
+    "/home/developer/Projects/game/art/v5/t33/raw/bird_cocoa_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-4b8d60c8-2646-4102-8afe-4e4d0149045a.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_hoot_idle.png",
+  "tool": "image_gen.imagegen"
+}

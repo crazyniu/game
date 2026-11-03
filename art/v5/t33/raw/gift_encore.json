@@ -1,0 +1,11 @@
+{
+  "name": "gift_encore",
+  "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. Game pictogram: exactly TWO connected musical eighth NOTES, playful upright stems. White softly shaded fill, thick continuous dark BROWN #5A3A22 outline, same outline treatment as reference. Bold simple silhouette readable at 32px, no enclosing badge, no color except white/cream and brown outline, no text.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-9debc145-74f8-4e4d-97ca-5bf3b3fc621a.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/gift_encore.png",
+  "tool": "image_gen.imagegen"
+}

@@ -31,7 +31,7 @@ namespace PerchSort.V5.Game
             RefreshSound();
         }
         public void Hide() => gameObject.SetActive(false);
-        private void ToggleMute() { root.SetMuted(!V5Progress.Muted); RefreshSound(); }
-        private void RefreshSound() => soundIcon.sprite = art.Get(V5Progress.Muted ? "icon_sound_off" : "icon_sound_on");
+        private void ToggleMute() { root.SetMuted(!root.Muted); RefreshSound(); }
+        private void RefreshSound() => soundIcon.sprite = art.Get(root.Muted ? "icon_sound_off" : "icon_sound_on");
     }
 }

@@ -29,8 +29,10 @@ namespace PerchSort.V5.Tests
             var named = new[]
             {
                 ("coins", V5Layout.CoinPill), ("settings", V5Layout.SettingsButton),
-                ("house", V5Layout.House), ("tracker", V5Layout.Tracker),
-                ("undo", V5Layout.ToolButton(0)), ("hint", V5Layout.ToolButton(1)), ("add", V5Layout.ToolButton(2))
+                ("Song", V5Layout.SongPill), ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
+                ("undo", V5Layout.ToolButton(0)), ("Firefly", V5Layout.ToolButton(1)),
+                ("Sapling", V5Layout.ToolButton(2)), ("world tool", V5Layout.ToolButton(3)),
+                ("stuck", V5Layout.StuckBubble), ("feather", V5Layout.Centered(V5Layout.LightStepPoint, Vector2.one * 70))
             };
             for (int i = 0; i < named.Length; i++)
             {
@@ -41,15 +43,24 @@ namespace PerchSort.V5.Tests
             }
         }
 
-        [Test]
-        public void ToolBarRemainsInsideTheSafeDesignAreaWithNinetyPixelGaps()
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(7)]
+        public void SpeciesHousesAndGiftSignsFitWithoutCoveringHudOrBoard(int count)
         {
-            for (int i = 0; i < V5Layout.ToolCount; i++)
+            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial, V5Layout.SongPill };
+            for (int i = 0; i < count; i++)
             {
-                Rect button = V5Layout.ToolButton(i);
-                AssertInside(V5Layout.SafeDesignArea, button);
-                Assert.That(button.yMax, Is.EqualTo(1835));
-                if (i > 0) Assert.That(button.xMin - V5Layout.ToolButton(i - 1).xMax, Is.EqualTo(90));
+                Rect house = V5Layout.SpeciesHouse(i, count), gift = V5Layout.GiftSign(i, count);
+                AssertInside(V5Layout.SafeDesignArea, house); AssertInside(V5Layout.SafeDesignArea, gift);
+                foreach (Rect other in hud)
+                {
+                    Assert.That(ClearGap(house, other), Is.GreaterThanOrEqualTo(39.999f));
+                    Assert.That(ClearGap(gift, other), Is.GreaterThanOrEqualTo(39.999f));
+                }
+                Assert.That(gift.yMin - house.yMax, Is.GreaterThanOrEqualTo(39.999f));
+                Assert.That(gift.yMax, Is.LessThan(V5Layout.BoardTop - 40));
+                if (i > 0) Assert.That(house.xMin - V5Layout.SpeciesHouse(i - 1, count).xMax, Is.EqualTo(20).Within(0.001f));
             }
         }
 
@@ -78,41 +89,28 @@ namespace PerchSort.V5.Tests
                 Assert.That(V5Layout.RowY(i, rows), Is.InRange(760, 1560));
         }
 
-        [Test]
-        public void BranchHitRegionsDoNotOverlapWhenTheArtDoes()
+        [TestCase(2)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        public void DenseBranchTargetsStayDisjointAndSeatsRemainInsideTheirHalf(int rows)
         {
-            Rect left = V5Layout.BranchHit(0, 2, false);
-            Rect right = V5Layout.BranchHit(0, 2, true);
-            Assert.That(left.xMax, Is.EqualTo(right.xMin));
-            Assert.That(left.Overlaps(right), Is.False);
-            Assert.That(V5Layout.BirdSlot(0, 1010, false).x, Is.EqualTo(110));
-            Assert.That(V5Layout.BirdSlot(0, 1050, true).x, Is.EqualTo(970));
-            Assert.That(V5Layout.BirdSlot(3, 1010, false).x - V5Layout.BirdSlot(0, 1010, false).x, Is.EqualTo(360));
-        }
-
-        [Test]
-        public void HouseAttachesToTheHookAndTrackerClearsItsBottom()
-        {
-            Assert.That(V5Layout.House.center.x, Is.EqualTo(V5Layout.HookPoint.x));
-            Assert.That(V5Layout.House.yMin, Is.EqualTo(V5Layout.HookPoint.y));
-            Assert.That(V5Layout.Tracker.yMin - V5Layout.House.yMax, Is.EqualTo(40));
-            Assert.That(V5Layout.Tracker.yMax, Is.LessThan(V5Layout.BoardTop));
-        }
-
-        [Test]
-        public void TrackerAndCoinContentsFitWithoutTextArtOverlap()
-        {
-            Rect badge = V5Layout.LevelBadge(2);
-            Rect first = V5Layout.SpeciesIcon(0, 2);
-            Rect second = V5Layout.SpeciesIcon(1, 2);
-            AssertInside(V5Layout.Tracker, badge);
-            AssertInside(V5Layout.Tracker, first);
-            AssertInside(V5Layout.Tracker, second);
-            Assert.That(first.xMin - badge.xMax, Is.EqualTo(28));
-            Assert.That(second.xMin - first.xMax, Is.EqualTo(40));
-            AssertInside(V5Layout.CoinPill, V5Layout.CoinIcon);
-            AssertInside(V5Layout.CoinPill, V5Layout.CoinNumber);
-            Assert.That(V5Layout.CoinNumber.xMin - V5Layout.CoinIcon.xMax, Is.GreaterThanOrEqualTo(24));
+            float scale = V5Layout.BirdScale(rows);
+            Assert.That(scale, Is.InRange(0.72f, 1));
+            for (int row = 0; row < rows; row++)
+                foreach (bool right in new[] { false, true })
+                {
+                    Rect hit = V5Layout.BranchHit(row, rows, right);
+                    AssertInside(V5Layout.SafeDesignArea, hit);
+                    if (row > 0) Assert.That(hit.yMin, Is.GreaterThanOrEqualTo(V5Layout.BranchHit(row - 1, rows, right).yMax - 0.001f));
+                    if (!right) Assert.That(hit.Overlaps(V5Layout.BranchHit(row, rows, true)), Is.False);
+                    for (int seat = 0; seat < 4; seat++)
+                    {
+                        Vector2 point = V5Layout.BirdSlot(seat, V5Layout.RowY(row, rows, right), right, scale);
+                        Assert.That(point.x, Is.GreaterThanOrEqualTo(hit.xMin));
+                        Assert.That(point.x, Is.LessThanOrEqualTo(hit.xMax));
+                    }
+                }
         }
 
         [Test]

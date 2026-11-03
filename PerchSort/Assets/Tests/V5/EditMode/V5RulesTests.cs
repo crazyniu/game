@@ -56,8 +56,7 @@ namespace PerchSort.V5.Tests
             var session = FirstFlight();
             var expected = Ids(session.State.Branches[1]).Concat(new[] { session.State.Branches[0].Birds[3].Id }).ToArray();
             Assert.That(session.TryMove(0, 1), Is.True);
-            Assert.That(session.Events[1], Is.TypeOf<FlockHome>());
-            var home = (FlockHome)session.Events[1];
+            var home = session.Events.OfType<FlockHome>().Single();
             Assert.That(home.Branch, Is.EqualTo(1));
             Assert.That(home.Species.Id, Is.EqualTo("sky"));
             Assert.That(home.BirdIds, Is.EqualTo(expected));

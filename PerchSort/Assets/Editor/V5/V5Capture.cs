@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public static class V5Capture
 {
-    [MenuItem("Perch Sort/V5/Capture Level 1")]
+    [MenuItem("Perch Sort/V5/Capture Levels and Mechanics")]
     public static void Run()
     {
         if (EditorApplication.isPlaying) throw new InvalidOperationException("V5Capture.Run is an edit-mode capture.");
@@ -44,7 +44,15 @@ public static class V5Capture
             if (!root.TryMove(2, 0) || !root.Session.State.IsWon || !root.Win.IsOpen)
                 throw new InvalidOperationException("Second authored move did not open the win panel.");
             Capture(root, target, Path.Combine(directory, "level1_win.png"));
-            Debug.Log("V5 capture wrote start, after-move-1 and win PNGs at " + directory + "; no PlayerPrefs were written.");
+            foreach (string name in V5Fixtures.Names)
+            {
+                root.LoadFixture(V5Fixtures.Create(name));
+                if (name == "night" && !root.TryMove(1, 2))
+                    throw new InvalidOperationException("Night capture could not advance the clock.");
+                Capture(root, target, Path.Combine(directory, "mech_" + name + ".png"));
+            }
+            Debug.Log("V5 capture wrote level1_start, level1_after_move1, level1_win and six mechanic PNGs at " +
+                directory + "; stable states only, no PlayerPrefs writes or timed-animation proof.");
         }
         finally
         {

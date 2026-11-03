@@ -1,0 +1,11 @@
+{
+  "name": "raindrop",
+  "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. ONE slim vertical translucent blue-white RAINDROP, elongated teardrop with a tiny white specular glint. Target32x64, 1:2 vertical canvas, softly dimensional and simple at tiny scale; no splash, no cloud, no rain streak field. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-c717c8cf-c32e-42ce-9bc0-7c3734565bcc.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/raindrop.png",
+  "tool": "image_gen.imagegen"
+}

@@ -141,6 +141,7 @@ namespace PerchSort.V5.Core
             bool changed;
             do
             {
+                output?.Add(ResolutionWave.Instance);
                 changed = false;
                 for (int b = 0; b < state.BranchItems.Count; b++)
                 {

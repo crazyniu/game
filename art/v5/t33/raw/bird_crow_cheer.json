@@ -1,0 +1,11 @@
+{
+  "name": "bird_crow_cheer",
+  "prompt": "Use case: identity-preserve. Edit the attached Perch Sort crow idle bird into one cheer animation key frame. The input is the identity and registration reference. Keep EXACTLY this original character, colors, distinctive head features, feather texture, proportions, lighting, orange feet and 3/4 facing RIGHT camera. Do not add an outfit or change species. Cheer pose: BOTH wings up high and spread, mouth OPEN in a joyful cheer, bright happy eyes. Feet stay extended down to their original standing baseline, not tucked; this pose will be animated as a jump. Preserve the reference's square canvas, BODY SCALE and BODY LOCATION; do not zoom in or fit bird to extended wings. Keep head, crest, wings and toes fully within safe canvas margins. Transparent background with actual alpha, no scenery, ground shadow, labels, motion lines or decorative extras. Single bird only. Preserve the small shiny silver trinket, held in wing unless the described toss pose; for flight keep it secured close to the body.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t33/raw/bird_crow_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-dfc7469c-444a-4c88-a5d1-323a694b0382.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_crow_cheer.png",
+  "tool": "image_gen.imagegen"
+}

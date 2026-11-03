@@ -1,0 +1,12 @@
+{
+  "name": "bird_berry_idle",
+  "prompt": "Use case: stylized-concept. Create one original production bird sprite for Perch Sort, named Berry. Supporting style/scale references are the two attached accepted Sunny and Skye birds; do not reproduce either character. Match their plush 3D-rendered cartoon feathers, soft fine fuzz, big glossy eyes, warm upper-left lighting, subtle warm rim light and orange feet exactly. Berry is a raspberry-magenta round chubby bird with TWO distinct LONG swept-back raspberry head plumes, playful show-off eyes and a small orange beak. A new recognizable silhouette, not a recolor. Idle standing pose, wings resting at sides, three-quarter toward viewer facing RIGHT. Full body on real transparent background, no ground shadow, no scene, no label, no accessories. Square canvas. Match reference registration: feet bottoms at 95.3% canvas height, torso from roughly y=29% to 87%, torso width around 47% of canvas; the long plumes occupy the top quarter with safe margin. Belly/body scale like Sunny; keep entire head plumes, tail, feet within canvas. Center torso at x=50%. Single character only.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png",
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sky_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-3d69d2e7-319d-4a5e-9949-8b17d345c835.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/bird_berry_idle.png",
+  "tool": "image_gen.imagegen"
+}

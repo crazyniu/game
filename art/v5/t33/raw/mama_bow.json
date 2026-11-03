@@ -1,0 +1,11 @@
+{
+  "name": "mama_bow",
+  "prompt": "Original Perch Sort production raster asset. Match supplied reference's soft rounded polished 3D cartoon style, warm upper-left lighting, gentle rim highlights. Real transparent background, isolated single asset, no ground shadow, no backdrop, no watermark. A small soft pink fabric BOW accessory ONLY, two rounded fabric loops, central knot, two short tails. Front view, symmetrical, softly padded textile, rosy pink. No bird, no head. For overlay atop a bird's head, clean readable silhouette.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-e69d3b2d-5c66-4412-a064-7e83e5e21ef6.png",
+  "raw": "/home/developer/Projects/game/art/v5/t33/raw/mama_bow.png",
+  "tool": "image_gen.imagegen"
+}

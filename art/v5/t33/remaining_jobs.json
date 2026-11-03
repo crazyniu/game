@@ -1,0 +1,139 @@
+[
+  {
+    "name": "egg_idle",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A single mystery egg: speckled CREAM egg sitting upright in a small shallow warm-brown TWIG NEST. A soft question mark '?' is formed only by a cluster of fine brown speckles on the front of the egg, not a printed glyph or painted badge. Egg is softly rounded, softly lit, no face. Square canvas. Egg spans approximately x=31%..69%, y=18%..81%; nest spans x=15%..85%, y=77%..95.3%. Nest bottom baseline y=95.3%. Warm oak twig material matches reference.  Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png",
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "zzz",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A soft lilac sleeping bubble sprite, only two rounded floating letters exactly 'Z z', large Z lower left and small z upper right, subtly puffy glossy lilac surfaces with gentle soft edges. No bird and no extra text. Square canvas, centered.  Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sky_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "twig_left",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A thin short horizontal natural oak branch for TWO bird seats, same warm golden wood grain and bevel lighting as the attached branch_left. Root visibly enters at LEFT image edge, branch extends almost horizontally to the RIGHT with a tapered rounded tip and at most one small leaf near far tip. Target canvas 420x90, 4.67:1 wide; upper walking surface near y=32, mostly flat at seat positions x=110 and x=280. Thin trunk around 24px thick, not a wide log. Entire left root touches canvas edge; no left margin.  Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "roof_band",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. One plain WHITE neutral tintable cloth bunting strip to overlay the front roof edge of the accepted birdhouse. Wide horizontal rectangular strip with a shallow soft scalloped lower edge, modest soft folds, white fabric and neutral-grey shadows ONLY so code can tint it to any species color. Target shape 300x60, 5:1 wide. No house included, no roof included, no fastener, no decoration, no logo.  Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/birdhouse.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_firefly",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A friendly glowing FIREFLY: two simple white wings, rounded segmented insect body with luminous ivory abdomen and tiny antennae; restrained warm glow close to abdomen, main silhouette outlined brown.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_sapling",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A small two-leaf SPROUT planted in a rounded soil mound, all rendered white/ivory with brown outlines; leaf and mound forms remain distinct.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_owl_eye",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A simple OWL FACE with two very large round eyes, tiny central beak and broad facial disc. White face and thick brown outline, highly readable eye symbol.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_bell",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A little rounded morning hand BELL, brass-gold tint is permitted on the bell body; small handle and visible clapper, same thick brown outline and glossy lighting.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_scarecrow",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A cute tiny SCARECROW with simple hat, rounded head and outstretched sleeves on a short stake, simple clear icon silhouette, white/ivory with dark brown outline.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "icon_rain",
+    "prompt": "Use case: stylized-concept. Original Perch Sort UI icon, precisely match the attached existing hint icon: chunky glossy WHITE/ivory filled shapes with a dark brown #5A3A22 rounded outline, subtle warm grey shading, soft upper-left highlight, very clear at 48px. NO colored button base or panel, NO text. Single centered symbol, transparent background with real alpha and generous small margin. A rounded white CLOUD with exactly three raindrops above a tiny two-leaf SPROUT, all one balanced icon. White/ivory with thick brown outline, no backdrop.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "badge_count",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A simple RED-ORANGE circular count badge, thick smooth white circular outline, faint glossy upper-left sheen. BLANK center for a number that code will draw; absolutely NO numeral, letters or plus. One perfect round disc, centered square canvas, transparent outside. Final size 64x64, keep simple and readable. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "badge_plus",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. A simple leaf-GREEN circular badge with a thick white circular outline and one bold WHITE PLUS '+' exactly centered. Faint glossy upper-left sheen. One perfect round disc, centered square canvas, transparent outside. Final size 64x64, very simple and readable. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/icon_hint.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "bg_w1_morning",
+    "prompt": "Use case: lighting-weather. Edit the attached accepted Perch Sort forest noon background into a soft pink-gold DAWN, pale blush and warm apricot near horizon with pale blue upper sky, morning light softly catches leaves, calm optimistic mood. Preserve the same 9:16 portrait composition and lush rounded 3D-cartoon rendering: dense canopies only in upper left and right corners, low distant rolling hills and treetops only at bottom. Maintain a calm open low-detail central game band y=550 through1500 in a1080x1920 canvas, with no branches, birds, houses, UI, objects or strong texture in that band. Delicate atmospheric depth and soft sky gradient, keep warm welcoming visual family. OPAQUE full-bleed background, no transparency, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+    ],
+    "transparent": false
+  },
+  {
+    "name": "bg_w1_golden",
+    "prompt": "Use case: lighting-weather. Edit the attached accepted Perch Sort forest noon background into a warm GOLDEN HOUR, honey-gold sunlit foliage, softly peach-gold sky gradient with pale blue upper sky, warm amber low hills, tranquil late afternoon. Preserve the same 9:16 portrait composition and lush rounded 3D-cartoon rendering: dense canopies only in upper left and right corners, low distant rolling hills and treetops only at bottom. Maintain a calm open low-detail central game band y=550 through1500 in a1080x1920 canvas, with no branches, birds, houses, UI, objects or strong texture in that band. Delicate atmospheric depth and soft sky gradient, keep warm welcoming visual family. OPAQUE full-bleed background, no transparency, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+    ],
+    "transparent": false
+  },
+  {
+    "name": "bg_w1_rain",
+    "prompt": "Use case: lighting-weather. Edit the attached accepted Perch Sort forest noon background into a gentle LIGHT RAIN in a spring forest, soft grey-blue sky, slightly cooler softly lit green leaves, a few subtle rain traces restricted mainly to frame edges, subtle puddle glints among low foreground hills at bottom; no storm or lightning. Preserve the same 9:16 portrait composition and lush rounded 3D-cartoon rendering: dense canopies only in upper left and right corners, low distant rolling hills and treetops only at bottom. Maintain a calm open low-detail central game band y=550 through1500 in a1080x1920 canvas, with no branches, birds, houses, UI, objects or strong texture in that band. Delicate atmospheric depth and soft sky gradient, keep warm welcoming visual family. OPAQUE full-bleed background, no transparency, no text.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+    ],
+    "transparent": false
+  },
+  {
+    "name": "petal",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. ONE soft pink blossom PETAL, gently curved teardrop-shaped delicate petal with a small crease, rounded upper edge, warm pink rim and pale center, tiny glossy highlight. A single object for ambient particles, no flower, no stem. Square canvas, final64px. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bird_sunny_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "raindrop",
+    "prompt": "Use case: stylized-concept. Original Perch Sort production game asset, matching the supporting reference's polished rounded plush 3D-cartoon style, warm upper-left highlights and soft dimensional shading. ONE slim vertical translucent blue-white RAINDROP, elongated teardrop with a tiny white specular glint. Target32x64, 1:2 vertical canvas, softly dimensional and simple at tiny scale; no splash, no cloud, no rain streak field. Real transparent background and clean antialiased edges, no floor or cast shadow, no scene, no lettering unless explicitly requested, no watermark. One isolated asset, safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+    ],
+    "transparent": true
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "egg_wobble_l",
+    "prompt": "Use case: identity-preserve. Edit the attached Perch Sort mystery egg idle into one wobble_l animation key frame. Tilt ONLY the egg 10 degrees COUNTERCLOCKWISE (lean left), pivot near the center of its nest. Keep the nest itself perfectly still, unrotated, at the same position and scale; its bottom stays y=95.3% of canvas. Preserve the speckled question-mark pattern. Preserve exact cream shell material, warm oak twig nest, lighting, square canvas, and overall registration. Real transparent background, no checkerboard, no shadow beyond the nest, no words, no extra objects. Whole asset safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/art/v5/t33/raw/egg_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "egg_wobble_r",
+    "prompt": "Use case: identity-preserve. Edit the attached Perch Sort mystery egg idle into one wobble_r animation key frame. Tilt ONLY the egg 10 degrees CLOCKWISE (lean right), pivot near the center of its nest. Keep the nest itself perfectly still, unrotated, at the same position and scale; its bottom stays y=95.3% of canvas. Preserve the speckled question-mark pattern. Preserve exact cream shell material, warm oak twig nest, lighting, square canvas, and overall registration. Real transparent background, no checkerboard, no shadow beyond the nest, no words, no extra objects. Whole asset safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/art/v5/t33/raw/egg_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "egg_crack",
+    "prompt": "Use case: identity-preserve. Edit the attached Perch Sort mystery egg idle into one crack animation key frame. Keep the egg upright and add ONE clearly visible zigzag hatching crack across its middle. The shell remains in one piece with a narrow dark fissure; no bird visible yet. Preserve speckles and nest unchanged. Preserve exact cream shell material, warm oak twig nest, lighting, square canvas, and overall registration. Real transparent background, no checkerboard, no shadow beyond the nest, no words, no extra objects. Whole asset safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/art/v5/t33/raw/egg_idle.png"
+    ],
+    "transparent": true
+  },
+  {
+    "name": "egg_shell",
+    "prompt": "Use case: identity-preserve. Edit the attached Perch Sort mystery egg idle into one shell animation key frame. Replace the intact egg with TWO cream speckled shell HALVES sitting parted left and right in the SAME shallow twig nest, showing the empty interior and jagged cracked rims. No chick, no whole egg, no floating fragments. Keep the nest unchanged in shape, size and position, bottom y=95.3%. Preserve exact cream shell material, warm oak twig nest, lighting, square canvas, and overall registration. Real transparent background, no checkerboard, no shadow beyond the nest, no words, no extra objects. Whole asset safely framed.",
+    "refs": [
+      "/home/developer/Projects/game/art/v5/t33/raw/egg_idle.png"
+    ],
+    "transparent": true
+  }
+]
