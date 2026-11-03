@@ -18,7 +18,7 @@ namespace PerchSort.V5.Core
         public int dayLength;
         public BranchDef[] branches;
 
-        public BoardState CreateBoard(SongState song = default, BoosterInventory inventory = null)
+        public BoardState CreateBoard(BoosterInventory inventory = null)
         {
             if (id < 1 || world < 0 || world > 4 || capacity < 1 || par < 0 || dayLength < 0 ||
                 branches == null || branches.Length == 0)
@@ -55,8 +55,7 @@ namespace PerchSort.V5.Core
                 if (count != capacity) throw new ArgumentException("Each real species must have exactly capacity birds.");
             // Authored-start restrictions belong to the level validator. Construction does not resolve actions.
             return new BoardState(id, world == 0 ? 1 : world, string.IsNullOrEmpty(variant) ? "noon" : variant,
-                capacity, counts.Count, dayLength, result, inventory?.Clone())
-            { SongNotes = song.Notes, PayoutCount = song.PayoutCount };
+                capacity, counts.Count, dayLength, result, inventory?.Clone());
         }
 
         private static BranchKind ParseKind(string kind)

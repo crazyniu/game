@@ -20,17 +20,16 @@ namespace PerchSort.V5.Core
         public IReadOnlyList<GameEvent> Events { get; }
         public int SelectedBranch { get; private set; } = -1;
         public int Par { get; }
-        public int MoveCount => State.Moves;
+        public int MoveCount => State.CountedMoves;
         public int Stars => StarsFor(MoveCount, Par);
         public bool CanUndo => history.Count > 0;
         // Persist these outputs externally; Core owns no global progression or economy state.
-        public SongState Song => State.Song;
         public BoosterInventory Inventory => State.Inventory;
 
-        public GameSession(LevelDef level, SongState song = default, BoosterInventory inventory = null)
+        public GameSession(LevelDef level, BoosterInventory inventory = null)
         {
             if (level == null) throw new ArgumentNullException(nameof(level));
-            initial = level.CreateBoard(song, inventory); State = initial.Clone(); Par = level.par;
+            initial = level.CreateBoard(inventory); State = initial.Clone(); Par = level.par;
             Events = events.AsReadOnly();
         }
         public static int StarsFor(int moves, int par) => moves <= par ? 3 : moves <= par + 3 ? 2 : 1;

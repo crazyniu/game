@@ -7,7 +7,7 @@ namespace PerchSort.V5.Game
 {
     public sealed class V5Profile
     {
-        public int Coins, HighestUnlocked = 1, SongNotes, PayoutCount;
+        public int Coins, HighestUnlocked = 1;
         public readonly int[] Stars = new int[41];
         public readonly int[] Boosters = new int[V5ViewModel.BoosterCount];
         public readonly bool[] StarterGranted = new bool[V5ViewModel.BoosterCount];
@@ -21,7 +21,6 @@ namespace PerchSort.V5.Game
         }
         public void Capture(GameSession session)
         {
-            SongNotes = session.Song.Notes; PayoutCount = session.Song.PayoutCount;
             for (int i = 0; i < Boosters.Length; i++) Boosters[i] = session.Inventory[(BoosterKind)i];
         }
         public void GrantStarters(int level)
@@ -46,8 +45,6 @@ namespace PerchSort.V5.Game
         public const string CoinsKey = "v5.coins";
         public const string MutedKey = "v5.muted";
         public const string HighestKey = "v5.highestUnlocked";
-        public const string SongKey = "v5.songNotes";
-        public const string PayoutKey = "v5.songPayouts";
         private static readonly string[] starKeys = NumberedKeys("v5.bestStars.", 41);
         private static readonly string[] tutorialKeys = NumberedKeys("v5.tutorial.", 41);
         private static readonly string[] inventoryKeys = NumberedKeys("v5.booster.", V5ViewModel.BoosterCount);
@@ -64,7 +61,7 @@ namespace PerchSort.V5.Game
         public static string StarterKey(int kind) => starterKeys[kind];
         public static IEnumerable<string> Keys()
         {
-            yield return CoinsKey; yield return MutedKey; yield return HighestKey; yield return SongKey; yield return PayoutKey;
+            yield return CoinsKey; yield return MutedKey; yield return HighestKey;
             for (int i = 1; i <= 40; i++) { yield return StarsKey(i); yield return TutorialKey(i); }
             for (int i = 0; i < V5ViewModel.BoosterCount; i++) { yield return InventoryKey(i); yield return StarterKey(i); }
         }
@@ -73,8 +70,7 @@ namespace PerchSort.V5.Game
             var profile = new V5Profile
             {
                 Coins = Math.Max(0, PlayerPrefs.GetInt(CoinsKey)), Muted = PlayerPrefs.GetInt(MutedKey) != 0,
-                HighestUnlocked = Math.Max(1, Math.Min(40, PlayerPrefs.GetInt(HighestKey, 1))),
-                SongNotes = Math.Max(0, PlayerPrefs.GetInt(SongKey)), PayoutCount = Math.Max(0, PlayerPrefs.GetInt(PayoutKey))
+                HighestUnlocked = Math.Max(1, Math.Min(40, PlayerPrefs.GetInt(HighestKey, 1)))
             };
             for (int i = 1; i <= 40; i++) { profile.Stars[i] = PlayerPrefs.GetInt(StarsKey(i)); profile.Tutorials[i] = PlayerPrefs.GetInt(TutorialKey(i)) != 0; }
             for (int i = 0; i < profile.Boosters.Length; i++)
@@ -87,7 +83,7 @@ namespace PerchSort.V5.Game
         public static void Save(V5Profile profile)
         {
             PlayerPrefs.SetInt(CoinsKey, profile.Coins); PlayerPrefs.SetInt(MutedKey, profile.Muted ? 1 : 0);
-            PlayerPrefs.SetInt(HighestKey, profile.HighestUnlocked); PlayerPrefs.SetInt(SongKey, profile.SongNotes); PlayerPrefs.SetInt(PayoutKey, profile.PayoutCount);
+            PlayerPrefs.SetInt(HighestKey, profile.HighestUnlocked);
             for (int i = 1; i <= 40; i++) { PlayerPrefs.SetInt(StarsKey(i), profile.Stars[i]); PlayerPrefs.SetInt(TutorialKey(i), profile.Tutorials[i] ? 1 : 0); }
             for (int i = 0; i < profile.Boosters.Length; i++)
             {

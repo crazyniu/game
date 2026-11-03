@@ -30,7 +30,7 @@ namespace PerchSort.V5.Tests
             var named = new[]
             {
                 ("coins", V5Layout.CoinPill), ("settings", V5Layout.SettingsButton),
-                ("Song", V5Layout.SongPill), ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
+                ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
                 ("undo", V5Layout.ToolButton(0)), ("Firefly", V5Layout.ToolButton(1)),
                 ("Sapling", V5Layout.ToolButton(2)), ("world tool", V5Layout.ToolButton(3)),
                 ("stuck", V5Layout.StuckBubble), ("feather", V5Layout.Centered(V5Layout.LightStepPoint, Vector2.one * 70))
@@ -52,7 +52,7 @@ namespace PerchSort.V5.Tests
         [TestCase(7)]
         public void SpeciesHousesAndGiftSignsFitWithoutCoveringHudOrBoard(int count)
         {
-            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial, V5Layout.SongPill };
+            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial };
             for (int i = 0; i < count; i++)
             {
                 Rect house = V5Layout.SpeciesHouse(i, count), gift = V5Layout.GiftSign(i, count);

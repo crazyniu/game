@@ -125,7 +125,7 @@ namespace PerchSort.V5.Game
             switch (events[index])
             {
                 case ResolutionWave _:
-                    bool empty = index + 1 == events.Count || events[index + 1] is SongNote || events[index + 1] is Won || events[index + 1] is PhaseChanged;
+                    bool empty = index + 1 == events.Count || events[index + 1] is Won || events[index + 1] is PhaseChanged;
                     bool pause = !firstWave && !empty;
                     firstWave = false;
                     if (pause) sequence.Play(0.15f, t => { }, next); else next();
@@ -207,8 +207,6 @@ namespace PerchSort.V5.Game
                     }
                     root.Hud.Phase(phase, dayLength, dayLength > 0); root.Scene.ChangePhase(phase, next);
                     break;
-                case SongNote note: root.Hud.Note(note, next); break;
-                case SongPayout payout: root.Hud.Payout(payout, next); break;
                 case BoosterUsed booster:
                     root.Hud.BoosterSpent(booster);
                     if (booster.Booster == BoosterKind.Sapling) Rebuild(root.Session.State);
@@ -241,8 +239,8 @@ namespace PerchSort.V5.Game
                 else if (item is PhaseChanged) targets.Add(V5Layout.PhaseDial.center);
             }
             if (targets.Count == 0)
-                targets.Add(gift.Effect == GiftEffect.Encore ? V5Layout.SongPill.center : gift.Effect == GiftEffect.LightStep
-                    ? V5Layout.LightStepPoint : gift.Effect == GiftEffect.Moonbeam ? V5Layout.PhaseDial.center : root.Hud.House(gift.Species.Id).GiftPoint + new Vector2(0, -65));
+                targets.Add(gift.Effect == GiftEffect.LightStep ? V5Layout.LightStepPoint
+                    : gift.Effect == GiftEffect.Moonbeam ? V5Layout.PhaseDial.center : root.Hud.House(gift.Species.Id).GiftPoint + new Vector2(0, -65));
             int count = targets.Count;
             foreach (var target in targets) root.Hud.FlyIcon(V5ViewModel.GiftIcon(gift.Species.Id), root.Hud.House(gift.Species.Id).GiftPoint,
                 target, () => { if (--count == 0) done(); });

@@ -41,17 +41,6 @@ namespace PerchSort.V5.Core
         internal Bird WithFlags(BirdFlags flags) => new Bird(Id, Species, flags);
     }
 
-    public readonly struct SongState
-    {
-        public int Notes { get; }
-        public int PayoutCount { get; }
-        public SongState(int notes, int payoutCount = 0)
-        {
-            if (notes < 0 || payoutCount < 0) throw new ArgumentOutOfRangeException(nameof(notes));
-            Notes = notes; PayoutCount = payoutCount;
-        }
-    }
-
     public sealed class BoosterInventory
     {
         internal const int KindCount = 6;
@@ -129,6 +118,9 @@ namespace PerchSort.V5.Core
         public int Capacity { get; }
         public int DayLength { get; }
         public int Moves { get; internal set; }
+        // Stars/display exclude Encore; solver depth and par still count every transfer/swivel in Moves.
+        public int CountedMoves { get; internal set; }
+        public bool Encore { get; internal set; }
         public bool AddedBranch { get; internal set; }
         public bool LightStep { get; internal set; }
         public DayPhase Phase { get; internal set; }
@@ -136,9 +128,6 @@ namespace PerchSort.V5.Core
         public int MoonbeamMovesLeft { get; internal set; }
         public int Chain { get; internal set; }
         public int ChorusCoins { get; internal set; }
-        public int SongNotes { get; internal set; }
-        public int PayoutCount { get; internal set; }
-        public SongState Song => new SongState(SongNotes, PayoutCount);
         public BoosterInventory Inventory { get; internal set; }
         public bool IsWon => HomeItems.Count == SpeciesCount;
         public bool NocturnalDaySleep => DayLength > 0 && Phase == DayPhase.Day && MoonbeamMovesLeft == 0;
@@ -163,9 +152,10 @@ namespace PerchSort.V5.Core
             var copy = new BoardState(LevelId, World, Variant, Capacity, SpeciesCount, DayLength, branches,
                 copyInventory ? Inventory.Clone() : Inventory)
             {
-                Moves = Moves, AddedBranch = AddedBranch, LightStep = LightStep, Phase = Phase,
+                Moves = Moves, CountedMoves = CountedMoves, Encore = Encore,
+                AddedBranch = AddedBranch, LightStep = LightStep, Phase = Phase,
                 PhaseCounter = PhaseCounter, MoonbeamMovesLeft = MoonbeamMovesLeft,
-                Chain = Chain, ChorusCoins = ChorusCoins, SongNotes = SongNotes, PayoutCount = PayoutCount
+                Chain = Chain, ChorusCoins = ChorusCoins
             };
             copy.HomeItems.AddRange(HomeItems);
             return copy;

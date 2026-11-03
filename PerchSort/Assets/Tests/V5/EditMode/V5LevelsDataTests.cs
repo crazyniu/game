@@ -107,7 +107,8 @@ namespace PerchSort.V5.Tests
             Assert.That(solution.Moves.Count, Is.EqualTo(level.par), "Stored par must equal a proven shortest solution.");
             foreach (var move in solution.Moves) Assert.That(session.TryAction(move), Is.True);
             Assert.That(session.State.IsWon, Is.True);
-            Assert.That(session.MoveCount, Is.EqualTo(level.par));
+            Assert.That(session.State.Moves, Is.EqualTo(level.par), "Par measures real transfers/swivels, not Encore-discounted stars.");
+            Assert.That(session.MoveCount, Is.LessThanOrEqualTo(session.State.Moves));
             Assert.That(session.State.AddedBranch, Is.False, "Authored levels must win without boosters.");
         }
     }

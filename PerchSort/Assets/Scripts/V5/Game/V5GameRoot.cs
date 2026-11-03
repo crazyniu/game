@@ -95,7 +95,7 @@ namespace PerchSort.V5.Game
         {
             CancelPresentation(); rewardGranted = false;
             if (starters) profile.GrantStarters(level.id);
-            Session = new GameSession(level, new SongState(profile.SongNotes, profile.PayoutCount), profile.Inventory());
+            Session = new GameSession(level, profile.Inventory());
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
@@ -108,10 +108,10 @@ namespace PerchSort.V5.Game
             LoadLevel(LevelLoader.Next(LevelId));
         }
         // Fixture loading is explicit, uses real Core rules and never mutates PlayerPrefs.
-        public void LoadFixture(LevelDef level, BoosterInventory inventory = null, int coins = 0, SongState song = default)
+        public void LoadFixture(LevelDef level, BoosterInventory inventory = null, int coins = 0)
         {
             if (!initialized) Initialize(false);
-            persistProgress = false; profile = new V5Profile { Coins = coins, HighestUnlocked = 40, SongNotes = song.Notes, PayoutCount = song.PayoutCount };
+            persistProgress = false; profile = new V5Profile { Coins = coins, HighestUnlocked = 40 };
             if (inventory != null) for (int i = 0; i < profile.Boosters.Length; i++) profile.Boosters[i] = inventory[(BoosterKind)i];
             LoadDefinition(level, false);
         }

@@ -67,7 +67,6 @@ namespace PerchSort.V5.Tests
                     else Assert.That(view.FrameName, Does.StartWith("bird_" + bird.Species.Id + "_"));
                 }
             }
-            Assert.That(root.Hud.DisplayedSong, Is.EqualTo(state.SongNotes));
             foreach (var species in state.HomedSpecies) Assert.That(root.Hud.Houses[species.Id].IsHome, Is.True);
         }
         private IEnumerator Settled()
@@ -89,12 +88,10 @@ namespace PerchSort.V5.Tests
             yield return null; Canvas.ForceUpdateCanvases();
             var bar = root.Hud.transform.Find("Bottom bar");
             Assert.That(bar.gameObject.activeInHierarchy, Is.False);
-            Assert.That(root.Hud.transform.Find("Song meter").gameObject.activeInHierarchy, Is.False);
             foreach (var button in bar.GetComponentsInChildren<Button>(true)) AssertWinBlocksHud(button.transform, bar);
             AssertWinBlocksHud(root.Hud.transform.Find("Coin pill"), bar);
             root.Restart();
             Assert.That(bar.gameObject.activeInHierarchy, Is.True);
-            Assert.That(root.Hud.transform.Find("Song meter").gameObject.activeInHierarchy, Is.True);
         }
         private void AssertWinBlocksHud(Transform target, Transform bar)
         {
@@ -180,24 +177,24 @@ namespace PerchSort.V5.Tests
             Assert.That(root.Session.Inventory[BoosterKind.OwlEye], Is.EqualTo(1)); Assert.That(root.Coins, Is.EqualTo(120)); AssertSnapshot(); yield return null;
         }
         [UnityTest]
-        public IEnumerator NextLoadsNextCatalogIdWithPersistedSongAndStarterGift()
+        public IEnumerator NextLoadsNextCatalogIdWithStarterGift()
         {
             Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.TryMove(2, 0), Is.True);
-            int notes = root.Session.Song.Notes; root.NextLevel();
-            Assert.That(root.LevelId, Is.EqualTo(2)); Assert.That(root.Session.Song.Notes, Is.EqualTo(notes));
+            root.NextLevel();
+            Assert.That(root.LevelId, Is.EqualTo(2));
             Assert.That(root.Session.Inventory[BoosterKind.Firefly], Is.EqualTo(3)); Assert.That(root.Win.IsOpen, Is.False);
             AssertSnapshot(); yield return null;
         }
         [UnityTest]
-        public IEnumerator ProfileRoundTripRestoresStarsToolsSongTutorialAndUnlock()
+        public IEnumerator ProfileRoundTripRestoresStarsToolsTutorialAndUnlock()
         {
             var profile = V5Progress.Load(); profile.Coins = 321; profile.HighestUnlocked = 24; profile.Stars[23] = 2;
             profile.Boosters[(int)BoosterKind.Scarecrow] = 4; profile.StarterGranted[(int)BoosterKind.Scarecrow] = true;
-            profile.SongNotes = 4; profile.PayoutCount = 7; profile.Tutorials[21] = true; V5Progress.Save(profile);
+            profile.Tutorials[21] = true; V5Progress.Save(profile);
             var loaded = V5Progress.Load(); Assert.That(loaded.Coins, Is.EqualTo(321)); Assert.That(loaded.HighestUnlocked, Is.EqualTo(24));
             Assert.That(loaded.Stars[23], Is.EqualTo(2)); Assert.That(loaded.Boosters[(int)BoosterKind.Scarecrow], Is.EqualTo(4));
-            Assert.That(loaded.StarterGranted[(int)BoosterKind.Scarecrow], Is.True); Assert.That(loaded.SongNotes, Is.EqualTo(4));
-            Assert.That(loaded.PayoutCount, Is.EqualTo(7)); Assert.That(loaded.Tutorials[21], Is.True); yield return null;
+            Assert.That(loaded.StarterGranted[(int)BoosterKind.Scarecrow], Is.True);
+            Assert.That(loaded.Tutorials[21], Is.True); yield return null;
         }
         private Image TutorialPointer() => root.GetComponentsInChildren<TutorialHand>(true).Single().GetComponentInChildren<Image>(true);
         private IEnumerator ReloadSavedGame()

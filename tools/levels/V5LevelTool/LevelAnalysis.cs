@@ -136,7 +136,7 @@ namespace PerchSort.LevelTool
                     }
                     else ApplyRecorded(session, step);
                 }
-                if (!session.State.IsWon || session.MoveCount != result.Booster.MinimumMoves || uses != 1)
+                if (!session.State.IsWon || session.State.Moves != result.Booster.MinimumMoves || uses != 1)
                     throw new InvalidOperationException("One-booster witness did not replay at its proven cost.");
             }
             void CheckOrder(string[] line, string nextSpecies, int? minimum)
@@ -196,7 +196,7 @@ namespace PerchSort.LevelTool
                 result.MaximumHomesInOneMove = Math.Max(result.MaximumHomesInOneMove, homes);
             }
             if (phaseChanged && nightWake) exercised.Add("daynight");
-            if (!session.State.IsWon || session.MoveCount != path.Count) throw new InvalidOperationException("Optimal Core replay did not win.");
+            if (!session.State.IsWon || session.State.Moves != path.Count) throw new InvalidOperationException("Optimal Core replay did not win.");
             result.ExercisedMechanics = exercised.OrderBy(x => x, StringComparer.Ordinal).ToArray();
         }
     }

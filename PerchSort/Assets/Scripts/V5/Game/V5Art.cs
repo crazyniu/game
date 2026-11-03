@@ -17,7 +17,7 @@ namespace PerchSort.V5.Game
             sprites.Add(name, sprite);
             return sprite;
         }
-        // Only explicitly approved in-flight art (ropes and Song notes) may be absent.
+        // Only explicitly approved in-flight art (ropes and plain limb) may be absent.
         public Sprite Optional(string name)
         {
             if (sprites.TryGetValue(name, out var sprite)) return sprite;

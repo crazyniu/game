@@ -49,8 +49,6 @@ namespace PerchSort.V5.Game
         public const float LevelBadgeFontSize = 44;
         public static readonly Rect LevelSign = new Rect(48, 245, 100, 100);
         public static readonly Rect PhaseDial = new Rect(48, 385, 100, 130);
-        // Beside the coin pill: 42px clearance; 212px clear of Settings.
-        public static readonly Rect SongPill = new Rect(350, 85, 320, 90);
         public static readonly Vector2 LightStepPoint = new Vector2(985, 1595);
         public static float SpeciesHouseWidth(int count) => Mathf.Min(HouseWidth, (840f - (count - 1) * 20) / count);
         public static Rect SpeciesHouse(int index, int count)

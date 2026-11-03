@@ -12,13 +12,12 @@ namespace PerchSort.V5.Game
         private V5Art art;
         private V5GameRoot root;
         private TMP_FontAsset font;
-        private TextMeshProUGUI coins, phaseCount, chorusLabel, songCount;
+        private TextMeshProUGUI coins, phaseCount, chorusLabel;
         private Image phaseIcon;
-        private GameObject phaseGroup, feather, stuck, chorus, songGroup;
+        private GameObject phaseGroup, feather, stuck, chorus;
         private V5Motion motion;
         private RectTransform housesLayer, ropesLayer, effects, bottomBar;
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
-        private readonly SongNoteView[] notes = new SongNoteView[5];
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
         private readonly TextMeshProUGUI[] counts = new TextMeshProUGUI[4];
@@ -28,7 +27,6 @@ namespace PerchSort.V5.Game
         private bool contextMechanic;
         private TextMeshProUGUI levelNumber;
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
-        public int DisplayedSong { get; private set; }
         public BoosterKind ContextBooster => kinds[3];
 
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
@@ -46,18 +44,6 @@ namespace PerchSort.V5.Game
             var sign = V5UI.Image(transform, "Level sign (hold for picker)", art.Get("btn_square_wood"), V5Layout.LevelSign.center, V5Layout.LevelSign.size);
             sign.raycastTarget = true; sign.gameObject.AddComponent<V5LongPress>().Configure(root.OpenLevelPicker);
             levelNumber = V5UI.Text(sign.transform, "Level", "1", font, V5Layout.LevelSign.size * 0.5f, V5Layout.LevelSign.size, 44);
-            var song = V5UI.Image(transform, "Song meter", art.Get("pill_cream"), V5Layout.SongPill.center, V5Layout.SongPill.size);
-            songGroup = song.gameObject;
-            Sprite emptyNote = art.Optional("note_empty"), fullNote = art.Optional("note_full");
-            for (int i = 0; i < notes.Length; i++)
-            {
-                notes[i] = V5UI.Rect(song.transform, "Song note " + i, new Vector2(40 + i * 60, 45), Vector2.one * 40)
-                    .gameObject.AddComponent<SongNoteView>();
-                notes[i].Configure(emptyNote, fullNote);
-            }
-            songCount = V5UI.Text(song.transform, "Banked Song count", "", font, new Vector2(282, 45), new Vector2(56, 36), 24);
-            songCount.enableAutoSizing = true; songCount.fontSizeMin = 10; songCount.fontSizeMax = 24;
-            songCount.gameObject.SetActive(false);
             phaseGroup = V5UI.Rect(transform, "Day night dial", V5Layout.PhaseDial.center, V5Layout.PhaseDial.size).gameObject;
             phaseIcon = V5UI.Image(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), new Vector2(50, 40), Vector2.one * 80);
             phaseCount = V5UI.Text(phaseGroup.transform, "Moves until phase", "0", font, new Vector2(50, 110), new Vector2(90, 40), 32);
@@ -127,14 +113,14 @@ namespace PerchSort.V5.Game
                 bool home = false; foreach (var species in state.HomedSpecies) if (species.Id == house.Species) home = true;
                 house.SetHome(home);
             }
-            SetNotes(state.SongNotes); Phase(state.Phase, state.DayLength - state.PhaseCounter, state.DayLength > 0);
+            Phase(state.Phase, state.DayLength - state.PhaseCounter, state.DayLength > 0);
             feather.SetActive(state.LightStep);
         }
         public void Refresh(GameSession session, int coinCount, bool blocked, bool presenting)
         {
             coins.text = coinCount.ToString();
             if (!presenting) SyncState(session.State);
-            bottomBar.gameObject.SetActive(!root.Win.IsOpen); songGroup.SetActive(!root.Win.IsOpen);
+            bottomBar.gameObject.SetActive(!root.Win.IsOpen);
             tools[0].interactable = !blocked && session.CanUndo;
             settings.interactable = !blocked;
             for (int i = 1; i < tools.Length; i++)
@@ -163,46 +149,6 @@ namespace PerchSort.V5.Game
         {
             phaseGroup.SetActive(enabled); phaseIcon.sprite = art.Get(value == DayPhase.Day ? "dial_sun" : "dial_moon"); phaseCount.text = movesLeft.ToString();
         }
-        public void SetNotes(int value)
-        {
-            if (DisplayedSong == value) return;
-            DisplayedSong = value;
-            bool overflow = value > notes.Length;
-            for (int i = 0; i < notes.Length; i++)
-            {
-                notes[i].Show(i < value);
-                notes[i].rectTransform.anchoredPosition = new Vector2(overflow ? 30 + i * 48 : 40 + i * 60, -45);
-            }
-            songCount.gameObject.SetActive(overflow);
-            if (overflow) songCount.text = value.ToString();
-        }
-        public void Note(SongNote note, Action done) => FlyIcon("gift_encore", new Vector2(630, 570), V5Layout.SongPill.center, () =>
-        {
-            int index = DisplayedSong;
-            SetNotes(note.MeterAfter);
-            if (index >= notes.Length || note.MeterAfter <= index) { done(); return; }
-            var slot = notes[index].rectTransform;
-            slot.localScale = Vector3.one * 1.3f;
-            motion.Play(0.2f, t => slot.localScale = Vector3.one * Mathf.Lerp(1.3f, 1, t), done);
-        });
-        public void Payout(SongPayout payout, Action done)
-        {
-            SetNotes(Mathf.Max(0, DisplayedSong - 5));
-            bool visible = false;
-            for (int i = 1; i < kinds.Length; i++) visible |= kinds[i] == payout.Booster && tools[i].gameObject.activeSelf;
-            FlyIcon(V5ViewModel.Icon(payout.Booster), V5Layout.SongPill.center, BoosterPoint(payout.Booster), () =>
-            {
-                inventory[(int)payout.Booster]++; DrawCounts();
-                if (visible) { done(); return; }
-                // Preview above slot four; its underlying button keeps its own identity and action.
-                var preview = V5UI.Image(effects, "Awarded " + payout.Booster + " +1", art.Get("pill_cream"),
-                    new Vector2(845, 1595), new Vector2(130, 90));
-                V5UI.Image(preview.transform, "Award", art.Get(V5ViewModel.Icon(payout.Booster)), new Vector2(37, 45), Vector2.one * 54);
-                V5UI.Text(preview.transform, "Award count", "+1", font, new Vector2(97, 45), new Vector2(56, 60), 32);
-                motion.Play(0.65f, t => preview.transform.localScale = Vector3.one * (0.9f + 0.1f * Mathf.Sin(t * Mathf.PI)),
-                    () => { V5UI.Dispose(preview.gameObject); done(); });
-            });
-        }
         public void Chorus(int chain)
         {
             if (chain < 2) return;
@@ -225,7 +171,6 @@ namespace PerchSort.V5.Game
         public void Cancel()
         {
             motion.CancelAll(); foreach (var house in houses.Values) house.Cancel();
-            foreach (var note in notes) if (note != null) note.rectTransform.localScale = Vector3.one;
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--) V5UI.Dispose(effects.GetChild(i).gameObject);
             if (chorus != null) chorus.SetActive(false);
         }
