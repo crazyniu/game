@@ -1,0 +1,41 @@
+# T43 — cream-glass HUD v6, map and cards
+
+## Authority and ownership
+
+- Task: [T43_hud_v6_code.md](T43_hud_v6_code.md); branch `t44-hud-art`.
+- Visual authority: [selected A measurements](../art/v6/mock/spec_notes.md), [complete measurement data](../art/v6/qa/layout_measurements.json), [GAME_DESIGN_V5](../docs/GAME_DESIGN_V5.md) sections 3.0, 6.5, 8.1, 9 and 10, and [runtime art import contract](T44_art_report.md).
+- Edited only `PerchSort/Assets/Scripts/V5/Game/**`, `PerchSort/Assets/Editor/V5/**`, `PerchSort/Assets/Tests/V5/**` and this report. Core, Meta, authored levels, production art and scenes are not this worker's edits.
+- Initial no-commit/no-Mac instruction was superseded by coordinator message `msg_e9e6b535f92b`: isolated `wip(t43):` commits/pushes on this branch and Mac compile/tests/capture are now authorized; no main merge, release, desktop control or Mac code editing.
+
+## Implemented
+
+- `V6Layout` replaces the old layout authority. Cream surfaces, leaf badge, coin chip, measured 116px bottom controls, 64px pictograms, stock/plus badges, exactly 0.45 disabled opacity, and contextual fourth booster. No old wood controls, picker or old UI icon loads remain.
+- One suspended cream tray, two tiled ropes, 104x120 species chips, tinted aligned house layers, masked species portraits, 44px gift badges, four progress dots, home checks and held-chip information cards. Existing event playback now sends each flock to its own chip doorway; individual arrivals update dots and pulse the chip.
+- Board band 420..1600, fixed 510px branch frames on opposite sides, minimum 60px tip separation, right rows +60px and five-row support. Bird scale remains pitch-based with the T39 density bounds; measured sparse/five-row spacing takes precedence over the superseded old board band.
+- Win, settings/pause, once-only booster unlock, purchase, goal-information and level-card overlays use cream surfaces and a black 0.72 dim. Background CanvasGroups block raycasts during every modal; bottom tools are hidden. Positive chain bonus only; replay/next/home use icons. Final-level Next is disabled instead of wrapping to level 1.
+- `V6MapView` is startup/home: 40 scrolling nodes, profile-driven cleared/current/open/locked states, stars, current bird and real LitMotion bounce, gates, tiled connecting path, auto-focus and world-specific noon background/ambient changes while scrolling. Positions come from `Meta.WorldMap.NodePosition`; Game references the Meta assembly, which is unchanged. Only working settings controls appear; the requested Shop/Aviary hook is explicit without fake buttons.
+- Node card uses real level species, mechanics and par, profile stars and best counted moves, footprint/flag pictograms and a green play action. Missing scores use -1 internally so a legitimate zero-counted-move win remains displayable as zero. Best records and unlock acknowledgements persist separately from synthetic developer overlays.
+- `V5Art` resolves V6 chrome and world/variant scene kits, falls back to the world's noon then World 1 and logs each missing resource once. Approved plain procedural fallback exists only for absent footprints/flag/muted-speaker pictograms. Existing birds/eggs/zzz/crows and event timing are retained. Ambient petals/bamboo/maple/snow and rain use the appropriate existing assets.
+- `V6ArtImporter` configures V6 RGBA sprite imports, full rectangular meshes, documented nine-slice borders and rope/gate pivots. `V5SceneBuilder` imports both production art sets before building.
+
+## Approved measurement deviations
+
+1. Coordinator `msg_c5024efb6a0e`: related K7 chips retain the measured 16px gap; the 40px rule applies to independent groups. Tray and its chip children move down 8px, from top 175 to 183, giving at least 43px clearance below top-row controls. Ropes extend with it.
+2. Day/night dial sits left of the level badge at `(294,60,80,80)`; it clears coins by 64px, badge by 130px and tray by 43px. Pending light-step badge center is `(1000,1640)`, outside the board and clear of bottom controls.
+3. Settings gains the required icon-only Home action, absent from the static mock. Coordinator `msg_f10a4693396d` approves center `(540,1116)`, not the initially proposed y1100, so its 116px frame clears sound/restart by 40px and remains inside the measured panel.
+4. The level card uses separate footprint/best and flag/par numeric groups, not the mock's forbidden BEST/PAR wording. Mechanic icons reflect actual level data, not the disclosed fictional egg in the L12 concept.
+
+## Tests and capture changes
+
+- Replaced obsolete implementation-pinned layout tests with geometric acceptance boundaries: independent 40px clearance for K2..7, top-row 60px gaps, related-chip containment, safe-area bottom controls, disjoint branch/seat frames, board-band fit for one through five rows and modal control clearance.
+- Added `V6MapTests`: new profile, cleared/current/open/locked distinction, previous-world finale gate, synthetic test-mode overlay non-mutation, every scrolled world boundary, minimum best-move record and legitimate zero-move record.
+- Adapted `V5GameplayTests.SetUp` to enter level 1 through map -> card -> Play. Adapted `AuthoredMovesOpenWinAndPersistChorusReward` for chip progress and best score; retained its T39 dim/raycast regression. Adapted `BranchPointerClicksSelectThenTransferIntoOwnHouse` for chip arrivals/door bounds. Adapted `TestModeShowsFortyClearedLevelsWithoutSavingSyntheticProgressOrStock` to inspect map nodes and acknowledge newly introduced unlock cards. Adapted `PrepareSaplingIntro` to suppress unrelated unlock cards; changed its layout reference to V6.
+- Added PlayMode navigation/settings-blocking and goal-information/once-only-unlock scenarios. Existing authored level-1 moves and all mechanic event assertions remain intact.
+- `V5Capture.Run` retains the previous stable level/mechanic captures and adds `ui_level_k3`, `ui_level_k7`, `ui_win`, `ui_settings`, `ui_unlock_card`, `ui_map`, `ui_level_card`, `ui_goal_info` under `build/screens/v5/`. K3 uses real L5 and K7 uses real L40; these are not copied illustrative mock states.
+
+## Verification
+
+- Local temporary harness: `/tmp/perch-t43`, SDK `/tmp/perch-t32-sdk/dotnet`, C# language version **9**. Compiled all Core/Meta/Game sources, V5 Editor sources and PlayMode source against thin Unity/Editor/LitMotion API stubs. Engine stubs do not simulate rendering, pointer routing, animation or scene lifecycle.
+- Executed real layout/map/profile/policy tests through NUnitLite: **44 passed, 0 failed, 0 skipped**. XML: `/tmp/t43-nunit.xml`.
+- Executed explicit policy/Core smoke: new map current1/node2 locked; real L1 sky then sunny win in two counted moves; saved best2/unlock acknowledgement reload; home focus2; W1 finale opens W2/current11; test mode shows 40 cleared/selectable nodes without changing stored stars; real L40 exposes seven species and egg/sleep/growing/night card mechanics.
+- Mac verification is in progress under the later authority. Unity compile, full EditMode/PlayMode counts, captures and limitations will be recorded here after the run. Local results alone are not Unity or visual acceptance.
