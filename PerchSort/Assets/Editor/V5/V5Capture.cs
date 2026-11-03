@@ -29,7 +29,7 @@ public static class V5Capture
             EditorSceneManager.OpenScene(V5SceneBuilder.ScenePath, OpenSceneMode.Single);
             camera = Camera.main;
             if (camera == null) throw new InvalidOperationException("V5 scene has no camera.");
-            target = new RenderTexture((int)V6Layout.DesignWidth, (int)V6Layout.DesignHeight, 24);
+            target = new RenderTexture((int)V7Layout.DesignWidth, (int)V7Layout.DesignHeight, 24);
             target.Create();
             camera.targetTexture = target;
             var root = UnityEngine.Object.FindAnyObjectByType<V5GameRoot>();

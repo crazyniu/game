@@ -63,9 +63,9 @@ namespace PerchSort.V5.Game
             Canvas = canvasObject.GetComponent<Canvas>(); Canvas.renderMode = RenderMode.ScreenSpaceCamera;
             Canvas.worldCamera = RenderCamera; Canvas.planeDistance = 5; Canvas.sortingOrder = 100;
             var scaler = canvasObject.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = V6Layout.DesignSize; scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight; scaler.matchWidthOrHeight = 0.5f;
-            var safe = V5UI.Rect(Canvas.transform, "Safe area", Vector2.zero, V6Layout.DesignSize);
-            var design = V5UI.Rect(safe, "1080x1920 design", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            scaler.referenceResolution = V7Layout.DesignSize; scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight; scaler.matchWidthOrHeight = 0.5f;
+            var safe = V5UI.Rect(Canvas.transform, "Safe area", Vector2.zero, V7Layout.DesignSize);
+            var design = V5UI.Rect(safe, "1080x1920 design", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             var safeArea = canvasObject.AddComponent<V5SafeArea>(); UnityEngine.Canvas.ForceUpdateCanvases();
             safeArea.Configure((RectTransform)Canvas.transform, safe, design);
             Scene = Layer<V5SceneView>(design, "Forest"); Scene.Configure(art, CancelSelection);
@@ -93,7 +93,7 @@ namespace PerchSort.V5.Game
             OpenMap();
         }
         private static T Layer<T>(Transform parent, string name) where T : Component =>
-            V5UI.Rect(parent, name, V6Layout.DesignSize * 0.5f, V6Layout.DesignSize).gameObject.AddComponent<T>();
+            V5UI.Rect(parent, name, V7Layout.DesignSize * 0.5f, V7Layout.DesignSize).gameObject.AddComponent<T>();
         private void Save()
         {
             profile.Capture(Session);

@@ -28,9 +28,9 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets)
         {
             root = owner; art = assets;
-            branchLayer = V5UI.Rect(transform, "Branches", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
-            birdLayer = V5UI.Rect(transform, "Birds", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
-            effects = V5UI.Rect(transform, "Board particles", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            branchLayer = V5UI.Rect(transform, "Branches", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
+            birdLayer = V5UI.Rect(transform, "Birds", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
+            effects = V5UI.Rect(transform, "Board particles", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             sequence = gameObject.AddComponent<V5Motion>(); idle = gameObject.AddComponent<V5Motion>(); hintMotion = gameObject.AddComponent<V5Motion>();
         }
         public void Rebuild(BoardState state)
@@ -45,15 +45,15 @@ namespace PerchSort.V5.Game
             phase = state.Phase; dayLength = state.DayLength; moonbeam = state.MoonbeamMovesLeft; chain = state.Chain;
             for (int b = 0; b < state.Branches.Count; b++)
             {
-                var branch = state.Branches[b]; Rect hit = V6Layout.BranchHit(branch.Row, RowCount, branch.IsRight);
+                var branch = state.Branches[b]; Rect hit = V7Layout.BranchHit(branch.Row, RowCount, branch.IsRight);
                 var view = V5UI.Rect(branchLayer, "B" + b, hit.center, hit.size).gameObject.AddComponent<BranchView>();
                 view.Configure(root, art, branch, b, RowCount, state.Capacity); branches.Add(view);
                 var ids = new List<int>(branch.Capacity); seats.Add(ids);
                 for (int slot = 0; slot < branch.Birds.Count; slot++)
                 {
                     var bird = branch.Birds[slot]; Vector2 point = view.Slot(slot);
-                    var birdView = V5UI.Rect(birdLayer, "Bird " + bird.Id, point, V6Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
-                    birdView.Configure(bird, state.IsAsleep(bird), art, point, V6Layout.BirdScale(RowCount));
+                    var birdView = V5UI.Rect(birdLayer, "Bird " + bird.Id, point, V7Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
+                    birdView.Configure(bird, state.IsAsleep(bird), art, point, V7Layout.BirdScale(RowCount));
                     birds.Add(bird.Id, birdView); ids.Add(bird.Id);
                 }
             }
@@ -95,7 +95,7 @@ namespace PerchSort.V5.Game
             ClearHints();
             Vector2 from = branches[move.From].Slot(Mathf.Max(0, seats[move.From].Count - 1));
             Vector2 to = move.Kind == MoveKind.Swivel ? branches[move.From].KnotPoint : branches[move.To].Slot(seats[move.To].Count);
-            var firefly = V5UI.Image(effects, "Firefly hint", art.Icon("ico_hint"), from, Vector2.one * V6Layout.IconSize);
+            var firefly = V5UI.Image(effects, "Firefly hint", art.Icon("ico_hint"), from, Vector2.one * V7Layout.IconSize);
             var glow = firefly.gameObject.AddComponent<Outline>(); glow.effectColor = new Color(1, 1, 0.2f, 0.8f); glow.effectDistance = Vector2.one * 4;
             hintMotion.Loop(1.5f, t =>
             {
@@ -231,11 +231,11 @@ namespace PerchSort.V5.Game
                 else if (item is BranchGrew grow) targets.Add(branches[grow.Branch].Slot(grow.Seats - 1));
                 else if (item is TwigUpgraded twig) targets.Add(branches[twig.Branch].Slot(twig.Seats - 1));
                 else if (item is CrowsLeft crows) foreach (var travel in crows.Birds) targets.Add(birds[travel.BirdId].Position);
-                else if (item is PhaseChanged) targets.Add(V6Layout.PhaseDial.center);
+                else if (item is PhaseChanged) targets.Add(V7Layout.PhaseDial.center);
             }
             if (targets.Count == 0)
-                targets.Add(gift.Effect == GiftEffect.LightStep ? V6Layout.LightStepPoint
-                    : gift.Effect == GiftEffect.Moonbeam ? V6Layout.PhaseDial.center : root.Hud.House(gift.Species.Id).GiftPoint + new Vector2(0, -65));
+                targets.Add(gift.Effect == GiftEffect.LightStep ? V7Layout.LightStepPoint
+                    : gift.Effect == GiftEffect.Moonbeam ? V7Layout.PhaseDial.center : root.Hud.House(gift.Species.Id).GiftPoint + new Vector2(0, -65));
             int count = targets.Count;
             foreach (var target in targets) root.Hud.FlyIcon(V5ViewModel.GiftIcon(gift.Species.Id), root.Hud.House(gift.Species.Id).GiftPoint,
                 target, () => { if (--count == 0) done(); });

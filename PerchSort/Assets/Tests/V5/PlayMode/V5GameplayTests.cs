@@ -123,7 +123,7 @@ namespace PerchSort.V5.Tests
             Assert.That(root.Session.State.HomedSpecies[0].Id, Is.EqualTo("sky")); AssertSnapshot(); yield return null;
             Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
             var target = root.Hud.Houses["sky"].DoorPoint();
-            Assert.That(target.y, Is.InRange(V6Layout.GoalTray.yMin, V6Layout.GoalTray.yMax));
+            Assert.That(target.y, Is.InRange(V7Layout.GoalTray.yMin, V7Layout.GoalTray.yMax));
         }
         [UnityTest]
         public IEnumerator AnimatedTransferLocksAirborneInputAndUndoCancelsCallbacks()
@@ -280,7 +280,7 @@ namespace PerchSort.V5.Tests
         public IEnumerator SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending()
         {
             yield return PrepareSaplingIntro(1);
-            var hand = TutorialPointer(); var point = V6Layout.ToolButton(2).center;
+            var hand = TutorialPointer(); var point = V7Layout.ToolButton(2).center;
             Assert.That(hand.gameObject.activeInHierarchy, Is.True);
             Assert.That(hand.rectTransform.anchoredPosition, Is.EqualTo(new Vector2(point.x, -point.y)));
             Assert.That(V5Progress.Load().Tutorials[4], Is.True);
@@ -370,7 +370,7 @@ namespace PerchSort.V5.Tests
         {
             var art = new V5Art();
             var layer = (RectTransform)root.Hud.HomeFlightLayer;
-            var view = V5UI.Rect(layer, "Arrival geometry probe", new Vector2(400, 900), V6Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
+            var view = V5UI.Rect(layer, "Arrival geometry probe", new Vector2(400, 900), V7Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
             try
             {
                 view.Configure(new Bird(999, new Species("sky"), BirdFlags.None), false, art, new Vector2(400, 900), 1);

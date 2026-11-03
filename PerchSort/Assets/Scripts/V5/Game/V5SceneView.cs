@@ -14,12 +14,12 @@ namespace PerchSort.V5.Game
         public void Configure(V5Art assets, Action emptyTap)
         {
             art = assets;
-            background = V5UI.Image(transform, "Forest background", null, V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            background = V5UI.Image(transform, "Forest background", null, V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             background.raycastTarget = true;
             background.gameObject.AddComponent<V5EmptyClick>().Click = emptyTap;
-            night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             phase = gameObject.AddComponent<V5Motion>();
-            particles = V5UI.Rect(transform, "Ambient particles", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            particles = V5UI.Rect(transform, "Ambient particles", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
         }
         public void FillScreen(Transform canvas)
         {
@@ -27,7 +27,7 @@ namespace PerchSort.V5.Game
             background.transform.SetAsFirstSibling();
             V5UI.Stretch(background.rectTransform);
             var fit = background.gameObject.AddComponent<AspectRatioFitter>();
-            fit.aspectRatio = V6Layout.DesignWidth / V6Layout.DesignHeight;
+            fit.aspectRatio = V7Layout.DesignWidth / V7Layout.DesignHeight;
             fit.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
         }
         public void PlaceLighting(Transform board) => night.rectTransform.SetParent(board, false);

@@ -13,16 +13,16 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets)
         {
             root = owner; art = assets;
-            var dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, V6Layout.PanelDimAlpha); dim.raycastTarget = true;
-            var body = V5UI.Surface(transform, "Settings panel", art, "ui_panel_cream", V6Layout.SettingsPanel); body.raycastTarget = true;
-            V5UI.Button(body.transform, art, "Close settings", "ui_close_x", Local(V6Layout.CloseButton), root.CloseSettings);
-            var sound = V5UI.Button(body.transform, art, "Toggle mute", "ico_sound_on", Local(V6Layout.SoundButton), ToggleMute);
+            var dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, V7Layout.PanelDimAlpha); dim.raycastTarget = true;
+            var body = V5UI.Surface(transform, "Settings panel", art, "ui_panel_cream", V7Layout.SettingsPanel); body.raycastTarget = true;
+            V5UI.Button(body.transform, art, "Close settings", "ui_close_x", Local(V7Layout.CloseButton), root.CloseSettings);
+            var sound = V5UI.Button(body.transform, art, "Toggle mute", "ico_sound_on", Local(V7Layout.SoundButton), ToggleMute);
             soundIcon = sound.transform.GetChild(0).GetComponent<Image>();
-            restart = V5UI.Button(body.transform, art, "Restart level", "ico_replay", Local(V6Layout.RestartButton), root.Restart);
-            map = V5UI.Button(body.transform, art, "Return to map", "ico_home", Local(V6Layout.ReturnMapButton), root.OpenMap);
+            restart = V5UI.Button(body.transform, art, "Restart level", "ico_replay", Local(V7Layout.RestartButton), root.Restart);
+            map = V5UI.Button(body.transform, art, "Return to map", "ico_home", Local(V7Layout.ReturnMapButton), root.OpenMap);
             gameObject.SetActive(false);
         }
-        private static Rect Local(Rect rect) => new Rect(rect.position - V6Layout.SettingsPanel.position, rect.size);
+        private static Rect Local(Rect rect) => new Rect(rect.position - V7Layout.SettingsPanel.position, rect.size);
         public void Show()
         {
             transform.SetAsLastSibling(); gameObject.SetActive(true);

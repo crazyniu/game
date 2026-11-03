@@ -18,21 +18,21 @@ namespace PerchSort.V5.Game
         public int ArrivalCount { get; private set; }
         public void Configure(V5GameRoot root, V5Art assets, string species, int index, int count)
         {
-            art = assets; Species = species; bounds = V6Layout.GoalChip(index, count);
+            art = assets; Species = species; bounds = V7Layout.GoalChip(index, count);
             chip = V5UI.Rect(transform, "Goal chip", bounds.center, bounds.size);
             var target = chip.gameObject.AddComponent<Image>(); target.color = Color.clear; target.raycastTarget = true;
             chip.gameObject.AddComponent<V5LongPress>().Configure(() => root.OpenGoalInfo(Species));
-            var mask = V5UI.Image(chip, "Doorway mask", art.DoorMask(), V6Layout.GoalFace.center, V6Layout.GoalFace.size);
+            var mask = V5UI.Image(chip, "Doorway mask", art.DoorMask(), V7Layout.GoalFace.center, V7Layout.GoalFace.size);
             mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-            V5UI.Fit(mask.transform, "Species face", art.Portrait(species), V6Layout.GoalFace.size * 0.5f, V6Layout.GoalFace.size);
-            var roof = V5UI.Fit(chip, "Tinted roof", art.Get("goal_house_roof"), V6Layout.GoalHouseCenter, V6Layout.GoalHouseSize);
+            V5UI.Fit(mask.transform, "Species face", art.Portrait(species), V7Layout.GoalFace.size * 0.5f, V7Layout.GoalFace.size);
+            var roof = V5UI.Fit(chip, "Tinted roof", art.Get("goal_house_roof"), V7Layout.GoalHouseCenter, V7Layout.GoalHouseSize);
             roof.color = SpeciesColor(species);
-            V5UI.Fit(chip, "House doorway", art.Get("goal_house_body"), V6Layout.GoalHouseCenter, V6Layout.GoalHouseSize);
-            V5UI.Fit(chip, "Gift", art.Get(V5ViewModel.GiftIcon(species)), V6Layout.GoalGiftCenter, Vector2.one * V6Layout.GiftBadgeSize);
-            GiftPoint = bounds.position + V6Layout.GoalGiftCenter;
+            V5UI.Fit(chip, "House doorway", art.Get("goal_house_body"), V7Layout.GoalHouseCenter, V7Layout.GoalHouseSize);
+            V5UI.Fit(chip, "Gift", art.Get(V5ViewModel.GiftIcon(species)), V7Layout.GoalGiftCenter, Vector2.one * V7Layout.GiftBadgeSize);
+            GiftPoint = bounds.position + V7Layout.GoalGiftCenter;
             for (int i = 0; i < dots.Length; i++) dots[i] = V5UI.Fit(chip, "Progress " + i, art.Get("goal_dot_empty"),
-                V6Layout.GoalDot(i), Vector2.one * V6Layout.GoalDotSize);
-            check = V5UI.Fit(chip, "Home check", art.Get("goal_check"), V6Layout.GoalCheckCenter, Vector2.one * V6Layout.GoalCheckSize).gameObject;
+                V7Layout.GoalDot(i), Vector2.one * V7Layout.GoalDotSize);
+            check = V5UI.Fit(chip, "Home check", art.Get("goal_check"), V7Layout.GoalCheckCenter, Vector2.one * V7Layout.GoalCheckSize).gameObject;
             motion = gameObject.AddComponent<V5Motion>(); SetHome(false);
         }
         public static Color SpeciesColor(string species)
@@ -52,7 +52,7 @@ namespace PerchSort.V5.Game
         }
         public Vector2 DoorPoint()
         {
-            Vector2 local = V6Layout.GoalDoorLocal - bounds.size * 0.5f;
+            Vector2 local = V7Layout.GoalDoorLocal - bounds.size * 0.5f;
             var point = transform.InverseTransformPoint(chip.TransformPoint(new Vector3(local.x, -local.y, 0)));
             var area = ((RectTransform)transform).rect;
             return new Vector2(point.x - area.xMin, area.yMax - point.y);

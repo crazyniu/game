@@ -63,19 +63,19 @@ namespace PerchSort.V5.Game
         }
         public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
             Vector2 point, Action click, bool primary = false) => Button(parent, art, accessibleName, icon,
-                V6Layout.Centered(point, Vector2.one * (primary ? V6Layout.PrimaryButtonSize : V6Layout.SecondaryButtonSize)), click, primary);
+                V7Layout.Centered(point, Vector2.one * (primary ? V7Layout.PrimaryButtonSize : V7Layout.SecondaryButtonSize)), click, primary);
         public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
             Rect bounds, Action click, bool primary = false)
         {
             bool close = icon == "ui_close_x";
             var image = Surface(parent, accessibleName, art, close ? icon :
-                primary ? V6Layout.PrimaryButtonSprite : V6Layout.SecondaryButtonSprite, bounds);
+                primary ? V7Layout.PrimaryButtonSprite : V7Layout.SecondaryButtonSprite, bounds);
             if (close) image.type = UnityEngine.UI.Image.Type.Simple;
             image.raycastTarget = true;
             var button = image.gameObject.AddComponent<V5Button>(); button.targetGraphic = image;
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             if (!close) Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
-                Vector2.one * (Mathf.Min(bounds.width, bounds.height) <= V6Layout.SettingsButton.width ? V6Layout.SmallIconSize : V6Layout.IconSize));
+                Vector2.one * (Mathf.Min(bounds.width, bounds.height) <= V7Layout.SettingsButton.width ? V7Layout.SmallIconSize : V7Layout.IconSize));
             button.onClick.AddListener(() => click()); return button;
         }
 
@@ -118,7 +118,7 @@ namespace PerchSort.V5.Game
             designRect.anchoredPosition = Vector2.zero;
             float width = size.x * safe.width / Screen.width;
             float height = size.y * safe.height / Screen.height;
-            designRect.localScale = Vector3.one * Mathf.Min(width / V6Layout.DesignWidth, height / V6Layout.DesignHeight);
+            designRect.localScale = Vector3.one * Mathf.Min(width / V7Layout.DesignWidth, height / V7Layout.DesignHeight);
         }
     }
 }

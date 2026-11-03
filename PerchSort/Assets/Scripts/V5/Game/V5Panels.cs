@@ -33,7 +33,7 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
         {
             root = owner; art = assets; font = typeface;
-            var dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, V6Layout.PanelDimAlpha); dim.raycastTarget = true;
+            var dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, V7Layout.PanelDimAlpha); dim.raycastTarget = true;
             gameObject.AddComponent<V5EmptyClick>().Click = () => { if (!IsUnlock) root.ClosePanel(); };
             gameObject.SetActive(false);
         }
@@ -43,7 +43,7 @@ namespace PerchSort.V5.Game
             var panel = V5UI.Surface(transform, "Panel", art, "ui_panel_cream", bounds); panel.raycastTarget = true;
             // Consume panel clicks; only the dim dismisses an information card.
             panel.gameObject.AddComponent<V5EmptyClick>();
-            if (close) V5UI.Button(panel.transform, art, "Close", "ui_close_x", V6Layout.InformationClose(bounds), root.ClosePanel);
+            if (close) V5UI.Button(panel.transform, art, "Close", "ui_close_x", V7Layout.InformationClose(bounds), root.ClosePanel);
             return panel.rectTransform;
         }
         private Image Picture(Transform parent, string name, string sprite, Rect panel, Rect bounds) =>
@@ -52,52 +52,52 @@ namespace PerchSort.V5.Game
             V5UI.Text(parent, name, value, font, bounds.center - panel.position, bounds.size, size);
         public void Buy(BoosterKind kind)
         {
-            Rect bounds = V6Layout.UnlockPanel; var body = Body(bounds);
-            Picture(body, "Booster", V5ViewModel.Icon(kind), bounds, V6Layout.UnlockIcon);
-            Picture(body, "Coin price", "ico_coin", bounds, V6Layout.PurchaseCoin);
-            Label(body, "Price", V5ViewModel.Price(kind).ToString(), bounds, V6Layout.PurchasePrice, V6Layout.RewardFontSize);
-            var buy = V5UI.Button(body, art, "Buy one booster", "ico_check", new Rect(V6Layout.UnlockCheck.position - bounds.position, V6Layout.UnlockCheck.size),
+            Rect bounds = V7Layout.UnlockPanel; var body = Body(bounds);
+            Picture(body, "Booster", V5ViewModel.Icon(kind), bounds, V7Layout.UnlockIcon);
+            Picture(body, "Coin price", "ico_coin", bounds, V7Layout.PurchaseCoin);
+            Label(body, "Price", V5ViewModel.Price(kind).ToString(), bounds, V7Layout.PurchasePrice, V7Layout.RewardFontSize);
+            var buy = V5UI.Button(body, art, "Buy one booster", "ico_check", new Rect(V7Layout.UnlockCheck.position - bounds.position, V7Layout.UnlockCheck.size),
                 () => { if (root.BuyBooster(kind)) root.ClosePanel(); }, primary: true);
             buy.interactable = root.Coins >= V5ViewModel.Price(kind);
         }
         public void Unlock(BoosterKind kind)
         {
-            Rect bounds = V6Layout.UnlockPanel; var body = Body(bounds, false); IsUnlock = true;
-            Picture(body, "New booster", V5ViewModel.Icon(kind), bounds, V6Layout.UnlockIcon);
-            Label(body, "Booster name", BoosterName(kind), bounds, V6Layout.UnlockTitle, V6Layout.UnlockTitleSize);
-            Label(body, "Booster effect", BoosterEffect(kind), bounds, V6Layout.UnlockBody, V6Layout.UnlockBodySize);
-            V5UI.Button(body, art, "Acknowledge unlock", "ico_check", new Rect(V6Layout.UnlockCheck.position - bounds.position, V6Layout.UnlockCheck.size), root.AcknowledgeUnlock, true);
+            Rect bounds = V7Layout.UnlockPanel; var body = Body(bounds, false); IsUnlock = true;
+            Picture(body, "New booster", V5ViewModel.Icon(kind), bounds, V7Layout.UnlockIcon);
+            Label(body, "Booster name", BoosterName(kind), bounds, V7Layout.UnlockTitle, V7Layout.UnlockTitleSize);
+            Label(body, "Booster effect", BoosterEffect(kind), bounds, V7Layout.UnlockBody, V7Layout.UnlockBodySize);
+            V5UI.Button(body, art, "Acknowledge unlock", "ico_check", new Rect(V7Layout.UnlockCheck.position - bounds.position, V7Layout.UnlockCheck.size), root.AcknowledgeUnlock, true);
         }
         public void GoalInfo(string species)
         {
-            Rect bounds = V6Layout.GoalInfoPanel; var body = Body(bounds, false);
-            Picture(body, "Bird", "bird_" + species + "_idle", bounds, V6Layout.GoalInfoPortrait);
-            Label(body, "Species name", char.ToUpperInvariant(species[0]) + species.Substring(1), bounds, V6Layout.GoalInfoName, V6Layout.GoalInfoNameSize);
-            Picture(body, "Gift", V5ViewModel.GiftIcon(species), bounds, V6Layout.GoalInfoGift);
-            Label(body, "Gift effect", GiftEffect(species), bounds, V6Layout.GoalInfoEffect, V6Layout.GoalInfoBodySize);
+            Rect bounds = V7Layout.GoalInfoPanel; var body = Body(bounds, false);
+            Picture(body, "Bird", "bird_" + species + "_idle", bounds, V7Layout.GoalInfoPortrait);
+            Label(body, "Species name", char.ToUpperInvariant(species[0]) + species.Substring(1), bounds, V7Layout.GoalInfoName, V7Layout.GoalInfoNameSize);
+            Picture(body, "Gift", V5ViewModel.GiftIcon(species), bounds, V7Layout.GoalInfoGift);
+            Label(body, "Gift effect", GiftEffect(species), bounds, V7Layout.GoalInfoEffect, V7Layout.GoalInfoBodySize);
         }
         public void LevelCard(int id)
         {
-            Rect bounds = V6Layout.LevelCard; var body = Body(bounds, false); CardLevel = id;
+            Rect bounds = V7Layout.LevelCard; var body = Body(bounds, false); CardLevel = id;
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
-            Picture(body, "Level badge", "ui_badge_level", bounds, V6Layout.CardBadge);
-            Label(body, "Level number", id.ToString(), bounds, V6Layout.CardBadge, V6Layout.LevelBadgeFontSize);
-            V5UI.Button(body, art, "Close level card", "ui_close_x", new Rect(V6Layout.CardClose.position - bounds.position, V6Layout.CardClose.size), root.ClosePanel);
+            Picture(body, "Level badge", "ui_badge_level", bounds, V7Layout.CardBadge);
+            Label(body, "Level number", id.ToString(), bounds, V7Layout.CardBadge, V7Layout.LevelBadgeFontSize);
+            V5UI.Button(body, art, "Close level card", "ui_close_x", new Rect(V7Layout.CardClose.position - bounds.position, V7Layout.CardClose.size), root.ClosePanel);
             int stars = root.BestStars(id);
             for (int i = 0; i < 3; i++) Picture(body, "Best star " + i, i < stars ? "star_small_full" : "star_small_empty", bounds,
-                V6Layout.CardStar(i));
-            V5UI.Surface(body, "Moves chip", art, "ui_pill_small", new Rect(V6Layout.CardMoves.position - bounds.position, V6Layout.CardMoves.size));
-            Picture(body, "Best moves icon", "ico_footsteps", bounds, V6Layout.CardBestIcon);
-            Label(body, "Best moves", root.BestMoves(id) >= 0 ? root.BestMoves(id).ToString() : "—", bounds, V6Layout.CardBestValue, V6Layout.CardMovesFontSize);
-            Picture(body, "Par icon", "ico_flag", bounds, V6Layout.CardParIcon);
-            Label(body, "Par", level.par.ToString(), bounds, V6Layout.CardParValue, V6Layout.CardMovesFontSize);
+                V7Layout.CardStar(i));
+            V5UI.Surface(body, "Moves chip", art, "ui_pill_small", new Rect(V7Layout.CardMoves.position - bounds.position, V7Layout.CardMoves.size));
+            Picture(body, "Best moves icon", "ico_footsteps", bounds, V7Layout.CardBestIcon);
+            Label(body, "Best moves", root.BestMoves(id) >= 0 ? root.BestMoves(id).ToString() : "—", bounds, V7Layout.CardBestValue, V7Layout.CardMovesFontSize);
+            Picture(body, "Par icon", "ico_flag", bounds, V7Layout.CardParIcon);
+            Label(body, "Par", level.par.ToString(), bounds, V7Layout.CardParValue, V7Layout.CardMovesFontSize);
             var species = Species(board);
             for (int i = 0; i < species.Count; i++) V5UI.Fit(body, species[i] + " portrait", art.Portrait(species[i]),
-                V6Layout.CardPortrait(i, species.Count) - bounds.position, Vector2.one * V6Layout.PortraitSize);
+                V7Layout.CardPortrait(i, species.Count) - bounds.position, Vector2.one * V7Layout.PortraitSize);
             var mechanics = Mechanics(board);
             for (int i = 0; i < mechanics.Count; i++) Picture(body, "Mechanic " + mechanics[i], "mechanic_" + mechanics[i], bounds,
-                V6Layout.CardMechanic(i, mechanics.Count));
-            V5UI.Button(body, art, "Play level " + id, "ico_play", new Rect(V6Layout.CardPlay.position - bounds.position, V6Layout.CardPlay.size), () => root.LoadLevel(id), true);
+                V7Layout.CardMechanic(i, mechanics.Count));
+            V5UI.Button(body, art, "Play level " + id, "ico_play", new Rect(V7Layout.CardPlay.position - bounds.position, V7Layout.CardPlay.size), () => root.LoadLevel(id), true);
         }
         public static List<string> Species(BoardState board)
         {
