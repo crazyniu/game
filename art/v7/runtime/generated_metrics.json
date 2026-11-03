@@ -1,0 +1,110 @@
+{
+  "btn_purple": {
+    "size": [
+      160,
+      160
+    ],
+    "source_bounds": [
+      124,
+      114,
+      1114,
+      1118
+    ],
+    "alpha_bounds": [
+      4,
+      3,
+      156,
+      157
+    ]
+  },
+  "btn_green": {
+    "size": [
+      220,
+      220
+    ],
+    "source_bounds": [
+      195,
+      184,
+      1043,
+      1070
+    ],
+    "alpha_bounds": [
+      7,
+      3,
+      212,
+      217
+    ]
+  },
+  "coin_pill": {
+    "size": [
+      320,
+      128
+    ],
+    "source_bounds": [
+      318,
+      50,
+      1824,
+      672
+    ],
+    "alpha_bounds": [
+      12,
+      3,
+      307,
+      125
+    ]
+  },
+  "badge_red": {
+    "size": [
+      56,
+      56
+    ],
+    "source_bounds": [
+      346,
+      353,
+      898,
+      906
+    ],
+    "alpha_bounds": [
+      2,
+      2,
+      54,
+      54
+    ]
+  },
+  "btn_green_pill": {
+    "size": [
+      320,
+      112
+    ],
+    "source_bounds": [
+      127,
+      107,
+      2041,
+      612
+    ],
+    "alpha_bounds": [
+      3,
+      14,
+      317,
+      97
+    ]
+  },
+  "btn_purple_pressed": {
+    "size": [
+      160,
+      160
+    ],
+    "source_bounds": [
+      203,
+      186,
+      1036,
+      1040
+    ],
+    "alpha_bounds": [
+      5,
+      3,
+      155,
+      157
+    ]
+  }
+}
