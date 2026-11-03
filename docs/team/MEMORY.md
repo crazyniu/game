@@ -2,7 +2,7 @@
 
 ## Product
 - Perch Sort v5.4: plush bird-sort puzzle, 40 fixed levels in 4 forest worlds. Authority: docs/GAME_DESIGN_V5.md; Chinese summary docs/GAMEPLAY_V5_CN.md. Core rules: tap a branch to select the end run, tap another to move; N=4 same species fly home into their goal chip; homecoming gifts, cascades, eggs, sleepers, crows/twigs, swivel, growing branches, day/night; Chorus only shows x2/x3 and pays coins; the Song meter was removed in v5.4.
-- HUD v6 (cream glass, variant A) is the user's chosen style. No glossy orange wood, no gift signs under houses, no Song pill. Icons only on buttons (numbers allowed); text only on info cards. 40 px gaps between independent HUD elements, top row gaps >= 60.
+- **UI v7 (approved 2026-11-03) replaces HUD v6**: art/v7/ui7_*.png, master art/v7/ui7_level_k3_v2.png. See docs/team/HANDOFF_2026-11-03.md. (Historical: HUD v6 cream glass was rejected as web-like.) No glossy orange wood, no gift signs under houses, no Song pill. Icons only on buttons (numbers allowed); text only on info cards. 40 px gaps between independent HUD elements, top row gaps >= 60.
 - The world map is the home screen. Test mode (`Resources/V5/dev_options.json`: unlockAllLevels, grantTestStock) ships ON for now and MUST ship false for release (docs/RELEASE_CHECKLIST.md).
 
 ## User preferences
