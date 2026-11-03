@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ico_footsteps",
+    "prompt": "Use case: stylized-concept. Create one standalone game HUD pictogram: a pair of small staggered footprints meaning moves. Match the provided Perch Sort icon sheet's colored cartoon pictograms exactly: leaf-green fill, subtle warm highlights, smooth dark-brown outline equivalent to 3 px on a final 128x128 icon. Two clear footprints only, no feather, no numbers or text, no button or frame. Center within a square transparent canvas with modest padding. Clear silhouette readable at 64 and 28 pixels. True transparent RGBA background.",
+    "refs": [
+      "/Users/apple/Documents/projects/game-icons/art/v6/mock/icon_sheet.png"
+    ],
+    "attempts": 1,
+    "status": "generated",
+    "source": "/Users/apple/.codex/generated_images/01a19f87-654f-7533-b70d-95b1326e0958/exec-bb3b5072-eea3-497b-9dda-61763a44ac7b.png"
+  },
+  {
+    "name": "ico_flag",
+    "prompt": "Use case: stylized-concept. Create one standalone game HUD pictogram: a small leaf-green goal flag on a warm brown pole meaning par/goal. Match the provided Perch Sort icon sheet's colored cartoon pictograms exactly: subtle warm highlights and smooth dark-brown outline equivalent to 3 px at final 128x128. Simple waving triangular flag with one pole, no ground or extra objects, no text/numbers/checkerboard/button/frame. Centered square transparent canvas with modest padding, immediately readable at 64 and 28 pixels. True transparent RGBA background.",
+    "refs": [
+      "/Users/apple/Documents/projects/game-icons/art/v6/mock/icon_sheet.png"
+    ],
+    "attempts": 1,
+    "status": "generated",
+    "source": "/Users/apple/.codex/generated_images/01a19f87-654f-7533-b70d-95b1326e0958/exec-4ae3fbbc-97ca-4e50-89f6-44d1cb8766fc.png"
+  },
+  {
+    "name": "ico_sound_off",
+    "prompt": "Use case: precise-object-edit. Edit this Perch Sort sound-on icon to sound-off. Keep the exact same green speaker body, shape, shading, dark brown outline, scale and placement. Replace the sound waves to the right with a clearly visible coral-red X with dark-brown outline, matching the original cartoon style. No other changes, no text, no frame. Transparent RGBA square background. Final use 128x128 and 64x64, outline equivalent to 3 px at 128.",
+    "refs": [
+      "/Users/apple/Documents/projects/game-icons/PerchSort/Assets/Resources/V6/Art/ico_sound_on.png"
+    ],
+    "attempts": 1,
+    "status": "generated",
+    "source": "/Users/apple/.codex/generated_images/01a19f87-654f-7533-b70d-95b1326e0958/exec-85f839d3-385a-41b1-a632-949f667748ee.png"
+  }
+]

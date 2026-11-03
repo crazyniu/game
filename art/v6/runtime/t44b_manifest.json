@@ -1,0 +1,186 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_footsteps.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      4,
+      2,
+      124,
+      126
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "4d98264cc16e7e79f2495fceda7dc6f1c127892bc79e5f09e42fade5e1a3f61f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_footsteps_64.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      64,
+      64
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "e452c96288036d7f9616289b2880942b41f9cfad9c31d4618e510375479b28ad"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_footsteps_28.png",
+    "size": [
+      28,
+      28
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      28,
+      28
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "20d41aca8f87d5e6e4b61ada62f6c5e599e5a6956456f23feafc3058efa68485"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_flag.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      14,
+      2,
+      114,
+      126
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "277f746d725a9d4702bf9416ecfb6bf056876d618df0795ccb920561cb81805b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_flag_64.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      5,
+      0,
+      59,
+      64
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "c76153af0f93aab14673896c213ce5bc9bfc9ff1dd9f65bb2a9a3abb341cd6ca"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_flag_28.png",
+    "size": [
+      28,
+      28
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      1,
+      0,
+      27,
+      28
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "e85fa926d005ffb6476765837dc64400a6d43e3ceae764c99be44fcaec4a4f40"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_sound_off.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      2,
+      9,
+      126,
+      118
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "29bb8e93582dfba4e3df59d2e8bd4595ebee3e3df0ba284a62116f89504d5cba"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V6/Art/ico_sound_off_64.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      2,
+      64,
+      62
+    ],
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "sha256": "a4fe034db164a8c2599ddcf7b6572737c3675705d84c5421c48e7d0b1da5032d"
+  }
+]
