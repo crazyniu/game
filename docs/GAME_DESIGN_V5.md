@@ -85,6 +85,10 @@ Level data lives in `PerchSort/Assets/Resources/V5/levels.json`:
     { "side": "R", "row": 1, "birds": [] } ] } ] }
 ```
 
+## 3.0 HUD v6 (decided 2026-11-03, supersedes the layout in the next table where they conflict)
+
+The user chose the **cream-glass style (variant A)** from the T40 mockups (`art/v6/mock/level_k3_a.png`, `level_k7.png`, `win.png`, `settings.png`, `unlock_card.png`, `map.png`, `level_card.png`, `icon_sheet.png`, measurements in `art/v6/mock/spec_notes.md`). Rules: cream rounded-square buttons (radius 28, 3 px warm-brown outline, soft shadow), colored pictogram icons with dark-brown outline, no glossy orange wood; top row = coin chip left / leaf-shaped level badge centre / settings right, gaps >= 60; one **goal tray** (cream plank hanging from the canopy on two ropes) with one goal chip per species (tinted mini birdhouse, species face in the door, 4 progress dots, green check when home, 44 px gift badge top-right, long-press info card) replaces the big hanging birdhouses; bottom bar up to 4 buttons 116x116 at y=1745 (x = 225/435/645/855) with 40 px count badges; no Song meter; branches never touch (left tips at most x=510, right tips at least x=570); playable band y 420..1600. The full-size numbers of the old table (150 px buttons, 300 px houses, tracker pill, Song pill) are obsolete.
+
 ## 3. Screen layout (v5.1, portrait, design canvas 1080x1920, origin top-left, y downward)
 
 Rules that apply to every screen: (1) **one button family**: every button is the rounded square `btn_square_wood` at one of two sizes, 150 (tools, settings, close, replay, home) or 200 (the single primary action, which alone uses `btn_square_green`); no round buttons, no purple. (2) **Disabled = the same button at 45% alpha with a 0.9 scale**, never a different color or style. (3) **Minimum 40 px clear gap between any two HUD elements**; text never overlaps art. (4) **Nothing floats**: the birdhouse hangs from a limb, branches grow from bushes at the edges. (5) Icons only on buttons; numbers only where needed.
