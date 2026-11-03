@@ -1,6 +1,6 @@
 # Perch Sort v5 — complete game design (owner: Claude)
 
-2026-11-03 (v5.3). Chinese summary for the user: [GAMEPLAY_V5_CN.md](GAMEPLAY_V5_CN.md) (the English page wins on any conflict). The user rejected the v2 runtime and the v4 document set as not fun and visually weak, and assigned all gameplay, UI, bird and animation decisions to Claude ("你来定玩法和 UI", "小鸟这块怎么创新、玩法怎么创新，都由你来定"), with same-genre screenshots as **style direction only**, and asked for innovation rather than copying the genre. This page is the single authority for the v5 runtime and all future v5 tasks. It supersedes `docs/spec/RULES.md` (v4), `docs/UI_SPEC.md`, `docs/MAP_PROGRESSION.md` and the v4 evidence process **for v5**; v2 code and the old docs stay untouched as history.
+2026-11-03 (v5.4: Song meter removed, see §7). Chinese summary for the user: [GAMEPLAY_V5_CN.md](GAMEPLAY_V5_CN.md) (the English page wins on any conflict). The user rejected the v2 runtime and the v4 document set as not fun and visually weak, and assigned all gameplay, UI, bird and animation decisions to Claude ("你来定玩法和 UI", "小鸟这块怎么创新、玩法怎么创新，都由你来定"), with same-genre screenshots as **style direction only**, and asked for innovation rather than copying the genre. This page is the single authority for the v5 runtime and all future v5 tasks. It supersedes `docs/spec/RULES.md` (v4), `docs/UI_SPEC.md`, `docs/MAP_PROGRESSION.md` and the v4 evidence process **for v5**; v2 code and the old docs stay untouched as history.
 
 Originality: theme, bird characters, names, mechanics marked "ours", palette, layout numbers and text are ours. Do not copy any existing game's characters, logos, text, art, level layouts or exact numbers.
 
@@ -51,7 +51,7 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - 2. Initial phase = day. dayLength=0 means no day/night at all: nocturnal species behave as normal birds. With dayLength>0: a counter counts successful transfers and swivels; after the move has fully resolved (including the cascade) and the counter reaches dayLength, the phase toggles, the counter resets to 0, then run the cascade again (newly awake nocturnals may complete flocks; those homecomings belong to the same move). Nocturnal sleep is derived, not a flag: a nocturnal bird is asleep iff (phase==day && moonbeamMovesLeft==0) || it has the authored :sleep flag. Authored :sleep persists at night until woken. Wakes (sunny gift, Morning Bell, same-species landing, adjacent-row song) clear only the authored flag; they cannot make a nocturnal awake during day. Ink gift: toggles phase immediately and resets the counter to 0 (inside step 3; cascade continues). Hoot moonbeam: sets moonbeamMovesLeft=3, counting the next 3 moves, excluding the granting move; decremented after each later move fully resolves; it only overrides nocturnal day-sleep, the displayed phase is unchanged.
 - 3. Each wave: step 2 scans branches in index order, removes ALL currently complete flocks, then step 3 applies their gifts in the same order, then wake/growth effects. Same-species landing wakes are applied in step 3 of the transfer's first wave even when no flock goes home. Every wave rechecks exposed eggs on all branches. Initial exposed eggs / complete flocks are forbidden by the level validator; Core does not auto-resolve on load (they resolve after the first action).
 - 4. Light step: consumed only by the next successful transfer (even if that target was legal anyway); survives swivel, boosters and illegal attempts; still requires a free seat and never lands on an egg tip. Mama pulls only awake chicks; sleeping chicks stay.
-- 5. Chorus: within a homecoming move each homed flock increments chain by 1. A transfer or swivel that homes nothing resets chain to 0 after resolution. Notes per flock: 1 base + 1 bonus if its chain step > 1. Meter overflow carries; every time it reaches 5 it pays out immediately (several payouts possible) and subtracts 5. Berry encore notes are added in step 3 in gift order and can trigger payout immediately. Win coin bonus = 5 x (number of flocks whose chain step > 1), accumulated in the session. Payout is deterministic, no RNG: pool = boosters unlocked at or before the current level id (unlock levels from §8.1, excluding Undo), in fixed order Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain; pick pool[payoutCount mod pool.Count], payoutCount is part of the meter state (session input/output), increments per payout; undo reverts everything.
+- 5. Chorus (v5.4 void parts: notes/payout): within a homecoming move each homed flock increments chain by 1. A transfer or swivel that homes nothing resets chain to 0 after resolution. Notes per flock: 1 base + 1 bonus if its chain step > 1. Meter overflow carries; every time it reaches 5 it pays out immediately (several payouts possible) and subtracts 5. Berry encore notes are added in step 3 in gift order and can trigger payout immediately. Win coin bonus = 5 x (number of flocks whose chain step > 1), accumulated in the session. Payout is deterministic, no RNG: pool = boosters unlocked at or before the current level id (unlock levels from §8.1, excluding Undo), in fixed order Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain; pick pool[payoutCount mod pool.Count], payoutCount is part of the meter state (session input/output), increments per payout; undo reverts everything.
 - 6. Boosters cost no move and no phase tick and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps and notes). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
 - EggWobbled: yes, add it.
 - Restart refunds boosters used in that attempt and reverts the Song meter to the level-entry state; purchased boosters are never undone or refunded; the next level starts with the inventory and Song meter of the winning attempt.
@@ -194,7 +194,7 @@ Every species leaves one fixed gift the moment its flock gets home. The gift ico
 | --- | --- | --- |
 | sunny | Wake-up song | every sleeping bird on the board wakes |
 | sky | Gentle breeze | every egg on the board turns see-through: its species is shown (it still hatches only when exposed) |
-| berry | Encore | +2 notes on the Song meter (§7) |
+| berry | Encore | the next transfer or swivel does not count as a move (stars only; it still advances the day/night counter) |
 | mint | Gardener | every growing branch +1 seat (on top of the normal +1), and the lowest-index twig becomes a full branch of capacity N (its birds stay) |
 | cocoa | Grumpy stare | every crow on the same row or an adjacent row of the branch the flock left flies away |
 | snow | Light step | the next transfer may land on **any** tip with a free seat (species rule ignored once); shown as a feather on the bottom bar until used; undo restores it |
@@ -223,13 +223,13 @@ Level design rule: from level 3 on every level must have at least one meaningful
 - **Nocturnal species** (`ink` and the owl `hoot`) are asleep during the day (cannot be selected, block birds behind them, still accept same-species landings) and awake at night. Day species stay awake at night.
 - Undo restores the phase and the counter. Hint and solver include the phase in the state.
 
-## 7. Chorus (ours)
+## 7. Chorus (ours, simplified in v5.4)
 
-- A **homecoming move** is a move that sends at least one flock home.
-- Chorus chain = number of consecutive homecoming moves (a non-homecoming move resets it to 0). Two flocks home in the same move count as +2.
-- The **Song meter** has 5 notes. Each flock home adds 1 note; each chain step beyond the first adds 1 bonus note. When full, it pays out one random owned-world booster (§8.1) and resets. The meter persists across levels.
+- A **homecoming move** is a move that sends at least one flock home. Chorus chain = number of consecutive flocks sent home across consecutive homecoming moves; a transfer or swivel that homes nothing resets it to 0. Two flocks home in the same move count as +2.
+- Feedback: when the chain reaches x2 / x3 / x4+ a ribbon ("x2", "x3") pops near the goal tray.
 - Coin bonus: +5 coins per chain step beyond the first, paid on win.
-- Undo restores chain and meter to the pre-move state.
+- **Removed in v5.4: the Song meter, note slots and the free booster payout** (the user judged it meaningless: no player decision depended on it). Section 1.1 items about notes, meter overflow, payout pools and off-bar payout previews are void.
+- Undo restores the chain to the pre-move state.
 
 ## 8. Boosters, coins and shop
 
