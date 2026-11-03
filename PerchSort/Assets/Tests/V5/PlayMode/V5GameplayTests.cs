@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace PerchSort.V5.Tests
 {
@@ -84,7 +85,28 @@ namespace PerchSort.V5.Tests
             Assert.That(root.TryMove(2, 0), Is.True); Assert.That(root.Win.gameObject.activeInHierarchy, Is.True);
             Assert.That(root.Session.MoveCount, Is.EqualTo(2)); Assert.That(root.Coins, Is.EqualTo(before + 30));
             Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(before + 30));
-            Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(1)), Is.EqualTo(3)); AssertSnapshot(); yield return null;
+            Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(1)), Is.EqualTo(3)); AssertSnapshot();
+            yield return null; Canvas.ForceUpdateCanvases();
+            var bar = root.Hud.transform.Find("Bottom bar");
+            Assert.That(bar.gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Hud.transform.Find("Song meter").gameObject.activeInHierarchy, Is.False);
+            foreach (var button in bar.GetComponentsInChildren<Button>(true)) AssertWinBlocksHud(button.transform, bar);
+            AssertWinBlocksHud(root.Hud.transform.Find("Coin pill"), bar);
+            root.Restart();
+            Assert.That(bar.gameObject.activeInHierarchy, Is.True);
+            Assert.That(root.Hud.transform.Find("Song meter").gameObject.activeInHierarchy, Is.True);
+        }
+        private void AssertWinBlocksHud(Transform target, Transform bar)
+        {
+            var rect = (RectTransform)target;
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = RectTransformUtility.WorldToScreenPoint(root.RenderCamera, rect.TransformPoint(rect.rect.center))
+            };
+            var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(pointer, hits);
+            Assert.That(hits, Is.Not.Empty);
+            Assert.That(hits[0].gameObject, Is.SameAs(root.Win.gameObject), "The win dim must cover the HUD.");
+            Assert.That(hits.Any(hit => hit.gameObject.transform.IsChildOf(bar)), Is.False, "No bottom-bar graphic may remain raycast-reachable.");
         }
         [UnityTest]
         public IEnumerator BranchPointerClicksSelectThenTransferIntoOwnHouse()
@@ -176,6 +198,65 @@ namespace PerchSort.V5.Tests
             Assert.That(loaded.Stars[23], Is.EqualTo(2)); Assert.That(loaded.Boosters[(int)BoosterKind.Scarecrow], Is.EqualTo(4));
             Assert.That(loaded.StarterGranted[(int)BoosterKind.Scarecrow], Is.True); Assert.That(loaded.SongNotes, Is.EqualTo(4));
             Assert.That(loaded.PayoutCount, Is.EqualTo(7)); Assert.That(loaded.Tutorials[21], Is.True); yield return null;
+        }
+        private Image TutorialPointer() => root.GetComponentsInChildren<TutorialHand>(true).Single().GetComponentInChildren<Image>(true);
+        private IEnumerator ReloadSavedGame()
+        {
+            yield return SceneManager.LoadSceneAsync("V5", LoadSceneMode.Single);
+            for (int i = 0; i < 60; i++)
+            {
+                root = Object.FindAnyObjectByType<V5GameRoot>();
+                if (root != null && root.IsReady) yield break;
+                yield return null;
+            }
+            Assert.Fail("Reloaded V5 did not initialize.");
+        }
+        private IEnumerator PrepareSaplingIntro(int stock, bool seen = false)
+        {
+            var profile = new V5Profile { HighestUnlocked = 4 };
+            profile.Boosters[(int)BoosterKind.Sapling] = stock;
+            profile.StarterGranted[(int)BoosterKind.Sapling] = true;
+            profile.Tutorials[4] = seen; V5Progress.Save(profile);
+            yield return ReloadSavedGame(); root.LoadLevel(4); yield return null;
+        }
+        [UnityTest]
+        public IEnumerator SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending()
+        {
+            yield return PrepareSaplingIntro(1);
+            var hand = TutorialPointer(); var point = V5Layout.ToolButton(2).center;
+            Assert.That(hand.gameObject.activeInHierarchy, Is.True);
+            Assert.That(hand.rectTransform.anchoredPosition, Is.EqualTo(new Vector2(point.x, -point.y)));
+            Assert.That(V5Progress.Load().Tutorials[4], Is.True);
+            root.TapBranch(0);
+            Assert.That(hand.gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
+            root.Restart(); Assert.That(hand.gameObject.activeInHierarchy, Is.False);
+            yield return ReloadSavedGame(); root.LoadLevel(4);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+        }
+        [UnityTest]
+        public IEnumerator SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt()
+        {
+            yield return PrepareSaplingIntro(2);
+            int branches = root.Session.State.Branches.Count;
+            root.Hud.GetComponentsInChildren<Button>().Single(button => button.name == "Sapling").onClick.Invoke();
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.State.Branches.Count, Is.EqualTo(branches + 1));
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
+            Assert.That(root.Undo(), Is.True);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(2));
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(V5Progress.Load().Tutorials[4], Is.True);
+        }
+        [UnityTest]
+        public IEnumerator EmptyStockOrSeenFlagSuppressesSaplingIntro()
+        {
+            yield return PrepareSaplingIntro(0);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(V5Progress.Load().Tutorials[4], Is.False);
+            yield return PrepareSaplingIntro(1, true);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
         }
     }
 }

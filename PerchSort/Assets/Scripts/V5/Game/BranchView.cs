@@ -49,7 +49,8 @@ namespace PerchSort.V5.Game
                 knot.gameObject.AddComponent<V5EmptyClick>().Click = () => root.TapSwivel(Index);
             }
         }
-        private float Fill(int seats) => seats >= fullCapacity ? 1 : Mathf.Clamp01((110 + (seats - 1) * 120 * density + 65 * density) / (600 * density));
+        private float Fill(int seats) => seats >= fullCapacity ? 1 : Mathf.Clamp01(
+            (V5Layout.FirstBirdSlot + (seats - 1) * V5Layout.SeatPitch(density) + 65 * density) / (V5Layout.BranchWidth * density));
         private void UpdateWood()
         {
             bool twig = Kind == BranchKind.Twig;
@@ -74,7 +75,7 @@ namespace PerchSort.V5.Game
                 root.Board.RowCount, IsRight).position + new Vector2(0, 70 * density);
             glow.rectTransform.anchoredPosition = new Vector2(local.x, -local.y);
             var sprout = V5UI.Image(flex, "Growth sprout", art.Get("petal"),
-                new Vector2((IsRight ? -1 : 1) * (110 + (seats - 1) * 120 * density), -20 * density), Vector2.one * 48);
+                new Vector2((IsRight ? -1 : 1) * (V5Layout.FirstBirdSlot + (seats - 1) * V5Layout.SeatPitch(density)), -20 * density), Vector2.one * 48);
             motion.Play(0.4f, t =>
             {
                 wood.fillAmount = Mathf.LerpUnclamped(start, end, t);

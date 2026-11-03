@@ -22,7 +22,7 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 | Hidden items | mystery egg revealed when uncovered | Eggs **wobble** when a bird of their species lands on the same branch (a fair, readable clue, not a full reveal) |
 | Blockers | locked/covered containers | **Sleepy birds** woken by song, **Crows** that never go home and must be parked |
 | Space | add an extra container | **Growing branches**: the tree grows a seat each time a flock goes home; short **twigs** that store but never complete |
-| Combo | none / score multipliers | **Chorus**: consecutive homecomings fill a Song meter that pays out a free booster |
+| Combo | none / score multipliers | **Chorus**: consecutive homecomings show x2/x3 and pay bonus coins |
 | Boosters | undo, hint, add tube, shuffle | Themed tools, each one the antidote to one world mechanic (Owl Eye, Morning Bell, Scarecrow, Spring Rain) |
 | Completion | a full group simply disappears; order of completion rarely matters | **Homecoming gifts**: every species leaves a different gift when its flock gets home, so *which flock you finish first* is the main strategic decision (§6.5) |
 | Moving | only the contiguous end run moves | **Mama bird**: moving a mama also pulls her chicks out from anywhere on that branch, leapfrogging other birds (§6.6) |
@@ -54,7 +54,7 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - 5. Chorus (v5.4 void parts: notes/payout): within a homecoming move each homed flock increments chain by 1. A transfer or swivel that homes nothing resets chain to 0 after resolution. Notes per flock: 1 base + 1 bonus if its chain step > 1. Meter overflow carries; every time it reaches 5 it pays out immediately (several payouts possible) and subtracts 5. Berry encore notes are added in step 3 in gift order and can trigger payout immediately. Win coin bonus = 5 x (number of flocks whose chain step > 1), accumulated in the session. Payout is deterministic, no RNG: pool = boosters unlocked at or before the current level id (unlock levels from §8.1, excluding Undo), in fixed order Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain; pick pool[payoutCount mod pool.Count], payoutCount is part of the meter state (session input/output), increments per payout; undo reverts everything.
 - 6. Boosters cost no move and no phase tick and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps and notes). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
 - EggWobbled: yes, add it.
-- Restart refunds boosters used in that attempt and reverts the Song meter to the level-entry state; purchased boosters are never undone or refunded; the next level starts with the inventory and Song meter of the winning attempt.
+- Restart refunds boosters used in that attempt; purchased boosters are never undone or refunded; the next level starts with the inventory and Song meter of the winning attempt.
 - (a) Empty payout pool: no payout and nothing subtracted; the meter keeps its notes (it may exceed 5 and is displayed as full). At the first note event in a level whose pool is non-empty, pay out floor(notes/5) times in the usual rotation and keep the remainder.
 - (b) Per homecoming, in branch index order: [that flock's gift, then its adjacent-row song wake, then its growth +1]. Same-species landing wakes of the transfer are applied first in step 3 of the first wave, before any homecoming effects.
 - (c) Approved exactly as you propose: counter increments at move start; resolve all waves; toggle only if the surviving counter reaches dayLength; an ink gift that already flipped and reset to 0 prevents a second scheduled flip in that move.
@@ -156,7 +156,7 @@ All motion uses LitMotion plus real frame swaps; no fixed image stands in for an
 
 **HUD and screens**
 - Buttons: press scale 0.92, release OutBack; disabled = 45% alpha, 0.9 scale.
-- Chorus: Song meter fills with a note sliding in; at x2/x3 a ribbon text "x2" pops near the birdhouse.
+- Chorus: at x2/x3 a ribbon text "x2" pops near the goal tray.
 - Win: birds still visible dance (cheer frames), panel scales in from 0.6 (0.35 s OutBack), stars pop one by one 0.2 s apart with a chime, coins fly to the coin pill and the number counts up.
 - Scene ambience (per world, §9): clouds drift, canopy sway, petals/leaves/snow particles, fireflies at dusk.
 - Screen transitions: leaf wipe (0.4 s) between map and level.
@@ -228,7 +228,7 @@ Level design rule: from level 3 on every level must have at least one meaningful
 - A **homecoming move** is a move that sends at least one flock home. Chorus chain = number of consecutive flocks sent home across consecutive homecoming moves; a transfer or swivel that homes nothing resets it to 0. Two flocks home in the same move count as +2.
 - Feedback: when the chain reaches x2 / x3 / x4+ a ribbon ("x2", "x3") pops near the goal tray.
 - Coin bonus: +5 coins per chain step beyond the first, paid on win.
-- **Removed in v5.4: the Song meter, note slots and the free booster payout** (the user judged it meaningless: no player decision depended on it). Section 1.1 items about notes, meter overflow, payout pools and off-bar payout previews are void.
+- **Removed in v5.4: thenote slots and the free booster payout** (the user judged it meaningless: no player decision depended on it). Section 1.1 items about notes, meter overflow, payout pools and off-bar payout previews are void.
 - Undo restores the chain to the pre-move state.
 
 ## 8. Boosters, coins and shop

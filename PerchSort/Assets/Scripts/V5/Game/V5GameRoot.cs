@@ -97,7 +97,10 @@ namespace PerchSort.V5.Game
             if (starters) profile.GrantStarters(level.id);
             Session = new GameSession(level, new SongState(profile.SongNotes, profile.PayoutCount), profile.Inventory());
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
-            tutorial.Begin(level.id, !profile.Tutorials[level.id]); Refresh(); Save();
+            tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
+            // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
+            if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
+            Refresh(); Save();
         }
         public void NextLevel()
         {
@@ -126,7 +129,7 @@ namespace PerchSort.V5.Game
         public bool TapBranch(int branch)
         {
             if (!initialized || Modal || (uint)branch >= Session.State.Branches.Count) return false;
-            InputTap();
+            InputTap(); tutorial.DismissSaplingPrompt();
             if (Defer(() => TapBranch(branch))) return false;
             int source = Session.SelectedBranch;
             if (source >= 0 && source != branch) return TryMove(source, branch);
@@ -143,7 +146,7 @@ namespace PerchSort.V5.Game
         public bool TryMove(int from, int to)
         {
             if (!initialized || Modal || IsBusy) return false;
-            InputTap(); int selected = Session.SelectedBranch;
+            InputTap(); tutorial.DismissSaplingPrompt(); int selected = Session.SelectedBranch;
             if (!Session.TryMove(from, to))
             {
                 Board.ShowSelection(Session.State, -1);
@@ -199,6 +202,7 @@ namespace PerchSort.V5.Game
         public void TapBooster(BoosterKind kind)
         {
             if (!initialized || Modal || LevelId < V5ViewModel.Unlock(kind)) return;
+            if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (Defer(() => TapBooster(kind))) return;
             if (Session.Inventory[kind] == 0) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); panels.Buy(kind); Refresh(); }
             else if (kind == BoosterKind.Firefly) Hint();
@@ -212,6 +216,7 @@ namespace PerchSort.V5.Game
         public bool UseBooster(BoosterKind kind)
         {
             if (!initialized || Modal || IsBusy || kind == BoosterKind.Firefly || LevelId < V5ViewModel.Unlock(kind)) return false;
+            if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (!Session.UseBooster(kind).Applied) { Refresh(); return false; }
             PlayCommitted(); return true;
         }
