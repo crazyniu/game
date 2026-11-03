@@ -254,6 +254,14 @@ namespace PerchSort.V5.Tests
                 Assert.That(move.Kind == MoveKind.Swivel ? root.TapSwivel(move.From) : root.TryMove(move.From, move.To), Is.True);
             Assert.That(root.Win.IsOpen, Is.True);
             root.NextLevel(); Assert.That(root.LevelId, Is.EqualTo(40)); AssertSnapshot();
+            // The finale has no next level: Next must return to the map instead of doing nothing.
+            while (root.GetComponentInChildren<V5Panels>(true).IsUnlock) root.AcknowledgeUnlock();
+            var finale = Solver.Solve(root.Session.State);
+            Assert.That(finale.Status, Is.EqualTo(SolveStatus.Solved));
+            foreach (var move in finale.Moves)
+                Assert.That(move.Kind == MoveKind.Swivel ? root.TapSwivel(move.From) : root.TryMove(move.From, move.To), Is.True);
+            Assert.That(root.Win.IsOpen, Is.True);
+            root.NextLevel(); Assert.That(root.IsMap, Is.True);
         }
         private Image TutorialPointer() => root.GetComponentsInChildren<TutorialHand>(true).Single().GetComponentInChildren<Image>(true);
         private IEnumerator ReloadSavedGame()

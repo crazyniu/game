@@ -124,7 +124,9 @@ namespace PerchSort.V5.Game
         }
         public void NextLevel()
         {
-            if (!Session.State.IsWon || LevelId >= LevelLoader.Catalog.levels.Length) return;
+            if (!Session.State.IsWon) return;
+            // After the finale there is no next level: return to the map instead of ignoring the tap.
+            if (LevelId >= LevelLoader.Catalog.levels.Length) { OpenMap(); return; }
             LoadLevel(LevelId + 1);
         }
         // Fixture loading is explicit, uses real Core rules and never mutates PlayerPrefs.
