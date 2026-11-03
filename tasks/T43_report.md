@@ -17,6 +17,7 @@
 - Node card uses real level species, mechanics and par, profile stars and best counted moves, footprint/flag pictograms and a green play action. Missing scores use -1 internally so a legitimate zero-counted-move win remains displayable as zero. Best records and unlock acknowledgements persist separately from synthetic developer overlays.
 - `V5Art` resolves V6 chrome and world/variant scene kits, falls back to the world's noon then World 1 and logs each missing resource once. Approved plain procedural fallback exists only for absent footprints/flag/muted-speaker pictograms. Existing birds/eggs/zzz/crows and event timing are retained. Ambient petals/bamboo/maple/snow and rain use the appropriate existing assets.
 - `V6ArtImporter` configures V6 RGBA sprite imports, full rectangular meshes, documented nine-slice borders and rope/gate pivots. `V5SceneBuilder` imports both production art sets before building.
+- Ribbon/gate sprites have deliberately padded PNG canvases. Runtime sprite views use the manifest's nontransparent bounds before aspect fitting (no source file edits or horizontal distortion); house layers retain their aligned frames. This keeps the gate artwork wider than the 110px path and the header at the measured aspect ratio instead of shrinking both into their transparent margins.
 
 ## Approved measurement deviations
 

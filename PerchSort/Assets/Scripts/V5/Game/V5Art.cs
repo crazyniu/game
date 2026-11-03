@@ -13,7 +13,25 @@ namespace PerchSort.V5.Game
         {
             if (sprites.TryGetValue(name, out var sprite)) return sprite;
             sprite = Resources.Load<Sprite>("V6/Art/" + name) ?? Resources.Load<Sprite>("V5/Art/" + name);
+            if (sprite != null) sprite = VisibleArtwork(name, sprite);
             sprites.Add(name, sprite); return sprite;
+        }
+        private Sprite VisibleArtwork(string name, Sprite source)
+        {
+            // T44 asset_manifest alpha bounds, converted to bottom-left source pixels.
+            // Only these padded canvases are cropped; aligned house layers must retain their full frame.
+            Rect crop;
+            switch (name)
+            {
+                case "ui_ribbon_green": crop = new Rect(204, 2, 451, 146); break;
+                case "gate_locked": crop = new Rect(205, 2, 309, 296); break;
+                case "gate_open": crop = new Rect(207, 2, 305, 296); break;
+                default: return source;
+            }
+            var sprite = Sprite.Create(source.texture, new Rect(source.rect.position + crop.position, crop.size),
+                new Vector2(0.5f, name.StartsWith("gate_", StringComparison.Ordinal) ? 0 : 0.5f),
+                source.pixelsPerUnit, 0, SpriteMeshType.FullRect);
+            sprite.name = source.name; owned.Add(sprite); return sprite;
         }
         public Sprite Get(string name)
         {
