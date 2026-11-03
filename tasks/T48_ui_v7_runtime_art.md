@@ -13,3 +13,6 @@ Branch `mac-art/t48` from `origin/t44-hud-art`. Own only: `PerchSort/Assets/Reso
 6. Effects: `light_rays.png` (win), `sparkle.png`, `confetti_1..4.png`, `glow_soft.png`, `zzz.png` in the new style.
 7. `art/v7/layout_v7.json`: measured from the approved screens (1080x1920 coordinates, origin top-left): every HUD element center and size on the level screens (coin pill, gear, houses for K=1..7 including beam position, bottom buttons for 3 and 4 buttons), board band and branch rows/bird size for K3 and K7, win panel parts, settings, cards, popups, shop grid, Aviary grid, map nodes. Code will read these numbers.
 Verify: sizes, alpha, edge cleanliness (no white halos), each sprite placed over the matching approved screen in a QA composite (`art/v7/runtime/qa/*.png`), 64 px legibility of the icons. Report honestly in `tasks/T48_report.md`. Commit and push `mac-art/t48`. Update `docs/team/status/mac-art.md` and end with `DONE:`.
+
+## Added for animations
+`house_door_open.png` (same house with the door swung open, aligned to house_body), `leaf_fall_w1..w4.png` (single leaf/petal/bamboo leaf/maple leaf/snowflake particle per world, 64x64), `cloud_soft_1..3.png` (soft drifting clouds, transparent), `firefly.png` 48x48, `leaf_wipe.png` (a big cluster of leaves for the screen transition, 1600x1600), `gift_trail.png`.
