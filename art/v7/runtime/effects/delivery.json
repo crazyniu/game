@@ -1,0 +1,427 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/light_rays.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 253,
+    "transparent_pixels": 28289,
+    "partial_alpha_pixels": 1020287,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_win.png",
+    "source": "art/v7/runtime/effects/raw/light_rays.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "307ef3c567eed53c160aa10d12e0011ea9318dc0e8abb1e4b212a592761a68a6",
+    "qa_overlay": "art/v7/runtime/effects/qa/light_rays_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/sparkle.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 15324,
+    "partial_alpha_pixels": 989,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/sparkle.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "db4f0c0e0f5335ef74f730350da9af0ca6783c59943c6f520707978aa03ecbc0",
+    "qa_overlay": "art/v7/runtime/effects/qa/sparkle_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/confetti_1.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3709,
+    "partial_alpha_pixels": 345,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_win.png",
+    "source": "art/v7/runtime/effects/raw/confetti_1.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "0ee8dcc3c118d81b5fe0c433cf32153dab6c27e768fc6f0220f99df9b67953bd",
+    "qa_overlay": "art/v7/runtime/effects/qa/confetti_1_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/confetti_2.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3615,
+    "partial_alpha_pixels": 432,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_win.png",
+    "source": "art/v7/runtime/effects/raw/confetti_2.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "950b00d62b3f2047e3ad1b76dd46c9ed9095ec87128a12f95c7c27415a8648fe",
+    "qa_overlay": "art/v7/runtime/effects/qa/confetti_2_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/confetti_3.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3617,
+    "partial_alpha_pixels": 425,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_win.png",
+    "source": "art/v7/runtime/effects/raw/confetti_3.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "92724c161d65721f8c5e11d9937fdd7315e202eb4b0d8a242c337f5ce09931d9",
+    "qa_overlay": "art/v7/runtime/effects/qa/confetti_3_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/confetti_4.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3647,
+    "partial_alpha_pixels": 395,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_win.png",
+    "source": "art/v7/runtime/effects/raw/confetti_4.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "8972eb3a9bf1ef7ec04dc06608f9aef87a006c26500fc1e67c4f230e577d5641",
+    "qa_overlay": "art/v7/runtime/effects/qa/confetti_4_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/glow_soft.png",
+    "size": [
+      512,
+      512
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 252,
+    "transparent_pixels": 144894,
+    "partial_alpha_pixels": 117250,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/glow_soft.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "5914ec541f53b99195f82ad599b2706344a8114e6b5fcca83a3ee32120946265",
+    "qa_overlay": "art/v7/runtime/effects/qa/glow_soft_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/zzz.png",
+    "size": [
+      192,
+      192
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 31840,
+    "partial_alpha_pixels": 4663,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/zzz.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "64db4bc370aac01a9595cf696632fc0858edebfc866703362fb53a3cd6af564d",
+    "qa_overlay": "art/v7/runtime/effects/qa/zzz_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w1.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3431,
+    "partial_alpha_pixels": 605,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/leaf_fall_w1.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "887474ace224f7b64ccc875cec4d57abea93a6ee4f8e9da362deb1adada9bb36",
+    "qa_overlay": "art/v7/runtime/effects/qa/leaf_fall_w1_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w2.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3312,
+    "partial_alpha_pixels": 710,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/leaf_fall_w2.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "4068613b3b36caef890241fdd47cb81e1055fb2c8d01ec089a4d92d1e073490b",
+    "qa_overlay": "art/v7/runtime/effects/qa/leaf_fall_w2_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w3.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 2300,
+    "partial_alpha_pixels": 1646,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/leaf_fall_w3.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "15126aa356dacc1afc4fe70716df7e7e50b17df6a11494045d07c614f5928d86",
+    "qa_overlay": "art/v7/runtime/effects/qa/leaf_fall_w3_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w4.png",
+    "size": [
+      64,
+      64
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 3167,
+    "partial_alpha_pixels": 792,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/leaf_fall_w4.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "8a0dc25dd1bb566dccf771c4de4a673861c3797104ad3a80ee9d88d695407f58",
+    "qa_overlay": "art/v7/runtime/effects/qa/leaf_fall_w4_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_1.png",
+    "size": [
+      768,
+      384
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 254,
+    "transparent_pixels": 167046,
+    "partial_alpha_pixels": 127866,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/cloud_soft_1.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "75d13df4b32fc53762d4b94e14c13ffb9c8385ba10815a248cec54b6d3c43227",
+    "qa_overlay": "art/v7/runtime/effects/qa/cloud_soft_1_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_2.png",
+    "size": [
+      768,
+      384
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 244169,
+    "partial_alpha_pixels": 50742,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/cloud_soft_2.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "77b28bfcaeeea1b4ef2f813bb6b66b4074d1baae6631778e4a63d5aefafc8144",
+    "qa_overlay": "art/v7/runtime/effects/qa/cloud_soft_2_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_3.png",
+    "size": [
+      768,
+      384
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 254,
+    "transparent_pixels": 178773,
+    "partial_alpha_pixels": 116139,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/cloud_soft_3.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "2d3a03c024b34d7f90cb915e18ef44a113362b566d0f4f70e496285ef053b058",
+    "qa_overlay": "art/v7/runtime/effects/qa/cloud_soft_3_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/firefly.png",
+    "size": [
+      48,
+      48
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 253,
+    "transparent_pixels": 2209,
+    "partial_alpha_pixels": 95,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/firefly.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "c3ac722608b816a5d809d7449a157b9bed4223bff7a54a59c07e62d1a013157b",
+    "qa_overlay": "art/v7/runtime/effects/qa/firefly_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/leaf_wipe.png",
+    "size": [
+      1600,
+      1600
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 680548,
+    "partial_alpha_pixels": 1876344,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/leaf_wipe.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "fa9138660f0c12bdeaf8d6b5b51247964d08a8a1a14bd5e66eb5be89affc18b9",
+    "qa_overlay": "art/v7/runtime/effects/qa/leaf_wipe_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/gift_trail.png",
+    "size": [
+      512,
+      512
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "transparent_pixels": 234652,
+    "partial_alpha_pixels": 27491,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_popup_daily_gift.png",
+    "source": "art/v7/runtime/effects/raw/gift_trail.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "e49a669f49ce28cd9beeaeda584ce87e12bd5609f7154d75e113b5c6aab04419",
+    "qa_overlay": "art/v7/runtime/effects/qa/gift_trail_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/house_glow.png",
+    "size": [
+      512,
+      512
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 253,
+    "transparent_pixels": 132797,
+    "partial_alpha_pixels": 129347,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "source": "art/v7/runtime/effects/raw/house_glow.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "6784e8fe5bdfca7aa994e6efbf911cae123c76747c33470fae99aed493f043f1",
+    "qa_overlay": "art/v7/runtime/effects/qa/house_glow_overlay.jpg"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+    "size": [
+      1024,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_min": 0,
+    "alpha_max": 253,
+    "transparent_pixels": 423098,
+    "partial_alpha_pixels": 625478,
+    "pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "reference": "art/v7/ui7_map.png",
+    "source": "art/v7/runtime/effects/raw/gate_light.png",
+    "prompt_record": "art/v7/runtime/effects/generation_records.json",
+    "sha256": "2d963cbd5c937e717406a24e186473485bf79701b2c6a3ddadbbd623c47e1384",
+    "qa_overlay": "art/v7/runtime/effects/qa/gate_light_overlay.jpg",
+    "light_aperture_anchor_normalized_top_left": [
+      0.5,
+      0.25
+    ],
+    "integration_note": "Align light aperture with final gate opening; shared-canvas alignment pending gate assembly."
+  }
+]

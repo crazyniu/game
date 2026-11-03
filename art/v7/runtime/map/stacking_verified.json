@@ -1,0 +1,124 @@
+{
+  "compositing": "Pillow Image.alpha_composite on delivered final RGBA files, no special blending shader or QA-only ramp",
+  "pairs": [
+    {
+      "upper": 2,
+      "lower": 1,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 3,
+      "lower": 2,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 4,
+      "lower": 3,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 1,
+      "lower": 1,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 2,
+      "lower": 2,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 3,
+      "lower": 3,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    },
+    {
+      "upper": 4,
+      "lower": 4,
+      "overlap_rows": [
+        2840,
+        2999
+      ],
+      "join_alpha_extrema": [
+        255,
+        255
+      ],
+      "output_alpha_top_row": [
+        0,
+        0
+      ],
+      "status": "static_composite_reviewed"
+    }
+  ]
+}

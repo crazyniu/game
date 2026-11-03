@@ -16,3 +16,7 @@ All 18 separate glyphs (96x96), nine gift badges (96x96), coin, two star sizes, 
 
 ## Panels and Shop/Aviary
 16 panel-related PNGs delivered, including ribbon's three slices, transparent frame rings, two separate hanging ropes and the shop selection ring. `art/v7/runtime/panels/delivery.json` records all dimensions, nine-slice borders (left,bottom,right,top), pivots and rope anchors. `panels/qa/` contains alpha checks and per-sprite overlays. Empty card corrected to remove an unwanted generated center badge. Runtime nine-slice stretching and rope animation remain NOT_RUN.
+
+## End-of-day WIP wrap-up
+
+Paused by lead before T48 completion. Map (11 PNGs), effects (20 PNGs), exported houses, measurement evidence and the draft layout are preserved in the wrap-up commit. Gate arch and daily gift raw results are in `art/v7/runtime/assemblies_wip/`, not the runtime folder. House replacement review, gate/door/backdrop generation, gift assembly, final layout and aggregate QA remain unfinished. See `docs/team/status/mac-art.md` for exact filenames and next actions. No Unity or lock created by this worker. Sub-workers stopped.
