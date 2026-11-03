@@ -17,3 +17,7 @@ Skye, Berry and Minty sources are in progress; incomplete strips mark missing ac
 `art/v7/birds/qa/prepare_birds.py` records source foot bounds, scale, translation and visible bounds in `alignment.json`. All species use a 195 px idle silhouette width, then per-frame toe-span registration. Feet are anchored at x=160/y=300. Body proportions and head action readability still need visual review; numeric alignment is not proof of exact reference fidelity.
 
 GIFs are offline frame-swap previews, not Unity animation evidence. No Unity tests, game screenshots, runtime timing or integration were run. Full task acceptance is pending.
+
+## End-of-day wrap-up
+
+Stopped at the lead request before T49 completion. See `docs/team/status/mac-birds.md` and `art/v7/birds/qa/wrap_inventory.json` for the exact source/export/missing-file inventory. Partial QA strips and GIFs are deliberately retained as WIP, not accepted deliverables. All saved owned files are included in the final `wip:` checkpoint; no new generation, normalization or Unity work is started during wrap-up.
