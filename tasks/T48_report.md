@@ -13,3 +13,6 @@ Suggested green-pill 9-slice borders: left/right 56, top/bottom 24 pixels; keep 
 All 18 separate glyphs (96x96), nine gift badges (96x96), coin, two star sizes, footprints/flag/padlock/check/chain, green pressed state delivered. Atlas cut-outs retain original RGB; generated white glyphs use approved sheet references. Minty's gift is `gift_watering_can.png`; Scarecrow is a white crow with red cross for composition over `btn_purple.png`.
 
 `art/v7/runtime/qa/hud_64.png` shows color/grayscale legibility; `qa/hud_overlays/` shows every HUD sprite over the approved level screen (inspection placements, not final runtime layouts). Solid glyph halo alpha removed during preparation. Detailed prompts/provenance in `generation_manifest.json` and `extracted/provenance.json`. Do not use `hud_extra_provenance.json` experimental cutouts; final next/chain were regenerated instead.
+
+## Panels and Shop/Aviary
+16 panel-related PNGs delivered, including ribbon's three slices, transparent frame rings, two separate hanging ropes and the shop selection ring. `art/v7/runtime/panels/delivery.json` records all dimensions, nine-slice borders (left,bottom,right,top), pivots and rope anchors. `panels/qa/` contains alpha checks and per-sprite overlays. Empty card corrected to remove an unwanted generated center badge. Runtime nine-slice stretching and rope animation remain NOT_RUN.
