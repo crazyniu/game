@@ -1,0 +1,82 @@
+{
+  "species": [
+    [
+      "sunny",
+      "Sunny: lemon yellow round chick, single curled spiral head tuft, pink cheeks, glossy brown eyes, orange feet and beak; bubbly wide-eyed smile"
+    ],
+    [
+      "sky",
+      "Skye: sky blue egg-shaped plush bird, white fluffy belly, round blue top-knot bun, heavy half-closed dreamy blue eyes, subtle lilac cheeks, orange feet and beak"
+    ],
+    [
+      "berry",
+      "Berry: raspberry magenta plush bird, two long swept-back pink plumes, glossy burgundy eyes with lashes, expressive confident show-off smile, orange feet and beak"
+    ],
+    [
+      "mint",
+      "Minty: mint teal plush bird, three leaf-shaped green crest feathers, pale cream-green round eye rings like glasses, large glossy green eyes, pink cheeks, orange feet and beak; match enlarged popup Minty exactly"
+    ],
+    [
+      "cocoa",
+      "Cocoa: chocolate brown plush owl chick, cream face mask surrounding eyes, short pointed ear tufts, thick brown eyebrows, grumpy cute half-lidded amber eyes, cream feather marks on belly, orange feet and beak"
+    ],
+    [
+      "snow",
+      "Flurry: round white plush bird with lilac wing tips and lilac crest, three lilac forehead dots, glossy purple eyes with long lashes, rosy cheeks, shy expression, orange feet and beak"
+    ],
+    [
+      "ember",
+      "Ember: warm fiery orange plush bird, flame-shaped three-feather crest with yellow tips, bold dark eyebrows and energetic determined amber eyes, orange feet and beak"
+    ],
+    [
+      "ink",
+      "Inky: deep navy blue plush bird, white five-point star chest marking, short swept navy crest, calm confident glossy blue eyes and dark eyebrows, orange feet and beak"
+    ],
+    [
+      "hoot",
+      "Hoot: round pale tawny plush owl chick, heart-shaped cream white facial disc, very large glossy amber eyes, purple nightcap with gold stars and white pompom drooping left, NO ear tufts, gentle sleepy expression, orange feet and beak"
+    ],
+    [
+      "crow",
+      "Rook: slate-grey plush crow, swept ragged grey crest, thick eyebrows, sly half-lidded amber eyes, long curved grey beak with crooked toothy smile, dark grey toes, holding small shiny gold compass trinket; exactly the crow in K7"
+    ]
+  ],
+  "states": [
+    "idle",
+    "blink",
+    "quirk1",
+    "quirk2",
+    "fly_up",
+    "fly_down",
+    "cheer",
+    "sleep",
+    "tilt_left",
+    "tilt_right",
+    "look_up",
+    "look_down",
+    "look_side",
+    "preen",
+    "fluff",
+    "stretch",
+    "yawn"
+  ],
+  "poses": {
+    "blink": "Both eyes fully closed for a brief blink; otherwise unchanged neutral idle posture and beak.",
+    "quirk1": "First frame of its personality quirk: Sunny anticipates a double hop with small body crouch; Skye sleepy blink with small head tilt; Berry raises a wing toward its plumes with wink; Minty raises wing toward eye ring; Cocoa begins a yawn; Flurry begins a shiver; Ember opens wings halfway; Inky glances upward; Hoot turns head left; Rook raises compass trinket.",
+    "quirk2": "Second frame of its personality quirk: Sunny perks upright and opens tiny wings anticipating hop; Skye eyes open and head tilted other way; Berry preens plumes with wing; Minty touches eye ring with wing as pushing glasses; Cocoa finishes big yawn; Flurry fluffs feathers in shiver; Ember flaps wings downward; Inky looks high upward; Hoot turns head right; Rook holds trinket higher. Feet remain on same baseline for runtime hop.",
+    "fly_up": "Both wings fully raised above shoulders, separated from body, feathers spread, clear upstroke flying pose; feet stay at same baseline for sprite anchoring, body center and size unchanged.",
+    "fly_down": "Both wings fully extended down and outward, clear downstroke flying pose substantially different from upstroke; feet same baseline, body center and size unchanged.",
+    "cheer": "Joyous celebration, smiling open beak and delighted crescent eyes, wings raised outwards.",
+    "sleep": "Deep peaceful sleep with both eyes closed and beak closed, wings folded, head gently nestled. NO Zzz, letters, bubbles or symbols.",
+    "tilt_left": "Head visibly tilted toward viewer left, body and feet remain unchanged and stationary.",
+    "tilt_right": "Head visibly tilted toward viewer right, body and feet remain unchanged and stationary.",
+    "look_up": "Eyes and head looking upward, body and feet remain unchanged and stationary.",
+    "look_down": "Eyes and head looking downward toward feet, body and feet remain unchanged and stationary.",
+    "look_side": "Head turned toward viewer right neighbour, clear sideward gaze, body and feet remain unchanged and stationary.",
+    "preen": "Beak visibly tucked into its raised wing, preening feathers, body and feet stationary.",
+    "fluff": "Feathers visibly puffed out making silhouette slightly rounder, body center and feet stationary.",
+    "stretch": "One wing extended fully sideways in a clear relaxed stretch, other wing folded, body and feet stationary.",
+    "yawn": "Beak wide open in a large sleepy yawn, both eyes closed, body and feet stationary."
+  },
+  "method": "Built-in image_gen only; reference identity edits, then Pillow alignment/portrait crops/QA."
+}
