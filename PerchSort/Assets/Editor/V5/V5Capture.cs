@@ -29,7 +29,7 @@ public static class V5Capture
             EditorSceneManager.OpenScene(V5SceneBuilder.ScenePath, OpenSceneMode.Single);
             camera = Camera.main;
             if (camera == null) throw new InvalidOperationException("V5 scene has no camera.");
-            target = new RenderTexture((int)V5Layout.DesignWidth, (int)V5Layout.DesignHeight, 24);
+            target = new RenderTexture((int)V6Layout.DesignWidth, (int)V6Layout.DesignHeight, 24);
             target.Create();
             camera.targetTexture = target;
             var root = UnityEngine.Object.FindAnyObjectByType<V5GameRoot>();
@@ -37,6 +37,10 @@ public static class V5Capture
             root.Initialize(false);
             string directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../../build/screens/v5"));
             Directory.CreateDirectory(directory);
+            Capture(root, target, Path.Combine(directory, "ui_map.png"));
+            root.OpenLevelCard(1);
+            Capture(root, target, Path.Combine(directory, "ui_level_card.png"));
+            root.LoadLevel(1);
             Capture(root, target, Path.Combine(directory, "level1_start.png"));
             if (!root.TryMove(0, 1) || root.Session.MoveCount != 1 || root.Session.State.HomedSpecies.Count != 1)
                 throw new InvalidOperationException("First authored move did not home the sky flock.");
@@ -44,6 +48,15 @@ public static class V5Capture
             if (!root.TryMove(2, 0) || !root.Session.State.IsWon || !root.Win.IsOpen)
                 throw new InvalidOperationException("Second authored move did not open the win panel.");
             Capture(root, target, Path.Combine(directory, "level1_win.png"));
+            Capture(root, target, Path.Combine(directory, "ui_win.png"));
+            root.LoadFixture(LevelLoader.Load(5));
+            Capture(root, target, Path.Combine(directory, "ui_level_k3.png"));
+            root.OpenSettings(); Capture(root, target, Path.Combine(directory, "ui_settings.png")); root.CloseSettings();
+            root.OpenGoalInfo("sunny"); Capture(root, target, Path.Combine(directory, "ui_goal_info.png")); root.ClosePanel();
+            root.OpenUnlock(PerchSort.V5.Core.BoosterKind.OwlEye);
+            Capture(root, target, Path.Combine(directory, "ui_unlock_card.png")); root.AcknowledgeUnlock();
+            root.LoadFixture(LevelLoader.Load(40));
+            Capture(root, target, Path.Combine(directory, "ui_level_k7.png"));
             foreach (string name in V5Fixtures.Names)
             {
                 root.LoadFixture(V5Fixtures.Create(name));
@@ -51,7 +64,7 @@ public static class V5Capture
                     throw new InvalidOperationException("Night capture could not advance the clock.");
                 Capture(root, target, Path.Combine(directory, "mech_" + name + ".png"));
             }
-            Debug.Log("V5 capture wrote level1_start, level1_after_move1, level1_win and six mechanic PNGs at " +
+            Debug.Log("V5 capture wrote level1_start/after_move1/win, six mechanic PNGs, and ui_level_k3/ui_level_k7/ui_win/ui_settings/ui_unlock_card/ui_map/ui_level_card/ui_goal_info at " +
                 directory + "; stable states only, no PlayerPrefs writes or timed-animation proof.");
         }
         finally

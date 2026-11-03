@@ -14,12 +14,12 @@ namespace PerchSort.V5.Game
         public void Configure(V5Art assets, Action emptyTap)
         {
             art = assets;
-            background = V5UI.Image(transform, "Forest background", null, V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            background = V5UI.Image(transform, "Forest background", null, V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
             background.raycastTarget = true;
             background.gameObject.AddComponent<V5EmptyClick>().Click = emptyTap;
-            night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
             phase = gameObject.AddComponent<V5Motion>();
-            particles = V5UI.Rect(transform, "Ambient particles", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            particles = V5UI.Rect(transform, "Ambient particles", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
         }
         public void FillScreen(Transform canvas)
         {
@@ -27,21 +27,25 @@ namespace PerchSort.V5.Game
             background.transform.SetAsFirstSibling();
             V5UI.Stretch(background.rectTransform);
             var fit = background.gameObject.AddComponent<AspectRatioFitter>();
-            fit.aspectRatio = V5Layout.DesignWidth / V5Layout.DesignHeight;
+            fit.aspectRatio = V6Layout.DesignWidth / V6Layout.DesignHeight;
             fit.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
         }
         public void PlaceLighting(Transform board) => night.rectTransform.SetParent(board, false);
         public void SetLevel(BoardState state)
         {
+            SetWorld(state.World, state.Variant, state.Phase);
+        }
+        public void SetWorld(int world, string variant = "noon", DayPhase lighting = DayPhase.Day)
+        {
             Cancel();
-            background.sprite = art.Background(state.World, state.Variant);
-            night.color = new Color(1, 1, 1, state.Phase == DayPhase.Night ? 1 : 0);
-            bool rain = V5ViewModel.Rain(state.Variant);
-            if (state.World != 1 && !rain) return;
+            background.sprite = art.Background(world, variant);
+            night.color = new Color(1, 1, 1, lighting == DayPhase.Night ? 1 : 0);
+            bool rain = V5ViewModel.Rain(variant);
+            string particleName = rain ? "raindrop" : world == 2 ? "leaf_bamboo" : world == 3 ? "leaf_maple" : world == 4 ? "snowflake" : "petal";
             for (int i = 0; i < (rain ? 28 : 12); i++)
             {
                 float x = (i * 97 + 31) % 1080, offset = i * 0.137f;
-                var particle = V5UI.Image(particles, rain ? "Rain drop" : "Petal", art.Get(rain ? "raindrop" : "petal"),
+                var particle = V5UI.Image(particles, rain ? "Rain drop" : particleName, art.Get(particleName),
                     new Vector2(x, (i * 173) % 1920), rain ? new Vector2(12, 28) : Vector2.one * 22);
                 particle.color = new Color(1, 1, 1, rain ? 0.4f : 0.65f);
                 particle.gameObject.AddComponent<V5Motion>().Loop(rain ? 1.6f : 8, t =>

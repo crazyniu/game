@@ -29,7 +29,7 @@ namespace PerchSort.V5.Game
         public void Configure(Bird bird, bool sleeping, V5Art assets, Vector2 point, float density)
         {
             art = assets; rect = (RectTransform)transform;
-            rect.sizeDelta = V5Layout.BirdDisplaySize * density;
+            rect.sizeDelta = V6Layout.BirdDisplaySize * density;
             DisplayScale = density;
             string prefix = "bird_" + bird.Species.Id;
             idleFrame = art.Get(prefix + "_idle"); blinkFrame = art.Get(prefix + "_blink");
@@ -38,14 +38,14 @@ namespace PerchSort.V5.Game
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
             egg = art.Get("egg_idle"); wobbleLeft = art.Get("egg_wobble_l"); wobbleRight = art.Get("egg_wobble_r");
             crack = art.Get("egg_crack"); shell = art.Get("egg_shell");
-            body = V5UI.Rect(transform, "Bird body", new Vector2(75 * density, 143 * density), V5Layout.BirdDisplaySize * density);
+            body = V5UI.Rect(transform, "Bird body", new Vector2(V6Layout.BirdSize * 0.5f, V6Layout.BirdSize * (1 - 12f / 256f)) * density, V6Layout.BirdDisplaySize * density);
             body.pivot = new Vector2(0.5f, 12f / 256f);
             graphic = V5UI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = V5UI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
             reveal.color = new Color(1, 1, 1, 0.45f);
             bow = V5UI.Image(body, "Mama bow", art.Get("mama_bow"), new Vector2(105, 32) * density, Vector2.one * (48 * density));
             fluff = V5UI.Image(body, "Chick fluff", art.Get("chick_fluff"), new Vector2(75, 103) * density, Vector2.one * (75 * density));
-            zzz = V5UI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(122, 6) * density, Vector2.one * (46 * density));
+            zzz = V5UI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(118, 16) * density, Vector2.one * (36 * density));
             motion = gameObject.AddComponent<V5Motion>(); breathing = gameObject.AddComponent<V5Motion>();
             blinking = gameObject.AddComponent<V5Motion>(); looking = gameObject.AddComponent<V5Motion>();
             Sync(bird, sleeping); Place(point);
@@ -81,7 +81,7 @@ namespace PerchSort.V5.Game
             {
                 float breath = 1 + 0.015f * (1 - Mathf.Cos((t + phase) * Mathf.PI * 2));
                 body.localScale = Scale(breath, breath);
-                if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(122, -6 - 8 * Mathf.Sin(t * Mathf.PI * 2)) * DisplayScale;
+                if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(118, -16 - 8 * Mathf.Sin(t * Mathf.PI * 2)) * DisplayScale;
             });
             if (!asleep && !Bird.IsEgg) ScheduleBlink();
         }

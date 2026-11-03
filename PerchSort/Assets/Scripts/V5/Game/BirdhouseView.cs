@@ -1,5 +1,4 @@
 using System;
-using LitMotion;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,45 +6,34 @@ namespace PerchSort.V5.Game
 {
     public sealed class BirdhouseView : MonoBehaviour
     {
-        private RectTransform pivot, house, door;
-        private Image glow;
+        private RectTransform chip;
         private GameObject check;
-        private V5Motion motion, sway;
+        private readonly Image[] dots = new Image[4];
+        private V5Motion motion;
         private Rect bounds;
         private V5Art art;
         public string Species { get; private set; }
         public Vector2 GiftPoint { get; private set; }
         public bool IsHome { get; private set; }
-        public void Configure(V5Art assets, string species, int index, int count, Transform ropes)
+        public int ArrivalCount { get; private set; }
+        public void Configure(V5GameRoot root, V5Art assets, string species, int index, int count)
         {
-            art = assets; Species = species; bounds = V5Layout.SpeciesHouse(index, count);
-            float scale = bounds.width / 300;
-            art.Rope(ropes, "House rope " + species, bounds.center.x, V5Layout.RopeStart(bounds.center.x), bounds.yMin + 5 * scale);
-            pivot = V5UI.Rect(transform, "Hook", new Vector2(bounds.center.x, bounds.yMin), bounds.size);
-            pivot.pivot = new Vector2(0.5f, 1);
-            house = V5UI.Rect(pivot, "House body", new Vector2(bounds.width / 2, 0), bounds.size);
-            house.pivot = new Vector2(0.5f, 1);
-            glow = V5UI.Image(house, "Home glow", art.Get("sparkle"), bounds.size * 0.5f, bounds.size * 1.15f);
-            glow.color = Color.clear;
-            V5UI.Image(house, "Birdhouse", art.Get("birdhouse"), bounds.size * 0.5f, bounds.size);
-            var band = V5UI.Image(house, "Species roof band", art.Get("roof_band"), new Vector2(150, 133) * scale, new Vector2(300, 60) * scale);
-            band.color = SpeciesColor(species);
-            door = V5UI.Image(house, "Door shutter", art.Get("badge_count"), new Vector2(114, 215) * scale, Vector2.one * 72 * scale).rectTransform;
-            door.pivot = new Vector2(0, 0.5f); door.GetComponent<Image>().color = new Color32(139, 88, 41, 255);
-            var emblem = V5UI.Image(house, "Resident", art.Get("bird_" + species + "_idle"), new Vector2(150, 292) * scale, Vector2.one * 55 * scale);
-            emblem.color = Color.white;
-            Rect sign = V5Layout.GiftSign(index, count); GiftPoint = sign.center;
-            art.Rope(transform, "Sign rope", sign.center.x, bounds.yMax, sign.yMin, 4);
-            var plaque = V5UI.Image(transform, "Gift sign", art.Get("btn_square_wood"), sign.center, sign.size);
-            V5UI.Image(plaque.transform, "Gift", art.Get(V5ViewModel.GiftIcon(species)), sign.size * 0.5f, sign.size);
-            check = V5UI.Rect(house, "Home check", new Vector2(240, 260) * scale, Vector2.one * 36 * scale).gameObject;
-            var shortStroke = V5UI.Image(check.transform, "Short stroke", null, new Vector2(9, 22) * scale, new Vector2(19, 6) * scale);
-            var longStroke = V5UI.Image(check.transform, "Long stroke", null, new Vector2(24, 17) * scale, new Vector2(32, 6) * scale);
-            shortStroke.color = longStroke.color = new Color32(54, 150, 65, 255);
-            shortStroke.rectTransform.localRotation = Quaternion.Euler(0, 0, -45);
-            longStroke.rectTransform.localRotation = Quaternion.Euler(0, 0, 45);
-            motion = gameObject.AddComponent<V5Motion>(); sway = gameObject.AddComponent<V5Motion>();
-            SetHome(false); StartSway();
+            art = assets; Species = species; bounds = V6Layout.GoalChip(index, count);
+            chip = V5UI.Rect(transform, "Goal chip", bounds.center, bounds.size);
+            var target = chip.gameObject.AddComponent<Image>(); target.color = Color.clear; target.raycastTarget = true;
+            chip.gameObject.AddComponent<V5LongPress>().Configure(() => root.OpenGoalInfo(Species));
+            var mask = V5UI.Image(chip, "Doorway mask", art.DoorMask(), V6Layout.GoalFace.center, V6Layout.GoalFace.size);
+            mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            V5UI.Fit(mask.transform, "Species face", art.Portrait(species), V6Layout.GoalFace.size * 0.5f, V6Layout.GoalFace.size);
+            var roof = V5UI.Fit(chip, "Tinted roof", art.Get("goal_house_roof"), V6Layout.GoalHouseCenter, V6Layout.GoalHouseSize);
+            roof.color = SpeciesColor(species);
+            V5UI.Fit(chip, "House doorway", art.Get("goal_house_body"), V6Layout.GoalHouseCenter, V6Layout.GoalHouseSize);
+            V5UI.Fit(chip, "Gift", art.Get(V5ViewModel.GiftIcon(species)), V6Layout.GoalGiftCenter, Vector2.one * V6Layout.GiftBadgeSize);
+            GiftPoint = bounds.position + V6Layout.GoalGiftCenter;
+            for (int i = 0; i < dots.Length; i++) dots[i] = V5UI.Fit(chip, "Progress " + i, art.Get("goal_dot_empty"),
+                V6Layout.GoalDot(i), Vector2.one * V6Layout.GoalDotSize);
+            check = V5UI.Fit(chip, "Home check", art.Get("goal_check"), V6Layout.GoalCheckCenter, Vector2.one * V6Layout.GoalCheckSize).gameObject;
+            motion = gameObject.AddComponent<V5Motion>(); SetHome(false);
         }
         public static Color SpeciesColor(string species)
         {
@@ -64,38 +52,21 @@ namespace PerchSort.V5.Game
         }
         public Vector2 DoorPoint()
         {
-            Vector3 local = transform.InverseTransformPoint(house.TransformPoint(new Vector3(0, -215 * bounds.width / 300, 0)));
-            Rect area = ((RectTransform)transform).rect;
-            return new Vector2(local.x - area.xMin, area.yMax - local.y);
+            Vector2 local = V6Layout.GoalDoorLocal - bounds.size * 0.5f;
+            var point = transform.InverseTransformPoint(chip.TransformPoint(new Vector3(local.x, -local.y, 0)));
+            var area = ((RectTransform)transform).rect;
+            return new Vector2(point.x - area.xMin, area.yMax - point.y);
         }
-        private void StartSway()
-        {
-            sway.Loop(4, t => pivot.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(t * Mathf.PI * 2) * 2));
-        }
-        public void OpenDoor(Action done) => motion.Play(0.15f, t => door.localRotation = Quaternion.Euler(0, 85 * t, 0), done);
-        public void CloseDoor(Action done) => motion.Play(0.15f, t => door.localRotation = Quaternion.Euler(0, 85 * (1 - t), 0), done);
         public void Arrival()
         {
-            motion.Play(0.2f, t => house.localScale = Vector3.one * (1 + Mathf.Sin(t * Mathf.PI) * 0.1f));
-            var note = V5UI.Image(transform, "Chimney note", art.Get("gift_encore"), new Vector2(bounds.xMax - 20, bounds.yMin + 100), Vector2.one * 32);
-            Vector2 start = note.rectTransform.anchoredPosition;
-            motion.Play(0.55f, t =>
-            {
-                note.rectTransform.anchoredPosition = start + new Vector2(25 * Mathf.Sin(t * Mathf.PI), 80 * t);
-                note.color = new Color(1, 1, 1, 1 - t);
-            }, () => V5UI.Dispose(note.gameObject));
+            ArrivalCount = Mathf.Min(4, ArrivalCount + 1); DrawProgress();
+            motion.CancelAll(); motion.Play(0.2f, t => chip.localScale = Vector3.one * (1 + Mathf.Sin(t * Mathf.PI) * 0.1f), () => chip.localScale = Vector3.one);
         }
         public void SetHome(bool value)
         {
-            IsHome = value; check.SetActive(value); glow.color = value ? new Color(1, 0.9f, 0.35f, 0.6f) : Color.clear;
+            IsHome = value; ArrivalCount = value ? 4 : 0; check.SetActive(value); DrawProgress();
         }
-        public void Cancel()
-        {
-            motion.CancelAll(); sway.CancelAll(); house.localScale = Vector3.one; door.localRotation = Quaternion.identity;
-            pivot.localRotation = Quaternion.identity;
-            for (int i = transform.childCount - 1; i >= 0; i--)
-                if (transform.GetChild(i).name == "Chimney note") V5UI.Dispose(transform.GetChild(i).gameObject);
-            StartSway();
-        }
+        private void DrawProgress() { for (int i = 0; i < dots.Length; i++) dots[i].sprite = art.Get(i < ArrivalCount ? "goal_dot_full" : "goal_dot_empty"); }
+        public void Cancel() { motion.CancelAll(); chip.localScale = Vector3.one; }
     }
 }

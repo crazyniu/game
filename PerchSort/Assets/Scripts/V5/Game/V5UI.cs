@@ -8,7 +8,7 @@ namespace PerchSort.V5.Game
 {
     public static class V5UI
     {
-        public static readonly Color Ink = new Color32(90, 58, 34, 255);
+        public static readonly Color Ink = new Color32(89, 59, 39, 255);
 
         // All authored points are top-left design coordinates, not screen pixels.
         public static RectTransform Rect(Transform parent, string name, Vector2 point, Vector2 size)
@@ -51,20 +51,32 @@ namespace PerchSort.V5.Game
             return text;
         }
 
-        public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
-            Vector2 point, Action click, bool primary = false)
+        public static Image Surface(Transform parent, string name, V5Art art, string sprite, Rect bounds)
         {
-            Vector2 size = Vector2.one * (primary ? V5Layout.PrimaryButtonSize : V5Layout.SecondaryButtonSize);
-            var image = Image(parent, accessibleName,
-                art.Get(primary ? V5Layout.PrimaryButtonSprite : V5Layout.SecondaryButtonSprite), point, size);
+            var image = Image(parent, name, art.Get(sprite), bounds.center, bounds.size);
+            image.type = UnityEngine.UI.Image.Type.Sliced;
+            return image;
+        }
+        public static Image Fit(Transform parent, string name, Sprite sprite, Vector2 point, Vector2 size)
+        {
+            var image = Image(parent, name, sprite, point, size); image.preserveAspect = true; return image;
+        }
+        public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
+            Vector2 point, Action click, bool primary = false) => Button(parent, art, accessibleName, icon,
+                V6Layout.Centered(point, Vector2.one * (primary ? V6Layout.PrimaryButtonSize : V6Layout.SecondaryButtonSize)), click, primary);
+        public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
+            Rect bounds, Action click, bool primary = false)
+        {
+            bool close = icon == "ui_close_x";
+            var image = Surface(parent, accessibleName, art, close ? icon :
+                primary ? V6Layout.PrimaryButtonSprite : V6Layout.SecondaryButtonSprite, bounds);
+            if (close) image.type = UnityEngine.UI.Image.Type.Simple;
             image.raycastTarget = true;
-            var button = image.gameObject.AddComponent<V5Button>();
-            button.targetGraphic = image;
-            button.transition = Selectable.Transition.None;
-            button.navigation = new Navigation { mode = Navigation.Mode.None };
-            Image(image.transform, "Icon", art.Get(icon), size * 0.5f, size * V5Layout.ButtonIconRatio);
-            button.onClick.AddListener(() => click());
-            return button;
+            var button = image.gameObject.AddComponent<V5Button>(); button.targetGraphic = image;
+            button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
+            if (!close) Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
+                Vector2.one * (Mathf.Min(bounds.width, bounds.height) <= V6Layout.SettingsButton.width ? V6Layout.SmallIconSize : V6Layout.IconSize));
+            button.onClick.AddListener(() => click()); return button;
         }
 
         public static void Dispose(UnityEngine.Object target)
@@ -106,7 +118,7 @@ namespace PerchSort.V5.Game
             designRect.anchoredPosition = Vector2.zero;
             float width = size.x * safe.width / Screen.width;
             float height = size.y * safe.height / Screen.height;
-            designRect.localScale = Vector3.one * Mathf.Min(width / V5Layout.DesignWidth, height / V5Layout.DesignHeight);
+            designRect.localScale = Vector3.one * Mathf.Min(width / V6Layout.DesignWidth, height / V6Layout.DesignHeight);
         }
     }
 }

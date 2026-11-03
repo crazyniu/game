@@ -11,12 +11,11 @@ namespace PerchSort.V5.Game
     {
         private V5Art art;
         private V5GameRoot root;
-        private TMP_FontAsset font;
-        private TextMeshProUGUI coins, phaseCount, chorusLabel;
+        private TextMeshProUGUI coins, phaseCount, chorusLabel, levelNumber;
         private Image phaseIcon;
-        private GameObject phaseGroup, feather, stuck, chorus;
+        private GameObject phaseGroup, feather, chorus;
         private V5Motion motion;
-        private RectTransform housesLayer, ropesLayer, effects, bottomBar;
+        private RectTransform housesLayer, effects, bottomBar;
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
@@ -25,84 +24,74 @@ namespace PerchSort.V5.Game
         private readonly int[] inventory = new int[V5ViewModel.BoosterCount];
         private Button settings;
         private bool contextMechanic;
-        private TextMeshProUGUI levelNumber;
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public BoosterKind ContextBooster => kinds[3];
-
-        public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
+        public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset font)
         {
-            root = owner; art = assets; font = typeface;
-            motion = gameObject.AddComponent<V5Motion>();
-            art.Rope(transform, "Level sign rope", V5Layout.LevelSign.center.x, V5Layout.RopeStart(V5Layout.LevelSign.center.x), V5Layout.LevelSign.yMin);
-            ropesLayer = V5UI.Rect(transform, "House ropes", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
-            V5UI.Image(transform, "Top limb", art.Optional("limb_top_plain") ?? art.Get("limb_top"), V5Layout.Limb.center, V5Layout.Limb.size);
-            V5UI.Image(transform, "Coin pill", art.Get("pill_cream"), V5Layout.CoinPill.center, V5Layout.CoinPill.size);
-            V5UI.Image(transform, "Coin", art.Get("coin"), V5Layout.CoinIcon.center, V5Layout.CoinIcon.size);
-            coins = V5UI.Text(transform, "Coins", "0", font, V5Layout.CoinNumber.center, V5Layout.CoinNumber.size, 46);
-            coins.alignment = TextAlignmentOptions.MidlineLeft; coins.enableAutoSizing = true; coins.fontSizeMin = 20; coins.fontSizeMax = 46;
-            settings = V5UI.Button(transform, art, "Settings", "icon_settings", V5Layout.SettingsButton.center, root.OpenSettings);
-            var sign = V5UI.Image(transform, "Level sign (hold for picker)", art.Get("btn_square_wood"), V5Layout.LevelSign.center, V5Layout.LevelSign.size);
-            sign.raycastTarget = true; sign.gameObject.AddComponent<V5LongPress>().Configure(root.OpenLevelPicker);
-            levelNumber = V5UI.Text(sign.transform, "Level", "1", font, V5Layout.LevelSign.size * 0.5f, V5Layout.LevelSign.size, 44);
-            phaseGroup = V5UI.Rect(transform, "Day night dial", V5Layout.PhaseDial.center, V5Layout.PhaseDial.size).gameObject;
-            phaseIcon = V5UI.Image(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), new Vector2(50, 40), Vector2.one * 80);
-            phaseCount = V5UI.Text(phaseGroup.transform, "Moves until phase", "0", font, new Vector2(50, 110), new Vector2(90, 40), 32);
-            housesLayer = V5UI.Rect(transform, "Species houses", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
-            bottomBar = V5UI.Rect(transform, "Bottom bar", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
-            tools[0] = V5UI.Button(bottomBar, art, "Undo", "icon_undo", V5Layout.ToolButton(0).center, () => root.Undo());
+            root = owner; art = assets; motion = gameObject.AddComponent<V5Motion>();
+            foreach (Rect rope in new[] { V6Layout.LeftRope, V6Layout.RightRope })
+            {
+                var image = V5UI.Image(transform, "Tray rope", art.Get("ui_rope_short"), rope.center, rope.size);
+                image.type = Image.Type.Tiled;
+                image.pixelsPerUnitMultiplier = image.sprite.rect.width / rope.width / image.pixelsPerUnit;
+            }
+            V5UI.Surface(transform, "Goal tray", art, "ui_tray_plank", V6Layout.GoalTray);
+            coins = CoinHeader(transform, art, font);
+            settings = V5UI.Button(transform, art, "Settings", "ico_settings", V6Layout.SettingsButton, root.OpenSettings);
+            V5UI.Fit(transform, "Level badge", art.Get("ui_badge_level"), V6Layout.LevelSign.center, V6Layout.LevelSign.size);
+            levelNumber = V5UI.Text(transform, "Level", "1", font, V6Layout.LevelSign.center + V6Layout.LevelNumberOffset, V6Layout.LevelSign.size, V6Layout.LevelBadgeFontSize);
+            phaseGroup = V5UI.Rect(transform, "Day night dial", V6Layout.PhaseDial.center, V6Layout.PhaseDial.size).gameObject;
+            phaseIcon = V5UI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), V6Layout.PhaseIconCenter, Vector2.one * V6Layout.PhaseIconSize);
+            phaseCount = V5UI.Text(phaseGroup.transform, "Moves until phase", "0", font, V6Layout.PhaseCountCenter, V6Layout.PhaseCountSize, V6Layout.PhaseFontSize);
+            housesLayer = V5UI.Rect(transform, "Species goals", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            bottomBar = V5UI.Rect(transform, "Bottom bar", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+            tools[0] = V5UI.Button(bottomBar, art, "Undo", "ico_undo", V6Layout.ToolButton(0), () => root.Undo());
             for (int i = 1; i < tools.Length; i++)
             {
                 int slot = i;
-                tools[i] = V5UI.Button(bottomBar, art, "Booster " + i, V5ViewModel.Icon((BoosterKind)(i - 1)),
-                    V5Layout.ToolButton(i).center, () => root.TapBooster(kinds[slot]));
-                var icon = (RectTransform)tools[i].transform.GetChild(0);
-                icon.anchoredPosition = new Vector2(60, -105); icon.sizeDelta = Vector2.one * 78;
-                // Badge is inside the button bounds, preserving the 60px inter-button clearance.
-                badges[i] = V5UI.Image(tools[i].transform, "Inventory badge", art.Get("badge_count"), new Vector2(118, 32), Vector2.one * 64);
-                counts[i] = V5UI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * 32, Vector2.one * 60, 30);
+                tools[i] = V5UI.Button(bottomBar, art, "Booster " + i, V5ViewModel.Icon((BoosterKind)(i - 1)), V6Layout.ToolButton(i), () => root.TapBooster(kinds[slot]));
+                badges[i] = V5UI.Fit(tools[i].transform, "Inventory badge", art.Get("ui_badge_count"), V6Layout.StockCenter, Vector2.one * V6Layout.StockSize);
+                counts[i] = V5UI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * V6Layout.StockSize * 0.5f, Vector2.one * V6Layout.StockSize, V6Layout.StockFontSize);
             }
-            feather = V5UI.Image(bottomBar, "Light step pending", art.Get("gift_lightstep"), V5Layout.LightStepPoint, Vector2.one * 70).gameObject;
-            var bubble = V5UI.Image(bottomBar, "Stuck assistance", art.Get("pill_cream"), V5Layout.StuckBubble.center, V5Layout.StuckBubble.size);
-            foreach (int slot in new[] { 0, 1, 2 })
-                V5UI.Image(bubble.transform, "Assistance pointer", art.Get("hand_pointer"),
-                    new Vector2(V5Layout.ToolButton(slot).center.x - V5Layout.StuckBubble.xMin, 50), Vector2.one * 60);
-            stuck = bubble.gameObject;
-            chorus = V5UI.Image(transform, "Chorus ribbon", art.Get("ribbon"), new Vector2(630, 690), new Vector2(250, 65)).gameObject;
-            chorusLabel = V5UI.Text(chorus.transform, "Chorus multiplier", "", font, new Vector2(125, 32), new Vector2(160, 60), 42);
+            feather = V5UI.Fit(bottomBar, "Light step pending", art.Get("gift_light_step"), V6Layout.LightStepPoint, Vector2.one * V6Layout.FeatherSize).gameObject;
+            chorus = V5UI.Fit(transform, "Chorus ribbon", art.Get("ui_ribbon_green"), V6Layout.ChainRibbon.center, V6Layout.ChainRibbon.size).gameObject;
+            chorusLabel = V5UI.Text(chorus.transform, "Chorus multiplier", "", font, V6Layout.ChainRibbon.size * 0.5f, V6Layout.ChainRibbon.size, V6Layout.ChainFontSize);
             chorus.SetActive(false);
-            effects = V5UI.Rect(transform, "HUD particles", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize);
+            effects = V5UI.Rect(transform, "HUD particles", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
+        }
+        public static TextMeshProUGUI CoinHeader(Transform parent, V5Art art, TMP_FontAsset font)
+        {
+            V5UI.Surface(parent, "Coin pill", art, "ui_chip_coin", V6Layout.CoinPill);
+            V5UI.Fit(parent, "Coin", art.Icon("ico_coin"), V6Layout.CoinIcon.center, V6Layout.CoinIcon.size);
+            var label = V5UI.Text(parent, "Coins", "0", font, V6Layout.CoinNumber.center, V6Layout.CoinNumber.size, V6Layout.CoinFontSize);
+            label.enableAutoSizing = true; label.fontSizeMin = V6Layout.CoinMinimumFontSize; label.fontSizeMax = V6Layout.CoinFontSize; return label;
         }
         public void SetLevel(BoardState state)
         {
-            Cancel();
-            foreach (var house in houses.Values) V5UI.Dispose(house.gameObject);
-            for (int i = ropesLayer.childCount - 1; i >= 0; i--) V5UI.Dispose(ropesLayer.GetChild(i).gameObject);
-            houses.Clear();
+            Cancel(); foreach (var house in houses.Values) V5UI.Dispose(house.gameObject); houses.Clear();
             var species = new List<string>();
-            foreach (var branch in state.Branches)
-                foreach (var bird in branch.Birds)
-                    if (!bird.Species.IsCrow && !species.Contains(bird.Species.Id)) species.Add(bird.Species.Id);
-            foreach (var homed in state.HomedSpecies) if (!species.Contains(homed.Id)) species.Add(homed.Id);
+            foreach (var branch in state.Branches) foreach (var bird in branch.Birds)
+                if (!bird.Species.IsCrow && !species.Contains(bird.Species.Id)) species.Add(bird.Species.Id);
+            foreach (var home in state.HomedSpecies) if (!species.Contains(home.Id)) species.Add(home.Id);
             for (int i = 0; i < species.Count; i++)
             {
-                var house = V5UI.Rect(housesLayer, species[i] + " house", V5Layout.DesignSize * 0.5f, V5Layout.DesignSize).gameObject.AddComponent<BirdhouseView>();
-                house.Configure(art, species[i], i, species.Count, ropesLayer); houses.Add(species[i], house);
+                var house = V5UI.Rect(housesLayer, species[i] + " goal", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize).gameObject.AddComponent<BirdhouseView>();
+                house.Configure(root, art, species[i], i, species.Count); houses.Add(species[i], house);
             }
             kinds[1] = BoosterKind.Firefly; kinds[2] = BoosterKind.Sapling;
             kinds[3] = V5ViewModel.ContextBooster(state, out contextMechanic);
             for (int i = 1; i < tools.Length; i++)
             {
-                tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Get(V5ViewModel.Icon(kinds[i]));
+                tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Icon(V5ViewModel.Icon(kinds[i]));
                 tools[i].gameObject.SetActive(root.HighestUnlocked >= V5ViewModel.Unlock(kinds[i]));
             }
-            levelNumber.text = state.LevelId.ToString();
-            SyncState(state);
+            levelNumber.text = state.LevelId.ToString(); SyncState(state);
         }
         public BirdhouseView House(string species) => houses[species];
         public Vector2 BoosterPoint(BoosterKind kind)
         {
-            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return V5Layout.ToolButton(i).center;
-            return V5Layout.ToolButton(3).center;
+            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return V6Layout.ToolButton(i).center;
+            return V6Layout.ToolButton(3).center;
         }
         public void SyncState(BoardState state)
         {
@@ -113,38 +102,29 @@ namespace PerchSort.V5.Game
                 bool home = false; foreach (var species in state.HomedSpecies) if (species.Id == house.Species) home = true;
                 house.SetHome(home);
             }
-            Phase(state.Phase, state.DayLength - state.PhaseCounter, state.DayLength > 0);
-            feather.SetActive(state.LightStep);
+            Phase(state.Phase, state.DayLength - state.PhaseCounter, state.DayLength > 0); feather.SetActive(state.LightStep);
         }
         public void Refresh(GameSession session, int coinCount, bool blocked, bool presenting)
         {
-            coins.text = coinCount.ToString();
-            if (!presenting) SyncState(session.State);
-            bottomBar.gameObject.SetActive(!root.Win.IsOpen);
-            tools[0].interactable = !blocked && session.CanUndo;
-            settings.interactable = !blocked;
+            coins.text = coinCount.ToString(); if (!presenting) SyncState(session.State);
+            bottomBar.gameObject.SetActive(!root.HasModal);
+            tools[0].interactable = !blocked && session.CanUndo; settings.interactable = !blocked;
             for (int i = 1; i < tools.Length; i++)
             {
                 int count = root.DisplayStock(inventory[(int)kinds[i]]);
                 tools[i].interactable = !blocked && !session.State.IsWon && (i != 3 || contextMechanic) &&
-                    (kinds[i] != BoosterKind.Firefly || !root.HintPending) &&
-                    (count == 0 || session.BoosterHasEffect(kinds[i]));
+                    (kinds[i] != BoosterKind.Firefly || !root.HintPending) && (count == 0 || session.BoosterHasEffect(kinds[i]));
             }
-            stuck.SetActive(!presenting && !blocked && !session.State.IsWon && !GameSession.HasLegalMove(session.State));
         }
         private void DrawCounts()
         {
             for (int i = 1; i < tools.Length; i++)
             {
-                int count = root.DisplayStock(inventory[(int)kinds[i]]);
-                badges[i].sprite = art.Get(count > 0 ? "badge_count" : "badge_plus");
+                int count = root.DisplayStock(inventory[(int)kinds[i]]); badges[i].sprite = art.Get(count > 0 ? "ui_badge_count" : "ui_badge_plus");
                 counts[i].gameObject.SetActive(count > 0); counts[i].text = count.ToString();
             }
         }
-        public void BoosterSpent(BoosterUsed used)
-        {
-            inventory[(int)used.Booster] = used.Remaining; DrawCounts();
-        }
+        public void BoosterSpent(BoosterUsed used) { inventory[(int)used.Booster] = used.Remaining; DrawCounts(); }
         public void Phase(DayPhase value, int movesLeft, bool enabled)
         {
             phaseGroup.SetActive(enabled); phaseIcon.sprite = art.Get(value == DayPhase.Day ? "dial_sun" : "dial_moon"); phaseCount.text = movesLeft.ToString();
@@ -159,12 +139,11 @@ namespace PerchSort.V5.Game
         public void LightStep(bool value) => feather.SetActive(value);
         public void FlyIcon(string icon, Vector2 from, Vector2 to, Action done)
         {
-            var image = V5UI.Image(effects, "Flying " + icon, art.Get(icon), from, Vector2.one * 64);
+            var image = V5UI.Fit(effects, "Flying " + icon, art.Get(icon), from, Vector2.one * V6Layout.IconSize);
             motion.Play(0.4f, t =>
             {
                 var p = Vector2.Lerp(from, to, t) + Vector2.up * (-60 * Mathf.Sin(t * Mathf.PI));
-                image.rectTransform.anchoredPosition = new Vector2(p.x, -p.y);
-                image.rectTransform.localScale = Vector3.one * (1 + 0.3f * Mathf.Sin(t * Mathf.PI));
+                image.rectTransform.anchoredPosition = new Vector2(p.x, -p.y); image.rectTransform.localScale = Vector3.one * (1 + 0.3f * Mathf.Sin(t * Mathf.PI));
             }, () => { V5UI.Dispose(image.gameObject); done(); });
         }
         public void CountCoins(int from, int to) => motion.Play(0.65f, t => coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString());

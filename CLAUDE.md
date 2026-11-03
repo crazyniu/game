@@ -20,7 +20,7 @@ User requirements: fixed authored levels, forest-only worlds and sequential worl
 | Machine | Role |
 |---|---|
 | **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude (runs only here) splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex and omp workers write code and produce images. **No Unity Editor** — cannot compile or run tests locally. |
-| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Unity machine: compile, EditMode/PlayMode tests, screenshots, and desktop-control testing of the running game. Since 2026-11-03 Claude may also dispatch Codex and omp workers here (the Mac has both installed; Claude itself does not run here) so they compile and test locally. Workers on the Mac edit only their task's owned paths on a task branch, commit and push it; Claude reviews and merges. Only one Unity batch run at a time; never edit the same files from 251 and the Mac concurrently. |
+| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Unity machine: compile, EditMode/PlayMode tests, screenshots, and desktop-control testing of the running game. Since 2026-11-03 Claude may also dispatch omp and pi workers here (the Mac has omp and pi installed but no Codex, so image generation stays on 251; Claude itself does not run here) so they compile and test locally. Workers on the Mac edit only their task's owned paths on a task branch, commit and push it; Claude reviews and merges. Only one Unity batch run at a time; never edit the same files from 251 and the Mac concurrently. |
 
 The Mac-side Claude from the old workflow is retired.
 

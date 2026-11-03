@@ -9,7 +9,7 @@ namespace PerchSort.V5.Game
         public const int BoosterCount = 6;
         private static readonly int[] unlocks = { 2, 4, 7, 12, 22, 32 };
         private static readonly int[] prices = { 30, 60, 80, 80, 100, 100 };
-        private static readonly string[] icons = { "icon_firefly", "icon_sapling", "icon_owl_eye", "icon_bell", "icon_scarecrow", "icon_rain" };
+        private static readonly string[] icons = { "ico_hint", "ico_add_branch", "ico_peek_eggs", "ico_wake_bell", "ico_scarecrow", "ico_rain_sprout" };
         public static int Unlock(BoosterKind kind) => unlocks[(int)kind];
         public static int Price(BoosterKind kind) => prices[(int)kind];
         public static int Starter(BoosterKind kind) => kind == BoosterKind.Firefly ? 3 : 2;
@@ -45,21 +45,11 @@ namespace PerchSort.V5.Game
                 case "berry": return "gift_encore";
                 case "mint": return "gift_gardener";
                 case "cocoa": return "gift_stare";
-                case "snow": return "gift_lightstep";
+                case "snow": return "gift_light_step";
                 case "ember": return "gift_warm";
                 case "ink": return "gift_night";
                 case "hoot": return "gift_moonbeam";
                 default: throw new ArgumentException("Species has no homecoming gift: " + species);
-            }
-        }
-        public static string Background(string variant)
-        {
-            switch (variant)
-            {
-                case "morning": case "mist": return "bg_w1_morning";
-                case "golden": case "lanterns": case "sunset": case "bluehour": case "aurora": return "bg_w1_golden";
-                case "rain": case "drizzle": return "bg_w1_rain";
-                default: return "bg_forest_day";
             }
         }
         public static bool Rain(string variant) => variant == "rain" || variant == "drizzle";

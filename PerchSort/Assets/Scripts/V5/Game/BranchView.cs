@@ -26,18 +26,18 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets, BranchState branch, int index, int rowCount, int capacity)
         {
             root = owner; art = assets; Index = index; IsRight = branch.IsRight;
-            Kind = branch.Kind; Seats = branch.Capacity; fullCapacity = capacity; density = V5Layout.BirdScale(rowCount);
-            BranchY = V5Layout.RowY(branch.Row, rowCount, IsRight);
-            Rect hitRect = V5Layout.BranchHit(branch.Row, rowCount, IsRight);
+            Kind = branch.Kind; Seats = branch.Capacity; fullCapacity = capacity; density = V6Layout.BirdScale(rowCount);
+            BranchY = V6Layout.RowY(branch.Row, rowCount, IsRight);
+            Rect hitRect = V6Layout.BranchHit(branch.Row, rowCount, IsRight);
             var hit = gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
             Vector2 rootPoint = new Vector2(IsRight ? 1080 : 0, BranchY) - hitRect.position;
             flex = V5UI.Rect(transform, "Flex root", rootPoint, Vector2.zero);
-            wood = V5UI.Image(flex, "Branch", art.Get(Kind == BranchKind.Twig ? "twig_left" : "branch_left"), Vector2.zero, Vector2.zero);
+            wood = V5UI.Image(flex, "Branch", art.World(Kind == BranchKind.Twig ? "twig_left" : "branch_left", root.Session.State.World), Vector2.zero, Vector2.zero);
             wood.rectTransform.pivot = new Vector2(0, 0.5f);
             wood.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             UpdateWood();
-            var bush = V5UI.Image(transform, "Root bush", art.Get("bush_edge"),
-                rootPoint + new Vector2(0, -V5Layout.BushAboveBranch * density), V5Layout.BushSize * density);
+            var bush = V5UI.Image(transform, "Root bush", art.World("bush_edge", root.Session.State.World),
+                rootPoint + new Vector2(0, -V6Layout.BushAboveBranch * density), V6Layout.BushSize * density);
             if (IsRight) bush.rectTransform.localScale = new Vector3(-1, 1, 1);
             glow = V5UI.Image(transform, "Seat glow", art.Get("sparkle"), Vector2.zero, Vector2.one * 90 * density);
             glow.color = Color.clear;
@@ -50,17 +50,17 @@ namespace PerchSort.V5.Game
             }
         }
         private float Fill(int seats) => seats >= fullCapacity ? 1 : Mathf.Clamp01(
-            (V5Layout.FirstBirdSlot + (seats - 1) * V5Layout.SeatPitch(density) + 65 * density) / (V5Layout.BranchWidth * density));
+            (V6Layout.FirstBirdSlot + (seats - 1) * V6Layout.SeatPitch(density) + 65 * density) / V6Layout.BranchWidth);
         private void UpdateWood()
         {
             bool twig = Kind == BranchKind.Twig;
-            wood.sprite = art.Get(twig ? "twig_left" : "branch_left");
-            wood.rectTransform.sizeDelta = (twig ? new Vector2(336, 72) : V5Layout.BranchDisplaySize) * density;
-            wood.rectTransform.anchoredPosition = new Vector2(0, twig ? 8 * density : 0);
+            wood.sprite = art.World(twig ? "twig_left" : "branch_left", root.Session.State.World);
+            wood.rectTransform.sizeDelta = twig ? V6Layout.TwigDisplaySize : V6Layout.BranchDisplaySize;
+            wood.rectTransform.anchoredPosition = new Vector2(0, -V6Layout.BranchCenterBelowFeet);
             wood.type = Image.Type.Filled; wood.fillMethod = Image.FillMethod.Horizontal; wood.fillOrigin = 0;
             wood.fillAmount = twig ? 1 : Fill(Seats);
         }
-        public Vector2 Slot(int index) => V5Layout.BirdSlot(index, BranchY, IsRight, density);
+        public Vector2 Slot(int index) => V6Layout.BirdSlot(index, BranchY, IsRight, density);
         public void OnPointerClick(PointerEventData data)
         {
             if (data != null && data.button != PointerEventData.InputButton.Left) return;
@@ -71,11 +71,11 @@ namespace PerchSort.V5.Game
             float start = wood.fillAmount;
             Seats = seats; if (upgrade) Kind = BranchKind.Normal;
             UpdateWood(); float end = wood.fillAmount;
-            Vector2 local = Slot(seats - 1) - V5Layout.BranchHit(root.Session.State.Branches[Index].Row,
+            Vector2 local = Slot(seats - 1) - V6Layout.BranchHit(root.Session.State.Branches[Index].Row,
                 root.Board.RowCount, IsRight).position + new Vector2(0, 70 * density);
             glow.rectTransform.anchoredPosition = new Vector2(local.x, -local.y);
             var sprout = V5UI.Image(flex, "Growth sprout", art.Get("petal"),
-                new Vector2((IsRight ? -1 : 1) * (V5Layout.FirstBirdSlot + (seats - 1) * V5Layout.SeatPitch(density)), -20 * density), Vector2.one * 48);
+                new Vector2((IsRight ? -1 : 1) * (V6Layout.FirstBirdSlot + (seats - 1) * V6Layout.SeatPitch(density)), -20 * density), Vector2.one * 48);
             motion.Play(0.4f, t =>
             {
                 wood.fillAmount = Mathf.LerpUnclamped(start, end, t);

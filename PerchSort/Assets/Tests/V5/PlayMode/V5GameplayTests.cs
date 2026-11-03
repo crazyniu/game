@@ -39,6 +39,10 @@ namespace PerchSort.V5.Tests
                 root = Object.FindAnyObjectByType<V5GameRoot>(); if (root != null && root.IsReady) break; yield return null;
             }
             Assert.That(root, Is.Not.Null); Assert.That(root.IsReady, Is.True);
+            Assert.That(root.IsMap, Is.True);
+            root.Map.Nodes[1].onClick.Invoke();
+            root.GetComponentInChildren<V5Panels>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
+            Assert.That(root.IsMap, Is.False);
         }
         [UnityTearDown]
         public IEnumerator TearDown()
@@ -84,10 +88,12 @@ namespace PerchSort.V5.Tests
             int before = root.Coins;
             Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Win.IsOpen, Is.False); AssertSnapshot();
             Assert.That(root.Hud.Houses["sky"].IsHome, Is.True); Assert.That(root.Hud.Houses["sunny"].IsHome, Is.False);
+            Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
             Assert.That(root.TryMove(2, 0), Is.True); Assert.That(root.Win.gameObject.activeInHierarchy, Is.True);
             Assert.That(root.Session.MoveCount, Is.EqualTo(2)); Assert.That(root.Coins, Is.EqualTo(before + 30));
             Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(before + 30));
             Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(1)), Is.EqualTo(3)); AssertSnapshot();
+            Assert.That(root.BestMoves(1), Is.EqualTo(2));
             yield return null; Canvas.ForceUpdateCanvases();
             var bar = root.Hud.transform.Find("Bottom bar");
             Assert.That(bar.gameObject.activeInHierarchy, Is.False);
@@ -115,6 +121,9 @@ namespace PerchSort.V5.Tests
             root.Board.Branches[0].OnPointerClick(pointer); Assert.That(root.Session.SelectedBranch, Is.EqualTo(0));
             root.Board.Branches[1].OnPointerClick(pointer); Assert.That(root.Session.SelectedBranch, Is.EqualTo(-1));
             Assert.That(root.Session.State.HomedSpecies[0].Id, Is.EqualTo("sky")); AssertSnapshot(); yield return null;
+            Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
+            var target = root.Hud.Houses["sky"].DoorPoint();
+            Assert.That(target.y, Is.InRange(V6Layout.GoalTray.yMin, V6Layout.GoalTray.yMax));
         }
         [UnityTest]
         public IEnumerator AnimatedTransferLocksAirborneInputAndUndoCancelsCallbacks()
@@ -216,16 +225,16 @@ namespace PerchSort.V5.Tests
             Assert.That(PlayerPrefs.GetInt(V5Progress.HighestKey), Is.EqualTo(1));
             Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(40)), Is.Zero);
             Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(100));
-            root.OpenLevelPicker();
-            var picker = root.GetComponentInChildren<V5Panels>(true);
-            var buttons = picker.GetComponentsInChildren<Button>().Where(b => b.name.StartsWith("Level ")).ToArray();
-            Assert.That(buttons.Select(b => b.name), Is.EquivalentTo(Enumerable.Range(1, 40).Select(id => "Level " + id)));
+            root.OpenMap();
+            Assert.That(root.IsMap, Is.True);
+            var buttons = root.Map.Nodes.Values.ToArray();
             foreach (var button in buttons)
             {
                 Assert.That(button.interactable, Is.True);
-                for (int star = 1; star <= 3; star++) Assert.That(button.transform.Find("Star " + star).GetComponent<Image>().color.a, Is.EqualTo(1));
+                for (int star = 1; star <= 3; star++) Assert.That(button.transform.parent.Find("Star " + star).GetComponent<Image>().sprite.name, Is.EqualTo("star_small_full"));
             }
-            root.ClosePanel();
+            root.Map.Nodes[1].onClick.Invoke();
+            root.GetComponentInChildren<V5Panels>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
             Assert.That(root.Hud.transform.Find("Bottom bar/Firefly").gameObject.activeSelf, Is.True);
             Assert.That(root.Hud.transform.Find("Bottom bar/Sapling").gameObject.activeSelf, Is.True);
             Assert.That(root.UseBooster(BoosterKind.Sapling), Is.True);
@@ -238,6 +247,7 @@ namespace PerchSort.V5.Tests
             Assert.That(root.Undo(), Is.True);
             Assert.That(PlayerPrefs.GetInt(V5Progress.InventoryKey((int)BoosterKind.Sapling)), Is.EqualTo(1));
             root.LoadLevel(39); Assert.That(root.LevelId, Is.EqualTo(39));
+            while (root.GetComponentInChildren<V5Panels>(true).IsUnlock) root.AcknowledgeUnlock();
             var solution = Solver.Solve(root.Session.State);
             Assert.That(solution.Status, Is.EqualTo(SolveStatus.Solved));
             foreach (var move in solution.Moves)
@@ -262,6 +272,7 @@ namespace PerchSort.V5.Tests
             var profile = new V5Profile { HighestUnlocked = 4 };
             profile.Boosters[(int)BoosterKind.Sapling] = stock;
             profile.StarterGranted[(int)BoosterKind.Sapling] = true;
+            for (int i = 0; i < profile.UnlockSeen.Length; i++) profile.UnlockSeen[i] = true;
             profile.Tutorials[4] = seen; V5Progress.Save(profile);
             yield return ReloadSavedGame(); root.LoadLevel(4); yield return null;
         }
@@ -269,7 +280,7 @@ namespace PerchSort.V5.Tests
         public IEnumerator SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending()
         {
             yield return PrepareSaplingIntro(1);
-            var hand = TutorialPointer(); var point = V5Layout.ToolButton(2).center;
+            var hand = TutorialPointer(); var point = V6Layout.ToolButton(2).center;
             Assert.That(hand.gameObject.activeInHierarchy, Is.True);
             Assert.That(hand.rectTransform.anchoredPosition, Is.EqualTo(new Vector2(point.x, -point.y)));
             Assert.That(V5Progress.Load().Tutorials[4], Is.True);
@@ -303,6 +314,36 @@ namespace PerchSort.V5.Tests
             yield return PrepareSaplingIntro(1, true);
             Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
             Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
+        }
+        [UnityTest]
+        public IEnumerator MapCardLevelWinHomeRoundTripAndSettingsBlockBackground()
+        {
+            root.OpenMap(); root.Map.Nodes[1].onClick.Invoke();
+            var cards = root.GetComponentInChildren<V5Panels>();
+            Assert.That(cards.CardLevel, Is.EqualTo(1)); Assert.That(root.TryMove(0, 1), Is.False);
+            cards.GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
+            root.OpenSettings(); Assert.That(root.TryMove(0, 1), Is.False);
+            root.GetComponentInChildren<SettingsPanel>().GetComponentsInChildren<Button>().Single(button => button.name == "Return to map").onClick.Invoke();
+            Assert.That(root.IsMap, Is.True);
+            root.Map.Nodes[1].onClick.Invoke();
+            root.GetComponentInChildren<V5Panels>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
+            Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.TryMove(2, 0), Is.True);
+            root.Win.GetComponentsInChildren<Button>().Single(button => button.name == "Home").onClick.Invoke();
+            Assert.That(root.IsMap, Is.True); Assert.That(root.Win.IsOpen, Is.False);
+            Assert.That(root.Map.FocusLevel, Is.EqualTo(2)); yield return null;
+        }
+        [UnityTest]
+        public IEnumerator GoalInformationBlocksPlayAndUnlockAcknowledgementIsOnceOnly()
+        {
+            root.OpenGoalInfo("sky");
+            Assert.That(root.HasModal, Is.True); Assert.That(root.TryMove(0, 1), Is.False);
+            root.ClosePanel(); Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.TryMove(2, 0), Is.True);
+            root.NextLevel(); var cards = root.GetComponentInChildren<V5Panels>();
+            Assert.That(cards.IsUnlock, Is.True); Assert.That(root.TapBranch(0), Is.False);
+            cards.GetComponentsInChildren<Button>().Single(button => button.name == "Acknowledge unlock").onClick.Invoke();
+            Assert.That(root.HasModal, Is.False); root.LoadLevel(2); Assert.That(root.HasModal, Is.False);
+            Assert.That(PlayerPrefs.GetInt(V5Progress.UnlockSeenKey((int)BoosterKind.Firefly)), Is.EqualTo(1));
+            yield return null;
         }
     }
 }
