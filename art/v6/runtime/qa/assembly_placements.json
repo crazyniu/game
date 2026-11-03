@@ -1,0 +1,84 @@
+{
+  "bird_rects": [
+    {
+      "species": "sunny",
+      "rect": [
+        122,
+        582,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "berry",
+      "rect": [
+        282,
+        583,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "berry",
+      "rect": [
+        662,
+        643,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "sunny",
+      "rect": [
+        822,
+        642,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "berry",
+      "rect": [
+        122,
+        1052,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "sunny",
+      "rect": [
+        282,
+        1053,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "sunny",
+      "rect": [
+        662,
+        1113,
+        136,
+        136
+      ]
+    },
+    {
+      "species": "berry",
+      "rect": [
+        822,
+        1112,
+        136,
+        136
+      ]
+    }
+  ],
+  "branches_tip_gap": 60,
+  "goal_centers": [
+    280,
+    540,
+    800
+  ],
+  "goal_pitch": 260,
+  "dynamic_numerals": "omitted: asset-only static composite, no baked digits"
+}
