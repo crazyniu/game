@@ -365,5 +365,26 @@ namespace PerchSort.V5.Tests
             Assert.That(root.Hud.Houses["sunny"].ArrivalCount, Is.Zero);
             AssertSnapshot();
         }
+        [UnityTest]
+        public IEnumerator HomeFlightShrinksAroundTheGoalDoorNotItsFootPivot()
+        {
+            var art = new V5Art();
+            var layer = (RectTransform)root.Hud.HomeFlightLayer;
+            var view = V5UI.Rect(layer, "Arrival geometry probe", new Vector2(400, 900), V6Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
+            try
+            {
+                view.Configure(new Bird(999, new Species("sky"), BirdFlags.None), false, art, new Vector2(400, 900), 1);
+                var pose = view.GetComponentInChildren<Image>();
+                Vector2 door = root.Hud.Houses["sky"].DoorPoint(), visualCenter = Vector2.zero;
+                view.Fly(door, 0, true, () => { }, () => { }, () =>
+                {
+                    Vector3 point = layer.InverseTransformPoint(pose.rectTransform.TransformPoint(pose.rectTransform.rect.center));
+                    visualCenter = new Vector2(point.x - layer.rect.xMin, layer.rect.yMax - point.y);
+                });
+                Assert.That(Vector2.Distance(visualCenter, door), Is.LessThan(0.1f), "Shrinking around the feet must not move the visible bird below its doorway.");
+            }
+            finally { Object.DestroyImmediate(view.gameObject); art.Dispose(); }
+            yield return null;
+        }
     }
 }
