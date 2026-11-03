@@ -43,7 +43,7 @@ namespace PerchSort.V5.Tests
         }
 
         [Test]
-        public void EveryAuthoredLevelHasValidCountsDebutsAndInitialBoard([Range(1, 40)] int id)
+        public void EveryAuthoredLevelHasValidCountsDebutsAndInitialBoard([NUnit.Framework.Range(1, 40)] int id)
         {
             var level = catalog.levels.Single(l => l.id == id);
             var board = level.CreateBoard();
@@ -98,7 +98,7 @@ namespace PerchSort.V5.Tests
         }
 
         [Test]
-        public void StoredParMatchesCoreSolverAndWinningReplay([Range(1, 40)] int id)
+        public void StoredParMatchesCoreSolverAndWinningReplay([NUnit.Framework.Range(1, 40)] int id)
         {
             var level = catalog.levels.Single(l => l.id == id);
             var session = new GameSession(level);
