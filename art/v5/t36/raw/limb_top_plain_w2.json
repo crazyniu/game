@@ -1,0 +1,11 @@
+{
+  "name": "limb_top_plain_w2",
+  "prompt": "Use case: precise-object-edit. Transform the supplied accepted top limb into this world: BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. Maintain its exact composition and broad gently sagging horizontal arc crossing between the LEFT and RIGHT TOP canopy corners. Target 1080x320 transparent RGBA. One continuous naturally thick overhead limb with a softly downward bowed center, endpoint roots entering left and right edges; world foliage in the extreme top corners. Keep the lowest opaque point above y=220 and absolutely NOTHING below y=260. NO rope, hook, knot hanging down, loop, birdhouse, birds, accessories, text, UI or ground shadow. Use one continuous gently bent bamboo stalk with spaced nodes; the silhouette and centerline follow the accepted limb curve. Match polished dimensional 3D cartoon shading and upper-left light. Genuine clean transparency.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top_plain.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19f05-838c-7763-961d-0744d1455604/exec-d26702ca-5674-45a0-867a-619cc6ec2cd9.png",
+  "raw": "/home/developer/Projects/game/art/v5/t36/raw/limb_top_plain_w2.png",
+  "tool": "image_gen.imagegen"
+}

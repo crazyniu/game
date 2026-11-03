@@ -1,0 +1,11 @@
+{
+  "name": "bg_w3_noon",
+  "prompt": "Use case: style-transfer. Edit the attached accepted mobile-game forest background into a different forest world. Keep precisely its portrait composition, camera, soft polished 3D cartoon rendering, rounded dimensional foliage, gentle detailed texture, upper-left light, low soft hills at the very bottom, and large calm clean gradient sky. Target final 1080x1920, portrait 9:16. The entire band y=550..1500 must remain uncluttered low-detail sky; top corner canopies finish before y=480, hills and distant forest only below y=1710. No foreground trunks or branches, no perches, no birds, no animals, no UI, no text, no watermarks. This is a new derived image; do not simply recolor the oak leaves. Replace the oak canopy with lush autumn MAPLE leaves in BOTH upper corners: recognizable broad five-pointed maple leaf shapes, deep coral red, orange and amber, softly rounded tactile 3D leaf edges. Far bottom hills show tiny soft maple forest in autumn gold and red. Clear bright blue to pale cream midday sky with small soft white clouds confined to the top quarter. Match accepted scene softness and generous negative space.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png"
+  ],
+  "transparent": false,
+  "source": "/home/developer/.codex/generated_images/01a19f05-838c-7763-961d-0744d1455604/exec-efd598a3-e3b0-4d25-b64c-c27f8ba34bd6.png",
+  "raw": "/home/developer/Projects/game/art/v5/t36/raw/bg_w3_noon.png",
+  "tool": "image_gen.imagegen"
+}

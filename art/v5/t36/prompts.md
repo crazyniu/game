@@ -1,0 +1,220 @@
+# T36 exact image-generation prompts
+
+Tool: built-in image_gen.imagegen.
+All raster content is generated; references are project-owned accepted World 1 art or derived world scenes.
+
+## bg_w2_drizzle
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w2_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Quiet light drizzle bamboo scene: muted blue-grey to pale jade gradient sky, soft overcast light, tiny dew on corner leaves. A few delicate rain streaks confined to the extreme left/right margins and top corners, keep the wide center and y=550..1500 quiet and clear. No storm or lightning; distant bottom hills softened by rainy air.
+```
+
+## bg_w2_lanterns
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w2_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Calm dusky bamboo grove, soft blue-violet-to-muted-peach gradient sky. Three very small distant warm amber paper lanterns nestled in the far bamboo background ONLY below y=1720, no giant foreground lantern and no overhead strings. Foliage still softly visible, warm reflected lantern glimmers only in far bottom foliage; central sky clear.
+```
+
+## bg_w2_mist
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w2_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Cool misty bamboo morning, soft jade-to-cream sky and a little pale peach dawn glow near horizon. Thin diffuse mist resting ONLY over the distant bamboo hills at bottom; gentle rim-lit fresh bamboo foliage. No visible fog streaks or clouds across the middle board band.
+```
+
+## bg_w2_noon
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png
+
+```text
+Use case: style-transfer. Edit the attached accepted mobile-game forest background into a different forest world. Keep precisely its portrait composition, camera, soft polished 3D cartoon rendering, rounded dimensional foliage, gentle detailed texture, upper-left light, low soft hills at the very bottom, and large calm clean gradient sky. Target final 1080x1920, portrait 9:16. The entire band y=550..1500 must remain uncluttered low-detail sky; top corner canopies finish before y=480, hills and distant forest only below y=1710. No foreground trunks or branches, no perches, no birds, no animals, no UI, no text, no watermarks. This is a new derived image; do not simply recolor the oak leaves. Replace the oak canopy with lush elegant bamboo foliage in BOTH upper corners: recognizable long narrow lance-shaped jade and lime bamboo leaves on very fine hidden stems. Far bottom hills show tiny soft bamboo groves, not broadleaf woodland. Bright warm midday sky with blue to pale aqua/cream gradient and small soft white clouds confined to the top quarter. Match accepted scene softness and generous negative space.
+```
+
+## bg_w3_morning
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w3_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Crisp autumn morning with soft peach-pink cloud glow above y=480, pale lavender to creamy sunrise gradient sky, golden upper-left edge lighting on red and amber maple canopies. Cool clean air, low hills in soft warm haze.
+```
+
+## bg_w3_noon
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png
+
+```text
+Use case: style-transfer. Edit the attached accepted mobile-game forest background into a different forest world. Keep precisely its portrait composition, camera, soft polished 3D cartoon rendering, rounded dimensional foliage, gentle detailed texture, upper-left light, low soft hills at the very bottom, and large calm clean gradient sky. Target final 1080x1920, portrait 9:16. The entire band y=550..1500 must remain uncluttered low-detail sky; top corner canopies finish before y=480, hills and distant forest only below y=1710. No foreground trunks or branches, no perches, no birds, no animals, no UI, no text, no watermarks. This is a new derived image; do not simply recolor the oak leaves. Replace the oak canopy with lush autumn MAPLE leaves in BOTH upper corners: recognizable broad five-pointed maple leaf shapes, deep coral red, orange and amber, softly rounded tactile 3D leaf edges. Far bottom hills show tiny soft maple forest in autumn gold and red. Clear bright blue to pale cream midday sky with small soft white clouds confined to the top quarter. Match accepted scene softness and generous negative space.
+```
+
+## bg_w3_sunset
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w3_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Warm autumn sunset with a calm periwinkle to peach-apricot gradient sky, gold rim light on red maple canopy corners and low forest hills. Small soft coral clouds confined above y=480. No sun disk or bright focal flare in central area.
+```
+
+## bg_w3_windy
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w3_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Breezy clear autumn afternoon with slightly swept maple leaf clusters in the upper corners, a few tiny drifting maple leaves only in top corners or the extreme lower landscape, NEVER in middle board band. Soft airy pale-blue to cream sky, slightly wind-stretched soft clouds above y=480, warm amber/red foliage. Still a quiet backdrop.
+```
+
+## bg_w4_aurora
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w4_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Gentle aurora night above snowy pine hills: softly luminous teal and lavender aurora ribbons confined to the TOP sky y=80..450 between the corner canopies, a few tiny stars only there; lower sky a clear calm medium blue/teal gradient through the ENTIRE board band y=550..1500. Snow has soft cool rim light and remains legible. No aurora bands or stars across the board band, no moon disk; friendly luminous night rather than near-black.
+```
+
+## bg_w4_bluehour
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w4_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Quiet blue-hour winter, soft cool periwinkle to icy lavender gradient sky, deep-teal pine needles and softly luminous snow caps. A few extremely faint stars only above y=450; keep the middle board band calm and readable without dense snowflakes, no moon disk.
+```
+
+## bg_w4_morning
+
+References: /home/developer/Projects/game/art/v5/t36/raw/bg_w4_noon.png
+
+```text
+Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Soft snowy dawn, gentle pale lavender-blue to blush-cream gradient sky, subtle warm pink/gold highlights on corner snow caps, fresh snow over pine hills at bottom. Cozy delicate winter light, all middle sky clear.
+```
+
+## bg_w4_noon
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bg_forest_day.png
+
+```text
+Use case: style-transfer. Edit the attached accepted mobile-game forest background into a different forest world. Keep precisely its portrait composition, camera, soft polished 3D cartoon rendering, rounded dimensional foliage, gentle detailed texture, upper-left light, low soft hills at the very bottom, and large calm clean gradient sky. Target final 1080x1920, portrait 9:16. The entire band y=550..1500 must remain uncluttered low-detail sky; top corner canopies finish before y=480, hills and distant forest only below y=1710. No foreground trunks or branches, no perches, no birds, no animals, no UI, no text, no watermarks. This is a new derived image; do not simply recolor the oak leaves. Replace oak canopy with plush dark-teal PINE needle clusters carrying small rounded soft white snow caps in BOTH upper corners. Distinct pine needles in rounded stylized tufts, not broad leaves. Far bottom hills are snowy rounded hills with small distant dark spruce and pine silhouettes only at the bottom. Luminous cool cyan to pale cream midday sky, soft white clouds confined to the top quarter, warm gentle sunlight on snow, friendly cozy mood rather than bleak realism. Match accepted scene softness and generous negative space.
+```
+
+## branch_left_w2
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png
+
+```text
+Use case: precise-object-edit. Edit the attached accepted branch sprite into a world-specific perch, maintaining the exact overall side-on geometry and dimensions. Target transparent RGBA 640x120. Thick root enters through the LEFT canvas edge, gently tapering to a closed natural right tip; gently curved underside, nearly horizontal bird-safe top at y=40 for x=85..555. Upper silhouette of the central perch must stay smooth and level: nothing protruding above it, no leaf or knot over the bird feet, no second branch. Keep top/surface around y=40 and natural visible thickness roughly 35-55 pixels; root may be thicker. Decorative tiny leaves/needles only near the far right end or below the lower contour. BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. Preserve reference soft polished 3D cartoon shading, upper-left warm light and clear dimensions, not vector or photoreal. Isolated on genuinely transparent background; no ground shadow, text, birds, UI or borders.
+```
+
+## branch_left_w3
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png
+
+```text
+Use case: precise-object-edit. Edit the attached accepted branch sprite into a world-specific perch, maintaining the exact overall side-on geometry and dimensions. Target transparent RGBA 640x120. Thick root enters through the LEFT canvas edge, gently tapering to a closed natural right tip; gently curved underside, nearly horizontal bird-safe top at y=40 for x=85..555. Upper silhouette of the central perch must stay smooth and level: nothing protruding above it, no leaf or knot over the bird feet, no second branch. Keep top/surface around y=40 and natural visible thickness roughly 35-55 pixels; root may be thicker. Decorative tiny leaves/needles only near the far right end or below the lower contour. AUTUMN MAPLE: warm golden-brown maple wood and a FEW red/coral five-lobed maple leaves, soft woody grain, no green broadleaf leaves. Preserve reference soft polished 3D cartoon shading, upper-left warm light and clear dimensions, not vector or photoreal. Isolated on genuinely transparent background; no ground shadow, text, birds, UI or borders.
+```
+
+## branch_left_w4
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png
+
+```text
+Use case: precise-object-edit. Edit the attached accepted branch sprite into a world-specific perch, maintaining the exact overall side-on geometry and dimensions. Target transparent RGBA 640x120. Thick root enters through the LEFT canvas edge, gently tapering to a closed natural right tip; gently curved underside, nearly horizontal bird-safe top at y=40 for x=85..555. Upper silhouette of the central perch must stay smooth and level: nothing protruding above it, no leaf or knot over the bird feet, no second branch. Keep top/surface around y=40 and natural visible thickness roughly 35-55 pixels; root may be thicker. Decorative tiny leaves/needles only near the far right end or below the lower contour. SNOW PINE: warm chestnut-brown pine wood with dark-teal rounded needle tufts and a THIN smooth dusting of snow, no icicles, no broadleaf leaves. Preserve reference soft polished 3D cartoon shading, upper-left warm light and clear dimensions, not vector or photoreal. Isolated on genuinely transparent background; no ground shadow, text, birds, UI or borders.
+```
+
+## bush_edge_w2
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bush_edge.png
+
+```text
+Use case: precise-object-edit. Transform the attached edge-foliage sprite into this world: BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. This is the plant clump that hides a branch root on the left screen edge. Target transparent RGBA 360x300. Same dense rounded mass, flush cropped at LEFT edge and bottom, gently irregular leafy top sloping down toward right, softly tapered right outline. Dense fan of long narrow bamboo leaves on a few bamboo stalks mostly hidden inside the clump. Match reference soft polished 3D cartoon rendering, tactile but simple leaf texture, warm upper-left light. No oak foliage, separate branches, flowers, pot, birds, text, ground plane, frame or cast shadow. Genuine transparent background.
+```
+
+## bush_edge_w3
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bush_edge.png
+
+```text
+Use case: precise-object-edit. Transform the attached edge-foliage sprite into this world: AUTUMN MAPLE: warm golden-brown maple wood and a FEW red/coral five-lobed maple leaves, soft woody grain, no green broadleaf leaves. This is the plant clump that hides a branch root on the left screen edge. Target transparent RGBA 360x300. Same dense rounded mass, flush cropped at LEFT edge and bottom, gently irregular leafy top sloping down toward right, softly tapered right outline. Dense warm coral, red, amber MAPLE leaves with obvious lobed silhouettes. Match reference soft polished 3D cartoon rendering, tactile but simple leaf texture, warm upper-left light. No oak foliage, separate branches, flowers, pot, birds, text, ground plane, frame or cast shadow. Genuine transparent background.
+```
+
+## bush_edge_w4
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/bush_edge.png
+
+```text
+Use case: precise-object-edit. Transform the attached edge-foliage sprite into this world: SNOW PINE: warm chestnut-brown pine wood with dark-teal rounded needle tufts and a THIN smooth dusting of snow, no icicles, no broadleaf leaves. This is the plant clump that hides a branch root on the left screen edge. Target transparent RGBA 360x300. Same dense rounded mass, flush cropped at LEFT edge and bottom, gently irregular leafy top sloping down toward right, softly tapered right outline. Dense plush pine-needle tufts with soft small rounded snow caps, enough dark teal showing to separate white birds. Match reference soft polished 3D cartoon rendering, tactile but simple leaf texture, warm upper-left light. No oak foliage, separate branches, flowers, pot, birds, text, ground plane, frame or cast shadow. Genuine transparent background.
+```
+
+## leaf_bamboo
+
+References: 
+
+```text
+Use case: stylized-concept. A SINGLE small bamboo leaf particle for a polished 3D cartoon forest mobile game. Long narrow elegant lance-shaped jade-green leaf with a gentle natural bend, tapered pointed tip, slim central vein, softly rounded tactile leaf surface and warm upper-left rim light. Vertical leaning slightly diagonally, sized to fit final 48x96 transparent RGBA canvas with small clear margin on every side. Clear simple silhouette readable tiny. No second leaf, no attached branch, no ground shadow, no object behind, no text or glow. Genuine transparent background.
+```
+
+## leaf_maple
+
+References: 
+
+```text
+Use case: stylized-concept. A SINGLE small autumn maple leaf particle for a polished 3D cartoon forest mobile game. Five-pointed lobed MAPLE leaf, coral orange-red with a warm golden edge and a tiny short curved stem, shallow tactile dimensional shading, simple visible veins, warm upper-left light. One isolated leaf facing camera with a subtle tilt, fits final 64x64 transparent RGBA canvas with small clear margins. Bold recognizable maple silhouette at tiny size. No multiple leaves, no attached branch, no ground shadow, text, glow, background or other objects. Genuine transparent background.
+```
+
+## limb_top_plain_w2
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top_plain.png
+
+```text
+Use case: precise-object-edit. Transform the supplied accepted top limb into this world: BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. Maintain its exact composition and broad gently sagging horizontal arc crossing between the LEFT and RIGHT TOP canopy corners. Target 1080x320 transparent RGBA. One continuous naturally thick overhead limb with a softly downward bowed center, endpoint roots entering left and right edges; world foliage in the extreme top corners. Keep the lowest opaque point above y=220 and absolutely NOTHING below y=260. NO rope, hook, knot hanging down, loop, birdhouse, birds, accessories, text, UI or ground shadow. Use one continuous gently bent bamboo stalk with spaced nodes; the silhouette and centerline follow the accepted limb curve. Match polished dimensional 3D cartoon shading and upper-left light. Genuine clean transparency.
+```
+
+## limb_top_plain_w3
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top_plain.png
+
+```text
+Use case: precise-object-edit. Transform the supplied accepted top limb into this world: AUTUMN MAPLE: warm golden-brown maple wood and a FEW red/coral five-lobed maple leaves, soft woody grain, no green broadleaf leaves. Maintain its exact composition and broad gently sagging horizontal arc crossing between the LEFT and RIGHT TOP canopy corners. Target 1080x320 transparent RGBA. One continuous naturally thick overhead limb with a softly downward bowed center, endpoint roots entering left and right edges; world foliage in the extreme top corners. Keep the lowest opaque point above y=220 and absolutely NOTHING below y=260. NO rope, hook, knot hanging down, loop, birdhouse, birds, accessories, text, UI or ground shadow. Keep the soft natural wood thickness and graceful curve of the reference. Match polished dimensional 3D cartoon shading and upper-left light. Genuine clean transparency.
+```
+
+## limb_top_plain_w4
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top_plain.png
+
+```text
+Use case: precise-object-edit. Transform the supplied accepted top limb into this world: SNOW PINE: warm chestnut-brown pine wood with dark-teal rounded needle tufts and a THIN smooth dusting of snow, no icicles, no broadleaf leaves. Maintain its exact composition and broad gently sagging horizontal arc crossing between the LEFT and RIGHT TOP canopy corners. Target 1080x320 transparent RGBA. One continuous naturally thick overhead limb with a softly downward bowed center, endpoint roots entering left and right edges; world foliage in the extreme top corners. Keep the lowest opaque point above y=220 and absolutely NOTHING below y=260. NO rope, hook, knot hanging down, loop, birdhouse, birds, accessories, text, UI or ground shadow. Keep the soft natural wood thickness and graceful curve of the reference. Match polished dimensional 3D cartoon shading and upper-left light. Genuine clean transparency.
+```
+
+## snowflake
+
+References: 
+
+```text
+Use case: stylized-concept. A SINGLE tiny six-armed snowflake particle for a polished 3D cartoon winter forest mobile game. Simple symmetrical six-armed ice crystal, soft rounded beveled branches, solid icy white center and pale sky-blue edge shading so it reads against both pale and dark backgrounds, lightly dimensional rather than line art. One compact clear snowflake fitting final 48x48 transparent RGBA with small clear margins. No circular badge, no glow halo, no drop shadow, no dots around it, no background, text, border or extra crystals. Genuine transparent background.
+```
+
+## twig_left_w2
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/twig_left.png
+
+```text
+Use case: precise-object-edit. Edit the supplied thin twig sprite to this forest material: BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. Preserve accepted twig geometry, soft polished dimensional cartoon style and warm upper-left lighting. Target transparent RGBA 420x90. Root enters through LEFT edge and smoothly tapers to a natural closed right tip. Slim horizontal bird-safe top near y=32, small thickness 15-25 pixels over its middle, a tiny leaf/needle cluster only at far right or below; NOTHING sticks above the central usable top x=60..365. One continuous twig, no forks. Real transparent background, no shadow, ground, UI, text or birds.
+```
+
+## twig_left_w3
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/twig_left.png
+
+```text
+Use case: precise-object-edit. Edit the supplied thin twig sprite to this forest material: AUTUMN MAPLE: warm golden-brown maple wood and a FEW red/coral five-lobed maple leaves, soft woody grain, no green broadleaf leaves. Preserve accepted twig geometry, soft polished dimensional cartoon style and warm upper-left lighting. Target transparent RGBA 420x90. Root enters through LEFT edge and smoothly tapers to a natural closed right tip. Slim horizontal bird-safe top near y=32, small thickness 15-25 pixels over its middle, a tiny leaf/needle cluster only at far right or below; NOTHING sticks above the central usable top x=60..365. One continuous twig, no forks. Real transparent background, no shadow, ground, UI, text or birds.
+```
+
+## twig_left_w4
+
+References: /home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/twig_left.png
+
+```text
+Use case: precise-object-edit. Edit the supplied thin twig sprite to this forest material: SNOW PINE: warm chestnut-brown pine wood with dark-teal rounded needle tufts and a THIN smooth dusting of snow, no icicles, no broadleaf leaves. Preserve accepted twig geometry, soft polished dimensional cartoon style and warm upper-left lighting. Target transparent RGBA 420x90. Root enters through LEFT edge and smoothly tapers to a natural closed right tip. Slim horizontal bird-safe top near y=32, small thickness 15-25 pixels over its middle, a tiny leaf/needle cluster only at far right or below; NOTHING sticks above the central usable top x=60..365. One continuous twig, no forks. Real transparent background, no shadow, ground, UI, text or birds.
+```

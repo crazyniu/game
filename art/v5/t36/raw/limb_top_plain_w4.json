@@ -1,0 +1,11 @@
+{
+  "name": "limb_top_plain_w4",
+  "prompt": "Use case: precise-object-edit. Transform the supplied accepted top limb into this world: SNOW PINE: warm chestnut-brown pine wood with dark-teal rounded needle tufts and a THIN smooth dusting of snow, no icicles, no broadleaf leaves. Maintain its exact composition and broad gently sagging horizontal arc crossing between the LEFT and RIGHT TOP canopy corners. Target 1080x320 transparent RGBA. One continuous naturally thick overhead limb with a softly downward bowed center, endpoint roots entering left and right edges; world foliage in the extreme top corners. Keep the lowest opaque point above y=220 and absolutely NOTHING below y=260. NO rope, hook, knot hanging down, loop, birdhouse, birds, accessories, text, UI or ground shadow. Keep the soft natural wood thickness and graceful curve of the reference. Match polished dimensional 3D cartoon shading and upper-left light. Genuine clean transparency.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/limb_top_plain.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19f05-838c-7763-961d-0744d1455604/exec-0491b2e4-7852-4851-aeda-d3a22fc32e21.png",
+  "raw": "/home/developer/Projects/game/art/v5/t36/raw/limb_top_plain_w4.png",
+  "tool": "image_gen.imagegen"
+}
