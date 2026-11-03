@@ -37,7 +37,7 @@ namespace PerchSort.V5.Game
             wood.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             UpdateWood();
             var bush = V5UI.Image(transform, "Root bush", art.World("bush_edge", root.Session.State.World),
-                rootPoint + new Vector2(0, -V7Layout.BushAboveBranch * density), V6Layout.BushSize * density);
+                rootPoint + new Vector2(0, -V7Layout.BushAboveBranch * density), V7Layout.BushSize * density);
             if (IsRight) bush.rectTransform.localScale = new Vector3(-1, 1, 1);
             glow = V5UI.Image(transform, "Seat glow", art.Get("sparkle"), Vector2.zero, Vector2.one * 90 * density);
             glow.color = Color.clear;

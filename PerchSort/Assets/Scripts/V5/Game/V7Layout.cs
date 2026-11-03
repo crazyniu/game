@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PerchSort.V5.Game
 {
     // Top-left 1080x1920 coordinates from T40 spec_notes. No legacy HUD geometry.
-    public static class V6Layout
+    public static class V7Layout
     {
         public const float DesignWidth = 1080, DesignHeight = 1920, CenterX = 540;
         public static readonly Vector2 DesignSize = new Vector2(DesignWidth, DesignHeight);
