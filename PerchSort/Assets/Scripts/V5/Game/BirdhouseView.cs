@@ -37,7 +37,7 @@ namespace PerchSort.V5.Game
             Rect sign = V5Layout.GiftSign(index, count); GiftPoint = sign.center;
             art.Rope(transform, "Sign rope", sign.center.x, bounds.yMax, sign.yMin, 4);
             var plaque = V5UI.Image(transform, "Gift sign", art.Get("btn_square_wood"), sign.center, sign.size);
-            V5UI.Image(plaque.transform, "Gift", art.Get(V5ViewModel.GiftIcon(species)), sign.size * 0.5f, sign.size * 0.8f);
+            V5UI.Image(plaque.transform, "Gift", art.Get(V5ViewModel.GiftIcon(species)), sign.size * 0.5f, sign.size);
             check = V5UI.Rect(house, "Home check", new Vector2(240, 260) * scale, Vector2.one * 36 * scale).gameObject;
             var shortStroke = V5UI.Image(check.transform, "Short stroke", null, new Vector2(9, 22) * scale, new Vector2(19, 6) * scale);
             var longStroke = V5UI.Image(check.transform, "Long stroke", null, new Vector2(24, 17) * scale, new Vector2(32, 6) * scale);

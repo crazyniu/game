@@ -23,10 +23,10 @@ namespace PerchSort.V5.Tests
             Assert.That(hatch, Is.LessThan(sunny));
             Assert.That(sunny, Is.LessThan(wake));
             Assert.That(wake, Is.LessThan(sky));
-            Assert.That(events.FindIndex(e => e is SongNote), Is.GreaterThan(sky));
             Assert.That(events.Last(), Is.TypeOf<Won>());
             Assert.That(session.State.HomedSpecies.Count, Is.EqualTo(3));
             Assert.That(session.State.Chain, Is.EqualTo(3));
+            Assert.That(session.State.ChorusCoins, Is.EqualTo(10));
             Assert.That(session.MoveCount, Is.EqualTo(1));
             Assert.That(session.TryMove(0, 1), Is.False);
             Assert.That(session.Undo(), Is.True);

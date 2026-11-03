@@ -19,8 +19,6 @@ namespace PerchSort.V5.Core
 
     internal static class GameRules
     {
-        private static readonly int[] BoosterUnlocks = { 2, 4, 7, 12, 22, 32 };
-
         internal static bool CanTransfer(BoardState state, int from, int to)
         {
             if (state.IsWon || from == to || (uint)from >= state.Branches.Count || (uint)to >= state.Branches.Count)
@@ -106,6 +104,8 @@ namespace PerchSort.V5.Core
         {
             buffer.MoonbeamGranted = false;
             state.Moves++;
+            if (!state.Encore) state.CountedMoves++;
+            state.Encore = false;
             if (state.DayLength > 0) state.PhaseCounter++;
         }
 
@@ -129,7 +129,6 @@ namespace PerchSort.V5.Core
                     state.Chain++;
                     bool bonus = state.Chain > 1;
                     if (bonus) state.ChorusCoins += 5;
-                    AddNotes(state, bonus ? 2 : 1, NoteSource.Chorus, output);
                 }
             }
             if (state.IsWon) output?.Add(new Won());
@@ -208,7 +207,7 @@ namespace PerchSort.V5.Core
                 case GiftEffect.WakeUpSong: WakeRows(state, null, output); break;
                 case GiftEffect.GentleBreeze: RevealEggs(state, output); break;
                 case GiftEffect.Encore:
-                    if (buffer.TrackEconomy) AddNotes(state, 2, NoteSource.BerryGift, output);
+                    state.Encore = true;
                     break;
                 case GiftEffect.Gardener:
                     Grow(state, false, output);
@@ -331,25 +330,6 @@ namespace PerchSort.V5.Core
                     var bird = state.BranchItems[b].Items[i];
                     if (!bird.IsEgg && !bird.IsAsleep && bird.Species.IsNocturnal) output.Add(new Woke(bird.Id, b, i));
                 }
-        }
-
-        private static void AddNotes(BoardState state, int count, NoteSource source, List<GameEvent> output)
-        {
-            int poolSize = 0;
-            while (poolSize < BoosterUnlocks.Length && BoosterUnlocks[poolSize] <= state.LevelId) poolSize++;
-            for (int i = 0; i < count; i++)
-            {
-                state.SongNotes++;
-                output?.Add(new SongNote(source, state.SongNotes));
-                // L1 has no unlocked booster: bank notes until a later level's first note event.
-                while (state.SongNotes >= 5 && poolSize > 0)
-                {
-                    var kind = (BoosterKind)(state.PayoutCount % poolSize);
-                    state.SongNotes -= 5; state.PayoutCount++;
-                    state.Inventory.Add(kind, 1);
-                    output?.Add(new SongPayout(kind, state.PayoutCount));
-                }
-            }
         }
 
         internal static bool BoosterHasEffect(BoardState state, BoosterKind kind)

@@ -34,9 +34,10 @@ namespace PerchSort.V5.Tests
             var text = new StringBuilder();
             text.Append(state.LevelId).Append('/').Append(state.World).Append('/').Append(state.Variant)
                 .Append('/').Append(state.Capacity).Append('/').Append(state.SpeciesCount).Append('/').Append(state.Moves)
+                .Append('/').Append(state.CountedMoves).Append('/').Append(state.Encore)
                 .Append('/').Append(state.AddedBranch).Append('/').Append(state.LightStep).Append('/').Append(state.Phase)
                 .Append('/').Append(state.DayLength).Append('/').Append(state.PhaseCounter).Append('/').Append(state.MoonbeamMovesLeft)
-                .Append('/').Append(state.Chain).Append('/').Append(state.ChorusCoins).Append('/').Append(state.SongNotes).Append('/').Append(state.PayoutCount);
+                .Append('/').Append(state.Chain).Append('/').Append(state.ChorusCoins);
             foreach (BoosterKind kind in Enum.GetValues(typeof(BoosterKind))) text.Append('/').Append(state.Inventory[kind]);
             foreach (var home in state.HomedSpecies) text.Append('#').Append(home.Id);
             foreach (var branch in state.Branches)

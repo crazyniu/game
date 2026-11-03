@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace PerchSort.V5.Tests
 {
@@ -15,6 +16,7 @@ namespace PerchSort.V5.Tests
     {
         private readonly Dictionary<string, int?> saved = new Dictionary<string, int?>();
         private bool previousInstant;
+        private V5DevOptions previousDevOptions;
         private V5GameRoot root;
         private static BoosterInventory Stock() => new BoosterInventory(new Dictionary<BoosterKind, int>
         {
@@ -25,6 +27,7 @@ namespace PerchSort.V5.Tests
         public IEnumerator SetUp()
         {
             previousInstant = V5Motion.Instant; V5Motion.Instant = true; saved.Clear();
+            previousDevOptions = V5DevOptions.OverrideForTests; V5DevOptions.OverrideForTests = new V5DevOptions();
             foreach (string key in V5Progress.Keys())
             {
                 saved.Add(key, PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null); PlayerPrefs.DeleteKey(key);
@@ -45,6 +48,7 @@ namespace PerchSort.V5.Tests
             foreach (var pair in saved)
                 if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key, pair.Value.Value); else PlayerPrefs.DeleteKey(pair.Key);
             PlayerPrefs.Save(); V5Motion.Instant = previousInstant;
+            V5DevOptions.OverrideForTests = previousDevOptions;
         }
         private void AssertSnapshot()
         {
@@ -66,7 +70,6 @@ namespace PerchSort.V5.Tests
                     else Assert.That(view.FrameName, Does.StartWith("bird_" + bird.Species.Id + "_"));
                 }
             }
-            Assert.That(root.Hud.DisplayedSong, Is.EqualTo(state.SongNotes));
             foreach (var species in state.HomedSpecies) Assert.That(root.Hud.Houses[species.Id].IsHome, Is.True);
         }
         private IEnumerator Settled()
@@ -84,7 +87,26 @@ namespace PerchSort.V5.Tests
             Assert.That(root.TryMove(2, 0), Is.True); Assert.That(root.Win.gameObject.activeInHierarchy, Is.True);
             Assert.That(root.Session.MoveCount, Is.EqualTo(2)); Assert.That(root.Coins, Is.EqualTo(before + 30));
             Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(before + 30));
-            Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(1)), Is.EqualTo(3)); AssertSnapshot(); yield return null;
+            Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(1)), Is.EqualTo(3)); AssertSnapshot();
+            yield return null; Canvas.ForceUpdateCanvases();
+            var bar = root.Hud.transform.Find("Bottom bar");
+            Assert.That(bar.gameObject.activeInHierarchy, Is.False);
+            foreach (var button in bar.GetComponentsInChildren<Button>(true)) AssertWinBlocksHud(button.transform, bar);
+            AssertWinBlocksHud(root.Hud.transform.Find("Coin pill"), bar);
+            root.Restart();
+            Assert.That(bar.gameObject.activeInHierarchy, Is.True);
+        }
+        private void AssertWinBlocksHud(Transform target, Transform bar)
+        {
+            var rect = (RectTransform)target;
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = RectTransformUtility.WorldToScreenPoint(root.RenderCamera, rect.TransformPoint(rect.rect.center))
+            };
+            var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(pointer, hits);
+            Assert.That(hits, Is.Not.Empty);
+            Assert.That(hits[0].gameObject, Is.SameAs(root.Win.gameObject), "The win dim must cover the HUD.");
+            Assert.That(hits.Any(hit => hit.gameObject.transform.IsChildOf(bar)), Is.False, "No bottom-bar graphic may remain raycast-reachable.");
         }
         [UnityTest]
         public IEnumerator BranchPointerClicksSelectThenTransferIntoOwnHouse()
@@ -158,24 +180,129 @@ namespace PerchSort.V5.Tests
             Assert.That(root.Session.Inventory[BoosterKind.OwlEye], Is.EqualTo(1)); Assert.That(root.Coins, Is.EqualTo(120)); AssertSnapshot(); yield return null;
         }
         [UnityTest]
-        public IEnumerator NextLoadsNextCatalogIdWithPersistedSongAndStarterGift()
+        public IEnumerator NextLoadsNextCatalogIdWithStarterGift()
         {
             Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.TryMove(2, 0), Is.True);
-            int notes = root.Session.Song.Notes; root.NextLevel();
-            Assert.That(root.LevelId, Is.EqualTo(2)); Assert.That(root.Session.Song.Notes, Is.EqualTo(notes));
+            root.NextLevel();
+            Assert.That(root.LevelId, Is.EqualTo(2));
             Assert.That(root.Session.Inventory[BoosterKind.Firefly], Is.EqualTo(3)); Assert.That(root.Win.IsOpen, Is.False);
             AssertSnapshot(); yield return null;
         }
         [UnityTest]
-        public IEnumerator ProfileRoundTripRestoresStarsToolsSongTutorialAndUnlock()
+        public IEnumerator ProfileRoundTripRestoresStarsToolsTutorialAndUnlock()
         {
             var profile = V5Progress.Load(); profile.Coins = 321; profile.HighestUnlocked = 24; profile.Stars[23] = 2;
             profile.Boosters[(int)BoosterKind.Scarecrow] = 4; profile.StarterGranted[(int)BoosterKind.Scarecrow] = true;
-            profile.SongNotes = 4; profile.PayoutCount = 7; profile.Tutorials[21] = true; V5Progress.Save(profile);
+            profile.Tutorials[21] = true; V5Progress.Save(profile);
             var loaded = V5Progress.Load(); Assert.That(loaded.Coins, Is.EqualTo(321)); Assert.That(loaded.HighestUnlocked, Is.EqualTo(24));
             Assert.That(loaded.Stars[23], Is.EqualTo(2)); Assert.That(loaded.Boosters[(int)BoosterKind.Scarecrow], Is.EqualTo(4));
-            Assert.That(loaded.StarterGranted[(int)BoosterKind.Scarecrow], Is.True); Assert.That(loaded.SongNotes, Is.EqualTo(4));
-            Assert.That(loaded.PayoutCount, Is.EqualTo(7)); Assert.That(loaded.Tutorials[21], Is.True); yield return null;
+            Assert.That(loaded.StarterGranted[(int)BoosterKind.Scarecrow], Is.True);
+            Assert.That(loaded.Tutorials[21], Is.True); yield return null;
+        }
+        [UnityTest]
+        public IEnumerator TestModeShowsFortyClearedLevelsWithoutSavingSyntheticProgressOrStock()
+        {
+            Assert.That(root.HighestUnlocked, Is.EqualTo(1), "Disabled test mode retains normal progression.");
+            Assert.That(root.Coins, Is.EqualTo(100));
+            V5DevOptions.OverrideForTests = V5DevOptions.Parse("{broken");
+            yield return ReloadSavedGame();
+            Assert.That(root.HighestUnlocked, Is.EqualTo(1)); Assert.That(root.Coins, Is.EqualTo(100));
+            V5DevOptions.OverrideForTests = new V5DevOptions { unlockAllLevels = true, grantTestStock = true };
+            yield return ReloadSavedGame();
+            Assert.That(root.HighestUnlocked, Is.EqualTo(40)); Assert.That(root.Coins, Is.EqualTo(2000));
+            for (int level = 1; level <= 40; level++) Assert.That(root.BestStars(level), Is.EqualTo(3));
+            for (int kind = 0; kind < V5ViewModel.BoosterCount; kind++)
+                Assert.That(root.Session.Inventory[(BoosterKind)kind], Is.GreaterThanOrEqualTo(5));
+            Assert.That(PlayerPrefs.GetInt(V5Progress.HighestKey), Is.EqualTo(1));
+            Assert.That(PlayerPrefs.GetInt(V5Progress.StarsKey(40)), Is.Zero);
+            Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(100));
+            root.OpenLevelPicker();
+            var picker = root.GetComponentInChildren<V5Panels>(true);
+            var buttons = picker.GetComponentsInChildren<Button>().Where(b => b.name.StartsWith("Level ")).ToArray();
+            Assert.That(buttons.Select(b => b.name), Is.EquivalentTo(Enumerable.Range(1, 40).Select(id => "Level " + id)));
+            foreach (var button in buttons)
+            {
+                Assert.That(button.interactable, Is.True);
+                for (int star = 1; star <= 3; star++) Assert.That(button.transform.Find("Star " + star).GetComponent<Image>().color.a, Is.EqualTo(1));
+            }
+            root.ClosePanel();
+            Assert.That(root.Hud.transform.Find("Bottom bar/Firefly").gameObject.activeSelf, Is.True);
+            Assert.That(root.Hud.transform.Find("Bottom bar/Sapling").gameObject.activeSelf, Is.True);
+            Assert.That(root.UseBooster(BoosterKind.Sapling), Is.True);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.GreaterThanOrEqualTo(5));
+            Assert.That(PlayerPrefs.GetInt(V5Progress.InventoryKey((int)BoosterKind.Sapling)), Is.Zero);
+            Assert.That(root.BuyBooster(BoosterKind.Sapling), Is.True);
+            Assert.That(root.Coins, Is.EqualTo(2000));
+            Assert.That(PlayerPrefs.GetInt(V5Progress.CoinsKey), Is.EqualTo(40));
+            Assert.That(PlayerPrefs.GetInt(V5Progress.InventoryKey((int)BoosterKind.Sapling)), Is.EqualTo(1));
+            Assert.That(root.Undo(), Is.True);
+            Assert.That(PlayerPrefs.GetInt(V5Progress.InventoryKey((int)BoosterKind.Sapling)), Is.EqualTo(1));
+            root.LoadLevel(39); Assert.That(root.LevelId, Is.EqualTo(39));
+            var solution = Solver.Solve(root.Session.State);
+            Assert.That(solution.Status, Is.EqualTo(SolveStatus.Solved));
+            foreach (var move in solution.Moves)
+                Assert.That(move.Kind == MoveKind.Swivel ? root.TapSwivel(move.From) : root.TryMove(move.From, move.To), Is.True);
+            Assert.That(root.Win.IsOpen, Is.True);
+            root.NextLevel(); Assert.That(root.LevelId, Is.EqualTo(40)); AssertSnapshot();
+        }
+        private Image TutorialPointer() => root.GetComponentsInChildren<TutorialHand>(true).Single().GetComponentInChildren<Image>(true);
+        private IEnumerator ReloadSavedGame()
+        {
+            yield return SceneManager.LoadSceneAsync("V5", LoadSceneMode.Single);
+            for (int i = 0; i < 60; i++)
+            {
+                root = Object.FindAnyObjectByType<V5GameRoot>();
+                if (root != null && root.IsReady) yield break;
+                yield return null;
+            }
+            Assert.Fail("Reloaded V5 did not initialize.");
+        }
+        private IEnumerator PrepareSaplingIntro(int stock, bool seen = false)
+        {
+            var profile = new V5Profile { HighestUnlocked = 4 };
+            profile.Boosters[(int)BoosterKind.Sapling] = stock;
+            profile.StarterGranted[(int)BoosterKind.Sapling] = true;
+            profile.Tutorials[4] = seen; V5Progress.Save(profile);
+            yield return ReloadSavedGame(); root.LoadLevel(4); yield return null;
+        }
+        [UnityTest]
+        public IEnumerator SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending()
+        {
+            yield return PrepareSaplingIntro(1);
+            var hand = TutorialPointer(); var point = V5Layout.ToolButton(2).center;
+            Assert.That(hand.gameObject.activeInHierarchy, Is.True);
+            Assert.That(hand.rectTransform.anchoredPosition, Is.EqualTo(new Vector2(point.x, -point.y)));
+            Assert.That(V5Progress.Load().Tutorials[4], Is.True);
+            root.TapBranch(0);
+            Assert.That(hand.gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
+            root.Restart(); Assert.That(hand.gameObject.activeInHierarchy, Is.False);
+            yield return ReloadSavedGame(); root.LoadLevel(4);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+        }
+        [UnityTest]
+        public IEnumerator SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt()
+        {
+            yield return PrepareSaplingIntro(2);
+            int branches = root.Session.State.Branches.Count;
+            root.Hud.GetComponentsInChildren<Button>().Single(button => button.name == "Sapling").onClick.Invoke();
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.State.Branches.Count, Is.EqualTo(branches + 1));
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
+            Assert.That(root.Undo(), Is.True);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(2));
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(V5Progress.Load().Tutorials[4], Is.True);
+        }
+        [UnityTest]
+        public IEnumerator EmptyStockOrSeenFlagSuppressesSaplingIntro()
+        {
+            yield return PrepareSaplingIntro(0);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(V5Progress.Load().Tutorials[4], Is.False);
+            yield return PrepareSaplingIntro(1, true);
+            Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
         }
     }
 }

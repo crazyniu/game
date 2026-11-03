@@ -49,8 +49,6 @@ namespace PerchSort.V5.Game
         public const float LevelBadgeFontSize = 44;
         public static readonly Rect LevelSign = new Rect(48, 245, 100, 100);
         public static readonly Rect PhaseDial = new Rect(48, 385, 100, 130);
-        // Beside the coin pill: 42px clearance; 212px clear of Settings.
-        public static readonly Rect SongPill = new Rect(350, 85, 320, 90);
         public static readonly Vector2 LightStepPoint = new Vector2(985, 1595);
         public static float SpeciesHouseWidth(int count) => Mathf.Min(HouseWidth, (840f - (count - 1) * 20) / count);
         public static Rect SpeciesHouse(int index, int count)
@@ -62,7 +60,7 @@ namespace PerchSort.V5.Game
         public static Rect GiftSign(int index, int count)
         {
             Rect house = SpeciesHouse(index, count);
-            float size = Mathf.Min(64, house.width * 0.7f);
+            const float size = 72;
             return Centered(new Vector2(house.center.x, house.yMax + 40 + size * 0.5f), Vector2.one * size);
         }
         public static float RopeStart(float x)
@@ -77,7 +75,7 @@ namespace PerchSort.V5.Game
         public const float BoardBottom = 1560;
         public const float BoardHeight = BoardBottom - BoardTop;
         public const float BoardCenterY = (BoardTop + BoardBottom) / 2;
-        public const float MaximumRowPitch = 300;
+        public const float MaximumRowPitch = 380;
         public const float RightRowOffset = 40;
         public const float BranchWidth = 600;
         public const float BranchHeight = 112.5f;
@@ -93,7 +91,8 @@ namespace PerchSort.V5.Game
         public static readonly Vector2 BushSize = new Vector2(240, 200);
         public const float BushAboveBranch = 15;
         public static float RowPitch(int rowCount) => Mathf.Min(MaximumRowPitch, BoardHeight / Mathf.Max(1, rowCount));
-        public static float BirdScale(int rowCount) => Mathf.Clamp(RowPitch(rowCount) / 220, 0.72f, 1);
+        public static float BirdScale(int rowCount) => Mathf.Clamp(RowPitch(rowCount) / 220, 0.72f, rowCount <= 3 ? 1.08f : 1);
+        public static float SeatPitch(float scale) => BirdSlotPitch * Mathf.Min(1, scale);
         public static float RowY(int row, int rowCount, bool right = false) => BoardCenterY +
             (row - (rowCount - 1) * 0.5f) * RowPitch(rowCount) + (right ? RightRowOffset : 0);
         public static Rect BranchHit(int row, int rowCount, bool right) => Centered(new Vector2(
@@ -102,7 +101,7 @@ namespace PerchSort.V5.Game
             new Vector2(BranchHitWidth, Mathf.Min(BranchHitHeight * BirdScale(rowCount), RowPitch(rowCount))));
         public static Vector2 BirdSlot(int slot, float branchY, bool right, float scale = 1)
         {
-            float x = FirstBirdSlot + BirdSlotPitch * slot * scale;
+            float x = FirstBirdSlot + SeatPitch(scale) * slot;
             return new Vector2(right ? DesignWidth - x : x, branchY - BirdCenterAboveBranch * scale);
         }
 

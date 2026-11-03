@@ -23,7 +23,7 @@ namespace PerchSort.V5.Tests
             Assert.That(Snapshot(session.State), Is.EqualTo(before));
             foreach (var move in solution.Moves) Assert.That(session.TryAction(move), Is.True);
             Assert.That(session.State.IsWon, Is.True);
-            Assert.That(session.MoveCount, Is.EqualTo(level.par));
+            Assert.That(session.State.Moves, Is.EqualTo(level.par));
             Assert.That(session.State.AddedBranch, Is.False);
         }
 
@@ -53,11 +53,11 @@ namespace PerchSort.V5.Tests
         }
 
         [Test]
-        public void SongInventoryAndChainShareOneSearchKeyAndDoNotChangeShortestPaths()
+        public void InventoryAndChainShareOneSearchKeyAndDoNotChangeShortestPaths()
         {
             var level = Level(2, B("sky"), B("sky"), B("sunny"), B("sunny"));
             var plain = new GameSession(level);
-            var rich = new GameSession(level, new SongState(13, 4), Stock(BoosterKind.Sapling, BoosterKind.Firefly));
+            var rich = new GameSession(level, Stock(BoosterKind.Sapling, BoosterKind.Firefly));
             rich.State.Chain = 3; rich.State.ChorusCoins = 15;
             var keys = new Solver.StateKeys(plain.State);
             Assert.That(keys.Board(plain.State, false), Is.EqualTo(keys.Board(rich.State, false)));

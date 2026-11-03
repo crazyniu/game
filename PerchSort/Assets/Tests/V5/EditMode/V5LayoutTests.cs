@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using NUnit.Framework;
 using PerchSort.V5.Game;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace PerchSort.V5.Tests
             var named = new[]
             {
                 ("coins", V5Layout.CoinPill), ("settings", V5Layout.SettingsButton),
-                ("Song", V5Layout.SongPill), ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
+                ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
                 ("undo", V5Layout.ToolButton(0)), ("Firefly", V5Layout.ToolButton(1)),
                 ("Sapling", V5Layout.ToolButton(2)), ("world tool", V5Layout.ToolButton(3)),
                 ("stuck", V5Layout.StuckBubble), ("feather", V5Layout.Centered(V5Layout.LightStepPoint, Vector2.one * 70))
@@ -45,14 +46,18 @@ namespace PerchSort.V5.Tests
 
         [TestCase(2)]
         [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
         [TestCase(7)]
         public void SpeciesHousesAndGiftSignsFitWithoutCoveringHudOrBoard(int count)
         {
-            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial, V5Layout.SongPill };
+            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial };
             for (int i = 0; i < count; i++)
             {
                 Rect house = V5Layout.SpeciesHouse(i, count), gift = V5Layout.GiftSign(i, count);
                 AssertInside(V5Layout.SafeDesignArea, house); AssertInside(V5Layout.SafeDesignArea, gift);
+                Assert.That(gift.size, Is.EqualTo(Vector2.one * 72));
                 foreach (Rect other in hud)
                 {
                     Assert.That(ClearGap(house, other), Is.GreaterThanOrEqualTo(39.999f));
@@ -61,6 +66,8 @@ namespace PerchSort.V5.Tests
                 Assert.That(gift.yMin - house.yMax, Is.GreaterThanOrEqualTo(39.999f));
                 Assert.That(gift.yMax, Is.LessThan(V5Layout.BoardTop - 40));
                 if (i > 0) Assert.That(house.xMin - V5Layout.SpeciesHouse(i - 1, count).xMax, Is.EqualTo(20).Within(0.001f));
+                for (int other = 0; other < i; other++)
+                    Assert.That(ClearGap(gift, V5Layout.GiftSign(other, count)), Is.GreaterThanOrEqualTo(39.999f));
             }
         }
 
@@ -70,8 +77,8 @@ namespace PerchSort.V5.Tests
             float first = V5Layout.RowY(0, 2);
             float second = V5Layout.RowY(1, 2);
             Assert.That((first + second) / 2, Is.EqualTo(1160));
-            Assert.That(first, Is.EqualTo(1010));
-            Assert.That(second, Is.EqualTo(1310));
+            Assert.That(first, Is.EqualTo(970));
+            Assert.That(second, Is.EqualTo(1350));
             Assert.That(V5Layout.RowY(0, 2, true) - first, Is.EqualTo(40));
             Assert.That(V5Layout.RowY(1, 2, true) - second, Is.EqualTo(40));
         }
@@ -79,9 +86,10 @@ namespace PerchSort.V5.Tests
         [TestCase(1)]
         [TestCase(3)]
         [TestCase(4)]
+        [TestCase(5)]
         public void RowPitchShrinksToFitWithoutMovingTheGroupCenter(int rows)
         {
-            float expectedPitch = Math.Min(300, 800f / rows);
+            float expectedPitch = Math.Min(380, 800f / rows);
             Assert.That(V5Layout.RowPitch(rows), Is.EqualTo(expectedPitch).Within(0.001f));
             Assert.That((V5Layout.RowY(0, rows) + V5Layout.RowY(rows - 1, rows)) / 2,
                 Is.EqualTo(1160).Within(0.001f));
@@ -90,13 +98,15 @@ namespace PerchSort.V5.Tests
         }
 
         [TestCase(2)]
+        [TestCase(3)]
         [TestCase(4)]
         [TestCase(5)]
         [TestCase(6)]
         public void DenseBranchTargetsStayDisjointAndSeatsRemainInsideTheirHalf(int rows)
         {
             float scale = V5Layout.BirdScale(rows);
-            Assert.That(scale, Is.InRange(0.72f, 1));
+            Assert.That(scale, Is.InRange(0.72f, rows <= 3 ? 1.08f : 1));
+            if (rows <= 3) Assert.That(scale, Is.EqualTo(1.08f));
             for (int row = 0; row < rows; row++)
                 foreach (bool right in new[] { false, true })
                 {
@@ -111,6 +121,50 @@ namespace PerchSort.V5.Tests
                         Assert.That(point.x, Is.LessThanOrEqualTo(hit.xMax));
                     }
                 }
+        }
+
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        [TestCase(6)]
+        [TestCase(7)]
+        public void OppositeSeatCellsStayDisjointAtDenseAndSparseScales(int species)
+        {
+            int rows = (species + 3) / 2;
+            foreach (float scale in new[] { 0.72f, 1f, 1.08f })
+            {
+                // A seat cell is one seat-pitch wide; adjacent plush sprite margins may overlap.
+                var size = new Vector2(V5Layout.SeatPitch(scale), V5Layout.BirdSize * scale);
+                Assert.That(V5Layout.BirdSize * scale - size.x, Is.LessThanOrEqualTo(42.001f));
+                for (int row = 0; row < rows && row * 2 + 1 < species + 2; row++)
+                    for (int left = 0; left < 4; left++)
+                        for (int right = 0; right < 4; right++)
+                        {
+                            var a = V5Layout.Centered(V5Layout.BirdSlot(left, V5Layout.RowY(row, rows), false, scale), size);
+                            var b = V5Layout.Centered(V5Layout.BirdSlot(right, V5Layout.RowY(row, rows, true), true, scale), size);
+                            Assert.That(a.Overlaps(b), Is.False);
+                        }
+            }
+        }
+
+        [TestCase(22)]
+        [TestCase(26)]
+        [TestCase(37)]
+        [TestCase(40)]
+        public void AuthoredFiveRowBoardsKeepTheirDensityAndFit(int levelId)
+        {
+            var level = LevelLoader.Load(levelId);
+            int rows = level.branches.Max(branch => branch.row) + 1;
+            Assert.That(rows, Is.EqualTo(5));
+            Assert.That(V5Layout.RowPitch(rows), Is.EqualTo(160));
+            Assert.That(V5Layout.BirdScale(rows), Is.EqualTo(160f / 220).Within(0.001f));
+            foreach (var branch in level.branches)
+            {
+                bool right = branch.side == "R";
+                AssertInside(V5Layout.SafeDesignArea, V5Layout.BranchHit(branch.row, rows, right));
+                Assert.That(V5Layout.RowY(branch.row, rows, right), Is.InRange(V5Layout.BoardTop, V5Layout.BoardBottom));
+            }
         }
 
         [Test]

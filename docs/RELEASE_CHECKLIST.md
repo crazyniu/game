@@ -12,6 +12,7 @@ Checked 2026-10-31; Unity 6000.6.7f1. Everything below remains pre-store work, w
 
 ## Toolchain and build configuration
 
+- [ ] dev_options.json must ship with both false (`unlockAllLevels` and `grantTestStock`).
 - [ ] Install Android Build Support (SDK/NDK Tools and OpenJDK) and iOS Build Support for **6000.6.7f1** through Unity Hub. Local T7 verification had only MacStandaloneSupport / WebGLSupport, without Android/iOS builds.
 - [ ] Android minimum API **26 / Android 8.0**, target API **36 / Android 16**, ARM 64, IL2CPP; Unity 6000.6 official toolchain uses SDK 36, NDK r27c, OpenJDK 17. From 2026-08-31 Google Play requires target API36 for ordinary new apps/updates. Recheck console/official requirements at release. [Unity system requirements](https://docs.unity.com/en-us/engine/6000.6/manual/get-started/install-and-upgrade/getting-started-installing-unity/system-requirements), [Google Play target API](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en)
 - [ ] iOS minimum deployment **15.0**; build submissions with **Xcode 26+ / iOS 26 SDK+**. Minimum OS is not build SDK version. Local modules are absent; actual archiving/signing of this combination still needs rechecking. [Apple submission requirements](https://developer.apple.com/news/upcoming-requirements/)

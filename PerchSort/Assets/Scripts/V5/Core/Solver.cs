@@ -74,10 +74,11 @@ namespace PerchSort.V5.Core
             internal string Board(BoardState board, bool preserveOrder)
             {
                 text.Clear();
-                // No boosters in search: economy, identities and absolute move count cannot affect reachability.
+                // No boosters in search: economy, identities and real/counted move totals cannot affect reachability.
                 // Branch positions are never permuted; row-sensitive gifts depend on them.
                 text.Append((int)board.Phase).Append(',').Append(board.PhaseCounter).Append(',')
-                    .Append(board.MoonbeamMovesLeft).Append(',').Append(board.LightStep ? 1 : 0);
+                    .Append(board.MoonbeamMovesLeft).Append(',').Append(board.LightStep ? 1 : 0)
+                    .Append(',').Append(board.Encore ? 1 : 0);
                 text.Append('/');
                 if (preserveOrder)
                     foreach (var item in board.HomedSpecies) text.Append(species[item]).Append(',');
@@ -101,6 +102,7 @@ namespace PerchSort.V5.Core
         public static SolveResult Solve(BoardState start, int maxStates = 100000, int maxMilliseconds = 3000)
             => Search(start, maxStates, maxMilliseconds, false, out _);
 
+        // Minimums and paths count real actions (BFS depth), not the Encore-discounted star counter.
         public static CompletionOrderResult MinMovesByCompletionOrder(BoardState start,
             int maxStates = 100000, int maxMilliseconds = 3000)
         {

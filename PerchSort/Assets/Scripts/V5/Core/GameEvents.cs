@@ -119,19 +119,6 @@ namespace PerchSort.V5.Core
         public PhaseChangeCause Cause { get; }
         internal PhaseChanged(DayPhase phase, PhaseChangeCause cause) { Phase = phase; Cause = cause; }
     }
-    public enum NoteSource { Chorus, BerryGift }
-    public sealed class SongNote : GameEvent
-    {
-        public NoteSource Source { get; }
-        public int MeterAfter { get; }
-        internal SongNote(NoteSource source, int meterAfter) { Source = source; MeterAfter = meterAfter; }
-    }
-    public sealed class SongPayout : GameEvent
-    {
-        public BoosterKind Booster { get; }
-        public int PayoutCount { get; }
-        internal SongPayout(BoosterKind booster, int payoutCount) { Booster = booster; PayoutCount = payoutCount; }
-    }
     public sealed class BoosterUsed : GameEvent
     {
         public BoosterKind Booster { get; }

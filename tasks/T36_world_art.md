@@ -1,0 +1,11 @@
+# T36 Worlds 2-4 scene kits (Codex, gpt-6-astra)
+
+Branch `t39-polish`, worktree `/home/developer/Projects/game`. Other workers: omp edits code (Scripts/Tests/tools), another Codex worker writes only `art/v6/**`. You own only new files under `PerchSort/Assets/Resources/V5/Art/`, `art/v5/t36/**`, and `tasks/T36_art_report.md`; never overwrite existing files; no commit. Authority: `docs/GAME_DESIGN_V5.md` §9 (worlds, variants), §4 (style). Match the accepted World 1 art exactly in style, lighting and composition (`bg_forest_day.png`, `bg_w1_*.png`, `branch_left.png`, `bush_edge.png`, `twig_left.png`, `limb_top_plain.png`, see `tasks/T33_art_report.md`).
+
+For each world (w2 bamboo grove, w3 maple autumn, w4 snow pine) deliver:
+- 4 backgrounds, 1080x1920 opaque, same composition rules as `bg_forest_day.png` (calm middle band y 550-1500, canopies in the top corners, low hills at the bottom, no branches/birds/UI): ids per §9 canonical variants. w2: `bg_w2_mist.png`, `bg_w2_noon.png`, `bg_w2_lanterns.png` (dusk with warm paper lanterns far in the background, calm), `bg_w2_drizzle.png`. w3: `bg_w3_morning.png`, `bg_w3_noon.png`, `bg_w3_sunset.png`, `bg_w3_windy.png`. w4: `bg_w4_morning.png`, `bg_w4_noon.png`, `bg_w4_bluehour.png`, `bg_w4_aurora.png`.
+- `branch_left_w{n}.png` 640x120 (bamboo cane with nodes / maple limb with a few red leaves / snow-dusted pine bough), same geometry rules as `branch_left.png` (root at left edge, top surface at y~40, bird-safe flat top, natural thickness).
+- `twig_left_w{n}.png` 420x90 and `bush_edge_w{n}.png` 360x300 in the world's plant style.
+- `limb_top_plain_w{n}.png` 1080x320 (top limb crossing between the two canopies without a rope, nothing below y=260, matching the world: bamboo stalk, maple limb, snowy pine limb).
+- one ambient particle per world, transparent: `leaf_bamboo.png` 48x96, `leaf_maple.png` 64x64, `snowflake.png` 48x48.
+Verify per file: size, mode, alpha, composition rule, foot-surface y for branches (record), a contact sheet per world on light/dark, and a composite per world showing 6 species on 3 branches over one of its backgrounds (reuse existing bird PNGs). Raw generations and exact prompts in `art/v5/t36/`. Report honestly in `tasks/T36_art_report.md`. Birdhouses, UI, map and shop art are NOT in this task (the HUD is being redesigned). `worker_done` with delivered/missing files.

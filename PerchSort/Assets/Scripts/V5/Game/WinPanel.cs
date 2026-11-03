@@ -49,6 +49,7 @@ namespace PerchSort.V5.Game
 
         public void Show(int earnedStars, int reward, int chorusCoins)
         {
+            transform.SetAsLastSibling();
             gameObject.SetActive(true);
             motion.CancelAll();
             rewardLabel.text = "+" + reward;

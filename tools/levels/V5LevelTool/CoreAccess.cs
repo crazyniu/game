@@ -29,7 +29,8 @@ namespace PerchSort.LevelTool
         {
             buffer.Clear();
             buffer.Append((char)state.Phase).Append((char)(state.PhaseCounter & 65535)).Append((char)(state.PhaseCounter >> 16))
-                .Append((char)state.MoonbeamMovesLeft).Append(state.LightStep ? '\u0001' : '\0').Append(state.AddedBranch ? '\u0001' : '\0');
+                .Append((char)state.MoonbeamMovesLeft).Append(state.LightStep ? '\u0001' : '\0').Append(state.AddedBranch ? '\u0001' : '\0')
+                .Append(state.Encore ? '\u0001' : '\0');
             int homes = 0;
             foreach (var home in state.HomedSpecies) homes |= 1 << index[home];
             buffer.Append((char)homes).Append((char)state.Branches.Count);
@@ -44,9 +45,9 @@ namespace PerchSort.LevelTool
         }
         internal BoardState Decode(string key)
         {
-            int p = 8, nextId = 0;
-            var branches = new List<BranchState>(key[7]);
-            for (int b = 0; b < key[7]; b++)
+            int p = 9, nextId = 0;
+            var branches = new List<BranchState>(key[8]);
+            for (int b = 0; b < key[8]; b++)
             {
                 bool right = key[p++] != 0;
                 int row = key[p++]; var kind = (BranchKind)key[p++]; int seats = key[p++], count = key[p++];
@@ -62,9 +63,10 @@ namespace PerchSort.LevelTool
                 model.SpeciesCount, model.DayLength, branches, model.Inventory)
             {
                 Phase = (DayPhase)key[0], PhaseCounter = key[1] | (key[2] << 16),
-                MoonbeamMovesLeft = key[3], LightStep = key[4] != 0, AddedBranch = key[5] != 0
+                MoonbeamMovesLeft = key[3], LightStep = key[4] != 0, AddedBranch = key[5] != 0,
+                Encore = key[6] != 0
             };
-            for (int i = 0; i < species.Length; i++) if ((key[6] & (1 << i)) != 0) board.HomeItems.Add(species[i]);
+            for (int i = 0; i < species.Length; i++) if ((key[7] & (1 << i)) != 0) board.HomeItems.Add(species[i]);
             return board;
         }
         internal uint NewHomes(BoardState after, int beforeCount)
