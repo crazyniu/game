@@ -1,0 +1,1142 @@
+{
+  "add_branch": {
+    "native_trimmed_size": [
+      341,
+      293
+    ],
+    "fitted_64": [
+      64,
+      55
+    ],
+    "fitted_128": [
+      128,
+      110
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 54026
+  },
+  "aviary": {
+    "native_trimmed_size": [
+      238,
+      274
+    ],
+    "fitted_64": [
+      56,
+      64
+    ],
+    "fitted_128": [
+      111,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 7218
+  },
+  "badge_red": {
+    "native_trimmed_size": [
+      191,
+      193
+    ],
+    "fitted_64": [
+      63,
+      64
+    ],
+    "fitted_128": [
+      127,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 7841
+  },
+  "bounce_shadow": {
+    "native_trimmed_size": [
+      249,
+      73
+    ],
+    "fitted_64": [
+      64,
+      19
+    ],
+    "fitted_128": [
+      128,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      209
+    ],
+    "fully_transparent_pixels": 3767
+  },
+  "breeze": {
+    "native_trimmed_size": [
+      319,
+      267
+    ],
+    "fitted_64": [
+      64,
+      54
+    ],
+    "fitted_128": [
+      128,
+      107
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 50145
+  },
+  "check": {
+    "native_trimmed_size": [
+      237,
+      189
+    ],
+    "fitted_64": [
+      64,
+      51
+    ],
+    "fitted_128": [
+      128,
+      102
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 24724
+  },
+  "close": {
+    "native_trimmed_size": [
+      176,
+      175
+    ],
+    "fitted_64": [
+      64,
+      64
+    ],
+    "fitted_128": [
+      128,
+      127
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 10460
+  },
+  "coin": {
+    "native_trimmed_size": [
+      238,
+      249
+    ],
+    "fitted_64": [
+      61,
+      64
+    ],
+    "fitted_128": [
+      122,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 12353
+  },
+  "disc_cream": {
+    "native_trimmed_size": [
+      250,
+      259
+    ],
+    "fitted_64": [
+      62,
+      64
+    ],
+    "fitted_128": [
+      124,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 14149
+  },
+  "disc_gray": {
+    "native_trimmed_size": [
+      253,
+      261
+    ],
+    "fitted_64": [
+      62,
+      64
+    ],
+    "fitted_128": [
+      124,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 14513
+  },
+  "disc_green": {
+    "native_trimmed_size": [
+      249,
+      258
+    ],
+    "fitted_64": [
+      62,
+      64
+    ],
+    "fitted_128": [
+      124,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 14136
+  },
+  "dot_empty": {
+    "native_trimmed_size": [
+      164,
+      166
+    ],
+    "fitted_64": [
+      63,
+      64
+    ],
+    "fitted_128": [
+      126,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 20479
+  },
+  "dot_full": {
+    "native_trimmed_size": [
+      164,
+      166
+    ],
+    "fitted_64": [
+      63,
+      64
+    ],
+    "fitted_128": [
+      126,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 5909
+  },
+  "forward": {
+    "native_trimmed_size": [
+      137,
+      205
+    ],
+    "fitted_64": [
+      43,
+      64
+    ],
+    "fitted_128": [
+      86,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 11940
+  },
+  "gardener": {
+    "native_trimmed_size": [
+      353,
+      272
+    ],
+    "fitted_64": [
+      64,
+      49
+    ],
+    "fitted_128": [
+      128,
+      99
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 38321
+  },
+  "gate_closed": {
+    "native_trimmed_size": [
+      284,
+      272
+    ],
+    "fitted_64": [
+      64,
+      61
+    ],
+    "fitted_128": [
+      128,
+      123
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 23895
+  },
+  "gate_open": {
+    "native_trimmed_size": [
+      280,
+      272
+    ],
+    "fitted_64": [
+      64,
+      62
+    ],
+    "fitted_128": [
+      128,
+      124
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 34781
+  },
+  "gear": {
+    "native_trimmed_size": [
+      297,
+      308
+    ],
+    "fitted_64": [
+      62,
+      64
+    ],
+    "fitted_128": [
+      123,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 34770
+  },
+  "hint": {
+    "native_trimmed_size": [
+      234,
+      381
+    ],
+    "fitted_64": [
+      39,
+      64
+    ],
+    "fitted_128": [
+      79,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 39215
+  },
+  "home": {
+    "native_trimmed_size": [
+      240,
+      229
+    ],
+    "fitted_64": [
+      64,
+      61
+    ],
+    "fitted_128": [
+      128,
+      122
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 13080
+  },
+  "house_berry": {
+    "native_trimmed_size": [
+      291,
+      321
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29739
+  },
+  "house_cocoa": {
+    "native_trimmed_size": [
+      291,
+      322
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29656
+  },
+  "house_ember": {
+    "native_trimmed_size": [
+      290,
+      322
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      115,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29191
+  },
+  "house_hoot": {
+    "native_trimmed_size": [
+      290,
+      322
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      115,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29327
+  },
+  "house_ink": {
+    "native_trimmed_size": [
+      291,
+      322
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29753
+  },
+  "house_mint": {
+    "native_trimmed_size": [
+      290,
+      320
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29160
+  },
+  "house_sky": {
+    "native_trimmed_size": [
+      290,
+      321
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29147
+  },
+  "house_snow": {
+    "native_trimmed_size": [
+      290,
+      321
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29220
+  },
+  "house_sunny": {
+    "native_trimmed_size": [
+      290,
+      320
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 29058
+  },
+  "light_step": {
+    "native_trimmed_size": [
+      283,
+      311
+    ],
+    "fitted_64": [
+      58,
+      64
+    ],
+    "fitted_128": [
+      116,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 43173
+  },
+  "lock": {
+    "native_trimmed_size": [
+      214,
+      259
+    ],
+    "fitted_64": [
+      53,
+      64
+    ],
+    "fitted_128": [
+      106,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 13049
+  },
+  "moonbeam": {
+    "native_trimmed_size": [
+      342,
+      305
+    ],
+    "fitted_64": [
+      64,
+      57
+    ],
+    "fitted_128": [
+      128,
+      114
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 68124
+  },
+  "moves": {
+    "native_trimmed_size": [
+      214,
+      233
+    ],
+    "fitted_64": [
+      59,
+      64
+    ],
+    "fitted_128": [
+      118,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 27540
+  },
+  "night_call": {
+    "native_trimmed_size": [
+      379,
+      291
+    ],
+    "fitted_64": [
+      64,
+      49
+    ],
+    "fitted_128": [
+      128,
+      98
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 38487
+  },
+  "no_count": {
+    "native_trimmed_size": [
+      250,
+      251
+    ],
+    "fitted_64": [
+      64,
+      64
+    ],
+    "fitted_128": [
+      127,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 26668
+  },
+  "peek": {
+    "native_trimmed_size": [
+      222,
+      355
+    ],
+    "fitted_64": [
+      40,
+      64
+    ],
+    "fitted_128": [
+      80,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 26850
+  },
+  "play": {
+    "native_trimmed_size": [
+      211,
+      237
+    ],
+    "fitted_64": [
+      57,
+      64
+    ],
+    "fitted_128": [
+      114,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 17749
+  },
+  "plus": {
+    "native_trimmed_size": [
+      204,
+      198
+    ],
+    "fitted_64": [
+      64,
+      62
+    ],
+    "fitted_128": [
+      128,
+      124
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 18752
+  },
+  "rain": {
+    "native_trimmed_size": [
+      325,
+      369
+    ],
+    "fitted_64": [
+      56,
+      64
+    ],
+    "fitted_128": [
+      113,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 58944
+  },
+  "replay": {
+    "native_trimmed_size": [
+      225,
+      239
+    ],
+    "fitted_64": [
+      60,
+      64
+    ],
+    "fitted_128": [
+      121,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 23874
+  },
+  "scarecrow": {
+    "native_trimmed_size": [
+      356,
+      319
+    ],
+    "fitted_64": [
+      64,
+      57
+    ],
+    "fitted_128": [
+      128,
+      115
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 54064
+  },
+  "shop": {
+    "native_trimmed_size": [
+      264,
+      261
+    ],
+    "fitted_64": [
+      64,
+      63
+    ],
+    "fitted_128": [
+      128,
+      127
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 23539
+  },
+  "sound": {
+    "native_trimmed_size": [
+      241,
+      203
+    ],
+    "fitted_64": [
+      64,
+      54
+    ],
+    "fitted_128": [
+      128,
+      108
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 20858
+  },
+  "star": {
+    "native_trimmed_size": [
+      243,
+      232
+    ],
+    "fitted_64": [
+      64,
+      61
+    ],
+    "fitted_128": [
+      128,
+      122
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 24007
+  },
+  "star_empty": {
+    "native_trimmed_size": [
+      251,
+      241
+    ],
+    "fitted_64": [
+      64,
+      61
+    ],
+    "fitted_128": [
+      128,
+      123
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 52026
+  },
+  "stare": {
+    "native_trimmed_size": [
+      366,
+      198
+    ],
+    "fitted_64": [
+      64,
+      35
+    ],
+    "fitted_128": [
+      128,
+      69
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 14738
+  },
+  "superseded_encore": {
+    "native_trimmed_size": [
+      310,
+      314
+    ],
+    "fitted_64": [
+      63,
+      64
+    ],
+    "fitted_128": [
+      126,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 49429
+  },
+  "surface_badge": {
+    "native_trimmed_size": [
+      253,
+      259
+    ],
+    "fitted_64": [
+      63,
+      64
+    ],
+    "fitted_128": [
+      125,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 13994
+  },
+  "surface_bark": {
+    "native_trimmed_size": [
+      425,
+      427
+    ],
+    "fitted_64": [
+      64,
+      64
+    ],
+    "fitted_128": [
+      127,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 10665
+  },
+  "surface_cream": {
+    "native_trimmed_size": [
+      423,
+      426
+    ],
+    "fitted_64": [
+      64,
+      64
+    ],
+    "fitted_128": [
+      127,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 10529
+  },
+  "surface_green": {
+    "native_trimmed_size": [
+      426,
+      426
+    ],
+    "fitted_64": [
+      64,
+      64
+    ],
+    "fitted_128": [
+      128,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 10568
+  },
+  "surface_leaf": {
+    "native_trimmed_size": [
+      397,
+      331
+    ],
+    "fitted_64": [
+      64,
+      53
+    ],
+    "fitted_128": [
+      128,
+      107
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 28706
+  },
+  "surface_ribbon": {
+    "native_trimmed_size": [
+      571,
+      185
+    ],
+    "fitted_64": [
+      64,
+      21
+    ],
+    "fitted_128": [
+      128,
+      41
+    ],
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 31074
+  },
+  "trophy": {
+    "native_trimmed_size": [
+      269,
+      241
+    ],
+    "fitted_64": [
+      64,
+      57
+    ],
+    "fitted_128": [
+      128,
+      115
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 24064
+  },
+  "undo": {
+    "native_trimmed_size": [
+      300,
+      290
+    ],
+    "fitted_64": [
+      64,
+      62
+    ],
+    "fitted_128": [
+      128,
+      124
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 43471
+  },
+  "unlock": {
+    "native_trimmed_size": [
+      193,
+      228
+    ],
+    "fitted_64": [
+      54,
+      64
+    ],
+    "fitted_128": [
+      108,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 10987
+  },
+  "unused_note": {
+    "native_trimmed_size": [
+      182,
+      223
+    ],
+    "fitted_64": [
+      52,
+      64
+    ],
+    "fitted_128": [
+      104,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 18920
+  },
+  "wake": {
+    "native_trimmed_size": [
+      280,
+      355
+    ],
+    "fitted_64": [
+      50,
+      64
+    ],
+    "fitted_128": [
+      101,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 41057
+  },
+  "wake_song": {
+    "native_trimmed_size": [
+      339,
+      258
+    ],
+    "fitted_64": [
+      64,
+      49
+    ],
+    "fitted_128": [
+      128,
+      97
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 47189
+  },
+  "warm_glow": {
+    "native_trimmed_size": [
+      221,
+      352
+    ],
+    "fitted_64": [
+      40,
+      64
+    ],
+    "fitted_128": [
+      80,
+      128
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 27298
+  }
+}

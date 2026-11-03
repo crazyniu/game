@@ -1,0 +1,169 @@
+{
+  "status": "PASS",
+  "pngs": [
+    {
+      "path": "art/v6/mock/level_k3.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "fdaf5cfaa029f79fa257ed05a56fefaca6f4890145a70b560ea366b34d6f2cfe"
+    },
+    {
+      "path": "art/v6/mock/level_k3_a.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "fdaf5cfaa029f79fa257ed05a56fefaca6f4890145a70b560ea366b34d6f2cfe"
+    },
+    {
+      "path": "art/v6/mock/level_k3_b.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "03794a97ebf39d9c6ea8d570643fa1edd104085984a84747d75527ab94da7b54"
+    },
+    {
+      "path": "art/v6/mock/level_k7.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "c399c9f592898b0351c752f89f151c4c6b2ea4da7f29cae1f97bb020cc66c06e"
+    },
+    {
+      "path": "art/v6/mock/win.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "788ac33d9e5ba6765a0fb35c5ba82a4b70658869c1872fb0dafa852a2f4d83f7"
+    },
+    {
+      "path": "art/v6/mock/settings.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "16c91688b93cd5c6e19d795bb6ace04e064c05b19b67cb225a4b60e28fec67a8"
+    },
+    {
+      "path": "art/v6/mock/unlock_card.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "98d2bfd729ec0400c7b8baf63cd6a9e734256ca51c0e62f931a195085cf5e08a"
+    },
+    {
+      "path": "art/v6/mock/icon_sheet.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "c46d0f033cba18b4ed739d0988ef1ff8dadeced7d46507a282851c3facf28efd"
+    },
+    {
+      "path": "art/v6/mock/goal_info.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "4c04defd4761e2d96ef0722684c7503596d512a6d9ff33eb8a0c2222eacf5fc1"
+    },
+    {
+      "path": "art/v6/mock/map.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "6c397d0042dc5a885dc54a1e5229f872cf7efe228ab176f9df06d4d800093dd6"
+    },
+    {
+      "path": "art/v6/mock/level_card.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "14a5684a0f7193cb60666d2b75deac5446826a79ce06f4d95fbc61495b9019c9"
+    }
+  ],
+  "source_hashes_checked": 23,
+  "source_changes": [],
+  "derived_rgba_files_checked": 60,
+  "checks": [
+    "11 PNGs decode at 1080x1920 RGBA with opaque screen alpha",
+    "level_k3 alias equals selected A",
+    "All derived sprites contain real alpha=0 pixels",
+    "Read-only input hashes unchanged since compositing",
+    "K3 centers at 280/540/800; 44 px gift badges in both selected HUDs",
+    "No Song meter in selected layout records; visually inspected all final screens",
+    "4 K3 branches and 10 K7 branches inside board band; all bird frames inside band; 60 px tip gap",
+    "Seven tool silhouettes visually reviewed at actual 64 px in grayscale"
+  ],
+  "not_run": [
+    "Unity compile/EditMode/PlayMode",
+    "Interaction and device safe areas/hit targets",
+    "Animation/wingbeats/bounce/timed samples",
+    "Production pivot/import/occlusion acceptance",
+    "Human icon-recognition study",
+    "Authored-level replay and reward/star verification"
+  ]
+}
