@@ -16,3 +16,11 @@ Verify: sizes, alpha, edge cleanliness (no white halos), each sprite placed over
 
 ## Added for animations
 `house_door_open.png` (same house with the door swung open, aligned to house_body), `leaf_fall_w1..w4.png` (single leaf/petal/bamboo leaf/maple leaf/snowflake particle per world, 64x64), `cloud_soft_1..3.png` (soft drifting clouds, transparent), `firefly.png` 48x48, `leaf_wipe.png` (a big cluster of leaves for the screen transition, 1600x1600), `gift_trail.png`.
+
+## Added for door and popup animations (user request 2026-11-03)
+Separate parts so code can animate them (each aligned to its whole-object sprite; record pivots/hinge points in the report):
+- Gate: `gate_arch.png` (the vine arch with an EMPTY opening, no door leaves), `gate_door_left.png` and `gate_door_right.png` (the two wooden leaves, hinge on the outer edge), `gate_padlock.png` (separate padlock), `gate_light.png` (warm light pouring out of an open gate, additive-friendly), `gate_backdrop_w2..w4.png` (the next world seen through the opening: bamboo mist, maple, snow pine; sized to the opening).
+- Birdhouse: `house_door_leaf.png` (the round door leaf alone, hinge on its left edge) to swing open over `house_body.png`'s dark doorway; keep `house_door_open.png` as the fully-open fallback.
+- Daily gift: `gift_nest.png` (twig nest), `gift_box_base.png`, `gift_box_lid.png` (lid separate, with the ribbon bow).
+- Panels: `panel_rope_left.png`/`panel_rope_right.png` for the hanging settings board.
+- Map: `world_sign_w1..w4.png` (small hanging wooden world sign with a world pictogram, no text).
