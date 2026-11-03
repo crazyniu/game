@@ -64,8 +64,8 @@ namespace PerchSort.V5.Game
                 if (stars > 0)
                     for (int star = 0; star < 3; star++)
                     {
-                        var image = V5UI.Image(button.transform, "Star " + (star + 1), art.Get("star"), new Vector2(40 + star * 35, 112), Vector2.one * 30);
-                        image.color = new Color(1, 1, 1, star < stars ? 1 : 0.3f);
+                        var image = V5UI.Image(button.transform, "Star " + (star + 1), art.Get(star < stars ? "star_full" : "star_empty"), new Vector2(40 + star * 35, 112), Vector2.one * 30);
+                        image.color = Color.white;
                     }
                 button.interactable = id <= unlocked;
             }
