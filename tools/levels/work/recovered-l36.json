@@ -1,0 +1,100 @@
+{
+  "levels": [
+    {
+      "id": 36,
+      "world": 4,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 17,
+      "dayLength": 3,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "hoot",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:ember",
+            "hoot",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "hoot",
+            "sky",
+            "hoot"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        }
+      ]
+    }
+  ]
+}

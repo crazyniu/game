@@ -1,0 +1,202 @@
+{
+  "Level": {
+    "id": 30,
+    "world": 3,
+    "variant": "sunset",
+    "capacity": 4,
+    "par": 15,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "L",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "sky:sleep",
+          "sky",
+          "ember",
+          "cocoa"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 0,
+        "kind": "twig",
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "kind": "swivel",
+        "seats": 0,
+        "birds": [
+          "ember:sleep",
+          "berry:sleep",
+          "berry",
+          "cocoa:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "ink",
+          "sky",
+          "cocoa",
+          "berry"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "ember",
+          "sky",
+          "berry:sleep",
+          "ember"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 4,
+        "seats": 0,
+        "birds": [
+          "ink",
+          "ink",
+          "cocoa",
+          "ink:sleep"
+        ]
+      }
+    ]
+  },
+  "Evidence": {
+    "Id": 30,
+    "World": 3,
+    "Variant": "sunset",
+    "K": 6,
+    "Branches": 9,
+    "Mechanics": [
+      "crow",
+      "gifts",
+      "sleep",
+      "swivel"
+    ],
+    "Role": "C",
+    "AppliedExceptions": [
+      "DEADEND_WINDOW_6"
+    ],
+    "Par": 15,
+    "SearchStatus": "Solved",
+    "RandomWins": 109,
+    "RandomTrials": 1000,
+    "RandomMoveCap": 200,
+    "Seed": 350053,
+    "RandomWinRate": 0.109,
+    "Visited": 1870075,
+    "Edges": 18304503,
+    "Closed": false,
+    "StopReason": "time budget",
+    "GraphMilliseconds": 60000,
+    "KnownDead": 4356,
+    "UnknownStates": 941902,
+    "DeadLower": 0.002329318342847212,
+    "DeadUpper": 0.5060000267368956,
+    "Ordering": {
+      "Status": "Proven",
+      "Prefix": [
+        "0>1",
+        "5>0",
+        "4>5",
+        "4>1",
+        "5>7",
+        "5>4",
+        "0>5",
+        "0>4",
+        "4>0"
+      ],
+      "GoodNext": "berry",
+      "OtherNext": "ember",
+      "GoodMinimum": 6,
+      "OtherMinimum": 7,
+      "GoodLine": [
+        "2>1",
+        "2>7",
+        "8>4",
+        "8>1",
+        "8>4",
+        "2>5"
+      ],
+      "OtherLine": [
+        "S2",
+        "2>5",
+        "2>7",
+        "8>4",
+        "8>2",
+        "8>4",
+        "2>1"
+      ],
+      "Detail": "Different reachable next home; strictly greater proven minimum."
+    },
+    "OptimalLine": [
+      "0>1",
+      "5>0",
+      "4>5",
+      "4>1",
+      "5>7",
+      "5>4",
+      "0>5",
+      "0>4",
+      "4>0",
+      "2>1",
+      "2>7",
+      "2>5",
+      "8>4",
+      "8>1",
+      "4>8"
+    ],
+    "TemptingDeadLine": [
+      "0>1",
+      "0>7",
+      "5>7",
+      "4>5",
+      "4>1"
+    ],
+    "ExercisedMechanics": [
+      "gifts",
+      "sleep"
+    ],
+    "MaximumHomesInOneMove": 2,
+    "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+    "Failures": [],
+    "Warnings": [],
+    "Pass": true
+  }
+}

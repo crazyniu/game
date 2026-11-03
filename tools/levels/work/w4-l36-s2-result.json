@@ -1,0 +1,188 @@
+{
+  "Attempts": 160,
+  "MinimumRandomWins": 0,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 12,
+  "RateRejected": 64,
+  "ParRejected": 37,
+  "SolverUnknown": 46,
+  "BestPar": 11,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 36,
+        "world": 4,
+        "variant": "morning",
+        "capacity": 4,
+        "par": 5,
+        "dayLength": 3,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "mint:sleep",
+              "sky",
+              "sky",
+              "sky:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "berry:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "mint",
+              "mint",
+              "sky"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:ember",
+              "ember",
+              "ember",
+              "ember"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "hoot",
+              "hoot",
+              "hoot",
+              "hoot"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 36,
+        "World": 4,
+        "Variant": "morning",
+        "K": 6,
+        "Branches": 9,
+        "Mechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "Role": "C",
+        "AppliedExceptions": [],
+        "Par": 5,
+        "SearchStatus": "Solved",
+        "RandomWins": 225,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.225,
+        "Visited": 61449,
+        "Edges": 1109148,
+        "Closed": true,
+        "GraphMilliseconds": 7255,
+        "KnownDead": 996,
+        "UnknownStates": 0,
+        "DeadLower": 0.01620856319875018,
+        "DeadUpper": 0.01620856319875018,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "ember",
+          "OtherNext": "hoot",
+          "GoodMinimum": 5,
+          "OtherMinimum": 6,
+          "GoodLine": [
+            "3\u003E5",
+            "5\u003E3",
+            "0\u003E6",
+            "2\u003E6",
+            "2\u003E0"
+          ],
+          "OtherLine": [
+            "3\u003E5",
+            "2\u003E7",
+            "7\u003E6",
+            "5\u003E3",
+            "0\u003E6",
+            "2\u003E0"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "2\u003E6",
+          "3\u003E5",
+          "5\u003E3",
+          "0\u003E6",
+          "0\u003E2"
+        ],
+        "TemptingDeadLine": [
+          "3\u003E5",
+          "3\u003E5"
+        ],
+        "ExercisedMechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 3,
+        "Failures": [
+          "DEEP_V54: par 5 outside 12..20"
+        ],
+        "Pass": false
+      }
+    }
+  ]
+}

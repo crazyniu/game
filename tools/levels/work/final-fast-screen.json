@@ -1,0 +1,126 @@
+{
+  "MaxStates": 200000,
+  "Milliseconds": 1000,
+  "Levels": [
+    {
+      "Id": 12,
+      "Par": 7,
+      "Milliseconds": 132,
+      "Pass": true
+    },
+    {
+      "Id": 13,
+      "Par": 7,
+      "Milliseconds": 47,
+      "Pass": true
+    },
+    {
+      "Id": 16,
+      "Par": 6,
+      "Milliseconds": 115,
+      "Pass": true
+    },
+    {
+      "Id": 17,
+      "Par": 10,
+      "Milliseconds": 724,
+      "Pass": true
+    },
+    {
+      "Id": 18,
+      "Par": 6,
+      "Milliseconds": 13,
+      "Pass": true
+    },
+    {
+      "Id": 19,
+      "Par": 12,
+      "Milliseconds": 205,
+      "Pass": true
+    },
+    {
+      "Id": 20,
+      "Par": 10,
+      "Milliseconds": 31,
+      "Pass": true
+    },
+    {
+      "Id": 22,
+      "Par": 8,
+      "Milliseconds": 216,
+      "Pass": true
+    },
+    {
+      "Id": 23,
+      "Par": 8,
+      "Milliseconds": 652,
+      "Pass": true
+    },
+    {
+      "Id": 25,
+      "Par": 12,
+      "Milliseconds": 422,
+      "Pass": true
+    },
+    {
+      "Id": 26,
+      "Par": 8,
+      "Milliseconds": 676,
+      "Pass": true
+    },
+    {
+      "Id": 27,
+      "Par": 14,
+      "Milliseconds": 239,
+      "Pass": true
+    },
+    {
+      "Id": 29,
+      "Par": 16,
+      "Milliseconds": 787,
+      "Pass": true
+    },
+    {
+      "Id": 30,
+      "Par": 19,
+      "Milliseconds": 561,
+      "Pass": true
+    },
+    {
+      "Id": 34,
+      "Par": 9,
+      "Milliseconds": 395,
+      "Pass": true
+    },
+    {
+      "Id": 36,
+      "Par": 12,
+      "Milliseconds": 477,
+      "Pass": true
+    },
+    {
+      "Id": 37,
+      "Par": 9,
+      "Milliseconds": 303,
+      "Pass": true
+    },
+    {
+      "Id": 38,
+      "Par": 13,
+      "Milliseconds": 291,
+      "Pass": true
+    },
+    {
+      "Id": 39,
+      "Par": 6,
+      "Milliseconds": 263,
+      "Pass": true
+    },
+    {
+      "Id": 40,
+      "Par": 12,
+      "Milliseconds": 62,
+      "Pass": true
+    }
+  ]
+}

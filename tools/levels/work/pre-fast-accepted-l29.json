@@ -1,0 +1,193 @@
+{
+  "Level": {
+    "id": 29,
+    "world": 3,
+    "variant": "windy",
+    "capacity": 4,
+    "par": 14,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "R",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "sky:sleep",
+          "berry:sleep",
+          "sky",
+          "ember"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 0,
+        "kind": "twig",
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "berry:sleep",
+          "berry",
+          "berry"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "cocoa",
+          "cocoa:sleep",
+          "cocoa",
+          "ink"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "ember",
+          "ember",
+          "ember:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "R",
+        "row": 4,
+        "seats": 0,
+        "birds": [
+          "ink",
+          "ink",
+          "cocoa",
+          "ink:sleep"
+        ]
+      }
+    ]
+  },
+  "Evidence": {
+    "Id": 29,
+    "World": 3,
+    "Variant": "windy",
+    "K": 6,
+    "Branches": 9,
+    "Mechanics": [
+      "crow",
+      "gifts",
+      "sleep"
+    ],
+    "Role": "C",
+    "AppliedExceptions": [],
+    "Par": 14,
+    "SearchStatus": "Solved",
+    "RandomWins": 51,
+    "RandomTrials": 1000,
+    "RandomMoveCap": 200,
+    "Seed": 350053,
+    "RandomWinRate": 0.051,
+    "Visited": 363490,
+    "Edges": 1944985,
+    "Closed": false,
+    "StopReason": "time budget",
+    "GraphMilliseconds": 10000,
+    "KnownDead": 234,
+    "UnknownStates": 256897,
+    "DeadLower": 0.0006437591130429998,
+    "DeadUpper": 0.7073949764780324,
+    "Ordering": {
+      "Status": "Proven",
+      "Prefix": [
+        "0>1",
+        "2>7",
+        "7>2",
+        "2>7",
+        "0>2",
+        "7>0",
+        "0>7"
+      ],
+      "GoodNext": "cocoa",
+      "OtherNext": "sky",
+      "GoodMinimum": 7,
+      "OtherMinimum": 8,
+      "GoodLine": [
+        "8>7",
+        "4>7",
+        "8>4",
+        "8>7",
+        "5>1",
+        "5>2",
+        "2>0"
+      ],
+      "OtherLine": [
+        "8>7",
+        "4>7",
+        "2>0",
+        "5>2",
+        "5>0",
+        "8>4",
+        "8>7",
+        "2>1"
+      ],
+      "Detail": "Different reachable next home; strictly greater proven minimum."
+    },
+    "OptimalLine": [
+      "0>1",
+      "2>7",
+      "7>2",
+      "2>7",
+      "0>2",
+      "7>0",
+      "0>7",
+      "2>0",
+      "4>2",
+      "8>2",
+      "8>4",
+      "2>8",
+      "5>1",
+      "0>5"
+    ],
+    "TemptingDeadLine": [
+      "4>1"
+    ],
+    "ExercisedMechanics": [
+      "gifts",
+      "sleep"
+    ],
+    "MaximumHomesInOneMove": 2,
+    "DataCheck": "Not run",
+    "Failures": [],
+    "Warnings": [],
+    "Pass": true
+  }
+}

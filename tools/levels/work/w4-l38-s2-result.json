@@ -1,0 +1,193 @@
+{
+  "Attempts": 160,
+  "MinimumRandomWins": 0,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 6,
+  "RateRejected": 65,
+  "ParRejected": 40,
+  "SolverUnknown": 47,
+  "BestPar": 11,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 38,
+        "world": 4,
+        "variant": "bluehour",
+        "capacity": 4,
+        "par": 6,
+        "dayLength": 3,
+        "branches": [
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sky",
+              "sky",
+              "snow",
+              "sky:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "berry:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "snow",
+              "snow",
+              "snow:sleep",
+              "sky"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:ember",
+              "ember",
+              "ember",
+              "ember"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "hoot",
+              "hoot",
+              "hoot",
+              "hoot"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 38,
+        "World": 4,
+        "Variant": "bluehour",
+        "K": 6,
+        "Branches": 9,
+        "Mechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "Role": "C",
+        "AppliedExceptions": [],
+        "Par": 6,
+        "SearchStatus": "Solved",
+        "RandomWins": 223,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.223,
+        "Visited": 75545,
+        "Edges": 1521538,
+        "Closed": true,
+        "GraphMilliseconds": 6079,
+        "KnownDead": 257,
+        "UnknownStates": 0,
+        "DeadLower": 0.003401945860083394,
+        "DeadUpper": 0.003401945860083394,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "ember",
+          "OtherNext": "hoot",
+          "GoodMinimum": 6,
+          "OtherMinimum": 7,
+          "GoodLine": [
+            "3\u003E5",
+            "5\u003E3",
+            "0\u003E6",
+            "2\u003E6",
+            "0\u003E2",
+            "0\u003E6"
+          ],
+          "OtherLine": [
+            "3\u003E5",
+            "2\u003E7",
+            "7\u003E6",
+            "5\u003E3",
+            "0\u003E6",
+            "0\u003E2",
+            "0\u003E6"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "2\u003E6",
+          "3\u003E5",
+          "5\u003E3",
+          "0\u003E6",
+          "0\u003E2",
+          "0\u003E6"
+        ],
+        "TemptingDeadLine": [
+          "3\u003E5",
+          "3\u003E5"
+        ],
+        "ExercisedMechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 3,
+        "DataCheck": "Not run",
+        "Failures": [
+          "DEEP_V54: par 6 outside 12..2147483647"
+        ],
+        "Warnings": [],
+        "Pass": false
+      }
+    }
+  ]
+}

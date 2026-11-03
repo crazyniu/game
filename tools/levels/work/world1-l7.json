@@ -1,0 +1,86 @@
+{
+  "Id": 7,
+  "K": 4,
+  "Spare": 2,
+  "Mechanics": [
+    "eggs",
+    "gifts"
+  ],
+  "BaseLevel": {
+    "id": 7,
+    "world": 1,
+    "variant": "noon",
+    "capacity": 4,
+    "par": 13,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "L",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "egg:sky",
+          "berry",
+          "mint",
+          "sunny"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "berry",
+          "mint",
+          "egg:mint",
+          "sunny"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "berry",
+          "sunny"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "sunny"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "berry"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "mint"
+        ]
+      }
+    ]
+  },
+  "Swaps": 2,
+  "Seed": 420007,
+  "Attempts": 250,
+  "Keep": 1,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}

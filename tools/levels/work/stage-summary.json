@@ -1,0 +1,141 @@
+{
+  "ProtectedIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    11,
+    15,
+    21,
+    24,
+    31,
+    33
+  ],
+  "ReplacedIds": [
+    12,
+    13,
+    16,
+    17,
+    18,
+    19,
+    20,
+    22,
+    23,
+    25,
+    26,
+    27,
+    29,
+    30,
+    34,
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "BaselineSha256": "ce1eaaa91f62311423cccc9ac35fec1e97e14b256291ccd2084f7e744fa63f58",
+  "Changes": [
+    {
+      "Id": 12,
+      "OldPar": 5,
+      "NewPar": 7
+    },
+    {
+      "Id": 13,
+      "OldPar": 4,
+      "NewPar": 7
+    },
+    {
+      "Id": 16,
+      "OldPar": 4,
+      "NewPar": 6
+    },
+    {
+      "Id": 17,
+      "OldPar": 4,
+      "NewPar": 10
+    },
+    {
+      "Id": 18,
+      "OldPar": 2,
+      "NewPar": 6
+    },
+    {
+      "Id": 19,
+      "OldPar": 4,
+      "NewPar": 12
+    },
+    {
+      "Id": 20,
+      "OldPar": 4,
+      "NewPar": 10
+    },
+    {
+      "Id": 22,
+      "OldPar": 7,
+      "NewPar": 8
+    },
+    {
+      "Id": 23,
+      "OldPar": 2,
+      "NewPar": 8
+    },
+    {
+      "Id": 25,
+      "OldPar": 4,
+      "NewPar": 12
+    },
+    {
+      "Id": 26,
+      "OldPar": 2,
+      "NewPar": 8
+    },
+    {
+      "Id": 27,
+      "OldPar": 4,
+      "NewPar": 14
+    },
+    {
+      "Id": 29,
+      "OldPar": 4,
+      "NewPar": 16
+    },
+    {
+      "Id": 30,
+      "OldPar": 4,
+      "NewPar": 19
+    },
+    {
+      "Id": 34,
+      "OldPar": 2,
+      "NewPar": 9
+    },
+    {
+      "Id": 36,
+      "OldPar": 4,
+      "NewPar": 12
+    },
+    {
+      "Id": 37,
+      "OldPar": 2,
+      "NewPar": 9
+    },
+    {
+      "Id": 38,
+      "OldPar": 4,
+      "NewPar": 13
+    },
+    {
+      "Id": 39,
+      "OldPar": 2,
+      "NewPar": 6
+    },
+    {
+      "Id": 40,
+      "OldPar": 3,
+      "NewPar": 12
+    }
+  ]
+}

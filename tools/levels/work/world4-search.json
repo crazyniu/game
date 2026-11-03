@@ -1,0 +1,255 @@
+[
+  {
+    "Id": 31,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 32,
+    "Status": "unchanged-in-band",
+    "Par": 8
+  },
+  {
+    "Id": 33,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 34,
+    "Status": "accepted",
+    "OldPar": 2,
+    "BestPar": 9,
+    "NewPar": 9,
+    "Runs": [
+      {
+        "Name": "w4-l34-s2",
+        "Exit": 0,
+        "Attempts": 43,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 977,
+        "SchemaRejected": 2,
+        "RateRejected": 13,
+        "ParRejected": 11,
+        "SolverUnknown": 16,
+        "BestPar": 9
+      }
+    ]
+  },
+  {
+    "Id": 35,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 36,
+    "Status": "not-found",
+    "OldPar": 4,
+    "BestPar": 17,
+    "NewPar": 4,
+    "Runs": [
+      {
+        "Name": "w4-l36-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 12,
+        "RateRejected": 64,
+        "ParRejected": 37,
+        "SolverUnknown": 46,
+        "BestPar": 11
+      },
+      {
+        "Name": "w4-l36-s4",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 7,
+        "RateRejected": 78,
+        "ParRejected": 7,
+        "SolverUnknown": 66,
+        "BestPar": 17
+      },
+      {
+        "Name": "w4-l36-s6",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 13,
+        "RateRejected": 77,
+        "ParRejected": 0,
+        "SolverUnknown": 68,
+        "BestPar": 14
+      },
+      {
+        "Name": "w4-l36-s8",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 20,
+        "RateRejected": 76,
+        "ParRejected": 1,
+        "SolverUnknown": 63,
+        "BestPar": 11
+      }
+    ]
+  },
+  {
+    "Id": 37,
+    "Status": "accepted",
+    "OldPar": 2,
+    "BestPar": 10,
+    "NewPar": 10,
+    "Runs": [
+      {
+        "Name": "w4-l37-s2",
+        "Exit": 0,
+        "Attempts": 57,
+        "MinimumRandomWins": 20,
+        "MaximumRandomWins": 868,
+        "SchemaRejected": 1,
+        "RateRejected": 18,
+        "ParRejected": 15,
+        "SolverUnknown": 22,
+        "BestPar": 10
+      }
+    ]
+  },
+  {
+    "Id": 38,
+    "Status": "not-found",
+    "OldPar": 4,
+    "BestPar": 12,
+    "NewPar": 4,
+    "Runs": [
+      {
+        "Name": "w4-l38-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 6,
+        "RateRejected": 65,
+        "ParRejected": 40,
+        "SolverUnknown": 47,
+        "BestPar": 11
+      },
+      {
+        "Name": "w4-l38-s4",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 12,
+        "RateRejected": 69,
+        "ParRejected": 11,
+        "SolverUnknown": 68,
+        "BestPar": 11
+      },
+      {
+        "Name": "w4-l38-s6",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 20,
+        "RateRejected": 69,
+        "ParRejected": 3,
+        "SolverUnknown": 65,
+        "BestPar": 12
+      },
+      {
+        "Name": "w4-l38-s8",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 877,
+        "SchemaRejected": 18,
+        "RateRejected": 75,
+        "ParRejected": 2,
+        "SolverUnknown": 65,
+        "BestPar": 11
+      }
+    ]
+  },
+  {
+    "Id": 39,
+    "Status": "accepted",
+    "OldPar": 2,
+    "BestPar": 8,
+    "NewPar": 6,
+    "Runs": [
+      {
+        "Name": "w4-l39-s2",
+        "Exit": 0,
+        "Attempts": 22,
+        "MinimumRandomWins": 79,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 11,
+        "ParRejected": 5,
+        "SolverUnknown": 5,
+        "BestPar": 8
+      }
+    ]
+  },
+  {
+    "Id": 40,
+    "Status": "not-found",
+    "OldPar": 3,
+    "BestPar": 10,
+    "NewPar": 3,
+    "Runs": [
+      {
+        "Name": "w4-l40-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 10,
+        "RateRejected": 79,
+        "ParRejected": 34,
+        "SolverUnknown": 35,
+        "BestPar": 10
+      },
+      {
+        "Name": "w4-l40-s4",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 16,
+        "RateRejected": 88,
+        "ParRejected": 2,
+        "SolverUnknown": 54,
+        "BestPar": 10
+      },
+      {
+        "Name": "w4-l40-s6",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 13,
+        "RateRejected": 84,
+        "ParRejected": 1,
+        "SolverUnknown": 62,
+        "BestPar": 10
+      },
+      {
+        "Name": "w4-l40-s8",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 19,
+        "RateRejected": 75,
+        "ParRejected": 0,
+        "SolverUnknown": 66
+      }
+    ]
+  }
+]
