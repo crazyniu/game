@@ -1,0 +1,38 @@
+[
+  {
+    "name": "btn_purple",
+    "prompt": "Isolate the approved purple circular button base with its polished gold rim from the reference icon sheet. Remove ALL icons and glyphs, leaving a completely empty glossy purple face. Single front-on round sprite centered with 8% transparent margins, preserve the exact reference color, rim thickness, highlight and dimensional style. No text, no other objects. Real RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-0a3a84fb-da7f-40a0-a333-450e07c99150.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "btn_green",
+    "prompt": "Isolate the green primary circular button base with its gold rim from the reference icon sheet. Remove the play symbol entirely, leaving a completely empty glossy green face. Single front-on round sprite centered with 8% transparent margins, preserve reference style, rim thickness and highlights. No text, no other objects. Real RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-3fde2f14-3c08-4d77-a18b-8a1d4073db97.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "coin_pill",
+    "prompt": "Extract the cream coin pill with its gold leaf coin at the left from the reference icon sheet. Remove the number 240 entirely; the entire cream area to the right of the coin is EMPTY for runtime text. Preserve exact shape, gold trim, leaf coin and soft shading. One horizontal sprite, tightly framed with transparent padding, no other objects. Genuine RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-0f65e1b0-3aee-4919-afaa-06b1bcfceeda.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "badge_red",
+    "prompt": "Isolate the small red circular count badge from the reference icon sheet. Remove the numeral 3 completely. One empty glossy red round badge, thin cream-gold edge, exact approved reference rendering, face blank, centered on transparent canvas. No text or symbols, no other objects.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c8e2aa1c-515e-486b-ad83-5bb574d570ce.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "btn_green_pill",
+    "prompt": "Extract the green horizontal price pill from the approved shop screenshot, keeping the gold rim and glossy green face. Remove ALL coin icons, numbers and text so face is entirely empty. Single front-on capsule, true transparent background, 3:1 proportions, no other objects. Match reference materials and lighting exactly. Suitable for horizontal 9-slicing.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-f885d7a1-ecdc-42a4-ba7c-f5f3b3b7c000.png",
+    "reference": "art/v7/ui7_shop_boosters.png"
+  },
+  {
+    "name": "btn_purple_pressed",
+    "prompt": "Create the pressed state of the reference purple-and-gold round button: identical round outline and gold rim, empty purple center with no icon. Purple face visibly depressed inward with subtle inward shadow along its upper rim, lower highlight, slightly darker purple than the unpressed reference, maintain soft polished 3D style. Single isolated sprite, genuine transparency, no text.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-229c1c33-8c58-4c71-9076-b8f81f964d6c.png",
+    "reference": "art/v7/ui7_icons.png"
+  }
+]
