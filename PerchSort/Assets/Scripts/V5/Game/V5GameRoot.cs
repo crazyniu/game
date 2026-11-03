@@ -16,6 +16,7 @@ namespace PerchSort.V5.Game
         private SettingsPanel settings;
         private V5Panels panels;
         private AudioManager audioManager;
+        private CanvasGroup hudInput, boardInput, mapInput;
         private bool ownsAudio, initialized, persistProgress = true, rewardGranted, hintPending;
         private bool previousSfx;
         private MusicPage previousMusic;
@@ -77,6 +78,9 @@ namespace PerchSort.V5.Game
             settings = Layer<SettingsPanel>(design, "Settings overlay"); settings.Configure(this, art);
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<V5Panels>(design, "Information cards"); panels.Configure(this, art, font);
+            hudInput = Hud.gameObject.AddComponent<CanvasGroup>();
+            boardInput = Board.gameObject.AddComponent<CanvasGroup>();
+            mapInput = Map.gameObject.AddComponent<CanvasGroup>();
             if (Application.isPlaying)
             {
                 audioManager = AudioManager.Instance;
@@ -329,16 +333,12 @@ namespace PerchSort.V5.Game
             bool blocked = IsAirborne || Modal;
             Hud.Refresh(Session, Coins, blocked, IsBusy);
             tutorial.Refresh(Session, Board, IsMap || IsBusy || Modal);
-            SetRaycasts(Hud.gameObject, !blocked && !IsMap);
-            SetRaycasts(Board.gameObject, !Modal && !IsMap);
-            SetRaycasts(Map.gameObject, !Modal && IsMap);
+            SetRaycasts(hudInput, !blocked && !IsMap);
+            SetRaycasts(boardInput, !Modal && !IsMap);
+            SetRaycasts(mapInput, !Modal && IsMap);
             if (IsMap) Map.RefreshCoins(Coins);
         }
-        private static void SetRaycasts(GameObject view, bool enabled)
-        {
-            var group = view.GetComponent<CanvasGroup>() ?? view.AddComponent<CanvasGroup>();
-            group.blocksRaycasts = group.interactable = enabled;
-        }
+        private static void SetRaycasts(CanvasGroup group, bool enabled) => group.blocksRaycasts = group.interactable = enabled;
         private void CancelPresentation()
         {
             revision++; hintPending = false; queuedTap = null;
