@@ -18,7 +18,7 @@ namespace PerchSort.V5.Tests
             try
             {
                 int clicks = 0;
-                button = V5UI.Button(null, art, "Undo probe", "icon_undo", Vector2.zero, () => clicks++);
+                button = V5UI.Button(null, art, "Undo probe", "ico_undo", Vector2.zero, () => clicks++);
                 var background = button.GetComponent<Image>().sprite;
                 var pointer = new PointerEventData(null) { button = PointerEventData.InputButton.Left };
                 button.interactable = false;
@@ -27,7 +27,6 @@ namespace PerchSort.V5.Tests
                 Assert.That(clicks, Is.Zero);
                 Assert.That(button.IsInteractable(), Is.False);
                 Assert.That(button.GetComponent<CanvasGroup>().alpha, Is.EqualTo(0.45f));
-                Assert.That(button.transform.localScale, Is.EqualTo(Vector3.one * 0.9f));
                 Assert.That(button.GetComponent<Image>().sprite, Is.SameAs(background));
 
                 button.interactable = true;

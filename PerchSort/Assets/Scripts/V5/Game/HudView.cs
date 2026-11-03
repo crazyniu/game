@@ -15,7 +15,7 @@ namespace PerchSort.V5.Game
         private Image phaseIcon;
         private GameObject phaseGroup, feather, chorus;
         private V5Motion motion;
-        private RectTransform housesLayer, effects, bottomBar;
+        private RectTransform housesLayer, homeFlights, effects, bottomBar;
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
@@ -26,6 +26,7 @@ namespace PerchSort.V5.Game
         private bool contextMechanic;
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public BoosterKind ContextBooster => kinds[3];
+        public Transform HomeFlightLayer => homeFlights;
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset font)
         {
             root = owner; art = assets; motion = gameObject.AddComponent<V5Motion>();
@@ -43,6 +44,8 @@ namespace PerchSort.V5.Game
             phaseGroup = V5UI.Rect(transform, "Day night dial", V6Layout.PhaseDial.center, V6Layout.PhaseDial.size).gameObject;
             phaseIcon = V5UI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), V6Layout.PhaseIconCenter, Vector2.one * V6Layout.PhaseIconSize);
             phaseCount = V5UI.Text(phaseGroup.transform, "Moves until phase", "0", font, V6Layout.PhaseCountCenter, V6Layout.PhaseCountSize, V6Layout.PhaseFontSize);
+            // Arrivals stay above the opaque plank, but behind the chip roof/body and doorway portrait.
+            homeFlights = V5UI.Rect(transform, "Homeward flights", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
             housesLayer = V5UI.Rect(transform, "Species goals", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
             bottomBar = V5UI.Rect(transform, "Bottom bar", V6Layout.DesignSize * 0.5f, V6Layout.DesignSize);
             tools[0] = V5UI.Button(bottomBar, art, "Undo", "ico_undo", V6Layout.ToolButton(0), () => root.Undo());

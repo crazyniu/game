@@ -184,6 +184,7 @@ namespace PerchSort.V5.Game
                     for (int i = 0; i < home.BirdIds.Count; i++)
                     {
                         int id = home.BirdIds[i]; var bird = birds[id]; float delay = i * 0.1f;
+                        bird.transform.SetParent(root.Hud.HomeFlightLayer, false);
                         bird.Cheer(() => bird.Fly(house.DoorPoint(), delay, true, Launch, Land, () =>
                         {
                             house.Arrival(); root.PlaySound(Sfx.Collect); Remove(id); seats[home.Branch].Remove(id);

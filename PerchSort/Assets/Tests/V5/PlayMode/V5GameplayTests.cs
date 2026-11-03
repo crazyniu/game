@@ -345,5 +345,25 @@ namespace PerchSort.V5.Tests
             Assert.That(PlayerPrefs.GetInt(V5Progress.UnlockSeenKey((int)BoosterKind.Firefly)), Is.EqualTo(1));
             yield return null;
         }
+        [UnityTest]
+        public IEnumerator TimedFlockArrivalsReachTheirGoalDoor()
+        {
+            V5Motion.Instant = false;
+            Assert.That(root.TryMove(0, 1), Is.True);
+            float until = Time.realtimeSinceStartup + 20, closest = float.MaxValue;
+            while (root.IsBusy && Time.realtimeSinceStartup < until)
+            {
+                Vector2 door = root.Hud.Houses["sky"].DoorPoint();
+                foreach (var bird in root.Board.Birds.Values)
+                    if (bird.Bird.Species.Id == "sky") closest = Mathf.Min(closest, Vector2.Distance(bird.Position, door));
+                yield return null;
+            }
+            Assert.That(root.IsBusy, Is.False);
+            Assert.That(closest, Is.LessThan(40), "The visible flock must approach its own door before retirement.");
+            Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
+            Assert.That(root.Hud.Houses["sky"].IsHome, Is.True);
+            Assert.That(root.Hud.Houses["sunny"].ArrivalCount, Is.Zero);
+            AssertSnapshot();
+        }
     }
 }
