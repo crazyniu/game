@@ -31,9 +31,11 @@ namespace PerchSort.V5.Game
         public bool IsBusy { get; private set; }
         public bool IsAirborne => Board != null && Board.IsAirborne;
         public bool HintPending => hintPending || (hintSearch != null && !hintSearch.IsCompleted);
-        public int Coins => profile.Coins;
+        public int Coins => profile.DisplayCoins;
         public bool Muted => profile.Muted;
-        public int HighestUnlocked => profile.HighestUnlocked;
+        public int HighestUnlocked => profile.AccessibleLevel;
+        public int BestStars(int level) => profile.BestStars(level);
+        public int DisplayStock(int stock) => profile.DisplayStock(stock);
         public int LevelId => Session.State.LevelId;
         public Camera RenderCamera { get; private set; }
         public Canvas Canvas { get; private set; }
@@ -88,14 +90,14 @@ namespace PerchSort.V5.Game
         }
         public void LoadLevel(int id)
         {
-            if (!initialized || id > profile.HighestUnlocked) return;
+            if (!initialized || id > HighestUnlocked) return;
             LoadDefinition(LevelLoader.Load(id), true);
         }
         private void LoadDefinition(LevelDef level, bool starters)
         {
             CancelPresentation(); rewardGranted = false;
-            if (starters) profile.GrantStarters(level.id);
-            Session = new GameSession(level, profile.Inventory());
+            if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
+            Session = profile.CreateSession(level);
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
@@ -141,6 +143,7 @@ namespace PerchSort.V5.Game
             if (!initialized || Modal) return false;
             InputTap(); if (Defer(() => TapSwivel(branch))) return false;
             if (!Session.Swivel(branch)) return false;
+            profile.RecordAction();
             PlayCommitted(); return true;
         }
         public bool TryMove(int from, int to)
@@ -153,6 +156,7 @@ namespace PerchSort.V5.Game
                 if (selected >= 0) { Board.Illegal(Session.State, selected); PlaySound(Sfx.Error); }
                 Refresh(); return false;
             }
+            profile.RecordAction();
             PlayCommitted(); return true;
         }
         private void PlayCommitted(Action after = null)
@@ -190,18 +194,18 @@ namespace PerchSort.V5.Game
         public bool Undo()
         {
             if (!initialized || !Session.CanUndo) return false;
-            CancelPresentation(); Session.Undo(); Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
+            CancelPresentation(); Session.Undo(); profile.UndoAction(); Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
             tutorial.DisableForAttempt(); PlaySound(Sfx.Undo); Save(); Refresh(); return true;
         }
         public void Restart()
         {
             if (!initialized) return;
-            CancelPresentation(); Session.Restart(); rewardGranted = false; tutorial.DisableForAttempt();
+            CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; tutorial.DisableForAttempt();
             Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State); Save(); Refresh();
         }
         public void TapBooster(BoosterKind kind)
         {
-            if (!initialized || Modal || LevelId < V5ViewModel.Unlock(kind)) return;
+            if (!initialized || Modal || HighestUnlocked < V5ViewModel.Unlock(kind)) return;
             if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (Defer(() => TapBooster(kind))) return;
             if (Session.Inventory[kind] == 0) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); panels.Buy(kind); Refresh(); }
@@ -210,19 +214,20 @@ namespace PerchSort.V5.Game
         }
         public bool BuyBooster(BoosterKind kind)
         {
-            if (!initialized || IsBusy || LevelId < V5ViewModel.Unlock(kind) || Coins < V5ViewModel.Price(kind)) return false;
-            Session.GrantBooster(kind, 1); profile.Coins -= V5ViewModel.Price(kind); Save(); Refresh(); return true;
+            if (!initialized || IsBusy || HighestUnlocked < V5ViewModel.Unlock(kind) || Coins < V5ViewModel.Price(kind)) return false;
+            Session.GrantBooster(kind, 1); profile.SpendCoins(V5ViewModel.Price(kind)); Save(); Refresh(); return true;
         }
         public bool UseBooster(BoosterKind kind)
         {
-            if (!initialized || Modal || IsBusy || kind == BoosterKind.Firefly || LevelId < V5ViewModel.Unlock(kind)) return false;
+            if (!initialized || Modal || IsBusy || kind == BoosterKind.Firefly || HighestUnlocked < V5ViewModel.Unlock(kind)) return false;
             if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (!Session.UseBooster(kind).Applied) { Refresh(); return false; }
+            profile.RecordAction();
             PlayCommitted(); return true;
         }
         public async void Hint()
         {
-            if (!initialized || Modal || IsBusy || HintPending || LevelId < 2 || Session.Inventory[BoosterKind.Firefly] == 0) return;
+            if (!initialized || Modal || IsBusy || HintPending || HighestUnlocked < 2 || Session.Inventory[BoosterKind.Firefly] == 0) return;
             InputTap(); Session.CancelSelection(); Board.ShowSelection(Session.State, -1); tutorial.Hide();
             int token = revision; var session = Session; var snapshot = session.State.Clone(); hintPending = true;
             Refresh();
@@ -239,6 +244,7 @@ namespace PerchSort.V5.Game
                     Debug.Log("V5 Firefly: solver Unknown; " + (move.HasValue ? "using a greedy legal move." : "no legal move; not consumed."));
                 }
                 if (!move.HasValue || !session.TryUseFirefly(move.Value)) { Refresh(); return; }
+                profile.RecordAction();
                 var hint = move.Value;
                 PlayCommitted(() =>
                 {
@@ -263,7 +269,7 @@ namespace PerchSort.V5.Game
         {
             if (!initialized || IsAirborne || settings.IsOpen || panels.IsOpen) return;
             if (Defer(OpenLevelPicker)) return;
-            InputTap(); Win.Hide(); Session.CancelSelection(); Board.ShowSelection(Session.State, -1); panels.Picker(profile.HighestUnlocked); Refresh();
+            InputTap(); Win.Hide(); Session.CancelSelection(); Board.ShowSelection(Session.State, -1); panels.Picker(HighestUnlocked); Refresh();
         }
         public void ClosePanel() { panels.Hide(); Refresh(); }
         public void SetMuted(bool muted)

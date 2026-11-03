@@ -59,7 +59,14 @@ namespace PerchSort.V5.Game
                 var button = V5UI.Button(body, art, "Level " + id, "btn_square_wood",
                     new Vector2(120 + i % 5 * 190, 290 + i / 5 * 190), () => root.LoadLevel(id));
                 button.transform.GetChild(0).gameObject.SetActive(false);
-                V5UI.Text(button.transform, "Number", id.ToString(), font, Vector2.one * 75, Vector2.one * 130, 44);
+                V5UI.Text(button.transform, "Number", id.ToString(), font, new Vector2(75, 52), new Vector2(130, 80), 44);
+                int stars = root.BestStars(id);
+                if (stars > 0)
+                    for (int star = 0; star < 3; star++)
+                    {
+                        var image = V5UI.Image(button.transform, "Star " + (star + 1), art.Get("star"), new Vector2(40 + star * 35, 112), Vector2.one * 30);
+                        image.color = new Color(1, 1, 1, star < stars ? 1 : 0.3f);
+                    }
                 button.interactable = id <= unlocked;
             }
         }

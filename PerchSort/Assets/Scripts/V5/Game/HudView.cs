@@ -93,7 +93,7 @@ namespace PerchSort.V5.Game
             for (int i = 1; i < tools.Length; i++)
             {
                 tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Get(V5ViewModel.Icon(kinds[i]));
-                tools[i].gameObject.SetActive(state.LevelId >= V5ViewModel.Unlock(kinds[i]));
+                tools[i].gameObject.SetActive(root.HighestUnlocked >= V5ViewModel.Unlock(kinds[i]));
             }
             levelNumber.text = state.LevelId.ToString();
             SyncState(state);
@@ -125,7 +125,7 @@ namespace PerchSort.V5.Game
             settings.interactable = !blocked;
             for (int i = 1; i < tools.Length; i++)
             {
-                int count = inventory[(int)kinds[i]];
+                int count = root.DisplayStock(inventory[(int)kinds[i]]);
                 tools[i].interactable = !blocked && !session.State.IsWon && (i != 3 || contextMechanic) &&
                     (kinds[i] != BoosterKind.Firefly || !root.HintPending) &&
                     (count == 0 || session.BoosterHasEffect(kinds[i]));
@@ -136,7 +136,7 @@ namespace PerchSort.V5.Game
         {
             for (int i = 1; i < tools.Length; i++)
             {
-                int count = inventory[(int)kinds[i]];
+                int count = root.DisplayStock(inventory[(int)kinds[i]]);
                 badges[i].sprite = art.Get(count > 0 ? "badge_count" : "badge_plus");
                 counts[i].gameObject.SetActive(count > 0); counts[i].text = count.ToString();
             }

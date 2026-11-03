@@ -13,15 +13,67 @@ namespace PerchSort.V5.Game
         public readonly bool[] StarterGranted = new bool[V5ViewModel.BoosterCount];
         public readonly bool[] Tutorials = new bool[41];
         public bool Muted;
+        public V5DevOptions DevOptions { get; }
+        public int DisplayCoins => DevOptions.grantTestStock ? Math.Max(Coins, 2000) : Coins;
+        public int AccessibleLevel => DevOptions.unlockAllLevels ? 40 : HighestUnlocked;
+        public int BestStars(int level) => DevOptions.unlockAllLevels ? Math.Max(Stars[level], 3) : Stars[level];
+        public int DisplayStock(int stock) => DevOptions.grantTestStock ? Math.Max(stock, 5) : stock;
+        private int[] subsidy, initialSubsidy;
+        private readonly Stack<int[]> subsidyHistory;
+        public V5Profile(V5DevOptions options = null)
+        {
+            DevOptions = options ?? new V5DevOptions();
+            if (DevOptions.grantTestStock) subsidyHistory = new Stack<int[]>();
+        }
+        public GameSession CreateSession(LevelDef level)
+        {
+            subsidyHistory?.Clear();
+            if (DevOptions.grantTestStock)
+            {
+                subsidy = new int[Boosters.Length];
+                for (int i = 0; i < subsidy.Length; i++) subsidy[i] = DisplayStock(Boosters[i]) - Boosters[i];
+                initialSubsidy = (int[])subsidy.Clone();
+            }
+            return new GameSession(level, Inventory());
+        }
+        // Mirror only synthetic stock, so Core's real action/undo history remains authoritative.
+        public void RecordAction()
+        {
+            if (DevOptions.grantTestStock) subsidyHistory.Push((int[])subsidy.Clone());
+        }
+        public void UndoAction()
+        {
+            if (DevOptions.grantTestStock) subsidy = subsidyHistory.Pop();
+        }
+        public void RestartSession()
+        {
+            if (!DevOptions.grantTestStock) return;
+            subsidy = (int[])initialSubsidy.Clone(); subsidyHistory.Clear();
+        }
+        public void SpendCoins(int price) { Coins = Math.Max(0, Coins - price); }
         public BoosterInventory Inventory()
         {
             var values = new Dictionary<BoosterKind, int>();
-            for (int i = 0; i < Boosters.Length; i++) values.Add((BoosterKind)i, Boosters[i]);
+            for (int i = 0; i < Boosters.Length; i++) values.Add((BoosterKind)i, DisplayStock(Boosters[i]));
             return new BoosterInventory(values);
         }
         public void Capture(GameSession session)
         {
-            for (int i = 0; i < Boosters.Length; i++) Boosters[i] = session.Inventory[(BoosterKind)i];
+            for (int i = 0; i < Boosters.Length; i++)
+            {
+                var kind = (BoosterKind)i;
+                int stock = session.Inventory[kind];
+                Boosters[i] = Math.Max(0, stock - (DevOptions.grantTestStock ? subsidy[i] : 0));
+                if (!DevOptions.grantTestStock) continue;
+                // Spending synthetic stock cannot create debt against a later real purchase.
+                subsidy[i] = Math.Min(subsidy[i], stock);
+                int extra = DisplayStock(stock) - stock;
+                if (extra == 0) continue;
+                session.GrantBooster(kind, extra);
+                subsidy[i] += extra; initialSubsidy[i] += extra;
+                // GrantBooster also adjusts Core's initial/undo snapshots; mirror that adjustment.
+                foreach (var snapshot in subsidyHistory) snapshot[i] += extra;
+            }
         }
         public void GrantStarters(int level)
         {
@@ -65,9 +117,9 @@ namespace PerchSort.V5.Game
             for (int i = 1; i <= 40; i++) { yield return StarsKey(i); yield return TutorialKey(i); }
             for (int i = 0; i < V5ViewModel.BoosterCount; i++) { yield return InventoryKey(i); yield return StarterKey(i); }
         }
-        public static V5Profile Load()
+        public static V5Profile Load(V5DevOptions options = null)
         {
-            var profile = new V5Profile
+            var profile = new V5Profile(options ?? V5DevOptions.Load())
             {
                 Coins = Math.Max(0, PlayerPrefs.GetInt(CoinsKey)), Muted = PlayerPrefs.GetInt(MutedKey) != 0,
                 HighestUnlocked = Math.Max(1, Math.Min(40, PlayerPrefs.GetInt(HighestKey, 1)))
