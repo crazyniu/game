@@ -33,3 +33,7 @@ Regenerated Sunny quirk1 to retain idle body size and baseline, and both Sunny/S
 ## Berry checkpoint — 2026-11-04
 
 Completed all 17 Berry sources/320x320 RGBA exports and portrait. Corrected crest-preening quirk2, regenerated right tilt for visible opposing head roll and rejected/regenerated a halo-bearing yawn. Full 17-frame strip and idle-actions GIF refreshed; visual strip review found distinct actions and consistent body scale. Alignment inventory: 52 frames, no clipped exports. Runtime playback and final board comparisons remain pending.
+
+## Berry head-feature correction — 2026-11-04
+
+Lead rejected the first set's upright crest. Regenerated every Berry source frame using `ui7_aviary_detail.png`, `ui7_level_k3_v2.png` and `ui7_aviary_list.png`: exactly two long separated plumes now arc backward, matching the large detail reference. Preserved expressions, poses and readable opposing tilts. Rebuilt all 17 exports plus portrait, strip and GIF. `berry_game_size.png` and `berry_head_reference.png` document the comparison. The prior reviewed torso scale is retained via its 98.311 px toe span, avoiding shrinkage from the wider plume silhouette. Visual game-size review and alignment found no export clipping; runtime remains untested. Minty generation was cancelled to prioritize this correction; its head features were checked against the popup before resuming.
