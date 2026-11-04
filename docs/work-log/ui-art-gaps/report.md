@@ -18,6 +18,10 @@ Replaced `star_full` and `star_empty` at 256 by 256, plus `star_full_small` and 
 
 Reviewed per-item comparisons on light, dark and purple backgrounds at 64 px. Smooth rounded gold and dim cream-beige states have visually matching silhouettes and top-left highlights; no visible matte fringe. The approved level card guided the smooth treatment, with the win panel retained alongside the evidence for context. No star generation was rejected. Runtime verification remains pending.
 
+## Leaf sprig batch
+
+Added `leaf_sprig_a`, `leaf_sprig_b`, and `leaf_sprig_c`, each 180 by 140 RGBA. The first two are distinct three-leaf corner arrangements derived from the approved level card; the third is a newly drawn two-leaf arrangement in the same style. No mirrored variants. Per-item evidence identifies that no prior standalone sprite existed. Reviewed all three on light, dark and purple at 64 px: clean transparency, readable leaf count and fresh green material with top-left light. No leaf generation was rejected. Runtime placement is not wired by this art-only task.
+
 ## Remaining batches
 
-Leaf sprigs, bare sleeping owl and map glyphs remain to be produced in that order.
+Bare sleeping owl and map glyphs remain to be produced in that order.
