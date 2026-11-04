@@ -115,7 +115,7 @@ namespace PerchSort.Editor
         private static void Capture(GameRoot root, RenderTexture target, string path)
         {
             Canvas.ForceUpdateCanvases();
-            root.Canvas.GetComponent<SafeArea>().Apply();
+            root.Canvas.GetComponent<PerchSort.Game.SafeArea>().Apply();
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)root.Canvas.transform);
             foreach (var text in root.GetComponentsInChildren<TextMeshProUGUI>()) text.ForceMeshUpdate();
             Canvas.ForceUpdateCanvases();
