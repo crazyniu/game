@@ -20,34 +20,55 @@ namespace PerchSort.Game
         public bool IsHome { get; private set; }
         public int ArrivalCount { get; private set; }
         internal float EntryRadius => GameLayout.HouseDoorDiameter(bounds.width) * 0.5f;
+        internal static bool UsesBeam(int count) => count > 3;
+        internal static Rect CanvasBounds(int index, int count)
+        {
+            // Visible house art spans (32, 58)..(480, 456) on the shared canvas.
+            // Fit that region, rather than a square that makes seven roofs overlap.
+            Rect visible;
+            if (UsesBeam(count)) visible = GameLayout.House(index, count);
+            else
+            {
+                Rect master = GameLayout.Screen("level_k3", "house");
+                // Three suspension points must clear both the coin pill and gear.
+                float center = count == 3 ? 566 + (index - 1) * 266
+                    : master.center.x + (index - (count - 1) * 0.5f) * 290;
+                visible = new Rect(center - master.width * 0.5f, count == 1 ? master.y : 260, master.width, master.height);
+            }
+            Vector2 size = new Vector2(visible.width * 512 / 448, visible.height * 512 / 398);
+            return new Rect(visible.x - size.x * 32 / 512, visible.y - size.y * 58 / 512, size.x, size.y);
+        }
         public void Configure(GameRoot root, GameArt art, string species, int index, int count)
         {
-            this.art = art; Species = species; bounds = GameLayout.HouseCanvas(index, count);
+            this.art = art; Species = species; bounds = CanvasBounds(index, count);
             house = GameUI.Rect(transform, "Birdhouse", bounds.center, bounds.size);
             var target = house.gameObject.AddComponent<Image>(); target.color = Color.clear; target.raycastTarget = true;
             house.gameObject.AddComponent<LongPress>().Configure(() => root.OpenGoalInfo(Species));
             Vector2 center = bounds.size * 0.5f;
             GameUI.Image(house, "House body", art.Get("house_body"), center, bounds.size);
             Vector2 doorPoint = GameLayout.HouseDoorLocal(bounds.size);
-            float diameter = GameLayout.HouseDoorDiameter(bounds.width);
+            Vector2 opening = bounds.size * (204f / 512);
             var open = art.Optional("house_door_open");
-            if (open != null) openDoorway = GameUI.Fit(house, "Open doorway", open, center, bounds.size);
+            if (open != null) openDoorway = GameUI.Image(house, "Open doorway", open, center, bounds.size);
             else GameArt.Warn("motion:house_door_open", "Missing open doorway part; using the house-body doorway.");
-            var mask = GameUI.Image(house, "Doorway mask", art.DoorMask(), doorPoint, Vector2.one * diameter);
+            var mask = GameUI.Image(house, "Doorway mask", art.DoorMask(), doorPoint, opening);
             mask.gameObject.AddComponent<Mask>().showMaskGraphic = false; doorway = mask.rectTransform;
-            face = GameUI.Fit(doorway, "Species face", art.Portrait(species), Vector2.one * diameter * 0.5f, Vector2.one * diameter);
+            face = GameUI.Fit(doorway, "Species face", art.Portrait(species), opening * 0.5f, opening * (UsesBeam(count) ? 1.35f : 1));
             GameUI.Image(house, "Colored roof", art.Get(Roof(species)), center, bounds.size);
             var leaf = art.Optional("house_door_leaf");
             if (leaf != null)
             {
                 // The padded T48 door occupies (145, 198, 216, 216) in a 512px image.
                 // Put the transform pivot on its visible hinge without allocating a cropped sprite.
-                door = GameUI.Fit(house, "Door leaf", leaf, doorPoint, Vector2.one * (diameter * 512 / 216f));
+                door = GameUI.Image(house, "Door leaf", leaf, doorPoint, bounds.size);
                 door.rectTransform.pivot = new Vector2(145 / 512f, 206 / 512f);
-                door.rectTransform.anchoredPosition += Vector2.left * diameter * 0.5f;
+                door.rectTransform.anchoredPosition += Vector2.left * bounds.width * 108 / 512;
             }
             else GameArt.Warn("motion:house_door_leaf", "Missing door leaf; using whole-house scale during door motion.");
-            check = GameUI.Fit(house, "Home check", art.Get("check_green"), new Vector2(bounds.width * 0.78f, bounds.height * 0.78f), Vector2.one * (count == 1 ? 62 : 44)).gameObject;
+            float checkSize = UsesBeam(count) ? 44 : 62;
+            check = GameUI.Rect(house, "Home check", new Vector2(bounds.width * 0.78f, bounds.height * 0.78f), Vector2.one * checkSize).gameObject;
+            GameUI.Fit(check.transform, "Green badge", art.Get("btn_green"), Vector2.one * checkSize * 0.5f, Vector2.one * checkSize);
+            GameUI.Fit(check.transform, "Check", art.Icon("icon_check"), Vector2.one * checkSize * 0.5f, Vector2.one * checkSize * 0.7f);
             GiftPoint = bounds.position + new Vector2(center.x, bounds.height * 0.2f);
             motion = gameObject.AddComponent<GameMotion>(); doorMotion = gameObject.AddComponent<GameMotion>();
             checkMotion = gameObject.AddComponent<GameMotion>(); particles = gameObject.AddComponent<GameMotion>(); peekMotion = gameObject.AddComponent<GameMotion>();
@@ -106,12 +127,12 @@ namespace PerchSort.Game
         public void Peek(bool visible, Action done)
         {
             peekMotion.CancelAll(); int run = generation;
-            float diameter = doorway.sizeDelta.x;
+            Vector2 opening = doorway.sizeDelta;
             face.gameObject.SetActive(true);
             peekMotion.Play(0.2f, t =>
             {
                 float progress = visible ? t : 1 - t;
-                face.rectTransform.anchoredPosition = new Vector2(diameter * 0.5f, -diameter * 0.5f - diameter * (1 - progress));
+                face.rectTransform.anchoredPosition = new Vector2(opening.x * 0.5f, -opening.y * 0.5f - opening.y * (1 - progress));
             }, () => { if (run == generation) { face.gameObject.SetActive(visible); done?.Invoke(); } });
         }
         public void Arrival()
