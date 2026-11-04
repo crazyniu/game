@@ -41,9 +41,14 @@ namespace PerchSort.Game
         public void PlaceLighting(Transform board) => night.rectTransform.SetParent(board, false);
         public void SetLevel(BoardState state)
         {
-            SetWorld(state.World, state.Variant, state.Phase);
+            int rows = (state.Branches.Count + 1) / 2;
+            foreach (var branch in state.Branches) rows = Mathf.Max(rows, branch.Row + 1);
+            BuildWorld(state.World, state.Variant, state.Phase, rows);
         }
         public void SetWorld(int world, string variant = "noon", DayPhase lighting = DayPhase.Day)
+            => BuildWorld(world, variant, lighting, 2);
+
+        private void BuildWorld(int world, string variant, DayPhase lighting, int rows)
         {
             Cancel();
             background.sprite = art.Background(world, variant);
@@ -55,6 +60,7 @@ namespace PerchSort.Game
             {
                 bool right = side == 1;
                 Rect wood = GameLayout.WorldTrunk(world, right), leaves = GameLayout.WorldCrown(world, right);
+                if (rows >= 3) ClearFirstRow(ref wood, ref leaves, right, rows);
                 var stem = GameUI.Rect(scenery, "Edge trunk", wood.center, wood.size).gameObject.AddComponent<ForestTrunkImage>();
                 stem.sprite = trunk; stem.raycastTarget = false;
                 var foliage = GameUI.Image(scenery, "Leaf crown", crown, leaves.center, leaves.size);
@@ -68,6 +74,20 @@ namespace PerchSort.Game
             phaseTarget = lighting == DayPhase.Night ? 1 : 0;
             night.color = new Color(1, 1, 1, phaseTarget);
             ambient.SetWorld(world, variant, lighting == DayPhase.Night, leftCrown, rightCrown);
+        }
+        private static void ClearFirstRow(ref Rect wood, ref Rect leaves, bool right, int rows)
+        {
+            float attachmentY = wood.y + 35;
+            float attachmentX = right ? GameLayout.DesignWidth - 25 : 25;
+            float scale = leaves.width > 400 ? 0.72f : 1;
+            float crownBottom = GameLayout.RowY(0, rows) - GameLayout.BirdSize * GameLayout.BirdScale(rows) * 1.1f - 16;
+            float rootOffset = (attachmentY - leaves.y) * scale;
+            leaves.x = attachmentX + (leaves.x - attachmentX) * scale;
+            leaves.size *= scale;
+            // Clear the full first-row bird silhouette, with breathing and crown-sway headroom.
+            leaves.y = Mathf.Min(leaves.y, crownBottom - leaves.height);
+            wood.y = leaves.y + rootOffset - 35;
+            wood.height = GameLayout.DesignHeight - wood.y + 80;
         }
         public void Entrance(float alpha)
         {

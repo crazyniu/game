@@ -4,7 +4,7 @@
 
 Branch: `mac-ui-board/t53`, based on the supplied `t53-ui-fidelity` tip (`5ba155e820b37a157b1f8a494af9c607b0f05d9e`).
 
-D1/D2 have visible geometry improvements, but **exact approved-image fidelity is not achieved**. The authored board/approved illustration mismatch and missing forked-trunk artwork described below remain. Unity compilation and EditMode passed; PlayMode has one timed-flight failure. This report does not claim visual acceptance or passing full acceptance.
+D1/D2 have visible geometry improvements, but **exact approved-image fidelity is not achieved** because forked-trunk artwork remains blocked. The coordinator has resolved the illustration-versus-level count difference in favor of all playable Places. The authorized per-density crown correction is implemented and re-captured: crowns clear the first-row bird silhouettes on the three-/five-row boards. Compilation through the latest capture succeeded. The earlier full-suite results below retain one coordinator-confirmed pre-existing timed-flight failure; they are not claimed as a fresh full-suite run for the crown correction.
 
 ## Owned changes
 
@@ -14,7 +14,7 @@ Only these runtime source files were edited:
 - `PerchSort/Assets/Scripts/Game/SceneView.cs`
 - `PerchSort/Assets/Scripts/Game/GameLayout.cs`
 
-`BoardView.cs` and `Ambient.cs` were intentionally unchanged. Bird rendering, slot coordinates, hit targets, authored levels, Core/Meta, peer-owned UI, artwork, and existing tests were not edited. No new artwork or permanent tests were added. The required task report is the only new tracked document.
+`BoardView.cs` and `Ambient.cs` were intentionally unchanged. Bird rendering, slot coordinates, hit targets, authored levels, Core/Meta, peer-owned UI, artwork, and existing tests were not edited. No new artwork or permanent tests were added. The required report and four coordinator-requested review screenshots under `tasks/evidence/T53A/` are included in the branch.
 
 ### D1: trees and crowns
 
@@ -22,6 +22,7 @@ Only these runtime source files were edited:
 - Enlarged the non-snow crowns from a 400-pixel canvas to 500 pixels on the left and 540 on the right; both are attached using the existing measured crown-root coordinates.
 - Sized trunks from the crown attachment to below the screen rather than stretching a 1920-pixel column down from an arbitrary top.
 - Moved snowy crowns to cropped outer-edge placements. A first iteration enlarged them like the green-world crowns; actual comparison showed that this obscured the top-row silhouette and did not resemble the approved snowy board. The final capture uses small side-edge snow foliage instead.
+- Follow-up authorized density adaptation lives entirely inside `SceneView`: row count matches `BoardView`'s derivation; boards with at least three logical rows shrink broad crowns to 72% and shift the crown canvas above the full first-row bird height plus breathing/sway clearance. Already-cropped snowy crowns shift upward without further shrinking. Trunk tops are recomputed from the same transformed crown-root offset so the trees stay attached. Sparse level-1 scenery is unchanged.
 - Existing crown sway and ambient motion are unchanged.
 
 ### D2: branches
@@ -42,7 +43,7 @@ Existing `leaf_fall_wN` effects remain unchanged. Vine/sprig artwork is embedded
 
 ## Runtime visual evidence
 
-Executed `flock /tmp/unity.lock bash scripts/screenshots.sh` three times: baseline, first geometry iteration, final snowy-crown correction. All three completed successfully. No user Editor was running when the initial process check was made; no Editor was killed. `flock` was initially unavailable and was installed with Homebrew before any Unity launch.
+Executed `flock /tmp/unity.lock bash scripts/screenshots.sh` four times: baseline, first geometry iteration, snowy-crown correction, and the authorized density-aware crown correction. All four completed successfully. No user Editor was running at the initial or follow-up process checks; no Editor was killed. `flock` was initially unavailable and was installed with Homebrew before any Unity launch.
 
 The approved/runtime side-by-sides were generated with `/tmp/t53a/compare.py` (outside the repository), opened and visually inspected. Final full-resolution comparisons are in this Mac workspace:
 
@@ -53,9 +54,20 @@ The approved/runtime side-by-sides were generated with `/tmp/t53a/compare.py` (o
 | `level_k7` / level 40 | 5 logical row indices, 9 actionable limbs | `ui7_level_k7.png` | `build/t53a/level_k7_comparison.png` |
 | `world_w3` / level 30 | 5 logical row indices, 9 actionable limbs | `ui7_level_k7.png`, structure comparison only; different forest world | `build/t53a/world_w3_comparison.png` |
 
-Uncomposited final frames are preserved as `build/t53a/{level1_start,level_k3,level_k7,world_w3}_final.png`. Initial frames are preserved as matching `_before.png` files. `build/t53a/mech_growing_final.png` was also inspected to verify the shortened limb retains a rounded end; `mech_crow_twig_final.png` is retained. Canonical capture output remains under `build/screens/game/`. All generated evidence is gitignored and is not part of the branch.
+Uncomposited final frames are preserved as `build/t53a/{level1_start,level_k3,level_k7,world_w3}_final.png`. Initial frames are preserved as matching `_before.png` files. `build/t53a/mech_growing_final.png` was also inspected to verify the shortened limb retains a rounded end; `mech_crow_twig_final.png` is retained. Canonical capture output remains under `build/screens/game/`. These full-resolution build artifacts are gitignored.
+
+The four latest approved/runtime review images are committed for cross-host review. Each is **1184x1080 JPEG, quality 80**; encoded JPEG quantization tables and the height limit were verified after writing:
+
+- [`tasks/evidence/T53A/level1_start_comparison.jpg`](evidence/T53A/level1_start_comparison.jpg)
+- [`tasks/evidence/T53A/level_k3_comparison.jpg`](evidence/T53A/level_k3_comparison.jpg)
+- [`tasks/evidence/T53A/level_k7_comparison.jpg`](evidence/T53A/level_k7_comparison.jpg)
+- [`tasks/evidence/T53A/world_w3_comparison.jpg`](evidence/T53A/world_w3_comparison.jpg)
+
+All four JPEGs were opened and inspected. The latest green three-row and autumn/snow five-row captures show crown/first-row separation with trunk attachment preserved; the sparse level-1 composition remains unchanged. The external comparison utility is still `/tmp/t53a/compare.py`.
 
 ## Verification
+
+The full-suite counts below belong to the initial geometry delivery. After the density-aware crown change, the locked screenshot command compiled and ran the real Unity capture path successfully; all four new review comparisons were inspected. Full EditMode/PlayMode suites were not rerun for this follow-up, and the coordinator-reported pre-existing flight failure was not rerun to reconfirm it.
 
 1. `python3 ci/check_current_game_names.py`
    - PASS: 567 tracked text files inspected, zero violations.
@@ -75,8 +87,8 @@ Stable capture exercises the actual Unity rendering/capture path, not animation 
 ## Remaining differences / requested contract change
 
 1. **D1 artwork limitation:** `trunk_left_w1.png` through `trunk_left_w4.png` are straight bark columns, not the approved forked tree silhouettes. `branch_left_wN.png` supplies a shallow flared root with a vine/sprig, not the approved continuous heavy curved trunk-to-limb junction. The geometry correction improves taper/connection but cannot recreate the painted forks, broad curved junctions and snow masses exactly. Missing artwork regions: green master x=0..150 and x=930..1080 from roughly y=690 downward; snowy master side trunks and main limb joints from roughly y=600..1680. Stop on replacement artwork per contract: coordinator must supply approved derived forked/junction assets, or explicitly authorize a resource-owner change. No originals were modified or invented.
-2. **D2 authored-board constraint:** approved green master has 4 main limbs; approved snowy master has 5 main limbs plus a crow perch. Current level 5 has 5 actionable limbs; current level 40 has 9. Level 40's existing interleaved rows have about 98-pixel opposite-side spacing; the illustration's main limbs are about 210 pixels apart. Matching that count/spacing by deleting/hiding branches would change or conceal playable Places. Coordinator must resolve the illustration-versus-level acceptance contract; this worker preserved all authored branches and anchors as instructed.
-3. **Crown/row interaction:** large green/autumn crowns remain behind the earliest birds on three-/five-logical-row boards because their first perch is at y=760, unlike the green master's first perch around y=925. Moving birds or changing row layout was deliberately not used as a cosmetic workaround. A per-density crown layout or approved density-specific composition needs coordinator agreement alongside item 2.
+2. **D2 authored-board difference, coordinator decision:** approved green master has 4 main limbs; approved snowy master has 5 main limbs plus a crow perch. Current level 5 has 5 actionable limbs; level 40 has 9. Level 40 retains its approximately 98-pixel opposite-side spacing rather than the illustration's approximately 210-pixel main-limb spacing. The coordinator explicitly decided that playable Places win: all authored branches and anchors stay visible and unchanged; no hiding or merging is permitted.
+3. **Crown/row interaction, resolved:** per-density placement was authorized and implemented in `SceneView`. The latest three-/five-row comparisons show crowns clear of first-row bird silhouettes, still attached to their raised trunk tops. This is no longer an open limitation.
 4. Houses/HUD/boosters, tutorial hand, bird species/poses, background variant, coin totals and bottom foreground differ in the full screenshots. They are outside this worker's ownership; no whole-screen match is claimed.
 5. The pre-existing timed flock-arrival failure is still present in this branch's test results. The coordinator owns integration of the existing `c074716` fix; these worker results are not an all-green acceptance claim.
 
@@ -84,4 +96,4 @@ Stable capture exercises the actual Unity rendering/capture path, not animation 
 
 Before the coordinator's latest routing correction, the repository-designated Codex session received two accepted Orca messages on the connected host: `msg_4e0963cf3c9e` (fidelity constraints), `msg_3dcf967a8228` (test failure). The coordinator then explicitly confirmed the pre-existing failure and instructed this worker to deliver the final SHA through its last terminal message, not the Codex route. Final delivery follows that instruction; no further Codex notification is sent.
 
-No merge, main update, release or peer-branch integration was performed. Commit staging is limited to the three owned source files and this report; Unity-generated scene/project/import state is not included or blindly restored.
+No merge, main update, release or peer-branch integration was performed. Initial staging was limited to the three owned source files and this report; follow-up staging includes only `SceneView.cs`, this report and the four expressly requested review JPEGs. Unity-generated scene/project/import state is not included or blindly restored. Final delivery remains through the last terminal message, not the Codex route.
