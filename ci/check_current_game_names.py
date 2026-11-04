@@ -25,6 +25,8 @@ TEXT_SUFFIXES = {
     ".uss", ".shader", ".cginc", ".hlsl", ".py", ".sh", ".md", ".csproj",
     ".props", ".targets", ".toml", ".ini", ".cfg", ".gitignore",
 }
+TEXT_SUFFIXES.update({".js", ".jsx", ".ts", ".tsx", ".html", ".css", ".svg",
+                      ".c", ".cpp", ".h", ".hpp", ".m", ".mm", ".lua", ".ps1"})
 # Exact persisted literals remain owner-scoped in code. Documentation may quote
 # these exact literals, but never a wildcard that licenses new keys.
 STORAGE_LITERALS = {
@@ -87,14 +89,6 @@ def path_violations(path):
 
 
 def identifier_lines(path, text):
-    if PurePosixPath(path).suffix.lower() == ".json":
-        for number, line in enumerate(text.splitlines(), 1):
-            # Image-generation prompt bodies are prose, not identifier fields.
-            # Their exact historical wording remains provenance evidence.
-            if re.match(r'\s*"(?:prompt|prompt_prefix)"\s*:', line):
-                continue
-            yield number, line
-        return
     if PurePosixPath(path).suffix.lower() != ".md":
         yield from enumerate(text.splitlines(), 1)
         return

@@ -4,7 +4,7 @@ from PIL import Image,ImageOps,ImageDraw
 import json,math,hashlib
 P=Path(__file__).resolve().parent; ROOT=P.parents[2]; OUT=ROOT/'PerchSort/Assets/Resources/Birds'
 QA=P/'qa';PARTS=P/'prepared_parts';PARTS.mkdir(exist_ok=True)
-records={r['name']:r for r in json.loads((P/'generation.json').read_text())};prep={}
+records={r['name']:r for r in json.loads((ROOT/'docs/team/HANDOFF_2026-11-03_EGG_GENERATION.json').read_text())};prep={}
 def cut(name,threshold):
     im=Image.open(P/'raw'/(name+'.png')).convert('RGBA');a=im.getchannel('A')
     a=a.point(lambda v:round(max(0,v-threshold)*255/(255-threshold)))

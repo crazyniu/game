@@ -26,6 +26,8 @@ class NamingPolicyTests(unittest.TestCase):
                      '{"schemaVersion":"v' + '2"}'):
             with self.subTest(text=text):
                 self.assertTrue(list(guard.content_violations("tools/author.cs", text)))
+        self.assertTrue(list(guard.content_violations(
+            "ci/data.json", '{"prompt":"GameV' + '5"}')))
 
     def test_storage_exception_is_exact_and_owner_scoped(self):
         owner = guard.ASSETS + "Scripts/Game/ProgressStore.cs"

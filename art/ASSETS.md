@@ -135,4 +135,4 @@ art/.venv/bin/python art/tools/build_assets.py
 
 已直接目检深浅底总图与睡眠对比图，未见明显白边、棋盘格底或裁切；四角闪光 / 五角金星、空巢 / 完成巢在 64px 下可以区分。木箱的小锁与通气槽在 64px 下属于细节，实际应按整根栖木宽度显示。最终视觉认可和运行时遮挡、缩放、动画仍由接入验收确认。
 
-单独重建 v2：the historical exporter recorded in Git。若重建初版全部资产，先运行 `build_assets.py`，再运行 the historical exporter recorded in Git（初版脚本会重建 manifest，v2 脚本负责追加 v2 条目）。不要只运行初版脚本后遗漏第二步。
+T54 cleanup removed the superseded source masters and their exporter from the working tree. The links above preserve provenance in Git. Do not run a historical exporter against the canonical game or claim the removed masters can be rebuilt from the retained tree.

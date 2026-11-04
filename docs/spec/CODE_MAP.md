@@ -35,15 +35,15 @@ Version-looking PlayerPrefs keys and serialized DataMember/SaveData fields are c
 
 ## Retired paths
 
-Old `Scripts/{Core,UI,View}`, legacy Game/Sample scenes, obsolete editor tools/importers and old-contract test suites are stored under `archive/retired/PerchSort/Assets/` outside Unity. Current scripts/tests moved with metadata; the current scene replaced the old Game entry after its archive. Obsolete aspect/front-bird scripts are under `archive/retired/scripts/`. Shared Audio, PhoneGameView, ReleaseSettings and original `art/` sources are not retired.
+Retired runtime/editor/test trees and superseded art have been removed. Git preserves their history; do not recreate them in the working tree. Shared Audio, PhoneGameView, ReleaseSettings and the retained current art remain canonical.
 
-Historical implementation/research claims remain in their original reports and [old design record](../archive/DESIGN_ORIGINAL.md). The v4 [RULES](RULES.md)/[DATA_SAVE](DATA_SAVE.md) proposal is historical, not this runtime's rules/save implementation. The current [design record](../GAME_DESIGN.md) retains its filename as evidence; later T49/T50 reports and actual source supersede its older presentation/ownership/path prose. Do not revive any retired code from those links.
+Historical implementation/research claims remain in reports and the [old design record](../archive/DESIGN_ORIGINAL.md). The older [RULES](RULES.md)/[DATA_SAVE](DATA_SAVE.md) proposal is not today's runtime contract. The canonical [design record](../GAME_DESIGN.md), later accepted contracts and actual source resolve older presentation/ownership prose.
 
 ## Tools and evidence
 
-- `scripts/run_tests.sh`: only `PerchSort.Editor.GameSceneBuilder.Build`; retained EditMode/PlayMode suites. Source safeguards: 304 EditMode = 237 current game + 53 Meta + 14 Audio; 17 PlayMode; no skipped/ignored/explicit cases. LevelsData 81 includes 40 solver/replay cases; Layout 41 includes 24 combinatorial. Actual discovery must be reconciled by coordinator.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: builds only Game.unity, then runs full EditMode/PlayMode suites. T54 baseline: 304 EditMode = 237 game + 53 Meta + 14 Audio; 21 PlayMode; no skips. LevelsData 81 includes 40 solver/replays; Layout 41 includes 24 combinatorial. Reconcile actual discovery; never lower safeguards.
 - `scripts/screenshots.sh`: only `PerchSort.Editor.GameCapture.Run`; `build/screens/game/`, stable states at 1080×1920. Archived old animation/resume/aspect assertions do not become current proof.
 - `ci/CoreTests.csproj`: real current Core plus 13 current pure-Core fixture classes and TestBoards; copied current fixture JSON. `DOTNET_CI` changes fixture transport only, not production rules/assertions. Unity-dependent suites remain covered by the required Mac run.
 - `.github/workflows/ci.yml` and `ci/check_changes.py`: current source/resource/test/project/script inputs only; automatic tests retained; archives excluded. Workflow dependencies' own version numbers are unrelated to game identity.
 
-**Worker validation: static only; Unity/import/compile/tests/GUI NOT_RUN. Stage testing: REQUIRED, current Codex coordinator-owned after integration.** Known scene InputSystem action-ID reserialization, sprite metadata import and actual GameRoot startup require Unity checks. Historical passing numbers, independent replay certificates and static images are not new runtime acceptance.
+Workers run applicable serialized Unity compilation/tests/screenshots; integration acceptance remains required. Scene InputSystem action-ID reserialization, sprite imports and actual startup need observed checks. Historical counts, replay certificates and static images are not new runtime or timed-animation evidence.

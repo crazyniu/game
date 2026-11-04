@@ -2,7 +2,7 @@
 
 ## Identity and authority
 
-There is one current Perch Sort game: the accepted T49/T50 source/art behavior, reorganized by T52. Unity 6000.6.7f1, portrait 1080×1920 design canvas, 40 fixed authored levels across four sequential forest worlds. T52 changes organization and identity, not rules, economy, approved art or progress.
+There is one Perch Sort game: Unity 6000.6.7f1, portrait 1080×1920 design canvas, 40 fixed authored levels across four sequential forest worlds. T54 changes music, entrance/idle motion, button consistency and repository naming under separate ownership; it does not redesign rules, economy or saves.
 
 Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0051b40279c77a0b9a758533`; GameRoot script GUID is `07203ec62b1604449b634c729c1303a3`. The root retains its serialized Fredoka font reference. There is exactly one enabled build scene. Static preservation does not prove Unity import: InputSystem scene action IDs and actual root initialization need coordinator verification.
 
@@ -10,10 +10,10 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 
 - Maintain **ONE current game**, editing canonical files in place. Never create V-numbered parallel folders, files, classes, namespaces, scenes or resource roots, or alternate current implementation copies under any other name.
 - Task branches and PRs are temporary collaboration reviewed and merged into `main`; they are not permanent runnable forks or alternative current implementations.
-- Only three narrow exceptions exist: **exact existing storage IDs solely for save compatibility**; **preserved historical archives/original-art provenance**, never active implementation copies; and **legitimate dependency/schema/release metadata**. Existing storage IDs do not authorize new versioned keys. No new arbitrary exceptions or broad allowlists.
+- Exceptions are limited to `.git`, third-party package files, lockfiles, dated handoff/report evidence under `tasks/` and `docs/team/`, and exact storage-key literals. No historical implementation archive or numbered original-art filename is exempt. History lives in Git.
 - Review acceptance must check canonical in-place edits, absence of parallel implementation identities/copies, one enabled Game scene, canonical resource roots, and an exact allowed reason for each retained version-looking identifier. `python3 ci/check_current_game_names.py` must pass before tests; the guard complements human review and required Mac acceptance.
 
-[`art/approved_ui/layout.json`](../art/approved_ui/layout.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
+[`art/approved_ui`](../art/approved_ui) contains the approved visual acceptance targets. Its [layout metadata](../art/approved_ui/layout.json) is offline measurement/provenance, not a second runtime. Actual UI screenshots must visibly match the reference images; canonical GameLayout and current resources implement the game.
 
 ## Read current behavior at its owner
 
@@ -22,7 +22,7 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 | Board model, move resolution, eggs, sleep/family/crow, swivel/growth/day-night, Chorus, undo, solver | [Core](../PerchSort/Assets/Scripts/Core) |
 | Profile, unlocks, world/collection/economy policies | [Meta](../PerchSort/Assets/Scripts/Meta) |
 | Map, HUD, board, notifications, intro, panels and motion | [Game](../PerchSort/Assets/Scripts/Game) |
-| Accepted mechanics/design decisions | [design record](GAME_DESIGN.md) (historical filename; later contracts supersede its old layouts/roadmap) |
+| Accepted mechanics/design decisions | [design record](GAME_DESIGN.md) (later contracts supersede its old layouts/roadmap) |
 | Latest accepted bird/overlay and presentation integration | [T49](../tasks/T49_report.md), [egg/overlay report](../tasks/T49_eggs_report.md), [T50](../tasks/T50_report.md) and linked A/B/C/D/E owner reports |
 | Current organization / verification boundary | [CODE_MAP](spec/CODE_MAP.md), [T52C report](../tasks/T52C_report.md), [handoff](team/HANDOFF_2026-11-04_CODEX.md) |
 
@@ -38,7 +38,7 @@ T49/T50 supplies the approved plush/soft forest visual treatment, final ten-spec
 - Sprites: `Resources/Art`, `Resources/Birds`, `Resources/World`. T52 resource contract retains 345 current full-art PNGs plus six still-used compressed fallback PNGs. No runtime numbered fallback folders.
 - Editor: `PerchSort/Assets/Editor/Game`, namespace **`PerchSort.Editor`**, containing `GameSceneBuilder.Build`, `GameArtImporter.ImportExisting`, `GameCapture.Run`. The builder creates only Game.unity and never invokes retired importers. Shared `PhoneGameView`, `ReleaseSettings` and Audio importer remain.
 - Tests: `Tests/EditMode` (`PerchSort.EditModeTests`), `Tests/Meta` (`PerchSort.Meta.EditModeTests`), `Tests/PlayMode` (`PerchSort.PlayModeTests`). Shared Audio keeps its independent nested asmdef and namespace.
-- Retired code/scenes/tests/tools: `archive/retired/` outside Unity Assets and runtime/test CI inputs. Historical originals/research stay preserved, not runnable alternatives.
+- Retired code/scenes/tests and superseded art were removed by T54E. Retrieve historical evidence from Git, never restore an alternate implementation into the tree.
 
 ## Import and persistence safety
 
@@ -50,11 +50,11 @@ Persistence strings `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.
 
 ## Required validation
 
-The user superseded the old no-tests instruction: the current Codex coordinator must integrate all task deliveries and serialize **Mac compilation, EditMode, PlayMode and GUI acceptance**. T52 workers do not launch Unity independently. No worker static report establishes runtime acceptance.
+Workers must perform applicable Mac compilation, full EditMode/PlayMode testing and screenshots in their isolated worktrees, serialized with `flock /tmp/unity.lock`. The coordinator also reviews the integrated game. Never launch competing Unity processes or kill the user's Editor. Static worker reports do not establish runtime acceptance.
 
-`bash scripts/run_tests.sh` builds the sole scene, then checks at least 304 EditMode cases (237 current game, 53 Meta, 14 Audio) and 17 PlayMode UnityTests, with no skipped/ignored/explicit cases. It separately guards LevelsData's 81 expanded cases (including 40 optimal solver/replays) and Layout's 41 (including 24 combinatorial). These are source-derived expectations; investigate actual discovery discrepancies.
+`flock /tmp/unity.lock bash scripts/run_tests.sh` builds the sole scene, then runs the full retained suites. T54 baseline: 304 EditMode (237 game, 53 Meta, 14 Audio), 21 PlayMode, no skipped/ignored/explicit cases. LevelsData retains 81 expanded cases (including 40 solver/replays), Layout 41 (including 24 combinatorial). These are expectations, not new results; investigate discovery discrepancies without lowering safeguards.
 
-`bash scripts/screenshots.sh` uses the current capture tool for stable-state PNGs under `build/screens/game/`. It preserves current first-level/map/popup/mechanic checks. Old saved-resume/animation-sequence/aspect assertions with no current equivalent are archived, not rewritten into false proof. Required GUI acceptance must additionally exercise real motion, input/cancellation, notifications/persistence, maps/gates and overlay alignment. Record exact results and remaining limits.
+`flock /tmp/unity.lock bash scripts/screenshots.sh` captures stable-state PNGs under `build/screens/game/`. Instant capture does not prove animation, persistence or device behavior. Animation/audio claims require timed evidence under [the shared contract](../tasks/T54_contract.md): real frame sequences and logs. Applicable GUI acceptance also exercises input/cancellation, notifications/persistence, maps/gates and overlay alignment.
 
 PR CI preserves automatic source/configuration checks and the existing .NET test job, retargeted to real current pure-Core fixture files. The shared TestBoards helper has a `DOTNET_CI` JSON/file transport branch; Unity keeps its actual LevelLoader path. This is not a runtime shim or substitute for Unity loader/resource testing. Source/test/fixture changes select the job; retired archives never do.
 
@@ -62,4 +62,4 @@ CI runs the naming guard unconditionally before the .NET test steps. The guard r
 
 ## Historical reference boundary
 
-The v2 runtime records and v4 PRD/RULES/DATA_SAVE/MECHANIC_EVIDENCE/replay documents remain research/history, not current runtime authority. No historical certificate or passing count validates this cutover. Historical design/task filenames and originals under `art/` remain unchanged so their evidence and provenance survive. Use this entry and the current code map instead of old “future implementation”, Linux/Claude-led or numbered-scene instructions.
+Old runtime records, PRD/RULES/DATA_SAVE proposals and replay documents remain research/history, not current runtime authority. No historical certificate or passing count validates a new change. Canonical design/art/tool filenames have been cleaned; historical references link to Git where needed. Use this entry and the current code map rather than historical ownership, numbered scenes or obsolete paths.

@@ -45,3 +45,4 @@ sysinfo.txt
 /archive/
 /tools/levels/**/bin/
 /tools/levels/**/obj/
+!/tools/levels/LevelTool/LevelTool.csproj
