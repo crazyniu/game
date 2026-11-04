@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PerchSort.Game
 {
-    // Derived from art/v7/layout_v7.json: screens, HUD, count adaptation, map and aligned house parts.
+    // Approved forest layout: screens, HUD, count adaptation, map and aligned house parts; see docs/CURRENT_GAME.md.
     // All points are top-left 1080x1920 pixels. House parts retain their shared 512x512 canvas.
     public static class GameLayout
     {
