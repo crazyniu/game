@@ -6,6 +6,7 @@
 - Moved 271 legacy work-log and evidence files with `git mv`, added the subject index, updated references, and left the separately owned motion-evidence directory untouched.
 - Renamed nine test classes, their files and Unity metadata without changing test method bodies or assertions. Renamed the remaining numbered archive, level-work and scene-template paths.
 - Extended the naming guard and added a fixture for task names and dates. The existing incompatible guard fixtures were not altered.
+- Applied the coordinator's mirroring clarification to the conventions and their embedded copy; static scenery may reuse mirrored art, while birds and animations may not.
 
 ## Verification
 
@@ -14,7 +15,7 @@
 - Tracked-path search requested by the specification produced no matches.
 - `git diff --stat -M` detects the moved files as renames.
 - `PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py --self-test`: **9 tests, 2 failures**. The pre-existing history-exception and numbered-task-path assertions require precisely the exemptions the new policy removes. They were not changed because the assignment forbids assertion changes.
-- `PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py`: **1,602 tracked text files inspected; 1,898 violations** at the time of measurement. Remaining identifiers occur in historical records, approved-art metadata and existing test environment-variable names. They were not silently rewritten or exempted.
+- `PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py`: **1,602 tracked text files inspected; 1,360 violations** after excluding ISO date-time separators from task-token matches. A direct boundary check accepted an ISO timestamp and rejected a numbered task identifier. Remaining identifiers occur in historical records, approved-art metadata and existing test environment-variable names. They were not silently rewritten or exempted.
 
 ## Remaining boundaries
 

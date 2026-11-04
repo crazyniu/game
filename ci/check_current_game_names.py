@@ -121,6 +121,8 @@ def content_violations(path, text):
             return " " * len(match.group()) if match.group(2) in allowed else match.group()
 
         checked = QUOTED.sub(mask_literal, line)
+        # ISO date-time separators are not task identifiers.
+        checked = re.sub(r"(?<=\d{4}-\d{2}-\d{2})T(?=\d{2}:)", " ", checked)
         # A workflow's pinned action ref is third-party package metadata, not an
         # authored game identity. Do not exempt the rest of the workflow file.
         checked = re.sub(r"(?<=uses: )[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+@[^\s]+",

@@ -119,7 +119,7 @@ namespace PerchSort.Core
         {
             State = initial.Clone(); history.Clear(); ClearPresentation();
         }
-        // Authorized L1 HUD compatibility until T34: free Sapling effect, shared once-per-level allowance.
+        // Authorized HUD compatibility: free Sapling effect, shared once-per-level allowance.
         public bool AddBranch()
         {
             ClearPresentation();

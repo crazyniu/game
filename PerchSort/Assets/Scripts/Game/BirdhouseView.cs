@@ -62,7 +62,7 @@ namespace PerchSort.Game
             var leaf = art.Optional("house_door_leaf");
             if (leaf != null)
             {
-                // The padded T48 door occupies (145, 198, 216, 216) in a 512px image.
+                // The padded door occupies (145, 198, 216, 216) in a 512px image.
                 // Put the transform pivot on its visible hinge without allocating a cropped sprite.
                 door = GameUI.Image(house, "Door leaf", leaf, doorPoint, bounds.size);
                 door.rectTransform.pivot = new Vector2(145 / 512f, 206 / 512f);

@@ -58,7 +58,7 @@ One game, one version. Unity 6000.6.7f1, portrait, 40 authored levels in four fo
 6. Top goal houses: empty dark doorway at level start; a coloured bird appears only after its species is delivered; undo empties it again.
 
 ## 5. Animation standards
-1. A bird action is a sequence of different drawn frames. Scale, rotation, shake and mirroring of a single still are never an action. Only breathing (scale y 1.000-1.020, x 1.000-0.992, period 2.4-3.2 s) and a 0.10 s landing squash are allowed as transforms. Mirroring a sprite (negative scale.x) is forbidden everywhere.
+1. A bird action is a sequence of different drawn frames. Scale, rotation, shake and mirroring of a single still are never an action. Only breathing (scale y 1.000-1.020, x 1.000-0.992, period 2.4-3.2 s) and a 0.10 s landing squash are allowed as transforms. Mirroring (negative scale.x) is forbidden for birds and for any animation or action. Static scenery (tree trunks, crowns, branches, transition curtains) may reuse mirrored art.
 2. Perched birds always breathe and perform random actions 1.0-3.0 s apart; at most three birds of a branch act at once; neighbours never start the same action within 0.6 s. Exact weights, frame rates and durations: `docs/work-log/bird-frame-sequences/spec.md` (animation tables). Missing sequences are removed from the draw, never faked.
 3. Level entrance: 3.5-4.5 s from tap to playable; houses, then branches, then birds; a tap skips; input unlocks at the end.
 4. Win panel: panel scale-in with overshoot, ribbon drop, stars one after another 0.18 s apart, counters counting up, rays rotating, confetti about 3 s, side and hero birds fly in and then keep animating until the panel closes.
