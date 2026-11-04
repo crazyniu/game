@@ -147,6 +147,7 @@ namespace PerchSort.Game
             if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
             Session = profile.CreateSession(level);
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
+            if (starters && notificationsEnabled) entrance.Prepare();
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
             if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
