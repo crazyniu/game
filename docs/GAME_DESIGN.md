@@ -74,7 +74,7 @@ Purpose: teach tap-select, tap-move and the flock-home payoff in under 20 second
 
 N=4, K=2 (`sunny`, `sky`), par=2. Intended line: B0→B1 (sky flock home), then B2→B0 (sunny flock home). Tutorial hand: pulse on B0, then on B1; after the first homecoming, pulse B2 then B0. Tutorial shows only on the first play of level 1 and only hands, no text.
 
-Level data lives in `PerchSort/Assets/Resources/V5/levels.json`:
+Level data lives in `PerchSort/Assets/Resources/Levels/levels.json`:
 
 ```json
 { "levels": [ { "id": 1, "capacity": 4, "par": 2,
@@ -87,7 +87,7 @@ Level data lives in `PerchSort/Assets/Resources/V5/levels.json`:
 
 ## 3.0 HUD v6 (decided 2026-11-03, supersedes the layout in the next table where they conflict)
 
-The user chose the **cream-glass style (variant A)** from the T40 mockups (`art/v6/mock/level_k3_a.png`, `level_k7.png`, `win.png`, `settings.png`, `unlock_card.png`, `map.png`, `level_card.png`, `icon_sheet.png`, measurements in `art/v6/mock/spec_notes.md`). Rules: cream rounded-square buttons (radius 28, 3 px warm-brown outline, soft shadow), colored pictogram icons with dark-brown outline, no glossy orange wood; top row = coin chip left / leaf-shaped level badge centre / settings right, gaps >= 60; one **goal tray** (cream plank hanging from the canopy on two ropes) with one goal chip per species (tinted mini birdhouse, species face in the door, 4 progress dots, green check when home, 44 px gift badge top-right, long-press info card) replaces the big hanging birdhouses; bottom bar up to 4 buttons 116x116 at y=1745 (x = 225/435/645/855) with 40 px count badges; no Song meter; branches never touch (left tips at most x=510, right tips at least x=570); playable band y 420..1600. The full-size numbers of the old table (150 px buttons, 300 px houses, tracker pill, Song pill) are obsolete.
+The user chose the **cream-glass style (variant A)** from the T40 mockups ([art/v6/mock/level_k3_a.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/GAME_DESIGN_V5.md#L90), `level_k7.png`, `win.png`, `settings.png`, `unlock_card.png`, `map.png`, `level_card.png`, `icon_sheet.png`, measurements in [art/v6/mock/spec_notes.md](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/GAME_DESIGN_V5.md#L90)). Rules: cream rounded-square buttons (radius 28, 3 px warm-brown outline, soft shadow), colored pictogram icons with dark-brown outline, no glossy orange wood; top row = coin chip left / leaf-shaped level badge centre / settings right, gaps >= 60; one **goal tray** (cream plank hanging from the canopy on two ropes) with one goal chip per species (tinted mini birdhouse, species face in the door, 4 progress dots, green check when home, 44 px gift badge top-right, long-press info card) replaces the big hanging birdhouses; bottom bar up to 4 buttons 116x116 at y=1745 (x = 225/435/645/855) with 40 px count badges; no Song meter; branches never touch (left tips at most x=510, right tips at least x=570); playable band y 420..1600. The full-size numbers of the old table (150 px buttons, 300 px houses, tracker pill, Song pill) are obsolete.
 
 ## 3. Screen layout (v5.1, portrait, design canvas 1080x1920, origin top-left, y downward)
 

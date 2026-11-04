@@ -31,7 +31,7 @@ Full code and scene links: [Core](../../PerchSort/Assets/Scripts/Core), [Meta](.
 
 No old numbered resource fallback remains in the shared cutover contract. GameArtImporter retains full-art borders/door pivots and tall-background resolution; its separate fallback policy avoids changing compression/mesh/pivots on six carried sprites. The seven authored overlays explicitly retain their custom pivot/mesh/1024/no-physics import settings; the egg foot pivot is not the centered default.
 
-Version-looking PlayerPrefs keys and serialized DataMember/SaveData fields are compatibility identifiers only. Preserve all `v5.*`, `v6.unlockSeen.*`, `v7.notifications`, migrator inputs, enum ordinals and schema versions. Namespace cleanup must not reset progress or migrate persisted data by blind text replacement.
+Version-looking PlayerPrefs keys and serialized DataMember/SaveData fields are compatibility identifiers only. Preserve all the exact persistence literals listed in CURRENT_GAME, migrator inputs, enum ordinals and schema versions. Namespace cleanup must not reset progress or migrate persisted data by blind text replacement.
 
 ## Retired paths
 

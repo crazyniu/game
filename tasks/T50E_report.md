@@ -12,9 +12,9 @@ Status: **DONE for bounded code/spec/report scope; runtime acceptance unverified
 
 ## Changed files
 
-- `PerchSort/Assets/Scripts/V5/Game/BirdView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V7BirdOverlay.cs` (new internal helper)
-- `PerchSort/Assets/Scripts/V5/Game/V7BirdOverlay.cs.meta`
+- `PerchSort/Assets/Scripts/Game/BirdView.cs`
+- `PerchSort/Assets/Scripts/Game/V7BirdOverlay.cs` (new internal helper)
+- `PerchSort/Assets/Scripts/Game/V7BirdOverlay.cs.meta`
 - `tasks/T50E_overlay_integration.md`
 - `tasks/T50E_report.md`
 - `docs/team/status/mac-motion.md`
@@ -76,7 +76,7 @@ Cancel restores the resting sprite through the same setter, which restores its a
 ### Legacy and unsupported-content safety
 
 - V7 source-frame measurements are registered only for reviewed Sunny/Skye sprites with the expected V7 name and 320×320 canvas. Legacy `bird_<id>_*` / other-sized frames do not receive those pose measurements.
-- Overlay identity is checked against the actual `Resources.Load<Sprite>("V7/Birds/<marker>")` reference and expected 128px canvas. This is identity detection only; existing V5Art still owns the resolved artwork. Width alone is insufficient: the old V5 fluff is also 128px (the old bow is 96px).
+- Overlay identity is checked against the actual `Resources.Load<Sprite>("Birds/<marker>")` reference and expected 128px canvas. This is identity detection only; existing V5Art still owns the resolved artwork. Width alone is insufficient: the old V5 fluff is also 128px (the old bow is 96px).
 - Legacy overlay assets retain legacy display dimensions normalized from the old 200px canvas: 48/200 bow, 75/200 fluff. Legacy bird frames retain old center fractions `(105/200, 32/200)` and `(75/200, 103/200)` rather than applying measurements from a different silhouette.
 - Mixed deliveries choose position by the rendered bird frame and display size by the actual marker asset. Compatibility geometry is preserved where no V7 pose is registered; mixed/legacy combinations are not claimed as newly reviewed visual placements.
 - A future family marker on another species warns once and retains compatibility anchors. There is **no all-species placement claim** and no invented Berry/Minty/other-species pose map.

@@ -4,7 +4,7 @@ from PIL import Image,ImageDraw
 import json,shutil
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
-OUT=ROOT/'PerchSort/Assets/Resources/V7/Art'
+OUT=ROOT/'PerchSort/Assets/Resources/Art'
 sources=json.loads((HERE.parent/'assemblies_wip/sources.json').read_text())
 rects={'gift_nest':(70,390,628,350),'gift_box_base':(212,305,344,300),'gift_box_lid':(188,170,392,250)}
 sprites={};records=[]

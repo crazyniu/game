@@ -1,6 +1,6 @@
 # T48 panels and Aviary delivery
 
-Delivered 16 PNG files in `PerchSort/Assets/Resources/V7/Art/`: panel_wood, card_wood, ribbon_green and its left/middle/right slices, leaf_badge, name_ribbon, stat_pill, tab_selected_ring, aviary_frame, aviary_board, silhouette_frame, house_count_chip, panel_rope_left, panel_rope_right.
+Delivered 16 PNG files in `PerchSort/Assets/Resources/Art/`: panel_wood, card_wood, ribbon_green and its left/middle/right slices, leaf_badge, name_ribbon, stat_pill, tab_selected_ring, aviary_frame, aviary_board, silhouette_frame, house_count_chip, panel_rope_left, panel_rope_right.
 
 All original approved screens are preserved. Every generated object used a matching approved screen as the built-in image-tool reference. No CLI/API fallback, Unity, runtime code or git operations were used by this worker. Exact accepted prompts are in `prompts.md`; input/output mappings are in `sources.json`; generated originals are in `raw/`.
 

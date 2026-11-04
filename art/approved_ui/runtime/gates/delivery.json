@@ -40,7 +40,7 @@
     610
   ],
   "gate_light": {
-    "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+    "file": "PerchSort/Assets/Resources/Art/gate_light.png",
     "unchanged": true,
     "source_aperture_normalized": [
       0.5,
@@ -61,7 +61,7 @@
   "open_fallback": "Bamboo backdrop; projected/mirrored generated door leaves swing outward. Static fallback only; not proof of animated rotation.",
   "files": [
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_arch.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_arch.png",
       "size": [
         1024,
         1024
@@ -78,7 +78,7 @@
       "sha256": "8172249d0d01b4c35b5713e6fb07b01ec67f3f8b08ca9cd5803c7b2660aeb268"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_door_left.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_door_left.png",
       "size": [
         1024,
         1024
@@ -103,7 +103,7 @@
       ]
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_door_right.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_door_right.png",
       "size": [
         1024,
         1024
@@ -128,7 +128,7 @@
       ]
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_padlock.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_padlock.png",
       "size": [
         1024,
         1024
@@ -145,7 +145,7 @@
       "sha256": "d39e1e4814b9b29df65d427ae840b08d4713434f2c5052424d483ab5538d3ed9"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w2.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w2.png",
       "size": [
         1024,
         1024
@@ -162,7 +162,7 @@
       "sha256": "c84be1971c283268e3629648df818223acb7815ae27cd84c77ec5f469be3ae6e"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w3.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w3.png",
       "size": [
         1024,
         1024
@@ -179,7 +179,7 @@
       "sha256": "643027cceab3a23e738664a3e547e8f8df830bc8105d9c4f2130ee493179aa85"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w4.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w4.png",
       "size": [
         1024,
         1024
@@ -196,7 +196,7 @@
       "sha256": "c814cb704d54d96da62355d0c3d2617d8cb577f8f6a59cc6580dc5cf360cbd74"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_locked.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_locked.png",
       "size": [
         1024,
         1024
@@ -213,7 +213,7 @@
       "sha256": "68f38eef33d15c38fceaaac1f976026d7bf6be0f8f06328fcfcf6a3a3b408b85"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_open.png",
+      "file": "PerchSort/Assets/Resources/Art/gate_open.png",
       "size": [
         1024,
         1024

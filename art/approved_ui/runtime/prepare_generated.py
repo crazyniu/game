@@ -6,7 +6,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT / 'art/approved_ui/runtime'
-OUT = ROOT / 'PerchSort/Assets/Resources/V7/Art'
+OUT = ROOT / 'PerchSort/Assets/Resources/Art'
 SIZES = {'btn_purple': (160,160), 'btn_purple_pressed': (160,160),
          'btn_green': (220,220), 'btn_green_pressed': (220,220),
          'coin_pill': (320,128), 'btn_green_pill': (320,112), 'badge_red': (56,56), 'chain_bonus': (64,64)}

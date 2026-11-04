@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageOps, ImageFilter
 from collections import deque
 import numpy as np,json,hashlib
-P=Path(__file__).resolve().parent;ROOT=P.parents[3];ART=ROOT/'PerchSort/Assets/Resources/V7/Art'
+P=Path(__file__).resolve().parent;ROOT=P.parents[3];ART=ROOT/'PerchSort/Assets/Resources/Art'
 names=['node_wood','node_wood_current_glow','node_stone_locked']+[f'world_sign_w{i}' for i in range(1,5)]
 def largest_component_alpha(im):
  a=np.array(im.getchannel('A'));solid=a>16;h,w=solid.shape;seen=np.zeros(solid.shape,bool);largest=[]
@@ -21,7 +21,7 @@ def largest_component_alpha(im):
 records={};sheet=Image.new('RGB',(4*400,2*380),'#204753');ds=ImageDraw.Draw(sheet)
 for idx,n in enumerate(names):
  raw=Image.open(P/f'raw/{n}.png').convert('RGBA');im=largest_component_alpha(raw.copy());bb=im.getchannel('A').getbbox();im=im.crop(bb);size=(384,320) if n.startswith('world') else (320,288);im.thumbnail((size[0]-12,size[1]-12),Image.Resampling.LANCZOS);out=Image.new('RGBA',size);out.alpha_composite(im,((size[0]-im.width)//2,(size[1]-im.height)//2));out.save(ART/(n+'.png'))
- alpha=np.array(out.getchannel('A'));records[n]={'file':f'PerchSort/Assets/Resources/V7/Art/{n}.png','size':list(size),'raw_source':f'art/approved_ui/runtime/map/raw/{n}.png','source_alpha_bounds':list(bb),'alpha_bounds':list(out.getchannel('A').getbbox()),'alpha_extrema':[int(alpha.min()),int(alpha.max())],'partial_alpha_pixels':int(((alpha>0)&(alpha<255)).sum()),'sha256':hashlib.sha256((ART/(n+'.png')).read_bytes()).hexdigest(),'processing':'Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad.'}
+ alpha=np.array(out.getchannel('A'));records[n]={'file':f'PerchSort/Assets/Resources/Art/{n}.png','size':list(size),'raw_source':f'art/approved_ui/runtime/map/raw/{n}.png','source_alpha_bounds':list(bb),'alpha_bounds':list(out.getchannel('A').getbbox()),'alpha_extrema':[int(alpha.min()),int(alpha.max())],'partial_alpha_pixels':int(((alpha>0)&(alpha<255)).sum()),'sha256':hashlib.sha256((ART/(n+'.png')).read_bytes()).hexdigest(),'processing':'Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad.'}
  x=idx%4*400;y=idx//4*380;sheet.paste(out,(x+(400-size[0])//2,y+15),out);ds.text((x+10,y+345),n,fill='white')
  # Overlay each sprite at target-like scale on the actual approved concept.
  bg=Image.open(ROOT/'art/approved_ui/ui_map.png').convert('RGBA');thumb=out.copy()

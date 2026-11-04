@@ -3,8 +3,8 @@
 ## Result
 
 - Atomically installed **20 replacement boards**; all other boards are unchanged, including every T level, levels 1–6, L7 (par 13) and L32 (par 8).
-- Full **DEEP_V54 validation: 40/40 PASS, exit 0** on both the frozen Core and the final live Core, with the explicitly authorized exceptions below; every other T35 gate remains active.
-- Existing live-Core `V5LevelsDataTests`: **81 passed, 0 failed, 0 skipped** on both the staged catalog and the installed resource, using NUnitLite 3.13.3, a separate Core assembly and a Linux file-backed Resources/JSON adapter.
+- Full **DEEP validation: 40/40 PASS, exit 0** on both the frozen Core and the final live Core, with the explicitly authorized exceptions below; every other T35 gate remains active.
+- Existing live-Core `LevelsDataTests`: **81 passed, 0 failed, 0 skipped** on both the staged catalog and the installed resource, using NUnitLite 3.13.3, a separate Core assembly and a Linux file-backed Resources/JSON adapter.
 - No Core, shared level-tool, scene, artwork or existing test source was edited by T42; no commit or push.
 - Authority: [T42 task](T42_level_deepening.md), [v5 design §§11–12](../docs/GAME_DESIGN.md#11-level-plan-40-levels), coordinator clarifications `msg_06bfe96858d7`, `msg_36c158aa8784` and Mac-budget decision `msg_56134b267b23`.
 
@@ -128,7 +128,7 @@ Run from the repository root; SDK is the existing local 8.0.419 installation.
 
 ```sh
 mkdir -p tools/levels/work/core_snapshot
-cp -a PerchSort/Assets/Scripts/V5/Core/. tools/levels/work/core_snapshot/
+cp -a PerchSort/Assets/Scripts/Core/. tools/levels/work/core_snapshot/
 /tmp/perch-t32-sdk/dotnet build tools/levels/work/DeepLevelTool -c Release
 python3 tools/levels/work/search_world.py 2 --attempts 160 --swaps 2 4 6 8
 python3 tools/levels/work/search_world.py 3 --attempts 160 --swaps 2 4 6 8
@@ -137,7 +137,7 @@ python3 tools/levels/work/search_world.py 4 --attempts 160 --swaps 2 4 6 8
 /tmp/perch-t32-sdk/dotnet tools/levels/work/DeepLevelTool/bin/Release/net8.0/LevelTool.dll recover tools/levels/work/w4-l36-s4-spec.json 106 tools/levels/work/recovered-l36.json
 /tmp/perch-t32-sdk/dotnet tools/levels/work/DeepLevelTool/bin/Release/net8.0/LevelTool.dll recover tools/levels/work/w4-l38-s6-spec.json 75 tools/levels/work/recovered-l38.json
 /tmp/perch-t32-sdk/dotnet tools/levels/work/DeepLevelTool/bin/Release/net8.0/LevelTool.dll generate --spec tools/levels/work/finale-par10-spec.json --out tools/levels/work/finale-par10-result.json
-/tmp/perch-t32-sdk/dotnet build tools/levels/work/LiveLevelTool -c Release -p:CoreSource=/home/developer/Projects/game/PerchSort/Assets/Scripts/V5/Core -p:DefineConstants=LIVE_CORE
+/tmp/perch-t32-sdk/dotnet build tools/levels/work/LiveLevelTool -c Release -p:CoreSource=/home/developer/Projects/game/PerchSort/Assets/Scripts/Core -p:DefineConstants=LIVE_CORE
 /tmp/perch-t32-sdk/dotnet tools/levels/work/LiveLevelTool/bin/Release/net8.0/LevelTool.dll generate --spec tools/levels/work/finale-fast-spec.json --out tools/levels/work/finale-fast-result.json
 python3 tools/levels/work/repair_fast.py 30 36 26 27 29 37 38
 python3 tools/levels/work/stage_catalog.py

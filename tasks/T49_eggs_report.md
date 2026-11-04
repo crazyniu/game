@@ -6,7 +6,7 @@ Asset delivery SHA: `34eddebeca3b75fa5e39019090c8b486ba99911f`. The follow-up ha
 
 ## Files and alignment
 
-Seven derived PNGs and seven new `.png.meta` files under `PerchSort/Assets/Resources/V7/Birds/`. No species files, shared QA scripts, runtime code or scenes changed.
+Seven derived PNGs and seven new `.png.meta` files under `PerchSort/Assets/Resources/Birds/`. No species files, shared QA scripts, runtime code or scenes changed.
 
 | File | Canvas | Alpha bounds xyxy | Baseline / pivot |
 |---|---|---|---|

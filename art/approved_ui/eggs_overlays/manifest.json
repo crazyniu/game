@@ -3,7 +3,7 @@
   "coordinate_system": "top-left pixels; Unity pivot normalized from bottom-left",
   "assets": {
     "egg_idle": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/egg_idle.png",
+      "file": "PerchSort/Assets/Resources/Birds/egg_idle.png",
       "size": [
         320,
         320
@@ -54,7 +54,7 @@
       "meta_guid": "34aaa1e242125ab6b23b01afddac5fa4"
     },
     "egg_wobble_l": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/egg_wobble_l.png",
+      "file": "PerchSort/Assets/Resources/Birds/egg_wobble_l.png",
       "size": [
         320,
         320
@@ -105,7 +105,7 @@
       "meta_guid": "bc38fabd87e55cf5ad9b8ec6b0a6a4aa"
     },
     "egg_wobble_r": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/egg_wobble_r.png",
+      "file": "PerchSort/Assets/Resources/Birds/egg_wobble_r.png",
       "size": [
         320,
         320
@@ -156,7 +156,7 @@
       "meta_guid": "e14d0d075aef5d01af85f7ef746b6f48"
     },
     "egg_crack": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/egg_crack.png",
+      "file": "PerchSort/Assets/Resources/Birds/egg_crack.png",
       "size": [
         320,
         320
@@ -207,7 +207,7 @@
       "meta_guid": "895f129cb6d45e388f2c9c08c2ed3f6d"
     },
     "egg_shell": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/egg_shell.png",
+      "file": "PerchSort/Assets/Resources/Birds/egg_shell.png",
       "size": [
         320,
         320
@@ -258,7 +258,7 @@
       "meta_guid": "a399d306359e5d6cbb6d8d237a69398c"
     },
     "mama_bow": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/mama_bow.png",
+      "file": "PerchSort/Assets/Resources/Birds/mama_bow.png",
       "size": [
         128,
         128
@@ -300,7 +300,7 @@
       "meta_guid": "ca31865e1d6b5e67833fbfc4c4d3b669"
     },
     "chick_fluff": {
-      "file": "PerchSort/Assets/Resources/V7/Birds/chick_fluff.png",
+      "file": "PerchSort/Assets/Resources/Birds/chick_fluff.png",
       "size": [
         128,
         128
@@ -501,25 +501,25 @@
   "reference_sources": [
     {
       "file": "art/approved_ui/eggs_overlays/references/sunny_idle.png",
-      "repository_path": "PerchSort/Assets/Resources/V7/Birds/sunny_idle.png",
+      "repository_path": "PerchSort/Assets/Resources/Birds/sunny_idle.png",
       "source_commit": "3e82c64734f3e7291a332d1c0e90263954ce40cd",
       "use": "read-only representative bird snapshot for overlay alignment QA"
     },
     {
       "file": "art/approved_ui/eggs_overlays/references/sky_idle.png",
-      "repository_path": "PerchSort/Assets/Resources/V7/Birds/sky_idle.png",
+      "repository_path": "PerchSort/Assets/Resources/Birds/sky_idle.png",
       "source_commit": "3e82c64734f3e7291a332d1c0e90263954ce40cd",
       "use": "read-only representative bird snapshot for overlay alignment QA"
     },
     {
       "file": "art/approved_ui/eggs_overlays/references/berry_idle.png",
-      "repository_path": "PerchSort/Assets/Resources/V7/Birds/berry_idle.png",
+      "repository_path": "PerchSort/Assets/Resources/Birds/berry_idle.png",
       "source_commit": "3e82c64734f3e7291a332d1c0e90263954ce40cd",
       "use": "read-only representative bird snapshot for overlay alignment QA"
     },
     {
       "file": "art/approved_ui/eggs_overlays/references/mint_idle.png",
-      "repository_path": "PerchSort/Assets/Resources/V7/Birds/mint_idle.png",
+      "repository_path": "PerchSort/Assets/Resources/Birds/mint_idle.png",
       "source_commit": "3e82c64734f3e7291a332d1c0e90263954ce40cd",
       "use": "read-only representative bird snapshot for overlay alignment QA"
     }
@@ -536,7 +536,7 @@
   },
   "current_code_observation": {
     "source_commit": "3e82c64734f3e7291a332d1c0e90263954ce40cd",
-    "path": "PerchSort/Assets/Scripts/V5/Game/BirdView.cs",
+    "path": "PerchSort/Assets/Scripts/Game/BirdView.cs",
     "body_display_px": 200,
     "bow_center": [
       105,

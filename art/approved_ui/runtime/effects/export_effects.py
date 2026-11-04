@@ -4,7 +4,7 @@ from PIL import Image, ImageOps, ImageDraw
 import json, hashlib
 root=Path(__file__).resolve().parents[4]
 work=root/'art/approved_ui/runtime/effects'
-out=root/'PerchSort/Assets/Resources/V7/Art'
+out=root/'PerchSort/Assets/Resources/Art'
 records=json.loads((work/'generation_records.json').read_text())
 delivery=[]
 thumbs=[]

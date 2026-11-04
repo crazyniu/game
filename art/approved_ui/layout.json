@@ -2,8 +2,8 @@
   "schema_version": 1,
   "status": "delivered_static_layout",
   "resources": {
-    "filesystem_root": "PerchSort/Assets/Resources/V7/Art",
-    "unity_resources_root": "V7/Art",
+    "filesystem_root": "PerchSort/Assets/Resources/Art",
+    "unity_resources_root": "Art",
     "load_key_rule": "assets[id].resource is extensionless Resources.Load key; file is repository-relative PNG path",
     "icon_prefix": "icon_",
     "gift_badge_prefix": "gift_"
@@ -65,8 +65,8 @@
   },
   "assets": {
     "aviary_board": {
-      "file": "PerchSort/Assets/Resources/V7/Art/aviary_board.png",
-      "resource": "V7/Art/aviary_board",
+      "file": "PerchSort/Assets/Resources/Art/aviary_board.png",
+      "resource": "Art/aviary_board",
       "size": [
         900,
         1640
@@ -100,8 +100,8 @@
       "reference": "art/approved_ui/ui_aviary_list.png"
     },
     "aviary_frame": {
-      "file": "PerchSort/Assets/Resources/V7/Art/aviary_frame.png",
-      "resource": "V7/Art/aviary_frame",
+      "file": "PerchSort/Assets/Resources/Art/aviary_frame.png",
+      "resource": "Art/aviary_frame",
       "size": [
         320,
         320
@@ -129,8 +129,8 @@
       "reference": "art/approved_ui/ui_aviary_list.png"
     },
     "badge_red": {
-      "file": "PerchSort/Assets/Resources/V7/Art/badge_red.png",
-      "resource": "V7/Art/badge_red",
+      "file": "PerchSort/Assets/Resources/Art/badge_red.png",
+      "resource": "Art/badge_red",
       "size": [
         56,
         56
@@ -165,8 +165,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "btn_green": {
-      "file": "PerchSort/Assets/Resources/V7/Art/btn_green.png",
-      "resource": "V7/Art/btn_green",
+      "file": "PerchSort/Assets/Resources/Art/btn_green.png",
+      "resource": "Art/btn_green",
       "size": [
         220,
         220
@@ -201,8 +201,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "btn_green_pill": {
-      "file": "PerchSort/Assets/Resources/V7/Art/btn_green_pill.png",
-      "resource": "V7/Art/btn_green_pill",
+      "file": "PerchSort/Assets/Resources/Art/btn_green_pill.png",
+      "resource": "Art/btn_green_pill",
       "size": [
         320,
         112
@@ -244,8 +244,8 @@
       "nine_slice_evidence": "inferred_border_selection_from_delivered_asset; protects capsule end caps and gold edge; runtime stretch untested"
     },
     "btn_green_pressed": {
-      "file": "PerchSort/Assets/Resources/V7/Art/btn_green_pressed.png",
-      "resource": "V7/Art/btn_green_pressed",
+      "file": "PerchSort/Assets/Resources/Art/btn_green_pressed.png",
+      "resource": "Art/btn_green_pressed",
       "size": [
         220,
         220
@@ -280,8 +280,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "btn_purple": {
-      "file": "PerchSort/Assets/Resources/V7/Art/btn_purple.png",
-      "resource": "V7/Art/btn_purple",
+      "file": "PerchSort/Assets/Resources/Art/btn_purple.png",
+      "resource": "Art/btn_purple",
       "size": [
         160,
         160
@@ -316,8 +316,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "btn_purple_pressed": {
-      "file": "PerchSort/Assets/Resources/V7/Art/btn_purple_pressed.png",
-      "resource": "V7/Art/btn_purple_pressed",
+      "file": "PerchSort/Assets/Resources/Art/btn_purple_pressed.png",
+      "resource": "Art/btn_purple_pressed",
       "size": [
         160,
         160
@@ -352,8 +352,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "card_wood": {
-      "file": "PerchSort/Assets/Resources/V7/Art/card_wood.png",
-      "resource": "V7/Art/card_wood",
+      "file": "PerchSort/Assets/Resources/Art/card_wood.png",
+      "resource": "Art/card_wood",
       "size": [
         640,
         640
@@ -387,8 +387,8 @@
       "reference": "art/approved_ui/ui_shop_boosters.png"
     },
     "chain_bonus": {
-      "file": "PerchSort/Assets/Resources/V7/Art/chain_bonus.png",
-      "resource": "V7/Art/chain_bonus",
+      "file": "PerchSort/Assets/Resources/Art/chain_bonus.png",
+      "resource": "Art/chain_bonus",
       "size": [
         64,
         64
@@ -423,8 +423,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "check_green": {
-      "file": "PerchSort/Assets/Resources/V7/Art/check_green.png",
-      "resource": "V7/Art/check_green",
+      "file": "PerchSort/Assets/Resources/Art/check_green.png",
+      "resource": "Art/check_green",
       "size": [
         64,
         64
@@ -468,8 +468,8 @@
       }
     },
     "cloud_soft_1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_1.png",
-      "resource": "V7/Art/cloud_soft_1",
+      "file": "PerchSort/Assets/Resources/Art/cloud_soft_1.png",
+      "resource": "Art/cloud_soft_1",
       "size": [
         768,
         384
@@ -497,8 +497,8 @@
       "reference": "art/approved_ui/ui_level_k3.png"
     },
     "cloud_soft_2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_2.png",
-      "resource": "V7/Art/cloud_soft_2",
+      "file": "PerchSort/Assets/Resources/Art/cloud_soft_2.png",
+      "resource": "Art/cloud_soft_2",
       "size": [
         768,
         384
@@ -526,8 +526,8 @@
       "reference": "art/approved_ui/ui_level_k3.png"
     },
     "cloud_soft_3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_3.png",
-      "resource": "V7/Art/cloud_soft_3",
+      "file": "PerchSort/Assets/Resources/Art/cloud_soft_3.png",
+      "resource": "Art/cloud_soft_3",
       "size": [
         768,
         384
@@ -555,8 +555,8 @@
       "reference": "art/approved_ui/ui_level_k3.png"
     },
     "coin": {
-      "file": "PerchSort/Assets/Resources/V7/Art/coin.png",
-      "resource": "V7/Art/coin",
+      "file": "PerchSort/Assets/Resources/Art/coin.png",
+      "resource": "Art/coin",
       "size": [
         96,
         96
@@ -600,8 +600,8 @@
       }
     },
     "coin_pill": {
-      "file": "PerchSort/Assets/Resources/V7/Art/coin_pill.png",
-      "resource": "V7/Art/coin_pill",
+      "file": "PerchSort/Assets/Resources/Art/coin_pill.png",
+      "resource": "Art/coin_pill",
       "size": [
         320,
         128
@@ -653,13 +653,13 @@
         "alignment": "center",
         "vertical_alignment": "middle",
         "evidence": "observed_safe_blank_area_on_delivered_320x128_asset",
-        "source": "PerchSort/Assets/Resources/V7/Art/coin_pill.png",
+        "source": "PerchSort/Assets/Resources/Art/coin_pill.png",
         "note": "Coin occupies the left side; this box excludes coin and rounded edge. Scale the text box with the displayed sprite."
       }
     },
     "confetti_1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/confetti_1.png",
-      "resource": "V7/Art/confetti_1",
+      "file": "PerchSort/Assets/Resources/Art/confetti_1.png",
+      "resource": "Art/confetti_1",
       "size": [
         64,
         64
@@ -687,8 +687,8 @@
       "reference": "art/approved_ui/ui_win.png"
     },
     "confetti_2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/confetti_2.png",
-      "resource": "V7/Art/confetti_2",
+      "file": "PerchSort/Assets/Resources/Art/confetti_2.png",
+      "resource": "Art/confetti_2",
       "size": [
         64,
         64
@@ -716,8 +716,8 @@
       "reference": "art/approved_ui/ui_win.png"
     },
     "confetti_3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/confetti_3.png",
-      "resource": "V7/Art/confetti_3",
+      "file": "PerchSort/Assets/Resources/Art/confetti_3.png",
+      "resource": "Art/confetti_3",
       "size": [
         64,
         64
@@ -745,8 +745,8 @@
       "reference": "art/approved_ui/ui_win.png"
     },
     "confetti_4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/confetti_4.png",
-      "resource": "V7/Art/confetti_4",
+      "file": "PerchSort/Assets/Resources/Art/confetti_4.png",
+      "resource": "Art/confetti_4",
       "size": [
         64,
         64
@@ -774,8 +774,8 @@
       "reference": "art/approved_ui/ui_win.png"
     },
     "firefly": {
-      "file": "PerchSort/Assets/Resources/V7/Art/firefly.png",
-      "resource": "V7/Art/firefly",
+      "file": "PerchSort/Assets/Resources/Art/firefly.png",
+      "resource": "Art/firefly",
       "size": [
         48,
         48
@@ -803,8 +803,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "flag": {
-      "file": "PerchSort/Assets/Resources/V7/Art/flag.png",
-      "resource": "V7/Art/flag",
+      "file": "PerchSort/Assets/Resources/Art/flag.png",
+      "resource": "Art/flag",
       "size": [
         64,
         64
@@ -848,8 +848,8 @@
       }
     },
     "footprints": {
-      "file": "PerchSort/Assets/Resources/V7/Art/footprints.png",
-      "resource": "V7/Art/footprints",
+      "file": "PerchSort/Assets/Resources/Art/footprints.png",
+      "resource": "Art/footprints",
       "size": [
         64,
         64
@@ -893,8 +893,8 @@
       }
     },
     "gate_arch": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_arch.png",
-      "resource": "V7/Art/gate_arch",
+      "file": "PerchSort/Assets/Resources/Art/gate_arch.png",
+      "resource": "Art/gate_arch",
       "size": [
         1024,
         1024
@@ -922,8 +922,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_backdrop_w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w2.png",
-      "resource": "V7/Art/gate_backdrop_w2",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w2.png",
+      "resource": "Art/gate_backdrop_w2",
       "size": [
         1024,
         1024
@@ -951,8 +951,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_backdrop_w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w3.png",
-      "resource": "V7/Art/gate_backdrop_w3",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w3.png",
+      "resource": "Art/gate_backdrop_w3",
       "size": [
         1024,
         1024
@@ -980,8 +980,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_backdrop_w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_backdrop_w4.png",
-      "resource": "V7/Art/gate_backdrop_w4",
+      "file": "PerchSort/Assets/Resources/Art/gate_backdrop_w4.png",
+      "resource": "Art/gate_backdrop_w4",
       "size": [
         1024,
         1024
@@ -1009,8 +1009,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_door_left": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_door_left.png",
-      "resource": "V7/Art/gate_door_left",
+      "file": "PerchSort/Assets/Resources/Art/gate_door_left.png",
+      "resource": "Art/gate_door_left",
       "size": [
         1024,
         1024
@@ -1046,8 +1046,8 @@
       ]
     },
     "gate_door_right": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_door_right.png",
-      "resource": "V7/Art/gate_door_right",
+      "file": "PerchSort/Assets/Resources/Art/gate_door_right.png",
+      "resource": "Art/gate_door_right",
       "size": [
         1024,
         1024
@@ -1083,8 +1083,8 @@
       ]
     },
     "gate_light": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
-      "resource": "V7/Art/gate_light",
+      "file": "PerchSort/Assets/Resources/Art/gate_light.png",
+      "resource": "Art/gate_light",
       "size": [
         1024,
         1024
@@ -1118,8 +1118,8 @@
       "integration_note": "Align source aperture (0.5,0.25) to gate-canvas (512,375) using draw rect [192,215,640,640]. See assemblies.gates.contract.gate_light."
     },
     "gate_locked": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_locked.png",
-      "resource": "V7/Art/gate_locked",
+      "file": "PerchSort/Assets/Resources/Art/gate_locked.png",
+      "resource": "Art/gate_locked",
       "size": [
         1024,
         1024
@@ -1147,8 +1147,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_open": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_open.png",
-      "resource": "V7/Art/gate_open",
+      "file": "PerchSort/Assets/Resources/Art/gate_open.png",
+      "resource": "Art/gate_open",
       "size": [
         1024,
         1024
@@ -1176,8 +1176,8 @@
       "preserve_canvas_on_import": true
     },
     "gate_padlock": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gate_padlock.png",
-      "resource": "V7/Art/gate_padlock",
+      "file": "PerchSort/Assets/Resources/Art/gate_padlock.png",
+      "resource": "Art/gate_padlock",
       "size": [
         1024,
         1024
@@ -1205,8 +1205,8 @@
       "preserve_canvas_on_import": true
     },
     "gift_box_base": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_box_base.png",
-      "resource": "V7/Art/gift_box_base",
+      "file": "PerchSort/Assets/Resources/Art/gift_box_base.png",
+      "resource": "Art/gift_box_base",
       "size": [
         768,
         768
@@ -1247,8 +1247,8 @@
       "reference": "art/approved_ui/ui_popup_daily_gift.png"
     },
     "gift_box_lid": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_box_lid.png",
-      "resource": "V7/Art/gift_box_lid",
+      "file": "PerchSort/Assets/Resources/Art/gift_box_lid.png",
+      "resource": "Art/gift_box_lid",
       "size": [
         768,
         768
@@ -1289,8 +1289,8 @@
       "reference": "art/approved_ui/ui_popup_daily_gift.png"
     },
     "gift_feather": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_feather.png",
-      "resource": "V7/Art/gift_feather",
+      "file": "PerchSort/Assets/Resources/Art/gift_feather.png",
+      "resource": "Art/gift_feather",
       "size": [
         96,
         96
@@ -1334,8 +1334,8 @@
       }
     },
     "gift_feather_counter": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_feather_counter.png",
-      "resource": "V7/Art/gift_feather_counter",
+      "file": "PerchSort/Assets/Resources/Art/gift_feather_counter.png",
+      "resource": "Art/gift_feather_counter",
       "size": [
         96,
         96
@@ -1379,8 +1379,8 @@
       }
     },
     "gift_flame": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_flame.png",
-      "resource": "V7/Art/gift_flame",
+      "file": "PerchSort/Assets/Resources/Art/gift_flame.png",
+      "resource": "Art/gift_flame",
       "size": [
         96,
         96
@@ -1424,8 +1424,8 @@
       }
     },
     "gift_grumpy_eyes": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_grumpy_eyes.png",
-      "resource": "V7/Art/gift_grumpy_eyes",
+      "file": "PerchSort/Assets/Resources/Art/gift_grumpy_eyes.png",
+      "resource": "Art/gift_grumpy_eyes",
       "size": [
         96,
         96
@@ -1469,8 +1469,8 @@
       }
     },
     "gift_moon": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_moon.png",
-      "resource": "V7/Art/gift_moon",
+      "file": "PerchSort/Assets/Resources/Art/gift_moon.png",
+      "resource": "Art/gift_moon",
       "size": [
         96,
         96
@@ -1514,8 +1514,8 @@
       }
     },
     "gift_moon_ray": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_moon_ray.png",
-      "resource": "V7/Art/gift_moon_ray",
+      "file": "PerchSort/Assets/Resources/Art/gift_moon_ray.png",
+      "resource": "Art/gift_moon_ray",
       "size": [
         96,
         96
@@ -1559,8 +1559,8 @@
       }
     },
     "gift_nest": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_nest.png",
-      "resource": "V7/Art/gift_nest",
+      "file": "PerchSort/Assets/Resources/Art/gift_nest.png",
+      "resource": "Art/gift_nest",
       "size": [
         768,
         768
@@ -1601,8 +1601,8 @@
       "reference": "art/approved_ui/ui_popup_daily_gift.png"
     },
     "gift_nest_front": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_nest_front.png",
-      "resource": "V7/Art/gift_nest_front",
+      "file": "PerchSort/Assets/Resources/Art/gift_nest_front.png",
+      "resource": "Art/gift_nest_front",
       "size": [
         768,
         768
@@ -1632,8 +1632,8 @@
       "derivation": "per-column foreground crop, unchanged source pixels; see nest_foreground_crop"
     },
     "gift_sun_note": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_sun_note.png",
-      "resource": "V7/Art/gift_sun_note",
+      "file": "PerchSort/Assets/Resources/Art/gift_sun_note.png",
+      "resource": "Art/gift_sun_note",
       "size": [
         96,
         96
@@ -1677,8 +1677,8 @@
       }
     },
     "gift_trail": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_trail.png",
-      "resource": "V7/Art/gift_trail",
+      "file": "PerchSort/Assets/Resources/Art/gift_trail.png",
+      "resource": "Art/gift_trail",
       "size": [
         512,
         512
@@ -1706,8 +1706,8 @@
       "reference": "art/approved_ui/ui_popup_daily_gift.png"
     },
     "gift_watering_can": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_watering_can.png",
-      "resource": "V7/Art/gift_watering_can",
+      "file": "PerchSort/Assets/Resources/Art/gift_watering_can.png",
+      "resource": "Art/gift_watering_can",
       "size": [
         96,
         96
@@ -1751,8 +1751,8 @@
       }
     },
     "gift_wind": {
-      "file": "PerchSort/Assets/Resources/V7/Art/gift_wind.png",
-      "resource": "V7/Art/gift_wind",
+      "file": "PerchSort/Assets/Resources/Art/gift_wind.png",
+      "resource": "Art/gift_wind",
       "size": [
         96,
         96
@@ -1796,8 +1796,8 @@
       }
     },
     "glow_soft": {
-      "file": "PerchSort/Assets/Resources/V7/Art/glow_soft.png",
-      "resource": "V7/Art/glow_soft",
+      "file": "PerchSort/Assets/Resources/Art/glow_soft.png",
+      "resource": "Art/glow_soft",
       "size": [
         512,
         512
@@ -1825,8 +1825,8 @@
       "reference": "art/approved_ui/ui_level_k3.png"
     },
     "house_beam_w1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w1.png",
-      "resource": "V7/Art/house_beam_w1",
+      "file": "PerchSort/Assets/Resources/Art/house_beam_w1.png",
+      "resource": "Art/house_beam_w1",
       "size": [
         1080,
         200
@@ -1866,8 +1866,8 @@
       "preserve_canvas_on_import": true
     },
     "house_beam_w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w2.png",
-      "resource": "V7/Art/house_beam_w2",
+      "file": "PerchSort/Assets/Resources/Art/house_beam_w2.png",
+      "resource": "Art/house_beam_w2",
       "size": [
         1080,
         200
@@ -1907,8 +1907,8 @@
       "preserve_canvas_on_import": true
     },
     "house_beam_w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w3.png",
-      "resource": "V7/Art/house_beam_w3",
+      "file": "PerchSort/Assets/Resources/Art/house_beam_w3.png",
+      "resource": "Art/house_beam_w3",
       "size": [
         1080,
         200
@@ -1948,8 +1948,8 @@
       "preserve_canvas_on_import": true
     },
     "house_beam_w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w4.png",
-      "resource": "V7/Art/house_beam_w4",
+      "file": "PerchSort/Assets/Resources/Art/house_beam_w4.png",
+      "resource": "Art/house_beam_w4",
       "size": [
         1080,
         200
@@ -1989,8 +1989,8 @@
       "preserve_canvas_on_import": true
     },
     "house_body": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_body.png",
-      "resource": "V7/Art/house_body",
+      "file": "PerchSort/Assets/Resources/Art/house_body.png",
+      "resource": "Art/house_body",
       "size": [
         512,
         512
@@ -2030,8 +2030,8 @@
       "preserve_canvas_on_import": true
     },
     "house_count_chip": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_count_chip.png",
-      "resource": "V7/Art/house_count_chip",
+      "file": "PerchSort/Assets/Resources/Art/house_count_chip.png",
+      "resource": "Art/house_count_chip",
       "size": [
         180,
         76
@@ -2065,8 +2065,8 @@
       "reference": "art/approved_ui/ui_aviary_list.png"
     },
     "house_door_leaf": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_door_leaf.png",
-      "resource": "V7/Art/house_door_leaf",
+      "file": "PerchSort/Assets/Resources/Art/house_door_leaf.png",
+      "resource": "Art/house_door_leaf",
       "size": [
         512,
         512
@@ -2106,8 +2106,8 @@
       "preserve_canvas_on_import": true
     },
     "house_door_open": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_door_open.png",
-      "resource": "V7/Art/house_door_open",
+      "file": "PerchSort/Assets/Resources/Art/house_door_open.png",
+      "resource": "Art/house_door_open",
       "size": [
         512,
         512
@@ -2147,8 +2147,8 @@
       "preserve_canvas_on_import": true
     },
     "house_glow": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_glow.png",
-      "resource": "V7/Art/house_glow",
+      "file": "PerchSort/Assets/Resources/Art/house_glow.png",
+      "resource": "Art/house_glow",
       "size": [
         512,
         512
@@ -2176,8 +2176,8 @@
       "reference": "art/approved_ui/ui_level_k3.png"
     },
     "house_roof_blue": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_blue.png",
-      "resource": "V7/Art/house_roof_blue",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_blue.png",
+      "resource": "Art/house_roof_blue",
       "size": [
         512,
         512
@@ -2217,8 +2217,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_green": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_green.png",
-      "resource": "V7/Art/house_roof_green",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_green.png",
+      "resource": "Art/house_roof_green",
       "size": [
         512,
         512
@@ -2258,8 +2258,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_orange": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_orange.png",
-      "resource": "V7/Art/house_roof_orange",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_orange.png",
+      "resource": "Art/house_roof_orange",
       "size": [
         512,
         512
@@ -2299,8 +2299,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_pink": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_pink.png",
-      "resource": "V7/Art/house_roof_pink",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_pink.png",
+      "resource": "Art/house_roof_pink",
       "size": [
         512,
         512
@@ -2340,8 +2340,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_purple": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_purple.png",
-      "resource": "V7/Art/house_roof_purple",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_purple.png",
+      "resource": "Art/house_roof_purple",
       "size": [
         512,
         512
@@ -2381,8 +2381,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_red": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_red.png",
-      "resource": "V7/Art/house_roof_red",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_red.png",
+      "resource": "Art/house_roof_red",
       "size": [
         512,
         512
@@ -2422,8 +2422,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_teal": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_teal.png",
-      "resource": "V7/Art/house_roof_teal",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_teal.png",
+      "resource": "Art/house_roof_teal",
       "size": [
         512,
         512
@@ -2463,8 +2463,8 @@
       "preserve_canvas_on_import": true
     },
     "house_roof_yellow": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_roof_yellow.png",
-      "resource": "V7/Art/house_roof_yellow",
+      "file": "PerchSort/Assets/Resources/Art/house_roof_yellow.png",
+      "resource": "Art/house_roof_yellow",
       "size": [
         512,
         512
@@ -2504,8 +2504,8 @@
       "preserve_canvas_on_import": true
     },
     "house_rope": {
-      "file": "PerchSort/Assets/Resources/V7/Art/house_rope.png",
-      "resource": "V7/Art/house_rope",
+      "file": "PerchSort/Assets/Resources/Art/house_rope.png",
+      "resource": "Art/house_rope",
       "size": [
         64,
         256
@@ -2545,8 +2545,8 @@
       "preserve_canvas_on_import": true
     },
     "icon_aviary": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_aviary.png",
-      "resource": "V7/Art/icon_aviary",
+      "file": "PerchSort/Assets/Resources/Art/icon_aviary.png",
+      "resource": "Art/icon_aviary",
       "size": [
         96,
         96
@@ -2581,8 +2581,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_basket": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_basket.png",
-      "resource": "V7/Art/icon_basket",
+      "file": "PerchSort/Assets/Resources/Art/icon_basket.png",
+      "resource": "Art/icon_basket",
       "size": [
         96,
         96
@@ -2617,8 +2617,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_bell": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_bell.png",
-      "resource": "V7/Art/icon_bell",
+      "file": "PerchSort/Assets/Resources/Art/icon_bell.png",
+      "resource": "Art/icon_bell",
       "size": [
         96,
         96
@@ -2653,8 +2653,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_branch_plus": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_branch_plus.png",
-      "resource": "V7/Art/icon_branch_plus",
+      "file": "PerchSort/Assets/Resources/Art/icon_branch_plus.png",
+      "resource": "Art/icon_branch_plus",
       "size": [
         96,
         96
@@ -2689,8 +2689,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_bulb": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_bulb.png",
-      "resource": "V7/Art/icon_bulb",
+      "file": "PerchSort/Assets/Resources/Art/icon_bulb.png",
+      "resource": "Art/icon_bulb",
       "size": [
         96,
         96
@@ -2734,8 +2734,8 @@
       }
     },
     "icon_check": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_check.png",
-      "resource": "V7/Art/icon_check",
+      "file": "PerchSort/Assets/Resources/Art/icon_check.png",
+      "resource": "Art/icon_check",
       "size": [
         96,
         96
@@ -2770,8 +2770,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_close": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_close.png",
-      "resource": "V7/Art/icon_close",
+      "file": "PerchSort/Assets/Resources/Art/icon_close.png",
+      "resource": "Art/icon_close",
       "size": [
         96,
         96
@@ -2815,8 +2815,8 @@
       }
     },
     "icon_egg_eye": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_egg_eye.png",
-      "resource": "V7/Art/icon_egg_eye",
+      "file": "PerchSort/Assets/Resources/Art/icon_egg_eye.png",
+      "resource": "Art/icon_egg_eye",
       "size": [
         96,
         96
@@ -2851,8 +2851,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_gear": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_gear.png",
-      "resource": "V7/Art/icon_gear",
+      "file": "PerchSort/Assets/Resources/Art/icon_gear.png",
+      "resource": "Art/icon_gear",
       "size": [
         96,
         96
@@ -2896,8 +2896,8 @@
       }
     },
     "icon_home": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_home.png",
-      "resource": "V7/Art/icon_home",
+      "file": "PerchSort/Assets/Resources/Art/icon_home.png",
+      "resource": "Art/icon_home",
       "size": [
         96,
         96
@@ -2941,8 +2941,8 @@
       }
     },
     "icon_next_arrow": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_next_arrow.png",
-      "resource": "V7/Art/icon_next_arrow",
+      "file": "PerchSort/Assets/Resources/Art/icon_next_arrow.png",
+      "resource": "Art/icon_next_arrow",
       "size": [
         96,
         96
@@ -2977,8 +2977,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_play": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_play.png",
-      "resource": "V7/Art/icon_play",
+      "file": "PerchSort/Assets/Resources/Art/icon_play.png",
+      "resource": "Art/icon_play",
       "size": [
         96,
         96
@@ -3022,8 +3022,8 @@
       }
     },
     "icon_rain_sprout": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_rain_sprout.png",
-      "resource": "V7/Art/icon_rain_sprout",
+      "file": "PerchSort/Assets/Resources/Art/icon_rain_sprout.png",
+      "resource": "Art/icon_rain_sprout",
       "size": [
         96,
         96
@@ -3058,8 +3058,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_replay": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_replay.png",
-      "resource": "V7/Art/icon_replay",
+      "file": "PerchSort/Assets/Resources/Art/icon_replay.png",
+      "resource": "Art/icon_replay",
       "size": [
         96,
         96
@@ -3103,8 +3103,8 @@
       }
     },
     "icon_scarecrow": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_scarecrow.png",
-      "resource": "V7/Art/icon_scarecrow",
+      "file": "PerchSort/Assets/Resources/Art/icon_scarecrow.png",
+      "resource": "Art/icon_scarecrow",
       "size": [
         96,
         96
@@ -3139,8 +3139,8 @@
       "generation_record": "art/approved_ui/runtime/generation_manifest.json"
     },
     "icon_sound_off": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_sound_off.png",
-      "resource": "V7/Art/icon_sound_off",
+      "file": "PerchSort/Assets/Resources/Art/icon_sound_off.png",
+      "resource": "Art/icon_sound_off",
       "size": [
         96,
         96
@@ -3184,8 +3184,8 @@
       }
     },
     "icon_sound_on": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_sound_on.png",
-      "resource": "V7/Art/icon_sound_on",
+      "file": "PerchSort/Assets/Resources/Art/icon_sound_on.png",
+      "resource": "Art/icon_sound_on",
       "size": [
         96,
         96
@@ -3229,8 +3229,8 @@
       }
     },
     "icon_undo": {
-      "file": "PerchSort/Assets/Resources/V7/Art/icon_undo.png",
-      "resource": "V7/Art/icon_undo",
+      "file": "PerchSort/Assets/Resources/Art/icon_undo.png",
+      "resource": "Art/icon_undo",
       "size": [
         96,
         96
@@ -3274,8 +3274,8 @@
       }
     },
     "leaf_badge": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_badge.png",
-      "resource": "V7/Art/leaf_badge",
+      "file": "PerchSort/Assets/Resources/Art/leaf_badge.png",
+      "resource": "Art/leaf_badge",
       "size": [
         256,
         180
@@ -3303,8 +3303,8 @@
       "reference": "art/approved_ui/ui_level_card.png"
     },
     "leaf_fall_w1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w1.png",
-      "resource": "V7/Art/leaf_fall_w1",
+      "file": "PerchSort/Assets/Resources/Art/leaf_fall_w1.png",
+      "resource": "Art/leaf_fall_w1",
       "size": [
         64,
         64
@@ -3332,8 +3332,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "leaf_fall_w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w2.png",
-      "resource": "V7/Art/leaf_fall_w2",
+      "file": "PerchSort/Assets/Resources/Art/leaf_fall_w2.png",
+      "resource": "Art/leaf_fall_w2",
       "size": [
         64,
         64
@@ -3361,8 +3361,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "leaf_fall_w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w3.png",
-      "resource": "V7/Art/leaf_fall_w3",
+      "file": "PerchSort/Assets/Resources/Art/leaf_fall_w3.png",
+      "resource": "Art/leaf_fall_w3",
       "size": [
         64,
         64
@@ -3390,8 +3390,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "leaf_fall_w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w4.png",
-      "resource": "V7/Art/leaf_fall_w4",
+      "file": "PerchSort/Assets/Resources/Art/leaf_fall_w4.png",
+      "resource": "Art/leaf_fall_w4",
       "size": [
         64,
         64
@@ -3419,8 +3419,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "leaf_wipe": {
-      "file": "PerchSort/Assets/Resources/V7/Art/leaf_wipe.png",
-      "resource": "V7/Art/leaf_wipe",
+      "file": "PerchSort/Assets/Resources/Art/leaf_wipe.png",
+      "resource": "Art/leaf_wipe",
       "size": [
         1600,
         1600
@@ -3448,8 +3448,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "light_rays": {
-      "file": "PerchSort/Assets/Resources/V7/Art/light_rays.png",
-      "resource": "V7/Art/light_rays",
+      "file": "PerchSort/Assets/Resources/Art/light_rays.png",
+      "resource": "Art/light_rays",
       "size": [
         1024,
         1024
@@ -3477,8 +3477,8 @@
       "reference": "art/approved_ui/ui_win.png"
     },
     "map_bg_w1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w1.png",
-      "resource": "V7/Art/map_bg_w1",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w1.png",
+      "resource": "Art/map_bg_w1",
       "size": [
         1080,
         3000
@@ -3507,8 +3507,8 @@
       "alpha_preparation": "Top rows 0..159 fade from 0 to 255; remaining rows opaque. See map.stacking."
     },
     "map_bg_w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w2.png",
-      "resource": "V7/Art/map_bg_w2",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w2.png",
+      "resource": "Art/map_bg_w2",
       "size": [
         1080,
         3000
@@ -3537,8 +3537,8 @@
       "alpha_preparation": "Top rows 0..159 fade from 0 to 255; remaining rows opaque. See map.stacking."
     },
     "map_bg_w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w3.png",
-      "resource": "V7/Art/map_bg_w3",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w3.png",
+      "resource": "Art/map_bg_w3",
       "size": [
         1080,
         3000
@@ -3567,8 +3567,8 @@
       "alpha_preparation": "Top rows 0..159 fade from 0 to 255; remaining rows opaque. See map.stacking."
     },
     "map_bg_w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w4.png",
-      "resource": "V7/Art/map_bg_w4",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w4.png",
+      "resource": "Art/map_bg_w4",
       "size": [
         1080,
         3000
@@ -3597,8 +3597,8 @@
       "alpha_preparation": "Top rows 0..159 fade from 0 to 255; remaining rows opaque. See map.stacking."
     },
     "name_ribbon": {
-      "file": "PerchSort/Assets/Resources/V7/Art/name_ribbon.png",
-      "resource": "V7/Art/name_ribbon",
+      "file": "PerchSort/Assets/Resources/Art/name_ribbon.png",
+      "resource": "Art/name_ribbon",
       "size": [
         320,
         100
@@ -3632,8 +3632,8 @@
       "reference": "art/approved_ui/ui_aviary_list.png"
     },
     "node_stone_locked": {
-      "file": "PerchSort/Assets/Resources/V7/Art/node_stone_locked.png",
-      "resource": "V7/Art/node_stone_locked",
+      "file": "PerchSort/Assets/Resources/Art/node_stone_locked.png",
+      "resource": "Art/node_stone_locked",
       "size": [
         320,
         288
@@ -3661,8 +3661,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "node_wood": {
-      "file": "PerchSort/Assets/Resources/V7/Art/node_wood.png",
-      "resource": "V7/Art/node_wood",
+      "file": "PerchSort/Assets/Resources/Art/node_wood.png",
+      "resource": "Art/node_wood",
       "size": [
         320,
         288
@@ -3690,8 +3690,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "node_wood_current_glow": {
-      "file": "PerchSort/Assets/Resources/V7/Art/node_wood_current_glow.png",
-      "resource": "V7/Art/node_wood_current_glow",
+      "file": "PerchSort/Assets/Resources/Art/node_wood_current_glow.png",
+      "resource": "Art/node_wood_current_glow",
       "size": [
         320,
         288
@@ -3719,8 +3719,8 @@
       "reference": "art/approved_ui/ui_map.png"
     },
     "padlock": {
-      "file": "PerchSort/Assets/Resources/V7/Art/padlock.png",
-      "resource": "V7/Art/padlock",
+      "file": "PerchSort/Assets/Resources/Art/padlock.png",
+      "resource": "Art/padlock",
       "size": [
         64,
         64
@@ -3764,8 +3764,8 @@
       }
     },
     "panel_rope_left": {
-      "file": "PerchSort/Assets/Resources/V7/Art/panel_rope_left.png",
-      "resource": "V7/Art/panel_rope_left",
+      "file": "PerchSort/Assets/Resources/Art/panel_rope_left.png",
+      "resource": "Art/panel_rope_left",
       "size": [
         64,
         320
@@ -3805,8 +3805,8 @@
       "reference": "art/approved_ui/ui_settings.png"
     },
     "panel_rope_right": {
-      "file": "PerchSort/Assets/Resources/V7/Art/panel_rope_right.png",
-      "resource": "V7/Art/panel_rope_right",
+      "file": "PerchSort/Assets/Resources/Art/panel_rope_right.png",
+      "resource": "Art/panel_rope_right",
       "size": [
         64,
         320
@@ -3846,8 +3846,8 @@
       "reference": "art/approved_ui/ui_settings.png"
     },
     "panel_wood": {
-      "file": "PerchSort/Assets/Resources/V7/Art/panel_wood.png",
-      "resource": "V7/Art/panel_wood",
+      "file": "PerchSort/Assets/Resources/Art/panel_wood.png",
+      "resource": "Art/panel_wood",
       "size": [
         800,
         540
@@ -3881,8 +3881,8 @@
       "reference": "art/approved_ui/ui_settings.png"
     },
     "ribbon_green": {
-      "file": "PerchSort/Assets/Resources/V7/Art/ribbon_green.png",
-      "resource": "V7/Art/ribbon_green",
+      "file": "PerchSort/Assets/Resources/Art/ribbon_green.png",
+      "resource": "Art/ribbon_green",
       "size": [
         640,
         200
@@ -3910,8 +3910,8 @@
       "reference": "art/approved_ui/ui_settings.png"
     },
     "ribbon_green_left": {
-      "file": "PerchSort/Assets/Resources/V7/Art/ribbon_green_left.png",
-      "resource": "V7/Art/ribbon_green_left",
+      "file": "PerchSort/Assets/Resources/Art/ribbon_green_left.png",
+      "resource": "Art/ribbon_green_left",
       "size": [
         180,
         200
@@ -3934,7 +3934,7 @@
       "sha256": "8117a676760fa112de6ae58ce08f008912130dfdefd0e535fcf05ae449b333bf",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
       "source_crop_xyxy": [
         0,
@@ -3945,8 +3945,8 @@
       "stretch": false
     },
     "ribbon_green_middle": {
-      "file": "PerchSort/Assets/Resources/V7/Art/ribbon_green_middle.png",
-      "resource": "V7/Art/ribbon_green_middle",
+      "file": "PerchSort/Assets/Resources/Art/ribbon_green_middle.png",
+      "resource": "Art/ribbon_green_middle",
       "size": [
         280,
         200
@@ -3969,7 +3969,7 @@
       "sha256": "0c801048a85f03123412fc42ce1a09a161a44d7c64c86c5b36113f9037a0a821",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
       "source_crop_xyxy": [
         180,
@@ -3980,8 +3980,8 @@
       "stretch": true
     },
     "ribbon_green_right": {
-      "file": "PerchSort/Assets/Resources/V7/Art/ribbon_green_right.png",
-      "resource": "V7/Art/ribbon_green_right",
+      "file": "PerchSort/Assets/Resources/Art/ribbon_green_right.png",
+      "resource": "Art/ribbon_green_right",
       "size": [
         180,
         200
@@ -4004,7 +4004,7 @@
       "sha256": "1b629f62aa383b2c0cb2aca59483ab3c1c8cfc5981aa1d09d4f0890c78fe03dd",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
       "source_crop_xyxy": [
         460,
@@ -4015,8 +4015,8 @@
       "stretch": false
     },
     "silhouette_frame": {
-      "file": "PerchSort/Assets/Resources/V7/Art/silhouette_frame.png",
-      "resource": "V7/Art/silhouette_frame",
+      "file": "PerchSort/Assets/Resources/Art/silhouette_frame.png",
+      "resource": "Art/silhouette_frame",
       "size": [
         320,
         320
@@ -4039,13 +4039,13 @@
       "sha256": "654f0f296bce4940e182c72848924420cd507c3945f24ad09301a74884d77bf5",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
-      "reference": "art/v7/ui7_aviary_list.png"
+      "reference": "art/approved_ui/ui_aviary_list.png"
     },
     "sparkle": {
-      "file": "PerchSort/Assets/Resources/V7/Art/sparkle.png",
-      "resource": "V7/Art/sparkle",
+      "file": "PerchSort/Assets/Resources/Art/sparkle.png",
+      "resource": "Art/sparkle",
       "size": [
         128,
         128
@@ -4068,13 +4068,13 @@
       "sha256": "db4f0c0e0f5335ef74f730350da9af0ca6783c59943c6f520707978aa03ecbc0",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/effects/delivery.json"
+        "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/v7/ui7_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "star_empty": {
-      "file": "PerchSort/Assets/Resources/V7/Art/star_empty.png",
-      "resource": "V7/Art/star_empty",
+      "file": "PerchSort/Assets/Resources/Art/star_empty.png",
+      "resource": "Art/star_empty",
       "size": [
         160,
         160
@@ -4097,9 +4097,9 @@
       "sha256": "41e4bbcea8e0bbc38b26e1df96176c16cd53cb44cbb71207d9ee8a3da6939ff0",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/extracted/provenance.json"
+        "art/approved_ui/runtime/extracted/provenance.json"
       ],
-      "reference": "art/v7/ui7_icons.png",
+      "reference": "art/approved_ui/ui_icons.png",
       "extraction": {
         "source_crop_xyxy": [
           787,
@@ -4118,8 +4118,8 @@
       }
     },
     "star_empty_small": {
-      "file": "PerchSort/Assets/Resources/V7/Art/star_empty_small.png",
-      "resource": "V7/Art/star_empty_small",
+      "file": "PerchSort/Assets/Resources/Art/star_empty_small.png",
+      "resource": "Art/star_empty_small",
       "size": [
         48,
         48
@@ -4142,9 +4142,9 @@
       "sha256": "adc1379ba69e195d80d55757c175e4a19444b0770a0a9d686b432d0a306fee7d",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/extracted/provenance.json"
+        "art/approved_ui/runtime/extracted/provenance.json"
       ],
-      "reference": "art/v7/ui7_icons.png",
+      "reference": "art/approved_ui/ui_icons.png",
       "extraction": {
         "source_crop_xyxy": [
           787,
@@ -4163,8 +4163,8 @@
       }
     },
     "star_full": {
-      "file": "PerchSort/Assets/Resources/V7/Art/star_full.png",
-      "resource": "V7/Art/star_full",
+      "file": "PerchSort/Assets/Resources/Art/star_full.png",
+      "resource": "Art/star_full",
       "size": [
         160,
         160
@@ -4187,9 +4187,9 @@
       "sha256": "461b745cb1c739c0bc444063307d49da0e15bfc1d02aa1070ce3e552c167378f",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/extracted/provenance.json"
+        "art/approved_ui/runtime/extracted/provenance.json"
       ],
-      "reference": "art/v7/ui7_icons.png",
+      "reference": "art/approved_ui/ui_icons.png",
       "extraction": {
         "source_crop_xyxy": [
           546,
@@ -4208,8 +4208,8 @@
       }
     },
     "star_full_small": {
-      "file": "PerchSort/Assets/Resources/V7/Art/star_full_small.png",
-      "resource": "V7/Art/star_full_small",
+      "file": "PerchSort/Assets/Resources/Art/star_full_small.png",
+      "resource": "Art/star_full_small",
       "size": [
         48,
         48
@@ -4232,9 +4232,9 @@
       "sha256": "53182960402dbb989e0dd5920c3d32b22a4165b884ccf3f722fb4fc4241c5f2d",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/extracted/provenance.json"
+        "art/approved_ui/runtime/extracted/provenance.json"
       ],
-      "reference": "art/v7/ui7_icons.png",
+      "reference": "art/approved_ui/ui_icons.png",
       "extraction": {
         "source_crop_xyxy": [
           546,
@@ -4253,8 +4253,8 @@
       }
     },
     "stat_pill": {
-      "file": "PerchSort/Assets/Resources/V7/Art/stat_pill.png",
-      "resource": "V7/Art/stat_pill",
+      "file": "PerchSort/Assets/Resources/Art/stat_pill.png",
+      "resource": "Art/stat_pill",
       "size": [
         400,
         96
@@ -4277,7 +4277,7 @@
       "sha256": "7b0c91f54ec12c87d48fb0c4a4ebb61416653563f013c026f0711793e2e5f6d7",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
       "nine_slice_lbrt": [
         48,
@@ -4285,11 +4285,11 @@
         48,
         42
       ],
-      "reference": "art/v7/ui7_level_card.png"
+      "reference": "art/approved_ui/ui_level_card.png"
     },
     "tab_selected_ring": {
-      "file": "PerchSort/Assets/Resources/V7/Art/tab_selected_ring.png",
-      "resource": "V7/Art/tab_selected_ring",
+      "file": "PerchSort/Assets/Resources/Art/tab_selected_ring.png",
+      "resource": "Art/tab_selected_ring",
       "size": [
         180,
         190
@@ -4312,13 +4312,13 @@
       "sha256": "da64a3c7616665007f9481e30317453e1ed16552b29b0d2920ab42396900f1a5",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/panels/delivery.json"
+        "art/approved_ui/runtime/panels/delivery.json"
       ],
-      "reference": "art/v7/ui7_shop_boosters.png"
+      "reference": "art/approved_ui/ui_shop_boosters.png"
     },
     "world_sign_w1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w1.png",
-      "resource": "V7/Art/world_sign_w1",
+      "file": "PerchSort/Assets/Resources/Art/world_sign_w1.png",
+      "resource": "Art/world_sign_w1",
       "size": [
         384,
         320
@@ -4341,13 +4341,13 @@
       "sha256": "ea00cc5e12f98d4c7c07ce5b549a7793d4b2c833c032c15face0ce61cfcd9945",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/map/sprites.json"
+        "art/approved_ui/runtime/map/sprites.json"
       ],
-      "reference": "art/v7/ui7_map.png"
+      "reference": "art/approved_ui/ui_map.png"
     },
     "world_sign_w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w2.png",
-      "resource": "V7/Art/world_sign_w2",
+      "file": "PerchSort/Assets/Resources/Art/world_sign_w2.png",
+      "resource": "Art/world_sign_w2",
       "size": [
         384,
         320
@@ -4370,13 +4370,13 @@
       "sha256": "a5637d674030b2327b11bc0495ac54f13da7e313ddbb80015c9cc070bb50d225",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/map/sprites.json"
+        "art/approved_ui/runtime/map/sprites.json"
       ],
-      "reference": "art/v7/ui7_map.png"
+      "reference": "art/approved_ui/ui_map.png"
     },
     "world_sign_w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w3.png",
-      "resource": "V7/Art/world_sign_w3",
+      "file": "PerchSort/Assets/Resources/Art/world_sign_w3.png",
+      "resource": "Art/world_sign_w3",
       "size": [
         384,
         320
@@ -4399,13 +4399,13 @@
       "sha256": "39db45cc6a652e67204ead25444f17d2dfe214c8c9b32d4d693ac92aa34f71e5",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/map/sprites.json"
+        "art/approved_ui/runtime/map/sprites.json"
       ],
-      "reference": "art/v7/ui7_map.png"
+      "reference": "art/approved_ui/ui_map.png"
     },
     "world_sign_w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w4.png",
-      "resource": "V7/Art/world_sign_w4",
+      "file": "PerchSort/Assets/Resources/Art/world_sign_w4.png",
+      "resource": "Art/world_sign_w4",
       "size": [
         384,
         320
@@ -4428,13 +4428,13 @@
       "sha256": "4dbf796816003d0dee851b28614db207cafdd81b4879498ff1188226bea7fe97",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/map/sprites.json"
+        "art/approved_ui/runtime/map/sprites.json"
       ],
-      "reference": "art/v7/ui7_map.png"
+      "reference": "art/approved_ui/ui_map.png"
     },
     "zzz": {
-      "file": "PerchSort/Assets/Resources/V7/Art/zzz.png",
-      "resource": "V7/Art/zzz",
+      "file": "PerchSort/Assets/Resources/Art/zzz.png",
+      "resource": "Art/zzz",
       "size": [
         192,
         192
@@ -4457,9 +4457,9 @@
       "sha256": "64db4bc370aac01a9595cf696632fc0858edebfc866703362fb53a3cd6af564d",
       "evidence": "delivered_file_inspected",
       "metadata_sources": [
-        "art/v7/runtime/effects/delivery.json"
+        "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/v7/ui7_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     }
   },
   "hud": {
@@ -4548,7 +4548,7 @@
   },
   "screens": {
     "level_k3": {
-      "source": "art/v7/ui7_level_k3_v2.png",
+      "source": "art/approved_ui/ui_level_k3.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -4967,7 +4967,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "level_k7": {
-      "source": "art/v7/ui7_level_k7.png",
+      "source": "art/approved_ui/ui_level_k7.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -5569,7 +5569,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "win": {
-      "source": "art/v7/ui7_win.png",
+      "source": "art/approved_ui/ui_win.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -5786,7 +5786,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "settings": {
-      "source": "art/v7/ui7_settings.png",
+      "source": "art/approved_ui/ui_settings.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -5891,7 +5891,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "level_card": {
-      "source": "art/v7/ui7_level_card.png",
+      "source": "art/approved_ui/ui_level_card.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6124,7 +6124,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "unlock_card": {
-      "source": "art/v7/ui7_unlock_card.png",
+      "source": "art/approved_ui/ui_unlock_card.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6229,7 +6229,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "goal_info": {
-      "source": "art/v7/ui7_goal_info.png",
+      "source": "art/approved_ui/ui_goal_info.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6334,7 +6334,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "popup_new_friend": {
-      "source": "art/v7/ui7_popup_new_friend.png",
+      "source": "art/approved_ui/ui_popup_new_friend.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6426,7 +6426,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "popup_daily_gift": {
-      "source": "art/v7/ui7_popup_daily_gift.png",
+      "source": "art/approved_ui/ui_popup_daily_gift.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6483,7 +6483,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "popup_world_complete": {
-      "source": "art/v7/ui7_popup_world_complete.png",
+      "source": "art/approved_ui/ui_popup_world_complete.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6652,7 +6652,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "popup_world_unlock": {
-      "source": "art/v7/ui7_popup_world_unlock.png",
+      "source": "art/approved_ui/ui_popup_world_unlock.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6709,7 +6709,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "map": {
-      "source": "art/v7/ui7_map.png",
+      "source": "art/approved_ui/ui_map.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -6929,7 +6929,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "shop_boosters": {
-      "source": "art/v7/ui7_shop_boosters.png",
+      "source": "art/approved_ui/ui_shop_boosters.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -7437,7 +7437,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "shop_outfits": {
-      "source": "art/v7/ui7_shop_outfits.png",
+      "source": "art/approved_ui/ui_shop_outfits.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -7734,7 +7734,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "shop_confirm": {
-      "source": "art/v7/ui7_shop_confirm.png",
+      "source": "art/approved_ui/ui_shop_confirm.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -7823,7 +7823,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "aviary_list": {
-      "source": "art/v7/ui7_aviary_list.png",
+      "source": "art/approved_ui/ui_aviary_list.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -8312,7 +8312,7 @@
       "geometry_kind": "visible_art_bounds_not_hit_targets"
     },
     "aviary_detail": {
-      "source": "art/v7/ui7_aviary_detail.png",
+      "source": "art/approved_ui/ui_aviary_detail.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {
@@ -8571,7 +8571,7 @@
     "by_count": {
       "1": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8597,7 +8597,7 @@
       },
       "2": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8633,7 +8633,7 @@
       },
       "3": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8679,7 +8679,7 @@
       },
       "4": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8735,7 +8735,7 @@
       },
       "5": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8801,7 +8801,7 @@
       },
       "6": {
         "evidence": "inferred_from_k7_spacing",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8877,7 +8877,7 @@
       },
       "7": {
         "evidence": "observed_k7",
-        "source": "art/v7/ui7_level_k7.png",
+        "source": "art/approved_ui/ui_level_k7.png",
         "houses": [
           {
             "center": [
@@ -8989,8 +8989,8 @@
     "method": "At fixed sampling heights, detect the actual rendered tan path using source RGB thresholds, select its continuous interval nearest the previously measured path center, and take the interval midpoint. All 40 placements are visually reviewed on annotated composites. Sampling heights are layout choices; x coordinates and widths are image measurements, not a predefined curve.",
     "worlds": {
       "w1": {
-        "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w1.png",
-        "source_generated": "art/v7/runtime/map/raw/w1.png",
+        "file": "PerchSort/Assets/Resources/Art/map_bg_w1.png",
+        "source_generated": "art/approved_ui/runtime/map/raw/w1.png",
         "sha256": "4cf1b7c38148b06421111677f14355b2531220dff99650d56bdc4607de5a1a44",
         "nodes": [
           {
@@ -9538,8 +9538,8 @@
         }
       },
       "w2": {
-        "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w2.png",
-        "source_generated": "art/v7/runtime/map/raw/w2.png",
+        "file": "PerchSort/Assets/Resources/Art/map_bg_w2.png",
+        "source_generated": "art/approved_ui/runtime/map/raw/w2.png",
         "sha256": "93719350b2273cd1a5d5da1aef70b4a40805225b44583738c37fb182d6925dc5",
         "nodes": [
           {
@@ -10087,8 +10087,8 @@
         }
       },
       "w3": {
-        "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w3.png",
-        "source_generated": "art/v7/runtime/map/raw/w3.png",
+        "file": "PerchSort/Assets/Resources/Art/map_bg_w3.png",
+        "source_generated": "art/approved_ui/runtime/map/raw/w3.png",
         "sha256": "961250237c6a15276d0294734c36b5d46345ca04ad5f1e7b6b5930c8748bdb6d",
         "nodes": [
           {
@@ -10636,8 +10636,8 @@
         }
       },
       "w4": {
-        "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w4.png",
-        "source_generated": "art/v7/runtime/map/raw/w4.png",
+        "file": "PerchSort/Assets/Resources/Art/map_bg_w4.png",
+        "source_generated": "art/approved_ui/runtime/map/raw/w4.png",
         "sha256": "f03d9f38ceee95aca015e04f24c3fba68b96936389ccd33dcb0f1af3cfe09b98",
         "nodes": [
           {
@@ -11189,7 +11189,7 @@
   "assemblies": {
     "houses": {
       "status": "delivered_static_alignment",
-      "source_metadata": "art/v7/runtime/houses/delivery.json",
+      "source_metadata": "art/approved_ui/runtime/houses/delivery.json",
       "contract": {
         "coordinate_system": "Top-left pixels in parent canvas; shared house frame 512x512. Composite at zero offset, no trimming at import.",
         "shared_canvas": [
@@ -11310,14 +11310,14 @@
         },
         "evidence": "delivered_aligned_sprite_contract_static_QA_reviewed; door angle is a supplied engineering animation target, not runtime-verified motion",
         "qa_reviewed": [
-          "art/v7/runtime/houses/qa/assembled_sheet.jpg",
-          "art/v7/runtime/houses/qa/beams_sheet.jpg"
+          "art/approved_ui/runtime/houses/qa/assembled_sheet.jpg",
+          "art/approved_ui/runtime/houses/qa/beams_sheet.jpg"
         ]
       }
     },
     "gates": {
       "status": "delivered_static_alignment",
-      "source_metadata": "art/v7/runtime/gates/delivery.json",
+      "source_metadata": "art/approved_ui/runtime/gates/delivery.json",
       "contract": {
         "canvas": [
           1024,
@@ -11360,7 +11360,7 @@
           610
         ],
         "gate_light": {
-          "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+          "file": "PerchSort/Assets/Resources/Art/gate_light.png",
           "unchanged": true,
           "source_aperture_normalized": [
             0.5,
@@ -11465,7 +11465,7 @@
     },
     "daily_gift": {
       "status": "delivered_static_alignment",
-      "source_metadata": "art/v7/runtime/gift/delivery.json",
+      "source_metadata": "art/approved_ui/runtime/gift/delivery.json",
       "contract": {
         "coordinate_system": "top-left pixels; common untrimmed 768x768 canvas",
         "parent_canvas": [
@@ -11512,14 +11512,14 @@
         ],
         "evidence": "delivered_aligned_sprite_contract_static_QA_reviewed; lid offset is an engineering animation target, not runtime-verified motion",
         "qa_reviewed": [
-          "art/v7/runtime/gift/qa/closed_dark.jpg",
-          "art/v7/runtime/gift/qa/open_dark.jpg"
+          "art/approved_ui/runtime/gift/qa/closed_dark.jpg",
+          "art/approved_ui/runtime/gift/qa/open_dark.jpg"
         ]
       }
     },
     "settings_ropes": {
       "status": "delivered_static_alignment",
-      "source_metadata": "art/v7/runtime/panels/delivery.json",
+      "source_metadata": "art/approved_ui/runtime/panels/delivery.json",
       "left_asset_id": "panel_rope_left",
       "right_asset_id": "panel_rope_right",
       "board_asset_id": "panel_wood",
@@ -11550,18 +11550,18 @@
   "measurement_notes": {
     "method": "Manual visual bounds on 540x960 inspection copies; all values multiplied by 2. Bounds include visible decorative silhouette, excluding broad diffuse glow unless named. Centers and sizes are observed art positions, not UI hit targets. Approximate edge uncertainty +/-8 source px; natural branches and glow +/-16 px.",
     "source_metadata": [
-      "art/v7/runtime/measurements/layout_draft.json",
-      "art/v7/runtime/map/world_paths.json",
-      "art/v7/runtime/panels/delivery.json",
-      "art/v7/runtime/effects/delivery.json",
-      "art/v7/runtime/generated_metrics.json",
-      "art/v7/runtime/extracted/provenance.json",
-      "art/v7/runtime/houses/delivery.json",
-      "art/v7/runtime/gift/delivery.json",
-      "art/v7/runtime/gates/delivery.json"
+      "art/approved_ui/runtime/measurements/layout_draft.json",
+      "art/approved_ui/runtime/map/world_paths.json",
+      "art/approved_ui/runtime/panels/delivery.json",
+      "art/approved_ui/runtime/effects/delivery.json",
+      "art/approved_ui/runtime/generated_metrics.json",
+      "art/approved_ui/runtime/extracted/provenance.json",
+      "art/approved_ui/runtime/houses/delivery.json",
+      "art/approved_ui/runtime/gift/delivery.json",
+      "art/approved_ui/runtime/gates/delivery.json"
     ],
     "exclusions": [
-      "ui7_icons.png is a 1536x1536 atlas, not a portrait screen.",
+      "ui_icons.png is a 1536x1536 atlas, not a portrait screen.",
       "Unapproved K3 alt1/alt2 are not layout authority.",
       "No source screen exists for every K1..K6 multi-house layout."
     ]

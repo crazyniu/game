@@ -2,7 +2,7 @@
 
 ## Goal and ownership
 
-Maintain one current game by modifying canonical source in place. Numbered implementation identities such as `V5`, `V6`, `V7`, and future equivalents must not return as authored folders, filenames, identifiers, assembly names, scene roots, or resource paths. Temporary task branches and PRs remain normal collaboration, not parallel product identities.
+Maintain one current game by modifying canonical source in place. Numbered implementation identities such as [V5](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L5), [V6](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L5), [V7](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L5), and future equivalents must not return as authored folders, filenames, identifiers, assembly names, scene roots, or resource paths. Temporary task branches and PRs remain normal collaboration, not parallel product identities.
 
 D owns only:
 
@@ -17,13 +17,13 @@ C owns current documentation, permanent agent instructions, canonical Editor/Tes
 
 Run from the checkout with `python3 ci/check_current_game_names.py`. Exit `0` means no naming violations, `1` means naming/conflict/text-policy violations, and `2` means inspection could not complete. Diagnostics identify the tracked path and line (and content column where applicable), with a canonical-name correction instruction. A path-only violation uses line `1`.
 
-Enumerate all Git-index tracked paths under `PerchSort/Assets`, including sparse-checkout omissions. Check every extension's path components for case-insensitive `V` followed by digits, including identifier prefixes, suffixes, and embedded forms. A new `PerchSort/Assets/V8/...` parallel root must fail even outside the five content roots. Inspect current working-tree bytes when present; otherwise read the indexed blob with Git. Do not rely on a materialized Unity tree or only a changed-file list.
+Enumerate all Git-index tracked paths under `PerchSort/Assets`, including sparse-checkout omissions. Check every extension's path components for case-insensitive `V` followed by digits, including identifier prefixes, suffixes, and embedded forms. A new [PerchSort/Assets/V8/...](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L20) parallel root must fail even outside the five content roots. Inspect current working-tree bytes when present; otherwise read the indexed blob with Git. Do not rely on a materialized Unity tree or only a changed-file list.
 
 Content inspection is limited to `PerchSort/Assets/{Scripts,Editor,Tests,Scenes,Resources}` and their root `.meta` files: UTF-8 C#, assembly definitions/references, scenes, prefabs, serialized assets, JSON, YAML, metadata, text, XML, UXML, and USS. Reject numbered implementation tokens in identifiers, namespaces, serialized names, strings, and comments. PNG, other binary image payloads, and font payloads outside these content roots are not read; their filenames still receive path checks. Unknown non-text extensions receive path checks only.
 
 Historical archives/retired material, docs/tasks/original art, and project `Packages` outside `PerchSort/Assets` remain outside inspection. There are no generic directory-component exemptions: `archive`, `retired`, `vendor`, `thirdparty`, or `packages` nested inside active Assets do not bypass path or authored-text checks. No vendored trees currently exist under the five content roots, and no vendor allowlist is introduced.
 
-Ordinary numeric dependency versions and schema/release/save format fields remain intact. A complete quoted numeric version such as `"v3"` or `"v1.2.3"` is allowed only as the value of explicit `schema`, `schemaVersion`, `formatVersion`, `saveVersion`, `releaseVersion`, `dependencyVersion`, or `version` JSON fields, or corresponding `*Version`/`version` assignments. Other numeric fields and dotted versions without a `V` marker do not match. A resource/scene name does not gain a format exemption just because it resembles a release version. No source is rewritten by the guard.
+Ordinary numeric dependency versions and schema/release/save format fields remain intact. A complete quoted numeric version such as ["v3"](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L26) or ["v1.2.3"](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L26) is allowed only as the value of explicit `schema`, `schemaVersion`, `formatVersion`, `saveVersion`, `releaseVersion`, `dependencyVersion`, or `version` JSON fields, or corresponding `*Version`/`version` assignments. Other numeric fields and dotted versions without a `V` marker do not match. A resource/scene name does not gain a format exemption just because it resembles a release version. No source is rewritten by the guard.
 
 ## Exact saved-data compatibility exceptions
 
@@ -38,7 +38,7 @@ All paths below are relative to `PerchSort/Assets/`:
 | `Tests/Meta/CollectionProgressionTests.cs` | `v5.highestUnlocked`, `v5.starter.0`, `v5.booster.0` |
 | `Tests/Meta/ProfileEconomyTests.cs` | `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.1`, `v5.bestStars.10`, `v5.bestStars.9`, `v5.bestStars.`, `v5.tutorial.7`, `v5.booster.0`, `v5.booster.1`, `v5.booster.5`, `v5.starter.0`, `v5.songNotes`, `v5.songPayouts` |
 
-The numbered test literals are exact existing examples of historical stored IDs. Old `Tests/V5/...` paths are deliberately not exempt. These owners/literals were enumerated from current runtime source and C's canonical test migration read-only. Coordinator decision `msg_0f617bd7f741` confirms that `v5.songNotes` and `v5.songPayouts` are actual historical save identifiers proving migration ignores obsolete Song data. Preserve `LegacyMigrationUsesActualKeysAndIgnoresObsoleteSongKeys` unchanged. Precisely those two literals are allowed only in canonical `Tests/Meta/ProfileEconomyTests.cs`, never runtime or another file; this does not authorize new storage labels or numbered implementation names.
+The numbered test literals are exact existing examples of historical stored IDs. Old [Tests/V5/...](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L41) paths are deliberately not exempt. These owners/literals were enumerated from current runtime source and C's canonical test migration read-only. Coordinator decision `msg_0f617bd7f741` confirms that `v5.songNotes` and `v5.songPayouts` are actual historical save identifiers proving migration ignores obsolete Song data. Preserve `LegacyMigrationUsesActualKeysAndIgnoresObsoleteSongKeys` unchanged. Precisely those two literals are allowed only in canonical `Tests/Meta/ProfileEconomyTests.cs`, never runtime or another file; this does not authorize new storage labels or numbered implementation names.
 
 ## Layout provenance change
 
@@ -48,7 +48,7 @@ Replace only the `GameLayout` source comment referring to a version-numbered ori
 
 Use disposable Git repositories, not another task's working tree, to exercise the real CLI:
 
-1. Reject numbered directories/files across all tracked Assets, including case-insensitive prefixes/suffixes, `Scripts/retired/V8Game.cs`, and a new `Assets/V8/Canonical.cs` root.
+1. Reject numbered directories/files across all tracked Assets, including case-insensitive prefixes/suffixes, [Scripts/retired/V8Game.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L51), and a new [Assets/V8/Canonical.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T52D_naming_policy.md#L51) root.
 2. Reject numbered C# classes/namespaces and assembly identities.
 3. Reject versioned resource paths and serialized scene roots.
 4. Accept canonical names and every exact compatibility literal in its actual owner, including both historical Song IDs only in canonical `Tests/Meta/ProfileEconomyTests.cs`; reject those IDs in runtime and every other file.

@@ -2,7 +2,7 @@
 from pathlib import Path
 from PIL import Image,ImageOps,ImageFilter,ImageChops,ImageDraw
 import json,hashlib
-root=Path(__file__).resolve().parents[4];work=root/'art/approved_ui/runtime/gates';out=root/'PerchSort/Assets/Resources/V7/Art'
+root=Path(__file__).resolve().parents[4];work=root/'art/approved_ui/runtime/gates';out=root/'PerchSort/Assets/Resources/Art'
 S=(1024,1024)
 def canvas():return Image.new('RGBA',S,(0,0,0,0))
 arch=canvas();arch.alpha_composite(Image.open(work/'raw/gate_arch.png').convert('RGBA').resize((860,786),Image.Resampling.LANCZOS),(82,100))
@@ -45,7 +45,7 @@ contact=Image.new('RGB',(1536,1024),'#ccd6df');d=ImageDraw.Draw(contact)
 for i,(name,im) in enumerate(parts.items()):
  x=(i%3)*512;y=(i//3)*341;sp=im.resize((310,310));contact.paste(sp,(x+100,y+25),sp);d.text((x+8,y+7),name,fill='black')
 contact.save(work/'qa/gates_contact.jpg',quality=94)
-meta={'canvas':[1024,1024],'coordinate_origin':'top-left','opening_bounds':list(bbox),'closed_center_seam_x':512,'hinges':{'left':[246,610],'right':[778,610]},'door_closed_rects':{'left':[234,234,278,626],'right':[512,234,278,626]},'padlock_center':[512,610],'gate_light':{'file':'PerchSort/Assets/Resources/V7/Art/gate_light.png','unchanged':True,'source_aperture_normalized':[0.5,0.25],'assembly_target_aperture':[512,375],'recommended_draw_rect':[192,215,640,640]},'open_fallback':'Bamboo backdrop; projected/mirrored generated door leaves swing outward. Static fallback only; not proof of animated rotation.','files':entries}
+meta={'canvas':[1024,1024],'coordinate_origin':'top-left','opening_bounds':list(bbox),'closed_center_seam_x':512,'hinges':{'left':[246,610],'right':[778,610]},'door_closed_rects':{'left':[234,234,278,626],'right':[512,234,278,626]},'padlock_center':[512,610],'gate_light':{'file':'PerchSort/Assets/Resources/Art/gate_light.png','unchanged':True,'source_aperture_normalized':[0.5,0.25],'assembly_target_aperture':[512,375],'recommended_draw_rect':[192,215,640,640]},'open_fallback':'Bamboo backdrop; projected/mirrored generated door leaves swing outward. Static fallback only; not proof of animated rotation.','files':entries}
 meta['opening_bounds_format']='xyxy: left, top, right-exclusive, bottom-exclusive'
 meta['hinge_coordinate_origin']='top-left pixels'
 meta['composition_order_back_to_front']={'locked':['gate_backdrop_w2','gate_door_left','gate_door_right','gate_arch','gate_padlock'],'open':['gate_backdrop_w2','gate_arch','projected_left_door','projected_right_door'],'animated':['gate_backdrop_wN','gate_light','gate_door_left','gate_door_right','gate_arch','gate_padlock (locked only)']}

@@ -8,7 +8,7 @@ Delivered **108/108 requested runtime PNGs**; **missing files: none**. The origi
 
 - [T33 task](T33_art_birds.md), [GAME_DESIGN_V5](../docs/GAME_DESIGN.md) v5.3, and the coordinator messages recorded in [addendum.md](../art/v5/t33/addendum.md).
 - The later Hoot correction is applied: pale tawny/cream round owl, heart-shaped white facial disc, amber eyes, star-patterned nightcap, grey-brown speckled wings, **no ear tufts**.
-- New runtime PNGs only in `PerchSort/Assets/Resources/V5/Art/`; raw, prompts, tools and QA only in `art/v5/t33/`; this report only in `tasks/`.
+- New runtime PNGs only in `PerchSort/Assets/Resources/Art/`; raw, prompts, tools and QA only in `art/v5/t33/`; this report only in `tasks/`.
 - No code, runtime data, scenes, import metadata or original artwork changed by this worker; no commit or push.
 - The start-of-task [baseline](../art/v5/t33/qa/baseline.json) hashes 93 existing art-related files. All **34 existing runtime PNGs** remain byte-identical. The one observed change outside ownership is `art/v5/tools/process_t31_limb.py`, owned by the concurrent limb task; this worker did not write it.
 
@@ -103,114 +103,114 @@ All rows below passed dimensions, RGBA, expected alpha and hidden-RGB checks. St
 
 | File | Pixels | Mode | Alpha min/max | Solid bottom y | Result |
 | --- | --- | --- | --- | --- | --- |
-| [bird_sunny_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_sunny_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sunny_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_sunny_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sunny_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_sunny_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sunny_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_sunny_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sky_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_sky_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sky_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_sky_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sky_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_sky_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_sky_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_sky_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_fly_up.png) | 256x256 | RGBA | 0/255 | 223 (airborne) | PASS |
-| [bird_berry_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_fly_down.png) | 256x256 | RGBA | 0/255 | 242 (airborne) | PASS |
-| [bird_berry_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_berry_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_berry_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
-| [bird_mint_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_fly_down.png) | 256x256 | RGBA | 0/255 | 231 (airborne) | PASS |
-| [bird_mint_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_mint_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_mint_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_fly_up.png) | 256x256 | RGBA | 0/255 | 223 (airborne) | PASS |
-| [bird_cocoa_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_fly_down.png) | 256x256 | RGBA | 0/255 | 235 (airborne) | PASS |
-| [bird_cocoa_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_cocoa_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_cocoa_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_fly_up.png) | 256x256 | RGBA | 0/255 | 226 (airborne) | PASS |
-| [bird_hoot_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_fly_down.png) | 256x256 | RGBA | 0/255 | 247 (airborne) | PASS |
-| [bird_hoot_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_hoot_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_hoot_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_fly_up.png) | 256x256 | RGBA | 0/255 | 220 (airborne) | PASS |
-| [bird_snow_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_fly_down.png) | 256x256 | RGBA | 0/255 | 239 (airborne) | PASS |
-| [bird_snow_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_snow_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_snow_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
-| [bird_ember_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_fly_down.png) | 256x256 | RGBA | 0/255 | 242 (airborne) | PASS |
-| [bird_ember_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ember_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_ember_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_fly_up.png) | 256x256 | RGBA | 0/255 | 222 (airborne) | PASS |
-| [bird_ink_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_fly_down.png) | 256x256 | RGBA | 0/255 | 237 (airborne) | PASS |
-| [bird_ink_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_ink_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_ink_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_idle.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_blink.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_quirk1.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_quirk2.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_fly_up.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
-| [bird_crow_fly_down.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_fly_down.png) | 256x256 | RGBA | 0/255 | 250 (airborne) | PASS |
-| [bird_crow_cheer.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [bird_crow_sleep.png](../PerchSort/Assets/Resources/V5/Art/bird_crow_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [egg_idle.png](../PerchSort/Assets/Resources/V5/Art/egg_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [egg_wobble_l.png](../PerchSort/Assets/Resources/V5/Art/egg_wobble_l.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [egg_wobble_r.png](../PerchSort/Assets/Resources/V5/Art/egg_wobble_r.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [egg_crack.png](../PerchSort/Assets/Resources/V5/Art/egg_crack.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [egg_shell.png](../PerchSort/Assets/Resources/V5/Art/egg_shell.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [zzz.png](../PerchSort/Assets/Resources/V5/Art/zzz.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [twig_left.png](../PerchSort/Assets/Resources/V5/Art/twig_left.png) | 420x90 | RGBA | 0/255 | — | PASS |
-| [roof_band.png](../PerchSort/Assets/Resources/V5/Art/roof_band.png) | 300x60 | RGBA | 0/255 | — | PASS |
-| [icon_firefly.png](../PerchSort/Assets/Resources/V5/Art/icon_firefly.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_sapling.png](../PerchSort/Assets/Resources/V5/Art/icon_sapling.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_owl_eye.png](../PerchSort/Assets/Resources/V5/Art/icon_owl_eye.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_bell.png](../PerchSort/Assets/Resources/V5/Art/icon_bell.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_scarecrow.png](../PerchSort/Assets/Resources/V5/Art/icon_scarecrow.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_rain.png](../PerchSort/Assets/Resources/V5/Art/icon_rain.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [badge_count.png](../PerchSort/Assets/Resources/V5/Art/badge_count.png) | 64x64 | RGBA | 0/255 | — | PASS |
-| [badge_plus.png](../PerchSort/Assets/Resources/V5/Art/badge_plus.png) | 64x64 | RGBA | 0/255 | — | PASS |
-| [bg_w1_morning.png](../PerchSort/Assets/Resources/V5/Art/bg_w1_morning.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
-| [bg_w1_golden.png](../PerchSort/Assets/Resources/V5/Art/bg_w1_golden.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
-| [bg_w1_rain.png](../PerchSort/Assets/Resources/V5/Art/bg_w1_rain.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
-| [petal.png](../PerchSort/Assets/Resources/V5/Art/petal.png) | 64x64 | RGBA | 0/255 | — | PASS |
-| [raindrop.png](../PerchSort/Assets/Resources/V5/Art/raindrop.png) | 32x64 | RGBA | 0/255 | — | PASS |
-| [mama_bow.png](../PerchSort/Assets/Resources/V5/Art/mama_bow.png) | 96x96 | RGBA | 0/255 | — | PASS |
-| [chick_fluff.png](../PerchSort/Assets/Resources/V5/Art/chick_fluff.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [swivel_knot.png](../PerchSort/Assets/Resources/V5/Art/swivel_knot.png) | 160x160 | RGBA | 0/255 | — | PASS |
-| [gift_wake.png](../PerchSort/Assets/Resources/V5/Art/gift_wake.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_breeze.png](../PerchSort/Assets/Resources/V5/Art/gift_breeze.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_encore.png](../PerchSort/Assets/Resources/V5/Art/gift_encore.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_gardener.png](../PerchSort/Assets/Resources/V5/Art/gift_gardener.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_stare.png](../PerchSort/Assets/Resources/V5/Art/gift_stare.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_lightstep.png](../PerchSort/Assets/Resources/V5/Art/gift_lightstep.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_warm.png](../PerchSort/Assets/Resources/V5/Art/gift_warm.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_night.png](../PerchSort/Assets/Resources/V5/Art/gift_night.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [gift_moonbeam.png](../PerchSort/Assets/Resources/V5/Art/gift_moonbeam.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [dial_sun.png](../PerchSort/Assets/Resources/V5/Art/dial_sun.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [dial_moon.png](../PerchSort/Assets/Resources/V5/Art/dial_moon.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [night_overlay.png](../PerchSort/Assets/Resources/V5/Art/night_overlay.png) | 1080x1920 | RGBA | 140/140 | — | PASS |
+| [bird_sunny_quirk1.png](../PerchSort/Assets/Resources/Art/bird_sunny_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sunny_quirk2.png](../PerchSort/Assets/Resources/Art/bird_sunny_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sunny_cheer.png](../PerchSort/Assets/Resources/Art/bird_sunny_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sunny_sleep.png](../PerchSort/Assets/Resources/Art/bird_sunny_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sky_quirk1.png](../PerchSort/Assets/Resources/Art/bird_sky_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sky_quirk2.png](../PerchSort/Assets/Resources/Art/bird_sky_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sky_cheer.png](../PerchSort/Assets/Resources/Art/bird_sky_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_sky_sleep.png](../PerchSort/Assets/Resources/Art/bird_sky_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_idle.png](../PerchSort/Assets/Resources/Art/bird_berry_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_blink.png](../PerchSort/Assets/Resources/Art/bird_berry_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_quirk1.png](../PerchSort/Assets/Resources/Art/bird_berry_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_quirk2.png](../PerchSort/Assets/Resources/Art/bird_berry_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_fly_up.png](../PerchSort/Assets/Resources/Art/bird_berry_fly_up.png) | 256x256 | RGBA | 0/255 | 223 (airborne) | PASS |
+| [bird_berry_fly_down.png](../PerchSort/Assets/Resources/Art/bird_berry_fly_down.png) | 256x256 | RGBA | 0/255 | 242 (airborne) | PASS |
+| [bird_berry_cheer.png](../PerchSort/Assets/Resources/Art/bird_berry_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_berry_sleep.png](../PerchSort/Assets/Resources/Art/bird_berry_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_idle.png](../PerchSort/Assets/Resources/Art/bird_mint_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_blink.png](../PerchSort/Assets/Resources/Art/bird_mint_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_quirk1.png](../PerchSort/Assets/Resources/Art/bird_mint_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_quirk2.png](../PerchSort/Assets/Resources/Art/bird_mint_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_fly_up.png](../PerchSort/Assets/Resources/Art/bird_mint_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
+| [bird_mint_fly_down.png](../PerchSort/Assets/Resources/Art/bird_mint_fly_down.png) | 256x256 | RGBA | 0/255 | 231 (airborne) | PASS |
+| [bird_mint_cheer.png](../PerchSort/Assets/Resources/Art/bird_mint_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_mint_sleep.png](../PerchSort/Assets/Resources/Art/bird_mint_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_idle.png](../PerchSort/Assets/Resources/Art/bird_cocoa_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_blink.png](../PerchSort/Assets/Resources/Art/bird_cocoa_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_quirk1.png](../PerchSort/Assets/Resources/Art/bird_cocoa_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_quirk2.png](../PerchSort/Assets/Resources/Art/bird_cocoa_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_fly_up.png](../PerchSort/Assets/Resources/Art/bird_cocoa_fly_up.png) | 256x256 | RGBA | 0/255 | 223 (airborne) | PASS |
+| [bird_cocoa_fly_down.png](../PerchSort/Assets/Resources/Art/bird_cocoa_fly_down.png) | 256x256 | RGBA | 0/255 | 235 (airborne) | PASS |
+| [bird_cocoa_cheer.png](../PerchSort/Assets/Resources/Art/bird_cocoa_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_cocoa_sleep.png](../PerchSort/Assets/Resources/Art/bird_cocoa_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_idle.png](../PerchSort/Assets/Resources/Art/bird_hoot_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_blink.png](../PerchSort/Assets/Resources/Art/bird_hoot_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_quirk1.png](../PerchSort/Assets/Resources/Art/bird_hoot_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_quirk2.png](../PerchSort/Assets/Resources/Art/bird_hoot_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_fly_up.png](../PerchSort/Assets/Resources/Art/bird_hoot_fly_up.png) | 256x256 | RGBA | 0/255 | 226 (airborne) | PASS |
+| [bird_hoot_fly_down.png](../PerchSort/Assets/Resources/Art/bird_hoot_fly_down.png) | 256x256 | RGBA | 0/255 | 247 (airborne) | PASS |
+| [bird_hoot_cheer.png](../PerchSort/Assets/Resources/Art/bird_hoot_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_hoot_sleep.png](../PerchSort/Assets/Resources/Art/bird_hoot_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_idle.png](../PerchSort/Assets/Resources/Art/bird_snow_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_blink.png](../PerchSort/Assets/Resources/Art/bird_snow_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_quirk1.png](../PerchSort/Assets/Resources/Art/bird_snow_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_quirk2.png](../PerchSort/Assets/Resources/Art/bird_snow_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_fly_up.png](../PerchSort/Assets/Resources/Art/bird_snow_fly_up.png) | 256x256 | RGBA | 0/255 | 220 (airborne) | PASS |
+| [bird_snow_fly_down.png](../PerchSort/Assets/Resources/Art/bird_snow_fly_down.png) | 256x256 | RGBA | 0/255 | 239 (airborne) | PASS |
+| [bird_snow_cheer.png](../PerchSort/Assets/Resources/Art/bird_snow_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_snow_sleep.png](../PerchSort/Assets/Resources/Art/bird_snow_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_idle.png](../PerchSort/Assets/Resources/Art/bird_ember_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_blink.png](../PerchSort/Assets/Resources/Art/bird_ember_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_quirk1.png](../PerchSort/Assets/Resources/Art/bird_ember_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_quirk2.png](../PerchSort/Assets/Resources/Art/bird_ember_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_fly_up.png](../PerchSort/Assets/Resources/Art/bird_ember_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
+| [bird_ember_fly_down.png](../PerchSort/Assets/Resources/Art/bird_ember_fly_down.png) | 256x256 | RGBA | 0/255 | 242 (airborne) | PASS |
+| [bird_ember_cheer.png](../PerchSort/Assets/Resources/Art/bird_ember_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ember_sleep.png](../PerchSort/Assets/Resources/Art/bird_ember_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_idle.png](../PerchSort/Assets/Resources/Art/bird_ink_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_blink.png](../PerchSort/Assets/Resources/Art/bird_ink_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_quirk1.png](../PerchSort/Assets/Resources/Art/bird_ink_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_quirk2.png](../PerchSort/Assets/Resources/Art/bird_ink_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_fly_up.png](../PerchSort/Assets/Resources/Art/bird_ink_fly_up.png) | 256x256 | RGBA | 0/255 | 222 (airborne) | PASS |
+| [bird_ink_fly_down.png](../PerchSort/Assets/Resources/Art/bird_ink_fly_down.png) | 256x256 | RGBA | 0/255 | 237 (airborne) | PASS |
+| [bird_ink_cheer.png](../PerchSort/Assets/Resources/Art/bird_ink_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_ink_sleep.png](../PerchSort/Assets/Resources/Art/bird_ink_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_idle.png](../PerchSort/Assets/Resources/Art/bird_crow_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_blink.png](../PerchSort/Assets/Resources/Art/bird_crow_blink.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_quirk1.png](../PerchSort/Assets/Resources/Art/bird_crow_quirk1.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_quirk2.png](../PerchSort/Assets/Resources/Art/bird_crow_quirk2.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_fly_up.png](../PerchSort/Assets/Resources/Art/bird_crow_fly_up.png) | 256x256 | RGBA | 0/255 | 224 (airborne) | PASS |
+| [bird_crow_fly_down.png](../PerchSort/Assets/Resources/Art/bird_crow_fly_down.png) | 256x256 | RGBA | 0/255 | 250 (airborne) | PASS |
+| [bird_crow_cheer.png](../PerchSort/Assets/Resources/Art/bird_crow_cheer.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [bird_crow_sleep.png](../PerchSort/Assets/Resources/Art/bird_crow_sleep.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [egg_idle.png](../PerchSort/Assets/Resources/Art/egg_idle.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [egg_wobble_l.png](../PerchSort/Assets/Resources/Art/egg_wobble_l.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [egg_wobble_r.png](../PerchSort/Assets/Resources/Art/egg_wobble_r.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [egg_crack.png](../PerchSort/Assets/Resources/Art/egg_crack.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [egg_shell.png](../PerchSort/Assets/Resources/Art/egg_shell.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
+| [zzz.png](../PerchSort/Assets/Resources/Art/zzz.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [twig_left.png](../PerchSort/Assets/Resources/Art/twig_left.png) | 420x90 | RGBA | 0/255 | — | PASS |
+| [roof_band.png](../PerchSort/Assets/Resources/Art/roof_band.png) | 300x60 | RGBA | 0/255 | — | PASS |
+| [icon_firefly.png](../PerchSort/Assets/Resources/Art/icon_firefly.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_sapling.png](../PerchSort/Assets/Resources/Art/icon_sapling.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_owl_eye.png](../PerchSort/Assets/Resources/Art/icon_owl_eye.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_bell.png](../PerchSort/Assets/Resources/Art/icon_bell.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_scarecrow.png](../PerchSort/Assets/Resources/Art/icon_scarecrow.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_rain.png](../PerchSort/Assets/Resources/Art/icon_rain.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [badge_count.png](../PerchSort/Assets/Resources/Art/badge_count.png) | 64x64 | RGBA | 0/255 | — | PASS |
+| [badge_plus.png](../PerchSort/Assets/Resources/Art/badge_plus.png) | 64x64 | RGBA | 0/255 | — | PASS |
+| [bg_w1_morning.png](../PerchSort/Assets/Resources/Art/bg_w1_morning.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
+| [bg_w1_golden.png](../PerchSort/Assets/Resources/Art/bg_w1_golden.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
+| [bg_w1_rain.png](../PerchSort/Assets/Resources/Art/bg_w1_rain.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
+| [petal.png](../PerchSort/Assets/Resources/Art/petal.png) | 64x64 | RGBA | 0/255 | — | PASS |
+| [raindrop.png](../PerchSort/Assets/Resources/Art/raindrop.png) | 32x64 | RGBA | 0/255 | — | PASS |
+| [mama_bow.png](../PerchSort/Assets/Resources/Art/mama_bow.png) | 96x96 | RGBA | 0/255 | — | PASS |
+| [chick_fluff.png](../PerchSort/Assets/Resources/Art/chick_fluff.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [swivel_knot.png](../PerchSort/Assets/Resources/Art/swivel_knot.png) | 160x160 | RGBA | 0/255 | — | PASS |
+| [gift_wake.png](../PerchSort/Assets/Resources/Art/gift_wake.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_breeze.png](../PerchSort/Assets/Resources/Art/gift_breeze.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_encore.png](../PerchSort/Assets/Resources/Art/gift_encore.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_gardener.png](../PerchSort/Assets/Resources/Art/gift_gardener.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_stare.png](../PerchSort/Assets/Resources/Art/gift_stare.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_lightstep.png](../PerchSort/Assets/Resources/Art/gift_lightstep.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_warm.png](../PerchSort/Assets/Resources/Art/gift_warm.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_night.png](../PerchSort/Assets/Resources/Art/gift_night.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [gift_moonbeam.png](../PerchSort/Assets/Resources/Art/gift_moonbeam.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [dial_sun.png](../PerchSort/Assets/Resources/Art/dial_sun.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [dial_moon.png](../PerchSort/Assets/Resources/Art/dial_moon.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [night_overlay.png](../PerchSort/Assets/Resources/Art/night_overlay.png) | 1080x1920 | RGBA | 140/140 | — | PASS |
 
 ## Follow-up: four independent birdhouse hangers
 
@@ -218,8 +218,8 @@ Task `task_87cf6b4dda30`, 2026-11-03. The coordinator explicitly authorized two 
 
 | New asset | Dimensions | Mode | Alpha min/max | Verification |
 | --- | --- | --- | --- | --- |
-| [limb_top_plain.png](../PerchSort/Assets/Resources/V5/Art/limb_top_plain.png) | 1080x320 | RGBA | 0/255 | Central rope/knot removed; repaired wood; all pixels outside the local repair rectangle unchanged |
-| [rope_segment.png](../PerchSort/Assets/Resources/V5/Art/rope_segment.png) | 24x128 | RGBA | 0/255 | Top and bottom RGBA rows exactly equal; opaque rope present on every row; transparent 3px side gutters |
+| [limb_top_plain.png](../PerchSort/Assets/Resources/Art/limb_top_plain.png) | 1080x320 | RGBA | 0/255 | Central rope/knot removed; repaired wood; all pixels outside the local repair rectangle unchanged |
+| [rope_segment.png](../PerchSort/Assets/Resources/Art/rope_segment.png) | 24x128 | RGBA | 0/255 | Top and bottom RGBA rows exactly equal; opaque rope present on every row; transparent 3px side gutters |
 
 The plain limb starts with the original `limb_top.png` pixels. A generated local wood repair is registered to the existing limb edges and feathered only inside **x=510..569, y=95..249**. Exactly **5,894** pixels changed, within actual bounds **[511,104,569,242)**; the other **339,706** pixels match the original byte-for-byte. The old loop and its faint alpha fringe are removed, and the resulting limb has no nonzero alpha below **y=170**, comfortably satisfying the y=260 limit.
 

@@ -1,4 +1,4 @@
-# ui_level_k3_v2: one gameplay screen, matched to the user's reference screenshots
+# ui_level_k3: one gameplay screen, matched to the user's reference screenshots
 
 The user rejected v1 (`art/approved_ui/ui_level_k3.png` on branch origin/mac-art/ui7): too cartoonish, too painterly/illustrated, buttons too big and inconsistent. The user wants the look of their reference screenshots. Style references (third-party screenshots, use ONLY as style/rendering references, never copy their characters, birdhouse, coin, gear or layout one-to-one, never put them in the repo): `/tmp/refs/ref_portrait_1.png`, `/tmp/refs/ref_portrait_2.png`, `/tmp/refs/ref_landscape_1.png`. Open and study them before generating, and pass them to the image tool as reference images if it accepts references.
 

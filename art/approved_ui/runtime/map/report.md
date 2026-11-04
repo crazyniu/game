@@ -2,7 +2,7 @@
 
 ## Delivered
 
-Eleven production PNGs are in `PerchSort/Assets/Resources/V7/Art/`:
+Eleven production PNGs are in `PerchSort/Assets/Resources/Art/`:
 
 - `map_bg_w1.png` through `map_bg_w4.png`: 1080 x 3000 RGBA; spring oak, mist bamboo, amber maple, snowy pine. Scenery only, clear tan S-path, no baked UI, nodes, labels, birds or gates.
 - `node_wood.png`, `node_wood_current_glow.png`, `node_stone_locked.png`: 320 x 288 RGBA. Wooden nodes are empty for code-rendered numbers/stars; locked stone includes its padlock. The current-node file is a whole brighter-rim node replacement, not an additive-only overlay.

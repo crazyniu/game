@@ -42,7 +42,7 @@
     "mask_detail": "Saturation silhouette with explicitly cleared shackle opening."
   },
   "gate_light": {
-    "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+    "file": "PerchSort/Assets/Resources/Art/gate_light.png",
     "unchanged": true,
     "source_aperture_normalized": [
       0.5,

@@ -30,7 +30,7 @@
   },
   "world_assets": [
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_morning.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w1_morning.png",
       "size": [
         1080,
         1920
@@ -42,7 +42,7 @@
       "sha256": "93cf673a50862e2e082933a9a5d61a3570c757836484468b30faa75fdabb612c"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_noon.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w1_noon.png",
       "size": [
         1080,
         1920
@@ -54,7 +54,7 @@
       "sha256": "14850ba2430908904cdd226eaf36aa65cd4c8f67d88b91d422b8f3b7fceb67ff"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_golden.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w1_golden.png",
       "size": [
         1080,
         1920
@@ -66,7 +66,7 @@
       "sha256": "21096943b96e754dc584c04a140a0466639d57a16fd1f105602db3a957833541"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_rain.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w1_rain.png",
       "size": [
         1080,
         1920
@@ -78,7 +78,7 @@
       "sha256": "80a96e538e006696e94d3f4ed705922ea8d47a5dcbdb1c13bb94375f4848dfa6"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w2_mist.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w2_mist.png",
       "size": [
         1080,
         1920
@@ -90,7 +90,7 @@
       "sha256": "d906f4986e755bf2740cc6e2b2d51c8fc3aaa9ff78dfb3963b85be08e39ca000"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w2_noon.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w2_noon.png",
       "size": [
         1080,
         1920
@@ -102,7 +102,7 @@
       "sha256": "e7950a46641aae8a92dc0a5be26edd87cc9beb9ef6cd50900df6d141a00ec96e"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w2_lanterns.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w2_lanterns.png",
       "size": [
         1080,
         1920
@@ -114,7 +114,7 @@
       "sha256": "6568516235322df2a0c9d0fa6d926200a84b4655dfc1e78b2db460ae87336696"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w2_drizzle.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w2_drizzle.png",
       "size": [
         1080,
         1920
@@ -126,7 +126,7 @@
       "sha256": "9b52dd998f51a0b3f50823d2f3589510aedffc0ac6083862618b5b52645c0602"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w3_morning.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w3_morning.png",
       "size": [
         1080,
         1920
@@ -138,7 +138,7 @@
       "sha256": "b350475297bd2ec244e3a3431809fbf7326254e1343076d31188fbb3dd7ebb33"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w3_noon.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w3_noon.png",
       "size": [
         1080,
         1920
@@ -150,7 +150,7 @@
       "sha256": "88e544603a15f6b9ed6e958a3ebd20c0b3332422d680f1c578f42b25641cc864"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w3_sunset.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w3_sunset.png",
       "size": [
         1080,
         1920
@@ -162,7 +162,7 @@
       "sha256": "caa1fadb17885bef2af8cb5941988fce5ad5cec184001834d9a2570673884ce3"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w3_windy.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w3_windy.png",
       "size": [
         1080,
         1920
@@ -174,7 +174,7 @@
       "sha256": "0efdd65acdf248281a971a157f3523c1d37feb5fa76707b9431ac6be03ebb8b6"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_morning.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w4_morning.png",
       "size": [
         1080,
         1920
@@ -186,7 +186,7 @@
       "sha256": "0b33cc44057a075ce2ead6a75825e6081b538acee0031a615f6464e428fffa0d"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_noon.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w4_noon.png",
       "size": [
         1080,
         1920
@@ -198,7 +198,7 @@
       "sha256": "ba4400fe9e8c8673e2dd6158fe6839ba017f264f377cc18e09d5a6345981ab10"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_bluehour.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w4_bluehour.png",
       "size": [
         1080,
         1920
@@ -210,7 +210,7 @@
       "sha256": "b8eb8352a7d1396c1af273eb488a8cb157cfd140cc2c01930184a7898e99b9ca"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_aurora.png",
+      "file": "PerchSort/Assets/Resources/World/bg_level_w4_aurora.png",
       "size": [
         1080,
         1920
@@ -222,7 +222,7 @@
       "sha256": "16cc091b42f6c5a4696307e044ed137b65e792e73961773ef13622ac3e714412"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/branch_left_w1.png",
+      "file": "PerchSort/Assets/Resources/World/branch_left_w1.png",
       "size": [
         620,
         90
@@ -234,7 +234,7 @@
       "sha256": "3182c012666913a0e0109aed78edaa6096065451fd951476b32a192ed66f9fd8"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/twig_left_w1.png",
+      "file": "PerchSort/Assets/Resources/World/twig_left_w1.png",
       "size": [
         400,
         80
@@ -246,7 +246,7 @@
       "sha256": "85292a0a6a0e5871fb383f967a94cffaab2c1e56965f61eabe68bd832363bcc2"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w1.png",
+      "file": "PerchSort/Assets/Resources/World/tree_crown_w1.png",
       "size": [
         600,
         400
@@ -258,7 +258,7 @@
       "sha256": "ef1000f2ecdc2a707412ea24d5b004271801d8df275d99e8b87b34241ccd99aa"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w1.png",
+      "file": "PerchSort/Assets/Resources/World/trunk_left_w1.png",
       "size": [
         160,
         1920
@@ -270,7 +270,7 @@
       "sha256": "89e434553608011d2c1bdb013ae0f11aba0be948fe744ee11b3965dd85e5de8b"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/branch_left_w2.png",
+      "file": "PerchSort/Assets/Resources/World/branch_left_w2.png",
       "size": [
         620,
         90
@@ -282,7 +282,7 @@
       "sha256": "ee8dce7977cd00ddc3d726279c188aa2efcd6825b6738cc759f2b0edfa51cbc4"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/twig_left_w2.png",
+      "file": "PerchSort/Assets/Resources/World/twig_left_w2.png",
       "size": [
         400,
         80
@@ -294,7 +294,7 @@
       "sha256": "6ab3e8b8d7dad07630198ad8aa137c984d016aab9bff751d2ae03949835df97a"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w2.png",
+      "file": "PerchSort/Assets/Resources/World/tree_crown_w2.png",
       "size": [
         600,
         400
@@ -306,7 +306,7 @@
       "sha256": "de97e4d7b016599f55d51415a892cc06c3a1ede0dd380565739053261bd53ec7"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w2.png",
+      "file": "PerchSort/Assets/Resources/World/trunk_left_w2.png",
       "size": [
         160,
         1920
@@ -318,7 +318,7 @@
       "sha256": "dd766ad6a875c685cf15601663b57ee2812ad4f614b521e33e1b0ec66284595a"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/branch_left_w3.png",
+      "file": "PerchSort/Assets/Resources/World/branch_left_w3.png",
       "size": [
         620,
         90
@@ -330,7 +330,7 @@
       "sha256": "1af0ebc1adb095076c031db714975c6fccc3647c551be07a4375aaf1779c88f3"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/twig_left_w3.png",
+      "file": "PerchSort/Assets/Resources/World/twig_left_w3.png",
       "size": [
         400,
         80
@@ -342,7 +342,7 @@
       "sha256": "024e8119ab11353fbb0ed8077f5a776be8035f4658ff48bd16395c329f612735"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w3.png",
+      "file": "PerchSort/Assets/Resources/World/tree_crown_w3.png",
       "size": [
         600,
         400
@@ -354,7 +354,7 @@
       "sha256": "c3659821041e03e3bd4785b3e76c3345517fa4944b88e31aff24a1356baf6a64"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w3.png",
+      "file": "PerchSort/Assets/Resources/World/trunk_left_w3.png",
       "size": [
         160,
         1920
@@ -366,7 +366,7 @@
       "sha256": "1d34f33be82aed9cd2c683b90afa1122263a9a9576339f35aa39472badc2743e"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/branch_left_w4.png",
+      "file": "PerchSort/Assets/Resources/World/branch_left_w4.png",
       "size": [
         620,
         90
@@ -378,7 +378,7 @@
       "sha256": "34c87d2506b89e68b15fe62940c90f1f9b90d08a4ae6c3ded7dd69f351499413"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/twig_left_w4.png",
+      "file": "PerchSort/Assets/Resources/World/twig_left_w4.png",
       "size": [
         400,
         80
@@ -390,7 +390,7 @@
       "sha256": "6fd732968ff9114e65d7da208fa080896346b57a7f0ca6535d708c579fac2cfb"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w4.png",
+      "file": "PerchSort/Assets/Resources/World/tree_crown_w4.png",
       "size": [
         600,
         400
@@ -402,7 +402,7 @@
       "sha256": "ac56657cc8643fdf846bc798fa7c842e4b7bf98280fec428a436fd0a6003e825"
     },
     {
-      "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w4.png",
+      "file": "PerchSort/Assets/Resources/World/trunk_left_w4.png",
       "size": [
         160,
         1920
@@ -421,7 +421,7 @@
       "preparation": "Alpha below 32 removed as generated background speckle; retained subject alpha preserved. Alpha bounds trimmed, resized and aligned only.",
       "assets": {
         "branch": {
-          "file": "PerchSort/Assets/Resources/V7/World/branch_left_w1.png",
+          "file": "PerchSort/Assets/Resources/World/branch_left_w1.png",
           "size": [
             620,
             90
@@ -455,7 +455,7 @@
           ]
         },
         "twig": {
-          "file": "PerchSort/Assets/Resources/V7/World/twig_left_w1.png",
+          "file": "PerchSort/Assets/Resources/World/twig_left_w1.png",
           "size": [
             400,
             80
@@ -489,7 +489,7 @@
           ]
         },
         "crown": {
-          "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w1.png",
+          "file": "PerchSort/Assets/Resources/World/tree_crown_w1.png",
           "size": [
             600,
             400
@@ -518,7 +518,7 @@
           ]
         },
         "trunk": {
-          "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w1.png",
+          "file": "PerchSort/Assets/Resources/World/trunk_left_w1.png",
           "size": [
             160,
             1920
@@ -550,7 +550,7 @@
       "preparation": "Alpha below 32 removed as generated background speckle; retained subject alpha preserved. Alpha bounds trimmed, resized and aligned only.",
       "assets": {
         "branch": {
-          "file": "PerchSort/Assets/Resources/V7/World/branch_left_w2.png",
+          "file": "PerchSort/Assets/Resources/World/branch_left_w2.png",
           "size": [
             620,
             90
@@ -584,7 +584,7 @@
           ]
         },
         "twig": {
-          "file": "PerchSort/Assets/Resources/V7/World/twig_left_w2.png",
+          "file": "PerchSort/Assets/Resources/World/twig_left_w2.png",
           "size": [
             400,
             80
@@ -618,7 +618,7 @@
           ]
         },
         "crown": {
-          "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w2.png",
+          "file": "PerchSort/Assets/Resources/World/tree_crown_w2.png",
           "size": [
             600,
             400
@@ -647,7 +647,7 @@
           ]
         },
         "trunk": {
-          "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w2.png",
+          "file": "PerchSort/Assets/Resources/World/trunk_left_w2.png",
           "size": [
             160,
             1920
@@ -679,7 +679,7 @@
       "preparation": "Alpha below 32 removed as generated background speckle; retained subject alpha preserved. Alpha bounds trimmed, resized and aligned only.",
       "assets": {
         "branch": {
-          "file": "PerchSort/Assets/Resources/V7/World/branch_left_w3.png",
+          "file": "PerchSort/Assets/Resources/World/branch_left_w3.png",
           "size": [
             620,
             90
@@ -713,7 +713,7 @@
           ]
         },
         "twig": {
-          "file": "PerchSort/Assets/Resources/V7/World/twig_left_w3.png",
+          "file": "PerchSort/Assets/Resources/World/twig_left_w3.png",
           "size": [
             400,
             80
@@ -747,7 +747,7 @@
           ]
         },
         "crown": {
-          "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w3.png",
+          "file": "PerchSort/Assets/Resources/World/tree_crown_w3.png",
           "size": [
             600,
             400
@@ -776,7 +776,7 @@
           ]
         },
         "trunk": {
-          "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w3.png",
+          "file": "PerchSort/Assets/Resources/World/trunk_left_w3.png",
           "size": [
             160,
             1920
@@ -808,7 +808,7 @@
       "preparation": "Alpha below 32 removed as generated background speckle; retained subject alpha preserved. Alpha bounds trimmed, resized and aligned only.",
       "assets": {
         "branch": {
-          "file": "PerchSort/Assets/Resources/V7/World/branch_left_w4.png",
+          "file": "PerchSort/Assets/Resources/World/branch_left_w4.png",
           "size": [
             620,
             90
@@ -842,7 +842,7 @@
           ]
         },
         "twig": {
-          "file": "PerchSort/Assets/Resources/V7/World/twig_left_w4.png",
+          "file": "PerchSort/Assets/Resources/World/twig_left_w4.png",
           "size": [
             400,
             80
@@ -876,7 +876,7 @@
           ]
         },
         "crown": {
-          "file": "PerchSort/Assets/Resources/V7/World/tree_crown_w4.png",
+          "file": "PerchSort/Assets/Resources/World/tree_crown_w4.png",
           "size": [
             600,
             400
@@ -905,7 +905,7 @@
           ]
         },
         "trunk": {
-          "file": "PerchSort/Assets/Resources/V7/World/trunk_left_w4.png",
+          "file": "PerchSort/Assets/Resources/World/trunk_left_w4.png",
           "size": [
             160,
             1920

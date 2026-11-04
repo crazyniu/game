@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 import json,shutil
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
-OUT=ROOT/'PerchSort/Assets/Resources/V7/Art'
+OUT=ROOT/'PerchSort/Assets/Resources/Art'
 sources=json.loads((HERE/'sources.json').read_text())
 records=[];objects={}
 def cut(name):

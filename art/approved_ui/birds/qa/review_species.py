@@ -8,7 +8,7 @@ for species in sys.argv[1:]:
     board=Image.new('RGB',(985,880),'#e9e5df')
     draw=ImageDraw.Draw(board)
     for index,state in enumerate(STATES):
-        sprite=Image.open(ROOT/f'PerchSort/Assets/Resources/V7/Birds/{species}_{state}.png').resize((197,197),Image.Resampling.LANCZOS)
+        sprite=Image.open(ROOT/f'PerchSort/Assets/Resources/Birds/{species}_{state}.png').resize((197,197),Image.Resampling.LANCZOS)
         x,y=(index%5)*197,(index//5)*220
         board.paste(sprite,(x,y),sprite)
         draw.text((x+6,y+200),state,fill='#302e2c')

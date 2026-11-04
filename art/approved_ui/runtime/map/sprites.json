@@ -1,6 +1,6 @@
 {
   "node_wood": {
-    "file": "PerchSort/Assets/Resources/V7/Art/node_wood.png",
+    "file": "PerchSort/Assets/Resources/Art/node_wood.png",
     "size": [
       320,
       288
@@ -27,7 +27,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "node_wood_current_glow": {
-    "file": "PerchSort/Assets/Resources/V7/Art/node_wood_current_glow.png",
+    "file": "PerchSort/Assets/Resources/Art/node_wood_current_glow.png",
     "size": [
       320,
       288
@@ -54,7 +54,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "node_stone_locked": {
-    "file": "PerchSort/Assets/Resources/V7/Art/node_stone_locked.png",
+    "file": "PerchSort/Assets/Resources/Art/node_stone_locked.png",
     "size": [
       320,
       288
@@ -81,7 +81,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "world_sign_w1": {
-    "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w1.png",
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w1.png",
     "size": [
       384,
       320
@@ -108,7 +108,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "world_sign_w2": {
-    "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w2.png",
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w2.png",
     "size": [
       384,
       320
@@ -135,7 +135,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "world_sign_w3": {
-    "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w3.png",
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w3.png",
     "size": [
       384,
       320
@@ -162,7 +162,7 @@
     "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
   },
   "world_sign_w4": {
-    "file": "PerchSort/Assets/Resources/V7/Art/world_sign_w4.png",
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w4.png",
     "size": [
       384,
       320

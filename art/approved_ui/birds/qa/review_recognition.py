@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageOps
 
 ROOT = Path(__file__).resolve().parents[4]
-BIRDS = ROOT / 'PerchSort/Assets/Resources/V7/Birds'
+BIRDS = ROOT / 'PerchSort/Assets/Resources/Birds'
 QA = ROOT / 'art/approved_ui/birds/qa'
 SPECIES = 'sunny sky berry mint cocoa snow ember ink hoot crow'.split()
 sheet = Image.new('RGB', (1000, 260), '#e9e5df')

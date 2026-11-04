@@ -2,7 +2,7 @@
 
 ## Scope and provenance
 
-Delivered all 20 assigned effect and animation-particle sprites to `PerchSort/Assets/Resources/V7/Art/`. Each was generated with a separate built-in image-tool call using an approved v7 screen as a direct reference. No CLI or API-key fallback was used. No Unity session, code change, commit or push was performed by this worker.
+Delivered all 20 assigned effect and animation-particle sprites to `PerchSort/Assets/Resources/Art/`. Each was generated with a separate built-in image-tool call using an approved v7 screen as a direct reference. No CLI or API-key fallback was used. No Unity session, code change, commit or push was performed by this worker.
 
 Exact prompts, reference names and original generated paths are in `generation_records.json`. Original generated RGBA files are preserved in `raw/`. `delivery.json` records dimensions, alpha counts, SHA256 hashes and per-sprite QA paths. `export_effects.py` only resizes, pads and composites generated artwork for QA; it does not draw artwork.
 

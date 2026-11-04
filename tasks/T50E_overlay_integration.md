@@ -4,7 +4,7 @@
 
 Current Codex coordinator requested a bounded follow-up after T50A `a012e70`, already reviewed/integrated by D. Work stays on `mac-motion/t50`; D integrates this follow-up only after coordinator review. Do not contact Claude or merge main.
 
-Own only `BirdView.cs`, isolated `V7BirdOverlay*` helpers/metadata, this spec, `T50E_report.md` and `docs/team/status/mac-motion.md`. No Core/gameplay, board placement/layout, art, other modules, compiler/Unity/tests, new artwork or regeneration. Read asset commits without checking them out or modifying them.
+Own only `BirdView.cs`, isolated [V7BirdOverlay*](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50E_overlay_integration.md#L7) helpers/metadata, this spec, `T50E_report.md` and `docs/team/status/mac-motion.md`. No Core/gameplay, board placement/layout, art, other modules, compiler/Unity/tests, new artwork or regeneration. Read asset commits without checking them out or modifying them.
 
 ## Inputs and reviewed scope
 

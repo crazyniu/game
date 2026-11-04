@@ -2,7 +2,7 @@
 from pathlib import Path
 from PIL import Image,ImageOps,ImageDraw
 import json
-P=Path(__file__).resolve().parent;ROOT=P.parents[3];W=ROOT/'PerchSort/Assets/Resources/V7/World';V=ROOT/'art/approved_ui'
+P=Path(__file__).resolve().parent;ROOT=P.parents[3];W=ROOT/'PerchSort/Assets/Resources/World';V=ROOT/'art/approved_ui'
 layout=json.loads((V/'layout.json').read_text())
 for world,key,variant,ref in [('w1','level_k3','noon','ui_level_k3.png'),('w4','level_k7','aurora','ui_level_k7.png')]:
     meta=json.loads((V/f'world/pieces/{world}/metadata.json').read_text())['assets']

@@ -32,6 +32,6 @@ Automatic PR CI still runs current configuration/script/workflow checks and reta
 
 ## Compatibility and history
 
-Existing `v5.*`, `v6.unlockSeen.*` and `v7.notifications` persistence strings remain unchanged to preserve progress; these are compatibility IDs, not runnable versions. Current development flags remain enabled in `Assets/Resources/dev_options.json`; release hardening is a separate authorized change.
+Existing the exact persistence literals listed in CURRENT_GAME persistence strings remain unchanged to preserve progress; these are compatibility IDs, not runnable versions. Current development flags remain enabled in `Assets/Resources/dev_options.json`; release hardening is a separate authorized change.
 
 Old v2 implementation records and the v4 rules/schema/save proposals are **historical**, not the current runtime. The current design evidence retains historical filenames, routed through [CURRENT_GAME](docs/CURRENT_GAME.md). Research/replay/task reports retain their original evidence and limitations; none establishes new Unity or visual acceptance.

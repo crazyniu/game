@@ -4,7 +4,7 @@ Status: DONE for static art delivery. Branch `mac-art/world`, based on accepted 
 
 ## Deliverables and integration
 
-World files are in `PerchSort/Assets/Resources/V7/World/`. Each world has four `bg_level_<world>_<variant>.png` backgrounds, plus `branch_left_<world>.png`, `twig_left_<world>.png`, `tree_crown_<world>.png`, and `trunk_left_<world>.png`.
+World files are in `PerchSort/Assets/Resources/World/`. Each world has four `bg_level_<world>_<variant>.png` backgrounds, plus `branch_left_<world>.png`, `twig_left_<world>.png`, `tree_crown_<world>.png`, and `trunk_left_<world>.png`.
 
 | World | Background variants | Branch top y / observed range | Twig top y / observed range | Crown attachment |
 |---|---|---|---|---|
@@ -19,7 +19,7 @@ Backgrounds are opaque RGBA, 1080x1920. Branches 620x90, twigs 400x80, crowns 60
 
 ## Six coloured booster illustrations
 
-In `PerchSort/Assets/Resources/V7/Art/`, all 256x256 RGBA:
+In `PerchSort/Assets/Resources/Art/`, all 256x256 RGBA:
 
 - `booster_hint_illus.png`: glowing bulb.
 - `booster_sapling_illus.png`: branch with green plus.

@@ -3,7 +3,7 @@ from pathlib import Path
 import sys,json
 world=sys.argv[1]
 variant=sys.argv[2]
-b=Path('PerchSort/Assets/Resources/V7/World')
+b=Path('PerchSort/Assets/Resources/World')
 meta=json.loads((Path(__file__).parent/world/'metadata.json').read_text())
 bg=Image.open(b/f'bg_level_{world}_{variant}.png').convert('RGBA')
 c=Image.open(b/f'tree_crown_{world}.png').resize((400,267),Image.Resampling.LANCZOS)

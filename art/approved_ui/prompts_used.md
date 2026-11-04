@@ -1,6 +1,6 @@
 
 
-## 2026-11-03 — ui_level_k3_v2 reference-matched gameplay concept
+## 2026-11-03 — ui_level_k3 reference-matched gameplay concept
 
 - Dispatch: task_44e8e0e5375c / ctx_ce7082ef0494.
 - Tool: built-in image_gen only; no CLI, external image API or API-key fallback.

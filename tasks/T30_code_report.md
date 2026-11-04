@@ -6,38 +6,38 @@ Authority: [T30 code task](T30_code.md), [v5 design](../docs/GAME_DESIGN.md). Sc
 
 Written in this worker run:
 
-- `PerchSort/Assets/Scripts/V5/Game/PerchSort.V5.Game.asmdef`
-- `PerchSort/Assets/Scripts/V5/Game/V5Art.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V5UI.cs`
-- `PerchSort/Assets/Scripts/V5/Game/LevelLoader.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V5Progress.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V5GameRoot.cs`
-- `PerchSort/Assets/Scripts/V5/Game/BirdView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/BranchView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/BoardView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/HudView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/SettingsPanel.cs`
-- `PerchSort/Assets/Scripts/V5/Game/WinPanel.cs`
-- `PerchSort/Assets/Scripts/V5/Game/TutorialHand.cs`
-- `PerchSort/Assets/Editor/V5/V5SceneBuilder.cs`
-- `PerchSort/Assets/Editor/V5/V5ArtImporter.cs`
-- `PerchSort/Assets/Editor/V5/V5Capture.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/PerchSort.V5.EditModeTests.asmdef`
-- `PerchSort/Assets/Tests/V5/EditMode/V5RulesTests.cs`
-- `PerchSort/Assets/Tests/V5/PlayMode/PerchSort.V5.PlayModeTests.asmdef`
-- `PerchSort/Assets/Tests/V5/PlayMode/V5GameplayTests.cs`
+- `PerchSort/Assets/Scripts/Game/PerchSort.Game.asmdef`
+- `PerchSort/Assets/Scripts/Game/V5Art.cs`
+- `PerchSort/Assets/Scripts/Game/V5UI.cs`
+- `PerchSort/Assets/Scripts/Game/LevelLoader.cs`
+- `PerchSort/Assets/Scripts/Game/V5Progress.cs`
+- `PerchSort/Assets/Scripts/Game/GameRoot.cs`
+- `PerchSort/Assets/Scripts/Game/BirdView.cs`
+- `PerchSort/Assets/Scripts/Game/BranchView.cs`
+- `PerchSort/Assets/Scripts/Game/BoardView.cs`
+- `PerchSort/Assets/Scripts/Game/HudView.cs`
+- `PerchSort/Assets/Scripts/Game/SettingsPanel.cs`
+- `PerchSort/Assets/Scripts/Game/WinPanel.cs`
+- `PerchSort/Assets/Scripts/Game/TutorialHand.cs`
+- `PerchSort/Assets/Editor/Game/GameSceneBuilder.cs`
+- `PerchSort/Assets/Editor/Game/GameArtImporter.cs`
+- `PerchSort/Assets/Editor/Game/GameCapture.cs`
+- `PerchSort/Assets/Tests/EditMode/PerchSort.EditModeTests.asmdef`
+- `PerchSort/Assets/Tests/EditMode/V5RulesTests.cs`
+- `PerchSort/Assets/Tests/PlayMode/PerchSort.PlayModeTests.asmdef`
+- `PerchSort/Assets/Tests/PlayMode/GameplayTests.cs`
 - `PerchSort/Packages/manifest.json` — only the required pinned LitMotion dependency added.
 - `scripts/run_tests.sh` — only the V5 builder step added after the existing SceneBuilder step.
 - `tasks/T30_code_report.md`
 
 Reviewed and retained from the earlier worker, without rewriting:
 
-- `PerchSort/Assets/Scripts/V5/Core/{BoardState,GameSession,Solver}.cs`
-- `PerchSort/Assets/Scripts/V5/Core/PerchSort.V5.Core.asmdef`
-- `PerchSort/Assets/Scripts/V5/Game/V5Motion.cs`
-- `PerchSort/Assets/Resources/V5/levels.json`
+- `PerchSort/Assets/Scripts/Core/{BoardState,GameSession,Solver}.cs`
+- `PerchSort/Assets/Scripts/Core/PerchSort.Core.asmdef`
+- `PerchSort/Assets/Scripts/Game/V5Motion.cs`
+- `PerchSort/Assets/Resources/Levels/levels.json`
 
-`PerchSort/Assets/Scenes/V5.unity` is generated only by `V5SceneBuilder.Build`; it was not hand-written or generated on Linux. No v2 source/tests/scenes, production art, package lock or ProjectSettings files were edited by this worker. Unity will generate metadata and resolve the package lock on the Mac; those generated changes need coordinator review.
+`PerchSort/Assets/Scenes/V5.unity` is generated only by `GameSceneBuilder.Build`; it was not hand-written or generated on Linux. No v2 source/tests/scenes, production art, package lock or ProjectSettings files were edited by this worker. Unity will generate metadata and resolve the package lock on the Mac; those generated changes need coordinator review.
 
 ## Decisions and behavior
 
@@ -51,7 +51,7 @@ Reviewed and retained from the earlier worker, without rewriting:
 - **Audio:** reuse the existing `AudioManager` for selection, flight/landing, home, win and tool feedback without editing v2 audio. V5 starts no music. A V5-owned audio object is destroyed with the root; a borrowed manager has its prior sound/music state restored when V5 unloads.
 - **Missing art:** each missing sprite logs once per root/resource name and gets a generated RGBA fallback cached for that root. Fallback sprites/textures are disposed with the root. These are explicitly fallback shapes, not accepted production artwork. Concurrent art delivery was not modified or visually certified.
 - **Solver:** breadth-first search gives shortest move count. L1 has multiple two-move solutions: its tie-broken result is B0→B1, B0→B2; the authored B0→B1, B2→B0 line also wins in two. Search budget exhaustion remains distinct from unsolvability.
-- **Capture:** `V5Capture.Run` opens the built scene outside Play Mode, initializes the actual root with persistence disabled, uses `V5Motion.Instant`, performs the two authored moves through `V5GameRoot.TryMove`, and renders 1080×1920 PNGs. It restores the previous scene setup and motion flag. This is an implemented edit-mode capture path, not an observed render result.
+- **Capture:** `GameCapture.Run` opens the built scene outside Play Mode, initializes the actual root with persistence disabled, uses `V5Motion.Instant`, performs the two authored moves through `GameRoot.TryMove`, and renders 1080×1920 PNGs. It restores the previous scene setup and motion flag. This is an implemented edit-mode capture path, not an observed render result.
 - **Dependencies:** no extra explicit packages added. The pinned LitMotion `package.json` declares Burst 1.6.0, Collections 1.5.1 and Mathematics 1.0.1; Unity's resolver determines compatible installed versions.
 
 ## Verification performed on Linux
@@ -79,8 +79,8 @@ Permanent test cases written: **16 EditMode cases** and **3 PlayMode cases**. Pl
 
 ## Required Mac checks / untested areas
 
-1. Run `bash scripts/run_tests.sh`. The new step runs `V5SceneBuilder.Build` after `SceneBuilder.Build`, builds `V5.unity`, and sets the enabled scene order to V5 then Game. Confirm Unity compilation, LitMotion package resolution and all old/new EditMode/PlayMode results; none were run here.
-2. With graphics available, execute `V5Capture.Run` after building the scene. Expected files are `build/screens/v5/level1_start.png`, `level1_after_move1.png`, and `level1_win.png`. Do not use `-nographics` for capture. Camera/URP edit-mode rendering and TMP mesh output have not been exercised here.
+1. Run `bash scripts/run_tests.sh`. The new step runs `GameSceneBuilder.Build` after `SceneBuilder.Build`, builds `V5.unity`, and sets the enabled scene order to V5 then Game. Confirm Unity compilation, LitMotion package resolution and all old/new EditMode/PlayMode results; none were run here.
+2. With graphics available, execute `GameCapture.Run` after building the scene. Expected files are `build/screens/v5/level1_start.png`, `level1_after_move1.png`, and `level1_win.png`. Do not use `-nographics` for capture. Camera/URP edit-mode rendering and TMP mesh output have not been exercised here.
 3. Play the two moves with `V5Motion.Instant = false`. Verify real wingbeat swaps, transfer/home timing, house/sparkle payoff, input locking, restart/undo cancellation, win stars and coin flight. Static captures do not prove animation.
 4. Check 9:19.5 phone and 3:4 tablet safe areas, branch roots/feet, actual pointer hit behavior, generated fallback replacement by production art, and the hand fingertip against the art worker's report. The hand currently uses a top-left-area pivot `(0.22, 0.8)` pending that in-context check.
 5. Verify real audio playback/mute, first-play-only tutorial, replay/relaunch persistence and scene transitions back to v2. These rely on Unity runtime and were not simulated with fake Unity APIs.
@@ -89,9 +89,9 @@ No claim is made that the slice has passed visual acceptance or Unity semantic c
 
 ## Capture cleanup follow-up
 
-Coordinator-provided Mac results supersede the earlier compilation/test uncertainty: Unity compilation passed, EditMode **179/179**, PlayMode **17 passed / 8 skipped**. Graphics-enabled `V5Capture.Run` produced three distinct real PNGs, but cleanup threw `Invalid SceneManagerSetup: No loaded scene found`; `-nographics` instead produced blank identical PNGs. These reported results were accepted without rerunning the failing baseline.
+Coordinator-provided Mac results supersede the earlier compilation/test uncertainty: Unity compilation passed, EditMode **179/179**, PlayMode **17 passed / 8 skipped**. Graphics-enabled `GameCapture.Run` produced three distinct real PNGs, but cleanup threw `Invalid SceneManagerSetup: No loaded scene found`; `-nographics` instead produced blank identical PNGs. These reported results were accepted without rerunning the failing baseline.
 
-Changes in `PerchSort/Assets/Editor/V5/V5Capture.cs`:
+Changes in `PerchSort/Assets/Editor/Game/GameCapture.cs`:
 
 - Reject `SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null` before opening scenes or writing output, with an explicit instruction to remove `-nographics`.
 - Restore the saved scene setup only if at least one saved scene is loaded.
@@ -124,10 +124,10 @@ Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [
 
 ### Files changed
 
-- Added `PerchSort/Assets/Scripts/V5/Game/V5Layout.cs` and `V5Button.cs`.
-- Updated `PerchSort/Assets/Scripts/V5/Game/{V5UI,V5Art,V5GameRoot,HudView,BoardView,BranchView,BirdView,WinPanel,SettingsPanel}.cs`.
-- Updated `PerchSort/Assets/Editor/V5/V5Capture.cs` to use the shared canvas dimensions.
-- Added `PerchSort/Assets/Tests/V5/EditMode/V5LayoutTests.cs` and `V5ButtonTests.cs`; added the explicit `Unity.ugui` reference to that test asmdef.
+- Added `PerchSort/Assets/Scripts/Game/V5Layout.cs` and `V5Button.cs`.
+- Updated `PerchSort/Assets/Scripts/Game/{V5UI,V5Art,GameRoot,HudView,BoardView,BranchView,BirdView,WinPanel,SettingsPanel}.cs`.
+- Updated `PerchSort/Assets/Editor/Game/GameCapture.cs` to use the shared canvas dimensions.
+- Added `PerchSort/Assets/Tests/EditMode/V5LayoutTests.cs` and `V5ButtonTests.cs`; added the explicit `Unity.ugui` reference to that test asmdef.
 - Appended this section to `tasks/T30_code_report.md`.
 
 No Core rules, level data, scenes, artwork, package files, scripts or files outside ownership were edited. No commit was made.

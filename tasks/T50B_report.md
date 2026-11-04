@@ -19,13 +19,13 @@ Follow-up evidence is targeted static source tracing only: checked the gift bran
 
 ## Changed files
 
-- `PerchSort/Assets/Scripts/V5/Game/WinPanel.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V5Panels.cs`
-- `PerchSort/Assets/Scripts/V5/Game/SettingsPanel.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V7GateView.cs`
-- `PerchSort/Assets/Scripts/V5/Game/V7GateView.cs.meta` (new)
-- `PerchSort/Assets/Scripts/V5/Game/V7PopupMotion.cs` (new)
-- `PerchSort/Assets/Scripts/V5/Game/V7PopupMotion.cs.meta` (new)
+- `PerchSort/Assets/Scripts/Game/WinPanel.cs`
+- `PerchSort/Assets/Scripts/Game/V5Panels.cs`
+- `PerchSort/Assets/Scripts/Game/SettingsPanel.cs`
+- `PerchSort/Assets/Scripts/Game/V7GateView.cs`
+- `PerchSort/Assets/Scripts/Game/V7GateView.cs.meta` (new)
+- `PerchSort/Assets/Scripts/Game/V7PopupMotion.cs` (new)
+- `PerchSort/Assets/Scripts/Game/V7PopupMotion.cs.meta` (new)
 - `tasks/T50B_popup_motion.md`
 - `tasks/T50B_report.md`
 - `docs/team/status/mac-popups.md`
@@ -55,7 +55,7 @@ All timings above are authored source values, not runtime measurements. `V5Motio
 Existing public signatures are preserved, including:
 
 ```csharp
-void WinPanel.Configure(V5GameRoot root, V5Art assets, TMP_FontAsset font)
+void WinPanel.Configure(GameRoot root, V5Art assets, TMP_FontAsset font)
 void WinPanel.Show(int earnedStars, int reward, int chorusCoins)
 void WinPanel.Hide()
 bool WinPanel.IsOpen { get; }

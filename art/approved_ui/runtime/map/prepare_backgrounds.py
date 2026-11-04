@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter
 import numpy as np
 import json,hashlib
-P=Path(__file__).resolve().parent;ROOT=P.parents[3];ART=ROOT/'PerchSort/Assets/Resources/V7/Art'
+P=Path(__file__).resolve().parent;ROOT=P.parents[3];ART=ROOT/'PerchSort/Assets/Resources/Art'
 result={'canvas':[1080,3000],'origin':'top_left','node_order':'ascending_level_bottom_to_top','stacking':{'stride_px':2840,'overlap_px':160,'alpha_top_fade':{'rows_inclusive':[0,159],'alpha_start':0,'alpha_end':255,'rule':'round(255*y/159)'},'bottom_alpha':255,'order':'Draw world N+1 above world N first; then alpha-composite lower world N at y=2840.','topmost_world':'Clamp the topmost visible viewport to local y>=160, or back the first 160px with its preserved opaque raw source. Do not expose the top fade to an empty background.'},'method':'At fixed sampling heights, detect the actual rendered tan path using source RGB thresholds, select its continuous interval nearest the previously measured path center, and take the interval midpoint. All 40 placements are visually reviewed on annotated composites. Sampling heights are layout choices; x coordinates and widths are image measurements, not a predefined curve.','worlds':{}}
 for i in range(1,5):
  raw=Image.open(P/f'raw/w{i}.png');im=raw.convert('RGBA').resize((1080,3000),Image.Resampling.LANCZOS);alpha=Image.new('L',(1080,3000),255);fade=Image.new('L',(1080,160));fade.putdata([round(255*y/159) for y in range(160) for x in range(1080)]);alpha.paste(fade,(0,0));im.putalpha(alpha);im.save(ART/f'map_bg_w{i}.png');a=np.array(im.convert('RGB')).astype(float)
@@ -20,7 +20,7 @@ for i in range(1,5):
   d.ellipse((x-90,y-75,x+90,y+75),outline='magenta',width=5);d.line((c['left'],y,c['right'],y),fill='red',width=3);d.text((x-5,y-8),str(idx),fill='black')
  d.line([(c['center_x'],c['y']) for c in curve],fill=(255,0,255),width=2)
  qa.resize((360,1000)).save(P/f'qa/w{i}_measured_paths.png')
- result['worlds'][f'w{i}']={'file':f'PerchSort/Assets/Resources/V7/Art/map_bg_w{i}.png','source_generated':f'art/approved_ui/runtime/map/raw/w{i}.png','sha256':hashlib.sha256((ART/f'map_bg_w{i}.png').read_bytes()).hexdigest(),'nodes':nodes,'path_samples':curve[::10],'top_anchor':{'center':[curve[0]['center_x'],0],'edges':[curve[0]['left'],curve[0]['right']]},'bottom_anchor':{'center':[curve[-1]['center_x'],3000],'edges':[curve[-1]['left'],curve[-1]['right']]}}
+ result['worlds'][f'w{i}']={'file':f'PerchSort/Assets/Resources/Art/map_bg_w{i}.png','source_generated':f'art/approved_ui/runtime/map/raw/w{i}.png','sha256':hashlib.sha256((ART/f'map_bg_w{i}.png').read_bytes()).hexdigest(),'nodes':nodes,'path_samples':curve[::10],'top_anchor':{'center':[curve[0]['center_x'],0],'edges':[curve[0]['left'],curve[0]['right']]},'bottom_anchor':{'center':[curve[-1]['center_x'],3000],'edges':[curve[-1]['left'],curve[-1]['right']]}}
 (P/'world_paths.json').write_text(json.dumps(result,indent=2)+'\n')
 # Stack direction: later world sits above earlier world. Compare hard joins and 160 px overlaps.
 metrics=[];joined=Image.new('RGB',(1080*2,600*3),'#333333')

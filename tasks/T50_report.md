@@ -2,7 +2,7 @@
 
 ## Coordinator publication
 
-The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/T50_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
+The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
 
 ## Delivery state
 

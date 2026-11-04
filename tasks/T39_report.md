@@ -27,7 +27,7 @@ In `V5LayoutTests.cs`, geometry assertions were updated in:
 
 Added layout cases: `OppositeSeatCellsStayDisjointAtDenseAndSparseScales` and `AuthoredFiveRowBoardsKeepTheirDensityAndFit`.
 
-`V5GameplayTests.cs` extends `AuthoredMovesOpenWinAndPersistChorusReward` with win HUD/raycast coverage and adds three Sapling cases: `SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending`, `SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt`, and `EmptyStockOrSeenFlagSuppressesSaplingIntro`.
+`GameplayTests.cs` extends `AuthoredMovesOpenWinAndPersistChorusReward` with win HUD/raycast coverage and adds three Sapling cases: `SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending`, `SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt`, and `EmptyStockOrSeenFlagSuppressesSaplingIntro`.
 
 ## Local verification actually run
 

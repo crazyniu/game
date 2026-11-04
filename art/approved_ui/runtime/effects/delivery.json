@@ -1,6 +1,6 @@
 [
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/light_rays.png",
+    "file": "PerchSort/Assets/Resources/Art/light_rays.png",
     "size": [
       1024,
       1024
@@ -21,7 +21,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/light_rays_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/sparkle.png",
+    "file": "PerchSort/Assets/Resources/Art/sparkle.png",
     "size": [
       128,
       128
@@ -42,7 +42,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/sparkle_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/confetti_1.png",
+    "file": "PerchSort/Assets/Resources/Art/confetti_1.png",
     "size": [
       64,
       64
@@ -63,7 +63,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/confetti_1_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/confetti_2.png",
+    "file": "PerchSort/Assets/Resources/Art/confetti_2.png",
     "size": [
       64,
       64
@@ -84,7 +84,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/confetti_2_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/confetti_3.png",
+    "file": "PerchSort/Assets/Resources/Art/confetti_3.png",
     "size": [
       64,
       64
@@ -105,7 +105,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/confetti_3_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/confetti_4.png",
+    "file": "PerchSort/Assets/Resources/Art/confetti_4.png",
     "size": [
       64,
       64
@@ -126,7 +126,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/confetti_4_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/glow_soft.png",
+    "file": "PerchSort/Assets/Resources/Art/glow_soft.png",
     "size": [
       512,
       512
@@ -147,7 +147,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/glow_soft_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/zzz.png",
+    "file": "PerchSort/Assets/Resources/Art/zzz.png",
     "size": [
       192,
       192
@@ -168,7 +168,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/zzz_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w1.png",
+    "file": "PerchSort/Assets/Resources/Art/leaf_fall_w1.png",
     "size": [
       64,
       64
@@ -189,7 +189,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/leaf_fall_w1_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w2.png",
+    "file": "PerchSort/Assets/Resources/Art/leaf_fall_w2.png",
     "size": [
       64,
       64
@@ -210,7 +210,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/leaf_fall_w2_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w3.png",
+    "file": "PerchSort/Assets/Resources/Art/leaf_fall_w3.png",
     "size": [
       64,
       64
@@ -231,7 +231,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/leaf_fall_w3_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/leaf_fall_w4.png",
+    "file": "PerchSort/Assets/Resources/Art/leaf_fall_w4.png",
     "size": [
       64,
       64
@@ -252,7 +252,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/leaf_fall_w4_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_1.png",
+    "file": "PerchSort/Assets/Resources/Art/cloud_soft_1.png",
     "size": [
       768,
       384
@@ -273,7 +273,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/cloud_soft_1_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_2.png",
+    "file": "PerchSort/Assets/Resources/Art/cloud_soft_2.png",
     "size": [
       768,
       384
@@ -294,7 +294,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/cloud_soft_2_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_3.png",
+    "file": "PerchSort/Assets/Resources/Art/cloud_soft_3.png",
     "size": [
       768,
       384
@@ -315,7 +315,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/cloud_soft_3_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/firefly.png",
+    "file": "PerchSort/Assets/Resources/Art/firefly.png",
     "size": [
       48,
       48
@@ -336,7 +336,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/firefly_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/leaf_wipe.png",
+    "file": "PerchSort/Assets/Resources/Art/leaf_wipe.png",
     "size": [
       1600,
       1600
@@ -357,7 +357,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/leaf_wipe_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/gift_trail.png",
+    "file": "PerchSort/Assets/Resources/Art/gift_trail.png",
     "size": [
       512,
       512
@@ -378,7 +378,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/gift_trail_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/house_glow.png",
+    "file": "PerchSort/Assets/Resources/Art/house_glow.png",
     "size": [
       512,
       512
@@ -399,7 +399,7 @@
     "qa_overlay": "art/approved_ui/runtime/effects/qa/house_glow_overlay.jpg"
   },
   {
-    "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+    "file": "PerchSort/Assets/Resources/Art/gate_light.png",
     "size": [
       1024,
       1024

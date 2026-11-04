@@ -17,7 +17,7 @@
 
 ## Complete validation table
 
-Command: `/tmp/perch-t32-sdk/dotnet run --project tools/levels/LevelTool -c Release -- validate PerchSort/Assets/Resources/V5/levels.json --complete --json-out /tmp/t35-installed-evidence.json`.
+Command: `/tmp/perch-t32-sdk/dotnet run --project tools/levels/LevelTool -c Release -- validate PerchSort/Assets/Resources/Levels/levels.json --complete --json-out /tmp/t35-installed-evidence.json`.
 
 Settings: 60,000 ms / 20,000,000 states / 4096 MiB per search; seed 350053; 1,000 uniform random plays per level, capped at 200 transfers/swivels. No undo or booster is sampled. The final complete run exited 0.
 
@@ -103,7 +103,7 @@ L40 uses seven real species, ten branches, aurora, growing branches and day/nigh
 - Every reported optimal line, successful one-booster line and ordering witness was replayed through public `GameSession`, with normal events/economy enabled.
 - Actual `generate` runs produced accepted candidates, including L10 (par 12, 57/1000) and the authorized R-role L4 (par 8, 1000/1000, measured Sapling saving 0). `show` displayed the installed ten-branch, seven-species L40 board.
 - Negative CLI smoke: a non-exempt L12 with 1000/1000 wins and Bell saving 0 exited 2 for both the P ceiling and the booster-value gate; budget-limited L4 exited 2 with Unknown despite its named exceptions. The exceptions do not suppress unrelated failures.
-- `V5LevelsDataTests` compiled against a separate Core assembly and passed **81/81** cases on the installed resource through NUnitLite 3.13.3. The tests cover exact L1 preservation, all forty schemas/counts/debuts, stored-par equality and winning public-session replays.
+- `LevelsDataTests` compiled against a separate Core assembly and passed **81/81** cases on the installed resource through NUnitLite 3.13.3. The tests cover exact L1 preservation, all forty schemas/counts/debuts, stored-par equality and winning public-session replays.
 - The test solver budget is 200,000 states / 3,000 ms per level. All forty completed within it in this Linux run; there are no known over-budget skips or ignored levels.
 - Temporary probe and NUnit adapter source/projects were removed after smoke execution. SDK files, build outputs and verification artifacts are not submitted.
 

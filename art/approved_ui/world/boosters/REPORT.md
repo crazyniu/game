@@ -1,6 +1,6 @@
 # T49 addendum: six colored booster illustrations
 
-Scope: six new 256×256 RGBA illustrations in `PerchSort/Assets/Resources/V7/Art/booster_*_illus.png`. No originals, code, scenes, import settings or existing assets were changed. Unity was not opened. No git commit was made.
+Scope: six new 256×256 RGBA illustrations in `PerchSort/Assets/Resources/Art/booster_*_illus.png`. No originals, code, scenes, import settings or existing assets were changed. Unity was not opened. No git commit was made.
 
 ## Generation and provenance
 

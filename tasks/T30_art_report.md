@@ -4,7 +4,7 @@ Date: 2026-11-03. Scope: [T30 art task](T30_art.md), style and dimensions from [
 
 ## Delivery and provenance
 
-- Final sprites: [`PerchSort/Assets/Resources/V5/Art/`](../PerchSort/Assets/Resources/V5/Art/), exact filenames listed below. No right-branch sprite; the left branch is intended to be mirrored.
+- Final sprites: [`PerchSort/Assets/Resources/Art/`](../PerchSort/Assets/Resources/Art/), exact filenames listed below. No right-branch sprite; the left branch is intended to be mirrored.
 - 33 unmodified image-tool outputs: [`art/v5/raw/`](../art/v5/raw/).
 - Exact prompts and identity references: [`prompts.md`](../art/v5/prompts.md), [`manifest.json`](../art/v5/manifest.json), and [`generation_log.json`](../art/v5/generation_log.json). Every asset was produced through a separate built-in `image_gen.imagegen` call; each bird variant uses its own species idle as its edit reference. No competitor artwork was supplied.
 - Reproducible post-processing: [`process_assets.py`](../art/v5/tools/process_assets.py). Low-alpha generation haze is suppressed, hidden RGB is zeroed, canvases are resized/padded, and UI bases are normalized to their exact aspect ratios. The generated sparkle retains its soft alpha falloff. All runtime art derives from generated raster images; no placeholder shapes are substituted.
@@ -81,13 +81,13 @@ At 64 px grayscale, Sunny remains recognizable by the broad rounded silhouette, 
 
 ## Boundaries and remaining verification
 
-No requested artwork is missing. No code, scenes, runtime level data, packages, project settings, existing original artwork, or hand-authored `.meta` files were changed by this worker. All worker-created files remain within `art/v5/**`, `PerchSort/Assets/Resources/V5/Art/**`, and this report; no commit or push was performed by this worker.
+No requested artwork is missing. No code, scenes, runtime level data, packages, project settings, existing original artwork, or hand-authored `.meta` files were changed by this worker. All worker-created files remain within `art/v5/**`, `PerchSort/Assets/Resources/Art/**`, and this report; no commit or push was performed by this worker.
 
 Unity Editor is unavailable on 251. Unity import settings, platform texture compression, real UI composition, live wingbeat timing, frame swaps during movement, clipping under animation, and timed runtime samples have **not been tested** and remain with the coordinator/Mac workflow. Static asset validation and the offline GIF do not establish playable animation acceptance.
 
 ## T31-A top limb addendum (2026-11-03)
 
-Delivered [`limb_top.png`](../PerchSort/Assets/Resources/V5/Art/limb_top.png) for [T31-A](T31_layout_art.md): **1080 × 320, RGBA, alpha 0–255**. The new limb spans both top canopies with matching leaf greens, warm wood and a central rope wrap/knot. The original background, branch, birdhouse and other 30 runtime PNGs remain unchanged; no code, scene, metadata, commit or push was produced by this worker.
+Delivered [`limb_top.png`](../PerchSort/Assets/Resources/Art/limb_top.png) for [T31-A](T31_layout_art.md): **1080 × 320, RGBA, alpha 0–255**. The new limb spans both top canopies with matching leaf greens, warm wood and a central rope wrap/knot. The original background, branch, birdhouse and other 30 runtime PNGs remain unchanged; no code, scene, metadata, commit or push was produced by this worker.
 
 The lowest fully opaque hook row is **y=238**, centered at **x=540** (opaque span x=535–545); at alpha ≥128 the endpoint is **(540,239)**, both within the requested (540,235) ±4 px tolerance. Faint antialiasing ends at y=241. There are **zero nontransparent pixels below y=260**, and no non-rope pixels at or below y=210. The house canvas is placed at (390,235), with center exactly (540,405); its visible rope starts at y=239 because the unchanged source has 4 px of top padding. The final hook and house overlap in **5 alpha ≥128 pixels**, x=537–541 at y=239. An initial 1 px attachment mismatch was corrected during registration; all final checks pass.
 

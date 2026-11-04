@@ -10,7 +10,7 @@
 
 ## Changed files
 
-Runtime, under `PerchSort/Assets/Scripts/V5/Game/`:
+Runtime, under `PerchSort/Assets/Scripts/Game/`:
 
 1. `BirdView.cs`
 2. `BoardView.cs`

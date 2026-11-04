@@ -13,7 +13,7 @@ compared with the approved images by the coordinator. Passing tests is NOT the g
 - English only in code, comments, commits, reports. No emoji.
 
 ## Defects found (approved vs runtime), each owned by exactly one task
-Board screen (`level1_start`, `level_k7` vs `ui_level_k3_v2`, `ui_level_k7`):
+Board screen (`level1_start`, `level_k7` vs `ui_level_k3`, `ui_level_k7`):
 - D1 Trees: runtime has two straight, untapered trunk columns glued to the screen edges. Approved: trunks that curve in from the edge, fork into
   thick tapering limbs, branches grow OUT of the trunk (joined, not floating sticks), vines/leaf sprigs on the joints, big leafy crowns (about 40% of
   screen width, overlapping the trunk top, starting around y=470-700 of 1920) that hug the trunk. Runtime crowns are small and detached. -> T53A

@@ -1,18 +1,18 @@
 # T30-A v5 level-1 art (Codex, image generation)
 
-Branch `t30-v5-first-level`, shared worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN.md` §3–§4 first; it is the authority for style and sizes. Another worker writes code in parallel in the same worktree.
+Branch [t30-v5-first-level](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L3), shared worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN.md` §3–§4 first; it is the authority for style and sizes. Another worker writes code in parallel in the same worktree.
 
 ## Ownership
 You may create/edit only:
-- `art/v5/**` (raw generations, prompts, contact sheets, QA files)
-- `PerchSort/Assets/Resources/V5/Art/**` (final runtime PNGs; Unity will create `.meta` on import — do not hand-write metas)
+- [art/v5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L7) (raw generations, prompts, contact sheets, QA files)
+- `PerchSort/Assets/Resources/Art/**` (final runtime PNGs; Unity will create `.meta` on import — do not hand-write metas)
 - `tasks/T30_art_report.md`
 
-Never modify anything under `art/` outside `art/v5/`, never touch code, scenes, `ProjectSettings`, or `Packages`. Do not commit or push; the coordinator commits.
+Never modify anything under `art/` outside [art/v5/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L11), never touch code, scenes, `ProjectSettings`, or `Packages`. Do not commit or push; the coordinator commits.
 
 ## Deliverables (exact runtime file names, all PNG with real alpha unless noted)
 
-Under `PerchSort/Assets/Resources/V5/Art/`:
+Under `PerchSort/Assets/Resources/Art/`:
 
 | File | Size (px) | Notes |
 | --- | --- | --- |
@@ -32,13 +32,13 @@ Under `PerchSort/Assets/Resources/V5/Art/`:
 | `sparkle.png` | 128×128 | soft 4-point sparkle for particles. |
 | `hand_pointer.png` | 200×200 | cartoon tapping hand (white glove-like, brown outline), fingertip at the top-left area; record the fingertip pixel in the report. |
 
-Also produce `art/v5/contact_sheet.png` showing every runtime file on light and dark backgrounds, and a 64 px grayscale strip of the bird idles.
+Also produce [art/v5/contact_sheet.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L35) showing every runtime file on light and dark backgrounds, and a 64 px grayscale strip of the bird idles.
 
 ## Style
 Follow `docs/GAME_DESIGN.md` §4: plush 3D-rendered cartoon, soft fur, big glossy eyes, warm bright palette, chunky rounded UI. The reference genre screenshots the user showed were only style direction: do not reproduce any existing game's character, logo, coin or button art. `sunny` and `sky` must be original designs matching the table in §4.
 
 ## Process and acceptance
-1. Generate with your image tool; keep raw outputs and the exact prompts in `art/v5/raw/` and `art/v5/prompts.md`.
-2. Post-process (Python/Pillow is fine; scripts in `art/v5/tools/`) to: exact sizes above, real transparency (no baked checkerboard, no white halo — check alpha edges), consistent bird scale/foot line across the four frames of each species.
+1. Generate with your image tool; keep raw outputs and the exact prompts in [art/v5/raw/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L41) and [art/v5/prompts.md](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L41).
+2. Post-process (Python/Pillow is fine; scripts in [art/v5/tools/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L42)) to: exact sizes above, real transparency (no baked checkerboard, no white halo — check alpha edges), consistent bird scale/foot line across the four frames of each species.
 3. Verify and record in `tasks/T30_art_report.md`: per-file size + mode (RGBA) + alpha min/max, foot-line y per bird frame, the hand fingertip pixel, grayscale 64 px distinguishability of sunny vs sky, and a list of anything you could not achieve.
 4. Done = every listed file exists at the exact path and size, report written. A missing file is a failure to report honestly, not to fake (no placeholder flat shapes passed off as final art).

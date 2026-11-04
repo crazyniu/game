@@ -127,12 +127,12 @@ art/.venv/bin/python art/tools/build_assets.py
 - `contact_originals.png`：2000×1060，15 项基础素材的浅底 / 深绿底并排；每项含大图及真实 64px 缩图，顶端放原红冠雀和栖木供风格对照。
 - `contact_originals_light.png`、`contact_originals_dark.png`：各 1000×1060，同上两种背景的独立版本。
 - `qa/sleep.png`：1600×770，10 种鸟的原版 / 睡眠版并排及真实 64px 缩图，含深浅背景。
-- `source/v2/`：25 张选用的生成母版，不覆盖已有源图。
+- [source/v2/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/ASSETS.md#L130)：25 张选用的生成母版，不覆盖已有源图。
 - `prompts/generation_sleep_and_props.json`：28 次实际调用的完整提示词、透明参数、编辑目标及 25 张选用母版路径。每张独立调用，不从一张合集裁切。
 - `rejected/sleep_and_props.md`：三张白边初稿的弃用记录。
-- `tools/build_sleep_and_props.py`：Pillow 导出脚本，低 alpha 噪点清理、预乘 alpha 缩放、25 项 manifest 条目、预览及必要文件检查。
+- [historical exporter](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/tools/build_v2_assets.py)：Pillow 导出脚本，低 alpha 噪点清理、预乘 alpha 缩放、25 项 manifest 条目、预览及必要文件检查。
 - `qa/check_sleep_and_props.txt`：25 项尺寸 / RGBA / 8px 透明边距 / 有效主体检查的实际结果；光环中心透明；10 张睡眠鸟脚底线检查通过。
 
 已直接目检深浅底总图与睡眠对比图，未见明显白边、棋盘格底或裁切；四角闪光 / 五角金星、空巢 / 完成巢在 64px 下可以区分。木箱的小锁与通气槽在 64px 下属于细节，实际应按整根栖木宽度显示。最终视觉认可和运行时遮挡、缩放、动画仍由接入验收确认。
 
-单独重建 v2：`art/.venv/bin/python art/tools/build_sleep_and_props.py`。若重建初版全部资产，先运行 `build_assets.py`，再运行 `build_sleep_and_props.py`（初版脚本会重建 manifest，v2 脚本负责追加 v2 条目）。不要只运行初版脚本后遗漏第二步。
+单独重建 v2：the historical exporter recorded in Git。若重建初版全部资产，先运行 `build_assets.py`，再运行 the historical exporter recorded in Git（初版脚本会重建 manifest，v2 脚本负责追加 v2 条目）。不要只运行初版脚本后遗漏第二步。

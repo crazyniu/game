@@ -2,7 +2,7 @@
 from pathlib import Path
 from PIL import Image,ImageOps,ImageDraw
 import json,math,hashlib
-P=Path(__file__).resolve().parent; ROOT=P.parents[2]; OUT=ROOT/'PerchSort/Assets/Resources/V7/Birds'
+P=Path(__file__).resolve().parent; ROOT=P.parents[2]; OUT=ROOT/'PerchSort/Assets/Resources/Birds'
 QA=P/'qa';PARTS=P/'prepared_parts';PARTS.mkdir(exist_ok=True)
 records={r['name']:r for r in json.loads((P/'generation.json').read_text())};prep={}
 def cut(name,threshold):
@@ -64,7 +64,7 @@ for i,species in enumerate(anchors):
         sheet.paste(tile,(i*320+(320-tile.width)//2,row*375+35),tile);d.text((i*320+8,row*375+8),species+' '+overlay,fill='black')
 sheet.save(QA/'overlay_bird_composites.png')
 print('Prepared seven runtime PNGs, manifest and isolated QA.')
-# Actual nominal game-size views from current V7Layout:200px adult,140px chick.
+# Actual nominal game-size views from current GameLayout:200px adult,140px chick.
 game=Image.new('RGB',(800,470),(231,237,229));d=ImageDraw.Draw(game)
 for i,species in enumerate(anchors):
     adult=Image.open(QA/(species+'_mama_bow.png')).resize((200,200),Image.Resampling.LANCZOS)

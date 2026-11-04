@@ -16,7 +16,7 @@
 
 The coordinator's completed parallel static review of `3a05763` confirmed one blocker: busy input called InputTap before Defer, incrementing the same revision captured by PlayCommitted. An ignored airborne tap or queued landing/effect tap therefore discarded the committed Board completion and could leave IsBusy set indefinitely. This finding is accepted as ground truth; no reproduction/test was run.
 
-Bounded correction: V5GameRoot now gives each PlayCommitted run its own transactionGeneration. InputTap still changes revision, preserving hint-result and delayed hint-presentation invalidation, but does not own the committed Board completion. New committed runs and CancelPresentation advance transactionGeneration; destroy also invalidates it. The completion still checks root lifecycle, session identity and its existing finished one-shot before calling FinishAction.
+Bounded correction: GameRoot now gives each PlayCommitted run its own transactionGeneration. InputTap still changes revision, preserving hint-result and delayed hint-presentation invalidation, but does not own the committed Board completion. New committed runs and CancelPresentation advance transactionGeneration; destroy also invalidates it. The completion still checks root lifecycle, session identity and its existing finished one-shot before calling FinishAction.
 
 Static source trace only:
 - Airborne ignored input advances only revision; the committed transaction token remains current.
@@ -24,7 +24,7 @@ Static source trace only:
 - Undo/Restart/navigation/root disable call CancelPresentation and invalidate both generations, including same-session cancellation. Session replacement and destruction remain separately guarded.
 - Solver result and post-playback hint callbacks retain their original revision/session checks; stale hints stay rejected.
 
-No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** was committed/pushed before the separately approved asset merges and passed final coordinator static re-review. Its changed files are only V5GameRoot and report/status/integration handoff. Execution/compilation/Unity/tests remain NOT_RUN.
+No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** was committed/pushed before the separately approved asset merges and passed final coordinator static re-review. Its changed files are only GameRoot and report/status/integration handoff. Execution/compilation/Unity/tests remain NOT_RUN.
 
 ## Separately approved offline asset integration
 
@@ -37,9 +37,9 @@ No public API, input/raycast policy, reward/receipt/economy, queue cardinality, 
 
 ## Changed files
 
-Source under `PerchSort/Assets/Scripts/V5/Game/`:
+Source under `PerchSort/Assets/Scripts/Game/`:
 
-- `V5GameRoot.cs`: notification/navigation lifecycle, committed-win persistence, exact popup order, deferred Next, last-world map return, full-canvas leaf ownership, node-origin card integration and callback-timed HUD counting.
+- `GameRoot.cs`: notification/navigation lifecycle, committed-win persistence, exact popup order, deferred Next, last-world map return, full-canvas leaf ownership, node-origin card integration and callback-timed HUD counting.
 - `V7PopupFlow.cs`: persistent contextual friend/booster requests, map-return continuation, receipt/order handling and suspension of level-only requests on the map.
 - `V7LevelEntrance.cs`: skippable entrance cancellation, generation guards, settled board/chrome poses, tutorial/input boundary and allocation-free indexed branch updates.
 - `HudView.cs`: independent cancel-safe coin-count channel, completion overload, intro chrome/staggered bottom-button motion and disable cleanup.
@@ -53,10 +53,10 @@ Documentation:
 
 Coordinator-authorized fixture compatibility corrections (no execution, no new test cases), commit **`e39e0dd`**:
 
-- `PerchSort/Assets/Tests/V5/PlayMode/V5GameplayTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V5DevOptionsTests.cs`
-- `PerchSort/Assets/Tests/V5/PlayMode/PerchSort.V5.PlayModeTests.asmdef`
-- `PerchSort/Assets/Tests/V5/EditMode/PerchSort.V5.EditModeTests.asmdef`
+- `PerchSort/Assets/Tests/PlayMode/GameplayTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V5DevOptionsTests.cs`
+- `PerchSort/Assets/Tests/PlayMode/PerchSort.PlayModeTests.asmdef`
+- `PerchSort/Assets/Tests/EditMode/PerchSort.EditModeTests.asmdef`
 
 Existing `V5Progress.cs` and `Meta/Economy.cs` are intentionally unchanged: their WIP `v7.notifications` string snapshot and `ClaimWorldComplete` receipt bridge already supply the required integration. No new source asset was created by D; existing `.meta` files remain unchanged. D changed no Core, authored levels, economy amounts/eligibility, libraries, artwork, scenes, project settings, shared layout/art/motion utilities or original user-test checkout. Only explicitly authorized existing fixtures/asmdefs changed.
 
@@ -84,7 +84,7 @@ No owned implementation requirement is intentionally omitted. Integration with r
 
 ### Added by T50D
 
-Namespace: `PerchSort.V5.Game`.
+Namespace: `PerchSort.Game`.
 
 ```csharp
 public void HudView.CountCoins(int from, int to, Action done);
@@ -126,9 +126,9 @@ After A/C integration, a root-only static correction in `f24c11f` clears the def
 
 - Read the owning T50 task/handoff/design, approved level/new-friend/daily/world-complete/world-unlock images, relevant root/profile/queue/HUD/intro/Meta/view/motion sections, T50C delivery report and T50B callback implementation read-only.
 - Checked public callers in Game, editor captures and existing V5 tests; preserved their existing public signatures. New overload uses System.Action and existing UnityEngine.Vector2, within the existing Game namespace/assembly.
-- Checked Game asmdef: Core, Meta, Audio, LitMotion, UGUI, TextMeshPro and InputSystem references already exist. No runtime assembly/package reference changes are required. Both existing test asmdefs now explicitly reference Meta for the V5Profile receipt-aware constructor and PlayMode's deliberate Meta seed operations.
+- Checked Game asmdef: Core, Meta, Audio, LitMotion, UGUI, TextMeshPro and InputSystem references already exist. No runtime assembly/package reference changes are required. Both existing test asmdefs now explicitly reference Meta for the GameProfile receipt-aware constructor and PlayMode's deliberate Meta seed operations.
 - Checked notification bit ranges/order, immutable Meta receipt use, shared balance/receipt serialization, current-request identity, root/intro/count generation invalidation, completion detachment and the separation between covered rebuild and external cancellation.
-- Checked ordinary win/Chorus amounts still come from existing V5Profile.Reward; new-friend/daily/world amounts still come from existing Meta operations. Only the ordinary reward commit is moved before visual playback for durable interruption handling; +20/+50/+200 remain acknowledgement-only.
+- Checked ordinary win/Chorus amounts still come from existing GameProfile.Reward; new-friend/daily/world amounts still come from existing Meta operations. Only the ordinary reward commit is moved before visual playback for durable interruption handling; +20/+50/+200 remain acknowledgement-only.
 - Checked existing V7PopupFlow/V7LevelEntrance metadata is present; no source file or GUID was regenerated.
 - C# language-server status reports no configured server. No LSP diagnostics, compiler or runtime success is claimed. Static review cannot prove Unity lifecycle ordering, serialized compatibility under actual import or actual timing/rendering.
 

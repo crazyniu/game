@@ -1,13 +1,13 @@
-"""Assemble measured v7 layout and delivered asset metadata; no runtime code."""
+"""Assemble measured approved layout and delivered asset metadata; no runtime code."""
 from pathlib import Path
 from PIL import Image
 import json,hashlib
-P=Path(__file__).resolve().parent;ROOT=P.parents[3];V7=ROOT/'art/approved_ui';ART=ROOT/'PerchSort/Assets/Resources/V7/Art';R=V7/'runtime'
+P=Path(__file__).resolve().parent;ROOT=P.parents[3];APPROVED=ROOT/'art/approved_ui';ART=ROOT/'PerchSort/Assets/Resources/Art';R=APPROVED/'runtime'
 read=lambda p:json.loads(p.read_text())
 draft=read(P/'layout_draft.json');panels=read(R/'panels/delivery.json');effects=read(R/'effects/delivery.json');hud=read(R/'generated_metrics.json');extracted=read(R/'extracted/provenance.json');maps=read(R/'map/delivery.json');map_sprites=read(R/'map/sprites.json');worlds=read(R/'map/world_paths.json');manifest=read(R/'generation_manifest.json')
 assets={}
 for f in sorted(ART.glob('*.png')):
- im=Image.open(f);a=im.getchannel('A');assets[f.stem]={'file':str(f.relative_to(ROOT)),'resource':'V7/Art/'+f.stem,'size':list(im.size),'mode':im.mode,'alpha_bounds_xyxy':list(a.getbbox()),'alpha_extrema':list(a.getextrema()),'pivot_normalized_unity':[.5,.5],'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'evidence':'delivered_file_inspected','metadata_sources':[]}
+ im=Image.open(f);a=im.getchannel('A');assets[f.stem]={'file':str(f.relative_to(ROOT)),'resource':'Art/'+f.stem,'size':list(im.size),'mode':im.mode,'alpha_bounds_xyxy':list(a.getbbox()),'alpha_extrema':list(a.getextrema()),'pivot_normalized_unity':[.5,.5],'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'evidence':'delivered_file_inspected','metadata_sources':[]}
 for n,m in hud.items():
  assets[n]['metadata_sources'].append('art/approved_ui/runtime/generated_metrics.json');assets[n]['generated_source_bounds_xyxy']=m['source_bounds']
 for m in manifest:
@@ -70,7 +70,7 @@ assets['gate_light']['metadata_sources'].append('art/approved_ui/runtime/gates/d
 assets['gate_light']['integration_note']='Align source aperture (0.5,0.25) to gate-canvas (512,375) using draw rect [192,215,640,640]. See assemblies.gates.contract.gate_light.'
 assert assets['gate_light']['sha256']==gates['gate_light']['sha256']
 # These are measured blank interiors on the final stored sprites, NOT the concept numeral bounds.
-assets['coin_pill']['text_box']={'rect':[142,32,140,60],'center':[212,62],'size':[140,60],'coordinate_space':'asset_pixels','alignment':'center','vertical_alignment':'middle','evidence':'observed_safe_blank_area_on_delivered_320x128_asset','source':'PerchSort/Assets/Resources/V7/Art/coin_pill.png','note':'Coin occupies the left side; this box excludes coin and rounded edge. Scale the text box with the displayed sprite.'}
+assets['coin_pill']['text_box']={'rect':[142,32,140,60],'center':[212,62],'size':[140,60],'coordinate_space':'asset_pixels','alignment':'center','vertical_alignment':'middle','evidence':'observed_safe_blank_area_on_delivered_320x128_asset','source':'PerchSort/Assets/Resources/Art/coin_pill.png','note':'Coin occupies the left side; this box excludes coin and rounded edge. Scale the text box with the displayed sprite.'}
 assets['btn_green_pill']['nine_slice_lbrt']=[54,42,54,42];assets['btn_green_pill']['nine_slice_evidence']='inferred_border_selection_from_delivered_asset; protects capsule end caps and gold edge; runtime stretch untested'
 # Geometry remains exactly the measured source geometry.
 screens=draft['screens']
@@ -79,7 +79,7 @@ for s in screens.values():
 D={
  'schema_version':1,
  'status':'delivered_static_layout',
- 'resources':{'filesystem_root':'PerchSort/Assets/Resources/V7/Art','unity_resources_root':'V7/Art','load_key_rule':'assets[id].resource is extensionless Resources.Load key; file is repository-relative PNG path','icon_prefix':'icon_','gift_badge_prefix':'gift_'},
+ 'resources':{'filesystem_root':'PerchSort/Assets/Resources/Art','unity_resources_root':'Art','load_key_rule':'assets[id].resource is extensionless Resources.Load key; file is repository-relative PNG path','icon_prefix':'icon_','gift_badge_prefix':'gift_'},
  'coordinate_spaces':{'screen':{'size':[1080,1920],'origin':'top_left','unit':'px','positive_x':'right','positive_y':'down'},'map_world':{'size':[1080,3000],'origin':'top_left','unit':'px','positive_y':'down'},'asset_pixels':{'size_source':'assets[id].size','origin':'top_left','unit':'px'},'pivot_normalized_unity':{'origin':'bottom_left','range':[0,1],'conversion_from_asset_xy':'[x / width, 1 - y / height]'}},
  'property_documentation':{
   'schema_version':'Integer contract version. Version 1 is measured static layout metadata, not gameplay rules.',
@@ -131,5 +131,5 @@ for world in worlds['worlds'].values():
   x,y=n['center'];l,r=n['measured_path_edges'];assert 0<=l<=x<=r<=1080 and 0<=y<3000
 for layout in D['hud']['bottom_buttons'].values():
  assert all(n in assets for n in layout['ordered_icon_ids'])
-(V7/'layout.json').write_text(json.dumps(D,indent=2)+'\n')
+(APPROVED/'layout.json').write_text(json.dumps(D,indent=2)+'\n')
 print('Wrote layout.json:',len(assets),'assets;',len(screens),'screens;',D['validation']['measured_element_count'],'element boxes; 40 nodes. All house, gate and gift assemblies integrated; runtime remains unverified.')

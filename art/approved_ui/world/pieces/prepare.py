@@ -5,7 +5,7 @@ import json, shutil, sys
 world = sys.argv[1]
 base = Path(__file__).parent / world
 manifest = json.loads((base / 'generation.json').read_text())
-out = Path('PerchSort/Assets/Resources/V7/World')
+out = Path('PerchSort/Assets/Resources/World')
 out.mkdir(parents=True, exist_ok=True)
 (base/'raw').mkdir(exist_ok=True)
 sizes = {'branch': (620,90), 'twig': (400,80), 'crown': (600,400), 'trunk': (160,1920)}

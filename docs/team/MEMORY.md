@@ -15,7 +15,7 @@
 - Record and preserve scene/meta/settings/package changes before Unity. Do not blindly discard generated files. The coordinator reported user-primary-checkout changes including 108 generated bird metas, seven overlay-meta changes and scene InputSystem ID rewrites; only coordinator handles that preservation/update.
 - Seven egg/family imports need explicit policy: egg pivots `(0.5,0.0625)`, chick/mama `(0.5,0.5)`, FullRect mesh (`spriteMeshType: 0`), max1024, uncompressed quality100, no fallback physics generation. Unity's enum is FullRect=0, Tight=1; do not change the baseline mesh or allow generic art import to recenter eggs. Six retained compressed fallback sprites must not inherit full-art policy.
 - Scene GUID `55064aed0051b40279c77a0b9a758533`, root script GUID `07203ec62b1604449b634c729c1303a3`, serialized font stay intact. Static GUID retention is not runtime startup proof.
-- Existing `v5.*`, `v6.unlockSeen.*`, `v7.notifications` keys, ProfileMigrator reads, DataMember/SaveData fields, enum order and schema versions are storage compatibility only; never rename/reset them.
+- Existing the exact persistence literals listed in CURRENT_GAME keys, ProfileMigrator reads, DataMember/SaveData fields, enum order and schema versions are storage compatibility only; never rename/reset them.
 
 ## Practical constraints
 

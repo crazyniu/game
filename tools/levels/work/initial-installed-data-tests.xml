@@ -19,7 +19,7 @@
       <failure>
         <message><![CDATA[One or more child tests had errors]]></message>
       </failure>
-      <test-suite type="TestSuite" id="1086" name="V5" fullname="PerchSort.V5" runstate="Runnable" testcasecount="81" result="Failed" site="Child" start-time="2026-11-03T03:20:15.8783292Z" end-time="2026-11-03T03:20:35.6552293Z" duration="19.776900" total="81" passed="80" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2905">
+      <test-suite type="TestSuite" id="1086" name="Core" fullname="PerchSort" runstate="Runnable" testcasecount="81" result="Failed" site="Child" start-time="2026-11-03T03:20:15.8783292Z" end-time="2026-11-03T03:20:35.6552293Z" duration="19.776900" total="81" passed="80" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2905">
         <failure>
           <message><![CDATA[One or more child tests had errors]]></message>
         </failure>
@@ -123,7 +123,7 @@
   Expected: Solved
   But was:  BudgetExceeded
 ]]></message>
-                  <stack-trace><![CDATA[   at PerchSort.EditModeTests.LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Int32 id) in /home/developer/Projects/game/PerchSort/Assets/Tests/V5/EditMode/LevelsDataTests.cs:line 105
+                  <stack-trace><![CDATA[   at PerchSort.EditModeTests.LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Int32 id) in /home/developer/Projects/game/PerchSort/Assets/Tests/EditMode/LevelsDataTests.cs:line 105
    at InvokeStub_LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Object, Span`1)
 ]]></stack-trace>
                 </failure>
@@ -133,7 +133,7 @@
   Expected: Solved
   But was:  BudgetExceeded
 ]]></message>
-                    <stack-trace><![CDATA[   at PerchSort.EditModeTests.LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Int32 id) in /home/developer/Projects/game/PerchSort/Assets/Tests/V5/EditMode/LevelsDataTests.cs:line 105
+                    <stack-trace><![CDATA[   at PerchSort.EditModeTests.LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Int32 id) in /home/developer/Projects/game/PerchSort/Assets/Tests/EditMode/LevelsDataTests.cs:line 105
    at InvokeStub_LevelsDataTests.StoredParMatchesCoreSolverAndWinningReplay(Object, Span`1)
 ]]></stack-trace>
                   </assertion>

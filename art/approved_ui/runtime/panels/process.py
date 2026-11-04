@@ -5,7 +5,7 @@ import json, shutil
 
 ROOT = Path(__file__).resolve().parents[4]
 HERE = Path(__file__).resolve().parent
-OUT = ROOT / 'PerchSort/Assets/Resources/V7/Art'
+OUT = ROOT / 'PerchSort/Assets/Resources/Art'
 specs = json.loads((HERE/'specs.json').read_text())
 sources = json.loads((HERE/'sources.json').read_text())
 placements = {

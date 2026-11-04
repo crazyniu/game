@@ -8,11 +8,11 @@
 - Approved visual reference: [T40 notes](../art/v6/mock/spec_notes.md), [K3 A](../art/v6/mock/level_k3_a.png), the other approved T40 screens, and [GAME_DESIGN_V5 §3.0 / §10](../docs/GAME_DESIGN.md). The README/router/evidence/UI ownership documents were read before production.
 - Coordinator `msg_ae57f91a98df` explicitly authorized Pillow crop/resize, alpha masks, 9-slicing, roof/body separation, pressed shading and QA compositing; approved aligned 88×90 house layers, 120×32 shadow, 360×360 path, the cream tray with two knots, and Encore without `+1`.
 - Coordinator `msg_3dc211a89a75` prohibited the separately billed CLI/API fallback, allowed only three additional built-in retries, and required a partial delivery if they failed. No API credentials were read or printed, and no fallback API was called.
-- Only new files in `PerchSort/Assets/Resources/V6/Art/`, `art/v6/runtime/`, and this report were written. No original art, T40 file, game code, runtime level data, scene, settings, or other worker's files were edited. No commit or push was made.
+- Only new files in `PerchSort/Assets/Resources/Art/`, `art/v6/runtime/`, and this report were written. No original art, T40 file, game code, runtime level data, scene, settings, or other worker's files were edited. No commit or push was made.
 
 ## Delivered files
 
-Runtime destination: [V6/Art](../PerchSort/Assets/Resources/V6/Art/). All 83 PNGs use RGBA and have actual zero-alpha pixels. No English BEST/PAR labels, level numbers, stock numbers, or reward text are baked into them. Plus, cross, check, and question-mark mechanic symbols are pictograms.
+Runtime destination: [V6/Art](../PerchSort/Assets/Resources/Art/). All 83 PNGs use RGBA and have actual zero-alpha pixels. No English BEST/PAR labels, level numbers, stock numbers, or reward text are baked into them. Plus, cross, check, and question-mark mechanic symbols are pictograms.
 
 The [asset manifest](../art/v6/runtime/asset_manifest.json) records each file's dimensions, alpha bounds, pivot, provenance, border and SHA-256. The [required inventory](../art/v6/runtime/required_assets.json) lists all 85 required filenames and exact sizes, including the four missing PNGs. The [delivery file list](../art/v6/runtime/qa/delivered_files.txt) lists every delivered runtime PNG.
 

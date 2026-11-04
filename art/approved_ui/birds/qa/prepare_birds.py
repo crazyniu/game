@@ -6,7 +6,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[4]
 SOURCE = ROOT / 'art/approved_ui/birds/source'
-OUT = ROOT / 'PerchSort/Assets/Resources/V7/Birds'
+OUT = ROOT / 'PerchSort/Assets/Resources/Birds'
 QA = ROOT / 'art/approved_ui/birds/qa'
 STATES = 'idle blink quirk1 quirk2 fly_up fly_down cheer sleep tilt_left tilt_right look_up look_down look_side preen fluff stretch yawn'.split()
 SPECIES = sys.argv[1:] or 'sunny sky berry mint cocoa snow ember ink hoot crow'.split()

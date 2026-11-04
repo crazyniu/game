@@ -1,10 +1,10 @@
 # T32 Core v5.3 rules (omp, gpt-6-astra)
 
-Branch `t32-core-v53`, shared worktree `/home/developer/Projects/game` (a Codex worker is generating art under `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/` at the same time). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN.md` v5.3 — read §1, §6 (6.1–6.8), §7, §8.1, §12 in full. Where this spec and the doc disagree, ask with `orca orchestration ask` instead of guessing.
+Branch [t32-core-v53](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T32_core.md#L3), shared worktree `/home/developer/Projects/game` (a Codex worker is generating art under `PerchSort/Assets/Resources/Art/` and [art/v5/t33/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T32_core.md#L3) at the same time). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN.md` v5.3 — read §1, §6 (6.1–6.8), §7, §8.1, §12 in full. Where this spec and the doc disagree, ask with `orca orchestration ask` instead of guessing.
 
 ## Scope: pure rules, data and tests (no new visuals in this task)
 
-Ownership: `PerchSort/Assets/Scripts/V5/Core/**`, `PerchSort/Assets/Scripts/V5/Game/LevelLoader.cs` (DTO mapping only), `PerchSort/Assets/Tests/V5/EditMode/**`, `PerchSort/Assets/Resources/V5/levels.json` (keep level 1 identical; add test fixture levels only under `PerchSort/Assets/Tests/V5/EditMode/Fixtures/`), `tasks/T32_report.md`. Do not edit other Game/View files, scenes or art; the existing level 1 must play exactly as before (all current V5 tests stay green). No commit.
+Ownership: `PerchSort/Assets/Scripts/Core/**`, `PerchSort/Assets/Scripts/Game/LevelLoader.cs` (DTO mapping only), `PerchSort/Assets/Tests/EditMode/**`, `PerchSort/Assets/Resources/Levels/levels.json` (keep level 1 identical; add test fixture levels only under `PerchSort/Assets/Tests/EditMode/Fixtures/`), `tasks/T32_report.md`. Do not edit other Game/View files, scenes or art; the existing level 1 must play exactly as before (all current V5 tests stay green). No commit.
 
 ## Implement in Core (pure C#, no UnityEngine)
 

@@ -7,7 +7,7 @@ from PIL import Image, ImageOps, ImageDraw
 ROOT = Path(__file__).resolve().parents[4]
 BASE = Path(__file__).resolve().parent
 SOURCE = Path('/Users/apple/.codex/generated_images/01a1a5bd-ba48-7962-87aa-ae4204ff1933')
-OUTPUT = ROOT / 'PerchSort/Assets/Resources/V7/Art'
+OUTPUT = ROOT / 'PerchSort/Assets/Resources/Art'
 RAW = {
     'hint': 'exec-dbf54c78-fbf3-4423-ad0a-6e7c0ae72bb7.png',
     'sapling': 'exec-3f983792-e8bc-4cb7-9d9f-d470509811e8.png',

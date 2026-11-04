@@ -4,7 +4,7 @@ from PIL import Image,ImageOps,ImageDraw
 import json,hashlib
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[3]
-OUT=ROOT/'PerchSort/Assets/Resources/V7/World'
+OUT=ROOT/'PerchSort/Assets/Resources/World'
 records=json.loads((HERE/'records.json').read_text())
 metadata=[]
 worlds={}

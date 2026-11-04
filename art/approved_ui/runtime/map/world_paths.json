@@ -24,7 +24,7 @@
   "method": "At fixed sampling heights, detect the actual rendered tan path using source RGB thresholds, select its continuous interval nearest the previously measured path center, and take the interval midpoint. All 40 placements are visually reviewed on annotated composites. Sampling heights are layout choices; x coordinates and widths are image measurements, not a predefined curve.",
   "worlds": {
     "w1": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w1.png",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w1.png",
       "source_generated": "art/approved_ui/runtime/map/raw/w1.png",
       "sha256": "4cf1b7c38148b06421111677f14355b2531220dff99650d56bdc4607de5a1a44",
       "nodes": [
@@ -573,7 +573,7 @@
       }
     },
     "w2": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w2.png",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w2.png",
       "source_generated": "art/approved_ui/runtime/map/raw/w2.png",
       "sha256": "93719350b2273cd1a5d5da1aef70b4a40805225b44583738c37fb182d6925dc5",
       "nodes": [
@@ -1122,7 +1122,7 @@
       }
     },
     "w3": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w3.png",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w3.png",
       "source_generated": "art/approved_ui/runtime/map/raw/w3.png",
       "sha256": "961250237c6a15276d0294734c36b5d46345ca04ad5f1e7b6b5930c8748bdb6d",
       "nodes": [
@@ -1671,7 +1671,7 @@
       }
     },
     "w4": {
-      "file": "PerchSort/Assets/Resources/V7/Art/map_bg_w4.png",
+      "file": "PerchSort/Assets/Resources/Art/map_bg_w4.png",
       "source_generated": "art/approved_ui/runtime/map/raw/w4.png",
       "sha256": "f03d9f38ceee95aca015e04f24c3fba68b96936389ccd33dcb0f1af3cfe09b98",
       "nodes": [
