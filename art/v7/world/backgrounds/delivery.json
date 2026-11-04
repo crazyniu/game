@@ -74,5 +74,81 @@
     "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
     "reference": "art/v7/ui7_level_k3_v2.png",
     "sha256": "80a96e538e006696e94d3f4ed705922ea8d47a5dcbdb1c13bb94375f4848dfa6"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_morning.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k7.png",
+    "sha256": "0b33cc44057a075ce2ead6a75825e6081b538acee0031a615f6464e428fffa0d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_noon.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k7.png",
+    "sha256": "ba4400fe9e8c8673e2dd6158fe6839ba017f264f377cc18e09d5a6345981ab10"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_bluehour.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k7.png",
+    "sha256": "b8eb8352a7d1396c1af273eb488a8cb157cfd140cc2c01930184a7898e99b9ca"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w4_aurora.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k7.png",
+    "sha256": "16cc091b42f6c5a4696307e044ed137b65e792e73961773ef13622ac3e714412"
   }
 ]

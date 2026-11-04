@@ -26,5 +26,33 @@
     "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-1b6f8ba0-fcf6-4091-9150-4b692c08d68c.png",
     "reference": "art/v7/ui7_level_k3_v2.png",
     "attempt": 1
+  },
+  {
+    "name": "bg_level_w4_morning",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference. Match its pale hazy soft3D forest backdrop, blur, low contrast and quiet empty play area exactly; remove all gameplay and foreground assets. Pale snowy morning: luminous icy powder-blue sky with the faintest soft peach sunrise glow, white atmospheric mist. No aurora. Large airy empty center; blurred distant snow-pine silhouettes in the lower third; soft snowy pine needle silhouettes cropped into the extreme top corners like the reference. No foreground trunks or crowns at side edges because they are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, paths or ground platforms. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-edaad0f2-bb6f-4fdc-a9bb-7ab01339b95c.png",
+    "reference": "art/v7/ui7_level_k7.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w4_noon",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference. Match its pale hazy soft3D forest backdrop, blur, low contrast and quiet empty play area exactly; remove all gameplay and foreground assets. Pale snowy noon: luminous silver powder-blue sky, gently clouded and snowy atmospheric haze. No aurora. Large airy empty center; blurred distant snow-pine silhouettes in the lower third; soft snowy pine needle silhouettes cropped into the extreme top corners like the reference. No foreground trunks or crowns at side edges because they are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, paths or ground platforms. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-624a61a0-5d64-4194-a437-0440b0cf77c8.png",
+    "reference": "art/v7/ui7_level_k7.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w4_bluehour",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference. Match its pale hazy soft3D forest backdrop, blur, low contrast and quiet empty play area exactly; remove all gameplay and foreground assets. Blue hour: pale periwinkle and lavender-blue twilight haze, softly luminous sky, still low contrast and light enough behind gameplay. No aurora. Large airy empty center; blurred distant snow-pine silhouettes in the lower third; soft snowy pine needle silhouettes cropped into the extreme top corners like the reference. No foreground trunks or crowns at side edges because they are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, paths or ground platforms. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-71d53108-821e-4508-9d1f-631e18d9ab4d.png",
+    "reference": "art/v7/ui7_level_k7.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w4_aurora",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference. Match its pale hazy soft3D forest backdrop, blur, low contrast and quiet empty play area exactly; remove all gameplay and foreground assets. Aurora evening exactly like the approved snowy reference: pale lavender sky with soft luminous mint-green and faint pink aurora curtains, blurred snowy forest below. Keep the sky luminous and hazy, never near-black. Large airy empty center; blurred distant snow-pine silhouettes in the lower third; soft snowy pine needle silhouettes cropped into the extreme top corners like the reference. No foreground trunks or crowns at side edges because they are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, paths or ground platforms. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-8e371726-528b-435e-b9c9-d7ac441232e2.png",
+    "reference": "art/v7/ui7_level_k7.png",
+    "attempt": 1
   }
 ]

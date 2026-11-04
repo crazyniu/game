@@ -8,6 +8,8 @@ Done: W1 backgrounds `bg_level_w1_morning.png`, `bg_level_w1_noon.png`, `bg_leve
 
 Done: W1 `branch_left_w1.png`, `twig_left_w1.png`, `tree_crown_w1.png`, `trunk_left_w1.png`; placement metadata `art/v7/world/pieces/w1/metadata.json`. Branch top y17, twig y18. W1 ready for early integration.
 
-Running: W4, then W2/W3. Six coloured booster illustrations added by lead are in parallel preparation under V7/Art; exact prompts/QA under art/v7/world/boosters.
+W1 pushed at `ba83f02`. Done: W4 four backgrounds and four transparent pieces, with recorded flat tops and world-only comparison.
+
+Running: W2, then W3. Six coloured booster illustrations added by lead are in parallel preparation under V7/Art; exact prompts/QA under art/v7/world/boosters.
 
 Blocker: none. Built-in image tool only; no CLI/API fallback. No Unity started or lock created. Static art is not runtime acceptance.
