@@ -9,7 +9,7 @@ Final target: 1080 x 1920 PNG per screen; Pillow allowed only for resizing/cropp
 ## ui_level_k7.png — attempt 1
 
 References, in order:
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
 - `/tmp/refs/ref_landscape_1.png`
@@ -35,7 +35,7 @@ Attempt 1 review: close rendering and HUD match; seven houses and five branch ro
 
 References, in order:
 - `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8ec-e68c62c9d5ef/exec-2f0fe6e3-6c8a-4236-8d0c-b3a36a9864ea.png`
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
 - `/tmp/refs/ref_landscape_1.png`
@@ -56,7 +56,7 @@ Attempt 2 review: correct twenty-bird population and retained master-style finis
 
 References, in order:
 - `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8ec-e68c62c9d5ef/exec-ceaae825-3292-4d89-b282-2fae2d505323.png`
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
 - `/tmp/refs/ref_landscape_1.png`
@@ -77,7 +77,7 @@ Selected source: `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8e
 ## ui_map.png — attempt 1
 
 References, in order:
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
 - `/tmp/refs/ref_landscape_1.png`
@@ -104,7 +104,7 @@ Selected source: `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8e
 ## ui_level_card.png — attempt 1
 
 References, in order:
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/home/developer/Projects/game/art/approved_ui/ui_map.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
@@ -134,7 +134,7 @@ Attempt 1 review: correct requested content and close bird/HUD rendering, but th
 
 References, in order:
 - `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8ec-e68c62c9d5ef/exec-bd35862e-d02e-4a0a-962c-a291ae651089.png`
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/home/developer/Projects/game/art/approved_ui/ui_map.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
@@ -156,7 +156,7 @@ Attempt 2 tool validation: no image generated; built-in tool rejects more than f
 
 References, in order:
 - `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8ec-e68c62c9d5ef/exec-bd35862e-d02e-4a0a-962c-a291ae651089.png`
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/home/developer/Projects/game/art/approved_ui/ui_map.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
@@ -179,7 +179,7 @@ Selected source: `/home/developer/.codex/generated_images/01a1a017-a135-7f43-a8e
 ## ui_win.png — attempt 1
 
 References, in order:
-- `/home/developer/Projects/game/art/approved_ui/ui_level_k3_v2.png`
+- `/home/developer/Projects/game/art/approved_ui/ui_level_k3.png`
 - `/tmp/refs/ref_portrait_1.png`
 - `/tmp/refs/ref_portrait_2.png`
 - `/tmp/refs/ref_landscape_1.png`

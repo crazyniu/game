@@ -1,6 +1,6 @@
 # T41 remove the Song meter, new Berry gift (omp, gpt-6.1-sol)
 
-Branch `t39-polish`, worktree `/home/developer/Projects/game` (a Codex worker writes only under `art/v6/**` and `art/v5/t36/**` + `PerchSort/Assets/Resources/V5/Art/` new files; never touch those). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN_V5.md` v5.4 §7 (Chorus simplified), §6.5 (Berry gift), §1.1. The Song meter is removed entirely: it gave no player decision. Issue #32.
+Branch `t39-polish`, worktree `/home/developer/Projects/game` (a Codex worker writes only under `art/v6/**` and `art/v5/t36/**` + `PerchSort/Assets/Resources/V5/Art/` new files; never touch those). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN.md` v5.4 §7 (Chorus simplified), §6.5 (Berry gift), §1.1. The Song meter is removed entirely: it gave no player decision. Issue #32.
 
 Do:
 1. **Core** (`Scripts/V5/Core/**`): remove Song meter, notes, overflow, payout, payoutCount, payout pool and the SongPayout/SongNote events; keep the chain counter and the win coin bonus (5 per chain step beyond the first); chain still resets on a transfer or swivel that homes nothing and is restored by undo. Keep every public member that the level tool (`tools/levels/LevelTool`) or other code uses compiling (remove the Song parts from it too, and from `V5LevelsDataTests`); a removed solver state field must also leave the search key.

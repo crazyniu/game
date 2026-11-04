@@ -1,6 +1,6 @@
 # T32 Core v5.3 rules (omp, gpt-6-astra)
 
-Branch `t32-core-v53`, shared worktree `/home/developer/Projects/game` (a Codex worker is generating art under `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/` at the same time). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN_V5.md` v5.3 — read §1, §6 (6.1–6.8), §7, §8.1, §12 in full. Where this spec and the doc disagree, ask with `orca orchestration ask` instead of guessing.
+Branch `t32-core-v53`, shared worktree `/home/developer/Projects/game` (a Codex worker is generating art under `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/` at the same time). No Unity here; the coordinator tests on the Mac. Authority: `docs/GAME_DESIGN.md` v5.3 — read §1, §6 (6.1–6.8), §7, §8.1, §12 in full. Where this spec and the doc disagree, ask with `orca orchestration ask` instead of guessing.
 
 ## Scope: pure rules, data and tests (no new visuals in this task)
 

@@ -1,6 +1,6 @@
 # T31-C v5 layout rework (code)
 
-Branch `t31-v5-layout`, worktree `/home/developer/Projects/game`. No Unity here; Mac verifies. Authority: `docs/GAME_DESIGN_V5.md` section 3 (v5.1 layout, rewritten for this task), read it in full. Screenshot problems being fixed: buttons of mixed size/style, numbers and icons crammed under the birdhouse, floating birdhouse, board crammed in the upper half.
+Branch `t31-v5-layout`, worktree `/home/developer/Projects/game`. No Unity here; Mac verifies. Authority: `docs/GAME_DESIGN.md` section 3 (v5.1 layout, rewritten for this task), read it in full. Screenshot problems being fixed: buttons of mixed size/style, numbers and icons crammed under the birdhouse, floating birdhouse, board crammed in the upper half.
 
 Ownership: `PerchSort/Assets/Scripts/V5/**`, `PerchSort/Assets/Editor/V5/**`, `PerchSort/Assets/Tests/V5/**`, `tasks/T30_code_report.md` (append a T31 section). No other files. No commit.
 

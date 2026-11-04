@@ -9,7 +9,7 @@
   "measurement_method": "Manual visual bounds on 540x960 inspection copies; all values multiplied by 2. Bounds include visible decorative silhouette, excluding broad diffuse glow unless named. Centers and sizes are observed art positions, not UI hit targets. Approximate edge uncertainty +/-8 source px; natural branches and glow +/-16 px.",
   "screens": {
     "level_k3": {
-      "source": "art/approved_ui/ui_level_k3_v2.png",
+      "source": "art/approved_ui/ui_level_k3.png",
       "evidence": "observed_manual_bounds",
       "uncertainty_px": 8,
       "elements": {

@@ -1,6 +1,6 @@
 # T30-A v5 level-1 art delivery report
 
-Date: 2026-11-03. Scope: [T30 art task](T30_v5_art.md), style and dimensions from [GAME_DESIGN_V5](../docs/GAME_DESIGN_V5.md), sections 3–4. Result: **33/33 required runtime PNGs delivered; no missing files.**
+Date: 2026-11-03. Scope: [T30 art task](T30_art.md), style and dimensions from [GAME_DESIGN_V5](../docs/GAME_DESIGN.md), sections 3–4. Result: **33/33 required runtime PNGs delivered; no missing files.**
 
 ## Delivery and provenance
 

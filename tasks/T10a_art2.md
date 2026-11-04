@@ -9,7 +9,7 @@
 4. `fx/zzz.png` 256×256：卡通 “Z” 气泡（睡眠）。`fx/sparkle.png` 256：四角星闪光。`fx/check.png` 256：绿色对勾徽章。`fx/feather.png` 256：一片羽毛（归巢飘落用）。`fx/ring.png` 256：柔和光环。`fx/confetti_*.png`（3 张小纸片，不同形状，256）。
 5. `ui/trophy.png` 1024：金奖杯（结算页）；`ui/star.png` 256：金星。`ui/btn_*`不需要（UI 用代码画）。
 6. 睡眠鸟：不单独画 10 张。改为 `fx/closed_eye.png` 128：一条弯弧闭眼线（代码按鸟定位叠加），睡眠时配合压扁+变暗。如你判断叠加效果会明显穿帮，可改为为每种鸟生成睡眠姿态（bird_01s..bird_10s），并在报告说明。
-7. 更新 `art/manifest.json` 与 `art/ASSETS.md`（尺寸、锚点、用途）；再出一张 `art/contact_v2.png` 合成预览（深浅底各一）。
+7. 更新 `art/manifest.json` 与 `art/ASSETS.md`（尺寸、锚点、用途）；再出一张 `art/contact_originals.png` 合成预览（深浅底各一）。
 8. `docs/LICENSES.md` 追加这些资产的来源说明。
 
 ## 验收（Claude）

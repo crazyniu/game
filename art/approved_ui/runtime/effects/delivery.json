@@ -35,7 +35,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/sparkle.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "db4f0c0e0f5335ef74f730350da9af0ca6783c59943c6f520707978aa03ecbc0",
@@ -140,7 +140,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/glow_soft.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "5914ec541f53b99195f82ad599b2706344a8114e6b5fcca83a3ee32120946265",
@@ -161,7 +161,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/zzz.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "64db4bc370aac01a9595cf696632fc0858edebfc866703362fb53a3cd6af564d",
@@ -266,7 +266,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/cloud_soft_1.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "75d13df4b32fc53762d4b94e14c13ffb9c8385ba10815a248cec54b6d3c43227",
@@ -287,7 +287,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/cloud_soft_2.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "77b28bfcaeeea1b4ef2f813bb6b66b4074d1baae6631778e4a63d5aefafc8144",
@@ -308,7 +308,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/cloud_soft_3.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "2d3a03c024b34d7f90cb915e18ef44a113362b566d0f4f70e496285ef053b058",
@@ -392,7 +392,7 @@
       0.5,
       0.5
     ],
-    "reference": "art/approved_ui/ui_level_k3_v2.png",
+    "reference": "art/approved_ui/ui_level_k3.png",
     "source": "art/approved_ui/runtime/effects/raw/house_glow.png",
     "prompt_record": "art/approved_ui/runtime/effects/generation_records.json",
     "sha256": "6784e8fe5bdfca7aa994e6efbf911cae123c76747c33470fae99aed493f043f1",

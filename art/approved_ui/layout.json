@@ -494,7 +494,7 @@
       "metadata_sources": [
         "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/approved_ui/ui_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "cloud_soft_2": {
       "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_2.png",
@@ -523,7 +523,7 @@
       "metadata_sources": [
         "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/approved_ui/ui_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "cloud_soft_3": {
       "file": "PerchSort/Assets/Resources/V7/Art/cloud_soft_3.png",
@@ -552,7 +552,7 @@
       "metadata_sources": [
         "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/approved_ui/ui_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "coin": {
       "file": "PerchSort/Assets/Resources/V7/Art/coin.png",
@@ -1822,7 +1822,7 @@
       "metadata_sources": [
         "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/approved_ui/ui_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "house_beam_w1": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w1.png",
@@ -2173,7 +2173,7 @@
       "metadata_sources": [
         "art/approved_ui/runtime/effects/delivery.json"
       ],
-      "reference": "art/approved_ui/ui_level_k3_v2.png"
+      "reference": "art/approved_ui/ui_level_k3.png"
     },
     "house_roof_blue": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_blue.png",

@@ -62,7 +62,7 @@ def main():
         '- Full **DEEP validation: 40/40 PASS, exit 0** on both the frozen Core and the final live Core, with the explicitly authorized exceptions below; every other T35 gate remains active.',
         '- Existing live-Core `LevelsDataTests`: **81 passed, 0 failed, 0 skipped** on both the staged catalog and the installed resource, using NUnitLite 3.13.3, a separate Core assembly and a Linux file-backed Resources/JSON adapter.',
         '- No Core, shared level-tool, scene, artwork or existing test source was edited by T42; no commit or push.',
-        '- Authority: [T42 task](T42_level_deepening.md), [v5 design §§11–12](../docs/GAME_DESIGN_V5.md#11-level-plan-40-levels), coordinator clarifications `msg_06bfe96858d7`, `msg_36c158aa8784` and Mac-budget decision `msg_56134b267b23`.',
+        '- Authority: [T42 task](T42_level_deepening.md), [v5 design §§11–12](../docs/GAME_DESIGN.md#11-level-plan-40-levels), coordinator clarifications `msg_06bfe96858d7`, `msg_36c158aa8784` and Mac-budget decision `msg_56134b267b23`.',
         '', '## Named gates and explicit exceptions', '',
         '- P/C enforce **lower bounds only**: P ≥6 from L7 / ≥8 from L21; C ≥10 from L8 / ≥12 from L21. Par >24 is a report warning, not rejection; no installed level triggers it. R from L7 remains 3–6; no re-role was used. T and levels 1–6 retain their original gates.',
         '- **DEADEND_WINDOW_6 (D6):** C levels with par ≥12 may use a proven losing state reachable within six legal actions. Only final L40 actually needs more than the old three-action window (six actions); the repaired L30/L36/L38 witnesses fit the original window.',

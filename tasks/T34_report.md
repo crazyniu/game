@@ -1,6 +1,6 @@
 # T34 view and animation delivery report
 
-Authority: [T34](T34_view_animation.md), [GAME_DESIGN_V5 v5.3](../docs/GAME_DESIGN_V5.md), [T30 art registration](T30_art_report.md), and [T33 art delivery](T33_art_report.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
+Authority: [T34](T34_view_animation.md), [GAME_DESIGN_V5 v5.3](../docs/GAME_DESIGN.md), [T30 art registration](T30_art_report.md), and [T33 art delivery](T33_art_report.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
 
 ## Phase 1 — mechanic presentation
 

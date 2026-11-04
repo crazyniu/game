@@ -1,6 +1,6 @@
 # T48 layout measurement evidence
 
-`layout_draft.json` is a measured input for the final `art/approved_ui/layout_v7.json`, not the final runtime contract. It contains 17 approved portrait screens and 223 named element bounds. Every screen records its source. The icon atlas is excluded from portrait geometry because it is 1536 x 1536.
+`layout_draft.json` is a measured input for the final `art/approved_ui/layout.json`, not the final runtime contract. It contains 17 approved portrait screens and 223 named element bounds. Every screen records its source. The icon atlas is excluded from portrait geometry because it is 1536 x 1536.
 
 ## Method
 
@@ -13,7 +13,7 @@ The source inspection sheets are `group0.jpg` through `group5.jpg`. Each `*_boun
 - The approved K3 master shows one house. The approved K7 screen shows seven houses on a beam. These facts are retained explicitly. K1 through K6 multi-house arrangements in `house_count_adaptation` are inferred centered subsets of K7, not measurements from nonexistent approved screens. The larger single house in the K3 master is also available as observed geometry.
 - Three bottom buttons are measured from the K3 master; four are measured from K7. K7 also has five main branch rows and a separate scarecrow perch. K3 has four branch rows.
 - Bird positions describe the displayed artwork only. They do not constitute gameplay data, capacities, or level authoring.
-- Map concept positions cover its six visible nodes in 1080 x 1920. The four delivered 1080 x 3000 world backgrounds now have 40 actual path-node measurements in `art/approved_ui/runtime/map/world_paths.json`, integrated into `layout_v7.json` under `map`. Their 160 px baked top alpha fade requires a 2840 px stacking stride and a topmost viewport clamp or opaque-source backing. The draft retains its historical pending field; the final layout reads the completed map measurements directly.
+- Map concept positions cover its six visible nodes in 1080 x 1920. The four delivered 1080 x 3000 world backgrounds now have 40 actual path-node measurements in `art/approved_ui/runtime/map/world_paths.json`, integrated into `layout.json` under `map`. Their 160 px baked top alpha fade requires a 2840 px stacking stride and a topmost viewport clamp or opaque-source backing. The draft retains its historical pending field; the final layout reads the completed map measurements directly.
 - T48 corrections remain explicit: Minty's gift uses a watering can; Scarecrow uses the purple round-disc family. Measurements preserve their intended UI bounds, not the incorrect concept contents.
 - No Unity, gameplay, hit testing, animation, or runtime acceptance is claimed.
 

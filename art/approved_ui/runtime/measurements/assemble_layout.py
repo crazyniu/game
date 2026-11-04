@@ -131,5 +131,5 @@ for world in worlds['worlds'].values():
   x,y=n['center'];l,r=n['measured_path_edges'];assert 0<=l<=x<=r<=1080 and 0<=y<3000
 for layout in D['hud']['bottom_buttons'].values():
  assert all(n in assets for n in layout['ordered_icon_ids'])
-(V7/'layout_v7.json').write_text(json.dumps(D,indent=2)+'\n')
-print('Wrote layout_v7.json:',len(assets),'assets;',len(screens),'screens;',D['validation']['measured_element_count'],'element boxes; 40 nodes. All house, gate and gift assemblies integrated; runtime remains unverified.')
+(V7/'layout.json').write_text(json.dumps(D,indent=2)+'\n')
+print('Wrote layout.json:',len(assets),'assets;',len(screens),'screens;',D['validation']['measured_element_count'],'element boxes; 40 nodes. All house, gate and gift assemblies integrated; runtime remains unverified.')

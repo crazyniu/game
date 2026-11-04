@@ -3,8 +3,8 @@ from pathlib import Path
 from PIL import Image,ImageOps,ImageDraw
 import json
 P=Path(__file__).resolve().parent;ROOT=P.parents[3];W=ROOT/'PerchSort/Assets/Resources/V7/World';V=ROOT/'art/approved_ui'
-layout=json.loads((V/'layout_v7.json').read_text())
-for world,key,variant,ref in [('w1','level_k3','noon','ui_level_k3_v2.png'),('w4','level_k7','aurora','ui_level_k7.png')]:
+layout=json.loads((V/'layout.json').read_text())
+for world,key,variant,ref in [('w1','level_k3','noon','ui_level_k3.png'),('w4','level_k7','aurora','ui_level_k7.png')]:
     meta=json.loads((V/f'world/pieces/{world}/metadata.json').read_text())['assets']
     out=Image.open(W/f'bg_level_{world}_{variant}.png').convert('RGBA')
     trunk=Image.open(W/f'trunk_left_{world}.png').resize((80,1920))

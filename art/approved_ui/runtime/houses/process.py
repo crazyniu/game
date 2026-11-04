@@ -32,7 +32,7 @@ for color in colors:
  if 'house_roof_'+color not in objects:continue
  house=objects['house_body'].copy();house.alpha_composite(objects['house_roof_'+color]);house.save(HERE/'qa'/('assembled_'+color+'.png'))
  tile=Image.new('RGBA',(512,540),'#26333b');tile.alpha_composite(house);ImageDraw.Draw(tile).text((12,520),color,fill='white');tiles.append(tile)
- screen=Image.open(ROOT/'art/approved_ui/ui_level_k3_v2.png').convert('RGBA');screen.alpha_composite(house.resize((285,285)),(380,112));screen.convert('RGB').save(HERE/'qa'/('overlay_'+color+'.jpg'),quality=90)
+ screen=Image.open(ROOT/'art/approved_ui/ui_level_k3.png').convert('RGBA');screen.alpha_composite(house.resize((285,285)),(380,112));screen.convert('RGB').save(HERE/'qa'/('overlay_'+color+'.jpg'),quality=90)
 for state in ['closed','open']:
  house=objects['house_body'].copy() if state=='closed' else opened.copy()
  if state=='closed':house.alpha_composite(objects['house_door_leaf'])

@@ -41,7 +41,7 @@ The initial bounded delivery is `1cea729a18b6748c33d308f5fdf427875608d396`. The 
 
 Matching English agent-guide sections and CURRENT_GAME now require **ONE current game**, canonical files edited in place, no V-numbered parallel folders/files/classes/namespaces/scenes/resource roots, and no alternate current implementation copies under any name. Task branches/PRs are temporary collaboration reviewed and merged to main. The only exceptions are exact existing storage IDs solely for save compatibility, preserved historical archives/original-art provenance, and legitimate dependency/schema/release metadata; no new arbitrary exceptions or broad allowlists. These are explicit review acceptance criteria.
 
-CURRENT_GAME identifies `art/approved_ui/layout_v7.json` as historical-original art/layout provenance, not an active runtime version/root or entry. The original was inspected read-only and remains unchanged.
+CURRENT_GAME identifies `art/approved_ui/layout.json` as historical-original art/layout provenance, not an active runtime version/root or entry. The original was inspected read-only and remains unchanged.
 
 CI now invokes `python3 ci/check_current_game_names.py` **unconditionally immediately after checkout**, before tests. Existing `ci/` sparse checkout already includes the independently supplied script; Git-tracked-path and git-show inspection permits the guard to inspect sparse files without expanding checkout to archived code. Existing automatic test conditions, test command and assertions are unchanged.
 

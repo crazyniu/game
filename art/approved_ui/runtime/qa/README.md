@@ -1,6 +1,6 @@
 # T48 static QA index
 
-These are static inspection composites, not Unity screenshots or completed animation. Source-screen placement comparisons do not replace the measured coordinates in `art/approved_ui/layout_v7.json`. Approved originals remain unchanged.
+These are static inspection composites, not Unity screenshots or completed animation. Source-screen placement comparisons do not replace the measured coordinates in `art/approved_ui/layout.json`. Approved originals remain unchanged.
 
 | Group | Main review evidence | Detailed records |
 |---|---|---|

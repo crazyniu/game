@@ -1,6 +1,6 @@
 # T30-A v5 level-1 art (Codex, image generation)
 
-Branch `t30-v5-first-level`, shared worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN_V5.md` §3–§4 first; it is the authority for style and sizes. Another worker writes code in parallel in the same worktree.
+Branch `t30-v5-first-level`, shared worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN.md` §3–§4 first; it is the authority for style and sizes. Another worker writes code in parallel in the same worktree.
 
 ## Ownership
 You may create/edit only:
@@ -35,7 +35,7 @@ Under `PerchSort/Assets/Resources/V5/Art/`:
 Also produce `art/v5/contact_sheet.png` showing every runtime file on light and dark backgrounds, and a 64 px grayscale strip of the bird idles.
 
 ## Style
-Follow `docs/GAME_DESIGN_V5.md` §4: plush 3D-rendered cartoon, soft fur, big glossy eyes, warm bright palette, chunky rounded UI. The reference genre screenshots the user showed were only style direction: do not reproduce any existing game's character, logo, coin or button art. `sunny` and `sky` must be original designs matching the table in §4.
+Follow `docs/GAME_DESIGN.md` §4: plush 3D-rendered cartoon, soft fur, big glossy eyes, warm bright palette, chunky rounded UI. The reference genre screenshots the user showed were only style direction: do not reproduce any existing game's character, logo, coin or button art. `sunny` and `sky` must be original designs matching the table in §4.
 
 ## Process and acceptance
 1. Generate with your image tool; keep raw outputs and the exact prompts in `art/v5/raw/` and `art/v5/prompts.md`.

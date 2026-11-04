@@ -8,7 +8,7 @@
 - Three attempts generated. The two portrait references and all three candidates were also viewed simultaneously in an in-memory browser comparison; no comparison artifact or reference copy was saved to the repository.
 - Deliverables are static opaque RGB gameplay concepts, not runtime screenshots, animations, accepted production assets, or new gameplay rules. Currency/count badges are visual placeholders requested by this concept brief; they do not establish quotas or an economy. Current task directions govern these concept proportions and round controls only.
 - Exact final size of all three PNGs: 1080x1920. Pillow was used only for aspect-preserving resize and centered crop; no retouching, compositing, recoloring or painting.
-- Ranking: attempt 3 -> `ui_level_k3_v2.png`; attempt 2 -> `ui_level_k3_v2_alt1.png`; attempt 1 -> `ui_level_k3_v2_alt2.png`.
+- Ranking: attempt 3 -> `ui_level_k3.png`; attempt 2 -> `ui_level_k3_alternate_warm.png`; attempt 1 -> `ui_level_k3_alternate_soft.png`.
 
 ### Visual comparison
 

@@ -6,7 +6,7 @@ All four required references were opened before generation. The approved master 
 
 ## ui_shop_boosters.png — attempt 1
 
-References: art/approved_ui/ui_level_k3_v2.png; /tmp/refs/ref_portrait_1.png; /tmp/refs/ref_portrait_2.png; /tmp/refs/ref_landscape_1.png.
+References: art/approved_ui/ui_level_k3.png; /tmp/refs/ref_portrait_1.png; /tmp/refs/ref_portrait_2.png; /tmp/refs/ref_landscape_1.png.
 
 Exact prompt:
 

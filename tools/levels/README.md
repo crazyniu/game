@@ -1,6 +1,6 @@
 # Level authoring tool
 
-Authority: [GAME_DESIGN_V5](../../docs/GAME_DESIGN_V5.md), especially sections 11.1 and 12. The legacy `perch_levels.py` is not a current validator. `LevelTool` targets .NET 8 / C# 9 and compiles `PerchSort/Assets/Scripts/Core/**/*.cs` directly. It contains no replacement gameplay rules; legal moves, transfers, swivels, resolution and booster effects all execute Core.
+Authority: [GAME_DESIGN_V5](../../docs/GAME_DESIGN.md), especially sections 11.1 and 12. The legacy `perch_levels.py` is not a current validator. `LevelTool` targets .NET 8 / C# 9 and compiles `PerchSort/Assets/Scripts/Core/**/*.cs` directly. It contains no replacement gameplay rules; legal moves, transfers, swivels, resolution and booster effects all execute Core.
 
 ## Run
 

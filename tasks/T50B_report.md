@@ -89,7 +89,7 @@ public void WinPanel.Show(int earnedStars, int reward, int chorusCoins, Action c
 
 ## Static compile-risk review and evidence
 
-- Read [T50](T50_ui_v7_code.md), [team memory](../docs/team/MEMORY.md), [v5 design §5](../docs/GAME_DESIGN_V5.md#5-animation-and-feel-litmotion-mit-pinned-commit-0b4c588), the approved win/settings/goal/level-card/booster/four-popup PNGs, and existing `V5Motion`, `V5UI`, `V5Art`, house, root and map callsites.
+- Read [T50](T50_ui_code.md), [team memory](../docs/team/MEMORY.md), [v5 design §5](../docs/GAME_DESIGN.md#5-animation-and-feel-litmotion-mit-pinned-commit-0b4c588), the approved win/settings/goal/level-card/booster/four-popup PNGs, and existing `V5Motion`, `V5UI`, `V5Art`, house, root and map callsites.
 - Confirmed existing `V5Motion.Play/Loop/CancelAll` contracts, `V5UI` top-left/y-flipped coordinates and disposal semantics; no invented LitMotion sequence/tween APIs.
 - Confirmed the game asmdef already references `PerchSort.Audio`, LitMotion, ugui and TextMeshPro; earned-star sounds use existing `Sfx.Star1/Star2/Star3`.
 - Manually reviewed generation invalidation, success-vs-cancel behavior, delayed initial states, pose restoration, action deduplication, parent teardown, synchronous Instant callbacks and root navigation guards. This is source analysis, not executed lifecycle proof.

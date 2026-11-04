@@ -2,13 +2,13 @@
 
 ## Why
 The integrated build (t52 integration, 63d4782) does not look like the user-approved v7 designs. The user said the UI is "very wrong"
-and that the approved style is the one in `art/approved_ui/ui_*.png` (master: `ui_level_k3_v2.png`). Static screenshots at
+and that the approved style is the one in `art/approved_ui/ui_*.png` (master: `ui_level_k3.png`). Static screenshots at
 `/tmp/perch-current-game/screens/*.jpg` (on 251; regenerate on the Mac with `bash scripts/screenshots.sh`, output `build/screens/game/`) were
 compared with the approved images by the coordinator. Passing tests is NOT the goal: **matching the approved images in a screenshot is.**
 
 ## Source of truth (read-only)
-- Approved images: `art/approved_ui/ui_*.png` (1080x1920) and `art/approved_ui/layout_v7.json` (measured positions). Runtime art: `PerchSort/Assets/Resources/{Art,World,Birds}`.
-- Do not edit `art/` originals, `layout_v7.json`, or anything outside your owned files. Do not generate new artwork. If a needed asset is missing or wrong,
+- Approved images: `art/approved_ui/ui_*.png` (1080x1920) and `art/approved_ui/layout.json` (measured positions). Runtime art: `PerchSort/Assets/Resources/{Art,World,Birds}`.
+- Do not edit `art/` originals, `layout.json`, or anything outside your owned files. Do not generate new artwork. If a needed asset is missing or wrong,
   STOP that item and report the asset name and the approved-image region that needs it.
 - English only in code, comments, commits, reports. No emoji.
 
@@ -58,7 +58,7 @@ All paths are under `PerchSort/Assets/`. Anything else (GameRoot.cs, BirdView.cs
 a change there, write it in your report under "Requested contract change" and keep going with a local workaround inside your owned files.
 New test files: only under `PerchSort/Assets/Tests/EditMode/T53<letter>*.cs` (new files, yours alone). Do not weaken existing tests.
 `GameLayout.cs` constants consumed by B/C/D are owned by A; B/C/D keep their own geometry constants inside their own files and may read
-`layout_v7.json`-derived values via existing `GameLayout` members but must not edit it.
+`layout.json`-derived values via existing `GameLayout` members but must not edit it.
 
 ## How to work
 1. Branch from `origin/mac-current-runtime/t52` (this contract's branch `t53-ui-fidelity` is that tip plus the T53 docs; use it as the base). Own worktree.

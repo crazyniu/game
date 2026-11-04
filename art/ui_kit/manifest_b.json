@@ -1,7 +1,7 @@
 {
   "pack": "T11b2",
   "generator": "built-in image_gen",
-  "reference": "docs/UI_SPEC.md sections 1, 2, 5; art/contact_v2_light.png",
+  "reference": "docs/UI_SPEC.md sections 1, 2, 5; art/contact_originals_light.png",
   "processing": "Preserve generated alpha. Premultiplied-alpha Lanczos resize; aspect-preserving fit centered on exact RGBA output canvas.",
   "assets": [
     {

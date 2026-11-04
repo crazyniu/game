@@ -5,7 +5,7 @@
 - Installed all **40 fixed authored levels** with one atomic same-filesystem replacement; the original L1 object, branch contents and par 2 were preserved.
 - Complete installed-catalog validation: **40/40 PASS, exit 0**; all no-booster pars are proven and all L3–40 completion-order witnesses are proven. All catalog-wide debut, recurrence, geometry, variant and count constraints pass.
 - Installed-resource data tests: **81 passed, 0 failed, 0 skipped**, using real Core in a separate assembly with a Linux file-backed Resources/JSON adapter.
-- Authority: [GAME_DESIGN_V5 §§11–12](../docs/GAME_DESIGN_V5.md#11-level-plan-40-levels), [T35 task](T35_levels.md), and the coordinator’s explicit scoped decision `msg_acbf7dc8af71` for L4/L5.
+- Authority: [GAME_DESIGN_V5 §§11–12](../docs/GAME_DESIGN.md#11-level-plan-40-levels), [T35 task](T35_levels.md), and the coordinator’s explicit scoped decision `msg_acbf7dc8af71` for L4/L5.
 - Changes stay within the owned tool directory, tool README, V5 level resource, V5 data test and this report. No Core, UI, scenes, art or unrelated files changed; no commit/push.
 
 ## Named exceptions

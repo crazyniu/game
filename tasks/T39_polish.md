@@ -1,6 +1,6 @@
 # T39 polish pass (omp + Codex)
 
-Branch `t39-polish`, worktree `/home/developer/Projects/game`. No Unity here; the coordinator tests on the Mac (it already ran the merged build: EditMode 358/358, PlayMode 23/0 failed). Authority `docs/GAME_DESIGN_V5.md` v5.3 (§3 layout rules still apply: one wood button family, 40 px gaps). Issue #31. Items found in the Mac screenshots:
+Branch `t39-polish`, worktree `/home/developer/Projects/game`. No Unity here; the coordinator tests on the Mac (it already ran the merged build: EditMode 358/358, PlayMode 23/0 failed). Authority `docs/GAME_DESIGN.md` v5.3 (§3 layout rules still apply: one wood button family, 40 px gaps). Issue #31. Items found in the Mac screenshots:
 
 1. **Song pill reads as an empty pill.** Always show 5 note slots: empty = dim outlined note, filled = gold note; a filled note pops (scale 1.3 -> 1, 0.2 s). Add a small count label only when the meter holds more than 5 notes. Needs art `note_empty.png` and `note_full.png` (see Codex task below); until they exist draw them in code (fallback).
 2. **Gift icons on the birdhouse signs are too small.** Raise the sign to 72x72 with the icon filling it; keep 40 px clearance to neighbouring elements (re-check the K=7 case: houses may need a smaller width, document it) and update the layout tests.

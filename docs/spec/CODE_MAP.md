@@ -37,7 +37,7 @@ Version-looking PlayerPrefs keys and serialized DataMember/SaveData fields are c
 
 Old `Scripts/{Core,UI,View}`, legacy Game/Sample scenes, obsolete editor tools/importers and old-contract test suites are stored under `archive/retired/PerchSort/Assets/` outside Unity. Current scripts/tests moved with metadata; the current scene replaced the old Game entry after its archive. Obsolete aspect/front-bird scripts are under `archive/retired/scripts/`. Shared Audio, PhoneGameView, ReleaseSettings and original `art/` sources are not retired.
 
-Historical implementation/research claims remain in their original reports and [old design record](../archive/DESIGN_V2.md). The v4 [RULES](RULES.md)/[DATA_SAVE](DATA_SAVE.md) proposal is historical, not this runtime's rules/save implementation. The current [design record](../GAME_DESIGN_V5.md) retains its filename as evidence; later T49/T50 reports and actual source supersede its older presentation/ownership/path prose. Do not revive any retired code from those links.
+Historical implementation/research claims remain in their original reports and [old design record](../archive/DESIGN_ORIGINAL.md). The v4 [RULES](RULES.md)/[DATA_SAVE](DATA_SAVE.md) proposal is historical, not this runtime's rules/save implementation. The current [design record](../GAME_DESIGN.md) retains its filename as evidence; later T49/T50 reports and actual source supersede its older presentation/ownership/path prose. Do not revive any retired code from those links.
 
 ## Tools and evidence
 

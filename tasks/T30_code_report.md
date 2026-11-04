@@ -1,6 +1,6 @@
 # T30-C — v5 level-1 code delivery
 
-Authority: [T30 code task](T30_v5_code.md), [v5 design](../docs/GAME_DESIGN_V5.md). Scope: code delivery on the shared `t30-v5-first-level` branch; no commits or pushes. Unity compilation, scene generation and visual acceptance are delegated to the coordinator's Mac workflow, not claimed here.
+Authority: [T30 code task](T30_code.md), [v5 design](../docs/GAME_DESIGN.md). Scope: code delivery on the shared `t30-v5-first-level` branch; no commits or pushes. Unity compilation, scene generation and visual acceptance are delegated to the coordinator's Mac workflow, not claimed here.
 
 ## Files
 
@@ -104,7 +104,7 @@ Remaining: coordinator's targeted Mac rerun must confirm graphics-enabled captur
 
 ## T31 — v5.1 layout rework
 
-Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [v5 design section 3](../docs/GAME_DESIGN_V5.md#3-screen-layout-v51-portrait-design-canvas-1080x1920-origin-top-left-y-downward). The coordinator resolved the initial contradictions before implementation: settings/close are 150px, tracker center is y=663, replay/home centers are x=305/775, and the 40px separation rule applies to independent HUD groups, not decorative overlap or nested pill contents.
+Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [v5 design section 3](../docs/GAME_DESIGN.md#3-screen-layout-v51-portrait-design-canvas-1080x1920-origin-top-left-y-downward). The coordinator resolved the initial contradictions before implementation: settings/close are 150px, tracker center is y=663, replay/home centers are x=305/775, and the 40px separation rule applies to independent HUD groups, not decorative overlap or nested pill contents.
 
 ### Element changes
 

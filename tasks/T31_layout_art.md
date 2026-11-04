@@ -1,6 +1,6 @@
 # T31-A top limb art (Codex, gpt-6-astra)
 
-Branch `t31-v5-layout`, worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN_V5.md` section 3 and 4 and the existing `tasks/T30_art_report.md`. Style must match the existing v5 art (plush 3D cartoon, same leaf greens and wood tones as `bg_forest_day.png`, `branch_left.png`, `birdhouse.png`).
+Branch `t31-v5-layout`, worktree `/home/developer/Projects/game`. Read `docs/GAME_DESIGN.md` section 3 and 4 and the existing `tasks/T30_art_report.md`. Style must match the existing v5 art (plush 3D cartoon, same leaf greens and wood tones as `bg_forest_day.png`, `branch_left.png`, `birdhouse.png`).
 
 Why: the birdhouse currently floats in the sky. It must hang from something.
 

@@ -1,6 +1,6 @@
 # T47 World map rework (mac-art + mac-ui)
 
-Why: the Unity capture `ui_map` (Mac `build/screens/v5/ui_map.png`) does not match the approved `art/v6/mock/map.png`: the path is a narrow stretched beige strip, the background is the level sky, only 3 nodes fit on screen, no world gate is visible. This is a defect against an approved mockup, not a new design. Authority: `docs/GAME_DESIGN_V5.md` §10 item 1, `art/v6/mock/map.png`, `art/v6/mock/level_card.png`, `art/v6/mock/spec_notes.md`, `Scripts/V5/Meta` `WorldMap` (node model and `NodePosition`).
+Why: the Unity capture `ui_map` (Mac `build/screens/v5/ui_map.png`) does not match the approved `art/v6/mock/map.png`: the path is a narrow stretched beige strip, the background is the level sky, only 3 nodes fit on screen, no world gate is visible. This is a defect against an approved mockup, not a new design. Authority: `docs/GAME_DESIGN.md` §10 item 1, `art/v6/mock/map.png`, `art/v6/mock/level_card.png`, `art/v6/mock/spec_notes.md`, `Scripts/V5/Meta` `WorldMap` (node model and `NodePosition`).
 
 ## mac-art (Codex; branch `mac-art/map-art` from `origin/t44-hud-art`; image tool only, no CLI/API-key fallback, retry up to 5 times, report missing files honestly; never open Unity)
 Deliver in `PerchSort/Assets/Resources/V6/Art/` (RGBA/RGB as noted):

@@ -1,6 +1,6 @@
 # T35 40 levels and the level tool (omp, gpt-6-astra)
 
-Worktree `/home/developer/Projects/game`, branch `t35-levels` (a Codex worker is still writing art under `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/`; never touch those). Authority: `docs/GAME_DESIGN_V5.md` v5.3, especially §1, §1.1, §4.1 (species debut levels), §6, §8.1 (booster unlock levels), §9 (worlds/variants), §10 (board density), §11 (level plan and difficulty gates), §12 (schema). Read them fully. Ask the coordinator with `orca orchestration ask` on any design ambiguity rather than guessing.
+Worktree `/home/developer/Projects/game`, branch `t35-levels` (a Codex worker is still writing art under `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/`; never touch those). Authority: `docs/GAME_DESIGN.md` v5.3, especially §1, §1.1, §4.1 (species debut levels), §6, §8.1 (booster unlock levels), §9 (worlds/variants), §10 (board density), §11 (level plan and difficulty gates), §12 (schema). Read them fully. Ask the coordinator with `orca orchestration ask` on any design ambiguity rather than guessing.
 
 ## Part A: the level tool (single source of rules)
 

@@ -6,7 +6,7 @@ The user authorized PR integration of outstanding repository work and updating l
 
 `mac-art/t48`, `mac-art/world`, `mac-birds/t49`, `mac-map-motion/t50`, `mac-motion/t50`, `mac-notifications/t50`, `mac-popups/t50`, `mac-ui/t50`, and `t46a-icons` are ancestors of the reviewed integration. B's locally delivered correction `4256de6` is included even though its peer remote branch stopped at `7ddcb721` during a transport failure. The later B transport-only record is historical, not missing product work. The temporary `mac-review/t50-integration` ref contains an earlier included review snapshot.
 
-`t50-codex-handoff` was published by [PR35](https://github.com/crazyniu/game/pull/35); current AGENTS/CLAUDE/TEAM directives are preserved byte-for-byte. T44's `78ac97d` popup-trigger policy is restored in `tasks/T50_ui_v7_code.md` by this documentation closeout. No missing runtime change was found in T44.
+`t50-codex-handoff` was published by [PR35](https://github.com/crazyniu/game/pull/35); current AGENTS/CLAUDE/TEAM directives are preserved byte-for-byte. T44's `78ac97d` popup-trigger policy is restored in `tasks/T50_ui_code.md` by this documentation closeout. No missing runtime change was found in T44.
 
 ## Previously published branches
 

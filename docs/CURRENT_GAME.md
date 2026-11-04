@@ -13,7 +13,7 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 - Only three narrow exceptions exist: **exact existing storage IDs solely for save compatibility**; **preserved historical archives/original-art provenance**, never active implementation copies; and **legitimate dependency/schema/release metadata**. Existing storage IDs do not authorize new versioned keys. No new arbitrary exceptions or broad allowlists.
 - Review acceptance must check canonical in-place edits, absence of parallel implementation identities/copies, one enabled Game scene, canonical resource roots, and an exact allowed reason for each retained version-looking identifier. `python3 ci/check_current_game_names.py` must pass before tests; the guard complements human review and required Mac acceptance.
 
-[`art/approved_ui/layout_v7.json`](../art/approved_ui/layout_v7.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
+[`art/approved_ui/layout.json`](../art/approved_ui/layout.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
 
 ## Read current behavior at its owner
 
@@ -22,7 +22,7 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 | Board model, move resolution, eggs, sleep/family/crow, swivel/growth/day-night, Chorus, undo, solver | [Core](../PerchSort/Assets/Scripts/Core) |
 | Profile, unlocks, world/collection/economy policies | [Meta](../PerchSort/Assets/Scripts/Meta) |
 | Map, HUD, board, notifications, intro, panels and motion | [Game](../PerchSort/Assets/Scripts/Game) |
-| Accepted mechanics/design decisions | [design record](GAME_DESIGN_V5.md) (historical filename; later contracts supersede its old layouts/roadmap) |
+| Accepted mechanics/design decisions | [design record](GAME_DESIGN.md) (historical filename; later contracts supersede its old layouts/roadmap) |
 | Latest accepted bird/overlay and presentation integration | [T49](../tasks/T49_report.md), [egg/overlay report](../tasks/T49_eggs_report.md), [T50](../tasks/T50_report.md) and linked A/B/C/D/E owner reports |
 | Current organization / verification boundary | [CODE_MAP](spec/CODE_MAP.md), [T52C report](../tasks/T52C_report.md), [handoff](team/HANDOFF_2026-11-04_CODEX.md) |
 

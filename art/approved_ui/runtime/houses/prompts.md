@@ -1,6 +1,6 @@
 # House generation prompts
 
-Every call: built-in image tool, transparent_background=true; both approved ui_level_k3_v2.png and ui_level_k7.png referenced. All parts except body also referenced generated body for shape/material. Each final piece generated independently, one call per asset; attempt 1 except the corrections appended below.
+Every call: built-in image tool, transparent_background=true; both approved ui_level_k3.png and ui_level_k7.png referenced. All parts except body also referenced generated body for shape/material. Each final piece generated independently, one call per asset; attempt 1 except the corrections appended below.
 
 ## house_body
 

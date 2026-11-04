@@ -2,7 +2,7 @@
 
 Branch `t30-v5-first-level`, shared worktree `/home/developer/Projects/game`. Unity project `PerchSort/` (Unity 6000.6.7f1, URP, uGUI, new Input System). **This machine has no Unity Editor**: you cannot compile or run tests here; write carefully, keep C# simple and conservative (C# 9, no newer syntax), and a coordinator will compile/test on a Mac and send you any errors.
 
-Authority: `docs/GAME_DESIGN_V5.md` (rules, level 1, layout, animation). The user explicitly authorized implementing v5 level 1 now. The old v2 code and `docs/spec/*` are history; do not follow RULES v4.
+Authority: `docs/GAME_DESIGN.md` (rules, level 1, layout, animation). The user explicitly authorized implementing v5 level 1 now. The old v2 code and `docs/spec/*` are history; do not follow RULES v4.
 
 ## Ownership
 You may create/edit only:
@@ -23,7 +23,7 @@ Do not modify v2 code (`Assets/Scripts/{Core,UI,View,Audio}`), existing tests, e
   - Single uGUI Canvas, Screen Space - Camera, CanvasScaler 1080×1920 match 0.5 (or match width — choose so the board fits on 9:19.5 phones and 3:4 tablets; document the choice); safe-area container.
   - `V5GameRoot` bootstraps: loads level 1, builds the board view, HUD, panels, tutorial.
   - `BoardView` / `BranchView` / `BirdView`, `HudView` (coin pill, settings, level pill, birdhouse, bottom bar), `WinPanel`, `SettingsPanel`, `TutorialHand`.
-  - Sprites load from `Resources/V5/Art/<name>` per the file list in `tasks/T30_v5_art.md`. **If a sprite is missing, fall back to a generated placeholder** (rounded rect / circle texture tinted per species: sunny #FFD23F, sky #5BC0EB) and log one warning, so the slice runs before art lands. Right-side branches/bushes mirror the left sprite via negative x scale.
+  - Sprites load from `Resources/V5/Art/<name>` per the file list in `tasks/T30_art.md`. **If a sprite is missing, fall back to a generated placeholder** (rounded rect / circle texture tinted per species: sunny #FFD23F, sky #5BC0EB) and log one warning, so the slice runs before art lands. Right-side branches/bushes mirror the left sprite via negative x scale.
   - All motion via LitMotion per design §5, including wing-frame swapping during flight. Input locked during animations; state is committed in Core first, then the view plays the events. Cancel/complete motions on restart/undo/destroy so nothing leaks (`AddTo(gameObject)` plus explicit handles).
   - Persistence via PlayerPrefs keys prefixed `v5.`: coins, best stars per level, tutorial seen, muted.
   - Audio: if `Assets/Scripts/Audio/AudioManager` is trivially reusable without touching it, use it for tap/land/home/win; otherwise skip audio but keep the mute toggle persisted.

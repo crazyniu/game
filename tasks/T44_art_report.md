@@ -5,7 +5,7 @@
 ## Authority and scope
 
 - Task: [T44_hud_runtime_art.md](T44_hud_runtime_art.md); current dispatch selects branch `t44-hud-art`, superseding the task file's older branch name.
-- Approved visual reference: [T40 notes](../art/v6/mock/spec_notes.md), [K3 A](../art/v6/mock/level_k3_a.png), the other approved T40 screens, and [GAME_DESIGN_V5 §3.0 / §10](../docs/GAME_DESIGN_V5.md). The README/router/evidence/UI ownership documents were read before production.
+- Approved visual reference: [T40 notes](../art/v6/mock/spec_notes.md), [K3 A](../art/v6/mock/level_k3_a.png), the other approved T40 screens, and [GAME_DESIGN_V5 §3.0 / §10](../docs/GAME_DESIGN.md). The README/router/evidence/UI ownership documents were read before production.
 - Coordinator `msg_ae57f91a98df` explicitly authorized Pillow crop/resize, alpha masks, 9-slicing, roof/body separation, pressed shading and QA compositing; approved aligned 88×90 house layers, 120×32 shadow, 360×360 path, the cream tray with two knots, and Encore without `+1`.
 - Coordinator `msg_3dc211a89a75` prohibited the separately billed CLI/API fallback, allowed only three additional built-in retries, and required a partial delivery if they failed. No API credentials were read or printed, and no fallback API was called.
 - Only new files in `PerchSort/Assets/Resources/V6/Art/`, `art/v6/runtime/`, and this report were written. No original art, T40 file, game code, runtime level data, scene, settings, or other worker's files were edited. No commit or push was made.

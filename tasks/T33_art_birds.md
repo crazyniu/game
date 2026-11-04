@@ -1,6 +1,6 @@
 # T33 v5.2 art: species, special birds, boosters, World 1 variants (Codex, gpt-6-astra)
 
-Worktree `/home/developer/Projects/game` (branch `t31-v5-layout` is checked out; another Codex worker is finishing `limb_top.png` and an omp worker is editing code there). Authority: `docs/GAME_DESIGN_V5.md` v5.2, sections 4, 5, 6, 8.1, 9. Match the accepted v5 art exactly in style, lighting and scale (see `tasks/T30_art_report.md`, `art/v5/contact_sheet.png`, and the existing `bird_sunny_*` / `bird_sky_*` files).
+Worktree `/home/developer/Projects/game` (branch `t31-v5-layout` is checked out; another Codex worker is finishing `limb_top.png` and an omp worker is editing code there). Authority: `docs/GAME_DESIGN.md` v5.2, sections 4, 5, 6, 8.1, 9. Match the accepted v5 art exactly in style, lighting and scale (see `tasks/T30_art_report.md`, `art/v5/contact_sheet.png`, and the existing `bird_sunny_*` / `bird_sky_*` files).
 
 ## Ownership
 Create only new files under `PerchSort/Assets/Resources/V5/Art/` (names below; do not overwrite existing files), `art/v5/t33/**` (raw, prompts, tools, QA), and `tasks/T33_art_report.md`. Touch nothing else. No commit.

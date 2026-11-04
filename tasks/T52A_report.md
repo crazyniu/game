@@ -13,7 +13,7 @@ The latest user directive supersedes the original stage-wide no-tests instructio
 - Applied all 32 requested type mappings without top-level current-namespace collisions. Preserved multi-type source organization: `LongPress` and `PopupKind` remain in `PanelsView.cs`; `GameProfile` remains in `ProgressStore.cs`; `EmptyClick`/`SafeArea` remain in `GameUI.cs`; `LevelNodeState` remains in `MapModel.cs`; `MapInput` remains in `MapView.cs`; `Notification`/`NotificationKind` remain in `PopupFlow.cs`. No new script GUIDs or shims were introduced.
 - Changed art routing to `Birds/<key>`, `World/<key>`, and `Art/<key>`; changed levels/development lookup keys to `Levels/levels` and `dev_options`. Updated BirdOverlay's direct load too.
 - Removed only GameArt's retired V6/V5 resource fallback and associated legacy gate cropping after static resource confirmation. Current portrait fallback and generated door mask remain unchanged; they are not versioned legacy-art lookup paths. Current optional animation-part fallbacks remain unchanged.
-- Updated active-version object names, error/log text, and overlay comments. The truthful original-art provenance `art/approved_ui/layout_v7.json` remains in GameLayout; originals were not edited.
+- Updated active-version object names, error/log text, and overlay comments. The truthful original-art provenance `art/approved_ui/layout.json` remains in GameLayout; originals were not edited.
 - Archived obsolete `Scripts/V5.meta` to retired Scripts rather than dropping its bytes. This is a wrapper metadata retirement, not another runtime project.
 
 ## Compatibility and behavior preservation

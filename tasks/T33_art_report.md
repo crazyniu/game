@@ -6,7 +6,7 @@ Delivered **108/108 requested runtime PNGs**; **missing files: none**. The origi
 
 ## Authority and ownership
 
-- [T33 task](T33_v5_art_birds.md), [GAME_DESIGN_V5](../docs/GAME_DESIGN_V5.md) v5.3, and the coordinator messages recorded in [addendum.md](../art/v5/t33/addendum.md).
+- [T33 task](T33_art_birds.md), [GAME_DESIGN_V5](../docs/GAME_DESIGN.md) v5.3, and the coordinator messages recorded in [addendum.md](../art/v5/t33/addendum.md).
 - The later Hoot correction is applied: pale tawny/cream round owl, heart-shaped white facial disc, amber eyes, star-patterned nightcap, grey-brown speckled wings, **no ear tufts**.
 - New runtime PNGs only in `PerchSort/Assets/Resources/V5/Art/`; raw, prompts, tools and QA only in `art/v5/t33/`; this report only in `tasks/`.
 - No code, runtime data, scenes, import metadata or original artwork changed by this worker; no commit or push.

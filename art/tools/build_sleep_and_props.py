@@ -130,11 +130,11 @@ def main():
     assert images['ring'].getpixel((128,128))[3]==0
     (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     light,dark = contact(images,False),contact(images,True)
-    light.save(ROOT/'contact_v2_light.png')
-    dark.save(ROOT/'contact_v2_dark.png')
-    pair=Image.new('RGB',(2000,1060));pair.paste(light,(0,0));pair.paste(dark,(1000,0));pair.save(ROOT/'contact_v2.png')
-    sleep_contact(images).save(ROOT/'qa/sleep_v2.png')
-    (ROOT/'qa/check_v2.txt').write_text('\n'.join(lines)+'\nPASS 25 production assets; ring center transparent; 10 sleeping birds touch y=870.\n')
+    light.save(ROOT/'contact_originals_light.png')
+    dark.save(ROOT/'contact_originals_dark.png')
+    pair=Image.new('RGB',(2000,1060));pair.paste(light,(0,0));pair.paste(dark,(1000,0));pair.save(ROOT/'contact_originals.png')
+    sleep_contact(images).save(ROOT/'qa/sleep.png')
+    (ROOT/'qa/check_sleep_and_props.txt').write_text('\n'.join(lines)+'\nPASS 25 production assets; ring center transparent; 10 sleeping birds touch y=870.\n')
     print('\n'.join(lines))
 
 

@@ -5,7 +5,7 @@ Date: 2026-11-03. Scope: seven static UI concepts from `PROMPTS_SCREENS.md`, Gro
 Tool: built-in `image_gen.imagegen` only; no CLI/API-key fallback. Output target: 1080x1920 PNG, opaque full-screen concepts; transparent cutout/pivot acceptance is not applicable. Pillow is limited to requested resize/crop and metadata inspection.
 
 All four images were opened before generation and are supplied in this order through `referenced_image_paths` for every attempt:
-1. `art/approved_ui/ui_level_k3_v2.png` — approved master, exact background/edit target and primary style authority.
+1. `art/approved_ui/ui_level_k3.png` — approved master, exact background/edit target and primary style authority.
 2. `/tmp/refs/ref_portrait_1.png` — secondary style reference only.
 3. `/tmp/refs/ref_portrait_2.png` — secondary style reference only.
 4. `/tmp/refs/ref_landscape_1.png` — secondary style reference only.

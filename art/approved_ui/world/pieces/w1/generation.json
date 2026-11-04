@@ -1,6 +1,6 @@
 {
   "tool": "built-in image_gen",
-  "reference": "art/approved_ui/ui_level_k3_v2.png",
+  "reference": "art/approved_ui/ui_level_k3.png",
   "assets": [
     {
       "kind": "branch",
