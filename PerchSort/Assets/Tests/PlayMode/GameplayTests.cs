@@ -296,12 +296,24 @@ namespace PerchSort.PlayModeTests
         }
         private IEnumerator PrepareSaplingIntro(int stock, bool seen = false)
         {
+            // Let the outgoing root flush its profile before replacing the saved fixture.
+            var staging = SceneManager.CreateScene("Sapling profile staging"); SceneManager.SetActiveScene(staging);
+            yield return SceneManager.UnloadSceneAsync(root.gameObject.scene);
+            root = null;
             var profile = LegacyGameplayProfile(0); profile.HighestUnlocked = 4;
             profile.Boosters[(int)BoosterKind.Sapling] = stock;
             profile.StarterGranted[(int)BoosterKind.Sapling] = true;
             for (int i = 0; i < profile.UnlockSeen.Length; i++) profile.UnlockSeen[i] = true;
             profile.Tutorials[4] = seen; ProgressStore.Save(profile);
-            yield return ReloadSavedGame(); root.LoadLevel(4); yield return null;
+            yield return ReloadSavedGame();
+            Assert.That(root.HighestUnlocked, Is.EqualTo(4), "The outgoing root must not overwrite the seeded progression.");
+            Assert.That(ProgressStore.Load().Tutorials[4], Is.EqualTo(seen));
+            root.LoadLevel(4); yield return null;
+            Assert.That(root.LevelId, Is.EqualTo(4), "Sapling acceptance must exercise the authored fourth level.");
+            Assert.That(root.IsMap, Is.False);
+            Assert.That(root.IsBusy, Is.False);
+            Assert.That(root.HasModal, Is.False, "Intro and notification presentation must finish before tutorial assertions.");
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(stock));
         }
         [UnityTest]
         public IEnumerator SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending()
@@ -311,11 +323,13 @@ namespace PerchSort.PlayModeTests
             Assert.That(hand.gameObject.activeInHierarchy, Is.True);
             Assert.That(hand.rectTransform.anchoredPosition, Is.EqualTo(new Vector2(point.x, -point.y)));
             Assert.That(ProgressStore.Load().Tutorials[4], Is.True);
-            root.TapBranch(0);
+            Assert.That(root.TapBranch(0), Is.True);
             Assert.That(hand.gameObject.activeInHierarchy, Is.False);
             Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
             root.Restart(); Assert.That(hand.gameObject.activeInHierarchy, Is.False);
             yield return ReloadSavedGame(); root.LoadLevel(4);
+            Assert.That(root.LevelId, Is.EqualTo(4)); Assert.That(root.IsMap, Is.False);
+            Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
             Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
         }
         [UnityTest]
@@ -323,7 +337,9 @@ namespace PerchSort.PlayModeTests
         {
             yield return PrepareSaplingIntro(2);
             int branches = root.Session.State.Branches.Count;
-            root.Hud.GetComponentsInChildren<Button>().Single(button => button.name == "Sapling").onClick.Invoke();
+            var sapling = root.Hud.GetComponentsInChildren<Button>().Single(button => button.name == "Sapling");
+            Assert.That(sapling.interactable, Is.True);
+            sapling.onClick.Invoke();
             Assert.That(TutorialPointer().gameObject.activeInHierarchy, Is.False);
             Assert.That(root.Session.State.Branches.Count, Is.EqualTo(branches + 1));
             Assert.That(root.Session.Inventory[BoosterKind.Sapling], Is.EqualTo(1));
