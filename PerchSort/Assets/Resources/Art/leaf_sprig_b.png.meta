@@ -99,18 +99,21 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
+    customData:
     physicsShape: []
     bones: []
     spriteID: 34877f6594aa4f6bbef3b8bf4bc3701e
     internalID: 0
     vertices: []
-    indices: 
+    indices:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable: {}
-  mipmapLimitGroupName: 
+  mipmapLimitGroupName:
   pSDRemoveMatte: 0
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+  userData:
+  assetBundleName:
+  assetBundleVariant:

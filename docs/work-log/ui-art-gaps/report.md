@@ -10,13 +10,13 @@ Built-in imagegen produced every raw asset; macOS `sips -z 256 256` resized it w
 
 Visual gates: reviewed `art/ui_art/qa/tools.jpg` at large and actual 64 px sizes against light, dark and purple backgrounds. All six retain readable subjects, true alpha, soft edges without visible matte fringe, and top-left lighting. The first egg-and-eye generation was rejected for an upper-right eye glint; the corrected generation moves it to the upper left. Rejected raw evidence is retained as `tool_owl_eye_rejected_lighting.png` and is not a runtime asset.
 
-Checks: naming guard self-test passed 8 tests; naming scan passed with zero violations. Unity tests and screenshots are pending the complete asset delivery and shared lock. Tool glyph wiring is explicitly assigned to a later task; no runtime acceptance is claimed for unreferenced assets.
+Checks: naming guard self-test passed 8 tests; naming scan passed with zero violations. Final Unity results are recorded below. Tool glyph wiring is explicitly assigned to a later task; no runtime acceptance is claimed for unreferenced assets.
 
 ## Star batch
 
 Replaced `star_full` and `star_empty` at 256 by 256, plus `star_full_small` and `star_empty_small` at 128 by 128. These explicit dimensions in the item specification take precedence over its generic canvas-preservation sentence: the previous files were 160 and 48 px. All four existing `.meta` files remain byte-identical. Small sprites are direct downsamples of the corresponding raw generation, preserving the same look.
 
-Reviewed per-item comparisons on light, dark and purple backgrounds at 64 px. Smooth rounded gold and dim cream-beige states have visually matching silhouettes and top-left highlights; no visible matte fringe. The approved level card guided the smooth treatment, with the win panel retained alongside the evidence for context. No star generation was rejected. Runtime verification remains pending.
+Reviewed per-item comparisons on light, dark and purple backgrounds at 64 px. Smooth rounded gold and dim cream-beige states have visually matching silhouettes and top-left highlights; no visible matte fringe. The approved level card guided the smooth treatment, with the win panel retained alongside the evidence for context. No star generation was rejected. The full gold star is also visible in the final Unity win capture; the dim and small variants retain offline evidence only because the standard capture fixtures do not expose all those states.
 
 ## Leaf sprig batch
 
@@ -34,4 +34,19 @@ The initial basket generation was rejected for broad white glow outside the silh
 
 ## Delivery and verification status
 
-All 16 requested runtime images are present. No requested image is missing. Rejected generations: the initial egg-eye lighting and initial basket glow, both replaced by corrected accepted assets. Unity compilation, full suites and stable-state captures are pending the shared serialized queue. New tool glyphs, sprigs and bare owl are not wired by this task, so their runtime placement remains an integration boundary. No code was edited.
+All 16 requested runtime images are present. No requested image is missing. Rejected generations: the initial egg-eye lighting and initial basket glow, both replaced by corrected assets. New tool glyphs, sprigs and bare owl are not wired by this task, so their runtime placement remains an integration boundary. No code was edited.
+
+Each specified batch was committed and pushed in order: `ffeb30b7` tools, `74e53d46` stars, `b6b50207` sprigs, `8f953e4f` owl, `01517f3c` map glyphs. This final evidence update follows those five pushes.
+
+## Final Mac verification
+
+- `PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py --self-test`: 8 passed.
+- `PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py`: zero violations.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: scene build and compilation succeeded; EditMode 312/312 and PlayMode 53/53 passed, zero failed, skipped or inconclusive. Retained LevelsData 81 and Layout 41 cases were discovered. No test or discovery safeguard was edited.
+- `flock /tmp/unity.lock bash scripts/screenshots.sh`: exit 0; all 34 expected captures validated at 1080 by 1920 under `build/screens/game/`.
+
+`evidence/verification.json` records commands, counts and XML hashes. Local XML and logs remain under `build/`. Reviewed map, level-card and win captures; committed JPEGs and reference comparisons are `evidence/runtime_map*`, `evidence/runtime_level_card*` and `evidence/runtime_win*`. The new map glyphs render with clean openings on purple discs; win stars render with smooth rounded points and top-left highlights. Whole-screen layouts and other existing artwork still differ from the approved references, so this is not whole-UI visual acceptance. The level-card fixture uses a fresh profile, and it does not prove completed-node small stars or the bare-owl mechanic row. No timed animation, GUI interaction or device acceptance is claimed.
+
+`tools_context.jpg` and `panel_context.jpg` are explicitly labeled offline material assemblies for the unwired assets. `rejections.jpg` shows rejected versus corrected generations. `art/ui_art/qa/delivery_manifest.json` records all runtime dimensions, alpha-capable modes and image hashes. Every item has a committed before/after JPEG and quantitative alpha QA.
+
+Before Unity, the worktree was clean outside assigned artwork/evidence and an initial scene/meta/settings/package hash snapshot was recorded. Unity rewrote 114 unrelated bird metadata files with whitespace, expanded defaults in seven existing overlay metadata files, and rebuilt scene object/InputSystem action IDs. Those 122 files were reviewed, their patch saved at `build/ui-art/unrelated-unity-import.patch`, and restored to the recorded original bytes. Every original scene/meta/settings/package hash matches the initial snapshot, including all six replaced sprites' metadata. Only the ten new sprites retain their Unity-added empty metadata fields, with trailing whitespace normalized. The test results describe the standard builder-generated scene; integrated acceptance of the retained scene remains with the coordinator.
