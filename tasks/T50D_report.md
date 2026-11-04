@@ -7,8 +7,9 @@
 - Source commit: **`52cad38e2742263b4469ead8ef5a90d80f564b73`**.
 - Branch: `mac-notifications/t50`; workspace: `/Users/apple/orca/workspaces/game/t50-notifications`.
 - Baseline: handoff `0b44966`, preserved source WIP `9f84a95`.
-- This report/status handoff is committed after the source commit. The final terminal block identifies the exact pushed delivery tip.
-- Coordinator: current native Codex conversation on 251, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. No former Claude recipient, Dispatch ID or sub-worker. Follow-up authority allows only T50A `a012e70` and T50C `fb90bb7` after separate D review commits; B remains prohibited pending review.
+- Isolated D review boundary: **`08b32a733ab952f79ca66f3424696f498a2f6720`**, including fixture correction **`e39e0ddc5f330d35ff416a609f0eefbb20e7fcad`**. Approved A/C integration is separately recorded below; the final terminal block identifies the pushed delivery tip.
+- Integration lifecycle correction: **`f24c11f`**, settling/canceling any pending Win HUD count before entering the mandatory finale popup sequence. It changes only D-owned root code; the isolated D review boundary above remains available.
+- Coordinator: current native Codex conversation on 251, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. No former Claude recipient, Dispatch ID or sub-worker. Separate D commits were retained before integrating only approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888`.
 - Specification: [T50D](T50D_notifications.md). Current-stage directives and four real workspaces: [Codex handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md). Durable worker status: [mac-notifications](../docs/team/status/mac-notifications.md).
 
 ## Changed files
@@ -71,7 +72,7 @@ The two-argument `HudView.CountCoins(int from, int to)` remains available and de
 
 No existing public root, profile, queue, entrance or HUD signature was removed/changed. All navigation logic remains root-owned.
 
-### Peer dependencies consumed, not copied or merged
+### Peer APIs consumed through reviewed integration
 
 ```csharp
 // T50C
@@ -92,9 +93,11 @@ public void WinPanel.Show(int earnedStars, int reward, int chorusCoins, Action c
 
 Existing `V5Panels.Popup(V7PopupKind, string, int, Action, int)`, `Unlock(BoosterKind)`, `Hide()`, three-argument Win.Show, and gate `Configure(V5Art,int,bool)` / `Open(Action)` / `IsOpening` remain unchanged. T50A's Board.Enter/Cancel/Settle and branch Entrance hooks remain unchanged.
 
-The frozen T50D checkout intentionally does not contain C's new helper/origin method or B's new setter/Win overload. **It is not a standalone compile-ready submission until the coordinator integrates those reviewed peer APIs.** No reflection, placeholder implementation or fake fallback was introduced to hide this dependency. C's reported `3542ced` still awaits its coordinator-requested W1 art-path follow-up; B submission/review is pending at this report.
+The isolated D review boundary intentionally contained no copied peer implementation. Explicitly approved A `a012e70` merged as `d8d00f73c98de48088238fa9f1c76406ccad1af6`, C `fb90bb7` as `8dd09021b9524cd08af97bea7bd034adda2a18ef`, then B `4256de63412041e65ddf2554cb14323d79f6d888` as **`3a057636325fa017aecbbcb074766eeb79e01b46`**; all merges were conflict-free. B's exact local commit object was verified before merge; no peer workspace/branch was modified. All root-facing peer symbols are now present and their signatures were statically checked. Compilation and runtime remain NOT_RUN; no reflection, placeholder or fake fallback was introduced.
 
-T50B is instructed to remove pre-ack daily currency flight. Map.CollectCoins after root acknowledgement is the only daily collection spectacle. Win.Show's callback supplies the actual flight start; root does not copy its 1.55-second implementation constant or create a second flight.
+Approved B removes the pre-ack daily currency flight. Map.CollectCoins after root acknowledgement is the only daily collection spectacle. Win.Show's callback supplies the actual flight start; root does not copy its 1.55-second implementation constant or create a second flight.
+
+After A/C integration, a root-only static correction in `f24c11f` clears the deferred Win count flag and cancels/settles the HUD count when leaving Win for a finale. This covers programmatic early Next/Home as well as ordinary button exits: a canceled Win coin-flight callback cannot leave the HUD holding its old amount beneath the world-complete popup. No reward or receipt changes occur in that cancellation.
 
 ## Static compile-risk review performed
 
@@ -116,4 +119,4 @@ The coordinator authorized the existing fixture correction rather than leaving t
 
 ## Integration and pause
 
-The coordinator reviews this branch with T50A/B/C and delivered T49/art commits, then issues the final Mac integration task. Only T50A `a012e70` and T50C `fb90bb7` are currently approved for merge into this task branch after isolated D commits. Do not merge B or modify main/original checkout. Main remains coordinator-confirmed PR35 `3e82c64734f3e7291a332d1c0e90263954ce40cd` for user testing. After reviewed stage integration, record actual merged/pushed hashes and limitations in the Mac handoff and pause; all later feature work is parallelized, OMP preferred with Codex fallback, and continued on the Mac.
+The coordinator reviews isolated D boundary `08b32a7`, root-only lifecycle correction `f24c11f` and all-module integration **`3a057636325fa017aecbbcb074766eeb79e01b46`** before final stage/art integration. A's Board internally owns flock-door/masked-flight/close/check; no additional root or duplicated goal-popup hook was added. No main/original checkout was modified. Main remains coordinator-confirmed PR35 `3e82c64734f3e7291a332d1c0e90263954ce40cd` for user testing. Publication of this task branch is attempted independently of B's reported GitHub Internal Server Error. After reviewed stage integration, record actual merged/pushed hashes and limitations in the Mac handoff and pause; later feature work remains parallelized, OMP preferred with Codex fallback, and Mac-only.
