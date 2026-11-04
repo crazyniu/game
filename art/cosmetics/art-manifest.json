@@ -16,11 +16,20 @@
     {"file": "PerchSort/Assets/Resources/Birds/sunny_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/sunny_bow_tie.png"},
     {"file": "PerchSort/Assets/Resources/Birds/sky_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/sky_goggles.png"},
     {"file": "PerchSort/Assets/Resources/Birds/berry_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/berry_bow.png"},
-    {"file": "PerchSort/Assets/Resources/Birds/mint_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/mint_mushroom_hat.png"},
     {"file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/cocoa_bow_tie.png"},
     {"file": "PerchSort/Assets/Resources/Birds/snow_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/snow_snowflake.png"},
     {"file": "PerchSort/Assets/Resources/Birds/ember_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/ember_headband.png"},
     {"file": "PerchSort/Assets/Resources/Birds/ink_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/ink_spectacles.png"},
-    {"file": "PerchSort/Assets/Resources/Birds/hoot_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/hoot_glasses.png"}
+    {"file": "PerchSort/Assets/Resources/Birds/hoot_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/hoot_glasses.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/sunny_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/sunny_crown.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/sky_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/sky_top_hat.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/berry_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/berry_tiara.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/cocoa_monocle.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/snow_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/snow_crown.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/ember_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/ember_helmet.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/ink_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/ink_wizard_hat.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/hoot_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/hoot_cape.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/mint_outfit_2.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/mint_mushroom_hat_body_match.png"},
+    {"file": "PerchSort/Assets/Resources/Birds/mint_outfit_3.png", "size": [320, 320], "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/mint_acorn_helmet_body_match.png"}
   ]
 }

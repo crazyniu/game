@@ -114,7 +114,7 @@ def main():
     records = json.loads((ART / "generation-log.json").read_text())
     assets = []
     for r in records:
-        if r["status"] == "rejected":
+        if r["status"] not in ("accepted", "candidate"):
             continue
         raw = Image.open(ART / "raw" / (r["name"] + ".png")).convert("RGBA")
         if "species" in r:
@@ -135,6 +135,7 @@ def main():
     inspection = {
         "method": "Visual base/reference comparison, light/dark backgrounds, actual 64 px color and grayscale. Delivery normalization uses resampling and translation only.",
         "rejections": {r["name"]: r["reason"] for r in records if r["status"] == "rejected"},
+        "unselected": {r["name"]: r["reason"] for r in records if r["status"] == "unselected"},
         "geometry": [{"file": a["file"], "measurement": a["geometry"]} for a in assets],
     }
     (ART / "qa/inspection.json").write_text(json.dumps(inspection, indent=2) + "\n")

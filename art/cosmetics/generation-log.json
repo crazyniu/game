@@ -158,7 +158,8 @@
     "prompt": "Use case: identity-preserve. Edit this exact mint_idle game sprite. Add ONLY mushroom-cap hat, naturally and physically worn. A cute red mushroom cap with pale dots sits over the head; preserve visible leaf crest identity where it emerges. Critical: preserve original beak exactly as shown, same happy open beak, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
     "name": "mint_mushroom_hat",
     "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-e68a6671-dae0-47a5-87d9-319bf0cd5a2b.png",
-    "status": "accepted"
+    "status": "rejected",
+    "reason": "Cross-tier review found a narrower torso (about seven percent); replaced with a fresh edit from the enlarged original idle reference."
   },
   {
     "species": "cocoa",
@@ -198,6 +199,122 @@
     "prompt": "Use case: identity-preserve. Edit this exact hoot_idle game sprite. Add ONLY round reading glasses, naturally and physically worn. Keep existing purple nightcap and every facial feature unchanged. Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
     "name": "hoot_glasses",
     "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-8bd37ae3-57ab-427a-b1a6-892dc1657400.png",
+    "status": "accepted"
+  },
+  {
+    "species": "sunny",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original sunny_idle.png. Add ONLY golden crown. A small golden crown naturally seated around the curled crest. Preserve the curl. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Same original happy open beak. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "sunny_crown",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-8fbf9b5f-5545-49b8-a205-2364cb4531c6.png",
+    "status": "accepted"
+  },
+  {
+    "species": "sky",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original sky_idle.png. Add ONLY tiny black top hat. A tiny black top hat perched naturally on the blue crest, short brim and black satin band. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Original CLOSED beak must remain closed, no smile or open mouth. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "sky_top_hat",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-bad39424-7d8e-4204-b7ad-2145b73e3a77.png",
+    "status": "accepted"
+  },
+  {
+    "species": "berry",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original berry_idle.png. Add ONLY sparkling silver tiara. A sparkling silver tiara at the base of the pink crest, delicate but clearly readable. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Same original happy open beak. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "berry_tiara",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-c24e023f-318e-4992-8d27-e167d8499a73.png",
+    "status": "accepted"
+  },
+  {
+    "species": "mint",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original mint_idle.png. Add ONLY acorn-cap helmet. A small brown textured acorn-cap helmet, leaf crest emerges naturally above it. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Same original happy open beak. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "mint_acorn_helmet",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-bc503eeb-b60f-4342-9aa6-14c6195443e6.png",
+    "status": "rejected",
+    "reason": "Cross-tier review found a narrower torso (about seven percent); replaced with a fresh edit from the enlarged original idle reference."
+  },
+  {
+    "species": "cocoa",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original cocoa_idle.png. Add ONLY monocle with a gold chain. One round monocle over one eye, clear lens and a visible fine gold chain attached at the rim. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Original CLOSED beak must remain closed, no smile or open mouth. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "cocoa_monocle",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-c89c0d33-bfa1-43be-afa3-7ebb19d0d67f.png",
+    "status": "accepted"
+  },
+  {
+    "species": "snow",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original snow_idle.png. Add ONLY ice-crystal crown. A small pale-blue translucent ice-crystal crown, short faceted crystal points. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Same original happy open beak. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "snow_crown",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-5a79a4a8-3da6-4d54-9b04-a3647b973832.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ember",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original ember_idle.png. Add ONLY small silver knight helmet. A small rounded silver knight helmet with an OPEN raised visor leaving both eyes, eyebrows and beak fully visible. Flame crest remains visible as a plume. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Original CLOSED beak must remain closed, no smile or open mouth. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "ember_helmet",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-71f25dec-7e5c-4529-bd6b-fdf3b3f10cfc.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ink",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original ink_idle.png. Add ONLY tiny wizard hat with stars. A tiny pointed dark purple wizard hat with light stars, seated on the head. Keep original chest star. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Original CLOSED beak must remain closed, no smile or open mouth. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "ink_wizard_hat",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-8890945e-e2da-4a29-957e-cd555069b15e.png",
+    "status": "accepted"
+  },
+  {
+    "species": "hoot",
+    "tier": 3,
+    "prompt": "Use case: identity-preserve. Precise cosmetic edit of the attached original hoot_idle.png. Add ONLY dark blue night-sky cape with stars. A dark blue night-sky cape with golden stars draped behind shoulders, short neck fastening. Keep original purple nightcap and visible feet. No extra costume pieces. Preserve original bird identity, face, eye shape/spacing, gaze, iris color, feather palette, body proportions, wings, feet and pose exactly. Original CLOSED beak must remain closed, no smile or open mouth. Original soft plush feathers, top-left lighting, no outlines. Entire bird on identical square canvas, feet baseline y302/320, same body scale and position as reference. Keep accessory within existing blank top margin; do not shrink the bird, enlarge head, crop crest or clip hat. Output 320x320 RGBA with genuine clean transparency and no white/black matte fringe. No text, UI, backdrop, ground or cast shadow. Readable at 64 px in color and grayscale.",
+    "name": "hoot_cape",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-738bad0b-9e24-4eb3-bd25-39269e3d8422.png",
+    "status": "accepted"
+  },
+  {
+    "species": "mint",
+    "tier": 2,
+    "name": "mint_mushroom_hat_proportions",
+    "prompt": "Use case: identity-preserve. Image 1 is the EXACT bird whose body/face/pose must be preserved. Image 2 is ONLY accessory reference; its narrowed torso was REJECTED. Add mushroom-cap hat to image 1 without redrawing, slimming, shrinking or changing ANY bird pixels below the accessory. Keep the same plump broad torso, exact wing silhouette and position, exact foot size and distance between feet, same eye/beak placement, same feather colors. Keep original tall leaf crest and round wide belly; do not pull wings or body inward. Mushroom or acorn cap sits physically on head. Same 320x320 canvas; feet baseline y302. Same original bird scale and placement. Original plush feathers, soft upper-left light, no outlines. Complete bird with only specified accessory. Transparent RGBA background with no matte fringe, no ground or shadows, no extra objects or text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-c5a5fba5-1c0e-40db-80fd-f86710faeb72.png",
+    "status": "rejected",
+    "reason": "Regeneration still reproduced narrowed Mint torso from the accessory reference."
+  },
+  {
+    "species": "mint",
+    "tier": 3,
+    "name": "mint_acorn_helmet_proportions",
+    "prompt": "Use case: identity-preserve. Image 1 is the EXACT bird whose body/face/pose must be preserved. Image 2 is ONLY accessory reference; its narrowed torso was REJECTED. Add acorn-cap helmet to image 1 without redrawing, slimming, shrinking or changing ANY bird pixels below the accessory. Keep the same plump broad torso, exact wing silhouette and position, exact foot size and distance between feet, same eye/beak placement, same feather colors. Keep original tall leaf crest and round wide belly; do not pull wings or body inward. Mushroom or acorn cap sits physically on head. Same 320x320 canvas; feet baseline y302. Same original bird scale and placement. Original plush feathers, soft upper-left light, no outlines. Complete bird with only specified accessory. Transparent RGBA background with no matte fringe, no ground or shadows, no extra objects or text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-105e2e32-20be-47b5-81ea-e62e7b36f677.png",
+    "status": "rejected",
+    "reason": "Regeneration still reproduced narrowed Mint torso from the accessory reference."
+  },
+  {
+    "species": "hoot",
+    "tier": 1,
+    "name": "hoot_mortarboard_proportions",
+    "prompt": "Use case: identity-preserve. Image 1 is the EXACT bird whose body/face/pose must be preserved. Image 2 is ONLY accessory reference; its narrowed torso was REJECTED. Add graduation mortarboard cap replacing the existing purple sleep cap to image 1 without redrawing, slimming, shrinking or changing ANY bird pixels below the accessory. Keep the same plump broad torso, exact wing silhouette and position, exact foot size and distance between feet, same eye/beak placement, same feather colors. Replace existing purple nightcap with mortarboard, nothing else. The original body is wide and squat; DO NOT make it smaller to accommodate hat. Same 320x320 canvas; feet baseline y302. Same original bird scale and placement. Original plush feathers, soft upper-left light, no outlines. Complete bird with only specified accessory. Transparent RGBA background with no matte fringe, no ground or shadows, no extra objects or text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-73f8b8e6-2196-4538-8e0c-2043bc1f0937.png",
+    "status": "unselected",
+    "reason": "Unused retry: original torso matches; the apparent silhouette-width discrepancy was the removed nightcap pompom."
+  },
+  {
+    "species": "mint",
+    "tier": 2,
+    "name": "mint_mushroom_hat_body_match",
+    "prompt": "Use case: precise-object-edit. Add a red mushroom-cap hat with cream spots to the attached EXACT bird image. This is the actual original sprite upscaled without redesign. Preserve the original wide oval turquoise body exactly: wings spread as in reference, lower torso width, individual feather shapes, face and eye positions, broad cheeks, eye sizes, green irises, leaf crest, feet and toes are locked. Do not make the body narrower or stretch it vertically. Add the hat around the base of the leaves, above the eyebrows; fit the hat to the existing head, never change the bird to fit the hat. Keep leaf positions and heights unchanged. The face has large cream eye patches and the same open happy beak. No movement or pose change. Same canvas, exact same bird size and coordinates. Cute physically worn hat, soft top-left light. Transparent RGBA background, no ground shadow or matte fringe, no text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-00d2eeeb-6f6d-45d9-ace6-fa318128cafe.png",
+    "status": "accepted"
+  },
+  {
+    "species": "mint",
+    "tier": 3,
+    "name": "mint_acorn_helmet_body_match",
+    "prompt": "Use case: precise-object-edit. Add a brown acorn-cap helmet with small natural overlapping scales to the attached EXACT bird image. This is the actual original sprite upscaled without redesign. Preserve the original wide oval turquoise body exactly: wings spread as in reference, lower torso width, individual feather shapes, face and eye positions, broad cheeks, eye sizes, green irises, leaf crest, feet and toes are locked. Do not make the body narrower or stretch it vertically. Add the hat around the base of the leaves, above the eyebrows; fit the hat to the existing head, never change the bird to fit the hat. Keep leaf positions and heights unchanged. The face has large cream eye patches and the same open happy beak. No movement or pose change. Same canvas, exact same bird size and coordinates. Cute physically worn hat, soft top-left light. Transparent RGBA background, no ground shadow or matte fringe, no text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-54de328a-bf95-40ba-a59c-2849188330e9.png",
     "status": "accepted"
   }
 ]
