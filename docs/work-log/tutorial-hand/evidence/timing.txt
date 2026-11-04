@@ -1,0 +1,10 @@
+Graphics PlayMode capture: PerchSort.PlayModeTests.TutorialHandTests.BirdHandAvoidsFaceAndSelectionHidesUntilDeselected
+Nonpersistent fixture, instant construction; real-time motion enabled before each three-second wait.
+Unity realtimeSinceStartup (seconds), image, hand local scale
+3.954203, bird.png, 0.9336206
+4.260337, bird-pulse-1.png, 0.979139
+4.566066, bird-pulse-2.png, 0.9794764
+4.874249, bird-pulse-3.png, 0.92006
+5.179440, bird-pulse-4.png, 0.9837502
+8.505351, sapling.png, not sampled
+Test result: 1 passed, 0 failed, 0 skipped. Requested waits between bird frames were 0.225 seconds; capture/render overhead accounts for the observed spacing.
