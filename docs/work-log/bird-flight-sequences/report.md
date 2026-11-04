@@ -2,11 +2,11 @@
 
 ## Current batch
 
-Sunny, Sky, Berry, Mint, Cocoa, Snow, Ember and Ink: 24 newly drawn frames each exported (192 total), covering takeoff (3), flap (6), and landing (3) in each direction. Right and left views were generated separately; no sprite was mirrored. Runtime images are 320 x 320 RGBA with centered pivots and importer settings copied from the approved Sunny idle metadata. Existing art and all code are unchanged.
+Sunny, Sky, Berry, Mint, Cocoa, Snow, Ember, Ink and Hoot: 24 newly drawn frames each exported (216 total), covering takeoff (3), flap (6), and landing (3) in each direction. Right and left views were generated separately; no sprite was mirrored. Runtime images are 320 x 320 RGBA with centered pivots and importer settings copied from the approved Sunny idle metadata. Existing art and all code are unchanged.
 
 The built-in imagegen tool produced the artwork. Cropping, uniform scaling and translation registered the drawn poses for export; no programmatic artwork, recolouring, mirroring or pose fabrication was used. Registration details and source-cell provenance are in `art/birds_sequences/qa/sunny_flight_registration.json`.
 
-Forty-eight contact sheets under `evidence/` show the idle reference, light/dark composites and 64-pixel grayscale views. Forty-eight APNGs under `art/birds_sequences/qa/` preview the individual sequences at 10 fps. These are offline previews, not Unity runtime acceptance.
+Fifty-four contact sheets under `evidence/` show the idle reference, light/dark composites and 64-pixel grayscale views. Fifty-four APNGs under `art/birds_sequences/qa/` preview the individual sequences at 10 fps. These are offline previews, not Unity runtime acceptance.
 
 ## Rejected candidates
 
@@ -16,13 +16,13 @@ Raw rejected candidates remain under `art/birds_sequences/raw/sunny_flight_*reje
 
 - Naming guard self-test: 8 passed.
 - Naming guard: passed after staging (1551 tracked text files, zero violations).
-- Frame dimensions, RGBA, transparent exterior, distinct file hashes, no visible bounds touching canvas edges, metadata and preview checks: passed for all 192 exports and forty-eight previews.
+- Frame dimensions, RGBA, transparent exterior, distinct file hashes, no visible bounds touching canvas edges, metadata and preview checks: passed for all 216 exports and fifty-four previews.
 - Unity compilation and full suites ran with `flock /tmp/unity.lock bash scripts/run_tests.sh`. EditMode: 312/312 passed, zero skipped. PlayMode: 51/53 passed, two failed, zero skipped. Screenshots still pending.
 - Code integration and actual flight playback are a later separate task. No claim of runtime visual acceptance.
 
 ## Remaining images
 
-Hoot and Crow: all 24 flight frames per species remain unproduced (48 total), in the specified production order.
+Crow: all 24 flight frames per species remain unproduced (24 total), in the specified production order.
 
 Sky rejected sources record missing feet, broad alpha halos/fringe and excessive wing span. Feet, alpha and wing anatomy were regenerated before export. Full generation/correction prompts are saved per strip.
 
@@ -39,3 +39,5 @@ Snow final right flap initially pointed too low; its strip was rejected and rege
 Ember rejected candidates included a reversed left crest, opaque background/halo, low loop endpoints, missing forward braking feet, weak left crouch/push-off and excessive wing spans. Targeted regenerated poses passed the same export review.
 
 Ink rejected candidates had low push-off wings, low loop endpoints or oversized wing spans. Seven regeneration passes corrected them while preserving the white star and swept crest.
+
+Hoot rejected strips had low push-off wings, a weak left crouch and a reversed cap in left landing. Regeneration restored the left pom-pom and clarified takeoff poses.
