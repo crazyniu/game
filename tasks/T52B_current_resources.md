@@ -20,7 +20,7 @@
 
 Static inspection of the authorized base found 108 current bird PNGs without `.meta` sidecars: all 18 frames for each of `cocoa`, `crow`, `ember`, `hoot`, `ink`, and `snow`. Move these PNGs unchanged and retain null baseline GUID/meta hashes as `MISSING_IN_BASELINE`; do not claim absent metadata existed in the base. All 243 existing current PNG metas, both JSON metas, and all moved folder metas must remain byte-identical.
 
-User followup explicitly authorizes copying exactly these 108 existing meta files read-only from `/Users/apple/Documents/projects/game/PerchSort/Assets/Resources/V7/Birds/<same name>.png.meta` to the renamed task `Resources/Birds/` path. Never write/move/delete any primary file. Do not copy the seven primary-modified overlay metas; their importer correction belongs to C. Record completion provenance separately: exact source/destination paths, SHA-256, byte size, GUID, settings comparison to the existing `sunny_idle.png.meta`, and deviations. Audit correct Sprite importer settings, unique GUIDs, unchanged source bytes, and unchanged tracked base metas. No Unity execution.
+User followup explicitly authorizes copying exactly these 108 existing meta files read-only from `/Users/apple/Documents/projects/game/PerchSort/Assets/Resources/V7/Birds/<same name>.png.meta` to the renamed task `Resources/Birds/` path. Never write/move/delete any primary file. Do not copy the seven primary-modified overlay metas; their importer correction belongs to C. Record completion provenance separately: exact source/destination paths, SHA-256, byte size, GUID, settings comparison to the existing `sunny_idle.png.meta`, and deviations. Audit correct Sprite importer settings, unique GUIDs, unchanged source bytes, and unchanged tracked base metas. No worker-local Unity execution.
 
 ## Acceptance and static evidence
 
@@ -29,7 +29,7 @@ User followup explicitly authorizes copying exactly these 108 existing meta file
 - Byte equality covers PNGs, import settings, GUIDs, JSON payloads, unchanged original art, Audio, fonts, and non-resource Art.
 - Audit all `.meta` GUIDs under `PerchSort/Assets`; no duplicate GUID. Retired GUIDs remain only outside Assets. Preserve current resource key names and existing gate assets.
 - Report current static reference obligations to the coordinator; stale code references in this resource-only branch are an integration dependency, not silently edited out of ownership.
-- Unity/build/compiler/automated tests/screenshots/playthrough: **NOT_RUN**, explicitly prohibited. Static file/hash/GUID/reference audits only; integrated runtime validation belongs to the user.
+- Worker-local Unity/build/compiler/automated tests/screenshots/playthrough: **NOT_RUN**; this resource worker performs static file/hash/GUID/reference audits only. This is not a stage-wide testing prohibition. The current Codex coordinator MUST accept and test the integrated build on the Mac: compile, EditMode, PlayMode, and GUI acceptance are **REQUIRED**, with actual results and any failures/skips recorded. Worker static evidence does not satisfy integrated runtime acceptance.
 
 ## Delivery
 
