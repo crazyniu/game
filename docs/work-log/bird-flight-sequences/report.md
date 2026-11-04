@@ -2,11 +2,11 @@
 
 ## Current batch
 
-Sunny and Sky: 24 newly drawn frames each exported (48 total), covering takeoff (3), flap (6), and landing (3) in each direction. Right and left views were generated separately; no sprite was mirrored. Runtime images are 320 x 320 RGBA with centered pivots and importer settings copied from the approved Sunny idle metadata. Existing art and all code are unchanged.
+Sunny, Sky and Berry: 24 newly drawn frames each exported (72 total), covering takeoff (3), flap (6), and landing (3) in each direction. Right and left views were generated separately; no sprite was mirrored. Runtime images are 320 x 320 RGBA with centered pivots and importer settings copied from the approved Sunny idle metadata. Existing art and all code are unchanged.
 
 The built-in imagegen tool produced the artwork. Cropping, uniform scaling and translation registered the drawn poses for export; no programmatic artwork, recolouring, mirroring or pose fabrication was used. Registration details and source-cell provenance are in `art/birds_sequences/qa/sunny_flight_registration.json`.
 
-Twelve contact sheets under `evidence/` show the idle reference, light/dark composites and 64-pixel grayscale views. Twelve APNGs under `art/birds_sequences/qa/` preview the individual sequences at 10 fps. These are offline previews, not Unity runtime acceptance.
+Eighteen contact sheets under `evidence/` show the idle reference, light/dark composites and 64-pixel grayscale views. Eighteen APNGs under `art/birds_sequences/qa/` preview the individual sequences at 10 fps. These are offline previews, not Unity runtime acceptance.
 
 ## Rejected candidates
 
@@ -16,12 +16,16 @@ Raw rejected candidates remain under `art/birds_sequences/raw/sunny_flight_*reje
 
 - Naming guard self-test: 8 passed.
 - Naming guard: passed after staging (1551 tracked text files, zero violations).
-- Frame dimensions, RGBA, transparent exterior, distinct file hashes, no visible bounds touching canvas edges, metadata and preview checks: passed for all 48 exports and twelve previews.
-- Unity full EditMode/PlayMode and screenshots: not run yet. Another worktree holds the serialized Unity lock; no process was stopped.
+- Frame dimensions, RGBA, transparent exterior, distinct file hashes, no visible bounds touching canvas edges, metadata and preview checks: passed for all 72 exports and eighteen previews.
+- Unity compilation and full suites ran with `flock /tmp/unity.lock bash scripts/run_tests.sh`. EditMode: 312/312 passed, zero skipped. PlayMode: 51/53 passed, two failed, zero skipped. Screenshots still pending.
 - Code integration and actual flight playback are a later separate task. No claim of runtime visual acceptance.
 
 ## Remaining images
 
-Berry, Mint, Cocoa, Snow, Ember, Ink, Hoot and Crow: all 24 flight frames per species remain unproduced (192 total), in the specified production order.
+Mint, Cocoa, Snow, Ember, Ink, Hoot and Crow: all 24 flight frames per species remain unproduced (168 total), in the specified production order.
 
 Sky rejected sources record missing feet, broad alpha halos/fringe and excessive wing span. Feet, alpha and wing anatomy were regenerated before export. Full generation/correction prompts are saved per strip.
+
+Berry initial left-facing candidates incorrectly faced right and were rejected. Regeneration used the existing left-turn frame as a direction reference, preserving the two-plume silhouette without mirroring. Alpha halos and two excessive wing spans were also regenerated.
+
+Unity failures: `T54AMusicTests.FocusAndApplicationPauseFreezePlayheadsUntilBothResume` expected 1.13065755 +/- 0.02, observed 1.15199542; `T54CIdleTests.BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt` failed its scale equality assertion. No code or tests were edited. Logs/XML are under ignored `build/`. Generated scene, seven expanded overlay importers, metadata whitespace and tracked Python cache changes were reviewed, preserved in `build/flight-generated-changes.patch`, then restored to the pre-run tracked content.
