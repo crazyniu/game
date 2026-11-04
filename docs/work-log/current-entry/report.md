@@ -14,7 +14,7 @@ An independent post-import audit found all seven authored overlay metadata files
 
 GameArtImporter now requires **SpriteMeshType.FullRect** for the seven authored overlays, preserving their original serialized mesh value 0. Egg pivots, centered chick/mama pivots, maxSize1024, uncompressed quality100 and no generated fallback physics remain unchanged; other full-art imports already used FullRect. No metas, gameplay or test assertions were modified. Misleading claims in this report, CURRENT_GAME and current team memory are corrected.
 
-Changed paths: `PerchSort/Assets/Editor/Game/GameArtImporter.cs`, `docs/CURRENT_GAME.md`, `docs/team/MEMORY.md`, `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. Coordinator-owned serial rerun and post-import metadata verification are **PENDING**; no passing result is claimed for this correction.
+Changed paths: `PerchSort/Assets/Editor/Game/GameArtImporter.cs`, `docs/CURRENT_GAME.md`, `docs/team/MEMORY.md`, `docs/work-log/current-entry/report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. Coordinator-owned serial rerun and post-import metadata verification are **PENDING**; no passing result is claimed for this correction.
 
 ## Coordinator compile failure and narrow correction
 
@@ -26,7 +26,7 @@ Assets/Editor/Game/GameCapture.cs(118,38): error CS0104: SafeArea is an ambiguou
 
 C fixes only the capture component lookup by qualifying `GetComponent<PerchSort.Game.SafeArea>()`. The shared runtime type, behavior and all test assertions remain unchanged. Static inspection of C-owned Editor/Tests sources found that GameCapture, ButtonTests and GameplayTests import both namespaces; only GameCapture contains a SafeArea reference, so no other collision correction is needed in C scope.
 
-Changed paths for this correction: `PerchSort/Assets/Editor/Game/GameCapture.cs` and `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. At that correction's delivery, the coordinator's integrated compile rerun and subsequent tests/GUI acceptance were pending; the later run-2 findings are recorded above. The primary checkout remains untouched by C.
+Changed paths for this correction: `PerchSort/Assets/Editor/Game/GameCapture.cs` and `docs/work-log/current-entry/report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. At that correction's delivery, the coordinator's integrated compile rerun and subsequent tests/GUI acceptance were pending; the later run-2 findings are recorded above. The primary checkout remains untouched by C.
 
 ## Permanent naming policy followup
 
@@ -36,8 +36,8 @@ The initial bounded delivery is `1cea729a18b6748c33d308f5fdf427875608d396`. The 
 - `CLAUDE.md`
 - `docs/CURRENT_GAME.md`
 - `.github/workflows/ci.yml`
-- `tasks/T52C_current_entry.md`
-- `tasks/T52C_report.md`
+- `docs/work-log/current-entry/spec.md`
+- `docs/work-log/current-entry/report.md`
 
 Matching English agent-guide sections and CURRENT_GAME now require **ONE current game**, canonical files edited in place, no V-numbered parallel folders/files/classes/namespaces/scenes/resource roots, and no alternate current implementation copies under any name. Task branches/PRs are temporary collaboration reviewed and merged to main. The only exceptions are exact existing storage IDs solely for save compatibility, preserved historical archives/original-art provenance, and legitimate dependency/schema/release metadata; no new arbitrary exceptions or broad allowlists. These are explicit review acceptance criteria.
 
@@ -397,6 +397,6 @@ scripts/run_tests.sh
 scripts/screenshots.sh
 scripts/screenshots_aspect.sh
 scripts/sync_front_birds.sh
-tasks/T52C_current_entry.md
-tasks/T52C_report.md
+docs/work-log/current-entry/spec.md
+docs/work-log/current-entry/report.md
 ```

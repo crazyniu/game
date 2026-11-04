@@ -8,8 +8,8 @@ Exactly four new paths:
 
 1. `PerchSort/Assets/Tests/PlayMode/NotificationFlowTests.cs`
 2. `PerchSort/Assets/Tests/PlayMode/NotificationFlowTests.cs.meta`
-3. `tasks/T52G_notification_acceptance.md`
-4. `tasks/T52G_report.md`
+3. `docs/work-log/notification-acceptance/spec.md`
+4. `docs/work-log/notification-acceptance/report.md`
 
 No runtime, existing test/assertion, scene, resource, asmdef, CI, H-owned sapling region, peer fix, art original or primary-checkout changes. No additional worker was started. No production Save was disabled or bypassed.
 

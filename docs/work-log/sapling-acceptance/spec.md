@@ -4,7 +4,7 @@
 
 Current Codex is the coordinator. Work only in the existing `t52-current-runtime` Mac worktree, starting with a clean-tree check and fast-forward to local `t52-current-game` at `d930a6f6616d50d882c4e343d50f0d32fd6529ea`. Do not edit the primary checkout.
 
-Owned code: the Sapling preparation helper and three Sapling tests in [GameplayTests.cs](../PerchSort/Assets/Tests/PlayMode/GameplayTests.cs). `GameRoot.cs`, `TutorialHand.cs` and `HudView.cs` are conditionally authorized only for a demonstrated runtime defect. Motion methods are not owned. C owns new NotificationFlowTests; D owns motion runtime. No Unity, compilation or test runs: the coordinator serializes execution.
+Owned code: the Sapling preparation helper and three Sapling tests in [GameplayTests.cs](../../../PerchSort/Assets/Tests/PlayMode/GameplayTests.cs). `GameRoot.cs`, `TutorialHand.cs` and `HudView.cs` are conditionally authorized only for a demonstrated runtime defect. Motion methods are not owned. C owns new NotificationFlowTests; D owns motion runtime. No Unity, compilation or test runs: the coordinator serializes execution.
 
 ## Reported acceptance failures
 
@@ -31,4 +31,4 @@ Coordinator-supplied baseline: compilation and 304 EditMode cases pass; PlayMode
 
 ## Delivery
 
-See [T52H report](T52H_report.md). The coordinator must rerun the three named cases in the serialized integrated Mac acceptance run; this task's static delivery is not a passing-runtime claim.
+See [T52H report](report.md). The coordinator must rerun the three named cases in the serialized integrated Mac acceptance run; this task's static delivery is not a passing-runtime claim.

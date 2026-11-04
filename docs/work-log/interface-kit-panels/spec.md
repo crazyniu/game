@@ -4,4 +4,4 @@
 panel_wood（九宫格底图 512×512，圆角 48，木纹外框+内嵌奶油纸；注明九宫格边距）、paper_inner、btn_primary / btn_primary_pressed（树叶绿，胶囊 512×132）、btn_secondary / btn_secondary_pressed（奶油，512×112）、btn_round / btn_round_pressed（木底圆钮 224×224）、toggle_track_on/off、toggle_knob（小蛋或小鸟头）、slider_track、slider_fill、slider_knob（叶片）、hud_bar（木牌 1024×160 九宫格）、tip_card（纸卷轴九宫格 768×512）、vine_divider（横向藤条 1024×48，可平铺）。
 再出 `art/ui_kit/manifest_a.json`（尺寸、九宫格边距 L/R/T/B、用途）与 `art/ui_kit/contact_a_light.png`/`_dark.png`（合成预览）；按钮必须同时展示 3 种宽度的拉伸效果预览，证明九宫格不变形。
 ## 验收（Claude）
-文件齐全、RGBA、边缘无白边/棋盘格；预览中材质统一、拉伸不糊。报告 `tasks/T11b1_report.md`。不提交 git，不改已有 art 原件。
+文件齐全、RGBA、边缘无白边/棋盘格；预览中材质统一、拉伸不糊。报告 `docs/work-log/interface-kit-panels/report.md`。不提交 git，不改已有 art 原件。

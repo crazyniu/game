@@ -2,7 +2,7 @@
 
 ## 完成内容
 
-已完整核对 `tasks/T1_core.md` 与 `docs/DESIGN.md`，检查并保留中断前有效的 Unity 项目、Core 实现和测试脚本，补齐缺失的 EditMode 测试并实际运行验收。没有修改 `art/`，没有提交 git。
+已完整核对 `docs/work-log/core-rules/spec.md` 与 `docs/DESIGN.md`，检查并保留中断前有效的 Unity 项目、Core 实现和测试脚本，补齐缺失的 EditMode 测试并实际运行验收。没有修改 `art/`，没有提交 git。
 
 - 项目版本为 Unity **6000.6.7f1**。`build/create-project.log` 记录了指定 Unity 可执行文件以 `-batchmode -quit -createProject` 和官方 2D 模板成功创建项目、退出码 0；本次未覆盖重建已有项目。
 - 2D 编辑模式已设置，默认尺寸 **1080×1920**、默认竖屏，横屏自动旋转关闭。根目录原有 `.gitignore` 已覆盖 Unity 的 Library、Temp、Logs、obj、UserSettings、csproj、sln 等生成文件，本次未改动它。
@@ -33,7 +33,7 @@
 - `scripts/run_tests.sh`：补充 XML 中通过数须等于总数的检查
 - `PerchSort/Assets/Scripts.meta`、`PerchSort/Assets/Scripts/Core.meta`、Core 下所有 `.cs.meta` / `.asmdef.meta`：Unity 本次导入生成
 - `PerchSort/Assets/Tests.meta`、`PerchSort/Assets/Tests/EditMode.meta`、EditMode 下 `.cs.meta` / `.asmdef.meta`：Unity 本次导入生成
-- `tasks/T1_report.md`
+- `docs/work-log/core-rules/report.md`
 
 验收产物：
 

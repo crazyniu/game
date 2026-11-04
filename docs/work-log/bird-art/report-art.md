@@ -6,7 +6,7 @@ Delivered **108/108 requested runtime PNGs**; **missing files: none**. The origi
 
 ## Authority and ownership
 
-- [T33 task](T33_art_birds.md), [GAME_DESIGN_V5](../docs/GAME_DESIGN.md) v5.3, and the coordinator messages recorded in [addendum.md](../art/v5/t33/addendum.md).
+- [T33 task](spec.md), [GAME_DESIGN_V5](../../GAME_DESIGN.md) v5.3, and the coordinator messages recorded in [addendum.md](../art/v5/t33/addendum.md).
 - The later Hoot correction is applied: pale tawny/cream round owl, heart-shaped white facial disc, amber eyes, star-patterned nightcap, grey-brown speckled wings, **no ear tufts**.
 - New runtime PNGs only in `PerchSort/Assets/Resources/Art/`; raw, prompts, tools and QA only in `art/v5/t33/`; this report only in `tasks/`.
 - No code, runtime data, scenes, import metadata or original artwork changed by this worker; no commit or push.
@@ -180,14 +180,14 @@ All rows below passed dimensions, RGBA, expected alpha and hidden-RGB checks. St
 | [egg_wobble_r.png](../PerchSort/Assets/Resources/Art/egg_wobble_r.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
 | [egg_crack.png](../PerchSort/Assets/Resources/Art/egg_crack.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
 | [egg_shell.png](../PerchSort/Assets/Resources/Art/egg_shell.png) | 256x256 | RGBA | 0/255 | 244 | PASS |
-| [zzz.png](../PerchSort/Assets/Resources/Art/zzz.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [zzz.png](../../../PerchSort/Assets/Resources/Art/zzz.png) | 128x128 | RGBA | 0/255 | — | PASS |
 | [twig_left.png](../PerchSort/Assets/Resources/Art/twig_left.png) | 420x90 | RGBA | 0/255 | — | PASS |
 | [roof_band.png](../PerchSort/Assets/Resources/Art/roof_band.png) | 300x60 | RGBA | 0/255 | — | PASS |
 | [icon_firefly.png](../PerchSort/Assets/Resources/Art/icon_firefly.png) | 192x192 | RGBA | 0/255 | — | PASS |
 | [icon_sapling.png](../PerchSort/Assets/Resources/Art/icon_sapling.png) | 192x192 | RGBA | 0/255 | — | PASS |
 | [icon_owl_eye.png](../PerchSort/Assets/Resources/Art/icon_owl_eye.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_bell.png](../PerchSort/Assets/Resources/Art/icon_bell.png) | 192x192 | RGBA | 0/255 | — | PASS |
-| [icon_scarecrow.png](../PerchSort/Assets/Resources/Art/icon_scarecrow.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_bell.png](../../../PerchSort/Assets/Resources/Art/icon_bell.png) | 192x192 | RGBA | 0/255 | — | PASS |
+| [icon_scarecrow.png](../../../PerchSort/Assets/Resources/Art/icon_scarecrow.png) | 192x192 | RGBA | 0/255 | — | PASS |
 | [icon_rain.png](../PerchSort/Assets/Resources/Art/icon_rain.png) | 192x192 | RGBA | 0/255 | — | PASS |
 | [badge_count.png](../PerchSort/Assets/Resources/Art/badge_count.png) | 64x64 | RGBA | 0/255 | — | PASS |
 | [badge_plus.png](../PerchSort/Assets/Resources/Art/badge_plus.png) | 64x64 | RGBA | 0/255 | — | PASS |
@@ -195,10 +195,10 @@ All rows below passed dimensions, RGBA, expected alpha and hidden-RGB checks. St
 | [bg_w1_golden.png](../PerchSort/Assets/Resources/Art/bg_w1_golden.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
 | [bg_w1_rain.png](../PerchSort/Assets/Resources/Art/bg_w1_rain.png) | 1080x1920 | RGBA | 255/255 | — | PASS |
 | [petal.png](../PerchSort/Assets/Resources/Art/petal.png) | 64x64 | RGBA | 0/255 | — | PASS |
-| [raindrop.png](../PerchSort/Assets/Resources/Art/raindrop.png) | 32x64 | RGBA | 0/255 | — | PASS |
+| [raindrop.png](../../../PerchSort/Assets/Resources/Art/raindrop.png) | 32x64 | RGBA | 0/255 | — | PASS |
 | [mama_bow.png](../PerchSort/Assets/Resources/Art/mama_bow.png) | 96x96 | RGBA | 0/255 | — | PASS |
 | [chick_fluff.png](../PerchSort/Assets/Resources/Art/chick_fluff.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [swivel_knot.png](../PerchSort/Assets/Resources/Art/swivel_knot.png) | 160x160 | RGBA | 0/255 | — | PASS |
+| [swivel_knot.png](../../../PerchSort/Assets/Resources/Art/swivel_knot.png) | 160x160 | RGBA | 0/255 | — | PASS |
 | [gift_wake.png](../PerchSort/Assets/Resources/Art/gift_wake.png) | 128x128 | RGBA | 0/255 | — | PASS |
 | [gift_breeze.png](../PerchSort/Assets/Resources/Art/gift_breeze.png) | 128x128 | RGBA | 0/255 | — | PASS |
 | [gift_encore.png](../PerchSort/Assets/Resources/Art/gift_encore.png) | 128x128 | RGBA | 0/255 | — | PASS |
@@ -208,9 +208,9 @@ All rows below passed dimensions, RGBA, expected alpha and hidden-RGB checks. St
 | [gift_warm.png](../PerchSort/Assets/Resources/Art/gift_warm.png) | 128x128 | RGBA | 0/255 | — | PASS |
 | [gift_night.png](../PerchSort/Assets/Resources/Art/gift_night.png) | 128x128 | RGBA | 0/255 | — | PASS |
 | [gift_moonbeam.png](../PerchSort/Assets/Resources/Art/gift_moonbeam.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [dial_sun.png](../PerchSort/Assets/Resources/Art/dial_sun.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [dial_moon.png](../PerchSort/Assets/Resources/Art/dial_moon.png) | 128x128 | RGBA | 0/255 | — | PASS |
-| [night_overlay.png](../PerchSort/Assets/Resources/Art/night_overlay.png) | 1080x1920 | RGBA | 140/140 | — | PASS |
+| [dial_sun.png](../../../PerchSort/Assets/Resources/Art/dial_sun.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [dial_moon.png](../../../PerchSort/Assets/Resources/Art/dial_moon.png) | 128x128 | RGBA | 0/255 | — | PASS |
+| [night_overlay.png](../../../PerchSort/Assets/Resources/Art/night_overlay.png) | 1080x1920 | RGBA | 140/140 | — | PASS |
 
 ## Follow-up: four independent birdhouse hangers
 

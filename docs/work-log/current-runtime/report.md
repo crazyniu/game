@@ -220,7 +220,7 @@ View/ViewArt.cs.meta
 
 Additional owned documentation paths:
 
-- `tasks/T52A_current_runtime.md` — new task specification and updated validation ownership.
-- `tasks/T52A_report.md` — this delivery report and complete path manifest.
+- `docs/work-log/current-runtime/spec.md` — new task specification and updated validation ownership.
+- `docs/work-log/current-runtime/report.md` — this delivery report and complete path manifest.
 
 No other owned/non-owned files were edited; Audio paths are intentionally unchanged.

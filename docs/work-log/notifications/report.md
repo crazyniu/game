@@ -2,7 +2,7 @@
 
 ## Submission
 
-**DONE — D source accepted for integration after coordinator static re-review of bf643f4. All A/B/C/D/E and final assets are integrated in source; no runtime acceptance.** Current final state and main reconciliation are owned by [final T50 report](T50_report.md) and the Mac-only handoff; historical review boundaries below remain available.
+**DONE — D source accepted for integration after coordinator static re-review of bf643f4. All A/B/C/D/E and final assets are integrated in source; no runtime acceptance.** Current final state and main reconciliation are owned by [final T50 report](../interface-runtime/report.md) and the Mac-only handoff; historical review boundaries below remain available.
 
 - Source commit: **`52cad38e2742263b4469ead8ef5a90d80f564b73`**.
 - Branch: `mac-notifications/t50`; workspace: `/Users/apple/orca/workspaces/game/t50-notifications`.
@@ -10,7 +10,7 @@
 - Isolated D review boundary: **`08b32a733ab952f79ca66f3424696f498a2f6720`**, including fixture correction **`e39e0ddc5f330d35ff416a609f0eefbb20e7fcad`**. Approved A/C integration is separately recorded below; the final terminal block identifies the pushed delivery tip.
 - Integration lifecycle correction: **`f24c11f`**, settling/canceling any pending Win HUD count before entering the mandatory finale popup sequence. It changes only D-owned root code; the isolated D review boundary above remains available.
 - Coordinator: current native Codex conversation on 251, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. No former Claude recipient, Dispatch ID or sub-worker. Separate D commits were retained before integrating only approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888`.
-- Specification: [T50D](T50D_notifications.md). Current-stage directives and four real workspaces: [Codex handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md). Durable worker status: [mac-notifications](../docs/team/status/mac-notifications.md).
+- Specification: [T50D](spec.md). Current-stage directives and four real workspaces: [Codex handoff](../../team/HANDOFF_2026-11-04_CODEX.md). Durable worker status: [mac-notifications](../../team/status/mac-notifications.md).
 
 ## Coordinator blocker follow-up
 
@@ -46,8 +46,8 @@ Source under `PerchSort/Assets/Scripts/Game/`:
 
 Documentation:
 
-- `tasks/T50D_notifications.md`
-- `tasks/T50D_report.md`
+- `docs/work-log/notifications/spec.md`
+- `docs/work-log/notifications/report.md`
 - `docs/team/status/mac-notifications.md`
 - `docs/team/HANDOFF_2026-11-04_CODEX.md`
 

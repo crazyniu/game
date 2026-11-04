@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Implemented the latest `tasks/T54_animation_addendum.md`, including its binding exact branch-action table, in the canonical runtime. Branch: `mac-t54c/t54`. The supplied contract tip was used, and both requested `origin/t54-contract` updates were merged. No peer implementation branch or main was merged or modified.
+Implemented the latest `docs/work-log/integration-contract/spec-animation.md`, including its binding exact branch-action table, in the canonical runtime. Branch: `mac-t54c/t54`. The supplied contract tip was used, and both requested `origin/t54-contract` updates were merged. No peer implementation branch or main was merged or modified.
 
 **Final local verification: EditMode 304/304 passed; PlayMode 26/26 passed; zero failures or skips.** PlayMode includes the 21 retained cases and five new T54C cases. The real twenty-second level-one capture passed its branch-scheduling checks.
 
@@ -21,7 +21,7 @@ Implemented the latest `tasks/T54_animation_addendum.md`, including its binding 
   - Retains at most three simultaneous idle actions per branch and the same-action neighbour start separation of 0.6 seconds. Removes the obsolete mirror-direction neighbour helper.
 - `PerchSort/Assets/Scripts/Game/BirdOverlay.cs`
   - Blends attachment positions with the existing still crossfades. Existing calibrated still poses remain; new same-canvas sequences inherit the species' idle calibration rather than legacy canvas anchors.
-- `PerchSort/Assets/Tests/PlayMode/T54CIdleTests.cs` and its Unity metadata
+- `PerchSort/Assets/Tests/PlayMode/BirdIdleTests.cs` and its Unity metadata
   - Five isolated cases: uninterrupted breathing/logical seats/Instant, missing-sequence draw removal and still behavior, first-gap/lone-frame probing, real timed playback of synthetic frame identities with cadence/holds/landing/cancellation, and twenty seconds of the real level-one branch with branch limits and neighbour separation.
   - No retained test, assembly definition, Core rule, profile/save identifier, artwork, or level data was edited.
 
@@ -29,8 +29,8 @@ Implemented the latest `tasks/T54_animation_addendum.md`, including its binding 
 
 ## Timed visual evidence
 
-- `tasks/evidence/T54C/level_one_idle_twenty_seconds.jpg` — **1600 × 5190**, 81 fixed-schedule samples, 0.00 through 20.00 seconds, spaced by 0.25 seconds. Each tile shows the complete four-bird left branch from level one.
-- `tasks/evidence/T54C/samples.csv` — 324 per-bird observations, including target/actual elapsed time, frame, action, absolute Unity action-start time, body y scale, rotation and visual position.
+- `docs/work-log/bird-idle/evidence/level_one_idle_twenty_seconds.jpg` — **1600 × 5190**, 81 fixed-schedule samples, 0.00 through 20.00 seconds, spaced by 0.25 seconds. Each tile shows the complete four-bird left branch from level one.
+- `docs/work-log/bird-idle/evidence/samples.csv` — 324 per-bird observations, including target/actual elapsed time, frame, action, absolute Unity action-start time, body y scale, rotation and visual position.
 - Raw 1080 × 1920 PNGs remain local under ignored `build/timed-idle/idle_000.png` through `idle_080.png`.
 
 These came from real Unity PlayMode, real resources, normal motion and a camera RenderTexture, not edit-mode instant capture or composited fake birds. The profile is nonpersistent and the random seed is fixed for reproducibility. Actual last sample: **20.0005 s**. Maximum sampling lateness: **0.0037 s**. The first-level tutorial hand is visible and partly overlaps the rightmost bird's lower body; it was not hidden or edited for the evidence.
@@ -55,13 +55,13 @@ python3 ci/check_current_game_names.py && flock /tmp/unity.lock bash scripts/run
 - Sole-scene build/compilation: **PASS** through `PerchSort.Editor.GameSceneBuilder.Build` in the runner.
 - EditMode: **304/304 passed, 0 failed, 0 skipped**.
 - PlayMode: **26/26 passed, 0 failed, 0 skipped**.
-- Portable result XML: `tasks/evidence/T54C/editmode-results.xml` and `tasks/evidence/T54C/playmode-results.xml`.
+- Portable result XML: `docs/work-log/bird-idle/evidence/editmode-results.xml` and `docs/work-log/bird-idle/evidence/playmode-results.xml`.
 - Local complete runner logs/XML remain under ignored `build/`.
 
 Graphics-enabled focused capture command, executed from this worktree:
 
 ```bash
-flock /tmp/unity.lock env T54C_EVIDENCE_DIR=/Users/apple/orca/workspaces/game/t54-idle/build/timed-idle /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -projectPath /Users/apple/orca/workspaces/game/t54-idle/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54CIdleTests -testResults /Users/apple/orca/workspaces/game/t54-idle/build/idle-focused-results.xml -logFile /Users/apple/orca/workspaces/game/t54-idle/build/idle-focused.log
+flock /tmp/unity.lock env T54C_EVIDENCE_DIR=/Users/apple/orca/workspaces/game/t54-idle/build/timed-idle /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -projectPath /Users/apple/orca/workspaces/game/t54-idle/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.BirdIdleTests -testResults /Users/apple/orca/workspaces/game/t54-idle/build/idle-focused-results.xml -logFile /Users/apple/orca/workspaces/game/t54-idle/build/idle-focused.log
 ```
 
 Earlier attempts and corrections:

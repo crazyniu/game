@@ -1,6 +1,6 @@
 # T30-C — v5 level-1 code delivery
 
-Authority: [T30 code task](T30_code.md), [v5 design](../docs/GAME_DESIGN.md). Scope: code delivery on the shared `t30-v5-first-level` branch; no commits or pushes. Unity compilation, scene generation and visual acceptance are delegated to the coordinator's Mac workflow, not claimed here.
+Authority: [T30 code task](spec-code.md), [v5 design](../../GAME_DESIGN.md). Scope: code delivery on the shared `t30-v5-first-level` branch; no commits or pushes. Unity compilation, scene generation and visual acceptance are delegated to the coordinator's Mac workflow, not claimed here.
 
 ## Files
 
@@ -28,7 +28,7 @@ Written in this worker run:
 - `PerchSort/Assets/Tests/PlayMode/GameplayTests.cs`
 - `PerchSort/Packages/manifest.json` — only the required pinned LitMotion dependency added.
 - `scripts/run_tests.sh` — only the V5 builder step added after the existing SceneBuilder step.
-- `tasks/T30_code_report.md`
+- `docs/work-log/game-rebuild/report-code.md`
 
 Reviewed and retained from the earlier worker, without rewriting:
 
@@ -104,7 +104,7 @@ Remaining: coordinator's targeted Mac rerun must confirm graphics-enabled captur
 
 ## T31 — v5.1 layout rework
 
-Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [v5 design section 3](../docs/GAME_DESIGN.md#3-screen-layout-v51-portrait-design-canvas-1080x1920-origin-top-left-y-downward). The coordinator resolved the initial contradictions before implementation: settings/close are 150px, tracker center is y=663, replay/home centers are x=305/775, and the 40px separation rule applies to independent HUD groups, not decorative overlap or nested pill contents.
+Authority: [T31 layout task](../layout-design/spec-code.md) and the coordinator-corrected [v5 design section 3](../../GAME_DESIGN.md#3-screen-layout-v51-portrait-design-canvas-1080x1920-origin-top-left-y-downward). The coordinator resolved the initial contradictions before implementation: settings/close are 150px, tracker center is y=663, replay/home centers are x=305/775, and the 40px separation rule applies to independent HUD groups, not decorative overlap or nested pill contents.
 
 ### Element changes
 
@@ -128,7 +128,7 @@ Authority: [T31 layout task](T31_layout_code.md) and the coordinator-corrected [
 - Updated `PerchSort/Assets/Scripts/Game/{V5UI,V5Art,GameRoot,HudView,BoardView,BranchView,BirdView,WinPanel,SettingsPanel}.cs`.
 - Updated `PerchSort/Assets/Editor/Game/GameCapture.cs` to use the shared canvas dimensions.
 - Added `PerchSort/Assets/Tests/EditMode/V5LayoutTests.cs` and `V5ButtonTests.cs`; added the explicit `Unity.ugui` reference to that test asmdef.
-- Appended this section to `tasks/T30_code_report.md`.
+- Appended this section to `docs/work-log/game-rebuild/report-code.md`.
 
 No Core rules, level data, scenes, artwork, package files, scripts or files outside ownership were edited. No commit was made.
 

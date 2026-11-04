@@ -18,4 +18,4 @@
 ## 验收（Claude 将亲自运行并抽查）
 - `bash scripts/run_tests.sh` 退出 0，用例数 ≥ 40，无失败。
 - `levels.json` 40 关，我会用独立脚本复核每关鸟数、可解性。
-- `tasks/T2_report.md`：文件清单、难度曲线表（每关 K/P/minMoves）、已知限制。
+- `docs/work-log/level-catalog/report.md`：文件清单、难度曲线表（每关 K/P/minMoves）、已知限制。

@@ -14,4 +14,4 @@
 
 ## 验收（Claude）
 全部文件存在、尺寸/RGBA/透明正确（我用脚本查）；我看预览图：风格一致、64px 缩小仍可辨、无白边/棋盘格伪影、无文字。
-报告 `tasks/T10a_report.md`。不提交 git。
+报告 `docs/work-log/forest-art/report.md`。不提交 git。

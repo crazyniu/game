@@ -8,6 +8,7 @@ Open the `PerchSort` Unity project and **`Assets/Scenes/Game.unity`**, the sole 
 
 | Need | Entry |
 | --- | --- |
+| Project conventions | [CONVENTIONS](docs/CONVENTIONS.md) |
 | AI instructions and coordination | [AGENTS](AGENTS.md) · [team charter](docs/team/TEAM.md) |
 | Current behavior, source and evidence | [CURRENT_GAME](docs/CURRENT_GAME.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
 | Documentation status / historical research | [docs router](docs/README.md) |

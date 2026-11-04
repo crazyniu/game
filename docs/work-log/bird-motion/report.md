@@ -21,8 +21,8 @@ Runtime, under `PerchSort/Assets/Scripts/Game/`:
 
 Documents:
 
-7. `tasks/T50A_bird_motion.md`
-8. `tasks/T50A_report.md`
+7. `docs/work-log/bird-motion/spec.md`
+8. `docs/work-log/bird-motion/report.md`
 9. `docs/team/status/mac-motion.md`
 
 No Core, level, economy, artwork, shared layout/art/UI utilities, root/intro, popup, map or T51 files changed. Existing script metadata unchanged. No new library.

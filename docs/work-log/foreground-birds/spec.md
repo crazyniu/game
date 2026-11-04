@@ -10,4 +10,4 @@
 ## 先出样再量产
 先只做 bird_01 和 bird_04 两种的 4 张，用 orchestration ask 发给我看（附路径），我确认风格后再做其余 8 种。
 ## 验收（Claude）
-40 张齐全、对齐一致、同一只鸟 4 个状态明显是同一角色；一排 6 只不重叠且好看。报告 `tasks/T10d_report.md`。不提交 git。
+40 张齐全、对齐一致、同一只鸟 4 个状态明显是同一角色；一排 6 只不重叠且好看。报告 `docs/work-log/foreground-birds/report.md`。不提交 git。

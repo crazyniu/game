@@ -17,7 +17,7 @@ The latest user instruction supersedes the initial no-tests/CI-disable request: 
 
 `PerchSort/Assets/{Editor,Tests,Scenes}/**` and their folder metas; `PerchSort/ProjectSettings/EditorBuildSettings.asset`; `scripts/**` except shared Audio/audio generation; `ci/**`; `.github/workflows/**`; README.md, AGENTS.md, CLAUDE.md, docs/README.md, docs/spec/CODE_MAP.md, docs/team/{MEMORY.md,TEAM.md,HANDOFF_2026-11-04_CODEX.md}, docs/CURRENT_GAME.md; this spec/report. Retired counterparts only under `archive/retired/PerchSort/Assets/{Editor,Tests,Scenes}/**` and `archive/retired/{scripts,ci}/**`. Shared Audio code/importer/tests remain unchanged.
 
-Followup ownership exception: T52D alone owns `ci/check_current_game_names.py`, GameLayout.cs provenance-comment cleanup, `tasks/T52D_naming_policy.md` and its report. C owns only the guard's CI wiring and the primary policy documentation; do not edit D's files or wait for its delivery.
+Followup ownership exception: T52D alone owns `ci/check_current_game_names.py`, GameLayout.cs provenance-comment cleanup, `docs/work-log/naming-policy/spec.md` and its report. C owns only the guard's CI wiring and the primary policy documentation; do not edit D's files or wait for its delivery.
 
 ## Required changes
 

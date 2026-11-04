@@ -5,4 +5,4 @@
 2. 鸟鸣类音效：`chirp_01..05.wav`（短，0.15–0.4s，音高各异，用于选中/落地随机）、`flutter.wav`（振翅，0.3s，飞行用）、`sleep_z.wav`（轻柔下行，0.5s）、`nest_home.wav`（归巢：上行三音+闪光铃，0.8s）、`crate_open.wav`（木箱碎裂，0.6s）、`star_1/2/3.wav`（通关星依次升调）、`win_fanfare.wav`（2s）、`hint.wav`、`ui_tap.wav`、`ui_back.wav`。
 3. `audio_src/MANIFEST.md`：每个文件的时长、用途、峰值/LUFS 数据（脚本测出）。
 ## 验收（Claude）
-用脚本复核时长/峰值/循环点衔接（头尾样本差、过零检查）；文件无削波。报告 `tasks/T13a_report.md`。不提交 git。
+用脚本复核时长/峰值/循环点衔接（头尾样本差、过零检查）；文件无削波。报告 `docs/work-log/audio-integration/report.md`。不提交 git。

@@ -15,16 +15,16 @@ Status: **DONE for bounded code/spec/report scope; runtime acceptance unverified
 - `PerchSort/Assets/Scripts/Game/BirdView.cs`
 - `PerchSort/Assets/Scripts/Game/V7BirdOverlay.cs` (new internal helper)
 - `PerchSort/Assets/Scripts/Game/V7BirdOverlay.cs.meta`
-- `tasks/T50E_overlay_integration.md`
-- `tasks/T50E_report.md`
+- `docs/work-log/overlay-integration/spec.md`
+- `docs/work-log/overlay-integration/report.md`
 - `docs/team/status/mac-motion.md`
 
 No other module, art, layout/placement, Core/gameplay, authored level, shared art loader, scene or package file changed. No image generation/regeneration or saved derived QA artwork.
 
 ## Read-only source evidence
 
-- Read `f79dc38:tasks/T49_eggs_report.md` and `art/approved_ui/eggs_overlays/manifest.json`; asset SHA `34eddebeca3b75fa5e39019090c8b486ba99911f`.
-- Read `fd14469:tasks/T49_report.md`, both supplied `art/approved_ui/birds/qa/{sunny,sky}_frames.png` 17-frame strips, and material individual Sunny/Skye head, flight, cheer and resting frames. Viewed the supplied overlay game-size QA, not a newly generated composite.
+- Read `f79dc38:docs/work-log/forest-assets/report-eggs.md` and `art/approved_ui/eggs_overlays/manifest.json`; asset SHA `34eddebeca3b75fa5e39019090c8b486ba99911f`.
+- Read `fd14469:docs/work-log/forest-assets/report.md`, both supplied `art/approved_ui/birds/qa/{sunny,sky}_frames.png` 17-frame strips, and material individual Sunny/Skye head, flight, cheer and resting frames. Viewed the supplied overlay game-size QA, not a newly generated composite.
 - Final Sunny/Skye idle PNG bytes are identical to the manifest's corresponding reference snapshots; the idle anchors therefore refer to those exact delivered frames.
 - Read all 40 authored levels as data. There are eight family tokens total: one mama and one chick on each of L15 Sunny, L16 Skye, L18 Sunny and L39 Sunny. No other authored species has family flags. This was a data inventory, **not a level simulation/playthrough**.
 

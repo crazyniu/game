@@ -1,5 +1,5 @@
 # T54J Integrated motion evidence (QA only, no product code changes)
-Base: branch `t54-integration` (all nine T54 tasks merged, including the drawn bird frame sequences). Read tasks/T54_contract.md and the "Exact action tables" in tasks/T54_animation_addendum.md.
+Base: branch `t54-integration` (all nine T54 tasks merged, including the drawn bird frame sequences). Read docs/work-log/integration-contract/spec.md and the "Exact action tables" in docs/work-log/integration-contract/spec-animation.md.
 You change NO product file. You may add a TEMPORARY PlayMode capture test and runner in your worktree (do not commit them) and you commit only evidence under `tasks/evidence/T54J/` plus `tasks/T54J_report.md`.
 Capture with real Unity PlayMode, normal motion (not Instant), real resources, fixed random seed 12345, serialized with `flock /tmp/unity.lock`. Each sheet is a JPEG, max 1600 px wide, quality 80, every tile labelled with its actual elapsed time.
 1. `branch_idle_20s.jpg`: level 1, the complete left branch (4 birds), 81 tiles, 0.25 s apart, 20 s, after the entrance finished. Also `branch_idle_samples.csv` (per bird per tile: current frame name, action, y scale).

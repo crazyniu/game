@@ -4,7 +4,7 @@
 
 ## 背景
 - 正面鸟素材 `art/raw/birds_front/`：bird_NN.png / _blink / _sleep / _fly，10 种，1024×1024 透明底，**脚底线 y=870**；manifest_front.json。bird_05 正在另行重画（T10e），文件名不变，完成后只需重新复制该 4 张。
-- 前 5 关流程已按 UI_SPEC v1.3 完成（tasks/T11d_report.md）。
+- 前 5 关流程已按 UI_SPEC v1.3 完成（docs/work-log/interface-rework/report.md）。
 - 规范：docs/DESIGN.md、docs/UI_SPEC.md（v1.3 最高优先）。
 
 ## 执行纪律
@@ -40,4 +40,4 @@
 ## 交付
 - `bash scripts/run_tests.sh` 全绿（EditMode 全过；PlayMode 0 失败）。
 - 重新生成全部 `build/screens/flow/flow_*.png` 与 `anim_*_01..06.png`；新增 `flow_34_sleep_front.png`（有一根睡眠栖木的画面）和 `anim_blink_01..06.png`。
-- 报告 `tasks/T15_report.md`：最终鸟显示高度/槽宽、改动文件、对应截图。完成后 worker_done。
+- 报告 `docs/work-log/foreground-bird-integration/report.md`：最终鸟显示高度/槽宽、改动文件、对应截图。完成后 worker_done。

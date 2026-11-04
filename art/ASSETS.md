@@ -1,6 +1,6 @@
 # T3 小鸟美术资产
 
-交付日期：2026-10-31。依据 `tasks/T3_art.md` 与 `docs/DESIGN.md` 的视觉方向制作；本任务只修改 `art/`，没有修改 `PerchSort/`，没有提交 Git。
+交付日期：2026-10-31。依据 `docs/work-log/initial-art/spec.md` 与 `docs/DESIGN.md` 的视觉方向制作；本任务只修改 `art/`，没有修改 `PerchSort/`，没有提交 Git。
 
 状态：**素材已交付，待 Claude 视觉验收**。这里的合成图是美术摆放参考，不是 Unity 运行截图。
 

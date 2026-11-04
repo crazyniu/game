@@ -2,7 +2,7 @@
 
 ## Authority and scope
 
-Implement the T52 shared contract against main `4b42159891619db23811cbef2b0de84ab742e43e`. The current Codex coordinator owns integration. This task owns only `PerchSort/Assets/Scripts/**` (including folder metas), `archive/retired/PerchSort/Assets/Scripts/**`, this specification, and `tasks/T52A_report.md`. No additional workers. Commit and push this isolated branch; do not merge other branches or modify the primary checkout.
+Implement the T52 shared contract against main `4b42159891619db23811cbef2b0de84ab742e43e`. The current Codex coordinator owns integration. This task owns only `PerchSort/Assets/Scripts/**` (including folder metas), `archive/retired/PerchSort/Assets/Scripts/**`, this specification, and `docs/work-log/current-runtime/report.md`. No additional workers. Commit and push this isolated branch; do not merge other branches or modify the primary checkout.
 
 ## Required changes
 

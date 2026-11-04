@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-Own only `PerchSort/Assets/Scripts/Game/HudView.cs`, this specification, and `tasks/T52E_report.md`. Implement the bounded runtime acceptance fix on the existing isolated D branch; do not merge C/main or edit the primary worktree. Do not change gameplay, actual tests, assertions, startup setup, or the settings modal. The current Codex coordinator accepts the delivery and serializes Unity/compiler/test execution on Mac. Another independent reviewer owns the audit of other CanvasGroup sites; do not broaden this patch into that audit.
+Own only `PerchSort/Assets/Scripts/Game/HudView.cs`, this specification, and `docs/work-log/hud-startup/report.md`. Implement the bounded runtime acceptance fix on the existing isolated D branch; do not merge C/main or edit the primary worktree. Do not change gameplay, actual tests, assertions, startup setup, or the settings modal. The current Codex coordinator accepts the delivery and serializes Unity/compiler/test execution on Mac. Another independent reviewer owns the audit of other CanvasGroup sites; do not broaden this patch into that audit.
 
 No Unity, compiler, or test execution is authorized in this worker. Existing 17 startup tests supply regression coverage; do not add a mirroring suite. Write English task documentation and commit messages, commit/push only the three owned paths, and report the final SHA through the verified coordinator route.
 

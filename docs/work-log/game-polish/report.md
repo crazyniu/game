@@ -1,6 +1,6 @@
 # T39 polish report
 
-Scope: [T39_polish.md](T39_polish.md), branch `t39-polish`; no commit or push. Resumed the previous worker's uncommitted implementation rather than rebuilding it. This resumed pass changed no production code, tests, Core, level data, tools, scenes, or art.
+Scope: [T39_polish.md](spec.md), branch `t39-polish`; no commit or push. Resumed the previous worker's uncommitted implementation rather than rebuilding it. This resumed pass changed no production code, tests, Core, level data, tools, scenes, or art.
 
 ## Scope supersession
 

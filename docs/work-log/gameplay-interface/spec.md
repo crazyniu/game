@@ -1,6 +1,6 @@
 # T5 — UI 打磨 + 主菜单 + 选关 + 设置
 
-T4 已验收（`tasks/T4_report.md`，截图在 `build/screens/`）：玩法、动画、存档、通关/死局面板已通。我看截图后的问题清单，**必须逐条解决**：
+T4 已验收（`docs/work-log/gameplay-runtime/report.md`，截图在 `build/screens/`）：玩法、动画、存档、通关/死局面板已通。我看截图后的问题清单，**必须逐条解决**：
 1. 顶部 “PERCH SORT / LEVEL 01 / 0/3 FLOCKS HOME” 文字直接压在树冠叶子上，可读性差。改为：关卡号与进度放在不遮挡树冠的**木牌/药丸形底板**上（或树冠下沿的牌子），字体清晰；游戏内不必常驻标题 “PERCH SORT”。
 2. 按钮、面板是默认的平直矩形和系统字体。要做成统一风格：**圆角**（9-slice 精灵，代码生成或用图像生成都可，纯色+描边+轻阴影，配色取自背景的暖奶油/森林绿/木色）、清晰的按下态与禁用态；撤销/重开配**图标**（矢量/生成的 PNG 均可）；通关面板与死局面板同风格，加入通关时的小鸟/树冠装饰。
 3. 字体：使用 **开源许可明确（OFL 或同等）** 的圆润字体（如 Fredoka、Nunito），放入 `Assets/Fonts`，并在 `docs/LICENSES.md` 记录名称、来源 URL 与许可；用 TextMeshPro 字体资源。
@@ -20,4 +20,4 @@ T4 已验收（`tasks/T4_report.md`，截图在 `build/screens/`）：玩法、�
 
 ## 验收（Claude 亲自执行）
 - `bash scripts/run_tests.sh` 全绿；`bash scripts/screenshots.sh` 扩展为：菜单、选关（含已通关/锁定混合状态）、设置、游戏（第 1/20/40 关）、暂停、通关、死局 共 ≥ 9 张 1080×1920 截图。我会逐张看。
-- `tasks/T5_report.md`。
+- `docs/work-log/gameplay-interface/report.md`。

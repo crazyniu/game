@@ -1,5 +1,5 @@
 # T54F Popup and birdhouse birds alive, win-panel proportions (new user feedback 2026-11-04, after testing)
-Read tasks/T54_contract.md first. Owned: `PerchSort/Assets/Scripts/Game/WinPanel.cs`, `PopupMotion.cs`, `PopupFlow.cs`, `BirdhouseView.cs`, NEW `PerchSort/Assets/Scripts/Game/UiBirdLife.cs`,
+Read docs/work-log/integration-contract/spec.md first. Owned: `PerchSort/Assets/Scripts/Game/WinPanel.cs`, `PopupMotion.cs`, `PopupFlow.cs`, `BirdhouseView.cs`, NEW `PerchSort/Assets/Scripts/Game/UiBirdLife.cs`,
 new `Tests/**/T54F*.cs`. Everything else read-only (BirdView/BirdIdleGroup belong to T54C; do not edit them).
 
 User problems (screenshot of the win panel):

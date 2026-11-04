@@ -2,7 +2,7 @@
 
 状态：素材交付完成，待协调者视觉验收和后续界面集成。
 
-依据 `tasks/T11b4_kit_c.md`、`docs/UI_SPEC.md` v1.1 修订 A 节，参考 `art/ui_kit/contact_a_light.png` 的手绘暖色、深棕描边和柔和高光。协调者消息 `msg_45e5c6a5f9d8` 追加的设置齿轮已纳入交付。
+依据 `docs/work-log/interface-kit-components/spec.md`、`docs/UI_SPEC.md` v1.1 修订 A 节，参考 `art/ui_kit/contact_a_light.png` 的手绘暖色、深棕描边和柔和高光。协调者消息 `msg_45e5c6a5f9d8` 追加的设置齿轮已纳入交付。
 
 ## 交付文件
 

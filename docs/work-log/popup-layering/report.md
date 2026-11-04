@@ -4,7 +4,7 @@
 
 - Branch: `mac-t54h/t54`, created first from the supplied contract tip `ecdab196e4b91ebb2ae519674c486ab9a47ab6dd`.
 - Changed runtime files: `PerchSort/Assets/Scripts/Game/SettingsPanel.cs` and `PerchSort/Assets/Scripts/Game/PanelsView.cs` only.
-- Added `PerchSort/Assets/Tests/PlayMode/T54HModalTests.cs` and its Unity metadata, this report, and the requested JPEG evidence under `tasks/evidence/T54H/`.
+- Added `PerchSort/Assets/Tests/PlayMode/ModalLayerTests.cs` and its Unity metadata, this report, and the requested JPEG evidence under `docs/work-log/popup-layering/evidence/`.
 - No gameplay, economy, save identifiers, original artwork, or read-only task-owner source was changed.
 
 ## H1 — draw-order investigation and fix
@@ -41,11 +41,11 @@ Existing gift, gate, reward-count, and bird narrative actions are not presented 
 
 All files below are actual Unity PlayMode camera renders, not composited game mockups:
 
-- `tasks/evidence/T54H/level-settings.jpg` — level 5, 12 board birds, settled Settings, unobstructed X.
-- `tasks/evidence/T54H/map-settings.jpg` — map Settings with all three controls.
-- `tasks/evidence/T54H/level-settings-opening.jpg` — 11 frames, 0.00 through 0.50 seconds, 0.05-second intervals.
-- `tasks/evidence/T54H/map-settings-opening.jpg` — the same interval sequence after closing and reopening on the map.
-- `tasks/evidence/T54H/settings-opening-before.jpg` — baseline level opening; controls were still absent over this interval.
+- `docs/work-log/popup-layering/evidence/level-settings.jpg` — level 5, 12 board birds, settled Settings, unobstructed X.
+- `docs/work-log/popup-layering/evidence/map-settings.jpg` — map Settings with all three controls.
+- `docs/work-log/popup-layering/evidence/level-settings-opening.jpg` — 11 frames, 0.00 through 0.50 seconds, 0.05-second intervals.
+- `docs/work-log/popup-layering/evidence/map-settings-opening.jpg` — the same interval sequence after closing and reopening on the map.
+- `docs/work-log/popup-layering/evidence/settings-opening-before.jpg` — baseline level opening; controls were still absent over this interval.
 
 Contact sheets are 1600 pixels wide; portrait screenshots are 900 by 1600. Capture used a temporary PlayMode coroutine, the real Game scene/root, a 1080 by 1920 RenderTexture and camera render, and Unity's `Time.captureDeltaTime = 0.05`. LitMotion and normal PlayMode updates advanced between frames; no Instant motion was used during opening. The capture harness and its metadata were removed after evidence collection. Fixtures initialized without persistence, so captures did not seed or reset the user's profile.
 

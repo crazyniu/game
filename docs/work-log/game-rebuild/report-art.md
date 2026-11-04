@@ -1,10 +1,10 @@
 # T30-A v5 level-1 art delivery report
 
-Date: 2026-11-03. Scope: [T30 art task](T30_art.md), style and dimensions from [GAME_DESIGN_V5](../docs/GAME_DESIGN.md), sections 3–4. Result: **33/33 required runtime PNGs delivered; no missing files.**
+Date: 2026-11-03. Scope: [T30 art task](spec-art.md), style and dimensions from [GAME_DESIGN_V5](../../GAME_DESIGN.md), sections 3–4. Result: **33/33 required runtime PNGs delivered; no missing files.**
 
 ## Delivery and provenance
 
-- Final sprites: [`PerchSort/Assets/Resources/Art/`](../PerchSort/Assets/Resources/Art/), exact filenames listed below. No right-branch sprite; the left branch is intended to be mirrored.
+- Final sprites: [`PerchSort/Assets/Resources/Art/`](../../../PerchSort/Assets/Resources/Art), exact filenames listed below. No right-branch sprite; the left branch is intended to be mirrored.
 - 33 unmodified image-tool outputs: [`art/v5/raw/`](../art/v5/raw/).
 - Exact prompts and identity references: [`prompts.md`](../art/v5/prompts.md), [`manifest.json`](../art/v5/manifest.json), and [`generation_log.json`](../art/v5/generation_log.json). Every asset was produced through a separate built-in `image_gen.imagegen` call; each bird variant uses its own species idle as its edit reference. No competitor artwork was supplied.
 - Reproducible post-processing: [`process_assets.py`](../art/v5/tools/process_assets.py). Low-alpha generation haze is suppressed, hidden RGB is zeroed, canvases are resized/padded, and UI bases are normalized to their exact aspect ratios. The generated sparkle retains its soft alpha falloff. All runtime art derives from generated raster images; no placeholder shapes are substituted.
@@ -87,7 +87,7 @@ Unity Editor is unavailable on 251. Unity import settings, platform texture comp
 
 ## T31-A top limb addendum (2026-11-03)
 
-Delivered [`limb_top.png`](../PerchSort/Assets/Resources/Art/limb_top.png) for [T31-A](T31_layout_art.md): **1080 × 320, RGBA, alpha 0–255**. The new limb spans both top canopies with matching leaf greens, warm wood and a central rope wrap/knot. The original background, branch, birdhouse and other 30 runtime PNGs remain unchanged; no code, scene, metadata, commit or push was produced by this worker.
+Delivered [`limb_top.png`](../PerchSort/Assets/Resources/Art/limb_top.png) for [T31-A](../layout-design/spec-art.md): **1080 × 320, RGBA, alpha 0–255**. The new limb spans both top canopies with matching leaf greens, warm wood and a central rope wrap/knot. The original background, branch, birdhouse and other 30 runtime PNGs remain unchanged; no code, scene, metadata, commit or push was produced by this worker.
 
 The lowest fully opaque hook row is **y=238**, centered at **x=540** (opaque span x=535–545); at alpha ≥128 the endpoint is **(540,239)**, both within the requested (540,235) ±4 px tolerance. Faint antialiasing ends at y=241. There are **zero nontransparent pixels below y=260**, and no non-rope pixels at or below y=210. The house canvas is placed at (390,235), with center exactly (540,405); its visible rope starts at y=239 because the unchanged source has 4 px of top padding. The final hook and house overlap in **5 alpha ≥128 pixels**, x=537–541 at y=239. An initial 1 px attachment mismatch was corrected during registration; all final checks pass.
 

@@ -1,4 +1,4 @@
-> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/T16_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
+> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/BIRD_HOME_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
 
 # T16 — Original bird-home PRD and AI documentation system
 

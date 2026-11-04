@@ -6,7 +6,7 @@ Branch: `mac-t54b/t54`, created from the supplied contract tip `cb438e87e67e6d66
 
 Implementation commits:
 - `6603e2af7b6c8f13260986c34e89261a73dca24e` — **BirdView: entry flight duration/easing parameters**. The coordinator explicitly authorized only the entry-flight parameter hunk in this otherwise read-only file. Normal-flight defaults remain unchanged. This commit is separate for selective integration with the idle worker.
-- `1560e69` — **Pace level entrances with staggered row waves and landing gates**. Changes only `LevelEntrance.cs`, `BoardView.cs`, and the new `T54BEntranceTests.cs` / metadata.
+- `1560e69` — **Pace level entrances with staggered row waves and landing gates**. Changes only `LevelEntrance.cs`, `BoardView.cs`, and the new `LevelEntranceTests.cs` / metadata.
 
 `BranchView.cs`, `SceneView.cs`, and `HudView.cs` needed no changes: their existing trunk-root scaling, scene alpha, and HUD entrance entry points are reused. No artwork was generated or edited. No existing test was edited, weakened, ignored, or removed.
 
@@ -40,7 +40,7 @@ Real Unity 6000.6.7f1 PlayMode, graphics enabled, normal motion, actual `Game` s
 | Level 37, five rows / 29 birds | 4.3911 seconds | 51 frames, nominal 0.1-second intervals through 5 seconds |
 | Level 1, idle after the first five-second observation | Input stayed unlocked, no birds airborne | 41 frames over 20 seconds, nominal 0.5-second intervals |
 
-Committed evidence under `tasks/evidence/T54B/`:
+Committed evidence under `docs/work-log/level-entrance/evidence/`:
 - `level1-entrance.jpg`, `level37-entrance.jpg`: complete entrance contact sheets, each 1600 pixels wide.
 - `level1-idle.jpg`: twenty-second idle contact sheet, 1600 pixels wide. This records the existing idle implementation, not integration or acceptance of the separate idle task.
 - Matching `*-timing.csv`: scheduled sample times, actual game times, wall times after rendering/encoding, introducing/airborne/playable state.
@@ -58,7 +58,7 @@ Commands executed from this worktree:
 ```bash
 python3 ci/check_current_game_names.py
 flock /tmp/unity.lock bash scripts/run_tests.sh
-flock /tmp/unity.lock env T54B_CAPTURE_DIR=/Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -projectPath /Users/apple/orca/workspaces/game/t54-entrance/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54BEntranceTests -testResults /Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture-results.xml -logFile /Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture.log
+flock /tmp/unity.lock env T54B_CAPTURE_DIR=/Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -projectPath /Users/apple/orca/workspaces/game/t54-entrance/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.LevelEntranceTests -testResults /Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture-results.xml -logFile /Users/apple/orca/workspaces/game/t54-entrance/build/entrance-capture.log
 ```
 
 Final full runner: scene build/compilation succeeded; **304/304 EditMode**, **26/26 PlayMode**, zero failures and zero skipped cases. The retained 21 PlayMode tests passed alongside five new behavioral cases:

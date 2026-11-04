@@ -2,7 +2,7 @@
 
 ## Scope and prerequisites
 
-Own `PerchSort/Assets/Scripts/Game/PopupMotion.cs`, other concrete unsafe Unity-object `??` expressions under `Scripts/Game`, this specification, and `tasks/T52F_report.md`. Do not edit gameplay, actual tests/assertions, scene/data/art, or the primary checkout. New regression tests have a separate owner. The current Codex coordinator is the sole Unity runner and performs serialized post-integration acceptance.
+Own `PerchSort/Assets/Scripts/Game/PopupMotion.cs`, other concrete unsafe Unity-object `??` expressions under `Scripts/Game`, this specification, and `docs/work-log/popup-component/report.md`. Do not edit gameplay, actual tests/assertions, scene/data/art, or the primary checkout. New regression tests have a separate owner. The current Codex coordinator is the sole Unity runner and performs serialized post-integration acceptance.
 
 First verify the task branch is clean, then fast-forward to local `t52-current-game` at `16b6f2474a466909d3f80e99180af5331141bb77`. Keep the task branch isolated. No worker Unity/compiler/test runs; a static naming guard is permitted.
 

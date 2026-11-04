@@ -144,6 +144,6 @@ v1 JSON 会明确报 `Level version 1 is unsupported; expected version 2`，不�
 - `PerchSort/Assets/Resources/Levels/levels.json`
 - `PerchSort/Assets/Tests/EditMode/CoreTests.cs`
 - `PerchSort/Assets/Tests/EditMode/LevelTests.cs`
-- `tasks/T9_report.md`
+- `docs/work-log/core-gameplay-rules/report.md`
 
 `GameSession.cs` 已审阅并由撤销/重开测试验证，原实现无需修改。未提交 git。

@@ -139,7 +139,7 @@ def main():
               '- Installed resource SHA-256: `' + installed['Sha256'] + '`.',
               '- [Final live evidence](../tools/levels/work/live-deep-evidence.json), [frozen evidence](../tools/levels/work/staged-deep-evidence.json), [installed data-test results](../tools/levels/work/installed-data-tests.xml), [atomic installation record](../tools/levels/work/install-result.json).']
     lines.append('- [Strict 1000 ms screen](../tools/levels/work/final-fast-screen.json) and [strict-screen search effort](../tools/levels/work/fast-repair-summary.json).')
-    path = ROOT / 'tasks/T42_report.md'
+    path = ROOT / 'docs/work-log/level-deepening/report.md'
     path.write_text('\n'.join(lines) + '\n')
     print('Wrote', path, 'with', len(rows), 'validated rows and', len(installed['ChangedIds']), 'changed-level intents')
 

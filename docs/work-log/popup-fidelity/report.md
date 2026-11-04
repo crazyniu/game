@@ -99,7 +99,7 @@ Unity generated scene-ID and seven egg/family metadata rewrites during import/bu
 
 - Final original-size runtime PNGs: `build/screens/game/`.
 - Approved | runtime PNG comparisons: `build/t53c/final/`.
-- **Committed remote-review copies:** [`tasks/evidence/T53C/`](evidence/T53C/), 19 JPEGs, 1080x990, Pillow quality 80. Originals are on the left; actual rendered captures are on the right.
+- **Committed remote-review copies:** [`docs/work-log/popup-fidelity/evidence/`](../../../docs/work-log/popup-fidelity/evidence), 19 JPEGs, 1080x990, Pillow quality 80. Originals are on the left; actual rendered captures are on the right.
 - The small comparison script is outside the repository: `/tmp/t53c/compare.py`.
 - Historical baseline comparisons, not final verification: `build/t53c/baseline/`.
 

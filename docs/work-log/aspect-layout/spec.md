@@ -13,7 +13,7 @@ Unity 编辑器此刻正由我（协调者）打开着该项目。你开工前�
 4. 测试保持全绿（`bash scripts/run_tests.sh`），新增一个比例适配的测试（给定屏幕宽高 → 计算出的视口矩形）。
 
 ## 约束
-不改 Core；不碰 art/ 原件；不提交 git；报告写 `tasks/T8_report.md`。
+不改 Core；不碰 art/ 原件；不提交 git；报告写 `docs/work-log/aspect-layout/report.md`。
 
 ## 验收（Claude 亲自执行）
 测试全绿；我看 aspect 截图；编辑器已按上述命令重新打开且 Game 视图为 9:16。

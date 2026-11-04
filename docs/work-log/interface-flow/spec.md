@@ -19,7 +19,7 @@
 9. 测试：PlayMode/EditMode 覆盖引导状态机、星级规则、提示（求出的提示移动在 Core 上合法且使最优步数-1）、语言完整性、存档迁移、关卡选择在 40/100/300 关下构建不报错。`bash scripts/run_tests.sh` 全绿；`scripts/screenshots.sh` 增补：引导各步、通关页、关卡选择、设置、中文界面、提示高亮。
 
 ## 约束
-不改 Core 规则与关卡数据（关卡另有任务）；Core 只允许新增只读辅助 API（如 Hint 封装），改动需在报告列明。不提交 git。报告 `tasks/T11_report.md`（含自行决定点）。
+不改 Core 规则与关卡数据（关卡另有任务）；Core 只允许新增只读辅助 API（如 Hint 封装），改动需在报告列明。不提交 git。报告 `docs/work-log/interface-flow/report.md`（含自行决定点）。
 
 ## 验收（Claude）
 重跑测试；逐张看截图；实际检查 Strings 中英文覆盖；审阅星级与提示规则。

@@ -1,6 +1,6 @@
 # T12 — 关卡扩量与难度曲线（100 关，逐关有差异）
 
-规则权威：`docs/DESIGN.md` v2 与 `tasks/T9_report.md`。现状问题（我验收时发现）：40 关里 minMoves 出现大平台（第 4–10 关全是 7，11–17 全是 10，18–25 全是 17），同档关卡手感几乎一样。本任务按下面**精确规格**重做关卡生成，不得自行改规格。
+规则权威：`docs/DESIGN.md` v2 与 `docs/work-log/core-gameplay-rules/report.md`。现状问题（我验收时发现）：40 关里 minMoves 出现大平台（第 4–10 关全是 7，11–17 全是 10，18–25 全是 17），同档关卡手感几乎一样。本任务按下面**精确规格**重做关卡生成，不得自行改规格。
 
 ## 工作方式（避免与正在运行的 UI 任务抢 Unity 工程锁）
 **不要在 /Users/apple/Documents/projects/game/PerchSort 里运行 Unity。** 开工第一步：`cp -R PerchSort /Users/apple/Documents/projects/game_work_levels`（含 Library），在副本里开发、跑 batchmode、跑 EditMode 测试。完成后只把这些文件**回写**到主工程：`Assets/Scripts/Core/**`、`Assets/Editor/LevelBuilder.cs`、`Assets/Resources/Levels/levels.json`、`Assets/Tests/EditMode/` 里你新增/修改的 Core/Level 测试。**不得改其它目录**（UI/View 正由别的 worker 修改）。回写前先 diff 主工程这些文件，确保你的副本基线相同。

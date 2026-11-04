@@ -2,7 +2,7 @@
 
 ## Scope
 
-Authorized runtime owners are BirdView, BoardView, BranchView, BirdhouseView, GameMotion and BirdIdleGroup under `PerchSort/Assets/Scripts/Game`, only as necessary, plus this specification and `tasks/T52I_report.md`. The minimal fix changes **BirdView.cs only**. Other listed views were inspected read-only. Do not edit GameplayTests: another worker owns its Sapling methods and the coordinator integrates test changes separately. Do not merge main or alter gameplay, authored layout, original art, thresholds or assertions.
+Authorized runtime owners are BirdView, BoardView, BranchView, BirdhouseView, GameMotion and BirdIdleGroup under `PerchSort/Assets/Scripts/Game`, only as necessary, plus this specification and `docs/work-log/motion-acceptance/report.md`. The minimal fix changes **BirdView.cs only**. Other listed views were inspected read-only. Do not edit GameplayTests: another worker owns its Sapling methods and the coordinator integrates test changes separately. Do not merge main or alter gameplay, authored layout, original art, thresholds or assertions.
 
 The current Codex coordinator alone runs Unity and performs runtime acceptance. This worker may inspect source, run the static naming guard and perform disclosed arithmetic checks, not launch Unity or claim runtime success.
 

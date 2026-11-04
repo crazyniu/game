@@ -35,7 +35,7 @@
 | `PerchSort/Assets/Tests/PlayMode/GameplaySmokeTests.cs` | 原 7 项保留，新增 1 项菜单/通关/解锁/暂停/设置/重置确认烟测 |
 | `PerchSort/Assets/Editor/{Screenshots,PerchCaptureSequence}.cs` | 10 状态实际 Play Mode 截图；进度和设置使用隔离临时文件 |
 | `scripts/{run_tests,screenshots}.sh` | 全套测试与 10 张 PNG 1080×1920 验证 |
-| `docs/LICENSES.md`、`tasks/T5_report.md` | 字体/资源许可与本报告 |
+| `docs/LICENSES.md`、`docs/work-log/gameplay-interface/report.md` | 字体/资源许可与本报告 |
 
 所有新 Unity 资源附 `.meta`。没有修改 Core、关卡数据、原始美术、ProjectSettings、Packages 或音频 worker 的资源/代码/测试；SceneBuilder 不再重导入旧美术或改写 Build Settings。
 

@@ -4,7 +4,7 @@
 
 ## 范围
 
-完整读取 `tasks/T4_gameplay.md`、`docs/DESIGN.md`、`art/ASSETS.md` 和 `art/manifest.json`，基于既有 Core 与 40 关数据实现表现层。没有修改 Core、关卡数据、`art/` 原件或依赖配置，没有广告、内购或在线服务。导入的 14 张 PNG 与 `art/raw` 逐字节一致。
+完整读取 `docs/work-log/gameplay-runtime/spec.md`、`docs/DESIGN.md`、`art/ASSETS.md` 和 `art/manifest.json`，基于既有 Core 与 40 关数据实现表现层。没有修改 Core、关卡数据、`art/` 原件或依赖配置，没有广告、内购或在线服务。导入的 14 张 PNG 与 `art/raw` 逐字节一致。
 
 `SceneBuilder` 按 T4 要求将 Game 设为唯一 Build Settings 场景，因此生成 `ProjectSettings/EditorBuildSettings.asset` 的变化；协调者已通过 `msg_efc62ac504d0` 明确允许此项。其余 ProjectSettings 与开始时校验和一致。
 
@@ -37,7 +37,7 @@
 | `scripts/run_tests.sh` | 先重建场景，再执行 EditMode + PlayMode 并校验 XML |
 | `scripts/screenshots.sh` | 有图形设备的 batchmode 截图与 PNG 尺寸检查 |
 | `PerchSort/ProjectSettings/EditorBuildSettings.asset` | 生成：仅启用 Game 场景（已获协调者授权） |
-| `tasks/T4_report.md` | 本报告 |
+| `docs/work-log/gameplay-runtime/report.md` | 本报告 |
 
 ## 场景与脚本结构
 

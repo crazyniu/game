@@ -1,6 +1,6 @@
 # T41 — Remove Song meter and implement Berry Encore
 
-Scope: [T41_remove_song.md](T41_remove_song.md), branch `t39-polish`, issue #32, plus coordinator addendum `msg_27febaaeda0c` authorizing test mode. No commit or push. No scenes, catalog data, artwork, PNGs, existing art resources, or concurrent Meta work were edited; the addendum adds only `Resources/V5/dev_options.json` outside the original source/test/tool ownership and the authorized release-checklist line.
+Scope: [T41_remove_song.md](spec.md), branch `t39-polish`, issue #32, plus coordinator addendum `msg_27febaaeda0c` authorizing test mode. No commit or push. No scenes, catalog data, artwork, PNGs, existing art resources, or concurrent Meta work were edited; the addendum adds only `Resources/V5/dev_options.json` outside the original source/test/tool ownership and the authorized release-checklist line.
 
 ## Implementation
 

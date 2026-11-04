@@ -1,4 +1,4 @@
-> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/T16_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
+> HISTORICAL T16 DELIVERY. Superseded by T18 and docs/archive/BIRD_HOME_WITHDRAWN.md. Its proposed gameplay/schema and 60 tabletop routes are invalid for current rules4. Do not use this report as active requirements or current validation.
 
 # T16 — Bird-home documentation and tabletop validation
 
@@ -10,12 +10,12 @@ Isolated checkout: `/Users/apple/Documents/Codex/2026-10-31/task-2/game`, branch
 
 | Owner / navigation | Deliverable |
 | --- | --- |
-| Zero-context entry | [README](../README.md), synchronized [AGENTS](../AGENTS.md)/[CLAUDE](../CLAUDE.md), [AI router](../docs/README.md) |
-| Product / rules | [PRD](../docs/PRD.md), [RULES](../docs/spec/RULES.md), [compatibility router](../docs/DESIGN.md), [archived v2](../docs/archive/DESIGN_ORIGINAL.md) |
-| Level intent / evidence | [40 cards](../docs/LEVEL_DESIGN.md), [simulation index](../docs/LEVEL_SIMULATIONS.md), fixed [01–10](../docs/levels/FIXED_01_10.md)/[11–20](../docs/levels/FIXED_11_20.md)/[21–30](../docs/levels/FIXED_21_30.md)/[31–40](../docs/levels/FIXED_31_40.md) |
-| UI / motion | [single-value UI v1.3](../docs/UI_SPEC.md), [archived stacked revisions](../docs/archive/UI_SPEC_HISTORY.md), [interaction/timing](../docs/spec/INTERACTION_ANIMATION.md), [copyable AI templates](../docs/spec/ANIMATION_PROMPTS.md) |
-| Contracts / verification | [data/save](../docs/spec/DATA_SAVE.md), [validation](../docs/spec/VALIDATION.md), [implemented-v2 code map](../docs/spec/CODE_MAP.md) |
-| Research / task | [self-contained reference-game text](../docs/SORTING_RESEARCH.md), [task specification](T16_bird_home_prd.md), this report |
+| Zero-context entry | [README](../../../README.md), synchronized [AGENTS](../../../AGENTS.md)/[CLAUDE](../../../CLAUDE.md), [AI router](../../README.md) |
+| Product / rules | [PRD](../../PRD.md), [RULES](../../spec/RULES.md), [compatibility router](../../DESIGN.md), [archived v2](../../archive/DESIGN_ORIGINAL.md) |
+| Level intent / evidence | [40 cards](../../LEVEL_DESIGN.md), [simulation index](../../LEVEL_SIMULATIONS.md), fixed [01–10](../../levels/FIXED_01_10.md)/[11–20](../../levels/FIXED_11_20.md)/[21–30](../../levels/FIXED_21_30.md)/[31–40](../../levels/FIXED_31_40.md) |
+| UI / motion | [single-value UI v1.3](../../UI_SPEC.md), [archived stacked revisions](../../archive/UI_SPEC_HISTORY.md), [interaction/timing](../../spec/INTERACTION_ANIMATION.md), [copyable AI templates](../../spec/ANIMATION_PROMPTS.md) |
+| Contracts / verification | [data/save](../../spec/DATA_SAVE.md), [validation](../../spec/VALIDATION.md), [implemented-v2 code map](../../spec/CODE_MAP.md) |
+| Research / task | [self-contained reference-game text](../../SORTING_RESEARCH.md), [task specification](spec.md), this report |
 
 Rules, fixed initial content, teaching intent, static UI dimensions, timing/input and prompt templates each have one owner. Prompts distinguish design-only work from future explicitly authorized implementation and acceptance; writing them is not execution authority. Existing assets/UI remain unchanged.
 

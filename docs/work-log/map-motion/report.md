@@ -6,7 +6,7 @@
 
 The latest user instruction overrides historical tests-before-push requirements. Unity execution, compiler execution, EditMode/PlayMode suites, all-level playthrough, captures and timed runtime evidence are **NOT_RUN**. No historical green result is evidence for this delivery. Static source/API/asset review is not runtime acceptance.
 
-Requirements: [T50C specification](T50C_map_motion.md). Design references: [T50 Phase 2](T50_ui_code.md), [v5 animation/world contract](../docs/GAME_DESIGN.md), [team memory](../docs/team/MEMORY.md), approved `art/approved_ui/ui_map.png`, `ui_level_k3.png` and `ui_popup_world_unlock.png`.
+Requirements: [T50C specification](spec.md). Design references: [T50 Phase 2](../interface-runtime/spec.md), [v5 animation/world contract](../../GAME_DESIGN.md), [team memory](../../team/MEMORY.md), approved `art/approved_ui/ui_map.png`, `ui_level_k3.png` and `ui_popup_world_unlock.png`.
 
 ## Changed files
 
@@ -18,7 +18,7 @@ Under `PerchSort/Assets/Scripts/Game/`:
 - New `V7Ambient.cs` + `.meta`: bounded reusable world ambient pool and canopy driver.
 - New `V7LeafTransition.cs` + `.meta`: isolated leaf curtain presentation, 0.4-second duration.
 
-Documentation: `tasks/T50C_map_motion.md`, this report and `docs/team/status/mac-map-motion.md`.
+Documentation: `docs/work-log/map-motion/spec.md`, this report and `docs/team/status/mac-map-motion.md`.
 
 No Core/Meta, level data, economy, shared layout/art/utilities, root, gate class, tests, scenes, settings, package files, original artwork or T51 files were edited. Existing owning gameplay specifications and tests are intentionally unchanged: presentation does not change their contracts.
 

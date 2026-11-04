@@ -10,8 +10,8 @@ Existing 17 PlayMode tests seed daily/friend/world receipts to isolate earlier g
 
 - `PerchSort/Assets/Tests/PlayMode/NotificationFlowTests.cs`
 - Its paired `.meta`
-- `tasks/T52G_notification_acceptance.md`
-- `tasks/T52G_report.md`
+- `docs/work-log/notification-acceptance/spec.md`
+- `docs/work-log/notification-acceptance/report.md`
 
 No runtime, resource, scene, existing test/assertion, asmdef, CI, guideline or peer-task changes. Do not add skips, expected-error suppression, new versioned persistence literals, fake roots, mock payouts, alternate scenes or broad harnesses.
 

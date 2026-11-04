@@ -6,7 +6,7 @@
 - Full **DEEP validation: 40/40 PASS, exit 0** on both the frozen Core and the final live Core, with the explicitly authorized exceptions below; every other T35 gate remains active.
 - Existing live-Core `LevelsDataTests`: **81 passed, 0 failed, 0 skipped** on both the staged catalog and the installed resource, using NUnitLite 3.13.3, a separate Core assembly and a Linux file-backed Resources/JSON adapter.
 - No Core, shared level-tool, scene, artwork or existing test source was edited by T42; no commit or push.
-- Authority: [T42 task](T42_level_deepening.md), [v5 design §§11–12](../docs/GAME_DESIGN.md#11-level-plan-40-levels), coordinator clarifications `msg_06bfe96858d7`, `msg_36c158aa8784` and Mac-budget decision `msg_56134b267b23`.
+- Authority: [T42 task](spec.md), [v5 design §§11–12](../../GAME_DESIGN.md#11-level-plan-40-levels), coordinator clarifications `msg_06bfe96858d7`, `msg_36c158aa8784` and Mac-budget decision `msg_56134b267b23`.
 
 ## Named gates and explicit exceptions
 
@@ -156,5 +156,5 @@ Do not repeat the snapshot-copy command now: it records the historical start-of-
 ## Artifacts
 
 - Installed resource SHA-256: `7a887dfd9066e2067e19caf77dcac5d3b0c1e74b5a4e5c47f08ffd155b03fbde`.
-- [Final live evidence](../tools/levels/work/live-deep-evidence.json), [frozen evidence](../tools/levels/work/staged-deep-evidence.json), [installed data-test results](../tools/levels/work/installed-data-tests.xml), [atomic installation record](../tools/levels/work/install-result.json).
-- [Strict 1000 ms screen](../tools/levels/work/final-fast-screen.json) and [strict-screen search effort](../tools/levels/work/fast-repair-summary.json).
+- [Final live evidence](../../../tools/levels/work/live-deep-evidence.json), [frozen evidence](../../../tools/levels/work/staged-deep-evidence.json), [installed data-test results](../../../tools/levels/work/installed-data-tests.xml), [atomic installation record](../../../tools/levels/work/install-result.json).
+- [Strict 1000 ms screen](../../../tools/levels/work/final-fast-screen.json) and [strict-screen search effort](../../../tools/levels/work/fast-repair-summary.json).

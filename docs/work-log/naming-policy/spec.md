@@ -8,8 +8,8 @@ D owns only:
 
 - `ci/check_current_game_names.py` (new dependency-free Python guard).
 - `PerchSort/Assets/Scripts/Game/GameLayout.cs` (one provenance comment only).
-- `tasks/T52D_naming_policy.md`.
-- `tasks/T52D_report.md`.
+- `docs/work-log/naming-policy/spec.md`.
+- `docs/work-log/naming-policy/report.md`.
 
 C owns current documentation, permanent agent instructions, canonical Editor/Tests/Scenes migration, and CI invocation wiring. D may read C's worktree, but may not edit or merge it. The current Codex coordinator accepts deliveries and owns serialized post-integration Mac testing and GUI acceptance. No reports go to retired Claude sessions. No worker Unity/compiler/test-suite execution is authorized; focused static guard fixtures are authorized.
 

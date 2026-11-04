@@ -1,6 +1,6 @@
 # T10c — 接入正式美术 + 表现层打磨
 
-前置：T10a 美术已验收（`art/raw/{env,fx,ui,birds}`，含 `bird_NNs.png` 睡眠鸟、crate/basket/nest/nest_done/zzz/sparkle/check/feather/ring/confetti_01-03/trophy/star/closed_eye）；T10b 表现层已验收（报告 `tasks/T10b_report.md`，末节“T10c 占位资源契约”给出 Resources 键）。Unity 编辑器未开，你独占项目。
+前置：T10a 美术已验收（`art/raw/{env,fx,ui,birds}`，含 `bird_NNs.png` 睡眠鸟、crate/basket/nest/nest_done/zzz/sparkle/check/feather/ring/confetti_01-03/trophy/star/closed_eye）；T10b 表现层已验收（报告 `docs/work-log/forest-view/report.md`，末节“T10c 占位资源契约”给出 Resources 键）。Unity 编辑器未开，你独占项目。
 
 ## 必须做
 1. **接入真素材**：把 art/raw 新增素材按 Unity 导入规范放进 `PerchSort/Assets/Art/…`（沿用现有 Art 目录与 import 设置脚本/约定，PPU 与 pivot 参考 `art/manifest.json`），按 T10b 契约键接入：箱体 crate、篮子 basket、目标巢 nest（激活/完成态 nest_done）、睡眠鸟用 `bird_NNs`（不再用变暗占位）、Z 用 zzz.png 气泡（飘动+淡出）、sparkle/check/feather/ring、彩纸三种随机纸片、结算页奖杯 trophy 与星 star。**不得改 art/ 原件**；缺口回报。
@@ -14,7 +14,7 @@
 5. `bash scripts/run_tests.sh` 全绿；`bash scripts/screenshots.sh` 出新图（含 1/20/40 关、睡眠、归巢、结算页）。
 
 ## 约束
-不改 Core、关卡数据；不提交 git；报告 `tasks/T10c_report.md`（含布局数值、截图清单、自行决定的点）。
+不改 Core、关卡数据；不提交 git；报告 `docs/work-log/visual-polish/report.md`（含布局数值、截图清单、自行决定的点）。
 
 ## 验收（Claude）
 我重跑测试；逐张看截图找重叠/比例/穿帮。

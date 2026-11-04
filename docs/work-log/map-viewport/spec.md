@@ -1,5 +1,5 @@
 # T54I Map viewport, bottom bar collisions and clipping (user feedback 2026-11-04)
-Read tasks/T54_contract.md. Owned: `PerchSort/Assets/Scripts/Game/MapView.cs`, `MapModel.cs`, `MapMotion.cs`, `GateView.cs`, `LeafTransition.cs`, new `Tests/**/T54I*.cs`. Others read-only.
+Read docs/work-log/integration-contract/spec.md. Owned: `PerchSort/Assets/Scripts/Game/MapView.cs`, `MapModel.cs`, `MapMotion.cs`, `GateView.cs`, `LeafTransition.cs`, new `Tests/**/T54I*.cs`. Others read-only.
 Problems seen on the map near level 34-40:
 - I1 The bottom bar (shop, aviary, settings discs) sits directly on top of level node 34 and its stars; nodes can scroll under the bar. The scroll viewport must end above the bar (reserve the bar
   height plus margin) with a soft fade, so no node is ever hidden or touched by the bar; the player node must never be placed under it when the map auto-focuses.

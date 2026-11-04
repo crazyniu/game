@@ -3,7 +3,7 @@
 负责：Codex（gpt-6-astra / high）。验收：Claude。
 
 ## 背景
-T11c 已交付前 5 关完整流程（报告 tasks/T11c_report.md，截图 build/screens/flow/）。Claude 已复跑测试（EditMode 163/163，PlayMode 14 过 / 0 失败 / 8 Explicit）并逐张走查，主菜单、暂停、设置、HUD 图标化、select_and_fly、homing 动画已通过。剩余 10 处视觉问题写在 **docs/UI_SPEC.md 末尾“v1.3 修订”**，本任务只做这 10 条。
+T11c 已交付前 5 关完整流程（报告 docs/work-log/interface-visuals/report.md，截图 build/screens/flow/）。Claude 已复跑测试（EditMode 163/163，PlayMode 14 过 / 0 失败 / 8 Explicit）并逐张走查，主菜单、暂停、设置、HUD 图标化、select_and_fly、homing 动画已通过。剩余 10 处视觉问题写在 **docs/UI_SPEC.md 末尾“v1.3 修订”**，本任务只做这 10 条。
 
 ## 执行纪律
 - 逐条照 v1.3 做，坐标、尺寸、颜色按规范数值，不得自行发挥或增删功能。
@@ -26,5 +26,5 @@ T11c 已交付前 5 关完整流程（报告 tasks/T11c_report.md，截图 build
 ## 交付
 - `bash scripts/run_tests.sh` 全绿（EditMode 全过；PlayMode 0 失败）。
 - 重新生成全部 `build/screens/flow/flow_*.png` 与 `anim_*_01..06.png`（同名覆盖），新增 `flow_33_menu_settings.png`（从主菜单打开设置）。
-- 报告写 `tasks/T11d_report.md`：逐条列出 1–10 的改动文件与对应截图文件名。
+- 报告写 `docs/work-log/interface-rework/report.md`：逐条列出 1–10 的改动文件与对应截图文件名。
 - 完成后 worker_done。

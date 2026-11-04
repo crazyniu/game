@@ -15,7 +15,7 @@ public void WinPanel.Show(int earnedStars, int reward, int chorusCoins, Action c
 
 Origin = top-left 1080x1920 design-space, consumed by next `LevelCard(int)`. Root/map must provide it; otherwise the existing centred spring entrance remains. The optional win callback fires once at the current coin-flight beat (immediate in Instant), suppresses stale/canceled callbacks, and may synchronize only an already-committed HUD count. The existing three-argument Show stays valid. [V7GateView.Configure(V5Art,int,bool)](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/team/status/mac-popups.md#L16), `Open(Action)`, `IsOpening` remain unchanged; canceled Open suppresses stale success callbacks and clears opening state.
 
-Root still owns payout, acknowledgement and notification collection. Align existing `Hud.CountCoins` through the win callback; do not grant from animation. Daily-gift duplicate spectacle is resolved: there is no popup pre-ack coin burst/flight, and root post-ack `Map.CollectCoins` after reward persistence is the sole daily-gift collection visual. See [delivery report](../../../tasks/T50B_report.md) for exact integration requests and source evidence.
+Root still owns payout, acknowledgement and notification collection. Align existing `Hud.CountCoins` through the win callback; do not grant from animation. Daily-gift duplicate spectacle is resolved: there is no popup pre-ack coin burst/flight, and root post-ack `Map.CollectCoins` after reward persistence is the sole daily-gift collection visual. See [delivery report](../../work-log/popup-motion/report.md) for exact integration requests and source evidence.
 
 ## Evidence and limits
 

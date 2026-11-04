@@ -27,7 +27,7 @@ Required per-species sequence counts: flap 6, hop 6, turn_left 4, turn_right 4, 
 
 ## QA and rejected candidates
 
-Every completed sequence has a JPEG contact sheet on light/dark backgrounds, includes the approved idle and 64px grayscale thumbnails, and has a looping APNG preview at 10 fps. Contact sheets are duplicated under `tasks/evidence/T54G/` (maximum width 1120px). Inventories record source cells, scale, placement, alpha, bounds and export hashes.
+Every completed sequence has a JPEG contact sheet on light/dark backgrounds, includes the approved idle and 64px grayscale thumbnails, and has a looping APNG preview at 10 fps. Contact sheets are duplicated under `docs/work-log/bird-frame-sequences/evidence/` (maximum width 1120px). Inventories record source cells, scale, placement, alpha, bounds and export hashes.
 
 Rejected: the initial six Sunny flap candidates had an off-white translucent backdrop. A built-in background-extraction edit produced a clean alpha cutout; only the corrected sheet is used by runtime exports. The rejected source is retained as `art/birds_sequences/raw/sunny_flap_rejected_backdrop.png`.
 

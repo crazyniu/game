@@ -24,6 +24,6 @@ Write all 40 levels into `PerchSort/Assets/Resources/Levels/levels.json` (level 
 ## Part C: tests and report
 
 - Add an EditMode test `LevelsDataTests` that loads `levels.json` and, for every level, checks schema, species counts, debut rules and that the stored par equals the solver result when the solver finishes within a test budget (skip with an explicit message only for levels whose search is known to exceed the budget, and list them; the tool remains the authority).
-- `tasks/T35_report.md`: the full validation table (id, world, variant, K, branches, mechanics, role, par, random win rate, dead-state share, ordering-rule result, gate pass), the design intent of every teach level in one line, tool usage, and anything not met.
+- `docs/work-log/authored-levels/report.md`: the full validation table (id, world, variant, K, branches, mechanics, role, par, random win rate, dead-state share, ordering-rule result, gate pass), the design intent of every teach level in one line, tool usage, and anything not met.
 
-Ownership: `tools/levels/LevelTool/**`, `tools/levels/README.md`, `PerchSort/Assets/Resources/Levels/levels.json`, `PerchSort/Assets/Tests/EditMode/LevelsDataTests.cs`, `tasks/T35_report.md`. Nothing else. No commit. Send a status after the tool works, after each world of levels, and `worker_done` at the end.
+Ownership: `tools/levels/LevelTool/**`, `tools/levels/README.md`, `PerchSort/Assets/Resources/Levels/levels.json`, `PerchSort/Assets/Tests/EditMode/LevelsDataTests.cs`, `docs/work-log/authored-levels/report.md`. Nothing else. No commit. Send a status after the tool works, after each world of levels, and `worker_done` at the end.

@@ -4,7 +4,7 @@
 
 ## Scope and authority
 
-Executed [T44b_missing_icons.md](T44b_missing_icons.md) in the user-selected `/Users/apple/Documents/projects/game-icons` checkout. The current user overrides the older Linux worktree instruction and authorizes only new files under `PerchSort/Assets/Resources/Art/`, `art/v6/runtime/`, and this report. No Git commit/push, Unity launch, game code, scenes, import settings, original artwork, or existing T44 report/manifest changes were made.
+Executed [T44b_missing_icons.md](spec.md) in the user-selected `/Users/apple/Documents/projects/game-icons` checkout. The current user overrides the older Linux worktree instruction and authorizes only new files under `PerchSort/Assets/Resources/Art/`, `art/v6/runtime/`, and this report. No Git commit/push, Unity launch, game code, scenes, import settings, original artwork, or existing T44 report/manifest changes were made.
 
 Read the README, documentation router, mechanic evidence, UI_SPEC approved style, T40 measured notes, and T44 task/report. Visual references: [icon sheet](../art/v6/mock/icon_sheet.png) and the existing [sound-on icon](../PerchSort/Assets/Resources/Art/ico_sound_on.png). This task adds artwork only and establishes no gameplay contract.
 
@@ -48,6 +48,6 @@ Generated originals are preserved in [t44b_sources](../art/v6/runtime/t44b_sourc
 - `art/v6/runtime/t44b_sources/ico_footsteps.png`
 - `art/v6/runtime/t44b_sources/ico_flag.png`
 - `art/v6/runtime/t44b_sources/ico_sound_off.png`
-- `tasks/T44b_art_report.md`
+- `docs/work-log/missing-icons/report-art.md`
 
 **MISSING: none.**

@@ -40,7 +40,7 @@ No house, rope, level, rule, economy, persistence identifier or other presentati
 
 ## Retained regression coverage
 
-### `Tests/PlayMode/T54DButtonTests.cs` — four passing cases
+### `Tests/PlayMode/ButtonSizeTests.cs` — four passing cases
 
 1. Three active tools on authored level 5: equal rect sizes and local/rendered scales with undo disabled, after legal move 0 to 3 enables undo, and after timed disable/re-enable transitions; equal badge size/offset.
 2. Four active tools on authored level 40: the same checks, using legal move 3 to 6.
@@ -49,7 +49,7 @@ No house, rope, level, rule, economy, persistence identifier or other presentati
 
 The fixture uses the genuine Game scene and existing nonpersistent initialization / fixture-loading APIs. It restores motion, time-scale and dev-option state and does not seed PlayerPrefs.
 
-### `Tests/EditMode/T54DCoinHeaderTests.cs` — eight passing cases
+### `Tests/EditMode/CoinHeaderTests.cs` — eight passing cases
 
 HUD and map, each with `0`, `240`, `2000`, `99999`: verify the label rectangle is inside the cream area with disc/end clearance, centered there, the coin is not distorted, the actual font remains on one line, and rendered glyph bounds fit with margin.
 
@@ -64,7 +64,7 @@ All Unity invocations were protected by `flock /tmp/unity.lock`. Preflight after
 | Check | Command / run | Result |
 | --- | --- | --- |
 | Naming policy | `python3 ci/check_current_game_names.py` | PASS, zero violations |
-| Failing-before coin reproduction | Unity EditMode filter `PerchSort.EditModeTests.T54DCoinHeaderTests` | 0/8 passed, 8 failed on the old layout |
+| Failing-before coin reproduction | Unity EditMode filter `PerchSort.EditModeTests.CoinHeaderTests` | 0/8 passed, 8 failed on the old layout |
 | Full compilation and suites | `flock /tmp/unity.lock bash scripts/run_tests.sh` | Scene build succeeded; EditMode **312/312**; PlayMode **25/25**; zero failures/skips |
 | Graphics-enabled timed smoke | Unity PlayMode filter `PerchSort.PlayModeTests.T54DEvidence`, 1080 by 1920 | **1/1 passed**, real UI frames captured; temporary runner removed before the full suites |
 | Canonical stable captures | `flock /tmp/unity.lock bash scripts/screenshots.sh` | **34 PNGs**, each validated as 1080 by 1920 |
@@ -72,20 +72,20 @@ All Unity invocations were protected by `flock /tmp/unity.lock`. Preflight after
 The focused reproduction used:
 
 ```text
-flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath /Users/apple/orca/workspaces/game/t54-buttons/PerchSort -runTests -testPlatform EditMode -testFilter PerchSort.EditModeTests.T54DCoinHeaderTests -testResults /Users/apple/orca/workspaces/game/t54-buttons/build/coin-before.xml -logFile /Users/apple/orca/workspaces/game/t54-buttons/build/coin-before.log
+flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath /Users/apple/orca/workspaces/game/t54-buttons/PerchSort -runTests -testPlatform EditMode -testFilter PerchSort.EditModeTests.CoinHeaderTests -testResults /Users/apple/orca/workspaces/game/t54-buttons/build/coin-before.xml -logFile /Users/apple/orca/workspaces/game/t54-buttons/build/coin-before.log
 ```
 
 The graphics-enabled smoke used the same executable/project/lock with `-batchmode -screen-width 1080 -screen-height 1920 -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54DEvidence -testResults /Users/apple/orca/workspaces/game/t54-buttons/build/evidence-results.xml -logFile /Users/apple/orca/workspaces/game/t54-buttons/build/evidence.log`, without `-nographics`.
 
 Development corrections are recorded honestly: the initial test compilation found the missing TMP test-assembly reference; the test was kept within owned files using reflection. Its rendering fixture then needed a Canvas. The rendered five-digit case exposed glyph overhang with the initial four-unit inset; the production inset was increased to eight. The final full suites pass every case; no baseline test was changed to accommodate these corrections.
 
-Local raw results remain in ignored `build/coin-before.xml`, `build/test-results.xml`, `build/playmode-results.xml`, `build/evidence-results.xml` and their logs. Portable counts and exact worker-case names are committed in `tasks/evidence/T54D/verification.json`.
+Local raw results remain in ignored `build/coin-before.xml`, `build/test-results.xml`, `build/playmode-results.xml`, `build/evidence-results.xml` and their logs. Portable counts and exact worker-case names are committed in `docs/work-log/button-sizing/evidence/verification.json`.
 
 ## Committed visual and timed evidence
 
 All JPEG contact sheets are at most 1600 pixels wide, derived only from actual Unity frames. They were visually inspected after capture.
 
-| Evidence under `tasks/evidence/T54D/` | Contents |
+| Evidence under `docs/work-log/button-sizing/evidence/` | Contents |
 | --- | --- |
 | `bottom_bar_states.jpg` | Three- and four-tool bars, actual undo disabled and enabled by a legal move |
 | `button_timed_contact.jpg` | 51 bottom-bar frames from 0 to 5 seconds at requested 0.1-second intervals, with press/release and disable/re-enable changes |

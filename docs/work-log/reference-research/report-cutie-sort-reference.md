@@ -1,6 +1,6 @@
 # Historical Delivery: Cutie Sort Reference Extraction
 
-> Historical extraction report. T19 consolidates the findings into the standalone [Cutie Sort gameplay reference](../docs/references/CUTIE_SORT_GAMEPLAY_REFERENCE.md) and removes generated code and intermediate output. Only the original APK inputs and manifest remain local and ignored. The counts below describe the earlier extraction.
+> Historical extraction report. T19 consolidates the findings into the standalone [Cutie Sort gameplay reference](../../references/CUTIE_SORT_GAMEPLAY_REFERENCE.md) and removes generated code and intermediate output. Only the original APK inputs and manifest remain local and ignored. The counts below describe the earlier extraction.
 
 ## Identity and scope
 

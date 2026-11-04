@@ -6,7 +6,7 @@ Branch: `mac-ui-map/t53`. Implementation commit: `30831f4`.
 
 **Reachable presentation changes delivered; D10/D11 are not an exact approved-image match.** Actual Unity renders were compared and iterated. The remaining art/layout discrepancies are listed below rather than counted as fixed. No merge or main-branch change was made.
 
-Only `PerchSort/Assets/Scripts/Game/MapView.cs` changed in production. `MapModel.cs`, `MapMotion.cs`, `GateView.cs`, `LeafTransition.cs`, progress/unlock rules, storage, originals, resources, shared geometry, scene source, and existing tests were intentionally unchanged. The coordinator subsequently authorized the committed review images under `tasks/evidence/T53D/`.
+Only `PerchSort/Assets/Scripts/Game/MapView.cs` changed in production. `MapModel.cs`, `MapMotion.cs`, `GateView.cs`, `LeafTransition.cs`, progress/unlock rules, storage, originals, resources, shared geometry, scene source, and existing tests were intentionally unchanged. The coordinator subsequently authorized the committed review images under `docs/work-log/map-fidelity/evidence/`.
 
 ## Changes by defect
 
@@ -32,13 +32,13 @@ Committed review JPEGs are **1080 px tall, JPEG quality 80**:
 
 | Fixture | Committed comparison |
 | --- | --- |
-| Original new-game runtime | [Before](evidence/T53D/map_before_comparison.jpg) |
-| New game, level 1 current | [Current 1](evidence/T53D/map_current_1_comparison.jpg) |
-| Level 4 current, levels 1–3 earned three stars | [Current 4](evidence/T53D/map_current_4_comparison.jpg) |
-| World end, level 10 current, locked gate | [Current 10](evidence/T53D/map_current_10_comparison.jpg) |
-| Level 11 current, naturally open previous-world gate | [Current 11](evidence/T53D/map_current_11_comparison.jpg) |
-| Extra top-clamp boundary, level 40 current | [Current 40](evidence/T53D/map_current_40_comparison.jpg) |
-| Existing gate-opening completion | [Open gate](evidence/T53D/map_gate_open_comparison.jpg) |
+| Original new-game runtime | [Before](evidence/map_before_comparison.jpg) |
+| New game, level 1 current | [Current 1](evidence/map_current_1_comparison.jpg) |
+| Level 4 current, levels 1–3 earned three stars | [Current 4](evidence/map_current_4_comparison.jpg) |
+| World end, level 10 current, locked gate | [Current 10](evidence/map_current_10_comparison.jpg) |
+| Level 11 current, naturally open previous-world gate | [Current 11](evidence/map_current_11_comparison.jpg) |
+| Extra top-clamp boundary, level 40 current | [Current 40](evidence/map_current_40_comparison.jpg) |
+| Existing gate-opening completion | [Open gate](evidence/map_gate_open_comparison.jpg) |
 
 Full-resolution comparisons: `build/screens/t53d/*_comparison.jpg`.
 Runtime sources: `build/screens/game/map_current_{1,4,10,11,40}.png`, `map_gate_open.png`, plus the standard capture set. Comparison helper is outside the repository at `/tmp/t53d/compare.py`.

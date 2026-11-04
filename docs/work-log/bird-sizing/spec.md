@@ -3,7 +3,7 @@
 负责：Codex（gpt-6-astra / high）。验收：Claude。
 
 ## 背景
-T15 已把正面鸟接入（tasks/T15_report.md）。问题是协调者给的参数“画布宽 = 槽宽 × 1.15”错了：正面鸟可见身体只占画布宽约 40–58%，导致棋盘上的鸟只有约 60px 高，太小、栖木大片空白（见 build/screens/flow/flow_05_level1_hud.png）。
+T15 已把正面鸟接入（docs/work-log/foreground-bird-integration/report.md）。问题是协调者给的参数“画布宽 = 槽宽 × 1.15”错了：正面鸟可见身体只占画布宽约 40–58%，导致棋盘上的鸟只有约 60px 高，太小、栖木大片空白（见 build/screens/flow/flow_05_level1_hud.png）。
 
 ## 修改（照做）
 1. 棋盘栖木上的鸟：**画布宽 = 槽宽 × 1.7**（槽宽 80 时画布 136）。脚底线仍对齐栖木上表面；相邻鸟画布允许重叠，渲染顺序从外墙端到外露端依次在上。
@@ -17,4 +17,4 @@ T15 已把正面鸟接入（tasks/T15_report.md）。问题是协调者给的参
 
 ## 交付
 - `bash scripts/run_tests.sh` 全绿。
-- 重新生成全部 flow_* 与 anim_*；报告 tasks/T15b_report.md（最终槽宽、画布、可见鸟高、行距）。完成后 worker_done。
+- 重新生成全部 flow_* 与 anim_*；报告 docs/work-log/bird-sizing/report.md（最终槽宽、画布、可见鸟高、行距）。完成后 worker_done。

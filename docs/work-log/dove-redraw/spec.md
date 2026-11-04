@@ -3,7 +3,7 @@
 负责：Codex（gpt-6-astra / high）。验收：Claude。
 
 ## 背景
-T10d 已交付 10 种正面鸟（art/raw/birds_front/，报告 tasks/T10d_report.md）。其余 9 种已通过。bird_05 扇尾鸽原图尾扇过宽，等比缩小到总宽 62% 后身体只有其它鸟约 60% 大，在 contact_front_row.png 里明显偏小，不合格。只靠缩放无法同时满足“体型一致”和“不过宽”，因此重画。
+T10d 已交付 10 种正面鸟（art/raw/birds_front/，报告 docs/work-log/foreground-birds/report.md）。其余 9 种已通过。bird_05 扇尾鸽原图尾扇过宽，等比缩小到总宽 62% 后身体只有其它鸟约 60% 大，在 contact_front_row.png 里明显偏小，不合格。只靠缩放无法同时满足“体型一致”和“不过宽”，因此重画。
 
 ## 要求（照做，不得自行发挥）
 - 只改 bird_05 的 4 张：bird_05.png、bird_05_blink.png、bird_05_sleep.png、bird_05_fly.png。其它鸟、PerchSort/ 工程、已有素材一律不动；不提交 git。
@@ -17,5 +17,5 @@ T10d 已交付 10 种正面鸟（art/raw/birds_front/，报告 tasks/T10d_report
 - 生成后更新 manifest_front.json 中 bird_05 条目（去掉之前的“缩小例外”备注），并重出 contact_front.png、contact_front_row.png、contact_front_gray64.png。
 
 ## 交付
-- 报告 tasks/T10e_report.md：量得的身体高度、身体宽度、总宽三项数值，对比 bird_01。
+- 报告 docs/work-log/dove-redraw/report.md：量得的身体高度、身体宽度、总宽三项数值，对比 bird_01。
 - 有歧义用 orca orchestration ask 问协调者。完成后 worker_done。

@@ -6,7 +6,7 @@ Branch [t30-v5-first-level](https://github.com/crazyniu/game/blob/cb438e87e67e6d
 You may create/edit only:
 - [art/v5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L7) (raw generations, prompts, contact sheets, QA files)
 - `PerchSort/Assets/Resources/Art/**` (final runtime PNGs; Unity will create `.meta` on import — do not hand-write metas)
-- `tasks/T30_art_report.md`
+- `docs/work-log/game-rebuild/report-art.md`
 
 Never modify anything under `art/` outside [art/v5/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L11), never touch code, scenes, `ProjectSettings`, or `Packages`. Do not commit or push; the coordinator commits.
 
@@ -40,5 +40,5 @@ Follow `docs/GAME_DESIGN.md` §4: plush 3D-rendered cartoon, soft fur, big gloss
 ## Process and acceptance
 1. Generate with your image tool; keep raw outputs and the exact prompts in [art/v5/raw/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L41) and [art/v5/prompts.md](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L41).
 2. Post-process (Python/Pillow is fine; scripts in [art/v5/tools/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_art.md#L42)) to: exact sizes above, real transparency (no baked checkerboard, no white halo — check alpha edges), consistent bird scale/foot line across the four frames of each species.
-3. Verify and record in `tasks/T30_art_report.md`: per-file size + mode (RGBA) + alpha min/max, foot-line y per bird frame, the hand fingertip pixel, grayscale 64 px distinguishability of sunny vs sky, and a list of anything you could not achieve.
+3. Verify and record in `docs/work-log/game-rebuild/report-art.md`: per-file size + mode (RGBA) + alpha min/max, foot-line y per bird frame, the hand fingertip pixel, grayscale 64 px distinguishability of sunny vs sky, and a list of anything you could not achieve.
 4. Done = every listed file exists at the exact path and size, report written. A missing file is a failure to report honestly, not to fake (no placeholder flat shapes passed off as final art).

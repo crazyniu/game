@@ -26,7 +26,7 @@
 
 Four serialized capture passes were made: baseline, first implementation, refinement, and final. Actual scene/UI rendering was inspected beside the approved images, including house overlap, coin/rope intersections, numeric badges, first-level controls and home-check state.
 
-Portable review JPEGs are committed under **`tasks/evidence/T53B/`**, quality 80, maximum height 1080 pixels (full sheets 1195×1080; header sheets 1440×368; booster strip 1440×207):
+Portable review JPEGs are committed under **`docs/work-log/hud-house-fidelity/evidence/`**, quality 80, maximum height 1080 pixels (full sheets 1195×1080; header sheets 1440×368; booster strip 1440×207):
 
 | Evidence | Purpose |
 | --- | --- |

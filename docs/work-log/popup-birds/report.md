@@ -5,7 +5,7 @@
 - Branch: `mac-t54f/t54`, created at the supplied contract tip with `git switch -c mac-t54f/t54`.
 - Integrated the requested `origin/t54-contract` updates through `9826515`, including the binding exact action tables and the empty-goal clarification.
 - Runtime ownership respected: only `WinPanel.cs`, `PopupMotion.cs`, `BirdhouseView.cs`, and new `UiBirdLife.cs` changed under `Assets/Scripts/Game`. `PopupFlow.cs` did not need a change. `BirdView`, `BirdIdleGroup`, Core, Meta, artwork, resource metadata, default layout constants, and other workers' files were not edited.
-- New permanent tests are confined to `Assets/Tests/PlayMode/T54FUiBirdTests.cs` and `T54FUiSequenceTests.cs`, with their required Unity metadata. No existing test was edited, weakened, or skipped.
+- New permanent tests are confined to `Assets/Tests/PlayMode/PopupBirdTests.cs` and `PopupBirdSequenceTests.cs`, with their required Unity metadata. No existing test was edited, weakened, or skipped.
 
 ## Changes by problem
 
@@ -73,17 +73,17 @@ Earlier attempts: two launches timed out after 1200 s waiting for another worktr
 
 ## Timed evidence
 
-Committed under [`tasks/evidence/T54F`](evidence/T54F/). Every JPEG is at most 1600 px wide. Labels use measured Unity runtime timestamps, not invented or interpolated frames.
+Committed under [`docs/work-log/popup-birds/evidence`](../../../docs/work-log/popup-birds/evidence). Every JPEG is at most 1600 px wide. Labels use measured Unity runtime timestamps, not invented or interpolated frames.
 
 | Evidence | Sampling |
 | --- | --- |
-| [`win-entrance.jpg`](evidence/T54F/win-entrance.jpg) | 41 frames, 0–4 s, 0.1 s targets |
-| [`win-idle.jpg`](evidence/T54F/win-idle.jpg) | 12 additional frames, 4.5–10 s, 0.5 s targets |
-| [`houses-empty.jpg`](evidence/T54F/houses-empty.jpg) | 61 frames, 0–15 s, 0.25 s targets; both houses empty |
-| [`delivery.jpg`](evidence/T54F/delivery.jpg) | 33 frames, 0–8 s, 0.25 s targets; first authored blue-flock delivery |
-| [`houses-resident.jpg`](evidence/T54F/houses-resident.jpg) | 61 frames, 0–15 s after delivery, 0.25 s targets; only the delivered blue resident is present |
-| [`win-buttons.jpg`](evidence/T54F/win-buttons.jpg) | Actual rendered button-row crop, not a mockup |
-| [`timing.csv`](evidence/T54F/timing.csv) | All 208 target and actual frame timestamps |
+| [`win-entrance.jpg`](evidence/win-entrance.jpg) | 41 frames, 0–4 s, 0.1 s targets |
+| [`win-idle.jpg`](evidence/win-idle.jpg) | 12 additional frames, 4.5–10 s, 0.5 s targets |
+| [`houses-empty.jpg`](evidence/houses-empty.jpg) | 61 frames, 0–15 s, 0.25 s targets; both houses empty |
+| [`delivery.jpg`](evidence/delivery.jpg) | 33 frames, 0–8 s, 0.25 s targets; first authored blue-flock delivery |
+| [`houses-resident.jpg`](evidence/houses-resident.jpg) | 61 frames, 0–15 s after delivery, 0.25 s targets; only the delivered blue resident is present |
+| [`win-buttons.jpg`](evidence/win-buttons.jpg) | Actual rendered button-row crop, not a mockup |
+| [`timing.csv`](evidence/timing.csv) | All 208 target and actual frame timestamps |
 
 Win, delivery and resident captures were within 0.001 s of their target timestamps at the CSV's millisecond precision. The initial empty-house sequence had cold-render/startup hitches, maximum 0.317 s lateness; its actual timestamps are retained rather than presented as exact intervals. Full-resolution source PNGs and local XML/logs remain ignored under `build/`.
 

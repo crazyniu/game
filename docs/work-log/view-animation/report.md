@@ -1,6 +1,6 @@
 # T34 view and animation delivery report
 
-Authority: [T34](T34_view_animation.md), [GAME_DESIGN_V5 v5.3](../docs/GAME_DESIGN.md), [T30 art registration](T30_art_report.md), and [T33 art delivery](T33_art_report.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
+Authority: [T34](spec.md), [GAME_DESIGN_V5 v5.3](../../GAME_DESIGN.md), [T30 art registration](../game-rebuild/report-art.md), and [T33 art delivery](../bird-art/report-art.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
 
 ## Phase 1 — mechanic presentation
 
@@ -34,7 +34,7 @@ A verification-discovered bug was reproduced: an old blink could overwrite a noc
 - `V5Progress` persists highest unlocked level, best stars, coins, all six inventories, Song notes/payout count, per-level tutorial flags, starter-grant flags and mute under `v5.` keys. Starter gifts are granted once at the configured unlock levels. First-clear/replay rewards include the committed Chorus coin bonus.
 - Purchases are separate coin transactions, not board actions. The coordinator approved additive `GameSession.GrantBooster`, applying purchased stock to current state, restart baseline and all undo snapshots. Undo refunds a consumed booster without refunding its purchase; Restart restores attempt-entry Song/inventory while preserving purchases. Next carries the winning attempt's persisted Song/inventory.
 - Firefly searches a detached Core snapshot on a background task with a 1.5-second budget. Unknown uses a disclosed greedy legal move, preferring immediate completion (including landing wakes/mama followers) and then same-species joins. No returned move means no consumption. One search can be outstanding; revision/session checks reject stale results. The coordinator approved additive `TryUseFirefly(Move)` to commit the already-computed legal hint as an undoable consumption, without re-running the solver on the main thread. `BoosterHasEffect` is the read-only UI accessor. Existing Core signatures remain available as requested.
-- `TutorialHand` now includes every teach-level script named in the available [T35 handoff](T35_report.md#teach-level-intent), including the optional initial Firefly hand on L2. Legal-action guards suppress invalid guidance; an alternate move or Undo disables the current lesson rather than coercing the player. All ten scripts completed their intended mechanics and won through the real controller against T35's passing **draft teaching boards**. This is not acceptance of the pending 40-level production catalog.
+- `TutorialHand` now includes every teach-level script named in the available [T35 handoff](../authored-levels/report.md#teach-level-intent), including the optional initial Firefly hand on L2. Legal-action guards suppress invalid guidance; an alternate move or Undo disables the current lesson rather than coercing the player. All ten scripts completed their intended mechanics and won through the real controller against T35's passing **draft teaching boards**. This is not acceptance of the pending 40-level production catalog.
 
 Branch indices below are zero-based; `S0` means swivel branch 0.
 

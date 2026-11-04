@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Fixed the replacement-profile fixture ordering in [GameplayTests.cs](../PerchSort/Assets/Tests/PlayMode/GameplayTests.cs), without changing runtime behavior. No independently demonstrated defect in `GameRoot`, `TutorialHand` or `HudView` warranted a production edit. Runtime confirmation remains NOT_RUN by assignment.
+Fixed the replacement-profile fixture ordering in [GameplayTests.cs](../../../PerchSort/Assets/Tests/PlayMode/GameplayTests.cs), without changing runtime behavior. No independently demonstrated defect in `GameRoot`, `TutorialHand` or `HudView` warranted a production edit. Runtime confirmation remains NOT_RUN by assignment.
 
 ## Baseline and authority
 
@@ -14,10 +14,10 @@ Fixed the replacement-profile fixture ordering in [GameplayTests.cs](../PerchSor
 ## Root cause: source evidence
 
 1. The old `PrepareSaplingIntro` persisted a replacement profile while the setup's L1 root was still alive. It then called `ReloadSavedGame`, whose single-scene load destroyed the outgoing root.
-2. [GameRoot.OnDisable](../PerchSort/Assets/Scripts/Game/GameRoot.cs) calls `Save()` before `CancelPresentation()`. `Save()` captures the outgoing session inventory and writes its entire in-memory profile through `ProgressStore.Save`.
-3. [ProgressStore.Save](../PerchSort/Assets/Scripts/Game/ProgressStore.cs) writes highest unlocked level, tutorial flags, booster inventory, starter flags, unlock flags and notification receipts. Consequently, the outgoing root can overwrite the fixture's newly seeded L4 progression and stock during reload.
+2. [GameRoot.OnDisable](../../../PerchSort/Assets/Scripts/Game/GameRoot.cs) calls `Save()` before `CancelPresentation()`. `Save()` captures the outgoing session inventory and writes its entire in-memory profile through `ProgressStore.Save`.
+3. [ProgressStore.Save](../../../PerchSort/Assets/Scripts/Game/ProgressStore.cs) writes highest unlocked level, tutorial flags, booster inventory, starter flags, unlock flags and notification receipts. Consequently, the outgoing root can overwrite the fixture's newly seeded L4 progression and stock during reload.
 4. `GameRoot.LoadLevel(4)` silently returns when `4 > HighestUnlocked`; initialization creates an L1 session and opens the map. Thus the previous helper never proved that L4 actually loaded. [INFERENCE from lifecycle/source trace, consistent with all three reported failures]: stale L1/map state caused the hidden hand, absence of an active Sapling button and zero stock.
-5. [HudView.SetLevel](../PerchSort/Assets/Scripts/Game/HudView.cs) exposes Sapling only at its progression unlock. [TutorialHand.Begin/Refresh](../PerchSort/Assets/Scripts/Game/TutorialHand.cs) requires L4, unseen tutorial, positive stock and unblocked gameplay. These guards are correct for the current contract and were not bypassed.
+5. [HudView.SetLevel](../../../PerchSort/Assets/Scripts/Game/HudView.cs) exposes Sapling only at its progression unlock. [TutorialHand.Begin/Refresh](../../../PerchSort/Assets/Scripts/Game/TutorialHand.cs) requires L4, unseen tutorial, positive stock and unblocked gameplay. These guards are correct for the current contract and were not bypassed.
 6. The unchanged authored catalog entry is L4/world 1/noon/capacity 4/par 8, with five ordinary branches and sunny/sky/berry birds. No replacement board or alternate level was introduced.
 
 ## Fix and preserved acceptance

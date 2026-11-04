@@ -1,6 +1,6 @@
 # T10b — 表现层与玩法接入 v2
 
-规则权威：`docs/DESIGN.md`；Core v2 已完成（见 `tasks/T9_report.md` 的 API 迁移表，务必消费 `result.Move.Events` 事件序列，不要依赖旧的 Collected* 字段）。
+规则权威：`docs/DESIGN.md`；Core v2 已完成（见 `docs/work-log/core-gameplay-rules/report.md` 的 API 迁移表，务必消费 `result.Move.Events` 事件序列，不要依赖旧的 Collected* 字段）。
 
 ## 目录所有权
 可改：`PerchSort/Assets/Scripts/View/**`、`Scripts/UI/GameController.cs`、`GameHud.cs`、`Editor/SceneBuilder.cs`、`Editor/Screenshots.cs`、`Tests/PlayMode/**`、`Tests/EditMode` 中与表现相关的测试。**不要改 Core**（有问题回报给我）。不碰 `art/`（另一个 worker T10a 正在产出新美术到 art/raw/env|fx|ui；你先用代码生成的占位 Sprite 或 `Resources` 里按名查找并带回退，最终由 T10c 接入真素材）。Unity 编辑器此刻没开；你独占该项目。
@@ -21,7 +21,7 @@
 9. **测试**：迁移并修复 PlayMode 6 个失败（旧 v1 容量假设）；新增：run 整体移动 UI 流程、睡眠、自动归巢连锁、箱揭示、撤销后视图与状态一致（通过读取视图节点数/位置与 Core 对比）、v1 存档迁移。`bash scripts/run_tests.sh` 必须全绿。
 10. 用 `scripts/screenshots.sh` 出截图（新增：中期关卡含箱/篮/短枝、睡眠态、归巢瞬间若可抓、结算页）到 `build/screens/`。
 
-报告 `tasks/T10b_report.md`：做了什么、占位资源清单（T10c 要替换的名字）、与我约定外的决定逐条列出。不提交 git。
+报告 `docs/work-log/forest-view/report.md`：做了什么、占位资源清单（T10c 要替换的名字）、与我约定外的决定逐条列出。不提交 git。
 
 ## 验收（Claude）
 我重跑 run_tests.sh 全绿；看截图；检查事件→动画覆盖；审阅决定清单。

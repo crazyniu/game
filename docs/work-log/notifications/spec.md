@@ -23,5 +23,5 @@
 - Deliver English report/status, isolated branch commit/push, exact SHA/files/APIs/implemented and missing requirements/untested boundaries. The coordinator integrates and pauses for user testing, then Mac-only development.
 
 ## Sources
-- [T50 requirements](T50_ui_code.md), [handoff and exact trigger policy](T50_report.md#popup-trigger-policy--exact-lead-decision), [WIP risks](../docs/team/status/mac-ui.md).
-- [Team memory](../docs/team/MEMORY.md), [v5 design](../docs/GAME_DESIGN.md), approved `art/approved_ui/ui_*.png` references.
+- [T50 requirements](../interface-runtime/spec.md), [handoff and exact trigger policy](../interface-runtime/report.md#popup-trigger-policy--exact-lead-decision), [WIP risks](../../team/status/mac-ui.md).
+- [Team memory](../../team/MEMORY.md), [v5 design](../../GAME_DESIGN.md), approved `art/approved_ui/ui_*.png` references.

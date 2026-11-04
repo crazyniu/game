@@ -14,7 +14,7 @@ Only these runtime source files were edited:
 - `PerchSort/Assets/Scripts/Game/SceneView.cs`
 - `PerchSort/Assets/Scripts/Game/GameLayout.cs`
 
-`BoardView.cs` and `Ambient.cs` were intentionally unchanged. Bird rendering, slot coordinates, hit targets, authored levels, Core/Meta, peer-owned UI, artwork, and existing tests were not edited. No new artwork or permanent tests were added. The required report and four coordinator-requested review screenshots under `tasks/evidence/T53A/` are included in the branch.
+`BoardView.cs` and `Ambient.cs` were intentionally unchanged. Bird rendering, slot coordinates, hit targets, authored levels, Core/Meta, peer-owned UI, artwork, and existing tests were not edited. No new artwork or permanent tests were added. The required report and four coordinator-requested review screenshots under `docs/work-log/board-fidelity/evidence/` are included in the branch.
 
 ### D1: trees and crowns
 
@@ -58,10 +58,10 @@ Uncomposited final frames are preserved as `build/t53a/{level1_start,level_k3,le
 
 The four latest approved/runtime review images are committed for cross-host review. Each is **1184x1080 JPEG, quality 80**; encoded JPEG quantization tables and the height limit were verified after writing:
 
-- [`tasks/evidence/T53A/level1_start_comparison.jpg`](evidence/T53A/level1_start_comparison.jpg)
-- [`tasks/evidence/T53A/level_k3_comparison.jpg`](evidence/T53A/level_k3_comparison.jpg)
-- [`tasks/evidence/T53A/level_k7_comparison.jpg`](evidence/T53A/level_k7_comparison.jpg)
-- [`tasks/evidence/T53A/world_w3_comparison.jpg`](evidence/T53A/world_w3_comparison.jpg)
+- [`docs/work-log/board-fidelity/evidence/level1_start_comparison.jpg`](evidence/level1_start_comparison.jpg)
+- [`docs/work-log/board-fidelity/evidence/level_k3_comparison.jpg`](evidence/level_k3_comparison.jpg)
+- [`docs/work-log/board-fidelity/evidence/level_k7_comparison.jpg`](evidence/level_k7_comparison.jpg)
+- [`docs/work-log/board-fidelity/evidence/world_w3_comparison.jpg`](evidence/world_w3_comparison.jpg)
 
 All four JPEGs were opened and inspected. The latest green three-row and autumn/snow five-row captures show crown/first-row separation with trunk attachment preserved; the sparse level-1 composition remains unchanged. The external comparison utility is still `/tmp/t53a/compare.py`.
 

@@ -2,7 +2,7 @@
 
 ## Scope and result
 
-Implemented the pure-C# rule, state, event, solver and EditMode-test scope of [T32_core.md](T32_core.md), using [GAME_DESIGN.md §1.1](../docs/GAME_DESIGN.md#11-rule-clarifications-binding-from-t32-review), §6, §7, §8.1 and §12 as the binding contract.
+Implemented the pure-C# rule, state, event, solver and EditMode-test scope of [T32_core.md](spec.md), using [GAME_DESIGN.md §1.1](../../GAME_DESIGN.md#11-rule-clarifications-binding-from-t32-review), §6, §7, §8.1 and §12 as the binding contract.
 
 - Local C# 7.3 compilation succeeded with warnings treated as errors.
 - Local NUnitLite result: **78 passed, 0 failed, 0 skipped, 0 warnings**: 62 new cases plus all 16 unchanged `V5RulesTests` cases.
@@ -156,4 +156,4 @@ New test data:
 - `PerchSort/Assets/Tests/EditMode/Fixtures/v53_growth_ember.json`
 - `PerchSort/Assets/Tests/EditMode/Fixtures/v53_night_owls.json`
 
-Report: `tasks/T32_report.md`.
+Report: `docs/work-log/game-rules/report.md`.

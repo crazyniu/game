@@ -4,7 +4,7 @@
 
 **DONE — bounded resource relocation and static preservation audits complete.** Branch: `mac-current-resources/t52`; base: `4b42159891619db23811cbef2b0de84ab742e43e`. No other task branch merged. Script/Editor integration and runtime acceptance remain outside this worker's ownership.
 
-[Specification](T52B_current_resources.md) · [machine-readable resource manifest](../docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json)
+[Specification](spec.md) · [machine-readable resource manifest](../../team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json)
 
 ## Changes and exact path inventory
 
@@ -13,7 +13,7 @@ The manifest is the exact file inventory, not a sample:
 - `current.path_root` + each `current.files` row's `old`/`new` columns gives the asset move. For rows with non-null GUID, append `.meta` to both paths for its sidecar move. `current.folder_metas` lists the three folder-meta moves explicitly.
 - Each `archive.relative_files` entry moves from `archive.old_root` + entry to `archive.new_root` + entry. All 584 retired paths are listed; extracted current assets are excluded.
 - `metadata_completion.source_root`/`destination_root` plus each completion filename gives the 108 newly copied meta paths, source SHA-256, byte size, and current GUID. These are additional authorized sources, not base moves.
-- Documentation added: `tasks/T52B_current_resources.md`, `tasks/T52B_report.md`, `docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json`.
+- Documentation added: `docs/work-log/current-resources/spec.md`, `docs/work-log/current-resources/report.md`, `docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json`.
 
 | Source | Destination | Payloads |
 | --- | --- | ---: |

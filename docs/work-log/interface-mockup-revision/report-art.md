@@ -1,6 +1,6 @@
 # T45 art delivery report
 
-2026-11-03. Branch: `t44-hud-art`. Task: [T45 UI mockups, part 2](T45_ui_mockups2.md). Outcome: **delivered all requested files; MISSING: none**.
+2026-11-03. Branch: `t44-hud-art`. Task: [T45 UI mockups, part 2](spec.md). Outcome: **delivered all requested files; MISSING: none**.
 
 These are **static concept images, not Unity screenshots**. They do not establish production-asset approval, working purchase/equip/scroll behavior, or completed animation.
 

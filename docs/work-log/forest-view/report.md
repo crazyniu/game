@@ -1,6 +1,6 @@
 # T10b — 表现层与玩法接入 v2
 
-日期：2026-10-31。目录：`/Users/apple/Documents/projects/game`。依据：`docs/DESIGN.md`、`tasks/T10b_view2.md`、`tasks/T9_report.md`。
+日期：2026-10-31。目录：`/Users/apple/Documents/projects/game`。依据：`docs/DESIGN.md`、`docs/work-log/forest-view/spec.md`、`docs/work-log/core-gameplay-rules/report.md`。
 
 ## 交付与验证
 
@@ -107,6 +107,6 @@ Reduce motion 缩短飞行、选择、队列切换和事件间停顿，去弧线
 - `Assets/Scripts/UI/GameHud.cs`、`ProgressStore.cs`。
 - `Assets/Editor/SceneBuilder.cs`、`Screenshots.cs`。
 - `Assets/Tests/PlayMode/GameplaySmokeTests.cs`、`Assets/Tests/EditMode/PersistenceTests.cs`。
-- 标准脚本重建 `Assets/Scenes/Game.unity`，生成测试日志/XML、截图；`tasks/T10b_report.md` 为本报告。
+- 标准脚本重建 `Assets/Scenes/Game.unity`，生成测试日志/XML、截图；`docs/work-log/forest-view/report.md` 为本报告。
 
 正式鸟巢/箱/篮/特效美术、结算页大奖杯角色和 T11 的新手引导/迁移提示不在本次新增美术实现中；本次完成的是任务授权的占位表现与现有结算页接入。最终视觉验收待 Claude，真机性能另行验收。

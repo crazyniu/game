@@ -9,4 +9,4 @@
 - `badge_red.png` 96×96 红色圆形角标（提示次数）。
 - `glow_rays.png` 1024×1024 金色放射光芒（通关星背后旋转）。
 - `manifest_c.json`、`contact_c_light.png`（按钮三宽度拉伸演示）。
-报告 `tasks/T11b4_report.md`。不提交 git，不改已有素材。
+报告 `docs/work-log/interface-kit-components/report.md`。不提交 git，不改已有素材。

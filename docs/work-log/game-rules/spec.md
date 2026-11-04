@@ -4,7 +4,7 @@ Branch [t32-core-v53](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97b
 
 ## Scope: pure rules, data and tests (no new visuals in this task)
 
-Ownership: `PerchSort/Assets/Scripts/Core/**`, `PerchSort/Assets/Scripts/Game/LevelLoader.cs` (DTO mapping only), `PerchSort/Assets/Tests/EditMode/**`, `PerchSort/Assets/Resources/Levels/levels.json` (keep level 1 identical; add test fixture levels only under `PerchSort/Assets/Tests/EditMode/Fixtures/`), `tasks/T32_report.md`. Do not edit other Game/View files, scenes or art; the existing level 1 must play exactly as before (all current V5 tests stay green). No commit.
+Ownership: `PerchSort/Assets/Scripts/Core/**`, `PerchSort/Assets/Scripts/Game/LevelLoader.cs` (DTO mapping only), `PerchSort/Assets/Tests/EditMode/**`, `PerchSort/Assets/Resources/Levels/levels.json` (keep level 1 identical; add test fixture levels only under `PerchSort/Assets/Tests/EditMode/Fixtures/`), `docs/work-log/game-rules/report.md`. Do not edit other Game/View files, scenes or art; the existing level 1 must play exactly as before (all current V5 tests stay green). No commit.
 
 ## Implement in Core (pure C#, no UnityEngine)
 
@@ -19,4 +19,4 @@ Ownership: `PerchSort/Assets/Scripts/Core/**`, `PerchSort/Assets/Scripts/Game/Le
 One test class per mechanic with the doc's examples and edge cases: egg hatch on exposure / wobble event / blocked tip; sleep accept + wake by same-species landing, by adjacent-row homecoming, by sunny gift, completes on wake; crow runs, crow branch never completes, cocoa gift scope; twig capacity and non-completion, mint twig upgrade; growing +1 per homecoming, cap N, Spring Rain; mama example from §6.6 exactly, chicks limited by free seats, mama never pulls from other branches; swivel flip, hatch after swivel, undo; day/night counter, nocturnal sleep by day, ink and hoot gifts, undo restores phase; every gift of §6.5; snow light step consumed by next transfer and restored by undo; Song meter + chain + payout and undo; each booster effect + refund on undo + Sapling once; resolution-order cases where two effects interact (the doc §1 now defines a cascade: e.g. ember hatches an egg that completes a flock in the same move, whose gift then wakes a sleeper that completes another flock; test such a 3-step cascade and the cascade termination); solver finds par on 5 fixture levels covering every mechanic; level 1 regression (par 2, intended line wins).
 
 ## Report
-`tasks/T32_report.md`: design of state/events, every ambiguity and how it was resolved (with the coordinator's answer), test list, local C# harness results, what remains for Mac. `worker_done` when finished.
+`docs/work-log/game-rules/report.md`: design of state/events, every ambiguity and how it was resolved (with the coordinator's answer), test list, local C# harness results, what remains for Mac. `worker_done` when finished.

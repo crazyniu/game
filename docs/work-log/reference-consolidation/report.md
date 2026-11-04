@@ -2,7 +2,7 @@
 
 ## Result and scope
 
-Created the user-requested Chinese [Cutie Sort gameplay reference](../docs/references/CUTIE_SORT_GAMEPLAY_REFERENCE.md), explicitly reference-only. It covers selection, target acceptance, capacity, transfer limits, matching, orders and waiting, progress and victory, special elements, items, undo, and deadlock. It separates ordinary and CatOrganize behavior and records incomplete input, callback, configuration, and failure chains.
+Created the user-requested Chinese [Cutie Sort gameplay reference](../../references/CUTIE_SORT_GAMEPLAY_REFERENCE.md), explicitly reference-only. It covers selection, target acceptance, capacity, transfer limits, matching, orders and waiting, progress and victory, special elements, items, undo, and deadlock. It separates ordinary and CatOrganize behavior and records incomplete input, callback, configuration, and failure chains.
 
 The reference preserves application identity (1.111 / 1111), all five APK sizes and SHA-256 hashes, tool identities, export coverage limits, and selected ARM64 RVAs. It does not depend on generated code files or phone observations. Export counts are not presented as semantic recovery rates. No level JSON or complete original developer project is claimed.
 
@@ -38,4 +38,4 @@ The reference documents supported local behavior, not every branch or every leve
 
 ## Publication and integration
 
-The user authorized commit, push, and draft PR #5. The branch includes current main while preserving its effective rules, withdrawal decisions, router structure, and original `tasks/T18_report.md`. The extraction report is retained separately as [T18_cutie_sort_reference_report.md](T18_cutie_sort_reference_report.md). Only the reference, concise navigation, historical task records, and ignore rule differ from main. No merge into main is authorized or performed.
+The user authorized commit, push, and draft PR #5. The branch includes current main while preserving its effective rules, withdrawal decisions, router structure, and original `docs/work-log/reference-research/report.md`. The extraction report is retained separately as [T18_cutie_sort_reference_report.md](../reference-research/report-cutie-sort-reference.md). Only the reference, concise navigation, historical task records, and ignore rule differ from main. No merge into main is authorized or performed.

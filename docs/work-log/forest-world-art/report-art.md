@@ -6,7 +6,7 @@ Delivered **27/27 requested runtime PNGs**: 12 backgrounds, 12 scene-kit sprites
 
 ## Scope and preservation
 
-The current dispatch and [T36 task](T36_world_art.md) explicitly authorize these new assets, with style/world references in [GAME_DESIGN_V5 §§4 and 9](../docs/GAME_DESIGN.md), [UI_SPEC §4.1](../docs/UI_SPEC.md#approved-forest-style), and the accepted [T33 delivery](T33_art_report.md). No gameplay semantics were changed.
+The current dispatch and [T36 task](spec.md) explicitly authorize these new assets, with style/world references in [GAME_DESIGN_V5 §§4 and 9](../../GAME_DESIGN.md), [UI_SPEC §4.1](../../UI_SPEC.md#approved-forest-style), and the accepted [T33 delivery](../bird-art/report-art.md). No gameplay semantics were changed.
 
 Only new runtime PNGs under `PerchSort/Assets/Resources/Art/`, supporting files under `art/v5/t36/`, and this report were written. Birdhouses, HUD/UI, map, shop, game code, data, scenes and importer metadata are outside this delivery. No commit or push was made. All **146 pre-existing runtime art files** match the [start baseline](../art/v5/t36/qa/baseline.json) byte-for-byte; concurrent workers' files were preserved.
 

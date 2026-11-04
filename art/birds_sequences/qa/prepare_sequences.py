@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageOps
 ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT / 'art/birds_sequences'
 OUT = ROOT / 'PerchSort/Assets/Resources/Birds'
-EVIDENCE = ROOT / 'tasks/evidence/T54G'
+EVIDENCE = ROOT / 'docs/work-log/bird-frame-sequences/evidence'
 SEQUENCES = {'flap': (6, 3, 2), 'hop': (6, 3, 2),
              'turn_left': (4, 2, 2), 'turn_right': (4, 2, 2),
              'cheer': (6, 3, 2), 'preen': (5, 3, 2),

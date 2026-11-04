@@ -2,7 +2,7 @@
 
 ## Coordinator publication
 
-The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
+The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../../team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../../team/HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
 
 ## Delivery state
 
@@ -21,13 +21,13 @@ The reviewed integration `bf31ba2` was merged into main through [PR36](https://g
 
 | Delivery | Exact accepted revision | Scope / report |
 | --- | --- | --- |
-| A — bird/board/home motion | `a012e70aeaa58280da920ac18c53a205fbfa4c9d` | Bird/branch mechanics, random idle, flock doorway mask/open/close/check. [A report](T50A_report.md). |
-| B — popup/win/settings/gate | `4256de63412041e65ddf2554cb14323d79f6d888` | Reviewed daily-flight, side-bird layering and NEXT-wrapper cancellation corrections included. [B report](T50B_report.md). |
-| C — map/ambient/leaf wipe | `fb90bb77d4262456c8375a6f0b5fad713a1c819b` | Includes delivered W1 leaf correction, displayed-node origin and cancel-safe map/transition APIs. [C report](T50C_report.md). |
-| D — notifications/intro/root | `bf643f4b513e60e7a24bc241e5907562a7087ecd` | Final transaction-generation fix passed coordinator static re-review. [D report](T50D_report.md). |
-| E — authored family markers | `2b2592560e8a7128e35e874e046bfa7dfd97f00f` | Primary and independent static review passed; BirdView plus internal V7BirdOverlay, Sunny/Skye pose anchors and normalized scaling. [E report](T50E_report.md). |
-| T49 — ten bird species | `fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9` | Coordinator reviewed 170 distinct 320×320 RGBA frames and ten portraits, naming, metadata, style and sheets. [Bird report](T49_report.md). |
-| Eggs / overlays | `f79dc3875ca7b6138e9c304059c2d3432a5c2775` | Asset `34eddebeca3b75fa5e39019090c8b486ba99911f`: five egg frames, two overlays, seven metadata files and contract. [Asset report](T49_eggs_report.md). |
+| A — bird/board/home motion | `a012e70aeaa58280da920ac18c53a205fbfa4c9d` | Bird/branch mechanics, random idle, flock doorway mask/open/close/check. [A report](../bird-motion/report.md). |
+| B — popup/win/settings/gate | `4256de63412041e65ddf2554cb14323d79f6d888` | Reviewed daily-flight, side-bird layering and NEXT-wrapper cancellation corrections included. [B report](../popup-motion/report.md). |
+| C — map/ambient/leaf wipe | `fb90bb77d4262456c8375a6f0b5fad713a1c819b` | Includes delivered W1 leaf correction, displayed-node origin and cancel-safe map/transition APIs. [C report](../map-motion/report.md). |
+| D — notifications/intro/root | `bf643f4b513e60e7a24bc241e5907562a7087ecd` | Final transaction-generation fix passed coordinator static re-review. [D report](../notifications/report.md). |
+| E — authored family markers | `2b2592560e8a7128e35e874e046bfa7dfd97f00f` | Primary and independent static review passed; BirdView plus internal V7BirdOverlay, Sunny/Skye pose anchors and normalized scaling. [E report](../overlay-integration/report.md). |
+| T49 — ten bird species | `fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9` | Coordinator reviewed 170 distinct 320×320 RGBA frames and ten portraits, naming, metadata, style and sheets. [Bird report](../forest-assets/report.md). |
+| Eggs / overlays | `f79dc3875ca7b6138e9c304059c2d3432a5c2775` | Asset `34eddebeca3b75fa5e39019090c8b486ba99911f`: five egg frames, two overlays, seven metadata files and contract. [Asset report](../forest-assets/report-eggs.md). |
 
 Earlier v7 UI delivery `825ca1d` and world/booster delivery `6a29b50` are retained. Original/fallback assets remain; no cleanup cutover was added.
 

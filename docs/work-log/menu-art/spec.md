@@ -7,4 +7,4 @@
 4. 飞行姿态：为菜单飞过动画提供 3 只鸟的展翅版 `fly_bird_01/03/05.png`（与站姿同风格，朝右）。
 5. `manifest_menu.json` + `contact_menu.png` 预览（把 logo、树冠、三只鸟摆成菜单构图，放在 `art/raw/env/background.png` 上）。
 ## 验收（Claude）
-合成预览整体好看、风格统一；闭眼/展翅与原鸟明显是同一只。报告 `tasks/T11b3_report.md`。不提交 git，不改已有 art 原件。
+合成预览整体好看、风格统一；闭眼/展翅与原鸟明显是同一只。报告 `docs/work-log/menu-art/report.md`。不提交 git，不改已有 art 原件。

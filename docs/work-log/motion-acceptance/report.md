@@ -13,7 +13,7 @@ These are user/coordinator observations, not locally reproduced runs. Other fail
 
 ## Minimal runtime fix
 
-Only `PerchSort/Assets/Scripts/Game/BirdView.cs` is modified, plus `tasks/T52I_motion_acceptance.md` and this report. BoardView, BranchView, BirdhouseView, GameMotion and BirdIdleGroup were inspected without editing. No test, gameplay, layout, asset, scene, root or Sapling changes.
+Only `PerchSort/Assets/Scripts/Game/BirdView.cs` is modified, plus `docs/work-log/motion-acceptance/spec.md` and this report. BoardView, BranchView, BirdhouseView, GameMotion and BirdIdleGroup were inspected without editing. No test, gameplay, layout, asset, scene, root or Sapling changes.
 
 ### 1. Keep the perch anchor separate from shuffle visuals
 

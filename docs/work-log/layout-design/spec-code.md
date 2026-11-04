@@ -2,7 +2,7 @@
 
 Branch [t31-v5-layout](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L3), worktree `/home/developer/Projects/game`. No Unity here; Mac verifies. Authority: `docs/GAME_DESIGN.md` section 3 (v5.1 layout, rewritten for this task), read it in full. Screenshot problems being fixed: buttons of mixed size/style, numbers and icons crammed under the birdhouse, floating birdhouse, board crammed in the upper half.
 
-Ownership: [PerchSort/Assets/Scripts/V5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L5), `PerchSort/Assets/Editor/Game/**`, [PerchSort/Assets/Tests/V5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L5), `tasks/T30_code_report.md` (append a T31 section). No other files. No commit.
+Ownership: [PerchSort/Assets/Scripts/V5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L5), `PerchSort/Assets/Editor/Game/**`, [PerchSort/Assets/Tests/V5/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L5), `docs/work-log/game-rebuild/report-code.md` (append a T31 section). No other files. No commit.
 
 Do exactly:
 1. Implement every number in section 3 as named constants in one [V5Layout](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T31_layout_code.md#L8) static class (single source) and have HUD, board, win panel and settings panel read from it.

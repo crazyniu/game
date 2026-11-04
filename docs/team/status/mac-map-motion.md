@@ -3,7 +3,7 @@
 - Branch: `mac-map-motion/t50`; baseline preserved WIP `9f84a95`.
 - Coordinator: current Codex conversation on 251; mailbox `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. Never the retired Claude session. No Dispatch ID or sub-workers.
 - Implementation: DONE in owned paths; static review/report complete. Submission SHA is in the final terminal delivery block; integrate from the isolated branch, not main.
-- Scope: [task specification](../../../tasks/T50C_map_motion.md). Full changed-file/API/integration/limits record: [delivery report](../../../tasks/T50C_report.md).
+- Scope: [task specification](../../work-log/map-motion/spec.md). Full changed-file/API/integration/limits record: [delivery report](../../work-log/map-motion/report.md).
 - Map: clamped inertia, interruptible focus, current-node hop/shadow/Sunny frame idle, node tap pop, scroll-then-open gate with independent cancellation; no gate/Core/progression/economy edit.
 - Ambient: shared bounded reusable pool, clouds/canopy, delivered `leaf_fall_w1..w4` seasonal particles, bamboo mist, aurora glow and dusk/night fireflies; rain retained. Coordinator review of `3542ced` corrected W1 from legacy `petal` to delivered `leaf_fall_w1`; only `raindrop` retains the existing legacy fallback. No new art/library or API changes.
 - Transition: [V7LeafTransition.Configure(V5Art)](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/team/status/mac-map-motion.md#L9), `Play(Action covered, Action completed)`, `Cancel()`, `IsPlaying`, `Duration = 0.4f`. Root owner must wire accepted map/level surface switches and external cancellation; do not cancel the wipe from its own covered load.

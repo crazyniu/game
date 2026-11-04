@@ -22,9 +22,9 @@
 
 预览：
 
-![菜单构图](../art/ui_kit/contact_menu.png)
+![菜单构图](../../../art/ui_kit/contact_menu.png)
 
-![角色对照](../art/ui_kit/review_menu_birds.png)
+![角色对照](../../../art/ui_kit/review_menu_birds.png)
 
 ## 站位与使用
 

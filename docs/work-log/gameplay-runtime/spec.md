@@ -22,4 +22,4 @@
 
 ## 验收（Claude 将亲自执行）
 - `bash scripts/run_tests.sh` 全绿；`bash scripts/screenshots.sh` 产出截图，我会逐张看：鸟不重叠不出界、栖木整齐、HUD 清晰。
-- `tasks/T4_report.md`：文件清单、场景/脚本结构、如何重建场景与截图、已知问题。
+- `docs/work-log/gameplay-runtime/report.md`：文件清单、场景/脚本结构、如何重建场景与截图、已知问题。

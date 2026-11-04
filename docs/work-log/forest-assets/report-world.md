@@ -15,7 +15,7 @@ World files are in `PerchSort/Assets/Resources/World/`. Each world has four `bg_
 
 Backgrounds are opaque RGBA, 1080x1920. Branches 620x90, twigs 400x80, crowns 600x400 and trunks 160x1920 have genuine transparent exteriors. Branch roots are at the left edge; mirror for the right side. Coordinates are top-left sprite pixels, while recorded Unity pivots use bottom-left normalized coordinates. Preserve transparent canvas padding. Crop/clip trunks above the crown attachment, and overlap their top under foliage. Snow/bamboo contours have up to 3 px local variation; nominal top y is an alignment reference, not collision geometry.
 
-[`art/approved_ui/world/world_assets.json`](../art/approved_ui/world/world_assets.json) consolidates variants, actual sizes/hashes and all piece contracts. Per-world `pieces/w<n>/metadata.json` records usable perch intervals, bounds, pivots and attachments. W1 branch usable x60..580 and twig x60..370; other conservative intervals are in their metadata.
+[`art/approved_ui/world/world_assets.json`](../../../art/approved_ui/world/world_assets.json) consolidates variants, actual sizes/hashes and all piece contracts. Per-world `pieces/w<n>/metadata.json` records usable perch intervals, bounds, pivots and attachments. W1 branch usable x60..580 and twig x60..370; other conservative intervals are in their metadata.
 
 ## Six coloured booster illustrations
 

@@ -15,7 +15,7 @@ Status: DONE for static art/layout scope. Branch `mac-art/t48`. Approved origina
 
 ## Layout contract
 
-[`art/approved_ui/layout.json`](../art/approved_ui/layout.json) uses 1080x1920 source pixels, top-left origin, and records 17 screens / 223 measured element boxes. Bounds are visible art, not hit targets; approximately 8 px uncertainty for ordinary edges and 16 px for foliage/glow. The approved K3 master contains one house, while K7 contains seven. Intermediate K1..6 multi-house arrangements are explicitly inferred centered adaptations, not measurements of approved screens. Bird positions are visual references, not level data.
+[`art/approved_ui/layout.json`](../../../art/approved_ui/layout.json) uses 1080x1920 source pixels, top-left origin, and records 17 screens / 223 measured element boxes. Bounds are visible art, not hit targets; approximately 8 px uncertainty for ordinary edges and 16 px for foliage/glow. The approved K3 master contains one house, while K7 contains seven. Intermediate K1..6 multi-house arrangements are explicitly inferred centered adaptations, not measurements of approved screens. Bird positions are visual references, not level data.
 
 `assets` records actual stored dimensions, alpha bounds, hashes, slice borders and extensionless Resources keys. Coin number frame is `[142,32,140,60]` on its 320x128 sprite. Green price-pill slice borders are `[54,42,54,42]` in left,bottom,right,top order. Geometry, dimensions, positive slice centers, map path intervals and HUD references are checked by `art/approved_ui/runtime/measurements/assemble_layout.py`.
 

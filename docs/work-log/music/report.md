@@ -4,7 +4,7 @@
 
 - Branch: `mac-t54a/t54`, created at the supplied `t54-contract` tip.
 - Runtime changes are restricted to `Assets/Scripts/Game/GameRoot.cs` and `Assets/Scripts/Audio/AudioManager.cs` under `PerchSort`.
-- Added `PerchSort/Assets/Tests/PlayMode/T54AMusicTests.cs` and its Unity metadata. Existing tests and assembly definitions are unchanged.
+- Added `PerchSort/Assets/Tests/PlayMode/MusicTests.cs` and its Unity metadata. Existing tests and assembly definitions are unchanged.
 - No artwork, resource, save identifier, game rule, level, scene, or project-setting change is intended.
 
 ## P2 implementation
@@ -24,7 +24,7 @@ Music assets already exist at `PerchSort/Assets/Audio/Resources/bgm_menu.wav` an
 
 ## PlayMode acceptance coverage
 
-`T54AMusicTests` uses the genuine Game scene, GameRoot, AudioManager, and shipped clips. AudioSource inspection avoids changing the existing PlayMode assembly's references. Focus/pause callbacks are driven with Unity SendMessage; music is not mocked. Profile keys are preserved and restored by fixture teardown.
+`MusicTests` uses the genuine Game scene, GameRoot, AudioManager, and shipped clips. AudioSource inspection avoids changing the existing PlayMode assembly's references. Focus/pause callbacks are driven with Unity SendMessage; music is not mocked. Profile keys are preserved and restored by fixture teardown.
 
 1. Menu/level/map clip routing, looping, actual playback, and approximately 1-second crossfade, including `Time.timeScale = 0`.
 2. Level card, settings, popup, win, and restart preserve the page music playhead.
@@ -49,10 +49,10 @@ Each scenario logs timestamped `T54A` lines containing page, phase, clip, playin
 - Diagnostic-only follow-up: avoid querying `AudioSource.time` for an unassigned clip in the evidence formatter. Final targeted rerun: **6/6 passed, 0 failed, 0 skipped** (16.390 seconds). Exact command:
 
   ```bash
-  flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath /Users/apple/orca/workspaces/game/t54-music/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54AMusicTests -testResults /Users/apple/orca/workspaces/game/t54-music/build/music-results.xml -logFile /Users/apple/orca/workspaces/game/t54-music/build/music-tests.log
+  flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath /Users/apple/orca/workspaces/game/t54-music/PerchSort -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.MusicTests -testResults /Users/apple/orca/workspaces/game/t54-music/build/music-results.xml -logFile /Users/apple/orca/workspaces/game/t54-music/build/music-tests.log
   ```
 
-- Committed timed evidence: [`tasks/evidence/T54A/music-playmode.log`](evidence/T54A/music-playmode.log). It includes the full-suite counts, retained failure, and final six-case timestamped transport logs. For example, level crossfade begins at 9.199 seconds, both sources are playing and unmuted at 9.600 seconds (menu gain 0.117, game gain 0.083), and the game track is at full gain with menu stopped at 10.350 seconds. These are source-output states, not an acoustic listening claim.
+- Committed timed evidence: [`docs/work-log/music/evidence/music-playmode.log`](evidence/music-playmode.log). It includes the full-suite counts, retained failure, and final six-case timestamped transport logs. For example, level crossfade begins at 9.199 seconds, both sources are playing and unmuted at 9.600 seconds (menu gain 0.117, game gain 0.083), and the game track is at full gain with menu stopped at 10.350 seconds. These are source-output states, not an acoustic listening claim.
 - Local raw outputs: `build/scene-build.log`, `build/test-results.xml`, `build/editmode-tests.log`, `build/playmode-results.xml`, `build/playmode-tests.log`, `build/music-results.xml`, and `build/music-tests.log`.
 - Unity generated changes in `Assets/Scenes/Game.unity` and seven Bird overlay `.png.meta` files (`chick_fluff`, five egg frames, `mama_bow`). All were clean before the run. Preserved their final binary-capable diff in ignored `build/unity-generated.patch`, then restored only those generated paths. No generated scene/art metadata changes are included in this task branch.
 

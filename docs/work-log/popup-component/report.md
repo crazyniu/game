@@ -52,6 +52,6 @@ Per worker instruction, **Unity, compiler, EditMode, PlayMode and runtime test e
 
 ## Delivery and coordinator acceptance
 
-T52F changes only the four source files listed above, `tasks/T52F_popup_component.md`, and this report. Commit/push the isolated task branch and send its final SHA to the current Codex coordinator via the verified Mac-to-251 status route. No invented Task/Dispatch IDs or `worker_done`.
+T52F changes only the four source files listed above, `docs/work-log/popup-component/spec.md`, and this report. Commit/push the isolated task branch and send its final SHA to the current Codex coordinator via the verified Mac-to-251 status route. No invented Task/Dispatch IDs or `worker_done`.
 
 Coordinator must review/integrate and serialize the actual Mac rerun, including existing startup setup and all 17 PlayMode cases, compile/EditMode coverage, and real information-card/popup cancel/reopen/input restoration. The separate regression-test owner handles new coverage. The patch is ready for coordinator runtime acceptance, not claimed runtime-passing.

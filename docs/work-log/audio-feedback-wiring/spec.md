@@ -1,6 +1,6 @@
 # T7 — 音频/震动接线 + 应用图标/播放器设置 + 手感打磨
 
-已验收：T5（UI/菜单/选关/设置，`SettingsStore` 契约见 `tasks/T5_report.md`）、T6（`AudioManager` 与 7 个 WAV，见 `tasks/T6_report.md`）。
+已验收：T5（UI/菜单/选关/设置，`SettingsStore` 契约见 `docs/work-log/gameplay-interface/report.md`）、T6（`AudioManager` 与 7 个 WAV，见 `docs/work-log/audio-system/report.md`）。
 
 ## 做什么
 1. **音频接线**：在 View/UI 层事件点调用 `AudioManager`：选中→Select；落位→Move；集齐飞向树冠→Collect；通关→Win；非法操作→Error；撤销→Undo；所有按钮→Click。`SettingsStore` 的音效/音乐开关变化（含启动时读取）必须同步到 `AudioManager`；设置页开关立即生效。AudioManager 在菜单与游戏场景间保持单例，不重复创建。无 BGM 资源时音乐开关仍保存但无声，不报错。
@@ -20,4 +20,4 @@
 - 不修改 WAV 资产内容；如认为音效需要调整，写进报告。
 
 ## 验收（Claude 亲自执行）
-- `bash scripts/run_tests.sh` 全绿；截图脚本可用；报告 `tasks/T7_report.md`；`docs/RELEASE_CHECKLIST.md` 完整。
+- `bash scripts/run_tests.sh` 全绿；截图脚本可用；报告 `docs/work-log/audio-feedback-wiring/report.md`；`docs/RELEASE_CHECKLIST.md` 完整。

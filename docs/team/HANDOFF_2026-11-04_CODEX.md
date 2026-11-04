@@ -1,6 +1,6 @@
 # Current T52 entry and required Mac acceptance
 
-The current game is **`PerchSort/Assets/Scenes/Game.unity`**, retaining the accepted T49/T50 implementation. Start with [CURRENT_GAME](../CURRENT_GAME.md), [CODE_MAP](../spec/CODE_MAP.md), [AGENTS](../../AGENTS.md) and the [T52C report](../../tasks/T52C_report.md). Current runtime code/resources are unversioned; retired code/scenes/tools/tests are archived outside Unity. Historical design/art/task filenames and compatibility save keys are not runnable forks.
+The current game is **`PerchSort/Assets/Scenes/Game.unity`**, retaining the accepted T49/T50 implementation. Start with [CURRENT_GAME](../CURRENT_GAME.md), [CODE_MAP](../spec/CODE_MAP.md), [AGENTS](../../AGENTS.md) and the [T52C report](../work-log/current-entry/report.md). Current runtime code/resources are unversioned; retired code/scenes/tools/tests are archived outside Unity. Historical design/art/task filenames and compatibility save keys are not runnable forks.
 
 **Latest user update:** current Codex coordinator must perform acceptance **and testing on the Mac after integrating all T52 deliveries**: compilation, EditMode, PlayMode and real GUI/timed acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity. Source-derived discovery expectations are 304 EditMode (237 current game, 53 Meta, 14 shared Audio) and 17 PlayMode, no Ignore/Explicit; LevelsData 81 includes 40 optimal solver/replays, Layout 41 includes 24 combinatorial. Actual discovery/results must be investigated, not assumed or weakened.
 
@@ -90,7 +90,7 @@ Known runtime-only calibration risks: actual Unity import/meta behavior; Sunny/S
 
 Open the `PerchSort` project with Unity **6000.6.7f1** and existing scene **`PerchSort/Assets/Scenes/V5.unity`** after the coordinator's final integration/user-test checkout update. The worker has not opened Unity or rewritten scenes/settings. Do not use historical `Game.unity` as the v7 entry.
 
-A Mac continuation starts by reading this handoff, [final T50 report](../../tasks/T50_report.md) and git status; preserve user changes and never resume retired Claude. Coordinator performs the final PR/main merge and records its actual SHA, remote publication and test-checkout state afterward. Until then: isolated integration branch only, **HOLD**. Future features remain parallelized on the Mac with OMP preferred and Codex fallback; no automatic T51/new-feature work or test execution.
+A Mac continuation starts by reading this handoff, [final T50 report](../work-log/interface-runtime/report.md) and git status; preserve user changes and never resume retired Claude. Coordinator performs the final PR/main merge and records its actual SHA, remote publication and test-checkout state afterward. Until then: isolated integration branch only, **HOLD**. Future features remain parallelized on the Mac with OMP preferred and Codex fallback; no automatic T51/new-feature work or test execution.
 
 ## Observed final reconciliation checks — source/tree only
 

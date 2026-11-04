@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-Implemented the scope in [T37a_meta_logic.md](T37a_meta_logic.md), using [GAME_DESIGN.md §4.1–4.3](../docs/GAME_DESIGN.md#41-species-the-aviary), [§8](../docs/GAME_DESIGN.md#8-boosters-coins-and-shop), [§9](../docs/GAME_DESIGN.md#9-worlds-and-scenes-every-level-looks-different) and the task's explicit replay-improvement rule.
+Implemented the scope in [T37a_meta_logic.md](spec.md), using [GAME_DESIGN.md §4.1–4.3](../../GAME_DESIGN.md#41-species-the-aviary), [§8](../../GAME_DESIGN.md#8-boosters-coins-and-shop), [§9](../../GAME_DESIGN.md#9-worlds-and-scenes-every-level-looks-different) and the task's explicit replay-improvement rule.
 
 All repository changes are new files under `PerchSort/Assets/Scripts/Meta/`, `PerchSort/Assets/Tests/Meta/`, and this report. No Core/Game/existing tests, level data, scenes, artwork, settings, or other workers' files were edited. No commit was made.
 

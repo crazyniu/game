@@ -13,7 +13,7 @@ You may create/edit only:
 - [PerchSort/Assets/Scenes/V5.unity](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_code.md#L13) only via the scene builder (do not hand-write scene YAML)
 - `PerchSort/Packages/manifest.json`: add exactly `"com.annulusgames.lit-motion": "https://github.com/annulusgames/LitMotion.git?path=src/LitMotion/Assets/LitMotion#0b4c588ee75a07198841d92aab653e6b39445089"` (LitMotion's Burst/Collections/Mathematics dependencies resolve via its package.json; if a dependency must be listed explicitly, add it and say why)
 - `scripts/run_tests.sh`: add a step that runs `GameSceneBuilder.Build` after `SceneBuilder.Build`; keep everything else.
-- `tasks/T30_code_report.md`
+- `docs/work-log/game-rebuild/report-code.md`
 
 Do not modify v2 code (`Assets/Scripts/{Core,UI,View,Audio}`), existing tests, existing scenes, or `art/`. Another worker is producing art into `PerchSort/Assets/Resources/Art/` concurrently — do not write there. Do not commit or push.
 
@@ -23,7 +23,7 @@ Do not modify v2 code (`Assets/Scripts/{Core,UI,View,Audio}`), existing tests, e
   - Single uGUI Canvas, Screen Space - Camera, CanvasScaler 1080×1920 match 0.5 (or match width — choose so the board fits on 9:19.5 phones and 3:4 tablets; document the choice); safe-area container.
   - `GameRoot` bootstraps: loads level 1, builds the board view, HUD, panels, tutorial.
   - `BoardView` / `BranchView` / `BirdView`, `HudView` (coin pill, settings, level pill, birdhouse, bottom bar), `WinPanel`, `SettingsPanel`, `TutorialHand`.
-  - Sprites load from `Resources/Art/<name>` per the file list in `tasks/T30_art.md`. **If a sprite is missing, fall back to a generated placeholder** (rounded rect / circle texture tinted per species: sunny #FFD23F, sky #5BC0EB) and log one warning, so the slice runs before art lands. Right-side branches/bushes mirror the left sprite via negative x scale.
+  - Sprites load from `Resources/Art/<name>` per the file list in `docs/work-log/game-rebuild/spec-art.md`. **If a sprite is missing, fall back to a generated placeholder** (rounded rect / circle texture tinted per species: sunny #FFD23F, sky #5BC0EB) and log one warning, so the slice runs before art lands. Right-side branches/bushes mirror the left sprite via negative x scale.
   - All motion via LitMotion per design §5, including wing-frame swapping during flight. Input locked during animations; state is committed in Core first, then the view plays the events. Cancel/complete motions on restart/undo/destroy so nothing leaks (`AddTo(gameObject)` plus explicit handles).
   - Persistence via PlayerPrefs keys prefixed [v5.](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T30_code.md#L28): coins, best stars per level, tutorial seen, muted.
   - Audio: if `Assets/Scripts/Audio/AudioManager` is trivially reusable without touching it, use it for tap/land/home/win; otherwise skip audio but keep the mute toggle persisted.
@@ -36,6 +36,6 @@ Do not modify v2 code (`Assets/Scripts/{Core,UI,View,Audio}`), existing tests, e
 - Existing tests must keep passing (baseline EditMode 163, PlayMode 14 passed / 8 skipped). Do not edit them.
 
 ## Report
-`tasks/T30_code_report.md`: file list, design decisions, what is untested because there is no Unity here, and any deviation from the design doc with reason.
+`docs/work-log/game-rebuild/report-code.md`: file list, design decisions, what is untested because there is no Unity here, and any deviation from the design doc with reason.
 
 Done = all files written per ownership, report written, no edits outside ownership. Compile errors found later on the Mac will be sent to you.

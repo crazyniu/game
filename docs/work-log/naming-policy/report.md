@@ -2,14 +2,14 @@
 
 ## Delivery and scope
 
-Implemented the dependency-free [current-game naming guard](../ci/check_current_game_names.py) and the [T52D contract](T52D_naming_policy.md). The guard checks path names across all Git-index tracked `PerchSort/Assets`, including new parallel roots outside the five content roots. It inspects authored text only under Scripts/Editor/Tests/Scenes/Resources, uses working-tree bytes when available, and reads indexed Git blobs for omitted sparse-checkout files. It reports actionable path/line diagnostics and exits nonzero on violations.
+Implemented the dependency-free [current-game naming guard](../../../ci/check_current_game_names.py) and the [T52D contract](spec.md). The guard checks path names across all Git-index tracked `PerchSort/Assets`, including new parallel roots outside the five content roots. It inspects authored text only under Scripts/Editor/Tests/Scenes/Resources, uses working-tree bytes when available, and reads indexed Git blobs for omitted sparse-checkout files. It reports actionable path/line diagnostics and exits nonzero on violations.
 
 Changed only the authorized four files:
 
 - `ci/check_current_game_names.py` — new guard.
 - `PerchSort/Assets/Scripts/Game/GameLayout.cs` — one provenance comment now references the approved forest layout and `docs/CURRENT_GAME.md`. No layout values or executable statements changed.
-- `tasks/T52D_naming_policy.md` — scope, exact exception inventory, acceptance criteria, and ownership.
-- `tasks/T52D_report.md` — this report.
+- `docs/work-log/naming-policy/spec.md` — scope, exact exception inventory, acceptance criteria, and ownership.
+- `docs/work-log/naming-policy/report.md` — this report.
 
 D did not modify C-owned instructions/docs/CI wiring, Editor/Tests/Scenes, original artwork, compatibility IDs, or another task's worktree. C's worktree was inspected read-only. No workers were launched. Temporary branches/PRs remain normal collaboration; development continues in canonical source rather than numbered game forks.
 

@@ -78,6 +78,6 @@
 
 睡眠截图使用捕获脚本内临时棋盘，通过真实移动将非激活种类 2 凑齐六只产生一根睡眠栖木，未改关卡文件或玩家存档。所有截图使用 Unity Camera/RenderTexture、隔离临时存档；不等同移动设备验收。
 
-T10e bird_05：已读取 `tasks/T10e_report.md`，重新运行同步脚本并导入四态新稿；最终 40/40 文件与当前 art/raw/birds_front 原件逐字节一致。站姿现为 774px 可见高度，对应92px画布时69.54px；首五关及新增睡眠捕获仅使用01/02/03，因此05替换不影响已生成截图。最终代码测试全绿后仅替换了这四张贴图，并额外执行 SceneBuilder.Build 验证最终素材导入，日志 `build/t15-final-art-import.log`。
+T10e bird_05：已读取 `docs/work-log/dove-redraw/report.md`，重新运行同步脚本并导入四态新稿；最终 40/40 文件与当前 art/raw/birds_front 原件逐字节一致。站姿现为 774px 可见高度，对应92px画布时69.54px；首五关及新增睡眠捕获仅使用01/02/03，因此05替换不影响已生成截图。最终代码测试全绿后仅替换了这四张贴图，并额外执行 SceneBuilder.Build 验证最终素材导入，日志 `build/t15-final-art-import.log`。
 
 剩余：Claude 视觉验收。

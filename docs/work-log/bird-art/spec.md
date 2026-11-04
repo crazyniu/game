@@ -1,9 +1,9 @@
 # T33 v5.2 art: species, special birds, boosters, World 1 variants (Codex, gpt-6-astra)
 
-Worktree `/home/developer/Projects/game` (branch [t31-v5-layout](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L3) is checked out; another Codex worker is finishing `limb_top.png` and an omp worker is editing code there). Authority: `docs/GAME_DESIGN.md` v5.2, sections 4, 5, 6, 8.1, 9. Match the accepted v5 art exactly in style, lighting and scale (see `tasks/T30_art_report.md`, [art/v5/contact_sheet.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L3), and the existing `bird_sunny_*` / `bird_sky_*` files).
+Worktree `/home/developer/Projects/game` (branch [t31-v5-layout](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L3) is checked out; another Codex worker is finishing `limb_top.png` and an omp worker is editing code there). Authority: `docs/GAME_DESIGN.md` v5.2, sections 4, 5, 6, 8.1, 9. Match the accepted v5 art exactly in style, lighting and scale (see `docs/work-log/game-rebuild/report-art.md`, [art/v5/contact_sheet.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L3), and the existing `bird_sunny_*` / `bird_sky_*` files).
 
 ## Ownership
-Create only new files under `PerchSort/Assets/Resources/Art/` (names below; do not overwrite existing files), [art/v5/t33/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L6) (raw, prompts, tools, QA), and `tasks/T33_art_report.md`. Touch nothing else. No commit.
+Create only new files under `PerchSort/Assets/Resources/Art/` (names below; do not overwrite existing files), [art/v5/t33/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L6) (raw, prompts, tools, QA), and `docs/work-log/bird-art/report-art.md`. Touch nothing else. No commit.
 
 ## Deliverables (all RGBA, real transparency, exact sizes)
 
@@ -31,5 +31,5 @@ Also `petal.png` 64x64 (pink blossom petal) and `raindrop.png` 32x64 for ambient
 ## Process and acceptance
 1. Keep raw generations and exact prompts in [art/v5/t33/raw/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L32) and [art/v5/t33/prompts.md](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L32); post-process with scripts in [art/v5/t33/tools/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L32).
 2. Verify per file: size, RGBA, alpha min/max, no halos/checkerboard; foot/nest line y=244 for every bird and egg frame; same body scale across species (report body bbox heights); fly frames have tucked feet and clearly different wing positions; grayscale 64 px sheet; a contact sheet [art/v5/t33/qa/contact.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L33) on light and dark backgrounds; a composite [art/v5/t33/qa/w1_board_composite.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T33_art_birds.md#L33) showing 6 species + egg + sleeping bird + crow on branches over `bg_w1_golden.png`.
-3. Report in `tasks/T33_art_report.md`: per-file checks, anything not achieved, honestly. Outfits are NOT in this task (moved to T36).
+3. Report in `docs/work-log/bird-art/report-art.md`: per-file checks, anything not achieved, honestly. Outfits are NOT in this task (moved to T36).
 4. `worker_done` listing delivered/missing files.

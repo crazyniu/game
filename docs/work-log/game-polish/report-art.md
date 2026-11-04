@@ -1,6 +1,6 @@
 # T39 art report
 
-Delivered **2/2 requested PNGs** for [T39_art.md](T39_art.md); missing files: **none**. No existing artwork or code changed; no commit or push.
+Delivered **2/2 requested PNGs** for [T39_art.md](spec-art.md); missing files: **none**. No existing artwork or code changed; no commit or push.
 
 | Asset | Size | Mode | Alpha min/max | Visible bounds (exclusive maximum) |
 | --- | --- | --- | --- | --- |

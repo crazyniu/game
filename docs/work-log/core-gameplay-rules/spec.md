@@ -3,7 +3,7 @@
 权威规则见 `docs/DESIGN.md` 的「核心规则 v2」。**只改逻辑层与关卡，不碰 View/UI/场景**（T10 另派）。目标：把 Core 从 v1（容量4/单只/任意同种清空）改成 v2（容量6/连续同种段整体移动/外露端/顶部目标队列/睡眠与自动归巢/板条箱/篮子）。
 
 ## 目录所有权
-你可改：`PerchSort/Assets/Scripts/Core/**`、`PerchSort/Assets/Editor/LevelBuilder.cs`、`PerchSort/Assets/Resources/Levels/levels.json`、`PerchSort/Assets/Tests/EditMode/**` 中与 Core/关卡相关的测试、`tasks/T9_report.md`。
+你可改：`PerchSort/Assets/Scripts/Core/**`、`PerchSort/Assets/Editor/LevelBuilder.cs`、`PerchSort/Assets/Resources/Levels/levels.json`、`PerchSort/Assets/Tests/EditMode/**` 中与 Core/关卡相关的测试、`docs/work-log/core-gameplay-rules/report.md`。
 不要改 View/UI/Audio/场景。View/UI 此刻会编译失败是预期的——为让项目编译，**在 Core 中尽量保留旧 API 名称不现实时**，请在报告里列出所有对 View/UI 有影响的公开 API 变化（旧→新），T10 将据此改表现层。若 View/UI 编译错误会阻塞 EditMode 测试，可用最小垫片（仅让其编译，不实现功能）并在报告标明。
 
 ## 必须实现（Core，纯 C#，无 UnityEngine）
@@ -22,7 +22,7 @@
 - 不提交 git；不改 art/。
 - 编辑器此刻由我打开着：开工前先退出 projectPath 为 PerchSort 的那个 Unity 进程（仅它），否则 batchmode 抢锁。完工后不必重开。
 - 跑 `bash scripts/run_tests.sh` 并在报告贴结果与用例数。
-- 报告 `tasks/T9_report.md`：做了什么、公开 API 变更表（旧→新）、关卡难度表（id/K/栖木数/篮子/箱/minMoves）、规则里我没明确而你自行决定的点（逐条列出，不许沉默决定）、未完成/风险。
+- 报告 `docs/work-log/core-gameplay-rules/report.md`：做了什么、公开 API 变更表（旧→新）、关卡难度表（id/K/栖木数/篮子/箱/minMoves）、规则里我没明确而你自行决定的点（逐条列出，不许沉默决定）、未完成/风险。
 
 ## 验收（Claude 亲自）
 重跑测试全绿；抽查 levels.json 结构；自己写脚本复核若干关；审阅规则歧义清单。

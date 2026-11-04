@@ -2,7 +2,7 @@
 
 ## 结果与验收证据
 
-已完成 `tasks/T2_levels.md`，规则遵循 `docs/DESIGN.md`，未修改既有 BoardState / Rules / Move / GameSession 的行为或源码，未修改 `art/`，未提交 git。
+已完成 `docs/work-log/level-catalog/spec.md`，规则遵循 `docs/DESIGN.md`，未修改既有 BoardState / Rules / Move / GameSession 的行为或源码，未修改 `art/`，未提交 git。
 
 - Unity **6000.6.7f1** 实际 batchmode 调用 `LevelBuilder.BuildAll`，退出 **0**，生成并求解验证全部 **40 关**；日志为 `build/levels-build.log`。
 - 实际运行 `bash scripts/run_tests.sh`，退出 **0**；`build/test-results.xml` 为 **84/84 passed，0 failed、0 skipped、0 inconclusive**，包含原 T1 的 30 个用例。测试时间为 2026-10-31 13:19:31–13:19:42（台北），测试框架耗时 **10.449 秒**，不含 Unity 启动。
@@ -21,7 +21,7 @@
 - `PerchSort/Assets/Editor/LevelBuilder.cs`：编辑器菜单与 batchmode 入口。
 - `PerchSort/Assets/Resources/Levels/levels.json`：40 关已验证数据。
 - `PerchSort/Assets/Tests/EditMode/LevelTests.cs`：54 个新增用例，其中 40 个逐关复核。
-- `tasks/T2_report.md`：本报告。
+- `docs/work-log/level-catalog/report.md`：本报告。
 - 上述 Unity 资产的 `.meta` 及新目录的 Unity 自动生成 `.meta`。
 
 修改：

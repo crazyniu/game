@@ -1,5 +1,5 @@
 # T54E One version only: cleanup, naming rule and project constraints (problem P5)
-Read tasks/T54_contract.md. Owned: everything OUTSIDE `PerchSort/Assets/**` EXCEPT other tasks' files: `archive/`, `art/`, `tools/`, `ci/`, `scripts/`, `docs/`,
+Read docs/work-log/integration-contract/spec.md. Owned: everything OUTSIDE `PerchSort/Assets/**` EXCEPT other tasks' files: `archive/`, `art/`, `tools/`, `ci/`, `scripts/`, `docs/`,
 `tasks/` (existing files only for reference fixes), `README.md`, `AGENTS.md`, `CLAUDE.md`. You must not edit anything under `PerchSort/Assets/`; report instead.
 Do, in this order, one commit per step:
 1. Delete `archive/retired/` and the committed build outputs under `tools/levels/work/**/bin` and `obj`; add `.gitignore` entries so they are never committed again.

@@ -4,7 +4,7 @@
 
 - User-authorized T52 identity/organization cleanup, 2026-11-04; base `4b42159891619db23811cbef2b0de84ab742e43e`.
 - Work only in the isolated Mac task workspace on branch `mac-current-resources/t52`. Submit this branch to the current Codex coordinator; do not merge other branches. The primary checkout is read-only and only an explicitly authorized metadata source.
-- Ownership: `PerchSort/Assets/Resources/**` and its root meta; `PerchSort/Assets/Art/**` and `Art.meta`; their retired counterparts under `archive/retired/PerchSort/Assets/`; this specification, `tasks/T52B_report.md`, and `docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json`.
+- Ownership: `PerchSort/Assets/Resources/**` and its root meta; `PerchSort/Assets/Art/**` and `Art.meta`; their retired counterparts under `archive/retired/PerchSort/Assets/`; this specification, `docs/work-log/current-resources/report.md`, and `docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json`.
 - No Scripts, Editor, Scenes, Tests, runtime logic, gameplay, save format, artwork generation, or original `art/` changes. No additional workers.
 
 ## Shared resource contract
@@ -33,4 +33,4 @@ User followup explicitly authorizes copying exactly these 108 existing meta file
 
 ## Delivery
 
-Write the [manifest](../docs/team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json) and [report](T52B_report.md), commit and push only the owned paths, then report SHA, exact changed paths, evidence, mapping decisions, and untested boundaries to the current Codex coordinator. Storage compatibility IDs remain untouched; identity cleanup must not reset user progress.
+Write the [manifest](../../team/HANDOFF_2026-11-04_RESOURCE_MANIFEST.json) and [report](report.md), commit and push only the owned paths, then report SHA, exact changed paths, evidence, mapping decisions, and untested boundaries to the current Codex coordinator. Storage compatibility IDs remain untouched; identity cleanup must not reset user progress.

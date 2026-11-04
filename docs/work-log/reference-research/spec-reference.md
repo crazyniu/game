@@ -26,6 +26,6 @@ The user's current instruction authorizes this reference export on the Mac. It d
 
 ## Historical status
 
-The extraction was subsequently consolidated into the standalone [Cutie Sort gameplay reference](../docs/references/CUTIE_SORT_GAMEPLAY_REFERENCE.md). T19 removes generated reverse-engineering output at the user's request; the original APK inputs and manifest remain local and ignored. The extraction acceptance above describes the earlier delivery, not retained files.
+The extraction was subsequently consolidated into the standalone [Cutie Sort gameplay reference](../../references/CUTIE_SORT_GAMEPLAY_REFERENCE.md). T19 removes generated reverse-engineering output at the user's request; the original APK inputs and manifest remain local and ignored. The extraction acceptance above describes the earlier delivery, not retained files.
 
-The historical extraction delivery is preserved in [the named extraction report](T18_cutie_sort_reference_report.md); `T18_report.md` belongs to the separate evidence-based PRD task on main.
+The historical extraction delivery is preserved in [the named extraction report](report-cutie-sort-reference.md); `T18_report.md` belongs to the separate evidence-based PRD task on main.

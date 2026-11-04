@@ -23,8 +23,8 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 | Profile, unlocks, world/collection/economy policies | [Meta](../PerchSort/Assets/Scripts/Meta) |
 | Map, HUD, board, notifications, intro, panels and motion | [Game](../PerchSort/Assets/Scripts/Game) |
 | Accepted mechanics/design decisions | [design record](GAME_DESIGN.md) (later contracts supersede its old layouts/roadmap) |
-| Latest accepted bird/overlay and presentation integration | [T49](../tasks/T49_report.md), [egg/overlay report](../tasks/T49_eggs_report.md), [T50](../tasks/T50_report.md) and linked A/B/C/D/E owner reports |
-| Current organization / verification boundary | [CODE_MAP](spec/CODE_MAP.md), [T52C report](../tasks/T52C_report.md), [handoff](team/HANDOFF_2026-11-04_CODEX.md) |
+| Latest accepted bird/overlay and presentation integration | [T49](work-log/forest-assets/report.md), [egg/overlay report](work-log/forest-assets/report-eggs.md), [T50](work-log/interface-runtime/report.md) and linked A/B/C/D/E owner reports |
+| Current organization / verification boundary | [CODE_MAP](spec/CODE_MAP.md), [T52C report](work-log/current-entry/report.md), [handoff](team/HANDOFF_2026-11-04_CODEX.md) |
 
 Current Core retains homecoming gifts/cascades, reusable emptied ordinary branches, Mama/chick following, crows/twigs, swivels, growing branches, day/night and Chorus coins. Do not replace these with the older proposed completion-branch retirement or other withdrawn design contracts. This is a source description, not a new rule specification or acceptance claim. Actual source and authored catalog must be inspected for exact semantics before future changes.
 
@@ -54,7 +54,7 @@ Workers must perform applicable Mac compilation, full EditMode/PlayMode testing 
 
 `flock /tmp/unity.lock bash scripts/run_tests.sh` builds the sole scene, then runs the full retained suites. T54 baseline: 304 EditMode (237 game, 53 Meta, 14 Audio), 21 PlayMode, no skipped/ignored/explicit cases. LevelsData retains 81 expanded cases (including 40 solver/replays), Layout 41 (including 24 combinatorial). These are expectations, not new results; investigate discovery discrepancies without lowering safeguards.
 
-`flock /tmp/unity.lock bash scripts/screenshots.sh` captures stable-state PNGs under `build/screens/game/`. Instant capture does not prove animation, persistence or device behavior. Animation/audio claims require timed evidence under [the shared contract](../tasks/T54_contract.md): real frame sequences and logs. Applicable GUI acceptance also exercises input/cancellation, notifications/persistence, maps/gates and overlay alignment.
+`flock /tmp/unity.lock bash scripts/screenshots.sh` captures stable-state PNGs under `build/screens/game/`. Instant capture does not prove animation, persistence or device behavior. Animation/audio claims require timed evidence under [the shared contract](work-log/integration-contract/spec.md): real frame sequences and logs. Applicable GUI acceptance also exercises input/cancellation, notifications/persistence, maps/gates and overlay alignment.
 
 PR CI preserves automatic source/configuration checks and the existing .NET test job, retargeted to real current pure-Core fixture files. The shared TestBoards helper has a `DOTNET_CI` JSON/file transport branch; Unity keeps its actual LevelLoader path. This is not a runtime shim or substitute for Unity loader/resource testing. Source/test/fixture changes select the job; retired archives never do.
 

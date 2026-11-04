@@ -2,8 +2,8 @@
 
 ## Authority and ownership
 
-- Task: [T43_hud_code.md](T43_hud_code.md); branch `t44-hud-art`.
-- Visual authority: [selected A measurements](../art/v6/mock/spec_notes.md), [complete measurement data](../art/v6/qa/layout_measurements.json), [GAME_DESIGN_V5](../docs/GAME_DESIGN.md) sections 3.0, 6.5, 8.1, 9 and 10, and [runtime art import contract](T44_art_report.md).
+- Task: [T43_hud_code.md](spec.md); branch `t44-hud-art`.
+- Visual authority: [selected A measurements](../art/v6/mock/spec_notes.md), [complete measurement data](../art/v6/qa/layout_measurements.json), [GAME_DESIGN_V5](../../GAME_DESIGN.md) sections 3.0, 6.5, 8.1, 9 and 10, and [runtime art import contract](../hud-runtime-art/report-art.md).
 - Edited only `PerchSort/Assets/Scripts/Game/**`, `PerchSort/Assets/Editor/Game/**`, `PerchSort/Assets/Tests/V5/**` and this report. Core, Meta, authored levels, production art and scenes are not this worker's edits.
 - Initial no-commit/no-Mac instruction was superseded by coordinator message `msg_e9e6b535f92b`: isolated `wip(t43):` commits/pushes on this branch and Mac compile/tests/capture are now authorized; no main merge, release, desktop control or Mac code editing.
 

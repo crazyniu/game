@@ -1,10 +1,12 @@
 # Perch Sort — agent collaboration guide
 
+Follow [CONVENTIONS](docs/CONVENTIONS.md).
+
 ## Current execution contract
 
 Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
 
-- T54 assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](tasks/T54_contract.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
+- T54 assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](docs/work-log/integration-contract/spec.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
 - Return questions and reports to the coordinator who assigned the task. Agent-entry filenames do not confer coordination authority. AGENTS.md and CLAUDE.md must remain identical.
 - Develop on the Mac in isolated Orca workspaces. Workers must not mutate the user's primary checkout `/Users/apple/Documents/projects/game`.
 - Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. OMP preferred, Codex fallback. Bounded workers must not spawn workers.
@@ -23,7 +25,6 @@ Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored level
 ## Permanent naming policy and review acceptance
 
 - Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
-- Exceptions are limited to `.git`, third-party package files, lockfiles, dated handoff/report evidence under `tasks/` and `docs/team/`, and exact existing storage-key literals. They never authorize a new game identity, a new numbered key or an archive of old game implementations.
 - Preserve every existing storage key, migrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema value. Existing persistence compatibility is not permission to reset user data.
 - Review canonical paths, one enabled Game scene, canonical resource roots and each retained numbered identifier. Run `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py` before Unity. The guard checks tracked paths and authored identifiers; it complements review, not compilation or runtime acceptance.
 - Removed implementation and superseded art live only in Git history. Retained research documents describe historical decisions, not another runnable game. Do not recreate removed trees from historical references.
@@ -49,7 +50,7 @@ Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored level
 - [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; later approved visual/animation contracts and actual source resolve superseded layout prose. Historical ownership and paths are not execution instructions.
 - Old runtime descriptions and rules/schema/save proposals remain historical research. They must not silently replace the accepted game. Keep Core/Meta independent of Unity presentation; inspect actual code and obtain separate authority before changing rules or levels.
 - Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets must be derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
-- Each task has `tasks/T<n>_<name>.md` and `tasks/T<n>_report.md`. Stay inside assigned paths, preserve unrelated user changes and report requested contract changes explicitly.
+- Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers. Stay inside assigned paths, preserve unrelated user changes and report requested contract changes explicitly.
 
 ## Serialized Mac verification workflow
 

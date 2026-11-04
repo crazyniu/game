@@ -1,5 +1,5 @@
 # T54H Settings panel, popup layering and dim (user feedback 2026-11-04, screenshots from the Unity Game view)
-Read tasks/T54_contract.md and tasks/T54_animation_addendum.md. Owned: `PerchSort/Assets/Scripts/Game/SettingsPanel.cs`, `PanelsView.cs`, new `Tests/**/T54H*.cs`.
+Read docs/work-log/integration-contract/spec.md and docs/work-log/integration-contract/spec-animation.md. Owned: `PerchSort/Assets/Scripts/Game/SettingsPanel.cs`, `PanelsView.cs`, new `Tests/**/T54H*.cs`.
 Read-only (request changes in report): GameRoot.cs, BoardView.cs, BirdView.cs, WinPanel.cs, PopupMotion.cs, PopupFlow.cs (T54F owns the last three).
 Problems:
 - H1 In a level, opening Settings leaves the board birds BRIGHT and drawn ON TOP of the panel and dim layer: a pink bird overlaps the round X, other birds sit beside the panel at full

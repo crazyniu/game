@@ -6,8 +6,8 @@ Branch: `mac-t54i/t54`, created from the supplied contract tip before other work
 
 Owned implementation changes:
 - `PerchSort/Assets/Scripts/Game/MapView.cs`
-- `PerchSort/Assets/Tests/PlayMode/T54IMapViewportTests.cs` and its Unity metadata
-- This report and `tasks/evidence/T54I/`
+- `PerchSort/Assets/Tests/PlayMode/MapViewportTests.cs` and its Unity metadata
+- This report and `docs/work-log/map-viewport/evidence/`
 
 `MapModel.cs`, `MapMotion.cs`, `GateView.cs` and `LeafTransition.cs` did not require changes. Existing tests were not edited or weakened.
 
@@ -53,7 +53,7 @@ The targeted regression command was:
 ```sh
 flock -w 900 /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity \
   -batchmode -nographics -projectPath "$PWD/PerchSort" \
-  -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54IMapViewportTests \
+  -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.MapViewportTests \
   -testResults "$PWD/build/viewport-before.xml" -logFile "$PWD/build/viewport-baseline-tests.log"
 ```
 
@@ -79,15 +79,15 @@ Unity then remained open rather than exiting the test invocation. After the lock
 ## Visual evidence
 
 All committed evidence JPEGs are 1200 pixels wide, below the 1600-pixel limit:
-- `tasks/evidence/T54I/map-contact.jpg`: approved reference, all six requested current levels, both scroll ends.
-- `tasks/evidence/T54I/level-1-compare.jpg`
-- `tasks/evidence/T54I/level-4-compare.jpg`
-- `tasks/evidence/T54I/level-10-compare.jpg`
-- `tasks/evidence/T54I/level-11-compare.jpg`
-- `tasks/evidence/T54I/level-34-compare.jpg`
-- `tasks/evidence/T54I/level-40-compare.jpg`
-- `tasks/evidence/T54I/endpoints.jpg`: clamped top and bottom.
-- `tasks/evidence/T54I/before-after.jpg`: original final-chick clipping/bar collision versus the corrected final-level viewport.
+- `docs/work-log/map-viewport/evidence/map-contact.jpg`: approved reference, all six requested current levels, both scroll ends.
+- `docs/work-log/map-viewport/evidence/level-1-compare.jpg`
+- `docs/work-log/map-viewport/evidence/level-4-compare.jpg`
+- `docs/work-log/map-viewport/evidence/level-10-compare.jpg`
+- `docs/work-log/map-viewport/evidence/level-11-compare.jpg`
+- `docs/work-log/map-viewport/evidence/level-34-compare.jpg`
+- `docs/work-log/map-viewport/evidence/level-40-compare.jpg`
+- `docs/work-log/map-viewport/evidence/endpoints.jpg`: clamped top and bottom.
+- `docs/work-log/map-viewport/evidence/before-after.jpg`: original final-chick clipping/bar collision versus the corrected final-level viewport.
 
 The approved reference is preserved at `art/v7/ui7_map.png`; the assignment's literal `ui_map.png` filename is not present in this checkout. Each comparison labels that existing approved original separately from the Unity capture. Its artwork, layout differences and existing runtime icon differences were not changed by this task.
 

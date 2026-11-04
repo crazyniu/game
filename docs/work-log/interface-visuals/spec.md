@@ -12,7 +12,7 @@
 7. **截图**：`scripts/screenshots.sh` 出 UI_SPEC §6 验收清单要求的全部页面（主菜单、关卡选择、游戏 HUD、通关三星各阶段、最终关通关、设置、暂停、二次确认、死局、引导各步、中文版、三种比例）。
 
 ## 约束
-不改 Core 规则、关卡数据、art 原件；不提交 git；报告 `tasks/T11c_report.md`（含逐条对照 UI_SPEC §6 清单的自检结果、任何偏离都须先问我）。
+不改 Core 规则、关卡数据、art 原件；不提交 git；报告 `docs/work-log/interface-visuals/report.md`（含逐条对照 UI_SPEC §6 清单的自检结果、任何偏离都须先问我）。
 
 ## 验收（Claude）
 我重跑测试，逐页对照 UI_SPEC 逐项勾选；任何一项不符就返工。

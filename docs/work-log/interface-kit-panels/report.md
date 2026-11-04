@@ -6,12 +6,12 @@
 
 ## 预览与交付入口
 
-- [浅底预览](../art/ui_kit/contact_a_light.png)
-- [深底预览](../art/ui_kit/contact_a_dark.png)
-- [尺寸、用途、九宫格清单](../art/ui_kit/manifest_a.json)
-- [生成提示词与源图对应](../art/ui_kit/sources_a.json)
-- [结构与按下态检查记录](../art/ui_kit/validation_a.json)
-- [可复现整理/预览脚本](../art/ui_kit/build_a.py)
+- [浅底预览](../../../art/ui_kit/contact_a_light.png)
+- [深底预览](../../../art/ui_kit/contact_a_dark.png)
+- [尺寸、用途、九宫格清单](../../../art/ui_kit/manifest_a.json)
+- [生成提示词与源图对应](../../../art/ui_kit/sources_a.json)
+- [结构与按下态检查记录](../../../art/ui_kit/validation_a.json)
+- [可复现整理/预览脚本](../../../art/ui_kit/build_a.py)
 - `art/ui_kit/source_a/`：保留本次选用的 14 张 image_gen 原图。
 
 ## 规格
