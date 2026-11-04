@@ -25,9 +25,9 @@
 
 | 比例 | 分辨率 | 视口 x/y/w/h | 菜单 | 游戏（第 40 关） |
 |---|---|---|---|---|
-| 9:16 | 1080×1920 | 0 / 0 / 1 / 1 | [菜单](../build/screens/aspect/1080x1920-menu.png) | [游戏](../build/screens/aspect/1080x1920-game.png) |
-| 9:19.5 | 1080×2340 | 0 / 0 / 1 / 1 | [菜单](../build/screens/aspect/1080x2340-menu.png) | [游戏](../build/screens/aspect/1080x2340-game.png) |
-| 3:4 | 1440×1920 | 0.125 / 0 / 0.75 / 1 | [菜单](../build/screens/aspect/1440x1920-menu.png) | [游戏](../build/screens/aspect/1440x1920-game.png) |
+| 9:16 | 1080×1920 | 0 / 0 / 1 / 1 | 菜单 (`../build/screens/aspect/1080x1920-menu.png`, not retained) | 游戏 (`../build/screens/aspect/1080x1920-game.png`, not retained) |
+| 9:19.5 | 1080×2340 | 0 / 0 / 1 / 1 | 菜单 (`../build/screens/aspect/1080x2340-menu.png`, not retained) | 游戏 (`../build/screens/aspect/1080x2340-game.png`, not retained) |
+| 3:4 | 1440×1920 | 0.125 / 0 / 0.75 / 1 | 菜单 (`../build/screens/aspect/1440x1920-menu.png`, not retained) | 游戏 (`../build/screens/aspect/1440x1920-game.png`, not retained) |
 
 ## 编辑器最终状态
 

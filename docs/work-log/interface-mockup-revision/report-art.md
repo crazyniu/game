@@ -10,21 +10,21 @@ All eleven screens are opaque **1080 × 1920 PNGs** in `art/v6/mock2/`:
 
 | File | Delivered content |
 | --- | --- |
-| [shop_boosters.png](../art/v6/mock2/shop_boosters.png) | Six boosters, owned badges, single/3x prices, active raised tab, Rain locked at level 32 |
-| [shop_outfits.png](../art/v6/mock2/shop_outfits.png) | Six species × three slots; owned hanger, equipped check, price; equipped scarf shown on birds |
-| [shop_houses.png](../art/v6/mock2/shop_houses.png) | Mushroom, teapot, lantern, acorn; owned/equipped/600-coin states |
-| [shop_confirm.png](../art/v6/mock2/shop_confirm.png) | Three Firefly hints for 75 coins, check and close over dimmed shop |
-| [shop_no_coins.png](../art/v6/mock2/shop_no_coins.png) | Same purchase with balance 20, red-tinted coin + cross, confirmation at 0.45 alpha |
-| [aviary_list.png](../art/v6/mock2/aviary_list.png) | Ten cards; original portraits, Fredoka names, home counts, two unmet silhouettes, Rook no-outfit state |
-| [aviary_detail.png](../art/v6/mock2/aviary_detail.png) | Berry portrait/personality, original idle/quirk1/quirk2 storyboard, Encore, outfit states, 42 homes, first level 3 |
-| [popup_new_friend.png](../art/v6/mock2/popup_new_friend.png) | Berry, Encore badge, sparkles, +20 encounter reward, check |
-| [popup_daily_gift.png](../art/v6/mock2/popup_daily_gift.png) | Newly generated nest/present illustration, +50, collect check |
-| [popup_world_complete.png](../art/v6/mock2/popup_world_complete.png) | Open gate toward bamboo, blank green ribbon with check, +200, large next control |
-| [popup_unlock_level.png](../art/v6/mock2/popup_unlock_level.png) | Bamboo Grove conveyed through a bamboo scene/leaves, level 11, play; no visible words |
+| [shop_boosters.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/shop_boosters.png) | Six boosters, owned badges, single/3x prices, active raised tab, Rain locked at level 32 |
+| [shop_outfits.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/shop_outfits.png) | Six species × three slots; owned hanger, equipped check, price; equipped scarf shown on birds |
+| [shop_houses.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/shop_houses.png) | Mushroom, teapot, lantern, acorn; owned/equipped/600-coin states |
+| [shop_confirm.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/shop_confirm.png) | Three Firefly hints for 75 coins, check and close over dimmed shop |
+| [shop_no_coins.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/shop_no_coins.png) | Same purchase with balance 20, red-tinted coin + cross, confirmation at 0.45 alpha |
+| [aviary_list.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/aviary_list.png) | Ten cards; original portraits, Fredoka names, home counts, two unmet silhouettes, Rook no-outfit state |
+| [aviary_detail.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/aviary_detail.png) | Berry portrait/personality, original idle/quirk1/quirk2 storyboard, Encore, outfit states, 42 homes, first level 3 |
+| [popup_new_friend.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/popup_new_friend.png) | Berry, Encore badge, sparkles, +20 encounter reward, check |
+| [popup_daily_gift.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/popup_daily_gift.png) | Newly generated nest/present illustration, +50, collect check |
+| [popup_world_complete.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/popup_world_complete.png) | Open gate toward bamboo, blank green ribbon with check, +200, large next control |
+| [popup_unlock_level.png](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/popup_unlock_level.png) | Bamboo Grove conveyed through a bamboo scene/leaves, level 11, play; no visible words |
 
-[spec_notes2.md](../art/v6/mock2/spec_notes2.md) records actual sizes, coordinates, typography, prices, states, source boundaries, and deviations. Its exhaustive placement companion is [qa/layout_measurements.json](../art/v6/mock2/qa/layout_measurements.json).
+[spec_notes2.md](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/spec_notes2.md) records actual sizes, coordinates, typography, prices, states, source boundaries, and deviations. Its exhaustive placement companion is [qa/layout_measurements.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/layout_measurements.json).
 
-Supporting files under the same owned directory: seven raw generated PNGs, fourteen transparent derivative PNGs, the authorized Pillow [compositor](../art/v6/mock2/compose_mockups2.py), exact [prompts](../art/v6/mock2/prompts.md), and six QA files. The directory contains 41 files total; this report is the only file written outside it.
+Supporting files under the same owned directory: seven raw generated PNGs, fourteen transparent derivative PNGs, the authorized Pillow [compositor](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/compose_mockups2.py), exact [prompts](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/prompts.md), and six QA files. The directory contains 41 files total; this report is the only file written outside it.
 
 ## Method and content decisions
 
@@ -39,11 +39,11 @@ Supporting files under the same owned directory: seven raw generated PNGs, fourt
 
 | Check | Result / evidence |
 | --- | --- |
-| Required screen count and size | 11/11 present, all 1080 × 1920 RGB PNG; [validation.json](../art/v6/mock2/qa/validation.json) |
-| Read-only source preservation | Final compositor compares SHA-256 before/after for all 45 read inputs; unchanged; [source_hashes.json](../art/v6/mock2/qa/source_hashes.json) |
-| New derivative transparency | 14/14 RGBA, alpha minimum 0, real transparent pixels; bounded crops and concept-center pivots recorded in [sprite_metrics.json](../art/v6/mock2/qa/sprite_metrics.json) |
-| Layout and state review | All eleven reviewed in [contact sheet](../art/v6/mock2/qa/contact_sheet.png), with detailed inspection of outfits, detail, purchase failure, and world unlock |
-| Small/grayscale recognition | [Recognition sheet](../art/v6/mock2/qa/recognition_sheet.png): 128 px color, 64 px color, 64/44 px grayscale; house shapes and accessory categories remain distinct |
+| Required screen count and size | 11/11 present, all 1080 × 1920 RGB PNG; [validation.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/validation.json) |
+| Read-only source preservation | Final compositor compares SHA-256 before/after for all 45 read inputs; unchanged; [source_hashes.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/source_hashes.json) |
+| New derivative transparency | 14/14 RGBA, alpha minimum 0, real transparent pixels; bounded crops and concept-center pivots recorded in [sprite_metrics.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/sprite_metrics.json) |
+| Layout and state review | All eleven reviewed in [contact sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/contact_sheet.png), with detailed inspection of outfits, detail, purchase failure, and world unlock |
+| Small/grayscale recognition | [Recognition sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock2/qa/recognition_sheet.png): 128 px color, 64 px color, 64/44 px grayscale; house shapes and accessory categories remain distinct |
 | Pricing and rewards | Singles 30/60/80/80/100/100; bundles 75/150/200/200/250/250; houses 600; third outfit slot 800; rewards +20/+50/+200 |
 | Scope | Only `art/v6/mock2/**` and this report written; no original asset, code, data, scene, import setting, or other worker's file edited |
 | Git | No commit, push, PR, merge, deployment, or publication performed |

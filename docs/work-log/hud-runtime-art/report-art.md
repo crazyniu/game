@@ -5,7 +5,7 @@
 ## Authority and scope
 
 - Task: [T44_hud_runtime_art.md](spec.md); current dispatch selects branch `t44-hud-art`, superseding the task file's older branch name.
-- Approved visual reference: [T40 notes](../art/v6/mock/spec_notes.md), [K3 A](../art/v6/mock/level_k3_a.png), the other approved T40 screens, and [GAME_DESIGN_V5 §3.0 / §10](../../GAME_DESIGN.md). The README/router/evidence/UI ownership documents were read before production.
+- Approved visual reference: [T40 notes](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock/spec_notes.md), [K3 A](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/mock/level_k3_a.png), the other approved T40 screens, and [GAME_DESIGN_V5 §3.0 / §10](../../GAME_DESIGN.md). The README/router/evidence/UI ownership documents were read before production.
 - Coordinator `msg_ae57f91a98df` explicitly authorized Pillow crop/resize, alpha masks, 9-slicing, roof/body separation, pressed shading and QA compositing; approved aligned 88×90 house layers, 120×32 shadow, 360×360 path, the cream tray with two knots, and Encore without `+1`.
 - Coordinator `msg_3dc211a89a75` prohibited the separately billed CLI/API fallback, allowed only three additional built-in retries, and required a partial delivery if they failed. No API credentials were read or printed, and no fallback API was called.
 - Only new files in `PerchSort/Assets/Resources/Art/`, `art/v6/runtime/`, and this report were written. No original art, T40 file, game code, runtime level data, scene, settings, or other worker's files were edited. No commit or push was made.
@@ -14,7 +14,7 @@
 
 Runtime destination: [V6/Art](../../../PerchSort/Assets/Resources/Art). All 83 PNGs use RGBA and have actual zero-alpha pixels. No English BEST/PAR labels, level numbers, stock numbers, or reward text are baked into them. Plus, cross, check, and question-mark mechanic symbols are pictograms.
 
-The [asset manifest](../art/v6/runtime/asset_manifest.json) records each file's dimensions, alpha bounds, pivot, provenance, border and SHA-256. The [required inventory](../art/v6/runtime/required_assets.json) lists all 85 required filenames and exact sizes, including the four missing PNGs. The [delivery file list](../art/v6/runtime/qa/delivered_files.txt) lists every delivered runtime PNG.
+The [asset manifest](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/asset_manifest.json) records each file's dimensions, alpha bounds, pivot, provenance, border and SHA-256. The [required inventory](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/required_assets.json) lists all 85 required filenames and exact sizes, including the four missing PNGs. The [delivery file list](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/delivered_files.txt) lists every delivered runtime PNG.
 
 | Group | Delivered filenames, excluding `.png` | Canvas size |
 | --- | --- | --- |
@@ -47,7 +47,7 @@ The additional coin pair allows the asset-only K3 assembly to include the approv
 | `ico_sound_off.png` | 128×128 | Built-in edit failed twice |
 | `ico_sound_off_64.png` | 64×64 | Depends on the missing 128 px image |
 
-All six calls returned `image generation failed: connection failed: error sending request`. The first flag/footsteps requests were independent; muted sound was a separate edit using the viewed T40 sound source. The three authorized retries were separated by production work. No generated artifact was returned, and there is no code-drawn or renamed stand-in for any missing icon. [imagegen_attempts.json](../art/v6/runtime/imagegen_attempts.json) retains the exact prompts, reference, attempt counts and error.
+All six calls returned `image generation failed: connection failed: error sending request`. The first flag/footsteps requests were independent; muted sound was a separate edit using the viewed T40 sound source. The three authorized retries were separated by production work. No generated artifact was returned, and there is no code-drawn or renamed stand-in for any missing icon. [imagegen_attempts.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/imagegen_attempts.json) retains the exact prompts, reference, attempt counts and error.
 
 The coordinator must retry those three illustrations through the built-in tool later; the fourth missing PNG is then a deterministic downsample. BEST/PAR text was not substituted.
 
@@ -76,14 +76,14 @@ Tray knots are cropped from the original V5 house hanger and placed at local **(
 
 ## Static QA and comparison
 
-[validation.json](../art/v6/runtime/qa/validation.json) reports **83 delivered PNGs**, **85 required**, **2 additional**, **4 missing**, and no size/mode/alpha/border/seam errors among delivered files. `all_required_delivered` is explicitly false. Read-only source hashes are recorded and checked; the earlier T40 hash snapshot is also unchanged.
+[validation.json](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/validation.json) reports **83 delivered PNGs**, **85 required**, **2 additional**, **4 missing**, and no size/mode/alpha/border/seam errors among delivered files. `all_required_delivered` is explicitly false. Read-only source hashes are recorded and checked; the earlier T40 hash snapshot is also unchanged.
 
-- [Cream contact sheet](../art/v6/runtime/qa/contact_cream.png) and [sky contact sheet](../art/v6/runtime/qa/contact_sky.png): all delivered sprites and sizes.
-- [Native-size grayscale sheet](../art/v6/runtime/qa/icons_grayscale_native.png): tools at 64 px, mechanics at 56 px, gifts at 44 px.
-- [Nine-slice stretch sheet](../art/v6/runtime/qa/nine_slice_stretch.png): actual recorded borders exercised at alternate widths/heights; contours and knots remain intact.
-- [Vertical repeats](../art/v6/runtime/qa/vertical_repeat.png): three path tiles and twelve rope tiles.
-- [Required K3 assembly](../art/v6/runtime/qa/level_k3_assembled.png): **1080×1920**, composed only from the delivered V6 sprites over `V5/Art/bg_forest_day.png` with the existing birds, branches and root bushes. Dynamic numbers are intentionally blank; no mockup screenshot is baked into the assembly.
-- [Comparison preview](../art/v6/runtime/qa/level_k3_comparison_preview.png), [full comparison](../art/v6/runtime/qa/level_k3_comparison.png), and [same-background assembly](../art/v6/runtime/qa/level_k3_same_background.png): T40 used `bg_w1_morning.png`, whereas T44 explicitly requested `bg_forest_day.png`; the third panel isolates that background difference.
+- [Cream contact sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/contact_cream.png) and [sky contact sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/contact_sky.png): all delivered sprites and sizes.
+- [Native-size grayscale sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/icons_grayscale_native.png): tools at 64 px, mechanics at 56 px, gifts at 44 px.
+- [Nine-slice stretch sheet](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/nine_slice_stretch.png): actual recorded borders exercised at alternate widths/heights; contours and knots remain intact.
+- [Vertical repeats](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/vertical_repeat.png): three path tiles and twelve rope tiles.
+- [Required K3 assembly](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/level_k3_assembled.png): **1080×1920**, composed only from the delivered V6 sprites over `V5/Art/bg_forest_day.png` with the existing birds, branches and root bushes. Dynamic numbers are intentionally blank; no mockup screenshot is baked into the assembly.
+- [Comparison preview](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/level_k3_comparison_preview.png), [full comparison](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/level_k3_comparison.png), and [same-background assembly](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/qa/level_k3_same_background.png): T40 used `bg_w1_morning.png`, whereas T44 explicitly requested `bg_forest_day.png`; the third panel isolates that background difference.
 
 Visual inspection finds the 17 available tool/navigation silhouettes distinct at 64 px in color and grayscale. This is a designer inspection, not a user recognition study. Gift detail is denser at 44 px: Encore's footprint/feather reads first; its crossed empty counter is secondary detail. The 56 px sleeping bird is less explicit than the mock's 80 px bird plus `zzz`; no letters were baked into the new icon. The branch-plus growing icon shares the Add Branch silhouette and relies on its level-card context.
 
@@ -97,4 +97,4 @@ K3 preserves the T40 branch/bird frames, 60 px tip gap, 260 px goal pitch, 44 px
 4. Unity import settings, sprite borders in the Editor, clipping, portrait occlusion, safe areas, input targets, device rendering and all animated behavior are **NOT_RUN**. This machine has no Unity Editor. No Mac test run or screenshot capture was attempted for this static-only worker task.
 5. Current/open nodes intentionally use the same cream base as T40; code must add the current bird/bounce and compose locked-node lock, numbers and cleared stars. Static shadow and pressed files prove no motion or interaction.
 
-Reproduction: `python3 art/v6/runtime/build_runtime_art.py`. The script uses Pillow and NumPy already available in this environment and writes only the two owned art directories. It reproduces deterministic assets/QA; it does not generate missing art or call any API. The [prompt/error record](../art/v6/runtime/imagegen_attempts.json) separately captures the built-in tool attempts.
+Reproduction: `python3 art/v6/runtime/build_runtime_art.py`. The script uses Pillow and NumPy already available in this environment and writes only the two owned art directories. It reproduces deterministic assets/QA; it does not generate missing art or call any API. The [prompt/error record](https://github.com/crazyniu/game/blob/b53b70fe91bfa248a4c072d78351ee649212637c/art/v6/runtime/imagegen_attempts.json) separately captures the built-in tool attempts.
