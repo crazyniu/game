@@ -120,7 +120,8 @@ namespace PerchSort.Game
             }
             Emerge(leftBird, "sky", 0.15f, -1);
             Emerge(rightBird, "berry", 0.25f, 1);
-            Vector2 heroDestination = -heroBird.rectTransform.anchoredPosition;
+            Vector2 heroPosition = heroBird.rectTransform.anchoredPosition;
+            Vector2 heroDestination = new Vector2(heroPosition.x, -heroPosition.y);
             presentation.FlyBird(art, heroBird, "sunny", new Vector2(heroDestination.x, -240), heroDestination, 0.10f,
                 () => heroBird.GetComponent<UiBirdLife>().Begin(), duration: 0.6f);
             presentation.Confetti(art, transform, 0);
@@ -141,7 +142,8 @@ namespace PerchSort.Game
         }
         private void Emerge(Image bird, string species, float delay, float direction)
         {
-            Vector2 destination = -bird.rectTransform.anchoredPosition;
+            Vector2 position = bird.rectTransform.anchoredPosition;
+            Vector2 destination = new Vector2(position.x, -position.y);
             Vector2 start = new Vector2(direction < 0 ? -bird.rectTransform.rect.width : GameLayout.DesignWidth + bird.rectTransform.rect.width,
                 destination.y - 180);
             presentation.FlyBird(art, bird, species, start, destination, delay, () =>
