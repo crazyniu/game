@@ -51,7 +51,8 @@ namespace PerchSort.V5.Game
                     new Vector2(540, V7Layout.WorldTop(world) + 1500), new Vector2(1080, 3000));
             for (int world = 2; world <= 4; world++)
             {
-                Vector2 gate = new Vector2(540, V7Layout.WorldTop(world) + 2860);
+                float boundary = (V6MapModel.Position((world - 1) * 10).y + V6MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
+                Vector2 gate = new Vector2(540, boundary);
                 V5UI.Fit(content, "World " + world + " gate", art.Get(V6MapModel.WorldOpen(profile, world) ? "gate_open" : "gate_locked"), gate, V7Layout.MapGateSize);
                 V5UI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(250, 0), new Vector2(240, 100));
             }
