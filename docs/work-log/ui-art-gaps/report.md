@@ -22,6 +22,10 @@ Reviewed per-item comparisons on light, dark and purple backgrounds at 64 px. Sm
 
 Added `leaf_sprig_a`, `leaf_sprig_b`, and `leaf_sprig_c`, each 180 by 140 RGBA. The first two are distinct three-leaf corner arrangements derived from the approved level card; the third is a newly drawn two-leaf arrangement in the same style. No mirrored variants. Per-item evidence identifies that no prior standalone sprite existed. Reviewed all three on light, dark and purple at 64 px: clean transparency, readable leaf count and fresh green material with top-left light. No leaf generation was rejected. Runtime placement is not wired by this art-only task.
 
+## Bare sleeping owl batch
+
+Added `Art/hoot_sleep_bare`, 320 by 320 RGBA, derived by removing the nightcap from `Birds/hoot_sleep`. The original bird asset remains unchanged. The new sprite retains the original centered `(0.5, 0.5)` pivot, pixels-per-unit and square canvas. The closed-eye expression, tan layered feathers, cream face, orange feet and lower-canvas placement remain recognizable; the visible lower alpha bound is y=301. Reviewed per-item before/after and 64 px transparency on all three backgrounds. No owl generation was rejected. This is a static asset delivery, not animation evidence or mechanic-row runtime acceptance.
+
 ## Remaining batches
 
-Bare sleeping owl and map glyphs remain to be produced in that order.
+Map glyphs remain to be produced.
