@@ -37,7 +37,11 @@ namespace PerchSort.Game
         {
             Cancel();
             if (motion == null) motion = gameObject.AddComponent<GameMotion>();
-            if (group == null) group = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
+            if (group == null)
+            {
+                group = GetComponent<CanvasGroup>();
+                if (group == null) group = gameObject.AddComponent<CanvasGroup>();
+            }
             group.alpha = 1; group.blocksRaycasts = group.interactable = true;
             dim = overlay;
             if (dim != null)
@@ -49,7 +53,8 @@ namespace PerchSort.Game
         public void Track(RectTransform rect)
         {
             if (rect == null || poses.ContainsKey(rect)) return;
-            var canvas = rect.GetComponent<CanvasGroup>() ?? rect.gameObject.AddComponent<CanvasGroup>();
+            var canvas = rect.GetComponent<CanvasGroup>();
+            if (canvas == null) canvas = rect.gameObject.AddComponent<CanvasGroup>();
             var image = rect.GetComponent<Image>(); var button = rect.GetComponent<Button>();
             poses.Add(rect, new Pose { Rect = rect, Position = rect.anchoredPosition, Scale = rect.localScale,
                 Rotation = rect.localRotation, Group = canvas, Alpha = canvas.alpha, Image = image,

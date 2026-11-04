@@ -25,7 +25,12 @@ namespace PerchSort.Game
             name.StartsWith("snow_", StringComparison.Ordinal) || name.StartsWith("ember_", StringComparison.Ordinal) || name.StartsWith("ink_", StringComparison.Ordinal) ||
             name.StartsWith("hoot_", StringComparison.Ordinal) || name.StartsWith("crow_", StringComparison.Ordinal);
         private Sprite Own(Sprite sprite, string name) { sprite.name = name; owned.Add(sprite); return sprite; }
-        public Sprite Get(string name) => Optional(name) ?? throw new InvalidOperationException("Missing production sprite: " + name);
+        public Sprite Get(string name)
+        {
+            var sprite = Optional(name);
+            if (sprite == null) throw new InvalidOperationException("Missing production sprite: " + name);
+            return sprite;
+        }
         public Sprite Icon(string name) => Get(name);
         public static void Warn(string key, string message) { if (warnings.Add(key)) Debug.LogWarning(message); }
         public Sprite World(string name, int world) => Get(name + "_w" + world);

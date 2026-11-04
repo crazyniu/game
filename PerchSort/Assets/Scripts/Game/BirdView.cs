@@ -168,7 +168,13 @@ namespace PerchSort.Game
                 idleEnvelope = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.08f);
                 if (action == 0)
                     SetFrame(elapsed < 0.12f || (twice && elapsed > 0.22f && elapsed < 0.34f) ? blinkFrame : idleFrame);
-                else SetFrame(action == 11 ? (t < 0.5f ? quirk1 : quirk2) : idlePoses[action] ?? idleFrame);
+                else if (action == 11) SetFrame(t < 0.5f ? quirk1 : quirk2);
+                else
+                {
+                    var pose = idlePoses[action];
+                    if (pose == null) pose = idleFrame;
+                    SetFrame(pose);
+                }
                 if (t > 1 - 0.08f / duration) SetFrame(idleFrame);
             }, StopIdlePose);
         }

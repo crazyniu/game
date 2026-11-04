@@ -96,8 +96,12 @@ namespace PerchSort.Game
             presentation.After(1, () =>
             {
                 var look = art.Optional("sunny_look_side");
-                if (look == null) GameArt.Warn("popup-booster-look", "Missing curious-bird look frame; retaining whole-bird peek and bob.");
-                bird.sprite = look ?? art.Get("sunny_idle");
+                if (look == null)
+                {
+                    GameArt.Warn("popup-booster-look", "Missing curious-bird look frame; retaining whole-bird peek and bob.");
+                    look = art.Get("sunny_idle");
+                }
+                bird.sprite = look;
                 presentation.Bob(bird, 6);
             });
             presentation.ButtonsLast(body, 1.05f);
@@ -211,7 +215,9 @@ namespace PerchSort.Game
             if (!complete)
             {
                 GameArt.Warn("popup-gift-parts", "Missing gift parts; using whole-object gift rise fallback.");
-                var gift = GameUI.Fit(nest, "Gift fallback", art.Optional("gift_box_base") ?? art.Get("icon_basket"), bounds.size * 0.5f, bounds.size);
+                var giftSprite = art.Optional("gift_box_base");
+                if (giftSprite == null) giftSprite = art.Get("icon_basket");
+                var gift = GameUI.Fit(nest, "Gift fallback", giftSprite, bounds.size * 0.5f, bounds.size);
                 Rise(gift, 0.4f); return 1.5f;
             }
             foreach (string part in parts)
