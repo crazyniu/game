@@ -22,6 +22,7 @@ namespace PerchSort.Game
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
         private readonly TextMeshProUGUI[] counts = new TextMeshProUGUI[4];
+        private readonly RectTransform[] plusBadges = new RectTransform[4];
         private readonly BoosterKind[] kinds = new BoosterKind[4];
         private readonly int[] inventory = new int[ViewModel.BoosterCount];
         private Button settings;
@@ -70,6 +71,14 @@ namespace PerchSort.Game
                 badges[i] = GameUI.Fit(tools[i].transform, "Inventory badge", art.Get("badge_red"), GameLayout.StockCenter, Vector2.one * GameLayout.StockSize);
                 counts[i] = GameUI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * GameLayout.StockSize * 0.5f, Vector2.one * GameLayout.StockSize, GameLayout.StockFontSize);
                 counts[i].color = Color.white;
+                plusBadges[i] = GameUI.Rect(badges[i].transform, "Zero stock plus", Vector2.one * GameLayout.StockSize * 0.5f, Vector2.one * GameLayout.StockSize);
+                var horizontal = GameUI.Image(plusBadges[i], "Horizontal", null, Vector2.zero, Vector2.zero);
+                horizontal.rectTransform.anchorMin = new Vector2(0.24f, 0.42f); horizontal.rectTransform.anchorMax = new Vector2(0.76f, 0.58f);
+                horizontal.rectTransform.offsetMin = horizontal.rectTransform.offsetMax = Vector2.zero;
+                var vertical = GameUI.Image(plusBadges[i], "Vertical", null, Vector2.zero, Vector2.zero);
+                vertical.rectTransform.anchorMin = new Vector2(0.42f, 0.24f); vertical.rectTransform.anchorMax = new Vector2(0.58f, 0.76f);
+                vertical.rectTransform.offsetMin = vertical.rectTransform.offsetMax = Vector2.zero;
+                GameUI.Stretch(plusBadges[i]);
             }
             feather = GameUI.Fit(bottomBar, "Light step pending", art.Get("gift_feather"), GameLayout.LightStepPoint, Vector2.one * GameLayout.FeatherSize).gameObject;
             chorus = GameUI.Fit(transform, "Chorus ribbon", art.Get("ribbon_green"), GameLayout.ChainRibbon.center, GameLayout.ChainRibbon.size).gameObject;
@@ -213,7 +222,8 @@ namespace PerchSort.Game
             for (int i = 1; i < tools.Length; i++)
             {
                 int count = root.DisplayStock(inventory[(int)kinds[i]]); badges[i].sprite = art.Get("badge_red");
-                counts[i].gameObject.SetActive(true); counts[i].text = count.ToString();
+                counts[i].gameObject.SetActive(count > 0); counts[i].text = count.ToString();
+                plusBadges[i].gameObject.SetActive(count == 0);
             }
         }
         public void BoosterSpent(BoosterUsed used) { inventory[(int)used.Booster] = used.Remaining; DrawCounts(); }
