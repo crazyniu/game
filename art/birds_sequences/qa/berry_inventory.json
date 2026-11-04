@@ -1,0 +1,1484 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_01.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      59,
+      260,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      195,
+      446,
+      362,
+      462
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "17432b9550ba1069607c09fe91bdae5fd494a9c5316827d9894809c42624618e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_02.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      33,
+      59,
+      284,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      194,
+      446,
+      362,
+      462
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "14c6090dabb1cb810bc2228eb3666acb41651b1245f5debd0ff565b68d15229e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_03.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      23,
+      59,
+      278,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      195,
+      446,
+      362,
+      462
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "e5c014c3ae54609d202c98d87d092647229de8fb32fca7d1bfd0611d3ad4bcd6"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_04.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      6,
+      59,
+      297,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      195,
+      445,
+      362,
+      461
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "1438b3529470bb5161861d4dbe9ba78d295537d4501ea0520c0872f04d04e0d1"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_05.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      15,
+      59,
+      295,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      195,
+      446,
+      361,
+      462
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "36896eeb5014b2365d473d5d084bbcf6c2e4c8af164d80233dba1eb117308866"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_flap_06.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/berry_flap.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      59,
+      269,
+      301
+    ],
+    "scale": 0.5868263473053892,
+    "translation": [
+      -3,
+      29
+    ],
+    "source_feet": [
+      195,
+      446,
+      362,
+      462
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "278c1606a155a43022247a17e79b964cf90c7612ee4b4fc07353a7243742c74f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_01.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      48,
+      96,
+      274,
+      301
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      8,
+      48
+    ],
+    "source_feet": [
+      183,
+      431,
+      357,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "2b611050143f4ed055660d024260d5a569fabffbf647c35f551e8817947cb63e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_02.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      78,
+      281,
+      301
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      11,
+      48
+    ],
+    "source_feet": [
+      181,
+      431,
+      348,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "ae8ffb5e58016d1b9fb7a7b7337d1f31fda43bda170734184433f2b0144ea2e8"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_03.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      49,
+      84,
+      288,
+      301
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      18,
+      67
+    ],
+    "source_feet": [
+      190,
+      397,
+      313,
+      413
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "3d8358614317850447f3affe8004a566a3dea529d3938071751f635decf2e77f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_04.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      37,
+      79,
+      276,
+      302
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      7,
+      73
+    ],
+    "source_feet": [
+      205,
+      387,
+      339,
+      403
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "6f0d6b3488da088918ce4c7088e18b11c8673b687035a3e436d566743238bfd4"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_05.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      44,
+      65,
+      286,
+      302
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      15,
+      52
+    ],
+    "source_feet": [
+      181,
+      425,
+      333,
+      441
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "95b54ae383e6dc37b8a57df25fde05cf801c7bb5044304d30f03a1dc5b76cdfe"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_hop_06.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/berry_hop.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      89,
+      275,
+      301
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      8,
+      43
+    ],
+    "source_feet": [
+      184,
+      440,
+      357,
+      456
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "c0ba3f98d9275f4a45459257b581c6cb13333326744f40ea9c9e8895257620d9"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_left_01.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/berry_turn_left.png",
+    "cell": 1,
+    "cell_size": [
+      630,
+      623
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      54,
+      73,
+      255,
+      302
+    ],
+    "scale": 0.4474885844748858,
+    "translation": [
+      12,
+      54
+    ],
+    "source_feet": [
+      222,
+      530,
+      441,
+      549
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "6c3b4a01d041592de475d7d169106f79909d880dc2b29b2bb24f27cbd60bf1cb"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_left_02.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/berry_turn_left.png",
+    "cell": 2,
+    "cell_size": [
+      630,
+      623
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      57,
+      72,
+      257,
+      302
+    ],
+    "scale": 0.4474885844748858,
+    "translation": [
+      21,
+      54
+    ],
+    "source_feet": [
+      199,
+      531,
+      421,
+      550
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "4004182c012c36d5d6184b5f850f164bef63256e0ce3e0eaa37240e776354615"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_left_03.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/berry_turn_left.png",
+    "cell": 3,
+    "cell_size": [
+      630,
+      623
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      65,
+      256,
+      303
+    ],
+    "scale": 0.4474885844748858,
+    "translation": [
+      21,
+      51
+    ],
+    "source_feet": [
+      200,
+      538,
+      421,
+      557
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "9d056c0a09fb71efdb89dbe8922a5767bbb8e60e6be13dca6a8f6e4dfcd87742"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_left_04.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/berry_turn_left.png",
+    "cell": 4,
+    "cell_size": [
+      630,
+      623
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      57,
+      63,
+      252,
+      303
+    ],
+    "scale": 0.4474885844748858,
+    "translation": [
+      21,
+      51
+    ],
+    "source_feet": [
+      199,
+      538,
+      421,
+      557
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "d56ea6eccca12cf201b2ca503ca71fb8b6baae028daa3b3e62f61964609e8474"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_right_01.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/berry_turn_right.png",
+    "cell": 1,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      54,
+      74,
+      254,
+      303
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      -112,
+      69
+    ],
+    "source_feet": [
+      396,
+      397,
+      570,
+      411
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "ea43e9fb409c730adcd93203be6b46f390b7ac98a2fbbf5814d6b9be4e001530"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_right_02.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/berry_turn_right.png",
+    "cell": 2,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      74,
+      250,
+      303
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      -86,
+      69
+    ],
+    "source_feet": [
+      348,
+      396,
+      525,
+      410
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "73c34ab664805932c07db6718f1fce92e22e17199b3ce837bbdb6d849d9ba402"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_right_03.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/berry_turn_right.png",
+    "cell": 3,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      35,
+      75,
+      248,
+      304
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      -110,
+      69
+    ],
+    "source_feet": [
+      392,
+      397,
+      568,
+      411
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "11963a032327819ea2af9f8908eb90b4a93b7cdced9e76f17fb464e4438a8a00"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_turn_right_04.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/berry_turn_right.png",
+    "cell": 4,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      29,
+      74,
+      261,
+      304
+    ],
+    "scale": 0.5632183908045977,
+    "translation": [
+      -86,
+      69
+    ],
+    "source_feet": [
+      349,
+      396,
+      526,
+      410
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "e2da1deea5b59332e29c7ec27f13aecc67c02980e1e94d93cfd6da3966490028"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_01.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      24,
+      74,
+      289,
+      303
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      12,
+      58
+    ],
+    "source_feet": [
+      182,
+      431,
+      363,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "144c8efe0277eaf8816b96b4291d63c650a4f6d832b90301360d342274cca187"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_02.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 2,
+    "cell_size": [
+      502,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      32,
+      74,
+      277,
+      302
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      19,
+      58
+    ],
+    "source_feet": [
+      170,
+      431,
+      352,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "441321541b1585604b9cc5658630e7cc28cc131893ceb6a994ad27695dacff6f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_03.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      18,
+      74,
+      280,
+      302
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      13,
+      58
+    ],
+    "source_feet": [
+      180,
+      431,
+      362,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "4c5a87dce9f39f0214b71edd68cfea937dceba90097f6e11a0c421cfc1fb1cfe"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_04.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      29,
+      74,
+      277,
+      302
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      13,
+      58
+    ],
+    "source_feet": [
+      181,
+      431,
+      363,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "44e478d0704a8cab1d8ba838724b283010e1e4297d1f8bb772069b24c77f6111"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_05.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      21,
+      74,
+      285,
+      302
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      13,
+      58
+    ],
+    "source_feet": [
+      180,
+      431,
+      362,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "571613151db9a329b79535d62f7b7963355780e63ee0c28951fc792d9c7e23fe"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_cheer_06.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/berry_cheer.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      38,
+      74,
+      277,
+      302
+    ],
+    "scale": 0.5414364640883977,
+    "translation": [
+      13,
+      58
+    ],
+    "source_feet": [
+      181,
+      431,
+      362,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "3e4e865ea39a55eb1140d40632262aff69b79acd0e9bc4c2f5500eb2c5f3ca1c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_preen_01.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/berry_preen.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      56,
+      64,
+      281,
+      302
+    ],
+    "scale": 0.5130890052356021,
+    "translation": [
+      28,
+      55
+    ],
+    "source_feet": [
+      162,
+      461,
+      353,
+      477
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "33fa0e599b99019b2e1e809726e1902b7eff7af05892d947c2c5f75d3af488e7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_preen_02.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/berry_preen.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      53,
+      64,
+      270,
+      302
+    ],
+    "scale": 0.5130890052356021,
+    "translation": [
+      28,
+      55
+    ],
+    "source_feet": [
+      162,
+      461,
+      353,
+      477
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "59029388251f1832354f0f77d03fa271dd51fcd618409dd70e433201a2e2c581"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_preen_03.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/berry_preen.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      66,
+      264,
+      302
+    ],
+    "scale": 0.5130890052356021,
+    "translation": [
+      28,
+      55
+    ],
+    "source_feet": [
+      162,
+      461,
+      353,
+      477
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "1045238f96d98db183b16259b792b8c6f589ddda05b26c98505e25a0d82bcd38"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_preen_04.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/berry_preen.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      66,
+      275,
+      303
+    ],
+    "scale": 0.5130890052356021,
+    "translation": [
+      28,
+      55
+    ],
+    "source_feet": [
+      161,
+      461,
+      353,
+      477
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "14c4ba070efb20f9fde2a678467321cb6d1b505b6ab5594174a429d6fe3772eb"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_preen_05.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/berry_preen.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      65,
+      280,
+      303
+    ],
+    "scale": 0.5130890052356021,
+    "translation": [
+      28,
+      55
+    ],
+    "source_feet": [
+      162,
+      461,
+      353,
+      477
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "f4315fded61f8cdb728d302b58803a72b5c0dd8be39aae857f4cb021070fc769"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_peek_01.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/berry_peek.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      131,
+      263,
+      302
+    ],
+    "scale": 0.4224137931034483,
+    "translation": [
+      28,
+      52
+    ],
+    "source_feet": [
+      196,
+      568,
+      428,
+      587
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "495fb28c745d8e4f602d710477417ea64467e26689436b39befdca96541b3038"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_peek_02.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/berry_peek.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      85,
+      257,
+      302
+    ],
+    "scale": 0.4224137931034483,
+    "translation": [
+      30,
+      52
+    ],
+    "source_feet": [
+      193,
+      568,
+      423,
+      587
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "fbaede4555a2fec895d6cef6e081de7b0280d451f70c9011cecd678bbb79f51b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_peek_03.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/berry_peek.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      63,
+      283,
+      301
+    ],
+    "scale": 0.4224137931034483,
+    "translation": [
+      29,
+      52
+    ],
+    "source_feet": [
+      195,
+      567,
+      425,
+      586
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "24dd5c0f13c3300a1d5a8e11efbcc34613bf5c44a130b524024361283edcbb3e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_peek_04.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/berry_peek.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      68,
+      85,
+      254,
+      301
+    ],
+    "scale": 0.4224137931034483,
+    "translation": [
+      30,
+      52
+    ],
+    "source_feet": [
+      193,
+      567,
+      424,
+      586
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "835f3791fa710a22cafeb5bbe46a85457f4ac8fb0723376140becf928b2efbe9"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_blink_01.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/berry_blink.png",
+    "cell": 1,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      66,
+      257,
+      301
+    ],
+    "scale": 0.3475177304964539,
+    "translation": [
+      26,
+      57
+    ],
+    "source_feet": [
+      245,
+      676,
+      527,
+      698
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "52eac10983fc5bfea8ae7e7655f7fa2cf3b1ebf201bc205fed6d7ffe98edcacd"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_blink_02.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/berry_blink.png",
+    "cell": 2,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      66,
+      257,
+      301
+    ],
+    "scale": 0.3475177304964539,
+    "translation": [
+      26,
+      57
+    ],
+    "source_feet": [
+      244,
+      676,
+      527,
+      698
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "861cdc8c24b5b684736c13d19bb1403923de152280c58298f84e6238d2d629ce"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_blink_03.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/berry_blink.png",
+    "cell": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      66,
+      257,
+      301
+    ],
+    "scale": 0.3475177304964539,
+    "translation": [
+      26,
+      57
+    ],
+    "source_feet": [
+      244,
+      676,
+      527,
+      698
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "64c635bdb4c1cbcd3cc9e7d9aef9f67c4f5fa57eeae939504cb20f3e1774dcc5"
+  }
+]
