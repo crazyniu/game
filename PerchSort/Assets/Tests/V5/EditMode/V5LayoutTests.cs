@@ -51,6 +51,39 @@ namespace PerchSort.V5.Tests
                 if (row > 0) Assert.That(hit.Overlaps(V7Layout.BranchHit(row - 1, rows, right)), Is.False);
             }
         }
+        [Test, Combinatorial]
+        public void OppositeBirdCanvasesAndBranchTipsNeverIntersect(
+            [Values(2, 3, 4, 5)] int rows, [Values(2, 3, 4, 5, 6, 7)] int species)
+        {
+            float scale = V7Layout.BirdScale(rows);
+            Vector2 size = V7Layout.BirdDisplaySize * scale;
+            // Cover the full four-seat envelope, not just occupied seats in one authored board.
+            // Species count changes the house band, never the cross-board seat clearance.
+            for (int left = 0; left < rows; left++) for (int right = 0; right < rows; right++)
+            {
+                float leftY = V7Layout.RowY(left, rows), rightY = V7Layout.RowY(right, rows, true);
+                var leftWood = new Rect(0, leftY + V7Layout.BranchCenterBelowFeet - V7Layout.BranchHeight / 2,
+                    V7Layout.BranchWidth, V7Layout.BranchHeight);
+                var rightWood = new Rect(V7Layout.DesignWidth - V7Layout.BranchWidth,
+                    rightY + V7Layout.BranchCenterBelowFeet - V7Layout.BranchHeight / 2, V7Layout.BranchWidth, V7Layout.BranchHeight);
+                for (int a = 0; a < 4; a++) for (int b = 0; b < 4; b++)
+                {
+                    Rect first = V7Layout.Centered(V7Layout.BirdSlot(a, leftY, false, scale), size);
+                    Rect second = V7Layout.Centered(V7Layout.BirdSlot(b, rightY, true, scale), size);
+                    Assert.That(first.Overlaps(second), Is.False, $"L{left}:{a}/R{right}:{b}");
+                    Assert.That(leftWood.Overlaps(second), Is.False, "Left tip covers an opposite bird.");
+                    Assert.That(rightWood.Overlaps(first), Is.False, "Right tip covers an opposite bird.");
+                    for (int house = 0; house < species; house++)
+                    {
+                        Rect roof = V7Layout.HouseCanvas(house, species);
+                        Assert.That(roof.Overlaps(first) || roof.Overlaps(second), Is.False, "House band covers a perched bird.");
+                    }
+                }
+            }
+            for (int row = 0; row < rows; row++)
+                Assert.That(V7Layout.RowY(row, rows, true) - V7Layout.RowY(row, rows),
+                    Is.EqualTo(V7Layout.RowPitch(rows) / 2).Within(0.01f), "Opposite rows must interleave.");
+        }
         [TestCase("win", "replay", "next", "home")]
         [TestCase("settings", "sound", "replay", "home")]
         public void ModalActionTargetsRemainSeparate(string screen, string first, string second, string third)

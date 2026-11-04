@@ -65,8 +65,13 @@ namespace PerchSort.V5.Game
         public void Unlock(BoosterKind kind)
         {
             Rect bounds = V7Layout.UnlockPanel; var body = Body(bounds, false); IsUnlock = true;
-            Picture(body, "New booster", V5ViewModel.Icon(kind), bounds, V7Layout.UnlockIcon);
-            if (kind == BoosterKind.OwlEye) Picture(body, "Mystery egg", "egg_idle", bounds, V7Layout.Screen("unlock_card", "egg"));
+            var illustration = art.Optional(V5ViewModel.Illustration(kind));
+            if (illustration != null) V5UI.Fit(body, "New booster", illustration, V7Layout.UnlockIcon.center - bounds.position, V7Layout.UnlockIcon.size);
+            else
+            {
+                Picture(body, "New booster", V5ViewModel.Icon(kind), bounds, V7Layout.UnlockIcon);
+                if (kind == BoosterKind.OwlEye) Picture(body, "Mystery egg", "egg_idle", bounds, V7Layout.Screen("unlock_card", "egg"));
+            }
             Label(body, "Booster name", BoosterName(kind), bounds, V7Layout.UnlockTitle, V7Layout.UnlockTitleSize);
             Label(body, "Booster effect", BoosterEffect(kind), bounds, V7Layout.UnlockBody, V7Layout.UnlockBodySize);
             V5UI.Button(body, art, "Acknowledge unlock", "icon_check", new Rect(V7Layout.UnlockCheck.position - bounds.position, V7Layout.UnlockCheck.size), root.AcknowledgeUnlock, true);

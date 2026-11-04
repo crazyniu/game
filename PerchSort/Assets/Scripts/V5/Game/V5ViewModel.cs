@@ -10,10 +10,12 @@ namespace PerchSort.V5.Game
         private static readonly int[] unlocks = { 2, 4, 7, 12, 22, 32 };
         private static readonly int[] prices = { 30, 60, 80, 80, 100, 100 };
         private static readonly string[] icons = { "icon_bulb", "icon_branch_plus", "icon_egg_eye", "icon_bell", "icon_scarecrow", "icon_rain_sprout" };
+        private static readonly string[] illustrations = { "booster_firefly_illus", "booster_sapling_illus", "booster_owl_eye_illus", "booster_morning_bell_illus", "booster_scarecrow_illus", "booster_spring_rain_illus" };
         public static int Unlock(BoosterKind kind) => unlocks[(int)kind];
         public static int Price(BoosterKind kind) => prices[(int)kind];
         public static int Starter(BoosterKind kind) => kind == BoosterKind.Firefly ? 3 : 2;
         public static string Icon(BoosterKind kind) => icons[(int)kind];
+        public static string Illustration(BoosterKind kind) => illustrations[(int)kind];
         public static BoosterKind WorldBooster(int world) => (BoosterKind)(Math.Max(1, Math.Min(4, world)) + 1);
         public static BoosterKind ContextBooster(BoardState board, out bool mechanicPresent)
         {

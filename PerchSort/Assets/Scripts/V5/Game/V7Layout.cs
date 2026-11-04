@@ -29,15 +29,15 @@ namespace PerchSort.V5.Game
         public static readonly Rect ChainRibbon = new Rect(830, 490, 180, 60), GoalTray = new Rect(0, 210, 1080, 310);
         public const float ChainFontSize = 32;
         public const float BoardTop = 570, BoardBottom = 1700, BoardHeight = BoardBottom - BoardTop;
-        public const float BranchWidth = 620, BranchHeight = 90, MaximumRowPitch = 350, RightRowOffset = 160;
-        public const float BirdSize = 200, BirdSlotPitch = 126, FirstBirdSlot = 100, BirdCenterAboveBranch = 90;
+        public const float BranchWidth = 530, BranchHeight = 90, MaximumRowPitch = 350;
+        public const float BirdSize = 200, BirdSlotPitch = 110, FirstBirdSlot = 100, BirdCenterAboveBranch = 90;
         public const float BranchHitWidth = 520, BranchHitHeight = 180, BranchHitLift = 85;
-        public static readonly Vector2 BirdDisplaySize = Vector2.one * BirdSize, BranchDisplaySize = new Vector2(620, 90), TwigDisplaySize = new Vector2(400, 80), BushSize = new Vector2(330, 250);
+        public static readonly Vector2 BirdDisplaySize = Vector2.one * BirdSize, BranchDisplaySize = new Vector2(BranchWidth, BranchHeight), TwigDisplaySize = new Vector2(400, 80), BushSize = new Vector2(330, 250);
         public const float BushAboveBranch = 300, BranchCenterBelowFeet = 14;
-        public static float RowPitch(int rows) => rows <= 2 ? 350 : 740f / Mathf.Max(1, rows - 1);
+        public static float RowPitch(int rows) => rows <= 2 ? MaximumRowPitch : 880f / (rows - 0.5f);
         public static float BirdScale(int rows) => rows <= 5 ? 1 : Mathf.Clamp(5f / rows, 0.72f, 1);
         public static float SeatPitch(float scale) => BirdSlotPitch * Mathf.Min(1, scale);
-        public static float RowY(int row, int rows, bool right = false) => (rows <= 2 ? 925 : 760) + row * RowPitch(rows) + (right ? (rows <= 2 ? 160 : Mathf.Min(150, RowPitch(rows) * 0.5f)) : 0);
+        public static float RowY(int row, int rows, bool right = false) => (rows <= 2 ? 925 : 760) + (row + (right ? 0.5f : 0)) * RowPitch(rows);
         public static Rect BranchHit(int row, int rows, bool right) => Centered(new Vector2(right ? DesignWidth - BranchHitWidth / 2 : BranchHitWidth / 2, RowY(row, rows, right) - BranchHitLift), new Vector2(BranchHitWidth, Mathf.Min(BranchHitHeight * BirdScale(rows), RowPitch(rows) * 0.75f)));
         public static Vector2 BirdSlot(int slot, float y, bool right, float scale = 1)
         {
