@@ -53,6 +53,9 @@ for animation in animations:
     cells = [sheet.crop(((i % columns) * cw, (i // columns) * ch,
                          (i % columns + 1) * cw, (i // columns + 1) * ch))
              for i in range(count)]
+    # Exclude the preceding cell's feather-tip spill from this sheet's empty gutter.
+    if species == 'sky' and animation == 'flap':
+        cells[4] = cells[4].crop((5, 0, cw, ch))
     anchor = feet(cells[0])
     scale = (ref_feet[2] - ref_feet[0]) / (anchor[2] - anchor[0])
     frames = []
@@ -63,7 +66,7 @@ for animation in animations:
         base = anchor[3] if animation == 'hop' and index in (1, 2, 3, 4) else foot[3]
         dy = round(300 - base * scale)
         sprite = Image.new('RGBA', (320, 320))
-        sprite.alpha_composite(cell.resize((round(cw * scale), round(ch * scale)),
+        sprite.alpha_composite(cell.resize((round(cell.width * scale), round(cell.height * scale)),
                                          Image.Resampling.LANCZOS), (dx, dy))
         name = f'{species}_{animation}_{index + 1:02}'
         target = OUT / f'{name}.png'
@@ -79,6 +82,7 @@ for animation in animations:
         visible = sprite.getchannel('A').point(lambda a: 255 if a > 12 else 0).getbbox()
         records.append({'file': str(target.relative_to(ROOT)), 'animation': animation,
                         'source': str(source.relative_to(ROOT)), 'cell': index + 1,
+                        'cell_size': list(cell.size),
                         'size': list(sprite.size), 'mode': sprite.mode,
                         'alpha_extrema': list(sprite.getchannel('A').getextrema()),
                         'visible_bounds': visible, 'scale': scale, 'translation': [dx, dy],

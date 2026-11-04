@@ -4,4 +4,6 @@ The built-in imagegen tool draws the animation poses using the approved species 
 
 Every animation has its generation prompt recorded here. Failed candidates are explicitly marked rejected in the QA inventory and are never exported as runtime frames.
 
+Sunny flap used `sunny_flap_prompt.txt`, followed by `flap_cleanup_prompt.txt` for alpha extraction. The other Sunny actions additionally reference that cleaned flap sheet for consistency. Sky and Berry actions reference their own four approved idle, cheer, fly_up and fly_down stills. The approved popup supplies the inspected style reference.
+
 Runtime target: 320 x 320 RGBA, centered sprite pivot, grounded toe baseline at y=300. Hop airborne poses intentionally lift above the shared ground plane. Offline previews run at 10 fps; Unity playback is a coordinator validation step.
