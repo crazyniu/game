@@ -7,7 +7,7 @@
 | mint | 38 | Offline art review passed; Unity acceptance pending |
 | cocoa | 38 | Offline art review passed; Unity acceptance pending |
 | snow | 38 | Offline art review passed; Unity acceptance pending |
-| ember | 0 | Pending |
+| ember | 38 | Offline art review passed; Unity acceptance pending |
 | ink | 0 | Pending |
 | hoot | 0 | Pending |
 | crow | 0 | Pending |
@@ -28,13 +28,16 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 
 - Snow turn_left: first generated source turned right. Retained it as the independently drawn turn_right sequence after review; generated a new left-facing sequence. The original prompt is retained as `snow_turn_right_source_prompt.txt`. No mirror operation was used.
 
+- Ember flap: rejected the first source after export because frame 4 clipped a wing tip. Regenerated with shorter articulated wing extension at unchanged body scale. Replacement passes all export checks; rejected source retained as `ember_flap_rejected_wing_clip.png`.
+
 ## Verification boundary
 
 - Mint: 38 images verified as 320x320 RGBA with real alpha and species-idle import settings; no clipped exports. All eight contact sheets visually reviewed for identity, pose, scale, light/dark edges and grayscale readability.
 - Snow: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files. Offline APNG previews and checks are saved.
+- Ember: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Naming guard self-test: 8 passed. Naming guard: zero violations before Unity.
 - Unity compilation, full EditMode/PlayMode suites, stable screenshots and timed runtime evidence are pending. The shared Unity lock was occupied by other authorized batch workers when inspected. No process was killed.
 
 ## Missing items
 
-Ember, ink, hoot and crow: all 38 frames each are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
+Ink, hoot and crow: all 38 frames each are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
