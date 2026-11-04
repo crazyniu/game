@@ -2,7 +2,7 @@
 
 Run directly for the repository check, or with --self-test for isolated fixtures.
 Markdown prose is not an identifier: inline code, fenced code and link targets are.
-History exceptions cover dated handoffs and completed task reports, not task specs.
+Dates, dependency files, lockfiles and existing storage literals are not game identities.
 """
 
 from pathlib import Path, PurePosixPath
@@ -14,8 +14,8 @@ import sys
 ASSETS = "PerchSort/Assets/"
 # Recognize standalone labels and embedded PascalCase suffixes, not words such as
 # 'preview', SHA hashes, world IDs, level IDs or third-party module names.
-NUMBERED = re.compile(r"(?:(?<![a-z0-9])(?:v|ui|final)|V|UI|Final)[1-9][0-9]*(?![a-z0-9])")
-NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+", re.IGNORECASE)
+NUMBERED = re.compile(r"(?:(?<![a-z0-9])(?:v|ui|final)|V|UI|Final)[0-9]+(?![a-z0-9])|(?<![A-Z])T[0-9]+[A-Za-z]?")
+NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+|T[0-9]+[A-Za-z]?", re.IGNORECASE)
 QUOTED = re.compile(r'''(["'`])((?:\\.|(?!\1)[^\\\r\n])*)\1''')
 INLINE_CODE = re.compile(r"`+([^`\r\n]+)`+")
 LINK_TARGET = re.compile(r"\]\(([^\s)]+)(?:\s+[^)]*)?\)")
@@ -74,9 +74,6 @@ def exempt(path):
                  "packages-lock.json", "poetry.lock", "uv.lock", "Pipfile.lock"}
             or name.endswith(".lock")):
         return True
-    if path.startswith(("tasks/", "docs/team/")):
-        return bool(re.search(r"(?:HANDOFF_\d{4}-\d{2}-\d{2}|T\d+[A-Za-z0-9_]*_report)(?:[_.]|$)",
-                              name, re.IGNORECASE))
     return False
 
 

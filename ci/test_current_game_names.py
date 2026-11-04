@@ -11,6 +11,13 @@ import check_current_game_names as guard
 
 
 class NamingPolicyTests(unittest.TestCase):
+    def test_task_names_and_dates(self):
+        for name in ("T" + "54AExample.cs", "T" + "7_report.md",
+                     "ui" + "7_x.png", "V" + "5Tool.cs"):
+            with self.subTest(name=name):
+                self.assertTrue(list(guard.path_violations("docs/" + name)))
+        self.assertFalse(list(guard.path_violations("docs/2026-11-04_handoff.md")))
+
     def test_rejects_numbered_names_in_every_authored_root(self):
         for prefix in ("art/", "tools/levels/", "docs/", "scripts/", "ci/",
                        "PerchSort/Assets/Scripts/", "PerchSort/ProjectSettings/"):
