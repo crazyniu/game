@@ -523,6 +523,7 @@ namespace PerchSort.Game
             SetRaycasts(hudInput, !blocked && !IsMap);
             SetRaycasts(boardInput, !Modal && !IsMap);
             SetRaycasts(mapInput, !Modal && IsMap);
+            StuckHint.Observe(this);
             if (IsMap) Map.RefreshCoins(Coins);
         }
         private static void SetRaycasts(CanvasGroup group, bool enabled) => group.blocksRaycasts = group.interactable = enabled;
