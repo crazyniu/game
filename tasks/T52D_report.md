@@ -2,7 +2,7 @@
 
 ## Delivery and scope
 
-Implemented the dependency-free [current-game naming guard](../ci/check_current_game_names.py) and the [T52D contract](T52D_naming_policy.md). The guard enumerates Git-index tracked authored Unity paths, checks working-tree bytes when available, and reads indexed Git blobs for omitted sparse-checkout files. It reports actionable path/line diagnostics and exits nonzero on violations.
+Implemented the dependency-free [current-game naming guard](../ci/check_current_game_names.py) and the [T52D contract](T52D_naming_policy.md). The guard checks path names across all Git-index tracked `PerchSort/Assets`, including new parallel roots outside the five content roots. It inspects authored text only under Scripts/Editor/Tests/Scenes/Resources, uses working-tree bytes when available, and reads indexed Git blobs for omitted sparse-checkout files. It reports actionable path/line diagnostics and exits nonzero on violations.
 
 Changed only the authorized four files:
 
@@ -30,22 +30,25 @@ The runtime sets were enumerated from `ProgressStore.cs` and `ProfileText.cs`; t
 
 Executed the actual `python3 ci/check_current_game_names.py` CLI in disposable Git repositories using Python's standard library, with assertions on exit codes and actionable diagnostics. No permanent test framework or fixture files were added. All temporary repositories were removed.
 
-**41 fixture scenarios passed against the corrected guard:** the original 29-scenario matrix was rerun with the obsolete Song rejection case corrected to reject runtime use, plus 12 focused Song-boundary scenarios.
+**48 fixture scenarios passed against the final corrected guard:** reran the original 29-scenario matrix with external-history fixtures outside active Assets and the Song runtime-rejection correction, plus 12 focused Song-boundary scenarios and seven path-selection review cases.
 
 | Coverage | Observed behavior |
 | --- | --- |
 | Canonical identities and all exact owner/literal exceptions | Exit `0`; canonical namespaces, assembly names, scenes, resource paths and all 34 owner/literal pairs accepted. |
-| Ordinary formats, exclusions, PNG payload | Explicit numeric schema/dependency/release version values accepted; historical docs/tasks/original art and archive/retired/vendor/package subtrees excluded. Canonical PNG with non-UTF-8 bytes and a forbidden-looking token inside its payload accepted without reading image content. |
+| Ordinary formats, external history, binary payloads | Explicit numeric schema/dependency/release version values accepted; historical docs/tasks/original art and archive/retired/vendor/Packages trees outside active Assets ignored. Canonical PNG and external-to-content-root font payloads are not parsed; their paths remain checked. |
 | Numbered paths | Rejected a lowercase numbered directory, prefix filename, suffix filename, and numbered PNG resource directory. |
 | C#/assembly identities | Rejected prefix/suffix classes, namespace, and assembly name. |
 | Resource/scene identities | Rejected a C# resource root, C# scene path, serialized scene root, serialized resource name, and dotted-numeric scene/resource names that were not format fields. |
 | Compatibility-owner isolation | Rejected a `V8` class beside `"v5.coins"` in `ProgressStore.cs`, a `V9/Art/bird` path beside that key on the same line, a numbered namespace in `ProfileText.cs`, and a numbered class in the compatibility test owner. |
 | Exactness | Rejected `v8.coins`, `v5.newSetting`, case-altered `V5.coins`, correctly spelled IDs in an unrelated file, an allowed-looking prefix extended with `/V9`, and historical Song IDs in runtime. |
 | Current working bytes | Rejected an unstaged numbered class despite a canonical indexed blob; accepted canonical working bytes despite a numbered indexed blob. |
-| Real sparse checkout | With only `ci` materialized, rejected an omitted C# namespace via its indexed Git blob and an omitted numbered PNG path via the index. After canonicalizing the disposable repository, the omitted source passed. |
+| Real sparse checkout | With only `ci` materialized, rejected an omitted C# namespace via its indexed Git blob, an omitted numbered PNG path, and a fresh omitted `Assets/V8/Canonical.cs` root. After canonicalizing the disposable repository, omitted source passed. |
 | Historical Song IDs, positive boundary | Each of `v5.songNotes` and `v5.songPayouts` individually accepted only in canonical `Tests/Meta/ProfileEconomyTests.cs`. |
 | Historical Song IDs, negative boundary | Each literal rejected in `Scripts/Game/ProgressStore.cs`, `Scripts/Meta/ProfileText.cs`, `Tests/Meta/CollectionProgressionTests.cs`, and an unrelated test file (eight cases). |
 | Historical Song IDs, no file/line exemption | A `V8` class beside `v5.songNotes` and a `V9/Art/bird` path beside `v5.songPayouts` in the canonical test owner still rejected (two cases). |
+| Requested bypass regressions | Rejected `PerchSort/Assets/Scripts/retired/V8Game.cs` and `PerchSort/Assets/V8/Canonical.cs`. |
+| Nested directory names do not exempt content | Rejected a `V8Game` class in canonically named files under active `Scripts/archive`, `Scripts/vendor`, `Scripts/thirdparty`, and `Scripts/Packages`. |
+| Font names versus payloads | Rejected a numbered font asset path outside the five content roots without parsing its invalid-UTF-8 payload; canonical font paths with the same binary payload passed. |
 
 The first sparse fixture exposed a blob-ID string/bytes mismatch in the fallback. Corrected that line, then reran the sparse negative and positive cases successfully. The other completed fixture paths did not depend on that fallback.
 
@@ -71,7 +74,7 @@ No remaining diagnostic came from `GameLayout.cs`, `Scripts/Game/ProgressStore.c
 4. The final integrated tree has not been evaluated by D. The coordinator must run the updated guard on that tree, review/accept this correction, and complete required serialized Mac integration testing plus GUI acceptance. Static fixture success is not runtime acceptance.
 5. Per worker instruction, **no Unity, compiler, EditMode/PlayMode, or code test-suite runs were performed**. No historical test result is claimed for this change.
 
-The guard intentionally operates on tracked paths and the documented textual suffixes, not arbitrary untracked files, binary payloads, or historical/vendor trees. It checks naming, not Unity compile correctness, asset loading, gameplay behavior, or exclusion-tree execution isolation.
+Review identified a real bypass in the initial guard: excluding any `retired`/`archive`/`vendor`/`thirdparty` path component could hide C# that Unity still compiles. Removed the component exclusions entirely; no vendor allowlist is introduced. All tracked Assets paths now receive naming checks, so a fresh `Assets/V8` root cannot evade selection. Content remains restricted to the five documented authored roots and text suffixes; untracked files, binary/font payloads, and external historical/package trees are not parsed. This correction changes only the guard/spec/report, not gameplay or actual tests. Naming verification is not Unity compile or runtime acceptance.
 
 ## Submission
 

@@ -17,11 +17,11 @@ C owns current documentation, permanent agent instructions, canonical Editor/Tes
 
 Run from the checkout with `python3 ci/check_current_game_names.py`. Exit `0` means no naming violations, `1` means naming/conflict/text-policy violations, and `2` means inspection could not complete. Diagnostics identify the tracked path and line (and content column where applicable), with a canonical-name correction instruction. A path-only violation uses line `1`.
 
-Enumerate Git-index tracked paths, including sparse-checkout omissions, under `PerchSort/Assets/{Scripts,Editor,Tests,Scenes,Resources}` and their root `.meta` files. Check every extension's path components for case-insensitive `V` followed by digits, including identifier prefixes, suffixes, and embedded forms. Inspect current working-tree bytes when present; otherwise read the indexed blob with Git. Do not rely on a materialized Unity tree or only a changed-file list.
+Enumerate all Git-index tracked paths under `PerchSort/Assets`, including sparse-checkout omissions. Check every extension's path components for case-insensitive `V` followed by digits, including identifier prefixes, suffixes, and embedded forms. A new `PerchSort/Assets/V8/...` parallel root must fail even outside the five content roots. Inspect current working-tree bytes when present; otherwise read the indexed blob with Git. Do not rely on a materialized Unity tree or only a changed-file list.
 
-Inspect UTF-8 C#, assembly definitions/references, scenes, prefabs, serialized assets, JSON, YAML, metadata, text, XML, UXML, and USS. Reject numbered implementation tokens in identifiers, namespaces, serialized names, strings, and comments. Binary image contents, including PNG, are not read; their filenames still receive path checks. Unknown non-text extensions receive path checks only.
+Content inspection is limited to `PerchSort/Assets/{Scripts,Editor,Tests,Scenes,Resources}` and their root `.meta` files: UTF-8 C#, assembly definitions/references, scenes, prefabs, serialized assets, JSON, YAML, metadata, text, XML, UXML, and USS. Reject numbered implementation tokens in identifiers, namespaces, serialized names, strings, and comments. PNG, other binary image payloads, and font payloads outside these content roots are not read; their filenames still receive path checks. Unknown non-text extensions receive path checks only.
 
-Historical docs/tasks/original art are outside these roots. Path segments named `archive`, `archived`, `retired`, `packages`, `vendor`, `vendors`, `thirdparty`, `third-party`, or `third_party` (case-insensitive) are excluded. This exclusion is for genuinely historical/third-party material, not a way to place executable current-game source outside policy. The guard is a naming check, not a proof that excluded source cannot execute.
+Historical archives/retired material, docs/tasks/original art, and project `Packages` outside `PerchSort/Assets` remain outside inspection. There are no generic directory-component exemptions: `archive`, `retired`, `vendor`, `thirdparty`, or `packages` nested inside active Assets do not bypass path or authored-text checks. No vendored trees currently exist under the five content roots, and no vendor allowlist is introduced.
 
 Ordinary numeric dependency versions and schema/release/save format fields remain intact. A complete quoted numeric version such as `"v3"` or `"v1.2.3"` is allowed only as the value of explicit `schema`, `schemaVersion`, `formatVersion`, `saveVersion`, `releaseVersion`, `dependencyVersion`, or `version` JSON fields, or corresponding `*Version`/`version` assignments. Other numeric fields and dotted versions without a `V` marker do not match. A resource/scene name does not gain a format exemption just because it resembles a release version. No source is rewritten by the guard.
 
@@ -48,12 +48,12 @@ Replace only the `GameLayout` source comment referring to a version-numbered ori
 
 Use disposable Git repositories, not another task's working tree, to exercise the real CLI:
 
-1. Reject numbered directories/files, including case-insensitive prefixes and suffixes.
+1. Reject numbered directories/files across all tracked Assets, including case-insensitive prefixes/suffixes, `Scripts/retired/V8Game.cs`, and a new `Assets/V8/Canonical.cs` root.
 2. Reject numbered C# classes/namespaces and assembly identities.
 3. Reject versioned resource paths and serialized scene roots.
 4. Accept canonical names and every exact compatibility literal in its actual owner, including both historical Song IDs only in canonical `Tests/Meta/ProfileEconomyTests.cs`; reject those IDs in runtime and every other file.
 5. Reject a numbered class or resource path even beside an accepted literal in a storage-owner file. Reject unknown/case-altered/misowned storage strings.
-6. Preserve legitimate numeric schema/dependency/release format values and excluded historical/vendor material; do not scan PNG payloads.
+6. Preserve legitimate numeric schema/dependency/release format values and historical/vendor/Packages material outside active Assets; do not parse PNG/font payloads. Nested generic archive/retired/vendor names inside active Assets are not exclusions.
 7. Read modified current working-tree text instead of stale indexed bytes.
 8. Detect forbidden content and filenames in real sparse checkout via tracked Git objects, then accept canonical omitted files.
 

@@ -13,8 +13,6 @@ import sys
 
 ASSETS = "PerchSort/Assets/"
 ROOTS = tuple(ASSETS + name for name in ("Scripts", "Editor", "Tests", "Scenes", "Resources"))
-EXCLUDED = {"archive", "archived", "retired", "packages", "vendor", "vendors",
-            "thirdparty", "third-party", "third_party"}
 TEXT_SUFFIXES = {".cs", ".asmdef", ".asmref", ".unity", ".prefab", ".asset",
                  ".json", ".yaml", ".yml", ".meta", ".txt", ".xml", ".uxml", ".uss"}
 NUMBERED = re.compile(r"v[0-9]+", re.IGNORECASE)
@@ -54,8 +52,7 @@ def git(root, *args):
 
 
 def authored(path):
-    return (any(path.startswith(root + "/") or path == root + ".meta" for root in ROOTS)
-            and not EXCLUDED.intersection(part.lower() for part in PurePosixPath(path).parts))
+    return any(path.startswith(root + "/") or path == root + ".meta" for root in ROOTS)
 
 
 def content_violations(path, text):
@@ -78,16 +75,13 @@ def check(root):
     errors = []
     inspected = 0
     # The index enumerates absent sparse-checkout paths and supplies their blob IDs.
-    entries = git(root, "ls-files", "--stage", "-z", "--", *ROOTS,
-                  *(name + ".meta" for name in ROOTS))
+    entries = git(root, "ls-files", "--stage", "-z", "--", ASSETS)
     for entry in entries.split(b"\0"):
         if not entry:
             continue
         metadata, raw_path = entry.split(b"\t", 1)
         mode, oid, stage = metadata.decode("ascii").split()
         path = raw_path.decode("utf-8")
-        if not authored(path):
-            continue
         if stage != "0":
             errors.append(f"{path}:1: unresolved Git index conflict; resolve before checking names")
             continue
@@ -95,8 +89,8 @@ def check(root):
             if NUMBERED.search(part):
                 errors.append(f"{path}:1: numbered implementation path component {part!r}; "
                               "rename it and its callers to canonical names")
-        if PurePosixPath(path).suffix.lower() not in TEXT_SUFFIXES:
-            continue  # Inspect image filenames, never PNG or other binary payloads.
+        if not authored(path) or PurePosixPath(path).suffix.lower() not in TEXT_SUFFIXES:
+            continue  # All Assets paths are checked; only authored text payloads are read.
         if mode not in {"100644", "100755"}:
             errors.append(f"{path}:1: authored text must be a regular tracked file")
             continue
