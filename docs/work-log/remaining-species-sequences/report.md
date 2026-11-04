@@ -9,7 +9,7 @@
 | snow | 38 | Offline art review passed; Unity acceptance pending |
 | ember | 38 | Offline art review passed; Unity acceptance pending |
 | ink | 38 | Offline art review passed; Unity acceptance pending |
-| hoot | 0 | Pending |
+| hoot | 38 | Offline art review passed; Unity acceptance pending |
 | crow | 0 | Pending |
 
 Each completed species contains flap 6, hop 6, turn_left 4, turn_right 4, cheer 6, preen 5, peek 4, blink 3. Exports are 320x320 RGBA in the canonical Birds resource folder. Import settings are copied from that species' idle metadata, with fresh asset and sprite GUIDs. Existing assets and code are unchanged.
@@ -32,15 +32,18 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 
 - Ink blink: rejected the first source because a faint checkerboard was baked into the alpha area and visible on dark composites. Regenerated a clean cutout; rejected source retained as `ink_blink_rejected_checker.png`.
 
+- Hoot flap: rejected the first source for faint rectangular haze in dark-background composites. Regenerated clean alpha with cap, pompom and body scale retained; rejected source retained as `hoot_flap_rejected_haze.png`.
+
 ## Verification boundary
 
 - Mint: 38 images verified as 320x320 RGBA with real alpha and species-idle import settings; no clipped exports. All eight contact sheets visually reviewed for identity, pose, scale, light/dark edges and grayscale readability.
 - Snow: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files. Offline APNG previews and checks are saved.
 - Ember: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Ink: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
+- Hoot: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Naming guard self-test: 8 passed. Naming guard: zero violations before Unity.
 - Unity compilation, full EditMode/PlayMode suites, stable screenshots and timed runtime evidence are pending. The shared Unity lock was occupied by other authorized batch workers when inspected. No process was killed.
 
 ## Missing items
 
-Hoot and crow: all 38 frames each are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
+Crow: all 38 frames are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
