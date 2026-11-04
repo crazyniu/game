@@ -36,12 +36,15 @@ namespace PerchSort.Game
             leftLife = leftBird.GetComponent<UiBirdLife>(); rightLife = rightBird.GetComponent<UiBirdLife>();
             body = GameUI.Surface(transform, "Win panel", art, "panel_wood", PanelBounds).rectTransform;
             body.GetComponent<Image>().raycastTarget = true;
+            GameUI.Fit(body, "Bottom sprig", art.Get("leaf_sprig_b"), new Vector2(680, 750), new Vector2(180, 140));
             ribbon = GameUI.Fit(body, "Ribbon", art.Get("ribbon_green"), GameLayout.InParent(PanelBounds, GameLayout.Ribbon.center), GameLayout.Ribbon.size).rectTransform;
+            GameUI.Fit(ribbon, "Left ribbon sprig", art.Get("leaf_sprig_a"), new Vector2(45, 35), new Vector2(180, 140)).transform.SetAsFirstSibling();
+            GameUI.Fit(ribbon, "Right ribbon sprig", art.Get("leaf_sprig_c"), new Vector2(GameLayout.Ribbon.width - 45, 35), new Vector2(180, 140)).transform.SetAsFirstSibling();
             for (int i = 0; i < GameLayout.StarCount; i++)
             {
                 Rect bounds = GameLayout.Star(i); Vector2 point = GameLayout.InParent(PanelBounds, bounds.center);
-                slots[i] = GameUI.Image(body, "Star slot " + i, art.Get("star_empty"), point, bounds.size);
-                stars[i] = GameUI.Image(body, "Earned star " + i, art.Get("star_full"), point, bounds.size);
+                slots[i] = GameUI.Image(body, "Star slot " + i, art.Get("star_empty"), point, Vector2.one * 160);
+                stars[i] = GameUI.Image(body, "Earned star " + i, art.Get("star_full"), point, Vector2.one * 160);
             }
             rewardChip = GameUI.Rect(body, "Reward chip", GameLayout.RewardChip.center - PanelBounds.position, GameLayout.RewardChip.size);
             GameUI.Surface(rewardChip, "Reward surface", art, "stat_pill", new Rect(Vector2.zero, GameLayout.RewardChip.size));

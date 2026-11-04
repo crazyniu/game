@@ -24,6 +24,7 @@ namespace PerchSort.Game
         private readonly TextMeshProUGUI[] counts = new TextMeshProUGUI[4];
         private readonly RectTransform[] plusBadges = new RectTransform[4];
         private readonly BoosterKind[] kinds = new BoosterKind[4];
+        private static readonly string[] ToolGlyphs = { "tool_hint", "tool_branch", "tool_owl_eye", "tool_bell", "tool_scarecrow", "tool_rain" };
         private readonly int[] inventory = new int[ViewModel.BoosterCount];
         private Button settings;
         private bool contextMechanic;
@@ -67,7 +68,7 @@ namespace PerchSort.Game
             for (int i = 1; i < tools.Length; i++)
             {
                 int slot = i;
-                tools[i] = GameUI.Button(bottomBar, art, "Booster " + i, ViewModel.Icon((BoosterKind)(i - 1)), GameLayout.ToolButton(i, 4), () => root.TapBooster(kinds[slot]));
+                tools[i] = GameUI.Button(bottomBar, art, "Booster " + i, ToolGlyphs[i - 1], GameLayout.ToolButton(i, 4), () => root.TapBooster(kinds[slot]));
                 badges[i] = GameUI.Fit(tools[i].transform, "Inventory badge", art.Get("badge_red"), GameLayout.StockCenter, Vector2.one * GameLayout.StockSize);
                 counts[i] = GameUI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * GameLayout.StockSize * 0.5f, Vector2.one * GameLayout.StockSize, GameLayout.StockFontSize);
                 counts[i].color = Color.white;
@@ -161,7 +162,7 @@ namespace PerchSort.Game
                 rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y); rect.sizeDelta = bounds.size;
                 var icon = (RectTransform)rect.GetChild(0);
                 icon.anchoredPosition = new Vector2(bounds.width * 0.5f, -bounds.height * 0.5f);
-                icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio;
+                icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * (i == 0 ? GameLayout.ButtonIconRatio : 0.7f);
                 if (i > 0)
                 {
                     Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7", "hint_count");
@@ -174,7 +175,7 @@ namespace PerchSort.Game
             }
             for (int i = 1; i < tools.Length; i++)
             {
-                tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Icon(ViewModel.Icon(kinds[i]));
+                tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Get(ToolGlyphs[(int)kinds[i]]);
                 tools[i].gameObject.SetActive(!tutorialLevel && i < toolCount && root.HighestUnlocked >= ViewModel.Unlock(kinds[i]));
             }
             SyncState(state);
