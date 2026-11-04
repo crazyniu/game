@@ -1,0 +1,60 @@
+T54A deterministic focus/pause regression: 10/10 passed, no failed or skipped iterations.
+Integrated base: a7679d97 (origin/t54-integration merged before editing).
+Command: flock /tmp/unity.lock bash build/run-music-repeat.sh
+Runner launches ten fresh Unity Editors sequentially; exact invocation per run:
+/Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -projectPath "$PWD/PerchSort" -runTests -testPlatform PlayMode -testFilter PerchSort.PlayModeTests.T54AMusicTests.FocusAndApplicationPauseFreezePlayheadsUntilBothResume -testResults "$PWD/build/music-pause-repeat/run-$run.xml" -logFile "$PWD/build/music-pause-repeat/run-$run.log"
+Each run XML was verified to contain exactly the requested test, total=1, passed=1, failed=0, skipped=0.
+After the initial DSP boundary, both pause holds assert exact sample equality on every rendered frame.
+Resume reference and actual samples are read immediately before/after UnPause in one frame.
+
+run-1.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.3055411
+T54A t=2.102 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=50803 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.553 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+run-2.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2353542
+T54A t=2.012 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=50803 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.463 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+run-3.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2245291
+T54A t=2.004 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.455 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+run-4.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2393395
+T54A t=2.011 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.462 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+run-5.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2399117
+T54A t=2.015 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.466 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.408
+
+run-6.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2332787
+T54A t=2.009 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.461 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+run-7.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2287026
+T54A t=2.011 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=50803 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.462 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.408
+
+run-8.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2370841
+T54A t=2.013 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.464 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.408
+
+run-9.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2441228
+T54A t=2.022 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=49862 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.473 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.408
+
+run-10.xml result=Passed, total=1, passed=1, failed=0, skipped=0, duration=2.2380786
+T54A t=2.017 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.152
+T54A pause-request=50803 paused=50803 quantum=941 before-resume=50803 resumed=50803 resume-tolerance=735 frequency=44100
+T54A t=2.468 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.387
+
+Boundary: this follow-up reruns only the requested test ten times, not the full integrated suites; production audio code is unchanged.
