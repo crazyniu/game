@@ -17,7 +17,7 @@ namespace PerchSort.V5.Game
             bool world = name.StartsWith("bg_level_", StringComparison.Ordinal) || name.StartsWith("branch_left_", StringComparison.Ordinal) ||
                 name.StartsWith("twig_left_", StringComparison.Ordinal) || name.StartsWith("tree_crown_", StringComparison.Ordinal) || name.StartsWith("trunk_left_", StringComparison.Ordinal);
             sprite = Resources.Load<Sprite>((birdPart ? "V7/Birds/" : world ? "V7/World/" : "V7/Art/") + name);
-            if (sprite == null)
+            if (sprite == null && !world)
             {
                 string legacy = bird ? "bird_" + name : name;
                 sprite = Resources.Load<Sprite>("V6/Art/" + legacy) ?? Resources.Load<Sprite>("V5/Art/" + legacy);
@@ -42,21 +42,8 @@ namespace PerchSort.V5.Game
         public Sprite Get(string name) => Optional(name) ?? throw new InvalidOperationException("Missing production sprite: " + name);
         public Sprite Icon(string name) => Get(name);
         public static void Warn(string key, string message) { if (warnings.Add(key)) Debug.LogWarning(message); }
-        public Sprite World(string name, int world)
-        {
-            var sprite = Optional(name + "_w" + world);
-            if (sprite != null) return sprite;
-            if (name == "tree_crown") return World("bush_edge", world);
-            if (world != 1) Warn(name + world, "Missing W" + world + " " + name + "; temporarily using W1.");
-            return Optional(name + "_w1") ?? Get(name);
-        }
-        public Sprite Background(int world, string variant)
-        {
-            var sprite = Optional("bg_level_w" + world + "_" + variant);
-            if (sprite != null) return sprite;
-            Warn("world-background-" + world, "V7 world backgrounds are not delivered for W" + world + "; using its preserved level background.");
-            return Optional("bg_w" + world + "_" + variant) ?? Optional("bg_w" + world + "_noon") ?? Get("bg_forest_day");
-        }
+        public Sprite World(string name, int world) => Get(name + "_w" + world);
+        public Sprite Background(int world, string variant) => Get("bg_level_w" + world + "_" + variant);
         public Sprite Portrait(string species)
         {
             var supplied = Optional(species + "_face");

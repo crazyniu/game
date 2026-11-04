@@ -33,7 +33,7 @@ namespace PerchSort.V5.Game
             Vector2 rootPoint = new Vector2(IsRight ? 1080 : 0, BranchY) - hitRect.position;
             flex = V5UI.Rect(transform, "Flex root", rootPoint, Vector2.zero);
             wood = V5UI.Image(flex, "Branch", art.World(Kind == BranchKind.Twig ? "twig_left" : "branch_left", root.Session.State.World), Vector2.zero, Vector2.zero);
-            wood.rectTransform.pivot = new Vector2(0, 0.5f);
+            wood.rectTransform.pivot = new Vector2(0, 1);
             wood.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             UpdateWood();
             glow = V5UI.Image(transform, "Seat glow", art.Get("sparkle"), Vector2.zero, Vector2.one * 90 * density);
@@ -53,7 +53,7 @@ namespace PerchSort.V5.Game
             bool twig = Kind == BranchKind.Twig;
             wood.sprite = art.World(twig ? "twig_left" : "branch_left", root.Session.State.World);
             wood.rectTransform.sizeDelta = twig ? V7Layout.TwigDisplaySize : V7Layout.BranchDisplaySize;
-            wood.rectTransform.anchoredPosition = new Vector2(0, -V7Layout.BranchCenterBelowFeet);
+            wood.rectTransform.anchoredPosition = new Vector2(0, V7Layout.BranchPerchTop(root.Session.State.World, twig));
             wood.type = Image.Type.Filled; wood.fillMethod = Image.FillMethod.Horizontal; wood.fillOrigin = 0;
             wood.fillAmount = twig ? 1 : Fill(Seats);
         }

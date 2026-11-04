@@ -44,6 +44,21 @@ namespace PerchSort.V5.Game
             float x = FirstBirdSlot + SeatPitch(scale) * slot;
             return new Vector2(right ? DesignWidth - x : x, y - BirdCenterAboveBranch * scale);
         }
+        public static float BranchPerchTop(int world, bool twig) => twig ?
+            (world == 1 ? 18 : world == 2 ? 19 : world == 3 ? 8 : 22) :
+            (world == 1 ? 17 : world == 2 ? 9 : world == 3 ? 22 : 30);
+        private static Vector2 CrownAttachment(int world) => world == 1 ? new Vector2(138, 319) :
+            world == 2 ? new Vector2(96, 332) : world == 3 ? new Vector2(111, 358) : new Vector2(105, 355);
+        public static Rect WorldCrown(int world, bool right)
+        {
+            float left = (world == 2 || world == 3 ? 40 : 70) - CrownAttachment(world).x * 2 / 3;
+            return new Rect(right ? DesignWidth - left - 400 : left, 470, 400, 400f * 2 / 3);
+        }
+        public static Rect WorldTrunk(int world, bool right)
+        {
+            float top = 470 + CrownAttachment(world).y * 2 / 3 - (world == 3 ? 85 : world == 2 ? 65 : 25);
+            return new Rect(right ? 990 : -70, top, 160, 1920);
+        }
         public const float ToolY = 1802, ToolFirstX = 260, ToolPitch = 182;
         public const int ToolCount = 4;
         public const float ToolGap = ToolPitch - SecondaryButtonSize, ToolBottom = ToolY + SecondaryButtonSize / 2;
@@ -62,6 +77,7 @@ namespace PerchSort.V5.Game
         public static readonly Rect ReplayButton = Screen("win", "replay"), NextButton = Screen("win", "next"), HomeButton = Screen("win", "home");
         public static readonly Rect SettingsPanel = Screen("settings", "panel"), SoundButton = Screen("settings", "sound"), RestartButton = Screen("settings", "replay"), CloseButton = Screen("settings", "close"), ReturnMapButton = Screen("settings", "home");
         public static readonly Rect UnlockPanel = Screen("unlock_card", "panel"), UnlockIcon = Screen("unlock_card", "eye_icon"), UnlockTitle = Screen("unlock_card", "title"), UnlockBody = Screen("unlock_card", "description"), UnlockCheck = Screen("unlock_card", "confirm");
+        public static readonly Rect UnlockArtwork = new Rect(UnlockIcon.center.x - 180, UnlockIcon.y, 360, Screen("unlock_card", "egg").yMax - UnlockIcon.y);
         public const float UnlockTitleSize = 54, UnlockBodySize = 30;
         public static readonly Rect PurchaseCoin = Centered(new Vector2(445, 1180), Vector2.one * 64), PurchasePrice = Centered(new Vector2(590, 1180), new Vector2(180, 64));
         public static Rect InformationClose(Rect panel) => new Rect(panel.width - 90, 8, 82, 82);

@@ -41,19 +41,17 @@ namespace PerchSort.V5.Game
             Cancel();
             background.sprite = art.Background(world, variant);
             for (int i = scenery.childCount - 1; i >= 0; i--) V5UI.Dispose(scenery.GetChild(i).gameObject);
-            var trunk = art.Optional("trunk_left_w" + world);
-            var crown = art.Optional("tree_crown_w" + world);
+            var trunk = art.Get("trunk_left_w" + world);
+            var crown = art.Get("tree_crown_w" + world);
             foreach (bool right in new[] { false, true })
             {
-                if (trunk != null)
+                Rect wood = V7Layout.WorldTrunk(world, right), leaves = V7Layout.WorldCrown(world, right);
+                var stem = V5UI.Image(scenery, "Edge trunk", trunk, wood.center, wood.size);
+                var foliage = V5UI.Image(scenery, "Leaf crown", crown, leaves.center, leaves.size);
+                if (right)
                 {
-                    var image = V5UI.Image(scenery, "Edge trunk", trunk, new Vector2(right ? 1000 : 80, 960), new Vector2(160, 1920));
-                    if (right) image.rectTransform.localScale = new Vector3(-1, 1, 1);
-                }
-                if (crown != null)
-                {
-                    var image = V5UI.Fit(scenery, "Leaf crown", crown, new Vector2(right ? 1040 : 40, 640), new Vector2(420, 340));
-                    if (right) image.rectTransform.localScale = new Vector3(-1, 1, 1);
+                    stem.rectTransform.localScale = new Vector3(-1, 1, 1);
+                    foliage.rectTransform.localScale = new Vector3(-1, 1, 1);
                 }
             }
             night.color = new Color(1, 1, 1, lighting == DayPhase.Night ? 1 : 0);

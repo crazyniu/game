@@ -41,7 +41,7 @@ namespace PerchSort.V5.Game
             egg = art.Get("egg_idle"); wobbleLeft = art.Get("egg_wobble_l"); wobbleRight = art.Get("egg_wobble_r");
             crack = art.Get("egg_crack"); shell = art.Get("egg_shell");
             float footInset = idleFrame.rect.height >= 320 ? 20f / 320 : 12f / 256;
-            body = V5UI.Rect(transform, "Bird body", new Vector2(V7Layout.BirdSize * 0.5f, V7Layout.BirdSize * (1 - footInset)) * density, V7Layout.BirdDisplaySize * density);
+            body = V5UI.Rect(transform, "Bird body", new Vector2(V7Layout.BirdSize * 0.5f, V7Layout.BirdSize * 0.5f + V7Layout.BirdCenterAboveBranch) * density, V7Layout.BirdDisplaySize * density);
             body.pivot = new Vector2(0.5f, footInset);
             graphic = V5UI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = V5UI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
@@ -133,6 +133,9 @@ namespace PerchSort.V5.Game
             Action arrived, Func<Vector2> movingDestination = null, bool leap = false, bool fleeing = false)
         {
             Cancel(); selected = false; acting = true;
+            // Perched art is foot-aligned; home flights must shrink their visual center into the door.
+            if (home) body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
+                -body.sizeDelta.y * 0.5f - body.rect.center.y * Scale().y);
             Vector2 start = rect.anchoredPosition, end = new Vector2(destination.x, -destination.y);
             motion.Play(0.06f, t => body.localScale = Scale(1 + 0.08f * t, 1 - 0.08f * t), () =>
             {
@@ -213,6 +216,8 @@ namespace PerchSort.V5.Game
             if (motion == null) return;
             motion.CancelAll(); breathing.CancelAll(); blinking.CancelAll(); looking.CancelAll();
             facing = 1; rect.localScale = Vector3.one; body.localScale = Scale(); body.localRotation = Quaternion.identity;
+            body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
+                -(V7Layout.BirdSize * 0.5f + V7Layout.BirdCenterAboveBranch) * DisplayScale);
             graphic.sprite = RestFrame; acting = false;
         }
     }

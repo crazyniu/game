@@ -81,6 +81,11 @@ public static class V5Capture
             root.OpenPopup(V7PopupKind.WorldUnlock); Capture(root, target, Path.Combine(directory, "v7_popup_world_unlock.png")); root.ClosePanel();
             root.LoadFixture(LevelLoader.Load(40));
             Capture(root, target, Path.Combine(directory, "v7_level_k7.png"));
+            for (int world = 1; world <= 4; world++)
+            {
+                root.LoadFixture(LevelLoader.Load(world == 1 ? 5 : world * 10));
+                Capture(root, target, Path.Combine(directory, "v7_world_w" + world + ".png"));
+            }
             foreach (string name in V5Fixtures.Names)
             {
                 root.LoadFixture(V5Fixtures.Create(name));
