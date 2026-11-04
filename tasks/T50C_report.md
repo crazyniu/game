@@ -37,13 +37,13 @@ No Core/Meta, level data, economy, shared layout/art/utilities, root, gate class
 ### World ambient
 
 - All worlds: three subtle drifting cloud images and separate low-amplitude crown sway (0.65 degrees, 0.2% scale); trunk/branch/board geometry is unchanged.
-- W1: twelve petals; rain variant retains rain alongside the seasonal particles.
+- W1: twelve seasonal particles using delivered `leaf_fall_w1`, not legacy `petal`; rain variant retains rain alongside the seasonal particles.
 - W2: twelve bamboo leaves and two diffuse mist layers; drizzle retains rain.
 - W3: twelve maple leaves; windy variant uses the shorter falling period.
 - W4: twelve supplied snowflakes (`leaf_fall_w4`); aurora variant adds three subtly moving/tinted glow bands over its authored background. These reuse existing `glow_soft`; no new aurora artwork or material was generated.
 - Six fireflies appear for lanterns/sunset/bluehour/aurora (and the explicit dusk identifier) or the current night phase. Day-phase changes update the existing pool rather than recreate it.
 - One V5Motion loop drives the ambient state. Capacity is 40 slots, maximum configured count 39 in W2 drizzle; existing Images are reused across world/level changes and are non-raycast targets. No per-frame object/collection creation; no per-particle MonoBehaviour/tween, persistent scene objects, DontDestroyOnLoad or generated textures/materials. Cancel hides the pool and restores crown poses; rebuilding resets phase offsets.
-- New particles reuse delivered v7 resources. `petal` and `raindrop` continue through the existing V5Art legacy lookup, as in the original scene implementation; no second art lookup convention was introduced.
+- All four seasonal particle sprites use delivered v7 `leaf_fall_w1` through `leaf_fall_w4`. Only `raindrop` retains the existing V5Art legacy lookup because no delivered replacement exists; no second art lookup convention was introduced.
 
 ### Leaf wipe
 
@@ -111,6 +111,11 @@ These are public only to bind presentation components; root does not need to cal
 - All new helpers share the existing `PerchSort.V5.Game` namespace/assembly; the assembly already references Unity UI and LitMotion. No assembly/package/reference change is required. Language server inspection reported no C# language server configured; no LSP diagnostic or compilation success is claimed.
 - Syntax-aware patch tooling reported no remaining parse warning after correcting an intermediate callback-brace insertion. Static review covers nullable delegate invocation, array bounds, right-crown mirroring, cancellation generations, callback detachment and teardown allocation boundaries. It cannot prove Unity lifecycle timing or rendering.
 - All 15 required sprite paths were found. Each of the three new metadata GUIDs occurs exactly once under Assets. All nine local Markdown links in the owned specification/report/status resolve. Metadata uses the repository's existing minimal `.meta` format; Unity importer execution is NOT_RUN.
+- Required sprite inventory (15): `V7/Birds/sunny_{idle,blink,quirk1,quirk2}`, `V7/Art/cloud_soft_{1,2,3}`, `V7/Art/leaf_fall_w{1,2,3,4}`, `V7/Art/{firefly,glow_soft,leaf_wipe}`, and legacy `V5/Art/raindrop` (all `.png`). The W1 inventory replaces `V5/Art/petal` with `V7/Art/leaf_fall_w1`.
 - Approved reference images and the actual supplied leaf-wipe/cloud/snow sprites were opened. This is asset/style inspection, not an in-game screenshot or motion proof.
 - **NOT_RUN:** Unity compile/import, EditMode, PlayMode, actual drag inertia, gate cancellation/reentry, phase cancellation, repeated world changes, memory/profiler sampling, device/safe-area coverage, transformed node-origin runtime conversion, real 0.4-second timing, runtime frame swaps and timed/visual acceptance. No test suite or all-level playthrough was started.
 - Remaining integration: root must wire the isolated leaf-wipe API and the approved level-card-origin query/setter as described. These are intentionally outside this module's file ownership, not fake navigation fallbacks. No other implementation requirement is deferred within owned paths.
+
+## Coordinator review correction
+
+Review of `3542ced`, recorded in orchestration reply `msg_d94a9fefbf74`, required the bounded W1 resource correction. The follow-up changes only seasonal sprite selection to `"leaf_fall_w" + world` and updates this inventory/specification/status. Existing raindrop fallback, timing, object counts, cancellation, map/scene/transition APIs and root integration contract remain unchanged. Delivered W1 PNG/metadata existence was checked statically. Unity execution, compilation, tests and runtime evidence remain **NOT_RUN**. The follow-up SHA is reported through the current Codex mailbox and final terminal block.

@@ -50,7 +50,7 @@ namespace PerchSort.V5.Game
                 Add(Kind.Aurora, "glow_soft", new Vector2(260 + i * 280, 300 + i * 80),
                     new Vector2(1100, 230), 12, i / 3f, variant == "aurora" ? 0.14f : 0, 26,
                     i == 1 ? new Color(0.65f, 0.55f, 1) : new Color(0.45f, 1, 0.82f));
-            string sprite = world == 1 ? "petal" : "leaf_fall_w" + world;
+            string sprite = "leaf_fall_w" + world;
             for (int i = 0; i < 12; i++)
                 Add(Kind.Fall, sprite, new Vector2((i * 97 + 31) % 1080, 0),
                     Vector2.one * (world == 4 ? 18 : 22), world == 3 && variant == "windy" ? 7 : 12,

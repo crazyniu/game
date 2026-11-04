@@ -12,7 +12,7 @@ References: [T50](T50_ui_v7_code.md), [team memory](../docs/team/MEMORY.md), [v5
 
 1. Preserve existing map public signatures and authored node coordinates. Implement clamped inertial drag, interruptible opening autoscroll, current-node hop/shadow, Sunny frame-based idle and node-tap pop.
 2. Orchestrate scroll then gate unlock using `V7GateView.Configure(V5Art, int, bool)` and `Open(Action)` only; do not edit the gate implementation or progression rules.
-3. Implement subtle world ambient: clouds/canopy, W1 petals, W2 bamboo leaves/mist, W3 maple leaves, W4 snow/aurora shimmer, dusk fireflies, and preserved rain variants.
+3. Implement subtle world ambient: clouds/canopy, W1 seasonal particles using delivered `leaf_fall_w1` (not legacy `petal`), W2 bamboo leaves/mist, W3 maple leaves, W4 snow/aurora shimmer, dusk fireflies, and preserved rain variants.
 4. Provide an isolated leaf-wipe presentation component with `Play(Action covered, Action completed)` and `Cancel()`, total duration 0.4 seconds. Root navigation/input and intro are owned by mac-ui; preserve `V5SceneView.Entrance(float)` and provide exact integration notes rather than editing root.
 5. Cancel all owned motions on disable/destroy/rebuild/world change. Restore presentation poses, discard superseded callbacks and invoke each successful operation's callback at most once. Cancellation must not invoke stale navigation or gameplay continuations.
 6. Do not change Core, authored levels, economy, fixed board positions, shared layout/art/utilities, other modules or T51 cleanup.
