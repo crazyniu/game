@@ -66,3 +66,15 @@ Commands run from this isolated Mac workspace:
 Test XML/logs remain under ignored `build/`; result summaries and XML hashes are in `art/environment/qa/unity_results.json`. The test counts above are results of this run, not historical baselines. Input scene/settings/package hashes were recorded before Unity; clean committed metadata provides the pre-import metadata hashes in `unity_input_state.json`.
 
 Unity-generated metadata and scene changes were reviewed and preserved in `build/unity-generated-changes.patch`. After capture, 137 reviewed generated files were restored to their pre-import committed bytes; all recorded input hashes match. Stable captures exercise the current game and cannot establish acceptance of these unwired sprites. No timed animation, audio, device or integrated-art acceptance is claimed.
+
+## Follow-up: thick limbs
+
+Eight new sprites are delivered on `mac-environment-art-2/work`: `branch_limb_w1..w4.png` and `twig_limb_w1..w4.png`. Each branch is exactly 620x90 RGBA and each twig exactly 400x80 RGBA, matching its existing left-facing source canvas. All eight preserve the actual `(0.5, 0.5)` importer pivot and use unique GUIDs. They remain unwired.
+
+The requested 150 px limb root and 90 px twig root cannot fit the explicitly unchanged 90 px and 80 px canvas heights. This conflict was raised during work. Pending clarification, exact canvas/pivot preservation took priority. Measured opaque root columns are 75-83 px for limbs and 62-67 px for twigs; near-tip columns are 25-30 px and 31-37 px respectively. Therefore the numerical thickness contract is **partially unmet**, not silently accepted. Measurements and source crop rectangles are in `art/environment/qa/limb_geometry.json`.
+
+The built-in image tool generated each asset separately. Eight initial thin-tip drafts were rejected; the retained corrected sprites have substantial middle sections, rounded upturned ends, matching trunk materials, small foliage or snow. Prompts and raw source paths are in `art/environment/limb_generation.json`; raw images and rejected drafts remain under `art/environment/`. `sips` cropped and resized the transparent exports; original retained art was not modified.
+
+`evidence/limb_assets_w*.jpg` shows every export on light/dark backgrounds and at 64 px width. The wood silhouette remains readable at 64 px; tiny leaf/snow details are not individually readable at that scale. `evidence/limb_reference_w*.jpg` compares approved boards with full-pixel-size offline trunk + junction + limb/twig + bird assemblies. Junctions are behind the limb root and the trunk overlays the overlap. Bark color is close, but the join is not pixel-seamless, and the assembly does not establish runtime placement or approved-screen fidelity. No runtime integration changes are included.
+
+Verification so far: eight exact canvas/pivot assertions passed; naming self-test 8/8 passed and naming guard reported zero violations before Unity. Full Mac scene build/EditMode/PlayMode verification is queued under `flock /tmp/unity.lock`; results will be recorded with the gate-parts follow-up. No new runtime or animation acceptance is claimed.
