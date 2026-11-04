@@ -111,7 +111,7 @@ Four backgrounds are 1080x3000 RGBA with a baked 160 px top alpha fade. Stack at
 Twenty effects have real alpha, recorded sizes and approved-screen overlay QA. Records: `art/v7/runtime/effects/delivery.json`, `report.md`, `qa/`. Gate light is exported but not yet aligned to the unfinished gate assembly; aperture anchor is normalized top-left (0.50,0.25), separate from its central transform pivot.
 
 ## Half done / WIP
-### House assets exported, final integration review interrupted
+### Houses: static review complete
 - `house_beam_w1.png`
 - `house_beam_w2.png`
 - `house_beam_w3.png`
@@ -129,16 +129,16 @@ Twenty effects have real alpha, recorded sizes and approved-screen overlay QA. R
 - `house_roof_yellow.png`
 - `house_rope.png`
 
-`art/v7/runtime/houses/delivery.json` records shared 512x512 canvases, body peak (256,96), roof anchor (256,58), door center (253,306), left hinge (145,306), rope and beam anchors. Sources and QA are in `art/v7/runtime/houses/`. Worker caught blue/green roof color drift and an open-door hinge mismatch and regenerated replacements; parent reviewed the replacements and shared-canvas assembly seams on resume. House report is being finalized. Do not call this accepted runtime animation.
+`art/v7/runtime/houses/delivery.json` records shared 512x512 canvases, body peak (256,96), roof anchor (256,58), door center (253,306), left hinge (145,306), rope and beam anchors. Sources and QA are in `art/v7/runtime/houses/`. Worker caught blue/green roof color drift and an open-door hinge mismatch and regenerated replacements; parent reviewed the replacements and shared-canvas assembly seams on resume. House report finalized: `art/v7/runtime/houses/report.md`. Do not call this accepted runtime animation.
 
-### Gate and daily gift raw images only
+### Gate work in progress; gift parts delivered
 Saved under `art/v7/runtime/assemblies_wip/raw/`:
 - `gate_arch.png`: empty-opening arch generated, not sized/aligned to leaves.
 - `gift_nest.png`: generated; exterior glow requires alpha cleanup.
 - `gift_box_base.png`: generated, not aligned to lid/nest.
 - `gift_box_lid.png`: generated; exterior glow requires cleanup and lift anchor.
 
-Exact prompts/reference/source paths preserved in `assemblies_wip/sources.json`. These are NOT yet final runtime PNGs.
+Exact prompts/reference/source paths preserved in `assemblies_wip/sources.json`. Gate arch is still being prepared. Gift runtime parts are now delivered: `gift_nest.png`, `gift_nest_front.png`, `gift_box_base.png`, `gift_box_lid.png`; shared 768x768 canvas, nest/base/lid/front draw order and lid lift (0,-130). Metadata and reviewed closed/open QA: `art/v7/runtime/gift/`.
 
 ### Layout: ready for early integration
 `art/v7/layout_v7.json` is reviewed with schema_version 1: 107 asset records, 17 screens, 223 measured boxes, 40 map nodes, coin text frame, slice borders and integrated house anchors. Gate/gift assemblies remain explicitly pending. Intermediate house arrangements are inferred, not observed. Geometry, asset, slice and path checks passed. Measurement evidence: `art/v7/runtime/measurements/` (17 screens, 223 measured boxes). Do not treat inferred K1..6 adaptations as measured approved layouts.
@@ -146,10 +146,10 @@ Exact prompts/reference/source paths preserved in `assemblies_wip/sources.json`.
 `art/v7/runtime/hud_extra_provenance.json` describes rejected experimental cutouts; final next-arrow/chain assets came from generation_manifest.json instead. Retained only as WIP history, not authoritative provenance.
 
 ## Next, resumed work
-1. Review finished house replacements and assembly QA; finalize house report/anchors and add to layout.
+1. DONE: house replacements reviewed, report and layout anchors finalized.
 2. Prepare gate_arch and gift raw images into aligned runtime parts with clean alpha.
 3. Generate missing `gate_door_left.png`, `gate_door_right.png`, `gate_padlock.png`, `gate_backdrop_w2.png`, `gate_backdrop_w3.png`, `gate_backdrop_w4.png`; assemble `gate_locked.png` and `gate_open.png`, record hinges, opening mask and gate-light placement.
-4. Finish `gift_nest.png`, `gift_box_base.png`, `gift_box_lid.png` runtime assembly and lift anchor.
+4. DONE: gift parts prepared and reviewed, including a foreground nest split; add metadata to final layout.
 5. Complete layout_v7.json, reconcile all dimensions/filenames/anchors, and review each group against approved screens; consolidate final T48_report.md and QA index.
 6. Commit/push remaining groups on resume. Unity import, runtime views and timed animations belong to code/QA workers and remain NOT_RUN.
 
