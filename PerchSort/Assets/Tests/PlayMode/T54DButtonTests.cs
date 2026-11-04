@@ -155,5 +155,49 @@ namespace PerchSort.PlayModeTests
             yield return new WaitForSecondsRealtime(0.3f);
             AssertUniform(Tools(), 3);
         }
+
+        [UnityTest]
+        public IEnumerator CoinPillClearsHousesAndSuspensionsOnEveryAuthoredLevel()
+        {
+            for (int level = 1; level <= 40; level++)
+            {
+                LoadTools(level);
+                Rect pill = WorldBounds((RectTransform)root.Hud.transform.Find("Coin pill"));
+                foreach (var image in root.Hud.GetComponentsInChildren<Image>())
+                {
+                    bool house = image.name == "House body";
+                    if (!house && image.name != "House rope" && image.name != "Rope leaf" && image.name != "House beam") continue;
+                    Assert.That(pill.Overlaps(WorldBounds(image.rectTransform, house)), Is.False,
+                        "Level " + level + ": coin pill intersects " + image.name);
+                }
+            }
+            yield return null;
+        }
+
+        private readonly Vector3[] corners = new Vector3[4];
+        private Rect WorldBounds(RectTransform rect, bool house = false)
+        {
+            if (house)
+            {
+                // The visible house art occupies (32,58)..(480,456) in its 512-square canvas.
+                Rect local = rect.rect;
+                float left = local.xMin + local.width * 32 / 512;
+                float right = local.xMin + local.width * 480 / 512;
+                float top = local.yMax - local.height * 58 / 512;
+                float bottom = local.yMax - local.height * 456 / 512;
+                corners[0] = rect.TransformPoint(new Vector3(left, bottom));
+                corners[1] = rect.TransformPoint(new Vector3(left, top));
+                corners[2] = rect.TransformPoint(new Vector3(right, top));
+                corners[3] = rect.TransformPoint(new Vector3(right, bottom));
+            }
+            else rect.GetWorldCorners(corners);
+            Vector2 min = corners[0], max = corners[0];
+            for (int i = 1; i < corners.Length; i++)
+            {
+                min = Vector2.Min(min, corners[i]);
+                max = Vector2.Max(max, corners[i]);
+            }
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        }
     }
 }
