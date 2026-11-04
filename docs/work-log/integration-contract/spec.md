@@ -12,13 +12,13 @@ User feedback after testing main in the Unity Editor (2026-11-04), each owned by
 1. Own only the files listed for your task. Anything else is read-only; put needed changes under "Requested contract change" in your report.
 2. English only for code, comments, commits, reports. No emoji. No new V-numbered names of any kind (files, folders, classes, namespaces, assets, scenes, docs).
 3. Animation or audio claims need TIMED evidence, not one static frame. For animation: capture a frame sequence at fixed intervals from real Unity
-   (e.g. every 0.1 s for the first 5 s, plus 20 s of idle on level 1) and commit a contact sheet JPEG (max 1600 px wide) under `tasks/evidence/T54<letter>/`.
+   (e.g. every 0.1 s for the first 5 s, plus 20 s of idle on level 1) and commit a contact sheet JPEG (max 1600 px wide) under the subject's `docs/work-log/<topic>/evidence/`.
    For audio: log which clip plays on which page and show it in a PlayMode test with the real AudioManager. The coordinator looks at the sheets.
 4. Do not weaken or skip existing tests. If an existing test fails only because you intentionally changed a timing/size it asserts, do not edit it;
-   list it in the report with the old and new value and the reason. Add new tests only in NEW files named `PerchSort/Assets/Tests/{EditMode,PlayMode}/T54<letter>*.cs`.
+   list it in the report with the old and new value and the reason. Add new tests only in descriptively named files under `PerchSort/Assets/Tests/{EditMode,PlayMode}/`.
 5. Unity runs: serialize with `flock /tmp/unity.lock`; never run two Unity processes; never kill the user's Editor. Run
    `flock /tmp/unity.lock bash scripts/run_tests.sh` once before reporting and give exact EditMode/PlayMode counts (baseline on main: 304 and 21, all passing).
-6. Work in your own worktree on branch `mac-t54<letter>/t54` created from `origin/main`. Commit small, push, write `tasks/T54<letter>_report.md`
+6. Work in your own worktree on a descriptively named branch. Commit small, push, write `docs/work-log/<topic>/report.md`
    (change per problem, evidence paths, test counts, limits honestly), push, and state the final SHA in your last terminal message. Never merge, never touch main.
 7. Do not generate or edit artwork. If an asset is missing, stop that item and report the asset name.
 

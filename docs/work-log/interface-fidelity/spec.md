@@ -69,7 +69,7 @@ New test files: only under `PerchSort/Assets/Tests/EditMode/T53<letter>*.cs` (ne
    with a tiny script kept outside the repo (e.g. `/tmp/t53<letter>/compare.py`, Pillow), look at it, iterate until the differences listed for your
    defects are gone. Keep the final side-by-sides in `build/` (gitignored) and mention the paths in the report.
 4. Also run `flock /tmp/unity.lock bash scripts/run_tests.sh` once before reporting; report exact pass/fail counts. Do not skip or relax tests.
-5. Report: write `tasks/T53<letter>_report.md` (what changed per defect ID, remaining differences honestly, screenshots, test counts), commit, push, then
+5. Report: write `docs/work-log/<topic>/report.md` (what changed per defect ID, remaining differences honestly, screenshots, test counts), commit, push, then
    send the delivery to the coordinator (terminal handle given in your prompt). Do not self-merge. Do not touch main.
 
 ## Acceptance (coordinator)

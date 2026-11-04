@@ -140,7 +140,7 @@ done
 
 **Queue interruption, not a test failure:** the initial loop completed runs 1–8, then reached the shell job's 3600-second deadline while waiting for the shared lock for run 9. Neither a run-9 Unity log nor XML existed, and the process check confirmed no Unity process from this worktree remained. The loop was resumed at `{9..10}` with no job deadline. Both remaining runs passed; completed runs were not repeated or double-counted. The full-suite command also acquired the same lock and never ran concurrently with a filtered Unity process. No user Editor was running at the initial check and none was killed.
 
-Portable evidence under `tasks/evidence/T54C/instant_freeze_stress/`:
+Portable evidence under `docs/work-log/bird-idle/evidence/instant_freeze_stress/`:
 
 - `summary.json`: verified ten-run aggregate, per-run times, filter, epsilon, frame count and interruption details.
 - `run_01.xml` through `run_10.xml`: the ten independent filtered results.

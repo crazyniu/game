@@ -2,6 +2,20 @@
 
 | Path | Summary |
 | --- | --- |
+| [motion-evidence](motion-evidence/) | Timed captures of the integrated build |
+| [shop-and-aviary](shop-and-aviary/) | Shop and aviary presentation |
+| [stuck-hint](stuck-hint/) | Stuck-state hints |
+| [cosmetic-art](cosmetic-art/) | Cosmetic artwork |
+| [remaining-species-sequences](remaining-species-sequences/) | Remaining species animation sequences |
+| [bird-flight-sequences](bird-flight-sequences/) | Drawn bird flight sequences |
+| [ui-art-gaps](ui-art-gaps/) | Missing interface artwork |
+| [environment-art](environment-art/) | Forest environment artwork |
+| [illegal-move-feedback](illegal-move-feedback/) | Feedback for illegal moves |
+| [tutorial-hand](tutorial-hand/) | Tutorial hand guidance |
+| [developer-flags](developer-flags/) | Developer settings and flags |
+| [level-entrance](level-entrance/) | Level entrance animation |
+| [ui-birds-alive](ui-birds-alive/) | Continuous interface bird animation |
+| [naming-cleanup](naming-cleanup/) | Repository naming and work-log cleanup |
 | [art-cleanup/spec.md](art-cleanup/spec.md) | Specification for art cleanup |
 | [aspect-layout/report.md](aspect-layout/report.md) | Report for aspect layout |
 | [aspect-layout/spec.md](aspect-layout/spec.md) | Specification for aspect layout |
@@ -273,4 +287,3 @@
 | [view-animation/spec.md](view-animation/spec.md) | Specification for view animation |
 | [visual-polish/report.md](visual-polish/report.md) | Report for visual polish |
 | [visual-polish/spec.md](visual-polish/spec.md) | Specification for visual polish |
-| motion-evidence | Timed captures of the integrated build. |
