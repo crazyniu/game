@@ -59,6 +59,13 @@ namespace PerchSort.V5.Game
             }
             ScheduleQuirk();
         }
+        public void Enter(BirdView bird, Vector2 start, Vector2 target, float delay, BranchView branch)
+        {
+            bird.Enter(start, target, delay, Launch, () => { Land(); branch.Land(); }, () =>
+            {
+                bird.Sync(bird.Bird, root.Session.State.IsAsleep(bird.Bird)); bird.Place(target);
+            });
+        }
         private void ScheduleQuirk()
         {
             if (V5Motion.Instant) return;

@@ -35,6 +35,7 @@ namespace PerchSort.V5.Meta
 
     public static class Economy
     {
+        private const int WorldCompleteCoins = 200;
         public static int StarsForMoves(int countedMoves, int par)
         {
             if (countedMoves < 0) throw new ArgumentOutOfRangeException(nameof(countedMoves));
@@ -64,9 +65,20 @@ namespace PerchSort.V5.Meta
             if (worldBonus) next.RewardedWorlds.Add(world);
             var payout = new WinPayout(firstClear: oldStars == 0 ? 10 + 5 * stars : 0,
                 replay: oldStars > 0 ? 5 : 0, improvement: oldStars > 0 ? 5 * Math.Max(0, stars - oldStars) : 0,
-                chorus: ChorusBonus(chorusStepsBeyondFirst), world: worldBonus ? 200 : 0);
+                chorus: ChorusBonus(chorusStepsBeyondFirst), world: worldBonus ? WorldCompleteCoins : 0);
             next.Coins = checked(next.Coins + payout.Total);
             return new PayoutResult(Unlocks.GrantReachedStarterGifts(next), payout, stars);
+        }
+
+        // Game queues a committed first finale win; acknowledgement shares OnWin's one-time receipt.
+        public static PayoutResult ClaimWorldComplete(PlayerProfile profile, int world)
+        {
+            if (profile == null) throw new ArgumentNullException(nameof(profile));
+            PlayerProfile.CheckWorld(world);
+            if (profile.HasWorldCompleteReward(world)) return new PayoutResult(profile, default);
+            var next = new PlayerProfile(profile) { Coins = checked(profile.Coins + WorldCompleteCoins) };
+            next.RewardedWorlds.Add(world);
+            return new PayoutResult(next, new WinPayout(world: WorldCompleteCoins));
         }
 
         public static PayoutResult ClaimDailyGift(PlayerProfile profile, IClock clock)

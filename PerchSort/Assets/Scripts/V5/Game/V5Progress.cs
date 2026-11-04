@@ -16,15 +16,17 @@ namespace PerchSort.V5.Game
         public readonly bool[] Tutorials = new bool[41];
         public bool Muted;
         public V5DevOptions DevOptions { get; }
+        public V7PopupFlow Notifications { get; }
         public int DisplayCoins => DevOptions.grantTestStock ? Math.Max(Coins, 2000) : Coins;
         public int AccessibleLevel => DevOptions.unlockAllLevels ? 40 : HighestUnlocked;
         public int BestStars(int level) => DevOptions.unlockAllLevels ? Math.Max(Stars[level], 3) : Stars[level];
         public int DisplayStock(int stock) => DevOptions.grantTestStock ? Math.Max(stock, 5) : stock;
         private int[] subsidy, initialSubsidy;
         private readonly Stack<int[]> subsidyHistory;
-        public V5Profile(V5DevOptions options = null)
+        public V5Profile(V5DevOptions options = null, PerchSort.V5.Meta.PlayerProfile notificationReceipts = null)
         {
             DevOptions = options ?? new V5DevOptions();
+            Notifications = new V7PopupFlow(this, notificationReceipts);
             for (int i = 0; i < BestMoves.Length; i++) BestMoves[i] = -1;
             if (DevOptions.grantTestStock) subsidyHistory = new Stack<int[]>();
         }
@@ -89,6 +91,7 @@ namespace PerchSort.V5.Game
         }
         public int Reward(int level, int stars, int chorusCoins)
         {
+            Notifications.RecordWin(level, Stars[level] == 0);
             int reward = (Stars[level] == 0 ? 10 + 5 * stars : 5) + chorusCoins;
             Stars[level] = Math.Max(Stars[level], stars); HighestUnlocked = Math.Max(HighestUnlocked, Math.Min(40, level + 1));
             Coins += reward; return reward;
@@ -104,6 +107,7 @@ namespace PerchSort.V5.Game
         public const string CoinsKey = "v5.coins";
         public const string MutedKey = "v5.muted";
         public const string HighestKey = "v5.highestUnlocked";
+        public const string NotificationsKey = "v7.notifications";
         private static readonly string[] starKeys = NumberedKeys("v5.bestStars.", 41);
         private static readonly string[] tutorialKeys = NumberedKeys("v5.tutorial.", 41);
         private static readonly string[] inventoryKeys = NumberedKeys("v5.booster.", V5ViewModel.BoosterCount);
@@ -127,6 +131,7 @@ namespace PerchSort.V5.Game
             yield return CoinsKey; yield return MutedKey; yield return HighestKey;
             for (int i = 1; i <= 40; i++) { yield return StarsKey(i); yield return TutorialKey(i); yield return BestMovesKey(i); }
             for (int i = 0; i < V5ViewModel.BoosterCount; i++) { yield return InventoryKey(i); yield return StarterKey(i); yield return UnlockSeenKey(i); }
+            yield return NotificationsKey;
         }
         public static V5Profile Load(V5DevOptions options = null)
         {
@@ -146,6 +151,7 @@ namespace PerchSort.V5.Game
                 profile.StarterGranted[i] = PlayerPrefs.GetInt(StarterKey(i)) != 0;
                 profile.UnlockSeen[i] = PlayerPrefs.GetInt(UnlockSeenKey(i)) != 0;
             }
+            if (PlayerPrefs.HasKey(NotificationsKey)) profile.Notifications.Restore(PlayerPrefs.GetString(NotificationsKey));
             return profile;
         }
         public static void Save(V5Profile profile)
@@ -162,6 +168,8 @@ namespace PerchSort.V5.Game
                 PlayerPrefs.SetInt(InventoryKey(i), profile.Boosters[i]); PlayerPrefs.SetInt(StarterKey(i), profile.StarterGranted[i] ? 1 : 0);
                 PlayerPrefs.SetInt(UnlockSeenKey(i), profile.UnlockSeen[i] ? 1 : 0);
             }
+            // Balance and all claim receipts/continuations share one durable snapshot.
+            PlayerPrefs.SetString(NotificationsKey, profile.Notifications.ToText());
             PlayerPrefs.Save();
         }
     }

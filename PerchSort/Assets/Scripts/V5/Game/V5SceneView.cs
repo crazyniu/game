@@ -11,6 +11,7 @@ namespace PerchSort.V5.Game
         private Image background, night;
         private V5Motion phase;
         private RectTransform particles, scenery;
+        private CanvasGroup entranceFade;
         public void Configure(V5Art assets, Action emptyTap)
         {
             art = assets;
@@ -19,6 +20,7 @@ namespace PerchSort.V5.Game
             background.gameObject.AddComponent<V5EmptyClick>().Click = emptyTap;
             night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             phase = gameObject.AddComponent<V5Motion>();
+            entranceFade = gameObject.AddComponent<CanvasGroup>();
             scenery = V5UI.Rect(transform, "World trees", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             particles = V5UI.Rect(transform, "Ambient particles", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
         }
@@ -71,6 +73,10 @@ namespace PerchSort.V5.Game
                 });
             }
         }
+        public void Entrance(float alpha)
+        {
+            background.color = new Color(1, 1, 1, alpha); entranceFade.alpha = alpha;
+        }
         public void ChangePhase(DayPhase value, Action complete)
         {
             phase.CancelAll(); float start = night.color.a, end = value == DayPhase.Night ? 1 : 0;
@@ -79,6 +85,7 @@ namespace PerchSort.V5.Game
         public void Cancel()
         {
             phase.CancelAll();
+            Entrance(1);
             for (int i = particles.childCount - 1; i >= 0; i--) V5UI.Dispose(particles.GetChild(i).gameObject);
         }
     }

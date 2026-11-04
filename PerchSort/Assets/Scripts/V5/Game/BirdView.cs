@@ -162,6 +162,19 @@ namespace PerchSort.V5.Game
                 });
             }, delay);
         }
+        public void Enter(Vector2 start, Vector2 target, float delay, Action airborne, Action landed, Action arrived)
+        {
+            Place(start); zzz.gameObject.SetActive(false);
+            if (!Bird.IsEgg) { Fly(target, delay, false, airborne, landed, arrived); return; }
+            Cancel(); acting = true; bool launched = false;
+            Vector2 from = rect.anchoredPosition, to = new Vector2(target.x, -target.y);
+            motion.Play(0.45f, t =>
+            {
+                if (!launched) { launched = true; airborne(); }
+                rect.anchoredPosition = Vector2.Lerp(from, to, t) + Vector2.up * (45 * Mathf.Sin(t * Mathf.PI));
+                body.localScale = Scale(1 + 0.08f * Mathf.Sin(t * Mathf.PI), 1 - 0.08f * Mathf.Sin(t * Mathf.PI));
+            }, () => { landed(); perch = to; Idle(); arrived(); }, delay);
+        }
         public void Hop(Vector2 destination, float duration, Action complete)
         {
             Cancel(); acting = true; Vector2 start = rect.anchoredPosition, end = new Vector2(destination.x, -destination.y);

@@ -30,6 +30,7 @@ namespace PerchSort.V5.Game
         private TMP_FontAsset font;
         public bool IsOpen => gameObject.activeSelf;
         public bool IsUnlock { get; private set; }
+        public bool IsNotification { get; private set; }
         public int CardLevel { get; private set; }
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
         {
@@ -109,9 +110,10 @@ namespace PerchSort.V5.Game
                 V7Layout.CardMechanic(i, mechanics.Count));
             V5UI.Button(body, art, "Play level " + id, "icon_play", new Rect(V7Layout.CardPlay.position - bounds.position, V7Layout.CardPlay.size), () => root.LoadLevel(id), true);
         }
-        public void Popup(V7PopupKind kind, string species, int reward)
+        public void Popup(V7PopupKind kind, string species, int reward, Action acknowledge = null, int world = 2)
         {
             Hide(); transform.SetAsLastSibling(); gameObject.SetActive(true);
+            IsNotification = acknowledge != null;
             if (kind == V7PopupKind.ShopPlaceholder || kind == V7PopupKind.AviaryPlaceholder)
             {
                 var panel = Body(V7Layout.LevelCard);
@@ -128,7 +130,10 @@ namespace PerchSort.V5.Game
                 V5UI.Fit(transform, "New friend", art.Get(species + "_idle"), bird.center, bird.size * 1.6f);
                 Picture(transform, "Name ribbon", "name_ribbon", area, V7Layout.Screen(screen, "ribbon"));
                 Label(transform, "Friend name", SpeciesName(species), area, V7Layout.Screen(screen, "name"), 64).color = Color.white;
-                Picture(transform, "Friend gift", V5ViewModel.GiftIcon(species), area, V7Layout.Screen(screen, "gift_badge"));
+                if (species == "crow")
+                    Label(transform, "Rook personality", "Never goes home.", area,
+                        V7Layout.Centered(V7Layout.Screen(screen, "gift_badge").center, new Vector2(580, 80)), 38);
+                else Picture(transform, "Friend gift", V5ViewModel.GiftIcon(species), area, V7Layout.Screen(screen, "gift_badge"));
             }
             else if (kind == V7PopupKind.DailyGift)
             {
@@ -150,7 +155,7 @@ namespace PerchSort.V5.Game
                         Picture(transform, "Completion star " + i, "star_full", area, V7Layout.Screen(screen, i == 0 ? "star_left" : i == 1 ? "star_center" : "star_right"));
                     }
                 }
-                else Picture(transform, "World sign", "world_sign_w2", area, V7Layout.Screen(screen, "world_plaque"));
+                else Picture(transform, "World sign", "world_sign_w" + world, area, V7Layout.Screen(screen, "world_plaque"));
             }
             if (kind == V7PopupKind.DailyGift || kind == V7PopupKind.WorldComplete)
             {
@@ -160,7 +165,9 @@ namespace PerchSort.V5.Game
                 Label(transform, "Reward amount", "+" + reward, area, new Rect(chip.x + 90, chip.y, chip.width - 100, chip.height), 54);
             }
             Rect button = V7Layout.Screen(screen, kind == V7PopupKind.WorldComplete ? "next" : kind == V7PopupKind.WorldUnlock ? "play" : "confirm");
-            V5UI.Button(transform, art, "Close popup", kind == V7PopupKind.WorldComplete ? "icon_next_arrow" : kind == V7PopupKind.WorldUnlock ? "icon_play" : "icon_check", button, root.ClosePanel, true);
+            V5UI.Button(transform, art, acknowledge == null ? "Close popup" : "Acknowledge popup",
+                kind == V7PopupKind.WorldComplete ? "icon_next_arrow" : kind == V7PopupKind.WorldUnlock ? "icon_play" : "icon_check",
+                button, acknowledge ?? (Action)root.ClosePanel, true);
         }
         private static string SpeciesName(string species)
         {
@@ -218,7 +225,7 @@ namespace PerchSort.V5.Game
         public void Hide()
         {
             for (int i = transform.childCount - 1; i >= 0; i--) V5UI.Dispose(transform.GetChild(i).gameObject);
-            IsUnlock = false; CardLevel = 0; gameObject.SetActive(false);
+            IsUnlock = IsNotification = false; CardLevel = 0; gameObject.SetActive(false);
         }
     }
 }

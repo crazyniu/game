@@ -5,6 +5,7 @@ using PerchSort.V5.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using IClock = PerchSort.V5.Meta.IClock;
 
 namespace PerchSort.V5.Game
 {
@@ -15,6 +16,11 @@ namespace PerchSort.V5.Game
         private TutorialHand tutorial;
         private SettingsPanel settings;
         private V5Panels panels;
+        private V7LevelEntrance entrance;
+        private bool notificationsEnabled, notificationTransition;
+        public IClock Clock { get; set; } = new PerchSort.V5.Meta.SystemClock();
+        public V7Notification CurrentNotification => profile?.Notifications.Current;
+        public bool IsIntroducing => entrance != null && entrance.IsPlaying;
         private AudioManager audioManager;
         private CanvasGroup hudInput, boardInput, mapInput;
         private bool ownsAudio, initialized, persistProgress = true, rewardGranted, hintPending;
@@ -33,7 +39,6 @@ namespace PerchSort.V5.Game
         public bool IsMap { get; private set; }
         public bool HasModal => Modal;
         public int BestMoves(int level) => profile.BestMoves[level];
-        private readonly System.Collections.Generic.Queue<BoosterKind> unlocks = new System.Collections.Generic.Queue<BoosterKind>();
         public bool IsBusy { get; private set; }
         public bool IsAirborne => Board != null && Board.IsAirborne;
         public bool HintPending => hintPending || (hintSearch != null && !hintSearch.IsCompleted);
@@ -46,15 +51,16 @@ namespace PerchSort.V5.Game
         public Camera RenderCamera { get; private set; }
         public Canvas Canvas { get; private set; }
         public bool IsReady => initialized;
-        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen;
+        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || IsIntroducing || notificationTransition;
         public void ConfigureFont(TMP_FontAsset value) => font = value;
         private void Start() => Initialize();
 
         // Capture initializes outside play mode without reading/writing the player's profile.
-        public void Initialize(bool saveProgress = true)
+        public void Initialize(bool saveProgress = true, bool? showNotifications = null)
         {
             if (initialized) return;
             persistProgress = saveProgress; profile = saveProgress ? V5Progress.Load() : new V5Profile();
+            notificationsEnabled = showNotifications ?? saveProgress;
             art = new V5Art();
             RenderCamera = Camera.main;
             if (RenderCamera == null) throw new InvalidOperationException("V5 scene needs a main camera.");
@@ -78,6 +84,7 @@ namespace PerchSort.V5.Game
             settings = Layer<SettingsPanel>(design, "Settings overlay"); settings.Configure(this, art);
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<V5Panels>(design, "Information cards"); panels.Configure(this, art, font);
+            entrance = Layer<V7LevelEntrance>(design, "Level entrance"); entrance.Configure(this);
             hudInput = Hud.gameObject.AddComponent<CanvasGroup>();
             boardInput = Board.gameObject.AddComponent<CanvasGroup>();
             mapInput = Map.gameObject.AddComponent<CanvasGroup>();
@@ -101,7 +108,7 @@ namespace PerchSort.V5.Game
         }
         public void LoadLevel(int id)
         {
-            if (!initialized || id < 1 || id > HighestUnlocked) return;
+            if (!initialized || IsIntroducing || notificationTransition || CurrentNotification != null || id < 1 || id > HighestUnlocked) return;
             LoadDefinition(LevelLoader.Load(id), true);
         }
         private void LoadDefinition(LevelDef level, bool starters)
@@ -115,16 +122,24 @@ namespace PerchSort.V5.Game
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
             if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
             Refresh(); Save();
-            if (starters)
+            if (starters && notificationsEnabled) BeginLevelEntrance();
+        }
+        private static System.Collections.Generic.IEnumerable<string> LevelSpecies(BoardState state)
+        {
+            foreach (var branch in state.Branches) foreach (var bird in branch.Birds) yield return bird.Species.Id;
+        }
+        private void BeginLevelEntrance()
+        {
+            profile.Notifications.BeginLevel(LevelId, LevelSpecies(Session.State)); IsBusy = true;
+            entrance.Play(() =>
             {
-                for (int i = 0; i < V5ViewModel.BoosterCount; i++)
-                    if (level.id >= V5ViewModel.Unlock((BoosterKind)i) && !profile.UnlockSeen[i]) unlocks.Enqueue((BoosterKind)i);
-                ShowNextUnlock();
-            }
+                IsBusy = false; profile.Notifications.FinishIntro(); Save(); PumpNotifications(); Refresh();
+            });
         }
         public void NextLevel()
         {
             if (!Session.State.IsWon) return;
+            if (CurrentNotification != null || notificationTransition || TryLeaveFinale(true)) return;
             // After the finale there is no next level: return to the map instead of ignoring the tap.
             if (LevelId >= LevelLoader.Catalog.levels.Length) { OpenMap(); return; }
             LoadLevel(LevelId + 1);
@@ -134,6 +149,7 @@ namespace PerchSort.V5.Game
         {
             if (!initialized) Initialize(false);
             persistProgress = false; profile = new V5Profile { Coins = coins, HighestUnlocked = 40 };
+            notificationsEnabled = false;
             if (inventory != null) for (int i = 0; i < profile.Boosters.Length; i++) profile.Boosters[i] = inventory[(BoosterKind)i];
             LoadDefinition(level, false);
         }
@@ -226,6 +242,7 @@ namespace PerchSort.V5.Game
             if (!initialized || IsMap) return;
             CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; tutorial.DisableForAttempt();
             Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State); Save(); Refresh();
+            if (notificationsEnabled) BeginLevelEntrance();
         }
         public void TapBooster(BoosterKind kind)
         {
@@ -292,11 +309,75 @@ namespace PerchSort.V5.Game
         public void CloseSettings() { settings.Hide(); PlaySound(Sfx.Back); Refresh(); }
         public void OpenMap()
         {
-            if (!initialized || IsAirborne) return;
+            if (!initialized || IsAirborne || IsIntroducing || notificationTransition || CurrentNotification != null) return;
+            if (TryLeaveFinale(false)) return;
             if (Defer(OpenMap)) return;
-            CancelPresentation(); Save(); IsMap = true;
-            Session.CancelSelection(); Board.gameObject.SetActive(false); Hud.gameObject.SetActive(false); tutorial.Hide();
-            Map.Show(profile); Refresh();
+            CancelPresentation(); Save(); ShowMapSurface();
+            if (notificationsEnabled) { profile.Notifications.BeginMap(Clock); Save(); PumpNotifications(); }
+            Refresh();
+        }
+        private void ShowMapSurface()
+        {
+            IsMap = true; Session.CancelSelection();
+            Board.gameObject.SetActive(false); Hud.gameObject.SetActive(false); tutorial.Hide();
+            Map.Show(profile);
+        }
+        private bool TryLeaveFinale(bool next)
+        {
+            if (!notificationsEnabled || !Win.IsOpen || !profile.Notifications.HasWorldSequence) return false;
+            profile.Notifications.LeaveWin(LevelId, next); Win.Hide(); Save(); PumpNotifications(); Refresh(); return true;
+        }
+        private void PumpNotifications()
+        {
+            if (!notificationsEnabled || !initialized || Modal || IsBusy) return;
+            var request = profile.Notifications.Next(IsMap);
+            if (request == null)
+            {
+                int next = IsMap ? profile.Notifications.TakeDeferredLevel() : 0;
+                if (next > 0) LoadLevel(next);
+                return;
+            }
+            Save();
+            if (request.Kind == V7NotificationKind.BoosterUnlock) panels.Unlock(request.Booster);
+            else if (request.Kind == V7NotificationKind.WorldUnlock)
+            {
+                ShowMapSurface(); profile.Notifications.BeginMap(Clock); Save();
+                notificationTransition = true; int token = revision; Refresh();
+                Map.UnlockGate(request.World, () =>
+                {
+                    if (!initialized || token != revision) return;
+                    notificationTransition = false;
+                    panels.Popup(V7PopupKind.WorldUnlock, "sunny", 0, () => AcknowledgeNotification(request), request.World);
+                    Refresh();
+                });
+                return;
+            }
+            else
+            {
+                V7PopupKind kind = request.Kind == V7NotificationKind.WorldComplete ? V7PopupKind.WorldComplete :
+                    request.Kind == V7NotificationKind.DailyGift ? V7PopupKind.DailyGift : V7PopupKind.NewFriend;
+                int reward = kind == V7PopupKind.WorldComplete ? 200 : kind == V7PopupKind.DailyGift ? 50 : 20;
+                panels.Popup(kind, request.Species ?? "sunny", reward, () => AcknowledgeNotification(request), request.World);
+            }
+            Refresh();
+        }
+        public void AcknowledgeNotification(V7Notification request)
+        {
+            if (!initialized || notificationTransition || !panels.IsOpen || !ReferenceEquals(CurrentNotification, request)) return;
+            int before = Coins, reward = profile.Notifications.Acknowledge(request, Clock);
+            panels.Hide(); Save(); Refresh();
+            if (reward > 0 && IsMap)
+            {
+                notificationTransition = true; int token = revision; Refresh();
+                Map.CollectCoins(before, Coins, () =>
+                {
+                    if (!initialized || token != revision) return;
+                    notificationTransition = false; PumpNotifications(); Refresh();
+                });
+                return;
+            }
+            if (reward > 0) Hud.CountCoins(before, Coins);
+            PumpNotifications(); Refresh();
         }
         public void OpenLevelCard(int id)
         {
@@ -318,18 +399,14 @@ namespace PerchSort.V5.Game
             if (!initialized || IsMap || IsBusy || Modal) return;
             panels.Unlock(kind); Refresh();
         }
-        private void ShowNextUnlock()
-        {
-            if (unlocks.Count == 0) { Refresh(); return; }
-            var kind = unlocks.Dequeue(); profile.UnlockSeen[(int)kind] = true;
-            panels.Unlock(kind); Save(); Refresh();
-        }
         public void AcknowledgeUnlock()
         {
             if (!panels.IsUnlock) return;
-            panels.Hide(); ShowNextUnlock();
+            if (CurrentNotification != null && CurrentNotification.Kind == V7NotificationKind.BoosterUnlock)
+                AcknowledgeNotification(CurrentNotification);
+            else { panels.Hide(); Refresh(); }
         }
-        public void ClosePanel() { if (panels.IsUnlock) return; panels.Hide(); Refresh(); }
+        public void ClosePanel() { if (panels.IsUnlock || panels.IsNotification) return; panels.Hide(); Refresh(); }
         public void SetMuted(bool muted)
         {
             profile.Muted = muted; Save(); if (audioManager != null) audioManager.SetSfxEnabled(!muted);
@@ -349,7 +426,7 @@ namespace PerchSort.V5.Game
         private void CancelPresentation()
         {
             revision++; hintPending = false; queuedTap = null;
-            unlocks.Clear();
+            profile.Notifications.CancelPresentation(); notificationTransition = false; entrance.Cancel();
             Board.Cancel(); Hud.Cancel(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Scene.Cancel(); IsBusy = false;
         }
         private void OnDestroy()

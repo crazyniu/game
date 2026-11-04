@@ -58,6 +58,7 @@ namespace PerchSort.V5.Game
             wood.fillAmount = twig ? 1 : Fill(Seats);
         }
         public Vector2 Slot(int index) => V7Layout.BirdSlot(index, BranchY, IsRight, density);
+        public void Entrance(float progress) => flex.localScale = new Vector3(progress, 1, 1);
         public void OnPointerClick(PointerEventData data)
         {
             if (data != null && data.button != PointerEventData.InputButton.Left) return;
@@ -111,6 +112,7 @@ namespace PerchSort.V5.Game
         public void Cancel()
         {
             motion.CancelAll(); ClearHighlight(); flex.localRotation = Quaternion.identity;
+            flex.localScale = Vector3.one;
             for (int i = flex.childCount - 1; i >= 0; i--)
                 if (flex.GetChild(i) != wood.transform) V5UI.Dispose(flex.GetChild(i).gameObject);
         }

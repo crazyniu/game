@@ -25,6 +25,9 @@ namespace PerchSort.V5.Game
         private Button settings;
         private bool contextMechanic;
         private int toolCount = 3;
+        private RectTransform coinPlate;
+        private CanvasGroup coinFade, gearFade, toolFade;
+        private Rect headerBounds = V7Layout.CoinPill, gearBounds = V7Layout.SettingsButton;
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public BoosterKind ContextBooster => kinds[3];
         public Transform HomeFlightLayer => homeFlights;
@@ -33,6 +36,9 @@ namespace PerchSort.V5.Game
             root = owner; art = assets; motion = gameObject.AddComponent<V5Motion>();
             coins = CoinHeader(transform, art, font);
             settings = V5UI.Button(transform, art, "Settings", "icon_gear", V7Layout.SettingsButton, root.OpenSettings);
+            coinPlate = (RectTransform)transform.Find("Coin pill");
+            coinFade = coinPlate.gameObject.AddComponent<CanvasGroup>();
+            gearFade = settings.gameObject.AddComponent<CanvasGroup>();
             phaseGroup = V5UI.Rect(transform, "Day night dial", V7Layout.PhaseDial.center, V7Layout.PhaseDial.size).gameObject;
             phaseIcon = V5UI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), V7Layout.PhaseIconCenter, Vector2.one * V7Layout.PhaseIconSize);
             phaseCount = V5UI.Text(phaseGroup.transform, "Moves until phase", "0", font, V7Layout.PhaseCountCenter, V7Layout.PhaseCountSize, V7Layout.PhaseFontSize);
@@ -40,6 +46,7 @@ namespace PerchSort.V5.Game
             homeFlights = V5UI.Rect(transform, "Homeward flights", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             housesLayer = V5UI.Rect(transform, "Species goals", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             bottomBar = V5UI.Rect(transform, "Bottom bar", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
+            toolFade = bottomBar.gameObject.AddComponent<CanvasGroup>();
             tools[0] = V5UI.Button(bottomBar, art, "Undo", "icon_undo", V7Layout.ToolButton(0), () => root.Undo());
             for (int i = 1; i < tools.Length; i++)
             {
@@ -74,6 +81,7 @@ namespace PerchSort.V5.Game
             foreach (var home in state.HomedSpecies) if (!species.Contains(home.Id)) species.Add(home.Id);
             string screen = species.Count == 1 ? "level_k3" : "level_k7";
             Rect header = V7Layout.Screen(screen, "coin_pill"), gear = V7Layout.Screen(screen, "gear");
+            headerBounds = header; gearBounds = gear;
             var coinRect = (RectTransform)transform.Find("Coin pill");
             coinRect.anchoredPosition = new Vector2(header.center.x, -header.center.y); coinRect.sizeDelta = header.size;
             Rect coinText = new Rect(header.x + header.width * 142 / 320, header.y + header.height * 32 / 128, header.width * 140 / 320, header.height * 60 / 128);
@@ -178,9 +186,23 @@ namespace PerchSort.V5.Game
             }, () => { V5UI.Dispose(image.gameObject); done(); });
         }
         public void CountCoins(int from, int to) => motion.Play(0.65f, t => coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString());
+        public void Entrance(float homes, float controls)
+        {
+            housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 550);
+            housesLayer.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(homes * Mathf.PI * 4) * (1 - Mathf.Clamp01(homes)) * 2);
+            coinFade.alpha = gearFade.alpha = toolFade.alpha = coins.alpha = controls;
+            float offset = (1 - controls) * 160;
+            coinPlate.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y + offset);
+            Rect text = new Rect(headerBounds.x + headerBounds.width * 142 / 320,
+                headerBounds.y + headerBounds.height * 32 / 128, headerBounds.width * 140 / 320, headerBounds.height * 60 / 128);
+            coins.rectTransform.anchoredPosition = new Vector2(text.center.x, -text.center.y + offset);
+            ((RectTransform)settings.transform).anchoredPosition = new Vector2(gearBounds.center.x, -gearBounds.center.y + offset);
+            bottomBar.localScale = Vector3.one * controls;
+        }
         public void Cancel()
         {
             motion.CancelAll(); foreach (var house in houses.Values) house.Cancel();
+            Entrance(1, 1);
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--) V5UI.Dispose(effects.GetChild(i).gameObject);
             if (chorus != null) chorus.SetActive(false);
         }

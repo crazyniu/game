@@ -15,6 +15,10 @@ namespace PerchSort.V5.Game
         private TextMeshProUGUI coins;
         private ScrollRect scroll;
         private V5Motion bounce, focus;
+        private V5Motion rewards;
+        private RectTransform effects;
+        private bool countingCoins;
+        private readonly Dictionary<int, V7GateView> gates = new Dictionary<int, V7GateView>();
         private readonly Dictionary<int, Button> nodes = new Dictionary<int, Button>();
         public IReadOnlyDictionary<int, Button> Nodes => nodes;
         public int FocusLevel { get; private set; }
@@ -38,11 +42,15 @@ namespace PerchSort.V5.Game
             V5UI.Button(transform, art, "Shop", "icon_basket", V7Layout.Screen("map", "shop"), () => root.OpenPopup(V7PopupKind.ShopPlaceholder));
             V5UI.Button(transform, art, "Aviary", "icon_aviary", V7Layout.Screen("map", "aviary"), () => root.OpenPopup(V7PopupKind.AviaryPlaceholder));
             V5UI.Button(transform, art, "Settings", "icon_gear", V7Layout.Screen("map", "settings"), root.OpenSettings);
+            rewards = gameObject.AddComponent<V5Motion>();
+            effects = V5UI.Rect(transform, "Map reward coins", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             gameObject.SetActive(false);
         }
         public void Show(V5Profile profile)
         {
             gameObject.SetActive(true); bounce.CancelAll(); focus.CancelAll(); nodes.Clear();
+            rewards.CancelAll(); countingCoins = false; gates.Clear();
+            for (int i = effects.childCount - 1; i >= 0; i--) V5UI.Dispose(effects.GetChild(i).gameObject);
             for (int i = content.childCount - 1; i >= 0; i--) V5UI.Dispose(content.GetChild(i).gameObject);
             coins.text = profile.DisplayCoins.ToString();
             // The lower world's alpha-faded top overlaps the upper world's opaque bottom by 160px.
@@ -53,7 +61,9 @@ namespace PerchSort.V5.Game
             {
                 float boundary = (V6MapModel.Position((world - 1) * 10).y + V6MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
                 Vector2 gate = new Vector2(540, boundary);
-                V5UI.Fit(content, "World " + world + " gate", art.Get(V6MapModel.WorldOpen(profile, world) ? "gate_open" : "gate_locked"), gate, V7Layout.MapGateSize);
+                float side = Mathf.Min(V7Layout.MapGateSize.x, V7Layout.MapGateSize.y);
+                var view = V5UI.Rect(content, "World " + world + " gate", gate, Vector2.one * side).gameObject.AddComponent<V7GateView>();
+                view.Configure(art, world, V6MapModel.WorldOpen(profile, world)); gates.Add(world, view);
                 V5UI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(250, 0), new Vector2(240, 100));
             }
             for (int id = 1; id <= 40; id++) Node(profile, id);
@@ -101,8 +111,43 @@ namespace PerchSort.V5.Game
             if (!animated) { SetOffset(target); return; }
             focus.Play(0.5f, t => SetOffset(Mathf.Lerp(start, target, t * t * (3 - 2 * t))));
         }
-        public void Hide() { scroll.StopMovement(); bounce.CancelAll(); focus.CancelAll(); gameObject.SetActive(false); }
-        public void RefreshCoins(int value) => coins.text = value.ToString();
+        public void UnlockGate(int world, System.Action done)
+        {
+            focus.CancelAll(); scroll.StopMovement();
+            float y = (V6MapModel.Position((world - 1) * 10).y + V6MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
+            float start = content.anchoredPosition.y, end = Clamp(y - V7Layout.MapViewport.height * 0.45f);
+            focus.Play(0.5f, t => SetOffset(Mathf.Lerp(start, end, t * t * (3 - 2 * t))), () => gates[world].Open(done));
+        }
+        public void CollectCoins(int from, int to, System.Action done)
+        {
+            rewards.CancelAll(); countingCoins = true;
+            Vector2 source = V7Layout.Screen("popup_daily_gift", "gift_basket").center;
+            Rect pill = V7Layout.Screen("map", "coin_pill");
+            Vector2 destination = pill.position + Vector2.one * pill.height * 0.5f;
+            rewards.Play(0.89f, t => coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString());
+            for (int i = 0; i < 5; i++)
+            {
+                var coin = V5UI.Image(effects, "Collected gift coin", art.Get("coin"), source, Vector2.one * 64);
+                Vector2 start = source + new Vector2((i - 2) * 20, (i % 2) * 15); bool last = i == 4;
+                rewards.Play(0.65f, t =>
+                {
+                    Vector2 point = Vector2.Lerp(start, destination, t) + Vector2.up * (-160 * Mathf.Sin(t * Mathf.PI));
+                    coin.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
+                    coin.rectTransform.localScale = Vector3.one * Mathf.Lerp(1, 0.65f, t);
+                }, () =>
+                {
+                    V5UI.Dispose(coin.gameObject);
+                    if (last) { countingCoins = false; coins.text = to.ToString(); done(); }
+                }, i * 0.06f);
+            }
+        }
+        public void Hide()
+        {
+            scroll.StopMovement(); bounce.CancelAll(); focus.CancelAll(); rewards.CancelAll(); countingCoins = false;
+            for (int i = effects.childCount - 1; i >= 0; i--) V5UI.Dispose(effects.GetChild(i).gameObject);
+            gameObject.SetActive(false);
+        }
+        public void RefreshCoins(int value) { if (!countingCoins) coins.text = value.ToString(); }
     }
     public sealed class V7MapInput : MonoBehaviour, IBeginDragHandler, IScrollHandler
     {
