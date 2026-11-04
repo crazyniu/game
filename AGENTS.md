@@ -11,6 +11,13 @@ Perch Sort has **one current game**: Unity **6000.6.7f1**, portrait, 40 fixed au
 - Workers may commit and push only their assigned task branch. Do not merge peer branches, push main, force-push, deploy, or release. The user authorized coordinator review and integration of completed work into main for testing; that is not release authority.
 - **Updated testing directive:** after integration, the current Codex coordinator must perform Mac compilation, EditMode, PlayMode and GUI acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity; coordinator serializes it. Worker reports may state NOT_RUN locally, never that stage testing is optional.
 
+## Permanent single-current-game naming policy
+
+- Maintain **ONE current game**. Edit canonical files in place; never create V-numbered parallel folders, files, classes, namespaces, scenes or resource roots, or alternate current implementation copies under any other name.
+- Normal task branches and PRs are temporary collaboration vehicles reviewed and merged into `main`, not permanent runnable forks or alternative current implementations.
+- The only narrow exceptions are: **exact existing storage identifiers**, solely to preserve save compatibility; **preserved historical archives and original-art provenance**, never active implementation copies; and **legitimate dependency, schema or release metadata**. Existing storage compatibility is not permission to introduce new versioned keys. No new arbitrary exceptions or catch-all allowlists.
+- **Review acceptance:** verify changes update canonical files, introduce no prohibited parallel identity/copy, keep one enabled Game scene and the canonical resource roots, and fit any retained version-looking identifier into exactly one exception above. Require `python3 ci/check_current_game_names.py` to pass before tests; its static guard complements review and does not authorize exceptions or replace required Mac acceptance.
+
 ## Current source and data ownership
 
 | Surface | Current location |
@@ -24,9 +31,9 @@ Perch Sort has **one current game**: Unity **6000.6.7f1**, portrait, 40 fixed au
 | Editor entry | `Assets/Editor/Game`, namespace `PerchSort.Editor`: `GameSceneBuilder`, `GameArtImporter`, `GameCapture` |
 | Retained tests | `Assets/Tests/{EditMode,Meta,PlayMode}`; shared Audio stays under `Tests/EditMode/Audio` |
 
-`archive/retired/` is outside Unity Assets and CI inputs. It preserves retired code/data/scenes/tests, not a second runnable project. Never restore it because a historical document or asset names it. Originals under `art/` are preserved, including historical versioned filenames.
+`archive/retired/` is outside Unity Assets and compiled/test CI inputs. It preserves retired code/data/scenes/tests, not a second runnable project. Never restore it because a historical document or asset names it. Originals under `art/` are preserved, including historical versioned filenames.
 
-Storage strings `v5.*`, `v6.unlockSeen.*` and `v7.notifications` are compatibility identifiers, **not implementation versions**. Preserve every existing key, ProfileMigrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema version. Do not reset user data or rename persisted fields during cleanup.
+Exact existing storage identifiers listed in [CURRENT_GAME](docs/CURRENT_GAME.md) are compatibility identifiers, **not implementation versions**. Preserve every existing key, ProfileMigrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema version. Do not reset user data or rename persisted fields during cleanup.
 
 ## Specification and language
 
@@ -43,7 +50,7 @@ Storage strings `v5.*`, `v6.unlockSeen.*` and `v7.notifications` are compatibili
 2. Use one Unity process at a time. If the user has the project open, ask them to close it; never kill their Editor. Inspect existing process/lock state before starting a serialized run.
 3. Run `bash scripts/run_tests.sh`: it invokes only `PerchSort.Editor.GameSceneBuilder.Build`, then the retained EditMode and PlayMode suites. Source-derived safeguards are **304 EditMode** (237 game + 53 Meta + 14 Audio) and **17 PlayMode**, no Ignore/Explicit. LevelsData retains 81 expanded cases (40 solver/replay), Layout 41 (24 combinatorial). These are expectations, not passing results; investigate actual discovery differences rather than lower counts or skip failures.
 4. Run `bash scripts/screenshots.sh` for stable-state captures in `build/screens/game/`, then perform actual GUI/timed acceptance. Static GameCapture uses instant motion and synthetic nonpersistent profiles; it does not prove animated playback, persistence or device acceptance.
-5. Automatic PR CI retains JSON/assembly/project/script checks, workflow lint, and the current pure-Core fixture subset via `dotnet test ci/CoreTests.csproj`. CI is not a substitute for Unity or GUI acceptance. Archived tests are never compiled or run.
+5. Automatic PR CI runs `python3 ci/check_current_game_names.py` unconditionally before tests, then retains JSON/assembly/project/script checks, workflow lint and the current pure-Core fixture subset via `dotnet test ci/CoreTests.csproj`. The naming guard uses Git-tracked paths and `git show` for sparse files; it validates naming policy, never compiles or runs archived tests. CI is not a substitute for Unity or GUI acceptance.
 6. Report exact commands, results, skips, failures and boundaries. All T52 worker runtime validation remains NOT_RUN until the coordinator executes it. Historical passing counts do not validate new changes. Keep generated output out of commits (`build/` is ignored).
 
 Do not expose network services or credentials. Existing authorized Orca/artifact channels suffice for reports and captures. Store identifiers and release account/package placeholders still require user input; `com.todo.perchsort` is not a production package name.

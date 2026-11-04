@@ -32,6 +32,8 @@ jobs:
             PerchSort/Assets/Resources/
             PerchSort/Packages/
             scripts/
+      - name: Enforce single current game naming
+        run: python3 ci/check_current_game_names.py
       - name: Check changed files
         id: changes
         env:

@@ -17,6 +17,8 @@ The latest user instruction supersedes the initial no-tests/CI-disable request: 
 
 `PerchSort/Assets/{Editor,Tests,Scenes}/**` and their folder metas; `PerchSort/ProjectSettings/EditorBuildSettings.asset`; `scripts/**` except shared Audio/audio generation; `ci/**`; `.github/workflows/**`; README.md, AGENTS.md, CLAUDE.md, docs/README.md, docs/spec/CODE_MAP.md, docs/team/{MEMORY.md,TEAM.md,HANDOFF_2026-11-04_CODEX.md}, docs/CURRENT_GAME.md; this spec/report. Retired counterparts only under `archive/retired/PerchSort/Assets/{Editor,Tests,Scenes}/**` and `archive/retired/{scripts,ci}/**`. Shared Audio code/importer/tests remain unchanged.
 
+Followup ownership exception: T52D alone owns `ci/check_current_game_names.py`, GameLayout.cs provenance-comment cleanup, `tasks/T52D_naming_policy.md` and its report. C owns only the guard's CI wiring and the primary policy documentation; do not edit D's files or wait for its delivery.
+
 ## Required changes
 
 1. Archive obsolete scene/editor/test/tool sources with metadata outside Unity; do not rewrite old-contract tests into current tests. Preserve archival bytes and historical reports/research.
@@ -25,9 +27,13 @@ The latest user instruction supersedes the initial no-tests/CI-disable request: 
 4. Retarget tests/captures to the sole builder/scene/capture. Retire old capture assertions without a current equivalent. Replace weak legacy minimums with source-justified retained-suite guards: 304 EditMode (237 current game, 53 Meta, 14 Audio), 17 PlayMode, no Ignore/Explicit. Preserve LevelsData 81 expanded cases (40 optimal solver/replays) and Layout 41 (24 combinatorial).
 5. Inspect the existing ci/CoreTests.csproj and retarget current pure-Core fixtures; no archived test/source compile inputs. Keep automatic CI tests enabled under updated user direction. Ensure sparse checkout includes the project and current source/JSON/reference/script filters exclude archives. No invented replacement tests or fake runtime API shims.
 6. Replace stale primary entry docs with one current game, unversioned paths, Mac development, current Codex coordination, current T49/T50 implementation facts, storage compatibility notes, and required coordinator verification. Older v2/v4 documents remain clearly historical; later design documents may retain historical filenames as evidence. Do not claim new rule or runtime acceptance.
+7. Permanent policy followup: matching English sections in AGENTS.md/CLAUDE.md and CURRENT_GAME must require ONE current game and canonical in-place edits; ban V-numbered parallel paths/types/namespaces/scenes/resource roots and alternate current implementation copies. Task branches/PRs are temporary collaboration merged to main. Permit only exact existing save-compatibility IDs, historical archives/original-art provenance, and legitimate dependency/schema/release metadata; no arbitrary new exceptions. Record art/v7/layout_v7.json as historical-original provenance, not an active runtime version.
+8. Wire `python3 ci/check_current_game_names.py` unconditionally before tests in CI; retain the existing ci/ sparse checkout entry so D's independently supplied guard is available. The guard uses Git tracked paths plus git-show for sparse files. Do not alter runtime/test assertions or disable tests.
 
 ## Acceptance and delivery
 
 Static evidence: scene exact expected three identity-line changes only; scene/root/font retention; one build scene; moved current metadata and fixture JSON hashes; byte-identical archives/shared tools/Audio; no active old namespace/resource/tool references; retained test assertion/attribute inventory; valid current JSON/asmdef/csproj, shell syntax and Python source syntax; current CI inputs exclude archives. Report test migration/Unity import risks and integration-only references because A/B are not merged locally.
+
+Permanent naming review acceptance additionally requires canonical in-place changes with no parallel current identity/copy, one enabled scene/canonical resource roots, exact narrow exception justification and a passing naming guard before tests. C verifies wiring statically; coordinator integrates D and executes the guard and required Mac acceptance.
 
 Commit and push only the task branch, then report DONE/BLOCKED, SHA, exact changed paths, evidence, mapping changes and untested limitations to current Codex via supplied Orca route/terminal. No Dispatch IDs exist. Coordinator performs integrated Mac testing/GUI acceptance, then reports actual results; C must not call static checks runtime proof.

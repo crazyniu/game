@@ -6,6 +6,25 @@ DONE for bounded C implementation on `mac-current-entry/t52`, based on `4b421598
 
 **Worker runtime validation: NOT_RUN. Integrated stage testing: REQUIRED, current Codex coordinator-owned on the Mac after integrating all deliveries.** This follows the latest user update and supersedes the original no-tests/CI-disable request. C did not launch Unity, a compiler, dotnet, code tests, captures, playthroughs or GUI checks. Automatic PR CI tests remain enabled; no PR or workflow dispatch was opened by this worker.
 
+## Permanent naming policy followup
+
+The initial bounded delivery is `1cea729a18b6748c33d308f5fdf427875608d396`. The user subsequently required permanent canonical-edit constraints and assigned the independent naming guard/provenance cleanup to T52D. This C followup changes only:
+
+- `AGENTS.md`
+- `CLAUDE.md`
+- `docs/CURRENT_GAME.md`
+- `.github/workflows/ci.yml`
+- `tasks/T52C_current_entry.md`
+- `tasks/T52C_report.md`
+
+Matching English agent-guide sections and CURRENT_GAME now require **ONE current game**, canonical files edited in place, no V-numbered parallel folders/files/classes/namespaces/scenes/resource roots, and no alternate current implementation copies under any name. Task branches/PRs are temporary collaboration reviewed and merged to main. The only exceptions are exact existing storage IDs solely for save compatibility, preserved historical archives/original-art provenance, and legitimate dependency/schema/release metadata; no new arbitrary exceptions or broad allowlists. These are explicit review acceptance criteria.
+
+CURRENT_GAME identifies `art/v7/layout_v7.json` as historical-original art/layout provenance, not an active runtime version/root or entry. The original was inspected read-only and remains unchanged.
+
+CI now invokes `python3 ci/check_current_game_names.py` **unconditionally immediately after checkout**, before tests. Existing `ci/` sparse checkout already includes the independently supplied script; Git-tracked-path and git-show inspection permits the guard to inspect sparse files without expanding checkout to archived code. Existing automatic test conditions, test command and assertions are unchanged.
+
+Observed static followup evidence: workflow YAML parsed; exactly one unconditional guard step precedes `dotnet test`; `ci/` remains in sparse checkout; AGENTS/CLAUDE remain byte-identical; the historical layout provenance link resolves. The guard itself was **NOT_RUN** here because T52D supplies it independently. No D-owned guard/GameLayout/spec/report, runtime code, tests/assertions, art originals or primary checkout were edited. Integrated guard execution and required Mac acceptance remain coordinator-owned; C does not wait for D to deliver this wiring/docs followup.
+
 ## Implemented entries
 
 - Archived old Game/Sample scenes and obsolete Editor tools, importers and legacy tests outside Unity at `archive/retired/`. Archived old contracts were not rewritten as current tests. Archived obsolete aspect-capture/front-bird tooling, including old capture assertions with no current equivalent.

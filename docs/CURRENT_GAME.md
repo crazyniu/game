@@ -6,6 +6,15 @@ There is one current Perch Sort game: the accepted T49/T50 source/art behavior, 
 
 Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0051b40279c77a0b9a758533`; GameRoot script GUID is `07203ec62b1604449b634c729c1303a3`. The root retains its serialized Fredoka font reference. There is exactly one enabled build scene. Static preservation does not prove Unity import: InputSystem scene action IDs and actual root initialization need coordinator verification.
 
+## Permanent canonical-edit policy and review acceptance
+
+- Maintain **ONE current game**, editing canonical files in place. Never create V-numbered parallel folders, files, classes, namespaces, scenes or resource roots, or alternate current implementation copies under any other name.
+- Task branches and PRs are temporary collaboration reviewed and merged into `main`; they are not permanent runnable forks or alternative current implementations.
+- Only three narrow exceptions exist: **exact existing storage IDs solely for save compatibility**; **preserved historical archives/original-art provenance**, never active implementation copies; and **legitimate dependency/schema/release metadata**. Existing storage IDs do not authorize new versioned keys. No new arbitrary exceptions or broad allowlists.
+- Review acceptance must check canonical in-place edits, absence of parallel implementation identities/copies, one enabled Game scene, canonical resource roots, and an exact allowed reason for each retained version-looking identifier. `python3 ci/check_current_game_names.py` must pass before tests; the guard complements human review and required Mac acceptance.
+
+[`art/v7/layout_v7.json`](../art/v7/layout_v7.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
+
 ## Read current behavior at its owner
 
 | Concern | Source / evidence |
@@ -29,7 +38,7 @@ T49/T50 supplies the approved plush/soft forest visual treatment, final ten-spec
 - Sprites: `Resources/Art`, `Resources/Birds`, `Resources/World`. T52 resource contract retains 345 current full-art PNGs plus six still-used compressed fallback PNGs. No runtime numbered fallback folders.
 - Editor: `PerchSort/Assets/Editor/Game`, namespace **`PerchSort.Editor`**, containing `GameSceneBuilder.Build`, `GameArtImporter.ImportExisting`, `GameCapture.Run`. The builder creates only Game.unity and never invokes retired importers. Shared `PhoneGameView`, `ReleaseSettings` and Audio importer remain.
 - Tests: `Tests/EditMode` (`PerchSort.EditModeTests`), `Tests/Meta` (`PerchSort.Meta.EditModeTests`), `Tests/PlayMode` (`PerchSort.PlayModeTests`). Shared Audio keeps its independent nested asmdef and namespace.
-- Retired code/scenes/tests/tools: `archive/retired/` outside Unity Assets and retained CI filters. Historical originals/research stay preserved, not runnable alternatives.
+- Retired code/scenes/tests/tools: `archive/retired/` outside Unity Assets and runtime/test CI inputs. Historical originals/research stay preserved, not runnable alternatives.
 
 ## Import and persistence safety
 
@@ -48,6 +57,8 @@ The user superseded the old no-tests instruction: the current Codex coordinator 
 `bash scripts/screenshots.sh` uses the current capture tool for stable-state PNGs under `build/screens/game/`. It preserves current first-level/map/popup/mechanic checks. Old saved-resume/animation-sequence/aspect assertions with no current equivalent are archived, not rewritten into false proof. Required GUI acceptance must additionally exercise real motion, input/cancellation, notifications/persistence, maps/gates and overlay alignment. Record exact results and remaining limits.
 
 PR CI preserves automatic source/configuration checks and the existing .NET test job, retargeted to real current pure-Core fixture files. The shared TestBoards helper has a `DOTNET_CI` JSON/file transport branch; Unity keeps its actual LevelLoader path. This is not a runtime shim or substitute for Unity loader/resource testing. Source/test/fixture changes select the job; retired archives never do.
+
+CI runs the naming guard unconditionally before the .NET test steps. The guard reads Git-tracked paths and uses `git show` for files omitted by sparse checkout; the existing `ci/` sparse entry includes its script. It does not run archived code or replace compilation, gameplay tests or GUI acceptance.
 
 ## Historical reference boundary
 
