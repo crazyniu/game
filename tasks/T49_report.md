@@ -41,3 +41,11 @@ Lead rejected the first set's upright crest. Regenerated every Berry source fram
 ## Minty checkpoint — 2026-11-04
 
 Completed 17 source frames, 17 RGBA exports, portrait, strip, idle-actions GIF and game-size sheet. Head-feature comparison used the large approved popup (central green leaf with two teal side feathers and pale eye rings). Regenerated downstroke after the first result shrank the torso and lowered wings below the feet. Game-size review found consistent scale, leaf identity and distinct actions. All 68 prepared frames have no edge-clipping flags. Added documented prechecks of remaining existing idle head features. No Unity/runtime validation performed.
+
+## Scope transfer — 2026-11-04
+
+Lead transferred T49 item 4 (all backgrounds, branches, twigs, crowns and trunks) to mac-art. mac-birds now owns remaining bird sets, eggs and mama-bow/chick-fluff overlays. No world pieces were generated or edited by this worker. Full board composites depend on mac-art world assets and remain an integration handoff dependency.
+
+## Cocoa checkpoint — 2026-11-04
+
+Completed 17 frames and portrait, with strip, idle-actions GIF and game-size QA. Preserved K7/list head features: two short pointed ear tufts, cream mask and heavy brows. Checked clean transparency on the QA background, consistent body scale and baseline, readable opposing tilts. Alignment inventory: 85 frames, none clipped. No runtime acceptance claimed.

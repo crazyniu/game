@@ -2310,5 +2310,583 @@
     ],
     "foot_baseline": 300,
     "edge_clipped": false
+  },
+  {
+    "file": "cocoa_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      459,
+      1068,
+      896,
+      1102
+    ],
+    "scale": 0.2244,
+    "translation": [
+      8,
+      53
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      83,
+      246,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      458,
+      1068,
+      898,
+      1104
+    ],
+    "scale": 0.22287,
+    "translation": [
+      9,
+      54
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      85,
+      247,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      428,
+      1093,
+      855,
+      1131
+    ],
+    "scale": 0.22965,
+    "translation": [
+      13,
+      40
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      63,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      407,
+      1113,
+      877,
+      1153
+    ],
+    "scale": 0.20864,
+    "translation": [
+      26,
+      59
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      66,
+      75,
+      247,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1312,
+      1199
+    ],
+    "source_feet": [
+      455,
+      1055,
+      878,
+      1093
+    ],
+    "scale": 0.23182,
+    "translation": [
+      5,
+      47
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      12,
+      72,
+      303,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      459,
+      1067,
+      898,
+      1102
+    ],
+    "scale": 0.22337,
+    "translation": [
+      8,
+      54
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      12,
+      83,
+      284,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      399,
+      1117,
+      863,
+      1157
+    ],
+    "scale": 0.21134,
+    "translation": [
+      27,
+      55
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      40,
+      75,
+      279,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      403,
+      1104,
+      851,
+      1140
+    ],
+    "scale": 0.21889,
+    "translation": [
+      23,
+      50
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      71,
+      250,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      386,
+      1119,
+      866,
+      1158
+    ],
+    "scale": 0.20429,
+    "translation": [
+      32,
+      63
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      66,
+      81,
+      254,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      405,
+      1090,
+      861,
+      1127
+    ],
+    "scale": 0.21505,
+    "translation": [
+      24,
+      58
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      77,
+      254,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      459,
+      1067,
+      901,
+      1102
+    ],
+    "scale": 0.22186,
+    "translation": [
+      9,
+      56
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      81,
+      245,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      446,
+      1070,
+      887,
+      1108
+    ],
+    "scale": 0.22236,
+    "translation": [
+      12,
+      54
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      54,
+      81,
+      248,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      460,
+      1071,
+      904,
+      1106
+    ],
+    "scale": 0.22086,
+    "translation": [
+      9,
+      56
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      53,
+      83,
+      245,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      400,
+      1142,
+      875,
+      1182
+    ],
+    "scale": 0.20644,
+    "translation": [
+      28,
+      56
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      69,
+      255,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1312,
+      1199
+    ],
+    "source_feet": [
+      423,
+      1063,
+      880,
+      1102
+    ],
+    "scale": 0.21458,
+    "translation": [
+      20,
+      64
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      81,
+      264,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1536,
+      1024
+    ],
+    "source_feet": [
+      590,
+      876,
+      955,
+      906
+    ],
+    "scale": 0.26866,
+    "translation": [
+      -48,
+      57
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      85,
+      313,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "cocoa_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      408,
+      1137,
+      871,
+      1178
+    ],
+    "scale": 0.21179,
+    "translation": [
+      25,
+      51
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      70,
+      249,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
   }
 ]
