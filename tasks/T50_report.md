@@ -1,5 +1,10 @@
 # T50 v7 integration milestone and remaining work
 
+## Current handoff — HOLD requested by Codex coordinator
+All source WIP is isolated in **`9f84a95`** on `mac-ui/t50`. Do not merge it into main: popup/profile/root/intro/gate integration is mid-flight and has not been compiled or tested. No tests, Unity runs or all-level playthrough were performed after the pause instruction. Full changed/new-file inventory, interface boundaries and unfinished fixture/persistence checks are in `docs/team/status/mac-ui.md`.
+
+**Last review-ready checkpoint: `1abcee5`. The implementation/verification sections below describe that checkpoint, not `9f84a95`.** In particular, the WIP now adds a Meta world-claim API and notification persistence beyond the unchanged Meta/runtime state described in the reviewed milestone. Popup views previously existed; automatic queue/acknowledgement integration is now written but unverified in the WIP. No worker dispatch, merge or checkout change will occur until the current Codex coordinator supplies the exact ownership plan/checkpoint.
+
 ## Status
 Green integration WIP on `mac-ui/t50`, resumed from lead-reviewed `dcd36a8`. This is not final v7 visual acceptance or Phase 2 completion. Work was performed directly; no sub-workers were started.
 

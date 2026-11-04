@@ -1,47 +1,58 @@
-# mac-ui — T50 current status
+# mac-ui — HOLD for Codex coordinator ownership split
 
-## Branch / checkpoint
-- Branch: `mac-ui/t50`, resumed from lead-reviewed `dcd36a8`.
-- Integration commit: `e7d84a5` (v7 UI, measured layout, importer and generated metadata).
-- Latest code checkpoint: `46c977d` (complete v7 scenery/coloured illustrations, aligned feet/branch planes and new metadata). Earlier green milestones pushed at `3e6aef4` and `39dc66b`.
-- Full handoff and exact lead popup policy: `tasks/T50_report.md`.
-- Working directly. No sub-workers or services were started during this resumption.
+## Checkpoints
+- Branch remains `mac-ui/t50`. Do not switch checkout or merge until the current Codex coordinator provides the exact checkpoint/ownership plan.
+- **Last review-ready checkpoint: `1abcee5`.** This contains the integrated v7 worlds/coloured boosters and interleaved-board fix. Its locked suite passed **453/453 EditMode; 31 PlayMode passed, 0 failed, 8 skipped**. Graphics captures are in `build/screens/v7/`, including K3/K7, coloured Owl Eye and `v7_world_w1.png` through `v7_world_w4.png`. These numbers/captures apply to `1abcee5`, not the WIP below.
+- **Isolated code WIP: `9f84a95`**, `wip: preserve popup queue and intro integration for parallel ownership split`.
+- **Do not merge `9f84a95` into main.** It is mid-integration, not compile/test/review-ready. All current source edits and both existing new `.meta` files are preserved in that commit; nothing was reset/deleted.
+- No tests, Unity runs, all-level playthrough, merges, checkout changes or worker dispatch were performed after the latest pause instruction. No sub-workers were started during this resumption. The last owned Unity lock was released after the previous green run.
 
-## Done and verified
-- Read the newest inbox/review after merging lead documentation. Merged successive T48/T49 deliveries, including measured layout, house alignment, gate/gift parts and current bird exports.
-- Implemented `V7ArtImporter.cs` (4096px maps/backgrounds, aligned canvases, slices and hinge pivots), hooked into `V5SceneBuilder`. Runtime capture verifies the W1 map texture remains 1080x3000.
-- Replaced provisional v6 geometry in `V7Layout.cs` with measured v7 screen rectangles, house-count adaptation, house doorway/hinge coordinates and all forty baked-path node centers.
-- Integrated available v7 assets into `V5Art`, `V5UI`, `V5Button`, `HudView`, `BirdhouseView`, `BirdView`, `BranchView`, `BoardView`, `V5SceneView`, `V5ViewModel`, `SettingsPanel`, `WinPanel`, `V5Panels`, `V6MapModel` and `V6MapView`.
-- Added actual popup presentations and root presentation API, authorized shop/Aviary placeholders, aligned gift composition and world-gate/sign views. No preview reward grants were added.
-- Added required v7 captures plus map worlds/gates/test-mode and popup/placeholder previews. Corrected beam/chrome overlap, faded locked nodes, goal-info text clearance and gate centering after inspecting actual runtime images.
-- Updated layout and runtime pose checks; removed old asset-filename-only assertions instead of re-pinning them. Core/Meta, level data, existing save/economy behavior and intentional skips remain unchanged.
-- Lead review fixed: right-side rows interleave at exactly half-row pitch; opposite-side full bird canvases and branch artwork are separated. All 24 rows-2..5/K-2..7 layout combinations pass; regenerated K7 was visually inspected. No authored board edits.
-- All six coloured booster illustrations are now bound to their delivered names. The unlock card displays the combined illustration in its measured main-object area; the obsolete glyph/egg fallback is removed.
-- Merged `origin/mac-art/world`: all 16 backgrounds and all four branch/twig/trunk/crown sets. Removed legacy scenery fallback. `V7Layout`, `V5SceneView`, `BranchView` and `BirdView` align crown attachments, edge trunks, branch perch planes and feet; home-flight centering still passes its existing runtime regression.
-- Latest graphics capture regenerated all required PNGs plus `v7_world_w1.png` through `v7_world_w4.png`. K3/K7, coloured Owl Eye, bamboo and maple were opened and visually inspected. Logs: `build/t50-world-tests.log`, `build/t50-world-capture.log`.
+## Exactly what the unverified WIP contains
+- New `V7PopupFlow`: ordered notification state, immutable Meta new-species preview, acknowledgement-time met/+20 and daily/+50 claims, first-finale pending bits, world-unlock continuation, deferred Next and a serialized reward-ledger/balance/continuation snapshot.
+- `V5Progress`: owns that state and saves it as string key `v7.notifications`, included in `Keys()`; first-win recording occurs before stars are updated.
+- `Meta/Economy`: adds `ClaimWorldComplete`, sharing the existing one-time world receipt and 200-coin constant with `OnWin`. Existing `OnWin` semantics were not intentionally changed. The Game queue is responsible for qualifying the committed first finale.
+- `V5GameRoot`: routes map/level/win exits through one notification pump; acknowledgement delegates capture request identity to reject stale double clicks; input/modal guards cover intro and notification transitions; cross-world Next is deferred until the sequence finishes. Clock is injectable. Nonpersistent capture/fixture notification control is explicit.
+- New `V7LevelEntrance`: approximately 1.6s skippable entrance orchestration (house drop, row growth, bird/egg entry, chrome fade); completion gates new-friend/booster delivery. Integration methods were added to HUD/scene/branch/bird/board views.
+- `V5Panels`: acknowledgement callback and mandatory-notification dismissal guard; Rook gets 'Never goes home.' instead of a gift; world-unlock sign selects the actual world.
+- New `V7GateView`: aligned T48 leaves/hinges/light/padlock, shake/fall/swing motion. `V6MapView` uses these gates, focus-then-unlock completion and coins-to-pill/counting motion.
+- These changes are **not verified** and are not claimed as complete Phase 2 animation work.
 
-## Latest locked Mac verification
-| Suite | Passed | Failed | Skipped |
-| --- | ---: | ---: | ---: |
-| EditMode (`build/test-results.xml`) | 453 | 0 | 0 |
-| PlayMode (`build/playmode-results.xml`) | 31 | 0 | 8 |
+## Known unfinished work / immediate integration risks
+1. No new EditMode/PlayMode coverage has been written or run for this WIP. Compilation has not been checked.
+2. Existing `V5GameplayTests`/`V5DevOptionsTests` preference guards assume every `V5Progress.Keys()` entry is an integer. They must preserve/delete/restore the new string key correctly before running suites; otherwise tests can damage the saved notification snapshot.
+3. Existing gameplay fixtures assume no automatic daily/new-friend modal and fixed starting coins. Seed acknowledged Meta receipts deliberately for unrelated legacy regressions, and add independent fresh-profile tests for the actual new popup flow; do not bypass the feature globally.
+4. EditMode/PlayMode test asmdefs currently do not directly reference `PerchSort.V5.Meta`; add that reference when new tests use Meta clocks/profiles.
+5. Intro, stale-callback cancellation, acknowledgements across reload, duplicate-reward prevention, popup ordering/no stacking, first/next-day/rollback daily rules and deferred cross-world Next still need actual verification and smoke captures.
+6. `V7GateView.cs.meta` did not exist at the WIP inventory. Do not run Unity during this hold; include it when a later authorized import generates it. `V7LevelEntrance.cs.meta` and `V7PopupFlow.cs.meta` are already preserved.
+7. Full win/popup bird choreography, random per-bird idle scheduling and the remaining Phase 2 timed sequences are still pending. Remaining T49 bird/egg/overlay deliveries are also not complete at the last integration fetch.
 
-`V5Capture.Run` completed with graphics. Required PNGs are in `build/screens/v7/`: `v7_level_k3`, `v7_level_k7`, `v7_map`, `v7_level_card`, `v7_win`, `v7_settings`, `v7_unlock_card`, `v7_goal_info`, `v7_popup_new_friend`. Additional captures cover all map worlds/gates, synthetic test-mode clears, daily gift, world complete/unlock and the authorized placeholders. Actual images were opened and inspected. No manual desktop playthrough, all-level gameplay run or new timed-animation evidence is claimed.
+## Changed/new files in `9f84a95`
+Paths below are relative to `PerchSort/Assets/Scripts/V5/`.
 
-## Half done / visual blockers
-- World scenery is fully delivered and integrated from `origin/mac-art/world`; no scenery fallback remains. Full visual acceptance still awaits the remaining bird/egg/overlay deliveries and lead review of actual captures.
-- T49 now has complete Sunny/Skye/Berry/Minty sets (`c9fc784`), including corrected Berry plumes. Cocoa/Snow/Ember/Ink/Hoot/Rook exports, eggs and mama/chick overlays remain incomplete. Some K7 birds/mechanics still use legacy fallback.
-- New popup views are implemented, but automatic scheduling, acknowledgement payouts, one-time bookkeeping and queue persistence are NOT implemented yet. Current runtime uses `V5Profile`/`V5Progress`; the existing Meta Aviary/Economy policy must be integrated without duplicate rewards.
+### Modified (10)
+- `Game/BirdView.cs`
+- `Game/BoardView.cs`
+- `Game/BranchView.cs`
+- `Game/HudView.cs`
+- `Game/V5GameRoot.cs`
+- `Game/V5Panels.cs`
+- `Game/V5Progress.cs`
+- `Game/V5SceneView.cs`
+- `Game/V6MapView.cs`
+- `Meta/Economy.cs`
 
-## Exact next policy (recorded in full in T50 report)
-New-friend cards follow intro/debut order and mark met/pay 20 only on acknowledgement, including Rook with 'Never goes home.'; daily gift is map-only on first calendar-day map open with injectable clock and 50 on collection; first finale win schedules one-time +200 world complete when leaving win; worlds 1-3 then run map-gate unlock and world-unlock before deferred Next continues; booster unlock follows intro. Priority: world complete -> world unlock -> daily gift -> new friend -> booster unlock. Never stack popups.
+### New (5)
+- `Game/V7GateView.cs`
+- `Game/V7LevelEntrance.cs`
+- `Game/V7LevelEntrance.cs.meta`
+- `Game/V7PopupFlow.cs`
+- `Game/V7PopupFlow.cs.meta`
 
-## Next
-1. **Now, without waiting for art (latest lead instruction):** implement the exact Meta-backed popup queue and acknowledgement policy, persistence, one-time receipts, calendar clock, no stacking and EditMode/PlayMode coverage. This is not blocked by the visual gate.
-2. Merge future T49/world/illustration deliveries while finishing visuals; then complete the intro and all Phase 2 bird/mechanic/ambient/UI/map/door animations and per-bird idle scheduler.
-3. Add required cancellation/input/completion coverage and timed flight/home/win/map/intro/idle/new-friend/world/goal-info sequences. Stable PNGs are not animation proof.
+## Interfaces to preserve while the coordinator assigns ownership
+- A: `BirdView.Enter(start, target, delay, airborne, landed, arrived)`, `BoardView.Enter(bird, start, target, delay, branch)`, `BranchView.Entrance(progress)` are used by the intro orchestrator.
+- B: `V5Panels.IsNotification` and `Popup(kind, species, reward, acknowledge, world)` are used by the notification pump. Acknowledgement must remain the only claim boundary; preview popups grant nothing.
+- C: `V5SceneView.Entrance(alpha)`, `V6MapView.UnlockGate(world, done)` and `CollectCoins(from, to, done)` completion/cancellation boundaries are used by root input/queue integration.
+- Shared assignment still needed: `V7GateView.cs` is currently consumed by the map and is a candidate shared door widget for popup presentation. Do not let B/C edit it concurrently.
+- Retained integration scope requested by coordinator: popup queue/profile/root/input/intro, including `HudView` entrance hooks and the Meta claim bridge as assigned in the exact plan. No ownership assumptions will be acted on before that plan.
 
-## Submission hygiene
-Every edited code file and generated V7 `.meta` is staged with the code checkpoint. The clean pre-run `Game.unity` and `V5.unity` bytes were restored after SceneBuilder; no unrelated package/settings edits were staged. `build/` evidence stays ignored. Unity runs ended and the owned lock was released.
-
-IN PROGRESS: world/illustration captures and the board-overlap fix are green and ready for lead review. Exact popup policy is the immediate next implementation; it does not wait for remaining art.
+HOLD: all implementation edits paused. Report/questions go to the current Codex conversation through this terminal/status, not the former Claude channel.
