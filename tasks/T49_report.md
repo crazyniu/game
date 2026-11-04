@@ -49,3 +49,7 @@ Lead transferred T49 item 4 (all backgrounds, branches, twigs, crowns and trunks
 ## Cocoa checkpoint — 2026-11-04
 
 Completed 17 frames and portrait, with strip, idle-actions GIF and game-size QA. Preserved K7/list head features: two short pointed ear tufts, cream mask and heavy brows. Checked clean transparency on the QA background, consistent body scale and baseline, readable opposing tilts. Alignment inventory: 85 frames, none clipped. No runtime acceptance claimed.
+
+## Flurry checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, QA strip, GIF and game-size sheet. Head features checked against K7 and aviary list before generation: lilac two-feather crest, three forehead dots and long lashes. Replaced an erroneous multi-bird blink output. Reviewed body scale, baseline, opposing tilts and alpha; 102 prepared frames, no clipping. Runtime remains untested.

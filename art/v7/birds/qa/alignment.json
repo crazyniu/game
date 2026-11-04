@@ -2888,5 +2888,583 @@
     ],
     "foot_baseline": 300,
     "edge_clipped": false
+  },
+  {
+    "file": "snow_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      409,
+      1084,
+      850,
+      1124
+    ],
+    "scale": 0.20968,
+    "translation": [
+      28,
+      64
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      85,
+      256,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      407,
+      1085,
+      852,
+      1126
+    ],
+    "scale": 0.20779,
+    "translation": [
+      29,
+      66
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      86,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      404,
+      1087,
+      855,
+      1127
+    ],
+    "scale": 0.20503,
+    "translation": [
+      31,
+      69
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      87,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      401,
+      1084,
+      858,
+      1125
+    ],
+    "scale": 0.20234,
+    "translation": [
+      33,
+      72
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      75,
+      91,
+      247,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      388,
+      1084,
+      831,
+      1124
+    ],
+    "scale": 0.20873,
+    "translation": [
+      33,
+      65
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      44,
+      86,
+      281,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      393,
+      1098,
+      829,
+      1137
+    ],
+    "scale": 0.21208,
+    "translation": [
+      30,
+      59
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      38,
+      83,
+      287,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1076,
+      847,
+      1113
+    ],
+    "scale": 0.20323,
+    "translation": [
+      34,
+      74
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      98,
+      268,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      400,
+      1085,
+      845,
+      1124
+    ],
+    "scale": 0.20779,
+    "translation": [
+      31,
+      66
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      93,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      398,
+      1087,
+      856,
+      1126
+    ],
+    "scale": 0.20189,
+    "translation": [
+      33,
+      73
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      97,
+      251,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      376,
+      1108,
+      861,
+      1150
+    ],
+    "scale": 0.19066,
+    "translation": [
+      42,
+      81
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      71,
+      97,
+      252,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      401,
+      1082,
+      863,
+      1122
+    ],
+    "scale": 0.20015,
+    "translation": [
+      34,
+      75
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      74,
+      99,
+      254,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      399,
+      1091,
+      857,
+      1132
+    ],
+    "scale": 0.20189,
+    "translation": [
+      33,
+      71
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      92,
+      250,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      407,
+      1086,
+      853,
+      1126
+    ],
+    "scale": 0.20733,
+    "translation": [
+      29,
+      67
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      68,
+      90,
+      254,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      385,
+      1111,
+      861,
+      1154
+    ],
+    "scale": 0.19426,
+    "translation": [
+      39,
+      76
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      91,
+      251,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1312,
+      1199
+    ],
+    "source_feet": [
+      414,
+      1068,
+      897,
+      1108
+    ],
+    "scale": 0.19144,
+    "translation": [
+      35,
+      88
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      100,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      319,
+      1089,
+      763,
+      1128
+    ],
+    "scale": 0.20826,
+    "translation": [
+      47,
+      65
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      68,
+      89,
+      288,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "snow_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      386,
+      1104,
+      869,
+      1146
+    ],
+    "scale": 0.19144,
+    "translation": [
+      40,
+      81
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      97,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
   }
 ]
