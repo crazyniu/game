@@ -44,7 +44,7 @@ T49/T50 supplies the approved plush/soft forest visual treatment, final ten-spec
 
 `GameArtImporter` preserves existing full-art borders/door pivots and 4096 limits for tall maps/level backgrounds. The six compressed fallback sprites (`dial_sun`, `dial_moon`, `hand_pointer`, `night_overlay`, `raindrop`, `swivel_knot`) retain their separate prior import policy, without full-art compression/mesh/pivot rewrites.
 
-Five egg frames retain custom pivot `(0.5, 0.0625)`; `chick_fluff` and `mama_bow` retain `(0.5, 0.5)`. All seven retain Tight mesh, 1024 limit, uncompressed quality 100 and no generated fallback physics shape. The previous broad importer must not recenter eggs. Metadata bytes are resource-owner/integration evidence; actual post-import behavior still needs Mac acceptance.
+Five egg frames retain custom pivot `(0.5, 0.0625)`; `chick_fluff` and `mama_bow` retain `(0.5, 0.5)`. All seven retain FullRect mesh (`spriteMeshType: 0`), 1024 limit, uncompressed quality 100 and no generated fallback physics shape. The previous broad importer must not recenter eggs or change their baseline mesh. Metadata bytes are resource-owner/integration evidence; actual post-import behavior still needs Mac acceptance.
 
 Persistence strings `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.`, `v5.tutorial.`, `v5.booster.`, `v5.starter.`, `v5.bestMoves.`, `v6.unlockSeen.` and `v7.notifications` are **storage compatibility identifiers only**. Keep them byte-identical, along with migrator reads, DataMember/SaveData names, enum order and schema versions. Do not rename serialized data merely to remove a visual prefix.
 

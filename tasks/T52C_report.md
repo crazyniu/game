@@ -6,6 +6,16 @@ DONE for bounded C implementation on `mac-current-entry/t52`, based on `4b421598
 
 **Worker runtime validation: NOT_RUN. Integrated stage testing: REQUIRED, current Codex coordinator-owned on the Mac after integrating all deliveries.** This follows the latest user update and supersedes the original no-tests/CI-disable request. C did not launch Unity, a compiler, dotnet, code tests, captures, playthroughs or GUI checks. Automatic PR CI tests remain enabled; no PR or workflow dispatch was opened by this worker.
 
+## Post-import overlay mesh acceptance correction
+
+Coordinator-reported Mac integrated run 2 **passed compilation and all 304 EditMode cases**. All **17 PlayMode cases failed during HUD startup**; that startup issue was separately fixed/integrated and is not changed by this C correction. These are coordinator-reported results, not worker execution.
+
+An independent post-import audit found all seven authored overlay metadata files changed `spriteMeshType` from **0 to 1**. Unity's official [SpriteMeshType enum](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/2D/Common/ScriptBindings/Sprites.bindings.cs) defines **FullRect=0, Tight=1**. B preserves baseline 0. C's earlier interpretation and Tight claims were incorrect; the importer introduced an unintended mesh change, not an authorized new asset direction.
+
+GameArtImporter now requires **SpriteMeshType.FullRect** for the seven authored overlays, preserving their original serialized mesh value 0. Egg pivots, centered chick/mama pivots, maxSize1024, uncompressed quality100 and no generated fallback physics remain unchanged; other full-art imports already used FullRect. No metas, gameplay or test assertions were modified. Misleading claims in this report, CURRENT_GAME and current team memory are corrected.
+
+Changed paths: `PerchSort/Assets/Editor/Game/GameArtImporter.cs`, `docs/CURRENT_GAME.md`, `docs/team/MEMORY.md`, `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. Coordinator-owned serial rerun and post-import metadata verification are **PENDING**; no passing result is claimed for this correction.
+
 ## Coordinator compile failure and narrow correction
 
 Coordinator-reported integrated Unity **6000.6.7f1** compilation at **4ab0ca8** (A/B/C integrated) **FAILED before tests**. The unique error from the full scene-build.log was:
@@ -16,7 +26,7 @@ Assets/Editor/Game/GameCapture.cs(118,38): error CS0104: SafeArea is an ambiguou
 
 C fixes only the capture component lookup by qualifying `GetComponent<PerchSort.Game.SafeArea>()`. The shared runtime type, behavior and all test assertions remain unchanged. Static inspection of C-owned Editor/Tests sources found that GameCapture, ButtonTests and GameplayTests import both namespaces; only GameCapture contains a SafeArea reference, so no other collision correction is needed in C scope.
 
-Changed paths for this correction: `PerchSort/Assets/Editor/Game/GameCapture.cs` and `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**; the coordinator's integrated compile rerun and subsequent tests/GUI acceptance are **PENDING**, not claimed passing. The primary checkout remains untouched by C.
+Changed paths for this correction: `PerchSort/Assets/Editor/Game/GameCapture.cs` and `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**. At that correction's delivery, the coordinator's integrated compile rerun and subsequent tests/GUI acceptance were pending; the later run-2 findings are recorded above. The primary checkout remains untouched by C.
 
 ## Permanent naming policy followup
 
@@ -56,8 +66,8 @@ All seven authored baseline metadata files were read, without modifying resource
 
 | Assets/Resources/Birds image | Intended pivot | Mesh / max / compression / physics |
 | --- | --- | --- |
-| egg_idle, egg_wobble_l, egg_wobble_r, egg_crack, egg_shell | (0.5, 0.0625) | Tight / 1024 / Uncompressed, quality100 / no generated fallback shape |
-| chick_fluff, mama_bow | (0.5, 0.5) | Tight / 1024 / Uncompressed, quality100 / no generated fallback shape |
+| egg_idle, egg_wobble_l, egg_wobble_r, egg_crack, egg_shell | (0.5, 0.0625) | FullRect (0) / 1024 / Uncompressed, quality100 / no generated fallback shape |
+| chick_fluff, mama_bow | (0.5, 0.5) | FullRect (0) / 1024 / Uncompressed, quality100 / no generated fallback shape |
 
 The unified importer explicitly handles those seven separately from default full-art pivots/mesh/limits. It must not repeat the old broad importer's egg recentering. Full-art UI borders, house/gift/gate hinge pivots and tall map/level-background 4096 limit remain. The six compressed carried sprites (dial_sun, dial_moon, hand_pointer, night_overlay, raindrop, swivel_knot) retain their original separate policy; it does not apply uncompressed/full-art mesh/border/pivot overrides. B owns metadata delivery and coordinator reconciles the user-generated bird/overlay metadata; C does not edit it.
 
@@ -99,7 +109,7 @@ No shared mapping change is proposed. Editor namespace PerchSort.Editor is expli
 - A/B names/resources are the **integration contract**, not files merged into this isolated C branch. This branch alone is not a standalone integrated build; coordinator must combine A/B/C before compilation/CI/Mac acceptance.
 - Required Mac tests must confirm actual discovery at or above the retained inventory and investigate discrepancies rather than weaken guards. The .NET project's 63-case subset and DOTNET_CI transport have **not** been compiled/executed here; Unity resource/parser tests and 40 full-level solver/replays remain in the retained Unity suite.
 - Coordinator reported primary-checkout scene InputSystem action-ID rewrites plus 108 generated bird metas/seven changed overlay metas. C preserved all original scene InputSystem fields; it did not inspect or mutate primary checkout. Coordinator must preserve user changes, reconcile B metadata, import/rebuild, inspect the actual scene/root/font/input setup and exercise real startup before entry acceptance.
-- Unity import policy/API interpretation (including Tight meshes, custom egg pivots and fallback physics setting), assembly resolution and all live visual/input/persistence/timing behavior remain **NOT_RUN locally**. Stable instant capture cannot prove real motion or device/safe-area behavior. Required GUI acceptance must cover those surfaces.
+- Unity import policy/API interpretation (including FullRect meshes, custom egg pivots and fallback physics setting), assembly resolution and all live visual/input/persistence/timing behavior remain **NOT_RUN locally**. Stable instant capture cannot prove real motion or device/safe-area behavior. Required GUI acceptance must cover those surfaces.
 - No C# language server is configured; this was confirmed before mechanical source migration. No compiler was used as a substitute. Runtime acceptance is not claimed from text/hash checks.
 
 ## Exact changed-path inventory

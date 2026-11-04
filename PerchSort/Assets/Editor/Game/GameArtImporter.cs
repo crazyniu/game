@@ -76,9 +76,9 @@ namespace PerchSort.Editor
             if (name == "gate_door_left") pivot = new Vector2(246f / 1024, 414f / 1024);
             if (name == "gate_door_right") pivot = new Vector2(778f / 1024, 414f / 1024);
             // The five egg frames share a foot baseline; the two family overlays are centered.
-            // These seven authored imports use Tight mesh, 1024 limit, and no generated physics shape.
+            // These seven authored imports preserve FullRect (serialized 0), 1024 limit, and no generated physics shape.
             if (overlay && name.StartsWith("egg_", StringComparison.Ordinal)) pivot = new Vector2(0.5f, 0.0625f);
-            SpriteMeshType mesh = overlay ? SpriteMeshType.Tight : SpriteMeshType.FullRect;
+            const SpriteMeshType mesh = SpriteMeshType.FullRect;
             bool changed = importer.textureType != TextureImporterType.Sprite || importer.spriteImportMode != SpriteImportMode.Single ||
                 !importer.alphaIsTransparency || importer.mipmapEnabled || importer.maxTextureSize != maxSize ||
                 importer.textureCompression != TextureImporterCompression.Uncompressed || importer.spriteBorder != border ||
