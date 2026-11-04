@@ -29,3 +29,7 @@ Completed 17 source frames and 17 aligned exports plus portrait, strip and idle-
 ## Lead review corrections — 2026-11-04
 
 Regenerated Sunny quirk1 to retain idle body size and baseline, and both Sunny/Skye tilt pairs with clear opposing approximately 20-degree head tilts. Refreshed aligned exports, strips and GIFs. `art/v7/birds/qa/review_scale_tilts.png` provides the idle/quirk/tilt comparison at approximately 120 px body width; visual inspection found the quirk shrink corrected and both tilt directions readable. The alignment inventory has 40 frames and zero edge-clipping flags. Runtime playback remains untested, as Unity is outside this worker's scope. The same body-scale and tilt requirements apply to all remaining species.
+
+## Berry checkpoint — 2026-11-04
+
+Completed all 17 Berry sources/320x320 RGBA exports and portrait. Corrected crest-preening quirk2, regenerated right tilt for visible opposing head roll and rejected/regenerated a halo-bearing yawn. Full 17-frame strip and idle-actions GIF refreshed; visual strip review found distinct actions and consistent body scale. Alignment inventory: 52 frames, no clipped exports. Runtime playback and final board comparisons remain pending.

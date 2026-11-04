@@ -62,14 +62,14 @@
   ],
   "poses": {
     "blink": "Both eyes fully closed for a brief blink; otherwise unchanged neutral idle posture and beak.",
-    "quirk1": "First frame of its personality quirk: Sunny anticipates a double hop with small body crouch; Skye sleepy blink with small head tilt; Berry raises a wing toward its plumes with wink; Minty raises wing toward eye ring; Cocoa begins a yawn; Flurry begins a shiver; Ember opens wings halfway; Inky glances upward; Hoot turns head left; Rook raises compass trinket.",
+    "quirk1": "First frame of its personality quirk: Sunny anticipates a double hop with tiny lifted wings, upright body at unchanged idle size; Skye sleepy blink with small head tilt; Berry raises a wing toward its plumes with wink; Minty raises wing toward eye ring; Cocoa begins a yawn; Flurry begins a shiver; Ember opens wings halfway; Inky glances upward; Hoot turns head left; Rook raises compass trinket.",
     "quirk2": "Second frame of its personality quirk: Sunny perks upright and opens tiny wings anticipating hop; Skye eyes open and head tilted other way; Berry preens plumes with wing; Minty touches eye ring with wing as pushing glasses; Cocoa finishes big yawn; Flurry fluffs feathers in shiver; Ember flaps wings downward; Inky looks high upward; Hoot turns head right; Rook holds trinket higher. Feet remain on same baseline for runtime hop.",
     "fly_up": "Both wings fully raised above shoulders, separated from body, feathers spread, clear upstroke flying pose; feet stay at same baseline for sprite anchoring, body center and size unchanged.",
     "fly_down": "Both wings fully extended down and outward, clear downstroke flying pose substantially different from upstroke; feet same baseline, body center and size unchanged.",
     "cheer": "Joyous celebration, smiling open beak and delighted crescent eyes, wings raised outwards.",
     "sleep": "Deep peaceful sleep with both eyes closed and beak closed, wings folded, head gently nestled. NO Zzz, letters, bubbles or symbols.",
-    "tilt_left": "Head visibly tilted toward viewer left, body and feet remain unchanged and stationary.",
-    "tilt_right": "Head visibly tilted toward viewer right, body and feet remain unchanged and stationary.",
+    "tilt_left": "Head visibly rolled 20 degrees counterclockwise toward viewer left: viewer-left eye lower and viewer-right eye higher, crest leaning left. Body stays upright, feet unchanged.",
+    "tilt_right": "Head visibly rolled 20 degrees clockwise toward viewer right: viewer-right eye lower and viewer-left eye higher, crest leaning right. Mirror-consistent counterpart to tilt_left. Body stays upright, feet unchanged.",
     "look_up": "Eyes and head looking upward, body and feet remain unchanged and stationary.",
     "look_down": "Eyes and head looking downward toward feet, body and feet remain unchanged and stationary.",
     "look_side": "Head turned toward viewer right neighbour, clear sideward gaze, body and feet remain unchanged and stationary.",
@@ -78,5 +78,6 @@
     "stretch": "One wing extended fully sideways in a clear relaxed stretch, other wing folded, body and feet stationary.",
     "yawn": "Beak wide open in a large sleepy yawn, both eyes closed, body and feet stationary."
   },
-  "method": "Built-in image_gen only; reference identity edits, then Pillow alignment/portrait crops/QA."
+  "method": "Built-in image_gen only; reference identity edits, then Pillow alignment/portrait crops/QA.",
+  "body_scale_contract": "All swaps keep idle torso size and foot baseline. Review near 120px body width; no shrinking quirk poses. Head tilt must clearly read 15-20 degrees in each direction."
 }
