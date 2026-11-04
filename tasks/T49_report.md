@@ -1,3 +1,19 @@
+# Final species delivery — 2026-11-04
+
+Current coordinator: Codex. This section supersedes earlier scope/progress notes below. All ten species are complete: 170 aligned RGBA frames, ten portraits, per-species QA strips and idle-actions GIFs. Sources and QA are under `art/v7/birds/`; exports are under `PerchSort/Assets/Resources/V7/Birds/`.
+
+Pushed latest milestones: Inky `a8109f9`, Hoot `4b8da97`, Rook `52da117`. Temporary GitHub push errors recovered. Final QA: all 170 frames unclipped; 180 exports have correct dimensions and real alpha. Ten species visually distinguishable at 64px in grayscale. See `art/v7/birds/qa/final_review.md`, `export_inventory.json` and `all_species_64px_grayscale.png`.
+
+No incomplete species files remain. Eggs, overlays and all world pieces transferred to mac-art; none created or edited here. Full rebuilt K3/K7 board composites remain an integration dependency on that work. Rook preserves K7's left-facing default rather than the general slightly-right view. No runtime acceptance claimed; no Unity or tests run. No sub-workers, lock, Codex update or CLI/API-key fallback.
+
+Next: Codex final review and reviewed stage integration, then pause. No merge performed by this worker; future development Mac-only.
+
+DONE: Owned species, portraits and offline bird QA delivered.
+
+---
+
+## Historical checkpoint notes
+
 # T49 delivery report — in progress
 
 ## Scope and method
@@ -41,3 +57,31 @@ Lead rejected the first set's upright crest. Regenerated every Berry source fram
 ## Minty checkpoint — 2026-11-04
 
 Completed 17 source frames, 17 RGBA exports, portrait, strip, idle-actions GIF and game-size sheet. Head-feature comparison used the large approved popup (central green leaf with two teal side feathers and pale eye rings). Regenerated downstroke after the first result shrank the torso and lowered wings below the feet. Game-size review found consistent scale, leaf identity and distinct actions. All 68 prepared frames have no edge-clipping flags. Added documented prechecks of remaining existing idle head features. No Unity/runtime validation performed.
+
+## Scope transfer — 2026-11-04
+
+Lead transferred T49 item 4 (all backgrounds, branches, twigs, crowns and trunks) to mac-art. mac-birds now owns remaining bird sets, eggs and mama-bow/chick-fluff overlays. No world pieces were generated or edited by this worker. Full board composites depend on mac-art world assets and remain an integration handoff dependency.
+
+## Cocoa checkpoint — 2026-11-04
+
+Completed 17 frames and portrait, with strip, idle-actions GIF and game-size QA. Preserved K7/list head features: two short pointed ear tufts, cream mask and heavy brows. Checked clean transparency on the QA background, consistent body scale and baseline, readable opposing tilts. Alignment inventory: 85 frames, none clipped. No runtime acceptance claimed.
+
+## Flurry checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, QA strip, GIF and game-size sheet. Head features checked against K7 and aviary list before generation: lilac two-feather crest, three forehead dots and long lashes. Replaced an erroneous multi-bird blink output. Reviewed body scale, baseline, opposing tilts and alpha; 102 prepared frames, no clipping. Runtime remains untested.
+
+## Ember checkpoint — 2026-11-04
+
+Completed 17 frames and portrait with strip, GIF and game-size QA. Flame crest and brows checked against K7 before expansion. Corrected sleep to folded wings and shortened the stretch wing to avoid edge clipping without shrinking the torso. Reviewed all poses at game size; 119 aligned frames, none clipped. Runtime not run.
+
+## Inky checkpoint and ownership update — 2026-11-04
+
+Completed 17 Inky frames and portrait, strip, GIF and game-size review. Preserved swept crest, brows and white chest star. 136 aligned frames, none clipped. Codex is now coordinator. Eggs and mama/chick overlays transferred to mac-art; mac-birds created none and will not edit them. Remaining owned work: Hoot, Rook and final bird QA. No tests or Unity.
+
+## Hoot checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, strip, GIF and game-size review. Retained cream heart-shaped face and purple star cap. 153 aligned frames, no clipping. Rook base checked against K7 before action generation.
+
+## Rook checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, strip, GIF and game-size review. Compared base to K7 before expansion; retained swept ragged crest, brows, grey toothy beak and compass. Regenerated both flight frames to remove invented straps. All 170 aligned frames have no edge clipping.

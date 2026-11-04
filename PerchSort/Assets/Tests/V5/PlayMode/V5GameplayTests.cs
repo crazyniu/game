@@ -9,12 +9,27 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using Meta = PerchSort.V5.Meta;
 
 namespace PerchSort.V5.Tests
 {
     public sealed class V5GameplayTests
     {
         private readonly Dictionary<string, int?> saved = new Dictionary<string, int?>();
+        private string savedNotifications;
+        private sealed class FixtureClock : Meta.IClock
+        {
+            // Legacy gameplay cases start after daily acknowledgement, independent of the host date.
+            public System.DateTime Today => System.DateTime.MaxValue.Date;
+        }
+        private static readonly Meta.IClock clock = new FixtureClock();
+        private static V5Profile LegacyGameplayProfile(int coins)
+        {
+            var receipts = Meta.Aviary.OnLevelStarted(new Meta.PlayerProfile(), Meta.Aviary.Species.Select(card => card.Id)).Profile;
+            receipts = Meta.Economy.ClaimDailyGift(receipts, clock).Profile;
+            for (int world = 1; world <= 4; world++) receipts = Meta.Economy.ClaimWorldComplete(receipts, world).Profile;
+            return new V5Profile(notificationReceipts: receipts.WithCoins(coins)) { Coins = coins };
+        }
         private bool previousInstant;
         private V5DevOptions previousDevOptions;
         private V5GameRoot root;
@@ -28,17 +43,21 @@ namespace PerchSort.V5.Tests
         {
             previousInstant = V5Motion.Instant; V5Motion.Instant = true; saved.Clear();
             previousDevOptions = V5DevOptions.OverrideForTests; V5DevOptions.OverrideForTests = new V5DevOptions();
+            savedNotifications = PlayerPrefs.HasKey(V5Progress.NotificationsKey) ? PlayerPrefs.GetString(V5Progress.NotificationsKey) : null;
             foreach (string key in V5Progress.Keys())
             {
-                saved.Add(key, PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null); PlayerPrefs.DeleteKey(key);
+                if (key != V5Progress.NotificationsKey)
+                    saved.Add(key, PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null);
+                PlayerPrefs.DeleteKey(key);
             }
-            PlayerPrefs.SetInt(V5Progress.CoinsKey, 100);
+            V5Progress.Save(LegacyGameplayProfile(100));
             yield return SceneManager.LoadSceneAsync("V5", LoadSceneMode.Single);
             for (int i = 0; i < 60; i++)
             {
                 root = Object.FindAnyObjectByType<V5GameRoot>(); if (root != null && root.IsReady) break; yield return null;
             }
             Assert.That(root, Is.Not.Null); Assert.That(root.IsReady, Is.True);
+            root.Clock = clock;
             Assert.That(root.IsMap, Is.True);
             root.Map.Nodes[1].onClick.Invoke();
             root.GetComponentInChildren<V5Panels>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
@@ -51,6 +70,8 @@ namespace PerchSort.V5.Tests
             var scene = SceneManager.GetSceneByName("V5"); if (scene.IsValid() && scene.isLoaded) yield return SceneManager.UnloadSceneAsync(scene);
             foreach (var pair in saved)
                 if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key, pair.Value.Value); else PlayerPrefs.DeleteKey(pair.Key);
+            if (savedNotifications == null) PlayerPrefs.DeleteKey(V5Progress.NotificationsKey);
+            else PlayerPrefs.SetString(V5Progress.NotificationsKey, savedNotifications);
             PlayerPrefs.Save(); V5Motion.Instant = previousInstant;
             V5DevOptions.OverrideForTests = previousDevOptions;
         }
@@ -268,14 +289,14 @@ namespace PerchSort.V5.Tests
             for (int i = 0; i < 60; i++)
             {
                 root = Object.FindAnyObjectByType<V5GameRoot>();
-                if (root != null && root.IsReady) yield break;
+                if (root != null && root.IsReady) { root.Clock = clock; yield break; }
                 yield return null;
             }
             Assert.Fail("Reloaded V5 did not initialize.");
         }
         private IEnumerator PrepareSaplingIntro(int stock, bool seen = false)
         {
-            var profile = new V5Profile { HighestUnlocked = 4 };
+            var profile = LegacyGameplayProfile(0); profile.HighestUnlocked = 4;
             profile.Boosters[(int)BoosterKind.Sapling] = stock;
             profile.StarterGranted[(int)BoosterKind.Sapling] = true;
             for (int i = 0; i < profile.UnlockSeen.Length; i++) profile.UnlockSeen[i] = true;

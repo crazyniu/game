@@ -13,13 +13,16 @@ namespace PerchSort.V5.Game
         private readonly Dictionary<int, BirdView> birds = new Dictionary<int, BirdView>();
         private readonly List<List<int>> seats = new List<List<int>>();
         private readonly List<int> removals = new List<int>();
+        private readonly List<V7BirdIdleGroup> idleGroups = new List<V7BirdIdleGroup>();
+        private int generation;
         private V5GameRoot root;
         private V5Art art;
         private RectTransform branchLayer, birdLayer, effects;
-        private V5Motion sequence, idle, hintMotion;
+        private V5Motion sequence, hintMotion;
         private DayPhase phase;
         private int dayLength, moonbeam, airborne, chain;
-        private bool firstWave, playing;
+        private bool firstWave;
+        private BirdhouseView activeHouse;
         public int RowCount { get; private set; }
         public bool IsAirborne => airborne > 0;
         public IReadOnlyList<BranchView> Branches => branches;
@@ -31,14 +34,18 @@ namespace PerchSort.V5.Game
             branchLayer = V5UI.Rect(transform, "Branches", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             birdLayer = V5UI.Rect(transform, "Birds", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             effects = V5UI.Rect(transform, "Board particles", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
-            sequence = gameObject.AddComponent<V5Motion>(); idle = gameObject.AddComponent<V5Motion>(); hintMotion = gameObject.AddComponent<V5Motion>();
+            sequence = gameObject.AddComponent<V5Motion>(); hintMotion = gameObject.AddComponent<V5Motion>();
         }
         public void Rebuild(BoardState state)
         {
             Cancel();
+            RebuildViews(state);
+        }
+        private void RebuildViews(BoardState state)
+        {
             foreach (var bird in birds.Values) V5UI.Dispose(bird.gameObject);
             foreach (var branch in branches) V5UI.Dispose(branch.gameObject);
-            birds.Clear(); branches.Clear(); seats.Clear();
+            birds.Clear(); branches.Clear(); seats.Clear(); idleGroups.Clear();
             RowCount = 0;
             foreach (var branch in state.Branches) RowCount = Mathf.Max(RowCount, branch.Row + 1);
             RowCount = Mathf.Max(RowCount, (state.Branches.Count + 1) / 2);
@@ -49,26 +56,33 @@ namespace PerchSort.V5.Game
                 var view = V5UI.Rect(branchLayer, "B" + b, hit.center, hit.size).gameObject.AddComponent<BranchView>();
                 view.Configure(root, art, branch, b, RowCount, state.Capacity); branches.Add(view);
                 var ids = new List<int>(branch.Capacity); seats.Add(ids);
+                var group = new V7BirdIdleGroup(); idleGroups.Add(group);
                 for (int slot = 0; slot < branch.Birds.Count; slot++)
                 {
                     var bird = branch.Birds[slot]; Vector2 point = view.Slot(slot);
                     var birdView = V5UI.Rect(birdLayer, "Bird " + bird.Id, point, V7Layout.BirdDisplaySize).gameObject.AddComponent<BirdView>();
                     birdView.Configure(bird, state.IsAsleep(bird), art, point, V7Layout.BirdScale(RowCount));
                     birds.Add(bird.Id, birdView); ids.Add(bird.Id);
+                    group.Add(birdView); birdView.BindIdle(group);
                 }
             }
-            ScheduleQuirk();
         }
-        private void ScheduleQuirk()
+        public void Enter(BirdView bird, Vector2 start, Vector2 target, float delay, BranchView branch)
         {
-            if (V5Motion.Instant) return;
-            idle.Play(UnityEngine.Random.Range(6f, 12f), t => { }, () =>
+            int run = generation;
+            bird.Enter(start, target, delay, () => { if (run == generation) Launch(); },
+                () => { if (run == generation) { Land(); branch.Land(); } }, () =>
             {
-                if (playing || birds.Count == 0) { ScheduleQuirk(); return; }
-                int chosen = UnityEngine.Random.Range(0, birds.Count);
-                foreach (var bird in birds.Values)
-                    if (chosen-- == 0) { bird.Quirk(ScheduleQuirk); break; }
+                if (run != generation) return;
+                bird.Sync(bird.Bird, root.Session.State.IsAsleep(bird.Bird)); bird.Place(target);
             });
+        }
+        private void BindIdleGroups()
+        {
+            foreach (var group in idleGroups) group.Clear();
+            for (int b = 0; b < seats.Count; b++)
+                foreach (int id in seats[b])
+                    if (birds.TryGetValue(id, out var bird)) { idleGroups[b].Add(bird); bird.BindIdle(idleGroups[b]); }
         }
         public void ShowSelection(BoardState state, int selected)
         {
@@ -112,16 +126,22 @@ namespace PerchSort.V5.Game
         }
         public void Play(IReadOnlyList<GameEvent> events, Action complete)
         {
-            playing = true; firstWave = true; idle.CancelAll(); ClearHints();
-            PlayEvent(events, 0, () => { playing = false; complete(); });
+            Cancel(); foreach (var bird in birds.Values) bird.Place(bird.Position);
+            firstWave = true; int run = generation; bool finished = false;
+            PlayEvent(events, 0, () =>
+            {
+                if (run != generation || finished) return;
+                finished = true; BindIdleGroups(); complete();
+            }, run);
         }
         private void Launch() { airborne++; root.PresentationInputChanged(); }
-        private void Land() { airborne--; root.PresentationInputChanged(); }
+        private void Land() { airborne = Mathf.Max(0, airborne - 1); root.PresentationInputChanged(); }
         private bool EffectiveSleep(Bird bird) => bird.IsAsleep || (bird.Species.IsNocturnal && dayLength > 0 && phase == DayPhase.Day && moonbeam == 0);
-        private void PlayEvent(IReadOnlyList<GameEvent> events, int index, Action complete)
+        private void PlayEvent(IReadOnlyList<GameEvent> events, int index, Action complete, int run)
         {
+            if (run != generation) return;
             if (index == events.Count) { complete(); return; }
-            Action next = () => PlayEvent(events, index + 1, complete);
+            Action next = () => { if (run == generation) PlayEvent(events, index + 1, complete, run); };
             switch (events[index])
             {
                 case ResolutionWave _:
@@ -133,6 +153,7 @@ namespace PerchSort.V5.Game
                 case Transferred transfer:
                     root.Hud.LightStep(false);
                     for (int i = 0; i < transfer.Count; i++) { seats[transfer.From].Remove(transfer.BirdIds[i]); seats[transfer.To].Add(transfer.BirdIds[i]); }
+                    BindIdleGroups();
                     int remaining = transfer.Count;
                     root.PlaySound(Sfx.Flutter);
                     for (int i = 0; i < transfer.Count; i++)
@@ -146,11 +167,18 @@ namespace PerchSort.V5.Game
                     Follow(chicks, 0, next);
                     break;
                 case Swivelled swivel:
-                    if (swivel.Birds.Count == 0) { sequence.Play(0.35f, t => { }, next); break; }
-                    seats[swivel.Branch].Reverse();
-                    int hops = swivel.Birds.Count; Launch();
+                    seats[swivel.Branch].Reverse(); BindIdleGroups();
+                    int hops = swivel.Birds.Count + 1;
+                    if (swivel.Birds.Count > 0) Launch();
+                    Action settled = () =>
+                    {
+                        if (run != generation || --hops != 0) return;
+                        if (swivel.Birds.Count > 0) Land();
+                        branches[swivel.Branch].Land(); next();
+                    };
+                    branches[swivel.Branch].Swivel(settled);
                     foreach (var travel in swivel.Birds)
-                        birds[travel.BirdId].Hop(branches[swivel.Branch].Slot(travel.ToSeat), 0.35f, () => { if (--hops == 0) { Land(); next(); } });
+                        birds[travel.BirdId].Hop(branches[swivel.Branch].Slot(travel.ToSeat), 0.35f, settled);
                     break;
                 case EggWobbled wobble: birds[wobble.BirdId].Wobble(next); break;
                 case EggRevealed reveal: birds[reveal.BirdId].Reveal(next); break;
@@ -180,17 +208,25 @@ namespace PerchSort.V5.Game
                     break;
                 case FlockHome home:
                     var house = root.Hud.House(home.Species.Id);
+                    activeHouse = house;
                     int arrivals = home.BirdIds.Count;
-                    for (int i = 0; i < home.BirdIds.Count; i++)
+                    if (arrivals == 0) { next(); break; }
+                    house.OpenDoor(() =>
                     {
-                        int id = home.BirdIds[i]; var bird = birds[id]; float delay = i * 0.1f;
-                        bird.transform.SetParent(root.Hud.HomeFlightLayer, false);
-                        bird.Cheer(() => bird.Fly(house.DoorPoint(), delay, true, Launch, Land, () =>
+                        if (run != generation) return;
+                        for (int i = 0; i < home.BirdIds.Count; i++)
                         {
-                            house.Arrival(); root.PlaySound(Sfx.Collect); Remove(id); seats[home.Branch].Remove(id);
-                            if (--arrivals == 0) { house.SetHome(true); root.Hud.Chorus(++chain); next(); }
-                        }, house.DoorPoint));
-                    }
+                            int id = home.BirdIds[i]; var bird = birds[id]; float delay = i * 0.1f;
+                            bird.transform.SetParent(root.Hud.HomeFlightLayer, false);
+                            bird.Cheer(() => bird.FlyHome(house, delay, Launch, Land, () =>
+                            {
+                                if (run != generation) return;
+                                house.Arrival(); root.PlaySound(Sfx.Collect); Remove(id); seats[home.Branch].Remove(id);
+                                if (--arrivals == 0)
+                                    house.CompleteFlock(() => { if (run == generation) { activeHouse = null; root.Hud.Chorus(++chain); next(); } });
+                            }));
+                        }
+                    });
                     break;
                 case Gift gift: PlayGift(gift, events, index + 1, next); break;
                 case PhaseChanged change:
@@ -204,7 +240,7 @@ namespace PerchSort.V5.Game
                     break;
                 case BoosterUsed booster:
                     root.Hud.BoosterSpent(booster);
-                    if (booster.Booster == BoosterKind.Sapling) Rebuild(root.Session.State);
+                    if (booster.Booster == BoosterKind.Sapling) RebuildViews(root.Session.State);
                     root.Hud.FlyIcon(V5ViewModel.Icon(booster.Booster), root.Hud.BoosterPoint(booster.Booster), new Vector2(540, 1050), next);
                     break;
                 case Won _: Dance(next); break;
@@ -215,6 +251,7 @@ namespace PerchSort.V5.Game
         {
             if (index == follow.Birds.Count) { Compact(follow.From); done(); return; }
             var travel = follow.Birds[index]; seats[follow.From].Remove(travel.BirdId); seats[follow.To].Add(travel.BirdId);
+            BindIdleGroups();
             birds[travel.BirdId].Fly(branches[follow.To].Slot(travel.ToSeat), 0, false, Launch,
                 () => { Land(); branches[follow.To].Land(); }, () => Follow(follow, index + 1, done), leap: true);
         }
@@ -249,11 +286,12 @@ namespace PerchSort.V5.Game
         private void Compact(int branch)
         {
             for (int i = 0; i < seats[branch].Count; i++) birds[seats[branch][i]].Place(branches[branch].Slot(i));
+            BindIdleGroups();
         }
         private void Remove(int id) { V5UI.Dispose(birds[id].gameObject); birds.Remove(id); }
         public void Settle(BoardState state)
         {
-            playing = false; airborne = 0; chain = state.Chain; phase = state.Phase; moonbeam = state.MoonbeamMovesLeft;
+            airborne = 0; chain = state.Chain; phase = state.Phase; moonbeam = state.MoonbeamMovesLeft;
             removals.Clear();
             foreach (int id in birds.Keys)
             {
@@ -270,13 +308,22 @@ namespace PerchSort.V5.Game
                     birds[bird.Id].Sync(bird, state.IsAsleep(bird)); birds[bird.Id].Place(branches[b].Slot(slot));
                 }
             }
-            ScheduleQuirk();
+            BindIdleGroups();
         }
         public void Cancel()
         {
-            if (sequence != null) sequence.CancelAll(); if (idle != null) idle.CancelAll();
-            foreach (var bird in birds.Values) bird.Cancel(); foreach (var branch in branches) branch.Cancel();
-            ClearHints(); airborne = 0; playing = false;
+            generation++;
+            if (sequence != null) sequence.CancelAll();
+            if (activeHouse != null) { activeHouse.Cancel(); activeHouse = null; }
+            foreach (var bird in birds.Values)
+            {
+                if (birdLayer != null && bird.transform.parent != birdLayer) bird.transform.SetParent(birdLayer, false);
+                bird.Cancel();
+            }
+            foreach (var branch in branches) branch.Cancel();
+            ClearHints(); airborne = 0;
         }
+        private void OnDisable() => Cancel();
+        private void OnDestroy() => Cancel();
     }
 }

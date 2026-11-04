@@ -12,8 +12,8 @@ namespace PerchSort.V5.Game
         private V5GameRoot root;
         private V5Art art;
         private Image wood, glow;
-        private RectTransform flex;
-        private V5Motion motion, highlight;
+        private RectTransform flex, knot;
+        private V5Motion motion, highlight, landing;
         private int fullCapacity;
         private float density;
         public int Index { get; private set; }
@@ -38,12 +38,12 @@ namespace PerchSort.V5.Game
             UpdateWood();
             glow = V5UI.Image(transform, "Seat glow", art.Get("sparkle"), Vector2.zero, Vector2.one * 90 * density);
             glow.color = Color.clear;
-            motion = gameObject.AddComponent<V5Motion>(); highlight = gameObject.AddComponent<V5Motion>();
+            motion = gameObject.AddComponent<V5Motion>(); highlight = gameObject.AddComponent<V5Motion>(); landing = gameObject.AddComponent<V5Motion>();
             if (Kind == BranchKind.Swivel)
             {
-                var knot = V5UI.Image(transform, "Swivel knot", art.Get("swivel_knot"), KnotPoint - hitRect.position, Vector2.one * 120);
-                knot.raycastTarget = true;
-                knot.gameObject.AddComponent<V5EmptyClick>().Click = () => root.TapSwivel(Index);
+                var knotImage = V5UI.Image(transform, "Swivel knot", art.Get("swivel_knot"), KnotPoint - hitRect.position, Vector2.one * 120);
+                knot = knotImage.rectTransform; knotImage.raycastTarget = true;
+                knotImage.gameObject.AddComponent<V5EmptyClick>().Click = () => root.TapSwivel(Index);
             }
         }
         private float Fill(int seats) => seats >= fullCapacity ? 1 : Mathf.Clamp01(
@@ -58,6 +58,7 @@ namespace PerchSort.V5.Game
             wood.fillAmount = twig ? 1 : Fill(Seats);
         }
         public Vector2 Slot(int index) => V7Layout.BirdSlot(index, BranchY, IsRight, density);
+        public void Entrance(float progress) => flex.localScale = new Vector3(progress, 1, 1);
         public void OnPointerClick(PointerEventData data)
         {
             if (data != null && data.button != PointerEventData.InputButton.Left) return;
@@ -65,6 +66,7 @@ namespace PerchSort.V5.Game
         }
         public void Grow(int seats, bool upgrade, Action done)
         {
+            Cancel();
             float start = wood.fillAmount;
             Seats = seats; if (upgrade) Kind = BranchKind.Normal;
             UpdateWood(); float end = wood.fillAmount;
@@ -82,8 +84,10 @@ namespace PerchSort.V5.Game
         }
         public void Land()
         {
-            motion.Play(0.25f, t => flex.localRotation = Quaternion.Euler(0, 0, (IsRight ? -3 : 3) * Mathf.Sin(t * Mathf.PI)),
-                () => flex.localRotation = Quaternion.identity, ease: Ease.OutElastic);
+            landing.CancelAll();
+            landing.Play(0.35f, t => flex.localRotation = Quaternion.Euler(0, 0,
+                (IsRight ? -3 : 3) * Mathf.Cos(t * Mathf.PI * 4) * Mathf.Exp(-5 * t) * (1 - t)),
+                () => flex.localRotation = Quaternion.identity);
             var leaf = V5UI.Image(flex, "Falling leaf", art.Get("leaf_fall_w" + root.Session.State.World),
                 new Vector2((IsRight ? -1 : 1) * 360 * density, 0), Vector2.one * 28);
             motion.Play(0.6f, t =>
@@ -92,6 +96,20 @@ namespace PerchSort.V5.Game
                 leaf.rectTransform.localRotation = Quaternion.Euler(0, 0, 180 * t);
                 leaf.color = new Color(1, 1, 1, 1 - t);
             }, () => V5UI.Dispose(leaf.gameObject));
+        }
+        public void Swivel(Action done)
+        {
+            landing.CancelAll();
+            landing.Play(0.35f, t =>
+            {
+                flex.localScale = new Vector3(1, 1 - 0.22f * Mathf.Sin(t * Mathf.PI), 1);
+                if (knot != null) knot.localRotation = Quaternion.Euler(0, 0, 180 * t);
+            }, () =>
+            {
+                flex.localScale = Vector3.one;
+                if (knot != null) knot.localRotation = Quaternion.identity;
+                done?.Invoke();
+            });
         }
         public void Highlight(float delay)
         {
@@ -110,9 +128,14 @@ namespace PerchSort.V5.Game
         }
         public void Cancel()
         {
-            motion.CancelAll(); ClearHighlight(); flex.localRotation = Quaternion.identity;
+            if (motion == null) return;
+            motion.CancelAll(); landing.CancelAll(); ClearHighlight(); flex.localRotation = Quaternion.identity;
+            flex.localScale = Vector3.one; wood.fillAmount = Kind == BranchKind.Twig ? 1 : Fill(Seats);
+            if (knot != null) knot.localRotation = Quaternion.identity;
             for (int i = flex.childCount - 1; i >= 0; i--)
                 if (flex.GetChild(i) != wood.transform) V5UI.Dispose(flex.GetChild(i).gameObject);
         }
+        private void OnDisable() => Cancel();
+        private void OnDestroy() => Cancel();
     }
 }
