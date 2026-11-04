@@ -1,3 +1,14 @@
+# mac-birds — T49 resumed 2026-11-04
+
+- Branch: `mac-birds/t49`; synced successfully with fetch/pull.
+- Sunny remains unchanged and complete per lead.
+- Skye: all 17 sources and exports plus portrait, full strip and GIF now prepared. Corrected quirk2, right head tilt and stretch wing. Latest alignment reports no clipped frames.
+- Next: Berry, then Minty/Cocoa/Flurry/Ember/Inky/Hoot/Rook, eggs/overlays, worlds and board comparisons.
+- No Unity opened, no Codex update, no CLI/API-key fallback.
+- Runtime acceptance and final exact-reference review remain pending.
+
+## Historical handoff (2026-11-03; superseded for Skye)
+
 # mac-birds — T49 end-of-day WIP handoff
 
 - Branch: `mac-birds/t49`.

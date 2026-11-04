@@ -21,3 +21,7 @@ GIFs are offline frame-swap previews, not Unity animation evidence. No Unity tes
 ## End-of-day wrap-up
 
 Stopped at the lead request before T49 completion. See `docs/team/status/mac-birds.md` and `art/v7/birds/qa/wrap_inventory.json` for the exact source/export/missing-file inventory. Partial QA strips and GIFs are deliberately retained as WIP, not accepted deliverables. All saved owned files are included in the final `wip:` checkpoint; no new generation, normalization or Unity work is started during wrap-up.
+
+## 2026-11-04 Skye checkpoint
+
+Completed 17 source frames and 17 aligned exports plus portrait, strip and idle-action GIF. Replaced wing-opening quirk2 with the sleepy head tilt, corrected right-tilt direction, and shortened the stretched wing after detecting clipping. Sunny remains unchanged. No Unity run.

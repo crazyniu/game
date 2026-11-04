@@ -578,312 +578,6 @@
     "edge_clipped": false
   },
   {
-    "file": "sky_idle.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      414,
-      1063,
-      888,
-      1099
-    ],
-    "scale": 0.24224,
-    "translation": [
-      2,
-      34
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      60,
-      65,
-      255,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_blink.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      412,
-      1064,
-      891,
-      1100
-    ],
-    "scale": 0.23971,
-    "translation": [
-      4,
-      36
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      59,
-      65,
-      255,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_quirk1.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      412,
-      1062,
-      894,
-      1099
-    ],
-    "scale": 0.23822,
-    "translation": [
-      4,
-      38
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      57,
-      66,
-      258,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_quirk2.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      407,
-      1063,
-      892,
-      1099
-    ],
-    "scale": 0.23674,
-    "translation": [
-      6,
-      40
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      45,
-      69,
-      273,
-      302
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_fly_up.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      409,
-      1064,
-      891,
-      1100
-    ],
-    "scale": 0.23822,
-    "translation": [
-      5,
-      38
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      17,
-      67,
-      293,
-      302
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_fly_down.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      412,
-      1063,
-      890,
-      1100
-    ],
-    "scale": 0.24021,
-    "translation": [
-      4,
-      36
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      11,
-      66,
-      299,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_cheer.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      410,
-      1064,
-      890,
-      1101
-    ],
-    "scale": 0.23921,
-    "translation": [
-      5,
-      37
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      46,
-      67,
-      270,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_sleep.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      411,
-      1065,
-      888,
-      1099
-    ],
-    "scale": 0.24071,
-    "translation": [
-      4,
-      35
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      62,
-      69,
-      255,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "sky_tilt_right.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      414,
-      1065,
-      892,
-      1100
-    ],
-    "scale": 0.24021,
-    "translation": [
-      3,
-      36
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      59,
-      69,
-      258,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
     "file": "berry_idle.png",
     "canvas": [
       320,
@@ -1082,6 +776,584 @@
       65,
       36,
       261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      414,
+      1063,
+      888,
+      1099
+    ],
+    "scale": 0.24224,
+    "translation": [
+      2,
+      34
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1062,
+      894,
+      1099
+    ],
+    "scale": 0.23822,
+    "translation": [
+      4,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      57,
+      66,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      396,
+      1065,
+      869,
+      1101
+    ],
+    "scale": 0.24275,
+    "translation": [
+      6,
+      33
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      63,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      409,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23822,
+    "translation": [
+      5,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      17,
+      67,
+      293,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1063,
+      890,
+      1100
+    ],
+    "scale": 0.24021,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      11,
+      66,
+      299,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      410,
+      1064,
+      890,
+      1101
+    ],
+    "scale": 0.23921,
+    "translation": [
+      5,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      46,
+      67,
+      270,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1065,
+      888,
+      1099
+    ],
+    "scale": 0.24071,
+    "translation": [
+      4,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      69,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1065,
+      891,
+      1100
+    ],
+    "scale": 0.23921,
+    "translation": [
+      4,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      71,
+      254,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      387,
+      1064,
+      862,
+      1098
+    ],
+    "scale": 0.24173,
+    "translation": [
+      9,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      66,
+      68,
+      255,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1066,
+      892,
+      1100
+    ],
+    "scale": 0.23871,
+    "translation": [
+      4,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      68,
+      253,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      413,
+      1064,
+      890,
+      1100
+    ],
+    "scale": 0.24071,
+    "translation": [
+      3,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1063,
+      891,
+      1097
+    ],
+    "scale": 0.23921,
+    "translation": [
+      4,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      65,
+      252,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      399,
+      1063,
+      877,
+      1099
+    ],
+    "scale": 0.24021,
+    "translation": [
+      7,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      66,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1063,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      63,
+      260,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      409,
+      1030,
+      850,
+      1062
+    ],
+    "scale": 0.26036,
+    "translation": [
+      -4,
+      23
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      70,
+      291,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      67,
+      254,
       301
     ],
     "foot_baseline": 300,
