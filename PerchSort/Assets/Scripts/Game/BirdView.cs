@@ -248,7 +248,8 @@ namespace PerchSort.Game
             => FlyCore(house.DoorPoint(), delay, true, airborne, landed, arrived, house.DoorPoint, false, false, house);
 
         private void FlyCore(Vector2 destination, float delay, bool home, Action airborne, Action landed,
-            Action arrived, Func<Vector2> movingDestination, bool leap, bool fleeing, BirdhouseView house)
+            Action arrived, Func<Vector2> movingDestination, bool leap, bool fleeing, BirdhouseView house,
+            float flightDuration = 0.45f, Ease flightEase = Ease.Linear)
         {
             Cancel(); selected = false; acting = true;
             airborne = Once(airborne); landed = Once(landed); arrived = Once(arrived);
@@ -263,7 +264,7 @@ namespace PerchSort.Game
             motion.Play(0.06f, t => body.localScale = Scale(1 + 0.08f * t, 1 - 0.08f * t), () =>
             {
                 airborne(); if (run != generation) return;
-                motion.Play(0.45f, t =>
+                motion.Play(flightDuration, t =>
                 {
                     if (movingDestination != null) { var point = movingDestination(); end = new Vector2(point.x, -point.y); }
                     float arc = Bird.Species.IsCrow && !fleeing && !home ? Mathf.Abs(Mathf.Sin(t * Mathf.PI * 2)) * 65 :
@@ -299,21 +300,26 @@ namespace PerchSort.Game
                     perch = end; SetFrame(RestFrame);
                     motion.Play(0.12f, t => body.localScale = Scale(Mathf.Lerp(1.15f, 1, t), Mathf.Lerp(0.85f, 1, t)),
                         () => { Idle(); arrived(); });
-                });
+                }, ease: flightEase);
             }, delay);
         }
-        public void Enter(Vector2 start, Vector2 target, float delay, Action airborne, Action landed, Action arrived)
+        public void Enter(Vector2 start, Vector2 target, float delay, float flightDuration, Action airborne, Action landed, Action arrived)
         {
             Place(start); zzz.gameObject.SetActive(false);
-            if (!Bird.IsEgg) { Fly(target, delay, false, airborne, landed, arrived); return; }
+            if (!Bird.IsEgg)
+            {
+                FlyCore(target, delay, false, airborne, landed, arrived, null, false, false, null,
+                    flightDuration, Ease.OutCubic);
+                return;
+            }
             Cancel(); acting = true; arrived = Once(arrived); airborne = Once(airborne); landed = Once(landed); bool launched = false;
             Vector2 from = rect.anchoredPosition, to = new Vector2(target.x, -target.y);
-            motion.Play(0.45f, t =>
+            motion.Play(flightDuration, t =>
             {
                 if (!launched) { launched = true; airborne(); }
                 rect.anchoredPosition = Vector2.Lerp(from, to, t) + Vector2.up * (45 * Mathf.Sin(t * Mathf.PI));
                 body.localScale = Scale(1 + 0.08f * Mathf.Sin(t * Mathf.PI), 1 - 0.08f * Mathf.Sin(t * Mathf.PI));
-            }, () => { landed(); perch = to; Idle(); arrived(); }, delay);
+            }, () => { landed(); perch = to; Idle(); arrived(); }, delay, Ease.OutCubic);
         }
         public void Hop(Vector2 destination, float duration, Action complete)
         {
