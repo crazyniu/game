@@ -40,3 +40,8 @@ sysinfo.txt
 
 # Local reference APK inputs and their manifest
 /References/CutieSort/
+
+# Historical implementation trees and generated level-tool outputs stay out of Git.
+/archive/
+/tools/levels/**/bin/
+/tools/levels/**/obj/
