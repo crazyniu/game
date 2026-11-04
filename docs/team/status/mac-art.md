@@ -1,17 +1,13 @@
 # Status: mac-art
 
-ACTIVE: T49 world takeover, branch `mac-art/world` from accepted T48 `825ca1d`.
+DONE: T49 WORLD takeover and six booster illustrations. Branch `mac-art/world`, based on accepted T48 `825ca1d`.
 
-Owns new `PerchSort/Assets/Resources/V7/World/**`, world provenance/preparation/QA under `art/v7/world/**`, `tasks/T49_world_report.md` and this status. Birds/eggs, approved originals, code and scenes remain untouched.
+Delivered 32 world PNGs in `PerchSort/Assets/Resources/V7/World/`: 16 backgrounds covering all requested variants; four branches 620x90, four twigs 400x80, four crowns 600x400, four trunks 160x1920. Delivered six 256x256 RGBA `booster_*_illus.png` files under `V7/Art`.
 
-Done: W1 backgrounds `bg_level_w1_morning.png`, `bg_level_w1_noon.png`, `bg_level_w1_golden.png`, `bg_level_w1_rain.png` (1080x1920, opaque RGBA, pale approved-reference style).
+Early pushes: W1 alone `ba83f02`; W4 `2e3d391`; W2 `6d15659`; boosters `c66c3f4`. W3 and final metadata/report are in this final delivery commit (read branch HEAD for hash).
 
-Done: W1 `branch_left_w1.png`, `twig_left_w1.png`, `tree_crown_w1.png`, `trunk_left_w1.png`; placement metadata `art/v7/world/pieces/w1/metadata.json`. Branch top y17, twig y18. W1 ready for early integration.
+Integration: `art/v7/world/world_assets.json` consolidates dimensions/hashes and pivots. Branch nominal top y by W1/W2/W3/W4: 17/9/22/30. Twig: 18/19/8/22. Snow/bamboo contour variation up to 3 px is recorded. Mirror left assets for right; clip trunk tops under crowns. Preserve padding. All 32 world files and 6 boosters passed size/RGBA/alpha checks.
 
-W1 pushed at `ba83f02`. Done: W4 four backgrounds and four transparent pieces, with recorded flat tops and world-only comparison.
+Exact prompts, raw outputs, static scene comparisons, contact sheets and per-piece metadata: `art/v7/world/**`. Main report: `tasks/T49_world_report.md`. Built-in image tool only, 39 calls including one owl-eye retry; no fallback. No originals, birds/eggs, code or scenes changed.
 
-W4 pushed at `2e3d391`. Done: W2 four backgrounds and four bamboo pieces; metadata and reviewed composition under pieces/w2.
-
-Running: W3. Done: six coloured booster illustrations added by lead, 256x256 RGBA under V7/Art; exact prompts/QA under art/v7/world/boosters. Reviewed transparency and64px colour/grayscale recognition. W2 pushed at `6d15659`.
-
-Blocker: none. Built-in image tool only; no CLI/API fallback. No Unity started or lock created. Static art is not runtime acceptance.
+Half done: none. Blocker: none. Next: lead review/merge and mac-ui/QA runtime integration. Unity import, bird foot contact, actual scene placement, device screenshots and animations NOT_RUN. No Unity process or lock created. Both helpers finished; no new work running. No question for lead.

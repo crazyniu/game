@@ -82,5 +82,33 @@
     "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-1eb61bea-8353-458f-98fb-36689288c54a.png",
     "reference": "art/v7/ui7_level_k3_v2.png",
     "attempt": 1
+  },
+  {
+    "name": "bg_level_w3_morning",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt spring woods to AUTUMN MAPLE while preserving the pale low-contrast gameplay composition. Match the pale hazy soft3D forest backdrop, blur and quiet empty play area. Crisp maple morning: pale powder-blue sky, delicate ivory sunrise haze, muted warm apricot distant foliage. Large airy empty center across upper two thirds; very softly blurred distant autumn maple forest silhouettes in the lower third; soft red and amber maple leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-777102ac-f9f7-4f0b-8acf-e0f6787c98b6.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w3_noon",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt spring woods to AUTUMN MAPLE while preserving the pale low-contrast gameplay composition. Match the pale hazy soft3D forest backdrop, blur and quiet empty play area. Maple noon: luminous pale blue sky and gentle white atmospheric haze, muted amber and red distant maple woods. Large airy empty center across upper two thirds; very softly blurred distant autumn maple forest silhouettes in the lower third; soft red and amber maple leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c34cc481-5d5e-4330-b36c-f99c165c5aed.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w3_sunset",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt spring woods to AUTUMN MAPLE while preserving the pale low-contrast gameplay composition. Match the pale hazy soft3D forest backdrop, blur and quiet empty play area. Maple sunset: pale peach, apricot and lavender atmospheric glow in a very luminous sky, softly blurred muted amber-red distant woods; no high contrast sun disk. Large airy empty center across upper two thirds; very softly blurred distant autumn maple forest silhouettes in the lower third; soft red and amber maple leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c72668b7-5698-4fd3-9e04-314b162c60f2.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w3_windy",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt spring woods to AUTUMN MAPLE while preserving the pale low-contrast gameplay composition. Match the pale hazy soft3D forest backdrop, blur and quiet empty play area. Windy maple day: pale powder-blue sky with gently swept soft cloud wisps, muted warm distant woods; a few tiny blurred maple leaves drifting near margins only, center remains empty. Large airy empty center across upper two thirds; very softly blurred distant autumn maple forest silhouettes in the lower third; soft red and amber maple leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-08f3cea7-0c87-4ff7-93c5-40e7a6ce86c4.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
   }
 ]

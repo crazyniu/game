@@ -1,23 +1,51 @@
-# T49 world asset delivery
+# T49 world assets and booster addendum
 
-Status: IN PROGRESS. Branch `mac-art/world`, based on accepted T48 at `825ca1d`. World assets only; birds/eggs remain owned by mac-birds. No Unity or runtime code changes.
+Status: DONE for static art delivery. Branch `mac-art/world`, based on accepted T48 `825ca1d`. Delivered 32 world PNGs and six booster illustrations. No approved originals, birds/eggs, runtime code, scenes or Unity settings changed.
 
-## W1 first delivery
+## Deliverables and integration
 
-Four 1080x1920 spring backgrounds: morning, noon, golden, rain. Built-in image-tool generations reference the approved `art/v7/ui7_level_k3_v2.png`; preserve pale haze, empty playfield and top-corner leaves. No birds, perches or UI. Exact prompts/raw sources are under `art/v7/world/backgrounds/`; `delivery.json` records dimensions, alpha and hashes. Only proportional center-fit resizing used. Backgrounds are opaque RGBA.
+World files are in `PerchSort/Assets/Resources/V7/World/`. Each world has four `bg_level_<world>_<variant>.png` backgrounds, plus `branch_left_<world>.png`, `twig_left_<world>.png`, `tree_crown_<world>.png`, and `trunk_left_<world>.png`.
 
-W1 transparent pieces delivered: branch620x90, twig400x80, crown600x400, trunk160x1920. Branch flat top y=17, usable x60..580; twig top y=18, usable x60..370. Crown attachment(138,319). Exact alpha/pivots in `art/v7/world/pieces/w1/metadata.json`. Crop/clip trunk above crown attachment in scene; mirror left pieces for the right side. W4, W2 and W3 follow after W1 is pushed. Lead addendum: six coloured 256x256 booster illustrations are also in progress, in V7/Art. Rendering-style matching is static reference review, not runtime acceptance.
+| World | Background variants | Branch top y / observed range | Twig top y / observed range | Crown attachment |
+|---|---|---|---|---|
+| W1 spring | morning, noon, golden, rain | 17 / 17 | 18 / 18 | (138,319) |
+| W4 snow pine | morning, noon, bluehour, aurora | 30 / 28–30 | 22 / 20–22 | (105,355) |
+| W2 bamboo | mist, noon, lanterns, drizzle | 9 / 6–9 | 19 / 18–19 | (96,332) |
+| W3 maple | morning, noon, sunset, windy | 22 / 22–23 | 8 / 8 | (111,358) |
 
-## W4 snow delivery
+Backgrounds are opaque RGBA, 1080x1920. Branches 620x90, twigs 400x80, crowns 600x400 and trunks 160x1920 have genuine transparent exteriors. Branch roots are at the left edge; mirror for the right side. Coordinates are top-left sprite pixels, while recorded Unity pivots use bottom-left normalized coordinates. Preserve transparent canvas padding. Crop/clip trunks above the crown attachment, and overlap their top under foliage. Snow/bamboo contours have up to 3 px local variation; nominal top y is an alignment reference, not collision geometry.
 
-Four backgrounds: morning, noon, bluehour, aurora. All reference approved K7 snowy atmosphere; aurora alone carries aurora light. Four transparent pieces exported at the same sizes as W1. Branch nominal flat top y30 (snow edge28..30); twig y22 (20..22). Exact pivots/anchors in `pieces/w4/metadata.json`.
+[`art/v7/world/world_assets.json`](../art/v7/world/world_assets.json) consolidates variants, actual sizes/hashes and all piece contracts. Per-world `pieces/w<n>/metadata.json` records usable perch intervals, bounds, pivots and attachments. W1 branch usable x60..580 and twig x60..370; other conservative intervals are in their metadata.
 
-`art/v7/world/qa/w1_comparison.png` and `w4_comparison.png` compare the approved screens with world-only compositions using measured branch-row heights. Bird/HUD reconstruction is outside this takeover. Flat branches use mean observed row heights; these QA placements are not new runtime level data. Snow edges have2px local variation. Static references match palette/material direction, not pixel-identical segmentation.
+## Six coloured booster illustrations
 
-## W2 bamboo delivery
+In `PerchSort/Assets/Resources/V7/Art/`, all 256x256 RGBA:
 
-Four backgrounds: mist, noon, lanterns, drizzle. Bamboo foliage/culms adapt the approved pale spring rendering; lanterns remain distant in lower forest haze. Four transparent bamboo pieces delivered, with branch nominal y9 (node tops6..9), twig y19 (18..19), crown attachment(96,332). The small top variation comes from bamboo nodes, not runtime motion. Metadata and static noon composition in `pieces/w2/`.
+- `booster_hint_illus.png`: glowing bulb.
+- `booster_sapling_illus.png`: branch with green plus.
+- `booster_owl_eye_illus.png`: egg in nest with amber eye above.
+- `booster_bell_illus.png`: brass bell and rays.
+- `booster_scarecrow_illus.png`: grey crow with red cross.
+- `booster_rain_illus.png`: rain cloud above sprout.
 
-## Booster addendum
+No discs, cards, numbers or text are baked in. The green plus and amber eye follow the explicit addendum. Recommended pivot is center. Exact prompts, raw generations, bounds and QA are in `art/v7/world/boosters/`. One owl-eye retry removed a connecting glow; the other first attempts were retained.
 
-Delivered six 256x256 transparent RGBA illustrations under `V7/Art`: `booster_hint_illus`, `booster_sapling_illus`, `booster_owl_eye_illus`, `booster_bell_illus`, `booster_scarecrow_illus`, `booster_rain_illus`. Seven built-in calls including one owl-eye correction. Approved shop/unlock screenshots referenced every time. The green plus and amber eye follow the lead's explicit coloured-symbol request. No button discs or text baked in. Root reviewed light/dark/64px colour/grayscale contact. Prompts, originals, bounds and QA: `art/v7/world/boosters/`. Runtime scale/layering remains untested.
+## Provenance and static verification
+
+All 39 generation calls used only the built-in image tool with approved screenshots as references: 16 backgrounds, 16 world pieces, 7 booster calls. No CLI/API-key fallback. Exact prompts and raw outputs are preserved under `art/v7/world/`. Pillow operations only prepare cutouts/alpha, trim, resize, align and make QA composites; no production artwork was drawn. Backgrounds use proportional center-fit resizing with no colour alterations.
+
+W1 references `ui7_level_k3_v2.png`; W4 references `ui7_level_k7.png`. Bamboo and maple are disclosed seasonal adaptations of W1's pale hazy rendering. All backgrounds retain an open center and top-corner foliage without perches/birds/UI. Lanterns stay distant; the aurora variant alone carries aurora lights. These generated assets follow the approved palette/material direction, not pixel-identical segmentation.
+
+Checks passed: exact 32 world filenames and requested dimensions; all 38 exports RGBA; 16 backgrounds opaque; 16 pieces and 6 boosters genuinely transparent. All four background contact sheets and all four assembled world scenes reviewed. `qa/w1_comparison.png` and `qa/w4_comparison.png` compare approved screens with world-only compositions using measured branch-row heights. Birds/HUD are intentionally outside this takeover; flat branches use mean observed row heights. These are static composition studies, not runtime level data.
+
+Booster light/dark and 64px colour/grayscale recognition reviewed. World pieces' 64 px grayscale sheet is in `pieces/qa_64px_grayscale.png`: bamboo/snow remain structurally distinct; oak versus maple and thin branch/trunk silhouettes are not reliably identifiable by grayscale alone. They are decorative scenery, not species controls. Individual reports: `pieces/QA.md`, `boosters/REPORT.md`.
+
+Unity import, bird foot contact, runtime placement, clipping, target-device screenshots and animation were NOT_RUN. No Unity process or lock was created. Coordinator/code/QA integration remains next; no unfinished owned files or external blockers remain.
+
+## Push milestones
+
+- `ba83f02`: W1 alone, for early mac-ui integration.
+- `2e3d391`: W4 and approved-board comparisons.
+- `6d15659`: W2.
+- `c66c3f4`: six booster illustrations.
+- W3 and consolidated final contracts: this report's delivery commit (branch HEAD).
