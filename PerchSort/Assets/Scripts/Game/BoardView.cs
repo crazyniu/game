@@ -67,14 +67,14 @@ namespace PerchSort.Game
                 }
             }
         }
-        public void Enter(BirdView bird, Vector2 start, Vector2 target, float delay, BranchView branch)
+        public void Enter(BirdView bird, Vector2 start, Vector2 target, float delay, BranchView branch, Action complete)
         {
             int run = generation;
-            bird.Enter(start, target, delay, () => { if (run == generation) Launch(); },
+            bird.Enter(start, target, delay, LevelEntrance.FlightDuration, () => { if (run == generation) Launch(); },
                 () => { if (run == generation) { Land(); branch.Land(); } }, () =>
             {
                 if (run != generation) return;
-                bird.Sync(bird.Bird, root.Session.State.IsAsleep(bird.Bird)); bird.Place(target);
+                bird.Sync(bird.Bird, root.Session.State.IsAsleep(bird.Bird)); bird.Place(target); complete?.Invoke();
             });
         }
         private void BindIdleGroups()
