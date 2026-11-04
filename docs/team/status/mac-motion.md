@@ -1,41 +1,28 @@
-# mac-motion / T50A
+# mac-motion — T50E family overlay integration
 
-Status: **DONE — implementation and static review; awaiting coordinator integration/user testing**.
-Branch: `mac-motion/t50`; preserved base: `9f84a95`; implementation SHA: `39f36f5`.
-Final report/status commit SHA is supplied in the final DONE notification.
-Coordinator: current Codex conversation on 251 (`Continue Level 1 Gameplay & UI Redesign`), not the retired Claude session.
+Status: **DONE for bounded code/spec/report scope; awaiting current Codex review, then D integration**.
+Branch: `mac-motion/t50`; separate follow-up after T50A `a012e70`. Final delivery SHA is supplied in the post-commit DONE notification.
+Coordinator: current Codex on 251. Do not contact the retired Claude session or merge main.
 
-## Delivered
+## T50E delivery
 
-- Per-bird weighted idle, 0–3 s initial / 1.5–5 s nominal start interval, no repeat, adjacent same-action starts separated by 0.6 s, max three idle actors per branch; selected/flying/sleeping/eggs excluded.
-- Per-bird breathing, blink/double-blink, T49 pose/signature frames, procedural optional-pose fallback and eased shuffle/restoration.
-- Alternating-wing arc flight, tilt/trail/crouch/landing, branch flex/leaf, illegal/cheer and preserved egg/wake/mama/crow/swivel/growth feedback.
-- Door opens before flock flight, real doorway-mask entry, close/house sparkles/check pop. Generation/one-shot callbacks, transient cleanup and masked-bird parent restoration on cancel/rebuild.
-- Core/levels/economy, root/intro/popup/map/shared layout/art utilities and new artwork untouched; no new library.
+- Only BirdView runtime edits plus new internal `V7BirdOverlay.cs` / `.meta`.
+- Consumes the final overlay contract read-only from `mac-art/world` `f79dc38` (asset `34eddebeca3b75fa5e39019090c8b486ba99911f`) and reviewed Sunny/Skye frame strips/PNGs from `mac-birds/t49` `fd14469`.
+- All 40 authored levels read as data: Sunny family on L15/L18/L39; Skye on L16; eight mama/chick tokens total. No all-species attachment claim.
+- Manifest idle centers and normalized bow72/320, fluff88/320 size. Seven explicit material pose overrides for head rolls/Skye head shift/preen; other reviewed family poses retain stable attachment regions.
+- Every body-frame change synchronously updates marker geometry, including idle/flight/cheer/cancellation. Children inherit body facing, density, breathing/tilt/shrink and chick0.7 once.
+- Actual V7 marker identity distinguishes legacy fluff with the same source dimensions. Legacy frames/assets preserve disclosed compatibility geometry. Unsupported family species warn once rather than inventing placements.
+- No new public/root API or asynchronous work. Gameplay, bird placement/layout, art, other modules and D's separate root transaction fix untouched.
 
-## APIs / integration
+Spec: `tasks/T50E_overlay_integration.md`.
+Report: `tasks/T50E_report.md` (exact calibration table, fallback rules and integration contract).
 
-All previous public signatures preserved. Added:
+## Evidence / untested limits
 
-```csharp
-BirdView.FlyHome(BirdhouseView house, float delay, Action airborne, Action landed, Action arrived)
-BranchView.Swivel(Action done)
-BirdhouseView.OpenDoor(Action done)
-BirdhouseView.CloseDoor(Action done)
-BirdhouseView.Peek(bool visible, Action done)
-BirdhouseView.CompleteFlock(Action done)
-```
+Static source/manifest/data inventory and read-only supplied image inspection only. Final Sunny/Skye idle bytes match the overlay reference snapshots. No new/generated or saved derived artwork.
 
-Board integration is complete in owned files. Root/intro needs no new calls. Optional goal-info hook for popup/root owner: open → masked peek; duck → close; cancel/restore on dismissal. Retain the existing IsBusy gate and modal/input ownership. Art integration remains mac-ui-owned; existing V5Art/world fallbacks unchanged.
+Compiler, Unity import/compile/runtime, tests, simulation/playthrough, runtime overlay/timing/cancellation/facing/density verification and new composites/screenshots: **NOT_RUN**. Pose calibrations are unverified integration values, not visual/runtime acceptance. D integrates final assets plus this commit only after coordinator review; no asset branch merged here.
 
-## Evidence / limits
+## T50A history
 
-Static API/lifecycle/resource review only. No language server configured. Required base/flight frames resolve via V7 or existing legacy fallbacks; 48 base/flight frames and 54 optional idle poses currently lack V7 files. All 10 resolved species have pixel-distinct wing-up/down sources; that is not playback proof. Door/check/sparkle and world leaf resources exist.
-
-Unity import/compile/runtime, test suites, all-level playthrough, screenshots/timed capture, leak/input/visual verification: **NOT_RUN** by explicit latest user instruction. No runtime acceptance claimed. Missing bounded implementation: none intentionally; final V7 art and runtime acceptance remain external/unverified.
-
-Full delivery, cancellation contract and integration details: `tasks/T50A_report.md`. Spec: `tasks/T50A_bird_motion.md`.
-
-## Communication
-
-Paired 251 exposes the current structured Codex conversation but no terminal. Sent a status from this module's existing Orca shell terminal directly to that observed current Codex session mailbox; receipt `msg_ee5e13a083b4`. No old Claude contacted, no invented Dispatch ID, no sub-workers. Final pushed SHA/report notification follows the task-branch push. Coordinator reviews/integrates and pauses this stage for user testing; no main merge authorized.
+Per current Codex instruction, T50A `a012e70` passed static review and D integrated it. Implementation `39f36f5`; prior delivery report `tasks/T50A_report.md`. The old report's partial-V7 inventory describes that historical checkpoint, not final `fd14469` art availability. Existing prior notification receipt: `msg_da01c12e6434`.
