@@ -1,0 +1,147 @@
+{
+  "resource_count": 15,
+  "accepted_runtime": false,
+  "assets": [
+    {
+      "path": "PerchSort/Assets/Resources/World/trunk_curved_w1.png",
+      "size": [
+        380,
+        1920
+      ],
+      "mode": "RGBA",
+      "sha256": "17249b09ea656bb632a54fe9200c91a3808bf487db7c0b8a13b914676288c2fa"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/branch_junction_w1.png",
+      "size": [
+        240,
+        220
+      ],
+      "mode": "RGBA",
+      "sha256": "069d0f3d184f3f147fb52ff815f1cb937191c1b76e1484153ebc3405f8f23541"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/trunk_curved_w2.png",
+      "size": [
+        380,
+        1920
+      ],
+      "mode": "RGBA",
+      "sha256": "8a35aecdb0b31ccbf14a67b626fa141b0b9e6fd6e0a3741833cb650a61e0bb07"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/branch_junction_w2.png",
+      "size": [
+        240,
+        220
+      ],
+      "mode": "RGBA",
+      "sha256": "18c84e20dcd889fd01a73e8c5895d0fb39f683e5f5ec76c2069b957f99959a40"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/trunk_curved_w3.png",
+      "size": [
+        380,
+        1920
+      ],
+      "mode": "RGBA",
+      "sha256": "e1bcedb3987dd1a2ca426ea76e055c26d16c0d9019e915514795df193f51771f"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/branch_junction_w3.png",
+      "size": [
+        240,
+        220
+      ],
+      "mode": "RGBA",
+      "sha256": "e2a6482dd6a40fa86b558acf0a9c890eeef7a13ba39e09144e95a92df6b6e5f2"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/trunk_curved_w4.png",
+      "size": [
+        380,
+        1920
+      ],
+      "mode": "RGBA",
+      "sha256": "8d9c07aa79f2db7efa4a20619d88aafbfe4be605842b7b7d221ea6e36d1dbe2e"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/branch_junction_w4.png",
+      "size": [
+        240,
+        220
+      ],
+      "mode": "RGBA",
+      "sha256": "18fae464b184a2b1e5010c47906d7d0c3a24cbed928db72c81cde3fd5abfb4f7"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/gate_arch_closed_w1.png",
+      "size": [
+        560,
+        600
+      ],
+      "mode": "RGBA",
+      "sha256": "9f8cc8dc459b60181ac99c56a68d3c2e926adde5235122040617ab2791ba183f"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/gate_arch_closed_w2.png",
+      "size": [
+        560,
+        600
+      ],
+      "mode": "RGBA",
+      "sha256": "9280da5fcbc5f8444d585d25124370108a5714d4479d1b12c1e61a7f624251de"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/gate_arch_closed_w3.png",
+      "size": [
+        560,
+        600
+      ],
+      "mode": "RGBA",
+      "sha256": "99ab00a366105fbc701311e09bdd5e13d528d8d9d3c0373a3afba012fa9823a8"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/map_bamboo_w1.png",
+      "size": [
+        1080,
+        900
+      ],
+      "mode": "RGBA",
+      "sha256": "3806d011498e0e1973dff032da7daef8ba0b4a8d521d9e302b7c437767b8a29a"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/map_stepping_stones.png",
+      "size": [
+        1024,
+        512
+      ],
+      "mode": "RGBA",
+      "sha256": "d5f80e25be08fef9b4cc64faca75c9b0dc46bd5c096dcb5b9de793789f85c750"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/map_foreground_corner_left.png",
+      "size": [
+        420,
+        520
+      ],
+      "mode": "RGBA",
+      "sha256": "7a3db70a86729dd7ad2f789628a5981fc45d7fa2b9bad45ca35f6df614038a18"
+    },
+    {
+      "path": "PerchSort/Assets/Resources/World/map_foreground_corner_right.png",
+      "size": [
+        420,
+        520
+      ],
+      "mode": "RGBA",
+      "sha256": "29864047452fec12be08eada26d1d2fe0cace09f62460d83b3e54452cdff28c2"
+    }
+  ],
+  "missing": [
+    "gate_arch_open_w1.png",
+    "gate_arch_open_w2.png",
+    "gate_arch_open_w3.png"
+  ],
+  "rejected_raw_count": 8
+}
