@@ -16,16 +16,11 @@ namespace PerchSort.Game
             {
                 var other = birds[i];
                 if (other.IdleActing) active++;
-                if (Mathf.Abs(i - index) == 1 && other.LastIdleAction == action && now - other.LastIdleStart < 0.6f)
+                if (Mathf.Abs(i - index) == 1 &&
+                    (now - other.LastIdleStart < 0.18f || other.LastIdleAction == action && now - other.LastIdleStart < 0.6f))
                     return false;
             }
             return active < 3;
-        }
-        public float NeighbourX(BirdView bird)
-        {
-            int index = birds.IndexOf(bird);
-            if (index < 0 || birds.Count < 2) return bird.Position.x;
-            return birds[index == 0 ? 1 : index - 1].Position.x;
         }
     }
 }
