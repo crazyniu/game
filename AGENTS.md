@@ -1,66 +1,49 @@
-# Perch Sort — collaboration guide (Codex reads this; Claude reads CLAUDE.md with the same content)
+# Perch Sort — agent collaboration guide
 
-## Current user execution directives (2026-11-04)
-- Every feature-development effort must be decomposed into parallel tasks with non-overlapping file ownership, one shared contract and coordinator integration/review. OMP is preferred for coding; Codex is the fallback. The coordinator chooses model and reasoning level by task complexity; GPT-6.1 Sol/high is a recommendation, not a requirement for simple tasks.
-- The current Codex conversation replaces Claude for this stage: it assigns tasks and accepts deliveries. Reports, questions and handoffs must return to the current Codex coordinator, never the retired Claude session.
-- The user requests no code test runs for this continuation and will test the integrated build. Record skipped execution honestly; historical passing results do not validate new commits.
-- The user explicitly authorizes committing and merging reviewed completed work into main for testing. Preserve unfinished work on task branches. After the current T49/T50 stage is integrated, write the handoff and pause; future development runs directly on the Mac, with 251 no longer used.
+## Current execution contract
 
+Perch Sort has **one current game**: Unity **6000.6.7f1**, portrait, 40 fixed authored levels in four forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
 
-Unity 6000.6.7f1 portrait bird-home sorting puzzle. Current runtime is v2; the current documentation target is evidence-based rules4/schema4/save6, not implemented. Read [README](README.md), [AI router](docs/README.md), then [mechanic evidence](docs/MECHANIC_EVIDENCE.md) before the owning specification. [RULES](docs/spec/RULES.md) alone defines effective gameplay; [CODE_MAP](docs/spec/CODE_MAP.md) records old implementation. T16 custom patterned eggs, arbitrary-empty temporary-perch retirement, old target/sleep/crate contracts and old replay claims are withdrawn or quarantined; never restore them because old code/assets exist.
+- T52 is an authorized identity/organization cleanup of the accepted T49/T50 implementation, not a gameplay, art, economy or save redesign. Change the current game directly; do not create numbered implementation forks.
+- Current coordinator is Codex, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. Reports/questions return there, never to the retired Claude session. This file and CLAUDE.md carry the same guide; the filename does not assign coordination authority.
+- Development runs on the **Mac**, in isolated Orca workspaces. Do not mutate the user's primary checkout `/Users/apple/Documents/projects/game` from a worker. Linux 251 is no longer the development host.
+- Decompose feature efforts into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. OMP preferred, Codex fallback; coordinator chooses model/effort by complexity. A bounded worker must not spawn more workers.
+- Workers may commit and push only their assigned task branch. Do not merge peer branches, push main, force-push, deploy, or release. The user authorized coordinator review and integration of completed work into main for testing; that is not release authority.
+- **Updated testing directive:** after integration, the current Codex coordinator must perform Mac compilation, EditMode, PlayMode and GUI acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity; coordinator serializes it. Worker reports may state NOT_RUN locally, never that stage testing is optional.
 
-User requirements: fixed authored levels, forest-only worlds and sequential world progression (MAP_PROGRESSION), icon-only controls wherever clear (accessible names are not visible labels), regular button shapes, minimal settings and mute-only sound controls with no sliders/percentages. Animations prioritize one suitable open-source tween library; never present a fixed image as completed animation. UI_SPEC owns static dimensions; INTERACTION owns timing/input; ANIMATION_LIBRARIES owns selection/license/compatibility; prompts do not grant execution authority. The user-approved forest style and branch placement are owned solely by [UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style). Bird redesign in that style is permitted as a design direction; existing originals remain preserved, and new production assets are not accepted or implementation-authorized by that approval. Read the owning constraints before any future asset/UI work. Current single fly sprite is not proof of animated wingbeats.
+## Current source and data ownership
 
-## Language
-- Everything written for AI agents (CLAUDE.md, AGENTS.md, new task specs and reports, code comments, commit messages) is in **English**.
-- Talk to the user in Chinese. Existing Chinese docs (`docs/*.md`, older `tasks/*.md`) stay as they are unless a task says otherwise. This user-directed Chinese PRD/spec deliverable retains its requested language; new task specifications/reports, agent entry files, code comments and commits use English.
+| Surface | Current location |
+| --- | --- |
+| Pure game rules and solver | `PerchSort/Assets/Scripts/Core` / `PerchSort.Core` |
+| Pure profile/economy/collection policies | `PerchSort/Assets/Scripts/Meta` / `PerchSort.Meta` |
+| Unity runtime and presentation | `PerchSort/Assets/Scripts/Game` / `PerchSort.Game` |
+| Shared audio | `PerchSort/Assets/Scripts/Audio` (retain existing contract) |
+| Sole scene and root | `Assets/Scenes/Game.unity` / `PerchSort.Game.GameRoot` |
+| Current art and catalog | `Assets/Resources/{Art,Birds,World}`, `Assets/Resources/Levels/levels.json`, `Assets/Resources/dev_options.json` |
+| Editor entry | `Assets/Editor/Game`, namespace `PerchSort.Editor`: `GameSceneBuilder`, `GameArtImporter`, `GameCapture` |
+| Retained tests | `Assets/Tests/{EditMode,Meta,PlayMode}`; shared Audio stays under `Tests/EditMode/Audio` |
 
-## Document ownership and verification
-- The user requests task decomposition and parallel agents for suitable independent modules. Assign non-overlapping file ownership, share one rule contract and integrate with one consistency review. This does not authorize contacting external people/services or other models.
-- This PR/task is documentation and document-level gameplay simulation only. Design contracts, review completion and environment readiness do not authorize game code, runtime data, scenes or new artwork. Any future implementation requires separate explicit user authorization.
-- Current explicit user instructions take precedence. PRD/level cards describe product intent; RULES owns rule semantics; CODE_MAP describes v2. DESIGN is a compatibility router, not another rule source. Plans do not silently change runtime behavior.
-- Every gameplay feature needs a concrete first-party same-genre source and an explicit adoption/difference record. Source-backed mechanics may use explicitly disclosed project capacity/configuration and engineering transaction boundaries; do not treat every unmeasured numeric adaptation as an invented mechanic. R07 defines free one-branch assistance; reserve growth and economy remain pending. Never attribute these project decisions to a competitor. Every gameplay feature still requires source review; unconfirmed exact rules exit effective requirements rather than being invented. Distinguish user directives and engineering safety protocols from competitor gameplay. Separate official descriptions, actual tests and disclosed adaptations. New-level optimal proof, hidden-egg visible-information fairness and runtime acceptance need separate evidence. All old T16 replay evidence is invalid for the replacement rules. Search budget exhaustion is unknown; old v2 certificates do not prove new layouts.
-- New assets are derived files, never replacements for approved originals. Verify real RGBA transparency, style, pivots/bounds, 64px/grayscale recognition, then in-context screenshots and timed runtime samples. Static frames are not proof of playable animation.
-- Documentation-only edits need links, quantities and contract consistency checks. Code/data changes need the Unity workflow and new-rule replay/certificates, reporting failures, explicit skips and untested boundaries honestly.
+`archive/retired/` is outside Unity Assets and CI inputs. It preserves retired code/data/scenes/tests, not a second runnable project. Never restore it because a historical document or asset names it. Originals under `art/` are preserved, including historical versioned filenames.
 
-## Machines and roles (since 2026-10-31)
-| Machine | Role |
-|---|---|
-| **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude (runs only here) splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex and omp workers write code and produce images. **No Unity Editor** — cannot compile or run tests locally. |
-| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Unity machine: compile, EditMode/PlayMode tests, screenshots, and desktop-control testing of the running game. Since 2026-11-03 Claude may also dispatch omp, pi and Codex workers here (the Mac has omp, pi and codex installed, so image generation can run there too; Claude itself runs only on 251) so they compile and test locally. Workers on the Mac edit only their task's owned paths on a task branch, commit and push it; Claude reviews and merges. Only one Unity batch run at a time; never edit the same files from 251 and the Mac concurrently. |
+Storage strings `v5.*`, `v6.unlockSeen.*` and `v7.notifications` are compatibility identifiers, **not implementation versions**. Preserve every existing key, ProfileMigrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema version. Do not reset user data or rename persisted fields during cleanup.
 
-The Mac-side Claude from the old workflow is retired.
+## Specification and language
 
-## Git workflow (one repo on both machines, `origin = github.com/crazyniu/game`)
-1. On 251, branch from `main` as `t<number>-<short-name>`. Codex implements; Claude reviews, commits and pushes.
-2. On the Mac: `git fetch && git checkout <branch> && git pull --ff-only`, then
-   - `bash scripts/run_tests.sh` (runs SceneBuilder first; requires EditMode ≥101 and PlayMode ≥11 passing, zero failures)
-   - `bash scripts/screenshots.sh` (output in `build/screens/flow/`)
-3. 251 drives the Mac remotely; ask the user to run things by hand only when the Mac is unreachable:
-   ```bash
-   orca status --environment Mac-Image-Worker --json
-   orca terminal create --environment Mac-Image-Worker --worktree path:/Users/apple/Documents/projects/game \
-     --title Mac-Test --command "git fetch && git checkout <branch> && git pull --ff-only && bash scripts/run_tests.sh" --json
-   orca terminal send --environment Mac-Image-Worker --terminal <handle> --text "<cmd>" --enter --json
-   orca terminal read --environment Mac-Image-Worker --terminal <handle> --json
-   ```
-   - The Unity Editor must **not** have this project open on the Mac, or batchmode exits immediately with code 1. Ask the user to quit the editor; never kill it yourself.
-   - `run_tests.sh` may make SceneBuilder rewrite `Assets/Scenes/Game.unity`. Record status/diff before running and preserve user edits. Restore that file only after confirming it had no pre-existing user changes and every resulting difference is disposable output from this run; otherwise keep it for review. Never blindly checkout over user work.
-   - Baseline on `main` (2026-10-31): EditMode 163/163; PlayMode 14 passed, 0 failed, 8 intentionally skipped in code (Level10/20/30/40 smoke tests and other deferred items). Skips are not failures.
-   - Prefer an existing authorized artifact/file channel for screenshots. A temporary HTTP server, especially one bound to 0.0.0.0, requires actual permission covering its directory, interfaces and lifetime before starting; stop it after transfer. This guide and documentation edits grant no authority to expose network services, a whole repository or credentials.
-   - If the Mac IP changes, inspect the existing environment read-only first. Updating the Orca endpoint is a configuration mutation requiring applicable authority/permission; documentation edits do not authorize it. Do not generate or disclose pairing credentials.
-   - `build/` is gitignored; never commit test output.
-4. Accepted → use the existing task submission authority to commit/push an isolated branch and open a draft PR for review. Rejected → return with concrete issues. **Merging into main, deployment or release each require explicit user authorization; passing acceptance is not that authorization.**
-5. Compare generated `.meta`/`ProjectSettings` changes with the pre-run record, preserving user edits. Only necessary task-generated changes that have been reviewed and authorized for submission may be committed to the same branch and pulled on 251. Never auto-include unrelated changes.
+- Talk to the user in Chinese. Agent instructions, new task specs/reports, comments and commits are English. Preserve historical research/task evidence rather than rewriting its claims.
+- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN_V5](docs/GAME_DESIGN_V5.md) retains its historical filename and design decisions; later approved T49/T50 visual/animation contracts and actual current source resolve superseded layout prose. Do not interpret stale Claude ownership or numbered paths there as current execution instructions.
+- The old v2 runtime description and v4 rules/schema/save proposal are historical reference, not today's runtime. `docs/spec/RULES.md`, PRD/evidence/replay documents and older UI specifications must not silently replace the accepted game. T52 does not change any rule.
+- Keep logic independent of presentation. Core/Meta have no UnityEngine references. Inspect current code before changing rules/levels and obtain separate feature authority; do not infer implementation scope from a historical roadmap.
+- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. Do not replace animation with a static-image claim. New assets must be derived, never overwrite originals.
+- Every task has `tasks/T<n>_<name>.md` and `tasks/T<n>_report.md`. Stay within assigned paths and preserve unrelated user changes.
 
-## Rules
-- Core (`Assets/Scripts/Core`) is pure C# with no UnityEngine references; logic and animation stay separate. Update the owning specification (rules: `docs/spec/RULES.md`) and code-difference index, and obtain implementation authorization before changing Core rules/levels. DESIGN only routes legacy links; do not add a second rule definition.
-- Never modify originals under `art/`; produce derived files instead.
-- Every task gets `tasks/T<n>_<name>.md` (requirements + acceptance criteria) and `tasks/T<n>_report.md` (delivery notes).
-- Stay original: theme, art, names, numbers and text are our own; never copy assets or text from any existing game.
-- T12 (more levels) is paused; keep 40 levels. T14 (store release) needs an account and package name from the user (`com.todo.perchsort` is a placeholder).
+## Coordinator verification workflow
 
-## Codex only
-- Do only the current task dispatched by the coordinator (Claude). For anything ambiguous, use `orca orchestration ask`; do not guess or widen scope.
-- 251 cannot run Unity: after writing code, self-check compile risks (namespaces, asmdef references, serialized fields) and list in the report what must be verified on the Mac.
-- Do not commit to git; Claude commits after review.
+1. Integrate reviewed task branches in an isolated Mac integration workspace. Record scene/meta/settings/package state before Unity. Preserve the user-checkout changes separately before any update; never blindly restore generated files.
+2. Use one Unity process at a time. If the user has the project open, ask them to close it; never kill their Editor. Inspect existing process/lock state before starting a serialized run.
+3. Run `bash scripts/run_tests.sh`: it invokes only `PerchSort.Editor.GameSceneBuilder.Build`, then the retained EditMode and PlayMode suites. Source-derived safeguards are **304 EditMode** (237 game + 53 Meta + 14 Audio) and **17 PlayMode**, no Ignore/Explicit. LevelsData retains 81 expanded cases (40 solver/replay), Layout 41 (24 combinatorial). These are expectations, not passing results; investigate actual discovery differences rather than lower counts or skip failures.
+4. Run `bash scripts/screenshots.sh` for stable-state captures in `build/screens/game/`, then perform actual GUI/timed acceptance. Static GameCapture uses instant motion and synthetic nonpersistent profiles; it does not prove animated playback, persistence or device acceptance.
+5. Automatic PR CI retains JSON/assembly/project/script checks, workflow lint, and the current pure-Core fixture subset via `dotnet test ci/CoreTests.csproj`. CI is not a substitute for Unity or GUI acceptance. Archived tests are never compiled or run.
+6. Report exact commands, results, skips, failures and boundaries. All T52 worker runtime validation remains NOT_RUN until the coordinator executes it. Historical passing counts do not validate new changes. Keep generated output out of commits (`build/` is ignored).
+
+Do not expose network services or credentials. Existing authorized Orca/artifact channels suffice for reports and captures. Store identifiers and release account/package placeholders still require user input; `com.todo.perchsort` is not a production package name.

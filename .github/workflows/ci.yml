@@ -27,11 +27,11 @@ jobs:
           sparse-checkout: |
             .github/workflows/
             ci/
-            **/*.cs
-            **/*.json
-            **/*.asmdef
-            **/*.sh
-            **/*.py
+            PerchSort/Assets/Scripts/
+            PerchSort/Assets/Tests/
+            PerchSort/Assets/Resources/
+            PerchSort/Packages/
+            scripts/
       - name: Check changed files
         id: changes
         env:
@@ -42,7 +42,7 @@ jobs:
         uses: actions/setup-dotnet@v6.0.0
         with:
           dotnet-version: '8.0.x'
-      - name: Run existing Core tests
+      - name: Run retained current Core fixtures
         if: steps.changes.outputs.core == 'true'
         run: dotnet test ci/CoreTests.csproj --configuration Release --nologo
       - name: Validate Actions workflows
