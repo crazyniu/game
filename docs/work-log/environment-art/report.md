@@ -81,7 +81,7 @@ The built-in image tool generated each asset separately. Eight initial thin-tip 
 
 `evidence/limb_assets_w*.jpg` shows every export on light/dark backgrounds and at 64 px width. The wood silhouette remains readable at 64 px; tiny leaf/snow details are not individually readable at that scale. `evidence/limb_reference_w*.jpg` compares approved boards with full-pixel-size offline trunk + junction + limb/twig + bird assemblies. Junctions are behind the limb root and the trunk overlays the overlap. Bark color is close, but the join is not pixel-seamless, and the assembly does not establish runtime placement or approved-screen fidelity. No runtime integration changes are included.
 
-Verification so far: eight exact canvas/pivot assertions passed; naming self-test 8/8 passed and naming guard reported zero violations before Unity. Full Mac scene build/EditMode/PlayMode verification is queued under `flock /tmp/unity.lock`; results will be recorded with the gate-parts follow-up. No new runtime or animation acceptance is claimed.
+Verification so far: eight exact canvas/pivot assertions passed; naming self-test 8/8 passed and naming guard reported zero violations before Unity. Full Mac verification completed after both asset deliveries; see the follow-up verification section below. No new runtime or animation acceptance is claimed.
 
 ## Follow-up: separated gate parts
 
@@ -101,4 +101,21 @@ The built-in image tool generated all layers separately from the accepted master
 
 Outstanding acceptance items: requested 150/90 px roots within unchanged canvases (incompatible constraints), all limb tips exactly near 36 px, seamless junction blending, exact closed-gate reconstruction with the existing lock, and removal of residual 1/255 doorway alpha. All twenty file deliverables exist. Actual runtime integration, door-swing timing and approved-board visual acceptance remain unverified and outside this no-code asset delivery.
 
-Importer integration boundary: the current `GameArtImporter.Configure` hard-codes centered pivots for names other than the old unsuffixed door keys. It will recenter these new world-specific door sprites during scene build/import. The delivered metadata records the intended hinge pivots, but the integration owner must preserve them in the importer or rotate a parent placed at the documented hinge axis. This asset-only task does not modify the importer. File metadata alone is not proof of a loaded hinge pivot.
+Importer integration boundary: the current `GameArtImporter.Configure` hard-codes centered pivots for names other than the old unsuffixed door keys. The Mac verification run confirmed that it recentered all six new world-specific door sprites during scene build/import. The delivered metadata records the intended hinge pivots, but the integration owner must preserve them in the importer or rotate a parent placed at the documented hinge axis. This asset-only task does not modify the importer. File metadata alone is not proof of a loaded hinge pivot.
+
+## Follow-up verification
+
+Both asset deliveries were pushed separately: limbs at `2e3b4e5`, gate parts at `1673779`. The built-in imagegen skill was used for generation/editing; prompt manifests are linked above. All twenty PNGs and their SHA-256 values are listed in `art/environment/followup_delivery.json`.
+
+Commands and observed results in this isolated Mac workspace:
+
+- `python3 ci/check_current_game_names.py --self-test`: 8/8 passed.
+- `python3 ci/check_current_game_names.py`: zero naming violations with both deliveries staged.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: scene build succeeded; EditMode 312/312 passed; PlayMode 53/53 passed; zero failed or skipped cases. Retained LevelsData 81 and Layout 41 cases were discovered.
+- `flock /tmp/unity.lock bash scripts/screenshots.sh`: passed, producing all 34 required 1080x1920 captures under `build/screens/game/`. Map, basic-board and dense-board captures were opened and inspected. They show the existing wired art; they do not validate the twenty new unwired sprites against the approved UI.
+
+`art/environment/qa/followup_unity_results.json` records XML hashes, suite counts, screenshot results and observed loaded door pivots. Tests/capture exited successfully; logs also contain Unity shutdown diagnostics (persistent-allocation leak detection, debugger listen failure, and thread/worker finalization messages). These were not test failures and were not modified by this asset task.
+
+Before Unity, scene/settings/packages/metadata were hashed and copied to ignored `build/environment-input/`. After capture, all 149 generated changes (148 metadata files plus Game.unity reserialization) were inspected by changed fields, preserved in `build/environment-generated-changes.patch`, and restored from the verified input copies. All recorded input hashes match again. Original artwork, source, levels, saves, packages and settings are unchanged. The committed door metadata retains the intended hinge axes; a new import will still recenter them until integration addresses the importer behavior described above.
+
+No timed door-swing, audio, device, persisted-game, or integrated approved-art acceptance is claimed. Missing acceptance items remain exactly those listed in the gate-parts section; successful Unity tests do not waive them.
