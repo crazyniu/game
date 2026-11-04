@@ -23,7 +23,7 @@
 
 ## Four isolated T50 code workspaces
 
-All branches preserve source WIP `9f84a95`; T50D starts at handoff checkpoint `0b44966`. Only exact reviewed A/B/C revisions have been integrated; no artwork or main merge was performed.
+All branches preserve source WIP `9f84a95`; T50D starts at handoff checkpoint `0b44966`. Exact approved A/B/C code and the separately approved bird/egg/overlay asset revisions below are integrated only into the task branch. No main merge or user-test checkout update was performed.
 
 | Module | Branch | Workspace | Ownership / progress |
 | --- | --- | --- | --- |
@@ -36,7 +36,7 @@ Public view signatures remain stable. New narrow APIs must be listed exactly in 
 
 D-only integration correction `f24c11f` settles/cancels Win HUD counting before the finale notification handoff, including early programmatic exits. D's isolated review boundary `08b32a7` remains unchanged; no tests/Unity were run for either revision.
 
-Coordinator's completed parallel static review of `3a05763` confirmed one D blocker: ignored/queued busy taps invalidated the shared revision captured by committed Board completion. The bounded root follow-up separates transactionGeneration from input/hint revision, retains one queued landing/effect tap and lifecycle/session/one-shot guards, and invalidates both generations on real cancellation. D is not accepted until final re-review; exact follow-up SHA is in its terminal/report handoff. No execution or additional code scope.
+Coordinator's parallel static review of `3a05763` confirmed one D blocker: ignored/queued busy taps invalidated the shared revision captured by committed Board completion. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** is committed/pushed and preserved before asset merges. It separates transactionGeneration from input/hint revision, retains one queued landing/effect tap and lifecycle/session/one-shot guards, and invalidates both generations on real cancellation. D final re-review remains pending; no execution or additional code scope.
 
 Approved cross-module root contract:
 - `Map.TryGetLevelCardOrigin(int, out Vector2)` → always `panels.SetLevelCardOrigin(point)` → `panels.LevelCard(int)`, including the returned `(540,960)` fallback.
@@ -47,9 +47,11 @@ Approved cross-module root contract:
 
 ## Art ownership
 
-- Ten-species T49 art final `fd14469` is delivered and under separate coordinator static/artifact review. It has not been merged into this code branch; do not infer visual/runtime acceptance from delivery.
-- Eggs (five frames) and mama/chick overlays (two) have now been acknowledged and actively transferred to `mac-art/world`. This supersedes the old pending-transfer wording.
-- Earlier UI delivery: `mac-art/t48` at `825ca1d`; world/booster delivery: `mac-art/world` at `6a29b50`. Later delivery SHAs must come from those workers, not inferred here.
+- Bird final **`fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9`** was explicitly statically approved by the coordinator and merged as **`5c22b064b7cab8d6c702d4a6b9321963cd474b2d`**. Coordinator-reviewed offline evidence: ten species, 170 distinct 320×320 RGBA frames and ten portraits, naming/metadata/style/reference sheets. No new asset audit or runtime acceptance is claimed here.
+- Eggs/overlays **`f79dc3875ca7b6138e9c304059c2d3432a5c2775`** (asset commit `34eddeb`) was explicitly statically approved and merged as **`b9d019c5aa6d9fe204fa8d6dd0d7d807a5013db1`**: five egg frames and two overlays, real RGBA, stable 300 baseline/support band, seven metadata files and the delivered contract/report. This is offline asset readiness only.
+- **Required pending integration: T50E**, assigned to A on `mac-motion/t50`, owns BirdView and its isolated helper/report. New overlays cannot use the old runtime offsets. A handles authored Sunny/Skye family markers plus normalized anchor/scale/pose behavior. This worker does not edit its integrated BirdView or merge an unreviewed follow-up.
+- The whole stage is **not ready** until T50E is reviewed/integrated and the coordinator completes D review. Unity/import/compile, runtime/in-context appearance, animated wingbeats, overlay pose alignment and timed captures remain **NOT_RUN**. Existing offline sheets are not runtime proof.
+- Earlier UI delivery: `mac-art/t48` at `825ca1d`; world/booster delivery: `mac-art/world` at `6a29b50`. No additional asset generation, code scope, main update or user-test checkout edit is authorized by these merges.
 
 ## Historical evidence / recovery
 

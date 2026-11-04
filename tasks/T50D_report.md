@@ -24,7 +24,16 @@ Static source trace only:
 - Undo/Restart/navigation/root disable call CancelPresentation and invalidate both generations, including same-session cancellation. Session replacement and destruction remain separately guarded.
 - Solver result and post-playback hint callbacks retain their original revision/session checks; stale hints stay rejected.
 
-No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Changed files are only V5GameRoot and this report/status/integration handoff. Exact follow-up SHA is reported in the terminal delivery block. Coordinator final re-review is pending; execution/compilation/Unity/tests remain NOT_RUN.
+No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** was committed/pushed before the separately approved asset merges. Changed files are only V5GameRoot and this report/status/integration handoff. Coordinator final re-review is pending; execution/compilation/Unity/tests remain NOT_RUN.
+
+## Separately approved offline asset integration
+
+- Bird assets `fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9` merged conflict-free as `5c22b064b7cab8d6c702d4a6b9321963cd474b2d`.
+- Egg/overlay assets `f79dc3875ca7b6138e9c304059c2d3432a5c2775` (asset `34eddeb`) merged conflict-free as `b9d019c5aa6d9fe204fa8d6dd0d7d807a5013db1`.
+- Both exact commit objects were verified locally. These are explicit coordinator-approved asset revisions, not generation/edit work by D. D's blocker-correction boundary is preserved; no BirdView or other code was changed for these merges.
+- Coordinator approval covers the offline 170 distinct 320×320 RGBA bird frames/ten portraits and the seven egg/overlay assets, their metadata/style/contracts/sheets. Import, in-context rendering and animated/runtime behavior remain NOT_RUN; no historical/asset-sheet evidence is promoted to runtime evidence.
+- **T50E remains required**, assigned to A in `mac-motion/t50`: BirdView plus isolated helper/report, authored Sunny/Skye family markers and normalized overlay anchor/scale/pose behavior. The old offsets are known unsuitable for the new overlays. Integrated BirdView stays untouched here until the exact reviewed follow-up arrives.
+- Whole-stage readiness is not claimed. D final re-review and reviewed T50E integration are pending. No main/test-checkout update, Unity/test execution or additional asset/code scope.
 
 ## Changed files
 
