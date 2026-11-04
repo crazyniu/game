@@ -61,3 +61,7 @@ Completed 17 frames and portrait with strip, GIF and game-size QA. Flame crest a
 ## Inky checkpoint and ownership update — 2026-11-04
 
 Completed 17 Inky frames and portrait, strip, GIF and game-size review. Preserved swept crest, brows and white chest star. 136 aligned frames, none clipped. Codex is now coordinator. Eggs and mama/chick overlays transferred to mac-art; mac-birds created none and will not edit them. Remaining owned work: Hoot, Rook and final bird QA. No tests or Unity.
+
+## Hoot checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, strip, GIF and game-size review. Retained cream heart-shaped face and purple star cap. 153 aligned frames, no clipping. Rook base checked against K7 before action generation.

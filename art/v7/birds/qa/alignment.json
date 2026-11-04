@@ -4622,5 +4622,583 @@
     ],
     "foot_baseline": 300,
     "edge_clipped": false
+  },
+  {
+    "file": "hoot_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      482,
+      1046,
+      942,
+      1083
+    ],
+    "scale": 0.19384,
+    "translation": [
+      22,
+      90
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      119,
+      236,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      444,
+      1047,
+      905,
+      1084
+    ],
+    "scale": 0.19342,
+    "translation": [
+      30,
+      90
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      119,
+      242,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1043,
+      885,
+      1080
+    ],
+    "scale": 0.18851,
+    "translation": [
+      38,
+      96
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      124,
+      244,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      480,
+      1047,
+      946,
+      1084
+    ],
+    "scale": 0.19134,
+    "translation": [
+      24,
+      93
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      120,
+      237,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      446,
+      1055,
+      872,
+      1091
+    ],
+    "scale": 0.20931,
+    "translation": [
+      22,
+      72
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      109,
+      279,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      420,
+      1031,
+      847,
+      1067
+    ],
+    "scale": 0.20882,
+    "translation": [
+      28,
+      77
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      35,
+      108,
+      283,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      439,
+      1073,
+      930,
+      1111
+    ],
+    "scale": 0.1816,
+    "translation": [
+      36,
+      98
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      45,
+      125,
+      254,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      479,
+      1048,
+      944,
+      1085
+    ],
+    "scale": 0.19175,
+    "translation": [
+      24,
+      92
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      120,
+      237,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      403,
+      1086,
+      897,
+      1124
+    ],
+    "scale": 0.1805,
+    "translation": [
+      43,
+      97
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      56,
+      126,
+      236,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      393,
+      1103,
+      889,
+      1143
+    ],
+    "scale": 0.17977,
+    "translation": [
+      45,
+      95
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      74,
+      118,
+      238,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      482,
+      1047,
+      943,
+      1084
+    ],
+    "scale": 0.19342,
+    "translation": [
+      22,
+      90
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      118,
+      238,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      449,
+      1056,
+      915,
+      1093
+    ],
+    "scale": 0.19134,
+    "translation": [
+      30,
+      91
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      49,
+      119,
+      239,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      483,
+      1048,
+      943,
+      1084
+    ],
+    "scale": 0.19384,
+    "translation": [
+      22,
+      90
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      118,
+      238,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      439,
+      1060,
+      903,
+      1099
+    ],
+    "scale": 0.19217,
+    "translation": [
+      31,
+      89
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      111,
+      247,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      478,
+      1053,
+      951,
+      1090
+    ],
+    "scale": 0.18851,
+    "translation": [
+      25,
+      95
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      122,
+      239,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      404,
+      1055,
+      866,
+      1092
+    ],
+    "scale": 0.193,
+    "translation": [
+      37,
+      89
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      119,
+      263,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "hoot_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      481,
+      1048,
+      943,
+      1085
+    ],
+    "scale": 0.193,
+    "translation": [
+      23,
+      91
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      119,
+      237,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
   }
 ]
