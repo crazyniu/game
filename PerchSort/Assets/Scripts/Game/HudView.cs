@@ -28,9 +28,12 @@ namespace PerchSort.Game
         private bool contextMechanic;
         private int toolCount = 3;
         private bool tutorialLevel;
-        private Rect ToolBounds(int index) => tutorialLevel && index == 0
-            ? GameLayout.Centered(GameLayout.ToolButton(0).center, Vector2.one * 64)
-            : GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
+        private Rect ToolBounds(int index)
+        {
+            Rect bounds = GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
+            Vector2 size = tutorialLevel ? Vector2.one * 64 : GameLayout.ToolButton(0, toolCount).size;
+            return GameLayout.Centered(bounds.center, size);
+        }
         private RectTransform coinPlate;
         private CanvasGroup coinFade, gearFade, toolFade;
         private Rect headerBounds = CoinCanvas(GameLayout.CoinPill), gearBounds = GameLayout.SettingsButton;
@@ -148,8 +151,7 @@ namespace PerchSort.Game
                 icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio;
                 if (i > 0)
                 {
-                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7",
-                        i == 1 ? "hint_count" : "branch_plus_count");
+                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7", "hint_count");
                     Vector2 size = Vector2.one * (toolCount == 3 ? 46 : 50);
                     badges[i].rectTransform.anchoredPosition = new Vector2(bounds.width * 0.82f, bounds.y - badge.center.y);
                     badges[i].rectTransform.sizeDelta = size;
