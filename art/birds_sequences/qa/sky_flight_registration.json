@@ -1,0 +1,746 @@
+[
+  {
+    "name": "sky_flight_takeoff_01",
+    "source": "sky_flight_takeoff.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.45849802371541504,
+    "offset": [
+      -27,
+      -5
+    ],
+    "visible_bounds": [
+      28,
+      88,
+      263,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "e5b763bee333ce9189a75aad8677993f98a9ca819b7c191dfc32d60007f52c5e"
+  },
+  {
+    "name": "sky_flight_takeoff_02",
+    "source": "sky_flight_takeoff.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.45849802371541504,
+    "offset": [
+      13,
+      5
+    ],
+    "visible_bounds": [
+      45,
+      52,
+      314,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "00d32278f327ba9a1c5d84ee83f3e6196edd11001e536c405a3f1e3d48445659"
+  },
+  {
+    "name": "sky_flight_takeoff_03",
+    "source": "sky_flight_takeoff.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.45849802371541504,
+    "offset": [
+      -13,
+      39
+    ],
+    "visible_bounds": [
+      15,
+      66,
+      290,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b84580799b1b5348a1ecbca07e328e72454c8ee91c79447843397b8e93e79741"
+  },
+  {
+    "name": "sky_flight_flap_01",
+    "source": "sky_flight_flap_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.46963562753036436,
+    "offset": [
+      -16,
+      28
+    ],
+    "visible_bounds": [
+      26,
+      67,
+      276,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "af4e2eed7d56c6d40c59738a1acb06aa1e9e6f73cdc3ef75ab52281d3a5fa27b"
+  },
+  {
+    "name": "sky_flight_flap_02",
+    "source": "sky_flight_flap_downstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.46963562753036436,
+    "offset": [
+      -16,
+      28
+    ],
+    "visible_bounds": [
+      11,
+      67,
+      295,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "0eb0471206fb729f58161184b09153f1c69d2709bec74b873396a3587228cb80"
+  },
+  {
+    "name": "sky_flight_flap_03",
+    "source": "sky_flight_flap_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.46963562753036436,
+    "offset": [
+      -20,
+      28
+    ],
+    "visible_bounds": [
+      46,
+      67,
+      270,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c73a1dc37581f2939693486bd933ea1f44a085ef6fd1d9b09043f823327e1d3a"
+  },
+  {
+    "name": "sky_flight_flap_04",
+    "source": "sky_flight_flap_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4344569288389513,
+    "offset": [
+      -17,
+      31
+    ],
+    "visible_bounds": [
+      28,
+      66,
+      279,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "a4f386bb757a4135a6cf8f82823cbe4ac83f900f31785610edb84e1b2425a161"
+  },
+  {
+    "name": "sky_flight_flap_05",
+    "source": "sky_flight_flap_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4344569288389513,
+    "offset": [
+      1,
+      31
+    ],
+    "visible_bounds": [
+      19,
+      66,
+      275,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "573757343164c48cf28aa0ccbce87ec42ea03b4cbddcebea2e13686b41629896"
+  },
+  {
+    "name": "sky_flight_flap_06",
+    "source": "sky_flight_flap_upstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4344569288389513,
+    "offset": [
+      15,
+      30
+    ],
+    "visible_bounds": [
+      17,
+      65,
+      294,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "f121afb5478a97d3f0c31f981538f68ec344626c4a95b07d46d3fac9da5da3d1"
+  },
+  {
+    "name": "sky_flight_land_01",
+    "source": "sky_flight_land.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4006908462867012,
+    "offset": [
+      -7,
+      58
+    ],
+    "visible_bounds": [
+      1,
+      70,
+      281,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c583e05ccb2b840568f46a5e9a61ad03e3e3392811a6033bb91a56d7086a1eef"
+  },
+  {
+    "name": "sky_flight_land_02",
+    "source": "sky_flight_land.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4006908462867012,
+    "offset": [
+      11,
+      38
+    ],
+    "visible_bounds": [
+      23,
+      49,
+      296,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c7ec31f02e94e67f771b6a1edc035ec4c920e8554cfd012b9d49833c025b8263"
+  },
+  {
+    "name": "sky_flight_land_03",
+    "source": "sky_flight_land.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4006908462867012,
+    "offset": [
+      12,
+      35
+    ],
+    "visible_bounds": [
+      53,
+      66,
+      254,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "105b15f608f40d48b313b57b0b27d4f0f97be5c6379be834d8ee12e88b2242d5"
+  },
+  {
+    "name": "sky_flight_takeoff_l_01",
+    "source": "sky_flight_takeoff_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4549019607843137,
+    "offset": [
+      15,
+      -1
+    ],
+    "visible_bounds": [
+      69,
+      73,
+      282,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "adf33d348f4ce5c7e6368935cc6c81fe307e0449a45c0c0e1f8302b289f41b76"
+  },
+  {
+    "name": "sky_flight_takeoff_l_02",
+    "source": "sky_flight_takeoff_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4549019607843137,
+    "offset": [
+      -3,
+      0
+    ],
+    "visible_bounds": [
+      15,
+      46,
+      270,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "5919b59db7279fcf68ab0253dc80882be657ec403cffc3f191f3100b7b8da5bb"
+  },
+  {
+    "name": "sky_flight_takeoff_l_03",
+    "source": "sky_flight_takeoff_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4549019607843137,
+    "offset": [
+      12,
+      43
+    ],
+    "visible_bounds": [
+      39,
+      66,
+      300,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "fa4208641ef14f1b206ff947f46e22983510343c4c073154f4c1409bfc933583"
+  },
+  {
+    "name": "sky_flight_flap_l_01",
+    "source": "sky_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      714,
+      724
+    ],
+    "scale": 0.4336448598130841,
+    "offset": [
+      11,
+      30
+    ],
+    "visible_bounds": [
+      38,
+      66,
+      300,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "5245920f5809e9e5a9920a6873c596e1228177b4ff931f9e770b70bdf071b5e5"
+  },
+  {
+    "name": "sky_flight_flap_l_02",
+    "source": "sky_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      714,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4336448598130841,
+    "offset": [
+      13,
+      30
+    ],
+    "visible_bounds": [
+      13,
+      66,
+      318,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "7f919089ef891b406e276d7efa8e0618f9cccdc7107f7733790948f475420b6c"
+  },
+  {
+    "name": "sky_flight_flap_l_03",
+    "source": "sky_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4336448598130841,
+    "offset": [
+      20,
+      30
+    ],
+    "visible_bounds": [
+      37,
+      66,
+      299,
+      310
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "f094ed1d3643a8acecdb5c1631bda660b6f9744b3fa5119f151148baf6091279"
+  },
+  {
+    "name": "sky_flight_flap_l_04",
+    "source": "sky_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4435946462715105,
+    "offset": [
+      8,
+      24
+    ],
+    "visible_bounds": [
+      45,
+      67,
+      290,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "837b0816b40f0923a7d6c0104ca08e886f9b0c95513887793e22408076e292d8"
+  },
+  {
+    "name": "sky_flight_flap_l_05",
+    "source": "sky_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4435946462715105,
+    "offset": [
+      14,
+      25
+    ],
+    "visible_bounds": [
+      30,
+      67,
+      306,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b4e18694a0d8b7c62fb0d5b52e8b6071a6bc5e7d32a67293656afa4340c4cd20"
+  },
+  {
+    "name": "sky_flight_flap_l_06",
+    "source": "sky_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4435946462715105,
+    "offset": [
+      17,
+      24
+    ],
+    "visible_bounds": [
+      43,
+      67,
+      294,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "d023e44631fdedf7472bc792e81eec13e11cf6acffe5bf1ea0afc70049f9188e"
+  },
+  {
+    "name": "sky_flight_land_l_01",
+    "source": "sky_flight_land_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.39322033898305087,
+    "offset": [
+      42,
+      59
+    ],
+    "visible_bounds": [
+      71,
+      71,
+      303,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c03d7b024dd2223de0ec4b134f7c64123497bf048d6dffb45ab4577392302ee3"
+  },
+  {
+    "name": "sky_flight_land_l_02",
+    "source": "sky_flight_land_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.39322033898305087,
+    "offset": [
+      10,
+      38
+    ],
+    "visible_bounds": [
+      40,
+      48,
+      265,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "2b9657f419839eaf297c6ecac5f61a2590e0c55c253cc16d3fa4d1bbc92061b2"
+  },
+  {
+    "name": "sky_flight_land_l_03",
+    "source": "sky_flight_land_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.39322033898305087,
+    "offset": [
+      25,
+      41
+    ],
+    "visible_bounds": [
+      72,
+      66,
+      266,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "ae5f4ecb357f16d9fccf285e0a9b01cd9a80af66bb0a53bda07ded02efbf773d"
+  }
+]
