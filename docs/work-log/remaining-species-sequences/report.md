@@ -5,7 +5,7 @@
 | Species | Delivered frames | Status |
 | --- | ---: | --- |
 | mint | 38 | Offline art review passed; Unity acceptance pending |
-| cocoa | 0 | Pending |
+| cocoa | 38 | Offline art review passed; Unity acceptance pending |
 | snow | 0 | Pending |
 | ember | 0 | Pending |
 | ink | 0 | Pending |
@@ -22,6 +22,7 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 
 ## Rejections and corrections
 
+- Cocoa turn_right: rejected the first four-frame source because an ear tip reached the top canvas edge. Regenerated with square cells and additional padding; complete ear silhouettes verified in the replacement. Rejected source retained as `cocoa_turn_right_rejected_crop.png`.
 - Mint hop: rejected the first six-frame sheet because the exported bird read too small and a rectangular haze appeared against the dark background. Regenerated and reviewed the replacement. Rejected source retained as `mint_hop_rejected_scale_haze.png`.
 - Mint flap: initial tool preview appeared to have a backdrop. Direct alpha inspection established transparency; a cutout correction was generated and used. The first candidate is retained as `mint_flap_superseded_cutout.png`, not counted as a proven backdrop failure.
 
@@ -33,4 +34,4 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 
 ## Missing items
 
-Cocoa, snow, ember, ink, hoot and crow: all 38 frames each are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
+Snow, ember, ink, hoot and crow: all 38 frames each are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
