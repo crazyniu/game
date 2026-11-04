@@ -210,216 +210,6 @@
     "sha256": "fd8efbf5ea55055d7de264fbdb0e3ad17565a23a0aafc2a472e4a10e1f341088"
   },
   {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_01.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 1,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      46,
-      98,
-      270,
-      302
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      13,
-      42
-    ],
-    "source_feet": [
-      179,
-      459,
-      361,
-      475
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": false,
-    "sha256": "997deef121d6b8d2056d774a436806a706dcb48ea4fdb03c5bc5af942052e9d2"
-  },
-  {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_02.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 2,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      53,
-      79,
-      282,
-      301
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      21,
-      42
-    ],
-    "source_feet": [
-      183,
-      455,
-      329,
-      471
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": true,
-    "sha256": "27bd39b58b99ed419f831cb2a871e9185e5123184946a7149ed5ee478d64f113"
-  },
-  {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_03.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 3,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      51,
-      59,
-      288,
-      273
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      30,
-      42
-    ],
-    "source_feet": [
-      170,
-      406,
-      308,
-      422
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": true,
-    "sha256": "bf24dd899d67db563bd6ee642f989fb35ec18f12d2b9925a01243c4d6d0a265a"
-  },
-  {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_04.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 4,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      47,
-      45,
-      272,
-      257
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      15,
-      42
-    ],
-    "source_feet": [
-      199,
-      376,
-      334,
-      392
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": true,
-    "sha256": "9ee2f0c9e452540720f91137b822cfe98c95ab5c5c4ecece5eaa30dd5f015da7"
-  },
-  {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_05.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 5,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      43,
-      56,
-      292,
-      277
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      28,
-      42
-    ],
-    "source_feet": [
-      175,
-      412,
-      312,
-      428
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": true,
-    "sha256": "e17f65dac7dff855076bd1b0d3dd2499202f9f8f45f9a4c89c2e1d3872020ab7"
-  },
-  {
-    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_06.png",
-    "animation": "hop",
-    "source": "art/birds_sequences/raw/sunny_hop.png",
-    "cell": 6,
-    "size": [
-      320,
-      320
-    ],
-    "mode": "RGBA",
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      46,
-      82,
-      275,
-      302
-    ],
-    "scale": 0.5439560439560439,
-    "translation": [
-      23,
-      51
-    ],
-    "source_feet": [
-      161,
-      442,
-      341,
-      458
-    ],
-    "ground_baseline": 300,
-    "drawn_airborne": false,
-    "sha256": "e040eab1bf524f8988fdd5eca79307b4d8376f985547345a753e205b72e8be89"
-  },
-  {
     "file": "PerchSort/Assets/Resources/Birds/sunny_turn_left_01.png",
     "animation": "turn_left",
     "source": "art/birds_sequences/raw/sunny_turn_left.png",
@@ -1328,5 +1118,239 @@
     "ground_baseline": 300,
     "drawn_airborne": false,
     "sha256": "7b60f0725f5791e8e24466a80d2f1cd1716a1d0710e7bc4781e6dd2888584401"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_01.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      46,
+      98,
+      270,
+      302
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      13,
+      42
+    ],
+    "source_feet": [
+      179,
+      459,
+      361,
+      475
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "997deef121d6b8d2056d774a436806a706dcb48ea4fdb03c5bc5af942052e9d2"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_02.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      53,
+      81,
+      282,
+      303
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      21,
+      44
+    ],
+    "source_feet": [
+      183,
+      455,
+      329,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "5776280e1dc2d726ec49366ca44d041769f545b6fd58dffd5a277d4703dcb376"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_03.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      87,
+      288,
+      301
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      30,
+      70
+    ],
+    "source_feet": [
+      170,
+      406,
+      308,
+      422
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "f920f1a2c5451f69da12c416901c42e3cce0f296ebe73a5cd6569059e67a8c30"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_04.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      47,
+      90,
+      272,
+      302
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      15,
+      87
+    ],
+    "source_feet": [
+      199,
+      376,
+      334,
+      392
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "3a9890fbd2c66881a5b567dd431c099fa8675ca6fe8d646d1506dac587142cbb"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_05.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      81,
+      292,
+      302
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      28,
+      67
+    ],
+    "source_feet": [
+      175,
+      412,
+      312,
+      428
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "8ebff7c19c5606afcc512837269c2b9f9512b95bafcde7eccd20bffd755ce33c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_hop_06.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sunny_hop.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      46,
+      82,
+      275,
+      302
+    ],
+    "scale": 0.5439560439560439,
+    "translation": [
+      23,
+      51
+    ],
+    "source_feet": [
+      161,
+      442,
+      341,
+      458
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "e040eab1bf524f8988fdd5eca79307b4d8376f985547345a753e205b72e8be89"
   }
 ]

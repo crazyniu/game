@@ -6,7 +6,7 @@ Branch: `mac-t54g/t54`, created from the supplied T54 contract tip `47d5e7e2e405
 
 Pilot art only: Sunny, Sky and Berry, eight drawn frame sequences and 38 runtime PNGs per species. Approved stills and popup art were inspected read-only. No scripts, scene, settings, packages, saves or approved originals are modified. The built-in imagegen tool draws the poses. Exact prompts are in `art/birds_sequences/prompts/`; sheets are in `art/birds_sequences/raw/`.
 
-`art/birds_sequences/qa/prepare_sequences.py` slices sheets, performs uniform scale registration against each species' approved toe span, anchors grounded toes at y=300, and writes 320x320 RGBA sprites. Hop airborne poses retain their drawn displacement above that ground plane. Registration does not manufacture action frames, mirror artwork or create transformations as actions. Metadata copies the Sunny idle importer settings, replacing only asset/subsprite identities.
+`art/birds_sequences/qa/prepare_sequences.py` slices sheets, performs uniform scale registration against each species' approved toe span, anchors every frame's toes at y=300 (including airborne hop poses), and writes 320x320 RGBA sprites. The consumer supplies the hop trajectory. Registration does not manufacture action frames, mirror artwork or create transformations as actions. Metadata copies the Sunny idle importer settings, replacing only asset/subsprite identities.
 
 ## Delivery status
 
@@ -25,6 +25,8 @@ Rejected: the initial six Sunny flap candidates had an off-white translucent bac
 An intermediate Sunny hop registration was rejected because the first toe detector included low yellow wing tips and shrank the exports. The detector was corrected to sample opaque orange toes, then the exports and evidence were rebuilt. This did not change the drawn source poses.
 
 An initial Sky flap 05 extraction included three low-alpha pixels from the preceding sheet cell's wing tip in its empty left gutter. The five-pixel empty gutter was excluded during slicing, with the bird's own pose untouched. The corrected export has no clipped bounds.
+
+The Sunny/Sky milestone hop exports initially retained the source sheet's vertical lift. Final review identified that this contradicted the common-baseline contract. All six hop frames per species are now registered to the same y=300 toe baseline; the distinct crouch/push/tucked-leg/landing drawings are preserved. Only the offline hop APNG supplies a demonstration trajectory (0, -3, -18, -30, -16, 0 pixels). Runtime consumers must supply their own eased base position.
 
 ## Validation boundary
 

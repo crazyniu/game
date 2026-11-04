@@ -62,9 +62,7 @@ for animation in animations:
     for index, cell in enumerate(cells):
         foot = feet(cell)
         dx = round(160 - (foot[0] + foot[2]) * .5 * scale)
-        # Airborne hop drawings retain the displacement drawn relative to the ground.
-        base = anchor[3] if animation == 'hop' and index in (1, 2, 3, 4) else foot[3]
-        dy = round(300 - base * scale)
+        dy = round(300 - foot[3] * scale)
         sprite = Image.new('RGBA', (320, 320))
         sprite.alpha_composite(cell.resize((round(cell.width * scale), round(cell.height * scale)),
                                          Image.Resampling.LANCZOS), (dx, dy))
@@ -87,7 +85,7 @@ for animation in animations:
                         'alpha_extrema': list(sprite.getchannel('A').getextrema()),
                         'visible_bounds': visible, 'scale': scale, 'translation': [dx, dy],
                         'source_feet': foot, 'ground_baseline': 300,
-                        'drawn_airborne': animation == 'hop' and index in (1, 2, 3, 4),
+                        'airborne_pose': animation == 'hop' and index in (1, 2, 3, 4),
                         'sha256': hashlib.sha256(target.read_bytes()).hexdigest()})
         frames.append(sprite)
 
@@ -111,8 +109,11 @@ for animation in animations:
     preview = []
     for index in order:
         panel = Image.new('RGB', (640, 346), '#f7f3eb')
-        panel.paste(background(frames[index], '#f7f3eb'), (0, 0))
-        panel.paste(background(frames[index], '#17202b'), (320, 0))
+        ImageDraw.Draw(panel).rectangle((320, 0, 639, 319), fill='#17202b')
+        # Only the offline hop preview supplies a trajectory; exports keep the toe pivot.
+        offset = [0, -3, -18, -30, -16, 0][index] if animation == 'hop' else 0
+        panel.paste(background(frames[index], '#f7f3eb'), (0, offset))
+        panel.paste(background(frames[index], '#17202b'), (320, offset))
         ImageDraw.Draw(panel).text((12, 328), f'{species} {animation} {index + 1:02} - offline 10 fps', fill='#302e2c')
         preview.append(panel)
     preview[0].save(WORK / 'qa' / f'{species}_{animation}_preview.apng', save_all=True,
