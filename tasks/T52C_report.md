@@ -6,6 +6,18 @@ DONE for bounded C implementation on `mac-current-entry/t52`, based on `4b421598
 
 **Worker runtime validation: NOT_RUN. Integrated stage testing: REQUIRED, current Codex coordinator-owned on the Mac after integrating all deliveries.** This follows the latest user update and supersedes the original no-tests/CI-disable request. C did not launch Unity, a compiler, dotnet, code tests, captures, playthroughs or GUI checks. Automatic PR CI tests remain enabled; no PR or workflow dispatch was opened by this worker.
 
+## Coordinator compile failure and narrow correction
+
+Coordinator-reported integrated Unity **6000.6.7f1** compilation at **4ab0ca8** (A/B/C integrated) **FAILED before tests**. The unique error from the full scene-build.log was:
+
+```text
+Assets/Editor/Game/GameCapture.cs(118,38): error CS0104: SafeArea is an ambiguous reference between PerchSort.Game.SafeArea and UnityEngine.UI.SafeArea.
+```
+
+C fixes only the capture component lookup by qualifying `GetComponent<PerchSort.Game.SafeArea>()`. The shared runtime type, behavior and all test assertions remain unchanged. Static inspection of C-owned Editor/Tests sources found that GameCapture, ButtonTests and GameplayTests import both namespaces; only GameCapture contains a SafeArea reference, so no other collision correction is needed in C scope.
+
+Changed paths for this correction: `PerchSort/Assets/Editor/Game/GameCapture.cs` and `tasks/T52C_report.md`. Worker Unity/compiler/test execution remains **NOT_RUN**; the coordinator's integrated compile rerun and subsequent tests/GUI acceptance are **PENDING**, not claimed passing. The primary checkout remains untouched by C.
+
 ## Permanent naming policy followup
 
 The initial bounded delivery is `1cea729a18b6748c33d308f5fdf427875608d396`. The user subsequently required permanent canonical-edit constraints and assigned the independent naming guard/provenance cleanup to T52D. This C followup changes only:
