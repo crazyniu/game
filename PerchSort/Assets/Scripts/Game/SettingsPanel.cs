@@ -1,3 +1,5 @@
+using System;
+using LitMotion;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,42 +11,77 @@ namespace PerchSort.Game
         private GameArt art;
         private Image soundIcon;
         private Button restart, map;
-        private Image dim;
+        private Image dim, panelSurface, ribbon;
         private RectTransform rig;
-        private PopupMotion presentation;
+        private GameMotion motion;
+        private CanvasGroup panelFade;
+        private bool closing;
         public bool IsOpen => gameObject.activeSelf;
-        // Include the transparent margin of panel_wood around the measured visible frame.
-        private static readonly Rect PanelBounds = new Rect(144, 844, 768, 514);
+        // Include the artwork's transparent margin around the approximately 720 x 400 visible frame.
+        private static readonly Rect PanelBounds = new Rect(156, 864, 768, 420);
         public void Configure(GameRoot owner, GameArt assets)
         {
             root = owner; art = assets;
             dim = gameObject.AddComponent<Image>(); dim.raycastTarget = true;
-            presentation = gameObject.AddComponent<PopupMotion>();
-            rig = GameUI.Rect(transform, "Settings hanging rig", new Vector2(PanelBounds.center.x, PanelBounds.y), PanelBounds.size);
-            rig.pivot = new Vector2(0.5f, 1);
+            ModalLayer.Configure(gameObject);
+            motion = gameObject.AddComponent<GameMotion>();
+            rig = GameUI.Rect(transform, "Settings panel rig", PanelBounds.center, PanelBounds.size);
+            panelFade = rig.gameObject.AddComponent<CanvasGroup>();
             var body = GameUI.Surface(rig, "Settings panel", art, "panel_wood", new Rect(Vector2.zero, PanelBounds.size)); body.raycastTarget = true;
-            Rect ribbon = GameLayout.Screen("settings", "ribbon");
-            GameUI.Fit(body.transform, "Settings ribbon", art.Get("ribbon_green"), ribbon.center - PanelBounds.position, ribbon.size);
-            GameUI.Button(body.transform, art, "Close settings", "icon_close", Local(GameLayout.CloseButton), () => presentation.Close(root.CloseSettings));
-            var sound = GameUI.Button(body.transform, art, "Toggle mute", "icon_sound_on", Local(GameLayout.SoundButton), ToggleMute);
+            panelSurface = body;
+            ribbon = GameUI.Fit(body.transform, "Settings ribbon", art.Get("ribbon_green"), new Vector2(384, 34), new Vector2(570, 166));
+            var sound = GameUI.Button(body.transform, art, "Toggle mute", "icon_sound_on", ControlBounds(0), ToggleMute);
+            ((GameButton)sound).SetDisabledAppearance(false);
             soundIcon = sound.transform.GetChild(0).GetComponent<Image>();
-            restart = GameUI.Button(body.transform, art, "Restart level", "icon_undo", Local(GameLayout.RestartButton), () => presentation.Close(root.Restart));
-            map = GameUI.Button(body.transform, art, "Return to map", "icon_home", Local(GameLayout.ReturnMapButton), () => presentation.Close(root.OpenMap));
+            restart = GameUI.Button(body.transform, art, "Restart level", "icon_undo", ControlBounds(1), () => Close(root.Restart));
+            map = GameUI.Button(body.transform, art, "Return to map", "icon_home", ControlBounds(2), () => Close(root.OpenMap));
+            ((GameButton)restart).SetDisabledAppearance(false);
+            ((GameButton)map).SetDisabledAppearance(false);
+            // The close control is created last so it also wins overlapping UI raycasts.
+            var close = GameUI.Button(body.transform, art, "Close settings", "icon_close", new Rect(648, -24, 120, 120), () => Close(root.CloseSettings));
+            ((GameButton)close).SetDisabledAppearance(false);
             gameObject.SetActive(false);
         }
-        private static Rect Local(Rect rect) => new Rect(rect.position - PanelBounds.position, rect.size);
+        private static Rect ControlBounds(int index) => new Rect(88 + index * 206, 124, 180, 180);
         public void Show()
         {
-            presentation.Cancel(); transform.SetAsLastSibling(); gameObject.SetActive(true);
-            restart.gameObject.SetActive(!root.IsMap); map.gameObject.SetActive(!root.IsMap); RefreshSound();
-            presentation.Begin(dim); presentation.Swing(rig); presentation.ButtonsLast(rig, 0.65f);
+            motion.CancelAll(); closing = false;
+            restart.interactable = map.interactable = !root.IsMap;
+            panelFade.interactable = panelFade.blocksRaycasts = true;
+            panelFade.alpha = 1;
+            transform.SetAsLastSibling(); gameObject.SetActive(true);
+            RefreshSound();
+            // The scrim is never faded in: the board must already be dim on the first modal frame.
+            dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha);
+            Pose(GameMotion.Instant ? 1 : 0);
+            motion.Play(0.18f, Pose, ease: Ease.OutCubic);
+        }
+        private void Pose(float progress)
+        {
+            rig.localScale = Vector3.one * Mathf.Lerp(0.92f, 1, progress);
+            // Fade the panel artwork, not the controls: all four buttons are opaque from frame one.
+            panelSurface.color = ribbon.color = new Color(1, 1, 1, Mathf.Lerp(0.35f, 1, progress));
+        }
+        private void Close(Action complete)
+        {
+            if (closing) return;
+            closing = true; motion.CancelAll();
+            panelFade.interactable = false;
+            float alpha = panelFade.alpha, scale = rig.localScale.x, shade = dim.color.a;
+            motion.Play(0.12f, t =>
+            {
+                rig.localScale = Vector3.one * Mathf.Lerp(scale, 0.92f, t);
+                panelFade.alpha = alpha * (1 - t);
+                dim.color = new Color(0, 0, 0, shade * (1 - t));
+            }, complete, ease: Ease.InCubic);
         }
         public void Hide()
         {
-            if (presentation != null) presentation.Cancel();
+            if (motion != null) motion.CancelAll();
+            closing = false;
             gameObject.SetActive(false);
         }
-        private void OnDisable() { if (presentation != null) presentation.Cancel(); }
+        private void OnDisable() { if (motion != null) motion.CancelAll(); }
         private void ToggleMute() { root.SetMuted(!root.Muted); RefreshSound(); }
         private void RefreshSound() => soundIcon.sprite = art.Icon(root.Muted ? "icon_sound_off" : "icon_sound_on");
     }
