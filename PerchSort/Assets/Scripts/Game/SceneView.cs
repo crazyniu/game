@@ -41,9 +41,14 @@ namespace PerchSort.Game
         public void PlaceLighting(Transform board) => night.rectTransform.SetParent(board, false);
         public void SetLevel(BoardState state)
         {
-            SetWorld(state.World, state.Variant, state.Phase);
+            int rows = (state.Branches.Count + 1) / 2;
+            foreach (var branch in state.Branches) rows = Mathf.Max(rows, branch.Row + 1);
+            BuildWorld(state.World, state.Variant, state.Phase, rows);
         }
         public void SetWorld(int world, string variant = "noon", DayPhase lighting = DayPhase.Day)
+            => BuildWorld(world, variant, lighting, 2);
+
+        private void BuildWorld(int world, string variant, DayPhase lighting, int rows)
         {
             Cancel();
             background.sprite = art.Background(world, variant);
@@ -55,7 +60,9 @@ namespace PerchSort.Game
             {
                 bool right = side == 1;
                 Rect wood = GameLayout.WorldTrunk(world, right), leaves = GameLayout.WorldCrown(world, right);
-                var stem = GameUI.Image(scenery, "Edge trunk", trunk, wood.center, wood.size);
+                if (rows >= 3) ClearFirstRow(ref wood, ref leaves, right, rows);
+                var stem = GameUI.Rect(scenery, "Edge trunk", wood.center, wood.size).gameObject.AddComponent<ForestTrunkImage>();
+                stem.sprite = trunk; stem.raycastTarget = false;
                 var foliage = GameUI.Image(scenery, "Leaf crown", crown, leaves.center, leaves.size);
                 if (right)
                 {
@@ -67,6 +74,20 @@ namespace PerchSort.Game
             phaseTarget = lighting == DayPhase.Night ? 1 : 0;
             night.color = new Color(1, 1, 1, phaseTarget);
             ambient.SetWorld(world, variant, lighting == DayPhase.Night, leftCrown, rightCrown);
+        }
+        private static void ClearFirstRow(ref Rect wood, ref Rect leaves, bool right, int rows)
+        {
+            float attachmentY = wood.y + 35;
+            float attachmentX = right ? GameLayout.DesignWidth - 25 : 25;
+            float scale = leaves.width > 400 ? 0.72f : 1;
+            float crownBottom = GameLayout.RowY(0, rows) - GameLayout.BirdSize * GameLayout.BirdScale(rows) * 1.1f - 16;
+            float rootOffset = (attachmentY - leaves.y) * scale;
+            leaves.x = attachmentX + (leaves.x - attachmentX) * scale;
+            leaves.size *= scale;
+            // Clear the full first-row bird silhouette, with breathing and crown-sway headroom.
+            leaves.y = Mathf.Min(leaves.y, crownBottom - leaves.height);
+            wood.y = leaves.y + rootOffset - 35;
+            wood.height = GameLayout.DesignHeight - wood.y + 80;
         }
         public void Entrance(float alpha)
         {
@@ -97,5 +118,32 @@ namespace PerchSort.Game
         }
         private void OnDisable() => Cancel();
         private void OnDestroy() => Cancel();
+    }
+
+    // Bend and taper the existing bark texture into the crown's attachment, without new art.
+    internal sealed class ForestTrunkImage : Image
+    {
+        protected override void OnPopulateMesh(VertexHelper mesh)
+        {
+            mesh.Clear();
+            if (sprite == null) return;
+            Rect rect = GetPixelAdjustedRect();
+            Vector4 uv = UnityEngine.Sprites.DataUtility.GetOuterUV(sprite);
+            const int segments = 32;
+            for (int i = 0; i <= segments; i++)
+            {
+                float t = i / (float)segments;
+                float halfWidth = rect.width * Mathf.Lerp(0.2f, 0.425f, t);
+                float bend = 25 * (1 - t) * (1 - t) - 10 * t;
+                float y = Mathf.Lerp(rect.yMax, rect.yMin, t);
+                float textureY = Mathf.Lerp(uv.w, uv.y, t);
+                mesh.AddVert(new Vector3(bend - halfWidth, y, 0), color, new Vector2(uv.x, textureY));
+                mesh.AddVert(new Vector3(bend + halfWidth, y, 0), color, new Vector2(uv.z, textureY));
+                if (i == 0) continue;
+                int previous = (i - 1) * 2;
+                mesh.AddTriangle(previous, previous + 1, previous + 3);
+                mesh.AddTriangle(previous, previous + 3, previous + 2);
+            }
+        }
     }
 }
