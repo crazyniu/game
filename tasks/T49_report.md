@@ -57,3 +57,7 @@ Completed 17 frames, portrait, QA strip, GIF and game-size sheet. Head features 
 ## Ember checkpoint — 2026-11-04
 
 Completed 17 frames and portrait with strip, GIF and game-size QA. Flame crest and brows checked against K7 before expansion. Corrected sleep to folded wings and shortened the stretch wing to avoid edge clipping without shrinking the torso. Reviewed all poses at game size; 119 aligned frames, none clipped. Runtime not run.
+
+## Inky checkpoint and ownership update — 2026-11-04
+
+Completed 17 Inky frames and portrait, strip, GIF and game-size review. Preserved swept crest, brows and white chest star. 136 aligned frames, none clipped. Codex is now coordinator. Eggs and mama/chick overlays transferred to mac-art; mac-birds created none and will not edit them. Remaining owned work: Hoot, Rook and final bird QA. No tests or Unity.
