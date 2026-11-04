@@ -29,8 +29,7 @@ namespace PerchSort.Game
                 image.sprite = state == SelectionState.Pressed && PressedSprite != null ? PressedSprite : RestSprite;
             bool dim = !enabled && dimWhenDisabled;
             group.alpha = dim ? GameLayout.DisabledAlpha : 1;
-            float scale = dim ? GameLayout.DisabledScale :
-                state == SelectionState.Pressed ? GameLayout.ButtonPressScale : 1;
+            float scale = enabled && state == SelectionState.Pressed ? GameLayout.ButtonPressScale : 1;
             if (instant || !enabled || !gameObject.activeInHierarchy)
             {
                 transform.localScale = Vector3.one * scale;

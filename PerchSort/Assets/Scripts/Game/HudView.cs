@@ -28,15 +28,20 @@ namespace PerchSort.Game
         private bool contextMechanic;
         private int toolCount = 3;
         private bool tutorialLevel;
-        private Rect ToolBounds(int index) => tutorialLevel && index == 0
-            ? GameLayout.Centered(GameLayout.ToolButton(0).center, Vector2.one * 64)
-            : GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
+        private Rect ToolBounds(int index)
+        {
+            Rect bounds = GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
+            Vector2 size = tutorialLevel ? Vector2.one * 64 : GameLayout.ToolButton(0, toolCount).size;
+            return GameLayout.Centered(bounds.center, size);
+        }
         private RectTransform coinPlate;
         private CanvasGroup coinFade, gearFade, toolFade;
         private Rect headerBounds = CoinCanvas(GameLayout.CoinPill), gearBounds = GameLayout.SettingsButton;
-        private Rect coinTextBounds = GameLayout.Screen("level_k3", "coin_number_text");
-        private static Rect CoinCanvas(Rect visible) => new Rect(visible.x - visible.width * 12 / 295,
-            visible.y - visible.height * 3 / 122, visible.width * 320 / 295, visible.height * 128 / 122);
+        private Rect coinTextBounds = CoinText(CoinCanvas(GameLayout.CoinPill));
+        // Keep the whole 320x128 sprite proportional and clear of suspension ropes and leaves.
+        private static Rect CoinCanvas(Rect visible) => new Rect(40, visible.y + 8, 232, 232 * 128f / 320);
+        private static Rect CoinText(Rect canvas) => new Rect(canvas.x + canvas.width * 142 / 320,
+            canvas.y + canvas.height * 32 / 128, canvas.width * 152 / 320, canvas.height * 60 / 128);
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public BoosterKind ContextBooster => kinds[3];
         public Transform HomeFlightLayer => homeFlights;
@@ -75,15 +80,17 @@ namespace PerchSort.Game
         public static TextMeshProUGUI CoinHeader(Transform parent, GameArt art, TMP_FontAsset font, bool map = false)
         {
             Rect bounds = map ? GameLayout.Screen("map", "coin_pill") : GameLayout.CoinPill;
-            Rect canvas = map ? bounds : CoinCanvas(bounds);
-            if (map) GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
-            else GameUI.Image(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
-            Rect text = map ? new Rect(bounds.x + bounds.width * 142 / 320, bounds.y + bounds.height * 32 / 128,
-                bounds.width * 140 / 320, bounds.height * 60 / 128) : GameLayout.Screen("level_k3", "coin_number_text");
-            float size = map ? GameLayout.CoinFontSize : 56;
-            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, size);
-            if (!map) label.color = new Color32(95, 22, 6, 255);
-            label.enableAutoSizing = true; label.fontSizeMin = GameLayout.CoinMinimumFontSize; label.fontSizeMax = size; return label;
+            Rect canvas = CoinCanvas(bounds);
+            GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
+            Rect text = CoinText(canvas);
+            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, GameLayout.CoinFontSize);
+            label.color = new Color32(95, 22, 6, 255);
+            label.margin = new Vector4(8, 0, 8, 0);
+            label.textWrappingMode = TextWrappingModes.NoWrap;
+            label.enableAutoSizing = true;
+            label.fontSizeMin = GameLayout.CoinMinimumFontSize;
+            label.fontSizeMax = GameLayout.CoinFontSize;
+            return label;
         }
         public void SetLevel(BoardState state)
         {
@@ -101,7 +108,7 @@ namespace PerchSort.Game
             headerBounds = CoinCanvas(header); gearBounds = gear;
             var coinRect = (RectTransform)transform.Find("Coin pill");
             coinRect.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y); coinRect.sizeDelta = headerBounds.size;
-            coinTextBounds = GameLayout.Screen(screen, "coin_number_text");
+            coinTextBounds = CoinText(headerBounds);
             coins.rectTransform.anchoredPosition = new Vector2(coinTextBounds.center.x, -coinTextBounds.center.y);
             coins.rectTransform.sizeDelta = coinTextBounds.size;
             var gearRect = (RectTransform)settings.transform;
@@ -148,8 +155,7 @@ namespace PerchSort.Game
                 icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio;
                 if (i > 0)
                 {
-                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7",
-                        i == 1 ? "hint_count" : "branch_plus_count");
+                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7", "hint_count");
                     Vector2 size = Vector2.one * (toolCount == 3 ? 46 : 50);
                     badges[i].rectTransform.anchoredPosition = new Vector2(bounds.width * 0.82f, bounds.y - badge.center.y);
                     badges[i].rectTransform.sizeDelta = size;
