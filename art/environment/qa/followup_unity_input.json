@@ -909,5 +909,17 @@
   "PerchSort/Assets/Resources/World/branch_limb_w2.png.meta": "1d0fdfbe4a6f2686576759998c372275694dd8bbf3237fdb19b61ad57a7d9d0b",
   "PerchSort/Assets/Resources/World/twig_limb_w4.png.meta": "639f3a7bdba319af4878fc92016babf06ac185e5e19802e912fbed51459d964e",
   "PerchSort/Assets/Resources/World/twig_limb_w1.png.meta": "215c3409b18440b1765317afb8923895f90e333573b0c315d372bead8fdbc258",
-  "PerchSort/Assets/Resources/World/branch_limb_w1.png.meta": "a4be7c21b317441f05319c45fef57a909844c8f6677dfab9dad9f11157b2e432"
+  "PerchSort/Assets/Resources/World/branch_limb_w1.png.meta": "a4be7c21b317441f05319c45fef57a909844c8f6677dfab9dad9f11157b2e432",
+  "PerchSort/Assets/Resources/World/gate_arch_frame_w1.png.meta": "28070d0f7a35dad216f8e0e2b628db8587fb3c44bded484d2a6c93b7d7e9bf93",
+  "PerchSort/Assets/Resources/World/gate_door_left_w1.png.meta": "7848f6a36f72d4e71eab366ceeda6085999c5f4b8c103cdc8a74aeb205331df4",
+  "PerchSort/Assets/Resources/World/gate_door_right_w1.png.meta": "7a378af8005aa8b9738ba8467860c88c2b556bc4e18662d6e611141eda995dcc",
+  "PerchSort/Assets/Resources/World/gate_light_w1.png.meta": "672cbf6b6ac7563d829091211e41dadf4cbbe358a20184aef2c2b2a1682453d9",
+  "PerchSort/Assets/Resources/World/gate_arch_frame_w2.png.meta": "d48ef58bbddfc5eb918d1b829d712db87dfc4622a3a93d1d80659ed6aba68b83",
+  "PerchSort/Assets/Resources/World/gate_door_left_w2.png.meta": "06948c0760f9dad1aaa361573b87ba3af74f9fbd7fd6799ed819ac16c44e2033",
+  "PerchSort/Assets/Resources/World/gate_door_right_w2.png.meta": "c77adcfb9dde6e3af677318bda443c43c65fbae2f6bbb21e900962466737f9b2",
+  "PerchSort/Assets/Resources/World/gate_light_w2.png.meta": "dcd8e475c620edc1cf8fb06dc1c81c97651ad79f9653109932af4688a70c9ffb",
+  "PerchSort/Assets/Resources/World/gate_arch_frame_w3.png.meta": "397f0f7ebd73877cbd77093df4e2777a4536231978ca9f4b94faea1b7c391708",
+  "PerchSort/Assets/Resources/World/gate_door_left_w3.png.meta": "2af968bc8121b93a17fa6fa86483ce39d615c670f6c8729ad4f045c2b9358211",
+  "PerchSort/Assets/Resources/World/gate_door_right_w3.png.meta": "608ff6cc015a741ca37faf903986d9425c0a606fe22bc1ab8656ec8ad8ce22a8",
+  "PerchSort/Assets/Resources/World/gate_light_w3.png.meta": "53795c7d8536742f69f6f7068d24d6ce347c20b7940d89812b702442d7a07669"
 }
