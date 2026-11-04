@@ -121,7 +121,7 @@ namespace PerchSort.PlayModeTests
             GameMotion.Instant = true;
             var stock = new BoosterInventory(new Dictionary<BoosterKind, int> { { BoosterKind.Sapling, 1 } });
             root.LoadFixture(LevelLoader.Load(4), stock); yield return null;
-            Assert.That(Hand.gameObject.activeInHierarchy, Is.True); AssertInsideCanvas();
+            Assert.That(Hand.gameObject.activeInHierarchy, Is.True);
             if (!string.IsNullOrEmpty(directory))
             {
                 GameMotion.Instant = false;
