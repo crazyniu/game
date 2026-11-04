@@ -43,6 +43,8 @@ STORAGE_LITERALS = {
         "v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.1",
         "v5.bestStars.10", "v5.bestStars.9", "v5.bestStars.", "v5.tutorial.7",
         "v5.booster.0", "v5.booster.1", "v5.booster.5", "v5.starter.0",
+        # Historical ignored Song data is retained only by this migration regression.
+        "v5.songNotes", "v5.songPayouts",
     },
 }
 

@@ -36,9 +36,9 @@ All paths below are relative to `PerchSort/Assets/`:
 | `Scripts/Game/ProgressStore.cs` | `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.`, `v5.tutorial.`, `v5.booster.`, `v5.starter.`, `v5.bestMoves.`, `v6.unlockSeen.`, `v7.notifications` |
 | `Scripts/Meta/ProfileText.cs` | `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.`, `v5.tutorial.`, `v5.booster.`, `v5.starter.` |
 | `Tests/Meta/CollectionProgressionTests.cs` | `v5.highestUnlocked`, `v5.starter.0`, `v5.booster.0` |
-| `Tests/Meta/ProfileEconomyTests.cs` | `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.1`, `v5.bestStars.10`, `v5.bestStars.9`, `v5.bestStars.`, `v5.tutorial.7`, `v5.booster.0`, `v5.booster.1`, `v5.booster.5`, `v5.starter.0` |
+| `Tests/Meta/ProfileEconomyTests.cs` | `v5.coins`, `v5.muted`, `v5.highestUnlocked`, `v5.bestStars.1`, `v5.bestStars.10`, `v5.bestStars.9`, `v5.bestStars.`, `v5.tutorial.7`, `v5.booster.0`, `v5.booster.1`, `v5.booster.5`, `v5.starter.0`, `v5.songNotes`, `v5.songPayouts` |
 
-The numbered test literals are exact existing examples of the authorized prefix-based stored IDs. Old `Tests/V5/...` paths are deliberately not exempt. These owners/literals were enumerated from current runtime source and C's canonical test migration read-only. C's initially retained `v5.songNotes` and `v5.songPayouts` are outside the authorized list; D reports them rather than expanding exceptions.
+The numbered test literals are exact existing examples of historical stored IDs. Old `Tests/V5/...` paths are deliberately not exempt. These owners/literals were enumerated from current runtime source and C's canonical test migration read-only. Coordinator decision `msg_0f617bd7f741` confirms that `v5.songNotes` and `v5.songPayouts` are actual historical save identifiers proving migration ignores obsolete Song data. Preserve `LegacyMigrationUsesActualKeysAndIgnoresObsoleteSongKeys` unchanged. Precisely those two literals are allowed only in canonical `Tests/Meta/ProfileEconomyTests.cs`, never runtime or another file; this does not authorize new storage labels or numbered implementation names.
 
 ## Layout provenance change
 
@@ -51,10 +51,10 @@ Use disposable Git repositories, not another task's working tree, to exercise th
 1. Reject numbered directories/files, including case-insensitive prefixes and suffixes.
 2. Reject numbered C# classes/namespaces and assembly identities.
 3. Reject versioned resource paths and serialized scene roots.
-4. Accept canonical names and every exact compatibility literal in its actual owner.
+4. Accept canonical names and every exact compatibility literal in its actual owner, including both historical Song IDs only in canonical `Tests/Meta/ProfileEconomyTests.cs`; reject those IDs in runtime and every other file.
 5. Reject a numbered class or resource path even beside an accepted literal in a storage-owner file. Reject unknown/case-altered/misowned storage strings.
 6. Preserve legitimate numeric schema/dependency/release format values and excluded historical/vendor material; do not scan PNG payloads.
 7. Read modified current working-tree text instead of stale indexed bytes.
 8. Detect forbidden content and filenames in real sparse checkout via tracked Git objects, then accept canonical omitted files.
 
-An initial failure on D's accepted-A/B base is expected until C integrates; do not exempt Editor/Tests/Scenes to conceal it. Report observed failures and remaining integration boundaries honestly. Deliver the isolated branch and final SHA to the current coordinator through the verified Mac-to-251 status route. Coordinator acceptance plus Mac testing after integration are required; static D evidence is not Unity/runtime acceptance.
+The original D accepted-A/B worker-base failure predates C integration; do not exempt Editor/Tests/Scenes to conceal it. The coordinator reports C is now integrated and a separate SafeArea compile ambiguity has been fixed; D does not rerun Unity. Report historical observations separately from current integration evidence. Deliver the isolated branch and final SHA to the current coordinator through the verified Mac-to-251 status route. Coordinator acceptance plus Mac testing after integration are required; static D evidence is not Unity/runtime acceptance.
