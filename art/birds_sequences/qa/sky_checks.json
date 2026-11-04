@@ -2,6 +2,11 @@
   "species": "sky",
   "runtime_frames": 38,
   "metadata": 38,
+  "toe_baseline_range": [
+    299,
+    301
+  ],
+  "import_settings": "identical to sunny_idle except identities",
   "sequences": [
     {
       "sequence": "flap",

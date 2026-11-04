@@ -56,6 +56,8 @@ for animation in animations:
     # Exclude the preceding cell's feather-tip spill from this sheet's empty gutter.
     if species == 'sky' and animation == 'flap':
         cells[4] = cells[4].crop((5, 0, cw, ch))
+    if species == 'berry' and animation == 'cheer':
+        cells[1] = cells[1].crop((10, 0, cw, ch))
     anchor = feet(cells[0])
     scale = (ref_feet[2] - ref_feet[0]) / (anchor[2] - anchor[0])
     frames = []
