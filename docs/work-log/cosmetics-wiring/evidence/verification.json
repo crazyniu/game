@@ -1,0 +1,87 @@
+{
+  "build/test-results.xml": {
+    "run": {
+      "id": "2",
+      "testcasecount": "317",
+      "result": "Passed",
+      "total": "317",
+      "passed": "317",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-04 20:48:28Z",
+      "end-time": "2026-11-04 20:48:40Z",
+      "duration": "12.124012"
+    },
+    "failures": []
+  },
+  "build/playmode-results.xml": {
+    "run": {
+      "id": "2",
+      "testcasecount": "74",
+      "result": "Failed(Child)",
+      "total": "74",
+      "passed": "72",
+      "failed": "2",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-04 20:48:46Z",
+      "end-time": "2026-11-04 20:51:29Z",
+      "duration": "163.2495862"
+    },
+    "failures": [
+      {
+        "test": "PerchSort.PlayModeTests.GameplayTests.SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending",
+        "message": "  Expected: (720.00, -1802.00)\n  But was:  (720.00, -1764.80)\n",
+        "stack": "at PerchSort.PlayModeTests.GameplayTests+<SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending>d__27.MoveNext () [0x00072] in /Users/apple/orca/workspaces/game/cosmetics-wiring/PerchSort/Assets/Tests/PlayMode/GameplayTests.cs:324\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52\n"
+      },
+      {
+        "test": "PerchSort.PlayModeTests.IllegalMoveFeedbackTests.MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately",
+        "message": "  Expected: null\n  But was:  <mint_turn_left_01 (UnityEngine.Sprite)>\n",
+        "stack": "at PerchSort.PlayModeTests.IllegalMoveFeedbackTests+<MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately>d__13.MoveNext () [0x00039] in /Users/apple/orca/workspaces/game/cosmetics-wiring/PerchSort/Assets/Tests/PlayMode/IllegalMoveFeedbackTests.cs:158\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52\n"
+      }
+    ]
+  },
+  "build/cosmetics-results.xml": {
+    "run": {
+      "id": "2",
+      "testcasecount": "4",
+      "result": "Passed",
+      "total": "4",
+      "passed": "4",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-04 20:51:36Z",
+      "end-time": "2026-11-04 20:51:42Z",
+      "duration": "6.1463917"
+    },
+    "cases": [
+      {
+        "test": "PerchSort.PlayModeTests.CosmeticsTests.EveryHouseUsesSelectedStyleWithoutChangingDeliveryOrUndo",
+        "result": "Passed"
+      },
+      {
+        "test": "PerchSort.PlayModeTests.CosmeticsTests.InsufficientCoinsAndUnownedEquipmentLeaveSavedStateUntouched",
+        "result": "Passed"
+      },
+      {
+        "test": "PerchSort.PlayModeTests.CosmeticsTests.OutfitSelectionIsPerSpeciesAndDetailToggleRestoresAnimatedDefault",
+        "result": "Passed"
+      },
+      {
+        "test": "PerchSort.PlayModeTests.CosmeticsTests.PurchasesDeductExactPricesAndPersistImmediately",
+        "result": "Passed"
+      }
+    ]
+  }
+}
