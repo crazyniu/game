@@ -1,0 +1,746 @@
+[
+  {
+    "name": "sunny_flight_takeoff_01",
+    "source": "sunny_flight_takeoff.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      -10,
+      -5
+    ],
+    "visible_bounds": [
+      44,
+      88,
+      265,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "7883b133bc1ad7ed9600082cc003863c1588404b75fb07a21b6b4c84ae05c2fd"
+  },
+  {
+    "name": "sunny_flight_takeoff_02",
+    "source": "sunny_flight_takeoff.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      21,
+      9
+    ],
+    "visible_bounds": [
+      43,
+      60,
+      313,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "2f714a763905a59d9b5a8a26b327dd631f763e9e4c918ec6801ec7156b95dc81"
+  },
+  {
+    "name": "sunny_flight_takeoff_03",
+    "source": "sunny_flight_takeoff.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      3,
+      34
+    ],
+    "visible_bounds": [
+      34,
+      70,
+      299,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "99ca267373f670b3dcf3dae3227143097fc37f8eebb0b8db4ae554357c712cbf"
+  },
+  {
+    "name": "sunny_flight_flap_01",
+    "source": "sunny_flight_flap_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      6,
+      31
+    ],
+    "visible_bounds": [
+      48,
+      66,
+      284,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "bd08320a074cf357c6766485a053acf64ef7a0b91d789cb19eb5e8cda24ff171"
+  },
+  {
+    "name": "sunny_flight_flap_02",
+    "source": "sunny_flight_flap_downstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      6,
+      31
+    ],
+    "visible_bounds": [
+      43,
+      66,
+      296,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "722d9bbbc2bbacb59b02e321669b636cc475c4ab2aedbb4ddaa2bf385fb192e0"
+  },
+  {
+    "name": "sunny_flight_flap_03",
+    "source": "sunny_flight_flap_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      6,
+      31
+    ],
+    "visible_bounds": [
+      53,
+      66,
+      283,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b43c93ddbf09ee8bc95bed2e6e4e0596542f928f49ff1ab48dd330a6e6c88415"
+  },
+  {
+    "name": "sunny_flight_flap_04",
+    "source": "sunny_flight_flap_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      5,
+      30
+    ],
+    "visible_bounds": [
+      54,
+      63,
+      295,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "4a4e69f3ce2330dcba870af83fee2806daf91edae6bc3a3ca3a33b31291c3228"
+  },
+  {
+    "name": "sunny_flight_flap_05",
+    "source": "sunny_flight_flap_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      6,
+      30
+    ],
+    "visible_bounds": [
+      51,
+      63,
+      290,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "ca993ce4513178d23225021b845e13dee95597d26f11ca078b1c3ae8a5bc6396"
+  },
+  {
+    "name": "sunny_flight_flap_06",
+    "source": "sunny_flight_flap_compact.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      6,
+      30
+    ],
+    "visible_bounds": [
+      49,
+      63,
+      301,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c9211b7d1ee51144435ac1f174856079c9beee505e31171b707b4c160376ad0e"
+  },
+  {
+    "name": "sunny_flight_land_01",
+    "source": "sunny_flight_land.png",
+    "cell_bounds": [
+      0,
+      0,
+      825,
+      724
+    ],
+    "scale": 0.385,
+    "offset": [
+      -6,
+      62
+    ],
+    "visible_bounds": [
+      2,
+      74,
+      309,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "f41367c78342ec800cae9c1066a5e65911ece9bcd630bae9df17f374514c830d"
+  },
+  {
+    "name": "sunny_flight_land_02",
+    "source": "sunny_flight_land.png",
+    "cell_bounds": [
+      825,
+      0,
+      1510,
+      724
+    ],
+    "scale": 0.385,
+    "offset": [
+      16,
+      51
+    ],
+    "visible_bounds": [
+      19,
+      66,
+      267,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "46b94c7fc6ecd8f7ab03d32e05f435f7b711610b71942b47a43d0a7150d7059b"
+  },
+  {
+    "name": "sunny_flight_land_03",
+    "source": "sunny_flight_land.png",
+    "cell_bounds": [
+      1510,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.385,
+    "offset": [
+      20,
+      52
+    ],
+    "visible_bounds": [
+      58,
+      75,
+      248,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "1c2105c9673d543eb2ef809344a8e91994a535883f3bc8f66b84fd506a067019"
+  },
+  {
+    "name": "sunny_flight_takeoff_l_01",
+    "source": "sunny_flight_takeoff_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      11,
+      2
+    ],
+    "visible_bounds": [
+      69,
+      84,
+      283,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c6a978142869ae186a2820bfaca5b8a1ca3b6eeee9df6ae9adaae8524590482d"
+  },
+  {
+    "name": "sunny_flight_takeoff_l_02",
+    "source": "sunny_flight_takeoff_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      -12,
+      10
+    ],
+    "visible_bounds": [
+      28,
+      57,
+      260,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "703665542912ffaa440b85b8ee3c5f9676d95d692c0edc87d84987ea3d278993"
+  },
+  {
+    "name": "sunny_flight_takeoff_l_03",
+    "source": "sunny_flight_takeoff_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      4,
+      41
+    ],
+    "visible_bounds": [
+      43,
+      73,
+      289,
+      304
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "aaab5858b510607ee4808f972f64792368cfa30e456823462d03e9c4702d5328"
+  },
+  {
+    "name": "sunny_flight_flap_l_01",
+    "source": "sunny_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      12,
+      29
+    ],
+    "visible_bounds": [
+      63,
+      63,
+      277,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "49ede372c26d26f7c3321b1c49d03d02398c7d74d35ebb3391a167ccd1a791ed"
+  },
+  {
+    "name": "sunny_flight_flap_l_02",
+    "source": "sunny_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      12,
+      29
+    ],
+    "visible_bounds": [
+      30,
+      64,
+      312,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "3142425f36b7fc20178eb785c614e1c4e61923793ecedc1383a565a427a2aaf3"
+  },
+  {
+    "name": "sunny_flight_flap_l_03",
+    "source": "sunny_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      14,
+      29
+    ],
+    "visible_bounds": [
+      52,
+      64,
+      263,
+      319
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "ddb2905bef20ade5fb22ad0545aae6a5d3b9d8471020c26ddd945aed6d5750b0"
+  },
+  {
+    "name": "sunny_flight_flap_l_04",
+    "source": "sunny_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      17,
+      28
+    ],
+    "visible_bounds": [
+      44,
+      62,
+      271,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "bd5946f62bf8c1c77a53e234b2a1fad7d2fb6512618db3c17473244fa9d2d669"
+  },
+  {
+    "name": "sunny_flight_flap_l_05",
+    "source": "sunny_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      17,
+      28
+    ],
+    "visible_bounds": [
+      51,
+      63,
+      275,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "07f86a364e924057a21dd1b8e5331677ea6fec6be3a89018b714fd2fe7aa55ca"
+  },
+  {
+    "name": "sunny_flight_flap_l_06",
+    "source": "sunny_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      17,
+      28
+    ],
+    "visible_bounds": [
+      19,
+      63,
+      316,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "7e2478f669a762af83f7dc44b7b62701fb2089c3eac960b430873d1099fe6b90"
+  },
+  {
+    "name": "sunny_flight_land_l_01",
+    "source": "sunny_flight_land_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      5,
+      33
+    ],
+    "visible_bounds": [
+      34,
+      80,
+      300,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "70eb765cedf780361e4decf22e1eb55ad6ffeff2fc94ad48dbe16c0ce40e3874"
+  },
+  {
+    "name": "sunny_flight_land_l_02",
+    "source": "sunny_flight_land_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      35,
+      10
+    ],
+    "visible_bounds": [
+      66,
+      59,
+      304,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "6362118a9394f42aa9fc0b8cca79a570792e62f2b4cfe4a23fe96e6b81238e26"
+  },
+  {
+    "name": "sunny_flight_land_l_03",
+    "source": "sunny_flight_land_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.445,
+    "offset": [
+      29,
+      13
+    ],
+    "visible_bounds": [
+      90,
+      69,
+      274,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "2f49844152bbaa447cb05fd7a26b234053a9f1b97aa1d8ad5f77b3569f41af4b"
+  }
+]
