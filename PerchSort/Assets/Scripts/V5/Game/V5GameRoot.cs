@@ -17,7 +17,9 @@ namespace PerchSort.V5.Game
         private SettingsPanel settings;
         private V5Panels panels;
         private V7LevelEntrance entrance;
+        private V7LeafTransition leafTransition;
         private bool notificationsEnabled, notificationTransition;
+        private bool suspended, resumeWin;
         public IClock Clock { get; set; } = new PerchSort.V5.Meta.SystemClock();
         public V7Notification CurrentNotification => profile?.Notifications.Current;
         public bool IsIntroducing => entrance != null && entrance.IsPlaying;
@@ -28,6 +30,8 @@ namespace PerchSort.V5.Game
         private MusicPage previousMusic;
         private V5Profile profile;
         private int revision;
+        private int pendingWinReward, winCoinStart;
+        private bool winCountPending;
         private Action queuedTap;
         private Task<SolveResult> hintSearch;
         public GameSession Session { get; private set; }
@@ -51,7 +55,8 @@ namespace PerchSort.V5.Game
         public Camera RenderCamera { get; private set; }
         public Canvas Canvas { get; private set; }
         public bool IsReady => initialized;
-        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || IsIntroducing || notificationTransition;
+        private bool IsWiping => leafTransition != null && leafTransition.IsPlaying;
+        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || IsIntroducing || notificationTransition || IsWiping;
         public void ConfigureFont(TMP_FontAsset value) => font = value;
         private void Start() => Initialize();
 
@@ -85,6 +90,9 @@ namespace PerchSort.V5.Game
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<V5Panels>(design, "Information cards"); panels.Configure(this, art, font);
             entrance = Layer<V7LevelEntrance>(design, "Level entrance"); entrance.Configure(this);
+            var leafLayer = V5UI.Rect(Canvas.transform, "Leaf transition", Vector2.zero, V7Layout.DesignSize);
+            V5UI.Stretch(leafLayer);
+            leafTransition = leafLayer.gameObject.AddComponent<V7LeafTransition>(); leafTransition.Configure(art);
             hudInput = Hud.gameObject.AddComponent<CanvasGroup>();
             boardInput = Board.gameObject.AddComponent<CanvasGroup>();
             mapInput = Map.gameObject.AddComponent<CanvasGroup>();
@@ -113,7 +121,18 @@ namespace PerchSort.V5.Game
         }
         private void LoadDefinition(LevelDef level, bool starters)
         {
-            CancelPresentation(); rewardGranted = false;
+            bool fromMap = IsMap;
+            // Cancel before the wipe starts. Its covered rebuild must not invalidate its own completion.
+            CancelPresentation();
+            if (fromMap) Map.gameObject.SetActive(true);
+            ChangeSurface(() => BuildLevel(level, starters), () =>
+            {
+                if (starters && notificationsEnabled) BeginLevelEntrance();
+            }, fromMap);
+        }
+        private void BuildLevel(LevelDef level, bool starters)
+        {
+            rewardGranted = false; pendingWinReward = 0;
             IsMap = false; Map.Hide(); Board.gameObject.SetActive(true); Hud.gameObject.SetActive(true);
             if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
             Session = profile.CreateSession(level);
@@ -121,8 +140,8 @@ namespace PerchSort.V5.Game
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
             if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
+            if (level.id == profile.Notifications.DeferredLevel) profile.Notifications.TakeDeferredLevel();
             Refresh(); Save();
-            if (starters && notificationsEnabled) BeginLevelEntrance();
         }
         private static System.Collections.Generic.IEnumerable<string> LevelSpecies(BoardState state)
         {
@@ -131,8 +150,11 @@ namespace PerchSort.V5.Game
         private void BeginLevelEntrance()
         {
             profile.Notifications.BeginLevel(LevelId, LevelSpecies(Session.State)); IsBusy = true;
+            int token = ++revision; var session = Session;
+            Save(); Refresh();
             entrance.Play(() =>
             {
+                if (!PresentationCurrent(token) || Session != session) return;
                 IsBusy = false; profile.Notifications.FinishIntro(); Save(); PumpNotifications(); Refresh();
             });
         }
@@ -200,27 +222,44 @@ namespace PerchSort.V5.Game
             IsBusy = true; tutorial.Hide();
             var events = new GameEvent[Session.Events.Count];
             for (int i = 0; i < events.Length; i++) events[i] = Session.Events[i];
-            Save(); Refresh();
-            Board.Play(events, () => { FinishAction(); after?.Invoke(); });
+            CommitWin(); Save(); Refresh();
+            int token = revision; var session = Session;
+            bool finished = false;
+            Board.Play(events, () =>
+            {
+                if (!PresentationCurrent(token) || Session != session || finished) return;
+                finished = true;
+                FinishAction(); after?.Invoke();
+            });
+        }
+        private void CommitWin()
+        {
+            if (!Session.State.IsWon || rewardGranted) return;
+            rewardGranted = true; winCoinStart = Coins;
+            pendingWinReward = profile.Reward(LevelId, Session.Stars, Session.State.ChorusCoins);
+            profile.RecordBestMoves(LevelId, Session.MoveCount);
+            profile.Tutorials[LevelId] = true;
         }
         private void FinishAction()
         {
             Board.Settle(Session.State); IsBusy = false;
-            int reward = 0, before = Coins;
+            CommitWin();
+            int reward = pendingWinReward, before = winCoinStart;
+            pendingWinReward = 0; winCountPending = reward > 0;
             if (Session.State.IsWon)
             {
-                if (!rewardGranted)
+                PlaySound(Sfx.Win);
+                int after = Coins, token = revision; bool counted = false;
+                Win.Show(Session.Stars, reward, reward > 0 ? Session.State.ChorusCoins : 0, () =>
                 {
-                    rewardGranted = true; reward = profile.Reward(LevelId, Session.Stars, Session.State.ChorusCoins);
-                    profile.RecordBestMoves(LevelId, Session.MoveCount);
-                }
-                profile.Tutorials[LevelId] = true; PlaySound(Sfx.Win);
-                Win.Show(Session.Stars, reward, reward > 0 ? Session.State.ChorusCoins : 0);
+                    if (reward <= 0 || counted || !PresentationCurrent(token)) return;
+                    counted = true; winCountPending = false;
+                    Hud.CountCoins(before, after);
+                });
             }
             tutorial.ActionCompleted(Session);
             if (tutorial.Completed) profile.Tutorials[LevelId] = true;
             Save(); Refresh();
-            if (reward > 0) Hud.CountCoins(before, Coins);
             var next = queuedTap; queuedTap = null;
             if (!Session.State.IsWon) next?.Invoke();
         }
@@ -233,14 +272,14 @@ namespace PerchSort.V5.Game
         }
         public bool Undo()
         {
-            if (!initialized || IsMap || (Modal && !Win.IsOpen) || !Session.CanUndo) return false;
-            CancelPresentation(); Session.Undo(); profile.UndoAction(); Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
+            if (!initialized || IsMap || (Modal && !Win.IsOpen && !IsIntroducing && !IsWiping) || !Session.CanUndo) return false;
+            CancelPresentation(); pendingWinReward = 0; Session.Undo(); profile.UndoAction(); Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
             tutorial.DisableForAttempt(); PlaySound(Sfx.Undo); Save(); Refresh(); return true;
         }
         public void Restart()
         {
-            if (!initialized || IsMap) return;
-            CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; tutorial.DisableForAttempt();
+            if (!initialized || IsMap || (notificationTransition && !IsWiping) || CurrentNotification != null) return;
+            CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; pendingWinReward = 0; tutorial.DisableForAttempt();
             Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State); Save(); Refresh();
             if (notificationsEnabled) BeginLevelEntrance();
         }
@@ -312,15 +351,45 @@ namespace PerchSort.V5.Game
             if (!initialized || IsAirborne || IsIntroducing || notificationTransition || CurrentNotification != null) return;
             if (TryLeaveFinale(false)) return;
             if (Defer(OpenMap)) return;
-            CancelPresentation(); Save(); ShowMapSurface();
-            if (notificationsEnabled) { profile.Notifications.BeginMap(Clock); Save(); PumpNotifications(); }
-            Refresh();
+            bool fromLevel = !IsMap && Board.Branches.Count > 0;
+            CancelPresentation(); Save();
+            PresentMap(() => { PumpNotifications(); Refresh(); }, fromLevel);
         }
         private void ShowMapSurface()
         {
             IsMap = true; Session.CancelSelection();
             Board.gameObject.SetActive(false); Hud.gameObject.SetActive(false); tutorial.Hide();
             Map.Show(profile);
+        }
+        private void PresentMap(Action done, bool animate = true)
+        {
+            bool change = !IsMap;
+            ChangeSurface(() =>
+            {
+                ShowMapSurface();
+                if (notificationsEnabled) profile.Notifications.BeginMap(Clock);
+                Save();
+            }, done, animate && change);
+        }
+        private void ChangeSurface(Action covered, Action completed, bool animate)
+        {
+            if (!animate || !notificationsEnabled || !Application.isPlaying)
+            {
+                covered(); completed?.Invoke(); return;
+            }
+            int token = ++revision;
+            bool changed = false, finished = false;
+            notificationTransition = true; Refresh();
+            leafTransition.Play(() =>
+            {
+                if (!PresentationCurrent(token) || changed) return;
+                changed = true; covered();
+            }, () =>
+            {
+                if (!PresentationCurrent(token) || finished) return;
+                finished = true;
+                notificationTransition = false; completed?.Invoke(); Refresh();
+            });
         }
         private bool TryLeaveFinale(bool next)
         {
@@ -329,11 +398,15 @@ namespace PerchSort.V5.Game
         }
         private void PumpNotifications()
         {
-            if (!notificationsEnabled || !initialized || Modal || IsBusy) return;
+            if (!notificationsEnabled || !initialized || !isActiveAndEnabled || Modal || IsBusy) return;
+            if (!IsMap && profile.Notifications.NeedsMap && !profile.Notifications.HasWorldSequence)
+            {
+                PresentMap(PumpNotifications); return;
+            }
             var request = profile.Notifications.Next(IsMap);
             if (request == null)
             {
-                int next = IsMap ? profile.Notifications.TakeDeferredLevel() : 0;
+                int next = IsMap ? profile.Notifications.DeferredLevel : 0;
                 if (next > 0) LoadLevel(next);
                 return;
             }
@@ -341,14 +414,17 @@ namespace PerchSort.V5.Game
             if (request.Kind == V7NotificationKind.BoosterUnlock) panels.Unlock(request.Booster);
             else if (request.Kind == V7NotificationKind.WorldUnlock)
             {
-                ShowMapSurface(); profile.Notifications.BeginMap(Clock); Save();
-                notificationTransition = true; int token = revision; Refresh();
-                Map.UnlockGate(request.World, () =>
+                PresentMap(() =>
                 {
-                    if (!initialized || token != revision) return;
-                    notificationTransition = false;
-                    panels.Popup(V7PopupKind.WorldUnlock, "sunny", 0, () => AcknowledgeNotification(request), request.World);
-                    Refresh();
+                    if (!ReferenceEquals(CurrentNotification, request)) return;
+                    notificationTransition = true; int token = ++revision; Refresh();
+                    Map.UnlockGate(request.World, () =>
+                    {
+                        if (!PresentationCurrent(token) || !ReferenceEquals(CurrentNotification, request) || !notificationTransition) return;
+                        notificationTransition = false;
+                        panels.Popup(V7PopupKind.WorldUnlock, "sunny", 0, () => AcknowledgeNotification(request), request.World);
+                        Refresh();
+                    });
                 });
                 return;
             }
@@ -363,25 +439,36 @@ namespace PerchSort.V5.Game
         }
         public void AcknowledgeNotification(V7Notification request)
         {
-            if (!initialized || notificationTransition || !panels.IsOpen || !ReferenceEquals(CurrentNotification, request)) return;
+            if (!initialized || request == null || notificationTransition || !panels.IsOpen || !ReferenceEquals(CurrentNotification, request)) return;
             int before = Coins, reward = profile.Notifications.Acknowledge(request, Clock);
             panels.Hide(); Save(); Refresh();
             if (reward > 0 && IsMap)
             {
-                notificationTransition = true; int token = revision; Refresh();
+                notificationTransition = true; int token = ++revision; Refresh();
                 Map.CollectCoins(before, Coins, () =>
                 {
-                    if (!initialized || token != revision) return;
+                    if (!PresentationCurrent(token) || !notificationTransition) return;
                     notificationTransition = false; PumpNotifications(); Refresh();
                 });
                 return;
             }
-            if (reward > 0) Hud.CountCoins(before, Coins);
+            if (reward > 0)
+            {
+                notificationTransition = true; int token = ++revision; Refresh();
+                Hud.CountCoins(before, Coins, () =>
+                {
+                    if (!PresentationCurrent(token) || !notificationTransition) return;
+                    notificationTransition = false; PumpNotifications(); Refresh();
+                });
+                return;
+            }
             PumpNotifications(); Refresh();
         }
         public void OpenLevelCard(int id)
         {
             if (!initialized || !IsMap || Modal || !V6MapModel.Selectable(profile, id)) return;
+            Map.TryGetLevelCardOrigin(id, out Vector2 origin);
+            panels.SetLevelCardOrigin(origin);
             panels.LevelCard(id); Refresh();
         }
         public void OpenPopup(V7PopupKind kind, string species = "mint", int reward = 0)
@@ -415,7 +502,7 @@ namespace PerchSort.V5.Game
         private void Refresh()
         {
             bool blocked = IsAirborne || Modal;
-            Hud.Refresh(Session, Coins, blocked, IsBusy);
+            Hud.Refresh(Session, pendingWinReward > 0 || winCountPending ? winCoinStart : Coins, blocked, IsBusy);
             tutorial.Refresh(Session, Board, IsMap || IsBusy || Modal);
             SetRaycasts(hudInput, !blocked && !IsMap);
             SetRaycasts(boardInput, !Modal && !IsMap);
@@ -423,14 +510,43 @@ namespace PerchSort.V5.Game
             if (IsMap) Map.RefreshCoins(Coins);
         }
         private static void SetRaycasts(CanvasGroup group, bool enabled) => group.blocksRaycasts = group.interactable = enabled;
+        private bool PresentationCurrent(int token) => this != null && initialized && isActiveAndEnabled && token == revision;
         private void CancelPresentation()
         {
-            revision++; hintPending = false; queuedTap = null;
-            profile.Notifications.CancelPresentation(); notificationTransition = false; entrance.Cancel();
-            Board.Cancel(); Hud.Cancel(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Scene.Cancel(); IsBusy = false;
+            revision++; hintPending = false; queuedTap = null; winCountPending = false;
+            profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel(); entrance.Cancel();
+            Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Scene.Cancel(); IsBusy = false;
+        }
+        private void OnDisable()
+        {
+            if (!initialized) return;
+            suspended = true; resumeWin = Win.IsOpen;
+            Save(); CancelPresentation();
+        }
+        private void OnEnable()
+        {
+            if (!initialized || !suspended) return;
+            suspended = false;
+            if (IsMap)
+            {
+                ShowMapSurface();
+                if (notificationsEnabled) { profile.Notifications.BeginMap(Clock); Save(); PumpNotifications(); }
+            }
+            else
+            {
+                Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
+                if (Session.State.IsWon && (!rewardGranted || pendingWinReward > 0)) FinishAction();
+                else if (resumeWin) Win.Show(Session.Stars, 0, 0);
+                else if (notificationsEnabled && (profile.Notifications.NeedsMap || profile.Notifications.HasWorldSequence) && Session.State.IsWon)
+                    PumpNotifications();
+                else if (notificationsEnabled && !Session.State.IsWon) BeginLevelEntrance();
+                else if (Session.State.IsWon) Win.Show(Session.Stars, 0, 0);
+            }
+            Refresh();
         }
         private void OnDestroy()
         {
+            if (initialized && !suspended) CancelPresentation();
             initialized = false; revision++; art?.Dispose();
             if (audioManager == null) return;
             if (ownsAudio) V5UI.Dispose(audioManager.gameObject);

@@ -14,7 +14,9 @@ namespace PerchSort.V5.Game
         private TextMeshProUGUI coins, phaseCount, chorusLabel;
         private Image phaseIcon;
         private GameObject phaseGroup, feather, chorus;
-        private V5Motion motion;
+        private V5Motion motion, coinMotion;
+        private bool countingCoins;
+        private int coinRevision;
         private RectTransform housesLayer, homeFlights, effects, bottomBar;
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Button[] tools = new Button[4];
@@ -34,6 +36,7 @@ namespace PerchSort.V5.Game
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset font)
         {
             root = owner; art = assets; motion = gameObject.AddComponent<V5Motion>();
+            coinMotion = gameObject.AddComponent<V5Motion>();
             coins = CoinHeader(transform, art, font);
             settings = V5UI.Button(transform, art, "Settings", "icon_gear", V7Layout.SettingsButton, root.OpenSettings);
             coinPlate = (RectTransform)transform.Find("Coin pill");
@@ -145,8 +148,9 @@ namespace PerchSort.V5.Game
         }
         public void Refresh(GameSession session, int coinCount, bool blocked, bool presenting)
         {
-            coins.text = coinCount.ToString(); if (!presenting) SyncState(session.State);
-            bottomBar.gameObject.SetActive(!root.HasModal);
+            if (!countingCoins) coins.text = coinCount.ToString();
+            if (!presenting) SyncState(session.State);
+            bottomBar.gameObject.SetActive(!root.HasModal || root.IsIntroducing);
             tools[0].interactable = !blocked && session.CanUndo; settings.interactable = !blocked;
             for (int i = 1; i < tools.Length; i++)
             {
@@ -185,7 +189,20 @@ namespace PerchSort.V5.Game
                 image.rectTransform.anchoredPosition = new Vector2(p.x, -p.y); image.rectTransform.localScale = Vector3.one * (1 + 0.3f * Mathf.Sin(t * Mathf.PI));
             }, () => { V5UI.Dispose(image.gameObject); done(); });
         }
-        public void CountCoins(int from, int to) => motion.Play(0.65f, t => coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString());
+        public void CountCoins(int from, int to) => CountCoins(from, to, null);
+        public void CountCoins(int from, int to, Action done)
+        {
+            coinMotion.CancelAll(); countingCoins = true; coins.text = from.ToString();
+            int token = ++coinRevision;
+            coinMotion.Play(0.65f, t =>
+            {
+                if (token == coinRevision) coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString();
+            }, () =>
+            {
+                if (token != coinRevision || !countingCoins) return;
+                countingCoins = false; coins.text = to.ToString(); done?.Invoke();
+            });
+        }
         public void Entrance(float homes, float controls)
         {
             housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 550);
@@ -197,14 +214,26 @@ namespace PerchSort.V5.Game
                 headerBounds.y + headerBounds.height * 32 / 128, headerBounds.width * 140 / 320, headerBounds.height * 60 / 128);
             coins.rectTransform.anchoredPosition = new Vector2(text.center.x, -text.center.y + offset);
             ((RectTransform)settings.transform).anchoredPosition = new Vector2(gearBounds.center.x, -gearBounds.center.y + offset);
-            bottomBar.localScale = Vector3.one * controls;
+            bottomBar.localScale = Vector3.one;
+            for (int i = 0; i < tools.Length; i++)
+            {
+                Rect bounds = V7Layout.ToolButton(i, i == 3 ? 4 : toolCount);
+                float progress = Mathf.Clamp01(controls * 1.6f - i * 0.2f);
+                float settle = 1 + 2.7f * Mathf.Pow(progress - 1, 3) + 1.7f * Mathf.Pow(progress - 1, 2);
+                ((RectTransform)tools[i].transform).anchoredPosition =
+                    new Vector2(bounds.center.x, -bounds.center.y - (1 - settle) * 120);
+            }
         }
         public void Cancel()
         {
-            motion.CancelAll(); foreach (var house in houses.Values) house.Cancel();
+            if (motion == null) return;
+            coinRevision++; motion.CancelAll(); coinMotion.CancelAll(); countingCoins = false;
+            if (root != null) coins.text = root.Coins.ToString();
+            foreach (var house in houses.Values) house.Cancel();
             Entrance(1, 1);
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--) V5UI.Dispose(effects.GetChild(i).gameObject);
             if (chorus != null) chorus.SetActive(false);
         }
+        private void OnDisable() => Cancel();
     }
 }
