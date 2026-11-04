@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-04 17:26:35Z" end-time="2026-11-04 17:26:48Z" duration="12.7700897">
+  <test-suite type="TestSuite" id="1078" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="59" result="Passed" start-time="2026-11-04 17:26:35Z" end-time="2026-11-04 17:26:48Z" duration="12.770090" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1150" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/shop-and-aviary/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="59" result="Passed" start-time="2026-11-04 17:26:36Z" end-time="2026-11-04 17:26:48Z" duration="12.762059" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="50958" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1151" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="59" result="Passed" start-time="2026-11-04 17:26:36Z" end-time="2026-11-04 17:26:48Z" duration="12.761268" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1152" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="59" result="Passed" start-time="2026-11-04 17:26:36Z" end-time="2026-11-04 17:26:48Z" duration="12.760641" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1079" name="AviaryTests" fullname="PerchSort.PlayModeTests.AviaryTests" classname="PerchSort.PlayModeTests.AviaryTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-04 17:26:36Z" end-time="2026-11-04 17:26:46Z" duration="10.978050" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1081" name="DetailBirdBreathesHopsAndUsesDrawnFramesWithoutMirroring" fullname="PerchSort.PlayModeTests.AviaryTests.DetailBirdBreathesHopsAndUsesDrawnFramesWithoutMirroring" methodname="DetailBirdBreathesHopsAndUsesDrawnFramesWithoutMirroring" classname="PerchSort.PlayModeTests.AviaryTests" runstate="Runnable" seed="2111917177" result="Passed" start-time="2026-11-04 17:26:36Z" end-time="2026-11-04 17:26:46Z" duration="10.729399" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1080" name="TenSpeciesShowMetAndUnmetStatesAndKeepScrollOnBack" fullname="PerchSort.PlayModeTests.AviaryTests.TenSpeciesShowMetAndUnmetStatesAndKeepScrollOnBack" methodname="TenSpeciesShowMetAndUnmetStatesAndKeepScrollOnBack" classname="PerchSort.PlayModeTests.AviaryTests" runstate="Runnable" seed="724582344" result="Passed" start-time="2026-11-04 17:26:46Z" end-time="2026-11-04 17:26:46Z" duration="0.242747" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1105" name="ShopTests" fullname="PerchSort.PlayModeTests.ShopTests" classname="PerchSort.PlayModeTests.ShopTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-04 17:26:46Z" end-time="2026-11-04 17:26:48Z" duration="1.780914" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1107" name="InsufficientAndLockedCardsNeverOpenConfirmationOrMutateProfile" fullname="PerchSort.PlayModeTests.ShopTests.InsufficientAndLockedCardsNeverOpenConfirmationOrMutateProfile" methodname="InsufficientAndLockedCardsNeverOpenConfirmationOrMutateProfile" classname="PerchSort.PlayModeTests.ShopTests" runstate="Runnable" seed="1735059313" result="Passed" start-time="2026-11-04 17:26:46Z" end-time="2026-11-04 17:26:47Z" duration="0.324073" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1109" name="PurchasePresentationCountsCoinsAndPopsOwnedBadge" fullname="PerchSort.PlayModeTests.ShopTests.PurchasePresentationCountsCoinsAndPopsOwnedBadge" methodname="PurchasePresentationCountsCoinsAndPopsOwnedBadge" classname="PerchSort.PlayModeTests.ShopTests" runstate="Runnable" seed="2011863998" result="Passed" start-time="2026-11-04 17:26:47Z" end-time="2026-11-04 17:26:48Z" duration="1.209235" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1106" name="SinglePurchaseDeductsCatalogPriceAndPersistsOneUnit" fullname="PerchSort.PlayModeTests.ShopTests.SinglePurchaseDeductsCatalogPriceAndPersistsOneUnit" methodname="SinglePurchaseDeductsCatalogPriceAndPersistsOneUnit" classname="PerchSort.PlayModeTests.ShopTests" runstate="Runnable" seed="1545305231" result="Passed" start-time="2026-11-04 17:26:48Z" end-time="2026-11-04 17:26:48Z" duration="0.096078" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1108" name="ZeroStockPlusOpensFocusedShopAndCloseLeavesBoardUntouched" fullname="PerchSort.PlayModeTests.ShopTests.ZeroStockPlusOpensFocusedShopAndCloseLeavesBoardUntouched" methodname="ZeroStockPlusOpensFocusedShopAndCloseLeavesBoardUntouched" classname="PerchSort.PlayModeTests.ShopTests" runstate="Runnable" seed="1769877513" result="Passed" start-time="2026-11-04 17:26:48Z" end-time="2026-11-04 17:26:48Z" duration="0.149619" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
