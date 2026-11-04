@@ -4,7 +4,7 @@
 
 - The current Codex conversation on 251 replaces Claude as coordinator for this stage. It assigns and accepts work; bounded feature implementation belongs to the existing parallel Mac workers. Never contact/resume the former Claude session.
 - Every future feature must be decomposed into parallel tasks. OMP is preferred, Codex fallback; the coordinator chooses `gpt-6.1-terra`, `gpt-6.1-sol`, `gpt-6-astra` and effort based on complexity.
-- Finish the existing T49/T50 v7 stage. The coordinator reviews submissions before issuing integration/merge authority. This task branch must not merge peers or main, deploy or release.
+- Finish the existing T49/T50 v7 stage. The coordinator reviews submissions before issuing integration/merge authority. D retains isolated implementation/fixture commits; only approved T50A `a012e70` and T50C `fb90bb7` may now be merged into its task branch. B remains pending. Never merge main, deploy or release from this worker.
 - No code tests, test suites, Unity run or all-level playthrough. The user tests the integrated result later. Static review is not compilation/runtime evidence; prior passing numbers apply only to their recorded revisions.
 - After reviewed integration/merge, pause with a Mac-only continuation handoff. Do not continue feature development on 251. T51 cleanup and extra features remain deferred.
 - Preserve approved v7 art, original/fallback assets, Core, authored levels and economy. No artwork generation in the code modules.
@@ -23,14 +23,14 @@
 
 ## Four isolated T50 code workspaces
 
-All branches preserve source WIP `9f84a95`; T50D starts at handoff checkpoint `0b44966`. No peer merges until coordinator review.
+All branches preserve source WIP `9f84a95`; T50D starts at handoff checkpoint `0b44966`. Only explicitly reviewed A/C revisions are currently approved for the D integration branch.
 
 | Module | Branch | Workspace | Ownership / progress |
 | --- | --- | --- | --- |
-| T50A | `mac-motion/t50` | `/Users/apple/orca/workspaces/game/t50-bird-motion` | BirdView, BoardView, BranchView, BirdhouseView; motion implementation running; consult its owned report for actual delivery SHA. |
-| T50B | `mac-popups/t50` | `/Users/apple/orca/workspaces/game/t50-popup-motion` | WinPanel, V5Panels, SettingsPanel, V7GateView; presentation implementation running; consult its owned report for actual delivery SHA. |
-| T50C | `mac-map-motion/t50` | `/Users/apple/orca/workspaces/game/t50-map-motion` | Delivery `3542ced` reported; coordinator acceptance awaits its W1 seasonal art-path correction. No integration approval yet. Leaf `Configure(V5Art)` / `Play(Action, Action)` / `Cancel()` and node-origin query implemented. |
-| T50D | `mac-notifications/t50` | `/Users/apple/orca/workspaces/game/t50-notifications` | Root notifications/intro/receipt/navigation implementation and static review complete; preparing isolated submission. [Status](status/mac-notifications.md), [spec](../../tasks/T50D_notifications.md). V5Progress and Meta bridge are reused unchanged. |
+| T50A | `mac-motion/t50` | `/Users/apple/orca/workspaces/game/t50-bird-motion` | Coordinator statically approved `a012e70` (implementation `39f36f5`). Board internally wires flock-door/masked-flight/close/check; no extra root hook or duplicated goal-popup choreography. |
+| T50B | `mac-popups/t50` | `/Users/apple/orca/workspaces/game/t50-popup-motion` | `7ddcb721` under review; coordinator-requested corrections pending, including pre-ack daily currency flight removal. Do not merge yet. |
+| T50C | `mac-map-motion/t50` | `/Users/apple/orca/workspaces/game/t50-map-motion` | Coordinator approved `fb90bb7` (includes `3542ced` and delivered W1 leaf resource correction). Leaf/origin interfaces unchanged. |
+| T50D | `mac-notifications/t50` | `/Users/apple/orca/workspaces/game/t50-notifications` | D implementation `52cad38e2742263b4469ead8ef5a90d80f564b73`; fixture compatibility `e39e0dd`, no execution. Preparing D report/review boundary, then approved A/C integration only. [Status](status/mac-notifications.md), [report](../../tasks/T50D_report.md). V5Progress/Meta bridge reused unchanged. |
 
 Public view signatures remain stable. New narrow APIs must be listed exactly in the owning report. Root integration must reject obsolete callbacks, cancel on teardown/rebuild, restore poses and avoid duplicate completion/grants. No two workers edit another module's files.
 

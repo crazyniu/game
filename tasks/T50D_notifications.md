@@ -6,6 +6,7 @@
 - Owned source: `V5GameRoot.cs`, `V5Progress.cs`, `V7PopupFlow.cs`, `V7LevelEntrance.cs`, `HudView.cs`; existing Meta/Economy bridge only if required. Existing public signatures remain available. No other module's views are edited.
 - Preserve Core, authored levels, economy amounts/eligibility, approved v7 plush forest/purple-green/honey-wood/green-ribbon art, existing LitMotion/V5Motion patterns. No libraries, art generation, features or T51 cleanup.
 - Also owns the coordinator-requested update of `docs/team/HANDOFF_2026-11-04_CODEX.md`, preserving the main handoff directives and actual four-workspace/art ownership.
+- Coordinator follow-up explicitly authorizes existing fixture/source-compatibility edits in `V5GameplayTests.cs`, `V5DevOptionsTests.cs` and their assembly references, without execution; preserve the string snapshot and seed acknowledged receipts for unrelated legacy cases. After an isolated D commit, only approved T50A `a012e70` may be merged here; B/C remain unapproved.
 
 ## Requirements
 1. Run the skippable approximately 1.6-second intro on every normal level start/restart; restore final poses on skip/cancel and show the tutorial only after intro/notifications.
@@ -18,7 +19,7 @@
 
 ## Acceptance / evidence limits
 - Static source/control-flow, assembly-reference and public-callsite review only.
-- No new tests are authored or executed. Unity, compilation, runtime smoke, captures and all-level playthrough: **NOT_RUN**, explicitly prohibited by the latest user instruction. Historical green results are not this branch's evidence.
+- No new test cases are authored or executed. Existing fixture compatibility is corrected by explicit coordinator authorization. Unity, compilation, runtime smoke, captures and all-level playthrough: **NOT_RUN**, explicitly prohibited by the latest user instruction. Historical green results are not this branch's evidence.
 - Deliver English report/status, isolated branch commit/push, exact SHA/files/APIs/implemented and missing requirements/untested boundaries. The coordinator integrates and pauses for user testing, then Mac-only development.
 
 ## Sources
