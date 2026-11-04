@@ -1,3 +1,19 @@
+# Final species delivery — 2026-11-04
+
+Current coordinator: Codex. This section supersedes earlier scope/progress notes below. All ten species are complete: 170 aligned RGBA frames, ten portraits, per-species QA strips and idle-actions GIFs. Sources and QA are under `art/v7/birds/`; exports are under `PerchSort/Assets/Resources/V7/Birds/`.
+
+Pushed latest milestones: Inky `a8109f9`, Hoot `4b8da97`, Rook `52da117`. Temporary GitHub push errors recovered. Final QA: all 170 frames unclipped; 180 exports have correct dimensions and real alpha. Ten species visually distinguishable at 64px in grayscale. See `art/v7/birds/qa/final_review.md`, `export_inventory.json` and `all_species_64px_grayscale.png`.
+
+No incomplete species files remain. Eggs, overlays and all world pieces transferred to mac-art; none created or edited here. Full rebuilt K3/K7 board composites remain an integration dependency on that work. Rook preserves K7's left-facing default rather than the general slightly-right view. No runtime acceptance claimed; no Unity or tests run. No sub-workers, lock, Codex update or CLI/API-key fallback.
+
+Next: Codex final review and reviewed stage integration, then pause. No merge performed by this worker; future development Mac-only.
+
+DONE: Owned species, portraits and offline bird QA delivered.
+
+---
+
+## Historical checkpoint notes
+
 # T49 delivery report — in progress
 
 ## Scope and method

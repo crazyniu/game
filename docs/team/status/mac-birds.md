@@ -1,33 +1,35 @@
-# mac-birds — T49 current status 2026-11-04
+# mac-birds — T49 species handoff, 2026-11-04
 
-- Branch: `mac-birds/t49`; resumed with fetch/pull. Latest pushed checkpoint before this commit: `0c1fce6` (Ember); Berry head correction: `c48c241`.
-- Sunny, Skye, Berry, Minty, Cocoa, Flurry, Ember and Inky: all 17 source frames, aligned RGBA exports, portraits, QA strips and idle-actions GIFs prepared.
-- Lead review corrections: regenerated `sunny_quirk1.png` at idle body size; regenerated `sunny_tilt_left.png`, `sunny_tilt_right.png`, `sky_tilt_left.png`, `sky_tilt_right.png` with clear opposing approximately 20-degree head tilts. Rebuilt exports and QA. `art/v7/birds/qa/review_scale_tilts.png` shows the corrected set at about 120 px body width. No clipping in the 40-frame alignment inventory.
-- Berry head correction: regenerated ALL 17 sources with two separate backward-swept plumes using approved detail, K3 and list references. Rebuilt all 17 RGBA exports, `berry_face.png`, strip and GIF. Added `berry_game_size.png` and `berry_head_reference.png` QA. Preserved prior reviewed torso scale with fixed 98.311 px toe span; wider plumes do not shrink the body. All 52 prepared frames remain unclipped.
-- Minty: all 17 sources/exports plus portrait, strip, GIF and game-size sheet complete. Corrected downstroke to preserve body size and keep wing tips above the feet. Head design follows the approved large popup. Alignment inventory: 68 frames, no clipping.
-- Half done: Rook idle source is ready at `art/v7/birds/source/crow_idle.png`; its 16 action frames are next. Hoot is complete.
-- Next: Crow; final bird QA. Eggs and overlays transferred to mac-art; no such files were created. World pieces transferred to mac-art by lead. Apply constant body size/baseline and readable mirror-consistent 15–20-degree tilts to every species.
-- Head-feature prechecks for all existing remaining idles are recorded in `art/v7/birds/qa/head_feature_review.md`. No current tool blocker. T49 is incomplete. Runtime acceptance, all-species grayscale recognition and K3/K7 composites remain pending.
-- No Unity opened, no lock created, no sub-workers, no Codex update, no CLI/API-key fallback.
+Coordinator: Codex. Branch: `mac-birds/t49`. Species milestone commits are pushed; this final QA/status commit follows Rook `52da117`.
 
+## Done
 
-IN PROGRESS: Continue remaining two species and final bird QA. World pieces are owned by mac-art.
+All ten species (sunny, sky, berry, mint, cocoa, snow, ember, ink, hoot, crow): 17 source frames each, 170 aligned 320x320 RGBA exports and ten 160x160 RGBA portraits in `PerchSort/Assets/Resources/V7/Birds/`. Every export has real transparency. Feet are aligned to y=300; all 170 frame bounds are unclipped.
 
-- Cocoa checkpoint: 17 RGBA frames and face complete; QA strip, idle-actions GIF and game-size sheet reviewed. Two ear tufts, cream mask and heavy brows retained. All 85 prepared frames have no clipping.
+Each species has a QA strip and idle-actions GIF in `art/v7/birds/qa/`. Game-size sheets and head-feature comparisons record visual review. `all_species_64px_grayscale.png` shows all ten silhouettes/head features in color and grayscale at 64px visible width; visually distinguishable. `export_inventory.json` records dimensions, modes and alpha ranges.
 
-- Flurry checkpoint: 17 source/export frames and face, strip, GIF and game-size sheet complete. Corrected initial blink sheet to a single bird. Lilac two-feather crest, three forehead dots and lashes preserved. 102 aligned frames, none clipped.
+Review corrections retained: Sunny quirk1 body size and Sunny/Skye opposing tilts (`c1adcbd`); all Berry frames and portrait regenerated with two backward plumes (`c48c241`). All later species reviewed for head features before expansion, stable pose scale and clear opposing tilts. Rook flight frames regenerated to remove invented straps.
 
-- Ember checkpoint: 17 source/export frames and face, strip, GIF and game-size sheet complete. Corrected sleep to folded wings and stretch to fit canvas without shrinking body. Flame crest and heavy brows retained. 119 aligned frames, none clipped.
+## Pushed milestones for Codex
 
-- Coordinator: Codex replaces Claude. Report milestones/questions here and in conversation to Codex only. No sub-workers, tests or Unity.
-- Ownership boundary: mac-art owns all five egg frames and mama_bow/chick_fluff in separate source/QA folders. mac-birds has created none and will not edit them. All ten species, portraits and art/v7/birds QA remain owned here.
-- Inky checkpoint: 17 source/export frames and face, strip, GIF and game-size sheet complete. Swept navy crest, brows and chest star retained. 136 aligned frames, none clipped.
-- Pushed milestones: Cocoa 421d6a3; Flurry bc60323; Ember 0c1fce6. Inky is included in this checkpoint.
+- Minty: `c9fc784`
+- Cocoa: `421d6a3`
+- Flurry: `bc60323`
+- Ember: `0c1fce6`
+- Inky: `a8109f9`
+- Hoot: `4b8da97`
+- Rook: `52da117`
 
-- Delivery issue: Inky committed locally as a8109f9, but two GitHub pushes failed (Internal Server Error; fatal error in commit_refs). Remote verified at 0c1fce6. Hoot generation continues; will retry publishing before final handoff. No asset-generation blocker.
+The temporary GitHub commit_refs/Internal Server Error cleared; Inky and later milestones were pushed successfully.
 
-- Hoot checkpoint: all 17 frames and portrait, strip, GIF and game-size QA complete. Cream facial disc and star nightcap retained; 153 aligned frames, none clipped. Rook base visually compared with K7 before expansion.
+## Half done / next / boundaries
 
-- Push recovered: Inky a8109f9 and Hoot 4b8da97 published successfully to origin/mac-birds/t49. No delivery blocker remains. Rook actions in progress.
+No half-done species files remain. No generation jobs or sub-workers remain. Next: Codex reviews the final bird stage, integrates the reviewed assets, then pauses as directed. This worker has not merged any branch.
 
-- Rook checkpoint: all 17 frames, portrait, strip, GIF and game-size review complete. Corrected both flight frames to remove invented straps and retain handheld compass. All 170 aligned frames unclipped. Final grayscale QA reviewed; final handoff documentation next.
+Eggs (`egg_idle/wobble_l/wobble_r/crack/shell`) and `mama_bow/chick_fluff` belong to mac-art. **No egg or overlay files were created or edited here.** World pieces also belong to mac-art; none were created or edited here.
+
+Full rebuilt K3/K7 board composites depend on the transferred world work and remain an integration handoff item. No runtime animation or in-game acceptance is claimed: GIFs are offline pose-review artifacts. Rook retains the approved K7 left-facing default view, unlike the general slightly-right default of the other birds; coordinator should account for this during placement review.
+
+No tests or Unity run; no Unity lock created; no Codex update; no CLI/API-key image fallback. No current blocker or open question. Further development is Mac-only.
+
+DONE: Owned ten-species art, portraits and bird QA delivered for Codex review; pause after handoff.
