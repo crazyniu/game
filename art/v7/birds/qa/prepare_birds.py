@@ -36,6 +36,9 @@ for species in SPECIES:
     base_scale = 195 / (ib[2]-ib[0])
     idle_feet = feet(idle, species)
     foot_width = (idle_feet[2]-idle_feet[0])*base_scale
+    # Preserve lead-reviewed torso scale when Berry's corrected plumes widen its silhouette.
+    if species == 'berry':
+        foot_width = 98.311
     prepared = {}
     for state in STATES:
         src = SOURCE / f'{species}_{state}.png'

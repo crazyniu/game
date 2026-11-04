@@ -1,39 +1,5 @@
 [
   {
-    "file": "mint_idle.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      395,
-      1108,
-      810,
-      1151
-    ],
-    "scale": 0.24528,
-    "translation": [
-      12,
-      18
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      65,
-      36,
-      261,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
     "file": "sunny_idle.png",
     "canvas": [
       320,
@@ -1200,12 +1166,12 @@
       1254
     ],
     "source_feet": [
-      442,
-      1120,
-      867,
-      1159
+      441,
+      1124,
+      868,
+      1163
     ],
-    "scale": 0.23132,
+    "scale": 0.23024,
     "translation": [
       9,
       32
@@ -1215,10 +1181,10 @@
       255
     ],
     "visible_bounds": [
-      61,
-      47,
-      257,
-      302
+      50,
+      64,
+      256,
+      301
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -1235,24 +1201,24 @@
     ],
     "source_feet": [
       441,
-      1121,
-      868,
-      1163
+      1124,
+      870,
+      1164
     ],
-    "scale": 0.23023,
+    "scale": 0.22916,
     "translation": [
-      9,
-      32
+      10,
+      33
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      60,
-      47,
+      45,
+      62,
       257,
-      301
+      300
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -1269,23 +1235,23 @@
     ],
     "source_feet": [
       437,
-      1121,
-      869,
-      1162
+      1125,
+      877,
+      1163
     ],
-    "scale": 0.22757,
+    "scale": 0.22343,
     "translation": [
-      11,
-      36
+      13,
+      40
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      51,
-      50,
-      261,
+      41,
+      68,
+      262,
       301
     ],
     "foot_baseline": 300,
@@ -1302,23 +1268,23 @@
       1254
     ],
     "source_feet": [
-      439,
-      1122,
-      869,
+      438,
+      1124,
+      870,
       1161
     ],
-    "scale": 0.22863,
+    "scale": 0.22757,
     "translation": [
-      10,
-      35
+      11,
+      36
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      51,
-      51,
+      38,
+      59,
       260,
       302
     ],
@@ -1332,19 +1298,19 @@
       320
     ],
     "source_size": [
-      1254,
-      1254
+      1312,
+      1199
     ],
     "source_feet": [
-      442,
-      1121,
-      868,
-      1162
+      458,
+      1098,
+      910,
+      1137
     ],
-    "scale": 0.23077,
+    "scale": 0.2175,
     "translation": [
-      9,
-      32
+      11,
+      53
     ],
     "alpha_extrema": [
       0,
@@ -1352,7 +1318,7 @@
     ],
     "visible_bounds": [
       19,
-      47,
+      76,
       288,
       301
     ],
@@ -1370,24 +1336,24 @@
       1254
     ],
     "source_feet": [
-      412,
-      1122,
-      843,
-      1161
+      421,
+      1126,
+      860,
+      1165
     ],
-    "scale": 0.2281,
+    "scale": 0.22394,
     "translation": [
       17,
-      35
+      39
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      20,
-      50,
-      300,
+      19,
+      67,
+      297,
       301
     ],
     "foot_baseline": 300,
@@ -1404,24 +1370,24 @@
       1254
     ],
     "source_feet": [
-      407,
-      1134,
-      844,
-      1178
+      398,
+      1130,
+      847,
+      1172
     ],
-    "scale": 0.22496,
+    "scale": 0.21896,
     "translation": [
-      19,
-      35
+      24,
+      43
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      42,
-      45,
-      278,
+      44,
+      65,
+      279,
       301
     ],
     "foot_baseline": 300,
@@ -1438,24 +1404,24 @@
       1254
     ],
     "source_feet": [
-      414,
-      1134,
-      865,
-      1176
+      410,
+      1114,
+      870,
+      1151
     ],
-    "scale": 0.21798,
+    "scale": 0.21372,
     "translation": [
-      21,
-      44
+      23,
+      54
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      69,
       57,
-      252,
+      83,
+      251,
       301
     ],
     "foot_baseline": 300,
@@ -1472,25 +1438,25 @@
       1254
     ],
     "source_feet": [
-      408,
-      1123,
-      846,
-      1163
+      406,
+      1128,
+      858,
+      1165
     ],
-    "scale": 0.22445,
+    "scale": 0.2175,
     "translation": [
-      19,
-      39
+      23,
+      47
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      63,
       56,
-      258,
-      301
+      74,
+      260,
+      302
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -1507,11 +1473,11 @@
     ],
     "source_feet": [
       394,
-      1114,
-      843,
-      1156
+      1118,
+      844,
+      1159
     ],
-    "scale": 0.21895,
+    "scale": 0.21847,
     "translation": [
       25,
       47
@@ -1521,9 +1487,9 @@
       255
     ],
     "visible_bounds": [
-      72,
       57,
-      261,
+      76,
+      250,
       301
     ],
     "foot_baseline": 300,
@@ -1540,23 +1506,23 @@
       1254
     ],
     "source_feet": [
-      411,
-      1124,
-      856,
-      1166
+      425,
+      1129,
+      880,
+      1169
     ],
-    "scale": 0.22092,
+    "scale": 0.21607,
     "translation": [
-      20,
-      42
+      19,
+      47
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      65,
       55,
+      69,
       254,
       301
     ],
@@ -1574,24 +1540,24 @@
       1254
     ],
     "source_feet": [
-      394,
-      1143,
-      843,
-      1185
+      392,
+      1146,
+      846,
+      1187
     ],
-    "scale": 0.21895,
+    "scale": 0.21654,
     "translation": [
-      25,
-      41
+      26,
+      43
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      69,
-      51,
-      255,
+      58,
+      67,
+      254,
       302
     ],
     "foot_baseline": 300,
@@ -1608,24 +1574,24 @@
       1254
     ],
     "source_feet": [
-      436,
-      1119,
-      866,
-      1160
+      434,
+      1124,
+      868,
+      1161
     ],
-    "scale": 0.22863,
+    "scale": 0.22652,
     "translation": [
-      11,
-      35
+      13,
+      37
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      62,
-      49,
-      253,
+      43,
+      68,
+      254,
       302
     ],
     "foot_baseline": 300,
@@ -1642,24 +1608,24 @@
       1254
     ],
     "source_feet": [
-      400,
-      1143,
-      827,
-      1185
+      397,
+      1147,
+      832,
+      1188
     ],
-    "scale": 0.23023,
+    "scale": 0.226,
     "translation": [
-      19,
-      27
+      21,
+      32
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      67,
-      39,
-      263,
+      46,
+      60,
+      262,
       301
     ],
     "foot_baseline": 300,
@@ -1676,23 +1642,23 @@
       1254
     ],
     "source_feet": [
-      435,
-      1120,
-      864,
-      1162
+      433,
+      1125,
+      865,
+      1165
     ],
-    "scale": 0.22916,
+    "scale": 0.22757,
     "translation": [
-      11,
-      34
+      12,
+      35
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      60,
-      47,
+      49,
+      64,
       259,
       301
     ],
@@ -1710,25 +1676,25 @@
       1254
     ],
     "source_feet": [
-      340,
-      1121,
-      766,
-      1161
+      367,
+      1112,
+      816,
+      1151
     ],
-    "scale": 0.23077,
+    "scale": 0.21896,
     "translation": [
-      32,
-      32
+      30,
+      48
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      61,
-      47,
-      293,
-      301
+      46,
+      70,
+      288,
+      302
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -1744,25 +1710,603 @@
       1254
     ],
     "source_feet": [
-      442,
-      1121,
-      867,
-      1163
+      433,
+      1126,
+      872,
+      1167
     ],
-    "scale": 0.23132,
+    "scale": 0.22394,
     "translation": [
-      9,
-      31
+      14,
+      39
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      60,
-      46,
+      36,
+      66,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      395,
+      1108,
+      810,
+      1151
+    ],
+    "scale": 0.24528,
+    "translation": [
+      12,
+      18
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      65,
+      36,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      391,
+      1113,
+      812,
+      1153
+    ],
+    "scale": 0.24179,
+    "translation": [
+      15,
+      21
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      41,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1110,
+      814,
+      1151
+    ],
+    "scale": 0.24121,
+    "translation": [
+      15,
+      22
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      55,
+      39,
+      263,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      394,
+      1112,
+      812,
+      1152
+    ],
+    "scale": 0.24352,
+    "translation": [
+      13,
+      19
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      49,
+      40,
+      263,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      388,
+      1110,
+      811,
+      1151
+    ],
+    "scale": 0.24064,
+    "translation": [
+      16,
+      23
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      24,
+      39,
+      310,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      394,
+      1110,
+      812,
+      1151
+    ],
+    "scale": 0.24352,
+    "translation": [
+      13,
+      20
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      37,
+      37,
+      289,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      387,
+      1110,
+      814,
+      1151
+    ],
+    "scale": 0.23839,
+    "translation": [
+      17,
+      26
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      53,
+      41,
+      275,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1111,
+      813,
+      1152
+    ],
+    "scale": 0.24179,
+    "translation": [
+      14,
+      21
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      42,
+      252,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      395,
+      1111,
+      826,
+      1151
+    ],
+    "scale": 0.23618,
+    "translation": [
+      16,
+      28
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      48,
+      253,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      391,
+      1113,
+      813,
+      1153
+    ],
+    "scale": 0.24121,
+    "translation": [
+      15,
+      22
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      73,
+      42,
+      253,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1109,
+      812,
+      1150
+    ],
+    "scale": 0.24236,
+    "translation": [
+      14,
+      21
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      39,
       258,
       301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1112,
+      812,
+      1152
+    ],
+    "scale": 0.24236,
+    "translation": [
+      14,
+      21
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      44,
+      259,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      398,
+      1109,
+      819,
+      1151
+    ],
+    "scale": 0.24179,
+    "translation": [
+      13,
+      22
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      71,
+      37,
+      259,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      394,
+      1110,
+      811,
+      1151
+    ],
+    "scale": 0.24411,
+    "translation": [
+      13,
+      19
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      73,
+      36,
+      246,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      392,
+      1109,
+      812,
+      1151
+    ],
+    "scale": 0.24236,
+    "translation": [
+      14,
+      21
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      40,
+      268,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      398,
+      1111,
+      820,
+      1152
+    ],
+    "scale": 0.24121,
+    "translation": [
+      13,
+      22
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      44,
+      43,
+      256,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      391,
+      1111,
+      813,
+      1151
+    ],
+    "scale": 0.24121,
+    "translation": [
+      15,
+      22
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      44,
+      258,
+      300
     ],
     "foot_baseline": 300,
     "edge_clipped": false
