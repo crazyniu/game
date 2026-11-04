@@ -32,6 +32,8 @@ namespace PerchSort.Game
         private CanvasGroup group;
         private int generation;
         private bool closing;
+        // In the linear-color project, 72% black alpha leaves roughly 56% displayed brightness.
+        private const float DimAlpha = 0.72f;
 
         public void Begin(Image overlay)
         {
@@ -47,7 +49,7 @@ namespace PerchSort.Game
             if (dim != null)
             {
                 dim.color = new Color(0, 0, 0, 0);
-                Play(0.2f, t => dim.color = new Color(0, 0, 0, GameLayout.PanelDimAlpha * t));
+                Play(0.2f, t => dim.color = new Color(0, 0, 0, DimAlpha * t));
             }
         }
         public void Track(RectTransform rect)
