@@ -1,3 +1,17 @@
+# Current T52 entry and required Mac acceptance
+
+The current game is **`PerchSort/Assets/Scenes/Game.unity`**, retaining the accepted T49/T50 implementation. Start with [CURRENT_GAME](../CURRENT_GAME.md), [CODE_MAP](../spec/CODE_MAP.md), [AGENTS](../../AGENTS.md) and the [T52C report](../../tasks/T52C_report.md). Current runtime code/resources are unversioned; retired code/scenes/tools/tests are archived outside Unity. Historical design/art/task filenames and compatibility save keys are not runnable forks.
+
+**Latest user update:** current Codex coordinator must perform acceptance **and testing on the Mac after integrating all T52 deliveries**: compilation, EditMode, PlayMode and real GUI/timed acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity. Source-derived discovery expectations are 304 EditMode (237 current game, 53 Meta, 14 shared Audio) and 17 PlayMode, no Ignore/Explicit; LevelsData 81 includes 40 optimal solver/replays, Layout 41 includes 24 combinatorial. Actual discovery/results must be investigated, not assumed or weakened.
+
+T52C has not opened Unity, compiled, tested, captured, merged peer branches or touched the primary checkout. Scene/root GUID/font preservation is static evidence only. The coordinator reported primary-checkout-generated bird/overlay metas and scene InputSystem ID changes; preserve those before updating the user checkout, reconcile resource-owner metadata, inspect the actual imported scene and verify startup. The unified importer explicitly preserves all seven authored egg/family anchor/mesh/texture settings and keeps six compressed fallback imports separate.
+
+Development is Mac-only in isolated workspaces. Reports go to current Codex `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`, never retired Claude. Workers commit/push only their own task branches; coordinator reviews/integrates and owns the serialized Mac verification. Do not begin unrelated future features. Automatic PR CI remains enabled on current fixtures; no archive is tested.
+
+The following T49/T50 handoff is a **historical checkpoint record**. Its old scene paths, numbered type names, host/ownership instructions, pause/no-tests language and old primary-checkout state apply only to that recorded stage; they are not today's entry or execution authority. Its source SHAs, findings and NOT_RUN evidence are preserved below without manufacturing new acceptance.
+
+---
+
 # T49/T50 final source integration and Mac-only handoff
 
 ## Published stage — coordinator closeout

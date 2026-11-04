@@ -1,37 +1,49 @@
-# 现行v2实现与同行依据v4差异
+# Current implementation map
 
-2026-10-31 · 只读实现盘点。当前工程Unity6000.6.7f1，运行JSON仍40关version2；本页不定义玩法，唯一规则[RULES](RULES.md)。此次未改代码/JSON/场景/素材，未跑Unity。
+T52 identity cutover of the accepted T49/T50 game. This index describes source organization and known evidence boundaries; it does not redefine rules or claim new runtime acceptance. Start at [CURRENT_GAME](../CURRENT_GAME.md).
 
-## 1. 从旧实现迁移需处理什么
+## Current modules
 
-| 已实现v2事实 | v4有效合同/差异 |
+| Path under `PerchSort/Assets` | Assembly / principal symbols | Responsibility |
+| --- | --- | --- |
+| `Scripts/Core` | `PerchSort.Core`: BoardState, LevelDef, GameRules, GameSession, Solver | Pure C# board state, resolution/events, inventory/undo, search |
+| `Scripts/Meta` | `PerchSort.Meta`: PlayerProfile, Economy, Unlocks, Shop, Aviary, WorldMap | Pure profile and progression policies; not proof that all policy screens are implemented |
+| `Scripts/Game` | `PerchSort.Game`: GameRoot, GameProfile, ProgressStore, LevelLoader, ViewModel | Unity orchestration, current catalog, progress, hints, notification transactions |
+| `Scripts/Game` | GameArt, GameUI, GameButton, GameLayout, SceneView, MapModel/MapView | Resource routing, layout, map and screen UI |
+| `Scripts/Game` | BirdView, BoardView, BranchView, BirdhouseView, PanelsView, PopupFlow/PopupMotion, MapMotion, LeafTransition | Accepted T49/T50 presentation and cancellation lifecycle |
+| `Scripts/Audio` | Existing shared Audio contract | Shared audio unchanged by T52C |
+| `Scenes/Game.unity` | GameRoot, serialized font | Sole current scene; GUID `55064aed0051b40279c77a0b9a758533`, root-script GUID `07203ec62b1604449b634c729c1303a3` |
+| `Editor/Game` | Namespace `PerchSort.Editor`: GameSceneBuilder, GameArtImporter, GameCapture | Sole scene builder, current art policy, stable-state capture |
+| `Editor/PhoneGameView.cs`, `Editor/ReleaseSettings.cs` | Existing global classes | Shared phone view and release setup remain available |
+| `Tests/EditMode`, `Tests/Meta`, `Tests/PlayMode` | PerchSort.EditModeTests / PerchSort.Meta.EditModeTests / PerchSort.PlayModeTests | Retained current contracts; nested Audio asmdef stays independent |
+
+Full code and scene links: [Core](../../PerchSort/Assets/Scripts/Core), [Meta](../../PerchSort/Assets/Scripts/Meta), [Game](../../PerchSort/Assets/Scripts/Game), [Game scene](../../PerchSort/Assets/Scenes/Game.unity), [Editor](../../PerchSort/Assets/Editor/Game).
+
+## Resources and compatibility
+
+| Load key | Asset path under `Assets/Resources` |
 | --- | --- |
-| 连续run、min(run,余量)、只到空或同种端 | 对应RULES R02，同行出处为Leaf+Simple；加token/蛋边界与稳定ID |
-| 每枝4–6，篮容量1，只有六只完整才完成 | v4每关统一N4/6/8，K+2/两空；移除有效篮/混容量短枝；不能沿用硬编码6 |
-| 前二目标，未来满组睡眠冻结，目标更新自动收 | 本轮精确来源不足，全部退出新规则；不拿旧代码当同行证据 |
-| RevealAfter/RevealSpecies含睡眠完成事件 | 条件公式隔离；v4没有箱字段、完成数开箱链 |
-| 归巢释放该枝继续可用 | SRC-BIRD2完成群飞走后失去该枝，v4仅在完成时Retired；普通搬空不退役 |
-| List<int>物种，无egg token | 固定token ID/species/form；问号蛋身份隐藏，非提前纹样预告 |
-| 旧星级由Undo+Restart计数，Hint每关终身3次 | 有源新版改免费无限帮助/最佳操作；旧政策仅历史，不得带入 |
-| 无R07额外枝完整事务 | 新增AddBranch/末枝S(P+1)/辅助身份和分类记录，免费一条N座；旧40见证不算此事务测试 |
-| 存档v4按关号回放From/To | v4设计campaign隔离，目标saveVersion6/schema4/rules4，完整稳定快照；详DATA_SAVE |
-| 关卡网格/旧设置与手写动画现状 | 世界地图是USER新目标，UI图标/静音/开源优先约束待实施；不能因为现代码写法就豁免 |
+| `Levels/levels` | `Levels/levels.json`: existing 40 authored levels, payload retained |
+| `dev_options` | `dev_options.json`: existing flags retained |
+| `Art/<key>` | `Art`: current UI/art plus six separately imported compressed fallback sprites |
+| `Birds/<key>` | `Birds`: species frames/portraits and seven authored egg/family overlays |
+| `World/<key>` | `World`: current forest pieces |
 
-T16纹样蛋、任意清空临时枝、schema3/save5、旧60纸面回放是已撤回的设计，**未在游戏实现**。现在新40只以独立文档模型重验，证明状态见LEVEL_SIMULATIONS；旧v2证书也不能证明新规则。
+No old numbered resource fallback remains in the shared cutover contract. GameArtImporter retains full-art borders/door pivots and tall-background resolution; its separate fallback policy avoids changing compression/mesh/pivots on six carried sprites. The seven authored overlays explicitly retain their custom pivot/mesh/1024/no-physics import settings; the egg foot pivot is not the centered default.
 
-源码定位（只读）：[Rules](../../PerchSort/Assets/Scripts/Core/Rules.cs)、[BoardState](../../PerchSort/Assets/Scripts/Core/BoardState.cs)、[LevelData](../../PerchSort/Assets/Scripts/Core/LevelData.cs)、[Solver](../../PerchSort/Assets/Scripts/Core/Solver/Solver.cs)、[当前关卡](../../PerchSort/Assets/Resources/Levels/levels.json)。原T16审阅识别的L4/L6/L7、L9/L10换色等价仅是旧数据诊断，不改变代码。
+Version-looking PlayerPrefs keys and serialized DataMember/SaveData fields are compatibility identifiers only. Preserve all `v5.*`, `v6.unlockSeen.*`, `v7.notifications`, migrator inputs, enum ordinals and schema versions. Namespace cleanup must not reset progress or migrate persisted data by blind text replacement.
 
-## 2. 未来实施的唯一依赖顺序（需要另行授权）
+## Retired paths
 
-1. 证据/规则/固定内容和未知边界独立审查；这不是代码授权。
-2. 251隔离分支实现纯Core/schema4：N可变、token与隐藏egg、Home/Retired、R07 AddBranch与assistPolicyVersion、clone/key/Undo、固定数据校验；不混旧目标/箱字段。
-3. 新Solver合法回放/证明状态，未知不无解；重新证明含孵化的启发式，不能沿旧块数下界宣称最优。
-4. save6/campaign迁移、原子写档/SaveError、地图进度和回调代次。
-5. 已授权后锁定/试验单一开源主补间库、批准新资产（需要振翅clip/帧、蛋孵化、完成枝退场）；无验收资产不能拿静图或近似重绘顶替，Core独立工作可继续。
-6. UI/动画/世界地图接线，真实输入/后台/取消/移动平台/录屏；最后40关项目证书、盲玩、设备验证。
+Old `Scripts/{Core,UI,View}`, legacy Game/Sample scenes, obsolete editor tools/importers and old-contract test suites are stored under `archive/retired/PerchSort/Assets/` outside Unity. Current scripts/tests moved with metadata; the current scene replaced the old Game entry after its archive. Obsolete aspect/front-bird scripts are under `archive/retired/scripts/`. Shared Audio, PhoneGameView, ReleaseSettings and original `art/` sources are not retired.
 
-运行路径：Core/BoardState、Rules、Move、LevelData、GameSession；Core/Solver；UI/ProgressStore、HintService、TutorialState、TutorialOverlay；View/BoardView、PerchView、BirdView。列表是阅读入口，不是本次修改清单。
+Historical implementation/research claims remain in their original reports and [old design record](../archive/DESIGN_V2.md). The v4 [RULES](RULES.md)/[DATA_SAVE](DATA_SAVE.md) proposal is historical, not this runtime's rules/save implementation. The current [design record](../GAME_DESIGN_V5.md) retains its filename as evidence; later T49/T50 reports and actual source supersede its older presentation/ownership/path prose. Do not revive any retired code from those links.
 
-## 3. 历史数值不得冒充当前验证
+## Tools and evidence
 
-旧Hint节点6000/UI等待1.5s、星级公式、163个EditMode/14个PlayMode通过/8Explicit跳过是旧记录，不是新版政策或本次测试结果。系统减动效读取/新动画库/地图/移动IL2CPP均未验证。新提示预算只影响Unknown，不能借历史值恢复收费或限次。
+- `scripts/run_tests.sh`: only `PerchSort.Editor.GameSceneBuilder.Build`; retained EditMode/PlayMode suites. Source safeguards: 304 EditMode = 237 current game + 53 Meta + 14 Audio; 17 PlayMode; no skipped/ignored/explicit cases. LevelsData 81 includes 40 solver/replay cases; Layout 41 includes 24 combinatorial. Actual discovery must be reconciled by coordinator.
+- `scripts/screenshots.sh`: only `PerchSort.Editor.GameCapture.Run`; `build/screens/game/`, stable states at 1080×1920. Archived old animation/resume/aspect assertions do not become current proof.
+- `ci/CoreTests.csproj`: real current Core plus 13 current pure-Core fixture classes and TestBoards; copied current fixture JSON. `DOTNET_CI` changes fixture transport only, not production rules/assertions. Unity-dependent suites remain covered by the required Mac run.
+- `.github/workflows/ci.yml` and `ci/check_changes.py`: current source/resource/test/project/script inputs only; automatic tests retained; archives excluded. Workflow dependencies' own version numbers are unrelated to game identity.
+
+**Worker validation: static only; Unity/import/compile/tests/GUI NOT_RUN. Stage testing: REQUIRED, current Codex coordinator-owned after integration.** Known scene InputSystem action-ID reserialization, sprite metadata import and actual GameRoot startup require Unity checks. Historical passing numbers, independent replay certificates and static images are not new runtime acceptance.

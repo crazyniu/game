@@ -1,114 +1,164 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PerchSort.Core
 {
-    public enum ShelfSide { Left, Right }
-
-    [Serializable]
-    public sealed class CrateState
+    public readonly struct Species : IEquatable<Species>
     {
-        public int? RevealAfter;
-        public int? RevealSpecies;
-        public CrateState Clone() => new CrateState { RevealAfter = RevealAfter, RevealSpecies = RevealSpecies };
+        public string Id { get; }
+        public bool IsCrow => Id == "crow";
+        public bool IsNocturnal => Id == "ink" || Id == "hoot";
+        public Species(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Species needs an id.", nameof(id));
+            Id = id;
+        }
+        public bool Equals(Species other) => string.Equals(Id, other.Id, StringComparison.Ordinal);
+        public override bool Equals(object obj) => obj is Species other && Equals(other);
+        public override int GetHashCode() => Id == null ? 0 : StringComparer.Ordinal.GetHashCode(Id);
+        public override string ToString() => Id;
     }
 
-    [Serializable]
-    public sealed class PerchState
+    [Flags]
+    public enum BirdFlags { None = 0, Egg = 1, Asleep = 2, Mama = 4, Chick = 8, RevealedEgg = 16 }
+    public enum BranchKind { Normal, Twig, Growing, Swivel }
+    public enum DayPhase { Day, Night }
+    public enum BoosterKind { Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain }
+
+    public readonly struct Bird
     {
-        // Wall -> aisle on BOTH sides. Rendering mirrors the right column.
-        public List<int> Birds = new List<int>();
-        public int Capacity = 6;
-        public ShelfSide Side;
-        public bool Asleep;
-        public CrateState Crate;
-        public PerchState() { }
-        public PerchState(IEnumerable<int> birds) { Birds.AddRange(birds); }
-        public PerchState Clone() => new PerchState(Birds)
-        { Capacity = Capacity, Side = Side, Asleep = Asleep, Crate = Crate?.Clone() };
+        public int Id { get; }
+        public Species Species { get; }
+        public BirdFlags Flags { get; }
+        public bool IsEgg => (Flags & BirdFlags.Egg) != 0;
+        // Authored sleep only; use BoardState.IsAsleep for effective day/night sleep.
+        public bool IsAsleep => (Flags & BirdFlags.Asleep) != 0;
+        public bool IsMama => (Flags & BirdFlags.Mama) != 0;
+        public bool IsChick => (Flags & BirdFlags.Chick) != 0;
+        public bool IsRevealedEgg => (Flags & BirdFlags.RevealedEgg) != 0;
+        public Bird(int id, Species species, BirdFlags flags = BirdFlags.None)
+        { Id = id; Species = species; Flags = flags; }
+        internal Bird WithFlags(BirdFlags flags) => new Bird(Id, Species, flags);
     }
 
-    [Serializable]
-    public sealed class BasketState
+    public sealed class BoosterInventory
     {
-        public List<int> Birds = new List<int>();
-        public int Capacity => 1;
-        public BasketState Clone() => new BasketState { Birds = new List<int>(Birds) };
+        internal const int KindCount = 6;
+        private readonly int[] counts;
+        public int this[BoosterKind kind] => counts[Index(kind)];
+        public BoosterInventory(IReadOnlyDictionary<BoosterKind, int> values = null)
+        {
+            counts = new int[KindCount];
+            if (values == null) return;
+            foreach (var pair in values)
+            {
+                if (pair.Value < 0) throw new ArgumentOutOfRangeException(nameof(values));
+                counts[Index(pair.Key)] = pair.Value;
+            }
+        }
+        private BoosterInventory(int[] values) { counts = (int[])values.Clone(); }
+        private static int Index(BoosterKind kind)
+        {
+            if ((uint)kind >= KindCount) throw new ArgumentOutOfRangeException(nameof(kind));
+            return (int)kind;
+        }
+        internal void Add(BoosterKind kind, int count) { counts[Index(kind)] += count; }
+        public BoosterInventory Clone() => new BoosterInventory(counts);
     }
 
-    [Serializable]
-    public sealed class BoardState
+    public sealed class BranchState
     {
-        public const int BirdsPerSpecies = 6;
-        public List<PerchState> Perches = new List<PerchState>();
-        public List<PerchState> Shelves => Perches;
-        public List<BasketState> Baskets = new List<BasketState>();
-        public int Capacity = 6;
-        public int SpeciesCount;
-        public List<int> Targets = new List<int>();
-        // A target can be collected out of order within the active pair.
-        public List<int> CollectedTargets = new List<int>();
-        public int CollectedCount => CollectedTargets.Count;
-        public int CompletedCount;
-        // Location ids: shelves [0, P), baskets [P, P+B).
-        public int LocationCount => Perches.Count + Baskets.Count;
-        public int BasketIndex(int basket) => Perches.Count + basket;
-        public bool IsBasket(int location) => location >= Perches.Count;
-        public List<int> BirdsAt(int location) => IsBasket(location) ? Baskets[location - Perches.Count].Birds : Perches[location].Birds;
-        public int CapacityAt(int location) => IsBasket(location) ? 1 : Perches[location].Capacity;
-        public List<int> ActiveTargets
+        internal readonly List<Bird> Items;
+        // The owner supplies derived sleep without duplicating phase state on every branch.
+        internal BoardState Owner;
+        public IReadOnlyList<Bird> Birds { get; }
+        public bool IsRight { get; }
+        public int Row { get; }
+        public BranchKind Kind { get; internal set; }
+        public int Capacity { get; internal set; }
+        public int FreeSlots => Capacity - Items.Count;
+        public int RunCount
         {
             get
             {
-                var result = new List<int>(2);
-                foreach (int target in Targets)
-                    if (!CollectedTargets.Contains(target))
-                    { result.Add(target); if (result.Count == 2) break; }
-                return result;
+                int count = Items.Count;
+                if (count == 0) return 0;
+                var tip = Items[count - 1];
+                if (tip.IsEgg || Owner.IsAsleep(tip)) return 0;
+                int start = count - 1;
+                while (start > 0)
+                {
+                    var bird = Items[start - 1];
+                    if (bird.IsEgg || Owner.IsAsleep(bird) || !bird.Species.Equals(tip.Species)) break;
+                    start--;
+                }
+                return count - start;
             }
         }
-        public BoardState() { }
-        public BoardState(int capacity, int speciesCount, IEnumerable<IEnumerable<int>> perches)
+        internal BranchState(int capacity, bool right, int row, IEnumerable<Bird> birds, BranchKind kind = BranchKind.Normal)
         {
-            Capacity = capacity;
-            SpeciesCount = speciesCount;
-            for (int i = 0; i < speciesCount; i++) Targets.Add(i);
-            foreach (var birds in perches)
-                Perches.Add(new PerchState(birds) { Capacity = capacity, Side = Perches.Count % 2 == 0 ? ShelfSide.Left : ShelfSide.Right });
+            Capacity = capacity; IsRight = right; Row = row; Kind = kind;
+            Items = new List<Bird>(capacity);
+            Items.AddRange(birds);
+            Birds = Items.AsReadOnly();
         }
-        public BoardState Clone()
+        internal BranchState Clone() => new BranchState(Capacity, IsRight, Row, Items, Kind);
+    }
+
+    public sealed class BoardState
+    {
+        internal readonly List<BranchState> BranchItems;
+        internal readonly List<Species> HomeItems;
+        public IReadOnlyList<BranchState> Branches { get; }
+        public IReadOnlyList<Species> HomedSpecies { get; }
+        public int LevelId { get; }
+        public int World { get; }
+        public string Variant { get; }
+        public int SpeciesCount { get; }
+        public int Capacity { get; }
+        public int DayLength { get; }
+        public int Moves { get; internal set; }
+        // Stars/display exclude Encore; solver depth and par still count every transfer/swivel in Moves.
+        public int CountedMoves { get; internal set; }
+        public bool Encore { get; internal set; }
+        public bool AddedBranch { get; internal set; }
+        public bool LightStep { get; internal set; }
+        public DayPhase Phase { get; internal set; }
+        public int PhaseCounter { get; internal set; }
+        public int MoonbeamMovesLeft { get; internal set; }
+        public int Chain { get; internal set; }
+        public int ChorusCoins { get; internal set; }
+        public BoosterInventory Inventory { get; internal set; }
+        public bool IsWon => HomeItems.Count == SpeciesCount;
+        public bool NocturnalDaySleep => DayLength > 0 && Phase == DayPhase.Day && MoonbeamMovesLeft == 0;
+        public bool IsAsleep(Bird bird) => !bird.IsEgg && (bird.IsAsleep || (bird.Species.IsNocturnal && NocturnalDaySleep));
+        internal BoardState(int levelId, int world, string variant, int capacity, int speciesCount,
+            int dayLength, List<BranchState> branches, BoosterInventory inventory = null)
         {
-            var copy = new BoardState { Capacity = Capacity, SpeciesCount = SpeciesCount,
-                CompletedCount = CompletedCount, Targets = new List<int>(Targets),
-                CollectedTargets = new List<int>(CollectedTargets) };
-            foreach (var perch in Perches) copy.Perches.Add(perch.Clone());
-            foreach (var basket in Baskets) copy.Baskets.Add(basket.Clone());
-            return copy;
+            LevelId = levelId; World = world; Variant = variant; Capacity = capacity;
+            SpeciesCount = speciesCount; DayLength = dayLength; BranchItems = branches;
+            HomeItems = new List<Species>(speciesCount);
+            Branches = BranchItems.AsReadOnly(); HomedSpecies = HomeItems.AsReadOnly();
+            Inventory = inventory ?? new BoosterInventory();
+            foreach (var branch in branches) branch.Owner = this;
         }
-        // Exact, ordered key: no symmetry reduction can change stable auto-home order.
-        public string GetStateKey()
+        public BoardState Clone() => Clone(true);
+        // Search disables all economy mutations and never uses boosters, so its inventory is read-only.
+        internal BoardState CloneForSearch() => Clone(false);
+        private BoardState Clone(bool copyInventory)
         {
-            var key = new StringBuilder();
-            key.Append(Capacity).Append(':').Append(SpeciesCount).Append(':').Append(CompletedCount).Append('|');
-            key.AppendJoin(",", Targets).Append('|');
-            foreach (int target in Targets) key.Append(CollectedTargets.Contains(target) ? '1' : '0');
-            key.Append('|');
-            foreach (var shelf in Perches)
+            var branches = new List<BranchState>(BranchItems.Count + 1);
+            foreach (var branch in BranchItems) branches.Add(branch.Clone());
+            var copy = new BoardState(LevelId, World, Variant, Capacity, SpeciesCount, DayLength, branches,
+                copyInventory ? Inventory.Clone() : Inventory)
             {
-                key.Append(shelf.Capacity).Append(':').Append((int)shelf.Side).Append(':').Append(shelf.Asleep ? '1' : '0').Append(':');
-                if (shelf.Crate != null) key.Append(shelf.Crate.RevealAfter?.ToString() ?? "-").Append(',').Append(shelf.Crate.RevealSpecies?.ToString() ?? "-");
-                key.Append('[').AppendJoin(",", shelf.Birds).Append(']');
-            }
-            key.Append('|');
-            foreach (var basket in Baskets) key.Append('[').AppendJoin(",", basket.Birds).Append(']');
-            return key.ToString();
-        }
-        public ulong GetStableHash()
-        {
-            ulong hash = 14695981039346656037UL;
-            unchecked { foreach (char c in GetStateKey()) { hash ^= c; hash *= 1099511628211UL; } }
-            return hash;
+                Moves = Moves, CountedMoves = CountedMoves, Encore = Encore,
+                AddedBranch = AddedBranch, LightStep = LightStep, Phase = Phase,
+                PhaseCounter = PhaseCounter, MoonbeamMovesLeft = MoonbeamMovesLeft,
+                Chain = Chain, ChorusCoins = ChorusCoins
+            };
+            copy.HomeItems.AddRange(HomeItems);
+            return copy;
         }
     }
 }

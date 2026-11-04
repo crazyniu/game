@@ -1,0 +1,5 @@
+{
+  "name": "PerchSort.Core",
+  "rootNamespace": "PerchSort.Core",
+  "noEngineReferences": true
+}
