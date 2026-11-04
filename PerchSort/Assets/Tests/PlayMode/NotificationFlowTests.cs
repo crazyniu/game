@@ -14,7 +14,6 @@ using Object = UnityEngine.Object;
 
 namespace PerchSort.PlayModeTests
 {
-    [NonParallelizable]
     public sealed class NotificationFlowTests
     {
         private sealed class AcceptanceClock : Meta.IClock
