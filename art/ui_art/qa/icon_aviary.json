@@ -1,0 +1,20 @@
+{
+  "canvas": [
+    256,
+    256
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "transparent_pixels": 47376,
+  "opaque_pixels": 1119,
+  "partial_alpha_pixels": 17041,
+  "visible_bounds_alpha_above_16": [
+    30,
+    33,
+    223,
+    219
+  ]
+}
