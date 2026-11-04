@@ -155,8 +155,10 @@ namespace PerchSort.PlayModeTests
         {
             using (var art = new GameArt())
             {
-                Assert.That(art.Optional("mint_turn_left_01"), Is.Null);
-                Assert.That(art.Optional("mint_turn_right_01"), Is.Null);
+                // Override this accessor only; shipped species may gain any of these sequences.
+                var sprites = (Dictionary<string, Sprite>)typeof(GameArt).GetField("sprites", Private).GetValue(art);
+                foreach (string sequence in new[] { "turn_left", "turn_right", "blink" })
+                    sprites["mint_" + sequence + "_01"] = null;
                 var bird = GameUI.Rect(root.Board.transform, "Fallback bird", new Vector2(500, 800), GameLayout.BirdDisplaySize)
                     .gameObject.AddComponent<BirdView>();
                 bird.Configure(new Bird(100, new Species("mint")), false, art, new Vector2(500, 800), 1);
