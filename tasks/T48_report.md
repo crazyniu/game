@@ -36,7 +36,7 @@ Replacement blue/green roof colors and left-hinged open fallback reviewed in `ru
 
 Four 1080x3000 backgrounds, three nodes and four world signs; measured 40 node centers and actual path intervals in `runtime/map/world_paths.json` and layout. Backgrounds have a 160 px top alpha fade and must stack at 2840 px stride. Topmost viewport must start at local y>=160 or use matching opaque-source backing. All adjacent-world and repeated-world joins were checked with ordinary alpha composition; a 3000 px hard-edge stride is unsupported. Current glow node is a full replacement, not an additive overlay. `runtime/map/report.md` records QA and bounds.
 
-Gate parts, aligned hinges and next-world backdrops are in progress.
+Nine gate sprites are delivered: empty arch, two outer-hinged leaves, padlock, three aperture backdrops and locked/open fallbacks. Shared canvas 1024x1024; opening bounds xyxy `[240,250,768,854]`, outer hinges `(246,610)` and `(778,610)`. Preserve canvas padding. Gate-light draw rect `[192,215,640,640]` aligns its source to `(512,375)`. `runtime/gates/delivery.json` records pivots, layers and fallback transforms; `runtime/gates/report.md` records preparation. Closed/open assembly and three seasonal light composites were reviewed. Open fallback includes bamboo; other worlds use separate backdrop layers.
 
 ## Effects
 
@@ -52,4 +52,4 @@ Four aligned 768x768 parts: `gift_nest`, `gift_box_base`, `gift_box_lid`, plus d
 
 ## Remaining work
 
-Aligned gate/door/backdrop parts, final assembly metadata, final layout inventory and aggregate delivery QA. See `docs/team/status/mac-art.md` for current handoff.
+Final gate contract integration into layout and commit/push. All 120 PNGs (119 requested plus the necessary nest foreground split) are present, RGBA, with transparent exterior pixels; exact group inventory in `runtime/delivery_inventory.json`. Review links in `runtime/qa/README.md`. See `docs/team/status/mac-art.md` for current handoff.
