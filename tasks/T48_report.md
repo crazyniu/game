@@ -7,7 +7,7 @@ Status: IN PROGRESS. Branch `mac-art/t48` from `b5e601f`.
 
 These are RGBA empty surfaces for runtime labels/glyphs. Source art and exact generation prompts are retained in `art/v7/runtime/`. Built-in tool only, approved v7 screens supplied as references. Processing is trimming/resizing, not illustration synthesis. Further QA and remaining groups are pending.
 
-Suggested green-pill 9-slice borders: left/right 56, top/bottom 24 pixels; keep rounded ends fixed. Coin text frame will be included in final layout. Unity imports, runtime compositing, motion and tests NOT_RUN (mac-art does not open Unity).
+Green-pill 9-slice borders: left/right 54, top/bottom 42 pixels; keep rounded ends fixed (layout contract is authoritative). Coin text frame will be included in final layout. Unity imports, runtime compositing, motion and tests NOT_RUN (mac-art does not open Unity).
 
 ## HUD completion
 All 18 separate glyphs (96x96), nine gift badges (96x96), coin, two star sizes, footprints/flag/padlock/check/chain, green pressed state delivered. Atlas cut-outs retain original RGB; generated white glyphs use approved sheet references. Minty's gift is `gift_watering_can.png`; Scarecrow is a white crow with red cross for composition over `btn_purple.png`.
@@ -20,3 +20,7 @@ All 18 separate glyphs (96x96), nine gift badges (96x96), coin, two star sizes, 
 ## End-of-day WIP wrap-up
 
 Paused by lead before T48 completion. Map (11 PNGs), effects (20 PNGs), exported houses, measurement evidence and the draft layout are preserved in the wrap-up commit. Gate arch and daily gift raw results are in `art/v7/runtime/assemblies_wip/`, not the runtime folder. House replacement review, gate/door/backdrop generation, gift assembly, final layout and aggregate QA remain unfinished. See `docs/team/status/mac-art.md` for exact filenames and next actions. No Unity or lock created by this worker. Sub-workers stopped.
+
+## Resumed 2026-11-04
+
+Reviewed HUD 64-pixel color/grayscale sheet, panel contact sheet, all four measured map paths and effects light/dark sheet. Existing exports are preserved. The first delivery is the measured layout with completed house anchors; gate and gift assemblies remain explicitly pending until their separate milestone.

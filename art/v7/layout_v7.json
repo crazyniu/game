@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "measured_layout_with_house_gate_gift_assemblies_pending_parent",
+  "status": "measured_layout_with_gate_gift_assemblies_pending_parent",
   "resources": {
     "filesystem_root": "PerchSort/Assets/Resources/V7/Art",
     "unity_resources_root": "V7/Art",
@@ -1413,7 +1413,22 @@
       ],
       "sha256": "24c3f457ffdf436898a24f1ef6975bcbf9fc391df4dc4ad67e27bc789fdb6cbf",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        43,
+        225,
+        2130,
+        459
+      ],
+      "part_placement_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_beam_w2": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w2.png",
@@ -1439,7 +1454,22 @@
       ],
       "sha256": "7aaf68ce90c1a6a2cc411fa0f6bcb1d2305b953ab390affece9f045e9c321c80",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        37,
+        218,
+        2133,
+        448
+      ],
+      "part_placement_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_beam_w3": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w3.png",
@@ -1465,7 +1495,22 @@
       ],
       "sha256": "08a11d270bda7638e445032baa9eaa68fa2567fdad507c22e103c41bfc5a0120",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        25,
+        162,
+        2144,
+        467
+      ],
+      "part_placement_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_beam_w4": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_beam_w4.png",
@@ -1491,7 +1536,22 @@
       ],
       "sha256": "fd3a48be659968ba3836595d3225ed2cf90efbaf419514f0ab07363fc143a20c",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        28,
+        225,
+        2143,
+        514
+      ],
+      "part_placement_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_body": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_body.png",
@@ -1517,7 +1577,22 @@
       ],
       "sha256": "91f16d84458c17d7c8200bcbb16c297c21b7076cd788ed441e7a1761f369cb2e",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        314,
+        73,
+        1216,
+        924
+      ],
+      "part_placement_rect_xywh": [
+        64,
+        96,
+        384,
+        360
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_count_chip": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_count_chip.png",
@@ -1573,12 +1648,27 @@
         255
       ],
       "pivot_normalized_unity": [
-        0.5,
-        0.5
+        0.283203125,
+        0.40234375
       ],
       "sha256": "0c395e42cd527273ed78b7f1b54ab8bf86fed8fd365b1574616ca1a8cf22055b",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        98,
+        84,
+        1135,
+        1163
+      ],
+      "part_placement_rect_xywh": [
+        145,
+        198,
+        216,
+        216
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_door_open": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_door_open.png",
@@ -1604,7 +1694,22 @@
       ],
       "sha256": "20df0aaa41ef76597a929a246773a54f69891f76c62738411ed95151007e3e02",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        190,
+        92,
+        762,
+        1449
+      ],
+      "part_placement_rect_xywh": [
+        70,
+        198,
+        80,
+        216
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_glow": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_glow.png",
@@ -1659,7 +1764,22 @@
       ],
       "sha256": "3236282a9e1a5c8f0ee4e358546d01b5a9a9bd7dc896929631df3c692bee2e21",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        170,
+        32,
+        1813,
+        744
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_green": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_green.png",
@@ -1685,7 +1805,22 @@
       ],
       "sha256": "349adc8d57190d1e023d0814d1252aad6746b5db97a1a81eaa4e58507b21b317",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        171,
+        51,
+        1811,
+        737
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_orange": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_orange.png",
@@ -1711,7 +1846,22 @@
       ],
       "sha256": "c864e616d298adeab24b4c48035ba19db0088d8686bd653465f361df401a6ff2",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        112,
+        43,
+        1870,
+        749
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_pink": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_pink.png",
@@ -1737,7 +1887,22 @@
       ],
       "sha256": "fcaeb858ac7d483aee5fd83413d9913b3582caa4f3d0e4c12bcf529f4a2b73e1",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        162,
+        54,
+        1821,
+        737
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_purple": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_purple.png",
@@ -1763,7 +1928,22 @@
       ],
       "sha256": "7b504a9e7e4427200cc394d8e27467d1d34646d998e96460a8c5213800b9d7c5",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        93,
+        46,
+        1890,
+        747
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_red": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_red.png",
@@ -1789,7 +1969,22 @@
       ],
       "sha256": "b2a6fb7d8d02cf8eef54e1d66ff5d657de06b53ad23f429beacfa84987cf0683",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        126,
+        44,
+        1854,
+        749
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_teal": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_teal.png",
@@ -1815,7 +2010,22 @@
       ],
       "sha256": "1980b06d5b887eec678bcb0d28946cec4f8c96921a54c57329a11fc60ce02270",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        190,
+        56,
+        1793,
+        734
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_roof_yellow": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_roof_yellow.png",
@@ -1841,7 +2051,22 @@
       ],
       "sha256": "7088a7925d7a7466b21aa4e1c148ba648551b66ac47c7cbdd78dc6fed505d475",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        133,
+        34,
+        1839,
+        750
+      ],
+      "part_placement_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "preserve_canvas_on_import": true
     },
     "house_rope": {
       "file": "PerchSort/Assets/Resources/V7/Art/house_rope.png",
@@ -1867,7 +2092,22 @@
       ],
       "sha256": "17efe399feaa324c072e7eec408890ed07909bf76e49bee1443b9b6c8dc8ddc7",
       "evidence": "delivered_file_inspected",
-      "metadata_sources": []
+      "metadata_sources": [
+        "art/v7/runtime/houses/delivery.json"
+      ],
+      "source_crop_xyxy": [
+        465,
+        67,
+        559,
+        1474
+      ],
+      "part_placement_rect_xywh": [
+        20,
+        4,
+        24,
+        248
+      ],
+      "preserve_canvas_on_import": true
     },
     "icon_aviary": {
       "file": "PerchSort/Assets/Resources/V7/Art/icon_aviary.png",
@@ -10513,9 +10753,132 @@
   },
   "assemblies": {
     "houses": {
-      "status": "pending_parent_integration",
+      "status": "delivered_static_alignment",
       "source_metadata": "art/v7/runtime/houses/delivery.json",
-      "contract": null
+      "contract": {
+        "coordinate_system": "Top-left pixels in parent canvas; shared house frame 512x512. Composite at zero offset, no trimming at import.",
+        "shared_canvas": [
+          512,
+          512
+        ],
+        "body_peak_xy": [
+          256,
+          96
+        ],
+        "roof_suspension_anchor_xy": [
+          256,
+          58
+        ],
+        "door_center_xy": [
+          253,
+          306
+        ],
+        "door_dark_radius": 102,
+        "door_closed_outer_radius": 108,
+        "door_left_hinge_xy": [
+          145,
+          306
+        ],
+        "door_leaf_pivot_unity_normalized": [
+          0.283203125,
+          0.40234375
+        ],
+        "closed_transform": {
+          "position_xy": [
+            0,
+            0
+          ],
+          "scale_xy": [
+            1,
+            1
+          ],
+          "rotation_deg": 0
+        },
+        "open_transform": {
+          "hinge_xy": [
+            145,
+            306
+          ],
+          "rotation_about_vertical_deg": 70,
+          "projected_width_px": 80,
+          "fallback_file": "house_door_open.png",
+          "contains_body": true,
+          "contains_roof": false
+        },
+        "rope": {
+          "canvas": [
+            64,
+            256
+          ],
+          "top_anchor_xy": [
+            32,
+            4
+          ],
+          "bottom_anchor_xy": [
+            32,
+            252
+          ],
+          "connect_bottom_to_house": [
+            256,
+            58
+          ]
+        },
+        "beams": {
+          "canvas": [
+            1080,
+            200
+          ],
+          "house_suspension_y_by_world": {
+            "w1": 170,
+            "w2": 170,
+            "w3": 170,
+            "w4": 120
+          },
+          "seven_rope_anchors_x": [
+            96,
+            244,
+            392,
+            540,
+            688,
+            836,
+            984
+          ]
+        },
+        "asset_ids": {
+          "body": "house_body",
+          "roof_by_color": {
+            "teal": "house_roof_teal",
+            "red": "house_roof_red",
+            "yellow": "house_roof_yellow",
+            "purple": "house_roof_purple",
+            "green": "house_roof_green",
+            "blue": "house_roof_blue",
+            "orange": "house_roof_orange",
+            "pink": "house_roof_pink"
+          },
+          "door_leaf": "house_door_leaf",
+          "open_fallback": "house_door_open",
+          "rope": "house_rope",
+          "beam_by_world": {
+            "w1": "house_beam_w1",
+            "w2": "house_beam_w2",
+            "w3": "house_beam_w3",
+            "w4": "house_beam_w4"
+          }
+        },
+        "composition": {
+          "closed": "Place body, selected roof, then door leaf at zero offset on shared 512x512 canvas. Preserve transparent canvas at import.",
+          "open_fallback": "Replace body+door-leaf with house_door_open, then add selected roof at zero offset. Fallback already contains body and excludes roof.",
+          "bird_face": "Center bird face on door_center_xy and clip to the circular dark doorway; bird sprite scale is not defined by this asset contract.",
+          "rope": "Connect rope.bottom_anchor_xy to roof_suspension_anchor_xy after applying each part display scale.",
+          "beam": "Beam anchors are beam-local asset pixels, not approved-screen house positions; scale beam-local anchors with the beam."
+        },
+        "evidence": "delivered_aligned_sprite_contract_static_QA_reviewed; door angle is a supplied engineering animation target, not runtime-verified motion",
+        "qa_reviewed": [
+          "art/v7/runtime/houses/qa/assembled_sheet.jpg",
+          "art/v7/runtime/houses/qa/beams_sheet.jpg"
+        ]
+      }
     },
     "gates": {
       "status": "pending_parent_integration",
@@ -10552,7 +10915,7 @@
     ],
     "runtime_verified": false,
     "pending": [
-      "Parent house/gate/daily-gift assembly integration",
+      "Parent gate/daily-gift assembly integration",
       "Unity import and rendered layout",
       "Topmost map viewport clamp or opaque-source backing",
       "Animation and hit targets"
@@ -10566,7 +10929,8 @@
       "art/v7/runtime/panels/delivery.json",
       "art/v7/runtime/effects/delivery.json",
       "art/v7/runtime/generated_metrics.json",
-      "art/v7/runtime/extracted/provenance.json"
+      "art/v7/runtime/extracted/provenance.json",
+      "art/v7/runtime/houses/delivery.json"
     ],
     "exclusions": [
       "ui7_icons.png is a 1536x1536 atlas, not a portrait screen.",
