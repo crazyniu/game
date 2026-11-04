@@ -3,7 +3,7 @@
 ## Branch / checkpoint
 - Branch: `mac-ui/t50`, resumed from lead-reviewed `dcd36a8`.
 - Integration commit: `e7d84a5` (v7 UI, measured layout, importer and generated metadata).
-- Latest code checkpoint: `22df2a5` (interleaved board clearance, coloured-illustration preference, new Minty metadata). Earlier green WIP pushed at `3e6aef4`.
+- Latest code checkpoint: `46c977d` (complete v7 scenery/coloured illustrations, aligned feet/branch planes and new metadata). Earlier green milestones pushed at `3e6aef4` and `39dc66b`.
 - Full handoff and exact lead popup policy: `tasks/T50_report.md`.
 - Working directly. No sub-workers or services were started during this resumption.
 
@@ -16,7 +16,9 @@
 - Added required v7 captures plus map worlds/gates/test-mode and popup/placeholder previews. Corrected beam/chrome overlap, faded locked nodes, goal-info text clearance and gate centering after inspecting actual runtime images.
 - Updated layout and runtime pose checks; removed old asset-filename-only assertions instead of re-pinning them. Core/Meta, level data, existing save/economy behavior and intentional skips remain unchanged.
 - Lead review fixed: right-side rows interleave at exactly half-row pitch; opposite-side full bird canvases and branch artwork are separated. All 24 rows-2..5/K-2..7 layout combinations pass; regenerated K7 was visually inspected. No authored board edits.
-- Booster illustration lookup is ready for `booster_firefly_illus`, `booster_sapling_illus`, `booster_owl_eye_illus`, `booster_morning_bell_illus`, `booster_scarecrow_illus`, `booster_spring_rain_illus`. Current glyph/egg composition remains until those art files arrive.
+- All six coloured booster illustrations are now bound to their delivered names. The unlock card displays the combined illustration in its measured main-object area; the obsolete glyph/egg fallback is removed.
+- Merged `origin/mac-art/world`: all 16 backgrounds and all four branch/twig/trunk/crown sets. Removed legacy scenery fallback. `V7Layout`, `V5SceneView`, `BranchView` and `BirdView` align crown attachments, edge trunks, branch perch planes and feet; home-flight centering still passes its existing runtime regression.
+- Latest graphics capture regenerated all required PNGs plus `v7_world_w1.png` through `v7_world_w4.png`. K3/K7, coloured Owl Eye, bamboo and maple were opened and visually inspected. Logs: `build/t50-world-tests.log`, `build/t50-world-capture.log`.
 
 ## Latest locked Mac verification
 | Suite | Passed | Failed | Skipped |
@@ -27,9 +29,8 @@
 `V5Capture.Run` completed with graphics. Required PNGs are in `build/screens/v7/`: `v7_level_k3`, `v7_level_k7`, `v7_map`, `v7_level_card`, `v7_win`, `v7_settings`, `v7_unlock_card`, `v7_goal_info`, `v7_popup_new_friend`. Additional captures cover all map worlds/gates, synthetic test-mode clears, daily gift, world complete/unlock and the authorized placeholders. Actual images were opened and inspected. No manual desktop playthrough, all-level gameplay run or new timed-animation evidence is claimed.
 
 ## Half done / visual blockers
-- `Resources/V7/World/` is still absent. The lead moved delivery to `origin/mac-art/world` (W1 first); no such branch existed at the latest fetch. Merge it when it lands. Levels retain explicit legacy scenery fallback, not final approved whole-screen parity.
+- World scenery is fully delivered and integrated from `origin/mac-art/world`; no scenery fallback remains. Full visual acceptance still awaits the remaining bird/egg/overlay deliveries and lead review of actual captures.
 - T49 now has complete Sunny/Skye/Berry/Minty sets (`c9fc784`), including corrected Berry plumes. Cocoa/Snow/Ember/Ink/Hoot/Rook exports, eggs and mama/chick overlays remain incomplete. Some K7 birds/mechanics still use legacy fallback.
-- Coloured booster illustrations are pending mac-art delivery; the preference/fallback code is implemented.
 - New popup views are implemented, but automatic scheduling, acknowledgement payouts, one-time bookkeeping and queue persistence are NOT implemented yet. Current runtime uses `V5Profile`/`V5Progress`; the existing Meta Aviary/Economy policy must be integrated without duplicate rewards.
 
 ## Exact next policy (recorded in full in T50 report)
@@ -43,4 +44,4 @@ New-friend cards follow intro/debut order and mark met/pay 20 only on acknowledg
 ## Submission hygiene
 Every edited code file and generated V7 `.meta` is staged with the code checkpoint. The clean pre-run `Game.unity` and `V5.unity` bytes were restored after SceneBuilder; no unrelated package/settings edits were staged. `build/` evidence stays ignored. Unity runs ended and the owned lock was released.
 
-IN PROGRESS: board review fix is green; exact popup policy is the immediate next implementation. Missing art blocks final visual acceptance, not popup logic.
+IN PROGRESS: world/illustration captures and the board-overlap fix are green and ready for lead review. Exact popup policy is the immediate next implementation; it does not wait for remaining art.
