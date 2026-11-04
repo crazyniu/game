@@ -1,48 +1,28 @@
-# Naming cleanup and project conventions (coordinator spec for the OMP worker)
+# Naming cleanup and project conventions
 
-Base: branch `t54-integration`. You rename and document only; no behaviour, assertion, number or timing changes. Everything below is binding; do not improvise additions.
+Rename and document only; do not change behavior, assertions, numbers or timing.
 
 ## Part A. Create `docs/CONVENTIONS.md`
 Copy the text between the markers `BEGIN CONVENTIONS` and `END CONVENTIONS` at the end of this file VERBATIM into `docs/CONVENTIONS.md` (English). Then:
 - link it as the first item of the table in `docs/README.md`, from `README.md`, and from the top of `AGENTS.md` and `CLAUDE.md` (identical content in both; keep their existing content otherwise, but remove any sentence that contradicts CONVENTIONS);
 - keep `AGENTS.md` and `CLAUDE.md` short pointers plus the hard constraints that already exist there.
 
-## Part B. Naming rule
-Files, folders, classes, tests, evidence and docs are named by what they are or do. No version numbers (v5, v7) and no task numbers (T45, T54A) in any tracked path, identifier, class name or test name. Dated records may use a `YYYY-MM-DD_` prefix. Branch names must follow the same rule from now on.
 
-## Part B1. Work log layout
-Delete the `tasks/` directory. Create `docs/work-log/<topic>/` where `<topic>` is a lowercase hyphenated slug of at most four words that describes the subject (examples: `core-rules`, `level-catalog`, `bird-frame-sequences`, `map-viewport`, `popup-layering`, `branch-trees`, `music`, `level-entrance`, `naming-cleanup`).
-Inside: `spec.md` (the old task description), `report.md` (the old report), `evidence/` (the old `tasks/evidence/<id>/` files, same filenames). Where a topic had several numbered parts that were really one subject (e.g. A/B/C/D/E sub-tasks of one feature), keep ONE topic directory and name the parts by role (`spec-runtime.md`, `report-runtime.md`), never by letter or number.
-Derive the slug from the descriptive part of the old filename; for files with no description (e.g. `T5_report.md`, `T7_report.md`) read the content and choose the subject. Never use a numeric suffix to disambiguate two topics; choose a more specific word.
-Write the full mapping old path -> new path to `docs/work-log/README.md` as a table (topic, one-line summary, old id in plain words is NOT allowed: use only the new path and summary). Use `git mv` so history follows.
-Fix EVERY reference to the old paths in all tracked files (README, AGENTS.md, CLAUDE.md, docs/**, ci/**, scripts/**, tools/**, code comments, prompts). Run a link checker script (kept outside the repo) over every Markdown link and every path string you changed; zero broken links.
-Update the line in AGENTS.md and CLAUDE.md (identical content) that says every task gets `tasks/T<n>_<name>.md` to: each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers.
+## Part B. Naming and work log
 
-## Part B2. Unity tests and classes (rename file, class and namespace-visible names; keep every test method body and assertion unchanged; keep .meta GUIDs by renaming with the .meta file via `git mv`)
-| Current file | New name |
-|---|---|
-| Tests/PlayMode/T54AMusicTests.cs | MusicTests.cs |
-| Tests/PlayMode/T54BEntranceTests.cs | LevelEntranceTests.cs |
-| Tests/PlayMode/T54CIdleTests.cs | BirdIdleTests.cs |
-| Tests/PlayMode/T54DButtonTests.cs | ButtonSizeTests.cs |
-| Tests/EditMode/T54DCoinHeaderTests.cs | CoinHeaderTests.cs |
-| Tests/PlayMode/T54FUiBirdTests.cs | PopupBirdTests.cs |
-| Tests/PlayMode/T54FUiSequenceTests.cs | PopupBirdSequenceTests.cs |
-| Tests/PlayMode/T54HModalTests.cs | ModalLayerTests.cs |
-| Tests/PlayMode/T54IMapViewportTests.cs | MapViewportTests.cs |
-Also rename any other tracked file or class whose name contains `T` plus digits (search all of `PerchSort/`), choosing a descriptive name. Test counts must stay identical (312 EditMode, 53 PlayMode).
+Name paths and identifiers by subject. Move legacy task records and their evidence into subject directories under `docs/work-log/` using `git mv`. Keep one topic per subject, use role-based filenames for related parts, maintain the work-log index and repair references. Preserve historical records and existing persisted keys. Rename numbered Unity test files, classes and matching metadata without changing test methods or assertions. Extend the naming guard to reject task and version names in tracked paths and authored identifiers, with fixtures for invalid names and valid dates. Remove the old completed-report and handoff exceptions.
 
-## Part B3. Naming guard
-Extend `ci/check_current_game_names.py`: reject version tokens (v/V + digits, ui + digit) and task tokens (T + digits with optional letter) in every tracked path and authored identifier, class/file names included. Allowed: `YYYY-MM-DD` dates, third-party package files, lockfiles, git metadata, exact storage-key literals already listed. Remove the old exceptions for "completed task reports" and "dated handoff" naming-by-number; handoff files must also follow the rule. Add self-test fixtures for T54A-style names, `T7_report.md`, `ui7_x.png`, `V5Tool`, and for allowed dates. The check must pass on your branch.
+## Part B. Verification
 
-## Part B4. Existing docs/team and handoff files
-Rename any with numbers in the path (e.g. `docs/team/HANDOFF_2026-11-04_CODEX.md` stays, it is a dated record; check the rest). Fix references.
+- `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py` pass.
+- The tracked-path search for task and version tokens is empty, excluding dates.
+- An external link checker reports zero broken Markdown links and changed paths.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh` reports EditMode 312/312 and PlayMode 53/53 with no failures or skips.
+- `git diff --stat -M` shows work-log renames. Commit the work-log move, reference fixes, test renames and guard separately; record exact output in `docs/work-log/naming-cleanup/report.md`.
 
-## Part B. Verification (all required, report exact output)
-`python3 ci/check_current_game_names.py` passes; `git ls-files | grep -E '(^|/)[^/]*([Tt][0-9]+|[Vv][0-9]+)'` is empty (dates excluded); link checker zero broken; `flock /tmp/unity.lock bash scripts/run_tests.sh` EditMode 312/312, PlayMode 53/53 (same counts, same results); `git diff --stat -M` shows renames, not delete+add, for the moved docs. Commit in these steps: work-log move, link fixes, test renames, guard. Report in `docs/work-log/naming-cleanup/report.md`.
+## Part C. Evidence directory
 
-## Part C. Evidence directory already named
-The motion-evidence worker writes to `docs/work-log/motion-evidence/` (spec.md, report.md, evidence/). Do not touch that directory; it already follows the rule. Add it to the work-log README table as topic `motion-evidence` ("timed captures of the integrated build").
+Do not touch `docs/work-log/motion-evidence/`. Add that topic to the work-log index as timed captures of the integrated build.
 
 <!-- BEGIN CONVENTIONS -->
 # Perch Sort conventions
@@ -101,5 +81,6 @@ Menu and map page play `bgm_menu`, level page plays `bgm_game`, loop, 1 s crossf
 5. Talk to the user in Chinese; everything written for agents and the repository is English.
 <!-- END CONVENTIONS -->
 
-## Part D. Make this spec pass the guard (last step)
-This spec must name old files to explain the work, so it cannot pass the extended guard while it exists. As the LAST commit, rewrite `docs/work-log/naming-cleanup/spec.md`: remove every old task-numbered or version-numbered name and replace it with a plain description ("the music test", "the entrance test", the topic directories by their new names). Keep Part A text, the conventions block and the verification list. The final tree must pass `python3 ci/check_current_game_names.py`.
+## Part D. Specification cleanup
+
+Keep the conventions block verbatim and describe former numbered names by subject. This is the final commit.
