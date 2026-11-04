@@ -94,10 +94,13 @@ namespace PerchSort.V5.Tests
         public void SavingAnOverlayNeverWritesSyntheticProgressCoinsOrInventory()
         {
             var saved = new Dictionary<string, int?>();
-            foreach (string key in V5Progress.Keys()) saved.Add(key, PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null);
+            string notifications = PlayerPrefs.HasKey(V5Progress.NotificationsKey) ? PlayerPrefs.GetString(V5Progress.NotificationsKey) : null;
+            foreach (string key in V5Progress.Keys())
+                if (key != V5Progress.NotificationsKey)
+                    saved.Add(key, PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : (int?)null);
             try
             {
-                foreach (string key in saved.Keys) PlayerPrefs.DeleteKey(key);
+                foreach (string key in V5Progress.Keys()) PlayerPrefs.DeleteKey(key);
                 PlayerPrefs.SetInt(V5Progress.CoinsKey, 60);
                 PlayerPrefs.SetInt(V5Progress.HighestKey, 2);
                 PlayerPrefs.SetInt(V5Progress.StarsKey(1), 1);
@@ -119,6 +122,8 @@ namespace PerchSort.V5.Tests
             {
                 foreach (var pair in saved)
                     if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key, pair.Value.Value); else PlayerPrefs.DeleteKey(pair.Key);
+                if (notifications == null) PlayerPrefs.DeleteKey(V5Progress.NotificationsKey);
+                else PlayerPrefs.SetString(V5Progress.NotificationsKey, notifications);
                 PlayerPrefs.Save();
             }
         }
