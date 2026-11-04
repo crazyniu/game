@@ -1,0 +1,19 @@
+{
+  "species": "crow",
+  "frames": 24,
+  "unique_hashes": 24,
+  "clipped": [],
+  "size": [
+    320,
+    320
+  ],
+  "mode": "RGBA",
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "preview_fps": 10,
+  "previews": 6,
+  "review": "light and dark contact sheets plus 64 px grayscale reviewed",
+  "unity_playback": "integration pending"
+}
