@@ -80,7 +80,7 @@ namespace PerchSort.Tests.Audio
             manager.SwitchMusic(MusicPage.Game);
             Assert.That(manager.IsCrossfading,Is.True);
             Assert.That(Music[1].clip.name,Is.EqualTo("bgm_game"));
-            SetField("fadeStart",Time.unscaledTime-.5f);
+            SetField("fadeStart",Time.unscaledTime-AudioManager.CrossfadeSeconds);
             typeof(AudioManager).GetMethod("Update",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(manager,null);
             Assert.That(manager.IsCrossfading,Is.False);
             Assert.That(Music[0].volume,Is.Zero);
