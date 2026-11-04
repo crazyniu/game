@@ -4,6 +4,7 @@ using PerchSort.Audio;
 using PerchSort.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using IClock = PerchSort.Meta.IClock;
 
@@ -26,7 +27,7 @@ namespace PerchSort.Game
         private AudioManager audioManager;
         private CanvasGroup hudInput, boardInput, mapInput;
         private bool ownsAudio, initialized, persistProgress = true, rewardGranted, hintPending;
-        private bool previousSfx;
+        private bool previousSfx, previousMusicEnabled;
         private MusicPage previousMusic;
         private GameProfile profile;
         private int revision, transactionGeneration;
@@ -59,6 +60,13 @@ namespace PerchSort.Game
         private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || IsIntroducing || notificationTransition || IsWiping;
         public void ConfigureFont(TMP_FontAsset value) => font = value;
         private void Start() => Initialize();
+        private void Update()
+        {
+            if (audioManager == null) return;
+            if ((Pointer.current != null && Pointer.current.press.wasPressedThisFrame) ||
+                (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame))
+                audioManager.ResumeMusicOnUserInteraction();
+        }
 
         // Capture initializes outside play mode without reading/writing the player's profile.
         public void Initialize(bool saveProgress = true, bool? showNotifications = null)
@@ -100,8 +108,9 @@ namespace PerchSort.Game
             {
                 audioManager = AudioManager.Instance;
                 if (audioManager == null) { audioManager = new GameObject("Game audio").AddComponent<AudioManager>(); ownsAudio = true; }
-                previousSfx = audioManager.SfxEnabled; previousMusic = audioManager.CurrentMusic;
-                audioManager.StopMusic(); audioManager.SetSfxEnabled(!profile.Muted);
+                previousSfx = audioManager.SfxEnabled; previousMusicEnabled = audioManager.MusicEnabled;
+                previousMusic = audioManager.CurrentMusic;
+                audioManager.SetSfxEnabled(!profile.Muted); audioManager.SetMusicEnabled(!profile.Muted);
             }
             initialized = true;
             Session = profile.CreateSession(LevelLoader.Load(1));
@@ -134,6 +143,7 @@ namespace PerchSort.Game
         {
             rewardGranted = false; pendingWinReward = 0;
             IsMap = false; Map.Hide(); Board.gameObject.SetActive(true); Hud.gameObject.SetActive(true);
+            if (audioManager != null) audioManager.SwitchMusic(MusicPage.Game);
             if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
             Session = profile.CreateSession(level);
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
@@ -360,6 +370,7 @@ namespace PerchSort.Game
         private void ShowMapSurface()
         {
             IsMap = true; Session.CancelSelection();
+            if (audioManager != null) audioManager.SwitchMusic(MusicPage.Menu);
             Board.gameObject.SetActive(false); Hud.gameObject.SetActive(false); tutorial.Hide();
             Map.Show(profile);
         }
@@ -500,7 +511,8 @@ namespace PerchSort.Game
         public void ClosePanel() { if (panels.IsUnlock || panels.IsNotification) return; panels.Hide(); Refresh(); }
         public void SetMuted(bool muted)
         {
-            profile.Muted = muted; Save(); if (audioManager != null) audioManager.SetSfxEnabled(!muted);
+            profile.Muted = muted; Save();
+            if (audioManager != null) { audioManager.SetSfxEnabled(!muted); audioManager.SetMusicEnabled(!muted); }
         }
         public void PlaySound(Sfx sound) { if (audioManager != null) audioManager.Play(sound); }
         private void Refresh()
@@ -554,7 +566,11 @@ namespace PerchSort.Game
             initialized = false; revision++; transactionGeneration++; art?.Dispose();
             if (audioManager == null) return;
             if (ownsAudio) GameUI.Dispose(audioManager.gameObject);
-            else { audioManager.SetSfxEnabled(previousSfx); if (previousMusic != MusicPage.None) audioManager.SwitchMusic(previousMusic); }
+            else
+            {
+                audioManager.SetSfxEnabled(previousSfx); audioManager.SetMusicEnabled(previousMusicEnabled);
+                audioManager.SwitchMusic(previousMusic);
+            }
         }
     }
 }

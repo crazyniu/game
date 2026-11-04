@@ -11,7 +11,7 @@ namespace PerchSort.Audio
         public bool MusicEnabled{get;private set;}=true;
         public MusicPage CurrentMusic{get;private set;}
         public bool IsCrossfading{get;private set;}
-        public const float CrossfadeSeconds=.5f;
+        public const float CrossfadeSeconds=1f;
         public static readonly string[] SoundKeys={"chirp_01","chirp_02","chirp_03","chirp_04","chirp_05","flutter","sleep_z","nest_home","crate_open","star_1","star_2","star_3","win_fanfare","hint","ui_tap","ui_back"};
         public static readonly string[] EffectKeys={"chirp","chirp","nest_home","win_fanfare","error","undo","ui_tap","flutter","sleep_z","crate_open","star_1","star_2","star_3","hint","ui_back"};
         private static readonly string[] Legacy={"select","move","collect","win","error","undo","click"};
@@ -19,8 +19,8 @@ namespace PerchSort.Audio
         private readonly AudioSource[] voices=new AudioSource[8],songs=new AudioSource[2];
         private readonly double[] nextAllowed=new double[15];
         private int voiceIndex,lastChirp=-1,active;
-        private float musicVolume=1,fadeStart,fadeFrom0,fadeFrom1;
-        private bool focused=true,paused;
+        private float musicVolume=1,fadeStart,fadeFrom0,fadeFrom1,suspendedAt;
+        private bool focused=true,paused,playbackSuspended;
         internal Func<double> Clock=()=>Time.realtimeSinceStartupAsDouble;
         private void Awake()
         {
@@ -49,16 +49,27 @@ namespace PerchSort.Audio
         public void PlayMusic()=>SwitchMusic(MusicPage.Menu);
         public void SwitchMusic(MusicPage page)
         {
+            if(page==MusicPage.None){StopMusic();return;}
             if(page==CurrentMusic)return;
             CurrentMusic=page;active=page==MusicPage.Game?1:0;
-            fadeFrom0=songs[0].volume;fadeFrom1=songs[1].volume;fadeStart=Time.unscaledTime;IsCrossfading=true;
-            songs[active].clip=music[active];if(!songs[active].isPlaying)songs[active].Play();
+            fadeFrom0=songs[0].volume;fadeFrom1=songs[1].volume;
+            fadeStart=playbackSuspended?suspendedAt:Time.unscaledTime;IsCrossfading=true;
+            if(songs[active].clip!=music[active])songs[active].clip=music[active];
+            if(!songs[active].isPlaying)songs[active].Play();
+            if(playbackSuspended)songs[active].Pause();
         }
         public void StopMusic(){CurrentMusic=MusicPage.None;IsCrossfading=false;foreach(var s in songs){s.Stop();s.clip=null;s.volume=0;}}
-        private void Update()=>ApplyMusicVolumes();
+        // Retrying only stopped sources preserves the playhead across ordinary taps and popups.
+        public void ResumeMusicOnUserInteraction()
+        {
+            if(CurrentMusic==MusicPage.None||playbackSuspended||!MusicEnabled)return;
+            if(!songs[active].isPlaying)songs[active].Play();
+        }
+        private void Update(){if(!playbackSuspended)ApplyMusicVolumes();}
         private void ApplyMusicVolumes()
         {
             if(CurrentMusic==MusicPage.None)return;
+            if(playbackSuspended)return;
             float t=IsCrossfading?Mathf.Clamp01((Time.unscaledTime-fadeStart)/CrossfadeSeconds):1;
             songs[0].volume=Mathf.Lerp(fadeFrom0,active==0?.20f*musicVolume:0,t);
             songs[1].volume=Mathf.Lerp(fadeFrom1,active==1?.20f*musicVolume:0,t);
@@ -66,7 +77,25 @@ namespace PerchSort.Audio
         }
         private void OnApplicationFocus(bool focus){focused=focus;ApplyMute();}
         private void OnApplicationPause(bool pause){paused=pause;ApplyMute();}
-        private void ApplyMute(){foreach(var v in voices)v.mute=!SfxEnabled||!focused||paused;foreach(var s in songs)s.mute=!MusicEnabled||!focused||paused;}
+        private void ApplyMute()
+        {
+            bool suspend=!focused||paused;
+            foreach(var v in voices)v.mute=!SfxEnabled||suspend;
+            foreach(var s in songs)s.mute=!MusicEnabled||suspend;
+            if(suspend==playbackSuspended)return;
+            playbackSuspended=suspend;
+            if(suspend)
+            {
+                suspendedAt=Time.unscaledTime;
+                foreach(var s in songs)s.Pause();
+            }
+            else
+            {
+                // The fade clock and playheads resume together, including a pending page change.
+                if(IsCrossfading)fadeStart+=Time.unscaledTime-suspendedAt;
+                foreach(var s in songs)s.UnPause();
+            }
+        }
         private void OnDestroy(){if(Instance==this)Instance=null;}
     }
 }
