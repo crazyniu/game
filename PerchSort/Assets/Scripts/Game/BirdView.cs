@@ -8,7 +8,7 @@ namespace PerchSort.Game
 {
     public sealed class BirdView : MonoBehaviour
     {
-        private RectTransform rect, body;
+        private RectTransform rect, body, positionSpace;
         private Image graphic, bow, fluff, zzz, reveal;
         private GameArt art;
         private BirdOverlay overlays;
@@ -16,7 +16,7 @@ namespace PerchSort.Game
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
         private GameMotion motion, breathing, blinking, looking;
-        private Vector2 perch;
+        private Vector2 perch, bodyPerch;
         private bool selected, asleep, acting;
         private float facing = 1;
         private static readonly string[] IdleNames = { "blink", "tilt_left", "tilt_right", "look_up", "look_down", "look_side", "preen", "fluff", "stretch", "yawn", "shuffle", "quirk1" };
@@ -48,12 +48,26 @@ namespace PerchSort.Game
         public bool ShowsSleepingPose => graphic.sprite == sleep;
         public bool ShowsRestPose => graphic.sprite == RestFrame;
         public bool Revealed => reveal.gameObject.activeSelf;
-        public Vector2 Position => new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y);
+        // Keep the root anchor in its original design space, including inside a doorway mask.
+        public Vector2 Position
+        {
+            get
+            {
+                if (rect.parent == positionSpace)
+                {
+                    var anchored = rect.anchoredPosition;
+                    return new Vector2(anchored.x, -anchored.y);
+                }
+                var local = positionSpace.InverseTransformPoint(rect.position);
+                var area = positionSpace.rect;
+                return new Vector2(local.x - area.xMin, area.yMax - local.y);
+            }
+        }
         public float DisplayScale { get; private set; }
 
         public void Configure(Bird bird, bool sleeping, GameArt assets, Vector2 point, float density)
         {
-            art = assets; rect = (RectTransform)transform;
+            art = assets; rect = (RectTransform)transform; positionSpace = (RectTransform)rect.parent;
             rect.sizeDelta = GameLayout.BirdDisplaySize * density;
             DisplayScale = density;
             string prefix = bird.Species.Id;
@@ -76,6 +90,7 @@ namespace PerchSort.Game
             float footInset = idleFrame.rect.height >= 320 ? 20f / 320 : 12f / 256;
             body = GameUI.Rect(transform, "Bird body", new Vector2(GameLayout.BirdSize * 0.5f, GameLayout.BirdSize * 0.5f + GameLayout.BirdCenterAboveBranch) * density, GameLayout.BirdDisplaySize * density);
             body.pivot = new Vector2(0.5f, footInset);
+            bodyPerch = body.anchoredPosition;
             graphic = GameUI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = GameUI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
             reveal.color = new Color(1, 1, 1, 0.45f);
@@ -134,7 +149,7 @@ namespace PerchSort.Game
                 float stretch = idleEnvelope * (idleAction == 8 ? 0.12f : idleAction == 9 ? 0.07f : 0);
                 body.localScale = Scale((breath + shiver - stretch * 0.5f) * Mathf.Lerp(1, idleFacing, idleEnvelope), breath - shiver + stretch);
                 body.localRotation = Quaternion.Euler(0, 0, idleRotation * idleEnvelope);
-                if (idleActing) rect.anchoredPosition = perch + Vector2.right * (idleOffset * idleEnvelope);
+                if (idleActing) body.anchoredPosition = bodyPerch + Vector2.right * (idleOffset * idleEnvelope);
                 if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(118, -16 - 8 * Mathf.Sin(t * Mathf.PI * 2)) * DisplayScale;
             });
         }
@@ -182,7 +197,11 @@ namespace PerchSort.Game
         {
             blinking.CancelAll(); idleActing = false; idleAction = -1; idleEnvelope = idleRotation = idleOffset = 0; idleFacing = 1;
             if (graphic != null) SetFrame(RestFrame);
-            if (body != null) { body.localRotation = Quaternion.identity; body.localScale = Scale(); }
+            if (body != null)
+            {
+                body.anchoredPosition = bodyPerch;
+                body.localRotation = Quaternion.identity; body.localScale = Scale();
+            }
             if (rect != null && !selected && !acting) rect.anchoredPosition = perch;
         }
         public void Quirk(Action done)
@@ -355,8 +374,7 @@ namespace PerchSort.Game
             motion.CancelAll(); breathing.CancelAll(); blinking.CancelAll(); looking.CancelAll();
             if (trail != null) foreach (var glow in trail) glow.gameObject.SetActive(false);
             facing = 1; rect.localScale = Vector3.one; body.localScale = Scale(); body.localRotation = Quaternion.identity;
-            body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
-                -(GameLayout.BirdSize * 0.5f + GameLayout.BirdCenterAboveBranch) * DisplayScale);
+            body.anchoredPosition = bodyPerch;
             SetFrame(RestFrame); acting = false; selected = false; attention = false;
             rect.anchoredPosition = perch;
             reveal.color = new Color(1, 1, 1, 0.45f);
