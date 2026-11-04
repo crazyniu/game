@@ -87,7 +87,7 @@ namespace PerchSort.PlayModeTests
 
         private static string Describe(AudioSource source) =>
             $"{(source.clip == null ? "none" : source.clip.name)},playing={source.isPlaying},loop={source.loop}," +
-            $"mute={source.mute},volume={source.volume:F3},time={source.time:F3}";
+            $"mute={source.mute},volume={source.volume:F3},time={(source.clip == null ? 0 : source.time):F3}";
 
         private static void Playing(AudioSource source, string clip)
         {
