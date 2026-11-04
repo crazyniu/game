@@ -1,0 +1,211 @@
+{
+  "frames": 240,
+  "unique_hashes": 240,
+  "previews": 60,
+  "preview_fps": 10,
+  "visible_alpha_threshold": 12,
+  "visible_canvas_clipping": [],
+  "faint_edge_alpha": [
+    {
+      "file": "berry_flight_flap_l_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "berry_flight_takeoff_l_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "berry_flight_takeoff_l_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "cocoa_flight_flap_04.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "cocoa_flight_flap_l_05.png",
+      "maximum_edge_alpha": 3
+    },
+    {
+      "file": "cocoa_flight_takeoff_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "cocoa_flight_takeoff_l_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "cocoa_flight_takeoff_l_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "crow_flight_flap_l_03.png",
+      "maximum_edge_alpha": 2
+    },
+    {
+      "file": "crow_flight_takeoff_l_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "ember_flight_takeoff_02.png",
+      "maximum_edge_alpha": 3
+    },
+    {
+      "file": "hoot_flight_flap_05.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_06.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_l_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_l_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_l_04.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_l_05.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "hoot_flight_flap_l_06.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "ink_flight_land_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "ink_flight_land_l_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "ink_flight_takeoff_l_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "ink_flight_takeoff_l_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_flap_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_flap_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_flap_04.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_flap_05.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_flap_l_04.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_land_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "mint_flight_takeoff_l_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_flap_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_flap_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_flap_l_01.png",
+      "maximum_edge_alpha": 2
+    },
+    {
+      "file": "sky_flight_flap_l_02.png",
+      "maximum_edge_alpha": 2
+    },
+    {
+      "file": "sky_flight_flap_l_04.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_flap_l_05.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_land_01.png",
+      "maximum_edge_alpha": 2
+    },
+    {
+      "file": "sky_flight_land_l_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sky_flight_takeoff_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_flap_01.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_flap_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_flap_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_flap_l_05.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_flap_l_06.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_takeoff_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_takeoff_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_takeoff_l_02.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "snow_flight_takeoff_l_03.png",
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "sunny_flight_flap_l_03.png",
+      "maximum_edge_alpha": 7
+    },
+    {
+      "file": "sunny_flight_land_01.png",
+      "maximum_edge_alpha": 2
+    },
+    {
+      "file": "sunny_flight_takeoff_03.png",
+      "maximum_edge_alpha": 1
+    }
+  ],
+  "note": "Strict nonzero-alpha edge audit found residual source/resampling alpha of 1-7/255. No thresholding or alpha replacement was applied; visible silhouette checks use the original batch threshold of alpha > 12."
+}
