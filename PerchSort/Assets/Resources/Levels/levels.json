@@ -1,1 +1,3139 @@
-{"levels":[{"baskets":0,"capacity":6,"difficulty":433,"id":1,"seed":20268950,"shelves":[{"birds":[0,1,1,1,1,1],"capacity":6,"side":"left"},{"birds":[1,2,2,2,2,2],"capacity":6,"side":"right"},{"birds":[2,0,0,0,0,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":4,"targets":[0,1,2],"version":2},{"baskets":0,"capacity":6,"difficulty":436,"id":2,"seed":20276869,"shelves":[{"birds":[0,0,1,1,1,1],"capacity":6,"side":"left"},{"birds":[1,1,2,2,2,2],"capacity":6,"side":"right"},{"birds":[2,2,0,0,0,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":4,"targets":[0,1,2],"version":2},{"baskets":0,"capacity":6,"difficulty":439,"id":3,"seed":20284788,"shelves":[{"birds":[0,0,0,1,1,1],"capacity":6,"side":"left"},{"birds":[1,1,1,2,2,2],"capacity":6,"side":"right"},{"birds":[2,2,2,0,0,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":4,"targets":[0,1,2],"version":2},{"baskets":0,"capacity":6,"difficulty":745,"id":4,"seed":20292707,"shelves":[{"birds":[0,0,0,2,2,1],"capacity":6,"side":"left"},{"birds":[2,2,2,1,1,0],"capacity":6,"side":"right"},{"birds":[1,1,1,0,0,2],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[0,2,1],"version":2},{"baskets":0,"capacity":6,"difficulty":745,"id":5,"seed":20300626,"shelves":[{"birds":[2,0,0,0,0,1],"capacity":6,"side":"left"},{"birds":[0,1,1,1,1,2],"capacity":6,"side":"right"},{"birds":[1,2,2,2,2,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[2,0,1],"version":2},{"baskets":0,"capacity":6,"difficulty":745,"id":6,"seed":20308546,"shelves":[{"birds":[1,1,1,2,2,0],"capacity":6,"side":"left"},{"birds":[2,2,2,0,0,1],"capacity":6,"side":"right"},{"birds":[0,0,0,1,1,2],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[1,2,0],"version":2},{"baskets":0,"capacity":6,"difficulty":745,"id":7,"seed":20316469,"shelves":[{"birds":[2,2,2,0,0,1],"capacity":6,"side":"left"},{"birds":[0,0,0,1,1,2],"capacity":6,"side":"right"},{"birds":[1,1,1,2,2,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[2,0,1],"version":2},{"baskets":1,"capacity":6,"difficulty":745,"id":8,"seed":20324383,"shelves":[{"birds":[1,1,0,0,0,2],"capacity":6,"side":"left"},{"birds":[0,0,2,2,2,1],"capacity":6,"side":"right"},{"birds":[2,2,1,1,1,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[1,0,2],"version":2},{"baskets":1,"capacity":6,"difficulty":745,"id":9,"seed":20332304,"shelves":[{"birds":[1,1,1,2,2,0],"capacity":6,"side":"left"},{"birds":[2,2,2,0,0,1],"capacity":6,"side":"right"},{"birds":[0,0,0,1,1,2],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[1,2,0],"version":2},{"baskets":1,"capacity":6,"difficulty":745,"id":10,"seed":20340224,"shelves":[{"birds":[2,2,2,0,0,1],"capacity":6,"side":"left"},{"birds":[0,0,0,1,1,2],"capacity":6,"side":"right"},{"birds":[1,1,1,2,2,0],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":7,"targets":[2,0,1],"version":2},{"baskets":1,"capacity":6,"difficulty":1056,"id":11,"seed":20348140,"shelves":[{"birds":[1,1,1,3,3,1],"capacity":6,"side":"left"},{"birds":[3,3,3,1,1,3],"capacity":6,"side":"right"},{"birds":[2,2,0,2,2,2],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,0,2,0,0,0],"capacity":6,"side":"right"},{"birds":[],"capacity":6,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[1,3,2,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1056,"id":12,"seed":20356059,"shelves":[{"birds":[3,2,2,2,3,3],"capacity":6,"side":"left"},{"birds":[2,3,3,3,2,2],"capacity":6,"side":"right"},{"birds":[1,0,0,0,1,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,1,1,1,0,0],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[3,2,1,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1058,"id":13,"seed":20363978,"shelves":[{"birds":[2,2,3,3,2,2],"capacity":6,"side":"left"},{"birds":[3,3,2,2,3,3],"capacity":6,"side":"right"},{"birds":[0,0,1,1,1,0],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,1,0,0,0,1],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[2,3,0,1],"version":2},{"baskets":1,"capacity":6,"difficulty":1058,"id":14,"seed":20371899,"shelves":[{"birds":[2,2,3,3,2,2],"capacity":6,"side":"left"},{"birds":[3,3,2,2,3,3],"capacity":6,"side":"right"},{"birds":[0,0,1,1,1,0],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,1,0,0,0,1],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[2,3,0,1],"version":2},{"baskets":1,"capacity":6,"difficulty":1058,"id":15,"seed":20379820,"shelves":[{"birds":[3,3,0,0,3,3],"capacity":6,"side":"left"},{"birds":[0,0,3,3,0,0],"capacity":6,"side":"right"},{"birds":[1,1,1,1,2,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[2,2,2,2,1,2],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[3,0,1,2],"version":2},{"baskets":1,"capacity":6,"difficulty":1060,"id":16,"seed":20387736,"shelves":[{"birds":[1,1,1,2,2,1],"capacity":6,"side":"left"},{"birds":[2,2,2,1,1,2],"capacity":6,"side":"right"},{"birds":[3,3,0,0,0,3],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,0,3,3,3,0],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[1,2,3,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1060,"id":17,"seed":20395657,"shelves":[{"birds":[1,2,2,2,2,1],"capacity":6,"side":"left"},{"birds":[2,1,1,1,1,2],"capacity":6,"side":"right"},{"birds":[3,3,0,0,0,3],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,0,3,3,3,0],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":10,"targets":[1,2,3,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1772,"id":18,"seed":20403573,"shelves":[{"birds":[2,1,1,1,2,1],"capacity":6,"side":"left"},{"birds":[1,2,2,2,1,2],"capacity":6,"side":"right"},{"birds":[4,0,3,3,4,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,3,4,4,0,0],"capacity":6,"side":"right"},{"birds":[3,4,0,0,3,3],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[2,1,4,0,3],"version":2},{"baskets":1,"capacity":6,"difficulty":1775,"id":19,"seed":20411492,"shelves":[{"birds":[3,0,3,3,3,0],"capacity":6,"side":"left"},{"birds":[0,3,0,0,0,3],"capacity":6,"side":"right"},{"birds":[1,2,2,4,4,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[2,4,4,1,1,2],"capacity":6,"side":"right"},{"birds":[4,1,1,2,2,4],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[3,0,1,2,4],"version":2},{"baskets":1,"capacity":6,"difficulty":1775,"id":20,"seed":20419415,"shelves":[{"birds":[2,4,2,2,2,4],"capacity":6,"side":"left"},{"birds":[4,2,4,4,4,2],"capacity":6,"side":"right"},{"birds":[3,1,1,0,0,3],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,0,0,3,3,1],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[0,3,3,1,1,0],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[2,4,3,1,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1775,"id":21,"seed":20427336,"shelves":[{"birds":[1,3,1,1,1,3],"capacity":6,"side":"left"},{"birds":[3,1,3,3,3,1],"capacity":6,"side":"right"},{"birds":[4,2,2,0,0,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[2,0,0,4,4,2],"capacity":6,"crate":{"revealSpecies":3},"side":"right"},{"birds":[0,4,4,2,2,0],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[1,3,4,2,0],"version":2},{"baskets":1,"capacity":6,"difficulty":1775,"id":22,"seed":20435250,"shelves":[{"birds":[1,4,1,1,1,4],"capacity":6,"side":"left"},{"birds":[4,1,4,4,4,1],"capacity":6,"side":"right"},{"birds":[0,2,3,3,3,0],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[2,3,0,0,0,2],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[3,0,2,2,2,3],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[1,4,0,2,3],"version":2},{"baskets":1,"capacity":6,"difficulty":1775,"id":23,"seed":20443169,"shelves":[{"birds":[2,2,4,2,2,4],"capacity":6,"side":"left"},{"birds":[4,4,2,4,4,2],"capacity":6,"side":"right"},{"birds":[1,0,0,0,3,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,3,3,3,1,0],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[3,1,1,1,0,3],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[2,4,1,0,3],"version":2},{"baskets":2,"capacity":6,"difficulty":1775,"id":24,"seed":20451092,"shelves":[{"birds":[0,0,2,0,0,2],"capacity":6,"side":"left"},{"birds":[2,2,0,2,2,0],"capacity":6,"side":"right"},{"birds":[1,3,3,4,4,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[3,4,4,1,1,3],"capacity":6,"crate":{"revealSpecies":2},"side":"right"},{"birds":[4,1,1,3,3,4],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[0,2,1,3,4],"version":2},{"baskets":2,"capacity":6,"difficulty":1775,"id":25,"seed":20459006,"shelves":[{"birds":[2,2,4,2,2,4],"capacity":6,"side":"left"},{"birds":[4,4,2,4,4,2],"capacity":6,"side":"right"},{"birds":[3,0,1,1,1,3],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,1,3,3,3,0],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[1,3,0,0,0,1],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":17,"targets":[2,4,3,0,1],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":26,"seed":20466925,"shelves":[{"birds":[4,1,1,4,4,1],"capacity":6,"side":"left"},{"birds":[1,4,4,1,1,4],"capacity":6,"side":"right"},{"birds":[0,5,5,5,3,2],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[5,3,3,3,2,0],"capacity":6,"crate":{"revealSpecies":1},"side":"right"},{"birds":[3,2,2,2,0,5],"capacity":6,"side":"left"},{"birds":[2,0,0,0,5,3],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[4,1,0,5,3,2],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":27,"seed":20474852,"shelves":[{"birds":[0,3,3,3,0,3],"capacity":6,"side":"left"},{"birds":[3,0,0,0,3,0],"capacity":6,"side":"right"},{"birds":[5,5,1,1,2,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,1,2,2,4,5],"capacity":6,"crate":{"revealSpecies":3},"side":"right"},{"birds":[2,2,4,4,5,1],"capacity":6,"side":"left"},{"birds":[4,4,5,5,1,2],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[0,3,5,1,2,4],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":28,"seed":20482766,"shelves":[{"birds":[2,5,5,2,2,5],"capacity":6,"side":"left"},{"birds":[5,2,2,5,5,2],"capacity":6,"side":"right"},{"birds":[4,4,0,3,3,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,0,3,1,1,4],"capacity":6,"crate":{"revealSpecies":5},"side":"right"},{"birds":[3,3,1,4,4,0],"capacity":6,"side":"left"},{"birds":[1,1,4,0,0,3],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[2,5,4,0,3,1],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":29,"seed":20490683,"shelves":[{"birds":[5,4,5,5,5,4],"capacity":6,"side":"left"},{"birds":[4,5,4,4,4,5],"capacity":6,"side":"right"},{"birds":[2,2,0,3,3,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[0,0,3,1,1,2],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[3,3,1,2,2,0],"capacity":6,"side":"left"},{"birds":[1,1,2,0,0,3],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[5,4,2,0,3,1],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":30,"seed":20498608,"shelves":[{"birds":[3,4,4,3,3,4],"capacity":6,"side":"left"},{"birds":[4,3,3,4,4,3],"capacity":6,"side":"right"},{"birds":[1,1,5,5,0,2],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[5,5,0,0,2,1],"capacity":6,"crate":{"revealSpecies":4},"side":"right"},{"birds":[0,0,2,2,1,5],"capacity":6,"side":"left"},{"birds":[2,2,1,1,5,0],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[3,4,1,5,0,2],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":31,"seed":20506524,"shelves":[{"birds":[1,2,2,1,1,2],"capacity":6,"side":"left"},{"birds":[2,1,1,2,2,1],"capacity":6,"side":"right"},{"birds":[0,4,4,3,3,5],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[4,3,3,5,5,0],"capacity":6,"crate":{"revealSpecies":2},"side":"right"},{"birds":[3,5,5,0,0,4],"capacity":6,"side":"left"},{"birds":[5,0,0,4,4,3],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[1,2,0,4,3,5],"version":2},{"baskets":2,"capacity":6,"difficulty":2090,"id":32,"seed":20514439,"shelves":[{"birds":[4,2,4,4,4,2],"capacity":6,"side":"left"},{"birds":[2,4,2,2,2,4],"capacity":6,"side":"right"},{"birds":[3,3,1,0,0,5],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,1,0,5,5,3],"capacity":6,"crate":{"revealSpecies":2},"side":"right"},{"birds":[0,0,5,3,3,1],"capacity":6,"side":"left"},{"birds":[5,5,3,1,1,0],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":20,"targets":[4,2,3,1,0,5],"version":2},{"baskets":2,"capacity":6,"difficulty":2400,"id":33,"seed":20522358,"shelves":[{"birds":[1,5,5,5,1,5],"capacity":6,"side":"left"},{"birds":[5,1,1,1,5,1],"capacity":6,"side":"right"},{"birds":[6,3,3,2,4,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[3,2,2,4,0,0],"capacity":6,"crate":{"revealSpecies":5},"side":"right"},{"birds":[2,4,4,0,6,6],"capacity":6,"side":"left"},{"birds":[4,0,0,6,3,3],"capacity":6,"side":"right"},{"birds":[0,6,6,3,2,2],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":23,"targets":[1,5,6,3,2,4,0],"version":2},{"baskets":2,"capacity":6,"difficulty":2405,"id":34,"seed":20530277,"shelves":[{"birds":[3,3,3,2,3,2],"capacity":6,"side":"left"},{"birds":[2,2,2,3,2,3],"capacity":6,"side":"right"},{"birds":[5,5,6,6,4,1],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[6,6,4,4,1,0],"capacity":6,"crate":{"revealSpecies":2},"side":"right"},{"birds":[4,4,1,1,0,5],"capacity":6,"side":"left"},{"birds":[1,1,0,0,5,6],"capacity":6,"side":"right"},{"birds":[0,0,5,5,6,4],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":23,"targets":[3,2,5,6,4,1,0],"version":2},{"baskets":2,"capacity":6,"difficulty":2405,"id":35,"seed":20538198,"shelves":[{"birds":[0,0,0,6,0,6],"capacity":6,"side":"left"},{"birds":[6,6,6,0,6,0],"capacity":6,"side":"right"},{"birds":[3,4,4,5,5,2],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[4,5,5,2,2,1],"capacity":6,"crate":{"revealSpecies":6},"side":"right"},{"birds":[5,2,2,1,1,3],"capacity":6,"side":"left"},{"birds":[2,1,1,3,3,4],"capacity":6,"side":"right"},{"birds":[1,3,3,4,4,5],"capacity":6,"side":"left"},{"birds":[],"capacity":4,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":23,"targets":[0,6,3,4,5,2,1],"version":2},{"baskets":2,"capacity":6,"difficulty":2405,"id":36,"seed":20546116,"shelves":[{"birds":[2,6,6,2,2,6],"capacity":6,"side":"left"},{"birds":[6,2,2,6,6,2],"capacity":6,"side":"right"},{"birds":[1,1,1,3,0,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[3,3,3,0,4,5],"capacity":6,"crate":{"revealSpecies":6},"side":"right"},{"birds":[0,0,0,4,5,1],"capacity":6,"side":"left"},{"birds":[4,4,4,5,1,3],"capacity":6,"side":"right"},{"birds":[5,5,5,1,3,0],"capacity":6,"side":"left"},{"birds":[],"capacity":5,"side":"right"},{"birds":[],"capacity":6,"side":"left"}],"solverMinMoves":23,"targets":[2,6,1,3,0,4,5],"version":2},{"baskets":2,"capacity":6,"difficulty":2718,"id":37,"seed":20554034,"shelves":[{"birds":[6,6,7,6,7,7],"capacity":6,"side":"left"},{"birds":[7,7,6,7,6,6],"capacity":6,"side":"right"},{"birds":[2,1,5,5,5,4],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,5,4,4,4,0],"capacity":6,"crate":{"revealSpecies":7},"side":"right"},{"birds":[5,4,0,0,0,3],"capacity":6,"side":"left"},{"birds":[4,0,3,3,3,2],"capacity":6,"side":"right"},{"birds":[0,3,2,2,2,1],"capacity":6,"side":"left"},{"birds":[3,2,1,1,1,5],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":26,"targets":[6,7,2,1,5,4,0,3],"version":2},{"baskets":2,"capacity":6,"difficulty":2720,"id":38,"seed":20561957,"shelves":[{"birds":[1,0,0,0,1,0],"capacity":6,"side":"left"},{"birds":[0,1,1,1,0,1],"capacity":6,"side":"right"},{"birds":[3,2,2,6,6,7],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[2,6,6,7,7,5],"capacity":6,"crate":{"revealSpecies":0},"side":"right"},{"birds":[6,7,7,5,5,4],"capacity":6,"side":"left"},{"birds":[7,5,5,4,4,3],"capacity":6,"side":"right"},{"birds":[5,4,4,3,3,2],"capacity":6,"side":"left"},{"birds":[4,3,3,2,2,6],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":26,"targets":[1,0,3,2,6,7,5,4],"version":2},{"baskets":2,"capacity":6,"difficulty":2720,"id":39,"seed":20569875,"shelves":[{"birds":[3,3,5,5,3,5],"capacity":6,"side":"left"},{"birds":[5,5,3,3,5,3],"capacity":6,"side":"right"},{"birds":[6,6,6,7,4,2],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[7,7,7,4,2,0],"capacity":6,"crate":{"revealSpecies":5},"side":"right"},{"birds":[4,4,4,2,0,1],"capacity":6,"side":"left"},{"birds":[2,2,2,0,1,6],"capacity":6,"side":"right"},{"birds":[0,0,0,1,6,7],"capacity":6,"side":"left"},{"birds":[1,1,1,6,7,4],"capacity":6,"side":"right"},{"birds":[],"capacity":5,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":26,"targets":[3,5,6,7,4,2,0,1],"version":2},{"baskets":2,"capacity":6,"difficulty":2720,"id":40,"seed":20577791,"shelves":[{"birds":[0,6,6,6,0,6],"capacity":6,"side":"left"},{"birds":[6,0,0,0,6,0],"capacity":6,"side":"right"},{"birds":[4,4,4,1,2,3],"capacity":6,"crate":{"revealAfter":1},"side":"left"},{"birds":[1,1,1,2,3,7],"capacity":6,"crate":{"revealSpecies":6},"side":"right"},{"birds":[2,2,2,3,7,5],"capacity":6,"side":"left"},{"birds":[3,3,3,7,5,4],"capacity":6,"side":"right"},{"birds":[7,7,7,5,4,1],"capacity":6,"side":"left"},{"birds":[5,5,5,4,1,2],"capacity":6,"side":"right"},{"birds":[],"capacity":4,"side":"left"},{"birds":[],"capacity":6,"side":"right"}],"solverMinMoves":26,"targets":[0,6,4,1,2,3,7,5],"version":2}]}
+{
+  "levels": [
+    {
+      "id": 1,
+      "capacity": 4,
+      "par": 2,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "world": 1,
+      "variant": "golden",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "world": 1,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 4,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "world": 1,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 8,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "berry",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "berry",
+            "berry",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "world": 1,
+      "variant": "golden",
+      "capacity": 4,
+      "par": 10,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sky",
+            "berry",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "berry",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "berry",
+            "sunny",
+            "sky",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "world": 1,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 5,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "egg:mint",
+            "mint",
+            "mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "world": 1,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 13,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "egg:sky",
+            "berry",
+            "mint",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "mint",
+            "egg:mint",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "mint"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "world": 1,
+      "variant": "golden",
+      "capacity": 4,
+      "par": 11,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry",
+            "sunny",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "mint",
+            "mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "mint"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "world": 1,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 4,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "normal",
+          "seats": 0,
+          "birds": [
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "kind": "normal",
+          "seats": 0,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "world": 1,
+      "variant": "rain",
+      "capacity": 4,
+      "par": 12,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry",
+            "sunny",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "cocoa",
+            "egg:cocoa",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "cocoa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "world": 2,
+      "variant": "drizzle",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "world": 2,
+      "variant": "mist",
+      "capacity": 4,
+      "par": 7,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "sky",
+            "sky",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint:sleep",
+            "mint",
+            "mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "cocoa:sleep",
+            "cocoa",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sunny:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "world": 2,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 7,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:mint",
+            "egg:mint",
+            "egg:mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "world": 2,
+      "variant": "drizzle",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "world": 2,
+      "variant": "mist",
+      "capacity": 4,
+      "par": 2,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny:chick",
+            "sky",
+            "sky",
+            "sunny:mama"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "world": 2,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 6,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:chick",
+            "berry",
+            "berry",
+            "sky:mama"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "egg:cocoa",
+            "sky",
+            "cocoa",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sunny:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "world": 2,
+      "variant": "drizzle",
+      "capacity": 4,
+      "par": 10,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "snow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "snow",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "mint:sleep",
+            "cocoa",
+            "snow",
+            "snow:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "world": 2,
+      "variant": "mist",
+      "capacity": 4,
+      "par": 6,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sunny:chick",
+            "sky",
+            "sky",
+            "sunny:mama"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "world": 2,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 12,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "sky",
+            "sky",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "cocoa:sleep",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "mint"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "sky",
+            "ember",
+            "ember:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "world": 2,
+      "variant": "lanterns",
+      "capacity": 4,
+      "par": 10,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "snow",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "sky",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "berry:sleep",
+            "snow:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "world": 3,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [],
+          "kind": "twig"
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "world": 3,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 8,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sunny:sleep",
+            "sunny:sleep",
+            "sunny:sleep",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": [
+            "crow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "sky",
+            "berry",
+            "crow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "sunny:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "ember",
+            "ember:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "mint:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "world": 3,
+      "variant": "windy",
+      "capacity": 4,
+      "par": 8,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "cocoa",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:mint",
+            "mint",
+            "mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "snow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "sky",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "crow",
+            "snow",
+            "snow:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "world": 3,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky:sleep"
+          ],
+          "kind": "swivel"
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [],
+          "kind": "twig"
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "world": 3,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 12,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "mint:sleep",
+            "sky",
+            "sky",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "snow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "sky",
+            "snow:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "world": 3,
+      "variant": "windy",
+      "capacity": 4,
+      "par": 8,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky:sleep",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "swivel",
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:mint",
+            "mint",
+            "crow",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "ember",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "cocoa",
+            "ember:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "mint"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "crow",
+            "crow",
+            "crow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "ink",
+            "ink:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "world": 3,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 14,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "berry:sleep",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "kind": "swivel",
+          "seats": 0,
+          "birds": [
+            "mint",
+            "sky",
+            "crow",
+            "berry"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "berry:sleep",
+            "berry",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember:sleep",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "ember",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "crow",
+            "crow",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "ink",
+            "ink:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "world": 3,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky:sleep"
+          ],
+          "kind": "swivel"
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "crow"
+          ],
+          "kind": "twig"
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "sunny"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [
+            "ink",
+            "ink",
+            "ink",
+            "ink:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "world": 3,
+      "variant": "windy",
+      "capacity": 4,
+      "par": 16,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "berry:sleep",
+            "sky",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "berry:sleep",
+            "berry",
+            "sky"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa:sleep",
+            "cocoa",
+            "ink"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "ember",
+            "ember",
+            "ember:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "crow",
+            "berry",
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "cocoa",
+            "ink:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "world": 3,
+      "variant": "sunset",
+      "capacity": 4,
+      "par": 19,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky:sleep",
+            "sky",
+            "ember",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "swivel",
+          "seats": 0,
+          "birds": [
+            "ember:sleep",
+            "berry:sleep",
+            "berry",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "ink:sleep",
+            "cocoa",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "sky",
+            "berry:sleep",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow",
+            "crow",
+            "ink",
+            "crow"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "cocoa",
+            "sky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "world": 4,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "world": 4,
+      "variant": "bluehour",
+      "capacity": 4,
+      "par": 8,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "egg:berry",
+            "berry",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "egg:mint",
+            "mint",
+            "mint",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "world": 4,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 2,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "hoot",
+            "hoot",
+            "hoot",
+            "hoot"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "world": 4,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 9,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "swivel",
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:mint",
+            "mint",
+            "mint",
+            "cocoa"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "sky:sleep",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "ember",
+            "ember:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "ink",
+            "ink:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "world": 4,
+      "variant": "bluehour",
+      "capacity": 4,
+      "par": 3,
+      "dayLength": 2,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "birds": [
+            "sunny",
+            "sunny",
+            "sunny",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "birds": [
+            "hoot",
+            "hoot",
+            "hoot",
+            "hoot"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "birds": [],
+          "kind": "growing",
+          "seats": 2
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "world": 4,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 12,
+      "dayLength": 3,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "hoot",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "hoot",
+            "egg:ember",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "hoot",
+            "sky",
+            "hoot"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "world": 4,
+      "variant": "noon",
+      "capacity": 4,
+      "par": 9,
+      "dayLength": 0,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "sky",
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "kind": "twig",
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "kind": "swivel",
+          "seats": 0,
+          "birds": [
+            "berry:sleep",
+            "berry:sleep",
+            "berry",
+            "berry"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:mint",
+            "sky:sleep",
+            "hoot",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "cocoa:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "ember",
+            "ember",
+            "ember:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "crow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "ink",
+            "ink",
+            "ink",
+            "ink:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "hoot",
+            "hoot",
+            "hoot:sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "world": 4,
+      "variant": "bluehour",
+      "capacity": 4,
+      "par": 13,
+      "dayLength": 3,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "egg:ember",
+            "sky",
+            "sky",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "hoot",
+            "hoot",
+            "snow",
+            "ember"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "hoot",
+            "snow:sleep",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "hoot",
+            "snow",
+            "cocoa:sleep",
+            "snow"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "sky"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "world": 4,
+      "variant": "morning",
+      "capacity": 4,
+      "par": 6,
+      "dayLength": 2,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sunny:chick",
+            "sky",
+            "sky",
+            "sunny:mama"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sunny",
+            "sunny"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "cocoa",
+            "mint",
+            "mint:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa:sleep",
+            "cocoa",
+            "mint"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "seats": 0,
+          "birds": [
+            "hoot",
+            "hoot",
+            "hoot",
+            "hoot"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "seats": 0,
+          "birds": []
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "world": 4,
+      "variant": "aurora",
+      "capacity": 4,
+      "par": 12,
+      "dayLength": 3,
+      "branches": [
+        {
+          "side": "L",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "sky",
+            "sky",
+            "sky",
+            "sky:sleep"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 0,
+          "seats": 0,
+          "birds": [
+            "berry",
+            "berry",
+            "berry",
+            "berry:sleep"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "mint",
+            "mint",
+            "mint",
+            "hoot"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 1,
+          "seats": 0,
+          "birds": [
+            "egg:ember",
+            "hoot",
+            "ember",
+            "ember"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "cocoa",
+            "cocoa",
+            "cocoa",
+            "hoot"
+          ]
+        },
+        {
+          "side": "R",
+          "row": 2,
+          "seats": 0,
+          "birds": [
+            "ember",
+            "mint:sleep",
+            "cocoa:sleep",
+            "hoot"
+          ]
+        },
+        {
+          "side": "L",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "R",
+          "row": 3,
+          "kind": "growing",
+          "seats": 2,
+          "birds": []
+        },
+        {
+          "side": "L",
+          "row": 4,
+          "seats": 0,
+          "birds": [
+            "snow",
+            "snow",
+            "snow",
+            "snow:sleep"
+          ]
+        }
+      ]
+    }
+  ]
+}
