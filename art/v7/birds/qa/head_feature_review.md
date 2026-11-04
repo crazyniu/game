@@ -13,6 +13,6 @@ Reviewed 2026-11-04 against approved source images. This records visual comparis
 | Ember | K7 | Three swept flame-like orange/yellow crest feathers, bold brows | Existing idle retains flame crest and determined face |
 | Inky | K7 | Short swept navy tuft, strong brows, blue eyes; white chest star | Existing idle retains these features |
 | Hoot | K7 | Heart-shaped cream facial disc, purple star nightcap with white pompom; no ear tufts | Existing idle retains these features |
-| Rook | K7 | Ragged swept grey crest, heavy brows, hooked grey grin, gold compass | No idle yet; inspect generated base before expanding |
+| Rook | K7 | Ragged swept grey crest, heavy brows, hooked grey grin, gold compass | Generated idle compared with K7 before expansion: swept crest, heavy brows, grey toothy beak and gold compass retained |
 
 `remaining_idle_review.png` displays the Cocoa/Flurry/Ember/Inky/Hoot sources used for this comparison. Every completed set still needs action-level review for shape drift, readable opposing tilts and stable body size.

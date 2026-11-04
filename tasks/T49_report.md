@@ -65,3 +65,7 @@ Completed 17 Inky frames and portrait, strip, GIF and game-size review. Preserve
 ## Hoot checkpoint — 2026-11-04
 
 Completed 17 frames, portrait, strip, GIF and game-size review. Retained cream heart-shaped face and purple star cap. 153 aligned frames, no clipping. Rook base checked against K7 before action generation.
+
+## Rook checkpoint — 2026-11-04
+
+Completed 17 frames, portrait, strip, GIF and game-size review. Compared base to K7 before expansion; retained swept ragged crest, brows, grey toothy beak and compass. Regenerated both flight frames to remove invented straps. All 170 aligned frames have no edge clipping.

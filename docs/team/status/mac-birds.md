@@ -27,3 +27,7 @@ IN PROGRESS: Continue remaining two species and final bird QA. World pieces are 
 - Delivery issue: Inky committed locally as a8109f9, but two GitHub pushes failed (Internal Server Error; fatal error in commit_refs). Remote verified at 0c1fce6. Hoot generation continues; will retry publishing before final handoff. No asset-generation blocker.
 
 - Hoot checkpoint: all 17 frames and portrait, strip, GIF and game-size QA complete. Cream facial disc and star nightcap retained; 153 aligned frames, none clipped. Rook base visually compared with K7 before expansion.
+
+- Push recovered: Inky a8109f9 and Hoot 4b8da97 published successfully to origin/mac-birds/t49. No delivery blocker remains. Rook actions in progress.
+
+- Rook checkpoint: all 17 frames, portrait, strip, GIF and game-size review complete. Corrected both flight frames to remove invented straps and retain handheld compass. All 170 aligned frames unclipped. Final grayscale QA reviewed; final handoff documentation next.
