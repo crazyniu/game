@@ -76,3 +76,5 @@ After isolated branch publication: **HOLD** for coordinator final tree/PR review
 ## Observed final tree checks
 
 Source-only staged checks passed: accepted pre-main PerchSort/art/v7 and owner records preserved exactly; no Core/authored-level/scene/ProjectSettings diff versus incoming main; AGENTS/CLAUDE/TEAM exactly match main; no unmerged entries and clean staged whitespace/conflict-marker check. Referenced reports and V5.unity exist. These checks do not execute product code or provide compilation/runtime evidence.
+
+Resolved main→task merge boundary: **`571d4f39349fdd759bc73a88a72a54167f73ed81`** (parents: accepted runtime/art/E `83a4d93db4b811598a923f7926fb73389ec81a4b`, incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd`). Final-record commit is documentation-only; terminal submission pins its pushed tip and clean status. Coordinator final PR/main merge and original-checkout update remain separate, not performed by this worker.

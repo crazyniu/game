@@ -75,3 +75,7 @@ A Mac continuation starts by reading this handoff, [final T50 report](../../task
 - AGENTS.md, CLAUDE.md and TEAM.md exactly match incoming main, including current Codex/parallel/OMP/Mac-only directives.
 - No unmerged index entries remain. Staged diff whitespace/conflict-marker checks passed. All final report/owner-report links and the V5.unity entry file were found.
 - Automatic merge residue (old booster queue code, missing house imports and incidental spacing) was removed to recover the exact reviewed source rather than introducing new code. No compiler, Unity or test was run for these checks.
+
+## Pinned resolved-main integration
+
+Resolved main→task merge is **`571d4f39349fdd759bc73a88a72a54167f73ed81`**, with accepted E/runtime/art parent `83a4d93db4b811598a923f7926fb73389ec81a4b` and incoming main parent `3e82c64734f3e7291a332d1c0e90263954ce40cd`. The following final-record commit changes documentation only; its exact pushed tip and clean status are reported in the terminal submission. Neither commit is a task→main merge or user-test checkout update. HOLD for the coordinator's final tree/PR review.
