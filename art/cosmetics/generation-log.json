@@ -1,0 +1,131 @@
+[
+  {
+    "species": "sunny",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Edit image 1, the exact sunny_idle game sprite. Add ONLY a physically worn straw sun hat with a white daisy, matching the hat in the upper-left shop card of image 2. Keep the entire original bird identity, face, open happy beak, two brown eyes, pink cheeks, golden yellow plush fur, curled crest, wings, feet, pose, scale and pixel placement unchanged. Maintain exact square 320x320 canvas composition and feet baseline at y=302; bird stays in its existing position, do not enlarge or recenter. Hat sits naturally over the crown behind the curl, brim tilted like reference, top-left lighting, soft fur with no outlines. Complete bird plus hat, genuine RGBA transparent background, no ground, shadow, UI, text or other birds. Accessory clearly readable at 64px. Produce one single sprite.",
+    "name": "sunny_straw_hat",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-f5b29872-75a0-4208-aa6e-c17c182f543f.png",
+    "status": "rejected",
+    "reason": "Framing and body presentation drift; regenerated from the base sprite without the full shop image."
+  },
+  {
+    "species": "sky",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Edit target image 1 is the exact sky_idle.png sprite. Add only cream knitted scarf wrapped snugly around the neck with a short tasselled end. Image 2 is accessory/style reference only; DO NOT COPY ITS BIRD POSE OR EXPRESSION. Keep image 1 bird's face, gaze, beak, feather colours, crest, body proportions, wings, feet, and camera angle exactly unchanged. Keep original square canvas, bird scale and location, feet baseline at 94.4% canvas height. Do not crop, zoom or recenter. Complete bird sprite wearing the accessory naturally. Plush fur, no outlines, soft top-left lighting, crisp silhouette readable at 64px, genuine RGBA transparent background, no floor or cast shadow, no UI or text. The sky accessory must closely match the corresponding shop card, but the bird itself stays exactly like image 1.",
+    "name": "sky_scarf",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-e1aaf9e8-a48a-47a0-b4c5-201997e2a22e.png",
+    "status": "rejected",
+    "reason": "Closed base beak changed to an open smile; regenerated."
+  },
+  {
+    "species": "berry",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Edit target image 1 is the exact berry_idle.png sprite. Add only round gold-rimmed glasses resting on the beak bridge with both eyes clearly visible through clear lenses. Image 2 is accessory/style reference only; DO NOT COPY ITS BIRD POSE OR EXPRESSION. Keep image 1 bird's face, gaze, beak, feather colours, crest, body proportions, wings, feet, and camera angle exactly unchanged. Keep original square canvas, bird scale and location, feet baseline at 94.4% canvas height. Do not crop, zoom or recenter. Complete bird sprite wearing the accessory naturally. Plush fur, no outlines, soft top-left lighting, crisp silhouette readable at 64px, genuine RGBA transparent background, no floor or cast shadow, no UI or text. The berry accessory must closely match the corresponding shop card, but the bird itself stays exactly like image 1.",
+    "name": "berry_glasses",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-d506e986-0a45-4219-b257-240351bb3f8c.png",
+    "status": "accepted"
+  },
+  {
+    "species": "mint",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Edit target image 1 is the exact mint_idle.png sprite. Add only pink flower pinned on the leaf crest. Image 2 is accessory/style reference only; DO NOT COPY ITS BIRD POSE OR EXPRESSION. Keep image 1 bird's face, gaze, beak, feather colours, crest, body proportions, wings, feet, and camera angle exactly unchanged. Keep original square canvas, bird scale and location, feet baseline at 94.4% canvas height. Do not crop, zoom or recenter. Complete bird sprite wearing the accessory naturally. Plush fur, no outlines, soft top-left lighting, crisp silhouette readable at 64px, genuine RGBA transparent background, no floor or cast shadow, no UI or text. The mint accessory must closely match the corresponding shop card, but the bird itself stays exactly like image 1.",
+    "name": "mint_flower",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-78e78499-3fa3-49a4-990c-1f16c0ead75f.png",
+    "status": "accepted"
+  },
+  {
+    "species": "cocoa",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. This is a precise cosmetic edit of the attached cocoa_idle sprite, not a character redesign. Add only tiny red beanie, physically worn and softly lit from upper left. Preserve original bird face, eye shape and expression, closed/open beak as pictured, feather colours, body proportions, pose, wings, feet, perspective and plush feather detail.  Match original composition exactly: same square canvas, same padding, same body scale, same feet baseline at y=302/320. Output whole bird, 320x320 RGBA, genuine transparent background with clean antialiased edges, no ground or drop shadow. No outline, text, UI or extra objects. Accessory recognizable when sprite shown at 64px. Do not enlarge, zoom, crop or recenter the bird.",
+    "name": "cocoa_beanie",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-fa363c65-c31b-4f42-adf7-1df38c77becb.png",
+    "status": "accepted"
+  },
+  {
+    "species": "snow",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. This is a precise cosmetic edit of the attached snow_idle sprite, not a character redesign. Add only pale-blue earmuffs, physically worn and softly lit from upper left. Preserve original bird face, eye shape and expression, closed/open beak as pictured, feather colours, body proportions, pose, wings, feet, perspective and plush feather detail.  Match original composition exactly: same square canvas, same padding, same body scale, same feet baseline at y=302/320. Output whole bird, 320x320 RGBA, genuine transparent background with clean antialiased edges, no ground or drop shadow. No outline, text, UI or extra objects. Accessory recognizable when sprite shown at 64px. Do not enlarge, zoom, crop or recenter the bird.",
+    "name": "snow_earmuffs",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-7c47b702-55be-4ecf-b7ed-e428292eed97.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ember",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. This is a precise cosmetic edit of the attached ember_idle sprite, not a character redesign. Add only red bandana tied around the neck, physically worn and softly lit from upper left. Preserve original bird face, eye shape and expression, closed/open beak as pictured, feather colours, body proportions, pose, wings, feet, perspective and plush feather detail.  Match original composition exactly: same square canvas, same padding, same body scale, same feet baseline at y=302/320. Output whole bird, 320x320 RGBA, genuine transparent background with clean antialiased edges, no ground or drop shadow. No outline, text, UI or extra objects. Accessory recognizable when sprite shown at 64px. Do not enlarge, zoom, crop or recenter the bird.",
+    "name": "ember_bandana",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-a8433263-44f3-47c3-9467-70d8d6903e52.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ink",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. This is a precise cosmetic edit of the attached ink_idle sprite, not a character redesign. Add only purple star nightcap, physically worn and softly lit from upper left. Preserve original bird face, eye shape and expression, closed/open beak as pictured, feather colours, body proportions, pose, wings, feet, perspective and plush feather detail.  Match original composition exactly: same square canvas, same padding, same body scale, same feet baseline at y=302/320. Output whole bird, 320x320 RGBA, genuine transparent background with clean antialiased edges, no ground or drop shadow. No outline, text, UI or extra objects. Accessory recognizable when sprite shown at 64px. Do not enlarge, zoom, crop or recenter the bird.",
+    "name": "ink_nightcap",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-79727409-4e3b-4264-94cf-85a5807e9d67.png",
+    "status": "accepted"
+  },
+  {
+    "species": "hoot",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. This is a precise cosmetic edit of the attached hoot_idle sprite, not a character redesign. Add only graduation mortarboard cap replacing the existing purple sleep cap, physically worn and softly lit from upper left. Preserve original bird face, eye shape and expression, closed/open beak as pictured, feather colours, body proportions, pose, wings, feet, perspective and plush feather detail. Remove the old sleep cap only to replace with mortarboard. Match original composition exactly: same square canvas, same padding, same body scale, same feet baseline at y=302/320. Output whole bird, 320x320 RGBA, genuine transparent background with clean antialiased edges, no ground or drop shadow. No outline, text, UI or extra objects. Accessory recognizable when sprite shown at 64px. Do not enlarge, zoom, crop or recenter the bird.",
+    "name": "hoot_mortarboard",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-455e1973-a32d-4b66-aefd-c0e6ef106ac4.png",
+    "status": "accepted"
+  },
+  {
+    "species": "sunny",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Surgical accessory addition to this exact game sprite. Add straw sun hat with a white daisy. Keep original pixels and shape of bird outside accessory area unchanged. Straw brim tilted up on viewer right around curl, brown hat band and white daisy viewer left. Do not flatten bird body or enlarge face. Output entire original bird at precisely original size and position on square canvas: bird feet y=302/320, base body x=60..256/320. No cropping or zoom. Preserve eye spacing, iris size, cheeks, wing, feathers, body shape and colours. Soft plush material, upper-left light. True RGBA transparency, no background or shadows, no text.",
+    "retry": true,
+    "name": "sunny_straw_hat_refined",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-3e3694e9-bf4c-40cd-8ef9-a2875847291e.png",
+    "status": "accepted"
+  },
+  {
+    "species": "sky",
+    "tier": 1,
+    "prompt": "Use case: identity-preserve. Surgical accessory addition to this exact game sprite. Add cream knitted scarf wrapped snugly around the neck with a short tasselled end. Keep original pixels and shape of bird outside accessory area unchanged. CRITICAL closed tiny orange beak exactly as reference, NO open mouth, no smile; sleepy half-lidded eyes unchanged. Scarf cream with thick soft knit and short fringe. Output entire original bird at precisely original size and position on square canvas: bird feet y=302/320, base body x=60..256/320. No cropping or zoom. Preserve eye spacing, iris size, cheeks, wing, feathers, body shape and colours. Soft plush material, upper-left light. True RGBA transparency, no background or shadows, no text.",
+    "retry": true,
+    "name": "sky_scarf_refined",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-587e879e-05e7-4dca-929e-93ce330330e1.png",
+    "status": "accepted"
+  },
+  {
+    "style": "mushroom",
+    "prompt": "Use case: precise-object-edit. Create a round red mushroom cap roof with white dots, cream mushroom stem house facade. Edit target is attached original house_body.png; second reference is its roof overlay. Replace facade and roof ONLY; retain the exact circular dark doorway and golden wooden door rim position/size to fit existing door animation. Output single front-facing game sprite, same 512x512 square canvas. Critical geometry (top-left pixel coordinates): dark doorway circle center (252,306), inner diameter 204 pixels, original wooden rim outer diameter about 250; base floor y=455, roof top y=58, whole object fits x=32..480. Doorway MUST be at (49.2% width,59.8% height) with 39.8% canvas diameter. No door leaf, no bird, no furniture. The roof is baked into sprite. Cute rounded richly textured soft 3D forest game style, no outlines, soft upper-left lighting. Preserve exact original golden wooden doorway rim, interior darkness, wooden floor sill, and hinge points. Style silhouette easily recognizable at 64px. Genuine RGBA transparent exterior, no white or black matte, no background, ground, hanging rope, text or UI. Do not change angle or add perspective.",
+    "name": "house_mushroom",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-90f6282c-3177-40c3-8260-194c7058571b.png",
+    "status": "accepted"
+  },
+  {
+    "style": "teapot",
+    "prompt": "Use case: precise-object-edit. Create a blue-and-white porcelain teapot house with short side spout and handle and lid roof. Edit target is attached original house_body.png; second reference is its roof overlay. Replace facade and roof ONLY; retain the exact circular dark doorway and golden wooden door rim position/size to fit existing door animation. Output single front-facing game sprite, same 512x512 square canvas. Critical geometry (top-left pixel coordinates): dark doorway circle center (252,306), inner diameter 204 pixels, original wooden rim outer diameter about 250; base floor y=455, roof top y=58, whole object fits x=32..480. Doorway MUST be at (49.2% width,59.8% height) with 39.8% canvas diameter. No door leaf, no bird, no furniture. The roof is baked into sprite. Cute rounded richly textured soft 3D forest game style, no outlines, soft upper-left lighting. Preserve exact original golden wooden doorway rim, interior darkness, wooden floor sill, and hinge points. Style silhouette easily recognizable at 64px. Genuine RGBA transparent exterior, no white or black matte, no background, ground, hanging rope, text or UI. Do not change angle or add perspective.",
+    "name": "house_teapot",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-f07969de-2773-4800-9052-fca9ca68ec95.png",
+    "status": "accepted"
+  },
+  {
+    "style": "lantern",
+    "prompt": "Use case: precise-object-edit. Create a warm honey paper lantern house in a rounded wooden frame with wooden roof. Edit target is attached original house_body.png; second reference is its roof overlay. Replace facade and roof ONLY; retain the exact circular dark doorway and golden wooden door rim position/size to fit existing door animation. Output single front-facing game sprite, same 512x512 square canvas. Critical geometry (top-left pixel coordinates): dark doorway circle center (252,306), inner diameter 204 pixels, original wooden rim outer diameter about 250; base floor y=455, roof top y=58, whole object fits x=32..480. Doorway MUST be at (49.2% width,59.8% height) with 39.8% canvas diameter. No door leaf, no bird, no furniture. The roof is baked into sprite. Cute rounded richly textured soft 3D forest game style, no outlines, soft upper-left lighting. Preserve exact original golden wooden doorway rim, interior darkness, wooden floor sill, and hinge points. Style silhouette easily recognizable at 64px. Genuine RGBA transparent exterior, no white or black matte, no background, ground, hanging rope, text or UI. Do not change angle or add perspective.",
+    "name": "house_lantern",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-99739534-231c-49cb-8c28-f75bdb66751c.png",
+    "status": "rejected",
+    "reason": "Triangular gable read as an ordinary house rather than a paper lantern; regenerated."
+  },
+  {
+    "style": "acorn",
+    "prompt": "Use case: precise-object-edit. Create a acorn-cap roof on a brown acorn shell house. Edit target is attached original house_body.png; second reference is its roof overlay. Replace facade and roof ONLY; retain the exact circular dark doorway and golden wooden door rim position/size to fit existing door animation. Output single front-facing game sprite, same 512x512 square canvas. Critical geometry (top-left pixel coordinates): dark doorway circle center (252,306), inner diameter 204 pixels, original wooden rim outer diameter about 250; base floor y=455, roof top y=58, whole object fits x=32..480. Doorway MUST be at (49.2% width,59.8% height) with 39.8% canvas diameter. No door leaf, no bird, no furniture. The roof is baked into sprite. Cute rounded richly textured soft 3D forest game style, no outlines, soft upper-left lighting. Preserve exact original golden wooden doorway rim, interior darkness, wooden floor sill, and hinge points. Style silhouette easily recognizable at 64px. Genuine RGBA transparent exterior, no white or black matte, no background, ground, hanging rope, text or UI. Do not change angle or add perspective.",
+    "name": "house_acorn",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-0ba7e2df-808d-4c55-8a66-2e41ab24f033.png",
+    "status": "accepted"
+  },
+  {
+    "style": "lantern",
+    "retry": true,
+    "prompt": "Use case: precise-object-edit. Turn attached birdhouse body into a clearly recognizable warm glowing PAPER LANTERN birdhouse, in a honey brown wooden frame. Large rounded cylindrical amber paper shell with vertical wooden ribs, gently curved shallow wooden eave roof and matching bottom frame, lantern silhouette. NO triangular gable, no chimney, no ordinary house shape. Keep golden wooden circular doorway and dark interior exactly like original reference: same 512 square transparent canvas, doorway center x252 y306, dark opening diameter204, base y455, top y58; all exterior fits x32..480. Preserve circular door rim, door hinge knobs and floor sill exactly. Cute soft forest game object, rich tactile paper and wood textures, top-left lighting, no outlines. Roof baked in. Transparent exterior, no backdrop, ground, cast shadow, bird, rope, text or UI. One complete front-facing lantern house. Recognizable at 64px. Keep original scale.",
+    "name": "house_lantern_refined",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-448e2040-f6fd-4e4c-9f38-7104d0ce5007.png",
+    "status": "accepted"
+  }
+]

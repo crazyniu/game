@@ -1,0 +1,290 @@
+{
+  "method": "Visual comparison with base and approved references; light/dark backgrounds; actual 64 px color and grayscale. Raster normalization only: scale and translation, no painted replacements.",
+  "rejections": {
+    "sunny_straw_hat": "Framing and body presentation drift; regenerated from the base sprite without the full shop image.",
+    "sky_scarf": "Closed base beak changed to an open smile; regenerated.",
+    "house_lantern": "Triangular gable read as an ordinary house rather than a paper lantern; regenerated."
+  },
+  "geometry": [
+    {
+      "file": "PerchSort/Assets/Resources/Birds/berry_outfit_1.png",
+      "measurement": {
+        "scale": 0.256,
+        "offset": [
+          0,
+          7
+        ],
+        "base_feet": [
+          159.0,
+          299,
+          64.0
+        ],
+        "delivered_feet": [
+          159.0,
+          299,
+          64.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1.png",
+      "measurement": {
+        "scale": 0.2518248175182482,
+        "offset": [
+          2,
+          10
+        ],
+        "base_feet": [
+          159.5,
+          299,
+          69.0
+        ],
+        "delivered_feet": [
+          159.5,
+          299,
+          69.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_1.png",
+      "measurement": {
+        "scale": 0.25,
+        "offset": [
+          3,
+          4
+        ],
+        "base_feet": [
+          161.0,
+          299,
+          60.0
+        ],
+        "delivered_feet": [
+          161.0,
+          299,
+          60.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/snow_outfit_1.png",
+      "measurement": {
+        "scale": 0.2532188841201717,
+        "offset": [
+          1,
+          0
+        ],
+        "base_feet": [
+          160.5,
+          298,
+          59.0
+        ],
+        "delivered_feet": [
+          160.5,
+          298,
+          59.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ember_outfit_1.png",
+      "measurement": {
+        "scale": 0.2527075812274368,
+        "offset": [
+          2,
+          1
+        ],
+        "base_feet": [
+          160.0,
+          298,
+          70.0
+        ],
+        "delivered_feet": [
+          160.5,
+          298,
+          69.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ink_outfit_1.png",
+      "measurement": {
+        "scale": 0.2558139534883721,
+        "offset": [
+          0,
+          -2
+        ],
+        "base_feet": [
+          160.5,
+          299,
+          77.0
+        ],
+        "delivered_feet": [
+          160.5,
+          299,
+          77.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_1.png",
+      "measurement": {
+        "scale": 0.24880382775119617,
+        "offset": [
+          3,
+          6
+        ],
+        "base_feet": [
+          157.0,
+          298,
+          52.0
+        ],
+        "delivered_feet": [
+          157.0,
+          298,
+          52.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sunny_outfit_1.png",
+      "measurement": {
+        "scale": 0.25210084033613445,
+        "offset": [
+          2,
+          11
+        ],
+        "base_feet": [
+          160.0,
+          300,
+          60.0
+        ],
+        "delivered_feet": [
+          160.5,
+          300,
+          59.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1.png",
+      "measurement": {
+        "scale": 0.2582781456953642,
+        "offset": [
+          -2,
+          -6
+        ],
+        "base_feet": [
+          160.0,
+          299,
+          78.0
+        ],
+        "delivered_feet": [
+          160.0,
+          299,
+          78.0
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_mushroom_body.png",
+      "measurement": {
+        "scale": [
+          0.40594059405940597,
+          0.40853658536585363
+        ],
+        "offset": [
+          1,
+          -1
+        ],
+        "base_aperture": [
+          148,
+          204,
+          353,
+          405
+        ],
+        "delivered_aperture": [
+          148,
+          204,
+          353,
+          405
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_teapot_body.png",
+      "measurement": {
+        "scale": [
+          0.40836653386454186,
+          0.40853658536585363
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "base_aperture": [
+          148,
+          204,
+          353,
+          405
+        ],
+        "delivered_aperture": [
+          148,
+          204,
+          353,
+          405
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_acorn_body.png",
+      "measurement": {
+        "scale": [
+          0.41,
+          0.41358024691358025
+        ],
+        "offset": [
+          -1,
+          -6
+        ],
+        "base_aperture": [
+          148,
+          204,
+          353,
+          405
+        ],
+        "delivered_aperture": [
+          148,
+          204,
+          353,
+          405
+        ]
+      }
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_lantern_body.png",
+      "measurement": {
+        "scale": [
+          0.40836653386454186,
+          0.4093686354378819
+        ],
+        "offset": [
+          0,
+          -1
+        ],
+        "base_aperture": [
+          148,
+          204,
+          353,
+          405
+        ],
+        "delivered_aperture": [
+          148,
+          204,
+          353,
+          405
+        ]
+      }
+    }
+  ]
+}
