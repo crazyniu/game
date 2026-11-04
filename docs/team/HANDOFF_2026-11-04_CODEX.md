@@ -1,5 +1,15 @@
 # T49/T50 final source integration and Mac-only handoff
 
+## Published stage — coordinator closeout
+
+The complete reviewed integration `bf31ba2f3b9701446be8782bd2d7f9138af701fa` was squash-merged through [PR36](https://github.com/crazyniu/game/pull/36) into main as **`2a5bc259187cc924d1d5a9c666a8385b95217327`**. All A/B/C/D/E code and final bird/egg/overlay assets are included. The sections below retain the worker's pre-merge evidence; their statements that main publication is pending are historical, superseded by this record.
+
+All repository branch work was reconciled in [the branch coverage record](T50_BRANCH_COVERAGE.md). Existing merged branches need no duplicate PR; cancelled Godot/v6/concept branches remain preserved. The missing T44 popup-trigger policy is restored in the owning T50 task without changing runtime behavior.
+
+Observed checkout synchronization on 2026-11-04: `/Users/apple/Documents/projects/game` was fast-forwarded on `main` to the PR36 code checkpoint above, matched `origin/main`, and had an empty working-tree status. Linux `/home/developer/Projects/game` also reached that checkpoint while preserving the two pre-existing untracked review PNGs. This closeout changes documentation only; use `git status` and `git log -1` for the final documentation tip. The Mac project to open is `/Users/apple/Documents/projects/game/PerchSort`, scene `Assets/Scenes/V5.unity`.
+
+PR36 CI passed configuration/script checks only: `Core tests: False; workflows: False`. Unity/import/compilation, game execution, test suites and timed visual acceptance remain **NOT_RUN**. This stage is complete at source level and **PAUSED for user testing**. Do not start T51 or other development automatically. Further development belongs on the Mac with parallel, non-overlapping tasks, OMP preferred and Codex fallback.
+
 ## Authority and stopping point
 
 - Current coordinator is the native Codex conversation `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`, not retired Claude. No old Claude recipient/session is resumed.

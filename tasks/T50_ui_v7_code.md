@@ -43,3 +43,11 @@ Rule: in any popup or screen, birds and doors are never static. Implement exactl
 - Level card: the card scales out from the tapped node position; the species portraits pop one after another; the mechanic icons fade in last.
 - Shop (when it is built later): cards slide up staggered; on purchase a coin flies from the coin pill to the item, the item jumps and its count ticks up. Aviary: frames pop in staggered; a newly met bird flashes from silhouette to colour.
 All of these use the v7 part sprites from T48; if a part is missing, fall back to a whole-object fade/scale and log once. Add frame-sequence captures for win, new friend, world complete, world unlock and goal info into build/screens/v7/anim/.
+
+## Popup trigger policy (lead decision 2026-11-04)
+1. New friend: when a level starts and it contains a species the profile has never met (Meta Aviary OnLevelStarted), show the new-friend popup AFTER the level intro finishes and BEFORE input unlocks; one popup per new species in debut order; mark met and pay the 20 coins when the popup is acknowledged. Rook (crow) also gets it, with the line 'Never goes home.' instead of a gift.
+2. Daily gift: on the first map open of each calendar day (injectable clock, Meta Economy daily rule), show it over the map; collecting pays 50 coins with the coins-to-pill animation. Never during a level.
+3. World complete: after the FIRST win of level 10, 20, 30 or 40, when the player leaves the win panel (Next or Home), show the world-complete popup (gate opens, birds fly through, +200 once).
+4. World unlock: right after world complete (worlds 1-3), the map opens scrolled to the gate, plays the gate unlock animation, then the world-unlock popup; Next from the win panel then continues into the next world's first level only after this sequence.
+5. Booster unlock card: unchanged (shown when its unlock level first starts, after the intro).
+6. Order when several are due at once: world complete -> world unlock -> daily gift -> new friend -> booster unlock. Never stack two popups; queue them.
