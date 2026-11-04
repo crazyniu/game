@@ -27,9 +27,16 @@ namespace PerchSort.Game
         private Button settings;
         private bool contextMechanic;
         private int toolCount = 3;
+        private bool tutorialLevel;
+        private Rect ToolBounds(int index) => tutorialLevel && index == 0
+            ? GameLayout.Centered(GameLayout.ToolButton(0).center, Vector2.one * 64)
+            : GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
         private RectTransform coinPlate;
         private CanvasGroup coinFade, gearFade, toolFade;
-        private Rect headerBounds = GameLayout.CoinPill, gearBounds = GameLayout.SettingsButton;
+        private Rect headerBounds = CoinCanvas(GameLayout.CoinPill), gearBounds = GameLayout.SettingsButton;
+        private Rect coinTextBounds = GameLayout.Screen("level_k3", "coin_number_text");
+        private static Rect CoinCanvas(Rect visible) => new Rect(visible.x - visible.width * 12 / 295,
+            visible.y - visible.height * 3 / 122, visible.width * 320 / 295, visible.height * 128 / 122);
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
         public BoosterKind ContextBooster => kinds[3];
         public Transform HomeFlightLayer => homeFlights;
@@ -68,10 +75,15 @@ namespace PerchSort.Game
         public static TextMeshProUGUI CoinHeader(Transform parent, GameArt art, TMP_FontAsset font, bool map = false)
         {
             Rect bounds = map ? GameLayout.Screen("map", "coin_pill") : GameLayout.CoinPill;
-            GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), bounds.center, bounds.size);
-            Rect text = new Rect(bounds.x + bounds.width * 142 / 320, bounds.y + bounds.height * 32 / 128, bounds.width * 140 / 320, bounds.height * 60 / 128);
-            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, GameLayout.CoinFontSize);
-            label.enableAutoSizing = true; label.fontSizeMin = GameLayout.CoinMinimumFontSize; label.fontSizeMax = GameLayout.CoinFontSize; return label;
+            Rect canvas = map ? bounds : CoinCanvas(bounds);
+            if (map) GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
+            else GameUI.Image(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
+            Rect text = map ? new Rect(bounds.x + bounds.width * 142 / 320, bounds.y + bounds.height * 32 / 128,
+                bounds.width * 140 / 320, bounds.height * 60 / 128) : GameLayout.Screen("level_k3", "coin_number_text");
+            float size = map ? GameLayout.CoinFontSize : 56;
+            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, size);
+            if (!map) label.color = new Color32(95, 22, 6, 255);
+            label.enableAutoSizing = true; label.fontSizeMin = GameLayout.CoinMinimumFontSize; label.fontSizeMax = size; return label;
         }
         public void SetLevel(BoardState state)
         {
@@ -82,27 +94,41 @@ namespace PerchSort.Game
             foreach (var branch in state.Branches) foreach (var bird in branch.Birds)
                 if (!bird.Species.IsCrow && !species.Contains(bird.Species.Id)) species.Add(bird.Species.Id);
             foreach (var home in state.HomedSpecies) if (!species.Contains(home.Id)) species.Add(home.Id);
-            string screen = species.Count == 1 ? "level_k3" : "level_k7";
+            // Fresh progression keeps the tutorial minimal; explicit test stock stays accessible.
+            tutorialLevel = state.LevelId == 1 && root.HighestUnlocked < ViewModel.Unlock(BoosterKind.Firefly);
+            string screen = BirdhouseView.UsesBeam(species.Count) ? "level_k7" : "level_k3";
             Rect header = GameLayout.Screen(screen, "coin_pill"), gear = GameLayout.Screen(screen, "gear");
-            headerBounds = header; gearBounds = gear;
+            headerBounds = CoinCanvas(header); gearBounds = gear;
             var coinRect = (RectTransform)transform.Find("Coin pill");
-            coinRect.anchoredPosition = new Vector2(header.center.x, -header.center.y); coinRect.sizeDelta = header.size;
-            Rect coinText = new Rect(header.x + header.width * 142 / 320, header.y + header.height * 32 / 128, header.width * 140 / 320, header.height * 60 / 128);
-            coins.rectTransform.anchoredPosition = new Vector2(coinText.center.x, -coinText.center.y); coins.rectTransform.sizeDelta = coinText.size;
+            coinRect.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y); coinRect.sizeDelta = headerBounds.size;
+            coinTextBounds = GameLayout.Screen(screen, "coin_number_text");
+            coins.rectTransform.anchoredPosition = new Vector2(coinTextBounds.center.x, -coinTextBounds.center.y);
+            coins.rectTransform.sizeDelta = coinTextBounds.size;
             var gearRect = (RectTransform)settings.transform;
             gearRect.anchoredPosition = new Vector2(gear.center.x, -gear.center.y); gearRect.sizeDelta = gear.size;
-            if (species.Count > 1)
+            if (BirdhouseView.UsesBeam(species.Count))
             {
                 var beam = GameLayout.Screen("level_k7", "house_beam");
                 GameUI.Image(housesLayer, "House beam", art.Get("house_beam_w" + state.World), beam.center, beam.size);
             }
             for (int i = 0; i < species.Count; i++)
             {
-                Rect canvas = GameLayout.HouseCanvas(i, species.Count);
+                Rect canvas = BirdhouseView.CanvasBounds(i, species.Count);
                 float end = canvas.y + canvas.height * 58 / 512;
                 Rect beam = GameLayout.Screen("level_k7", "house_beam");
-                float start = species.Count == 1 ? 0 : beam.y + beam.height * (state.World == 4 ? 120 : 170) / 200;
-                GameUI.Image(housesLayer, "House rope", art.Get("house_rope"), new Vector2(canvas.center.x, (start + end) * 0.5f), new Vector2(species.Count == 1 ? 22 : 12, Mathf.Max(1, end - start)));
+                bool usesBeam = BirdhouseView.UsesBeam(species.Count);
+                float start = usesBeam ? beam.y + beam.height * (state.World == 4 ? 120 : 170) / 200 : 0;
+                float length = end - start;
+                // Rope alpha occupies only x=20..44, y=4..252 of its 64x256 canvas.
+                float width = (usesBeam ? 12 : 14) * 64 / 24f;
+                GameUI.Image(housesLayer, "House rope", art.Get("house_rope"),
+                    new Vector2(canvas.center.x, (start + end) * 0.5f), new Vector2(width, length * 256 / 248));
+                if (!usesBeam)
+                {
+                    HangingLeaf(new Vector2(canvas.center.x - 34, 32), 25);
+                    HangingLeaf(new Vector2(canvas.center.x + 28, 48), -75);
+                    HangingLeaf(new Vector2(canvas.center.x - 34, 106), 25);
+                }
             }
             for (int i = 0; i < species.Count; i++)
             {
@@ -114,26 +140,40 @@ namespace PerchSort.Game
             toolCount = contextMechanic && root.HighestUnlocked >= ViewModel.Unlock(kinds[3]) ? 4 : 3;
             for (int i = 0; i < tools.Length; i++)
             {
-                Rect bounds = GameLayout.ToolButton(i, i == 3 ? 4 : toolCount);
+                Rect bounds = ToolBounds(i);
                 var rect = (RectTransform)tools[i].transform;
                 rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y); rect.sizeDelta = bounds.size;
                 var icon = (RectTransform)rect.GetChild(0);
                 icon.anchoredPosition = new Vector2(bounds.width * 0.5f, -bounds.height * 0.5f);
                 icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio;
-                if (i > 0) badges[i].rectTransform.anchoredPosition = new Vector2(bounds.width * 0.82f, -8);
+                if (i > 0)
+                {
+                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7",
+                        i == 1 ? "hint_count" : "branch_plus_count");
+                    Vector2 size = Vector2.one * (toolCount == 3 ? 46 : 50);
+                    badges[i].rectTransform.anchoredPosition = new Vector2(bounds.width * 0.82f, bounds.y - badge.center.y);
+                    badges[i].rectTransform.sizeDelta = size;
+                    counts[i].rectTransform.anchoredPosition = new Vector2(size.x * 0.5f, -size.y * 0.5f);
+                    counts[i].rectTransform.sizeDelta = size;
+                }
             }
             for (int i = 1; i < tools.Length; i++)
             {
                 tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Icon(ViewModel.Icon(kinds[i]));
-                tools[i].gameObject.SetActive(i < toolCount && root.HighestUnlocked >= ViewModel.Unlock(kinds[i]));
+                tools[i].gameObject.SetActive(!tutorialLevel && i < toolCount && root.HighestUnlocked >= ViewModel.Unlock(kinds[i]));
             }
             SyncState(state);
+        }
+        private void HangingLeaf(Vector2 point, float angle)
+        {
+            var leaf = GameUI.Fit(housesLayer, "Rope leaf", art.Get("leaf_badge"), point, new Vector2(76, 54));
+            leaf.rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
         }
         public BirdhouseView House(string species) => houses[species];
         public Vector2 BoosterPoint(BoosterKind kind)
         {
-            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return GameLayout.ToolButton(i, i == 3 ? 4 : toolCount).center;
-            return GameLayout.ToolButton(2, toolCount).center;
+            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return ToolBounds(i).center;
+            return ToolBounds(2).center;
         }
         public void SyncState(BoardState state)
         {
@@ -151,7 +191,10 @@ namespace PerchSort.Game
             if (!countingCoins) coins.text = coinCount.ToString();
             if (!presenting) SyncState(session.State);
             bottomBar.gameObject.SetActive(!root.HasModal || root.IsIntroducing);
-            tools[0].interactable = !blocked && session.CanUndo; settings.interactable = !blocked;
+            tools[0].interactable = !blocked && session.CanUndo;
+            // Airborne input locking must not turn the gear into a faded disabled control.
+            ((GameButton)settings).SetDisabledAppearance(root.HasModal && !root.IsIntroducing);
+            settings.interactable = !blocked;
             for (int i = 1; i < tools.Length; i++)
             {
                 int count = root.DisplayStock(inventory[(int)kinds[i]]);
@@ -164,7 +207,7 @@ namespace PerchSort.Game
             for (int i = 1; i < tools.Length; i++)
             {
                 int count = root.DisplayStock(inventory[(int)kinds[i]]); badges[i].sprite = art.Get("badge_red");
-                counts[i].gameObject.SetActive(true); counts[i].text = count > 0 ? count.ToString() : "+";
+                counts[i].gameObject.SetActive(true); counts[i].text = count.ToString();
             }
         }
         public void BoosterSpent(BoosterUsed used) { inventory[(int)used.Booster] = used.Remaining; DrawCounts(); }
@@ -208,17 +251,15 @@ namespace PerchSort.Game
             housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 550);
             housesLayer.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(homes * Mathf.PI * 4) * (1 - Mathf.Clamp01(homes)) * 2);
             coinFade.alpha = toolFade.alpha = coins.alpha = controls;
-            gearFade.alpha = controls * (settings.IsInteractable() ? 1 : GameLayout.DisabledAlpha);
+            gearFade.alpha = controls * (root.HasModal && !root.IsIntroducing ? GameLayout.DisabledAlpha : 1);
             float offset = (1 - controls) * 160;
             coinPlate.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y + offset);
-            Rect text = new Rect(headerBounds.x + headerBounds.width * 142 / 320,
-                headerBounds.y + headerBounds.height * 32 / 128, headerBounds.width * 140 / 320, headerBounds.height * 60 / 128);
-            coins.rectTransform.anchoredPosition = new Vector2(text.center.x, -text.center.y + offset);
+            coins.rectTransform.anchoredPosition = new Vector2(coinTextBounds.center.x, -coinTextBounds.center.y + offset);
             ((RectTransform)settings.transform).anchoredPosition = new Vector2(gearBounds.center.x, -gearBounds.center.y + offset);
             bottomBar.localScale = Vector3.one;
             for (int i = 0; i < tools.Length; i++)
             {
-                Rect bounds = GameLayout.ToolButton(i, i == 3 ? 4 : toolCount);
+                Rect bounds = ToolBounds(i);
                 float progress = Mathf.Clamp01(controls * 1.6f - i * 0.2f);
                 float settle = 1 + 2.7f * Mathf.Pow(progress - 1, 3) + 1.7f * Mathf.Pow(progress - 1, 2);
                 ((RectTransform)tools[i].transform).anchoredPosition =

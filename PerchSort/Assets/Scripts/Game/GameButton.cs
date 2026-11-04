@@ -10,6 +10,14 @@ namespace PerchSort.Game
         private CanvasGroup group;
         private GameMotion motion;
         public Sprite RestSprite, PressedSprite;
+        private bool dimWhenDisabled = true;
+
+        internal void SetDisabledAppearance(bool dim)
+        {
+            if (dimWhenDisabled == dim) return;
+            dimWhenDisabled = dim;
+            DoStateTransition(currentSelectionState, true);
+        }
 
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
@@ -19,8 +27,9 @@ namespace PerchSort.Game
             bool enabled = state != SelectionState.Disabled && IsInteractable();
             if (targetGraphic is Image image && RestSprite != null)
                 image.sprite = state == SelectionState.Pressed && PressedSprite != null ? PressedSprite : RestSprite;
-            group.alpha = enabled ? 1 : GameLayout.DisabledAlpha;
-            float scale = !enabled ? GameLayout.DisabledScale :
+            bool dim = !enabled && dimWhenDisabled;
+            group.alpha = dim ? GameLayout.DisabledAlpha : 1;
+            float scale = dim ? GameLayout.DisabledScale :
                 state == SelectionState.Pressed ? GameLayout.ButtonPressScale : 1;
             if (instant || !enabled || !gameObject.activeInHierarchy)
             {
