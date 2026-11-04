@@ -29,6 +29,7 @@ The CSV `negative_x` column lists all active image-bearing transforms with a neg
 - `flock /tmp/unity.lock bash scripts/run_tests.sh`, after temporary-file removal: scene build succeeded; EditMode 312/312 passed, 0 failed, 0 skipped; PlayMode 51/53 passed, 2 failed, 0 skipped. The runner exited 1.
   - `FocusAndApplicationPauseFreezePlayheadsUntilBothResume`: expected 1.13065755 ± 0.02 s; actual 1.15199542 s.
   - `BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt`: scale equality failed; NUnit formatted both vectors as `(1.00, 1.00, 1.00)`, concealing the underlying difference.
+- The naming self-test and Unity runs left 124 tracked generated files modified in this worktree, including bird importer metadata, `Game.unity`, and Python bytecode. They were not committed or blindly restored.
 
 ## Requested contract change
 
