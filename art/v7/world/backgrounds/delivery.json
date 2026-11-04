@@ -1,0 +1,78 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_morning.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "sha256": "93cf673a50862e2e082933a9a5d61a3570c757836484468b30faa75fdabb612c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_noon.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "sha256": "14850ba2430908904cdd226eaf36aa65cd4c8f67d88b91d422b8f3b7fceb67ff"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_golden.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "sha256": "21096943b96e754dc584c04a140a0466639d57a16fd1f105602db3a957833541"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/V7/World/bg_level_w1_rain.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "source_size": [
+      941,
+      1672
+    ],
+    "preparation": "Lanczos center-fit to portrait9:16; no color or artwork changes",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "sha256": "80a96e538e006696e94d3f4ed705922ea8d47a5dcbdb1c13bb94375f4848dfa6"
+  }
+]

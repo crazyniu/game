@@ -1,0 +1,30 @@
+[
+  {
+    "name": "bg_level_w1_morning",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait 9:16 mobile puzzle gameplay BACKGROUND plate, intended final size1080x1920. Image1 is the exact approved rendering/palette/composition STYLE REFERENCE, not a request to reproduce its gameplay objects. Match its PALE HAZY low-contrast forest atmosphere, soft high-end stylized 3D lighting and shallow depth of field exactly. Early spring morning: pale milky blue sky, delicate warm sunrise tint, fresh gentle green distant woods. A large empty airy center across the full play area; softly blurred distant tree silhouettes only in the lower third, with a few dark soft oak LEAF SILHOUETTES cropped into the extreme TOP LEFT and TOP RIGHT corners like the reference. No foreground trees at left/right screen edges: those trunks and crowns will be separate sprites. No tree branches, perches, vines crossing the playfield, birds, animals, birdhouses, rope, UI, controls, numbers, text, watermark, path, ground platform or objects. No sharp detailed forest, no high-contrast scenic vista, no thick cartoon outlines. Keep the quiet pale blue atmospheric center usable behind bright plush birds. Entire background opaque; one complete seamless portrait image.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-31ed4b45-a222-4a47-a4ab-d118621b4d65.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w1_noon",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait 9:16 mobile puzzle gameplay BACKGROUND plate, intended final size1080x1920. Image1 is the exact approved rendering/palette/composition STYLE REFERENCE, not a request to reproduce its gameplay objects. Match its PALE HAZY low-contrast forest atmosphere, soft high-end stylized 3D lighting and shallow depth of field exactly. Spring noon: pale powder-blue sky with softly hazy white clouds and muted distant spring-green woods, exactly the approved screenshot's background light. A large empty airy center across the full play area; softly blurred distant tree silhouettes only in the lower third, with a few dark soft oak LEAF SILHOUETTES cropped into the extreme TOP LEFT and TOP RIGHT corners like the reference. No foreground trees at left/right screen edges: those trunks and crowns will be separate sprites. No tree branches, perches, vines crossing the playfield, birds, animals, birdhouses, rope, UI, controls, numbers, text, watermark, path, ground platform or objects. No sharp detailed forest, no high-contrast scenic vista, no thick cartoon outlines. Keep the quiet pale blue atmospheric center usable behind bright plush birds. Entire background opaque; one complete seamless portrait image.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-40ab2293-c0c2-4ec2-bcba-9782d0a4b6ed.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w1_golden",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait 9:16 mobile puzzle gameplay BACKGROUND plate, intended final size1080x1920. Image1 is the exact approved rendering/palette/composition STYLE REFERENCE, not a request to reproduce its gameplay objects. Match its PALE HAZY low-contrast forest atmosphere, soft high-end stylized 3D lighting and shallow depth of field exactly. Spring golden hour: very pale peach-gold sunlight blended into powder-blue haze, soft distant warm green woods; keep bright and low contrast. A large empty airy center across the full play area; softly blurred distant tree silhouettes only in the lower third, with a few dark soft oak LEAF SILHOUETTES cropped into the extreme TOP LEFT and TOP RIGHT corners like the reference. No foreground trees at left/right screen edges: those trunks and crowns will be separate sprites. No tree branches, perches, vines crossing the playfield, birds, animals, birdhouses, rope, UI, controls, numbers, text, watermark, path, ground platform or objects. No sharp detailed forest, no high-contrast scenic vista, no thick cartoon outlines. Keep the quiet pale blue atmospheric center usable behind bright plush birds. Entire background opaque; one complete seamless portrait image.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-6b197936-40d8-4f33-a47a-737a257e15e8.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w1_rain",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait 9:16 mobile puzzle gameplay BACKGROUND plate, intended final size1080x1920. Image1 is the exact approved rendering/palette/composition STYLE REFERENCE, not a request to reproduce its gameplay objects. Match its PALE HAZY low-contrast forest atmosphere, soft high-end stylized 3D lighting and shallow depth of field exactly. Spring light rain: very pale silver-blue overcast haze, softly blurred muted green woods and sparse delicate rain streaks, still luminous and calm, never dark. A large empty airy center across the full play area; softly blurred distant tree silhouettes only in the lower third, with a few dark soft oak LEAF SILHOUETTES cropped into the extreme TOP LEFT and TOP RIGHT corners like the reference. No foreground trees at left/right screen edges: those trunks and crowns will be separate sprites. No tree branches, perches, vines crossing the playfield, birds, animals, birdhouses, rope, UI, controls, numbers, text, watermark, path, ground platform or objects. No sharp detailed forest, no high-contrast scenic vista, no thick cartoon outlines. Keep the quiet pale blue atmospheric center usable behind bright plush birds. Entire background opaque; one complete seamless portrait image.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-1b6f8ba0-fcf6-4091-9150-4b692c08d68c.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  }
+]
