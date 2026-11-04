@@ -1,5 +1,5 @@
 {
-  "GateSet": "DEEP_V54",
+  "GateSet": "DEEP",
   "Limits": {
     "MaxStates": 20000000,
     "Milliseconds": 10000,

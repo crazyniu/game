@@ -4,7 +4,7 @@
 
 User-authorized parallel module of T50, based on preserved WIP `9f84a95`, branch `mac-popups/t50`. The current Codex coordinator on 251 replaces Claude. No sub-workers, Dispatch ID, external model calls, or old Claude contact.
 
-Owned runtime files: `WinPanel.cs`, `V5Panels.cs`, `SettingsPanel.cs`, `V7GateView.cs`, their metadata, and isolated `V7PopupMotion*` helpers. Documentation: this specification, `T50B_report.md`, and `docs/team/status/mac-popups.md`. Do not modify shared layout, artwork, root navigation/scheduling, Core, levels, economy, or other modules.
+Owned runtime files: `WinPanel.cs`, [V5Panels.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7), `SettingsPanel.cs`, [V7GateView.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7), their metadata, and isolated [V7PopupMotion*](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7) helpers. Documentation: this specification, `T50B_report.md`, and `docs/team/status/mac-popups.md`. Do not modify shared layout, artwork, root navigation/scheduling, Core, levels, economy, or other modules.
 
 ## Requirements
 
@@ -20,6 +20,6 @@ Owned runtime files: `WinPanel.cs`, `V5Panels.cs`, `SettingsPanel.cs`, `V7GateVi
 
 ## Acceptance and verification boundary
 
-Static compile-risk review of imports, existing signatures/calls, Unity component lifecycle, sprite names, coordinate conventions, synchronous `V5Motion.Instant`, cancellation/reentrancy, and metadata. No Unity run, test suite, all-level playthrough, or runtime captures per latest user instruction. All runtime/test/visual evidence is `NOT_RUN`; approved PNGs are design references only, not animation evidence.
+Static compile-risk review of imports, existing signatures/calls, Unity component lifecycle, sprite names, coordinate conventions, synchronous [V5Motion.Instant](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L23), cancellation/reentrancy, and metadata. No Unity run, test suite, all-level playthrough, or runtime captures per latest user instruction. All runtime/test/visual evidence is `NOT_RUN`; approved PNGs are design references only, not animation evidence.
 
 Commit/push only this task branch. Report changed files, exact APIs, implemented/missing requirements, integration requests, and untested limits to the current coordinator and owned status file.

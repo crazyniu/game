@@ -1,0 +1,129 @@
+{
+  "world": "w2",
+  "coordinates": "Pixels from top-left. Unity pivots normalized from bottom-left.",
+  "preparation": "Alpha below 32 removed as generated background speckle; retained subject alpha preserved. Alpha bounds trimmed, resized and aligned only.",
+  "assets": {
+    "branch": {
+      "file": "PerchSort/Assets/Resources/World/branch_left_w2.png",
+      "size": [
+        620,
+        90
+      ],
+      "alpha_bounds": [
+        0,
+        6,
+        620,
+        77
+      ],
+      "source_crop": [
+        4,
+        307,
+        2146,
+        554
+      ],
+      "transparent_pixels": 39181,
+      "partial_alpha_pixels": 15400,
+      "pivot_normalized": [
+        0,
+        0.9
+      ],
+      "flat_top_y": 9,
+      "usable_perch_interval_x": [
+        186,
+        564
+      ],
+      "top_y_range": [
+        6,
+        9
+      ]
+    },
+    "twig": {
+      "file": "PerchSort/Assets/Resources/World/twig_left_w2.png",
+      "size": [
+        400,
+        80
+      ],
+      "alpha_bounds": [
+        0,
+        6,
+        400,
+        74
+      ],
+      "source_crop": [
+        128,
+        213,
+        2034,
+        586
+      ],
+      "transparent_pixels": 23204,
+      "partial_alpha_pixels": 7854,
+      "pivot_normalized": [
+        0,
+        0.7625
+      ],
+      "flat_top_y": 19,
+      "usable_perch_interval_x": [
+        120,
+        364
+      ],
+      "top_y_range": [
+        18,
+        19
+      ]
+    },
+    "crown": {
+      "file": "PerchSort/Assets/Resources/World/tree_crown_w2.png",
+      "size": [
+        600,
+        400
+      ],
+      "alpha_bounds": [
+        0,
+        6,
+        600,
+        337
+      ],
+      "source_crop": [
+        12,
+        82,
+        1520,
+        913
+      ],
+      "transparent_pixels": 142947,
+      "partial_alpha_pixels": 93991,
+      "pivot_normalized": [
+        0.23,
+        0.17000000000000004
+      ],
+      "attachment_pixel": [
+        138,
+        332
+      ]
+    },
+    "trunk": {
+      "file": "PerchSort/Assets/Resources/World/trunk_left_w2.png",
+      "size": [
+        160,
+        1920
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        145,
+        1920
+      ],
+      "source_crop": [
+        20,
+        0,
+        76,
+        1374
+      ],
+      "transparent_pixels": 68307,
+      "partial_alpha_pixels": 238301,
+      "pivot_normalized": [
+        0,
+        0.5
+      ]
+    }
+  }
+}

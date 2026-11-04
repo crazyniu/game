@@ -3,7 +3,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 unity_editor="${UNITY_EDITOR:-/Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity}"
 mkdir -p "$repo_root/build/screens/game"
-# Stable-state capture only; animated acceptance is a separate coordinator-owned GUI pass.
+# Stable-state capture only; animated acceptance requires a separate timed GUI run.
 if ! "$unity_editor" -batchmode -projectPath "$repo_root/PerchSort" \
     -executeMethod PerchSort.Editor.GameCapture.Run -screen-width 1080 -screen-height 1920 \
     -logFile "$repo_root/build/screenshots.log"; then

@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "art/approved_ui/ui_level_k3.png",
+  "assets": [
+    {
+      "kind": "branch",
+      "prompt": "Use case: stylized-concept. Create ONE isolated spring oak horizontal bird perch branch sprite, on true transparent background. Reference image is STYLE REFERENCE only: match the warm honey brown thin gently sculpted branch with subtle bark and small leafy green vine below from the approved screen. No birds, no background, no UI, no trunk. Composition: long very thin horizontal branch running from a thick cut-off root flush at LEFT edge to tapered rounded RIGHT tip, top contact surface perfectly horizontal across 80% of length. One graceful green vine loops under root-left quarter with two small leaves. Entire silhouette must fit a 620 by 90 wide canvas ratio with substantial transparent space underneath only as needed. Orthographic front view, soft polished dimensional 3D, realistic soft shading, NO outlines. Do not draw a rectangular platform or foliage above perch. Branch continuous top near upper quarter, thin 18px shaft in final 90px height. Single asset only, no labels.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-cf198c54-40d9-4b3f-ad41-cfb875b41019.png"
+    },
+    {
+      "kind": "twig",
+      "prompt": "Use case: stylized-concept. Create ONE isolated short thin oak twig bird perch sprite, true transparent background. Match branch material of approved reference screen (style reference only). Warm honey brown smooth softly textured natural wood, soft 3D shading with no outlines. Horizontal thin flat top perch across most width, cut-off wider ROOT touching LEFT image edge and rounded narrow tip RIGHT. A single small green vine loops under left quarter with two tiny leaves, nothing above landing surface. No trunk, birds, UI, backdrop, text or other objects. Intended sprite aspect 400x80, shaft about 15px thick at final size, leaves confined below left end. Single front orthographic asset.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-338219db-39ab-4376-acc5-9b32e4c42559.png"
+    },
+    {
+      "kind": "crown",
+      "prompt": "Use case: stylized-concept. Generate ONE isolated spring oak leafy TREE CROWN game sprite on true transparent background. Reference image is approved style reference; match its side trees' vivid spring green dense rounded dimensional soft leaves, individual rounded elliptical leaves in layered lush clumps, soft 3D polished shading without outlines. Crown composition wider than tall, intended 600x400, asymmetric natural broad canopy extending mostly RIGHT from a short small warm brown trunk attachment at bottom-left quarter. Entire crown contained with transparent margin, bright lime upper leaves and darker olive underlayers. ONLY canopy and tiny attachment, no long trunk, no perch branches, no birds, no UI, no background, no text. Keep reference's foliage scale and soft toy-like dimensional aesthetic.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-61e75fab-4f14-41dd-b59f-77a0d13fb82d.png"
+    },
+    {
+      "kind": "trunk",
+      "prompt": "Use case: stylized-concept. Create ONE very tall slender oak TREE TRUNK sprite on genuinely transparent background. Use supplied approved game screen as style reference for its edge trunks: warm honey-brown bark with subtle light olive flecks, rounded polished soft dimensional 3D wood, no outlines. ONLY vertical trunk: NO branches whatsoever, no twigs, no foliage, no roots spreading out, no birds, no UI or backdrop. Very tall thin aspect, intended final 160x1920 canvas. Trunk occupies left 80% of width from top through bottom, cropped flush at top and bottom and left outer side so it connects offscreen; slightly uneven natural right contour, near-straight vertical, consistent width. Right side transparent. Soft directional light from upper right. The whole image contains only this one tall narrow texture-bearing trunk.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-ff1505b9-553f-4e06-9aae-f5d23bbb44ae.png"
+    }
+  ]
+}

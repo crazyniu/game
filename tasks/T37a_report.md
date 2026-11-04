@@ -2,13 +2,13 @@
 
 ## Scope and authority
 
-Implemented the scope in [T37a_meta_logic.md](T37a_meta_logic.md), using [GAME_DESIGN_V5.md §4.1–4.3](../docs/GAME_DESIGN_V5.md#41-species-the-aviary), [§8](../docs/GAME_DESIGN_V5.md#8-boosters-coins-and-shop), [§9](../docs/GAME_DESIGN_V5.md#9-worlds-and-scenes-every-level-looks-different) and the task's explicit replay-improvement rule.
+Implemented the scope in [T37a_meta_logic.md](T37a_meta_logic.md), using [GAME_DESIGN.md §4.1–4.3](../docs/GAME_DESIGN.md#41-species-the-aviary), [§8](../docs/GAME_DESIGN.md#8-boosters-coins-and-shop), [§9](../docs/GAME_DESIGN.md#9-worlds-and-scenes-every-level-looks-different) and the task's explicit replay-improvement rule.
 
-All repository changes are new files under `PerchSort/Assets/Scripts/V5/Meta/`, `PerchSort/Assets/Tests/V5/Meta/`, and this report. No Core/Game/existing tests, level data, scenes, artwork, settings, or other workers' files were edited. No commit was made.
+All repository changes are new files under `PerchSort/Assets/Scripts/Meta/`, `PerchSort/Assets/Tests/Meta/`, and this report. No Core/Game/existing tests, level data, scenes, artwork, settings, or other workers' files were edited. No commit was made.
 
 ## API overview
 
-Namespace: `PerchSort.V5.Meta`. Assembly: `PerchSort.V5.Meta`, `noEngineReferences: true`, no project assembly references. Its `BoosterKind` is independent of Core; integration must explicitly map names rather than cast enums. Seven kinds include unlimited Undo; only the six consumables have stored quantities.
+Namespace: `PerchSort.Meta`. Assembly: `PerchSort.Meta`, `noEngineReferences: true`, no project assembly references. Its `BoosterKind` is independent of Core; integration must explicitly map names rather than cast enums. Seven kinds include unlimited Undo; only the six consumables have stored quantities.
 
 | API | Contract |
 | --- | --- |
@@ -66,13 +66,13 @@ The 2,090 campaign coins comprise 1,000 first-clear coins, 800 world coins, 200 
 
 A separate production-only **C# 9 / .NET Standard 2.1** build also succeeded with **0 warnings and 0 errors**, checking the API subset used by Unity without NUnit or game assembly dependencies.
 
-Executed harness commands used `/tmp/perch-t32-sdk/dotnet`, a temporary project linking `Scripts/V5/Meta/*.cs` and `Tests/V5/Meta/*.cs`, and a separate production-only library target. NUnit XML remains at `/tmp/perch-t37a-meta-results.xml`; temporary harness source/build scaffolding was removed after execution. No new test frameworks or runtime packages were installed.
+Executed harness commands used `/tmp/perch-t32-sdk/dotnet`, a temporary project linking `Scripts/Meta/*.cs` and `Tests/Meta/*.cs`, and a separate production-only library target. NUnit XML remains at `/tmp/perch-t37a-meta-results.xml`; temporary harness source/build scaffolding was removed after execution. No new test frameworks or runtime packages were installed.
 
 ## Remaining Unity integration verification
 
 - Wire persistence/load/save and migration atomically; map Core booster kinds explicitly. Replace the caller's profile reference only after a successful transaction.
 - Feed counted moves and the sum of qualifying Chorus steps exactly once on win; apply final inventory and committed home counts without double-counting restart/undo events. This task does not alter Game or Core callers.
 - Add UI/localization bindings for map nodes/gates, payout lines, catalog, Aviary, equipped overlays, daily claim and starter presentation. Card personality/quirk keys are plain data, not new visible copy or completed animation.
-- Run Unity compilation and the new `PerchSort.V5.Meta.EditModeTests` assembly on the Mac; validate generated Unity metadata and assembly discovery. No Unity EditMode/PlayMode run was claimed here.
+- Run Unity compilation and the new `PerchSort.Meta.EditModeTests` assembly on the Mac; validate generated Unity metadata and assembly discovery. No Unity EditMode/PlayMode run was claimed here.
 - Exercise serialization on the actual target player, including managed stripping/IL2CPP reflection behavior of the framework serializer, real saved-data upgrade and application lifecycle persistence.
 - Screenshots, runtime visuals and input behavior remain untested: this delivery is pure logic and has no UI or asset changes.

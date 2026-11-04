@@ -179,7 +179,7 @@
         ],
         "MaximumHomesInOneMove": 3,
         "Failures": [
-          "DEEP_V54: par 5 outside 12..20"
+          "DEEP: par 5 outside 12..20"
         ],
         "Pass": false
       }

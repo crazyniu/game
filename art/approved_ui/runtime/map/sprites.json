@@ -1,0 +1,191 @@
+{
+  "node_wood": {
+    "file": "PerchSort/Assets/Resources/Art/node_wood.png",
+    "size": [
+      320,
+      288
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/node_wood.png",
+    "source_alpha_bounds": [
+      332,
+      138,
+      1171,
+      896
+    ],
+    "alpha_bounds": [
+      7,
+      6,
+      312,
+      282
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 67845,
+    "sha256": "3d462202f6472d54850c0e0138298a82bfeca08c856e3a2beea6f6d08fc0de95",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "node_wood_current_glow": {
+    "file": "PerchSort/Assets/Resources/Art/node_wood_current_glow.png",
+    "size": [
+      320,
+      288
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/node_wood_current_glow.png",
+    "source_alpha_bounds": [
+      319,
+      137,
+      1185,
+      897
+    ],
+    "alpha_bounds": [
+      6,
+      9,
+      314,
+      279
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 67038,
+    "sha256": "27490d6def85817d65184e09968afbee12da138a149c962d87d35cb8fec2dbc5",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "node_stone_locked": {
+    "file": "PerchSort/Assets/Resources/Art/node_stone_locked.png",
+    "size": [
+      320,
+      288
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/node_stone_locked.png",
+    "source_alpha_bounds": [
+      352,
+      188,
+      1180,
+      826
+    ],
+    "alpha_bounds": [
+      6,
+      25,
+      314,
+      262
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 58622,
+    "sha256": "b0725b77f45fe2fbbf47e7a40f2e40bc7dba3bbc8651408f2cea262b6d347080",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "world_sign_w1": {
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w1.png",
+    "size": [
+      384,
+      320
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/world_sign_w1.png",
+    "source_alpha_bounds": [
+      294,
+      144,
+      1229,
+      850
+    ],
+    "alpha_bounds": [
+      6,
+      19,
+      378,
+      300
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 72698,
+    "sha256": "ea00cc5e12f98d4c7c07ce5b549a7793d4b2c833c032c15face0ce61cfcd9945",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "world_sign_w2": {
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w2.png",
+    "size": [
+      384,
+      320
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/world_sign_w2.png",
+    "source_alpha_bounds": [
+      291,
+      142,
+      1231,
+      848
+    ],
+    "alpha_bounds": [
+      6,
+      20,
+      378,
+      299
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 72260,
+    "sha256": "a5637d674030b2327b11bc0495ac54f13da7e313ddbb80015c9cc070bb50d225",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "world_sign_w3": {
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w3.png",
+    "size": [
+      384,
+      320
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/world_sign_w3.png",
+    "source_alpha_bounds": [
+      288,
+      130,
+      1244,
+      849
+    ],
+    "alpha_bounds": [
+      6,
+      20,
+      378,
+      300
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 71604,
+    "sha256": "39db45cc6a652e67204ead25444f17d2dfe214c8c9b32d4d693ac92aa34f71e5",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  },
+  "world_sign_w4": {
+    "file": "PerchSort/Assets/Resources/Art/world_sign_w4.png",
+    "size": [
+      384,
+      320
+    ],
+    "raw_source": "art/approved_ui/runtime/map/raw/world_sign_w4.png",
+    "source_alpha_bounds": [
+      278,
+      120,
+      1249,
+      856
+    ],
+    "alpha_bounds": [
+      6,
+      19,
+      378,
+      301
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "partial_alpha_pixels": 72803,
+    "sha256": "4dbf796816003d0dee851b28614db207cafdd81b4879498ff1188226bea7fe97",
+    "processing": "Largest connected generated-alpha component above 16 retained with one source-pixel antialias envelope; original RGBA colors preserved; trim, proportional Lanczos resize, transparent pad."
+  }
+}

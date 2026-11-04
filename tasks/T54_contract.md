@@ -6,7 +6,7 @@ User feedback after testing main in the Unity Editor (2026-11-04), each owned by
   code ever starts music (GameRoot only restores a previous page). -> T54A
 - P3 Birds on branches look static and fake: idle is rare (1.5-5 s gaps), tiny (rotation 8 deg), pose swaps are abrupt. Must feel alive continuously. -> T54C
 - P4 The three bottom boosters are visibly different sizes: a disabled button is scaled to 0.9 and faded, so undo looks smaller. -> T54D
-- P5 Version-number names (v5/v6/v7, V5LevelTool, `art/v7`, `ui7_*`, `archive/retired`) still exist; there is only ONE version of this game. -> T54E
+- P5 Version-number names (v5/v6/v7, LevelTool, `art/approved_ui`, `ui_*`, `archive/retired`) still exist; there is only ONE version of this game. -> T54E
 
 ## Hard rules for every task
 1. Own only the files listed for your task. Anything else is read-only; put needed changes under "Requested contract change" in your report.

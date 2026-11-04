@@ -2,55 +2,62 @@
 
 ## Current execution contract
 
-Perch Sort has **one current game**: Unity **6000.6.7f1**, portrait, 40 fixed authored levels in four forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
+Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
 
-- T52 is an authorized identity/organization cleanup of the accepted T49/T50 implementation, not a gameplay, art, economy or save redesign. Change the current game directly; do not create numbered implementation forks.
-- Current coordinator is Codex, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. Reports/questions return there, never to the retired Claude session. This file and CLAUDE.md carry the same guide; the filename does not assign coordination authority.
-- Development runs on the **Mac**, in isolated Orca workspaces. Do not mutate the user's primary checkout `/Users/apple/Documents/projects/game` from a worker. Linux 251 is no longer the development host.
-- Decompose feature efforts into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. OMP preferred, Codex fallback; coordinator chooses model/effort by complexity. A bounded worker must not spawn more workers.
-- Workers may commit and push only their assigned task branch. Do not merge peer branches, push main, force-push, deploy, or release. The user authorized coordinator review and integration of completed work into main for testing; that is not release authority.
-- **Updated testing directive:** after integration, the current Codex coordinator must perform Mac compilation, EditMode, PlayMode and GUI acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity; coordinator serializes it. Worker reports may state NOT_RUN locally, never that stage testing is optional.
+- T54 assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](tasks/T54_contract.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
+- Return questions and reports to the coordinator who assigned the task. Agent-entry filenames do not confer coordination authority. AGENTS.md and CLAUDE.md must remain identical.
+- Develop on the Mac in isolated Orca workspaces. Workers must not mutate the user's primary checkout `/Users/apple/Documents/projects/game`.
+- Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. OMP preferred, Codex fallback. Bounded workers must not spawn workers.
+- Commit and push only the assigned task branch. Never merge peer branches, touch or push main, force-push, deploy or release as a worker. Coordinator integration authority is not release authority.
+- Workers run their own Mac compilation, full EditMode/PlayMode suites and applicable screenshots under `flock /tmp/unity.lock`. Integrated acceptance remains required after coordination; historical counts and static reports do not establish new acceptance.
 
-## Permanent single-current-game naming policy
+## Hard constraints (user, 2026-11-04)
 
-- Maintain **ONE current game**. Edit canonical files in place; never create V-numbered parallel folders, files, classes, namespaces, scenes or resource roots, or alternate current implementation copies under any other name.
-- Normal task branches and PRs are temporary collaboration vehicles reviewed and merged into `main`, not permanent runnable forks or alternative current implementations.
-- The only narrow exceptions are: **exact existing storage identifiers**, solely to preserve save compatibility; **preserved historical archives and original-art provenance**, never active implementation copies; and **legitimate dependency, schema or release metadata**. Existing storage compatibility is not permission to introduce new versioned keys. No new arbitrary exceptions or catch-all allowlists.
-- **Review acceptance:** verify changes update canonical files, introduce no prohibited parallel identity/copy, keep one enabled Game scene and the canonical resource roots, and fit any retained version-looking identifier into exactly one exception above. Require `python3 ci/check_current_game_names.py` to pass before tests; its static guard complements review and does not authorize exceptions or replace required Mac acceptance.
+- There is exactly one version of this game. Never name files, folders, classes, namespaces, assets, scenes, docs or branches after a version. No version-number prefixes or suffixes, numbered UI identities, or numbered "final" copies. History lives in Git, not in the tree. Never create archive folders of old versions.
+- Approved reference images live in `art/approved_ui`; they are the visual acceptance target. A UI task is accepted only when actual runtime screenshots visibly match those images.
+- Animation and audio acceptance requires timed evidence: frame sequences and logs, never one static frame. Level entrance must take **3.5–4.5 seconds**. Birds must never look static: continuous breathing plus frequent idle actions. Background music must always be present on the applicable page and follow the existing mute control. All same-role buttons must have identical sizes in every state; disabled means dimmed and non-interactive, not smaller.
+- Never fake animation by mirroring or flipping a still image, or by showing a fixed picture. Birds in popups, houses and on branches must move continuously through breathing, hops and pose-frame changes with easing. Turning must never be a sprite mirror.
+- Primary action buttons must be **at most 1.25 times** the size of sibling buttons.
+- Workers may and must run applicable serialized Unity tests and screenshots. There is no coordinator-only Unity monopoly, no no-tests continuation rule, and no documentation-only exemption for an implementation task.
+
+## Permanent naming policy and review acceptance
+
+- Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
+- Exceptions are limited to `.git`, third-party package files, lockfiles, dated handoff/report evidence under `tasks/` and `docs/team/`, and exact existing storage-key literals. They never authorize a new game identity, a new numbered key or an archive of old game implementations.
+- Preserve every existing storage key, migrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema value. Existing persistence compatibility is not permission to reset user data.
+- Review canonical paths, one enabled Game scene, canonical resource roots and each retained numbered identifier. Run `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py` before Unity. The guard checks tracked paths and authored identifiers; it complements review, not compilation or runtime acceptance.
+- Removed implementation and superseded art live only in Git history. Retained research documents describe historical decisions, not another runnable game. Do not recreate removed trees from historical references.
 
 ## Current source and data ownership
 
 | Surface | Current location |
 | --- | --- |
-| Pure game rules and solver | `PerchSort/Assets/Scripts/Core` / `PerchSort.Core` |
+| Pure rules and solver | `PerchSort/Assets/Scripts/Core` / `PerchSort.Core` |
 | Pure profile/economy/collection policies | `PerchSort/Assets/Scripts/Meta` / `PerchSort.Meta` |
 | Unity runtime and presentation | `PerchSort/Assets/Scripts/Game` / `PerchSort.Game` |
-| Shared audio | `PerchSort/Assets/Scripts/Audio` (retain existing contract) |
+| Shared audio | `PerchSort/Assets/Scripts/Audio` |
 | Sole scene and root | `Assets/Scenes/Game.unity` / `PerchSort.Game.GameRoot` |
-| Current art and catalog | `Assets/Resources/{Art,Birds,World}`, `Assets/Resources/Levels/levels.json`, `Assets/Resources/dev_options.json` |
+| Current resources | `Assets/Resources/{Art,Birds,World}`, `Assets/Resources/Levels/levels.json`, `Assets/Resources/dev_options.json` |
 | Editor entry | `Assets/Editor/Game`, namespace `PerchSort.Editor`: `GameSceneBuilder`, `GameArtImporter`, `GameCapture` |
-| Retained tests | `Assets/Tests/{EditMode,Meta,PlayMode}`; shared Audio stays under `Tests/EditMode/Audio` |
-
-`archive/retired/` is outside Unity Assets and compiled/test CI inputs. It preserves retired code/data/scenes/tests, not a second runnable project. Never restore it because a historical document or asset names it. Originals under `art/` are preserved, including historical versioned filenames.
-
-Exact existing storage identifiers listed in [CURRENT_GAME](docs/CURRENT_GAME.md) are compatibility identifiers, **not implementation versions**. Preserve every existing key, ProfileMigrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema version. Do not reset user data or rename persisted fields during cleanup.
+| Tests | `Assets/Tests/{EditMode,Meta,PlayMode}`; shared Audio under `Tests/EditMode/Audio` |
+| Level authoring | `tools/levels/LevelTool/LevelTool.csproj`, compiling canonical Core directly |
+| Visual acceptance references | `art/approved_ui` |
 
 ## Specification and language
 
-- Talk to the user in Chinese. Agent instructions, new task specs/reports, comments and commits are English. Preserve historical research/task evidence rather than rewriting its claims.
-- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN_V5](docs/GAME_DESIGN_V5.md) retains its historical filename and design decisions; later approved T49/T50 visual/animation contracts and actual current source resolve superseded layout prose. Do not interpret stale Claude ownership or numbered paths there as current execution instructions.
-- The old v2 runtime description and v4 rules/schema/save proposal are historical reference, not today's runtime. `docs/spec/RULES.md`, PRD/evidence/replay documents and older UI specifications must not silently replace the accepted game. T52 does not change any rule.
-- Keep logic independent of presentation. Core/Meta have no UnityEngine references. Inspect current code before changing rules/levels and obtain separate feature authority; do not infer implementation scope from a historical roadmap.
-- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. Do not replace animation with a static-image claim. New assets must be derived, never overwrite originals.
-- Every task has `tasks/T<n>_<name>.md` and `tasks/T<n>_report.md`. Stay within assigned paths and preserve unrelated user changes.
+- Chinese with the user unless the assigned task requires English-only communication. Agent instructions, new task specs/reports, comments and commits are English. No emoji in task deliveries.
+- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; later approved visual/animation contracts and actual source resolve superseded layout prose. Historical ownership and paths are not execution instructions.
+- Old runtime descriptions and rules/schema/save proposals remain historical research. They must not silently replace the accepted game. Keep Core/Meta independent of Unity presentation; inspect actual code and obtain separate authority before changing rules or levels.
+- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets must be derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
+- Each task has `tasks/T<n>_<name>.md` and `tasks/T<n>_report.md`. Stay inside assigned paths, preserve unrelated user changes and report requested contract changes explicitly.
 
-## Coordinator verification workflow
+## Serialized Mac verification workflow
 
-1. Integrate reviewed task branches in an isolated Mac integration workspace. Record scene/meta/settings/package state before Unity. Preserve the user-checkout changes separately before any update; never blindly restore generated files.
-2. Use one Unity process at a time. If the user has the project open, ask them to close it; never kill their Editor. Inspect existing process/lock state before starting a serialized run.
-3. Run `bash scripts/run_tests.sh`: it invokes only `PerchSort.Editor.GameSceneBuilder.Build`, then the retained EditMode and PlayMode suites. Source-derived safeguards are **304 EditMode** (237 game + 53 Meta + 14 Audio) and **17 PlayMode**, no Ignore/Explicit. LevelsData retains 81 expanded cases (40 solver/replay), Layout 41 (24 combinatorial). These are expectations, not passing results; investigate actual discovery differences rather than lower counts or skip failures.
-4. Run `bash scripts/screenshots.sh` for stable-state captures in `build/screens/game/`, then perform actual GUI/timed acceptance. Static GameCapture uses instant motion and synthetic nonpersistent profiles; it does not prove animated playback, persistence or device acceptance.
-5. Automatic PR CI runs `python3 ci/check_current_game_names.py` unconditionally before tests, then retains JSON/assembly/project/script checks, workflow lint and the current pure-Core fixture subset via `dotnet test ci/CoreTests.csproj`. The naming guard uses Git-tracked paths and `git show` for sparse files; it validates naming policy, never compiles or runs archived tests. CI is not a substitute for Unity or GUI acceptance.
-6. Report exact commands, results, skips, failures and boundaries. All T52 worker runtime validation remains NOT_RUN until the coordinator executes it. Historical passing counts do not validate new changes. Keep generated output out of commits (`build/` is ignored).
+1. Record scene/meta/settings/package state before Unity. Preserve user changes separately; never blindly restore generated files or update the primary checkout from a worker.
+2. Inspect process and lock state. Use one Unity process at a time and `flock /tmp/unity.lock` for every batch run, test and screenshot command. If the user has the Editor open, ask them to close it; never kill their Editor.
+3. Run `flock /tmp/unity.lock bash scripts/run_tests.sh`: it invokes only `PerchSort.Editor.GameSceneBuilder.Build`, then full EditMode and PlayMode suites. T54 baseline: **304 EditMode and 21 PlayMode**, all passing; these are expectations, not results. Preserve the retained LevelsData 81 expanded cases and Layout 41 cases. Never lower discovery safeguards or weaken/skip tests to hide a failure.
+4. Run `flock /tmp/unity.lock bash scripts/screenshots.sh` for stable-state captures in `build/screens/game/`, then perform applicable real GUI/timed acceptance. GameCapture uses instant motion and synthetic nonpersistent profiles; stills do not prove animation, persistence or device acceptance. Animation/audio claims require the shared contract's timed frame/log evidence.
+5. CI runs the naming guard before current JSON/assembly/project/script checks, workflow lint and `dotnet test ci/CoreTests.csproj`. CI is not a substitute for Unity or GUI acceptance. Sparse-checkout naming inspection uses indexed Git blobs for absent files.
+6. Report exact commands, counts, skips, failures, evidence paths and remaining boundaries. Keep generated output out of commits (`build/` is ignored); commit only the task's required evidence. Historical passing counts never validate a new change.
 
-Do not expose network services or credentials. Existing authorized Orca/artifact channels suffice for reports and captures. Store identifiers and release account/package placeholders still require user input; `com.todo.perchsort` is not a production package name.
+Do not expose network services or credentials. Use authorized Orca/artifact channels. Production store identifiers and release account/package placeholders still require user input; `com.todo.perchsort` is not a production package name.

@@ -183,7 +183,7 @@
         "MaximumHomesInOneMove": 3,
         "DataCheck": "Not run",
         "Failures": [
-          "DEEP_V54: par 6 outside 12..2147483647"
+          "DEEP: par 6 outside 12..2147483647"
         ],
         "Warnings": [],
         "Pass": false

@@ -18,7 +18,7 @@ The following T49/T50 handoff is a **historical checkpoint record**. Its old sce
 
 The complete reviewed integration `bf31ba2f3b9701446be8782bd2d7f9138af701fa` was squash-merged through [PR36](https://github.com/crazyniu/game/pull/36) into main as **`2a5bc259187cc924d1d5a9c666a8385b95217327`**. All A/B/C/D/E code and final bird/egg/overlay assets are included. The sections below retain the worker's pre-merge evidence; their statements that main publication is pending are historical, superseded by this record.
 
-All repository branch work was reconciled in [the branch coverage record](T50_BRANCH_COVERAGE.md). Existing merged branches need no duplicate PR; cancelled Godot/v6/concept branches remain preserved. The missing T44 popup-trigger policy is restored in the owning T50 task without changing runtime behavior.
+All repository branch work was reconciled in [the branch coverage record](HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Existing merged branches need no duplicate PR; cancelled Godot/v6/concept branches remain preserved. The missing T44 popup-trigger policy is restored in the owning T50 task without changing runtime behavior.
 
 Observed checkout synchronization on 2026-11-04: `/Users/apple/Documents/projects/game` was fast-forwarded on `main` to the PR36 code checkpoint above, matched `origin/main`, and had an empty working-tree status. Linux `/home/developer/Projects/game` also reached that checkpoint while preserving the two pre-existing untracked review PNGs. This closeout changes documentation only; use `git status` and `git log -1` for the final documentation tip. The Mac project to open is `/Users/apple/Documents/projects/game/PerchSort`, scene `Assets/Scenes/V5.unity`.
 
@@ -94,7 +94,7 @@ A Mac continuation starts by reading this handoff, [final T50 report](../../task
 
 ## Observed final reconciliation checks — source/tree only
 
-- Staged runtime/art/fixture tree under PerchSort and art/v7 is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
+- Staged runtime/art/fixture tree under PerchSort and art/approved_ui is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
 - Staged diff against incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd` is empty for Core, authored level JSON/Levels resources/tools, every Unity scene and ProjectSettings.
 - AGENTS.md, CLAUDE.md and TEAM.md exactly match incoming main, including current Codex/parallel/OMP/Mac-only directives.
 - No unmerged index entries remain. Staged diff whitespace/conflict-marker checks passed. All final report/owner-report links and the V5.unity entry file were found.

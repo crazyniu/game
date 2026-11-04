@@ -1,9 +1,0 @@
-{
-  "name": "night_overlay",
-  "prompt": "Original game full-screen translucent atmospheric OVERLAY ONLY, portrait 9:16. Deep midnight-blue at top softly graduating to transparent smoky blue at bottom, approximate 55 percent opacity overall. Only seven tiny softly glowing pale stars in the uppermost quarter, very sparse. Middle and lower area smooth uninterrupted blue tint; no scene, no tree, no horizon, no landscape, no moon, no text. Transparent alpha background. Intended to composite over an existing forest background, not replace it.",
-  "refs": [],
-  "transparent": true,
-  "source": "/home/developer/.codex/generated_images/01a19d1d-0c2d-7ce2-89b3-9b821e795f2a/exec-76defeb2-1232-42d2-9492-199b6c6ac312.png",
-  "raw": "/home/developer/Projects/game/art/v5/t33/raw/night_overlay.png",
-  "tool": "image_gen.imagegen"
-}

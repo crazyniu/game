@@ -6,7 +6,7 @@ Coordinator: current Codex on 251. Do not contact the retired Claude session or 
 
 ## T50E delivery
 
-- Only BirdView runtime edits plus new internal `V7BirdOverlay.cs` / `.meta`.
+- Only BirdView runtime edits plus new internal [V7BirdOverlay.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/team/status/mac-motion.md#L9) / `.meta`.
 - Consumes the final overlay contract read-only from `mac-art/world` `f79dc38` (asset `34eddebeca3b75fa5e39019090c8b486ba99911f`) and reviewed Sunny/Skye frame strips/PNGs from `mac-birds/t49` `fd14469`.
 - All 40 authored levels read as data: Sunny family on L15/L18/L39; Skye on L16; eight mama/chick tokens total. No all-species attachment claim.
 - Manifest idle centers and normalized bow72/320, fluff88/320 size. Seven explicit material pose overrides for head rolls/Skye head shift/preen; other reviewed family poses retain stable attachment regions.

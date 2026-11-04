@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PerchSort.V5.Core
+namespace PerchSort.Core
 {
     public readonly struct Species : IEquatable<Species>
     {

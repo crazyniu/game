@@ -6,9 +6,9 @@ Delivered **27/27 requested runtime PNGs**: 12 backgrounds, 12 scene-kit sprites
 
 ## Scope and preservation
 
-The current dispatch and [T36 task](T36_world_art.md) explicitly authorize these new assets, with style/world references in [GAME_DESIGN_V5 §§4 and 9](../docs/GAME_DESIGN_V5.md), [UI_SPEC §4.1](../docs/UI_SPEC.md#approved-forest-style), and the accepted [T33 delivery](T33_art_report.md). No gameplay semantics were changed.
+The current dispatch and [T36 task](T36_world_art.md) explicitly authorize these new assets, with style/world references in [GAME_DESIGN_V5 §§4 and 9](../docs/GAME_DESIGN.md), [UI_SPEC §4.1](../docs/UI_SPEC.md#approved-forest-style), and the accepted [T33 delivery](T33_art_report.md). No gameplay semantics were changed.
 
-Only new runtime PNGs under `PerchSort/Assets/Resources/V5/Art/`, supporting files under `art/v5/t36/`, and this report were written. Birdhouses, HUD/UI, map, shop, game code, data, scenes and importer metadata are outside this delivery. No commit or push was made. All **146 pre-existing runtime art files** match the [start baseline](../art/v5/t36/qa/baseline.json) byte-for-byte; concurrent workers' files were preserved.
+Only new runtime PNGs under `PerchSort/Assets/Resources/Art/`, supporting files under `art/v5/t36/`, and this report were written. Birdhouses, HUD/UI, map, shop, game code, data, scenes and importer metadata are outside this delivery. No commit or push was made. All **146 pre-existing runtime art files** match the [start baseline](../art/v5/t36/qa/baseline.json) byte-for-byte; concurrent workers' files were preserved.
 
 ## Generation and sizing
 
@@ -61,33 +61,33 @@ The top limbs contain no rope, hook or hanging knot. Their final nonzero-alpha b
 
 | File | Size | Mode | Alpha min/max | Final static checks |
 | --- | --- | --- | --- | --- |
-| [bg_w2_mist.png](../PerchSort/Assets/Resources/V5/Art/bg_w2_mist.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w2_noon.png](../PerchSort/Assets/Resources/V5/Art/bg_w2_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w2_lanterns.png](../PerchSort/Assets/Resources/V5/Art/bg_w2_lanterns.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w2_drizzle.png](../PerchSort/Assets/Resources/V5/Art/bg_w2_drizzle.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [branch_left_w2.png](../PerchSort/Assets/Resources/V5/Art/branch_left_w2.png) | 640×120 | RGBA | 0/255 | PASS |
-| [twig_left_w2.png](../PerchSort/Assets/Resources/V5/Art/twig_left_w2.png) | 420×90 | RGBA | 0/255 | PASS |
-| [bush_edge_w2.png](../PerchSort/Assets/Resources/V5/Art/bush_edge_w2.png) | 360×300 | RGBA | 0/255 | PASS |
-| [limb_top_plain_w2.png](../PerchSort/Assets/Resources/V5/Art/limb_top_plain_w2.png) | 1080×320 | RGBA | 0/255 | PASS |
-| [bg_w3_morning.png](../PerchSort/Assets/Resources/V5/Art/bg_w3_morning.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w3_noon.png](../PerchSort/Assets/Resources/V5/Art/bg_w3_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w3_sunset.png](../PerchSort/Assets/Resources/V5/Art/bg_w3_sunset.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w3_windy.png](../PerchSort/Assets/Resources/V5/Art/bg_w3_windy.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [branch_left_w3.png](../PerchSort/Assets/Resources/V5/Art/branch_left_w3.png) | 640×120 | RGBA | 0/255 | PASS |
-| [twig_left_w3.png](../PerchSort/Assets/Resources/V5/Art/twig_left_w3.png) | 420×90 | RGBA | 0/255 | PASS |
-| [bush_edge_w3.png](../PerchSort/Assets/Resources/V5/Art/bush_edge_w3.png) | 360×300 | RGBA | 0/255 | PASS |
-| [limb_top_plain_w3.png](../PerchSort/Assets/Resources/V5/Art/limb_top_plain_w3.png) | 1080×320 | RGBA | 0/255 | PASS |
-| [bg_w4_morning.png](../PerchSort/Assets/Resources/V5/Art/bg_w4_morning.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w4_noon.png](../PerchSort/Assets/Resources/V5/Art/bg_w4_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w4_bluehour.png](../PerchSort/Assets/Resources/V5/Art/bg_w4_bluehour.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [bg_w4_aurora.png](../PerchSort/Assets/Resources/V5/Art/bg_w4_aurora.png) | 1080×1920 | RGBA | 255/255 | PASS |
-| [branch_left_w4.png](../PerchSort/Assets/Resources/V5/Art/branch_left_w4.png) | 640×120 | RGBA | 0/255 | PASS |
-| [twig_left_w4.png](../PerchSort/Assets/Resources/V5/Art/twig_left_w4.png) | 420×90 | RGBA | 0/255 | PASS |
-| [bush_edge_w4.png](../PerchSort/Assets/Resources/V5/Art/bush_edge_w4.png) | 360×300 | RGBA | 0/255 | PASS |
-| [limb_top_plain_w4.png](../PerchSort/Assets/Resources/V5/Art/limb_top_plain_w4.png) | 1080×320 | RGBA | 0/255 | PASS |
-| [leaf_bamboo.png](../PerchSort/Assets/Resources/V5/Art/leaf_bamboo.png) | 48×96 | RGBA | 0/255 | PASS |
-| [leaf_maple.png](../PerchSort/Assets/Resources/V5/Art/leaf_maple.png) | 64×64 | RGBA | 0/255 | PASS |
-| [snowflake.png](../PerchSort/Assets/Resources/V5/Art/snowflake.png) | 48×48 | RGBA | 0/255 | PASS |
+| [bg_w2_mist.png](../PerchSort/Assets/Resources/Art/bg_w2_mist.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w2_noon.png](../PerchSort/Assets/Resources/Art/bg_w2_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w2_lanterns.png](../PerchSort/Assets/Resources/Art/bg_w2_lanterns.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w2_drizzle.png](../PerchSort/Assets/Resources/Art/bg_w2_drizzle.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [branch_left_w2.png](../PerchSort/Assets/Resources/Art/branch_left_w2.png) | 640×120 | RGBA | 0/255 | PASS |
+| [twig_left_w2.png](../PerchSort/Assets/Resources/Art/twig_left_w2.png) | 420×90 | RGBA | 0/255 | PASS |
+| [bush_edge_w2.png](../PerchSort/Assets/Resources/Art/bush_edge_w2.png) | 360×300 | RGBA | 0/255 | PASS |
+| [limb_top_plain_w2.png](../PerchSort/Assets/Resources/Art/limb_top_plain_w2.png) | 1080×320 | RGBA | 0/255 | PASS |
+| [bg_w3_morning.png](../PerchSort/Assets/Resources/Art/bg_w3_morning.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w3_noon.png](../PerchSort/Assets/Resources/Art/bg_w3_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w3_sunset.png](../PerchSort/Assets/Resources/Art/bg_w3_sunset.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w3_windy.png](../PerchSort/Assets/Resources/Art/bg_w3_windy.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [branch_left_w3.png](../PerchSort/Assets/Resources/Art/branch_left_w3.png) | 640×120 | RGBA | 0/255 | PASS |
+| [twig_left_w3.png](../PerchSort/Assets/Resources/Art/twig_left_w3.png) | 420×90 | RGBA | 0/255 | PASS |
+| [bush_edge_w3.png](../PerchSort/Assets/Resources/Art/bush_edge_w3.png) | 360×300 | RGBA | 0/255 | PASS |
+| [limb_top_plain_w3.png](../PerchSort/Assets/Resources/Art/limb_top_plain_w3.png) | 1080×320 | RGBA | 0/255 | PASS |
+| [bg_w4_morning.png](../PerchSort/Assets/Resources/Art/bg_w4_morning.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w4_noon.png](../PerchSort/Assets/Resources/Art/bg_w4_noon.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w4_bluehour.png](../PerchSort/Assets/Resources/Art/bg_w4_bluehour.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [bg_w4_aurora.png](../PerchSort/Assets/Resources/Art/bg_w4_aurora.png) | 1080×1920 | RGBA | 255/255 | PASS |
+| [branch_left_w4.png](../PerchSort/Assets/Resources/Art/branch_left_w4.png) | 640×120 | RGBA | 0/255 | PASS |
+| [twig_left_w4.png](../PerchSort/Assets/Resources/Art/twig_left_w4.png) | 420×90 | RGBA | 0/255 | PASS |
+| [bush_edge_w4.png](../PerchSort/Assets/Resources/Art/bush_edge_w4.png) | 360×300 | RGBA | 0/255 | PASS |
+| [limb_top_plain_w4.png](../PerchSort/Assets/Resources/Art/limb_top_plain_w4.png) | 1080×320 | RGBA | 0/255 | PASS |
+| [leaf_bamboo.png](../PerchSort/Assets/Resources/Art/leaf_bamboo.png) | 48×96 | RGBA | 0/255 | PASS |
+| [leaf_maple.png](../PerchSort/Assets/Resources/Art/leaf_maple.png) | 64×64 | RGBA | 0/255 | PASS |
+| [snowflake.png](../PerchSort/Assets/Resources/Art/snowflake.png) | 48×48 | RGBA | 0/255 | PASS |
 
 ## Remaining integration
 

@@ -4,7 +4,7 @@ Coordinator: current Codex. Authorized branch: `mac-art/world`. This task takes 
 
 ## Scope
 
-Create `PerchSort/Assets/Resources/V7/Birds/{egg_idle,egg_wobble_l,egg_wobble_r,egg_crack,egg_shell,mama_bow,chick_fluff}.png` and associated new PNG metas. Source generations, read-only reference snapshots, preparation, QA and manifest stay under `art/v7/eggs_overlays/`. Task/report/status are the only documentation edits.
+Create `PerchSort/Assets/Resources/Birds/{egg_idle,egg_wobble_l,egg_wobble_r,egg_crack,egg_shell,mama_bow,chick_fluff}.png` and associated new PNG metas. Source generations, read-only reference snapshots, preparation, QA and manifest stay under `art/approved_ui/eggs_overlays/`. Task/report/status are the only documentation edits.
 
 ## Acceptance
 

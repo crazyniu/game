@@ -2,7 +2,7 @@
 
 状态：🟡 已交付待 Claude 验收。2026-10-31。
 
-已按任务书与 `docs/UI_SPEC.md` §1、§2、§5 生成 23 个原创透明素材，交付目录为 `art/ui_kit/`。使用内置 `image_gen`，每个素材独立生成，参考现有 `art/contact_v2_light.png` 的暖棕描边、左上高光和右下柔影。所有素材不含文字、数字、标识或水印。
+已按任务书与 `docs/UI_SPEC.md` §1、§2、§5 生成 23 个原创透明素材，交付目录为 `art/ui_kit/`。使用内置 `image_gen`，每个素材独立生成，参考现有 `art/contact_originals_light.png` 的暖棕描边、左上高光和右下柔影。所有素材不含文字、数字、标识或水印。
 
 ## 交付清单
 

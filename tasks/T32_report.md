@@ -2,7 +2,7 @@
 
 ## Scope and result
 
-Implemented the pure-C# rule, state, event, solver and EditMode-test scope of [T32_core_v53.md](T32_core_v53.md), using [GAME_DESIGN_V5.md §1.1](../docs/GAME_DESIGN_V5.md#11-rule-clarifications-binding-from-t32-review), §6, §7, §8.1 and §12 as the binding contract.
+Implemented the pure-C# rule, state, event, solver and EditMode-test scope of [T32_core.md](T32_core.md), using [GAME_DESIGN.md §1.1](../docs/GAME_DESIGN.md#11-rule-clarifications-binding-from-t32-review), §6, §7, §8.1 and §12 as the binding contract.
 
 - Local C# 7.3 compilation succeeded with warnings treated as errors.
 - Local NUnitLite result: **78 passed, 0 failed, 0 skipped, 0 warnings**: 62 new cases plus all 16 unchanged `V5RulesTests` cases.
@@ -19,7 +19,7 @@ Implemented the pure-C# rule, state, event, solver and EditMode-test scope of [T
 
 Bird IDs are assigned once in branch/seat order. Birds are immutable values carrying a species and `BirdFlags`. `Bird.IsAsleep` is the current authored sleep flag; **`BoardState.IsAsleep(bird)` is the effective sleep query**, including nocturnal day sleep. Branches consult their owning board for run selection, avoiding duplicated phase caches.
 
-The unchanged `LevelLoader` already deserializes `LevelCatalog`/`LevelDef` fields and delegates construction to Core, so no separate DTO mapping change was necessary. The production `Resources/V5/levels.json` remains unchanged.
+The unchanged `LevelLoader` already deserializes `LevelCatalog`/`LevelDef` fields and delegates construction to Core, so no separate DTO mapping change was necessary. The production `Resources/Levels/levels.json` remains unchanged.
 
 ### Session resources and history
 
@@ -88,7 +88,7 @@ Search equality includes branch position, kind and seats, bird species/flags, ph
 
 ### Authored fixture and smoke evidence
 
-Fixtures are test-only JSON under `Assets/Tests/V5/EditMode/Fixtures/`; no production levels were added.
+Fixtures are test-only JSON under `Assets/Tests/EditMode/Fixtures/`; no production levels were added.
 
 | Fixture | ID | Proven par | Observed solve time (ms) | Exercised line/mechanics |
 | --- | ---: | ---: | ---: | --- |
@@ -123,37 +123,37 @@ Mac acceptance still needed:
 
 Core (three existing files replaced, four new files):
 
-- `PerchSort/Assets/Scripts/V5/Core/BoardState.cs`
-- `PerchSort/Assets/Scripts/V5/Core/GameSession.cs`
-- `PerchSort/Assets/Scripts/V5/Core/Solver.cs`
-- `PerchSort/Assets/Scripts/V5/Core/LevelDef.cs`
-- `PerchSort/Assets/Scripts/V5/Core/GameEvents.cs`
-- `PerchSort/Assets/Scripts/V5/Core/GameRules.cs`
-- `PerchSort/Assets/Scripts/V5/Core/AssemblyInfo.cs`
+- `PerchSort/Assets/Scripts/Core/BoardState.cs`
+- `PerchSort/Assets/Scripts/Core/GameSession.cs`
+- `PerchSort/Assets/Scripts/Core/Solver.cs`
+- `PerchSort/Assets/Scripts/Core/LevelDef.cs`
+- `PerchSort/Assets/Scripts/Core/GameEvents.cs`
+- `PerchSort/Assets/Scripts/Core/GameRules.cs`
+- `PerchSort/Assets/Scripts/Core/AssemblyInfo.cs`
 
 New test sources:
 
-- `PerchSort/Assets/Tests/V5/EditMode/V53TestBoards.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53EggTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53SleepTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53CrowTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53BranchTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53MamaTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53SwivelTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53DayNightTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53GiftTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53ResolutionTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53SongTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53BoosterTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53SolverTests.cs`
-- `PerchSort/Assets/Tests/V5/EditMode/V53SchemaTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53TestBoards.cs`
+- `PerchSort/Assets/Tests/EditMode/V53EggTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53SleepTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53CrowTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53BranchTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53MamaTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53SwivelTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53DayNightTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53GiftTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53ResolutionTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53SongTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53BoosterTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53SolverTests.cs`
+- `PerchSort/Assets/Tests/EditMode/V53SchemaTests.cs`
 
 New test data:
 
-- `PerchSort/Assets/Tests/V5/EditMode/Fixtures/v53_eggs_gifts.json`
-- `PerchSort/Assets/Tests/V5/EditMode/Fixtures/v53_family_sleep.json`
-- `PerchSort/Assets/Tests/V5/EditMode/Fixtures/v53_crows_swivel.json`
-- `PerchSort/Assets/Tests/V5/EditMode/Fixtures/v53_growth_ember.json`
-- `PerchSort/Assets/Tests/V5/EditMode/Fixtures/v53_night_owls.json`
+- `PerchSort/Assets/Tests/EditMode/Fixtures/v53_eggs_gifts.json`
+- `PerchSort/Assets/Tests/EditMode/Fixtures/v53_family_sleep.json`
+- `PerchSort/Assets/Tests/EditMode/Fixtures/v53_crows_swivel.json`
+- `PerchSort/Assets/Tests/EditMode/Fixtures/v53_growth_ember.json`
+- `PerchSort/Assets/Tests/EditMode/Fixtures/v53_night_owls.json`
 
 Report: `tasks/T32_report.md`.

@@ -12,8 +12,8 @@ namespace UnityEngine
     {
         public static T Load<T>(string name) where T : class
         {
-            if (typeof(T) != typeof(TextAsset) || name != "V5/levels") return null;
-            string path = Environment.GetEnvironmentVariable("PERCH_LEVELS_FILE") ?? "PerchSort/Assets/Resources/V5/levels.json";
+            if (typeof(T) != typeof(TextAsset) || name != "Levels/levels") return null;
+            string path = Environment.GetEnvironmentVariable("PERCH_LEVELS_FILE") ?? "PerchSort/Assets/Resources/Levels/levels.json";
             return new TextAsset { text = File.ReadAllText(path) } as T;
         }
     }

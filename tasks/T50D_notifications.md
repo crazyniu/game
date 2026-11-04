@@ -3,10 +3,10 @@
 ## Authority and ownership
 - Coordinator: current Codex conversation on 251; the former Claude session is retired.
 - Branch/workspace: `mac-notifications/t50`, isolated `t50-notifications`, based on `0b44966` (code WIP `9f84a95`). Never modify the original user-test checkout, main, scenes or project settings. No sub-workers or invented Dispatch IDs.
-- Owned source: `V5GameRoot.cs`, `V5Progress.cs`, `V7PopupFlow.cs`, `V7LevelEntrance.cs`, `HudView.cs`; existing Meta/Economy bridge only if required. Existing public signatures remain available. No other module's views are edited.
+- Owned source: `GameRoot.cs`, [V5Progress.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50D_notifications.md#L6), [V7PopupFlow.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50D_notifications.md#L6), [V7LevelEntrance.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50D_notifications.md#L6), `HudView.cs`; existing Meta/Economy bridge only if required. Existing public signatures remain available. No other module's views are edited.
 - Preserve Core, authored levels, economy amounts/eligibility, approved v7 plush forest/purple-green/honey-wood/green-ribbon art, existing LitMotion/V5Motion patterns. No libraries, art generation, features or T51 cleanup.
 - Also owns the coordinator-requested update of `docs/team/HANDOFF_2026-11-04_CODEX.md`, preserving the main handoff directives and actual four-workspace/art ownership.
-- Coordinator follow-up explicitly authorizes existing fixture/source-compatibility edits in V5GameplayTests, V5DevOptionsTests and their assembly references without execution. Preserve the string snapshot and seed acknowledged receipts for unrelated legacy cases. After isolated D commits, only exact approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888` may be merged into this branch.
+- Coordinator follow-up explicitly authorizes existing fixture/source-compatibility edits in GameplayTests, V5DevOptionsTests and their assembly references without execution. Preserve the string snapshot and seed acknowledged receipts for unrelated legacy cases. After isolated D commits, only exact approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888` may be merged into this branch.
 
 ## Requirements
 1. Run the skippable approximately 1.6-second intro on every normal level start/restart; restore final poses on skip/cancel and show the tutorial only after intro/notifications.
@@ -23,5 +23,5 @@
 - Deliver English report/status, isolated branch commit/push, exact SHA/files/APIs/implemented and missing requirements/untested boundaries. The coordinator integrates and pauses for user testing, then Mac-only development.
 
 ## Sources
-- [T50 requirements](T50_ui_v7_code.md), [handoff and exact trigger policy](T50_report.md#popup-trigger-policy--exact-lead-decision), [WIP risks](../docs/team/status/mac-ui.md).
-- [Team memory](../docs/team/MEMORY.md), [v5 design](../docs/GAME_DESIGN_V5.md), approved `art/v7/ui7_*.png` references.
+- [T50 requirements](T50_ui_code.md), [handoff and exact trigger policy](T50_report.md#popup-trigger-policy--exact-lead-decision), [WIP risks](../docs/team/status/mac-ui.md).
+- [Team memory](../docs/team/MEMORY.md), [v5 design](../docs/GAME_DESIGN.md), approved `art/approved_ui/ui_*.png` references.

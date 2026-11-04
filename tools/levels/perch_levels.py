@@ -1,8 +1,8 @@
-"""Offline level tooling for Perch Sort rules v4 (documentation only, not runtime).
+"""Offline level tooling for Perch Sort historical rules (documentation only, not runtime).
 
-Model: docs/spec/RULES.md v4. Per-branch capacity, short twigs and open/lean/tight layouts are
+Model: docs/spec/RULES.md (historical proposal). Per-branch capacity, short twigs and open/lean/tight layouts are
 PROPOSALS from docs/GAMEPLAY_REVIEW.md, not effective rules; with all capacities = N, two empty
-branches and no stacked eggs this is exactly RULES v4. Every branch has its own capacity (standard = N, short < N);
+branches and no stacked eggs this is exactly historical RULES. Every branch has its own capacity (standard = N, short < N);
 a move takes the exposed run of same-species hatched birds, Count = min(run, free);
 the exposed egg on the source hatches in place; a branch holding exactly N hatched birds
 of one species flies home and retires. Short branches never complete.

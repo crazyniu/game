@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("PerchSort.V5.EditModeTests")]
+[assembly: InternalsVisibleTo("PerchSort.EditModeTests")]

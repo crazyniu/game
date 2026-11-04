@@ -2,7 +2,7 @@
 
 ## Coordinator publication
 
-The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/T50_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
+The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
 
 ## Delivery state
 
@@ -79,6 +79,6 @@ After isolated branch publication: **HOLD** for coordinator final tree/PR review
 
 ## Observed final tree checks
 
-Source-only staged checks passed: accepted pre-main PerchSort/art/v7 and owner records preserved exactly; no Core/authored-level/scene/ProjectSettings diff versus incoming main; AGENTS/CLAUDE/TEAM exactly match main; no unmerged entries and clean staged whitespace/conflict-marker check. Referenced reports and V5.unity exist. These checks do not execute product code or provide compilation/runtime evidence.
+Source-only staged checks passed: accepted pre-main PerchSort/art/approved_ui and owner records preserved exactly; no Core/authored-level/scene/ProjectSettings diff versus incoming main; AGENTS/CLAUDE/TEAM exactly match main; no unmerged entries and clean staged whitespace/conflict-marker check. Referenced reports and V5.unity exist. These checks do not execute product code or provide compilation/runtime evidence.
 
 Resolved main→task merge boundary: **`571d4f39349fdd759bc73a88a72a54167f73ed81`** (parents: accepted runtime/art/E `83a4d93db4b811598a923f7926fb73389ec81a4b`, incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd`). Final-record commit is documentation-only; terminal submission pins its pushed tip and clean status. Coordinator final PR/main merge and original-checkout update remain separate, not performed by this worker.

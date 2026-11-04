@@ -1,8 +1,8 @@
 # Final species delivery — 2026-11-04
 
-Current coordinator: Codex. This section supersedes earlier scope/progress notes below. All ten species are complete: 170 aligned RGBA frames, ten portraits, per-species QA strips and idle-actions GIFs. Sources and QA are under `art/v7/birds/`; exports are under `PerchSort/Assets/Resources/V7/Birds/`.
+Current coordinator: Codex. This section supersedes earlier scope/progress notes below. All ten species are complete: 170 aligned RGBA frames, ten portraits, per-species QA strips and idle-actions GIFs. Sources and QA are under `art/approved_ui/birds/`; exports are under `PerchSort/Assets/Resources/Birds/`.
 
-Pushed latest milestones: Inky `a8109f9`, Hoot `4b8da97`, Rook `52da117`. Temporary GitHub push errors recovered. Final QA: all 170 frames unclipped; 180 exports have correct dimensions and real alpha. Ten species visually distinguishable at 64px in grayscale. See `art/v7/birds/qa/final_review.md`, `export_inventory.json` and `all_species_64px_grayscale.png`.
+Pushed latest milestones: Inky `a8109f9`, Hoot `4b8da97`, Rook `52da117`. Temporary GitHub push errors recovered. Final QA: all 170 frames unclipped; 180 exports have correct dimensions and real alpha. Ten species visually distinguishable at 64px in grayscale. See `art/approved_ui/birds/qa/final_review.md`, `export_inventory.json` and `all_species_64px_grayscale.png`.
 
 No incomplete species files remain. Eggs, overlays and all world pieces transferred to mac-art; none created or edited here. Full rebuilt K3/K7 board composites remain an integration dependency on that work. Rook preserves K7's left-facing default rather than the general slightly-right view. No runtime acceptance claimed; no Unity or tests run. No sub-workers, lock, Codex update or CLI/API-key fallback.
 
@@ -24,19 +24,19 @@ The fetched T49 addendum requests 17 frames per species plus a portrait, with Su
 
 ## First checkpoint
 
-Sunny: all 17 source frames generated, including nine additional idle actions. One fluff source with an unwanted halo was rejected and regenerated. Runtime sprites use 320x320 RGBA canvases, toe baseline y=300; face crops are 160x160. Art is still subject to lead visual review. A frame strip and an animated idle-action GIF are included under `art/v7/birds/qa/`.
+Sunny: all 17 source frames generated, including nine additional idle actions. One fluff source with an unwanted halo was rejected and regenerated. Runtime sprites use 320x320 RGBA canvases, toe baseline y=300; face crops are 160x160. Art is still subject to lead visual review. A frame strip and an animated idle-action GIF are included under `art/approved_ui/birds/qa/`.
 
 Skye, Berry and Minty sources are in progress; incomplete strips mark missing actions PENDING. Later species, eggs/overlays and world pieces are pending. K3/K7 rebuilds and ten-species grayscale comparison remain pending.
 
 ## Alignment and limitations
 
-`art/v7/birds/qa/prepare_birds.py` records source foot bounds, scale, translation and visible bounds in `alignment.json`. All species use a 195 px idle silhouette width, then per-frame toe-span registration. Feet are anchored at x=160/y=300. Body proportions and head action readability still need visual review; numeric alignment is not proof of exact reference fidelity.
+`art/approved_ui/birds/qa/prepare_birds.py` records source foot bounds, scale, translation and visible bounds in `alignment.json`. All species use a 195 px idle silhouette width, then per-frame toe-span registration. Feet are anchored at x=160/y=300. Body proportions and head action readability still need visual review; numeric alignment is not proof of exact reference fidelity.
 
 GIFs are offline frame-swap previews, not Unity animation evidence. No Unity tests, game screenshots, runtime timing or integration were run. Full task acceptance is pending.
 
 ## End-of-day wrap-up
 
-Stopped at the lead request before T49 completion. See `docs/team/status/mac-birds.md` and `art/v7/birds/qa/wrap_inventory.json` for the exact source/export/missing-file inventory. Partial QA strips and GIFs are deliberately retained as WIP, not accepted deliverables. All saved owned files are included in the final `wip:` checkpoint; no new generation, normalization or Unity work is started during wrap-up.
+Stopped at the lead request before T49 completion. See `docs/team/status/mac-birds.md` and `art/approved_ui/birds/qa/wrap_inventory.json` for the exact source/export/missing-file inventory. Partial QA strips and GIFs are deliberately retained as WIP, not accepted deliverables. All saved owned files are included in the final `wip:` checkpoint; no new generation, normalization or Unity work is started during wrap-up.
 
 ## 2026-11-04 Skye checkpoint
 
@@ -44,7 +44,7 @@ Completed 17 source frames and 17 aligned exports plus portrait, strip and idle-
 
 ## Lead review corrections — 2026-11-04
 
-Regenerated Sunny quirk1 to retain idle body size and baseline, and both Sunny/Skye tilt pairs with clear opposing approximately 20-degree head tilts. Refreshed aligned exports, strips and GIFs. `art/v7/birds/qa/review_scale_tilts.png` provides the idle/quirk/tilt comparison at approximately 120 px body width; visual inspection found the quirk shrink corrected and both tilt directions readable. The alignment inventory has 40 frames and zero edge-clipping flags. Runtime playback remains untested, as Unity is outside this worker's scope. The same body-scale and tilt requirements apply to all remaining species.
+Regenerated Sunny quirk1 to retain idle body size and baseline, and both Sunny/Skye tilt pairs with clear opposing approximately 20-degree head tilts. Refreshed aligned exports, strips and GIFs. `art/approved_ui/birds/qa/review_scale_tilts.png` provides the idle/quirk/tilt comparison at approximately 120 px body width; visual inspection found the quirk shrink corrected and both tilt directions readable. The alignment inventory has 40 frames and zero edge-clipping flags. Runtime playback remains untested, as Unity is outside this worker's scope. The same body-scale and tilt requirements apply to all remaining species.
 
 ## Berry checkpoint — 2026-11-04
 
@@ -52,7 +52,7 @@ Completed all 17 Berry sources/320x320 RGBA exports and portrait. Corrected cres
 
 ## Berry head-feature correction — 2026-11-04
 
-Lead rejected the first set's upright crest. Regenerated every Berry source frame using `ui7_aviary_detail.png`, `ui7_level_k3_v2.png` and `ui7_aviary_list.png`: exactly two long separated plumes now arc backward, matching the large detail reference. Preserved expressions, poses and readable opposing tilts. Rebuilt all 17 exports plus portrait, strip and GIF. `berry_game_size.png` and `berry_head_reference.png` document the comparison. The prior reviewed torso scale is retained via its 98.311 px toe span, avoiding shrinkage from the wider plume silhouette. Visual game-size review and alignment found no export clipping; runtime remains untested. Minty generation was cancelled to prioritize this correction; its head features were checked against the popup before resuming.
+Lead rejected the first set's upright crest. Regenerated every Berry source frame using `ui_aviary_detail.png`, `ui_level_k3.png` and `ui_aviary_list.png`: exactly two long separated plumes now arc backward, matching the large detail reference. Preserved expressions, poses and readable opposing tilts. Rebuilt all 17 exports plus portrait, strip and GIF. `berry_game_size.png` and `berry_head_reference.png` document the comparison. The prior reviewed torso scale is retained via its 98.311 px toe span, avoiding shrinkage from the wider plume silhouette. Visual game-size review and alignment found no export clipping; runtime remains untested. Minty generation was cancelled to prioritize this correction; its head features were checked against the popup before resuming.
 
 ## Minty checkpoint — 2026-11-04
 

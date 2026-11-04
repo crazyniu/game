@@ -1,6 +1,6 @@
 # T40 UI redesign: concept mockups (Codex, gpt-6-astra)
 
-Worktree `/home/developer/Projects/game` (branch `t39-polish`; an omp worker is finishing code there: you touch only `art/v6/**` and `tasks/T40_art_report.md`; no commit). The user rejected the current HUD completely ("do not reuse any current layout or icon style: too big, crowded, unclear"). Your job: produce static concept mockups of a NEW HUD so the user can approve it before any code. Existing character/bird/branch/background art stays (look at `PerchSort/Assets/Resources/V5/Art/` and `art/v5/t33/qa/w1_board_composite_preview.png` for the world look); only the HUD, buttons, icons, goal houses and panels are redesigned.
+Worktree `/home/developer/Projects/game` (branch `t39-polish`; an omp worker is finishing code there: you touch only [art/v6/**](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T40_ui_mockups.md#L3) and `tasks/T40_art_report.md`; no commit). The user rejected the current HUD completely ("do not reuse any current layout or icon style: too big, crowded, unclear"). Your job: produce static concept mockups of a NEW HUD so the user can approve it before any code. Existing character/bird/branch/background art stays (look at `PerchSort/Assets/Resources/Art/` and [art/v5/t33/qa/w1_board_composite_preview.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T40_ui_mockups.md#L3) for the world look); only the HUD, buttons, icons, goal houses and panels are redesigned.
 
 ## Problems to fix (from the user's screenshot of level 5)
 1. Top third is crammed: coin pill, song pill, settings, level badge, three huge hanging birdhouses and a gift sign under each. 2. Birdhouses are far too big; icons too big. 3. Orange glossy wood-square buttons with white icons look heavy and dated. 4. Booster icons are unreadable (the hint looks like a bee). 5. Left and right branch tips collide with clashing leaf clusters.
@@ -14,7 +14,7 @@ Worktree `/home/developer/Projects/game` (branch `t39-polish`; an omp worker is 
 - **Board**: playable band y 420..1520. Branches: left branches span x 0..520, right branches x 560..1080, so tips never touch (>= 60 px gap), rows alternate with a vertical offset of 60. Bush at each root. Birds as in the current art.
 - **Panels**: win panel (cream panel 820x760, leaf-green ribbon header with a small trophy icon, 3 big stars, coin reward chip, three buttons: replay small, NEXT large green primary, home small), settings panel (sound toggle and restart, close), booster-unlock card (shows the new booster pictogram big, its name in one short line, what it does in one short line, a green "got it" check button).
 
-## Deliverables (PNG, 1080x1920 unless noted, in `art/v6/mock/`)
+## Deliverables (PNG, 1080x1920 unless noted, in [art/v6/mock/](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T40_ui_mockups.md#L17))
 1. `level_k3.png`: level 5 style screen (3 species, 4 branches with 8-ish birds, board band populated, song meter with 3 of 5 notes, bottom bar with Undo/Hint/Add branch).
 2. `level_k7.png`: late level with 7 chips, 5 branch rows including a crow and a sleeping bird, 4 bottom buttons (Undo, Hint, Add branch, Scarecrow).
 3. `win.png`, `settings.png`, `unlock_card.png` (the Peek-eggs unlock).

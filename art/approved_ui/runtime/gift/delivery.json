@@ -1,0 +1,126 @@
+{
+  "coordinate_system": "top-left pixels; common untrimmed 768x768 canvas",
+  "parent_canvas": [
+    768,
+    768
+  ],
+  "all_parts_offset": [
+    0,
+    0
+  ],
+  "lid_closed_pivot_xy": [
+    384,
+    390
+  ],
+  "lid_pivot_unity_normalized": [
+    0.5,
+    0.4921875
+  ],
+  "lid_open_translation_xy": [
+    0,
+    -130
+  ],
+  "lid_closed_translation_xy": [
+    0,
+    0
+  ],
+  "box_opening_center_xy": [
+    384,
+    355
+  ],
+  "draw_order": [
+    "gift_nest full",
+    "gift_box_base",
+    "gift_box_lid",
+    "gift_nest_front"
+  ],
+  "nest_foreground_crop": "for each x column retain y >= round(600 - 0.001*(x-384)^2); existing pixels only",
+  "assets": [
+    {
+      "file": "gift_nest.png",
+      "canvas": [
+        768,
+        768
+      ],
+      "placement_xywh": [
+        70,
+        390,
+        628,
+        350
+      ],
+      "source_crop_xyxy": [
+        184,
+        167,
+        1367,
+        862
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "reference": "art/approved_ui/ui_popup_daily_gift.png"
+    },
+    {
+      "file": "gift_box_base.png",
+      "canvas": [
+        768,
+        768
+      ],
+      "placement_xywh": [
+        212,
+        305,
+        344,
+        300
+      ],
+      "source_crop_xyxy": [
+        241,
+        217,
+        1058,
+        955
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "reference": "art/approved_ui/ui_popup_daily_gift.png"
+    },
+    {
+      "file": "gift_box_lid.png",
+      "canvas": [
+        768,
+        768
+      ],
+      "placement_xywh": [
+        188,
+        170,
+        392,
+        250
+      ],
+      "source_crop_xyxy": [
+        253,
+        122,
+        1265,
+        771
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "reference": "art/approved_ui/ui_popup_daily_gift.png"
+    },
+    {
+      "file": "gift_nest_front.png",
+      "canvas": [
+        768,
+        768
+      ],
+      "derived_from": "gift_nest.png",
+      "derivation": "per-column foreground crop, unchanged source pixels; see nest_foreground_crop",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "runtime_verified": false
+}

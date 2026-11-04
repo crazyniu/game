@@ -6,11 +6,11 @@
 
 The latest user instruction overrides historical tests-before-push requirements. Unity execution, compiler execution, EditMode/PlayMode suites, all-level playthrough, captures and timed runtime evidence are **NOT_RUN**. No historical green result is evidence for this delivery. Static source/API/asset review is not runtime acceptance.
 
-Requirements: [T50C specification](T50C_map_motion.md). Design references: [T50 Phase 2](T50_ui_v7_code.md), [v5 animation/world contract](../docs/GAME_DESIGN_V5.md), [team memory](../docs/team/MEMORY.md), approved `art/v7/ui7_map.png`, `ui7_level_k3_v2.png` and `ui7_popup_world_unlock.png`.
+Requirements: [T50C specification](T50C_map_motion.md). Design references: [T50 Phase 2](T50_ui_code.md), [v5 animation/world contract](../docs/GAME_DESIGN.md), [team memory](../docs/team/MEMORY.md), approved `art/approved_ui/ui_map.png`, `ui_level_k3.png` and `ui_popup_world_unlock.png`.
 
 ## Changed files
 
-Under `PerchSort/Assets/Scripts/V5/Game/`:
+Under `PerchSort/Assets/Scripts/Game/`:
 
 - `V6MapView.cs`: inertia tuning, clamped offset enforcement, interruptible opening focus, current-node/tap binding, gate scroll orchestration and lifecycle/reward cancellation.
 - `V5SceneView.cs`: integrates shared ambient driver, preserves intro entrance API, settles canceled lighting at its committed phase and suppresses obsolete phase continuations.
@@ -56,7 +56,7 @@ No Core/Meta, level data, economy, shared layout/art/utilities, root, gate class
 
 ### Preserved existing signatures
 
-`V6MapView`: `Configure(V5GameRoot, V5Art, TMP_FontAsset)`, `Show(V5Profile)`, `ScrollToLevel(int level, bool animated = true)`, `UnlockGate(int world, Action done)`, `CollectCoins(int from, int to, Action done)`, `Hide()`, `RefreshCoins(int value)`, plus existing `Nodes`, `FocusLevel`, `Scroller` properties.
+`V6MapView`: `Configure(GameRoot, V5Art, TMP_FontAsset)`, `Show(GameProfile)`, `ScrollToLevel(int level, bool animated = true)`, `UnlockGate(int world, Action done)`, `CollectCoins(int from, int to, Action done)`, `Hide()`, `RefreshCoins(int value)`, plus existing `Nodes`, `FocusLevel`, `Scroller` properties.
 
 `V5SceneView`: `Configure(V5Art, Action)`, `FillScreen(Transform)`, `PlaceLighting(Transform)`, `SetLevel(BoardState)`, `SetWorld(int world, string variant = "noon", DayPhase lighting = DayPhase.Day)`, **`Entrance(float alpha)`**, `ChangePhase(DayPhase value, Action complete)`, `Cancel()`.
 
@@ -64,7 +64,7 @@ No existing caller migration is required for map/scene changes. Existing `PumpNo
 
 ### Added root-facing presentation API
 
-Namespace: `PerchSort.V5.Game`.
+Namespace: `PerchSort.Game`.
 
 ```csharp
 public sealed class V7LeafTransition : MonoBehaviour
@@ -87,11 +87,11 @@ The query transforms the actual node-face RectTransform's `rect.center` to world
 
 It returns false if the map/node is inactive or unavailable, its required RectTransforms/viewport are unavailable, or the node center is outside the clipped map viewport (including a partially visible node whose center is clipped). On false the out value is always the central fallback `(540, 960)`; it never retains a prior node origin. Eligibility/locking remains the root/model's responsibility.
 
-In the existing `V5GameRoot.OpenLevelCard(int id)`, after its navigation/modal validation and immediately before `panels.LevelCard(id)`, call `Map.TryGetLevelCardOrigin(id, out var origin)` then popup-owned `panels.SetLevelCardOrigin(origin)`. Passing the out value on every request also supplies the explicit center fallback when the bool is false. Keep the original map click listener's `root.OpenLevelCard(id)` call. The popup setter consumes this origin for the next level card; neither module edits root. Root must integrate this query in addition to the separate leaf-wipe wiring below.
+In the existing `GameRoot.OpenLevelCard(int id)`, after its navigation/modal validation and immediately before `panels.LevelCard(id)`, call `Map.TryGetLevelCardOrigin(id, out var origin)` then popup-owned `panels.SetLevelCardOrigin(origin)`. Passing the out value on every request also supplies the explicit center fallback when the bool is false. Keep the original map click listener's `root.OpenLevelCard(id)` call. The popup setter consumes this origin for the next level card; neither module edits root. Root must integrate this query in addition to the separate leaf-wipe wiring below.
 
 **Root owner call sites (not edited here):**
 
-1. In `V5GameRoot.Initialize`, after the existing information/intro layers have been created, create one dedicated full-canvas RectTransform child of `Canvas.transform`, stretch it to all canvas edges, add `V7LeafTransition`, and call `Configure(art)`. Do not put it under Map, Board, Scene or a modal CanvasGroup; these are hidden/rebuilt/disabled independently. Play moves this layer to the last sibling.
+1. In `GameRoot.Initialize`, after the existing information/intro layers have been created, create one dedicated full-canvas RectTransform child of `Canvas.transform`, stretch it to all canvas edges, add `V7LeafTransition`, and call `Configure(art)`. Do not put it under Map, Board, Scene or a modal CanvasGroup; these are hidden/rebuilt/disabled independently. Play moves this layer to the last sibling.
 2. At accepted **map → level** navigation (the `LoadLevel` path reaching `LoadDefinition` while `IsMap`), validate navigation first, then invoke `Play`. Run the existing level load/rebuild only in `covered`. Keep intro behavior and `Scene.Entrance(float)` as-is; `completed` releases only the navigation/wipe lock, not the intro's independent lock.
 3. At accepted **level → map** navigation (`OpenMap` / the `ShowMapSurface` path), run existing map-surface setup in `covered`; resume notification pumping after `completed` so popups do not open under the curtain. Include the notification-driven finale `ShowMapSurface` route when it actually crosses surfaces. Do not apply this wipe to in-level Undo/Restart or popup opening.
 4. Include `leafTransition.IsPlaying` in the root's navigation/input gate and reject repeat navigation until completion. The curtain blocks pointer input; programmatic/keyboard navigation still needs the root gate. Validate before starting Play rather than letting that gate reject the covered load itself.
@@ -107,11 +107,11 @@ These are public only to bind presentation components; root does not need to cal
 
 ## Static review and untested limits
 
-- Reviewed the current V5Motion/LitMotion wrapper, gate Configure/Open implementation, V5Art lookup, V5UI coordinates, V5Button scale channel, V6MapModel, V7Layout constants, root map/load/notification/Undo/Restart call sites and existing `V6MapTests` contracts. Existing model tests need no change; they are not run.
-- All new helpers share the existing `PerchSort.V5.Game` namespace/assembly; the assembly already references Unity UI and LitMotion. No assembly/package/reference change is required. Language server inspection reported no C# language server configured; no LSP diagnostic or compilation success is claimed.
+- Reviewed the current V5Motion/LitMotion wrapper, gate Configure/Open implementation, V5Art lookup, V5UI coordinates, V5Button scale channel, V6MapModel, GameLayout constants, root map/load/notification/Undo/Restart call sites and existing `V6MapTests` contracts. Existing model tests need no change; they are not run.
+- All new helpers share the existing `PerchSort.Game` namespace/assembly; the assembly already references Unity UI and LitMotion. No assembly/package/reference change is required. Language server inspection reported no C# language server configured; no LSP diagnostic or compilation success is claimed.
 - Syntax-aware patch tooling reported no remaining parse warning after correcting an intermediate callback-brace insertion. Static review covers nullable delegate invocation, array bounds, right-crown mirroring, cancellation generations, callback detachment and teardown allocation boundaries. It cannot prove Unity lifecycle timing or rendering.
 - All 15 required sprite paths were found. Each of the three new metadata GUIDs occurs exactly once under Assets. All nine local Markdown links in the owned specification/report/status resolve. Metadata uses the repository's existing minimal `.meta` format; Unity importer execution is NOT_RUN.
-- Required sprite inventory (15): `V7/Birds/sunny_{idle,blink,quirk1,quirk2}`, `V7/Art/cloud_soft_{1,2,3}`, `V7/Art/leaf_fall_w{1,2,3,4}`, `V7/Art/{firefly,glow_soft,leaf_wipe}`, and legacy `V5/Art/raindrop` (all `.png`). The W1 inventory replaces `V5/Art/petal` with `V7/Art/leaf_fall_w1`.
+- Required sprite inventory (15): `Birds/sunny_{idle,blink,quirk1,quirk2}`, `Art/cloud_soft_{1,2,3}`, `Art/leaf_fall_w{1,2,3,4}`, `Art/{firefly,glow_soft,leaf_wipe}`, and legacy `V5/Art/raindrop` (all `.png`). The W1 inventory replaces `V5/Art/petal` with `Art/leaf_fall_w1`.
 - Approved reference images and the actual supplied leaf-wipe/cloud/snow sprites were opened. This is asset/style inspection, not an in-game screenshot or motion proof.
 - **NOT_RUN:** Unity compile/import, EditMode, PlayMode, actual drag inertia, gate cancellation/reentry, phase cancellation, repeated world changes, memory/profiler sampling, device/safe-area coverage, transformed node-origin runtime conversion, real 0.4-second timing, runtime frame swaps and timed/visual acceptance. No test suite or all-level playthrough was started.
 - Remaining integration: root must wire the isolated leaf-wipe API and the approved level-card-origin query/setter as described. These are intentionally outside this module's file ownership, not fake navigation fallbacks. No other implementation requirement is deferred within owned paths.

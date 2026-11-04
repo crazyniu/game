@@ -1,7 +1,7 @@
 using NUnitLite;
-using PerchSort.V5.Tests;
+using PerchSort.EditModeTests;
 
 internal static class Program
 {
-    private static int Main(string[] args) => new AutoRun(typeof(V5LevelsDataTests).Assembly).Execute(args);
+    private static int Main(string[] args) => new AutoRun(typeof(LevelsDataTests).Assembly).Execute(args);
 }

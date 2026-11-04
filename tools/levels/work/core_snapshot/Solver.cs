@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace PerchSort.V5.Core
+namespace PerchSort.Core
 {
     public enum MoveKind { Transfer, Swivel }
     public readonly struct Move

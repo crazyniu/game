@@ -1,6 +1,6 @@
 # T34 view and animation delivery report
 
-Authority: [T34](T34_view_animation.md), [GAME_DESIGN_V5 v5.3](../docs/GAME_DESIGN_V5.md), [T30 art registration](T30_art_report.md), and [T33 art delivery](T33_art_report.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
+Authority: [T34](T34_view_animation.md), [GAME_DESIGN_V5 v5.3](../docs/GAME_DESIGN.md), [T30 art registration](T30_art_report.md), and [T33 art delivery](T33_art_report.md). No commit, push, artwork, scene, runtime level JSON, or level-tool edits were made.
 
 ## Phase 1 — mechanic presentation
 
@@ -55,9 +55,9 @@ Branch indices below are zero-based; `S0` means swivel branch 0.
 
 Added `ViewSessionTests` and `ViewPolicyTests`: legal precomputed hint consumption, Unknown fallback, purchase/history/restart behavior, overflow atomicity, cascade boundary order, greedy completion preference, starter idempotence, replay rewards, flag-based presentation and contextual-booster precedence/absence. With explicit approval, `V5RulesTests` selects the semantic `FlockHome` event instead of an obsolete event index; `V5LayoutTests` replaces tracker/three-button assertions with actual v5.3 HUD clearance, large-K house fit and dense-row hit-region contracts.
 
-Expanded `V5GameplayTests` with L1 own-house/win/Chorus persistence, pointer input, timed cancellation, combined egg/sleep/crow/swivel fixture actions, real-timing mechanic runs, phase-fade sleep-frame protection, purchase/use/undo/restart, Next carry-over and PlayerPrefs round-trip. Tests save/restore every affected preference key. **These Unity PlayMode tests have not run on Linux.**
+Expanded `GameplayTests` with L1 own-house/win/Chorus persistence, pointer input, timed cancellation, combined egg/sleep/crow/swivel fixture actions, real-timing mechanic runs, phase-fade sleep-frame protection, purchase/use/undo/restart, Next carry-over and PlayerPrefs round-trip. Tests save/restore every affected preference key. **These Unity PlayMode tests have not run on Linux.**
 
-`V5Capture.Run` retains L1 start/after-move-1/win captures and adds `mech_eggs`, `mech_sleep`, `mech_crow_twig`, `mech_swivel`, `mech_growing`, and `mech_night` under `build/screens/v5/`. It uses non-persistent fixture loading and stable states. No screenshot was generated here; static captures are not timed animation proof.
+`GameCapture.Run` retains L1 start/after-move-1/win captures and adds `mech_eggs`, `mech_sleep`, `mech_crow_twig`, `mech_swivel`, `mech_growing`, and `mech_night` under `build/screens/v5/`. It uses non-persistent fixture loading and stable states. No screenshot was generated here; static captures are not timed animation proof.
 
 ### Local verification actually exercised
 
@@ -65,7 +65,7 @@ The temporary `/tmp/perch-t34-harness` used the existing `/tmp/perch-t32-sdk/dot
 
 - Initial real-Core regression run: **87 cases, 85 passed, 2 failed**. One was the now-migrated obsolete `Events[1]` assertion; the other was the new cascade fixture's incorrectly placed sleeping bird, corrected before the final run.
 - Final Core/view-policy/layout run: **113/113 passed, zero failures, warnings or skips**. This executes real Core code and the geometry/policy assertions using temporary engine-interface adapters, not the Unity Test Runner.
-- All Game/Core sources compiled in the temporary engine-interface harness. A separate-assembly build additionally compiled `PerchSort.V5.Core` without engine references and referenced it from `PerchSort.V5.Game`, checking real cross-assembly accessibility.
+- All Game/Core sources compiled in the temporary engine-interface harness. A separate-assembly build additionally compiled `PerchSort.Core` without engine references and referenced it from `PerchSort.Game`, checking real cross-assembly accessibility.
 - Actual controller/event-player smoke passed L1 win/own houses, all six mechanic fixtures with Undo, combined reveal/hatch/swivel/crow/wake/removal, purchases/refunds/restart, Sapling reflow, all ten production frame-name sets and 70% chick state.
 - A temporary two-level catalog exercised Next, final-ID wrap, starter grants and Song/inventory carry; the authored resource catalog was not replaced. All ten T35 teaching scripts additionally ran to win, with the intended teaching events and completed tutorial state.
 - A deterministic motion-clock adapter exercised wing-frame alternation, transit input gating, one queued landing tap, cancellation, all six fixtures' eventual snapshot equality, and the reproduced/fixed phase-frame conflict.

@@ -13,7 +13,7 @@ The latest user directive supersedes the original stage-wide no-tests instructio
 - Applied all 32 requested type mappings without top-level current-namespace collisions. Preserved multi-type source organization: `LongPress` and `PopupKind` remain in `PanelsView.cs`; `GameProfile` remains in `ProgressStore.cs`; `EmptyClick`/`SafeArea` remain in `GameUI.cs`; `LevelNodeState` remains in `MapModel.cs`; `MapInput` remains in `MapView.cs`; `Notification`/`NotificationKind` remain in `PopupFlow.cs`. No new script GUIDs or shims were introduced.
 - Changed art routing to `Birds/<key>`, `World/<key>`, and `Art/<key>`; changed levels/development lookup keys to `Levels/levels` and `dev_options`. Updated BirdOverlay's direct load too.
 - Removed only GameArt's retired V6/V5 resource fallback and associated legacy gate cropping after static resource confirmation. Current portrait fallback and generated door mask remain unchanged; they are not versioned legacy-art lookup paths. Current optional animation-part fallbacks remain unchanged.
-- Updated active-version object names, error/log text, and overlay comments. The truthful original-art provenance `art/v7/layout_v7.json` remains in GameLayout; originals were not edited.
+- Updated active-version object names, error/log text, and overlay comments. The truthful original-art provenance `art/approved_ui/layout.json` remains in GameLayout; originals were not edited.
 - Archived obsolete `Scripts/V5.meta` to retired Scripts rather than dropping its bytes. This is a wrapper metadata retirement, not another runtime project.
 
 ## Compatibility and behavior preservation
@@ -49,7 +49,7 @@ No C# language server is configured (`references` returned “No language server
 ## Integration dependencies and test migration risks
 
 1. **T52B must integrate first/before execution:** current loaders now require the agreed unversioned resource destinations, including the six retained support PNGs. This isolated branch intentionally does not move Resources.
-2. **T52C must integrate before compilation/tests:** Editor/V5 tools, active Tests/V5 assembly/import/type references, and Scenes/V5 currently retain old identities in this isolated checkout. They belong to C, not A. Current friend assemblies must be `PerchSort.EditModeTests`, `PerchSort.Meta.EditModeTests`, and `PerchSort.PlayModeTests` per the shared contract.
+2. **T52C must integrate before compilation/tests:** Editor/Game tools, active Tests/V5 assembly/import/type references, and Scenes/V5 currently retain old identities in this isolated checkout. They belong to C, not A. Current friend assemblies must be `PerchSort.EditModeTests`, `PerchSort.Meta.EditModeTests`, and `PerchSort.PlayModeTests` per the shared contract.
 3. Retire only tests/tools whose dependencies are the separately archived legacy Core/UI/View. Preserve current behavior/transaction/animation/save/layout assertions and migrate their references. Source paths/file names alone are not grounds to remove legitimate current tests. Old error/object text assertions may need migration review, but not changes to gameplay behavior. T50 transaction-versus-presentation cancellation coverage is particularly important.
 4. Old runnable scenes, root `m_EditorClassIdentifier`, build scene selection, and editor capture/build entrypoints require C's shared mapping. Root font serialization and current scene GUID must remain intact at integration; T52A preserved the script GUID and field but did not edit/verify scene migration.
 5. Coordinator owns primary-guide updates and replacement of obsolete legacy-only minimum counts with justified current-coverage safeguards; no CI test disabling is authorized by the superseded instruction.
@@ -77,7 +77,7 @@ Current prefix: old `PerchSort/Assets/Scripts/V5/` → new `PerchSort/Assets/Scr
 | `Core/GameRules.cs` | `Core/GameRules.cs` |
 | `Core/GameSession.cs` | `Core/GameSession.cs` |
 | `Core/LevelDef.cs` | `Core/LevelDef.cs` |
-| `Core/PerchSort.V5.Core.asmdef` | `Core/PerchSort.Core.asmdef` |
+| `Core/PerchSort.Core.asmdef` | `Core/PerchSort.Core.asmdef` |
 | `Core/Solver.cs` | `Core/Solver.cs` |
 | `Game/BirdView.cs` | `Game/BirdView.cs` |
 | `Game/BirdhouseView.cs` | `Game/BirdhouseView.cs` |
@@ -85,14 +85,14 @@ Current prefix: old `PerchSort/Assets/Scripts/V5/` → new `PerchSort/Assets/Scr
 | `Game/BranchView.cs` | `Game/BranchView.cs` |
 | `Game/HudView.cs` | `Game/HudView.cs` |
 | `Game/LevelLoader.cs` | `Game/LevelLoader.cs` |
-| `Game/PerchSort.V5.Game.asmdef` | `Game/PerchSort.Game.asmdef` |
+| `Game/PerchSort.Game.asmdef` | `Game/PerchSort.Game.asmdef` |
 | `Game/SettingsPanel.cs` | `Game/SettingsPanel.cs` |
 | `Game/TutorialHand.cs` | `Game/TutorialHand.cs` |
 | `Game/V5Art.cs` | `Game/GameArt.cs` |
 | `Game/V5Button.cs` | `Game/GameButton.cs` |
 | `Game/V5DevOptions.cs` | `Game/DevOptions.cs` |
 | `Game/V5Fixtures.cs` | `Game/GameFixtures.cs` |
-| `Game/V5GameRoot.cs` | `Game/GameRoot.cs` |
+| `Game/GameRoot.cs` | `Game/GameRoot.cs` |
 | `Game/V5Motion.cs` | `Game/GameMotion.cs` |
 | `Game/V5Panels.cs` | `Game/PanelsView.cs` |
 | `Game/V5Progress.cs` | `Game/ProgressStore.cs` |
@@ -105,7 +105,7 @@ Current prefix: old `PerchSort/Assets/Scripts/V5/` → new `PerchSort/Assets/Scr
 | `Game/V7BirdIdleGroup.cs` | `Game/BirdIdleGroup.cs` |
 | `Game/V7BirdOverlay.cs` | `Game/BirdOverlay.cs` |
 | `Game/V7GateView.cs` | `Game/GateView.cs` |
-| `Game/V7Layout.cs` | `Game/GameLayout.cs` |
+| `Game/GameLayout.cs` | `Game/GameLayout.cs` |
 | `Game/V7LeafTransition.cs` | `Game/LeafTransition.cs` |
 | `Game/V7LevelEntrance.cs` | `Game/LevelEntrance.cs` |
 | `Game/V7MapMotion.cs` | `Game/MapMotion.cs` |
@@ -114,7 +114,7 @@ Current prefix: old `PerchSort/Assets/Scripts/V5/` → new `PerchSort/Assets/Scr
 | `Game/WinPanel.cs` | `Game/WinPanel.cs` |
 | `Meta/Aviary.cs` | `Meta/Aviary.cs` |
 | `Meta/Economy.cs` | `Meta/Economy.cs` |
-| `Meta/PerchSort.V5.Meta.asmdef` | `Meta/PerchSort.Meta.asmdef` |
+| `Meta/PerchSort.Meta.asmdef` | `Meta/PerchSort.Meta.asmdef` |
 | `Meta/PlayerProfile.cs` | `Meta/PlayerProfile.cs` |
 | `Meta/ProfileText.cs` | `Meta/ProfileText.cs` |
 | `Meta/Shop.cs` | `Meta/Shop.cs` |
@@ -123,9 +123,9 @@ Current prefix: old `PerchSort/Assets/Scripts/V5/` → new `PerchSort/Assets/Scr
 
 Folder metadata mappings (exact paths):
 
-- `PerchSort/Assets/Scripts/V5/Core.meta` → `PerchSort/Assets/Scripts/Core.meta`
-- `PerchSort/Assets/Scripts/V5/Meta.meta` → `PerchSort/Assets/Scripts/Meta.meta`
-- `PerchSort/Assets/Scripts/V5/Game.meta` → `PerchSort/Assets/Scripts/Game.meta`
+- `PerchSort/Assets/Scripts/Core.meta` → `PerchSort/Assets/Scripts/Core.meta`
+- `PerchSort/Assets/Scripts/Meta.meta` → `PerchSort/Assets/Scripts/Meta.meta`
+- `PerchSort/Assets/Scripts/Game.meta` → `PerchSort/Assets/Scripts/Game.meta`
 - `PerchSort/Assets/Scripts/V5.meta` → `archive/retired/PerchSort/Assets/Scripts/V5.meta`
 
 Legacy archive prefix: old `PerchSort/Assets/Scripts/` → new `archive/retired/PerchSort/Assets/Scripts/`. Every exact relative file below moves byte-identically between those prefixes (including the explicitly listed metadata):

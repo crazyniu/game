@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PerchSort.V5.Core
+namespace PerchSort.Core
 {
     // Reused by the session and by search. Search passes no event sink and allocates no presentation payloads.
     internal sealed class ResolutionBuffer

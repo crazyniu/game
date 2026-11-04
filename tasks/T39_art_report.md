@@ -4,8 +4,8 @@ Delivered **2/2 requested PNGs** for [T39_art.md](T39_art.md); missing files: **
 
 | Asset | Size | Mode | Alpha min/max | Visible bounds (exclusive maximum) |
 | --- | --- | --- | --- | --- |
-| [note_full.png](../PerchSort/Assets/Resources/V5/Art/note_full.png) | 64x64 | RGBA | 0/255 | [10,6,53,58) |
-| [note_empty.png](../PerchSort/Assets/Resources/V5/Art/note_empty.png) | 64x64 | RGBA | 0/102 | [10,6,53,58) |
+| [note_full.png](../PerchSort/Assets/Resources/Art/note_full.png) | 64x64 | RGBA | 0/255 | [10,6,53,58) |
+| [note_empty.png](../PerchSort/Assets/Resources/Art/note_empty.png) | 64x64 | RGBA | 0/102 | [10,6,53,58) |
 
 The full eighth-note has glossy warm gold, a brown outline and small pale highlights. The empty state has a matte brown-grey outline/interior and exactly **40%** of the full state's alpha, rounded to 8-bit values. Its lower contrast remains readable on the existing cream pill.
 
