@@ -36,6 +36,8 @@ Public view signatures remain stable. New narrow APIs must be listed exactly in 
 
 D-only integration correction `f24c11f` settles/cancels Win HUD counting before the finale notification handoff, including early programmatic exits. D's isolated review boundary `08b32a7` remains unchanged; no tests/Unity were run for either revision.
 
+Coordinator's completed parallel static review of `3a05763` confirmed one D blocker: ignored/queued busy taps invalidated the shared revision captured by committed Board completion. The bounded root follow-up separates transactionGeneration from input/hint revision, retains one queued landing/effect tap and lifecycle/session/one-shot guards, and invalidates both generations on real cancellation. D is not accepted until final re-review; exact follow-up SHA is in its terminal/report handoff. No execution or additional code scope.
+
 Approved cross-module root contract:
 - `Map.TryGetLevelCardOrigin(int, out Vector2)` → always `panels.SetLevelCardOrigin(point)` → `panels.LevelCard(int)`, including the returned `(540,960)` fallback.
 - Full-canvas leaf owner is independent of Map/Board/HUD/modal groups. Cancel the old presentation before starting its wipe; its covered `BuildLevel`/map-surface setup does not cancel or invalidate that same wipe. Completion starts intro/notification pumping; external cancellation discards the old continuation.
@@ -45,7 +47,7 @@ Approved cross-module root contract:
 
 ## Art ownership
 
-- Ten bird species remain actively owned by `mac-birds/t49`, including remaining species/portraits/alignment/recognition evidence.
+- Ten-species T49 art final `fd14469` is delivered and under separate coordinator static/artifact review. It has not been merged into this code branch; do not infer visual/runtime acceptance from delivery.
 - Eggs (five frames) and mama/chick overlays (two) have now been acknowledged and actively transferred to `mac-art/world`. This supersedes the old pending-transfer wording.
 - Earlier UI delivery: `mac-art/t48` at `825ca1d`; world/booster delivery: `mac-art/world` at `6a29b50`. Later delivery SHAs must come from those workers, not inferred here.
 

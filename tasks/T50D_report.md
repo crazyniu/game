@@ -12,6 +12,20 @@
 - Coordinator: current native Codex conversation on 251, `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`. No former Claude recipient, Dispatch ID or sub-worker. Separate D commits were retained before integrating only approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888`.
 - Specification: [T50D](T50D_notifications.md). Current-stage directives and four real workspaces: [Codex handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md). Durable worker status: [mac-notifications](../docs/team/status/mac-notifications.md).
 
+## Coordinator blocker follow-up
+
+The coordinator's completed parallel static review of `3a05763` confirmed one blocker: busy input called InputTap before Defer, incrementing the same revision captured by PlayCommitted. An ignored airborne tap or queued landing/effect tap therefore discarded the committed Board completion and could leave IsBusy set indefinitely. This finding is accepted as ground truth; no reproduction/test was run.
+
+Bounded correction: V5GameRoot now gives each PlayCommitted run its own transactionGeneration. InputTap still changes revision, preserving hint-result and delayed hint-presentation invalidation, but does not own the committed Board completion. New committed runs and CancelPresentation advance transactionGeneration; destroy also invalidates it. The completion still checks root lifecycle, session identity and its existing finished one-shot before calling FinishAction.
+
+Static source trace only:
+- Airborne ignored input advances only revision; the committed transaction token remains current.
+- Landing/effect input retains the unchanged one-slot queuedTap rule. FinishAction clears IsBusy and consumes that slot once; it is no longer skipped by unrelated input revision changes.
+- Undo/Restart/navigation/root disable call CancelPresentation and invalidate both generations, including same-session cancellation. Session replacement and destruction remain separately guarded.
+- Solver result and post-playback hint callbacks retain their original revision/session checks; stale hints stay rejected.
+
+No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Changed files are only V5GameRoot and this report/status/integration handoff. Exact follow-up SHA is reported in the terminal delivery block. Coordinator final re-review is pending; execution/compilation/Unity/tests remain NOT_RUN.
+
 ## Changed files
 
 Source under `PerchSort/Assets/Scripts/V5/Game/`:

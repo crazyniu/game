@@ -29,7 +29,7 @@ namespace PerchSort.V5.Game
         private bool previousSfx;
         private MusicPage previousMusic;
         private V5Profile profile;
-        private int revision;
+        private int revision, transactionGeneration;
         private int pendingWinReward, winCoinStart;
         private bool winCountPending;
         private Action queuedTap;
@@ -223,11 +223,13 @@ namespace PerchSort.V5.Game
             var events = new GameEvent[Session.Events.Count];
             for (int i = 0; i < events.Length; i++) events[i] = Session.Events[i];
             CommitWin(); Save(); Refresh();
-            int token = revision; var session = Session;
+            // Input may invalidate a hint while playback still owns its committed completion.
+            int token = ++transactionGeneration; var session = Session;
             bool finished = false;
             Board.Play(events, () =>
             {
-                if (!PresentationCurrent(token) || Session != session || finished) return;
+                if (this == null || !initialized || !isActiveAndEnabled ||
+                    token != transactionGeneration || Session != session || finished) return;
                 finished = true;
                 FinishAction(); after?.Invoke();
             });
@@ -515,7 +517,7 @@ namespace PerchSort.V5.Game
         private bool PresentationCurrent(int token) => this != null && initialized && isActiveAndEnabled && token == revision;
         private void CancelPresentation()
         {
-            revision++; hintPending = false; queuedTap = null; winCountPending = false;
+            revision++; transactionGeneration++; hintPending = false; queuedTap = null; winCountPending = false;
             profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel(); entrance.Cancel();
             Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Scene.Cancel(); IsBusy = false;
         }
@@ -549,7 +551,7 @@ namespace PerchSort.V5.Game
         private void OnDestroy()
         {
             if (initialized && !suspended) CancelPresentation();
-            initialized = false; revision++; art?.Dispose();
+            initialized = false; revision++; transactionGeneration++; art?.Dispose();
             if (audioManager == null) return;
             if (ownsAudio) V5UI.Dispose(audioManager.gameObject);
             else { audioManager.SetSfxEnabled(previousSfx); if (previousMusic != MusicPage.None) audioManager.SwitchMusic(previousMusic); }
