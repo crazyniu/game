@@ -1,5 +1,9 @@
 # T50 — final accepted-source integration report
 
+## Coordinator publication
+
+The reviewed integration `bf31ba2` was merged into main through [PR36](https://github.com/crazyniu/game/pull/36) as `2a5bc259187cc924d1d5a9c666a8385b95217327`. This supersedes the historical worker statements below that publication is pending. All bounded source work is complete; the stage is paused for user testing. See the [current handoff](../docs/team/HANDOFF_2026-11-04_CODEX.md#published-stage--coordinator-closeout) and [branch reconciliation](../docs/team/T50_BRANCH_COVERAGE.md). Unity and code tests remain NOT_RUN.
+
 ## Delivery state
 
 **All bounded T49/T50 A/B/C/D/E code and final bird/egg/overlay sources are accepted by the current Codex coordinator for integration. This is not compilation, visual or runtime acceptance.** There is no remaining code-feature TODO in this stage. No new feature or T51 cleanup was added during finalization.
