@@ -5,13 +5,8 @@ unity_editor="${UNITY_EDITOR:-/Applications/Unity/Hub/Editor/6000.6.7f1/Unity.ap
 mkdir -p "$repo_root/build"
 # Build first so PlayMode tests exercise the same serialized scene as the player.
 if ! "$unity_editor" -batchmode -nographics -quit -projectPath "$repo_root/PerchSort" \
-    -executeMethod SceneBuilder.Build -logFile "$repo_root/build/scene-build.log"; then
+    -executeMethod PerchSort.Editor.GameSceneBuilder.Build -logFile "$repo_root/build/scene-build.log"; then
     tail -n 80 "$repo_root/build/scene-build.log"
-    exit 1
-fi
-if ! "$unity_editor" -batchmode -nographics -quit -projectPath "$repo_root/PerchSort" \
-    -executeMethod V5SceneBuilder.Build -logFile "$repo_root/build/v5-scene-build.log"; then
-    tail -n 80 "$repo_root/build/v5-scene-build.log"
     exit 1
 fi
 for platform in EditMode PlayMode; do
@@ -35,8 +30,26 @@ root = ET.parse(sys.argv[1]).getroot()
 total, failed, passed = (int(root.attrib[k]) for k in ('total', 'failed', 'passed'))
 print(f'{sys.argv[2]}: {passed}/{total} passed, {failed} failed')
 print(f'XML: {sys.argv[1]}')
-minimum = 101 if sys.argv[2] == 'EditMode' else 11
-if root.attrib['result'] != 'Passed' or failed or passed + int(root.attrib.get('skipped', 0)) != total or passed < minimum:
-    sys.exit(1)
+# Retained source inventory: 237 game + 53 Meta + 14 Audio; 17 PlayMode.
+# These are discovery safeguards, not a historical passing result. Added tests may increase them.
+minimum = 304 if sys.argv[2] == 'EditMode' else 17
+cases = list(root.iter('test-case'))
+if (root.attrib['result'] != 'Passed' or failed or passed != total or passed < minimum
+        or len(cases) != total or any(case.attrib.get('result') != 'Passed' for case in cases)):
+    sys.exit('Incomplete, skipped, failed, or unexpectedly reduced test discovery.')
+if sys.argv[2] == 'EditMode':
+    expected = {
+        'PerchSort.EditModeTests.': 237,
+        'PerchSort.Meta.EditModeTests.': 53,
+        'PerchSort.Tests.Audio.': 14,
+        'PerchSort.EditModeTests.LevelsDataTests.': 81,
+        'PerchSort.EditModeTests.LayoutTests.': 41,
+    }
+else:
+    expected = {'PerchSort.PlayModeTests.': 17}
+for prefix, count in expected.items():
+    found = sum(case.attrib.get('fullname', '').startswith(prefix) for case in cases)
+    if found < count:
+        sys.exit(f'{prefix}: expected at least {count} retained cases, discovered {found}')
 PY
 done

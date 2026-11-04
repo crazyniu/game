@@ -1,21 +1,37 @@
-# 小鸟归巢 · Perch Sort
+# Perch Sort · 小鸟归巢
 
-Unity6000.6.7f1竖屏排序益智项目。**当前运行代码仍v2/40关；这里新增的是同行依据版v4文档，尚未实施。** 本任务只整理文档和临时独立玩法分析，不改源码/运行关卡/场景/素材，不安装库，不自动合并/部署。
+One current Unity **6000.6.7f1** portrait bird-sorting game: **40 fixed authored levels**, four sequential forest worlds. Current gameplay/art/animation is the accepted **T49/T50 implementation**, with T52 consolidating names and entry points without redesigning it.
 
-AI先读[AGENTS](AGENTS.md)→[文档路由](docs/README.md)→[玩法证据矩阵](docs/MECHANIC_EVIDENCE.md)。无同行依据的旧自拟玩法已撤回/隔离，不能从旧代码、历史报告或资源存在推定恢复。
+## Open the game
 
-| 内容 | 唯一入口 |
+Open the `PerchSort` Unity project and **`Assets/Scenes/Game.unity`**, the sole enabled build scene. `PerchSort.Game.GameRoot` creates the current map and gameplay UI. Develop on the Mac in isolated task workspaces; do not edit the user's primary checkout from a worker.
+
+| Need | Entry |
 | --- | --- |
-| 产品/有效规则/现实现差异 | [PRD4](docs/PRD.md) · [RULES4](docs/spec/RULES.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
-| 同行原玩法文字与证据资格 | [研究手册](docs/SORTING_RESEARCH.md) · [50项矩阵](docs/MECHANIC_EVIDENCE.md) |
-| 40固定关卡/新模型回放 | [教学卡](docs/LEVEL_DESIGN.md) · [固定附录与证据](docs/LEVEL_SIMULATIONS.md) |
-| 世界/森林主题/顺序解锁 | [MAP_PROGRESSION](docs/MAP_PROGRESSION.md) |
-| 已确认美术风格/树枝摆放/尺寸与图标约束 | [UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style) · [尺寸记录](docs/UI_SPEC.md) |
-| 动画/输入/可复制AI模板/开源库 | [INTERACTION](docs/spec/INTERACTION_ANIMATION.md) · [PROMPTS](docs/spec/ANIMATION_PROMPTS.md) · [LIBRARIES](docs/spec/ANIMATION_LIBRARIES.md) |
-| schema/存档/验收/本轮记录 | [DATA_SAVE](docs/spec/DATA_SAVE.md) · [VALIDATION](docs/spec/VALIDATION.md) · [T18报告](tasks/T18_report.md) |
+| AI instructions and coordination | [AGENTS](AGENTS.md) · [team charter](docs/team/TEAM.md) |
+| Current behavior, source and evidence | [CURRENT_GAME](docs/CURRENT_GAME.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
+| Documentation status / historical research | [docs router](docs/README.md) |
+| Current integration handoff | [Codex handoff](docs/team/HANDOFF_2026-11-04_CODEX.md) |
 
-每关初态固定；普通加枝已补同类来源与RULES R07完整合同，免费一条本关N座空枝。备用容器逐次扩高仍待参数；固定不代表禁止扩空间。已采规则为端部同类整理、容量内部分搬移、问号蛋、完成群飞走后失枝、免费无限回退/提示与最佳操作记录。具体数值/组合迁移和未证边界在证据表，不声称单一竞品原套装。
+Current code lives in `PerchSort/Assets/Scripts/{Core,Meta,Game}`, shared audio in `Scripts/Audio`. Resources load from `Art/`, `Birds/`, `World/`, `Levels/levels` and `dev_options`. Old scenes, builders and old-contract tests are preserved outside Unity in `archive/retired/`; they are not alternative game entries. Approved originals under `art/` remain intact.
 
-世界均为不同森林，主题候选阔叶林/竹林/秋日枫林/雪松林，不加环境机关。统一美术风格与树枝摆放原则已由用户确认，唯一约束见[UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style)；小鸟允许依此重新设计，现有原素材不覆盖。具体生产素材/地图布局仍未验收，不能将风格确认当作实现授权。清晰图标不重复可见文字，规则形按钮、简单静音开关，无音量滑条。动画优先单一开源库，不能静图冒动画；现单张fly资源尚不等于真实振翅。
+## Validation and tooling
 
-工程入口`PerchSort/Assets/Scenes/Game.unity`，Core为纯C#；原`PerchSort/Assets/Resources/Levels/levels.json`未更改。未来代码/素材实施须另有授权，251开发、Mac测试。旧T16规则与60路径已[失效](docs/archive/T16_WITHDRAWN.md)；当前40新独立模型回放不等于Unity/最优或20个蛋关盲玩公平通过。
+The **current Codex coordinator owns required Mac compilation, EditMode, PlayMode and GUI acceptance after integration**. Workers must not launch competing Unity runs. Earlier no-tests instructions are superseded. T52C itself has static-only evidence, not new runtime acceptance.
+
+For the coordinator's serialized Mac run:
+
+```bash
+bash scripts/run_tests.sh
+bash scripts/screenshots.sh
+```
+
+The first command uses only `PerchSort.Editor.GameSceneBuilder.Build` and the retained suites; source-derived coverage safeguards are 304 EditMode (237 game + 53 Meta + 14 shared Audio) and 17 PlayMode, without skips. The second uses `PerchSort.Editor.GameCapture.Run` and writes stable 1080×1920 captures to `build/screens/game/`. Captures use instant motion, not timed-animation proof. `PhoneGameView`, `ReleaseSettings` and the shared Audio importer remain available. `GameArtImporter` separately handles full-resolution current art, seven authored overlays, and six compressed fallback sprites.
+
+Automatic PR CI still runs current configuration/script/workflow checks and retained pure-Core fixtures through the existing `ci/CoreTests.csproj`. It never targets retired archives. Full Unity and GUI acceptance remain Mac-only and coordinator-owned.
+
+## Compatibility and history
+
+Existing `v5.*`, `v6.unlockSeen.*` and `v7.notifications` persistence strings remain unchanged to preserve progress; these are compatibility IDs, not runnable versions. Current development flags remain enabled in `Assets/Resources/dev_options.json`; release hardening is a separate authorized change.
+
+Old v2 implementation records and the v4 rules/schema/save proposals are **historical**, not the current runtime. The current design evidence retains historical filenames, routed through [CURRENT_GAME](docs/CURRENT_GAME.md). Research/replay/task reports retain their original evidence and limitations; none establishes new Unity or visual acceptance.

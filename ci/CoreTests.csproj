@@ -5,10 +5,26 @@
     <IsPackable>false</IsPackable>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <LangVersion>9.0</LangVersion>
+    <AssemblyName>PerchSort.EditModeTests</AssemblyName>
+    <DefineConstants>$(DefineConstants);DOTNET_CI</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../PerchSort/Assets/Scripts/Core/**/*.cs" />
-    <Compile Include="../PerchSort/Assets/Tests/EditMode/CoreTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/TestBoards.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/BoosterTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/BranchTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/ChorusEncoreTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/CrowTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/DayNightTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/EggTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/GiftTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/MamaTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/ResolutionTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/SchemaTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/SleepTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/SolverTests.cs" />
+    <Compile Include="../PerchSort/Assets/Tests/EditMode/SwivelTests.cs" />
+    <Content Include="../PerchSort/Assets/Tests/EditMode/Fixtures/*.json" Link="Fixtures/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />

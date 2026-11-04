@@ -1,0 +1,7 @@
+{
+  "name": "PerchSort.Meta.EditModeTests",
+  "references": ["PerchSort.Meta"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}
