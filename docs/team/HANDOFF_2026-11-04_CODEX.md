@@ -1,64 +1,77 @@
-# Current-stage coordination and Mac handoff
+# T49/T50 final source integration and Mac-only handoff
 
-## Latest user instructions (2026-11-04)
+## Authority and stopping point
 
-- The current Codex conversation on 251 replaces Claude as coordinator for this stage. It assigns and accepts work; bounded feature implementation belongs to the existing parallel Mac workers. Never contact/resume the former Claude session.
-- Every future feature must be decomposed into parallel tasks. OMP is preferred, Codex fallback; the coordinator chooses `gpt-6.1-terra`, `gpt-6.1-sol`, `gpt-6-astra` and effort based on complexity.
-- Finish the existing T49/T50 v7 stage. D retains isolated implementation/fixture commits. Explicitly approved A `a012e70`, C `fb90bb7` and B `4256de63412041e65ddf2554cb14323d79f6d888` are now merged only into its task branch. All three are source-approved, not runtime-accepted. Never merge main, deploy or release from this worker.
-- No code tests, test suites, Unity run or all-level playthrough. The user tests the integrated result later. Static review is not compilation/runtime evidence; prior passing numbers apply only to their recorded revisions.
-- After reviewed integration/merge, pause with a Mac-only continuation handoff. Do not continue feature development on 251. T51 cleanup and extra features remain deferred.
-- Preserve approved v7 art, original/fallback assets, Core, authored levels and economy. No artwork generation in the code modules.
+- Current coordinator is the native Codex conversation `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec`, not retired Claude. No old Claude recipient/session is resumed.
+- The coordinator explicitly accepted A/B/C/D/E and final bird/egg/overlay sources for integration. **Source acceptance is not runtime, compilation or visual acceptance.** No code-feature TODO remains in the bounded stage.
+- This worker integrates only on `mac-notifications/t50` at `/Users/apple/orca/workspaces/game/t50-notifications`. It does not merge into main, deploy/release or mutate `/Users/apple/Documents/projects/game`.
+- The coordinator will review the final resolved tip and perform the final PR/main merge under existing user authorization, then separately update the user-test checkout. Do not report either action as already done.
+- No code tests, Unity/import/compile, runtime or all-level playthrough. The user tests later. Historical results do not validate this continuation.
+- After publication: **HOLD**. Next development is directly on the Mac; 251 is not the ongoing development host. Every future feature is decomposed into parallel tasks with non-overlapping ownership and coordinator integration. OMP preferred, Codex fallback; coordinator chooses gpt-6.1-terra/gpt-6.1-sol/gpt-6-astra and effort by complexity.
+- Preserve main's current AGENTS/CLAUDE/TEAM execution directives. They override historical Claude-led prose and old tests-before-push instructions. No new features, artwork generation or T51 cleanup.
 
-## Coordinator channel
+## Protected main / user-test state
 
-- Native Codex chat: `orca_session_id:codex_0551b7e6_4ea7_4c29_936b_a50a25d9c1ec` on 251; it has no terminal handle.
-- Cross-server automatic Dispatch/adoption is unavailable (`server_required` before any Task/Dispatch was created). No invented Dispatch IDs, forwarding claims or sub-workers.
-- Workers report in their own Orca terminal and owned status/report files. The current coordinator reads these channels.
+- Fetched incoming main is **`3e82c64734f3e7291a332d1c0e90263954ce40cd`**, PR35's completed v7 UI checkpoint.
+- Coordinator previously reported `/Users/apple/Documents/projects/game` clean on that main for user testing. This worker did not reconfigure, edit, switch or update it. The original mac-ui worker remains HOLD.
+- PR35 was a squash: merge-base is `48d4256`, while its snapshot contains checkpoint `1abcee5`. Expected ancestry conflicts are resolved without restoring older runtime or owner reports.
+- Merge direction here is **origin/main → task branch**, never task branch → main. No main branch ref or original checkout mutation is part of this delivery.
 
-## User-test main checkpoint — do not touch
+## Exact accepted source and asset boundaries
 
-- Coordinator confirmed PR35 merged at **`3e82c64734f3e7291a332d1c0e90263954ce40cd`**.
-- Coordinator confirmed original `/Users/apple/Documents/projects/game` is clean on that main for user testing. Never edit or switch that checkout from a worker. Prior mac-ui OMP released all edits and is **HOLD**.
-- PR35 required CI validated changed configuration/scripts only; no Core tests were triggered. This is not T49/T50 continuation compilation/runtime evidence.
+| Module / delivery | Exact accepted revision | Task-branch integration boundary |
+| --- | --- | --- |
+| A — bird/board/home motion | `a012e70aeaa58280da920ac18c53a205fbfa4c9d` | `d8d00f73c98de48088238fa9f1c76406ccad1af6` |
+| B — win/popups/settings/gates | `4256de63412041e65ddf2554cb14323d79f6d888` | `3a057636325fa017aecbbcb074766eeb79e01b46` |
+| C — map/ambient/leaf transition | `fb90bb77d4262456c8375a6f0b5fad713a1c819b` | `8dd09021b9524cd08af97bea7bd034adda2a18ef` |
+| D — final committed-transaction fix | `bf643f4b513e60e7a24bc241e5907562a7087ecd` | Separate committed/pushed correction, coordinator static re-review passed |
+| E — authored family overlay integration | `2b2592560e8a7128e35e874e046bfa7dfd97f00f` | `83a4d93db4b811598a923f7926fb73389ec81a4b` |
+| Ten-species final birds | `fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9` | `5c22b064b7cab8d6c702d4a6b9321963cd474b2d` |
+| Five egg frames / two overlays | `f79dc3875ca7b6138e9c304059c2d3432a5c2775` | `b9d019c5aa6d9fe204fa8d6dd0d7d807a5013db1` |
 
-## Four isolated T50 code workspaces
+D history remains isolated: source `52cad38e2742263b4469ead8ef5a90d80f564b73`, fixture `e39e0ddc5f330d35ff416a609f0eefbb20e7fcad`, review boundary `08b32a733ab952f79ca66f3424696f498a2f6720`, Win-count handoff `f24c11f`. Egg asset commit is `34eddebeca3b75fa5e39019090c8b486ba99911f`. Earlier UI `825ca1d` and world/booster `6a29b50` remain retained.
 
-All branches preserve source WIP `9f84a95`; T50D starts at handoff checkpoint `0b44966`. Exact approved A/B/C code and the separately approved bird/egg/overlay asset revisions below are integrated only into the task branch. No main merge or user-test checkout update was performed.
+Pre-main accepted runtime/art snapshot is **`83a4d93db4b811598a923f7926fb73389ec81a4b`**. The exact resolved-main merge and final published tip are reported with the final submission; pin that final tip for PR review rather than a mutable peer branch.
 
-| Module | Branch | Workspace | Ownership / progress |
+## Four actual code workspaces
+
+| Owner | Branch | Workspace | Final owned scope |
 | --- | --- | --- | --- |
-| T50A | `mac-motion/t50` | `/Users/apple/orca/workspaces/game/t50-bird-motion` | Approved `a012e70` (implementation `39f36f5`), merged into D branch as `d8d00f73c98de48088238fa9f1c76406ccad1af6`. Board owns flock-door/masked-flight/close/check internally. |
-| T50B | `mac-popups/t50` | `/Users/apple/orca/workspaces/game/t50-popup-motion` | Approved `4256de63412041e65ddf2554cb14323d79f6d888` (includes `7ddcb721` and reviewed fixes), merged as `3a057636325fa017aecbbcb074766eeb79e01b46`. Exact local object verified; peer workspace unchanged. |
-| T50C | `mac-map-motion/t50` | `/Users/apple/orca/workspaces/game/t50-map-motion` | Approved `fb90bb7` (includes `3542ced` and W1 leaf correction), merged into D branch as `8dd09021b9524cd08af97bea7bd034adda2a18ef`. Leaf/origin interfaces unchanged. |
-| T50D | `mac-notifications/t50` | `/Users/apple/orca/workspaces/game/t50-notifications` | Implementation `52cad38e2742263b4469ead8ef5a90d80f564b73`, fixture `e39e0ddc5f330d35ff416a609f0eefbb20e7fcad`, isolated D review `08b32a733ab952f79ca66f3424696f498a2f6720`, root correction `f24c11f`. A/B/C integrated at `3a057636325fa017aecbbcb074766eeb79e01b46`. [Status](status/mac-notifications.md), [report](../../tasks/T50D_report.md). No execution. |
+| A / E | `mac-motion/t50` | `/Users/apple/orca/workspaces/game/t50-bird-motion` | BirdView, BoardView, BranchView, BirdhouseView; E's internal V7BirdOverlay. No root/asset ownership. |
+| B | `mac-popups/t50` | `/Users/apple/orca/workspaces/game/t50-popup-motion` | WinPanel, V5Panels, SettingsPanel, V7GateView and popup helper. |
+| C | `mac-map-motion/t50` | `/Users/apple/orca/workspaces/game/t50-map-motion` | V6MapView, V5SceneView, map/ambient/leaf helpers. |
+| D / integration | `mac-notifications/t50` | `/Users/apple/orca/workspaces/game/t50-notifications` | Root/notifications/profile/intro/HUD, authorized fixture compatibility and reviewed integration/final documentation. |
 
-Public view signatures remain stable. New narrow APIs must be listed exactly in the owning report. Root integration must reject obsolete callbacks, cancel on teardown/rebuild, restore poses and avoid duplicate completion/grants. No two workers edit another module's files.
+Bird art is from `mac-birds/t49`; seven egg/overlay assets from `mac-art/world`. Peer workspaces/branches were not edited by the integrator. No sub-workers or invented Dispatch IDs were started. Cross-server automatic adoption remains unavailable; current terminal/status channels are the coordination record.
 
-D-only integration correction `f24c11f` settles/cancels Win HUD counting before the finale notification handoff, including early programmatic exits. D's isolated review boundary `08b32a7` remains unchanged; no tests/Unity were run for either revision.
+## Completed shared contracts
 
-Coordinator's parallel static review of `3a05763` confirmed one D blocker: ignored/queued busy taps invalidated the shared revision captured by committed Board completion. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** is committed/pushed and preserved before asset merges. It separates transactionGeneration from input/hint revision, retains one queued landing/effect tap and lifecycle/session/one-shot guards, and invalidates both generations on real cancellation. D final re-review remains pending; no execution or additional code scope.
+- Existing public signatures remain. Root calls Map.TryGetLevelCardOrigin(int,out Vector2), always passes its out point (including fallback) to V5Panels.SetLevelCardOrigin before LevelCard.
+- Full-Canvas V7LeafTransition.Configure(V5Art)/Play(Action covered,Action completed)/Cancel owns its lifecycle. Covered BuildLevel/map setup does not cancel the same wipe or invalidate its completion. External cancellation discards stale continuations.
+- WinPanel.Show(int,int,int,Action coinFlightStarted) synchronizes exactly one root HUD count of captured already-committed totals. Views grant/save nothing. Daily collection is root acknowledgement/save → Map.CollectCoins only; B's pre-ack flight is removed.
+- Notification receipts/order and deferred Next are complete, including map-only clock daily, first-finales/+200 once, Rook and level-40 map return. World/friend/daily grants occur only on matching acknowledgement.
+- D's transactionGeneration is independent of InputTap/hint revision. Ignored/queued busy taps cannot discard the committed Board completion; real cancellation/session/lifecycle/one-shot guards and one queued landing/effect tap remain.
+- A's Board internally owns flock doorway/masked flight/close/check. E is integrated: Sunny/Skye family markers use normalized source-frame anchors/scale and synchronous pose routing, including cancel/rest. No E code or other feature is still pending.
+- Existing fixture string preservation and deliberate Meta receipts are corrected without execution. Core rules, authored levels, economy formulas and original assets remain unchanged. Existing Shop/Aviary placeholders are the previously authorized scope, not new feature work.
 
-Approved cross-module root contract:
-- `Map.TryGetLevelCardOrigin(int, out Vector2)` → always `panels.SetLevelCardOrigin(point)` → `panels.LevelCard(int)`, including the returned `(540,960)` fallback.
-- Full-canvas leaf owner is independent of Map/Board/HUD/modal groups. Cancel the old presentation before starting its wipe; its covered `BuildLevel`/map-surface setup does not cancel or invalidate that same wipe. Completion starts intro/notification pumping; external cancellation discards the old continuation.
-- `WinPanel.Show(int, int, int, Action coinFlightStarted)` preserves the old overload. Root commits ordinary rewards/first-finale pending state before choreography, and invokes only the existing HUD count from this guarded callback with captured totals.
-- New-friend/world/daily receipts remain acknowledgement-only. `Map.CollectCoins` after root's daily acknowledgement is the single collection spectacle; approved B removes the pre-ack daily flight. Views never grant/save rewards.
-- Existing gate `Configure(V5Art,int,bool)`, `Open(Action)`, `IsOpening` remain unchanged. Booster callbacks use T50B's generation-guarded `Once`; no extra booster overload is needed.
+## Evidence and runtime-only risks
 
-## Art ownership
+**NOT_RUN:** Unity/import/C# compilation, EditMode/PlayMode/all test suites, runtime smoke, gameplay simulation/all-level playthrough, screenshots, timed sequences, profiling, device/safe-area checks.
 
-- Bird final **`fd1446948f58d5d8c4fe9f5b201b75eb15d5edb9`** was explicitly statically approved by the coordinator and merged as **`5c22b064b7cab8d6c702d4a6b9321963cd474b2d`**. Coordinator-reviewed offline evidence: ten species, 170 distinct 320×320 RGBA frames and ten portraits, naming/metadata/style/reference sheets. No new asset audit or runtime acceptance is claimed here.
-- Eggs/overlays **`f79dc3875ca7b6138e9c304059c2d3432a5c2775`** (asset commit `34eddeb`) was explicitly statically approved and merged as **`b9d019c5aa6d9fe204fa8d6dd0d7d807a5013db1`**: five egg frames and two overlays, real RGBA, stable 300 baseline/support band, seven metadata files and the delivered contract/report. This is offline asset readiness only.
-- **Required pending integration: T50E**, assigned to A on `mac-motion/t50`, owns BirdView and its isolated helper/report. New overlays cannot use the old runtime offsets. A handles authored Sunny/Skye family markers plus normalized anchor/scale/pose behavior. This worker does not edit its integrated BirdView or merge an unreviewed follow-up.
-- The whole stage is **not ready** until T50E is reviewed/integrated and the coordinator completes D review. Unity/import/compile, runtime/in-context appearance, animated wingbeats, overlay pose alignment and timed captures remain **NOT_RUN**. Existing offline sheets are not runtime proof.
-- Earlier UI delivery: `mac-art/t48` at `825ca1d`; world/booster delivery: `mac-art/world` at `6a29b50`. No additional asset generation, code scope, main update or user-test checkout edit is authorized by these merges.
+Offline approved assets: 170 distinct 320×320 RGBA bird frames plus ten portraits; five egg frames and two RGBA overlays with seven metadata files, stable 300 baseline/support band, contracts and sheets. This is not in-context animation proof. Historical checkpoint `1abcee5` results and `build/screens/v7/` artifacts apply only to that checkpoint; no new passing counts or captures are claimed. PR35 CI covered configuration/scripts, not Core tests.
 
-## Historical evidence / recovery
+Known runtime-only calibration risks: actual Unity import/meta behavior; Sunny/Skye head/chest marker roll/facing/chick/density placement across poses and mixed fallbacks; house/popup doorway/silhouette clipping and gate hinges; intro/Win/coin timing; cancellation/rebuild/input/hint interactions; saved receipts on interruption and midnight/date rollback; fullscreen leaf safe areas; map origin/inertia; ambient/idle visual density/performance and muted sound. Static values are reviewable candidates, not measured runtime acceptance. Original/fallback assets remain; T51 is not part of the integration.
 
-- Prior reviewed checkpoint `1abcee5` recorded EditMode 453 passed and PlayMode 31 passed / 0 failed / 8 skipped. These historical counts do not apply to `9f84a95` or the parallel continuation.
-- Historical screenshots: `build/screens/v7/`; no new screenshots, timed sequences or runtime evidence are claimed by this document.
-- 251 recovery notes previously recorded untracked `art/v7/review_3_runtime_vs_approved.png` and `review_4_runtime_with_world_art.png`; preserve pre-existing work.
+## User entry / Mac continuation
 
-## Final integration handoff required before pause
+Open the `PerchSort` project with Unity **6000.6.7f1** and existing scene **`PerchSort/Assets/Scenes/V5.unity`** after the coordinator's final integration/user-test checkout update. The worker has not opened Unity or rewritten scenes/settings. Do not use historical `Game.unity` as the v7 entry.
 
-The coordinator/integration owner records reviewed module/art SHAs, merged main SHA and remote push state, the Mac checkout/branch/dirty state, completed/missing requirements, exact new APIs, remaining compile/runtime risks, captures actually produced, and tests explicitly **NOT_RUN**. User entry: open the integrated `PerchSort` project and existing `Assets/Scenes/V5.unity` scene; runtime readiness remains unverified until user testing. A future Mac Codex continuation must read this handoff and inspect git status without resuming the former Claude session.
+A Mac continuation starts by reading this handoff, [final T50 report](../../tasks/T50_report.md) and git status; preserve user changes and never resume retired Claude. Coordinator performs the final PR/main merge and records its actual SHA, remote publication and test-checkout state afterward. Until then: isolated integration branch only, **HOLD**. Future features remain parallelized on the Mac with OMP preferred and Codex fallback; no automatic T51/new-feature work or test execution.
+
+## Observed final reconciliation checks — source/tree only
+
+- Staged runtime/art/fixture tree under PerchSort and art/v7 is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
+- Staged diff against incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd` is empty for Core, authored level JSON/Levels resources/tools, every Unity scene and ProjectSettings.
+- AGENTS.md, CLAUDE.md and TEAM.md exactly match incoming main, including current Codex/parallel/OMP/Mac-only directives.
+- No unmerged index entries remain. Staged diff whitespace/conflict-marker checks passed. All final report/owner-report links and the V5.unity entry file were found.
+- Automatic merge residue (old booster queue code, missing house imports and incidental spacing) was removed to recover the exact reviewed source rather than introducing new code. No compiler, Unity or test was run for these checks.

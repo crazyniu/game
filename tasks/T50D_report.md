@@ -2,7 +2,7 @@
 
 ## Submission
 
-**DONE — bounded source implementation and static compile-risk review. Not runtime acceptance.**
+**DONE — D source accepted for integration after coordinator static re-review of bf643f4. All A/B/C/D/E and final assets are integrated in source; no runtime acceptance.** Current final state and main reconciliation are owned by [final T50 report](T50_report.md) and the Mac-only handoff; historical review boundaries below remain available.
 
 - Source commit: **`52cad38e2742263b4469ead8ef5a90d80f564b73`**.
 - Branch: `mac-notifications/t50`; workspace: `/Users/apple/orca/workspaces/game/t50-notifications`.
@@ -24,7 +24,7 @@ Static source trace only:
 - Undo/Restart/navigation/root disable call CancelPresentation and invalidate both generations, including same-session cancellation. Session replacement and destruction remain separately guarded.
 - Solver result and post-playback hint callbacks retain their original revision/session checks; stale hints stay rejected.
 
-No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** was committed/pushed before the separately approved asset merges. Changed files are only V5GameRoot and this report/status/integration handoff. Coordinator final re-review is pending; execution/compilation/Unity/tests remain NOT_RUN.
+No public API, input/raycast policy, reward/receipt/economy, queue cardinality, peer implementation or test source changed in this follow-up. Correction **`bf643f4b513e60e7a24bc241e5907562a7087ecd`** was committed/pushed before the separately approved asset merges and passed final coordinator static re-review. Its changed files are only V5GameRoot and report/status/integration handoff. Execution/compilation/Unity/tests remain NOT_RUN.
 
 ## Separately approved offline asset integration
 
@@ -32,8 +32,8 @@ No public API, input/raycast policy, reward/receipt/economy, queue cardinality, 
 - Egg/overlay assets `f79dc3875ca7b6138e9c304059c2d3432a5c2775` (asset `34eddeb`) merged conflict-free as `b9d019c5aa6d9fe204fa8d6dd0d7d807a5013db1`.
 - Both exact commit objects were verified locally. These are explicit coordinator-approved asset revisions, not generation/edit work by D. D's blocker-correction boundary is preserved; no BirdView or other code was changed for these merges.
 - Coordinator approval covers the offline 170 distinct 320×320 RGBA bird frames/ten portraits and the seven egg/overlay assets, their metadata/style/contracts/sheets. Import, in-context rendering and animated/runtime behavior remain NOT_RUN; no historical/asset-sheet evidence is promoted to runtime evidence.
-- **T50E remains required**, assigned to A in `mac-motion/t50`: BirdView plus isolated helper/report, authored Sunny/Skye family markers and normalized overlay anchor/scale/pose behavior. The old offsets are known unsuitable for the new overlays. Integrated BirdView stays untouched here until the exact reviewed follow-up arrives.
-- Whole-stage readiness is not claimed. D final re-review and reviewed T50E integration are pending. No main/test-checkout update, Unity/test execution or additional asset/code scope.
+- Coordinator-approved E **`2b2592560e8a7128e35e874e046bfa7dfd97f00f`** is integrated at **`83a4d93db4b811598a923f7926fb73389ec81a4b`**: BirdView plus internal helper/report, authored Sunny/Skye family markers and normalized overlay anchor/scale/pose routing. Primary and independent static review passed; old offsets are no longer used for the reviewed V7 poses.
+- All bounded code/assets are accepted for integration, not runtime. No remaining code-feature TODO; main PR/merge and user-test checkout update belong to the coordinator after final tip review. No Unity/test execution or unrelated code scope.
 
 ## Changed files
 
@@ -142,4 +142,4 @@ The coordinator authorized the existing fixture correction rather than leaving t
 
 ## Integration and pause
 
-The coordinator reviews isolated D boundary `08b32a7`, root-only lifecycle correction `f24c11f` and all-module integration **`3a057636325fa017aecbbcb074766eeb79e01b46`** before final stage/art integration. A's Board internally owns flock-door/masked-flight/close/check; no additional root or duplicated goal-popup hook was added. No main/original checkout was modified. Main remains coordinator-confirmed PR35 `3e82c64734f3e7291a332d1c0e90263954ce40cd` for user testing. Publication of this task branch is attempted independently of B's reported GitHub Internal Server Error. After reviewed stage integration, record actual merged/pushed hashes and limitations in the Mac handoff and pause; later feature work remains parallelized, OMP preferred with Codex fallback, and Mac-only.
+Final source authority: the coordinator accepted D `bf643f4` and E `2b25925`, alongside A/B/C and final assets. Approved pre-main runtime/art tree is `83a4d93db4b811598a923f7926fb73389ec81a4b`; incoming main is `3e82c64734f3e7291a332d1c0e90263954ce40cd`. This worker reconciles main into the isolated task branch only, preserving accepted source and current Codex directives, and finalizes T50 report/handoff. No main/original checkout update is claimed. After publication HOLD for coordinator final tree/PR review; later feature work is parallelized, OMP preferred/Codex fallback, Mac-only. No tests/Unity/runtime acceptance or automatic T51/new feature.
