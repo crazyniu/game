@@ -21,3 +21,15 @@ GIFs are offline frame-swap previews, not Unity animation evidence. No Unity tes
 ## End-of-day wrap-up
 
 Stopped at the lead request before T49 completion. See `docs/team/status/mac-birds.md` and `art/v7/birds/qa/wrap_inventory.json` for the exact source/export/missing-file inventory. Partial QA strips and GIFs are deliberately retained as WIP, not accepted deliverables. All saved owned files are included in the final `wip:` checkpoint; no new generation, normalization or Unity work is started during wrap-up.
+
+## 2026-11-04 Skye checkpoint
+
+Completed 17 source frames and 17 aligned exports plus portrait, strip and idle-action GIF. Replaced wing-opening quirk2 with the sleepy head tilt, corrected right-tilt direction, and shortened the stretched wing after detecting clipping. Sunny remains unchanged. No Unity run.
+
+## Lead review corrections — 2026-11-04
+
+Regenerated Sunny quirk1 to retain idle body size and baseline, and both Sunny/Skye tilt pairs with clear opposing approximately 20-degree head tilts. Refreshed aligned exports, strips and GIFs. `art/v7/birds/qa/review_scale_tilts.png` provides the idle/quirk/tilt comparison at approximately 120 px body width; visual inspection found the quirk shrink corrected and both tilt directions readable. The alignment inventory has 40 frames and zero edge-clipping flags. Runtime playback remains untested, as Unity is outside this worker's scope. The same body-scale and tilt requirements apply to all remaining species.
+
+## Berry checkpoint — 2026-11-04
+
+Completed all 17 Berry sources/320x320 RGBA exports and portrait. Corrected crest-preening quirk2, regenerated right tilt for visible opposing head roll and rejected/regenerated a halo-bearing yawn. Full 17-frame strip and idle-actions GIF refreshed; visual strip review found distinct actions and consistent body scale. Alignment inventory: 52 frames, no clipped exports. Runtime playback and final board comparisons remain pending.

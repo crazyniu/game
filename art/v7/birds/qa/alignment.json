@@ -1,5 +1,39 @@
 [
   {
+    "file": "mint_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      395,
+      1108,
+      810,
+      1151
+    ],
+    "scale": 0.24528,
+    "translation": [
+      12,
+      18
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      65,
+      36,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
     "file": "sunny_idle.png",
     "canvas": [
       320,
@@ -78,24 +112,24 @@
       1254
     ],
     "source_feet": [
-      390,
-      1036,
-      857,
-      1068
+      425,
+      1040,
+      836,
+      1076
     ],
-    "scale": 0.21458,
+    "scale": 0.24382,
     "translation": [
-      26,
-      71
+      6,
+      38
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      72,
-      113,
-      255,
+      54,
+      71,
+      266,
       301
     ],
     "foot_baseline": 300,
@@ -282,25 +316,25 @@
       1254
     ],
     "source_feet": [
-      425,
-      1039,
-      834,
-      1075
+      421,
+      1040,
+      836,
+      1074
     ],
-    "scale": 0.24501,
+    "scale": 0.24147,
     "translation": [
-      6,
-      37
+      8,
+      41
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      62,
-      72,
+      61,
+      76,
       256,
-      301
+      302
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -316,23 +350,23 @@
       1254
     ],
     "source_feet": [
-      424,
+      416,
       1040,
-      836,
-      1074
+      827,
+      1075
     ],
-    "scale": 0.24322,
+    "scale": 0.24382,
     "translation": [
-      7,
-      39
+      8,
+      38
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      62,
-      74,
+      63,
+      77,
       257,
       301
     ],
@@ -690,25 +724,25 @@
       1254
     ],
     "source_feet": [
-      407,
-      1063,
-      892,
-      1099
+      396,
+      1065,
+      869,
+      1101
     ],
-    "scale": 0.23674,
+    "scale": 0.24275,
     "translation": [
       6,
-      40
+      33
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      45,
-      69,
-      273,
-      302
+      61,
+      63,
+      255,
+      301
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -850,6 +884,40 @@
     "edge_clipped": false
   },
   {
+    "file": "sky_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      388,
+      1063,
+      866,
+      1099
+    ],
+    "scale": 0.24021,
+    "translation": [
+      9,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      67,
+      260,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
     "file": "sky_tilt_right.png",
     "canvas": [
       320,
@@ -860,15 +928,83 @@
       1254
     ],
     "source_feet": [
-      414,
-      1065,
+      387,
+      1063,
+      867,
+      1099
+    ],
+    "scale": 0.23921,
+    "translation": [
+      10,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      67,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1066,
       892,
       1100
     ],
-    "scale": 0.24021,
+    "scale": 0.23871,
+    "translation": [
+      4,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      68,
+      253,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      413,
+      1064,
+      890,
+      1100
+    ],
+    "scale": 0.24071,
     "translation": [
       3,
-      36
+      35
     ],
     "alpha_extrema": [
       0,
@@ -876,8 +1012,178 @@
     ],
     "visible_bounds": [
       59,
-      69,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1063,
+      891,
+      1097
+    ],
+    "scale": 0.23921,
+    "translation": [
+      4,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      65,
+      252,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      399,
+      1063,
+      877,
+      1099
+    ],
+    "scale": 0.24021,
+    "translation": [
+      7,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      66,
       258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1063,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      63,
+      260,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      409,
+      1030,
+      850,
+      1062
+    ],
+    "scale": 0.26036,
+    "translation": [
+      -4,
+      23
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      70,
+      291,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      67,
+      254,
       301
     ],
     "foot_baseline": 300,
@@ -996,24 +1302,24 @@
       1254
     ],
     "source_feet": [
-      427,
-      1120,
-      848,
-      1162
+      439,
+      1122,
+      869,
+      1161
     ],
-    "scale": 0.23351,
+    "scale": 0.22863,
     "translation": [
-      11,
-      29
+      10,
+      35
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      38,
-      42,
-      278,
+      51,
+      51,
+      260,
       302
     ],
     "foot_baseline": 300,
@@ -1054,7 +1360,7 @@
     "edge_clipped": false
   },
   {
-    "file": "mint_idle.png",
+    "file": "berry_fly_down.png",
     "canvas": [
       320,
       320
@@ -1064,15 +1370,185 @@
       1254
     ],
     "source_feet": [
-      395,
-      1108,
-      810,
-      1151
+      412,
+      1122,
+      843,
+      1161
     ],
-    "scale": 0.24528,
+    "scale": 0.2281,
     "translation": [
-      12,
-      18
+      17,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      20,
+      50,
+      300,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      407,
+      1134,
+      844,
+      1178
+    ],
+    "scale": 0.22496,
+    "translation": [
+      19,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      45,
+      278,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      414,
+      1134,
+      865,
+      1176
+    ],
+    "scale": 0.21798,
+    "translation": [
+      21,
+      44
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      57,
+      252,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      408,
+      1123,
+      846,
+      1163
+    ],
+    "scale": 0.22445,
+    "translation": [
+      19,
+      39
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      56,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      394,
+      1114,
+      843,
+      1156
+    ],
+    "scale": 0.21895,
+    "translation": [
+      25,
+      47
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      57,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1124,
+      856,
+      1166
+    ],
+    "scale": 0.22092,
+    "translation": [
+      20,
+      42
     ],
     "alpha_extrema": [
       0,
@@ -1080,8 +1556,212 @@
     ],
     "visible_bounds": [
       65,
-      36,
-      261,
+      55,
+      254,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      394,
+      1143,
+      843,
+      1185
+    ],
+    "scale": 0.21895,
+    "translation": [
+      25,
+      41
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      69,
+      51,
+      255,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      436,
+      1119,
+      866,
+      1160
+    ],
+    "scale": 0.22863,
+    "translation": [
+      11,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      49,
+      253,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      400,
+      1143,
+      827,
+      1185
+    ],
+    "scale": 0.23023,
+    "translation": [
+      19,
+      27
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      39,
+      263,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      435,
+      1120,
+      864,
+      1162
+    ],
+    "scale": 0.22916,
+    "translation": [
+      11,
+      34
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      47,
+      259,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      340,
+      1121,
+      766,
+      1161
+    ],
+    "scale": 0.23077,
+    "translation": [
+      32,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      47,
+      293,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      442,
+      1121,
+      867,
+      1163
+    ],
+    "scale": 0.23132,
+    "translation": [
+      9,
+      31
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      46,
+      258,
       301
     ],
     "foot_baseline": 300,

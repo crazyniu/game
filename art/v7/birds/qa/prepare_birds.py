@@ -2,13 +2,14 @@
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageOps
 import json
+import sys
 
 ROOT = Path(__file__).resolve().parents[4]
 SOURCE = ROOT / 'art/v7/birds/source'
 OUT = ROOT / 'PerchSort/Assets/Resources/V7/Birds'
 QA = ROOT / 'art/v7/birds/qa'
 STATES = 'idle blink quirk1 quirk2 fly_up fly_down cheer sleep tilt_left tilt_right look_up look_down look_side preen fluff stretch yawn'.split()
-SPECIES = 'sunny sky berry mint cocoa snow ember ink hoot crow'.split()
+SPECIES = sys.argv[1:] or 'sunny sky berry mint cocoa snow ember ink hoot crow'.split()
 
 def bounds(im):
     return im.getchannel('A').point(lambda a: 255 if a > 12 else 0).getbbox()
@@ -77,5 +78,7 @@ for species in SPECIES:
         ImageDraw.Draw(frame).text((12,325),f'{species}: {state}',fill='#302e2c')
         frames.append(frame)
     frames[0].save(QA/f'{species}_idle_actions.gif',save_all=True,append_images=frames[1:],duration=550,loop=0,disposal=2)
+previous = json.loads((QA/'alignment.json').read_text())
+records = [r for r in previous if r['file'].split('_')[0] not in SPECIES] + records
 (QA/'alignment.json').write_text(json.dumps(records,indent=2)+'\n')
 print(json.dumps({'frames':len(records),'clipped':[r['file'] for r in records if r['edge_clipped']]}))
