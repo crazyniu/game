@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54FUiBirdTests
+    public sealed class PopupBirdTests
     {
         private GameRoot root;
         private bool previousInstant;

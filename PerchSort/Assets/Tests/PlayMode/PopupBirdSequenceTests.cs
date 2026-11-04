@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54FUiSequenceTests
+    public sealed class PopupBirdSequenceTests
     {
         private GameArt art;
         private Image image;

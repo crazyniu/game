@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54HModalTests
+    public sealed class ModalLayerTests
     {
         private GameRoot root;
         private bool previousInstant;

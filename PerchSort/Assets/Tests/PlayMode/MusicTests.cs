@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54AMusicTests
+    public sealed class MusicTests
     {
         private readonly Dictionary<string, int?> saved = new Dictionary<string, int?>();
         private string savedNotifications;

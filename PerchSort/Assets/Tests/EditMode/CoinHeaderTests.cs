@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PerchSort.EditModeTests
 {
-    public sealed class T54DCoinHeaderTests
+    public sealed class CoinHeaderTests
     {
         [TestCase(false, 0)] [TestCase(false, 240)]
         [TestCase(false, 2000)] [TestCase(false, 99999)]

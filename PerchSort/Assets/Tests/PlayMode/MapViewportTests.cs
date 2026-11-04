@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54IMapViewportTests
+    public sealed class MapViewportTests
     {
         private GameRoot root;
         private Camera camera;

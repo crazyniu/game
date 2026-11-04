@@ -16,7 +16,7 @@ using Object = UnityEngine.Object;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54CIdleTests
+    public sealed class BirdIdleTests
     {
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
         private static readonly string[] Animations = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer" };

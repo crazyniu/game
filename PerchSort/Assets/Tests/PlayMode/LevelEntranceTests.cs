@@ -16,7 +16,7 @@ using Meta = PerchSort.Meta;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54BEntranceTests
+    public sealed class LevelEntranceTests
     {
         private sealed class EntranceClock : Meta.IClock
         {

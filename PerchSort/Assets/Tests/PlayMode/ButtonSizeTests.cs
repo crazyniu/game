@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace PerchSort.PlayModeTests
 {
-    public sealed class T54DButtonTests
+    public sealed class ButtonSizeTests
     {
         private GameRoot root;
         private bool previousInstant;
