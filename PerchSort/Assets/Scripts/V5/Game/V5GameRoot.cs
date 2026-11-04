@@ -394,7 +394,9 @@ namespace PerchSort.V5.Game
         private bool TryLeaveFinale(bool next)
         {
             if (!notificationsEnabled || !Win.IsOpen || !profile.Notifications.HasWorldSequence) return false;
-            profile.Notifications.LeaveWin(LevelId, next); Win.Hide(); Save(); PumpNotifications(); Refresh(); return true;
+            profile.Notifications.LeaveWin(LevelId, next);
+            Win.Hide(); winCountPending = false; Hud.Cancel();
+            Save(); PumpNotifications(); Refresh(); return true;
         }
         private void PumpNotifications()
         {
