@@ -1,0 +1,1090 @@
+[
+  {
+    "file": "sunny_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      426,
+      1039,
+      833,
+      1074
+    ],
+    "scale": 0.24621,
+    "translation": [
+      5,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      257,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      425,
+      1041,
+      835,
+      1075
+    ],
+    "scale": 0.24441,
+    "translation": [
+      6,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      390,
+      1036,
+      857,
+      1068
+    ],
+    "scale": 0.21458,
+    "translation": [
+      26,
+      71
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      113,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      416,
+      1038,
+      837,
+      1075
+    ],
+    "scale": 0.23802,
+    "translation": [
+      11,
+      44
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      70,
+      272,
+      300
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      424,
+      1041,
+      836,
+      1077
+    ],
+    "scale": 0.24322,
+    "translation": [
+      7,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      28,
+      74,
+      290,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      427,
+      1039,
+      834,
+      1075
+    ],
+    "scale": 0.24621,
+    "translation": [
+      5,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      11,
+      71,
+      307,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      423,
+      1041,
+      838,
+      1074
+    ],
+    "scale": 0.24147,
+    "translation": [
+      8,
+      41
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      37,
+      73,
+      282,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      424,
+      1041,
+      836,
+      1077
+    ],
+    "scale": 0.24322,
+    "translation": [
+      7,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      74,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_tilt_left.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      425,
+      1039,
+      834,
+      1075
+    ],
+    "scale": 0.24501,
+    "translation": [
+      6,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      72,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      424,
+      1040,
+      836,
+      1074
+    ],
+    "scale": 0.24322,
+    "translation": [
+      7,
+      39
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_look_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      426,
+      1039,
+      835,
+      1074
+    ],
+    "scale": 0.24501,
+    "translation": [
+      6,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_look_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      425,
+      1040,
+      836,
+      1074
+    ],
+    "scale": 0.24382,
+    "translation": [
+      6,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      75,
+      256,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_look_side.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      423,
+      1041,
+      836,
+      1077
+    ],
+    "scale": 0.24264,
+    "translation": [
+      7,
+      39
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_preen.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      424,
+      1041,
+      836,
+      1077
+    ],
+    "scale": 0.24322,
+    "translation": [
+      7,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      74,
+      252,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_fluff.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      425,
+      1041,
+      835,
+      1076
+    ],
+    "scale": 0.24441,
+    "translation": [
+      6,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      57,
+      73,
+      260,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_stretch.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      396,
+      1041,
+      809,
+      1075
+    ],
+    "scale": 0.24264,
+    "translation": [
+      14,
+      39
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      74,
+      298,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sunny_yawn.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      425,
+      1041,
+      837,
+      1075
+    ],
+    "scale": 0.24322,
+    "translation": [
+      7,
+      39
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      76,
+      256,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      414,
+      1063,
+      888,
+      1099
+    ],
+    "scale": 0.24224,
+    "translation": [
+      2,
+      34
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23971,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      65,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1062,
+      894,
+      1099
+    ],
+    "scale": 0.23822,
+    "translation": [
+      4,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      57,
+      66,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      407,
+      1063,
+      892,
+      1099
+    ],
+    "scale": 0.23674,
+    "translation": [
+      6,
+      40
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      45,
+      69,
+      273,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      409,
+      1064,
+      891,
+      1100
+    ],
+    "scale": 0.23822,
+    "translation": [
+      5,
+      38
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      17,
+      67,
+      293,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_fly_down.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      412,
+      1063,
+      890,
+      1100
+    ],
+    "scale": 0.24021,
+    "translation": [
+      4,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      11,
+      66,
+      299,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_cheer.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      410,
+      1064,
+      890,
+      1101
+    ],
+    "scale": 0.23921,
+    "translation": [
+      5,
+      37
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      46,
+      67,
+      270,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_sleep.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      411,
+      1065,
+      888,
+      1099
+    ],
+    "scale": 0.24071,
+    "translation": [
+      4,
+      35
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      69,
+      255,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "sky_tilt_right.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      414,
+      1065,
+      892,
+      1100
+    ],
+    "scale": 0.24021,
+    "translation": [
+      3,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      69,
+      258,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      442,
+      1120,
+      867,
+      1159
+    ],
+    "scale": 0.23132,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      47,
+      257,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      441,
+      1121,
+      868,
+      1163
+    ],
+    "scale": 0.23023,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      47,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      437,
+      1121,
+      869,
+      1162
+    ],
+    "scale": 0.22757,
+    "translation": [
+      11,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      50,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      427,
+      1120,
+      848,
+      1162
+    ],
+    "scale": 0.23351,
+    "translation": [
+      11,
+      29
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      38,
+      42,
+      278,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      442,
+      1121,
+      868,
+      1162
+    ],
+    "scale": 0.23077,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      19,
+      47,
+      288,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      395,
+      1108,
+      810,
+      1151
+    ],
+    "scale": 0.24528,
+    "translation": [
+      12,
+      18
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      65,
+      36,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  }
+]
