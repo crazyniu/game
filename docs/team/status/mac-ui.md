@@ -3,7 +3,7 @@
 ## Branch / checkpoint
 - Branch: `mac-ui/t50`, resumed from lead-reviewed `dcd36a8`.
 - Integration commit: `e7d84a5` (v7 UI, measured layout, importer and generated metadata).
-- Latest code checkpoint: `d2b9f08` (`wip: center v7 world gates between measured level nodes`).
+- Latest code checkpoint: `22df2a5` (interleaved board clearance, coloured-illustration preference, new Minty metadata). Earlier green WIP pushed at `3e6aef4`.
 - Full handoff and exact lead popup policy: `tasks/T50_report.md`.
 - Working directly. No sub-workers or services were started during this resumption.
 
@@ -15,30 +15,32 @@
 - Added actual popup presentations and root presentation API, authorized shop/Aviary placeholders, aligned gift composition and world-gate/sign views. No preview reward grants were added.
 - Added required v7 captures plus map worlds/gates/test-mode and popup/placeholder previews. Corrected beam/chrome overlap, faded locked nodes, goal-info text clearance and gate centering after inspecting actual runtime images.
 - Updated layout and runtime pose checks; removed old asset-filename-only assertions instead of re-pinning them. Core/Meta, level data, existing save/economy behavior and intentional skips remain unchanged.
+- Lead review fixed: right-side rows interleave at exactly half-row pitch; opposite-side full bird canvases and branch artwork are separated. All 24 rows-2..5/K-2..7 layout combinations pass; regenerated K7 was visually inspected. No authored board edits.
+- Booster illustration lookup is ready for `booster_firefly_illus`, `booster_sapling_illus`, `booster_owl_eye_illus`, `booster_morning_bell_illus`, `booster_scarecrow_illus`, `booster_spring_rain_illus`. Current glyph/egg composition remains until those art files arrive.
 
 ## Latest locked Mac verification
 | Suite | Passed | Failed | Skipped |
 | --- | ---: | ---: | ---: |
-| EditMode (`build/test-results.xml`) | 429 | 0 | 0 |
+| EditMode (`build/test-results.xml`) | 453 | 0 | 0 |
 | PlayMode (`build/playmode-results.xml`) | 31 | 0 | 8 |
 
 `V5Capture.Run` completed with graphics. Required PNGs are in `build/screens/v7/`: `v7_level_k3`, `v7_level_k7`, `v7_map`, `v7_level_card`, `v7_win`, `v7_settings`, `v7_unlock_card`, `v7_goal_info`, `v7_popup_new_friend`. Additional captures cover all map worlds/gates, synthetic test-mode clears, daily gift, world complete/unlock and the authorized placeholders. Actual images were opened and inspected. No manual desktop playthrough, all-level gameplay run or new timed-animation evidence is claimed.
 
 ## Half done / visual blockers
-- `Resources/V7/World/` is absent: v7 level backgrounds, branches, trunks and crowns are missing. Runtime levels still use explicit legacy scenery fallback and therefore do not match the approved full v7 screens yet.
-- T49 currently has complete Sunny/Skye/Berry sets and Mint idle/face. Mint's remaining poses and Cocoa/Snow/Ember/Ink/Hoot/Rook exports, eggs and mama/chick overlays remain incomplete. Some K7 birds/mechanics still use legacy fallback.
-- Owl Eye's delivered white glyph differs from the colored eye illustration in the approved unlock concept; art/composition review remains necessary.
+- `Resources/V7/World/` is still absent. The lead moved delivery to `origin/mac-art/world` (W1 first); no such branch existed at the latest fetch. Merge it when it lands. Levels retain explicit legacy scenery fallback, not final approved whole-screen parity.
+- T49 now has complete Sunny/Skye/Berry/Minty sets (`c9fc784`), including corrected Berry plumes. Cocoa/Snow/Ember/Ink/Hoot/Rook exports, eggs and mama/chick overlays remain incomplete. Some K7 birds/mechanics still use legacy fallback.
+- Coloured booster illustrations are pending mac-art delivery; the preference/fallback code is implemented.
 - New popup views are implemented, but automatic scheduling, acknowledgement payouts, one-time bookkeeping and queue persistence are NOT implemented yet. Current runtime uses `V5Profile`/`V5Progress`; the existing Meta Aviary/Economy policy must be integrated without duplicate rewards.
 
 ## Exact next policy (recorded in full in T50 report)
 New-friend cards follow intro/debut order and mark met/pay 20 only on acknowledgement, including Rook with 'Never goes home.'; daily gift is map-only on first calendar-day map open with injectable clock and 50 on collection; first finale win schedules one-time +200 world complete when leaving win; worlds 1-3 then run map-gate unlock and world-unlock before deferred Next continues; booster unlock follows intro. Priority: world complete -> world unlock -> daily gift -> new friend -> booster unlock. Never stack popups.
 
 ## Next
-1. Complete full v7 visual parity with remaining T49 assets and review Owl Eye composition; rerun locked suites/captures after merges.
-2. Only after that visual gate, implement the exact popup queue/acknowledgement policy with the intro, then all Phase 2 bird/mechanic/ambient/UI/map/door animations and per-bird idle scheduler.
+1. **Now, without waiting for art (latest lead instruction):** implement the exact Meta-backed popup queue and acknowledgement policy, persistence, one-time receipts, calendar clock, no stacking and EditMode/PlayMode coverage. This is not blocked by the visual gate.
+2. Merge future T49/world/illustration deliveries while finishing visuals; then complete the intro and all Phase 2 bird/mechanic/ambient/UI/map/door animations and per-bird idle scheduler.
 3. Add required cancellation/input/completion coverage and timed flight/home/win/map/intro/idle/new-friend/world/goal-info sequences. Stable PNGs are not animation proof.
 
 ## Submission hygiene
 Every edited code file and generated V7 `.meta` is staged with the code checkpoint. The clean pre-run `Game.unity` and `V5.unity` bytes were restored after SceneBuilder; no unrelated package/settings edits were staged. `build/` evidence stays ignored. Unity runs ended and the owned lock was released.
 
-BLOCKED: final phase-1 visual acceptance awaits remaining v7 artwork/review; Phase 2 and popup policy implementation remain pending, not completed.
+IN PROGRESS: board review fix is green; exact popup policy is the immediate next implementation. Missing art blocks final visual acceptance, not popup logic.

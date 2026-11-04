@@ -6,11 +6,13 @@ Green integration WIP on `mac-ui/t50`, resumed from lead-reviewed `dcd36a8`. Thi
 ## Implemented and exercised
 - Merged the lead review documentation and successive `origin/mac-art/t48` / `origin/mac-birds/t49` deliveries, including measured `art/v7/layout_v7.json`, aligned house/gate/gift contracts, all delivered UI parts and current bird exports.
 - `V7Layout.cs` now contains the measured screen rectangles, HUD button families, K1 large-house/K2–K7 count adaptation, aligned 512px house door/hinge coordinates and all forty per-world baked-path node centers. Map stride is 2840px with 160px alpha overlap; top scrolling avoids exposing the top fade. Gameplay row density adapts to the actual authored branch counts.
+- Lead review fix (`22df2a5`): right rows are exactly half a row lower; dense boards end at y=1640. Four-seat canvases stay within their own side (110px seat pitch), and 530px branch artwork cannot cover an opposite-side bird. Added all 24 rows-2..5/K-2..7 combinations checking bird rectangles, branch tips, house clearance and true half-row staggering. Regenerated and visually inspected K7: the center overlaps are removed without changing authored birds/branches.
 - Added `Editor/V5/V7ArtImporter.cs`, invoked by `V5SceneBuilder`. Map/background textures allow 4096px; sprites preserve their aligned canvases, recorded nine-slice borders and door/lid hinge pivots. Graphics capture explicitly verifies the loaded W1 map texture is 1080x3000.
 - V7 resource names/load paths are used for buttons, glyphs, gifts, houses, panels and available bird frames/portraits. Missing T49 files retain explicit log-once legacy fallback. Original art remains unchanged.
 - Replaced goal chips/tray with colored-roof birdhouses, aligned doorway portraits, ropes/beam and home checks. Matched available purple/green controls, red/white count bubbles, coin-pill text area and three/four-button layouts. Undo remains unlimited and does not receive a fictitious stock counter.
 - Implemented the four-world scrolling map using delivered baked-path backgrounds, wooden/current/stone node states, stars, Sunny chick, gates/world signs and fixed chrome. Shop/Aviary open only the specifically authorized placeholders. Locked nodes retain their opaque stone appearance instead of the regular disabled-action fade.
 - Converted settings, win, level card, booster unlock, goal info and all four popup presentations to delivered v7 parts. Added portrait rings/masks, win birds, aligned daily gift parts, gate/world-sign presentations and Minty's watering-can badge.
+- Booster unlock cards prefer delivered `booster_firefly_illus`, `booster_sapling_illus`, `booster_owl_eye_illus`, `booster_morning_bell_illus`, `booster_scarecrow_illus`, `booster_spring_rain_illus`. Until these arrive, the existing glyph/egg composition remains the explicit fallback.
 - Added `V5GameRoot.OpenPopup` as a presentation entry point. **Automatic trigger scheduling, acknowledgement payouts and persistent popup bookkeeping have not been implemented yet.** Current preview calls do not grant currency. The live runtime still uses `V5Profile`/`V5Progress`; existing Meta policies must be reused without inventing a second reward rule.
 - Existing map -> card -> level -> win -> map, settings, booster unlock, goal info, test stock and level-40 Next behavior remain covered by the passing suite. Core/Meta and authored levels were not edited.
 
@@ -19,10 +21,11 @@ Every Unity run acquired the team lock, checked for other Unity processes and re
 
 | Suite | Passed | Failed | Skipped |
 | --- | ---: | ---: | ---: |
-| EditMode (`build/test-results.xml`) | 429 | 0 | 0 |
+| EditMode (`build/test-results.xml`) | 453 | 0 | 0 |
 | PlayMode (`build/playmode-results.xml`) | 31 | 0 | 8 |
 
 All existing intentional skips remain; no new skips or raised budgets. `V5LayoutTests.cs` replaces withdrawn tray/tip geometry assertions with house-door containment, three/four-button separation, seat/touch-region bounds, modal target separation and measured world-node bounds. The obsolete sprite-name-only `ViewPolicyTests.PhaseSleepAndHiddenEggKeepDifferentPresentations` test was removed with its unused `RestFrame` string helper. Runtime sleep/rest-pose checks now verify the displayed pose rather than old filenames. One old `star_small_full` filename assertion was removed rather than re-pinned to a new asset filename; test-mode accessibility/progress/stock/economy assertions remain. Net EditMode change: +4 layout cases, -1 incidental naming case, 426 -> 429.
+The subsequent lead-review matrix adds 24 cross-board clearance cases: 429 -> 453. `build/t50-review-tests.log` and `build/t50-review-capture.log` record the latest green run and graphics capture after merging T49 `c9fc784`.
 
 Graphics-enabled `V5Capture.Run` completed. Actual runtime captures were opened and inspected, including corrections for beam/chrome overlap, locked-node fading, goal-info text clearance and world-gate placement. Captures are under `build/screens/v7/`:
 - Required: `v7_level_k3.png`, `v7_level_k7.png`, `v7_map.png`, `v7_level_card.png`, `v7_win.png`, `v7_settings.png`, `v7_unlock_card.png`, `v7_goal_info.png`, `v7_popup_new_friend.png`.
@@ -31,9 +34,9 @@ Graphics-enabled `V5Capture.Run` completed. Actual runtime captures were opened 
 Capture profiles are synthetic/nonpersistent and do not write PlayerPrefs. Popup reward numbers in previews are presentation parameters, not executed grants. Map previews for all worlds are not an all-forty-level gameplay run. No new Phase 2 timed frame sequences or manual desktop playthrough are claimed.
 
 ## Visual prerequisites / known differences
-- T49 currently exports complete Sunny/Skye/Berry sets and Mint idle/face. Mint's remaining poses and Cocoa/Snow/Ember/Ink/Hoot/Rook sets remain incomplete. V7 eggs and mama/chick overlays are not delivered.
-- `PerchSort/Assets/Resources/V7/World/` is absent. All requested v7 level backgrounds, thin world branches, edge trunks and crowns are unavailable. Level captures therefore still show preserved legacy scenery and some legacy bird/egg art; they do **not** match the approved full v7 screens yet.
-- The booster unlock preview uses the delivered white Owl Eye glyph rather than the concept's colored eye illustration; this is an explicit remaining art/composition review item, not accepted parity.
+- T49 now exports complete Sunny/Skye/Berry/Minty sets, including Berry's corrected reference head/plumes and all seventeen Minty poses (`c9fc784`). Cocoa/Snow/Ember/Ink/Hoot/Rook sets remain incomplete. V7 eggs and mama/chick overlays are not delivered.
+- `PerchSort/Assets/Resources/V7/World/` is still absent. The lead moved this delivery to `origin/mac-art/world` (W1 first); the branch did not exist at the latest fetch. Level captures therefore still show preserved legacy scenery and some legacy bird/egg art; they do **not** match the approved full v7 screens yet. Merge that branch when it lands.
+- Coloured booster illustrations are awaited from mac-art. The loader preference is ready; the current Owl Eye glyph/egg fallback is not claimed as final concept parity.
 - Approved concepts use illustrative boards/counts. Captures preserve actual authored level-5/40 boards rather than changing level data to imitate the screenshots.
 - Rendered popup views are real, but their automatic gameplay scheduling/payout integration is still pending the exact policy below.
 
@@ -48,9 +51,9 @@ Capture profiles are synthetic/nonpersistent and do not write PlayerPrefs. Popup
 This policy is recorded, not implemented in this checkpoint. Reuse the existing Meta Aviary/Economy rules while deferring the new-friend mark/payment to acknowledgement exactly as directed; do not grant preview rewards or duplicate profile rewards.
 
 ## Next
-1. Merge subsequent T49 exports and finish whole-screen v7 visual parity; regenerate metadata, rerun the locked suite/captures and review the Owl Eye discrepancy.
-2. Once the visual gate is satisfied, implement the policy queue and persistence/acknowledgement boundaries above together with the skippable approximately 1.6s intro. Preserve debut order, an injectable daily clock, one-time finale rewards, deferred cross-world Next and no stacked modal/input leaks.
-3. Implement all remaining Phase 2 bird/mechanic/ambient/UI/map/door animations and the random per-bird scheduler, including Rook-specific popup content and specified missing-part procedural/fade fallbacks.
+1. **Immediate next task (lead explicitly removed the art dependency):** implement the exact popup queue, acknowledgement payouts and persistence now, using Meta Aviary/Economy without duplicate rewards. Cover order, one active popup, debut/Rook handling, calendar clock, one-time finale rewards and deferred Next in EditMode/PlayMode.
+2. Merge subsequent T49 exports and `origin/mac-art/world` when available; finish whole-screen visual parity and coloured booster illustrations, then regenerate metadata and rerun locked suites/captures.
+3. Implement all remaining Phase 2 intro/bird/mechanic/ambient/UI/map/door animations and the random per-bird scheduler, including specified missing-part procedural/fade fallbacks. The intro completion must gate new-friend/booster delivery before board input is enabled.
 4. Add the required completion/cancellation/input tests and timed sequences: flight, flock home, full win, map scroll, intro (approximately twelve frames), four-second idle, new friend, world complete/unlock and goal info.
 5. Run the full Mac suite before every push. Stage every edited source and generated `.meta` file. Never represent stable PNGs as animation proof.
 
