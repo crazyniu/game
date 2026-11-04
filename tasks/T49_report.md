@@ -37,3 +37,7 @@ Completed all 17 Berry sources/320x320 RGBA exports and portrait. Corrected cres
 ## Berry head-feature correction — 2026-11-04
 
 Lead rejected the first set's upright crest. Regenerated every Berry source frame using `ui7_aviary_detail.png`, `ui7_level_k3_v2.png` and `ui7_aviary_list.png`: exactly two long separated plumes now arc backward, matching the large detail reference. Preserved expressions, poses and readable opposing tilts. Rebuilt all 17 exports plus portrait, strip and GIF. `berry_game_size.png` and `berry_head_reference.png` document the comparison. The prior reviewed torso scale is retained via its 98.311 px toe span, avoiding shrinkage from the wider plume silhouette. Visual game-size review and alignment found no export clipping; runtime remains untested. Minty generation was cancelled to prioritize this correction; its head features were checked against the popup before resuming.
+
+## Minty checkpoint — 2026-11-04
+
+Completed 17 source frames, 17 RGBA exports, portrait, strip, idle-actions GIF and game-size sheet. Head-feature comparison used the large approved popup (central green leaf with two teal side feathers and pale eye rings). Regenerated downstroke after the first result shrank the torso and lowered wings below the feet. Game-size review found consistent scale, leaf identity and distinct actions. All 68 prepared frames have no edge-clipping flags. Added documented prechecks of remaining existing idle head features. No Unity/runtime validation performed.
