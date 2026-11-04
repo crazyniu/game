@@ -14,7 +14,7 @@ namespace PerchSort.Game
         private Image graphic, idleBlend, bow, fluff, zzz, reveal;
         private GameArt art;
         private BirdOverlay overlays;
-        private Sprite idleFrame, sleep, flyUp, flyDown;
+        private Sprite idleFrame, cheerFrame, sleep, flyUp, flyDown;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
         private GameMotion motion, breathing, blinking;
@@ -22,15 +22,16 @@ namespace PerchSort.Game
         private bool selected, asleep, acting;
         private const float IdleFramesPerSecond = 10;
         private static readonly string[] IdleNames = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer", "peek" };
-        private static readonly string[] PoseNames = { "blink", "tilt_left", "tilt_right", "preen", "fluff", "idle", "cheer", "look_up" };
-        private static readonly int[] IdleWeights = { 5, 3, 3, 3, 2, 3, 2, 2 };
+        private static readonly string[] PoseNames = { "blink", "tilt_left", "preen", "fluff", "idle", "fluff", "stretch", "yawn" };
+        // blink, look, preen, flap, hop, fluff, stretch, yawn.
+        private static readonly int[] IdleWeights = { 30, 14, 10, 8, 6, 4, 4, 4 };
         private static readonly ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>> SequenceCache =
             new ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>>();
         private readonly Sprite[] idlePoses = new Sprite[8];
         private Sprite[][] idleSequences;
         private BirdIdleGroup idleGroup;
-        private float nextIdle, breathPhase, breathPeriod, idleEnvelope, idleHop;
-        private int idleAction = -1;
+        private float nextIdle, breathPhase, breathPeriod, idleRise, idleLanding;
+        private int idleAction = -1, lookDirection = -1;
         private bool idleActing, idleEnabled;
         internal bool IdleActing => idleActing;
         internal int LastIdleAction { get; private set; } = -1;
@@ -78,11 +79,12 @@ namespace PerchSort.Game
             DisplayScale = density;
             string prefix = bird.Species.Id;
             idleFrame = art.Get(prefix + "_idle");
+            cheerFrame = art.Get(prefix + "_cheer");
             sleep = art.Get(prefix + "_sleep");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
             for (int i = 0; i < idlePoses.Length; i++)
             {
-                idlePoses[i] = art.Optional(prefix + "_" + PoseNames[i]) ?? idleFrame;
+                idlePoses[i] = art.Optional(prefix + "_" + PoseNames[i]);
             }
             var speciesSequences = SequenceCache.GetOrCreateValue(art);
             if (!speciesSequences.TryGetValue(prefix, out idleSequences))
@@ -92,8 +94,8 @@ namespace PerchSort.Game
                 speciesSequences.Add(prefix, idleSequences);
             }
             breathPhase = UnityEngine.Random.value;
-            breathPeriod = sleeping || bird.IsEgg ? UnityEngine.Random.Range(1.4f, 2f) : UnityEngine.Random.Range(2f, 3f);
-            nextIdle = Time.unscaledTime + UnityEngine.Random.Range(0.8f, 2.5f);
+            breathPeriod = sleeping || bird.IsEgg ? UnityEngine.Random.Range(1.4f, 2f) : UnityEngine.Random.Range(2.4f, 3.2f);
+            nextIdle = Time.unscaledTime + UnityEngine.Random.Range(1f, 3f);
             egg = art.Get("egg_idle"); wobbleLeft = art.Get("egg_wobble_l"); wobbleRight = art.Get("egg_wobble_r");
             crack = art.Get("egg_crack"); shell = art.Get("egg_shell");
             float footInset = idleFrame.rect.height >= 320 ? 20f / 320 : 12f / 256;
@@ -174,6 +176,7 @@ namespace PerchSort.Game
         private void Idle()
         {
             acting = false; idleEnabled = true; breathing.CancelAll(); StopIdlePose();
+            nextIdle = Time.unscaledTime + UnityEngine.Random.Range(1f, 3f);
             SetFrame(RestFrame); body.localRotation = Quaternion.identity;
             zzz.gameObject.SetActive(asleep && !Bird.IsEgg);
             breathing.Loop(breathPeriod, _ => ApplyIdleMotion());
@@ -182,11 +185,12 @@ namespace PerchSort.Game
         {
             if (GameMotion.Instant) return;
             float cycle = Time.time / breathPeriod + breathPhase;
-            float amplitude = asleep || Bird.IsEgg ? 0.015f : 0.01f;
-            float breath = 1 + amplitude * (1 - Mathf.Cos(cycle * Mathf.PI * 2));
-            body.localScale = Scale(breath, breath);
+            float breath = 0.5f * (1 - Mathf.Cos(cycle * Mathf.PI * 2));
+            if (asleep || Bird.IsEgg) body.localScale = Scale(1 + 0.03f * breath, 1 + 0.03f * breath);
+            else body.localScale = Scale((1 - 0.008f * breath) * (1 + 0.05f * idleLanding),
+                (1 + 0.02f * breath) * (1 - 0.05f * idleLanding));
             body.localRotation = Quaternion.identity;
-            body.anchoredPosition = bodyPerch + Vector2.up * (idleHop * idleEnvelope * DisplayScale);
+            body.anchoredPosition = bodyPerch + Vector2.up * (idleRise * DisplayScale);
             if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(118, -16 - 8 * Mathf.Sin(cycle * Mathf.PI * 2)) * DisplayScale;
         }
         private void Update()
@@ -197,34 +201,101 @@ namespace PerchSort.Game
                 return;
             }
             if (GameMotion.Instant || !idleEnabled || acting || idleActing || selected || asleep || Bird.IsEgg || Time.unscaledTime < nextIdle) return;
-            int total = 0;
-            for (int i = 0; i < IdleWeights.Length; i++) if (i != LastIdleAction) total += IdleWeights[i];
-            int draw = UnityEngine.Random.Range(0, total), action = 0;
-            for (; action < IdleWeights.Length; action++)
-            {
-                if (action == LastIdleAction) continue;
-                draw -= IdleWeights[action]; if (draw < 0) break;
-            }
+            int action = PickIdleAction();
+            if (action < 0) { nextIdle = Time.unscaledTime + UnityEngine.Random.Range(1f, 3f); return; }
             if (idleGroup != null && !idleGroup.TryStart(this, action, Time.unscaledTime))
             { nextIdle = Time.unscaledTime + UnityEngine.Random.Range(0.1f, 0.3f); return; }
             StartIdlePose(action);
         }
+        private bool HasIdleAction(int action)
+        {
+            switch (action)
+            {
+                case 0: return idleSequences[0].Length >= 3;
+                case 1: return idleSequences[1].Length >= 4 && idleSequences[2].Length >= 4;
+                case 2: return idleSequences[3].Length >= 5;
+                case 3: return idleSequences[4].Length >= 6;
+                case 4: return idleSequences[5].Length >= 6;
+                default: return idlePoses[action] != null;
+            }
+        }
+        private int PickIdleAction()
+        {
+            int total = 0;
+            for (int i = 0; i < IdleWeights.Length; i++)
+                if (i != LastIdleAction && HasIdleAction(i)) total += IdleWeights[i];
+            if (total == 0) return -1;
+            int draw = UnityEngine.Random.Range(0, total);
+            for (int i = 0; i < IdleWeights.Length; i++)
+            {
+                if (i == LastIdleAction || !HasIdleAction(i)) continue;
+                draw -= IdleWeights[i];
+                if (draw < 0) return i;
+            }
+            return -1;
+        }
+        private Sprite IdleFrameAt(int action, int direction, float elapsed, float hold, bool twice)
+        {
+            switch (action)
+            {
+                case 0:
+                    const float blinkDuration = 4f / 12;
+                    if (twice && elapsed >= blinkDuration + 0.2f) elapsed -= blinkDuration + 0.2f;
+                    else if (elapsed >= blinkDuration) return idleSequences[0][0];
+                    int blinkIndex = Mathf.Min(4, Mathf.FloorToInt(elapsed * 12));
+                    return idleSequences[0][blinkIndex <= 2 ? blinkIndex : 4 - blinkIndex];
+                case 1:
+                    var turn = idleSequences[direction];
+                    if (elapsed < 0.4f) return turn[Mathf.Min(3, Mathf.FloorToInt(elapsed * 10))];
+                    if (elapsed < 0.4f + hold) return turn[3];
+                    return turn[Mathf.Max(0, 3 - Mathf.FloorToInt((elapsed - 0.4f - hold) * 10))];
+                case 2: return idleSequences[3][Mathf.Min(4, Mathf.FloorToInt(elapsed * 8))];
+                case 3: return idleSequences[4][Mathf.Min(11, Mathf.FloorToInt(elapsed * 14)) % 6];
+                case 4: return idleSequences[5][Mathf.Min(5, Mathf.FloorToInt(elapsed * 12))];
+                default: return idlePoses[action];
+            }
+        }
         private void StartIdlePose(int action)
         {
+            if (!HasIdleAction(action)) return;
             idleActing = true; idleAction = action; LastIdleAction = action; LastIdleStart = Time.unscaledTime;
-            nextIdle = LastIdleStart + UnityEngine.Random.Range(0.8f, 2.5f);
-            var frames = idleSequences[action];
-            float duration = frames.Length > 0 ? FrameCount(frames, action) / IdleFramesPerSecond : 0.7f;
-            idleHop = action == 5 && frames.Length > 0 ? 10 : 0;
+            bool twice = action == 0 && UnityEngine.Random.value < 0.2f;
+            int direction = lookDirection >= 0 ? lookDirection : UnityEngine.Random.value < 0.5f ? 1 : 2;
+            lookDirection = -1;
+            float hold = action == 1 ? UnityEngine.Random.Range(0.6f, 1.2f) :
+                action >= 5 ? UnityEngine.Random.Range(0.8f, 1.4f) : 0;
+            float duration = action == 0 ? 4f / 12 * (twice ? 2 : 1) + (twice ? 0.2f : 0) :
+                action == 1 ? 0.8f + hold : action == 2 ? 5f / 8 + 0.4f :
+                action == 3 ? 12f / 14 : action == 4 ? 0.5f + 0.1f : hold + 0.24f;
             blinking.Play(duration, t =>
             {
                 float elapsed = t * duration;
-                float pulse = Mathf.Sin(t * Mathf.PI);
-                idleEnvelope = pulse * pulse;
-                // Real in-between drawings provide the action. Only its entrance/exit opacity is eased.
-                float blend = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.1f);
-                BlendIdlePose(frames.Length > 0 ? SequenceFrame(frames, action, t) : idlePoses[action], blend);
-            }, StopIdlePose);
+                idleRise = idleLanding = 0;
+                if (action == 3)
+                {
+                    float phase = Mathf.Repeat(elapsed * 14, 6) / 6;
+                    float pulse = Mathf.Sin(phase * Mathf.PI);
+                    idleRise = 3 * pulse * pulse;
+                }
+                else if (action == 4)
+                {
+                    if (elapsed < 0.25f) { float u = elapsed / 0.25f; idleRise = 14 * (1 - (1 - u) * (1 - u)); }
+                    else if (elapsed < 0.5f) { float u = (elapsed - 0.25f) / 0.25f; idleRise = 14 * (1 - u * u); }
+                    else idleLanding = 1 - Mathf.SmoothStep(0, 1, (elapsed - 0.5f) / 0.1f);
+                }
+                // Still poses fade; drawn sequences retain their authored in-between frames and cadence.
+                var frame = IdleFrameAt(action, direction, elapsed, hold, twice);
+                if (action >= 5)
+                {
+                    float blend = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.12f);
+                    BlendIdlePose(frame, blend);
+                }
+                else SetFrame(frame);
+            }, () =>
+            {
+                StopIdlePose();
+                nextIdle = Time.unscaledTime + UnityEngine.Random.Range(1f, 3f);
+            });
         }
         private void BlendIdlePose(Sprite pose, float blend)
         {
@@ -235,7 +306,7 @@ namespace PerchSort.Game
         }
         private void StopIdlePose()
         {
-            blinking.CancelAll(); idleActing = false; idleAction = -1; idleEnvelope = idleHop = 0;
+            blinking.CancelAll(); idleActing = false; idleAction = -1; idleRise = idleLanding = 0;
             if (graphic != null) SetFrame(RestFrame);
             if (body != null)
             {
@@ -249,25 +320,38 @@ namespace PerchSort.Game
         {
             if (acting || selected || asleep || Bird.IsEgg) { done(); return; }
             Cancel(); acting = true; done = Once(done);
-            PlayAction(1, () => { Idle(); done(); });
+            PlayAction(1, idlePoses[1], () => { Idle(); done(); });
         }
         public void LookAt(float? x)
         {
             if (acting || asleep || Bird.IsEgg) return;
             StopIdlePose();
             if (!x.HasValue || selected || GameMotion.Instant) return;
-            int action = x.Value < Position.x ? 1 : 2;
-            if (idleGroup == null || idleGroup.TryStart(this, action, Time.unscaledTime)) StartIdlePose(action);
+            if (!HasIdleAction(1)) return;
+            if (idleGroup == null || idleGroup.TryStart(this, 1, Time.unscaledTime))
+            {
+                lookDirection = x.Value < Position.x ? 1 : 2;
+                StartIdlePose(1);
+            }
         }
-        private void PlayAction(int action, Action complete)
+        private void PlayAction(int sequence, Sprite fallback, Action complete)
         {
-            var frames = idleSequences[action];
-            float duration = frames.Length > 0 ? FrameCount(frames, action) / IdleFramesPerSecond : 0.7f;
+            var frames = idleSequences[sequence];
+            bool turn = sequence == 1 || sequence == 2;
+            float hold = turn ? UnityEngine.Random.Range(0.6f, 1.2f) : 0;
+            float duration = frames.Length == 0 ? 0.7f : sequence == 0 ? 4f / 12 :
+                turn ? 0.8f + hold : frames.Length / IdleFramesPerSecond;
             motion.Play(duration, t =>
             {
                 float elapsed = t * duration;
-                float blend = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.1f);
-                BlendIdlePose(frames.Length > 0 ? SequenceFrame(frames, action, t) : idlePoses[action], blend);
+                if (sequence == 0 && frames.Length >= 3) SetFrame(IdleFrameAt(0, 1, elapsed, 0, false));
+                else if (turn && frames.Length >= 4) SetFrame(IdleFrameAt(1, sequence, elapsed, hold, false));
+                else if (frames.Length > 0) SetFrame(SequenceFrame(frames, sequence, t));
+                else
+                {
+                    float blend = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.12f);
+                    BlendIdlePose(fallback ?? idleFrame, blend);
+                }
             }, complete);
         }
         public void Select(bool value)
@@ -283,7 +367,7 @@ namespace PerchSort.Game
         public void Shake()
         {
             Cancel(); selected = false; acting = true;
-            PlayAction(0, Idle);
+            PlayAction(0, idlePoses[0], Idle);
         }
 
         public void Fly(Vector2 destination, float delay, bool home, Action airborne, Action landed,
@@ -377,7 +461,7 @@ namespace PerchSort.Game
         public void Cheer(Action complete)
         {
             Cancel(); acting = true; complete = Once(complete);
-            PlayAction(6, () => { Idle(); complete(); });
+            PlayAction(6, cheerFrame, () => { Idle(); complete(); });
         }
         public void Wobble(Action done)
         {

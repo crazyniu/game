@@ -111,7 +111,7 @@ namespace PerchSort.PlayModeTests
             var seats = birds.Select(bird => bird.Position).ToArray();
             var low = Enumerable.Repeat(float.PositiveInfinity, birds.Length).ToArray();
             var high = new float[birds.Length];
-            float until = Time.realtimeSinceStartup + 3.1f;
+            float until = Time.realtimeSinceStartup + 3.4f;
             while (Time.realtimeSinceStartup < until)
             {
                 for (int i = 0; i < birds.Length; i++)
@@ -142,35 +142,49 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator MissingSequencesUsePlainPosesWithoutShakeStretchHopOrMirroring()
+        public IEnumerator MissingSequencesAreRemovedFromTheDrawAndStillsOnlyCrossfadeOverBreathing()
         {
             SyntheticArt();
             var bird = SyntheticBird();
             var seat = bird.Position;
             var origin = Body(bird).anchoredPosition;
-            for (int action = 0; action < Animations.Length; action++)
+            var pick = typeof(BirdView).GetMethod("PickIdleAction", Private);
+            var drawn = new HashSet<int>();
+            for (int i = 0; i < 1000; i++) drawn.Add((int)pick.Invoke(bird, null));
+            Assert.That(drawn.OrderBy(action => action), Is.EqualTo(new[] { 5, 6, 7 }));
+            for (int action = 0; action < 5; action++)
             {
-                Act(bird, action); Set(bird, "nextIdle", float.PositiveInfinity);
+                Act(bird, action);
+                Assert.That(Active(bird), Is.False, "A missing sequence must not become a transformed still.");
+            }
+            var image = Body(bird).Find("Pose").GetComponent<Image>();
+            for (int action = 5; action < 8; action++)
+            {
+                Act(bird, action);
+                float began = Time.time, previous = 0;
+                bool rising = false, falling = false;
                 while (Active(bird))
                 {
+                    Set(bird, "nextIdle", float.PositiveInfinity);
+                    float alpha = image.color.a;
+                    if (alpha > previous && alpha > 0 && alpha < 1) rising = true;
+                    if (alpha < previous && alpha > 0 && alpha < 1) falling = true;
+                    previous = alpha;
                     Assert.That(bird.Position, Is.EqualTo(seat));
                     Assert.That(Body(bird).anchoredPosition, Is.EqualTo(origin));
                     Assert.That(Body(bird).localRotation, Is.EqualTo(Quaternion.identity));
-                    Assert.That(Body(bird).localScale.x, Is.EqualTo(Body(bird).localScale.y).Within(0.0001f));
-                    Assert.That(Body(bird).localScale.x, Is.InRange(1f, 1.021f));
+                    Assert.That(Body(bird).localScale.x, Is.InRange(0.9919f, 1.0001f));
+                    Assert.That(Body(bird).localScale.y, Is.InRange(0.9999f, 1.0201f));
                     yield return null;
                 }
+                Assert.That(Time.time - began, Is.InRange(1.03f, 1.68f));
+                Assert.That(rising && falling, Is.True);
                 Assert.That(bird.ShowsRestPose, Is.True);
             }
             bird.LookAt(seat.x - 100);
             yield return new WaitForSeconds(0.3f);
+            Assert.That(Active(bird), Is.False, "Looking must not mirror a still when turn drawings are absent.");
             Assert.That(Body(bird).localScale.x, Is.GreaterThan(0));
-            bird.Select(true);
-            Assert.That(Active(bird), Is.False);
-            Assert.That(bird.ShowsRestPose, Is.True);
-            Assert.That(Body(bird).Find("Idle pose blend").gameObject.activeSelf, Is.False);
-            yield return new WaitForSeconds(0.3f);
-            Assert.That(Active(bird), Is.False);
         }
 
         [UnityTest]
@@ -189,46 +203,90 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator DrawnFramesPlayInOrderAtTenFpsAndTurnAndBlinkReturnThroughTheirInbetweens()
+        public IEnumerator DrawnActionsUseTheirAuthoredCadenceHoldsAndLandingWithoutChangingSeats()
         {
             var sprites = SyntheticArt();
             var sequences = new Sprite[Animations.Length][];
-            for (int action = 0; action < Animations.Length; action++)
+            for (int sequence = 0; sequence < Animations.Length; sequence++)
             {
-                sequences[action] = new Sprite[Lengths[action]];
-                for (int f = 0; f < Lengths[action]; f++)
+                sequences[sequence] = new Sprite[Lengths[sequence]];
+                for (int f = 0; f < Lengths[sequence]; f++)
                 {
-                    string key = "sunny_" + Animations[action] + "_" + (f + 1).ToString("D2");
-                    sequences[action][f] = FakeFrame(key); sprites[key] = sequences[action][f];
+                    string key = "sunny_" + Animations[sequence] + "_" + (f + 1).ToString("D2");
+                    sequences[sequence][f] = FakeFrame(key); sprites[key] = sequences[sequence][f];
                 }
-                sprites["sunny_" + Animations[action] + "_" + (Lengths[action] + 1).ToString("D2")] = null;
+                sprites["sunny_" + Animations[sequence] + "_" + (Lengths[sequence] + 1).ToString("D2")] = null;
             }
             var bird = SyntheticBird();
             var seat = bird.Position;
-            for (int action = 0; action < Animations.Length; action++)
+            var origin = Body(bird).anchoredPosition;
+            for (int action = 0; action < 5; action++)
             {
-                var expected = sequences[action].Select(frame => frame.name).ToList();
-                if (action <= 2) expected.AddRange(sequences[action].Take(sequences[action].Length - 1).Reverse().Select(frame => frame.name));
                 var seen = new List<string>(); var times = new List<float>();
-                Act(bird, action); Set(bird, "nextIdle", float.PositiveInfinity);
+                float peak = 0, widest = 0, shortest = 2;
+                Act(bird, action);
+                float began = Time.time;
                 while (Active(bird))
                 {
+                    Set(bird, "nextIdle", float.PositiveInfinity);
                     string frame = bird.FrameName;
-                    if (frame.StartsWith("sunny_" + Animations[action] + "_", StringComparison.Ordinal) &&
-                        (seen.Count == 0 || seen[seen.Count - 1] != frame))
+                    if (frame != "sunny_idle" && (seen.Count == 0 || seen[seen.Count - 1] != frame))
                     { seen.Add(frame); times.Add(Time.time); }
                     Assert.That(bird.Position, Is.EqualTo(seat));
                     Assert.That(Body(bird).localScale.x, Is.GreaterThan(0));
                     Assert.That(Body(bird).localRotation, Is.EqualTo(Quaternion.identity));
+                    peak = Mathf.Max(peak, Body(bird).anchoredPosition.y - origin.y);
+                    widest = Mathf.Max(widest, Body(bird).localScale.x);
+                    shortest = Mathf.Min(shortest, Body(bird).localScale.y);
                     yield return null;
                 }
-                Assert.That(seen, Is.EqualTo(expected), Animations[action]);
-                for (int f = 1; f < times.Count; f++)
-                    Assert.That(times[f] - times[f - 1], Is.InRange(0.065f, 0.14f), "Drawn frames must run at 8-14 fps, allowing one rendering tick.");
+                float duration = Time.time - began;
+                int sequence = action == 0 ? 0 : action == 1 ? (seen[0].Contains("turn_left") ? 1 : 2) : action + 1;
+                var expected = sequences[sequence].Select(frame => frame.name).ToList();
+                if (action == 0)
+                {
+                    expected.Add(sequences[0][1].name);
+                    if (duration > 0.6f) expected.AddRange(new[] { sequences[0][0].name, sequences[0][1].name, sequences[0][2].name, sequences[0][1].name });
+                    Assert.That(duration, duration > 0.6f ? Is.InRange(0.86f, 0.91f) : Is.InRange(0.33f, 0.38f));
+                }
+                else if (action == 1)
+                {
+                    expected.AddRange(sequences[sequence].Take(3).Reverse().Select(frame => frame.name));
+                    Assert.That(duration, Is.InRange(1.4f, 2.05f));
+                }
+                else if (action == 2) Assert.That(duration, Is.InRange(1.02f, 1.07f));
+                else if (action == 3)
+                {
+                    expected.AddRange(expected.ToArray());
+                    Assert.That(duration, Is.InRange(0.85f, 0.90f));
+                    Assert.That(peak, Is.InRange(2.9f, 3.01f));
+                }
+                else
+                {
+                    Assert.That(duration, Is.InRange(0.59f, 0.65f));
+                    Assert.That(peak, Is.InRange(13.8f, 14.01f));
+                    Assert.That(widest, Is.GreaterThan(1.03f));
+                    Assert.That(shortest, Is.LessThan(0.98f));
+                }
+                Assert.That(seen, Is.EqualTo(expected), "Action " + action);
+                // Before holds/reversals, successive drawings must use the action's specified cadence.
+                float fps = action == 0 || action == 4 ? 12 : action == 1 ? 10 : action == 2 ? 8 : 14;
+                for (int f = 1; f < Math.Min(times.Count, sequences[sequence].Length); f++)
+                    Assert.That(times[f] - times[f - 1], Is.InRange(1 / fps - 0.035f, 1 / fps + 0.035f));
                 Assert.That(bird.ShowsRestPose, Is.True);
+                Assert.That(Vector2.Distance(Body(bird).anchoredPosition, origin), Is.LessThan(0.001f),
+                    "Resting body alignment in design pixels: " + Body(bird).anchoredPosition.ToString("R") + " versus " + origin.ToString("R"));
             }
+            Act(bird, 3);
+            yield return new WaitForSeconds(0.15f);
+            bird.Select(true);
+            Assert.That(Active(bird), Is.False);
+            Assert.That(bird.ShowsRestPose, Is.True);
+            Assert.That(Body(bird).Find("Idle pose blend").gameObject.activeSelf, Is.False);
+            yield return new WaitForSeconds(0.3f);
+            Assert.That(Active(bird), Is.False);
             bool completed = false;
-            bird.Cheer(() => completed = true);
+            bird.Cancel(); bird.Cheer(() => completed = true);
             yield return new WaitForSeconds(0.15f);
             bird.Cancel();
             yield return new WaitForSeconds(0.8f);
@@ -264,7 +322,7 @@ namespace PerchSort.PlayModeTests
             }
             for (int i = 0; i < birds.Length; i++)
             {
-                Assert.That(counts[i], Is.GreaterThanOrEqualTo(6), "Every awake perched bird must participate, not starve behind a branch lease.");
+                Assert.That(counts[i], Is.GreaterThanOrEqualTo(3), "Every awake perched bird must participate, not starve behind a branch lease.");
                 Assert.That(peak[i], Is.GreaterThan(1.01f));
             }
             if (target != null) File.WriteAllLines(Path.Combine(evidenceDirectory, "samples.csv"), samples);
@@ -279,16 +337,22 @@ namespace PerchSort.PlayModeTests
                 peak[i] = Mathf.Max(peak[i], Body(birds[i]).localScale.y);
                 float began = (float)typeof(BirdView).GetProperty("LastIdleStart", Private).GetValue(birds[i]);
                 if (began == starts[i]) continue;
-                if (!float.IsNegativeInfinity(starts[i])) Assert.That(began - starts[i], Is.GreaterThanOrEqualTo(0.79f));
+                if (!float.IsNegativeInfinity(starts[i])) Assert.That(began - starts[i], Is.GreaterThanOrEqualTo(1f));
                 starts[i] = began; counts[i]++;
-                if (i > 0) Assert.That(Mathf.Abs(began - starts[i - 1]), Is.GreaterThanOrEqualTo(0.17f));
-                if (i + 1 < birds.Length) Assert.That(Mathf.Abs(began - starts[i + 1]), Is.GreaterThanOrEqualTo(0.17f));
+                int action = (int)typeof(BirdView).GetProperty("LastIdleAction", Private).GetValue(birds[i]);
+                for (int neighbour = Mathf.Max(0, i - 1); neighbour <= Mathf.Min(birds.Length - 1, i + 1); neighbour++)
+                {
+                    if (neighbour == i) continue;
+                    int other = (int)typeof(BirdView).GetProperty("LastIdleAction", Private).GetValue(birds[neighbour]);
+                    float otherStart = (float)typeof(BirdView).GetProperty("LastIdleStart", Private).GetValue(birds[neighbour]);
+                    if (other == action) Assert.That(Mathf.Abs(began - otherStart), Is.GreaterThanOrEqualTo(0.599f));
+                }
             }
         }
 
         private void Capture(int sample, float elapsed, BirdView[] birds)
         {
-            Canvas.ForceUpdateCanvases(); root.Canvas.GetComponent<SafeArea>().Apply(); Canvas.ForceUpdateCanvases();
+            Canvas.ForceUpdateCanvases(); root.Canvas.GetComponent<PerchSort.Game.SafeArea>().Apply(); Canvas.ForceUpdateCanvases();
             camera.Render(); RenderTexture.active = target;
             var image = new Texture2D(1080, 1920, TextureFormat.RGB24, false);
             image.ReadPixels(new Rect(0, 0, 1080, 1920), 0, 0); image.Apply();
