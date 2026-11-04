@@ -41,7 +41,7 @@ namespace PerchSort.Game
             settings = GameUI.Button(transform, art, "Settings", "icon_gear", GameLayout.SettingsButton, root.OpenSettings);
             coinPlate = (RectTransform)transform.Find("Coin pill");
             coinFade = coinPlate.gameObject.AddComponent<CanvasGroup>();
-            gearFade = settings.gameObject.AddComponent<CanvasGroup>();
+            gearFade = settings.GetComponent<CanvasGroup>();
             phaseGroup = GameUI.Rect(transform, "Day night dial", GameLayout.PhaseDial.center, GameLayout.PhaseDial.size).gameObject;
             phaseIcon = GameUI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), GameLayout.PhaseIconCenter, Vector2.one * GameLayout.PhaseIconSize);
             phaseCount = GameUI.Text(phaseGroup.transform, "Moves until phase", "0", font, GameLayout.PhaseCountCenter, GameLayout.PhaseCountSize, GameLayout.PhaseFontSize);
@@ -207,7 +207,8 @@ namespace PerchSort.Game
         {
             housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 550);
             housesLayer.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(homes * Mathf.PI * 4) * (1 - Mathf.Clamp01(homes)) * 2);
-            coinFade.alpha = gearFade.alpha = toolFade.alpha = coins.alpha = controls;
+            coinFade.alpha = toolFade.alpha = coins.alpha = controls;
+            gearFade.alpha = controls * (settings.IsInteractable() ? 1 : GameLayout.DisabledAlpha);
             float offset = (1 - controls) * 160;
             coinPlate.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y + offset);
             Rect text = new Rect(headerBounds.x + headerBounds.width * 142 / 320,
