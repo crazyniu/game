@@ -13,3 +13,7 @@ W1 transparent pieces delivered: branch620x90, twig400x80, crown600x400, trunk16
 Four backgrounds: morning, noon, bluehour, aurora. All reference approved K7 snowy atmosphere; aurora alone carries aurora light. Four transparent pieces exported at the same sizes as W1. Branch nominal flat top y30 (snow edge28..30); twig y22 (20..22). Exact pivots/anchors in `pieces/w4/metadata.json`.
 
 `art/v7/world/qa/w1_comparison.png` and `w4_comparison.png` compare the approved screens with world-only compositions using measured branch-row heights. Bird/HUD reconstruction is outside this takeover. Flat branches use mean observed row heights; these QA placements are not new runtime level data. Snow edges have2px local variation. Static references match palette/material direction, not pixel-identical segmentation.
+
+## W2 bamboo delivery
+
+Four backgrounds: mist, noon, lanterns, drizzle. Bamboo foliage/culms adapt the approved pale spring rendering; lanterns remain distant in lower forest haze. Four transparent bamboo pieces delivered, with branch nominal y9 (node tops6..9), twig y19 (18..19), crown attachment(96,332). The small top variation comes from bamboo nodes, not runtime motion. Metadata and static noon composition in `pieces/w2/`.

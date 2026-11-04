@@ -54,5 +54,33 @@
     "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-8e371726-528b-435e-b9c9-d7ac441232e2.png",
     "reference": "art/v7/ui7_level_k7.png",
     "attempt": 1
+  },
+  {
+    "name": "bg_level_w2_mist",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt its spring woods to BAMBOO without altering the pale low-contrast gameplay composition. Match its pale hazy soft3D forest backdrop, blur and quiet empty play area. Misty bamboo morning: pale blue-green and warm ivory atmospheric haze, soft distant bamboo fading into mist. Large airy empty center across upper two thirds; very softly blurred distant bamboo grove silhouettes in the lower third; soft narrow bamboo leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-fe4d6056-7ff1-467f-91f3-8578b6b78456.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w2_noon",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt its spring woods to BAMBOO without altering the pale low-contrast gameplay composition. Match its pale hazy soft3D forest backdrop, blur and quiet empty play area. Bamboo noon: pale powder-blue sky, a hint of jade-green atmospheric haze, bright but gentle diffused daylight. Large airy empty center across upper two thirds; very softly blurred distant bamboo grove silhouettes in the lower third; soft narrow bamboo leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-6d71abfd-583d-42cf-b5e0-2b34bdc6ecbe.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w2_lanterns",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt its spring woods to BAMBOO without altering the pale low-contrast gameplay composition. Match its pale hazy soft3D forest backdrop, blur and quiet empty play area. Bamboo dusk with lanterns: pale luminous lavender-blue haze, sparse tiny softly defocused warm amber lantern lights nestled far away in the lower-third bamboo grove. No hanging foreground lanterns or ropes; no large focal objects. Large airy empty center across upper two thirds; very softly blurred distant bamboo grove silhouettes in the lower third; soft narrow bamboo leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-26928176-80bf-4cfe-8bf5-66e75d0dc2f0.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
+  },
+  {
+    "name": "bg_level_w2_drizzle",
+    "prompt": "Use case: stylized-concept. Generate ONLY a portrait9:16 opaque mobile puzzle gameplay BACKGROUND plate, final1080x1920. Image1 is approved rendering STYLE and atmosphere reference; adapt its spring woods to BAMBOO without altering the pale low-contrast gameplay composition. Match its pale hazy soft3D forest backdrop, blur and quiet empty play area. Bamboo drizzle: pale silver-blue and mint haze, diffuse overcast light and very fine sparse rain streaks, quiet and luminous. Large airy empty center across upper two thirds; very softly blurred distant bamboo grove silhouettes in the lower third; soft narrow bamboo leaf silhouettes cropped into the extreme top corners. No foreground trunks or side crowns because those are separate sprites. No branches, perches, vines across playfield, birds, animals, houses, beam, ropes, UI, buttons, numbers, text, symbols, watermark, path or ground platform. No sharp detailed landscape, no dark dramatic scene, no outlines. Only soft distant forest atmosphere behind gameplay and cropped top-corner foliage.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-1eb61bea-8353-458f-98fb-36689288c54a.png",
+    "reference": "art/v7/ui7_level_k3_v2.png",
+    "attempt": 1
   }
 ]

@@ -24,6 +24,10 @@ for row in manifest['assets']:
     if kind == 'trunk':
         im = im.resize((145,1920), Image.Resampling.LANCZOS)
         pos = (0,0)
+    elif kind in ('branch','twig'):
+        height = min(size[1]-12, round(im.height*size[0]/im.width))
+        im = im.resize((size[0],height),Image.Resampling.LANCZOS)
+        pos = (0,6)
     else:
         im.thumbnail((size[0],size[1]-12),Image.Resampling.LANCZOS)
         pos = (0,6)
@@ -33,7 +37,7 @@ for row in manifest['assets']:
     a=canvas.getchannel('A'); h=a.histogram()
     entry={'file':str(out/name),'size':size,'alpha_bounds':a.getbbox(),'source_crop':crop,'transparent_pixels':h[0],'partial_alpha_pixels':sum(h[1:255]),'pivot_normalized':[0,0.5]}
     if kind in ('branch','twig'):
-        interval = [round(size[0]*0.30), round(size[0]*0.91)]
+        interval = [round(im.width*0.30), round(im.width*0.91)]
         tops=[]
         for x in range(*interval):
             tops.append(next(y for y in range(size[1]) if a.getpixel((x,y))>=128))

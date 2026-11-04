@@ -10,6 +10,8 @@ Done: W1 `branch_left_w1.png`, `twig_left_w1.png`, `tree_crown_w1.png`, `trunk_l
 
 W1 pushed at `ba83f02`. Done: W4 four backgrounds and four transparent pieces, with recorded flat tops and world-only comparison.
 
-Running: W2, then W3. Six coloured booster illustrations added by lead are in parallel preparation under V7/Art; exact prompts/QA under art/v7/world/boosters.
+W4 pushed at `2e3d391`. Done: W2 four backgrounds and four bamboo pieces; metadata and reviewed composition under pieces/w2.
+
+Running: W3. Six coloured booster illustrations added by lead are in parallel preparation under V7/Art; exact prompts/QA under art/v7/world/boosters.
 
 Blocker: none. Built-in image tool only; no CLI/API fallback. No Unity started or lock created. Static art is not runtime acceptance.
