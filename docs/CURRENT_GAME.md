@@ -13,7 +13,7 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 - Only three narrow exceptions exist: **exact existing storage IDs solely for save compatibility**; **preserved historical archives/original-art provenance**, never active implementation copies; and **legitimate dependency/schema/release metadata**. Existing storage IDs do not authorize new versioned keys. No new arbitrary exceptions or broad allowlists.
 - Review acceptance must check canonical in-place edits, absence of parallel implementation identities/copies, one enabled Game scene, canonical resource roots, and an exact allowed reason for each retained version-looking identifier. `python3 ci/check_current_game_names.py` must pass before tests; the guard complements human review and required Mac acceptance.
 
-[`art/v7/layout_v7.json`](../art/v7/layout_v7.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
+[`art/approved_ui/layout_v7.json`](../art/approved_ui/layout_v7.json) is **historical-original art/layout provenance**, preserved with its original delivery metadata and paths. It is not an active runtime version, current resource root or alternate game entry. Consult canonical GameLayout/current resources for the implementation; do not reactivate the record's obsolete paths.
 
 ## Read current behavior at its owner
 

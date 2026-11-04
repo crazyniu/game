@@ -1,0 +1,26 @@
+{
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "generation_calls": 7,
+  "reference_images": [
+    {
+      "path": "art/approved_ui/ui_shop_boosters.png",
+      "sha256": "2c1979ee7d180cd9798a8c8bc413c1e258436ebfee8ef7824fc4dca953734a04"
+    },
+    {
+      "path": "art/approved_ui/ui_unlock_card.png",
+      "sha256": "e87d28fe5dc3076fe7d8d0bb09465fae8e0910dcc6982d18ffa7a356a1287ec5"
+    }
+  ],
+  "reference_usage": "Both images were supplied through referenced_image_paths on every call.",
+  "prompts": "prompts/*.txt",
+  "raw_outputs": "raw/*.png",
+  "selected_output_mapping": "prepare.py RAW mapping; qa/metrics.json source paths and output hashes",
+  "rejected_output": {
+    "path": "raw/owl_eye_rejected_glow.png",
+    "source": "/Users/apple/.codex/generated_images/01a1a5bd-ba48-7962-87aa-ae4204ff1933/exec-cda3a542-3859-4593-8ab2-416f8891721d.png",
+    "prompt": "prompts/owl_eye.txt",
+    "reason": "Connecting glow plane behind objects"
+  },
+  "selected_owl_eye_prompt": "prompts/owl_eye_retry1.txt"
+}

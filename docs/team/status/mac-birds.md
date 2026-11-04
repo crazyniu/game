@@ -6,7 +6,7 @@ Coordinator: Codex. Branch: `mac-birds/t49`. Species milestone commits are pushe
 
 All ten species (sunny, sky, berry, mint, cocoa, snow, ember, ink, hoot, crow): 17 source frames each, 170 aligned 320x320 RGBA exports and ten 160x160 RGBA portraits in `PerchSort/Assets/Resources/V7/Birds/`. Every export has real transparency. Feet are aligned to y=300; all 170 frame bounds are unclipped.
 
-Each species has a QA strip and idle-actions GIF in `art/v7/birds/qa/`. Game-size sheets and head-feature comparisons record visual review. `all_species_64px_grayscale.png` shows all ten silhouettes/head features in color and grayscale at 64px visible width; visually distinguishable. `export_inventory.json` records dimensions, modes and alpha ranges.
+Each species has a QA strip and idle-actions GIF in `art/approved_ui/birds/qa/`. Game-size sheets and head-feature comparisons record visual review. `all_species_64px_grayscale.png` shows all ten silhouettes/head features in color and grayscale at 64px visible width; visually distinguishable. `export_inventory.json` records dimensions, modes and alpha ranges.
 
 Review corrections retained: Sunny quirk1 body size and Sunny/Skye opposing tilts (`c1adcbd`); all Berry frames and portrait regenerated with two backward plumes (`c48c241`). All later species reviewed for head features before expansion, stable pose scale and clear opposing tilts. Rook flight frames regenerated to remove invented straps.
 

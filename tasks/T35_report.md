@@ -17,7 +17,7 @@
 
 ## Complete validation table
 
-Command: `/tmp/perch-t32-sdk/dotnet run --project tools/levels/V5LevelTool -c Release -- validate PerchSort/Assets/Resources/V5/levels.json --complete --json-out /tmp/t35-installed-evidence.json`.
+Command: `/tmp/perch-t32-sdk/dotnet run --project tools/levels/LevelTool -c Release -- validate PerchSort/Assets/Resources/V5/levels.json --complete --json-out /tmp/t35-installed-evidence.json`.
 
 Settings: 60,000 ms / 20,000,000 states / 4096 MiB per search; seed 350053; 1,000 uniform random plays per level, capped at 200 transfers/swivels. No undo or booster is sampled. The final complete run exited 0.
 

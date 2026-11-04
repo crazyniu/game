@@ -337,7 +337,7 @@ Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 8
 
 `levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. Level 1 stays as in §2 (missing fields default: world 1, variant noon, dayLength 0, kind normal). Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.
 
-A .NET console tool `tools/levels/V5LevelTool` (run on 251) compiles the Unity Core sources directly, so tool and game share one rule implementation, and validates every level: counts, solvable without boosters by exhaustive search, par = shortest solution, random-play win rate (1000 runs), dead-state share, the role gate (§11) and the ordering rule (§6.5). Core C# has a matching solver used by the Firefly hint and by EditMode tests that re-verify par for every level.
+A .NET console tool `tools/levels/LevelTool` (run on 251) compiles the Unity Core sources directly, so tool and game share one rule implementation, and validates every level: counts, solvable without boosters by exhaustive search, par = shortest solution, random-play win rate (1000 runs), dead-state share, the role gate (§11) and the ordering rule (§6.5). Core C# has a matching solver used by the Firefly hint and by EditMode tests that re-verify par for every level.
 
 ## 13. Development roadmap
 
@@ -347,7 +347,7 @@ A .NET console tool `tools/levels/V5LevelTool` (run on 251) compiles the Unity C
 | T32 | omp | Core v5.2: eggs, sleepy, crow, twig, growing branch, rule order, Chorus, boosters as undoable actions, multi-birdhouse per species, schema; EditMode tests for every rule in §1, §6, §7, §8.1 | T31 |
 | T33 | Codex | Art: species 3–8 + crow full frame sets, egg/nest frames, sleep frames, outfits (3 per species), booster icons, count badge, W1 kit variants, per-species birdhouse roof bands | T31 |
 | T34 | omp | Animation polish per §5 (attention, branch flex, egg/sleep/crow/growth, Chorus, ambient particles, transitions) | T32, T33 |
-| T35 | omp + Claude review | 40 levels authored + `V5LevelTool` validation (Core sources compiled in .NET); Claude reviews every level's role | T32 |
+| T35 | omp + Claude review | 40 levels authored + `LevelTool` validation (Core sources compiled in .NET); Claude reviews every level's role | T32 |
 | T36 | Codex | W2–W4 scene kits and variants, map art, shop/Aviary UI art, alt birdhouses | T33 |
 | T37 | omp | Meta: world map, shop, Aviary, coins/daily gift, saves | T32, T36 |
 | T38 | Claude + Mac | Full playthrough on Mac, screenshots, tuning | all |

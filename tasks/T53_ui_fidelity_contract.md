@@ -2,18 +2,18 @@
 
 ## Why
 The integrated build (t52 integration, 63d4782) does not look like the user-approved v7 designs. The user said the UI is "very wrong"
-and that the approved style is the one in `art/v7/ui7_*.png` (master: `ui7_level_k3_v2.png`). Static screenshots at
+and that the approved style is the one in `art/approved_ui/ui_*.png` (master: `ui_level_k3_v2.png`). Static screenshots at
 `/tmp/perch-current-game/screens/*.jpg` (on 251; regenerate on the Mac with `bash scripts/screenshots.sh`, output `build/screens/game/`) were
 compared with the approved images by the coordinator. Passing tests is NOT the goal: **matching the approved images in a screenshot is.**
 
 ## Source of truth (read-only)
-- Approved images: `art/v7/ui7_*.png` (1080x1920) and `art/v7/layout_v7.json` (measured positions). Runtime art: `PerchSort/Assets/Resources/{Art,World,Birds}`.
+- Approved images: `art/approved_ui/ui_*.png` (1080x1920) and `art/approved_ui/layout_v7.json` (measured positions). Runtime art: `PerchSort/Assets/Resources/{Art,World,Birds}`.
 - Do not edit `art/` originals, `layout_v7.json`, or anything outside your owned files. Do not generate new artwork. If a needed asset is missing or wrong,
   STOP that item and report the asset name and the approved-image region that needs it.
 - English only in code, comments, commits, reports. No emoji.
 
 ## Defects found (approved vs runtime), each owned by exactly one task
-Board screen (`level1_start`, `level_k7` vs `ui7_level_k3_v2`, `ui7_level_k7`):
+Board screen (`level1_start`, `level_k7` vs `ui_level_k3_v2`, `ui_level_k7`):
 - D1 Trees: runtime has two straight, untapered trunk columns glued to the screen edges. Approved: trunks that curve in from the edge, fork into
   thick tapering limbs, branches grow OUT of the trunk (joined, not floating sticks), vines/leaf sprigs on the joints, big leafy crowns (about 40% of
   screen width, overlapping the trunk top, starting around y=470-700 of 1920) that hug the trunk. Runtime crowns are small and detached. -> T53A
@@ -28,7 +28,7 @@ Board screen (`level1_start`, `level_k7` vs `ui7_level_k3_v2`, `ui7_level_k7`):
   a tiny faded undo. Bottom row positions follow approved (y about 1795, evenly spaced, 3 buttons, 4 when the crow mechanic is active). -> T53B
 - D5 Birds are about right in size; do not change `BirdView.cs`/idle/flight code (owned by the T52 integration).
 
-Popups (`level1_win`, `settings`, `level_card` vs `ui7_win`, `ui7_settings`, `ui7_level_card`):
+Popups (`level1_win`, `settings`, `level_card` vs `ui_win`, `ui_settings`, `ui_level_card`):
 - D6 No dimming/blur layer behind popups; the board stays bright and cluttered and the HUD gear is greyed. Approved: scene darkens to about 55-60% with
   the panel centered and clearly separated, golden light rays behind the win panel, confetti. -> T53C
 - D7 Win panel is smaller and lower in contrast than approved, side birds are outside the frame instead of clinging to the panel edge, no leaf sprigs,
@@ -40,7 +40,7 @@ Popups (`level1_win`, `settings`, `level_card` vs `ui7_win`, `ui7_settings`, `ui
   outlines even for earned stars (earned = filled gold, unearned = dim), stat pill shows "—", roster of bird portraits missing detail, no mechanic icons
   (sleepy owl, egg nest) for levels that use them. Panel about 600 px wide, vertically centered. -> T53C
 
-Map (`map` vs `ui7_map`):
+Map (`map` vs `ui_map`):
 - D10 Map shows levels 7..1 on a plain path only; approved shows the vine-arch wooden gate (locked) at the end of each world segment, 3 gold stars on
   completed nodes, a glowing current node with the yellow chick perched on it plus sparkles, stepping stones on the path, bamboo background behind the
   gate, bigger flowers/foreground bushes. Node discs about 190 px wide, number about 70 px, completed shows star trio. -> T53D

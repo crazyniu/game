@@ -24,4 +24,4 @@
 
 ## Sources
 - [T50 requirements](T50_ui_v7_code.md), [handoff and exact trigger policy](T50_report.md#popup-trigger-policy--exact-lead-decision), [WIP risks](../docs/team/status/mac-ui.md).
-- [Team memory](../docs/team/MEMORY.md), [v5 design](../docs/GAME_DESIGN_V5.md), approved `art/v7/ui7_*.png` references.
+- [Team memory](../docs/team/MEMORY.md), [v5 design](../docs/GAME_DESIGN_V5.md), approved `art/approved_ui/ui_*.png` references.

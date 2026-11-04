@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "art/approved_ui/ui_level_k3_v2.png",
+  "assets": [
+    {
+      "kind": "branch",
+      "prompt": "Use case: stylized-concept. ONE isolated bamboo forest horizontal bird perch branch sprite, genuine transparent background. Use approved spring game screenshot as soft polished dimensional 3D style reference, not literal species. Make a slender golden-green bamboo culm perch with subtle spaced nodes, root cut flush LEFT edge and gently tapered rounded RIGHT tip, straight level top for bird feet across80% length. A small thin vine curls BELOW left quarter, two small slender bamboo leaves below, nothing above landing surface. Intended620x90 sprite, thin18px shaft, long horizontal composition. No trunk, birds, UI, background or text, no outlines, no glow. Materials silky jade-green bamboo with golden lit ridge, restrained texture.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-bb562b22-9da3-477f-8d4f-46145a065dab.png"
+    },
+    {
+      "kind": "twig",
+      "prompt": "Use case: stylized-concept. ONE isolated short bamboo twig bird perch sprite with true transparent background. Approved spring screenshot is style reference only: soft polished 3D, rounded dimension, no outlines. Silky jade-green bamboo with gold lit top and subtle nodes. Short horizontal thin twig, root at LEFT edge, tapered rounded tip RIGHT, perfectly level clean landing surface across80%. Small vine loop and two slender bamboo leaves only UNDER left quarter. Intended400x80, shaft15px final. No trunk, birds, text, UI, background or glow. Front orthographic single sprite.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-ef70cea1-2527-4308-a4cf-dd855237f0f3.png"
+    },
+    {
+      "kind": "crown",
+      "prompt": "Use case: stylized-concept. ONE isolated bamboo leafy canopy TREE CROWN game sprite on genuine transparent background. Approved spring screen is style reference for rounded soft dimensional 3D foliage, but species must be bamboo: dense graceful sprays of long narrow pointed jade and mint green bamboo leaves, slender curved little stems concealed inside. Broad airy asymmetrical crown wider than tall, extends RIGHT from a small bamboo stalk attachment at bottom-left quarter. Intended600x400. Entire silhouette inside frame. No long trunk, no perch branches, birds, UI, background, labels, external glow or shadow. Preserve fine leaves with smooth clean alpha edges, polished softly shaded forest game asset, no outlines.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-f5319421-0565-4441-8a00-8faa08a7b0b9.png"
+    },
+    {
+      "kind": "trunk",
+      "prompt": "Use case: stylized-concept. ONE isolated very tall slender BAMBOO TRUNK culm on true transparent background. Use approved spring screenshot as soft dimensional polished 3D art style reference only, adapt species to bamboo. Silky jade-green vertical bamboo pole with natural gold-green highlights, subtle node rings at widely spaced intervals. Intended160x1920, vertical continuous stem cropped top and bottom, thin nearly straight slight natural contour. NO branches, NO leaves, no roots, no birds, UI, text, glow or background shadows. Single culm only. Left-edge scene support sprite with clear right silhouette, soft lighting, no outlines.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-b45f581f-114a-4d2c-bdf7-e6652a1b8ddc.png"
+    }
+  ]
+}

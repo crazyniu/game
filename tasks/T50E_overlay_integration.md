@@ -8,7 +8,7 @@ Own only `BirdView.cs`, isolated `V7BirdOverlay*` helpers/metadata, this spec, `
 
 ## Inputs and reviewed scope
 
-- Egg/overlay delivery `mac-art/world` `f79dc38`, asset commit `34eddebeca3b75fa5e39019090c8b486ba99911f`; owning contract `tasks/T49_eggs_report.md` and `art/v7/eggs_overlays/manifest.json` at that commit.
+- Egg/overlay delivery `mac-art/world` `f79dc38`, asset commit `34eddebeca3b75fa5e39019090c8b486ba99911f`; owning contract `tasks/T49_eggs_report.md` and `art/approved_ui/eggs_overlays/manifest.json` at that commit.
 - Final bird delivery `mac-birds/t49` `fd14469`; read its supplied Sunny/Skye 17-frame strips and production frames.
 - Read all 40 authored levels. Family flags occur only on Sunny (L15/L18/L39) and Skye (L16); one mama and one chick each. Do not claim all-species/all-content placement coverage.
 

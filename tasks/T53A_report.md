@@ -49,10 +49,10 @@ The approved/runtime side-by-sides were generated with `/tmp/t53a/compare.py` (o
 
 | Runtime capture | Actual authored density | Approved comparison | Final side-by-side |
 | --- | --- | --- | --- |
-| `level1_start` / level 1 | 2 logical row indices, 4 actionable limbs | `ui7_level_k3_v2.png` | `build/t53a/level1_start_comparison.png` |
-| `level_k3` / level 5 | 3 logical row indices, 5 actionable limbs | `ui7_level_k3_v2.png` | `build/t53a/level_k3_comparison.png` |
-| `level_k7` / level 40 | 5 logical row indices, 9 actionable limbs | `ui7_level_k7.png` | `build/t53a/level_k7_comparison.png` |
-| `world_w3` / level 30 | 5 logical row indices, 9 actionable limbs | `ui7_level_k7.png`, structure comparison only; different forest world | `build/t53a/world_w3_comparison.png` |
+| `level1_start` / level 1 | 2 logical row indices, 4 actionable limbs | `ui_level_k3_v2.png` | `build/t53a/level1_start_comparison.png` |
+| `level_k3` / level 5 | 3 logical row indices, 5 actionable limbs | `ui_level_k3_v2.png` | `build/t53a/level_k3_comparison.png` |
+| `level_k7` / level 40 | 5 logical row indices, 9 actionable limbs | `ui_level_k7.png` | `build/t53a/level_k7_comparison.png` |
+| `world_w3` / level 30 | 5 logical row indices, 9 actionable limbs | `ui_level_k7.png`, structure comparison only; different forest world | `build/t53a/world_w3_comparison.png` |
 
 Uncomposited final frames are preserved as `build/t53a/{level1_start,level_k3,level_k7,world_w3}_final.png`. Initial frames are preserved as matching `_before.png` files. `build/t53a/mech_growing_final.png` was also inspected to verify the shortened limb retains a rounded end; `mech_crow_twig_final.png` is retained. Canonical capture output remains under `build/screens/game/`. These full-resolution build artifacts are gitignored.
 

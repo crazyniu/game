@@ -94,7 +94,7 @@ A Mac continuation starts by reading this handoff, [final T50 report](../../task
 
 ## Observed final reconciliation checks — source/tree only
 
-- Staged runtime/art/fixture tree under PerchSort and art/v7 is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
+- Staged runtime/art/fixture tree under PerchSort and art/approved_ui is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
 - Staged diff against incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd` is empty for Core, authored level JSON/Levels resources/tools, every Unity scene and ProjectSettings.
 - AGENTS.md, CLAUDE.md and TEAM.md exactly match incoming main, including current Codex/parallel/OMP/Mac-only directives.
 - No unmerged index entries remain. Staged diff whitespace/conflict-marker checks passed. All final report/owner-report links and the V5.unity entry file were found.

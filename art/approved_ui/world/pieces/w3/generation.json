@@ -1,0 +1,26 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "art/approved_ui/ui_level_k3_v2.png",
+  "assets": [
+    {
+      "kind": "branch",
+      "prompt": "Use case: stylized-concept. ONE isolated autumn MAPLE horizontal bird perch branch sprite on genuine transparent background. Approved spring screenshot is soft polished dimensional3D style reference only. Natural slender warm reddish chestnut wood with amber top highlight, subtle fine bark, ROOT flush LEFT edge, very long straight horizontal branch tapering to rounded RIGHT tip. Flat level clean bird-foot landing surface across80%. Small curled russet vine below root-left quarter with two small recognizably five-lobed orange-red maple leaves. Intended620x90 sprite, thin18px shaft. No foliage above perch, no trunk, birds, UI, background, text, glow or external shadows; no outlines. Single front view asset.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-adc66d06-4622-4c81-9903-1b56c8dcae1f.png"
+    },
+    {
+      "kind": "twig",
+      "prompt": "Use case: stylized-concept. ONE isolated short autumn MAPLE twig bird perch sprite, true transparent background. Approved spring screenshot supplies soft rounded polished3D art style; change species to maple. Warm reddish chestnut fine-grain wood, amber soft upper highlight. ROOT flush LEFT edge, short thin perfectly horizontal flat top perch across80%, rounded taper RIGHT. Under left quarter one graceful russet vine loop with two small five-lobed orange maple leaves. Intended400x80 final sprite. No objects above landing surface, no trunk, birds, UI, background, text, outlines, glow or external shadows. Orthographic front view.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-f5b8ba18-2c83-427c-b62e-b0281e698376.png"
+    },
+    {
+      "kind": "crown",
+      "prompt": "Use case: stylized-concept. ONE isolated autumn MAPLE TREE CROWN game sprite on genuine transparent background. Reference approved spring screen supplies soft dimensional rounded polished3D forest style. Dense lush layers of individual FIVE-LOBED MAPLE leaves, saturated warm orange and coral-red with golden tips and russet shaded undersides. Broad asymmetrical canopy wider than tall, spreads RIGHT from small warm reddish-brown trunk attachment at bottom-left quarter. Intended600x400 sprite. Entire silhouette inside frame. No long trunk, perch branches, birds, UI, text or backdrop. NO glow or shadows outside silhouette, no outlines. Soft natural sculpted leaves, clean transparent edges.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-c2fa83ba-a27c-4a78-8227-d7811bb5c4af.png"
+    },
+    {
+      "kind": "trunk",
+      "prompt": "Use case: stylized-concept. ONE isolated very tall slender MAPLE TREE TRUNK sprite on genuine transparent background. Approved spring screenshot is style reference for soft dimensional polished3D forest bark, but maple warm reddish chestnut bark, amber light ridge and subtle winding grain. Intended160x1920 canvas, full-height almost straight narrow trunk, cut at top and bottom, slightly irregular natural contour. Trunk ONLY: no branches, twigs, leaves, roots, birds, background, UI, text, outlines, glow or external shadow. Front orthographic, subtle soft highlights. Continuous slender scene-edge support that separate branches will connect to.",
+      "raw_path": "/Users/apple/.codex/generated_images/01a1a5b8-a739-7e82-8d4f-82799dc9318f/exec-aa1a0396-9cb5-4ca8-b574-b29690b22f0f.png"
+    }
+  ]
+}

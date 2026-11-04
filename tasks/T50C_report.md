@@ -6,7 +6,7 @@
 
 The latest user instruction overrides historical tests-before-push requirements. Unity execution, compiler execution, EditMode/PlayMode suites, all-level playthrough, captures and timed runtime evidence are **NOT_RUN**. No historical green result is evidence for this delivery. Static source/API/asset review is not runtime acceptance.
 
-Requirements: [T50C specification](T50C_map_motion.md). Design references: [T50 Phase 2](T50_ui_v7_code.md), [v5 animation/world contract](../docs/GAME_DESIGN_V5.md), [team memory](../docs/team/MEMORY.md), approved `art/v7/ui7_map.png`, `ui7_level_k3_v2.png` and `ui7_popup_world_unlock.png`.
+Requirements: [T50C specification](T50C_map_motion.md). Design references: [T50 Phase 2](T50_ui_v7_code.md), [v5 animation/world contract](../docs/GAME_DESIGN_V5.md), [team memory](../docs/team/MEMORY.md), approved `art/approved_ui/ui_map.png`, `ui_level_k3_v2.png` and `ui_popup_world_unlock.png`.
 
 ## Changed files
 

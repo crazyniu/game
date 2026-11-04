@@ -39,7 +39,7 @@ At nominal 200px adult display the bow canvas is 45px and fluff canvas 55px. The
 
 ## Sources and preparation
 
-Eight built-in image-tool calls, all with approved `ui7_level_k7.png` references: one shared nest, five egg parts, two overlays. Wobble/crack/shell generations also reference the derived idle egg; overlays reference the current Sunny snapshot. No CLI/API-key fallback, no sub-workers and no cross-server Dispatch. Raw outputs and exact prompts are in `generation.json` and `raw/`. Approved originals remain unchanged.
+Eight built-in image-tool calls, all with approved `ui_level_k7.png` references: one shared nest, five egg parts, two overlays. Wobble/crack/shell generations also reference the derived idle egg; overlays reference the current Sunny snapshot. No CLI/API-key fallback, no sub-workers and no cross-server Dispatch. Raw outputs and exact prompts are in `generation.json` and `raw/`. Approved originals remain unchanged.
 
 Representative Sunny/Skye/Berry/Minty PNGs were read-only copied from `origin/main` commit `3e82c64734f3e7291a332d1c0e90263954ce40cd` into `references/` for QA. Source paths and commit are recorded in `references/sources.json`; no runtime species checkout or modification occurred.
 

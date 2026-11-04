@@ -6,7 +6,7 @@ The current user authorized this isolated parallel T50 module on `mac-map-motion
 
 Owned paths: `PerchSort/Assets/Scripts/V5/Game/V6MapView.cs`, `V5SceneView.cs`, their metadata, new `V7MapMotion*`, `V7Ambient*`, `V7LeafTransition*` helpers and metadata, this specification, `tasks/T50C_report.md`, and `docs/team/status/mac-map-motion.md`.
 
-References: [T50](T50_ui_v7_code.md), [team memory](../docs/team/MEMORY.md), [v5 design §5 and §9](../docs/GAME_DESIGN_V5.md), approved `art/v7/ui7_map.png`, `ui7_level_k3_v2.png`, and world-unlock screen. Preserve the approved plush/soft forest, purple/green buttons, honey wood and green ribbon appearance. Reuse delivered sprites and existing LitMotion/V5Motion; no new library or generated artwork.
+References: [T50](T50_ui_v7_code.md), [team memory](../docs/team/MEMORY.md), [v5 design §5 and §9](../docs/GAME_DESIGN_V5.md), approved `art/approved_ui/ui_map.png`, `ui_level_k3_v2.png`, and world-unlock screen. Preserve the approved plush/soft forest, purple/green buttons, honey wood and green ribbon appearance. Reuse delivered sprites and existing LitMotion/V5Motion; no new library or generated artwork.
 
 ## Requirements
 
