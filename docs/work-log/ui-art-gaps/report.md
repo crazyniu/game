@@ -26,6 +26,12 @@ Added `leaf_sprig_a`, `leaf_sprig_b`, and `leaf_sprig_c`, each 180 by 140 RGBA. 
 
 Added `Art/hoot_sleep_bare`, 320 by 320 RGBA, derived by removing the nightcap from `Birds/hoot_sleep`. The original bird asset remains unchanged. The new sprite retains the original centered `(0.5, 0.5)` pivot, pixels-per-unit and square canvas. The closed-eye expression, tan layered feathers, cream face, orange feet and lower-canvas placement remain recognizable; the visible lower alpha bound is y=301. Reviewed per-item before/after and 64 px transparency on all three backgrounds. No owl generation was rejected. This is a static asset delivery, not animation evidence or mechanic-row runtime acceptance.
 
-## Remaining batches
+## Map glyph batch
 
-Map glyphs remain to be produced.
+Replaced `icon_basket` with a white woven basket and arched handle, and `icon_aviary` with a simple house outline and small bird silhouette. Both use faint lilac shading based on `icon_gear`, and both are 256 by 256 RGBA as explicitly requested (previous canvas: 96 by 96). Existing filenames and `.meta` bytes are preserved. Reviewed transparent openings and outer edges against light, dark and purple backgrounds, with actual 64 px previews. No purple disc is baked in.
+
+The initial basket generation was rejected for broad white glow outside the silhouette and inside the handle. `icon_basket_rejected_glow.png` retains that raw rejection; it is not a runtime asset. Regeneration removed the glow and restored clean transparent openings. The aviary candidate passed offline visual review without regeneration.
+
+## Delivery and verification status
+
+All 16 requested runtime images are present. No requested image is missing. Rejected generations: the initial egg-eye lighting and initial basket glow, both replaced by corrected accepted assets. Unity compilation, full suites and stable-state captures are pending the shared serialized queue. New tool glyphs, sprigs and bare owl are not wired by this task, so their runtime placement remains an integration boundary. No code was edited.
