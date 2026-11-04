@@ -1,5 +1,7 @@
 # T54C report — branch bird idle sequences
 
+> Historical delivery record: the sections through “Requested contract change” describe commit `9b6a839c`. The later Instant-freeze follow-up below records the merged integration state and new verification; the earlier missing-art statement and test counts are not current claims.
+
 ## Outcome
 
 Implemented the latest `tasks/T54_animation_addendum.md`, including its binding exact branch-action table, in the canonical runtime. Branch: `mac-t54c/t54`. The supplied contract tip was used, and both requested `origin/t54-contract` updates were merged. No peer implementation branch or main was merged or modified.
@@ -85,3 +87,68 @@ The reported initial static/rare idle problem is user-supplied evidence, support
 ## Requested contract change
 
 None requested. Missing-art and literal feet/torso-registration boundaries are recorded above rather than hidden behind procedural still transformations. Main and all peer branches remain untouched.
+
+## Instant-freeze determinism follow-up — 2026-11-05
+
+### Change
+
+Merged `origin/t54-integration` first, fast-forwarding to `a7679d97`. The assertion fix is committed as `64d4c8d` on `mac-t54c/t54`. Main was not touched.
+
+Only `PerchSort/Assets/Tests/PlayMode/T54CIdleTests.cs` changes executable test code:
+
+- Replaces exact equality against the incidental `Vector3.one` value with a captured frozen Vector3 baseline. `BirdView.Update` uses Unity's approximate vector operator when deciding to reset a near-unit scale; NUnit's old exact equality did not express the same precision contract. The coordinator's intermittent failure is accepted as evidence; the old assertion was not rerun to reproduce it.
+- Switches `GameMotion.Instant` immediately after `WaitForFixedUpdate`, before Update and its breathing callbacks. The existing `ApplyIdleMotion` Instant guard therefore prevents breathing writes after the switch in that frame. The test then waits until the Unity frame number has advanced before taking its baseline.
+- Compares every bird's complete localScale Vector3 with that same baseline over **30 consecutive frames**, using `Vector3EqualityComparer(1e-5f)` explicitly.
+- Failure messages identify the bird, sampled frame and Unity frame, print the epsilon, and print expected and actual **x, y, z with six decimal places**, using invariant culture.
+- Retains rest-pose, inactive-idle and fixed visual-position assertions throughout the freeze window. The pre-freeze breathing and logical-seat checks remain.
+
+No production runtime, resource, scene, retained test outside this method, or gameplay behavior was changed for this follow-up.
+
+### Verification
+
+| Verification | Passed | Failed | Skipped |
+| --- | ---: | ---: | ---: |
+| Isolated filtered test processes | 10/10 | 0 | 0 |
+| Full integrated EditMode suite | 312/312 | 0 | 0 |
+| Full integrated PlayMode suite | 53/53 | 0 | 0 |
+| Naming-policy self-tests | 8/8 | 0 | 0 |
+
+The naming guard also passed with zero violations. Every isolated run's XML was checked for exactly one discovered case, the exact requested fullname, Passed status, and zero failures/skips. All ten XML files were then checked again as a single aggregate. The full suite includes the fixed case in addition to the ten isolated invocations.
+
+Commands:
+
+```bash
+git fetch origin t54-integration && git merge --no-edit origin/t54-integration
+python3 ci/check_current_game_names.py --self-test
+python3 ci/check_current_game_names.py
+flock /tmp/unity.lock bash scripts/run_tests.sh
+```
+
+The temporary loop runner invoked this exact filter in ten separate Unity processes, acquiring the shared lock for each invocation:
+
+```bash
+for iteration in {1..10}; do
+    flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity \
+        -batchmode -nographics \
+        -projectPath /Users/apple/orca/workspaces/game/t54-idle/PerchSort \
+        -runTests -testPlatform PlayMode \
+        -testFilter PerchSort.PlayModeTests.T54CIdleTests.BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt \
+        -testResults "/Users/apple/orca/workspaces/game/t54-idle/build/idle-freeze-stress/run-$iteration.xml" \
+        -logFile "/Users/apple/orca/workspaces/game/t54-idle/build/idle-freeze-stress/run-$iteration.log"
+done
+```
+
+**Queue interruption, not a test failure:** the initial loop completed runs 1–8, then reached the shell job's 3600-second deadline while waiting for the shared lock for run 9. Neither a run-9 Unity log nor XML existed, and the process check confirmed no Unity process from this worktree remained. The loop was resumed at `{9..10}` with no job deadline. Both remaining runs passed; completed runs were not repeated or double-counted. The full-suite command also acquired the same lock and never ran concurrently with a filtered Unity process. No user Editor was running at the initial check and none was killed.
+
+Portable evidence under `tasks/evidence/T54C/instant_freeze_stress/`:
+
+- `summary.json`: verified ten-run aggregate, per-run times, filter, epsilon, frame count and interruption details.
+- `run_01.xml` through `run_10.xml`: the ten independent filtered results.
+- `full_editmode.xml` and `full_playmode.xml`: the full integrated suite results.
+
+Local logs and a pre-validation manifest of 869 tracked scene/meta/settings/package files remain under ignored `build/idle-freeze-stress/`. Compared with that manifest, Unity import/build changed 114 bird metadata files and the generated Game scene; those changes remain unstaged and excluded from the branch. No generated file was blindly reverted. The temporary loop script was removed after collecting the results.
+
+### Boundary
+
+This is a test-only determinism/diagnostics fix, verified by real headless Mac PlayMode execution. No new animation/art or device/GUI acceptance is claimed. Ten independent passes are observed evidence, not a claim that every possible future scheduling condition has been exhausted.
+

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="53" result="Passed" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:13:04Z" duration="134.6682202">
+  <test-suite type="TestSuite" id="1070" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:13:04Z" duration="134.668220" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1134" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/t54-idle/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:13:04Z" duration="134.664619" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41949" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1135" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:13:04Z" duration="134.664163" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1136" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:13:04Z" duration="134.663744" total="53" passed="53" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1071" name="GameplayTests" fullname="PerchSort.PlayModeTests.GameplayTests" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:11:21Z" duration="31.475244" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1074" name="AnimatedTransferLocksAirborneInputAndUndoCancelsCallbacks" fullname="PerchSort.PlayModeTests.GameplayTests.AnimatedTransferLocksAirborneInputAndUndoCancelsCallbacks" methodname="AnimatedTransferLocksAirborneInputAndUndoCancelsCallbacks" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="1549579235" result="Passed" start-time="2026-11-04 17:10:50Z" end-time="2026-11-04 17:10:51Z" duration="1.802061" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1072" name="AuthoredMovesOpenWinAndPersistChorusReward" fullname="PerchSort.PlayModeTests.GameplayTests.AuthoredMovesOpenWinAndPersistChorusReward" methodname="AuthoredMovesOpenWinAndPersistChorusReward" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="2001702185" result="Passed" start-time="2026-11-04 17:10:51Z" end-time="2026-11-04 17:10:52Z" duration="0.097770" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1073" name="BranchPointerClicksSelectThenTransferIntoOwnHouse" fullname="PerchSort.PlayModeTests.GameplayTests.BranchPointerClicksSelectThenTransferIntoOwnHouse" methodname="BranchPointerClicksSelectThenTransferIntoOwnHouse" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="762658024" result="Passed" start-time="2026-11-04 17:10:52Z" end-time="2026-11-04 17:10:52Z" duration="0.064996" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1075" name="CombinedFixtureRevealSwivelCrowAndWakeMatchSnapshot" fullname="PerchSort.PlayModeTests.GameplayTests.CombinedFixtureRevealSwivelCrowAndWakeMatchSnapshot" methodname="CombinedFixtureRevealSwivelCrowAndWakeMatchSnapshot" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="183275323" result="Passed" start-time="2026-11-04 17:10:52Z" end-time="2026-11-04 17:10:52Z" duration="0.072937" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1077" name="DaySleepFrameCannotBeOverwrittenByAnExistingBlinkDuringTheFade" fullname="PerchSort.PlayModeTests.GameplayTests.DaySleepFrameCannotBeOverwrittenByAnExistingBlinkDuringTheFade" methodname="DaySleepFrameCannotBeOverwrittenByAnExistingBlinkDuringTheFade" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="646360678" result="Passed" start-time="2026-11-04 17:10:52Z" end-time="2026-11-04 17:10:58Z" duration="6.779582" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1084" name="EmptyStockOrSeenFlagSuppressesSaplingIntro" fullname="PerchSort.PlayModeTests.GameplayTests.EmptyStockOrSeenFlagSuppressesSaplingIntro" methodname="EmptyStockOrSeenFlagSuppressesSaplingIntro" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="1131752335" result="Passed" start-time="2026-11-04 17:10:58Z" end-time="2026-11-04 17:10:59Z" duration="0.172637" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1076" name="EveryMechanicSettlesAfterRealTimedPlayback" fullname="PerchSort.PlayModeTests.GameplayTests.EveryMechanicSettlesAfterRealTimedPlayback" methodname="EveryMechanicSettlesAfterRealTimedPlayback" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="1424258665" result="Passed" start-time="2026-11-04 17:10:59Z" end-time="2026-11-04 17:11:16Z" duration="16.968972" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1086" name="GoalInformationBlocksPlayAndUnlockAcknowledgementIsOnceOnly" fullname="PerchSort.PlayModeTests.GameplayTests.GoalInformationBlocksPlayAndUnlockAcknowledgementIsOnceOnly" methodname="GoalInformationBlocksPlayAndUnlockAcknowledgementIsOnceOnly" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="1933777524" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.096874" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1088" name="HomeFlightShrinksAroundTheGoalDoorNotItsFootPivot" fullname="PerchSort.PlayModeTests.GameplayTests.HomeFlightShrinksAroundTheGoalDoorNotItsFootPivot" methodname="HomeFlightShrinksAroundTheGoalDoorNotItsFootPivot" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="11964993" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.057757" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1085" name="MapCardLevelWinHomeRoundTripAndSettingsBlockBackground" fullname="PerchSort.PlayModeTests.GameplayTests.MapCardLevelWinHomeRoundTripAndSettingsBlockBackground" methodname="MapCardLevelWinHomeRoundTripAndSettingsBlockBackground" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="180646508" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.137208" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1079" name="NextLoadsNextCatalogIdWithStarterGift" fullname="PerchSort.PlayModeTests.GameplayTests.NextLoadsNextCatalogIdWithStarterGift" methodname="NextLoadsNextCatalogIdWithStarterGift" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="820118122" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.079812" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1080" name="ProfileRoundTripRestoresStarsToolsTutorialAndUnlock" fullname="PerchSort.PlayModeTests.GameplayTests.ProfileRoundTripRestoresStarsToolsTutorialAndUnlock" methodname="ProfileRoundTripRestoresStarsToolsTutorialAndUnlock" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="517263407" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.059258" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1078" name="PurchaseSurvivesUseUndoAndRestartWithoutRefundingCoins" fullname="PerchSort.PlayModeTests.GameplayTests.PurchaseSurvivesUseUndoAndRestartWithoutRefundingCoins" methodname="PurchaseSurvivesUseUndoAndRestartWithoutRefundingCoins" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="1041972259" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.068003" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1083" name="SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt" fullname="PerchSort.PlayModeTests.GameplayTests.SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt" methodname="SaplingButtonDismissesIntroAndUndoDoesNotRepeatIt" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="951602674" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.126641" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1082" name="SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending" fullname="PerchSort.PlayModeTests.GameplayTests.SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending" methodname="SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="2138726177" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:16Z" duration="0.175495" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1081" name="TestModeShowsFortyClearedLevelsWithoutSavingSyntheticProgressOrStock" fullname="PerchSort.PlayModeTests.GameplayTests.TestModeShowsFortyClearedLevelsWithoutSavingSyntheticProgressOrStock" methodname="TestModeShowsFortyClearedLevelsWithoutSavingSyntheticProgressOrStock" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="700319797" result="Passed" start-time="2026-11-04 17:11:16Z" end-time="2026-11-04 17:11:17Z" duration="0.954468" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1087" name="TimedFlockArrivalsReachTheirGoalDoor" fullname="PerchSort.PlayModeTests.GameplayTests.TimedFlockArrivalsReachTheirGoalDoor" methodname="TimedFlockArrivalsReachTheirGoalDoor" classname="PerchSort.PlayModeTests.GameplayTests" runstate="Runnable" seed="301274712" result="Passed" start-time="2026-11-04 17:11:17Z" end-time="2026-11-04 17:11:21Z" duration="3.752752" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1089" name="NotificationFlowTests" fullname="PerchSort.PlayModeTests.NotificationFlowTests" classname="PerchSort.PlayModeTests.NotificationFlowTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-04 17:11:21Z" end-time="2026-11-04 17:11:35Z" duration="13.703432" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1090" name="DailyPaysOnlyOnAcknowledgementAndSurvivesTimedCancellationAndReload" fullname="PerchSort.PlayModeTests.NotificationFlowTests.DailyPaysOnlyOnAcknowledgementAndSurvivesTimedCancellationAndReload" methodname="DailyPaysOnlyOnAcknowledgementAndSurvivesTimedCancellationAndReload" classname="PerchSort.PlayModeTests.NotificationFlowTests" runstate="Runnable" seed="1064668330" result="Passed" start-time="2026-11-04 17:11:21Z" end-time="2026-11-04 17:11:22Z" duration="0.671468" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1092" name="FirstFinalePaysOnceThenGateAndUnlockAcknowledgementReleaseDeferredLevel" fullname="PerchSort.PlayModeTests.NotificationFlowTests.FirstFinalePaysOnceThenGateAndUnlockAcknowledgementReleaseDeferredLevel" methodname="FirstFinalePaysOnceThenGateAndUnlockAcknowledgementReleaseDeferredLevel" classname="PerchSort.PlayModeTests.NotificationFlowTests" runstate="Runnable" seed="438702695" result="Passed" start-time="2026-11-04 17:11:22Z" end-time="2026-11-04 17:11:29Z" duration="7.422952" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1091" name="FirstLevelIntroThenSunnyAndSkyeEachPayOnceAndPersist" fullname="PerchSort.PlayModeTests.NotificationFlowTests.FirstLevelIntroThenSunnyAndSkyeEachPayOnceAndPersist" methodname="FirstLevelIntroThenSunnyAndSkyeEachPayOnceAndPersist" classname="PerchSort.PlayModeTests.NotificationFlowTests" runstate="Runnable" seed="1241435429" result="Passed" start-time="2026-11-04 17:11:29Z" end-time="2026-11-04 17:11:34Z" duration="5.289721" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1093" name="LastFinaleAcknowledgementReturnsToMapWithoutADeferredLevelFortyOne" fullname="PerchSort.PlayModeTests.NotificationFlowTests.LastFinaleAcknowledgementReturnsToMapWithoutADeferredLevelFortyOne" methodname="LastFinaleAcknowledgementReturnsToMapWithoutADeferredLevelFortyOne" classname="PerchSort.PlayModeTests.NotificationFlowTests" runstate="Runnable" seed="1707555099" result="Passed" start-time="2026-11-04 17:11:34Z" end-time="2026-11-04 17:11:35Z" duration="0.318275" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1094" name="T54AMusicTests" fullname="PerchSort.PlayModeTests.T54AMusicTests" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-04 17:11:35Z" end-time="2026-11-04 17:11:51Z" duration="15.954098" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1098" name="FocusAndApplicationPauseFreezePlayheadsUntilBothResume" fullname="PerchSort.PlayModeTests.T54AMusicTests.FocusAndApplicationPauseFreezePlayheadsUntilBothResume" methodname="FocusAndApplicationPauseFreezePlayheadsUntilBothResume" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="226747495" result="Passed" start-time="2026-11-04 17:11:35Z" end-time="2026-11-04 17:11:37Z" duration="1.964404" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=46.937 page=level phase=focus-lost-playhead-paused menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=False,loop=True,mute=True,volume=0.200,time=1.131
+T54A t=47.388 page=level phase=focus-and-pause-resumed menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.365
+]]></output>
+            </test-case>
+            <test-case id="1097" name="MutePersistsAndAppliesToBothTracksAcrossPageChangesAndReload" fullname="PerchSort.PlayModeTests.T54AMusicTests.MutePersistsAndAppliesToBothTracksAcrossPageChangesAndReload" methodname="MutePersistsAndAppliesToBothTracksAcrossPageChangesAndReload" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="312819517" result="Passed" start-time="2026-11-04 17:11:37Z" end-time="2026-11-04 17:11:39Z" duration="2.409013" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=48.601 page=level phase=level-muted menu=bgm_menu,playing=False,loop=True,mute=True,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=True,volume=0.200,time=1.131
+T54A t=49.798 page=map phase=reloaded-map-unmuted menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=1.152 game=none,playing=False,loop=True,mute=False,volume=0.000,time=0.000
+]]></output>
+            </test-case>
+            <test-case id="1099" name="PageChangeWhileSuspendedResumesThePendingFadeWithoutElapsedBackgroundTime" fullname="PerchSort.PlayModeTests.T54AMusicTests.PageChangeWhileSuspendedResumesThePendingFadeWithoutElapsedBackgroundTime" methodname="PageChangeWhileSuspendedResumesThePendingFadeWithoutElapsedBackgroundTime" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="1069648547" result="Passed" start-time="2026-11-04 17:11:39Z" end-time="2026-11-04 17:11:42Z" duration="2.960839" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=52.009 page=level phase=suspended-page-change-resumed-middle menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.120,time=1.557 game=bgm_game,playing=True,loop=True,mute=False,volume=0.080,time=0.384
+]]></output>
+            </test-case>
+            <test-case id="1095" name="PagesCrossfadeForOneSecondEvenWhenGameTimeIsStopped" fullname="PerchSort.PlayModeTests.T54AMusicTests.PagesCrossfadeForOneSecondEvenWhenGameTimeIsStopped" methodname="PagesCrossfadeForOneSecondEvenWhenGameTimeIsStopped" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="70895327" result="Passed" start-time="2026-11-04 17:11:42Z" end-time="2026-11-04 17:11:46Z" duration="3.533749" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=53.957 page=map phase=menu-settled menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=1.152 game=none,playing=False,loop=True,mute=False,volume=0.000,time=0.000
+T54A t=53.972 page=level phase=level-crossfade-start menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=1.173 game=bgm_game,playing=True,loop=True,mute=False,volume=0.000,time=0.000
+T54A t=54.372 page=level phase=level-crossfade-middle menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.117,time=1.579 game=bgm_game,playing=True,loop=True,mute=False,volume=0.083,time=0.405
+T54A t=55.122 page=level phase=level-settled menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.152
+T54A t=55.541 page=map phase=map-crossfade-middle menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.084,time=0.405 game=bgm_game,playing=True,loop=True,mute=False,volume=0.116,time=1.579
+T54A t=56.291 page=map phase=map-settled menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=1.152 game=bgm_game,playing=False,loop=True,mute=False,volume=0.000,time=0.000
+]]></output>
+            </test-case>
+            <test-case id="1096" name="SettingsCardsAndWinKeepTheSameTrackAndPlayhead" fullname="PerchSort.PlayModeTests.T54AMusicTests.SettingsCardsAndWinKeepTheSameTrackAndPlayhead" methodname="SettingsCardsAndWinKeepTheSameTrackAndPlayhead" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="1398606815" result="Passed" start-time="2026-11-04 17:11:46Z" end-time="2026-11-04 17:11:49Z" duration="3.387333" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=57.747 page=map phase=map-card-closed-no-restart menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=1.408 game=none,playing=False,loop=True,mute=False,volume=0.000,time=0.000
+T54A t=59.161 page=level phase=settings-open menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.408
+T54A t=59.413 page=level phase=level-popup-closed-no-restart menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.643
+T54A t=59.680 page=level phase=win-and-restart-no-music-restart menu=bgm_menu,playing=False,loop=True,mute=False,volume=0.000,time=0.000 game=bgm_game,playing=True,loop=True,mute=False,volume=0.200,time=1.920
+]]></output>
+            </test-case>
+            <test-case id="1100" name="UserInteractionRetriesBlockedPlaybackWithoutRestartingAnActiveSong" fullname="PerchSort.PlayModeTests.T54AMusicTests.UserInteractionRetriesBlockedPlaybackWithoutRestartingAnActiveSong" methodname="UserInteractionRetriesBlockedPlaybackWithoutRestartingAnActiveSong" classname="PerchSort.PlayModeTests.T54AMusicTests" runstate="Runnable" seed="1210345415" result="Passed" start-time="2026-11-04 17:11:49Z" end-time="2026-11-04 17:11:51Z" duration="1.697383" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[T54A t=61.378 page=map phase=interaction-retry-does-not-restart-active-track menu=bgm_menu,playing=True,loop=True,mute=False,volume=0.200,time=0.491 game=none,playing=False,loop=True,mute=False,volume=0.000,time=0.000
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1101" name="T54BEntranceTests" fullname="PerchSort.PlayModeTests.T54BEntranceTests" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-04 17:11:51Z" end-time="2026-11-04 17:12:06Z" duration="15.687889" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1104" name="EntryFlightSlowsBeforeLandingAndKeepsTouchdownSquash" fullname="PerchSort.PlayModeTests.T54BEntranceTests.EntryFlightSlowsBeforeLandingAndKeepsTouchdownSquash" methodname="EntryFlightSlowsBeforeLandingAndKeepsTouchdownSquash" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" seed="1832150241" result="Passed" start-time="2026-11-04 17:11:51Z" end-time="2026-11-04 17:11:52Z" duration="1.328716" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1103" name="FiveRowTapWaitsForLastWaveThenUnlocks" fullname="PerchSort.PlayModeTests.T54BEntranceTests.FiveRowTapWaitsForLastWaveThenUnlocks" methodname="FiveRowTapWaitsForLastWaveThenUnlocks" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" seed="185687443" result="Passed" start-time="2026-11-04 17:11:52Z" end-time="2026-11-04 17:11:57Z" duration="5.054756" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Entrance level 37: tap-to-playable=4.3908s; rows=5; sampled through 5.0004s
+]]></output>
+            </test-case>
+            <test-case id="1106" name="InstantEntranceSettlesSynchronously" fullname="PerchSort.PlayModeTests.T54BEntranceTests.InstantEntranceSettlesSynchronously" methodname="InstantEntranceSettlesSynchronously" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" seed="1897195724" result="Passed" start-time="2026-11-04 17:11:57Z" end-time="2026-11-04 17:11:57Z" duration="0.079084" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1102" name="LevelOneTapWaitsForLandingThenAcceptsMove" fullname="PerchSort.PlayModeTests.T54BEntranceTests.LevelOneTapWaitsForLandingThenAcceptsMove" methodname="LevelOneTapWaitsForLandingThenAcceptsMove" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" seed="299499248" result="Passed" start-time="2026-11-04 17:11:57Z" end-time="2026-11-04 17:12:02Z" duration="5.059950" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Entrance level 1: tap-to-playable=3.7505s; rows=2; sampled through 5.0003s
+]]></output>
+            </test-case>
+            <test-case id="1105" name="SkipDuringFlightSettlesAndDoesNotReplayCallbacks" fullname="PerchSort.PlayModeTests.T54BEntranceTests.SkipDuringFlightSettlesAndDoesNotReplayCallbacks" methodname="SkipDuringFlightSettlesAndDoesNotReplayCallbacks" classname="PerchSort.PlayModeTests.T54BEntranceTests" runstate="Runnable" seed="1267387454" result="Passed" start-time="2026-11-04 17:12:02Z" end-time="2026-11-04 17:12:06Z" duration="4.164344" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1107" name="T54CIdleTests" fullname="PerchSort.PlayModeTests.T54CIdleTests" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-04 17:12:06Z" end-time="2026-11-04 17:12:41Z" duration="34.708829" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1108" name="BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt" fullname="PerchSort.PlayModeTests.T54CIdleTests.BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt" methodname="BreathingPersistsBetweenActionsWithoutMovingLogicalSeatsAndInstantFreezesIt" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" seed="537030391" result="Passed" start-time="2026-11-04 17:12:06Z" end-time="2026-11-04 17:12:10Z" duration="3.712150" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1111" name="DrawnActionsUseTheirAuthoredCadenceHoldsAndLandingWithoutChangingSeats" fullname="PerchSort.PlayModeTests.T54CIdleTests.DrawnActionsUseTheirAuthoredCadenceHoldsAndLandingWithoutChangingSeats" methodname="DrawnActionsUseTheirAuthoredCadenceHoldsAndLandingWithoutChangingSeats" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" seed="7037909" result="Passed" start-time="2026-11-04 17:12:10Z" end-time="2026-11-04 17:12:17Z" duration="6.491194" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1112" name="LevelOneBranchStaysAliveForTwentySecondsWithBoundedUnsynchronisedActions" fullname="PerchSort.PlayModeTests.T54CIdleTests.LevelOneBranchStaysAliveForTwentySecondsWithBoundedUnsynchronisedActions" methodname="LevelOneBranchStaysAliveForTwentySecondsWithBoundedUnsynchronisedActions" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" seed="1030024141" result="Passed" start-time="2026-11-04 17:12:17Z" end-time="2026-11-04 17:12:37Z" duration="20.041645" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1109" name="MissingSequencesAreRemovedFromTheDrawAndStillsOnlyCrossfadeOverBreathing" fullname="PerchSort.PlayModeTests.T54CIdleTests.MissingSequencesAreRemovedFromTheDrawAndStillsOnlyCrossfadeOverBreathing" methodname="MissingSequencesAreRemovedFromTheDrawAndStillsOnlyCrossfadeOverBreathing" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" seed="615216152" result="Passed" start-time="2026-11-04 17:12:37Z" end-time="2026-11-04 17:12:41Z" duration="4.419093" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1110" name="SequenceProbeStopsAtFirstGapAndRejectsALoneStill" fullname="PerchSort.PlayModeTests.T54CIdleTests.SequenceProbeStopsAtFirstGapAndRejectsALoneStill" methodname="SequenceProbeStopsAtFirstGapAndRejectsALoneStill" classname="PerchSort.PlayModeTests.T54CIdleTests" runstate="Runnable" seed="1642305497" result="Passed" start-time="2026-11-04 17:12:41Z" end-time="2026-11-04 17:12:41Z" duration="0.043583" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1113" name="T54DButtonTests" fullname="PerchSort.PlayModeTests.T54DButtonTests" classname="PerchSort.PlayModeTests.T54DButtonTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-04 17:12:41Z" end-time="2026-11-04 17:12:44Z" duration="2.841091" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1117" name="CoinPillClearsHousesAndSuspensionsOnEveryAuthoredLevel" fullname="PerchSort.PlayModeTests.T54DButtonTests.CoinPillClearsHousesAndSuspensionsOnEveryAuthoredLevel" methodname="CoinPillClearsHousesAndSuspensionsOnEveryAuthoredLevel" classname="PerchSort.PlayModeTests.T54DButtonTests" runstate="Runnable" seed="1006408653" result="Passed" start-time="2026-11-04 17:12:41Z" end-time="2026-11-04 17:12:42Z" duration="0.630275" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1116" name="DisablingAPressedToolRestoresItsSizeAndRejectsTheClick" fullname="PerchSort.PlayModeTests.T54DButtonTests.DisablingAPressedToolRestoresItsSizeAndRejectsTheClick" methodname="DisablingAPressedToolRestoresItsSizeAndRejectsTheClick" classname="PerchSort.PlayModeTests.T54DButtonTests" runstate="Runnable" seed="1378007171" result="Passed" start-time="2026-11-04 17:12:42Z" end-time="2026-11-04 17:12:43Z" duration="0.897901" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1115" name="FourToolsKeepEqualGeometryWithUndoDisabledAndEnabled" fullname="PerchSort.PlayModeTests.T54DButtonTests.FourToolsKeepEqualGeometryWithUndoDisabledAndEnabled" methodname="FourToolsKeepEqualGeometryWithUndoDisabledAndEnabled" classname="PerchSort.PlayModeTests.T54DButtonTests" runstate="Runnable" seed="1941742647" result="Passed" start-time="2026-11-04 17:12:43Z" end-time="2026-11-04 17:12:43Z" duration="0.662896" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1114" name="ThreeToolsKeepEqualGeometryWithUndoDisabledAndEnabled" fullname="PerchSort.PlayModeTests.T54DButtonTests.ThreeToolsKeepEqualGeometryWithUndoDisabledAndEnabled" methodname="ThreeToolsKeepEqualGeometryWithUndoDisabledAndEnabled" classname="PerchSort.PlayModeTests.T54DButtonTests" runstate="Runnable" seed="1911241882" result="Passed" start-time="2026-11-04 17:12:43Z" end-time="2026-11-04 17:12:44Z" duration="0.649144" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1118" name="T54FUiBirdTests" fullname="PerchSort.PlayModeTests.T54FUiBirdTests" classname="PerchSort.PlayModeTests.T54FUiBirdTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-04 17:12:44Z" end-time="2026-11-04 17:13:01Z" duration="16.878818" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1120" name="DeliveredHouseBirdLivesAndInstantFreezesIt" fullname="PerchSort.PlayModeTests.T54FUiBirdTests.DeliveredHouseBirdLivesAndInstantFreezesIt" methodname="DeliveredHouseBirdLivesAndInstantFreezesIt" classname="PerchSort.PlayModeTests.T54FUiBirdTests" runstate="Runnable" seed="1565101514" result="Passed" start-time="2026-11-04 17:12:44Z" end-time="2026-11-04 17:12:48Z" duration="4.347776" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1121" name="FreshGoalsStayEmptyUntilFlockArrivesAndUndoEmptiesThem" fullname="PerchSort.PlayModeTests.T54FUiBirdTests.FreshGoalsStayEmptyUntilFlockArrivesAndUndoEmptiesThem" methodname="FreshGoalsStayEmptyUntilFlockArrivesAndUndoEmptiesThem" classname="PerchSort.PlayModeTests.T54FUiBirdTests" runstate="Runnable" seed="1623718943" result="Passed" start-time="2026-11-04 17:12:48Z" end-time="2026-11-04 17:12:53Z" duration="4.938223" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1122" name="NextAndPurpleDiscsHaveBalancedProportionsAndEqualGaps" fullname="PerchSort.PlayModeTests.T54FUiBirdTests.NextAndPurpleDiscsHaveBalancedProportionsAndEqualGaps" methodname="NextAndPurpleDiscsHaveBalancedProportionsAndEqualGaps" classname="PerchSort.PlayModeTests.T54FUiBirdTests" runstate="Runnable" seed="1738358924" result="Passed" start-time="2026-11-04 17:12:53Z" end-time="2026-11-04 17:12:53Z" duration="0.047028" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1119" name="WinSideBirdsKeepLivingAfterLanding" fullname="PerchSort.PlayModeTests.T54FUiBirdTests.WinSideBirdsKeepLivingAfterLanding" methodname="WinSideBirdsKeepLivingAfterLanding" classname="PerchSort.PlayModeTests.T54FUiBirdTests" runstate="Runnable" seed="1840168213" result="Passed" start-time="2026-11-04 17:12:53Z" end-time="2026-11-04 17:13:01Z" duration="7.544779" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1123" name="T54FUiSequenceTests" fullname="PerchSort.PlayModeTests.T54FUiSequenceTests" classname="PerchSort.PlayModeTests.T54FUiSequenceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-04 17:13:01Z" end-time="2026-11-04 17:13:01Z" duration="0.008586" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1124" name="DrawnFramesAdvanceInOrderAndReturnToRestWithoutMirroring" fullname="PerchSort.PlayModeTests.T54FUiSequenceTests.DrawnFramesAdvanceInOrderAndReturnToRestWithoutMirroring" methodname="DrawnFramesAdvanceInOrderAndReturnToRestWithoutMirroring" classname="PerchSort.PlayModeTests.T54FUiSequenceTests" runstate="Runnable" seed="447356272" result="Passed" start-time="2026-11-04 17:13:01Z" end-time="2026-11-04 17:13:01Z" duration="0.004665" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1125" name="MissingSequenceUsesStillWithOnlySubtleBreathing" fullname="PerchSort.PlayModeTests.T54FUiSequenceTests.MissingSequenceUsesStillWithOnlySubtleBreathing" methodname="MissingSequenceUsesStillWithOnlySubtleBreathing" classname="PerchSort.PlayModeTests.T54FUiSequenceTests" runstate="Runnable" seed="1022350157" result="Passed" start-time="2026-11-04 17:13:01Z" end-time="2026-11-04 17:13:01Z" duration="0.003319" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1126" name="T54HModalTests" fullname="PerchSort.PlayModeTests.T54HModalTests" classname="PerchSort.PlayModeTests.T54HModalTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-04 17:13:01Z" end-time="2026-11-04 17:13:04Z" duration="3.131516" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1128" name="EveryInformationModalCoversBoardAndShowsControlsWithoutStagger" fullname="PerchSort.PlayModeTests.T54HModalTests.EveryInformationModalCoversBoardAndShowsControlsWithoutStagger" methodname="EveryInformationModalCoversBoardAndShowsControlsWithoutStagger" classname="PerchSort.PlayModeTests.T54HModalTests" runstate="Runnable" seed="957178409" result="Passed" start-time="2026-11-04 17:13:01Z" end-time="2026-11-04 17:13:03Z" duration="2.310249" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1127" name="SettingsControlsAppearTogetherOnMapAndLevelAndCloseReverses" fullname="PerchSort.PlayModeTests.T54HModalTests.SettingsControlsAppearTogetherOnMapAndLevelAndCloseReverses" methodname="SettingsControlsAppearTogetherOnMapAndLevelAndCloseReverses" classname="PerchSort.PlayModeTests.T54HModalTests" runstate="Runnable" seed="1581882296" result="Passed" start-time="2026-11-04 17:13:03Z" end-time="2026-11-04 17:13:04Z" duration="0.820761" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1129" name="T54IMapViewportTests" fullname="PerchSort.PlayModeTests.T54IMapViewportTests" classname="PerchSort.PlayModeTests.T54IMapViewportTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-04 17:13:04Z" end-time="2026-11-04 17:13:04Z" duration="0.272834" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1133" name="CurrentLevelFortyStaysClearOfChrome" fullname="PerchSort.PlayModeTests.T54IMapViewportTests.CurrentLevelFortyStaysClearOfChrome" methodname="CurrentLevelFortyStaysClearOfChrome" classname="PerchSort.PlayModeTests.T54IMapViewportTests" runstate="Runnable" seed="1003177586" result="Passed" start-time="2026-11-04 17:13:04Z" end-time="2026-11-04 17:13:04Z" duration="0.088842" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1130" name="CurrentLevelOneStaysClearOfChrome" fullname="PerchSort.PlayModeTests.T54IMapViewportTests.CurrentLevelOneStaysClearOfChrome" methodname="CurrentLevelOneStaysClearOfChrome" classname="PerchSort.PlayModeTests.T54IMapViewportTests" runstate="Runnable" seed="1978929221" result="Passed" start-time="2026-11-04 17:13:04Z" end-time="2026-11-04 17:13:04Z" duration="0.049423" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1131" name="CurrentLevelTenStaysClearOfChrome" fullname="PerchSort.PlayModeTests.T54IMapViewportTests.CurrentLevelTenStaysClearOfChrome" methodname="CurrentLevelTenStaysClearOfChrome" classname="PerchSort.PlayModeTests.T54IMapViewportTests" runstate="Runnable" seed="1859726551" result="Passed" start-time="2026-11-04 17:13:04Z" end-time="2026-11-04 17:13:04Z" duration="0.058375" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1132" name="CurrentLevelThirtyFourStaysClearOfChrome" fullname="PerchSort.PlayModeTests.T54IMapViewportTests.CurrentLevelThirtyFourStaysClearOfChrome" methodname="CurrentLevelThirtyFourStaysClearOfChrome" classname="PerchSort.PlayModeTests.T54IMapViewportTests" runstate="Runnable" seed="52021437" result="Passed" start-time="2026-11-04 17:13:04Z" end-time="2026-11-04 17:13:04Z" duration="0.075081" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
