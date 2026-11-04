@@ -21,7 +21,7 @@ namespace PerchSort.Game
         private Vector2 perch, bodyPerch;
         private bool selected, asleep, acting;
         private const float IdleFramesPerSecond = 10;
-        private static readonly string[] IdleNames = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer", "peek" };
+        private static readonly string[] IdleNames = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer" };
         private static readonly string[] PoseNames = { "blink", "tilt_left", "preen", "fluff", "idle", "fluff", "stretch", "yawn" };
         // blink, look, preen, flap, hop, fluff, stretch, yawn.
         private static readonly int[] IdleWeights = { 30, 14, 10, 8, 6, 4, 4, 4 };

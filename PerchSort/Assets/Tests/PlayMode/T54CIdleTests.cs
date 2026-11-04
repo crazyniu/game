@@ -19,8 +19,8 @@ namespace PerchSort.PlayModeTests
     public sealed class T54CIdleTests
     {
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
-        private static readonly string[] Animations = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer", "peek" };
-        private static readonly int[] Lengths = { 3, 4, 4, 5, 6, 6, 6, 4 };
+        private static readonly string[] Animations = { "blink", "turn_left", "turn_right", "preen", "flap", "hop", "cheer" };
+        private static readonly int[] Lengths = { 3, 4, 4, 5, 6, 6, 6 };
         private bool previousInstant;
         private UnityEngine.Random.State previousRandom;
         private GameRoot root;
