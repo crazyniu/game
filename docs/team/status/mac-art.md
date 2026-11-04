@@ -1,6 +1,6 @@
 # Status: mac-art
 
-PAUSED by lead: end-of-day wrap-up; credits exhausted. Resume only on a new instruction.
+ACTIVE: resumed by lead on 2026-11-04. Layout first, then remaining gate and gift assemblies.
 
 Branch: `mac-art/t48`. Last completed pushed milestones before wrap-up: initial HUD `0cb3741`, complete HUD `79aef75`, panels/Aviary `09efd6d`. This file and all remaining owned work are included in the subsequent `wip:` wrap-up commit (read branch HEAD for its hash).
 
@@ -129,7 +129,7 @@ Twenty effects have real alpha, recorded sizes and approved-screen overlay QA. R
 - `house_roof_yellow.png`
 - `house_rope.png`
 
-`art/v7/runtime/houses/delivery.json` records shared 512x512 canvases, body peak (256,96), roof anchor (256,58), door center (253,306), left hinge (145,306), rope and beam anchors. Sources and QA are in `art/v7/runtime/houses/`. Worker caught blue/green roof color drift and an open-door hinge mismatch and regenerated replacements; parent has NOT completed final review of replacement outputs or assembly seams. House report is not finalized. Do not call this accepted runtime animation.
+`art/v7/runtime/houses/delivery.json` records shared 512x512 canvases, body peak (256,96), roof anchor (256,58), door center (253,306), left hinge (145,306), rope and beam anchors. Sources and QA are in `art/v7/runtime/houses/`. Worker caught blue/green roof color drift and an open-door hinge mismatch and regenerated replacements; parent reviewed the replacements and shared-canvas assembly seams on resume. House report is being finalized. Do not call this accepted runtime animation.
 
 ### Gate and daily gift raw images only
 Saved under `art/v7/runtime/assemblies_wip/raw/`:
@@ -140,12 +140,12 @@ Saved under `art/v7/runtime/assemblies_wip/raw/`:
 
 Exact prompts/reference/source paths preserved in `assemblies_wip/sources.json`. These are NOT yet final runtime PNGs.
 
-### Layout draft
-`art/v7/layout_v7.json` exists with schema_version 1 and explicit pending-assembly status. It combines measured screens, inferred intermediate house arrangements and the map paths. Final integration/consistency review was interrupted; house/gate/gift assemblies still need completion. Measurement evidence: `art/v7/runtime/measurements/` (17 screens, 223 measured boxes). Do not treat inferred K1..6 adaptations as measured approved layouts.
+### Layout: ready for early integration
+`art/v7/layout_v7.json` is reviewed with schema_version 1: 107 asset records, 17 screens, 223 measured boxes, 40 map nodes, coin text frame, slice borders and integrated house anchors. Gate/gift assemblies remain explicitly pending. Intermediate house arrangements are inferred, not observed. Geometry, asset, slice and path checks passed. Measurement evidence: `art/v7/runtime/measurements/` (17 screens, 223 measured boxes). Do not treat inferred K1..6 adaptations as measured approved layouts.
 
 `art/v7/runtime/hud_extra_provenance.json` describes rejected experimental cutouts; final next-arrow/chain assets came from generation_manifest.json instead. Retained only as WIP history, not authoritative provenance.
 
-## Next, after resume
+## Next, resumed work
 1. Review finished house replacements and assembly QA; finalize house report/anchors and add to layout.
 2. Prepare gate_arch and gift raw images into aligned runtime parts with clean alpha.
 3. Generate missing `gate_door_left.png`, `gate_door_right.png`, `gate_padlock.png`, `gate_backdrop_w2.png`, `gate_backdrop_w3.png`, `gate_backdrop_w4.png`; assemble `gate_locked.png` and `gate_open.png`, record hinges, opening mask and gate-light placement.
@@ -154,4 +154,4 @@ Exact prompts/reference/source paths preserved in `assemblies_wip/sources.json`.
 6. Commit/push remaining groups on resume. Unity import, runtime views and timed animations belong to code/QA workers and remain NOT_RUN.
 
 ## Blocker and shutdown
-Lead stopped work because credits are exhausted; no further generation started after wrap-up. All three sub-workers are stopped (two interrupted; effects already completed). No Unity process was started and no `.unity-lock` was created by mac-art, so no external Unity process or lock was touched. Existing originals and other roles' code remain untouched. T48 is INCOMPLETE.
+Credits restored; layout, gift and gate workers resumed with separate ownership. No current external blocker. Remaining assembly work is in progress. No Unity process was started and no `.unity-lock` was created by mac-art, so no external Unity process or lock was touched. Existing originals and other roles' code remain untouched. T48 is INCOMPLETE.

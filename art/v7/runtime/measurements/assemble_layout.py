@@ -30,6 +30,19 @@ for n,m in map_sprites.items():
  assets[n]['metadata_sources'].append('art/v7/runtime/map/sprites.json');assets[n]['reference']='art/v7/ui7_map.png'
 for i in range(1,5):
  assets[f'map_bg_w{i}']['metadata_sources'].append('art/v7/runtime/map/delivery.json');assets[f'map_bg_w{i}']['reference']='art/v7/ui7_map.png';assets[f'map_bg_w{i}']['alpha_preparation']='Top rows 0..159 fade from 0 to 255; remaining rows opaque. See map.stacking.'
+houses=read(R/'houses/delivery.json')
+for m in houses['assets']:
+ n=Path(m['file']).stem;dest=assets[n];assert dest['size']==m['canvas'],n
+ dest['metadata_sources'].append('art/v7/runtime/houses/delivery.json')
+ dest['source_crop_xyxy']=m['source_crop_xyxy']
+ dest['part_placement_rect_xywh']=m['visible_rect_xywh']
+ dest['preserve_canvas_on_import']=True
+ if n=='house_door_leaf':dest['pivot_normalized_unity']=houses['door_leaf_pivot_unity_normalized']
+house_contract={k:v for k,v in houses.items() if k!='assets'}
+house_contract['asset_ids']={'body':'house_body','roof_by_color':{c:'house_roof_'+c for c in ['teal','red','yellow','purple','green','blue','orange','pink']},'door_leaf':'house_door_leaf','open_fallback':'house_door_open','rope':'house_rope','beam_by_world':{f'w{i}':f'house_beam_w{i}' for i in range(1,5)}}
+house_contract['composition']={'closed':'Place body, selected roof, then door leaf at zero offset on shared 512x512 canvas. Preserve transparent canvas at import.','open_fallback':'Replace body+door-leaf with house_door_open, then add selected roof at zero offset. Fallback already contains body and excludes roof.','bird_face':'Center bird face on door_center_xy and clip to the circular dark doorway; bird sprite scale is not defined by this asset contract.','rope':'Connect rope.bottom_anchor_xy to roof_suspension_anchor_xy after applying each part display scale.','beam':'Beam anchors are beam-local asset pixels, not approved-screen house positions; scale beam-local anchors with the beam.'}
+house_contract['evidence']='delivered_aligned_sprite_contract_static_QA_reviewed; door angle is a supplied engineering animation target, not runtime-verified motion'
+house_contract['qa_reviewed']=['art/v7/runtime/houses/qa/assembled_sheet.jpg','art/v7/runtime/houses/qa/beams_sheet.jpg']
 # These are measured blank interiors on the final stored sprites, NOT the concept numeral bounds.
 assets['coin_pill']['text_box']={'rect':[142,32,140,60],'center':[212,62],'size':[140,60],'coordinate_space':'asset_pixels','alignment':'center','vertical_alignment':'middle','evidence':'observed_safe_blank_area_on_delivered_320x128_asset','source':'PerchSort/Assets/Resources/V7/Art/coin_pill.png','note':'Coin occupies the left side; this box excludes coin and rounded edge. Scale the text box with the displayed sprite.'}
 assets['btn_green_pill']['nine_slice_lbrt']=[54,42,54,42];assets['btn_green_pill']['nine_slice_evidence']='inferred_border_selection_from_delivered_asset; protects capsule end caps and gold edge; runtime stretch untested'
@@ -39,7 +52,7 @@ for s in screens.values():
  s['coordinate_space']='screen';s['geometry_kind']='visible_art_bounds_not_hit_targets'
 D={
  'schema_version':1,
- 'status':'measured_layout_with_house_gate_gift_assemblies_pending_parent',
+ 'status':'measured_layout_with_gate_gift_assemblies_pending_parent',
  'resources':{'filesystem_root':'PerchSort/Assets/Resources/V7/Art','unity_resources_root':'V7/Art','load_key_rule':'assets[id].resource is extensionless Resources.Load key; file is repository-relative PNG path','icon_prefix':'icon_','gift_badge_prefix':'gift_'},
  'coordinate_spaces':{'screen':{'size':[1080,1920],'origin':'top_left','unit':'px','positive_x':'right','positive_y':'down'},'map_world':{'size':[1080,3000],'origin':'top_left','unit':'px','positive_y':'down'},'asset_pixels':{'size_source':'assets[id].size','origin':'top_left','unit':'px'},'pivot_normalized_unity':{'origin':'bottom_left','range':[0,1],'conversion_from_asset_xy':'[x / width, 1 - y / height]'}},
  'property_documentation':{
@@ -74,9 +87,9 @@ D={
  'screens':screens,
  'house_count_adaptation':draft['house_count_adaptation'],
  'map':worlds,
- 'assemblies':{'houses':{'status':'pending_parent_integration','source_metadata':'art/v7/runtime/houses/delivery.json','contract':None},'gates':{'status':'pending_parent_integration','source_metadata':None,'contract':None},'daily_gift':{'status':'pending_parent_integration','source_metadata':None,'contract':None},'settings_ropes':{'status':'delivered_static_alignment','source_metadata':'art/v7/runtime/panels/delivery.json','left_asset_id':'panel_rope_left','right_asset_id':'panel_rope_right','board_asset_id':'panel_wood','anchor_coordinate_note':'Rope-local anchors are in assets; aligned_settings_board_attach_xy values are screen pixels.'}},
- 'validation':{'status':'static_verified','screen_count':len(screens),'measured_element_count':sum(len(s['elements']) for s in screens.values()),'asset_count':len(assets),'map_world_count':4,'measured_map_node_count':40,'checks':['All screen rectangles lie inside 1080x1920.','All asset PNG dimensions and alpha bounds read from files.','All nine-slice borders leave a positive center region.','All node centers lie within measured tan-path interval and 1080x3000 canvas.','All referenced HUD asset IDs exist.'],'runtime_verified':False,'pending':['Parent house/gate/daily-gift assembly integration','Unity import and rendered layout','Topmost map viewport clamp or opaque-source backing','Animation and hit targets']},
- 'measurement_notes':{'method':draft['measurement_method'],'source_metadata':['art/v7/runtime/measurements/layout_draft.json','art/v7/runtime/map/world_paths.json','art/v7/runtime/panels/delivery.json','art/v7/runtime/effects/delivery.json','art/v7/runtime/generated_metrics.json','art/v7/runtime/extracted/provenance.json'],'exclusions':['ui7_icons.png is a 1536x1536 atlas, not a portrait screen.','Unapproved K3 alt1/alt2 are not layout authority.','No source screen exists for every K1..K6 multi-house layout.']}
+ 'assemblies':{'houses':{'status':'delivered_static_alignment','source_metadata':'art/v7/runtime/houses/delivery.json','contract':house_contract},'gates':{'status':'pending_parent_integration','source_metadata':None,'contract':None},'daily_gift':{'status':'pending_parent_integration','source_metadata':None,'contract':None},'settings_ropes':{'status':'delivered_static_alignment','source_metadata':'art/v7/runtime/panels/delivery.json','left_asset_id':'panel_rope_left','right_asset_id':'panel_rope_right','board_asset_id':'panel_wood','anchor_coordinate_note':'Rope-local anchors are in assets; aligned_settings_board_attach_xy values are screen pixels.'}},
+ 'validation':{'status':'static_verified','screen_count':len(screens),'measured_element_count':sum(len(s['elements']) for s in screens.values()),'asset_count':len(assets),'map_world_count':4,'measured_map_node_count':40,'checks':['All screen rectangles lie inside 1080x1920.','All asset PNG dimensions and alpha bounds read from files.','All nine-slice borders leave a positive center region.','All node centers lie within measured tan-path interval and 1080x3000 canvas.','All referenced HUD asset IDs exist.'],'runtime_verified':False,'pending':['Parent gate/daily-gift assembly integration','Unity import and rendered layout','Topmost map viewport clamp or opaque-source backing','Animation and hit targets']},
+ 'measurement_notes':{'method':draft['measurement_method'],'source_metadata':['art/v7/runtime/measurements/layout_draft.json','art/v7/runtime/map/world_paths.json','art/v7/runtime/panels/delivery.json','art/v7/runtime/effects/delivery.json','art/v7/runtime/generated_metrics.json','art/v7/runtime/extracted/provenance.json','art/v7/runtime/houses/delivery.json'],'exclusions':['ui7_icons.png is a 1536x1536 atlas, not a portrait screen.','Unapproved K3 alt1/alt2 are not layout authority.','No source screen exists for every K1..K6 multi-house layout.']}
 }
 # Compact, necessary document contract checks.
 for sn,s in screens.items():
@@ -93,4 +106,4 @@ for world in worlds['worlds'].values():
 for layout in D['hud']['bottom_buttons'].values():
  assert all(n in assets for n in layout['ordered_icon_ids'])
 (V7/'layout_v7.json').write_text(json.dumps(D,indent=2)+'\n')
-print('Wrote layout_v7.json:',len(assets),'assets;',len(screens),'screens;',D['validation']['measured_element_count'],'element boxes; 40 nodes. House/gate/gift assembly contracts pending parent.')
+print('Wrote layout_v7.json:',len(assets),'assets;',len(screens),'screens;',D['validation']['measured_element_count'],'element boxes; 40 nodes. House assembly integrated; gate/gift contracts pending parent.')
