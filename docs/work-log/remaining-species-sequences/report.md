@@ -10,13 +10,13 @@
 | ember | 38 | Offline art review passed; Unity acceptance pending |
 | ink | 38 | Offline art review passed; Unity acceptance pending |
 | hoot | 38 | Offline art review passed; Unity acceptance pending |
-| crow | 0 | Pending |
+| crow | 38 | Offline art review passed; Unity acceptance pending |
 
 Each completed species contains flap 6, hop 6, turn_left 4, turn_right 4, cheer 6, preen 5, peek 4, blink 3. Exports are 320x320 RGBA in the canonical Birds resource folder. Import settings are copied from that species' idle metadata, with fresh asset and sprite GUIDs. Existing assets and code are unchanged.
 
 ## Method and evidence
 
-Generated with the built-in imagegen tool from the approved species idle reference and the accepted sunny pose tables. Prompts and raw sheets are retained under `art/birds_sequences/prompts/` and `art/birds_sequences/raw/`. The existing pilot slicing tool was executed with the current evidence destination and species-specific metadata source; its source file was not changed. `prepare_remaining.py` applies those two substitutions in memory; `check_remaining.py` records image and importer checks. Registration uses one scale per sequence and aligns the toe baseline to 300 px. No mirroring, synthetic pose transforms or procedural replacement artwork.
+Generated with the built-in imagegen tool from the approved species idle reference and the accepted sunny pose tables. Prompts and raw sheets are retained under `art/birds_sequences/prompts/` and `art/birds_sequences/raw/`. The existing pilot slicing tool was executed with the current evidence destination and species-specific metadata source; its source file was not changed. `prepare_remaining.py` applies those two substitutions in memory and selects neutral gray toes for Crow (the pilot orange selector would select its compass); `check_remaining.py` records image and importer checks. Registration uses one scale per sequence and aligns the toe baseline to 300 px. No mirroring, synthetic pose transforms or procedural replacement artwork.
 
 Every completed sequence has a JPEG contact sheet in `evidence/` with idle, light/dark composites and a 64 px grayscale row. Offline APNG previews, inventories and asset checks are under `art/birds_sequences/qa/`. These are offline artwork evidence, not Unity runtime acceptance.
 
@@ -41,9 +41,14 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 - Ember: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Ink: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Hoot: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
+- Crow: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files. Gray toe registration preserves the 300 px baseline.
 - Naming guard self-test: 8 passed. Naming guard: zero violations before Unity.
 - Unity compilation, full EditMode/PlayMode suites, stable screenshots and timed runtime evidence are pending. The shared Unity lock was occupied by other authorized batch workers when inspected. No process was killed.
 
 ## Missing items
 
-Crow: all 38 frames are pending. Optional mama_bow and chick_fluff blink/cheer sequences are not done.
+No required species are missing. Mint, cocoa, snow, ember, ink, hoot and crow each have all 38 frames (266 total; 190 added by this worker). Optional mama_bow and chick_fluff blink/cheer sequences are not done.
+
+## Reproduction commands
+
+For each species, run `python art/birds_sequences/qa/prepare_remaining.py <species>` and `python art/birds_sequences/qa/check_remaining.py <species>` in an environment with Pillow. This worker used `/tmp/perch-remaining-species-tools/bin/python`. The source prompts, raw sheets, contact sheets, APNG previews, inventories and checks are retained under `art/birds_sequences/`. All five required species were committed and pushed separately in the requested order.
