@@ -139,17 +139,15 @@ namespace PerchSort.PlayModeTests
         public IEnumerator EveryInformationModalCoversBoardAndShowsControlsWithoutStagger()
         {
             var panels = root.GetComponentInChildren<PanelsView>(true);
+            // Shop and aviary are full-screen pages now (covered by their own tests), not panels.
             System.Action[] open =
             {
                 () => root.OpenGoalInfo("sunny"),
                 () => root.OpenUnlock(BoosterKind.OwlEye),
-                () => panels.Buy(BoosterKind.Firefly),
                 () => root.OpenPopup(PopupKind.NewFriend),
                 () => root.OpenPopup(PopupKind.DailyGift),
                 () => root.OpenPopup(PopupKind.WorldComplete),
                 () => root.OpenPopup(PopupKind.WorldUnlock),
-                () => root.OpenPopup(PopupKind.ShopPlaceholder),
-                () => root.OpenPopup(PopupKind.AviaryPlaceholder),
             };
             foreach (var show in open)
             {

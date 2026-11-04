@@ -223,6 +223,92 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
+        public IEnumerator CoveredRebuildKeepsEntrancePoseThroughReveal()
+        {
+            string directory = Environment.GetEnvironmentVariable("ENTRANCE_REVEAL_CAPTURE_DIR");
+            bool capture = !string.IsNullOrEmpty(directory);
+            var samples = new List<string>
+            {
+                "sample,target_seconds,actual_seconds,wall_seconds,level_visible,introducing,grown_branches,perched_birds,houses_y,move_accepted"
+            };
+            if (capture)
+            {
+                Assert.That(SystemInfo.graphicsDeviceType, Is.Not.EqualTo(UnityEngine.Rendering.GraphicsDeviceType.Null));
+                Directory.CreateDirectory(directory);
+                target = new RenderTexture(540, 960, 24); target.Create();
+                image = new Texture2D(target.width, target.height, TextureFormat.RGB24, false);
+                root.RenderCamera.targetTexture = target;
+            }
+            var play = PreparePlay(1);
+            yield return null;
+            float start = Time.time, wall = Time.realtimeSinceStartup;
+            TapPlay(play, false);
+            int sample = 0;
+            bool sawCoveredLevel = false, sawEntrance = false;
+            while (sample < 15)
+            {
+                float elapsed = Time.time - start;
+                int grown = 0, perched = 0;
+                float housesY = float.NaN;
+                bool accepted = root.TryMove(0, 1);
+                Assert.That(accepted, Is.False, "The covered rebuild and reveal must both reject gameplay.");
+                if (!root.IsMap)
+                {
+                    foreach (var branch in root.Board.Branches)
+                    {
+                        if (branch.transform.Find("Flex root").localScale.x > 0.001f) grown++;
+                        var birds = root.Session.State.Branches[branch.Index].Birds;
+                        for (int seat = 0; seat < birds.Count; seat++)
+                            if (Vector2.Distance(root.Board.Birds[birds[seat].Id].Position, branch.Slot(seat)) < 0.1f) perched++;
+                    }
+                    housesY = ((RectTransform)root.Hud.transform.Find("Species goals")).anchoredPosition.y;
+                    Assert.That(grown, Is.Zero, "Branches must never flash full-grown before their entrance phase.");
+                    Assert.That(perched, Is.Zero, "Birds must already be at entry starts on the first visible level frame.");
+                    if (!root.IsIntroducing)
+                    {
+                        sawCoveredLevel = true;
+                        Assert.That(housesY, Is.EqualTo(-410).Within(0.01f), "The covered rebuild must hold houses at their starting height.");
+                    }
+                    else sawEntrance = true;
+                }
+                if (elapsed >= 0.3f + sample * 0.05f)
+                {
+                    if (capture)
+                    {
+                        Capture(Path.Combine(directory, sample.ToString("D3") + ".png"));
+                        samples.Add(string.Format(CultureInfo.InvariantCulture,
+                            "{0},{1:F3},{2:F4},{3:F4},{4},{5},{6},{7},{8:F3},{9}",
+                            sample, 0.3f + sample * 0.05f, elapsed, Time.realtimeSinceStartup - wall,
+                            !root.IsMap, root.IsIntroducing, grown, perched, housesY, accepted));
+                    }
+                    sample++;
+                }
+                Assert.That(Time.realtimeSinceStartup - wall, Is.LessThan(15), "Entrance reveal observation stalled.");
+                yield return null;
+            }
+            if (capture) File.WriteAllLines(Path.Combine(directory, "entrance_reveal.csv"), samples);
+            Assert.That(sawCoveredLevel, Is.True, "The test must observe the rebuilt level while the wipe is still active.");
+            Assert.That(sawEntrance, Is.True, "The original entrance timeline must start after the wipe.");
+            yield return Await(() => !root.IsBusy && !root.HasModal);
+            AssertPerched();
+        }
+
+        [UnityTest]
+        public IEnumerator DisablingDuringCoveredPreparationRestoresAndResumes()
+        {
+            TapPlay(PreparePlay(1), false);
+            yield return Await(() => !root.IsMap && !root.IsIntroducing);
+            root.gameObject.SetActive(false);
+            AssertPerched();
+            root.gameObject.SetActive(true);
+            yield return Await(() => root.IsIntroducing);
+            var entrance = root.GetComponentInChildren<LevelEntrance>(true);
+            ExecuteEvents.Execute(entrance.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerClickHandler);
+            Assert.That(root.IsIntroducing || root.IsBusy || root.HasModal, Is.False);
+            AssertPerched();
+        }
+
+        [UnityTest]
         public IEnumerator EntryFlightSlowsBeforeLandingAndKeepsTouchdownSquash()
         {
             root.LoadFixture(LevelLoader.Load(1));

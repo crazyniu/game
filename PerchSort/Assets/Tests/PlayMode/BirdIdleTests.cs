@@ -11,6 +11,7 @@ using PerchSort.Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.TestTools.Utils;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -127,18 +128,33 @@ namespace PerchSort.PlayModeTests
             Assert.That(Body(birds[0]).localScale, Is.Not.EqualTo(Body(birds[1]).localScale), "Independent phases must not breathe in lockstep.");
             Act(birds[0], 5);
             yield return new WaitForSeconds(0.25f);
+            // Switch before Update/its motion callbacks, not after this frame has already breathed.
+            yield return new WaitForFixedUpdate();
+            int switchedFrame = Time.frameCount;
             GameMotion.Instant = true;
-            yield return null;
-            yield return null;
-            foreach (var bird in birds)
-            {
-                Assert.That(Active(bird), Is.False);
-                Assert.That(Body(bird).localScale, Is.EqualTo(Vector3.one));
-                Assert.That(bird.ShowsRestPose, Is.True);
-            }
+            do { yield return null; } while (Time.frameCount <= switchedFrame);
+            var frozenScales = birds.Select(bird => Body(bird).localScale).ToArray();
             var poses = birds.Select(bird => Body(bird).anchoredPosition).ToArray();
-            yield return new WaitForSeconds(0.4f);
-            for (int i = 0; i < birds.Length; i++) Assert.That(Body(birds[i]).anchoredPosition, Is.EqualTo(poses[i]));
+            const int frozenFrames = 30;
+            const float epsilon = 1e-5f;
+            var comparer = new Vector3EqualityComparer(epsilon);
+            for (int frame = 0; frame < frozenFrames; frame++)
+            {
+                yield return null;
+                for (int i = 0; i < birds.Length; i++)
+                {
+                    var actual = Body(birds[i]).localScale;
+                    var expected = frozenScales[i];
+                    Assert.That(actual, Is.EqualTo(expected).Using(comparer),
+                        string.Format(CultureInfo.InvariantCulture,
+                            "Bird {0}, frozen frame {1}/{2} (Unity frame {3}), epsilon {4:E1}: expected ({5:F6}, {6:F6}, {7:F6}), actual ({8:F6}, {9:F6}, {10:F6}).",
+                            birds[i].Id, frame + 1, frozenFrames, Time.frameCount, epsilon,
+                            expected.x, expected.y, expected.z, actual.x, actual.y, actual.z));
+                    Assert.That(Active(birds[i]), Is.False);
+                    Assert.That(birds[i].ShowsRestPose, Is.True);
+                    Assert.That(Body(birds[i]).anchoredPosition, Is.EqualTo(poses[i]));
+                }
+            }
         }
 
         [UnityTest]

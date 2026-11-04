@@ -1,0 +1,162 @@
+[
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_hint.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "22104e986a8d8d8db09390f2d2673750cd3427d698771b1a715fc7633f589a3f",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_branch.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "5a921dc6fc75e4bea5c072c27a3041d4844063b4f33455d804bb0011cd1bb00a",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_owl_eye.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "85394dde3309b37aa931a35721551997b653d192c4c95aba07de5feabe59fb6a",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_bell.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "76943fe9a577b29a0b696fe593101bd467f04f58b62b644c9249750f51f777be",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_scarecrow.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "82e08442fb31db2f633bd4c59fa0bd55cea7e6c57319528bfd01a177a2423473",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/tool_rain.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "0e3009b6e8c0bc5be582574bed9a47f8a0aa8002f5c54c377b18ced6ec710018",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/star_full.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "afc89f4804bda8a8768b72e31233ba36d90846da25135a308109cf752e2ed6f3",
+    "existing_meta_unchanged": true
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/star_empty.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "46d9d50935597f2ec04f027bd0b556f29cb2d5e4951502cc085ad14564dac394",
+    "existing_meta_unchanged": true
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/star_full_small.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "sha256": "7980dc697ed75be45ecbd8dd1c6c595f471bac636e9750e1db38b09829fe773f",
+    "existing_meta_unchanged": true
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/star_empty_small.png",
+    "size": [
+      128,
+      128
+    ],
+    "mode": "RGBA",
+    "sha256": "dbda6a1925b3a8d007ff42f1b0eb04012d546bf239969562dd56206e12f71906",
+    "existing_meta_unchanged": true
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/leaf_sprig_a.png",
+    "size": [
+      180,
+      140
+    ],
+    "mode": "RGBA",
+    "sha256": "52500b79b32458a8f31f27df034cf622b64464ea90749d345ea872a1ebe9975c",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/leaf_sprig_b.png",
+    "size": [
+      180,
+      140
+    ],
+    "mode": "RGBA",
+    "sha256": "ee7e6cfa2f941a8f62869f152dcd46fc15672f9ebc34529e399f8125371420a1",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/leaf_sprig_c.png",
+    "size": [
+      180,
+      140
+    ],
+    "mode": "RGBA",
+    "sha256": "36550a90882ea58ceda826435286d4bb1e03d791d1509e1d4171084ff5d630f1",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/hoot_sleep_bare.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "sha256": "d3cc7b746e46c831fc4318743d5bf51b20b6ac87ab9760d4b050b73f76e5a743",
+    "existing_meta_unchanged": null
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/icon_basket.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "cf860b17012894ec0f6b6d846672c73018d99e3d61fbbfb1b0e64eb37ade53d0",
+    "existing_meta_unchanged": true
+  },
+  {
+    "asset": "PerchSort/Assets/Resources/Art/icon_aviary.png",
+    "size": [
+      256,
+      256
+    ],
+    "mode": "RGBA",
+    "sha256": "615069d6fed648443be69fdc4155cbb7d2b7f88c0812cd9bc6c34ed12cac8006",
+    "existing_meta_unchanged": true
+  }
+]

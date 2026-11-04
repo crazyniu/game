@@ -366,8 +366,27 @@ namespace PerchSort.Game
         }
         public void Shake()
         {
+            float delay = idleGroup?.InvalidFeedbackDelay(this) ?? 0;
             Cancel(); selected = false; acting = true;
-            PlayAction(0, idlePoses[0], Idle);
+            // Refusal changes drawn poses only; retain normal breathing on the seated body.
+            breathing.Loop(breathPeriod, _ => ApplyIdleMotion());
+            if (idleSequences[1].Length < 3 || idleSequences[2].Length < 3)
+            {
+                if (delay > 0 && !GameMotion.Instant)
+                    motion.Play(delay, _ => SetFrame(RestFrame), () => PlayAction(0, idlePoses[0], Idle));
+                else PlayAction(0, idlePoses[0], Idle);
+                return;
+            }
+            float duration = 10f / 16 + delay;
+            motion.Play(duration, t =>
+            {
+                // LitMotion binds its initial value before WithDelay; gate the pose itself.
+                float elapsed = t * duration - delay;
+                if (elapsed < 0) return;
+                int frame = Mathf.Min(9, Mathf.FloorToInt(elapsed * 16));
+                int step = frame % 5;
+                SetFrame(idleSequences[frame < 5 ? 1 : 2][step <= 2 ? step : 4 - step]);
+            }, Idle);
         }
 
         public void Fly(Vector2 destination, float delay, bool home, Action airborne, Action landed,

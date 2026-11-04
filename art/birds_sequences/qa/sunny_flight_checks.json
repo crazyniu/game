@@ -1,0 +1,20 @@
+{
+  "species": "sunny",
+  "frames": 24,
+  "size": [
+    320,
+    320
+  ],
+  "mode": "RGBA",
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "unique_hashes": 24,
+  "clipped": [],
+  "importer_settings": "identical to sunny_idle except asset identities",
+  "previews": 6,
+  "preview_fps": 10,
+  "unity": "NOT_RUN",
+  "visual_review": "offline contact sheets reviewed on light/dark and 64 px grayscale; runtime acceptance pending"
+}

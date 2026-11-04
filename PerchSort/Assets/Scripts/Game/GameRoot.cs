@@ -17,6 +17,10 @@ namespace PerchSort.Game
         private TutorialHand tutorial;
         private SettingsPanel settings;
         private PanelsView panels;
+        public ShopView Shop { get; private set; }
+        public AviaryView Aviary { get; private set; }
+        public PerchSort.Meta.PlayerProfile Collection => profile.Notifications.RewardLedger;
+        public int BoosterStock(BoosterKind kind) => profile.DisplayStock(Session.Inventory[kind]);
         private LevelEntrance entrance;
         private LeafTransition leafTransition;
         private bool notificationsEnabled, notificationTransition;
@@ -57,7 +61,7 @@ namespace PerchSort.Game
         public Canvas Canvas { get; private set; }
         public bool IsReady => initialized;
         private bool IsWiping => leafTransition != null && leafTransition.IsPlaying;
-        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || IsIntroducing || notificationTransition || IsWiping;
+        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || Shop.IsOpen || Aviary.IsOpen || IsIntroducing || notificationTransition || IsWiping;
         public void ConfigureFont(TMP_FontAsset value) => font = value;
         private void Start() => Initialize();
         private void Update()
@@ -97,6 +101,8 @@ namespace PerchSort.Game
             settings = Layer<SettingsPanel>(design, "Settings overlay"); settings.Configure(this, art);
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<PanelsView>(design, "Information cards"); panels.Configure(this, art, font);
+            Shop = Layer<ShopView>(design, "Shop"); Shop.Configure(this, art, font);
+            Aviary = Layer<AviaryView>(design, "Aviary"); Aviary.Configure(this, art, font);
             entrance = Layer<LevelEntrance>(design, "Level entrance"); entrance.Configure(this);
             var leafLayer = GameUI.Rect(Canvas.transform, "Leaf transition", Vector2.zero, GameLayout.DesignSize);
             GameUI.Stretch(leafLayer);
@@ -147,6 +153,7 @@ namespace PerchSort.Game
             if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
             Session = profile.CreateSession(level);
             Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
+            if (starters && notificationsEnabled) entrance.Prepare();
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
             if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
@@ -300,14 +307,22 @@ namespace PerchSort.Game
             if (!initialized || IsMap || Modal || HighestUnlocked < ViewModel.Unlock(kind)) return;
             if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (Defer(() => TapBooster(kind))) return;
-            if (Session.Inventory[kind] == 0) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); panels.Buy(kind); Refresh(); }
+            if (Session.Inventory[kind] == 0) OpenShop(kind);
             else if (kind == BoosterKind.Firefly) Hint();
             else UseBooster(kind);
         }
         public bool BuyBooster(BoosterKind kind)
         {
-            if (!initialized || IsBusy || HighestUnlocked < ViewModel.Unlock(kind) || Coins < ViewModel.Price(kind)) return false;
-            Session.GrantBooster(kind, 1); profile.SpendCoins(ViewModel.Price(kind)); Save(); Refresh(); return true;
+            if (!initialized || IsBusy) return false;
+            var item = ShopView.Item(kind);
+            var snapshot = PerchSort.Meta.ProfileMigrator.FromLegacy(new System.Collections.Generic.Dictionary<string, string>
+            {
+                { ProgressStore.CoinsKey, Coins.ToString() },
+                { ProgressStore.HighestKey, HighestUnlocked.ToString() }
+            }).WithBoosterCount(ShopView.MetaKind(kind), Session.Inventory[kind]);
+            var result = PerchSort.Meta.Shop.Purchase(snapshot, item.Id);
+            if (!result.Succeeded) return false;
+            Session.GrantBooster(kind, 1); profile.SpendCoins(item.Price); Save(); PlaySound(Sfx.Collect); Refresh(); return true;
         }
         public bool UseBooster(BoosterKind kind)
         {
@@ -486,9 +501,25 @@ namespace PerchSort.Game
             panels.SetLevelCardOrigin(origin);
             panels.LevelCard(id); Refresh();
         }
+        public void OpenShop(BoosterKind? focus = null)
+        {
+            if (!initialized || IsBusy || Modal) return;
+            InputTap();
+            if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
+            Shop.Show(focus); PlaySound(Sfx.Click); Refresh();
+        }
+        public void OpenAviary()
+        {
+            if (!initialized || IsBusy || Modal) return;
+            InputTap();
+            if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
+            Aviary.Show(); PlaySound(Sfx.Click); Refresh();
+        }
         public void OpenPopup(PopupKind kind, string species = "mint", int reward = 0)
         {
             if (!initialized || IsAirborne || Modal) return;
+            if (kind == PopupKind.ShopPlaceholder) { OpenShop(); return; }
+            if (kind == PopupKind.AviaryPlaceholder) { OpenAviary(); return; }
             panels.Popup(kind, species, reward); Refresh();
         }
         public void OpenGoalInfo(string species)
@@ -508,7 +539,13 @@ namespace PerchSort.Game
                 AcknowledgeNotification(CurrentNotification);
             else { panels.Hide(); Refresh(); }
         }
-        public void ClosePanel() { if (panels.IsUnlock || panels.IsNotification) return; panels.Hide(); Refresh(); }
+        public void ClosePanel()
+        {
+            if (Shop.IsOpen) Shop.Hide();
+            else if (Aviary.IsOpen) { if (Aviary.DetailOpen) { Aviary.Back(); return; } Aviary.Hide(); }
+            else { if (panels.IsUnlock || panels.IsNotification) return; panels.Hide(); }
+            PlaySound(Sfx.Back); Refresh();
+        }
         public void SetMuted(bool muted)
         {
             profile.Muted = muted; Save();
@@ -523,6 +560,7 @@ namespace PerchSort.Game
             SetRaycasts(hudInput, !blocked && !IsMap);
             SetRaycasts(boardInput, !Modal && !IsMap);
             SetRaycasts(mapInput, !Modal && IsMap);
+            StuckHint.Observe(this);
             if (IsMap) Map.RefreshCoins(Coins);
         }
         private static void SetRaycasts(CanvasGroup group, bool enabled) => group.blocksRaycasts = group.interactable = enabled;
@@ -531,7 +569,7 @@ namespace PerchSort.Game
         {
             revision++; transactionGeneration++; hintPending = false; queuedTap = null; winCountPending = false;
             profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel(); entrance.Cancel();
-            Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Scene.Cancel(); IsBusy = false;
+            Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
         }
         private void OnDisable()
         {

@@ -194,21 +194,43 @@ namespace PerchSort.PlayModeTests
             root.LoadLevel(1);
             yield return new WaitForSecondsRealtime(1.15f);
             Playing(game, "bgm_game");
+            AudioSettings.GetDSPBufferSize(out int bufferSamples, out _);
+            int pauseQuantum = Mathf.CeilToInt(bufferSamples * (float)game.clip.frequency / AudioSettings.outputSampleRate);
             audio.SendMessage("OnApplicationFocus", false);
-            float before = game.time;
-            yield return new WaitForSecondsRealtime(.3f);
+            int pauseRequestedSample = game.timeSamples;
             Assert.That(game.isPlaying, Is.False);
-            Assert.That(game.time, Is.EqualTo(before).Within(.02f));
+            // Pause reaches the mixer at a DSP-buffer boundary; allow that one boundary, not ongoing drift.
+            yield return new WaitForSecondsRealtime((float)bufferSamples / AudioSettings.outputSampleRate);
+            int pausedSample = game.timeSamples;
+            Assert.That(pausedSample, Is.InRange(pauseRequestedSample, pauseRequestedSample + pauseQuantum));
+            double until = Time.unscaledTimeAsDouble + .3;
+            do
+            {
+                yield return null;
+                Assert.That(game.isPlaying, Is.False);
+                Assert.That(game.timeSamples, Is.EqualTo(pausedSample), "The settled paused playhead must not advance.");
+            } while (Time.unscaledTimeAsDouble < until);
             Evidence("focus-lost-playhead-paused");
             audio.SendMessage("OnApplicationPause", true);
             audio.SendMessage("OnApplicationFocus", true);
-            yield return new WaitForSecondsRealtime(.2f);
-            Assert.That(game.isPlaying, Is.False);
-            Assert.That(game.time, Is.EqualTo(before).Within(.02f));
+            until = Time.unscaledTimeAsDouble + .2;
+            do
+            {
+                yield return null;
+                Assert.That(game.isPlaying, Is.False);
+                Assert.That(game.timeSamples, Is.EqualTo(pausedSample), "Focus alone must not resume an application-paused song.");
+            } while (Time.unscaledTimeAsDouble < until);
+            // Sample both sides of UnPause in this frame, rather than comparing with a stale pre-pause clock.
+            int beforeResume = game.timeSamples;
             audio.SendMessage("OnApplicationPause", false);
+            int resumedSample = game.timeSamples;
+            int resumeTolerance = Mathf.FloorToInt(game.clip.frequency / 60f);
+            Assert.That(resumedSample, Is.EqualTo(beforeResume).Within(resumeTolerance));
+            Debug.Log($"T54A pause-request={pauseRequestedSample} paused={pausedSample} quantum={pauseQuantum} " +
+                $"before-resume={beforeResume} resumed={resumedSample} resume-tolerance={resumeTolerance} frequency={game.clip.frequency}");
             yield return new WaitForSecondsRealtime(.25f);
             Playing(game, "bgm_game");
-            Assert.That(game.time, Is.GreaterThan(before));
+            Assert.That(game.timeSamples, Is.GreaterThan(beforeResume));
             Evidence("focus-and-pause-resumed");
         }
 

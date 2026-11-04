@@ -102,16 +102,7 @@ namespace PerchSort.Game
             GameUI.Fit(parent, name, art.Get(sprite), bounds.center - panel.position, bounds.size);
         private TextMeshProUGUI Label(Transform parent, string name, string value, Rect panel, Rect bounds, float size) =>
             GameUI.Text(parent, name, value, font, bounds.center - panel.position, bounds.size, size);
-        public void Buy(BoosterKind kind)
-        {
-            Rect bounds = GameLayout.UnlockPanel; var body = Body(bounds);
-            Picture(body, "Booster", ViewModel.Icon(kind), bounds, GameLayout.UnlockIcon);
-            Picture(body, "Coin price", "coin", bounds, GameLayout.PurchaseCoin);
-            Label(body, "Price", ViewModel.Price(kind).ToString(), bounds, GameLayout.PurchasePrice, GameLayout.RewardFontSize);
-            var buy = GameUI.Button(body, art, "Buy one booster", "icon_check", new Rect(GameLayout.UnlockCheck.position - bounds.position, GameLayout.UnlockCheck.size),
-                presentation.Once(() => { if (root.BuyBooster(kind)) Dismiss(root.ClosePanel); }), primary: true);
-            buy.interactable = root.Coins >= ViewModel.Price(kind);
-        }
+        public void Buy(BoosterKind kind) => root.OpenShop(kind);
         public void Unlock(BoosterKind kind)
         {
             Rect bounds = GameLayout.UnlockPanel; var body = Body(bounds, false); IsUnlock = true;
@@ -197,13 +188,8 @@ namespace PerchSort.Game
         public void SetLevelCardOrigin(Vector2 point) => levelCardOrigin = point;
         public void Popup(PopupKind kind, string species, int reward, Action acknowledge = null, int world = 2)
         {
-            if (kind == PopupKind.ShopPlaceholder || kind == PopupKind.AviaryPlaceholder)
-            {
-                var panel = Body(GameLayout.LevelCard);
-                Label(panel, "Screen name", kind == PopupKind.ShopPlaceholder ? "Shop" : "Aviary", GameLayout.LevelCard, GameLayout.CardBadge, 46);
-                Label(panel, "Placeholder notice", "Not available yet", GameLayout.LevelCard, GameLayout.CardMoves, 30);
-                return;
-            }
+            if (kind == PopupKind.ShopPlaceholder) { root.OpenShop(); return; }
+            if (kind == PopupKind.AviaryPlaceholder) { root.OpenAviary(); return; }
             Begin(); IsNotification = acknowledge != null;
             content = GameUI.Rect(transform, "Popup presentation", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             ModalLayer.Enter(presentation, content);
