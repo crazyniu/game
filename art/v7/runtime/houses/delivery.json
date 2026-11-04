@@ -1,0 +1,460 @@
+{
+  "coordinate_system": "Top-left pixels in parent canvas; shared house frame 512x512. Composite at zero offset, no trimming at import.",
+  "shared_canvas": [
+    512,
+    512
+  ],
+  "body_peak_xy": [
+    256,
+    96
+  ],
+  "roof_suspension_anchor_xy": [
+    256,
+    58
+  ],
+  "door_center_xy": [
+    253,
+    306
+  ],
+  "door_dark_radius": 102,
+  "door_closed_outer_radius": 108,
+  "door_left_hinge_xy": [
+    145,
+    306
+  ],
+  "door_leaf_pivot_unity_normalized": [
+    0.283203125,
+    0.40234375
+  ],
+  "closed_transform": {
+    "position_xy": [
+      0,
+      0
+    ],
+    "scale_xy": [
+      1,
+      1
+    ],
+    "rotation_deg": 0
+  },
+  "open_transform": {
+    "hinge_xy": [
+      145,
+      306
+    ],
+    "rotation_about_vertical_deg": 70,
+    "projected_width_px": 80,
+    "fallback_file": "house_door_open.png",
+    "contains_body": true,
+    "contains_roof": false
+  },
+  "rope": {
+    "canvas": [
+      64,
+      256
+    ],
+    "top_anchor_xy": [
+      32,
+      4
+    ],
+    "bottom_anchor_xy": [
+      32,
+      252
+    ],
+    "connect_bottom_to_house": [
+      256,
+      58
+    ]
+  },
+  "beams": {
+    "canvas": [
+      1080,
+      200
+    ],
+    "house_suspension_y_by_world": {
+      "w1": 170,
+      "w2": 170,
+      "w3": 170,
+      "w4": 120
+    },
+    "seven_rope_anchors_x": [
+      96,
+      244,
+      392,
+      540,
+      688,
+      836,
+      984
+    ]
+  },
+  "assets": [
+    {
+      "file": "house_body.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        64,
+        96,
+        384,
+        360
+      ],
+      "source_crop_xyxy": [
+        314,
+        73,
+        1216,
+        924
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_teal.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        190,
+        56,
+        1793,
+        734
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_red.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        126,
+        44,
+        1854,
+        749
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_yellow.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        133,
+        34,
+        1839,
+        750
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_purple.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        93,
+        46,
+        1890,
+        747
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_green.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        171,
+        51,
+        1811,
+        737
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_blue.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        170,
+        32,
+        1813,
+        744
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_orange.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        112,
+        43,
+        1870,
+        749
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_roof_pink.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        32,
+        58,
+        448,
+        180
+      ],
+      "source_crop_xyxy": [
+        162,
+        54,
+        1821,
+        737
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_rope.png",
+      "canvas": [
+        64,
+        256
+      ],
+      "visible_rect_xywh": [
+        20,
+        4,
+        24,
+        248
+      ],
+      "source_crop_xyxy": [
+        465,
+        67,
+        559,
+        1474
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_beam_w1.png",
+      "canvas": [
+        1080,
+        200
+      ],
+      "visible_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "source_crop_xyxy": [
+        43,
+        225,
+        2130,
+        459
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_beam_w2.png",
+      "canvas": [
+        1080,
+        200
+      ],
+      "visible_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "source_crop_xyxy": [
+        37,
+        218,
+        2133,
+        448
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_beam_w3.png",
+      "canvas": [
+        1080,
+        200
+      ],
+      "visible_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "source_crop_xyxy": [
+        25,
+        162,
+        2144,
+        467
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_beam_w4.png",
+      "canvas": [
+        1080,
+        200
+      ],
+      "visible_rect_xywh": [
+        4,
+        4,
+        1072,
+        192
+      ],
+      "source_crop_xyxy": [
+        28,
+        225,
+        2143,
+        514
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_door_leaf.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        145,
+        198,
+        216,
+        216
+      ],
+      "source_crop_xyxy": [
+        98,
+        84,
+        1135,
+        1163
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "house_door_open.png",
+      "canvas": [
+        512,
+        512
+      ],
+      "visible_rect_xywh": [
+        70,
+        198,
+        80,
+        216
+      ],
+      "source_crop_xyxy": [
+        190,
+        92,
+        762,
+        1449
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ]
+}

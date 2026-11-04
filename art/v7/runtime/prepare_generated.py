@@ -9,7 +9,7 @@ WORK = ROOT / 'art/v7/runtime'
 OUT = ROOT / 'PerchSort/Assets/Resources/V7/Art'
 SIZES = {'btn_purple': (160,160), 'btn_purple_pressed': (160,160),
          'btn_green': (220,220), 'btn_green_pressed': (220,220),
-         'coin_pill': (320,128), 'btn_green_pill': (320,112), 'badge_red': (56,56)}
+         'coin_pill': (320,128), 'btn_green_pill': (320,112), 'badge_red': (56,56), 'chain_bonus': (64,64)}
 
 if __name__ == '__main__':
     metrics = {}
@@ -22,6 +22,8 @@ if __name__ == '__main__':
         alpha = im.getchannel('A')
         # Remove nearly transparent generation specks before measuring bounds.
         alpha = alpha.point(lambda p: 0 if p < 8 else p)
+        if name in ('icon_branch_plus', 'icon_check', 'icon_next_arrow', 'chain_bonus'):
+            alpha = alpha.point(lambda p: 0 if p < 160 else round((p-160)*255/95))
         im.putalpha(alpha)
         bounds = alpha.point(lambda p: 255 if p >= 32 else 0).getbbox()
         im = im.crop(bounds)

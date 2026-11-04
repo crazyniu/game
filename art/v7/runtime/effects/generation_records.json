@@ -1,0 +1,142 @@
+[
+  {
+    "name": "light_rays",
+    "size": 1024,
+    "ref": "ui7_win",
+    "prompt": "Using the attached approved Perch Sort win screen as the exact STYLE reference, extract/recreate ONLY the warm golden radial light rays behind the victory panel. Single centered radial sunburst VFX sprite, broad translucent golden shafts alternating with softer rays, creamy white warm center, rays smoothly fade to fully transparent before all edges. No panel, birds, stars, objects, text or background. Genuine RGBA alpha transparency including faint rays, no black/white/checkerboard matte, no outlines. Match the reference's premium soft stylized 3D lighting. Square isolated asset.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-0d920260-6c23-4a3c-9863-3c708522b638.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "sparkle",
+    "size": 128,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single four-point warm golden magic sparkle, exactly like the tiny sparkles beside the flying yellow chick. White luminous center, slender tapered gold tips, subtle diffuse halo. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-3ee724ea-4c4e-4ea3-b1dc-457c0dc33b16.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "confetti_1",
+    "size": 64,
+    "ref": "ui7_win",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single gently curled rectangular piece of golden-yellow satin paper confetti, matching the victory screen confetti. Soft three dimensional bend, lit top-left. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-377dbc97-31ee-45f9-a1b1-ca00fa15ab65.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "confetti_2",
+    "size": 64,
+    "ref": "ui7_win",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single gently curled rectangular piece of raspberry pink satin paper confetti, matching the victory screen confetti. Soft three dimensional bend, lit top-left. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-632fc47d-7204-4b59-a55d-733b29de6742.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "confetti_3",
+    "size": 64,
+    "ref": "ui7_win",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single gently curled rectangular piece of lavender purple satin paper confetti, matching the victory screen confetti. Soft three dimensional bend, lit top-left. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-02f1095a-b6d2-4779-a137-1b475413f012.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "confetti_4",
+    "size": 64,
+    "ref": "ui7_win",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single gently curled rectangular piece of fresh leaf green satin paper confetti, same shape family and finish as the victory screen confetti. Soft three dimensional bend, lit top-left. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-ee8f56c2-ff53-4fde-af4a-079b3589d595.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "glow_soft",
+    "size": 512,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single circular diffuse warm golden light glow, softly illuminated creamy white center fading continuously into transparency. No rays or star shape. Suitable for additive effects. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-c1650d01-4c12-4cf9-b87a-190520fc900d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "zzz",
+    "size": 192,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. A compact floating sleep symbol of three softly rounded pale cream Z letters, small to large rising diagonally, subtly sculpted 3D with softly golden shaded edges, no black outline. Only the letters Z Z Z. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-9c21d9e4-0b74-410e-acb0-5685a310f59c.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "leaf_fall_w1",
+    "size": 64,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single small fresh spring green oval leaf with central vein and short stem, rendered like the rounded lush leaves on the reference trees. Tilted diagonally, subtle 3D volume, no shadow outside leaf. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-6f77cc93-91de-42e1-8f45-1bcebb1d42ef.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "leaf_fall_w2",
+    "size": 64,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single slender fresh green bamboo leaf with central vein, soft stylized 3D volume matching the bamboo and foliage in the reference. Tilted diagonally. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-3284094b-e093-4151-9c50-3e2c6c7d0a20.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "leaf_fall_w3",
+    "size": 64,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single warm orange-red maple leaf, distinct five pointed lobes and short stem, soft stylized 3D volume matching the reference foliage quality and warmth. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-89db4a94-39d3-4f47-9ba8-12b6c13d1170.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "leaf_fall_w4",
+    "size": 64,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single soft icy white six-armed snowflake particle, gently rounded sculpted crystal branches, pale cool-blue shaded sides, matching the premium friendly stylized 3D rendering of the reference. Simple readable silhouette. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-e2f582e2-3b7f-4cb0-8260-846bd3c432e6.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "cloud_soft_1",
+    "size": 768,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single wide soft white drifting cumulus cloud puff, low flattened base and three rounded lobes, softly blurred translucent outer edge, warm sunlight and faint blue underside, matching the soft sky clouds in the reference. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-611dfe10-c555-4236-b66b-afa79b46ecfc.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "cloud_soft_2",
+    "size": 768,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single low wispy wide soft white drifting cloud, gently stretched horizontally with asymmetrical small rounded lobes, softly blurred translucent edge, warm sunlight and faint blue underside, matching the soft sky clouds in the reference. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-e076a3e2-b4d1-42c7-ab72-76d3321273c9.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "cloud_soft_3",
+    "size": 768,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single rounded soft white drifting cloud with a tall central lobe and smaller side puffs, softly blurred translucent outer edge, warm sunlight and faint blue underside, matching the soft sky clouds in the reference. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-13926ab6-eba4-44d9-990e-3529bd9171b6.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "firefly",
+    "size": 48,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single tiny glowing warm yellow-green firefly light particle, small bright cream pinpoint core, smooth soft golden-green translucent halo, no visible insect anatomy. Readable at 48 pixels, additive friendly. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-2b8267e1-3732-4ee5-a904-9873897f602d.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "leaf_wipe",
+    "size": 1600,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. A dense large cluster of overlapping lush fresh green leaves filling the center and most of a square canvas for a screen transition wipe. Premium rounded 3D leaves with subtle veins and soft volume, EXACTLY match the reference foreground foliage. Fully opaque dense center, scalloped silhouette at outer edges, small transparent margin. No trunks, flowers, UI or scenery. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-ab917db0-62c3-41b2-a9ab-173c0eb38f9a.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "gift_trail",
+    "size": 512,
+    "ref": "ui7_popup_daily_gift",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One elegant curved swoosh of warm golden magical light for a gift reward traveling upward, tapered at both ends, with three tiny four-point sparkles embedded along it. Cream luminous ribbon core, soft translucent golden bloom, match the gift glow and magical trail in reference. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-bb71c75a-a3c5-49ff-a2b4-d8cf6606fba9.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "house_glow",
+    "size": 512,
+    "ref": "ui7_level_k3_v2",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. One single soft warm golden glow for the round birdhouse doorway, circular creamy yellow central light fading gently to transparent at the edges, slightly oval vertical shape, no house or door, no rays or symbols. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-db749a2a-f914-4172-9b57-d1946c960a1e.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  {
+    "name": "gate_light",
+    "size": 1024,
+    "ref": "ui7_map",
+    "prompt": "Use case: stylized-concept. Produce ONE isolated game sprite using the attached approved Perch Sort screen as the authoritative STYLE reference. Only warm light pouring through an open arched garden gate: rounded arch-shaped luminous warm cream center in upper half, softly spreading golden volumetric rays flowing down and outward toward foreground, smooth transparent feathered perimeter. No gate, doors, ground, scene or objects. Additive-friendly translucent lighting overlay matching the warm premium 3D reference. Match the reference's soft premium stylized 3D animated-film rendering, lighting, palette and gloss. Genuine RGBA transparency, clean antialiased edges and a clear transparent margin. No baked background, no checkerboard, no unrelated objects, no text except specifically requested letters.",
+    "hint": "Generated images are saved to /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0 as /Users/apple/.codex/generated_images/01a1a036-8070-76d1-ac0c-34d849b61af0/exec-44bd6a6b-e73e-4be5-8efc-87e6c840a0d0.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  }
+]
