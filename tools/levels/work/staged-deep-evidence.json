@@ -1,0 +1,3206 @@
+{
+  "GateSet": "DEEP_V54",
+  "Limits": {
+    "MaxStates": 20000000,
+    "Milliseconds": 60000,
+    "MemoryMiB": 4096
+  },
+  "CatalogFailures": [],
+  "Levels": [
+    {
+      "Id": 1,
+      "World": 1,
+      "Variant": "noon",
+      "K": 2,
+      "Branches": 4,
+      "Mechanics": [],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 2,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 37,
+      "Edges": 192,
+      "Closed": true,
+      "GraphMilliseconds": 14,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Not required",
+        "Prefix": [],
+        "GoodLine": [],
+        "OtherLine": []
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "0\u003E2"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 2,
+      "World": 1,
+      "Variant": "golden",
+      "K": 2,
+      "Branches": 3,
+      "Mechanics": [],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 16,
+      "Edges": 52,
+      "Closed": true,
+      "GraphMilliseconds": 0,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Not required",
+        "Prefix": [],
+        "GoodLine": [],
+        "OtherLine": []
+      },
+      "OptimalLine": [
+        "0\u003E2",
+        "1\u003E0",
+        "1\u003E2"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 3,
+      "World": 1,
+      "Variant": "morning",
+      "K": 3,
+      "Branches": 5,
+      "Mechanics": [
+        "gifts"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 4,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 464,
+      "Edges": 3606,
+      "Closed": true,
+      "GraphMilliseconds": 35,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E3",
+          "2\u003E4"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "sunny",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "1\u003E0",
+          "3\u003E1"
+        ],
+        "OtherLine": [
+          "1\u003E4",
+          "3\u003E1",
+          "4\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E3",
+        "1\u003E0",
+        "1\u003E3",
+        "2\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 4,
+      "World": 1,
+      "Variant": "noon",
+      "K": 3,
+      "Branches": 5,
+      "Mechanics": [
+        "gifts"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [
+        "EARLY_WARMUP_L4_L5",
+        "SAPLING_INTRO_L4"
+      ],
+      "Par": 8,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 2409,
+      "Edges": 17198,
+      "Closed": true,
+      "GraphMilliseconds": 177,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "berry",
+        "OtherNext": "sky",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "2\u003E1",
+          "3\u003E2",
+          "0\u003E1",
+          "0\u003E3",
+          "2\u003E0",
+          "1\u003E2",
+          "4\u003E1",
+          "3\u003E1"
+        ],
+        "OtherLine": [
+          "2\u003E1",
+          "3\u003E2",
+          "4\u003E3",
+          "1\u003E4",
+          "3\u003E1",
+          "0\u003E4",
+          "0\u003E1",
+          "2\u003E0",
+          "4\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "0\u003E4",
+        "2\u003E1",
+        "2\u003E0",
+        "1\u003E2",
+        "1\u003E4",
+        "3\u003E0",
+        "3\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "Booster": {
+        "Kind": "Sapling",
+        "Status": "Proven",
+        "MinimumMoves": 8,
+        "MovesSaved": 0,
+        "Line": [
+          "Use:Sapling",
+          "0\u003E1",
+          "0\u003E4",
+          "3\u003E0",
+          "3\u003E4",
+          "2\u003E1",
+          "2\u003E0",
+          "1\u003E2",
+          "1\u003E4"
+        ]
+      },
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 5,
+      "World": 1,
+      "Variant": "golden",
+      "K": 3,
+      "Branches": 5,
+      "Mechanics": [
+        "gifts"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [
+        "EARLY_WARMUP_L4_L5"
+      ],
+      "Par": 10,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 2824,
+      "Edges": 17436,
+      "Closed": true,
+      "GraphMilliseconds": 67,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E3"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "sunny",
+        "GoodMinimum": 9,
+        "OtherMinimum": 10,
+        "GoodLine": [
+          "2\u003E0",
+          "1\u003E2",
+          "1\u003E3",
+          "0\u003E1",
+          "2\u003E0",
+          "2\u003E3",
+          "1\u003E2",
+          "0\u003E1",
+          "3\u003E0"
+        ],
+        "OtherLine": [
+          "2\u003E0",
+          "2\u003E4",
+          "3\u003E2",
+          "1\u003E4",
+          "1\u003E2",
+          "0\u003E1",
+          "0\u003E4",
+          "2\u003E0",
+          "1\u003E2",
+          "4\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E3",
+        "2\u003E0",
+        "1\u003E2",
+        "1\u003E3",
+        "0\u003E1",
+        "2\u003E0",
+        "2\u003E3",
+        "1\u003E2",
+        "0\u003E1",
+        "0\u003E3"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 6,
+      "World": 1,
+      "Variant": "morning",
+      "K": 3,
+      "Branches": 5,
+      "Mechanics": [
+        "eggs",
+        "gifts"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 5,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 520,
+      "Edges": 3932,
+      "Closed": true,
+      "GraphMilliseconds": 10,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E3"
+        ],
+        "GoodNext": "mint",
+        "OtherNext": "sky",
+        "GoodMinimum": 4,
+        "OtherMinimum": 5,
+        "GoodLine": [
+          "2\u003E4",
+          "4\u003E2",
+          "1\u003E0",
+          "3\u003E1"
+        ],
+        "OtherLine": [
+          "1\u003E4",
+          "3\u003E1",
+          "4\u003E0",
+          "2\u003E4",
+          "4\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E3",
+        "1\u003E0",
+        "1\u003E3",
+        "2\u003E0",
+        "0\u003E2"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 7,
+      "World": 1,
+      "Variant": "noon",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "eggs",
+        "gifts"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 13,
+      "SearchStatus": "Solved",
+      "RandomWins": 602,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.602,
+      "Visited": 28186,
+      "Edges": 261417,
+      "Closed": true,
+      "GraphMilliseconds": 749,
+      "KnownDead": 11,
+      "UnknownStates": 0,
+      "DeadLower": 0.00039026467040374654,
+      "DeadUpper": 0.00039026467040374654,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "2\u003E3",
+          "4\u003E2"
+        ],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 11,
+        "OtherMinimum": 12,
+        "GoodLine": [
+          "1\u003E4",
+          "5\u003E1",
+          "3\u003E4",
+          "5\u003E3",
+          "1\u003E5",
+          "2\u003E1",
+          "3\u003E2",
+          "0\u003E4",
+          "0\u003E5",
+          "0\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "5\u003E4",
+          "0\u003E3",
+          "0\u003E4",
+          "2\u003E0",
+          "5\u003E2",
+          "3\u003E5",
+          "3\u003E2",
+          "0\u003E3",
+          "2\u003E0",
+          "1\u003E5",
+          "1\u003E4",
+          "3\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E2",
+        "0\u003E5",
+        "0\u003E4",
+        "2\u003E3",
+        "2\u003E4",
+        "0\u003E2",
+        "1\u003E0",
+        "3\u003E0",
+        "1\u003E0",
+        "1\u003E4",
+        "2\u003E3",
+        "5\u003E0",
+        "3\u003E5"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "Booster": {
+        "Kind": "OwlEye",
+        "Status": "Reveal-count proxy (not an information-state proof)",
+        "RevealCountProxy": 2,
+        "Line": []
+      },
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 8,
+      "World": 1,
+      "Variant": "golden",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "gifts"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [],
+      "Par": 11,
+      "SearchStatus": "Solved",
+      "RandomWins": 289,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.289,
+      "Visited": 18892,
+      "Edges": 180472,
+      "Closed": true,
+      "GraphMilliseconds": 503,
+      "KnownDead": 10,
+      "UnknownStates": 0,
+      "DeadLower": 0.0005293245818335803,
+      "DeadUpper": 0.0005293245818335803,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E3",
+          "4\u003E0",
+          "1\u003E4"
+        ],
+        "GoodNext": "mint",
+        "OtherNext": "sunny",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "5\u003E4",
+          "3\u003E4",
+          "5\u003E3",
+          "2\u003E4",
+          "2\u003E1",
+          "3\u003E2",
+          "0\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "1\u003E0",
+          "3\u003E1",
+          "2\u003E1",
+          "5\u003E4",
+          "5\u003E3",
+          "2\u003E5",
+          "3\u003E2",
+          "0\u003E5",
+          "2\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E3",
+        "4\u003E0",
+        "1\u003E4",
+        "0\u003E1",
+        "5\u003E4",
+        "0\u003E5",
+        "2\u003E0",
+        "2\u003E1",
+        "2\u003E5",
+        "3\u003E0",
+        "3\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "3\u003E2"
+      ],
+      "ExercisedMechanics": [
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 9,
+      "World": 1,
+      "Variant": "morning",
+      "K": 3,
+      "Branches": 5,
+      "Mechanics": [
+        "gifts"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 4,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 464,
+      "Edges": 3606,
+      "Closed": true,
+      "GraphMilliseconds": 8,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E3",
+          "1\u003E0"
+        ],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "2\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "2\u003E4",
+          "2\u003E0",
+          "4\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E3",
+        "1\u003E0",
+        "2\u003E1",
+        "0\u003E2"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 10,
+      "World": 1,
+      "Variant": "rain",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "eggs",
+        "gifts"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 12,
+      "SearchStatus": "Solved",
+      "RandomWins": 57,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.057,
+      "Visited": 16983,
+      "Edges": 165680,
+      "Closed": true,
+      "GraphMilliseconds": 475,
+      "KnownDead": 36,
+      "UnknownStates": 0,
+      "DeadLower": 0.0021197668256491787,
+      "DeadUpper": 0.0021197668256491787,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E4",
+          "0\u003E2",
+          "4\u003E0",
+          "1\u003E4"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "sunny",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "5\u003E1",
+          "1\u003E4",
+          "3\u003E4",
+          "5\u003E3",
+          "2\u003E4",
+          "3\u003E2",
+          "0\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "4\u003E5",
+          "3\u003E4",
+          "2\u003E4",
+          "5\u003E4",
+          "5\u003E3",
+          "3\u003E2",
+          "1\u003E4",
+          "0\u003E1",
+          "2\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "0\u003E2",
+        "1\u003E5",
+        "4\u003E0",
+        "1\u003E4",
+        "0\u003E1",
+        "2\u003E1",
+        "0\u003E2",
+        "3\u003E1",
+        "2\u003E3",
+        "5\u003E4",
+        "3\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "2\u003E3"
+      ],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 11,
+      "World": 2,
+      "Variant": "drizzle",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 84,
+      "Edges": 692,
+      "Closed": true,
+      "GraphMilliseconds": 2,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E4"
+        ],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "1\u003E0",
+          "4\u003E1"
+        ],
+        "OtherLine": [
+          "1\u003E5",
+          "4\u003E1",
+          "5\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "1\u003E0",
+        "1\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 12,
+      "World": 2,
+      "Variant": "mist",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 7,
+      "SearchStatus": "Solved",
+      "RandomWins": 742,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.742,
+      "Visited": 18084,
+      "Edges": 263781,
+      "Closed": true,
+      "GraphMilliseconds": 717,
+      "KnownDead": 1,
+      "UnknownStates": 0,
+      "DeadLower": 5.529750055297501E-05,
+      "DeadUpper": 5.529750055297501E-05,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "2\u003E3",
+          "3\u003E2"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "berry",
+        "GoodMinimum": 5,
+        "OtherMinimum": 6,
+        "GoodLine": [
+          "4\u003E5",
+          "1\u003E4",
+          "0\u003E5",
+          "0\u003E4",
+          "1\u003E0"
+        ],
+        "OtherLine": [
+          "1\u003E5",
+          "0\u003E3",
+          "0\u003E5",
+          "1\u003E0",
+          "4\u003E3",
+          "5\u003E4"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "2\u003E3",
+        "3\u003E2",
+        "0\u003E2",
+        "1\u003E0",
+        "4\u003E2",
+        "0\u003E4",
+        "0\u003E1"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "Booster": {
+        "Kind": "MorningBell",
+        "Status": "Proven",
+        "MinimumMoves": 5,
+        "MovesSaved": 2,
+        "Line": [
+          "Use:MorningBell",
+          "0\u003E2",
+          "1\u003E0",
+          "4\u003E2",
+          "0\u003E4",
+          "0\u003E1"
+        ]
+      },
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 13,
+      "World": 2,
+      "Variant": "noon",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 7,
+      "SearchStatus": "Solved",
+      "RandomWins": 769,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.769,
+      "Visited": 2664,
+      "Edges": 24207,
+      "Closed": true,
+      "GraphMilliseconds": 75,
+      "KnownDead": 21,
+      "UnknownStates": 0,
+      "DeadLower": 0.007882882882882882,
+      "DeadUpper": 0.007882882882882882,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "mint",
+        "OtherNext": "sky",
+        "GoodMinimum": 7,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "2\u003E5",
+          "2\u003E5",
+          "2\u003E5",
+          "2\u003E5",
+          "4\u003E5",
+          "1\u003E5",
+          "4\u003E1"
+        ],
+        "OtherLine": [
+          "2\u003E5",
+          "2\u003E5",
+          "2\u003E5",
+          "0\u003E3",
+          "3\u003E0",
+          "5\u003E2",
+          "4\u003E5",
+          "1\u003E5",
+          "4\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "1\u003E3",
+        "2\u003E5",
+        "2\u003E5",
+        "2\u003E5",
+        "2\u003E5",
+        "4\u003E3",
+        "1\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 14,
+      "World": 2,
+      "Variant": "drizzle",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 122,
+      "Edges": 1268,
+      "Closed": true,
+      "GraphMilliseconds": 3,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E5"
+        ],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "1\u003E0",
+          "5\u003E1"
+        ],
+        "OtherLine": [
+          "1\u003E6",
+          "5\u003E1",
+          "6\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E5",
+        "1\u003E0",
+        "1\u003E5"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 4,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 15,
+      "World": 2,
+      "Variant": "mist",
+      "K": 4,
+      "Branches": 6,
+      "Mechanics": [
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 2,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 67,
+      "Edges": 588,
+      "Closed": true,
+      "GraphMilliseconds": 1,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "0\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "0\u003E5",
+          "2\u003E0",
+          "5\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "0\u003E2"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 16,
+      "World": 2,
+      "Variant": "noon",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "eggs",
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 6,
+      "SearchStatus": "Solved",
+      "RandomWins": 709,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.709,
+      "Visited": 32307,
+      "Edges": 502668,
+      "Closed": true,
+      "GraphMilliseconds": 1292,
+      "KnownDead": 1,
+      "UnknownStates": 0,
+      "DeadLower": 3.0953044231900206E-05,
+      "DeadUpper": 3.0953044231900206E-05,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E5"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "sky",
+        "GoodMinimum": 5,
+        "OtherMinimum": 6,
+        "GoodLine": [
+          "4\u003E1",
+          "4\u003E5",
+          "1\u003E4",
+          "5\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "4\u003E1",
+          "5\u003E4",
+          "1\u003E5",
+          "4\u003E1",
+          "5\u003E4",
+          "2\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E5",
+        "0\u003E2",
+        "4\u003E1",
+        "4\u003E5",
+        "1\u003E4",
+        "1\u003E5"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 17,
+      "World": 2,
+      "Variant": "drizzle",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [],
+      "Par": 10,
+      "SearchStatus": "Solved",
+      "RandomWins": 86,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.086,
+      "Visited": 63541,
+      "Edges": 910520,
+      "Closed": true,
+      "GraphMilliseconds": 2521,
+      "KnownDead": 1241,
+      "UnknownStates": 0,
+      "DeadLower": 0.019530696715506522,
+      "DeadUpper": 0.019530696715506522,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "berry",
+        "GoodMinimum": 10,
+        "OtherMinimum": 12,
+        "GoodLine": [
+          "1\u003E4",
+          "0\u003E5",
+          "5\u003E0",
+          "1\u003E4",
+          "6\u003E5",
+          "3\u003E6",
+          "3\u003E5",
+          "6\u003E3",
+          "2\u003E5",
+          "6\u003E2"
+        ],
+        "OtherLine": [
+          "1\u003E5",
+          "5\u003E1",
+          "1\u003E5",
+          "0\u003E4",
+          "5\u003E1",
+          "2\u003E5",
+          "0\u003E4",
+          "6\u003E5",
+          "3\u003E6",
+          "3\u003E5",
+          "6\u003E3",
+          "6\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "1\u003E5",
+        "4\u003E0",
+        "1\u003E5",
+        "2\u003E0",
+        "6\u003E0",
+        "3\u003E6",
+        "3\u003E0",
+        "6\u003E3",
+        "2\u003E6"
+      ],
+      "TemptingDeadLine": [
+        "2\u003E4"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 18,
+      "World": 2,
+      "Variant": "mist",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 6,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 74805,
+      "Edges": 1267829,
+      "Closed": true,
+      "GraphMilliseconds": 3228,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "sunny",
+        "GoodMinimum": 6,
+        "OtherMinimum": 7,
+        "GoodLine": [
+          "0\u003E6",
+          "1\u003E6",
+          "4\u003E1",
+          "1\u003E0",
+          "2\u003E4",
+          "6\u003E2"
+        ],
+        "OtherLine": [
+          "0\u003E1",
+          "4\u003E0",
+          "4\u003E2",
+          "2\u003E6",
+          "1\u003E2",
+          "6\u003E4",
+          "1\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "1\u003E6",
+        "0\u003E1",
+        "4\u003E1",
+        "2\u003E4",
+        "2\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 19,
+      "World": 2,
+      "Variant": "noon",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 12,
+      "SearchStatus": "Solved",
+      "RandomWins": 192,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.192,
+      "Visited": 60804,
+      "Edges": 802548,
+      "Closed": true,
+      "GraphMilliseconds": 2302,
+      "KnownDead": 55,
+      "UnknownStates": 0,
+      "DeadLower": 0.0009045457535688441,
+      "DeadUpper": 0.0009045457535688441,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "1\u003E4",
+          "4\u003E1",
+          "1\u003E4",
+          "4\u003E1"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "mint",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "3\u003E4",
+          "2\u003E4",
+          "2\u003E3",
+          "2\u003E4",
+          "6\u003E2",
+          "0\u003E2",
+          "6\u003E0",
+          "6\u003E2"
+        ],
+        "OtherLine": [
+          "3\u003E5",
+          "2\u003E5",
+          "2\u003E4",
+          "5\u003E2",
+          "3\u003E4",
+          "6\u003E5",
+          "0\u003E5",
+          "6\u003E0",
+          "6\u003E5"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "1\u003E5",
+        "5\u003E1",
+        "1\u003E5",
+        "5\u003E1",
+        "2\u003E5",
+        "3\u003E5",
+        "2\u003E3",
+        "2\u003E5",
+        "6\u003E4",
+        "6\u003E0",
+        "4\u003E6"
+      ],
+      "TemptingDeadLine": [
+        "0\u003E4",
+        "3\u003E5"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 1,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 20,
+      "World": 2,
+      "Variant": "lanterns",
+      "K": 5,
+      "Branches": 7,
+      "Mechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [],
+      "Par": 10,
+      "SearchStatus": "Solved",
+      "RandomWins": 89,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.089,
+      "Visited": 8425,
+      "Edges": 143252,
+      "Closed": true,
+      "GraphMilliseconds": 346,
+      "KnownDead": 190,
+      "UnknownStates": 0,
+      "DeadLower": 0.022551928783382788,
+      "DeadUpper": 0.022551928783382788,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E4",
+          "0\u003E5",
+          "4\u003E0",
+          "0\u003E4",
+          "1\u003E0",
+          "1\u003E4",
+          "0\u003E1"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "snow",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "6\u003E5",
+          "6\u003E1",
+          "6\u003E5"
+        ],
+        "OtherLine": [
+          "6\u003E5",
+          "6\u003E4",
+          "6\u003E5",
+          "4\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "0\u003E5",
+        "4\u003E0",
+        "0\u003E4",
+        "1\u003E0",
+        "1\u003E4",
+        "0\u003E1",
+        "6\u003E5",
+        "6\u003E1",
+        "5\u003E6"
+      ],
+      "TemptingDeadLine": [
+        "1\u003E4"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 21,
+      "World": 3,
+      "Variant": "morning",
+      "K": 5,
+      "Branches": 8,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 1578,
+      "Edges": 23923,
+      "Closed": true,
+      "GraphMilliseconds": 59,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "0\u003E1",
+          "2\u003E0",
+          "6\u003E2"
+        ],
+        "OtherLine": [
+          "2\u003E7",
+          "6\u003E2",
+          "0\u003E6",
+          "7\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "2\u003E0",
+        "2\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 4,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 22,
+      "World": 3,
+      "Variant": "noon",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 8,
+      "SearchStatus": "Solved",
+      "RandomWins": 547,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.547,
+      "Visited": 2666831,
+      "Edges": 17598767,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 33,
+      "UnknownStates": 1779636,
+      "DeadLower": 1.2374237437617907E-05,
+      "DeadUpper": 0.6673347504960007,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "berry",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "3\u003E8",
+          "3\u003E7",
+          "2\u003E8",
+          "3\u003E2",
+          "7\u003E3",
+          "0\u003E1",
+          "4\u003E0",
+          "7\u003E4"
+        ],
+        "OtherLine": [
+          "3\u003E1",
+          "3\u003E7",
+          "3\u003E8",
+          "7\u003E3",
+          "2\u003E6",
+          "8\u003E2",
+          "0\u003E8",
+          "4\u003E0",
+          "7\u003E4"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "2\u003E8",
+        "3\u003E8",
+        "3\u003E7",
+        "3\u003E2",
+        "4\u003E0",
+        "7\u003E3",
+        "4\u003E7"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "Booster": {
+        "Kind": "Scarecrow",
+        "Status": "Proven",
+        "MinimumMoves": 5,
+        "MovesSaved": 3,
+        "Line": [
+          "Use:Scarecrow",
+          "3\u003E7",
+          "3\u003E2",
+          "4\u003E0",
+          "7\u003E3",
+          "4\u003E7"
+        ]
+      },
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 23,
+      "World": 3,
+      "Variant": "windy",
+      "K": 5,
+      "Branches": 8,
+      "Mechanics": [
+        "crow",
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 8,
+      "SearchStatus": "Solved",
+      "RandomWins": 457,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.457,
+      "Visited": 2044434,
+      "Edges": 19042511,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 521,
+      "UnknownStates": 881457,
+      "DeadLower": 0.00025483825841284187,
+      "DeadUpper": 0.4314044865229203,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "mint",
+        "OtherNext": "berry",
+        "GoodMinimum": 8,
+        "OtherMinimum": 12,
+        "GoodLine": [
+          "3\u003E5",
+          "3\u003E5",
+          "6\u003E5",
+          "0\u003E6",
+          "0\u003E5",
+          "6\u003E0",
+          "6\u003E5",
+          "7\u003E4"
+        ],
+        "OtherLine": [
+          "2\u003E5",
+          "5\u003E2",
+          "2\u003E5",
+          "5\u003E2",
+          "3\u003E5",
+          "3\u003E5",
+          "6\u003E5",
+          "0\u003E6",
+          "0\u003E5",
+          "6\u003E0",
+          "6\u003E5",
+          "7\u003E4"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "3\u003E5",
+        "3\u003E5",
+        "6\u003E0",
+        "6\u003E1",
+        "0\u003E6",
+        "0\u003E1",
+        "4\u003E7"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 24,
+      "World": 3,
+      "Variant": "morning",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 2352,
+      "Edges": 36293,
+      "Closed": true,
+      "GraphMilliseconds": 95,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "S0",
+          "0\u003E2",
+          "0\u003E3"
+        ],
+        "OtherLine": [
+          "S0",
+          "0\u003E8",
+          "3\u003E0",
+          "8\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "S0",
+        "0\u003E2",
+        "0\u003E3"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 25,
+      "World": 3,
+      "Variant": "noon",
+      "K": 5,
+      "Branches": 8,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 12,
+      "SearchStatus": "Solved",
+      "RandomWins": 71,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.071,
+      "Visited": 1315395,
+      "Edges": 20189834,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 492,
+      "UnknownStates": 185094,
+      "DeadLower": 0.00037403213483402323,
+      "DeadUpper": 0.14108765807989235,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E1",
+          "2\u003E5",
+          "5\u003E2",
+          "2\u003E5",
+          "5\u003E2",
+          "0\u003E2",
+          "0\u003E5",
+          "3\u003E2",
+          "3\u003E5"
+        ],
+        "GoodNext": "sky",
+        "OtherNext": "snow",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "7\u003E4",
+          "7\u003E2",
+          "7\u003E4"
+        ],
+        "OtherLine": [
+          "7\u003E4",
+          "7\u003E6",
+          "7\u003E4",
+          "6\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "2\u003E5",
+        "5\u003E2",
+        "2\u003E5",
+        "5\u003E2",
+        "0\u003E2",
+        "0\u003E5",
+        "3\u003E2",
+        "3\u003E5",
+        "7\u003E4",
+        "7\u003E2",
+        "4\u003E7"
+      ],
+      "TemptingDeadLine": [
+        "0\u003E1",
+        "0\u003E5"
+      ],
+      "ExercisedMechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 26,
+      "World": 3,
+      "Variant": "windy",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "eggs",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 8,
+      "SearchStatus": "Solved",
+      "RandomWins": 603,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.603,
+      "Visited": 2185145,
+      "Edges": 16968084,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 61,
+      "UnknownStates": 1181149,
+      "DeadLower": 2.791576760352288E-05,
+      "DeadUpper": 0.5405636696878239,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "berry",
+        "GoodMinimum": 8,
+        "OtherMinimum": 11,
+        "GoodLine": [
+          "0\u003E1",
+          "1\u003E0",
+          "4\u003E2",
+          "5\u003E4",
+          "5\u003E2",
+          "4\u003E5",
+          "2\u003E4",
+          "3\u003E6"
+        ],
+        "OtherLine": [
+          "2\u003E1",
+          "1\u003E2",
+          "2\u003E1",
+          "S2",
+          "1\u003E2",
+          "4\u003E2",
+          "5\u003E4",
+          "5\u003E2",
+          "4\u003E5",
+          "4\u003E2",
+          "3\u003E6"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "1\u003E0",
+        "4\u003E0",
+        "5\u003E4",
+        "5\u003E0",
+        "4\u003E5",
+        "0\u003E4",
+        "3\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 27,
+      "World": 3,
+      "Variant": "morning",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 14,
+      "SearchStatus": "Solved",
+      "RandomWins": 81,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.081,
+      "Visited": 2249325,
+      "Edges": 17445294,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 1418,
+      "UnknownStates": 1354210,
+      "DeadLower": 0.00063041134562591,
+      "DeadUpper": 0.6026821379747257,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E1",
+          "2\u003E0",
+          "S2",
+          "2\u003E6",
+          "1\u003E2",
+          "0\u003E1",
+          "2\u003E0",
+          "1\u003E0"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "mint",
+        "GoodMinimum": 6,
+        "OtherMinimum": 7,
+        "GoodLine": [
+          "3\u003E6",
+          "3\u003E0",
+          "3\u003E6",
+          "5\u003E3",
+          "4\u003E3",
+          "5\u003E4"
+        ],
+        "OtherLine": [
+          "3\u003E6",
+          "3\u003E1",
+          "6\u003E3",
+          "5\u003E6",
+          "4\u003E6",
+          "5\u003E4",
+          "1\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "2\u003E0",
+        "S2",
+        "2\u003E6",
+        "1\u003E2",
+        "0\u003E1",
+        "2\u003E0",
+        "1\u003E0",
+        "3\u003E6",
+        "3\u003E0",
+        "3\u003E6",
+        "4\u003E0",
+        "5\u003E0",
+        "4\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "5\u003E1"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 28,
+      "World": 3,
+      "Variant": "noon",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 8234,
+      "Edges": 178174,
+      "Closed": true,
+      "GraphMilliseconds": 443,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "S0",
+          "0\u003E2",
+          "0\u003E3"
+        ],
+        "OtherLine": [
+          "S0",
+          "0\u003E8",
+          "3\u003E0",
+          "8\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "S0",
+        "0\u003E2",
+        "0\u003E3"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 29,
+      "World": 3,
+      "Variant": "windy",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 16,
+      "SearchStatus": "Solved",
+      "RandomWins": 76,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.076,
+      "Visited": 2099348,
+      "Edges": 16937976,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 68,
+      "UnknownStates": 1213959,
+      "DeadLower": 3.239100901803798E-05,
+      "DeadUpper": 0.5782876397814941,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E1",
+          "2\u003E0",
+          "7\u003E6",
+          "2\u003E7",
+          "7\u003E2",
+          "6\u003E7",
+          "2\u003E6",
+          "0\u003E2",
+          "6\u003E0",
+          "0\u003E6"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "ember",
+        "GoodMinimum": 6,
+        "OtherMinimum": 7,
+        "GoodLine": [
+          "8\u003E6",
+          "4\u003E6",
+          "8\u003E4",
+          "8\u003E6",
+          "5\u003E1",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "5\u003E6",
+          "1\u003E6",
+          "8\u003E6",
+          "4\u003E6",
+          "8\u003E4",
+          "8\u003E6",
+          "2\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "2\u003E0",
+        "7\u003E6",
+        "2\u003E7",
+        "7\u003E2",
+        "6\u003E7",
+        "2\u003E6",
+        "0\u003E2",
+        "6\u003E0",
+        "0\u003E6",
+        "2\u003E0",
+        "4\u003E0",
+        "5\u003E1",
+        "8\u003E0",
+        "8\u003E4",
+        "0\u003E8"
+      ],
+      "TemptingDeadLine": [
+        "4\u003E1"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 30,
+      "World": 3,
+      "Variant": "sunset",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 19,
+      "SearchStatus": "Solved",
+      "RandomWins": 63,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.063,
+      "Visited": 1835462,
+      "Edges": 17309216,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 224,
+      "UnknownStates": 978454,
+      "DeadLower": 0.00012204011850967223,
+      "DeadUpper": 0.5332052638518259,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E1",
+          "5\u003E0",
+          "4\u003E5",
+          "4\u003E1",
+          "7\u003E6",
+          "7\u003E4",
+          "6\u003E7",
+          "1\u003E6",
+          "0\u003E1",
+          "8\u003E0",
+          "8\u003E6",
+          "4\u003E8",
+          "5\u003E8",
+          "0\u003E5",
+          "5\u003E0"
+        ],
+        "GoodNext": "cocoa",
+        "OtherNext": "ember",
+        "GoodMinimum": 4,
+        "OtherMinimum": 5,
+        "GoodLine": [
+          "2\u003E6",
+          "2\u003E8",
+          "5\u003E2",
+          "2\u003E1"
+        ],
+        "OtherLine": [
+          "5\u003E1",
+          "S2",
+          "2\u003E1",
+          "2\u003E8",
+          "6\u003E2"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "5\u003E0",
+        "4\u003E5",
+        "4\u003E1",
+        "7\u003E6",
+        "7\u003E4",
+        "6\u003E7",
+        "1\u003E6",
+        "0\u003E1",
+        "8\u003E0",
+        "8\u003E6",
+        "4\u003E8",
+        "5\u003E8",
+        "0\u003E5",
+        "5\u003E0",
+        "1\u003E5",
+        "2\u003E6",
+        "2\u003E8",
+        "2\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "8\u003E1"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 31,
+      "World": 4,
+      "Variant": "noon",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 196,
+      "Edges": 2516,
+      "Closed": true,
+      "GraphMilliseconds": 7,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E6"
+        ],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 2,
+        "OtherMinimum": 3,
+        "GoodLine": [
+          "1\u003E0",
+          "1\u003E6"
+        ],
+        "OtherLine": [
+          "1\u003E7",
+          "6\u003E1",
+          "7\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E6",
+        "1\u003E0",
+        "1\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 32,
+      "World": 4,
+      "Variant": "bluehour",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 8,
+      "SearchStatus": "Solved",
+      "RandomWins": 535,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.535,
+      "Visited": 2041648,
+      "Edges": 18952583,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 44,
+      "UnknownStates": 981170,
+      "DeadLower": 2.1551217447865646E-05,
+      "DeadUpper": 0.4805990062929555,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "ember",
+        "OtherNext": "sky",
+        "GoodMinimum": 8,
+        "OtherMinimum": 9,
+        "GoodLine": [
+          "1\u003E4",
+          "1\u003E7",
+          "4\u003E1",
+          "0\u003E1",
+          "0\u003E7",
+          "5\u003E7",
+          "6\u003E5",
+          "7\u003E6"
+        ],
+        "OtherLine": [
+          "1\u003E7",
+          "0\u003E4",
+          "1\u003E0",
+          "3\u003E1",
+          "3\u003E1",
+          "7\u003E4",
+          "6\u003E7",
+          "5\u003E6",
+          "7\u003E5"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "0\u003E7",
+        "1\u003E0",
+        "4\u003E0",
+        "1\u003E7",
+        "5\u003E0",
+        "6\u003E5",
+        "0\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "Booster": {
+        "Kind": "SpringRain",
+        "Status": "Proven",
+        "MinimumMoves": 6,
+        "MovesSaved": 2,
+        "Line": [
+          "Use:SpringRain",
+          "0\u003E4",
+          "1\u003E4",
+          "0\u003E1",
+          "5\u003E7",
+          "6\u003E5",
+          "6\u003E7"
+        ]
+      },
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 33,
+      "World": 4,
+      "Variant": "morning",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "daynight",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "T",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 81325,
+      "Edges": 1728060,
+      "Closed": true,
+      "GraphMilliseconds": 4696,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "hoot",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "1\u003E6",
+          "0\u003E1",
+          "0\u003E6"
+        ],
+        "OtherLine": [
+          "1\u003E7",
+          "7\u003E6",
+          "0\u003E1",
+          "6\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E6",
+        "1\u003E0",
+        "1\u003E6"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "daynight",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 34,
+      "World": 4,
+      "Variant": "noon",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "eggs",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 9,
+      "SearchStatus": "Solved",
+      "RandomWins": 622,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.622,
+      "Visited": 1668306,
+      "Edges": 17825961,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 9,
+      "UnknownStates": 772789,
+      "DeadLower": 5.39469377919878E-06,
+      "DeadUpper": 0.4632231736863621,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "2\u003E1",
+          "1\u003E2",
+          "2\u003E7",
+          "7\u003E2"
+        ],
+        "GoodNext": "sky",
+        "OtherNext": "mint",
+        "GoodMinimum": 5,
+        "OtherMinimum": 6,
+        "GoodLine": [
+          "0\u003E7",
+          "4\u003E0",
+          "4\u003E7",
+          "3\u003E0",
+          "4\u003E3"
+        ],
+        "OtherLine": [
+          "4\u003E7",
+          "4\u003E5",
+          "3\u003E7",
+          "4\u003E3",
+          "0\u003E5",
+          "0\u003E7"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "2\u003E1",
+        "1\u003E2",
+        "2\u003E7",
+        "7\u003E2",
+        "0\u003E7",
+        "3\u003E0",
+        "4\u003E0",
+        "4\u003E7",
+        "3\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 35,
+      "World": 4,
+      "Variant": "bluehour",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "daynight",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 3,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 49700,
+      "Edges": 1063608,
+      "Closed": true,
+      "GraphMilliseconds": 2860,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "hoot",
+        "GoodMinimum": 3,
+        "OtherMinimum": 4,
+        "GoodLine": [
+          "1\u003E4",
+          "0\u003E1",
+          "0\u003E4"
+        ],
+        "OtherLine": [
+          "1\u003E7",
+          "7\u003E4",
+          "0\u003E1",
+          "4\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E4",
+        "1\u003E0",
+        "1\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "daynight",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 36,
+      "World": 4,
+      "Variant": "morning",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 12,
+      "SearchStatus": "Solved",
+      "RandomWins": 52,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.052,
+      "Visited": 1346140,
+      "Edges": 18843150,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 2752,
+      "UnknownStates": 352900,
+      "DeadLower": 0.002044363884885673,
+      "DeadUpper": 0.26420134607098816,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "3\u003E5",
+          "5\u003E6",
+          "6\u003E3",
+          "4\u003E5",
+          "4\u003E6",
+          "4\u003E5",
+          "3\u003E4"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "sky",
+        "GoodMinimum": 5,
+        "OtherMinimum": 6,
+        "GoodLine": [
+          "1\u003E6",
+          "0\u003E1",
+          "0\u003E5",
+          "0\u003E6",
+          "3\u003E5"
+        ],
+        "OtherLine": [
+          "1\u003E6",
+          "0\u003E7",
+          "0\u003E5",
+          "6\u003E0",
+          "5\u003E3",
+          "7\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "3\u003E5",
+        "5\u003E6",
+        "6\u003E3",
+        "4\u003E5",
+        "4\u003E6",
+        "4\u003E5",
+        "3\u003E4",
+        "1\u003E6",
+        "0\u003E1",
+        "0\u003E3",
+        "0\u003E6",
+        "3\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "3\u003E5",
+        "3\u003E6"
+      ],
+      "ExercisedMechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 37,
+      "World": 4,
+      "Variant": "noon",
+      "K": 7,
+      "Branches": 10,
+      "Mechanics": [
+        "crow",
+        "eggs",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "P",
+      "AppliedExceptions": [],
+      "Par": 9,
+      "SearchStatus": "Solved",
+      "RandomWins": 498,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.498,
+      "Visited": 1416141,
+      "Edges": 18234147,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 769,
+      "UnknownStates": 804056,
+      "DeadLower": 0.0005430250236381829,
+      "DeadUpper": 0.5683226458382322,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sky",
+        "OtherNext": "berry",
+        "GoodMinimum": 9,
+        "OtherMinimum": 11,
+        "GoodLine": [
+          "0\u003E7",
+          "3\u003E0",
+          "3\u003E1",
+          "7\u003E3",
+          "3\u003E7",
+          "3\u003E0",
+          "9\u003E3",
+          "9\u003E0",
+          "3\u003E1"
+        ],
+        "OtherLine": [
+          "2\u003E7",
+          "7\u003E2",
+          "2\u003E7",
+          "7\u003E2",
+          "0\u003E7",
+          "3\u003E0",
+          "3\u003E6",
+          "3\u003E7",
+          "9\u003E6",
+          "9\u003E3",
+          "3\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E7",
+        "0\u003E1",
+        "3\u003E1",
+        "3\u003E0",
+        "7\u003E3",
+        "3\u003E7",
+        "1\u003E3",
+        "9\u003E0",
+        "3\u003E9"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "eggs",
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 5,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 38,
+      "World": 4,
+      "Variant": "bluehour",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 13,
+      "SearchStatus": "Solved",
+      "RandomWins": 305,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.305,
+      "Visited": 2228481,
+      "Edges": 19576811,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 1764,
+      "UnknownStates": 1838466,
+      "DeadLower": 0.0007915705810370383,
+      "DeadUpper": 0.8257777382889959,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "2\u003E5",
+          "4\u003E2",
+          "7\u003E6",
+          "7\u003E4",
+          "4\u003E7"
+        ],
+        "GoodNext": "snow",
+        "OtherNext": "hoot",
+        "GoodMinimum": 8,
+        "OtherMinimum": 10,
+        "GoodLine": [
+          "3\u003E5",
+          "4\u003E3",
+          "3\u003E7",
+          "2\u003E7",
+          "4\u003E3",
+          "3\u003E2",
+          "0\u003E6",
+          "0\u003E5"
+        ],
+        "OtherLine": [
+          "6\u003E7",
+          "4\u003E6",
+          "3\u003E5",
+          "2\u003E3",
+          "4\u003E2",
+          "3\u003E4",
+          "3\u003E2",
+          "6\u003E4",
+          "0\u003E7",
+          "5\u003E0"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "2\u003E5",
+        "4\u003E2",
+        "7\u003E6",
+        "7\u003E4",
+        "4\u003E7",
+        "2\u003E7",
+        "3\u003E5",
+        "4\u003E3",
+        "3\u003E7",
+        "2\u003E3",
+        "4\u003E3",
+        "0\u003E6",
+        "0\u003E5"
+      ],
+      "TemptingDeadLine": [
+        "2\u003E5",
+        "2\u003E6"
+      ],
+      "ExercisedMechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 39,
+      "World": 4,
+      "Variant": "morning",
+      "K": 6,
+      "Branches": 8,
+      "Mechanics": [
+        "daynight",
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "Role": "R",
+      "AppliedExceptions": [],
+      "Par": 6,
+      "SearchStatus": "Solved",
+      "RandomWins": 1000,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 1,
+      "Visited": 704735,
+      "Edges": 12175343,
+      "Closed": true,
+      "GraphMilliseconds": 37590,
+      "KnownDead": 0,
+      "UnknownStates": 0,
+      "DeadLower": 0,
+      "DeadUpper": 0,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "sunny",
+        "OtherNext": "sky",
+        "GoodMinimum": 6,
+        "OtherMinimum": 7,
+        "GoodLine": [
+          "5\u003E7",
+          "0\u003E1",
+          "4\u003E7",
+          "4\u003E5",
+          "7\u003E4",
+          "2\u003E0"
+        ],
+        "OtherLine": [
+          "0\u003E7",
+          "2\u003E0",
+          "7\u003E1",
+          "5\u003E7",
+          "4\u003E7",
+          "4\u003E5",
+          "7\u003E4"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "0\u003E2",
+        "4\u003E0",
+        "5\u003E0",
+        "4\u003E5",
+        "0\u003E4"
+      ],
+      "TemptingDeadLine": [],
+      "ExercisedMechanics": [
+        "daynight",
+        "gifts",
+        "mama",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    },
+    {
+      "Id": 40,
+      "World": 4,
+      "Variant": "aurora",
+      "K": 7,
+      "Branches": 9,
+      "Mechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6",
+        "FINALE_PAR10"
+      ],
+      "Par": 12,
+      "SearchStatus": "Solved",
+      "RandomWins": 164,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.164,
+      "Visited": 386665,
+      "Edges": 6484864,
+      "Closed": true,
+      "GraphMilliseconds": 20363,
+      "KnownDead": 7547,
+      "UnknownStates": 0,
+      "DeadLower": 0.019518187578394734,
+      "DeadUpper": 0.019518187578394734,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [],
+        "GoodNext": "cocoa",
+        "OtherNext": "hoot",
+        "GoodMinimum": 12,
+        "OtherMinimum": 16,
+        "GoodLine": [
+          "3\u003E7",
+          "7\u003E6",
+          "6\u003E7",
+          "5\u003E6",
+          "4\u003E6",
+          "2\u003E3",
+          "4\u003E5",
+          "5\u003E4",
+          "5\u003E2",
+          "3\u003E6",
+          "5\u003E7",
+          "3\u003E7"
+        ],
+        "OtherLine": [
+          "3\u003E7",
+          "7\u003E6",
+          "6\u003E7",
+          "7\u003E6",
+          "5\u003E3",
+          "4\u003E3",
+          "6\u003E7",
+          "4\u003E6",
+          "4\u003E5",
+          "3\u003E4",
+          "7\u003E3",
+          "2\u003E4",
+          "5\u003E7",
+          "5\u003E2",
+          "7\u003E6",
+          "5\u003E3"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "3\u003E6",
+        "6\u003E7",
+        "7\u003E6",
+        "2\u003E3",
+        "4\u003E3",
+        "5\u003E7",
+        "4\u003E5",
+        "5\u003E4",
+        "5\u003E2",
+        "3\u003E7",
+        "3\u003E5",
+        "5\u003E6"
+      ],
+      "TemptingDeadLine": [
+        "3\u003E6",
+        "6\u003E7",
+        "7\u003E6",
+        "2\u003E3",
+        "4\u003E3",
+        "3\u003E7"
+      ],
+      "ExercisedMechanics": [
+        "daynight",
+        "eggs",
+        "gifts",
+        "growing",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 3,
+      "DataCheck": "Proven stored-par equality and winning public GameSession replay",
+      "Failures": [],
+      "Warnings": [],
+      "Pass": true
+    }
+  ]
+}

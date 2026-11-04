@@ -1,0 +1,151 @@
+{
+  "Attempts": 160,
+  "MinimumRandomWins": 0,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 0,
+  "RateRejected": 122,
+  "ParRejected": 0,
+  "SolverUnknown": 38,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 30,
+        "world": 3,
+        "variant": "sunset",
+        "capacity": 4,
+        "par": 0,
+        "dayLength": 0,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "sky",
+              "sky",
+              "ember"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "kind": "twig",
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "kind": "swivel",
+            "seats": 0,
+            "birds": [
+              "ink:sleep",
+              "cocoa:sleep",
+              "ink",
+              "berry"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "berry:sleep",
+              "sky:sleep",
+              "ember:sleep",
+              "mint:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa",
+              "berry:sleep",
+              "mint"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "ember",
+              "sky",
+              "ember",
+              "mint"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "crow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "ink",
+              "ink",
+              "berry",
+              "cocoa"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 30,
+        "World": 3,
+        "Variant": "sunset",
+        "K": 6,
+        "Branches": 9,
+        "Mechanics": [
+          "crow",
+          "gifts",
+          "sleep",
+          "swivel"
+        ],
+        "Role": "C",
+        "AppliedExceptions": [],
+        "SearchStatus": "Unknown",
+        "RandomWins": 224,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.224,
+        "Visited": 381722,
+        "Edges": 1669881,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10000,
+        "KnownDead": 2503,
+        "UnknownStates": 379219,
+        "DeadLower": 0.006557127962234296,
+        "DeadUpper": 1,
+        "OptimalLine": [],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [],
+        "MaximumHomesInOneMove": 0,
+        "DataCheck": "Not run",
+        "Failures": [
+          "no proven par: Unknown"
+        ],
+        "Warnings": [],
+        "Pass": false
+      }
+    }
+  ]
+}

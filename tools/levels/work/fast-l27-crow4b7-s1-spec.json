@@ -1,0 +1,124 @@
+{
+  "Id": 27,
+  "K": 6,
+  "Spare": 3,
+  "Mechanics": [
+    "crow",
+    "gifts",
+    "sleep",
+    "swivel"
+  ],
+  "BaseLevel": {
+    "id": 27,
+    "world": 3,
+    "variant": "morning",
+    "capacity": 4,
+    "par": 13,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "R",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "sky:sleep",
+          "berry:sleep",
+          "sky",
+          "sky"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 0,
+        "kind": "twig",
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "kind": "swivel",
+        "seats": 0,
+        "birds": [
+          "mint",
+          "sky",
+          "mint",
+          "berry"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "mint",
+          "berry:sleep",
+          "berry",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "ember:sleep",
+          "cocoa",
+          "cocoa",
+          "cocoa:sleep"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "ember",
+          "ember",
+          "ember",
+          "cocoa"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow",
+          "crow",
+          "crow",
+          "crow"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 4,
+        "seats": 0,
+        "birds": [
+          "ink",
+          "ink",
+          "ink",
+          "ink:sleep"
+        ]
+      }
+    ]
+  },
+  "Swaps": 1,
+  "Seed": 427701,
+  "Attempts": 120,
+  "Keep": 1,
+  "SolverMilliseconds": 1000,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}

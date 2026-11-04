@@ -1,0 +1,235 @@
+[
+  {
+    "Id": 21,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 22,
+    "Status": "accepted",
+    "OldPar": 7,
+    "BestPar": 8,
+    "NewPar": 8,
+    "Runs": [
+      {
+        "Name": "w3-l22-s2",
+        "Exit": 0,
+        "Attempts": 1,
+        "MinimumRandomWins": 547,
+        "MaximumRandomWins": 547,
+        "SchemaRejected": 0,
+        "RateRejected": 0,
+        "ParRejected": 0,
+        "SolverUnknown": 0,
+        "BestPar": 8
+      }
+    ]
+  },
+  {
+    "Id": 23,
+    "Status": "accepted",
+    "OldPar": 2,
+    "BestPar": 8,
+    "NewPar": 8,
+    "Runs": [
+      {
+        "Name": "w3-l23-s2",
+        "Exit": 0,
+        "Attempts": 42,
+        "MinimumRandomWins": 2,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 4,
+        "RateRejected": 22,
+        "ParRejected": 11,
+        "SolverUnknown": 3,
+        "BestPar": 8
+      }
+    ]
+  },
+  {
+    "Id": 24,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 25,
+    "Status": "accepted",
+    "OldPar": 4,
+    "BestPar": 12,
+    "NewPar": 12,
+    "Runs": [
+      {
+        "Name": "w3-l25-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 98,
+        "ParRejected": 49,
+        "SolverUnknown": 7,
+        "BestPar": 12
+      },
+      {
+        "Name": "w3-l25-s4",
+        "Exit": 0,
+        "Attempts": 114,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 86,
+        "ParRejected": 14,
+        "SolverUnknown": 13,
+        "BestPar": 12
+      }
+    ]
+  },
+  {
+    "Id": 26,
+    "Status": "accepted",
+    "OldPar": 2,
+    "BestPar": 8,
+    "NewPar": 8,
+    "Runs": [
+      {
+        "Name": "w3-l26-s2",
+        "Exit": 0,
+        "Attempts": 27,
+        "MinimumRandomWins": 84,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 1,
+        "RateRejected": 6,
+        "ParRejected": 10,
+        "SolverUnknown": 9,
+        "BestPar": 8
+      }
+    ]
+  },
+  {
+    "Id": 27,
+    "Status": "accepted",
+    "OldPar": 4,
+    "BestPar": 13,
+    "NewPar": 13,
+    "Runs": [
+      {
+        "Name": "w3-l27-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 999,
+        "SchemaRejected": 0,
+        "RateRejected": 106,
+        "ParRejected": 26,
+        "SolverUnknown": 23,
+        "BestPar": 11
+      },
+      {
+        "Name": "w3-l27-s4",
+        "Exit": 0,
+        "Attempts": 157,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 109,
+        "ParRejected": 8,
+        "SolverUnknown": 39,
+        "BestPar": 13
+      }
+    ]
+  },
+  {
+    "Id": 28,
+    "Status": "unchanged-in-band",
+    "Par": 3
+  },
+  {
+    "Id": 29,
+    "Status": "accepted",
+    "OldPar": 4,
+    "BestPar": 14,
+    "NewPar": 14,
+    "Runs": [
+      {
+        "Name": "w3-l29-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 130,
+        "ParRejected": 19,
+        "SolverUnknown": 9,
+        "BestPar": 11
+      },
+      {
+        "Name": "w3-l29-s4",
+        "Exit": 0,
+        "Attempts": 116,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 92,
+        "ParRejected": 3,
+        "SolverUnknown": 20,
+        "BestPar": 14
+      }
+    ]
+  },
+  {
+    "Id": 30,
+    "Status": "not-found",
+    "OldPar": 4,
+    "BestPar": 15,
+    "NewPar": 4,
+    "Runs": [
+      {
+        "Name": "w3-l30-s2",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 117,
+        "ParRejected": 20,
+        "SolverUnknown": 17,
+        "BestPar": 10
+      },
+      {
+        "Name": "w3-l30-s4",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 999,
+        "SchemaRejected": 0,
+        "RateRejected": 119,
+        "ParRejected": 6,
+        "SolverUnknown": 35,
+        "BestPar": 11
+      },
+      {
+        "Name": "w3-l30-s6",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 120,
+        "ParRejected": 0,
+        "SolverUnknown": 38,
+        "BestPar": 15
+      },
+      {
+        "Name": "w3-l30-s8",
+        "Exit": 2,
+        "Attempts": 160,
+        "MinimumRandomWins": 0,
+        "MaximumRandomWins": 1000,
+        "SchemaRejected": 0,
+        "RateRejected": 122,
+        "ParRejected": 0,
+        "SolverUnknown": 38
+      }
+    ]
+  }
+]

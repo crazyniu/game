@@ -1,0 +1,115 @@
+{
+  "GateSet": "DEEP_V54",
+  "Limits": {
+    "MaxStates": 20000000,
+    "Milliseconds": 60000,
+    "MemoryMiB": 4096
+  },
+  "CatalogFailures": [],
+  "Levels": [
+    {
+      "Id": 30,
+      "World": 3,
+      "Variant": "sunset",
+      "K": 6,
+      "Branches": 9,
+      "Mechanics": [
+        "crow",
+        "gifts",
+        "sleep",
+        "swivel"
+      ],
+      "Role": "C",
+      "AppliedExceptions": [
+        "DEADEND_WINDOW_6"
+      ],
+      "Par": 15,
+      "SearchStatus": "Solved",
+      "RandomWins": 109,
+      "RandomTrials": 1000,
+      "RandomMoveCap": 200,
+      "Seed": 350053,
+      "RandomWinRate": 0.109,
+      "Visited": 1159712,
+      "Edges": 9739194,
+      "Closed": false,
+      "StopReason": "time budget",
+      "GraphMilliseconds": 60000,
+      "KnownDead": 996,
+      "UnknownStates": 649468,
+      "DeadLower": 0.0008588339173863855,
+      "DeadUpper": 0.5608840815650782,
+      "Ordering": {
+        "Status": "Proven",
+        "Prefix": [
+          "0\u003E1",
+          "5\u003E0",
+          "4\u003E5",
+          "4\u003E1",
+          "5\u003E7",
+          "5\u003E4",
+          "0\u003E5",
+          "0\u003E4",
+          "4\u003E0"
+        ],
+        "GoodNext": "berry",
+        "OtherNext": "ember",
+        "GoodMinimum": 6,
+        "OtherMinimum": 7,
+        "GoodLine": [
+          "2\u003E1",
+          "2\u003E7",
+          "8\u003E4",
+          "8\u003E1",
+          "8\u003E4",
+          "2\u003E5"
+        ],
+        "OtherLine": [
+          "S2",
+          "2\u003E5",
+          "2\u003E7",
+          "8\u003E4",
+          "8\u003E2",
+          "8\u003E4",
+          "2\u003E1"
+        ],
+        "Detail": "Different reachable next home; strictly greater proven minimum."
+      },
+      "OptimalLine": [
+        "0\u003E1",
+        "5\u003E0",
+        "4\u003E5",
+        "4\u003E1",
+        "5\u003E7",
+        "5\u003E4",
+        "0\u003E5",
+        "0\u003E4",
+        "4\u003E0",
+        "2\u003E1",
+        "2\u003E7",
+        "2\u003E5",
+        "8\u003E4",
+        "8\u003E1",
+        "4\u003E8"
+      ],
+      "TemptingDeadLine": [
+        "0\u003E1",
+        "0\u003E7",
+        "5\u003E7",
+        "4\u003E5",
+        "4\u003E1"
+      ],
+      "ExercisedMechanics": [
+        "gifts",
+        "sleep"
+      ],
+      "MaximumHomesInOneMove": 2,
+      "DataCheck": "data-test Core solver BudgetExceeded",
+      "Failures": [
+        "data-test Core solver BudgetExceeded"
+      ],
+      "Warnings": [],
+      "Pass": false
+    }
+  ]
+}

@@ -9,11 +9,13 @@ namespace PerchSort.V5.Game
         public const int BoosterCount = 6;
         private static readonly int[] unlocks = { 2, 4, 7, 12, 22, 32 };
         private static readonly int[] prices = { 30, 60, 80, 80, 100, 100 };
-        private static readonly string[] icons = { "icon_firefly", "icon_sapling", "icon_owl_eye", "icon_bell", "icon_scarecrow", "icon_rain" };
+        private static readonly string[] icons = { "icon_bulb", "icon_branch_plus", "icon_egg_eye", "icon_bell", "icon_scarecrow", "icon_rain_sprout" };
+        private static readonly string[] illustrations = { "booster_hint_illus", "booster_sapling_illus", "booster_owl_eye_illus", "booster_bell_illus", "booster_scarecrow_illus", "booster_rain_illus" };
         public static int Unlock(BoosterKind kind) => unlocks[(int)kind];
         public static int Price(BoosterKind kind) => prices[(int)kind];
         public static int Starter(BoosterKind kind) => kind == BoosterKind.Firefly ? 3 : 2;
         public static string Icon(BoosterKind kind) => icons[(int)kind];
+        public static string Illustration(BoosterKind kind) => illustrations[(int)kind];
         public static BoosterKind WorldBooster(int world) => (BoosterKind)(Math.Max(1, Math.Min(4, world)) + 1);
         public static BoosterKind ContextBooster(BoardState board, out bool mechanicPresent)
         {
@@ -40,31 +42,19 @@ namespace PerchSort.V5.Game
         {
             switch (species)
             {
-                case "sunny": return "gift_wake";
-                case "sky": return "gift_breeze";
-                case "berry": return "gift_encore";
-                case "mint": return "gift_gardener";
-                case "cocoa": return "gift_stare";
-                case "snow": return "gift_lightstep";
-                case "ember": return "gift_warm";
-                case "ink": return "gift_night";
-                case "hoot": return "gift_moonbeam";
+                case "sunny": return "gift_sun_note";
+                case "sky": return "gift_wind";
+                case "berry": return "gift_feather_counter";
+                case "mint": return "gift_watering_can";
+                case "cocoa": return "gift_grumpy_eyes";
+                case "snow": return "gift_feather";
+                case "ember": return "gift_flame";
+                case "ink": return "gift_moon";
+                case "hoot": return "gift_moon_ray";
                 default: throw new ArgumentException("Species has no homecoming gift: " + species);
             }
         }
-        public static string Background(string variant)
-        {
-            switch (variant)
-            {
-                case "morning": case "mist": return "bg_w1_morning";
-                case "golden": case "lanterns": case "sunset": case "bluehour": case "aurora": return "bg_w1_golden";
-                case "rain": case "drizzle": return "bg_w1_rain";
-                default: return "bg_forest_day";
-            }
-        }
         public static bool Rain(string variant) => variant == "rain" || variant == "drizzle";
-        public static string RestFrame(Bird bird, bool asleep) => bird.IsEgg ? "egg_idle" :
-            "bird_" + bird.Species.Id + (asleep ? "_sleep" : "_idle");
 
         public static Move? GreedyHint(BoardState board)
         {

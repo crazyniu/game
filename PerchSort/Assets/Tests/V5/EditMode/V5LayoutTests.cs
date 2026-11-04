@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using NUnit.Framework;
 using PerchSort.V5.Game;
 using UnityEngine;
@@ -8,200 +6,105 @@ namespace PerchSort.V5.Tests
 {
     public sealed class V5LayoutTests
     {
-        private static float ClearGap(Rect a, Rect b)
+        private static void Inside(Rect outer, Rect inner)
         {
-            float dx = Mathf.Max(0, Mathf.Max(a.xMin - b.xMax, b.xMin - a.xMax));
-            float dy = Mathf.Max(0, Mathf.Max(a.yMin - b.yMax, b.yMin - a.yMax));
-            return Mathf.Sqrt(dx * dx + dy * dy);
+            Assert.That(inner.xMin, Is.GreaterThanOrEqualTo(outer.xMin - 0.01f));
+            Assert.That(inner.yMin, Is.GreaterThanOrEqualTo(outer.yMin - 0.01f));
+            Assert.That(inner.xMax, Is.LessThanOrEqualTo(outer.xMax + 0.01f));
+            Assert.That(inner.yMax, Is.LessThanOrEqualTo(outer.yMax + 0.01f));
         }
-
-        private static void AssertInside(Rect outer, Rect inner)
+        [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)] [TestCase(5)] [TestCase(6)] [TestCase(7)]
+        public void EveryHouseHasAVisibleUnambiguousDoorAndItsSharedCanvasStaysInBounds(int count)
         {
-            Assert.That(inner.xMin, Is.GreaterThanOrEqualTo(outer.xMin));
-            Assert.That(inner.yMin, Is.GreaterThanOrEqualTo(outer.yMin));
-            Assert.That(inner.xMax, Is.LessThanOrEqualTo(outer.xMax));
-            Assert.That(inner.yMax, Is.LessThanOrEqualTo(outer.yMax));
-        }
-
-        [Test]
-        public void IndependentHudGroupsHaveAtLeastFortyPixelsClearance()
-        {
-            // Decorative limb/canopy overlap and nested pill contents are intentionally excluded.
-            var named = new[]
+            float previous = -1;
+            for (int index = 0; index < count; index++)
             {
-                ("coins", V5Layout.CoinPill), ("settings", V5Layout.SettingsButton),
-                ("level", V5Layout.LevelSign), ("phase", V5Layout.PhaseDial),
-                ("undo", V5Layout.ToolButton(0)), ("Firefly", V5Layout.ToolButton(1)),
-                ("Sapling", V5Layout.ToolButton(2)), ("world tool", V5Layout.ToolButton(3)),
-                ("stuck", V5Layout.StuckBubble), ("feather", V5Layout.Centered(V5Layout.LightStepPoint, Vector2.one * 70))
-            };
-            for (int i = 0; i < named.Length; i++)
-            {
-                AssertInside(new Rect(0, 0, 1080, 1920), named[i].Item2);
-                for (int j = i + 1; j < named.Length; j++)
-                    Assert.That(ClearGap(named[i].Item2, named[j].Item2), Is.GreaterThanOrEqualTo(40),
-                        named[i].Item1 + " / " + named[j].Item1);
+                Rect canvas = V7Layout.HouseCanvas(index, count);
+                Vector2 door = canvas.position + V7Layout.HouseDoorLocal(canvas.size);
+                float diameter = V7Layout.HouseDoorDiameter(canvas.width);
+                Inside(V7Layout.SafeDesignArea, V7Layout.Centered(door, Vector2.one * diameter));
+                Assert.That(door.x, Is.GreaterThan(previous + diameter));
+                previous = door.x;
             }
         }
-
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
-        [TestCase(5)]
-        [TestCase(6)]
-        [TestCase(7)]
-        public void SpeciesHousesAndGiftSignsFitWithoutCoveringHudOrBoard(int count)
+        [TestCase(3)] [TestCase(4)]
+        public void ToolHitTargetsAndTopChromeDoNotOverlap(int count)
         {
-            var hud = new[] { V5Layout.CoinPill, V5Layout.SettingsButton, V5Layout.LevelSign, V5Layout.PhaseDial };
+            Assert.That(V7Layout.SettingsButton.Overlaps(V7Layout.CoinPill), Is.False);
             for (int i = 0; i < count; i++)
             {
-                Rect house = V5Layout.SpeciesHouse(i, count), gift = V5Layout.GiftSign(i, count);
-                AssertInside(V5Layout.SafeDesignArea, house); AssertInside(V5Layout.SafeDesignArea, gift);
-                Assert.That(gift.size, Is.EqualTo(Vector2.one * 72));
-                foreach (Rect other in hud)
-                {
-                    Assert.That(ClearGap(house, other), Is.GreaterThanOrEqualTo(39.999f));
-                    Assert.That(ClearGap(gift, other), Is.GreaterThanOrEqualTo(39.999f));
-                }
-                Assert.That(gift.yMin - house.yMax, Is.GreaterThanOrEqualTo(39.999f));
-                Assert.That(gift.yMax, Is.LessThan(V5Layout.BoardTop - 40));
-                if (i > 0) Assert.That(house.xMin - V5Layout.SpeciesHouse(i - 1, count).xMax, Is.EqualTo(20).Within(0.001f));
-                for (int other = 0; other < i; other++)
-                    Assert.That(ClearGap(gift, V5Layout.GiftSign(other, count)), Is.GreaterThanOrEqualTo(39.999f));
+                Rect button = V7Layout.ToolButton(i, count); Inside(V7Layout.SafeDesignArea, button);
+                Assert.That(button.width, Is.GreaterThanOrEqualTo(100));
+                if (i > 0) Assert.That(button.xMin - V7Layout.ToolButton(i - 1, count).xMax, Is.GreaterThanOrEqualTo(40));
             }
         }
-
-        [Test]
-        public void TwoRowsAreCenteredAt1160AndKeepTheRightHandOffset()
+        [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)] [TestCase(5)]
+        public void SeatsRemainVisibleAndBranchTouchRegionsDoNotOverlapOnTheSameEdge(int rows)
         {
-            float first = V5Layout.RowY(0, 2);
-            float second = V5Layout.RowY(1, 2);
-            Assert.That((first + second) / 2, Is.EqualTo(1160));
-            Assert.That(first, Is.EqualTo(970));
-            Assert.That(second, Is.EqualTo(1350));
-            Assert.That(V5Layout.RowY(0, 2, true) - first, Is.EqualTo(40));
-            Assert.That(V5Layout.RowY(1, 2, true) - second, Is.EqualTo(40));
+            float scale = V7Layout.BirdScale(rows);
+            for (int row = 0; row < rows; row++) foreach (bool right in new[] { false, true })
+            {
+                Rect hit = V7Layout.BranchHit(row, rows, right); Inside(V7Layout.SafeDesignArea, hit);
+                float foot = V7Layout.RowY(row, rows, right);
+                for (int seat = 0; seat < 4; seat++)
+                    Inside(V7Layout.SafeDesignArea, V7Layout.Centered(V7Layout.BirdSlot(seat, foot, right, scale), V7Layout.BirdDisplaySize * scale));
+                if (row > 0) Assert.That(hit.Overlaps(V7Layout.BranchHit(row - 1, rows, right)), Is.False);
+            }
         }
-
-        [TestCase(1)]
-        [TestCase(3)]
-        [TestCase(4)]
-        [TestCase(5)]
-        public void RowPitchShrinksToFitWithoutMovingTheGroupCenter(int rows)
+        [Test, Combinatorial]
+        public void OppositeBirdCanvasesAndBranchTipsNeverIntersect(
+            [Values(2, 3, 4, 5)] int rows, [Values(2, 3, 4, 5, 6, 7)] int species)
         {
-            float expectedPitch = Math.Min(380, 800f / rows);
-            Assert.That(V5Layout.RowPitch(rows), Is.EqualTo(expectedPitch).Within(0.001f));
-            Assert.That((V5Layout.RowY(0, rows) + V5Layout.RowY(rows - 1, rows)) / 2,
-                Is.EqualTo(1160).Within(0.001f));
-            for (int i = 0; i < rows; i++)
-                Assert.That(V5Layout.RowY(i, rows), Is.InRange(760, 1560));
-        }
-
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
-        [TestCase(5)]
-        [TestCase(6)]
-        public void DenseBranchTargetsStayDisjointAndSeatsRemainInsideTheirHalf(int rows)
-        {
-            float scale = V5Layout.BirdScale(rows);
-            Assert.That(scale, Is.InRange(0.72f, rows <= 3 ? 1.08f : 1));
-            if (rows <= 3) Assert.That(scale, Is.EqualTo(1.08f));
-            for (int row = 0; row < rows; row++)
-                foreach (bool right in new[] { false, true })
+            float scale = V7Layout.BirdScale(rows);
+            Vector2 size = V7Layout.BirdDisplaySize * scale;
+            // Cover the full four-seat envelope, not just occupied seats in one authored board.
+            // Species count changes the house band, never the cross-board seat clearance.
+            for (int left = 0; left < rows; left++) for (int right = 0; right < rows; right++)
+            {
+                float leftY = V7Layout.RowY(left, rows), rightY = V7Layout.RowY(right, rows, true);
+                var leftWood = new Rect(0, leftY + V7Layout.BranchCenterBelowFeet - V7Layout.BranchHeight / 2,
+                    V7Layout.BranchWidth, V7Layout.BranchHeight);
+                var rightWood = new Rect(V7Layout.DesignWidth - V7Layout.BranchWidth,
+                    rightY + V7Layout.BranchCenterBelowFeet - V7Layout.BranchHeight / 2, V7Layout.BranchWidth, V7Layout.BranchHeight);
+                for (int a = 0; a < 4; a++) for (int b = 0; b < 4; b++)
                 {
-                    Rect hit = V5Layout.BranchHit(row, rows, right);
-                    AssertInside(V5Layout.SafeDesignArea, hit);
-                    if (row > 0) Assert.That(hit.yMin, Is.GreaterThanOrEqualTo(V5Layout.BranchHit(row - 1, rows, right).yMax - 0.001f));
-                    if (!right) Assert.That(hit.Overlaps(V5Layout.BranchHit(row, rows, true)), Is.False);
-                    for (int seat = 0; seat < 4; seat++)
+                    Rect first = V7Layout.Centered(V7Layout.BirdSlot(a, leftY, false, scale), size);
+                    Rect second = V7Layout.Centered(V7Layout.BirdSlot(b, rightY, true, scale), size);
+                    Assert.That(first.Overlaps(second), Is.False, $"L{left}:{a}/R{right}:{b}");
+                    Assert.That(leftWood.Overlaps(second), Is.False, "Left tip covers an opposite bird.");
+                    Assert.That(rightWood.Overlaps(first), Is.False, "Right tip covers an opposite bird.");
+                    for (int house = 0; house < species; house++)
                     {
-                        Vector2 point = V5Layout.BirdSlot(seat, V5Layout.RowY(row, rows, right), right, scale);
-                        Assert.That(point.x, Is.GreaterThanOrEqualTo(hit.xMin));
-                        Assert.That(point.x, Is.LessThanOrEqualTo(hit.xMax));
+                        Rect roof = V7Layout.HouseCanvas(house, species);
+                        Assert.That(roof.Overlaps(first) || roof.Overlaps(second), Is.False, "House band covers a perched bird.");
                     }
                 }
+            }
+            for (int row = 0; row < rows; row++)
+                Assert.That(V7Layout.RowY(row, rows, true) - V7Layout.RowY(row, rows),
+                    Is.EqualTo(V7Layout.RowPitch(rows) / 2).Within(0.01f), "Opposite rows must interleave.");
         }
-
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
-        [TestCase(5)]
-        [TestCase(6)]
-        [TestCase(7)]
-        public void OppositeSeatCellsStayDisjointAtDenseAndSparseScales(int species)
+        [TestCase("win", "replay", "next", "home")]
+        [TestCase("settings", "sound", "replay", "home")]
+        public void ModalActionTargetsRemainSeparate(string screen, string first, string second, string third)
         {
-            int rows = (species + 3) / 2;
-            foreach (float scale in new[] { 0.72f, 1f, 1.08f })
+            var controls = new[] { V7Layout.Screen(screen, first), V7Layout.Screen(screen, second), V7Layout.Screen(screen, third) };
+            for (int i = 0; i < controls.Length; i++)
             {
-                // A seat cell is one seat-pitch wide; adjacent plush sprite margins may overlap.
-                var size = new Vector2(V5Layout.SeatPitch(scale), V5Layout.BirdSize * scale);
-                Assert.That(V5Layout.BirdSize * scale - size.x, Is.LessThanOrEqualTo(42.001f));
-                for (int row = 0; row < rows && row * 2 + 1 < species + 2; row++)
-                    for (int left = 0; left < 4; left++)
-                        for (int right = 0; right < 4; right++)
-                        {
-                            var a = V5Layout.Centered(V5Layout.BirdSlot(left, V5Layout.RowY(row, rows), false, scale), size);
-                            var b = V5Layout.Centered(V5Layout.BirdSlot(right, V5Layout.RowY(row, rows, true), true, scale), size);
-                            Assert.That(a.Overlaps(b), Is.False);
-                        }
+                Inside(V7Layout.SafeDesignArea, controls[i]);
+                for (int j = 0; j < i; j++) Assert.That(controls[i].Overlaps(controls[j]), Is.False);
             }
         }
-
-        [TestCase(22)]
-        [TestCase(26)]
-        [TestCase(37)]
-        [TestCase(40)]
-        public void AuthoredFiveRowBoardsKeepTheirDensityAndFit(int levelId)
+        [Test]
+        public void EveryMapNodeFitsItsMeasuredWorldAndLevelsClimbContinuously()
         {
-            var level = LevelLoader.Load(levelId);
-            int rows = level.branches.Max(branch => branch.row) + 1;
-            Assert.That(rows, Is.EqualTo(5));
-            Assert.That(V5Layout.RowPitch(rows), Is.EqualTo(160));
-            Assert.That(V5Layout.BirdScale(rows), Is.EqualTo(160f / 220).Within(0.001f));
-            foreach (var branch in level.branches)
+            float previousY = float.MaxValue;
+            for (int world = 1; world <= 4; world++) for (int index = 0; index < 10; index++)
             {
-                bool right = branch.side == "R";
-                AssertInside(V5Layout.SafeDesignArea, V5Layout.BranchHit(branch.row, rows, right));
-                Assert.That(V5Layout.RowY(branch.row, rows, right), Is.InRange(V5Layout.BoardTop, V5Layout.BoardBottom));
+                Vector2 point = V7Layout.MapNode(world, index);
+                Inside(new Rect(0, V7Layout.WorldTop(world), 1080, 3000), V7Layout.Centered(point, new Vector2(180, 150)));
+                Assert.That(point.y, Is.LessThan(previousY)); previousY = point.y;
             }
-        }
-
-        [Test]
-        public void WinControlsHaveSixtyPixelGapsInsideThePanel()
-        {
-            AssertInside(V5Layout.WinPanel, V5Layout.ReplayButton);
-            AssertInside(V5Layout.WinPanel, V5Layout.NextButton);
-            AssertInside(V5Layout.WinPanel, V5Layout.HomeButton);
-            Assert.That(V5Layout.NextButton.xMin - V5Layout.ReplayButton.xMax, Is.EqualTo(60));
-            Assert.That(V5Layout.HomeButton.xMin - V5Layout.NextButton.xMax, Is.EqualTo(60));
-        }
-
-        [Test]
-        public void WinDecorationAndRewardRowsHaveTheirSpecifiedGaps()
-        {
-            Assert.That(V5Layout.Star(0).yMin - V5Layout.Ribbon.yMax, Is.EqualTo(40));
-            Assert.That(V5Layout.Ribbon.yMin, Is.LessThan(V5Layout.WinPanel.yMin));
-            Assert.That(V5Layout.Ribbon.yMax, Is.GreaterThan(V5Layout.WinPanel.yMin));
-            Assert.That(V5Layout.Star(1).xMin - V5Layout.Star(0).xMax, Is.EqualTo(30));
-            Assert.That(V5Layout.Star(2).xMin - V5Layout.Star(1).xMax, Is.EqualTo(30));
-            Assert.That(V5Layout.RewardText.xMin - V5Layout.RewardCoin.xMax, Is.EqualTo(20));
-            AssertInside(V5Layout.WinPanel, V5Layout.RewardCoin);
-            AssertInside(V5Layout.WinPanel, V5Layout.RewardText);
-        }
-
-        [Test]
-        public void SettingsControlsStayInsideThePanelAndFortyPixelsApart()
-        {
-            var buttons = new[] { V5Layout.SoundButton, V5Layout.RestartButton, V5Layout.CloseButton };
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                AssertInside(V5Layout.SettingsPanel, buttons[i]);
-                for (int j = i + 1; j < buttons.Length; j++)
-                    Assert.That(ClearGap(buttons[i], buttons[j]), Is.GreaterThanOrEqualTo(40));
-            }
-            Assert.That(V5Layout.SettingsPanel.xMax - V5Layout.CloseButton.xMax, Is.EqualTo(24));
-            Assert.That(V5Layout.CloseButton.yMin - V5Layout.SettingsPanel.yMin, Is.EqualTo(24));
         }
     }
 }

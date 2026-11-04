@@ -1,0 +1,1727 @@
+{
+  "status": "PASS",
+  "runtime": "NOT_RUN: no Unity Editor on Linux",
+  "requested_count": 27,
+  "generated_count": 27,
+  "missing_files": [],
+  "files": {
+    "bg_w2_mist.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "694ec9b823d1b9b079e9fb08ab709343445d735bed1f8cdf55deda59e276e2bd",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w2_noon.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "f64ceaecc72c14e470de34ad44dd331d31ce1f8233f729f4e87e6951638bd99f",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w2_lanterns.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "f02fb647783d8bd60fab47538e83a24148e854e8ff8c51b32b5e9453f46b4d5b",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w2_drizzle.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "00eb249db7fd9435c6945c67606d391ace8d573c5c6137065ac72fabeda55ee7",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "branch_left_w2.png": {
+      "size": [
+        640,
+        120
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        11,
+        640,
+        117
+      ],
+      "solid_bounds": [
+        0,
+        12,
+        640,
+        114
+      ],
+      "partial_alpha_pixels": 7206,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          85,
+          554
+        ],
+        "min_y": 39,
+        "median_y": 40.0,
+        "max_y": 40,
+        "samples": {
+          "110": 40,
+          "230": 40,
+          "350": 40,
+          "470": 40,
+          "540": 40
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6666666666666666
+      ],
+      "sha256": "90e988c360b2e4f1a954f31d2e73345100684a31b9e0f73212736536a75d350e",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "twig_left_w2.png": {
+      "size": [
+        420,
+        90
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        15,
+        420,
+        62
+      ],
+      "solid_bounds": [
+        0,
+        16,
+        418,
+        60
+      ],
+      "partial_alpha_pixels": 3923,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          60,
+          364
+        ],
+        "min_y": 29,
+        "median_y": 32.0,
+        "max_y": 36,
+        "samples": {
+          "90": 30,
+          "200": 32,
+          "310": 31,
+          "350": 35
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6444444444444445
+      ],
+      "sha256": "b9638b509d10c7c254954d2db46ccb9eb6e594681bbc4512e284402f7577b9b1",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "bush_edge_w2.png": {
+      "size": [
+        360,
+        300
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        3,
+        359,
+        300
+      ],
+      "solid_bounds": [
+        0,
+        5,
+        356,
+        300
+      ],
+      "partial_alpha_pixels": 35750,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "ea1f2951dd89d8bd1708851ea18601f211d9009e4da93d92a130ed81c5ab7646",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "limb_top_plain_w2.png": {
+      "size": [
+        1080,
+        320
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        186
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        185
+      ],
+      "partial_alpha_pixels": 72715,
+      "hidden_rgb_zero": true,
+      "alpha_pixels_at_or_below_y260": 0,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        1
+      ],
+      "sha256": "c9ffb0741a4de44538404c58d3615509564dc6c3f97ef987552b6da4902400bc",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "clear_below_y260": true
+      }
+    },
+    "bg_w3_morning.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "b45ba39868bf0f6c9482a5397b9abfe3cb66f851efcc2fb3f0aca879f32d8c3d",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w3_noon.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "7b205c826fe21e7e7cc0b4e23d96511c5415e2730442d3a367f2cffb7e7d3413",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w3_sunset.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "b981ef527bd2107823b6e8e9439f5d4c4230c8f8c863115c727ccba317babd60",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w3_windy.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "8be483181a2677eda656b77584b790f752fdc5572a0613a9948a3b96e5cec588",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "branch_left_w3.png": {
+      "size": [
+        640,
+        120
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        11,
+        640,
+        120
+      ],
+      "solid_bounds": [
+        0,
+        13,
+        640,
+        117
+      ],
+      "partial_alpha_pixels": 6235,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          85,
+          554
+        ],
+        "min_y": 40,
+        "median_y": 40.0,
+        "max_y": 40,
+        "samples": {
+          "110": 40,
+          "230": 40,
+          "350": 40,
+          "470": 40,
+          "540": 40
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6666666666666666
+      ],
+      "sha256": "5143c0928a104a59b1401cd5b4f4e1de490652f9676ec97a8cb5f37a0767db92",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "twig_left_w3.png": {
+      "size": [
+        420,
+        90
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        9,
+        420,
+        75
+      ],
+      "solid_bounds": [
+        0,
+        10,
+        420,
+        74
+      ],
+      "partial_alpha_pixels": 3634,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          60,
+          364
+        ],
+        "min_y": 31,
+        "median_y": 32.0,
+        "max_y": 33,
+        "samples": {
+          "90": 32,
+          "200": 32,
+          "310": 32,
+          "350": 33
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6444444444444445
+      ],
+      "sha256": "cc8c73815c0efd9b60a3f5ce292d57b9236abe5e8fe205f402729d4df5365f52",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "bush_edge_w3.png": {
+      "size": [
+        360,
+        300
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        7,
+        354,
+        296
+      ],
+      "solid_bounds": [
+        0,
+        10,
+        352,
+        294
+      ],
+      "partial_alpha_pixels": 6113,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "e476db7bb998842839f76338f5bc173b3dce2aba5ff2cc06b219cac495c47c85",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "limb_top_plain_w3.png": {
+      "size": [
+        1080,
+        320
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        189
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        187
+      ],
+      "partial_alpha_pixels": 26300,
+      "hidden_rgb_zero": true,
+      "alpha_pixels_at_or_below_y260": 0,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        1
+      ],
+      "sha256": "a35801cf393db6378b379871a3f745526b534a0d50fac31c3a750502dbdadaa1",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "clear_below_y260": true
+      }
+    },
+    "bg_w4_morning.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "2297edf0869468cdfcc80f4ec725a6507463023034d95eeace474ed3cf637eeb",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w4_noon.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "9c2dcf405d34ac4442deda87dfd661f4f0cfa3185fa9dd51f7d50b350867730a",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w4_bluehour.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "bef84070447644eddd891be64e3c198ed49dac16c9fc65004b5fee51569b6e93",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "bg_w4_aurora.png": {
+      "size": [
+        1080,
+        1920
+      ],
+      "mode": "RGBA",
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "partial_alpha_pixels": 0,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "324ddaeb00205cc56081f0fa0b37b4668b2b688f746f90223e7411794dbaaa93",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "branch_left_w4.png": {
+      "size": [
+        640,
+        120
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        11,
+        640,
+        113
+      ],
+      "solid_bounds": [
+        0,
+        13,
+        640,
+        111
+      ],
+      "partial_alpha_pixels": 7468,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          85,
+          554
+        ],
+        "min_y": 38,
+        "median_y": 40.0,
+        "max_y": 41,
+        "samples": {
+          "110": 39,
+          "230": 40,
+          "350": 40,
+          "470": 41,
+          "540": 41
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6666666666666666
+      ],
+      "sha256": "e5fa75e6605d93840fe0d10e2f38fc7f17c42ea4b64e385537d21da07d44899f",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "twig_left_w4.png": {
+      "size": [
+        420,
+        90
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        10,
+        420,
+        65
+      ],
+      "solid_bounds": [
+        0,
+        12,
+        420,
+        63
+      ],
+      "partial_alpha_pixels": 3961,
+      "hidden_rgb_zero": true,
+      "foot_surface": {
+        "alpha_threshold": 128,
+        "x_range": [
+          60,
+          364
+        ],
+        "min_y": 31,
+        "median_y": 32.0,
+        "max_y": 35,
+        "samples": {
+          "90": 31,
+          "200": 32,
+          "310": 33,
+          "350": 34
+        }
+      },
+      "root_touches_left": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0,
+        0.6444444444444445
+      ],
+      "sha256": "785b42489c8ad937bd0fe05c715e91bcd23031785b4b205df2b38f62144c3da0",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "root_touches_left": true,
+        "surface_registered": true,
+        "surface_near_target": true
+      }
+    },
+    "bush_edge_w4.png": {
+      "size": [
+        360,
+        300
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        14,
+        358,
+        291
+      ],
+      "solid_bounds": [
+        0,
+        16,
+        356,
+        289
+      ],
+      "partial_alpha_pixels": 21894,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "4e10b4339a86f01756cb59e1d23d9f031b884c4652eb5cbf7253d458bff72cf4",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "limb_top_plain_w4.png": {
+      "size": [
+        1080,
+        320
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        0,
+        0,
+        1080,
+        192
+      ],
+      "solid_bounds": [
+        0,
+        0,
+        1080,
+        189
+      ],
+      "partial_alpha_pixels": 76601,
+      "hidden_rgb_zero": true,
+      "alpha_pixels_at_or_below_y260": 0,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        1
+      ],
+      "sha256": "c3a755771cf32cfbdd76ffbbd4140671db687b3a9335d51705007cb0f91cb110",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true,
+        "clear_below_y260": true
+      }
+    },
+    "leaf_bamboo.png": {
+      "size": [
+        48,
+        96
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        9,
+        3,
+        39,
+        93
+      ],
+      "solid_bounds": [
+        10,
+        4,
+        39,
+        92
+      ],
+      "partial_alpha_pixels": 425,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "ed1e4450d8186eeaaa9d8b39585206b8dec85d4888100988a25a2928bad7157f",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "leaf_maple.png": {
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        3,
+        4,
+        61,
+        60
+      ],
+      "solid_bounds": [
+        3,
+        4,
+        61,
+        60
+      ],
+      "partial_alpha_pixels": 584,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "7312fdfc447683da00b8d5aee2cfe5a260db09b8aff28fd5d537fe8bcebb3c6b",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    },
+    "snowflake.png": {
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "visible_bounds": [
+        4,
+        3,
+        43,
+        45
+      ],
+      "solid_bounds": [
+        4,
+        3,
+        43,
+        45
+      ],
+      "partial_alpha_pixels": 681,
+      "hidden_rgb_zero": true,
+      "suggested_pivot_normalized_bottom_left": [
+        0.5,
+        0.5
+      ],
+      "sha256": "18f67d92f664dcd6bc043cf15e5897f4e0ea0ab23eda8e275d44cf417a2d765e",
+      "checks": {
+        "size": true,
+        "rgba": true,
+        "hidden_rgb_zero": true,
+        "alpha": true
+      }
+    }
+  },
+  "failed_checks": {},
+  "preexisting_files_checked": 146,
+  "changed_preexisting_files": [],
+  "normalization": {
+    "bg_w2_mist": {
+      "source": "art/v5/t36/raw/bg_w2_mist.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w2_noon": {
+      "source": "art/v5/t36/raw/bg_w2_noon.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w2_lanterns": {
+      "source": "art/v5/t36/raw/bg_w2_lanterns.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w2_drizzle": {
+      "source": "art/v5/t36/raw/bg_w2_drizzle.png",
+      "raw_size": [
+        941,
+        1672
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "branch_left_w2": {
+      "source": "art/v5/t36/raw/branch_left_w2.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        0,
+        2127
+      ],
+      "scale": 0.3008932769158439,
+      "scaled_size": [
+        640,
+        218
+      ],
+      "translation": [
+        0,
+        -53
+      ],
+      "surface_target_y": 40
+    },
+    "twig_left_w2": {
+      "source": "art/v5/t36/raw/twig_left_w2.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        0,
+        2164
+      ],
+      "scale": 0.19408502772643252,
+      "scaled_size": [
+        420,
+        141
+      ],
+      "translation": [
+        0,
+        -28
+      ],
+      "surface_target_y": 32
+    },
+    "bush_edge_w2": {
+      "source": "art/v5/t36/raw/bush_edge_w2.png",
+      "raw_size": [
+        1374,
+        1145
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Full-frame resize, left-edge root maintained"
+    },
+    "limb_top_plain_w2": {
+      "source": "art/v5/t36/raw/limb_top_plain_w2.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize anchored at top left; transparent lower excess outside target canvas"
+    },
+    "bg_w3_morning": {
+      "source": "art/v5/t36/raw/bg_w3_morning.png",
+      "raw_size": [
+        941,
+        1672
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w3_noon": {
+      "source": "art/v5/t36/raw/bg_w3_noon.png",
+      "raw_size": [
+        941,
+        1672
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w3_sunset": {
+      "source": "art/v5/t36/raw/bg_w3_sunset.png",
+      "raw_size": [
+        941,
+        1672
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w3_windy": {
+      "source": "art/v5/t36/raw/bg_w3_windy.png",
+      "raw_size": [
+        941,
+        1672
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "branch_left_w3": {
+      "source": "art/v5/t36/raw/branch_left_w3.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        0,
+        2112
+      ],
+      "scale": 0.30303030303030304,
+      "scaled_size": [
+        640,
+        219
+      ],
+      "translation": [
+        0,
+        -48
+      ],
+      "surface_target_y": 40
+    },
+    "twig_left_w3": {
+      "source": "art/v5/t36/raw/twig_left_w3.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        2,
+        2129
+      ],
+      "scale": 0.19746121297602257,
+      "scaled_size": [
+        420,
+        143
+      ],
+      "translation": [
+        0,
+        -43
+      ],
+      "surface_target_y": 32
+    },
+    "bush_edge_w3": {
+      "source": "art/v5/t36/raw/bush_edge_w3.png",
+      "raw_size": [
+        1374,
+        1145
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Full-frame resize, left-edge root maintained"
+    },
+    "limb_top_plain_w3": {
+      "source": "art/v5/t36/raw/limb_top_plain_w3.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize anchored at top left; transparent lower excess outside target canvas"
+    },
+    "bg_w4_morning": {
+      "source": "art/v5/t36/raw/bg_w4_morning.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w4_noon": {
+      "source": "art/v5/t36/raw/bg_w4_noon.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w4_bluehour": {
+      "source": "art/v5/t36/raw/bg_w4_bluehour.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "bg_w4_aurora": {
+      "source": "art/v5/t36/raw/bg_w4_aurora.png",
+      "raw_size": [
+        916,
+        1717
+      ],
+      "raw_mode": "RGB",
+      "operation": "Full-frame resize, opaque RGBA; no painting or replacement sky"
+    },
+    "branch_left_w4": {
+      "source": "art/v5/t36/raw/branch_left_w4.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        0,
+        2127
+      ],
+      "scale": 0.3008932769158439,
+      "scaled_size": [
+        640,
+        218
+      ],
+      "translation": [
+        0,
+        -52
+      ],
+      "surface_target_y": 40
+    },
+    "twig_left_w4": {
+      "source": "art/v5/t36/raw/twig_left_w4.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from solid horizontal bounds; vertical registration only",
+      "raw_horizontal_crop": [
+        0,
+        2115
+      ],
+      "scale": 0.19858156028368795,
+      "scaled_size": [
+        420,
+        144
+      ],
+      "translation": [
+        0,
+        -41
+      ],
+      "surface_target_y": 32
+    },
+    "bush_edge_w4": {
+      "source": "art/v5/t36/raw/bush_edge_w4.png",
+      "raw_size": [
+        1374,
+        1145
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Full-frame resize, left-edge root maintained"
+    },
+    "limb_top_plain_w4": {
+      "source": "art/v5/t36/raw/limb_top_plain_w4.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize anchored at top left; transparent lower excess outside target canvas"
+    },
+    "leaf_bamboo": {
+      "source": "art/v5/t36/raw/leaf_bamboo.png",
+      "raw_size": [
+        887,
+        1774
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from alpha bounds, centered with at least 3px margin",
+      "raw_crop": [
+        187,
+        143,
+        668,
+        1569
+      ],
+      "placed_size": [
+        30,
+        90
+      ],
+      "translation": [
+        9,
+        3
+      ]
+    },
+    "leaf_maple": {
+      "source": "art/v5/t36/raw/leaf_maple.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from alpha bounds, centered with at least 3px margin",
+      "raw_crop": [
+        151,
+        144,
+        1103,
+        1064
+      ],
+      "placed_size": [
+        58,
+        56
+      ],
+      "translation": [
+        3,
+        4
+      ]
+    },
+    "snowflake": {
+      "source": "art/v5/t36/raw/snowflake.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_mode": "RGBA",
+      "operation": "Uniform resize from alpha bounds, centered with at least 3px margin",
+      "raw_crop": [
+        176,
+        148,
+        1078,
+        1111
+      ],
+      "placed_size": [
+        39,
+        42
+      ],
+      "translation": [
+        4,
+        3
+      ]
+    }
+  },
+  "composites": {
+    "w2": {
+      "background": "bg_w2_lanterns.png",
+      "placements": [
+        {
+          "species": "sunny",
+          "branch": 1,
+          "bird_position": [
+            175,
+            728
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "sky",
+          "branch": 1,
+          "bird_position": [
+            355,
+            727
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "berry",
+          "branch": 2,
+          "bird_position": [
+            575,
+            1007
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "mint",
+          "branch": 2,
+          "bird_position": [
+            755,
+            1008
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "cocoa",
+          "branch": 3,
+          "bird_position": [
+            175,
+            1287
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "snow",
+          "branch": 3,
+          "bird_position": [
+            355,
+            1288
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        }
+      ],
+      "six_distinct_species": true,
+      "three_branches": true,
+      "static_contact_all_zero": true
+    },
+    "w3": {
+      "background": "bg_w3_sunset.png",
+      "placements": [
+        {
+          "species": "sunny",
+          "branch": 1,
+          "bird_position": [
+            175,
+            728
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "sky",
+          "branch": 1,
+          "bird_position": [
+            355,
+            727
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "berry",
+          "branch": 2,
+          "bird_position": [
+            575,
+            1007
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "mint",
+          "branch": 2,
+          "bird_position": [
+            755,
+            1008
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "cocoa",
+          "branch": 3,
+          "bird_position": [
+            175,
+            1287
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "snow",
+          "branch": 3,
+          "bird_position": [
+            355,
+            1288
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        }
+      ],
+      "six_distinct_species": true,
+      "three_branches": true,
+      "static_contact_all_zero": true
+    },
+    "w4": {
+      "background": "bg_w4_aurora.png",
+      "placements": [
+        {
+          "species": "sunny",
+          "branch": 1,
+          "bird_position": [
+            175,
+            728
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "sky",
+          "branch": 1,
+          "bird_position": [
+            355,
+            727
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 870,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "berry",
+          "branch": 2,
+          "bird_position": [
+            575,
+            1007
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "mint",
+          "branch": 2,
+          "bird_position": [
+            755,
+            1008
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1150,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "cocoa",
+          "branch": 3,
+          "bird_position": [
+            175,
+            1287
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 143,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        },
+        {
+          "species": "snow",
+          "branch": 3,
+          "bird_position": [
+            355,
+            1288
+          ],
+          "bird_size": [
+            150,
+            150
+          ],
+          "bird_solid_bottom": 142,
+          "branch_surface_y": 1430,
+          "vertical_solid_contact_error_px": 0
+        }
+      ],
+      "six_distinct_species": true,
+      "three_branches": true,
+      "static_contact_all_zero": true
+    }
+  },
+  "published": true
+}

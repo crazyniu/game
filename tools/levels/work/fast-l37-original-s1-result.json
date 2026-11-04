@@ -1,0 +1,210 @@
+{
+  "Attempts": 30,
+  "MinimumRandomWins": 70,
+  "MaximumRandomWins": 764,
+  "SchemaRejected": 0,
+  "RateRejected": 8,
+  "ParRejected": 0,
+  "SolverUnknown": 20,
+  "BestPar": 9,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 37,
+        "world": 4,
+        "variant": "noon",
+        "capacity": 4,
+        "par": 9,
+        "dayLength": 0,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "sky",
+              "sky",
+              "sky"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "kind": "twig",
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "kind": "swivel",
+            "seats": 0,
+            "birds": [
+              "berry:sleep",
+              "berry:sleep",
+              "berry",
+              "berry"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:mint",
+              "sky:sleep",
+              "hoot",
+              "mint"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "ember",
+              "ember",
+              "ember",
+              "ember:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "crow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "ink",
+              "ink",
+              "ink",
+              "ink:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "hoot",
+              "hoot",
+              "hoot:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 37,
+        "World": 4,
+        "Variant": "noon",
+        "K": 7,
+        "Branches": 10,
+        "Mechanics": [
+          "crow",
+          "eggs",
+          "gifts",
+          "sleep",
+          "swivel"
+        ],
+        "Role": "P",
+        "AppliedExceptions": [],
+        "Par": 9,
+        "SearchStatus": "Solved",
+        "RandomWins": 498,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.498,
+        "Visited": 300650,
+        "Edges": 2802330,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10000,
+        "KnownDead": 72,
+        "UnknownStates": 201523,
+        "DeadLower": 0.0002394811242308332,
+        "DeadUpper": 0.6705305172127058,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "sky",
+          "OtherNext": "berry",
+          "GoodMinimum": 9,
+          "OtherMinimum": 11,
+          "GoodLine": [
+            "0\u003E7",
+            "3\u003E0",
+            "3\u003E1",
+            "7\u003E3",
+            "3\u003E7",
+            "3\u003E0",
+            "9\u003E3",
+            "9\u003E0",
+            "3\u003E1"
+          ],
+          "OtherLine": [
+            "2\u003E7",
+            "7\u003E2",
+            "2\u003E7",
+            "7\u003E2",
+            "0\u003E7",
+            "3\u003E0",
+            "3\u003E6",
+            "3\u003E7",
+            "9\u003E6",
+            "9\u003E3",
+            "3\u003E0"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "0\u003E7",
+          "0\u003E1",
+          "3\u003E1",
+          "3\u003E0",
+          "7\u003E3",
+          "3\u003E7",
+          "1\u003E3",
+          "9\u003E0",
+          "3\u003E9"
+        ],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [
+          "eggs",
+          "gifts",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 5,
+        "DataCheck": "Not run",
+        "Failures": [],
+        "Warnings": [],
+        "Pass": true
+      }
+    }
+  ]
+}

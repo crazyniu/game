@@ -1,0 +1,180 @@
+{
+  "Attempts": 42,
+  "MinimumRandomWins": 2,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 4,
+  "RateRejected": 22,
+  "ParRejected": 11,
+  "SolverUnknown": 3,
+  "BestPar": 8,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 23,
+        "world": 3,
+        "variant": "windy",
+        "capacity": 4,
+        "par": 8,
+        "dayLength": 0,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sky:sleep",
+              "cocoa",
+              "sky",
+              "sky"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "kind": "twig",
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "berry:sleep",
+              "berry:sleep",
+              "berry",
+              "berry"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:mint",
+              "mint",
+              "mint",
+              "mint"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "snow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "sky",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "snow",
+              "crow",
+              "snow",
+              "snow:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 23,
+        "World": 3,
+        "Variant": "windy",
+        "K": 5,
+        "Branches": 8,
+        "Mechanics": [
+          "crow",
+          "eggs",
+          "gifts",
+          "sleep"
+        ],
+        "Role": "P",
+        "AppliedExceptions": [],
+        "Par": 8,
+        "SearchStatus": "Solved",
+        "RandomWins": 457,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.457,
+        "Visited": 224631,
+        "Edges": 1273278,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10008,
+        "KnownDead": 521,
+        "UnknownStates": 140508,
+        "DeadLower": 0.002319359304815453,
+        "DeadUpper": 0.6278251888652946,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [
+            "3\u003E5",
+            "3\u003E5"
+          ],
+          "GoodNext": "sky",
+          "OtherNext": "snow",
+          "GoodMinimum": 6,
+          "OtherMinimum": 8,
+          "GoodLine": [
+            "6\u003E5",
+            "0\u003E6",
+            "0\u003E5",
+            "6\u003E0",
+            "6\u003E5",
+            "7\u003E4"
+          ],
+          "OtherLine": [
+            "7\u003E4",
+            "7\u003E5",
+            "7\u003E4",
+            "0\u003E7",
+            "6\u003E0",
+            "6\u003E7",
+            "0\u003E6",
+            "7\u003E0"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "0\u003E1",
+          "3\u003E5",
+          "3\u003E5",
+          "6\u003E0",
+          "6\u003E1",
+          "0\u003E6",
+          "0\u003E1",
+          "4\u003E7"
+        ],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [
+          "eggs",
+          "gifts",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 2,
+        "Failures": [],
+        "Pass": true
+      }
+    }
+  ]
+}

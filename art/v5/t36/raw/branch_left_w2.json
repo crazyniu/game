@@ -1,0 +1,11 @@
+{
+  "name": "branch_left_w2",
+  "prompt": "Use case: precise-object-edit. Edit the attached accepted branch sprite into a world-specific perch, maintaining the exact overall side-on geometry and dimensions. Target transparent RGBA 640x120. Thick root enters through the LEFT canvas edge, gently tapering to a closed natural right tip; gently curved underside, nearly horizontal bird-safe top at y=40 for x=85..555. Upper silhouette of the central perch must stay smooth and level: nothing protruding above it, no leaf or knot over the bird feet, no second branch. Keep top/surface around y=40 and natural visible thickness roughly 35-55 pixels; root may be thicker. Decorative tiny leaves/needles only near the far right end or below the lower contour. BAMBOO: pale warm yellow-green bamboo cane with raised ring nodes, subtle smooth fibrous surface, jade-green narrow lance-shaped bamboo leaves, no oak leaves or bark. Preserve reference soft polished 3D cartoon shading, upper-left warm light and clear dimensions, not vector or photoreal. Isolated on genuinely transparent background; no ground shadow, text, birds, UI or borders.",
+  "refs": [
+    "/home/developer/Projects/game/PerchSort/Assets/Resources/V5/Art/branch_left.png"
+  ],
+  "transparent": true,
+  "source": "/home/developer/.codex/generated_images/01a19f05-838c-7763-961d-0744d1455604/exec-30a96ead-77e7-4870-b430-2206fe45eb78.png",
+  "raw": "/home/developer/Projects/game/art/v5/t36/raw/branch_left_w2.png",
+  "tool": "image_gen.imagegen"
+}

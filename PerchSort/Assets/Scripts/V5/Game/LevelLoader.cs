@@ -38,6 +38,5 @@ namespace PerchSort.V5.Game
             foreach (var level in catalog.levels) if (level.id == id) return level;
             throw new ArgumentException("V5 level not found: " + id);
         }
-        public static int Next(int id) => id < Catalog.levels.Length ? id + 1 : 1;
     }
 }

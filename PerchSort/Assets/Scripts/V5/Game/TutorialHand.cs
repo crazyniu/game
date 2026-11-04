@@ -57,13 +57,13 @@ namespace PerchSort.V5.Game
             Hide();
             if (!enabledForAttempt || blocked || session.State.IsWon) return;
             Vector2 point;
-            if (SaplingPromptPending) point = V5Layout.ToolButton(2).center;
+            if (SaplingPromptPending) point = V7Layout.ToolButton(2).center;
             else
             {
                 if (steps == null || Completed) return;
                 var move = steps[cursor];
                 if (suggestFirefly && session.Inventory[BoosterKind.Firefly] > 0 && session.SelectedBranch < 0)
-                    point = V5Layout.ToolButton(1).center;
+                    point = V7Layout.ToolButton(1).center;
                 else if (move.Kind == MoveKind.Swivel)
                 {
                     if (!GameSession.CanSwivel(session.State, move.From)) return;

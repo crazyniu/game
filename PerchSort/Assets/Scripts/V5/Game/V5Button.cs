@@ -9,6 +9,7 @@ namespace PerchSort.V5.Game
     {
         private CanvasGroup group;
         private V5Motion motion;
+        public Sprite RestSprite, PressedSprite;
 
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
@@ -16,9 +17,11 @@ namespace PerchSort.V5.Game
             if (motion == null) motion = gameObject.AddComponent<V5Motion>();
             motion.CancelAll();
             bool enabled = state != SelectionState.Disabled && IsInteractable();
-            group.alpha = enabled ? 1 : V5Layout.DisabledAlpha;
-            float scale = !enabled ? V5Layout.DisabledScale :
-                state == SelectionState.Pressed ? V5Layout.ButtonPressScale : 1;
+            if (targetGraphic is Image image && RestSprite != null)
+                image.sprite = state == SelectionState.Pressed && PressedSprite != null ? PressedSprite : RestSprite;
+            group.alpha = enabled ? 1 : V7Layout.DisabledAlpha;
+            float scale = !enabled ? V7Layout.DisabledScale :
+                state == SelectionState.Pressed ? V7Layout.ButtonPressScale : 1;
             if (instant || !enabled || !gameObject.activeInHierarchy)
             {
                 transform.localScale = Vector3.one * scale;
@@ -26,7 +29,7 @@ namespace PerchSort.V5.Game
             }
             Vector3 start = transform.localScale;
             bool pressed = state == SelectionState.Pressed;
-            motion.Play(pressed ? V5Layout.ButtonPressSeconds : V5Layout.ButtonReleaseSeconds,
+            motion.Play(pressed ? V7Layout.ButtonPressSeconds : V7Layout.ButtonReleaseSeconds,
                 t => transform.localScale = Vector3.LerpUnclamped(start, Vector3.one * scale, t),
                 ease: pressed ? Ease.Linear : Ease.OutBack);
         }

@@ -1,0 +1,11 @@
+{
+  "name": "bg_w4_bluehour",
+  "prompt": "Use case: lighting-weather. Edit this supplied forest scene to the requested time/weather variant. Preserve its plant species, the precise canopy corner composition, soft polished dimensional 3D cartoon style, low distant hills, and large negative-space sky. Final asset portrait 1080x1920, 9:16. All of y=550..1500 must stay calm low-detail gradient sky, canopies only at top corners above y=480, hills below y=1710. Keep the scene bright/readable enough behind colorful small bird characters. No branches/perches, birds, characters, foreground trunks, text, UI, watermark or floating objects in the board band. Quiet blue-hour winter, soft cool periwinkle to icy lavender gradient sky, deep-teal pine needles and softly luminous snow caps. A few extremely faint stars only above y=450; keep the middle board band calm and readable without dense snowflakes, no moon disk.",
+  "refs": [
+    "/home/developer/Projects/game/art/v5/t36/raw/bg_w4_noon.png"
+  ],
+  "transparent": false,
+  "source": "/home/developer/.codex/generated_images/01a19f05-838c-7763-961d-0744d1455604/exec-8f6c6bd4-f6d4-4fa1-95b8-62342552f67a.png",
+  "raw": "/home/developer/Projects/game/art/v5/t36/raw/bg_w4_bluehour.png",
+  "tool": "image_gen.imagegen"
+}

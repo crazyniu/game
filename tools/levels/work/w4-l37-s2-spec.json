@@ -1,0 +1,130 @@
+{
+  "Id": 37,
+  "K": 7,
+  "Spare": 3,
+  "Species": [
+    "berry",
+    "cocoa",
+    "ember",
+    "hoot",
+    "ink",
+    "mint",
+    "sky"
+  ],
+  "Mechanics": [
+    "gifts",
+    "eggs",
+    "sleep",
+    "crow",
+    "swivel"
+  ],
+  "Role": "P",
+  "BaseLevel": {
+    "id": 37,
+    "world": 4,
+    "variant": "noon",
+    "capacity": 4,
+    "par": 2,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "L",
+        "row": 0,
+        "birds": [
+          "sky:sleep",
+          "sky",
+          "sky",
+          "sky"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 0,
+        "birds": [],
+        "kind": "twig"
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "birds": [
+          "berry:sleep",
+          "berry:sleep",
+          "berry",
+          "berry"
+        ],
+        "kind": "swivel"
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "birds": [
+          "egg:mint",
+          "mint",
+          "mint",
+          "mint"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "birds": [
+          "cocoa",
+          "cocoa",
+          "cocoa",
+          "cocoa:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "birds": [
+          "ember",
+          "ember",
+          "ember",
+          "ember:sleep"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 4,
+        "birds": [
+          "ink",
+          "ink",
+          "ink",
+          "ink:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 4,
+        "birds": [
+          "hoot",
+          "hoot",
+          "hoot",
+          "hoot:sleep"
+        ]
+      }
+    ]
+  },
+  "Swaps": 2,
+  "Seed": 423702,
+  "Attempts": 160,
+  "Keep": 1,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}

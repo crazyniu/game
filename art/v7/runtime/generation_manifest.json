@@ -1,0 +1,104 @@
+[
+  {
+    "name": "btn_purple",
+    "prompt": "Isolate the approved purple circular button base with its polished gold rim from the reference icon sheet. Remove ALL icons and glyphs, leaving a completely empty glossy purple face. Single front-on round sprite centered with 8% transparent margins, preserve the exact reference color, rim thickness, highlight and dimensional style. No text, no other objects. Real RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-0a3a84fb-da7f-40a0-a333-450e07c99150.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "btn_green",
+    "prompt": "Isolate the green primary circular button base with its gold rim from the reference icon sheet. Remove the play symbol entirely, leaving a completely empty glossy green face. Single front-on round sprite centered with 8% transparent margins, preserve reference style, rim thickness and highlights. No text, no other objects. Real RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-3fde2f14-3c08-4d77-a18b-8a1d4073db97.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "coin_pill",
+    "prompt": "Extract the cream coin pill with its gold leaf coin at the left from the reference icon sheet. Remove the number 240 entirely; the entire cream area to the right of the coin is EMPTY for runtime text. Preserve exact shape, gold trim, leaf coin and soft shading. One horizontal sprite, tightly framed with transparent padding, no other objects. Genuine RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-0f65e1b0-3aee-4919-afaa-06b1bcfceeda.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "badge_red",
+    "prompt": "Isolate the small red circular count badge from the reference icon sheet. Remove the numeral 3 completely. One empty glossy red round badge, thin cream-gold edge, exact approved reference rendering, face blank, centered on transparent canvas. No text or symbols, no other objects.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c8e2aa1c-515e-486b-ad83-5bb574d570ce.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "btn_green_pill",
+    "prompt": "Extract the green horizontal price pill from the approved shop screenshot, keeping the gold rim and glossy green face. Remove ALL coin icons, numbers and text so face is entirely empty. Single front-on capsule, true transparent background, 3:1 proportions, no other objects. Match reference materials and lighting exactly. Suitable for horizontal 9-slicing.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-f885d7a1-ecdc-42a4-ba7c-f5f3b3b7c000.png",
+    "reference": "art/v7/ui7_shop_boosters.png"
+  },
+  {
+    "name": "btn_purple_pressed",
+    "prompt": "Create the pressed state of the reference purple-and-gold round button: identical round outline and gold rim, empty purple center with no icon. Purple face visibly depressed inward with subtle inward shadow along its upper rim, lower highlight, slightly darker purple than the unpressed reference, maintain soft polished 3D style. Single isolated sprite, genuine transparency, no text.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-229c1c33-8c58-4c71-9076-b8f81f964d6c.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "btn_green_pressed",
+    "prompt": "Create the pressed state of the reference green-and-gold round play button: remove the play symbol, keep identical round silhouette and gold rim, empty green center visibly depressed with inner shadow at top, a lower highlight and darker green. Single front-on isolated sprite, no text, genuine RGBA transparency.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-e3d0f166-bfe9-4d28-9e5e-19feae01ea81.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_branch_plus",
+    "prompt": "Extract and reinterpret only the branch-with-plus pictogram from the approved reference as a WHITE glossy sculpted glyph with gentle lavender shadows. Keep recognizable short curved branch, two leaves and bold plus at upper right. Remove the purple circular disc and gold ring completely. No button, no background, no border or text. Single centered white icon alone, genuine RGBA transparency, readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-0c36d5d9-3f2d-440d-9b60-480b3490ddee.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_egg_eye",
+    "prompt": "Extract and reinterpret only the mystery egg with eye above it from the approved reference as a WHITE sculpted glyph, pale lavender shadows, recognizable egg in a simple nest with eye above. Remove purple disc and gold ring completely. No button, no background, no border or text. One isolated white icon on real transparency, readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-9abfd8b4-c4e1-40e7-8eb9-89abb5a3813e.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_bell",
+    "prompt": "One isolated WHITE bell glyph for the approved button. Follow the bell silhouette in the reference, with rounded bell and three short rays. Ivory-white 3D material with very subtle lavender shadows. NO circular disc, NO gold rim, NO glow or halo or cast shadow outside silhouette, no text. Real transparent background, readable 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-81b073d5-ccdb-4d6c-8bb6-a92fd6d1007f.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_scarecrow",
+    "prompt": "One isolated icon based on reference crow with red cross: cute crow HEAD rendered as a clean WHITE sculpted silhouette with gentle lavender details, red X at lower right. No purple disc or gold ring. Preserve reference crow expression but simplify to readable 64px glyph. No glow, halo, surrounding shadows, letters. Genuine transparent background.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-121004ef-0d88-4d79-9308-7b5391cb7030.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_rain_sprout",
+    "prompt": "One isolated WHITE sculpted glyph based on reference rain cloud over sprout: soft white cloud, three white rain drops, white two-leaf sprout beneath. Subtle lavender dimensional shading only. No purple disc, gold ring, glow or halo. Transparent background. Clear readable at 64px. Match approved soft 3D icon finish.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-ff7de9e9-2556-4c78-a082-ddab02245576.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_basket",
+    "prompt": "One isolated white sculpted SHOP BASKET glyph based on the basket icon in this approved reference. Simplify to basket with curved handle, woven front and little canopy edge, ALL ivory-white with pale lavender shading. No purple button or gold rim, no glow, halo or text. Real transparent background. Readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-d8162526-4679-45a3-ab22-f606c5e859b8.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_aviary",
+    "prompt": "One isolated white sculpted AVIARY glyph based on the framed bird icon in this approved reference: rounded square frame with hanging loop and a recognizable chick face with curl inside. Entire symbol ivory-white with lavender shadows. No button disc, gold rim, glow or text. Genuine transparent background. Readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c919fbaa-397a-4dc1-b453-f5564827e87c.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_check",
+    "prompt": "Single bold white check-mark glyph with softly beveled 3D edges and gentle lavender shading matching the approved reference white UI symbols. The green check in reference supplies shape only; glyph must be WHITE. No disc, border, glow, halo, text or other objects. Real RGBA transparency, readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-a9216f86-f617-4429-9194-e479839e2778.png",
+    "reference": "art/v7/ui7_icons.png"
+  },
+  {
+    "name": "icon_next_arrow",
+    "prompt": "Isolate the white right-pointing next arrow from the green primary button in this approved win screen. Single bold ivory-white sculpted right arrow, subtle pale lavender bevel/shadow, no green disc or gold rim. Clean opaque glyph surface, NO glow or haze outside silhouette, no cast background. Real transparent sprite, readable at 64 pixels.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-e25fbfc1-1aa0-476d-82ac-b4765e7579f2.png",
+    "reference": "art/v7/ui7_win.png"
+  },
+  {
+    "name": "chain_bonus",
+    "prompt": "Isolate only the TWO INTERLOCKING GOLD CHAIN LINKS beside +5 in this approved win screen. No number, no panel, no background, no glow. Exact polished chunky gold link design, front view. Real transparent background, clean silhouette and transparent holes through links. Single small icon readable at 64px.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-21449b8f-ebec-4c25-976b-cd6a0841574f.png",
+    "reference": "art/v7/ui7_win.png"
+  }
+]

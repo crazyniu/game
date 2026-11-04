@@ -1,0 +1,164 @@
+{
+  "Level": {
+    "id": 17,
+    "world": 2,
+    "variant": "drizzle",
+    "capacity": 4,
+    "par": 10,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "R",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "sky:sleep",
+          "sky",
+          "sky",
+          "sky"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "berry:sleep",
+          "berry:sleep",
+          "berry",
+          "berry"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "snow"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "cocoa",
+          "cocoa",
+          "snow",
+          "cocoa:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "mint:sleep",
+          "cocoa",
+          "snow",
+          "snow:sleep"
+        ]
+      }
+    ]
+  },
+  "Evidence": {
+    "Id": 17,
+    "World": 2,
+    "Variant": "drizzle",
+    "K": 5,
+    "Branches": 7,
+    "Mechanics": [
+      "gifts",
+      "sleep"
+    ],
+    "Role": "C",
+    "AppliedExceptions": [],
+    "Par": 10,
+    "SearchStatus": "Solved",
+    "RandomWins": 86,
+    "RandomTrials": 1000,
+    "RandomMoveCap": 200,
+    "Seed": 350053,
+    "RandomWinRate": 0.086,
+    "Visited": 63541,
+    "Edges": 910520,
+    "Closed": true,
+    "GraphMilliseconds": 8537,
+    "KnownDead": 1241,
+    "UnknownStates": 0,
+    "DeadLower": 0.019530696715506522,
+    "DeadUpper": 0.019530696715506522,
+    "Ordering": {
+      "Status": "Proven",
+      "Prefix": [],
+      "GoodNext": "sky",
+      "OtherNext": "berry",
+      "GoodMinimum": 10,
+      "OtherMinimum": 12,
+      "GoodLine": [
+        "1>4",
+        "0>5",
+        "5>0",
+        "1>4",
+        "6>5",
+        "3>6",
+        "3>5",
+        "6>3",
+        "2>5",
+        "6>2"
+      ],
+      "OtherLine": [
+        "1>5",
+        "5>1",
+        "1>5",
+        "0>4",
+        "5>1",
+        "2>5",
+        "0>4",
+        "6>5",
+        "3>6",
+        "3>5",
+        "6>3",
+        "6>2"
+      ],
+      "Detail": "Different reachable next home; strictly greater proven minimum."
+    },
+    "OptimalLine": [
+      "0>4",
+      "1>5",
+      "4>0",
+      "1>5",
+      "2>0",
+      "6>0",
+      "3>6",
+      "3>0",
+      "6>3",
+      "2>6"
+    ],
+    "TemptingDeadLine": [
+      "2>4"
+    ],
+    "ExercisedMechanics": [
+      "gifts",
+      "sleep"
+    ],
+    "MaximumHomesInOneMove": 1,
+    "Failures": [],
+    "Pass": true
+  }
+}

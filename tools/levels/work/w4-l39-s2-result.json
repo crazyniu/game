@@ -1,0 +1,180 @@
+{
+  "Attempts": 22,
+  "MinimumRandomWins": 79,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 0,
+  "RateRejected": 11,
+  "ParRejected": 5,
+  "SolverUnknown": 5,
+  "BestPar": 8,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 39,
+        "world": 4,
+        "variant": "morning",
+        "capacity": 4,
+        "par": 6,
+        "dayLength": 2,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sunny:chick",
+              "sky",
+              "sky",
+              "sunny:mama"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sunny",
+              "sunny"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "sky",
+              "sky"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "berry:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "cocoa",
+              "mint",
+              "mint:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa:sleep",
+              "cocoa",
+              "mint"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "hoot",
+              "hoot",
+              "hoot",
+              "hoot"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": []
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 39,
+        "World": 4,
+        "Variant": "morning",
+        "K": 6,
+        "Branches": 8,
+        "Mechanics": [
+          "daynight",
+          "gifts",
+          "mama",
+          "sleep"
+        ],
+        "Role": "R",
+        "AppliedExceptions": [],
+        "Par": 6,
+        "SearchStatus": "Solved",
+        "RandomWins": 1000,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 1,
+        "Visited": 303414,
+        "Edges": 3064607,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10000,
+        "KnownDead": 0,
+        "UnknownStates": 139210,
+        "DeadLower": 0,
+        "DeadUpper": 0.4588120521795303,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "sunny",
+          "OtherNext": "sky",
+          "GoodMinimum": 6,
+          "OtherMinimum": 7,
+          "GoodLine": [
+            "5\u003E7",
+            "0\u003E1",
+            "4\u003E7",
+            "4\u003E5",
+            "7\u003E4",
+            "2\u003E0"
+          ],
+          "OtherLine": [
+            "0\u003E7",
+            "2\u003E0",
+            "7\u003E1",
+            "5\u003E7",
+            "4\u003E7",
+            "4\u003E5",
+            "7\u003E4"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "0\u003E1",
+          "0\u003E2",
+          "4\u003E0",
+          "5\u003E0",
+          "4\u003E5",
+          "0\u003E4"
+        ],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [
+          "daynight",
+          "gifts",
+          "mama",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 2,
+        "DataCheck": "Not run",
+        "Failures": [],
+        "Warnings": [],
+        "Pass": true
+      }
+    }
+  ]
+}

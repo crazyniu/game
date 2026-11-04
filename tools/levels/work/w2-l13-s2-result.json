@@ -1,0 +1,156 @@
+{
+  "Attempts": 1,
+  "MinimumRandomWins": 769,
+  "MaximumRandomWins": 769,
+  "SchemaRejected": 0,
+  "RateRejected": 0,
+  "ParRejected": 0,
+  "SolverUnknown": 0,
+  "BestPar": 7,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 13,
+        "world": 2,
+        "variant": "noon",
+        "capacity": 4,
+        "par": 7,
+        "dayLength": 0,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sky:sleep",
+              "sky",
+              "sky",
+              "sky"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "cocoa"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:mint",
+              "egg:mint",
+              "egg:mint",
+              "mint"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "berry:sleep",
+              "cocoa",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": []
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 13,
+        "World": 2,
+        "Variant": "noon",
+        "K": 4,
+        "Branches": 6,
+        "Mechanics": [
+          "eggs",
+          "gifts",
+          "sleep"
+        ],
+        "Role": "P",
+        "AppliedExceptions": [],
+        "Par": 7,
+        "SearchStatus": "Solved",
+        "RandomWins": 769,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.769,
+        "Visited": 2664,
+        "Edges": 24207,
+        "Closed": true,
+        "GraphMilliseconds": 280,
+        "KnownDead": 21,
+        "UnknownStates": 0,
+        "DeadLower": 0.007882882882882882,
+        "DeadUpper": 0.007882882882882882,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "mint",
+          "OtherNext": "sky",
+          "GoodMinimum": 7,
+          "OtherMinimum": 9,
+          "GoodLine": [
+            "2\u003E5",
+            "2\u003E5",
+            "2\u003E5",
+            "2\u003E5",
+            "4\u003E5",
+            "1\u003E5",
+            "4\u003E1"
+          ],
+          "OtherLine": [
+            "2\u003E5",
+            "2\u003E5",
+            "2\u003E5",
+            "0\u003E3",
+            "3\u003E0",
+            "5\u003E2",
+            "4\u003E5",
+            "1\u003E5",
+            "4\u003E1"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "1\u003E3",
+          "2\u003E5",
+          "2\u003E5",
+          "2\u003E5",
+          "2\u003E5",
+          "4\u003E3",
+          "1\u003E4"
+        ],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [
+          "eggs",
+          "gifts",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 2,
+        "Failures": [],
+        "Pass": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "Attempts": 1,
+  "MinimumRandomWins": 547,
+  "MaximumRandomWins": 547,
+  "SchemaRejected": 0,
+  "RateRejected": 0,
+  "ParRejected": 0,
+  "SolverUnknown": 0,
+  "BestPar": 8,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 22,
+        "world": 3,
+        "variant": "noon",
+        "capacity": 4,
+        "par": 8,
+        "dayLength": 0,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sunny:sleep",
+              "sunny:sleep",
+              "sunny:sleep",
+              "crow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "kind": "twig",
+            "seats": 0,
+            "birds": [
+              "crow"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "sky",
+              "sky",
+              "sky",
+              "crow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "sky",
+              "berry",
+              "crow"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "mint",
+              "mint",
+              "sunny:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "snow",
+              "snow",
+              "snow",
+              "snow:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "ember",
+              "ember",
+              "ember",
+              "ember:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "mint:sleep",
+              "berry",
+              "berry"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 4,
+            "seats": 0,
+            "birds": []
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 22,
+        "World": 3,
+        "Variant": "noon",
+        "K": 6,
+        "Branches": 9,
+        "Mechanics": [
+          "crow",
+          "gifts",
+          "sleep"
+        ],
+        "Role": "P",
+        "AppliedExceptions": [],
+        "Par": 8,
+        "SearchStatus": "Solved",
+        "RandomWins": 547,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.547,
+        "Visited": 178413,
+        "Edges": 729917,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10003,
+        "KnownDead": 29,
+        "UnknownStates": 142010,
+        "DeadLower": 0.00016254420922242214,
+        "DeadUpper": 0.7961247218532281,
+        "Ordering": {
+          "Status": "Proven",
+          "Prefix": [],
+          "GoodNext": "sky",
+          "OtherNext": "berry",
+          "GoodMinimum": 8,
+          "OtherMinimum": 9,
+          "GoodLine": [
+            "3\u003E8",
+            "3\u003E7",
+            "2\u003E8",
+            "3\u003E2",
+            "7\u003E3",
+            "0\u003E1",
+            "4\u003E0",
+            "7\u003E4"
+          ],
+          "OtherLine": [
+            "3\u003E1",
+            "3\u003E7",
+            "3\u003E8",
+            "7\u003E3",
+            "2\u003E6",
+            "8\u003E2",
+            "0\u003E8",
+            "4\u003E0",
+            "7\u003E4"
+          ],
+          "Detail": "Different reachable next home; strictly greater proven minimum."
+        },
+        "OptimalLine": [
+          "0\u003E1",
+          "2\u003E8",
+          "3\u003E8",
+          "3\u003E7",
+          "3\u003E2",
+          "4\u003E0",
+          "7\u003E3",
+          "4\u003E7"
+        ],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [
+          "crow",
+          "gifts",
+          "sleep"
+        ],
+        "MaximumHomesInOneMove": 3,
+        "Booster": {
+          "Kind": "Scarecrow",
+          "Status": "Proven",
+          "MinimumMoves": 5,
+          "MovesSaved": 3,
+          "Line": [
+            "Use:Scarecrow",
+            "3\u003E7",
+            "3\u003E2",
+            "4\u003E0",
+            "7\u003E3",
+            "4\u003E7"
+          ]
+        },
+        "Failures": [],
+        "Pass": true
+      }
+    }
+  ]
+}

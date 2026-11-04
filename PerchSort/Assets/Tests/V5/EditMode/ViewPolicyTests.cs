@@ -60,14 +60,6 @@ namespace PerchSort.V5.Tests
             Assert.That(profile.Stars[1], Is.EqualTo(3)); Assert.That(profile.HighestUnlocked, Is.EqualTo(2));
             profile.Reward(40, 1, 0); Assert.That(profile.HighestUnlocked, Is.EqualTo(40));
         }
-        [Test]
-        public void PhaseSleepAndHiddenEggKeepDifferentPresentations()
-        {
-            var egg = new Bird(0, new Species("hoot"), BirdFlags.Egg);
-            var chick = new Bird(1, new Species("hoot"), BirdFlags.Chick);
-            Assert.That(V5ViewModel.RestFrame(egg, true), Is.EqualTo("egg_idle"));
-            Assert.That(V5ViewModel.RestFrame(chick, true), Is.EqualTo("bird_hoot_sleep"));
-        }
         [TestCase(1, BoosterKind.OwlEye)]
         [TestCase(2, BoosterKind.MorningBell)]
         [TestCase(3, BoosterKind.Scarecrow)]

@@ -1,0 +1,113 @@
+{
+  "review_type": "Manual static visual review of final staged PNGs through view_image",
+  "runtime_acceptance": false,
+  "reference_art": [
+    "bg_forest_day.png",
+    "bg_w1_morning.png",
+    "bg_w1_golden.png",
+    "bg_w1_rain.png",
+    "branch_left.png",
+    "twig_left.png",
+    "bush_edge.png",
+    "limb_top_plain.png"
+  ],
+  "artifacts_reviewed": [
+    "w2_contact_light_dark.png",
+    "w3_contact_light_dark.png",
+    "w4_contact_light_dark.png",
+    "w2_six_species_annotated.png",
+    "w3_six_species_annotated.png",
+    "w4_six_species_annotated.png",
+    "recognition_64_grayscale.png"
+  ],
+  "files": {
+    "bg_w2_noon.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w3_noon.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w4_noon.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w2_mist.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w2_lanterns.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w2_drizzle.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w3_morning.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w3_sunset.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w3_windy.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w4_morning.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w4_bluehour.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "bg_w4_aurora.png": {
+      "composition_and_material": "PASS: opaque portrait forest; top corner canopy; distant low hills; calm gradient board band y=550..1500; no birds, perches, foreground branches, UI or text."
+    },
+    "branch_left_w2.png": {
+      "composition_and_material": "PASS: one left-rooted continuous perch, broad level central foot surface, naturally tapered thickness, world-specific material and small right-end foliage; clean light/dark alpha."
+    },
+    "twig_left_w2.png": {
+      "composition_and_material": "PASS: one left-rooted thin twig with closed natural tip and world-specific material; slight measured top variation retained; clean light/dark alpha."
+    },
+    "bush_edge_w2.png": {
+      "composition_and_material": "PASS: cropped left-edge plant clump hides the corresponding branch root; world plant silhouette matches background and kit; no rectangular matte."
+    },
+    "limb_top_plain_w2.png": {
+      "composition_and_material": "PASS: continuous shallow arc linking two top corners, world foliage and material, no rope/hook/hanging knot, nothing below y=260; clean light/dark alpha."
+    },
+    "branch_left_w3.png": {
+      "composition_and_material": "PASS: one left-rooted continuous perch, broad level central foot surface, naturally tapered thickness, world-specific material and small right-end foliage; clean light/dark alpha."
+    },
+    "twig_left_w3.png": {
+      "composition_and_material": "PASS: one left-rooted thin twig with closed natural tip and world-specific material; slight measured top variation retained; clean light/dark alpha."
+    },
+    "bush_edge_w3.png": {
+      "composition_and_material": "PASS: cropped left-edge plant clump hides the corresponding branch root; world plant silhouette matches background and kit; no rectangular matte."
+    },
+    "limb_top_plain_w3.png": {
+      "composition_and_material": "PASS: continuous shallow arc linking two top corners, world foliage and material, no rope/hook/hanging knot, nothing below y=260; clean light/dark alpha."
+    },
+    "branch_left_w4.png": {
+      "composition_and_material": "PASS: one left-rooted continuous perch, broad level central foot surface, naturally tapered thickness, world-specific material and small right-end foliage; clean light/dark alpha."
+    },
+    "twig_left_w4.png": {
+      "composition_and_material": "PASS: one left-rooted thin twig with closed natural tip and world-specific material; slight measured top variation retained; clean light/dark alpha."
+    },
+    "bush_edge_w4.png": {
+      "composition_and_material": "PASS: cropped left-edge plant clump hides the corresponding branch root; world plant silhouette matches background and kit; no rectangular matte."
+    },
+    "limb_top_plain_w4.png": {
+      "composition_and_material": "PASS: continuous shallow arc linking two top corners, world foliage and material, no rope/hook/hanging knot, nothing below y=260; clean light/dark alpha."
+    },
+    "leaf_bamboo.png": {
+      "composition_and_material": "PASS: one isolated recognizable world particle, genuine transparency, clear margins, readable on light/dark and in grayscale."
+    },
+    "leaf_maple.png": {
+      "composition_and_material": "PASS: one isolated recognizable world particle, genuine transparency, clear margins, readable on light/dark and in grayscale."
+    },
+    "snowflake.png": {
+      "composition_and_material": "PASS: one isolated recognizable world particle, genuine transparency, clear margins, readable on light/dark and in grayscale."
+    }
+  },
+  "limits": [
+    "Visual style consistency is reviewer judgment, not a pixel-identical claim.",
+    "64px-long-edge maple and pine twigs differ subtly; world foliage and particle silhouettes remain recognizable.",
+    "Composite placements demonstrate six existing species and three branches, not runtime layouts or current level capacity.",
+    "Background drizzle retains a few fine rain streaks only at far side margins; central board remains clear.",
+    "Unity importer pivots, device screenshots, particle playback and timed runtime samples are NOT_RUN."
+  ]
+}

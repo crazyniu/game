@@ -1,0 +1,105 @@
+{
+  "Id": 25,
+  "K": 5,
+  "Spare": 3,
+  "Species": [
+    "berry",
+    "cocoa",
+    "mint",
+    "sky",
+    "snow"
+  ],
+  "Mechanics": [
+    "gifts",
+    "sleep",
+    "crow"
+  ],
+  "Role": "C",
+  "BaseLevel": {
+    "id": 25,
+    "world": 3,
+    "variant": "noon",
+    "capacity": 4,
+    "par": 4,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "L",
+        "row": 0,
+        "birds": [
+          "sky:sleep",
+          "sky",
+          "sky",
+          "sky"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 0,
+        "birds": [],
+        "kind": "twig"
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "birds": [
+          "berry:sleep",
+          "berry:sleep",
+          "berry",
+          "berry"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "birds": [
+          "cocoa",
+          "cocoa",
+          "cocoa",
+          "cocoa:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "birds": [
+          "snow",
+          "snow",
+          "snow",
+          "snow:sleep"
+        ]
+      }
+    ]
+  },
+  "Swaps": 4,
+  "Seed": 422504,
+  "Attempts": 160,
+  "Keep": 1,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}

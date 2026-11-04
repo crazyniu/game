@@ -1,0 +1,31 @@
+{
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "result": "No artifact returned",
+  "error": "image generation failed: connection failed: error sending request",
+  "requests": [
+    {
+      "asset": "ico_flag",
+      "prompt": "Use case: ui-mockup. Generate one isolated game HUD flag pictogram for Perch Sort, to be delivered as a 28x28 icon. One short warm-brown pole with a single simple leaf-green triangular pennant, leaning very slightly right. Match a friendly cream-glass forest puzzle game's flat-soft 2.5D icon family: olive green fill around #91b93d, subtle pale highlight, warm dark-brown outline #593b27. Bold clean outline, broad shapes readable at only 28 pixels, minimal detail. Entire icon centered with 10 percent transparent padding in a square image. Real RGBA transparent background. No button, badge, scenery, border, ground shadow, checkerboard, letters, numbers or watermarks.",
+      "attempts": 2,
+      "reference": null
+    },
+    {
+      "asset": "ico_footsteps",
+      "prompt": "Use case: ui-mockup. Generate one isolated game HUD footsteps pictogram for Perch Sort, to be delivered as a 28x28 icon. Two simple little staggered footprints, one slightly ahead of the other, each with a rounded sole and simple toe marks. Match a friendly cream-glass forest puzzle game's flat-soft 2.5D icon family: olive leaf-green fill around #91b93d, subtle pale highlight, warm dark-brown outline #593b27. Bold clean outline, very broad shapes readable at only 28 pixels, minimal detail. Entire icon centered with 10 percent transparent padding in a square image. Real RGBA transparent background. No shoe illustration, button, badge, scenery, border, ground shadow, checkerboard, letters, numbers or watermarks.",
+      "attempts": 2,
+      "reference": null
+    },
+    {
+      "asset": "ico_sound_off",
+      "prompt": "Use case: precise-object-edit. Asset: one muted sound pictogram matching the supplied icon exactly. Keep the original green loudspeaker body, brown outline, proportions and highlights. Remove the two sound-wave arcs on the right and replace them with one simple coral-red diagonal slash indicating muted audio, with the same brown outline weight. This is icon-only art, no button or scenery, no text, no numbers. Preserve real transparency around the complete icon. Leave wide transparent padding. Readable at 64 pixels.",
+      "attempts": 2,
+      "reference": "art/v6/derived/sound.png"
+    }
+  ],
+  "coordinator_authority": [
+    "msg_ae57f91a98df: deterministic processing approved",
+    "msg_3dc211a89a75: three retries only; separate API spend prohibited"
+  ],
+  "cli_fallback_used": false
+}

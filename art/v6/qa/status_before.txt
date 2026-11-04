@@ -1,0 +1,17 @@
+ M PerchSort/Assets/Scripts/V5/Game/BirdhouseView.cs
+ M PerchSort/Assets/Scripts/V5/Game/BranchView.cs
+ M PerchSort/Assets/Scripts/V5/Game/HudView.cs
+ M PerchSort/Assets/Scripts/V5/Game/TutorialHand.cs
+ M PerchSort/Assets/Scripts/V5/Game/V5Art.cs
+ M PerchSort/Assets/Scripts/V5/Game/V5GameRoot.cs
+ M PerchSort/Assets/Scripts/V5/Game/V5Layout.cs
+ M PerchSort/Assets/Scripts/V5/Game/WinPanel.cs
+ M PerchSort/Assets/Tests/V5/EditMode/V5LayoutTests.cs
+ M PerchSort/Assets/Tests/V5/PlayMode/V5GameplayTests.cs
+?? PerchSort/Assets/Resources/V5/Art/note_empty.png
+?? PerchSort/Assets/Resources/V5/Art/note_full.png
+?? PerchSort/Assets/Scripts/V5/Game/SongNoteView.cs
+?? art/v5/t39/
+?? art/v6/
+?? tasks/T39_art_report.md
+?? tasks/T39_report.md

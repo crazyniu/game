@@ -1,0 +1,324 @@
+{
+  "beret.png": {
+    "size": [
+      327,
+      221
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 26212,
+    "bounds_alpha16": [
+      0,
+      0,
+      327,
+      221
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "flower.png": {
+    "size": [
+      315,
+      234
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 27293,
+    "bounds_alpha16": [
+      0,
+      0,
+      315,
+      234
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "glasses.png": {
+    "size": [
+      365,
+      159
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 18567,
+    "bounds_alpha16": [
+      0,
+      0,
+      365,
+      159
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "hanger.png": {
+    "size": [
+      310,
+      230
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 42497,
+    "bounds_alpha16": [
+      0,
+      0,
+      310,
+      230
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "hat.png": {
+    "size": [
+      345,
+      217
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 22338,
+    "bounds_alpha16": [
+      0,
+      0,
+      345,
+      217
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "house_acorn.png": {
+    "size": [
+      872,
+      1180
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 344103,
+    "bounds_alpha16": [
+      0,
+      0,
+      872,
+      1180
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "house_lantern.png": {
+    "size": [
+      778,
+      1207
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 364942,
+    "bounds_alpha16": [
+      0,
+      0,
+      778,
+      1207
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "house_mushroom.png": {
+    "size": [
+      914,
+      1084
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 294074,
+    "bounds_alpha16": [
+      0,
+      0,
+      914,
+      1084
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "house_teapot.png": {
+    "size": [
+      1247,
+      1122
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 635856,
+    "bounds_alpha16": [
+      0,
+      0,
+      1247,
+      1122
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "nest_gift.png": {
+    "size": [
+      977,
+      853
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "fully_transparent_pixels": 252601,
+    "bounds_alpha16": [
+      0,
+      0,
+      977,
+      853
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "no_outfit.png": {
+    "size": [
+      311,
+      259
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 43259,
+    "bounds_alpha16": [
+      0,
+      0,
+      311,
+      259
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "scarf_blue.png": {
+    "size": [
+      288,
+      243
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 17824,
+    "bounds_alpha16": [
+      0,
+      0,
+      288,
+      243
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "scarf_coral.png": {
+    "size": [
+      299,
+      243
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 18199,
+    "bounds_alpha16": [
+      0,
+      0,
+      299,
+      243
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  },
+  "scarf_green.png": {
+    "size": [
+      297,
+      248
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "fully_transparent_pixels": 18764,
+    "bounds_alpha16": [
+      0,
+      0,
+      297,
+      248
+    ],
+    "concept_pivot_normalized": [
+      0.5,
+      0.5
+    ],
+    "production_pivot": "NOT_ACCEPTED"
+  }
+}

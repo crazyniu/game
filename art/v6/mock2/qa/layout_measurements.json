@@ -1,0 +1,6169 @@
+{
+  "shop_boosters": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 12
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        40,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        54.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        54,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1280",
+      "center": [
+        159.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        118.0,
+        86,
+        200.0,
+        116
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "complete_close_control",
+      "frame": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "actual": [
+        960,
+        60,
+        80,
+        80
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "close",
+      "rect": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "icon_frame": "baked_into_control",
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "shop",
+      "frame": [
+        504.0,
+        64.0,
+        72,
+        72
+      ],
+      "actual": [
+        504,
+        64,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        32,
+        294,
+        1016,
+        1556
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "button",
+      "key": "hint",
+      "rect": [
+        272.0,
+        174.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        482.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "home",
+      "rect": [
+        692.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "tab_state",
+      "active": "boosters",
+      "raised_offset": 18
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        360,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "hint",
+      "frame": [
+        214.0,
+        414.0,
+        172,
+        172
+      ],
+      "actual": [
+        214,
+        414,
+        172,
+        172
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        196,
+        644
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        181,
+        632,
+        212,
+        658
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        350,
+        618,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        400,
+        644
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        382,
+        632,
+        419,
+        658
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        446.0,
+        386.0,
+        48,
+        48
+      ],
+      "actual": [
+        446,
+        386,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "3",
+      "center": [
+        470,
+        410
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        460,
+        399,
+        479,
+        422
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        110.0,
+        684.0,
+        172,
+        84
+      ],
+      "price": 30,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        314.0,
+        684.0,
+        172,
+        84
+      ],
+      "price": 75,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "booster_state",
+      "booster": "hint",
+      "owned": 3,
+      "locked": false,
+      "unlock_level": null,
+      "single": 30,
+      "bundle": 75
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        360,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "add",
+      "frame": [
+        694.0,
+        414.0,
+        172,
+        172
+      ],
+      "actual": [
+        694,
+        414,
+        172,
+        172
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        676,
+        644
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        661,
+        632,
+        692,
+        658
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        830,
+        618,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        880,
+        644
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        862,
+        632,
+        899,
+        658
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        926.0,
+        386.0,
+        48,
+        48
+      ],
+      "actual": [
+        926,
+        386,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "2",
+      "center": [
+        950,
+        410
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        940,
+        399,
+        960,
+        422
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        590.0,
+        684.0,
+        172,
+        84
+      ],
+      "price": 60,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        794.0,
+        684.0,
+        172,
+        84
+      ],
+      "price": 150,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "booster_state",
+      "booster": "add",
+      "owned": 2,
+      "locked": false,
+      "unlock_level": null,
+      "single": 60,
+      "bundle": 150
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        840,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "peek",
+      "frame": [
+        214.0,
+        894.0,
+        172,
+        172
+      ],
+      "actual": [
+        214,
+        894,
+        172,
+        172
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        196,
+        1124
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        181,
+        1112,
+        212,
+        1138
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        350,
+        1098,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        400,
+        1124
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        382,
+        1112,
+        419,
+        1138
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        446.0,
+        866.0,
+        48,
+        48
+      ],
+      "actual": [
+        446,
+        866,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "2",
+      "center": [
+        470,
+        890
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        460,
+        879,
+        480,
+        902
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        110.0,
+        1164.0,
+        172,
+        84
+      ],
+      "price": 80,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        314.0,
+        1164.0,
+        172,
+        84
+      ],
+      "price": 200,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "booster_state",
+      "booster": "peek",
+      "owned": 2,
+      "locked": false,
+      "unlock_level": null,
+      "single": 80,
+      "bundle": 200
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        840,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "bell",
+      "frame": [
+        694.0,
+        894.0,
+        172,
+        172
+      ],
+      "actual": [
+        694,
+        894,
+        172,
+        172
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        676,
+        1124
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        661,
+        1112,
+        692,
+        1138
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        830,
+        1098,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        880,
+        1124
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        862,
+        1112,
+        899,
+        1138
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        926.0,
+        866.0,
+        48,
+        48
+      ],
+      "actual": [
+        926,
+        866,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1",
+      "center": [
+        950,
+        890
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        943,
+        878,
+        957,
+        902
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        590.0,
+        1164.0,
+        172,
+        84
+      ],
+      "price": 80,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        794.0,
+        1164.0,
+        172,
+        84
+      ],
+      "price": 200,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "booster_state",
+      "booster": "bell",
+      "owned": 1,
+      "locked": false,
+      "unlock_level": null,
+      "single": 80,
+      "bundle": 200
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        1320,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "scarecrow",
+      "frame": [
+        214.0,
+        1374.0,
+        172,
+        172
+      ],
+      "actual": [
+        214,
+        1374,
+        172,
+        172
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        196,
+        1604
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        181,
+        1592,
+        212,
+        1618
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        350,
+        1578,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        400,
+        1604
+      ],
+      "size": 32,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        382,
+        1592,
+        419,
+        1618
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        446.0,
+        1346.0,
+        48,
+        48
+      ],
+      "actual": [
+        446,
+        1346,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "2",
+      "center": [
+        470,
+        1370
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        460,
+        1359,
+        480,
+        1382
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        110.0,
+        1644.0,
+        172,
+        84
+      ],
+      "price": 100,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        314.0,
+        1644.0,
+        172,
+        84
+      ],
+      "price": 250,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "booster_state",
+      "booster": "scarecrow",
+      "owned": 2,
+      "locked": false,
+      "unlock_level": null,
+      "single": 100,
+      "bundle": 250
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        1320,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "rain",
+      "frame": [
+        700.0,
+        1380.0,
+        160,
+        160
+      ],
+      "actual": [
+        700,
+        1380,
+        160,
+        160
+      ],
+      "opacity": 0.6
+    },
+    {
+      "kind": "sprite",
+      "name": "locked",
+      "frame": [
+        826.0,
+        1481.0,
+        56,
+        56
+      ],
+      "actual": [
+        826,
+        1481,
+        56,
+        56
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "unlock_level_badge",
+      "frame": [
+        744.0,
+        1545.0,
+        72,
+        72
+      ],
+      "actual": [
+        744,
+        1545,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "32",
+      "center": [
+        780,
+        1582
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        759,
+        1570,
+        801,
+        1596
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "count_badge",
+      "frame": [
+        926.0,
+        1346.0,
+        48,
+        48
+      ],
+      "actual": [
+        926,
+        1346,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "0",
+      "center": [
+        950,
+        1370
+      ],
+      "size": 30,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        940,
+        1359,
+        959,
+        1382
+      ]
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        590.0,
+        1644.0,
+        172,
+        84
+      ],
+      "price": 100,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": false,
+      "opacity": 0.45
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        794.0,
+        1644.0,
+        172,
+        84
+      ],
+      "price": 250,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": false,
+      "opacity": 0.45
+    },
+    {
+      "kind": "text",
+      "text": "1x",
+      "center": [
+        676,
+        1604
+      ],
+      "size": 32,
+      "bold": false,
+      "fill": "#593B27",
+      "ink_bbox": [
+        662,
+        1593,
+        691,
+        1617
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        830,
+        1578,
+        100,
+        52
+      ],
+      "green": false,
+      "opacity": 0.45,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        880,
+        1604
+      ],
+      "size": 32,
+      "bold": false,
+      "fill": "#593B27",
+      "ink_bbox": [
+        863,
+        1593,
+        898,
+        1617
+      ]
+    },
+    {
+      "kind": "booster_state",
+      "booster": "rain",
+      "owned": 0,
+      "locked": true,
+      "unlock_level": 32,
+      "single": 100,
+      "bundle": 250
+    }
+  ],
+  "shop_outfits": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 12
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        40,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        54.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        54,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1280",
+      "center": [
+        159.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        118.0,
+        86,
+        200.0,
+        116
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "complete_close_control",
+      "frame": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "actual": [
+        960,
+        60,
+        80,
+        80
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "close",
+      "rect": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "icon_frame": "baked_into_control",
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "shop",
+      "frame": [
+        504.0,
+        64.0,
+        72,
+        72
+      ],
+      "actual": [
+        504,
+        64,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        32,
+        294,
+        1016,
+        1556
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "button",
+      "key": "hint",
+      "rect": [
+        272.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        482.0,
+        174.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "home",
+      "rect": [
+        692.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "tab_state",
+      "active": "outfits",
+      "raised_offset": 18
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        360,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        213.0,
+        389.0,
+        174,
+        174
+      ],
+      "actual": [
+        213,
+        389,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_sunny_idle",
+      "frame": [
+        221.0,
+        397.0,
+        158,
+        158
+      ],
+      "actual": [
+        221,
+        397,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        283.56,
+        481.7,
+        55,
+        36
+      ],
+      "actual": [
+        290,
+        482,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        111,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_hat",
+      "frame": [
+        127.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        127,
+        612,
+        82,
+        52
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        135.0,
+        708.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sunny",
+      "slot": 0,
+      "key": "hat",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        243,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        259.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        259,
+        604,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        267.0,
+        708.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sunny",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        375,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_flower",
+      "frame": [
+        391.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        391,
+        608,
+        82,
+        61
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        375.0,
+        708.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sunny",
+      "slot": 2,
+      "key": "flower",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        360,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        693.0,
+        389.0,
+        174,
+        174
+      ],
+      "actual": [
+        693,
+        389,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_sky_idle",
+      "frame": [
+        701.0,
+        397.0,
+        158,
+        158
+      ],
+      "actual": [
+        701,
+        397,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        763.56,
+        481.7,
+        55,
+        36
+      ],
+      "actual": [
+        770,
+        482,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        591,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_hat",
+      "frame": [
+        607.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        607,
+        612,
+        82,
+        52
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        615.0,
+        708.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sky",
+      "slot": 0,
+      "key": "hat",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        723,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        739.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        739,
+        604,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        747.0,
+        708.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sky",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        855,
+        586,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_glasses",
+      "frame": [
+        871.0,
+        597.0,
+        82,
+        82
+      ],
+      "actual": [
+        871,
+        620,
+        82,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        855.0,
+        708.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "sky",
+      "slot": 2,
+      "key": "glasses",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        840,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        213.0,
+        869.0,
+        174,
+        174
+      ],
+      "actual": [
+        213,
+        869,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_idle",
+      "frame": [
+        221.0,
+        877.0,
+        158,
+        158
+      ],
+      "actual": [
+        221,
+        877,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        283.56,
+        961.7,
+        55,
+        36
+      ],
+      "actual": [
+        290,
+        962,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        111,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_beret",
+      "frame": [
+        127.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        127,
+        1090,
+        82,
+        55
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        135.0,
+        1188.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 0,
+      "key": "beret",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        243,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        259.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        259,
+        1084,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        267.0,
+        1188.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        375,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_flower",
+      "frame": [
+        391.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        391,
+        1088,
+        82,
+        61
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        375.0,
+        1188.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 2,
+      "key": "flower",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        840,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        693.0,
+        869.0,
+        174,
+        174
+      ],
+      "actual": [
+        693,
+        869,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_mint_idle",
+      "frame": [
+        701.0,
+        877.0,
+        158,
+        158
+      ],
+      "actual": [
+        701,
+        877,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        763.56,
+        961.7,
+        55,
+        36
+      ],
+      "actual": [
+        770,
+        962,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        591,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_beret",
+      "frame": [
+        607.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        607,
+        1090,
+        82,
+        55
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        615.0,
+        1188.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "mint",
+      "slot": 0,
+      "key": "beret",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        723,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        739.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        739,
+        1084,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        747.0,
+        1188.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "mint",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        855,
+        1066,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_glasses",
+      "frame": [
+        871.0,
+        1077.0,
+        82,
+        82
+      ],
+      "actual": [
+        871,
+        1100,
+        82,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        855.0,
+        1188.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "mint",
+      "slot": 2,
+      "key": "glasses",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        1320,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        213.0,
+        1349.0,
+        174,
+        174
+      ],
+      "actual": [
+        213,
+        1349,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_cocoa_idle",
+      "frame": [
+        221.0,
+        1357.0,
+        158,
+        158
+      ],
+      "actual": [
+        221,
+        1357,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        283.56,
+        1441.7,
+        55,
+        36
+      ],
+      "actual": [
+        290,
+        1442,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        111,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_hat",
+      "frame": [
+        127.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        127,
+        1572,
+        82,
+        52
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        135.0,
+        1668.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "cocoa",
+      "slot": 0,
+      "key": "hat",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        243,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        259.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        259,
+        1564,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        267.0,
+        1668.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "cocoa",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        375,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_glasses",
+      "frame": [
+        391.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        391,
+        1580,
+        82,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        375.0,
+        1668.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "cocoa",
+      "slot": 2,
+      "key": "glasses",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        1320,
+        440,
+        440
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        693.0,
+        1349.0,
+        174,
+        174
+      ],
+      "actual": [
+        693,
+        1349,
+        174,
+        174
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_snow_idle",
+      "frame": [
+        701.0,
+        1357.0,
+        158,
+        158
+      ],
+      "actual": [
+        701,
+        1357,
+        158,
+        158
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        763.56,
+        1441.7,
+        55,
+        36
+      ],
+      "actual": [
+        770,
+        1442,
+        43,
+        36
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        591,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_beret",
+      "frame": [
+        607.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        607,
+        1570,
+        82,
+        55
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        615.0,
+        1668.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "snow",
+      "slot": 0,
+      "key": "beret",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        723,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        739.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        739,
+        1564,
+        82,
+        69
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        747.0,
+        1668.0,
+        66,
+        66
+      ],
+      "icon_frame": 40,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "snow",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        855,
+        1546,
+        114,
+        110
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_flower",
+      "frame": [
+        871.0,
+        1557.0,
+        82,
+        82
+      ],
+      "actual": [
+        871,
+        1568,
+        82,
+        61
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        855.0,
+        1668.0,
+        114,
+        66
+      ],
+      "price": 800,
+      "coin_frame": 28,
+      "font_size": 32,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "snow",
+      "slot": 2,
+      "key": "flower",
+      "state": "buy"
+    }
+  ],
+  "shop_houses": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 12
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        40,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        54.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        54,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1280",
+      "center": [
+        159.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        118.0,
+        86,
+        200.0,
+        116
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "complete_close_control",
+      "frame": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "actual": [
+        960,
+        60,
+        80,
+        80
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "close",
+      "rect": [
+        960.0,
+        60.0,
+        80,
+        80
+      ],
+      "icon_frame": "baked_into_control",
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "shop",
+      "frame": [
+        504.0,
+        64.0,
+        72,
+        72
+      ],
+      "actual": [
+        504,
+        64,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        32,
+        294,
+        1016,
+        1556
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "button",
+      "key": "hint",
+      "rect": [
+        272.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        482.0,
+        192.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "home",
+      "rect": [
+        692.0,
+        174.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "tab_state",
+      "active": "houses",
+      "raised_offset": 18
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        405,
+        440,
+        600
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "house_mushroom",
+      "frame": [
+        125.0,
+        460.0,
+        350,
+        350
+      ],
+      "actual": [
+        152,
+        460,
+        295,
+        350
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "home",
+      "rect": [
+        242.0,
+        836.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "house_state",
+      "style": "mushroom",
+      "state": "owned",
+      "price": 600
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        405,
+        440,
+        600
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "house_teapot",
+      "frame": [
+        605.0,
+        460.0,
+        350,
+        350
+      ],
+      "actual": [
+        605,
+        478,
+        350,
+        315
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        722.0,
+        836.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "house_state",
+      "style": "teapot",
+      "state": "equipped",
+      "price": 600
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        1085,
+        440,
+        600
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "house_lantern",
+      "frame": [
+        125.0,
+        1140.0,
+        350,
+        350
+      ],
+      "actual": [
+        187,
+        1140,
+        226,
+        350
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        190.0,
+        1524.0,
+        220,
+        100
+      ],
+      "price": 600,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "house_state",
+      "style": "lantern",
+      "state": "buy",
+      "price": 600
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        1085,
+        440,
+        600
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "house_acorn",
+      "frame": [
+        605.0,
+        1140.0,
+        350,
+        350
+      ],
+      "actual": [
+        650,
+        1140,
+        259,
+        350
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        670.0,
+        1524.0,
+        220,
+        100
+      ],
+      "price": 600,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "house_state",
+      "style": "acorn",
+      "state": "buy",
+      "price": 600
+    }
+  ],
+  "shop_confirm": [
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        190,
+        550,
+        700,
+        820
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "complete_close_control",
+      "frame": [
+        790.0,
+        570.0,
+        80,
+        80
+      ],
+      "actual": [
+        790,
+        570,
+        80,
+        80
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "close",
+      "rect": [
+        790.0,
+        570.0,
+        80,
+        80
+      ],
+      "icon_frame": "baked_into_control",
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "hint",
+      "frame": [
+        430.0,
+        704.0,
+        220,
+        220
+      ],
+      "actual": [
+        430,
+        704,
+        220,
+        220
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        490,
+        961,
+        100,
+        54
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        540,
+        988
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        520,
+        976,
+        559,
+        1003
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        425,
+        1044,
+        230,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        439.0,
+        1056.0,
+        48,
+        48
+      ],
+      "actual": [
+        439,
+        1056,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "75",
+      "center": [
+        564.0,
+        1080
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        543.0,
+        1067,
+        585.0,
+        1096
+      ]
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        410.0,
+        1182.0,
+        260,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "purchase_state",
+      "item": "Firefly",
+      "quantity": 3,
+      "price": 75,
+      "balance": 1280,
+      "confirm_enabled": true
+    }
+  ],
+  "shop_no_coins": [
+    {
+      "kind": "panel",
+      "rect": [
+        40,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        54.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        54,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "20",
+      "center": [
+        159.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        136.0,
+        87,
+        182.0,
+        116
+      ]
+    },
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        190,
+        550,
+        700,
+        820
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "complete_close_control",
+      "frame": [
+        790.0,
+        570.0,
+        80,
+        80
+      ],
+      "actual": [
+        790,
+        570,
+        80,
+        80
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "close",
+      "rect": [
+        790.0,
+        570.0,
+        80,
+        80
+      ],
+      "icon_frame": "baked_into_control",
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "hint",
+      "frame": [
+        430.0,
+        704.0,
+        220,
+        220
+      ],
+      "actual": [
+        430,
+        704,
+        220,
+        220
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        490,
+        961,
+        100,
+        54
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "text",
+      "text": "3x",
+      "center": [
+        540,
+        988
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        520,
+        976,
+        559,
+        1003
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        425,
+        1044,
+        230,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        439.0,
+        1056.0,
+        48,
+        48
+      ],
+      "actual": [
+        439,
+        1056,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "75",
+      "center": [
+        564.0,
+        1080
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        543.0,
+        1067,
+        585.0,
+        1096
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "coin_insufficient",
+      "frame": [
+        439.0,
+        1056.0,
+        48,
+        48
+      ],
+      "actual": [
+        439,
+        1056,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "cross",
+      "frame": [
+        474.0,
+        1088.0,
+        24,
+        24
+      ],
+      "actual": [
+        474,
+        1088,
+        24,
+        24
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        410.0,
+        1182.0,
+        260,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 0.45
+    },
+    {
+      "kind": "purchase_state",
+      "item": "Firefly",
+      "quantity": 3,
+      "price": 75,
+      "balance": 20,
+      "confirm_enabled": false
+    }
+  ],
+  "aviary_list": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 12
+    },
+    {
+      "kind": "button",
+      "key": "back",
+      "rect": [
+        40.0,
+        60.0,
+        80,
+        80
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        850,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        864.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        864,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1280",
+      "center": [
+        969.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        928.0,
+        86,
+        1010.0,
+        116
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "aviary",
+      "frame": [
+        504.0,
+        64.0,
+        72,
+        72
+      ],
+      "actual": [
+        504,
+        64,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        32,
+        190,
+        1016,
+        1660
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        240,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        112.0,
+        264.0,
+        186,
+        186
+      ],
+      "actual": [
+        112,
+        264,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_sunny_idle",
+      "frame": [
+        120.5,
+        272.5,
+        169,
+        169
+      ],
+      "actual": [
+        120,
+        272,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Sunny",
+      "center": [
+        382,
+        322
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        329,
+        309,
+        435,
+        347
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        299,
+        366,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        313.0,
+        374.0,
+        48,
+        48
+      ],
+      "actual": [
+        313,
+        374,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "64",
+      "center": [
+        404.0,
+        398
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        385.0,
+        385,
+        424.0,
+        412
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        358.0,
+        461.0,
+        44,
+        44
+      ],
+      "actual": [
+        358,
+        466,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "sunny",
+      "state": "met",
+      "home_count": 64,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        240,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        592.0,
+        264.0,
+        186,
+        186
+      ],
+      "actual": [
+        592,
+        264,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_sky_idle",
+      "frame": [
+        600.5,
+        272.5,
+        169,
+        169
+      ],
+      "actual": [
+        600,
+        272,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Skye",
+      "center": [
+        862,
+        322
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        821,
+        308,
+        902,
+        347
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        779,
+        366,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        793.0,
+        374.0,
+        48,
+        48
+      ],
+      "actual": [
+        793,
+        374,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "61",
+      "center": [
+        884.0,
+        398
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        867.0,
+        385,
+        900.0,
+        412
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        838.0,
+        461.0,
+        44,
+        44
+      ],
+      "actual": [
+        838,
+        466,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "sky",
+      "state": "met",
+      "home_count": 61,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        550,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        112.0,
+        574.0,
+        186,
+        186
+      ],
+      "actual": [
+        112,
+        574,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_idle",
+      "frame": [
+        120.5,
+        582.5,
+        169,
+        169
+      ],
+      "actual": [
+        120,
+        582,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        187.33,
+        672.85,
+        59,
+        39
+      ],
+      "actual": [
+        194,
+        673,
+        46,
+        39
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Berry",
+      "center": [
+        382,
+        632
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        333,
+        619,
+        431,
+        657
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        299,
+        676,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        313.0,
+        684.0,
+        48,
+        48
+      ],
+      "actual": [
+        313,
+        684,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "42",
+      "center": [
+        404.0,
+        708
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        384.0,
+        695,
+        425.0,
+        722
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        358.0,
+        771.0,
+        44,
+        44
+      ],
+      "actual": [
+        358,
+        776,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "berry",
+      "state": "met",
+      "home_count": 42,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        550,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        592.0,
+        574.0,
+        186,
+        186
+      ],
+      "actual": [
+        592,
+        574,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_mint_idle",
+      "frame": [
+        600.5,
+        582.5,
+        169,
+        169
+      ],
+      "actual": [
+        600,
+        582,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Minty",
+      "center": [
+        862,
+        632
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        813,
+        618,
+        911,
+        657
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        779,
+        676,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        793.0,
+        684.0,
+        48,
+        48
+      ],
+      "actual": [
+        793,
+        684,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "29",
+      "center": [
+        884.0,
+        708
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        864.0,
+        696,
+        904.0,
+        722
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        838.0,
+        771.0,
+        44,
+        44
+      ],
+      "actual": [
+        838,
+        776,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "mint",
+      "state": "met",
+      "home_count": 29,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        860,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        112.0,
+        884.0,
+        186,
+        186
+      ],
+      "actual": [
+        112,
+        884,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_cocoa_idle",
+      "frame": [
+        120.5,
+        892.5,
+        169,
+        169
+      ],
+      "actual": [
+        120,
+        892,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Cocoa",
+      "center": [
+        382,
+        942
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        327,
+        929,
+        437,
+        958
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        299,
+        986,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        313.0,
+        994.0,
+        48,
+        48
+      ],
+      "actual": [
+        313,
+        994,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "26",
+      "center": [
+        404.0,
+        1018
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        384.0,
+        1006,
+        424.0,
+        1032
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        358.0,
+        1081.0,
+        44,
+        44
+      ],
+      "actual": [
+        358,
+        1086,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "cocoa",
+      "state": "met",
+      "home_count": 26,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        860,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        592.0,
+        884.0,
+        186,
+        186
+      ],
+      "actual": [
+        592,
+        884,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_snow_idle",
+      "frame": [
+        600.5,
+        892.5,
+        169,
+        169
+      ],
+      "actual": [
+        600,
+        892,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Flurry",
+      "center": [
+        862,
+        942
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        808,
+        928,
+        917,
+        967
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        779,
+        986,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        793.0,
+        994.0,
+        48,
+        48
+      ],
+      "actual": [
+        793,
+        994,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "14",
+      "center": [
+        884.0,
+        1018
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        867.0,
+        1005,
+        901.0,
+        1032
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        838.0,
+        1081.0,
+        44,
+        44
+      ],
+      "actual": [
+        838,
+        1086,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "snow",
+      "state": "met",
+      "home_count": 14,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        1170,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        112.0,
+        1194.0,
+        186,
+        186
+      ],
+      "actual": [
+        112,
+        1194,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_ember_idle",
+      "frame": [
+        120.5,
+        1202.5,
+        169,
+        169
+      ],
+      "actual": [
+        120,
+        1202,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Ember",
+      "center": [
+        382,
+        1252
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        325,
+        1238,
+        439,
+        1269
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        299,
+        1296,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        313.0,
+        1304.0,
+        48,
+        48
+      ],
+      "actual": [
+        313,
+        1304,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "8",
+      "center": [
+        404.0,
+        1328
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        394.0,
+        1315,
+        415.0,
+        1342
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "hanger",
+      "frame": [
+        358.0,
+        1391.0,
+        44,
+        44
+      ],
+      "actual": [
+        358,
+        1396,
+        44,
+        33
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "ember",
+      "state": "met",
+      "home_count": 8,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        1170,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        592.0,
+        1194.0,
+        186,
+        186
+      ],
+      "actual": [
+        592,
+        1194,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_crow_idle",
+      "frame": [
+        600.5,
+        1202.5,
+        169,
+        169
+      ],
+      "actual": [
+        600,
+        1202,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Rook",
+      "center": [
+        862,
+        1252
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        819,
+        1238,
+        905,
+        1269
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        779,
+        1296,
+        162,
+        64
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        793.0,
+        1304.0,
+        48,
+        48
+      ],
+      "actual": [
+        793,
+        1304,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "0",
+      "center": [
+        884.0,
+        1328
+      ],
+      "size": 34,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        873.0,
+        1316,
+        895.0,
+        1342
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "no_outfit",
+      "frame": [
+        832.0,
+        1385.0,
+        56,
+        56
+      ],
+      "actual": [
+        832,
+        1390,
+        56,
+        47
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "crow",
+      "state": "met",
+      "home_count": 0,
+      "outfits": false
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        1480,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        112.0,
+        1504.0,
+        186,
+        186
+      ],
+      "actual": [
+        112,
+        1504,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_ink_idle",
+      "frame": [
+        120.5,
+        1512.5,
+        169,
+        169
+      ],
+      "actual": [
+        120,
+        1512,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "?",
+      "center": [
+        205,
+        1605
+      ],
+      "size": 52,
+      "bold": true,
+      "fill": "#FFF2D7",
+      "ink_bbox": [
+        191,
+        1585,
+        218,
+        1626
+      ]
+    },
+    {
+      "kind": "text",
+      "text": "?",
+      "center": [
+        382,
+        1562
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        372,
+        1548,
+        392,
+        1578
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "unmet_lock",
+      "frame": [
+        356.0,
+        1618.0,
+        48,
+        48
+      ],
+      "actual": [
+        356,
+        1618,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "ink",
+      "state": "unmet",
+      "home_count": 0,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        560,
+        1480,
+        440,
+        290
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        592.0,
+        1504.0,
+        186,
+        186
+      ],
+      "actual": [
+        592,
+        1504,
+        186,
+        186
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_hoot_idle",
+      "frame": [
+        600.5,
+        1512.5,
+        169,
+        169
+      ],
+      "actual": [
+        600,
+        1512,
+        169,
+        169
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "?",
+      "center": [
+        685,
+        1605
+      ],
+      "size": 52,
+      "bold": true,
+      "fill": "#FFF2D7",
+      "ink_bbox": [
+        671,
+        1585,
+        698,
+        1626
+      ]
+    },
+    {
+      "kind": "text",
+      "text": "?",
+      "center": [
+        862,
+        1562
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        852,
+        1548,
+        872,
+        1578
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "unmet_lock",
+      "frame": [
+        836.0,
+        1618.0,
+        48,
+        48
+      ],
+      "actual": [
+        836,
+        1618,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "species_card",
+      "species": "hoot",
+      "state": "unmet",
+      "home_count": 0,
+      "outfits": true
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        1028,
+        895,
+        10,
+        240
+      ],
+      "green": false,
+      "opacity": 0.6,
+      "corner_region": 34
+    }
+  ],
+  "aviary_detail": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 12
+    },
+    {
+      "kind": "button",
+      "key": "back",
+      "rect": [
+        40.0,
+        60.0,
+        80,
+        80
+      ],
+      "icon_frame": 40,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        850,
+        64,
+        190,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        864.0,
+        76.0,
+        48,
+        48
+      ],
+      "actual": [
+        864,
+        76,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "1280",
+      "center": [
+        969.0,
+        100
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        928.0,
+        86,
+        1010.0,
+        116
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "aviary",
+      "frame": [
+        504.0,
+        64.0,
+        72,
+        72
+      ],
+      "actual": [
+        504,
+        64,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        80,
+        190,
+        920,
+        1660
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        353.0,
+        265.0,
+        374,
+        374
+      ],
+      "actual": [
+        353,
+        265,
+        374,
+        374
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_idle",
+      "frame": [
+        370.0,
+        282.0,
+        340,
+        340
+      ],
+      "actual": [
+        370,
+        282,
+        340,
+        340
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        504.29999999999995,
+        464.0,
+        119,
+        78
+      ],
+      "actual": [
+        518,
+        464,
+        92,
+        78
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Berry",
+      "center": [
+        540,
+        688
+      ],
+      "size": 64,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        458,
+        667,
+        621,
+        728
+      ]
+    },
+    {
+      "kind": "text",
+      "text": "A show-off with a perfect wink.",
+      "center": [
+        540,
+        752
+      ],
+      "size": 32,
+      "bold": false,
+      "fill": "#593B27",
+      "ink_bbox": [
+        317,
+        741,
+        763,
+        771
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        260,
+        816,
+        160,
+        170
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_idle",
+      "frame": [
+        266.0,
+        826.0,
+        148,
+        148
+      ],
+      "actual": [
+        266,
+        826,
+        148,
+        148
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        324.36,
+        905.2,
+        52,
+        34
+      ],
+      "actual": [
+        330,
+        905,
+        40,
+        34
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "next",
+      "frame": [
+        426.0,
+        886.0,
+        28,
+        28
+      ],
+      "actual": [
+        426,
+        886,
+        28,
+        28
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        460,
+        816,
+        160,
+        170
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_quirk1",
+      "frame": [
+        466.0,
+        826.0,
+        148,
+        148
+      ],
+      "actual": [
+        466,
+        826,
+        148,
+        148
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        524.36,
+        905.2,
+        52,
+        34
+      ],
+      "actual": [
+        530,
+        905,
+        40,
+        34
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "next",
+      "frame": [
+        626.0,
+        886.0,
+        28,
+        28
+      ],
+      "actual": [
+        626,
+        886,
+        28,
+        28
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        660,
+        816,
+        160,
+        170
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_quirk2",
+      "frame": [
+        666.0,
+        826.0,
+        148,
+        148
+      ],
+      "actual": [
+        666,
+        826,
+        148,
+        148
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "equipped_scarf",
+      "frame": [
+        724.36,
+        905.2,
+        52,
+        34
+      ],
+      "actual": [
+        730,
+        905,
+        40,
+        34
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        174,
+        1050,
+        732,
+        150
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "gift_badge",
+      "frame": [
+        200.0,
+        1075.0,
+        100,
+        100
+      ],
+      "actual": [
+        200,
+        1075,
+        100,
+        100
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "encore",
+      "frame": [
+        212.0,
+        1087.0,
+        76,
+        76
+      ],
+      "actual": [
+        212,
+        1087,
+        76,
+        76
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Encore",
+      "center": [
+        581,
+        1095
+      ],
+      "size": 40,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        517,
+        1081,
+        646,
+        1111
+      ]
+    },
+    {
+      "kind": "text",
+      "text": "Next move does not count.",
+      "center": [
+        581,
+        1150
+      ],
+      "size": 32,
+      "bold": false,
+      "fill": "#593B27",
+      "ink_bbox": [
+        391,
+        1139,
+        772,
+        1163
+      ]
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        162,
+        1290,
+        228,
+        220
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_beret",
+      "frame": [
+        194.0,
+        1312.0,
+        164,
+        164
+      ],
+      "actual": [
+        194,
+        1338,
+        164,
+        111
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "hanger",
+      "rect": [
+        210.0,
+        1534.0,
+        132,
+        132
+      ],
+      "icon_frame": 64,
+      "green": false,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 0,
+      "key": "beret",
+      "state": "owned"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        426,
+        1290,
+        228,
+        220
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_scarf_blue",
+      "frame": [
+        458.0,
+        1312.0,
+        164,
+        164
+      ],
+      "actual": [
+        458,
+        1325,
+        164,
+        138
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        474.0,
+        1534.0,
+        132,
+        132
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 1,
+      "key": "scarf_blue",
+      "state": "equipped"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        690,
+        1290,
+        228,
+        220
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "outfit_flower",
+      "frame": [
+        722.0,
+        1312.0,
+        164,
+        164
+      ],
+      "actual": [
+        722,
+        1333,
+        164,
+        122
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "price_button",
+      "rect": [
+        690.0,
+        1534.0,
+        228,
+        132
+      ],
+      "price": 800,
+      "coin_frame": 38,
+      "font_size": 36,
+      "enabled": true,
+      "opacity": 1
+    },
+    {
+      "kind": "outfit_state",
+      "species": "berry",
+      "slot": 2,
+      "key": "flower",
+      "state": "buy"
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        223,
+        1698,
+        220,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "home",
+      "frame": [
+        237.0,
+        1710.0,
+        48,
+        48
+      ],
+      "actual": [
+        237,
+        1710,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "42",
+      "center": [
+        357.0,
+        1734
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        334.0,
+        1720,
+        379.0,
+        1750
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "first_seen_level",
+      "frame": [
+        712.0,
+        1698.0,
+        72,
+        72
+      ],
+      "actual": [
+        712,
+        1698,
+        72,
+        72
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "3",
+      "center": [
+        748,
+        1735
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        736,
+        1722,
+        760,
+        1751
+      ]
+    },
+    {
+      "kind": "detail_state",
+      "species": "berry",
+      "home_count": 42,
+      "first_seen_level": 3,
+      "personality": "A show-off with a perfect wink.",
+      "gift": "Encore",
+      "effect": "Next move does not count.",
+      "preview_frames": [
+        "idle",
+        "quirk1",
+        "quirk2"
+      ],
+      "animation": false
+    }
+  ],
+  "popup_new_friend": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 0
+    },
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        150,
+        430,
+        780,
+        1060
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "portrait_round_frame",
+      "frame": [
+        370.0,
+        562.0,
+        340,
+        340
+      ],
+      "actual": [
+        370,
+        562,
+        340,
+        340
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bird_berry_idle",
+      "frame": [
+        385.5,
+        577.5,
+        309,
+        309
+      ],
+      "actual": [
+        386,
+        578,
+        309,
+        309
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        258.0,
+        602.0,
+        44,
+        44
+      ],
+      "actual": [
+        258,
+        602,
+        44,
+        44
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        775.0,
+        628.0,
+        38,
+        38
+      ],
+      "actual": [
+        775,
+        628,
+        38,
+        38
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        311.0,
+        886.0,
+        28,
+        28
+      ],
+      "actual": [
+        311,
+        886,
+        28,
+        28
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        745.0,
+        848.0,
+        50,
+        50
+      ],
+      "actual": [
+        745,
+        848,
+        50,
+        50
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "Berry",
+      "center": [
+        540,
+        966
+      ],
+      "size": 60,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        463,
+        946,
+        616,
+        1003
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "gift_badge",
+      "frame": [
+        490.0,
+        1030.0,
+        100,
+        100
+      ],
+      "actual": [
+        490,
+        1030,
+        100,
+        100
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "encore",
+      "frame": [
+        502.0,
+        1042.0,
+        76,
+        76
+      ],
+      "actual": [
+        502,
+        1042,
+        76,
+        76
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        425,
+        1171,
+        230,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        439.0,
+        1183.0,
+        48,
+        48
+      ],
+      "actual": [
+        439,
+        1183,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "+20",
+      "center": [
+        564.0,
+        1207
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        531.0,
+        1194,
+        597.0,
+        1223
+      ]
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        482.0,
+        1314.0,
+        116,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "popup_state",
+      "state": "new_species",
+      "species": "berry",
+      "gift": "Encore",
+      "coin_reward": 20
+    }
+  ],
+  "popup_daily_gift": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 0
+    },
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        150,
+        490,
+        780,
+        940
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "daily_nest_gift",
+      "frame": [
+        305.0,
+        630.0,
+        470,
+        430
+      ],
+      "actual": [
+        305,
+        640,
+        470,
+        410
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        284.0,
+        723.0,
+        40,
+        40
+      ],
+      "actual": [
+        284,
+        723,
+        40,
+        40
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        772.0,
+        777.0,
+        38,
+        38
+      ],
+      "actual": [
+        772,
+        777,
+        38,
+        38
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        706.0,
+        1076.0,
+        28,
+        28
+      ],
+      "actual": [
+        706,
+        1076,
+        28,
+        28
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        425,
+        1104,
+        230,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        439.0,
+        1116.0,
+        48,
+        48
+      ],
+      "actual": [
+        439,
+        1116,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "+50",
+      "center": [
+        564.0,
+        1140
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        532.0,
+        1127,
+        595.0,
+        1156
+      ]
+    },
+    {
+      "kind": "button",
+      "key": "check",
+      "rect": [
+        410.0,
+        1252.0,
+        260,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "popup_state",
+      "state": "daily_nest_gift",
+      "coin_reward": 50
+    }
+  ],
+  "popup_world_complete": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 0
+    },
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        130,
+        460,
+        820,
+        1000
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "banner_ribbon",
+      "frame": [
+        190.0,
+        453.5,
+        700,
+        145
+      ],
+      "actual": [
+        316,
+        454,
+        448,
+        145
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "check",
+      "frame": [
+        508.0,
+        494.0,
+        64,
+        64
+      ],
+      "actual": [
+        508,
+        494,
+        64,
+        64
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "world_scene_round_frame",
+      "frame": [
+        320.0,
+        628.0,
+        440,
+        440
+      ],
+      "actual": [
+        320,
+        628,
+        440,
+        440
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bamboo_world_scene",
+      "frame": [
+        330.0,
+        638.0,
+        420,
+        420
+      ],
+      "actual": [
+        330,
+        638,
+        420,
+        420
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "scene_crop",
+      "source": "art/v6/raw/map_background.png",
+      "source_box": [
+        376,
+        0,
+        916,
+        540
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "opened_world_gate",
+      "frame": [
+        362.0,
+        674.0,
+        356,
+        352
+      ],
+      "actual": [
+        362,
+        678,
+        356,
+        345
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        272.0,
+        755.0,
+        40,
+        40
+      ],
+      "actual": [
+        272,
+        755,
+        40,
+        40
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        767.0,
+        719.0,
+        46,
+        46
+      ],
+      "actual": [
+        767,
+        719,
+        46,
+        46
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "sparkle",
+      "frame": [
+        747.0,
+        982.0,
+        32,
+        32
+      ],
+      "actual": [
+        747,
+        982,
+        32,
+        32
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        410,
+        1124,
+        260,
+        72
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "coin",
+      "frame": [
+        424.0,
+        1136.0,
+        48,
+        48
+      ],
+      "actual": [
+        424,
+        1136,
+        48,
+        48
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "+200",
+      "center": [
+        564.0,
+        1160
+      ],
+      "size": 38,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        520.0,
+        1147,
+        608.0,
+        1176
+      ]
+    },
+    {
+      "kind": "button",
+      "key": "next",
+      "rect": [
+        390.0,
+        1282.0,
+        300,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "popup_state",
+      "state": "world_complete",
+      "completed_world": 1,
+      "next_world": 2,
+      "coin_reward": 200
+    }
+  ],
+  "popup_unlock_level": [
+    {
+      "kind": "background",
+      "source": "art/v6/raw/map_background.png",
+      "blur_radius": 0
+    },
+    {
+      "kind": "overlay",
+      "color": "#000000",
+      "alpha": 0.72,
+      "color_space": "linear",
+      "blur_radius": 0
+    },
+    {
+      "kind": "panel",
+      "rect": [
+        130,
+        460,
+        820,
+        1000
+      ],
+      "green": false,
+      "opacity": 1,
+      "corner_region": 34
+    },
+    {
+      "kind": "sprite",
+      "name": "world_scene_round_frame",
+      "frame": [
+        290.0,
+        595.0,
+        500,
+        500
+      ],
+      "actual": [
+        290,
+        595,
+        500,
+        500
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bamboo_world_scene",
+      "frame": [
+        300.0,
+        605.0,
+        480,
+        480
+      ],
+      "actual": [
+        300,
+        605,
+        480,
+        480
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "scene_crop",
+      "source": "art/v6/raw/map_background.png",
+      "source_box": [
+        376,
+        0,
+        916,
+        540
+      ]
+    },
+    {
+      "kind": "sprite",
+      "name": "bamboo_world_emblem_leaf",
+      "frame": [
+        479.0,
+        531.0,
+        86,
+        86
+      ],
+      "actual": [
+        484,
+        531,
+        76,
+        86
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bamboo_world_emblem_leaf",
+      "frame": [
+        497.0,
+        531.0,
+        86,
+        86
+      ],
+      "actual": [
+        518,
+        531,
+        43,
+        86
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "bamboo_world_emblem_leaf",
+      "frame": [
+        515.0,
+        531.0,
+        86,
+        86
+      ],
+      "actual": [
+        520,
+        531,
+        76,
+        86
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "open_gate",
+      "frame": [
+        420.0,
+        906.0,
+        240,
+        224
+      ],
+      "actual": [
+        424,
+        906,
+        231,
+        224
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "sprite",
+      "name": "first_level_badge",
+      "frame": [
+        494.0,
+        1136.0,
+        92,
+        92
+      ],
+      "actual": [
+        494,
+        1136,
+        92,
+        92
+      ],
+      "opacity": 1
+    },
+    {
+      "kind": "text",
+      "text": "11",
+      "center": [
+        540,
+        1183
+      ],
+      "size": 44,
+      "bold": true,
+      "fill": "#593B27",
+      "ink_bbox": [
+        522,
+        1166,
+        558,
+        1200
+      ]
+    },
+    {
+      "kind": "button",
+      "key": "play",
+      "rect": [
+        390.0,
+        1282.0,
+        300,
+        116
+      ],
+      "icon_frame": 64,
+      "green": true,
+      "opacity": 1
+    },
+    {
+      "kind": "popup_state",
+      "state": "world_unlocked",
+      "world": "Bamboo Grove",
+      "first_level": 11,
+      "world_name_visible": false
+    }
+  ]
+}

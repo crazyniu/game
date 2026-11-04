@@ -3,6 +3,7 @@
   "rootNamespace": "PerchSort.V5.Game",
   "references": [
     "PerchSort.V5.Core",
+    "PerchSort.V5.Meta",
     "PerchSort.Audio",
     "LitMotion",
     "Unity.ugui",

@@ -1,0 +1,99 @@
+{
+  "Id": 16,
+  "K": 5,
+  "Spare": 2,
+  "Species": [
+    "berry",
+    "cocoa",
+    "mint",
+    "sky",
+    "sunny"
+  ],
+  "Mechanics": [
+    "gifts",
+    "eggs",
+    "sleep",
+    "mama"
+  ],
+  "Role": "P",
+  "BaseLevel": {
+    "id": 16,
+    "world": 2,
+    "variant": "noon",
+    "capacity": 4,
+    "par": 4,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "L",
+        "row": 0,
+        "birds": [
+          "sky:chick",
+          "berry",
+          "berry",
+          "sky:mama"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 0,
+        "birds": [
+          "sky",
+          "sky"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "birds": [
+          "berry",
+          "berry"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "birds": [
+          "egg:cocoa",
+          "cocoa",
+          "cocoa",
+          "cocoa"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "birds": []
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "birds": [
+          "sunny",
+          "sunny",
+          "sunny",
+          "sunny:sleep"
+        ]
+      }
+    ]
+  },
+  "Swaps": 2,
+  "Seed": 421602,
+  "Attempts": 160,
+  "Keep": 1,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}

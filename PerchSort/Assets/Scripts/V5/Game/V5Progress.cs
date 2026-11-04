@@ -9,6 +9,8 @@ namespace PerchSort.V5.Game
     {
         public int Coins, HighestUnlocked = 1;
         public readonly int[] Stars = new int[41];
+        public readonly int[] BestMoves = new int[41];
+        public readonly bool[] UnlockSeen = new bool[V5ViewModel.BoosterCount];
         public readonly int[] Boosters = new int[V5ViewModel.BoosterCount];
         public readonly bool[] StarterGranted = new bool[V5ViewModel.BoosterCount];
         public readonly bool[] Tutorials = new bool[41];
@@ -23,6 +25,7 @@ namespace PerchSort.V5.Game
         public V5Profile(V5DevOptions options = null)
         {
             DevOptions = options ?? new V5DevOptions();
+            for (int i = 0; i < BestMoves.Length; i++) BestMoves[i] = -1;
             if (DevOptions.grantTestStock) subsidyHistory = new Stack<int[]>();
         }
         public GameSession CreateSession(LevelDef level)
@@ -90,6 +93,10 @@ namespace PerchSort.V5.Game
             Stars[level] = Math.Max(Stars[level], stars); HighestUnlocked = Math.Max(HighestUnlocked, Math.Min(40, level + 1));
             Coins += reward; return reward;
         }
+        public void RecordBestMoves(int level, int moves)
+        {
+            if (BestMoves[level] < 0 || moves < BestMoves[level]) BestMoves[level] = moves;
+        }
     }
 
     public static class V5Progress
@@ -101,6 +108,8 @@ namespace PerchSort.V5.Game
         private static readonly string[] tutorialKeys = NumberedKeys("v5.tutorial.", 41);
         private static readonly string[] inventoryKeys = NumberedKeys("v5.booster.", V5ViewModel.BoosterCount);
         private static readonly string[] starterKeys = NumberedKeys("v5.starter.", V5ViewModel.BoosterCount);
+        private static readonly string[] bestMoveKeys = NumberedKeys("v5.bestMoves.", 41);
+        private static readonly string[] unlockKeys = NumberedKeys("v6.unlockSeen.", V5ViewModel.BoosterCount);
         private static string[] NumberedKeys(string prefix, int count)
         {
             var keys = new string[count];
@@ -111,11 +120,13 @@ namespace PerchSort.V5.Game
         public static string TutorialKey(int level) => tutorialKeys[level];
         public static string InventoryKey(int kind) => inventoryKeys[kind];
         public static string StarterKey(int kind) => starterKeys[kind];
+        public static string BestMovesKey(int level) => bestMoveKeys[level];
+        public static string UnlockSeenKey(int kind) => unlockKeys[kind];
         public static IEnumerable<string> Keys()
         {
             yield return CoinsKey; yield return MutedKey; yield return HighestKey;
-            for (int i = 1; i <= 40; i++) { yield return StarsKey(i); yield return TutorialKey(i); }
-            for (int i = 0; i < V5ViewModel.BoosterCount; i++) { yield return InventoryKey(i); yield return StarterKey(i); }
+            for (int i = 1; i <= 40; i++) { yield return StarsKey(i); yield return TutorialKey(i); yield return BestMovesKey(i); }
+            for (int i = 0; i < V5ViewModel.BoosterCount; i++) { yield return InventoryKey(i); yield return StarterKey(i); yield return UnlockSeenKey(i); }
         }
         public static V5Profile Load(V5DevOptions options = null)
         {
@@ -124,11 +135,16 @@ namespace PerchSort.V5.Game
                 Coins = Math.Max(0, PlayerPrefs.GetInt(CoinsKey)), Muted = PlayerPrefs.GetInt(MutedKey) != 0,
                 HighestUnlocked = Math.Max(1, Math.Min(40, PlayerPrefs.GetInt(HighestKey, 1)))
             };
-            for (int i = 1; i <= 40; i++) { profile.Stars[i] = PlayerPrefs.GetInt(StarsKey(i)); profile.Tutorials[i] = PlayerPrefs.GetInt(TutorialKey(i)) != 0; }
+            for (int i = 1; i <= 40; i++)
+            {
+                profile.Stars[i] = PlayerPrefs.GetInt(StarsKey(i)); profile.Tutorials[i] = PlayerPrefs.GetInt(TutorialKey(i)) != 0;
+                profile.BestMoves[i] = Math.Max(-1, PlayerPrefs.GetInt(BestMovesKey(i), -1));
+            }
             for (int i = 0; i < profile.Boosters.Length; i++)
             {
                 profile.Boosters[i] = Math.Max(0, PlayerPrefs.GetInt(InventoryKey(i)));
                 profile.StarterGranted[i] = PlayerPrefs.GetInt(StarterKey(i)) != 0;
+                profile.UnlockSeen[i] = PlayerPrefs.GetInt(UnlockSeenKey(i)) != 0;
             }
             return profile;
         }
@@ -136,10 +152,15 @@ namespace PerchSort.V5.Game
         {
             PlayerPrefs.SetInt(CoinsKey, profile.Coins); PlayerPrefs.SetInt(MutedKey, profile.Muted ? 1 : 0);
             PlayerPrefs.SetInt(HighestKey, profile.HighestUnlocked);
-            for (int i = 1; i <= 40; i++) { PlayerPrefs.SetInt(StarsKey(i), profile.Stars[i]); PlayerPrefs.SetInt(TutorialKey(i), profile.Tutorials[i] ? 1 : 0); }
+            for (int i = 1; i <= 40; i++)
+            {
+                PlayerPrefs.SetInt(StarsKey(i), profile.Stars[i]); PlayerPrefs.SetInt(TutorialKey(i), profile.Tutorials[i] ? 1 : 0);
+                PlayerPrefs.SetInt(BestMovesKey(i), profile.BestMoves[i]);
+            }
             for (int i = 0; i < profile.Boosters.Length; i++)
             {
                 PlayerPrefs.SetInt(InventoryKey(i), profile.Boosters[i]); PlayerPrefs.SetInt(StarterKey(i), profile.StarterGranted[i] ? 1 : 0);
+                PlayerPrefs.SetInt(UnlockSeenKey(i), profile.UnlockSeen[i] ? 1 : 0);
             }
             PlayerPrefs.Save();
         }

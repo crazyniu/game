@@ -1,0 +1,145 @@
+{
+  "Attempts": 1,
+  "MinimumRandomWins": 0,
+  "MaximumRandomWins": 0,
+  "SchemaRejected": 0,
+  "RateRejected": 1,
+  "ParRejected": 0,
+  "SolverUnknown": 0,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 36,
+        "world": 4,
+        "variant": "morning",
+        "capacity": 4,
+        "par": 0,
+        "dayLength": 3,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sky",
+              "sky",
+              "hoot",
+              "berry:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "sky:sleep"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "mint",
+              "mint",
+              "mint:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "egg:ember",
+              "hoot",
+              "ember",
+              "ember"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "ember",
+              "hoot",
+              "sky",
+              "hoot"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "cocoa",
+              "cocoa",
+              "cocoa:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 36,
+        "World": 4,
+        "Variant": "morning",
+        "K": 6,
+        "Branches": 8,
+        "Mechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "Role": "C",
+        "AppliedExceptions": [],
+        "SearchStatus": "Unsolvable",
+        "RandomWins": 0,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0,
+        "Visited": 160,
+        "Edges": 270,
+        "Closed": true,
+        "GraphMilliseconds": 32,
+        "KnownDead": 160,
+        "UnknownStates": 0,
+        "DeadLower": 1,
+        "DeadUpper": 1,
+        "OptimalLine": [],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [],
+        "MaximumHomesInOneMove": 0,
+        "DataCheck": "Not run",
+        "Failures": [
+          "random-play role gate",
+          "no proven par: Unsolvable",
+          "No proposal passed the configured generator screening."
+        ],
+        "Warnings": [],
+        "Pass": false
+      }
+    }
+  ]
+}

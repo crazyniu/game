@@ -22,6 +22,8 @@ namespace PerchSort.V5.Game
         public int Id => Bird.Id;
         public string FrameName => graphic.sprite.name;
         public bool Sleeping => asleep;
+        public bool ShowsSleepingPose => graphic.sprite == sleep;
+        public bool ShowsRestPose => graphic.sprite == RestFrame;
         public bool Revealed => reveal.gameObject.activeSelf;
         public Vector2 Position => new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y);
         public float DisplayScale { get; private set; }
@@ -29,23 +31,24 @@ namespace PerchSort.V5.Game
         public void Configure(Bird bird, bool sleeping, V5Art assets, Vector2 point, float density)
         {
             art = assets; rect = (RectTransform)transform;
-            rect.sizeDelta = V5Layout.BirdDisplaySize * density;
+            rect.sizeDelta = V7Layout.BirdDisplaySize * density;
             DisplayScale = density;
-            string prefix = "bird_" + bird.Species.Id;
+            string prefix = bird.Species.Id;
             idleFrame = art.Get(prefix + "_idle"); blinkFrame = art.Get(prefix + "_blink");
             quirk1 = art.Get(prefix + "_quirk1"); quirk2 = art.Get(prefix + "_quirk2");
             cheer = art.Get(prefix + "_cheer"); sleep = art.Get(prefix + "_sleep");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
             egg = art.Get("egg_idle"); wobbleLeft = art.Get("egg_wobble_l"); wobbleRight = art.Get("egg_wobble_r");
             crack = art.Get("egg_crack"); shell = art.Get("egg_shell");
-            body = V5UI.Rect(transform, "Bird body", new Vector2(75 * density, 143 * density), V5Layout.BirdDisplaySize * density);
-            body.pivot = new Vector2(0.5f, 12f / 256f);
+            float footInset = idleFrame.rect.height >= 320 ? 20f / 320 : 12f / 256;
+            body = V5UI.Rect(transform, "Bird body", new Vector2(V7Layout.BirdSize * 0.5f, V7Layout.BirdSize * 0.5f + V7Layout.BirdCenterAboveBranch) * density, V7Layout.BirdDisplaySize * density);
+            body.pivot = new Vector2(0.5f, footInset);
             graphic = V5UI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = V5UI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
             reveal.color = new Color(1, 1, 1, 0.45f);
             bow = V5UI.Image(body, "Mama bow", art.Get("mama_bow"), new Vector2(105, 32) * density, Vector2.one * (48 * density));
             fluff = V5UI.Image(body, "Chick fluff", art.Get("chick_fluff"), new Vector2(75, 103) * density, Vector2.one * (75 * density));
-            zzz = V5UI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(122, 6) * density, Vector2.one * (46 * density));
+            zzz = V5UI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(118, 16) * density, Vector2.one * (36 * density));
             motion = gameObject.AddComponent<V5Motion>(); breathing = gameObject.AddComponent<V5Motion>();
             blinking = gameObject.AddComponent<V5Motion>(); looking = gameObject.AddComponent<V5Motion>();
             Sync(bird, sleeping); Place(point);
@@ -81,7 +84,7 @@ namespace PerchSort.V5.Game
             {
                 float breath = 1 + 0.015f * (1 - Mathf.Cos((t + phase) * Mathf.PI * 2));
                 body.localScale = Scale(breath, breath);
-                if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(122, -6 - 8 * Mathf.Sin(t * Mathf.PI * 2)) * DisplayScale;
+                if (asleep) zzz.rectTransform.anchoredPosition = new Vector2(118, -16 - 8 * Mathf.Sin(t * Mathf.PI * 2)) * DisplayScale;
             });
             if (!asleep && !Bird.IsEgg) ScheduleBlink();
         }
@@ -130,6 +133,9 @@ namespace PerchSort.V5.Game
             Action arrived, Func<Vector2> movingDestination = null, bool leap = false, bool fleeing = false)
         {
             Cancel(); selected = false; acting = true;
+            // Perched art is foot-aligned; home flights must shrink their visual center into the door.
+            if (home) body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
+                -body.sizeDelta.y * 0.5f - body.rect.center.y * Scale().y);
             Vector2 start = rect.anchoredPosition, end = new Vector2(destination.x, -destination.y);
             motion.Play(0.06f, t => body.localScale = Scale(1 + 0.08f * t, 1 - 0.08f * t), () =>
             {
@@ -143,7 +149,9 @@ namespace PerchSort.V5.Game
                     graphic.sprite = ((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown;
                     body.localRotation = Quaternion.Euler(0, 0, (end.x >= start.x ? -12 : 12) * Mathf.Sin(t * Mathf.PI));
                     float shrink = home ? Mathf.Lerp(1, 0.4f, t) : 1;
-                    body.localScale = Scale(shrink, shrink);
+                    // The perched body pivots at its feet. Shrink the centered flight frame, not that pivot.
+                    rect.localScale = Vector3.one * shrink;
+                    body.localScale = Scale();
                 }, () =>
                 {
                     landed(); body.localRotation = Quaternion.identity;
@@ -207,7 +215,9 @@ namespace PerchSort.V5.Game
         {
             if (motion == null) return;
             motion.CancelAll(); breathing.CancelAll(); blinking.CancelAll(); looking.CancelAll();
-            facing = 1; body.localScale = Scale(); body.localRotation = Quaternion.identity;
+            facing = 1; rect.localScale = Vector3.one; body.localScale = Scale(); body.localRotation = Quaternion.identity;
+            body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
+                -(V7Layout.BirdSize * 0.5f + V7Layout.BirdCenterAboveBranch) * DisplayScale);
             graphic.sprite = RestFrame; acting = false;
         }
     }

@@ -1,5 +1,12 @@
 # Perch Sort — collaboration guide (Codex reads this; Claude reads CLAUDE.md with the same content)
 
+## Current user execution directives (2026-11-04)
+- Every feature-development effort must be decomposed into parallel tasks with non-overlapping file ownership, one shared contract and coordinator integration/review. OMP is preferred for coding; Codex is the fallback. The coordinator chooses model and reasoning level by task complexity; GPT-6.1 Sol/high is a recommendation, not a requirement for simple tasks.
+- The current Codex conversation replaces Claude for this stage: it assigns tasks and accepts deliveries. Reports, questions and handoffs must return to the current Codex coordinator, never the retired Claude session.
+- The user requests no code test runs for this continuation and will test the integrated build. Record skipped execution honestly; historical passing results do not validate new commits.
+- The user explicitly authorizes committing and merging reviewed completed work into main for testing. Preserve unfinished work on task branches. After the current T49/T50 stage is integrated, write the handoff and pause; future development runs directly on the Mac, with 251 no longer used.
+
+
 Unity 6000.6.7f1 portrait bird-home sorting puzzle. Current runtime is v2; the current documentation target is evidence-based rules4/schema4/save6, not implemented. Read [README](README.md), [AI router](docs/README.md), then [mechanic evidence](docs/MECHANIC_EVIDENCE.md) before the owning specification. [RULES](docs/spec/RULES.md) alone defines effective gameplay; [CODE_MAP](docs/spec/CODE_MAP.md) records old implementation. T16 custom patterned eggs, arbitrary-empty temporary-perch retirement, old target/sleep/crate contracts and old replay claims are withdrawn or quarantined; never restore them because old code/assets exist.
 
 User requirements: fixed authored levels, forest-only worlds and sequential world progression (MAP_PROGRESSION), icon-only controls wherever clear (accessible names are not visible labels), regular button shapes, minimal settings and mute-only sound controls with no sliders/percentages. Animations prioritize one suitable open-source tween library; never present a fixed image as completed animation. UI_SPEC owns static dimensions; INTERACTION owns timing/input; ANIMATION_LIBRARIES owns selection/license/compatibility; prompts do not grant execution authority. The user-approved forest style and branch placement are owned solely by [UI_SPEC §4.1](docs/UI_SPEC.md#approved-forest-style). Bird redesign in that style is permitted as a design direction; existing originals remain preserved, and new production assets are not accepted or implementation-authorized by that approval. Read the owning constraints before any future asset/UI work. Current single fly sprite is not proof of animated wingbeats.
@@ -19,8 +26,8 @@ User requirements: fixed authored levels, forest-only worlds and sequential worl
 ## Machines and roles (since 2026-10-31)
 | Machine | Role |
 |---|---|
-| **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex writes code and produces images. **No Unity Editor** — cannot compile or run tests. |
-| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Testing only: Unity compile, EditMode/PlayMode tests, screenshots. Do not edit code on the Mac. |
+| **251** (Linux, 192.168.1.251, `~/Projects/game`) | Development. Claude (runs only here) splits tasks, writes acceptance criteria, reviews, accepts, decides; Codex and omp workers write code and produce images. **No Unity Editor** — cannot compile or run tests locally. |
+| **Mac** (192.168.1.232, Orca environment `Mac-Image-Worker`, repo `/Users/apple/Documents/projects/game`) | Unity machine: compile, EditMode/PlayMode tests, screenshots, and desktop-control testing of the running game. Since 2026-11-03 Claude may also dispatch omp, pi and Codex workers here (the Mac has omp, pi and codex installed, so image generation can run there too; Claude itself runs only on 251) so they compile and test locally. Workers on the Mac edit only their task's owned paths on a task branch, commit and push it; Claude reviews and merges. Only one Unity batch run at a time; never edit the same files from 251 and the Mac concurrently. |
 
 The Mac-side Claude from the old workflow is retired.
 

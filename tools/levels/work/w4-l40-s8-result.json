@@ -1,0 +1,161 @@
+{
+  "Attempts": 160,
+  "MinimumRandomWins": 0,
+  "MaximumRandomWins": 1000,
+  "SchemaRejected": 19,
+  "RateRejected": 75,
+  "ParRejected": 0,
+  "SolverUnknown": 66,
+  "Candidates": [
+    {
+      "Level": {
+        "id": 40,
+        "world": 4,
+        "variant": "aurora",
+        "capacity": 4,
+        "par": 0,
+        "dayLength": 3,
+        "branches": [
+          {
+            "side": "L",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "sky",
+              "hoot",
+              "sky",
+              "sky:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 0,
+            "seats": 0,
+            "birds": [
+              "berry",
+              "berry",
+              "berry",
+              "snow"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "mint",
+              "mint",
+              "mint",
+              "mint:sleep"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 1,
+            "seats": 0,
+            "birds": [
+              "hoot",
+              "ember",
+              "ember",
+              "ember"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "sky",
+              "snow",
+              "snow"
+            ]
+          },
+          {
+            "side": "R",
+            "row": 2,
+            "seats": 0,
+            "birds": [
+              "egg:ember",
+              "cocoa",
+              "hoot",
+              "hoot"
+            ]
+          },
+          {
+            "side": "L",
+            "row": 3,
+            "seats": 0,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 3,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "L",
+            "row": 4,
+            "kind": "growing",
+            "seats": 2,
+            "birds": []
+          },
+          {
+            "side": "R",
+            "row": 4,
+            "seats": 0,
+            "birds": [
+              "cocoa",
+              "berry:sleep",
+              "cocoa:sleep",
+              "snow:sleep"
+            ]
+          }
+        ]
+      },
+      "Evidence": {
+        "Id": 40,
+        "World": 4,
+        "Variant": "aurora",
+        "K": 7,
+        "Branches": 10,
+        "Mechanics": [
+          "daynight",
+          "eggs",
+          "gifts",
+          "growing",
+          "sleep"
+        ],
+        "Role": "C",
+        "AppliedExceptions": [],
+        "SearchStatus": "Unknown",
+        "RandomWins": 227,
+        "RandomTrials": 1000,
+        "RandomMoveCap": 200,
+        "Seed": 350053,
+        "RandomWinRate": 0.227,
+        "Visited": 690736,
+        "Edges": 2349896,
+        "Closed": false,
+        "StopReason": "time budget",
+        "GraphMilliseconds": 10000,
+        "KnownDead": 579,
+        "UnknownStates": 690157,
+        "DeadLower": 0.0008382363160454935,
+        "DeadUpper": 1,
+        "OptimalLine": [],
+        "TemptingDeadLine": [],
+        "ExercisedMechanics": [],
+        "MaximumHomesInOneMove": 0,
+        "DataCheck": "Not run",
+        "Failures": [
+          "no proven par: Unknown"
+        ],
+        "Warnings": [],
+        "Pass": false
+      }
+    }
+  ]
+}

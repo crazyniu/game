@@ -1,0 +1,122 @@
+{
+  "Id": 29,
+  "K": 6,
+  "Spare": 3,
+  "Mechanics": [
+    "crow",
+    "gifts",
+    "sleep"
+  ],
+  "BaseLevel": {
+    "id": 29,
+    "world": 3,
+    "variant": "windy",
+    "capacity": 4,
+    "par": 14,
+    "dayLength": 0,
+    "branches": [
+      {
+        "side": "R",
+        "row": 0,
+        "seats": 0,
+        "birds": [
+          "sky:sleep",
+          "berry:sleep",
+          "sky",
+          "ember"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 0,
+        "kind": "twig",
+        "seats": 0,
+        "birds": []
+      },
+      {
+        "side": "R",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "berry:sleep",
+          "berry",
+          "berry"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 1,
+        "seats": 0,
+        "birds": [
+          "mint",
+          "mint",
+          "mint",
+          "mint:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "cocoa",
+          "cocoa:sleep",
+          "cocoa",
+          "ink"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 2,
+        "seats": 0,
+        "birds": [
+          "sky",
+          "ember",
+          "ember",
+          "ember:sleep"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow"
+        ]
+      },
+      {
+        "side": "L",
+        "row": 3,
+        "seats": 0,
+        "birds": [
+          "crow",
+          "crow",
+          "crow",
+          "crow"
+        ]
+      },
+      {
+        "side": "R",
+        "row": 4,
+        "seats": 0,
+        "birds": [
+          "ink",
+          "ink",
+          "cocoa",
+          "ink:sleep"
+        ]
+      }
+    ]
+  },
+  "Swaps": 2,
+  "Seed": 427902,
+  "Attempts": 120,
+  "Keep": 1,
+  "SolverMilliseconds": 1000,
+  "Limits": {
+    "MaxStates": 2000000,
+    "Milliseconds": 10000,
+    "MemoryMiB": 2048
+  }
+}
