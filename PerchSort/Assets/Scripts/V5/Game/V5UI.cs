@@ -67,15 +67,15 @@ namespace PerchSort.V5.Game
         public static Button Button(Transform parent, V5Art art, string accessibleName, string icon,
             Rect bounds, Action click, bool primary = false)
         {
-            bool close = icon == "ui_close_x";
-            var image = Surface(parent, accessibleName, art, close ? icon :
-                primary ? V7Layout.PrimaryButtonSprite : V7Layout.SecondaryButtonSprite, bounds);
-            if (close) image.type = UnityEngine.UI.Image.Type.Simple;
+            var image = Fit(parent, accessibleName, art.Get(primary ? V7Layout.PrimaryButtonSprite : V7Layout.SecondaryButtonSprite),
+                bounds.center, bounds.size);
             image.raycastTarget = true;
             var button = image.gameObject.AddComponent<V5Button>(); button.targetGraphic = image;
+            button.RestSprite = image.sprite;
+            button.PressedSprite = art.Optional(primary ? "btn_green_pressed" : "btn_purple_pressed");
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
-            if (!close) Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
-                Vector2.one * (Mathf.Min(bounds.width, bounds.height) <= V7Layout.SettingsButton.width ? V7Layout.SmallIconSize : V7Layout.IconSize));
+            Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
+                Vector2.one * (Mathf.Min(bounds.width, bounds.height) * V7Layout.ButtonIconRatio));
             button.onClick.AddListener(() => click()); return button;
         }
 

@@ -9,7 +9,7 @@ namespace PerchSort.V5.Game
         public const int BoosterCount = 6;
         private static readonly int[] unlocks = { 2, 4, 7, 12, 22, 32 };
         private static readonly int[] prices = { 30, 60, 80, 80, 100, 100 };
-        private static readonly string[] icons = { "ico_hint", "ico_add_branch", "ico_peek_eggs", "ico_wake_bell", "ico_scarecrow", "ico_rain_sprout" };
+        private static readonly string[] icons = { "icon_bulb", "icon_branch_plus", "icon_egg_eye", "icon_bell", "icon_scarecrow", "icon_rain_sprout" };
         public static int Unlock(BoosterKind kind) => unlocks[(int)kind];
         public static int Price(BoosterKind kind) => prices[(int)kind];
         public static int Starter(BoosterKind kind) => kind == BoosterKind.Firefly ? 3 : 2;
@@ -40,21 +40,19 @@ namespace PerchSort.V5.Game
         {
             switch (species)
             {
-                case "sunny": return "gift_wake";
-                case "sky": return "gift_breeze";
-                case "berry": return "gift_encore";
-                case "mint": return "gift_gardener";
-                case "cocoa": return "gift_stare";
-                case "snow": return "gift_light_step";
-                case "ember": return "gift_warm";
-                case "ink": return "gift_night";
-                case "hoot": return "gift_moonbeam";
+                case "sunny": return "gift_sun_note";
+                case "sky": return "gift_wind";
+                case "berry": return "gift_feather_counter";
+                case "mint": return "gift_watering_can";
+                case "cocoa": return "gift_grumpy_eyes";
+                case "snow": return "gift_feather";
+                case "ember": return "gift_flame";
+                case "ink": return "gift_moon";
+                case "hoot": return "gift_moon_ray";
                 default: throw new ArgumentException("Species has no homecoming gift: " + species);
             }
         }
         public static bool Rain(string variant) => variant == "rain" || variant == "drizzle";
-        public static string RestFrame(Bird bird, bool asleep) => bird.IsEgg ? "egg_idle" :
-            "bird_" + bird.Species.Id + (asleep ? "_sleep" : "_idle");
 
         public static Move? GreedyHint(BoardState board)
         {

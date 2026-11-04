@@ -22,8 +22,7 @@ namespace PerchSort.V5.Game
         }
         public static Vector2 Position(int level)
         {
-            var point = WorldMap.NodePosition(level);
-            return new Vector2((float)point.X * V7Layout.DesignWidth, (float)point.Y * V7Layout.MapHeight);
+            return V7Layout.MapNode((level - 1) / WorldMap.LevelsPerWorld + 1, (level - 1) % WorldMap.LevelsPerWorld);
         }
         public static int WorldAt(float contentY)
         {

@@ -35,11 +35,31 @@ public static class V5Capture
             var root = UnityEngine.Object.FindAnyObjectByType<V5GameRoot>();
             if (root == null) throw new InvalidOperationException("V5 scene has no game root.");
             root.Initialize(false);
-            string directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../../build/screens/v5"));
+            string directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../../build/screens/v7"));
             Directory.CreateDirectory(directory);
-            Capture(root, target, Path.Combine(directory, "ui_map.png"));
+            var mapTexture = Resources.Load<Sprite>("V7/Art/map_bg_w1").texture;
+            if (mapTexture.width != 1080 || mapTexture.height != 3000) throw new InvalidOperationException("V7 map import lost source resolution.");
+            Capture(root, target, Path.Combine(directory, "v7_map.png"));
+            for (int world = 2; world <= 4; world++)
+            {
+                root.Map.ScrollToLevel((world - 1) * 10, false);
+                Capture(root, target, Path.Combine(directory, "v7_map_gate_w" + world + ".png"));
+                root.Map.ScrollToLevel((world - 1) * 10 + 5, false);
+                Capture(root, target, Path.Combine(directory, "v7_map_w" + world + ".png"));
+            }
+            root.Map.Show(new V5Profile(new V5DevOptions { unlockAllLevels = true, grantTestStock = true }));
+            root.Map.ScrollToLevel(1, false);
+            Capture(root, target, Path.Combine(directory, "v7_map_test_mode.png"));
+            root.OpenMap();
+            int startingCoins = root.Coins;
+            root.OpenPopup(V7PopupKind.ShopPlaceholder);
+            if (!root.HasModal) throw new InvalidOperationException("Map shop button did not open its authorized placeholder.");
+            Capture(root, target, Path.Combine(directory, "v7_shop_placeholder.png")); root.ClosePanel();
+            root.OpenPopup(V7PopupKind.AviaryPlaceholder);
+            if (!root.HasModal || root.Coins != startingCoins) throw new InvalidOperationException("Map placeholders changed progression/economy.");
+            Capture(root, target, Path.Combine(directory, "v7_aviary_placeholder.png")); root.ClosePanel();
             root.OpenLevelCard(1);
-            Capture(root, target, Path.Combine(directory, "ui_level_card.png"));
+            Capture(root, target, Path.Combine(directory, "v7_level_card.png"));
             root.LoadLevel(1);
             Capture(root, target, Path.Combine(directory, "level1_start.png"));
             if (!root.TryMove(0, 1) || root.Session.MoveCount != 1 || root.Session.State.HomedSpecies.Count != 1)
@@ -48,15 +68,19 @@ public static class V5Capture
             if (!root.TryMove(2, 0) || !root.Session.State.IsWon || !root.Win.IsOpen)
                 throw new InvalidOperationException("Second authored move did not open the win panel.");
             Capture(root, target, Path.Combine(directory, "level1_win.png"));
-            Capture(root, target, Path.Combine(directory, "ui_win.png"));
+            Capture(root, target, Path.Combine(directory, "v7_win.png"));
             root.LoadFixture(LevelLoader.Load(5));
-            Capture(root, target, Path.Combine(directory, "ui_level_k3.png"));
-            root.OpenSettings(); Capture(root, target, Path.Combine(directory, "ui_settings.png")); root.CloseSettings();
-            root.OpenGoalInfo("sunny"); Capture(root, target, Path.Combine(directory, "ui_goal_info.png")); root.ClosePanel();
+            Capture(root, target, Path.Combine(directory, "v7_level_k3.png"));
+            root.OpenSettings(); Capture(root, target, Path.Combine(directory, "v7_settings.png")); root.CloseSettings();
+            root.OpenGoalInfo("sunny"); Capture(root, target, Path.Combine(directory, "v7_goal_info.png")); root.ClosePanel();
             root.OpenUnlock(PerchSort.V5.Core.BoosterKind.OwlEye);
-            Capture(root, target, Path.Combine(directory, "ui_unlock_card.png")); root.AcknowledgeUnlock();
+            Capture(root, target, Path.Combine(directory, "v7_unlock_card.png")); root.AcknowledgeUnlock();
+            root.OpenPopup(V7PopupKind.NewFriend, "mint"); Capture(root, target, Path.Combine(directory, "v7_popup_new_friend.png")); root.ClosePanel();
+            root.OpenPopup(V7PopupKind.DailyGift, "sunny", 50); Capture(root, target, Path.Combine(directory, "v7_popup_daily_gift.png")); root.ClosePanel();
+            root.OpenPopup(V7PopupKind.WorldComplete, "sunny", 200); Capture(root, target, Path.Combine(directory, "v7_popup_world_complete.png")); root.ClosePanel();
+            root.OpenPopup(V7PopupKind.WorldUnlock); Capture(root, target, Path.Combine(directory, "v7_popup_world_unlock.png")); root.ClosePanel();
             root.LoadFixture(LevelLoader.Load(40));
-            Capture(root, target, Path.Combine(directory, "ui_level_k7.png"));
+            Capture(root, target, Path.Combine(directory, "v7_level_k7.png"));
             foreach (string name in V5Fixtures.Names)
             {
                 root.LoadFixture(V5Fixtures.Create(name));
@@ -64,8 +88,7 @@ public static class V5Capture
                     throw new InvalidOperationException("Night capture could not advance the clock.");
                 Capture(root, target, Path.Combine(directory, "mech_" + name + ".png"));
             }
-            Debug.Log("V5 capture wrote level1_start/after_move1/win, six mechanic PNGs, and ui_level_k3/ui_level_k7/ui_win/ui_settings/ui_unlock_card/ui_map/ui_level_card/ui_goal_info at " +
-                directory + "; stable states only, no PlayerPrefs writes or timed-animation proof.");
+            Debug.Log("V7 capture completed at " + directory + "; 1080x3000 map import verified, synthetic nonpersistent profile, stable states only.");
         }
         finally
         {

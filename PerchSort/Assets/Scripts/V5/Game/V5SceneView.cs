@@ -10,7 +10,7 @@ namespace PerchSort.V5.Game
         private V5Art art;
         private Image background, night;
         private V5Motion phase;
-        private RectTransform particles;
+        private RectTransform particles, scenery;
         public void Configure(V5Art assets, Action emptyTap)
         {
             art = assets;
@@ -19,6 +19,7 @@ namespace PerchSort.V5.Game
             background.gameObject.AddComponent<V5EmptyClick>().Click = emptyTap;
             night = V5UI.Image(transform, "Night lighting", art.Get("night_overlay"), V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             phase = gameObject.AddComponent<V5Motion>();
+            scenery = V5UI.Rect(transform, "World trees", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
             particles = V5UI.Rect(transform, "Ambient particles", V7Layout.DesignSize * 0.5f, V7Layout.DesignSize);
         }
         public void FillScreen(Transform canvas)
@@ -39,6 +40,22 @@ namespace PerchSort.V5.Game
         {
             Cancel();
             background.sprite = art.Background(world, variant);
+            for (int i = scenery.childCount - 1; i >= 0; i--) V5UI.Dispose(scenery.GetChild(i).gameObject);
+            var trunk = art.Optional("trunk_left_w" + world);
+            var crown = art.Optional("tree_crown_w" + world);
+            foreach (bool right in new[] { false, true })
+            {
+                if (trunk != null)
+                {
+                    var image = V5UI.Image(scenery, "Edge trunk", trunk, new Vector2(right ? 1000 : 80, 960), new Vector2(160, 1920));
+                    if (right) image.rectTransform.localScale = new Vector3(-1, 1, 1);
+                }
+                if (crown != null)
+                {
+                    var image = V5UI.Fit(scenery, "Leaf crown", crown, new Vector2(right ? 1040 : 40, 640), new Vector2(420, 340));
+                    if (right) image.rectTransform.localScale = new Vector3(-1, 1, 1);
+                }
+            }
             night.color = new Color(1, 1, 1, lighting == DayPhase.Night ? 1 : 0);
             bool rain = V5ViewModel.Rain(variant);
             string particleName = rain ? "raindrop" : world == 2 ? "leaf_bamboo" : world == 3 ? "leaf_maple" : world == 4 ? "snowflake" : "petal";

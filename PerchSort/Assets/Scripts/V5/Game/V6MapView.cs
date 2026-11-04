@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace PerchSort.V5.Game
@@ -13,53 +14,52 @@ namespace PerchSort.V5.Game
         private RectTransform content;
         private TextMeshProUGUI coins;
         private ScrollRect scroll;
-        private V5Motion bounce;
-        private int shownWorld;
+        private V5Motion bounce, focus;
         private readonly Dictionary<int, Button> nodes = new Dictionary<int, Button>();
         public IReadOnlyDictionary<int, Button> Nodes => nodes;
         public int FocusLevel { get; private set; }
+        public ScrollRect Scroller => scroll;
         public void Configure(V5GameRoot owner, V5Art assets, TMP_FontAsset typeface)
         {
-            root = owner; art = assets; font = typeface; bounce = gameObject.AddComponent<V5Motion>();
+            root = owner; art = assets; font = typeface;
+            bounce = gameObject.AddComponent<V5Motion>(); focus = gameObject.AddComponent<V5Motion>();
             var viewport = V5UI.Rect(transform, "Map viewport", V7Layout.MapViewport.center, V7Layout.MapViewport.size);
             var hit = viewport.gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
             viewport.gameObject.AddComponent<RectMask2D>();
-            scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport; scroll.horizontal = false; scroll.vertical = true;
+            scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport;
+            scroll.horizontal = false; scroll.vertical = true; scroll.inertia = true;
             scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = V7Layout.MapScrollSensitivity;
-            content = V5UI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(V7Layout.DesignWidth, V7Layout.MapHeight));
-            content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(V7Layout.CenterX, 0); scroll.content = content;
-            scroll.onValueChanged.AddListener(_ => UpdateWorld());
-            coins = HudView.CoinHeader(transform, art, font);
-            V5UI.Button(transform, art, "Map settings", "ico_settings", V7Layout.SettingsButton, root.OpenSettings);
-            V5UI.Button(transform, art, "Settings", "ico_settings", V7Layout.MapSettingsCenter, root.OpenSettings);
-            // TODO: Shop and Aviary navigation belong here once their separate implementation is authorized.
+            viewport.gameObject.AddComponent<V7MapInput>().CancelFocus = () => focus.CancelAll();
+            content = V5UI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, V7Layout.MapHeight));
+            content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 160); scroll.content = content;
+            scroll.onValueChanged.AddListener(_ => { if (content.anchoredPosition.y < 160) SetOffset(160); });
+            coins = HudView.CoinHeader(transform, art, font, true);
+            V5UI.Button(transform, art, "Map settings", "icon_gear", V7Layout.Screen("map", "gear"), root.OpenSettings);
+            V5UI.Button(transform, art, "Shop", "icon_basket", V7Layout.Screen("map", "shop"), () => root.OpenPopup(V7PopupKind.ShopPlaceholder));
+            V5UI.Button(transform, art, "Aviary", "icon_aviary", V7Layout.Screen("map", "aviary"), () => root.OpenPopup(V7PopupKind.AviaryPlaceholder));
+            V5UI.Button(transform, art, "Settings", "icon_gear", V7Layout.Screen("map", "settings"), root.OpenSettings);
             gameObject.SetActive(false);
         }
         public void Show(V5Profile profile)
         {
-            gameObject.SetActive(true); bounce.CancelAll(); nodes.Clear();
+            gameObject.SetActive(true); bounce.CancelAll(); focus.CancelAll(); nodes.Clear();
             for (int i = content.childCount - 1; i >= 0; i--) V5UI.Dispose(content.GetChild(i).gameObject);
             coins.text = profile.DisplayCoins.ToString();
-            for (int i = 1; i < 40; i++) Path(V6MapModel.Position(i), V6MapModel.Position(i + 1));
+            // The lower world's alpha-faded top overlaps the upper world's opaque bottom by 160px.
+            for (int world = 4; world >= 1; world--)
+                V5UI.Image(content, "World " + world + " background", art.Get("map_bg_w" + world),
+                    new Vector2(540, V7Layout.WorldTop(world) + 1500), new Vector2(1080, 3000));
             for (int world = 2; world <= 4; world++)
             {
-                Vector2 point = (V6MapModel.Position((world - 1) * 10) + V6MapModel.Position((world - 1) * 10 + 1)) * 0.5f;
-                V5UI.Fit(content, "World " + world + " gate", art.Get(V6MapModel.WorldOpen(profile, world) ? "gate_open" : "gate_locked"), point, V7Layout.MapGateSize);
+                Vector2 gate = new Vector2(540, V7Layout.WorldTop(world) + 2860);
+                V5UI.Fit(content, "World " + world + " gate", art.Get(V6MapModel.WorldOpen(profile, world) ? "gate_open" : "gate_locked"), gate, V7Layout.MapGateSize);
+                V5UI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(250, 0), new Vector2(240, 100));
             }
-            for (int i = 1; i <= 40; i++) Node(profile, i);
-            FocusLevel = V6MapModel.CurrentLevel(profile); shownWorld = 0;
+            for (int id = 1; id <= 40; id++) Node(profile, id);
+            FocusLevel = V6MapModel.CurrentLevel(profile);
             Canvas.ForceUpdateCanvases();
-            float offset = Mathf.Clamp(V6MapModel.Position(FocusLevel).y - V7Layout.MapViewport.height * V7Layout.MapFocusRatio, 0, V7Layout.MapHeight - V7Layout.MapViewport.height);
-            content.anchoredPosition = new Vector2(V7Layout.CenterX, offset); scroll.StopMovement(); UpdateWorld();
-        }
-        private void Path(Vector2 from, Vector2 to)
-        {
-            Vector2 delta = to - from;
-            var path = V5UI.Image(content, "Forest path", art.Get("map_path_segment"), (from + to) * 0.5f,
-                new Vector2(V7Layout.MapPathWidth, delta.magnitude + V7Layout.MapPathOverlap));
-            path.type = Image.Type.Tiled;
-            path.pixelsPerUnitMultiplier = path.sprite.rect.width / V7Layout.MapPathWidth / path.pixelsPerUnit;
-            path.rectTransform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(-delta.y, delta.x) * Mathf.Rad2Deg - 90);
+            float target = OffsetFor(FocusLevel);
+            SetOffset(target + 140); ScrollToLevel(FocusLevel);
         }
         private void Node(V5Profile profile, int id)
         {
@@ -68,34 +68,45 @@ namespace PerchSort.V5.Game
             Vector2 center = Vector2.one * V7Layout.MapNodeSize * 0.5f;
             if (state == V6NodeState.Current)
             {
-                var shadow = V5UI.Fit(content, "Current node shadow", art.Get("node_bounce_shadow"), point + Vector2.up * V7Layout.MapShadowOffsetY, V7Layout.MapShadowSize);
-                shadow.transform.SetSiblingIndex(holder.GetSiblingIndex());
-                var species = V5Panels.Species(LevelLoader.Load(id).CreateBoard());
-                V5UI.Fit(holder, "Lead bird", art.Get("bird_" + species[0] + "_idle"), center + Vector2.up * V7Layout.MapBirdOffsetY, Vector2.one * V7Layout.MapBirdSize);
+                var shadow = V5UI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * V7Layout.MapShadowOffsetY, V7Layout.MapShadowSize);
+                shadow.color = new Color(0.25f, 0.16f, 0.06f, 0.5f); shadow.transform.SetSiblingIndex(holder.GetSiblingIndex());
+                V5UI.Fit(holder, "Sunny chick", art.Get("sunny_idle"), center + Vector2.up * V7Layout.MapBirdOffsetY, Vector2.one * 280);
                 bounce.Loop(V7Layout.MapBounceSeconds, t =>
                 {
                     float rise = V7Layout.MapBounceHeight * (1 - Mathf.Cos(t * Mathf.PI * 2)) * 0.5f;
-                    holder.anchoredPosition = new Vector2(point.x, -point.y + rise); shadow.rectTransform.localScale = new Vector3(1 - rise / 80, 1 - rise / 100, 1);
+                    holder.anchoredPosition = new Vector2(point.x, -point.y + rise);
+                    shadow.rectTransform.localScale = new Vector3(1 - rise / 80, 1 - rise / 100, 1);
                 });
             }
-            string sprite = state == V6NodeState.Cleared ? "node_cleared" : state == V6NodeState.Current ? "node_current" : state == V6NodeState.Open ? "node_open" : "node_locked";
+            string sprite = state == V6NodeState.Locked ? "node_stone_locked" : state == V6NodeState.Current ? "node_wood_current_glow" : "node_wood";
             var face = V5UI.Fit(holder, "Level " + id, art.Get(sprite), center, Vector2.one * V7Layout.MapNodeSize); face.raycastTarget = true;
-            var button = face.gameObject.AddComponent<Button>(); button.targetGraphic = face; button.transition = Selectable.Transition.None;
-            button.navigation = new Navigation { mode = Navigation.Mode.None }; button.interactable = state != V6NodeState.Locked;
+            Button button = state == V6NodeState.Locked ? face.gameObject.AddComponent<Button>() : face.gameObject.AddComponent<V5Button>(); button.targetGraphic = face;
+            button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
+            button.interactable = state != V6NodeState.Locked;
             button.onClick.AddListener(() => root.OpenLevelCard(id)); nodes.Add(id, button);
-            V5UI.Text(face.transform, "Level number", id.ToString(), font, center + V7Layout.MapNumberOffset, Vector2.one * V7Layout.MapNodeSize, V7Layout.MapNumberSize);
-            if (state == V6NodeState.Locked) V5UI.Fit(holder, "Lock", art.Icon("ico_lock"), center + V7Layout.MapLockOffset, Vector2.one * V7Layout.MapLockSize);
-            if (state == V6NodeState.Cleared) for (int i = 0; i < 3; i++) V5UI.Fit(holder, "Star " + (i + 1), art.Get(i < profile.BestStars(id) ? "star_small_full" : "star_small_empty"),
-                center + new Vector2((i - 1) * V7Layout.MapStarPitch, V7Layout.MapStarOffsetY), Vector2.one * V7Layout.MapStarSize);
+            var number = V5UI.Text(face.transform, "Level number", id.ToString(), font, center + V7Layout.MapNumberOffset, Vector2.one * V7Layout.MapNodeSize, V7Layout.MapNumberSize);
+            number.color = Color.white;
+            if (state == V6NodeState.Cleared) for (int i = 0; i < 3; i++)
+                V5UI.Fit(holder, "Star " + (i + 1), art.Get(i < profile.BestStars(id) ? "star_full_small" : "star_empty_small"),
+                    center + new Vector2((i - 1) * V7Layout.MapStarPitch, V7Layout.MapStarOffsetY), Vector2.one * V7Layout.MapStarSize);
         }
-        private void UpdateWorld()
+        private static float Clamp(float value) => Mathf.Clamp(value, 160, V7Layout.MapHeight - V7Layout.MapViewport.height);
+        private static float OffsetFor(int level) => Clamp(V6MapModel.Position(level).y - V7Layout.MapViewport.height * V7Layout.MapFocusRatio);
+        private void SetOffset(float value) => content.anchoredPosition = new Vector2(540, Clamp(value));
+        public void ScrollToLevel(int level, bool animated = true)
         {
-            if (!gameObject.activeSelf) return;
-            int world = V6MapModel.WorldAt(content.anchoredPosition.y + V7Layout.MapViewport.height * 0.5f);
-            if (world == shownWorld) return;
-            shownWorld = world; root.Scene.SetWorld(world);
+            focus.CancelAll(); scroll.StopMovement();
+            float start = content.anchoredPosition.y, target = OffsetFor(level);
+            if (!animated) { SetOffset(target); return; }
+            focus.Play(0.5f, t => SetOffset(Mathf.Lerp(start, target, t * t * (3 - 2 * t))));
         }
-        public void Hide() { scroll.StopMovement(); bounce.CancelAll(); gameObject.SetActive(false); }
+        public void Hide() { scroll.StopMovement(); bounce.CancelAll(); focus.CancelAll(); gameObject.SetActive(false); }
         public void RefreshCoins(int value) => coins.text = value.ToString();
+    }
+    public sealed class V7MapInput : MonoBehaviour, IBeginDragHandler, IScrollHandler
+    {
+        public System.Action CancelFocus;
+        public void OnBeginDrag(PointerEventData data) => CancelFocus?.Invoke();
+        public void OnScroll(PointerEventData data) => CancelFocus?.Invoke();
     }
 }

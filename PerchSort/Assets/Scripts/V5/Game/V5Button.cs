@@ -9,6 +9,7 @@ namespace PerchSort.V5.Game
     {
         private CanvasGroup group;
         private V5Motion motion;
+        public Sprite RestSprite, PressedSprite;
 
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
@@ -16,6 +17,8 @@ namespace PerchSort.V5.Game
             if (motion == null) motion = gameObject.AddComponent<V5Motion>();
             motion.CancelAll();
             bool enabled = state != SelectionState.Disabled && IsInteractable();
+            if (targetGraphic is Image image && RestSprite != null)
+                image.sprite = state == SelectionState.Pressed && PressedSprite != null ? PressedSprite : RestSprite;
             group.alpha = enabled ? 1 : V7Layout.DisabledAlpha;
             float scale = !enabled ? V7Layout.DisabledScale :
                 state == SelectionState.Pressed ? V7Layout.ButtonPressScale : 1;

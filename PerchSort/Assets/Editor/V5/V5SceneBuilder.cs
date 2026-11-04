@@ -17,6 +17,7 @@ public static class V5SceneBuilder
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         V5ArtImporter.ImportExisting();
         V6ArtImporter.ImportExisting();
+        V7ArtImporter.ImportExisting();
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
         var camera = new GameObject("V5 Camera", typeof(Camera), typeof(AudioListener)).GetComponent<Camera>();
         camera.tag = "MainCamera";

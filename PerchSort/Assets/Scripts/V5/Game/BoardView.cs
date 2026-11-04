@@ -95,7 +95,7 @@ namespace PerchSort.V5.Game
             ClearHints();
             Vector2 from = branches[move.From].Slot(Mathf.Max(0, seats[move.From].Count - 1));
             Vector2 to = move.Kind == MoveKind.Swivel ? branches[move.From].KnotPoint : branches[move.To].Slot(seats[move.To].Count);
-            var firefly = V5UI.Image(effects, "Firefly hint", art.Icon("ico_hint"), from, Vector2.one * V7Layout.IconSize);
+            var firefly = V5UI.Image(effects, "Firefly hint", art.Icon("icon_bulb"), from, Vector2.one * V7Layout.IconSize);
             var glow = firefly.gameObject.AddComponent<Outline>(); glow.effectColor = new Color(1, 1, 0.2f, 0.8f); glow.effectDistance = Vector2.one * 4;
             hintMotion.Loop(1.5f, t =>
             {

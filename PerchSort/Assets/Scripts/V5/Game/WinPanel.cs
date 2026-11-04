@@ -22,9 +22,14 @@ namespace PerchSort.V5.Game
             art = assets; owner = root;
             var dim = gameObject.AddComponent<Image>();
             dim.color = new Color(0, 0, 0, V7Layout.PanelDimAlpha); dim.raycastTarget = true;
-            body = V5UI.Surface(transform, "Win panel", art, "ui_panel_cream", V7Layout.WinPanel).rectTransform;
+            foreach (string part in new[] { "left_bird", "right_bird", "hero_bird" })
+            {
+                Rect bird = V7Layout.Screen("win", part);
+                V5UI.Fit(transform, part, art.Get((part == "left_bird" ? "sky" : part == "right_bird" ? "berry" : "sunny") + "_idle"), bird.center, bird.size * 1.6f);
+            }
+            body = V5UI.Surface(transform, "Win panel", art, "panel_wood", V7Layout.WinPanel).rectTransform;
             body.GetComponent<Image>().raycastTarget = true;
-            V5UI.Fit(body, "Ribbon", art.Get("ui_ribbon_green"), V7Layout.InParent(V7Layout.WinPanel, V7Layout.Ribbon.center), V7Layout.Ribbon.size);
+            V5UI.Fit(body, "Ribbon", art.Get("ribbon_green"), V7Layout.InParent(V7Layout.WinPanel, V7Layout.Ribbon.center), V7Layout.Ribbon.size);
             for (int i = 0; i < V7Layout.StarCount; i++)
             {
                 Rect bounds = V7Layout.Star(i);
@@ -32,18 +37,18 @@ namespace PerchSort.V5.Game
                 V5UI.Image(body, "Star slot " + i, art.Get("star_empty"), point, bounds.size);
                 stars[i] = V5UI.Image(body, "Earned star " + i, art.Get("star_full"), point, bounds.size);
             }
-            V5UI.Surface(body, "Reward chip", art, "ui_chip_coin", new Rect(V7Layout.RewardChip.position - V7Layout.WinPanel.position, V7Layout.RewardChip.size));
-            V5UI.Image(body, "Reward coin", art.Icon("ico_coin"),
+            V5UI.Surface(body, "Reward chip", art, "stat_pill", new Rect(V7Layout.RewardChip.position - V7Layout.WinPanel.position, V7Layout.RewardChip.size));
+            V5UI.Image(body, "Reward coin", art.Icon("coin"),
                 V7Layout.InParent(V7Layout.WinPanel, V7Layout.RewardCoin.center), V7Layout.RewardCoin.size);
             rewardLabel = V5UI.Text(body, "Coin reward", "+25", font,
                 V7Layout.InParent(V7Layout.WinPanel, V7Layout.RewardText.center), V7Layout.RewardText.size, V7Layout.RewardFontSize);
             rewardLabel.alignment = TextAlignmentOptions.MidlineLeft;
             chorusBonus = V5UI.Rect(body, "Chain bonus", V7Layout.InParent(V7Layout.WinPanel, V7Layout.ChorusBonus.center), V7Layout.ChorusBonus.size).gameObject;
-            V5UI.Fit(chorusBonus.transform, "Chain", art.Get("gift_encore"), V7Layout.BonusIconCenter, Vector2.one * V7Layout.BonusIconSize);
+            V5UI.Fit(chorusBonus.transform, "Chain", art.Get("gift_feather_counter"), V7Layout.BonusIconCenter, Vector2.one * V7Layout.BonusIconSize);
             chorusLabel = V5UI.Text(chorusBonus.transform, "Chorus coin bonus", "", font, V7Layout.BonusValueCenter, V7Layout.BonusValueSize, V7Layout.BonusFontSize);
-            next = V5UI.Button(body, art, "Next level", "ico_next", Local(V7Layout.NextButton), root.NextLevel, primary: true);
-            replay = V5UI.Button(body, art, "Replay level", "ico_replay", Local(V7Layout.ReplayButton), root.Restart);
-            home = V5UI.Button(body, art, "Home", "ico_home", Local(V7Layout.HomeButton), root.OpenMap);
+            next = V5UI.Button(body, art, "Next level", "icon_next_arrow", Local(V7Layout.NextButton), root.NextLevel, primary: true);
+            replay = V5UI.Button(body, art, "Replay level", "icon_replay", Local(V7Layout.ReplayButton), root.Restart);
+            home = V5UI.Button(body, art, "Home", "icon_home", Local(V7Layout.HomeButton), root.OpenMap);
             motion = gameObject.AddComponent<V5Motion>();
             gameObject.SetActive(false);
         }
@@ -85,7 +90,7 @@ namespace PerchSort.V5.Game
             }
             for (int i = 0; i < 5; i++)
             {
-                var coin = V5UI.Image(transform, "Flying reward coin", art.Icon("ico_coin"), V7Layout.RewardCoin.center, V7Layout.RewardCoin.size);
+                var coin = V5UI.Image(transform, "Flying reward coin", art.Icon("coin"), V7Layout.RewardCoin.center, V7Layout.RewardCoin.size);
                 Vector2 start = V7Layout.RewardCoin.center + Vector2.right * (i * 12);
                 bool last = i == 4;
                 motion.Play(0.65f, t =>

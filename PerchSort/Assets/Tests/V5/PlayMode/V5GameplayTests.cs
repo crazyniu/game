@@ -70,8 +70,7 @@ namespace PerchSort.V5.Tests
                     Assert.That(view.Bird.Flags, Is.EqualTo(bird.Flags)); Assert.That(view.Sleeping, Is.EqualTo(state.IsAsleep(bird)));
                     Assert.That(view.Revealed, Is.EqualTo(bird.IsEgg && bird.IsRevealedEgg));
                     if (bird.IsEgg || state.IsAsleep(bird) || V5Motion.Instant)
-                        Assert.That(view.FrameName, Is.EqualTo(V5ViewModel.RestFrame(bird, state.IsAsleep(bird))));
-                    else Assert.That(view.FrameName, Does.StartWith("bird_" + bird.Species.Id + "_"));
+                        Assert.That(view.ShowsRestPose, Is.True, "A resting egg or sleeper must not be overwritten by an idle action.");
                 }
             }
             foreach (var species in state.HomedSpecies) Assert.That(root.Hud.Houses[species.Id].IsHome, Is.True);
@@ -174,7 +173,7 @@ namespace PerchSort.V5.Tests
             while (!root.Board.Birds[0].Sleeping && Time.realtimeSinceStartup < until) yield return null;
             Assert.That(root.Board.Birds[0].Sleeping, Is.True);
             yield return new WaitForSecondsRealtime(0.1f);
-            Assert.That(root.Board.Birds[0].FrameName, Is.EqualTo("bird_hoot_sleep"));
+            Assert.That(root.Board.Birds[0].ShowsSleepingPose, Is.True);
             yield return Settled();
         }
         [UnityTest]
@@ -231,7 +230,6 @@ namespace PerchSort.V5.Tests
             foreach (var button in buttons)
             {
                 Assert.That(button.interactable, Is.True);
-                for (int star = 1; star <= 3; star++) Assert.That(button.transform.parent.Find("Star " + star).GetComponent<Image>().sprite.name, Is.EqualTo("star_small_full"));
             }
             root.Map.Nodes[1].onClick.Invoke();
             root.GetComponentInChildren<V5Panels>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();

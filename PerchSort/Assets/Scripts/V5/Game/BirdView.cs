@@ -22,6 +22,8 @@ namespace PerchSort.V5.Game
         public int Id => Bird.Id;
         public string FrameName => graphic.sprite.name;
         public bool Sleeping => asleep;
+        public bool ShowsSleepingPose => graphic.sprite == sleep;
+        public bool ShowsRestPose => graphic.sprite == RestFrame;
         public bool Revealed => reveal.gameObject.activeSelf;
         public Vector2 Position => new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y);
         public float DisplayScale { get; private set; }
@@ -31,15 +33,16 @@ namespace PerchSort.V5.Game
             art = assets; rect = (RectTransform)transform;
             rect.sizeDelta = V7Layout.BirdDisplaySize * density;
             DisplayScale = density;
-            string prefix = "bird_" + bird.Species.Id;
+            string prefix = bird.Species.Id;
             idleFrame = art.Get(prefix + "_idle"); blinkFrame = art.Get(prefix + "_blink");
             quirk1 = art.Get(prefix + "_quirk1"); quirk2 = art.Get(prefix + "_quirk2");
             cheer = art.Get(prefix + "_cheer"); sleep = art.Get(prefix + "_sleep");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
             egg = art.Get("egg_idle"); wobbleLeft = art.Get("egg_wobble_l"); wobbleRight = art.Get("egg_wobble_r");
             crack = art.Get("egg_crack"); shell = art.Get("egg_shell");
-            body = V5UI.Rect(transform, "Bird body", new Vector2(V7Layout.BirdSize * 0.5f, V7Layout.BirdSize * (1 - 12f / 256f)) * density, V7Layout.BirdDisplaySize * density);
-            body.pivot = new Vector2(0.5f, 12f / 256f);
+            float footInset = idleFrame.rect.height >= 320 ? 20f / 320 : 12f / 256;
+            body = V5UI.Rect(transform, "Bird body", new Vector2(V7Layout.BirdSize * 0.5f, V7Layout.BirdSize * (1 - footInset)) * density, V7Layout.BirdDisplaySize * density);
+            body.pivot = new Vector2(0.5f, footInset);
             graphic = V5UI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = V5UI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
             reveal.color = new Color(1, 1, 1, 0.45f);

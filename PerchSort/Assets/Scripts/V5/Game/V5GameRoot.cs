@@ -303,6 +303,11 @@ namespace PerchSort.V5.Game
             if (!initialized || !IsMap || Modal || !V6MapModel.Selectable(profile, id)) return;
             panels.LevelCard(id); Refresh();
         }
+        public void OpenPopup(V7PopupKind kind, string species = "mint", int reward = 0)
+        {
+            if (!initialized || IsAirborne || Modal) return;
+            panels.Popup(kind, species, reward); Refresh();
+        }
         public void OpenGoalInfo(string species)
         {
             if (!initialized || IsMap || IsBusy || Modal || !Hud.Houses.ContainsKey(species)) return;

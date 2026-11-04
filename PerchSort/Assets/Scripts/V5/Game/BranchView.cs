@@ -36,9 +36,6 @@ namespace PerchSort.V5.Game
             wood.rectTransform.pivot = new Vector2(0, 0.5f);
             wood.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             UpdateWood();
-            var bush = V5UI.Image(transform, "Root bush", art.World("bush_edge", root.Session.State.World),
-                rootPoint + new Vector2(0, -V7Layout.BushAboveBranch * density), V7Layout.BushSize * density);
-            if (IsRight) bush.rectTransform.localScale = new Vector3(-1, 1, 1);
             glow = V5UI.Image(transform, "Seat glow", art.Get("sparkle"), Vector2.zero, Vector2.one * 90 * density);
             glow.color = Color.clear;
             motion = gameObject.AddComponent<V5Motion>(); highlight = gameObject.AddComponent<V5Motion>();
@@ -74,7 +71,7 @@ namespace PerchSort.V5.Game
             Vector2 local = Slot(seats - 1) - V7Layout.BranchHit(root.Session.State.Branches[Index].Row,
                 root.Board.RowCount, IsRight).position + new Vector2(0, 70 * density);
             glow.rectTransform.anchoredPosition = new Vector2(local.x, -local.y);
-            var sprout = V5UI.Image(flex, "Growth sprout", art.Get("petal"),
+            var sprout = V5UI.Image(flex, "Growth sprout", art.Get("leaf_fall_w" + root.Session.State.World),
                 new Vector2((IsRight ? -1 : 1) * (V7Layout.FirstBirdSlot + (seats - 1) * V7Layout.SeatPitch(density)), -20 * density), Vector2.one * 48);
             motion.Play(0.4f, t =>
             {
@@ -87,7 +84,7 @@ namespace PerchSort.V5.Game
         {
             motion.Play(0.25f, t => flex.localRotation = Quaternion.Euler(0, 0, (IsRight ? -3 : 3) * Mathf.Sin(t * Mathf.PI)),
                 () => flex.localRotation = Quaternion.identity, ease: Ease.OutElastic);
-            var leaf = V5UI.Image(flex, "Falling leaf", art.Get("petal"),
+            var leaf = V5UI.Image(flex, "Falling leaf", art.Get("leaf_fall_w" + root.Session.State.World),
                 new Vector2((IsRight ? -1 : 1) * 360 * density, 0), Vector2.one * 28);
             motion.Play(0.6f, t =>
             {
