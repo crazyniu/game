@@ -1,10 +1,10 @@
 # Status: mac-art
 
-ACTIVE: all T48 sprites delivered; final gate layout integration and final push in progress.
+DONE: T48 static runtime art and measured layout delivered. Unity integration and animation acceptance remain with code/QA.
 
 Role: produce approved-reference runtime art and measured layout metadata; no Unity or gameplay code.
 
-Branch: `mac-art/t48`. Pushed milestones: `0cb3741` HUD surfaces; `79aef75` HUD glyphs/badges; `09efd6d` panels/Aviary; `924072c` preserved map/effects/houses; `83d6043` measured layout; `9f60753` house review and gift parts.
+Branch: `mac-art/t48`. Pushed milestones: `0cb3741` HUD surfaces; `79aef75` HUD glyphs/badges; `09efd6d` panels/Aviary; `924072c` preserved map/effects/houses; `83d6043` measured layout; `9f60753` house review and gift parts; `36e59c7` gates and complete inventory. This status is included in the final layout delivery commit (read branch HEAD for its hash).
 
 Owned paths: `PerchSort/Assets/Resources/V7/Art/**`, `art/v7/runtime/**`, `art/v7/layout_v7.json`, `tasks/T48_report.md`, and this status file. Approved originals, other workers' code and Unity state are preserved.
 
@@ -54,7 +54,7 @@ All names below are in `PerchSort/Assets/Resources/V7/Art/`.
 
 ## Half done / next
 
-Final layout is receiving the gate contract. Then verify asset references, commit/push layout and final reports. No unfinished sprite filenames remain.
+No unfinished owned files remain. Final layout includes all 120 sprites and all assembly contracts; all current sprite SHA256 hashes match its inventory. Next: coordinator review/merge, then code/QA import and runtime verification. No further art work started.
 
 ## Blocker / verification limits
 

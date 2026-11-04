@@ -1,6 +1,6 @@
 # T48 runtime art delivery
 
-Status: IN PROGRESS. Branch `mac-art/t48`. Approved original screens remain unchanged. This is static sprite and layout delivery; Unity import, animation and runtime acceptance are NOT_RUN.
+Status: DONE for static art/layout scope. Branch `mac-art/t48`. Approved original screens remain unchanged. This is static sprite and layout delivery; Unity import, animation and runtime acceptance are NOT_RUN.
 
 ## Delivered milestones
 
@@ -9,6 +9,9 @@ Status: IN PROGRESS. Branch `mac-art/t48`. Approved original screens remain unch
 - `09efd6d`: panels and Aviary surfaces.
 - `924072c`: preserved map, effects, houses and measurement work at the lead's pause.
 - `83d6043`: measured layout with integrated house anchors, ready for early integration.
+- `9f60753`: final house review and aligned gift popup parts.
+- `36e59c7`: gates and complete static sprite inventory.
+- Final layout delivery commit: all 120 assets and every assembly contract (this report is included in that commit).
 
 ## Layout contract
 
@@ -50,6 +53,6 @@ All new artwork uses only the built-in image tool with approved screenshots as r
 
 Four aligned 768x768 parts: `gift_nest`, `gift_box_base`, `gift_box_lid`, plus derived `gift_nest_front` for occlusion. Draw in that order. Closed lid pivot `(384,390)`, open translation `(0,-130)`; preserve canvas padding. Exact preparation and anchors in `runtime/gift/delivery.json`. Closed/open composites and matching approved-popup overlays reviewed; the box sits inside the nest without code-side pixel cropping.
 
-## Remaining work
+## Final verification and integration handoff
 
-Final gate contract integration into layout and commit/push. All 120 PNGs (119 requested plus the necessary nest foreground split) are present, RGBA, with transparent exterior pixels; exact group inventory in `runtime/delivery_inventory.json`. Review links in `runtime/qa/README.md`. See `docs/team/status/mac-art.md` for current handoff.
+Layout status is `delivered_static_layout`; house, gate, gift and settings-rope contracts are complete. All 120 sprite hashes match the actual exports. All 120 PNGs (119 requested plus the necessary nest foreground split) are present, RGBA, with transparent exterior pixels; exact group inventory in `runtime/delivery_inventory.json`. Review links in `runtime/qa/README.md`. See `docs/team/status/mac-art.md` for current handoff.
