@@ -1,0 +1,168 @@
+{
+  "status": "static_inventory_verified",
+  "total_pngs": 120,
+  "required_assets": 119,
+  "additional_derived_occlusion_asset": "gift_nest_front",
+  "groups": {
+    "hud": {
+      "count": 44,
+      "files": [
+        "coin_pill.png",
+        "btn_purple.png",
+        "btn_purple_pressed.png",
+        "btn_green.png",
+        "btn_green_pressed.png",
+        "btn_green_pill.png",
+        "badge_red.png",
+        "coin.png",
+        "star_full.png",
+        "star_empty.png",
+        "star_full_small.png",
+        "star_empty_small.png",
+        "footprints.png",
+        "flag.png",
+        "padlock.png",
+        "check_green.png",
+        "chain_bonus.png",
+        "icon_gear.png",
+        "icon_undo.png",
+        "icon_bulb.png",
+        "icon_branch_plus.png",
+        "icon_egg_eye.png",
+        "icon_bell.png",
+        "icon_scarecrow.png",
+        "icon_rain_sprout.png",
+        "icon_basket.png",
+        "icon_aviary.png",
+        "icon_home.png",
+        "icon_replay.png",
+        "icon_sound_on.png",
+        "icon_sound_off.png",
+        "icon_close.png",
+        "icon_play.png",
+        "icon_next_arrow.png",
+        "icon_check.png",
+        "gift_sun_note.png",
+        "gift_wind.png",
+        "gift_grumpy_eyes.png",
+        "gift_watering_can.png",
+        "gift_feather.png",
+        "gift_flame.png",
+        "gift_moon.png",
+        "gift_moon_ray.png",
+        "gift_feather_counter.png"
+      ]
+    },
+    "panels": {
+      "count": 16,
+      "files": [
+        "panel_wood.png",
+        "card_wood.png",
+        "ribbon_green.png",
+        "ribbon_green_left.png",
+        "ribbon_green_middle.png",
+        "ribbon_green_right.png",
+        "leaf_badge.png",
+        "name_ribbon.png",
+        "stat_pill.png",
+        "tab_selected_ring.png",
+        "aviary_frame.png",
+        "aviary_board.png",
+        "silhouette_frame.png",
+        "house_count_chip.png",
+        "panel_rope_left.png",
+        "panel_rope_right.png"
+      ]
+    },
+    "houses": {
+      "count": 16,
+      "files": [
+        "house_body.png",
+        "house_rope.png",
+        "house_door_leaf.png",
+        "house_door_open.png",
+        "house_roof_teal.png",
+        "house_roof_red.png",
+        "house_roof_yellow.png",
+        "house_roof_purple.png",
+        "house_roof_green.png",
+        "house_roof_blue.png",
+        "house_roof_orange.png",
+        "house_roof_pink.png",
+        "house_beam_w1.png",
+        "house_beam_w2.png",
+        "house_beam_w3.png",
+        "house_beam_w4.png"
+      ]
+    },
+    "map": {
+      "count": 11,
+      "files": [
+        "map_bg_w1.png",
+        "map_bg_w2.png",
+        "map_bg_w3.png",
+        "map_bg_w4.png",
+        "world_sign_w1.png",
+        "world_sign_w2.png",
+        "world_sign_w3.png",
+        "world_sign_w4.png",
+        "node_wood.png",
+        "node_wood_current_glow.png",
+        "node_stone_locked.png"
+      ]
+    },
+    "effects": {
+      "count": 20,
+      "files": [
+        "light_rays.png",
+        "sparkle.png",
+        "confetti_1.png",
+        "confetti_2.png",
+        "confetti_3.png",
+        "confetti_4.png",
+        "glow_soft.png",
+        "zzz.png",
+        "leaf_fall_w1.png",
+        "leaf_fall_w2.png",
+        "leaf_fall_w3.png",
+        "leaf_fall_w4.png",
+        "cloud_soft_1.png",
+        "cloud_soft_2.png",
+        "cloud_soft_3.png",
+        "firefly.png",
+        "leaf_wipe.png",
+        "gift_trail.png",
+        "house_glow.png",
+        "gate_light.png"
+      ]
+    },
+    "gift": {
+      "count": 4,
+      "files": [
+        "gift_nest.png",
+        "gift_nest_front.png",
+        "gift_box_base.png",
+        "gift_box_lid.png"
+      ]
+    },
+    "gates": {
+      "count": 9,
+      "files": [
+        "gate_arch.png",
+        "gate_door_left.png",
+        "gate_door_right.png",
+        "gate_padlock.png",
+        "gate_backdrop_w2.png",
+        "gate_backdrop_w3.png",
+        "gate_backdrop_w4.png",
+        "gate_locked.png",
+        "gate_open.png"
+      ]
+    }
+  },
+  "checks": [
+    "Exact named T48 inventory including both animation addenda is present.",
+    "All exports RGBA and have fully transparent pixels."
+  ],
+  "runtime_verified": false
+}

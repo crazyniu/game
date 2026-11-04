@@ -1,0 +1,63 @@
+{
+  "gate_arch": {
+    "name": "gate_arch",
+    "prompt": "Extract the vine-wrapped wooden gate ARCH from the approved world-unlock screen, front-on symmetrical arch with two wooden uprights, rounded carved wood arch, leafy vines, no sign. EMPTY TRANSPARENT opening: remove the door leaves, lock, all scenery inside, button, grass background and UI. Keep wood/leaf arch only, its little stones/leaves at the feet. One isolated transparent sprite, exact soft 3D approved materials. Broad opening appropriate for two hinged doors. No cast background or text.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-772811fc-c343-41d4-9004-2c313d9faf86.png",
+    "reference": "art/v7/ui7_popup_world_unlock.png"
+  },
+  "padlock": {
+    "source": "art/v7/ui7_icons.png",
+    "source_crop_xyxy": [
+      65,
+      1012,
+      239,
+      1217
+    ],
+    "source_mask_bounds_xyxy": [
+      74,
+      1020,
+      229,
+      1209
+    ],
+    "output_size": [
+      64,
+      64
+    ],
+    "alpha_bounds_xyxy": [
+      7,
+      2,
+      56,
+      62
+    ],
+    "mask_method": "color",
+    "rgb": "unaltered source colors before Lanczos resize",
+    "review": "visually_reviewed_color_dark_background_and_64px_color_grayscale_light_background",
+    "source_sha256": "fa35377e143fcd4d2f52bd9d357069d3f2b3054d9bf66f083345e6d4c3558573",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_zero_pixels": 1610,
+    "alpha_partial_pixels": 619,
+    "mask_detail": "Saturation silhouette with explicitly cleared shackle opening."
+  },
+  "gate_light": {
+    "file": "PerchSort/Assets/Resources/V7/Art/gate_light.png",
+    "unchanged": true,
+    "source_aperture_normalized": [
+      0.5,
+      0.25
+    ],
+    "assembly_target_aperture": [
+      512,
+      375
+    ],
+    "recommended_draw_rect": [
+      192,
+      215,
+      640,
+      640
+    ],
+    "sha256": "2d963cbd5c937e717406a24e186473485bf79701b2c6a3ddadbbd623c47e1384"
+  }
+}

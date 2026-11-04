@@ -1,0 +1,11 @@
+# T48 house group static review
+
+Sixteen final files are present: body, eight colored roofs, rope, four world beams, closed door leaf and fully-open fallback. The parent separately owns house_glow. Every generation referenced both approved K3 and K7 screens, and isolated parts additionally used the generated body as a shape/material reference. Exact prompts and source paths are preserved in this directory.
+
+Body, roofs and doors share an untrimmed 512x512 canvas. Composite body then roof at zero offset. Roof suspension anchor is (256,58). Door center is (253,306), dark opening radius approximately 102 px; left hinge is (145,306). The closed leaf is 216x216 within this canvas. The open fallback contains the unchanged body plus a generated open leaf and no roof; replace the body with this fallback, then draw the selected roof. `delivery.json` contains the full anchor contract. Its house_door_open visible_rect describes the added open leaf, not the full fallback body bounds.
+
+The assembled contact sheet was visually reviewed: all eight roofs cover the body peak with no obvious detached edge. Blue and green were regenerated after the first versions drifted toward teal. The open leaf was regenerated so its hinges meet the left jamb on the leaf's right edge. The eight colors now appear distinct. Dark/light alpha sheets show genuine transparency without a baked scene. RGBA extrema are (0,255).
+
+Rope and four beams are independent pieces. World beam materials are spring wood/leaves, bamboo, maple, and snow-covered wood matching the approved K7 treatment. Attachment coordinates are recorded per world. The snowy beam retains broad green accent leaves from the approved screen rather than exclusively pine needles.
+
+Static assembled-house QA is complete. Matching-screen overlays are comparison illustrations, not final layout measurements: some multi-house overlays vertically compress their combined beam/house group and leave original reference objects visible underneath. Use the uncompressed assembled house and beam sheets to judge part alignment. Integration should preserve the 512x512 house aspect ratio and use the independent piece anchors. Unity imports, bird-face masking, target-runtime layout, animation timing and actual hinge motion have not been tested. Static open/closed frames are not proof of animation.
