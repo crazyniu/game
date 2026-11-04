@@ -2,6 +2,8 @@
 
 Status: DONE for static asset scope; ready for current Codex coordinator review/integration. Branch `mac-art/world`. No merge to main performed. Stop after this delivery for the requested review/testing pause.
 
+Asset delivery SHA: `34eddebeca3b75fa5e39019090c8b486ba99911f`. The follow-up handoff commit adds this SHA to the report/status.
+
 ## Files and alignment
 
 Seven derived PNGs and seven new `.png.meta` files under `PerchSort/Assets/Resources/V7/Birds/`. No species files, shared QA scripts, runtime code or scenes changed.
