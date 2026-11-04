@@ -27,6 +27,10 @@ namespace PerchSort.Game
         private static readonly int[] IdleWeights = { 30, 14, 10, 8, 6, 4, 4, 4 };
         private static readonly ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>> SequenceCache =
             new ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>>();
+        private static readonly ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>> FlightCache =
+            new ConditionalWeakTable<GameArt, Dictionary<string, Sprite[][]>>();
+        private static readonly string[] FlightPhases = { "takeoff", "flap", "land" };
+        private Sprite[][] flightFrames;
         private readonly Sprite[] idlePoses = new Sprite[8];
         private Sprite[][] idleSequences;
         private BirdIdleGroup idleGroup;
@@ -93,6 +97,12 @@ namespace PerchSort.Game
                 for (int i = 0; i < idleSequences.Length; i++) idleSequences[i] = LoadSequence(art, prefix + "_" + IdleNames[i]);
                 speciesSequences.Add(prefix, idleSequences);
             }
+            var speciesFlights = FlightCache.GetOrCreateValue(art);
+            if (!speciesFlights.TryGetValue(prefix, out flightFrames))
+            {
+                flightFrames = LoadFlightFrames(art, prefix);
+                speciesFlights.Add(prefix, flightFrames);
+            }
             breathPhase = UnityEngine.Random.value;
             breathPeriod = sleeping || bird.IsEgg ? UnityEngine.Random.Range(1.4f, 2f) : UnityEngine.Random.Range(2.4f, 3.2f);
             nextIdle = Time.unscaledTime + UnityEngine.Random.Range(1f, 3f);
@@ -132,6 +142,46 @@ namespace PerchSort.Game
             }
             // A lone delivered frame is still a pose, not an animation.
             return frames.Count >= 2 ? frames.ToArray() : Array.Empty<Sprite>();
+        }
+        private static Sprite[][] LoadFlightFrames(GameArt assets, string species)
+        {
+            // Probe every phase in both directions once; a species uses one complete set or the legacy poses.
+            for (int direction = 0; direction < 2; direction++)
+                for (int phase = 0; phase < FlightPhases.Length; phase++)
+                    if (assets.Optional(species + "_flight_" + FlightPhases[phase] + (direction == 0 ? "_" : "_l_") + "01") == null)
+                        return Array.Empty<Sprite[]>();
+            var frames = new Sprite[6][];
+            for (int direction = 0; direction < 2; direction++)
+                for (int phase = 0; phase < FlightPhases.Length; phase++)
+                {
+                    var sequence = new Sprite[phase == 1 ? 6 : 3];
+                    string prefix = species + "_flight_" + FlightPhases[phase] + (direction == 0 ? "_" : "_l_");
+                    for (int i = 0; i < sequence.Length; i++)
+                    {
+                        sequence[i] = assets.Optional(prefix + (i + 1).ToString("D2"));
+                        if (sequence[i] == null) return Array.Empty<Sprite[]>();
+                    }
+                    frames[direction * 3 + phase] = sequence;
+                }
+            return frames;
+        }
+        private Sprite FlightFrameAt(float elapsed, float duration, bool left)
+        {
+            float takeoff = Mathf.Min(0.18f, 0.2f * duration);
+            float landing = Mathf.Min(0.22f, 0.25f * duration);
+            int phase, index;
+            if (elapsed < takeoff)
+            {
+                phase = 0; index = Mathf.Min(2, Mathf.FloorToInt(elapsed * 3 / takeoff));
+            }
+            else if (elapsed >= duration - landing)
+            {
+                phase = 2; index = Mathf.Min(2, Mathf.FloorToInt((elapsed - duration + landing) * 3 / landing));
+            }
+            // Short flights hold the last takeoff drawing until the landing window, without a wing loop.
+            else if (duration < 0.4f) { phase = 0; index = 2; }
+            else { phase = 1; index = Mathf.FloorToInt((elapsed - takeoff) * 14) % 6; }
+            return flightFrames[(left ? 3 : 0) + phase][index];
         }
         private static bool ReturnsThroughFrames(int action) => action <= 2;
         private static int FrameCount(Sprite[] frames, int action) => ReturnsThroughFrames(action) ? frames.Length * 2 - 1 : frames.Length;
@@ -407,12 +457,14 @@ namespace PerchSort.Game
             if (home) body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
                 -body.sizeDelta.y * 0.5f - body.rect.center.y * Scale().y);
             Vector2 start = rect.anchoredPosition, end = new Vector2(destination.x, -destination.y);
+            bool left = end.x < start.x;
             var flightParent = (RectTransform)rect.parent;
             bool masked = false;
             zzz.gameObject.SetActive(false);
             motion.Play(0.06f, t => body.localScale = Scale(1 + 0.08f * t, 1 - 0.08f * t), () =>
             {
                 airborne(); if (run != generation) return;
+                float flightStart = Time.time;
                 motion.Play(flightDuration, t =>
                 {
                     if (movingDestination != null) { var point = movingDestination(); end = new Vector2(point.x, -point.y); }
@@ -423,7 +475,9 @@ namespace PerchSort.Game
                     { house.MaskEntry(rect); masked = true; }
                     if (masked) rect.position = flightParent.TransformPoint(new Vector3(path.x + flightParent.rect.xMin, path.y + flightParent.rect.yMax, 0));
                     else rect.anchoredPosition = path;
-                    SetFrame(((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown);
+                    if (!GameMotion.Instant)
+                        SetFrame(flightFrames.Length == 0 ? (((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown) :
+                            FlightFrameAt(Mathf.Clamp(Time.time - flightStart, 0, flightDuration), flightDuration, left));
                     float vertical = end.y - start.y + (Bird.Species.IsCrow && !fleeing && !home ?
                         130 * Mathf.PI * Mathf.Cos(t * Mathf.PI * 2) * Mathf.Sign(Mathf.Sin(t * Mathf.PI * 2)) :
                         4 * (1 - 2 * t) * (leap ? 215 : 160));
@@ -446,8 +500,9 @@ namespace PerchSort.Game
                     body.localRotation = Quaternion.identity;
                     foreach (var glow in trail) glow.gameObject.SetActive(false);
                     if (home || fleeing) { arrived(); if (this != null) gameObject.SetActive(false); return; }
-                    perch = end; SetFrame(RestFrame);
-                    motion.Play(0.12f, t => body.localScale = Scale(Mathf.Lerp(1.15f, 1, t), Mathf.Lerp(0.85f, 1, t)),
+                    perch = end;
+                    if (flightFrames.Length == 0) SetFrame(RestFrame);
+                    motion.Play(0.10f, t => body.localScale = Scale(Mathf.Lerp(1.15f, 1, t), Mathf.Lerp(0.85f, 1, t)),
                         () => { Idle(); arrived(); });
                 }, ease: flightEase);
             }, delay);
