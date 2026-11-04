@@ -1,5 +1,12 @@
 # Perch Sort dev team charter (set up 2026-11-03)
 
+## Current user execution directives (2026-11-04)
+- Every feature-development effort must be decomposed into parallel tasks with non-overlapping file ownership, one shared contract and coordinator integration/review. OMP is preferred for coding; Codex is the fallback. The coordinator chooses model and reasoning level by task complexity; GPT-6.1 Sol/high is a recommendation, not a requirement for simple tasks.
+- The current Codex conversation replaces Claude for this stage: it assigns tasks and accepts deliveries. Reports, questions and handoffs must return to the current Codex coordinator, never the retired Claude session.
+- The user requests no code test runs for this continuation and will test the integrated build. Record skipped execution honestly; historical passing results do not validate new commits.
+- The user explicitly authorizes committing and merging reviewed completed work into main for testing. Preserve unfinished work on task branches. After the current T49/T50 stage is integrated, write the handoff and pause; future development runs directly on the Mac, with 251 no longer used.
+
+
 The user (Orca desktop on the Mac) wants to watch every agent conversation in the desktop app. Claude (the lead) runs on 251 and directs; **all new work runs on the Mac** in Orca-managed workspaces. The old 251 workers (omp T43/T42, Codex T45) only finish what they started.
 
 ## Roles
