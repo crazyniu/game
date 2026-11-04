@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 WORK = ROOT / 'tools/levels/work'
 DOTNET = '/tmp/perch-t32-sdk/dotnet'
-TOOL = WORK / 'DeepLevelTool/bin/Release/net8.0/V5LevelTool.dll'
+TOOL = WORK / 'DeepLevelTool/bin/Release/net8.0/LevelTool.dll'
 ROLES = ['T','T','T','R','R','T','P','C','R','C','T','P','P','R','T','P','C','R','C','C','T','P','P','T','C','P','C','R','C','C','T','P','T','P','R','C','P','C','R','C']
 
 

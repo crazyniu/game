@@ -190,7 +190,7 @@
         "MaximumHomesInOneMove": 2,
         "DataCheck": "Not run",
         "Failures": [
-          "DEEP_V54: par 9 outside 12..2147483647",
+          "DEEP: par 9 outside 12..2147483647",
           "no proven tempting dead end within three moves"
         ],
         "Warnings": [],

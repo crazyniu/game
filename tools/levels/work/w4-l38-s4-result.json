@@ -165,7 +165,7 @@
         "MaximumHomesInOneMove": 3,
         "DataCheck": "Not run",
         "Failures": [
-          "DEEP_V54: par 10 outside 12..2147483647",
+          "DEEP: par 10 outside 12..2147483647",
           "ordering decision Unknown",
           "no proven tempting dead end within three moves"
         ],

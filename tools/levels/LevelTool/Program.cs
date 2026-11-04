@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PerchSort.V5.Core;
+using PerchSort.Core;
 
 namespace PerchSort.LevelTool
 {
@@ -40,7 +40,7 @@ namespace PerchSort.LevelTool
                 }
             }
             catch (Exception ex) when (ex is ArgumentException || ex is InvalidOperationException || ex is IOException || ex is JsonException || ex is FormatException || ex is OverflowException)
-            { Console.Error.WriteLine("V5LevelTool: " + ex.Message); return 1; }
+            { Console.Error.WriteLine("LevelTool: " + ex.Message); return 1; }
         }
         private static LevelDef[] Load(string path)
         {

@@ -1,11 +1,11 @@
 using System;
-using PerchSort.V5.Core;
+using PerchSort.Core;
 
 namespace PerchSort.LevelTool
 {
     internal static class DeepGates
     {
-        internal const string Name = "DEEP_V54";
+        internal const string Name = "DEEP";
         internal static bool Enabled = true;
         internal const string DeadEndException = "DEADEND_WINDOW_6";
         internal const string FinaleException = "FINALE_PAR10";

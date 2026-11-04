@@ -1,5 +1,5 @@
 {
-  "GateSet": "DEEP_V54",
+  "GateSet": "DEEP",
   "Limits": {
     "MaxStates": 20000000,
     "Milliseconds": 10000,
@@ -73,7 +73,7 @@
       "MaximumHomesInOneMove": 4,
       "DataCheck": "Proven stored-par equality and winning public GameSession replay",
       "Failures": [
-        "DEEP_V54: par 4 outside 6..2147483647"
+        "DEEP: par 4 outside 6..2147483647"
       ],
       "Warnings": [],
       "Pass": false

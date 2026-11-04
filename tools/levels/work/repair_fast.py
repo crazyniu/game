@@ -8,7 +8,7 @@ from pathlib import Path
 WORK = Path(__file__).resolve().parent
 ROOT = WORK.parents[2]
 DOTNET = '/tmp/perch-t32-sdk/dotnet'
-TOOL = WORK / 'LiveLevelTool/bin/Release/net8.0/V5LevelTool.dll'
+TOOL = WORK / 'LiveLevelTool/bin/Release/net8.0/LevelTool.dll'
 
 
 def variants(level):

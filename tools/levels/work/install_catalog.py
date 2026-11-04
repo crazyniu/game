@@ -7,7 +7,7 @@ from pathlib import Path
 
 WORK = Path(__file__).resolve().parent
 ROOT = WORK.parents[2]
-RESOURCE = ROOT / 'PerchSort/Assets/Resources/V5/levels.json'
+RESOURCE = ROOT / 'PerchSort/Assets/Resources/Levels/levels.json'
 PROTECTED = {1, 2, 3, 4, 5, 6, 11, 15, 21, 24, 31, 33}
 
 
@@ -34,7 +34,7 @@ def main():
         raise RuntimeError('Every replacement must pass the strict 1000 ms Core solver screen')
     for name in ('staged-deep-evidence.json', 'live-deep-evidence.json'):
         report = evidence(name)
-        if report['GateSet'] != 'DEEP_V54':
+        if report['GateSet'] != 'DEEP':
             raise RuntimeError(f'{name}: wrong gates')
         for row in report['Levels']:
             if not row['DataCheck'].startswith('Proven '):
