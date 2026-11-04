@@ -41,7 +41,7 @@ namespace PerchSort.Game
         public void Configure(GameRoot owner, GameArt assets, TMP_FontAsset typeface)
         {
             root = owner; art = assets; font = typeface;
-            dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, GameLayout.PanelDimAlpha); dim.raycastTarget = true;
+            dim = gameObject.AddComponent<Image>(); dim.raycastTarget = true;
             presentation = gameObject.AddComponent<PopupMotion>();
             gameObject.AddComponent<EmptyClick>().Click = () => { if (!IsUnlock && !IsNotification) Dismiss(root.ClosePanel); };
             gameObject.SetActive(false);
@@ -57,6 +57,7 @@ namespace PerchSort.Game
             Begin();
             var panel = GameUI.Surface(transform, "Panel", art, bounds == GameLayout.LevelCard ? "card_wood" : "panel_wood", bounds); panel.raycastTarget = true;
             if (bounds == GameLayout.GoalInfoPanel) panel.pixelsPerUnitMultiplier = 2;
+            if (bounds == GameLayout.LevelCard) panel.pixelsPerUnitMultiplier = 1.5f;
             panel.gameObject.AddComponent<EmptyClick>();
             if (close) GameUI.Button(panel.transform, art, "Close", "icon_close", GameLayout.InformationClose(bounds), () => Dismiss(root.ClosePanel));
             content = panel.rectTransform;
@@ -121,37 +122,63 @@ namespace PerchSort.Game
             Rect bounds = GameLayout.LevelCard; var body = Body(bounds, false); CardLevel = id;
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
             Picture(body, "Level badge", "leaf_badge", bounds, GameLayout.CardBadge);
-            Label(body, "Level number", id.ToString(), bounds, GameLayout.CardBadge, GameLayout.LevelBadgeFontSize);
+            var number = Label(body, "Level number", id.ToString(), bounds, GameLayout.CardBadge, 98);
+            number.color = Color.white;
+            number.outlineColor = new Color32(71, 96, 20, 255); number.outlineWidth = 0.12f;
             GameUI.Button(body, art, "Close level card", "icon_close", new Rect(GameLayout.CardClose.position - bounds.position, GameLayout.CardClose.size), () => Dismiss(root.ClosePanel));
             int stars = root.BestStars(id);
-            for (int i = 0; i < 3; i++) Picture(body, "Best star " + i, i < stars ? "star_full_small" : "star_empty_small", bounds,
-                GameLayout.CardStar(i));
+            for (int i = 0; i < 3; i++)
+            {
+                var star = Picture(body, "Best star " + i, "star_full", bounds, GameLayout.CardStar(i));
+                if (i >= stars) star.color = new Color(0.58f, 0.43f, 0.20f, 0.38f);
+            }
             GameUI.Surface(body, "Moves chip", art, "stat_pill", new Rect(GameLayout.CardMoves.position - bounds.position, GameLayout.CardMoves.size));
+            GameUI.Image(body, "Moves divider", null, GameLayout.CardMoves.center - bounds.position, new Vector2(2, 44)).color = new Color32(178, 127, 64, 255);
             Picture(body, "Best moves icon", "footprints", bounds, GameLayout.CardBestIcon);
-            Label(body, "Best moves", root.BestMoves(id) >= 0 ? root.BestMoves(id).ToString() : "—", bounds, GameLayout.CardBestValue, GameLayout.CardMovesFontSize);
-            Picture(body, "Par icon", "flag", bounds, GameLayout.CardParIcon);
-            Label(body, "Par", level.par.ToString(), bounds, GameLayout.CardParValue, GameLayout.CardMovesFontSize);
+            Label(body, "Best moves", root.BestMoves(id) >= 0 ? root.BestMoves(id).ToString() : "—", bounds, GameLayout.CardBestValue, 46);
+            Picture(body, "Par icon", "flag", bounds, GameLayout.CardParIcon).color = GameUI.Ink;
+            Label(body, "Par", level.par.ToString(), bounds, GameLayout.CardParValue, 46);
             var species = Species(board);
             for (int i = 0; i < species.Count; i++)
             {
                 Vector2 point = GameLayout.CardPortrait(i, species.Count) - bounds.position;
-                var portrait = GameUI.Rect(body, species[i] + " portrait group", point, Vector2.one * GameLayout.PortraitSize);
-                GameUI.Fit(portrait, species[i] + " portrait ring", art.Get("aviary_frame"), Vector2.one * GameLayout.PortraitSize * 0.5f, Vector2.one * GameLayout.PortraitSize);
-                var mask = GameUI.Image(portrait, "Portrait mask", art.DoorMask(), Vector2.one * GameLayout.PortraitSize * 0.5f, Vector2.one * GameLayout.PortraitSize * 0.84f);
+                float portraitSize = Mathf.Min(140, 560f / species.Count);
+                var portrait = GameUI.Rect(body, species[i] + " portrait group", point, Vector2.one * portraitSize);
+                GameUI.Fit(portrait, species[i] + " portrait ring", art.Get("aviary_frame"), Vector2.one * portraitSize * 0.5f, Vector2.one * portraitSize);
+                var mask = GameUI.Image(portrait, "Portrait mask", art.DoorMask(), Vector2.one * portraitSize * 0.5f, Vector2.one * portraitSize * 0.86f);
                 mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-                GameUI.Fit(mask.transform, species[i] + " portrait", art.Portrait(species[i]), Vector2.one * GameLayout.PortraitSize * 0.42f, Vector2.one * GameLayout.PortraitSize * 0.84f);
+                GameUI.Fit(mask.transform, species[i] + " portrait", art.Portrait(species[i]), Vector2.one * portraitSize * 0.43f, Vector2.one * portraitSize * 0.98f);
                 presentation.Pop(portrait, 0.35f + i * 0.1f);
             }
             var mechanics = Mechanics(board);
             float lastPortrait = 0.6f + species.Count * 0.1f;
+            float mechanicPitch = Mathf.Min(150, 470f / Mathf.Max(1, mechanics.Count - 1));
+            float mechanicScale = Mathf.Min(1, 3f / Mathf.Max(1, mechanics.Count));
             for (int i = 0; i < mechanics.Count; i++)
             {
-                var icon = Picture(body, "Mechanic " + mechanics[i], "mechanic_" + mechanics[i], bounds, GameLayout.CardMechanic(i, mechanics.Count));
+                Vector2 center = new Vector2(540 + (i - (mechanics.Count - 1) * 0.5f) * mechanicPitch, 1050);
+                float size = (mechanics[i] == "sleep" ? 220 : mechanics[i] == "egg" ? 142 : 100) * mechanicScale;
+                if (mechanics[i] == "sleep") center.y -= 35 * mechanicScale;
+                Rect mechanicBounds = GameLayout.Centered(center, Vector2.one * size);
+                string sprite = MechanicSprite(mechanics[i]);
+                var icon = Picture(body, "Mechanic " + mechanics[i], sprite, bounds, mechanicBounds);
                 presentation.Fade(icon.rectTransform, lastPortrait + i * 0.07f);
             }
             GameUI.Button(body, art, "Play level " + id, "icon_play", new Rect(GameLayout.CardPlay.position - bounds.position, GameLayout.CardPlay.size),
                 () => Dismiss(() => root.LoadLevel(id)), true);
             presentation.ButtonsLast(body, lastPortrait + 0.2f);
+        }
+        private static string MechanicSprite(string mechanic)
+        {
+            switch (mechanic)
+            {
+                case "sleep": return "hoot_sleep";
+                case "egg": return "egg_idle";
+                case "crow": return "crow_face";
+                case "swivel": return "swivel_knot";
+                case "growing": return "icon_rain_sprout";
+                default: return "dial_moon";
+            }
         }
         // Optional design-space source supplied by the map owner; the existing LevelCard(int) remains valid.
         public void SetLevelCardOrigin(Vector2 point) => levelCardOrigin = point;
@@ -186,9 +213,15 @@ namespace PerchSort.Game
                     presentation.Coins(art, content, chip.center, GameLayout.CoinIcon.center, ready - 0.3f);
             }
             Rect button = GameLayout.Screen(screen, kind == PopupKind.WorldComplete ? "next" : kind == PopupKind.WorldUnlock ? "play" : "confirm");
-            GameUI.Button(content, art, acknowledge == null ? "Close popup" : "Acknowledge popup",
+            var confirm = (GameButton)GameUI.Button(content, art, acknowledge == null ? "Close popup" : "Acknowledge popup",
                 kind == PopupKind.WorldComplete ? "icon_next_arrow" : kind == PopupKind.WorldUnlock ? "icon_play" : "icon_check",
                 button, presentation.Once(() => Dismiss(acknowledge ?? (Action)root.ClosePanel)), true);
+            if (kind == PopupKind.DailyGift)
+            {
+                var surface = (Image)confirm.targetGraphic;
+                surface.sprite = art.Get("btn_green_pill"); surface.type = Image.Type.Sliced; surface.preserveAspect = false;
+                confirm.RestSprite = confirm.PressedSprite = surface.sprite;
+            }
             presentation.ButtonsLast(content, ready);
         }
         private float NewFriend(string screen, string species)
@@ -197,7 +230,7 @@ namespace PerchSort.Game
             Glow(content, bounds.center, bounds.size * 1.3f, 0.4f);
             var bird = GameUI.Fit(content, "New friend", art.Get(species + "_idle"), bounds.center, bounds.size * 1.6f);
             Picture(content, "Name ribbon", "name_ribbon", area, GameLayout.Screen(screen, "ribbon"));
-            Label(content, "Friend name", SpeciesName(species), area, GameLayout.Screen(screen, "name"), 64).color = Color.white;
+            Label(content, "Friend name", SpeciesName(species), area, GameLayout.Screen(screen, "name"), 88).color = Color.white;
             if (species == "crow") Label(content, "Rook personality", "Never goes home.", area,
                 GameLayout.Centered(GameLayout.Screen(screen, "gift_badge").center, new Vector2(580, 80)), 38);
             else Picture(content, "Friend gift", ViewModel.GiftIcon(species), area, GameLayout.Screen(screen, "gift_badge"));

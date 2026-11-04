@@ -13,31 +13,26 @@ namespace PerchSort.Game
         private RectTransform rig;
         private PopupMotion presentation;
         public bool IsOpen => gameObject.activeSelf;
+        // Include the transparent margin of panel_wood around the measured visible frame.
+        private static readonly Rect PanelBounds = new Rect(144, 844, 768, 514);
         public void Configure(GameRoot owner, GameArt assets)
         {
             root = owner; art = assets;
-            dim = gameObject.AddComponent<Image>(); dim.color = new Color(0, 0, 0, GameLayout.PanelDimAlpha); dim.raycastTarget = true;
+            dim = gameObject.AddComponent<Image>(); dim.raycastTarget = true;
             presentation = gameObject.AddComponent<PopupMotion>();
-            rig = GameUI.Rect(transform, "Settings hanging rig", new Vector2(GameLayout.SettingsPanel.center.x, GameLayout.SettingsPanel.y), GameLayout.SettingsPanel.size);
+            rig = GameUI.Rect(transform, "Settings hanging rig", new Vector2(PanelBounds.center.x, PanelBounds.y), PanelBounds.size);
             rig.pivot = new Vector2(0.5f, 1);
-            for (int i = 0; i < 2; i++)
-            {
-                string part = i == 0 ? "panel_rope_left" : "panel_rope_right";
-                var rope = art.Optional(part);
-                if (rope != null) GameUI.Fit(rig, part, rope, new Vector2(i == 0 ? 90 : rig.sizeDelta.x - 90, -140), new Vector2(48, 320));
-                else GameArt.Warn("settings:" + part, "Missing settings rope part; using whole-board swing fallback.");
-            }
-            var body = GameUI.Surface(rig, "Settings panel", art, "panel_wood", new Rect(Vector2.zero, GameLayout.SettingsPanel.size)); body.raycastTarget = true;
+            var body = GameUI.Surface(rig, "Settings panel", art, "panel_wood", new Rect(Vector2.zero, PanelBounds.size)); body.raycastTarget = true;
             Rect ribbon = GameLayout.Screen("settings", "ribbon");
-            GameUI.Fit(body.transform, "Settings ribbon", art.Get("ribbon_green"), ribbon.center - GameLayout.SettingsPanel.position, ribbon.size);
+            GameUI.Fit(body.transform, "Settings ribbon", art.Get("ribbon_green"), ribbon.center - PanelBounds.position, ribbon.size);
             GameUI.Button(body.transform, art, "Close settings", "icon_close", Local(GameLayout.CloseButton), () => presentation.Close(root.CloseSettings));
             var sound = GameUI.Button(body.transform, art, "Toggle mute", "icon_sound_on", Local(GameLayout.SoundButton), ToggleMute);
             soundIcon = sound.transform.GetChild(0).GetComponent<Image>();
-            restart = GameUI.Button(body.transform, art, "Restart level", "icon_replay", Local(GameLayout.RestartButton), () => presentation.Close(root.Restart));
+            restart = GameUI.Button(body.transform, art, "Restart level", "icon_undo", Local(GameLayout.RestartButton), () => presentation.Close(root.Restart));
             map = GameUI.Button(body.transform, art, "Return to map", "icon_home", Local(GameLayout.ReturnMapButton), () => presentation.Close(root.OpenMap));
             gameObject.SetActive(false);
         }
-        private static Rect Local(Rect rect) => new Rect(rect.position - GameLayout.SettingsPanel.position, rect.size);
+        private static Rect Local(Rect rect) => new Rect(rect.position - PanelBounds.position, rect.size);
         public void Show()
         {
             presentation.Cancel(); transform.SetAsLastSibling(); gameObject.SetActive(true);

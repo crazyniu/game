@@ -21,30 +21,32 @@ namespace PerchSort.Game
         private PopupMotion presentation;
         private Button next, replay, home;
         public bool IsOpen => gameObject.activeSelf;
+        // Include the transparent margin of panel_wood around the measured visible frame.
+        private static readonly Rect PanelBounds = new Rect(150, 722, 750, 812);
 
         public void Configure(GameRoot root, GameArt assets, TMP_FontAsset font)
         {
             art = assets; owner = root;
-            dim = gameObject.AddComponent<Image>();
-            dim.color = new Color(0, 0, 0, GameLayout.PanelDimAlpha); dim.raycastTarget = true;
+            dim = gameObject.AddComponent<Image>(); dim.raycastTarget = true;
             presentation = gameObject.AddComponent<PopupMotion>();
-            rays = GameUI.Fit(transform, "Win light rays", art.Get("light_rays"), GameLayout.WinPanel.center, Vector2.one * 1400);
+            rays = GameUI.Fit(transform, "Win light rays", art.Get("light_rays"), PanelBounds.center, Vector2.one * 1400);
             leftBird = Bird("left_bird", "sky"); rightBird = Bird("right_bird", "berry"); heroBird = Bird("hero_bird", "sunny");
-            body = GameUI.Surface(transform, "Win panel", art, "panel_wood", GameLayout.WinPanel).rectTransform;
+            body = GameUI.Surface(transform, "Win panel", art, "panel_wood", PanelBounds).rectTransform;
             body.GetComponent<Image>().raycastTarget = true;
-            ribbon = GameUI.Fit(body, "Ribbon", art.Get("ribbon_green"), GameLayout.InParent(GameLayout.WinPanel, GameLayout.Ribbon.center), GameLayout.Ribbon.size).rectTransform;
+            ribbon = GameUI.Fit(body, "Ribbon", art.Get("ribbon_green"), GameLayout.InParent(PanelBounds, GameLayout.Ribbon.center), GameLayout.Ribbon.size).rectTransform;
             for (int i = 0; i < GameLayout.StarCount; i++)
             {
-                Rect bounds = GameLayout.Star(i); Vector2 point = GameLayout.InParent(GameLayout.WinPanel, bounds.center);
+                Rect bounds = GameLayout.Star(i); Vector2 point = GameLayout.InParent(PanelBounds, bounds.center);
                 slots[i] = GameUI.Image(body, "Star slot " + i, art.Get("star_empty"), point, bounds.size);
                 stars[i] = GameUI.Image(body, "Earned star " + i, art.Get("star_full"), point, bounds.size);
             }
-            rewardChip = GameUI.Rect(body, "Reward chip", GameLayout.RewardChip.center - GameLayout.WinPanel.position, GameLayout.RewardChip.size);
+            rewardChip = GameUI.Rect(body, "Reward chip", GameLayout.RewardChip.center - PanelBounds.position, GameLayout.RewardChip.size);
             GameUI.Surface(rewardChip, "Reward surface", art, "stat_pill", new Rect(Vector2.zero, GameLayout.RewardChip.size));
-            GameUI.Image(rewardChip, "Reward coin", art.Icon("coin"), GameLayout.RewardCoin.center - GameLayout.RewardChip.position, GameLayout.RewardCoin.size);
-            rewardLabel = GameUI.Text(rewardChip, "Coin reward", "+0", font, GameLayout.RewardText.center - GameLayout.RewardChip.position, GameLayout.RewardText.size, GameLayout.RewardFontSize);
+            GameUI.Image(rewardChip, "Reward coin", art.Icon("coin"), new Vector2(90, 51), Vector2.one * 100);
+            rewardLabel = GameUI.Text(rewardChip, "Coin reward", "+0", font, new Vector2(244, 51), new Vector2(170, 86), 64);
+            rewardLabel.color = new Color32(101, 31, 12, 255);
             rewardLabel.alignment = TextAlignmentOptions.MidlineLeft;
-            chorusBonus = GameUI.Rect(body, "Chain bonus", GameLayout.InParent(GameLayout.WinPanel, GameLayout.ChorusBonus.center), GameLayout.ChorusBonus.size).gameObject;
+            chorusBonus = GameUI.Rect(body, "Chain bonus", GameLayout.InParent(PanelBounds, GameLayout.ChorusBonus.center), GameLayout.ChorusBonus.size).gameObject;
             // The approved chain reward is a readable coin line, not the tiny feather mechanic badge.
             GameUI.Fit(chorusBonus.transform, "Chain", art.Get("chain_bonus"), new Vector2(22, 32), Vector2.one * 72);
             chorusLabel = GameUI.Text(chorusBonus.transform, "Chorus coin bonus", "", font, new Vector2(126, 32), new Vector2(140, 72), 48);
@@ -52,7 +54,7 @@ namespace PerchSort.Game
             nextPresentation = GameUI.Rect(body, "Next button presentation", nextBounds.center, nextBounds.size);
             nextPulse = nextPresentation.gameObject.AddComponent<GameMotion>();
             next = GameUI.Button(nextPresentation, art, "Next level", "icon_next_arrow", new Rect(Vector2.zero, nextBounds.size), () => Close(root.NextLevel), true);
-            replay = GameUI.Button(body, art, "Replay level", "icon_replay", Local(GameLayout.ReplayButton), () => Close(root.Restart));
+            replay = GameUI.Button(body, art, "Replay level", "icon_undo", Local(GameLayout.ReplayButton), () => Close(root.Restart));
             home = GameUI.Button(body, art, "Home", "icon_home", Local(GameLayout.HomeButton), () => Close(root.OpenMap));
             gameObject.SetActive(false);
         }
@@ -61,7 +63,7 @@ namespace PerchSort.Game
             Rect bounds = GameLayout.Screen("win", part);
             return GameUI.Fit(transform, part, art.Get(species + "_idle"), bounds.center, bounds.size * 1.6f);
         }
-        private static Rect Local(Rect rect) => new Rect(rect.position - GameLayout.WinPanel.position, rect.size);
+        private static Rect Local(Rect rect) => new Rect(rect.position - PanelBounds.position, rect.size);
         public void Show(int earnedStars, int reward, int chorusCoins) => Show(earnedStars, reward, chorusCoins, null);
         // The optional callback synchronizes an already-committed HUD count, never a grant.
         public void Show(int earnedStars, int reward, int chorusCoins, Action coinFlightStarted)
@@ -102,19 +104,19 @@ namespace PerchSort.Game
                     if (index < count)
                     {
                         owner.PlaySound(index == 0 ? Sfx.Star1 : index == 1 ? Sfx.Star2 : Sfx.Star3);
-                        presentation.Sparkles(art, body, GameLayout.Star(index).center - GameLayout.WinPanel.position, 100, 0);
+                        presentation.Sparkles(art, body, GameLayout.Star(index).center - PanelBounds.position, 100, 0);
                     }
                 }, 0.8f + i * 0.2f, Ease.OutBack);
             }
             presentation.Pop(rewardChip, 1.45f); presentation.Count(rewardLabel, reward, 1.5f);
             if (reward > 0)
             {
-                presentation.Coins(art, transform, GameLayout.RewardCoin.center, GameLayout.CoinIcon.center, 1.55f);
+                presentation.Coins(art, transform, GameLayout.RewardChip.position + new Vector2(90, 51), GameLayout.CoinIcon.center, 1.55f);
                 if (coinFlightStarted != null) presentation.After(1.55f, coinFlightStarted);
             }
             if (chorusCoins > 0) presentation.Pop((RectTransform)chorusBonus.transform, 1.7f);
-            Emerge(leftBird, "sky", new Vector2(GameLayout.WinPanel.x - 8, GameLayout.Screen("win", "left_bird").center.y), 1.8f, -1);
-            Emerge(rightBird, "berry", new Vector2(GameLayout.WinPanel.xMax + 8, GameLayout.Screen("win", "right_bird").center.y), 1.9f, 1);
+            Emerge(leftBird, "sky", GameLayout.Screen("win", "left_bird").center, 1.8f, -1);
+            Emerge(rightBird, "berry", GameLayout.Screen("win", "right_bird").center, 1.9f, 1);
             Rect hero = GameLayout.Screen("win", "hero_bird");
             presentation.FlyBird(art, heroBird, "sunny", new Vector2(hero.center.x, -240), hero.center, 0.6f,
                 () => { heroBird.sprite = art.Get("sunny_cheer"); presentation.Bob(heroBird, 8); });
