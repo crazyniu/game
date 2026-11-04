@@ -1,13 +1,14 @@
-# mac-birds — T49 resumed 2026-11-04
+# mac-birds — T49 current status 2026-11-04
 
-- Branch: `mac-birds/t49`; synced successfully with fetch/pull.
-- Sunny remains unchanged and complete per lead.
-- Skye: all 17 sources and exports plus portrait, full strip and GIF now prepared. Corrected quirk2, right head tilt and stretch wing. Latest alignment reports no clipped frames.
-- Next: Berry, then Minty/Cocoa/Flurry/Ember/Inky/Hoot/Rook, eggs/overlays, worlds and board comparisons.
-- No Unity opened, no Codex update, no CLI/API-key fallback.
-- Runtime acceptance and final exact-reference review remain pending.
+- Branch: `mac-birds/t49`; resumed with fetch/pull. Latest prior pushed checkpoint: `8f15bb4` (Skye).
+- Sunny and Skye: all 17 source frames, aligned RGBA exports, portraits, QA strips and idle-actions GIFs prepared.
+- Lead review corrections: regenerated `sunny_quirk1.png` at idle body size; regenerated `sunny_tilt_left.png`, `sunny_tilt_right.png`, `sky_tilt_left.png`, `sky_tilt_right.png` with clear opposing approximately 20-degree head tilts. Rebuilt exports and QA. `art/v7/birds/qa/review_scale_tilts.png` shows the corrected set at about 120 px body width. No clipping in the 40-frame alignment inventory.
+- Half done: Berry has five source poses; `art/v7/birds/source/berry_quirk2.png` now has crest preening and awaits export refresh. Remaining 12 Berry poses are next. Mint has idle export/portrait; Cocoa, Snow, Ember, Ink and Hoot have idle sources only; Crow has no source.
+- Next: finish Berry and push, then Mint, Cocoa, Snow, Ember, Ink, Hoot, Crow; eggs/overlays; world pieces; final comparisons. Apply constant body size/baseline and readable mirror-consistent 15–20-degree tilts to every species.
+- No current tool blocker. T49 is incomplete. Runtime acceptance, all-species grayscale recognition and K3/K7 composites remain pending.
+- No Unity opened, no lock created, no sub-workers, no Codex update, no CLI/API-key fallback.
 
-## Historical handoff (2026-11-03; superseded for Skye)
+## Historical handoff (2026-11-03; archival only, superseded by current status)
 
 # mac-birds — T49 end-of-day WIP handoff
 

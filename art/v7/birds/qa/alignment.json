@@ -1,5 +1,209 @@
 [
   {
+    "file": "berry_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      442,
+      1120,
+      867,
+      1159
+    ],
+    "scale": 0.23132,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      47,
+      257,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_blink.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      441,
+      1121,
+      868,
+      1163
+    ],
+    "scale": 0.23023,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      47,
+      257,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_quirk1.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      437,
+      1121,
+      869,
+      1162
+    ],
+    "scale": 0.22757,
+    "translation": [
+      11,
+      36
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      51,
+      50,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_quirk2.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      427,
+      1120,
+      848,
+      1162
+    ],
+    "scale": 0.23351,
+    "translation": [
+      11,
+      29
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      38,
+      42,
+      278,
+      302
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "berry_fly_up.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      442,
+      1121,
+      868,
+      1162
+    ],
+    "scale": 0.23077,
+    "translation": [
+      9,
+      32
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      19,
+      47,
+      288,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
+    "file": "mint_idle.png",
+    "canvas": [
+      320,
+      320
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "source_feet": [
+      395,
+      1108,
+      810,
+      1151
+    ],
+    "scale": 0.24528,
+    "translation": [
+      12,
+      18
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      65,
+      36,
+      261,
+      301
+    ],
+    "foot_baseline": 300,
+    "edge_clipped": false
+  },
+  {
     "file": "sunny_idle.png",
     "canvas": [
       320,
@@ -78,24 +282,24 @@
       1254
     ],
     "source_feet": [
-      390,
-      1036,
-      857,
-      1068
+      425,
+      1040,
+      836,
+      1076
     ],
-    "scale": 0.21458,
+    "scale": 0.24382,
     "translation": [
-      26,
-      71
+      6,
+      38
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      72,
-      113,
-      255,
+      54,
+      71,
+      266,
       301
     ],
     "foot_baseline": 300,
@@ -282,25 +486,25 @@
       1254
     ],
     "source_feet": [
-      425,
-      1039,
-      834,
-      1075
+      421,
+      1040,
+      836,
+      1074
     ],
-    "scale": 0.24501,
+    "scale": 0.24147,
     "translation": [
-      6,
-      37
+      8,
+      41
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      62,
-      72,
+      61,
+      76,
       256,
-      301
+      302
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -316,23 +520,23 @@
       1254
     ],
     "source_feet": [
-      424,
+      416,
       1040,
-      836,
-      1074
+      827,
+      1075
     ],
-    "scale": 0.24322,
+    "scale": 0.24382,
     "translation": [
-      7,
-      39
+      8,
+      38
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      62,
-      74,
+      63,
+      77,
       257,
       301
     ],
@@ -573,210 +777,6 @@
       76,
       256,
       302
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "berry_idle.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      442,
-      1120,
-      867,
-      1159
-    ],
-    "scale": 0.23132,
-    "translation": [
-      9,
-      32
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      61,
-      47,
-      257,
-      302
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "berry_blink.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      441,
-      1121,
-      868,
-      1163
-    ],
-    "scale": 0.23023,
-    "translation": [
-      9,
-      32
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      60,
-      47,
-      257,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "berry_quirk1.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      437,
-      1121,
-      869,
-      1162
-    ],
-    "scale": 0.22757,
-    "translation": [
-      11,
-      36
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      51,
-      50,
-      261,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "berry_quirk2.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      427,
-      1120,
-      848,
-      1162
-    ],
-    "scale": 0.23351,
-    "translation": [
-      11,
-      29
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      38,
-      42,
-      278,
-      302
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "berry_fly_up.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      442,
-      1121,
-      868,
-      1162
-    ],
-    "scale": 0.23077,
-    "translation": [
-      9,
-      32
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      19,
-      47,
-      288,
-      301
-    ],
-    "foot_baseline": 300,
-    "edge_clipped": false
-  },
-  {
-    "file": "mint_idle.png",
-    "canvas": [
-      320,
-      320
-    ],
-    "source_size": [
-      1254,
-      1254
-    ],
-    "source_feet": [
-      395,
-      1108,
-      810,
-      1151
-    ],
-    "scale": 0.24528,
-    "translation": [
-      12,
-      18
-    ],
-    "alpha_extrema": [
-      0,
-      255
-    ],
-    "visible_bounds": [
-      65,
-      36,
-      261,
-      301
     ],
     "foot_baseline": 300,
     "edge_clipped": false
@@ -1064,15 +1064,15 @@
       1254
     ],
     "source_feet": [
-      411,
-      1065,
-      891,
-      1100
+      388,
+      1063,
+      866,
+      1099
     ],
-    "scale": 0.23921,
+    "scale": 0.24021,
     "translation": [
-      4,
-      37
+      9,
+      36
     ],
     "alpha_extrema": [
       0,
@@ -1080,8 +1080,8 @@
     ],
     "visible_bounds": [
       59,
-      71,
-      254,
+      67,
+      260,
       301
     ],
     "foot_baseline": 300,
@@ -1099,24 +1099,24 @@
     ],
     "source_feet": [
       387,
-      1064,
-      862,
-      1098
+      1063,
+      867,
+      1099
     ],
-    "scale": 0.24173,
+    "scale": 0.23921,
     "translation": [
-      9,
-      35
+      10,
+      37
     ],
     "alpha_extrema": [
       0,
       255
     ],
     "visible_bounds": [
-      66,
-      68,
-      255,
-      302
+      64,
+      67,
+      257,
+      301
     ],
     "foot_baseline": 300,
     "edge_clipped": false
