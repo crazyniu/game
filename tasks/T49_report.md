@@ -53,3 +53,7 @@ Completed 17 frames and portrait, with strip, idle-actions GIF and game-size QA.
 ## Flurry checkpoint — 2026-11-04
 
 Completed 17 frames, portrait, QA strip, GIF and game-size sheet. Head features checked against K7 and aviary list before generation: lilac two-feather crest, three forehead dots and long lashes. Replaced an erroneous multi-bird blink output. Reviewed body scale, baseline, opposing tilts and alpha; 102 prepared frames, no clipping. Runtime remains untested.
+
+## Ember checkpoint — 2026-11-04
+
+Completed 17 frames and portrait with strip, GIF and game-size QA. Flame crest and brows checked against K7 before expansion. Corrected sleep to folded wings and shortened the stretch wing to avoid edge clipping without shrinking the torso. Reviewed all poses at game size; 119 aligned frames, none clipped. Runtime not run.
