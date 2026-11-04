@@ -11,10 +11,12 @@ namespace PerchSort.Game
         private const float NodeSize = 220, CurrentNodeSize = 240, LockedNodeSize = 200;
         private const float NumberSize = 100, StarSize = 48, StarPitch = 50;
         private const float ChickSize = 310, ChickLift = 230, GateCanvasSize = 532;
+        private const float TopPadding = 400, HudMargin = 32, BarMargin = 40, EdgeFade = 48;
+        private static readonly Rect ViewportBounds = ViewportArea();
         private GameRoot root;
         private GameArt art;
         private TMP_FontAsset font;
-        private RectTransform content;
+        private RectTransform content, scenery;
         private TextMeshProUGUI coins;
         private ScrollRect scroll;
         private GameMotion focus, gateMotion, rewards;
@@ -49,16 +51,20 @@ namespace PerchSort.Game
             root = owner; art = assets; font = typeface;
             focus = gameObject.AddComponent<GameMotion>(); gateMotion = gameObject.AddComponent<GameMotion>();
             nodeMotion = gameObject.AddComponent<MapMotion>(); nodeMotion.Configure();
-            var viewport = GameUI.Rect(transform, "Map viewport", GameLayout.MapViewport.center, GameLayout.MapViewport.size);
+            var backdrop = GameUI.Rect(transform, "Map scenery", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            backdrop.gameObject.AddComponent<RectMask2D>();
+            scenery = GameUI.Rect(backdrop, "Scrolling forest", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
+            scenery.pivot = new Vector2(0.5f, 1);
+            var viewport = GameUI.Rect(transform, "Map viewport", ViewportBounds.center, ViewportBounds.size);
             var hit = viewport.gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
-            viewport.gameObject.AddComponent<RectMask2D>();
+            viewport.gameObject.AddComponent<RectMask2D>().softness = new Vector2Int(0, (int)EdgeFade);
             scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport;
             scroll.horizontal = false; scroll.vertical = true; scroll.inertia = true;
             scroll.decelerationRate = 0.135f;
             scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = GameLayout.MapScrollSensitivity;
             viewport.gameObject.AddComponent<MapInput>().CancelFocus = CancelFocus;
-            content = GameUI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, GameLayout.MapHeight));
-            content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 160); scroll.content = content;
+            content = GameUI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
+            content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 0); scroll.content = content;
             scroll.onValueChanged.AddListener(_ => ClampOffset());
             coins = HudView.CoinHeader(transform, art, font, true);
             GameUI.Button(transform, art, "Map settings", "icon_gear", GameLayout.Screen("map", "gear"), root.OpenSettings);
@@ -80,15 +86,20 @@ namespace PerchSort.Game
             CancelMotions(false); gameObject.SetActive(true); nodes.Clear(); gates.Clear(); gateStates.Clear();
             for (int i = effects.childCount - 1; i >= 0; i--) GameUI.Dispose(effects.GetChild(i).gameObject);
             for (int i = content.childCount - 1; i >= 0; i--) GameUI.Dispose(content.GetChild(i).gameObject);
+            for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
             coins.text = profile.DisplayCoins.ToString();
             // The lower world's alpha-faded top overlaps the upper world's opaque bottom by 160px.
+            GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_w4"),
+                new Vector2(540, TopPadding - GameLayout.MapStride + 1500), new Vector2(1080, 3000));
             for (int world = 4; world >= 1; world--)
-                GameUI.Image(content, "World " + world + " background", art.Get("map_bg_w" + world),
-                    new Vector2(540, GameLayout.WorldTop(world) + 1500), new Vector2(1080, 3000));
+                GameUI.Image(scenery, "World " + world + " background", art.Get("map_bg_w" + world),
+                    new Vector2(540, GameLayout.WorldTop(world) + TopPadding + 1500), new Vector2(1080, 3000));
+            GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_w1"),
+                new Vector2(540, GameLayout.MapHeight + TopPadding - 160 + 1500), new Vector2(1080, 3000));
             for (int world = 2; world <= 4; world++)
             {
                 float boundary = (MapModel.Position((world - 1) * 10).y + MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
-                Vector2 gate = new Vector2(540, boundary);
+                Vector2 gate = new Vector2(540, boundary + TopPadding);
                 float side = GateCanvasSize;
                 gateStates.Add(world, MapModel.WorldOpen(profile, world));
                 BuildGate(world, gate, side, gateStates[world]);
@@ -102,7 +113,7 @@ namespace PerchSort.Game
         }
         private void Node(GameProfile profile, int id)
         {
-            var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id);
+            var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id) + Vector2.up * TopPadding;
             bool current = id == FocusLevel;
             float diameter = current ? CurrentNodeSize : state == LevelNodeState.Locked ? LockedNodeSize : NodeSize;
             var holder = GameUI.Rect(content, "Node " + id, point, Vector2.one * diameter);
@@ -139,15 +150,28 @@ namespace PerchSort.Game
                 nodeMotion.Current(holder, shadow, chick, art);
             }
         }
-        private static float MaximumOffset => Mathf.Max(160, GameLayout.MapHeight - GameLayout.MapViewport.height);
-        private static float Clamp(float value) => Mathf.Clamp(value, 160, MaximumOffset);
-        private static float OffsetFor(int level) => Clamp(MapModel.Position(level).y - GameLayout.MapViewport.height * GameLayout.MapFocusRatio);
-        private void SetOffset(float value) => content.anchoredPosition = new Vector2(540, Clamp(value));
+        private static Rect ViewportArea()
+        {
+            Rect safe = GameLayout.SafeDesignArea;
+            float top = Mathf.Max(GameLayout.Screen("map", "coin_pill").yMax, GameLayout.Screen("map", "gear").yMax) + HudMargin;
+            float bottom = Mathf.Min(GameLayout.Screen("map", "shop").yMin,
+                Mathf.Min(GameLayout.Screen("map", "aviary").yMin, GameLayout.Screen("map", "settings").yMin)) - BarMargin;
+            return Rect.MinMaxRect(safe.xMin, Mathf.Max(safe.yMin, top), safe.xMax, Mathf.Min(safe.yMax, bottom));
+        }
+        private static float MaximumOffset => Mathf.Max(0, GameLayout.MapHeight + TopPadding - ViewportBounds.height);
+        private static float Clamp(float value) => Mathf.Clamp(value, 0, MaximumOffset);
+        private static float OffsetFor(int level) => Clamp(MapModel.Position(level).y + TopPadding - ViewportBounds.height * GameLayout.MapFocusRatio);
+        private void SetOffset(float value)
+        {
+            content.anchoredPosition = new Vector2(540, Clamp(value));
+            SyncScenery();
+        }
+        private void SyncScenery() => scenery.anchoredPosition = new Vector2(540, content.anchoredPosition.y - ViewportBounds.yMin);
         private void ClampOffset()
         {
             float current = content.anchoredPosition.y, clamped = Clamp(current);
-            if (current == clamped) return;
-            SetOffset(clamped); scroll.StopMovement();
+            if (current != clamped) { content.anchoredPosition = new Vector2(540, clamped); scroll.StopMovement(); }
+            SyncScenery();
         }
         private void CancelFocus()
         {
@@ -178,7 +202,7 @@ namespace PerchSort.Game
             ReplaceGate(world, false);
             int token = gateRevision;
             float y = (MapModel.Position((world - 1) * 10).y + MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
-            float start = content.anchoredPosition.y, end = Clamp(y - GameLayout.MapViewport.height * 0.45f);
+            float start = content.anchoredPosition.y, end = Clamp(y + TopPadding - ViewportBounds.height * 0.45f);
             gateMotion.Play(0.5f, t =>
             {
                 if (token == gateRevision) SetOffset(Mathf.Lerp(start, end, t * t * (3 - 2 * t)));
