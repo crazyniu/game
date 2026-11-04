@@ -164,5 +164,63 @@
     "alpha_zero": 80789,
     "alpha_partial": 254731,
     "alpha_opaque": 480
+  },
+  "map_bamboo_w1": {
+    "size": [
+      1080,
+      900
+    ],
+    "alpha_zero": 38608,
+    "alpha_partial": 933392,
+    "alpha_opaque": 0,
+    "bottom_alpha_rows": {
+      "720": {
+        "mean": 216.6324074074074,
+        "max": 246
+      },
+      "810": {
+        "mean": 6.128703703703704,
+        "max": 16
+      },
+      "850": {
+        "mean": 0.8851851851851852,
+        "max": 2
+      },
+      "880": {
+        "mean": 0.6546296296296297,
+        "max": 2
+      },
+      "899": {
+        "mean": 0.5787037037037037,
+        "max": 1
+      }
+    }
+  },
+  "map_stepping_stones": {
+    "size": [
+      1024,
+      512
+    ],
+    "alpha_zero": 374822,
+    "alpha_partial": 148155,
+    "alpha_opaque": 1311
+  },
+  "map_foreground_corner_left": {
+    "size": [
+      420,
+      520
+    ],
+    "alpha_zero": 119313,
+    "alpha_partial": 98298,
+    "alpha_opaque": 789
+  },
+  "map_foreground_corner_right": {
+    "size": [
+      420,
+      520
+    ],
+    "alpha_zero": 104433,
+    "alpha_partial": 113290,
+    "alpha_opaque": 677
   }
 }

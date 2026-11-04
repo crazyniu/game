@@ -21,3 +21,9 @@ Rejected drafts retained under `art/environment/rejected/`: initial green trunk 
 Three closed 560x600 RGBA gates are delivered: spring flowers, autumn leaves/berries, and frosted vines/icicles. All three open gates were generated, rejected for stationary-frame registration drift, and regenerated once with a localized-edit prompt preserving the closed master. The retry still redrew the arch. They are intentionally excluded from Resources: `gate_arch_open_w1.png`, `gate_arch_open_w2.png`, `gate_arch_open_w3.png` remain missing accepted assets.
 
 All six rejected open drafts are retained under `art/environment/rejected/`. JPEG pair/alignment evidence is explicitly labelled REJECTED. `art/environment/qa/gate_registration.json` records upper-arch RGB differences after the retry. Do not wire rejected images as approved cross-fade states. This batch does not satisfy the complete gate-pair requirement.
+
+## Batch C: map extras
+
+Four RGBA assets delivered: bamboo grove 1080x900, six-stone sheet 1024x512, left/right foreground flower bushes 420x520 each. The right bush is separately generated with matching upper-left light. Bamboo bottom-row alpha is at most 1/255; mean alpha falls from 216.6 at row 720 to 6.1 at row 810 and 0.58 at the bottom. Its pale translucent mist is intentional, not a solid background. The stone sheet contains six separated stones in a three-column/two-row arrangement. Per-asset sheets and `map_assembly.jpg` show the offline checks.
+
+Current resource delivery count: 15 of 18 requested images. Missing accepted images: all three open gates. Rejected drafts: eight total (one green trunk, one autumn junction, six open gates). No code was edited. Unity validation is still pending; offline evidence is not runtime acceptance.
