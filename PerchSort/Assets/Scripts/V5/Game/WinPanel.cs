@@ -11,7 +11,8 @@ namespace PerchSort.V5.Game
     {
         private V5Art art;
         private V5GameRoot owner;
-        private RectTransform body, ribbon, rewardChip;
+        private RectTransform body, ribbon, rewardChip, nextPresentation;
+        private V5Motion nextPulse;
         private TextMeshProUGUI rewardLabel, chorusLabel;
         private GameObject chorusBonus;
         private Image dim, rays, leftBird, rightBird, heroBird;
@@ -47,9 +48,12 @@ namespace PerchSort.V5.Game
             // The approved chain reward is a readable coin line, not the tiny feather mechanic badge.
             V5UI.Fit(chorusBonus.transform, "Chain", art.Get("chain_bonus"), new Vector2(22, 32), Vector2.one * 72);
             chorusLabel = V5UI.Text(chorusBonus.transform, "Chorus coin bonus", "", font, new Vector2(126, 32), new Vector2(140, 72), 48);
-            next = V5UI.Button(body, art, "Next level", "icon_next_arrow", Local(V7Layout.NextButton), () => presentation.Close(root.NextLevel), true);
-            replay = V5UI.Button(body, art, "Replay level", "icon_replay", Local(V7Layout.ReplayButton), () => presentation.Close(root.Restart));
-            home = V5UI.Button(body, art, "Home", "icon_home", Local(V7Layout.HomeButton), () => presentation.Close(root.OpenMap));
+            Rect nextBounds = Local(V7Layout.NextButton);
+            nextPresentation = V5UI.Rect(body, "Next button presentation", nextBounds.center, nextBounds.size);
+            nextPulse = nextPresentation.gameObject.AddComponent<V5Motion>();
+            next = V5UI.Button(nextPresentation, art, "Next level", "icon_next_arrow", new Rect(Vector2.zero, nextBounds.size), () => Close(root.NextLevel), true);
+            replay = V5UI.Button(body, art, "Replay level", "icon_replay", Local(V7Layout.ReplayButton), () => Close(root.Restart));
+            home = V5UI.Button(body, art, "Home", "icon_home", Local(V7Layout.HomeButton), () => Close(root.OpenMap));
             gameObject.SetActive(false);
         }
         private Image Bird(string part, string species)
@@ -68,7 +72,11 @@ namespace PerchSort.V5.Game
             next.interactable = replay.interactable = home.interactable = true;
             rays.transform.SetAsFirstSibling();
             presentation.Fade(rays.rectTransform, 0); presentation.Rotate(rays.rectTransform, 24);
-            body.SetAsLastSibling(); leftBird.transform.SetSiblingIndex(body.GetSiblingIndex()); rightBird.transform.SetSiblingIndex(body.GetSiblingIndex()); heroBird.transform.SetSiblingIndex(body.GetSiblingIndex());
+            // Establish back-to-front order before Emerge hands side birds to the foreground.
+            leftBird.transform.SetAsLastSibling();
+            rightBird.transform.SetAsLastSibling();
+            heroBird.transform.SetAsLastSibling();
+            body.SetAsLastSibling();
             presentation.Track(body); Vector2 rest = body.anchoredPosition;
             presentation.Play(0.55f, t =>
             {
@@ -112,6 +120,19 @@ namespace PerchSort.V5.Game
                 () => { heroBird.sprite = art.Get("sunny_cheer"); presentation.Bob(heroBird, 8); });
             presentation.Confetti(art, transform, 1.7f);
             presentation.ButtonsLast(body, 2.2f);
+            presentation.Track(nextPresentation);
+            // NEXT is first: its 2.2 s + 0.23 s pop finishes before the wrapper starts pulsing.
+            presentation.After(2.44f, StartNextPulse);
+        }
+        private void StartNextPulse()
+        {
+            if (V5Motion.Instant) return;
+            nextPulse.Loop(1.6f, t => nextPresentation.localScale = Vector3.one * (1 + 0.0125f * (1 - Mathf.Cos(t * Mathf.PI * 2))));
+        }
+        private void Close(Action action)
+        {
+            nextPulse.CancelAll(); nextPresentation.localScale = Vector3.one;
+            presentation.Close(action);
         }
         private void Emerge(Image bird, string species, Vector2 destination, float delay, float direction)
         {

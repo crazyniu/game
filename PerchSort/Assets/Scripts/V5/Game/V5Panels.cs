@@ -177,7 +177,9 @@ namespace PerchSort.V5.Game
                 V5UI.Fit(rewardGroup, "Reward coin", art.Get("coin"), chip.size * 0.5f - new Vector2(chip.width * 0.3f, 0), Vector2.one * 76);
                 var amount = V5UI.Text(rewardGroup, "Reward amount", "+0", font, new Vector2(chip.width * 0.65f, chip.height * 0.5f), new Vector2(chip.width - 100, chip.height), 54);
                 presentation.Pop(rewardGroup, ready - 0.4f); presentation.Count(amount, reward, ready - 0.3f);
-                if (reward > 0) presentation.Coins(art, content, kind == V7PopupKind.DailyGift ? V7Layout.Screen(screen, "gift_basket").center : chip.center, V7Layout.CoinIcon.center, ready - 0.3f);
+                // Daily-gift collection belongs exclusively to root Map.CollectCoins after acknowledgement and persistence.
+                if (kind == V7PopupKind.WorldComplete && reward > 0)
+                    presentation.Coins(art, content, chip.center, V7Layout.CoinIcon.center, ready - 0.3f);
             }
             Rect button = V7Layout.Screen(screen, kind == V7PopupKind.WorldComplete ? "next" : kind == V7PopupKind.WorldUnlock ? "play" : "confirm");
             V5UI.Button(content, art, acknowledge == null ? "Close popup" : "Acknowledge popup",
