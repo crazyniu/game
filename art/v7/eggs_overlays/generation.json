@@ -1,0 +1,80 @@
+[
+  {
+    "name": "nest",
+    "prompt": "Use case: background-extraction. Reference image is the approved Perch Sort V7 gameplay screen. Generate only the small shallow TWIG NEST supporting its cream mystery egg, isolated on real transparency. Remove egg entirely: empty shallow oval woven warm honey-brown twigs with a few small green leaf tips, soft high-end stylized 3D materials, top-left light, no outlines. Same front slightly above three-quarter camera, low oval open bowl, broad horizontal rim, not a deep basket. No egg, question mark, bird, branch, background, ground, glow, UI or shadow plane. The empty nest will be reused identically under five frames. One centered sprite with clean antialiased transparent edges.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-78d91fa7-c587-44dc-a13a-6b1ad511a95d.png",
+    "references": [
+      "art/v7/ui7_level_k7.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "idle",
+    "prompt": "Use case: stylized-concept. Reference image is approved Perch Sort V7. Generate only its cream speckled mystery EGG, isolated upright with NO nest. Soft warm ivory egg with small caramel flecks and a single clear soft brown QUESTION MARK on its front, rounded 3D shell, gentle satin highlights, warm top-left lighting and no outlines, match reference egg exactly. Front slightly three-quarter camera. Entire egg visible, unbroken and upright, no feet or face. No nest, twig, bird, background, ground plane, glow, text besides the one question mark, UI or extra objects. Real RGBA transparency with clean edges.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-386c14df-53f0-4817-b792-6468c07c9ae4.png",
+    "references": [
+      "art/v7/ui7_level_k7.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "mama_bow",
+    "prompt": "Use case: stylized-concept. Approved V7 plush-bird reference and representative current bird sprite are STYLE and scale references. Generate a LITTLE ROSE-PINK FABRIC HAIR BOW alone as an overlay for a mama bird. Two plump soft woven cloth loops, central knot, two short rounded tails, gentle 3D highlights and soft fiber detail matching the plush-bird render. Front three-quarter view, knot at center. Small friendly readable silhouette, no outlines, no jewels or symbols. Entire bow visible centered. No bird, feathers, head, background, shadow plane, text or UI. Real RGBA transparency; this must be an independent small accessory.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c40b9057-2355-4bc6-bb43-0ace789e8ae3.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/references/sunny_idle.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "chick_fluff",
+    "prompt": "Use case: stylized-concept. Approved V7 plush-bird reference and current bird sprite are material references. Generate only a small SOFT CREAM DOWN-FEATHER CHEST TUFT as a transparent chick overlay. Shallow round fluffy bib patch with delicate individual down strands and three tiny upward wisps, feather tips merging softly outward; warm ivory neutral color, soft3D plush lighting, no outlines. No face, eyes, beak, bird body, limbs, clothing, bow, badge or circle backing. This small patch sits on a bird's lower chest below its beak without hiding its species design. One centered isolated tuft, true RGBA transparent exterior and soft antialiased feather edge, no floor shadow or background.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-2ea5a770-da65-4f86-bddb-69e705328b3f.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/references/sunny_idle.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "wobble_l",
+    "prompt": "Use case: precise-object-edit. Image1 is the approved gameplay STYLE reference; image2 is the exact generated mystery egg design to preserve. Create ONE isolated transparent egg animation state, no nest. Preserve the SAME cream shell, caramel fleck pattern, brown question mark, same3D material, top-left lighting, camera and physical egg size. No bird, background, shadow plane, UI, outlines, motion lines or extra glow. Tilt this egg LEFT by about16degrees as it rocks around its lower resting point. The top leans clearly left, the question mark tilts with the shell, the bottom remains nearly centered. Entire unbroken egg visible, not mirrored.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-956165c9-e639-4c9f-85c2-e34cb01787bf.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/raw/idle.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "wobble_r",
+    "prompt": "Use case: precise-object-edit. Image1 is the approved gameplay STYLE reference; image2 is the exact generated mystery egg design to preserve. Create ONE isolated transparent egg animation state, no nest. Preserve the SAME cream shell, caramel fleck pattern, brown question mark, same3D material, top-left lighting, camera and physical egg size. No bird, background, shadow plane, UI, outlines, motion lines or extra glow. Tilt this egg RIGHT by about16degrees as it rocks around its lower resting point. The top leans clearly right, the question mark tilts with the shell, the bottom remains nearly centered. Entire unbroken egg visible, not mirrored.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-b777ce19-0c32-4b85-9f00-bfcb5fc62096.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/raw/idle.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "crack",
+    "prompt": "Use case: precise-object-edit. Image1 is the approved gameplay STYLE reference; image2 is the exact generated mystery egg design to preserve. Create ONE isolated transparent egg animation state, no nest. Preserve the SAME cream shell, caramel fleck pattern, brown question mark, same3D material, top-left lighting, camera and physical egg size. No bird, background, shadow plane, UI, outlines, motion lines or extra glow. Keep the egg upright. Show a bold irregular zigzag opening around the upper third, several branching cracks down the front, and the upper shell cap lifted just slightly on one side. The dark interior gap must read at small game size. Keep the brown question mark on the lower shell face. No creature visible.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-c00f3e07-47ce-458e-bea0-e29c93b38e78.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/raw/idle.png"
+    ],
+    "attempt": 1
+  },
+  {
+    "name": "shell",
+    "prompt": "Use case: precise-object-edit. Image1 is the approved gameplay STYLE reference; image2 is the exact generated mystery egg design to preserve. Create ONE isolated transparent egg animation state, no nest. Preserve the SAME cream shell, caramel fleck pattern, brown question mark, same3D material, top-left lighting, camera and physical egg size. No bird, background, shadow plane, UI, outlines, motion lines or extra glow. Show the EMPTY BROKEN SHELL after hatching: a large open lower shell cup with a clearly jagged rim, and its detached smaller upper cap lying tilted immediately to the right. Same ivory shell and caramel flecks, portions of the old brown question mark remain on lower cup. No whole egg silhouette, no bird. Empty interior visible. Pieces stay clustered at the bottom, preserve shell wall thickness and rounded volume; no flying fragments.",
+    "source": "/Users/apple/.codex/generated_images/01a19f96-5627-7842-a450-77ee3446aba1/exec-fe544e5a-c2d8-4d2c-9681-29addc36a2c8.png",
+    "references": [
+      "art/v7/ui7_level_k7.png",
+      "art/v7/eggs_overlays/raw/idle.png"
+    ],
+    "attempt": 1
+  }
+]

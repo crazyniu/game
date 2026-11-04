@@ -1,13 +1,11 @@
 # Status: mac-art
 
-DONE: T49 WORLD takeover and six booster illustrations. Branch `mac-art/world`, based on accepted T48 `825ca1d`.
+DONE: seven T49 eggs/overlays delivered to current Codex coordinator for review/integration on `mac-art/world`. Asset delivery SHA: `34eddebeca3b75fa5e39019090c8b486ba99911f`. This follow-up status commit records the exact delivered asset SHA; both commits are pushed to the task branch. No merge to main performed. PAUSED for coordinator review and user testing after handoff; no subsequent work started.
 
-Delivered 32 world PNGs in `PerchSort/Assets/Resources/V7/World/`: 16 backgrounds covering all requested variants; four branches 620x90, four twigs 400x80, four crowns 600x400, four trunks 160x1920. Delivered six 256x256 RGBA `booster_*_illus.png` files under `V7/Art`.
+Files: `Resources/V7/Birds/egg_idle.png`, `egg_wobble_l.png`, `egg_wobble_r.png`, `egg_crack.png`, `egg_shell.png`, `mama_bow.png`, `chick_fluff.png`, plus their seven PNG metas. Full repository prefix is `PerchSort/Assets/`.
 
-Early pushes: W1 alone `ba83f02`; W4 `2e3d391`; W2 `6d15659`; boosters `c66c3f4`. W3 and final metadata/report are in this final delivery commit (read branch HEAD for hash).
+Eggs 320x320; fixed nest support y=300, identical bottom band, five distinct frame hashes. Overlays 128x128 with exact per-species anchors and display sizes in `art/v7/eggs_overlays/manifest.json`. Seven RGBA/size/alpha checks and static contact/game-size/grayscale/representative-bird QA passed. Sources/prompt records, QA and report isolated under authorized paths. Report: `tasks/T49_eggs_report.md`.
 
-Integration: `art/v7/world/world_assets.json` consolidates dimensions/hashes and pivots. Branch nominal top y by W1/W2/W3/W4: 17/9/22/30. Twig: 18/19/8/22. Snow/bamboo contour variation up to 3 px is recorded. Mirror left assets for right; clip trunk tops under crowns. Preserve padding. All 32 world files and 6 boosters passed size/RGBA/alpha checks.
+Integration limitation: current BirdView fixed overlay anchors do not implement the new per-species placements. Current Codex/mac-ui must wire the documented anchors and verify other species/poses. QA uses read-only bird snapshots from main commit `3e82c64734f3e7291a332d1c0e90263954ce40cd`. No species PNGs edited.
 
-Exact prompts, raw outputs, static scene comparisons, contact sheets and per-piece metadata: `art/v7/world/**`. Main report: `tasks/T49_world_report.md`. Built-in image tool only, 39 calls including one owl-eye retry; no fallback. No originals, birds/eggs, code or scenes changed.
-
-Half done: none. Blocker: none. Next: lead review/merge and mac-ui/QA runtime integration. Unity import, bird foot contact, actual scene placement, device screenshots and animations NOT_RUN. No Unity process or lock created. Both helpers finished; no new work running. No question for lead.
+No unfinished owned asset files or external blocker. Runtime anchor consumption, Unity import, all-pose attachment, animation timing and device acceptance remain NOT_RUN. No sub-workers, code/Unity tests, Unity session/lock or Dispatch. Never contacted old Claude. Only seven runtime PNGs/metas, isolated sources/QA/manifest, task/report and this status changed.
