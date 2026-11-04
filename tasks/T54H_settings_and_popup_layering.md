@@ -9,7 +9,7 @@ Problems:
 - H2 On the map, opening Settings shows ONLY the sound button first and the other two appear later (buttons animate in one by one). Settings must not animate its controls. Panel opening is
   one short motion for the whole panel (fade + scale 0.92 to 1, 0.18 s, ease-out), all three round buttons visible from the first frame, buttons only have the normal press feedback. No bobbing,
   no swinging, no staggered entrance, no idle motion on Settings. Closing is the reverse in 0.12 s.
-- H3 Panel proportions against `art/approved_ui/ui_settings.png` (use `art/v7/ui7_settings.png` if T54E has not renamed yet): panel about 720 px wide, 400 px tall; the three buttons equal size,
+- H3 Panel proportions against `art/approved_ui/ui_settings.png`: panel about 720 px wide, 400 px tall; the three buttons equal size,
   evenly spaced, vertically centred in the cream area; round X on the top-right corner, never covered by anything.
 - H4 Same layering/dim/no-stagger rules for every other popup that PanelsView builds (level card, shop, aviary, notifications): scrim above board and map objects, panel contents visible immediately.
 Evidence: screenshots of Settings in a level with several birds and on the map, plus a contact sheet every 0.05 s for the first 0.5 s of opening (all three buttons present from frame 1).
