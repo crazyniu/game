@@ -12,6 +12,12 @@ Visual gates: reviewed `art/ui_art/qa/tools.jpg` at large and actual 64 px sizes
 
 Checks: naming guard self-test passed 8 tests; naming scan passed with zero violations. Unity tests and screenshots are pending the complete asset delivery and shared lock. Tool glyph wiring is explicitly assigned to a later task; no runtime acceptance is claimed for unreferenced assets.
 
+## Star batch
+
+Replaced `star_full` and `star_empty` at 256 by 256, plus `star_full_small` and `star_empty_small` at 128 by 128. These explicit dimensions in the item specification take precedence over its generic canvas-preservation sentence: the previous files were 160 and 48 px. All four existing `.meta` files remain byte-identical. Small sprites are direct downsamples of the corresponding raw generation, preserving the same look.
+
+Reviewed per-item comparisons on light, dark and purple backgrounds at 64 px. Smooth rounded gold and dim cream-beige states have visually matching silhouettes and top-left highlights; no visible matte fringe. The approved level card guided the smooth treatment, with the win panel retained alongside the evidence for context. No star generation was rejected. Runtime verification remains pending.
+
 ## Remaining batches
 
-Stars, leaf sprigs, bare sleeping owl and map glyphs remain to be produced in that order.
+Leaf sprigs, bare sleeping owl and map glyphs remain to be produced in that order.
