@@ -11,6 +11,7 @@ namespace PerchSort.V5.Game
         private RectTransform rect, body;
         private Image graphic, bow, fluff, zzz, reveal;
         private V5Art art;
+        private V7BirdOverlay overlays;
         private Sprite idleFrame, blinkFrame, quirk1, quirk2, cheer, sleep, flyUp, flyDown;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
@@ -78,8 +79,8 @@ namespace PerchSort.V5.Game
             graphic = V5UI.Image(body, "Pose", null, body.sizeDelta * 0.5f, body.sizeDelta);
             reveal = V5UI.Image(body, "Species inside egg", null, body.sizeDelta * 0.5f, body.sizeDelta * 0.75f);
             reveal.color = new Color(1, 1, 1, 0.45f);
-            bow = V5UI.Image(body, "Mama bow", art.Get("mama_bow"), new Vector2(105, 32) * density, Vector2.one * (48 * density));
-            fluff = V5UI.Image(body, "Chick fluff", art.Get("chick_fluff"), new Vector2(75, 103) * density, Vector2.one * (75 * density));
+            bow = V5UI.Image(body, "Mama bow", art.Get("mama_bow"), Vector2.zero, Vector2.zero);
+            fluff = V5UI.Image(body, "Chick fluff", art.Get("chick_fluff"), Vector2.zero, Vector2.zero);
             zzz = V5UI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(118, 16) * density, Vector2.one * (36 * density));
             trail = new Image[3];
             for (int i = 0; i < trail.Length; i++)
@@ -92,6 +93,11 @@ namespace PerchSort.V5.Game
             blinking = gameObject.AddComponent<V5Motion>(); looking = gameObject.AddComponent<V5Motion>();
             Sync(bird, sleeping); Place(point);
         }
+        private void SetFrame(Sprite frame)
+        {
+            graphic.sprite = frame;
+            overlays?.Apply(frame);
+        }
 
         private Vector3 Scale(float x = 1, float y = 1)
         {
@@ -102,12 +108,14 @@ namespace PerchSort.V5.Game
         {
             breathing.CancelAll(); blinking.CancelAll();
             Bird = bird; asleep = sleeping;
+            if (overlays == null && (bird.IsMama || bird.IsChick))
+                overlays = new V7BirdOverlay(body, bow, fluff, bird.Species.Id, art);
             bow.gameObject.SetActive(bird.IsMama && !bird.IsEgg);
             fluff.gameObject.SetActive(bird.IsChick && !bird.IsEgg);
             zzz.gameObject.SetActive(sleeping && !bird.IsEgg);
             reveal.gameObject.SetActive(bird.IsEgg && bird.IsRevealedEgg);
             reveal.sprite = idleFrame;
-            graphic.sprite = RestFrame;
+            SetFrame(RestFrame);
             body.localScale = Scale();
         }
         public void Place(Vector2 point)
@@ -117,7 +125,7 @@ namespace PerchSort.V5.Game
         private void Idle()
         {
             acting = false; idleEnabled = true; breathing.CancelAll(); StopIdlePose();
-            graphic.sprite = RestFrame; body.localRotation = Quaternion.identity;
+            SetFrame(RestFrame); body.localRotation = Quaternion.identity;
             zzz.gameObject.SetActive(asleep && !Bird.IsEgg);
             breathing.Loop(breathPeriod, t =>
             {
@@ -159,15 +167,15 @@ namespace PerchSort.V5.Game
                 float elapsed = t * duration;
                 idleEnvelope = Mathf.SmoothStep(0, 1, Mathf.Min(elapsed, duration - elapsed) / 0.08f);
                 if (action == 0)
-                    graphic.sprite = elapsed < 0.12f || (twice && elapsed > 0.22f && elapsed < 0.34f) ? blinkFrame : idleFrame;
-                else graphic.sprite = action == 11 ? (t < 0.5f ? quirk1 : quirk2) : idlePoses[action] ?? idleFrame;
-                if (t > 1 - 0.08f / duration) graphic.sprite = idleFrame;
+                    SetFrame(elapsed < 0.12f || (twice && elapsed > 0.22f && elapsed < 0.34f) ? blinkFrame : idleFrame);
+                else SetFrame(action == 11 ? (t < 0.5f ? quirk1 : quirk2) : idlePoses[action] ?? idleFrame);
+                if (t > 1 - 0.08f / duration) SetFrame(idleFrame);
             }, StopIdlePose);
         }
         private void StopIdlePose()
         {
             blinking.CancelAll(); idleActing = false; idleAction = -1; idleEnvelope = idleRotation = idleOffset = 0; idleFacing = 1;
-            if (graphic != null) graphic.sprite = RestFrame;
+            if (graphic != null) SetFrame(RestFrame);
             if (body != null) { body.localRotation = Quaternion.identity; body.localScale = Scale(); }
             if (rect != null && !selected && !acting) rect.anchoredPosition = perch;
         }
@@ -175,7 +183,7 @@ namespace PerchSort.V5.Game
         {
             if (acting || selected || asleep || Bird.IsEgg) { done(); return; }
             Cancel(); acting = true; done = Once(done);
-            motion.Play(0.8f, t => graphic.sprite = t < 0.5f ? quirk1 : quirk2,
+            motion.Play(0.8f, t => SetFrame(t < 0.5f ? quirk1 : quirk2),
                 () => { Idle(); done(); });
         }
         public void LookAt(float? x)
@@ -240,7 +248,7 @@ namespace PerchSort.V5.Game
                     { house.MaskEntry(rect); masked = true; }
                     if (masked) rect.position = flightParent.TransformPoint(new Vector3(path.x + flightParent.rect.xMin, path.y + flightParent.rect.yMax, 0));
                     else rect.anchoredPosition = path;
-                    graphic.sprite = ((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown;
+                    SetFrame(((int)(t * 0.45f / 0.07f) & 1) == 0 ? flyUp : flyDown);
                     float vertical = end.y - start.y + (Bird.Species.IsCrow && !fleeing && !home ?
                         130 * Mathf.PI * Mathf.Cos(t * Mathf.PI * 2) * Mathf.Sign(Mathf.Sin(t * Mathf.PI * 2)) :
                         4 * (1 - 2 * t) * (leap ? 215 : 160));
@@ -263,7 +271,7 @@ namespace PerchSort.V5.Game
                     body.localRotation = Quaternion.identity;
                     foreach (var glow in trail) glow.gameObject.SetActive(false);
                     if (home || fleeing) { arrived(); if (this != null) gameObject.SetActive(false); return; }
-                    perch = end; graphic.sprite = RestFrame;
+                    perch = end; SetFrame(RestFrame);
                     motion.Play(0.12f, t => body.localScale = Scale(Mathf.Lerp(1.15f, 1, t), Mathf.Lerp(0.85f, 1, t)),
                         () => { Idle(); arrived(); });
                 });
@@ -290,7 +298,7 @@ namespace PerchSort.V5.Game
         }
         public void Cheer(Action complete)
         {
-            Cancel(); acting = true; complete = Once(complete); graphic.sprite = cheer;
+            Cancel(); acting = true; complete = Once(complete); SetFrame(cheer);
             Vector2 start = rect.anchoredPosition;
             motion.Play(0.2f, t => rect.anchoredPosition = start + Vector2.up * (Mathf.Sin(t * Mathf.PI) * 40),
                 () => { Idle(); complete(); });
@@ -298,7 +306,7 @@ namespace PerchSort.V5.Game
         public void Wobble(Action done)
         {
             Cancel(); acting = true; done = Once(done);
-            motion.Play(0.3f, t => graphic.sprite = t < 0.35f ? wobbleLeft : t < 0.75f ? wobbleRight : egg,
+            motion.Play(0.3f, t => SetFrame(t < 0.35f ? wobbleLeft : t < 0.75f ? wobbleRight : egg),
                 () => { Idle(); done(); });
         }
         public void Reveal(Action done)
@@ -313,7 +321,7 @@ namespace PerchSort.V5.Game
             Vector2 start = rect.anchoredPosition;
             motion.Play(0.35f, t =>
             {
-                graphic.sprite = t < 0.3f ? crack : t < 0.5f ? shell : idleFrame;
+                SetFrame(t < 0.3f ? crack : t < 0.5f ? shell : idleFrame);
                 rect.anchoredPosition = start + Vector2.up * (45 * Mathf.Sin(t * Mathf.PI));
                 body.localScale = Scale(1 + 0.12f * Mathf.Sin(t * Mathf.PI * 2), 1 - 0.12f * Mathf.Sin(t * Mathf.PI * 2));
             }, () =>
@@ -330,7 +338,7 @@ namespace PerchSort.V5.Game
             motion.Play(0.3f, t =>
             {
                 rect.anchoredPosition = start + Vector2.up * (20 * Mathf.Sin(t * Mathf.PI));
-                if (!effectiveSleep) graphic.sprite = t < 0.5f ? idleFrame : flyUp;
+                if (!effectiveSleep) SetFrame(t < 0.5f ? idleFrame : flyUp);
             }, () => { Idle(); done(); });
         }
         public void Cancel()
@@ -343,7 +351,7 @@ namespace PerchSort.V5.Game
             facing = 1; rect.localScale = Vector3.one; body.localScale = Scale(); body.localRotation = Quaternion.identity;
             body.anchoredPosition = new Vector2(body.sizeDelta.x * 0.5f,
                 -(V7Layout.BirdSize * 0.5f + V7Layout.BirdCenterAboveBranch) * DisplayScale);
-            graphic.sprite = RestFrame; acting = false; selected = false; attention = false;
+            SetFrame(RestFrame); acting = false; selected = false; attention = false;
             rect.anchoredPosition = perch;
             reveal.color = new Color(1, 1, 1, 0.45f);
             zzz.rectTransform.anchoredPosition = new Vector2(118, -16) * DisplayScale;
