@@ -12,7 +12,9 @@ namespace PerchSort.Game
         private GameArt art;
         private GameRoot owner;
         private RectTransform body, ribbon, rewardChip, nextPresentation;
-        private GameMotion nextPulse;
+        private UiBirdLife leftLife, rightLife;
+        private float nextHop;
+        private bool leftHops;
         private TextMeshProUGUI rewardLabel, chorusLabel;
         private GameObject chorusBonus;
         private Image dim, rays, leftBird, rightBird, heroBird;
@@ -31,6 +33,7 @@ namespace PerchSort.Game
             presentation = gameObject.AddComponent<PopupMotion>();
             rays = GameUI.Fit(transform, "Win light rays", art.Get("light_rays"), PanelBounds.center, Vector2.one * 1400);
             leftBird = Bird("left_bird", "sky"); rightBird = Bird("right_bird", "berry"); heroBird = Bird("hero_bird", "sunny");
+            leftLife = leftBird.GetComponent<UiBirdLife>(); rightLife = rightBird.GetComponent<UiBirdLife>();
             body = GameUI.Surface(transform, "Win panel", art, "panel_wood", PanelBounds).rectTransform;
             body.GetComponent<Image>().raycastTarget = true;
             ribbon = GameUI.Fit(body, "Ribbon", art.Get("ribbon_green"), GameLayout.InParent(PanelBounds, GameLayout.Ribbon.center), GameLayout.Ribbon.size).rectTransform;
@@ -50,18 +53,19 @@ namespace PerchSort.Game
             // The approved chain reward is a readable coin line, not the tiny feather mechanic badge.
             GameUI.Fit(chorusBonus.transform, "Chain", art.Get("chain_bonus"), new Vector2(22, 32), Vector2.one * 72);
             chorusLabel = GameUI.Text(chorusBonus.transform, "Chorus coin bonus", "", font, new Vector2(126, 32), new Vector2(140, 72), 48);
-            Rect nextBounds = Local(GameLayout.NextButton);
+            Rect nextBounds = Local(GameLayout.Centered(new Vector2(530, 1348), Vector2.one * 156));
             nextPresentation = GameUI.Rect(body, "Next button presentation", nextBounds.center, nextBounds.size);
-            nextPulse = nextPresentation.gameObject.AddComponent<GameMotion>();
             next = GameUI.Button(nextPresentation, art, "Next level", "icon_next_arrow", new Rect(Vector2.zero, nextBounds.size), () => Close(root.NextLevel), true);
-            replay = GameUI.Button(body, art, "Replay level", "icon_undo", Local(GameLayout.ReplayButton), () => Close(root.Restart));
-            home = GameUI.Button(body, art, "Home", "icon_home", Local(GameLayout.HomeButton), () => Close(root.OpenMap));
+            replay = GameUI.Button(body, art, "Replay level", "icon_undo", Local(GameLayout.Centered(new Vector2(350, 1348), Vector2.one * 124)), () => Close(root.Restart));
+            home = GameUI.Button(body, art, "Home", "icon_home", Local(GameLayout.Centered(new Vector2(710, 1348), Vector2.one * 124)), () => Close(root.OpenMap));
             gameObject.SetActive(false);
         }
         private Image Bird(string part, string species)
         {
             Rect bounds = GameLayout.Screen("win", part);
-            return GameUI.Fit(transform, part, art.Get(species + "_idle"), bounds.center, bounds.size * 1.6f);
+            var bird = GameUI.Fit(transform, part, art.Get(species + "_idle"), bounds.center, bounds.size * 1.6f);
+            bird.gameObject.AddComponent<UiBirdLife>().Configure(bird, art, species, part != "hero_bird", part == "hero_bird");
+            return bird;
         }
         private static Rect Local(Rect rect) => new Rect(rect.position - PanelBounds.position, rect.size);
         public void Show(int earnedStars, int reward, int chorusCoins) => Show(earnedStars, reward, chorusCoins, null);
@@ -73,32 +77,27 @@ namespace PerchSort.Game
             rewardLabel.text = "+0"; chorusLabel.text = "+" + chorusCoins; chorusBonus.SetActive(chorusCoins > 0);
             next.interactable = replay.interactable = home.interactable = true;
             rays.transform.SetAsFirstSibling();
-            presentation.Fade(rays.rectTransform, 0); presentation.Rotate(rays.rectTransform, 24);
+            presentation.Fade(rays.rectTransform, 0); presentation.Rotate(rays.rectTransform, 60);
             // Establish back-to-front order before Emerge hands side birds to the foreground.
             leftBird.transform.SetAsLastSibling();
             rightBird.transform.SetAsLastSibling();
             heroBird.transform.SetAsLastSibling();
             body.SetAsLastSibling();
-            presentation.Track(body); Vector2 rest = body.anchoredPosition;
-            presentation.Play(0.55f, t =>
-            {
-                body.anchoredPosition = rest + Vector2.up * (650 * (1 - t));
-                body.localScale = Vector3.one * Mathf.LerpUnclamped(0.7f, 1, t);
-                body.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(t * Mathf.PI * 4) * 3 * (1 - t));
-            }, delay: 0.12f, ease: Ease.OutBack);
-            presentation.Track(ribbon);
-            presentation.Play(0.35f, t => ribbon.localScale = new Vector3(t, 1, 1), delay: 0.55f, ease: Ease.OutBack);
+            presentation.Track(body);
+            presentation.Play(0.35f, t => body.localScale = Vector3.one * Mathf.LerpUnclamped(0.6f, 1, t), ease: Ease.OutBack);
+            presentation.Track(ribbon); Vector2 ribbonRest = ribbon.anchoredPosition;
+            presentation.Play(0.30f, t => ribbon.anchoredPosition = ribbonRest + Vector2.up * (80 * (1 - t)), delay: 0.10f);
             for (int i = 0; i < stars.Length; i++)
             {
                 int index = i;
                 stars[i].gameObject.SetActive(i < count); slots[i].gameObject.SetActive(i >= count);
                 var star = i < count ? stars[i] : slots[i];
-                presentation.Track(star.rectTransform); Vector2 destination = star.rectTransform.anchoredPosition;
-                presentation.Play(0.32f, t =>
+                presentation.Track(star.rectTransform);
+                presentation.Play(0.35f, t =>
                 {
-                    star.rectTransform.anchoredPosition = destination + Vector2.down * (260 * (1 - t));
-                    star.rectTransform.localScale = Vector3.one * t;
-                    star.rectTransform.localRotation = Quaternion.Euler(0, 0, (1 - t) * -25);
+                    float scale = t < 0.65f ? 1.25f * (1 - Mathf.Pow(1 - t / 0.65f, 3))
+                        : Mathf.Lerp(1.25f, 1, Mathf.SmoothStep(0, 1, (t - 0.65f) / 0.35f));
+                    star.rectTransform.localScale = Vector3.one * scale;
                 }, () =>
                 {
                     if (index < count)
@@ -106,49 +105,50 @@ namespace PerchSort.Game
                         owner.PlaySound(index == 0 ? Sfx.Star1 : index == 1 ? Sfx.Star2 : Sfx.Star3);
                         presentation.Sparkles(art, body, GameLayout.Star(index).center - PanelBounds.position, 100, 0);
                     }
-                }, 0.8f + i * 0.2f, Ease.OutBack);
+                }, 0.45f + i * 0.18f);
             }
-            presentation.Pop(rewardChip, 1.45f); presentation.Count(rewardLabel, reward, 1.5f);
+            presentation.Pop(rewardChip, 0.8f); presentation.Count(rewardLabel, reward, 0.8f);
             if (reward > 0)
             {
-                presentation.Coins(art, transform, GameLayout.RewardChip.position + new Vector2(90, 51), GameLayout.CoinIcon.center, 1.55f);
-                if (coinFlightStarted != null) presentation.After(1.55f, coinFlightStarted);
+                presentation.Coins(art, transform, GameLayout.RewardChip.position + new Vector2(90, 51), GameLayout.CoinIcon.center, 1.0f);
+                if (coinFlightStarted != null) presentation.After(1.0f, coinFlightStarted);
             }
-            if (chorusCoins > 0) presentation.Pop((RectTransform)chorusBonus.transform, 1.7f);
-            Emerge(leftBird, "sky", GameLayout.Screen("win", "left_bird").center, 1.8f, -1);
-            Emerge(rightBird, "berry", GameLayout.Screen("win", "right_bird").center, 1.9f, 1);
-            Rect hero = GameLayout.Screen("win", "hero_bird");
-            presentation.FlyBird(art, heroBird, "sunny", new Vector2(hero.center.x, -240), hero.center, 0.6f,
-                () => { heroBird.sprite = art.Get("sunny_cheer"); presentation.Bob(heroBird, 8); });
-            presentation.Confetti(art, transform, 1.7f);
-            presentation.ButtonsLast(body, 2.2f);
-            presentation.Track(nextPresentation);
-            // NEXT is first: its 2.2 s + 0.23 s pop finishes before the wrapper starts pulsing.
-            presentation.After(2.44f, StartNextPulse);
+            if (chorusCoins > 0)
+            {
+                presentation.Pop((RectTransform)chorusBonus.transform, 1.0f);
+                presentation.Count(chorusLabel, chorusCoins, 1.0f);
+            }
+            Emerge(leftBird, "sky", 0.15f, -1);
+            Emerge(rightBird, "berry", 0.25f, 1);
+            Vector2 heroDestination = -heroBird.rectTransform.anchoredPosition;
+            presentation.FlyBird(art, heroBird, "sunny", new Vector2(heroDestination.x, -240), heroDestination, 0.10f,
+                () => heroBird.GetComponent<UiBirdLife>().Begin(), duration: 0.6f);
+            presentation.Confetti(art, transform, 0);
+            presentation.ButtonsLast(body, 1.16f);
+            nextHop = Time.time + 0.95f + UnityEngine.Random.Range(1.4f, 2.2f); leftHops = true;
         }
-        private void StartNextPulse()
+        private void Update()
         {
-            if (GameMotion.Instant) return;
-            nextPulse.Loop(1.6f, t => nextPresentation.localScale = Vector3.one * (1 + 0.0125f * (1 - Mathf.Cos(t * Mathf.PI * 2))));
+            if (GameMotion.Instant || Time.time < nextHop || leftLife == null) return;
+            (leftHops ? leftLife : rightLife).Play("hop");
+            leftHops = !leftHops;
+            nextHop = Time.time + UnityEngine.Random.Range(1.4f, 2.2f);
         }
         private void Close(Action action)
         {
-            nextPulse.CancelAll(); nextPresentation.localScale = Vector3.one;
+            nextHop = float.PositiveInfinity;
             presentation.Close(action);
         }
-        private void Emerge(Image bird, string species, Vector2 destination, float delay, float direction)
+        private void Emerge(Image bird, string species, float delay, float direction)
         {
-            presentation.Track(bird.rectTransform); var canvas = bird.GetComponent<CanvasGroup>();
-            Vector2 start = destination - Vector2.right * (direction * 190);
-            Sprite cheer = art.Get(species + "_cheer"); bool emerged = false;
-            presentation.Play(0.38f, t =>
+            Vector2 destination = -bird.rectTransform.anchoredPosition;
+            Vector2 start = new Vector2(direction < 0 ? -bird.rectTransform.rect.width : GameLayout.DesignWidth + bird.rectTransform.rect.width,
+                destination.y - 180);
+            presentation.FlyBird(art, bird, species, start, destination, delay, () =>
             {
-                canvas.alpha = Mathf.Clamp01(t * 6);
-                Vector2 point = Vector2.Lerp(start, destination, t) + Vector2.up * (-35 * Mathf.Sin(t * Mathf.PI));
-                bird.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
-                bird.sprite = cheer;
-                if (t > 0.45f && !emerged) { emerged = true; bird.transform.SetAsLastSibling(); }
-            }, () => presentation.Bob(bird, 12, direction > 0 ? 0.3f : 0), delay);
+                bird.transform.SetAsLastSibling();
+                bird.GetComponent<UiBirdLife>().Begin();
+            }, duration: 0.6f);
         }
         public void Hide()
         {
