@@ -4,13 +4,13 @@
 
 | Species | Delivered frames | Status |
 | --- | ---: | --- |
-| mint | 38 | Offline art review passed; Unity acceptance pending |
-| cocoa | 38 | Offline art review passed; Unity acceptance pending |
-| snow | 38 | Offline art review passed; Unity acceptance pending |
-| ember | 38 | Offline art review passed; Unity acceptance pending |
-| ink | 38 | Offline art review passed; Unity acceptance pending |
-| hoot | 38 | Offline art review passed; Unity acceptance pending |
-| crow | 38 | Offline art review passed; Unity acceptance pending |
+| mint | 38 | Offline art review passed; timed runtime acceptance pending |
+| cocoa | 38 | Offline art review passed; timed runtime acceptance pending |
+| snow | 38 | Offline art review passed; timed runtime acceptance pending |
+| ember | 38 | Offline art review passed; timed runtime acceptance pending |
+| ink | 38 | Offline art review passed; timed runtime acceptance pending |
+| hoot | 38 | Offline art review passed; timed runtime acceptance pending |
+| crow | 38 | Offline art review passed; timed runtime acceptance pending |
 
 Each completed species contains flap 6, hop 6, turn_left 4, turn_right 4, cheer 6, preen 5, peek 4, blink 3. Exports are 320x320 RGBA in the canonical Birds resource folder. Import settings are copied from that species' idle metadata, with fresh asset and sprite GUIDs. Existing assets and code are unchanged.
 
@@ -43,7 +43,10 @@ Every completed sequence has a JPEG contact sheet in `evidence/` with idle, ligh
 - Hoot: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files.
 - Crow: 38 images and all eight contact sheets reviewed; matching idle import settings, real alpha, no clipped exports or duplicate frame files. Gray toe registration preserves the 300 px baseline.
 - Naming guard self-test: 8 passed. Naming guard: zero violations before Unity.
-- Unity compilation, full EditMode/PlayMode suites, stable screenshots and timed runtime evidence are pending. The shared Unity lock was occupied by other authorized batch workers when inspected. No process was killed.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: Unity 6000.6.7f1 compilation and canonical scene build passed; full EditMode **312/312** and full PlayMode **53/53**, zero failed/skipped/inconclusive cases. Retained LevelsData 81 and Layout 41 cases passed. XML and logs remain in `build/`; paths and hashes are recorded in `art/birds_sequences/qa/unity_checks.json`.
+- `flock /tmp/unity.lock bash scripts/screenshots.sh`: passed, **34 PNGs at 1080x1920**, under `build/screens/game/`. Reviewed `mech_crow_twig.png`, `level_k7.png` and `popup_new_friend.png` as representative stable captures. Capture inventory and hashes are in `unity_checks.json`.
+- Verification waited for the shared lock; no process was killed. Before Unity, recorded 2194 tracked Unity files and backed up scene, metadata, settings and packages. After reviewing generated changes, restored 380 whitespace-only metadata rewrites, seven existing overlay metadata expansions and the rebuilt scene (object/Input System action IDs) from that snapshot. All 2194 tracked Unity files match their pre-run bytes; no scene, runtime code, settings, packages or original art changes are delivered.
+- Tests and stable captures used the scene rebuilt by `GameSceneBuilder`. The screenshots use instant motion and synthetic profiles; they do not establish playback of every delivered frame. Timed species animation, real GUI/device and coordinator integration acceptance remain pending. Offline APNG previews are artwork evidence only.
 
 ## Missing items
 
@@ -52,3 +55,15 @@ No required species are missing. Mint, cocoa, snow, ember, ink, hoot and crow ea
 ## Reproduction commands
 
 For each species, run `python art/birds_sequences/qa/prepare_remaining.py <species>` and `python art/birds_sequences/qa/check_remaining.py <species>` in an environment with Pillow. This worker used `/tmp/perch-remaining-species-tools/bin/python`. The source prompts, raw sheets, contact sheets, APNG previews, inventories and checks are retained under `art/birds_sequences/`. All five required species were committed and pushed separately in the requested order.
+
+## Species pushes
+
+| Species | Commit | Frames |
+| --- | --- | ---: |
+| snow | `d3fecc63` | 38 |
+| ember | `122379bd` | 38 |
+| ink | `67993414` | 38 |
+| hoot | `887f3964` | 38 |
+| crow | `201d3514` | 38 |
+
+Final state: all five assigned species delivered and pushed, 40 reviewed JPEG contact sheets, 40 offline APNG previews, no required sequence or frame missing. Optional mama_bow/chick_fluff overlays remain unattempted.
