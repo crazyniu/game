@@ -127,5 +127,77 @@
     "name": "house_lantern_refined",
     "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-448e2040-f6fd-4e4c-9f38-7104d0ce5007.png",
     "status": "accepted"
+  },
+  {
+    "species": "sunny",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact sunny_idle game sprite. Add ONLY small blue bow tie, naturally and physically worn.  Critical: preserve original beak exactly as shown, same happy open beak, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "sunny_bow_tie",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-507d27ab-e2a4-4783-b52a-fe173266caec.png",
+    "status": "accepted"
+  },
+  {
+    "species": "sky",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact sky_idle game sprite. Add ONLY brown aviator goggles pushed up on the head, naturally and physically worn. Goggles sit above the eyes, on the forehead, do not cover or change the eyes. Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "sky_goggles",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-b674b1c0-6633-4279-a3d0-4e0487199548.png",
+    "status": "accepted"
+  },
+  {
+    "species": "berry",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact berry_idle game sprite. Add ONLY pink bow on the crest, naturally and physically worn.  Critical: preserve original beak exactly as shown, same happy open beak, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "berry_bow",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-dff5043a-a84d-4ab6-904e-9ccb2f1ed4cd.png",
+    "status": "accepted"
+  },
+  {
+    "species": "mint",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact mint_idle game sprite. Add ONLY mushroom-cap hat, naturally and physically worn. A cute red mushroom cap with pale dots sits over the head; preserve visible leaf crest identity where it emerges. Critical: preserve original beak exactly as shown, same happy open beak, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "mint_mushroom_hat",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-e68a6671-dae0-47a5-87d9-319bf0cd5a2b.png",
+    "status": "accepted"
+  },
+  {
+    "species": "cocoa",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact cocoa_idle game sprite. Add ONLY striped bow tie, naturally and physically worn.  Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "cocoa_bow_tie",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-c9134a37-5801-45b7-8033-b31598a391af.png",
+    "status": "accepted"
+  },
+  {
+    "species": "snow",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact snow_idle game sprite. Add ONLY snowflake hair clip, naturally and physically worn.  Critical: preserve original beak exactly as shown, same happy open beak, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "snow_snowflake",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-44384c4a-1a9a-40d9-a9f7-ec842295143f.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ember",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact ember_idle game sprite. Add ONLY flame-pattern headband, naturally and physically worn.  Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "ember_headband",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-eca77623-449a-43ad-9948-844616543cee.png",
+    "status": "accepted"
+  },
+  {
+    "species": "ink",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact ink_idle game sprite. Add ONLY round moon-shaped spectacles, naturally and physically worn. Two circular silver moon-like frames with subtle crescent motifs; clear lenses show original eyes. Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "ink_spectacles",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-fca70397-f000-465b-ae67-aae182d051d5.png",
+    "status": "accepted"
+  },
+  {
+    "species": "hoot",
+    "tier": 2,
+    "prompt": "Use case: identity-preserve. Edit this exact hoot_idle game sprite. Add ONLY round reading glasses, naturally and physically worn. Keep existing purple nightcap and every facial feature unchanged. Critical: preserve original beak exactly as shown, CLOSED beak, no mouth opening, no smile, exact eye shape, gaze, iris size, feather colours, crest, body shape, proportions, wing/foot positions and pose. Match original soft plush feather rendering, no outlines, top-left lighting. Complete single bird sprite, same original square canvas and placement with feet at y302/320; do not enlarge or recenter. Requested output 320x320 RGBA, true clean transparent background, no ground or shadows, no UI, text or other accessories. Recognizable at 64px.",
+    "name": "hoot_glasses",
+    "source": "/Users/apple/.codex/generated_images/01a1a764-1ccc-7170-b67d-a06423046de0/exec-8bd37ae3-57ab-427a-b1a6-892dc1657400.png",
+    "status": "accepted"
   }
 ]

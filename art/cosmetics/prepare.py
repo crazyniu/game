@@ -130,7 +130,14 @@ def main():
         result.save(dest)
         meta(dest, template)
         assets.append({"file": str(dest.relative_to(ROOT)), "size": list(result.size), "pivot": [0.5, 0.5], "raw": "art/cosmetics/raw/" + r["name"] + ".png", "geometry": geometry})
-    (ART / "art-manifest.json").write_text(json.dumps({"assets": assets}, indent=2) + "\n")
+    manifest = [{k: v for k, v in a.items() if k != "geometry"} for a in assets]
+    (ART / "art-manifest.json").write_text('{\n  "assets": [\n    ' + ',\n    '.join(json.dumps(a) for a in manifest) + '\n  ]\n}\n')
+    inspection = {
+        "method": "Visual base/reference comparison, light/dark backgrounds, actual 64 px color and grayscale. Delivery normalization uses resampling and translation only.",
+        "rejections": {r["name"]: r["reason"] for r in records if r["status"] == "rejected"},
+        "geometry": [{"file": a["file"], "measurement": a["geometry"]} for a in assets],
+    }
+    (ART / "qa/inspection.json").write_text(json.dumps(inspection, indent=2) + "\n")
     species = list(dict.fromkeys(r["species"] for r in records if "species" in r))
     for name in species:
         paths = [RES / "Birds" / (name + "_idle.png")] + sorted((RES / "Birds").glob(name + "_outfit_*.png"))

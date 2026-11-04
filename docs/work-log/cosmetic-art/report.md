@@ -14,4 +14,8 @@ Rejected and regenerated: Sunny straw-hat initial framing/body presentation; Sky
 
 House door leaves retain the shared wooden door design, so no optional style-specific door-open image is supplied. Integration must reuse the shared leaf over the new body and omit the original `house_door_open` full-facade overlay and separate colored roof; those existing images contain the original house appearance. This worker does not change integration code.
 
-Remaining at this checkpoint: eighteen higher-tier outfits, final four-column species sheets, serialized Unity verification and runtime integration acceptance. Naming guard self-test passed (8 tests), and the initial tracked-tree guard passed with zero violations. Unity is currently occupied by other serialized workers; no Editor was stopped. No runtime outfit/house integration or animation acceptance is claimed.
+## Middle delivery
+
+Added all nine middle-tier outfits in the specified accessory order. All passed the same light/dark, 64 px and grayscale review, with no additional rejected generations. Current delivery count is eighteen outfits plus four houses. The house aperture bounding boxes exactly match the original measured dark opening `(148, 204)..(353, 405)` after sizing. `art/cosmetics/qa/house-alignment.jpg` shows the shared door leaf over each house and an aperture guide; it is explicitly an offline alignment check.
+
+Remaining at this checkpoint: nine highest-tier outfits, final four-column species sheets, serialized Unity verification and runtime integration acceptance. Naming guard self-test passed (8 tests), and tracked-tree checks passed with zero violations. Unity is currently occupied by other serialized workers; no Editor was stopped. No runtime outfit/house integration or animation acceptance is claimed.
