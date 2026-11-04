@@ -8,6 +8,9 @@ namespace PerchSort.Game
 {
     public sealed class MapView : MonoBehaviour
     {
+        private const float NodeSize = 220, CurrentNodeSize = 240, LockedNodeSize = 200;
+        private const float NumberSize = 100, StarSize = 48, StarPitch = 50;
+        private const float ChickSize = 310, ChickLift = 230, GateCanvasSize = 532;
         private GameRoot root;
         private GameArt art;
         private TMP_FontAsset font;
@@ -59,12 +62,18 @@ namespace PerchSort.Game
             scroll.onValueChanged.AddListener(_ => ClampOffset());
             coins = HudView.CoinHeader(transform, art, font, true);
             GameUI.Button(transform, art, "Map settings", "icon_gear", GameLayout.Screen("map", "gear"), root.OpenSettings);
-            GameUI.Button(transform, art, "Shop", "icon_basket", GameLayout.Screen("map", "shop"), () => root.OpenPopup(PopupKind.ShopPlaceholder));
-            GameUI.Button(transform, art, "Aviary", "icon_aviary", GameLayout.Screen("map", "aviary"), () => root.OpenPopup(PopupKind.AviaryPlaceholder));
-            GameUI.Button(transform, art, "Settings", "icon_gear", GameLayout.Screen("map", "settings"), root.OpenSettings);
+            MapButton("Shop", "icon_basket", GameLayout.Screen("map", "shop"), () => root.OpenPopup(PopupKind.ShopPlaceholder));
+            MapButton("Aviary", "icon_aviary", GameLayout.Screen("map", "aviary"), () => root.OpenPopup(PopupKind.AviaryPlaceholder));
+            MapButton("Settings", "icon_gear", GameLayout.Screen("map", "settings"), root.OpenSettings);
             rewards = gameObject.AddComponent<GameMotion>();
             effects = GameUI.Rect(transform, "Map reward coins", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             gameObject.SetActive(false);
+        }
+        private void MapButton(string name, string icon, Rect bounds, System.Action action)
+        {
+            var button = GameUI.Button(transform, art, name, icon, bounds, action);
+            var glyph = (RectTransform)button.transform.Find("Icon");
+            glyph.sizeDelta = Vector2.one * (Mathf.Min(bounds.width, bounds.height) * 0.76f);
         }
         public void Show(GameProfile profile)
         {
@@ -80,10 +89,10 @@ namespace PerchSort.Game
             {
                 float boundary = (MapModel.Position((world - 1) * 10).y + MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
                 Vector2 gate = new Vector2(540, boundary);
-                float side = Mathf.Min(GameLayout.MapGateSize.x, GameLayout.MapGateSize.y);
+                float side = GateCanvasSize;
                 gateStates.Add(world, MapModel.WorldOpen(profile, world));
                 BuildGate(world, gate, side, gateStates[world]);
-                GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(250, 0), new Vector2(240, 100));
+                GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(315, 0), new Vector2(240, 100));
             }
             FocusLevel = MapModel.CurrentLevel(profile);
             for (int id = 1; id <= 40; id++) Node(profile, id);
@@ -95,27 +104,40 @@ namespace PerchSort.Game
         {
             var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id);
             bool current = id == FocusLevel;
-            var holder = GameUI.Rect(content, "Node " + id, point, Vector2.one * GameLayout.MapNodeSize);
-            Vector2 center = Vector2.one * GameLayout.MapNodeSize * 0.5f;
+            float diameter = current ? CurrentNodeSize : state == LevelNodeState.Locked ? LockedNodeSize : NodeSize;
+            var holder = GameUI.Rect(content, "Node " + id, point, Vector2.one * diameter);
+            Vector2 center = Vector2.one * diameter * 0.5f;
+            Image shadow = null;
             if (current)
             {
-                var shadow = GameUI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * GameLayout.MapShadowOffsetY, GameLayout.MapShadowSize);
+                shadow = GameUI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * GameLayout.MapShadowOffsetY, GameLayout.MapShadowSize);
                 shadow.color = new Color(0.25f, 0.16f, 0.06f, 0.5f); shadow.transform.SetSiblingIndex(holder.GetSiblingIndex());
-                var chick = GameUI.Fit(holder, "Sunny chick", art.Get("sunny_idle"),
-                    center + Vector2.up * GameLayout.MapBirdOffsetY, Vector2.one * GameLayout.MapBirdSize);
-                nodeMotion.Current(holder, shadow, chick, art);
+                var glow = GameUI.Fit(holder, "Current node golden halo", art.Get("glow_soft"), center, new Vector2(560, 440));
+                glow.color = new Color(1, 0.8f, 0.15f, 0.8f);
             }
             string sprite = state == LevelNodeState.Locked ? "node_stone_locked" : current ? "node_wood_current_glow" : "node_wood";
-            var face = GameUI.Fit(holder, "Level " + id, art.Get(sprite), center, Vector2.one * GameLayout.MapNodeSize); face.raycastTarget = true;
+            var face = GameUI.Fit(holder, "Level " + id, art.Get(sprite), center, Vector2.one * diameter); face.raycastTarget = true;
             Button button = state == LevelNodeState.Locked ? face.gameObject.AddComponent<Button>() : face.gameObject.AddComponent<GameButton>(); button.targetGraphic = face;
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             button.interactable = state != LevelNodeState.Locked;
             button.onClick.AddListener(() => { nodeMotion.Tap(holder); root.OpenLevelCard(id); }); nodes.Add(id, button);
-            var number = GameUI.Text(face.transform, "Level number", id.ToString(), font, center + GameLayout.MapNumberOffset, Vector2.one * GameLayout.MapNodeSize, GameLayout.MapNumberSize);
+            var number = GameUI.Text(face.transform, "Level number", id.ToString(), font,
+                center + new Vector2(0, state == LevelNodeState.Cleared ? -28 : -20), Vector2.one * diameter, NumberSize);
             number.color = Color.white;
+            number.outlineColor = new Color32(87, 52, 25, 255); number.outlineWidth = 0.14f;
             if (state == LevelNodeState.Cleared) for (int i = 0; i < 3; i++)
                 GameUI.Fit(holder, "Star " + (i + 1), art.Get(i < profile.BestStars(id) ? "star_full_small" : "star_empty_small"),
-                    center + new Vector2((i - 1) * GameLayout.MapStarPitch, GameLayout.MapStarOffsetY), Vector2.one * GameLayout.MapStarSize);
+                    center + new Vector2((i - 1) * StarPitch, i == 1 ? 47 : 39), Vector2.one * StarSize);
+            if (current)
+            {
+                for (int i = 0; i < 2; i++)
+                    GameUI.Fit(holder, "Current node sparkle " + (i + 1), art.Get("sparkle"),
+                        center + new Vector2(i == 0 ? -150 : 150, i == 0 ? -70 : -20), Vector2.one * 110);
+                // Draw after the face so the toes overlap its upper rim, not behind it.
+                var chick = GameUI.Fit(holder, "Sunny chick", art.Get("sunny_idle"),
+                    center + Vector2.down * ChickLift, Vector2.one * ChickSize);
+                nodeMotion.Current(holder, shadow, chick, art);
+            }
         }
         private static float MaximumOffset => Mathf.Max(160, GameLayout.MapHeight - GameLayout.MapViewport.height);
         private static float Clamp(float value) => Mathf.Clamp(value, 160, MaximumOffset);
