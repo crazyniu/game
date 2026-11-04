@@ -51,13 +51,17 @@ namespace PerchSort.Game
             world == 2 ? new Vector2(96, 332) : world == 3 ? new Vector2(111, 358) : new Vector2(105, 355);
         public static Rect WorldCrown(int world, bool right)
         {
-            float left = (world == 2 || world == 3 ? 40 : 70) - CrownAttachment(world).x * 2 / 3;
-            return new Rect(right ? DesignWidth - left - 400 : left, 470, 400, 400f * 2 / 3);
+            // The snowy board keeps its crowns at the outer edge, above the dense perch band.
+            if (world == 4) return new Rect(right ? 990 : -250, 430, 340, 340f * 2 / 3);
+            float width = right ? 540 : 500;
+            float left = 25 - CrownAttachment(world).x * width / 600;
+            return new Rect(right ? DesignWidth - left - width : left, 470, width, width * 2 / 3);
         }
         public static Rect WorldTrunk(int world, bool right)
         {
-            float top = 470 + CrownAttachment(world).y * 2 / 3 - (world == 3 ? 85 : world == 2 ? 65 : 25);
-            return new Rect(right ? 990 : -70, top, 160, 1920);
+            Rect crown = WorldCrown(world, right);
+            float top = crown.y + CrownAttachment(world).y * crown.width / 600 - 35;
+            return new Rect(right ? DesignWidth - 55 : -55, top, 110, DesignHeight - top + 80);
         }
         public const float ToolY = 1802, ToolFirstX = 260, ToolPitch = 182;
         public const int ToolCount = 4;

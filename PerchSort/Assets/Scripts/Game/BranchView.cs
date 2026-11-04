@@ -32,7 +32,8 @@ namespace PerchSort.Game
             var hit = gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
             Vector2 rootPoint = new Vector2(IsRight ? 1080 : 0, BranchY) - hitRect.position;
             flex = GameUI.Rect(transform, "Flex root", rootPoint, Vector2.zero);
-            wood = GameUI.Image(flex, "Branch", art.World(Kind == BranchKind.Twig ? "twig_left" : "branch_left", root.Session.State.World), Vector2.zero, Vector2.zero);
+            wood = GameUI.Rect(flex, "Branch", Vector2.zero, Vector2.zero).gameObject.AddComponent<PerchLimbImage>();
+            wood.raycastTarget = false;
             wood.rectTransform.pivot = new Vector2(0, 1);
             wood.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             UpdateWood();
@@ -52,6 +53,7 @@ namespace PerchSort.Game
         {
             bool twig = Kind == BranchKind.Twig;
             wood.sprite = art.World(twig ? "twig_left" : "branch_left", root.Session.State.World);
+            ((PerchLimbImage)wood).PerchTop = GameLayout.BranchPerchTop(root.Session.State.World, twig);
             wood.rectTransform.sizeDelta = twig ? GameLayout.TwigDisplaySize : GameLayout.BranchDisplaySize;
             wood.rectTransform.anchoredPosition = new Vector2(0, GameLayout.BranchPerchTop(root.Session.State.World, twig));
             wood.type = Image.Type.Filled; wood.fillMethod = Image.FillMethod.Horizontal; wood.fillOrigin = 0;
@@ -137,5 +139,40 @@ namespace PerchSort.Game
         }
         private void OnDisable() => Cancel();
         private void OnDestroy() => Cancel();
+    }
+
+    // Reshape the supplied limb, rather than clipping off its rounded tip as seats grow.
+    internal sealed class PerchLimbImage : Image
+    {
+        public float PerchTop { get; set; }
+
+        protected override void OnPopulateMesh(VertexHelper mesh)
+        {
+            mesh.Clear();
+            if (sprite == null || fillAmount <= 0) return;
+            Rect rect = GetPixelAdjustedRect();
+            Vector4 uv = UnityEngine.Sprites.DataUtility.GetOuterUV(sprite);
+            const int segments = 24;
+            float width = rect.width * fillAmount;
+            float baseline = rect.yMax - PerchTop;
+            for (int i = 0; i <= segments; i++)
+            {
+                float u = i / (float)segments;
+                float root = 1 - u;
+                float thickness = 1.55f + 1.2f * root * root;
+                // Keep the sitting surface at the logical feet; put the extra mass below it.
+                float bend = 8 * root * root * root;
+                float top = baseline + PerchTop * thickness - bend;
+                float bottom = baseline - (rect.height - PerchTop) * thickness - bend;
+                float x = rect.xMin + width * u;
+                float textureX = Mathf.Lerp(uv.x, uv.z, u);
+                mesh.AddVert(new Vector3(x, bottom, 0), color, new Vector2(textureX, uv.y));
+                mesh.AddVert(new Vector3(x, top, 0), color, new Vector2(textureX, uv.w));
+                if (i == 0) continue;
+                int previous = (i - 1) * 2;
+                mesh.AddTriangle(previous, previous + 1, previous + 3);
+                mesh.AddTriangle(previous, previous + 3, previous + 2);
+            }
+        }
     }
 }
