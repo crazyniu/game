@@ -1,7 +1,7 @@
 {
-  "assets": 18,
-  "species": 6,
-  "unique_new_guids": 108,
+  "assets": 27,
+  "species": 9,
+  "unique_new_guids": 156,
   "checks": [
     {
       "file": "berry_front.png",
@@ -92,6 +92,141 @@
       "transparent_border": true,
       "importer_matches_idle": true,
       "sha256": "6d613c9f182204299e8901abde59846474c9f5c8c7c25fe04a1bbb23d8ef4c77"
+    },
+    {
+      "file": "ember_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "7673bbef446b3dac0c8028e03d4374ace313a069f60735bd2bfb9c505da1ecb6"
+    },
+    {
+      "file": "ember_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "66b8cc2897171b119b1d289e01e54c672b7fa7bc042c9a0b42cd1f523f635270"
+    },
+    {
+      "file": "ember_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "8e3dceaeb5af8fd0a5569f770628aa2bada51238f472093a70e6073f053aa96b"
+    },
+    {
+      "file": "hoot_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "a449b74bb409ff59453a96ccdd9e326ed1d2a2add7caa612da35f8c746065993"
+    },
+    {
+      "file": "hoot_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "92099055945119cc8e7bcfef0325ff906826cc3bd03e68801b3535734ec2f0dc"
+    },
+    {
+      "file": "hoot_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "a0791ec4c6db3f419b4fbffa67343166a1bb8f0cde665f282017d3566772aeaa"
+    },
+    {
+      "file": "ink_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "037cf7101194f36b74e4f0e31a07a11d772cb4817ee1e8ae0232992055fea23d"
+    },
+    {
+      "file": "ink_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "90b7c7d9ad069592d34a0b69aefc93e7e337a267a1f929de7bbd7468ff931a26"
+    },
+    {
+      "file": "ink_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "a4255eb321544da91bed938dcd52fc922a4220a4d2728802effb1bdda2b89490"
     },
     {
       "file": "mint_front.png",
