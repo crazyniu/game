@@ -1,0 +1,47 @@
+{
+  "test-results.xml": {
+    "result": "Passed",
+    "total": "317",
+    "passed": "317",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "12.6766825",
+    "start-time": "2026-11-05 01:40:25Z",
+    "end-time": "2026-11-05 01:40:38Z",
+    "retained_cases": {
+      "PerchSort.EditModeTests.LevelsDataTests.": 81,
+      "PerchSort.EditModeTests.LayoutTests.": 41
+    }
+  },
+  "playmode-results.xml": {
+    "result": "Passed",
+    "total": "87",
+    "passed": "87",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "182.1408029",
+    "start-time": "2026-11-05 01:40:45Z",
+    "end-time": "2026-11-05 01:43:47Z",
+    "retained_cases": {
+      "PerchSort.EditModeTests.LevelsDataTests.": 0,
+      "PerchSort.EditModeTests.LayoutTests.": 0
+    }
+  },
+  "stable_state_capture": {
+    "command": "flock /tmp/unity.lock bash scripts/screenshots.sh",
+    "result": "Passed",
+    "png_count": 34,
+    "size": [
+      1080,
+      1920
+    ],
+    "directory": "build/screens/game",
+    "log": "build/screenshots.log",
+    "timed_outfit_runtime_acceptance": false
+  },
+  "pre_unity_snapshot": {
+    "files": 1709,
+    "restored_generated_files": 908,
+    "all_pre_run_hashes_match": true
+  }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      62,
+      36,
+      250,
+      301
+    ],
+    "scale": 0.4426229508196721,
+    "translation": [
+      2,
+      15
+    ],
+    "bare_feet": [
+      105,
+      289,
+      214,
+      299
+    ],
+    "source_feet": [
+      233,
+      619,
+      477,
+      641
+    ],
+    "sha256": "b92a45dc797ee07807a948050d82aae8d3c639f11759f3eed6d0b546678873b5"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      63,
+      37,
+      251,
+      302
+    ],
+    "scale": 0.4426229508196721,
+    "translation": [
+      3,
+      16
+    ],
+    "bare_feet": [
+      106,
+      290,
+      214,
+      300
+    ],
+    "source_feet": [
+      233,
+      619,
+      477,
+      641
+    ],
+    "sha256": "a5ab23f32647866e1043ffcde093ac09e7bb961661845787bcb38529ea6bd5a3"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_03.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      63,
+      37,
+      251,
+      302
+    ],
+    "scale": 0.4426229508196721,
+    "translation": [
+      3,
+      16
+    ],
+    "bare_feet": [
+      106,
+      290,
+      214,
+      300
+    ],
+    "source_feet": [
+      233,
+      619,
+      477,
+      641
+    ],
+    "sha256": "72086de93e16392529a2cffdcb7093d4b0a0a2ca8328a80cc009d6ef4a6f25e8"
+  }
+]

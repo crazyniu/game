@@ -11,18 +11,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "sky_outfit_1",
@@ -34,18 +24,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "berry_outfit_1",
@@ -57,18 +37,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "mint_outfit_1",
@@ -80,18 +50,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "cocoa_outfit_1",
@@ -103,18 +63,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "snow_outfit_1",
@@ -126,18 +76,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ember_outfit_1",
@@ -149,18 +89,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ink_outfit_1",
@@ -172,18 +102,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "hoot_outfit_1",
@@ -195,18 +115,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "sunny_outfit_2",
@@ -218,18 +128,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "sky_outfit_2",
@@ -241,18 +141,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "berry_outfit_2",
@@ -264,18 +154,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "mint_outfit_2",
@@ -287,18 +167,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "cocoa_outfit_2",
@@ -310,18 +180,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "snow_outfit_2",
@@ -333,18 +193,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ember_outfit_2",
@@ -356,18 +206,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ink_outfit_2",
@@ -379,18 +219,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "hoot_outfit_2",
@@ -402,18 +232,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_2_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "sunny_outfit_3",
@@ -425,18 +245,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sunny_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "sky_outfit_3",
@@ -448,18 +258,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/sky_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "berry_outfit_3",
@@ -471,18 +271,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/berry_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "mint_outfit_3",
@@ -494,18 +284,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/mint_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "cocoa_outfit_3",
@@ -517,18 +297,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/cocoa_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "snow_outfit_3",
@@ -540,18 +310,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/snow_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ember_outfit_3",
@@ -563,18 +323,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ember_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "ink_outfit_3",
@@ -586,18 +336,8 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/ink_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     },
     {
       "outfit": "hoot_outfit_3",
@@ -609,18 +349,11 @@
       "still_mode": "RGBA",
       "reference_frames_present": 9,
       "expected_frames": 9,
-      "delivered_frames": 0,
-      "missing_frames": [
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_03.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_04.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_05.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_cheer_06.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_blink_01.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_blink_02.png",
-        "PerchSort/Assets/Resources/Birds/hoot_outfit_3_blink_03.png"
-      ]
+      "delivered_frames": 9,
+      "missing_frames": []
     }
-  ]
+  ],
+  "audited_commit": "8705a88f2e69e744e724e10e0f349fa6d1cce864",
+  "total_delivered_frames": 243,
+  "total_missing_frames": 0
 }
