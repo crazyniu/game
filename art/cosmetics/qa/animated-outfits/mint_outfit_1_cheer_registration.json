@@ -1,0 +1,242 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      38,
+      37,
+      277,
+      301
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      11,
+      18
+    ],
+    "bare_feet": [
+      110,
+      289,
+      209,
+      299
+    ],
+    "source_feet": [
+      168,
+      461,
+      337,
+      477
+    ],
+    "sha256": "3ee899e1101903e57d7e42d923a78830ba437822c37e340e86792d2cd84cf870"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      31,
+      38,
+      292,
+      303
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      12,
+      19
+    ],
+    "bare_feet": [
+      110,
+      290,
+      210,
+      300
+    ],
+    "source_feet": [
+      167,
+      462,
+      337,
+      478
+    ],
+    "sha256": "3e785a6c81e5f09fd0febde1d27aa06fba94be2661ca7fe2acba9b5db5d6bd19"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_03.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      29,
+      37,
+      294,
+      302
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      10,
+      18
+    ],
+    "bare_feet": [
+      110,
+      289,
+      210,
+      299
+    ],
+    "source_feet": [
+      171,
+      462,
+      339,
+      478
+    ],
+    "sha256": "1f0f7e8ff7f001b70900362c3f4d5a7cc761de2f57a926d92eb3e012a1ce2f8f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_04.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      26,
+      36,
+      294,
+      303
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      10,
+      19
+    ],
+    "bare_feet": [
+      110,
+      290,
+      209,
+      300
+    ],
+    "source_feet": [
+      168,
+      462,
+      339,
+      478
+    ],
+    "sha256": "c2fc0b173b597cea3986224c4052753c2fbaf363ac0c767264a3c03f938a9518"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_05.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      26,
+      37,
+      293,
+      302
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      11,
+      18
+    ],
+    "bare_feet": [
+      110,
+      290,
+      210,
+      300
+    ],
+    "source_feet": [
+      168,
+      463,
+      338,
+      479
+    ],
+    "sha256": "9ce4b1ae67a5ccebdb9bb4d002d4d7dc2d32ac15763de2dd9830a669b84f96b7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1_cheer_06.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      38,
+      38,
+      280,
+      303
+    ],
+    "scale": 0.5882352941176471,
+    "translation": [
+      9,
+      19
+    ],
+    "bare_feet": [
+      110,
+      290,
+      210,
+      300
+    ],
+    "source_feet": [
+      171,
+      462,
+      341,
+      478
+    ],
+    "sha256": "85751ea9f8a908aec3fb3aab16ae19745c292dd7febe808e132ba0908e3fe1bc"
+  }
+]
