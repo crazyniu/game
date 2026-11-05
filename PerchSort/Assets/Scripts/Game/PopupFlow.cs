@@ -70,6 +70,10 @@ namespace PerchSort.Game
             if (firstClear && level % 10 == 0 && !ledger.HasWorldCompleteReward(level / 10))
                 completeDue |= 1 << (level / 10 - 1);
         }
+        public void RecordHomecomings(IEnumerable<PerchSort.Core.Species> species)
+        {
+            foreach (var home in species) ledger = Aviary.IncrementFlocksHome(ledger, home.Id);
+        }
         public void LeaveWin(int level, bool next)
         {
             nextLevel = next && level < 40 ? level + 1 : 0;

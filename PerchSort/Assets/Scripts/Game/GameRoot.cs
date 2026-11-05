@@ -268,6 +268,7 @@ namespace PerchSort.Game
             if (!Session.State.IsWon || rewardGranted) return;
             rewardGranted = true; winCoinStart = Coins;
             pendingWinReward = profile.Reward(LevelId, Session.Stars, Session.State.ChorusCoins);
+            profile.Notifications.RecordHomecomings(Session.State.HomedSpecies);
             profile.RecordBestMoves(LevelId, Session.MoveCount);
             profile.Tutorials[LevelId] = true;
         }
