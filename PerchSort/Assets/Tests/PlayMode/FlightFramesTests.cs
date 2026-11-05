@@ -279,8 +279,14 @@ namespace PerchSort.PlayModeTests
             var bird = root.Board.Birds[root.Session.State.Branches[0].Birds.Last().Id];
             var entrance = root.GetComponentInChildren<LevelEntrance>(true);
             bool completed = false;
-            yield return Observe("entrance", bird, () => entrance.Play(() => completed = true), 3.4f, false);
+            float started = 0, completedAt = -1;
+            yield return Observe("entrance", bird, () =>
+            {
+                started = Time.time;
+                entrance.Play(() => { completedAt = Time.time; completed = true; });
+            }, 4.6f, false);
             Assert.That(completed, Is.True);
+            Assert.That(completedAt - started, Is.GreaterThanOrEqualTo(3.4f), "Entrance must not complete before the lower-bound margin.");
             Assert.That(root.IsAirborne, Is.False);
             foreach (var branch in root.Board.Branches)
             {
