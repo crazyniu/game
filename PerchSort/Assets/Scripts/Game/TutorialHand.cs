@@ -91,14 +91,12 @@ namespace PerchSort.Game
         private void PlaceHand()
         {
             var rect = hand.rectTransform;
-            if (targetBody != null)
-            {
-                Rect body = targetBody.rect;
-                Vector3 tip = targetBody.TransformPoint(new Vector3(body.center.x + 30, body.yMin + body.height * 0.32f));
-                var layer = (RectTransform)transform;
-                Vector3 local = layer.InverseTransformPoint(tip);
-                rect.anchoredPosition = new Vector2(local.x - layer.rect.xMin, local.y - layer.rect.yMax);
-            }
+            if (targetBody == null) return;
+            Rect body = targetBody.rect;
+            Vector3 tip = targetBody.TransformPoint(new Vector3(body.center.x + 30, body.yMin + body.height * 0.32f));
+            var layer = (RectTransform)transform;
+            Vector3 local = layer.InverseTransformPoint(tip);
+            rect.anchoredPosition = new Vector2(local.x - layer.rect.xMin, local.y - layer.rect.yMax);
             Vector2 position = rect.anchoredPosition;
             position.x = Mathf.Clamp(position.x, rect.pivot.x * rect.rect.width,
                 GameLayout.DesignWidth - 24 - (1 - rect.pivot.x) * rect.rect.width);
