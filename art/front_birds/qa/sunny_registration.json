@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      66,
+      73,
+      255,
+      301
+    ],
+    "scale": 0.4214417744916821,
+    "translation": [
+      9,
+      42
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "80113c050f36b49101f6abc0351b3daa9ec6cc36b18f4d408aee497682a0ad6d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      66,
+      73,
+      255,
+      301
+    ],
+    "scale": 0.4214417744916821,
+    "translation": [
+      9,
+      42
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "2b0de8e6672ef8520fa7fe10d8e7abfb2046c1671dc6f647c57a51658e7c3e43"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sunny_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      66,
+      73,
+      255,
+      301
+    ],
+    "scale": 0.4214417744916821,
+    "translation": [
+      9,
+      42
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "2994689cf7fdfc0c9682ebe2777efa22e12b676880ed1e9b15787978560a3a3d"
+  }
+]

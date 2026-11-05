@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      65,
+      64,
+      254,
+      301
+    ],
+    "scale": 0.3983193277310924,
+    "translation": [
+      16,
+      49
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "0d6b94eb038739fb2e436275dd6f383ee90a271dcc9f21c8dc41b4ac9e953a87"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      65,
+      64,
+      254,
+      302
+    ],
+    "scale": 0.3983193277310924,
+    "translation": [
+      16,
+      49
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "952161e78c9a4073729f228c63d4893af1e0aaa2a6981f4928808ee12deb880f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/berry_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      65,
+      64,
+      254,
+      301
+    ],
+    "scale": 0.3983193277310924,
+    "translation": [
+      16,
+      49
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "190375c80b328a1d5ccbff6c27a4bb7f23ccd9520d5af9f5af81b27c200d54e9"
+  }
+]
