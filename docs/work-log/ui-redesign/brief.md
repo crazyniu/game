@@ -40,3 +40,15 @@ Gameplay in scope (Phase 1, rules unchanged): homecoming ORDER is the strategy (
 7. aviary_list: each species card shows the name ribbon, the homecoming count chip and the gift coin; aviary_detail: living front-facing bird, personality line, the gift row (coin + two-word effect), the count row, outfit slots.
 8. Extra screens: board_free_move (the pill and the board right after a free move), board_dayNight_flip not needed.
 Fonts and all fixed text are baked; numbers shown in mockups are examples.
+
+## Addendum: the board tree is ONE painting, not parts (user feedback 2026-11-05)
+Problem: trunk, junctions and limbs were generated separately and assembled in code; textures, light and thickness never match, so it looks pasted. Required approach for the DESIGN and later production:
+1. Each world's tree is designed and later painted as ONE continuous illustration: trunks, crowns and all branches in one painting pass, branches growing out of the trunk with continuous bark, vines and leaves flowing across the joints. No visible seam anywhere.
+2. Branch positions are FIXED by the game, so the painting can match them. Use exactly these branch heights (1080x1920 design px, y measured to the bird feet line, left branches grow from the left edge, right branches from the right edge). Rows = ceil(branches / 2); pitch = min(300, 800 / rows).
+   - 2 rows (pitch 300): left y = 925, 1225; right y = 1075, 1375.
+   - 3 rows (pitch 266.7): left y = 760, 1027, 1293; right y = 893, 1160, 1427.
+   - 4 rows (pitch 200): left y = 760, 960, 1160, 1360; right y = 860, 1060, 1260, 1460.
+   - 5 rows (pitch 160): left y = 760, 920, 1080, 1240, 1400; right y = 840, 1000, 1160, 1320, 1480.
+   Each branch is about 530 px long (from the screen edge), seats start clear of the trunk (first bird centre at least 150 px from the edge), top surface flat where birds stand.
+3. The design shows the painted tree for a 2-row board (board_few_branches) and a 5-row board (board_many_branches). The production plan (after approval): one full painting per world per row count (2, 3, 4, 5), plus the variant with the last right branch absent (odd branch counts); short twigs, growing branches and swivel knots are painted as modifications of the same slots. So the design must keep branches straight and regular enough to be painted at fixed heights.
+4. The design notes must state how each branch root meets the trunk (bark flow, vine or leaf cover) and how the tree looks in all four worlds (green, autumn, misty deep forest, snow with icicles).
