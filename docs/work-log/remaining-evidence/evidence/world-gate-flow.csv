@@ -1,0 +1,35 @@
+frame,actual_seconds,notification,is_map,gate_opening,complete_acknowledged,mean_absolute_rgb_change,observed_frame_content
+87,4.3500,WorldUnlock,True,False,True,0.000,map scrolls toward gate
+88,4.4000,WorldUnlock,True,False,True,19.093,map scrolls toward gate
+89,4.4500,WorldUnlock,True,False,True,20.883,map scrolls toward gate
+90,4.5000,WorldUnlock,True,False,True,21.607,map scrolls toward gate
+91,4.5500,WorldUnlock,True,False,True,21.467,map scrolls toward gate
+92,4.6000,WorldUnlock,True,False,True,20.271,map scrolls toward gate
+93,4.6500,WorldUnlock,True,False,True,17.673,map scrolls toward gate
+94,4.7000,WorldUnlock,True,False,True,13.260,map scrolls toward gate
+95,4.7500,WorldUnlock,True,True,True,3.587,gate doors swing open
+96,4.8000,WorldUnlock,True,True,True,2.025,gate doors swing open
+97,4.8500,WorldUnlock,True,True,True,2.543,gate doors swing open
+98,4.9000,WorldUnlock,True,True,True,2.835,gate doors swing open
+99,4.9500,WorldUnlock,True,True,True,2.972,gate doors swing open
+100,5.0000,WorldUnlock,True,True,True,3.061,gate doors swing open
+101,5.0500,WorldUnlock,True,True,True,3.082,gate doors swing open
+102,5.1000,WorldUnlock,True,True,True,2.953,gate doors swing open
+103,5.1500,WorldUnlock,True,True,True,2.794,gate doors swing open
+104,5.2000,WorldUnlock,True,True,True,2.625,gate doors swing open
+105,5.2500,WorldUnlock,True,True,True,2.535,gate doors swing open
+106,5.3000,WorldUnlock,True,True,True,2.380,gate doors swing open
+107,5.3500,WorldUnlock,True,True,True,2.019,gate doors swing open
+108,5.4000,WorldUnlock,True,True,True,1.243,gate doors swing open
+109,5.4500,WorldUnlock,True,True,True,0.998,gate doors swing open
+110,5.5000,WorldUnlock,True,True,True,0.815,gate doors swing open
+111,5.5500,WorldUnlock,True,True,True,0.621,gate doors swing open
+112,5.6000,WorldUnlock,True,True,True,0.394,gate doors swing open
+113,5.6500,WorldUnlock,True,False,True,48.190,open gate remains before unlock popup
+114,5.7000,WorldUnlock,True,False,True,24.358,open gate remains before unlock popup
+115,5.7500,WorldUnlock,True,False,True,16.949,open gate remains before unlock popup
+116,5.8000,WorldUnlock,True,False,True,6.385,open gate remains before unlock popup
+117,5.8500,WorldUnlock,True,False,True,0.612,open gate remains before unlock popup
+118,5.9000,WorldUnlock,True,False,True,0.132,open gate remains before unlock popup
+119,5.9500,WorldUnlock,True,False,True,0.459,open gate remains before unlock popup
+120,6.0000,WorldUnlock,True,False,True,59.917,open gate remains before unlock popup
