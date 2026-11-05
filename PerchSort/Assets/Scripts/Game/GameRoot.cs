@@ -580,7 +580,12 @@ namespace PerchSort.Game
         {
             if (Shop.IsOpen) Shop.Hide();
             else if (Aviary.IsOpen) { if (Aviary.DetailOpen) { Aviary.Back(); return; } Aviary.Hide(); }
-            else { if (panels.IsUnlock || panels.IsNotification) return; panels.Hide(); }
+            else
+            {
+                if (panels.IsUnlock || panels.IsNotification) return;
+                if (panels.CloseInformation(() => { panels.Hide(); Refresh(); })) { PlaySound(Sfx.Back); return; }
+                panels.Hide();
+            }
             PlaySound(Sfx.Back); Refresh();
         }
         public void SetMuted(bool muted)
