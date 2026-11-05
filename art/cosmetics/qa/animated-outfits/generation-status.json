@@ -24,14 +24,14 @@
     "berry_outfit_3",
     "mint_outfit_3",
     "cocoa_outfit_3",
-    "snow_outfit_3"
+    "snow_outfit_3",
+    "ember_outfit_3"
   ],
   "missing_outfits": [
-    "ember_outfit_3",
     "ink_outfit_3",
     "hoot_outfit_3"
   ],
-  "frames": 216,
-  "actions": 48,
+  "frames": 225,
+  "actions": 50,
   "native_gif": false
 }
