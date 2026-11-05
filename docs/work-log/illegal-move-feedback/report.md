@@ -1,5 +1,25 @@
 # Illegal-move feedback report
 
+## Integrated fallback fixture correction
+
+Merged `origin/integration-next` first by fast-forward to `5b191c0e`. The reported failure was accepted without rerunning it: `mint` now has drawn turn frames, so absence of shipped art was an invalid fixture assumption.
+
+The fallback test now seeds only its fresh `GameArt` instance's existing private sprite cache with null entries for `mint_turn_left_01`, `mint_turn_right_01`, and `mint_blink_01`. The sequence loader stops at the injected first-frame gaps, regardless of current or future shipped sequences. Existing idle/blink sprites still render the real fallback; no resources, shared caches, production accessor, or production fallback behavior are changed. The blink-sequence gap keeps the existing still-blink assertion independent of newly shipped blink sequences as well.
+
+Verification commands:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py --self-test
+PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py
+flock /tmp/unity.lock bash scripts/run_tests.sh
+```
+
+The naming self-test passed all eight tests; the guard inspected 2143 tracked text files with zero violations. The canonical scene build and compilation succeeded. Full suites: **317/317 EditMode passed; 69/70 PlayMode passed; zero skips**. All three `IllegalMoveFeedbackTests` cases passed, including `MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately`.
+
+The sole full-suite failure is outside the corrected fixture: `GameplayTests.SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending`, `GameplayTests.cs:324`, expected tutorial position `(720.00, -1802.00)` but observed `(720.00, -1764.80)`. No tutorial code or assertions were modified, and no green-full-suite claim is made. XML/logs are `build/test-results.xml`, `build/playmode-results.xml`, `build/editmode-tests.log`, and `build/playmode-tests.log`. The pre-run working tree contained only the intended test edit; generated-only resource metadata and scene changes were backed up in `build/integration-generated-changes.patch` and restored, not committed.
+
+The rest of this document records the original implementation and its original-run evidence; those earlier totals and failures are historical, not the integrated correction's results. No new screenshot run was needed for this test-only correction.
+
 ## Delivery and ownership
 
 Branch: `mac-illegal-move/work`, based on the assigned gameplay-gaps tip `f8b961ac3c45c5c6d6114245abd61c93e4e764fb`.
@@ -9,7 +29,7 @@ Runtime edits are limited to `PerchSort/Assets/Scripts/Game/BirdView.cs` and `Bi
 - `BirdView.Shake` uses the existing cached drawn sequences: left 01,02,03,02,01; right 01,02,03,02,01; idle. Ten frames at 16 fps take 0.625 seconds per bird.
 - `BirdIdleGroup.InvalidFeedbackDelay` uses the existing seat-ordered group to start the tip first, then each bird 0.04 seconds later. This does not change idle leases or scheduling.
 - The invalid-feedback path keeps normal breathing, fixes the body to its seat, and introduces no rotation, translation, mirroring, or additional scaling.
-- If either required turn sequence has fewer than three usable frames, the existing blink playback remains the fallback, with the same tip-first delay. Tested with the real `mint` species, which has neither sequence.
+- If either required turn sequence has fewer than three usable frames, the existing blink playback remains the fallback, with the same tip-first delay. The corrected fixture forces missing sequences in its own art cache rather than assuming a shipped species lacks them.
 - `GameMotion.Instant` skips delays and returns every affected bird to its rest pose synchronously.
 - LitMotion binds its initial value before a configured delay. The regression test caught premature first frames; the final implementation gates frame assignment using elapsed time inside the motion instead.
 
@@ -32,7 +52,7 @@ flock /tmp/unity.lock bash scripts/run_tests.sh
 flock /tmp/unity.lock bash scripts/screenshots.sh
 ```
 
-The naming self-test passed all eight tests; the guard found zero violations. The full runner built the canonical scene and compiled successfully. Latest full results:
+The naming self-test passed all eight tests; the guard found zero violations. The full runner built the canonical scene and compiled successfully. Original implementation results:
 
 | Suite | Passed | Total | Failed | Skipped |
 | --- | ---: | ---: | ---: | ---: |
