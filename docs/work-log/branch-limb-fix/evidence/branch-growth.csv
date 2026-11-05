@@ -1,0 +1,8 @@
+scheduled_seconds,actual_seconds,branch,fill,completed
+0,0,6,0.5188679,false
+0.100,0.1000,6,0.688519,False
+0.200,0.2000,6,0.744616,False
+0.300,0.3000,6,0.739726,False
+0.400,0.4000,6,0.726415,False
+0.500,0.5000,6,0.726415,True
+0.600,0.6000,6,0.726415,True

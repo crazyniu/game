@@ -256,7 +256,7 @@ namespace PerchSort.PlayModeTests
                 {
                     foreach (var branch in root.Board.Branches)
                     {
-                        if (branch.transform.Find("Flex root").localScale.x > 0.001f) grown++;
+                        if (branch.transform.Find("Flex root/Branch").GetComponent<Image>().fillAmount > 0.001f) grown++;
                         var birds = root.Session.State.Branches[branch.Index].Birds;
                         for (int seat = 0; seat < birds.Count; seat++)
                             if (Vector2.Distance(root.Board.Birds[birds[seat].Id].Position, branch.Slot(seat)) < 0.1f) perched++;

@@ -47,6 +47,9 @@ namespace PerchSort.Game
         public static float BranchPerchTop(int world, bool twig) => twig ?
             (world == 1 ? 18 : world == 2 ? 19 : world == 3 ? 8 : 22) :
             (world == 1 ? 17 : world == 2 ? 9 : world == 3 ? 22 : 30);
+        // Put the junction bark on the trunk and its entire horizontal stub behind the native limb.
+        public static Vector2 BranchJunction(int world) => new Vector2(120,
+            world == 1 ? 40 : world == 2 ? 32 : world == 3 ? 32 : 14);
         private static Vector2 CrownAttachment(int world) => world == 1 ? new Vector2(138, 319) :
             world == 2 ? new Vector2(96, 332) : world == 3 ? new Vector2(111, 358) : new Vector2(105, 355);
         public static Rect WorldCrown(int world, bool right)
