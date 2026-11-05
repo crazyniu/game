@@ -14,7 +14,8 @@ namespace PerchSort.Game
         private Image graphic, idleBlend, bow, fluff, zzz, reveal;
         private GameArt art;
         private BirdOverlay overlays;
-        private Sprite idleFrame, cheerFrame, sleep, flyUp, flyDown;
+        private Sprite idleFrame, baseIdleFrame, cheerFrame, sleep, flyUp, flyDown;
+        private string outfitKey;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
         private Sprite DisplayFrame => idleBlend != null && idleBlend.gameObject.activeSelf ? idleBlend.sprite : graphic.sprite;
@@ -83,7 +84,7 @@ namespace PerchSort.Game
             rect.sizeDelta = GameLayout.BirdDisplaySize * density;
             DisplayScale = density;
             string prefix = bird.Species.Id;
-            idleFrame = art.Get(prefix + "_idle");
+            idleFrame = baseIdleFrame = art.Optional(prefix + "_front") ?? art.Get(prefix + "_idle");
             cheerFrame = art.Get(prefix + "_cheer");
             sleep = art.Get(prefix + "_sleep");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
@@ -205,6 +206,13 @@ namespace PerchSort.Game
         {
             float chick = Bird.IsChick && !Bird.IsEgg ? 0.7f : 1;
             return new Vector3(chick * x, chick * y, 1);
+        }
+        public void SetOutfit(string key)
+        {
+            if (outfitKey == key) return;
+            outfitKey = key;
+            idleFrame = string.IsNullOrEmpty(key) ? baseIdleFrame : art.Get(key);
+            if (!acting && !idleActing) SetFrame(RestFrame);
         }
         public void Sync(Bird bird, bool sleeping)
         {

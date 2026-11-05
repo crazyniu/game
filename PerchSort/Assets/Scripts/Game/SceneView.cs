@@ -39,11 +39,9 @@ namespace PerchSort.Game
             fit.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
         }
         public void PlaceLighting(Transform board) => night.rectTransform.SetParent(board, false);
-        public void SetLevel(BoardState state)
+        public void SetLevel(BoardSnapshot snapshot)
         {
-            int rows = (state.Branches.Count + 1) / 2;
-            foreach (var branch in state.Branches) rows = Mathf.Max(rows, branch.Row + 1);
-            BuildWorld(state.World, state.Variant, state.Phase, rows);
+            BuildWorld(snapshot.World, snapshot.Variant, snapshot.Hud.Phase, snapshot.Rows);
         }
         public void SetWorld(int world, string variant = "noon", DayPhase lighting = DayPhase.Day)
             => BuildWorld(world, variant, lighting, 2);

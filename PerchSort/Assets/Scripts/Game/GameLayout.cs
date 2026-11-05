@@ -17,28 +17,40 @@ namespace PerchSort.Game
         public const float WhiteGlyphRatio = 0.46f, ToolGlyphRatio = 0.54f;
         public const float ButtonPressScale = 0.92f, ButtonPressSeconds = 0.08f, ButtonReleaseSeconds = 0.18f;
         public const float CoinFontSize = 44, CoinMinimumFontSize = 24, LevelBadgeFontSize = 46;
-        public static readonly Rect CoinPill = Screen("level_k3", "coin_pill");
-        public static readonly Rect CoinNumber = new Rect(CoinPill.x + CoinPill.width * 142 / 320, CoinPill.y + CoinPill.height * 32 / 128, CoinPill.width * 140 / 320, CoinPill.height * 60 / 128);
+        public static readonly Rect CoinPill = new Rect(48, 150, 190, 76);
+        public static readonly Rect CoinNumber = new Rect(108.56f, 166.03f, 68.28f, 43.94f);
         public static readonly Rect CoinIcon = new Rect(CoinPill.x, CoinPill.y, CoinPill.height, CoinPill.height);
-        public static readonly Rect SettingsButton = Screen("level_k3", "gear"), LevelSign = new Rect(476, 56, 128, 86);
+        public static readonly Rect SettingsButton = Centered(new Vector2(923, 195), Vector2.one * 108), LevelSign = new Rect(476, 56, 128, 86);
         public static readonly Vector2 LevelNumberOffset = Vector2.zero;
-        public static readonly Rect PhaseDial = new Rect(330, 160, 100, 80);
-        public static readonly Vector2 PhaseIconCenter = new Vector2(26, 40), PhaseCountCenter = new Vector2(72, 40), PhaseCountSize = new Vector2(40, 48);
-        public const float PhaseIconSize = 44, PhaseFontSize = 24;
+        public static readonly Rect PhaseDial = new Rect(48, 338, 150, 60);
+        public static readonly Vector2 PhaseIconCenter = new Vector2(32, 30), PhaseCountCenter = new Vector2(104, 30), PhaseCountSize = new Vector2(60, 48);
+        public const float PhaseIconSize = 48, PhaseFontSize = 28;
+        public static readonly Rect MovePill = new Rect(48, 250, 190, 64);
+        public static readonly Rect NestCanvas = new Rect(420, 150, 240, 240);
+        public static float GoalBadgeSize(int count) => count > 7 ? 38 : 44;
+        public static Vector2 GoalBadgePoint(int index, int count) => new Vector2(540 + (index - (count - 1) * 0.5f) * 88, 436);
         public static readonly Vector2 LightStepPoint = new Vector2(1010, 1700);
         public const float FeatherSize = 44;
         public static readonly Rect ChainRibbon = new Rect(830, 490, 180, 60), GoalTray = new Rect(0, 210, 1080, 310);
         public const float ChainFontSize = 32;
         public const float BoardTop = 570, BoardBottom = 1700, BoardHeight = BoardBottom - BoardTop;
-        public const float BranchWidth = 530, BranchHeight = 90, MaximumRowPitch = 350;
-        public const float BirdSize = 200, BirdSlotPitch = 110, FirstBirdSlot = 100, BirdCenterAboveBranch = 90;
+        public const float BranchWidth = 530, BranchHeight = 90, MaximumRowPitch = 300;
+        public const float BirdSize = 170, BirdSlotPitch = 100, FirstBirdSlot = 150, BirdCenterAboveBranch = 76.5f;
         public const float BranchHitWidth = 520, BranchHitHeight = 180, BranchHitLift = 85;
         public static readonly Vector2 BirdDisplaySize = Vector2.one * BirdSize, BranchDisplaySize = new Vector2(BranchWidth, BranchHeight), TwigDisplaySize = new Vector2(400, 80), BushSize = new Vector2(330, 250);
         public const float BushAboveBranch = 300, BranchCenterBelowFeet = 14;
-        public static float RowPitch(int rows) => rows <= 2 ? MaximumRowPitch : 880f / (rows - 0.5f);
-        public static float BirdScale(int rows) => rows <= 5 ? 1 : Mathf.Clamp(5f / rows, 0.72f, 1);
-        public static float SeatPitch(float scale) => BirdSlotPitch * Mathf.Min(1, scale);
-        public static float RowY(int row, int rows, bool right = false) => (rows <= 2 ? 925 : 760) + (row + (right ? 0.5f : 0)) * RowPitch(rows);
+        public static float RowPitch(int rows) => Mathf.Min(300, 800f / Mathf.Max(1, rows));
+        public static float BirdScale(int rows) => rows <= 3 ? 1 : rows == 4 ? 0.88f : rows == 5 ? 0.76f : 0.66f;
+        public static float SeatPitch(float scale) => BirdSlotPitch;
+        public static float RowY(int row, int rows, bool right = false)
+        {
+            if (rows == 3)
+            {
+                float[] left = { 760, 1027, 1293 }, other = { 893, 1160, 1427 };
+                return (right ? other : left)[row];
+            }
+            return (rows <= 2 ? 925 : 760) + (row + (right ? 0.5f : 0)) * RowPitch(rows);
+        }
         public static Rect BranchHit(int row, int rows, bool right) => Centered(new Vector2(right ? DesignWidth - BranchHitWidth / 2 : BranchHitWidth / 2, RowY(row, rows, right) - BranchHitLift), new Vector2(BranchHitWidth, Mathf.Min(BranchHitHeight * BirdScale(rows), RowPitch(rows) * 0.75f)));
         public static Vector2 BirdSlot(int slot, float y, bool right, float scale = 1)
         {
@@ -75,9 +87,13 @@ namespace PerchSort.Game
         public const float ToolY = 1802, ToolFirstX = 260, ToolPitch = 182;
         public const int ToolCount = 4;
         public const float ToolGap = ToolPitch - SecondaryButtonSize, ToolBottom = ToolY + SecondaryButtonSize / 2;
-        public static Rect ToolButton(int index, int count = 3) => Screen(count == 3 ? "level_k3" : "level_k7", index == 0 ? "undo" : index == 1 ? "hint" : index == 2 ? "branch_plus" : "scarecrow");
-        public static readonly Vector2 StockCenter = new Vector2(100, 8);
-        public const float StockSize = 46, StockFontSize = 30;
+        public static Rect ToolButton(int index, int count = 3)
+        {
+            float x = count == 3 ? 344 + index * 188 : index == 0 ? 260 : index == 1 ? 440 : index == 2 ? 622 : 808;
+            return Centered(new Vector2(x, count == 3 ? 1802 : 1792), Vector2.one * 108);
+        }
+        public static readonly Vector2 StockCenter = new Vector2(87, 5);
+        public const float StockSize = 64, StockFontSize = 28;
         public const float PanelDimAlpha = 0.55f, WinInitialScale = 0.7f;
         public const int StarCount = 3;
         public static readonly Rect WinPanel = Screen("win", "panel"), Ribbon = Screen("win", "ribbon");
@@ -115,12 +131,7 @@ namespace PerchSort.Game
         public static Vector2 HouseDoorLocal(Vector2 size) => new Vector2(size.x * 253 / 512, size.y * 306 / 512);
         public static Vector2 HouseHingeLocal(Vector2 size) => new Vector2(size.x * 145 / 512, size.y * 306 / 512);
         public static float HouseDoorDiameter(float size) => size * 204 / 512;
-        public static Rect HouseCanvas(int index, int count)
-        {
-            Rect visible = House(index, count);
-            float size = Mathf.Max(visible.width * 512 / 448, visible.height * 512 / 398);
-            return new Rect(visible.center.x - size / 2, visible.y - size * 58 / 512, size, size);
-        }
+        public static Rect HouseCanvas(int index, int count) => NestCanvas;
         public static Rect Centered(Vector2 center, Vector2 size) => new Rect(center - size * 0.5f, size);
         public static Vector2 InParent(Rect parent, Vector2 point) => point - parent.position;
 
@@ -315,71 +326,7 @@ namespace PerchSort.Game
             }
             throw new ArgumentException("Unmeasured layout element: " + screen + "/" + element);
         }
-        public static Rect House(int index, int count)
-        {
-            if (count == 1) return Screen("level_k3", "house");
-            switch (count)
-            {
-                case 2:
-                    switch (index)
-                    {
-                        case 0: return new Rect(395f, 296f, 150f, 176f);
-                        case 1: return new Rect(535f, 296f, 150f, 176f);
-                    }
-                    break;
-                case 3:
-                    switch (index)
-                    {
-                        case 0: return new Rect(325f, 296f, 150f, 176f);
-                        case 1: return new Rect(465f, 296f, 150f, 176f);
-                        case 2: return new Rect(605f, 296f, 150f, 176f);
-                    }
-                    break;
-                case 4:
-                    switch (index)
-                    {
-                        case 0: return new Rect(255f, 296f, 150f, 176f);
-                        case 1: return new Rect(395f, 296f, 150f, 176f);
-                        case 2: return new Rect(535f, 296f, 150f, 176f);
-                        case 3: return new Rect(675f, 296f, 150f, 176f);
-                    }
-                    break;
-                case 5:
-                    switch (index)
-                    {
-                        case 0: return new Rect(185f, 296f, 150f, 176f);
-                        case 1: return new Rect(325f, 296f, 150f, 176f);
-                        case 2: return new Rect(465f, 296f, 150f, 176f);
-                        case 3: return new Rect(605f, 296f, 150f, 176f);
-                        case 4: return new Rect(745f, 296f, 150f, 176f);
-                    }
-                    break;
-                case 6:
-                    switch (index)
-                    {
-                        case 0: return new Rect(115f, 296f, 150f, 176f);
-                        case 1: return new Rect(255f, 296f, 150f, 176f);
-                        case 2: return new Rect(395f, 296f, 150f, 176f);
-                        case 3: return new Rect(535f, 296f, 150f, 176f);
-                        case 4: return new Rect(675f, 296f, 150f, 176f);
-                        case 5: return new Rect(815f, 296f, 150f, 176f);
-                    }
-                    break;
-                case 7:
-                    switch (index)
-                    {
-                        case 0: return new Rect(45f, 296f, 150f, 176f);
-                        case 1: return new Rect(185f, 296f, 150f, 176f);
-                        case 2: return new Rect(325f, 296f, 150f, 176f);
-                        case 3: return new Rect(465f, 296f, 150f, 176f);
-                        case 4: return new Rect(605f, 296f, 150f, 176f);
-                        case 5: return new Rect(745f, 296f, 150f, 176f);
-                        case 6: return new Rect(885f, 296f, 150f, 176f);
-                    }
-                    break;
-            }
-            throw new ArgumentOutOfRangeException(nameof(count));
-        }
+        public static Rect House(int index, int count) => NestCanvas;
         private static readonly Vector2[,] MapNodes = new Vector2[4, 10]
         {
             { new Vector2(514f, 2700f), new Vector2(310f, 2440f), new Vector2(744f, 2180f), new Vector2(660f, 1920f), new Vector2(252f, 1660f), new Vector2(672f, 1400f), new Vector2(640f, 1140f), new Vector2(305f, 880f), new Vector2(754f, 620f), new Vector2(613f, 360f) },

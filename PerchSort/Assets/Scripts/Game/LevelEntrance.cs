@@ -15,31 +15,31 @@ namespace PerchSort.Game
         private readonly Dictionary<int, int> attempts = new Dictionary<int, int>();
         private int arrivals;
         private bool poseComplete, prepared;
-        private GameRoot root;
+        private BoardPresentation root;
         private GameMotion motion;
         private Action completed;
         private int revision;
         public bool IsPlaying { get; private set; }
-        public void Configure(GameRoot owner)
+        public void Configure(BoardPresentation owner)
         {
             root = owner; motion = gameObject.AddComponent<GameMotion>();
             var skip = gameObject.AddComponent<Image>(); skip.color = Color.clear; skip.raycastTarget = true;
-            gameObject.AddComponent<EmptyClick>().Click = Skip;
+            gameObject.AddComponent<EmptyClick>().Click = root.RequestEntranceSkip;
             gameObject.SetActive(false);
         }
         internal void Prepare()
         {
             Cancel();
-            int level = root.LevelId;
+            int level = root.Snapshot.LevelId;
             attempts.TryGetValue(level, out int attempt);
             attempts[level] = attempt + 1;
             var random = new System.Random(unchecked(level + attempt));
             foreach (var branch in root.Board.Branches)
             {
-                var state = root.Session.State.Branches[branch.Index];
-                for (int seat = 0; seat < state.Birds.Count; seat++)
+                var state = root.Snapshot.Branches[branch.Index];
+                for (int seat = 0; seat < state.Birds.Length; seat++)
                 {
-                    var bird = root.Board.Birds[state.Birds[seat].Id];
+                    var bird = root.Board.Birds[state.Birds[seat].Bird.Id];
                     bool seated = bird.Bird.IsEgg || bird.Sleeping;
                     bird.Place(seated ? branch.Slot(seat) : StartPoint(branch, random));
                 }
@@ -80,11 +80,11 @@ namespace PerchSort.Game
             };
             foreach (var branch in root.Board.Branches)
             {
-                var state = root.Session.State.Branches[branch.Index];
+                var state = root.Snapshot.Branches[branch.Index];
                 if (state.Row != row) { row = state.Row; rowBird = 0; }
-                for (int seat = 0; seat < state.Birds.Count; seat++)
+                for (int seat = 0; seat < state.Birds.Length; seat++)
                 {
-                    var bird = root.Board.Birds[state.Birds[seat].Id];
+                    var bird = root.Board.Birds[state.Birds[seat].Bird.Id];
                     Vector2 target = branch.Slot(seat);
                     Vector2 start = bird.Position;
                     // Rows overlap, but birds within each row keep their own readable cadence.
@@ -112,7 +112,7 @@ namespace PerchSort.Game
             for (int i = 0; i < branches.Count; i++)
             {
                 var branch = branches[i];
-                float progress = Mathf.Clamp01((elapsed - HouseDuration - root.Session.State.Branches[branch.Index].Row * RowStagger) / BranchDuration);
+                float progress = Mathf.Clamp01((elapsed - HouseDuration - root.Snapshot.Branches[branch.Index].Row * RowStagger) / BranchDuration);
                 branch.Entrance(1 - Mathf.Pow(1 - progress, 3));
             }
         }
@@ -120,7 +120,7 @@ namespace PerchSort.Game
         {
             if (!IsPlaying) return;
             IsPlaying = false; revision++; motion.CancelAll();
-            root.Board.Cancel(); root.Board.Settle(root.Session.State);
+            root.Board.Cancel(); root.Board.Settle(root.Snapshot);
             ResetPose();
             var next = completed; completed = null;
             gameObject.SetActive(false); next?.Invoke();
@@ -143,7 +143,7 @@ namespace PerchSort.Game
             revision++; completed = null; IsPlaying = prepared = false; motion.CancelAll();
             if (restore && root != null && root.Board != null)
             {
-                root.Board.Cancel(); root.Board.Settle(root.Session.State);
+                root.Board.Cancel(); root.Board.Settle(root.Snapshot);
             }
             ResetPose(); gameObject.SetActive(false);
         }

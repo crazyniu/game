@@ -9,7 +9,7 @@ namespace PerchSort.Game
 {
     public sealed class BranchView : MonoBehaviour, IPointerClickHandler
     {
-        private GameRoot root;
+        private BoardPresentation root;
         private GameArt art;
         private Image wood, glow, junction;
         private RectTransform flex, knot;
@@ -25,7 +25,7 @@ namespace PerchSort.Game
         public BranchKind Kind { get; private set; }
         public Vector2 KnotPoint => new Vector2(IsRight ? 1020 : 60, BranchY + 45);
 
-        public void Configure(GameRoot owner, GameArt assets, BranchState branch, int index, int rowCount, int capacity)
+        public void Configure(BoardPresentation owner, GameArt assets, BoardSnapshot.Branch branch, int index, int rowCount, int capacity)
         {
             root = owner; art = assets; Index = index; IsRight = branch.IsRight;
             Kind = branch.Kind; Seats = branch.Capacity; fullCapacity = capacity; density = GameLayout.BirdScale(rowCount);
@@ -34,7 +34,7 @@ namespace PerchSort.Game
             var hit = gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
             Vector2 rootPoint = new Vector2(IsRight ? 1080 : 0, BranchY) - hitRect.position;
             flex = GameUI.Rect(transform, "Flex root", rootPoint, Vector2.zero);
-            int world = root.Session.State.World;
+            int world = root.Snapshot.World;
             if (!probed[world - 1])
             {
                 limbs[world - 1] = Resources.Load<Sprite>("World/branch_limb_w" + world);
@@ -56,7 +56,7 @@ namespace PerchSort.Game
             {
                 var knotImage = GameUI.Image(transform, "Swivel knot", art.Get("swivel_knot"), KnotPoint - hitRect.position, Vector2.one * 120);
                 knot = knotImage.rectTransform; knotImage.raycastTarget = true;
-                knotImage.gameObject.AddComponent<EmptyClick>().Click = () => root.TapSwivel(Index);
+                knotImage.gameObject.AddComponent<EmptyClick>().Click = () => root.RequestSwivel(Index);
             }
         }
         private float Fill(int seats) => seats >= fullCapacity ? 1 : Mathf.Clamp01(
@@ -64,7 +64,7 @@ namespace PerchSort.Game
         private void UpdateWood()
         {
             bool twig = Kind == BranchKind.Twig;
-            int world = root.Session.State.World;
+            int world = root.Snapshot.World;
             Sprite limb = twig ? twigs[world - 1] : limbs[world - 1];
             wood.sprite = limb ?? art.World(twig ? "twig_left" : "branch_left", world);
             Vector2 displaySize = twig ? GameLayout.TwigDisplaySize : GameLayout.BranchDisplaySize;
@@ -93,7 +93,7 @@ namespace PerchSort.Game
         public void OnPointerClick(PointerEventData data)
         {
             if (data != null && data.button != PointerEventData.InputButton.Left) return;
-            root.TapBranch(Index);
+            root.RequestBranch(Index);
         }
         public void Grow(int seats, bool upgrade, Action done)
         {
@@ -102,10 +102,10 @@ namespace PerchSort.Game
             Seats = seats; if (upgrade) Kind = BranchKind.Normal;
             UpdateWood(); float end = wood.fillAmount;
             wood.fillAmount = start;
-            Vector2 local = Slot(seats - 1) - GameLayout.BranchHit(root.Session.State.Branches[Index].Row,
+            Vector2 local = Slot(seats - 1) - GameLayout.BranchHit(root.Snapshot.Branches[Index].Row,
                 root.Board.RowCount, IsRight).position + new Vector2(0, 70 * density);
             glow.rectTransform.anchoredPosition = new Vector2(local.x, -local.y);
-            var sprout = GameUI.Image(flex, "Growth sprout", art.Get("leaf_fall_w" + root.Session.State.World),
+            var sprout = GameUI.Image(flex, "Growth sprout", art.Get("leaf_fall_w" + root.Snapshot.World),
                 new Vector2((IsRight ? -1 : 1) * (GameLayout.FirstBirdSlot + (seats - 1) * GameLayout.SeatPitch(density)), -20 * density), Vector2.one * 48);
             motion.Play(0.4f, t =>
             {
@@ -120,7 +120,7 @@ namespace PerchSort.Game
             landing.Play(0.35f, t => flex.localRotation = Quaternion.Euler(0, 0,
                 (IsRight ? -3 : 3) * Mathf.Cos(t * Mathf.PI * 4) * Mathf.Exp(-5 * t) * (1 - t)),
                 () => flex.localRotation = Quaternion.identity);
-            var leaf = GameUI.Image(flex, "Falling leaf", art.Get("leaf_fall_w" + root.Session.State.World),
+            var leaf = GameUI.Image(flex, "Falling leaf", art.Get("leaf_fall_w" + root.Snapshot.World),
                 new Vector2((IsRight ? -1 : 1) * 360 * density, 0), Vector2.one * 28);
             motion.Play(0.6f, t =>
             {
@@ -152,7 +152,7 @@ namespace PerchSort.Game
                 () => glow.color = Color.clear, delay);
         }
         public void ClearHighlight() { if (highlight != null) highlight.CancelAll(); if (glow != null) glow.color = Color.clear; }
-        public void Sync(BranchState branch)
+        public void Sync(BoardSnapshot.Branch branch)
         {
             Kind = branch.Kind; Seats = branch.Capacity; UpdateWood();
             for (int i = 0; i < transform.childCount; i++)
