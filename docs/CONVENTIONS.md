@@ -24,7 +24,8 @@ One game, one version. Unity 6000.6.7f1, portrait, 40 authored levels in four fo
 
 ## 4. UI standards
 1. The approved images in `art/approved_ui/` are the target. A UI change is accepted only when a runtime screenshot placed beside the approved image visibly matches.
-2. Controls: round purple discs with gold rims for tools, icon only where clear (accessible names are not visible labels). All buttons of the same role have identical size in every state; disabled means dimmed (alpha), never smaller. A primary action is at most 1.25 times the size of its sibling buttons.
+2. Controls: round honey-wood discs with gold rims (white glyphs with a dark-brown outline); green only for primary actions. Icon only where clear (accessible names are not visible labels). All buttons of the same role have identical size in every state; disabled means dimmed (alpha), never smaller. A primary action is at most 1.25 times the size of its sibling buttons.
+   Approved images in `art/approved_ui` show the earlier purple discs and are superseded for that detail only.
 3. The coin pill shows the coin disc overlapping the left end and the number centred in the remaining cream area; 99999 must fit with margin; it never touches ropes or houses.
 4. Modals: the dim layer and panel are above every board, map and bird object; the scene darkens to about 55-60 % brightness (dim alpha 0.72); all controls are visible from the first frame; Settings has no per-control animation, only one panel fade and scale of 0.18 s in and 0.12 s out.
 5. Map: the scroll viewport ends above the bottom bar and starts below the top bar; the current node and its chick are always fully visible; nothing is hidden under the bars.

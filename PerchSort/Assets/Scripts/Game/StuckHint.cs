@@ -127,7 +127,7 @@ namespace PerchSort.Game
             var tail = GameUI.Rect(panel, "Tail", Vector2.zero, new Vector2(42, 24));
             tail.pivot = new Vector2(0.5f, 1); tail.gameObject.AddComponent<StuckHintTail>();
             GameUI.Fit(panel, "Leaf sprig", art.Get("leaf_badge"), new Vector2(30, 25), new Vector2(68, 48));
-            GameUI.Fit(panel, "Undo disc", art.Get("btn_purple"), new Vector2(82, 85), Vector2.one * 72);
+            GameUI.Fit(panel, "Undo disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(82, 85), Vector2.one * 72);
             GameUI.Fit(panel, "Undo icon", art.Icon("icon_undo"), new Vector2(82, 85), Vector2.one * 45);
             GameUI.Fit(panel, "Hint booster", art.Icon(ViewModel.Icon(BoosterKind.Firefly)), new Vector2(190, 85), Vector2.one * 56);
             GameUI.Fit(panel, "Branch booster", art.Icon(ViewModel.Icon(BoosterKind.Sapling)), new Vector2(270, 85), Vector2.one * 56);
