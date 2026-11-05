@@ -70,3 +70,14 @@ No fabricated screenshots, offline composites or historical passing counts subst
 Close the user's Unity Editor normally. The worker reported this boundary in chat and on the Orca workspace card; no permission to close it was assumed. The lock was available, but the live Editor still prevents launching a worker Editor.
 
 Before any worker Unity run, pre-change source snapshots remain under ignored `build/wood-buttons/baseline/` for genuine baseline captures, and scene/meta/settings/package hashes are recorded in `build/wood-buttons/pre-unity.json`. These are local preparation artifacts, not committed alternate implementations. Finish the required before/after and timed captures, inspect the actual images, run the serialized full suites once, and replace the explicit NOT_RUN/NOT_CAPTURED entries with observed results before accepting the task.
+
+## Delivery transport
+
+Implementation commit: `b9b33579a5136eb93964fc0420340c194ecbcd32`. Push is **BLOCKED** by transport, not claimed complete:
+
+- `git push -u origin mac-wood-buttons-wiring/work`: failed with `LibreSSL SSL_ERROR_SYSCALL` connecting to `github.com:443`.
+- `git -c http.version=HTTP/1.1 push -u origin mac-wood-buttons-wiring/work`: same failure.
+- `curl -I --connect-timeout 10 https://github.com`: same TLS failure.
+- SSH alternate transport preflight to `ssh.github.com:443`: connection closed before authentication.
+
+No remote settings, SSH host trust, credentials or TLS verification were changed. The initial fetch succeeded; push attempts later failed. Restore GitHub connectivity, then push this assigned branch. The later report-only commit records this boundary.
