@@ -25,26 +25,29 @@ namespace PerchSort.Game
         private Quaternion restRotation;
         private Clip playing;
         private string action;
-        private bool celebrating, hovering, running, looping;
-        private float elapsed, actionTime, phase, nextBlink, nextPeek, nextTurn, landing;
+        private bool celebrating, hovering, running, looping, friend;
+        private float elapsed, actionTime, phase, nextBlink, nextPeek, nextTurn, nextHop, landing;
         // One current game: the house scheduler reserves starts across all resident birds.
         private static float lastHouseStart = float.NegativeInfinity;
 
-        public void Configure(Image image, GameArt art, string species, bool celebration = false, bool hover = false, bool feetPivot = true)
+        public void Configure(Image image, GameArt art, string species, bool celebration = false, bool hover = false, bool feetPivot = true,
+            bool frontFacing = false, bool friend = false)
         {
-            bird = image; rect = image.rectTransform; celebrating = celebration; hovering = hover;
+            bird = image; rect = image.rectTransform; celebrating = celebration; hovering = hover; this.friend = friend;
             if (feetPivot)
             {
                 Vector2 pivot = new Vector2(0.5f, 0.06f);
                 rect.anchoredPosition += Vector2.Scale(pivot - rect.pivot, rect.sizeDelta);
                 rect.pivot = pivot;
             }
-            restSprite = art.Get(species + "_idle"); bird.sprite = restSprite; restColor = bird.color;
+            restSprite = frontFacing ? art.Optional(species + "_front") ?? art.Optional(species + "_face") ?? art.Get(species + "_cheer_01") : art.Get(species + "_idle");
+            bird.sprite = restSprite; restColor = bird.color;
             phase = Random.value * Mathf.PI * 2;
             AddClip(art, species, "cheer", "cheer", 10);
             AddClip(art, species, "flap", "fly_up", 14);
             AddClip(art, species, "hop", "cheer", 12);
-            AddClip(art, species, "blink", "blink", 12, reverse: true);
+            AddClip(art, species, "blink", "blink", 12, reverse: true,
+                sequence: frontFacing && art.Optional(species + "_front_blink_01") != null ? "front_blink" : "blink");
             AddClip(art, species, "peek", "idle", 8, 0.8f, true);
             AddClip(art, species, "turn_left", "look_side", 10, 0.8f, true);
             AddClip(art, species, "turn_right", "look_side", 10, 0.8f, true);
@@ -54,12 +57,12 @@ namespace PerchSort.Game
             CaptureRest();
         }
 
-        private void AddClip(GameArt art, string species, string name, string fallback, float fps, float hold = 0, bool reverse = false)
+        private void AddClip(GameArt art, string species, string name, string fallback, float fps, float hold = 0, bool reverse = false, string sequence = null)
         {
             var frames = new List<Sprite>();
             for (int i = 1; ; i++)
             {
-                var frame = art.Optional(species + "_" + name + "_" + i.ToString("D2"));
+                var frame = art.Optional(species + "_" + (sequence ?? name) + "_" + i.ToString("D2"));
                 if (frame == null) break;
                 frames.Add(frame);
             }
@@ -78,6 +81,7 @@ namespace PerchSort.Game
             if (running) Stop();
             CaptureRest(); elapsed = 0; landing = 0;
             nextBlink = Random.Range(2f, 4f); nextPeek = Random.Range(4f, 8f); nextTurn = Random.Range(6f, 10f);
+            nextHop = Random.Range(1.6f, 2.4f);
             playing = null; running = true;
         }
 
@@ -110,7 +114,12 @@ namespace PerchSort.Game
             float delta = Time.deltaTime; elapsed += delta;
             float breath = 0.5f + 0.5f * Mathf.Sin(elapsed * (Mathf.PI * 2 / 2.6f) + phase);
             rect.anchoredPosition = restPosition;
-            rect.localScale = Vector3.Scale(restScale, new Vector3(1 + 0.02f * breath, 1 + 0.02f * breath, 1));
+            rect.localScale = Vector3.Scale(restScale, new Vector3(friend ? 1 - 0.008f * breath : 1 + 0.02f * breath, 1 + 0.02f * breath, 1));
+            if (friend && (playing == null || action == "cheer"))
+            {
+                if (elapsed >= nextBlink) { Play("blink"); nextBlink = elapsed + Random.Range(2f, 4f); }
+                else if (elapsed >= nextHop) { Play("hop"); nextHop = elapsed + Random.Range(1.6f, 2.4f); }
+            }
             if (playing == null)
             {
                 if (celebrating || hovering) { Play(hovering ? "flap" : "cheer"); looping = true; }
@@ -161,8 +170,8 @@ namespace PerchSort.Game
             else
             {
                 overlay.sprite = playing.Fallback;
-                float edge = looping ? actionTime : Mathf.Min(actionTime, duration - actionTime);
-                SetBlend(Mathf.SmoothStep(0, 1, edge / 0.08f));
+                bird.enabled = false; bird.color = restColor;
+                overlay.enabled = true; overlay.color = restColor;
             }
             if (looping || progress < 1) return;
             if (sequence && action == "hop") landing = 0.1f;

@@ -175,27 +175,30 @@ namespace PerchSort.Game
         {
             var dim = GameUI.Image(transform, "Purchase dim", null, new Vector2(540, 960), GameLayout.DesignSize); dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha); dim.raycastTarget = true;
             confirmation = dim.gameObject;
-            var panel = GameUI.Surface(dim.transform, "Purchase panel", art, "card_wood", new Rect(252, 672, 568, 652)); panel.raycastTarget = true;
-            panel.type = Image.Type.Simple;
+            var panel = GameUI.Surface(dim.transform, "Purchase panel", art, "panel_wood", new Rect(220, 620, 640, 740)); panel.raycastTarget = true;
+            var body = PopupMotion.Lift(panel);
+            Image price;
             if (cosmetic == null)
             {
-                var disc = GameUI.Fit(panel.transform, "Wood disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(291, 209), Vector2.one * 285);
+                var disc = GameUI.Fit(body, "Wood disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(320, 210), Vector2.one * 250);
                 GameUI.DiscGlyph(disc.transform, "Booster illustration", art.Get(ViewModel.ToolGlyph(Selected.Value)));
-                Price(panel.transform, Selected.Value, new Vector2(286, 412), new Vector2(316, 126), true);
+                price = Price(body, Selected.Value, new Vector2(320, 432), new Vector2(316, 110), true);
             }
             else
             {
-                GameUI.Fit(panel.transform, "Cosmetic picture", CosmeticSprite(art, cosmetic), new Vector2(291, 209), Vector2.one * 300);
-                CosmeticPrice(panel.transform, cosmetic, new Vector2(286, 412), new Vector2(316, 126), true);
+                GameUI.Fit(body, "Cosmetic picture", CosmeticSprite(art, cosmetic), new Vector2(320, 210), Vector2.one * 280);
+                price = CosmeticPrice(body, cosmetic, new Vector2(320, 432), new Vector2(316, 110), true);
             }
-            GameUI.Button(panel.transform, art, "Cancel purchase", "icon_close", new Rect(434, -4, 108, 108), CloseConfirm);
-            GameUI.Button(panel.transform, art, "Confirm purchase", "icon_check", new Rect(198, 490, 176, 176), Purchase, true);
-            panel.transform.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
+            foreach (var label in price.GetComponentsInChildren<TextMeshProUGUI>())
+                TextFit.Apply(label, price.rectTransform, label.fontSize);
+            GameUI.Button(body, art, "Cancel purchase", "icon_close", new Rect(532, 8, 100, 100), CloseConfirm);
+            PopupMotion.PrimaryBar(body, art, "Confirm purchase", "icon_check", new Vector2(320, 620), Purchase);
+            body.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
             var dialogMotion = dim.gameObject.AddComponent<GameMotion>();
             dialogMotion.Play(0.18f, t =>
             {
-                if (dim != null && dim.gameObject.activeInHierarchy && panel != null)
-                    panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t);
+                if (dim != null && dim.gameObject.activeInHierarchy && body != null)
+                    body.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t);
             }, ease: Ease.OutCubic);
         }
         private void BuildCard(BoosterKind kind, int index)

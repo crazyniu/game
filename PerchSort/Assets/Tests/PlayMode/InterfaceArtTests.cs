@@ -67,18 +67,18 @@ namespace PerchSort.PlayModeTests
                 var win = root.Win.transform.Find("Win panel");
                 for (int i = 0; i < 3; i++)
                 {
-                    Assert.That(((RectTransform)win.Find("Star slot " + i)).sizeDelta, Is.EqualTo(Vector2.one * 160));
-                    Assert.That(((RectTransform)win.Find("Earned star " + i)).sizeDelta, Is.EqualTo(Vector2.one * 160));
+                    Assert.That(((RectTransform)win.Find("Star slot " + i)).sizeDelta, Is.EqualTo(Vector2.one * 140));
+                    Assert.That(((RectTransform)win.Find("Earned star " + i)).sizeDelta, Is.EqualTo(Vector2.one * 140));
                 }
-                AssertSprigs(win, "leaf_sprig_a", "leaf_sprig_b", "leaf_sprig_c");
+                AssertSprigs(win);
                 root.Win.Hide();
                 var panels = root.GetComponentInChildren<PanelsView>(true);
                 panels.LevelCard(11);
                 var card = panels.transform.Find("Panel");
                 Assert.That(card.Find("Mechanic sleep").GetComponent<Image>().sprite.name, Is.EqualTo("hoot_sleep_bare"));
                 for (int i = 0; i < 3; i++)
-                    Assert.That(((RectTransform)card.Find("Best star " + i)).sizeDelta, Is.EqualTo(new Vector2(110, 108)));
-                AssertSprigs(card, "leaf_sprig_b");
+                    Assert.That(((RectTransform)card.Find("Best star " + i)).sizeDelta, Is.EqualTo(Vector2.one * 120));
+                AssertSprigs(card);
             }
             finally
             {
@@ -92,8 +92,9 @@ namespace PerchSort.PlayModeTests
         {
             var actual = panel.GetComponentsInChildren<Image>(true)
                 .Where(image => image.sprite != null && image.sprite.name.StartsWith("leaf_sprig_"))
-                .Select(image => image.sprite.name);
+                .Select(image => image.sprite.name).ToArray();
             CollectionAssert.AreEquivalent(names, actual);
+            CollectionAssert.AllItemsAreUnique(actual, "The panel silhouette already contains its leaves; extra sprigs must not be duplicated.");
         }
     }
 }

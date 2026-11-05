@@ -1,8 +1,8 @@
-"""Reject numbered game identities in every tracked path and authored identifier.
+"""Reject numbered game identities in tracked paths and authored source names.
 
 Run directly for the repository check, or with --self-test for isolated fixtures.
-Markdown prose is not an identifier: inline code, fenced code and link targets are.
-Dates, dependency files, lockfiles and existing storage literals are not game identities.
+Serialized Unity object/type names are checked without scanning saved values.
+Historical prose, dependency files and existing storage literals are not game identities.
 """
 
 from pathlib import Path, PurePosixPath
@@ -14,7 +14,7 @@ import sys
 ASSETS = "PerchSort/Assets/"
 # Recognize standalone labels and embedded PascalCase suffixes, not words such as
 # 'preview', SHA hashes, world IDs, level IDs or third-party module names.
-NUMBERED = re.compile(r"(?:(?<![a-z0-9])(?:v|ui|final)|V|UI|Final)[0-9]+(?![a-z0-9])|(?<![A-Z])T[0-9]+[A-Za-z]?")
+NUMBERED = re.compile(r"(?<![a-z0-9])(?i:v|ui|final)[0-9]+|(?:V|UI|Ui|Final)[0-9]+|(?<![A-Z])T[0-9]+[A-Za-z]?")
 NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+|T[0-9]+[A-Za-z]?", re.IGNORECASE)
 QUOTED = re.compile(r'''(["'`])((?:\\.|(?!\1)[^\\\r\n])*)\1''')
 INLINE_CODE = re.compile(r"`+([^`\r\n]+)`+")
@@ -35,7 +35,7 @@ STORAGE_LITERALS = {
         "v5.bestStars.", "v5.tutorial.", "v5.booster.", "v5.starter.",
         "v5.bestMoves.", "v6.unlockSeen.",
     },
-    ASSETS + "Scripts/Meta/ProfileText.cs": {
+    ASSETS + "Scripts/Meta/ProfileMigrator.cs": {
         "v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.",
         "v5.tutorial.", "v5.booster.", "v5.starter.",
     },
@@ -63,10 +63,14 @@ def git(root, *args):
 # source files; prose, records, evidence and generated data are history, not names.
 SOURCE_SUFFIXES = {".cs", ".asmdef", ".asmref", ".py", ".sh", ".yml", ".yaml",
                    ".csproj", ".props", ".targets", ".uxml", ".uss", ".shader"}
+SERIALIZED_SUFFIXES = {".unity", ".prefab", ".asset", ".scenetemplate"}
+SERIALIZED_NAME = re.compile(r"\s*(?:m_Name|m_EditorClassIdentifier):\s*")
 
 
 def is_source(path):
     suffix = PurePosixPath(path).suffix.lower()
+    if suffix in SERIALIZED_SUFFIXES:
+        return path.startswith(ASSETS)
     if suffix in SOURCE_SUFFIXES:
         return True
     if suffix == ".json":
@@ -101,6 +105,13 @@ def path_violations(path):
 
 
 def identifier_lines(path, text):
+    if PurePosixPath(path).suffix.lower() in SERIALIZED_SUFFIXES:
+        # Unity documents also contain serialized values, package metadata and
+        # historical user data. Inspect authored object/type identities only.
+        for number, line in enumerate(text.splitlines(), 1):
+            if SERIALIZED_NAME.match(line):
+                yield number, line
+        return
     if PurePosixPath(path).suffix.lower() != ".md":
         yield from enumerate(text.splitlines(), 1)
         return
@@ -137,6 +148,10 @@ def content_violations(path, text):
             return " " * len(match.group()) if match.group(2) in allowed else match.group()
 
         checked = QUOTED.sub(mask_literal, line)
+        # Unity shader IO uses a conventional vertex-to-fragment type.
+        # This exact technical identifier is not a second game implementation.
+        if PurePosixPath(path).suffix.lower() in {".shader", ".cginc", ".hlsl"}:
+            checked = re.sub(r"\bv2f\b", "   ", checked)
         # ISO date-time separators are not task identifiers.
         checked = re.sub(r"(?<=\d{4}-\d{2}-\d{2})T(?=\d{2}:)", " ", checked)
         # A workflow's pinned action ref is third-party package metadata, not an

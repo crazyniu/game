@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:32:51Z" duration="96.4368591">
+  <test-suite type="TestSuite" id="1156" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="117" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:32:51Z" duration="96.436859" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1306" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/hint-and-sleep/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="117" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:32:51Z" duration="96.432737" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16481" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1307" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="117" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:32:51Z" duration="96.431843" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1308" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="117" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:32:51Z" duration="96.430979" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1166" name="BoosterSoundTests" fullname="PerchSort.PlayModeTests.BoosterSoundTests" classname="PerchSort.PlayModeTests.BoosterSoundTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:31:16Z" duration="2.070734" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1168" name="MutedBoostersAndUndoCommitWithoutPlayingEffects" fullname="PerchSort.PlayModeTests.BoosterSoundTests.MutedBoostersAndUndoCommitWithoutPlayingEffects" methodname="MutedBoostersAndUndoCommitWithoutPlayingEffects" classname="PerchSort.PlayModeTests.BoosterSoundTests" runstate="Runnable" seed="182826472" result="Passed" start-time="2026-11-05 06:31:14Z" end-time="2026-11-05 06:31:15Z" duration="1.132547" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1169" name="RejectedBoosterDoesNotEmitSuccessSound" fullname="PerchSort.PlayModeTests.BoosterSoundTests.RejectedBoosterDoesNotEmitSuccessSound" methodname="RejectedBoosterDoesNotEmitSuccessSound" classname="PerchSort.PlayModeTests.BoosterSoundTests" runstate="Runnable" seed="1389944206" result="Passed" start-time="2026-11-05 06:31:15Z" end-time="2026-11-05 06:31:15Z" duration="0.077524" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1167" name="SuccessfulBoostersAndUndoPlayTheirDistinctEffectOnce" fullname="PerchSort.PlayModeTests.BoosterSoundTests.SuccessfulBoostersAndUndoPlayTheirDistinctEffectOnce" methodname="SuccessfulBoostersAndUndoPlayTheirDistinctEffectOnce" classname="PerchSort.PlayModeTests.BoosterSoundTests" runstate="Runnable" seed="236975493" result="Passed" start-time="2026-11-05 06:31:15Z" end-time="2026-11-05 06:31:16Z" duration="0.854507" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1191" name="FamilyFlightAlphaTests" fullname="PerchSort.PlayModeTests.FamilyFlightAlphaTests" classname="PerchSort.PlayModeTests.FamilyFlightAlphaTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-05 06:31:16Z" end-time="2026-11-05 06:31:16Z" duration="0.161978" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1192" name="PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly" fullname="PerchSort.PlayModeTests.FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly" methodname="PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly" classname="PerchSort.PlayModeTests.FamilyFlightAlphaTests" runstate="Runnable" seed="1511530249" result="Passed" start-time="2026-11-05 06:31:16Z" end-time="2026-11-05 06:31:16Z" duration="0.161188" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1219" name="HintTests" fullname="PerchSort.PlayModeTests.HintTests" classname="PerchSort.PlayModeTests.HintTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-05 06:31:16Z" end-time="2026-11-05 06:32:47Z" duration="90.395918" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1221" name="BoardChangeRejectsPendingHintWithoutConsumptionOrStaleDisplay" fullname="PerchSort.PlayModeTests.HintTests.BoardChangeRejectsPendingHintWithoutConsumptionOrStaleDisplay" methodname="BoardChangeRejectsPendingHintWithoutConsumptionOrStaleDisplay" classname="PerchSort.PlayModeTests.HintTests" runstate="Runnable" seed="615330494" result="Passed" start-time="2026-11-05 06:31:16Z" end-time="2026-11-05 06:31:17Z" duration="0.067135" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1220" name="RepeatedHintsWinEveryAuthoredLevelWithReasonsForShortestPathReversals" fullname="PerchSort.PlayModeTests.HintTests.RepeatedHintsWinEveryAuthoredLevelWithReasonsForShortestPathReversals" methodname="RepeatedHintsWinEveryAuthoredLevelWithReasonsForShortestPathReversals" classname="PerchSort.PlayModeTests.HintTests" runstate="Runnable" seed="1788789576" result="Passed" start-time="2026-11-05 06:31:17Z" end-time="2026-11-05 06:32:47Z" duration="90.327757" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1295" name="SleepFeedbackTests" fullname="PerchSort.PlayModeTests.SleepFeedbackTests" classname="PerchSort.PlayModeTests.SleepFeedbackTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-05 06:32:47Z" end-time="2026-11-05 06:32:51Z" duration="3.793998" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1298" name="EverySleeperZzzRisesAndFadesAndInstantSuppressesMotion" fullname="PerchSort.PlayModeTests.SleepFeedbackTests.EverySleeperZzzRisesAndFadesAndInstantSuppressesMotion" methodname="EverySleeperZzzRisesAndFadesAndInstantSuppressesMotion" classname="PerchSort.PlayModeTests.SleepFeedbackTests" runstate="Runnable" seed="272541613" result="Passed" start-time="2026-11-05 06:32:47Z" end-time="2026-11-05 06:32:49Z" duration="1.779132" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1297" name="NextTapDismissesNightExplanationAndLandingCanStillWakeAuthoredSleep" fullname="PerchSort.PlayModeTests.SleepFeedbackTests.NextTapDismissesNightExplanationAndLandingCanStillWakeAuthoredSleep" methodname="NextTapDismissesNightExplanationAndLandingCanStillWakeAuthoredSleep" classname="PerchSort.PlayModeTests.SleepFeedbackTests" runstate="Runnable" seed="882820651" result="Passed" start-time="2026-11-05 06:32:49Z" end-time="2026-11-05 06:32:49Z" duration="0.085839" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1296" name="SleepingTapBobsPulsesExplainsAndExpiresWithoutChangingRules" fullname="PerchSort.PlayModeTests.SleepFeedbackTests.SleepingTapBobsPulsesExplainsAndExpiresWithoutChangingRules" methodname="SleepingTapBobsPulsesExplainsAndExpiresWithoutChangingRules" classname="PerchSort.PlayModeTests.SleepFeedbackTests" runstate="Runnable" seed="1667963153" result="Passed" start-time="2026-11-05 06:32:49Z" end-time="2026-11-05 06:32:51Z" duration="1.927788" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
