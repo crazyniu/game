@@ -1,6 +1,6 @@
 # Animated outfit art delivery
 
-Delivered 17/27 outfits, 34/54 actions, 153/243 PNG frames and matching metadata. No code or retained artwork changes.
+Delivered 18/27 outfits, 36/54 actions, 162/243 PNG frames and matching metadata. No code or retained artwork changes.
 
 ## Method
 
@@ -16,13 +16,13 @@ Each action is generated together in a 3-column sheet. Slicing reuses the existi
 - `docs/work-log/animated-outfits/evidence/`: per-outfit action contact sheets, bare row above dressed row on both backgrounds.
 - `art/cosmetics/gif/`: 100 ms/frame offline light/dark review GIFs assembled from exported frames. These are previews, not native generator animation or Unity runtime evidence.
 
-Built-in RGB previews can show color outside the bird, but exported alpha and dark/light composites determine transparency. Each delivered contact sheet was visually reviewed for accessory identity, pose, face, proportions, edges and small-size readability. Rejected one Cocoa tier 1 blink source for an opaque background; retained under `raw/animated-outfits/cocoa_outfit_1_blink_rejected_background.png` and regenerated using the built-in tool.
+Built-in RGB previews can show color outside the bird, but exported alpha and dark/light composites determine transparency. Each delivered contact sheet was visually reviewed for accessory identity, pose, face, proportions, edges and small-size readability. Rejected one Cocoa tier 1 blink source for an opaque background; retained under `raw/animated-outfits/cocoa_outfit_1_blink_rejected_background.png` and regenerated using the built-in tool. Also rejected Hoot tier 2 cheer for missing reading glasses; retained as `hoot_outfit_2_cheer_rejected_missing_glasses.png` and regenerated.
 
 ## Exact completion list
 
-Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2, sky_outfit_2, berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2.
+Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2, sky_outfit_2, berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2, hoot_outfit_2.
 
-Missing: hoot_outfit_2, sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3, ink_outfit_3, hoot_outfit_3.
+Missing: sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3, ink_outfit_3, hoot_outfit_3.
 
 ## Verification boundary
 
