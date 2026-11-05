@@ -9,6 +9,7 @@ namespace PerchSort.Game
     {
         private RectTransform house, doorway;
         private Image door, face, openDoorway;
+        private Image body, roof;
         private GameObject check;
         private GameMotion motion, doorMotion, checkMotion, particles, peekMotion;
         private UiBirdLife resident;
@@ -47,7 +48,7 @@ namespace PerchSort.Game
             var target = house.gameObject.AddComponent<Image>(); target.color = Color.clear; target.raycastTarget = true;
             house.gameObject.AddComponent<LongPress>().Configure(() => root.OpenGoalInfo(Species));
             Vector2 center = bounds.size * 0.5f;
-            GameUI.Image(house, "House body", art.Get("house_body"), center, bounds.size);
+            body = GameUI.Image(house, "House body", art.Get("house_body"), center, bounds.size);
             Vector2 doorPoint = GameLayout.HouseDoorLocal(bounds.size);
             Vector2 opening = bounds.size * (204f / 512);
             var open = art.Optional("house_door_open");
@@ -58,7 +59,8 @@ namespace PerchSort.Game
             face = GameUI.Fit(doorway, "Species face", art.Get(species + "_idle"), opening * 0.5f, opening * (UsesBeam(count) ? 1.35f : 1.2f));
             resident = face.gameObject.AddComponent<UiBirdLife>();
             resident.Configure(face, art, species);
-            GameUI.Image(house, "Colored roof", art.Get(Roof(species)), center, bounds.size);
+            roof = GameUI.Image(house, "Colored roof", art.Get(Roof(species)), center, bounds.size);
+            ApplyStyle(root.Collection.EquippedBirdhouseStyle);
             var leaf = art.Optional("house_door_leaf");
             if (leaf != null)
             {
@@ -77,6 +79,12 @@ namespace PerchSort.Game
             motion = gameObject.AddComponent<GameMotion>(); doorMotion = gameObject.AddComponent<GameMotion>();
             checkMotion = gameObject.AddComponent<GameMotion>(); particles = gameObject.AddComponent<GameMotion>(); peekMotion = gameObject.AddComponent<GameMotion>();
             SetHome(false); DoorPose(0);
+        }
+        public void ApplyStyle(string style)
+        {
+            bool styled = style != "default";
+            body.sprite = art.Get(styled ? "house_style_" + style + "_body" : "house_body");
+            roof.gameObject.SetActive(!styled);
         }
         private static string Roof(string species)
         {

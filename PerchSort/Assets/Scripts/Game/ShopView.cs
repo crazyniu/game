@@ -16,6 +16,10 @@ namespace PerchSort.Game
         private TMP_FontAsset font;
         private TextMeshProUGUI coins;
         private Image coinPlate;
+        private Meta.ShopItem selectedCosmetic;
+        private RectTransform tabRing, merchandise;
+        private readonly Dictionary<string, Image> cosmeticCards = new Dictionary<string, Image>();
+        private readonly Dictionary<string, Image> cosmeticPrices = new Dictionary<string, Image>();
         public static Meta.BoosterKind MetaKind(BoosterKind kind)
         {
             switch (kind)
@@ -76,14 +80,130 @@ namespace PerchSort.Game
             coins = HudView.CoinHeader(transform, art, font); displayedCoins = -1; SetCoins(root.Coins);
             coinPlate = transform.Find("Coin pill").GetComponent<Image>();
             GameUI.Button(transform, art, "Close shop", "icon_close", new Rect(911, 143, 108, 108), root.ClosePanel);
-            // The other two authored slots stay reserved, with no controls until their art exists.
             Vector2[] tabCenters = { new Vector2(350, 330), new Vector2(540, 330), new Vector2(725, 330) };
-            GameUI.Fit(transform, "Selected boosters tab", art.Get("tab_selected_ring"), tabCenters[0] + new Vector2(0, 12), new Vector2(190, 204));
-            var tab = GameUI.Fit(transform, "Boosters tab", art.Get("btn_purple"), tabCenters[0], Vector2.one * 140);
-            GameUI.Fit(tab.transform, "Bulb", art.Get("icon_bulb"), Vector2.one * 70, Vector2.one * 95);
-            for (int i = 0; i < boosterOrder.Length; i++) BuildCard(boosterOrder[i], i);
+            tabRing = GameUI.Fit(transform, "Selected tab", art.Get("tab_selected_ring"), tabCenters[0] + new Vector2(0, 12), new Vector2(190, 204)).rectTransform;
+            string[] names = { "Boosters tab", "Outfits tab", "Birdhouses tab" };
+            for (int i = 0; i < names.Length; i++)
+            {
+                var kind = (Meta.ShopItemKind)i;
+                var tab = GameUI.Button(transform, art, names[i], i == 0 ? "icon_bulb" : "icon_home",
+                    new Rect(tabCenters[i] - Vector2.one * 70, Vector2.one * 140), () => ShowTab(kind));
+                if (i == 1) { GameUI.Dispose(tab.transform.Find("Icon").gameObject); Hanger(tab.transform); }
+            }
+            ShowTab(Meta.ShopItemKind.Booster);
             if (focus.HasValue && cards.TryGetValue(focus.Value, out var card))
                 motion.Play(0.6f, t => card.localScale = Vector3.one * (1 + 0.06f * Mathf.Sin(t * Mathf.PI)));
+        }
+        private static void Hanger(Transform parent)
+        {
+            Vector2[] points = { new Vector2(63, 50), new Vector2(63, 41), new Vector2(75, 35),
+                new Vector2(85, 43), new Vector2(70, 59), new Vector2(30, 88), new Vector2(110, 88), new Vector2(70, 59) };
+            for (int i = 1; i < points.Length; i++)
+            {
+                Vector2 delta = points[i] - points[i - 1];
+                var line = GameUI.Image(parent, "Hanger line", null, (points[i] + points[i - 1]) * 0.5f, new Vector2(delta.magnitude + 3, 7));
+                line.color = Color.white; line.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+            }
+        }
+        public void ShowTab(Meta.ShopItemKind kind)
+        {
+            if (!IsOpen || ConfirmOpen) return;
+            motion.CancelAll(); counting = false;
+            if (merchandise != null) { merchandise.SetParent(null, false); GameUI.Dispose(merchandise.gameObject); }
+            foreach (var card in cards.Values) { card.SetParent(null, false); GameUI.Dispose(card.gameObject); }
+            cards.Clear(); prices.Clear(); counts.Clear(); cosmeticCards.Clear(); cosmeticPrices.Clear();
+            tabRing.anchoredPosition = new Vector2(kind == Meta.ShopItemKind.Booster ? 350 : kind == Meta.ShopItemKind.Outfit ? 540 : 725, -342);
+            merchandise = GameUI.Rect(transform, "Merchandise", new Vector2(540, 960), GameLayout.DesignSize);
+            if (kind == Meta.ShopItemKind.Booster)
+            {
+                for (int i = 0; i < boosterOrder.Length; i++) BuildCard(boosterOrder[i], i);
+                return;
+            }
+            float viewportHeight = kind == Meta.ShopItemKind.Outfit ? 1200 : 1360;
+            var viewport = GameUI.Rect(merchandise, "Cosmetic viewport", new Vector2(540, 450 + viewportHeight * 0.5f), new Vector2(1000, viewportHeight));
+            viewport.gameObject.AddComponent<RectMask2D>();
+            var hit = viewport.gameObject.AddComponent<Image>(); hit.color = Color.clear;
+            var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport; scroll.horizontal = false;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            int total = kind == Meta.ShopItemKind.Outfit ? 27 : 4;
+            float height = kind == Meta.ShopItemKind.Outfit ? 575 : 415;
+            var content = GameUI.Rect(viewport, "Cosmetic grid", Vector2.zero, new Vector2(1000, Mathf.Max(1360, (total + 1) / 2 * (height + 35))));
+            content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(500, 0); scroll.content = content;
+            int index = 0;
+            foreach (var item in Meta.Shop.Catalog) if (item.Kind == kind) CosmeticCard(content, item, index++, height);
+            scroll.verticalNormalizedPosition = 1;
+        }
+        internal static Sprite CosmeticSprite(GameArt art, Meta.ShopItem item) => art.Get(item.Kind == Meta.ShopItemKind.Outfit
+            ? item.SpeciesId + "_outfit_" + item.Id[item.Id.Length - 1] : "house_style_" + item.StyleId + "_body");
+        private bool Owned(Meta.ShopItem item) => item.Kind == Meta.ShopItemKind.Outfit
+            ? root.Collection.OwnsOutfit(item.Id) : root.Collection.OwnsBirdhouseStyle(item.StyleId);
+        private bool Equipped(Meta.ShopItem item) => item.Kind == Meta.ShopItemKind.Outfit
+            ? root.Collection.EquippedOutfits.TryGetValue(item.SpeciesId, out var equipped) && equipped == item.Id
+            : root.Collection.EquippedBirdhouseStyle == item.StyleId;
+        private void CosmeticCard(Transform parent, Meta.ShopItem item, int index, float height)
+        {
+            var card = GameUI.Surface(parent, item.Id, art, "card_wood", new Rect(index % 2 == 0 ? 20 : 525, index / 2 * (height + 35), 455, height));
+            card.type = Image.Type.Simple; card.raycastTarget = true; cosmeticCards.Add(item.Id, card);
+            var button = card.gameObject.AddComponent<Button>(); button.targetGraphic = card; button.transition = Selectable.Transition.None;
+            button.onClick.AddListener(() => TapCosmetic(item.Id));
+            var ring = GameUI.Image(card.transform, "Equipped ring", art.Get("aviary_frame"), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 410 : 320));
+            ring.gameObject.SetActive(Equipped(item));
+            GameUI.Fit(card.transform, "Cosmetic picture", CosmeticSprite(art, item), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 380 : 290));
+            cosmeticPrices.Add(item.Id, CosmeticPrice(card.transform, item, new Vector2(227.5f, height - 80), new Vector2(266, 98)));
+        }
+        private Image CosmeticPrice(Transform parent, Meta.ShopItem item, Vector2 point, Vector2 size, bool receipt = false)
+        {
+            var pill = GameUI.Fit(parent, "Price pill", art.Get(receipt ? "coin_pill" : "btn_green_pill"), point, size);
+            if (!receipt && Owned(item))
+                GameUI.Fit(pill.transform, "Owned tick", art.Get("icon_check"), size * 0.5f, Vector2.one * 70);
+            else
+            {
+                GameUI.Fit(pill.transform, "Coin", art.Get("coin"), new Vector2(size.x * 0.26f, size.y * 0.5f), Vector2.one * size.y * 0.68f);
+                var label = GameUI.Text(pill.transform, "Price", item.Price.ToString(), font, new Vector2(size.x * 0.65f, size.y * 0.5f), new Vector2(size.x * 0.5f, size.y), 50);
+                label.color = receipt ? new Color32(95, 22, 6, 255) : Color.white;
+            }
+            return pill;
+        }
+        public void TapCosmetic(string itemId)
+        {
+            if (!IsOpen || ConfirmOpen || !cosmeticCards.ContainsKey(itemId) || !Meta.Shop.TryGetItem(itemId, out var item)) return;
+            if (Owned(item)) { if (root.ToggleCosmetic(itemId)) RefreshCosmetics(); return; }
+            if (root.Coins < item.Price) { Insufficient(cosmeticPrices[itemId]); return; }
+            selectedCosmetic = item; OpenConfirmation(item);
+        }
+        private void RefreshCosmetics()
+        {
+            foreach (var pair in cosmeticCards)
+            {
+                Meta.Shop.TryGetItem(pair.Key, out var item);
+                pair.Value.transform.Find("Equipped ring").gameObject.SetActive(Equipped(item));
+                var old = cosmeticPrices[item.Id]; var point = old.rectTransform.anchoredPosition;
+                old.transform.SetParent(null, false); GameUI.Dispose(old.gameObject);
+                cosmeticPrices[item.Id] = CosmeticPrice(pair.Value.transform, item, new Vector2(point.x, -point.y), new Vector2(266, 98));
+            }
+            SetCoins(root.Coins);
+        }
+        private void OpenConfirmation(Meta.ShopItem cosmetic = null)
+        {
+            var dim = GameUI.Image(transform, "Purchase dim", null, new Vector2(540, 960), GameLayout.DesignSize); dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha); dim.raycastTarget = true;
+            confirmation = dim.gameObject;
+            var panel = GameUI.Surface(dim.transform, "Purchase panel", art, "card_wood", new Rect(252, 672, 568, 652)); panel.raycastTarget = true;
+            panel.type = Image.Type.Simple;
+            if (cosmetic == null)
+            {
+                GameUI.Fit(panel.transform, "Purple disc", art.Get("btn_purple"), new Vector2(291, 209), Vector2.one * 285);
+                GameUI.Fit(panel.transform, "Booster illustration", art.Get(ViewModel.Illustration(Selected.Value)), new Vector2(291, 209), Vector2.one * 250);
+                Price(panel.transform, Selected.Value, new Vector2(286, 412), new Vector2(316, 126), true);
+            }
+            else
+            {
+                GameUI.Fit(panel.transform, "Cosmetic picture", CosmeticSprite(art, cosmetic), new Vector2(291, 209), Vector2.one * 300);
+                CosmeticPrice(panel.transform, cosmetic, new Vector2(286, 412), new Vector2(316, 126), true);
+            }
+            GameUI.Button(panel.transform, art, "Cancel purchase", "icon_close", new Rect(434, -4, 108, 108), CloseConfirm);
+            GameUI.Button(panel.transform, art, "Confirm purchase", "icon_check", new Rect(198, 490, 176, 176), Purchase, true);
+            panel.transform.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
+            motion.Play(0.18f, t => panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t), ease: Ease.OutCubic);
         }
         private void BuildCard(BoosterKind kind, int index)
         {
@@ -125,21 +245,18 @@ namespace PerchSort.Game
             if (root.HighestUnlocked < Meta.Unlocks.BoosterUnlockLevel(MetaKind(kind))) { Shake(cards[kind]); return; }
             if (root.Coins < Item(kind).Price) { Insufficient(kind); return; }
             Selected = kind;
-            var dim = GameUI.Image(transform, "Purchase dim", null, new Vector2(540, 960), GameLayout.DesignSize); dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha); dim.raycastTarget = true;
-            confirmation = dim.gameObject;
-            var panel = GameUI.Surface(dim.transform, "Purchase panel", art, "card_wood", new Rect(252, 672, 568, 652)); panel.raycastTarget = true;
-            panel.type = Image.Type.Simple;
-            GameUI.Fit(panel.transform, "Purple disc", art.Get("btn_purple"), new Vector2(291, 209), Vector2.one * 285);
-            GameUI.Fit(panel.transform, "Booster illustration", art.Get(ViewModel.Illustration(kind)), new Vector2(291, 209), Vector2.one * 250);
-            Price(panel.transform, kind, new Vector2(286, 412), new Vector2(316, 126), true);
-            GameUI.Button(panel.transform, art, "Cancel purchase", "icon_close", new Rect(434, -4, 108, 108), CloseConfirm);
-            GameUI.Button(panel.transform, art, "Confirm purchase", "icon_check", new Rect(198, 490, 176, 176), Purchase, true);
-            panel.transform.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
-            motion.Play(0.18f, t => panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t), ease: Ease.OutCubic);
+            OpenConfirmation();
         }
-        public void CloseConfirm() { GameUI.Dispose(confirmation); confirmation = null; Selected = null; }
+        public void CloseConfirm() { GameUI.Dispose(confirmation); confirmation = null; Selected = null; selectedCosmetic = null; }
         private void Purchase()
         {
+            if (ConfirmOpen && selectedCosmetic != null)
+            {
+                var item = selectedCosmetic; bool purchased = root.BuyCosmetic(item.Id);
+                CloseConfirm(); RefreshCosmetics();
+                if (!purchased && root.Coins < item.Price) Insufficient(cosmeticPrices[item.Id]);
+                return;
+            }
             if (!ConfirmOpen || !Selected.HasValue) return;
             BoosterKind kind = Selected.Value; int before = root.Coins;
             if (!root.BuyBooster(kind)) { CloseConfirm(); if (root.Coins < Item(kind).Price) Insufficient(kind); return; }
@@ -151,7 +268,11 @@ namespace PerchSort.Game
         }
         private void Insufficient(BoosterKind kind)
         {
-            var price = prices[kind]; price.sprite = NeutralPrice(); price.color = new Color32(255, 45, 45, 255); Shake(price.rectTransform);
+            Insufficient(prices[kind]);
+        }
+        private void Insufficient(Image price)
+        {
+            price.sprite = NeutralPrice(); price.color = new Color32(255, 45, 45, 255); Shake(price.rectTransform);
             motion.Play(0.3f, t => coinPlate.color = Color.Lerp(Color.white, new Color(1, 0.2f, 0.2f), Mathf.Sin(t * Mathf.PI)), () => coinPlate.color = Color.white);
         }
         private void Shake(RectTransform target)
@@ -207,7 +328,7 @@ namespace PerchSort.Game
             {
                 var child = transform.GetChild(i); child.gameObject.SetActive(false); child.SetParent(null, false); GameUI.Dispose(child.gameObject);
             }
-            cards.Clear(); prices.Clear(); counts.Clear(); gameObject.SetActive(false);
+            cards.Clear(); prices.Clear(); counts.Clear(); cosmeticCards.Clear(); cosmeticPrices.Clear(); merchandise = tabRing = null; gameObject.SetActive(false);
         }
         private void OnDestroy()
         {

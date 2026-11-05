@@ -26,6 +26,7 @@ namespace PerchSort.Game
         private TextMeshProUGUI coins;
         private Button closeButton;
         private float elapsed;
+        private Image outfitBird;
         private int displayedCoins = -1;
         private readonly System.Collections.Generic.Dictionary<string, Sprite> silhouettes = new System.Collections.Generic.Dictionary<string, Sprite>();
         public bool IsOpen => gameObject.activeSelf;
@@ -95,35 +96,40 @@ namespace PerchSort.Game
         {
             if (!IsOpen || !root.Collection.HasMetSpecies(speciesId) || !Meta.Aviary.TryGetSpecies(speciesId, out var species)) return;
             int index = 0; while (Meta.Aviary.Species[index].Id != speciesId) index++;
-            if (detail != null) GameUI.Dispose(detail.gameObject);
+            bool wasDetail = DetailOpen;
+            if (detail != null) { detail.SetParent(null, false); GameUI.Dispose(detail.gameObject); }
             list.gameObject.SetActive(false); DetailSpecies = speciesId; elapsed = 0;
             closeButton.gameObject.SetActive(false);
-            ((RectTransform)transform.Find("Coin pill")).anchoredPosition += Vector2.down * 60;
-            coins.rectTransform.anchoredPosition += Vector2.down * 60;
+            if (!wasDetail)
+            {
+                ((RectTransform)transform.Find("Coin pill")).anchoredPosition += Vector2.down * 60;
+                coins.rectTransform.anchoredPosition += Vector2.down * 60;
+            }
             detail = GameUI.Rect(transform, "Species detail", new Vector2(540, 960), GameLayout.DesignSize);
             var ribbon = GameUI.Fit(detail, "Name ribbon", art.Get("name_ribbon"), new Vector2(534, 291), new Vector2(644, 158));
             var name = GameUI.Text(ribbon.transform, "Species name", species.DisplayName, font, new Vector2(322, 68), new Vector2(540, 100), 82); name.color = Color.white;
             Label(detail, "Personality", personalities[index], new Vector2(540, 406), new Vector2(950, 70), 46);
             var panel = GameUI.Surface(detail, "Detail wood panel", art, "panel_wood", new Rect(40, 1250, 1000, 560));
             hop = GameUI.Rect(detail, "Living bird", new Vector2(540, 850), new Vector2(1000, 1000));
-            var bird = GameUI.Fit(hop, "Bird", art.Get(speciesId + "_idle"), new Vector2(500, 500), Vector2.one * 1000);
-            // UiBirdLife loops authored cheer sequences; missing sequences retain breathing, never mirrors.
-            var life = bird.gameObject.AddComponent<UiBirdLife>(); life.Configure(bird, art, speciesId, art.Optional(speciesId + "_cheer_01") != null); life.Begin();
-            for (int slot = 0; slot < 3; slot++)
+            outfitBird = null;
+            bool dressed = root.Collection.EquippedOutfits.TryGetValue(speciesId, out var equipped);
+            var bird = GameUI.Fit(hop, "Bird", dressed ? art.Get(speciesId + "_outfit_" + equipped[equipped.Length - 1]) : art.Get(speciesId + "_idle"),
+                new Vector2(500, 500), Vector2.one * 1000);
+            if (dressed) outfitBird = bird;
+            else
             {
-                var tile = GameUI.Surface(panel.transform, "Outfit slot " + slot, art, "card_wood", new Rect(220 + slot * 210, 45, 140, 140));
-                tile.pixelsPerUnitMultiplier = 4;
-                var portrait = GameUI.Fit(tile.transform, "Default portrait", art.Portrait(speciesId), new Vector2(70, 70), Vector2.one * 108);
-                if (slot == 0)
-                {
-                    tile.color = new Color32(175, 224, 103, 255);
-                    GameUI.Fit(tile.transform, "Selected look", art.Get("check_green"), new Vector2(121, 120), Vector2.one * 48);
-                }
-                else
-                {
-                    portrait.sprite = Silhouette(speciesId);
-                    GameUI.Fit(tile.transform, "Locked outfit", art.Get("padlock"), new Vector2(70, 70), Vector2.one * 58);
-                }
+                var life = bird.gameObject.AddComponent<UiBirdLife>(); life.Configure(bird, art, speciesId, art.Optional(speciesId + "_cheer_01") != null); life.Begin();
+            }
+            if (species.CanWearOutfits)
+            {
+                var chip = GameUI.Surface(panel.transform, "Default look", art, "card_wood", new Rect(10, 110, 90, 90));
+                chip.type = Image.Type.Simple;
+                GameUI.Fit(chip.transform, "Default portrait", art.Portrait(speciesId), Vector2.one * 45, Vector2.one * 78);
+                if (!dressed) GameUI.Fit(chip.transform, "Selected look", art.Get("check_green"), new Vector2(75, 75), Vector2.one * 36);
+                chip.raycastTarget = true;
+                var reset = chip.gameObject.AddComponent<Button>(); reset.targetGraphic = chip; reset.transition = Selectable.Transition.None;
+                reset.onClick.AddListener(() => { if (dressed && root.ToggleCosmetic(equipped)) OpenDetail(speciesId); });
+                for (int tier = 1; tier <= 3; tier++) OutfitSlot(panel.transform, speciesId, tier, equipped);
             }
             if (gifts[index] != null)
             {
@@ -135,6 +141,24 @@ namespace PerchSort.Game
             GameUI.Fit(panel.transform, "Home icon", art.Get("icon_home"), new Vector2(455, 465), Vector2.one * 100);
             Label(panel.transform, "Homecoming count", root.Collection.FlocksHome(speciesId).ToString(), new Vector2(565, 465), new Vector2(120, 90), 64);
             GameUI.Button(detail, art, "Back to species list", "icon_close", new Rect(869, 139, 108, 108), Back);
+        }
+        private void OutfitSlot(Transform parent, string species, int tier, string equipped)
+        {
+            string id = "outfit." + species + "." + tier;
+            Meta.Shop.TryGetItem(id, out var item);
+            bool owned = root.Collection.OwnsOutfit(id), selected = equipped == id;
+            var tile = GameUI.Surface(parent, "Outfit slot " + tier, art, "card_wood", new Rect(120 + (tier - 1) * 260, 30, 240, 240));
+            tile.type = Image.Type.Simple;
+            if (selected) GameUI.Fit(tile.transform, "Equipped ring", art.Get("aviary_frame"), Vector2.one * 120, Vector2.one * 252);
+            GameUI.Fit(tile.transform, "Outfit portrait", owned ? ShopView.CosmeticSprite(art, item) : Silhouette(species), Vector2.one * 120, Vector2.one * 220);
+            if (selected) GameUI.Fit(tile.transform, "Selected look", art.Get("check_green"), new Vector2(210, 210), Vector2.one * 65);
+            if (!owned) GameUI.Fit(tile.transform, "Locked outfit", art.Get("padlock"), Vector2.one * 120, Vector2.one * 70);
+            else
+            {
+                tile.raycastTarget = true;
+                var button = tile.gameObject.AddComponent<Button>(); button.targetGraphic = tile; button.transition = Selectable.Transition.None;
+                button.onClick.AddListener(() => { if (root.ToggleCosmetic(id)) OpenDetail(species); });
+            }
         }
         private TextMeshProUGUI Label(Transform parent, string name, string value, Vector2 point, Vector2 size, float fontSize)
         {
@@ -154,6 +178,12 @@ namespace PerchSort.Game
             if (coins != null && displayedCoins != root.Coins) { displayedCoins = root.Coins; coins.text = displayedCoins.ToString(); }
             if (!DetailOpen || hop == null || GameMotion.Instant) return;
             elapsed += Time.deltaTime;
+            if (outfitBird != null)
+            {
+                float breath = 1 + 0.02f * (0.5f + 0.5f * Mathf.Sin(elapsed * Mathf.PI * 2 / 2.6f));
+                outfitBird.rectTransform.localScale = new Vector3(breath, breath, 1);
+                return;
+            }
             float phase = elapsed % 2.5f;
             float arc = phase < 0.4f ? Mathf.Sin(phase / 0.4f * Mathf.PI) : 0;
             hop.anchoredPosition = new Vector2(540, -850 + 24 * arc * arc);
@@ -164,7 +194,7 @@ namespace PerchSort.Game
             {
                 var child = transform.GetChild(i); child.gameObject.SetActive(false); child.SetParent(null, false); GameUI.Dispose(child.gameObject);
             }
-            list = detail = hop = null; scroll = null; coins = null; DetailSpecies = null; gameObject.SetActive(false);
+            list = detail = hop = null; outfitBird = null; scroll = null; coins = null; DetailSpecies = null; gameObject.SetActive(false);
         }
         private Sprite Silhouette(string species)
         {

@@ -324,6 +324,43 @@ namespace PerchSort.Game
             if (!result.Succeeded) return false;
             Session.GrantBooster(kind, 1); profile.SpendCoins(item.Price); Save(); PlaySound(Sfx.Collect); Refresh(); return true;
         }
+        public bool BuyCosmetic(string itemId)
+        {
+            if (!initialized || IsBusy || !PerchSort.Meta.Shop.TryGetItem(itemId, out var item) ||
+                item.Kind == PerchSort.Meta.ShopItemKind.Booster) return false;
+            var result = PerchSort.Meta.Shop.Purchase(Collection.WithCoins(Coins), itemId);
+            if (!result.Succeeded) return false;
+            // Development stock may subsidize the display, but never creates real saved coins.
+            CommitCosmetic(result.Profile.WithCoins(Math.Max(0, profile.Coins - item.Price)));
+            PlaySound(Sfx.Collect); return true;
+        }
+        public bool ToggleCosmetic(string itemId)
+        {
+            if (!initialized || IsBusy || !PerchSort.Meta.Shop.TryGetItem(itemId, out var item) ||
+                item.Kind == PerchSort.Meta.ShopItemKind.Booster) return false;
+            string action = itemId;
+            if (item.Kind == PerchSort.Meta.ShopItemKind.Outfit &&
+                Collection.EquippedOutfits.TryGetValue(item.SpeciesId, out var equipped) && equipped == itemId)
+                action = "outfit." + item.SpeciesId + ".default";
+            else if (item.Kind == PerchSort.Meta.ShopItemKind.Birdhouse && Collection.EquippedBirdhouseStyle == item.StyleId)
+                action = "house.default";
+            var result = PerchSort.Meta.Shop.Equip(Collection.WithCoins(profile.Coins), action);
+            if (!result.Succeeded) return false;
+            CommitCosmetic(result.Profile); PlaySound(Sfx.Click); return true;
+        }
+        [Serializable]
+        private sealed class CosmeticReceipt { public string rewardLedger; }
+        private void CommitCosmetic(PerchSort.Meta.PlayerProfile next)
+        {
+            // Replace only the ledger property; all pending notification fields remain byte-for-byte intact.
+            string snapshot = profile.Notifications.ToText();
+            string before = JsonUtility.ToJson(new CosmeticReceipt { rewardLedger = Collection.ToText() });
+            string after = JsonUtility.ToJson(new CosmeticReceipt { rewardLedger = next.ToText() });
+            profile.Notifications.Restore(snapshot.Replace(before.Substring(1, before.Length - 2), after.Substring(1, after.Length - 2)));
+            Save();
+            foreach (var house in Hud.Houses.Values) house.ApplyStyle(next.EquippedBirdhouseStyle);
+            Refresh();
+        }
         public bool UseBooster(BoosterKind kind)
         {
             if (!initialized || IsMap || Modal || IsBusy || kind == BoosterKind.Firefly || HighestUnlocked < ViewModel.Unlock(kind)) return false;
