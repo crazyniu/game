@@ -75,9 +75,8 @@ namespace PerchSort.Game
             button.PressedSprite = art.Optional(primary ? "btn_green_pressed" : "btn_wood_pressed");
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             bool hanger = icon == "icon_hanger";
-            var glyph = hanger ? Hanger(image.transform) :
-                Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
-                    Vector2.one * (Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio)).transform;
+            var glyph = hanger ? Hanger(image.transform, bounds.size) :
+                DiscGlyph(image.transform, "Icon", art.Icon(icon)).transform;
             if (!primary && icon.StartsWith("icon_", StringComparison.Ordinal))
             {
                 int count = hanger ? glyph.childCount : 1;
@@ -93,17 +92,34 @@ namespace PerchSort.Game
             button.onClick.AddListener(() => click()); return button;
         }
 
-        private static Transform Hanger(Transform parent)
+        public static Image DiscGlyph(Transform disc, string name, Sprite sprite)
+        {
+            var image = Fit(disc, name, sprite, Vector2.zero, Vector2.zero);
+            GlyphMetrics.Apply(image, ((RectTransform)disc).rect.size);
+            return image;
+        }
+
+        private static Transform Hanger(Transform parent, Vector2 discSize)
         {
             var glyph = Rect(parent, "Icon", new Vector2(70, 70), Vector2.one * 140);
             Vector2[] points = { new Vector2(63, 50), new Vector2(63, 41), new Vector2(75, 35),
                 new Vector2(85, 43), new Vector2(70, 59), new Vector2(30, 88), new Vector2(110, 88), new Vector2(70, 59) };
+            Vector2 min = Vector2.positiveInfinity, max = Vector2.negativeInfinity;
             for (int i = 1; i < points.Length; i++)
             {
                 Vector2 delta = points[i] - points[i - 1];
+                Vector2 extent = new Vector2(Mathf.Abs(delta.x), Mathf.Abs(delta.y)) / delta.magnitude;
+                Vector2 half = (extent * (delta.magnitude + 3) + new Vector2(extent.y, extent.x) * 7) * 0.5f;
+                Vector2 centre = (points[i] + points[i - 1]) * 0.5f;
+                min = Vector2.Min(min, centre - half); max = Vector2.Max(max, centre + half);
                 var line = Image(glyph, "Hanger line", null, (points[i] + points[i - 1]) * 0.5f, new Vector2(delta.magnitude + 3, 7));
                 line.color = Color.white; line.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
             }
+            Vector2 offset = (min + max) * 0.5f - Vector2.one * 70;
+            float scale = GlyphMetrics.Apply(glyph, discSize, Vector2.one * 140, max - min,
+                new Vector2(offset.x, -offset.y), GameLayout.WhiteGlyphRatio);
+            glyph.sizeDelta = Vector2.one * 140;
+            glyph.localScale = Vector3.one * scale;
             return glyph;
         }
 

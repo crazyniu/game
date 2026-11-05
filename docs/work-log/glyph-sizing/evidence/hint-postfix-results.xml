@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:29Z" duration="12.1863474">
+  <test-suite type="TestSuite" id="1151" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="113" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:29Z" duration="12.186347" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1296" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="113" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:29Z" duration="12.182002" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="20158" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1297" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="113" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:29Z" duration="12.180652" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1298" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="113" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:29Z" duration="12.179412" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1210" name="GlyphSizeTests" fullname="PerchSort.PlayModeTests.GlyphSizeTests" classname="PerchSort.PlayModeTests.GlyphSizeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:18Z" duration="0.709889" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1211" name="RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" fullname="PerchSort.PlayModeTests.GlyphSizeTests.RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" methodname="RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" classname="PerchSort.PlayModeTests.GlyphSizeTests" runstate="Runnable" seed="979145688" result="Passed" start-time="2026-11-05 06:43:17Z" end-time="2026-11-05 06:43:18Z" duration="0.704296" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1285" name="StuckHintTests" fullname="PerchSort.PlayModeTests.StuckHintTests" classname="PerchSort.PlayModeTests.StuckHintTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-05 06:43:18Z" end-time="2026-11-05 06:43:28Z" duration="10.186795" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1286" name="DeadEndWaitsAndUndoDismissesWithoutBlockingRaycasts" fullname="PerchSort.PlayModeTests.StuckHintTests.DeadEndWaitsAndUndoDismissesWithoutBlockingRaycasts" methodname="DeadEndWaitsAndUndoDismissesWithoutBlockingRaycasts" classname="PerchSort.PlayModeTests.StuckHintTests" runstate="Runnable" seed="1015226280" result="Passed" start-time="2026-11-05 06:43:18Z" end-time="2026-11-05 06:43:21Z" duration="2.831698" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1289" name="HintAppearsAndFloatsAfterUnlock" fullname="PerchSort.PlayModeTests.StuckHintTests.HintAppearsAndFloatsAfterUnlock" methodname="HintAppearsAndFloatsAfterUnlock" classname="PerchSort.PlayModeTests.StuckHintTests" runstate="Runnable" seed="1762979201" result="Passed" start-time="2026-11-05 06:43:21Z" end-time="2026-11-05 06:43:24Z" duration="3.189085" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1287" name="ModalCancelsPendingHint" fullname="PerchSort.PlayModeTests.StuckHintTests.ModalCancelsPendingHint" methodname="ModalCancelsPendingHint" classname="PerchSort.PlayModeTests.StuckHintTests" runstate="Runnable" seed="638084918" result="Passed" start-time="2026-11-05 06:43:24Z" end-time="2026-11-05 06:43:26Z" duration="2.074542" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1288" name="WonBoardAndEntranceNeverShowHint" fullname="PerchSort.PlayModeTests.StuckHintTests.WonBoardAndEntranceNeverShowHint" methodname="WonBoardAndEntranceNeverShowHint" classname="PerchSort.PlayModeTests.StuckHintTests" runstate="Runnable" seed="337360376" result="Passed" start-time="2026-11-05 06:43:26Z" end-time="2026-11-05 06:43:28Z" duration="2.089335" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1292" name="UndoVisibilityTests" fullname="PerchSort.PlayModeTests.UndoVisibilityTests" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-05 06:43:28Z" end-time="2026-11-05 06:43:29Z" duration="1.275506" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1295" name="ClosingSettingsCannotRestoreAPartlyFadedEmptyUndo" fullname="PerchSort.PlayModeTests.UndoVisibilityTests.ClosingSettingsCannotRestoreAPartlyFadedEmptyUndo" methodname="ClosingSettingsCannotRestoreAPartlyFadedEmptyUndo" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" seed="1005124407" result="Passed" start-time="2026-11-05 06:43:28Z" end-time="2026-11-05 06:43:29Z" duration="0.554901" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1293" name="UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" fullname="PerchSort.PlayModeTests.UndoVisibilityTests.UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" methodname="UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" seed="1284168924" result="Passed" start-time="2026-11-05 06:43:29Z" end-time="2026-11-05 06:43:29Z" duration="0.064685" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1294" name="VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" fullname="PerchSort.PlayModeTests.UndoVisibilityTests.VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" methodname="VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" seed="159944878" result="Passed" start-time="2026-11-05 06:43:29Z" end-time="2026-11-05 06:43:29Z" duration="0.654664" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

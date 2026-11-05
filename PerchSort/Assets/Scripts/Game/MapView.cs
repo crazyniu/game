@@ -80,9 +80,7 @@ namespace PerchSort.Game
         }
         private void MapButton(string name, string icon, Rect bounds, System.Action action)
         {
-            var button = GameUI.Button(transform, art, name, icon, bounds, action);
-            var glyph = (RectTransform)button.transform.Find("Icon");
-            glyph.sizeDelta = Vector2.one * (Mathf.Min(bounds.width, bounds.height) * 0.76f);
+            GameUI.Button(transform, art, name, icon, bounds, action);
         }
         public void Show(GameProfile profile)
         {

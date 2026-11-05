@@ -112,6 +112,57 @@ namespace PerchSort.Editor
             if (Application.isBatchMode) EditorApplication.Exit(0);
         }
 
+        [MenuItem("Perch Sort/Capture Glyph Sizing")]
+        public static void RunGlyphSizing()
+        {
+            if (EditorApplication.isPlaying || SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null)
+                throw new InvalidOperationException("Glyph capture requires edit mode and a graphics device.");
+            var previousScenes = EditorSceneManager.GetSceneManagerSetup();
+            bool instant = GameMotion.Instant;
+            var active = RenderTexture.active;
+            var target = new RenderTexture(1080, 1920, 24);
+            Camera camera = null;
+            try
+            {
+                GameMotion.Instant = true;
+                EditorSceneManager.OpenScene(GameSceneBuilder.ScenePath, OpenSceneMode.Single);
+                camera = Camera.main; target.Create(); camera.targetTexture = target;
+                var root = UnityEngine.Object.FindAnyObjectByType<GameRoot>();
+                root.Initialize(false, false);
+                string directory = Environment.GetEnvironmentVariable("PERCH_GLYPH_EVIDENCE");
+                if (string.IsNullOrEmpty(directory)) throw new InvalidOperationException("Set PERCH_GLYPH_EVIDENCE.");
+                Directory.CreateDirectory(directory);
+                root.LoadFixture(LevelLoader.Load(5), coins: 500);
+                root.OpenMap();
+                Capture(root, target, Path.Combine(directory, "map.png"));
+                root.OpenLevelCard(5);
+                Capture(root, target, Path.Combine(directory, "level_card.png")); root.ClosePanel();
+                root.OpenSettings();
+                Capture(root, target, Path.Combine(directory, "settings.png")); root.CloseSettings();
+                root.LoadFixture(LevelLoader.Load(5), coins: 500);
+                Capture(root, target, Path.Combine(directory, "hud_three_tools.png"));
+                root.LoadFixture(LevelLoader.Load(40), coins: 500);
+                Capture(root, target, Path.Combine(directory, "hud_four_tools.png"));
+                root.OpenShop();
+                Capture(root, target, Path.Combine(directory, "shop.png"));
+                root.Shop.TapCard(PerchSort.Core.BoosterKind.Firefly);
+                Capture(root, target, Path.Combine(directory, "shop_confirmation.png")); root.ClosePanel();
+                root.OpenAviary();
+                Capture(root, target, Path.Combine(directory, "aviary.png")); root.ClosePanel();
+                root.Win.Show(3, 0, 0);
+                Capture(root, target, Path.Combine(directory, "win.png"));
+                Debug.Log("Glyph sizing captures completed: " + directory);
+            }
+            finally
+            {
+                if (camera != null) camera.targetTexture = null;
+                RenderTexture.active = active; target.Release(); UnityEngine.Object.DestroyImmediate(target);
+                GameMotion.Instant = instant;
+                if (Array.Exists(previousScenes, scene => scene.isLoaded)) EditorSceneManager.RestoreSceneManagerSetup(previousScenes);
+            }
+            if (Application.isBatchMode) EditorApplication.Exit(0);
+        }
+
         private static void Capture(GameRoot root, RenderTexture target, string path)
         {
             Canvas.ForceUpdateCanvases();

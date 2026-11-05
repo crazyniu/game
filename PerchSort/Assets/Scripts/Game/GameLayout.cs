@@ -13,7 +13,8 @@ namespace PerchSort.Game
         public const float MinimumHudGap = 40, TopRowGap = 60;
         public const float SecondaryButtonSize = 116, PrimaryButtonSize = 200, IconSize = 76, SmallIconSize = 64;
         public const string SecondaryButtonSprite = "btn_wood", PrimaryButtonSprite = "btn_green";
-        public const float DisabledAlpha = 0.45f, DisabledScale = 0.9f, ButtonIconRatio = 0.62f;
+        public const float DisabledAlpha = 0.45f, DisabledScale = 0.9f;
+        public const float WhiteGlyphRatio = 0.46f, ToolGlyphRatio = 0.54f;
         public const float ButtonPressScale = 0.92f, ButtonPressSeconds = 0.08f, ButtonReleaseSeconds = 0.18f;
         public const float CoinFontSize = 44, CoinMinimumFontSize = 24, LevelBadgeFontSize = 46;
         public static readonly Rect CoinPill = Screen("level_k3", "coin_pill");

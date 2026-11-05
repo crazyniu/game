@@ -83,6 +83,10 @@ namespace PerchSort.Game
         }
         private void OnDisable() { if (motion != null) motion.CancelAll(); }
         private void ToggleMute() { root.SetMuted(!root.Muted); RefreshSound(); }
-        private void RefreshSound() => soundIcon.sprite = art.Icon(root.Muted ? "icon_sound_off" : "icon_sound_on");
+        private void RefreshSound()
+        {
+            soundIcon.sprite = art.Icon(root.Muted ? "icon_sound_off" : "icon_sound_on");
+            GlyphMetrics.Apply(soundIcon, ((RectTransform)soundIcon.transform.parent).rect.size);
+        }
     }
 }

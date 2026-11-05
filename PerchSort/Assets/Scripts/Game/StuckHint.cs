@@ -101,7 +101,7 @@ namespace PerchSort.Game
         {
             if (panel == null) Build();
             var bar = root.Hud.transform.Find("Bottom bar");
-            undo = (RectTransform)bar.Find("Undo");
+            undo = (RectTransform)bar.Find("Undo visibility/Undo");
             float top = -undo.anchoredPosition.y - undo.rect.height * 0.5f;
             baseY = -(top - 30 - 85);
             panel.anchoredPosition = new Vector2(540, baseY);
@@ -127,8 +127,8 @@ namespace PerchSort.Game
             var tail = GameUI.Rect(panel, "Tail", Vector2.zero, new Vector2(42, 24));
             tail.pivot = new Vector2(0.5f, 1); tail.gameObject.AddComponent<StuckHintTail>();
             GameUI.Fit(panel, "Leaf sprig", art.Get("leaf_badge"), new Vector2(30, 25), new Vector2(68, 48));
-            GameUI.Fit(panel, "Undo disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(82, 85), Vector2.one * 72);
-            GameUI.Fit(panel, "Undo icon", art.Icon("icon_undo"), new Vector2(82, 85), Vector2.one * 45);
+            var disc = GameUI.Fit(panel, "Undo disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(82, 85), Vector2.one * 72);
+            GameUI.DiscGlyph(disc.transform, "Undo icon", art.Icon("icon_undo"));
             GameUI.Fit(panel, "Hint booster", art.Icon(ViewModel.Icon(BoosterKind.Firefly)), new Vector2(190, 85), Vector2.one * 56);
             GameUI.Fit(panel, "Branch booster", art.Icon(ViewModel.Icon(BoosterKind.Sapling)), new Vector2(270, 85), Vector2.one * 56);
             GameUI.Fit(panel, "Context booster", art.Icon(ViewModel.Icon(BoosterKind.OwlEye)), new Vector2(350, 85), Vector2.one * 56);

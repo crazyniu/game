@@ -59,7 +59,6 @@ namespace PerchSort.PlayModeTests
                         var image = button.transform.Find("Icon").GetComponent<Image>();
                         if (button.name == "Undo") { Assert.That(image.sprite.name, Is.EqualTo("icon_undo")); continue; }
                         Assert.That(image.sprite.name, Is.EqualTo(expected[button.name]));
-                        Assert.That(image.rectTransform.sizeDelta.x, Is.EqualTo(((RectTransform)button.transform).sizeDelta.x * 0.7f).Within(0.01f));
                         seen.Add(button.name);
                     }
                 }

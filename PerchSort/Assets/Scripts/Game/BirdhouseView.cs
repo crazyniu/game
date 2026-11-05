@@ -73,8 +73,8 @@ namespace PerchSort.Game
             else GameArt.Warn("motion:house_door_leaf", "Missing door leaf; using whole-house scale during door motion.");
             float checkSize = UsesBeam(count) ? 44 : 62;
             check = GameUI.Rect(house, "Home check", new Vector2(bounds.width * 0.78f, bounds.height * 0.78f), Vector2.one * checkSize).gameObject;
-            GameUI.Fit(check.transform, "Green badge", art.Get("btn_green"), Vector2.one * checkSize * 0.5f, Vector2.one * checkSize);
-            GameUI.Fit(check.transform, "Check", art.Icon("icon_check"), Vector2.one * checkSize * 0.5f, Vector2.one * checkSize * 0.7f);
+            var badge = GameUI.Fit(check.transform, "Green badge", art.Get("btn_green"), Vector2.one * checkSize * 0.5f, Vector2.one * checkSize);
+            GameUI.DiscGlyph(badge.transform, "Check", art.Icon("icon_check"));
             GiftPoint = bounds.position + new Vector2(center.x, bounds.height * 0.2f);
             motion = gameObject.AddComponent<GameMotion>(); doorMotion = gameObject.AddComponent<GameMotion>();
             checkMotion = gameObject.AddComponent<GameMotion>(); particles = gameObject.AddComponent<GameMotion>(); peekMotion = gameObject.AddComponent<GameMotion>();

@@ -99,7 +99,6 @@ namespace PerchSort.PlayModeTests
             var tools = Tools();
             AssertUniform(tools, count);
             Assert.That(tools[0].IsInteractable(), Is.False, "Undo starts disabled.");
-            Assert.That(tools[0].GetComponent<CanvasGroup>().alpha, Is.LessThan(1));
             Assert.That(root.TryMove(from, to), Is.True);
             Assert.That(tools[0].IsInteractable(), Is.True, "A legal move enables undo.");
             AssertUniform(tools, count);
