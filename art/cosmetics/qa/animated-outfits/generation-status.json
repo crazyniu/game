@@ -5,10 +5,10 @@
     "sky_outfit_1",
     "berry_outfit_1",
     "mint_outfit_1",
-    "cocoa_outfit_1"
+    "cocoa_outfit_1",
+    "snow_outfit_1"
   ],
   "missing_outfits": [
-    "snow_outfit_1",
     "ember_outfit_1",
     "ink_outfit_1",
     "hoot_outfit_1",
@@ -31,7 +31,7 @@
     "ink_outfit_3",
     "hoot_outfit_3"
   ],
-  "frames": 45,
-  "actions": 10,
+  "frames": 54,
+  "actions": 12,
   "native_gif": false
 }
