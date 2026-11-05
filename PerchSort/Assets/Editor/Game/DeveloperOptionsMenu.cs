@@ -1,5 +1,8 @@
+#if UNITY_EDITOR
+using System;
 using PerchSort.Game;
 using UnityEditor;
+using UnityEngine;
 
 namespace PerchSort.Editor
 {
@@ -20,6 +23,34 @@ namespace PerchSort.Editor
         [MenuItem(StockMenu, true)]
         private static bool ValidateStock() => Check(StockMenu, DevOptions.GrantTestStockPreference);
 
+        [MenuItem("Perch Sort/Developer Options/Reset Saved Progress")]
+        private static void ConfirmReset()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                EditorUtility.DisplayDialog("Reset Saved Progress", "Stop Play first before resetting saved progress.", "OK");
+                return;
+            }
+            if (EditorUtility.DisplayDialog("Reset Saved Progress",
+                "Delete all saved progress, coins, stars and settings for this project?", "Delete", "Cancel"))
+                Debug.Log($"Reset saved progress: removed {ResetSavedProgress()} PlayerPrefs keys.");
+        }
+
+        public static int ResetSavedProgress()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+                throw new InvalidOperationException("Stop Play first before resetting saved progress.");
+            int removed = 0;
+            foreach (string key in ProgressStore.Keys())
+            {
+                if (!PlayerPrefs.HasKey(key)) continue;
+                PlayerPrefs.DeleteKey(key);
+                removed++;
+            }
+            PlayerPrefs.Save();
+            return removed;
+        }
+
         private static void Toggle(string key) => EditorPrefs.SetBool(key, !EditorPrefs.GetBool(key, false));
 
         private static bool Check(string menu, string key)
@@ -29,3 +60,4 @@ namespace PerchSort.Editor
         }
     }
 }
+#endif
