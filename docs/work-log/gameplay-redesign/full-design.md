@@ -70,3 +70,14 @@ Parallel tasks with separate file ownership as usual; every task is tested only 
 2. Houses: one Song Nest (recommended), none, or keep?
 3. Events set: accept gust, rain, sunshine, night (and storm in world 4), or change the list?
 4. Accept re-solving and redesigning levels where needed?
+
+## 10. Self-review after measuring the shipped levels (coordinator, 2026-11-05)
+Measured from `levels.json` (all 40 levels):
+- Par (shortest solution) is small: minimum 2, median 8, maximum 19 moves. Twelve of 40 levels have par 3 or less, some with 20 to 25 birds (almost pre-sorted teaching boards).
+- Sleeping birds appear in 30 of the 40 levels (every level from 11 on). The passive mechanic is the default texture of most of the game, which explains why it feels like waiting.
+- Free seats are nearly constant (8 in most levels): difficulty comes from board size, not from different questions.
+Consequences for my own earlier proposals:
+- Direction B as written (an event every 3 moves) would fire only 1 to 2 times in a typical level and never in the many par-3 levels. It cannot carry the game unless levels become longer or events are tied to the level length.
+- Direction A abilities charge when a flock goes home; in short levels that is near the end, leaving almost nothing to spend them on.
+- Any system layered on boards solved in 3 to 8 moves will not show. What shows in a short level is the quality of every single move and the variety between levels.
+Revised plan: (1) remove passive waiting first (sleepers only in a few teaching levels, wake rules active and visible); (2) make species matter on EVERY move (talents that trigger when a bird of that species lands, instead of only when its flock is home), which creates decisions inside short levels; (3) different goal types per level; (4) prototype the core hook on three levels and let the user play it before rebuilding 40 levels.
