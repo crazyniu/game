@@ -10,7 +10,7 @@ Shop booster cards and confirmation use the six coloured `tool_*` glyphs at 70 p
 
 ## Verification
 
-Run both naming-guard modes before Unity. Serialize every Unity invocation with `flock /tmp/unity.lock`, only after the user's Editor has closed. Run the full retained EditMode and PlayMode suites once. Capture real Unity 1080 by 1920 before/after views: three-tool and four-tool level HUDs with disabled undo, map bottom bar, level and map settings, booster shop, purchase confirmation, win controls and stuck hint. Capture tool and settings-gear press/release frames at 0.02-second intervals. Commit side-by-side evidence and timed contact sheets with exact results and limitations in the report.
+Run both naming-guard modes before Unity. Serialize every Unity invocation in this worktree with `flock /tmp/unity.lock`. The coordinator explicitly authorizes these batch runs while the separate primary-checkout Editor remains open; do not touch that Editor or project. Run the full retained EditMode and PlayMode suites once. Capture real Unity 1080 by 1920 before/after views: three-tool and four-tool level HUDs with disabled undo, map bottom bar, level and map settings, booster shop, purchase confirmation, win controls and stuck hint. Capture tool and settings-gear press/release frames scheduled at 0.02-second intervals, logging actual timestamps. Commit side-by-side evidence and timed contact sheets with exact results and limitations in the report.
 
 ## Ownership
 
