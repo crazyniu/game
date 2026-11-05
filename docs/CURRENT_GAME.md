@@ -13,7 +13,7 @@ Open `PerchSort/Assets/Scenes/Game.unity`. Its retained scene GUID is `55064aed0
 - Exceptions are limited to `.git`, third-party package files, lockfiles, dated handoff/report evidence under `tasks/` and `docs/team/`, and exact storage-key literals. No historical implementation archive or numbered original-art filename is exempt. History lives in Git.
 - Review acceptance must check canonical in-place edits, absence of parallel implementation identities/copies, one enabled Game scene, canonical resource roots, and an exact allowed reason for each retained version-looking identifier. `python3 ci/check_current_game_names.py` must pass before tests; the guard complements human review and required Mac acceptance.
 
-[`art/approved_ui`](../art/approved_ui) contains the approved visual acceptance targets. Its [layout metadata](../art/approved_ui/layout.json) is offline measurement/provenance, not a second runtime. Actual UI screenshots must visibly match the reference images; canonical GameLayout and current resources implement the game.
+[`art/approved_ui`](../art/approved_ui) contains the approved mockups: the style direction. Its [layout metadata](../art/approved_ui/layout.json) is offline measurement/provenance, not a second runtime. Visual acceptance is the user's approval of the clickable UI shell; the approved runtime captures in `art/approved_runtime` are the baseline. Canonical GameLayout and current resources implement the game.
 
 ## Read current behavior at its owner
 

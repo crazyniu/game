@@ -12,7 +12,8 @@ One game, one version. Unity 6000.6.7f1, portrait, 40 authored levels in four fo
 
 ## 2. Repository layout
 - `PerchSort/` Unity project. `Assets/Scripts/Core` pure rules and solver (no UnityEngine), `Scripts/Meta` pure profile/economy policies, `Scripts/Game` runtime and presentation, `Scripts/Audio`, `Assets/Editor/Game`, `Assets/Resources/{Art,Birds,World,Levels}`, `Assets/Scenes/Game.unity` (the only scene), `Assets/Tests/{EditMode,Meta,PlayMode}`.
-- `art/approved_ui/` approved reference images and measured layout: the visual acceptance target. Originals are never edited; derived files are new files.
+- `art/approved_ui/` approved mockups and measured layout: the style direction. Originals are never edited; derived files are new files.
+- `art/approved_runtime/` runtime captures of user-approved UI screens: the visual acceptance baseline.
 - `docs/` documentation (`docs/work-log/<topic>/{spec.md,report.md,evidence/}` for every feature, one directory per subject, no numbering); `ci/`, `scripts/`, `tools/` automation. `build/` is generated output and is never committed.
 - Logic and presentation stay separate: Core and Meta never reference UnityEngine; Game reads state and animates, it never decides rules.
 
@@ -24,7 +25,7 @@ One game, one version. Unity 6000.6.7f1, portrait, 40 authored levels in four fo
 5. The user's Unity Editor normally has the PRIMARY checkout open. That is a different project path from every worker worktree, so it never blocks a worker: run Unity batch commands in your own worktree under `flock /tmp/unity.lock` and never ask the user to close the Editor. Only if Unity itself fails to start, report the exact log error.
 
 ## 4. UI standards
-1. The approved images in `art/approved_ui/` are the target. A UI change is accepted only when a runtime screenshot placed beside the approved image visibly matches.
+1. UI first, logic second. A screen is built as a clickable UI shell in the canonical views with a fake data source that covers every state (locked, empty and maximum values, disabled, every popup; on the board select, fly, invalid move, delivery, win). The user approves the shell; then its captures go to `art/approved_runtime/` and logic is wired in. Mockups in `art/approved_ui/` set the style direction only and are never diffed against runtime.
 2. Controls: round honey-wood discs with gold rims (white glyphs with a dark-brown outline); green only for primary actions. Icon only where clear (accessible names are not visible labels). All buttons of the same role have identical size in every state; disabled means dimmed (alpha), never smaller. A primary action is at most 1.25 times the size of its sibling buttons.
    Approved images in `art/approved_ui` show the earlier purple discs and are superseded for that detail only.
 3. The coin pill shows the coin disc overlapping the left end and the number centred in the remaining cream area; 99999 must fit with margin; it never touches ropes or houses.
