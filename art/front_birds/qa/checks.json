@@ -1,7 +1,7 @@
 {
-  "assets": 9,
-  "species": 3,
-  "unique_new_guids": 69,
+  "assets": 18,
+  "species": 6,
+  "unique_new_guids": 108,
   "checks": [
     {
       "file": "berry_front.png",
@@ -49,6 +49,96 @@
       "sha256": "08875acf5b13508c2385f2a38f1cbb5af1c26ff9dad296791d8b3b46785c2609"
     },
     {
+      "file": "cocoa_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "92a45e1700fa8c44cb3f9c260ff71b8b2e04c2a138b084fc7ac6ce2ccf330989"
+    },
+    {
+      "file": "cocoa_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "57324e9409756480a5b036bef40dc436caba4cffd1007f0b3c6cb36c59cb8b9d"
+    },
+    {
+      "file": "cocoa_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "6d613c9f182204299e8901abde59846474c9f5c8c7c25fe04a1bbb23d8ef4c77"
+    },
+    {
+      "file": "mint_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "c5ba327a573bd16d347c6a0e694693262d577a8e09fdb648379ae7bef2396332"
+    },
+    {
+      "file": "mint_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "61b6536e7a30ee39534ddd7837d6155bdfc8168aac556aac556a719a9ebd8d78"
+    },
+    {
+      "file": "mint_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "05bf310ab48ced9dad0bb78c69f0fffe578161a83949e3649034be6c208773e9"
+    },
+    {
       "file": "sky_front.png",
       "rgba": true,
       "size": [
@@ -92,6 +182,51 @@
       "transparent_border": true,
       "importer_matches_idle": true,
       "sha256": "05fe02043d0dfdd9bf17fcd3c803bdc6219f0e8b4df038028ed9dd06a1315be9"
+    },
+    {
+      "file": "snow_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "36e1792b40b77de9da2ff01512c811163a1a8b15b5891b9a142a7332bb9830ff"
+    },
+    {
+      "file": "snow_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "ca17dfdda314a2e5a4c4b7c4fbedf61254c96dd96c5a9b4c328483176d70a782"
+    },
+    {
+      "file": "snow_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "80d453e44a209e2884d103dd3deee7d9648ed7257525c5d59d33e143cefac713"
     },
     {
       "file": "sunny_front.png",

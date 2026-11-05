@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      57,
+      37,
+      263,
+      302
+    ],
+    "scale": 0.4301948051948052,
+    "translation": [
+      55,
+      35
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "c5ba327a573bd16d347c6a0e694693262d577a8e09fdb648379ae7bef2396332"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      57,
+      37,
+      263,
+      302
+    ],
+    "scale": 0.4301948051948052,
+    "translation": [
+      55,
+      35
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "61b6536e7a30ee39534ddd7837d6155bdfc8168aac556aac556a719a9ebd8d78"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/mint_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      57,
+      37,
+      263,
+      302
+    ],
+    "scale": 0.4301948051948052,
+    "translation": [
+      55,
+      35
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "05bf310ab48ced9dad0bb78c69f0fffe578161a83949e3649034be6c208773e9"
+  }
+]

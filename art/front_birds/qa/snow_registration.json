@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      62,
+      86,
+      259,
+      300
+    ],
+    "scale": 0.4334677419354839,
+    "translation": [
+      60,
+      84
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "36e1792b40b77de9da2ff01512c811163a1a8b15b5891b9a142a7332bb9830ff"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      62,
+      85,
+      258,
+      300
+    ],
+    "scale": 0.4334677419354839,
+    "translation": [
+      60,
+      83
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "ca17dfdda314a2e5a4c4b7c4fbedf61254c96dd96c5a9b4c328483176d70a782"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      62,
+      85,
+      258,
+      300
+    ],
+    "scale": 0.4334677419354839,
+    "translation": [
+      60,
+      83
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "80d453e44a209e2884d103dd3deee7d9648ed7257525c5d59d33e143cefac713"
+  }
+]

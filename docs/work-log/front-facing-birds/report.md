@@ -2,7 +2,7 @@
 
 ## Delivered
 
-Sunny, Sky and Berry: 3 species, 9 PNG sprites and 9 copied importer metadata files. Each has front, half-closed blink and closed blink. All are 320x320 RGBA with centred pivot and unique asset/sprite GUIDs.
+Sunny, Sky, Berry, Mint, Cocoa and Snow: 6 species, 18 PNG sprites and 18 copied importer metadata files. Each has front, half-closed blink and closed blink. All are 320x320 RGBA with centred pivot and unique asset/sprite GUIDs.
 
 Generated using the built-in imagegen tool, one three-cell transparent sheet per species. Raw sheets, exact prompts, reference contacts and QA are under `art/front_birds/`. JPEG evidence is under `evidence/`: canonical idle on the top row, front and blink rows below, light/dark backgrounds, 64 px colour previews and 50 percent idle overlays. Offline blink APNGs are artwork previews only.
 
@@ -14,10 +14,10 @@ Reviewed direct gaze, level head, centred beak, relaxed wings, original colours/
 
 ## Verification
 
-Asset checks passed for all 9 current PNGs: exact size/mode, alpha 0..255, transparent canvas borders, copied importer settings, pivot and unique new GUIDs. All registered toe baselines equal the idle baseline of 300 px. Three JPEG contacts and three offline blink previews inspected.
+Asset checks passed for all 18 current PNGs: exact size/mode, alpha 0..255, transparent canvas borders, copied importer settings, pivot and unique new GUIDs. All registered toe baselines equal their idle baseline: Snow 299 px, the other five species 300 px. Six JPEG contacts and six offline blink previews inspected.
 
 Unity compilation, EditMode/PlayMode tests and runtime screenshots are pending: the user's primary Editor is open. Requested closure without terminating it. Offline artwork delivery does not establish runtime wiring, timed animation or device acceptance. No code, scene, existing art or save changes.
 
 ## Remaining
 
-Mint, Cocoa, Snow, Ember, Ink, Hoot and Crow.
+Ember, Ink, Hoot and Crow.
