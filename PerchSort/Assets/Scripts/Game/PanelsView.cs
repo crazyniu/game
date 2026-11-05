@@ -65,6 +65,8 @@ namespace PerchSort.Game
         private PopupMotion presentation;
         private Action<float> closePose;
         private Vector2? levelCardOrigin;
+        private bool informationModal;
+        private bool informationClosing;
         public bool IsOpen => gameObject.activeSelf;
         public bool IsUnlock { get; private set; }
         public bool IsNotification { get; private set; }
@@ -75,7 +77,7 @@ namespace PerchSort.Game
             dim = gameObject.AddComponent<Image>(); dim.raycastTarget = true;
             ModalLayer.Configure(gameObject);
             presentation = gameObject.AddComponent<PopupMotion>();
-            gameObject.AddComponent<EmptyClick>().Click = () => { if (!IsUnlock && !IsNotification) Dismiss(root.ClosePanel); };
+            gameObject.AddComponent<EmptyClick>().Click = () => { if (!IsUnlock && !IsNotification) { if (informationModal) root.ClosePanel(); else Dismiss(root.ClosePanel); } };
             gameObject.SetActive(false);
         }
         private void Begin()
@@ -84,6 +86,24 @@ namespace PerchSort.Game
             dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha);
         }
         private void Dismiss(Action action) => presentation.Close(action, closePose);
+        public bool CloseInformation(Action complete)
+        {
+            if (!informationModal) return false;
+            if (informationClosing) return true;
+            informationClosing = true;
+            foreach (var motion in GetComponentsInChildren<GameMotion>(true)) motion.CancelAll();
+            var group = GetComponent<CanvasGroup>();
+            group.interactable = false;
+            Vector3 scale = content.localScale;
+            float alpha = group.alpha;
+            presentation.Play(0.12f, t =>
+            {
+                content.localScale = scale * Mathf.Lerp(1, 0.92f, t);
+                group.alpha = alpha * (1 - t);
+                closePose?.Invoke(t);
+            }, complete, ease: Ease.InCubic);
+            return true;
+        }
         private RectTransform Body(Rect bounds, bool close = true)
         {
             Vector2? origin = bounds == GameLayout.LevelCard ? levelCardOrigin : null;
@@ -118,6 +138,7 @@ namespace PerchSort.Game
         public void GoalInfo(string species)
         {
             Rect bounds = GameLayout.GoalInfoPanel; var body = Body(bounds, false);
+            informationModal = true;
             GoalDoor(species);
             GameUI.Fit(body, "Portrait ring", art.Get("aviary_frame"), GameLayout.GoalInfoPortrait.center - bounds.position, GameLayout.GoalInfoPortrait.size);
             GameUI.Fit(body, "Bird", art.Portrait(species), GameLayout.GoalInfoPortrait.center - bounds.position, GameLayout.GoalInfoPortrait.size * 0.82f);
@@ -128,13 +149,14 @@ namespace PerchSort.Game
         public void LevelCard(int id)
         {
             Rect bounds = GameLayout.LevelCard; var body = Body(bounds, false); CardLevel = id;
+            informationModal = true;
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
             GameUI.Fit(body, "Bottom sprig", art.Get("leaf_sprig_b"), bounds.size - new Vector2(65, 55), new Vector2(180, 140));
             Picture(body, "Level badge", "leaf_badge", bounds, GameLayout.CardBadge);
             var number = Label(body, "Level number", id.ToString(), bounds, GameLayout.CardBadge, 98);
             number.color = Color.white;
             number.outlineColor = new Color32(71, 96, 20, 255); number.outlineWidth = 0.12f;
-            GameUI.Button(body, art, "Close level card", "icon_close", new Rect(GameLayout.CardClose.position - bounds.position, GameLayout.CardClose.size), () => Dismiss(root.ClosePanel));
+            GameUI.Button(body, art, "Close level card", "icon_close", new Rect(GameLayout.CardClose.position - bounds.position, GameLayout.CardClose.size), root.ClosePanel);
             int stars = root.BestStars(id);
             for (int i = 0; i < 3; i++)
             {
@@ -388,6 +410,7 @@ namespace PerchSort.Game
         public void Hide()
         {
             if (presentation != null) presentation.Cancel();
+            informationModal = informationClosing = false;
             closePose = null; content = null; levelCardOrigin = null;
             for (int i = transform.childCount - 1; i >= 0; i--) GameUI.Dispose(transform.GetChild(i).gameObject);
             IsUnlock = IsNotification = false; CardLevel = 0; gameObject.SetActive(false);

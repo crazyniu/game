@@ -79,6 +79,11 @@ namespace PerchSort.Game
             }
             MapPose(open ? 1 : 0, open ? 1 : 0, open ? 1 : 0);
         }
+        internal void SetMapLightVisible(bool visible)
+        {
+            if (mapGate && light != null && light.gameObject.activeSelf != visible)
+                light.gameObject.SetActive(visible);
+        }
         private Image MapPart(string name, Sprite sprite, Rect source)
         {
             Vector2 scale = size / new Vector2(560, 600);

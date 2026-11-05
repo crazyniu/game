@@ -1,0 +1,17 @@
+{
+  "tool": "image_gen.imagegen",
+  "arguments": {
+    "prompt": "Use case: stylized-concept. Capability evaluation: generate an actual animated GIF file, not a contact sheet, sprite sheet, or static illustration. Test A: Sunny, the existing yellow plush bird, flies into a fixed 512x512 transparent canvas from completely outside the top-left, flaps down toward bottom centre, lands on a simple flat surface near the bottom, and makes a small squash on touchdown before settling. One-shot animation, 24 temporal frames, 20 fps (50 ms per frame), total 1.2 seconds. Preserve the reference bird's face, golden-yellow plush feathers, orange beak and feet, pink cheeks, curled crest, proportions and style consistently in every frame. No hat or accessories. Reference image 1 is Sunny's canonical idle identity; image 2 is an existing drawn flap frame; image 3 is the approved win-popup style context only, do not reproduce its UI. Draw changing wing poses, no mirroring of a still. Keep background genuinely transparent, no checkerboard or opaque background baked in. Deliver the animated GIF itself if supported.",
+    "referenced_image_paths": [
+      "/Users/apple/orca/workspaces/game/gif-capability-test/PerchSort/Assets/Resources/Birds/sunny_idle.png",
+      "/Users/apple/orca/workspaces/game/gif-capability-test/PerchSort/Assets/Resources/Birds/sunny_flap_01.png",
+      "/Users/apple/orca/workspaces/game/gif-capability-test/art/approved_ui/ui_win.png"
+    ],
+    "transparent_background": true
+  },
+  "elapsed_ms": 36242,
+  "output_source": "/Users/apple/.codex/generated_images/01a1a931-f861-7ad2-b712-39bf416e3ed4/exec-306fc962-282b-45d7-84b6-504c002f5fcc.png",
+  "output_copy": "art/gif_tests/sunny_flight_output.png",
+  "stop_reason": "Returned a single PNG instead of an animated GIF; no further generation or animation assembly.",
+  "attempts": 1
+}

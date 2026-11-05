@@ -1,0 +1,27 @@
+frame,actual_seconds,notification,is_map,gate_opening,complete_acknowledged,mean_absolute_rgb_change,observed_frame_content
+120,6.0000,WorldUnlock,True,False,True,0.000,world-unlock popup reveals portal and birds
+121,6.0500,WorldUnlock,True,False,True,0.900,world-unlock popup reveals portal and birds
+122,6.1000,WorldUnlock,True,False,True,1.010,world-unlock popup reveals portal and birds
+123,6.1500,WorldUnlock,True,False,True,1.070,world-unlock popup reveals portal and birds
+124,6.2000,WorldUnlock,True,False,True,1.054,world-unlock popup reveals portal and birds
+125,6.2500,WorldUnlock,True,False,True,0.772,world-unlock popup reveals portal and birds
+126,6.3000,WorldUnlock,True,False,True,1.373,world-unlock popup reveals portal and birds
+127,6.3500,WorldUnlock,True,False,True,0.928,world-unlock popup reveals portal and birds
+128,6.4000,WorldUnlock,True,False,True,15.049,world-unlock popup reveals portal and birds
+129,6.4500,WorldUnlock,True,False,True,12.040,world-unlock popup reveals portal and birds
+130,6.5000,WorldUnlock,True,False,True,8.018,world-unlock popup reveals portal and birds
+131,6.5500,WorldUnlock,True,False,True,3.386,world-unlock popup reveals portal and birds
+132,6.6000,WorldUnlock,True,False,True,0.704,world-unlock popup reveals portal and birds
+133,6.6500,WorldUnlock,True,False,True,1.128,world-unlock popup reveals portal and birds
+134,6.7000,WorldUnlock,True,False,True,1.328,world-unlock popup reveals portal and birds
+135,6.7500,WorldUnlock,True,False,True,1.170,world-unlock popup reveals portal and birds
+136,6.8000,WorldUnlock,True,False,True,1.374,world-unlock popup reveals portal and birds
+137,6.8500,WorldUnlock,True,False,True,0.590,world-unlock popup reveals portal and birds
+138,6.9000,WorldUnlock,True,False,True,0.487,world-unlock popup reveals portal and birds
+139,6.9500,WorldUnlock,True,False,True,0.670,world-unlock popup reveals portal and birds
+140,7.0000,WorldUnlock,True,False,True,0.688,world-unlock popup reveals portal and birds
+141,7.0500,WorldUnlock,True,False,True,0.378,world-unlock popup reveals portal and birds
+142,7.1000,WorldUnlock,True,False,True,1.018,world-unlock popup reveals portal and birds
+143,7.1500,WorldUnlock,True,False,True,1.008,world-unlock popup reveals portal and birds
+144,7.2000,WorldUnlock,True,False,True,0.816,world-unlock popup reveals portal and birds
+145,7.2500,WorldUnlock,True,False,True,0.439,world-unlock popup reveals portal and birds

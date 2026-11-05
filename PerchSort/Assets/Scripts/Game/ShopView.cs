@@ -144,7 +144,7 @@ namespace PerchSort.Game
         {
             var card = GameUI.Surface(parent, item.Id, art, "card_wood", new Rect(index % 2 == 0 ? 20 : 525, index / 2 * (height + 35), 455, height));
             card.type = Image.Type.Simple; card.raycastTarget = true; cosmeticCards.Add(item.Id, card);
-            var button = card.gameObject.AddComponent<Button>(); button.targetGraphic = card; button.transition = Selectable.Transition.None;
+            var button = card.gameObject.AddComponent<GameButton>(); button.targetGraphic = card; button.transition = Selectable.Transition.None;
             button.onClick.AddListener(() => TapCosmetic(item.Id));
             var ring = GameUI.Image(card.transform, "Equipped ring", art.Get("aviary_frame"), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 360 : 320));
             ring.gameObject.SetActive(Equipped(item));
@@ -203,7 +203,12 @@ namespace PerchSort.Game
             GameUI.Button(panel.transform, art, "Cancel purchase", "icon_close", new Rect(434, -4, 108, 108), CloseConfirm);
             GameUI.Button(panel.transform, art, "Confirm purchase", "icon_check", new Rect(198, 490, 176, 176), Purchase, true);
             panel.transform.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
-            motion.Play(0.18f, t => panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t), ease: Ease.OutCubic);
+            var dialogMotion = dim.gameObject.AddComponent<GameMotion>();
+            dialogMotion.Play(0.18f, t =>
+            {
+                if (dim != null && dim.gameObject.activeInHierarchy && panel != null)
+                    panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t);
+            }, ease: Ease.OutCubic);
         }
         private void BuildCard(BoosterKind kind, int index)
         {
@@ -214,7 +219,7 @@ namespace PerchSort.Game
             image.type = Image.Type.Simple;
             if (locked) image.sprite = GreyCard();
             image.raycastTarget = true;
-            var button = image.gameObject.AddComponent<Button>(); button.transition = Selectable.Transition.None; button.targetGraphic = image;
+            var button = image.gameObject.AddComponent<GameButton>(); button.transition = Selectable.Transition.None; button.targetGraphic = image;
             button.onClick.AddListener(() => TapCard(kind)); cards.Add(kind, image.rectTransform);
             Vector2 discPoint = new Vector2(column == 0 ? 304 : 798, row == 0 ? 632 : row == 1 ? 1072 : 1514) - bounds.position;
             GameUI.Fit(image.transform, "Purple disc", art.Get("btn_purple"), discPoint, Vector2.one * 240);

@@ -1,0 +1,3 @@
+scenario,distinct_states,legal_actions,egg_wobble_events,scope
+normal transfers,520,3932,0,Authored level 6; standard legal transfers
+transfers and effect boosters,4928,48746,0,Authored level 6; Sapling OwlEye MorningBell Scarecrow SpringRain one each; Firefly omitted because it does not rearrange the board
