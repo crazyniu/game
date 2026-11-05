@@ -1,10 +1,10 @@
 {
   "method": "Codex built-in image generation, complete action pose sheets",
   "completed_outfits": [
-    "sunny_outfit_1"
+    "sunny_outfit_1",
+    "sky_outfit_1"
   ],
   "missing_outfits": [
-    "sky_outfit_1",
     "berry_outfit_1",
     "mint_outfit_1",
     "cocoa_outfit_1",
@@ -31,7 +31,7 @@
     "ink_outfit_3",
     "hoot_outfit_3"
   ],
-  "frames": 9,
-  "actions": 2,
+  "frames": 18,
+  "actions": 4,
   "native_gif": false
 }
