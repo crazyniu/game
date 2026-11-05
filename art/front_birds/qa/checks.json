@@ -1,0 +1,142 @@
+{
+  "assets": 9,
+  "species": 3,
+  "unique_new_guids": 69,
+  "checks": [
+    {
+      "file": "berry_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "f2819f740b4a587e78a93d0a2ca2a63967a34ce7368a7680cb9201ec210b4efc"
+    },
+    {
+      "file": "berry_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "8dad390fd6061fbb115d86c08bd1b2bf530c9a1e3b85d7ceb92e4c72465458c7"
+    },
+    {
+      "file": "berry_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "08875acf5b13508c2385f2a38f1cbb5af1c26ff9dad296791d8b3b46785c2609"
+    },
+    {
+      "file": "sky_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "4cd745910d30cd8b6a8b88d6e8254a22ed6befca3c38e192c97cbd20e2a1bfaf"
+    },
+    {
+      "file": "sky_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "69f0d47c528a2ede27ac64be243114aa3c171083258958b373573d2365b8b879"
+    },
+    {
+      "file": "sky_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "05fe02043d0dfdd9bf17fcd3c803bdc6219f0e8b4df038028ed9dd06a1315be9"
+    },
+    {
+      "file": "sunny_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "79e2ae90f4b2c0cc7db76900a1427283a3a1110782e3b866902cb05fd6dd6a1b"
+    },
+    {
+      "file": "sunny_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "d2235cc1c350c32feb954c3b989149465c2e5f7f942c42ec002f8f50e7d986d4"
+    },
+    {
+      "file": "sunny_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "916e64fc1435da66e675557347db0d071f0544181ccc59a9cd14528a1b8ca6e5"
+    }
+  ]
+}

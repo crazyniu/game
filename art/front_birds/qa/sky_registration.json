@@ -11,19 +11,19 @@
       255
     ],
     "bounds": [
-      62,
-      65,
+      63,
+      66,
       258,
       301
     ],
     "scale": 0.4229390681003584,
     "translation": [
-      7,
-      41
+      61,
+      64
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "89c6682305d5a2074f9f4923bd655c17dfa84f3ece7155bb4780c864c1a7474d"
+    "sha256": "4cd745910d30cd8b6a8b88d6e8254a22ed6befca3c38e192c97cbd20e2a1bfaf"
   },
   {
     "file": "PerchSort/Assets/Resources/Birds/sky_front_blink_01.png",
@@ -37,19 +37,19 @@
       255
     ],
     "bounds": [
-      62,
+      63,
       65,
       258,
       301
     ],
     "scale": 0.4229390681003584,
     "translation": [
-      7,
-      41
+      61,
+      63
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "d13c423f593da3f724957cc2ee8254f1c6a75d484356c3d0d424070ce9e3ca50"
+    "sha256": "69f0d47c528a2ede27ac64be243114aa3c171083258958b373573d2365b8b879"
   },
   {
     "file": "PerchSort/Assets/Resources/Birds/sky_front_blink_02.png",
@@ -63,18 +63,18 @@
       255
     ],
     "bounds": [
-      62,
-      65,
+      63,
+      66,
       258,
       301
     ],
     "scale": 0.4229390681003584,
     "translation": [
-      7,
-      41
+      61,
+      64
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "1a0f6785b265710f7296e75b1fb57583ef38c1d93e7bb67766ba4bc5211ec170"
+    "sha256": "05fe02043d0dfdd9bf17fcd3c803bdc6219f0e8b4df038028ed9dd06a1315be9"
   }
 ]

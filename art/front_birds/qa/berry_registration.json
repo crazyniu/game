@@ -11,19 +11,19 @@
       255
     ],
     "bounds": [
-      65,
       64,
-      254,
-      301
+      64,
+      253,
+      302
     ],
     "scale": 0.3983193277310924,
     "translation": [
-      16,
-      49
+      63,
+      63
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "0d6b94eb038739fb2e436275dd6f383ee90a271dcc9f21c8dc41b4ac9e953a87"
+    "sha256": "f2819f740b4a587e78a93d0a2ca2a63967a34ce7368a7680cb9201ec210b4efc"
   },
   {
     "file": "PerchSort/Assets/Resources/Birds/berry_front_blink_01.png",
@@ -37,19 +37,19 @@
       255
     ],
     "bounds": [
-      65,
       64,
-      254,
+      64,
+      253,
       302
     ],
     "scale": 0.3983193277310924,
     "translation": [
-      16,
-      49
+      63,
+      62
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "952161e78c9a4073729f228c63d4893af1e0aaa2a6981f4928808ee12deb880f"
+    "sha256": "8dad390fd6061fbb115d86c08bd1b2bf530c9a1e3b85d7ceb92e4c72465458c7"
   },
   {
     "file": "PerchSort/Assets/Resources/Birds/berry_front_blink_02.png",
@@ -63,18 +63,18 @@
       255
     ],
     "bounds": [
-      65,
       64,
-      254,
-      301
+      64,
+      253,
+      302
     ],
     "scale": 0.3983193277310924,
     "translation": [
-      16,
-      49
+      63,
+      62
     ],
     "idle_baseline": 300,
     "frame_baseline": 300,
-    "sha256": "190375c80b328a1d5ccbff6c27a4bb7f23ccd9520d5af9f5af81b27c200d54e9"
+    "sha256": "08875acf5b13508c2385f2a38f1cbb5af1c26ff9dad296791d8b3b46785c2609"
   }
 ]
