@@ -245,7 +245,18 @@ namespace PerchSort.Game
             content.anchoredPosition = new Vector2(540, Clamp(value));
             SyncScenery();
         }
-        private void SyncScenery() => scenery.anchoredPosition = new Vector2(540, content.anchoredPosition.y - ViewportBounds.yMin);
+        private void SyncScenery()
+        {
+            float offset = content.anchoredPosition.y;
+            scenery.anchoredPosition = new Vector2(540, offset - ViewportBounds.yMin);
+            foreach (var gate in gates.Values)
+            {
+                var rect = (RectTransform)gate.transform;
+                float center = -rect.anchoredPosition.y;
+                gate.SetMapLightVisible(center + rect.rect.height * 0.5f > offset &&
+                    center - rect.rect.height * 0.5f < offset + ViewportBounds.height);
+            }
+        }
         private void ClampOffset()
         {
             float current = content.anchoredPosition.y, clamped = Clamp(current);
@@ -356,6 +367,7 @@ namespace PerchSort.Game
             int sibling = rect.GetSiblingIndex();
             GameUI.Dispose(old.gameObject); BuildGate(world, point, open);
             gates[world].transform.SetSiblingIndex(sibling);
+            SyncScenery();
         }
         private void CancelGate(bool restore)
         {
