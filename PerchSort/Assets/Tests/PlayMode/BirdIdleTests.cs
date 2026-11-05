@@ -318,7 +318,7 @@ namespace PerchSort.PlayModeTests
             var seats = birds.Select(bird => bird.Position).ToArray();
             var starts = Enumerable.Repeat(float.NegativeInfinity, birds.Length).ToArray();
             var counts = new int[birds.Length]; var peak = new float[birds.Length];
-            evidenceDirectory = Environment.GetEnvironmentVariable("T54C_EVIDENCE_DIR");
+            evidenceDirectory = Environment.GetEnvironmentVariable("BIRD_IDLE_EVIDENCE_DIR");
             if (!string.IsNullOrEmpty(evidenceDirectory))
             {
                 Assert.That(SystemInfo.graphicsDeviceType, Is.Not.EqualTo(UnityEngine.Rendering.GraphicsDeviceType.Null));

@@ -93,7 +93,7 @@ for entry in sources:
                                   'translation_px': [0,6], 'rgb_multiplier': .92}
 (ROOT/'sources_a.json').write_text(json.dumps(sources, ensure_ascii=False, indent=2)+'\n')
 
-manifest = {'version': 1, 'task': 'T11b1', 'generator': 'built-in image_gen',
+manifest = {'version': 1, 'task': 'ui-kit-a', 'generator': 'built-in image_gen',
             'units': 'source PNG pixels', 'slice_order': 'L/R/T/B; measured inward from full canvas edges',
             'alpha': 'straight RGBA; resizing uses premultiplied alpha',
             'pressed': '6px down, RGB multiplied by 0.92; no extra runtime displacement needed',

@@ -73,7 +73,7 @@ namespace PerchSort.LevelTool
         {
             uint sequence = 0;
             int count = after.HomeItems.Count - beforeCount;
-            if (count > 7) throw new InvalidOperationException("T35 permits at most seven real species per level.");
+            if (count > 7) throw new InvalidOperationException("The level rules permit at most seven real species per level.");
             for (int i = 0; i < count; i++) sequence |= (uint)(index[after.HomeItems[beforeCount + i]] + 1) << (i * 4);
             return sequence;
         }

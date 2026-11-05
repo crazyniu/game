@@ -3,7 +3,7 @@ from pathlib import Path
 
 source = Path(__file__).with_name('prepare_sequences.py')
 script = source.read_text()
-script = script.replace("ROOT / 'tasks/evidence/T54G'",
+script = script.replace("ROOT / 'docs/work-log/bird-frame-sequences/evidence'",
                         "ROOT / 'docs/work-log/remaining-species-sequences/evidence'")
 script = script.replace("OUT / 'sunny_idle.png.meta'", "OUT / f'{species}_idle.png.meta'")
 script = script.replace("fresh.replace('sunny_idle', name)",

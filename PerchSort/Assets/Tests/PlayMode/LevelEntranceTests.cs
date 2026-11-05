@@ -133,7 +133,7 @@ namespace PerchSort.PlayModeTests
 
         private IEnumerator ObserveEntrance(int level)
         {
-            string directory = Environment.GetEnvironmentVariable("T54B_CAPTURE_DIR");
+            string directory = Environment.GetEnvironmentVariable("LEVEL_ENTRANCE_CAPTURE_DIR");
             bool capture = !string.IsNullOrEmpty(directory);
             var samples = new List<string> { "sample,scheduled_seconds,game_seconds,wall_seconds,introducing,airborne,playable" };
             if (capture)

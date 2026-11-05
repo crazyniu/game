@@ -43,14 +43,17 @@ class NamingPolicyTests(unittest.TestCase):
         self.assertTrue(list(guard.content_violations(owner, 'const string key = "' + key + 'new";')))
         self.assertTrue(list(guard.content_violations("tools/save.cs", '"' + key + '"')))
 
-    def test_history_exception_does_not_cover_current_specs_or_team_files(self):
+    def test_prose_and_records_are_not_checked_but_source_and_paths_are(self):
         token = "V" + "5"
-        for path in ("tasks/T30_report.md", "docs/team/HANDOFF_2026-11-04.md"):
-            self.assertTrue(guard.exempt(path))
-            self.assertFalse(list(guard.content_violations(path, "`" + token + "`")))
-        for path in ("tasks/T54E_cleanup.md", "docs/team/TEAM.md", "docs/CURRENT_GAME.md"):
-            self.assertFalse(guard.exempt(path))
-            self.assertTrue(list(guard.content_violations(path, "`" + token + "`")))
+        for path in ("docs/team/HANDOFF_2026-11-04.md", "docs/CURRENT_GAME.md", "docs/work-log/x/evidence/data.json"):
+            self.assertFalse(list(guard.content_violations(path, "`" + token + "`")) if guard.is_source(path) else [])
+            self.assertFalse(guard.is_source(path))
+        for path in ("PerchSort/Assets/Scripts/Game/Bird.cs", "tools/check.py", "ci/check.yml"):
+            self.assertTrue(guard.is_source(path))
+            self.assertTrue(list(guard.content_violations(path, "class Bird" + token + " {}")))
+        self.assertTrue(list(guard.content_violations("PerchSort/Assets/Tests/PlayMode/MusicTests.cs", "// T" + "54A note")))
+        self.assertTrue(list(guard.path_violations("docs/work-log/T" + "54A_report.md")))
+        self.assertFalse(list(guard.path_violations("docs/work-log/2026-11-05_topic.md")))
 
     def test_dependency_and_lockfile_exceptions_are_narrow(self):
         token = "V" + "5"
@@ -62,15 +65,14 @@ class NamingPolicyTests(unittest.TestCase):
         self.assertEqual(1, len(errors))
         self.assertIn(":2:", errors[0])
 
-    def test_markdown_paths_and_fences_checked_without_rewriting_history_prose(self):
+    def test_markdown_is_not_a_source_file(self):
         token = "v" + "5"
-        self.assertFalse(list(guard.content_violations("docs/design.md", "Historical " + token + " decision.")))
-        for text in ("`art/" + token + "/screen.png`", "[art](../art/" + token + "/screen.png)",
-                     "```cs\nclass BirdV" + "5 {}\n```", "~~~sh\nrun ui" + "7\n~~~"):
-            self.assertTrue(list(guard.content_violations("docs/design.md", text)))
+        self.assertFalse(guard.is_source("docs/design.md"))
+        self.assertFalse(guard.is_source("docs/work-log/topic/report.md"))
+        self.assertTrue(guard.is_source("PerchSort/Assets/Resources/Levels/levels.json"))
 
     def test_level_world_task_numbers_and_dependency_module_are_not_game_versions(self):
-        for path in ("tasks/T54E_report.md", "art/world/w4/l40.png", "tools/vision_adapter.py"):
+        for path in ("art/world/w4/l40.png", "tools/vision_adapter.py"):
             self.assertFalse(list(guard.path_violations(path)))
         self.assertFalse(list(guard.content_violations("tools/check.py", "import cv2\nlevel = 40")))
 

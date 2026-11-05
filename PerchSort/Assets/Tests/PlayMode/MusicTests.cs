@@ -81,7 +81,7 @@ namespace PerchSort.PlayModeTests
 
         private void Evidence(string phase)
         {
-            Debug.Log($"T54A t={Time.realtimeSinceStartup:F3} page={(root.IsMap ? "map" : "level")} phase={phase} " +
+            Debug.Log($"MusicTest t={Time.realtimeSinceStartup:F3} page={(root.IsMap ? "map" : "level")} phase={phase} " +
                 $"menu={Describe(menu)} game={Describe(game)}");
         }
 
@@ -226,7 +226,7 @@ namespace PerchSort.PlayModeTests
             int resumedSample = game.timeSamples;
             int resumeTolerance = Mathf.FloorToInt(game.clip.frequency / 60f);
             Assert.That(resumedSample, Is.EqualTo(beforeResume).Within(resumeTolerance));
-            Debug.Log($"T54A pause-request={pauseRequestedSample} paused={pausedSample} quantum={pauseQuantum} " +
+            Debug.Log($"MusicTest pause-request={pauseRequestedSample} paused={pausedSample} quantum={pauseQuantum} " +
                 $"before-resume={beforeResume} resumed={resumedSample} resume-tolerance={resumeTolerance} frequency={game.clip.frequency}");
             yield return new WaitForSecondsRealtime(.25f);
             Playing(game, "bgm_game");

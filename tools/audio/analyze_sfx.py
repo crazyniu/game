@@ -46,7 +46,7 @@ def main():
     summaries = []
     svg = ['<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1420" viewBox="0 0 1200 1420">',
            '<rect width="1200" height="1420" fill="#f8fafc"/>',
-           '<g font-family="sans-serif" fill="#1e293b"><text x="28" y="30" font-size="20">T6 original SFX: PCM waveform / average power spectrum (0-6 kHz, -80 to 0 dB)</text>']
+           '<g font-family="sans-serif" fill="#1e293b"><text x="28" y="30" font-size="20">Original SFX: PCM waveform / average power spectrum (0-6 kHz, -80 to 0 dB)</text>']
     for row, name in enumerate(NAMES):
         path = ROOT / "PerchSort/Assets/Audio/Resources/Audio" / (name + ".wav")
         with wave.open(str(path), "rb") as clip:

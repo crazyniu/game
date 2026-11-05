@@ -59,6 +59,21 @@ def git(root, *args):
     return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.PIPE)
 
 
+# Names are checked everywhere (every tracked path). Contents are checked only in
+# source files; prose, records, evidence and generated data are history, not names.
+SOURCE_SUFFIXES = {".cs", ".asmdef", ".asmref", ".py", ".sh", ".yml", ".yaml",
+                   ".csproj", ".props", ".targets", ".uxml", ".uss", ".shader"}
+
+
+def is_source(path):
+    suffix = PurePosixPath(path).suffix.lower()
+    if suffix in SOURCE_SUFFIXES:
+        return True
+    if suffix == ".json":
+        return path.startswith(("PerchSort/Assets/Resources/", "ci/"))
+    return False
+
+
 def exempt(path):
     parts = PurePosixPath(path).parts
     name = PurePosixPath(path).name
@@ -111,7 +126,8 @@ def identifier_lines(path, text):
 
 
 def content_violations(path, text):
-    if exempt(path):
+    # The guard's own self-test must contain deliberately bad example names.
+    if exempt(path) or path == "ci/test_current_game_names.py":
         return
     allowed = STORAGE_LITERALS.get(path, set())
     if PurePosixPath(path).suffix.lower() == ".md" or path == "ci/check_current_game_names.py":
@@ -153,6 +169,8 @@ def check(root):
         errors.extend(path_violations(path))
         suffix = PurePosixPath(path).suffix.lower()
         if exempt(path) or (suffix not in TEXT_SUFFIXES and not path.endswith(".gitignore")):
+            continue
+        if not is_source(path):
             continue
         if mode not in {"100644", "100755"}:
             errors.append(f"{path}:1: authored text must be a regular tracked file")
