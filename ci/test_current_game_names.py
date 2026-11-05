@@ -11,6 +11,53 @@ import check_current_game_names as guard
 
 
 class NamingPolicyTests(unittest.TestCase):
+    def test_rejects_lowercase_numbered_identity_prefixes(self):
+        for token in ("v" + "1bird", "ui" + "2panel", "final" + "3candidate",
+                      "bird_v" + "2copy", "uI" + "2panel", "BirdUi" + "2",
+                      "BirdV" + "2copy", "FINAL" + "3candidate"):
+            with self.subTest(token=token):
+                self.assertTrue(list(guard.content_violations(
+                    "PerchSort/Assets/Scripts/Game/Bird.cs", "class " + token + " {}")))
+        self.assertFalse(list(guard.content_violations(
+            "tools/check.py", "import cv2\npreview = True")))
+
+    def test_serialized_unity_names_are_checked_without_rewriting_data(self):
+        token = "V" + "2"
+        for suffix in ("unity", "prefab", "asset", "scenetemplate"):
+            path = guard.ASSETS + "Scenes/Game." + suffix
+            with self.subTest(path=path):
+                self.assertTrue(guard.is_source(path))
+                text = ("%YAML 1.1\n  m_Name: Game" + token +
+                        "\n  m_EditorClassIdentifier: PerchSort.Game::Game" + token +
+                        "\n  description: Historical Game" + token +
+                        "\n  storageKey: v5.coins\n")
+                errors = list(guard.content_violations(path, text))
+                self.assertEqual(2, len(errors))
+                self.assertIn(":2:", errors[0])
+                self.assertIn(":3:", errors[1])
+        self.assertFalse(guard.is_source("docs/work-log/topic/evidence/record.asset"))
+
+    def test_shader_vertex_to_fragment_type_is_not_a_version(self):
+        path = guard.ASSETS + "Shaders/Game.shader"
+        self.assertFalse(list(guard.content_violations(path, "struct v2f {}; v2f vert();")))
+        self.assertTrue(list(guard.content_violations(path, "struct v" + "2future {};")))
+        self.assertTrue(list(guard.content_violations(path, "v2f vert(); // GameV" + "2")))
+
+    def test_repository_check_includes_serialized_unity_identities(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            subprocess.run(["git", "init", "--quiet", str(root)], check=True)
+            scene = root / guard.ASSETS / "Scenes/Game.unity"
+            scene.parent.mkdir(parents=True)
+            scene.write_text("  m_Name: GameV" + "2\n")
+            subprocess.run(["git", "-C", str(root), "add", "."], check=True)
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                self.assertEqual(1, guard.check(root))
+                scene.unlink()
+                self.assertEqual(1, guard.check(root))
+                scene.write_text("  m_Name: Game\n")
+                self.assertEqual(0, guard.check(root))
+
     def test_task_names_and_dates(self):
         for name in ("T" + "54AExample.cs", "T" + "7_report.md",
                      "ui" + "7_x.png", "V" + "5Tool.cs"):
