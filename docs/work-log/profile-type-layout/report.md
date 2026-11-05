@@ -42,3 +42,8 @@ The coordinator's later instruction supersedes per-batch engine testing: finish 
 Before closing the completed naming-audit worktree, its logs/XML/hash snapshots/generated patch and audit documents were preserved as `/tmp/game-naming-audit-evidence/acceptance.tar.gz`, SHA-256 `5876bc39fb92dd235b646208b55d6528614fcf7a0b7bca03b68e495ca49302b9`. Orca confirmed that old worktree was removed; the retained branch was not rewritten. The user's primary checkout was never modified.
 
 This bounded batch resolves the two named multi-type files only. Other inventory items remain separate audit work. The latest no-UI authorization excludes UI/resource renaming and gate importer repairs; no broader naming or functional cleanup was attempted. Storage compatibility and existing published history remain intact.
+
+
+## Authorized current-game documentation correction
+
+Issue #114 finding C06 identified two stale CURRENT_GAME passages. Read-only inspection confirmed ShopView's catalog tabs, purchase/confirmation and cosmetic actions, AviaryView's species cards/details and equipment actions, and DevOptions.Load's three compile-time branches. Updated only those two passages in `docs/CURRENT_GAME.md`, with links to canonical sources. The resource JSON has both flags false; EditorPrefs defaults are false in Editor, development builds read the resource JSON, and release uses ForBuild(false, null) to return new all-false options. Editor/development tests can override loading. Reset-progress and persistence-safety guidance is unchanged. No UI/runtime/settings/resource data was edited and no fresh visual/device acceptance is claimed.

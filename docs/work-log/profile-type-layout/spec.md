@@ -7,3 +7,5 @@ Move ProfileMigrator from Scripts/Meta/ProfileText.cs into ProfileMigrator.cs, r
 Owned paths are those five C# files, the three new metas, ci/check_current_game_names.py, ci/test_current_game_names.py, and this subject's spec/report. Everything else is read-only. No UI, presentation test, asset, scene, importer or resource changes are authorized.
 
 The coordinator's latest instruction defers full Unity and screenshot execution until all authorized fixes are integrated. Perform static declaration/compatibility/GUID/reference checks and naming checks now; publish a draft PR with exact-head CI. Full integrated Unity compilation and EditMode/PlayMode acceptance remain pending with the coordinator. Do not merge, mark ready, deploy, force-push or spawn workers.
+
+The coordinator additionally owns a narrow correction for issue #114 finding C06: update only the stale Shop/Aviary implementation and developer-flag passages in docs/CURRENT_GAME.md after source verification. Preserve reset-progress/persistence guidance. This is source-fact documentation only; UI/runtime/settings/resource changes remain forbidden.
