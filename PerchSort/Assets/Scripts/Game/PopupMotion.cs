@@ -35,6 +35,45 @@ namespace PerchSort.Game
         // In the linear-color project, 72% black alpha leaves roughly 56% displayed brightness.
         private const float DimAlpha = 0.72f;
 
+        public static readonly Vector2 PrimaryBarSize = new Vector2(520, 120);
+
+        public static Button PrimaryBar(Transform parent, GameArt art, string name, string icon,
+            Vector2 center, Action action)
+        {
+            var button = (GameButton)GameUI.Button(parent, art, name, icon,
+                GameLayout.Centered(center, PrimaryBarSize), action, true);
+            var image = (Image)button.targetGraphic;
+            image.sprite = art.Get("btn_green_pill"); image.type = Image.Type.Sliced; image.preserveAspect = false;
+            button.RestSprite = button.PressedSprite = image.sprite;
+            var glyph = button.transform.Find("Icon").GetComponent<Image>();
+            glyph.rectTransform.sizeDelta = Vector2.one * 56;
+            glyph.color = Color.white;
+            var outline = glyph.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color32(90, 47, 14, 255);
+            outline.effectDistance = new Vector2(2, -2);
+            return button;
+        }
+
+        // Nine silhouette samples soften the edge without changing or generating artwork.
+        public static RectTransform Lift(Image panel)
+        {
+            var rect = panel.rectTransform;
+            var rig = GameUI.Rect(rect.parent, panel.name, new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y), rect.sizeDelta);
+            rig.SetSiblingIndex(rect.GetSiblingIndex());
+            const float sampleAlpha = 1 - 0.9532546f; // Nine overlapping samples compose to alpha 0.35.
+            for (int y = -1; y <= 1; y++)
+                for (int x = -1; x <= 1; x++)
+                {
+                    var shadow = GameUI.Image(rig, "Soft panel shadow", panel.sprite,
+                        rect.sizeDelta * 0.5f + new Vector2(x * 5, 14 + y * 5), rect.sizeDelta + Vector2.one * 6);
+                    shadow.type = panel.type; shadow.pixelsPerUnitMultiplier = panel.pixelsPerUnitMultiplier;
+                    shadow.color = new Color(0.10f, 0.045f, 0.015f, sampleAlpha);
+                }
+            rect.SetParent(rig, false);
+            rect.anchoredPosition = new Vector2(rect.sizeDelta.x * 0.5f, -rect.sizeDelta.y * 0.5f);
+            panel.name += " surface";
+            return rig;
+        }
         public void Begin(Image overlay)
         {
             Cancel();
@@ -158,7 +197,7 @@ namespace PerchSort.Game
             return art.Get(species + "_idle");
         }
         public void FlyBird(GameArt art, Image bird, string species, Vector2 start, Vector2 end, float delay,
-            Action landed = null, bool recede = false, float duration = 0.6f)
+            Action landed = null, bool recede = false, float duration = 0.6f, bool backLanding = false, Sprite rest = null)
         {
             Track(bird.rectTransform);
             var frames = new List<Sprite>();
@@ -168,20 +207,19 @@ namespace PerchSort.Game
                 if (frame == null) break;
                 frames.Add(frame);
             }
-            Sprite idle = Frame(art, species, "idle");
+            Sprite idle = rest ?? Frame(art, species, "idle");
             Sprite up = null, down = null;
-            Image wingBlend = null;
             if (frames.Count < 2)
             {
                 up = Frame(art, species, "fly_up"); down = Frame(art, species, "fly_down");
-                wingBlend = Transient(bird.transform, "Flight wing blend", down, bird.rectTransform.rect.size * 0.5f, bird.rectTransform.rect.size);
-                wingBlend.color = Color.clear;
             }
             var canvas = poses[bird.rectTransform].Group;
             Play(duration, t =>
             {
-                float travel = 1 - Mathf.Pow(1 - t, 3);
-                Vector2 point = Vector2.Lerp(start, end, travel) + Vector2.up * (-90 * Mathf.Sin(travel * Mathf.PI));
+                float back = t - 1;
+                float travel = backLanding ? 1 + 2.70158f * back * back * back + 1.70158f * back * back : 1 - Mathf.Pow(1 - t, 3);
+                Vector2 point = Vector2.LerpUnclamped(start, end, travel);
+                if (!backLanding) point += Vector2.up * (-90 * Mathf.Sin(Mathf.Clamp01(travel) * Mathf.PI));
                 bird.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
                 bird.rectTransform.localScale = Vector3.one * (recede ? Mathf.Lerp(1, 0.12f, travel) : 1);
                 canvas.alpha = recede ? 1 - t : Mathf.Clamp01(t * 8);
@@ -192,15 +230,12 @@ namespace PerchSort.Game
                 }
                 else
                 {
-                    float wing = t * duration / 0.12f;
-                    bool rising = ((int)wing & 1) == 0;
-                    float blend = Mathf.SmoothStep(0, 1, wing - Mathf.Floor(wing));
-                    bird.sprite = rising ? up : down; wingBlend.sprite = rising ? down : up;
-                    bird.color = new Color(1, 1, 1, 1 - blend); wingBlend.color = new Color(1, 1, 1, blend);
+                    bool rising = ((int)(t * duration / 0.12f) & 1) == 0;
+                    bird.sprite = rising ? up : down;
+                    bird.color = Color.white;
                 }
             }, () =>
             {
-                if (wingBlend != null) GameUI.Dispose(wingBlend.gameObject);
                 bird.color = Color.white;
                 bird.sprite = idle; bird.rectTransform.localRotation = Quaternion.identity;
                 if (recede) { landed?.Invoke(); return; }
