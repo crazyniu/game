@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LitMotion;
 using PerchSort.Audio;
 using PerchSort.Core;
 using UnityEngine;
@@ -22,7 +23,15 @@ namespace PerchSort.Game
         private DayPhase phase;
         private int dayLength, moonbeam, airborne, chain;
         private bool firstWave;
-        private BirdhouseView activeHouse;
+        private readonly List<BirdhouseView> activeHouses = new List<BirdhouseView>();
+        private readonly ManualMotionDispatcher playback = new ManualMotionDispatcher();
+        private bool playing, fastForward;
+        private int playbackFrame;
+        public const float PlaybackBudget = 5f;
+        public const float MinimumDurationScale = 0.4f;
+        public const float FastForwardSpeed = 3f;
+        public float EstimatedPlaybackSeconds { get; private set; }
+        public float PlaybackDurationScale { get; private set; } = 1;
         public int RowCount { get; private set; }
         public bool IsAirborne => airborne > 0;
         public IReadOnlyList<BranchView> Branches => branches;
@@ -157,11 +166,95 @@ namespace PerchSort.Game
         {
             Cancel(); foreach (var bird in birds.Values) bird.Place(bird.Position);
             firstWave = true; int run = generation; bool finished = false;
-            PlayEvent(events, 0, () =>
+            EstimatedPlaybackSeconds = EstimatePlayback(events);
+            PlaybackDurationScale = Mathf.Max(MinimumDurationScale, Mathf.Min(1, PlaybackBudget / Mathf.Max(EstimatedPlaybackSeconds, 0.001f)));
+            playing = true; fastForward = false; playbackFrame = Time.frameCount;
+            var previous = MotionScheduler.DefaultScheduler;
+            try
             {
-                if (run != generation || finished) return;
-                finished = true; BindIdleGroups(); complete();
-            }, run);
+                MotionScheduler.DefaultScheduler = playback.Scheduler;
+                PlayEvent(events, 0, () =>
+                {
+                    if (run != generation || finished) return;
+                    finished = true; playing = false; BindIdleGroups();
+                    // Completion UI is not part of the committed queue's clock.
+                    var scheduler = MotionScheduler.DefaultScheduler;
+                    try { MotionScheduler.DefaultScheduler = previous; complete(); }
+                    finally { MotionScheduler.DefaultScheduler = scheduler; }
+                }, run);
+            }
+            finally { MotionScheduler.DefaultScheduler = previous; }
+        }
+        private void Update()
+        {
+            var previous = MotionScheduler.DefaultScheduler;
+            try
+            {
+                MotionScheduler.DefaultScheduler = playback.Scheduler;
+                playback.Update(Time.deltaTime * (playing ? (fastForward ? FastForwardSpeed : 1) / PlaybackDurationScale : 1));
+            }
+            finally { MotionScheduler.DefaultScheduler = previous; }
+        }
+        public void FastForwardPlayback()
+        {
+            if (playing && Time.frameCount > playbackFrame) fastForward = true;
+        }
+        private static bool Independent(GameEvent first, GameEvent next)
+        {
+            if (first is FlockHome home && next is FlockHome other) return !home.Species.Equals(other.Species);
+            if (first is BirdEvent bird && next is BirdEvent otherBird)
+                return first.GetType() == next.GetType() && bird.BirdId != otherBird.BirdId;
+            if (first is BranchGrew grow && next is BranchGrew otherGrow) return grow.Branch != otherGrow.Branch;
+            return false;
+        }
+        private static int ParallelEnd(IReadOnlyList<GameEvent> events, int start)
+        {
+            int end = start + 1;
+            while (end < events.Count)
+            {
+                bool independent = true;
+                for (int i = start; i < end; i++)
+                    if (!Independent(events[i], events[end])) { independent = false; break; }
+                if (!independent) break;
+                end++;
+            }
+            return end;
+        }
+        private static float EstimatePlayback(IReadOnlyList<GameEvent> events)
+        {
+            float seconds = 0;
+            bool first = true;
+            for (int i = 0; i < events.Count;)
+            {
+                int end = ParallelEnd(events, i);
+                float group = 0;
+                for (int j = i; j < end; j++)
+                {
+                    float duration;
+                    switch (events[j])
+                    {
+                        case ResolutionWave _:
+                            bool empty = j + 1 == events.Count || events[j + 1] is Won || events[j + 1] is PhaseChanged;
+                            duration = first || empty ? 0 : 0.15f; first = false; break;
+                        case Transferred transfer: duration = 0.61f + Mathf.Max(0, transfer.Count - 1) * 0.06f; break;
+                        case ChicksFollowed _: duration = 0.61f; break;
+                        // Include door, cheer, takeoff/flight, resident hop, close, and badge.
+                        case FlockHome _: duration = 0.25f + 0.7f + 0.51f + 0.5f + 0.25f + 0.25f; break;
+                        case Swivelled _: duration = 0.7f; break;
+                        case EggWobbled _: case Woke _: duration = 0.3f; break;
+                        case EggRevealed _: duration = 0.25f; break;
+                        case Hatched _: duration = 0.35f; break;
+                        case Gift _: case BranchGrew _: case TwigUpgraded _: case BoosterUsed _: duration = 0.4f; break;
+                        case CrowsLeft _: duration = 0.51f; break;
+                        case PhaseChanged _: duration = 0.6f; break;
+                        case Won _: duration = 0.7f; break;
+                        default: throw new InvalidOperationException("Unestimated game event: " + events[j].GetType().Name);
+                    }
+                    group = Mathf.Max(group, duration);
+                }
+                seconds += group; i = end;
+            }
+            return seconds;
         }
         private void Launch() { airborne++; root.PresentationInputChanged(); }
         private void Land() { airborne = Mathf.Max(0, airborne - 1); root.PresentationInputChanged(); }
@@ -170,13 +263,23 @@ namespace PerchSort.Game
         {
             if (run != generation) return;
             if (index == events.Count) { complete(); return; }
-            float started = Time.realtimeSinceStartup;
-            Action next = () =>
+            int end = ParallelEnd(events, index), remaining = end - index;
+            for (int i = index; i < end; i++)
             {
-                if (run != generation) return;
-                EventPresented?.Invoke(events[index], Time.realtimeSinceStartup - started);
-                PlayEvent(events, index + 1, complete, run);
-            };
+                int current = i;
+                float started = Time.realtimeSinceStartup;
+                bool finished = false;
+                PlaySingle(events, current, () =>
+                {
+                    if (run != generation || finished) return;
+                    finished = true;
+                    EventPresented?.Invoke(events[current], Time.realtimeSinceStartup - started);
+                    if (--remaining == 0) PlayEvent(events, end, complete, run);
+                }, run);
+            }
+        }
+        private void PlaySingle(IReadOnlyList<GameEvent> events, int index, Action next, int run)
+        {
             switch (events[index])
             {
                 case ResolutionWave _:
@@ -199,7 +302,7 @@ namespace PerchSort.Game
                     }
                     break;
                 case ChicksFollowed chicks:
-                    Follow(chicks, 0, next);
+                    Follow(chicks, next);
                     break;
                 case Swivelled swivel:
                     seats[swivel.Branch].Reverse(); BindIdleGroups();
@@ -243,7 +346,7 @@ namespace PerchSort.Game
                     break;
                 case FlockHome home:
                     var house = root.Hud.House(home.Species.Id);
-                    activeHouse = house;
+                    activeHouses.Add(house);
                     int arrivals = home.BirdIds.Count;
                     if (arrivals == 0) { next(); break; }
                     house.OpenDoor(() =>
@@ -251,15 +354,19 @@ namespace PerchSort.Game
                         if (run != generation) return;
                         for (int i = 0; i < home.BirdIds.Count; i++)
                         {
-                            int id = home.BirdIds[i]; var bird = birds[id]; float delay = i * 0.1f;
+                            int id = home.BirdIds[i]; var bird = birds[id];
                             bird.transform.SetParent(root.Hud.HomeFlightLayer, false);
-                            bird.Cheer(() => bird.FlyHome(house, delay, Launch, Land, () =>
+                            bird.Cheer(() =>
                             {
                                 if (run != generation) return;
-                                house.Arrival(); root.PlaySound(Sfx.Collect); Remove(id); seats[home.Branch].Remove(id);
-                                if (--arrivals == 0)
-                                    house.CompleteFlock(() => { if (run == generation) { activeHouse = null; root.Hud.Chorus(++chain); next(); } });
-                            }));
+                                bird.FlyHome(house, 0, Launch, Land, () =>
+                                {
+                                    if (run != generation) return;
+                                    house.Arrival(); root.PlaySound(Sfx.Collect); Remove(id); seats[home.Branch].Remove(id);
+                                    if (--arrivals == 0)
+                                        house.CompleteFlock(() => { if (run == generation) { activeHouses.Remove(house); root.Hud.Chorus(++chain); next(); } });
+                                });
+                            });
                         }
                     });
                     break;
@@ -282,13 +389,19 @@ namespace PerchSort.Game
                 default: throw new InvalidOperationException("Unplayed game event: " + events[index].GetType().Name);
             }
         }
-        private void Follow(ChicksFollowed follow, int index, Action done)
+        private void Follow(ChicksFollowed follow, Action done)
         {
-            if (index == follow.Birds.Count) { Compact(follow.From); done(); return; }
-            var travel = follow.Birds[index]; seats[follow.From].Remove(travel.BirdId); seats[follow.To].Add(travel.BirdId);
+            int remaining = follow.Birds.Count;
+            if (remaining == 0) { done(); return; }
+            foreach (var travel in follow.Birds)
+            {
+                seats[follow.From].Remove(travel.BirdId); seats[follow.To].Add(travel.BirdId);
+            }
             BindIdleGroups();
-            birds[travel.BirdId].Fly(branches[follow.To].Slot(travel.ToSeat), 0, false, Launch,
-                () => { Land(); branches[follow.To].Land(); }, () => Follow(follow, index + 1, done), leap: true);
+            foreach (var travel in follow.Birds)
+                birds[travel.BirdId].Fly(branches[follow.To].Slot(travel.ToSeat), 0, false, Launch,
+                    () => { Land(); branches[follow.To].Land(); },
+                    () => { if (--remaining == 0) { Compact(follow.From); done(); } }, leap: true);
         }
         private void PlayGift(Gift gift, IReadOnlyList<GameEvent> events, int start, Action done)
         {
@@ -347,9 +460,11 @@ namespace PerchSort.Game
         }
         public void Cancel()
         {
-            generation++;
+            generation++; playing = false; fastForward = false;
             if (sequence != null) sequence.CancelAll();
-            if (activeHouse != null) { activeHouse.Cancel(); activeHouse = null; }
+            foreach (var house in activeHouses) house.Cancel();
+            activeHouses.Clear();
+            // Keep handle versions monotonic: deferred destruction still owns old motion handles.
             foreach (var bird in birds.Values)
             {
                 if (birdLayer != null && bird.transform.parent != birdLayer) bird.transform.SetParent(birdLayer, false);
@@ -359,6 +474,6 @@ namespace PerchSort.Game
             ClearHints(); airborne = 0;
         }
         private void OnDisable() => Cancel();
-        private void OnDestroy() => Cancel();
+        private void OnDestroy() { Cancel(); playback.Reset(); }
     }
 }

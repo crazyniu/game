@@ -14,6 +14,8 @@ Measure individual committed event durations and complete move busy times before
 
 Use a queue-owned LitMotion dispatcher so the budget affects presentation only, never Unity's global time scale. Restore the default scheduler after every synchronous scheduling scope. Normal motion and instant mode remain supported.
 
+Keep dispatcher time and handle generations monotonic across cancellation and board rebuilds. Only destroy/reset the dispatcher with its board owner; deferred destruction must never let an old view's handle alias and cancel a new transition.
+
 ## Acceptance
 
 - Real Game scene, normal motion: level 1 transfer 0 to 1, wait for idle, Undo, next rendered frame transfer 0 to 1. Unlock within six seconds; sky flock is home.
