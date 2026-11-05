@@ -124,20 +124,28 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator NextAndPurpleDiscsHaveBalancedProportionsAndEqualGaps()
+        public IEnumerator WinPrimaryBarAndSecondaryDiscsStayCenteredWithBalancedGaps()
         {
             root.Win.Show(3, 30, 10);
             var buttons = root.Win.GetComponentsInChildren<Button>();
             var next = (RectTransform)buttons.Single(button => button.name == "Next level").transform;
             var replay = (RectTransform)buttons.Single(button => button.name == "Replay level").transform;
             var home = (RectTransform)buttons.Single(button => button.name == "Home").transform;
-            Assert.That(next.rect.width / replay.rect.width, Is.InRange(1.24f, 1.27f));
+            Assert.That(buttons.Count(button => button.targetGraphic is Image image && image.sprite.name == "btn_green_pill"), Is.EqualTo(1));
+            Assert.That(next.rect.size, Is.EqualTo(PopupMotion.PrimaryBarSize));
+            Assert.That(replay.rect.size, Is.EqualTo(Vector2.one * 90));
             Assert.That(home.rect.size, Is.EqualTo(replay.rect.size));
             Vector3 n = next.TransformPoint(next.rect.center), r = replay.TransformPoint(replay.rect.center), h = home.TransformPoint(home.rect.center);
-            Assert.That(n.y, Is.EqualTo(r.y).Within(0.1f));
+            Assert.That(n.y, Is.GreaterThan(r.y), "The primary bar sits above the secondary row.");
             Assert.That(h.y, Is.EqualTo(r.y).Within(0.1f));
-            float leftGap = n.x - r.x - (next.rect.width + replay.rect.width) * next.lossyScale.x * 0.5f;
-            float rightGap = h.x - n.x - (next.rect.width + home.rect.width) * next.lossyScale.x * 0.5f;
+            Assert.That(n.x, Is.EqualTo((r.x + h.x) * 0.5f).Within(0.1f));
+            var panel = (RectTransform)next.parent;
+            Assert.That(n.x, Is.EqualTo(panel.TransformPoint(panel.rect.center).x).Within(0.1f));
+            float scale = next.lossyScale.x;
+            float discGap = h.x - r.x - (replay.rect.width + home.rect.width) * scale * 0.5f;
+            Assert.That(discGap / scale, Is.EqualTo(40).Within(0.1f));
+            float leftGap = r.x - replay.rect.width * scale * 0.5f - (n.x - next.rect.width * scale * 0.5f);
+            float rightGap = n.x + next.rect.width * scale * 0.5f - (h.x + home.rect.width * scale * 0.5f);
             Assert.That(leftGap, Is.GreaterThan(0));
             Assert.That(leftGap, Is.EqualTo(rightGap).Within(0.1f));
             yield return null;

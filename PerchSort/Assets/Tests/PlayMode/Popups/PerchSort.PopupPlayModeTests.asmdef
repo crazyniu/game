@@ -1,0 +1,6 @@
+{
+  "name": "PerchSort.PopupPlayModeTests",
+  "references": ["PerchSort.Core", "PerchSort.Game", "PerchSort.Meta", "Unity.ugui", "Unity.TextMeshPro"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"]
+}
