@@ -158,7 +158,7 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator MissingSequencesAreRemovedFromTheDrawAndStillsOnlyCrossfadeOverBreathing()
+        public IEnumerator MissingSequencesAreRemovedFromTheDrawAndStillsCrossfadeOverAnOpaqueBase()
         {
             SyntheticArt();
             var bird = SyntheticBird();
@@ -174,17 +174,36 @@ namespace PerchSort.PlayModeTests
                 Assert.That(Active(bird), Is.False, "A missing sequence must not become a transformed still.");
             }
             var image = Body(bird).Find("Pose").GetComponent<Image>();
+            var overlay = Body(bird).Find("Idle pose blend").GetComponent<Image>();
             for (int action = 5; action < 8; action++)
             {
                 Act(bird, action);
                 float began = Time.time, previous = 0;
-                bool rising = false, falling = false;
+                float firstOpaque = -1, lastOpaque = -1, fadeOutStarted = -1;
+                float largestStep = 0;
+                bool rising = false, falling = false, held = false;
                 while (Active(bird))
                 {
+                    largestStep = Mathf.Max(largestStep, Time.deltaTime);
                     Set(bird, "nextIdle", float.PositiveInfinity);
-                    float alpha = image.color.a;
-                    if (alpha > previous && alpha > 0 && alpha < 1) rising = true;
-                    if (alpha < previous && alpha > 0 && alpha < 1) falling = true;
+                    Assert.That(image.color.a, Is.EqualTo(1).Within(0.001f),
+                        "The perched idle base must stay opaque throughout the pose crossfade.");
+                    float alpha = overlay.color.a;
+                    Assert.That(alpha, Is.InRange(0f, 1f));
+                    if (alpha < previous)
+                    {
+                        Assert.That(held, Is.True, "The pose must reach an opaque hold before fading out.");
+                        if (!falling) fadeOutStarted = Time.time;
+                        falling = true;
+                    }
+                    if (falling)
+                        Assert.That(alpha, Is.LessThanOrEqualTo(previous + 0.001f), "Fade-out must be monotonic.");
+                    else if (alpha > previous) rising = true;
+                    if (alpha == 1)
+                    {
+                        if (!held) firstOpaque = Time.time;
+                        held = true; lastOpaque = Time.time;
+                    }
                     previous = alpha;
                     Assert.That(bird.Position, Is.EqualTo(seat));
                     Assert.That(Body(bird).anchoredPosition, Is.EqualTo(origin));
@@ -194,7 +213,12 @@ namespace PerchSort.PlayModeTests
                     yield return null;
                 }
                 Assert.That(Time.time - began, Is.InRange(1.03f, 1.68f));
-                Assert.That(rising && falling, Is.True);
+                Assert.That(rising && held && falling, Is.True);
+                float tolerance = largestStep * 2;
+                Assert.That(firstOpaque - began, Is.EqualTo(0.12f).Within(tolerance), "Pose fade-in duration.");
+                Assert.That(Time.time - fadeOutStarted, Is.EqualTo(0.12f).Within(tolerance), "Pose fade-out duration.");
+                Assert.That(lastOpaque - firstOpaque, Is.InRange(0.8f - tolerance, 1.4f + tolerance),
+                    "The held pose must remain fully opaque between the two fades.");
                 Assert.That(bird.ShowsRestPose, Is.True);
             }
             bird.LookAt(seat.x - 100);
@@ -299,6 +323,7 @@ namespace PerchSort.PlayModeTests
             Assert.That(Active(bird), Is.False);
             Assert.That(bird.ShowsRestPose, Is.True);
             Assert.That(Body(bird).Find("Idle pose blend").gameObject.activeSelf, Is.False);
+            Assert.That(Body(bird).Find("Pose").GetComponent<Image>().color.a, Is.EqualTo(1).Within(0.001f));
             yield return new WaitForSeconds(0.3f);
             Assert.That(Active(bird), Is.False);
             bool completed = false;

@@ -17,6 +17,7 @@ namespace PerchSort.Game
         private Sprite idleFrame, cheerFrame, sleep, flyUp, flyDown;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
+        private Sprite DisplayFrame => idleBlend != null && idleBlend.gameObject.activeSelf ? idleBlend.sprite : graphic.sprite;
         private GameMotion motion, breathing, blinking;
         private Vector2 perch, bodyPerch;
         private bool selected, asleep, acting;
@@ -54,10 +55,10 @@ namespace PerchSort.Game
         }
         public Bird Bird { get; private set; }
         public int Id => Bird.Id;
-        public string FrameName => graphic.sprite.name;
+        public string FrameName => DisplayFrame.name;
         public bool Sleeping => asleep;
-        public bool ShowsSleepingPose => graphic.sprite == sleep;
-        public bool ShowsRestPose => graphic.sprite == RestFrame;
+        public bool ShowsSleepingPose => DisplayFrame == sleep;
+        public bool ShowsRestPose => DisplayFrame == RestFrame;
         public bool Revealed => reveal.gameObject.activeSelf;
         // Keep the root anchor in its original design space, including inside a doorway mask.
         public Vector2 Position
@@ -349,8 +350,9 @@ namespace PerchSort.Game
         }
         private void BlendIdlePose(Sprite pose, float blend)
         {
-            graphic.sprite = pose; graphic.color = new Color(1, 1, 1, blend);
-            idleBlend.sprite = idleFrame; idleBlend.color = new Color(1, 1, 1, 1 - blend);
+            // Complementary layer alpha exposes the forest at the midpoint; keep an opaque underlay.
+            graphic.sprite = idleFrame; graphic.color = Color.white;
+            idleBlend.sprite = pose; idleBlend.color = new Color(1, 1, 1, blend);
             idleBlend.gameObject.SetActive(true);
             overlays?.Blend(idleFrame, pose, blend);
         }
