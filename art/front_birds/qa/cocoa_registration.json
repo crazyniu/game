@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/cocoa_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      57,
+      84,
+      263,
+      302
+    ],
+    "scale": 0.4120982986767486,
+    "translation": [
+      55,
+      82
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "92a45e1700fa8c44cb3f9c260ff71b8b2e04c2a138b084fc7ac6ce2ccf330989"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/cocoa_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      56,
+      84,
+      263,
+      302
+    ],
+    "scale": 0.4120982986767486,
+    "translation": [
+      55,
+      82
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "57324e9409756480a5b036bef40dc436caba4cffd1007f0b3c6cb36c59cb8b9d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/cocoa_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      57,
+      84,
+      263,
+      302
+    ],
+    "scale": 0.4120982986767486,
+    "translation": [
+      55,
+      82
+    ],
+    "idle_baseline": 300,
+    "frame_baseline": 300,
+    "sha256": "6d613c9f182204299e8901abde59846474c9f5c8c7c25fe04a1bbb23d8ef4c77"
+  }
+]

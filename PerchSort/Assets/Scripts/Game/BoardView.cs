@@ -71,6 +71,24 @@ namespace PerchSort.Game
         public void Enter(BirdView bird, Vector2 start, Vector2 target, float delay, BranchView branch, Action complete)
         {
             int run = generation;
+            if (bird.Bird.IsEgg || bird.Sleeping)
+            {
+                bird.Place(target); bird.Cancel();
+                float duration = delay + LevelEntrance.SeatedDuration;
+                sequence.Play(duration, t =>
+                {
+                    if (run != generation) return;
+                    float elapsed = t * duration - delay;
+                    float scale = elapsed < 0 ? 0 : Mathf.Lerp(0.6f, 1,
+                        Mathf.SmoothStep(0, 1, elapsed / LevelEntrance.SeatedDuration));
+                    bird.transform.localScale = Vector3.one * scale;
+                }, () =>
+                {
+                    if (run != generation) return;
+                    bird.Place(target); complete?.Invoke();
+                });
+                return;
+            }
             bird.Enter(start, target, delay, LevelEntrance.FlightDuration, () => { if (run == generation) Launch(); },
                 () => { if (run == generation) { Land(); branch.Land(); } }, () =>
             {

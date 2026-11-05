@@ -1,0 +1,197 @@
+{
+  "base_commit": "432e43c7e50fd590d7ec82b7749f5f4a483ba17e",
+  "species": [
+    {
+      "species": "sunny",
+      "frames": 3,
+      "idle_visible_bounds": [
+        62,
+        74,
+        257,
+        302
+      ],
+      "front_visible_bounds": [
+        66,
+        74,
+        255,
+        302
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/sunny_contact.jpg"
+    },
+    {
+      "species": "sky",
+      "frames": 3,
+      "idle_visible_bounds": [
+        60,
+        65,
+        255,
+        301
+      ],
+      "front_visible_bounds": [
+        63,
+        66,
+        258,
+        301
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/sky_contact.jpg"
+    },
+    {
+      "species": "berry",
+      "frames": 3,
+      "idle_visible_bounds": [
+        50,
+        64,
+        256,
+        301
+      ],
+      "front_visible_bounds": [
+        64,
+        64,
+        253,
+        302
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/berry_contact.jpg"
+    },
+    {
+      "species": "mint",
+      "frames": 3,
+      "idle_visible_bounds": [
+        65,
+        36,
+        261,
+        301
+      ],
+      "front_visible_bounds": [
+        57,
+        37,
+        263,
+        302
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/mint_contact.jpg"
+    },
+    {
+      "species": "cocoa",
+      "frames": 3,
+      "idle_visible_bounds": [
+        51,
+        83,
+        246,
+        301
+      ],
+      "front_visible_bounds": [
+        57,
+        84,
+        263,
+        302
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/cocoa_contact.jpg"
+    },
+    {
+      "species": "snow",
+      "frames": 3,
+      "idle_visible_bounds": [
+        60,
+        85,
+        256,
+        300
+      ],
+      "front_visible_bounds": [
+        62,
+        86,
+        259,
+        300
+      ],
+      "baseline": 299,
+      "contact": "docs/work-log/front-facing-birds/evidence/snow_contact.jpg"
+    },
+    {
+      "species": "ember",
+      "frames": 3,
+      "idle_visible_bounds": [
+        60,
+        28,
+        255,
+        301
+      ],
+      "front_visible_bounds": [
+        57,
+        27,
+        263,
+        300
+      ],
+      "baseline": 299,
+      "contact": "docs/work-log/front-facing-birds/evidence/ember_contact.jpg"
+    },
+    {
+      "species": "ink",
+      "frames": 3,
+      "idle_visible_bounds": [
+        56,
+        66,
+        251,
+        302
+      ],
+      "front_visible_bounds": [
+        57,
+        66,
+        261,
+        302
+      ],
+      "baseline": 300,
+      "contact": "docs/work-log/front-facing-birds/evidence/ink_contact.jpg"
+    },
+    {
+      "species": "hoot",
+      "frames": 3,
+      "idle_visible_bounds": [
+        41,
+        119,
+        236,
+        300
+      ],
+      "front_visible_bounds": [
+        63,
+        119,
+        241,
+        301
+      ],
+      "baseline": 299,
+      "contact": "docs/work-log/front-facing-birds/evidence/hoot_contact.jpg"
+    },
+    {
+      "species": "crow",
+      "frames": 3,
+      "idle_visible_bounds": [
+        67,
+        65,
+        262,
+        300
+      ],
+      "front_visible_bounds": [
+        69,
+        66,
+        252,
+        302
+      ],
+      "baseline": 299,
+      "contact": "docs/work-log/front-facing-birds/evidence/crow_contact.jpg"
+    }
+  ],
+  "counts": {
+    "species": 10,
+    "resource_png": 30,
+    "resource_meta": 30,
+    "raw_sheets": 10,
+    "prompts": 10,
+    "reference_contacts": 10,
+    "jpeg_contacts": 10,
+    "offline_blink_previews": 10
+  },
+  "unity": "NOT_RUN: primary Editor remains open; closure requested",
+  "runtime_acceptance": "NOT_RUN: resources are not wired by this art-only task"
+}
