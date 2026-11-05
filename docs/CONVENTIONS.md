@@ -21,6 +21,7 @@ One game, one version. Unity 6000.6.7f1, portrait, 40 authored levels in four fo
 2. Do not change persisted keys, enum numeric order or save schema. Existing storage identifiers are compatibility values, not names to copy.
 3. Honour `GameMotion.Instant` (no motion) in every animation. Cancel every tween and callback when its owner is hidden or destroyed.
 4. Do not edit files you do not own in a parallel task; request the change instead.
+5. The user's Unity Editor normally has the PRIMARY checkout open. That is a different project path from every worker worktree, so it never blocks a worker: run Unity batch commands in your own worktree under `flock /tmp/unity.lock` and never ask the user to close the Editor. Only if Unity itself fails to start, report the exact log error.
 
 ## 4. UI standards
 1. The approved images in `art/approved_ui/` are the target. A UI change is accepted only when a runtime screenshot placed beside the approved image visibly matches.
