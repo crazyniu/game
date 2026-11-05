@@ -42,8 +42,7 @@ namespace PerchSort.Game
                 junctions[world - 1] = Resources.Load<Sprite>("World/branch_junction_w" + world);
                 probed[world - 1] = true;
             }
-            junction = GameUI.Image(flex, "Branch junction", junctions[world - 1],
-                new Vector2((IsRight ? -1 : 1) * (GameLayout.TrunkVisibleWidth / 2 + 120), 0), new Vector2(240, 220));
+            junction = GameUI.Image(flex, "Branch junction", junctions[world - 1], Vector2.zero, new Vector2(240, 220));
             junction.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             wood = GameUI.Rect(flex, "Branch", Vector2.zero, Vector2.zero).gameObject.AddComponent<PerchLimbImage>();
             wood.raycastTarget = false;
@@ -66,20 +65,31 @@ namespace PerchSort.Game
         {
             bool twig = Kind == BranchKind.Twig;
             int world = root.Session.State.World;
-            wood.sprite = (twig ? twigs[world - 1] : limbs[world - 1]) ??
-                art.World(twig ? "twig_left" : "branch_left", world);
-            float junctionScale = twig ? 0.8f : 1;
-            junction.rectTransform.sizeDelta = new Vector2(240, 220) * junctionScale;
-            junction.rectTransform.anchoredPosition = new Vector2((IsRight ? -1 : 1) *
-                (GameLayout.TrunkVisibleWidth / 2 + 120 * junctionScale), 0);
-            ((PerchLimbImage)wood).PerchTop = GameLayout.BranchPerchTop(world, twig);
-            wood.rectTransform.sizeDelta = twig ? GameLayout.TwigDisplaySize : GameLayout.BranchDisplaySize;
-            wood.rectTransform.anchoredPosition = new Vector2(0, GameLayout.BranchPerchTop(root.Session.State.World, twig));
+            Sprite limb = twig ? twigs[world - 1] : limbs[world - 1];
+            wood.sprite = limb ?? art.World(twig ? "twig_left" : "branch_left", world);
+            Vector2 displaySize = twig ? GameLayout.TwigDisplaySize : GameLayout.BranchDisplaySize;
+            float perchTop = GameLayout.BranchPerchTop(world, twig);
+            if (limb != null)
+            {
+                float scale = displaySize.x / limb.rect.width;
+                displaySize.y = limb.rect.height * scale;
+                perchTop *= displaySize.y / (twig ? GameLayout.TwigDisplaySize.y : GameLayout.BranchDisplaySize.y);
+            }
+            // The junction's thin stub fits behind a normal root, but not behind the narrower twig.
+            junction.gameObject.SetActive(!twig && junction.sprite != null);
+            Vector2 junctionPoint = GameLayout.BranchJunction(world);
+            junction.rectTransform.anchoredPosition = new Vector2((IsRight ? -1 : 1) * junctionPoint.x, -junctionPoint.y);
+            wood.rectTransform.sizeDelta = displaySize;
+            wood.rectTransform.anchoredPosition = new Vector2(0, perchTop);
             wood.type = Image.Type.Filled; wood.fillMethod = Image.FillMethod.Horizontal; wood.fillOrigin = 0;
             wood.fillAmount = twig ? 1 : Fill(Seats);
         }
         public Vector2 Slot(int index) => GameLayout.BirdSlot(index, BranchY, IsRight, density);
-        public void Entrance(float progress) => flex.localScale = new Vector3(progress, 1, 1);
+        public void Entrance(float progress)
+        {
+            wood.fillAmount = (Kind == BranchKind.Twig ? 1 : Fill(Seats)) * progress;
+            junction.color = new Color(1, 1, 1, progress);
+        }
         public void OnPointerClick(PointerEventData data)
         {
             if (data != null && data.button != PointerEventData.InputButton.Left) return;
@@ -91,6 +101,7 @@ namespace PerchSort.Game
             float start = wood.fillAmount;
             Seats = seats; if (upgrade) Kind = BranchKind.Normal;
             UpdateWood(); float end = wood.fillAmount;
+            wood.fillAmount = start;
             Vector2 local = Slot(seats - 1) - GameLayout.BranchHit(root.Session.State.Branches[Index].Row,
                 root.Board.RowCount, IsRight).position + new Vector2(0, 70 * density);
             glow.rectTransform.anchoredPosition = new Vector2(local.x, -local.y);
@@ -152,6 +163,7 @@ namespace PerchSort.Game
             if (motion == null) return;
             motion.CancelAll(); landing.CancelAll(); ClearHighlight(); flex.localRotation = Quaternion.identity;
             flex.localScale = Vector3.one; wood.fillAmount = Kind == BranchKind.Twig ? 1 : Fill(Seats);
+            junction.color = Color.white;
             if (knot != null) knot.localRotation = Quaternion.identity;
             for (int i = flex.childCount - 1; i >= 0; i--)
                 if (flex.GetChild(i) != wood.transform && flex.GetChild(i) != junction.transform) GameUI.Dispose(flex.GetChild(i).gameObject);
@@ -160,11 +172,9 @@ namespace PerchSort.Game
         private void OnDestroy() => Cancel();
     }
 
-    // Reshape the supplied limb, rather than clipping off its rounded tip as seats grow.
+    // Reveal native-scale texture from the root. Round the cut edge without warping the bark.
     internal sealed class PerchLimbImage : Image
     {
-        public float PerchTop { get; set; }
-
         protected override void OnPopulateMesh(VertexHelper mesh)
         {
             mesh.Clear();
@@ -173,20 +183,29 @@ namespace PerchSort.Game
             Vector4 uv = UnityEngine.Sprites.DataUtility.GetOuterUV(sprite);
             const int segments = 24;
             float width = rect.width * fillAmount;
-            float baseline = rect.yMax - PerchTop;
+            float radius = Mathf.Min(rect.height / 2, Mathf.Min(width, rect.width - width));
             for (int i = 0; i <= segments; i++)
             {
-                float u = i / (float)segments;
-                float root = 1 - u;
-                float thickness = 1.55f + 1.2f * root * root;
-                // Keep the sitting surface at the logical feet; put the extra mass below it.
-                float bend = 8 * root * root * root;
-                float top = baseline + PerchTop * thickness - bend;
-                float bottom = baseline - (rect.height - PerchTop) * thickness - bend;
-                float x = rect.xMin + width * u;
-                float textureX = Mathf.Lerp(uv.x, uv.z, u);
-                mesh.AddVert(new Vector3(x, bottom, 0), color, new Vector2(textureX, uv.y));
-                mesh.AddVert(new Vector3(x, top, 0), color, new Vector2(textureX, uv.w));
+                float offset = width * i / segments;
+                float halfHeight = rect.height / 2;
+                if (radius > 0)
+                {
+                    offset = (width - radius) * Mathf.Min(i, segments / 2) / (segments / 2);
+                    if (i > segments / 2)
+                    {
+                        float angle = (i - segments / 2) * Mathf.PI / segments;
+                        offset += radius * Mathf.Sin(angle);
+                        halfHeight *= Mathf.Cos(angle);
+                    }
+                }
+                float top = rect.center.y + halfHeight;
+                float bottom = rect.center.y - halfHeight;
+                float x = rect.xMin + offset;
+                float textureX = Mathf.Lerp(uv.x, uv.z, offset / rect.width);
+                float textureBottom = Mathf.Lerp(uv.y, uv.w, (bottom - rect.yMin) / rect.height);
+                float textureTop = Mathf.Lerp(uv.y, uv.w, (top - rect.yMin) / rect.height);
+                mesh.AddVert(new Vector3(x, bottom, 0), color, new Vector2(textureX, textureBottom));
+                mesh.AddVert(new Vector3(x, top, 0), color, new Vector2(textureX, textureTop));
                 if (i == 0) continue;
                 int previous = (i - 1) * 2;
                 mesh.AddTriangle(previous, previous + 1, previous + 3);

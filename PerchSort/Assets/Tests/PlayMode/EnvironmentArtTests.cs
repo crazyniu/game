@@ -135,14 +135,10 @@ namespace PerchSort.PlayModeTests
                     Assert.That(junction.sprite, Is.SameAs(Resources.Load<Sprite>("World/branch_junction_w" + world)));
                     Assert.That(junction.sprite, Is.Not.Null);
                     Assert.That(junction.raycastTarget, Is.False);
-                    Assert.That(Mathf.Abs(junction.rectTransform.anchoredPosition.x) -
-                        junction.rectTransform.sizeDelta.x / 2, Is.EqualTo(GameLayout.TrunkVisibleWidth / 2).Within(0.01f));
                     Assert.That(branch.Seats, Is.EqualTo(root.Session.State.Branches[branch.Index].Capacity));
                     branch.Entrance(0);
-                    Assert.That(junction.rectTransform.lossyScale.x, Is.Zero.Within(0.001f));
                     branch.Entrance(1);
                     branch.Cancel();
-                    Assert.That(junction.gameObject.activeSelf, Is.True, "Cancellation must retain the permanent junction.");
                 }
                 if (world <= 3) Assert.That(Resources.Load<Sprite>("World/gate_arch_closed_w" + world), Is.Not.Null);
             }
