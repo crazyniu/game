@@ -30,3 +30,17 @@ Runtime isolation identifies the overlap between `World 1 background` (`Art/map_
 | `flock /tmp/unity.lock bash scripts/screenshots.sh` | Passed; 34 stable 1080 × 1920 captures |
 
 The level 10 patch remains visible in the final comparison, so the requested no-patch visual criterion fails despite the passing tests. No device, animation or audio acceptance is claimed. Unity generated unrelated asset metadata changes in the workspace; they were not committed and are preserved in ignored `build/unity-generated-state.patch`.
+
+## Boundary experiments after coordinator review
+
+The requested visual correction is still **not accepted**. [The comparison](evidence/boundary-experiments.jpg) shows three runtime experiments, none retained:
+
+- Ending the canopy exactly where the world-background fade begins exposes the camera's white background through the 160-pixel transparent fade. This creates a conspicuous white band.
+- Softening the canopy's bottom edge with a `RectMask2D` leaves the patch and exposes a lighter horizontal band.
+- Removing the first 160 pixels of the world background and retaining the canopy removes the blended patch but replaces it with a hard horizontal scenery seam.
+
+The underlying issue is that the two images do not depict the same path at the seam. Removing or reducing the lower image's alpha while the upper image is translucent also exposes the clear background. A transition that satisfies both the requested visual continuity and the no-art-change constraint has not been demonstrated. The retained source remains unchanged from the gate-light commit; no fade-boundary regression was added because the visual behavior still fails.
+
+For a reproducible check, the 1080 × 1920 captures were resized to 540 × 960 using Lanczos. In the requested comparison-sheet region, corresponding to capture x=225..448 and y=225..284, luminance was calculated as `0.2126 R + 0.7152 G + 0.0722 B`, averaged over each four-pixel-wide column across the region height, and the maximum absolute difference between adjacent columns was divided by 255. Baseline: **6.352%**; clipped canopy: **6.329%**; softened canopy: **6.689%**; trimmed background: **6.738%**. All exceed the requested 6% threshold using this interpretation; the maximum is at x=337, where the chick also contributes. The measurement therefore does not isolate the patch from foreground detail.
+
+The naming self-test passed 9/9, the naming guard reported 0 violations, and the serialized full suite passed 317/317 EditMode and 88/88 PlayMode with no skips or failures on the retained source. Temporary experiment and capture code was removed.
