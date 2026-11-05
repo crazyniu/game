@@ -1,0 +1,80 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_front.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      63,
+      119,
+      241,
+      301
+    ],
+    "scale": 0.36863543788187375,
+    "translation": [
+      62,
+      118
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "a449b74bb409ff59453a96ccdd9e326ed1d2a2add7caa612da35f8c746065993"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_front_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      63,
+      119,
+      241,
+      301
+    ],
+    "scale": 0.36863543788187375,
+    "translation": [
+      62,
+      118
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "92099055945119cc8e7bcfef0325ff906826cc3bd03e68801b3535734ec2f0dc"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_front_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      63,
+      119,
+      241,
+      301
+    ],
+    "scale": 0.36863543788187375,
+    "translation": [
+      62,
+      118
+    ],
+    "idle_baseline": 299,
+    "frame_baseline": 299,
+    "sha256": "a0791ec4c6db3f419b4fbffa67343166a1bb8f0cde665f282017d3566772aeaa"
+  }
+]

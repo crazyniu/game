@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,9 @@ namespace PerchSort.Game
         private const float HouseDuration = 0.8f, BranchDuration = 0.7f, RowStagger = 0.15f, BirdStagger = 0.08f;
         internal const float FlightDuration = 1.0f;
         private const float FlightSettleDuration = 0.06f + FlightDuration + 0.12f;
+        internal const float SeatedDuration = 0.25f;
+        private const float MinimumDuration = 3.5f;
+        private readonly Dictionary<int, int> attempts = new Dictionary<int, int>();
         private int arrivals;
         private bool poseComplete, prepared;
         private GameRoot root;
@@ -26,24 +30,37 @@ namespace PerchSort.Game
         internal void Prepare()
         {
             Cancel();
-            int index = 0;
+            int level = root.LevelId;
+            attempts.TryGetValue(level, out int attempt);
+            attempts[level] = attempt + 1;
+            var random = new System.Random(unchecked(level + attempt));
             foreach (var branch in root.Board.Branches)
             {
                 var state = root.Session.State.Branches[branch.Index];
                 for (int seat = 0; seat < state.Birds.Count; seat++)
                 {
                     var bird = root.Board.Birds[state.Birds[seat].Id];
-                    bird.Place(StartPoint(bird, branch, branch.Slot(seat), index++));
+                    bool seated = bird.Bird.IsEgg || bird.Sleeping;
+                    bird.Place(seated ? branch.Slot(seat) : StartPoint(branch, random));
                 }
             }
             // Hold the starting poses without idle motion while the wipe still covers the level.
             root.Board.Cancel();
+            foreach (var bird in root.Board.Birds.Values)
+                if (bird.Bird.IsEgg || bird.Sleeping) bird.transform.localScale = Vector3.zero;
             Pose(0);
             prepared = true;
         }
-        private static Vector2 StartPoint(BirdView bird, BranchView branch, Vector2 target, int index)
-            => bird.Bird.IsEgg || index % 5 == 0 ? new Vector2(target.x, 420) :
-                new Vector2(branch.IsRight ? 1240 : -160, target.y - 120);
+        private static Vector2 StartPoint(BranchView branch, System.Random random)
+        {
+            int side = random.Next(3);
+            // Fold the opposite edge onto the branch's edge to avoid full-width crossings.
+            if (side != 2) side = branch.IsRight ? 1 : 0;
+            float x = side == 2 ? Mathf.Lerp(100, 980, (float)random.NextDouble()) : side == 0 ? -180 : 1260;
+            float y = side == 2 ? -180 : Mathf.Lerp(150, 1500, (float)random.NextDouble());
+            return new Vector2(x + Mathf.Lerp(-60, 60, (float)random.NextDouble()),
+                y + Mathf.Lerp(-60, 60, (float)random.NextDouble()));
+        }
         public void Play(Action done)
         {
             if (!prepared) Prepare();
@@ -53,7 +70,7 @@ namespace PerchSort.Game
             Pose(0);
             root.PresentationInputChanged();
             arrivals = root.Board.Birds.Count; poseComplete = false;
-            float duration = 3.2f;
+            float duration = MinimumDuration;
             int row = -1, rowBird = 0;
             Action arrived = () =>
             {
@@ -73,7 +90,7 @@ namespace PerchSort.Game
                     // Rows overlap, but birds within each row keep their own readable cadence.
                     float delay = HouseDuration + BranchDuration + state.Row * RowStagger + rowBird * BirdStagger;
                     root.Board.Enter(bird, start, target, delay, branch, arrived);
-                    duration = Mathf.Max(duration, delay + FlightSettleDuration);
+                    duration = Mathf.Max(duration, delay + (bird.Bird.IsEgg || bird.Sleeping ? SeatedDuration : FlightSettleDuration));
                     rowBird++;
                 }
             }
@@ -85,7 +102,7 @@ namespace PerchSort.Game
                     if (arrivals == 0) Finish();
                 });
         }
-        private void Pose(float elapsed, float duration = 3.2f)
+        private void Pose(float elapsed, float duration = MinimumDuration)
         {
             float drop = Mathf.Clamp01(elapsed / HouseDuration);
             float spring = 1 + 2.2f * Mathf.Pow(drop - 1, 3) + 1.2f * Mathf.Pow(drop - 1, 2);

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Passed" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:12:33Z" duration="35.128973">
+  <test-suite type="TestSuite" id="1145" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:12:33Z" duration="35.128973" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1284" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/offscreen-entrance/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:12:33Z" duration="35.124660" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="6755" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1285" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:12:33Z" duration="35.123293" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1286" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:12:33Z" duration="35.121983" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1178" name="FlightFramesTests" fullname="PerchSort.PlayModeTests.FlightFramesTests" classname="PerchSort.PlayModeTests.FlightFramesTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:11:59Z" duration="0.526109" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1185" name="LevelEntranceUsesSecondsBasedFramesAndSettlesEveryBird" fullname="PerchSort.PlayModeTests.FlightFramesTests.LevelEntranceUsesSecondsBasedFramesAndSettlesEveryBird" methodname="LevelEntranceUsesSecondsBasedFramesAndSettlesEveryBird" classname="PerchSort.PlayModeTests.FlightFramesTests" runstate="Runnable" seed="1049391360" result="Passed" start-time="2026-11-05 06:11:58Z" end-time="2026-11-05 06:11:59Z" duration="0.517150" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1244" name="OffscreenEntranceTests" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-05 06:11:59Z" end-time="2026-11-05 06:12:33Z" duration="34.592065" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1246" name="LevelFiveFlightsStartOutsideAndRestartChangesStarts" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.LevelFiveFlightsStartOutsideAndRestartChangesStarts" methodname="LevelFiveFlightsStartOutsideAndRestartChangesStarts" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="1950242676" result="Passed" start-time="2026-11-05 06:11:59Z" end-time="2026-11-05 06:12:06Z" duration="7.660341" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Offscreen entrance level 5, attempt 0: playable=4.0505s; flying=12; seated=0
+Offscreen entrance level 5, attempt 1: playable=3.5002s; flying=12; seated=0
+]]></output>
+            </test-case>
+            <test-case id="1248" name="LevelFortyFlightsStartOutsideAndRestartChangesStarts" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.LevelFortyFlightsStartOutsideAndRestartChangesStarts" methodname="LevelFortyFlightsStartOutsideAndRestartChangesStarts" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="1179198232" result="Passed" start-time="2026-11-05 06:12:06Z" end-time="2026-11-05 06:12:15Z" duration="8.817724" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Offscreen entrance level 40, attempt 0: playable=4.0510s; flying=18; seated=10
+Offscreen entrance level 40, attempt 1: playable=3.5003s; flying=18; seated=10
+]]></output>
+            </test-case>
+            <test-case id="1245" name="LevelOneFlightsStartOutsideAndRestartChangesStarts" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.LevelOneFlightsStartOutsideAndRestartChangesStarts" methodname="LevelOneFlightsStartOutsideAndRestartChangesStarts" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="1702989294" result="Passed" start-time="2026-11-05 06:12:15Z" end-time="2026-11-05 06:12:24Z" duration="8.646919" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Offscreen entrance level 1, attempt 0: playable=4.0510s; flying=8; seated=0
+Offscreen entrance level 1, attempt 1: playable=3.5004s; flying=8; seated=0
+]]></output>
+            </test-case>
+            <test-case id="1247" name="LevelTwentyOneFlightsStartOutsideAndRestartChangesStarts" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.LevelTwentyOneFlightsStartOutsideAndRestartChangesStarts" methodname="LevelTwentyOneFlightsStartOutsideAndRestartChangesStarts" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="949117376" result="Passed" start-time="2026-11-05 06:12:24Z" end-time="2026-11-05 06:12:32Z" duration="7.614128" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Offscreen entrance level 21, attempt 0: playable=4.0509s; flying=18; seated=3
+Offscreen entrance level 21, attempt 1: playable=3.5004s; flying=18; seated=3
+]]></output>
+            </test-case>
+            <test-case id="1249" name="SameLevelAndAttemptRepeatAcrossFreshScenes" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.SameLevelAndAttemptRepeatAcrossFreshScenes" methodname="SameLevelAndAttemptRepeatAcrossFreshScenes" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="32566449" result="Passed" start-time="2026-11-05 06:12:32Z" end-time="2026-11-05 06:12:33Z" duration="1.215627" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Can not play a disabled audio source
+]]></output>
+            </test-case>
+            <test-case id="1250" name="SeatedEntrancesRestoreFullScaleOnSkipAndInstantRestart" fullname="PerchSort.PlayModeTests.OffscreenEntranceTests.SeatedEntrancesRestoreFullScaleOnSkipAndInstantRestart" methodname="SeatedEntrancesRestoreFullScaleOnSkipAndInstantRestart" classname="PerchSort.PlayModeTests.OffscreenEntranceTests" runstate="Runnable" seed="1683533797" result="Passed" start-time="2026-11-05 06:12:33Z" end-time="2026-11-05 06:12:33Z" duration="0.635117" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
