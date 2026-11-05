@@ -1,5 +1,38 @@
 # Cosmetics wiring report
 
+## Coordinator ring correction
+
+Merged `origin/final-integration` first, fast-forwarding to `3a466e00`. The only subsequent production-code change is the outfit-card equipped ring diameter: **410 to 360 design pixels**, still centered at portrait-local `(227.5, 235)`. The house-card ring remains 320 pixels. Portraits, cards, prices, layout, equipment, persistence, and tests are unchanged by this correction.
+
+Current verification on the merged code and corrected ring:
+
+| Command | Result |
+| --- | --- |
+| `env PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py --self-test` | 7/9 passed; 2 failures in merged naming-policy self-tests |
+| `env PYTHONDONTWRITEBYTECODE=1 python3 ci/check_current_game_names.py` | 1,820 violations in merged repository content outside the ring correction |
+| `flock /tmp/unity.lock bash scripts/run_tests.sh` | Scene build passed; **317/317 EditMode and 87/87 PlayMode passed**, 0 failures, 0 skips |
+| Graphics-enabled PlayMode, filtered to `CosmeticsTests.OutfitSelectionIsPerSpeciesAndDetailToggleRestoresAnimatedDefault` | **1/1 passed**, 0 skips |
+
+LevelsData retains all 81 cases and Layout retains all 41. The prior PlayMode failures described in the original delivery below no longer occur on the merged integration. Naming-policy failures were reported, not fixed or bypassed; no unowned files were edited.
+
+Graphics command:
+
+```bash
+flock /tmp/unity.lock env \
+  PERCH_COSMETICS_EVIDENCE=/Users/apple/orca/workspaces/game/cosmetics-wiring/build/ring-evidence \
+  /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity \
+  -batchmode -projectPath /Users/apple/orca/workspaces/game/cosmetics-wiring/PerchSort \
+  -runTests -testPlatform PlayMode \
+  -testFilter PerchSort.PlayModeTests.CosmeticsTests.OutfitSelectionIsPerSpeciesAndDetailToggleRestoresAnimatedDefault \
+  -testResults /Users/apple/orca/workspaces/game/cosmetics-wiring/build/ring-results.xml \
+  -screen-width 1080 -screen-height 1920 \
+  -logFile /Users/apple/orca/workspaces/game/cosmetics-wiring/build/ring-evidence.log
+```
+
+Inspected the actual runtime screenshot: the smaller gold ring hugs the equipped portrait area rather than nearly filling the card. Updated only `evidence/ui_shop_outfits.png`, its reference comparison, and `evidence/verification.json`; all other committed visual evidence is retained. Test/capture outputs remain under ignored `build/`. Generated scene and import-metadata changes were inspected and restored to the clean post-merge starting state.
+
+The original implementation record below retains the initial delivery's context. The current results above supersede its test counts, naming results, and outstanding PlayMode failures.
+
 ## Scope
 
 Implemented the assigned specification in `ShopView.cs`, `AviaryView.cs`, `BirdhouseView.cs`, small transaction hooks in `GameRoot.cs`, and new `Tests/PlayMode/CosmeticsTests.cs` with its Unity metadata. This report and the requested evidence are the only additional authored paths.

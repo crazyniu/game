@@ -124,12 +124,6 @@ namespace PerchSort.Game
             for (int world = 2; world <= 4; world++)
             {
                 Vector2 gate = MapModel.GatePosition(world) + Vector2.up * TopPadding;
-                if (world == 2)
-                {
-                    var bamboo = Resources.Load<Sprite>("World/map_bamboo_w1");
-                    if (bamboo != null) GameUI.Image(content, "Gate bamboo", bamboo,
-                        gate + new Vector2(0, 450 - GateSize.y / 2), new Vector2(1080, 900));
-                }
                 gateStates.Add(world, MapModel.WorldOpen(profile, world));
                 BuildGate(world, gate, gateStates[world]);
                 GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(395, 0), new Vector2(220, 100));
@@ -287,7 +281,15 @@ namespace PerchSort.Game
             ReplaceGate(world, false);
             int token = gateRevision;
             float y = MapModel.GatePosition(world).y;
-            float start = content.anchoredPosition.y, end = Clamp(y + TopPadding - ViewportBounds.height * 0.45f);
+            float top = y - GateSize.y / 2, bottom = y + GateSize.y / 2;
+            int boundary = (world - 1) * 10;
+            if (FocusLevel == boundary || FocusLevel == boundary + 1)
+            {
+                float nodeY = MapModel.Position(FocusLevel).y;
+                top = Mathf.Min(top, nodeY - ChickLift - ChickSize / 2 - GameLayout.MapBounceHeight);
+                bottom = Mathf.Max(bottom, nodeY + CurrentNodeSize / 2);
+            }
+            float start = content.anchoredPosition.y, end = Clamp((top + bottom) / 2 + TopPadding - ViewportBounds.height / 2);
             gateMotion.Play(0.5f, t =>
             {
                 if (token == gateRevision) SetOffset(Mathf.Lerp(start, end, t * t * (3 - 2 * t)));

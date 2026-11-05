@@ -1,0 +1,6 @@
+sparse, world 1, design y=1800: projected opaque width left=167.24 right=167.24; identical mirrored rects, alpha threshold 128
+sparse, world 1, design y=1900: projected opaque width left=176.90 right=176.90; identical mirrored rects, alpha threshold 128
+medium, world 1, design y=1800: projected opaque width left=170.00 right=170.00; identical mirrored rects, alpha threshold 128
+medium, world 1, design y=1900: projected opaque width left=176.90 right=176.90; identical mirrored rects, alpha threshold 128
+dense, world 4, design y=1800: projected opaque width left=163.40 right=163.40; identical mirrored rects, alpha threshold 128
+dense, world 4, design y=1900: projected opaque width left=170.00 right=170.00; identical mirrored rects, alpha threshold 128

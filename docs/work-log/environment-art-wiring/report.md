@@ -1,54 +1,80 @@
 # Environment art wiring report
 
-## Delivery
+## Coordinator rework delivery
 
-Implemented the assigned board and map wiring on `mac-environment-wiring/work`. Runtime changes are confined to `BranchView.cs`, `SceneView.cs`, `GameLayout.cs`, `MapView.cs`, `MapModel.cs` and `GateView.cs`. `MapMotion.cs` did not need changes. Added `EnvironmentArtTests.cs` and its Unity metadata. No changes to `BirdView.cs`, rules, level data, economy, persistence keys, resource import policy or popup gate callers are included in the commit.
+Merged the coordinator's integrated branch before implementation:
 
-**Environment checks pass; the full suite is not green.** Two failing tests outside the owned files prevent the requested full-suite green result. Their exact failures are recorded below and in [verification evidence](evidence/verification.log).
+```bash
+git fetch origin
+git merge --no-edit origin/final-integration
+```
 
-## Implementation
+The merge fast-forwarded the assigned branch `mac-environment-wiring/work` to integrated commit `3a466e00`. The prior verification-generated metadata, scene and Python bytecode changes were preserved in the named Git stash `Preserve environment verification generated state`; they were not reapplied over the integrated assets.
 
-### Board
+**All requested runtime corrections are implemented and the full serialized Unity suite is green. Exact closed-master image identity remains an asset prerequisite, and the integrated naming checks fail outside this assignment.** See the explicit remaining acceptance boundaries below.
 
-- Curved world trunks replace the procedurally reshaped legacy trunks. The right scenery is mirrored. Existing crown placement and dense-board crown-clearance logic remain in place.
-- Every branch has a world-specific junction at its trunk-side root, vertically centred on the logical seat line. Twig junctions use 0.8 size. Junctions participate in the existing flex/entrance transform and survive cancellation and growth cleanup.
-- Optional `branch_limb_w<N>` and `twig_limb_w<N>` resources are probed once per world. Missing art retains the existing branch/twig sprites.
-- Row positions, bird slots, hit rectangles, capacities, filled-limb growth and entrance APIs are unchanged. The obsolete procedural trunk mesh was removed rather than retained as a parallel presentation.
+Implementation changes remain inside `BranchView.cs`, `SceneView.cs`, `GameLayout.cs`, `MapView.cs`, `GateView.cs` and `EnvironmentArtTests.cs`. `MapModel.cs` and `MapMotion.cs` required no further edits. No changes to `BirdView.cs`, rules, levels, economy, saves, import policy or artwork files are included in the rework commit.
 
-### Map
+## Binding rework items
 
-- Gates use the closed arch for the world being completed, rather than the existing popup door presentation. Runtime gate keys still identify the destination world, preserving the existing unlock callback/state flow.
-- Separate frame/door/light resources enable a 0.9-second smooth ease-in-out door swing from x scale 1 to 0.08 around opposite hinge edges, with a 0.6-second light fade. If any part is absent, the closed arch dissolves over 0.5 seconds. Already-open gates retain their open pose through lifecycle cancellation.
-- Gate geometry includes clearance for the complete current chick, not only node faces. The original 500-pixel inter-world separation cannot contain a 600-pixel arch plus neighbouring nodes and the chick. `MapStride` is therefore 3600 instead of 2840, giving 1260 pixels between boundary nodes. Node coordinates within each world are unchanged. Existing 3000-pixel background paths retain their native scale; cached canopy sprite regions fill the additional inter-world interval with overlapping edges. No new art was authored.
-- World-one bamboo is behind its gate with matching top alignment. The six-cell stepping-stone sheet is sliced into cached sprites; each consecutive-node segment receives a deterministic level-seeded group of three to five flat stones, outside node rectangles.
-- Foreground corner sprites are non-interactive, horizontally confined to edge regions that do not intersect nodes, drawn above map content and clipped below the HUD areas. See the specification conflict under limitations.
-- Added runtime sprite slices are disposed when the map is destroyed. Decorations do not add update loops, colliders or particles.
+### Bamboo removal
+
+Removed the complete runtime grove load/draw path. A search for `map_bamboo_w1` under `PerchSort/Assets/Scripts` returns no matches. `Resources/World/map_bamboo_w1.png` is intentionally unused and retained, as requested. The world map now shows the baked background path without the rectangular grove overlay.
+
+### Door-strip removal
+
+Available gate parts now replace the entire closed-gate image rather than being drawn beneath a whole-door overlay. Popup gate presentation remains unchanged; its assets are not used by the map.
+
+The remaining top strip after the first parts assembly was the lower edge of an arch clipped by normal level-ten focus. Corrected the geometry instead of hiding it with an opacity or visibility special case:
+
+- `MapStride` is 4000, leaving enough inter-world separation that the next arch is fully above the normal world-end viewport. The existing normal node focus ratio remains unchanged.
+- Unlock camera positioning fits the union of the complete arch, current node and current chick, including its bounce envelope. Both sides of each world boundary are covered.
+- Coordinates within each world remain unchanged. Existing native-scale background sprites and cached boundary canopy slices continue to fill the map.
+
+The current-level-ten capture no longer contains a top door strip. No legacy full-height gate image or closed whole-gate overlay is drawn when the provided parts are available.
+
+### Native gate assembly and timing
+
+Worlds one through three use the documented asset placement on a 560 × 600 canvas:
+
+- Frame behind the other parts.
+- Light: 320 × 440 at top-left `(120, 130)`, behind the doors.
+- Left leaf: 160 × 288 at `(118, 274)`.
+- Right leaf: 160 × 288 at `(278, 274)`.
+- Hinge axes are four pixels inside the outer edges: left pivot x=0.025, right pivot x=0.975. These are applied directly to the UI rectangles, so importer recentering cannot move the runtime axes.
+- Existing standalone padlock alpha bounds are cropped at runtime and placed at `(242, 364)`, size 73 × 99. No artwork file is edited.
+
+The left and right leaves use their different supplied drawings, never mirrored. Each scales x from 1 to 0.08 over 0.9 seconds with smooth ease-in-out. Light alpha reaches 1 over 0.6 seconds. Padlock alpha reaches 0 in the first 0.2 seconds. The static arch remains visible. The existing unlock callback, cancellation handling and persistence flow are retained. Missing optional parts still use the originally specified new-arch dissolve fallback, but the integrated supplied-art path exercises the actual swing.
+
+The timed runtime sheet and log show both leaves opening together, the lock gone by the nominal 0.2-second sample, full light by 0.6 seconds, and x scale 0.08 with exactly one completion callback by 0.9 seconds.
+
+### Equal trunk widths and junctions
+
+Both sides now use the same trunk geometry, vertical extent and horizontal normalization. The right side is the exact static mirror of the left. Different crown widths no longer alter right-trunk height and source-row sampling. Crown positions remain unchanged; the source crown attachment remains at design x=25 on the left and its mirrored position on the right.
+
+Lower bark is normalized around the production `TrunkVisibleWidth` of 170 design pixels. Junction inner ends use half that width as the trunk centre line; twig scaling remains 0.8. Bird slots, row positions, hit rectangles, capacities and growth/entrance behavior remain unchanged.
+
+The three runtime densities have identical left/right rectangle sizes, y positions and mirror placement. Projecting the supplied alpha silhouettes through those captured rectangles gives equal widths on both sides, approximately 163–177 design pixels across the sampled lower-screen rows. Measurements are in [trunk-widths.log](evidence/trunk-widths.log).
 
 ## Verification
 
-Every Unity command waited on `flock /tmp/unity.lock`; no competing Editor was killed. The initial worktree had no recorded scene/settings/package changes. The primary checkout was not modified.
+All Unity commands waited on `flock /tmp/unity.lock`. The primary checkout was not modified and no other worker's Editor was killed.
 
 | Check | Observed result |
 | --- | --- |
-| Naming guard self-tests | 8 passed |
-| Naming guard | 0 violations |
-| Full EditMode suite | 317 passed, 0 failed, 0 skipped |
-| Full PlayMode suite | 73 passed, 2 failed, 0 skipped; 75 discovered |
-| New permanent environment tests | 5 passed |
-| Graphics-enabled environment acceptance | 6 passed, including the temporary capture case |
-| Stable screenshot command | Passed; 34 captures at 1080 × 1920 |
+| Full serialized EditMode suite | 317 passed, 0 failed, 0 skipped |
+| Full serialized PlayMode suite | 87 passed, 0 failed, 0 skipped |
+| Permanent environment cases | 5 passed; case count unchanged |
+| Graphics-enabled environment run | 6 passed, including temporary evidence capture |
+| Stable screenshot command | Passed; 34 required 1080 × 1920 captures |
+| Retained expanded level-data cases | 81 |
+| Retained layout cases | 41 |
+| Integrated naming self-tests | 7 passed, 2 failed, 9 total |
+| Integrated naming guard | Failed: 1820 violations across 2527 tracked text files |
 
-The full runner was executed before and after the final runtime refinements and temporary capture-harness removal. Both runs discovered the same counts and the same two failures. Existing test files, discovery safeguards and exclusions were not changed. The full run includes the retained 81 expanded level-data cases and 41 layout cases. The permanent environment tests add five cases; keeping the literal total unchanged while also adding the required tests is not possible without removing existing coverage. The assigned feature tip already discovers more cases than the older counts quoted in the project entry documentation.
+The full runner was executed after the final runtime changes and after removing the temporary capture case. No permanent test was removed, skipped or weakened. PlayMode discovery includes the additional features from the merged integration; the environment fixture still contains the same five permanent cases.
 
-Permanent environment checks exercise:
-
-- All forty current-level profiles at the peak of the existing 12-pixel node bounce: every gate rectangle is disjoint from every node rectangle and the current chick; stone and corner rectangles do not cover nodes and do not intercept input.
-- Recorded pre-wiring branch hit snapshots for authored levels 1, 5, 20, 30 and 40, including fractional dense-row heights.
-- Curved trunk and junction resources in all four worlds, right-side mirroring, entrance participation and cancellation retention.
-- Missing optional limb art, twig-to-normal growth, completion callback and final full fill.
-- Real-time map opening, exactly one completion callback and preservation of the open pose.
-
-A stricter peak-bounce check first reproduced `Path stone covers Level 1`. Stone placement now reserves that complete motion envelope, including the scatter collision check. The same expanded case passes in the graphics-enabled run. The failing-before result is preserved in [bounce regression evidence](evidence/bounce-regression.log).
+The environment checks cover all forty current-level profiles at peak node bounce, disjoint gate/node/chick bounds, unchanged branch-hit snapshots, all four worlds' trunk/junction assets, symmetric trunk geometry, junction root alignment and missing-limb growth fallback. Gate motion exercises both adjacent current-level profiles for every world boundary: levels 10/11, 20/21 and 30/31. It verifies complete gate/current-chick viewport visibility, fixed hinge positions, lock/light timing, positive leaf scaling, one callback and retention of the open pose after lifecycle cancellation. Normal world-end focus separately rejects clipped door strips.
 
 ### Commands
 
@@ -58,6 +84,8 @@ python3 ci/check_current_game_names.py
 flock /tmp/unity.lock bash scripts/run_tests.sh
 flock /tmp/unity.lock bash scripts/screenshots.sh
 ```
+
+The two naming self-test failures concern historical-path exemption expectations and task-name path expectations in `ci/test_current_game_names.py`. The main guard reports existing identifiers throughout unowned runtime tests, art inventories, historical documents and tooling. The policy, its test expectations and those unowned files were not edited or exempted to obtain a pass. Both checks ran before Unity; their failure was reported, not silently bypassed or described as green. Full guard output is preserved in ignored `build/naming-guard.log`.
 
 The graphics-enabled timed run used:
 
@@ -71,34 +99,24 @@ flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Conten
   -logFile /Users/apple/orca/workspaces/game/environment-wiring/build/environment-capture.log
 ```
 
-The temporary capture case used the real game root, the retained Fredoka font, nonpersistent profiles, camera rendering and real-time gate motion. It was removed before final full-suite verification. An initial capture-harness compile attempt failed because this test assembly does not reference TextMeshPro directly and `SafeArea` was ambiguous; the harness was corrected without changing assembly ownership, then the graphics run passed.
+The temporary case used the real game root, retained Fredoka font, synthetic nonpersistent profiles, actual camera rendering and real-time gate motion. It was removed before the full suite. Full XML and Unity logs remain under ignored `build/`; [verification.log](evidence/verification.log) records exact counts and the passing environment cases. Unity-generated metadata/scene changes remain outside the commit and are preserved separately in ignored `build/unity-generated-state.patch`, rather than being blindly restored.
 
-Full XML/log outputs remain in ignored `build/`. Unity import/build and naming self-tests generated unowned resource metadata, scene and Python bytecode changes. These were not staged or blindly restored. Their tracked diff is preserved separately in ignored `build/unity-generated-state.patch` for coordinator inspection; generated changes are not part of the pushed implementation.
+## Current evidence
 
-### Full-suite failures outside ownership
-
-- `GameplayTests.SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending`, `GameplayTests.cs:324`: expected pointer position `(720, -1802)`, observed `(720, -1764.80)`.
-- `IllegalMoveFeedbackTests.MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately`, `IllegalMoveFeedbackTests.cs:158`: expected a null mint turn sprite, but `mint_turn_left_01` exists.
-
-Neither test was edited, skipped or weakened. Making the full command green requires changes outside this assignment's owned files.
-
-## Visual and timed evidence
-
-All raw runtime frames are 1080 × 1920. Comparisons include the unchanged approved reference pixels beside actual rendered output.
+The canonical evidence files were refreshed in place; previous captures remain only in Git history.
 
 - [Sparse board beside approved board](evidence/board_sparse_comparison.jpg): authored level 1, two rows.
 - [Medium board beside approved board](evidence/board_medium_comparison.jpg): authored level 5, three rows.
 - [Dense board beside approved board](evidence/board_dense_comparison.jpg): authored level 40, five rows.
-- [Current map levels one, four, ten and eleven beside the approved map](evidence/map_comparison.jpg).
-- [Gate opening sheet, nominal 0.1-second intervals, beside the approved map](evidence/gate_opening_sheet.jpg).
-- [Timed measurements](evidence/runtime-capture.log), plus raw `gate_frame_a.png` through `gate_frame_k.png`.
+- [Map at current levels one, four, ten and eleven beside the approved map](evidence/map_comparison.jpg).
+- [Real gate swing at nominal 0.1-second intervals beside the approved map](evidence/gate_opening_sheet.jpg).
+- [Runtime timestamps, leaf scales, light/lock alpha, callback count and trunk transforms](evidence/runtime-capture.log).
+- [Source-layer closed-master comparison measurements](evidence/closed-gate-source-comparison.log).
 
-The measured available-art path is the specified dissolve fallback. Captured alpha values are 1.0000, 0.7968, 0.5972, 0.3975, 0.1972 and 0.0000 across the first six nominal samples; completion changes from zero to exactly one callback. Logged elapsed times are recorded after camera readback, approximately 0.08 seconds later than their corresponding pose sampling. This is timed runtime evidence, not an instant-capture animation claim.
+Raw runtime frames remain at 1080 × 1920. Timing-log elapsed values are recorded after camera readback, roughly 0.08 seconds after the corresponding pose sampling; the sheet labels are the nominal sample times. Stable screenshots alone are not used to establish animation timing.
 
-## Limitations and impossible combinations
+## Remaining acceptance boundaries
 
-- Separate world gate frame, door and light sprites are absent. The dissolve path is implemented and exercised; a visual door-swing/light acceptance claim cannot be made without those assets. Optional limb sprites are also absent, so captures deliberately show legacy-limb fallback.
-- The spec simultaneously asks for corners pinned to the viewport and for every corner to scroll with the map. Both behaviours cannot hold at once. The final scrolling clause is followed: corners start at the focused viewport's bottom edge and then scroll with content. They are not permanently viewport-fixed.
-- The old boundary spacing cannot satisfy the required arch/node/chick clearance at the requested arch size. The explicit inter-world spacing adjustment above is necessary to satisfy the non-intersection requirement; a full-size arch at the former midpoint would overlap neighbouring presentation.
-- Current junction art has a visible elevated tip on shortened, empty growth limbs when placed exactly with its canvas centre on the seat line. This is visible in the supplied board comparisons. Art was not edited, seat lines were not moved, and optional replacement limbs were not fabricated to conceal it. Exact reference-image equivalence is not claimed; inherited house/HUD layout and authored bird compositions were not redesigned under an environment-only assignment.
-- A green full suite with the literal unchanged total cannot be delivered inside the owned-file boundary for the reasons above. No device, audio, or complete bird-animation acceptance is claimed by these environment captures.
+1. **Exact closed-master identity is not met by the supplied artwork.** The asset owner's [separated-parts report](../environment-art/report.md#follow-up-separated-gate-parts) and [comparison](../environment-art/evidence/gate_parts_comparison_w1.jpg) explicitly describe different grain, frame registration, studs and padlock shape. A native-size source-layer assembly at the documented positions differs from the three closed masters by mean absolute RGBA values of approximately 17.23, 17.45 and 19.70 on a 0–255 scale. These are source-image measurements, not runtime screenshot metrics. Correct native placement and animation cannot make different drawings identical. Matching source layers or artwork authority is required to satisfy that final visual clause. No whole-master overlay is used to conceal the mismatch.
+2. **Naming checks are not green on the merged integration.** Repairing the policy/test mismatch and the 1820 unowned findings is outside this bounded wiring assignment. Unity compilation and both full suites are green independently of that failure.
+3. No device, audio-listening or complete bird-animation acceptance is claimed by these environment captures. Existing board/junction artwork and inherited house/HUD composition were not redesigned under this rework.

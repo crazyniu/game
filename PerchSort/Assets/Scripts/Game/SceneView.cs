@@ -56,12 +56,16 @@ namespace PerchSort.Game
             var trunk = Resources.Load<Sprite>("World/trunk_curved_w" + world);
             var crown = art.Get("tree_crown_w" + world);
             RectTransform leftCrown = null, rightCrown = null;
+            Rect trunkBounds = GameLayout.WorldTrunk(world, false), leftLeaves = GameLayout.WorldCrown(world, false);
+            if (rows >= 3) ClearFirstRow(ref trunkBounds, ref leftLeaves, false, rows);
             for (int side = 0; side < 2; side++)
             {
                 bool right = side == 1;
                 Rect wood = GameLayout.WorldTrunk(world, right), leaves = GameLayout.WorldCrown(world, right);
                 if (rows >= 3) ClearFirstRow(ref wood, ref leaves, right, rows);
                 // The supplied curved silhouette already joins the unchanged crown attachment.
+                wood = trunkBounds;
+                if (right) wood.x = GameLayout.DesignWidth - wood.xMax;
                 var stem = GameUI.Image(scenery, "Edge trunk", trunk, wood.center, wood.size);
                 var foliage = GameUI.Image(scenery, "Leaf crown", crown, leaves.center, leaves.size);
                 if (right)
