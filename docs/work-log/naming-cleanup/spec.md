@@ -84,3 +84,11 @@ Menu and map page play `bgm_menu`, level page plays `bgm_game`, loop, 1 s crossf
 ## Part D. Specification cleanup
 
 Keep the conventions block verbatim and describe former numbered names by subject. This is the final commit.
+
+## Part E. Final guard scope and finish (coordinator decision, supersedes any broader scan)
+The extended guard currently reports about 1800 violations on the integrated tree, almost all from prose that mentions history. The rule is about NAMES, not about telling history in prose. Final scope of `ci/check_current_game_names.py`:
+1. CHECKED: every tracked path (file and directory names, all file types) for version tokens and task tokens.
+2. CHECKED: the contents of source files only (`.cs`, `.py`, `.sh`, `.yml`, `.yaml`, `.asmdef`, `.csproj`, and `.json` files under `PerchSort/Assets/Resources` and `ci/`): identifiers, class names, namespaces, string literals and comments must not contain version or task tokens (exact storage-key literals already listed are the only exception). Remove task numbers from code comments (for example comments in the idle, entrance and music tests, and comments or strings in the python tools under `art/` and `tools/`); say what the code does instead.
+3. NOT CHECKED: Markdown prose, CSV, logs, evidence data, generated QA JSON and measurement data under `art/**` and `docs/**` (they are records, not names). Markdown link TARGETS are still checked by the link checker (zero broken links).
+4. Self-tests: a path with a task token fails; a C# class name with a task token fails; a comment in a `.cs` file with a task token fails; a Markdown sentence mentioning a task token passes; a date prefix passes; an exact storage key passes.
+Then clean everything the narrowed guard reports on the integrated tree (rename leftover paths with `git mv`, edit comments), fix the links, run the guard (0 violations), the link checker (0 broken) and the full serialized suite. Do not edit any assertion or number in tests, only comments and names.
