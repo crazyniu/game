@@ -109,3 +109,50 @@ Unity is not installed in the cloud executor; full Unity compilation, EditMode/P
 An intermediate broadened prefix pattern flagged the existing Unity shader vertex-to-fragment type. An exact shader-only technical-identifier exception and a regression test resolved that false positive; arbitrary version-labelled shader identifiers remain rejected. The intermediate failures were not runtime failures and no shader was changed.
 
 Logs are generated under ignored `build/naming-audit/`; they are not committed artifacts. GitHub CI and any later cloud Unity verification must be reported against the submitted commit rather than inferred from these static checks.
+
+
+## Resumed Mac acceptance and follow-up
+
+The user subsequently authorized their Mac again, superseding the cloud-only restriction. Historical cloud-stage results above remain cloud results. Work resumed in the existing isolated Orca worktree `/Users/apple/orca/workspaces/game/naming-audit`, on the existing PR branch `naming-policy`; no duplicate PR or tooling implementation was created. The abandoned local `naming-audit` branch remains at the original baseline with no authored edits.
+
+- Verified fetched PR head: `8c74313dfe7007e7c1ea2239b06e142a362fc800`.
+- Verified tree: `38199b25d71da0e59717a6248838e4e48f146678`.
+- PR: https://github.com/crazyniu/game/pull/115 (draft; no merge/deploy performed).
+- Exact-head cloud CI: https://github.com/crazyniu/game/actions/runs/41997403533/job/127143853114 (success). The separate Auto-merge enable job was skipped for the draft.
+- Initial isolated worktree status was clean. Process inspection found no active Unity or test process; `flock -n /tmp/unity.lock true` succeeded. No user process was stopped.
+- `python3 ci/check_current_game_names.py --self-test`: 13/13 passed, no errors or skips.
+- `python3 ci/check_current_game_names.py`: 212 tracked text files, zero violations.
+- `EVENT_NAME=workflow_dispatch GITHUB_OUTPUT=/tmp/game-naming-mac-ci-output.txt python3 ci/check_changes.py`: 28 current JSON/assembly/project/script files validated; Core and workflow checks selected.
+- Before Unity, SHA-256 state was recorded for 1,764 tracked scene/meta/settings/package files in ignored `build/naming-audit/pre-unity-state.json`.
+- Unity command: `flock /tmp/unity.lock bash scripts/run_tests.sh`, Unity 6000.6.7f1. Full results and generated-file reconciliation are recorded below after completion.
+
+### Concrete follow-up proposals requiring coordination
+
+No runtime refactoring was mixed into this small guard PR. In particular, GameRoot.cs, PopupFlow.cs and the separate homecoming-count test task remain untouched.
+
+A bounded first type/file cleanup can move `ProfileMigrator` from `Scripts/Meta/ProfileText.cs` to `Scripts/Meta/ProfileMigrator.cs`, and the `Profiles` / `FakeClock` test helpers from `Tests/Meta/ProfileEconomyTests.cs` to `Profiles.cs` / `FakeClock.cs` in that same test assembly. Preserve the existing owning file GUIDs, namespaces, declaration text and exact migrator key literals; generate distinct new file GUIDs and extend the exact owner-scoped storage-key guard allowance if the migrator moves. Require the full profile compatibility tests and engine suites. The 24-file inventory above is the full affected-file planning boundary, not authority to split unrelated owners' files during their work.
+
+For resource cleanup, actual callers establish these candidate roles: `aviary_board` -> `panel_aviary_board` (AviaryView), `aviary_frame` -> `panel_portrait_frame` (AviaryView/ShopView/PanelsView), `name_ribbon` -> `ribbon_name` (AviaryView/PanelsView and GameArtImporter border switch), `stat_pill` -> `panel_stat_pill` (SleepBubble/WinPanel/ShopView/AviaryView/PanelsView and GameArtImporter border switch), `coin_pill` -> `panel_coin_pill` (HudView/ShopView), `check_green` -> `icon_check_green` (AviaryView), `padlock` -> `icon_padlock` (AviaryView/ShopView), `tab_selected_ring` -> `badge_selected_tab` (ShopView). These are proposed resource identities only: layout measurement keys of the same spelling in GameLayout and approved metadata are separate identities and must not be renamed by global replacement. Each move must carry its exact .meta and asset bytes and update all authored resource/import/test/tool references; engine import and relevant screen validation remain prerequisites. No artwork or resource was renamed in this PR.
+
+Local branch inventory exposed 52 legacy task/version-labelled refs, including `t30-v5-first-level`, `mac-art/ui7`, `mac-current-runtime/t52` and `mac-t54a/t54`. These were not deleted or renamed because branch ownership/history belongs to the coordinator. In a bounded sample of the latest 250 commits across local refs, six subjects contained historical task labels: a7679d97, c081b789, 98265152, ecdab196, 47d5e7e2, da74b638. Their subjects still describe their changes; no published history was rewritten. Current remote main remained `38fca7094230cc628380a8e86ec32af92576b456`, and the only open PR at recheck was this naming PR.
+
+
+### Completed Mac engine results
+
+The serialized `scripts/run_tests.sh` command exited 0. Unity scene build/compilation succeeded. EditMode: **318/318 passed**, zero failed/inconclusive/skipped (2026-11-05 08:54:00–08:54:14 UTC). Breakdown: game 251, Meta 53, shared Audio 14; retained LevelsData 81 and Layout 41 cases remain present. PlayMode: **119/119 passed**, zero failed/inconclusive/skipped (08:54:20–09:00:05 UTC). No tests were changed, filtered, weakened or rerun.
+
+Evidence in the isolated worktree:
+
+- `build/scene-build.log`: compile/import and scene build, exit 0.
+- `build/test-results.xml` and `build/editmode-tests.log`: complete EditMode result.
+- `build/playmode-results.xml` and `build/playmode-tests.log`: complete PlayMode result.
+- `build/naming-audit/unity-acceptance.log`: combined script result and exact counts.
+- `build/naming-audit/pre-unity-state.json`: original 1,764-file hash snapshot.
+- `build/naming-audit/post-unity-changes.json` and `generated-unity.patch`: classified generated import/scene differences, preserved before restoring the reviewed files.
+- `build/naming-audit/naming-self-tests.log` and `naming-check.log`: post-engine naming rerun, 13 tests and 212 files with zero violations.
+
+Unity generated changes to 908 tracked files: 894 whitespace-only meta changes, seven egg/family meta serialization completions, six world gate-door pivot resets, and scene object-ID regeneration. All meta GUIDs were preserved; package and project settings stayed unchanged. The seven egg/family overlays retained their key pivot, mesh, 1024 size, compression and physics-shape settings. However, the six `Resources/World/gate_door_{left,right}_w{1,2,3}.png.meta` pivots became centered `(0.5, 0.5)` instead of their recorded hinges (left x=0.025 / right x=0.975, y=0.5): the existing GameArtImporter special cases match only un-suffixed gate-door names. This is an independent importer correctness finding, not a naming-tool regression; it was not fixed in another owner's runtime scope. The generated patch is preserved for coordinator review.
+
+After the engine exited, only these reviewed generated files were restored to their exact pre-run hashes, after checking the HEAD blobs matched the recorded baseline. The isolated worktree had been clean initially, so no unrelated user edits were restored or removed. No generated asset/meta/scene changes are included in this PR. These results validate the normal build/import/test workflow at the fetched source revision; they do not certify the unimported serialized scene bytes or unchanged gate hinge visuals.
+
+No UI/art/resource changes were made, so `scripts/screenshots.sh`, timed visual/audio recording, device testing and listening acceptance were not run. Full suites passing does not claim that broader 24-file/39-resource naming refactoring is complete. Local .NET CLI was unavailable; pure-Core acceptance remains the exact-head GitHub CI's 63/63 passing tests, zero skips. The final report-only commit has identical runtime/tooling content to the Mac-tested head; its own CI must also pass before coordinator merge review. The PR remains draft and no merge or deployment was performed.

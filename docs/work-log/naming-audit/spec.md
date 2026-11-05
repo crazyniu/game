@@ -4,7 +4,7 @@
 
 Audit the live single-game repository against AGENTS.md and docs/CONVENTIONS.md. The user requested hourly naming checks and fixes to filenames, folders, code identifiers and descriptive commit/PR names, with no version-labelled game copies. The coordinator manages the recurring schedule separately.
 
-The user's later execution instruction requires the cloud computer only. No local Mac access is permitted for this task, even though the current repository workflow describes Mac Unity verification. Preserve that verification boundary; do not substitute static results for Unity acceptance.
+The initial tooling stage used cloud-only execution. The user's newest instruction supersedes that restriction and authorizes their Mac for verification. Resume acceptance in the existing isolated Orca worktree; preserve the historical cloud results as cloud results. Never modify the primary checkout.
 
 ## Owned changes
 
@@ -13,7 +13,7 @@ The user's later execution instruction requires the cloud computer only. No loca
 - .github/workflows/ci.yml: run the guard's self-tests in the existing naming gate.
 - This subject-named spec and report.
 
-Do not modify gameplay, UI, assets, .meta files, persisted keys, serialization, package versions or published history. GameRoot.cs, PopupFlow.cs and homecoming-count tests belong to the independent functional audit. Broader naming refactors require reference/import and compilation validation, which this cloud environment cannot currently supply.
+Do not modify gameplay, UI, assets, .meta files, persisted keys, serialization, package versions or published history. GameRoot.cs, PopupFlow.cs and homecoming-count tests belong to the independent functional audit. Broader naming refactors require reference/import and compilation validation, which must be established separately with complete ownership and engine-backed checks.
 
 ## Acceptance
 
