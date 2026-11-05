@@ -14,7 +14,7 @@ namespace PerchSort.Game
         private TextMeshProUGUI coins, phaseCount, chorusLabel;
         private Image phaseIcon;
         private GameObject phaseGroup, feather, chorus;
-        private GameMotion motion, coinMotion;
+        private GameMotion motion, coinMotion, undoMotion;
         private bool countingCoins;
         private int coinRevision;
         private RectTransform housesLayer, homeFlights, effects, bottomBar;
@@ -38,6 +38,8 @@ namespace PerchSort.Game
         }
         private RectTransform coinPlate;
         private CanvasGroup coinFade, gearFade, toolFade;
+        private CanvasGroup undoFade;
+        private bool undoVisible;
         private Rect headerBounds = CoinCanvas(GameLayout.CoinPill), gearBounds = GameLayout.SettingsButton;
         private Rect coinTextBounds = CoinText(CoinCanvas(GameLayout.CoinPill));
         // Keep the whole 320x128 sprite proportional and clear of suspension ropes and leaves.
@@ -64,7 +66,11 @@ namespace PerchSort.Game
             housesLayer = GameUI.Rect(transform, "Species goals", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             bottomBar = GameUI.Rect(transform, "Bottom bar", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             toolFade = bottomBar.gameObject.AddComponent<CanvasGroup>();
-            tools[0] = GameUI.Button(bottomBar, art, "Undo", "icon_undo", GameLayout.ToolButton(0), () => root.Undo());
+            var undoLayer = GameUI.Rect(bottomBar, "Undo visibility", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            undoFade = undoLayer.gameObject.AddComponent<CanvasGroup>();
+            undoFade.alpha = 0; undoFade.blocksRaycasts = undoFade.interactable = false;
+            undoMotion = undoLayer.gameObject.AddComponent<GameMotion>();
+            tools[0] = GameUI.Button(undoLayer, art, "Undo", "icon_undo", GameLayout.ToolButton(0), () => root.Undo());
             for (int i = 1; i < tools.Length; i++)
             {
                 int slot = i;
@@ -105,6 +111,8 @@ namespace PerchSort.Game
         public void SetLevel(BoardState state)
         {
             Cancel();
+            undoVisible = false;
+            undoFade.alpha = 0; undoFade.blocksRaycasts = undoFade.interactable = false;
             for (int i = housesLayer.childCount - 1; i >= 0; i--) GameUI.Dispose(housesLayer.GetChild(i).gameObject);
             houses.Clear();
             var species = new List<string>();
@@ -208,6 +216,8 @@ namespace PerchSort.Game
             if (!countingCoins) coins.text = coinCount.ToString();
             if (!presenting) SyncState(session.State);
             bottomBar.gameObject.SetActive(!root.HasModal || root.IsIntroducing);
+            ((GameButton)tools[0]).SetDisabledAppearance(session.CanUndo);
+            SetUndoVisible(session.CanUndo, blocked);
             tools[0].interactable = !blocked && session.CanUndo;
             // Airborne input locking must not turn the gear into a faded disabled control.
             ((GameButton)settings).SetDisabledAppearance(root.HasModal && !root.IsIntroducing);
@@ -218,6 +228,20 @@ namespace PerchSort.Game
                 tools[i].interactable = !blocked && !session.State.IsWon && (i != 3 || contextMechanic) &&
                     (kinds[i] != BoosterKind.Firefly || !root.HintPending) && (count == 0 || session.BoosterHasEffect(kinds[i]));
             }
+        }
+        private void SetUndoVisible(bool visible, bool blocked)
+        {
+            undoFade.blocksRaycasts = undoFade.interactable = visible && !blocked;
+            if (!undoFade.gameObject.activeInHierarchy)
+            {
+                undoMotion.CancelAll(); undoVisible = visible;
+                undoFade.alpha = visible ? 1 : 0;
+                return;
+            }
+            if (undoVisible == visible) return;
+            undoVisible = visible; undoMotion.CancelAll();
+            float from = undoFade.alpha, to = visible ? 1 : 0;
+            undoMotion.Play(0.15f, t => undoFade.alpha = Mathf.Lerp(from, to, t));
         }
         private void DrawCounts()
         {
@@ -288,6 +312,8 @@ namespace PerchSort.Game
         {
             if (motion == null) return;
             coinRevision++; motion.CancelAll(); coinMotion.CancelAll(); countingCoins = false;
+            undoMotion.CancelAll();
+            undoFade.alpha = undoVisible ? 1 : 0;
             if (root != null) coins.text = root.Coins.ToString();
             foreach (var house in houses.Values) house.Cancel();
             Entrance(1, 1);

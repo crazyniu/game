@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.7592076">
+  <test-suite type="TestSuite" id="1150" name="Perch Sort" fullname="Perch Sort" runstate="Runnable" testcasecount="112" result="Failed" site="Child" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.759208" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1294" name="PerchSort.PlayModeTests.dll" fullname="/Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Library/ScriptAssemblies/PerchSort.PlayModeTests.dll" runstate="Runnable" testcasecount="112" result="Failed" site="Child" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.755225" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16060" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1295" name="PerchSort" fullname="PerchSort" runstate="Runnable" testcasecount="112" result="Failed" site="Child" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.751543" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1296" name="PlayModeTests" fullname="PerchSort.PlayModeTests" runstate="Runnable" testcasecount="112" result="Failed" site="Child" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.750648" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1209" name="GlyphSizeTests" fullname="PerchSort.PlayModeTests.GlyphSizeTests" classname="PerchSort.PlayModeTests.GlyphSizeTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.617209" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1210" name="RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" fullname="PerchSort.PlayModeTests.GlyphSizeTests.RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" methodname="RoundDiscsKeepOpaqueGlyphSizeAndCentreAcrossPagesAndSpriteChanges" classname="PerchSort.PlayModeTests.GlyphSizeTests" runstate="Runnable" seed="273097006" result="Passed" start-time="2026-11-05 06:30:19Z" end-time="2026-11-05 06:30:20Z" duration="0.611516" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1291" name="UndoVisibilityTests" fullname="PerchSort.PlayModeTests.UndoVisibilityTests" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-11-05 06:30:20Z" end-time="2026-11-05 06:30:20Z" duration="0.130377" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1292" name="UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" fullname="PerchSort.PlayModeTests.UndoVisibilityTests.UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" methodname="UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" seed="47295692" result="Failed" start-time="2026-11-05 06:30:20Z" end-time="2026-11-05 06:30:20Z" duration="0.070264" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 0 +/- 0.00100000005f
+  But was:  0.449999988f
+]]></message>
+                <stack-trace><![CDATA[at PerchSort.PlayModeTests.UndoVisibilityTests.AssertHidden (UnityEngine.UI.Button undo) [0x0001f] in /Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Assets/Tests/PlayMode/UndoVisibilityTests.cs:57
+at PerchSort.PlayModeTests.UndoVisibilityTests+<UndoIsHiddenAtStartAppearsAfterMoveAndHidesAtEmptyHistory>d__11.MoveNext () [0x00086] in /Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Assets/Tests/PlayMode/UndoVisibilityTests.cs:67
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1293" name="VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" fullname="PerchSort.PlayModeTests.UndoVisibilityTests.VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" methodname="VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade" classname="PerchSort.PlayModeTests.UndoVisibilityTests" runstate="Runnable" seed="1983633463" result="Failed" start-time="2026-11-05 06:30:20Z" end-time="2026-11-05 06:30:20Z" duration="0.058979" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 0 +/- 0.00100000005f
+  But was:  0.449999988f
+]]></message>
+                <stack-trace><![CDATA[at PerchSort.PlayModeTests.UndoVisibilityTests.AssertHidden (UnityEngine.UI.Button undo) [0x0001f] in /Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Assets/Tests/PlayMode/UndoVisibilityTests.cs:57
+at PerchSort.PlayModeTests.UndoVisibilityTests+<VisibilityFadesBothWaysAndRestartCancelsAnInFlightFade>d__12.MoveNext () [0x00045] in /Users/apple/orca/workspaces/game/glyph-sizing/PerchSort/Assets/Tests/PlayMode/UndoVisibilityTests.cs:78
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Saving results to: /Users/apple/Library/Application Support/TODO_COMPANY/Perch Sort/TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

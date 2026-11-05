@@ -101,7 +101,7 @@ namespace PerchSort.Game
         {
             if (panel == null) Build();
             var bar = root.Hud.transform.Find("Bottom bar");
-            undo = (RectTransform)bar.Find("Undo");
+            undo = (RectTransform)bar.Find("Undo visibility/Undo");
             float top = -undo.anchoredPosition.y - undo.rect.height * 0.5f;
             baseY = -(top - 30 - 85);
             panel.anchoredPosition = new Vector2(540, baseY);

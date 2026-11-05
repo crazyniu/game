@@ -77,6 +77,8 @@ namespace PerchSort.PlayModeTests
             root.ClosePanel();
             var profile = (GameProfile)typeof(GameRoot).GetField("profile", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(root);
             profile.Notifications.BeginLevel(40, new[] { "sunny" });
+            profile.Notifications.FinishIntro();
+            profile.Notifications.Acknowledge(profile.Notifications.Next(false), new PerchSort.Meta.SystemClock());
             root.OpenAviary(); Check(root.Aviary, "Close aviary");
             root.Aviary.OpenDetail("sunny"); Assert.That(root.Aviary.DetailOpen, Is.True);
             Check(root.Aviary, "Back to species list");
