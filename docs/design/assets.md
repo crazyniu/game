@@ -1,6 +1,8 @@
 # Asset specs and manifest
 
-Approved direction for the board: art/ui_design board_few_branches, board_many_branches, tree_worlds, board_sleeping_bubble (user, 2026-11-05) and docs/design/art-direction.md (natural painted forest, not plastic; plush birds). Every asset is its own engine-ready file at final size; derived files only.
+Approved direction for the board: art/ui_design board_few_branches, board_many_branches, tree_worlds, board_sleeping_bubble (user, 2026-11-05) and docs/design/art-direction.md (natural painted forest, not plastic; plush birds). Every asset is its own engine-ready file; derived files only.
+
+Resolution rule (user, 2026-11-05): the Size column is the LAYOUT size in canvas pixels (1080 x 1920 design canvas), fixed in Unity by the RectTransform. The PNG texture is exported at 3 times the layout size (for example a 48 x 48 coin is a 144 x 144 PNG), capped at 2048 on the longest side, generated from a larger master and only ever downsampled. Devices scale the canvas by about 1.3 to 1.7, so a texture at layout size is upscaled and looks blurry. Full-screen paintings (1080 x 1920 backgrounds and trees) are exported at 2048 on the long side.
 
 ## Board scenery (one painting per tree layout)
 | Asset | Size | Spec | Status |
