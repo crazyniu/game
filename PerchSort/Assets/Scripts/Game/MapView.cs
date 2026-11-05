@@ -11,7 +11,7 @@ namespace PerchSort.Game
         private const float NodeSize = 220, CurrentNodeSize = 240, LockedNodeSize = 200;
         private const float NumberSize = 100, StarSize = 48, StarPitch = 50;
         private const float ChickSize = 310, ChickLift = 230;
-        private static readonly Vector2 GateSize = new Vector2(560, 600);
+        private static readonly Vector2 GateSize = new Vector2(320, 600f * 320 / 560);
         private const float TopPadding = 400, HudMargin = 32, BarMargin = 40, EdgeFade = 48;
         private static readonly Rect ViewportBounds = ViewportArea();
         private GameRoot root;
@@ -28,7 +28,6 @@ namespace PerchSort.Game
         private RectTransform effects;
         private bool countingCoins;
         private Sprite[] stones;
-        private readonly Sprite[] boundaryCanopies = new Sprite[3];
         private readonly Dictionary<int, GateView> gates = new Dictionary<int, GateView>();
         private readonly Dictionary<int, bool> gateStates = new Dictionary<int, bool>();
         private readonly Dictionary<int, Button> nodes = new Dictionary<int, Button>();
@@ -93,32 +92,18 @@ namespace PerchSort.Game
             for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
             coins.text = profile.DisplayCoins.ToString();
             FocusLevel = MapModel.CurrentLevel(profile);
-            // The lower world's alpha-faded top overlaps the upper world's opaque bottom by 160px.
-            GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_w4"),
-                new Vector2(540, TopPadding + 160 - GameLayout.MapSegmentHeight / 2),
+            // The outer strips retain transparent end bands, so keep their scenery continuations.
+            GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_continuous_w4"),
+                new Vector2(540, TopPadding + GameLayout.MapOverlap - GameLayout.MapSegmentHeight / 2),
                 new Vector2(1080, GameLayout.MapSegmentHeight));
             for (int world = 4; world >= 1; world--)
             {
                 float top = GameLayout.WorldTop(world) + TopPadding;
-                if (world < 4)
-                {
-                    // Extend only the boundary canopy; keep authored paths at their original pixel scale.
-                    const float overlap = 160;
-                    float extension = GameLayout.MapStride - GameLayout.MapSegmentHeight + overlap;
-                    if (boundaryCanopies[world - 1] == null)
-                    {
-                        var source = art.Get("map_bg_w" + world);
-                        var region = new Rect(source.rect.x, source.rect.yMax - extension - overlap, source.rect.width, extension + overlap);
-                        boundaryCanopies[world - 1] = Sprite.Create(source.texture, region, Vector2.one * 0.5f, source.pixelsPerUnit);
-                    }
-                    GameUI.Image(scenery, "Boundary canopy", boundaryCanopies[world - 1],
-                        new Vector2(540, top - extension / 2 + overlap / 2), new Vector2(1080, extension + overlap));
-                }
-                GameUI.Image(scenery, "World " + world + " background", art.Get("map_bg_w" + world),
+                GameUI.Image(scenery, "World " + world + " background", art.Get("map_bg_continuous_w" + world),
                     new Vector2(540, top + GameLayout.MapSegmentHeight / 2), new Vector2(1080, GameLayout.MapSegmentHeight));
             }
-            GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_w1"),
-                new Vector2(540, GameLayout.MapHeight + TopPadding - 160 + GameLayout.MapSegmentHeight / 2),
+            GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_continuous_w1"),
+                new Vector2(540, GameLayout.MapHeight + TopPadding - GameLayout.MapOverlap + GameLayout.MapSegmentHeight / 2),
                 new Vector2(1080, GameLayout.MapSegmentHeight));
             BuildStones(profile);
             for (int world = 2; world <= 4; world++)
@@ -403,7 +388,6 @@ namespace PerchSort.Game
         private void OnDestroy()
         {
             if (stones != null) foreach (var stone in stones) GameUI.Dispose(stone);
-            foreach (var canopy in boundaryCanopies) GameUI.Dispose(canopy);
             generation++;
             CancelGate(false); CancelRewards();
             if (nodeMotion != null) nodeMotion.Cancel();
