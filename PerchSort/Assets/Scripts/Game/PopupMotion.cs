@@ -161,9 +161,22 @@ namespace PerchSort.Game
             Action landed = null, bool recede = false, float duration = 0.6f)
         {
             Track(bird.rectTransform);
-            Sprite up = Frame(art, species, "fly_up"), down = Frame(art, species, "fly_down"), idle = Frame(art, species, "idle");
-            var wingBlend = Transient(bird.transform, "Flight wing blend", down, bird.rectTransform.rect.size * 0.5f, bird.rectTransform.rect.size);
-            wingBlend.color = Color.clear;
+            var frames = new List<Sprite>();
+            for (int i = 1; ; i++)
+            {
+                var frame = art.Optional(species + "_flap_" + i.ToString("D2"));
+                if (frame == null) break;
+                frames.Add(frame);
+            }
+            Sprite idle = Frame(art, species, "idle");
+            Sprite up = null, down = null;
+            Image wingBlend = null;
+            if (frames.Count < 2)
+            {
+                up = Frame(art, species, "fly_up"); down = Frame(art, species, "fly_down");
+                wingBlend = Transient(bird.transform, "Flight wing blend", down, bird.rectTransform.rect.size * 0.5f, bird.rectTransform.rect.size);
+                wingBlend.color = Color.clear;
+            }
             var canvas = poses[bird.rectTransform].Group;
             Play(duration, t =>
             {
@@ -172,14 +185,23 @@ namespace PerchSort.Game
                 bird.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
                 bird.rectTransform.localScale = Vector3.one * (recede ? Mathf.Lerp(1, 0.12f, travel) : 1);
                 canvas.alpha = recede ? 1 - t : Mathf.Clamp01(t * 8);
-                float wing = t * duration / 0.12f;
-                bool rising = ((int)wing & 1) == 0;
-                float blend = Mathf.SmoothStep(0, 1, wing - Mathf.Floor(wing));
-                bird.sprite = rising ? up : down; wingBlend.sprite = rising ? down : up;
-                bird.color = new Color(1, 1, 1, 1 - blend); wingBlend.color = new Color(1, 1, 1, blend);
+                if (frames.Count > 1)
+                {
+                    bird.sprite = frames[(int)(t * duration * 14) % frames.Count];
+                    bird.color = Color.white;
+                }
+                else
+                {
+                    float wing = t * duration / 0.12f;
+                    bool rising = ((int)wing & 1) == 0;
+                    float blend = Mathf.SmoothStep(0, 1, wing - Mathf.Floor(wing));
+                    bird.sprite = rising ? up : down; wingBlend.sprite = rising ? down : up;
+                    bird.color = new Color(1, 1, 1, 1 - blend); wingBlend.color = new Color(1, 1, 1, blend);
+                }
             }, () =>
             {
-                GameUI.Dispose(wingBlend.gameObject); bird.color = Color.white;
+                if (wingBlend != null) GameUI.Dispose(wingBlend.gameObject);
+                bird.color = Color.white;
                 bird.sprite = idle; bird.rectTransform.localRotation = Quaternion.identity;
                 if (recede) { landed?.Invoke(); return; }
                 Play(0.10f, t => bird.rectTransform.localScale = new Vector3(1 + 0.06f * Mathf.Sin(t * Mathf.PI), 1 - 0.06f * Mathf.Sin(t * Mathf.PI), 1), landed);

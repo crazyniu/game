@@ -1,0 +1,242 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      31,
+      72,
+      280,
+      304
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      4,
+      9
+    ],
+    "bare_feet": [
+      103,
+      290,
+      217,
+      300
+    ],
+    "source_feet": [
+      163,
+      462,
+      349,
+      478
+    ],
+    "sha256": "1c2c661670d62e950bc8a33c4da2f4c8e3a3b48581576986591ee0a7be233397"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      32,
+      70,
+      284,
+      304
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      4,
+      9
+    ],
+    "bare_feet": [
+      103,
+      290,
+      216,
+      300
+    ],
+    "source_feet": [
+      163,
+      462,
+      349,
+      478
+    ],
+    "sha256": "eed312aa7be70b00062f944fc829b4b1a8a84cdc1b972650951d86a42504e296"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_03.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      29,
+      70,
+      280,
+      303
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      3,
+      8
+    ],
+    "bare_feet": [
+      104,
+      289,
+      217,
+      299
+    ],
+    "source_feet": [
+      165,
+      462,
+      351,
+      478
+    ],
+    "sha256": "f9b2bdc663936875e24296f81b1be66f5b25e26f6c3b8368007a929ecc48c759"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_04.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      29,
+      70,
+      279,
+      303
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      4,
+      9
+    ],
+    "bare_feet": [
+      103,
+      290,
+      216,
+      300
+    ],
+    "source_feet": [
+      163,
+      461,
+      348,
+      477
+    ],
+    "sha256": "ca2c8f7a7c63d62de6046c4dc83c3799b30d70ffa79e384f621519e40730d4ed"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_05.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      26,
+      69,
+      299,
+      303
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      4,
+      9
+    ],
+    "bare_feet": [
+      103,
+      290,
+      216,
+      300
+    ],
+    "source_feet": [
+      163,
+      461,
+      349,
+      477
+    ],
+    "sha256": "e4688196da406847bec61766c472a62b1960ffa4750b7d2919d20762b4ba2b90"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1_cheer_06.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      41,
+      67,
+      279,
+      302
+    ],
+    "scale": 0.6091688462656204,
+    "translation": [
+      3,
+      8
+    ],
+    "bare_feet": [
+      103,
+      289,
+      217,
+      299
+    ],
+    "source_feet": [
+      165,
+      461,
+      350,
+      477
+    ],
+    "sha256": "b46227c939fc63219e6fb7d28da2b2888e383ede131f8af9a624bd8254c6de27"
+  }
+]

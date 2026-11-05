@@ -148,6 +148,9 @@ namespace PerchSort.Game
                     frame = Mathf.Max(0, count - 1 - (int)((actionTime - forward - playing.Hold) * playing.Fps));
                 else frame = count - 1;
                 overlay.sprite = playing.Frames[frame];
+                // Only one drawing is rendered: sequence boundaries are hard cuts too.
+                bird.enabled = false; bird.color = restColor;
+                overlay.enabled = true; overlay.color = restColor;
                 if (action == "hop")
                 {
                     float arch = Mathf.Sin(progress * Mathf.PI);
@@ -155,9 +158,12 @@ namespace PerchSort.Game
                 }
                 else if (hovering && action == "flap") rect.anchoredPosition += Vector2.up * (6 * Mathf.Sin(elapsed * Mathf.PI * 2 / 1.2f));
             }
-            else overlay.sprite = playing.Fallback;
-            float edge = looping ? actionTime : Mathf.Min(actionTime, duration - actionTime);
-            SetBlend(Mathf.SmoothStep(0, 1, edge / 0.08f));
+            else
+            {
+                overlay.sprite = playing.Fallback;
+                float edge = looping ? actionTime : Mathf.Min(actionTime, duration - actionTime);
+                SetBlend(Mathf.SmoothStep(0, 1, edge / 0.08f));
+            }
             if (looping || progress < 1) return;
             if (sequence && action == "hop") landing = 0.1f;
             playing = null; SetBlend(0);
@@ -165,6 +171,7 @@ namespace PerchSort.Game
 
         private void SetBlend(float weight)
         {
+            bird.enabled = true; overlay.enabled = weight > 0;
             bird.color = new Color(restColor.r, restColor.g, restColor.b, restColor.a * (1 - weight));
             overlay.color = new Color(restColor.r, restColor.g, restColor.b, restColor.a * weight);
         }
