@@ -1,0 +1,8 @@
+Generator: PixelLab animate_image_pixminimax
+Input: sunny_outfit_1.png, uniformly reduced from 320 x 320 to the service limit of 256 x 256.
+Requested generated frames: 8 (service requires multiples of four).
+Seed: 731
+Status: rejected before generation; subscription expired.
+This is a capability pilot, not an accepted delivery or a change to the six-frame cheer contract.
+
+One complete in-place cheer action, fixed camera and fixed feet baseline. Keep the exact soft plush yellow bird identity, fur, warm colours, orange beak, proportions and straw sun hat with white daisy from the input. The hat remains firmly attached to the head in every frame. Bird stays facing slightly to screen right; never mirror, turn or translate. Wings unfold low diagonally, lift out horizontally as eyelids half close, lift high in a V with eyes fully closed smiling, lower halfway with eyes half open, stretch horizontally with eyes fully open, then settle down. Feet remain planted at exactly the input positions throughout, same body scale. No bounce, camera motion, extra objects, text or pixel-art restyling. Preserve true alpha transparency and soft fur edges.

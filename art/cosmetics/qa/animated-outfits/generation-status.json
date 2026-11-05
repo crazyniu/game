@@ -1,0 +1,19 @@
+{
+  "generator": "PixelLab animate_image_pixminimax",
+  "attempted_outfit": "sunny_outfit_1",
+  "attempted_action": "cheer",
+  "status": "rejected_before_generation",
+  "error": "subscription expired (2026-11-03). renew at pixellab.ai/account or use credits via the v1/v2 REST API",
+  "generated_frames": 0,
+  "rejected_frames": 0,
+  "accepted_frames": 0,
+  "capability_limits": {
+    "maximum_native_frame_size": [
+      256,
+      256
+    ],
+    "generated_frame_counts": "multiples of four, 4 through 40",
+    "pose_sequence_input": false
+  },
+  "fallback": "Not attempted: a new billing/API route was not authorized; still-image sequences would not meet the requested single-animation workflow."
+}
