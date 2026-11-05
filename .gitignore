@@ -46,3 +46,6 @@ sysinfo.txt
 /tools/levels/**/bin/
 /tools/levels/**/obj/
 !/tools/levels/LevelTool/LevelTool.csproj
+
+__pycache__/
+*.pyc
