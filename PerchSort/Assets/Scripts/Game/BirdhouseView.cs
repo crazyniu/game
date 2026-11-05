@@ -110,13 +110,24 @@ namespace PerchSort.Game
         internal void MaskEntry(RectTransform bird) => bird.SetParent(doorway, true);
         public void OpenDoor(Action done)
         {
-            resident.Stop(); face.gameObject.SetActive(false); AnimateDoor(1, done);
+            int run = BeginTransition();
+            resident.Stop(); face.gameObject.SetActive(false); AnimateDoor(1, done, run);
         }
-        public void CloseDoor(Action done) => AnimateDoor(0, done);
-        private void AnimateDoor(float target, Action done)
+        public void CloseDoor(Action done) => AnimateDoor(0, done, BeginTransition());
+        private int BeginTransition()
         {
-            doorMotion.CancelAll(); float start = openness; int run = generation;
-            doorMotion.Play(0.25f, t => DoorPose(Mathf.Lerp(start, target, t)), () =>
+            generation++; leaving = false;
+            doorMotion.CancelAll(); peekMotion.CancelAll(); checkMotion.CancelAll();
+            motion.CancelAll(); particles.CancelAll(); house.localScale = Vector3.one;
+            for (int i = house.childCount - 1; i >= 0; i--)
+                if (house.GetChild(i).name == "Arrival sparkle") GameUI.Dispose(house.GetChild(i).gameObject);
+            resident.Stop();
+            return generation;
+        }
+        private void AnimateDoor(float target, Action done, int run)
+        {
+            float start = openness;
+            doorMotion.Play(0.25f, t => { if (run == generation) DoorPose(Mathf.Lerp(start, target, t)); }, () =>
             {
                 if (run != generation) return;
                 DoorPose(target); done?.Invoke();
@@ -138,7 +149,7 @@ namespace PerchSort.Game
         }
         public void Peek(bool visible, Action done)
         {
-            peekMotion.CancelAll(); int run = generation;
+            int run = BeginTransition();
             // Empty goals never reveal a coloured target portrait, even during an intro peek.
             if (!IsHome) { face.gameObject.SetActive(false); done?.Invoke(); return; }
             face.gameObject.SetActive(true); resident.Begin(); resident.Play("peek");
@@ -172,31 +183,31 @@ namespace PerchSort.Game
         }
         public void CompleteFlock(Action done)
         {
-            int run = generation;
-            SetHome(true); check.SetActive(false);
+            int run = BeginTransition();
+            ApplyHome(true); check.SetActive(false);
             resident.Play("hop");
             peekMotion.Play(0.5f, t => { }, () =>
             {
                 if (run != generation) return;
-                CloseDoor(() =>
+                AnimateDoor(0, () =>
                 {
                     if (run != generation) return;
                     check.SetActive(true); check.transform.localScale = Vector3.zero;
                     checkMotion.Play(0.25f, t => check.transform.localScale = Vector3.one * t,
                         () => { if (run == generation) { check.transform.localScale = Vector3.one; done?.Invoke(); } }, ease: Ease.OutBack);
-                });
+                }, run);
             });
         }
         public void SetHome(bool value)
         {
-            if (!value && leaving) return;
+            if (IsHome == value && (leaving || face.gameObject.activeSelf == value)) return;
             bool wasHome = IsHome;
-            bool changed = IsHome != value || face.gameObject.activeSelf != value;
-            IsHome = value; ArrivalCount = value ? 4 : 0; check.SetActive(value);
+            int run = BeginTransition();
+            ApplyHome(value);
             if (!value && wasHome && !GameMotion.Instant && gameObject.activeInHierarchy)
             {
-                leaving = true; int run = generation;
-                OpenDoor(() =>
+                leaving = true;
+                AnimateDoor(1, () =>
                 {
                     if (run != generation) return;
                     face.gameObject.SetActive(true); resident.Begin(); resident.Play("hop");
@@ -204,11 +215,16 @@ namespace PerchSort.Game
                     {
                         if (run != generation) return;
                         resident.Stop(); face.gameObject.SetActive(false);
-                        CloseDoor(() => { if (run == generation) leaving = false; });
+                        AnimateDoor(0, () => { if (run == generation) leaving = false; }, run);
                     });
-                });
+                }, run);
                 return;
             }
+        }
+        private void ApplyHome(bool value)
+        {
+            bool changed = IsHome != value || face.gameObject.activeSelf != value;
+            IsHome = value; ArrivalCount = value ? 4 : 0; check.SetActive(value);
             if (!value) resident.Stop();
             face.gameObject.SetActive(value);
             if (value && changed) resident.Begin();
@@ -216,13 +232,10 @@ namespace PerchSort.Game
         }
         public void Cancel()
         {
-            generation++;
-            if (motion == null) return;
-            motion.CancelAll(); doorMotion.CancelAll(); checkMotion.CancelAll(); particles.CancelAll(); peekMotion.CancelAll();
-            leaving = false; resident.Stop(); face.gameObject.SetActive(false);
-            house.localScale = Vector3.one; DoorPose(0); SetHome(IsHome);
-            for (int i = house.childCount - 1; i >= 0; i--)
-                if (house.GetChild(i).name == "Arrival sparkle") GameUI.Dispose(house.GetChild(i).gameObject);
+            if (motion == null) { generation++; return; }
+            BeginTransition();
+            face.gameObject.SetActive(false);
+            house.localScale = Vector3.one; DoorPose(0); ApplyHome(IsHome);
         }
         private void OnEnable() { if (resident != null && IsHome) resident.Begin(); }
         private void OnDisable() => Cancel();

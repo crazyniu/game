@@ -37,7 +37,6 @@ namespace PerchSort.Game
         private int revision, transactionGeneration;
         private int pendingWinReward, winCoinStart;
         private bool winCountPending;
-        private Action queuedTap;
         private Task<SolveResult> hintSearch;
         private SleepBubble sleepFeedback;
         private GameSession lastMoveSession;
@@ -70,10 +69,11 @@ namespace PerchSort.Game
         private void Start() => Initialize();
         private void Update()
         {
-            if (audioManager == null) return;
-            if ((Pointer.current != null && Pointer.current.press.wasPressedThisFrame) ||
-                (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame))
-                audioManager.ResumeMusicOnUserInteraction();
+            bool pressed = (Pointer.current != null && Pointer.current.press.wasPressedThisFrame) ||
+                (Keyboard.current != null && Keyboard.current.anyKey.wasPressedThisFrame);
+            if (!pressed) return;
+            audioManager?.ResumeMusicOnUserInteraction();
+            Board?.FastForwardPlayback();
         }
 
         // Capture initializes outside play mode without reading/writing the player's profile.
@@ -202,18 +202,18 @@ namespace PerchSort.Game
             revision++; hintPending = false; Board.ClearHints();
             sleepFeedback.Hide();
         }
-        private bool Defer(Action tap)
+        private bool ConsumePlaybackTap()
         {
             if (!IsBusy) return false;
-            // The transaction is already committed. Accept one landing/effect tap, never mutate its event list.
-            if (!IsAirborne && queuedTap == null) queuedTap = tap;
+            // Playback taps accelerate presentation; they never enqueue another logical action.
+            Board.FastForwardPlayback();
             return true;
         }
         public bool TapBranch(int branch)
         {
             if (!initialized || IsMap || Modal || (uint)branch >= Session.State.Branches.Count) return false;
             InputTap(); tutorial.DismissSaplingPrompt();
-            if (Defer(() => TapBranch(branch))) return false;
+            if (ConsumePlaybackTap()) return false;
             int source = Session.SelectedBranch;
             if ((source < 0 || source == branch) && sleepFeedback.Refuse(branch))
             {
@@ -226,7 +226,7 @@ namespace PerchSort.Game
         public bool TapSwivel(int branch)
         {
             if (!initialized || IsMap || Modal) return false;
-            InputTap(); if (Defer(() => TapSwivel(branch))) return false;
+            InputTap(); if (ConsumePlaybackTap()) return false;
             if (!Session.Swivel(branch)) return false;
             RememberHintMove(Move.Swivel(branch));
             profile.RecordAction();
@@ -292,14 +292,12 @@ namespace PerchSort.Game
             tutorial.ActionCompleted(Session);
             if (tutorial.Completed) profile.Tutorials[LevelId] = true;
             Save(); Refresh();
-            var next = queuedTap; queuedTap = null;
-            if (!Session.State.IsWon) next?.Invoke();
         }
         public void PresentationInputChanged() { if (initialized) Refresh(); }
         public void CancelSelection()
         {
             if (!initialized || IsMap || Modal) return;
-            InputTap(); if (Defer(CancelSelection)) return;
+            InputTap(); if (ConsumePlaybackTap()) return;
             Session.CancelSelection(); Board.ShowSelection(Session.State, -1); Refresh();
         }
         public bool Undo()
@@ -321,7 +319,7 @@ namespace PerchSort.Game
         {
             if (!initialized || IsMap || Modal || HighestUnlocked < ViewModel.Unlock(kind)) return;
             if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
-            InputTap(); if (Defer(() => TapBooster(kind))) return;
+            InputTap(); if (ConsumePlaybackTap()) return;
             if (Session.Inventory[kind] == 0) OpenShop(kind);
             else if (kind == BoosterKind.Firefly) Hint();
             else UseBooster(kind);
@@ -437,7 +435,7 @@ namespace PerchSort.Game
         public void OpenSettings()
         {
             if (!initialized || Modal) return;
-            InputTap(); if (Defer(OpenSettings)) return;
+            InputTap(); if (ConsumePlaybackTap()) return;
             if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
             settings.Show(); PlaySound(Sfx.Click); Refresh();
         }
@@ -446,7 +444,7 @@ namespace PerchSort.Game
         {
             if (!initialized || IsAirborne || IsIntroducing || notificationTransition || CurrentNotification != null) return;
             if (TryLeaveFinale(false)) return;
-            if (Defer(OpenMap)) return;
+            if (ConsumePlaybackTap()) return;
             bool fromLevel = !IsMap && Board.Branches.Count > 0;
             CancelPresentation(); Save();
             PresentMap(() => { PumpNotifications(); Refresh(); }, fromLevel);
@@ -641,7 +639,7 @@ namespace PerchSort.Game
         private bool PresentationCurrent(int token) => this != null && initialized && isActiveAndEnabled && token == revision;
         private void CancelPresentation()
         {
-            revision++; transactionGeneration++; hintPending = false; queuedTap = null; winCountPending = false;
+            revision++; transactionGeneration++; hintPending = false; winCountPending = false;
             profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel(); entrance.Cancel();
             Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
         }
