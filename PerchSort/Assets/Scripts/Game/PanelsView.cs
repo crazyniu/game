@@ -129,6 +129,7 @@ namespace PerchSort.Game
         {
             Rect bounds = GameLayout.LevelCard; var body = Body(bounds, false); CardLevel = id;
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
+            GameUI.Fit(body, "Bottom sprig", art.Get("leaf_sprig_b"), bounds.size - new Vector2(65, 55), new Vector2(180, 140));
             Picture(body, "Level badge", "leaf_badge", bounds, GameLayout.CardBadge);
             var number = Label(body, "Level number", id.ToString(), bounds, GameLayout.CardBadge, 98);
             number.color = Color.white;
@@ -166,8 +167,10 @@ namespace PerchSort.Game
                 float size = (mechanics[i] == "sleep" ? 220 : mechanics[i] == "egg" ? 142 : 100) * mechanicScale;
                 if (mechanics[i] == "sleep") center.y -= 35 * mechanicScale;
                 Rect mechanicBounds = GameLayout.Centered(center, Vector2.one * size);
-                string sprite = MechanicSprite(mechanics[i]);
-                Picture(body, "Mechanic " + mechanics[i], sprite, bounds, mechanicBounds);
+                if (mechanics[i] == "sleep")
+                    GameUI.Fit(body, "Mechanic sleep", Resources.Load<Sprite>("Art/hoot_sleep_bare"), mechanicBounds.center - bounds.position, mechanicBounds.size);
+                else
+                    Picture(body, "Mechanic " + mechanics[i], MechanicSprite(mechanics[i]), bounds, mechanicBounds);
             }
             GameUI.Button(body, art, "Play level " + id, "icon_play", new Rect(GameLayout.CardPlay.position - bounds.position, GameLayout.CardPlay.size),
                 () => Dismiss(() => root.LoadLevel(id)), true);
@@ -176,7 +179,6 @@ namespace PerchSort.Game
         {
             switch (mechanic)
             {
-                case "sleep": return "hoot_sleep";
                 case "egg": return "egg_idle";
                 case "crow": return "crow_face";
                 case "swivel": return "swivel_knot";
