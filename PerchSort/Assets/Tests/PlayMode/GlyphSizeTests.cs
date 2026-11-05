@@ -51,7 +51,8 @@ namespace PerchSort.PlayModeTests
         {
             root.LoadFixture(LevelLoader.Load(5), coins: 500); root.OpenMap();
             Check(root.Map, "Shop", "Aviary", "Settings", "Map settings");
-            root.OpenLevelCard(5); Check(root, "Close level card", "Play level 5"); root.ClosePanel();
+            // The level-card Play control is a long primary bar (no round disc) since the popup redesign; only the close disc is a round button.
+            root.OpenLevelCard(5); Check(root, "Close level card"); root.ClosePanel();
             root.OpenSettings(); Check(root, "Toggle mute", "Restart level", "Return to map", "Close settings");
             root.GetComponentsInChildren<Button>().Single(button => button.name == "Toggle mute").onClick.Invoke();
             Check(root, "Toggle mute"); root.CloseSettings();
