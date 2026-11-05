@@ -35,6 +35,7 @@ T49/T50 supplies the approved plush/soft forest visual treatment, final ten-spec
 - Runtime assemblies/namespaces: `PerchSort.Core`, `PerchSort.Meta`, `PerchSort.Game`; shared Audio remains unchanged.
 - Catalog: `PerchSort/Assets/Resources/Levels/levels.json` → `Resources.Load("Levels/levels")`; 40 levels, preserved payload.
 - Flags: `PerchSort/Assets/Resources/dev_options.json` → `Resources.Load("dev_options")`. Existing `unlockAllLevels=true`, `grantTestStock=true` are preserved, not release defaults. Real progress is not reset by test-mode presentation.
+  In the Unity Editor, **Perch Sort → Developer Options → Reset Saved Progress** asks for confirmation and deletes only this game's saved PlayerPrefs, including notifications, coins, stars and settings. Stop Play mode first. The developer-option EditorPrefs are unchanged.
 - Sprites: `Resources/Art`, `Resources/Birds`, `Resources/World`. T52 resource contract retains 345 current full-art PNGs plus six still-used compressed fallback PNGs. No runtime numbered fallback folders.
 - Editor: `PerchSort/Assets/Editor/Game`, namespace **`PerchSort.Editor`**, containing `GameSceneBuilder.Build`, `GameArtImporter.ImportExisting`, `GameCapture.Run`. The builder creates only Game.unity and never invokes retired importers. Shared `PhoneGameView`, `ReleaseSettings` and Audio importer remain.
 - Tests: `Tests/EditMode` (`PerchSort.EditModeTests`), `Tests/Meta` (`PerchSort.Meta.EditModeTests`), `Tests/PlayMode` (`PerchSort.PlayModeTests`). Shared Audio keeps its independent nested asmdef and namespace.
