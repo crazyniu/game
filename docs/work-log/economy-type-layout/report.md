@@ -45,3 +45,30 @@ Live GitHub refs matched the baseline and there were no open PRs at initial insp
 Before closing the merged profile-type-layout worktree, its complete static/integrated evidence and spec/report were preserved in `/tmp/game-profile-type-layout-evidence/complete-acceptance.tar.gz` (28 entries), SHA-256 `8c3e0df45a4fb7f4e5ad006364252685e3ca65278ee6d936aec30e32ee40b16b`. Orca confirmed removal of only that completed worktree. The primary checkout and all other worker checkouts were never modified.
 
 The new PR stays draft. The worker does not merge, mark ready, deploy or force-push. No implementation blocker was encountered; engine acceptance is deliberately pending, not passed or denied.
+
+
+## Completed unified verification
+
+After the batch was complete, the coordinator explicitly authorized one unified run, superseding the initial engine-test deferral above. No valid Unity evidence existed for this exact implementation; the earlier profile-layout run was not reused.
+
+Read-only preflight found main `0805f87f50f29f06929d7f281a31a9a9423fe7b7`, PR #119 head `c5922460af3757ecafb32494b5f93a1728e875b4`, no active Unity process, and an available `/tmp/unity.lock` (`flock -n /tmp/unity.lock true` succeeded). The aviary-flock-counts worktree/process from the earlier inspection no longer existed. The active input-lock-fixes branch `mac-input-lock-fixes/work` was at `dda24fc4c51db8746114c0159a27c39cbda63432`, with uncommitted BirdhouseView.cs, BoardView.cs, GameRoot.cs and InputLockTests.cs changes: its documented scope and diff concern presentation playback/house animation callbacks and input handling, without Core/Meta changes. It was excluded under the no-UI boundary and left untouched. UI-only PR #121 was also excluded. Closed duplicate #120 was not incorporated. No new pending in-scope non-UI dependency was found; this is not a claim that every repository issue is resolved.
+
+Fetched GitHub merge-preview **`9354635a3233fad82c257d1df90515fac43d5761`**, verified its exact parents are the main and PR-head commits above, and verified its tree **`6a9a9d606d4522ab1e0d1ef65694f0f211693b0a`** equals the PR head's tree. Tested that preview detached in this same isolated worktree; no local merge or main update was performed. Recorded 1,772 scene/meta/settings/package SHA-256 hashes from the clean tree before Unity.
+
+Exact verification commands and results:
+
+- `python3 ci/check_current_game_names.py --self-test`: **14/14 passed**, no skips/errors.
+- `python3 ci/check_current_game_names.py`: **220 tracked text files**, zero violations.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: **one run only**, Unity **6000.6.7f1**, exit **0**. Scene build/compilation succeeded. EditMode **318/318 passed**, zero failed/skipped/inconclusive, **2026-11-05 10:48:55–10:49:09 UTC**. PlayMode **122/122 passed**, zero failed/skipped/inconclusive, **10:49:15–10:54:58 UTC**. No filters, test edits, weakening or repeat run. EditMode breakdown: game 251, Meta **53**, Audio 14; LevelsData **81** and Layout **41** retained.
+
+This supplies real Unity compilation and full retained Meta compatibility coverage for the extraction, replacing the initial pending status for this source tree. It is not screenshot, UI, device, audio-listening or release acceptance. No screenshot command was run.
+
+After the run, queried/fetched remote main again: it remained **`0805f87f50f29f06929d7f281a31a9a9423fe7b7`**. The exact main diff from the original base was empty, recorded in `main-diff.log`; no later code was silently treated as tested.
+
+Evidence is under ignored `build/economy-type-layout/integrated/`: `scene-build.log`, `editmode-results.xml`, `editmode-tests.log`, `playmode-results.xml`, `playmode-tests.log`, `unity-acceptance.log`, `results-summary.json`, naming logs, `pre-unity-state.json`, `post-run-remote-refs.log`, `main-diff.log`, `generated-changes.json`, `generated-unity.patch`, `generated-review.log`, `scene-reconciliation.json`, `overlay-review.log`, `restoration.log`, and `reconcile-generated.py`. A separate preserved archive is `/tmp/game-economy-type-layout-integrated-evidence.tar.gz`, SHA-256 **`8647fdfaa053b183a7c9fd0a5e261940a91f3f00061d29e0dce6440f4be5a1e6`**.
+
+Unity generated **908** tracked-file differences: **894** whitespace-only meta changes, seven egg/family meta serialization completions, six known world gate-door pivot resets, and scene reserialization. Every GUID stayed unchanged; the seven overlays retained their critical pivot/mesh/size/compression/physics settings. Scene document payloads match after ignoring numeric object/input-action file IDs and document order. The known gate hinge pivots were centered by the existing importer; no importer, UI or gate fix was authorized or made.
+
+After the test process exited, preserved/classified the complete binary patch, verified each current generated hash and each original blob against the recorded baseline, then restored only those proven generated files. All **1,772** original hashes match again; the worktree was clean. No generated resource/meta/scene changes enter this PR. The primary checkout and other workers' dirty files/processes were never modified or stopped. Passing normal build/import/tests does not prove unchanged gate visuals or validate unimported serialized scene bytes; that remains an existing visual/importer boundary.
+
+Returned to economy-type-layout and reran the declaration/GUID/static naming checks successfully. The subsequent follow-up changes only this report; all implementation content equals the tested preview. No second Unity run is required or performed for the report-only commit. The initial head's CI succeeded at https://github.com/crazyniu/game/actions/runs/42012853232 (14 naming tests, 220 files zero violations; Core/workflow jobs not selected). Final report-head CI is verified separately in the handoff. PR #119 stays draft; no merge, readiness change, deployment or force push was performed. No execution blocker remains for this validation.
