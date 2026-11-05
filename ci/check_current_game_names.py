@@ -35,7 +35,7 @@ STORAGE_LITERALS = {
         "v5.bestStars.", "v5.tutorial.", "v5.booster.", "v5.starter.",
         "v5.bestMoves.", "v6.unlockSeen.",
     },
-    ASSETS + "Scripts/Meta/ProfileText.cs": {
+    ASSETS + "Scripts/Meta/ProfileMigrator.cs": {
         "v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.",
         "v5.tutorial.", "v5.booster.", "v5.starter.",
     },

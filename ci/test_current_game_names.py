@@ -90,6 +90,20 @@ class NamingPolicyTests(unittest.TestCase):
         self.assertTrue(list(guard.content_violations(owner, 'const string key = "' + key + 'new";')))
         self.assertTrue(list(guard.content_violations("tools/save.cs", '"' + key + '"')))
 
+    def test_migrator_storage_allowance_moves_without_expanding(self):
+        owner = guard.ASSETS + "Scripts/Meta/ProfileMigrator.cs"
+        former_owner = guard.ASSETS + "Scripts/Meta/ProfileText.cs"
+        expected = {"v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.",
+                    "v5.tutorial.", "v5.booster.", "v5.starter."}
+        self.assertEqual(expected, guard.STORAGE_LITERALS[owner])
+        self.assertNotIn(former_owner, guard.STORAGE_LITERALS)
+        for key in expected:
+            with self.subTest(key=key):
+                literal = '"' + key + '"'
+                self.assertFalse(list(guard.content_violations(owner, literal)))
+                self.assertTrue(list(guard.content_violations(former_owner, literal)))
+                self.assertTrue(list(guard.content_violations(owner, '"' + key + 'new"')))
+
     def test_prose_and_records_are_not_checked_but_source_and_paths_are(self):
         token = "V" + "5"
         for path in ("docs/team/HANDOFF_2026-11-04.md", "docs/CURRENT_GAME.md", "docs/work-log/x/evidence/data.json"):
