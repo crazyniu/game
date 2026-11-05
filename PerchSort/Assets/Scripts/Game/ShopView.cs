@@ -86,24 +86,12 @@ namespace PerchSort.Game
             for (int i = 0; i < names.Length; i++)
             {
                 var kind = (Meta.ShopItemKind)i;
-                var tab = GameUI.Button(transform, art, names[i], i == 0 ? "icon_bulb" : "icon_home",
+                GameUI.Button(transform, art, names[i], i == 0 ? "icon_bulb" : i == 1 ? "icon_hanger" : "icon_home",
                     new Rect(tabCenters[i] - Vector2.one * 70, Vector2.one * 140), () => ShowTab(kind));
-                if (i == 1) { GameUI.Dispose(tab.transform.Find("Icon").gameObject); Hanger(tab.transform); }
             }
             ShowTab(Meta.ShopItemKind.Booster);
             if (focus.HasValue && cards.TryGetValue(focus.Value, out var card))
                 motion.Play(0.6f, t => card.localScale = Vector3.one * (1 + 0.06f * Mathf.Sin(t * Mathf.PI)));
-        }
-        private static void Hanger(Transform parent)
-        {
-            Vector2[] points = { new Vector2(63, 50), new Vector2(63, 41), new Vector2(75, 35),
-                new Vector2(85, 43), new Vector2(70, 59), new Vector2(30, 88), new Vector2(110, 88), new Vector2(70, 59) };
-            for (int i = 1; i < points.Length; i++)
-            {
-                Vector2 delta = points[i] - points[i - 1];
-                var line = GameUI.Image(parent, "Hanger line", null, (points[i] + points[i - 1]) * 0.5f, new Vector2(delta.magnitude + 3, 7));
-                line.color = Color.white; line.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
-            }
         }
         public void ShowTab(Meta.ShopItemKind kind)
         {
@@ -191,8 +179,8 @@ namespace PerchSort.Game
             panel.type = Image.Type.Simple;
             if (cosmetic == null)
             {
-                GameUI.Fit(panel.transform, "Purple disc", art.Get("btn_purple"), new Vector2(291, 209), Vector2.one * 285);
-                GameUI.Fit(panel.transform, "Booster illustration", art.Get(ViewModel.Illustration(Selected.Value)), new Vector2(291, 209), Vector2.one * 250);
+                GameUI.Fit(panel.transform, "Wood disc", art.Get(GameLayout.SecondaryButtonSprite), new Vector2(291, 209), Vector2.one * 285);
+                GameUI.Fit(panel.transform, "Booster illustration", art.Get(ViewModel.ToolGlyph(Selected.Value)), new Vector2(291, 209), Vector2.one * (285 * 0.7f));
                 Price(panel.transform, Selected.Value, new Vector2(286, 412), new Vector2(316, 126), true);
             }
             else
@@ -222,8 +210,8 @@ namespace PerchSort.Game
             var button = image.gameObject.AddComponent<GameButton>(); button.transition = Selectable.Transition.None; button.targetGraphic = image;
             button.onClick.AddListener(() => TapCard(kind)); cards.Add(kind, image.rectTransform);
             Vector2 discPoint = new Vector2(column == 0 ? 304 : 798, row == 0 ? 632 : row == 1 ? 1072 : 1514) - bounds.position;
-            GameUI.Fit(image.transform, "Purple disc", art.Get("btn_purple"), discPoint, Vector2.one * 240);
-            GameUI.Fit(image.transform, "Booster illustration", art.Get(ViewModel.Illustration(kind)), discPoint, Vector2.one * 210);
+            GameUI.Fit(image.transform, "Wood disc", art.Get(GameLayout.SecondaryButtonSprite), discPoint, Vector2.one * 240);
+            GameUI.Fit(image.transform, "Booster illustration", art.Get(ViewModel.ToolGlyph(kind)), discPoint, Vector2.one * (240 * 0.7f));
             var badge = GameUI.Fit(image.transform, "Owned badge", art.Get("badge_red"), new Vector2(bounds.width - 88, 64), Vector2.one * 64);
             var count = GameUI.Text(badge.transform, "Owned", root.BoosterStock(kind).ToString(), font, Vector2.one * 32, Vector2.one * 64, 43); count.color = Color.white; counts.Add(kind, count);
             var price = Price(image.transform, kind, new Vector2(bounds.width * 0.5f, bounds.height - 79), new Vector2(266, 98)); prices.Add(kind, price);

@@ -72,11 +72,39 @@ namespace PerchSort.Game
             image.raycastTarget = true;
             var button = image.gameObject.AddComponent<GameButton>(); button.targetGraphic = image;
             button.RestSprite = image.sprite;
-            button.PressedSprite = art.Optional(primary ? "btn_green_pressed" : "btn_purple_pressed");
+            button.PressedSprite = art.Optional(primary ? "btn_green_pressed" : "btn_wood_pressed");
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
-            Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
-                Vector2.one * (Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio));
+            bool hanger = icon == "icon_hanger";
+            var glyph = hanger ? Hanger(image.transform) :
+                Fit(image.transform, "Icon", art.Icon(icon), bounds.size * 0.5f,
+                    Vector2.one * (Mathf.Min(bounds.width, bounds.height) * GameLayout.ButtonIconRatio)).transform;
+            if (!primary && icon.StartsWith("icon_", StringComparison.Ordinal))
+            {
+                int count = hanger ? glyph.childCount : 1;
+                for (int i = 0; i < count; i++)
+                {
+                    var graphic = hanger ? glyph.GetChild(i) : glyph;
+                    var outline = graphic.gameObject.AddComponent<Outline>();
+                    outline.effectColor = new Color32(90, 47, 14, 255);
+                    outline.effectDistance = new Vector2(2, -2);
+                    outline.useGraphicAlpha = false;
+                }
+            }
             button.onClick.AddListener(() => click()); return button;
+        }
+
+        private static Transform Hanger(Transform parent)
+        {
+            var glyph = Rect(parent, "Icon", new Vector2(70, 70), Vector2.one * 140);
+            Vector2[] points = { new Vector2(63, 50), new Vector2(63, 41), new Vector2(75, 35),
+                new Vector2(85, 43), new Vector2(70, 59), new Vector2(30, 88), new Vector2(110, 88), new Vector2(70, 59) };
+            for (int i = 1; i < points.Length; i++)
+            {
+                Vector2 delta = points[i] - points[i - 1];
+                var line = Image(glyph, "Hanger line", null, (points[i] + points[i - 1]) * 0.5f, new Vector2(delta.magnitude + 3, 7));
+                line.color = Color.white; line.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+            }
+            return glyph;
         }
 
         public static void Dispose(UnityEngine.Object target)
