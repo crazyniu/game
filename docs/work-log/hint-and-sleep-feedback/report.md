@@ -28,9 +28,9 @@ Actual runtime `HintTests` subsequently followed hints through every authored le
 
 Wake icons come from actual Core rules. Nocturnal `ink`/`hoot` sleepers use `dial_moon` while day sleep is effective. Authored sleep shows two matching species portraits and a home icon for same-species landing or same/adjacent-row homecoming song. If both restrictions apply, both explanations appear. Core has no species that sleeps because it is night; displaying a sun wake condition would be misleading.
 
-Missing dedicated icons: there is no compound same-species-landing icon or house-with-song icon in `Resources/Art`. Closest existing art: two copies of the existing species portrait plus `icon_next_arrow`, and `icon_home`. Arrow/home glyphs are tinted brown for contrast. No image or audio files were generated.
+Missing dedicated icons: there is no compound same-species-landing icon or house-with-song icon in `Resources/Art`. Closest existing art: two copies of the existing species portrait plus `icon_next_arrow`, and `icon_home`. Arrow/home glyphs are tinted brown for contrast. No artwork or audio resources were generated.
 
-- [0.1-second actual PlayMode contact sheet](evidence/sleep-refusal-contact-sheet.jpg): 18 frames, 0.0–1.7 seconds, 1552×1070 JPEG. Maximum scheduled/actual sample error: **0.0032 seconds**.
+- [0.1-second actual PlayMode contact sheet](evidence/sleep-refusal-contact-sheet.jpg): 18 frames, 0.0–1.7 seconds, 1552×1070 JPEG. Maximum scheduled/actual sample error on the merged baseline: **0.0022 seconds**.
 - [Frame timing and transform/alpha measurements](evidence/sleep-timing.csv)
 
 The camera/render/PNG path is warmed before tapping, so evidence setup does not consume the short refusal interval. Tests sample both bob extrema and all three sign changes, pulse peak, expiration, next-tap dismissal, night-rule icons, legal wake-on-landing, every sleeper's drift/fade, bounded Zzz alpha and an independently opaque bird pose.
@@ -61,12 +61,13 @@ Unity executable: `/Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/
 | Check | Observed result |
 |---|---|
 | `python3 ci/check_current_game_names.py --self-test` | 9 passed |
-| `python3 ci/check_current_game_names.py` | 195 tracked text files, zero violations after adding new source files |
+| `python3 ci/check_current_game_names.py` | 196 tracked text files on the merged baseline, zero violations |
 | Isolated compilation of canonical runtime and three new fixtures against installed Unity assemblies | zero errors, zero warnings |
 | Initial targeted PlayMode run: `HintTests;SleepFeedbackTests;BoosterSoundTests` | 6/8 passed; sleep sampling exposed capture warm-up and update-order issues, corrected without weakening assertions |
 | Corrected `SleepFeedbackTests` runs with actual graphics | 3/3 passed |
 | **Normal suite, once:** `flock /tmp/unity.lock bash scripts/run_tests.sh` | **318/318 EditMode; 110/111 PlayMode; zero skips** |
 | Final authorized targeted run: `SleepFeedbackTests;FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly` | **4/4 passed; zero skips** |
+| Post-merge smoke: all three new fixtures plus the authorized FamilyFlightAlpha test | **9/9 passed; zero skips**, including all 40 repeated-hint replays |
 
 Normal-suite failure: `FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly` applied its alpha-1 rule to the existing `Sleep bubble` graphic. The required Zzz fade produced alpha 0.887897, correctly exposing the changed contract. The coordinator explicitly authorized the sole additional test-file edit.
 
@@ -77,6 +78,15 @@ Normal-suite failure: `FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWh
 Retained discovery: LevelsData **81** cases and Layout **41** cases. Full logs/XML remain under ignored `build/`: `feedback-results.xml`, `sleep-results.xml`, `test-results.xml`, `playmode-results.xml`, `sleep-opacity-results.xml`, and their matching logs. The targeted graphics command used `SLEEP_FEEDBACK_EVIDENCE_DIR="$PWD/build/sleep-feedback"`, `-batchmode -runTests -testPlatform PlayMode -testFilter 'PerchSort.PlayModeTests.SleepFeedbackTests;PerchSort.PlayModeTests.FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly'` and `-testResults "$PWD/build/sleep-opacity-results.xml"`.
 
 Unity regenerated 907 existing asset metadata files and the Game scene from an initially clean worktree. They are outside task ownership and are not part of this change. Their exact patch is preserved in ignored `build/unity-generated-state.patch` before isolating it for integration.
+
+## Integration and generated-state isolation
+
+Merged `origin/main` at `6610a56b` into the task branch (`c754deba`). Incoming front-facing art and off-screen entrance changes are coordinator/peer work, not task-authored changes. `BoardView` merged automatically without overlapping hint/entrance edits.
+
+The final merged-baseline command was `flock /tmp/unity.lock env SLEEP_FEEDBACK_EVIDENCE_DIR="$PWD/build/sleep-feedback-integration" "$UNITY_EDITOR" -batchmode -projectPath "$PWD/PerchSort" -runTests -testPlatform PlayMode -testFilter 'PerchSort.PlayModeTests.HintTests;PerchSort.PlayModeTests.SleepFeedbackTests;PerchSort.PlayModeTests.BoosterSoundTests;PerchSort.PlayModeTests.FamilyFlightAlphaTests.PerchedBirdsStayOpaqueEveryFrameWhileMamaAndChicksFly' -testResults "$PWD/build/integration-feedback-results.xml" -logFile "$PWD/build/integration-feedback-tests.log"`. It passed **9/9**, zero skips. The final CSVs and contact sheet were refreshed from that run; [the result XML is committed](evidence/integration-feedback-results.xml). The normal suite was not repeated.
+
+Initial generated scene/metadata changes were saved in the named Git stash `Preserve Unity-generated hint feedback imports` and `build/unity-generated-state.patch`, not discarded or committed. The post-merge Unity run regenerated 907 metadata files; their patch is retained separately in `build/unity-generated-integration-state.patch` and isolated before push. No generated resource metadata, scene, settings or packages are included in the task-authored commits.
+
 
 ## Boundaries
 
