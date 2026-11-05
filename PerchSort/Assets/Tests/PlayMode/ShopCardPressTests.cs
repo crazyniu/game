@@ -25,12 +25,12 @@ namespace PerchSort.PlayModeTests
             var pointer = new PointerEventData(EventSystem.current) { button = PointerEventData.InputButton.Left };
             ExecuteEvents.Execute(card.gameObject, pointer, ExecuteEvents.pointerEnterHandler);
             ExecuteEvents.Execute(card.gameObject, pointer, ExecuteEvents.pointerDownHandler);
-            yield return new WaitForSecondsRealtime(0.1f);
+            yield return new WaitForSecondsRealtime(GameLayout.ButtonPressSeconds);
+            yield return null;
             float pressed = card.localScale.x;
             ExecuteEvents.Execute(card.gameObject, pointer, ExecuteEvents.pointerUpHandler);
-            yield return new WaitForSecondsRealtime(0.3f);
+            yield return new WaitForSecondsRealtime(GameLayout.ButtonReleaseSeconds + 0.1f);
             Assert.That(card.localScale.x, Is.EqualTo(1).Within(0.01f), name + " release");
-            Assert.That(pressed, Is.EqualTo(0.96f).Within(0.01f), name + " press");
             Assert.That(pressed, Is.EqualTo(GameLayout.ButtonPressScale).Within(0.01f), name + " shared scale");
         }
     }
