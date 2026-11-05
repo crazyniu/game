@@ -1,0 +1,317 @@
+{
+  "accepted_sprites": 31,
+  "outfits": 27,
+  "houses": 4,
+  "checks": [
+    {
+      "file": "PerchSort/Assets/Resources/Birds/berry_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/mint_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/snow_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ember_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ink_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sunny_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sky_outfit_1.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_mushroom_body.png",
+      "rgba": true,
+      "size": [
+        512,
+        512
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_teapot_body.png",
+      "rgba": true,
+      "size": [
+        512,
+        512
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_acorn_body.png",
+      "rgba": true,
+      "size": [
+        512,
+        512
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Art/house_style_lantern_body.png",
+      "rgba": true,
+      "size": [
+        512,
+        512
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sunny_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sky_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/berry_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/snow_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ember_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ink_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sunny_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/sky_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/berry_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/cocoa_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/snow_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ember_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/ink_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/mint_outfit_2.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 1
+    },
+    {
+      "file": "PerchSort/Assets/Resources/Birds/mint_outfit_3.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "template_settings_match": true,
+      "maximum_edge_alpha": 0
+    }
+  ]
+}

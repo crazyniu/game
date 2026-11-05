@@ -12,10 +12,12 @@ namespace PerchSort.Game
         private Vector2 size;
         private int generation;
         private bool targetOpen;
+        private bool mapGate;
         private Vector2 LockCenter => new Vector2(size.x * 0.5f, -size.y * 0.5f);
         public bool IsOpening { get; private set; }
         public void Configure(GameArt art, int world, bool open)
         {
+            mapGate = false;
             Cancel();
             for (int i = transform.childCount - 1; i >= 0; i--) GameUI.Dispose(transform.GetChild(i).gameObject);
             left = right = light = padlock = whole = null;
@@ -41,6 +43,48 @@ namespace PerchSort.Game
             padlock = GameUI.Image(transform, "Gate padlock", clasp, size * 0.5f, size);
             Pose(open ? 1 : 0, open ? 1 : 0);
         }
+        public void ConfigureMap(int world, bool open)
+        {
+            Cancel();
+            mapGate = true;
+            size = ((RectTransform)transform).sizeDelta;
+            if (motion == null) motion = gameObject.AddComponent<GameMotion>();
+            targetOpen = open;
+            var closed = Resources.Load<Sprite>("World/gate_arch_closed_w" + world);
+            var frame = Resources.Load<Sprite>("World/gate_arch_frame_w" + world);
+            var leftDoor = Resources.Load<Sprite>("World/gate_door_left_w" + world);
+            var rightDoor = Resources.Load<Sprite>("World/gate_door_right_w" + world);
+            var glow = Resources.Load<Sprite>("World/gate_light_w" + world);
+            if (frame == null || leftDoor == null || rightDoor == null || glow == null)
+            {
+                whole = GameUI.Image(transform, "Closed map arch", closed, size * 0.5f, size);
+            }
+            else
+            {
+                light = GameUI.Image(transform, "Map gate light", glow, size * 0.5f, size);
+                left = GameUI.Image(transform, "Left map door", leftDoor, size * 0.5f, size);
+                right = GameUI.Image(transform, "Right map door", rightDoor, size * 0.5f, size);
+                MapHinge(left.rectTransform, new Vector2(0, 0.5f));
+                MapHinge(right.rectTransform, new Vector2(1, 0.5f));
+                GameUI.Image(transform, "Map arch frame", frame, size * 0.5f, size);
+                whole = GameUI.Image(transform, "Closed map arch", closed, size * 0.5f, size);
+            }
+            MapPose(open ? 1 : 0, open ? 1 : 0);
+        }
+        private void MapHinge(RectTransform leaf, Vector2 pivot)
+        {
+            leaf.pivot = pivot;
+            leaf.anchoredPosition = new Vector2(pivot.x * size.x, -(1 - pivot.y) * size.y);
+        }
+        private void MapPose(float opened, float glow)
+        {
+            bool parts = left != null && right != null;
+            if (whole != null) whole.color = new Color(1, 1, 1, parts ? (opened == 0 ? 1 : 0) : 1 - opened);
+            if (!parts) return;
+            left.rectTransform.localScale = right.rectTransform.localScale =
+                new Vector3(Mathf.Lerp(1, 0.08f, opened), 1, 1);
+            light.color = new Color(1, 1, 1, glow);
+        }
         private void Hinge(RectTransform leaf, Vector2 source)
         {
             leaf.pivot = new Vector2(source.x / 1024, 1 - source.y / 1024);
@@ -48,6 +92,7 @@ namespace PerchSort.Game
         }
         private void Pose(float opened, float fallen)
         {
+            if (mapGate) { MapPose(opened, fallen); return; }
             if (whole != null)
             {
                 whole.sprite = opened >= 0.5f ? openSprite : lockedSprite;
@@ -69,6 +114,23 @@ namespace PerchSort.Game
         internal void OpenDoors(Action done) => AnimateOpen(done, false);
         private void AnimateOpen(Action done, bool unlock)
         {
+            if (mapGate)
+            {
+                Cancel(); targetOpen = true; IsOpening = true; MapPose(0, 0);
+                int revision = generation;
+                float duration = left != null ? 0.9f : 0.5f;
+                motion.Play(duration, t =>
+                {
+                    if (revision != generation) return;
+                    float swing = t * t * (3 - 2 * t);
+                    MapPose(left != null ? swing : t, Mathf.Clamp01(t * duration / 0.6f));
+                }, () =>
+                {
+                    if (revision != generation) return;
+                    IsOpening = false; MapPose(1, 1); done?.Invoke();
+                });
+                return;
+            }
             Cancel(); targetOpen = true; IsOpening = true; Pose(0, unlock ? 0 : 1);
             int token = generation; bool completed = false;
             motion.Play(0.8f, t =>

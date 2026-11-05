@@ -80,6 +80,7 @@ namespace PerchSort.Game
         {
             if (closing) return;
             closing = true; generation++;
+            foreach (var life in GetComponentsInChildren<UiBirdLife>(true)) life.Stop();
             foreach (var childMotion in GetComponentsInChildren<GameMotion>(true)) childMotion.CancelAll();
             group.interactable = false;
             foreach (var pose in poses.Values) if (pose.Rect != null) pose.ClosingScale = pose.Rect.localScale;
@@ -115,9 +116,11 @@ namespace PerchSort.Game
             {
                 var button = buttons[i]; var rect = (RectTransform)button.transform;
                 Track(rect); bool enabled = button.interactable; button.interactable = false;
-                Vector3 scale = poses[rect].Scale;
-                Play(0.23f, t => rect.localScale = scale * t,
-                    () => button.interactable = enabled, delay + i * 0.07f, Ease.OutBack);
+                Vector3 scale = poses[rect].Scale; var canvas = poses[rect].Group;
+                Play(0.2f, t =>
+                {
+                    rect.localScale = scale * Mathf.Lerp(0.9f, 1, t); canvas.alpha = t;
+                }, () => button.interactable = enabled, delay);
             }
         }
         public void Swing(RectTransform rect, float delay = 0)
@@ -134,12 +137,12 @@ namespace PerchSort.Game
         {
             Track(bird.rectTransform); Vector2 rest = bird.rectTransform.anchoredPosition;
             int token = generation;
-            motion.Loop(1.5f, t =>
+            motion.Loop(2.6f, t =>
             {
                 if (token != generation || bird == null) return;
                 float beat = Mathf.Sin((t + phase) * Mathf.PI * 2);
-                bird.rectTransform.anchoredPosition = rest + Vector2.up * (height * beat);
-                bird.rectTransform.localScale = new Vector3(1 - 0.025f * beat, 1 + 0.025f * beat, 1);
+                bird.rectTransform.anchoredPosition = rest + Vector2.up * (2 * beat);
+                bird.rectTransform.localScale = new Vector3(1 + 0.008f * beat, 1 + 0.02f * beat, 1);
             });
         }
         public void Rotate(RectTransform rect, float seconds)
@@ -155,46 +158,59 @@ namespace PerchSort.Game
             return art.Get(species + "_idle");
         }
         public void FlyBird(GameArt art, Image bird, string species, Vector2 start, Vector2 end, float delay,
-            Action landed = null, bool recede = false, float duration = 0.65f)
+            Action landed = null, bool recede = false, float duration = 0.6f)
         {
             Track(bird.rectTransform);
             Sprite up = Frame(art, species, "fly_up"), down = Frame(art, species, "fly_down"), idle = Frame(art, species, "idle");
+            var wingBlend = Transient(bird.transform, "Flight wing blend", down, bird.rectTransform.rect.size * 0.5f, bird.rectTransform.rect.size);
+            wingBlend.color = Color.clear;
             var canvas = poses[bird.rectTransform].Group;
             Play(duration, t =>
             {
-                Vector2 point = Vector2.Lerp(start, end, t) + Vector2.up * (-140 * Mathf.Sin(t * Mathf.PI));
+                float travel = 1 - Mathf.Pow(1 - t, 3);
+                Vector2 point = Vector2.Lerp(start, end, travel) + Vector2.up * (-90 * Mathf.Sin(travel * Mathf.PI));
                 bird.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
-                bird.rectTransform.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(t * Mathf.PI * 2) * (start.x < end.x ? -12 : 12));
-                bird.rectTransform.localScale = Vector3.one * (recede ? Mathf.Lerp(1, 0.12f, t) : 1);
+                bird.rectTransform.localScale = Vector3.one * (recede ? Mathf.Lerp(1, 0.12f, travel) : 1);
                 canvas.alpha = recede ? 1 - t : Mathf.Clamp01(t * 8);
-                bird.sprite = ((int)(t * duration / 0.07f) & 1) == 0 ? up : down;
+                float wing = t * duration / 0.12f;
+                bool rising = ((int)wing & 1) == 0;
+                float blend = Mathf.SmoothStep(0, 1, wing - Mathf.Floor(wing));
+                bird.sprite = rising ? up : down; wingBlend.sprite = rising ? down : up;
+                bird.color = new Color(1, 1, 1, 1 - blend); wingBlend.color = new Color(1, 1, 1, blend);
             }, () =>
             {
+                GameUI.Dispose(wingBlend.gameObject); bird.color = Color.white;
                 bird.sprite = idle; bird.rectTransform.localRotation = Quaternion.identity;
                 if (recede) { landed?.Invoke(); return; }
-                Play(0.16f, t => bird.rectTransform.localScale = new Vector3(1 + 0.15f * Mathf.Sin(t * Mathf.PI), 1 - 0.15f * Mathf.Sin(t * Mathf.PI), 1), landed);
+                Play(0.10f, t => bird.rectTransform.localScale = new Vector3(1 + 0.06f * Mathf.Sin(t * Mathf.PI), 1 - 0.06f * Mathf.Sin(t * Mathf.PI), 1), landed);
             }, delay);
         }
         public void Quirk(GameArt art, Image bird, string species)
         {
-            Sprite first = Frame(art, species, "quirk1"), second = Frame(art, species, "quirk2"), idle = Frame(art, species, "idle");
-            Play(0.7f, t => bird.sprite = t < 0.5f ? first : second, () => { bird.sprite = idle; Bob(bird); });
+            Track(bird.rectTransform);
+            var life = bird.GetComponent<UiBirdLife>();
+            if (life == null)
+            {
+                life = bird.gameObject.AddComponent<UiBirdLife>();
+                life.Configure(bird, art, species, feetPivot: false);
+            }
+            life.Begin(); life.Play("preen");
         }
         public void Hover(GameArt art, Image bird, string species)
         {
-            Sprite up = Frame(art, species, "fly_up"), down = Frame(art, species, "fly_down");
-            Track(bird.rectTransform); Vector2 rest = bird.rectTransform.anchoredPosition; int token = generation;
-            motion.Loop(1.12f, t =>
+            Track(bird.rectTransform);
+            var life = bird.GetComponent<UiBirdLife>();
+            if (life == null)
             {
-                if (token != generation || bird == null) return;
-                bird.sprite = ((int)(t * 16) & 1) == 0 ? up : down;
-                bird.rectTransform.anchoredPosition = rest + Vector2.up * (12 * Mathf.Sin(t * Mathf.PI * 2));
-            });
+                life = bird.gameObject.AddComponent<UiBirdLife>();
+                life.Configure(bird, art, species, hover: true, feetPivot: false);
+            }
+            life.Begin(); life.Play("flap");
         }
         public void Count(TextMeshProUGUI label, int amount, float delay)
         {
             int previous = -1;
-            Play(0.65f, t => { int value = Mathf.RoundToInt(Mathf.Max(0, amount) * t); if (value != previous) { previous = value; label.text = "+" + value; } }, delay: delay);
+            Play(0.6f, t => { int value = Mathf.RoundToInt(Mathf.Max(0, amount) * t); if (value != previous) { previous = value; label.text = "+" + value; } }, delay: delay);
         }
         public Image Transient(Transform parent, string name, Sprite sprite, Vector2 point, Vector2 size)
         {
@@ -202,9 +218,9 @@ namespace PerchSort.Game
         }
         public void Sparkles(GameArt art, Transform parent, Vector2 center, float radius, float delay)
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 6; i++)
             {
-                float angle = i * Mathf.PI / 4;
+                float angle = i * Mathf.PI * 2 / 6;
                 Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
                 var image = Transient(parent, "Popup sparkle", art.Get("sparkle"), center, Vector2.one * 38);
                 Play(0.55f, t =>
@@ -234,24 +250,26 @@ namespace PerchSort.Game
         }
         public void Confetti(GameArt art, Transform parent, float delay)
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 40; i++)
             {
-                int index = i; Vector2 start = new Vector2(90 + (i * 137) % 900, 420 - i % 4 * 45);
+                int index = i; Vector2 start = new Vector2(70 + (i * 137) % 940, 150 - i % 5 * 70);
+                float speed = 400 + i * 53 % 301, sway = 30 + i * 7 % 31;
                 var piece = Transient(parent, "Popup confetti", art.Get("confetti_" + (1 + i % 4)), start, Vector2.one * 32);
                 piece.color = Color.clear;
-                Play(2.2f, t =>
+                Play(3f, t =>
                 {
-                    Vector2 point = start + new Vector2(Mathf.Sin(t * Mathf.PI * 3 + index) * 70, t * 1250);
+                    Vector2 point = start + new Vector2(Mathf.Sin(t * Mathf.PI * 3 + index) * sway, t * 3 * speed);
                     piece.rectTransform.anchoredPosition = new Vector2(point.x, -point.y);
                     piece.rectTransform.localRotation = Quaternion.Euler(0, 0, t * (index % 2 == 0 ? 360 : -360));
                     piece.color = new Color(1, 1, 1, Mathf.Clamp01(t * 12) * Mathf.Clamp01((1 - t) * 5));
-                }, () => GameUI.Dispose(piece.gameObject), delay + i % 5 * 0.045f);
+                }, () => GameUI.Dispose(piece.gameObject), delay);
             }
         }
         public void Cancel()
         {
             generation++; closing = false;
             if (motion != null) motion.CancelAll();
+            foreach (var life in GetComponentsInChildren<UiBirdLife>(true)) life.Stop();
             foreach (var pose in poses.Values)
             {
                 if (pose.Rect == null) continue;

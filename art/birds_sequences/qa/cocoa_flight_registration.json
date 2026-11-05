@@ -1,0 +1,746 @@
+[
+  {
+    "name": "cocoa_flight_takeoff_01",
+    "source": "cocoa_flight_takeoff.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4251968503937008,
+    "offset": [
+      3,
+      11
+    ],
+    "visible_bounds": [
+      39,
+      101,
+      259,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "265706d5c93e94c9af46e8e08c0cd3a7d3e082a8774d21acfadb6d76b426096d"
+  },
+  {
+    "name": "cocoa_flight_takeoff_02",
+    "source": "cocoa_flight_takeoff.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4251968503937008,
+    "offset": [
+      35,
+      23
+    ],
+    "visible_bounds": [
+      50,
+      76,
+      308,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "fd078220e07af168f5de390fcdef7298636b5242997b9ef699142a141e0d5a0d"
+  },
+  {
+    "name": "cocoa_flight_takeoff_03",
+    "source": "cocoa_flight_takeoff.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4251968503937008,
+    "offset": [
+      9,
+      49
+    ],
+    "visible_bounds": [
+      31,
+      83,
+      290,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "411fc4a53322899d3e0f4619f2dc011b4e63594b1fa725cd7968fd7e399452de"
+  },
+  {
+    "name": "cocoa_flight_flap_01",
+    "source": "cocoa_flight_flap_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4426229508196721,
+    "offset": [
+      -7,
+      24
+    ],
+    "visible_bounds": [
+      27,
+      72,
+      279,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "c652deb9cb14257c570cf1de42cb936a113a50df9607171f17676cb7bf01001c"
+  },
+  {
+    "name": "cocoa_flight_flap_02",
+    "source": "cocoa_flight_flap_downstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4426229508196721,
+    "offset": [
+      -10,
+      43
+    ],
+    "visible_bounds": [
+      26,
+      100,
+      281,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b5f746e5f57edce4d56ac1f6967f07bcc855ecb0e9aabd3bbd02a16b5eb0c2f3"
+  },
+  {
+    "name": "cocoa_flight_flap_03",
+    "source": "cocoa_flight_flap_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4426229508196721,
+    "offset": [
+      -7,
+      26
+    ],
+    "visible_bounds": [
+      41,
+      82,
+      281,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "a5b5fc5c9f97b7f292859560044b738b1b5afbab3f3dbb17ac98b14426dc1b8e"
+  },
+  {
+    "name": "cocoa_flight_flap_04",
+    "source": "cocoa_flight_flap_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4909090909090909,
+    "offset": [
+      -20,
+      -12
+    ],
+    "visible_bounds": [
+      27,
+      98,
+      287,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "4ab068ad7f9f9e4f217c2e533600722f74e0b81bf8e257cc1f182d5e0b8e7473"
+  },
+  {
+    "name": "cocoa_flight_flap_05",
+    "source": "cocoa_flight_flap_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4909090909090909,
+    "offset": [
+      -18,
+      4
+    ],
+    "visible_bounds": [
+      20,
+      70,
+      290,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "3beef1ad5bd1b116e4f474a3a001507dd9d87b6a32dfa01bc79a3731345884da"
+  },
+  {
+    "name": "cocoa_flight_flap_06",
+    "source": "cocoa_flight_flap_upstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4909090909090909,
+    "offset": [
+      -21,
+      2
+    ],
+    "visible_bounds": [
+      29,
+      83,
+      293,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "6e7f07065820f669bc1087030c773dd9320dfe9230d069f06ce79173e481e90d"
+  },
+  {
+    "name": "cocoa_flight_land_01",
+    "source": "cocoa_flight_land.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4311377245508982,
+    "offset": [
+      -12,
+      27
+    ],
+    "visible_bounds": [
+      27,
+      88,
+      271,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b4acdde826c61178a863d777bba548566d28b938b66d7335cf98af0c7d2ae125"
+  },
+  {
+    "name": "cocoa_flight_land_02",
+    "source": "cocoa_flight_land.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4311377245508982,
+    "offset": [
+      -5,
+      32
+    ],
+    "visible_bounds": [
+      25,
+      71,
+      294,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "2d2345258d90bfc3fc2ab9106e14b278cf600d5c1c73132dc3769dae813ab39d"
+  },
+  {
+    "name": "cocoa_flight_land_03",
+    "source": "cocoa_flight_land.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4311377245508982,
+    "offset": [
+      -17,
+      15
+    ],
+    "visible_bounds": [
+      46,
+      84,
+      260,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "14552d3f2dd07eedc8f919e4c78a483ab7ec1de5bc765d1cb6c1b1e513c4e096"
+  },
+  {
+    "name": "cocoa_flight_takeoff_l_01",
+    "source": "cocoa_flight_takeoff_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.48106904231625836,
+    "offset": [
+      -7,
+      -5
+    ],
+    "visible_bounds": [
+      61,
+      89,
+      299,
+      300
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "916e2f761a999f2eb1c5e66468d87b9da4577a911c31a3ea0fb89935322bc7cf"
+  },
+  {
+    "name": "cocoa_flight_takeoff_l_02",
+    "source": "cocoa_flight_takeoff_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.48106904231625836,
+    "offset": [
+      4,
+      -3
+    ],
+    "visible_bounds": [
+      41,
+      62,
+      307,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "56129c9d2b622c6e436ea20bf85617c00347abbbbb92664dc0af8cd4845e8829"
+  },
+  {
+    "name": "cocoa_flight_takeoff_l_03",
+    "source": "cocoa_flight_takeoff_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.48106904231625836,
+    "offset": [
+      5,
+      37
+    ],
+    "visible_bounds": [
+      47,
+      82,
+      304,
+      301
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "b4ca2008d2163a4c8eb6d2bcd736c3079bd615638f18659e3e59dd356e581cd7"
+  },
+  {
+    "name": "cocoa_flight_flap_l_01",
+    "source": "cocoa_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.4472049689440994,
+    "offset": [
+      9,
+      0
+    ],
+    "visible_bounds": [
+      62,
+      62,
+      291,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "d1b1e61c38e66fa6e8306510b28fc99da6a615ce6e1c64fc74c2cf785c0637b4"
+  },
+  {
+    "name": "cocoa_flight_flap_l_02",
+    "source": "cocoa_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.4472049689440994,
+    "offset": [
+      12,
+      38
+    ],
+    "visible_bounds": [
+      41,
+      97,
+      282,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "38c8e4626a9bd16e6b0a50f41691e3ea0609c76a14d9495c2529af850e99d059"
+  },
+  {
+    "name": "cocoa_flight_flap_l_03",
+    "source": "cocoa_flight_flap_l_downstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.4472049689440994,
+    "offset": [
+      4,
+      24
+    ],
+    "visible_bounds": [
+      45,
+      84,
+      278,
+      305
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "2781286afcb8cdf3d5ea7cbad4366a3e7b63c67f5625e6c4b8a5a03b6c3ed10b"
+  },
+  {
+    "name": "cocoa_flight_flap_l_04",
+    "source": "cocoa_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.46956521739130436,
+    "offset": [
+      -7,
+      4
+    ],
+    "visible_bounds": [
+      21,
+      95,
+      311,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "3d7dd2bb9ed4acc3b725fe91929f90438b4b2245cf050daf4fa5bca1c56d326a"
+  },
+  {
+    "name": "cocoa_flight_flap_l_05",
+    "source": "cocoa_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.46956521739130436,
+    "offset": [
+      16,
+      12
+    ],
+    "visible_bounds": [
+      38,
+      49,
+      319,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "6628c566c93f76b570c6f80c688d7889d582410184ebd3aac2294b82dd62c681"
+  },
+  {
+    "name": "cocoa_flight_flap_l_06",
+    "source": "cocoa_flight_flap_l_upstroke.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.46956521739130436,
+    "offset": [
+      12,
+      13
+    ],
+    "visible_bounds": [
+      34,
+      83,
+      294,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "a15d2c597860248d4662458eb67f1978f83af7b749b171a9e99c3ab699605afc"
+  },
+  {
+    "name": "cocoa_flight_land_l_01",
+    "source": "cocoa_flight_land_l.png",
+    "cell_bounds": [
+      0,
+      0,
+      724,
+      724
+    ],
+    "scale": 0.44353182751540043,
+    "offset": [
+      20,
+      22
+    ],
+    "visible_bounds": [
+      56,
+      85,
+      296,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "ccf208410d47714ecaef762cce5b3ac23ad724ecdddfdda9a0537281cd83ab6d"
+  },
+  {
+    "name": "cocoa_flight_land_l_02",
+    "source": "cocoa_flight_land_l.png",
+    "cell_bounds": [
+      724,
+      0,
+      1448,
+      724
+    ],
+    "scale": 0.44353182751540043,
+    "offset": [
+      -16,
+      29
+    ],
+    "visible_bounds": [
+      4,
+      59,
+      285,
+      302
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "f7dd5d5b28476f9f28a02e7d1c065356dd22b165334559144404c9ead4996596"
+  },
+  {
+    "name": "cocoa_flight_land_l_03",
+    "source": "cocoa_flight_land_l.png",
+    "cell_bounds": [
+      1448,
+      0,
+      2172,
+      724
+    ],
+    "scale": 0.44353182751540043,
+    "offset": [
+      22,
+      16
+    ],
+    "visible_bounds": [
+      71,
+      83,
+      279,
+      303
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "1dc8c9e06b46daa2fc84ec78896952b49a7363799c51e85b4dd51420d92b1565"
+  }
+]

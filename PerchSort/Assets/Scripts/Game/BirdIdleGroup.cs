@@ -9,6 +9,11 @@ namespace PerchSort.Game
         private readonly List<BirdView> birds = new List<BirdView>();
         public void Clear() => birds.Clear();
         public void Add(BirdView bird) => birds.Add(bird);
+        public float InvalidFeedbackDelay(BirdView bird)
+        {
+            int index = birds.IndexOf(bird);
+            return index < 0 ? 0 : (birds.Count - 1 - index) * 0.04f;
+        }
         public bool TryStart(BirdView bird, int action, float now)
         {
             int active = 0, index = birds.IndexOf(bird);
@@ -20,12 +25,6 @@ namespace PerchSort.Game
                     return false;
             }
             return active < 3;
-        }
-        public float NeighbourX(BirdView bird)
-        {
-            int index = birds.IndexOf(bird);
-            if (index < 0 || birds.Count < 2) return bird.Position.x;
-            return birds[index == 0 ? 1 : index - 1].Position.x;
         }
     }
 }

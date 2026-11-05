@@ -1,0 +1,34 @@
+build/test-results.xml: total=317 passed=317 failed=0 skipped=0
+PerchSort.EditModeTests.LevelsDataTests.: 81
+PerchSort.EditModeTests.LayoutTests.: 41
+build/playmode-results.xml: total=75 passed=73 failed=2 skipped=0
+PerchSort.PlayModeTests.EnvironmentArtTests.BranchHitAreasMatchRecordedPreWiringSnapshot: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.EveryWorldUsesCurvedTrunksAndJunctionsWithoutChangingSeats: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.GatesAndSceneryNeverCoverNodesOrTheCurrentChick: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.MapGateOpeningCompletesOnceAndKeepsItsOpenPose: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.MissingOptionalLimbsKeepLegacyArtAndGrowth: Passed
+PerchSort.PlayModeTests.GameplayTests.SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending
+  Expected: (720.00, -1802.00)
+  But was:  (720.00, -1764.80)
+
+at PerchSort.PlayModeTests.GameplayTests+<SaplingIntroPersistsOnShowAndBranchTapDismissesWithoutSpending>d__27.MoveNext () [0x00072] in /Users/apple/orca/workspaces/game/environment-wiring/PerchSort/Assets/Tests/PlayMode/GameplayTests.cs:324
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52
+
+PerchSort.PlayModeTests.IllegalMoveFeedbackTests.MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately
+  Expected: null
+  But was:  <mint_turn_left_01 (UnityEngine.Sprite)>
+
+at PerchSort.PlayModeTests.IllegalMoveFeedbackTests+<MissingTurnSequencesUseExistingBlinkAndInstantSettlesImmediately>d__13.MoveNext () [0x00039] in /Users/apple/orca/workspaces/game/environment-wiring/PerchSort/Assets/Tests/PlayMode/IllegalMoveFeedbackTests.cs:158
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/NUnitExtensions/Attributes/TestEnumerator.cs:52
+
+PerchSort.EditModeTests.LevelsDataTests.: 81
+PerchSort.EditModeTests.LayoutTests.: 41
+build/environment-results.xml: total=6 passed=6 failed=0 skipped=0
+PerchSort.PlayModeTests.EnvironmentArtTests.BranchHitAreasMatchRecordedPreWiringSnapshot: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.CaptureEnvironmentEvidence: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.EveryWorldUsesCurvedTrunksAndJunctionsWithoutChangingSeats: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.GatesAndSceneryNeverCoverNodesOrTheCurrentChick: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.MapGateOpeningCompletesOnceAndKeepsItsOpenPose: Passed
+PerchSort.PlayModeTests.EnvironmentArtTests.MissingOptionalLimbsKeepLegacyArtAndGrowth: Passed
+PerchSort.EditModeTests.LevelsDataTests.: 81
+PerchSort.EditModeTests.LayoutTests.: 41

@@ -23,6 +23,7 @@ namespace PerchSort.Game
         private Image hand;
         private GameMotion motion;
         private Move[] steps;
+        private RectTransform targetBody;
         private int cursor;
         private bool enabledForAttempt, suggestFirefly;
         public bool Completed => steps != null && cursor == steps.Length;
@@ -72,20 +73,43 @@ namespace PerchSort.Game
                 else
                 {
                     if (!GameSession.CanMove(session.State, move.From, move.To)) return;
-                    int branch = session.SelectedBranch == move.From ? move.To : move.From;
-                    int slot = Mathf.Max(0, session.State.Branches[branch].Birds.Count - 1);
-                    point = board.Branches[branch].Slot(slot) + new Vector2(0, 55);
+                    if (session.SelectedBranch >= 0) return;
+                    var birds = session.State.Branches[move.From].Birds;
+                    if (birds.Count == 0) return;
+                    targetBody = (RectTransform)board.Birds[birds[birds.Count - 1].Id].transform.Find("Bird body");
+                    point = Vector2.zero;
                 }
             }
             hand.gameObject.SetActive(true); hand.rectTransform.anchoredPosition = new Vector2(point.x, -point.y); hand.rectTransform.localScale = Vector3.one;
-            motion.Loop(0.9f, t => hand.rectTransform.localScale = Vector3.one * (0.92f + 0.08f * Mathf.Cos(t * Mathf.PI * 2)));
+            PlaceHand();
+            motion.Loop(0.9f, t => hand.rectTransform.localScale = Vector3.one * (0.96f + 0.04f * Mathf.Cos(t * Mathf.PI * 2)));
+        }
+        private void LateUpdate()
+        {
+            if (hand != null && hand.gameObject.activeSelf) PlaceHand();
+        }
+        private void PlaceHand()
+        {
+            var rect = hand.rectTransform;
+            if (targetBody == null) return;
+            Rect body = targetBody.rect;
+            Vector3 tip = targetBody.TransformPoint(new Vector3(body.center.x + 30, body.yMin + body.height * 0.32f));
+            var layer = (RectTransform)transform;
+            Vector3 local = layer.InverseTransformPoint(tip);
+            rect.anchoredPosition = new Vector2(local.x - layer.rect.xMin, local.y - layer.rect.yMax);
+            Vector2 position = rect.anchoredPosition;
+            position.x = Mathf.Clamp(position.x, rect.pivot.x * rect.rect.width,
+                GameLayout.DesignWidth - 24 - (1 - rect.pivot.x) * rect.rect.width);
+            position.y = Mathf.Clamp(position.y, -GameLayout.DesignHeight + rect.pivot.y * rect.rect.height,
+                -(1 - rect.pivot.y) * rect.rect.height);
+            rect.anchoredPosition = position;
         }
         public void DismissSaplingPrompt()
         {
             if (!SaplingPromptPending) return;
             SaplingPromptPending = false; Hide();
         }
-        public void Hide() { motion.CancelAll(); hand.gameObject.SetActive(false); }
+        public void Hide() { targetBody = null; motion.CancelAll(); hand.gameObject.SetActive(false); }
         public void DisableForAttempt() { enabledForAttempt = false; SaplingPromptPending = false; Hide(); }
     }
 }

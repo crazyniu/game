@@ -283,7 +283,7 @@
         304
       ],
       "usage": "整根栖木及上方鸟的木箱遮罩",
-      "source": "source/v2/crate.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/crate.png",
       "batch": "T10a",
       "textRectPixelsFromTop": [
         140,
@@ -314,7 +314,7 @@
         192.0
       ],
       "usage": "单鸟临时篮子",
-      "source": "source/v2/basket.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/basket.png",
       "batch": "T10a",
       "birdStandingPixelsFromTop": [
         256,
@@ -343,7 +343,7 @@
         256.0
       ],
       "usage": "顶部目标空巢，中央叠鸟图标",
-      "source": "source/v2/nest.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/nest.png",
       "batch": "T10a",
       "iconCenterPixelsFromTop": [
         256,
@@ -373,7 +373,7 @@
         256.0
       ],
       "usage": "同巢三蛋完成态",
-      "source": "source/v2/nest_done.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/nest_done.png",
       "batch": "T10a",
       "iconCenterPixelsFromTop": [
         256,
@@ -402,7 +402,7 @@
         128.0
       ],
       "usage": "睡眠 Z 气泡",
-      "source": "source/v2/zzz.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/zzz.png",
       "batch": "T10a"
     },
     "sparkle": {
@@ -427,7 +427,7 @@
         128.0
       ],
       "usage": "四角星闪光",
-      "source": "source/v2/sparkle.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/sparkle.png",
       "batch": "T10a"
     },
     "check": {
@@ -452,7 +452,7 @@
         128.0
       ],
       "usage": "绿色完成徽章",
-      "source": "source/v2/check.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/check.png",
       "batch": "T10a"
     },
     "feather": {
@@ -477,7 +477,7 @@
         128.0
       ],
       "usage": "归巢飘落羽毛",
-      "source": "source/v2/feather.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/feather.png",
       "batch": "T10a"
     },
     "ring": {
@@ -502,7 +502,7 @@
         128.0
       ],
       "usage": "柔和金色光环",
-      "source": "source/v2/ring.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/ring.png",
       "batch": "T10a"
     },
     "confetti_01": {
@@ -527,7 +527,7 @@
         128.0
       ],
       "usage": "珊瑚红矩形纸片",
-      "source": "source/v2/confetti_01.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/confetti_01.png",
       "batch": "T10a"
     },
     "confetti_02": {
@@ -552,7 +552,7 @@
         128.0
       ],
       "usage": "青色三角纸片",
-      "source": "source/v2/confetti_02.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/confetti_02.png",
       "batch": "T10a"
     },
     "confetti_03": {
@@ -577,7 +577,7 @@
         128.0
       ],
       "usage": "淡紫卷曲纸片",
-      "source": "source/v2/confetti_03.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/confetti_03.png",
       "batch": "T10a"
     },
     "trophy": {
@@ -602,7 +602,7 @@
         512.0
       ],
       "usage": "结算金奖杯",
-      "source": "source/v2/trophy.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/trophy.png",
       "batch": "T10a"
     },
     "star": {
@@ -627,7 +627,7 @@
         128.0
       ],
       "usage": "五角金星奖励",
-      "source": "source/v2/star.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/star.png",
       "batch": "T10a"
     },
     "closed_eye": {
@@ -652,7 +652,7 @@
         64.0
       ],
       "usage": "单条闭眼弧线；现有鸟优先使用睡眠版",
-      "source": "source/v2/closed_eye.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/closed_eye.png",
       "batch": "T10a"
     },
     "bird_01s": {
@@ -677,7 +677,7 @@
         870
       ],
       "usage": "第 1 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_01s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_01s.png",
       "batch": "T10a",
       "footCenterPixels": [
         594.12,
@@ -708,7 +708,7 @@
         870
       ],
       "usage": "第 2 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_02s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_02s.png",
       "batch": "T10a",
       "footCenterPixels": [
         606.66,
@@ -739,7 +739,7 @@
         870
       ],
       "usage": "第 3 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_03s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_03s.png",
       "batch": "T10a",
       "footCenterPixels": [
         583.6,
@@ -770,7 +770,7 @@
         870
       ],
       "usage": "第 4 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_04s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_04s.png",
       "batch": "T10a",
       "footCenterPixels": [
         650.7,
@@ -801,7 +801,7 @@
         870
       ],
       "usage": "第 5 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_05s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_05s.png",
       "batch": "T10a",
       "footCenterPixels": [
         630.33,
@@ -832,7 +832,7 @@
         870
       ],
       "usage": "第 6 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_06s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_06s.png",
       "batch": "T10a",
       "footCenterPixels": [
         518.15,
@@ -863,7 +863,7 @@
         870
       ],
       "usage": "第 7 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_07s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_07s.png",
       "batch": "T10a",
       "footCenterPixels": [
         423.79,
@@ -894,7 +894,7 @@
         870
       ],
       "usage": "第 8 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_08s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_08s.png",
       "batch": "T10a",
       "footCenterPixels": [
         694.2,
@@ -925,7 +925,7 @@
         870
       ],
       "usage": "第 9 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_09s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_09s.png",
       "batch": "T10a",
       "footCenterPixels": [
         623.45,
@@ -956,7 +956,7 @@
         870
       ],
       "usage": "第 10 种鸟的闭眼睡眠版",
-      "source": "source/v2/bird_10s.png",
+      "source": "https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/art/source/v2/bird_10s.png",
       "batch": "T10a",
       "footCenterPixels": [
         457.66,

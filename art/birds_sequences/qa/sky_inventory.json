@@ -1,0 +1,1468 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_left_01.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/sky_turn_left.png",
+    "cell": 1,
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      75,
+      254,
+      303
+    ],
+    "scale": 0.41454545454545455,
+    "translation": [
+      24,
+      57
+    ],
+    "source_feet": [
+      190,
+      567,
+      465,
+      586
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "a78d1fece90b80ce4ec90880bd472d9eb3ebb430b9862efd7895f2b512dc5b46"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_left_02.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/sky_turn_left.png",
+    "cell": 2,
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      75,
+      260,
+      303
+    ],
+    "scale": 0.41454545454545455,
+    "translation": [
+      35,
+      57
+    ],
+    "source_feet": [
+      163,
+      568,
+      439,
+      587
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "a76c41abafe830d2b456ac40494b5fa886d5e725f850ad3701788cfe01489293"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_left_03.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/sky_turn_left.png",
+    "cell": 3,
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      84,
+      74,
+      256,
+      302
+    ],
+    "scale": 0.41454545454545455,
+    "translation": [
+      30,
+      57
+    ],
+    "source_feet": [
+      183,
+      568,
+      446,
+      587
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "80b987211edbf62897a5be175bfaafa9b93c148a8d3acd85e202213e7d9e0793"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_left_04.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/sky_turn_left.png",
+    "cell": 4,
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      78,
+      74,
+      254,
+      302
+    ],
+    "scale": 0.41454545454545455,
+    "translation": [
+      35,
+      57
+    ],
+    "source_feet": [
+      162,
+      568,
+      439,
+      587
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "aafa5beedad43a5ec73091c27c6e28a2e88593baece0ade68fc2e7fc35aa2973"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_01.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      66,
+      258,
+      303
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      0,
+      26
+    ],
+    "source_feet": [
+      171,
+      439,
+      360,
+      455
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "00fea31a91844aa7e37efae6b7a5f210ab2ce0e47537a1457177e8fca6805d58"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_02.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      16,
+      66,
+      296,
+      303
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      0,
+      26
+    ],
+    "source_feet": [
+      172,
+      439,
+      360,
+      455
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "8462d3c019f62b8a202e5529b44921f18aab13c04c118fb24ce0a7d83f88a69b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_03.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      22,
+      66,
+      290,
+      304
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      0,
+      26
+    ],
+    "source_feet": [
+      171,
+      439,
+      361,
+      455
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "70c606cdd96b65b5bf590e50d088f41a6db6e80baf49f74b0a9f512c26ddbfc3"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_04.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      8,
+      65,
+      309,
+      303
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      0,
+      25
+    ],
+    "source_feet": [
+      171,
+      440,
+      360,
+      456
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "144d51b6f1bf2211dfdfc9aa73ed4f8577f9e826c1dd048f316ad44583be54d0"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_05.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 5,
+    "cell_size": [
+      507,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      18,
+      65,
+      300,
+      303
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      3,
+      25
+    ],
+    "source_feet": [
+      166,
+      440,
+      355,
+      456
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "55dc8e144f3940fb3b81e3551353b1503d9d54dc6d52c1bb561663800c985fe7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_flap_06.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/sky_flap.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      66,
+      264,
+      304
+    ],
+    "scale": 0.6031746031746031,
+    "translation": [
+      0,
+      26
+    ],
+    "source_feet": [
+      171,
+      439,
+      360,
+      455
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "d09b6f3674913c8866d11184d5c4683655da710e710b10a96d5ac2b6b928ade1"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_right_01.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/sky_turn_right.png",
+    "cell": 1,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      71,
+      256,
+      302
+    ],
+    "scale": 0.5757575757575758,
+    "translation": [
+      -103,
+      63
+    ],
+    "source_feet": [
+      358,
+      397,
+      556,
+      411
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "da8868010013f1f24bd4c677e954419134345dccb42b62e32f58be90759cba47"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_right_02.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/sky_turn_right.png",
+    "cell": 2,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      70,
+      250,
+      303
+    ],
+    "scale": 0.5757575757575758,
+    "translation": [
+      -57,
+      63
+    ],
+    "source_feet": [
+      277,
+      398,
+      476,
+      412
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "48fbfebba6128582f56d62bf9e83db92651403aac584045172a4b645d18df28a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_right_03.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/sky_turn_right.png",
+    "cell": 3,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      68,
+      67,
+      257,
+      302
+    ],
+    "scale": 0.5757575757575758,
+    "translation": [
+      -109,
+      60
+    ],
+    "source_feet": [
+      367,
+      403,
+      568,
+      417
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "6b07efa8fa5a155891c043848a574c28eaf0aaf21764e6027fcee777feb8b69d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_turn_right_04.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/sky_turn_right.png",
+    "cell": 4,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      69,
+      258,
+      303
+    ],
+    "scale": 0.5757575757575758,
+    "translation": [
+      -58,
+      60
+    ],
+    "source_feet": [
+      278,
+      403,
+      479,
+      417
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "c5e6e48f686d6c68a9c5166eb702646e2c05b42e48906675fd9578c8d44d44f3"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_01.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      28,
+      65,
+      282,
+      302
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      11,
+      49
+    ],
+    "source_feet": [
+      172,
+      451,
+      384,
+      467
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "f218a4a0a06d6d35734aac837cd79645f639ae46f2984dfd5b320afbac0b20a1"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_02.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      30,
+      65,
+      284,
+      302
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      22,
+      49
+    ],
+    "source_feet": [
+      150,
+      451,
+      362,
+      467
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "c2db10f6226eb9b7731b1740789544f5c618cdfb5342f12002de12522972e940"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_03.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      29,
+      64,
+      283,
+      301
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      27,
+      48
+    ],
+    "source_feet": [
+      143,
+      452,
+      353,
+      468
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "cab827d08e45b587d3e18ebc6b47d7b677139ba42daa81fbb54374f1235e7dd4"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_04.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      30,
+      64,
+      278,
+      302
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      11,
+      49
+    ],
+    "source_feet": [
+      171,
+      451,
+      382,
+      467
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "bbb315313265471451b9c15c5abf51ba5533828dcdaa8ecd81f9a2da002cbd76"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_05.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      24,
+      64,
+      296,
+      302
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      22,
+      49
+    ],
+    "source_feet": [
+      150,
+      451,
+      362,
+      467
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "0813303f653ecc24d9fcfb7031b34ebd4d804e115db369f5cab816cc1a9e9bbd"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_cheer_06.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/sky_cheer.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      63,
+      278,
+      301
+    ],
+    "scale": 0.5377358490566038,
+    "translation": [
+      27,
+      48
+    ],
+    "source_feet": [
+      142,
+      452,
+      353,
+      468
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "2b997bf5db1b1892111dbecaeece9fb8a80f898ed8267c4162cf2e2c8e96f182"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_preen_01.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/sky_preen.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      68,
+      278,
+      303
+    ],
+    "scale": 0.5327102803738317,
+    "translation": [
+      22,
+      41
+    ],
+    "source_feet": [
+      152,
+      470,
+      366,
+      486
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "09e1dbbd505011bc64a37b96682102dcb4999331b4dc2abc4131bd51754270f7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_preen_02.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/sky_preen.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      68,
+      273,
+      303
+    ],
+    "scale": 0.5327102803738317,
+    "translation": [
+      22,
+      41
+    ],
+    "source_feet": [
+      152,
+      470,
+      366,
+      486
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "3ec5c0dbee5fbdf5b42881d8518e7fc98bf9410afaa0fc7e3017abe14bd36860"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_preen_03.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/sky_preen.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      70,
+      271,
+      303
+    ],
+    "scale": 0.5327102803738317,
+    "translation": [
+      22,
+      41
+    ],
+    "source_feet": [
+      152,
+      470,
+      366,
+      486
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "c3c44204f3e8091827281eab647420367b489abd4954f9bce016c08809c386a7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_preen_04.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/sky_preen.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      68,
+      278,
+      303
+    ],
+    "scale": 0.5327102803738317,
+    "translation": [
+      22,
+      41
+    ],
+    "source_feet": [
+      152,
+      470,
+      365,
+      486
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "9d86a31402ad66ed30be2732ddf08da5e3bbc9e21193879ff54147f409a59c4e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_preen_05.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/sky_preen.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      67,
+      287,
+      303
+    ],
+    "scale": 0.5327102803738317,
+    "translation": [
+      22,
+      41
+    ],
+    "source_feet": [
+      152,
+      470,
+      366,
+      486
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "1e3ce685931d07b4ac1b67ae98ee1618e4137266af35c126a6c970aca1e0309e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_peek_01.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/sky_peek.png",
+    "cell": 1,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      118,
+      266,
+      302
+    ],
+    "scale": 0.5533980582524272,
+    "translation": [
+      -106,
+      68
+    ],
+    "source_feet": [
+      378,
+      405,
+      584,
+      419
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "c8c449c5330953ee207daffa4f6882875d20db13790fdd424118eccb97c0373a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_peek_02.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/sky_peek.png",
+    "cell": 2,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      58,
+      82,
+      254,
+      302
+    ],
+    "scale": 0.5533980582524272,
+    "translation": [
+      -66,
+      68
+    ],
+    "source_feet": [
+      307,
+      405,
+      510,
+      419
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "19b55ea5c7d53533b068e2f260b3485452451c652717778afe9493be1457c1c0"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_peek_03.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/sky_peek.png",
+    "cell": 3,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      73,
+      294,
+      302
+    ],
+    "scale": 0.5533980582524272,
+    "translation": [
+      -106,
+      67
+    ],
+    "source_feet": [
+      379,
+      407,
+      583,
+      421
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "589f826b5f97524b97f5394491fc85a6be74e7f29f5d440651a7c7c949a008f0"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_peek_04.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/sky_peek.png",
+    "cell": 4,
+    "cell_size": [
+      887,
+      443
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      87,
+      258,
+      302
+    ],
+    "scale": 0.5533980582524272,
+    "translation": [
+      -66,
+      67
+    ],
+    "source_feet": [
+      307,
+      407,
+      510,
+      421
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "6d0f5e1d6c93fcc4f395d5caf9782a272617eae2e32679eb4ed2649b499298ad"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_blink_01.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/sky_blink.png",
+    "cell": 1,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      67,
+      254,
+      303
+    ],
+    "scale": 0.3584905660377358,
+    "translation": [
+      21,
+      52
+    ],
+    "source_feet": [
+      228,
+      670,
+      546,
+      692
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "43acc06ec910fe7e4a7a23fa539da8b703b86009a01cf105659e8722a95be062"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_blink_02.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/sky_blink.png",
+    "cell": 2,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      67,
+      255,
+      303
+    ],
+    "scale": 0.3584905660377358,
+    "translation": [
+      38,
+      52
+    ],
+    "source_feet": [
+      183,
+      671,
+      500,
+      693
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "25d25993a4f78e378f0159cfe0a871792520579f41dcbf851590b3dd4f831eaf"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_blink_03.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/sky_blink.png",
+    "cell": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      67,
+      255,
+      303
+    ],
+    "scale": 0.3584905660377358,
+    "translation": [
+      54,
+      52
+    ],
+    "source_feet": [
+      138,
+      671,
+      455,
+      693
+    ],
+    "ground_baseline": 300,
+    "drawn_airborne": false,
+    "sha256": "88237a2066067a41a3cc1493eb3cbcd8b7b876eaa28f16a62fa51398f838515e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_01.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      31,
+      62,
+      283,
+      302
+    ],
+    "scale": 0.59375,
+    "translation": [
+      -4,
+      20
+    ],
+    "source_feet": [
+      181,
+      455,
+      373,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "54b47aa822492334b6fe85c81262b054f84d1c859b627f8fa2c0c99e4c04a37f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_02.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      32,
+      49,
+      286,
+      302
+    ],
+    "scale": 0.59375,
+    "translation": [
+      9,
+      21
+    ],
+    "source_feet": [
+      169,
+      454,
+      341,
+      470
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "f9c4f4b88ac74a929a3eedab814957a093ba9c63fee0a249d20faa94fc742fde"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_03.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      64,
+      287,
+      301
+    ],
+    "scale": 0.59375,
+    "translation": [
+      8,
+      46
+    ],
+    "source_feet": [
+      182,
+      412,
+      331,
+      428
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "8ee9096a9875e7725799e7acbfdde59bdc5cb569233753298a21759852b0de6e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_04.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      19,
+      73,
+      284,
+      302
+    ],
+    "scale": 0.59375,
+    "translation": [
+      -10,
+      64
+    ],
+    "source_feet": [
+      208,
+      382,
+      364,
+      398
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "c210dff01258c32e1043e8baf665028538d770e919bad134ca45c5a19acee655"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_05.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      23,
+      57,
+      295,
+      301
+    ],
+    "scale": 0.59375,
+    "translation": [
+      4,
+      45
+    ],
+    "source_feet": [
+      182,
+      413,
+      345,
+      429
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "d0805ec8b2e54e810056fbcd8bd365c9e2f5dec81912bf3a84f566834b44f3c5"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/sky_hop_06.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/sky_hop.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      20,
+      62,
+      296,
+      302
+    ],
+    "scale": 0.59375,
+    "translation": [
+      5,
+      22
+    ],
+    "source_feet": [
+      160,
+      453,
+      362,
+      469
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "b1fe11025153cde30bf61f0627b4a230ce2455b87c40d295776c1507701d1c4b"
+  }
+]

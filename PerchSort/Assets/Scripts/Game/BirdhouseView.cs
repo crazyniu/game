@@ -9,12 +9,15 @@ namespace PerchSort.Game
     {
         private RectTransform house, doorway;
         private Image door, face, openDoorway;
+        private Image body, roof;
         private GameObject check;
         private GameMotion motion, doorMotion, checkMotion, particles, peekMotion;
+        private UiBirdLife resident;
         private GameArt art;
         private Rect bounds;
         private float openness;
         private int generation;
+        private bool leaving;
         public string Species { get; private set; }
         public Vector2 GiftPoint { get; private set; }
         public bool IsHome { get; private set; }
@@ -45,7 +48,7 @@ namespace PerchSort.Game
             var target = house.gameObject.AddComponent<Image>(); target.color = Color.clear; target.raycastTarget = true;
             house.gameObject.AddComponent<LongPress>().Configure(() => root.OpenGoalInfo(Species));
             Vector2 center = bounds.size * 0.5f;
-            GameUI.Image(house, "House body", art.Get("house_body"), center, bounds.size);
+            body = GameUI.Image(house, "House body", art.Get("house_body"), center, bounds.size);
             Vector2 doorPoint = GameLayout.HouseDoorLocal(bounds.size);
             Vector2 opening = bounds.size * (204f / 512);
             var open = art.Optional("house_door_open");
@@ -53,12 +56,15 @@ namespace PerchSort.Game
             else GameArt.Warn("motion:house_door_open", "Missing open doorway part; using the house-body doorway.");
             var mask = GameUI.Image(house, "Doorway mask", art.DoorMask(), doorPoint, opening);
             mask.gameObject.AddComponent<Mask>().showMaskGraphic = false; doorway = mask.rectTransform;
-            face = GameUI.Fit(doorway, "Species face", art.Portrait(species), opening * 0.5f, opening * (UsesBeam(count) ? 1.35f : 1));
-            GameUI.Image(house, "Colored roof", art.Get(Roof(species)), center, bounds.size);
+            face = GameUI.Fit(doorway, "Species face", art.Get(species + "_idle"), opening * 0.5f, opening * (UsesBeam(count) ? 1.35f : 1.2f));
+            resident = face.gameObject.AddComponent<UiBirdLife>();
+            resident.Configure(face, art, species);
+            roof = GameUI.Image(house, "Colored roof", art.Get(Roof(species)), center, bounds.size);
+            ApplyStyle(root.Collection.EquippedBirdhouseStyle);
             var leaf = art.Optional("house_door_leaf");
             if (leaf != null)
             {
-                // The padded T48 door occupies (145, 198, 216, 216) in a 512px image.
+                // The padded door occupies (145, 198, 216, 216) in a 512px image.
                 // Put the transform pivot on its visible hinge without allocating a cropped sprite.
                 door = GameUI.Image(house, "Door leaf", leaf, doorPoint, bounds.size);
                 door.rectTransform.pivot = new Vector2(145 / 512f, 206 / 512f);
@@ -73,6 +79,12 @@ namespace PerchSort.Game
             motion = gameObject.AddComponent<GameMotion>(); doorMotion = gameObject.AddComponent<GameMotion>();
             checkMotion = gameObject.AddComponent<GameMotion>(); particles = gameObject.AddComponent<GameMotion>(); peekMotion = gameObject.AddComponent<GameMotion>();
             SetHome(false); DoorPose(0);
+        }
+        public void ApplyStyle(string style)
+        {
+            bool styled = style != "default";
+            body.sprite = art.Get(styled ? "house_style_" + style + "_body" : "house_body");
+            roof.gameObject.SetActive(!styled);
         }
         private static string Roof(string species)
         {
@@ -98,13 +110,13 @@ namespace PerchSort.Game
         internal void MaskEntry(RectTransform bird) => bird.SetParent(doorway, true);
         public void OpenDoor(Action done)
         {
-            face.gameObject.SetActive(false); AnimateDoor(1, done);
+            resident.Stop(); face.gameObject.SetActive(false); AnimateDoor(1, done);
         }
         public void CloseDoor(Action done) => AnimateDoor(0, done);
         private void AnimateDoor(float target, Action done)
         {
             doorMotion.CancelAll(); float start = openness; int run = generation;
-            doorMotion.Play(0.18f, t => DoorPose(Mathf.Lerp(start, target, t)), () =>
+            doorMotion.Play(0.25f, t => DoorPose(Mathf.Lerp(start, target, t)), () =>
             {
                 if (run != generation) return;
                 DoorPose(target); done?.Invoke();
@@ -127,13 +139,15 @@ namespace PerchSort.Game
         public void Peek(bool visible, Action done)
         {
             peekMotion.CancelAll(); int run = generation;
-            Vector2 opening = doorway.sizeDelta;
-            face.gameObject.SetActive(true);
-            peekMotion.Play(0.2f, t =>
+            // Empty goals never reveal a coloured target portrait, even during an intro peek.
+            if (!IsHome) { face.gameObject.SetActive(false); done?.Invoke(); return; }
+            face.gameObject.SetActive(true); resident.Begin(); resident.Play("peek");
+            peekMotion.Play(0.4f, t => { }, () =>
             {
-                float progress = visible ? t : 1 - t;
-                face.rectTransform.anchoredPosition = new Vector2(opening.x * 0.5f, -opening.y * 0.5f - opening.y * (1 - progress));
-            }, () => { if (run == generation) { face.gameObject.SetActive(visible); done?.Invoke(); } });
+                if (run != generation) return;
+                face.gameObject.SetActive(visible);
+                done?.Invoke();
+            });
         }
         public void Arrival()
         {
@@ -159,18 +173,45 @@ namespace PerchSort.Game
         public void CompleteFlock(Action done)
         {
             int run = generation;
-            CloseDoor(() =>
+            SetHome(true); check.SetActive(false);
+            resident.Play("hop");
+            peekMotion.Play(0.5f, t => { }, () =>
             {
                 if (run != generation) return;
-                SetHome(true); check.transform.localScale = Vector3.zero;
-                checkMotion.Play(0.25f, t => check.transform.localScale = Vector3.one * t,
-                    () => { if (run == generation) { check.transform.localScale = Vector3.one; done?.Invoke(); } }, ease: Ease.OutBack);
+                CloseDoor(() =>
+                {
+                    if (run != generation) return;
+                    check.SetActive(true); check.transform.localScale = Vector3.zero;
+                    checkMotion.Play(0.25f, t => check.transform.localScale = Vector3.one * t,
+                        () => { if (run == generation) { check.transform.localScale = Vector3.one; done?.Invoke(); } }, ease: Ease.OutBack);
+                });
             });
         }
         public void SetHome(bool value)
         {
+            if (!value && leaving) return;
+            bool wasHome = IsHome;
+            bool changed = IsHome != value || face.gameObject.activeSelf != value;
             IsHome = value; ArrivalCount = value ? 4 : 0; check.SetActive(value);
-            face.gameObject.SetActive(true); face.rectTransform.anchoredPosition = new Vector2(doorway.sizeDelta.x * 0.5f, -doorway.sizeDelta.y * 0.5f);
+            if (!value && wasHome && !GameMotion.Instant && gameObject.activeInHierarchy)
+            {
+                leaving = true; int run = generation;
+                OpenDoor(() =>
+                {
+                    if (run != generation) return;
+                    face.gameObject.SetActive(true); resident.Begin(); resident.Play("hop");
+                    peekMotion.Play(0.5f, t => { }, () =>
+                    {
+                        if (run != generation) return;
+                        resident.Stop(); face.gameObject.SetActive(false);
+                        CloseDoor(() => { if (run == generation) leaving = false; });
+                    });
+                });
+                return;
+            }
+            if (!value) resident.Stop();
+            face.gameObject.SetActive(value);
+            if (value && changed) resident.Begin();
             check.transform.localScale = Vector3.one;
         }
         public void Cancel()
@@ -178,10 +219,12 @@ namespace PerchSort.Game
             generation++;
             if (motion == null) return;
             motion.CancelAll(); doorMotion.CancelAll(); checkMotion.CancelAll(); particles.CancelAll(); peekMotion.CancelAll();
+            leaving = false; resident.Stop(); face.gameObject.SetActive(false);
             house.localScale = Vector3.one; DoorPose(0); SetHome(IsHome);
             for (int i = house.childCount - 1; i >= 0; i--)
                 if (house.GetChild(i).name == "Arrival sparkle") GameUI.Dispose(house.GetChild(i).gameObject);
         }
+        private void OnEnable() { if (resident != null && IsHome) resident.Begin(); }
         private void OnDisable() => Cancel();
         private void OnDestroy() => Cancel();
     }

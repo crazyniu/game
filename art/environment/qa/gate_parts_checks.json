@@ -1,0 +1,146 @@
+[
+  {
+    "asset": "gate_arch_frame_w1",
+    "canvas": [
+      560,
+      600
+    ],
+    "transparent_pixels": 217866,
+    "fractional_alpha_pixels": 117113,
+    "alpha_edge_max": 1,
+    "central_doorway_alpha_max": 1,
+    "sha256": "7b4f3679d7f765afc7813630c072c60a889be8e8d83586abd16d380a9227765f"
+  },
+  {
+    "asset": "gate_door_left_w1",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 4505,
+    "fractional_alpha_pixels": 41036,
+    "alpha_edge_max": 43,
+    "central_doorway_alpha_max": null,
+    "sha256": "51722b07785068990e074cfe0dcf4c17bfd9e2e6fbc3e65a85ab29ff5d938dc3"
+  },
+  {
+    "asset": "gate_door_right_w1",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 5032,
+    "fractional_alpha_pixels": 40475,
+    "alpha_edge_max": 51,
+    "central_doorway_alpha_max": null,
+    "sha256": "bbb3c9eaa87906fb1171268c80b448d285e2380fa272ab8885cce74bdad57099"
+  },
+  {
+    "asset": "gate_light_w1",
+    "canvas": [
+      320,
+      440
+    ],
+    "transparent_pixels": 26096,
+    "fractional_alpha_pixels": 114704,
+    "alpha_edge_max": 1,
+    "central_doorway_alpha_max": null,
+    "sha256": "c728ee7b087a45c02a35ecfda0e09370512a2955f2dcd36377336ed8f040804b"
+  },
+  {
+    "asset": "gate_arch_frame_w2",
+    "canvas": [
+      560,
+      600
+    ],
+    "transparent_pixels": 221286,
+    "fractional_alpha_pixels": 113606,
+    "alpha_edge_max": 1,
+    "central_doorway_alpha_max": 1,
+    "sha256": "ed4ca0ee40bf321df9cad4f28ab3fa564179b5baec704de6050754e9a89f16a6"
+  },
+  {
+    "asset": "gate_door_left_w2",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 4503,
+    "fractional_alpha_pixels": 41089,
+    "alpha_edge_max": 43,
+    "central_doorway_alpha_max": null,
+    "sha256": "ecc37e5c69fbc838721dc6d86771338e76b159f0f20c1adcf03daf3b6e2d7c5a"
+  },
+  {
+    "asset": "gate_door_right_w2",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 4658,
+    "fractional_alpha_pixels": 41003,
+    "alpha_edge_max": 70,
+    "central_doorway_alpha_max": null,
+    "sha256": "6a1c2b37e9dfa66506254104e29d99701a13336449197c370fda0ad8681e555c"
+  },
+  {
+    "asset": "gate_light_w2",
+    "canvas": [
+      320,
+      440
+    ],
+    "transparent_pixels": 26029,
+    "fractional_alpha_pixels": 114771,
+    "alpha_edge_max": 1,
+    "central_doorway_alpha_max": null,
+    "sha256": "9364b9449b97171cc689443d74758bbb7291084a8b7fbd2e2b85cf42a2901cf8"
+  },
+  {
+    "asset": "gate_arch_frame_w3",
+    "canvas": [
+      560,
+      600
+    ],
+    "transparent_pixels": 217897,
+    "fractional_alpha_pixels": 117050,
+    "alpha_edge_max": 0,
+    "central_doorway_alpha_max": 1,
+    "sha256": "32be7a86b9c04a729c5d06326b649619b8b5488144af4a7ed6e5ec4183d63dda"
+  },
+  {
+    "asset": "gate_door_left_w3",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 4518,
+    "fractional_alpha_pixels": 40881,
+    "alpha_edge_max": 38,
+    "central_doorway_alpha_max": null,
+    "sha256": "ec3b0c72a8751cc4494b2c6aa8001c0e4ef10f2b48c3087da810e2e243822efa"
+  },
+  {
+    "asset": "gate_door_right_w3",
+    "canvas": [
+      160,
+      288
+    ],
+    "transparent_pixels": 4596,
+    "fractional_alpha_pixels": 41186,
+    "alpha_edge_max": 61,
+    "central_doorway_alpha_max": null,
+    "sha256": "6875261961ba41ca927a6bd9794d1966bf99f1cfaab8ded7dde43a39d11db0ab"
+  },
+  {
+    "asset": "gate_light_w3",
+    "canvas": [
+      320,
+      440
+    ],
+    "transparent_pixels": 17477,
+    "fractional_alpha_pixels": 123323,
+    "alpha_edge_max": 1,
+    "central_doorway_alpha_max": null,
+    "sha256": "69357976aa9411a63362a8fae6960b3dc38d599ba5d8c2ee4fe2810b83df7c1c"
+  }
+]

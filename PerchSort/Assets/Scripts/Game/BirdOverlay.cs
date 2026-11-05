@@ -16,6 +16,8 @@ namespace PerchSort.Game
         private readonly Image bow, fluff;
         private readonly Dictionary<Sprite, Pose> poses;
         private readonly bool finalBow, finalFluff;
+        private readonly Pose sequencePose;
+        private readonly string sequencePrefix;
         private Sprite lastFrame;
         private bool applied;
 
@@ -44,6 +46,8 @@ namespace PerchSort.Game
                 return;
             }
             poses = new Dictionary<Sprite, Pose>(Frames.Length);
+            sequencePose = Calibrate(species, "idle");
+            sequencePrefix = species + "_";
             foreach (string name in Frames)
             {
                 string key = species + "_" + name;
@@ -88,19 +92,33 @@ namespace PerchSort.Game
         {
             if (applied && lastFrame == frame) return;
             lastFrame = frame; applied = true;
-            Pose pose = default;
-            bool reviewed = frame != null && poses != null && poses.TryGetValue(frame, out pose);
-            // Compatibility positions are normalized from the previous 200px bird canvas.
-            Vector2 bowPoint = reviewed ? pose.Bow : new Vector2(105 / 200f, 32 / 200f);
-            Vector2 fluffPoint = reviewed ? pose.Fluff : new Vector2(75 / 200f, 103 / 200f);
-            Attach(bow.rectTransform, bowPoint, finalBow ? 72 / 320f : 48 / 200f,
-                reviewed ? pose.Clockwise : 0);
-            Attach(fluff.rectTransform, fluffPoint, finalFluff ? 88 / 320f : 75 / 200f, 0);
+            Pose pose = Resolve(frame);
+            Attach(bow.rectTransform, pose.Bow, finalBow ? 72 / 320f : 48 / 200f, pose.Clockwise);
+            Attach(fluff.rectTransform, pose.Fluff, finalFluff ? 88 / 320f : 75 / 200f, 0);
+        }
+        public void Blend(Sprite from, Sprite to, float amount)
+        {
+            // Match marker motion to the crossfade instead of snapping attachments to a new head pose.
+            applied = false;
+            Pose start = Resolve(from), end = Resolve(to);
+            Attach(bow.rectTransform, Vector2.Lerp(start.Bow, end.Bow, amount),
+                finalBow ? 72 / 320f : 48 / 200f, Mathf.Lerp(start.Clockwise, end.Clockwise, amount));
+            Attach(fluff.rectTransform, Vector2.Lerp(start.Fluff, end.Fluff, amount),
+                finalFluff ? 88 / 320f : 75 / 200f, 0);
+        }
+
+        private Pose Resolve(Sprite frame)
+        {
+            if (frame != null && poses != null && poses.TryGetValue(frame, out var pose)) return pose;
+            // Sequence delivery shares the idle canvas/baseline; retain that calibration, not legacy anchors.
+            if (frame != null && poses != null && frame.rect.width == 320 && frame.rect.height == 320 &&
+                frame.name.StartsWith(sequencePrefix, System.StringComparison.Ordinal)) return sequencePose;
+            return new Pose(105 * 320 / 200f, 32 * 320 / 200f, 75 * 320 / 200f, 103 * 320 / 200f);
         }
 
         private void Attach(RectTransform overlay, Vector2 anchor, float size, float clockwise)
         {
-            // Both markers remain children of the foot-pivoted body. Facing/chick/density transform once.
+            // Both markers remain children of the foot-pivoted body. Chick/density transform once.
             Vector2 canvas = body.sizeDelta;
             overlay.anchoredPosition = new Vector2(canvas.x * anchor.x, -canvas.y * anchor.y);
             overlay.sizeDelta = canvas * size;

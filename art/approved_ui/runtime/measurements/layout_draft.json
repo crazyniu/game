@@ -1,0 +1,4407 @@
+{
+  "schema": "perch-sort-approved-layout-measurements-draft-1",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top_left",
+    "unit": "px"
+  },
+  "measurement_method": "Manual visual bounds on 540x960 inspection copies; all values multiplied by 2. Bounds include visible decorative silhouette, excluding broad diffuse glow unless named. Centers and sizes are observed art positions, not UI hit targets. Approximate edge uncertainty +/-8 source px; natural branches and glow +/-16 px.",
+  "screens": {
+    "level_k3": {
+      "source": "art/approved_ui/ui_level_k3.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            170,
+            193
+          ],
+          "size": [
+            228,
+            90
+          ],
+          "rect": [
+            56,
+            148,
+            228,
+            90
+          ]
+        },
+        "coin_number_text": {
+          "center": [
+            201,
+            190
+          ],
+          "size": [
+            118,
+            52
+          ],
+          "rect": [
+            142,
+            164,
+            118,
+            52
+          ]
+        },
+        "gear": {
+          "center": [
+            923,
+            195
+          ],
+          "size": [
+            114,
+            110
+          ],
+          "rect": [
+            866,
+            140,
+            114,
+            110
+          ]
+        },
+        "house": {
+          "center": [
+            523,
+            268
+          ],
+          "size": [
+            246,
+            232
+          ],
+          "rect": [
+            400,
+            152,
+            246,
+            232
+          ]
+        },
+        "house_rope": {
+          "center": [
+            521,
+            84
+          ],
+          "size": [
+            30,
+            168
+          ],
+          "rect": [
+            506,
+            0,
+            30,
+            168
+          ]
+        },
+        "house_door": {
+          "center": [
+            533,
+            307
+          ],
+          "size": [
+            118,
+            130
+          ],
+          "rect": [
+            474,
+            242,
+            118,
+            130
+          ]
+        },
+        "board_band": {
+          "center": [
+            540,
+            1118
+          ],
+          "size": [
+            1080,
+            720
+          ],
+          "rect": [
+            0,
+            758,
+            1080,
+            720
+          ]
+        },
+        "branch_1": {
+          "center": [
+            263,
+            935
+          ],
+          "size": [
+            526,
+            66
+          ],
+          "rect": [
+            0,
+            902,
+            526,
+            66
+          ]
+        },
+        "branch_2": {
+          "center": [
+            781,
+            1100
+          ],
+          "size": [
+            598,
+            72
+          ],
+          "rect": [
+            482,
+            1064,
+            598,
+            72
+          ]
+        },
+        "branch_3": {
+          "center": [
+            262,
+            1285
+          ],
+          "size": [
+            524,
+            74
+          ],
+          "rect": [
+            0,
+            1248,
+            524,
+            74
+          ]
+        },
+        "branch_4": {
+          "center": [
+            777,
+            1444
+          ],
+          "size": [
+            606,
+            76
+          ],
+          "rect": [
+            474,
+            1406,
+            606,
+            76
+          ]
+        },
+        "bird_nominal": {
+          "center": [
+            205,
+            852
+          ],
+          "size": [
+            122,
+            152
+          ],
+          "rect": [
+            144,
+            776,
+            122,
+            152
+          ]
+        },
+        "undo": {
+          "center": [
+            344,
+            1802
+          ],
+          "size": [
+            108,
+            108
+          ],
+          "rect": [
+            290,
+            1748,
+            108,
+            108
+          ]
+        },
+        "hint": {
+          "center": [
+            532,
+            1802
+          ],
+          "size": [
+            108,
+            108
+          ],
+          "rect": [
+            478,
+            1748,
+            108,
+            108
+          ]
+        },
+        "branch_plus": {
+          "center": [
+            720,
+            1802
+          ],
+          "size": [
+            108,
+            108
+          ],
+          "rect": [
+            666,
+            1748,
+            108,
+            108
+          ]
+        },
+        "undo_count": {
+          "center": [
+            379,
+            1753
+          ],
+          "size": [
+            46,
+            46
+          ],
+          "rect": [
+            356,
+            1730,
+            46,
+            46
+          ]
+        },
+        "hint_count": {
+          "center": [
+            565,
+            1753
+          ],
+          "size": [
+            46,
+            46
+          ],
+          "rect": [
+            542,
+            1730,
+            46,
+            46
+          ]
+        },
+        "branch_plus_count": {
+          "center": [
+            753,
+            1753
+          ],
+          "size": [
+            46,
+            46
+          ],
+          "rect": [
+            730,
+            1730,
+            46,
+            46
+          ]
+        }
+      },
+      "branches": [
+        {
+          "side": "left",
+          "perch_line": [
+            [
+              0,
+              944
+            ],
+            [
+              510,
+              920
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              98,
+              866
+            ],
+            [
+              206,
+              868
+            ],
+            [
+              322,
+              861
+            ],
+            [
+              428,
+              866
+            ]
+          ]
+        },
+        {
+          "side": "right",
+          "perch_line": [
+            [
+              500,
+              1080
+            ],
+            [
+              1068,
+              1105
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              592,
+              1005
+            ],
+            [
+              714,
+              1000
+            ],
+            [
+              819,
+              1005
+            ],
+            [
+              937,
+              1008
+            ]
+          ]
+        },
+        {
+          "side": "left",
+          "perch_line": [
+            [
+              0,
+              1298
+            ],
+            [
+              514,
+              1270
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              95,
+              1188
+            ],
+            [
+              205,
+              1194
+            ],
+            [
+              325,
+              1194
+            ],
+            [
+              444,
+              1200
+            ]
+          ]
+        },
+        {
+          "side": "right",
+          "perch_line": [
+            [
+              482,
+              1428
+            ],
+            [
+              1080,
+              1452
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              576,
+              1350
+            ],
+            [
+              689,
+              1346
+            ]
+          ]
+        }
+      ],
+      "notes": [
+        "The approved K3 master depicts one house and four branches. This is observed artwork, not a three-house gameplay rule.",
+        "Visible bird counts are artwork evidence only; they do not define level data."
+      ]
+    },
+    "level_k7": {
+      "source": "art/approved_ui/ui_level_k7.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            174,
+            156
+          ],
+          "size": [
+            240,
+            96
+          ],
+          "rect": [
+            54,
+            108,
+            240,
+            96
+          ]
+        },
+        "coin_number_text": {
+          "center": [
+            213,
+            156
+          ],
+          "size": [
+            114,
+            56
+          ],
+          "rect": [
+            156,
+            128,
+            114,
+            56
+          ]
+        },
+        "gear": {
+          "center": [
+            951,
+            155
+          ],
+          "size": [
+            114,
+            114
+          ],
+          "rect": [
+            894,
+            98,
+            114,
+            114
+          ]
+        },
+        "house_beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ],
+          "rect": [
+            0,
+            218,
+            1080,
+            74
+          ]
+        },
+        "house_1": {
+          "center": [
+            117,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            42,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_2": {
+          "center": [
+            259,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            184,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_3": {
+          "center": [
+            399,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            324,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_4": {
+          "center": [
+            539,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            464,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_5": {
+          "center": [
+            677,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            602,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_6": {
+          "center": [
+            817,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            742,
+            296,
+            150,
+            176
+          ]
+        },
+        "house_7": {
+          "center": [
+            957,
+            384
+          ],
+          "size": [
+            150,
+            176
+          ],
+          "rect": [
+            882,
+            296,
+            150,
+            176
+          ]
+        },
+        "board_band": {
+          "center": [
+            540,
+            1128
+          ],
+          "size": [
+            1080,
+            1112
+          ],
+          "rect": [
+            0,
+            572,
+            1080,
+            1112
+          ]
+        },
+        "branch_1": {
+          "center": [
+            320,
+            801
+          ],
+          "size": [
+            640,
+            106
+          ],
+          "rect": [
+            0,
+            748,
+            640,
+            106
+          ]
+        },
+        "branch_2": {
+          "center": [
+            755,
+            1001
+          ],
+          "size": [
+            650,
+            82
+          ],
+          "rect": [
+            430,
+            960,
+            650,
+            82
+          ]
+        },
+        "branch_3": {
+          "center": [
+            307,
+            1226
+          ],
+          "size": [
+            614,
+            100
+          ],
+          "rect": [
+            0,
+            1176,
+            614,
+            100
+          ]
+        },
+        "branch_4": {
+          "center": [
+            673,
+            1429
+          ],
+          "size": [
+            814,
+            106
+          ],
+          "rect": [
+            266,
+            1376,
+            814,
+            106
+          ]
+        },
+        "branch_5": {
+          "center": [
+            322,
+            1647
+          ],
+          "size": [
+            644,
+            114
+          ],
+          "rect": [
+            0,
+            1590,
+            644,
+            114
+          ]
+        },
+        "scarecrow_perch": {
+          "center": [
+            907,
+            726
+          ],
+          "size": [
+            346,
+            92
+          ],
+          "rect": [
+            734,
+            680,
+            346,
+            92
+          ]
+        },
+        "bird_nominal": {
+          "center": [
+            278,
+            682
+          ],
+          "size": [
+            136,
+            168
+          ],
+          "rect": [
+            210,
+            598,
+            136,
+            168
+          ]
+        },
+        "undo": {
+          "center": [
+            260,
+            1792
+          ],
+          "size": [
+            128,
+            132
+          ],
+          "rect": [
+            196,
+            1726,
+            128,
+            132
+          ]
+        },
+        "hint": {
+          "center": [
+            440,
+            1792
+          ],
+          "size": [
+            128,
+            132
+          ],
+          "rect": [
+            376,
+            1726,
+            128,
+            132
+          ]
+        },
+        "branch_plus": {
+          "center": [
+            622,
+            1792
+          ],
+          "size": [
+            128,
+            132
+          ],
+          "rect": [
+            558,
+            1726,
+            128,
+            132
+          ]
+        },
+        "scarecrow": {
+          "center": [
+            808,
+            1792
+          ],
+          "size": [
+            132,
+            132
+          ],
+          "rect": [
+            742,
+            1726,
+            132,
+            132
+          ]
+        },
+        "undo_count": {
+          "center": [
+            301,
+            1735
+          ],
+          "size": [
+            50,
+            50
+          ],
+          "rect": [
+            276,
+            1710,
+            50,
+            50
+          ]
+        },
+        "hint_count": {
+          "center": [
+            481,
+            1735
+          ],
+          "size": [
+            50,
+            50
+          ],
+          "rect": [
+            456,
+            1710,
+            50,
+            50
+          ]
+        },
+        "branch_plus_count": {
+          "center": [
+            663,
+            1735
+          ],
+          "size": [
+            50,
+            50
+          ],
+          "rect": [
+            638,
+            1710,
+            50,
+            50
+          ]
+        },
+        "scarecrow_disabled": {
+          "center": [
+            839,
+            1813
+          ],
+          "size": [
+            58,
+            58
+          ],
+          "rect": [
+            810,
+            1784,
+            58,
+            58
+          ]
+        }
+      },
+      "branches": [
+        {
+          "side": "left",
+          "perch_line": [
+            [
+              20,
+              807
+            ],
+            [
+              618,
+              769
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              144,
+              695
+            ],
+            [
+              272,
+              689
+            ],
+            [
+              405,
+              695
+            ],
+            [
+              528,
+              691
+            ]
+          ]
+        },
+        {
+          "side": "right",
+          "perch_line": [
+            [
+              447,
+              985
+            ],
+            [
+              1060,
+              1000
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              550,
+              916
+            ],
+            [
+              688,
+              918
+            ],
+            [
+              821,
+              904
+            ],
+            [
+              958,
+              916
+            ]
+          ]
+        },
+        {
+          "side": "left",
+          "perch_line": [
+            [
+              20,
+              1246
+            ],
+            [
+              606,
+              1197
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              130,
+              1122
+            ],
+            [
+              256,
+              1128
+            ],
+            [
+              388,
+              1128
+            ],
+            [
+              515,
+              1130
+            ]
+          ]
+        },
+        {
+          "side": "right",
+          "perch_line": [
+            [
+              285,
+              1402
+            ],
+            [
+              1062,
+              1432
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              389,
+              1313
+            ],
+            [
+              513,
+              1334
+            ],
+            [
+              648,
+              1333
+            ],
+            [
+              787,
+              1336
+            ],
+            [
+              926,
+              1326
+            ]
+          ]
+        },
+        {
+          "side": "left",
+          "perch_line": [
+            [
+              10,
+              1641
+            ],
+            [
+              613,
+              1611
+            ]
+          ],
+          "occupied_bird_centers": [
+            [
+              136,
+              1538
+            ],
+            [
+              263,
+              1532
+            ],
+            [
+              400,
+              1545
+            ],
+            [
+              530,
+              1540
+            ]
+          ]
+        }
+      ]
+    },
+    "win": {
+      "source": "art/approved_ui/ui_win.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            536,
+            1128
+          ],
+          "size": [
+            716,
+            772
+          ],
+          "rect": [
+            178,
+            742,
+            716,
+            772
+          ]
+        },
+        "ribbon": {
+          "center": [
+            529,
+            792
+          ],
+          "size": [
+            674,
+            200
+          ],
+          "rect": [
+            192,
+            692,
+            674,
+            200
+          ]
+        },
+        "hero_bird": {
+          "center": [
+            520,
+            614
+          ],
+          "size": [
+            240,
+            216
+          ],
+          "rect": [
+            400,
+            506,
+            240,
+            216
+          ]
+        },
+        "left_bird": {
+          "center": [
+            210,
+            1092
+          ],
+          "size": [
+            248,
+            308
+          ],
+          "rect": [
+            86,
+            938,
+            248,
+            308
+          ]
+        },
+        "right_bird": {
+          "center": [
+            886,
+            1049
+          ],
+          "size": [
+            264,
+            314
+          ],
+          "rect": [
+            754,
+            892,
+            264,
+            314
+          ]
+        },
+        "star_left": {
+          "center": [
+            378,
+            949
+          ],
+          "size": [
+            168,
+            174
+          ],
+          "rect": [
+            294,
+            862,
+            168,
+            174
+          ]
+        },
+        "star_center": {
+          "center": [
+            542,
+            917
+          ],
+          "size": [
+            192,
+            190
+          ],
+          "rect": [
+            446,
+            822,
+            192,
+            190
+          ]
+        },
+        "star_right": {
+          "center": [
+            708,
+            949
+          ],
+          "size": [
+            168,
+            174
+          ],
+          "rect": [
+            624,
+            862,
+            168,
+            174
+          ]
+        },
+        "coin_reward": {
+          "center": [
+            532,
+            1107
+          ],
+          "size": [
+            332,
+            102
+          ],
+          "rect": [
+            366,
+            1056,
+            332,
+            102
+          ]
+        },
+        "chain_reward": {
+          "center": [
+            541,
+            1206
+          ],
+          "size": [
+            186,
+            64
+          ],
+          "rect": [
+            448,
+            1174,
+            186,
+            64
+          ]
+        },
+        "replay": {
+          "center": [
+            342,
+            1348
+          ],
+          "size": [
+            140,
+            140
+          ],
+          "rect": [
+            272,
+            1278,
+            140,
+            140
+          ]
+        },
+        "next": {
+          "center": [
+            530,
+            1357
+          ],
+          "size": [
+            208,
+            206
+          ],
+          "rect": [
+            426,
+            1254,
+            208,
+            206
+          ]
+        },
+        "home": {
+          "center": [
+            716,
+            1348
+          ],
+          "size": [
+            140,
+            140
+          ],
+          "rect": [
+            646,
+            1278,
+            140,
+            140
+          ]
+        }
+      }
+    },
+    "settings": {
+      "source": "art/approved_ui/ui_settings.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            538,
+            1101
+          ],
+          "size": [
+            736,
+            474
+          ],
+          "rect": [
+            170,
+            864,
+            736,
+            474
+          ]
+        },
+        "ribbon": {
+          "center": [
+            525,
+            915
+          ],
+          "size": [
+            570,
+            166
+          ],
+          "rect": [
+            240,
+            832,
+            570,
+            166
+          ]
+        },
+        "close": {
+          "center": [
+            860,
+            894
+          ],
+          "size": [
+            120,
+            124
+          ],
+          "rect": [
+            800,
+            832,
+            120,
+            124
+          ]
+        },
+        "sound": {
+          "center": [
+            334,
+            1131
+          ],
+          "size": [
+            180,
+            182
+          ],
+          "rect": [
+            244,
+            1040,
+            180,
+            182
+          ]
+        },
+        "replay": {
+          "center": [
+            538,
+            1131
+          ],
+          "size": [
+            180,
+            182
+          ],
+          "rect": [
+            448,
+            1040,
+            180,
+            182
+          ]
+        },
+        "home": {
+          "center": [
+            744,
+            1131
+          ],
+          "size": [
+            180,
+            182
+          ],
+          "rect": [
+            654,
+            1040,
+            180,
+            182
+          ]
+        }
+      }
+    },
+    "level_card": {
+      "source": "art/approved_ui/ui_level_card.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            536,
+            909
+          ],
+          "size": [
+            612,
+            698
+          ],
+          "rect": [
+            230,
+            560,
+            612,
+            698
+          ]
+        },
+        "leaf_number": {
+          "center": [
+            531,
+            555
+          ],
+          "size": [
+            214,
+            146
+          ],
+          "rect": [
+            424,
+            482,
+            214,
+            146
+          ]
+        },
+        "close": {
+          "center": [
+            786,
+            589
+          ],
+          "size": [
+            92,
+            94
+          ],
+          "rect": [
+            740,
+            542,
+            92,
+            94
+          ]
+        },
+        "star_left": {
+          "center": [
+            423,
+            672
+          ],
+          "size": [
+            110,
+            108
+          ],
+          "rect": [
+            368,
+            618,
+            110,
+            108
+          ]
+        },
+        "star_center": {
+          "center": [
+            535,
+            672
+          ],
+          "size": [
+            110,
+            108
+          ],
+          "rect": [
+            480,
+            618,
+            110,
+            108
+          ]
+        },
+        "star_right": {
+          "center": [
+            647,
+            672
+          ],
+          "size": [
+            110,
+            108
+          ],
+          "rect": [
+            592,
+            618,
+            110,
+            108
+          ]
+        },
+        "stat_pill": {
+          "center": [
+            536,
+            772
+          ],
+          "size": [
+            356,
+            68
+          ],
+          "rect": [
+            358,
+            738,
+            356,
+            68
+          ]
+        },
+        "bird_1": {
+          "center": [
+            346,
+            902
+          ],
+          "size": [
+            136,
+            160
+          ],
+          "rect": [
+            278,
+            822,
+            136,
+            160
+          ]
+        },
+        "bird_2": {
+          "center": [
+            478,
+            902
+          ],
+          "size": [
+            136,
+            160
+          ],
+          "rect": [
+            410,
+            822,
+            136,
+            160
+          ]
+        },
+        "bird_3": {
+          "center": [
+            612,
+            902
+          ],
+          "size": [
+            136,
+            160
+          ],
+          "rect": [
+            544,
+            822,
+            136,
+            160
+          ]
+        },
+        "bird_4": {
+          "center": [
+            742,
+            902
+          ],
+          "size": [
+            136,
+            160
+          ],
+          "rect": [
+            674,
+            822,
+            136,
+            160
+          ]
+        },
+        "sleeping_bird": {
+          "center": [
+            443,
+            1047
+          ],
+          "size": [
+            142,
+            126
+          ],
+          "rect": [
+            372,
+            984,
+            142,
+            126
+          ]
+        },
+        "hidden_egg": {
+          "center": [
+            625,
+            1057
+          ],
+          "size": [
+            150,
+            118
+          ],
+          "rect": [
+            550,
+            998,
+            150,
+            118
+          ]
+        },
+        "play": {
+          "center": [
+            537,
+            1190
+          ],
+          "size": [
+            174,
+            180
+          ],
+          "rect": [
+            450,
+            1100,
+            174,
+            180
+          ]
+        }
+      }
+    },
+    "unlock_card": {
+      "source": "art/approved_ui/ui_unlock_card.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            537,
+            999
+          ],
+          "size": [
+            650,
+            858
+          ],
+          "rect": [
+            212,
+            570,
+            650,
+            858
+          ]
+        },
+        "eye_icon": {
+          "center": [
+            538,
+            716
+          ],
+          "size": [
+            188,
+            128
+          ],
+          "rect": [
+            444,
+            652,
+            188,
+            128
+          ]
+        },
+        "egg": {
+          "center": [
+            545,
+            934
+          ],
+          "size": [
+            238,
+            276
+          ],
+          "rect": [
+            426,
+            796,
+            238,
+            276
+          ]
+        },
+        "title": {
+          "center": [
+            538,
+            1124
+          ],
+          "size": [
+            376,
+            88
+          ],
+          "rect": [
+            350,
+            1080,
+            376,
+            88
+          ]
+        },
+        "description": {
+          "center": [
+            539,
+            1206
+          ],
+          "size": [
+            474,
+            48
+          ],
+          "rect": [
+            302,
+            1182,
+            474,
+            48
+          ]
+        },
+        "confirm": {
+          "center": [
+            534,
+            1349
+          ],
+          "size": [
+            192,
+            194
+          ],
+          "rect": [
+            438,
+            1252,
+            192,
+            194
+          ]
+        }
+      }
+    },
+    "goal_info": {
+      "source": "art/approved_ui/ui_goal_info.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            536,
+            503
+          ],
+          "size": [
+            592,
+            282
+          ],
+          "rect": [
+            240,
+            362,
+            592,
+            282
+          ]
+        },
+        "pointer": {
+          "center": [
+            539,
+            354
+          ],
+          "size": [
+            74,
+            44
+          ],
+          "rect": [
+            502,
+            332,
+            74,
+            44
+          ]
+        },
+        "bird_frame": {
+          "center": [
+            376,
+            503
+          ],
+          "size": [
+            184,
+            198
+          ],
+          "rect": [
+            284,
+            404,
+            184,
+            198
+          ]
+        },
+        "name": {
+          "center": [
+            557,
+            460
+          ],
+          "size": [
+            166,
+            68
+          ],
+          "rect": [
+            474,
+            426,
+            166,
+            68
+          ]
+        },
+        "gift_badge": {
+          "center": [
+            713,
+            458
+          ],
+          "size": [
+            122,
+            124
+          ],
+          "rect": [
+            652,
+            396,
+            122,
+            124
+          ]
+        },
+        "description": {
+          "center": [
+            635,
+            553
+          ],
+          "size": [
+            334,
+            46
+          ],
+          "rect": [
+            468,
+            530,
+            334,
+            46
+          ]
+        }
+      }
+    },
+    "popup_new_friend": {
+      "source": "art/approved_ui/ui_popup_new_friend.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "hero_bird": {
+          "center": [
+            533,
+            812
+          ],
+          "size": [
+            474,
+            580
+          ],
+          "rect": [
+            296,
+            522,
+            474,
+            580
+          ]
+        },
+        "ribbon": {
+          "center": [
+            528,
+            1178
+          ],
+          "size": [
+            640,
+            232
+          ],
+          "rect": [
+            208,
+            1062,
+            640,
+            232
+          ]
+        },
+        "name": {
+          "center": [
+            526,
+            1162
+          ],
+          "size": [
+            328,
+            88
+          ],
+          "rect": [
+            362,
+            1118,
+            328,
+            88
+          ]
+        },
+        "gift_badge": {
+          "center": [
+            529,
+            1335
+          ],
+          "size": [
+            198,
+            182
+          ],
+          "rect": [
+            430,
+            1244,
+            198,
+            182
+          ]
+        },
+        "confirm": {
+          "center": [
+            530,
+            1553
+          ],
+          "size": [
+            216,
+            214
+          ],
+          "rect": [
+            422,
+            1446,
+            216,
+            214
+          ]
+        }
+      },
+      "notes": [
+        "Replace the depicted gift box with Minty watering-can badge per T48. The badge rectangle is measured from the approved popup."
+      ]
+    },
+    "popup_daily_gift": {
+      "source": "art/approved_ui/ui_popup_daily_gift.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "gift_basket": {
+          "center": [
+            533,
+            945
+          ],
+          "size": [
+            578,
+            522
+          ],
+          "rect": [
+            244,
+            684,
+            578,
+            522
+          ]
+        },
+        "coin_reward": {
+          "center": [
+            529,
+            1248
+          ],
+          "size": [
+            302,
+            112
+          ],
+          "rect": [
+            378,
+            1192,
+            302,
+            112
+          ]
+        },
+        "confirm": {
+          "center": [
+            521,
+            1408
+          ],
+          "size": [
+            306,
+            156
+          ],
+          "rect": [
+            368,
+            1330,
+            306,
+            156
+          ]
+        }
+      }
+    },
+    "popup_world_complete": {
+      "source": "art/approved_ui/ui_popup_world_complete.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "gate": {
+          "center": [
+            530,
+            994
+          ],
+          "size": [
+            856,
+            728
+          ],
+          "rect": [
+            102,
+            630,
+            856,
+            728
+          ]
+        },
+        "ribbon": {
+          "center": [
+            539,
+            569
+          ],
+          "size": [
+            730,
+            242
+          ],
+          "rect": [
+            174,
+            448,
+            730,
+            242
+          ]
+        },
+        "star_left": {
+          "center": [
+            402,
+            536
+          ],
+          "size": [
+            128,
+            124
+          ],
+          "rect": [
+            338,
+            474,
+            128,
+            124
+          ]
+        },
+        "star_center": {
+          "center": [
+            543,
+            518
+          ],
+          "size": [
+            130,
+            124
+          ],
+          "rect": [
+            478,
+            456,
+            130,
+            124
+          ]
+        },
+        "star_right": {
+          "center": [
+            683,
+            536
+          ],
+          "size": [
+            130,
+            124
+          ],
+          "rect": [
+            618,
+            474,
+            130,
+            124
+          ]
+        },
+        "hero_bird_yellow": {
+          "center": [
+            529,
+            827
+          ],
+          "size": [
+            230,
+            274
+          ],
+          "rect": [
+            414,
+            690,
+            230,
+            274
+          ]
+        },
+        "hero_bird_blue": {
+          "center": [
+            383,
+            1029
+          ],
+          "size": [
+            230,
+            266
+          ],
+          "rect": [
+            268,
+            896,
+            230,
+            266
+          ]
+        },
+        "hero_bird_pink": {
+          "center": [
+            658,
+            1093
+          ],
+          "size": [
+            264,
+            298
+          ],
+          "rect": [
+            526,
+            944,
+            264,
+            298
+          ]
+        },
+        "coin_reward": {
+          "center": [
+            540,
+            1381
+          ],
+          "size": [
+            332,
+            118
+          ],
+          "rect": [
+            374,
+            1322,
+            332,
+            118
+          ]
+        },
+        "next": {
+          "center": [
+            542,
+            1565
+          ],
+          "size": [
+            256,
+            258
+          ],
+          "rect": [
+            414,
+            1436,
+            256,
+            258
+          ]
+        }
+      }
+    },
+    "popup_world_unlock": {
+      "source": "art/approved_ui/ui_popup_world_unlock.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "gate": {
+          "center": [
+            536,
+            1136
+          ],
+          "size": [
+            920,
+            904
+          ],
+          "rect": [
+            76,
+            684,
+            920,
+            904
+          ]
+        },
+        "world_plaque": {
+          "center": [
+            543,
+            852
+          ],
+          "size": [
+            338,
+            184
+          ],
+          "rect": [
+            374,
+            760,
+            338,
+            184
+          ]
+        },
+        "play": {
+          "center": [
+            535,
+            1541
+          ],
+          "size": [
+            250,
+            246
+          ],
+          "rect": [
+            410,
+            1418,
+            250,
+            246
+          ]
+        }
+      }
+    },
+    "map": {
+      "source": "art/approved_ui/ui_map.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            178,
+            73
+          ],
+          "size": [
+            256,
+            106
+          ],
+          "rect": [
+            50,
+            20,
+            256,
+            106
+          ]
+        },
+        "gear": {
+          "center": [
+            988,
+            76
+          ],
+          "size": [
+            116,
+            116
+          ],
+          "rect": [
+            930,
+            18,
+            116,
+            116
+          ]
+        },
+        "gate": {
+          "center": [
+            706,
+            328
+          ],
+          "size": [
+            444,
+            364
+          ],
+          "rect": [
+            484,
+            146,
+            444,
+            364
+          ]
+        },
+        "node_1": {
+          "center": [
+            386,
+            1484
+          ],
+          "size": [
+            216,
+            188
+          ],
+          "rect": [
+            278,
+            1390,
+            216,
+            188
+          ]
+        },
+        "node_2": {
+          "center": [
+            466,
+            1274
+          ],
+          "size": [
+            212,
+            188
+          ],
+          "rect": [
+            360,
+            1180,
+            212,
+            188
+          ]
+        },
+        "node_3": {
+          "center": [
+            579,
+            1099
+          ],
+          "size": [
+            198,
+            166
+          ],
+          "rect": [
+            480,
+            1016,
+            198,
+            166
+          ]
+        },
+        "node_4": {
+          "center": [
+            434,
+            913
+          ],
+          "size": [
+            228,
+            202
+          ],
+          "rect": [
+            320,
+            812,
+            228,
+            202
+          ]
+        },
+        "node_5": {
+          "center": [
+            582,
+            671
+          ],
+          "size": [
+            192,
+            142
+          ],
+          "rect": [
+            486,
+            600,
+            192,
+            142
+          ]
+        },
+        "node_6": {
+          "center": [
+            722,
+            559
+          ],
+          "size": [
+            180,
+            126
+          ],
+          "rect": [
+            632,
+            496,
+            180,
+            126
+          ]
+        },
+        "current_bird": {
+          "center": [
+            408,
+            758
+          ],
+          "size": [
+            192,
+            204
+          ],
+          "rect": [
+            312,
+            656,
+            192,
+            204
+          ]
+        },
+        "shop": {
+          "center": [
+            290,
+            1828
+          ],
+          "size": [
+            152,
+            152
+          ],
+          "rect": [
+            214,
+            1752,
+            152,
+            152
+          ]
+        },
+        "aviary": {
+          "center": [
+            536,
+            1828
+          ],
+          "size": [
+            152,
+            152
+          ],
+          "rect": [
+            460,
+            1752,
+            152,
+            152
+          ]
+        },
+        "settings": {
+          "center": [
+            782,
+            1828
+          ],
+          "size": [
+            152,
+            152
+          ],
+          "rect": [
+            706,
+            1752,
+            152,
+            152
+          ]
+        }
+      },
+      "notes": [
+        "These six visible node positions belong to the approved 1080x1920 concept only, not the new 1080x3000 world backgrounds. Runtime world path node coordinates must be measured separately after generation."
+      ]
+    },
+    "shop_boosters": {
+      "source": "art/approved_ui/ui_shop_boosters.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            172,
+            194
+          ],
+          "size": [
+            240,
+            92
+          ],
+          "rect": [
+            52,
+            148,
+            240,
+            92
+          ]
+        },
+        "close": {
+          "center": [
+            965,
+            197
+          ],
+          "size": [
+            122,
+            122
+          ],
+          "rect": [
+            904,
+            136,
+            122,
+            122
+          ]
+        },
+        "tab_boosters": {
+          "center": [
+            349,
+            342
+          ],
+          "size": [
+            162,
+            172
+          ],
+          "rect": [
+            268,
+            256,
+            162,
+            172
+          ]
+        },
+        "tab_outfits": {
+          "center": [
+            539,
+            335
+          ],
+          "size": [
+            150,
+            150
+          ],
+          "rect": [
+            464,
+            260,
+            150,
+            150
+          ]
+        },
+        "tab_aviary": {
+          "center": [
+            731,
+            335
+          ],
+          "size": [
+            150,
+            150
+          ],
+          "rect": [
+            656,
+            260,
+            150,
+            150
+          ]
+        },
+        "grid": {
+          "center": [
+            540,
+            1122
+          ],
+          "size": [
+            956,
+            1340
+          ],
+          "rect": [
+            62,
+            452,
+            956,
+            1340
+          ]
+        },
+        "card_1": {
+          "center": [
+            297,
+            665
+          ],
+          "size": [
+            466,
+            418
+          ],
+          "rect": [
+            64,
+            456,
+            466,
+            418
+          ]
+        },
+        "card_2": {
+          "center": [
+            788,
+            665
+          ],
+          "size": [
+            460,
+            418
+          ],
+          "rect": [
+            558,
+            456,
+            460,
+            418
+          ]
+        },
+        "card_3": {
+          "center": [
+            297,
+            1109
+          ],
+          "size": [
+            466,
+            426
+          ],
+          "rect": [
+            64,
+            896,
+            466,
+            426
+          ]
+        },
+        "card_4": {
+          "center": [
+            788,
+            1109
+          ],
+          "size": [
+            460,
+            426
+          ],
+          "rect": [
+            558,
+            896,
+            460,
+            426
+          ]
+        },
+        "card_5": {
+          "center": [
+            297,
+            1564
+          ],
+          "size": [
+            466,
+            452
+          ],
+          "rect": [
+            64,
+            1338,
+            466,
+            452
+          ]
+        },
+        "card_6": {
+          "center": [
+            788,
+            1564
+          ],
+          "size": [
+            460,
+            452
+          ],
+          "rect": [
+            558,
+            1338,
+            460,
+            452
+          ]
+        },
+        "locked_level_chip": {
+          "center": [
+            948,
+            1553
+          ],
+          "size": [
+            140,
+            74
+          ],
+          "rect": [
+            878,
+            1516,
+            140,
+            74
+          ]
+        },
+        "icon_1": {
+          "center": [
+            304,
+            632
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            184,
+            512,
+            240,
+            240
+          ]
+        },
+        "count_1": {
+          "center": [
+            436,
+            520
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            394,
+            478,
+            84,
+            84
+          ]
+        },
+        "price_1": {
+          "center": [
+            301,
+            795
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            168,
+            746,
+            266,
+            98
+          ]
+        },
+        "icon_2": {
+          "center": [
+            798,
+            632
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            678,
+            512,
+            240,
+            240
+          ]
+        },
+        "count_2": {
+          "center": [
+            930,
+            520
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            888,
+            478,
+            84,
+            84
+          ]
+        },
+        "price_2": {
+          "center": [
+            795,
+            795
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            662,
+            746,
+            266,
+            98
+          ]
+        },
+        "icon_3": {
+          "center": [
+            304,
+            1072
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            184,
+            952,
+            240,
+            240
+          ]
+        },
+        "count_3": {
+          "center": [
+            436,
+            960
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            394,
+            918,
+            84,
+            84
+          ]
+        },
+        "price_3": {
+          "center": [
+            301,
+            1235
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            168,
+            1186,
+            266,
+            98
+          ]
+        },
+        "icon_4": {
+          "center": [
+            798,
+            1072
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            678,
+            952,
+            240,
+            240
+          ]
+        },
+        "count_4": {
+          "center": [
+            930,
+            960
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            888,
+            918,
+            84,
+            84
+          ]
+        },
+        "price_4": {
+          "center": [
+            795,
+            1235
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            662,
+            1186,
+            266,
+            98
+          ]
+        },
+        "icon_5": {
+          "center": [
+            304,
+            1514
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            184,
+            1394,
+            240,
+            240
+          ]
+        },
+        "count_5": {
+          "center": [
+            436,
+            1402
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            394,
+            1360,
+            84,
+            84
+          ]
+        },
+        "price_5": {
+          "center": [
+            301,
+            1703
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            168,
+            1654,
+            266,
+            98
+          ]
+        },
+        "icon_6": {
+          "center": [
+            798,
+            1514
+          ],
+          "size": [
+            240,
+            240
+          ],
+          "rect": [
+            678,
+            1394,
+            240,
+            240
+          ]
+        },
+        "count_6": {
+          "center": [
+            930,
+            1402
+          ],
+          "size": [
+            84,
+            84
+          ],
+          "rect": [
+            888,
+            1360,
+            84,
+            84
+          ]
+        },
+        "price_6": {
+          "center": [
+            795,
+            1703
+          ],
+          "size": [
+            266,
+            98
+          ],
+          "rect": [
+            662,
+            1654,
+            266,
+            98
+          ]
+        }
+      },
+      "notes": [
+        "Scarecrow card must use the purple round-disc icon family, correcting the concept."
+      ]
+    },
+    "shop_outfits": {
+      "source": "art/approved_ui/ui_shop_outfits.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            172,
+            194
+          ],
+          "size": [
+            240,
+            92
+          ],
+          "rect": [
+            52,
+            148,
+            240,
+            92
+          ]
+        },
+        "close": {
+          "center": [
+            965,
+            197
+          ],
+          "size": [
+            122,
+            122
+          ],
+          "rect": [
+            904,
+            136,
+            122,
+            122
+          ]
+        },
+        "tab_boosters": {
+          "center": [
+            345,
+            335
+          ],
+          "size": [
+            150,
+            150
+          ],
+          "rect": [
+            270,
+            260,
+            150,
+            150
+          ]
+        },
+        "tab_outfits": {
+          "center": [
+            541,
+            342
+          ],
+          "size": [
+            162,
+            172
+          ],
+          "rect": [
+            460,
+            256,
+            162,
+            172
+          ]
+        },
+        "tab_aviary": {
+          "center": [
+            731,
+            335
+          ],
+          "size": [
+            150,
+            150
+          ],
+          "rect": [
+            656,
+            260,
+            150,
+            150
+          ]
+        },
+        "grid": {
+          "center": [
+            540,
+            1065
+          ],
+          "size": [
+            964,
+            1218
+          ],
+          "rect": [
+            58,
+            456,
+            964,
+            1218
+          ]
+        },
+        "card_1": {
+          "center": [
+            296,
+            751
+          ],
+          "size": [
+            476,
+            590
+          ],
+          "rect": [
+            58,
+            456,
+            476,
+            590
+          ]
+        },
+        "card_2": {
+          "center": [
+            787,
+            751
+          ],
+          "size": [
+            470,
+            590
+          ],
+          "rect": [
+            552,
+            456,
+            470,
+            590
+          ]
+        },
+        "card_3": {
+          "center": [
+            296,
+            1375
+          ],
+          "size": [
+            476,
+            598
+          ],
+          "rect": [
+            58,
+            1076,
+            476,
+            598
+          ]
+        },
+        "card_4": {
+          "center": [
+            787,
+            1375
+          ],
+          "size": [
+            470,
+            598
+          ],
+          "rect": [
+            552,
+            1076,
+            470,
+            598
+          ]
+        },
+        "price_1": {
+          "center": [
+            301,
+            952
+          ],
+          "size": [
+            278,
+            100
+          ],
+          "rect": [
+            162,
+            902,
+            278,
+            100
+          ]
+        },
+        "bird_1": {
+          "center": [
+            295,
+            699
+          ],
+          "size": [
+            354,
+            386
+          ],
+          "rect": [
+            118,
+            506,
+            354,
+            386
+          ]
+        },
+        "price_2": {
+          "center": [
+            795,
+            952
+          ],
+          "size": [
+            278,
+            100
+          ],
+          "rect": [
+            656,
+            902,
+            278,
+            100
+          ]
+        },
+        "bird_2": {
+          "center": [
+            789,
+            699
+          ],
+          "size": [
+            354,
+            386
+          ],
+          "rect": [
+            612,
+            506,
+            354,
+            386
+          ]
+        },
+        "price_3": {
+          "center": [
+            301,
+            1572
+          ],
+          "size": [
+            278,
+            100
+          ],
+          "rect": [
+            162,
+            1522,
+            278,
+            100
+          ]
+        },
+        "bird_3": {
+          "center": [
+            295,
+            1319
+          ],
+          "size": [
+            354,
+            386
+          ],
+          "rect": [
+            118,
+            1126,
+            354,
+            386
+          ]
+        },
+        "price_4": {
+          "center": [
+            795,
+            1572
+          ],
+          "size": [
+            278,
+            100
+          ],
+          "rect": [
+            656,
+            1522,
+            278,
+            100
+          ]
+        },
+        "bird_4": {
+          "center": [
+            789,
+            1319
+          ],
+          "size": [
+            354,
+            386
+          ],
+          "rect": [
+            612,
+            1126,
+            354,
+            386
+          ]
+        }
+      }
+    },
+    "shop_confirm": {
+      "source": "art/approved_ui/ui_shop_confirm.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "panel": {
+          "center": [
+            536,
+            998
+          ],
+          "size": [
+            568,
+            652
+          ],
+          "rect": [
+            252,
+            672,
+            568,
+            652
+          ]
+        },
+        "close": {
+          "center": [
+            740,
+            722
+          ],
+          "size": [
+            136,
+            136
+          ],
+          "rect": [
+            672,
+            654,
+            136,
+            136
+          ]
+        },
+        "product_icon": {
+          "center": [
+            543,
+            881
+          ],
+          "size": [
+            302,
+            294
+          ],
+          "rect": [
+            392,
+            734,
+            302,
+            294
+          ]
+        },
+        "price_pill": {
+          "center": [
+            538,
+            1084
+          ],
+          "size": [
+            316,
+            104
+          ],
+          "rect": [
+            380,
+            1032,
+            316,
+            104
+          ]
+        },
+        "confirm": {
+          "center": [
+            538,
+            1250
+          ],
+          "size": [
+            192,
+            188
+          ],
+          "rect": [
+            442,
+            1156,
+            192,
+            188
+          ]
+        }
+      }
+    },
+    "aviary_list": {
+      "source": "art/approved_ui/ui_aviary_list.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            168,
+            133
+          ],
+          "size": [
+            240,
+            94
+          ],
+          "rect": [
+            48,
+            86,
+            240,
+            94
+          ]
+        },
+        "close": {
+          "center": [
+            975,
+            138
+          ],
+          "size": [
+            110,
+            116
+          ],
+          "rect": [
+            920,
+            80,
+            110,
+            116
+          ]
+        },
+        "board": {
+          "center": [
+            536,
+            1013
+          ],
+          "size": [
+            1032,
+            1814
+          ],
+          "rect": [
+            20,
+            106,
+            1032,
+            1814
+          ]
+        },
+        "grid": {
+          "center": [
+            528,
+            1007
+          ],
+          "size": [
+            680,
+            1558
+          ],
+          "rect": [
+            188,
+            228,
+            680,
+            1558
+          ]
+        },
+        "scroll_track": {
+          "center": [
+            924,
+            1032
+          ],
+          "size": [
+            24,
+            1104
+          ],
+          "rect": [
+            912,
+            480,
+            24,
+            1104
+          ]
+        },
+        "scroll_thumb": {
+          "center": [
+            925,
+            703
+          ],
+          "size": [
+            34,
+            118
+          ],
+          "rect": [
+            908,
+            644,
+            34,
+            118
+          ]
+        },
+        "bird_frame_1": {
+          "center": [
+            349,
+            390
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            190,
+            232,
+            318,
+            316
+          ]
+        },
+        "bird_frame_2": {
+          "center": [
+            713,
+            390
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            554,
+            232,
+            318,
+            316
+          ]
+        },
+        "bird_frame_3": {
+          "center": [
+            349,
+            782
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            190,
+            624,
+            318,
+            316
+          ]
+        },
+        "bird_frame_4": {
+          "center": [
+            713,
+            782
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            554,
+            624,
+            318,
+            316
+          ]
+        },
+        "bird_frame_5": {
+          "center": [
+            349,
+            1174
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            190,
+            1016,
+            318,
+            316
+          ]
+        },
+        "bird_frame_6": {
+          "center": [
+            713,
+            1174
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            554,
+            1016,
+            318,
+            316
+          ]
+        },
+        "bird_frame_7": {
+          "center": [
+            349,
+            1566
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            190,
+            1408,
+            318,
+            316
+          ]
+        },
+        "bird_frame_8": {
+          "center": [
+            713,
+            1566
+          ],
+          "size": [
+            318,
+            316
+          ],
+          "rect": [
+            554,
+            1408,
+            318,
+            316
+          ]
+        },
+        "name_ribbon_1": {
+          "center": [
+            354,
+            541
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            206,
+            492,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_2": {
+          "center": [
+            718,
+            541
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            570,
+            492,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_3": {
+          "center": [
+            354,
+            927
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            206,
+            878,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_4": {
+          "center": [
+            718,
+            927
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            570,
+            878,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_5": {
+          "center": [
+            354,
+            1313
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            206,
+            1264,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_6": {
+          "center": [
+            718,
+            1313
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            570,
+            1264,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_7": {
+          "center": [
+            354,
+            1699
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            206,
+            1650,
+            296,
+            98
+          ]
+        },
+        "name_ribbon_8": {
+          "center": [
+            718,
+            1699
+          ],
+          "size": [
+            296,
+            98
+          ],
+          "rect": [
+            570,
+            1650,
+            296,
+            98
+          ]
+        },
+        "house_count_chip_1": {
+          "center": [
+            354,
+            595
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            284,
+            564,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_2": {
+          "center": [
+            718,
+            595
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            648,
+            564,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_3": {
+          "center": [
+            354,
+            981
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            284,
+            950,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_4": {
+          "center": [
+            718,
+            981
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            648,
+            950,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_5": {
+          "center": [
+            354,
+            1367
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            284,
+            1336,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_6": {
+          "center": [
+            718,
+            1367
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            648,
+            1336,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_7": {
+          "center": [
+            354,
+            1753
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            284,
+            1722,
+            140,
+            62
+          ]
+        },
+        "house_count_chip_8": {
+          "center": [
+            718,
+            1753
+          ],
+          "size": [
+            140,
+            62
+          ],
+          "rect": [
+            648,
+            1722,
+            140,
+            62
+          ]
+        }
+      }
+    },
+    "aviary_detail": {
+      "source": "art/approved_ui/ui_aviary_detail.png",
+      "evidence": "observed_manual_bounds",
+      "uncertainty_px": 8,
+      "elements": {
+        "coin_pill": {
+          "center": [
+            172,
+            193
+          ],
+          "size": [
+            236,
+            90
+          ],
+          "rect": [
+            54,
+            148,
+            236,
+            90
+          ]
+        },
+        "close": {
+          "center": [
+            923,
+            193
+          ],
+          "size": [
+            110,
+            114
+          ],
+          "rect": [
+            868,
+            136,
+            110,
+            114
+          ]
+        },
+        "name_ribbon": {
+          "center": [
+            534,
+            291
+          ],
+          "size": [
+            644,
+            158
+          ],
+          "rect": [
+            212,
+            212,
+            644,
+            158
+          ]
+        },
+        "name": {
+          "center": [
+            539,
+            272
+          ],
+          "size": [
+            270,
+            88
+          ],
+          "rect": [
+            404,
+            228,
+            270,
+            88
+          ]
+        },
+        "description": {
+          "center": [
+            541,
+            406
+          ],
+          "size": [
+            638,
+            56
+          ],
+          "rect": [
+            222,
+            378,
+            638,
+            56
+          ]
+        },
+        "hero_bird": {
+          "center": [
+            530,
+            813
+          ],
+          "size": [
+            796,
+            734
+          ],
+          "rect": [
+            132,
+            446,
+            796,
+            734
+          ]
+        },
+        "panel": {
+          "center": [
+            536,
+            1502
+          ],
+          "size": [
+            964,
+            708
+          ],
+          "rect": [
+            54,
+            1148,
+            964,
+            708
+          ]
+        },
+        "outfit_1": {
+          "center": [
+            280,
+            1368
+          ],
+          "size": [
+            240,
+            244
+          ],
+          "rect": [
+            160,
+            1246,
+            240,
+            244
+          ]
+        },
+        "outfit_2": {
+          "center": [
+            542,
+            1368
+          ],
+          "size": [
+            240,
+            244
+          ],
+          "rect": [
+            422,
+            1246,
+            240,
+            244
+          ]
+        },
+        "outfit_3": {
+          "center": [
+            804,
+            1368
+          ],
+          "size": [
+            240,
+            244
+          ],
+          "rect": [
+            684,
+            1246,
+            240,
+            244
+          ]
+        },
+        "gift_badge": {
+          "center": [
+            261,
+            1589
+          ],
+          "size": [
+            170,
+            146
+          ],
+          "rect": [
+            176,
+            1516,
+            170,
+            146
+          ]
+        },
+        "effect_icon": {
+          "center": [
+            439,
+            1573
+          ],
+          "size": [
+            70,
+            62
+          ],
+          "rect": [
+            404,
+            1542,
+            70,
+            62
+          ]
+        },
+        "effect_text": {
+          "center": [
+            709,
+            1577
+          ],
+          "size": [
+            406,
+            62
+          ],
+          "rect": [
+            506,
+            1546,
+            406,
+            62
+          ]
+        },
+        "house_icon": {
+          "center": [
+            490,
+            1738
+          ],
+          "size": [
+            128,
+            116
+          ],
+          "rect": [
+            426,
+            1680,
+            128,
+            116
+          ]
+        },
+        "house_count": {
+          "center": [
+            605,
+            1735
+          ],
+          "size": [
+            66,
+            70
+          ],
+          "rect": [
+            572,
+            1700,
+            66,
+            70
+          ]
+        }
+      }
+    }
+  },
+  "house_count_adaptation": {
+    "status": "proposed_not_approved_screen_measurements",
+    "notes": [
+      "K3 approved image shows only a single house. The seven-house beam is observed only on K7.",
+      "K1 through K6 use centered subsets of the observed K7 spacing; these are implementation layout proposals and require integration review.",
+      "K1 single-house master option is screens.level_k3.elements.house; it is larger than K7 beam houses."
+    ],
+    "by_count": {
+      "1": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              540.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "2": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              470.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              610.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "3": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              400.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              540.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              680.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "4": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              330.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              470.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              610.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              750.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "5": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              260.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              400.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              540.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              680.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              820.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "6": {
+        "evidence": "inferred_from_k7_spacing",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              190.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              330.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              470.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              610.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              750.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              890.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      },
+      "7": {
+        "evidence": "observed_k7",
+        "source": "art/approved_ui/ui_level_k7.png",
+        "houses": [
+          {
+            "center": [
+              120.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              260.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              400.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              540.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              680.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              820.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          },
+          {
+            "center": [
+              960.0,
+              384
+            ],
+            "size": [
+              150,
+              176
+            ]
+          }
+        ],
+        "beam": {
+          "center": [
+            540,
+            255
+          ],
+          "size": [
+            1080,
+            74
+          ]
+        }
+      }
+    }
+  },
+  "world_paths": {
+    "status": "await_generated_backgrounds",
+    "coordinate_canvas": [
+      1080,
+      3000
+    ],
+    "worlds": {}
+  },
+  "integration_notes": [
+    "The concept icon atlas is 1536x1536; it is not a 1080x1920 screen.",
+    "Use code text rather than baked screen typography.",
+    "No runtime or Unity verification was performed.",
+    "These layouts preserve observed concept differences; do not silently normalize them to a new design."
+  ]
+}

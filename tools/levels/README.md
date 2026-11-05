@@ -1,19 +1,19 @@
-# V5 level authoring tool
+# Level authoring tool
 
-Authority: [GAME_DESIGN_V5](../../docs/GAME_DESIGN_V5.md), especially sections 11.1 and 12. The legacy `perch_levels.py` is not a V5 validator. `V5LevelTool` targets .NET 8 / C# 9 and compiles `PerchSort/Assets/Scripts/V5/Core/**/*.cs` directly. It contains no replacement gameplay rules; legal moves, transfers, swivels, resolution and booster effects all execute Core.
+Authority: [GAME_DESIGN](../../docs/GAME_DESIGN.md), especially sections 11.1 and 12. The legacy `perch_levels.py` is not a current validator. `LevelTool` targets .NET 8 / C# 9 and compiles `PerchSort/Assets/Scripts/Core/**/*.cs` directly. It contains no replacement gameplay rules; legal moves, transfers, swivels, resolution and booster effects all execute Core.
 
 ## Run
 
 From the repository root, with .NET SDK 8 on `PATH`:
 
 ```sh
-dotnet build tools/levels/V5LevelTool -c Release
-dotnet tools/levels/V5LevelTool/bin/Release/net8.0/V5LevelTool.dll validate PerchSort/Assets/Resources/V5/levels.json --complete --json-out /tmp/v5-validation.json
-dotnet tools/levels/V5LevelTool/bin/Release/net8.0/V5LevelTool.dll show PerchSort/Assets/Resources/V5/levels.json 1
-dotnet tools/levels/V5LevelTool/bin/Release/net8.0/V5LevelTool.dll generate --spec /tmp/v5-spec.json --out /tmp/v5-candidates.json
+dotnet build tools/levels/LevelTool -c Release
+dotnet tools/levels/LevelTool/bin/Release/net8.0/LevelTool.dll validate PerchSort/Assets/Resources/Levels/levels.json --complete --json-out /tmp/level-validation.json
+dotnet tools/levels/LevelTool/bin/Release/net8.0/LevelTool.dll show PerchSort/Assets/Resources/Levels/levels.json 1
+dotnet tools/levels/LevelTool/bin/Release/net8.0/LevelTool.dll generate --spec /tmp/level-spec.json --out /tmp/level-candidates.json
 ```
 
-On development machine 251, the existing local SDK is `/tmp/perch-t32-sdk/dotnet`; substitute that path for `dotnet`. No SDK, `bin/` or `obj/` content belongs in a commit. The tool runs single-threaded.
+Use a local .NET SDK installation; no host-specific SDK path is required. No SDK, `bin/` or `obj/` content belongs in a commit. The tool runs single-threaded.
 
 `validate` exits 0 only when all selected levels and catalog checks pass, 2 for validation failures, and 1 for malformed input or command errors. Without `--complete`, partial catalogs are allowed; a catalog of 40 or more entries is always checked for exactly IDs 1–40. `--id 7` analyzes just that level while retaining catalog-wide structural checks. Additional options:
 

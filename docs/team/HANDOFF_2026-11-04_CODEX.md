@@ -1,6 +1,6 @@
 # Current T52 entry and required Mac acceptance
 
-The current game is **`PerchSort/Assets/Scenes/Game.unity`**, retaining the accepted T49/T50 implementation. Start with [CURRENT_GAME](../CURRENT_GAME.md), [CODE_MAP](../spec/CODE_MAP.md), [AGENTS](../../AGENTS.md) and the [T52C report](../../tasks/T52C_report.md). Current runtime code/resources are unversioned; retired code/scenes/tools/tests are archived outside Unity. Historical design/art/task filenames and compatibility save keys are not runnable forks.
+The current game is **`PerchSort/Assets/Scenes/Game.unity`**, retaining the accepted T49/T50 implementation. Start with [CURRENT_GAME](../CURRENT_GAME.md), [CODE_MAP](../spec/CODE_MAP.md), [AGENTS](../../AGENTS.md) and the [T52C report](../work-log/current-entry/report.md). Current runtime code/resources are unversioned; retired code/scenes/tools/tests are archived outside Unity. Historical design/art/task filenames and compatibility save keys are not runnable forks.
 
 **Latest user update:** current Codex coordinator must perform acceptance **and testing on the Mac after integrating all T52 deliveries**: compilation, EditMode, PlayMode and real GUI/timed acceptance. This supersedes the earlier no-tests continuation instruction. Workers do not independently launch Unity. Source-derived discovery expectations are 304 EditMode (237 current game, 53 Meta, 14 shared Audio) and 17 PlayMode, no Ignore/Explicit; LevelsData 81 includes 40 optimal solver/replays, Layout 41 includes 24 combinatorial. Actual discovery/results must be investigated, not assumed or weakened.
 
@@ -18,7 +18,7 @@ The following T49/T50 handoff is a **historical checkpoint record**. Its old sce
 
 The complete reviewed integration `bf31ba2f3b9701446be8782bd2d7f9138af701fa` was squash-merged through [PR36](https://github.com/crazyniu/game/pull/36) into main as **`2a5bc259187cc924d1d5a9c666a8385b95217327`**. All A/B/C/D/E code and final bird/egg/overlay assets are included. The sections below retain the worker's pre-merge evidence; their statements that main publication is pending are historical, superseded by this record.
 
-All repository branch work was reconciled in [the branch coverage record](T50_BRANCH_COVERAGE.md). Existing merged branches need no duplicate PR; cancelled Godot/v6/concept branches remain preserved. The missing T44 popup-trigger policy is restored in the owning T50 task without changing runtime behavior.
+All repository branch work was reconciled in [the branch coverage record](HANDOFF_2026-11-04_BRANCH_COVERAGE.md). Existing merged branches need no duplicate PR; cancelled Godot/v6/concept branches remain preserved. The missing T44 popup-trigger policy is restored in the owning T50 task without changing runtime behavior.
 
 Observed checkout synchronization on 2026-11-04: `/Users/apple/Documents/projects/game` was fast-forwarded on `main` to the PR36 code checkpoint above, matched `origin/main`, and had an empty working-tree status. Linux `/home/developer/Projects/game` also reached that checkpoint while preserving the two pre-existing untracked review PNGs. This closeout changes documentation only; use `git status` and `git log -1` for the final documentation tip. The Mac project to open is `/Users/apple/Documents/projects/game/PerchSort`, scene `Assets/Scenes/V5.unity`.
 
@@ -90,11 +90,11 @@ Known runtime-only calibration risks: actual Unity import/meta behavior; Sunny/S
 
 Open the `PerchSort` project with Unity **6000.6.7f1** and existing scene **`PerchSort/Assets/Scenes/V5.unity`** after the coordinator's final integration/user-test checkout update. The worker has not opened Unity or rewritten scenes/settings. Do not use historical `Game.unity` as the v7 entry.
 
-A Mac continuation starts by reading this handoff, [final T50 report](../../tasks/T50_report.md) and git status; preserve user changes and never resume retired Claude. Coordinator performs the final PR/main merge and records its actual SHA, remote publication and test-checkout state afterward. Until then: isolated integration branch only, **HOLD**. Future features remain parallelized on the Mac with OMP preferred and Codex fallback; no automatic T51/new-feature work or test execution.
+A Mac continuation starts by reading this handoff, [final T50 report](../work-log/interface-runtime/report.md) and git status; preserve user changes and never resume retired Claude. Coordinator performs the final PR/main merge and records its actual SHA, remote publication and test-checkout state afterward. Until then: isolated integration branch only, **HOLD**. Future features remain parallelized on the Mac with OMP preferred and Codex fallback; no automatic T51/new-feature work or test execution.
 
 ## Observed final reconciliation checks — source/tree only
 
-- Staged runtime/art/fixture tree under PerchSort and art/v7 is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
+- Staged runtime/art/fixture tree under PerchSort and art/approved_ui is byte-for-byte identical to accepted pre-main `83a4d93db4b811598a923f7926fb73389ec81a4b`. Latest A/B/C/E/art/UI owner records and T49/A/B/C/E reports are preserved exactly.
 - Staged diff against incoming main `3e82c64734f3e7291a332d1c0e90263954ce40cd` is empty for Core, authored level JSON/Levels resources/tools, every Unity scene and ProjectSettings.
 - AGENTS.md, CLAUDE.md and TEAM.md exactly match incoming main, including current Codex/parallel/OMP/Mac-only directives.
 - No unmerged index entries remain. Staged diff whitespace/conflict-marker checks passed. All final report/owner-report links and the V5.unity entry file were found.

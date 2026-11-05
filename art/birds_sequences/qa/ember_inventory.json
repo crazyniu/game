@@ -1,0 +1,1484 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_01.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      40,
+      63,
+      264,
+      302
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      -11,
+      37
+    ],
+    "source_feet": [
+      195,
+      426,
+      378,
+      442
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7303f1e2fa2962f065658a715c118dd386b7952f51fcc76d0dbdcf18fecf40e8"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_02.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      55,
+      45,
+      271,
+      302
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      5,
+      37
+    ],
+    "source_feet": [
+      174,
+      426,
+      348,
+      442
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "502196421a769e2183508b272ca410da7e801d72757f0e5320ee93e3078c947b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_03.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      59,
+      277,
+      301
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      10,
+      59
+    ],
+    "source_feet": [
+      179,
+      388,
+      324,
+      404
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "9cce641b47562d3c1b5271f0d1f4607df9af274b9d001fe68145b5e2d5e7a4e3"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_04.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      61,
+      282,
+      301
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      -3,
+      61
+    ],
+    "source_feet": [
+      206,
+      385,
+      340,
+      401
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "c0134eec84193698c9021820bacbb91ff9ad8b10283698019845ee15a2e603c4"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_05.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      48,
+      54,
+      285,
+      301
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      8,
+      48
+    ],
+    "source_feet": [
+      182,
+      407,
+      328,
+      423
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "c85e74b42b5a78f9fbb19912653a3da3f08318e3fc811e44f8b6e28200806f31"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_hop_06.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/ember_hop.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      48,
+      59,
+      269,
+      302
+    ],
+    "scale": 0.5956284153005464,
+    "translation": [
+      2,
+      34
+    ],
+    "source_feet": [
+      175,
+      431,
+      354,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "8075d790e7579dec22a370ecd299eb028ad91c11471fab5584be4512c5b3049a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_left_01.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/ember_turn_left.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      35,
+      259,
+      301
+    ],
+    "scale": 0.5093457943925234,
+    "translation": [
+      -4,
+      18
+    ],
+    "source_feet": [
+      215,
+      534,
+      429,
+      553
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "87c97b514c0769da7634d13276258b152f9c5e9aee83d6a0106116753f1afafa"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_left_02.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/ember_turn_left.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      36,
+      251,
+      301
+    ],
+    "scale": 0.5093457943925234,
+    "translation": [
+      -4,
+      18
+    ],
+    "source_feet": [
+      215,
+      534,
+      429,
+      553
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "cab772ae7772165356ead37b215fd0a04ec71b80548974d17e147d9bf51e35bb"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_left_03.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/ember_turn_left.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      27,
+      257,
+      301
+    ],
+    "scale": 0.5093457943925234,
+    "translation": [
+      -4,
+      5
+    ],
+    "source_feet": [
+      215,
+      561,
+      429,
+      580
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "70177d25118cb4a35175f3a2869b334a2fb3c6a8297a4b4a8bfa64081773f4a1"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_left_04.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/ember_turn_left.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      55,
+      22,
+      255,
+      301
+    ],
+    "scale": 0.5093457943925234,
+    "translation": [
+      -4,
+      5
+    ],
+    "source_feet": [
+      215,
+      561,
+      429,
+      580
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7c109dde70e50de61494724b92b006d6378284f3d1ede97c014ed43b734d0a7d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_right_01.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/ember_turn_right.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      41,
+      255,
+      302
+    ],
+    "scale": 0.5023041474654378,
+    "translation": [
+      -5,
+      21
+    ],
+    "source_feet": [
+      219,
+      537,
+      436,
+      556
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "6ca59c37f5a8209c6711b7b496adfaa71f5dbc66a16a0396f1f130fe10319d76"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_right_02.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/ember_turn_right.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      41,
+      247,
+      302
+    ],
+    "scale": 0.5023041474654378,
+    "translation": [
+      -3,
+      21
+    ],
+    "source_feet": [
+      215,
+      536,
+      433,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "3bf68da01605ac88382cb3436624cb4bd5084826f1a4526511a05ba0dfb9ba0f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_right_03.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/ember_turn_right.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      39,
+      251,
+      302
+    ],
+    "scale": 0.5023041474654378,
+    "translation": [
+      -5,
+      19
+    ],
+    "source_feet": [
+      219,
+      541,
+      437,
+      560
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "a88eda565034e0e5bb0b786c64f3a5a7be8796560dd225cabe309033f265fa55"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_turn_right_04.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/ember_turn_right.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      38,
+      253,
+      302
+    ],
+    "scale": 0.5023041474654378,
+    "translation": [
+      -3,
+      19
+    ],
+    "source_feet": [
+      215,
+      541,
+      434,
+      560
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "e5fe880a20131b2c3f2d8e2f6412fefa842e91e0bfe88eca22e2a4b38bd50d9e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_01.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      40,
+      36,
+      277,
+      302
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -11,
+      20
+    ],
+    "source_feet": [
+      188,
+      436,
+      364,
+      452
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "ced9da28248b15074b5c1b11d2d0c9ce26ddee112af46af569c6fadfb4709b26"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_02.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      39,
+      35,
+      278,
+      301
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -9,
+      19
+    ],
+    "source_feet": [
+      185,
+      437,
+      360,
+      453
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "a7b762a62a5798c488846080ce48ce9aabb3f889bcb34012903caf3b250f083f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_03.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      43,
+      33,
+      282,
+      302
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -7,
+      20
+    ],
+    "source_feet": [
+      182,
+      436,
+      358,
+      452
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "8c94fec0617dca986aacaabc91802ba11b6db5d7a2681134b084f63b692e3429"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_04.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      41,
+      33,
+      277,
+      302
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -11,
+      21
+    ],
+    "source_feet": [
+      188,
+      434,
+      364,
+      450
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "1e27ef4ae72d49c16335c4d0a7ddf57a58226d4d97ec13148cb6fe809d32f16f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_05.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      35,
+      281,
+      302
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -8,
+      21
+    ],
+    "source_feet": [
+      184,
+      435,
+      360,
+      451
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "0c622409ea7e7c3d389fcc311092e4311a430be03e97d92d30e0e0f343c3e6a9"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_cheer_06.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/ember_cheer.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      42,
+      34,
+      271,
+      302
+    ],
+    "scale": 0.6193181818181818,
+    "translation": [
+      -7,
+      21
+    ],
+    "source_feet": [
+      182,
+      435,
+      358,
+      451
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "bbd86350faf0bc7e6062e676e5439741537872ce7cf8893018da6c70f55c7a6f"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_preen_01.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/ember_preen.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      14,
+      277,
+      301
+    ],
+    "scale": 0.6374269005847953,
+    "translation": [
+      -5,
+      0
+    ],
+    "source_feet": [
+      173,
+      455,
+      344,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "504d67074cea94bb78afcfa47f565b052821f4653abe912c3fdaaacc11f370b2"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_preen_02.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/ember_preen.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      14,
+      273,
+      301
+    ],
+    "scale": 0.6374269005847953,
+    "translation": [
+      -4,
+      0
+    ],
+    "source_feet": [
+      172,
+      455,
+      344,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "04c32b3d965067ce736a9f02faa66eb5bf4a9ec35cc9f1ff5a7b40c6ce3bf08a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_preen_03.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/ember_preen.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      15,
+      271,
+      301
+    ],
+    "scale": 0.6374269005847953,
+    "translation": [
+      -5,
+      0
+    ],
+    "source_feet": [
+      173,
+      455,
+      344,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "0fe5a41f61c5d5b65cf2e7173fc41303c80f5ec7f969466a4c99eeeebc753446"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_preen_04.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/ember_preen.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      15,
+      278,
+      301
+    ],
+    "scale": 0.6374269005847953,
+    "translation": [
+      -5,
+      0
+    ],
+    "source_feet": [
+      173,
+      455,
+      344,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "d150a20c3f771e89b46f0e3e5766f561ff5da9e856a2f24c724e3531b92a792c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_preen_05.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/ember_preen.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      14,
+      276,
+      301
+    ],
+    "scale": 0.6374269005847953,
+    "translation": [
+      -5,
+      0
+    ],
+    "source_feet": [
+      173,
+      455,
+      344,
+      471
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "a5902d12db947074613ce43d152e0ab9fc21615b6a5cac12c464959d181b6a62"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_peek_01.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/ember_peek.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      82,
+      267,
+      301
+    ],
+    "scale": 0.5117370892018779,
+    "translation": [
+      -2,
+      4
+    ],
+    "source_feet": [
+      211,
+      559,
+      424,
+      578
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "72e798feef9d37340a61fc52de119108f7a7cd35ee7035a9e7bdeb1ba7668edd"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_peek_02.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/ember_peek.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      29,
+      262,
+      301
+    ],
+    "scale": 0.5117370892018779,
+    "translation": [
+      -1,
+      4
+    ],
+    "source_feet": [
+      209,
+      560,
+      420,
+      579
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "2c1afc103d5b6497a3e469c56d730f3cf07d5ec715ea3cb2ec35ab8c02288263"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_peek_03.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/ember_peek.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      10,
+      282,
+      301
+    ],
+    "scale": 0.5117370892018779,
+    "translation": [
+      -2,
+      3
+    ],
+    "source_feet": [
+      211,
+      561,
+      424,
+      580
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "56e89d030027543f7283fe89cba72aee2c1c4cc5e931da436fa8fabbcfb9a9c7"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_peek_04.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/ember_peek.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      30,
+      262,
+      302
+    ],
+    "scale": 0.5117370892018779,
+    "translation": [
+      -2,
+      4
+    ],
+    "source_feet": [
+      210,
+      560,
+      423,
+      579
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "47867f95e21f0e40dc4be4e5c19758271200b8552f7ff1df6c0900b2e2b0a60a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_blink_01.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/ember_blink.png",
+    "cell": 1,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      30,
+      252,
+      301
+    ],
+    "scale": 0.42745098039215684,
+    "translation": [
+      2,
+      16
+    ],
+    "source_feet": [
+      241,
+      642,
+      496,
+      664
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "471508a472cc7d8424e39939160a71bf61716bb39584086e975474893a2266c0"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_blink_02.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/ember_blink.png",
+    "cell": 2,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      31,
+      253,
+      302
+    ],
+    "scale": 0.42745098039215684,
+    "translation": [
+      3,
+      17
+    ],
+    "source_feet": [
+      240,
+      641,
+      496,
+      663
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "ef3bd5a252913b79b1bf27850deb47d5f2b2b5d2cfa1a74af301dff50b4daa8a"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_blink_03.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/ember_blink.png",
+    "cell": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      31,
+      253,
+      302
+    ],
+    "scale": 0.42745098039215684,
+    "translation": [
+      3,
+      17
+    ],
+    "source_feet": [
+      240,
+      641,
+      496,
+      663
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7677693f4e5887216f3469b3589b916981ce85c9d49a72d7c430f946f348e32b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_01.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      34,
+      252,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -16,
+      0
+    ],
+    "source_feet": [
+      181,
+      432,
+      344,
+      448
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "25b9b57ace8b4bcebc0a207dce6bab02f68c2c2af55105260b5cae44e3cbe8d4"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_02.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      23,
+      34,
+      290,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -15,
+      0
+    ],
+    "source_feet": [
+      181,
+      433,
+      343,
+      449
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "e4cc4fcb5c81e2fdeef9dffba23e41043a66635d68787548caaa4d35f7695e00"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_03.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      27,
+      34,
+      281,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -15,
+      0
+    ],
+    "source_feet": [
+      181,
+      432,
+      343,
+      448
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "3894e345c4689aad95ba18d47029d9eb89ff2bc6e7c26eca569b5fa73b46b3bf"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_04.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      12,
+      35,
+      297,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -15,
+      0
+    ],
+    "source_feet": [
+      181,
+      432,
+      343,
+      448
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "17cb12ddb656654c69488e90ee057af3ae0736eb1de03ee5f92fa51839003af2"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_05.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      23,
+      35,
+      293,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -15,
+      0
+    ],
+    "source_feet": [
+      181,
+      433,
+      343,
+      449
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "d531c02b12126e4b72c34a65fb10356f177d49759bd73a53bacfee19255d3c83"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/ember_flap_06.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/ember_flap.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      35,
+      268,
+      301
+    ],
+    "scale": 0.6687116564417178,
+    "translation": [
+      -15,
+      0
+    ],
+    "source_feet": [
+      181,
+      432,
+      343,
+      448
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "784192dbb448c1a1f659f7d159263f16150ef56aa60fb2b9d54a0d6915fd2ce7"
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "asset": "gate_arch_frame_w1",
+    "n": 1,
+    "prompt": "Precise object edit for layered game sprite. Input is the accepted closed gate master, 560x600. Output ONLY its wooden arch frame with all vines, leaves and white/pink flowers retained EXACTLY unchanged, same pixel position, same silhouette, same scale, same colors. REMOVE the two doors, their hinges and all padlock pixels; everything within the doorway must be fully transparent down to bottom. Preserve outer frame without redrawing any part, do not simplify flowers. Keep original canvas registration and padding. True RGBA transparency. No shadows, ground, extra decoration, backdrop or checkerboard. Output target 560x600. This frame will be composited over the original extracted doors so exact stationary-frame preservation is essential.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-db9e0055-c0fe-4f4a-b167-92d6dc404b4c.png"
+  },
+  {
+    "asset": "gate_arch_frame_w2",
+    "n": 2,
+    "prompt": "Precise object edit for layered game sprite. Input is the accepted closed gate master, 560x600. Output ONLY its wooden arch frame with all vines, leaves and autumn leaves and berries retained EXACTLY unchanged, same pixel position, same silhouette, same scale, same colors. REMOVE the two doors, their hinges and all padlock pixels; everything within the doorway must be fully transparent down to bottom. Preserve outer frame without redrawing any part, do not simplify flowers. Keep original canvas registration and padding. True RGBA transparency. No shadows, ground, extra decoration, backdrop or checkerboard. Output target 560x600. This frame will be composited over the original extracted doors so exact stationary-frame preservation is essential.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-be05d096-a394-41ef-8b3a-9dbac157bacb.png"
+  },
+  {
+    "asset": "gate_arch_frame_w3",
+    "n": 3,
+    "prompt": "Precise object edit for layered game sprite. Input is the accepted closed gate master, 560x600. Output ONLY its wooden arch frame with all vines, leaves and frosted vines, leaves, snow and icicles retained EXACTLY unchanged, same pixel position, same silhouette, same scale, same colors. REMOVE the two doors, their hinges and all padlock pixels; everything within the doorway must be fully transparent down to bottom. Preserve outer frame without redrawing any part, do not simplify flowers. Keep original canvas registration and padding. True RGBA transparency. No shadows, ground, extra decoration, backdrop or checkerboard. Output target 560x600. This frame will be composited over the original extracted doors so exact stationary-frame preservation is essential.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-2a62e040-23b9-4eb8-922b-cf915d1cdc60.png"
+  },
+  {
+    "asset": "gate_door_left_w1",
+    "n": 1,
+    "prompt": "Precise cutout/edit. From accepted gate reference extract ONLY the LEFT wooden door leaf. Flat frontal view, unchanged gold honey wood planks, same grain and exact two horizontal braces with gold round studs, rounded stepped plank top rises toward center seam (RIGHT edge). Two small hinges on OUTER LEFT edge. Keep ALL original details and proportions identical. REMOVE arch, vines, flowers, other door and padlock completely; repair the tiny wood area previously covered by lock using continuing same plank/brace texture. No lock/shadow fragment. No perspective or turned door. Isolated single door leaf on fully transparent background with clean alpha, no ground shadow. Door bbox intended width160 height288, retain original silhouette and rounded plank tops. No redesign, no extra studs or braces.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-7a95e98c-c661-4a64-8574-c6e30fc47e29.png"
+  },
+  {
+    "asset": "gate_door_right_w1",
+    "n": 1,
+    "prompt": "Precise cutout/edit. From accepted gate reference extract ONLY the RIGHT wooden door leaf. Flat frontal view, unchanged gold honey wood planks, same grain and exact two horizontal braces with gold round studs, rounded stepped plank top rises toward center seam (LEFT edge). Two small hinges on OUTER RIGHT edge. Keep ALL original details and proportions identical. REMOVE arch, vines, flowers, other door and padlock completely; repair the tiny wood area previously covered by lock using continuing same plank/brace texture. No lock/shadow fragment. No perspective or turned door. Isolated single door leaf on fully transparent background with clean alpha, no ground shadow. Door bbox intended width160 height288, retain original silhouette and rounded plank tops. No redesign, no extra studs or braces.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-0859494e-7bf8-478b-82e0-b36cfa065280.png",
+    "status": "rejected-extra-studs"
+  },
+  {
+    "n": 2,
+    "side": "left",
+    "asset": "gate_door_left_w2",
+    "prompt": "Extract ONLY the LEFT door leaf from the accepted gate master, first image. Second image is an isolated LEFT leaf structural example. Preserve master plank count FOUR, original honey wood grain and colors, TWO horizontal braces, exactly TWO round gold studs on EACH brace (FOUR studs total), TWO outer-edge brass barrel hinges. LEFT hinges, plank tops rise from left toward right center edge. Flat straight frontal view, no perspective. Single leaf, no lock, no arch, no plants, no background. Remove lock completely and repair hidden wood. Same original stepped rounded top silhouette and bottom edge. Target export 160x288. Clean transparent alpha no drop shadow. Exact faithful cutout, do not add third stud, handle or diagonal brace.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-686403d5-914c-474e-98a8-8195775ae6b4.png"
+  },
+  {
+    "n": 2,
+    "side": "right",
+    "asset": "gate_door_right_w2",
+    "prompt": "Extract ONLY the RIGHT door leaf from the accepted gate master, first image. Second image is an isolated LEFT leaf structural example. Preserve master plank count FOUR, original honey wood grain and colors, TWO horizontal braces, exactly TWO round gold studs on EACH brace (FOUR studs total), TWO outer-edge brass barrel hinges. RIGHT hinges, plank tops fall from left center edge toward right. Flat straight frontal view, no perspective. Single leaf, no lock, no arch, no plants, no background. Remove lock completely and repair hidden wood. Same original stepped rounded top silhouette and bottom edge. Target export 160x288. Clean transparent alpha no drop shadow. Exact faithful cutout, do not add third stud, handle or diagonal brace.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-221ba4ad-f41c-4ff5-b2f8-90c6d583db26.png"
+  },
+  {
+    "n": 3,
+    "side": "left",
+    "asset": "gate_door_left_w3",
+    "prompt": "Extract ONLY the LEFT door leaf from the accepted gate master, first image. Second image is an isolated LEFT leaf structural example. Preserve master plank count FOUR, original honey wood grain and colors, TWO horizontal braces, exactly TWO round gold studs on EACH brace (FOUR studs total), TWO outer-edge brass barrel hinges. LEFT hinges, plank tops rise from left toward right center edge. Flat straight frontal view, no perspective. Single leaf, no lock, no arch, no plants, no background. Remove lock completely and repair hidden wood. Same original stepped rounded top silhouette and bottom edge. Target export 160x288. Clean transparent alpha no drop shadow. Exact faithful cutout, do not add third stud, handle or diagonal brace.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-37f9c731-72d8-4766-b343-f2ab8a38bb8b.png"
+  },
+  {
+    "n": 3,
+    "side": "right",
+    "asset": "gate_door_right_w3",
+    "prompt": "Extract ONLY the RIGHT door leaf from the accepted gate master, first image. Second image is an isolated LEFT leaf structural example. Preserve master plank count FOUR, original honey wood grain and colors, TWO horizontal braces, exactly TWO round gold studs on EACH brace (FOUR studs total), TWO outer-edge brass barrel hinges. RIGHT hinges, plank tops fall from left center edge toward right. Flat straight frontal view, no perspective. Single leaf, no lock, no arch, no plants, no background. Remove lock completely and repair hidden wood. Same original stepped rounded top silhouette and bottom edge. Target export 160x288. Clean transparent alpha no drop shadow. Exact faithful cutout, do not add third stud, handle or diagonal brace.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-d50e5d5c-d625-4afb-97b7-76f058b63f04.png"
+  },
+  {
+    "asset": "gate_light_w1",
+    "n": 1,
+    "prompt": "Create a transparent magical-light insert for the doorway of this illustrated game arch. Output ONLY warm gold light rays and a softly glowing winding footpath receding into a luminous distance; absolutely NO wooden arch, NO doors, NO padlock or frame. The reference is for style, warm lighting and doorway shape. Target artwork320x440, central opening: rounded top, widest near bottom; light must fit within x120..430 y130..570 on560x600 master. A narrow softly curving path starts bottom center, winds gently toward center distance. World 1: fresh spring green hints. No detailed scene or hard horizon. Subtle volumetric golden rays fanning down from distant center; avoid opaque white blob. Entire periphery fades smoothly to FULLY transparent alpha, no solid rectangular backdrop, no black/white matte, no checkerboard. Premium soft dimensional family game illustration. Light effect should composite softly on both dark and light backgrounds. No stars/UI/text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-b08f3946-3572-41b0-b63f-cff5e2ef9e9b.png"
+  },
+  {
+    "asset": "gate_light_w2",
+    "n": 2,
+    "prompt": "Create a transparent magical-light insert for the doorway of this illustrated game arch. Output ONLY warm gold light rays and a softly glowing winding footpath receding into a luminous distance; absolutely NO wooden arch, NO doors, NO padlock or frame. The reference is for style, warm lighting and doorway shape. Target artwork320x440, central opening: rounded top, widest near bottom; light must fit within x120..430 y130..570 on560x600 master. A narrow softly curving path starts bottom center, winds gently toward center distance. World 2: warm amber autumn hints. No detailed scene or hard horizon. Subtle volumetric golden rays fanning down from distant center; avoid opaque white blob. Entire periphery fades smoothly to FULLY transparent alpha, no solid rectangular backdrop, no black/white matte, no checkerboard. Premium soft dimensional family game illustration. Light effect should composite softly on both dark and light backgrounds. No stars/UI/text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-1bbcc4d1-7d9d-4876-81d9-f734aa0343ac.png"
+  },
+  {
+    "asset": "gate_light_w3",
+    "n": 3,
+    "prompt": "Create a transparent magical-light insert for the doorway of this illustrated game arch. Output ONLY warm gold light rays and a softly glowing winding footpath receding into a luminous distance; absolutely NO wooden arch, NO doors, NO padlock or frame. The reference is for style, warm lighting and doorway shape. Target artwork320x440, central opening: rounded top, widest near bottom; light must fit within x120..430 y130..570 on560x600 master. A narrow softly curving path starts bottom center, winds gently toward center distance. World 3: cool frosty blue hints surrounding warm golden light. No detailed scene or hard horizon. Subtle volumetric golden rays fanning down from distant center; avoid opaque white blob. Entire periphery fades smoothly to FULLY transparent alpha, no solid rectangular backdrop, no black/white matte, no checkerboard. Premium soft dimensional family game illustration. Light effect should composite softly on both dark and light backgrounds. No stars/UI/text.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-514f6669-37f1-40e6-bd63-b97dbc1d43f2.png"
+  },
+  {
+    "asset": "gate_door_right_w1",
+    "n": 1,
+    "prompt": "Edit ONLY the studs on this isolated right door. Each horizontal brace must have exactly TWO golden round studs, matching the accepted gate: remove the middle third stud on both braces, retain left and right studs, repair wood grain invisibly where removed. Preserve door geometry, four planks, two right outer hinges, lighting and all other pixels. True transparent background. Single isolated frontal right leaf, no other objects.",
+    "source": "/Users/apple/.codex/generated_images/01a1a826-2263-7112-af3f-4d8fbda4b55a/exec-f1f63e81-9f11-45cb-83c7-ecbb853aa9e3.png"
+  }
+]

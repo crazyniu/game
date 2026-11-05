@@ -53,7 +53,7 @@ namespace PerchSort.Game
             Cancel();
             background.sprite = art.Background(world, variant);
             for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
-            var trunk = art.Get("trunk_left_w" + world);
+            var trunk = Resources.Load<Sprite>("World/trunk_curved_w" + world);
             var crown = art.Get("tree_crown_w" + world);
             RectTransform leftCrown = null, rightCrown = null;
             for (int side = 0; side < 2; side++)
@@ -61,8 +61,8 @@ namespace PerchSort.Game
                 bool right = side == 1;
                 Rect wood = GameLayout.WorldTrunk(world, right), leaves = GameLayout.WorldCrown(world, right);
                 if (rows >= 3) ClearFirstRow(ref wood, ref leaves, right, rows);
-                var stem = GameUI.Rect(scenery, "Edge trunk", wood.center, wood.size).gameObject.AddComponent<ForestTrunkImage>();
-                stem.sprite = trunk; stem.raycastTarget = false;
+                // The supplied curved silhouette already joins the unchanged crown attachment.
+                var stem = GameUI.Image(scenery, "Edge trunk", trunk, wood.center, wood.size);
                 var foliage = GameUI.Image(scenery, "Leaf crown", crown, leaves.center, leaves.size);
                 if (right)
                 {
@@ -120,30 +120,4 @@ namespace PerchSort.Game
         private void OnDestroy() => Cancel();
     }
 
-    // Bend and taper the existing bark texture into the crown's attachment, without new art.
-    internal sealed class ForestTrunkImage : Image
-    {
-        protected override void OnPopulateMesh(VertexHelper mesh)
-        {
-            mesh.Clear();
-            if (sprite == null) return;
-            Rect rect = GetPixelAdjustedRect();
-            Vector4 uv = UnityEngine.Sprites.DataUtility.GetOuterUV(sprite);
-            const int segments = 32;
-            for (int i = 0; i <= segments; i++)
-            {
-                float t = i / (float)segments;
-                float halfWidth = rect.width * Mathf.Lerp(0.2f, 0.425f, t);
-                float bend = 25 * (1 - t) * (1 - t) - 10 * t;
-                float y = Mathf.Lerp(rect.yMax, rect.yMin, t);
-                float textureY = Mathf.Lerp(uv.w, uv.y, t);
-                mesh.AddVert(new Vector3(bend - halfWidth, y, 0), color, new Vector2(uv.x, textureY));
-                mesh.AddVert(new Vector3(bend + halfWidth, y, 0), color, new Vector2(uv.z, textureY));
-                if (i == 0) continue;
-                int previous = (i - 1) * 2;
-                mesh.AddTriangle(previous, previous + 1, previous + 3);
-                mesh.AddTriangle(previous, previous + 3, previous + 2);
-            }
-        }
-    }
 }
