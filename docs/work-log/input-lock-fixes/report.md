@@ -82,6 +82,8 @@ Both are included in the final 12/12 run, alongside all ten `InputLockTests`. Th
 
 EditMode discovery retained all 81 `LevelsDataTests` cases and 41 `LayoutTests` cases. No discovery safeguard was lowered.
 
+Committed result XML preserves test cases, counts, failures, and stack traces but omits verbose Unity `<output>` log payloads. Original unabridged XML and logs remain under ignored `build/`; this avoids committing duplicate multi-megabyte importer logs.
+
 Two intermediate invocations stopped during compilation of the new fixture: its asmdef does not reference LitMotion, and `SafeArea` was ambiguous. Fixed within the owned test file using scheduler reflection and a qualified `PerchSort.Game.SafeArea`; no asmdef changes or warning suppression.
 
 Commands, from this worktree root:
