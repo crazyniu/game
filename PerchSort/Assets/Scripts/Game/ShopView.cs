@@ -203,7 +203,12 @@ namespace PerchSort.Game
             GameUI.Button(panel.transform, art, "Cancel purchase", "icon_close", new Rect(434, -4, 108, 108), CloseConfirm);
             GameUI.Button(panel.transform, art, "Confirm purchase", "icon_check", new Rect(198, 490, 176, 176), Purchase, true);
             panel.transform.localScale = Vector3.one * (GameMotion.Instant ? 1 : 0.9f);
-            motion.Play(0.18f, t => panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t), ease: Ease.OutCubic);
+            var dialogMotion = dim.gameObject.AddComponent<GameMotion>();
+            dialogMotion.Play(0.18f, t =>
+            {
+                if (dim != null && dim.gameObject.activeInHierarchy && panel != null)
+                    panel.transform.localScale = Vector3.one * Mathf.Lerp(0.9f, 1, t);
+            }, ease: Ease.OutCubic);
         }
         private void BuildCard(BoosterKind kind, int index)
         {
