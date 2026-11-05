@@ -1,6 +1,6 @@
 # Animated outfit art delivery
 
-Delivered 10/27 outfits, 20/54 actions, 90/243 PNG frames and matching metadata. No code or retained artwork changes.
+Delivered 11/27 outfits, 22/54 actions, 99/243 PNG frames and matching metadata. No code or retained artwork changes.
 
 ## Method
 
@@ -20,9 +20,9 @@ Built-in RGB previews can show color outside the bird, but exported alpha and da
 
 ## Exact completion list
 
-Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2.
+Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2, sky_outfit_2.
 
-Missing: sky_outfit_2, berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2, hoot_outfit_2, sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3, ink_outfit_3, hoot_outfit_3.
+Missing: berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2, hoot_outfit_2, sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3, ink_outfit_3, hoot_outfit_3.
 
 ## Verification boundary
 
