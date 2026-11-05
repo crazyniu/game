@@ -26,5 +26,22 @@
       "PerchSort.EditModeTests.LevelsDataTests.": 0,
       "PerchSort.EditModeTests.LayoutTests.": 0
     }
+  },
+  "stable_state_capture": {
+    "command": "flock /tmp/unity.lock bash scripts/screenshots.sh",
+    "result": "Passed",
+    "png_count": 34,
+    "size": [
+      1080,
+      1920
+    ],
+    "directory": "build/screens/game",
+    "log": "build/screenshots.log",
+    "timed_outfit_runtime_acceptance": false
+  },
+  "pre_unity_snapshot": {
+    "files": 1709,
+    "restored_generated_files": 908,
+    "all_pre_run_hashes_match": true
   }
 }
