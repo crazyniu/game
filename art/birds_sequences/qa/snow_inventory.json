@@ -1,0 +1,1484 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_01.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      85,
+      244,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      361,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "5160471f6992905314f2e1b55d91aa0414360748870e9abdb27359aa80061293"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_02.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      28,
+      85,
+      273,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      360,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "61ad64b9ab1017a67d890c598be14904960b7cee659c2336314282e1bfeec534"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_03.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      38,
+      84,
+      271,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      360,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "5b3ee86cc6b552d01ed876222fe0ece27bf7500ac371e2731ae53f999f5f135b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_04.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      22,
+      85,
+      282,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      360,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "beda167ab3097dfb3322c8e3320536df1a8197b07f91d451a111dd737d95e0ca"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_05.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      33,
+      85,
+      280,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      360,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "3ee29014490af49e5530343bdb6f0eb68e3c7d106badde020e60591837de0822"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_flap_06.png",
+    "animation": "flap",
+    "source": "art/birds_sequences/raw/snow_flap.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      85,
+      260,
+      301
+    ],
+    "scale": 0.5287356321839081,
+    "translation": [
+      15,
+      58
+    ],
+    "source_feet": [
+      187,
+      441,
+      360,
+      457
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "db4cfb1a6fc949776344837d766d8640c8bf69cfea82d7415f95007c7bd6b74e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_01.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      113,
+      264,
+      303
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      10,
+      59
+    ],
+    "source_feet": [
+      194,
+      435,
+      366,
+      451
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "9258f29538a1459279247f14e6948e5e7267b2edf492f8a243d180f3796de686"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_02.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      59,
+      91,
+      258,
+      302
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      13,
+      59
+    ],
+    "source_feet": [
+      204,
+      434,
+      347,
+      450
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "94b5f325f544a7ec320c1423c24d7404996fe3440b25014b52d5261250d7dbe4"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_03.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      49,
+      96,
+      270,
+      301
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      14,
+      82
+    ],
+    "source_feet": [
+      215,
+      391,
+      331,
+      407
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "4d15463c30dc230d9493f962bb41706371090da5f32d7b77de3abd1a2d1f8cae"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_04.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      36,
+      104,
+      259,
+      301
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      2,
+      95
+    ],
+    "source_feet": [
+      237,
+      367,
+      352,
+      383
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "9daf83d0b2b3ee7adc7ad2827bf35ca0df4eac451aaded81b776a8dfb0815f98"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_05.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      44,
+      90,
+      269,
+      301
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      10,
+      74
+    ],
+    "source_feet": [
+      217,
+      406,
+      342,
+      422
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": true,
+    "sha256": "f48392afe0e8c6893912d40bd5a6f09fabf8e34dce220a0d20a94d153ebfd08e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_hop_06.png",
+    "animation": "hop",
+    "source": "art/birds_sequences/raw/snow_hop.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      47,
+      109,
+      267,
+      302
+    ],
+    "scale": 0.5348837209302325,
+    "translation": [
+      11,
+      61
+    ],
+    "source_feet": [
+      194,
+      430,
+      363,
+      446
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "b2e2e5b003bd1ed86d61d5e81dc745e7617b2eae1f2349a50200fbecb4c5e21d"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_left_01.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/snow_turn_left.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      62,
+      94,
+      252,
+      301
+    ],
+    "scale": 0.4017467248908297,
+    "translation": [
+      26,
+      77
+    ],
+    "source_feet": [
+      219,
+      536,
+      448,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "76409b390ad69dd043aefebfbd6016e4a60012bd92b279937d8f2321e46a1c32"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_left_02.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/snow_turn_left.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      65,
+      94,
+      252,
+      301
+    ],
+    "scale": 0.4017467248908297,
+    "translation": [
+      36,
+      77
+    ],
+    "source_feet": [
+      193,
+      536,
+      423,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "ecc9b4a96f37902a152ad13a7428c446428de020d71c208dfa244905b34430f2"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_left_03.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/snow_turn_left.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      74,
+      95,
+      262,
+      301
+    ],
+    "scale": 0.4017467248908297,
+    "translation": [
+      35,
+      77
+    ],
+    "source_feet": [
+      195,
+      536,
+      425,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7616f9e0bbd97a9a1eb41460bfe3a0b692b9d0a80d675d685d55d9e33cf54480"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_left_04.png",
+    "animation": "turn_left",
+    "source": "art/birds_sequences/raw/snow_turn_left.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      94,
+      253,
+      301
+    ],
+    "scale": 0.4017467248908297,
+    "translation": [
+      36,
+      77
+    ],
+    "source_feet": [
+      193,
+      536,
+      423,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "a064ab66a1aafe538577178036e77cd93639eb4d31b59ae5cbf229be32cdc576"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_right_01.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/snow_turn_right.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      92,
+      252,
+      302
+    ],
+    "scale": 0.4,
+    "translation": [
+      26,
+      78
+    ],
+    "source_feet": [
+      221,
+      535,
+      451,
+      554
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "8a06c04f60040071db8e0b3c229708636fa9417abb221fbccaecaa14a94e7e7c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_right_02.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/snow_turn_right.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      66,
+      92,
+      250,
+      302
+    ],
+    "scale": 0.4,
+    "translation": [
+      36,
+      78
+    ],
+    "source_feet": [
+      195,
+      536,
+      424,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "a7683346cdb8f76de8ab2d4a7e9e64b581758621761e0c935374e55a19dd704c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_right_03.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/snow_turn_right.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      66,
+      92,
+      248,
+      302
+    ],
+    "scale": 0.4,
+    "translation": [
+      26,
+      78
+    ],
+    "source_feet": [
+      221,
+      535,
+      451,
+      554
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "d230c56bf1edb07e97db98fb01c7f41165208822682013c355061cb134a5c0f8"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_turn_right_04.png",
+    "animation": "turn_right",
+    "source": "art/birds_sequences/raw/snow_turn_right.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      94,
+      241,
+      302
+    ],
+    "scale": 0.4,
+    "translation": [
+      36,
+      78
+    ],
+    "source_feet": [
+      195,
+      536,
+      424,
+      555
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "60fa6146978d7570a67337ab31f6b33f04228bd9138994756eec39a31fd1f10e"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_01.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      54,
+      85,
+      266,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      10,
+      69
+    ],
+    "source_feet": [
+      201,
+      431,
+      379,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "9667178a09296875b5f19846d4f3aef4f02958ffb0f5b0bfc770e1705d0f1b8b"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_02.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      52,
+      85,
+      270,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      21,
+      69
+    ],
+    "source_feet": [
+      179,
+      431,
+      358,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "9851c6011edfc206c48d705f7068353eadbd39be3cb64e276249144ce6b6c8aa"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_03.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      54,
+      85,
+      271,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      28,
+      69
+    ],
+    "source_feet": [
+      166,
+      430,
+      344,
+      446
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "6cbfb5220031d231c5a2d80a7d3162e6e656246b67e6da4023aea2eec57776fd"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_04.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      56,
+      82,
+      264,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      12,
+      69
+    ],
+    "source_feet": [
+      198,
+      431,
+      376,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "76fcf61759b616aff04872df5b06a8fe55bee86116412d93227a269d1885de80"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_05.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      50,
+      83,
+      273,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      21,
+      69
+    ],
+    "source_feet": [
+      178,
+      431,
+      358,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "c1399a6d1de65d1a94c654bbfbe9c1af66aaad04052f0c102812bc3d55e912a2"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_cheer_06.png",
+    "animation": "cheer",
+    "source": "art/birds_sequences/raw/snow_cheer.png",
+    "cell": 6,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      56,
+      83,
+      270,
+      302
+    ],
+    "scale": 0.5168539325842697,
+    "translation": [
+      28,
+      69
+    ],
+    "source_feet": [
+      166,
+      431,
+      346,
+      447
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7c77aabe9826ffda960166e970a34db41d132b5f56aa9a891ce00b20c2deeedc"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_preen_01.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/snow_preen.png",
+    "cell": 1,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      88,
+      262,
+      301
+    ],
+    "scale": 0.44878048780487806,
+    "translation": [
+      40,
+      84
+    ],
+    "source_feet": [
+      166,
+      465,
+      371,
+      481
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "47cc5727427547b44439f4914a9719fda648fd19bfd4a693c3ef820a81e67f89"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_preen_02.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/snow_preen.png",
+    "cell": 2,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      92,
+      256,
+      302
+    ],
+    "scale": 0.44878048780487806,
+    "translation": [
+      42,
+      84
+    ],
+    "source_feet": [
+      160,
+      466,
+      365,
+      482
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "7ae4b7b245eceb52c10c75f50e645f6a1a2ad8f94c711d6da533adc3b0dc1b46"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_preen_03.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/snow_preen.png",
+    "cell": 3,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      72,
+      97,
+      254,
+      301
+    ],
+    "scale": 0.44878048780487806,
+    "translation": [
+      46,
+      84
+    ],
+    "source_feet": [
+      152,
+      465,
+      354,
+      481
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "42be8d85f4f91cf380cb64d00e49f9879fdc07f1098c0146cb035da61af75359"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_preen_04.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/snow_preen.png",
+    "cell": 4,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      70,
+      93,
+      255,
+      301
+    ],
+    "scale": 0.44878048780487806,
+    "translation": [
+      39,
+      84
+    ],
+    "source_feet": [
+      167,
+      465,
+      372,
+      481
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "74d5b992cb7ad5189c50787f6c859c56dfceb9a9e1f91f2f90835d0675751652"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_preen_05.png",
+    "animation": "preen",
+    "source": "art/birds_sequences/raw/snow_preen.png",
+    "cell": 5,
+    "cell_size": [
+      512,
+      512
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      64,
+      88,
+      263,
+      301
+    ],
+    "scale": 0.44878048780487806,
+    "translation": [
+      41,
+      84
+    ],
+    "source_feet": [
+      163,
+      466,
+      366,
+      482
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "5f4c867397e78141d777afaedba166bde4880e485ffdc4f77ab35728b15817c8"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_peek_01.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/snow_peek.png",
+    "cell": 1,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      137,
+      256,
+      302
+    ],
+    "scale": 0.44019138755980863,
+    "translation": [
+      16,
+      53
+    ],
+    "source_feet": [
+      223,
+      542,
+      432,
+      561
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "f497ec4bbba9b79cbf46872ba510b16faa8b8dbea8cc7d589a8815e2387d9231"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_peek_02.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/snow_peek.png",
+    "cell": 2,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      63,
+      106,
+      256,
+      302
+    ],
+    "scale": 0.44019138755980863,
+    "translation": [
+      27,
+      53
+    ],
+    "source_feet": [
+      197,
+      543,
+      408,
+      562
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "823d98034b998a342c964c94df292a88ed78dbe0ed3b4dda2ec7a97551a6c1aa"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_peek_03.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/snow_peek.png",
+    "cell": 3,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      60,
+      76,
+      261,
+      302
+    ],
+    "scale": 0.44019138755980863,
+    "translation": [
+      16,
+      54
+    ],
+    "source_feet": [
+      223,
+      540,
+      432,
+      559
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "90ced04f12196a192bb82d335dd351dd4ec3a0c1c8bd367d155cea7d20ae9261"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_peek_04.png",
+    "animation": "peek",
+    "source": "art/birds_sequences/raw/snow_peek.png",
+    "cell": 4,
+    "cell_size": [
+      627,
+      627
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      67,
+      96,
+      258,
+      301
+    ],
+    "scale": 0.44019138755980863,
+    "translation": [
+      27,
+      53
+    ],
+    "source_feet": [
+      197,
+      541,
+      408,
+      560
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "5289d6a620d7bf89324013a82c3d4c003aa83b82a778602bc7eaa4a41024102c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_blink_01.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/snow_blink.png",
+    "cell": 1,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      82,
+      256,
+      302
+    ],
+    "scale": 0.32974910394265233,
+    "translation": [
+      36,
+      77
+    ],
+    "source_feet": [
+      238,
+      655,
+      517,
+      677
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "53d87bd4e30aeb83722bf700193061f203ee2225993224b4e550c7e9db0fa4f3"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_blink_02.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/snow_blink.png",
+    "cell": 2,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      81,
+      256,
+      301
+    ],
+    "scale": 0.32974910394265233,
+    "translation": [
+      36,
+      76
+    ],
+    "source_feet": [
+      237,
+      656,
+      517,
+      678
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "26769442f6e51bdd68896acd54639f768a35392990dea2d88c9e1593a6c9ca1c"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/snow_blink_03.png",
+    "animation": "blink",
+    "source": "art/birds_sequences/raw/snow_blink.png",
+    "cell": 3,
+    "cell_size": [
+      724,
+      724
+    ],
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds": [
+      61,
+      81,
+      256,
+      301
+    ],
+    "scale": 0.32974910394265233,
+    "translation": [
+      36,
+      76
+    ],
+    "source_feet": [
+      238,
+      656,
+      516,
+      678
+    ],
+    "ground_baseline": 300,
+    "airborne_pose": false,
+    "sha256": "1ca5a22567cde415ab2ec8a2b89d4c230c2138e02c14808d22a7c8d815926234"
+  }
+]
