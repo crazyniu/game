@@ -6,7 +6,7 @@ Follow [CONVENTIONS](docs/CONVENTIONS.md).
 
 Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
 
-- T54 assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](docs/work-log/integration-contract/spec.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
+- The current stage assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](docs/work-log/integration-contract/spec.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
 - Return questions and reports to the coordinator who assigned the task. Agent-entry filenames do not confer coordination authority. AGENTS.md and CLAUDE.md must remain identical.
 - Develop on the Mac in isolated Orca workspaces. Workers must not mutate the user's primary checkout `/Users/apple/Documents/projects/game`.
 - Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. OMP preferred, Codex fallback. Bounded workers must not spawn workers.
