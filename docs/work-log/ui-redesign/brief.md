@@ -28,3 +28,15 @@ Names are plain (no numbers). Each worker also delivers one contact-sheet JPEG o
 - Text legible at 1080x1920 shown on a phone; consistent type (rounded bold, same as the game font Fredoka).
 - Same visual language across all screens (frames, ribbons, buttons, badges, shadows).
 - After sign-off an implementer must be able to measure every rectangle from the image.
+
+## Addendum: what the DESIGNS must show for the gameplay decided after reviewing the user's proposal (issue 114)
+Gameplay in scope (Phase 1, rules unchanged): homecoming ORDER is the strategy (each species gift changes the board when its flock goes home), scoring is by COUNTED moves with per-level star targets, the player must see the gifts and the star targets BEFORE and DURING play. UI only; icon-first; no paragraphs.
+1. Board HUD (board_few_branches, board_many_branches): the move pill under the coin pill: footprint icon, counted move number, and three small stars each with its move limit under it (3-star limit, 2-star limit; the 1-star is any clear). Lit stars are those still reachable. Show the pill in two states on the same screen set: normal, and free-move state (Berry encore: footprint flashes green, a feather glyph pops beside the number, a tiny label-free hint that the move did not count).
+2. The nest progress badges carry the species' GIFT: each badge is a gold-ring face with a small gift coin (the gift icon) at its bottom right, so the player sees what finishing that flock will do. A finished badge lights up with a check. Tapping a badge opens goal_info.
+3. Day/night: levels with day and night show a small sun or moon dial with the moves left until the sky turns, under the move pill (board_many_branches is such a level).
+4. board_win_panel: counted moves, earned stars lit, and under EACH of the three stars its move limit (a number); the earned ones lit. Also a second variant board_win_panel_two_stars: two stars lit, a clear icon-only cue "one more move for three stars" (footprint with +1 and the third star dim). Reward line: coin reward, chain bonus only when present, and when a replay raises the star count a small "+N" coin top-up badge on the upgraded star.
+5. level_card: three stars with their move limits, the best counted moves record, the species portraits (front-facing, large) each with its gift coin at the bottom right, and the mechanic icons row only if the level has mechanics. One long green play bar inside the panel.
+6. goal_info: the species portrait, its name on the ribbon and ONE row: gift icon coin and a two-word effect (for example "Wakes sleepers"); no paragraph.
+7. aviary_list: each species card shows the name ribbon, the homecoming count chip and the gift coin; aviary_detail: living front-facing bird, personality line, the gift row (coin + two-word effect), the count row, outfit slots.
+8. Extra screens: board_free_move (the pill and the board right after a free move), board_dayNight_flip not needed.
+Fonts and all fixed text are baked; numbers shown in mockups are examples.
