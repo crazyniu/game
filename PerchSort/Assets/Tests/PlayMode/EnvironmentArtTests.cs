@@ -55,6 +55,12 @@ namespace PerchSort.PlayModeTests
                 foreach (var gate in root.Map.GetComponentsInChildren<GateView>())
                 {
                     Rect gateBounds = Bounds((RectTransform)gate.transform, content);
+                    if (current < 40 && current % 10 == 0 && gate.name == "World " + (current / 10 + 1) + " gate")
+                    {
+                        var viewport = root.Map.Scroller.viewport;
+                        Assert.That(Bounds((RectTransform)gate.transform, viewport).yMin,
+                            Is.GreaterThanOrEqualTo(viewport.rect.yMax), "No clipped door strip may remain at normal world-end focus.");
+                    }
                     foreach (var node in root.Map.Nodes.Values)
                         Assert.That(gateBounds.Overlaps(Bounds((RectTransform)node.transform.parent, content)), Is.False,
                             gate.name + " crosses " + node.name + " at current level " + current);
@@ -115,12 +121,19 @@ namespace PerchSort.PlayModeTests
                 Assert.That(trunks[0].sprite, Is.SameAs(Resources.Load<Sprite>("World/trunk_curved_w" + world)));
                 Assert.That(trunks[0].sprite, Is.Not.Null);
                 Assert.That(trunks[1].rectTransform.localScale.x, Is.EqualTo(-1));
+                var leftTrunk = trunks[0].rectTransform; var rightTrunk = trunks[1].rectTransform;
+                Assert.That(rightTrunk.sizeDelta, Is.EqualTo(leftTrunk.sizeDelta));
+                Assert.That(rightTrunk.anchoredPosition.y, Is.EqualTo(leftTrunk.anchoredPosition.y));
+                Assert.That(rightTrunk.anchoredPosition.x, Is.EqualTo(
+                    GameLayout.DesignWidth - leftTrunk.anchoredPosition.x).Within(0.01f));
                 foreach (var branch in root.Board.Branches)
                 {
                     var junction = branch.transform.Find("Flex root/Branch junction").GetComponent<Image>();
                     Assert.That(junction.sprite, Is.SameAs(Resources.Load<Sprite>("World/branch_junction_w" + world)));
                     Assert.That(junction.sprite, Is.Not.Null);
                     Assert.That(junction.raycastTarget, Is.False);
+                    Assert.That(Mathf.Abs(junction.rectTransform.anchoredPosition.x) -
+                        junction.rectTransform.sizeDelta.x / 2, Is.EqualTo(GameLayout.TrunkVisibleWidth / 2).Within(0.01f));
                     Assert.That(branch.Seats, Is.EqualTo(root.Session.State.Branches[branch.Index].Capacity));
                     branch.Entrance(0);
                     Assert.That(junction.rectTransform.lossyScale.x, Is.Zero.Within(0.001f));
@@ -169,24 +182,55 @@ namespace PerchSort.PlayModeTests
         [UnityTest]
         public IEnumerator MapGateOpeningCompletesOnceAndKeepsItsOpenPose()
         {
-            root.Map.Show(Profile(10));
-            GameMotion.Instant = false;
-            int callbacks = 0;
-            root.Map.UnlockGate(2, () => callbacks++);
-            yield return new WaitForSecondsRealtime(0.7f);
-            var gate = root.Map.GetComponentsInChildren<GateView>().Single(view => view.name == "World 2 gate");
-            Assert.That(gate.IsOpening, Is.True);
-            var whole = gate.transform.Find("Closed map arch").GetComponent<Image>();
-            bool parts = gate.transform.Find("Left map door") != null;
-            if (!parts) Assert.That(whole.color.a, Is.InRange(0.01f, 0.99f));
-            yield return new WaitForSecondsRealtime(1);
-            Assert.That(callbacks, Is.EqualTo(1));
-            Assert.That(gate.IsOpening, Is.False);
-            Assert.That(whole.color.a, Is.Zero);
-            if (parts)
-                Assert.That(gate.transform.Find("Left map door").localScale.x, Is.EqualTo(0.08f).Within(0.001f));
-            gate.gameObject.SetActive(false); gate.gameObject.SetActive(true);
-            Assert.That(whole.color.a, Is.Zero, "Lifecycle cancellation must retain the committed open state.");
+            foreach (int current in new[] { 10, 11, 20, 21, 30, 31 })
+            {
+                int world = current / 10 + 1;
+                root.Map.Show(Profile(current));
+                GameMotion.Instant = false;
+                int callbacks = 0;
+                root.Map.UnlockGate(world, () => callbacks++);
+                var gate = root.Map.GetComponentsInChildren<GateView>().Single(view => view.name == "World " + world + " gate");
+                float deadline = Time.realtimeSinceStartup + 2;
+                while (!gate.IsOpening && Time.realtimeSinceStartup < deadline) yield return null;
+                Assert.That(gate.IsOpening, Is.True);
+                var viewport = root.Map.Scroller.viewport;
+                Rect gateInView = Bounds((RectTransform)gate.transform, viewport);
+                Assert.That(gateInView.yMin, Is.GreaterThanOrEqualTo(viewport.rect.yMin));
+                Assert.That(gateInView.yMax, Is.LessThanOrEqualTo(viewport.rect.yMax));
+                var holder = (RectTransform)root.Map.Nodes[current].transform.parent;
+                Assert.That(Bounds(holder, viewport).yMin, Is.GreaterThanOrEqualTo(viewport.rect.yMin));
+                Assert.That(Bounds((RectTransform)holder.Find("Sunny chick"), viewport).yMax,
+                    Is.LessThanOrEqualTo(viewport.rect.yMax - GameLayout.MapBounceHeight));
+                Assert.That(gate.transform.Find("Closed map arch"), Is.Null, "Available parts must replace the whole-door overlay.");
+                var left = (RectTransform)gate.transform.Find("Left map door");
+                var right = (RectTransform)gate.transform.Find("Right map door");
+                var glow = gate.transform.Find("Map gate light").GetComponent<Image>();
+                var clasp = gate.transform.Find("Map gate padlock").GetComponent<Image>();
+                Vector3 leftHinge = left.position, rightHinge = right.position;
+                Assert.That(left.sizeDelta, Is.EqualTo(new Vector2(160, 288)));
+                Assert.That(right.sizeDelta, Is.EqualTo(left.sizeDelta));
+                Assert.That(left.pivot.x, Is.EqualTo(0.025f));
+                Assert.That(right.pivot.x, Is.EqualTo(0.975f));
+                yield return new WaitForSecondsRealtime(0.23f);
+                Assert.That(clasp.color.a, Is.Zero.Within(0.01f));
+                Assert.That(glow.color.a, Is.InRange(0.1f, 0.99f));
+                Assert.That(left.localScale.x, Is.InRange(0.09f, 0.99f));
+                Assert.That(Vector3.Distance(left.position, leftHinge), Is.LessThan(0.01f));
+                Assert.That(Vector3.Distance(right.position, rightHinge), Is.LessThan(0.01f));
+                Assert.That(right.localScale.x, Is.EqualTo(left.localScale.x));
+                yield return new WaitForSecondsRealtime(0.41f);
+                Assert.That(glow.color.a, Is.EqualTo(1).Within(0.01f));
+                Assert.That(callbacks, Is.Zero, "The doors must finish their full 0.9-second swing.");
+                yield return new WaitForSecondsRealtime(0.35f);
+                Assert.That(callbacks, Is.EqualTo(1));
+                Assert.That(gate.IsOpening, Is.False);
+                Assert.That(left.localScale.x, Is.EqualTo(0.08f).Within(0.001f));
+                Assert.That(right.localScale.x, Is.EqualTo(left.localScale.x));
+                gate.gameObject.SetActive(false); gate.gameObject.SetActive(true);
+                Assert.That(left.localScale.x, Is.EqualTo(0.08f).Within(0.001f));
+                Assert.That(clasp.color.a, Is.Zero);
+                GameMotion.Instant = true;
+            }
         }
 
         private static GameProfile Profile(int current)

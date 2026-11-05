@@ -43,7 +43,7 @@ namespace PerchSort.Game
                 probed[world - 1] = true;
             }
             junction = GameUI.Image(flex, "Branch junction", junctions[world - 1],
-                new Vector2(IsRight ? -180 : 180, 0), new Vector2(240, 220));
+                new Vector2((IsRight ? -1 : 1) * (GameLayout.TrunkVisibleWidth / 2 + 120), 0), new Vector2(240, 220));
             junction.rectTransform.localScale = new Vector3(IsRight ? -1 : 1, 1, 1);
             wood = GameUI.Rect(flex, "Branch", Vector2.zero, Vector2.zero).gameObject.AddComponent<PerchLimbImage>();
             wood.raycastTarget = false;
@@ -70,7 +70,8 @@ namespace PerchSort.Game
                 art.World(twig ? "twig_left" : "branch_left", world);
             float junctionScale = twig ? 0.8f : 1;
             junction.rectTransform.sizeDelta = new Vector2(240, 220) * junctionScale;
-            junction.rectTransform.anchoredPosition = new Vector2((IsRight ? -1 : 1) * (60 + 120 * junctionScale), 0);
+            junction.rectTransform.anchoredPosition = new Vector2((IsRight ? -1 : 1) *
+                (GameLayout.TrunkVisibleWidth / 2 + 120 * junctionScale), 0);
             ((PerchLimbImage)wood).PerchTop = GameLayout.BranchPerchTop(world, twig);
             wood.rectTransform.sizeDelta = twig ? GameLayout.TwigDisplaySize : GameLayout.BranchDisplaySize;
             wood.rectTransform.anchoredPosition = new Vector2(0, GameLayout.BranchPerchTop(root.Session.State.World, twig));

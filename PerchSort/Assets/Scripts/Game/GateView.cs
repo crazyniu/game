@@ -13,6 +13,7 @@ namespace PerchSort.Game
         private int generation;
         private bool targetOpen;
         private bool mapGate;
+        private Sprite mapPadlock;
         private Vector2 LockCenter => new Vector2(size.x * 0.5f, -size.y * 0.5f);
         public bool IsOpening { get; private set; }
         public void Configure(GameArt art, int world, bool open)
@@ -46,6 +47,9 @@ namespace PerchSort.Game
         public void ConfigureMap(int world, bool open)
         {
             Cancel();
+            for (int i = transform.childCount - 1; i >= 0; i--) GameUI.Dispose(transform.GetChild(i).gameObject);
+            left = right = light = padlock = whole = null;
+            GameUI.Dispose(mapPadlock); mapPadlock = null;
             mapGate = true;
             size = ((RectTransform)transform).sizeDelta;
             if (motion == null) motion = gameObject.AddComponent<GameMotion>();
@@ -61,29 +65,40 @@ namespace PerchSort.Game
             }
             else
             {
-                light = GameUI.Image(transform, "Map gate light", glow, size * 0.5f, size);
-                left = GameUI.Image(transform, "Left map door", leftDoor, size * 0.5f, size);
-                right = GameUI.Image(transform, "Right map door", rightDoor, size * 0.5f, size);
-                MapHinge(left.rectTransform, new Vector2(0, 0.5f));
-                MapHinge(right.rectTransform, new Vector2(1, 0.5f));
-                GameUI.Image(transform, "Map arch frame", frame, size * 0.5f, size);
-                whole = GameUI.Image(transform, "Closed map arch", closed, size * 0.5f, size);
+                MapPart("Map arch frame", frame, new Rect(0, 0, 560, 600));
+                light = MapPart("Map gate light", glow, new Rect(120, 130, 320, 440));
+                left = MapPart("Left map door", leftDoor, new Rect(118, 274, 160, 288));
+                right = MapPart("Right map door", rightDoor, new Rect(278, 274, 160, 288));
+                MapHinge(left.rectTransform, new Vector2(118, 274), new Vector2(0.025f, 0.5f));
+                MapHinge(right.rectTransform, new Vector2(278, 274), new Vector2(0.975f, 0.5f));
+                var lockSource = Resources.Load<Sprite>("Art/gate_padlock");
+                mapPadlock = Sprite.Create(lockSource.texture,
+                    new Rect(lockSource.rect.x + 477, lockSource.rect.yMax - 651, 69, 82),
+                    Vector2.one * 0.5f, lockSource.pixelsPerUnit);
+                padlock = MapPart("Map gate padlock", mapPadlock, new Rect(242, 364, 73, 99));
             }
-            MapPose(open ? 1 : 0, open ? 1 : 0);
+            MapPose(open ? 1 : 0, open ? 1 : 0, open ? 1 : 0);
         }
-        private void MapHinge(RectTransform leaf, Vector2 pivot)
+        private Image MapPart(string name, Sprite sprite, Rect source)
+        {
+            Vector2 scale = size / new Vector2(560, 600);
+            return GameUI.Image(transform, name, sprite, source.center * scale, source.size * scale);
+        }
+        private void MapHinge(RectTransform leaf, Vector2 topLeft, Vector2 pivot)
         {
             leaf.pivot = pivot;
-            leaf.anchoredPosition = new Vector2(pivot.x * size.x, -(1 - pivot.y) * size.y);
+            Vector2 point = topLeft * size / new Vector2(560, 600) +
+                leaf.sizeDelta * new Vector2(pivot.x, 1 - pivot.y);
+            leaf.anchoredPosition = new Vector2(point.x, -point.y);
         }
-        private void MapPose(float opened, float glow)
+        private void MapPose(float opened, float glow, float unlocked)
         {
-            bool parts = left != null && right != null;
-            if (whole != null) whole.color = new Color(1, 1, 1, parts ? (opened == 0 ? 1 : 0) : 1 - opened);
-            if (!parts) return;
+            if (whole != null) whole.color = new Color(1, 1, 1, 1 - opened);
+            if (left == null || right == null) return;
             left.rectTransform.localScale = right.rectTransform.localScale =
                 new Vector3(Mathf.Lerp(1, 0.08f, opened), 1, 1);
             light.color = new Color(1, 1, 1, glow);
+            padlock.color = new Color(1, 1, 1, 1 - unlocked);
         }
         private void Hinge(RectTransform leaf, Vector2 source)
         {
@@ -92,7 +107,7 @@ namespace PerchSort.Game
         }
         private void Pose(float opened, float fallen)
         {
-            if (mapGate) { MapPose(opened, fallen); return; }
+            if (mapGate) { MapPose(opened, fallen, opened); return; }
             if (whole != null)
             {
                 whole.sprite = opened >= 0.5f ? openSprite : lockedSprite;
@@ -116,18 +131,19 @@ namespace PerchSort.Game
         {
             if (mapGate)
             {
-                Cancel(); targetOpen = true; IsOpening = true; MapPose(0, 0);
+                Cancel(); targetOpen = true; IsOpening = true; MapPose(0, 0, 0);
                 int revision = generation;
                 float duration = left != null ? 0.9f : 0.5f;
                 motion.Play(duration, t =>
                 {
                     if (revision != generation) return;
                     float swing = t * t * (3 - 2 * t);
-                    MapPose(left != null ? swing : t, Mathf.Clamp01(t * duration / 0.6f));
+                    MapPose(left != null ? swing : t, Mathf.Clamp01(t * duration / 0.6f),
+                        Mathf.Clamp01(t * duration / 0.2f));
                 }, () =>
                 {
                     if (revision != generation) return;
-                    IsOpening = false; MapPose(1, 1); done?.Invoke();
+                    IsOpening = false; MapPose(1, 1, 1); done?.Invoke();
                 });
                 return;
             }
@@ -154,6 +170,6 @@ namespace PerchSort.Game
             IsOpening = false; Pose(targetOpen ? 1 : 0, targetOpen ? 1 : 0);
         }
         private void OnDisable() => Cancel();
-        private void OnDestroy() => Cancel();
+        private void OnDestroy() { Cancel(); GameUI.Dispose(mapPadlock); }
     }
 }

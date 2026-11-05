@@ -57,11 +57,16 @@ namespace PerchSort.Game
             float left = 25 - CrownAttachment(world).x * width / 600;
             return new Rect(right ? DesignWidth - left - width : left, 470, width, width * 2 / 3);
         }
+        public const float TrunkVisibleWidth = 170;
         public static Rect WorldTrunk(int world, bool right)
         {
-            Rect crown = WorldCrown(world, right);
+            Rect crown = WorldCrown(world, false);
             float top = crown.y + CrownAttachment(world).y * crown.width / 600 - 35;
-            return new Rect(right ? DesignWidth - 340 : -40, top, 380, DesignHeight - top + 80);
+            // The source crown attachment is x=73; normalize the lower bark without moving it.
+            float barkWidth = world == 1 ? 178 : world == 2 ? 164 : world == 3 ? 186 : 161;
+            float scale = (TrunkVisibleWidth - 25) / (barkWidth - 73);
+            float width = 380 * scale, left = 25 - 73 * scale;
+            return new Rect(right ? DesignWidth - left - width : left, top, width, DesignHeight - top + 80);
         }
         public const float ToolY = 1802, ToolFirstX = 260, ToolPitch = 182;
         public const int ToolCount = 4;
@@ -96,7 +101,7 @@ namespace PerchSort.Game
         public static Rect CardMechanic(int index, int count) => Centered(new Vector2(540 + (index - (count - 1) * 0.5f) * MechanicPitch, MechanicY), Vector2.one * MechanicSize);
         public const float MapNodeSize = 180, MapNumberSize = 54, MapStarSize = 36, MapStarPitch = 40, MapStarOffsetY = 44;
         public const float MapBirdSize = 280, MapBirdOffsetY = -155, MapShadowOffsetY = 70, MapBounceHeight = 12;
-        public const float MapBounceSeconds = 1.8f, MapStride = 3600, MapSegmentHeight = 3000, MapHeight = MapStride * 3 + MapSegmentHeight, MapFocusRatio = 0.4f;
+        public const float MapBounceSeconds = 1.8f, MapStride = 4000, MapSegmentHeight = 3000, MapHeight = MapStride * 3 + MapSegmentHeight, MapFocusRatio = 0.4f;
         public static readonly Rect MapViewport = SafeDesignArea;
         public static readonly Vector2 MapShadowSize = new Vector2(170, 38), MapGateSize = Screen("map", "gate").size, MapSettingsCenter = Screen("map", "settings").center;
         public static readonly Vector2 MapLockOffset = new Vector2(0, 40), MapNumberOffset = new Vector2(0, -10);
