@@ -71,7 +71,8 @@ namespace PerchSort.PlayModeTests
             {
                 root.Shop.TapCard(kind);
                 Assert.That(root.Shop.ConfirmOpen, Is.True, kind.ToString());
-                Check(root.Shop, "Confirm purchase", "Cancel purchase"); root.Shop.CloseConfirm();
+                // Confirm purchase and Next level are long primary bars since the popup redesign, not round discs.
+                Check(root.Shop, "Cancel purchase"); root.Shop.CloseConfirm();
             }
             root.Shop.ShowTab(PerchSort.Meta.ShopItemKind.Outfit); Check(root.Shop, "Outfits tab");
             root.Shop.ShowTab(PerchSort.Meta.ShopItemKind.Birdhouse); Check(root.Shop, "Birdhouses tab");
@@ -84,7 +85,7 @@ namespace PerchSort.PlayModeTests
             root.Aviary.OpenDetail("sunny"); Assert.That(root.Aviary.DetailOpen, Is.True);
             Check(root.Aviary, "Back to species list");
             root.Aviary.Back(); root.ClosePanel();
-            root.Win.Show(3, 0, 0); Check(root.Win, "Next level", "Replay level", "Home");
+            root.Win.Show(3, 0, 0); Check(root.Win, "Replay level", "Home");
             yield return null;
         }
 
