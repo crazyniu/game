@@ -1,19 +1,37 @@
 {
-  "generator": "PixelLab animate_image_pixminimax",
-  "attempted_outfit": "sunny_outfit_1",
-  "attempted_action": "cheer",
-  "status": "rejected_before_generation",
-  "error": "subscription expired (2026-11-03). renew at pixellab.ai/account or use credits via the v1/v2 REST API",
-  "generated_frames": 0,
-  "rejected_frames": 0,
-  "accepted_frames": 0,
-  "capability_limits": {
-    "maximum_native_frame_size": [
-      256,
-      256
-    ],
-    "generated_frame_counts": "multiples of four, 4 through 40",
-    "pose_sequence_input": false
-  },
-  "fallback": "Not attempted: a new billing/API route was not authorized; still-image sequences would not meet the requested single-animation workflow."
+  "method": "Codex built-in image generation, complete action pose sheets",
+  "completed_outfits": [
+    "sunny_outfit_1"
+  ],
+  "missing_outfits": [
+    "sky_outfit_1",
+    "berry_outfit_1",
+    "mint_outfit_1",
+    "cocoa_outfit_1",
+    "snow_outfit_1",
+    "ember_outfit_1",
+    "ink_outfit_1",
+    "hoot_outfit_1",
+    "sunny_outfit_2",
+    "sky_outfit_2",
+    "berry_outfit_2",
+    "mint_outfit_2",
+    "cocoa_outfit_2",
+    "snow_outfit_2",
+    "ember_outfit_2",
+    "ink_outfit_2",
+    "hoot_outfit_2",
+    "sunny_outfit_3",
+    "sky_outfit_3",
+    "berry_outfit_3",
+    "mint_outfit_3",
+    "cocoa_outfit_3",
+    "snow_outfit_3",
+    "ember_outfit_3",
+    "ink_outfit_3",
+    "hoot_outfit_3"
+  ],
+  "frames": 9,
+  "actions": 2,
+  "native_gif": false
 }

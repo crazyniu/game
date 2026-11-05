@@ -1,6 +1,6 @@
 # Animated outfit art contract
 
-Produce cheer (six frames) and blink (three frames) for all nine wearable species at each of the three shop tiers: 27 outfits, 54 actions, 243 PNG frames. Generate each complete action together as one animation, retain its review GIF under `art/cosmetics/gif/`, then slice numbered PNGs into the canonical Birds resource directory.
+Produce cheer (six frames) and blink (three frames) for all nine wearable species at each of the three shop tiers: 27 outfits, 54 actions, 243 PNG frames. Try the built-in image generator for a GIF pilot first. If native animation is unsupported, generate each complete action as one pose sheet from the exact bare pose frames and outfit still, then use the existing slicing/registration method. Retain offline review GIFs under `art/cosmetics/gif/` and numbered PNGs in the canonical Birds resource directory. Only built-in Codex image generation is authorized; no external or paid generation service.
 
 Use `docs/work-log/cosmetic-art/spec.md` for the exact accessories and the existing outfit still for identity. Each frame must repeat the corresponding bare-bird pose exactly, preserving the 320 x 320 RGBA canvas, scale, feet baseline and centered pivot. Accessories follow their attachment points. Copy import settings from the same species' idle metadata with unique asset GUIDs. Require light/dark transparency inspection and 64 px readability.
 
