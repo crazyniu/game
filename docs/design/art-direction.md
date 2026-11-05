@@ -1,10 +1,11 @@
 # Art direction
 
-Status: DRAFT for user approval. Written from the user-approved plush forest style (docs/UI_SPEC.md section 4.1, art/approved_ui) and the user's decisions of 2026-11-05. Items marked [Decision needed] are where the evidence does not settle the answer.
+Status: APPROVED by the user 2026-11-05 (with the correction below). The user approved art/ui_design board_few_branches, board_many_branches, tree_worlds and board_sleeping_bubble as the direction to implement. Written from the user-approved plush forest style (docs/UI_SPEC.md section 4.1, art/approved_ui) and the user's decisions of 2026-11-05. Items marked [Decision needed] are where the evidence does not settle the answer.
 
 ## 1. Visual identity
-Rule: **a warm, soft, plush forest where everything is a stylised 3D toy and everything the player touches is honey wood or green fabric.**
-- When two looks are ambiguous, choose the softer and rounder one (test: would it look at home next to a plush bird?).
+Rule: **a natural, softly painted storybook forest (NOT a plastic toy look) inhabited by plush, fluffy birds; everything the player touches is honey wood or green fabric.** (User correction 2026-11-05: the forest must not look like plastic toys; the birds are plush with visible soft fur.)
+- Forest and trees: painterly and natural (real bark texture, moss, layered foliage, atmospheric haze), never glossy or plastic.
+- Birds: plush toy material, soft visible fur, matte, no plastic shine.
 - When art and readability conflict, readability of the puzzle (which bird, which branch) wins.
 - Painted things (trees, backgrounds) are ONE continuous painting per scene; UI is made of a small fixed kit (wood, cream, green ribbon, gold rim). Never mix kits inside one component.
 
@@ -24,7 +25,7 @@ Rule: **a warm, soft, plush forest where everything is a stylised 3D toy and eve
 
 ## 3. Shape language
 - Birds: round bodies, big readable eyes, one distinguishing trait per species (curl, bun, crest, leaf, ears, plume, flame, cap/hood, brow); readable at 64 px.
-- Environment: organic, rounded, thick tapered limbs, no straight sticks.
+- Environment: organic, natural, painted; thick tapered limbs growing out of the trunk, no straight sticks, no glossy plastic surfaces.
 - UI grammar: rounded rectangles (panels, cards, bars) and circles (discs); everything has a gold or dark-wood rim; generous corner radii.
 - Hero shapes: birds and the goal house. Supporting: trees, UI. Receding: background haze.
 
