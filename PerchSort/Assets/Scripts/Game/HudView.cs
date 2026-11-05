@@ -16,7 +16,7 @@ namespace PerchSort.Game
         private readonly Image[] stars = new Image[3];
         private readonly TextMeshProUGUI[] limits = new TextMeshProUGUI[2];
         private Image phaseIcon, moveFrame;
-        private GameObject phaseGroup, feather, chorus;
+        private GameObject phaseGroup, feather, chorus, moonbeam;
         private GameMotion motion, coinMotion, moveMotion;
         private bool countingCoins;
         private int coinRevision, displayedMoves = -1;
@@ -26,6 +26,7 @@ namespace PerchSort.Game
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
+        private readonly Image[] stockHits = new Image[4];
         private readonly TextMeshProUGUI[] counts = new TextMeshProUGUI[4];
         private readonly GameObject[] plusBadges = new GameObject[4];
         private readonly BoosterKind[] kinds = new BoosterKind[4];
@@ -45,10 +46,10 @@ namespace PerchSort.Game
             controlFade = controls.gameObject.AddComponent<CanvasGroup>();
             coins = CoinHeader(controls, art, font);
             settings = GameUI.Button(controls, art, "Settings", "icon_gear", GameLayout.SettingsButton, screen.RequestSettings);
+            settings.gameObject.AddComponent<BoardControlFeedback>().Configure(settings, screen);
             Rect pill = GameLayout.MovePill;
-            moveFrame = GameUI.Fit(controls, "Move pill", art.Optional("move_pill_frame") ?? art.Get("stat_pill"), pill.center, pill.size);
-            if (art.Optional("move_pill_frame") == null) GameArt.Warn("move_pill_frame", "Missing move_pill_frame and icon_footprint; retained pill and feather mark are board-shell placeholders.");
-            GameUI.Fit(moveFrame.transform, "Footprints", art.Optional("icon_footprint") ?? art.Get("gift_feather"), new Vector2(16, 30), Vector2.one * 24).color = GameUI.Ink;
+            moveFrame = GameUI.Fit(controls, "Move pill", art.Get("move_pill_frame"), pill.center, pill.size);
+            GameUI.Fit(moveFrame.transform, "Footprints", art.Get("icon_footprint"), new Vector2(16, 30), Vector2.one * 24);
             moves = GameUI.Text(moveFrame.transform, "Counted moves", "0", font, new Vector2(46, 31), new Vector2(40, 42), 18);
             for (int i = 0; i < 3; i++)
             {
@@ -65,9 +66,10 @@ namespace PerchSort.Game
                     }
                 }
             }
-            phaseGroup = GameUI.Fit(controls, "Day night dial", art.Optional("dial_frame") ?? art.Get("stat_pill"), GameLayout.PhaseDial.center, GameLayout.PhaseDial.size).gameObject;
+            phaseGroup = GameUI.Fit(controls, "Day night dial", art.Get("dial_frame"), GameLayout.PhaseDial.center, GameLayout.PhaseDial.size).gameObject;
             phaseIcon = GameUI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), GameLayout.PhaseIconCenter, Vector2.one * GameLayout.PhaseIconSize);
             phaseCount = GameUI.Text(phaseGroup.transform, "Moves until phase", "0", font, GameLayout.PhaseCountCenter, GameLayout.PhaseCountSize, GameLayout.PhaseFontSize);
+            moonbeam = GameUI.Fit(phaseGroup.transform, "Moonbeam status", art.Get("gift_moon_ray"), new Vector2(166, 30), Vector2.one * 36).gameObject;
             homeFlights = GameUI.Rect(transform, "Homeward flights", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             housesLayer = GameUI.Rect(transform, "Species goals", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             bottomBar = GameUI.Rect(controls, "Bottom bar", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
@@ -82,6 +84,9 @@ namespace PerchSort.Game
                 var horizontal = GameUI.Image(plusBadges[i].transform, "Plus horizontal", null, Vector2.one * 32, new Vector2(32, 9));
                 var vertical = GameUI.Image(plusBadges[i].transform, "Plus vertical", null, Vector2.one * 32, new Vector2(9, 32));
                 horizontal.color = vertical.color = Color.white;
+                stockHits[i] = GameUI.Image(tools[i].transform, "Inventory action", null, GameLayout.StockCenter, Vector2.one * 88);
+                stockHits[i].color = Color.clear;
+                stockHits[i].gameObject.AddComponent<BoardControlFeedback>().Configure(tools[i], screen, () => screen.RequestTool(kinds[slot]));
             }
             feather = GameUI.Fit(controls, "Light step pending", art.Get("gift_feather"), new Vector2(267, 282), Vector2.one * 36).gameObject;
             chorus = GameUI.Fit(controls, "Chorus ribbon", art.Get("ribbon_green"), GameLayout.ChainRibbon.center, GameLayout.ChainRibbon.size).gameObject;
@@ -89,6 +94,7 @@ namespace PerchSort.Game
             chorusLabel = GameUI.Text(chorus.transform, "Chorus multiplier", "", font, new Vector2(110, 30), new Vector2(50, 44), 32);
             chorus.SetActive(false);
             effects = GameUI.Rect(transform, "HUD particles", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            foreach (var tool in tools) tool.gameObject.AddComponent<BoardControlFeedback>().Configure(tool, screen);
         }
         public static TextMeshProUGUI CoinHeader(Transform parent, GameArt art, TMP_FontAsset font, bool map = false)
         {
@@ -108,7 +114,7 @@ namespace PerchSort.Game
             Cancel();
             for (int i = housesLayer.childCount - 1; i >= 0; i--) GameUI.Dispose(housesLayer.GetChild(i).gameObject);
             houses.Clear();
-            GameUI.Fit(housesLayer, "Single house rope", art.Optional("goal_rope_single") ?? art.Get("house_rope"), new Vector2(540, 94), new Vector2(30, 188));
+            GameUI.Fit(housesLayer, "Single house rope", art.Get("goal_rope_single"), new Vector2(540, 80), new Vector2(15.24f, 160));
             house = GameUI.Rect(housesLayer, "Single goal house", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize).gameObject.AddComponent<BirdhouseView>();
             house.Configure(screen, art, snapshot);
             foreach (var goal in snapshot.Goals) houses.Add(goal.Species, house);
@@ -131,13 +137,14 @@ namespace PerchSort.Game
                 int before = displayedMoves < 0 ? snapshot.CountedMoves.Value : displayedMoves, after = snapshot.CountedMoves.Value;
                 displayedMoves = after; moveMotion.CancelAll();
                 moveMotion.Play(0.5f, t => moves.text = BoardNumber.Format((int)Math.Round(before + ((double)after - before) * t)),
-                    () => moves.text = BoardNumber.Format(after));
+                    () => moves.text = BoardNumber.Format(after), ease: LitMotion.Ease.OutCubic);
             }
             else if (!snapshot.CountedMoves.HasValue) moves.text = "";
             moves.name = "Counted moves " + snapshot.CountedMoves;
             for (int i = 0; i < stars.Length; i++) stars[i].color = new Color(1, 1, 1, snapshot.ReachableStars.HasValue && i >= 3 - snapshot.ReachableStars.Value ? 1 : 0.35f);
             limits[0].text = snapshot.ThreeStarLimit?.ToString() ?? ""; limits[1].text = snapshot.TwoStarLimit?.ToString() ?? "";
             Phase(snapshot.Phase, snapshot.PhaseMovesLeft, snapshot.PhaseEnabled);
+            moonbeam.SetActive(snapshot.MoonbeamActive);
             LightStep(snapshot.LightStep || snapshot.FreeMove);
             moveFrame.color = snapshot.FreeMove ? new Color(0.7f, 1, 0.65f) : Color.white;
             tools[0].gameObject.SetActive(snapshot.UndoAvailable);
@@ -156,6 +163,7 @@ namespace PerchSort.Game
                 kinds[i] = data.Kind; tools[i].name = data.Kind.ToString();
                 var icon = rect.GetChild(0).GetComponent<Image>(); icon.sprite = art.Get(ViewModel.ToolGlyph(data.Kind)); GlyphMetrics.Apply(icon, bounds.size);
                 tools[i].interactable = data.Enabled && data.Stock.HasValue;
+                stockHits[i].raycastTarget = tools[i].interactable;
                 badges[i].gameObject.SetActive(data.Stock.HasValue);
                 counts[i].gameObject.SetActive(data.Stock.HasValue && !data.ZeroPlus);
                 counts[i].text = data.Stock.HasValue ? BoardNumber.Format(data.Stock.Value) : ""; counts[i].name = "Owned " + data.Stock;
@@ -177,6 +185,12 @@ namespace PerchSort.Game
         }
         public void Chorus(int chain) { chorus.SetActive(chain >= 2); chorusLabel.text = chain.ToString(); }
         public void LightStep(bool value) => feather.SetActive(value);
+        public void ShowFreeMove(bool value)
+        {
+            if (!value) return;
+            moveFrame.color = new Color(0.7f, 1, 0.65f); feather.SetActive(true);
+            motion.Play(0.5f, _ => { }, () => { moveFrame.color = Color.white; feather.SetActive(current != null && current.LightStep); });
+        }
         public void FlyIcon(string icon, Vector2 from, Vector2 to, Action done)
         {
             var image = GameUI.Fit(effects, "Flying " + icon, art.Get(icon), from, Vector2.one * GameLayout.IconSize);
@@ -197,7 +211,7 @@ namespace PerchSort.Game
             {
                 if (token != coinRevision) return;
                 countingCoins = false; coins.text = BoardNumber.Format(to, 99999); done?.Invoke();
-            });
+            }, ease: LitMotion.Ease.OutCubic);
         }
         public void Entrance(float homes, float visibleControls)
         {

@@ -104,7 +104,7 @@ namespace PerchSort.PlayModeTests
             {
                 Assert.That(HouseFace(house).gameObject.activeInHierarchy, Is.False);
                 Assert.That(house.IsHome, Is.False);
-                Assert.That(house.transform.Find("Birdhouse/Home check").gameObject.activeInHierarchy, Is.False);
+                foreach (var badge in house.Badges.Values) Assert.That(badge.transform.Find("Gold ring/Delivery check").gameObject.activeInHierarchy, Is.False);
             }
             GameMotion.Instant = false;
             Assert.That(root.TryMove(0, 1), Is.True);
@@ -114,9 +114,9 @@ namespace PerchSort.PlayModeTests
             while (root.IsBusy && Time.realtimeSinceStartup < deadline) yield return null;
             Assert.That(root.IsBusy, Is.False);
             Assert.That(HouseFace(root.Hud.Houses["sky"]).gameObject.activeInHierarchy, Is.True);
-            Assert.That(root.Hud.Houses["sky"].IsHome, Is.True);
-            Assert.That(root.Hud.Houses["sky"].transform.Find("Birdhouse/Home check").gameObject.activeInHierarchy, Is.True);
-            Assert.That(HouseFace(root.Hud.Houses["sunny"]).gameObject.activeInHierarchy, Is.False);
+            Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.True);
+            Assert.That(root.Hud.GoalHouse.Badges["sky"].transform.Find("Gold ring/Delivery check").gameObject.activeInHierarchy, Is.True);
+            Assert.That(root.Hud.GoalHouse.IsDelivered("sunny"), Is.False);
             Assert.That(root.Undo(), Is.True);
             yield return new WaitForSecondsRealtime(1.2f);
             foreach (var house in root.Hud.Houses.Values)

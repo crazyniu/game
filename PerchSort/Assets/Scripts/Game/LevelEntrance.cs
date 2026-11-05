@@ -47,7 +47,7 @@ namespace PerchSort.Game
             // Hold the starting poses without idle motion while the wipe still covers the level.
             root.Board.Cancel();
             foreach (var bird in root.Board.Birds.Values)
-                if (bird.Bird.IsEgg || bird.Sleeping) bird.transform.localScale = Vector3.zero;
+                if (bird.Bird.IsEgg || bird.Sleeping) bird.SetEntranceAlpha(0);
             Pose(0);
             prepared = true;
         }
@@ -61,13 +61,13 @@ namespace PerchSort.Game
             return new Vector2(x + Mathf.Lerp(-60, 60, (float)random.NextDouble()),
                 y + Mathf.Lerp(-60, 60, (float)random.NextDouble()));
         }
-        public void Play(Action done)
+        public void Play(Action done, float startAt = 0)
         {
             if (!prepared) Prepare();
             prepared = false; completed = done; IsPlaying = true;
             int token = ++revision;
             transform.SetAsLastSibling(); gameObject.SetActive(true);
-            Pose(0);
+            Pose(startAt);
             root.PresentationInputChanged();
             arrivals = root.Board.Birds.Count; poseComplete = false;
             float duration = MinimumDuration;
@@ -89,12 +89,15 @@ namespace PerchSort.Game
                     Vector2 start = bird.Position;
                     // Rows overlap, but birds within each row keep their own readable cadence.
                     float delay = HouseDuration + BranchDuration + state.Row * RowStagger + rowBird * BirdStagger;
-                    root.Board.Enter(bird, start, target, delay, branch, arrived);
-                    duration = Mathf.Max(duration, delay + (bird.Bird.IsEgg || bird.Sleeping ? SeatedDuration : FlightSettleDuration));
+                    float arrival = delay + (bird.Bird.IsEgg || bird.Sleeping ? SeatedDuration : FlightSettleDuration);
+                    duration = Mathf.Max(duration, arrival);
+                    if (startAt >= arrival) { bird.Place(target); bird.SetEntranceAlpha(1); arrived(); }
+                    else root.Board.Enter(bird, start, target, Mathf.Max(0, delay - startAt), branch, arrived);
                     rowBird++;
                 }
             }
-            motion.Play(duration, t => { if (token == revision) Pose(t * duration, duration); },
+            float remainingDuration = Mathf.Max(0, duration - startAt);
+            motion.Play(remainingDuration, t => { if (token == revision) Pose(startAt + t * remainingDuration, duration); },
                 () =>
                 {
                     if (token != revision) return;

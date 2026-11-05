@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LitMotion;
 using PerchSort.Audio;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,13 @@ namespace PerchSort.Game
         private RectTransform branchLayer, birdLayer, effects;
         private GameMotion sequence, hintMotion;
         private BirdhouseView activeHouse;
+        private readonly ManualMotionDispatcher playback = new ManualMotionDispatcher();
+        private bool playing, fastForward;
+        private int playbackFrame;
+        public const float PlaybackBudget = 5f, MinimumDurationScale = 0.4f, FastForwardSpeed = 3f;
+        public float EstimatedPlaybackSeconds { get; private set; }
+        public float PlaybackDurationScale { get; private set; } = 1;
+        public event Action<PerchSort.Core.GameEvent, float> EventPresented;
         public int RowCount { get; private set; }
         public bool IsAirborne => airborne > 0;
         public IReadOnlyList<BranchView> Branches => branches;
@@ -63,11 +71,9 @@ namespace PerchSort.Game
             if (bird.Bird.IsEgg || bird.Sleeping)
             {
                 bird.Place(target); bird.Cancel();
-                var fade = bird.GetComponent<CanvasGroup>();
-                if (fade == null) fade = bird.gameObject.AddComponent<CanvasGroup>();
-                fade.alpha = 0;
-                sequence.Play(LevelEntrance.SeatedDuration, t => { if (run == generation) fade.alpha = t; }, () =>
-                { if (run == generation) { fade.alpha = 1; bird.Place(target); complete?.Invoke(); } }, delay);
+                bird.SetEntranceAlpha(0);
+                sequence.Play(LevelEntrance.SeatedDuration, t => { if (run == generation) bird.SetEntranceAlpha(t); }, () =>
+                { if (run == generation) { bird.SetEntranceAlpha(1); bird.Place(target); complete?.Invoke(); } }, delay);
                 return;
             }
             bird.Enter(start, target, delay, LevelEntrance.FlightDuration, () => { if (run == generation) Launch(); },
@@ -115,8 +121,93 @@ namespace PerchSort.Game
         public void Play(IReadOnlyList<BoardResolutionEvent> events, Action complete)
         {
             Cancel(); foreach (var bird in birds.Values) bird.Place(bird.Position);
-            int run = generation;
-            PlayEvent(events, 0, () => { if (run == generation) { BindIdleGroups(); complete?.Invoke(); } }, run);
+            int run = generation; bool finished = false;
+            EstimatedPlaybackSeconds = EstimatePlayback(events);
+            PlaybackDurationScale = Mathf.Max(MinimumDurationScale, Mathf.Min(1, PlaybackBudget / Mathf.Max(EstimatedPlaybackSeconds, 0.001f)));
+            playing = true; fastForward = false; playbackFrame = Time.frameCount;
+            var previous = MotionScheduler.DefaultScheduler;
+            try
+            {
+                MotionScheduler.DefaultScheduler = playback.Scheduler;
+                PlayEvent(events, 0, () =>
+                {
+                    if (run != generation || finished) return;
+                    finished = true; playing = false; BindIdleGroups();
+                    var scheduler = MotionScheduler.DefaultScheduler;
+                    try { MotionScheduler.DefaultScheduler = previous; complete?.Invoke(); }
+                    finally { MotionScheduler.DefaultScheduler = scheduler; }
+                }, run);
+            }
+            finally { MotionScheduler.DefaultScheduler = previous; }
+        }
+        private void Update()
+        {
+            var previous = MotionScheduler.DefaultScheduler;
+            try
+            {
+                MotionScheduler.DefaultScheduler = playback.Scheduler;
+                playback.Update(Time.deltaTime * (playing ? (fastForward ? FastForwardSpeed : 1) / PlaybackDurationScale : 1));
+            }
+            finally { MotionScheduler.DefaultScheduler = previous; }
+        }
+        public void FastForwardPlayback()
+        {
+            if (playing && Time.frameCount > playbackFrame) fastForward = true;
+        }
+        private static bool Independent(BoardResolutionEvent first, BoardResolutionEvent next)
+        {
+            if (first.Kind != next.Kind) return false;
+            switch (first.Kind)
+            {
+                case Kind.EggWobble: case Kind.EggReveal: case Kind.Hatch: case Kind.Wake:
+                    return first.BirdId != next.BirdId;
+                case Kind.Grow: return first.From != next.From;
+                // All flocks share one physical doorway, so house transitions are dependent.
+                default: return false;
+            }
+        }
+        private static int ParallelEnd(IReadOnlyList<BoardResolutionEvent> events, int start)
+        {
+            int end = start + 1;
+            while (end < events.Count)
+            {
+                bool independent = true;
+                for (int i = start; i < end; i++) if (!Independent(events[i], events[end])) { independent = false; break; }
+                if (!independent) break;
+                end++;
+            }
+            return end;
+        }
+        private static float EstimatePlayback(IReadOnlyList<BoardResolutionEvent> events)
+        {
+            float seconds = 0;
+            for (int i = 0; i < events.Count;)
+            {
+                int end = ParallelEnd(events, i); float group = 0;
+                for (int j = i; j < end; j++)
+                {
+                    var data = events[j]; float duration;
+                    switch (data.Kind)
+                    {
+                        case Kind.Wave: duration = j == 0 ? 0 : 0.15f; break;
+                        case Kind.Transfer: duration = 0.61f + Mathf.Max(0, data.BirdIds.Length - 1) * 0.06f; break;
+                        case Kind.Follow: duration = 0.61f; break;
+                        case Kind.FlockHome: duration = 0.25f + 0.7f + 0.51f + 0.3f + 0.25f; break;
+                        case Kind.Swivel: duration = 0.7f; break;
+                        case Kind.EggWobble: case Kind.Wake: duration = 0.3f; break;
+                        case Kind.EggReveal: duration = 0.25f; break;
+                        case Kind.Hatch: case Kind.Refuse: duration = 0.35f; break;
+                        case Kind.Gift: case Kind.Grow: case Kind.TwigUpgrade: case Kind.Booster: duration = 0.4f; break;
+                        case Kind.CrowsLeave: duration = 0.51f; break;
+                        case Kind.Phase: duration = 0.6f; break;
+                        case Kind.Won: duration = 0.7f; break;
+                        default: throw new ArgumentOutOfRangeException();
+                    }
+                    group = Mathf.Max(group, duration);
+                }
+                seconds += group; i = end;
+            }
+            return seconds;
         }
         private void Launch() { airborne++; screen.PresentationInputChanged(); }
         private void Land() { airborne = Mathf.Max(0, airborne - 1); screen.PresentationInputChanged(); }
@@ -124,14 +215,28 @@ namespace PerchSort.Game
         {
             if (run != generation) return;
             if (index == events.Count) { complete(); return; }
+            int end = ParallelEnd(events, index), remaining = end - index;
+            for (int i = index; i < end; i++)
+            {
+                int current = i; float started = Time.realtimeSinceStartup; bool finished = false;
+                PlaySingle(events, current, () =>
+                {
+                    if (run != generation || finished) return;
+                    finished = true; EventPresented?.Invoke(events[current].Source, Time.realtimeSinceStartup - started);
+                    if (--remaining == 0) PlayEvent(events, end, complete, run);
+                }, run);
+            }
+        }
+        private void PlaySingle(IReadOnlyList<BoardResolutionEvent> events, int index, Action next, int run)
+        {
             var data = events[index]; screen.BindResolutionSnapshot(data.Snapshot);
-            Action next = () => { if (run == generation) PlayEvent(events, index + 1, complete, run); };
             switch (data.Kind)
             {
                 case Kind.Wave: sequence.Play(index == 0 ? 0 : 0.15f, _ => { }, next); break;
                 case Kind.Transfer:
                 case Kind.Follow:
                     screen.Hud.LightStep(data.LightStep);
+                    screen.Hud.ShowFreeMove(data.FreeMove);
                     foreach (int id in data.BirdIds) { seats[data.From].Remove(id); seats[data.To].Add(id); }
                     BindIdleGroups(); int remaining = data.BirdIds.Length;
                     if (remaining == 0) { next(); break; }
@@ -145,6 +250,7 @@ namespace PerchSort.Game
                     }
                     break;
                 case Kind.Swivel:
+                    screen.Hud.ShowFreeMove(data.FreeMove);
                     seats[data.From].Reverse(); BindIdleGroups(); int hops = data.BirdIds.Length + 1;
                     if (data.BirdIds.Length > 0) Launch();
                     Action settled = () =>
@@ -180,15 +286,19 @@ namespace PerchSort.Game
                         if (run != generation) return;
                         for (int i = 0; i < data.BirdIds.Length; i++)
                         {
-                            int id = data.BirdIds[i]; var bird = birds[id]; float delay = i * 0.1f;
+                            int id = data.BirdIds[i]; var bird = birds[id];
                             bird.transform.SetParent(screen.Hud.HomeFlightLayer, false);
-                            bird.Cheer(() => bird.FlyHome(house, delay, Launch, Land, () =>
+                            bird.Cheer(() =>
                             {
                                 if (run != generation) return;
-                                house.Arrival(); screen.PlaySound(Sfx.Collect); Remove(id); seats[data.From].Remove(id);
-                                if (--arrivals == 0) house.CompleteFlock(() =>
-                                { if (run == generation) { activeHouse = null; screen.Hud.Chorus(data.Chain); next(); } });
-                            }));
+                                bird.FlyHome(house, 0, Launch, Land, () =>
+                                {
+                                    if (run != generation) return;
+                                    house.Arrival(); screen.PlaySound(Sfx.Collect); Remove(id); seats[data.From].Remove(id);
+                                    if (--arrivals == 0) house.CompleteFlock(() =>
+                                    { if (run == generation) { activeHouse = null; screen.Hud.Chorus(data.Chain); next(); } });
+                                });
+                            });
                         }
                     });
                     break;
@@ -205,7 +315,7 @@ namespace PerchSort.Game
                     screen.Scene.ChangePhase(data.Phase, next); break;
                 case Kind.Booster:
                     screen.Hud.SetStock(data.Booster, data.Remaining);
-                    if (data.Booster == PerchSort.Core.BoosterKind.Sapling) { Rebuild(data.Snapshot); run = generation; screen.Scene.SetLevel(data.Snapshot); }
+                    if (data.Booster == PerchSort.Core.BoosterKind.Sapling) { RebuildViews(data.Snapshot); screen.Scene.SetLevel(data.Snapshot); }
                     screen.Hud.FlyIcon(ViewModel.Icon(data.Booster), screen.Hud.BoosterPoint(data.Booster), new Vector2(540, 1050), next); break;
                 case Kind.Refuse:
                     foreach (int id in data.BirdIds) if (birds.TryGetValue(id, out var refusing)) refusing.Shake();
@@ -245,14 +355,14 @@ namespace PerchSort.Game
                 {
                     int id = data.Bird.Id; seats[b].Add(id);
                     birds[id].Sync(data.Bird, data.Sleeping); birds[id].SetOutfit(data.Outfit); birds[id].Place(data.Position);
-                    var fade = birds[id].GetComponent<CanvasGroup>(); if (fade != null) fade.alpha = 1;
+                    birds[id].SetEntranceAlpha(1);
                 }
             }
             BindIdleGroups();
         }
         public void Cancel()
         {
-            generation++; sequence?.CancelAll();
+            generation++; playing = false; fastForward = false; sequence?.CancelAll();
             if (activeHouse != null) { activeHouse.Cancel(); activeHouse = null; }
             foreach (var bird in birds.Values)
             {
@@ -262,6 +372,6 @@ namespace PerchSort.Game
             foreach (var branch in branches) branch.Cancel(); ClearHints(); airborne = 0;
         }
         private void OnDisable() => Cancel();
-        private void OnDestroy() => Cancel();
+        private void OnDestroy() { Cancel(); playback.Reset(); }
     }
 }

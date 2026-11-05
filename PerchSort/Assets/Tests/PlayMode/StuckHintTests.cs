@@ -26,7 +26,7 @@ namespace PerchSort.PlayModeTests
                 new BranchDef { side = "L", row = 1, birds = new[] { "sky:sleep", "sky:sleep" } }
             }
         };
-        private GameObject Bubble => root.Hud.transform.parent.Find("Stuck hint")?.gameObject;
+        private GameObject Bubble => root.BoardScreen.transform.Find("Board icon bubble")?.gameObject;
         [UnitySetUp]
         public IEnumerator SetUp()
         {
@@ -60,9 +60,9 @@ namespace PerchSort.PlayModeTests
             var pointer = new PointerEventData(EventSystem.current) { position = RectTransformUtility.WorldToScreenPoint(root.RenderCamera, rect.position) };
             var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(pointer, hits);
             foreach (var hit in hits) Assert.That(hit.gameObject.transform.IsChildOf(Bubble.transform), Is.False);
-            Assert.That(root.Undo(), Is.True); Assert.That(Bubble.activeSelf, Is.False);
+            Assert.That(root.Undo(), Is.True); Assert.That(Bubble == null || !Bubble.activeSelf, Is.True);
             yield return new WaitForSecondsRealtime(0.9f);
-            Assert.That(Bubble.activeSelf, Is.False);
+            Assert.That(Bubble == null || !Bubble.activeSelf, Is.True);
         }
         [UnityTest]
         public IEnumerator ModalCancelsPendingHint()
@@ -88,15 +88,14 @@ namespace PerchSort.PlayModeTests
             root.LoadFixture(DeadEnd());
             Assert.That(root.TryMove(0, 1), Is.True);
             GameMotion.Instant = false;
-            var entrance = root.GetComponentInChildren<LevelEntrance>(true);
-            entrance.Play(null);
+            root.BoardScreen.PlayEntrance(new EntrancePresentation { TransactionId = 1000 });
             Assert.That(root.IsIntroducing, Is.True);
             yield return new WaitForSecondsRealtime(1);
             Assert.That(Bubble == null || !Bubble.activeSelf, Is.True);
-            entrance.Cancel();
+            root.BoardScreen.SkipEntrance();
         }
         [UnityTest]
-        public IEnumerator HintAppearsAndFloatsAfterUnlock()
+        public IEnumerator HintAppearsAfterDelayAndExpires()
         {
             string directory = Environment.GetEnvironmentVariable("STUCK_HINT_CAPTURE_DIR");
             RenderTexture target = null;
@@ -121,7 +120,8 @@ namespace PerchSort.PlayModeTests
                 if (elapsed >= sample * 0.1f)
                 {
                     if (sample < 8) Assert.That(Bubble == null || !Bubble.activeSelf, Is.True);
-                    if (sample >= 10) Assert.That(Bubble != null && Bubble.activeSelf, Is.True);
+                    if (sample >= 10 && sample <= 22) Assert.That(Bubble != null && Bubble.activeSelf, Is.True);
+                    if (sample >= 25) Assert.That(Bubble == null || !Bubble.activeSelf, Is.True);
                     if (target != null)
                     {
                         root.Canvas.GetComponent<SafeArea>().Apply(); Canvas.ForceUpdateCanvases();

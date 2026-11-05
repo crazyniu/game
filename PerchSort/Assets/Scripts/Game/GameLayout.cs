@@ -46,8 +46,8 @@ namespace PerchSort.Game
         {
             if (rows == 3)
             {
-                float[] left = { 760, 1027, 1293 }, other = { 893, 1160, 1427 };
-                return (right ? other : left)[row];
+                if (right) return row == 0 ? 893 : row == 1 ? 1160 : 1427;
+                return row == 0 ? 760 : row == 1 ? 1027 : 1293;
             }
             return (rows <= 2 ? 925 : 760) + (row + (right ? 0.5f : 0)) * RowPitch(rows);
         }

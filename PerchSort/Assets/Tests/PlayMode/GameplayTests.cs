@@ -94,7 +94,7 @@ namespace PerchSort.PlayModeTests
                         Assert.That(view.ShowsRestPose, Is.True, "A resting egg or sleeper must not be overwritten by an idle action.");
                 }
             }
-            foreach (var species in state.HomedSpecies) Assert.That(root.Hud.Houses[species.Id].IsHome, Is.True);
+            foreach (var species in state.HomedSpecies) Assert.That(root.Hud.GoalHouse.IsDelivered(species.Id), Is.True);
         }
         private IEnumerator Settled()
         {
@@ -107,7 +107,7 @@ namespace PerchSort.PlayModeTests
         {
             int before = root.Coins;
             Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Win.IsOpen, Is.False); AssertSnapshot();
-            Assert.That(root.Hud.Houses["sky"].IsHome, Is.True); Assert.That(root.Hud.Houses["sunny"].IsHome, Is.False);
+            Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.True); Assert.That(root.Hud.GoalHouse.IsDelivered("sunny"), Is.False);
             Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
             Assert.That(root.TryMove(2, 0), Is.True); Assert.That(root.Win.gameObject.activeInHierarchy, Is.True);
             Assert.That(root.Session.MoveCount, Is.EqualTo(2)); Assert.That(root.Coins, Is.EqualTo(before + 30));
@@ -404,8 +404,8 @@ namespace PerchSort.PlayModeTests
             Assert.That(root.IsBusy, Is.False);
             Assert.That(closest, Is.LessThan(40), "The visible flock must approach its own door before retirement.");
             Assert.That(root.Hud.Houses["sky"].ArrivalCount, Is.EqualTo(4));
-            Assert.That(root.Hud.Houses["sky"].IsHome, Is.True);
-            Assert.That(root.Hud.Houses["sunny"].ArrivalCount, Is.Zero);
+            Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.True);
+            Assert.That(root.Hud.GoalHouse.IsDelivered("sunny"), Is.False);
             AssertSnapshot();
         }
         [UnityTest]

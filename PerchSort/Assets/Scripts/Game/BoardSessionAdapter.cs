@@ -49,44 +49,47 @@ namespace PerchSort.Game
             {
                 string id = ordered[i]; bool home = false;
                 foreach (var value in state.HomedSpecies) if (value.Id == id) home = true;
-                snapshot.Goals[i] = new BoardSnapshot.Goal { Species = id, PortraitKey = id + "_face", NameKey = "labels/name_" + id, GiftKey = ViewModel.GiftIcon(id), Home = home };
+                snapshot.Goals[i] = new BoardSnapshot.Goal { Species = id, PortraitKey = id + "_face", NameKey = "labels/name_" + id, GiftKey = BoardAssetKeys.GiftCoin(id), Home = home };
             }
             if (state.HomedSpecies.Count > 0) snapshot.ResidentSpecies = state.HomedSpecies[state.HomedSpecies.Count - 1].Id;
             snapshot.Hud = CaptureHud(root, snapshot);
-            snapshot.Input = Input(root); return snapshot;
+            snapshot.Input = Input(root, snapshot.Input); return snapshot;
         }
         public static HudSnapshot CaptureHud(GameRoot root, BoardSnapshot snapshot, int? displayedCoins = null)
         {
             var session = root.Session; var state = session.State;
             var context = ViewModel.ContextBooster(state, out bool hasContext);
             bool contextVisible = hasContext && root.HighestUnlocked >= ViewModel.Unlock(context);
-            var data = new HudSnapshot
-            {
-                Coins = displayedCoins ?? root.Coins, CountedMoves = session.MoveCount, ThreeStarLimit = session.Par,
-                TwoStarLimit = session.Par + 3, ReachableStars = session.Stars, UndoAvailable = session.CanUndo,
-                SettingsEnabled = !root.HasModal && !root.IsAirborne,
-                PhaseEnabled = state.DayLength > 0, Phase = state.Phase, PhaseMovesLeft = state.DayLength - state.PhaseCounter,
-                MoonbeamActive = state.MoonbeamMovesLeft > 0, LightStep = state.LightStep,
-                Chain = state.Chain, Goals = snapshot.Goals, ResidentSpecies = snapshot.ResidentSpecies,
-                HouseStyle = root.Collection.EquippedBirdhouseStyle, Presenting = root.IsBusy,
-                Tools = new HudSnapshot.Tool[contextVisible ? 3 : 2]
-            };
+            var data = snapshot.Hud ?? new HudSnapshot();
+            data.Coins = displayedCoins ?? root.Coins; data.CountedMoves = session.MoveCount; data.ThreeStarLimit = session.Par;
+            data.TwoStarLimit = session.Par + 3; data.ReachableStars = session.Stars; data.UndoAvailable = session.CanUndo;
+            data.SettingsEnabled = !root.HasModal && !root.IsAirborne;
+            data.PhaseEnabled = state.DayLength > 0; data.Phase = state.Phase; data.PhaseMovesLeft = state.DayLength - state.PhaseCounter;
+            data.MoonbeamActive = state.MoonbeamMovesLeft > 0; data.LightStep = state.LightStep;
+            data.Chain = state.Chain; data.Goals = snapshot.Goals; data.ResidentSpecies = snapshot.ResidentSpecies;
+            data.HouseStyle = root.Collection.EquippedBirdhouseStyle; data.Presenting = root.IsBusy;
+            int slots = contextVisible ? 3 : 2;
+            if (data.Tools.Length != slots) data.Tools = new HudSnapshot.Tool[slots];
             for (int slot = 0; slot < data.Tools.Length; slot++)
             {
                 var kind = slot == 0 ? BoosterKind.Firefly : slot == 1 ? BoosterKind.Sapling : context;
                 int stock = root.BoosterStock(kind);
-                data.Tools[slot] = new HudSnapshot.Tool { Kind = kind, Stock = stock, ZeroPlus = stock == 0,
-                    Visible = root.HighestUnlocked >= ViewModel.Unlock(kind),
-                    Enabled = !root.HasModal && !root.IsAirborne && !state.IsWon &&
-                        (kind != BoosterKind.Firefly || !root.HintPending) && (stock == 0 || session.BoosterHasEffect(kind)) };
+                var tool = data.Tools[slot] ?? (data.Tools[slot] = new HudSnapshot.Tool());
+                tool.Kind = kind; tool.Stock = stock; tool.ZeroPlus = stock == 0;
+                tool.Visible = root.HighestUnlocked >= ViewModel.Unlock(kind);
+                tool.Enabled = !root.HasModal && !root.IsAirborne && !state.IsWon &&
+                    (kind != BoosterKind.Firefly || !root.HintPending) && (stock == 0 || session.BoosterHasEffect(kind));
             }
             return data;
         }
-        public static InputPresentation Input(GameRoot root) => new InputPresentation
+        public static InputPresentation Input(GameRoot root, InputPresentation data = null)
         {
-            BoardEnabled = !root.IsMap && !root.HasModal, HudEnabled = !root.IsMap && !root.HasModal,
-            Entrance = root.IsIntroducing, Airborne = root.IsAirborne, AllowDeferred = root.IsBusy && !root.IsAirborne && !root.IsIntroducing
-        };
+            data = data ?? new InputPresentation();
+            data.BoardEnabled = !root.IsMap && !root.HasModal; data.HudEnabled = !root.IsMap && !root.HasModal;
+            data.Entrance = root.IsIntroducing; data.Airborne = root.IsAirborne;
+            data.AllowDeferred = root.IsBusy && !root.IsAirborne && !root.IsIntroducing;
+            return data;
+        }
         public static SelectionPresentation Selection(GameSession session, int selected, bool refused = false)
         {
             if ((uint)selected >= session.State.Branches.Count) return new SelectionPresentation();
@@ -95,25 +98,25 @@ namespace PerchSort.Game
             for (int i = 0; i < count; i++) ids[i] = branch.Birds[branch.Birds.Count - count + i].Id;
             return new SelectionPresentation { BirdIds = ids, Refused = refused };
         }
-        public static BoardResolutionEvent[] Resolution(GameRoot root, IReadOnlyList<GameEvent> events, BoardSnapshot final)
+        public static BoardResolutionEvent[] Resolution(GameRoot root, IReadOnlyList<GameEvent> events, BoardSnapshot final, bool freeMove, int previousChain)
         {
-            int chain = root.BoardScreen.Snapshot.Hud.Chain;
+            int chain = previousChain;
             var result = new BoardResolutionEvent[events.Count];
             for (int i = 0; i < result.Length; i++)
             {
                 var item = events[i];
-                var data = new BoardResolutionEvent { Snapshot = final };
+                var data = new BoardResolutionEvent { Snapshot = final, Source = item };
                 switch (item)
                 {
                     case ResolutionWave _: data.Kind = BoardResolutionEvent.EventKind.Wave; break;
                     case Transferred transfer:
                         data.Kind = BoardResolutionEvent.EventKind.Transfer; data.From = transfer.From; data.To = transfer.To;
-                        data.TargetStart = transfer.TargetStart; data.BirdIds = Copy(transfer.BirdIds); break;
+                        data.TargetStart = transfer.TargetStart; data.BirdIds = Copy(transfer.BirdIds); data.FreeMove = freeMove; break;
                     case ChicksFollowed follow:
                         data.Kind = BoardResolutionEvent.EventKind.Follow; data.From = follow.From; data.To = follow.To;
                         Travels(data, follow.Birds); break;
                     case Swivelled swivel:
-                        data.Kind = BoardResolutionEvent.EventKind.Swivel; data.From = swivel.Branch; Travels(data, swivel.Birds); break;
+                        data.Kind = BoardResolutionEvent.EventKind.Swivel; data.From = swivel.Branch; data.FreeMove = freeMove; Travels(data, swivel.Birds); break;
                     case EggWobbled wobble: data.Kind = BoardResolutionEvent.EventKind.EggWobble; data.BirdId = wobble.BirdId; break;
                     case EggRevealed reveal: data.Kind = BoardResolutionEvent.EventKind.EggReveal; data.BirdId = reveal.BirdId; break;
                     case Hatched hatch: data.Kind = BoardResolutionEvent.EventKind.Hatch; data.BirdId = hatch.BirdId; break;

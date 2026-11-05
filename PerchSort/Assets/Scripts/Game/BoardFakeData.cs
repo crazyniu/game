@@ -22,7 +22,7 @@ namespace PerchSort.Game
             public EntrancePresentation Entrance;
             public string Overlay, Species = "sunny";
             public BoosterKind Booster;
-            public int Stars = 3;
+            public int Stars = 3, Reward = 30;
             public Action AfterShow;
         }
         private readonly GameRoot root;
@@ -32,8 +32,9 @@ namespace PerchSort.Game
         private readonly List<string> names = new List<string>();
         private BoardSnapshot current, afterResolution, beforeAction;
         private string currentName;
-        private long transaction;
+        private long transaction = long.MinValue / 2;
         private int selected = -1;
+        private int? levelOverride;
         private bool resolving, entrancePlaying, overlayOpen;
         public bool Active { get; private set; }
         public string ScreenName => "Board";
@@ -49,6 +50,7 @@ namespace PerchSort.Game
             if (!states.TryGetValue(stateName, out var setup)) throw new ArgumentException("Unknown board state: " + stateName);
             timeline.CancelAll(); transaction++; selected = -1; resolving = entrancePlaying = overlayOpen = false;
             var fixture = new Fixture(); setup(fixture); currentName = stateName;
+            if (levelOverride.HasValue && fixture.Initial != null) fixture.Initial.LevelId = levelOverride.Value;
             Active = true; root.BeginBoardPreview(fixture.Initial); current = fixture.Initial;
             view.Show(current);
             if (current == null || current.RequiredKey != null || current.Goals.Length == 0) return;
@@ -69,12 +71,24 @@ namespace PerchSort.Game
             }
             if (fixture.Overlay != null)
             {
-                overlayOpen = true; root.PreviewOverlay(fixture.Overlay, fixture.Species, fixture.Booster, fixture.Stars);
+                overlayOpen = true; root.PreviewOverlay(fixture.Overlay, fixture.Species, fixture.Booster, fixture.Stars, fixture.Reward);
             }
             fixture.AfterShow?.Invoke();
         }
         public void Stop() { Active = false; timeline.CancelAll(); transaction++; current = afterResolution = beforeAction = null; }
         public void Reapply() { if (Active) Apply(currentName); }
+        public void OpenLevel(int id)
+        {
+            levelOverride = id;
+            try { Apply("Entrance / First play"); }
+            finally { levelOverride = null; }
+        }
+        public void NextFromWin()
+        {
+            if (currentName == "Recovery / World ending win") root.PreviewWorldSequence(1);
+            else if (currentName == "Recovery / Final level return") root.PreviewWorldSequence(4);
+            else OpenLevel(Math.Min(40, (current?.LevelId ?? 1) + 1));
+        }
         public void EntranceFinished(long id)
         {
             if (!Active || id != transaction) return;
@@ -204,7 +218,7 @@ namespace PerchSort.Game
             Add("Selection / Cancel empty space", f => { f.Selection = Select(f.Initial, 0); f.AfterShow = () => Delay(0.6f, () => view.SetSelection(new SelectionPresentation())); });
             Add("Selection / Empty tip", f => f.Initial.Branches[0].Birds = Array.Empty<BoardSnapshot.BirdData>());
             Add("Selection / Egg tip", f => SetBirds(f.Initial, 0, "egg:sky"));
-            Add("Selection / Sleeping bird tapped with bubble", f => { SetBirds(f.Initial, 0, "ink:sleep"); f.Bubble = Sleep(f.Initial, "dial_moon"); });
+            Add("Selection / Sleeping bird tapped with bubble", f => { f.Initial = Build(2, 2, 4, new[] { "ink", "sky" }); SetBirds(f.Initial, 0, "ink:sleep"); f.Bubble = Sleep(f.Initial, "dial_moon"); });
             Add("Selection / Legal transfer", f => Transfer(f, 0, 3, 1));
             Add("Selection / Legal partial transfer", f => { SetBirds(f.Initial, 0, "sky", "sky", "sky"); SetBirds(f.Initial, 3, "sky", "sky"); Transfer(f, 0, 3, 2); });
             Add("Selection / Legal full transfer", f => { SetBirds(f.Initial, 0, "sky", "sky"); Transfer(f, 0, 3, 2); });
@@ -244,14 +258,14 @@ namespace PerchSort.Game
             Add("Mechanics / Egg wobble", f => { SetBirds(f.Initial, 0, "egg:sky"); BirdEvent(f, Kind.EggWobble); });
             Add("Mechanics / Egg hatch", f => { SetBirds(f.Initial, 0, "egg:sky"); f.Final = Copy(f.Initial); SetFlags(f.Final, 0, BirdFlags.None); BirdEvent(f, Kind.Hatch); });
             Add("Mechanics / Authored sleeper", f => SetBirds(f.Initial, 0, "sunny:sleep"));
-            Add("Mechanics / Nocturnal day sleeper", f => { SetBirds(f.Initial, 0, "ink"); Sleeping(f.Initial, 0, true); f.Initial.Hud.PhaseEnabled = true; });
-            Add("Mechanics / Both sleep causes", f => { SetBirds(f.Initial, 0, "ink:sleep"); f.Initial.Hud.PhaseEnabled = true; f.Bubble = Sleep(f.Initial, "dial_moon", "gift_sun_note"); });
-            Add("Mechanics / Wake still nocturnally asleep", f => { SetBirds(f.Initial, 0, "ink:sleep"); f.Final = Copy(f.Initial); SetFlags(f.Final, 0, BirdFlags.None); Sleeping(f.Final, 0, true); BirdEvent(f, Kind.Wake); });
+            Add("Mechanics / Nocturnal day sleeper", f => { f.Initial = Build(2, 2, 4, new[] { "ink", "sky" }); SetBirds(f.Initial, 0, "ink"); Sleeping(f.Initial, 0, true); f.Initial.Hud.PhaseEnabled = true; });
+            Add("Mechanics / Both sleep causes", f => { f.Initial = Build(2, 2, 4, new[] { "ink", "sky" }); SetBirds(f.Initial, 0, "ink:sleep"); f.Initial.Hud.PhaseEnabled = true; f.Bubble = Sleep(f.Initial, "dial_moon", "gift_sun_note"); });
+            Add("Mechanics / Wake still nocturnally asleep", f => { f.Initial = Build(2, 2, 4, new[] { "ink", "sky" }); f.Initial.Hud.PhaseEnabled = true; SetBirds(f.Initial, 0, "ink:sleep"); f.Final = Copy(f.Initial); SetFlags(f.Final, 0, BirdFlags.None); Sleeping(f.Final, 0, true); BirdEvent(f, Kind.Wake); });
             Add("Mechanics / Mama following chicks", f => { SetBirds(f.Initial, 0, "sky:chick", "sky:chick", "sky:mama"); Transfer(f, 0, 3, 3); f.Events[0].Kind = Kind.Follow; });
             Add("Mechanics / Family target capacity reached", f => { SetBirds(f.Initial, 0, "sky:chick", "sky:chick", "sky:mama"); SetBirds(f.Initial, 3, "sky", "sky"); Transfer(f, 0, 3, 2); f.Events[0].Kind = Kind.Follow; });
-            Add("Mechanics / Crow parking", f => { SetBirds(f.Initial, 0, "crow"); f.Initial.Branches[0].Kind = BranchKind.Twig; });
+            Add("Mechanics / Crow parking", f => { SetBirds(f.Initial, 0, "crow"); f.Initial.Branches[0].Kind = BranchKind.Twig; f.Initial.Branches[0].Capacity = 2; });
             Add("Mechanics / Crow departure", f => { SetBirds(f.Initial, 0, "crow"); f.Final = Copy(f.Initial); f.Final.Branches[0].Birds = Array.Empty<BoardSnapshot.BirdData>(); f.Events.Add(new BoardResolutionEvent { Kind = Kind.CrowsLeave, From = 0, BirdIds = Ids(f.Initial.Branches[0]), Snapshot = f.Final }); });
-            Add("Mechanics / Twig", f => { f.Initial.Branches[0].Kind = BranchKind.Twig; f.Initial.Branches[0].Capacity = 2; });
+            Add("Mechanics / Twig", f => { SetBirds(f.Initial, 0, "sunny", "sky"); f.Initial.Branches[0].Kind = BranchKind.Twig; f.Initial.Branches[0].Capacity = 2; });
             Add("Mechanics / Partial growing branch", f => { f.Initial.Branches[3].Kind = BranchKind.Growing; f.Initial.Branches[3].Capacity = 2; });
             Add("Mechanics / Full growing branch", f => { f.Initial.Branches[3].Kind = BranchKind.Growing; f.Initial.Branches[3].Capacity = 4; });
             Add("Mechanics / Upgraded twig", f => { f.Initial.Branches[3].Kind = BranchKind.Twig; f.Initial.Branches[3].Capacity = 2; f.Final = Copy(f.Initial); f.Final.Branches[3].Kind = BranchKind.Normal; f.Final.Branches[3].Capacity = 4; f.Events.Add(new BoardResolutionEvent { Kind = Kind.TwigUpgrade, From = 3, Seats = 4, Snapshot = f.Final }); });
@@ -262,13 +276,13 @@ namespace PerchSort.Game
             Add("Phase / One move until flip", f => { f.Initial.Hud.PhaseEnabled = true; f.Initial.Hud.PhaseMovesLeft = 1; });
             foreach (string cause in new[] { "Clock flip reset", "Gift triggered flip", "Moonbeam expiry" })
             { string name = cause; Add("Phase / " + name, f => { f.Initial.Hud.PhaseEnabled = true; f.Initial.Hud.PhaseMovesLeft = 1; f.Final = Copy(f.Initial); f.Final.Hud.Phase = DayPhase.Night; f.Final.Hud.PhaseMovesLeft = 3; f.Events.Add(new BoardResolutionEvent { Kind = Kind.Phase, Phase = DayPhase.Night, Snapshot = f.Final }); }); }
-            Add("Phase / Moonbeam active", f => { f.Initial.Hud.PhaseEnabled = true; f.Initial.Hud.MoonbeamActive = true; SetBirds(f.Initial, 0, "hoot"); });
+            Add("Phase / Moonbeam active", f => { f.Initial = Build(2, 2, 4, new[] { "hoot", "sky" }); f.Initial.Hud.PhaseEnabled = true; f.Initial.Hud.MoonbeamActive = true; });
             foreach (string state in new[] { "Day", "Night", "Moonbeam", "Light step" })
             { string name = state; Add("Phase / Undo restoring " + name, f => { f.Initial.Hud.UndoAvailable = true; f.Initial.Hud.PhaseEnabled = name != "Light step"; f.Initial.Hud.Phase = name == "Night" ? DayPhase.Night : DayPhase.Day; f.Initial.Hud.MoonbeamActive = name == "Moonbeam"; f.Initial.Hud.LightStep = name == "Light step"; }); }
             foreach (string phase in new[] { "Prepared covered", "House", "Branches", "Birds", "Settle controls", "Ready", "First play", "Replay" })
             {
                 string name = phase;
-                Add("Entrance / " + name, f => { f.Entrance = new EntrancePresentation { PreparedOnly = name == "Prepared covered" }; });
+                Add("Entrance / " + name, f => { if (name != "Ready") f.Entrance = new EntrancePresentation { PreparedOnly = name == "Prepared covered", StartAtSeconds = name == "House" ? 0.2f : name == "Branches" ? 1 : name == "Birds" ? 1.7f : name == "Settle controls" ? 3.2f : 0 }; });
                 Add("Entrance / Skip " + name, f => { f.Entrance = new EntrancePresentation(); f.AfterShow = () => Delay(PhaseDelay(name), view.SkipEntrance); });
                 Add("Entrance / Cancel " + name, f => { f.Entrance = new EntrancePresentation(); f.AfterShow = () => Delay(PhaseDelay(name), () => { transaction++; entrancePlaying = false; view.Restore(current); }); });
                 Add("Entrance / Focus loss " + name, f => { f.Entrance = new EntrancePresentation(); f.AfterShow = () => Delay(PhaseDelay(name), () => view.SetLifecycle(false, BoardMotionMode.Normal)); });
@@ -293,7 +307,17 @@ namespace PerchSort.Game
             foreach (int count in new[] { 1, 2, 3 })
             { int stars = count; Add("Recovery / " + stars + " star clear", f => { HomeAll(f.Initial); f.Initial.Hud.ReachableStars = stars; f.Overlay = "Win"; f.Stars = stars; }); }
             foreach (string outcome in new[] { "Same star replay", "Upgraded star top up", "World ending win", "Final level return" })
-            { string name = outcome; Add("Recovery / " + name, f => { HomeAll(f.Initial); f.Overlay = "Win"; f.Initial.LevelId = name == "Final level return" ? 40 : name == "World ending win" ? 10 : 1; }); }
+            {
+                string name = outcome;
+                Add("Recovery / " + name, f =>
+                {
+                    if (name == "Final level return") { f.Initial = Build(5, 7); f.Initial.World = 4; f.Initial.Variant = "aurora"; }
+                    HomeAll(f.Initial); f.Overlay = "Win";
+                    f.Initial.LevelId = name == "Final level return" ? 40 : name == "World ending win" ? 10 : 1;
+                    f.Stars = name == "Same star replay" ? 2 : 3;
+                    f.Reward = name == "Same star replay" ? 5 : name == "Upgraded star top up" ? 10 : 30;
+                });
+            }
             Add("Surfaces / Settings", f => f.Overlay = "Settings");
             foreach (string value in Species)
             {
@@ -313,7 +337,14 @@ namespace PerchSort.Game
                 Add("Surfaces / Shop confirmation " + name, f =>
                 {
                     f.Initial.Hud.Coins = name == "Unaffordable" ? 0 : 240; f.Overlay = "Shop";
-                    f.AfterShow = () => { root.Shop.TapCard(BoosterKind.Firefly); if (name == "Cancel") root.Shop.CloseConfirm(); else if (name == "Success") root.Shop.Purchase(); };
+                    f.AfterShow = () =>
+                    {
+                        if (name == "Unaffordable") root.PreviewCoins(240);
+                        root.Shop.TapCard(BoosterKind.Firefly);
+                        if (name == "Unaffordable") root.PreviewCoins(0);
+                        if (name == "Cancel") root.Shop.CloseConfirm();
+                        else if (name == "Success") PressPurchase();
+                    };
                 });
             }
             Add("Surfaces / New friend single", f => f.Overlay = "New friend");
@@ -341,14 +372,22 @@ namespace PerchSort.Game
             Add("Environment / Offline local data available", f => { });
         }
         private void Delay(float seconds, Action action) => timeline.Play(seconds, _ => { }, action);
+        private void PressPurchase()
+        {
+            foreach (var button in root.Shop.GetComponentsInChildren<UnityEngine.UI.Button>(true))
+                if (button.name == "Confirm purchase") { button.onClick.Invoke(); return; }
+            throw new InvalidOperationException("Shop confirmation control is missing.");
+        }
         private static float PhaseDelay(string phase) => phase == "Prepared covered" ? 0.05f : phase == "House" ? 0.35f : phase == "Branches" ? 1.1f : phase == "Birds" ? 2.0f : 3.3f;
         private static readonly string[] Species = { "sunny", "sky", "berry", "mint", "cocoa", "snow", "ember", "ink", "hoot" };
-        private static string[] Variants(int world) => world == 1 ? new[] { "morning", "noon", "sunset", "rain" } : world == 2 ? new[] { "morning", "noon", "sunset", "rain" } : world == 3 ? new[] { "morning", "noon", "sunset", "rain" } : new[] { "morning", "noon", "sunset", "rain" };
+        private static string[] Variants(int world) => world == 1 ? new[] { "morning", "noon", "golden", "rain" } :
+            world == 2 ? new[] { "noon", "mist", "lanterns", "drizzle" } :
+            world == 3 ? new[] { "morning", "noon", "sunset", "windy" } : new[] { "morning", "noon", "bluehour", "aurora" };
         private static BoardSnapshot Build(int rows = 2, int speciesCount = 2, int branchCount = 0, string[] ids = null)
         {
             ids = ids ?? Species; if (branchCount == 0) branchCount = rows * 2;
             var data = new BoardSnapshot { LevelId = 1, Rows = rows, Branches = new BoardSnapshot.Branch[branchCount], Goals = new BoardSnapshot.Goal[speciesCount], Input = new InputPresentation { BoardEnabled = true, HudEnabled = true } };
-            for (int i = 0; i < speciesCount; i++) data.Goals[i] = new BoardSnapshot.Goal { Species = ids[i], PortraitKey = ids[i] + "_face", NameKey = "labels/name_" + ids[i], GiftKey = ViewModel.GiftIcon(ids[i]) };
+            for (int i = 0; i < speciesCount; i++) data.Goals[i] = new BoardSnapshot.Goal { Species = ids[i], PortraitKey = ids[i] + "_face", NameKey = "labels/name_" + ids[i], GiftKey = BoardAssetKeys.GiftCoin(ids[i]) };
             data.Hud = new HudSnapshot { Coins = 240, CountedMoves = 0, ThreeStarLimit = 8, TwoStarLimit = 11, ReachableStars = 3, PhaseMovesLeft = 3, Goals = data.Goals,
                 Tools = new[] { NewTool(BoosterKind.Firefly), NewTool(BoosterKind.Sapling) } };
             for (int i = 0; i < branchCount; i++)

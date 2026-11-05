@@ -11,7 +11,6 @@ namespace PerchSort.Game
     public sealed class BoardPresentation : MonoBehaviour, IBoardView
     {
         private GameArt art;
-        private GameMotion feedback;
         private CanvasGroup boardInput, hudInput;
         private RectTransform bubble;
         private GameObject recovery;
@@ -21,12 +20,14 @@ namespace PerchSort.Game
         private int generation;
         private bool deferred, focused = true, overlay;
         private long entranceTransaction;
+        private long completedEntrance = long.MinValue, completedResolution = long.MinValue;
         private float bubbleShown;
         public BoardSnapshot Snapshot { get; private set; }
         public BoardView Board { get; private set; }
         public HudView Hud { get; private set; }
         public SceneView Scene { get; private set; }
         public bool IsIntroducing => entrance != null && entrance.IsPlaying;
+        public bool BubbleVisible => bubble != null && bubble.gameObject.activeSelf;
         public event Action<int> BranchRequested;
         public event Action SelectionCancelRequested;
         public event Action<int> SwivelRequested;
@@ -49,7 +50,7 @@ namespace PerchSort.Game
             CanvasGroup boardGroup, CanvasGroup hudGroup)
         {
             art = assets; Board = board; Hud = hud; Scene = scene; tutorial = hand; entrance = intro;
-            boardInput = boardGroup; hudInput = hudGroup; feedback = gameObject.AddComponent<GameMotion>();
+            boardInput = boardGroup; hudInput = hudGroup;
         }
         public void Show(BoardSnapshot snapshot)
         {
@@ -80,15 +81,16 @@ namespace PerchSort.Game
         }
         public void UpdateHud(HudSnapshot snapshot) { if (Snapshot == null) return; Snapshot.Hud = snapshot; Hud.Render(snapshot); }
         public void SetSelection(SelectionPresentation selection) { if (Snapshot != null) Board.ShowSelection(selection ?? new SelectionPresentation()); }
-        public void BindResolutionSnapshot(BoardSnapshot snapshot) { if (snapshot != null) Snapshot = snapshot; }
+        public void BindResolutionSnapshot(BoardSnapshot snapshot) => Snapshot = snapshot;
         public void PlayResolution(IReadOnlyList<BoardResolutionEvent> orderedEvents, long transactionId)
         {
+            if (transactionId == completedResolution) return;
             if (Snapshot == null) { Fail("resolution snapshot"); return; }
             int run = ++generation; deferred = false;
             Board.Play(orderedEvents, () =>
             {
                 if (run != generation) return;
-                generation++; ResolutionPresented?.Invoke(transactionId);
+                completedResolution = transactionId; generation++; ResolutionPresented?.Invoke(transactionId);
             });
         }
         public void SetInput(InputPresentation value)
@@ -113,33 +115,30 @@ namespace PerchSort.Game
             if (data == null || !data.Visible || overlay || !focused) return;
             Vector2 point = data.Point; point.x = Mathf.Clamp(point.x, 184, 896); point.y = Mathf.Clamp(point.y, 530, 1650);
             bubble = GameUI.Rect(transform, "Board icon bubble", point, new Vector2(320, 140));
-            var tail = GameUI.Fit(bubble, "Tail", art.Get("stat_pill"), new Vector2(160, 126), Vector2.one * 32);
-            tail.rectTransform.localRotation = Quaternion.Euler(0, 0, 45);
-            GameUI.Fit(bubble, "Cream bubble", art.Optional("sleep_bubble") ?? art.Get("stat_pill"), new Vector2(160, 70), new Vector2(320, 140));
+            GameUI.Fit(bubble, "Cream bubble", art.Get("sleep_bubble"), new Vector2(160, 70), new Vector2(320, 140));
             var keys = data.IconKeys ?? Array.Empty<string>();
             for (int i = 0; i < keys.Length; i++)
                 GameUI.Fit(bubble, keys[i], art.Get(keys[i]), new Vector2(160 + (i - (keys.Length - 1) * 0.5f) * 78, 67), Vector2.one * 60);
-            bubbleShown = Time.unscaledTime + data.Delay;
+            bubbleShown = Time.unscaledTime + (GameMotion.Instant ? 0 : data.Delay);
             bubble.gameObject.SetActive(data.Delay <= 0 || GameMotion.Instant);
-            int run = generation;
-            feedback.Play(1.6f, _ => { }, () => { if (run == generation) HideBubble(); }, data.Delay);
         }
         private void Update()
         {
             if (bubble == null) return;
+            if (Time.unscaledTime >= bubbleShown + 1.6f) { HideBubble(); return; }
             if (Time.unscaledTime >= bubbleShown) bubble.gameObject.SetActive(true);
             if (Time.unscaledTime > bubbleShown && Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
             { HideBubble(); HintDismissRequested?.Invoke(); }
         }
         private void HideBubble()
         {
-            feedback?.CancelAll();
             if (bubble != null) GameUI.Dispose(bubble.gameObject);
             bubble = null;
         }
         public void SetTutorial(TutorialPresentation value) => tutorial?.Render(overlay || !focused ? null : value);
         public void PlayEntrance(EntrancePresentation value)
         {
+            if (value.TransactionId == completedEntrance && !value.PreparedOnly) return;
             if (Snapshot == null) { Fail("entrance snapshot"); return; }
             int run = ++generation; entranceTransaction = value.TransactionId;
             HideBubble(); tutorial.Hide(); deferred = false;
@@ -147,8 +146,8 @@ namespace PerchSort.Game
             entrance.Play(() =>
             {
                 if (run != generation) return;
-                generation++; EntrancePresented?.Invoke(entranceTransaction);
-            });
+                completedEntrance = entranceTransaction; generation++; EntrancePresented?.Invoke(entranceTransaction);
+            }, value.StartAtSeconds);
         }
         public void SkipEntrance() => entrance.Skip();
         public void SetOverlay(OverlayPresentation value)

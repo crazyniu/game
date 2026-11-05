@@ -14,7 +14,8 @@ BoardSnapshot is detached display data, including branches, stable bird IDs/flag
 - Preserve eleventh-branch play with a clearly warned six-row presentation extension (800/rows pitch); this remains unapproved geometry.
 - Coordinator update: retain all current trunk, junction and limb rendering. Do not load board_tree images or create tree placeholders. Feet-line geometry still follows the board specification.
 - Retain seated entrance for eggs/sleepers. Measure the settled board separately from user-controlled introduction cards. Existing audio cues remain until shared board-action mappings are approved.
-- Retained HUD art is used while named final assets are absent, with warnings. Required 99999 coins and 999 moves are full numbers; larger values use compact numeric notation with exact values in accessible object names, pending numeric-layout approval.
+- Use the delivered board HUD sprites merged from origin/main, including name-based footprint and gift-coin references. Required 99999 coins and 999 moves are full numbers; larger values use compact numeric notation with exact values in accessible object names, pending numeric-layout approval.
+- Preserve the coordinator's input-lock repair: revision-owned house transitions, one budgeted manual playback clock, and consumed fast-forward taps rather than replaying queued gameplay. Homes serialize because they share one physical doorway; independent bird/growth events still overlap.
 
 ## Verification constraint
 

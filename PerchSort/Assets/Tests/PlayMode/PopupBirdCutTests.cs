@@ -74,13 +74,13 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator TwoHouseBirdsStayOpaqueThroughIdleActions()
+        public IEnumerator HouseResidentStaysOpaqueThroughIdleActions()
         {
             PrepareCapture("houses");
-            var houses = root.Hud.Houses.Values.Take(2).ToArray();
-            Assert.That(houses.Length, Is.EqualTo(2));
-            foreach (var house in houses) house.SetHome(true);
-            var birds = houses.Select(house => house.GetComponentInChildren<UiBirdLife>()).ToArray();
+            var data = BoardSessionAdapter.Capture(root).Hud;
+            data.ResidentSpecies = "sky";
+            root.BoardScreen.UpdateHud(data);
+            var birds = new[] { root.Hud.GoalHouse.GetComponentInChildren<UiBirdLife>() };
             GameMotion.Instant = false;
             yield return Observe(birds, directory == null ? 6 : 15, 0.25f);
         }

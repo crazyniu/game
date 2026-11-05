@@ -91,7 +91,7 @@ namespace PerchSort.PlayModeTests
         }
 
         [UnityTest]
-        public IEnumerator BirdHandAvoidsFaceAndSelectionHidesUntilDeselected()
+        public IEnumerator BirdHandAvoidsFaceAndSelectionPointsToDestination()
         {
             root.LoadFixture(LevelLoader.Load(1)); yield return null;
             Assert.That(Hand.gameObject.activeInHierarchy, Is.True);
@@ -104,7 +104,7 @@ namespace PerchSort.PlayModeTests
             if (!string.IsNullOrEmpty(directory))
             {
                 GameMotion.Instant = false;
-                root.GetComponentInChildren<TutorialHand>(true).Refresh(root.Session, root.Board, false);
+                root.BoardScreen.SetTutorial(null); root.PresentationInputChanged();
                 yield return new WaitForSecondsRealtime(3);
                 for (int frame = 0; frame < 5; frame++)
                 {
@@ -114,7 +114,7 @@ namespace PerchSort.PlayModeTests
                 }
             }
             Assert.That(root.TapBranch(0), Is.True);
-            Assert.That(Hand.gameObject.activeInHierarchy, Is.False);
+            Assert.That(Hand.gameObject.activeInHierarchy, Is.True, "The supplied tutorial advances from source to destination.");
             root.TapBranch(0);
             Assert.That(root.Session.SelectedBranch, Is.EqualTo(-1));
             Assert.That(Hand.gameObject.activeInHierarchy, Is.True);
@@ -125,7 +125,7 @@ namespace PerchSort.PlayModeTests
             if (!string.IsNullOrEmpty(directory))
             {
                 GameMotion.Instant = false;
-                root.GetComponentInChildren<TutorialHand>(true).Refresh(root.Session, root.Board, false);
+                root.BoardScreen.SetTutorial(null); root.PresentationInputChanged();
                 yield return new WaitForSecondsRealtime(3);
                 Capture(directory, "sapling");
             }

@@ -14,17 +14,17 @@ namespace PerchSort.EditModeTests
             Assert.That(inner.yMax, Is.LessThanOrEqualTo(outer.yMax + 0.01f));
         }
         [TestCase(1)] [TestCase(2)] [TestCase(3)] [TestCase(4)] [TestCase(5)] [TestCase(6)] [TestCase(7)]
-        public void EveryHouseHasAVisibleUnambiguousDoorAndItsSharedCanvasStaysInBounds(int count)
+        public void SpeciesTargetsRemainSeparateAroundOneSharedHouse(int count)
         {
-            float previous = -1;
+            Rect canvas = GameLayout.NestCanvas;
+            Vector2 door = canvas.position + GameLayout.HouseDoorLocal(canvas.size);
+            Inside(GameLayout.SafeDesignArea, GameLayout.Centered(door, Vector2.one * GameLayout.HouseDoorDiameter(canvas.width)));
             for (int index = 0; index < count; index++)
             {
-                Rect canvas = GameLayout.HouseCanvas(index, count);
-                Vector2 door = canvas.position + GameLayout.HouseDoorLocal(canvas.size);
-                float diameter = GameLayout.HouseDoorDiameter(canvas.width);
-                Inside(GameLayout.SafeDesignArea, GameLayout.Centered(door, Vector2.one * diameter));
-                Assert.That(door.x, Is.GreaterThan(previous + diameter));
-                previous = door.x;
+                Rect target = GameLayout.Centered(GameLayout.GoalBadgePoint(index, count), Vector2.one * 88);
+                Inside(GameLayout.SafeDesignArea, target);
+                Assert.That(target.Overlaps(canvas), Is.False);
+                if (index > 0) Assert.That(target.Overlaps(GameLayout.Centered(GameLayout.GoalBadgePoint(index - 1, count), Vector2.one * 88)), Is.False);
             }
         }
         [TestCase(3)] [TestCase(4)]
@@ -82,7 +82,7 @@ namespace PerchSort.EditModeTests
             }
             for (int row = 0; row < rows; row++)
                 Assert.That(GameLayout.RowY(row, rows, true) - GameLayout.RowY(row, rows),
-                    Is.EqualTo(GameLayout.RowPitch(rows) / 2).Within(0.01f), "Opposite rows must interleave.");
+                    Is.EqualTo(GameLayout.RowPitch(rows) / 2).Within(1), "Authored integer feet lines round the interleave to the nearest pixel.");
         }
         [TestCase("win", "replay", "next", "home")]
         [TestCase("settings", "sound", "replay", "home")]
