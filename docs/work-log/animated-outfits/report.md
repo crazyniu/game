@@ -1,6 +1,6 @@
 # Animated outfit art delivery
 
-Delivered 25/27 outfits, 50/54 actions, 225/243 PNG frames and matching metadata. No code or retained artwork changes.
+Delivered 26/27 outfits, 52/54 actions, 234/243 PNG frames and matching metadata. No code or retained artwork changes.
 
 ## Method
 
@@ -22,9 +22,9 @@ Rejected Ember tier 3 cheer for a closed beak in pose 5; retained as `ember_outf
 
 ## Exact completion list
 
-Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2, sky_outfit_2, berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2, hoot_outfit_2, sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3.
+Complete: sunny_outfit_1, sky_outfit_1, berry_outfit_1, mint_outfit_1, cocoa_outfit_1, snow_outfit_1, ember_outfit_1, ink_outfit_1, hoot_outfit_1, sunny_outfit_2, sky_outfit_2, berry_outfit_2, mint_outfit_2, cocoa_outfit_2, snow_outfit_2, ember_outfit_2, ink_outfit_2, hoot_outfit_2, sunny_outfit_3, sky_outfit_3, berry_outfit_3, mint_outfit_3, cocoa_outfit_3, snow_outfit_3, ember_outfit_3, ink_outfit_3.
 
-Missing: ink_outfit_3, hoot_outfit_3.
+Missing: hoot_outfit_3.
 
 ## Verification boundary
 

@@ -25,13 +25,13 @@
     "mint_outfit_3",
     "cocoa_outfit_3",
     "snow_outfit_3",
-    "ember_outfit_3"
+    "ember_outfit_3",
+    "ink_outfit_3"
   ],
   "missing_outfits": [
-    "ink_outfit_3",
     "hoot_outfit_3"
   ],
-  "frames": 225,
-  "actions": 50,
+  "frames": 234,
+  "actions": 52,
   "native_gif": false
 }
