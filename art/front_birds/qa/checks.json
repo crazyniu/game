@@ -1,7 +1,7 @@
 {
-  "assets": 27,
-  "species": 9,
-  "unique_new_guids": 156,
+  "assets": 30,
+  "species": 10,
+  "unique_new_guids": 165,
   "checks": [
     {
       "file": "berry_front.png",
@@ -92,6 +92,51 @@
       "transparent_border": true,
       "importer_matches_idle": true,
       "sha256": "6d613c9f182204299e8901abde59846474c9f5c8c7c25fe04a1bbb23d8ef4c77"
+    },
+    {
+      "file": "crow_front.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "4bdb0cd85329d533e871bdf7b10fab13f7f70f10eb0973f15feb802bdb6baf76"
+    },
+    {
+      "file": "crow_front_blink_01.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "e445cee9f919830f9b8650b8870723eee929e3795121210e3394810c62ffdadf"
+    },
+    {
+      "file": "crow_front_blink_02.png",
+      "rgba": true,
+      "size": [
+        320,
+        320
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_border": true,
+      "importer_matches_idle": true,
+      "sha256": "7e46bd24e96513f7e35dbdc4e505224ab92c993ec160019d08b7e06f6a28fa72"
     },
     {
       "file": "ember_front.png",

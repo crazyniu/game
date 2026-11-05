@@ -2,22 +2,53 @@
 
 ## Delivered
 
-Sunny, Sky, Berry, Mint, Cocoa, Snow, Ember, Ink and Hoot: 9 species, 27 PNG sprites and 27 copied importer metadata files. Each has front, half-closed blink and closed blink. All are 320x320 RGBA with centred pivot and unique asset/sprite GUIDs.
+All ten species are complete as artwork: Sunny, Sky, Berry, Mint, Cocoa, Snow, Ember, Ink, Hoot and Crow. Each has `<species>_front.png`, `<species>_front_blink_01.png` (half closed) and `<species>_front_blink_02.png` (closed) in `PerchSort/Assets/Resources/Birds/`.
 
-Generated using the built-in imagegen tool, one three-cell transparent sheet per species. Raw sheets, exact prompts, reference contacts and QA are under `art/front_birds/`. JPEG evidence is under `evidence/`: canonical idle on the top row, front and blink rows below, light/dark backgrounds, 64 px colour previews and 50 percent idle overlays. Offline blink APNGs are artwork previews only.
+| Deliverable | Count |
+| --- | ---: |
+| Completed species | 10 |
+| 320x320 RGBA resource PNGs | 30 |
+| Copied importer metadata files | 30 |
+| Built-in generated raw sheets | 10 |
+| Exact generation prompts | 10 |
+| Idle/cheer/face reference contacts | 10 |
+| Reviewed JPEG evidence contacts | 10 |
+| Offline blink APNG previews | 10 |
+| Per-species registration records | 10 |
+| Missing required sprites | 0 |
+| Rejected generated sheets | 0 |
 
-## Registration and review
+Generated with the built-in imagegen tool only, one three-cell transparent sheet per species. Raw sheets, exact prompts, reference contacts, registration records, `checks.json` and `summary.json` are under `art/front_birds/`. JPEG contacts under `evidence/` show canonical idle on the top row, front and blink rows below, light/dark backgrounds, 64 px colour previews and 50 percent idle overlays. APNGs show open/half/closed/half/open at 800/90/120/90/800 ms; they are offline artwork evidence only.
 
-Used the existing `art/birds_sequences/qa/prepare_sequences.py` feet and background functions without modifying its source. Split each raw sheet into three equal cells and crop transparent gutters to the visible bounds plus four source pixels. The initial Sky export retained a stray alpha-1 pixel at the canvas border; the gutter crop removes it without changing the drawn silhouette. The first push preceded this strict border-check correction; this follow-up records the passing rerun. One uniform scale per trio matches the canonical idle's visible silhouette height (alpha > 12); centred each cell on the idle toe midpoint and registered to its actual toe baseline, including a final integer-pixel rounding correction. No mirror, rotation, painted pixels or synthetic blink artwork. Metadata is copied from the species idle; only asset/sprite GUIDs and sprite names differ.
+## Registration and visual review
 
-Reviewed direct gaze, level head, centred beak, relaxed wings, original colours/crest and proportions, light/dark alpha edges, 64 px readability and 50 percent identity overlays. The intended front-view reprojection shifts facial landmarks relative to the angled idle. Closed eyes have no catchlight; open/half-closed eyes retain catchlights.
+Used the existing `art/birds_sequences/qa/prepare_sequences.py` feet and background functions without modifying its source. Split each raw sheet into three equal cells and crop transparent gutters to visible bounds plus four source pixels. Use one uniform scale per trio to match the idle's visible silhouette height (alpha > 12), align each cell to the idle toe midpoint and baseline, then correct integer-pixel rounding. Crow uses the existing remaining-species grey-toe selection rule. No mirroring, rotation, painted pixels or procedural blink artwork.
 
-## Verification
+Every exported trio matches its idle toe baseline exactly: Snow, Ember, Hoot and Crow at 299 px; Sunny, Sky, Berry, Mint, Cocoa and Ink at 300 px. Rasterized front silhouette height differs from idle by at most two pixels. All use the same 320x320 canvas and `(0.5, 0.5)` pivot. Metadata is copied from each species idle; only asset/sprite GUIDs and sprite names differ. Existing originals and slicing tools are unchanged.
 
-Asset checks passed for all 27 current PNGs: exact size/mode, alpha 0..255, transparent canvas borders, copied importer settings, pivot and unique new GUIDs. All registered toe baselines equal their idle baseline: Snow, Ember and Hoot 299 px; the other six species 300 px. Nine JPEG contacts and nine offline blink previews inspected.
+Reviewed all ten contacts for direct gaze, level head, centred smiling beak, resting wings, species colours/crest/proportions, light/dark edges, 64 px readability and 50 percent identity overlays. Front-view reprojection intentionally moves facial landmarks relative to angled idle art. Sky and Cocoa retain their relaxed eyelids. Hoot retains its canonical purple star cap, and Crow its canonical compass; neither receives an alternate outfit. Closed eyes have no catchlight.
 
-Unity compilation, EditMode/PlayMode tests and runtime screenshots are pending: the user's primary Editor is open. Requested closure without terminating it. Offline artwork delivery does not establish runtime wiring, timed animation or device acceptance. No code, scene, existing art or save changes. Hoot retains the purple star cap that is already part of its canonical base idle identity; no alternate outfit was introduced.
+The initial Sky export retained a stray alpha-1 pixel at the outer canvas border. The first push preceded that strict border-check correction. Cropping the empty sheet gutters removed it without changing the drawn silhouette; all nine first-batch assets then passed the rerun and the correction was pushed before starting the next batch. No raw sheet required regeneration.
 
-## Remaining
+## Verification and boundaries
 
-Crow.
+- `/tmp/perch-remaining-species-tools/bin/python /tmp/prepare_front_birds.py <species...>`: temporary adapter around the existing slicer helpers; produced the registered sprites, copied metadata and contact/APNG evidence. It does not modify project code or the existing tools.
+- `/tmp/perch-remaining-species-tools/bin/python /tmp/check_front_birds.py`: **30/30 asset checks passed** for size/mode, real alpha 0..255, fully transparent canvas borders, exact importer equivalence after identity substitution, centred pivot and **165 unique fresh asset/subsprite GUIDs**.
+- Registration review: **10/10 species**, three distinct PNGs each, exact idle toe baseline and silhouette-height tolerance within two raster pixels. Records include translations, scale and SHA-256 hashes.
+- `python3 ci/check_current_game_names.py --self-test`: **9 passed**.
+- `python3 ci/check_current_game_names.py`: **0 violations**.
+- `flock /tmp/unity.lock bash scripts/run_tests.sh`: **NOT_RUN**. The user's primary Unity Editor was open at initial inspection and remained open at final inspection. Closure was requested; no Editor was terminated and no competing batch process was launched. New compilation/EditMode/PlayMode counts are unavailable.
+- `flock /tmp/unity.lock bash scripts/screenshots.sh`: **NOT_RUN** for the same open-Editor constraint. These new resource names are not wired by this art-only assignment. Timed runtime, integrated visual and device acceptance remain pending with the coordinator.
+- No game code, existing tools, scene, settings, original art, persistence keys or save data changes. Work is confined to this assigned branch and asset/evidence paths.
+
+## Pushes
+
+| Batch | Commit |
+| --- | --- |
+| Sunny, Sky, Berry | `e63c5849` |
+| Transparent gutter correction and passing QA | `9ced155e` |
+| Mint, Cocoa, Snow | `712d1f93` |
+| Ember, Ink, Hoot | `a63e996b` |
+| Crow and final inventory | This report's commit |
+
+Each three-species batch was pushed before starting the next batch. Crow is the final single-species push. All required artwork is delivered; runtime verification remains explicitly unclaimed.
