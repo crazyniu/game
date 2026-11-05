@@ -10,7 +10,8 @@ namespace PerchSort.Game
     {
         private const float NodeSize = 220, CurrentNodeSize = 240, LockedNodeSize = 200;
         private const float NumberSize = 100, StarSize = 48, StarPitch = 50;
-        private const float ChickSize = 310, ChickLift = 230, GateCanvasSize = 532;
+        private const float ChickSize = 310, ChickLift = 230;
+        private static readonly Vector2 GateSize = new Vector2(560, 600);
         private const float TopPadding = 400, HudMargin = 32, BarMargin = 40, EdgeFade = 48;
         private static readonly Rect ViewportBounds = ViewportArea();
         private GameRoot root;
@@ -26,6 +27,8 @@ namespace PerchSort.Game
         private bool scrollWasEnabled;
         private RectTransform effects;
         private bool countingCoins;
+        private Sprite[] stones;
+        private readonly Sprite[] boundaryCanopies = new Sprite[3];
         private readonly Dictionary<int, GateView> gates = new Dictionary<int, GateView>();
         private readonly Dictionary<int, bool> gateStates = new Dictionary<int, bool>();
         private readonly Dictionary<int, Button> nodes = new Dictionary<int, Button>();
@@ -66,6 +69,7 @@ namespace PerchSort.Game
             content = GameUI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
             content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 0); scroll.content = content;
             scroll.onValueChanged.AddListener(_ => ClampOffset());
+            LoadStones();
             coins = HudView.CoinHeader(transform, art, font, true);
             GameUI.Button(transform, art, "Map settings", "icon_gear", GameLayout.Screen("map", "gear"), root.OpenSettings);
             MapButton("Shop", "icon_basket", GameLayout.Screen("map", "shop"), () => root.OpenPopup(PopupKind.ShopPlaceholder));
@@ -88,29 +92,110 @@ namespace PerchSort.Game
             for (int i = content.childCount - 1; i >= 0; i--) GameUI.Dispose(content.GetChild(i).gameObject);
             for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
             coins.text = profile.DisplayCoins.ToString();
+            FocusLevel = MapModel.CurrentLevel(profile);
             // The lower world's alpha-faded top overlaps the upper world's opaque bottom by 160px.
             GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_w4"),
-                new Vector2(540, TopPadding - GameLayout.MapStride + 1500), new Vector2(1080, 3000));
+                new Vector2(540, TopPadding + 160 - GameLayout.MapSegmentHeight / 2),
+                new Vector2(1080, GameLayout.MapSegmentHeight));
             for (int world = 4; world >= 1; world--)
+            {
+                float top = GameLayout.WorldTop(world) + TopPadding;
+                if (world < 4)
+                {
+                    // Extend only the boundary canopy; keep authored paths at their original pixel scale.
+                    const float overlap = 160;
+                    float extension = GameLayout.MapStride - GameLayout.MapSegmentHeight + overlap;
+                    if (boundaryCanopies[world - 1] == null)
+                    {
+                        var source = art.Get("map_bg_w" + world);
+                        var region = new Rect(source.rect.x, source.rect.yMax - extension - overlap, source.rect.width, extension + overlap);
+                        boundaryCanopies[world - 1] = Sprite.Create(source.texture, region, Vector2.one * 0.5f, source.pixelsPerUnit);
+                    }
+                    GameUI.Image(scenery, "Boundary canopy", boundaryCanopies[world - 1],
+                        new Vector2(540, top - extension / 2 + overlap / 2), new Vector2(1080, extension + overlap));
+                }
                 GameUI.Image(scenery, "World " + world + " background", art.Get("map_bg_w" + world),
-                    new Vector2(540, GameLayout.WorldTop(world) + TopPadding + 1500), new Vector2(1080, 3000));
+                    new Vector2(540, top + GameLayout.MapSegmentHeight / 2), new Vector2(1080, GameLayout.MapSegmentHeight));
+            }
             GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_w1"),
-                new Vector2(540, GameLayout.MapHeight + TopPadding - 160 + 1500), new Vector2(1080, 3000));
+                new Vector2(540, GameLayout.MapHeight + TopPadding - 160 + GameLayout.MapSegmentHeight / 2),
+                new Vector2(1080, GameLayout.MapSegmentHeight));
+            BuildStones(profile);
             for (int world = 2; world <= 4; world++)
             {
-                float boundary = (MapModel.Position((world - 1) * 10).y + MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
-                Vector2 gate = new Vector2(540, boundary + TopPadding);
-                float side = GateCanvasSize;
+                Vector2 gate = MapModel.GatePosition(world) + Vector2.up * TopPadding;
+                if (world == 2)
+                {
+                    var bamboo = Resources.Load<Sprite>("World/map_bamboo_w1");
+                    if (bamboo != null) GameUI.Image(content, "Gate bamboo", bamboo,
+                        gate + new Vector2(0, 450 - GateSize.y / 2), new Vector2(1080, 900));
+                }
                 gateStates.Add(world, MapModel.WorldOpen(profile, world));
-                BuildGate(world, gate, side, gateStates[world]);
-                GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(315, 0), new Vector2(240, 100));
+                BuildGate(world, gate, gateStates[world]);
+                GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(395, 0), new Vector2(220, 100));
             }
-            FocusLevel = MapModel.CurrentLevel(profile);
             for (int id = 1; id <= 40; id++) Node(profile, id);
             Canvas.ForceUpdateCanvases();
             float target = OffsetFor(FocusLevel);
             SetOffset(target + (target + 140 <= MaximumOffset ? 140 : -140)); ScrollToLevel(FocusLevel);
+            BuildCorners();
         }
+        private void LoadStones()
+        {
+            var sheet = Resources.Load<Sprite>("World/map_stepping_stones");
+            if (sheet == null) return;
+            stones = new Sprite[6];
+            for (int i = 0; i < stones.Length; i++)
+            {
+                Rect cell = new Rect(sheet.rect.x + i % 3 * sheet.rect.width / 3,
+                    sheet.rect.y + i / 3 * sheet.rect.height / 2, sheet.rect.width / 3, sheet.rect.height / 2);
+                stones[i] = Sprite.Create(sheet.texture, cell, Vector2.one * 0.5f, sheet.pixelsPerUnit);
+            }
+        }
+        private void BuildStones(GameProfile profile)
+        {
+            if (stones == null) return;
+            for (int id = 1; id < 40; id++)
+            {
+                var random = new System.Random(id);
+                Vector2 start = MapModel.Position(id), end = MapModel.Position(id + 1);
+                float dx = Mathf.Abs(end.x - start.x), dy = Mathf.Abs(end.y - start.y);
+                float startRadius = NodeDiameter(profile, id) / 2, endRadius = NodeDiameter(profile, id + 1) / 2;
+                float lift = id == FocusLevel ? GameLayout.MapBounceHeight : 0;
+                Rect startBounds = GameLayout.Centered(start, Vector2.one * startRadius * 2);
+                startBounds.yMin -= lift;
+                Rect endBounds = GameLayout.Centered(end, Vector2.one * endRadius * 2);
+                float from = Mathf.Min((startRadius + 32) / dx, (startRadius + 12 + lift) / dy) + 0.002f;
+                float to = 1 - Mathf.Min((endRadius + 32) / dx, (endRadius + 12) / dy) - 0.002f;
+                int count = random.Next(3, 6);
+                for (int i = 0; i < count; i++)
+                {
+                    float t = Mathf.Lerp(from, to, (i + 0.5f) / count);
+                    Vector2 point = Vector2.Lerp(start, end, t);
+                    Vector2 scattered = point + Vector2.right * ((float)random.NextDouble() * 60 - 30);
+                    Rect stone = GameLayout.Centered(scattered, new Vector2(64, 24));
+                    if (!stone.Overlaps(startBounds) && !stone.Overlaps(endBounds)) point = scattered;
+                    GameUI.Image(content, "Path stone", stones[random.Next(stones.Length)],
+                        point + Vector2.up * TopPadding, new Vector2(64, 24));
+                }
+            }
+        }
+        private void BuildCorners()
+        {
+            // Corners begin at the viewport foot and remain in the scrolling sprite layer.
+            float bottom = ViewportBounds.height + OffsetFor(FocusLevel);
+            for (int side = 0; side < 2; side++)
+            {
+                bool right = side == 1;
+                var sprite = Resources.Load<Sprite>("World/map_foreground_corner_" + (right ? "right" : "left"));
+                if (sprite == null) continue;
+                Vector2 size = new Vector2(180, 180 * sprite.rect.height / sprite.rect.width);
+                GameUI.Image(content, "Foreground corner", sprite,
+                    new Vector2(right ? 1080 : 0, bottom - size.y / 2), size);
+            }
+        }
+        private float NodeDiameter(GameProfile profile, int id) => id == FocusLevel ?
+            CurrentNodeSize : MapModel.State(profile, id) == LevelNodeState.Locked ? LockedNodeSize : NodeSize;
         private void Node(GameProfile profile, int id)
         {
             var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id) + Vector2.up * TopPadding;
@@ -201,7 +286,7 @@ namespace PerchSort.Game
             scrollWasEnabled = scroll.enabled; scroll.enabled = false;
             ReplaceGate(world, false);
             int token = gateRevision;
-            float y = (MapModel.Position((world - 1) * 10).y + MapModel.Position((world - 1) * 10 + 1).y) * 0.5f;
+            float y = MapModel.GatePosition(world).y;
             float start = content.anchoredPosition.y, end = Clamp(y + TopPadding - ViewportBounds.height * 0.45f);
             gateMotion.Play(0.5f, t =>
             {
@@ -256,18 +341,18 @@ namespace PerchSort.Game
             gameObject.SetActive(false);
         }
         public void RefreshCoins(int value) { if (!countingCoins) coins.text = value.ToString(); }
-        private void BuildGate(int world, Vector2 point, float side, bool open)
+        private void BuildGate(int world, Vector2 point, bool open)
         {
-            var view = GameUI.Rect(content, "World " + world + " gate", point, Vector2.one * side).gameObject.AddComponent<GateView>();
-            view.Configure(art, world, open); gates[world] = view;
+            var view = GameUI.Rect(content, "World " + world + " gate", point, GateSize).gameObject.AddComponent<GateView>();
+            view.ConfigureMap(world - 1, open); gates[world] = view;
         }
         private void ReplaceGate(int world, bool open)
         {
             var old = gates[world];
             var rect = (RectTransform)old.transform;
             Vector2 point = new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y);
-            float side = rect.sizeDelta.x; int sibling = rect.GetSiblingIndex();
-            GameUI.Dispose(old.gameObject); BuildGate(world, point, side, open);
+            int sibling = rect.GetSiblingIndex();
+            GameUI.Dispose(old.gameObject); BuildGate(world, point, open);
             gates[world].transform.SetSiblingIndex(sibling);
         }
         private void CancelGate(bool restore)
@@ -303,6 +388,8 @@ namespace PerchSort.Game
         private void OnDisable() => CancelMotions(false);
         private void OnDestroy()
         {
+            if (stones != null) foreach (var stone in stones) GameUI.Dispose(stone);
+            foreach (var canopy in boundaryCanopies) GameUI.Dispose(canopy);
             generation++;
             CancelGate(false); CancelRewards();
             if (nodeMotion != null) nodeMotion.Cancel();
