@@ -1,0 +1,122 @@
+[
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_01.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      69,
+      115,
+      237,
+      301
+    ],
+    "scale": 0.4265402843601896,
+    "translation": [
+      2,
+      36
+    ],
+    "bare_feet": [
+      115,
+      290,
+      205,
+      300
+    ],
+    "source_feet": [
+      264,
+      596,
+      476,
+      618
+    ],
+    "sha256": "34b6842093f8602657a367646d63148dc17694e63a79c5596a6092e1dc58f3b9"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_02.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      69,
+      117,
+      237,
+      302
+    ],
+    "scale": 0.4265402843601896,
+    "translation": [
+      3,
+      37
+    ],
+    "bare_feet": [
+      115,
+      290,
+      205,
+      300
+    ],
+    "source_feet": [
+      263,
+      595,
+      474,
+      617
+    ],
+    "sha256": "db0f2d3d0cf384a9839eb25eb642eb62261e36d32e4c498d21dee91135822616"
+  },
+  {
+    "file": "PerchSort/Assets/Resources/Birds/hoot_outfit_1_blink_03.png",
+    "size": [
+      320,
+      320
+    ],
+    "mode": "RGBA",
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "bounds": [
+      64,
+      116,
+      237,
+      302
+    ],
+    "scale": 0.4265402843601896,
+    "translation": [
+      12,
+      37
+    ],
+    "bare_feet": [
+      115,
+      290,
+      205,
+      300
+    ],
+    "source_feet": [
+      242,
+      595,
+      452,
+      617
+    ],
+    "sha256": "6065ab9e874280e9c08c9ff88a93b34e8f7aca4da09ae44fb1d35f6b405a672c"
+  }
+]
