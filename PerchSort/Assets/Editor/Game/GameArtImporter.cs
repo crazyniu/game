@@ -68,7 +68,7 @@ namespace PerchSort.Editor
             if (IsFallback(importer.assetPath)) return ConfigureFallback(importer);
             string name = Path.GetFileNameWithoutExtension(importer.assetPath);
             bool overlay = IsAuthoredOverlay(importer.assetPath);
-            int maxSize = overlay ? 1024 : name.StartsWith("map_bg_w", StringComparison.Ordinal) || name.StartsWith("bg_level_", StringComparison.Ordinal) ? 4096 : 2048;
+            int maxSize = overlay ? 1024 : name.StartsWith("map_bg_w", StringComparison.Ordinal) || name.StartsWith("map_bg_continuous_w", StringComparison.Ordinal) || name.StartsWith("bg_level_", StringComparison.Ordinal) ? 4096 : 2048;
             Vector4 border = Border(name);
             var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
             Vector2 pivot = name == "house_door_leaf" ? new Vector2(145f / 512, 206f / 512) : Vector2.one * 0.5f;
