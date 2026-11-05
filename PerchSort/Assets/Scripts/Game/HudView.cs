@@ -123,6 +123,7 @@ namespace PerchSort.Game
             coins.rectTransform.sizeDelta = coinTextBounds.size;
             var gearRect = (RectTransform)settings.transform;
             gearRect.anchoredPosition = new Vector2(gear.center.x, -gear.center.y); gearRect.sizeDelta = gear.size;
+            GlyphMetrics.Apply(settings.transform.GetChild(0).GetComponent<Image>(), gear.size);
             if (BirdhouseView.UsesBeam(species.Count))
             {
                 var beam = GameLayout.Screen("level_k7", "house_beam");
@@ -160,9 +161,9 @@ namespace PerchSort.Game
                 Rect bounds = ToolBounds(i);
                 var rect = (RectTransform)tools[i].transform;
                 rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y); rect.sizeDelta = bounds.size;
-                var icon = (RectTransform)rect.GetChild(0);
-                icon.anchoredPosition = new Vector2(bounds.width * 0.5f, -bounds.height * 0.5f);
-                icon.sizeDelta = Vector2.one * Mathf.Min(bounds.width, bounds.height) * (i == 0 ? GameLayout.ButtonIconRatio : 0.7f);
+                var icon = rect.GetChild(0).GetComponent<Image>();
+                if (i > 0) icon.sprite = art.Get(ToolGlyphs[(int)kinds[i]]);
+                GlyphMetrics.Apply(icon, bounds.size);
                 if (i > 0)
                 {
                     Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7", "hint_count");
@@ -175,7 +176,7 @@ namespace PerchSort.Game
             }
             for (int i = 1; i < tools.Length; i++)
             {
-                tools[i].name = kinds[i].ToString(); tools[i].transform.GetChild(0).GetComponent<Image>().sprite = art.Get(ToolGlyphs[(int)kinds[i]]);
+                tools[i].name = kinds[i].ToString();
                 tools[i].gameObject.SetActive(!tutorialLevel && i < toolCount && root.HighestUnlocked >= ViewModel.Unlock(kinds[i]));
             }
             SyncState(state);

@@ -1,0 +1,221 @@
+{
+  "alphaThreshold": 40,
+  "glyphs": [
+    {
+      "name": "icon_aviary",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 30,
+      "y": 33,
+      "width": 193,
+      "height": 186
+    },
+    {
+      "name": "icon_basket",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 33,
+      "y": 26,
+      "width": 188,
+      "height": 205
+    },
+    {
+      "name": "icon_bell",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 3,
+      "y": 5,
+      "width": 90,
+      "height": 86
+    },
+    {
+      "name": "icon_branch_plus",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 3,
+      "y": 8,
+      "width": 90,
+      "height": 79
+    },
+    {
+      "name": "icon_bulb",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 5,
+      "y": 2,
+      "width": 86,
+      "height": 92
+    },
+    {
+      "name": "icon_check",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 3,
+      "y": 13,
+      "width": 90,
+      "height": 69
+    },
+    {
+      "name": "icon_close",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 2,
+      "width": 92,
+      "height": 91
+    },
+    {
+      "name": "icon_egg_eye",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 14,
+      "y": 3,
+      "width": 67,
+      "height": 90
+    },
+    {
+      "name": "icon_gear",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 2,
+      "width": 91,
+      "height": 92
+    },
+    {
+      "name": "icon_home",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 5,
+      "width": 92,
+      "height": 86
+    },
+    {
+      "name": "icon_next_arrow",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 3,
+      "y": 8,
+      "width": 90,
+      "height": 79
+    },
+    {
+      "name": "icon_play",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 7,
+      "y": 2,
+      "width": 80,
+      "height": 92
+    },
+    {
+      "name": "icon_rain_sprout",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 14,
+      "y": 3,
+      "width": 67,
+      "height": 90
+    },
+    {
+      "name": "icon_replay",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 3,
+      "width": 92,
+      "height": 90
+    },
+    {
+      "name": "icon_scarecrow",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 4,
+      "y": 3,
+      "width": 87,
+      "height": 90
+    },
+    {
+      "name": "icon_sound_off",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 4,
+      "width": 92,
+      "height": 87
+    },
+    {
+      "name": "icon_sound_on",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 14,
+      "width": 92,
+      "height": 68
+    },
+    {
+      "name": "icon_undo",
+      "canvasWidth": 96,
+      "canvasHeight": 96,
+      "x": 2,
+      "y": 8,
+      "width": 92,
+      "height": 79
+    },
+    {
+      "name": "tool_bell",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 40,
+      "y": 23,
+      "width": 177,
+      "height": 208
+    },
+    {
+      "name": "tool_branch",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 17,
+      "y": 39,
+      "width": 225,
+      "height": 186
+    },
+    {
+      "name": "tool_hint",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 35,
+      "y": 23,
+      "width": 185,
+      "height": 211
+    },
+    {
+      "name": "tool_owl_eye",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 53,
+      "y": 25,
+      "width": 150,
+      "height": 200
+    },
+    {
+      "name": "tool_rain",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 52,
+      "y": 21,
+      "width": 152,
+      "height": 214
+    },
+    {
+      "name": "tool_scarecrow",
+      "canvasWidth": 256,
+      "canvasHeight": 256,
+      "x": 29,
+      "y": 16,
+      "width": 199,
+      "height": 224
+    }
+  ]
+}
