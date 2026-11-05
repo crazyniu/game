@@ -28,6 +28,7 @@ namespace PerchSort.Game
         public IReadOnlyList<BranchView> Branches => branches;
         public IReadOnlyDictionary<int, BirdView> Birds => birds;
         public Move? DisplayedHint { get; private set; }
+        public event Action<GameEvent, float> EventPresented;
 
         public void Configure(GameRoot owner, GameArt assets)
         {
@@ -169,7 +170,13 @@ namespace PerchSort.Game
         {
             if (run != generation) return;
             if (index == events.Count) { complete(); return; }
-            Action next = () => { if (run == generation) PlayEvent(events, index + 1, complete, run); };
+            float started = Time.realtimeSinceStartup;
+            Action next = () =>
+            {
+                if (run != generation) return;
+                EventPresented?.Invoke(events[index], Time.realtimeSinceStartup - started);
+                PlayEvent(events, index + 1, complete, run);
+            };
             switch (events[index])
             {
                 case ResolutionWave _:
