@@ -146,7 +146,7 @@ namespace PerchSort.Game
             card.type = Image.Type.Simple; card.raycastTarget = true; cosmeticCards.Add(item.Id, card);
             var button = card.gameObject.AddComponent<Button>(); button.targetGraphic = card; button.transition = Selectable.Transition.None;
             button.onClick.AddListener(() => TapCosmetic(item.Id));
-            var ring = GameUI.Image(card.transform, "Equipped ring", art.Get("aviary_frame"), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 410 : 320));
+            var ring = GameUI.Image(card.transform, "Equipped ring", art.Get("aviary_frame"), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 360 : 320));
             ring.gameObject.SetActive(Equipped(item));
             GameUI.Fit(card.transform, "Cosmetic picture", CosmeticSprite(art, item), new Vector2(227.5f, height == 575 ? 235 : 170), Vector2.one * (height == 575 ? 380 : 290));
             cosmeticPrices.Add(item.Id, CosmeticPrice(card.transform, item, new Vector2(227.5f, height - 80), new Vector2(266, 98)));
