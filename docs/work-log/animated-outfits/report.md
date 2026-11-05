@@ -28,4 +28,17 @@ Missing: none.
 
 ## Verification boundary
 
-Per-action export checks report dimensions, RGBA alpha, registration, and clipped bounds. Naming checks and final Unity verification will be recorded after asset completion. No new Unity passing counts are claimed. Offline artwork comparisons and GIFs do not establish integrated runtime motion acceptance.
+Asset audit: 243/243 frames passed 320 x 320 RGBA, transparent/opaque alpha range, non-clipped visible bounds, centered pivot and species-idle importer comparison. All 243 PNG hashes and asset GUIDs are distinct. All 54 offline GIFs contain the expected six or three frames at 100 ms/frame. See `art/cosmetics/qa/animated-outfits/asset-audit.json` and the updated `inventory.json` (zero missing frames).
+
+Source/evidence counts: 54 accepted action sheets, three rejected sheets and one retained prior-worker input image (58 raw PNG files); 57 generation prompt records; 54 registration JSON files; 54 contact sheets in this evidence directory; 54 offline review GIFs. Twenty-seven species/tier batches were committed and pushed in tier order.
+
+Commands completed:
+
+- `uv run --with pillow python /tmp/audit_animated_outfits.py`: 243 frames, 54 actions, zero failures.
+- `python3 ci/check_current_game_names.py --self-test`: nine tests passed.
+- `python3 ci/check_current_game_names.py`: 178 tracked text files, zero violations.
+- `git diff --cached --check`: passed for every delivery batch.
+
+`flock /tmp/unity.lock bash scripts/run_tests.sh` completed successfully on Unity 6000.6.7f1: scene build succeeded; **317/317 EditMode** and **87/87 PlayMode**, zero failures or skips. The retained LevelsData 81 and Layout 41 cases were discovered and passed. Results: `build/test-results.xml`, `build/playmode-results.xml`; build/test logs: `build/scene-build.log`, `build/editmode-tests.log`, `build/playmode-tests.log`. Committed result summary: `art/cosmetics/qa/animated-outfits/unity-verification.json`.
+
+`flock /tmp/unity.lock bash scripts/screenshots.sh` is queued for stable-state captures. Before Unity, 1,709 tracked scene, metadata, settings and package files were snapshotted under ignored `build/animated-outfits-before-unity/`. Generated normalization and scene changes will be restored from those exact pre-run bytes after capture. Offline artwork comparisons and GIFs do not establish integrated runtime motion acceptance. No timed in-game outfit playback or device acceptance is claimed; this delivery changes assets only.
