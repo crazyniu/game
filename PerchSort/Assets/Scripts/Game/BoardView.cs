@@ -27,6 +27,7 @@ namespace PerchSort.Game
         public bool IsAirborne => airborne > 0;
         public IReadOnlyList<BranchView> Branches => branches;
         public IReadOnlyDictionary<int, BirdView> Birds => birds;
+        public Move? DisplayedHint { get; private set; }
 
         public void Configure(GameRoot owner, GameArt assets)
         {
@@ -104,13 +105,21 @@ namespace PerchSort.Game
             var branch = state.Branches[source];
             for (int slot = branch.Birds.Count - branch.RunCount; slot < branch.Birds.Count; slot++) birds[branch.Birds[slot].Id].Shake();
         }
-        public void Hint(Move move)
+        public void Hint(Move move, string reason = null)
         {
             ClearHints();
+            DisplayedHint = move;
             Vector2 from = branches[move.From].Slot(Mathf.Max(0, seats[move.From].Count - 1));
             Vector2 to = move.Kind == MoveKind.Swivel ? branches[move.From].KnotPoint : branches[move.To].Slot(seats[move.To].Count);
             var firefly = GameUI.Image(effects, "Firefly hint", art.Icon("icon_bulb"), from, Vector2.one * GameLayout.IconSize);
             var glow = firefly.gameObject.AddComponent<Outline>(); glow.effectColor = new Color(1, 1, 0.2f, 0.8f); glow.effectDistance = Vector2.one * 4;
+            if (!string.IsNullOrEmpty(reason))
+            {
+                Vector2 middle = (from + to) * 0.5f + Vector2.up * -90;
+                var arrow = GameUI.Fit(effects, "Hint reason", art.Icon("icon_next_arrow"), middle, Vector2.one * 42);
+                arrow.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(to.y - from.y, to.x - from.x) * Mathf.Rad2Deg);
+                GameUI.Text(effects, "Hint explanation", reason, null, middle + Vector2.up * -45, new Vector2(440, 60), 27);
+            }
             hintMotion.Loop(1.5f, t =>
             {
                 var point = Vector2.Lerp(from, to, t) + Vector2.up * (-70 * Mathf.Sin(t * Mathf.PI));
@@ -121,6 +130,7 @@ namespace PerchSort.Game
         public void ClearHints()
         {
             if (hintMotion != null) hintMotion.CancelAll();
+            DisplayedHint = null;
             foreach (var branch in branches) branch.ClearHighlight();
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--) GameUI.Dispose(effects.GetChild(i).gameObject);
         }

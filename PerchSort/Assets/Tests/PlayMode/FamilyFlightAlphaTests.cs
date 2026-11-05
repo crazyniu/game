@@ -135,6 +135,11 @@ namespace PerchSort.PlayModeTests
                                 sample, elapsed, bird.Id, moving.Contains(bird.Id), graphic.name, active,
                                 alpha, rendererAlpha, inherited, bird.FrameName));
                         if (!active || moving.Contains(bird.Id)) continue;
+                        if (graphic.name == "Sleep bubble" || graphic.name == "Zzz")
+                        {
+                            Assert.That(alpha, Is.InRange(0f, 1f), "Sleep glyph opacity must remain bounded.");
+                            continue;
+                        }
                         // The pose overlay may fade, but never its opaque idle underlay or family markers.
                         bool overlay = graphic.name == "Idle pose blend";
                         if ((!overlay && Mathf.Abs(alpha - 1) > 0.001f) ||
