@@ -1,0 +1,45 @@
+{
+  "levels": [
+    1,
+    9,
+    10,
+    11,
+    20,
+    21,
+    30,
+    31,
+    40
+  ],
+  "source_dimensions": [
+    1080,
+    1920
+  ],
+  "viewport_top": 166,
+  "viewport_height": 1546.0,
+  "maximum_scroll_offset": 10374.0,
+  "whole_map_dimensions": [
+    1080,
+    11920
+  ],
+  "sha256": {
+    "map_level_1.png": "996f9b1fdaff23cda30447ae1e9a67eb8998e2be93cae1af6bb044e38103032e",
+    "map_level_10.png": "9030800b044a7abe5cf2e364a990e4ab1aed35d717391755bbd53ad5e2a9b4e5",
+    "map_level_11.png": "eab5337dbdf0db97db33afb65ac0b09c601f776d14ed5206c26062836abe5f25",
+    "map_level_20.png": "53d9c202ab1f626f56d45ac02d629f57f73bd0071455a14d52bdf3edba962504",
+    "map_level_21.png": "dcdde1c52302bfb3e29f81098488f862aa58d3093b1b71facce633c355415041",
+    "map_level_30.png": "9fcac3d6e0b66f1eec9a1d5a5ae0291d583218a53ea7e331244f11a2ff23d2f9",
+    "map_level_31.png": "0193c0e8ec719508e93eb49a4e3277905ccb98d179833f5c17c045dcead54cd3",
+    "map_level_40.png": "a2f2a3515b6943ab3781e74d50d782809d518bb0b7d45236442b253710f26ea1",
+    "map_level_9.png": "633f95391de23751686089442bd6ee608e79339dfd49d3b9baae8faac5ee3a12",
+    "scroll_0.png": "c02f45927075a057a17c43d5abedfd6a5deceade897b28cf04d9f2e2b90ffbc5",
+    "scroll_1.png": "6a69d97c87cbfd6893e7e5ac9b2ebd425406e441b4dc875ad18beef36c777566",
+    "scroll_2.png": "20b73e5d4b44546882d90638af9ee9a9453e2004c94622ed88a68cfe362940f0",
+    "scroll_3.png": "4b2025e9a6498a9bb07ba10021699327e6703c627cb8222a9c0d84b2d9cfb8fe",
+    "scroll_4.png": "bc4fbb53841d7da47b0de745f553f518da23fb9e0a42820b92b09ddd9394086c",
+    "scroll_5.png": "7dd48cbf92580ca90c6c7d7eb5606335ab773e05e7bc74774882a62bad46b8d8",
+    "scroll_6.png": "9eca09e5c59e4cfdf62c8af86dcfec48cf087f40cc60fbaf77fdda30ea8a62dd",
+    "scroll_7.png": "36ac69a935a896b75950e5427d49352567c532968bc6c1e9b63e99388960f028",
+    "scroll_8.png": "515cc0408a9fc404975002ead44b0feb00418a6969729ec0254cf2ae26a75b92",
+    "whole_map.png": "63df9c1a735a30c0667352402cd5df4eabbafbe3b81149f634931da389324af1"
+  }
+}

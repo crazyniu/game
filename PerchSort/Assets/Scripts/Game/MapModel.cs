@@ -26,10 +26,9 @@ namespace PerchSort.Game
         }
         public static Vector2 GatePosition(int world)
         {
-            // Reserve the lower node's whole chick silhouette, not just its wooden face.
-            float upper = Position((world - 1) * 10 + 1).y + 120;
-            float lower = Position((world - 1) * 10).y - 400;
-            return new Vector2(540, (upper + lower) * 0.5f);
+            // The shared band is too short for a gate between the authored boundary nodes.
+            // Keep the gate beside the path, clear of both node faces and the current chick.
+            return new Vector2(180, GameLayout.WorldTop(world - 1) + GameLayout.MapOverlap * 0.5f);
         }
         public static int WorldAt(float contentY)
         {

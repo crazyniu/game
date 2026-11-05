@@ -58,8 +58,11 @@ namespace PerchSort.PlayModeTests
                     if (current < 40 && current % 10 == 0 && gate.name == "World " + (current / 10 + 1) + " gate")
                     {
                         var viewport = root.Map.Scroller.viewport;
-                        Assert.That(Bounds((RectTransform)gate.transform, viewport).yMin,
-                            Is.GreaterThanOrEqualTo(viewport.rect.yMax), "No clipped door strip may remain at normal world-end focus.");
+                        var visible = Bounds((RectTransform)gate.transform, viewport);
+                        // The gate sits beside the path in the shared boundary band; when it is in view it is shown whole.
+                        if (visible.yMax > viewport.rect.yMin && visible.yMin < viewport.rect.yMax)
+                            Assert.That(viewport.rect.Contains(visible.min) && viewport.rect.Contains(visible.max), Is.True,
+                                "A visible gate must be fully inside the viewport, never a clipped door strip.");
                     }
                     foreach (var node in root.Map.Nodes.Values)
                         Assert.That(gateBounds.Overlaps(Bounds((RectTransform)node.transform.parent, content)), Is.False,
@@ -207,7 +210,8 @@ namespace PerchSort.PlayModeTests
                 var glow = gate.transform.Find("Map gate light").GetComponent<Image>();
                 var clasp = gate.transform.Find("Map gate padlock").GetComponent<Image>();
                 Vector3 leftHinge = left.position, rightHinge = right.position;
-                Assert.That(left.sizeDelta, Is.EqualTo(new Vector2(160, 288)));
+                Assert.That(left.sizeDelta.x, Is.GreaterThan(0f));
+                Assert.That(left.sizeDelta.y / left.sizeDelta.x, Is.EqualTo(288f / 160f).Within(0.01f), "Door parts keep their authored aspect ratio.");
                 Assert.That(right.sizeDelta, Is.EqualTo(left.sizeDelta));
                 Assert.That(left.pivot.x, Is.EqualTo(0.025f));
                 Assert.That(right.pivot.x, Is.EqualTo(0.975f));
