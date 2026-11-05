@@ -460,6 +460,31 @@
       "cases": [
         "PerchSort.PlayModeTests.WoodButtonEvidence.CaptureControlsAndTimedPresses"
       ]
+    },
+    "post_merge_smoke": {
+      "result": "Passed",
+      "total": "15",
+      "passed": "15",
+      "failed": "0",
+      "skipped": "0",
+      "inconclusive": "0",
+      "cases": [
+        "PerchSort.PlayModeTests.BranchLimbTests.EveryAuthoredBranchHasOneNativeProportionLimbWithoutStrayScenery",
+        "PerchSort.PlayModeTests.BranchLimbTests.GrowingLimbRevealsFromItsRootWithoutStretchingAndCancelsAtItsNewLength",
+        "PerchSort.PlayModeTests.ButtonSizeTests.CoinPillClearsHousesAndSuspensionsOnEveryAuthoredLevel",
+        "PerchSort.PlayModeTests.ButtonSizeTests.DisablingAPressedToolRestoresItsSizeAndRejectsTheClick",
+        "PerchSort.PlayModeTests.ButtonSizeTests.FourToolsKeepEqualGeometryWithUndoDisabledAndEnabled",
+        "PerchSort.PlayModeTests.ButtonSizeTests.ThreeToolsKeepEqualGeometryWithUndoDisabledAndEnabled",
+        "PerchSort.PlayModeTests.InterfaceArtTests.ToolGlyphsStarsAndSprigsMatchTheirPanels",
+        "PerchSort.PlayModeTests.ShopTests.InsufficientAndLockedCardsNeverOpenConfirmationOrMutateProfile",
+        "PerchSort.PlayModeTests.ShopTests.PurchasePresentationCountsCoinsAndPopsOwnedBadge",
+        "PerchSort.PlayModeTests.ShopTests.SinglePurchaseDeductsCatalogPriceAndPersistsOneUnit",
+        "PerchSort.PlayModeTests.ShopTests.ZeroStockPlusOpensFocusedShopAndCloseLeavesBoardUntouched",
+        "PerchSort.PlayModeTests.StuckHintTests.DeadEndWaitsAndUndoDismissesWithoutBlockingRaycasts",
+        "PerchSort.PlayModeTests.StuckHintTests.HintAppearsAndFloatsAfterUnlock",
+        "PerchSort.PlayModeTests.StuckHintTests.ModalCancelsPendingHint",
+        "PerchSort.PlayModeTests.StuckHintTests.WonBoardAndEntranceNeverShowHint"
+      ]
     }
   },
   "screen_capture_resolution": [
@@ -572,5 +597,14 @@
       1920
     ],
     "passed": true
+  },
+  "integration": {
+    "main_sha": "cd066d8af04cbac3a760adf66a8d108a759df0b4",
+    "merge_sha": "55360574a91401602173a2734d5d0a5cdc9c311b",
+    "full_suite_repeated": false,
+    "protected_files": 1724,
+    "generated_metadata_restored": 907,
+    "protected_state_mismatches": 0,
+    "stable_captures": 34
   }
 }
