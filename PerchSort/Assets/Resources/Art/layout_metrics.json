@@ -178,5 +178,505 @@
       168,
       82
     ]
+  },
+  "popup_daily_gift": {
+    "source": "docs/design/layout/daily_gift.json",
+    "canvas": [
+      1080,
+      1920
+    ],
+    "origin": "top-left",
+    "elements": {
+      "gift_box": [
+        361,
+        838,
+        348,
+        186
+      ],
+      "gift_bow": [
+        379,
+        711,
+        364,
+        227
+      ],
+      "gift_nest": [
+        244,
+        994,
+        591,
+        169
+      ],
+      "gift_coin_left": [
+        331,
+        963,
+        135,
+        128
+      ],
+      "gift_coin_middle": [
+        456,
+        958,
+        174,
+        145
+      ],
+      "gift_coin_right": [
+        628,
+        975,
+        125,
+        90
+      ],
+      "gift_coin_back_left": [
+        299,
+        912,
+        74,
+        92
+      ],
+      "gift_coin_back_right": [
+        698,
+        925,
+        76,
+        88
+      ],
+      "hero_leaves_left": [
+        230,
+        925,
+        109,
+        110
+      ],
+      "hero_leaves_right": [
+        741,
+        964,
+        107,
+        88
+      ],
+      "hero_leaf_front": [
+        304,
+        1072,
+        121,
+        59
+      ],
+      "spark_1": [
+        318,
+        761,
+        45,
+        47
+      ],
+      "spark_2": [
+        266,
+        835,
+        43,
+        52
+      ],
+      "spark_3": [
+        714,
+        727,
+        40,
+        52
+      ],
+      "spark_4": [
+        770,
+        834,
+        44,
+        51
+      ],
+      "reward_coin": [
+        327,
+        1175,
+        124,
+        116
+      ],
+      "reward": [
+        327,
+        1175,
+        424,
+        116
+      ],
+      "reward_value": [
+        502,
+        1199,
+        166,
+        68
+      ],
+      "gift_basket": [
+        229,
+        710,
+        622,
+        453
+      ],
+      "coin_reward": [
+        327,
+        1175,
+        424,
+        116
+      ],
+      "gift_glow": [
+        254,
+        735,
+        572,
+        410
+      ],
+      "gift_nest_front": [
+        244,
+        1063,
+        591,
+        100
+      ]
+    }
+  },
+  "popup_new_friend": {
+    "source": "docs/design/layout/new_friend.json",
+    "canvas": [
+      1080,
+      1920
+    ],
+    "origin": "top-left",
+    "elements": {
+      "hero_bird": [
+        379,
+        729,
+        318,
+        360
+      ],
+      "name_rib": [
+        307,
+        1089,
+        466,
+        104
+      ],
+      "name": [
+        440,
+        1114,
+        209,
+        69
+      ],
+      "reward": [
+        380,
+        1208,
+        320,
+        88
+      ],
+      "reward_coin": [
+        382,
+        1210,
+        95,
+        85
+      ],
+      "reward_value": [
+        519,
+        1227,
+        123,
+        50
+      ],
+      "name_leaf_l": [
+        307,
+        1092,
+        69,
+        96
+      ],
+      "name_leaf_r": [
+        704,
+        1092,
+        69,
+        96
+      ]
+    }
+  },
+  "unlock_card": {
+    "source": "docs/design/layout/unlock_card.json",
+    "canvas": [
+      1080,
+      1920
+    ],
+    "origin": "top-left",
+    "elements": {
+      "eye_icon": [
+        388,
+        684,
+        303,
+        162
+      ],
+      "egg": [
+        398,
+        853,
+        285,
+        292
+      ],
+      "caption_plate": [
+        222,
+        1165,
+        632,
+        105
+      ],
+      "description": [
+        313,
+        1182,
+        461,
+        66
+      ],
+      "illustration": [
+        272,
+        684,
+        528,
+        481
+      ],
+      "halo": [
+        249,
+        673,
+        584,
+        489
+      ],
+      "eye": [
+        388,
+        684,
+        303,
+        162
+      ],
+      "spark_l1": [
+        302,
+        775,
+        69,
+        70
+      ],
+      "spark_r1": [
+        717,
+        799,
+        66,
+        70
+      ],
+      "spark_l2": [
+        330,
+        894,
+        58,
+        55
+      ],
+      "spark_r2": [
+        695,
+        902,
+        58,
+        58
+      ],
+      "nest_leaf_l": [
+        272,
+        977,
+        139,
+        117
+      ],
+      "nest_leaf_r": [
+        666,
+        977,
+        134,
+        118
+      ],
+      "nest": [
+        313,
+        1029,
+        453,
+        136
+      ]
+    }
+  },
+  "popup_world_complete": {
+    "source": "docs/design/layout/world_complete.json",
+    "canvas": [
+      1080,
+      1920
+    ],
+    "origin": "top-left",
+    "elements": {
+      "arch": [
+        162,
+        691,
+        760,
+        409
+      ],
+      "star1": [
+        255,
+        543,
+        152,
+        134
+      ],
+      "star2": [
+        466,
+        543,
+        152,
+        134
+      ],
+      "star3": [
+        677,
+        543,
+        152,
+        134
+      ],
+      "star_left": [
+        255,
+        543,
+        152,
+        134
+      ],
+      "star_center": [
+        466,
+        543,
+        152,
+        134
+      ],
+      "star_right": [
+        677,
+        543,
+        152,
+        134
+      ],
+      "hero_bird_yellow": [
+        244,
+        813,
+        212,
+        239
+      ],
+      "hero_bird_blue": [
+        441,
+        817,
+        209,
+        236
+      ],
+      "hero_bird_pink": [
+        632,
+        825,
+        220,
+        226
+      ],
+      "reward": [
+        335,
+        1101,
+        407,
+        102
+      ],
+      "reward_coin": [
+        347,
+        1102,
+        110,
+        98
+      ],
+      "reward_value": [
+        505,
+        1119,
+        171,
+        58
+      ],
+      "coin_reward": [
+        335,
+        1101,
+        407,
+        102
+      ],
+      "perch": [
+        244,
+        1034,
+        608,
+        52
+      ],
+      "foliage_top": [
+        487,
+        692,
+        114,
+        89
+      ],
+      "foliage_left": [
+        185,
+        1004,
+        106,
+        86
+      ],
+      "foliage_right": [
+        802,
+        1004,
+        108,
+        88
+      ]
+    }
+  },
+  "popup_world_unlock": {
+    "source": "docs/design/layout/world_unlock.json",
+    "canvas": [
+      1080,
+      1920
+    ],
+    "origin": "top-left",
+    "elements": {
+      "portal_forest": [
+        327,
+        716,
+        429,
+        374
+      ],
+      "portal_arch": [
+        224,
+        566,
+        632,
+        534
+      ],
+      "door_left": [
+        174,
+        711,
+        166,
+        379
+      ],
+      "door_right": [
+        739,
+        710,
+        161,
+        380
+      ],
+      "autumn_leaves_top": [
+        228,
+        541,
+        627,
+        198
+      ],
+      "caption_plate": [
+        277,
+        1115,
+        532,
+        91
+      ],
+      "world_plaque": [
+        277,
+        1115,
+        532,
+        91
+      ],
+      "portal_leaves_0": [
+        228,
+        603,
+        112,
+        136
+      ],
+      "portal_leaves_1": [
+        340,
+        552,
+        112,
+        88
+      ],
+      "portal_leaves_2": [
+        470,
+        541,
+        130,
+        76
+      ],
+      "portal_leaves_3": [
+        608,
+        552,
+        120,
+        94
+      ],
+      "portal_leaves_4": [
+        741,
+        603,
+        114,
+        136
+      ],
+      "portal_crown": [
+        399,
+        598,
+        279,
+        134
+      ]
+    }
   }
 }
