@@ -58,44 +58,5 @@ namespace PerchSort.Game
         }
         public static bool Rain(string variant) => variant == "rain" || variant == "drizzle";
 
-        public static Move? GreedyHint(BoardState board)
-        {
-            Move? best = null;
-            int bestScore = int.MinValue;
-            for (int from = 0; from < board.Branches.Count; from++)
-            {
-                var source = board.Branches[from];
-                for (int to = 0; to < board.Branches.Count; to++)
-                {
-                    if (!GameSession.CanMove(board, from, to)) continue;
-                    var target = board.Branches[to];
-                    var species = source.Birds[source.Birds.Count - 1].Species;
-                    int count = Math.Min(source.RunCount, target.FreeSlots);
-                    int arrivals = count;
-                    bool mama = false;
-                    for (int i = source.Birds.Count - count; i < source.Birds.Count; i++) mama |= source.Birds[i].IsMama;
-                    if (mama)
-                        for (int i = source.Birds.Count - count - 1; i >= 0 && arrivals < target.FreeSlots; i--)
-                        {
-                            var chick = source.Birds[i];
-                            if (chick.IsChick && !chick.IsEgg && !board.IsAsleep(chick) && chick.Species.Equals(species)) arrivals++;
-                        }
-                    bool allSame = !species.IsCrow;
-                    for (int i = 0; i < target.Birds.Count; i++)
-                    {
-                        var bird = target.Birds[i];
-                        bool landingWake = i == target.Birds.Count - 1 && bird.IsAsleep &&
-                            !(bird.Species.IsNocturnal && board.NocturnalDaySleep);
-                        allSame &= !bird.IsEgg && (!board.IsAsleep(bird) || landingWake) && bird.Species.Equals(species);
-                    }
-                    int score = allSame && target.Kind != BranchKind.Twig && target.Birds.Count + arrivals == board.Capacity ? 10000 : 0;
-                    if (target.Birds.Count > 0 && target.Birds[target.Birds.Count - 1].Species.Equals(species)) score += 100 + count;
-                    if (source.Birds.Count > count && source.Birds[source.Birds.Count - count - 1].IsEgg) score += 10;
-                    if (score > bestScore) { bestScore = score; best = new Move(from, to); }
-                }
-                if (!best.HasValue && GameSession.CanSwivel(board, from)) best = Move.Swivel(from);
-            }
-            return best;
-        }
     }
 }

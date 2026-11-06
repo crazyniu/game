@@ -39,6 +39,101 @@ namespace PerchSort.EditModeTests
         }
 
         [Test]
+        public void FireflyPrefersANonReversingShortestPathAndEveryFollowedHintReducesDistance()
+        {
+            var level = Level(2, B("ink"), B(), B("sunny"), B("sky ink"), B("sunny sky"));
+            level.dayLength = 4;
+            var session = new GameSession(level, Stock(Enumerable.Repeat(BoosterKind.Firefly, 8).ToArray()));
+            session.State.PhaseCounter = 2;
+            Assert.That(session.TryMove(2, 1), Is.True);
+            int distance = Solver.Solve(session.State).Moves.Count;
+            Assert.That(distance, Is.EqualTo(4));
+            var first = session.UseBooster(BoosterKind.Firefly);
+            Assert.That(first.Applied, Is.True);
+            Assert.That(first.Hint.Moves[0].From == 1 && first.Hint.Moves[0].To == 2, Is.False,
+                "The reverse ties with a non-reversing shortest path and must not be suggested.");
+            Assert.That(session.TryAction(first.Hint.Moves[0]), Is.True);
+            Assert.That(Solver.Solve(session.State).Moves.Count, Is.EqualTo(--distance));
+            while (!session.State.IsWon)
+            {
+                var hint = session.UseBooster(BoosterKind.Firefly);
+                Assert.That(hint.Applied, Is.True);
+                Assert.That(hint.Hint.Moves.Count, Is.EqualTo(distance));
+                Assert.That(session.TryAction(hint.Hint.Moves[0]), Is.True);
+                Assert.That(Solver.Solve(session.State).Moves.Count, Is.EqualTo(--distance));
+            }
+            Assert.That(distance, Is.Zero);
+        }
+
+        [Test]
+        public void FireflyAllowsTheOnlyLegalReverseToAdvanceNightAndStillReducesDistance()
+        {
+            var level = Level(2, B("sunny"), B(), B("sunny ink"), B("ink"));
+            level.dayLength = 4;
+            var session = new GameSession(level, Stock(BoosterKind.Firefly));
+            session.State.PhaseCounter = 2;
+            Assert.That(session.TryMove(0, 1), Is.True);
+            var legal = (from a in Enumerable.Range(0, session.State.Branches.Count)
+                         from b in Enumerable.Range(0, session.State.Branches.Count)
+                         where GameSession.CanMove(session.State, a, b)
+                         select new Move(a, b)).ToArray();
+            Assert.That(legal, Is.EqualTo(new[] { new Move(1, 0) }));
+            int distance = Solver.Solve(session.State).Moves.Count;
+            var hint = session.UseBooster(BoosterKind.Firefly);
+            Assert.That(hint.Applied, Is.True);
+            Assert.That(hint.Hint.Moves[0], Is.EqualTo(new Move(1, 0)));
+            Assert.That(session.TryAction(hint.Hint.Moves[0]), Is.True);
+            Assert.That(session.State.Phase, Is.EqualTo(DayPhase.Night));
+            Assert.That(Solver.Solve(session.State).Moves.Count, Is.EqualTo(distance - 1));
+            foreach (var move in Solver.Solve(session.State).Moves) Assert.That(session.TryAction(move), Is.True);
+            Assert.That(session.State.IsWon, Is.True);
+        }
+
+        [Test]
+        public void UndoRestoresThePreviousHintContextAndRestartClearsIt()
+        {
+            var session = new GameSession(Level(2, B("ink"), B(), B("sunny"), B("sky ink"), B("sunny sky")),
+                Stock(BoosterKind.Firefly));
+            Assert.That(session.TryMove(2, 1), Is.True);
+            Assert.That(session.UseBooster(BoosterKind.Firefly).Applied, Is.True);
+            Assert.That(session.TryMove(4, 2), Is.True);
+            Assert.That(session.LastMove, Is.EqualTo(new Move(4, 2)));
+            Assert.That(session.TryMove(2, 2), Is.False);
+            Assert.That(session.LastMove, Is.EqualTo(new Move(4, 2)));
+            Assert.That(session.Undo(), Is.True);
+            Assert.That(session.LastMove, Is.EqualTo(new Move(2, 1)));
+            Assert.That(session.Undo(), Is.True);
+            Assert.That(session.LastMove, Is.EqualTo(new Move(2, 1)));
+            Assert.That(session.Undo(), Is.True);
+            Assert.That(session.LastMove, Is.Null);
+            Assert.That(session.TryMove(2, 1), Is.True);
+            session.Restart();
+            Assert.That(session.LastMove, Is.Null);
+        }
+
+        [TestCase("eggs_gifts", 6)]
+        [TestCase("family_sleep", 16)]
+        [TestCase("crows_swivel", 25)]
+        [TestCase("growth_ember", 32)]
+        [TestCase("night_owls", 33)]
+        public void ReplannedHintsStrictlyReduceSolverDistanceAcrossMechanics(string name, int id)
+        {
+            var session = new GameSession(Fixture(name, id));
+            int distance = Solver.Solve(session.State).Moves.Count;
+            while (!session.State.IsWon)
+            {
+                string before = Snapshot(session.State);
+                var hint = Solver.SolveHint(session.State, session.LastMove);
+                Assert.That(hint.Status, Is.EqualTo(SolveStatus.Solved));
+                Assert.That(hint.Moves.Count, Is.EqualTo(distance));
+                Assert.That(Snapshot(session.State), Is.EqualTo(before));
+                Assert.That(session.TryAction(hint.Moves[0]), Is.True);
+                Assert.That(Solver.Solve(session.State).Moves.Count, Is.EqualTo(--distance));
+            }
+            Assert.That(distance, Is.Zero);
+        }
+
+        [Test]
         public void CompletionOrdersHaveDifferentExactMinimaAndBudgetExhaustionIsNotAnImpossibilityProof()
         {
             var level = Level(2, B("sunny"), B("sunny"), B("sky:sleep sky", row: 9), B());

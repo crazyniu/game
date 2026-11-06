@@ -25,19 +25,6 @@ namespace PerchSort.EditModeTests
             Assert.That(session.Inventory[BoosterKind.Firefly], Is.EqualTo(1));
         }
         [Test]
-        public void UnknownSearchCanOfferAGreedyMoveWithoutExecutingIt()
-        {
-            var session = new GameSession(GameFixtures.Create("eggs"), inventory: Stock(BoosterKind.Firefly, 1));
-            var result = Solver.Solve(session.State, maxStates: 1, maxMilliseconds: 1500);
-            Assert.That(result.IsUnknown, Is.True);
-            var fallback = ViewModel.GreedyHint(session.State);
-            Assert.That(fallback.HasValue, Is.True);
-            Assert.That(session.TryUseFirefly(fallback.Value), Is.True);
-            Assert.That(session.MoveCount, Is.Zero);
-            Assert.That(session.Inventory[BoosterKind.Firefly], Is.Zero);
-            Assert.That(session.TryAction(fallback.Value), Is.True);
-        }
-        [Test]
         public void PurchasedStockSurvivesUndoAndRestartWithoutBecomingAnAction()
         {
             var session = new GameSession(GameFixtures.Create("eggs"), inventory: Stock(BoosterKind.OwlEye, 1));

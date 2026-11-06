@@ -40,9 +40,6 @@ namespace PerchSort.Game
         private bool winCountPending;
         private Task<SolveResult> hintSearch;
         private SleepBubble sleepFeedback;
-        private GameSession lastMoveSession;
-        private Move? lastMove;
-        private string lastMoveReason;
         private Action entranceCompleted, resolutionCompleted;
         private readonly OverlayPresentation boardOverlay = new OverlayPresentation();
         public BoardPresentation BoardScreen { get; private set; }
@@ -423,7 +420,6 @@ namespace PerchSort.Game
             if (!initialized || IsMap || Modal) return false;
             InputTap(); if (ConsumePlaybackTap()) return false;
             if (!Session.Swivel(branch)) return false;
-            RememberHintMove(Move.Swivel(branch));
             profile.RecordAction();
             PlayCommitted(); return true;
         }
@@ -438,7 +434,6 @@ namespace PerchSort.Game
                 Refresh(); return false;
             }
             profile.RecordAction();
-            RememberHintMove(new Move(from, to));
             PlayCommitted(); return true;
         }
         private void PlayCommitted(Action after = null)
@@ -509,7 +504,6 @@ namespace PerchSort.Game
         {
             if (!initialized || IsMap || (Modal && !Win.IsOpen && !IsIntroducing && !IsWiping) || !Session.CanUndo) return false;
             CancelPresentation(); pendingWinReward = 0; Session.Undo(); profile.UndoAction(); BoardScreen.Restore(BoardSessionAdapter.Capture(this));
-            lastMove = null;
             tutorial.DisableForAttempt(); PlaySound(Sfx.Undo); Save(); Refresh(); return true;
         }
         public void Restart()
@@ -519,7 +513,6 @@ namespace PerchSort.Game
 #endif
             if (!initialized || IsMap || (notificationTransition && !IsWiping) || CurrentNotification != null) return;
             CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; pendingWinReward = 0; tutorial.DisableForAttempt();
-            lastMove = null;
             BoardScreen.Restore(BoardSessionAdapter.Capture(this)); Save(); Refresh();
             if (notificationsEnabled) BeginLevelEntrance();
         }
@@ -588,14 +581,6 @@ namespace PerchSort.Game
             if (kind == BoosterKind.Sapling) tutorial.DismissSaplingPrompt();
             InputTap(); if (!Session.UseBooster(kind).Applied) { Refresh(); return false; }
             profile.RecordAction();
-            switch (kind)
-            {
-                case BoosterKind.Sapling: PlaySound(Sfx.Sapling); break;
-                case BoosterKind.OwlEye: PlaySound(Sfx.OwlEye); break;
-                case BoosterKind.MorningBell: PlaySound(Sfx.MorningBell); break;
-                case BoosterKind.Scarecrow: PlaySound(Sfx.Scarecrow); break;
-                case BoosterKind.SpringRain: PlaySound(Sfx.SpringRain); break;
-            }
             PlayCommitted(); return true;
         }
         public async void Hint()
@@ -603,10 +588,11 @@ namespace PerchSort.Game
             if (!initialized || IsMap || Modal || IsBusy || HintPending || HighestUnlocked < 2 || Session.Inventory[BoosterKind.Firefly] == 0) return;
             InputTap(); Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); tutorial.Hide();
             int token = revision; var session = Session; var snapshot = session.State.Clone(); hintPending = true;
+            var previousMove = session.LastMove;
             Refresh();
             try
             {
-                hintSearch = Task.Run(() => Solver.Solve(snapshot, maxStates: 200000, maxMilliseconds: 3000));
+                hintSearch = Task.Run(() => Solver.SolveHint(snapshot, previousMove, maxStates: 200000, maxMilliseconds: 3000));
                 var result = await hintSearch;
                 if (this == null || !initialized || token != revision || Session != session) return;
                 hintPending = false;
@@ -614,9 +600,6 @@ namespace PerchSort.Game
                 if (!move.HasValue || !session.TryUseFirefly(move.Value)) { Refresh(); return; }
                 profile.RecordAction();
                 var hint = move.Value;
-                PlaySound(Sfx.Hint);
-                bool reverse = lastMoveSession == session && lastMove.HasValue && hint.Kind == MoveKind.Transfer &&
-                    lastMove.Value.Kind == MoveKind.Transfer && hint.From == lastMove.Value.To && hint.To == lastMove.Value.From;
                 PlayCommitted(() =>
                 {
                     if (token != revision || Session != session || IsBusy) return;
@@ -628,17 +611,6 @@ namespace PerchSort.Game
                 if (this != null && token == revision) { hintPending = false; Debug.LogException(error); Refresh(); }
             }
             finally { if (this != null && initialized) Refresh(); }
-        }
-        private void RememberHintMove(Move move)
-        {
-            lastMoveSession = Session; lastMove = move;
-            lastMoveReason = Session.State.DayLength > 0 ? "Advance the day/night cycle" : "Bring the flock together";
-            foreach (var item in Session.Events)
-            {
-                if (item is Hatched) { lastMoveReason = "Hatch, then gather"; break; }
-                if (item is Woke) { lastMoveReason = "Wake, then gather"; break; }
-                if (item is BranchGrew || item is TwigUpgraded) lastMoveReason = "Use the new seats";
-            }
         }
         public void OpenSettings()
         {
