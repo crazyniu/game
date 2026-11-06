@@ -1,0 +1,351 @@
+UiStateCapture: 1/11 Board/Mechanics_Mama_following_chicks.png
+UiStateCapture: 2/11 Board/Mechanics_Partial_growing_branch.png
+UiStateCapture: 3/11 Board/Mechanics_Full_growing_branch.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	577.64,1142.56,38.72,66.00
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	522.00,1243.45,44.24,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	566.24,1243.45,39.44,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	605.68,1243.45,42.32,72.14
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 4/11 Board/Recovery_World_ending_win.png
+UiStateCapture: 5/11 Board/Environment_World_3_windy.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	562.02,1142.56,33.44,66.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	595.46,1142.56,36.52,66.00
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	522.00,1243.45,44.24,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	566.24,1243.45,39.44,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	605.68,1243.45,42.32,72.14
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 6/11 Popups/Win_Three_stars.png
+POPUP_RECTS_BEGIN	board_win_panel_two_stars
+POPUP_RECT	board_win_panel_two_stars	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel_two_stars	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel_two_stars	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel_two_stars	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star slot 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel_two_stars	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Moves/Painted glyph	562.24,1142.56,33.44,66.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Moves/Painted glyph	595.68,1142.56,36.08,66.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel_two_stars	Win panel/Coin reward/Painted glyph	522.00,1243.59,44.08,71.86
+POPUP_RECT	board_win_panel_two_stars	Win panel/Coin reward/Painted glyph	566.08,1243.59,39.76,71.86
+POPUP_RECT	board_win_panel_two_stars	Win panel/Coin reward/Painted glyph	605.84,1243.59,42.16,71.86
+POPUP_RECT	board_win_panel_two_stars	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel_two_stars	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel_two_stars	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel_two_stars	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel_two_stars	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel_two_stars	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel_two_stars
+UiStateCapture: 7/11 Popups/Win_Two_stars.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel	Win panel/Star slot 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel	Win panel/Star slot 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	562.02,1142.56,33.44,66.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	595.46,1142.56,36.52,66.00
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	522.00,1242.59,45.28,73.83
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	567.28,1242.59,37.41,73.83
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	604.69,1242.59,43.31,73.83
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 8/11 Popups/Win_One_star.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	577.64,1142.56,38.72,66.00
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	534.60,1237.44,51.52,84.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	586.12,1237.44,49.28,84.00
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 9/11 Popups/Win_Zero_reward.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	305.00,1063.19,23.00,41.07
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	328.00,1063.19,23.00,41.07
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	351.00,1063.19,23.00,41.07
+POPUP_RECT	board_win_panel	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	505.00,1068.35,15.65,30.90
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	520.65,1068.35,18.13,30.90
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.78,1068.35,18.13,30.90
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	556.90,1068.35,17.10,30.90
+POPUP_RECT	board_win_panel	Win panel/Earned star 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	557.00,1151.87,26.67,47.62
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	583.67,1151.87,26.67,47.62
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	610.33,1151.87,26.67,47.62
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	522.00,1261.30,22.64,36.91
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	544.64,1261.30,20.67,36.91
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	565.31,1261.30,20.67,36.91
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	585.98,1261.30,20.67,36.91
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	606.66,1261.30,20.67,36.91
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	627.33,1261.30,20.67,36.91
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 10/11 Popups/Win_Maximum_counters.png
+POPUP_RECTS_BEGIN	board_win_panel
+POPUP_RECT	board_win_panel	Game/Game Canvas/Safe area/1080x1920 design/Win overlay	0.00,0.00,1080.00,1920.00
+POPUP_RECT	board_win_panel	hero_bird	369.00,616.00,330.00,173.00
+POPUP_RECT	board_win_panel	hero_bird/Celebrating bird	369.00,616.00,330.00,271.56
+POPUP_RECT	board_win_panel	Win panel	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,862.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,867.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	102.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	107.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Soft panel shadow	112.00,872.00,866.00,520.00
+POPUP_RECT	board_win_panel	Win panel/Win panel surface	110.00,856.00,860.00,514.00
+POPUP_RECT	board_win_panel	Win panel/Title ribbon	220.00,777.00,638.00,137.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 0	286.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 0	257.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0	305.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	306.11,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 0/Painted glyph	338.03,1052.08,34.86,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 1	486.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 1	457.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1	505.00,1063.00,69.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	506.53,1052.08,31.92,63.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 1/Painted glyph	538.45,1052.08,34.02,63.00
+POPUP_RECT	board_win_panel	Win panel/Earned star 2	686.00,934.00,107.00,98.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold pill 2	657.00,1056.00,166.00,58.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2	698.00,1063.00,84.00,42.00
+POPUP_RECT	board_win_panel	Win panel/Star threshold 2/Painted glyph	696.03,1034.36,87.94,98.44
+POPUP_RECT	board_win_panel	Win panel/Moves chip	405.00,1138.00,270.00,74.00
+POPUP_RECT	board_win_panel	Win panel/Moves footprints	470.00,1155.00,62.00,40.00
+POPUP_RECT	board_win_panel	Win panel/Moves	557.00,1154.00,80.00,44.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	562.02,1142.56,33.44,66.00
+POPUP_RECT	board_win_panel	Win panel/Moves/Painted glyph	595.46,1142.56,36.52,66.00
+POPUP_RECT	board_win_panel	Win panel/Reward chip	397.00,1237.00,303.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Reward coin	380.00,1237.00,104.00,93.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward	522.00,1252.00,126.00,56.00
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	522.00,1243.45,44.24,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	566.24,1243.45,39.44,72.14
+POPUP_RECT	board_win_panel	Win panel/Coin reward/Painted glyph	605.68,1243.45,42.32,72.14
+POPUP_RECT	board_win_panel	Replay level	334.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Replay level/Icon	360.00,1453.00,47.00,51.00
+POPUP_RECT	board_win_panel	Next level	484.00,1419.00,111.00,120.00
+POPUP_RECT	board_win_panel	Next level/Icon	517.00,1451.00,54.00,60.00
+POPUP_RECT	board_win_panel	Home	654.00,1432.00,96.00,96.00
+POPUP_RECT	board_win_panel	Home/Icon	681.00,1452.00,49.00,52.00
+POPUP_RECTS_END	board_win_panel
+UiStateCapture: 11/11 Popups/Win_Disabled_next.png

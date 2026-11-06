@@ -255,11 +255,12 @@ namespace PerchSort.Game
             }
             life.Begin(); life.Play("flap");
         }
-        public void FrontBird(GameArt art, Image bird, string species)
+        public void FrontBird(GameArt art, Image bird, string species, bool measured = false)
         {
             var front = art.Optional(species + "_front");
             if (front == null)
                 throw new InvalidOperationException("Missing front-facing popup bird: " + species);
+            if (measured) front = art.Measured(front);
             bird.sprite = front;
             Track(bird.rectTransform);
             var frames = new List<Sprite>();
@@ -267,7 +268,7 @@ namespace PerchSort.Game
             {
                 var frame = art.Optional(species + "_front_blink_" + i.ToString("D2"));
                 if (frame == null) break;
-                frames.Add(frame);
+                frames.Add(measured ? art.Measured(frame) : frame);
             }
             if (frames.Count < 2)
                 throw new InvalidOperationException("Missing front blink sequence for popup bird: " + species);
@@ -281,6 +282,24 @@ namespace PerchSort.Game
                 float blink = t * 2.8f - 1.4f;
                 int frame = Mathf.FloorToInt(blink * 12);
                 bird.sprite = frame >= 0 && frame < frames.Count ? frames[frame] : front;
+            });
+        }
+
+        public void CelebratingBird(GameArt art, Image bird, string species)
+        {
+            var rest = art.Measured(art.Get(species + "_cheer_05"));
+            bird.sprite = rest;
+            Track(bird.rectTransform);
+            var frames = new List<Sprite>();
+            for (int i = 1; i <= 6; i++) frames.Add(art.Measured(art.Get(species + "_cheer_" + i.ToString("D2"))));
+            int token = generation;
+            motion.Loop(2.8f, t =>
+            {
+                if (token != generation || bird == null) return;
+                float breath = 0.5f + 0.5f * Mathf.Sin(t * Mathf.PI * 2);
+                bird.rectTransform.localScale = new Vector3(1 - 0.008f * breath, 1 + 0.02f * breath, 1);
+                int frame = Mathf.FloorToInt((t * 2.8f - 1.4f) * 10);
+                bird.sprite = frame >= 0 && frame < frames.Count ? frames[frame] : rest;
             });
         }
         public void Count(PaintedNumber label, int amount, float delay)
