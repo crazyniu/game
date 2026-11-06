@@ -171,8 +171,21 @@ namespace PerchSort.Game
         private Image Caption(Transform parent, string text, Rect bounds) =>
             GameUI.MeasuredImage(parent, text, art, PaintedLabels.Get(PaintedLabels.KeyForText(text)), bounds);
 
-        private void NameRibbon(Transform parent, string species, Vector2 point, float height = 120) =>
-            PaintedLabels.Create(parent, "Species name", "label_name_" + species, point, height);
+        private void NameRibbon(Transform parent, string species, Vector2 point, float height = 120)
+        {
+            var size = GameLayout.Screen("popup_new_friend", "name_rib").size;
+            var ribbon = PaintedLabels.Create(parent, "Species name", "label_name_" + species, point, height);
+            // All name plates share a 640 x 200 canvas and the same visible silhouette.
+            ribbon.preserveAspect = false;
+            ribbon.rectTransform.sizeDelta = size * new Vector2(640f / 632, 200f / 182);
+            foreach (string side in new[] { "name_leaf_l", "name_leaf_r" })
+            {
+                Rect leaf = GameLayout.Screen("popup_new_friend", side);
+                Vector2 scale = leaf.size / new Vector2(86, 75);
+                GameUI.Image(parent, side, art.Get("leaf_sprig_a"), leaf.center - panelBounds.position +
+                    (new Vector2(90, 70) - new Vector2(88, 63.5f)) * scale, new Vector2(180, 140) * scale);
+            }
+        }
 
         private Button Action(string name, string icon, Action action)
         {
@@ -180,20 +193,54 @@ namespace PerchSort.Game
                 presentation.Once(() => presentation.Close(action)));
         }
 
-        private void Reward(Transform parent, int reward, Vector2 point)
+        private void Reward(Transform parent, int reward, string screen)
         {
-            var pill = GameUI.Surface(parent, "Reward pill", art, "stat_pill",
-                GameLayout.Centered(point, new Vector2(400, 88)));
-            GameUI.Fit(pill.transform, "Reward coin", art.Get("coin"), new Vector2(44, 44), Vector2.one * 96);
-            var amount = Number(pill.transform, "Reward amount", "+0", new Vector2(234, 44), new Vector2(300, 88), 44);
+            Rect bounds = GameLayout.Screen(screen, "reward");
+            Rect coin = GameLayout.Screen(screen, "reward_coin");
+            Rect text = GameLayout.Screen(screen, "reward_value");
+            var row = GameUI.Rect(parent, "Reward", bounds.center - panelBounds.position, bounds.size);
+            float inset = coin.center.x - bounds.x;
+            Vector2 plateSize = new Vector2(bounds.width - inset, bounds.height);
+            GameUI.Image(row, "Reward pill", art.Get("stat_pill"),
+                new Vector2(inset + plateSize.x * 0.5f, bounds.height * 0.5f),
+                plateSize * new Vector2(400f / 392, 96f / 86));
+            GameUI.Image(row, "Reward coin", art.Get("coin"), coin.center - bounds.position,
+                coin.size * new Vector2(96f / 90, 96f / 92));
+            Vector2 numberSize = text.size;
+            if (reward > 999) numberSize.x = bounds.xMax - coin.xMax - 34;
+            var amount = Number(row, "Reward amount", "+0", text.center - bounds.position, numberSize, text.height);
             presentation.Count(amount, reward, 0.2f);
         }
 
-        private Image Bird(Transform parent, string species, Vector2 point, float size, bool celebrate = false)
+        private Image Bird(Transform parent, string species, Vector2 point, float size, bool celebrate = false,
+            Vector2? visibleSize = null)
         {
             root.Collection.EquippedOutfits.TryGetValue(species, out string outfit);
             string key = art.FrontKey(species, outfit);
             var bird = GameUI.Fit(parent, "Bird " + species, art.Get(key + "_front"), point, Vector2.one * size);
+            if (visibleSize.HasValue)
+            {
+                // Front-frame alpha bounds on the retained 320 x 320 bird canvases.
+                Rect opaque;
+                switch (species)
+                {
+                    case "sunny": opaque = new Rect(66, 74, 189, 228); break;
+                    case "sky": opaque = new Rect(63, 66, 195, 235); break;
+                    case "berry": opaque = new Rect(64, 64, 189, 238); break;
+                    case "mint": opaque = new Rect(57, 37, 206, 265); break;
+                    case "cocoa": opaque = new Rect(57, 84, 206, 218); break;
+                    case "snow": opaque = new Rect(62, 86, 197, 214); break;
+                    case "ember": opaque = new Rect(57, 27, 206, 273); break;
+                    case "crow": opaque = new Rect(69, 66, 183, 236); break;
+                    case "ink": opaque = new Rect(57, 66, 204, 236); break;
+                    default: opaque = new Rect(63, 119, 178, 182); break;
+                }
+                Vector2 scale = visibleSize.Value / opaque.size;
+                Vector2 centre = point + (Vector2.one * 160 - opaque.center) * scale;
+                bird.preserveAspect = false;
+                bird.rectTransform.sizeDelta = Vector2.one * 320 * scale;
+                bird.rectTransform.anchoredPosition = new Vector2(centre.x, -centre.y);
+            }
             presentation.FrontBird(art, bird, key);
             return bird;
         }
@@ -251,11 +298,66 @@ namespace PerchSort.Game
         public void Buy(BoosterKind kind) => root.OpenShop(kind);
         public void Unlock(BoosterKind kind)
         {
-            var body = Body(680, "label_booster_" + BoosterName(kind).ToLowerInvariant().Replace(' ', '_'));
+            var body = Body(725, "label_booster_" + BoosterName(kind).ToLowerInvariant().Replace(' ', '_'), centreY: 961.5f);
             IsUnlock = true;
-            GameUI.Fit(body, "New booster", art.Get(BoosterIllustration(kind)), new Vector2(430, 285), Vector2.one * 440);
-            Caption(body, kind == BoosterKind.OwlEye ? "Reveals eggs" : ShortBoosterEffect(kind), new Vector2(430, 570), 76);
-            Action("Acknowledge unlock", "icon_check", root.AcknowledgeUnlock);
+            Image Part(string id, string sprite, Rect opaque)
+            {
+                Rect target = GameLayout.Screen("unlock_card", id);
+                Sprite source = art.Get(sprite);
+                Vector2 factor = target.size / opaque.size;
+                return GameUI.Image(body, id, source, target.center - panelBounds.position +
+                    (source.rect.size * 0.5f - opaque.center) * factor, source.rect.size * factor);
+            }
+            void Crop(string id, Rect sourceRect)
+            {
+                Rect target = GameLayout.Screen("unlock_card", id);
+                var crop = GameUI.Rect(body, id, target.center - panelBounds.position, target.size);
+                crop.gameObject.AddComponent<RectMask2D>();
+                var silhouette = crop.gameObject.AddComponent<Image>();
+                silhouette.sprite = art.DoorMask(); silhouette.raycastTarget = false;
+                crop.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                Vector2 factor = target.size / sourceRect.size;
+                GameUI.Image(crop, "Illustration crop", art.Get(BoosterIllustration(kind)),
+                    (Vector2.one * 128 - sourceRect.position) * factor, Vector2.one * 256 * factor);
+            }
+            Rect hero = GameLayout.Screen("unlock_card", "illustration");
+            Rect opaque;
+            switch (kind)
+            {
+                case BoosterKind.Firefly: opaque = new Rect(25, 16, 205, 224); break;
+                case BoosterKind.Sapling: opaque = new Rect(16, 34, 224, 187); break;
+                case BoosterKind.OwlEye: opaque = new Rect(31, 16, 194, 224); break;
+                case BoosterKind.MorningBell: opaque = new Rect(16, 25, 224, 206); break;
+                case BoosterKind.Scarecrow: opaque = new Rect(26, 16, 203, 224); break;
+                default: opaque = new Rect(40, 16, 175, 224); break;
+            }
+            if (kind == BoosterKind.OwlEye)
+            {
+                Part("halo", "glow_soft", new Rect(28, 100, 455, 313));
+                Part("nest_leaf_l", "leaf_sprig_a", new Rect(45, 26, 86, 75));
+                Part("nest_leaf_r", "leaf_sprig_b", new Rect(37, 23, 112, 93));
+                Crop("eye", new Rect(75, 16, 105, 70));
+                Crop("egg", new Rect(69, 86, 117, 108));
+                Part("nest", "gift_nest_front", new Rect(70, 509, 616, 231));
+                foreach (string spark in new[] { "spark_l1", "spark_r1", "spark_l2", "spark_r2" })
+                    Part(spark, "sparkle", new Rect(40, 37, 47, 51));
+            }
+            else
+            {
+                float factor = Mathf.Min(hero.width / opaque.width, hero.height / opaque.height);
+                GameUI.Image(body, "New booster", art.Get(BoosterIllustration(kind)),
+                    hero.center - panelBounds.position + (Vector2.one * 128 - opaque.center) * factor, Vector2.one * 256 * factor);
+            }
+            Rect caption = GameLayout.Screen("unlock_card", "caption_plate");
+            string key = PaintedLabels.KeyForText(kind == BoosterKind.OwlEye ? "Reveals eggs" : ShortBoosterEffect(kind));
+            var plate = PaintedLabels.Create(body, "Booster caption", key, caption.center - panelBounds.position, caption.height);
+            plate.preserveAspect = false;
+            plate.rectTransform.sizeDelta = caption.size * plate.sprite.rect.size / (plate.sprite.rect.size - Vector2.one * 24);
+            var button = Action("Acknowledge unlock", "icon_check", root.AcknowledgeUnlock);
+            var glyph = button.transform.Find("Icon").GetComponent<Image>();
+            var metric = GlyphMetrics.Get(glyph.sprite.name);
+            GlyphMetrics.Apply(glyph.rectTransform, ((RectTransform)button.transform).sizeDelta,
+                metric.CanvasSize, metric.OpaqueSize, metric.CentreOffset, 0.58f);
         }
 
         private static string BoosterIllustration(BoosterKind kind)
@@ -359,63 +461,129 @@ namespace PerchSort.Game
             string title = kind == PopupKind.NewFriend ? "label_title_new_friend" :
                 kind == PopupKind.DailyGift ? "label_title_daily_gift" :
                 kind == PopupKind.WorldComplete ? "label_title_world_complete" : "label_title_world_unlocked";
-            var body = Body(kind == PopupKind.DailyGift || kind == PopupKind.NewFriend ? 740 : 800, title);
+            float height = kind == PopupKind.DailyGift ? 720 : kind == PopupKind.NewFriend ? 719 : 798;
+            float centreY = kind == PopupKind.DailyGift ? 986 : kind == PopupKind.NewFriend ? 979.5f : 861;
+            var body = Body(height, title, centreY: centreY);
             IsNotification = acknowledge != null;
             if (kind == PopupKind.NewFriend)
             {
-                Bird(body, species, new Vector2(430, 290), 360, true);
-                NameRibbon(body, species, new Vector2(430, 505), 110);
-                Reward(body, reward, new Vector2(430, 640));
-                presentation.Sparkles(art, body, new Vector2(430, 290), 220, 0.55f);
+                Rect bird = GameLayout.Screen("popup_new_friend", "hero_bird");
+                Rect name = GameLayout.Screen("popup_new_friend", "name_rib");
+                Bird(body, species, bird.center - panelBounds.position, bird.height, true, bird.size);
+                NameRibbon(body, species, name.center - panelBounds.position, name.height);
+                Reward(body, reward, "popup_new_friend");
             }
             else if (kind == PopupKind.DailyGift)
             {
-                DailyGift(body); Reward(body, reward, new Vector2(430, 630));
+                DailyGift(body); Reward(body, reward, "popup_daily_gift");
             }
             else WorldGate(body, kind, world, reward);
-            Action(acknowledge == null ? "Close popup" : "Acknowledge popup",
+            var button = Action(acknowledge == null ? "Close popup" : "Acknowledge popup",
                 kind == PopupKind.WorldUnlock ? "icon_play" : "icon_check", acknowledge ?? (Action)root.ClosePanel);
+            var glyph = button.transform.Find("Icon").GetComponent<Image>();
+            var metric = GlyphMetrics.Get(glyph.sprite.name);
+            GlyphMetrics.Apply(glyph.rectTransform, ((RectTransform)button.transform).sizeDelta,
+                metric.CanvasSize, metric.OpaqueSize, metric.CentreOffset, 0.58f);
+            if (kind == PopupKind.WorldUnlock) glyph.rectTransform.anchoredPosition += Vector2.right * 4;
         }
 
         private void DailyGift(Transform body)
         {
-            var nest = GameUI.Rect(body, "Gift nest rig", new Vector2(430, 320), Vector2.one * 500);
-            string[] parts = { "gift_nest", "gift_box_base", "gift_box_lid", "gift_nest_front" };
-            Image lid = null;
-            foreach (string part in parts)
+            Image Part(string id, string sprite, Rect opaque)
             {
-                var image = GameUI.Image(nest, part, art.Get(part), Vector2.one * 250, Vector2.one * 500);
-                if (part == "gift_box_lid") lid = image;
+                Rect target = GameLayout.Screen("popup_daily_gift", id);
+                Sprite source = art.Get(sprite);
+                Vector2 scale = target.size / opaque.size;
+                return GameUI.Image(body, id, source, target.center - panelBounds.position +
+                    (source.rect.size * 0.5f - opaque.center) * scale, source.rect.size * scale);
             }
-            presentation.Track(lid.rectTransform);
-            Vector2 rest = lid.rectTransform.anchoredPosition;
-            var fade = lid.GetComponent<CanvasGroup>();
-            presentation.Play(0.55f, t =>
-            {
-                lid.rectTransform.anchoredPosition = rest + new Vector2(100 * t, 220 * Mathf.Sin(t * Mathf.PI * 0.65f));
-                lid.rectTransform.localRotation = Quaternion.Euler(0, 0, -130 * t); fade.alpha = 1 - t;
-            }, delay: 0.9f);
-            presentation.Sparkles(art, body, new Vector2(430, 320), 240, 0.9f);
+            Part("gift_glow", "glow_soft", new Rect(28, 100, 455, 313));
+            Part("gift_nest", "gift_nest", new Rect(70, 390, 628, 350));
+            Part("hero_leaves_left", "leaf_sprig_a", new Rect(45, 26, 86, 75));
+            Part("hero_leaves_right", "leaf_sprig_b", new Rect(37, 23, 112, 93));
+            Part("gift_coin_back_left", "coin", new Rect(3, 2, 90, 92));
+            Part("gift_coin_back_right", "coin", new Rect(3, 2, 90, 92));
+            Part("gift_box", "gift_box_base", new Rect(212, 305, 344, 300));
+            Part("gift_bow", "gift_box_lid", new Rect(188, 170, 392, 250));
+            Part("gift_coin_left", "coin", new Rect(3, 2, 90, 92));
+            Part("gift_coin_right", "coin", new Rect(3, 2, 90, 92));
+            Part("gift_coin_middle", "coin", new Rect(3, 2, 90, 92));
+            Part("gift_nest_front", "gift_nest_front", new Rect(70, 509, 616, 231));
+            Part("hero_leaf_front", "leaf_sprig_c", new Rect(32, 29, 105, 74));
+            for (int i = 1; i <= 4; i++) Part("spark_" + i, "sparkle", new Rect(40, 37, 47, 51));
         }
 
         private void WorldGate(Transform body, PopupKind kind, int world, int reward)
         {
-            var gateRect = GameUI.Rect(body, "World gate", new Vector2(430, 375), new Vector2(680, 520));
-            var gate = gateRect.gameObject.AddComponent<GateView>(); gate.Configure(art, world, false);
-            presentation.After(0.2f, () => gate.OpenDoors(null));
+            string screen = kind == PopupKind.WorldComplete ? "popup_world_complete" : "popup_world_unlock";
+            Image Part(string id, string sprite, Rect opaque)
+            {
+                Rect target = GameLayout.Screen(screen, id);
+                Sprite source = art.Get(sprite);
+                Vector2 scale = target.size / opaque.size;
+                return GameUI.Image(body, id, source, target.center - panelBounds.position +
+                    (source.rect.size * 0.5f - opaque.center) * scale, source.rect.size * scale);
+            }
             if (kind == PopupKind.WorldComplete)
             {
+                Part("arch", "gate_arch", new Rect(117, 108, 785, 754));
+                Part("perch", "gift_nest_front", new Rect(70, 509, 616, 231));
+                Part("foliage_top", "leaf_sprig_a", new Rect(45, 26, 86, 75));
+                Part("foliage_left", "leaf_sprig_b", new Rect(37, 23, 112, 93));
+                Part("foliage_right", "leaf_sprig_c", new Rect(32, 29, 105, 74));
+                string[] birds = { "sunny", "sky", "berry" };
+                string[] elements = { "hero_bird_yellow", "hero_bird_blue", "hero_bird_pink" };
                 for (int i = 0; i < 3; i++)
                 {
-                    GameUI.Fit(body, "Completion star " + i, art.Get("star_full"), new Vector2(220 + i * 210, 130), Vector2.one * 140);
-                    Bird(body, i == 0 ? "sunny" : i == 1 ? "sky" : "berry", new Vector2(250 + i * 180, 480), 180, true);
+                    Part("star" + (i + 1), "star_full", new Rect(0, 21, 243, 221));
+                    Rect bird = GameLayout.Screen(screen, elements[i]);
+                    Bird(body, birds[i], bird.center - panelBounds.position, bird.height, true, bird.size);
                 }
-                Reward(body, reward, new Vector2(430, 705));
+                Reward(body, reward, screen);
             }
             else
             {
-                if (world == 2) Caption(body, "Autumn Forest", new Vector2(430, 705), 76);
-                else GameUI.Fit(body, "World sign", art.Get("world_sign_w" + world), new Vector2(430, 705), new Vector2(420, 100));
+                if (world == 1)
+                {
+                    var opening = Part("portal_forest", "gate_backdrop_w2", new Rect(241, 251, 526, 602));
+                    opening.name = "Forest opening";
+                    opening.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                    Sprite meadow = art.Get("map_bg_w1");
+                    Vector2 size = opening.rectTransform.sizeDelta;
+                    GameUI.Image(opening.transform, "portal_forest", meadow, size * 0.5f,
+                        new Vector2(size.x, size.x * meadow.rect.height / meadow.rect.width));
+                }
+                // The retained autumn pixels are in w3; w2 currently contains bamboo.
+                else Part("portal_forest", "gate_backdrop_w" + (world == 2 ? 3 : world), new Rect(241, 251, 526, 602));
+                Part("portal_arch", "gate_arch", new Rect(117, 108, 785, 754));
+                // The opposite closed leaf has the curved outer edge of an open door, without mirroring it.
+                Part("door_left", "gate_door_right", new Rect(512, 237, 275, 620));
+                Part("door_right", "gate_door_left", new Rect(237, 237, 275, 620));
+                for (int i = 0; i < 5; i++)
+                {
+                    if (world == 2 || world == 3)
+                        Part("portal_leaves_" + i, "leaf_fall_w3", new Rect(4, 5, 55, 53));
+                    else if (world == 4)
+                        Part("portal_leaves_" + i, "leaf_fall_w4", new Rect(14, 13, 35, 37));
+                    else Part("portal_leaves_" + i, "leaf_sprig_a", new Rect(45, 26, 86, 75));
+                }
+                Part("portal_crown", "world_sign_w" + (world == 2 ? 3 : world), new Rect(6, 19, 372, 281));
+                Rect caption = GameLayout.Screen(screen, "caption_plate");
+                if (world <= 3)
+                {
+                    string key = world == 1 ? "label_caption_green_forest" : "label_caption_autumn_forest";
+                    var plate = PaintedLabels.Create(body, "World caption", key, caption.center - panelBounds.position, caption.height);
+                    plate.preserveAspect = false;
+                    plate.rectTransform.sizeDelta = caption.size * plate.sprite.rect.size / (plate.sprite.rect.size - Vector2.one * 24);
+                }
+                else
+                {
+                    var plate = GameUI.Image(body, "World caption", art.Get("stat_pill"), caption.center - panelBounds.position,
+                        caption.size * new Vector2(400f / 392, 96f / 86));
+                    // These worlds have no painted caption words; retain their existing identifying plaques.
+                    GameUI.Fit(plate.transform, "World sign", art.Get("world_sign_w" + world),
+                        plate.rectTransform.sizeDelta * 0.5f, new Vector2(120, 88));
+                }
             }
         }
 

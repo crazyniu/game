@@ -1,0 +1,4020 @@
+{
+  "daily_gift": [
+    {
+      "id": "board",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "owner": "board",
+      "objects": "board_dimmed",
+      "status": "external"
+    },
+    {
+      "id": "coin_pill",
+      "rect": [
+        38,
+        48,
+        302,
+        118
+      ],
+      "owner": "board",
+      "objects": "coin_pill",
+      "status": "external"
+    },
+    {
+      "id": "hud_coin",
+      "rect": [
+        38,
+        49,
+        125,
+        115
+      ],
+      "owner": "board",
+      "objects": "coin_leaf_gold",
+      "status": "external"
+    },
+    {
+      "id": "hud_240",
+      "rect": [
+        174,
+        79,
+        129,
+        56
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves_pill",
+      "rect": [
+        33,
+        166,
+        404,
+        113
+      ],
+      "owner": "board",
+      "objects": "moves_stars_pill",
+      "status": "external"
+    },
+    {
+      "id": "footprints",
+      "rect": [
+        49,
+        199,
+        60,
+        46
+      ],
+      "owner": "board",
+      "objects": "icon_bird_footprints",
+      "status": "external"
+    },
+    {
+      "id": "moves_7",
+      "rect": [
+        115,
+        193,
+        46,
+        55
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves_divider",
+      "rect": [
+        180,
+        184,
+        8,
+        78
+      ],
+      "owner": "board",
+      "objects": "divider_brown",
+      "status": "external"
+    },
+    {
+      "id": "star_1",
+      "rect": [
+        210,
+        171,
+        61,
+        53
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_1",
+      "rect": [
+        209,
+        228,
+        45,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star_2",
+      "rect": [
+        276,
+        171,
+        61,
+        53
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_2",
+      "rect": [
+        278,
+        228,
+        51,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star_3",
+      "rect": [
+        345,
+        171,
+        61,
+        53
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_3",
+      "rect": [
+        349,
+        228,
+        58,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_infinity",
+      "status": "external"
+    },
+    {
+      "id": "sun_pill",
+      "rect": [
+        33,
+        280,
+        206,
+        97
+      ],
+      "owner": "board",
+      "objects": "sun_counter_pill",
+      "status": "external"
+    },
+    {
+      "id": "sun",
+      "rect": [
+        49,
+        286,
+        100,
+        82
+      ],
+      "owner": "board",
+      "objects": "icon_sun_gold",
+      "status": "external"
+    },
+    {
+      "id": "sun_4",
+      "rect": [
+        156,
+        300,
+        44,
+        51
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "settings",
+      "rect": [
+        952,
+        77,
+        113,
+        109
+      ],
+      "owner": "board",
+      "objects": "btn_orange_settings",
+      "status": "external"
+    },
+    {
+      "id": "gear",
+      "rect": [
+        982,
+        99,
+        57,
+        61
+      ],
+      "owner": "board",
+      "objects": "icon_gear_cream",
+      "status": "external"
+    },
+    {
+      "id": "rope",
+      "rect": [
+        548,
+        0,
+        52,
+        180
+      ],
+      "owner": "board",
+      "objects": "goal_house_rope",
+      "status": "external"
+    },
+    {
+      "id": "goal_house",
+      "rect": [
+        419,
+        172,
+        318,
+        231
+      ],
+      "owner": "board",
+      "objects": "goal_house_plush",
+      "status": "external"
+    },
+    {
+      "id": "house_roof",
+      "rect": [
+        419,
+        173,
+        318,
+        135
+      ],
+      "owner": "board",
+      "objects": "house_roof_teal",
+      "status": "external"
+    },
+    {
+      "id": "house_opening",
+      "rect": [
+        535,
+        271,
+        82,
+        86
+      ],
+      "owner": "board",
+      "objects": "house_opening",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring_yellow",
+      "rect": [
+        370,
+        400,
+        99,
+        99
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird_yellow",
+      "rect": [
+        388,
+        412,
+        63,
+        74
+      ],
+      "owner": "board",
+      "objects": "bird_yellow_front",
+      "status": "external"
+    },
+    {
+      "id": "goal_badge_yellow",
+      "rect": [
+        429,
+        454,
+        57,
+        53
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_gift_yellow",
+      "rect": [
+        441,
+        467,
+        35,
+        33
+      ],
+      "owner": "board",
+      "objects": "icon_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring_blue",
+      "rect": [
+        511,
+        400,
+        100,
+        99
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird_blue",
+      "rect": [
+        528,
+        407,
+        67,
+        81
+      ],
+      "owner": "board",
+      "objects": "bird_blue_front",
+      "status": "external"
+    },
+    {
+      "id": "goal_badge_blue",
+      "rect": [
+        571,
+        454,
+        56,
+        53
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_gift_blue",
+      "rect": [
+        583,
+        467,
+        34,
+        33
+      ],
+      "owner": "board",
+      "objects": "icon_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring_owl",
+      "rect": [
+        650,
+        400,
+        100,
+        100
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird_owl",
+      "rect": [
+        667,
+        412,
+        67,
+        75
+      ],
+      "owner": "board",
+      "objects": "bird_owl_front",
+      "status": "external"
+    },
+    {
+      "id": "goal_badge_owl",
+      "rect": [
+        711,
+        454,
+        56,
+        53
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_gift_owl",
+      "rect": [
+        723,
+        467,
+        34,
+        33
+      ],
+      "owner": "board",
+      "objects": "icon_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "bird_left_upper_yellow",
+      "rect": [
+        59,
+        723,
+        52,
+        102
+      ],
+      "owner": "board",
+      "objects": "bird_yellow_front",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_upper_yellow",
+      "rect": [
+        968,
+        831,
+        82,
+        137
+      ],
+      "owner": "board",
+      "objects": "bird_yellow_front",
+      "status": "external"
+    },
+    {
+      "id": "bird_left_lower_yellow",
+      "rect": [
+        59,
+        1051,
+        52,
+        103
+      ],
+      "owner": "board",
+      "objects": "bird_yellow_front",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_lower_yellow",
+      "rect": [
+        968,
+        1157,
+        82,
+        137
+      ],
+      "owner": "board",
+      "objects": "bird_yellow_front",
+      "status": "external"
+    },
+    {
+      "id": "tools_bar",
+      "rect": [
+        196,
+        1727,
+        729,
+        150
+      ],
+      "owner": "board",
+      "objects": "toolbar_cream_plush",
+      "status": "external"
+    },
+    {
+      "id": "tool_undo",
+      "rect": [
+        246,
+        1748,
+        112,
+        107
+      ],
+      "owner": "board",
+      "objects": "btn_orange_undo",
+      "status": "external"
+    },
+    {
+      "id": "icon_undo",
+      "rect": [
+        269,
+        1770,
+        66,
+        63
+      ],
+      "owner": "board",
+      "objects": "icon_undo",
+      "status": "external"
+    },
+    {
+      "id": "tool_hint",
+      "rect": [
+        487,
+        1748,
+        111,
+        106
+      ],
+      "owner": "board",
+      "objects": "btn_orange_hint",
+      "status": "external"
+    },
+    {
+      "id": "icon_hint",
+      "rect": [
+        510,
+        1763,
+        66,
+        74
+      ],
+      "owner": "board",
+      "objects": "icon_hint",
+      "status": "external"
+    },
+    {
+      "id": "tool_branch",
+      "rect": [
+        726,
+        1748,
+        112,
+        106
+      ],
+      "owner": "board",
+      "objects": "btn_orange_branch",
+      "status": "external"
+    },
+    {
+      "id": "icon_branch",
+      "rect": [
+        744,
+        1769,
+        80,
+        65
+      ],
+      "owner": "board",
+      "objects": "icon_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "modal_panel",
+      "rect": [
+        110,
+        626,
+        860,
+        720
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "modal_frame",
+      "rect": [
+        110,
+        626,
+        860,
+        720
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "cream_inset",
+      "rect": [
+        145,
+        660,
+        789,
+        652
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "ribbon",
+      "rect": [
+        198,
+        548,
+        689,
+        158
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaves_left",
+      "rect": [
+        198,
+        574,
+        112,
+        115
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaves_right",
+      "rect": [
+        772,
+        574,
+        115,
+        115
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "ribbon_face",
+      "rect": [
+        295,
+        552,
+        478,
+        123
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "daily_title",
+      "rect": [
+        353,
+        569,
+        372,
+        79
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "gift_hero",
+      "rect": [
+        229,
+        710,
+        622,
+        453
+      ],
+      "owner": "popup-reward",
+      "objects": [
+        "gift_box",
+        "gift_bow",
+        "gift_nest",
+        "gift_nest_front",
+        "gift_coin_*",
+        "hero_leaves_*",
+        "hero_leaf_front"
+      ],
+      "status": "measure"
+    },
+    {
+      "id": "gift_box",
+      "rect": [
+        361,
+        838,
+        348,
+        186
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_box",
+      "status": "measure"
+    },
+    {
+      "id": "gift_bow",
+      "rect": [
+        379,
+        711,
+        364,
+        227
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_bow",
+      "status": "measure"
+    },
+    {
+      "id": "gift_nest",
+      "rect": [
+        244,
+        994,
+        591,
+        169
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_nest",
+      "status": "measure"
+    },
+    {
+      "id": "gift_coin_left",
+      "rect": [
+        331,
+        963,
+        135,
+        128
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_coin_left",
+      "status": "measure"
+    },
+    {
+      "id": "gift_coin_middle",
+      "rect": [
+        456,
+        958,
+        174,
+        145
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_coin_middle",
+      "status": "measure"
+    },
+    {
+      "id": "gift_coin_right",
+      "rect": [
+        628,
+        975,
+        125,
+        90
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_coin_right",
+      "status": "measure"
+    },
+    {
+      "id": "gift_coin_back_left",
+      "rect": [
+        299,
+        912,
+        74,
+        92
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_coin_back_left",
+      "status": "measure"
+    },
+    {
+      "id": "gift_coin_back_right",
+      "rect": [
+        698,
+        925,
+        76,
+        88
+      ],
+      "owner": "popup-reward",
+      "objects": "gift_coin_back_right",
+      "status": "measure"
+    },
+    {
+      "id": "hero_leaves_left",
+      "rect": [
+        230,
+        925,
+        109,
+        110
+      ],
+      "owner": "popup-reward",
+      "objects": "hero_leaves_left",
+      "status": "measure"
+    },
+    {
+      "id": "hero_leaves_right",
+      "rect": [
+        741,
+        964,
+        107,
+        88
+      ],
+      "owner": "popup-reward",
+      "objects": "hero_leaves_right",
+      "status": "measure"
+    },
+    {
+      "id": "hero_leaf_front",
+      "rect": [
+        304,
+        1072,
+        121,
+        59
+      ],
+      "owner": "popup-reward",
+      "objects": "hero_leaf_front",
+      "status": "measure"
+    },
+    {
+      "id": "spark_1",
+      "rect": [
+        318,
+        761,
+        45,
+        47
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_1",
+      "status": "measure"
+    },
+    {
+      "id": "spark_2",
+      "rect": [
+        266,
+        835,
+        43,
+        52
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_2",
+      "status": "measure"
+    },
+    {
+      "id": "spark_3",
+      "rect": [
+        714,
+        727,
+        40,
+        52
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_3",
+      "status": "measure"
+    },
+    {
+      "id": "spark_4",
+      "rect": [
+        770,
+        834,
+        44,
+        51
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_4",
+      "status": "measure"
+    },
+    {
+      "id": "reward_pill",
+      "rect": [
+        327,
+        1175,
+        424,
+        116
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/*",
+      "status": "measure"
+    },
+    {
+      "id": "reward_coin",
+      "rect": [
+        327,
+        1175,
+        124,
+        116
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward coin",
+      "status": "measure"
+    },
+    {
+      "id": "reward_leaf",
+      "rect": [
+        354,
+        1197,
+        74,
+        68
+      ],
+      "owner": "popup-reward",
+      "objects": "icon_leaf_gold_relief",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "reward_50",
+      "rect": [
+        502,
+        1199,
+        166,
+        68
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward amount/*",
+      "status": "measure"
+    },
+    {
+      "id": "accept",
+      "rect": [
+        477,
+        1391,
+        127,
+        129
+      ],
+      "owner": "popup-reward",
+      "objects": "@action",
+      "status": "measure"
+    },
+    {
+      "id": "check",
+      "rect": [
+        506,
+        1423,
+        69,
+        61
+      ],
+      "owner": "popup-reward",
+      "objects": "@action/Icon",
+      "status": "measure"
+    }
+  ],
+  "new_friend": [
+    {
+      "id": "board",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "owner": "board",
+      "objects": "board_dimmed",
+      "status": "external"
+    },
+    {
+      "id": "coins",
+      "rect": [
+        37,
+        49,
+        305,
+        119
+      ],
+      "owner": "board",
+      "objects": "coin_pill",
+      "status": "external"
+    },
+    {
+      "id": "coin",
+      "rect": [
+        38,
+        50,
+        115,
+        115
+      ],
+      "owner": "board",
+      "objects": "coin_leaf_plush",
+      "status": "external"
+    },
+    {
+      "id": "coin_leaf",
+      "rect": [
+        65,
+        75,
+        62,
+        64
+      ],
+      "owner": "board",
+      "objects": "glyph_leaf",
+      "status": "external"
+    },
+    {
+      "id": "coins_num",
+      "rect": [
+        172,
+        79,
+        134,
+        54
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves",
+      "rect": [
+        33,
+        165,
+        406,
+        115
+      ],
+      "owner": "board",
+      "objects": "moves_stars_pill",
+      "status": "external"
+    },
+    {
+      "id": "footprints",
+      "rect": [
+        47,
+        199,
+        68,
+        44
+      ],
+      "owner": "board",
+      "objects": "bird_footprints",
+      "status": "external"
+    },
+    {
+      "id": "moves_num",
+      "rect": [
+        122,
+        193,
+        40,
+        59
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "move_rule",
+      "rect": [
+        177,
+        183,
+        7,
+        80
+      ],
+      "owner": "board",
+      "objects": "separator_brown",
+      "status": "external"
+    },
+    {
+      "id": "star1",
+      "rect": [
+        205,
+        174,
+        55,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold1",
+      "rect": [
+        210,
+        228,
+        45,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star2",
+      "rect": [
+        278,
+        174,
+        55,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold2",
+      "rect": [
+        280,
+        228,
+        50,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star3",
+      "rect": [
+        352,
+        174,
+        55,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold3",
+      "rect": [
+        350,
+        228,
+        55,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_infinity",
+      "status": "external"
+    },
+    {
+      "id": "sun_pill",
+      "rect": [
+        35,
+        279,
+        205,
+        100
+      ],
+      "owner": "board",
+      "objects": "sun_counter_pill",
+      "status": "external"
+    },
+    {
+      "id": "sun",
+      "rect": [
+        55,
+        290,
+        80,
+        74
+      ],
+      "owner": "board",
+      "objects": "icon_sun_gold",
+      "status": "external"
+    },
+    {
+      "id": "sun_num",
+      "rect": [
+        153,
+        302,
+        43,
+        51
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "settings",
+      "rect": [
+        952,
+        78,
+        117,
+        106
+      ],
+      "owner": "board",
+      "objects": "btn_orange_settings",
+      "status": "external"
+    },
+    {
+      "id": "gear",
+      "rect": [
+        981,
+        101,
+        57,
+        58
+      ],
+      "owner": "board",
+      "objects": "icon_gear_white",
+      "status": "external"
+    },
+    {
+      "id": "rope",
+      "rect": [
+        559,
+        0,
+        40,
+        181
+      ],
+      "owner": "board",
+      "objects": "goal_house_rope",
+      "status": "external"
+    },
+    {
+      "id": "house",
+      "rect": [
+        416,
+        173,
+        324,
+        230
+      ],
+      "owner": "board",
+      "objects": "goal_house_plush",
+      "status": "external"
+    },
+    {
+      "id": "house_roof",
+      "rect": [
+        416,
+        173,
+        324,
+        145
+      ],
+      "owner": "board",
+      "objects": "goal_house_teal_roof",
+      "status": "external"
+    },
+    {
+      "id": "house_hole",
+      "rect": [
+        536,
+        277,
+        84,
+        80
+      ],
+      "owner": "board",
+      "objects": "goal_house_entrance",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring1",
+      "rect": [
+        371,
+        399,
+        103,
+        98
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird1",
+      "rect": [
+        383,
+        409,
+        78,
+        78
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "gift_badge1",
+      "rect": [
+        429,
+        457,
+        57,
+        50
+      ],
+      "owner": "board",
+      "objects": "badge_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "gift_icon1",
+      "rect": [
+        441,
+        466,
+        33,
+        35
+      ],
+      "owner": "board",
+      "objects": "icon_gift",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring2",
+      "rect": [
+        510,
+        400,
+        105,
+        98
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird2",
+      "rect": [
+        523,
+        411,
+        78,
+        79
+      ],
+      "owner": "board",
+      "objects": "bird_blue",
+      "status": "external"
+    },
+    {
+      "id": "gift_badge2",
+      "rect": [
+        570,
+        457,
+        56,
+        51
+      ],
+      "owner": "board",
+      "objects": "badge_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "gift_icon2",
+      "rect": [
+        582,
+        466,
+        32,
+        36
+      ],
+      "owner": "board",
+      "objects": "icon_gift",
+      "status": "external"
+    },
+    {
+      "id": "goal_ring3",
+      "rect": [
+        650,
+        399,
+        103,
+        99
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_bird3",
+      "rect": [
+        663,
+        407,
+        78,
+        84
+      ],
+      "owner": "board",
+      "objects": "bird_wizard",
+      "status": "external"
+    },
+    {
+      "id": "gift_badge3",
+      "rect": [
+        710,
+        457,
+        56,
+        50
+      ],
+      "owner": "board",
+      "objects": "badge_gift_purple",
+      "status": "external"
+    },
+    {
+      "id": "gift_icon3",
+      "rect": [
+        722,
+        466,
+        32,
+        35
+      ],
+      "owner": "board",
+      "objects": "icon_gift",
+      "status": "external"
+    },
+    {
+      "id": "left_bird1",
+      "rect": [
+        58,
+        716,
+        57,
+        106
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "right_bird2",
+      "rect": [
+        967,
+        831,
+        82,
+        133
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "left_bird3",
+      "rect": [
+        58,
+        1049,
+        57,
+        105
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "right_bird4",
+      "rect": [
+        967,
+        1158,
+        82,
+        135
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "tools",
+      "rect": [
+        196,
+        1728,
+        728,
+        147
+      ],
+      "owner": "board",
+      "objects": "toolbar_cream_plush",
+      "status": "external"
+    },
+    {
+      "id": "undo",
+      "rect": [
+        248,
+        1747,
+        103,
+        104
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "undo_icon",
+      "rect": [
+        271,
+        1767,
+        61,
+        62
+      ],
+      "owner": "board",
+      "objects": "icon_undo",
+      "status": "external"
+    },
+    {
+      "id": "hint",
+      "rect": [
+        488,
+        1747,
+        103,
+        104
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "bulb_icon",
+      "rect": [
+        514,
+        1765,
+        51,
+        67
+      ],
+      "owner": "board",
+      "objects": "icon_hint_bulb",
+      "status": "external"
+    },
+    {
+      "id": "branch",
+      "rect": [
+        729,
+        1747,
+        103,
+        104
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "branch_icon",
+      "rect": [
+        744,
+        1768,
+        74,
+        58
+      ],
+      "owner": "board",
+      "objects": "icon_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "panel",
+      "rect": [
+        111,
+        620,
+        859,
+        719
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "frame",
+      "rect": [
+        111,
+        620,
+        859,
+        719
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "cushion",
+      "rect": [
+        140,
+        648,
+        800,
+        664
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "title_rib",
+      "rect": [
+        219,
+        551,
+        643,
+        138
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title_leaf_l",
+      "rect": [
+        218,
+        575,
+        110,
+        91
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title_leaf_r",
+      "rect": [
+        751,
+        576,
+        110,
+        91
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title_text",
+      "rect": [
+        348,
+        570,
+        378,
+        77
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "minty",
+      "rect": [
+        379,
+        729,
+        318,
+        360
+      ],
+      "owner": "popup-reward",
+      "objects": "Bird *",
+      "status": "measure"
+    },
+    {
+      "id": "name_rib",
+      "rect": [
+        307,
+        1089,
+        466,
+        104
+      ],
+      "owner": "popup-reward",
+      "objects": "Species name",
+      "status": "measure"
+    },
+    {
+      "id": "name_leaf_l",
+      "rect": [
+        307,
+        1092,
+        69,
+        96
+      ],
+      "owner": "popup-reward",
+      "objects": "name_leaf_l",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "name_leaf_r",
+      "rect": [
+        704,
+        1092,
+        69,
+        96
+      ],
+      "owner": "popup-reward",
+      "objects": "name_leaf_r",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "name_text",
+      "rect": [
+        440,
+        1114,
+        209,
+        69
+      ],
+      "owner": "popup-reward",
+      "objects": "label_minty",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "reward",
+      "rect": [
+        380,
+        1208,
+        320,
+        88
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/*",
+      "status": "measure"
+    },
+    {
+      "id": "reward_coin",
+      "rect": [
+        382,
+        1210,
+        95,
+        85
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward coin",
+      "status": "measure"
+    },
+    {
+      "id": "reward_leaf",
+      "rect": [
+        404,
+        1227,
+        53,
+        51
+      ],
+      "owner": "popup-reward",
+      "objects": "glyph_leaf_gold",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "reward_num",
+      "rect": [
+        519,
+        1227,
+        123,
+        50
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward amount/*",
+      "status": "measure"
+    },
+    {
+      "id": "accept",
+      "rect": [
+        478,
+        1388,
+        124,
+        124
+      ],
+      "owner": "popup-reward",
+      "objects": "@action",
+      "status": "measure"
+    },
+    {
+      "id": "check",
+      "rect": [
+        505,
+        1417,
+        72,
+        66
+      ],
+      "owner": "popup-reward",
+      "objects": "@action/Icon",
+      "status": "measure"
+    }
+  ],
+  "unlock_card": [
+    {
+      "id": "board",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "owner": "board",
+      "objects": "board_dimmed",
+      "status": "external"
+    },
+    {
+      "id": "coin_pill",
+      "rect": [
+        79,
+        59,
+        262,
+        101
+      ],
+      "owner": "board",
+      "objects": "coin_pill",
+      "status": "external"
+    },
+    {
+      "id": "moves_pill",
+      "rect": [
+        33,
+        166,
+        407,
+        113
+      ],
+      "owner": "board",
+      "objects": "moves_stars_pill",
+      "status": "external"
+    },
+    {
+      "id": "sun_pill",
+      "rect": [
+        35,
+        281,
+        204,
+        99
+      ],
+      "owner": "board",
+      "objects": "sun_counter_pill",
+      "status": "external"
+    },
+    {
+      "id": "settings",
+      "rect": [
+        952,
+        76,
+        113,
+        109
+      ],
+      "owner": "board",
+      "objects": "btn_orange_settings",
+      "status": "external"
+    },
+    {
+      "id": "rope",
+      "rect": [
+        554,
+        0,
+        51,
+        180
+      ],
+      "owner": "board",
+      "objects": "goal_house_rope",
+      "status": "external"
+    },
+    {
+      "id": "coin",
+      "rect": [
+        38,
+        50,
+        112,
+        120
+      ],
+      "owner": "board",
+      "objects": "coin_leaf_plush",
+      "status": "external"
+    },
+    {
+      "id": "moves_div",
+      "rect": [
+        179,
+        181,
+        8,
+        80
+      ],
+      "owner": "board",
+      "objects": "pill_divider_brown",
+      "status": "external"
+    },
+    {
+      "id": "sun",
+      "rect": [
+        53,
+        289,
+        78,
+        77
+      ],
+      "owner": "board",
+      "objects": "icon_sun_gold",
+      "status": "external"
+    },
+    {
+      "id": "house",
+      "rect": [
+        417,
+        172,
+        325,
+        229
+      ],
+      "owner": "board",
+      "objects": "goal_house_plush",
+      "status": "external"
+    },
+    {
+      "id": "coin_leaf",
+      "rect": [
+        64,
+        76,
+        60,
+        66
+      ],
+      "owner": "board",
+      "objects": "icon_leaf",
+      "status": "external"
+    },
+    {
+      "id": "coins",
+      "rect": [
+        173,
+        79,
+        130,
+        53
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_240",
+      "status": "external"
+    },
+    {
+      "id": "feet",
+      "rect": [
+        50,
+        201,
+        63,
+        43
+      ],
+      "owner": "board",
+      "objects": "icon_bird_footprints",
+      "status": "external"
+    },
+    {
+      "id": "moves",
+      "rect": [
+        120,
+        194,
+        44,
+        52
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_7",
+      "status": "external"
+    },
+    {
+      "id": "star1",
+      "rect": [
+        207,
+        175,
+        53,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "star2",
+      "rect": [
+        280,
+        174,
+        56,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "star3",
+      "rect": [
+        355,
+        175,
+        53,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "n12",
+      "rect": [
+        207,
+        229,
+        49,
+        33
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_12",
+      "status": "external"
+    },
+    {
+      "id": "n16",
+      "rect": [
+        282,
+        229,
+        50,
+        33
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_16",
+      "status": "external"
+    },
+    {
+      "id": "ninf",
+      "rect": [
+        355,
+        232,
+        54,
+        28
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_\u221e",
+      "status": "external"
+    },
+    {
+      "id": "sun_n",
+      "rect": [
+        151,
+        303,
+        49,
+        50
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_4",
+      "status": "external"
+    },
+    {
+      "id": "gear",
+      "rect": [
+        983,
+        99,
+        54,
+        59
+      ],
+      "owner": "board",
+      "objects": "icon_gear_cream",
+      "status": "external"
+    },
+    {
+      "id": "roof",
+      "rect": [
+        417,
+        172,
+        325,
+        146
+      ],
+      "owner": "board",
+      "objects": "goal_house_roof_teal",
+      "status": "external"
+    },
+    {
+      "id": "house_hole",
+      "rect": [
+        531,
+        269,
+        93,
+        85
+      ],
+      "owner": "board",
+      "objects": "goal_house_dark_opening",
+      "status": "external"
+    },
+    {
+      "id": "goal_y_ring",
+      "rect": [
+        371,
+        401,
+        103,
+        96
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_b_ring",
+      "rect": [
+        509,
+        401,
+        104,
+        96
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_o_ring",
+      "rect": [
+        648,
+        400,
+        103,
+        99
+      ],
+      "owner": "board",
+      "objects": "portrait_ring_gold",
+      "status": "external"
+    },
+    {
+      "id": "tools",
+      "rect": [
+        195,
+        1727,
+        728,
+        145
+      ],
+      "owner": "board",
+      "objects": "toolbar_cream_plush",
+      "status": "external"
+    },
+    {
+      "id": "goal_y",
+      "rect": [
+        382,
+        413,
+        78,
+        76
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "goal_b",
+      "rect": [
+        523,
+        411,
+        79,
+        79
+      ],
+      "owner": "board",
+      "objects": "bird_blue",
+      "status": "external"
+    },
+    {
+      "id": "goal_o",
+      "rect": [
+        660,
+        413,
+        78,
+        77
+      ],
+      "owner": "board",
+      "objects": "bird_owl_wizard",
+      "status": "external"
+    },
+    {
+      "id": "undo",
+      "rect": [
+        247,
+        1750,
+        108,
+        102
+      ],
+      "owner": "board",
+      "objects": "btn_orange_undo",
+      "status": "external"
+    },
+    {
+      "id": "hint",
+      "rect": [
+        487,
+        1750,
+        108,
+        102
+      ],
+      "owner": "board",
+      "objects": "btn_orange_bulb",
+      "status": "external"
+    },
+    {
+      "id": "branch",
+      "rect": [
+        728,
+        1750,
+        108,
+        103
+      ],
+      "owner": "board",
+      "objects": "btn_orange_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "goal_y_badge",
+      "rect": [
+        429,
+        454,
+        55,
+        52
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_b_badge",
+      "rect": [
+        572,
+        454,
+        56,
+        53
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "goal_o_badge",
+      "rect": [
+        710,
+        455,
+        55,
+        52
+      ],
+      "owner": "board",
+      "objects": "badge_gift_gold",
+      "status": "external"
+    },
+    {
+      "id": "undo_icon",
+      "rect": [
+        270,
+        1770,
+        57,
+        56
+      ],
+      "owner": "board",
+      "objects": "icon_undo",
+      "status": "external"
+    },
+    {
+      "id": "hint_icon",
+      "rect": [
+        518,
+        1762,
+        45,
+        69
+      ],
+      "owner": "board",
+      "objects": "icon_bulb",
+      "status": "external"
+    },
+    {
+      "id": "branch_icon",
+      "rect": [
+        747,
+        1770,
+        72,
+        53
+      ],
+      "owner": "board",
+      "objects": "icon_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "goal_y_gift",
+      "rect": [
+        439,
+        464,
+        36,
+        33
+      ],
+      "owner": "board",
+      "objects": "icon_gift_magenta",
+      "status": "external"
+    },
+    {
+      "id": "goal_b_gift",
+      "rect": [
+        584,
+        464,
+        34,
+        34
+      ],
+      "owner": "board",
+      "objects": "icon_gift_magenta",
+      "status": "external"
+    },
+    {
+      "id": "goal_o_gift",
+      "rect": [
+        721,
+        465,
+        35,
+        33
+      ],
+      "owner": "board",
+      "objects": "icon_gift_magenta",
+      "status": "external"
+    },
+    {
+      "id": "bird_l1",
+      "rect": [
+        59,
+        723,
+        52,
+        102
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_r1",
+      "rect": [
+        968,
+        831,
+        81,
+        136
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_l2",
+      "rect": [
+        59,
+        1053,
+        53,
+        101
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_r2",
+      "rect": [
+        968,
+        1157,
+        82,
+        137
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "leaf_below",
+      "rect": [
+        626,
+        1324,
+        35,
+        12
+      ],
+      "owner": "board",
+      "objects": "board_branch_leaf",
+      "status": "external"
+    },
+    {
+      "id": "modal",
+      "rect": [
+        109,
+        545,
+        861,
+        952
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "panel",
+      "rect": [
+        109,
+        599,
+        861,
+        725
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "frame",
+      "rect": [
+        109,
+        599,
+        861,
+        725
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "cream",
+      "rect": [
+        151,
+        634,
+        779,
+        655
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "halo",
+      "rect": [
+        249,
+        673,
+        584,
+        489
+      ],
+      "owner": "popup-reward",
+      "objects": "halo",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "eye",
+      "rect": [
+        388,
+        684,
+        303,
+        162
+      ],
+      "owner": "popup-reward",
+      "objects": "eye/Illustration crop",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "eye_iris",
+      "rect": [
+        458,
+        710,
+        129,
+        108
+      ],
+      "owner": "popup-reward",
+      "objects": "owl_eye_iris_brown",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "spark_l1",
+      "rect": [
+        302,
+        775,
+        69,
+        70
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_l1",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "spark_r1",
+      "rect": [
+        717,
+        799,
+        66,
+        70
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_r1",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "spark_l2",
+      "rect": [
+        330,
+        894,
+        58,
+        55
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_l2",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "spark_r2",
+      "rect": [
+        695,
+        902,
+        58,
+        58
+      ],
+      "owner": "popup-reward",
+      "objects": "spark_r2",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "nest_leaf_l",
+      "rect": [
+        272,
+        977,
+        139,
+        117
+      ],
+      "owner": "popup-reward",
+      "objects": "nest_leaf_l",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "nest_leaf_r",
+      "rect": [
+        666,
+        977,
+        134,
+        118
+      ],
+      "owner": "popup-reward",
+      "objects": "nest_leaf_r",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "egg",
+      "rect": [
+        398,
+        853,
+        285,
+        292
+      ],
+      "owner": "popup-reward",
+      "objects": "egg/Illustration crop",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "nest",
+      "rect": [
+        313,
+        1029,
+        453,
+        136
+      ],
+      "owner": "popup-reward",
+      "objects": "nest",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report.",
+      "state": "Unlock / Owl Eye"
+    },
+    {
+      "id": "caption_plate",
+      "rect": [
+        222,
+        1165,
+        632,
+        105
+      ],
+      "owner": "popup-reward",
+      "objects": "Booster caption",
+      "status": "measure"
+    },
+    {
+      "id": "caption",
+      "rect": [
+        313,
+        1182,
+        461,
+        66
+      ],
+      "owner": "popup-reward",
+      "objects": "label_reveals_eggs",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "ribbon",
+      "rect": [
+        302,
+        545,
+        478,
+        118
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaf_l",
+      "rect": [
+        242,
+        568,
+        137,
+        99
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaf_r",
+      "rect": [
+        716,
+        568,
+        122,
+        100
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title",
+      "rect": [
+        372,
+        558,
+        330,
+        84
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "accept",
+      "rect": [
+        478,
+        1373,
+        124,
+        124
+      ],
+      "owner": "popup-reward",
+      "objects": "@action",
+      "status": "measure"
+    },
+    {
+      "id": "check",
+      "rect": [
+        505,
+        1406,
+        71,
+        61
+      ],
+      "owner": "popup-reward",
+      "objects": "@action/Icon",
+      "status": "measure"
+    }
+  ],
+  "world_complete": [
+    {
+      "id": "board",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "owner": "board",
+      "objects": "board_dimmed",
+      "status": "external"
+    },
+    {
+      "id": "coins",
+      "rect": [
+        36,
+        49,
+        308,
+        118
+      ],
+      "owner": "board",
+      "objects": "coin_pill",
+      "status": "external"
+    },
+    {
+      "id": "coin",
+      "rect": [
+        37,
+        49,
+        129,
+        118
+      ],
+      "owner": "board",
+      "objects": "coin_leaf_plush",
+      "status": "external"
+    },
+    {
+      "id": "coin_leaf",
+      "rect": [
+        72,
+        77,
+        63,
+        61
+      ],
+      "owner": "board",
+      "objects": "icon_leaf",
+      "status": "external"
+    },
+    {
+      "id": "coin_value",
+      "rect": [
+        173,
+        78,
+        128,
+        56
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves",
+      "rect": [
+        31,
+        166,
+        408,
+        115
+      ],
+      "owner": "board",
+      "objects": "moves_pill",
+      "status": "external"
+    },
+    {
+      "id": "feet",
+      "rect": [
+        50,
+        200,
+        63,
+        44
+      ],
+      "owner": "board",
+      "objects": "icon_bird_footprints",
+      "status": "external"
+    },
+    {
+      "id": "move_value",
+      "rect": [
+        119,
+        195,
+        43,
+        52
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "hud_star1",
+      "rect": [
+        205,
+        174,
+        55,
+        50
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold1",
+      "rect": [
+        210,
+        229,
+        44,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "hud_star2",
+      "rect": [
+        281,
+        174,
+        55,
+        50
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold2",
+      "rect": [
+        285,
+        229,
+        45,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "hud_star3",
+      "rect": [
+        356,
+        174,
+        55,
+        50
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold3",
+      "rect": [
+        355,
+        229,
+        49,
+        34
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "sun_pill",
+      "rect": [
+        34,
+        283,
+        205,
+        96
+      ],
+      "owner": "board",
+      "objects": "sun_counter_pill",
+      "status": "external"
+    },
+    {
+      "id": "sun",
+      "rect": [
+        53,
+        289,
+        91,
+        78
+      ],
+      "owner": "board",
+      "objects": "icon_sun",
+      "status": "external"
+    },
+    {
+      "id": "sun_value",
+      "rect": [
+        157,
+        302,
+        41,
+        49
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "settings",
+      "rect": [
+        953,
+        79,
+        111,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "gear",
+      "rect": [
+        979,
+        98,
+        63,
+        65
+      ],
+      "owner": "board",
+      "objects": "icon_settings",
+      "status": "external"
+    },
+    {
+      "id": "rope",
+      "rect": [
+        551,
+        0,
+        47,
+        178
+      ],
+      "owner": "board",
+      "objects": "goal_house_rope",
+      "status": "external"
+    },
+    {
+      "id": "house",
+      "rect": [
+        417,
+        170,
+        324,
+        231
+      ],
+      "owner": "board",
+      "objects": "goal_house",
+      "status": "external"
+    },
+    {
+      "id": "house_hole",
+      "rect": [
+        541,
+        276,
+        92,
+        77
+      ],
+      "owner": "board",
+      "objects": "goal_house_opening",
+      "status": "external"
+    },
+    {
+      "id": "bg_yellow_l1",
+      "rect": [
+        60,
+        724,
+        51,
+        101
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bg_yellow_l2",
+      "rect": [
+        61,
+        1057,
+        50,
+        91
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bg_yellow_r1",
+      "rect": [
+        969,
+        833,
+        82,
+        135
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bg_yellow_r2",
+      "rect": [
+        924,
+        1158,
+        127,
+        132
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bg_yellow_lower",
+      "rect": [
+        677,
+        1257,
+        121,
+        38
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bg_blue_lower",
+      "rect": [
+        802,
+        1257,
+        117,
+        38
+      ],
+      "owner": "board",
+      "objects": "bird_blue",
+      "status": "external"
+    },
+    {
+      "id": "tools",
+      "rect": [
+        195,
+        1728,
+        729,
+        146
+      ],
+      "owner": "board",
+      "objects": "toolbar_cream_plush",
+      "status": "external"
+    },
+    {
+      "id": "undo_disc",
+      "rect": [
+        246,
+        1750,
+        109,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "undo_glyph",
+      "rect": [
+        267,
+        1770,
+        65,
+        58
+      ],
+      "owner": "board",
+      "objects": "icon_undo",
+      "status": "external"
+    },
+    {
+      "id": "hint_disc",
+      "rect": [
+        488,
+        1750,
+        109,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "hint_glyph",
+      "rect": [
+        513,
+        1764,
+        55,
+        71
+      ],
+      "owner": "board",
+      "objects": "icon_bulb",
+      "status": "external"
+    },
+    {
+      "id": "branch_disc",
+      "rect": [
+        746,
+        1750,
+        109,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "branch_glyph",
+      "rect": [
+        763,
+        1770,
+        76,
+        57
+      ],
+      "owner": "board",
+      "objects": "icon_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "panel",
+      "rect": [
+        110,
+        462,
+        860,
+        798
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "frame",
+      "rect": [
+        110,
+        462,
+        860,
+        798
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "cream",
+      "rect": [
+        144,
+        494,
+        792,
+        725
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "ribbon",
+      "rect": [
+        202,
+        394,
+        675,
+        138
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "ribbon_left",
+      "rect": [
+        204,
+        406,
+        86,
+        87
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "ribbon_right",
+      "rect": [
+        797,
+        406,
+        81,
+        84
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title",
+      "rect": [
+        277,
+        414,
+        522,
+        73
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "star1",
+      "rect": [
+        255,
+        543,
+        152,
+        134
+      ],
+      "owner": "popup-reward",
+      "objects": "star1",
+      "status": "measure"
+    },
+    {
+      "id": "star2",
+      "rect": [
+        466,
+        543,
+        152,
+        134
+      ],
+      "owner": "popup-reward",
+      "objects": "star2",
+      "status": "measure"
+    },
+    {
+      "id": "star3",
+      "rect": [
+        677,
+        543,
+        152,
+        134
+      ],
+      "owner": "popup-reward",
+      "objects": "star3",
+      "status": "measure"
+    },
+    {
+      "id": "arch",
+      "rect": [
+        162,
+        691,
+        760,
+        409
+      ],
+      "owner": "popup-reward",
+      "objects": [
+        "arch",
+        "perch",
+        "foliage_*"
+      ],
+      "status": "measure"
+    },
+    {
+      "id": "flower_top",
+      "rect": [
+        499,
+        692,
+        90,
+        89
+      ],
+      "owner": "popup-reward",
+      "objects": "flower_cream",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "flower_left",
+      "rect": [
+        197,
+        1018,
+        74,
+        72
+      ],
+      "owner": "popup-reward",
+      "objects": "flower_cream",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "flower_right",
+      "rect": [
+        816,
+        1017,
+        72,
+        75
+      ],
+      "owner": "popup-reward",
+      "objects": "flower_cream",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "yellow",
+      "rect": [
+        244,
+        813,
+        212,
+        239
+      ],
+      "owner": "popup-reward",
+      "objects": "Bird sunny",
+      "status": "measure"
+    },
+    {
+      "id": "blue",
+      "rect": [
+        441,
+        817,
+        209,
+        236
+      ],
+      "owner": "popup-reward",
+      "objects": "Bird sky",
+      "status": "measure"
+    },
+    {
+      "id": "pink",
+      "rect": [
+        632,
+        825,
+        220,
+        226
+      ],
+      "owner": "popup-reward",
+      "objects": "Bird berry",
+      "status": "measure"
+    },
+    {
+      "id": "reward",
+      "rect": [
+        335,
+        1101,
+        407,
+        102
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/*",
+      "status": "measure"
+    },
+    {
+      "id": "reward_coin",
+      "rect": [
+        347,
+        1102,
+        110,
+        98
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward coin",
+      "status": "measure"
+    },
+    {
+      "id": "reward_leaf",
+      "rect": [
+        375,
+        1121,
+        57,
+        57
+      ],
+      "owner": "popup-reward",
+      "objects": "icon_leaf",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "reward_value",
+      "rect": [
+        505,
+        1119,
+        171,
+        58
+      ],
+      "owner": "popup-reward",
+      "objects": "Reward/Reward amount/*",
+      "status": "measure"
+    },
+    {
+      "id": "accept",
+      "rect": [
+        478,
+        1308,
+        124,
+        124
+      ],
+      "owner": "popup-reward",
+      "objects": "@action",
+      "status": "measure"
+    },
+    {
+      "id": "check",
+      "rect": [
+        504,
+        1340,
+        72,
+        64
+      ],
+      "owner": "popup-reward",
+      "objects": "@action/Icon",
+      "status": "measure"
+    }
+  ],
+  "world_unlock": [
+    {
+      "id": "board",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "owner": "board",
+      "objects": "board_dimmed",
+      "status": "external"
+    },
+    {
+      "id": "coin_pill",
+      "rect": [
+        37,
+        50,
+        304,
+        119
+      ],
+      "owner": "board",
+      "objects": "coin_pill",
+      "status": "external"
+    },
+    {
+      "id": "coin",
+      "rect": [
+        38,
+        51,
+        124,
+        117
+      ],
+      "owner": "board",
+      "objects": "coin_leaf_plush",
+      "status": "external"
+    },
+    {
+      "id": "coin_leaf",
+      "rect": [
+        65,
+        79,
+        67,
+        58
+      ],
+      "owner": "board",
+      "objects": "icon_leaf",
+      "status": "external"
+    },
+    {
+      "id": "coins",
+      "rect": [
+        174,
+        79,
+        129,
+        54
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves_pill",
+      "rect": [
+        33,
+        165,
+        407,
+        114
+      ],
+      "owner": "board",
+      "objects": "moves_pill",
+      "status": "external"
+    },
+    {
+      "id": "bird_feet",
+      "rect": [
+        51,
+        199,
+        63,
+        43
+      ],
+      "owner": "board",
+      "objects": "icon_bird_footprints",
+      "status": "external"
+    },
+    {
+      "id": "moves",
+      "rect": [
+        122,
+        195,
+        41,
+        53
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "moves_divider",
+      "rect": [
+        180,
+        182,
+        7,
+        80
+      ],
+      "owner": "board",
+      "objects": "moves_divider",
+      "status": "external"
+    },
+    {
+      "id": "star_1",
+      "rect": [
+        205,
+        173,
+        54,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_1",
+      "rect": [
+        208,
+        228,
+        50,
+        33
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star_2",
+      "rect": [
+        279,
+        173,
+        53,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_2",
+      "rect": [
+        282,
+        228,
+        49,
+        33
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "star_3",
+      "rect": [
+        353,
+        173,
+        54,
+        49
+      ],
+      "owner": "board",
+      "objects": "star_gold_plush",
+      "status": "external"
+    },
+    {
+      "id": "threshold_3",
+      "rect": [
+        356,
+        228,
+        50,
+        33
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "sun_pill",
+      "rect": [
+        35,
+        281,
+        202,
+        97
+      ],
+      "owner": "board",
+      "objects": "sun_pill",
+      "status": "external"
+    },
+    {
+      "id": "sun",
+      "rect": [
+        53,
+        287,
+        94,
+        80
+      ],
+      "owner": "board",
+      "objects": "icon_sun",
+      "status": "external"
+    },
+    {
+      "id": "sun_count",
+      "rect": [
+        155,
+        301,
+        47,
+        51
+      ],
+      "owner": "board",
+      "objects": "glyph_brown_digits",
+      "status": "external"
+    },
+    {
+      "id": "settings",
+      "rect": [
+        951,
+        75,
+        116,
+        112
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "gear",
+      "rect": [
+        981,
+        100,
+        64,
+        61
+      ],
+      "owner": "board",
+      "objects": "icon_gear",
+      "status": "external"
+    },
+    {
+      "id": "goal_rope",
+      "rect": [
+        556,
+        0,
+        52,
+        180
+      ],
+      "owner": "board",
+      "objects": "goal_house_rope",
+      "status": "external"
+    },
+    {
+      "id": "goal_house",
+      "rect": [
+        415,
+        172,
+        324,
+        228
+      ],
+      "owner": "board",
+      "objects": "goal_house",
+      "status": "external"
+    },
+    {
+      "id": "goal_roof",
+      "rect": [
+        415,
+        172,
+        324,
+        145
+      ],
+      "owner": "board",
+      "objects": "goal_house_roof",
+      "status": "external"
+    },
+    {
+      "id": "goal_hole",
+      "rect": [
+        529,
+        266,
+        104,
+        88
+      ],
+      "owner": "board",
+      "objects": "goal_house_opening",
+      "status": "external"
+    },
+    {
+      "id": "bird_left_upper",
+      "rect": [
+        59,
+        721,
+        51,
+        104
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_upper",
+      "rect": [
+        970,
+        830,
+        82,
+        137
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_left_lower",
+      "rect": [
+        59,
+        1047,
+        51,
+        106
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_lower_a",
+      "rect": [
+        680,
+        1262,
+        116,
+        31
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_lower_b",
+      "rect": [
+        802,
+        1262,
+        116,
+        31
+      ],
+      "owner": "board",
+      "objects": "bird_blue",
+      "status": "external"
+    },
+    {
+      "id": "bird_right_lower_c",
+      "rect": [
+        934,
+        1156,
+        120,
+        137
+      ],
+      "owner": "board",
+      "objects": "bird_yellow",
+      "status": "external"
+    },
+    {
+      "id": "tools_bar",
+      "rect": [
+        194,
+        1728,
+        729,
+        146
+      ],
+      "owner": "board",
+      "objects": "bar_padded_cream",
+      "status": "external"
+    },
+    {
+      "id": "undo",
+      "rect": [
+        246,
+        1750,
+        116,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "undo_glyph",
+      "rect": [
+        271,
+        1775,
+        65,
+        48
+      ],
+      "owner": "board",
+      "objects": "icon_undo",
+      "status": "external"
+    },
+    {
+      "id": "hint",
+      "rect": [
+        484,
+        1750,
+        117,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "hint_glyph",
+      "rect": [
+        512,
+        1765,
+        63,
+        69
+      ],
+      "owner": "board",
+      "objects": "icon_bulb",
+      "status": "external"
+    },
+    {
+      "id": "branch",
+      "rect": [
+        727,
+        1750,
+        117,
+        105
+      ],
+      "owner": "board",
+      "objects": "btn_orange",
+      "status": "external"
+    },
+    {
+      "id": "branch_glyph",
+      "rect": [
+        747,
+        1770,
+        77,
+        63
+      ],
+      "owner": "board",
+      "objects": "icon_branch_plus",
+      "status": "external"
+    },
+    {
+      "id": "modal",
+      "rect": [
+        109,
+        463,
+        862,
+        800
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "panel_inner",
+      "rect": [
+        132,
+        489,
+        814,
+        747
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Panel surface",
+      "status": "external"
+    },
+    {
+      "id": "ribbon",
+      "rect": [
+        163,
+        400,
+        754,
+        136
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "ribbon_body",
+      "rect": [
+        282,
+        400,
+        513,
+        135
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaves_left",
+      "rect": [
+        163,
+        426,
+        133,
+        109
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "leaves_right",
+      "rect": [
+        789,
+        426,
+        128,
+        107
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "title",
+      "rect": [
+        301,
+        418,
+        478,
+        65
+      ],
+      "owner": "popup-frame",
+      "objects": "Panel/Title ribbon",
+      "status": "external"
+    },
+    {
+      "id": "portal",
+      "rect": [
+        172,
+        541,
+        729,
+        559
+      ],
+      "owner": "popup-reward",
+      "objects": [
+        "portal_arch",
+        "portal_forest",
+        "Forest opening/portal_forest",
+        "door_left",
+        "door_right",
+        "portal_leaves_*",
+        "portal_crown"
+      ],
+      "status": "measure"
+    },
+    {
+      "id": "portal_arch",
+      "rect": [
+        224,
+        566,
+        632,
+        534
+      ],
+      "owner": "popup-reward",
+      "objects": "portal_arch",
+      "status": "measure"
+    },
+    {
+      "id": "portal_forest",
+      "rect": [
+        327,
+        716,
+        429,
+        374
+      ],
+      "owner": "popup-reward",
+      "objects": [
+        "portal_forest",
+        "Forest opening/portal_forest"
+      ],
+      "status": "measure"
+    },
+    {
+      "id": "door_left",
+      "rect": [
+        174,
+        711,
+        166,
+        379
+      ],
+      "owner": "popup-reward",
+      "objects": "door_left",
+      "status": "measure"
+    },
+    {
+      "id": "door_right",
+      "rect": [
+        739,
+        710,
+        161,
+        380
+      ],
+      "owner": "popup-reward",
+      "objects": "door_right",
+      "status": "measure"
+    },
+    {
+      "id": "knob_left",
+      "rect": [
+        212,
+        883,
+        51,
+        60
+      ],
+      "owner": "popup-reward",
+      "objects": "door_knob_gold",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "knob_right",
+      "rect": [
+        811,
+        884,
+        53,
+        57
+      ],
+      "owner": "popup-reward",
+      "objects": "door_knob_gold",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "portal_crown",
+      "rect": [
+        399,
+        598,
+        279,
+        134
+      ],
+      "owner": "popup-reward",
+      "objects": "portal_crown",
+      "status": "measure",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "maple_leaf",
+      "rect": [
+        475,
+        613,
+        139,
+        91
+      ],
+      "owner": "popup-reward",
+      "objects": "maple_leaf_red",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "autumn_leaves_top",
+      "rect": [
+        228,
+        541,
+        627,
+        198
+      ],
+      "owner": "popup-reward",
+      "objects": "portal_leaves_*",
+      "status": "measure"
+    },
+    {
+      "id": "autumn_leaves_bottom",
+      "rect": [
+        259,
+        1049,
+        553,
+        52
+      ],
+      "owner": "popup-reward",
+      "objects": "portal_leaf_scatter",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "caption_plate",
+      "rect": [
+        277,
+        1115,
+        532,
+        91
+      ],
+      "owner": "popup-reward",
+      "objects": "World caption",
+      "status": "measure"
+    },
+    {
+      "id": "caption",
+      "rect": [
+        336,
+        1132,
+        413,
+        53
+      ],
+      "owner": "popup-reward",
+      "objects": "label_autumn_forest",
+      "status": "baked-or-missing",
+      "note": "Baked feature of the nearest retained sprite, or unavailable separate art; see report."
+    },
+    {
+      "id": "play",
+      "rect": [
+        476,
+        1308,
+        128,
+        127
+      ],
+      "owner": "popup-reward",
+      "objects": "@action",
+      "status": "measure"
+    },
+    {
+      "id": "play_glyph",
+      "rect": [
+        518,
+        1337,
+        54,
+        64
+      ],
+      "owner": "popup-reward",
+      "objects": "@action/Icon",
+      "status": "measure"
+    }
+  ]
+}

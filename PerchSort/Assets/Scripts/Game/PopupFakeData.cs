@@ -66,6 +66,79 @@ namespace PerchSort.Game
             root.BoardScreen.SetOverlay(new OverlayPresentation { BlocksInput = true, Kind = stateName });
             var panels = root.GetComponentInChildren<PanelsView>(true);
             render(panels);
+            if (Application.isBatchMode && Array.IndexOf(Environment.GetCommandLineArgs(), "-states") >= 0 &&
+                (stateName.StartsWith("Daily gift /", StringComparison.Ordinal) ||
+                 stateName.StartsWith("New friend /", StringComparison.Ordinal) ||
+                 stateName.StartsWith("Unlock /", StringComparison.Ordinal) ||
+                 stateName.StartsWith("World complete /", StringComparison.Ordinal) ||
+                 stateName.StartsWith("World unlock /", StringComparison.Ordinal)))
+            {
+                int readyFrame = Time.frameCount + 2;
+                void DumpAfterLayout()
+                {
+                    if (Time.frameCount < readyFrame) return;
+                    Canvas.willRenderCanvases -= DumpAfterLayout;
+                    DumpRects(panels, stateName);
+                }
+                Canvas.willRenderCanvases += DumpAfterLayout;
+            }
+        }
+
+        [Serializable]
+        private sealed class RenderedRect
+        {
+            public string state, path, sprite, texture, maskSprite;
+            public float[] rect, spriteRect, clip;
+            public bool preserveAspect, graphic;
+            public float alpha;
+        }
+
+        private static void DumpRects(PanelsView panels, string state)
+        {
+            var canvas = (RectTransform)panels.transform;
+            var corners = new Vector3[4];
+            float[] Bounds(RectTransform rect)
+            {
+                rect.GetWorldCorners(corners);
+                Vector2 min = Vector2.positiveInfinity, max = Vector2.negativeInfinity;
+                foreach (Vector3 corner in corners)
+                {
+                    Vector3 local = canvas.InverseTransformPoint(corner);
+                    var point = new Vector2(local.x - canvas.rect.xMin, canvas.rect.yMax - local.y);
+                    min = Vector2.Min(min, point); max = Vector2.Max(max, point);
+                }
+                return new[] { min.x, min.y, max.x - min.x, max.y - min.y };
+            }
+            foreach (var rect in panels.GetComponentsInChildren<RectTransform>())
+            {
+                string path = rect.name;
+                for (Transform parent = rect.parent; parent != null && parent != canvas; parent = parent.parent)
+                    path = parent.name + "/" + path;
+                var image = rect.GetComponent<UnityEngine.UI.Image>();
+                Sprite sprite = image != null ? image.sprite : null;
+                Rect source = sprite != null ? sprite.rect : Rect.zero;
+                var entry = new RenderedRect
+                {
+                    state = state, path = path, rect = Bounds(rect),
+                    graphic = image != null, alpha = image != null && image.enabled ? image.color.a : 0,
+                    sprite = sprite != null ? sprite.name : "", texture = sprite != null ? sprite.texture.name : "",
+                    spriteRect = new[] { source.x, source.y, source.width, source.height },
+                    preserveAspect = image != null && image.preserveAspect
+                };
+                var crop = rect.GetComponentInParent<UnityEngine.UI.RectMask2D>();
+                if (crop != null) entry.clip = Bounds(crop.rectTransform);
+                var mask = rect.GetComponentInParent<UnityEngine.UI.Mask>();
+                if (mask != null)
+                {
+                    if (mask.transform == rect && !mask.showMaskGraphic) entry.alpha = 0;
+                    else
+                    {
+                        entry.clip = Bounds(mask.rectTransform);
+                        entry.maskSprite = mask.GetComponent<UnityEngine.UI.Image>().sprite.name;
+                    }
+                }
+                Debug.Log("POPUP_RECT " + JsonUtility.ToJson(entry));
+            }
         }
         private void Coins(int value)
         {
