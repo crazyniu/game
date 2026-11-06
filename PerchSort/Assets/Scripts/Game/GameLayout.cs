@@ -139,6 +139,195 @@ namespace PerchSort.Game
         {
             switch (screen)
             {
+                case "board_base":
+                    switch (element)
+                    {
+                        case "goal_rope": return new Rect(548f, 0f, 59f, 184f);
+                        case "goal_house": return new Rect(413f, 170f, 329f, 232f);
+                        case "house_opening": return new Rect(533f, 256f, 96f, 99f);
+                        case "coin_pill": return new Rect(93f, 59f, 248f, 105f);
+                        case "move_pill": return new Rect(32f, 164f, 406f, 116f);
+                        case "sun_pill": return new Rect(34f, 281f, 206f, 97f);
+                        case "settings": return new Rect(953f, 77f, 114f, 108f);
+                        case "goal_ring_yellow": return new Rect(370f, 401f, 102f, 96f);
+                        case "goal_ring_blue": return new Rect(509f, 400f, 103f, 98f);
+                        case "goal_ring_owl": return new Rect(649f, 399f, 103f, 100f);
+                        case "coin_disc": return new Rect(37f, 49f, 132f, 121f);
+                        case "move_divider": return new Rect(180f, 182f, 7f, 79f);
+                        case "sun_icon": return new Rect(55f, 289f, 86f, 77f);
+                        case "settings_gear": return new Rect(978f, 98f, 66f, 64f);
+                        case "goal_bird_yellow": return new Rect(384f, 410f, 78f, 74f);
+                        case "goal_bird_blue": return new Rect(521f, 409f, 81f, 77f);
+                        case "goal_bird_owl": return new Rect(661f, 408f, 80f, 77f);
+                        case "coin_leaf": return new Rect(72f, 75f, 59f, 64f);
+                        case "coin_value": return new Rect(175f, 80f, 127f, 54f);
+                        case "footprints": return new Rect(49f, 201f, 68f, 44f);
+                        case "move_value": return new Rect(122f, 195f, 41f, 50f);
+                        case "move_star_1": return new Rect(206f, 173f, 54f, 51f);
+                        case "threshold_1": return new Rect(209f, 229f, 46f, 33f);
+                        case "move_star_2": return new Rect(280f, 173f, 54f, 51f);
+                        case "threshold_2": return new Rect(282f, 229f, 47f, 33f);
+                        case "move_star_3": return new Rect(354f, 173f, 54f, 51f);
+                        case "threshold_3": return new Rect(355f, 229f, 51f, 33f);
+                        case "sun_value": return new Rect(157f, 302f, 43f, 49f);
+                        case "goal_badge_yellow": return new Rect(429f, 455f, 58f, 52f);
+                        case "goal_badge_blue": return new Rect(572f, 456f, 57f, 52f);
+                        case "goal_badge_owl": return new Rect(710f, 456f, 57f, 52f);
+                        case "goal_gift_yellow": return new Rect(439f, 464f, 38f, 39f);
+                        case "goal_gift_blue": return new Rect(582f, 465f, 37f, 39f);
+                        case "goal_gift_owl": return new Rect(720f, 465f, 37f, 39f);
+                        case "tools_bar": return new Rect(194f, 1727f, 731f, 148f);
+                        case "tool_undo": return new Rect(246f, 1746f, 110f, 108f);
+                        case "tool_bulb": return new Rect(486f, 1746f, 110f, 108f);
+                        case "tool_branch": return new Rect(726f, 1746f, 110f, 108f);
+                        case "tool_icon_undo": return new Rect(271f, 1769f, 58f, 58f);
+                        case "tool_icon_bulb": return new Rect(502f, 1760f, 74f, 75f);
+                        case "tool_icon_branch": return new Rect(743f, 1769f, 76f, 64f);
+                    }
+                    break;
+                case "board_stuck_hint":
+                    switch (element)
+                    {
+                        case "goal_rope": return new Rect(550f, 0f, 55f, 181f);
+                        case "goal_house": return new Rect(415f, 173f, 328f, 225f);
+                        case "house_body": return new Rect(448f, 250f, 271f, 146f);
+                        case "house_hole": return new Rect(515f, 257f, 126f, 115f);
+                        case "house_roof": return new Rect(415f, 173f, 328f, 145f);
+                        case "house_sill": return new Rect(447f, 366f, 272f, 31f);
+                        case "coin_pill": return new Rect(129f, 59f, 214f, 102f);
+                        case "coin_disc": return new Rect(35f, 49f, 132f, 120f);
+                        case "coin_leaf": return new Rect(68f, 76f, 65f, 62f);
+                        case "coin_value": return new Rect(175f, 79f, 130f, 55f);
+                        case "move_pill": return new Rect(32f, 166f, 409f, 114f);
+                        case "move_feet": return new Rect(51f, 200f, 62f, 44f);
+                        case "move_value": return new Rect(121f, 196f, 42f, 52f);
+                        case "move_divider": return new Rect(180f, 185f, 7f, 74f);
+                        case "star_1": return new Rect(206f, 174f, 59f, 48f);
+                        case "threshold_1": return new Rect(208f, 229f, 54f, 34f);
+                        case "star_2": return new Rect(285f, 174f, 59f, 48f);
+                        case "threshold_2": return new Rect(280f, 229f, 54f, 34f);
+                        case "star_3": return new Rect(355f, 174f, 59f, 48f);
+                        case "threshold_3": return new Rect(354f, 229f, 55f, 34f);
+                        case "extra_pill": return new Rect(34f, 283f, 205f, 95f);
+                        case "extra_sun": return new Rect(57f, 289f, 85f, 77f);
+                        case "extra_value": return new Rect(156f, 302f, 44f, 51f);
+                        case "settings": return new Rect(953f, 77f, 114f, 108f);
+                        case "settings_gear": return new Rect(982f, 100f, 59f, 61f);
+                        case "goal_yellow": return new Rect(369f, 400f, 102f, 97f);
+                        case "goal_yellow_bird": return new Rect(382f, 414f, 76f, 70f);
+                        case "goal_yellow_gift": return new Rect(431f, 457f, 57f, 53f);
+                        case "goal_yellow_gift_icon": return new Rect(441f, 466f, 37f, 37f);
+                        case "goal_blue": return new Rect(507f, 400f, 102f, 97f);
+                        case "goal_blue_bird": return new Rect(520f, 414f, 73f, 69f);
+                        case "goal_blue_gift": return new Rect(572f, 457f, 56f, 53f);
+                        case "goal_blue_gift_icon": return new Rect(582f, 466f, 36f, 37f);
+                        case "goal_owl": return new Rect(646f, 400f, 102f, 97f);
+                        case "goal_owl_bird": return new Rect(659f, 414f, 72f, 71f);
+                        case "goal_owl_gift": return new Rect(710f, 457f, 56f, 53f);
+                        case "goal_owl_gift_icon": return new Rect(720f, 466f, 36f, 37f);
+                        case "tool_bar": return new Rect(195f, 1727f, 731f, 149f);
+                        case "tool_undo": return new Rect(247f, 1748f, 108f, 108f);
+                        case "tool_hint": return new Rect(487f, 1748f, 108f, 108f);
+                        case "tool_branch": return new Rect(727f, 1748f, 108f, 108f);
+                        case "undo_glyph": return new Rect(267f, 1771f, 63f, 54f);
+                        case "hint_bulb": return new Rect(505f, 1757f, 69f, 83f);
+                        case "undo_glow": return new Rect(213f, 1713f, 175f, 175f);
+                        case "pointer_shadow": return new Rect(273f, 1644f, 58f, 66f);
+                        case "undo_pointer": return new Rect(276f, 1646f, 48f, 56f);
+                    }
+                    break;
+                case "board_sleeping_bubble":
+                    switch (element)
+                    {
+                        case "house_rope": return new Rect(549f, 0f, 58f, 185f);
+                        case "goal_house": return new Rect(413f, 168f, 330f, 236f);
+                        case "house_roof": return new Rect(413f, 168f, 330f, 154f);
+                        case "house_hole": return new Rect(513f, 250f, 127f, 117f);
+                        case "coin_pill": return new Rect(91f, 58f, 252f, 103f);
+                        case "coin": return new Rect(36f, 47f, 130f, 126f);
+                        case "coin_leaf": return new Rect(71f, 75f, 58f, 67f);
+                        case "coin_value": return new Rect(175f, 79f, 128f, 56f);
+                        case "moves_pill": return new Rect(31f, 164f, 407f, 117f);
+                        case "move_feet": return new Rect(50f, 198f, 64f, 49f);
+                        case "moves_value": return new Rect(122f, 195f, 40f, 51f);
+                        case "moves_divider": return new Rect(180f, 181f, 7f, 80f);
+                        case "threshold_star_1": return new Rect(206f, 171f, 57f, 54f);
+                        case "threshold_1": return new Rect(210f, 229f, 46f, 33f);
+                        case "threshold_star_2": return new Rect(280f, 171f, 57f, 54f);
+                        case "threshold_2": return new Rect(282f, 229f, 48f, 33f);
+                        case "threshold_star_3": return new Rect(352f, 171f, 57f, 54f);
+                        case "threshold_3": return new Rect(355f, 229f, 52f, 33f);
+                        case "sun_pill": return new Rect(33f, 281f, 209f, 99f);
+                        case "sun_icon": return new Rect(55f, 287f, 88f, 80f);
+                        case "sun_value": return new Rect(157f, 301f, 44f, 52f);
+                        case "settings": return new Rect(951f, 77f, 115f, 109f);
+                        case "gear": return new Rect(977f, 98f, 65f, 64f);
+                        case "goal_ring_yellow": return new Rect(370f, 399f, 102f, 100f);
+                        case "goal_bird_yellow": return new Rect(380f, 410f, 78f, 79f);
+                        case "gift_badge_yellow": return new Rect(430f, 453f, 59f, 56f);
+                        case "gift_yellow": return new Rect(440f, 463f, 39f, 41f);
+                        case "goal_ring_blue": return new Rect(508f, 399f, 103f, 100f);
+                        case "goal_bird_blue": return new Rect(520f, 409f, 78f, 80f);
+                        case "gift_badge_blue": return new Rect(570f, 453f, 60f, 57f);
+                        case "gift_blue": return new Rect(580f, 463f, 40f, 42f);
+                        case "goal_ring_owl": return new Rect(647f, 398f, 104f, 102f);
+                        case "goal_bird_owl": return new Rect(658f, 409f, 80f, 80f);
+                        case "gift_badge_owl": return new Rect(709f, 453f, 59f, 57f);
+                        case "gift_owl": return new Rect(719f, 463f, 39f, 42f);
+                        case "tools_bar": return new Rect(195f, 1727f, 731f, 149f);
+                        case "undo": return new Rect(245f, 1745f, 111f, 111f);
+                        case "undo_glyph": return new Rect(270f, 1771f, 58f, 53f);
+                        case "hint": return new Rect(485f, 1745f, 112f, 111f);
+                        case "hint_glyph": return new Rect(505f, 1762f, 71f, 74f);
+                        case "branch": return new Rect(725f, 1745f, 112f, 111f);
+                    }
+                    break;
+                case "board_many_branches":
+                    switch (element)
+                    {
+                        case "rope": return new Rect(546f, 0f, 62f, 186f);
+                        case "coin_pill": return new Rect(39f, 51f, 304f, 115f);
+                        case "coin_disc": return new Rect(39f, 51f, 129f, 116f);
+                        case "coin_leaf": return new Rect(73f, 76f, 56f, 64f);
+                        case "coins": return new Rect(173f, 78f, 131f, 54f);
+                        case "move_pill": return new Rect(33f, 167f, 408f, 111f);
+                        case "footprint": return new Rect(49f, 201f, 64f, 44f);
+                        case "moves": return new Rect(121f, 194f, 44f, 52f);
+                        case "move_divider": return new Rect(179f, 181f, 9f, 81f);
+                        case "star_1": return new Rect(206f, 173f, 55f, 50f);
+                        case "threshold_1": return new Rect(208f, 229f, 49f, 32f);
+                        case "star_2": return new Rect(280f, 173f, 55f, 50f);
+                        case "threshold_2": return new Rect(280f, 229f, 51f, 32f);
+                        case "star_3": return new Rect(354f, 173f, 55f, 50f);
+                        case "threshold_3": return new Rect(354f, 229f, 54f, 32f);
+                        case "sun_pill": return new Rect(34f, 284f, 205f, 94f);
+                        case "sun": return new Rect(54f, 290f, 91f, 78f);
+                        case "sun_count": return new Rect(156f, 300f, 45f, 53f);
+                        case "settings": return new Rect(952f, 76f, 116f, 109f);
+                        case "gear": return new Rect(976f, 98f, 69f, 65f);
+                        case "goal_house": return new Rect(414f, 169f, 330f, 232f);
+                        case "house_body": return new Rect(445f, 233f, 270f, 167f);
+                        case "house_roof": return new Rect(414f, 169f, 330f, 147f);
+                        case "house_opening": return new Rect(521f, 271f, 108f, 85f);
+                        case "goal_yellow": return new Rect(370f, 400f, 103f, 97f);
+                        case "portrait_yellow": return new Rect(382f, 410f, 79f, 75f);
+                        case "gift_yellow": return new Rect(429f, 455f, 60f, 52f);
+                        case "gift_icon_yellow": return new Rect(439f, 464f, 40f, 36f);
+                        case "goal_blue": return new Rect(509f, 400f, 103f, 97f);
+                        case "portrait_blue": return new Rect(521f, 410f, 79f, 75f);
+                        case "gift_blue": return new Rect(571f, 455f, 58f, 53f);
+                        case "gift_icon_blue": return new Rect(581f, 464f, 38f, 37f);
+                        case "goal_owl": return new Rect(649f, 400f, 103f, 97f);
+                        case "portrait_owl": return new Rect(659f, 409f, 82f, 77f);
+                        case "gift_owl": return new Rect(709f, 455f, 59f, 53f);
+                        case "gift_icon_owl": return new Rect(719f, 464f, 39f, 37f);
+                        case "tools": return new Rect(194f, 1727f, 730f, 145f);
+                        case "undo": return new Rect(245f, 1748f, 111f, 106f);
+                        case "undo_icon": return new Rect(268f, 1770f, 65f, 54f);
+                        case "hint": return new Rect(486f, 1748f, 109f, 106f);
+                        case "hint_icon": return new Rect(503f, 1761f, 77f, 74f);
+                        case "branch_plus": return new Rect(726f, 1748f, 109f, 106f);
+                        case "branch_plus_icon": return new Rect(744f, 1769f, 73f, 62f);
                 case "shop_boosters":
                     switch (element)
                     {
@@ -1062,19 +1251,47 @@ namespace PerchSort.Game
                 case "map":
                     switch (element)
                     {
-                        case "coin_pill": return new Rect(50f, 20f, 256f, 106f);
-                        case "gear": return new Rect(930f, 18f, 116f, 116f);
-                        case "gate": return new Rect(484f, 146f, 444f, 364f);
-                        case "node_1": return new Rect(278f, 1390f, 216f, 188f);
-                        case "node_2": return new Rect(360f, 1180f, 212f, 188f);
-                        case "node_3": return new Rect(480f, 1016f, 198f, 166f);
-                        case "node_4": return new Rect(320f, 812f, 228f, 202f);
-                        case "node_5": return new Rect(486f, 600f, 192f, 142f);
-                        case "node_6": return new Rect(632f, 496f, 180f, 126f);
-                        case "current_bird": return new Rect(312f, 656f, 192f, 204f);
-                        case "shop": return new Rect(214f, 1752f, 152f, 152f);
-                        case "aviary": return new Rect(460f, 1752f, 152f, 152f);
-                        case "settings": return new Rect(706f, 1752f, 152f, 152f);
+                        case "forest": return new Rect(0f, 0f, 1080f, 1920f);
+                        case "gate": return new Rect(455f, 203f, 490f, 365f);
+                        case "gate_lock": return new Rect(670f, 422f, 64f, 76f);
+                        case "coin_pill": return new Rect(91f, 89f, 216f, 90f);
+                        case "coin_count": return new Rect(160f, 108f, 119f, 47f);
+                        case "coin": return new Rect(38f, 78f, 112f, 108f);
+                        case "coin_leaf": return new Rect(69f, 103f, 52f, 54f);
+                        case "world_ribbon": return new Rect(315f, 72f, 464f, 131f);
+                        case "ribbon_leaf_l": return new Rect(300f, 109f, 75f, 122f);
+                        case "ribbon_leaf_r": return new Rect(729f, 119f, 80f, 75f);
+                        case "world_title": return new Rect(378f, 96f, 345f, 68f);
+                        case "level_10": return new Rect(633f, 580f, 221f, 152f);
+                        case "num_10": return new Rect(697f, 590f, 99f, 62f);
+                        case "level_9": return new Rect(632f, 753f, 251f, 176f);
+                        case "num_9": return new Rect(722f, 767f, 76f, 70f);
+                        case "level_8": return new Rect(249f, 918f, 326f, 224f);
+                        case "num_8": return new Rect(366f, 951f, 105f, 110f);
+                        case "level_7": return new Rect(482f, 1127f, 308f, 228f);
+                        case "num_7": return new Rect(598f, 1151f, 83f, 87f);
+                        case "level_6": return new Rect(249f, 1320f, 309f, 232f);
+                        case "num_6": return new Rect(365f, 1349f, 87f, 87f);
+                        case "lock_10": return new Rect(711f, 649f, 70f, 73f);
+                        case "lock_9": return new Rect(722f, 838f, 74f, 77f);
+                        case "yellow_bird": return new Rect(265f, 618f, 295f, 331f);
+                        case "sparkle_l": return new Rect(210f, 899f, 48f, 50f);
+                        case "sparkle_r": return new Rect(576f, 895f, 47f, 53f);
+                        case "star_7_1": return new Rect(536f, 1226f, 69f, 63f);
+                        case "star_7_2": return new Rect(604f, 1238f, 70f, 63f);
+                        case "star_7_3": return new Rect(671f, 1225f, 70f, 66f);
+                        case "star_6_1": return new Rect(302f, 1423f, 74f, 66f);
+                        case "star_6_2": return new Rect(373f, 1436f, 71f, 66f);
+                        case "star_6_3": return new Rect(441f, 1422f, 73f, 66f);
+                        case "nav_bar": return new Rect(51f, 1733f, 978f, 171f);
+                        case "nav_shop": return new Rect(246f, 1763f, 108f, 108f);
+                        case "nav_aviary": return new Rect(486f, 1763f, 108f, 108f);
+                        case "nav_settings": return new Rect(726f, 1763f, 108f, 108f);
+                        case "icon_shop": return new Rect(272f, 1782f, 56f, 62f);
+                        case "icon_aviary": return new Rect(507f, 1781f, 68f, 63f);
+                        case "icon_settings": return new Rect(748f, 1783f, 64f, 63f);
+                        case "aviary_bird": return new Rect(530f, 1813f, 28f, 24f);
+                        case "settings": return new Rect(726f, 1763f, 108f, 108f);
                     }
                     break;
             }

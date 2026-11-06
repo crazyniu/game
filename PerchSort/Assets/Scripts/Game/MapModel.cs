@@ -22,13 +22,19 @@ namespace PerchSort.Game
         }
         public static Vector2 Position(int level)
         {
-            return GameLayout.MapNode((level - 1) / WorldMap.LevelsPerWorld + 1, (level - 1) % WorldMap.LevelsPerWorld);
+            int local = (level - 1) % WorldMap.LevelsPerWorld + 1;
+            Vector2 point = local >= 6 ? GameLayout.Screen("map", "level_" + local).center :
+                local == 1 ? new Vector2(610, 2750) : local == 2 ? new Vector2(310, 2530) :
+                local == 3 ? new Vector2(550, 2240) : local == 4 ? new Vector2(780, 2050) : new Vector2(350, 1810);
+            return point + Vector2.up * GameLayout.WorldTop((level - 1) / WorldMap.LevelsPerWorld + 1);
         }
+        // Crop and place the existing scenery in contiguous bands. These source rows put each
+        // measured node on the painted trail, while retaining both world transition bands.
+        public static readonly float[] SceneryRows = { 0, 160, 470, 610, 795, 1140, 1505, 1760, 2010, 2280, 2500, 2750, 2840, 3000 };
+        public static readonly float[] LayoutRows = { 0, 160, 656, 841, 1030, 1241, 1436, 1810, 2050, 2240, 2530, 2750, 2840, 3000 };
         public static Vector2 GatePosition(int world)
         {
-            // The shared band is too short for a gate between the authored boundary nodes.
-            // Keep the gate beside the path, clear of both node faces and the current chick.
-            return new Vector2(180, GameLayout.WorldTop(world - 1) + GameLayout.MapOverlap * 0.5f);
+            return GameLayout.Screen("map", "gate").center + Vector2.up * GameLayout.WorldTop(world - 1);
         }
         public static int WorldAt(float contentY)
         {
