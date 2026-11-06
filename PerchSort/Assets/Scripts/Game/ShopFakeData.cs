@@ -26,7 +26,7 @@ namespace PerchSort.Game
             "Outfits / Owned not equipped",
             "Outfits / Equipped",
             "Names / Longest painted ribbon",
-            "Names / Missing outfit ribbons",
+            "Names / Full outfit catalog",
             "Confirm / Booster",
             "Confirm / Outfit",
             "Confirm / House",
@@ -77,7 +77,7 @@ namespace PerchSort.Game
             // The shared preview lifecycle preserves the original attempt and disables persistence.
             root.PreviewMap(new GameProfile { Coins = data.Coins, HighestUnlocked = 40 });
             root.OpenShop(); root.Shop.ShowPreview(data, tab);
-            if (stateName == "Names / Missing outfit ribbons")
+            if (stateName == "Names / Full outfit catalog")
                 root.Shop.GetComponentInChildren<UnityEngine.UI.ScrollRect>().verticalNormalizedPosition = 0;
             switch (stateName)
             {

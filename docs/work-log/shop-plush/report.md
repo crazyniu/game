@@ -106,3 +106,29 @@ All six booster names and all four house names have supplied painted ribbons.
 - Five-digit stock inside a fixed 56 badge uses PaintedNumber's fitting behavior, reducing cap height below the nominal 28 minimum. Coins at 99999 have a separate wide pill and do not need that reduction. The fixed badge size and long-stock readability require a design choice; no inventory rule or value was changed to hide this boundary.
 - Outfit prices remain the real catalog prices, not invented prices copied from the reference picture. Featured reference items happen to be tier-one entries at 300; no economy changes were made.
 - No new GameRoot hook is required: the merged Foundation `PreviewMap(GameProfile)` and preview restoration methods suffice.
+
+## Outfit ribbon wiring follow-up
+
+- Branch: `mac-shop-outfit-names/work`, based on `origin/main` at `0241c629`.
+- The earlier missing-outfit-label limitation above is resolved for all 27 catalog outfits. `ShopView.CosmeticLabel` now uses an ordinal outfit-ID-to-painted-sprite lookup matching `docs/work-log/plush-ui/text-inventory.md`, including all 23 additions. Both the card and confirmation already call this shared resolver; neither uses an empty slot for a known catalog outfit. Truly unknown outfit IDs still return null and retain the existing same-size empty slot, never a font fallback.
+- `PaintedLabels.cs`: added only the 23 new exact painted-text inverse lookup entries. The existing four outfit entries are unchanged.
+- `ShopFakeData.cs`: renamed the obsolete `Names / Missing outfit ribbons` state to `Names / Full outfit catalog`; it still scrolls to the bottom for reviewing the later outfits. No catalog, price, ownership, equipment, save, layout, or artwork changes.
+- Changed files: `ShopView.cs`, `PaintedLabels.cs`, `ShopFakeData.cs`, and this report.
+- Review path: `Tools > UI States > Shop > Names / Full outfit catalog`. Scroll through all 27 cards; click any unowned card to inspect its corresponding confirmation ribbon, then cancel. `Outfits / All not owned` and `Confirm / Outfit` remain available.
+
+### Follow-up verification
+
+- Exactly one **plain** Unity batch compile, with no execute method or test runner:
+
+```sh
+flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -quit -projectPath /Users/apple/orca/workspaces/game/shop-plush/PerchSort -logFile /Users/apple/orca/workspaces/game/shop-plush/build/shop-outfit-names-compile.log
+```
+
+- Result: **exit 0**, `Exiting batchmode successfully now!`; no compiler errors. Existing `UAC0009` warnings remain for the project's development-build guards.
+- A temporary standalone console smoke invoked the freshly compiled `ShopView.CosmeticLabel` and `PaintedLabels.KeyForText` through reflection, without launching Unity. Passed: all **27** outfit mappings exactly match the inventory, all **27** inverse lookups match, all **27** PNG paths exist, all **4** house mappings remain unchanged, and unknown outfit/text fallbacks return null. Its first attempt had an incorrect Unity assembly resolver directory; correcting it to the compiler response file's `Resources/Scripting/Managed` path produced exit 0. Observed output: `build/outfit-name-smoke.log`. Temporary harness sources and outputs were removed; no permanent tests were added.
+- `python3 ci/check_current_game_names.py --self-test`: **14 passed**. Naming guard: **260 tracked text files, 0 violations**.
+- All **33** snapshotted scene/meta/settings/package files remained byte-identical: `build/outfit-names-before.json`, `build/outfit-names-after.json`.
+- EditMode/PlayMode suites and screenshot scripts: **NOT RUN**, as instructed. Rendered card/modal appearance was not visually reverified; the smoke covers compiled label resolution, not rendering.
+- Missing label sprites for catalog outfits: **none**. Unknown-ID placeholders are intentional.
+- Before branch creation, the prior compile's local import state was preserved in the stash named `Preserve Unity import metadata before outfit ribbon follow-up`, because untracked Foundation metadata blocked checkout. Newly generated import metadata stays outside this follow-up commit; no shared art or metadata is staged.
+
