@@ -138,7 +138,7 @@ namespace PerchSort.Game
         {
             var profile = new GameProfile(options ?? DevOptions.Load())
             {
-                Coins = Math.Max(0, PlayerPrefs.GetInt(CoinsKey)), Muted = PlayerPrefs.GetInt(MutedKey) != 0,
+                Coins = Math.Max(0, PlayerPrefs.GetInt(CoinsKey)), Muted = PlayerPrefs.GetInt(MutedKey, 0) != 0,
                 HighestUnlocked = Math.Max(1, Math.Min(40, PlayerPrefs.GetInt(HighestKey, 1)))
             };
             for (int i = 1; i <= 40; i++)

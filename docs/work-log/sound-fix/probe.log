@@ -1,0 +1,164 @@
+Silent sound probe 2026-11-06T06:11:47.875265+00:00
+base=09b8ecf734b01dd01fabcf48f37a3261ee76afeb
+realSavedMute=1 isolatedCompany=PerchSortSoundProbe
+command=Unity -batchmode -projectPath PerchSort -executeMethod PerchSort.Editor.GameAudioProbe.Run -logFile build/sound-probe/unity.log
+[SoundProbe] preflight unity=6000.6.7f1 editorMasterMute=False listenerVolume=1.000 listenerPause=False savedMute=1
+[SoundProbe] project disableAudio=False masterVolume=1.000
+[SoundProbe] scene path=Assets/Scenes/Game.unity manager=Game audio sources=10 profileMuted=True preview=False instantMotion=False
+[SoundProbe] t=1.948 phase=real-map-saved-setting page=map level=1 preview=False muted=True savedMute=1 sfxEnabled=False musicEnabled=False musicPage=Menu listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=True volume=0.200 mute=True loop=True enabled=True time=1.387 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=none isPlaying=False volume=0.000 mute=True loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] resource key=chirp_01 clip=chirp_01 seconds=0.210 loadState=Loaded
+[SoundProbe] resource key=chirp_02 clip=chirp_02 seconds=0.251 loadState=Loaded
+[SoundProbe] resource key=chirp_03 clip=chirp_03 seconds=0.290 loadState=Loaded
+[SoundProbe] resource key=chirp_04 clip=chirp_04 seconds=0.321 loadState=Loaded
+[SoundProbe] resource key=chirp_05 clip=chirp_05 seconds=0.361 loadState=Loaded
+[SoundProbe] resource key=flutter clip=flutter seconds=0.300 loadState=Loaded
+[SoundProbe] resource key=sleep_z clip=sleep_z seconds=0.501 loadState=Loaded
+[SoundProbe] resource key=nest_home clip=nest_home seconds=0.801 loadState=Loaded
+[SoundProbe] resource key=crate_open clip=crate_open seconds=0.601 loadState=Loaded
+[SoundProbe] resource key=star_1 clip=star_1 seconds=0.351 loadState=Loaded
+[SoundProbe] resource key=star_2 clip=star_2 seconds=0.351 loadState=Loaded
+[SoundProbe] resource key=star_3 clip=star_3 seconds=0.351 loadState=Loaded
+[SoundProbe] resource key=win_fanfare clip=win_fanfare seconds=2.001 loadState=Loaded
+[SoundProbe] resource key=hint clip=hint seconds=0.451 loadState=Loaded
+[SoundProbe] resource key=ui_tap clip=ui_tap seconds=0.100 loadState=Loaded
+[SoundProbe] resource key=ui_back clip=ui_back seconds=0.181 loadState=Loaded
+[SoundProbe] resource key=bgm_menu clip=bgm_menu seconds=60.000 loadState=Loaded
+[SoundProbe] resource key=bgm_game clip=bgm_game seconds=90.000 loadState=Unloaded
+[SoundProbe] resource key=Audio/error clip=error seconds=0.221 loadState=Loaded
+[SoundProbe] resource key=Audio/undo clip=undo seconds=0.280 loadState=Loaded
+[SoundProbe] probe foreground callbacks pause=False focus=True; listener remains silenced
+[SoundProbe] settings-disc requestedMute=False icon=icon_sound_on
+[SoundProbe] effect event=Back
+[SoundProbe] t=3.262 phase=real-map-unmuted page=map level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Menu listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=ui_back isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=True volume=0.200 mute=False loop=True enabled=True time=2.709 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=none isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] effect event=Click
+[SoundProbe] t=3.304 phase=real-map-click page=map level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Menu listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=ui_back isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=ui_tap isPlaying=True volume=0.140 mute=False loop=False enabled=True time=0.043 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=True volume=0.200 mute=False loop=True enabled=True time=2.752 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=none isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] t=3.656 phase=real-map-advancing page=map level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Menu listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=ui_back isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=ui_tap isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=True volume=0.200 mute=False loop=True enabled=True time=3.093 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=none isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] t=3.717 phase=preview-settings-muted page=board level=1 preview=True muted=True savedMute=0 sfxEnabled=False musicEnabled=False musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=True volume=0.200 mute=True loop=True enabled=True time=3.157 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.000 mute=True loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] preview-return profileUnchanged=True realMute=False
+[SoundProbe] t=5.061 phase=real-first-board page=board level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.200 mute=False loop=True enabled=True time=1.301 spatialBlend=0.0 mixer=direct
+[SoundProbe] effect event=Select
+[SoundProbe] t=5.103 phase=real-first-board-select page=board level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=chirp_04 isPlaying=True volume=0.140 mute=False loop=False enabled=True time=0.043 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.200 mute=False loop=True enabled=True time=1.344 spatialBlend=0.0 mixer=direct
+[SoundProbe] settings-disc requestedMute=True icon=icon_sound_off
+[SoundProbe] t=5.459 phase=real-board-settings-muted page=board level=1 preview=False muted=True savedMute=1 sfxEnabled=False musicEnabled=False musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=False volume=0.000 mute=True loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.200 mute=True loop=True enabled=True time=1.685 spatialBlend=0.0 mixer=direct
+[SoundProbe] settings-disc requestedMute=False icon=icon_sound_on
+[SoundProbe] effect event=Back
+[SoundProbe] t=5.709 phase=real-board-settings-unmuted page=board level=1 preview=False muted=False savedMute=0 sfxEnabled=True musicEnabled=True musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=ui_back isPlaying=True volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=False loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=False volume=0.000 mute=False loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.200 mute=False loop=True enabled=True time=1.941 spatialBlend=0.0 mixer=direct
+[SoundProbe] missing-mute-key defaultMuted=False existingMuteRestored=0
+[SoundProbe] t=5.719 phase=preview-muted-before-exit page=board level=1 preview=True muted=True savedMute=0 sfxEnabled=False musicEnabled=False musicPage=Game listeners=1 listenerEnabled=True listenerPause=False listenerVolume=0.000 editorMasterMute=False applicationFocused=False
+[SoundProbe] source=0 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=1 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=2 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=3 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=4 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=5 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=6 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=7 clip=none isPlaying=False volume=0.140 mute=True loop=False enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=8 clip=bgm_menu isPlaying=False volume=0.000 mute=True loop=True enabled=True time=0.000 spatialBlend=0.0 mixer=direct
+[SoundProbe] source=9 clip=bgm_game isPlaying=True volume=0.200 mute=True loop=True enabled=True time=1.963 spatialBlend=0.0 mixer=direct
+[SoundProbe] exit-while-preview-muted persistedProfileUnchanged=True savedMute=0
+[SoundProbe] finish result=PASS listenerVolumeRestored=1.000 editorMasterMute=False
+unityExitCode=0
+realProfileByteIdentical=True
+realProfileSHA256=2e89cca11437b7bad67b76cd90504aaf27036f26cc4b36d95f0884a40680873d
+
+Unity Editor host diagnostics (excerpts from unity.log, trailing whitespace trimmed):
+ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+  at System.Collections.Generic.List`1[T].get_Item (System.Int32 index) [0x00009] in <b8620ca0238146d3931f0e57066b310c>:0
+  at UnityEditor.Search.SearchDatabase+<EnumerateAll>d__78.MoveNext () [0x00089] in /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/Indexing/SearchDatabase.cs:351
+  at System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) [0x00045] in <fbcdabd713b54e0a945de0056ace95c5>:0
+  at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) [0x00000] in <fbcdabd713b54e0a945de0056ace95c5>:0
+  at UnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () [0x00000] in /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/Indexing/SearchDatabase.cs:325
+  at UnityEditor.Search.SearchInit.IndexationOnStartup () [0x0000a] in /Users/bokken/build/output/unity/unity/Modules/QuickSearch/Editor/SearchInit.cs:109
+  at UnityEditor.EditorApplication.Internal_CallDelayFunctions () [0x00029] in /Users/bokken/build/output/unity/unity/Editor/Mono/EditorApplication.cs:427
+Leak Detected : Persistent allocates 3 individual allocations. To find out more please enable 'Settings > Jobs > Leak Detection Level > Enabled With Stack Trace' and reproduce the leak again.

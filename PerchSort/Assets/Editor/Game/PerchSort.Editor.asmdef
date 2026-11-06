@@ -1,5 +1,5 @@
 {
   "name": "PerchSort.Editor",
-  "references": ["PerchSort.Core", "PerchSort.Meta", "PerchSort.Game", "Unity.ugui", "Unity.TextMeshPro", "Unity.InputSystem"],
+  "references": ["PerchSort.Core", "PerchSort.Meta", "PerchSort.Game", "PerchSort.Audio", "Unity.ugui", "Unity.TextMeshPro", "Unity.InputSystem"],
   "includePlatforms": ["Editor"]
 }
