@@ -1,0 +1,1781 @@
+{
+  "screen": "shop_boosters",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "elements": [
+    {
+      "id": "background",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "background_painted_forest_sky",
+      "notes": "Full-page painted canopy, sky, clouds and distant foliage. No dim overlay. Background decoration is baked in. All rects absolute canvas coordinates; bounds describe visible body, excluding diffuse shadows except explicit glow. Generated raster edges are soft, so measured bounds have about 2\u20133 px tolerance. Nested entries describe parts of baked art, not extra duplicated sprites. z is logical front-to-back reconstruction order."
+    },
+    {
+      "id": "balance",
+      "role": "pill",
+      "rect": [
+        105,
+        76,
+        275,
+        96
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill_cream",
+      "notes": "Left portion is occluded by the large coin; rect describes full visible-and-occluded plate envelope for reconstruction."
+    },
+    {
+      "id": "balance_coin",
+      "role": "icon",
+      "rect": [
+        49,
+        64,
+        143,
+        115
+      ],
+      "z": 12,
+      "parent": "balance",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "balance_leaf",
+      "role": "decoration",
+      "rect": [
+        86,
+        95,
+        71,
+        53
+      ],
+      "z": 13,
+      "parent": "balance_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "balance_value",
+      "role": "caption",
+      "rect": [
+        220,
+        96,
+        122,
+        48
+      ],
+      "z": 13,
+      "parent": "balance",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "close",
+      "role": "button",
+      "rect": [
+        925,
+        76,
+        108,
+        105
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_orange_velvet",
+      "notes": "Measured visible body. Reference center approximately (979,129); no modal panel parent."
+    },
+    {
+      "id": "close_x",
+      "role": "icon",
+      "rect": [
+        948,
+        98,
+        57,
+        56
+      ],
+      "z": 11,
+      "parent": "close",
+      "text": null,
+      "sprite_hint": "glyph_close_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_glow",
+      "role": "decoration",
+      "rect": [
+        289,
+        196,
+        141,
+        142
+      ],
+      "z": 8,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "selection_glow_gold",
+      "notes": "Diffuse intentional glow, approximate visible falloff bounds."
+    },
+    {
+      "id": "tab_boosters",
+      "role": "button",
+      "rect": [
+        306,
+        216,
+        108,
+        107
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Centers x=360, y\u2248270. No tab captions."
+    },
+    {
+      "id": "tab_boosters_glyph",
+      "role": "icon",
+      "rect": [
+        331,
+        235,
+        58,
+        64
+      ],
+      "z": 11,
+      "parent": "tab_boosters",
+      "text": null,
+      "sprite_hint": "icon_bulb_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_outfits",
+      "role": "button",
+      "rect": [
+        486,
+        216,
+        108,
+        107
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Centers x=540, y\u2248270. No tab captions."
+    },
+    {
+      "id": "tab_outfits_glyph",
+      "role": "icon",
+      "rect": [
+        508,
+        244,
+        61,
+        51
+      ],
+      "z": 11,
+      "parent": "tab_outfits",
+      "text": null,
+      "sprite_hint": "icon_hanger_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_home",
+      "role": "button",
+      "rect": [
+        666,
+        216,
+        108,
+        107
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Centers x=720, y\u2248270. No tab captions."
+    },
+    {
+      "id": "tab_home_glyph",
+      "role": "icon",
+      "rect": [
+        689,
+        239,
+        60,
+        59
+      ],
+      "z": 11,
+      "parent": "tab_home",
+      "text": null,
+      "sprite_hint": "icon_house_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_selected",
+      "role": "pill",
+      "rect": [
+        328,
+        316,
+        65,
+        30
+      ],
+      "z": 12,
+      "parent": "tab_boosters",
+      "text": null,
+      "sprite_hint": "tab_selection_green",
+      "notes": "Small blank green pill immediately below selected bulb disc."
+    },
+    {
+      "id": "hint_card",
+      "role": "card",
+      "rect": [
+        60,
+        430,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "hint_frame",
+      "role": "frame",
+      "rect": [
+        60,
+        430,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "hint_cream",
+      "role": "panel",
+      "rect": [
+        88,
+        458,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "hint_ribbon",
+      "role": "ribbon",
+      "rect": [
+        113,
+        454,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "hint_leaf_l",
+      "role": "decoration",
+      "rect": [
+        104,
+        487,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "hint_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "hint_leaf_r",
+      "role": "decoration",
+      "rect": [
+        382,
+        492,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "hint_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "hint_title",
+      "role": "title",
+      "rect": [
+        234,
+        468,
+        112,
+        44
+      ],
+      "z": 32,
+      "parent": "hint_ribbon",
+      "text": "Hint",
+      "sprite_hint": "label_title_hint",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "hint_ring",
+      "role": "ring",
+      "rect": [
+        155,
+        529,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "hint_backing",
+      "role": "disc",
+      "rect": [
+        177,
+        546,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "hint_price",
+      "role": "pill",
+      "rect": [
+        180,
+        750,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "hint_coin",
+      "role": "icon",
+      "rect": [
+        145,
+        740,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "hint_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "hint_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        175,
+        765,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "hint_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "hint_price_value",
+      "role": "caption",
+      "rect": [
+        290,
+        765,
+        72,
+        45
+      ],
+      "z": 35,
+      "parent": "hint_price",
+      "text": "30",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "hint_owned",
+      "role": "badge",
+      "rect": [
+        427,
+        429,
+        82,
+        76
+      ],
+      "z": 40,
+      "parent": "hint_card",
+      "text": null,
+      "sprite_hint": "badge_red_velvet",
+      "notes": "Overlaps card upper-right; larger than original flat count disc."
+    },
+    {
+      "id": "hint_owned_value",
+      "role": "caption",
+      "rect": [
+        449,
+        442,
+        38,
+        46
+      ],
+      "z": 41,
+      "parent": "hint_owned",
+      "text": "3",
+      "sprite_hint": "glyph_white_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "branch_card",
+      "role": "card",
+      "rect": [
+        560,
+        430,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "branch_frame",
+      "role": "frame",
+      "rect": [
+        560,
+        430,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "branch_cream",
+      "role": "panel",
+      "rect": [
+        588,
+        458,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "branch_ribbon",
+      "role": "ribbon",
+      "rect": [
+        613,
+        454,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "branch_leaf_l",
+      "role": "decoration",
+      "rect": [
+        604,
+        487,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "branch_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "branch_leaf_r",
+      "role": "decoration",
+      "rect": [
+        882,
+        492,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "branch_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "branch_title",
+      "role": "title",
+      "rect": [
+        625,
+        468,
+        307,
+        46
+      ],
+      "z": 32,
+      "parent": "branch_ribbon",
+      "text": "Extra Branch",
+      "sprite_hint": "label_title_branch",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "branch_ring",
+      "role": "ring",
+      "rect": [
+        655,
+        529,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "branch_backing",
+      "role": "disc",
+      "rect": [
+        677,
+        546,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "branch_price",
+      "role": "pill",
+      "rect": [
+        680,
+        750,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "branch_coin",
+      "role": "icon",
+      "rect": [
+        645,
+        740,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "branch_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "branch_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        675,
+        765,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "branch_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "branch_price_value",
+      "role": "caption",
+      "rect": [
+        790,
+        765,
+        72,
+        45
+      ],
+      "z": 35,
+      "parent": "branch_price",
+      "text": "60",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "branch_owned",
+      "role": "badge",
+      "rect": [
+        927,
+        429,
+        82,
+        76
+      ],
+      "z": 40,
+      "parent": "branch_card",
+      "text": null,
+      "sprite_hint": "badge_red_velvet",
+      "notes": "Overlaps card upper-right; larger than original flat count disc."
+    },
+    {
+      "id": "branch_owned_value",
+      "role": "caption",
+      "rect": [
+        949,
+        442,
+        38,
+        46
+      ],
+      "z": 41,
+      "parent": "branch_owned",
+      "text": "2",
+      "sprite_hint": "glyph_white_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "reveal_card",
+      "role": "card",
+      "rect": [
+        60,
+        880,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "reveal_frame",
+      "role": "frame",
+      "rect": [
+        60,
+        880,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "reveal_cream",
+      "role": "panel",
+      "rect": [
+        88,
+        908,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "reveal_ribbon",
+      "role": "ribbon",
+      "rect": [
+        113,
+        904,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "reveal_leaf_l",
+      "role": "decoration",
+      "rect": [
+        104,
+        937,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "reveal_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "reveal_leaf_r",
+      "role": "decoration",
+      "rect": [
+        382,
+        942,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "reveal_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "reveal_title",
+      "role": "title",
+      "rect": [
+        208,
+        917,
+        159,
+        46
+      ],
+      "z": 32,
+      "parent": "reveal_ribbon",
+      "text": "Reveal",
+      "sprite_hint": "label_title_reveal",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "reveal_ring",
+      "role": "ring",
+      "rect": [
+        155,
+        979,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "reveal_backing",
+      "role": "disc",
+      "rect": [
+        177,
+        996,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "reveal_price",
+      "role": "pill",
+      "rect": [
+        180,
+        1200,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "reveal_coin",
+      "role": "icon",
+      "rect": [
+        145,
+        1190,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "reveal_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "reveal_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        175,
+        1215,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "reveal_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "reveal_price_value",
+      "role": "caption",
+      "rect": [
+        290,
+        1215,
+        72,
+        45
+      ],
+      "z": 35,
+      "parent": "reveal_price",
+      "text": "80",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "reveal_owned",
+      "role": "badge",
+      "rect": [
+        427,
+        879,
+        82,
+        76
+      ],
+      "z": 40,
+      "parent": "reveal_card",
+      "text": null,
+      "sprite_hint": "badge_red_velvet",
+      "notes": "Overlaps card upper-right; larger than original flat count disc."
+    },
+    {
+      "id": "reveal_owned_value",
+      "role": "caption",
+      "rect": [
+        449,
+        892,
+        38,
+        46
+      ],
+      "z": 41,
+      "parent": "reveal_owned",
+      "text": "1",
+      "sprite_hint": "glyph_white_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "bell_card",
+      "role": "card",
+      "rect": [
+        560,
+        880,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "bell_frame",
+      "role": "frame",
+      "rect": [
+        560,
+        880,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "bell_cream",
+      "role": "panel",
+      "rect": [
+        588,
+        908,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "bell_ribbon",
+      "role": "ribbon",
+      "rect": [
+        613,
+        904,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "bell_leaf_l",
+      "role": "decoration",
+      "rect": [
+        604,
+        937,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "bell_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "bell_leaf_r",
+      "role": "decoration",
+      "rect": [
+        882,
+        942,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "bell_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "bell_title",
+      "role": "title",
+      "rect": [
+        739,
+        917,
+        100,
+        46
+      ],
+      "z": 32,
+      "parent": "bell_ribbon",
+      "text": "Bell",
+      "sprite_hint": "label_title_bell",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "bell_ring",
+      "role": "ring",
+      "rect": [
+        655,
+        979,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "bell_backing",
+      "role": "disc",
+      "rect": [
+        677,
+        996,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "bell_price",
+      "role": "pill",
+      "rect": [
+        680,
+        1200,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "bell_coin",
+      "role": "icon",
+      "rect": [
+        645,
+        1190,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "bell_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "bell_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        675,
+        1215,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "bell_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "bell_price_value",
+      "role": "caption",
+      "rect": [
+        790,
+        1215,
+        72,
+        45
+      ],
+      "z": 35,
+      "parent": "bell_price",
+      "text": "80",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "bell_owned",
+      "role": "badge",
+      "rect": [
+        927,
+        879,
+        82,
+        76
+      ],
+      "z": 40,
+      "parent": "bell_card",
+      "text": null,
+      "sprite_hint": "badge_red_velvet",
+      "notes": "Overlaps card upper-right; larger than original flat count disc."
+    },
+    {
+      "id": "bell_owned_value",
+      "role": "caption",
+      "rect": [
+        949,
+        892,
+        38,
+        46
+      ],
+      "z": 41,
+      "parent": "bell_owned",
+      "text": "1",
+      "sprite_hint": "glyph_white_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "shoo_card",
+      "role": "card",
+      "rect": [
+        60,
+        1330,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "shoo_frame",
+      "role": "frame",
+      "rect": [
+        60,
+        1330,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "shoo_cream",
+      "role": "panel",
+      "rect": [
+        88,
+        1358,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "shoo_ribbon",
+      "role": "ribbon",
+      "rect": [
+        113,
+        1354,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "shoo_leaf_l",
+      "role": "decoration",
+      "rect": [
+        104,
+        1387,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "shoo_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "shoo_leaf_r",
+      "role": "decoration",
+      "rect": [
+        382,
+        1392,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "shoo_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "shoo_title",
+      "role": "title",
+      "rect": [
+        225,
+        1366,
+        130,
+        47
+      ],
+      "z": 32,
+      "parent": "shoo_ribbon",
+      "text": "Shoo",
+      "sprite_hint": "label_title_shoo",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "shoo_ring",
+      "role": "ring",
+      "rect": [
+        155,
+        1429,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "shoo_backing",
+      "role": "disc",
+      "rect": [
+        177,
+        1446,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "shoo_price",
+      "role": "pill",
+      "rect": [
+        180,
+        1650,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "shoo_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "shoo_coin",
+      "role": "icon",
+      "rect": [
+        145,
+        1640,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "shoo_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "shoo_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        175,
+        1665,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "shoo_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "shoo_price_value",
+      "role": "caption",
+      "rect": [
+        276,
+        1665,
+        100,
+        45
+      ],
+      "z": 35,
+      "parent": "shoo_price",
+      "text": "100",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "rain_card",
+      "role": "card",
+      "rect": [
+        560,
+        1330,
+        459,
+        420
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_plush",
+      "notes": "Outer orange frame body. Soft shadow extends ~8 px below. Grid is 2 columns \u00d7 3 rows; no scrolling or enclosing modal panel."
+    },
+    {
+      "id": "rain_frame",
+      "role": "frame",
+      "rect": [
+        560,
+        1330,
+        459,
+        420
+      ],
+      "z": 21,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Rounded padded border, approximately 27 px thick; same outer body as card."
+    },
+    {
+      "id": "rain_cream",
+      "role": "panel",
+      "rect": [
+        588,
+        1358,
+        399,
+        365
+      ],
+      "z": 22,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Cream inset rounded cushion; icons/ribbon/prices overlap it."
+    },
+    {
+      "id": "rain_ribbon",
+      "role": "ribbon",
+      "rect": [
+        613,
+        1354,
+        355,
+        92
+      ],
+      "z": 30,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes green folded tails; leaf clusters and lettering listed separately."
+    },
+    {
+      "id": "rain_leaf_l",
+      "role": "decoration",
+      "rect": [
+        604,
+        1387,
+        88,
+        64
+      ],
+      "z": 31,
+      "parent": "rain_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "rain_leaf_r",
+      "role": "decoration",
+      "rect": [
+        882,
+        1392,
+        86,
+        57
+      ],
+      "z": 31,
+      "parent": "rain_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "rain_title",
+      "role": "title",
+      "rect": [
+        730,
+        1366,
+        121,
+        47
+      ],
+      "z": 32,
+      "parent": "rain_ribbon",
+      "text": "Rain",
+      "sprite_hint": "label_title_rain",
+      "notes": "Painted cream-white puffy letters with dark-green outline; rect includes outline/shadow."
+    },
+    {
+      "id": "rain_ring",
+      "role": "ring",
+      "rect": [
+        655,
+        1429,
+        260,
+        227
+      ],
+      "z": 25,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "ring_gold_velvet",
+      "notes": "Visible golden rim around honey-orange velvet icon backing; oval in final painted raster, do not force square."
+    },
+    {
+      "id": "rain_backing",
+      "role": "disc",
+      "rect": [
+        677,
+        1446,
+        216,
+        194
+      ],
+      "z": 24,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "disc_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "rain_price",
+      "role": "pill",
+      "rect": [
+        680,
+        1650,
+        241,
+        75
+      ],
+      "z": 33,
+      "parent": "rain_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Cream, never green; left end occluded by coin."
+    },
+    {
+      "id": "rain_coin",
+      "role": "icon",
+      "rect": [
+        645,
+        1640,
+        105,
+        92
+      ],
+      "z": 34,
+      "parent": "rain_price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "rain_coin_leaf",
+      "role": "decoration",
+      "rect": [
+        675,
+        1665,
+        46,
+        40
+      ],
+      "z": 35,
+      "parent": "rain_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "rain_price_value",
+      "role": "caption",
+      "rect": [
+        776,
+        1665,
+        100,
+        45
+      ],
+      "z": 35,
+      "parent": "rain_price",
+      "text": "100",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "hint_bulb",
+      "role": "icon",
+      "rect": [
+        242,
+        597,
+        87,
+        126
+      ],
+      "z": 28,
+      "parent": "hint_backing",
+      "text": null,
+      "sprite_hint": "booster_hint_bulb_plush",
+      "notes": ""
+    },
+    {
+      "id": "hint_rays",
+      "role": "decoration",
+      "rect": [
+        207,
+        563,
+        155,
+        96
+      ],
+      "z": 27,
+      "parent": "hint_backing",
+      "text": null,
+      "sprite_hint": "bulb_rays_gold",
+      "notes": "All seven small ray strokes, grouped as one sprite; bulb overlays central part."
+    },
+    {
+      "id": "branch_log",
+      "role": "icon",
+      "rect": [
+        699,
+        637,
+        173,
+        66
+      ],
+      "z": 28,
+      "parent": "branch_backing",
+      "text": null,
+      "sprite_hint": "booster_extra_branch_log",
+      "notes": ""
+    },
+    {
+      "id": "branch_sprout",
+      "role": "decoration",
+      "rect": [
+        705,
+        600,
+        66,
+        53
+      ],
+      "z": 29,
+      "parent": "branch_backing",
+      "text": null,
+      "sprite_hint": "branch_two_green_leaves",
+      "notes": ""
+    },
+    {
+      "id": "branch_plus",
+      "role": "icon",
+      "rect": [
+        783,
+        582,
+        65,
+        61
+      ],
+      "z": 29,
+      "parent": "branch_backing",
+      "text": null,
+      "sprite_hint": "glyph_plus_white",
+      "notes": ""
+    },
+    {
+      "id": "reveal_eye",
+      "role": "icon",
+      "rect": [
+        239,
+        1006,
+        97,
+        49
+      ],
+      "z": 28,
+      "parent": "reveal_backing",
+      "text": null,
+      "sprite_hint": "booster_reveal_eye",
+      "notes": ""
+    },
+    {
+      "id": "reveal_egg",
+      "role": "icon",
+      "rect": [
+        231,
+        1057,
+        106,
+        88
+      ],
+      "z": 28,
+      "parent": "reveal_backing",
+      "text": null,
+      "sprite_hint": "booster_reveal_spotted_egg",
+      "notes": ""
+    },
+    {
+      "id": "reveal_nest",
+      "role": "icon",
+      "rect": [
+        197,
+        1093,
+        167,
+        81
+      ],
+      "z": 29,
+      "parent": "reveal_backing",
+      "text": null,
+      "sprite_hint": "booster_reveal_nest",
+      "notes": "Overlaps bottom of egg."
+    },
+    {
+      "id": "bell_icon",
+      "role": "icon",
+      "rect": [
+        706,
+        1005,
+        157,
+        163
+      ],
+      "z": 28,
+      "parent": "bell_backing",
+      "text": null,
+      "sprite_hint": "booster_bell_gold_plush",
+      "notes": "Includes hanging loop and clapper."
+    },
+    {
+      "id": "shoo_bird",
+      "role": "bird",
+      "rect": [
+        193,
+        1451,
+        173,
+        187
+      ],
+      "z": 28,
+      "parent": "shoo_backing",
+      "text": null,
+      "sprite_hint": "bird_gray_angry_original",
+      "notes": "Original raster from input.png crop [225,1470,140,150], silhouette mask then resized to [202,216] and pasted at [190,1439], per finish.py. Rect here is visible bird silhouette, not crop padding. Red X listed separately."
+    },
+    {
+      "id": "shoo_x",
+      "role": "icon",
+      "rect": [
+        287,
+        1551,
+        90,
+        85
+      ],
+      "z": 29,
+      "parent": "shoo_backing",
+      "text": null,
+      "sprite_hint": "booster_shoo_red_x",
+      "notes": "Restored source X overlaps bird lower-right; includes red edging."
+    },
+    {
+      "id": "rain_cloud",
+      "role": "icon",
+      "rect": [
+        701,
+        1462,
+        165,
+        77
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_cloud_plush",
+      "notes": ""
+    },
+    {
+      "id": "rain_drop_left",
+      "role": "icon",
+      "rect": [
+        721,
+        1527,
+        33,
+        43
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_drop_blue",
+      "notes": ""
+    },
+    {
+      "id": "rain_drop_middle",
+      "role": "icon",
+      "rect": [
+        764,
+        1532,
+        33,
+        42
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_drop_blue",
+      "notes": ""
+    },
+    {
+      "id": "rain_drop_right",
+      "role": "icon",
+      "rect": [
+        814,
+        1527,
+        33,
+        43
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_drop_blue",
+      "notes": ""
+    },
+    {
+      "id": "rain_sprout",
+      "role": "icon",
+      "rect": [
+        732,
+        1566,
+        105,
+        44
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_sprout_green",
+      "notes": ""
+    },
+    {
+      "id": "rain_soil",
+      "role": "decoration",
+      "rect": [
+        725,
+        1601,
+        111,
+        23
+      ],
+      "z": 28,
+      "parent": "rain_backing",
+      "text": null,
+      "sprite_hint": "booster_rain_soil",
+      "notes": ""
+    }
+  ]
+}

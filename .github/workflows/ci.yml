@@ -17,40 +17,31 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7.0.1
         with:
-          fetch-depth: 2
           persist-credentials: false
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            .github/workflows/
-            ci/
-            PerchSort/Assets/Scripts/
-            PerchSort/Assets/Tests/
-            PerchSort/Assets/Resources/
-            PerchSort/Packages/
-            scripts/
       - name: Enforce single current game naming
         run: |
           python3 ci/check_current_game_names.py --self-test
           python3 ci/check_current_game_names.py
-      - name: Check changed files
-        id: changes
+      - name: Check scripts and data syntax
+        run: |
+          for f in scripts/*.sh; do bash -n "$f"; done
+          python3 -c "import json,glob; [json.load(open(p)) for p in glob.glob('PerchSort/levels/*.json') + glob.glob('PerchSort/layout/*.json')]"
+      - name: Install Godot
         env:
-          EVENT_NAME: ${{ github.event_name }}
-        run: python3 ci/check_changes.py
-      - name: Set up .NET for Core tests
-        if: steps.changes.outputs.core == 'true'
-        uses: actions/setup-dotnet@v6.0.0
-        with:
-          dotnet-version: '8.0.x'
-      - name: Run retained current Core fixtures
-        if: steps.changes.outputs.core == 'true'
-        run: dotnet test ci/CoreTests.csproj --configuration Release --nologo
+          GH_TOKEN: ${{ github.token }}
+          GODOT_RELEASE: 4.7.2-stable
+        run: |
+          build="Godot_v${GODOT_RELEASE}_linux.x86_64"
+          gh release download "$GODOT_RELEASE" --repo godotengine/godot-builds --pattern "$build.zip" --dir "$RUNNER_TEMP"
+          unzip -q "$RUNNER_TEMP/$build.zip" -d "$RUNNER_TEMP"
+          echo "GODOT=$RUNNER_TEMP/$build" >> "$GITHUB_ENV"
+      - name: Smoke and core tests
+        run: bash scripts/run_tests.sh
       - name: Validate Actions workflows
-        if: steps.changes.outputs.workflows == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

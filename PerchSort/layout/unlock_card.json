@@ -1,0 +1,1070 @@
+{
+  "screen": "unlock_card",
+  "elements": [
+    {
+      "id": "board",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "board_dimmed",
+      "notes": "Use board_dimmed.png as one unchanged full-canvas sprite. Already dimmed/desaturated; do not add a dim layer. Its child entries document baked artwork, not additional sprites to draw. All rects are absolute top-left pixel coordinates [x,y,width,height], including children. Bounds describe visible art, not Unity hit areas. Forest scenery remains in this single sprite."
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        79,
+        59,
+        262,
+        101
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "coin_pill",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "moves_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        166,
+        407,
+        113
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "moves_stars_pill",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "sun_pill",
+      "role": "pill",
+      "rect": [
+        35,
+        281,
+        204,
+        99
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "sun_counter_pill",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "settings",
+      "role": "button",
+      "rect": [
+        952,
+        76,
+        113,
+        109
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "btn_orange_settings",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "rope",
+      "role": "decoration",
+      "rect": [
+        554,
+        0,
+        51,
+        180
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house_rope",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Ends behind house roof."
+    },
+    {
+      "id": "coin",
+      "role": "disc",
+      "rect": [
+        38,
+        50,
+        112,
+        120
+      ],
+      "z": 3,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_leaf_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "moves_div",
+      "role": "decoration",
+      "rect": [
+        179,
+        181,
+        8,
+        80
+      ],
+      "z": 3,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "pill_divider_brown",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "sun",
+      "role": "icon",
+      "rect": [
+        53,
+        289,
+        78,
+        77
+      ],
+      "z": 3,
+      "parent": "sun_pill",
+      "text": null,
+      "sprite_hint": "icon_sun_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "house",
+      "role": "card",
+      "rect": [
+        417,
+        172,
+        325,
+        229
+      ],
+      "z": 3,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "coin_leaf",
+      "role": "icon",
+      "rect": [
+        64,
+        76,
+        60,
+        66
+      ],
+      "z": 4,
+      "parent": "coin",
+      "text": null,
+      "sprite_hint": "icon_leaf",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "coins",
+      "role": "caption",
+      "rect": [
+        173,
+        79,
+        130,
+        53
+      ],
+      "z": 4,
+      "parent": "coin_pill",
+      "text": "240",
+      "sprite_hint": "glyph_brown_240",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "feet",
+      "role": "icon",
+      "rect": [
+        50,
+        201,
+        63,
+        43
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "icon_bird_footprints",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "moves",
+      "role": "caption",
+      "rect": [
+        120,
+        194,
+        44,
+        52
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": "7",
+      "sprite_hint": "glyph_brown_7",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "star1",
+      "role": "star",
+      "rect": [
+        207,
+        175,
+        53,
+        49
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "star2",
+      "role": "star",
+      "rect": [
+        280,
+        174,
+        56,
+        49
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "star3",
+      "role": "star",
+      "rect": [
+        355,
+        175,
+        53,
+        49
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "n12",
+      "role": "caption",
+      "rect": [
+        207,
+        229,
+        49,
+        33
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": "12",
+      "sprite_hint": "glyph_brown_12",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "n16",
+      "role": "caption",
+      "rect": [
+        282,
+        229,
+        50,
+        33
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": "16",
+      "sprite_hint": "glyph_brown_16",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "ninf",
+      "role": "caption",
+      "rect": [
+        355,
+        232,
+        54,
+        28
+      ],
+      "z": 4,
+      "parent": "moves_pill",
+      "text": "∞",
+      "sprite_hint": "glyph_brown_∞",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "sun_n",
+      "role": "caption",
+      "rect": [
+        151,
+        303,
+        49,
+        50
+      ],
+      "z": 4,
+      "parent": "sun_pill",
+      "text": "4",
+      "sprite_hint": "glyph_brown_4",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "gear",
+      "role": "icon",
+      "rect": [
+        983,
+        99,
+        54,
+        59
+      ],
+      "z": 4,
+      "parent": "settings",
+      "text": null,
+      "sprite_hint": "icon_gear_cream",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "roof",
+      "role": "decoration",
+      "rect": [
+        417,
+        172,
+        325,
+        146
+      ],
+      "z": 4,
+      "parent": "house",
+      "text": null,
+      "sprite_hint": "goal_house_roof_teal",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "house_hole",
+      "role": "decoration",
+      "rect": [
+        531,
+        269,
+        93,
+        85
+      ],
+      "z": 4,
+      "parent": "house",
+      "text": null,
+      "sprite_hint": "goal_house_dark_opening",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_y_ring",
+      "role": "ring",
+      "rect": [
+        371,
+        401,
+        103,
+        96
+      ],
+      "z": 4,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_b_ring",
+      "role": "ring",
+      "rect": [
+        509,
+        401,
+        104,
+        96
+      ],
+      "z": 4,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_o_ring",
+      "role": "ring",
+      "rect": [
+        648,
+        400,
+        103,
+        99
+      ],
+      "z": 4,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "tools",
+      "role": "bar",
+      "rect": [
+        195,
+        1727,
+        728,
+        145
+      ],
+      "z": 4,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "toolbar_cream_plush",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_y",
+      "role": "bird",
+      "rect": [
+        382,
+        413,
+        78,
+        76
+      ],
+      "z": 5,
+      "parent": "goal_y_ring",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_b",
+      "role": "bird",
+      "rect": [
+        523,
+        411,
+        79,
+        79
+      ],
+      "z": 5,
+      "parent": "goal_b_ring",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_o",
+      "role": "bird",
+      "rect": [
+        660,
+        413,
+        78,
+        77
+      ],
+      "z": 5,
+      "parent": "goal_o_ring",
+      "text": null,
+      "sprite_hint": "bird_owl_wizard",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "undo",
+      "role": "button",
+      "rect": [
+        247,
+        1750,
+        108,
+        102
+      ],
+      "z": 5,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_undo",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "hint",
+      "role": "button",
+      "rect": [
+        487,
+        1750,
+        108,
+        102
+      ],
+      "z": 5,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_bulb",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "branch",
+      "role": "button",
+      "rect": [
+        728,
+        1750,
+        108,
+        103
+      ],
+      "z": 5,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_branch_plus",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_y_badge",
+      "role": "badge",
+      "rect": [
+        429,
+        454,
+        55,
+        52
+      ],
+      "z": 6,
+      "parent": "goal_y_ring",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_b_badge",
+      "role": "badge",
+      "rect": [
+        572,
+        454,
+        56,
+        53
+      ],
+      "z": 6,
+      "parent": "goal_b_ring",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_o_badge",
+      "role": "badge",
+      "rect": [
+        710,
+        455,
+        55,
+        52
+      ],
+      "z": 6,
+      "parent": "goal_o_ring",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "undo_icon",
+      "role": "icon",
+      "rect": [
+        270,
+        1770,
+        57,
+        56
+      ],
+      "z": 6,
+      "parent": "undo",
+      "text": null,
+      "sprite_hint": "icon_undo",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "hint_icon",
+      "role": "icon",
+      "rect": [
+        518,
+        1762,
+        45,
+        69
+      ],
+      "z": 6,
+      "parent": "hint",
+      "text": null,
+      "sprite_hint": "icon_bulb",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "branch_icon",
+      "role": "icon",
+      "rect": [
+        747,
+        1770,
+        72,
+        53
+      ],
+      "z": 6,
+      "parent": "branch",
+      "text": null,
+      "sprite_hint": "icon_branch_plus",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_y_gift",
+      "role": "icon",
+      "rect": [
+        439,
+        464,
+        36,
+        33
+      ],
+      "z": 7,
+      "parent": "goal_y_badge",
+      "text": null,
+      "sprite_hint": "icon_gift_magenta",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_b_gift",
+      "role": "icon",
+      "rect": [
+        584,
+        464,
+        34,
+        34
+      ],
+      "z": 7,
+      "parent": "goal_b_badge",
+      "text": null,
+      "sprite_hint": "icon_gift_magenta",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "goal_o_gift",
+      "role": "icon",
+      "rect": [
+        721,
+        465,
+        35,
+        33
+      ],
+      "z": 7,
+      "parent": "goal_o_badge",
+      "text": null,
+      "sprite_hint": "icon_gift_magenta",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. "
+    },
+    {
+      "id": "bird_l1",
+      "role": "bird",
+      "rect": [
+        59,
+        723,
+        52,
+        102
+      ],
+      "z": 10,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Only exposed fragment at modal side; remainder is occluded. Rect is the visible fragment, not the full underlying sprite. Other board birds are fully occluded and therefore not visible in output.png."
+    },
+    {
+      "id": "bird_r1",
+      "role": "bird",
+      "rect": [
+        968,
+        831,
+        81,
+        136
+      ],
+      "z": 10,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Only exposed fragment at modal side; remainder is occluded. Rect is the visible fragment, not the full underlying sprite. Other board birds are fully occluded and therefore not visible in output.png."
+    },
+    {
+      "id": "bird_l2",
+      "role": "bird",
+      "rect": [
+        59,
+        1053,
+        53,
+        101
+      ],
+      "z": 10,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Only exposed fragment at modal side; remainder is occluded. Rect is the visible fragment, not the full underlying sprite. Other board birds are fully occluded and therefore not visible in output.png."
+    },
+    {
+      "id": "bird_r2",
+      "role": "bird",
+      "rect": [
+        968,
+        1157,
+        82,
+        137
+      ],
+      "z": 10,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Only exposed fragment at modal side; remainder is occluded. Rect is the visible fragment, not the full underlying sprite. Other board birds are fully occluded and therefore not visible in output.png."
+    },
+    {
+      "id": "leaf_below",
+      "role": "decoration",
+      "rect": [
+        626,
+        1324,
+        35,
+        12
+      ],
+      "z": 10,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "board_branch_leaf",
+      "notes": "Baked into unchanged board_dimmed.png; already dimmed. Tiny exposed leaf tip immediately below modal; retain baked board pixels."
+    },
+    {
+      "id": "modal",
+      "role": "card",
+      "rect": [
+        109,
+        545,
+        861,
+        952
+      ],
+      "z": 99,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "modal_cutout",
+      "notes": "Logical modal/action transform group; bounds are union AABB of nonzero alpha in modal_cutout.png, including the empty panel-to-button gap. Can render saved full-canvas modal_cutout.png as one sprite; child records describe baked subart and must not also be drawn. Position all parts together."
+    },
+    {
+      "id": "panel",
+      "role": "panel",
+      "rect": [
+        109,
+        599,
+        861,
+        725
+      ],
+      "z": 100,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "unlock_panel_plush",
+      "notes": "Outer panel silhouette excluding title/leaves. Cream cushion and orange roll are one painted object. Original modal source translated +105px vertically: -60 then +165. Modal/source art must not be dimmed. Panel centre approximately (539.5,961.5)."
+    },
+    {
+      "id": "frame",
+      "role": "frame",
+      "rect": [
+        109,
+        599,
+        861,
+        725
+      ],
+      "z": 101,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "frame_orange_velvet",
+      "notes": "Orange outer roll, a nonrectangular perimeter; bounding box coincides with panel. Top centre hidden by ribbon; not a separate opaque rectangular layer."
+    },
+    {
+      "id": "cream",
+      "role": "panel",
+      "rect": [
+        151,
+        634,
+        779,
+        655
+      ],
+      "z": 102,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Inner cream cushion; bounds include rounded corners and areas covered by hero/caption."
+    },
+    {
+      "id": "halo",
+      "role": "decoration",
+      "rect": [
+        249,
+        673,
+        584,
+        489
+      ],
+      "z": 103,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "owl_eye_golden_glow",
+      "notes": "Diffuse painted glow/rays. Soft bounds measured visually; no hard rectangular edge."
+    },
+    {
+      "id": "eye",
+      "role": "icon",
+      "rect": [
+        388,
+        684,
+        303,
+        162
+      ],
+      "z": 104,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "powerup_owl_eye",
+      "notes": "Includes golden plush eyelid/rim; glow recorded separately."
+    },
+    {
+      "id": "eye_iris",
+      "role": "decoration",
+      "rect": [
+        458,
+        710,
+        129,
+        108
+      ],
+      "z": 105,
+      "parent": "eye",
+      "text": null,
+      "sprite_hint": "owl_eye_iris_brown",
+      "notes": "Painted as part of eye, not separate runtime art unless the source is split."
+    },
+    {
+      "id": "spark_l1",
+      "role": "decoration",
+      "rect": [
+        302,
+        775,
+        69,
+        70
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_r1",
+      "role": "decoration",
+      "rect": [
+        717,
+        799,
+        66,
+        70
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_l2",
+      "role": "decoration",
+      "rect": [
+        330,
+        894,
+        58,
+        55
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_r2",
+      "role": "decoration",
+      "rect": [
+        695,
+        902,
+        58,
+        58
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "nest_leaf_l",
+      "role": "decoration",
+      "rect": [
+        272,
+        977,
+        139,
+        117
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "nest_leaves_left",
+      "notes": ""
+    },
+    {
+      "id": "nest_leaf_r",
+      "role": "decoration",
+      "rect": [
+        666,
+        977,
+        134,
+        118
+      ],
+      "z": 105,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "nest_leaves_right",
+      "notes": ""
+    },
+    {
+      "id": "egg",
+      "role": "icon",
+      "rect": [
+        398,
+        853,
+        285,
+        292
+      ],
+      "z": 106,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "egg_speckled_cream",
+      "notes": "Lower tip occluded by nest. No hero bird on this modal."
+    },
+    {
+      "id": "nest",
+      "role": "decoration",
+      "rect": [
+        313,
+        1029,
+        453,
+        136
+      ],
+      "z": 107,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "nest_gold_plush",
+      "notes": "Front twigs overlap the egg."
+    },
+    {
+      "id": "caption_plate",
+      "role": "pill",
+      "rect": [
+        222,
+        1165,
+        632,
+        105
+      ],
+      "z": 110,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "caption_plate_cream",
+      "notes": ""
+    },
+    {
+      "id": "caption",
+      "role": "caption",
+      "rect": [
+        313,
+        1182,
+        461,
+        66
+      ],
+      "z": 111,
+      "parent": "caption_plate",
+      "text": "Reveals eggs",
+      "sprite_hint": "label_reveals_eggs",
+      "notes": "Existing painted lettering; includes brown emboss/shadow. Do not recreate with runtime font."
+    },
+    {
+      "id": "ribbon",
+      "role": "ribbon",
+      "rect": [
+        302,
+        545,
+        478,
+        118
+      ],
+      "z": 120,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Central ribbon body only; full ribbon assembly including the two leaf clusters spans approximately x243–837. Top alpha boundary y545; 42px below portrait badges bottom y503."
+    },
+    {
+      "id": "leaf_l",
+      "role": "decoration",
+      "rect": [
+        242,
+        568,
+        137,
+        99
+      ],
+      "z": 121,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": "One connected cluster at left ribbon end."
+    },
+    {
+      "id": "leaf_r",
+      "role": "decoration",
+      "rect": [
+        716,
+        568,
+        122,
+        100
+      ],
+      "z": 121,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": "One connected cluster at right ribbon end."
+    },
+    {
+      "id": "title",
+      "role": "title",
+      "rect": [
+        372,
+        558,
+        330,
+        84
+      ],
+      "z": 122,
+      "parent": "ribbon",
+      "text": "Owl Eye",
+      "sprite_hint": "label_title_owl_eye",
+      "notes": "Painted cream letters with dark green outline/shadow, inseparable from ribbon in original painting."
+    },
+    {
+      "id": "accept",
+      "role": "button",
+      "rect": [
+        478,
+        1373,
+        124,
+        124
+      ],
+      "z": 130,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "btn_green_check",
+      "notes": "Exact compose rectangle; centre (540,1435). Same vertical translation as panel, no resampling. Alpha antialias may extend boundary by one pixel. No close button on this screen."
+    },
+    {
+      "id": "check",
+      "role": "icon",
+      "rect": [
+        505,
+        1406,
+        71,
+        61
+      ],
+      "z": 131,
+      "parent": "accept",
+      "text": null,
+      "sprite_hint": "icon_check_cream_green",
+      "notes": "Cream check with dark green outline, painted into button."
+    }
+  ]
+}

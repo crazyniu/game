@@ -1,0 +1,1137 @@
+{
+  "screen": "shop_confirm",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "notes": "Approved output.png. Rectangles are absolute canvas AABBs of visible artwork, excluding soft cast shadows; occluded shapes can have holes inside their visible AABB. Exact assembly footprints and hidden/full placement differences are documented in notes. Children are semantic parts often baked into the same sprite: do not duplicate their rendering. z is compositing order, independent of parent. Forest foliage is decorative baked art. No unseen labels or numbers are invented.",
+  "elements": [
+    {
+      "id": "forest",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "forest_painted",
+      "notes": "Full painted sky/forest plate; foliage and distant trees baked into this sprite."
+    },
+    {
+      "id": "canopy",
+      "role": "decoration",
+      "rect": [
+        0,
+        0,
+        1080,
+        273
+      ],
+      "z": 1,
+      "parent": "forest",
+      "text": null,
+      "sprite_hint": "forest_canopy",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Irregular foliage along top and side corners; transparent interior."
+    },
+    {
+      "id": "hud",
+      "role": "pill",
+      "rect": [
+        145,
+        71,
+        224,
+        105
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill_cream",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "hudcoin",
+      "role": "icon",
+      "rect": [
+        44,
+        57,
+        140,
+        132
+      ],
+      "z": 4,
+      "parent": "hud",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "hudnum",
+      "role": "caption",
+      "rect": [
+        208,
+        94,
+        125,
+        56
+      ],
+      "z": 5,
+      "parent": "hud",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "pagex",
+      "role": "button",
+      "rect": [
+        923,
+        73,
+        117,
+        112
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_orange_close",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Measured approved art; preserve its actual visible footprint rather than normalize to another page spec."
+    },
+    {
+      "id": "pagexg",
+      "role": "icon",
+      "rect": [
+        952,
+        103,
+        56,
+        54
+      ],
+      "z": 4,
+      "parent": "pagex",
+      "text": null,
+      "sprite_hint": "glyph_x_white_brown",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabhint",
+      "role": "button",
+      "rect": [
+        300,
+        212,
+        123,
+        119
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabhintg",
+      "role": "icon",
+      "rect": [
+        328,
+        239,
+        65,
+        66
+      ],
+      "z": 4,
+      "parent": "tabhint",
+      "text": null,
+      "sprite_hint": "icon_bulb",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabward",
+      "role": "button",
+      "rect": [
+        479,
+        216,
+        123,
+        114
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabwardg",
+      "role": "icon",
+      "rect": [
+        515,
+        241,
+        53,
+        53
+      ],
+      "z": 4,
+      "parent": "tabward",
+      "text": null,
+      "sprite_hint": "icon_hanger",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabhome",
+      "role": "button",
+      "rect": [
+        657,
+        216,
+        125,
+        115
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_orange_velvet",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "tabhomeg",
+      "role": "icon",
+      "rect": [
+        694,
+        239,
+        49,
+        57
+      ],
+      "z": 4,
+      "parent": "tabhome",
+      "text": null,
+      "sprite_hint": "icon_home",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "selected",
+      "role": "bar",
+      "rect": [
+        322,
+        321,
+        78,
+        30
+      ],
+      "z": 4,
+      "parent": "tabhint",
+      "text": null,
+      "sprite_hint": "tab_indicator_green",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "cardhint",
+      "role": "card",
+      "rect": [
+        54,
+        427,
+        468,
+        428
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "cardbranch",
+      "role": "card",
+      "rect": [
+        559,
+        427,
+        466,
+        428
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "cardmidl",
+      "role": "card",
+      "rect": [
+        54,
+        875,
+        468,
+        434
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "cardmidr",
+      "role": "card",
+      "rect": [
+        559,
+        875,
+        466,
+        434
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "cardshoo",
+      "role": "card",
+      "rect": [
+        54,
+        1327,
+        468,
+        433
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "cardrain",
+      "role": "card",
+      "rect": [
+        559,
+        1327,
+        466,
+        433
+      ],
+      "z": 6,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "booster_card_cream_orange",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Bounds of visible card silhouette; foreground modal occludes interior where overlapping. Card shadow excluded."
+    },
+    {
+      "id": "rh",
+      "role": "ribbon",
+      "rect": [
+        104,
+        449,
+        371,
+        90
+      ],
+      "z": 7,
+      "parent": "cardhint",
+      "text": null,
+      "sprite_hint": "ribbon_green",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Upper ribbons partly hidden by modal title."
+    },
+    {
+      "id": "rht",
+      "role": "title",
+      "rect": [
+        245,
+        466,
+        100,
+        39
+      ],
+      "z": 8,
+      "parent": "rh",
+      "text": "Hint",
+      "sprite_hint": "painted_label_hint",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only surviving pixels visible where foreground overlaps; do not draw over modal."
+    },
+    {
+      "id": "rb",
+      "role": "ribbon",
+      "rect": [
+        607,
+        449,
+        371,
+        89
+      ],
+      "z": 7,
+      "parent": "cardbranch",
+      "text": null,
+      "sprite_hint": "ribbon_green",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Upper ribbons partly hidden by modal title."
+    },
+    {
+      "id": "rbt",
+      "role": "title",
+      "rect": [
+        690,
+        465,
+        267,
+        42
+      ],
+      "z": 8,
+      "parent": "rb",
+      "text": "Extra Branch",
+      "sprite_hint": "painted_label_extra_branch",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only surviving pixels visible where foreground overlaps; do not draw over modal."
+    },
+    {
+      "id": "rs",
+      "role": "ribbon",
+      "rect": [
+        104,
+        1344,
+        369,
+        89
+      ],
+      "z": 7,
+      "parent": "cardshoo",
+      "text": null,
+      "sprite_hint": "ribbon_green",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Upper ribbons partly hidden by modal title."
+    },
+    {
+      "id": "rst",
+      "role": "title",
+      "rect": [
+        244,
+        1363,
+        102,
+        42
+      ],
+      "z": 8,
+      "parent": "rs",
+      "text": "Shoo",
+      "sprite_hint": "painted_label_shoo",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only surviving pixels visible where foreground overlaps; do not draw over modal."
+    },
+    {
+      "id": "rr",
+      "role": "ribbon",
+      "rect": [
+        607,
+        1344,
+        371,
+        89
+      ],
+      "z": 7,
+      "parent": "cardrain",
+      "text": null,
+      "sprite_hint": "ribbon_green",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Upper ribbons partly hidden by modal title."
+    },
+    {
+      "id": "rrt",
+      "role": "title",
+      "rect": [
+        751,
+        1363,
+        95,
+        42
+      ],
+      "z": 8,
+      "parent": "rr",
+      "text": "Rain",
+      "sprite_hint": "painted_label_rain",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only surviving pixels visible where foreground overlaps; do not draw over modal."
+    },
+    {
+      "id": "bh",
+      "role": "badge",
+      "rect": [
+        452,
+        429,
+        62,
+        62
+      ],
+      "z": 9,
+      "parent": "cardhint",
+      "text": null,
+      "sprite_hint": "badge_red",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Middle-right badge left edge is occluded by modal."
+    },
+    {
+      "id": "bhn",
+      "role": "caption",
+      "rect": [
+        469,
+        442,
+        30,
+        39
+      ],
+      "z": 10,
+      "parent": "bh",
+      "text": "3",
+      "sprite_hint": "glyph_cream_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "bb",
+      "role": "badge",
+      "rect": [
+        953,
+        429,
+        63,
+        62
+      ],
+      "z": 9,
+      "parent": "cardbranch",
+      "text": null,
+      "sprite_hint": "badge_red",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Middle-right badge left edge is occluded by modal."
+    },
+    {
+      "id": "bbn",
+      "role": "caption",
+      "rect": [
+        972,
+        442,
+        29,
+        39
+      ],
+      "z": 10,
+      "parent": "bb",
+      "text": "2",
+      "sprite_hint": "glyph_cream_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "bm",
+      "role": "badge",
+      "rect": [
+        970,
+        880,
+        46,
+        56
+      ],
+      "z": 9,
+      "parent": "cardmidr",
+      "text": null,
+      "sprite_hint": "badge_red",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Middle-right badge left edge is occluded by modal."
+    },
+    {
+      "id": "bmn",
+      "role": "caption",
+      "rect": [
+        977,
+        891,
+        20,
+        36
+      ],
+      "z": 10,
+      "parent": "bm",
+      "text": "1",
+      "sprite_hint": "glyph_cream_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midlring",
+      "role": "ring",
+      "rect": [
+        200,
+        1170,
+        190,
+        23
+      ],
+      "z": 7,
+      "parent": "cardmidl",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only bottom crescent visible; remainder hidden by modal."
+    },
+    {
+      "id": "midrring",
+      "role": "ring",
+      "rect": [
+        704,
+        1170,
+        186,
+        23
+      ],
+      "z": 7,
+      "parent": "cardmidr",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Only bottom crescent visible; remainder hidden by modal."
+    },
+    {
+      "id": "midlp",
+      "role": "pill",
+      "rect": [
+        155,
+        1206,
+        263,
+        83
+      ],
+      "z": 8,
+      "parent": "cardmidl",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midlpc",
+      "role": "icon",
+      "rect": [
+        155,
+        1202,
+        103,
+        92
+      ],
+      "z": 9,
+      "parent": "midlp",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midlpn",
+      "role": "caption",
+      "rect": [
+        300,
+        1223,
+        62,
+        41
+      ],
+      "z": 10,
+      "parent": "midlp",
+      "text": "80",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midrp",
+      "role": "pill",
+      "rect": [
+        659,
+        1206,
+        263,
+        83
+      ],
+      "z": 8,
+      "parent": "cardmidr",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midrpc",
+      "role": "icon",
+      "rect": [
+        659,
+        1202,
+        103,
+        92
+      ],
+      "z": 9,
+      "parent": "midrp",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "midrpn",
+      "role": "caption",
+      "rect": [
+        802,
+        1223,
+        62,
+        41
+      ],
+      "z": 10,
+      "parent": "midrp",
+      "text": "80",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "shoop",
+      "role": "pill",
+      "rect": [
+        155,
+        1655,
+        263,
+        83
+      ],
+      "z": 8,
+      "parent": "cardshoo",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "shoopc",
+      "role": "icon",
+      "rect": [
+        155,
+        1651,
+        103,
+        92
+      ],
+      "z": 9,
+      "parent": "shoop",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "shoopn",
+      "role": "caption",
+      "rect": [
+        293,
+        1674,
+        85,
+        41
+      ],
+      "z": 10,
+      "parent": "shoop",
+      "text": "100",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "rainp",
+      "role": "pill",
+      "rect": [
+        659,
+        1655,
+        263,
+        83
+      ],
+      "z": 8,
+      "parent": "cardrain",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "rainpc",
+      "role": "icon",
+      "rect": [
+        659,
+        1651,
+        103,
+        92
+      ],
+      "z": 9,
+      "parent": "rainp",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "rainpn",
+      "role": "caption",
+      "rect": [
+        792,
+        1675,
+        85,
+        40
+      ],
+      "z": 10,
+      "parent": "rainp",
+      "text": "100",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "shooface",
+      "role": "disc",
+      "rect": [
+        166,
+        1423,
+        245,
+        241
+      ],
+      "z": 7,
+      "parent": "cardshoo",
+      "text": null,
+      "sprite_hint": "portrait_disc_orange_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "shoofacer",
+      "role": "ring",
+      "rect": [
+        166,
+        1423,
+        245,
+        241
+      ],
+      "z": 8,
+      "parent": "shooface",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Golden velvet rim around orange centre; same outer bounds as disc."
+    },
+    {
+      "id": "rainface",
+      "role": "disc",
+      "rect": [
+        670,
+        1423,
+        245,
+        241
+      ],
+      "z": 7,
+      "parent": "cardrain",
+      "text": null,
+      "sprite_hint": "portrait_disc_orange_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "rainfacer",
+      "role": "ring",
+      "rect": [
+        670,
+        1423,
+        245,
+        241
+      ],
+      "z": 8,
+      "parent": "rainface",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Golden velvet rim around orange centre; same outer bounds as disc."
+    },
+    {
+      "id": "bird",
+      "role": "bird",
+      "rect": [
+        227,
+        1480,
+        107,
+        128
+      ],
+      "z": 10,
+      "parent": "shooface",
+      "text": null,
+      "sprite_hint": "bird_black_original",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35. Original input bird silhouette preserved, then globally dimmed; front facing. Red cross is a separate overlapping icon."
+    },
+    {
+      "id": "shoox",
+      "role": "icon",
+      "rect": [
+        291,
+        1550,
+        61,
+        58
+      ],
+      "z": 11,
+      "parent": "shooface",
+      "text": null,
+      "sprite_hint": "icon_red_cross",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "raincloud",
+      "role": "icon",
+      "rect": [
+        730,
+        1480,
+        135,
+        78
+      ],
+      "z": 10,
+      "parent": "rainface",
+      "text": null,
+      "sprite_hint": "icon_cloud_plush",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "raindrops",
+      "role": "icon",
+      "rect": [
+        750,
+        1541,
+        91,
+        46
+      ],
+      "z": 10,
+      "parent": "rainface",
+      "text": null,
+      "sprite_hint": "icon_three_drops",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "rainsprout",
+      "role": "icon",
+      "rect": [
+        753,
+        1581,
+        82,
+        54
+      ],
+      "z": 10,
+      "parent": "rainface",
+      "text": null,
+      "sprite_hint": "icon_sprout_soil",
+      "notes": "Background layer: saturation 0.6, brightness multiply 0.35."
+    },
+    {
+      "id": "dim",
+      "role": "dim",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 50,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "background_colour_adjust",
+      "notes": "Apply saturation 0.6 then RGB brightness multiply 0.35 to all z<50, including HUD, page close, tabs, cards, labels and birds. This is a colour operation, not a translucent grey sheet. Never dim z>=100."
+    },
+    {
+      "id": "panel",
+      "role": "panel",
+      "rect": [
+        110,
+        550,
+        860,
+        620
+      ],
+      "z": 100,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "panel_cream_velvet_orange_roll",
+      "notes": "Exact compose.py footprint; rounded silhouette, transparent corners; bottom edge y1170."
+    },
+    {
+      "id": "cushion",
+      "role": "panel",
+      "rect": [
+        159,
+        600,
+        762,
+        531
+      ],
+      "z": 101,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "panel_cream_inset",
+      "notes": "Measured inset cream field, rounded corners. Baked into panel sprite; not an additional panel to stack."
+    },
+    {
+      "id": "frame",
+      "role": "frame",
+      "rect": [
+        110,
+        550,
+        860,
+        620
+      ],
+      "z": 102,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Baked into panel; hollow border shares panel outer bounds."
+    },
+    {
+      "id": "hintdisc",
+      "role": "disc",
+      "rect": [
+        332,
+        594,
+        410,
+        362
+      ],
+      "z": 104,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "booster_hint_orange_disc_gold",
+      "notes": "Visible bounds after title occlusion. EXACT full sprite placement [332,558,410,398] from review_fix.py: source background_undimmed.png crop [330,1052,489,473], scaled to [820,796] at 2x. Honey-orange velvet centre, golden ring; title overlays top. Do not use this visible clipping box as full sprite size."
+    },
+    {
+      "id": "hintring",
+      "role": "ring",
+      "rect": [
+        332,
+        594,
+        410,
+        362
+      ],
+      "z": 105,
+      "parent": "hintdisc",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Baked golden rim; same visible footprint as hintdisc. Full sprite [332,558,410,398], partly behind ribbon."
+    },
+    {
+      "id": "bulb",
+      "role": "icon",
+      "rect": [
+        421,
+        624,
+        233,
+        258
+      ],
+      "z": 106,
+      "parent": "hintdisc",
+      "text": null,
+      "sprite_hint": "icon_bulb_rays_plush",
+      "notes": "Includes bulb, base and six visible rays; baked into orange disc artwork."
+    },
+    {
+      "id": "price",
+      "role": "pill",
+      "rect": [
+        299,
+        955,
+        474,
+        178
+      ],
+      "z": 107,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": "Measured full puffy cream pill, coin overlapping left interior; entirely inside panel."
+    },
+    {
+      "id": "pricecoin",
+      "role": "icon",
+      "rect": [
+        348,
+        973,
+        154,
+        148
+      ],
+      "z": 108,
+      "parent": "price",
+      "text": null,
+      "sprite_hint": "coin_gold_leaf",
+      "notes": ""
+    },
+    {
+      "id": "pricenum",
+      "role": "caption",
+      "rect": [
+        511,
+        984,
+        194,
+        122
+      ],
+      "z": 109,
+      "parent": "price",
+      "text": "30",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Painted with pill, never recreate as runtime font."
+    },
+    {
+      "id": "ribbon",
+      "role": "ribbon",
+      "rect": [
+        220,
+        475,
+        640,
+        150
+      ],
+      "z": 110,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "ribbon_green_hint",
+      "notes": "Exact compose placement, including both leaf clusters; centre (540,550) on panel top. Foreground over disc."
+    },
+    {
+      "id": "leafl",
+      "role": "decoration",
+      "rect": [
+        232,
+        477,
+        98,
+        105
+      ],
+      "z": 111,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "velvet_leaves_left",
+      "notes": "Two-leaf cluster baked into title sprite; exactly one cluster at this end."
+    },
+    {
+      "id": "leafr",
+      "role": "decoration",
+      "rect": [
+        747,
+        477,
+        105,
+        105
+      ],
+      "z": 111,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "velvet_leaves_right",
+      "notes": "Two-leaf cluster baked into title sprite; exactly one cluster at this end."
+    },
+    {
+      "id": "title",
+      "role": "title",
+      "rect": [
+        393,
+        493,
+        296,
+        91
+      ],
+      "z": 112,
+      "parent": "ribbon",
+      "text": "Hint",
+      "sprite_hint": "painted_label_hint",
+      "notes": "Cream puffy painted letters with dark-green outline; baked into title ribbon."
+    },
+    {
+      "id": "close",
+      "role": "button",
+      "rect": [
+        896,
+        524,
+        100,
+        100
+      ],
+      "z": 113,
+      "parent": "panel",
+      "text": null,
+      "sprite_hint": "btn_orange_close",
+      "notes": "Exact compose placement. Centre (946,574), 24px inside panel top-right. Ribbon-to-disc gap 36px."
+    },
+    {
+      "id": "closeg",
+      "role": "icon",
+      "rect": [
+        917,
+        546,
+        59,
+        59
+      ],
+      "z": 114,
+      "parent": "close",
+      "text": null,
+      "sprite_hint": "glyph_x_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "confirm",
+      "role": "button",
+      "rect": [
+        478,
+        1218,
+        124,
+        124
+      ],
+      "z": 120,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_green_check",
+      "notes": "Exact compose placement. Centre (540,1280). Top y1218 minus panel bottom y1170 =48px CLEAR GAP. Sibling of panel, not clipped by panel. Overlaps dim shop cards only."
+    },
+    {
+      "id": "confirmg",
+      "role": "icon",
+      "rect": [
+        493,
+        1246,
+        92,
+        77
+      ],
+      "z": 121,
+      "parent": "confirm",
+      "text": null,
+      "sprite_hint": "glyph_check_cream_green",
+      "notes": ""
+    }
+  ]
+}

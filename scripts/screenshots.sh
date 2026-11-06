@@ -1,29 +1,28 @@
 #!/usr/bin/env bash
-set -euo pipefail
-repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-unity_editor="${UNITY_EDITOR:-/Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity}"
-mkdir -p "$repo_root/build/screens/game"
-# Stable-state capture only; animated acceptance requires a separate timed GUI run.
-if ! "$unity_editor" -batchmode -projectPath "$repo_root/PerchSort" \
-    -executeMethod PerchSort.Editor.GameCapture.Run -screen-width 1080 -screen-height 1920 \
-    -logFile "$repo_root/build/screenshots.log"; then
-    tail -n 80 "$repo_root/build/screenshots.log"
-    exit 1
-fi
-python3 - "$repo_root/build/screens/game" <<'CHECK'
-import pathlib, struct, sys
-folder = pathlib.Path(sys.argv[1])
-names = ['map', 'map_test_mode', 'shop_placeholder', 'aviary_placeholder', 'level_card',
-         'level1_start', 'level1_after_move1', 'level1_win', 'win', 'level_k3', 'settings',
-         'goal_info', 'unlock_card', 'popup_new_friend', 'popup_daily_gift',
-         'popup_world_complete', 'popup_world_unlock', 'level_k7']
-names += [f'map_gate_w{world}' for world in range(2, 5)]
-names += [f'map_w{world}' for world in range(2, 5)]
-names += [f'world_w{world}' for world in range(1, 5)]
-names += ['mech_' + name for name in ('eggs', 'sleep', 'crow_twig', 'swivel', 'growing', 'night')]
-for name in names:
-    path = folder / (name + '.png')
-    data = path.read_bytes()
-    assert data[:8] == b'\x89PNG\r\n\x1a\n' and struct.unpack('>II', data[16:24]) == (1080, 1920), path
-    print(path)
-CHECK
+# Silent captures of every screen state into build/screens/: scripts/screenshots.sh [filter]
+set -uo pipefail
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+out="$root/build/screens"
+mkdir -p "$out"
+states=(
+  board:level_1 board:level_12 board:level_25 board:level_35
+  popups:win_three_stars popups:win_two_stars popups:win_one_star popups:win_zero_reward
+  popups:settings_sound_on popups:settings_muted popups:level_card_first_visit popups:level_card_full_roster
+  popups:goal_info_berry popups:goal_info_hoot popups:daily_gift popups:new_friend_berry
+  popups:unlock_owl_eye popups:unlock_sapling popups:world_complete_1 popups:world_unlock_2 popups:world_unlock_4
+  map_view:forest_trail map_view:first_level map_view:autumn_world map_view:all_cleared map_view:gate_locked
+  shop_view:boosters shop_view:outfits shop_view:houses shop_view:confirm_booster shop_view:confirm_outfit
+  shop_view:locked_tools shop_view:insufficient
+  aviary_view:list aviary_view:list_some_unmet aviary_view:list_scrolled
+  aviary_view:detail_berry aviary_view:detail_crow aviary_view:detail_hoot
+)
+failed=0
+for s in "${states[@]}"; do
+  [[ -n "${1:-}" && "$s" != *"$1"* ]] && continue
+  file="$out/${s/:/__}.png"
+  if [[ "$s" == board:level_* ]]; then arg="--level=${s#board:level_}"; else arg="--preview=$s"; fi
+  errors="$(bash "$root/scripts/capture.sh" "$file" "$arg" 2>&1)" || failed=1
+  [[ -n "$errors" ]] && { echo "$s:"; echo "$errors"; failed=1; }
+done
+echo "captures in $out (failed=$failed)"
+exit $failed

@@ -1,8 +1,7 @@
 """Reject numbered game identities in tracked paths and authored source names.
 
 Run directly for the repository check, or with --self-test for isolated fixtures.
-Serialized Unity object/type names are checked without scanning saved values.
-Historical prose, dependency files and existing storage literals are not game identities.
+Prose, records and generated data are history, not names; only source files are read.
 """
 
 from pathlib import Path, PurePosixPath
@@ -11,89 +10,31 @@ import subprocess
 import sys
 
 
-ASSETS = "PerchSort/Assets/"
-# Recognize standalone labels and embedded PascalCase suffixes, not words such as
-# 'preview', SHA hashes, world IDs, level IDs or third-party module names.
+# Standalone labels and embedded PascalCase suffixes, not words such as 'preview',
+# hashes, world IDs, level IDs or third-party module names.
 NUMBERED = re.compile(r"(?<![a-z0-9])(?i:v|ui|final)[0-9]+|(?:V|UI|Ui|Final)[0-9]+|(?<![A-Z])T[0-9]+[A-Za-z]?")
 NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+|T[0-9]+[A-Za-z]?", re.IGNORECASE)
-QUOTED = re.compile(r'''(["'`])((?:\\.|(?!\1)[^\\\r\n])*)\1''')
-INLINE_CODE = re.compile(r"`+([^`\r\n]+)`+")
-LINK_TARGET = re.compile(r"\]\(([^\s)]+)(?:\s+[^)]*)?\)")
-TEXT_SUFFIXES = {
-    ".cs", ".asmdef", ".asmref", ".unity", ".prefab", ".asset", ".scenetemplate",
-    ".inputactions", ".json", ".yaml", ".yml", ".meta", ".txt", ".xml", ".uxml",
-    ".uss", ".shader", ".cginc", ".hlsl", ".py", ".sh", ".md", ".csproj",
-    ".props", ".targets", ".toml", ".ini", ".cfg", ".gitignore",
-}
-TEXT_SUFFIXES.update({".js", ".jsx", ".ts", ".tsx", ".html", ".css", ".svg",
-                      ".c", ".cpp", ".h", ".hpp", ".m", ".mm", ".lua", ".ps1"})
-# Exact persisted literals remain owner-scoped in code. Documentation may quote
-# these exact literals, but never a wildcard that licenses new keys.
-STORAGE_LITERALS = {
-    ASSETS + "Scripts/Game/ProgressStore.cs": {
-        "v5.coins", "v5.muted", "v5.highestUnlocked", "v7.notifications",
-        "v5.bestStars.", "v5.tutorial.", "v5.booster.", "v5.starter.",
-        "v5.bestMoves.", "v6.unlockSeen.",
-    },
-    ASSETS + "Scripts/Meta/ProfileMigrator.cs": {
-        "v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.",
-        "v5.tutorial.", "v5.booster.", "v5.starter.",
-    },
-    ASSETS + "Tests/Meta/CollectionProgressionTests.cs": {
-        "v5.highestUnlocked", "v5.starter.0", "v5.booster.0",
-    },
-    ASSETS + "Tests/Meta/ProfileEconomyTests.cs": {
-        "v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.1",
-        "v5.bestStars.10", "v5.bestStars.9", "v5.bestStars.", "v5.tutorial.7",
-        "v5.booster.0", "v5.booster.1", "v5.booster.5", "v5.starter.0",
-        "v5.songNotes", "v5.songPayouts",
-    },
-    # Historical schema examples are persisted campaign IDs, not game identities.
-    "docs/spec/DATA_SAVE.md": {"bird-home-peer-v4", "perch-sort-v2", "bird-home-v3"},
-    "docs/spec/VALIDATION.md": {"bird-home-peer-v4", "perch-sort-v2", "bird-home-v3"},
-}
-DOCUMENTED_STORAGE = set().union(*STORAGE_LITERALS.values())
+SOURCE_SUFFIXES = {".gd", ".tscn", ".tres", ".godot", ".cfg", ".py", ".sh", ".yml", ".yaml"}
+# Data roots whose JSON is authored game content.
+JSON_ROOTS = ("PerchSort/levels/", "PerchSort/layout/", "ci/")
+LOCK_NAMES = {"package-lock.json", "yarn.lock", "pnpm-lock.yaml", "poetry.lock", "uv.lock"}
 
 
 def git(root, *args):
     return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.PIPE)
 
 
-# Names are checked everywhere (every tracked path). Contents are checked only in
-# source files; prose, records, evidence and generated data are history, not names.
-SOURCE_SUFFIXES = {".cs", ".asmdef", ".asmref", ".py", ".sh", ".yml", ".yaml",
-                   ".csproj", ".props", ".targets", ".uxml", ".uss", ".shader"}
-SERIALIZED_SUFFIXES = {".unity", ".prefab", ".asset", ".scenetemplate"}
-SERIALIZED_NAME = re.compile(r"\s*(?:m_Name|m_EditorClassIdentifier):\s*")
-
-
 def is_source(path):
     suffix = PurePosixPath(path).suffix.lower()
-    if suffix in SERIALIZED_SUFFIXES:
-        return path.startswith(ASSETS)
-    if suffix in SOURCE_SUFFIXES:
-        return True
     if suffix == ".json":
-        return path.startswith(("PerchSort/Assets/Resources/", "ci/"))
-    return False
+        return path.startswith(JSON_ROOTS)
+    return suffix in SOURCE_SUFFIXES
 
 
 def exempt(path):
     parts = PurePosixPath(path).parts
     name = PurePosixPath(path).name
-    if ".git" in parts:
-        return True
-    # Unity package manifests and package-managed sources belong to dependencies.
-    if path.startswith(("PerchSort/Packages/", "PerchSort/ProjectSettings/Packages/")) or any(
-            part in {"node_modules", "PackageCache"} for part in parts):
-        return True
-    if path.startswith("PerchSort/Assets/Fonts/TextMesh Pro/"):
-        return True
-    if (name in {"package-lock.json", "yarn.lock", "pnpm-lock.yaml", "Cargo.lock",
-                 "packages-lock.json", "poetry.lock", "uv.lock", "Pipfile.lock"}
-            or name.endswith(".lock")):
-        return True
-    return False
+    return ".git" in parts or ".godot" in parts or "node_modules" in parts or name in LOCK_NAMES or name.endswith(".lock")
 
 
 def path_violations(path):
@@ -104,63 +45,20 @@ def path_violations(path):
             yield f"{path}:1: numbered game path component {part!r}; use a canonical name"
 
 
-def identifier_lines(path, text):
-    if PurePosixPath(path).suffix.lower() in SERIALIZED_SUFFIXES:
-        # Unity documents also contain serialized values, package metadata and
-        # historical user data. Inspect authored object/type identities only.
-        for number, line in enumerate(text.splitlines(), 1):
-            if SERIALIZED_NAME.match(line):
-                yield number, line
-        return
-    if PurePosixPath(path).suffix.lower() != ".md":
-        yield from enumerate(text.splitlines(), 1)
-        return
-    fence = None
-    for number, line in enumerate(text.splitlines(), 1):
-        marker = re.match(r"\s*(`{3,}|~{3,})", line)
-        if marker:
-            if fence is None:
-                fence = marker.group(1)[0]
-            elif marker.group(1)[0] == fence:
-                fence = None
-            continue
-        if fence:
-            yield number, line
-        else:
-            # Keep columns stable for diagnostics and ignore natural-language
-            # references to historical revisions rather than rewriting evidence.
-            checked = [" "] * len(line)
-            for pattern in (INLINE_CODE, LINK_TARGET):
-                for match in pattern.finditer(line):
-                    checked[match.start():match.end()] = line[match.start():match.end()]
-            yield number, "".join(checked)
+def _blank(match):
+    return " " * len(match.group())
 
 
 def content_violations(path, text):
     # The guard's own self-test must contain deliberately bad example names.
     if exempt(path) or path == "ci/test_current_game_names.py":
         return
-    allowed = STORAGE_LITERALS.get(path, set())
-    if PurePosixPath(path).suffix.lower() == ".md" or path == "ci/check_current_game_names.py":
-        allowed = allowed | DOCUMENTED_STORAGE
-    for number, line in identifier_lines(path, text):
-        def mask_literal(match):
-            return " " * len(match.group()) if match.group(2) in allowed else match.group()
-
-        checked = QUOTED.sub(mask_literal, line)
-        # Unity shader IO uses a conventional vertex-to-fragment type.
-        # This exact technical identifier is not a second game implementation.
-        if PurePosixPath(path).suffix.lower() in {".shader", ".cginc", ".hlsl"}:
-            checked = re.sub(r"\bv2f\b", "   ", checked)
-        # ISO date-time separators are not task identifiers.
-        checked = re.sub(r"(?<=\d{4}-\d{2}-\d{2})T(?=\d{2}:)", " ", checked)
-        # A workflow's pinned action ref is third-party package metadata, not an
-        # authored game identity. Do not exempt the rest of the workflow file.
-        checked = re.sub(r"(?<=uses: )[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+@[^\s]+",
-                         lambda match: " " * len(match.group()), checked)
-        checked = re.sub(r"https?://[^\s\"'<>]+", lambda match: " " * len(match.group()), checked)
-        checked = re.sub(r"(?<=gh release download )v[0-9.]+(?= .*--repo [A-Za-z0-9_.-]+/)",
-                         lambda match: " " * len(match.group()), checked)
+    for number, line in enumerate(text.splitlines(), 1):
+        checked = re.sub(r"(?<=\d{4}-\d{2}-\d{2})T(?=\d{2}:)", " ", line)  # ISO date-times
+        checked = re.sub(r"(?<=uses: )[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+@[^\s]+", _blank, checked)  # pinned actions
+        checked = re.sub(r"https?://[^\s\"'<>]+", _blank, checked)
+        checked = re.sub(r"(?<=gh release download )v[0-9.]+(?= .*--repo [A-Za-z0-9_.-]+/)", _blank, checked)
+        checked = re.sub(r'uid://[a-z0-9]+', _blank, checked)  # Godot resource ids
         for match in NUMBERED.finditer(checked):
             yield (f"{path}:{number}:{match.start() + 1}: numbered authored identifier "
                    f"{match.group()!r}; use the canonical game name")
@@ -169,10 +67,9 @@ def content_violations(path, text):
 def check(root):
     errors = []
     inspected = 0
-    # Index blob IDs also cover sparse-checkout files. Present working files
-    # are read instead so unstaged authored changes cannot evade the check.
-    entries = git(root, "ls-files", "--stage", "-z")
-    for entry in entries.split(b"\0"):
+    # Index blob IDs also cover sparse-checkout files; present working files are
+    # read instead so unstaged authored changes cannot evade the check.
+    for entry in git(root, "ls-files", "--stage", "-z").split(b"\0"):
         if not entry:
             continue
         metadata, raw_path = entry.split(b"\t", 1)
@@ -182,10 +79,7 @@ def check(root):
             errors.append(f"{path}:1: unresolved Git index conflict")
             continue
         errors.extend(path_violations(path))
-        suffix = PurePosixPath(path).suffix.lower()
-        if exempt(path) or (suffix not in TEXT_SUFFIXES and not path.endswith(".gitignore")):
-            continue
-        if not is_source(path):
+        if exempt(path) or not is_source(path):
             continue
         if mode not in {"100644", "100755"}:
             errors.append(f"{path}:1: authored text must be a regular tracked file")
@@ -201,7 +95,7 @@ def check(root):
         errors.extend(content_violations(path, text))
     for error in errors:
         print(error, file=sys.stderr)
-    print(f"Current game naming: {inspected} tracked text files inspected; {len(errors)} violation(s).")
+    print(f"Current game naming: {inspected} tracked source files inspected; {len(errors)} violation(s).")
     return 1 if errors else 0
 
 

@@ -1,38 +1,27 @@
 # Perch Sort · 小鸟归巢
 
-One current Unity **6000.6.7f1** portrait bird-sorting game: **40 fixed authored levels**, four sequential forest worlds. Current gameplay/art/animation is the accepted **T49/T50 implementation**, with T52 consolidating names and entry points without redesigning it.
+A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **40 fixed authored levels** across four sequential forest worlds (Green, Bamboo, Autumn, Snow), in a soft plush art style.
 
 ## Open the game
 
-Open the `PerchSort` Unity project and **`Assets/Scenes/Game.unity`**, the sole enabled build scene. `PerchSort.Game.GameRoot` creates the current map and gameplay UI. Develop on the Mac in isolated task workspaces; do not edit the user's primary checkout from a worker.
+Open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`). From a shell: `godot --path PerchSort`. Start at a level directly with `godot --path PerchSort -- --level=12`.
 
 | Need | Entry |
 | --- | --- |
 | Project conventions | [CONVENTIONS](docs/CONVENTIONS.md) |
-| AI instructions and coordination | [AGENTS](AGENTS.md) · [team charter](docs/team/TEAM.md) |
+| AI instructions | [AGENTS](AGENTS.md) (identical to CLAUDE.md) |
 | Current behavior, source and evidence | [CURRENT_GAME](docs/CURRENT_GAME.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
+| Framework contract | [Godot port contract](docs/work-log/godot-port/spec.md) |
 | Documentation status / historical research | [docs router](docs/README.md) |
-| Current integration handoff | [Codex handoff](docs/team/HANDOFF_2026-11-04_CODEX.md) |
 
-Current code lives in `PerchSort/Assets/Scripts/{Core,Meta,Game}`, shared audio in `Scripts/Audio`. Resources load from `Art/`, `Birds/`, `World/`, `Levels/levels` and `dev_options`. Retired implementation and superseded art trees have been removed; Git preserves their history. Approved visual references live in `art/approved_ui` with unchanged image bytes.
+Rules and solver live in `PerchSort/core`, profile and progression in `PerchSort/meta`, screens and animation in `PerchSort/game`. Assets load by bare name from `PerchSort/{art,birds,world}`; levels come from `PerchSort/levels/levels.json`. Mockups (style direction) live in `art/approved_ui`; captures of user-approved screens in `art/approved_runtime` are the visual acceptance baseline. The former Unity project lives only in Git history.
 
 ## Validation and tooling
 
-Workers run full Mac compilation, EditMode/PlayMode suites and applicable screenshots in their assigned worktrees, serialized with `flock /tmp/unity.lock`. Integration acceptance is also required. Never run competing Unity processes or kill the user's Editor.
-
-For each serialized Mac run:
-
 ```bash
-flock /tmp/unity.lock bash scripts/run_tests.sh
-flock /tmp/unity.lock bash scripts/screenshots.sh
+bash scripts/run_tests.sh       # naming guard, smoke test, 40-level core test (~5 min)
+bash scripts/screenshots.sh     # silent captures of every screen state into build/screens/
+bash scripts/capture.sh /tmp/a.png --preview=popups:win_three_stars   # one state
 ```
 
-The first command uses only `PerchSort.Editor.GameSceneBuilder.Build` and the retained suites; source-derived coverage safeguards are 304 EditMode (237 game + 53 Meta + 14 shared Audio) and 21 PlayMode, without skips. The second uses `PerchSort.Editor.GameCapture.Run` and writes stable 1080×1920 captures to `build/screens/game/`. Captures use instant motion, not timed-animation proof. `PhoneGameView`, `ReleaseSettings` and the shared Audio importer remain available. `GameArtImporter` separately handles full-resolution current art, seven authored overlays, and six compressed fallback sprites.
-
-Automatic PR CI still runs current configuration/script/workflow checks and retained pure-Core fixtures through the existing `ci/CoreTests.csproj`. It never targets retired archives. Full Unity and GUI acceptance remain Mac-only. Animation/audio claims require timed frame sequences and logs, not instant-capture stills.
-
-## Compatibility and history
-
-The exact persistence strings listed in CURRENT_GAME remain unchanged to preserve progress; these are compatibility IDs, not runnable versions. Current development flags remain enabled in `Assets/Resources/dev_options.json`; release hardening is a separate authorized change.
-
-Old v2 implementation records and the v4 rules/schema/save proposals are **historical**, not the current runtime. The canonical design evidence is routed through [CURRENT_GAME](docs/CURRENT_GAME.md). Research/replay/task reports retain their original evidence and limitations; none establishes new Unity or visual acceptance.
+Captures run under xvfb and use instant motion unless `--motion --wait=S` is given; stills are not animation proof. Timed frame sequences: `godot --path PerchSort -- --frames=/tmp/frames --wait=5 --level=3`. CI runs the naming guard, syntax checks and `scripts/run_tests.sh` on headless Godot.

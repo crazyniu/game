@@ -1,0 +1,289 @@
+extends Control
+## Root: owns the profile, switches screens and hosts popups.
+## Capture: godot --path PerchSort -- --capture=<file.png> [--level=N | --preview=<script>:<state>] [--wait=S] [--motion]
+## Tests: -- --smoke (tests/smoke.gd), -- --autoplay --level=N, -- --frames=<dir> --wait=S
+
+var profile: Profile
+var screen: Control
+var popups: Control
+var args := {}
+
+
+func _ready() -> void:
+	size = Vector2(1080, 1920)
+	for a in OS.get_cmdline_user_args():
+		var kv := a.trim_prefix("--").split("=", true, 1)
+		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
+	profile = Profile.new() if sandboxed() else Profile.load_saved()
+	if args.has("profile"):
+		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
+	Sound.set_muted(profile.muted or sandboxed())
+	popups = Control.new()
+	popups.name = "Popups"
+	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	popups.size = size
+	add_child(popups)
+	if args.has("smoke"):
+		load("res://tests/smoke.gd").run(self)
+		return
+	if args.has("preview"):
+		# --preview=<script basename>:<state>; the script's static preview(main, state) builds it with fake data.
+		var parts: PackedStringArray = args["preview"].split(":", true, 1)
+		var script: GDScript = load("res://game/%s.gd" % parts[0])
+		script.call("preview", self, parts[1] if parts.size() > 1 else "")
+	elif args.has("level"):
+		open_board(int(args["level"]), not args.has("capture"))
+	else:
+		open_map()
+		_offer_daily_gift()
+	if args.has("autoplay"):
+		_autoplay()
+	if args.has("frames"):
+		_frames()
+	elif args.has("capture"):
+		_capture()
+
+func _capture() -> void:
+	await get_tree().create_timer(float(args.get("wait", "0.5"))).timeout
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png(args["capture"])
+	get_tree().quit()
+
+func set_screen(node: Control) -> void:
+	if screen:
+		screen.queue_free()
+	screen = node
+	add_child(node)
+	move_child(node, 0)
+
+## Screen scripts are loaded on demand so each can be built and previewed independently.
+var Popups: GDScript:
+	get: return load("res://game/popups.gd")
+var MapScreen: GDScript:
+	get: return load("res://game/map_view.gd")
+var ShopScreen: GDScript:
+	get: return load("res://game/shop_view.gd")
+var AviaryScreen: GDScript:
+	get: return load("res://game/aviary_view.gd")
+
+var _overlay: Control   # shop or aviary opened above the board
+
+func instant() -> bool:
+	return args.has("capture") and not args.has("motion")
+
+func open_map() -> void:
+	var map: Control = MapScreen.new()
+	set_screen(map)
+	map.setup(profile)
+	map.level_tapped.connect(show_level_card)
+	map.shop_requested.connect(func(): open_shop(0))
+	map.aviary_requested.connect(open_aviary)
+	map.settings_requested.connect(func(): show_settings(false))
+	Sound.music("bgm_menu")
+
+func _offer_daily_gift() -> void:
+	if Progress.today() <= profile.last_daily_gift:
+		return
+	Popups.daily_gift(popups, 50, func():
+		Progress.claim_daily_gift(profile, Progress.today())
+		Sound.play("collect")
+		save()
+		_refresh_screen())
+
+func _refresh_screen() -> void:
+	if screen and screen.has_method("setup") and not screen is BoardView:
+		screen.setup(profile)
+	elif screen is BoardView:
+		screen.refresh_hud()
+
+static func mechanics_of(level_def: Dictionary) -> Array[String]:
+	var found: Array[String] = []
+	var add := func(m: String): if not found.has(m): found.append(m)
+	for b in level_def["branches"]:
+		match str(b.get("kind", "")):
+			"twig": add.call("twig")
+			"growing": add.call("growing")
+			"swivel": add.call("swivel")
+		for token in b["birds"]:
+			var t := str(token)
+			if t.begins_with("egg:"): add.call("egg")
+			if t.ends_with(":sleep"): add.call("sleep")
+			if t == "crow": add.call("crow")
+	if int(level_def.get("dayLength", 0)) > 0:
+		add.call("daynight")
+	return found
+
+func show_level_card(level_id: int) -> void:
+	var def := Levels.get_level(level_id)
+	var board := Levels.create_board(def)
+	var species: Array[String] = []
+	species.assign(Array(Levels.species_ids(board)))
+	Popups.level_card(popups, level_id, profile.best_stars(level_id), profile.best_moves[level_id], int(def["par"]), species,
+		mechanics_of(def), func(): _start_level(level_id), Progress.is_level_unlocked(profile, level_id))
+
+func _start_level(level_id: int) -> void:
+	_clear_popups()
+	open_board(level_id, not instant())
+
+func _clear_popups() -> void:
+	for child in popups.get_children():
+		child.queue_free()
+
+func open_board(level_id: int, entrance := true) -> void:
+	_close_overlay()
+	var board := BoardView.new()
+	board.instant = instant()
+	set_screen(board)
+	var def := Levels.get_level(level_id)
+	board.start(def, profile, entrance)
+	board.profile_changed.connect(save)
+	board.settings_requested.connect(func(): show_settings(true))
+	board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
+	board.buy_requested.connect(func(kind): open_shop(0, true))
+	board.won.connect(_on_won.bind(level_id))
+	Sound.music("bgm_game")
+	# First meetings and booster unlocks are shown after the entrance.
+	var met := Aviary.on_level_started(profile, Levels.species_ids(board.session.state, true))
+	var queue: Array[Callable] = []
+	for sp in met:
+		queue.append(func(done: Callable): Popups.new_friend(popups, sp, Aviary.NEW_SPECIES_COINS, done))
+	for info in Progress.BOOSTERS:
+		var flag := "unlock.%s" % info[1]
+		if info[2] == level_id and not profile.has_tutorial(flag):
+			profile.set_tutorial(flag)
+			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
+	save()
+	if not queue.is_empty():
+		if entrance:
+			await get_tree().create_timer(BoardView.ENTRANCE_SECONDS + 0.2).timeout
+		_run_queue(queue)
+
+## Shows popups one after another; each receives a `done` callable.
+func _run_queue(queue: Array[Callable], then := Callable()) -> void:
+	if queue.is_empty():
+		if then.is_valid():
+			then.call()
+		return
+	var next: Callable = queue.pop_front()
+	next.call(func(): _run_queue(queue, then))
+
+func _on_won(result: Dictionary, level_id: int) -> void:
+	var session: GameSession = result["session"]
+	var world := Progress.world_of_level(level_id)
+	var was_complete := profile.rewarded_worlds.has(world)
+	for sp in session.state.homed:
+		Aviary.add_flock_home(profile, Board.SPECIES[sp])
+	var payout := Progress.on_win(profile, level_id, session.move_count(), session.par, session.state.chorus_coins)
+	profile.record_moves(level_id, session.move_count())
+	profile.inventory = session.state.inventory.duplicate()
+	save()
+	var next_level := level_id + 1
+	var has_next := next_level <= 40 and Progress.is_level_unlocked(profile, next_level)
+	var after_win: Array[Callable] = []
+	if not was_complete and payout["world"] > 0:
+		after_win.append(func(done: Callable): Popups.world_complete(popups, world, payout["world"], done))
+		if world < 4:
+			after_win.append(func(done: Callable): Popups.world_unlock(popups, world + 1, done))
+	Popups.win(popups, payout["stars"], session.move_count(), session.par, payout["total"] - payout["world"],
+		func(): _run_queue(after_win, func(): open_board(level_id)),
+		func(): _run_queue(after_win, func(): open_board(next_level) if has_next else open_map()),
+		func(): _run_queue(after_win, open_map), has_next)
+
+func show_settings(on_board: bool) -> void:
+	Popups.settings(popups, profile.muted,
+		func():
+			profile.muted = not profile.muted
+			Sound.set_muted(profile.muted)
+			save(),
+		func():
+			_clear_popups()
+			if screen is BoardView:
+				var board: BoardView = screen
+				board.session.restart()
+				board.start(board.level, profile, false),
+		func():
+			_clear_popups()
+			open_map(),
+		on_board)
+
+func open_shop(tab := 0, over_board := false) -> void:
+	var shop: Control = ShopScreen.new()
+	shop.setup(profile, tab)
+	shop.profile_changed.connect(func():
+		save()
+		if screen is BoardView:
+			var board: BoardView = screen
+			for kind in Board.BOOSTER_COUNT:
+				var gained := profile.inventory[kind] - board.session.state.inventory[kind]
+				if gained > 0:
+					board.granted(kind, gained)
+		_refresh_screen())
+	shop.closed.connect(_close_overlay)
+	_show_overlay(shop)
+
+func open_aviary() -> void:
+	var aviary: Control = AviaryScreen.new()
+	aviary.setup(profile)
+	aviary.profile_changed.connect(save)
+	aviary.closed.connect(_close_overlay)
+	_show_overlay(aviary)
+
+func _show_overlay(node: Control) -> void:
+	_close_overlay()
+	_overlay = node
+	add_child(node)
+	move_child(node, get_child_count() - 2)  # below the popup layer
+	Sound.music("bgm_menu")
+
+func _close_overlay() -> void:
+	if _overlay and is_instance_valid(_overlay):
+		_overlay.queue_free()
+	_overlay = null
+	if screen is BoardView:
+		Sound.music("bgm_game")
+		screen.refresh_hud()
+	elif screen:
+		_refresh_screen()
+
+## Captures and tests use a fresh, silent profile that is never written.
+func sandboxed() -> bool:
+	return args.has("capture") or args.has("smoke")
+
+func save() -> void:
+	if not sandboxed():
+		profile.save()
+
+## Test driver: taps the solver's solution through the real board, logging timings and the result.
+func _autoplay() -> void:
+	var board := screen as BoardView
+	var t0 := Time.get_ticks_msec()
+	while board.busy:
+		await get_tree().process_frame
+	print("AUTOPLAY entrance_ms=%d" % (Time.get_ticks_msec() - t0))
+	var plan: Dictionary = Solver.solve(board.session.state, [], 400000, 60000)
+	for move in plan["moves"]:
+		if move[1] < 0:
+			board.tap_branch(move[0])
+			if board.session.selected >= 0:
+				board.tap_branch(move[0])
+		else:
+			board.tap_branch(move[0])
+			board.tap_branch(move[1])
+		await get_tree().process_frame
+		while board.busy and not board.session.state.is_won():
+			await get_tree().process_frame
+	print("AUTOPLAY won=%s moves=%d par=%d total_ms=%d" % [board.session.state.is_won(), board.session.move_count(), board.session.par, Time.get_ticks_msec() - t0])
+	await get_tree().create_timer(1.0).timeout
+	get_tree().quit()
+
+## Timed evidence: saves a frame every --step seconds (default 0.25) for --frames=<dir> over --wait seconds.
+func _frames() -> void:
+	var dir: String = args["frames"]
+	DirAccess.make_dir_recursive_absolute(dir)
+	var step := float(args.get("step", "0.25"))
+	var count := int(float(args.get("wait", "5")) / step)
+	for i in count:
+		await RenderingServer.frame_post_draw
+		get_viewport().get_texture().get_image().save_png("%s/f%03d.png" % [dir, i])
+		await get_tree().create_timer(step).timeout
+	get_tree().quit()
