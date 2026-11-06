@@ -8,20 +8,23 @@ namespace PerchSort.Game
 {
     public sealed class MapView : MonoBehaviour
     {
-        private const float NodeSize = 220, CurrentNodeSize = 240, LockedNodeSize = 200;
-        private const float NumberSize = 100, StarSize = 48, StarPitch = 50;
+        private const float NodeSize = 240;
+        private const float NumberSize = 64, StarSize = 54, StarPitch = 56;
         private const float ChickSize = 310, ChickLift = 230;
+        private static readonly Rect CoinPill = new Rect(40, 82, 240, 96);
+        private static readonly Rect NavigationBar = new Rect(60, 1740, 960, 150);
+        private static readonly Vector2 TitlePoint = new Vector2(540, 130);
+        private const float TitleHeight = 90, NavigationSize = 108;
         private static readonly Vector2 GateSize = new Vector2(320, 600f * 320 / 560);
         private const float TopPadding = 400, HudMargin = 32, BarMargin = 40, EdgeFade = 48;
         private static readonly Rect ViewportBounds = ViewportArea();
         private GameRoot root;
         private GameArt art;
-        private TMP_FontAsset font;
         private RectTransform content, scenery;
-        private TextMeshProUGUI coins;
+        private PaintedNumber coins;
+        private readonly Button[] navigation = new Button[3];
         private ScrollRect scroll;
         private GameMotion focus, gateMotion, rewards;
-        private MapMotion nodeMotion;
         private System.Action gateDone, rewardDone;
         private int generation, gateRevision, rewardRevision, openingWorld, rewardTarget;
         private bool scrollWasEnabled;
@@ -50,9 +53,8 @@ namespace PerchSort.Game
         }
         public void Configure(GameRoot owner, GameArt assets, TMP_FontAsset typeface)
         {
-            root = owner; art = assets; font = typeface;
+            root = owner; art = assets;
             focus = gameObject.AddComponent<GameMotion>(); gateMotion = gameObject.AddComponent<GameMotion>();
-            nodeMotion = gameObject.AddComponent<MapMotion>(); nodeMotion.Configure();
             var backdrop = GameUI.Rect(transform, "Map scenery", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             backdrop.gameObject.AddComponent<RectMask2D>();
             scenery = GameUI.Rect(backdrop, "Scrolling forest", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
@@ -69,26 +71,42 @@ namespace PerchSort.Game
             content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 0); scroll.content = content;
             scroll.onValueChanged.AddListener(_ => ClampOffset());
             LoadStones();
-            coins = HudView.CoinHeader(transform, art, font, true);
-            GameUI.Button(transform, art, "Map settings", "icon_gear", GameLayout.Screen("map", "gear"), root.OpenSettings);
-            MapButton("Shop", "icon_basket", GameLayout.Screen("map", "shop"), () => root.OpenPopup(PopupKind.ShopPlaceholder));
-            MapButton("Aviary", "icon_aviary", GameLayout.Screen("map", "aviary"), () => root.OpenPopup(PopupKind.AviaryPlaceholder));
-            MapButton("Settings", "icon_gear", GameLayout.Screen("map", "settings"), root.OpenSettings);
+            BuildHeader();
+            GameUI.Surface(transform, "Padded navigation bar", art, "panel_wood", NavigationBar);
+            navigation[0] = MapButton("Shop", "icon_basket", 300, () => root.OpenPopup(PopupKind.ShopPlaceholder));
+            navigation[1] = MapButton("Aviary", "icon_aviary", 540, () => root.OpenPopup(PopupKind.AviaryPlaceholder));
+            navigation[2] = MapButton("Settings", "icon_gear", 780, root.OpenSettings);
             rewards = gameObject.AddComponent<GameMotion>();
             effects = GameUI.Rect(transform, "Map reward coins", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             gameObject.SetActive(false);
         }
-        private void MapButton(string name, string icon, Rect bounds, System.Action action)
+        private void BuildHeader()
         {
-            GameUI.Button(transform, art, name, icon, bounds, action);
+            GameUI.Fit(transform, "Coin pill", art.Get("coin_pill"), CoinPill.center, CoinPill.size);
+            coins = PaintedNumber.Create(transform, "Coins", GlyphSet.Brown, 30, TextAnchor.MiddleCenter);
+            coins.Rect.anchoredPosition = new Vector2(CoinPill.x + 164, -CoinPill.center.y);
+            coins.Rect.sizeDelta = new Vector2(132, 64);
+            PaintedLabels.Create(transform, "World title", "label_title_forest_trail", TitlePoint, TitleHeight);
         }
+        private Button MapButton(string name, string icon, float x, System.Action action)
+        {
+            return GameUI.Button(transform, art, name, icon,
+                GameLayout.Centered(new Vector2(x, NavigationBar.center.y), Vector2.one * NavigationSize), action);
+        }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public void SetNavigationEnabled(bool value)
+        {
+            foreach (var button in navigation) button.interactable = value;
+        }
+#endif
         public void Show(GameProfile profile)
         {
             CancelMotions(false); gameObject.SetActive(true); nodes.Clear(); gates.Clear(); gateStates.Clear();
             for (int i = effects.childCount - 1; i >= 0; i--) GameUI.Dispose(effects.GetChild(i).gameObject);
             for (int i = content.childCount - 1; i >= 0; i--) GameUI.Dispose(content.GetChild(i).gameObject);
             for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
-            coins.text = profile.DisplayCoins.ToString();
+            coins.SetValue(profile.DisplayCoins);
+            foreach (var button in navigation) button.interactable = true;
             FocusLevel = MapModel.CurrentLevel(profile);
             // The outer strips retain transparent end bands, so keep their scenery continuations.
             GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_continuous_w4"),
@@ -103,7 +121,7 @@ namespace PerchSort.Game
             GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_continuous_w1"),
                 new Vector2(540, GameLayout.MapHeight + TopPadding - GameLayout.MapOverlap + GameLayout.MapSegmentHeight / 2),
                 new Vector2(1080, GameLayout.MapSegmentHeight));
-            BuildStones(profile);
+            BuildStones();
             for (int world = 2; world <= 4; world++)
             {
                 Vector2 gate = MapModel.GatePosition(world) + Vector2.up * TopPadding;
@@ -129,7 +147,7 @@ namespace PerchSort.Game
                 stones[i] = Sprite.Create(sheet.texture, cell, Vector2.one * 0.5f, sheet.pixelsPerUnit);
             }
         }
-        private void BuildStones(GameProfile profile)
+        private void BuildStones()
         {
             if (stones == null) return;
             for (int id = 1; id < 40; id++)
@@ -137,7 +155,7 @@ namespace PerchSort.Game
                 var random = new System.Random(id);
                 Vector2 start = MapModel.Position(id), end = MapModel.Position(id + 1);
                 float dx = Mathf.Abs(end.x - start.x), dy = Mathf.Abs(end.y - start.y);
-                float startRadius = NodeDiameter(profile, id) / 2, endRadius = NodeDiameter(profile, id + 1) / 2;
+                float startRadius = NodeSize / 2, endRadius = NodeSize / 2;
                 float lift = id == FocusLevel ? GameLayout.MapBounceHeight : 0;
                 Rect startBounds = GameLayout.Centered(start, Vector2.one * startRadius * 2);
                 startBounds.yMin -= lift;
@@ -171,36 +189,38 @@ namespace PerchSort.Game
                     new Vector2(right ? 1080 : 0, bottom - size.y / 2), size);
             }
         }
-        private float NodeDiameter(GameProfile profile, int id) => id == FocusLevel ?
-            CurrentNodeSize : MapModel.State(profile, id) == LevelNodeState.Locked ? LockedNodeSize : NodeSize;
         private void Node(GameProfile profile, int id)
         {
             var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id) + Vector2.up * TopPadding;
             bool current = id == FocusLevel;
-            float diameter = current ? CurrentNodeSize : state == LevelNodeState.Locked ? LockedNodeSize : NodeSize;
+            float diameter = NodeSize;
             var holder = GameUI.Rect(content, "Node " + id, point, Vector2.one * diameter);
             Vector2 center = Vector2.one * diameter * 0.5f;
-            Image shadow = null;
             if (current)
             {
-                shadow = GameUI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * GameLayout.MapShadowOffsetY, GameLayout.MapShadowSize);
+                var shadow = GameUI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * GameLayout.MapShadowOffsetY, GameLayout.MapShadowSize);
                 shadow.color = new Color(0.25f, 0.16f, 0.06f, 0.5f); shadow.transform.SetSiblingIndex(holder.GetSiblingIndex());
                 var glow = GameUI.Fit(holder, "Current node golden halo", art.Get("glow_soft"), center, new Vector2(560, 440));
                 glow.color = new Color(1, 0.8f, 0.15f, 0.8f);
+                holder.gameObject.AddComponent<GameMotion>().Loop(1.8f, t =>
+                    glow.color = new Color(1, 0.8f, 0.15f, 0.6f + 0.2f * Mathf.Sin(t * Mathf.PI * 2)));
             }
             string sprite = state == LevelNodeState.Locked ? "node_stone_locked" : current ? "node_wood_current_glow" : "node_wood";
             var face = GameUI.Fit(holder, "Level " + id, art.Get(sprite), center, Vector2.one * diameter); face.raycastTarget = true;
-            Button button = state == LevelNodeState.Locked ? face.gameObject.AddComponent<Button>() : face.gameObject.AddComponent<GameButton>(); button.targetGraphic = face;
+            var button = face.gameObject.AddComponent<GameButton>(); button.targetGraphic = face;
+            button.RestSprite = face.sprite;
+            button.SetDisabledAppearance(false);
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             button.interactable = state != LevelNodeState.Locked;
-            button.onClick.AddListener(() => { nodeMotion.Tap(holder); root.OpenLevelCard(id); }); nodes.Add(id, button);
-            var number = GameUI.Text(face.transform, "Level number", id.ToString(), font,
-                center + new Vector2(0, state == LevelNodeState.Cleared ? -28 : -20), Vector2.one * diameter, NumberSize);
-            number.color = Color.white;
-            number.outlineColor = new Color32(87, 52, 25, 255); number.outlineWidth = 0.14f;
+            button.onClick.AddListener(() => root.OpenLevelCard(id)); nodes.Add(id, button);
+            var number = PaintedNumber.Create(face.transform, "Level number", GlyphSet.Cream, NumberSize, TextAnchor.MiddleCenter);
+            float numberY = state == LevelNodeState.Locked ? -58 : state == LevelNodeState.Cleared ? -34 : -20;
+            number.Rect.anchoredPosition = new Vector2(center.x, -(center.y + numberY));
+            number.Rect.sizeDelta = new Vector2(diameter - 48, 100);
+            number.SetValue(id);
             if (state == LevelNodeState.Cleared) for (int i = 0; i < 3; i++)
                 GameUI.Fit(holder, "Star " + (i + 1), art.Get(i < profile.BestStars(id) ? "star_full_small" : "star_empty_small"),
-                    center + new Vector2((i - 1) * StarPitch, i == 1 ? 47 : 39), Vector2.one * StarSize);
+                    center + new Vector2((i - 1) * StarPitch, i == 1 ? 65 : 57), Vector2.one * StarSize);
             if (current)
             {
                 for (int i = 0; i < 2; i++)
@@ -209,15 +229,16 @@ namespace PerchSort.Game
                 // Draw after the face so the toes overlap its upper rim, not behind it.
                 var chick = GameUI.Fit(holder, "Sunny chick", art.Get("sunny_idle"),
                     center + Vector2.down * ChickLift, Vector2.one * ChickSize);
-                nodeMotion.Current(holder, shadow, chick, art);
+                var life = chick.gameObject.AddComponent<UiBirdLife>();
+                life.Configure(chick, art, "sunny", frontFacing: true, friend: true);
+                life.Begin();
             }
         }
         private static Rect ViewportArea()
         {
             Rect safe = GameLayout.SafeDesignArea;
-            float top = Mathf.Max(GameLayout.Screen("map", "coin_pill").yMax, GameLayout.Screen("map", "gear").yMax) + HudMargin;
-            float bottom = Mathf.Min(GameLayout.Screen("map", "shop").yMin,
-                Mathf.Min(GameLayout.Screen("map", "aviary").yMin, GameLayout.Screen("map", "settings").yMin)) - BarMargin;
+            float top = Mathf.Max(CoinPill.yMax, TitlePoint.y + TitleHeight / 2) + HudMargin;
+            float bottom = NavigationBar.yMin - BarMargin;
             return Rect.MinMaxRect(safe.xMin, Mathf.Max(safe.yMin, top), safe.xMax, Mathf.Min(safe.yMax, bottom));
         }
         private static float MaximumOffset => Mathf.Max(0, GameLayout.MapHeight + TopPadding - ViewportBounds.height);
@@ -281,7 +302,7 @@ namespace PerchSort.Game
             {
                 float nodeY = MapModel.Position(FocusLevel).y;
                 top = Mathf.Min(top, nodeY - ChickLift - ChickSize / 2 - GameLayout.MapBounceHeight);
-                bottom = Mathf.Max(bottom, nodeY + CurrentNodeSize / 2);
+                bottom = Mathf.Max(bottom, nodeY + NodeSize / 2);
             }
             float start = content.anchoredPosition.y, end = Clamp((top + bottom) / 2 + TopPadding - ViewportBounds.height / 2);
             gateMotion.Play(0.5f, t =>
@@ -303,11 +324,11 @@ namespace PerchSort.Game
             CancelRewards(); countingCoins = true; rewardTarget = to; rewardDone = done;
             int token = rewardRevision;
             Vector2 source = GameLayout.Screen("popup_daily_gift", "gift_basket").center;
-            Rect pill = GameLayout.Screen("map", "coin_pill");
+            Rect pill = CoinPill;
             Vector2 destination = pill.position + Vector2.one * pill.height * 0.5f;
             rewards.Play(0.89f, t =>
             {
-                if (token == rewardRevision) coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString();
+                if (token == rewardRevision) coins.SetValue(Mathf.RoundToInt(Mathf.Lerp(from, to, t)));
             });
             for (int i = 0; i < 5; i++)
             {
@@ -325,7 +346,7 @@ namespace PerchSort.Game
                     GameUI.Dispose(coin.gameObject);
                     if (last)
                     {
-                        countingCoins = false; coins.text = to.ToString();
+                        countingCoins = false; coins.SetValue(to);
                         var callback = rewardDone; rewardDone = null; callback?.Invoke();
                     }
                 }, i * 0.06f);
@@ -336,7 +357,7 @@ namespace PerchSort.Game
             CancelMotions();
             gameObject.SetActive(false);
         }
-        public void RefreshCoins(int value) { if (!countingCoins) coins.text = value.ToString(); }
+        public void RefreshCoins(int value) { if (!countingCoins) coins.SetValue(value); }
         private void BuildGate(int world, Vector2 point, bool open)
         {
             var view = GameUI.Rect(content, "World " + world + " gate", point, GateSize).gameObject.AddComponent<GateView>();
@@ -369,7 +390,7 @@ namespace PerchSort.Game
         {
             rewardRevision++;
             if (rewards != null) rewards.CancelAll();
-            if (countingCoins && coins != null) coins.text = rewardTarget.ToString();
+            if (countingCoins && coins != null) coins.SetValue(rewardTarget);
             countingCoins = false; rewardDone = null;
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--)
                 GameUI.Dispose(effects.GetChild(i).gameObject);
@@ -378,7 +399,6 @@ namespace PerchSort.Game
         {
             generation++;
             if (scroll != null) scroll.StopMovement();
-            if (nodeMotion != null) nodeMotion.Cancel();
             if (focus != null) focus.CancelAll();
             CancelGate(restoreGates); CancelRewards();
         }
@@ -388,7 +408,6 @@ namespace PerchSort.Game
             if (stones != null) foreach (var stone in stones) GameUI.Dispose(stone);
             generation++;
             CancelGate(false); CancelRewards();
-            if (nodeMotion != null) nodeMotion.Cancel();
             if (focus != null) focus.CancelAll();
         }
     }
