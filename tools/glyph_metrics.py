@@ -7,7 +7,7 @@ from PIL import Image
 
 
 def main():
-    art = Path(__file__).resolve().parents[1] / "PerchSort/Assets/Resources/Art"
+    art = Path(__file__).resolve().parents[1] / "PerchSort/art"
     glyphs = []
     for path in sorted([*art.glob("icon_*.png"), *art.glob("tool_*.png")]):
         with Image.open(path) as image:

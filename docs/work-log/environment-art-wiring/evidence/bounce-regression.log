@@ -1,8 +1,0 @@
-build/bounce-results.xml: total=1 passed=0 failed=1
-  Path stone covers Level 1
-  Expected: False
-  But was:  True
-
-After reserving the existing 12-pixel bounce envelope:
-build/environment-results.xml: total=6 passed=6 failed=0 skipped=0
-GatesAndSceneryNeverCoverNodesOrTheCurrentChick: Passed, all forty peak-bounce profiles

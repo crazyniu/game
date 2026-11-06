@@ -8,8 +8,19 @@ signal finished
 const CANVAS := 320.0
 const FEET_Y := 300.0
 const DISPLAY := 170.0
-## Idle actions: blink, turn, preen, flap, hop. Weights follow the approved cadence.
-const IDLE_WEIGHTS := [30, 14, 10, 8, 6]
+## Idle actions: blink, turn, preen, flap, hop, then one crossfaded still pose each (POSES).
+const POSES := ["fluff", "stretch", "yawn", "tilt_left", "tilt_right", "look_up", "look_down", "quirk1", "quirk2"]
+const IDLE_WEIGHTS := [30, 14, 10, 8, 6, 4, 4, 4, 3, 3, 3, 3, 3, 3]
+const POSE_FIRST := 5
+## Family overlay placement on the 320 canvas: [bow x, bow y, fluff x, fluff y, bow clockwise degrees].
+## Only sunny and sky carry mama/chick birds; other species use the legacy anchors.
+const OVERLAY_SIZE := {"bow": 72.0, "fluff": 88.0}
+const OVERLAY_POSES := {
+	"sunny": {"idle": [104, 140, 165, 244, 0], "tilt_left": [94, 164, 165, 244, -20], "tilt_right": [121, 124, 165, 244, 20]},
+	"sky": {"idle": [215, 123, 163, 243, 0], "tilt_left": [193, 112, 163, 243, -20], "tilt_right": [232, 142, 163, 243, 20],
+		"quirk2": [224, 136, 163, 243, 15], "look_down": [215, 140, 163, 243, 0], "preen": [198, 132, 179, 255, 8]},
+}
+const LEGACY_POSE := [168, 51, 120, 165, 0]
 
 var code := 0
 var species := "sunny"
@@ -23,7 +34,13 @@ var quiet := false         # true while instant captures run
 
 var _body: Node2D
 var _sprite: Sprite2D
+var _blend: Sprite2D      # crossfade layer for still idle poses
+var _bow: Sprite2D
+var _fluff: Sprite2D
 var _zzz: Sprite2D
+var _pose_names := {}     # Texture2D -> pose name, for overlay calibration
+var _blend_alpha := 0.0
+var _nudge := -1.0        # 0..1 while a tapped sleeper reacts, -1 otherwise
 var _rest: Texture2D
 var _blink: Array[Texture2D] = []
 var _seqs := {}
@@ -52,6 +69,12 @@ func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key
 		_sprite.centered = false
 		_sprite.offset = Vector2(-CANVAS * 0.5, -FEET_Y)
 		_body.add_child(_sprite)
+		_blend = Sprite2D.new()
+		_blend.centered = false
+		_blend.offset = _sprite.offset
+		_sprite.add_child(_blend)
+		_bow = _overlay("mama_bow")
+		_fluff = _overlay("chick_fluff")
 		_zzz = Sprite2D.new()
 		_zzz.texture = Art.tex("zzz")
 		_zzz.position = Vector2(90, -230)
@@ -64,9 +87,19 @@ func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key
 	_next_idle = randf_range(1.0, 3.0)
 	_show_rest()
 
+func _overlay(art_name: String) -> Sprite2D:
+	var s := Sprite2D.new()
+	s.texture = Art.tex(art_name)
+	s.scale = Vector2.ONE * OVERLAY_SIZE["bow" if art_name == "mama_bow" else "fluff"] / 128.0
+	s.visible = false
+	_sprite.add_child(s)
+	return s
+
 func _load_frames() -> void:
 	var prefix := species
 	_seqs.clear()
+	_pose_names.clear()
+	_blend.texture = null
 	if is_egg:
 		_rest = Art.tex("egg_idle")
 		if code & Board.REVEALED:
@@ -80,8 +113,14 @@ func _load_frames() -> void:
 	for name in ["turn_left", "turn_right", "preen", "flap", "hop", "cheer", "flight_takeoff", "flight_flap", "flight_land",
 			"flight_takeoff_l", "flight_flap_l", "flight_land_l"]:
 		_seqs[name] = Art.frames(prefix + "_" + name)
+	for pose in POSES + ["preen"]:
+		var t := Art.tex(prefix + "_" + pose)
+		if t:
+			_pose_names[t] = pose
 
 func _show_rest() -> void:
+	_blend_alpha = 0.0
+	_blend.modulate.a = 0.0
 	if is_egg:
 		_sprite.texture = _rest
 	elif asleep:
@@ -90,8 +129,34 @@ func _show_rest() -> void:
 		_sprite.texture = _rest
 	_zzz.visible = asleep
 
+func _pose_of(tex: Texture2D) -> Array:
+	var table: Dictionary = OVERLAY_POSES.get(species, {})
+	if table.is_empty():
+		return LEGACY_POSE
+	return table.get(_pose_names.get(tex, "idle"), table["idle"])
+
+## Keep the mama bow and chick fluff attached to the head/chest of whatever frame (or crossfade) is shown.
+func _sync_overlays() -> void:
+	var bow_on := (code & Board.MAMA) != 0 and not is_egg
+	var fluff_on := (code & Board.CHICK) != 0 and not is_egg
+	_bow.visible = bow_on
+	_fluff.visible = fluff_on
+	if not (bow_on or fluff_on):
+		return
+	var pose := _pose_of(_sprite.texture)
+	if _blend_alpha > 0.0 and _blend.texture:
+		var to := _pose_of(_blend.texture)
+		var mixed := []
+		for i in 5:
+			mixed.append(lerpf(pose[i], to[i], _blend_alpha))
+		pose = mixed
+	_bow.position = Vector2(pose[0] - CANVAS * 0.5, pose[1] - FEET_Y)
+	_bow.rotation = deg_to_rad(pose[4])
+	_fluff.position = Vector2(pose[2] - CANVAS * 0.5, pose[3] - FEET_Y)
+
 func _process(delta: float) -> void:
 	_clock += delta
+	_sync_overlays()
 	if quiet:
 		return
 	# Breathing never stops: a gentle squash at the feet pivot, slower and smaller when asleep.
@@ -102,13 +167,17 @@ func _process(delta: float) -> void:
 	if not asleep and not is_egg:
 		sx *= 1.0 + 0.05 * _idle_landing
 		sy *= 1.0 - 0.05 * _idle_landing
+	var pulse := sin(maxf(_nudge, 0.0) * PI)
 	if not acting:
-		_body.scale = Vector2(sx, sy) * base
-		_body.position = Vector2(0, -_idle_rise * density)
+		_body.scale = Vector2(sx * (1.0 + 0.05 * pulse), sy * (1.0 - 0.04 * pulse)) * base
+		_body.position = Vector2(0, -(_idle_rise + 14.0 * pulse) * density)
 	if asleep:
 		var drift := fmod(_clock, 2.4) / 2.4
 		_zzz.position = Vector2(90, -230 - 40 * drift)
 		_zzz.modulate.a = 1.0 - drift
+		_zzz.scale = Vector2.ONE * 0.6 * (1.0 + 0.7 * pulse)
+		if _nudge >= 0.0:
+			_zzz.modulate.a = 1.0
 	if acting or selected or asleep or is_egg or _idle_tween:
 		return
 	_next_idle -= delta
@@ -122,7 +191,10 @@ func _has_action(a: int) -> bool:
 		2: return _seqs.get("preen", []).size() >= 5
 		3: return _seqs.get("flap", []).size() >= 6
 		4: return _seqs.get("hop", []).size() >= 6
-	return false
+	return a >= POSE_FIRST and _pose_names.has(_pose_tex(a))
+
+func _pose_tex(action: int) -> Texture2D:
+	return Art.tex(species + "_" + POSES[action - POSE_FIRST])
 
 func _pick_idle() -> int:
 	var total := 0
@@ -148,8 +220,12 @@ func _start_idle(action: int, direction := -1) -> void:
 	var twice := action == 0 and randf() < 0.2
 	if direction < 0:
 		direction = 0 if randf() < 0.5 else 1
-	var hold := randf_range(0.6, 1.2) if action == 1 else 0.0
-	var duration: float = [4.0 / 12.0 * (2.0 if twice else 1.0) + (0.2 if twice else 0.0), 0.8 + hold, 5.0 / 8.0 + 0.4, 12.0 / 14.0, 0.6][action]
+	var hold := randf_range(0.6, 1.2) if action == 1 else (randf_range(0.8, 1.4) if action >= POSE_FIRST else 0.0)
+	var duration: float = 0.0
+	if action >= POSE_FIRST:
+		duration = hold + 0.24
+	else:
+		duration = [4.0 / 12.0 * (2.0 if twice else 1.0) + (0.2 if twice else 0.0), 0.8 + hold, 5.0 / 8.0 + 0.4, 12.0 / 14.0, 0.6][action]
 	_idle_tween = create_tween()
 	_idle_tween.tween_method(func(t: float): _idle_frame(action, direction, t * duration, hold, twice), 0.0, 1.0, duration)
 	_idle_tween.tween_callback(_end_idle)
@@ -157,6 +233,13 @@ func _start_idle(action: int, direction := -1) -> void:
 func _idle_frame(action: int, direction: int, elapsed: float, hold: float, twice: bool) -> void:
 	_idle_rise = 0.0
 	_idle_landing = 0.0
+	if action >= POSE_FIRST:
+		# Still pose: smooth crossfade in, hold, crossfade out over the rest frame.
+		_sprite.texture = _rest
+		_blend.texture = _pose_tex(action)
+		_blend_alpha = smoothstep(0.0, 1.0, minf(elapsed, hold + 0.24 - elapsed) / 0.12)
+		_blend.modulate.a = _blend_alpha
+		return
 	match action:
 		0:
 			var blink_len := 4.0 / 12.0
@@ -258,6 +341,8 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 				_sprite.texture = land[mini(land.size() - 1, int((t - 0.82) / 0.18 * land.size()))]
 			else:
 				_sprite.texture = flap[int(elapsed * 18.0) % flap.size()]
+		else:
+			_sprite.texture = Art.tex(species + ("_fly_up" if int(elapsed / 0.07) % 2 == 0 else "_fly_down"))
 		var vertical := (target.y - start.y) - 4.0 * (1.0 - 2.0 * t) * height
 		_body.rotation = clampf(atan2(vertical, absf(target.x - start.x) + 1.0), -0.21, 0.21) * (1.0 if target.x >= start.x else -1.0)
 		var shrink := lerpf(1.0, 0.4, t) if home else 1.0
@@ -349,6 +434,7 @@ func reveal() -> void:
 
 func wake() -> void:
 	asleep = false
+	_nudge = -1.0
 	code = Board.with_flags(code, Board.flags_of(code) & ~Board.ASLEEP)
 	_show_rest()
 	var base := DISPLAY / CANVAS * density
@@ -360,6 +446,21 @@ func wake() -> void:
 	await tw.finished
 	acting = false
 	finished.emit()
+
+## A tapped sleeper stirs: small bob, eyes half open, and a bigger Zzz pulse; then it dozes off again.
+func nudge_asleep() -> void:
+	if not asleep or is_egg or acting or _nudge >= 0.0:
+		return
+	var tw := create_tween()
+	tw.tween_method(func(t: float):
+		_nudge = t
+		if t > 0.15 and t < 0.75 and _blink.size() > 1 and _blink[1]:
+			_sprite.texture = _blink[1]
+		else:
+			_show_rest(), 0.0, 1.0, 0.7)
+	await tw.finished
+	_nudge = -1.0
+	_show_rest()
 
 func set_sleep(value: bool) -> void:
 	asleep = value and not is_egg

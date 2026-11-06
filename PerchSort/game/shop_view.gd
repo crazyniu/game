@@ -36,7 +36,12 @@ const GEO := {
 }
 const COLUMN_X := {Shop.BOOSTER: [60.0, 560.0], Shop.OUTFIT: [54.0, 553.0], Shop.HOUSE: [47.0, 548.0]}
 const ROW_Y := {Shop.BOOSTER: [430.0, 880.0, 1330.0], Shop.OUTFIT: [424.0, 1095.0], Shop.HOUSE: [422.0, 1090.0]}
-const BORDER_SCALE := 0.42   # mockup frames have thinner borders than the nine-slice default
+const BORDER_SCALE := 0.55   # mockup frames have thinner borders than the nine-slice default
+const CARD_PAD := Vector4(15, 48, 15, 4)    # transparent margins of card_wood (left, top, right, bottom)
+const PANEL_PAD := Vector4(4, 21, 4, 21)    # transparent margins of panel_wood
+## Solid pixels of each house sprite (its faint shadow would otherwise shrink the fitted picture).
+const HOUSE_BODY := {"mushroom": Rect2(41, 51, 427, 402), "teapot": Rect2(29, 55, 459, 399),
+	"lantern": Rect2(50, 61, 409, 394), "acorn": Rect2(56, 51, 398, 404)}
 const MEDALLION := Color(0.62, 0.4, 0.3)
 const BIRD_SCALE := 1.5
 const FEET := Vector2(160, 301)   # visible feet point in the 320 px bird frame
@@ -49,6 +54,7 @@ var _tab_node: Control
 var _coin_number: Control
 var _popup: Control   # confirm modal (dim + content)
 var _popup_content: Control
+var instant := false   # captures skip the modal pop-in
 
 
 func setup(p: Profile, start_tab := 0) -> void:
@@ -156,10 +162,22 @@ func _label(it: Dictionary) -> String:
 	return HOUSE_LABEL[it["style"]]
 
 ## Painted name centered at `center`, `h` px tall (visible pixels).
-func _title(parent: Node, label: String, center: Vector2, h: float) -> void:
+func _title(parent: Node, label: String, center: Vector2, h: float, max_w := 1e6) -> void:
 	var used := UI.used_rect(label)
-	var w := h * used.size.x / used.size.y
+	var w := minf(h * used.size.x / used.size.y, max_w)
+	h = w * used.size.y / used.size.x
 	UI.art(parent, label, Rect2(center - Vector2(w, h) * 0.5, Vector2(w, h)))
+
+## Nine-slice frame whose visible body (not its transparent margins) fills `body`.
+func _frame(parent: Node, name: String, body: Rect2, pad: Vector4) -> NinePatchRect:
+	var k := BORDER_SCALE
+	return UI.panel(parent, name, body.grow_individual(pad.x * k, pad.y * k, pad.z * k, pad.w * k), k)
+
+## Sprite scaled so its visible pixels fit `area`, centered.
+func _fit(parent: Node, name: String, area: Rect2, solid := Rect2()) -> TextureRect:
+	var used := solid if solid.size != Vector2.ZERO else UI.used_rect(name)
+	var s := minf(area.size.x / used.size.x, area.size.y / used.size.y)
+	return UI.art(parent, name, Rect2(area.get_center() - used.size * s * 0.5, used.size * s), used)
 
 func _card(it: Dictionary, at: Vector2, n: int) -> void:
 	var kind: int = it["kind"]
@@ -170,10 +188,18 @@ func _card(it: Dictionary, at: Vector2, n: int) -> void:
 	UI.place(card, Rect2(at, g["size"]))
 	_page_node.add_child(card)
 	var equipped := _equipped(it)
-	if equipped:
-		var glow := UI.art(card, "glow_soft", Rect2(Vector2(-60, -40), g["size"] + Vector2(120, 80)))
-		glow.modulate = Color(1, 0.85, 0.3, 0.9)
-	UI.panel(card, "card_wood", Rect2(Vector2.ZERO, g["size"]).grow(8), BORDER_SCALE)
+	if equipped:   # soft gold glow: a blurred gold shadow behind the frame
+		var halo := Panel.new()
+		var box := StyleBoxFlat.new()
+		box.bg_color = Color(1, 0.8, 0.2, 0.0)
+		box.set_corner_radius_all(70)
+		box.shadow_color = Color(1, 0.78, 0.15, 0.9)
+		box.shadow_size = 46
+		halo.add_theme_stylebox_override("panel", box)
+		halo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(halo, Rect2(Vector2(10, 10), g["size"] - Vector2(20, 20)))
+		card.add_child(halo)
+	_frame(card, "card_wood", Rect2(Vector2.ZERO, g["size"]), CARD_PAD)
 	var ribbon: Rect2 = g["ribbon"]
 	UI.art(card, "ribbon_green", ribbon)
 	_title(card, _label(it), ribbon.get_center() + Vector2(0, -4), g["title_h"])
@@ -183,11 +209,11 @@ func _card(it: Dictionary, at: Vector2, n: int) -> void:
 			var ring: Rect2 = g["ring"]
 			UI.art(card, "btn_wood", ring.grow(-8)).modulate = MEDALLION
 			UI.art(card, "badge_ring_gold", ring)
-			UI.image(card, TOOL_ART[it["booster"]], pic)
+			_fit(card, TOOL_ART[it["booster"]], ring.grow(-26))
 		Shop.OUTFIT:
 			_bird(card, "%s_outfit_%d" % [it["species"], it["index"]], Vector2(pic.get_center().x, pic.end.y), BIRD_SCALE, n * 0.7)
 		_:
-			UI.image(card, "house_style_%s_body" % it["style"], pic)
+			_fit(card, "house_style_%s_body" % it["style"], pic.grow(10), HOUSE_BODY[it["style"]])
 	var pill: Rect2 = g["pill"]
 	if _owned(it):
 		if equipped:
@@ -197,7 +223,7 @@ func _card(it: Dictionary, at: Vector2, n: int) -> void:
 			UI.disc(card, "Equip", disc, "icon_hanger", func(): _tap(it), "btn_wood", 0.6)
 	else:
 		_price(card, pill, g["coin"], g["num"], it["price"])
-	if kind == Shop.BOOSTER:
+	if kind == Shop.BOOSTER and profile.inventory[it["booster"]] > 0:
 		var badge := Rect2(g["size"].x - 92, -1, 74, 74)
 		UI.art(card, "badge_red", badge)
 		UI.number(card, str(profile.inventory[it["booster"]]), badge.grow_individual(-24, -22, -24, -22), "white")
@@ -268,8 +294,10 @@ func _open_modal(c: String) -> Control:
 	_popup_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_popup_content.pivot_offset = Layout.r(c, "panel").get_center()
 	_popup.add_child(_popup_content)
-	UI.panel(_popup_content, "panel_wood", Layout.r(c, "panel").grow(6), BORDER_SCALE)
+	_frame(_popup_content, "panel_wood", Layout.r(c, "panel"), PANEL_PAD)
 	UI.disc(_popup_content, "Close", Layout.r(c, "close"), "icon_close", _close_modal, "btn_wood", 0.48)
+	if instant:
+		return _popup_content
 	_popup.modulate.a = 0.0
 	_popup_content.scale = Vector2.ONE * 0.7
 	var tw := create_tween().set_parallel()
@@ -288,15 +316,14 @@ func _confirm(it: Dictionary) -> void:
 	var c := "shop_confirm"
 	var box := _open_modal(c)
 	UI.art(box, "ribbon_green", Layout.r(c, "ribbon"))
-	_title(box, _label(it), Layout.r(c, "title").get_center(), 80.0)
+	_title(box, _label(it), Layout.r(c, "title").get_center(), 80.0, 400.0)
 	var ring := Layout.r(c, "hintdisc")
 	UI.art(box, "btn_wood", ring.grow(-14)).modulate = MEDALLION
 	UI.art(box, "badge_ring_gold", ring)
-	var area := Layout.r(c, "bulb")
 	match it["kind"]:
-		Shop.BOOSTER: UI.image(box, TOOL_ART[it["booster"]], area)
+		Shop.BOOSTER: _fit(box, TOOL_ART[it["booster"]], ring.grow(-50))
 		Shop.OUTFIT: _bird(box, "%s_outfit_%d" % [it["species"], it["index"]], Vector2(ring.get_center().x, ring.end.y - 45), 1.3, 0.0)
-		_: UI.image(box, "house_style_%s_body" % it["style"], area.grow(10))
+		_: _fit(box, "house_style_%s_body" % it["style"], ring.grow(-30), HOUSE_BODY[it["style"]])
 	var pill := UI.panel(box, "stat_pill", Layout.r(c, "price"))
 	pill.pivot_offset = pill.size * 0.5
 	var coin := UI.art(box, "coin", Layout.r(c, "pricecoin"))
@@ -348,6 +375,7 @@ static func preview(main: Control, state: String) -> void:
 		"insufficient":
 			p.coins = 20
 	var view: Control = load("res://game/shop_view.gd").new()
+	view.instant = main.instant()
 	view.setup(p, start)
 	main.set_screen(view)
 	match state:

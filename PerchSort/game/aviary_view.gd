@@ -8,8 +8,9 @@ const BirdViewScript := preload("res://game/bird_view.gd")
 const LIST := "aviary_list"
 const DETAIL := "aviary_detail"
 const ROW_PITCH := 472.0
-const ROW_PAD := 14.0
-const ARCH_CLEARANCE := 40.0
+const FRAME := Rect2(5, 116, 1070, 1850)   # board art placed so its cream opening starts at the mockup's panel top
+const CARD_PAD := Vector4(15, 48, 15, 4)   # transparent margins of card_wood (left, top, right, bottom)
+const CARD_SCALE := 0.55
 const CREAM := Color(0.97, 0.88, 0.69)
 const ABILITY_GIFT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
 	"snow": "lightstep", "ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
@@ -40,6 +41,7 @@ var _hero: BirdView
 var _tiles: Control
 var _species := ""
 var _list_scroll := 0.0
+var _row_pad := 0.0   # gap above the first row so its ring starts where the mockup's does
 
 
 func setup(p: Profile) -> void:
@@ -95,11 +97,12 @@ func _outfit_key(species: String) -> String:
 func _show_list() -> void:
 	_species = ""
 	_reset_page()
-	var frame := Layout.r(LIST, "board_frame")
-	UI.art(_page, "aviary_board", frame)
+	UI.art(_page, "aviary_board", FRAME)
 	_header(Layout.r(LIST, "close"), func(): closed.emit())
 	_plate(_page, "label_title_aviary", Layout.r(LIST, "title_ribbon").grow_individual(0, 8, 0, 8))
-	var opening := _opening(frame)
+	var opening := _opening(FRAME)
+	opening.size.y = Layout.r(LIST, "cocoa_ability").end.y + 2.0 - opening.position.y   # exactly three rows, no peek of the fourth
+	_row_pad = Layout.r(LIST, "sunny_ring").position.y - opening.position.y
 	_clip = Control.new()
 	_clip.name = "Scroll"
 	_clip.clip_contents = true
@@ -112,7 +115,7 @@ func _show_list() -> void:
 	_clip.add_child(_content)
 	for i in Aviary.SPECIES.size():
 		_cell(Aviary.SPECIES[i][0], i % 2, i / 2, opening.position)
-	_content.size = Vector2(opening.size.x, ROW_PAD * 2 + ROW_PITCH * 5)
+	_content.size = Vector2(opening.size.x, _row_pad * 2 + ROW_PITCH * 5)
 	_max_scroll = maxf(0.0, _content.size.y - opening.size.y)
 	_edge(opening, false)
 	_edge(opening, true)
@@ -125,20 +128,19 @@ func _opening(frame: Rect2) -> Rect2:
 	var o: Array = m["opaque"]
 	var inner: Array = m["inner"]
 	var k := Vector2(frame.size.x / o[2], frame.size.y / o[3])
-	var top := ARCH_CLEARANCE
-	return Rect2(frame.position + Vector2(inner[0] - o[0], inner[1] - o[1]) * k + Vector2(0, top), Vector2(inner[2] * k.x, inner[3] * k.y - top))
+	return Rect2(frame.position + Vector2(inner[0] - o[0], inner[1] - o[1]) * k, Vector2(inner[2] * k.x, inner[3] * k.y))
 
 func _cell(id: String, col: int, row: int, origin: Vector2) -> void:
 	var key := "sunny" if col == 0 else "skye"
 	var met := profile.has_met(id)
 	var ring := Layout.r(LIST, key + "_ring")
-	var cell_top := ROW_PAD + row * ROW_PITCH
+	var cell_top := _row_pad + row * ROW_PITCH
 	var shift := Vector2(-origin.x, cell_top - ring.position.y)
 	var at := func(suffix: String) -> Rect2:
 		var r := Layout.r(LIST, key + "_" + suffix)
 		return Rect2(r.position + shift, r.size)
 	UI.art(_content, "badge_ring_gold", at.call("ring"))
-	var bird_fit: Rect2 = at.call("bird")
+	var bird_fit: Rect2 = (at.call("bird") as Rect2).grow_individual(8, 14, 8, 0)
 	if met:
 		_bird(_content, id, _outfit_key(id), bird_fit)
 	else:
@@ -182,7 +184,7 @@ func _edge(opening: Rect2, bottom: bool) -> void:
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var h := 44.0
+	var h := 8.0 if bottom else 26.0
 	UI.place(t, Rect2(opening.position.x, opening.end.y - h if bottom else opening.position.y, opening.size.x, h))
 	_page.add_child(t)
 
@@ -247,8 +249,10 @@ func _show_detail(id: String) -> void:
 	_species = id
 	_reset_page()
 	var has_extras := id != "crow"
-	UI.panel(_page, "card_wood", Rect2(104, 1035, 872, 827 if has_extras else 430), 0.55)
-	_hero = _bird(_page, id, _outfit_key(id), Rect2(170, 450, 740, 600))
+	var body := Rect2(104, 1035, 872, 827 if has_extras else 430)
+	var k := CARD_SCALE
+	UI.panel(_page, "card_wood", body.grow_individual(CARD_PAD.x * k, CARD_PAD.y * k, CARD_PAD.z * k, CARD_PAD.w * k), k)
+	_hero = _bird(_page, id, _outfit_key(id), Rect2(150, 425, 780, 625))
 	_header(Rect2(922, 77, 115, 115), func(): _show_list())
 	_plate(_page, "label_name_" + id, Layout.r(DETAIL, "berry_ribbon"))
 	_plate(_page, "label_caption_" + PERSONALITY_LABEL[id], Layout.r(DETAIL, "description"))

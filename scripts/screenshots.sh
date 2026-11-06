@@ -5,7 +5,7 @@ root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 out="$root/build/screens"
 mkdir -p "$out"
 states=(
-  board:level_1 board:level_12 board:level_25 board:level_35
+  board:level_1 board:level_12 board:level_25 board:level_35 board_view:sleeping_bubble board_view:stuck_hint
   popups:win_three_stars popups:win_two_stars popups:win_one_star popups:win_zero_reward
   popups:settings_sound_on popups:settings_muted popups:level_card_first_visit popups:level_card_full_roster
   popups:goal_info_berry popups:goal_info_hoot popups:daily_gift popups:new_friend_berry

@@ -8,7 +8,7 @@ import pyloudnorm as pyln
 from scipy.signal import resample_poly
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "audio_src"
+OUT = ROOT / "PerchSort/audio"
 SR = 44100
 PURPOSES = {
     "bgm_menu": "主菜单；C 大调，64 BPM，16 小节，木琴/长笛/竖琴",

@@ -1,25 +1,8 @@
-# T50B — Popup motion presentation
+# popup-motion — task contract
 
-## Authority and ownership
-
-User-authorized parallel module of T50, based on preserved WIP `9f84a95`, branch `mac-popups/t50`. The current Codex coordinator on 251 replaces Claude. No sub-workers, Dispatch ID, external model calls, or old Claude contact.
-
-Owned runtime files: `WinPanel.cs`, [V5Panels.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7), `SettingsPanel.cs`, [V7GateView.cs](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7), their metadata, and isolated [V7PopupMotion*](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L7) helpers. Documentation: this specification, `T50B_report.md`, and `docs/team/status/mac-popups.md`. Do not modify shared layout, artwork, root navigation/scheduling, Core, levels, economy, or other modules.
-
-## Requirements
-
-- Preserve approved v7 plush forest, honey wood, green ribbon, purple/green controls; use existing LitMotion/V5Motion and supplied part sprites, no new library/art.
-- Win: dim/rays, dropping wood panel, unfurling ribbon, staggered earned/empty stars, readable coin/chain reward, presentation-only count-up/coin flight, side-bird emerge/cheer visible outside the panel, top-bird framed flight/landing, confetti, buttons last. Explicitly place rays below birds and side birds below the body before emergence. NEXT gently pulses on a separate presentation wrapper after its pop; cancel/reset on close, Hide, disable and reopen, and do not pulse under Instant.
-- New friend: framed arc flight/tilt/landing, signature quirk, one sparkle burst.
-- World complete/unlock: existing gate API retained; hinged leaves/light, lock shake/fall, world backdrop/sign, framed birds through gate or hovering.
-- Daily gift: nest shake, lid spin, non-currency sparkles and informational reward chip/count. No pre-ack coin burst/flight; root post-ack Map.CollectCoins after reward persistence is the sole coin collection visual.
-- Booster unlock: rise/glow, bird edge peek/look. Goal info: doorway mask/peek/door movement and card entrance/close.
-- Settings: two-rope drop/pendulum settle, buttons last. Level card: optional source-node entrance, staggered portraits, mechanics fade last.
-- Every rebuild/teardown cancels motions, removes transients, restores tracked poses, and invalidates stale callbacks. User actions commit once; canceled presentation must never grant, acknowledge, or navigate.
-- Preserve existing public signatures. Any additive integration API is documented exactly in the report. Root remains sole scheduling, acknowledgement, payout, and navigation authority.
-
-## Acceptance and verification boundary
-
-Static compile-risk review of imports, existing signatures/calls, Unity component lifecycle, sprite names, coordinate conventions, synchronous [V5Motion.Instant](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/tasks/T50B_popup_motion.md#L23), cancellation/reentrancy, and metadata. No Unity run, test suite, all-level playthrough, or runtime captures per latest user instruction. All runtime/test/visual evidence is `NOT_RUN`; approved PNGs are design references only, not animation evidence.
-
-Commit/push only this task branch. Report changed files, exact APIs, implemented/missing requirements, integration requests, and untested limits to the current coordinator and owned status file.
+YOUR FILES: PerchSort/game/popups.gd, PerchSort/game/popup.gd, PerchSort/game/main.gd, report docs/work-log/popup-motion/report.md. Topic: popup-motion. Do not edit board_view.gd or bird_view.gd.
+1. Win panel (CONVENTIONS 5.4): panel scale-in with overshoot, ribbon drop, stars one after another 0.18 s apart, counters counting up (moves and coin reward glyph numbers), light rays rotating behind the panel (art light_rays), confetti for about 3 s (art confetti_1..4), side birds and the hero bird fly in (fly frames) and keep animating until the panel closes. Reference: Unity PopupMotion.cs / WinPanel.cs.
+2. Modal standard (CONVENTIONS 4.4 and issue #100): dim layer alpha 0.72 above everything; a soft panel shadow so every modal separates from the background; settings: one panel fade+scale 0.18 s in, 0.12 s out. popup.gd `panel_wood` has transparent margins (popups.gd compensates with PANEL_PAD); fix it inside popup.gd so the visible frame fills the requested rect, and remove the compensation.
+3. Screen transition: port LeafTransition.cs (art leaf_wipe) for map <-> board <-> shop/aviary changes in main.gd; skip it in instant capture mode.
+4. Sounds: popups open/close with ui_tap/ui_back like Unity AudioManager; music per CONVENTIONS 6 (bgm_menu on map/shop/aviary, bgm_game on the board, 1 s crossfade, never restart on popups, pause on focus loss) - check sound.gd's API and call it from main.gd; if sound.gd lacks crossfade or focus pause, list it in the report (board agent owns sound.gd).
+Verify with timed frame sequences of the win panel (use the preview state with --motion, e.g. `-- --frames=/tmp/pm/f --wait=3.5 --step=0.15 --preview=popups:win_three_stars` plus `--motion`) and of a transition; look at contact sheets.

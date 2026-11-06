@@ -13,7 +13,17 @@ const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint":
 const TOOL_ICON := {Board.Booster.FIREFLY: "icon_bulb", Board.Booster.SAPLING: "icon_branch_plus",
 	Board.Booster.OWL_EYE: "tool_owl_eye", Board.Booster.MORNING_BELL: "tool_bell",
 	Board.Booster.SCARECROW: "tool_scarecrow", Board.Booster.SPRING_RAIN: "tool_rain"}
-const ENTRANCE_SECONDS := 4.0
+const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "owl_eye",
+	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
+## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
+const ENTRANCE_HOUSE := 0.1
+const ENTRANCE_BRANCHES := 0.95
+const ENTRANCE_BIRDS := 1.6
+const ENTRANCE_BIRD_SPREAD := 1.1
+const ENTRANCE_FLIGHT := 0.8
+const SKIP_TIME_SCALE := 12.0
+const BUBBLE_SECONDS := 1.6
+const STUCK_DELAY := 0.8
 
 var session: GameSession
 var profile: Profile
@@ -45,7 +55,22 @@ var _move_number: Control
 var _sun_pill: Control
 var _sun_number: Control
 var _tool_bar: Control
-var _hint_job := -1
+var _sky: Node2D
+var _motes: Array = []  # ambient drifters: {node, kind, origin, period, offset, alpha, drift}
+var _clock := 0.0
+var _rope: Control
+var _glow: Control
+var _door_open: Control
+var _door_mask: Control
+var _resident: BirdView
+var _resident_species := -1
+var _goal_gift := {}    # species -> gift badge shown until delivered
+var _goal_check := {}   # species -> check mark shown after delivery
+var _tool_slots: Array = []  # [kind, centre] per visible tool, for the stuck pointer
+var _bubble: Node2D
+var _bubble_tween: Tween
+var _stuck: Control
+var _entrance_running := false
 
 
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
@@ -55,6 +80,10 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	for child in get_children():
 		child.queue_free()
 	_birds.clear()
+	_goal_nodes.clear()
+	_motes.clear()
+	_resident_species = -1
+	Engine.time_scale = 1.0
 	size = Vector2(1080, 1920)
 	_build_scene()
 	_build_hud()
@@ -63,6 +92,9 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	refresh_hud()
 	if play_entrance and not instant:
 		_entrance()
+
+func _exit_tree() -> void:
+	Engine.time_scale = 1.0
 
 ## ---------- scene ----------
 
@@ -75,6 +107,7 @@ func _build_scene() -> void:
 	if not Art.has(bg):
 		bg = "bg_level_w%d_noon" % _world()
 	UI.image(self, bg, Rect2(0, 0, 1080, 1920), false)
+	_build_ambient()
 	_scene = Node2D.new()
 	_scene.name = "Scene"
 	add_child(_scene)
@@ -88,6 +121,44 @@ func _build_scene() -> void:
 	_scene.add_child(_bird_layer)
 	_night = UI.image(self, "night_overlay", Rect2(0, 0, 1080, 1920), false)
 	_night.modulate.a = 0.0
+
+## ---------- ambient ----------
+
+## Soft clouds drift across the sky behind the branches; rain and drizzle levels add falling drops.
+func _build_ambient() -> void:
+	_sky = Node2D.new()
+	_sky.name = "Ambient"
+	add_child(_sky)
+	for i in 3:
+		_add_mote("cloud_soft_%d" % (i + 1), "cloud", Vector2(0, 280 + i * 145), Vector2(420 + i * 65, 190), 48 + i * 12, i * 0.29, 0.13, 0)
+	if session.state.variant in ["rain", "drizzle"]:
+		for i in 16:
+			_add_mote("raindrop", "rain", Vector2((i * 139 + 47) % 1080, 0), Vector2(9, 26), 1.6, i * 0.113, 0.3, 8)
+	_tick_ambient()
+
+func _add_mote(sprite: String, kind: String, origin: Vector2, size_px: Vector2, period: float, offset: float, alpha: float, drift: float) -> void:
+	var node := Sprite2D.new()
+	node.texture = Art.tex(sprite)
+	node.scale = size_px / UI.used_rect(sprite).size
+	_sky.add_child(node)
+	_motes.append({"node": node, "kind": kind, "origin": origin, "period": period, "offset": offset, "alpha": alpha, "drift": drift})
+
+func _process(delta: float) -> void:
+	_clock += delta
+	_tick_ambient()
+
+func _tick_ambient() -> void:
+	for m in _motes:
+		var u := fposmod(_clock / m["period"] + m["offset"], 1.0)
+		var at: Vector2 = m["origin"]
+		var node: Sprite2D = m["node"]
+		var fade := minf(1.0, minf(u, 1.0 - u) * (10.0 if m["kind"] == "cloud" else 12.0))
+		if m["kind"] == "cloud":
+			at.x = -500.0 + 2080.0 * u
+		else:
+			at += Vector2(sin(u * TAU) * m["drift"], -40.0 + 2000.0 * u)
+		node.position = at
+		node.modulate.a = m["alpha"] * fade
 
 func _row_count() -> int:
 	var rows := 1
@@ -233,32 +304,49 @@ func sync_birds() -> void:
 	if glide:
 		await glide.finished
 
+## Houses drop in, branches grow out of the trunks, then the birds fly to their seats. A tap speeds it up.
 func _entrance() -> void:
 	busy = true
+	_entrance_running = true
 	modulate.a = 0.0
-	var fade := create_tween()
-	fade.tween_property(self, "modulate:a", 1.0, 0.5)
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.4)
+	var rise := create_tween().set_parallel()
+	var drop := [_rope, _house]
+	for node in drop:
+		var rest_y: float = node.position.y
+		node.position.y -= 420.0
+		rise.tween_property(node, "position:y", rest_y, 0.7).set_delay(ENTRANCE_HOUSE).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var k := 0
+	for goal in _goal_nodes.values():
+		goal.scale = Vector2.ZERO
+		rise.tween_property(goal, "scale", Vector2.ONE, 0.35).set_delay(ENTRANCE_HOUSE + 0.5 + 0.08 * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		k += 1
+	var grow := create_tween().set_parallel()
+	for i in _branch_nodes.size():
+		var node: Node2D = _branch_nodes[i]
+		node.scale = Vector2(0.02, 0.6)
+		grow.tween_property(node, "scale", Vector2.ONE, 0.5).set_delay(ENTRANCE_BRANCHES + 0.1 * i).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	var s := session.state
 	var birds: Array = []
 	for b in s.branch_count():
 		for i in s.items[b].size():
-			birds.append([s.items[b][i], b, i])
+			birds.append([s.items[b][i], b])
 	var n := birds.size()
 	var last: BirdView = null
-	for k in n:
-		var entry: Array = birds[k]
-		var bird: BirdView = _birds[Board.id_of(entry[0])]
+	for j in n:
+		var bird: BirdView = _birds[Board.id_of(birds[j][0])]
 		var target := bird.position
-		var right: bool = s.rights[entry[1]] == 1
-		bird.position = Vector2(-160.0 if not right else 1240.0, target.y - 420.0 - randf() * 200.0)
-		# Spread take-offs over 0.6..2.9 s with 1.0 s flights: whole entrance lasts about 4 s.
-		var delay := 0.6 + (2.3 * k / maxf(1.0, n - 1.0))
-		bird.fly_to(target, delay, 1.0, false, true)
+		var right: bool = s.rights[birds[j][1]] == 1
+		bird.position = Vector2(1240.0 if right else -160.0, target.y - 420.0 - randf() * 200.0)
+		bird.fly_to(target, ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0), ENTRANCE_FLIGHT, false, true)
 		last = bird
 	if last:
 		await last.finished
 	await get_tree().create_timer(0.1).timeout
+	Engine.time_scale = 1.0
+	_entrance_running = false
 	busy = false
+	_watch_stuck()
 
 ## ---------- HUD ----------
 
@@ -270,15 +358,34 @@ func _build_hud() -> void:
 	add_child(_hud)
 	var L := "board_base"
 	# Rope and goal house.
-	UI.art(_hud, "goal_rope_single", Layout.r(L, "goal_rope"), Rect2(6, 0, 108, 1260))
+	var hr := Layout.r(L, "goal_house")
+	_glow = UI.art(_hud, "house_glow", Rect2(hr.get_center() - hr.size * 0.9, hr.size * 1.8))
+	_glow.modulate = Color(1, 0.8, 0.35, 0.0)
+	_rope = Control.new()
+	_rope.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(_rope)
+	UI.art(_rope, "goal_rope_single", Layout.r(L, "goal_rope"), Rect2(6, 0, 108, 1260))
 	_house = Control.new()
 	_house.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var hr := Layout.r(L, "goal_house")
 	UI.place(_house, hr)
 	_hud.add_child(_house)
 	var style := profile.equipped_house
-	UI.art(_house, "goal_house_single" if style == "default" else "house_style_%s_body" % style,
-		Rect2(Vector2.ZERO, hr.size), Rect2(45, 110, 624, 580) if style == "default" else Rect2())
+	var body_name := "goal_house_single" if style == "default" else "house_style_%s_body" % style
+	var body_content := Rect2(45, 110, 624, 580) if style == "default" else Rect2()
+	UI.art(_house, body_name, Rect2(Vector2.ZERO, hr.size), body_content)
+	# The doorway is empty and dark until a species is delivered; the open-door art fades in while birds enter.
+	var opening := Layout.r(L, "house_opening")
+	opening.position -= hr.position
+	_door_mask = TextureRect.new()
+	_door_mask.texture = _disc_texture()
+	_door_mask.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_door_mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_door_mask.clip_children = CanvasItem.CLIP_CHILDREN_ONLY
+	UI.place(_door_mask, opening)
+	_house.add_child(_door_mask)
+	if style == "default":
+		_door_open = UI.art(_house, "goal_house_door_open", Rect2(Vector2.ZERO, hr.size), body_content)
+		_door_open.modulate.a = 0.0
 	# Coin pill.
 	UI.panel(_hud, "stat_pill", Layout.r(L, "coin_pill"))
 	UI.art(_hud, "coin", Layout.r(L, "coin_disc"))
@@ -326,7 +433,10 @@ func _build_goals() -> void:
 		_hud.add_child(node)
 		UI.art(node, sp + "_face", Rect2(size * 0.12, size * 0.76))
 		UI.art(node, "badge_ring_gold", Rect2(Vector2.ZERO, size))
-		UI.art(node, "gift_coin_" + GIFT_COIN[sp], Rect2(size * Vector2(0.58, 0.56), size * 0.55))
+		var gift_rect := Rect2(size * Vector2(0.58, 0.56), size * 0.55)
+		_goal_gift[sp] = UI.art(node, "gift_coin_" + GIFT_COIN[sp], gift_rect)
+		_goal_check[sp] = UI.art(node, "badge_check", gift_rect)
+		_goal_check[sp].visible = false
 		UI.hit_area(node, Rect2(Vector2.ZERO, size), func(): goal_info_requested.emit(sp))
 		_goal_nodes[sp] = node
 
@@ -339,7 +449,11 @@ func refresh_hud() -> void:
 		var icon: TextureRect = _sun_pill.get_child(1)
 		icon.texture = Art.tex("dial_moon" if s.phase == Board.Phase.NIGHT else "dial_sun")
 	for sp in _goal_nodes:
-		_goal_nodes[sp].modulate.a = 0.45 if s.homed.has(Board.species_index(sp)) else 1.0
+		var home: bool = s.homed.has(Board.species_index(sp))
+		_goal_gift[sp].visible = not home
+		_goal_check[sp].visible = home
+	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
+	_hide_stuck()
 	_build_tools()
 
 func _visible_tools() -> Array:
@@ -358,6 +472,7 @@ func _build_tools() -> void:
 	for child in _tool_bar.get_children():
 		child.queue_free()
 	var tools := _visible_tools()
+	_tool_slots.clear()
 	if tools.is_empty():
 		return
 	var disc := 110.0
@@ -368,6 +483,7 @@ func _build_tools() -> void:
 	for i in tools.size():
 		var kind: int = tools[i]
 		var r := Rect2(bar.position.x + 52.0 + i * (disc + gap), 1746, disc, 108)
+		_tool_slots.append([kind, r.get_center(), session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
 			UI.disc(_tool_bar, "Undo", r, "icon_undo", _on_undo, "btn_wood", 0.55)
 			continue
@@ -382,9 +498,17 @@ func _build_tools() -> void:
 ## ---------- input ----------
 
 func _gui_input(event: InputEvent) -> void:
+	var pressed: bool = event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT
+	if pressed and _entrance_running:
+		Engine.time_scale = SKIP_TIME_SCALE
+		accept_event()
+		return
+	if pressed:
+		_hide_bubble()
+		_hide_stuck()
 	if busy or session.state.is_won():
 		return
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if pressed:
 		var b := branch_at(event.position)
 		if b >= 0:
 			tap_branch(b)
@@ -448,8 +572,16 @@ func _lift(b: int, on: bool) -> void:
 			if is_instance_valid(other) and not other.selected and randf() < 0.3:
 				other.look_at_x(seat_x(0, s.rights[b] == 1))
 
+## A refused tap: a sleeping bird gets a visible reaction and an explanation, anything else a branch shake.
 func _refuse(b: int) -> void:
-	Sound.play("error")
+	var sleeper := _sleeper_on(b)
+	if sleeper != null:
+		Sound.play("sleep")
+		if sleeper.has_method("nudge_asleep"):
+			sleeper.nudge_asleep()
+		_show_bubble(sleeper)
+	else:
+		Sound.play("error")
 	if b < 0 or b >= _branch_nodes.size():
 		return
 	var node: Node2D = _branch_nodes[b]
@@ -457,6 +589,108 @@ func _refuse(b: int) -> void:
 	for k in 4:
 		tw.tween_property(node, "rotation", 0.025 * (1 if k % 2 == 0 else -1), 0.05)
 	tw.tween_property(node, "rotation", 0.0, 0.05)
+
+## The topmost sleeping bird of a branch, or null.
+func _sleeper_on(b: int) -> BirdView:
+	if b < 0 or b >= session.state.branch_count():
+		return null
+	var list: Array = session.state.items[b]
+	for i in range(list.size() - 1, -1, -1):
+		if (list[i] & Board.EGG) == 0 and session.state.is_asleep(list[i]):
+			return _birds.get(Board.id_of(list[i]))
+	return null
+
+## Cream thought bubble above a sleeper; the pictures say what wakes it (the moon for night owls, the sun note otherwise).
+func _show_bubble(bird: BirdView) -> void:
+	_hide_bubble()
+	var icons: Array[String] = []
+	if Board.is_nocturnal(Board.species_of(bird.code)) and session.state.nocturnal_day_sleep():
+		icons.append("dial_moon")
+	if (bird.code & Board.ASLEEP) != 0:
+		icons.append("gift_sun_note")
+	if icons.is_empty():
+		return
+	var d := bird.density
+	var body := Vector2(150.0 + 76.0 * icons.size(), 124.0) * d
+	var tex_scale := Vector2(body.x / 942.0, body.y / 322.0)
+	_bubble = Node2D.new()
+	var spr := Sprite2D.new()
+	spr.texture = Art.tex("sleep_bubble")
+	spr.centered = false
+	spr.scale = tex_scale
+	spr.position = -Vector2(124.0, 400.0) * tex_scale   # the tail tip sits at the node origin
+	_bubble.add_child(spr)
+	for i in icons.size():
+		var icon := Sprite2D.new()
+		icon.texture = Art.tex(icons[i])
+		icon.scale = Vector2.ONE * 0.72 * d
+		icon.position = spr.position + Vector2(480.0, 170.0) * tex_scale + Vector2((i - (icons.size() - 1) * 0.5) * 70.0 * d, 0.0)
+		_bubble.add_child(icon)
+	# Tail tip just above the bird's head; keep the bubble body on screen.
+	var tip := bird.position + Vector2(-10.0, -135.0 * d)
+	tip.x = clampf(tip.x, 40.0 + 124.0 * tex_scale.x, 1040.0 - body.x + 124.0 * tex_scale.x)
+	_bubble.position = tip
+	_scene.add_child(_bubble)
+	var node := _bubble
+	if instant:
+		return
+	node.scale = Vector2.ZERO
+	_bubble_tween = create_tween()
+	_bubble_tween.tween_property(node, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_bubble_tween.tween_method(func(t: float): node.position.y = tip.y - 6.0 * sin(t * TAU), 0.0, 1.0, BUBBLE_SECONDS)
+	_bubble_tween.tween_property(node, "modulate:a", 0.0, 0.2)
+	_bubble_tween.tween_callback(_hide_bubble)
+
+func _hide_bubble() -> void:
+	if _bubble_tween:
+		_bubble_tween.kill()
+		_bubble_tween = null
+	if _bubble:
+		_bubble.queue_free()
+		_bubble = null
+
+## ---------- stuck hint ----------
+
+## With no legal move left, a gold glow and a bobbing pointer mark the tool that helps (undo first).
+func _watch_stuck() -> void:
+	_hide_stuck()
+	var s := session.state
+	if instant or s.is_won() or not session.can_undo() or Rules.has_legal_move(s):
+		return
+	var moves := session.move_count()
+	await get_tree().create_timer(STUCK_DELAY).timeout
+	if is_inside_tree() and not busy and session.state == s and session.move_count() == moves:
+		show_stuck_hint()
+
+func show_stuck_hint() -> void:
+	_hide_stuck()
+	var pick := -1
+	for i in _tool_slots.size():
+		if _tool_slots[i][2] and (pick < 0 or _tool_slots[i][0] < 0):
+			pick = i
+	if pick < 0:
+		return
+	var centre: Vector2 = _tool_slots[pick][1]
+	_stuck = Control.new()
+	_stuck.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(_stuck)
+	var glow := UI.image(_stuck, "glow_soft", Rect2(centre - Vector2(88, 88), Vector2(176, 176)))
+	glow.modulate = Color(1, 0.72, 0.15, 0.3)   # translucent gold so the disc stays readable
+	var arrow := UI.art(_stuck, "icon_next_arrow", Rect2(centre + Vector2(-28, -150), Vector2(56, 48)))
+	var base_y := arrow.position.y
+	arrow.rotation = PI * 0.5   # points down at the tool
+	if instant:
+		return
+	var tw := _stuck.create_tween().set_loops()
+	tw.tween_method(func(t: float):
+		var wave := (1.0 - cos(t * TAU)) * 0.5
+		_stuck.modulate.a = 0.7 + 0.3 * wave
+		arrow.position.y = base_y + wave * 12.0, 0.0, 1.0, 1.2)
+
+func _hide_stuck() -> void:
+	if _stuck:
+		_stuck.queue_free()
+		_stuck = null
 
 func _do(action: Callable) -> void:
 	busy = true
@@ -468,16 +702,20 @@ func _do(action: Callable) -> void:
 	busy = false
 	if session.state.is_won():
 		_celebrate()
+	else:
+		_watch_stuck()
 
 func _on_undo() -> void:
 	if busy or not session.undo():
 		return
 	Sound.play("undo")
 	busy = true
+	_hide_bubble()
 	_layout_branches()
 	await sync_birds()
 	refresh_hud()
 	busy = false
+	_watch_stuck()
 
 func _on_tool(kind: int) -> void:
 	if busy:
@@ -493,7 +731,7 @@ func _on_tool(kind: int) -> void:
 	if result.get("applied", false):
 		profile.inventory[kind] = session.state.inventory[kind]
 		profile_changed.emit()
-		Sound.play("hint")
+		Sound.play(BOOSTER_SOUND[kind])
 		await play_events(session.events.duplicate())
 	else:
 		Sound.play("error")
@@ -501,6 +739,7 @@ func _on_tool(kind: int) -> void:
 	await sync_birds()
 	refresh_hud()
 	busy = false
+	_watch_stuck()
 
 ## Hint: solve on a worker thread so the screen never freezes; commit only if the state is unchanged.
 func _hint() -> void:
@@ -632,6 +871,7 @@ func _door_point() -> Vector2:
 
 func _flock_home(e: Dictionary) -> void:
 	var ids: PackedInt32Array = e["ids"]
+	_door(1.0, 0.2)
 	var last: BirdView = null
 	for k in ids.size():
 		var bird: BirdView = _birds.get(ids[ids.size() - 1 - k])
@@ -643,16 +883,63 @@ func _flock_home(e: Dictionary) -> void:
 	if last:
 		await last.finished
 	Sound.play("nest_home")
+	_set_resident(Board.species_index(e["species"]), true)
+	_goal_gift[e["species"]].visible = false
+	_goal_check[e["species"]].visible = true
 	var tw := create_tween()
 	tw.tween_property(_house, "scale", Vector2(1.08, 0.94), 0.1)
 	tw.tween_property(_house, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK)
+	var glow := create_tween()
+	glow.tween_property(_glow, "modulate:a", 0.6, 0.15)
+	glow.tween_property(_glow, "modulate:a", 0.0, 0.35)
 	var goal: Control = _goal_nodes.get(e["species"])
 	if goal:
 		var pop := create_tween()
 		pop.tween_property(goal, "scale", Vector2.ONE * 1.25, 0.12)
 		pop.tween_property(goal, "scale", Vector2.ONE, 0.2)
-		pop.tween_property(goal, "modulate:a", 0.45, 0.2)
 	await tw.finished
+	await _door(0.0, 0.25)
+
+## Fades the open-door art in or out.
+func _door(open: float, seconds: float) -> void:
+	if _door_open == null:
+		return
+	var tw := create_tween()
+	tw.tween_property(_door_open, "modulate:a", open, seconds)
+	await tw.finished
+
+## Soft white disc that masks the resident bird to the round doorway.
+static var _disc: ImageTexture
+func _disc_texture() -> ImageTexture:
+	if _disc == null:
+		var img := Image.create(128, 128, false, Image.FORMAT_RGBA8)
+		for y in 128:
+			for x in 128:
+				var edge := 64.0 - Vector2(x + 0.5 - 64.0, y + 0.5 - 64.0).length()
+				img.set_pixel(x, y, Color(1, 1, 1, clampf(edge, 0.0, 1.0)))
+		_disc = ImageTexture.create_from_image(img)
+	return _disc
+
+## The delivered species looks out of the doorway; -1 leaves it empty and dark (undo, restart).
+func _set_resident(species_index: int, rise := false) -> void:
+	if species_index == _resident_species:
+		return
+	_resident_species = species_index
+	if _resident and is_instance_valid(_resident):
+		_resident.queue_free()
+	_resident = null
+	if species_index < 0:
+		return
+	_resident = BirdView.new()
+	_resident.setup(Board.bird(0, species_index, 0), false, 0.58)
+	_door_mask.add_child(_resident)
+	var feet := Vector2(_door_mask.size.x * 0.5, _door_mask.size.y * 0.97)
+	_resident.position = feet
+	if instant:
+		_resident.freeze()
+	elif rise:
+		_resident.position.y = feet.y + 90.0
+		create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _gift(e: Dictionary) -> void:
 	var coin := Sprite2D.new()
@@ -678,3 +965,24 @@ func _celebrate() -> void:
 func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
+
+## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left).
+static func preview(main: Control, state: String) -> void:
+	var def := {"id": 99, "world": 1, "variant": "morning", "capacity": 4, "par": 12, "dayLength": 4, "branches": [
+		{"side": "L", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "hoot:sleep"]},
+		{"side": "R", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "sunny"]},
+		{"side": "L", "row": 1, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "hoot"]},
+		{"side": "R", "row": 1, "kind": "normal", "seats": 0, "birds": ["hoot", "sky", "hoot"]}]}
+	if state == "stuck_hint":
+		def = JSON.parse_string(JSON.stringify(def).replace("hoot:sleep", "berry").replace("hoot", "berry"))
+	var board := BoardView.new()
+	board.instant = true
+	main.set_screen(board)
+	board.start(def, main.profile, false)
+	if state == "sleeping_bubble":
+		board.tap_branch(0)
+	elif state == "stuck_hint":
+		board.session.try_move(2, 3)   # gives undo a place in the tool bar
+		board.sync_birds()
+		board.refresh_hud()
+		board.show_stuck_hint()

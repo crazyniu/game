@@ -4,14 +4,14 @@
 For every frame/pill/ribbon sprite writes, in sprite pixels (top-left origin):
   opaque   - bounding box of visible pixels (alpha > 40)
   inner    - largest cream/content area a child may use (frames) or the flat band (ribbons, pills)
-Output: PerchSort/Assets/Resources/Art/layout_metrics.json
+Output: PerchSort/art/layout_metrics.json
 """
 import json, os
 import numpy as np
 from PIL import Image
 from collections import deque
 
-ART = os.path.join(os.path.dirname(__file__), "..", "PerchSort", "Assets", "Resources", "Art")
+ART = os.path.join(os.path.dirname(__file__), "..", "PerchSort", "art")
 
 def load(name):
     return np.array(Image.open(os.path.join(ART, name + ".png")).convert("RGBA")).astype(int)

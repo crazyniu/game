@@ -1,4 +1,4 @@
-# T13a original audio build
+# Original audio build
 
 Run from the repository root using Python 3.14 (the verified build used 3.14.6):
 
@@ -9,7 +9,7 @@ python3 -m venv /tmp/perchsort-audio-venv
 /tmp/perchsort-audio-venv/bin/python scripts/audio/analyze.py
 ```
 
-`generate.py` deterministically writes the 18 WAV files in `audio_src/`, using
+`generate.py` deterministically writes the 18 WAV files in `PerchSort/audio/`, using
 seed 130031. `analyze.py` reads the delivered 16-bit PCM, asserts the required
 format, durations, levels and loop boundaries, and writes `MANIFEST.md` plus
 `analysis.json`. It does not modify the game project. No ffmpeg, sample pack,

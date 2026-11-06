@@ -7,7 +7,7 @@ import struct
 import wave
 
 RATE = 44100
-OUT = Path(__file__).resolve().parents[2] / "PerchSort/Assets/Audio/Resources/Audio"
+OUT = Path(__file__).resolve().parents[2] / "PerchSort/audio/Audio"
 TAU = 2 * math.pi
 
 
