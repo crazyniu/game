@@ -49,7 +49,9 @@ namespace PerchSort.Game
             if (stateName.StartsWith("Outfits", StringComparison.Ordinal) || stateName.StartsWith("Names", StringComparison.Ordinal)) tab = Meta.ShopItemKind.Outfit;
             switch (stateName)
             {
-                case "Boosters / Stock badges": data.Coins = 240; break;
+                case "Boosters / Stock badges":
+                case "Confirm / Booster":
+                case "Confirm / Disabled accept": data.Coins = 240; break;
                 case "Boosters / Zero stock": foreach (var kind in kinds) data.Stock[kind] = 0; break;
                 case "Boosters / Locked tools": data.HighestUnlocked = 1; break;
                 case "Numbers / Zero coins": data.Coins = 0; break;
@@ -77,7 +79,7 @@ namespace PerchSort.Game
             // The shared preview lifecycle preserves the original attempt and disables persistence.
             root.PreviewMap(new GameProfile { Coins = data.Coins, HighestUnlocked = 40 });
             root.OpenShop(); root.Shop.ShowPreview(data, tab);
-            if (stateName == "Names / Full outfit catalog")
+            if (stateName == "Names / Full outfit catalog" || stateName == "Names / Longest painted ribbon")
                 root.Shop.GetComponentInChildren<UnityEngine.UI.ScrollRect>().verticalNormalizedPosition = 0;
             switch (stateName)
             {
@@ -87,7 +89,42 @@ namespace PerchSort.Game
                 case "Confirm / House": root.Shop.TapCosmetic("house.mushroom"); break;
                 case "Feedback / Insufficient coins": root.Shop.TapCard(BoosterKind.Firefly); break;
             }
+            if (UnityEngine.Application.isBatchMode) root.Shop.StartCoroutine(DumpRects(root.Shop, stateName));
+
         }
+        [Serializable] private sealed class RectRow
+        {
+            public string path;
+            public float[] rect;
+        }
+        [Serializable] private sealed class RectDump
+        {
+            public string state;
+            public RectRow[] elements;
+        }
+        private static System.Collections.IEnumerator DumpRects(ShopView shop, string state)
+        {
+            yield return null; yield return null;
+            UnityEngine.Canvas.ForceUpdateCanvases();
+            var rootRect = (UnityEngine.RectTransform)shop.transform;
+            var rows = new List<RectRow>();
+            var corners = new UnityEngine.Vector3[4];
+            foreach (var rect in shop.GetComponentsInChildren<UnityEngine.RectTransform>())
+            {
+                if (rect == rootRect) continue;
+                rect.GetWorldCorners(corners);
+                var min = rootRect.InverseTransformPoint(corners[0]);
+                var max = rootRect.InverseTransformPoint(corners[2]);
+                string path = rect.name;
+                for (var parent = rect.parent; parent != shop.transform; parent = parent.parent) path = parent.name + "/" + path;
+                rows.Add(new RectRow { path = path, rect = new[] { min.x - rootRect.rect.xMin, rootRect.rect.yMax - max.y, max.x - min.x, max.y - min.y } });
+            }
+            string folder = System.IO.Path.GetFullPath(System.IO.Path.Combine(UnityEngine.Application.dataPath, "../../build/screens/states"));
+            System.IO.Directory.CreateDirectory(folder);
+            System.IO.File.AppendAllText(System.IO.Path.Combine(folder, "shop-rects.jsonl"),
+                UnityEngine.JsonUtility.ToJson(new RectDump { state = state, elements = rows.ToArray() }) + "\n");
+        }
+
     }
 }
 #endif
