@@ -40,6 +40,7 @@ namespace PerchSort.Game
         public string ScreenName => "Board";
         public IReadOnlyList<string> StateNames => names;
         public string CurrentState => currentName;
+        public BoardFakeData(GameRoot owner) : this(owner, owner.BoardScreen) { }
         public BoardFakeData(GameRoot owner, IBoardView board)
         {
             root = owner; view = board; timeline = owner.gameObject.AddComponent<GameMotion>(); RegisterStates();
@@ -133,9 +134,17 @@ namespace PerchSort.Game
                     else Apply("Tools / " + action.Booster + " applied");
                     break;
                 case "branch":
-                    if (currentName.Contains("Sleeping") || currentName.Contains("sleep"))
+                    if ((uint)action.BranchId < current.Branches.Length)
                     {
-                        view.ShowBubble(Sleep(current, "dial_moon")); root.PlaySound(PerchSort.Audio.Sfx.Error); break;
+                        var tapped = current.Branches[action.BranchId].Birds;
+                        for (int i = tapped.Length - 1; i >= 0; i--)
+                        {
+                            if (!tapped[i].Sleeping || tapped[i].Bird.IsEgg) continue;
+                            string icon = tapped[i].Bird.Species.IsNocturnal && !tapped[i].Bird.IsAsleep ? "dial_moon" : "gift_sun_note";
+                            view.ShowBubble(new BubblePresentation { Visible = true,
+                                Point = tapped[i].Position + new Vector2(0, -200 * GameLayout.BirdScale(current.Rows)), IconKeys = new[] { icon } });
+                            root.PlaySound(PerchSort.Audio.Sfx.Error); return;
+                        }
                     }
                     if (action.BranchId == selected) { selected = -1; view.SetSelection(new SelectionPresentation()); break; }
                     if (selected == 0 && action.BranchId == 3) { Apply("Selection / Legal transfer"); break; }
@@ -149,6 +158,34 @@ namespace PerchSort.Game
         }
         private void RegisterStates()
         {
+            Add("Plush / Base board", f => f.Initial = PlushBoard());
+            Add("Plush / Many branches", f => { f.Initial = PlushBoard(5); FillSeats(f.Initial, 3); });
+            Add("Plush / Sleeping tap reaction", f =>
+            {
+                f.Initial = PlushBoard(); SetBirds(f.Initial, 0, "sunny", "sky", "hoot:sleep");
+                f.Bubble = new BubblePresentation { Visible = true, Point = f.Initial.Branches[0].Birds[2].Position + new Vector2(0, -200), IconKeys = new[] { "gift_sun_note" } };
+            });
+            Add("Plush / Nocturnal sleep explanation", f =>
+            {
+                f.Initial = PlushBoard(); SetBirds(f.Initial, 0, "ink"); Sleeping(f.Initial, 0, true);
+                f.Bubble = Sleep(f.Initial, "dial_moon");
+            });
+            Add("Plush / Stuck recommends undo", f => { f.Initial = PlushBoard(); f.Initial.Hud.UndoAvailable = true; f.Hint = new HintPresentation { Stuck = true }; });
+            Add("Plush / Stuck recommends hint", f => { f.Initial = PlushBoard(); f.AfterShow = () => root.Hud.ShowToolHint("tool_hint"); });
+            Add("Plush / Stuck recommends branch", f => { f.Initial = PlushBoard(); f.AfterShow = () => root.Hud.ShowToolHint("tool_branch"); });
+            Add("Plush / Disabled tools keep size", f => { f.Initial = PlushBoard(); foreach (var tool in f.Initial.Hud.Tools) tool.Enabled = false; });
+            Add("Plush / Maximum counters", f => { f.Initial = PlushBoard(); f.Initial.Hud.Coins = 99999; f.Initial.Hud.CountedMoves = 999; });
+            foreach (string value in Species)
+            {
+                string id = value;
+                Add("Front facing / " + id + " resting and home", f =>
+                {
+                    f.Initial = Build(2, 1, 4, new[] { id }); f.Initial.Goals[0].Home = true;
+                    f.Initial.ResidentSpecies = f.Initial.Hud.ResidentSpecies = id;
+                    SetBirds(f.Initial, 0, id, id, id);
+                });
+            }
+            Add("Front facing / Crow resting", f => { f.Initial = PlushBoard(); SetBirds(f.Initial, 0, "crow", "crow", "crow"); });
             Add("Data / Empty start - no snapshot", f => f.Initial = null);
             Add("Data / Typical", f => { });
             Add("Data / Empty branch", f => f.Initial.Branches[3].Birds = Array.Empty<BoardSnapshot.BirdData>());
@@ -187,7 +224,7 @@ namespace PerchSort.Game
             Add("Access / Undo shown after move", f => f.Initial.Hud.UndoAvailable = true);
             Add("Access / Undo hidden after final undo", f => f.Initial.Hud.UndoAvailable = false);
             Add("Access / Three slots with Undo hidden", f => f.Initial.Hud.UndoAvailable = false);
-            Add("Access / Four slots with Undo hidden", f => SetContext(f.Initial, BoosterKind.Scarecrow));
+            Add("Access / Context does not add toolbar slot", f => SetContext(f.Initial, BoosterKind.Scarecrow));
             Add("Access / Sapling already used", f => f.Initial.Hud.Tools[1].Enabled = false);
             Add("Access / Context absent", f => { });
             Add("Access / Context present", f => SetContext(f.Initial, BoosterKind.OwlEye));
@@ -298,8 +335,8 @@ namespace PerchSort.Game
             }
             Add("Tutorial / Level 1 second source", f => f.Tutorial = Target(f.Initial, 2, 2));
             Add("Tutorial / Level 1 second target", f => f.Tutorial = Target(f.Initial, 0, 0));
-            Add("Tutorial / Level 2 hint prompt", f => f.Tutorial = new TutorialPresentation { Visible = true, TargetKind = "tool", Point = GameLayout.ToolButton(1).center });
-            Add("Tutorial / Level 4 owned Sapling prompt", f => { f.Initial.LevelId = 4; f.Tutorial = new TutorialPresentation { Visible = true, TargetKind = "tool", Point = GameLayout.ToolButton(2).center }; });
+            Add("Tutorial / Level 2 hint prompt", f => f.Tutorial = new TutorialPresentation { Visible = true, TargetKind = "tool", Point = HudView.ToolBounds(1).center });
+            Add("Tutorial / Level 4 owned Sapling prompt", f => { f.Initial.LevelId = 4; f.Tutorial = new TutorialPresentation { Visible = true, TargetKind = "tool", Point = HudView.ToolBounds(2).center }; });
             foreach (string result in new[] { "Expected action", "Off script action", "Undo", "Restart", "Completion" })
             { string name = result; Add("Tutorial / " + name, f => { f.Tutorial = Target(f.Initial, 0, 1); f.AfterShow = () => Delay(0.7f, () => view.SetTutorial(new TutorialPresentation { Completed = true })); }); }
             Add("Tutorial / Modal suppression", f => { f.Tutorial = Target(f.Initial, 0, 1); f.Overlay = "Settings"; });
@@ -383,6 +420,13 @@ namespace PerchSort.Game
         private static string[] Variants(int world) => world == 1 ? new[] { "morning", "noon", "golden", "rain" } :
             world == 2 ? new[] { "noon", "mist", "lanterns", "drizzle" } :
             world == 3 ? new[] { "morning", "noon", "sunset", "windy" } : new[] { "morning", "noon", "bluehour", "aurora" };
+        private static BoardSnapshot PlushBoard(int rows = 2)
+        {
+            var data = Build(rows, 3, 0, new[] { "sunny", "sky", "hoot" });
+            data.Hud.CountedMoves = 7; data.Hud.ThreeStarLimit = 12; data.Hud.TwoStarLimit = 16;
+            data.Hud.PhaseEnabled = true; data.Hud.PhaseMovesLeft = 4;
+            return data;
+        }
         private static BoardSnapshot Build(int rows = 2, int speciesCount = 2, int branchCount = 0, string[] ids = null)
         {
             ids = ids ?? Species; if (branchCount == 0) branchCount = rows * 2;
