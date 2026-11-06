@@ -100,6 +100,7 @@ func _layout_branches() -> void:
 	_density = [1.0, 1.0, 1.0, 1.0, 0.88, 0.76, 0.66][mini(_rows, 6)]
 	_top = 815.0 if _rows <= 3 else 760.0
 	_pitch = minf(330.0, (1660.0 - _top) / (_rows - 0.5))
+	var before := _branch_nodes.size()
 	for node in _branch_nodes:
 		node.queue_free()
 	_branch_nodes.clear()
@@ -132,6 +133,10 @@ func _layout_branches() -> void:
 			node.add_child(knot)
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
+		if b >= before and before > 0 and not instant:
+			# A branch added by the sapling grows out of the trunk.
+			node.scale = Vector2(0.05, 0.6)
+			create_tween().tween_property(node, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 	var spr := Sprite2D.new()
@@ -200,6 +205,7 @@ func _make_bird(code: int, at: Vector2) -> BirdView:
 func sync_birds() -> void:
 	var s := session.state
 	var seen := {}
+	var glide: Tween = null
 	for b in s.branch_count():
 		for i in s.items[b].size():
 			var code := s.items[b][i]
@@ -208,9 +214,15 @@ func sync_birds() -> void:
 			var bird: BirdView = _birds.get(id)
 			if bird == null or not is_instance_valid(bird):
 				bird = _make_bird(code, seat_point(b, i))
-			elif bird.code != code or bird.asleep != s.is_asleep(code):
+			elif bird.code != code or bird.asleep != s.is_asleep(code) or bird.density != _density:
 				bird.setup(code, s.is_asleep(code), _density, bird.outfit)
-			bird.position = seat_point(b, i)
+			if instant or bird.position.distance_to(seat_point(b, i)) < 2.0:
+				bird.position = seat_point(b, i)
+			else:
+				# Rows can shift when a branch is added; birds glide to their new seats.
+				if glide == null:
+					glide = create_tween().set_parallel()
+				glide.tween_property(bird, "position", seat_point(b, i), 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			bird.set_selected(false)
 	for id in _birds.keys():
 		if not seen.has(id):
@@ -218,6 +230,8 @@ func sync_birds() -> void:
 				_birds[id].queue_free()
 			_birds.erase(id)
 	_night.modulate.a = 0.45 if s.phase == Board.Phase.NIGHT else 0.0
+	if glide:
+		await glide.finished
 
 func _entrance() -> void:
 	busy = true
@@ -449,7 +463,7 @@ func _do(action: Callable) -> void:
 	var ok: bool = action.call()
 	if ok:
 		await play_events(session.events.duplicate())
-	sync_birds()
+	await sync_birds()
 	refresh_hud()
 	busy = false
 	if session.state.is_won():
@@ -459,9 +473,11 @@ func _on_undo() -> void:
 	if busy or not session.undo():
 		return
 	Sound.play("undo")
+	busy = true
 	_layout_branches()
-	sync_birds()
+	await sync_birds()
 	refresh_hud()
+	busy = false
 
 func _on_tool(kind: int) -> void:
 	if busy:
@@ -482,7 +498,7 @@ func _on_tool(kind: int) -> void:
 	else:
 		Sound.play("error")
 	_layout_branches()
-	sync_birds()
+	await sync_birds()
 	refresh_hud()
 	busy = false
 

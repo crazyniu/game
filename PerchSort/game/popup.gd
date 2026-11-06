@@ -1,4 +1,4 @@
-class_name Popup
+class_name Modal
 extends Control
 ## Shared modal: dimmed backdrop, plush panel, painted title ribbon, optional close disc, action discs.
 ## Content uses absolute design coordinates (same space as res://layout/*.json); add it to `content`.
@@ -14,8 +14,8 @@ var _closing := false
 
 
 ## title: a painted label sprite name (e.g. "label_title_settings"); "" for none.
-static func open(host: Control, panel: Rect2, title: String = "", title_rect := Rect2(), close_rect := Rect2(), instant := false) -> Popup:
-	var p := Popup.new()
+static func open(host: Control, panel: Rect2, title: String = "", title_rect := Rect2(), close_rect := Rect2(), instant := false) -> Modal:
+	var p := Modal.new()
 	p.name = "Popup"
 	p.size = Vector2(1080, 1920)
 	p.panel_rect = panel
@@ -53,8 +53,12 @@ func _appear() -> void:
 	tw.tween_property(content, "scale", Vector2.ONE, 0.32).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## Disc button below or on the panel; base "btn_green" for the primary action (124 px), "btn_wood" otherwise.
-func action(rect: Rect2, icon: String, on_press: Callable, base := "btn_wood") -> Button:
-	return UI.disc(content, icon, rect, icon, on_press, base, 0.5)
+## An action disc; by default pressing it closes the popup, then runs `on_press`.
+func action(rect: Rect2, icon: String, on_press: Callable, base := "btn_wood", closes := true) -> Button:
+	return UI.disc(content, icon, rect, icon, func():
+		if closes:
+			close()
+		on_press.call(), base, 0.5)
 
 func close() -> void:
 	if _closing:

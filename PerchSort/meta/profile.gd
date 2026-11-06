@@ -11,6 +11,7 @@ var highest_unlocked := 1
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
 var stars := PackedInt32Array()     # index 1..40
 var clears := PackedInt32Array()    # index 1..40
+var best_moves := PackedInt32Array() # index 1..40, fewest counted moves of a win (0 = none)
 var outfits := {}                   # item id -> true
 var equipped := {}                  # species id -> outfit item id
 var houses := {}                    # style id -> true
@@ -27,6 +28,7 @@ var muted := false
 func _init() -> void:
 	stars.resize(41)
 	clears.resize(41)
+	best_moves.resize(41)
 
 func best_stars(level: int) -> int:
 	return stars[level]
@@ -48,6 +50,11 @@ func has_tutorial(flag: String) -> bool:
 
 func set_tutorial(flag: String) -> void:
 	tutorials[flag] = true
+
+## Records a win's counted moves; keeps the fewest.
+func record_moves(level: int, moves: int) -> void:
+	if best_moves[level] == 0 or moves < best_moves[level]:
+		best_moves[level] = moves
 
 func clears_count() -> int:
 	var total := 0
@@ -72,7 +79,7 @@ func to_dict() -> Dictionary:
 			worlds.append(w)
 	return {
 		"schemaVersion": SCHEMA_VERSION, "coins": coins, "highestUnlockedLevel": highest_unlocked,
-		"boosters": boosters, "bestStars": Array(stars), "clearCounts": Array(clears),
+		"boosters": boosters, "bestStars": Array(stars), "clearCounts": Array(clears), "bestMoves": Array(best_moves),
 		"ownedOutfits": _sorted(outfits), "equippedOutfits": equipped.duplicate(),
 		"ownedBirdhouseStyles": _sorted(houses), "equippedBirdhouseStyle": equipped_house,
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
@@ -96,6 +103,8 @@ static func from_dict(data: Dictionary) -> Profile:
 		p.stars[level] = s
 		var c := int(clear_list[level]) if level < clear_list.size() else 0
 		p.clears[level] = 0 if s == 0 else maxi(1, c)
+		var moves_list: Array = data.get("bestMoves", [])
+		p.best_moves[level] = maxi(0, int(moves_list[level])) if s > 0 and level < moves_list.size() else 0
 		if s > 0:
 			p.highest_unlocked = maxi(p.highest_unlocked, mini(40, level + 1))
 	for id in data.get("ownedOutfits", []):

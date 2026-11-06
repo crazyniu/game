@@ -24,7 +24,7 @@ Mockups: `git show origin/ui-design-review:art/ui_design/<screen>.png`. Old Unit
 - Words are painted label sprites in `art/labels/` (`label_title_*` ribbons, `label_caption_*` plates, `label_card_*`, `label_name_<species>`, `label_word_best`, `label_title_level_<N>`). Never render player-visible text with a font.
 - `UI.disc(parent, name, rect, icon, callable, base="btn_wood"|"btn_green", icon_ratio)` round buttons with eased press scale; `UI.set_enabled(button, bool)` dims to 45 % alpha at the same size.
 - `UI.hit_area(parent, rect, callable)` invisible tap target.
-- `Popup.open(host, panel_rect, title_label, title_rect, close_rect, instant)` shared modal (dim, `panel_wood`, painted title ribbon, close disc, appear/close animation); add content to `popup.content` in absolute design coordinates; `popup.action(rect, icon, callable, base)`; signal `closed`.
+- `Modal.open(host, panel_rect, title_label, title_rect, close_rect, instant)` shared modal (dim, `panel_wood`, painted title ribbon, close disc, appear/close animation); add content to `popup.content` in absolute design coordinates; `popup.action(rect, icon, callable, base)`; signal `closed`.
 - Sizes: primary action disc at most 1.25x its siblings; same-role buttons identical sizes in all states.
 
 ## Screens and navigation

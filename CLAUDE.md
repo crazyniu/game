@@ -4,70 +4,57 @@ Follow [CONVENTIONS](docs/CONVENTIONS.md).
 
 ## Current execution contract
 
-Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/Assets/Scenes/Game.unity`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [documentation router](docs/README.md), and [code map](docs/spec/CODE_MAP.md).
+Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 40 fixed authored levels across four sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
 
-- The current stage assigns music, entrance timing, continuous bird motion, button sizing and repository cleanup to separate owners under [the shared contract](docs/work-log/integration-contract/spec.md). Follow the assigned task; cleanup is not authority to redesign rules, art, economy or saves.
-- Return questions and reports to the coordinator who assigned the task. Agent-entry filenames do not confer coordination authority. AGENTS.md and CLAUDE.md must remain identical.
-- Develop on the Mac in isolated Orca workspaces. Workers must not mutate the user's primary checkout `/Users/apple/Documents/projects/game`.
-- Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. All workers (code and art, including image generation) are Codex CLI on the Mac (Orca environment `Mac-Image-Worker`) on gpt-6-astra at maximum effort; never OMP and no Codex jobs on the Linux coordinator machine (user, 2026-11-06). Prefer one Codex conversation per feature so shared parts stay consistent; UI workers verify with silent captures beside the mockup before reporting. Bounded workers must not spawn workers.
-- Commit and push only the assigned task branch. Never merge peer branches, touch or push main, force-push, deploy or release as a worker. Coordinator integration authority is not release authority.
-- Workers run their own Mac compilation, full EditMode/PlayMode suites and applicable screenshots under `flock /tmp/unity.lock`. Integrated acceptance remains required after coordination; historical counts and static reports do not establish new acceptance.
+- Claude develops the game directly. Codex only paints art and may help run tests on the Mac; it does not write game code.
+- Return questions and reports to the coordinator who assigned the task. AGENTS.md and CLAUDE.md must remain identical.
+- Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. Bounded workers must not spawn workers.
+- Never force-push, deploy or release. Release needs explicit user authority.
 
 ## Hard constraints (user, 2026-11-04)
 
-- There is exactly one version of this game. Never name files, folders, classes, namespaces, assets, scenes, docs or branches after a version. No version-number prefixes or suffixes, numbered UI identities, or numbered "final" copies. History lives in Git, not in the tree. Never create archive folders of old versions.
-- Approved reference images live in `art/approved_ui`; they are the visual acceptance target. A UI task is accepted only when actual runtime screenshots visibly match those images.
-- Animation and audio acceptance requires timed evidence: frame sequences and logs, never one static frame. Level entrance must take **3.5–4.5 seconds**. Birds must never look static: continuous breathing plus frequent idle actions. Background music must always be present on the applicable page and follow the existing mute control. All same-role buttons must have identical sizes in every state; disabled means dimmed and non-interactive, not smaller.
-- Never fake animation by mirroring or flipping a still image, or by showing a fixed picture. Birds in popups, houses and on branches must move continuously through breathing, hops and pose-frame changes with easing. Turning must never be a sprite mirror.
+- There is exactly one version of this game. Never name files, folders, classes, assets, scenes, docs or branches after a version. No version-number prefixes or suffixes, numbered UI identities, or numbered "final" copies. History lives in Git, not in the tree. Never create archive folders of old versions.
+- UI comes first, logic second. A UI is first built as a clickable, animated UI shell in the canonical screen scripts, fed by fake data through each script's `preview()` behind the same view interface the real logic uses; no demo scene or parallel implementation. The user tries the shell and approves it per screen. Only then is Core/Meta logic wired in, without changing the approved layout or art. Follow the `ui-first-development` skill ([orca-game-skill](https://github.com/crazyniu/orca-game-skill)) for every art, screen, animation and sound task.
+- Mockups in `art/approved_ui` are the style direction, not a pixel target. After the user approves a screen, its runtime captures in `art/approved_runtime` become the visual acceptance baseline; later UI changes must match that baseline or be re-approved by the user.
+- Animation and audio acceptance requires timed evidence: frame sequences and logs, never one static frame. Level entrance must take **3.5–4.5 seconds**. Birds must never look static: continuous breathing plus frequent idle actions. Background music must always be present on the applicable page and follow the mute control. All same-role buttons must have identical sizes in every state; disabled means dimmed and non-interactive, not smaller.
+- Never fake animation by mirroring or flipping a still image, or by showing a fixed picture. Birds in popups, houses and on branches move continuously through breathing, hops and pose-frame changes with easing. Turning a bird is never a sprite mirror.
 - Primary action buttons must be **at most 1.25 times** the size of sibling buttons.
-- Workers may and must run applicable serialized Unity tests and screenshots. There is no coordinator-only Unity monopoly, no no-tests continuation rule, and no documentation-only exemption for an implementation task.
+- Player-visible words are painted label sprites and numbers are painted glyphs; never render them with a font.
 
-## UI style and lettering (user-approved 2026-11-06, binding)
-
-- One unified style: **velvet plush**. Every UI surface (panels, ribbons, buttons, pills, stars, rings, bars, HUD, map nodes) has the same soft short fur and gentle velvet sheen as the birds: puffy, rounded, warm light from top-left. Never yarn, knit, wool, crochet, felt-craft, embroidery or stitch lines; never glossy plastic, flat vector or hard lacquered wood. Forest backgrounds and trees stay naturally painted (not plush).
-- Colour kit: honey-orange velvet frames and secondary discs; bright leaf-green velvet (about #6CB02C) primary discs and ribbons; warm cream velvet (about #F6E7C8) panels and pills; golden velvet coins, stars and rings; bright red (about #E0362C) count badges.
-- Reference: the approved mockups on branch `ui-design-review` (`art/ui_design/*.png`, review sheets in `art/ui_design/review/`) and the runtime kit in `PerchSort/Assets/Resources/Art`. Component sizes and modal rules: `docs/work-log/plush-ui/components.md`; build contract: `docs/work-log/plush-ui/spec.md`.
-- **Lettering is painted art, never a font.** Every word and number the player sees is produced by the image-generation tool together with its ribbon, pill or plate as one painted image: smooth, thick, puffy letters with soft emboss and shadow; cream-white letters with dark-green outline on green ribbons, dark-brown letters on cream plates, cream-white with brown outline on orange and red discs. Forbidden for player-visible text: TextMeshPro/Text, PIL `ImageDraw.text`/`ImageFont`, SVG/HTML text, any font file, font-based baking scripts. PIL and code are allowed only for geometry (crop, scale, mask, place, measure).
-- Fixed words use the painted label sprites in `Art/labels` (mapping in `docs/work-log/plush-ui/text-inventory.md`); numbers use the painted glyph sets in `Art/glyphs` (`brown`, `cream`, `white`; digits, plus, minus, times, infinity, slash) placed side by side at runtime. The third star threshold is the infinity glyph, never letters. A word without a painted sprite is never rendered with a font: paint it first.
-- Producing new art: generate large (at least 2x), downscale, real transparency, same name/canvas/bounds when replacing an existing sprite; check spelling at 300 % (every letter, every i-dot and apostrophe) before acceptance; one consistent family per kind (all caption plates the same rounded cream pill, all ribbons the same green velvet with two leaf clusters).
-
-## Permanent naming policy and review acceptance
+## Naming policy and review acceptance
 
 - Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
-- Preserve every existing storage key, migrator read, ProfileText DataMember, popup SaveData field, enum numeric order and schema value. Existing persistence compatibility is not permission to reset user data.
-- Review canonical paths, one enabled Game scene, canonical resource roots and each retained numbered identifier. Run `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py` before Unity. The guard checks tracked paths and authored identifiers; it complements review, not compilation or runtime acceptance.
-- Removed implementation and superseded art live only in Git history. Retained research documents describe historical decisions, not another runnable game. Do not recreate removed trees from historical references.
+- Preserve the save JSON field names in `meta/profile.gd` and enum numeric orders in `core/board.gd`; never reset user data.
+- Run `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py`. The guard checks tracked paths and source identifiers; it complements review, not runtime acceptance.
+- Removed implementation (including the former Unity project) and superseded art live only in Git history. Do not recreate removed trees.
 
-## Current source and data ownership
+## Source and data ownership
 
-| Surface | Current location |
+| Surface | Location |
 | --- | --- |
-| Pure rules and solver | `PerchSort/Assets/Scripts/Core` / `PerchSort.Core` |
-| Pure profile/economy/collection policies | `PerchSort/Assets/Scripts/Meta` / `PerchSort.Meta` |
-| Unity runtime and presentation | `PerchSort/Assets/Scripts/Game` / `PerchSort.Game` |
-| Shared audio | `PerchSort/Assets/Scripts/Audio` |
-| Sole scene and root | `Assets/Scenes/Game.unity` / `PerchSort.Game.GameRoot` |
-| Current resources | `Assets/Resources/{Art,Birds,World}`, `Assets/Resources/Levels/levels.json`, `Assets/Resources/dev_options.json` |
-| Editor entry | `Assets/Editor/Game`, namespace `PerchSort.Editor`: `GameSceneBuilder`, `GameArtImporter`, `GameCapture` |
-| Tests | `Assets/Tests/{EditMode,Meta,PlayMode}`; shared Audio under `Tests/EditMode/Audio` |
-| Level authoring | `tools/levels/LevelTool/LevelTool.csproj`, compiling canonical Core directly |
-| Visual acceptance references | `art/approved_ui` |
+| Pure rules and solver | `PerchSort/core` (`Board`, `Levels`, `Rules`, `Solver`, `GameSession`) |
+| Profile, economy, shop, aviary | `PerchSort/meta` |
+| Screens, animation, navigation | `PerchSort/game` (`main.gd`, `board_view.gd`, `bird_view.gd`, `popups.gd`, `map_view.gd`, `shop_view.gd`, `aviary_view.gd`, UI kit) |
+| Audio | `PerchSort/audio`, autoload `Sound` (`game/sound.gd`) |
+| Assets | `PerchSort/{art,birds,world}`, levels `PerchSort/levels/levels.json`, measured layouts `PerchSort/layout` |
+| Tests | `PerchSort/tests` (`smoke.gd`, `run_core.gd`) |
+| Style direction / visual acceptance baseline | `art/approved_ui` / `art/approved_runtime` |
+
+Keep `core/` and `meta/` independent of presentation. Inspect actual code and obtain separate authority before changing rules or levels.
 
 ## Specification and language
 
-- Chinese with the user unless the assigned task requires English-only communication. Agent instructions, new task specs/reports, comments and commits are English. No emoji in task deliveries.
-- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; later approved visual/animation contracts and actual source resolve superseded layout prose. Historical ownership and paths are not execution instructions.
-- Old runtime descriptions and rules/schema/save proposals remain historical research. They must not silently replace the accepted game. Keep Core/Meta independent of Unity presentation; inspect actual code and obtain separate authority before changing rules or levels.
-- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets must be derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
-- Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers. Stay inside assigned paths, preserve unrelated user changes and report requested contract changes explicitly.
+- Chinese with the user. Agent instructions, task specs/reports, comments and commits are English. No emoji in deliveries.
+- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; approved visual contracts and actual source resolve superseded prose. Old Unity-era documents are historical research, not execution instructions.
+- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
+- Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers.
 
-## Serialized Mac verification workflow
+## Verification
 
-1. Record scene/meta/settings/package state before Unity. Preserve user changes separately; never blindly restore generated files or update the primary checkout from a worker.
-2. Inspect process and lock state. Use one Unity process at a time and `flock /tmp/unity.lock` for every batch run, test and screenshot command. If the user has the Editor open, ask them to close it; never kill their Editor.
-3. Run `flock /tmp/unity.lock bash scripts/run_tests.sh`: it invokes only `PerchSort.Editor.GameSceneBuilder.Build`, then full EditMode and PlayMode suites. T54 baseline: **304 EditMode and 21 PlayMode**, all passing; these are expectations, not results. Preserve the retained LevelsData 81 expanded cases and Layout 41 cases. Never lower discovery safeguards or weaken/skip tests to hide a failure.
-4. Run `flock /tmp/unity.lock bash scripts/screenshots.sh` for stable-state captures in `build/screens/game/`, then perform applicable real GUI/timed acceptance. GameCapture uses instant motion and synthetic nonpersistent profiles; stills do not prove animation, persistence or device acceptance. Animation/audio claims require the shared contract's timed frame/log evidence.
-5. CI runs the naming guard before current JSON/assembly/project/script checks, workflow lint and `dotnet test ci/CoreTests.csproj`. CI is not a substitute for Unity or GUI acceptance. Sparse-checkout naming inspection uses indexed Git blobs for absent files.
-6. Report exact commands, counts, skips, failures, evidence paths and remaining boundaries. Keep generated output out of commits (`build/` is ignored); commit only the task's required evidence. Historical passing counts never validate a new change.
+1. `bash scripts/run_tests.sh`: naming guard, smoke test (every script loads, every level builds) and the core test (all 40 levels solved by the solver and replayed through a session). About 5 minutes.
+2. `bash scripts/screenshots.sh [filter]`: silent 1080x1920 captures of every screen state into `build/screens/` (xvfb). Compare with the mockups and the approved baseline. Stills do not prove animation.
+3. Timed evidence: `scripts/capture.sh` with `--motion --wait=S`, or `main.tscn -- --frames=<dir> --wait=S --step=0.25` for frame sequences; `--autoplay` plays a level through the real board and logs entrance and total timings.
+4. CI runs the naming guard, syntax checks and `scripts/run_tests.sh` on headless Godot. CI is not a substitute for GUI acceptance.
+5. Report exact commands, results, evidence paths and remaining boundaries. `build/` is ignored; commit only required evidence.
 
-Do not expose network services or credentials. Use authorized Orca/artifact channels. Production store identifiers and release account/package placeholders still require user input; `com.todo.perchsort` is not a production package name.
+Do not expose network services or credentials. Production store identifiers and release package names still require user input.

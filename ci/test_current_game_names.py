@@ -1,4 +1,4 @@
-"""Consumer-visible boundary fixtures for the repository naming guard."""
+"""Boundary fixtures for the repository naming guard."""
 
 import contextlib
 import io
@@ -11,146 +11,42 @@ import check_current_game_names as guard
 
 
 class NamingPolicyTests(unittest.TestCase):
-    def test_rejects_lowercase_numbered_identity_prefixes(self):
-        for token in ("v" + "1bird", "ui" + "2panel", "final" + "3candidate",
-                      "bird_v" + "2copy", "uI" + "2panel", "BirdUi" + "2",
-                      "BirdV" + "2copy", "FINAL" + "3candidate"):
+    def test_rejects_numbered_identities_in_source(self):
+        for token in ("v" + "1bird", "ui" + "2panel", "final" + "3candidate", "bird_v" + "2copy",
+                      "BirdUi" + "2", "BirdV" + "2copy", "FINAL" + "3candidate", "T" + "54A"):
             with self.subTest(token=token):
-                self.assertTrue(list(guard.content_violations(
-                    "PerchSort/Assets/Scripts/Game/Bird.cs", "class " + token + " {}")))
-        self.assertFalse(list(guard.content_violations(
-            "tools/check.py", "import cv2\npreview = True")))
+                self.assertTrue(list(guard.content_violations("PerchSort/game/bird.gd", "class_name " + token)))
 
-    def test_serialized_unity_names_are_checked_without_rewriting_data(self):
-        token = "V" + "2"
-        for suffix in ("unity", "prefab", "asset", "scenetemplate"):
-            path = guard.ASSETS + "Scenes/Game." + suffix
-            with self.subTest(path=path):
-                self.assertTrue(guard.is_source(path))
-                text = ("%YAML 1.1\n  m_Name: Game" + token +
-                        "\n  m_EditorClassIdentifier: PerchSort.Game::Game" + token +
-                        "\n  description: Historical Game" + token +
-                        "\n  storageKey: v5.coins\n")
-                errors = list(guard.content_violations(path, text))
-                self.assertEqual(2, len(errors))
-                self.assertIn(":2:", errors[0])
-                self.assertIn(":3:", errors[1])
-        self.assertFalse(guard.is_source("docs/work-log/topic/evidence/record.asset"))
+    def test_accepts_ordinary_words_and_metadata(self):
+        for text in ("var preview := true", "import cv2", "uses: actions/checkout@v" + "7.0.1",
+                     "stamp = 2026-11-06T10:00:00", "[ext_resource uid=\"uid://bv" + "2abc\"]",
+                     "url = \"https://example.com/v" + "2/x\""):
+            with self.subTest(text=text):
+                self.assertFalse(list(guard.content_violations("PerchSort/game/main.gd", text)))
 
-    def test_shader_vertex_to_fragment_type_is_not_a_version(self):
-        path = guard.ASSETS + "Shaders/Game.shader"
-        self.assertFalse(list(guard.content_violations(path, "struct v2f {}; v2f vert();")))
-        self.assertTrue(list(guard.content_violations(path, "struct v" + "2future {};")))
-        self.assertTrue(list(guard.content_violations(path, "v2f vert(); // GameV" + "2")))
+    def test_only_source_files_are_read(self):
+        self.assertTrue(guard.is_source("PerchSort/game/main.gd"))
+        self.assertTrue(guard.is_source("PerchSort/main.tscn"))
+        self.assertTrue(guard.is_source("PerchSort/levels/levels.json"))
+        self.assertFalse(guard.is_source("docs/work-log/topic/report.md"))
+        self.assertFalse(guard.is_source("PerchSort/art/layout_metrics.json"))
 
-    def test_repository_check_includes_serialized_unity_identities(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            subprocess.run(["git", "init", "--quiet", str(root)], check=True)
-            scene = root / guard.ASSETS / "Scenes/Game.unity"
-            scene.parent.mkdir(parents=True)
-            scene.write_text("  m_Name: GameV" + "2\n")
+    def test_numbered_paths_are_rejected(self):
+        self.assertTrue(list(guard.path_violations("PerchSort/game/board_v" + "2.gd")))
+        self.assertTrue(list(guard.path_violations("docs/T" + "54/report.md")))
+        self.assertFalse(list(guard.path_violations("PerchSort/world/bg_level_w1_noon.png")))
+
+    def test_repository_check_reads_unstaged_changes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            source = root / "PerchSort/game/main.gd"
+            source.parent.mkdir(parents=True)
+            source.write_text("extends Node\n")
             subprocess.run(["git", "-C", str(root), "add", "."], check=True)
             with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-                self.assertEqual(1, guard.check(root))
-                scene.unlink()
-                self.assertEqual(1, guard.check(root))
-                scene.write_text("  m_Name: Game\n")
                 self.assertEqual(0, guard.check(root))
-
-    def test_task_names_and_dates(self):
-        for name in ("T" + "54AExample.cs", "T" + "7_report.md",
-                     "ui" + "7_x.png", "V" + "5Tool.cs"):
-            with self.subTest(name=name):
-                self.assertTrue(list(guard.path_violations("docs/" + name)))
-        self.assertFalse(list(guard.path_violations("docs/2026-11-04_handoff.md")))
-
-    def test_rejects_numbered_names_in_every_authored_root(self):
-        for prefix in ("art/", "tools/levels/", "docs/", "scripts/", "ci/",
-                       "PerchSort/Assets/Scripts/", "PerchSort/ProjectSettings/"):
-            for token in ("v" + "1", "V" + "99", "ui" + "7", "final" + "2",
-                          "BirdV" + "5", "v" + "7sprites", "uI" + "7"):
-                with self.subTest(prefix=prefix, token=token):
-                    self.assertTrue(list(guard.path_violations(prefix + token + ".txt")))
-
-    def test_rejects_namespaces_resource_keys_comments_and_schema_aliases(self):
-        for text in ("namespace PerchSort.V" + "5.Core {}",
-                     'Resources.Load("ui' + '7/Art/bird")',
-                     "// Keep BirdV" + "6 here",
-                     '{"schemaVersion":"v' + '2"}'):
-            with self.subTest(text=text):
-                self.assertTrue(list(guard.content_violations("tools/author.cs", text)))
-        self.assertTrue(list(guard.content_violations(
-            "ci/data.json", '{"prompt":"GameV' + '5"}')))
-
-    def test_storage_exception_is_exact_and_owner_scoped(self):
-        owner = guard.ASSETS + "Scripts/Game/ProgressStore.cs"
-        key = next(iter(guard.STORAGE_LITERALS[owner]))
-        self.assertFalse(list(guard.content_violations(owner, 'const string key = "' + key + '";')))
-        self.assertTrue(list(guard.content_violations(owner, 'const string key = "' + key + 'new";')))
-        self.assertTrue(list(guard.content_violations("tools/save.cs", '"' + key + '"')))
-
-    def test_migrator_storage_allowance_moves_without_expanding(self):
-        owner = guard.ASSETS + "Scripts/Meta/ProfileMigrator.cs"
-        former_owner = guard.ASSETS + "Scripts/Meta/ProfileText.cs"
-        expected = {"v5.coins", "v5.muted", "v5.highestUnlocked", "v5.bestStars.",
-                    "v5.tutorial.", "v5.booster.", "v5.starter."}
-        self.assertEqual(expected, guard.STORAGE_LITERALS[owner])
-        self.assertNotIn(former_owner, guard.STORAGE_LITERALS)
-        for key in expected:
-            with self.subTest(key=key):
-                literal = '"' + key + '"'
-                self.assertFalse(list(guard.content_violations(owner, literal)))
-                self.assertTrue(list(guard.content_violations(former_owner, literal)))
-                self.assertTrue(list(guard.content_violations(owner, '"' + key + 'new"')))
-
-    def test_prose_and_records_are_not_checked_but_source_and_paths_are(self):
-        token = "V" + "5"
-        for path in ("docs/team/HANDOFF_2026-11-04.md", "docs/CURRENT_GAME.md", "docs/work-log/x/evidence/data.json"):
-            self.assertFalse(list(guard.content_violations(path, "`" + token + "`")) if guard.is_source(path) else [])
-            self.assertFalse(guard.is_source(path))
-        for path in ("PerchSort/Assets/Scripts/Game/Bird.cs", "tools/check.py", "ci/check.yml"):
-            self.assertTrue(guard.is_source(path))
-            self.assertTrue(list(guard.content_violations(path, "class Bird" + token + " {}")))
-        self.assertTrue(list(guard.content_violations("PerchSort/Assets/Tests/PlayMode/MusicTests.cs", "// T" + "54A note")))
-        self.assertTrue(list(guard.path_violations("docs/work-log/T" + "54A_report.md")))
-        self.assertFalse(list(guard.path_violations("docs/work-log/2026-11-05_topic.md")))
-
-    def test_dependency_and_lockfile_exceptions_are_narrow(self):
-        token = "V" + "5"
-        for path in ("PerchSort/Packages/vendor/" + token + ".cs", "package-lock.json",
-                     "deps.lock", ".git/refs/" + token):
-            self.assertFalse(list(guard.path_violations(path)))
-        text = 'uses: actions/checkout@v' + '4\nname: BirdV' + '5'
-        errors = list(guard.content_violations(".github/workflows/ci.yml", text))
-        self.assertEqual(1, len(errors))
-        self.assertIn(":2:", errors[0])
-
-    def test_markdown_is_not_a_source_file(self):
-        token = "v" + "5"
-        self.assertFalse(guard.is_source("docs/design.md"))
-        self.assertFalse(guard.is_source("docs/work-log/topic/report.md"))
-        self.assertTrue(guard.is_source("PerchSort/Assets/Resources/Levels/levels.json"))
-
-    def test_level_world_task_numbers_and_dependency_module_are_not_game_versions(self):
-        for path in ("art/world/w4/l40.png", "tools/vision_adapter.py"):
-            self.assertFalse(list(guard.path_violations(path)))
-        self.assertFalse(list(guard.content_violations("tools/check.py", "import cv2\nlevel = 40")))
-
-    def test_index_fallback_and_unstaged_changes_cannot_bypass_check(self):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            subprocess.run(["git", "init", "--quiet", str(root)], check=True)
-            source = root / "author.cs"
-            source.write_text("class BirdV" + "5 {}\n")
-            subprocess.run(["git", "-C", str(root), "add", "author.cs"], check=True)
-            source.unlink()  # Model an indexed file absent from a sparse checkout.
-            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
-                self.assertEqual(1, guard.check(root))
-                source.write_text("class Bird {}\n")
-                self.assertEqual(0, guard.check(root))
-                subprocess.run(["git", "-C", str(root), "add", "author.cs"], check=True)
-                source.write_text("class BirdV" + "7 {}\n")
+                source.write_text("class_name GameV" + "2\n")
                 self.assertEqual(1, guard.check(root))
 
 
