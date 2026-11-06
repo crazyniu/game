@@ -28,6 +28,12 @@ var _hud: Control
 var _night: TextureRect
 var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
+## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
+const TRUNK_HIDE_LEFT := 110.0
+const TRUNK_SHOW_LEFT := 56.0
+const TRUNK_HIDE_RIGHT := 96.0
+const TRUNK_SHOW_RIGHT := 60.0
+const JOINT_OVERLAP := 30.0
 var _rows := 2
 var _density := 1.0
 var _top := 815.0
@@ -73,22 +79,11 @@ func _build_scene() -> void:
 	_scene.name = "Scene"
 	add_child(_scene)
 	var w := _world()
-	for right in [false, true]:
-		var trunk := Sprite2D.new()
-		trunk.texture = Art.tex("trunk_left_w%d" % w)
-		trunk.centered = false
-		trunk.flip_h = right
-		trunk.scale = Vector2.ONE * 1.15
-		trunk.position = Vector2(1080 - 160 * 1.15 + 6 if right else -6, 560)
-		_scene.add_child(trunk)
-		var crown := Sprite2D.new()
-		crown.texture = Art.tex("tree_crown_w%d" % w)
-		crown.flip_h = right
-		crown.scale = Vector2.ONE * 0.9
-		crown.position = Vector2(1080 - 150 if right else 150, 560)
-		_scene.add_child(crown)
 	_branch_layer = Node2D.new()
 	_scene.add_child(_branch_layer)
+	# Slim trunks at both screen edges, drawn over the thick branch ends so each branch grows out of the trunk.
+	_scene.add_child(_sprite("trunk_curved_w%d" % w, Vector2(-TRUNK_HIDE_LEFT, 0), false))
+	_scene.add_child(_sprite("trunk_left_w%d" % w, Vector2(1080 - 160 + TRUNK_HIDE_RIGHT, 0), true))
 	_bird_layer = Node2D.new()
 	_scene.add_child(_bird_layer)
 	_night = UI.image(self, "night_overlay", Rect2(0, 0, 1080, 1920), false)
@@ -114,23 +109,58 @@ func _layout_branches() -> void:
 		var right := s.rights[b] == 1
 		var y := perch_y(b)
 		var twig := s.kinds[b] == Board.Kind.TWIG
-		var spr := Sprite2D.new()
-		spr.texture = Art.tex(("twig_left_w%d" if twig else "branch_left_w%d") % _world())
-		spr.centered = false
-		spr.flip_h = right
-		var length := seat_x(maxi(s.caps[b], 2) - 1, right, true) + 90.0 * _density
-		var tex_w := float(spr.texture.get_width())
-		spr.scale = Vector2(length / tex_w, 1.5 * _density)
-		spr.position = Vector2(1080.0 - length if right else 0.0, y - 26.0 * _density)
-		node.add_child(spr)
+		# The node origin is where the branch leaves the trunk, so a refusal wobble pivots there.
+		var edge := 1080.0 - TRUNK_SHOW_RIGHT if right else TRUNK_SHOW_LEFT
+		node.position = Vector2(edge, y)
+		var dir := -1.0 if right else 1.0
+		var d := _density
+		var length := seat_x(maxi(s.caps[b], 2) - 1, right, true) + 90.0 * d
+		var arm := _sprite(("twig_left_w%d" if twig else "branch_left_w%d") % _world(), Vector2.ZERO, right)
+		var tex_w := float(arm.texture.get_width())
+		var reach := length - (TRUNK_SHOW_RIGHT if right else TRUNK_SHOW_LEFT) + JOINT_OVERLAP
+		arm.scale = Vector2(reach / tex_w, (1.1 if twig else 1.5) * d)
+		arm.position = Vector2(JOINT_OVERLAP - reach if right else -JOINT_OVERLAP, -26.0 * d)
+		node.add_child(arm)
+		var tip := _leaf_tuft(right, d)
+		tip.position = Vector2(dir * (reach - JOINT_OVERLAP - 14.0 * d), (4.0 if twig else 10.0) * d)
+		node.add_child(tip)
 		if s.kinds[b] == Board.Kind.SWIVEL:
 			var knot := Sprite2D.new()
 			knot.texture = Art.tex("swivel_knot")
 			knot.scale = Vector2.ONE * 0.5 * _density
-			knot.position = Vector2(1080.0 - 150.0 if right else 150.0, y + 30.0 * _density)
+			knot.position = Vector2((930.0 if right else 150.0) - edge, 30.0 * _density)
 			node.add_child(knot)
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
+
+func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
+	var spr := Sprite2D.new()
+	spr.texture = Art.tex(name)
+	spr.centered = false
+	spr.flip_h = flip
+	spr.position = pos
+	return spr
+
+## Leaves on a branch tip: green sprigs in the green and bamboo worlds, seasonal leaves after.
+func _leaf_tuft(right: bool, d: float) -> Node2D:
+	var tuft := Node2D.new()
+	var dir := -1.0 if right else 1.0
+	if _world() <= 2:
+		var sprig := Sprite2D.new()
+		sprig.texture = Art.tex("leaf_sprig_b")
+		sprig.flip_h = right
+		sprig.scale = Vector2.ONE * 0.62 * d
+		sprig.position = Vector2(dir * 40.0 * d, -22.0 * d)
+		tuft.add_child(sprig)
+	else:
+		for k in 3:
+			var leaf := Sprite2D.new()
+			leaf.texture = Art.tex("leaf_fall_w%d" % _world())
+			leaf.scale = Vector2.ONE * 0.9 * d
+			leaf.rotation = dir * (-0.7 + 0.7 * k)
+			leaf.position = Vector2(dir * (22.0 + 16.0 * k) * d, (-18.0 + 16.0 * k) * d)
+			tuft.add_child(leaf)
+	return tuft
 
 func perch_y(b: int) -> float:
 	var s := session.state
@@ -411,8 +441,8 @@ func _refuse(b: int) -> void:
 	var node: Node2D = _branch_nodes[b]
 	var tw := create_tween()
 	for k in 4:
-		tw.tween_property(node, "position:x", 8.0 * (1 if k % 2 == 0 else -1), 0.04)
-	tw.tween_property(node, "position:x", 0.0, 0.04)
+		tw.tween_property(node, "rotation", 0.025 * (1 if k % 2 == 0 else -1), 0.05)
+	tw.tween_property(node, "rotation", 0.0, 0.05)
 
 func _do(action: Callable) -> void:
 	busy = true
