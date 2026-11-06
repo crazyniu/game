@@ -1,0 +1,1286 @@
+{
+  "screen": "board_many_branches",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "elements": [
+    {
+      "id": "forest",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "background_forest",
+      "notes": "Painted forest; no dim overlay. All rectangles are absolute canvas coordinates, including children. Measured visible art bounds, not hit targets. Soft fur and shadows make edge bounds approximate by a few pixels."
+    },
+    {
+      "id": "tree_left",
+      "role": "decoration",
+      "rect": [
+        0,
+        0,
+        208,
+        1920
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tree_left_plush",
+      "notes": "Irregular trunk silhouette; rectangle contains transparent/background space. Includes upper fork."
+    },
+    {
+      "id": "tree_right",
+      "role": "decoration",
+      "rect": [
+        1016,
+        685,
+        64,
+        1235
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tree_right_plush",
+      "notes": "Trunk clipped by right canvas edge; branches listed separately."
+    },
+    {
+      "id": "canopy_left",
+      "role": "decoration",
+      "rect": [
+        0,
+        0,
+        480,
+        320
+      ],
+      "z": 2,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leaves_canopy_left",
+      "notes": ""
+    },
+    {
+      "id": "canopy_right",
+      "role": "decoration",
+      "rect": [
+        656,
+        0,
+        424,
+        285
+      ],
+      "z": 2,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leaves_canopy_right",
+      "notes": ""
+    },
+    {
+      "id": "rope",
+      "role": "decoration",
+      "rect": [
+        546,
+        0,
+        62,
+        186
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "goal_rope",
+      "notes": "One rope, clipped at top; copied from master."
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        39,
+        51,
+        304,
+        115
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill",
+      "notes": "Full compound visible bounds including overlapping gold coin."
+    },
+    {
+      "id": "coin_disc",
+      "role": "disc",
+      "rect": [
+        39,
+        51,
+        129,
+        116
+      ],
+      "z": 11,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_gold",
+      "notes": ""
+    },
+    {
+      "id": "coin_leaf",
+      "role": "icon",
+      "rect": [
+        73,
+        76,
+        56,
+        64
+      ],
+      "z": 12,
+      "parent": "coin_disc",
+      "text": null,
+      "sprite_hint": "icon_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "coins",
+      "role": "caption",
+      "rect": [
+        173,
+        78,
+        131,
+        54
+      ],
+      "z": 12,
+      "parent": "coin_pill",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "move_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        167,
+        408,
+        111
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "moves_pill",
+      "notes": ""
+    },
+    {
+      "id": "footprint",
+      "role": "icon",
+      "rect": [
+        49,
+        201,
+        64,
+        44
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": null,
+      "sprite_hint": "icon_footprint_master",
+      "notes": "Preserve exact master paw-like painted mark. Do not substitute thin line glyph; art-lead explicitly requires master pixels."
+    },
+    {
+      "id": "moves",
+      "role": "caption",
+      "rect": [
+        121,
+        194,
+        44,
+        52
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": "7",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "move_divider",
+      "role": "decoration",
+      "rect": [
+        179,
+        181,
+        9,
+        81
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": null,
+      "sprite_hint": "divider_brown",
+      "notes": ""
+    },
+    {
+      "id": "star_1",
+      "role": "star",
+      "rect": [
+        206,
+        173,
+        55,
+        50
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_1",
+      "role": "caption",
+      "rect": [
+        208,
+        229,
+        49,
+        32
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": "12",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "star_2",
+      "role": "star",
+      "rect": [
+        280,
+        173,
+        55,
+        50
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_2",
+      "role": "caption",
+      "rect": [
+        280,
+        229,
+        51,
+        32
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": "16",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "star_3",
+      "role": "star",
+      "rect": [
+        354,
+        173,
+        55,
+        50
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_3",
+      "role": "caption",
+      "rect": [
+        354,
+        229,
+        54,
+        32
+      ],
+      "z": 12,
+      "parent": "move_pill",
+      "text": "\u221e",
+      "sprite_hint": "glyph_brown_infinity",
+      "notes": ""
+    },
+    {
+      "id": "sun_pill",
+      "role": "pill",
+      "rect": [
+        34,
+        284,
+        205,
+        94
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "sun_pill",
+      "notes": ""
+    },
+    {
+      "id": "sun",
+      "role": "icon",
+      "rect": [
+        54,
+        290,
+        91,
+        78
+      ],
+      "z": 12,
+      "parent": "sun_pill",
+      "text": null,
+      "sprite_hint": "icon_sun_gold",
+      "notes": ""
+    },
+    {
+      "id": "sun_count",
+      "role": "caption",
+      "rect": [
+        156,
+        300,
+        45,
+        53
+      ],
+      "z": 12,
+      "parent": "sun_pill",
+      "text": "4",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "settings",
+      "role": "disc",
+      "rect": [
+        952,
+        76,
+        116,
+        109
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_orange_settings",
+      "notes": "Visible art bounds differ slightly from nominal 108-pixel design disc."
+    },
+    {
+      "id": "gear",
+      "role": "icon",
+      "rect": [
+        976,
+        98,
+        69,
+        65
+      ],
+      "z": 12,
+      "parent": "settings",
+      "text": null,
+      "sprite_hint": "icon_gear_white",
+      "notes": ""
+    },
+    {
+      "id": "goal_house",
+      "role": "decoration",
+      "rect": [
+        414,
+        169,
+        330,
+        232
+      ],
+      "z": 4,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "goal_house_plush",
+      "notes": "Empty dark doorway; no bird inside. Master artwork unchanged."
+    },
+    {
+      "id": "house_body",
+      "role": "decoration",
+      "rect": [
+        445,
+        233,
+        270,
+        167
+      ],
+      "z": 5,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_orange_body",
+      "notes": ""
+    },
+    {
+      "id": "house_roof",
+      "role": "decoration",
+      "rect": [
+        414,
+        169,
+        330,
+        147
+      ],
+      "z": 6,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_teal_roof",
+      "notes": ""
+    },
+    {
+      "id": "house_opening",
+      "role": "icon",
+      "rect": [
+        521,
+        271,
+        108,
+        85
+      ],
+      "z": 6,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_doorway",
+      "notes": ""
+    },
+    {
+      "id": "goal_yellow",
+      "role": "ring",
+      "rect": [
+        370,
+        400,
+        103,
+        97
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "portrait_yellow",
+      "role": "bird",
+      "rect": [
+        382,
+        410,
+        79,
+        75
+      ],
+      "z": 11,
+      "parent": "goal_yellow",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Portrait crop inside gold ring; lower body occluded by ring."
+    },
+    {
+      "id": "gift_yellow",
+      "role": "badge",
+      "rect": [
+        429,
+        455,
+        60,
+        52
+      ],
+      "z": 13,
+      "parent": "goal_yellow",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_icon_yellow",
+      "role": "icon",
+      "rect": [
+        439,
+        464,
+        40,
+        36
+      ],
+      "z": 14,
+      "parent": "gift_yellow",
+      "text": null,
+      "sprite_hint": "icon_gift_pink",
+      "notes": ""
+    },
+    {
+      "id": "goal_blue",
+      "role": "ring",
+      "rect": [
+        509,
+        400,
+        103,
+        97
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "portrait_blue",
+      "role": "bird",
+      "rect": [
+        521,
+        410,
+        79,
+        75
+      ],
+      "z": 11,
+      "parent": "goal_blue",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Portrait crop inside gold ring; lower body occluded by ring."
+    },
+    {
+      "id": "gift_blue",
+      "role": "badge",
+      "rect": [
+        571,
+        455,
+        58,
+        53
+      ],
+      "z": 13,
+      "parent": "goal_blue",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_icon_blue",
+      "role": "icon",
+      "rect": [
+        581,
+        464,
+        38,
+        37
+      ],
+      "z": 14,
+      "parent": "gift_blue",
+      "text": null,
+      "sprite_hint": "icon_gift_pink",
+      "notes": ""
+    },
+    {
+      "id": "goal_owl",
+      "role": "ring",
+      "rect": [
+        649,
+        400,
+        103,
+        97
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "portrait_owl",
+      "role": "bird",
+      "rect": [
+        659,
+        409,
+        82,
+        77
+      ],
+      "z": 11,
+      "parent": "goal_owl",
+      "text": null,
+      "sprite_hint": "bird_owl_purple_star_hat",
+      "notes": "Portrait crop inside gold ring; lower body occluded by ring."
+    },
+    {
+      "id": "gift_owl",
+      "role": "badge",
+      "rect": [
+        709,
+        455,
+        59,
+        53
+      ],
+      "z": 13,
+      "parent": "goal_owl",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_icon_owl",
+      "role": "icon",
+      "rect": [
+        719,
+        464,
+        39,
+        37
+      ],
+      "z": 14,
+      "parent": "gift_owl",
+      "text": null,
+      "sprite_hint": "icon_gift_pink",
+      "notes": ""
+    },
+    {
+      "id": "branch_L1",
+      "role": "decoration",
+      "rect": [
+        0,
+        710,
+        535,
+        112
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_l",
+      "notes": "Feet/perch anchor y=760; Birds overlap branch front."
+    },
+    {
+      "id": "branch_L2",
+      "role": "decoration",
+      "rect": [
+        0,
+        874,
+        535,
+        98
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_l",
+      "notes": "Feet/perch anchor y=920; Birds overlap branch front."
+    },
+    {
+      "id": "branch_L3",
+      "role": "decoration",
+      "rect": [
+        0,
+        1044,
+        535,
+        91
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_l",
+      "notes": "Feet/perch anchor y=1080; Birds overlap branch front."
+    },
+    {
+      "id": "branch_L4",
+      "role": "decoration",
+      "rect": [
+        0,
+        1200,
+        535,
+        91
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_l",
+      "notes": "Feet/perch anchor y=1240; empty branch, intentionally no birds."
+    },
+    {
+      "id": "branch_L5",
+      "role": "decoration",
+      "rect": [
+        0,
+        1364,
+        535,
+        89
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_l",
+      "notes": "Feet/perch anchor y=1400; Birds overlap branch front."
+    },
+    {
+      "id": "branch_R1",
+      "role": "decoration",
+      "rect": [
+        549,
+        809,
+        531,
+        105
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_r",
+      "notes": "Feet/perch anchor y=840; Birds overlap branch front."
+    },
+    {
+      "id": "branch_R2",
+      "role": "decoration",
+      "rect": [
+        549,
+        971,
+        531,
+        100
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_r",
+      "notes": "Feet/perch anchor y=1000; Birds overlap branch front."
+    },
+    {
+      "id": "branch_R3",
+      "role": "decoration",
+      "rect": [
+        549,
+        1131,
+        531,
+        100
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_r",
+      "notes": "Feet/perch anchor y=1160; Birds overlap branch front."
+    },
+    {
+      "id": "branch_R4",
+      "role": "decoration",
+      "rect": [
+        549,
+        1292,
+        531,
+        100
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_r",
+      "notes": "Feet/perch anchor y=1320; Birds overlap branch front."
+    },
+    {
+      "id": "branch_R5",
+      "role": "decoration",
+      "rect": [
+        549,
+        1453,
+        531,
+        100
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "branch_leafy_r",
+      "notes": "Feet/perch anchor y=1480; Birds overlap branch front."
+    },
+    {
+      "id": "bird_L1_1",
+      "role": "bird",
+      "rect": [
+        75,
+        616,
+        126,
+        151
+      ],
+      "z": 5,
+      "parent": "branch_L1",
+      "text": null,
+      "sprite_hint": "bird_green",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L1_2",
+      "role": "bird",
+      "rect": [
+        201,
+        594,
+        127,
+        173
+      ],
+      "z": 5,
+      "parent": "branch_L1",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L1_3",
+      "role": "bird",
+      "rect": [
+        329,
+        632,
+        123,
+        135
+      ],
+      "z": 5,
+      "parent": "branch_L1",
+      "text": null,
+      "sprite_hint": "bird_owl",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L2_1",
+      "role": "bird",
+      "rect": [
+        71,
+        823,
+        137,
+        104
+      ],
+      "z": 5,
+      "parent": "branch_L2",
+      "text": null,
+      "sprite_hint": "bird_sleeping_hat",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L2_2",
+      "role": "bird",
+      "rect": [
+        203,
+        833,
+        125,
+        94
+      ],
+      "z": 5,
+      "parent": "branch_L2",
+      "text": null,
+      "sprite_hint": "bird_owl",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L2_3",
+      "role": "bird",
+      "rect": [
+        328,
+        817,
+        128,
+        110
+      ],
+      "z": 5,
+      "parent": "branch_L2",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L3_1",
+      "role": "bird",
+      "rect": [
+        74,
+        980,
+        126,
+        107
+      ],
+      "z": 5,
+      "parent": "branch_L3",
+      "text": null,
+      "sprite_hint": "bird_pink",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L3_2",
+      "role": "bird",
+      "rect": [
+        201,
+        982,
+        128,
+        105
+      ],
+      "z": 5,
+      "parent": "branch_L3",
+      "text": null,
+      "sprite_hint": "bird_lavender",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L3_3",
+      "role": "bird",
+      "rect": [
+        329,
+        984,
+        138,
+        104
+      ],
+      "z": 5,
+      "parent": "branch_L3",
+      "text": null,
+      "sprite_hint": "bird_sleeping_hat",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L5_1",
+      "role": "bird",
+      "rect": [
+        71,
+        1292,
+        130,
+        116
+      ],
+      "z": 5,
+      "parent": "branch_L5",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L5_2",
+      "role": "bird",
+      "rect": [
+        201,
+        1297,
+        128,
+        111
+      ],
+      "z": 5,
+      "parent": "branch_L5",
+      "text": null,
+      "sprite_hint": "bird_green",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_L5_3",
+      "role": "bird",
+      "rect": [
+        329,
+        1312,
+        123,
+        96
+      ],
+      "z": 5,
+      "parent": "branch_L5",
+      "text": null,
+      "sprite_hint": "bird_owl",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R1_1",
+      "role": "bird",
+      "rect": [
+        629,
+        713,
+        127,
+        135
+      ],
+      "z": 5,
+      "parent": "branch_R1",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R1_2",
+      "role": "bird",
+      "rect": [
+        757,
+        713,
+        129,
+        135
+      ],
+      "z": 5,
+      "parent": "branch_R1",
+      "text": null,
+      "sprite_hint": "bird_pink",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R1_3",
+      "role": "bird",
+      "rect": [
+        885,
+        711,
+        132,
+        137
+      ],
+      "z": 5,
+      "parent": "branch_R1",
+      "text": null,
+      "sprite_hint": "bird_lavender",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R2_1",
+      "role": "bird",
+      "rect": [
+        629,
+        902,
+        128,
+        106
+      ],
+      "z": 5,
+      "parent": "branch_R2",
+      "text": null,
+      "sprite_hint": "bird_green",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R2_2",
+      "role": "bird",
+      "rect": [
+        757,
+        902,
+        129,
+        106
+      ],
+      "z": 5,
+      "parent": "branch_R2",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R2_3",
+      "role": "bird",
+      "rect": [
+        885,
+        896,
+        132,
+        112
+      ],
+      "z": 5,
+      "parent": "branch_R2",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R3_1",
+      "role": "bird",
+      "rect": [
+        629,
+        1070,
+        128,
+        99
+      ],
+      "z": 5,
+      "parent": "branch_R3",
+      "text": null,
+      "sprite_hint": "bird_owl",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R3_2",
+      "role": "bird",
+      "rect": [
+        758,
+        1062,
+        128,
+        107
+      ],
+      "z": 5,
+      "parent": "branch_R3",
+      "text": null,
+      "sprite_hint": "bird_green",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R3_3",
+      "role": "bird",
+      "rect": [
+        886,
+        1059,
+        132,
+        110
+      ],
+      "z": 5,
+      "parent": "branch_R3",
+      "text": null,
+      "sprite_hint": "bird_pink",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R4_1",
+      "role": "bird",
+      "rect": [
+        629,
+        1219,
+        128,
+        109
+      ],
+      "z": 5,
+      "parent": "branch_R4",
+      "text": null,
+      "sprite_hint": "bird_lavender",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R4_2",
+      "role": "bird",
+      "rect": [
+        757,
+        1218,
+        129,
+        110
+      ],
+      "z": 5,
+      "parent": "branch_R4",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R4_3",
+      "role": "bird",
+      "rect": [
+        885,
+        1219,
+        142,
+        109
+      ],
+      "z": 5,
+      "parent": "branch_R4",
+      "text": null,
+      "sprite_hint": "bird_sleeping_hat",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R5_1",
+      "role": "bird",
+      "rect": [
+        629,
+        1380,
+        128,
+        108
+      ],
+      "z": 5,
+      "parent": "branch_R5",
+      "text": null,
+      "sprite_hint": "bird_pink",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R5_2",
+      "role": "bird",
+      "rect": [
+        758,
+        1380,
+        128,
+        108
+      ],
+      "z": 5,
+      "parent": "branch_R5",
+      "text": null,
+      "sprite_hint": "bird_lavender",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "bird_R5_3",
+      "role": "bird",
+      "rect": [
+        886,
+        1380,
+        132,
+        108
+      ],
+      "z": 5,
+      "parent": "branch_R5",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Front-facing seated plush bird; rect includes crest/hat, wings and feet. Preserve actual silhouette and aspect ratio shown here."
+    },
+    {
+      "id": "tools",
+      "role": "bar",
+      "rect": [
+        194,
+        1727,
+        730,
+        145
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "toolbar_cream",
+      "notes": "Master pixels unchanged. Three discs; no counters or badges."
+    },
+    {
+      "id": "undo",
+      "role": "disc",
+      "rect": [
+        245,
+        1748,
+        111,
+        106
+      ],
+      "z": 11,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_undo",
+      "notes": ""
+    },
+    {
+      "id": "undo_icon",
+      "role": "icon",
+      "rect": [
+        268,
+        1770,
+        65,
+        54
+      ],
+      "z": 12,
+      "parent": "undo",
+      "text": null,
+      "sprite_hint": "icon_undo",
+      "notes": ""
+    },
+    {
+      "id": "hint",
+      "role": "disc",
+      "rect": [
+        486,
+        1748,
+        109,
+        106
+      ],
+      "z": 11,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_hint",
+      "notes": ""
+    },
+    {
+      "id": "hint_icon",
+      "role": "icon",
+      "rect": [
+        503,
+        1761,
+        77,
+        74
+      ],
+      "z": 12,
+      "parent": "hint",
+      "text": null,
+      "sprite_hint": "icon_bulb",
+      "notes": ""
+    },
+    {
+      "id": "branch_plus",
+      "role": "disc",
+      "rect": [
+        726,
+        1748,
+        109,
+        106
+      ],
+      "z": 11,
+      "parent": "tools",
+      "text": null,
+      "sprite_hint": "btn_orange_branch_plus",
+      "notes": ""
+    },
+    {
+      "id": "branch_plus_icon",
+      "role": "icon",
+      "rect": [
+        744,
+        1769,
+        73,
+        62
+      ],
+      "z": 12,
+      "parent": "branch_plus",
+      "text": null,
+      "sprite_hint": "icon_branch_plus",
+      "notes": "Branch-plus icon is compound branch/leaves/white plus."
+    }
+  ]
+}

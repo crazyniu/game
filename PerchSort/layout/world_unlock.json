@@ -1,0 +1,896 @@
+{
+  "screen": "world_unlock",
+  "canvas": [
+    1080,
+    1920
+  ],
+  "origin": "top-left",
+  "units": "pixels",
+  "elements": [
+    {
+      "id": "board",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "board_dimmed",
+      "notes": "Use supplied board_dimmed.png unchanged. Dimming is baked in; no separate dim overlay. Child rects document visible baked art, not extra draw calls. All coordinates absolute, top-left origin; visible bounds, not Unity anchors. Soft fur edges measured to nearest few pixels."
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        37,
+        50,
+        304,
+        119
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "coin_pill",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "coin",
+      "role": "disc",
+      "rect": [
+        38,
+        51,
+        124,
+        117
+      ],
+      "z": 2,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_leaf_plush",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "coin_leaf",
+      "role": "icon",
+      "rect": [
+        65,
+        79,
+        67,
+        58
+      ],
+      "z": 3,
+      "parent": "coin",
+      "text": null,
+      "sprite_hint": "icon_leaf",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "coins",
+      "role": "caption",
+      "rect": [
+        174,
+        79,
+        129,
+        54
+      ],
+      "z": 2,
+      "parent": "coin_pill",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "moves_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        165,
+        407,
+        114
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "moves_pill",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "bird_feet",
+      "role": "icon",
+      "rect": [
+        51,
+        199,
+        63,
+        43
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "icon_bird_footprints",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "moves",
+      "role": "caption",
+      "rect": [
+        122,
+        195,
+        41,
+        53
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": "7",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "moves_divider",
+      "role": "decoration",
+      "rect": [
+        180,
+        182,
+        7,
+        80
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "moves_divider",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "star_1",
+      "role": "star",
+      "rect": [
+        205,
+        173,
+        54,
+        49
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "threshold_1",
+      "role": "caption",
+      "rect": [
+        208,
+        228,
+        50,
+        33
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": "12",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "star_2",
+      "role": "star",
+      "rect": [
+        279,
+        173,
+        53,
+        49
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "threshold_2",
+      "role": "caption",
+      "rect": [
+        282,
+        228,
+        49,
+        33
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": "16",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "star_3",
+      "role": "star",
+      "rect": [
+        353,
+        173,
+        54,
+        49
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "threshold_3",
+      "role": "caption",
+      "rect": [
+        356,
+        228,
+        50,
+        33
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": "∞",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "sun_pill",
+      "role": "pill",
+      "rect": [
+        35,
+        281,
+        202,
+        97
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "sun_pill",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "sun",
+      "role": "icon",
+      "rect": [
+        53,
+        287,
+        94,
+        80
+      ],
+      "z": 2,
+      "parent": "sun_pill",
+      "text": null,
+      "sprite_hint": "icon_sun",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "sun_count",
+      "role": "caption",
+      "rect": [
+        155,
+        301,
+        47,
+        51
+      ],
+      "z": 2,
+      "parent": "sun_pill",
+      "text": "4",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "settings",
+      "role": "disc",
+      "rect": [
+        951,
+        75,
+        116,
+        112
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "btn_orange",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "gear",
+      "role": "icon",
+      "rect": [
+        981,
+        100,
+        64,
+        61
+      ],
+      "z": 2,
+      "parent": "settings",
+      "text": null,
+      "sprite_hint": "icon_gear",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "goal_rope",
+      "role": "decoration",
+      "rect": [
+        556,
+        0,
+        52,
+        180
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house_rope",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "goal_house",
+      "role": "card",
+      "rect": [
+        415,
+        172,
+        324,
+        228
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Lower edge meets title; goal portraits behind modal are entirely occluded and have no visible rect."
+    },
+    {
+      "id": "goal_roof",
+      "role": "decoration",
+      "rect": [
+        415,
+        172,
+        324,
+        145
+      ],
+      "z": 3,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_roof",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "goal_hole",
+      "role": "icon",
+      "rect": [
+        529,
+        266,
+        104,
+        88
+      ],
+      "z": 3,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_opening",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "bird_left_upper",
+      "role": "bird",
+      "rect": [
+        59,
+        721,
+        51,
+        104
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Visible left fragment; right side occluded by modal. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "bird_right_upper",
+      "role": "bird",
+      "rect": [
+        970,
+        830,
+        82,
+        137
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Visible right fragment; left side occluded by modal. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "bird_left_lower",
+      "role": "bird",
+      "rect": [
+        59,
+        1047,
+        51,
+        106
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Visible left fragment; right side occluded by modal. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "bird_right_lower_a",
+      "role": "bird",
+      "rect": [
+        680,
+        1262,
+        116,
+        31
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Only lower belly and feet visible below modal. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "bird_right_lower_b",
+      "role": "bird",
+      "rect": [
+        802,
+        1262,
+        116,
+        31
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Only lower belly and feet visible below modal. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "bird_right_lower_c",
+      "role": "bird",
+      "rect": [
+        934,
+        1156,
+        120,
+        137
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board. Visible head/right body and feet; upper-left area occluded by panel. These are visible fragment bounding boxes; do not resize the full bird sprite to this rectangle."
+    },
+    {
+      "id": "tools_bar",
+      "role": "bar",
+      "rect": [
+        194,
+        1728,
+        729,
+        146
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bar_padded_cream",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "undo",
+      "role": "disc",
+      "rect": [
+        246,
+        1750,
+        116,
+        105
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "undo_glyph",
+      "role": "icon",
+      "rect": [
+        271,
+        1775,
+        65,
+        48
+      ],
+      "z": 3,
+      "parent": "undo",
+      "text": null,
+      "sprite_hint": "icon_undo",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "hint",
+      "role": "disc",
+      "rect": [
+        484,
+        1750,
+        117,
+        105
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "hint_glyph",
+      "role": "icon",
+      "rect": [
+        512,
+        1765,
+        63,
+        69
+      ],
+      "z": 3,
+      "parent": "hint",
+      "text": null,
+      "sprite_hint": "icon_bulb",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "branch",
+      "role": "disc",
+      "rect": [
+        727,
+        1750,
+        117,
+        105
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "branch_glyph",
+      "role": "icon",
+      "rect": [
+        747,
+        1770,
+        77,
+        63
+      ],
+      "z": 3,
+      "parent": "branch",
+      "text": null,
+      "sprite_hint": "icon_branch_plus",
+      "notes": "Baked into board_dimmed.png; already dimmed/desaturated. Do not render again over the shared board."
+    },
+    {
+      "id": "modal",
+      "role": "panel",
+      "rect": [
+        109,
+        463,
+        862,
+        800
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "panel_cream_velvet_orange_roll",
+      "notes": "Exact composition-mask panel extent, rounded radius76. Full brightness; unchanged from prior output. No close X. Rect includes plush orange frame."
+    },
+    {
+      "id": "panel_inner",
+      "role": "panel",
+      "rect": [
+        132,
+        489,
+        814,
+        747
+      ],
+      "z": 11,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Inset cream cushion; partially covered by ribbon and portal."
+    },
+    {
+      "id": "ribbon",
+      "role": "ribbon",
+      "rect": [
+        163,
+        400,
+        754,
+        136
+      ],
+      "z": 14,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "ribbon_green_with_two_leaf_clusters",
+      "notes": "Bounds from composition polygon; includes leaves. This is measured final art, not the earlier requested680px width."
+    },
+    {
+      "id": "ribbon_body",
+      "role": "ribbon",
+      "rect": [
+        282,
+        400,
+        513,
+        135
+      ],
+      "z": 15,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_green",
+      "notes": "Painted center and folded tails; retain as part of same sprite."
+    },
+    {
+      "id": "leaves_left",
+      "role": "decoration",
+      "rect": [
+        163,
+        426,
+        133,
+        109
+      ],
+      "z": 15,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaves_left",
+      "notes": "One cluster; preserve silhouette from modal_mask.png."
+    },
+    {
+      "id": "leaves_right",
+      "role": "decoration",
+      "rect": [
+        789,
+        426,
+        128,
+        107
+      ],
+      "z": 15,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaves_right",
+      "notes": "One cluster; preserve silhouette from modal_mask.png."
+    },
+    {
+      "id": "title",
+      "role": "title",
+      "rect": [
+        301,
+        418,
+        478,
+        65
+      ],
+      "z": 16,
+      "parent": "ribbon",
+      "text": "World Unlocked",
+      "sprite_hint": "label_world_unlocked",
+      "notes": "Painted into ribbon; do not typeset over it."
+    },
+    {
+      "id": "portal",
+      "role": "card",
+      "rect": [
+        172,
+        541,
+        729,
+        559
+      ],
+      "z": 12,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "autumn_portal_complete",
+      "notes": "Complete painted portal illustration with leaves, open plush doors and forest. Child rectangles describe baked details."
+    },
+    {
+      "id": "portal_arch",
+      "role": "frame",
+      "rect": [
+        224,
+        566,
+        632,
+        534
+      ],
+      "z": 13,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "autumn_portal_arch",
+      "notes": "Curved arch; bounding rectangle overlaps door and forest subregions."
+    },
+    {
+      "id": "portal_forest",
+      "role": "card",
+      "rect": [
+        327,
+        716,
+        429,
+        374
+      ],
+      "z": 13,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "autumn_forest_painted",
+      "notes": "Natural painted forest visible through portal; irregular opening, not a rectangular sprite edge."
+    },
+    {
+      "id": "door_left",
+      "role": "decoration",
+      "rect": [
+        174,
+        711,
+        166,
+        379
+      ],
+      "z": 14,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "autumn_door_left_velvet",
+      "notes": ""
+    },
+    {
+      "id": "door_right",
+      "role": "decoration",
+      "rect": [
+        739,
+        710,
+        161,
+        380
+      ],
+      "z": 14,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "autumn_door_right_velvet",
+      "notes": ""
+    },
+    {
+      "id": "knob_left",
+      "role": "icon",
+      "rect": [
+        212,
+        883,
+        51,
+        60
+      ],
+      "z": 15,
+      "parent": "door_left",
+      "text": null,
+      "sprite_hint": "door_knob_gold",
+      "notes": ""
+    },
+    {
+      "id": "knob_right",
+      "role": "icon",
+      "rect": [
+        811,
+        884,
+        53,
+        57
+      ],
+      "z": 15,
+      "parent": "door_right",
+      "text": null,
+      "sprite_hint": "door_knob_gold",
+      "notes": ""
+    },
+    {
+      "id": "portal_crown",
+      "role": "decoration",
+      "rect": [
+        399,
+        598,
+        279,
+        134
+      ],
+      "z": 14,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "portal_leaf_medallion",
+      "notes": ""
+    },
+    {
+      "id": "maple_leaf",
+      "role": "decoration",
+      "rect": [
+        475,
+        613,
+        139,
+        91
+      ],
+      "z": 15,
+      "parent": "portal_crown",
+      "text": null,
+      "sprite_hint": "maple_leaf_red",
+      "notes": ""
+    },
+    {
+      "id": "autumn_leaves_top",
+      "role": "decoration",
+      "rect": [
+        228,
+        541,
+        627,
+        198
+      ],
+      "z": 14,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "portal_autumn_leaf_garland",
+      "notes": "Irregular garland around arch; excludes the medallion where occluded."
+    },
+    {
+      "id": "autumn_leaves_bottom",
+      "role": "decoration",
+      "rect": [
+        259,
+        1049,
+        553,
+        52
+      ],
+      "z": 14,
+      "parent": "portal",
+      "text": null,
+      "sprite_hint": "portal_leaf_scatter",
+      "notes": ""
+    },
+    {
+      "id": "caption_plate",
+      "role": "pill",
+      "rect": [
+        277,
+        1115,
+        532,
+        91
+      ],
+      "z": 13,
+      "parent": "modal",
+      "text": null,
+      "sprite_hint": "pill_cream_velvet",
+      "notes": ""
+    },
+    {
+      "id": "caption",
+      "role": "caption",
+      "rect": [
+        336,
+        1132,
+        413,
+        53
+      ],
+      "z": 14,
+      "parent": "caption_plate",
+      "text": "Autumn Forest",
+      "sprite_hint": "label_autumn_forest",
+      "notes": "Painted into caption plate."
+    },
+    {
+      "id": "play",
+      "role": "button",
+      "rect": [
+        476,
+        1308,
+        128,
+        127
+      ],
+      "z": 14,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_green_play",
+      "notes": "Exact composition ellipse bounding pixels. Center approximately539.5,1371. Full brightness. Original position, no vertical shift; no background bird touches it."
+    },
+    {
+      "id": "play_glyph",
+      "role": "icon",
+      "rect": [
+        518,
+        1337,
+        54,
+        64
+      ],
+      "z": 15,
+      "parent": "play",
+      "text": null,
+      "sprite_hint": "icon_play_cream",
+      "notes": "Includes dark green painted edge/shadow."
+    }
+  ]
+}

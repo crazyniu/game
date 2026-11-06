@@ -1,0 +1,956 @@
+{
+  "screen": "shop_houses",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "elements": [
+    {
+      "id": "bg",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "background_shop_forest_sky",
+      "notes": "Painted sky and forest, including canopy and blurred lower foliage; full brightness. No dim overlay. No birds on this screen. All rects are absolute canvas coordinates, not parent-relative. Bounds include visible fur but exclude diffuse contact shadows unless explicitly noted. Flattened generated artwork measured manually; boundaries of soft fur/glow are approximate. Child rects describe subregions of baked parent art, not additional duplicate sprites. Render original painted lettering; do not replace with fonts."
+    },
+    {
+      "id": "hud",
+      "role": "pill",
+      "rect": [
+        93,
+        69,
+        281,
+        116
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "hud_num",
+      "role": "caption",
+      "rect": [
+        198,
+        95,
+        140,
+        54
+      ],
+      "z": 13,
+      "parent": "hud",
+      "text": "1240",
+      "sprite_hint": "glyph_brown_digits_1240",
+      "notes": ""
+    },
+    {
+      "id": "hud_coin",
+      "role": "disc",
+      "rect": [
+        45,
+        59,
+        136,
+        135
+      ],
+      "z": 12,
+      "parent": "hud",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "hud_leaf",
+      "role": "icon",
+      "rect": [
+        78,
+        88,
+        67,
+        66
+      ],
+      "z": 13,
+      "parent": "hud_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "close",
+      "role": "disc",
+      "rect": [
+        919,
+        73,
+        124,
+        120
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_orange_plush",
+      "notes": "Visible fur silhouette, center approximately (981,133); measured art is larger than nominal 108px design disc."
+    },
+    {
+      "id": "close_x",
+      "role": "icon",
+      "rect": [
+        952,
+        103,
+        58,
+        58
+      ],
+      "z": 12,
+      "parent": "close",
+      "text": null,
+      "sprite_hint": "icon_close_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_boost",
+      "role": "disc",
+      "rect": [
+        301,
+        213,
+        117,
+        119
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_disc_orange_velvet",
+      "notes": "Unselected"
+    },
+    {
+      "id": "icon_bulb",
+      "role": "icon",
+      "rect": [
+        329,
+        240,
+        61,
+        65
+      ],
+      "z": 12,
+      "parent": "tab_boost",
+      "text": null,
+      "sprite_hint": "icon_bulb_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "tab_clothes",
+      "role": "disc",
+      "rect": [
+        480,
+        213,
+        119,
+        120
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_disc_orange_velvet",
+      "notes": "Unselected"
+    },
+    {
+      "id": "icon_hanger",
+      "role": "icon",
+      "rect": [
+        506,
+        244,
+        69,
+        53
+      ],
+      "z": 12,
+      "parent": "tab_clothes",
+      "text": null,
+      "sprite_hint": "icon_hanger_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "selected_glow",
+      "role": "ring",
+      "rect": [
+        645,
+        195,
+        151,
+        147
+      ],
+      "z": 9,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "ring_gold_selection_glow",
+      "notes": "Soft luminous gold ring; bounding box includes perceptible diffuse glow. Disc remains honey-orange."
+    },
+    {
+      "id": "tab_houses",
+      "role": "disc",
+      "rect": [
+        662,
+        214,
+        117,
+        114
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "tab_disc_orange_velvet",
+      "notes": "Selected"
+    },
+    {
+      "id": "icon_home",
+      "role": "icon",
+      "rect": [
+        688,
+        238,
+        66,
+        65
+      ],
+      "z": 12,
+      "parent": "tab_houses",
+      "text": null,
+      "sprite_hint": "icon_home_white_brown",
+      "notes": ""
+    },
+    {
+      "id": "selected_pill",
+      "role": "pill",
+      "rect": [
+        685,
+        327,
+        70,
+        28
+      ],
+      "z": 13,
+      "parent": "tab_houses",
+      "text": null,
+      "sprite_hint": "selection_pill_green_plush",
+      "notes": "Exact 70x28 fitting region from composition script; center (720,341). Visible fur/antialias edges may extend fractionally into surrounding sky."
+    },
+    {
+      "id": "mush_card",
+      "role": "card",
+      "rect": [
+        47,
+        422,
+        484,
+        654
+      ],
+      "z": 20,
+      "parent": "bg",
+      "text": null,
+      "sprite_hint": "shop_card_mush",
+      "notes": "Grouping bounds coincide with outer orange rolled frame; not an extra rendered layer."
+    },
+    {
+      "id": "mush_frame",
+      "role": "frame",
+      "rect": [
+        47,
+        422,
+        484,
+        654
+      ],
+      "z": 21,
+      "parent": "mush_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "mush_cream",
+      "role": "panel",
+      "rect": [
+        78,
+        453,
+        423,
+        591
+      ],
+      "z": 22,
+      "parent": "mush_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Visible cream inset; partly occluded by ribbon, house and price."
+    },
+    {
+      "id": "mush_ribbon",
+      "role": "ribbon",
+      "rect": [
+        128,
+        461,
+        313,
+        101
+      ],
+      "z": 25,
+      "parent": "mush_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes curved roll and ribbon tails, excludes the separate leaf clusters."
+    },
+    {
+      "id": "mush_leaf_l",
+      "role": "decoration",
+      "rect": [
+        90,
+        498,
+        90,
+        75
+      ],
+      "z": 26,
+      "parent": "mush_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "mush_leaf_r",
+      "role": "decoration",
+      "rect": [
+        400,
+        498,
+        78,
+        75
+      ],
+      "z": 26,
+      "parent": "mush_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "mush_title",
+      "role": "title",
+      "rect": [
+        175,
+        478,
+        234,
+        45
+      ],
+      "z": 27,
+      "parent": "mush_ribbon",
+      "text": "Mushroom",
+      "sprite_hint": "painted_title_mush",
+      "notes": "Painted cream letters and dark-green edging; baked into ribbon art."
+    },
+    {
+      "id": "mush_house",
+      "role": "icon",
+      "rect": [
+        94,
+        573,
+        394,
+        350
+      ],
+      "z": 24,
+      "parent": "mush_card",
+      "text": null,
+      "sprite_hint": "house_mushroom_plush",
+      "notes": "Complete product illustration including entrance, plush gold rim, two knobs and base; decorative pattern is baked into sprite. Empty dark entrance, no bird."
+    },
+    {
+      "id": "mush_price",
+      "role": "pill",
+      "rect": [
+        146,
+        942,
+        298,
+        95
+      ],
+      "z": 25,
+      "parent": "mush_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "mush_coin",
+      "role": "disc",
+      "rect": [
+        143,
+        936,
+        121,
+        110
+      ],
+      "z": 26,
+      "parent": "mush_price",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "mush_coin_leaf",
+      "role": "icon",
+      "rect": [
+        173,
+        966,
+        59,
+        55
+      ],
+      "z": 27,
+      "parent": "mush_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "mush_num",
+      "role": "caption",
+      "rect": [
+        289,
+        964,
+        103,
+        44
+      ],
+      "z": 27,
+      "parent": "mush_price",
+      "text": "600",
+      "sprite_hint": "glyph_brown_digits_600",
+      "notes": "One complete painted number, not independently spaced digit sprites."
+    },
+    {
+      "id": "tea_card",
+      "role": "card",
+      "rect": [
+        548,
+        422,
+        484,
+        655
+      ],
+      "z": 20,
+      "parent": "bg",
+      "text": null,
+      "sprite_hint": "shop_card_tea",
+      "notes": "Grouping bounds coincide with outer orange rolled frame; not an extra rendered layer."
+    },
+    {
+      "id": "tea_frame",
+      "role": "frame",
+      "rect": [
+        548,
+        422,
+        484,
+        655
+      ],
+      "z": 21,
+      "parent": "tea_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "tea_cream",
+      "role": "panel",
+      "rect": [
+        579,
+        453,
+        422,
+        591
+      ],
+      "z": 22,
+      "parent": "tea_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Visible cream inset; partly occluded by ribbon, house and price."
+    },
+    {
+      "id": "tea_ribbon",
+      "role": "ribbon",
+      "rect": [
+        638,
+        461,
+        309,
+        102
+      ],
+      "z": 25,
+      "parent": "tea_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes curved roll and ribbon tails, excludes the separate leaf clusters."
+    },
+    {
+      "id": "tea_leaf_l",
+      "role": "decoration",
+      "rect": [
+        591,
+        498,
+        91,
+        75
+      ],
+      "z": 26,
+      "parent": "tea_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "tea_leaf_r",
+      "role": "decoration",
+      "rect": [
+        904,
+        498,
+        78,
+        75
+      ],
+      "z": 26,
+      "parent": "tea_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "tea_title",
+      "role": "title",
+      "rect": [
+        711,
+        476,
+        166,
+        46
+      ],
+      "z": 27,
+      "parent": "tea_ribbon",
+      "text": "Teapot",
+      "sprite_hint": "painted_title_tea",
+      "notes": "Painted cream letters and dark-green edging; baked into ribbon art."
+    },
+    {
+      "id": "tea_house",
+      "role": "icon",
+      "rect": [
+        590,
+        585,
+        408,
+        335
+      ],
+      "z": 24,
+      "parent": "tea_card",
+      "text": null,
+      "sprite_hint": "house_teapot_plush",
+      "notes": "Complete product illustration including entrance, plush gold rim, two knobs and base; decorative pattern is baked into sprite. Empty dark entrance, no bird."
+    },
+    {
+      "id": "tea_price",
+      "role": "pill",
+      "rect": [
+        640,
+        942,
+        304,
+        95
+      ],
+      "z": 25,
+      "parent": "tea_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "tea_coin",
+      "role": "disc",
+      "rect": [
+        636,
+        936,
+        121,
+        110
+      ],
+      "z": 26,
+      "parent": "tea_price",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "tea_coin_leaf",
+      "role": "icon",
+      "rect": [
+        666,
+        966,
+        59,
+        55
+      ],
+      "z": 27,
+      "parent": "tea_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "tea_num",
+      "role": "caption",
+      "rect": [
+        786,
+        964,
+        102,
+        44
+      ],
+      "z": 27,
+      "parent": "tea_price",
+      "text": "600",
+      "sprite_hint": "glyph_brown_digits_600",
+      "notes": "One complete painted number, not independently spaced digit sprites."
+    },
+    {
+      "id": "lan_card",
+      "role": "card",
+      "rect": [
+        48,
+        1090,
+        484,
+        658
+      ],
+      "z": 20,
+      "parent": "bg",
+      "text": null,
+      "sprite_hint": "shop_card_lan",
+      "notes": "Grouping bounds coincide with outer orange rolled frame; not an extra rendered layer."
+    },
+    {
+      "id": "lan_frame",
+      "role": "frame",
+      "rect": [
+        48,
+        1090,
+        484,
+        658
+      ],
+      "z": 21,
+      "parent": "lan_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "lan_cream",
+      "role": "panel",
+      "rect": [
+        79,
+        1122,
+        422,
+        594
+      ],
+      "z": 22,
+      "parent": "lan_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Visible cream inset; partly occluded by ribbon, house and price."
+    },
+    {
+      "id": "lan_ribbon",
+      "role": "ribbon",
+      "rect": [
+        129,
+        1130,
+        312,
+        104
+      ],
+      "z": 25,
+      "parent": "lan_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes curved roll and ribbon tails, excludes the separate leaf clusters."
+    },
+    {
+      "id": "lan_leaf_l",
+      "role": "decoration",
+      "rect": [
+        91,
+        1167,
+        90,
+        76
+      ],
+      "z": 26,
+      "parent": "lan_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "lan_leaf_r",
+      "role": "decoration",
+      "rect": [
+        400,
+        1167,
+        79,
+        76
+      ],
+      "z": 26,
+      "parent": "lan_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "lan_title",
+      "role": "title",
+      "rect": [
+        193,
+        1146,
+        202,
+        47
+      ],
+      "z": 27,
+      "parent": "lan_ribbon",
+      "text": "Lantern",
+      "sprite_hint": "painted_title_lan",
+      "notes": "Painted cream letters and dark-green edging; baked into ribbon art."
+    },
+    {
+      "id": "lan_house",
+      "role": "icon",
+      "rect": [
+        103,
+        1238,
+        374,
+        362
+      ],
+      "z": 24,
+      "parent": "lan_card",
+      "text": null,
+      "sprite_hint": "house_lantern_plush",
+      "notes": "Complete product illustration including entrance, plush gold rim, two knobs and base; decorative pattern is baked into sprite. Empty dark entrance, no bird."
+    },
+    {
+      "id": "lan_price",
+      "role": "pill",
+      "rect": [
+        145,
+        1614,
+        299,
+        97
+      ],
+      "z": 25,
+      "parent": "lan_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "lan_coin",
+      "role": "disc",
+      "rect": [
+        143,
+        1609,
+        121,
+        109
+      ],
+      "z": 26,
+      "parent": "lan_price",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "lan_coin_leaf",
+      "role": "icon",
+      "rect": [
+        173,
+        1639,
+        59,
+        55
+      ],
+      "z": 27,
+      "parent": "lan_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "lan_num",
+      "role": "caption",
+      "rect": [
+        289,
+        1637,
+        103,
+        44
+      ],
+      "z": 27,
+      "parent": "lan_price",
+      "text": "600",
+      "sprite_hint": "glyph_brown_digits_600",
+      "notes": "One complete painted number, not independently spaced digit sprites."
+    },
+    {
+      "id": "acorn_card",
+      "role": "card",
+      "rect": [
+        548,
+        1090,
+        484,
+        658
+      ],
+      "z": 20,
+      "parent": "bg",
+      "text": null,
+      "sprite_hint": "shop_card_acorn",
+      "notes": "Grouping bounds coincide with outer orange rolled frame; not an extra rendered layer."
+    },
+    {
+      "id": "acorn_frame",
+      "role": "frame",
+      "rect": [
+        548,
+        1090,
+        484,
+        658
+      ],
+      "z": 21,
+      "parent": "acorn_card",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": ""
+    },
+    {
+      "id": "acorn_cream",
+      "role": "panel",
+      "rect": [
+        579,
+        1122,
+        422,
+        594
+      ],
+      "z": 22,
+      "parent": "acorn_card",
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Visible cream inset; partly occluded by ribbon, house and price."
+    },
+    {
+      "id": "acorn_ribbon",
+      "role": "ribbon",
+      "rect": [
+        638,
+        1130,
+        310,
+        104
+      ],
+      "z": 25,
+      "parent": "acorn_card",
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Includes curved roll and ribbon tails, excludes the separate leaf clusters."
+    },
+    {
+      "id": "acorn_leaf_l",
+      "role": "decoration",
+      "rect": [
+        591,
+        1167,
+        92,
+        76
+      ],
+      "z": 26,
+      "parent": "acorn_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "acorn_leaf_r",
+      "role": "decoration",
+      "rect": [
+        904,
+        1167,
+        78,
+        76
+      ],
+      "z": 26,
+      "parent": "acorn_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "acorn_title",
+      "role": "title",
+      "rect": [
+        708,
+        1144,
+        177,
+        51
+      ],
+      "z": 27,
+      "parent": "acorn_ribbon",
+      "text": "Acorn",
+      "sprite_hint": "painted_title_acorn",
+      "notes": "Painted cream letters and dark-green edging; baked into ribbon art."
+    },
+    {
+      "id": "acorn_house",
+      "role": "icon",
+      "rect": [
+        596,
+        1239,
+        384,
+        361
+      ],
+      "z": 24,
+      "parent": "acorn_card",
+      "text": null,
+      "sprite_hint": "house_acorn_plush",
+      "notes": "Complete product illustration including entrance, plush gold rim, two knobs and base; decorative pattern is baked into sprite. Empty dark entrance, no bird."
+    },
+    {
+      "id": "acorn_price",
+      "role": "pill",
+      "rect": [
+        640,
+        1614,
+        304,
+        97
+      ],
+      "z": 25,
+      "parent": "acorn_card",
+      "text": null,
+      "sprite_hint": "price_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "acorn_coin",
+      "role": "disc",
+      "rect": [
+        636,
+        1609,
+        121,
+        109
+      ],
+      "z": 26,
+      "parent": "acorn_price",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "acorn_coin_leaf",
+      "role": "icon",
+      "rect": [
+        666,
+        1639,
+        59,
+        55
+      ],
+      "z": 27,
+      "parent": "acorn_coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "acorn_num",
+      "role": "caption",
+      "rect": [
+        786,
+        1637,
+        102,
+        44
+      ],
+      "z": 27,
+      "parent": "acorn_price",
+      "text": "600",
+      "sprite_hint": "glyph_brown_digits_600",
+      "notes": "One complete painted number, not independently spaced digit sprites."
+    }
+  ]
+}

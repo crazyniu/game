@@ -1,0 +1,942 @@
+{
+  "screen": "board_sleeping_bubble",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "source": "output.png",
+  "elements": [
+    {
+      "id": "forest",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "board_forest_background",
+      "notes": "Full painted forest including edge trunks, canopy, grass and flowers. No dim layer. Absolute top-left pixel coordinates; all rects are visible-art bounds, not hit areas. Retain supplied approved-base artwork."
+    },
+    {
+      "id": "branch_ul",
+      "role": "decoration",
+      "rect": [
+        0,
+        787,
+        531,
+        94
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leafy_branch_ul",
+      "notes": "Branch and terminal leaf cluster; merges into edge trunk baked in forest. Bounds include leaves, exclude continuous trunk."
+    },
+    {
+      "id": "branch_ur",
+      "role": "decoration",
+      "rect": [
+        576,
+        923,
+        504,
+        116
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leafy_branch_ur",
+      "notes": "Branch and terminal leaf cluster; merges into edge trunk baked in forest. Bounds include leaves, exclude continuous trunk."
+    },
+    {
+      "id": "branch_ll",
+      "role": "decoration",
+      "rect": [
+        0,
+        1119,
+        533,
+        94
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leafy_branch_ll",
+      "notes": "Branch and terminal leaf cluster; merges into edge trunk baked in forest. Bounds include leaves, exclude continuous trunk."
+    },
+    {
+      "id": "branch_lr",
+      "role": "decoration",
+      "rect": [
+        579,
+        1256,
+        501,
+        108
+      ],
+      "z": 1,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "leafy_branch_lr",
+      "notes": "Branch and terminal leaf cluster; merges into edge trunk baked in forest. Bounds include leaves, exclude continuous trunk."
+    },
+    {
+      "id": "house_rope",
+      "role": "decoration",
+      "rect": [
+        549,
+        0,
+        58,
+        185
+      ],
+      "z": 2,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "goal_house_rope",
+      "notes": "One rope, clipped at canvas top."
+    },
+    {
+      "id": "goal_house",
+      "role": "panel",
+      "rect": [
+        413,
+        168,
+        330,
+        236
+      ],
+      "z": 3,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "goal_house_plush",
+      "notes": "Complete house including teal roof, orange body and base. Roof apex x577. No text."
+    },
+    {
+      "id": "house_roof",
+      "role": "decoration",
+      "rect": [
+        413,
+        168,
+        330,
+        154
+      ],
+      "z": 4,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_roof_teal",
+      "notes": ""
+    },
+    {
+      "id": "house_hole",
+      "role": "icon",
+      "rect": [
+        513,
+        250,
+        127,
+        117
+      ],
+      "z": 4,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "goal_house_dark_opening",
+      "notes": "Includes orange padded opening rim."
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        91,
+        58,
+        252,
+        103
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill_cream",
+      "notes": "Cream backing; left portion occluded by coin."
+    },
+    {
+      "id": "coin",
+      "role": "disc",
+      "rect": [
+        36,
+        47,
+        130,
+        126
+      ],
+      "z": 11,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "coin_leaf",
+      "role": "icon",
+      "rect": [
+        71,
+        75,
+        58,
+        67
+      ],
+      "z": 12,
+      "parent": "coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "coin_value",
+      "role": "caption",
+      "rect": [
+        175,
+        79,
+        128,
+        56
+      ],
+      "z": 12,
+      "parent": "coin_pill",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits_240",
+      "notes": "Painted art, preserve exact digit spacing."
+    },
+    {
+      "id": "moves_pill",
+      "role": "pill",
+      "rect": [
+        31,
+        164,
+        407,
+        117
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "moves_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "move_feet",
+      "role": "icon",
+      "rect": [
+        50,
+        198,
+        64,
+        49
+      ],
+      "z": 11,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "move_footprint_pair",
+      "notes": "Match actual approved image: two rounded foot marks with toe dots; do not substitute the nominal style-spec drawing."
+    },
+    {
+      "id": "moves_value",
+      "role": "caption",
+      "rect": [
+        122,
+        195,
+        40,
+        51
+      ],
+      "z": 12,
+      "parent": "moves_pill",
+      "text": "7",
+      "sprite_hint": "glyph_brown_digit_7",
+      "notes": ""
+    },
+    {
+      "id": "moves_divider",
+      "role": "decoration",
+      "rect": [
+        180,
+        181,
+        7,
+        80
+      ],
+      "z": 11,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "brown_vertical_separator",
+      "notes": ""
+    },
+    {
+      "id": "threshold_star_1",
+      "role": "star",
+      "rect": [
+        206,
+        171,
+        57,
+        54
+      ],
+      "z": 11,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "threshold_1",
+      "role": "caption",
+      "rect": [
+        210,
+        229,
+        46,
+        33
+      ],
+      "z": 12,
+      "parent": "moves_pill",
+      "text": "12",
+      "sprite_hint": "glyph_brown_12",
+      "notes": ""
+    },
+    {
+      "id": "threshold_star_2",
+      "role": "star",
+      "rect": [
+        280,
+        171,
+        57,
+        54
+      ],
+      "z": 11,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "threshold_2",
+      "role": "caption",
+      "rect": [
+        282,
+        229,
+        48,
+        33
+      ],
+      "z": 12,
+      "parent": "moves_pill",
+      "text": "16",
+      "sprite_hint": "glyph_brown_16",
+      "notes": ""
+    },
+    {
+      "id": "threshold_star_3",
+      "role": "star",
+      "rect": [
+        352,
+        171,
+        57,
+        54
+      ],
+      "z": 11,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "threshold_3",
+      "role": "caption",
+      "rect": [
+        355,
+        229,
+        52,
+        33
+      ],
+      "z": 12,
+      "parent": "moves_pill",
+      "text": "∞",
+      "sprite_hint": "glyph_brown_infinity",
+      "notes": ""
+    },
+    {
+      "id": "sun_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        281,
+        209,
+        99
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "sun_counter_pill_cream",
+      "notes": ""
+    },
+    {
+      "id": "sun_icon",
+      "role": "icon",
+      "rect": [
+        55,
+        287,
+        88,
+        80
+      ],
+      "z": 11,
+      "parent": "sun_pill",
+      "text": null,
+      "sprite_hint": "sun_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "sun_value",
+      "role": "caption",
+      "rect": [
+        157,
+        301,
+        44,
+        52
+      ],
+      "z": 12,
+      "parent": "sun_pill",
+      "text": "4",
+      "sprite_hint": "glyph_brown_digit_4",
+      "notes": ""
+    },
+    {
+      "id": "settings",
+      "role": "button",
+      "rect": [
+        951,
+        77,
+        115,
+        109
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_orange_settings",
+      "notes": "Visible-art centre approximately (1008.5,131.5)."
+    },
+    {
+      "id": "gear",
+      "role": "icon",
+      "rect": [
+        977,
+        98,
+        65,
+        64
+      ],
+      "z": 11,
+      "parent": "settings",
+      "text": null,
+      "sprite_hint": "glyph_white_gear_brown_outline",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_yellow",
+      "role": "ring",
+      "rect": [
+        370,
+        399,
+        102,
+        100
+      ],
+      "z": 5,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Outer ring bounds; bird overlaps inside opening."
+    },
+    {
+      "id": "goal_bird_yellow",
+      "role": "bird",
+      "rect": [
+        380,
+        410,
+        78,
+        79
+      ],
+      "z": 6,
+      "parent": "goal_ring_yellow",
+      "text": null,
+      "sprite_hint": "portrait_yellow",
+      "notes": "Front-facing goal portrait; owl portrait stays awake."
+    },
+    {
+      "id": "gift_badge_yellow",
+      "role": "badge",
+      "rect": [
+        430,
+        453,
+        59,
+        56
+      ],
+      "z": 7,
+      "parent": "goal_ring_yellow",
+      "text": null,
+      "sprite_hint": "badge_green_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_yellow",
+      "role": "icon",
+      "rect": [
+        440,
+        463,
+        39,
+        41
+      ],
+      "z": 8,
+      "parent": "gift_badge_yellow",
+      "text": null,
+      "sprite_hint": "gift_red_yellow_ribbon",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_blue",
+      "role": "ring",
+      "rect": [
+        508,
+        399,
+        103,
+        100
+      ],
+      "z": 5,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Outer ring bounds; bird overlaps inside opening."
+    },
+    {
+      "id": "goal_bird_blue",
+      "role": "bird",
+      "rect": [
+        520,
+        409,
+        78,
+        80
+      ],
+      "z": 6,
+      "parent": "goal_ring_blue",
+      "text": null,
+      "sprite_hint": "portrait_blue",
+      "notes": "Front-facing goal portrait; owl portrait stays awake."
+    },
+    {
+      "id": "gift_badge_blue",
+      "role": "badge",
+      "rect": [
+        570,
+        453,
+        60,
+        57
+      ],
+      "z": 7,
+      "parent": "goal_ring_blue",
+      "text": null,
+      "sprite_hint": "badge_green_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_blue",
+      "role": "icon",
+      "rect": [
+        580,
+        463,
+        40,
+        42
+      ],
+      "z": 8,
+      "parent": "gift_badge_blue",
+      "text": null,
+      "sprite_hint": "gift_red_yellow_ribbon",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_owl",
+      "role": "ring",
+      "rect": [
+        647,
+        398,
+        104,
+        102
+      ],
+      "z": 5,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": "Outer ring bounds; bird overlaps inside opening."
+    },
+    {
+      "id": "goal_bird_owl",
+      "role": "bird",
+      "rect": [
+        658,
+        409,
+        80,
+        80
+      ],
+      "z": 6,
+      "parent": "goal_ring_owl",
+      "text": null,
+      "sprite_hint": "portrait_owl",
+      "notes": "Front-facing goal portrait; owl portrait stays awake."
+    },
+    {
+      "id": "gift_badge_owl",
+      "role": "badge",
+      "rect": [
+        709,
+        453,
+        59,
+        57
+      ],
+      "z": 7,
+      "parent": "goal_ring_owl",
+      "text": null,
+      "sprite_hint": "badge_green_gold",
+      "notes": ""
+    },
+    {
+      "id": "gift_owl",
+      "role": "icon",
+      "rect": [
+        719,
+        463,
+        39,
+        42
+      ],
+      "z": 8,
+      "parent": "gift_badge_owl",
+      "text": null,
+      "sprite_hint": "gift_red_yellow_ribbon",
+      "notes": ""
+    },
+    {
+      "id": "ul_yellow",
+      "role": "bird",
+      "rect": [
+        57,
+        688,
+        135,
+        140
+      ],
+      "z": 9,
+      "parent": "branch_ul",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ul_blue",
+      "role": "bird",
+      "rect": [
+        181,
+        693,
+        136,
+        135
+      ],
+      "z": 9,
+      "parent": "branch_ul",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ul_owl",
+      "role": "bird",
+      "rect": [
+        311,
+        708,
+        134,
+        120
+      ],
+      "z": 9,
+      "parent": "branch_ul",
+      "text": null,
+      "sprite_hint": "bird_owl_sleeping",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Closed eyelids; body/hat/feet retained from approved base."
+    },
+    {
+      "id": "ur_yellow_l",
+      "role": "bird",
+      "rect": [
+        666,
+        829,
+        135,
+        140
+      ],
+      "z": 9,
+      "parent": "branch_ur",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ur_blue",
+      "role": "bird",
+      "rect": [
+        790,
+        834,
+        132,
+        135
+      ],
+      "z": 9,
+      "parent": "branch_ur",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ur_yellow_r",
+      "role": "bird",
+      "rect": [
+        917,
+        831,
+        134,
+        138
+      ],
+      "z": 9,
+      "parent": "branch_ur",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ll_yellow_l",
+      "role": "bird",
+      "rect": [
+        57,
+        1016,
+        135,
+        143
+      ],
+      "z": 9,
+      "parent": "branch_ll",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ll_blue",
+      "role": "bird",
+      "rect": [
+        182,
+        1021,
+        135,
+        138
+      ],
+      "z": 9,
+      "parent": "branch_ll",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "ll_yellow_r",
+      "role": "bird",
+      "rect": [
+        309,
+        1018,
+        137,
+        141
+      ],
+      "z": 9,
+      "parent": "branch_ll",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "lr_yellow_l",
+      "role": "bird",
+      "rect": [
+        665,
+        1154,
+        136,
+        142
+      ],
+      "z": 9,
+      "parent": "branch_lr",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "lr_blue",
+      "role": "bird",
+      "rect": [
+        790,
+        1160,
+        133,
+        137
+      ],
+      "z": 9,
+      "parent": "branch_lr",
+      "text": null,
+      "sprite_hint": "bird_blue",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "lr_yellow_r",
+      "role": "bird",
+      "rect": [
+        917,
+        1156,
+        135,
+        141
+      ],
+      "z": 9,
+      "parent": "branch_lr",
+      "text": null,
+      "sprite_hint": "bird_yellow",
+      "notes": "Whole front-facing bird including feet; rect in canvas coordinates. Retain approved board bird art."
+    },
+    {
+      "id": "sleep_bubble",
+      "role": "panel",
+      "rect": [
+        314,
+        556,
+        182,
+        155
+      ],
+      "z": 13,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "thought_bubble_cream_orange_velvet",
+      "notes": "Includes orange rim and cream tapered tail; tail tip approximately (378,710), points to owl hat. Local generated source maps via x=285+u/4, y=530+v/4. Not a modal."
+    },
+    {
+      "id": "sleep_moon",
+      "role": "icon",
+      "rect": [
+        367,
+        579,
+        80,
+        79
+      ],
+      "z": 14,
+      "parent": "sleep_bubble",
+      "text": null,
+      "sprite_hint": "moon_crescent_plush_gold",
+      "notes": "Picture-only hint inside cream area. Keep crescent opening to upper right."
+    },
+    {
+      "id": "sleep_zzz",
+      "role": "caption",
+      "rect": [
+        426,
+        698,
+        43,
+        30
+      ],
+      "z": 14,
+      "parent": null,
+      "text": "zzz",
+      "sprite_hint": "painted_brown_zzz",
+      "notes": "Hand-painted generated sleep cue; no runtime font. Ascends to right."
+    },
+    {
+      "id": "tools_bar",
+      "role": "bar",
+      "rect": [
+        195,
+        1727,
+        731,
+        149
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "toolbar_cream_velvet",
+      "notes": "One continuous padded cream bar. Visible bounds include soft edge."
+    },
+    {
+      "id": "undo",
+      "role": "button",
+      "rect": [
+        245,
+        1745,
+        111,
+        111
+      ],
+      "z": 11,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_undo",
+      "notes": "Match visible raster disc bounds; centre approximately (300.5, 1800.5)."
+    },
+    {
+      "id": "undo_glyph",
+      "role": "icon",
+      "rect": [
+        270,
+        1771,
+        58,
+        53
+      ],
+      "z": 12,
+      "parent": "undo",
+      "text": null,
+      "sprite_hint": "glyph_undo",
+      "notes": "Painted glyph included with button art."
+    },
+    {
+      "id": "hint",
+      "role": "button",
+      "rect": [
+        485,
+        1745,
+        112,
+        111
+      ],
+      "z": 11,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_hint",
+      "notes": "Match visible raster disc bounds; centre approximately (541.0, 1800.5)."
+    },
+    {
+      "id": "hint_glyph",
+      "role": "icon",
+      "rect": [
+        505,
+        1762,
+        71,
+        74
+      ],
+      "z": 12,
+      "parent": "hint",
+      "text": null,
+      "sprite_hint": "glyph_bulb",
+      "notes": "Painted glyph included with button art."
+    },
+    {
+      "id": "branch",
+      "role": "button",
+      "rect": [
+        725,
+        1745,
+        112,
+        111
+      ],
+      "z": 11,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_branch",
+      "notes": "Match visible raster disc bounds; centre approximately (781.0, 1800.5)."
+    },
+    {
+      "id": "branch_glyph",
+      "role": "icon",
+      "rect": [
+        746,
+        1772,
+        73,
+        57
+      ],
+      "z": 12,
+      "parent": "branch",
+      "text": null,
+      "sprite_hint": "glyph_branch_plus",
+      "notes": "White brown-outlined glyph; branch also has green leaves and brown twig."
+    }
+  ]
+}
