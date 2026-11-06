@@ -240,8 +240,7 @@ namespace PerchSort.Game
             button.RestSprite = image.sprite; button.PressedSprite = Trim(art.Get(primary ? "btn_green_pressed" : "btn_wood_pressed"));
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             glyph.position -= bounds.position;
-            // There is no painted hanger in the current Art kit; the existing aviary icon identifies outfits.
-            Draw(image.transform, "Icon", art.Get(icon == "icon_hanger" ? "icon_aviary" : icon), glyph);
+            Draw(image.transform, "Icon", art.Get(icon), glyph);
             button.onClick.AddListener(() => click()); return button;
         }
         private void BuildHeader(string screen)

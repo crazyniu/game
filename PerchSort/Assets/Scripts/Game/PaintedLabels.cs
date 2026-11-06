@@ -8,6 +8,7 @@ namespace PerchSort.Game
 {
     public static class PaintedLabels
     {
+        private static readonly string[] Worlds = { "green_forest", "bamboo_forest", "autumn_forest", "snow_forest" };
         private static readonly Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>(StringComparer.Ordinal);
         private static readonly Dictionary<string, string> Keys = new Dictionary<string, string>(StringComparer.Ordinal)
         {
@@ -112,6 +113,8 @@ namespace PerchSort.Game
             { "Reveals eggs", "label_caption_reveals_eggs" },
             { "Autumn Forest", "label_caption_autumn_forest" },
             { "Green Forest", "label_caption_green_forest" },
+            { "Bamboo Forest", "label_caption_bamboo_forest" },
+            { "Snow Forest", "label_caption_snow_forest" },
             { "Sunny", "label_name_sunny" },
             { "Skye", "label_name_sky" },
             { "Berry", "label_name_berry" },
@@ -124,6 +127,9 @@ namespace PerchSort.Game
             { "Hoot", "label_name_hoot" },
             { "?", "label_name_unknown" },
         };
+
+        public static string WorldTitleKey(int world) => "label_title_" + Worlds[world - 1];
+        public static string WorldCaptionKey(int world) => "label_caption_" + Worlds[world - 1];
 
         public static Sprite Get(string key)
         {
