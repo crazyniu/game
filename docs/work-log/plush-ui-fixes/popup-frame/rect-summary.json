@@ -1,0 +1,278 @@
+[
+  {
+    "capture": "Popups/Edges_Zero_coins.png",
+    "screen": "daily_gift",
+    "maximum": 0.0,
+    "measured": 3
+  },
+  {
+    "capture": "Popups/Edges_Maximum_coins.png",
+    "screen": "daily_gift",
+    "maximum": 0.0,
+    "measured": 3
+  },
+  {
+    "capture": "Popups/Edges_Longest_bird_name.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_sunny_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_sunny_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_sky_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_sky_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_berry_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_berry_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_mint_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_mint_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_cocoa_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_cocoa_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_snow_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_snow_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_ember_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_ember_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_ink_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_ink_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_hoot_pending.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Board/Surfaces_Goal_info_hoot_home.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_sunny.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_sky.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_berry.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_mint.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_cocoa.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_snow.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_ember.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_ink.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Goal_info_hoot.png",
+    "screen": "goal_info",
+    "maximum": 20.0,
+    "measured": 10
+  },
+  {
+    "capture": "Popups/Level_card_First_visit.png",
+    "screen": "level_card",
+    "maximum": 9.0,
+    "measured": 21
+  },
+  {
+    "capture": "Popups/Level_card_Two_stars.png",
+    "screen": "level_card",
+    "maximum": 9.0,
+    "measured": 36
+  },
+  {
+    "capture": "Popups/Level_card_Full_roster.png",
+    "screen": "level_card",
+    "maximum": 9.0,
+    "measured": 44
+  },
+  {
+    "capture": "Popups/Level_card_Maximum_moves.png",
+    "screen": "level_card",
+    "maximum": 9.0,
+    "measured": 44
+  },
+  {
+    "capture": "Popups/Level_card_Locked.png",
+    "screen": "level_card",
+    "maximum": 9.0,
+    "measured": 41
+  },
+  {
+    "capture": "Board/Surfaces_Settings.png",
+    "screen": "settings",
+    "maximum": 4.12,
+    "measured": 13
+  },
+  {
+    "capture": "Popups/Settings_Sound_on.png",
+    "screen": "settings",
+    "maximum": 4.12,
+    "measured": 13
+  },
+  {
+    "capture": "Popups/Settings_Muted.png",
+    "screen": "settings",
+    "maximum": 4.12,
+    "measured": 13
+  },
+  {
+    "capture": "Popups/Settings_Map_disabled_actions.png",
+    "screen": "settings",
+    "maximum": 4.12,
+    "measured": 13
+  },
+  {
+    "capture": "Board/Recovery_World_ending_win.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_Three_stars.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_Two_stars.png",
+    "screen": "board_win_panel_two_stars",
+    "maximum": 20.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_One_star.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_Zero_reward.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_Maximum_counters.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  },
+  {
+    "capture": "Popups/Win_Disabled_next.png",
+    "screen": "board_win_panel",
+    "maximum": 17.0,
+    "measured": 25
+  }
+]
