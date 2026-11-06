@@ -35,6 +35,8 @@ namespace PerchSort.Game
             "label_caption_scares_nearby_crows_away", "label_caption_next_landing_breaks_the_rules", "label_caption_every_egg_hatches_now", null,
             "label_caption_day_and_night_swap", "label_caption_three_moves_of_night"
         };
+        // Top opaque pixel of each canonical front portrait on its 320-pixel canvas.
+        private static readonly float[] portraitTop = { 74, 66, 64, 37, 84, 86, 27, 66, 66, 119 };
 
         // Front-only clips prevent generic bird idles from switching to sideways poses (#103).
         private sealed class FrontMotion
@@ -82,7 +84,8 @@ namespace PerchSort.Game
         private GameRoot root;
         private GameArt art;
         private RectTransform list, detail;
-        private ScrollRect scroll;
+        private ScrollRect scroll, outfitScroll;
+        private RectTransform scrollThumb;
         private PaintedNumber coins;
         private Image title;
         private Button closeButton;
@@ -134,42 +137,57 @@ namespace PerchSort.Game
             gameObject.SetActive(true); transform.SetAsLastSibling();
             ShopView.Background(transform, art);
             list = GameUI.Rect(transform, "Species list", new Vector2(540, 960), GameLayout.DesignSize);
-            GameUI.Fit(list, "Aviary board", art.Get("aviary_board"), new Vector2(540, 1030), new Vector2(1032, 1814));
-            var viewport = GameUI.Rect(list, "Species viewport", new Vector2(540, 1030), new Vector2(800, 1420));
-            viewport.gameObject.AddComponent<RectMask2D>();
+            AviaryBoardGraphic.Create(list, art.Get("aviary_board"), false);
+            const float viewportHeight = 1488;
+            var viewport = GameUI.Rect(list, "Species viewport", new Vector2(530, 1044), new Vector2(800, viewportHeight));
+            viewport.gameObject.AddComponent<RectMask2D>().softness = new Vector2Int(0, 24);
             var background = viewport.gameObject.AddComponent<Image>(); background.color = Color.clear;
             scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport; scroll.horizontal = false;
             scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = 50;
-            float height = Mathf.Max(1420, ((data.Species.Length + 1) / 2) * 470);
+            float height = Mathf.Max(viewportHeight, ((data.Species.Length + 1) / 2) * 480 + 48);
             var content = GameUI.Rect(viewport, "Species grid", Vector2.zero, new Vector2(800, height));
             content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(400, 0); scroll.content = content;
             for (int i = 0; i < data.Species.Length; i++) Card(content, i);
-            var track = GameUI.Surface(list, "Scroll track", art, "stat_pill", new Rect(944, 416, 22, 1260));
+            var track = GameUI.Surface(list, "Scroll track", art, "stat_pill", new Rect(934, 416, 22, 1308));
             track.color = new Color32(153, 96, 42, 255);
-            var thumb = GameUI.Surface(track.transform, "Scroll thumb", art, "stat_pill", new Rect(-6, 0, 34, 118));
+            var thumb = GameUI.Surface(track.transform, "Scroll thumb", art, "stat_pill", new Rect(-11, 0, 44, 118));
             thumb.color = new Color32(255, 205, 65, 255);
-            scroll.onValueChanged.AddListener(value => thumb.rectTransform.anchoredPosition = new Vector2(11, -(59 + (1 - Mathf.Clamp01(value.y)) * 1142)));
-            track.gameObject.SetActive(height > 1420);
-            title = PaintedLabels.Create(transform, "Aviary title", "label_title_aviary", new Vector2(558, 130), 88);
+            scrollThumb = thumb.rectTransform;
+            scroll.onValueChanged.AddListener(value => PositionThumb(value.y));
+            track.gameObject.SetActive(height > viewportHeight);
+            AviaryBoardGraphic.Create(list, art.Get("aviary_board"), true);
+            title = PaintedLabels.Create(transform, "Aviary title", "label_title_aviary", new Vector2(558, 120), 92);
             GameUI.Fit(transform, "Coin pill", art.Get("coin_pill"), new Vector2(166, 130), new Vector2(264, 106));
             coins = Number(transform, "Coins", data.Coins, new Vector2(207, 130), new Vector2(150, 76), 44);
             displayedCoins = data.Coins;
-            closeButton = GameUI.Button(transform, art, "Close aviary", "icon_close", new Rect(926, 76, 108, 108), root.ClosePanel);
-            scroll.verticalNormalizedPosition = 1;
+            closeButton = GameUI.Button(transform, art, "Close aviary", "icon_close", new Rect(926, 12, 108, 108), root.ClosePanel);
+            SetScrollPosition(1);
         }
+
+        public void SetScrollPosition(float position)
+        {
+            scroll.verticalNormalizedPosition = position;
+            PositionThumb(position);
+        }
+
+        private void PositionThumb(float position)
+            => scrollThumb.anchoredPosition = new Vector2(11, -(59 + (1 - Mathf.Clamp01(position)) * 1190));
 
         private void Card(Transform parent, int index)
         {
             var species = presentation.Species[index];
-            var card = GameUI.Rect(parent, species.Id + " card", new Vector2(index % 2 == 0 ? 200 : 600, 235 + index / 2 * 470), new Vector2(380, 470));
-            var mask = GameUI.Image(card, "Portrait mask", art.DoorMask(), new Vector2(190, 174), Vector2.one * 310);
-            mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-            var portrait = GameUI.Fit(mask.transform, "Species portrait", art.Get(species.Id + "_front"), Vector2.one * 155, Vector2.one * 338);
+            var card = GameUI.Rect(parent, species.Id + " card", new Vector2(index % 2 == 0 ? 200 : 600, 240 + index / 2 * 480), new Vector2(380, 480));
+            GameUI.Fit(card, "Portrait ring", art.Get("aviary_frame"), new Vector2(190, 194), Vector2.one * 344);
+            var portraitMask = GameUI.Image(card, "Portrait bounds", null, new Vector2(190, 175), new Vector2(344, 350));
+            portraitMask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            float top = index < 2 ? 0 : 40;
+            float portraitSize = species.Id == "mint" ? 430 : 492;
+            var portrait = GameUI.Fit(portraitMask.transform, "Species portrait", art.Get(species.Id + "_front"),
+                new Vector2(172, top + portraitSize * 0.5f - portraitTop[index] * portraitSize / 320), Vector2.one * portraitSize);
             LivingBird(portrait, species.Id, true, !species.Met, species.Equipped);
-            GameUI.Fit(card, "Portrait ring", art.Get("aviary_frame"), new Vector2(190, 174), Vector2.one * 344);
-            Label(card, "Name ribbon", species.Met ? "label_name_" + species.Id : "label_name_unknown", new Vector2(190, 323), new Vector2(350, 110));
-            HomeChip(card, new Vector2(125, 415), species.Met ? species.Homes : 0, new Vector2(240, 101), 40);
-            if (species.Met && species.Id != "crow") AbilityBadge(card, species.Id, new Vector2(307, 415), 120);
+            Label(card, "Name ribbon", species.Met ? "label_name_" + species.Id : "label_name_unknown", new Vector2(190, 333), new Vector2(350, 110));
+            HomeChip(card, new Vector2(112, 436), species.Met ? species.Homes : 0, new Vector2(228, 96), 40);
+            if (species.Met && species.Id != "crow") AbilityBadge(card, species.Id, new Vector2(290, 442), 132);
             var hit = card.gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = species.Met;
             if (species.Met) CardButton(hit, () => OpenDetail(species.Id));
         }
@@ -178,17 +196,17 @@ namespace PerchSort.Game
         {
             var box = GameUI.Rect(parent, name + " bounds", point, size);
             var number = PaintedNumber.Create(box, name, GlyphSet.Brown, capHeight, TextAnchor.MiddleCenter);
-            number.SetValue(value);
             number.Rect.anchorMin = number.Rect.anchorMax = number.Rect.pivot = Vector2.one * 0.5f;
             number.Rect.anchoredPosition = Vector2.zero;
             number.Rect.sizeDelta = size;
+            number.SetValue(value);
             return number;
         }
 
         private void HomeChip(Transform parent, Vector2 point, int count, Vector2 size, float capHeight)
         {
-            var chip = GameUI.Fit(parent, "Homecoming chip", art.Get("house_count_chip"), point, size);
-            Number(chip.transform, "Homecoming count", count, new Vector2(size.x * 0.69f, size.y * 0.5f), new Vector2(size.x * 0.5f, size.y * 0.72f), capHeight);
+            var chip = GameUI.Image(parent, "Homecoming chip", art.Get("house_count_chip"), point, size);
+            Number(chip.transform, "Homecoming count", count, new Vector2(size.x * 0.66f, size.y * 0.5f), new Vector2(size.x * 0.52f, size.y * 0.72f), capHeight);
         }
 
         private Image Label(Transform parent, string name, string key, Vector2 point, Vector2 bounds)
@@ -204,8 +222,20 @@ namespace PerchSort.Game
 
         private void AbilityBadge(Transform parent, string species, Vector2 point, float size)
         {
-            var disc = GameUI.Fit(parent, "Ability badge", art.Get("btn_wood"), point, Vector2.one * size);
-            GameUI.Fit(disc.transform, "Ability picture", art.Get(ViewModel.GiftIcon(species)), Vector2.one * (size * 0.5f), Vector2.one * (size * 0.7f));
+            string gift;
+            switch (species)
+            {
+                case "sunny": gift = "wake"; break;
+                case "sky": gift = "reveal"; break;
+                case "berry": gift = "encore"; break;
+                case "mint": gift = "grow"; break;
+                case "cocoa": gift = "scare"; break;
+                case "snow": gift = "lightstep"; break;
+                case "ember": gift = "hatch"; break;
+                case "ink": gift = "nightcall"; break;
+                default: gift = "moonbeam"; break;
+            }
+            GameUI.Fit(parent, "Ability badge", art.Get("gift_coin_" + gift), point, Vector2.one * size);
         }
 
         public void OpenDetail(string speciesId)
@@ -219,22 +249,40 @@ namespace PerchSort.Game
             detail = GameUI.Rect(transform, "Species detail", new Vector2(540, 960), GameLayout.DesignSize);
             Label(detail, "Name ribbon", "label_name_" + speciesId, new Vector2(558, 130), new Vector2(460, 144));
             Label(detail, "Personality", personalityLabels[index], new Vector2(540, 393), new Vector2(860, 110));
-            var panel = GameUI.Surface(detail, "Detail wood panel", art, "panel_wood", new Rect(110, 1040, 860, 800));
+            var panel = GameUI.Surface(detail, "Detail wood panel", art, "panel_wood", new Rect(110, 1040, 860, 820));
+            panel.pixelsPerUnitMultiplier = 2;
             var living = GameUI.Rect(detail, "Living bird", new Vector2(540, 695), Vector2.one * 820);
             var bird = GameUI.Fit(living, "Bird", art.Get(speciesId + "_front"), Vector2.one * 410, Vector2.one * 820);
             LivingBird(bird, speciesId, outfit: species.Equipped);
             // Keep every canonical outfit reachable, including the default look.
             if (card.CanWearOutfits)
             {
-                OutfitSlot(panel.transform, species, 0);
-                for (int tier = 1; tier <= 3; tier++) OutfitSlot(panel.transform, species, tier);
+                var viewport = GameUI.Rect(panel.transform, "Outfit viewport", new Vector2(430, 230), new Vector2(720, 300));
+                viewport.gameObject.AddComponent<RectMask2D>();
+                var background = viewport.gameObject.AddComponent<Image>(); background.color = Color.clear;
+                outfitScroll = viewport.gameObject.AddComponent<ScrollRect>();
+                outfitScroll.viewport = viewport; outfitScroll.vertical = false;
+                outfitScroll.movementType = ScrollRect.MovementType.Clamped;
+                var content = GameUI.Rect(viewport, "Outfit choices", new Vector2(480, 150), new Vector2(960, 300));
+                outfitScroll.content = content;
+                for (int tier = 0; tier <= 3; tier++) OutfitSlot(content, species, tier);
+                outfitScroll.horizontalNormalizedPosition = species.Equipped == "outfit." + species.Id + ".3" ? 1 : 0;
             }
             if (abilityLabels[index] != null)
             {
-                AbilityBadge(panel.transform, speciesId, new Vector2(160, 470), 150);
-                Label(panel.transform, "Gift effect", abilityLabels[index], new Vector2(520, 470), new Vector2(550, 110));
+                if (speciesId == "berry")
+                {
+                    AbilityBadge(panel.transform, speciesId, new Vector2(220, 475), 180);
+                    GameUI.Image(panel.transform, "Gift effect", PaintedLabels.Get(abilityLabels[index]),
+                        new Vector2(520, 475), new Vector2(410, 126));
+                }
+                else
+                {
+                    AbilityBadge(panel.transform, speciesId, new Vector2(430, 410), 100);
+                    Label(panel.transform, "Gift effect", abilityLabels[index], new Vector2(430, 512), new Vector2(720, 110));
+                }
             }
-            HomeChip(panel.transform, new Vector2(430, 670), species.Homes, new Vector2(340, 144), 64);
+            HomeChip(panel.transform, new Vector2(430, 650), species.Homes, new Vector2(440, 168), 72);
             GameUI.Button(detail, art, "Back to species list", "icon_close", new Rect(926, 76, 108, 108), Back);
         }
 
@@ -242,16 +290,19 @@ namespace PerchSort.Game
         {
             string id = tier == 0 ? null : "outfit." + species.Id + "." + tier;
             bool owned = tier == 0 || species.Outfits.Contains(id), selected = species.Equipped == id;
-            var tile = GameUI.Surface(parent, tier == 0 ? "Default look" : "Outfit slot " + tier, art, "card_wood", new Rect(40 + tier * 200, 92, 180, 230));
-            tile.type = Image.Type.Simple;
-            if (selected) GameUI.Fit(tile.transform, "Equipped ring", art.Get("node_wood_current_glow"), new Vector2(90, 115), new Vector2(196, 246));
-            var portrait = GameUI.Fit(tile.transform, "Outfit portrait", art.Get(species.Id + "_front"), new Vector2(90, 115), Vector2.one * 174);
+            var tile = GameUI.Surface(parent, tier == 0 ? "Default look" : "Outfit slot " + tier, art, "stat_pill", new Rect(2 + tier * 240, 10, 236, 260));
+            if (selected)
+            {
+                tile.color = new Color32(108, 176, 44, 255);
+                GameUI.Surface(tile.transform, "Equipped cream inset", art, "stat_pill", new Rect(6, 6, 224, 248));
+            }
+            var portrait = GameUI.Fit(tile.transform, "Outfit portrait", art.Get(species.Id + "_front"), new Vector2(118, 112), Vector2.one * 290);
             LivingBird(portrait, species.Id, locked: !owned, outfit: id);
-            if (selected) GameUI.Fit(tile.transform, "Selected look", art.Get("check_green"), new Vector2(148, 194), Vector2.one * 56);
-            if (!owned) GameUI.Fit(tile.transform, "Locked outfit", art.Get("padlock"), new Vector2(90, 115), Vector2.one * 64);
+            if (!owned) portrait.color = new Color(1, 1, 1, 0.8f);
+            if (selected) GameUI.Fit(tile.transform, "Selected look", art.Get("check_green"), new Vector2(194, 220), Vector2.one * 76);
+            if (!owned) GameUI.Fit(tile.transform, "Locked outfit", art.Get("padlock"), new Vector2(118, 142), Vector2.one * 84);
             tile.raycastTarget = true;
-            var button = CardButton(tile, () => Equip(species, id));
-            button.interactable = owned;
+            if (owned) CardButton(tile, () => Equip(species, id));
         }
 
         private static Button CardButton(Image target, UnityEngine.Events.UnityAction click)
@@ -309,8 +360,10 @@ namespace PerchSort.Game
         {
             detailMotion.Clear();
             if (detail != null) { detail.SetParent(null, false); GameUI.Dispose(detail.gameObject); }
-            detail = null; DetailSpecies = null;
+            detail = null; outfitScroll = null; DetailSpecies = null;
         }
+
+        public void SetOutfitScrollPosition(float position) => outfitScroll.horizontalNormalizedPosition = position;
 
         public void Back()
         {
@@ -333,7 +386,7 @@ namespace PerchSort.Game
             {
                 var child = transform.GetChild(i); child.gameObject.SetActive(false); child.SetParent(null, false); GameUI.Dispose(child.gameObject);
             }
-            list = detail = null; scroll = null; coins = null; title = null; closeButton = null;
+            list = detail = null; scroll = outfitScroll = null; scrollThumb = null; coins = null; title = null; closeButton = null;
             DetailSpecies = null; presentation = null; preview = false; gameObject.SetActive(false);
         }
 

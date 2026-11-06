@@ -112,28 +112,47 @@ namespace PerchSort.Game
 
         private RectTransform Body(float height, string title, bool close = false, float centreY = 960)
         {
+            if (title == "label_title_daily_gift")
+            {
+                var gift = Body(new Rect(110, 626, 860, 720), title, new Rect(198, 548, 689, 158));
+                GameUI.DumpPopupRects(transform, "daily_gift");
+                return gift;
+            }
+            Rect panel = GameLayout.Centered(new Vector2(540, centreY), new Vector2(860, height));
+            return Body(panel, title, new Rect(220, panel.y - 64, 640, 140), close,
+                new Rect(panel.xMax - 74, panel.y - 26, 100, 100));
+        }
+
+        // Panel and title bounds are absolute top-left coordinates on the design canvas.
+        private RectTransform Body(Rect panel, string title, Rect titleRect, bool close = false, Rect closeRect = default)
+        {
             Vector2? origin = levelCardOrigin;
             Hide(); transform.SetAsLastSibling(); gameObject.SetActive(true); presentation.Begin(null);
             dim.color = new Color(0, 0, 0, ModalLayer.DimAlpha);
-            panelBounds = GameLayout.Centered(new Vector2(540, centreY), new Vector2(860, height));
-            var panel = GameUI.Surface(transform, "Panel", art, "panel_wood", panelBounds);
-            panel.raycastTarget = true; panel.gameObject.AddComponent<EmptyClick>();
-            content = PopupMotion.Lift(panel);
-            Title(content, title, new Vector2(430, 0));
+            panelBounds = panel;
+            var surface = GameUI.MeasuredSurface(transform, "Panel", art, "panel_wood", panelBounds);
+            surface.raycastTarget = true; surface.gameObject.AddComponent<EmptyClick>();
+            content = PopupMotion.Lift(surface);
+            Title(content, title, GameUI.Local(titleRect, panelBounds), art);
             dismissible = informationModal = close;
-            if (close) GameUI.Button(content, art,
-                title == "label_title_settings" ? "Close settings" : title.StartsWith("label_level_", StringComparison.Ordinal) ? "Close level card" : "Close goal info",
-                "icon_close", new Rect(786, -26, 100, 100), root.ClosePanel);
+            if (close) GameUI.MeasuredButton(content, art,
+                title == "label_title_settings" ? "Close settings" : title.StartsWith("label_title_level_", StringComparison.Ordinal) ? "Close level card" : "Close goal info",
+                "icon_close", GameUI.Local(closeRect, panelBounds),
+                GameUI.Local(GameLayout.Centered(closeRect.center, closeRect.size * 0.48f), panelBounds), root.ClosePanel);
             ModalLayer.Enter(presentation, content, origin);
             return content;
         }
 
         internal static Image Title(Transform parent, string key, Vector2 point)
         {
-            var title = PaintedLabels.Create(parent, "Title ribbon", key, point, 120);
-            title.rectTransform.sizeDelta = new Vector2(640, 120);
+            var title = PaintedLabels.Create(parent, "Title ribbon", key, point, 140);
+            title.preserveAspect = false;
+            title.rectTransform.sizeDelta = new Vector2(640, 140);
             return title;
         }
+
+        internal static Image Title(Transform parent, string key, Rect bounds, GameArt art)
+            => GameUI.MeasuredImage(parent, "Title ribbon", art, PaintedLabels.Get(key), bounds);
 
         internal static PaintedNumber Number(Transform parent, string name, string value, Vector2 point,
             Vector2 size, float cap = 40)
@@ -141,11 +160,16 @@ namespace PerchSort.Game
             var number = PaintedNumber.Create(parent, name, GlyphSet.Brown, cap, TextAnchor.MiddleCenter);
             number.Rect.anchoredPosition = new Vector2(point.x, -point.y);
             number.Rect.sizeDelta = size; number.SetText(value);
+            // The painted infinity has a 64 px ink height on the 100 px digit cap line.
+            if (value == "∞") number.Rect.GetChild(0).localScale = Vector3.one * (100f / 64f);
             return number;
         }
 
         private void Caption(Transform parent, string text, Vector2 point, float height = 76) =>
             PaintedLabels.Create(parent, text, PaintedLabels.KeyForText(text), point, height);
+
+        private Image Caption(Transform parent, string text, Rect bounds) =>
+            GameUI.MeasuredImage(parent, text, art, PaintedLabels.Get(PaintedLabels.KeyForText(text)), bounds);
 
         private void NameRibbon(Transform parent, string species, Vector2 point, float height = 120)
         {
@@ -222,9 +246,18 @@ namespace PerchSort.Game
         }
 
         private void Portrait(Transform parent, string species, Vector2 point, float size)
+            => Portrait(parent, species, GameLayout.Centered(point, Vector2.one * size),
+                GameLayout.Centered(point, Vector2.one * (size * 0.84f)));
+
+        private void Portrait(Transform parent, string species, Rect ringBounds, Rect birdBounds, string slot = null)
         {
-            GameUI.Fit(parent, "Portrait ring", art.Get("aviary_frame"), point, Vector2.one * size);
-            Bird(parent, species, point, size * 0.84f);
+            var well = GameUI.Image(parent, "Portrait well " + (slot ?? species), art.DoorMask(), ringBounds.center, ringBounds.size * 0.86f);
+            well.color = new Color32(113, 61, 18, 255);
+            GameUI.MeasuredImage(parent, "Portrait ring " + (slot ?? species), art, art.Get("aviary_frame"), ringBounds);
+            root.Collection.EquippedOutfits.TryGetValue(species, out string outfit);
+            string key = art.FrontKey(species, outfit);
+            var bird = GameUI.MeasuredImage(parent, "Bird " + (slot ?? species), art, art.Get(key + "_front"), birdBounds);
+            presentation.FrontBird(art, bird, key, true);
         }
 
         public bool CloseInformation(Action complete)
@@ -236,27 +269,30 @@ namespace PerchSort.Game
 
         public void Settings()
         {
-            var body = Body(340, "label_title_settings", true, 860); IsSettings = true;
-            string[] icons = { root.Muted ? "icon_sound_off" : "icon_sound_on", "icon_undo", "icon_home" };
+            Rect R(string id) => GameLayout.Screen("settings", id);
+            var body = Body(R("panel"), "label_title_settings", new Rect(258, 616, 559, 156), true, R("close"));
+            IsSettings = true;
+            string[] ids = { "sound", "restart", "home" };
+            string[] icons = { root.Muted ? "icon_sound_off" : "icon_sound_on", "icon_replay", "icon_home" };
             string[] captions = { "Sound", "Restart", "Home" };
             Action[] actions = {
                 () => {
                     root.SetMuted(!root.Muted);
                     var sound = body.Find("Toggle mute/Icon").GetComponent<Image>();
-                    sound.sprite = art.Icon(root.Muted ? "icon_sound_off" : "icon_sound_on");
-                    GlyphMetrics.Apply(sound, Vector2.one * 100);
+                    sound.sprite = art.Measured(art.Icon(root.Muted ? "icon_sound_off" : "icon_sound_on"));
                 },
                 () => presentation.Close(root.Restart),
                 () => presentation.Close(root.OpenMap)
             };
             string[] names = { "Toggle mute", "Restart level", "Return to map" };
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < ids.Length; i++)
             {
-                float x = 250 + i * 180;
-                var button = GameUI.Button(body, art, names[i], icons[i], new Rect(x - 50, 110, 100, 100), actions[i]);
+                var button = GameUI.MeasuredButton(body, art, names[i], icons[i],
+                    GameUI.Local(R(ids[i]), panelBounds), GameUI.Local(R(ids[i] + "_icon"), panelBounds), actions[i]);
                 button.interactable = i == 0 || !root.IsMap;
-                Caption(body, captions[i], new Vector2(x, 252), 54);
+                Caption(body, captions[i], GameUI.Local(R(ids[i] + "_plate"), panelBounds));
             }
+            GameUI.DumpPopupRects(transform, "settings");
         }
 
         public void Buy(BoosterKind kind) => root.OpenShop(kind);
@@ -339,49 +375,70 @@ namespace PerchSort.Game
 
         public void GoalInfo(string species)
         {
-            var body = Body(680, "label_name_" + species, true, 860);
-            Portrait(body, species, new Vector2(430, 290), 380);
-            GameUI.Fit(body, "Gift", art.Get(ViewModel.GiftIcon(species)), new Vector2(170, 558), Vector2.one * 100);
-            Caption(body, species == "sunny" ? "Wakes sleepers" : species == "crow" ? "Never goes home" : ShortGiftEffect(species), new Vector2(500, 558), 64);
+            Rect R(string id) => GameLayout.Screen("goal_info", id);
+            var body = Body(R("modal"), "label_name_" + species, new Rect(220, 462, 639, 142), true, R("close"));
+            Portrait(body, species, GameUI.Local(R("sunny_ring"), panelBounds), GameUI.Local(R("sunny_hero"), panelBounds));
+            Caption(body, species == "sunny" ? "Wakes sleepers" : species == "crow" ? "Never goes home" : ShortGiftEffect(species),
+                GameUI.Local(new Rect(314, 1024, 562, 135), panelBounds));
+            GameUI.MeasuredImage(body, "Gift", art, art.Get(ViewModel.GiftIcon(species)), GameUI.Local(new Rect(192, 1007, 157, 163), panelBounds));
+            GameUI.DumpPopupRects(transform, "goal_info");
         }
 
         public void LevelCard(int id) => LevelCard(id, root.BestStars(id), root.BestMoves(id));
         private void LevelCard(int id, int bestStars, int bestMoves, bool playable = true)
         {
+            Rect R(string key) => GameLayout.Screen("level_card", key);
+            Rect L(string key) => GameUI.Local(R(key), panelBounds);
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
             var species = Species(board); var mechanics = Mechanics(board);
-            int rows = Mathf.CeilToInt(species.Count / 4f);
-            float height = 430 + rows * 150 + (mechanics.Count > 0 ? 150 : 0);
-            var body = Body(height, "label_level_" + id, true);
+            var body = Body(R("panel_frame"), "label_title_level_" + id, R("level_ribbon"), true, R("close"));
             CardLevel = id;
+            string[] thresholdIds = { "threshold_12", "threshold_16", "threshold_inf" };
             for (int i = 0; i < 3; i++)
             {
-                float x = 230 + i * 200;
-                GameUI.Fit(body, "Best star " + i, art.Get(i < bestStars ? "star_full" : "star_empty"),
-                    new Vector2(x, 140), Vector2.one * 150);
-                var threshold = GameUI.Surface(body, "Star threshold pill", art, "stat_pill", new Rect(x - 74, 222, 148, 58));
-                Number(threshold.transform, "Star threshold", i == 0 ? level.par.ToString() :
-                    i == 1 ? (level.par + 3).ToString() : "∞", new Vector2(74, 29), new Vector2(140, 58), 30);
+                GameUI.MeasuredImage(body, "Best star " + i, art, art.Get(i < bestStars ? "star_full" : "star_empty"), L("star_" + (i + 1)));
+                GameUI.MeasuredSurface(body, "Star threshold pill " + i, art, "stat_pill", L(thresholdIds[i]));
+                Rect value = L(thresholdIds[i] + "_text");
+                Number(body, "Star threshold " + i, i == 0 ? level.par.ToString() : i == 1 ? (level.par + 3).ToString() : "∞",
+                    value.center, value.size, 36);
             }
-            var best = GameUI.Surface(body, "Best moves pill", art, "stat_pill", new Rect(250, 304, 360, 76));
-            GameUI.Fit(best.transform, "Best footprints", art.Get("footprints"), new Vector2(45, 38), Vector2.one * 46);
-            Caption(best.transform, "Best", new Vector2(140, 38), 58);
-            Number(best.transform, "Best moves", bestMoves >= 0 ? bestMoves.ToString() : "-", new Vector2(270, 38), new Vector2(150, 76), 36);
+            if (bestMoves >= 0)
+            {
+                GameUI.MeasuredSurface(body, "Best moves pill", art, "stat_pill", L("best_pill"));
+                GameUI.MeasuredImage(body, "Best footprints", art, art.Get("footprints"), L("best_tracks"));
+                GameUI.MeasuredImage(body, "Best word", art, PaintedLabels.Get("label_word_best"),
+                    GameUI.Local(new Rect(468, 668, 140, 43), panelBounds));
+                Number(body, "Best moves", bestMoves.ToString(), GameUI.Local(new Rect(619, 668, 87, 43), panelBounds).center,
+                    new Vector2(87, 43), 43);
+            }
+            string[] portraits = { "yellow", "blue", "pink", "mint", "owl", "white", "fire" };
             for (int i = 0; i < species.Count; i++)
             {
-                int row = i / 4, columns = Mathf.Min(4, species.Count - row * 4);
-                float x = 430 + (i % 4 - (columns - 1) * 0.5f) * 170;
-                Portrait(body, species[i], new Vector2(x, 460 + row * 150), 146);
-                GameUI.Fit(body, "Gift badge", art.Get(ViewModel.GiftIcon(species[i])),
-                    new Vector2(x + 50, 510 + row * 150), Vector2.one * 52);
+                int slot = species.Count == 2 ? i + 1 : species.Count == 5 && i == 4 ? 5 :
+                    species.Count == 6 && i == 5 ? 6 : i;
+                Rect ring = L(portraits[slot] + "_ring"), bird = L(portraits[slot] + "_bird"), badge = L(portraits[slot] + "_badge");
+                Portrait(body, species[i], ring, bird, "slot " + slot);
+                GameUI.MeasuredImage(body, "Gift badge slot " + slot, art, art.Get(ViewModel.GiftIcon(species[i])), badge);
             }
-            for (int i = 0; i < mechanics.Count; i++)
+            if (mechanics.Count > 0)
             {
-                var sprite = mechanics[i] == "sleep" ? art.Get("hoot_sleep_bare") : art.Get(MechanicSprite(mechanics[i]));
-                GameUI.Fit(body, "Mechanic " + mechanics[i], sprite,
-                    new Vector2(430 + (i - (mechanics.Count - 1) * 0.5f) * 120, height - 90), Vector2.one * 100);
+                GameUI.MeasuredSurface(body, "Mechanic strip", art, "stat_pill", L("lower_card"));
+                foreach (string mechanic in mechanics)
+                {
+                    Rect bounds = mechanic == "sleep" ? R("sleep_owl") :
+                        mechanic == "egg" ? new Rect(450, 1208, 184, 117) :
+                        mechanic == "night" ? R("daynight") :
+                        mechanic == "growing" ? new Rect(832, 1236, 48, 86) :
+                        mechanic == "swivel" ? new Rect(408, 1245, 38, 70) : new Rect(194, 1245, 44, 70);
+                    GameUI.MeasuredImage(body, "Mechanic " + mechanic, art,
+                        art.Get(mechanic == "sleep" ? "hoot_sleep_bare" : MechanicSprite(mechanic)), GameUI.Local(bounds, panelBounds));
+                    if (mechanic == "sleep")
+                        GameUI.MeasuredImage(body, "Sleep marks", art, art.Get("zzz"), L("sleep_caption"));
+                }
             }
-            Action("Play level " + id, "icon_play", () => root.LoadLevel(id)).interactable = playable;
+            GameUI.MeasuredButton(transform, art, "Play level " + id, "icon_play", R("play"), R("play_icon"),
+                presentation.Once(() => presentation.Close(() => root.LoadLevel(id))), true).interactable = playable;
+            GameUI.DumpPopupRects(transform, "level_card");
         }
 
         private static string MechanicSprite(string mechanic)
@@ -392,7 +449,7 @@ namespace PerchSort.Game
                 case "crow": return "crow_face";
                 case "swivel": return "swivel_knot";
                 case "growing": return "icon_rain_sprout";
-                default: return "dial_moon";
+                default: return "gift_coin_nightcall";
             }
         }
 

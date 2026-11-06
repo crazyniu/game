@@ -1,0 +1,621 @@
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sunny	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sunny	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sunny	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Wakes sleepers	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 1/27 Board/Surfaces_Goal_info_sunny_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sunny	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sunny	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sunny	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Wakes sleepers	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 2/27 Board/Surfaces_Goal_info_sunny_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sky	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sky	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sky	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Reveals every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 3/27 Board/Surfaces_Goal_info_sky_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sky	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sky	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sky	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Reveals every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 4/27 Board/Surfaces_Goal_info_sky_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well berry	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring berry	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird berry	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/One free move	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 5/27 Board/Surfaces_Goal_info_berry_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well berry	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring berry	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird berry	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/One free move	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 6/27 Board/Surfaces_Goal_info_berry_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well mint	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring mint	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird mint	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Grows branches	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 7/27 Board/Surfaces_Goal_info_mint_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well mint	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring mint	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird mint	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Grows branches	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 8/27 Board/Surfaces_Goal_info_mint_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well cocoa	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring cocoa	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird cocoa	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Sends crows away	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 9/27 Board/Surfaces_Goal_info_cocoa_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well cocoa	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring cocoa	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird cocoa	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Sends crows away	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 10/27 Board/Surfaces_Goal_info_cocoa_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well snow	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring snow	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird snow	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Land anywhere	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 11/27 Board/Surfaces_Goal_info_snow_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well snow	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring snow	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird snow	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Land anywhere	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 12/27 Board/Surfaces_Goal_info_snow_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ember	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ember	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ember	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Hatches every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 13/27 Board/Surfaces_Goal_info_ember_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ember	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ember	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ember	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Hatches every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 14/27 Board/Surfaces_Goal_info_ember_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ink	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ink	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ink	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Switches day/night	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 15/27 Board/Surfaces_Goal_info_ink_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ink	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ink	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ink	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Switches day/night	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 16/27 Board/Surfaces_Goal_info_ink_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well hoot	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring hoot	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird hoot	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Moonlit moves	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 17/27 Board/Surfaces_Goal_info_hoot_pending.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well hoot	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring hoot	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird hoot	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Moonlit moves	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 18/27 Board/Surfaces_Goal_info_hoot_home.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sunny	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sunny	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sunny	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Wakes sleepers	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 19/27 Popups/Goal_info_sunny.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well sky	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring sky	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird sky	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Reveals every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 20/27 Popups/Goal_info_sky.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well berry	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring berry	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird berry	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/One free move	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 21/27 Popups/Goal_info_berry.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well mint	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring mint	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird mint	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Grows branches	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 22/27 Popups/Goal_info_mint.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well cocoa	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring cocoa	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird cocoa	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Sends crows away	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 23/27 Popups/Goal_info_cocoa.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well snow	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring snow	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird snow	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Land anywhere	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 24/27 Popups/Goal_info_snow.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ember	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ember	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ember	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Hatches every egg	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 25/27 Popups/Goal_info_ember.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well ink	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring ink	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird ink	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Switches day/night	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 26/27 Popups/Goal_info_ink.png
+POPUP_RECTS_BEGIN	goal_info
+POPUP_RECT	goal_info	Game/Game Canvas/Safe area/1080x1920 design/Information cards	0.00,0.00,1080.00,1920.00
+POPUP_RECT	goal_info	Panel	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,505.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,510.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	101.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	106.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Soft panel shadow	111.00,515.00,869.00,730.00
+POPUP_RECT	goal_info	Panel/Panel surface	109.00,499.00,863.00,724.00
+POPUP_RECT	goal_info	Panel/Title ribbon	220.00,462.00,639.00,142.00
+POPUP_RECT	goal_info	Panel/Close goal info	895.00,474.00,101.00,103.00
+POPUP_RECT	goal_info	Panel/Close goal info/Icon	921.26,500.78,48.48,49.44
+POPUP_RECT	goal_info	Panel/Portrait well hoot	346.17,620.17,370.66,370.66
+POPUP_RECT	goal_info	Panel/Portrait ring hoot	316.00,590.00,431.00,431.00
+POPUP_RECT	goal_info	Panel/Bird hoot	352.00,630.00,357.00,355.00
+POPUP_RECT	goal_info	Panel/Moonlit moves	314.00,1024.00,562.00,135.00
+POPUP_RECT	goal_info	Panel/Gift	192.00,1007.00,157.00,163.00
+POPUP_RECTS_END	goal_info
+UiStateCapture: 27/27 Popups/Goal_info_hoot.png
