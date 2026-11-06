@@ -1,0 +1,1152 @@
+{
+  "screen": "daily_gift",
+  "canvas": [
+    1080,
+    1920
+  ],
+  "origin": "top-left",
+  "units": "pixels",
+  "source_image": "output.png",
+  "elements": [
+    {
+      "id": "board",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "board_dimmed",
+      "notes": "Exact board_dimmed.png, already dimmed/desaturated. All listed board children are baked into this single sprite; do not redraw them over it. Rects are canvas-space visible extents, not Unity anchors. Fully occluded board objects are excluded."
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        38,
+        48,
+        302,
+        118
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "coin_pill",
+      "notes": ""
+    },
+    {
+      "id": "hud_coin",
+      "role": "icon",
+      "rect": [
+        38,
+        49,
+        125,
+        115
+      ],
+      "z": 2,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold",
+      "notes": ""
+    },
+    {
+      "id": "hud_240",
+      "role": "caption",
+      "rect": [
+        174,
+        79,
+        129,
+        56
+      ],
+      "z": 3,
+      "parent": "coin_pill",
+      "text": "240",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "moves_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        166,
+        404,
+        113
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "moves_stars_pill",
+      "notes": ""
+    },
+    {
+      "id": "footprints",
+      "role": "icon",
+      "rect": [
+        49,
+        199,
+        60,
+        46
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "icon_bird_footprints",
+      "notes": "Two bird footprints, not paw icon."
+    },
+    {
+      "id": "moves_7",
+      "role": "caption",
+      "rect": [
+        115,
+        193,
+        46,
+        55
+      ],
+      "z": 3,
+      "parent": "moves_pill",
+      "text": "7",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "moves_divider",
+      "role": "decoration",
+      "rect": [
+        180,
+        184,
+        8,
+        78
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "divider_brown",
+      "notes": ""
+    },
+    {
+      "id": "star_1",
+      "role": "star",
+      "rect": [
+        210,
+        171,
+        61,
+        53
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_1",
+      "role": "caption",
+      "rect": [
+        209,
+        228,
+        45,
+        34
+      ],
+      "z": 3,
+      "parent": "moves_pill",
+      "text": "12",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "star_2",
+      "role": "star",
+      "rect": [
+        276,
+        171,
+        61,
+        53
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_2",
+      "role": "caption",
+      "rect": [
+        278,
+        228,
+        51,
+        34
+      ],
+      "z": 3,
+      "parent": "moves_pill",
+      "text": "16",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "star_3",
+      "role": "star",
+      "rect": [
+        345,
+        171,
+        61,
+        53
+      ],
+      "z": 2,
+      "parent": "moves_pill",
+      "text": null,
+      "sprite_hint": "star_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "threshold_3",
+      "role": "caption",
+      "rect": [
+        349,
+        228,
+        58,
+        34
+      ],
+      "z": 3,
+      "parent": "moves_pill",
+      "text": "\u221e",
+      "sprite_hint": "glyph_infinity",
+      "notes": ""
+    },
+    {
+      "id": "sun_pill",
+      "role": "pill",
+      "rect": [
+        33,
+        280,
+        206,
+        97
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "sun_counter_pill",
+      "notes": ""
+    },
+    {
+      "id": "sun",
+      "role": "icon",
+      "rect": [
+        49,
+        286,
+        100,
+        82
+      ],
+      "z": 2,
+      "parent": "sun_pill",
+      "text": null,
+      "sprite_hint": "icon_sun_gold",
+      "notes": ""
+    },
+    {
+      "id": "sun_4",
+      "role": "caption",
+      "rect": [
+        156,
+        300,
+        44,
+        51
+      ],
+      "z": 3,
+      "parent": "sun_pill",
+      "text": "4",
+      "sprite_hint": "glyph_brown_digits",
+      "notes": ""
+    },
+    {
+      "id": "settings",
+      "role": "disc",
+      "rect": [
+        952,
+        77,
+        113,
+        109
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "btn_orange_settings",
+      "notes": ""
+    },
+    {
+      "id": "gear",
+      "role": "icon",
+      "rect": [
+        982,
+        99,
+        57,
+        61
+      ],
+      "z": 2,
+      "parent": "settings",
+      "text": null,
+      "sprite_hint": "icon_gear_cream",
+      "notes": ""
+    },
+    {
+      "id": "rope",
+      "role": "decoration",
+      "rect": [
+        548,
+        0,
+        52,
+        180
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house_rope",
+      "notes": ""
+    },
+    {
+      "id": "goal_house",
+      "role": "card",
+      "rect": [
+        419,
+        172,
+        318,
+        231
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "goal_house_plush",
+      "notes": ""
+    },
+    {
+      "id": "house_roof",
+      "role": "decoration",
+      "rect": [
+        419,
+        173,
+        318,
+        135
+      ],
+      "z": 3,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "house_roof_teal",
+      "notes": ""
+    },
+    {
+      "id": "house_opening",
+      "role": "decoration",
+      "rect": [
+        535,
+        271,
+        82,
+        86
+      ],
+      "z": 3,
+      "parent": "goal_house",
+      "text": null,
+      "sprite_hint": "house_opening",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_yellow",
+      "role": "ring",
+      "rect": [
+        370,
+        400,
+        99,
+        99
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_bird_yellow",
+      "role": "bird",
+      "rect": [
+        388,
+        412,
+        63,
+        74
+      ],
+      "z": 3,
+      "parent": "goal_ring_yellow",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": ""
+    },
+    {
+      "id": "goal_badge_yellow",
+      "role": "badge",
+      "rect": [
+        429,
+        454,
+        57,
+        53
+      ],
+      "z": 4,
+      "parent": "goal_ring_yellow",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_gift_yellow",
+      "role": "icon",
+      "rect": [
+        441,
+        467,
+        35,
+        33
+      ],
+      "z": 5,
+      "parent": "goal_badge_yellow",
+      "text": null,
+      "sprite_hint": "icon_gift_purple",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_blue",
+      "role": "ring",
+      "rect": [
+        511,
+        400,
+        100,
+        99
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_bird_blue",
+      "role": "bird",
+      "rect": [
+        528,
+        407,
+        67,
+        81
+      ],
+      "z": 3,
+      "parent": "goal_ring_blue",
+      "text": null,
+      "sprite_hint": "bird_blue_front",
+      "notes": ""
+    },
+    {
+      "id": "goal_badge_blue",
+      "role": "badge",
+      "rect": [
+        571,
+        454,
+        56,
+        53
+      ],
+      "z": 4,
+      "parent": "goal_ring_blue",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_gift_blue",
+      "role": "icon",
+      "rect": [
+        583,
+        467,
+        34,
+        33
+      ],
+      "z": 5,
+      "parent": "goal_badge_blue",
+      "text": null,
+      "sprite_hint": "icon_gift_purple",
+      "notes": ""
+    },
+    {
+      "id": "goal_ring_owl",
+      "role": "ring",
+      "rect": [
+        650,
+        400,
+        100,
+        100
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "portrait_ring_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_bird_owl",
+      "role": "bird",
+      "rect": [
+        667,
+        412,
+        67,
+        75
+      ],
+      "z": 3,
+      "parent": "goal_ring_owl",
+      "text": null,
+      "sprite_hint": "bird_owl_front",
+      "notes": ""
+    },
+    {
+      "id": "goal_badge_owl",
+      "role": "badge",
+      "rect": [
+        711,
+        454,
+        56,
+        53
+      ],
+      "z": 4,
+      "parent": "goal_ring_owl",
+      "text": null,
+      "sprite_hint": "badge_gift_gold",
+      "notes": ""
+    },
+    {
+      "id": "goal_gift_owl",
+      "role": "icon",
+      "rect": [
+        723,
+        467,
+        34,
+        33
+      ],
+      "z": 5,
+      "parent": "goal_badge_owl",
+      "text": null,
+      "sprite_hint": "icon_gift_purple",
+      "notes": ""
+    },
+    {
+      "id": "bird_left_upper_yellow",
+      "role": "bird",
+      "rect": [
+        59,
+        723,
+        52,
+        102
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": "Visible fragment only; rest is occluded by modal. Source full bird remains baked into board_dimmed.png."
+    },
+    {
+      "id": "bird_right_upper_yellow",
+      "role": "bird",
+      "rect": [
+        968,
+        831,
+        82,
+        137
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": "Visible fragment only; rest is occluded by modal. Source full bird remains baked into board_dimmed.png."
+    },
+    {
+      "id": "bird_left_lower_yellow",
+      "role": "bird",
+      "rect": [
+        59,
+        1051,
+        52,
+        103
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": "Visible fragment only; rest is occluded by modal. Source full bird remains baked into board_dimmed.png."
+    },
+    {
+      "id": "bird_right_lower_yellow",
+      "role": "bird",
+      "rect": [
+        968,
+        1157,
+        82,
+        137
+      ],
+      "z": 2,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": "Visible fragment only; rest is occluded by modal. Source full bird remains baked into board_dimmed.png."
+    },
+    {
+      "id": "tools_bar",
+      "role": "bar",
+      "rect": [
+        196,
+        1727,
+        729,
+        150
+      ],
+      "z": 1,
+      "parent": "board",
+      "text": null,
+      "sprite_hint": "toolbar_cream_plush",
+      "notes": ""
+    },
+    {
+      "id": "tool_undo",
+      "role": "disc",
+      "rect": [
+        246,
+        1748,
+        112,
+        107
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_undo",
+      "notes": ""
+    },
+    {
+      "id": "icon_undo",
+      "role": "icon",
+      "rect": [
+        269,
+        1770,
+        66,
+        63
+      ],
+      "z": 3,
+      "parent": "tool_undo",
+      "text": null,
+      "sprite_hint": "icon_undo",
+      "notes": ""
+    },
+    {
+      "id": "tool_hint",
+      "role": "disc",
+      "rect": [
+        487,
+        1748,
+        111,
+        106
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_hint",
+      "notes": ""
+    },
+    {
+      "id": "icon_hint",
+      "role": "icon",
+      "rect": [
+        510,
+        1763,
+        66,
+        74
+      ],
+      "z": 3,
+      "parent": "tool_hint",
+      "text": null,
+      "sprite_hint": "icon_hint",
+      "notes": ""
+    },
+    {
+      "id": "tool_branch",
+      "role": "disc",
+      "rect": [
+        726,
+        1748,
+        112,
+        106
+      ],
+      "z": 2,
+      "parent": "tools_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_branch",
+      "notes": ""
+    },
+    {
+      "id": "icon_branch",
+      "role": "icon",
+      "rect": [
+        744,
+        1769,
+        80,
+        65
+      ],
+      "z": 3,
+      "parent": "tool_branch",
+      "text": null,
+      "sprite_hint": "icon_branch_plus",
+      "notes": ""
+    },
+    {
+      "id": "modal_panel",
+      "role": "panel",
+      "rect": [
+        110,
+        626,
+        860,
+        720
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "panel_cream_velvet",
+      "notes": "Existing art shifted +125 px from modal_source.png, +65 px from preceding approval. Bounds include honey-orange roll; full brightness."
+    },
+    {
+      "id": "modal_frame",
+      "role": "frame",
+      "rect": [
+        110,
+        626,
+        860,
+        720
+      ],
+      "z": 11,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "frame_honey_orange_velvet",
+      "notes": "Perimeter only; same outer bounds as panel, not an opaque rectangle."
+    },
+    {
+      "id": "cream_inset",
+      "role": "panel",
+      "rect": [
+        145,
+        660,
+        789,
+        652
+      ],
+      "z": 11,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "panel_cream_inset",
+      "notes": "Visible cream surface; upper portion occluded by ribbon."
+    },
+    {
+      "id": "ribbon",
+      "role": "ribbon",
+      "rect": [
+        198,
+        548,
+        689,
+        158
+      ],
+      "z": 13,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "ribbon_green_daily_gift",
+      "notes": "Bounds include both leaf clusters and folded tails; mask support top548. Goal badges end about506: minimum42 px clearance."
+    },
+    {
+      "id": "leaves_left",
+      "role": "decoration",
+      "rect": [
+        198,
+        574,
+        112,
+        115
+      ],
+      "z": 14,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaves_left",
+      "notes": ""
+    },
+    {
+      "id": "leaves_right",
+      "role": "decoration",
+      "rect": [
+        772,
+        574,
+        115,
+        115
+      ],
+      "z": 14,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaves_right",
+      "notes": ""
+    },
+    {
+      "id": "ribbon_face",
+      "role": "ribbon",
+      "rect": [
+        295,
+        552,
+        478,
+        123
+      ],
+      "z": 14,
+      "parent": "ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_green_face",
+      "notes": ""
+    },
+    {
+      "id": "daily_title",
+      "role": "title",
+      "rect": [
+        353,
+        569,
+        372,
+        79
+      ],
+      "z": 15,
+      "parent": "ribbon",
+      "text": "Daily Gift",
+      "sprite_hint": "label_title_daily_gift",
+      "notes": "Painted lettering; preserve image, never replace with font."
+    },
+    {
+      "id": "gift_hero",
+      "role": "decoration",
+      "rect": [
+        229,
+        710,
+        622,
+        453
+      ],
+      "z": 12,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "daily_gift_hero",
+      "notes": "Gift box, bow, plush nest, leaf coins and surrounding foliage; no hero bird."
+    },
+    {
+      "id": "gift_box",
+      "role": "decoration",
+      "rect": [
+        361,
+        838,
+        348,
+        186
+      ],
+      "z": 13,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "gift_box_cream_green",
+      "notes": ""
+    },
+    {
+      "id": "gift_bow",
+      "role": "decoration",
+      "rect": [
+        379,
+        711,
+        364,
+        227
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "gift_bow_green_velvet",
+      "notes": ""
+    },
+    {
+      "id": "gift_nest",
+      "role": "decoration",
+      "rect": [
+        244,
+        994,
+        591,
+        169
+      ],
+      "z": 15,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "gift_nest_green_plush",
+      "notes": ""
+    },
+    {
+      "id": "gift_coin_left",
+      "role": "icon",
+      "rect": [
+        331,
+        963,
+        135,
+        128
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": "Partly occluded by nest or adjacent coin where applicable."
+    },
+    {
+      "id": "gift_coin_middle",
+      "role": "icon",
+      "rect": [
+        456,
+        958,
+        174,
+        145
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": "Partly occluded by nest or adjacent coin where applicable."
+    },
+    {
+      "id": "gift_coin_right",
+      "role": "icon",
+      "rect": [
+        628,
+        975,
+        125,
+        90
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": "Partly occluded by nest or adjacent coin where applicable."
+    },
+    {
+      "id": "gift_coin_back_left",
+      "role": "icon",
+      "rect": [
+        299,
+        912,
+        74,
+        92
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": "Partly occluded by nest or adjacent coin where applicable."
+    },
+    {
+      "id": "gift_coin_back_right",
+      "role": "icon",
+      "rect": [
+        698,
+        925,
+        76,
+        88
+      ],
+      "z": 14,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": "Partly occluded by nest or adjacent coin where applicable."
+    },
+    {
+      "id": "hero_leaves_left",
+      "role": "decoration",
+      "rect": [
+        230,
+        925,
+        109,
+        110
+      ],
+      "z": 15,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "gift_leaves_left",
+      "notes": ""
+    },
+    {
+      "id": "hero_leaves_right",
+      "role": "decoration",
+      "rect": [
+        741,
+        964,
+        107,
+        88
+      ],
+      "z": 15,
+      "parent": "gift_hero",
+      "text": null,
+      "sprite_hint": "gift_leaves_right",
+      "notes": ""
+    },
+    {
+      "id": "hero_leaf_front",
+      "role": "decoration",
+      "rect": [
+        304,
+        1072,
+        121,
+        59
+      ],
+      "z": 16,
+      "parent": "gift_nest",
+      "text": null,
+      "sprite_hint": "gift_leaf_front",
+      "notes": ""
+    },
+    {
+      "id": "spark_1",
+      "role": "decoration",
+      "rect": [
+        318,
+        761,
+        45,
+        47
+      ],
+      "z": 13,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_2",
+      "role": "decoration",
+      "rect": [
+        266,
+        835,
+        43,
+        52
+      ],
+      "z": 13,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_3",
+      "role": "decoration",
+      "rect": [
+        714,
+        727,
+        40,
+        52
+      ],
+      "z": 13,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "spark_4",
+      "role": "decoration",
+      "rect": [
+        770,
+        834,
+        44,
+        51
+      ],
+      "z": 13,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "sparkle_cream_gold",
+      "notes": ""
+    },
+    {
+      "id": "reward_pill",
+      "role": "pill",
+      "rect": [
+        327,
+        1175,
+        424,
+        116
+      ],
+      "z": 16,
+      "parent": "modal_panel",
+      "text": null,
+      "sprite_hint": "reward_pill_cream",
+      "notes": "Includes protruding coin at left."
+    },
+    {
+      "id": "reward_coin",
+      "role": "icon",
+      "rect": [
+        327,
+        1175,
+        124,
+        116
+      ],
+      "z": 17,
+      "parent": "reward_pill",
+      "text": null,
+      "sprite_hint": "coin_leaf_gold_plush",
+      "notes": ""
+    },
+    {
+      "id": "reward_leaf",
+      "role": "icon",
+      "rect": [
+        354,
+        1197,
+        74,
+        68
+      ],
+      "z": 18,
+      "parent": "reward_coin",
+      "text": null,
+      "sprite_hint": "icon_leaf_gold_relief",
+      "notes": ""
+    },
+    {
+      "id": "reward_50",
+      "role": "caption",
+      "rect": [
+        502,
+        1199,
+        166,
+        68
+      ],
+      "z": 18,
+      "parent": "reward_pill",
+      "text": "+50",
+      "sprite_hint": "glyph_brown_plus50",
+      "notes": "Plus and digits are painted into the pill."
+    },
+    {
+      "id": "accept",
+      "role": "button",
+      "rect": [
+        477,
+        1391,
+        127,
+        129
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "btn_green_check",
+      "notes": "Compose mask ellipse center(540,1455), radii62x63, with0.45px antialias feather. No close X. Panel/action translated as one unit."
+    },
+    {
+      "id": "check",
+      "role": "icon",
+      "rect": [
+        506,
+        1423,
+        69,
+        61
+      ],
+      "z": 21,
+      "parent": "accept",
+      "text": null,
+      "sprite_hint": "icon_check_cream_green_outline",
+      "notes": ""
+    }
+  ]
+}
