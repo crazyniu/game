@@ -12,7 +12,7 @@ namespace PerchSort.Game
         public Sprite Optional(string name)
         {
             if (sprites.TryGetValue(name, out var sprite)) return sprite;
-            bool bird = IsBirdFrame(name);
+            bool bird = IsBirdFrame(name) && name != "hoot_sleep_bare";
             bool birdPart = bird || name.StartsWith("egg_", StringComparison.Ordinal) || name == "mama_bow" || name == "chick_fluff";
             bool world = name.StartsWith("bg_level_", StringComparison.Ordinal) || name.StartsWith("branch_left_", StringComparison.Ordinal) ||
                 name.StartsWith("twig_left_", StringComparison.Ordinal) || name.StartsWith("tree_crown_", StringComparison.Ordinal) || name.StartsWith("trunk_left_", StringComparison.Ordinal);
@@ -32,6 +32,42 @@ namespace PerchSort.Game
             return sprite;
         }
         public Sprite Icon(string name) => Get(name);
+
+        [Serializable] private sealed class SpriteMeasure { public string name; public float[] canvas, rect; }
+        [Serializable] private sealed class ScreenMeasures { public SpriteMeasure[] sprites; }
+        [Serializable] private sealed class LayoutMeasures { public ScreenMeasures board_win_panel; }
+        private static Dictionary<string, SpriteMeasure> popupMeasures;
+
+        // Layouts measure visible pigment, while the retained files include transparent margins.
+        public Sprite Measured(Sprite source)
+        {
+            if (popupMeasures == null)
+            {
+                popupMeasures = new Dictionary<string, SpriteMeasure>();
+                var data = JsonUtility.FromJson<LayoutMeasures>(Resources.Load<TextAsset>("Art/layout_metrics").text);
+                foreach (var entry in data.board_win_panel.sprites) popupMeasures.Add(entry.name, entry);
+            }
+            string name = source.name;
+            int front = name.IndexOf("_front", StringComparison.Ordinal);
+            if (front >= 0) name = name.Substring(0, front + 6);
+            int cheer = name.IndexOf("_cheer_", StringComparison.Ordinal);
+            if (cheer >= 0) name = name.Substring(0, cheer + 6);
+            if (!popupMeasures.TryGetValue(name, out var measure)) return source;
+            string key = "measured:" + source.name;
+            if (sprites.TryGetValue(key, out var cached)) return cached;
+            Rect original = source.rect;
+            float sx = original.width / measure.canvas[0], sy = original.height / measure.canvas[1];
+            float left = measure.rect[0] * sx, bottom = (measure.canvas[1] - measure.rect[1] - measure.rect[3]) * sy;
+            var crop = new Rect(original.x + left, original.y + bottom, measure.rect[2] * sx, measure.rect[3] * sy);
+            Vector4 border = source.border;
+            border = new Vector4(Mathf.Max(0, border.x - left), Mathf.Max(0, border.y - bottom),
+                Mathf.Max(0, border.z - (original.width - crop.width - left)),
+                Mathf.Max(0, border.w - measure.rect[1] * sy));
+            var sprite = Own(Sprite.Create(source.texture, crop, Vector2.one * 0.5f, source.pixelsPerUnit,
+                0, SpriteMeshType.FullRect, border), key);
+            sprites.Add(key, sprite);
+            return sprite;
+        }
         public static void Warn(string key, string message) { if (warnings.Add(key)) Debug.LogWarning(message); }
         public string FrontKey(string species, string outfit)
         {

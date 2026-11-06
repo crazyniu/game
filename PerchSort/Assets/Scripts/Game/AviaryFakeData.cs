@@ -11,8 +11,8 @@ namespace PerchSort.Game
         private static readonly string[] names =
         {
             "List / Reference", "List / All locked", "List / All unlocked", "List / Zero coins and homecomings",
-            "List / Maximum coins and homecomings", "List / Last row", "Detail / Reference Berry",
-            "Detail / Owned outfit", "Detail / Equipped outfit", "Detail / All outfits locked",
+            "List / Maximum coins and homecomings", "List / Last row", "List / Mid-scroll", "Detail / Reference Berry",
+            "Detail / Owned outfit", "Detail / Equipped outfit", "Detail / Last outfit", "Detail / All outfits locked",
             "Detail / All outfits owned", "Detail / Zero homecomings", "Detail / Maximum homecomings",
             "Detail / Longest name Flurry", "Detail / Sunny", "Detail / Skye", "Detail / Minty",
             "Detail / Cocoa", "Detail / Ember", "Detail / Rook without ability or outfits", "Detail / Inky", "Detail / Hoot"
@@ -39,6 +39,7 @@ namespace PerchSort.Game
                 case "Detail / Owned outfit":
                     detail = "berry"; data.Species[2].Outfits.Clear(); data.Species[2].Outfits.Add("outfit.berry.2"); break;
                 case "Detail / Equipped outfit": detail = "berry"; data.Species[2].Equipped = "outfit.berry.1"; break;
+                case "Detail / Last outfit": detail = "berry"; break;
                 case "Detail / All outfits locked": detail = "berry"; data.Species[2].Outfits.Clear(); break;
                 case "Detail / All outfits owned":
                     detail = "berry"; for (int tier = 1; tier <= 3; tier++) data.Species[2].Outfits.Add("outfit.berry." + tier); break;
@@ -57,8 +58,10 @@ namespace PerchSort.Game
             if (detail != null) foreach (var species in data.Species) if (species.Id == detail) species.Met = true;
             root.PreviewMap(new GameProfile { Coins = data.Coins, HighestUnlocked = 40 });
             root.Aviary.ShowPreview(data);
-            if (stateName == "List / Last row") root.Aviary.GetComponentInChildren<UnityEngine.UI.ScrollRect>().verticalNormalizedPosition = 0;
+            if (stateName == "List / Last row") root.Aviary.SetScrollPosition(0);
+            if (stateName == "List / Mid-scroll") root.Aviary.SetScrollPosition(0.55f);
             if (detail != null) root.Aviary.OpenDetail(detail);
+            if (stateName == "Detail / Last outfit") root.Aviary.SetOutfitScrollPosition(1);
         }
 
         private static AviaryView.Presentation Build()

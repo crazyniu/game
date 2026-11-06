@@ -11,6 +11,37 @@ namespace PerchSort.Editor
 {
     public static class GameCapture
     {
+        public static void RunAviary()
+        {
+            AudioListener.volume = 0;
+            AudioListener.pause = true;
+            GameMotion.Instant = true;
+            EditorSceneManager.OpenScene(GameSceneBuilder.ScenePath, OpenSceneMode.Single);
+            var camera = Camera.main;
+            var target = new RenderTexture(1080, 1920, 24);
+            target.Create();
+            camera.targetTexture = target;
+            var root = UnityEngine.Object.FindAnyObjectByType<GameRoot>();
+            root.Initialize(false, false);
+            IScreenStates states = new AviaryFakeData(root);
+            string directory = Environment.GetEnvironmentVariable("PERCH_CAPTURE_DIRECTORY");
+            Directory.CreateDirectory(directory);
+            foreach (string entry in Environment.GetEnvironmentVariable("PERCH_CAPTURE_STATES").Split('|'))
+            {
+                string[] pair = entry.Split('=');
+                states.Apply(pair[0]);
+                Capture(root, target, Path.Combine(directory, pair[1] + ".png"));
+                Debug.Log("Silent UI capture: " + pair[0] + "; listenerVolume=" + AudioListener.volume +
+                    "; listenerPaused=" + AudioListener.pause + "; path=" + pair[1] + ".png");
+            }
+            camera.targetTexture = null;
+            RenderTexture.active = null;
+            target.Release();
+            UnityEngine.Object.DestroyImmediate(target);
+            Debug.Log("Silent UI state capture completed: " + directory);
+            EditorApplication.Exit(0);
+        }
+
         [MenuItem("Perch Sort/Capture Game Levels and Mechanics")]
         public static void Run()
         {
