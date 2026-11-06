@@ -32,21 +32,24 @@ namespace PerchSort.Game
         public int ArrivalCount { get; private set; }
         public Vector2 GiftPoint { get; private set; }
         public IReadOnlyDictionary<string, Button> Badges => badges;
-        internal float EntryRadius => GameLayout.HouseDoorDiameter(bounds.width) * 0.5f;
+        internal float EntryRadius => Mathf.Min(doorway.rect.width, doorway.rect.height) * 0.5f;
         public bool IsDelivered(string species) => goals.TryGetValue(species, out var goal) && goal.Delivered;
 
         public void Configure(BoardPresentation screen, GameArt assets, BoardSnapshot snapshot)
         {
-            art = assets; bounds = new Rect(366, 88, 348, 348);
+            art = assets; bounds = HudView.Measured("goal_house");
             doorMotion = gameObject.AddComponent<GameMotion>(); feedback = gameObject.AddComponent<GameMotion>();
             house = GameUI.Rect(transform, "Birdhouse", bounds.center, bounds.size);
             Vector2 center = bounds.size * 0.5f;
             glow = GameUI.Fit(house, "Delivery glow", art.Get("glow_soft"), center, bounds.size * 1.3f);
             glow.color = Color.clear;
-            body = GameUI.Image(house, "House body", art.Get("goal_house_single"), center, bounds.size);
-            Vector2 doorPoint = GameLayout.HouseDoorLocal(bounds.size);
-            Vector2 opening = bounds.size * (204f / 512);
-            openDoorway = GameUI.Image(house, "Open doorway", art.Get("goal_house_door_open"), center, bounds.size);
+            var houseCrop = GameUI.Rect(house, "House art crop", center, bounds.size);
+            houseCrop.gameObject.AddComponent<RectMask2D>();
+            Rect houseArt = HudView.Pixels(45, 110, 624, 580, 720, 720);
+            body = HudView.Artwork(houseCrop, "House body", art.Get("goal_house_single"), new Rect(Vector2.zero, bounds.size), houseArt);
+            Vector2 doorPoint = new Vector2(bounds.width * 310f / 624, bounds.height * 336f / 580);
+            Vector2 opening = new Vector2(bounds.width * 228f / 624, bounds.height * 228f / 580);
+            openDoorway = HudView.Artwork(houseCrop, "Open doorway", art.Get("goal_house_door_open"), new Rect(Vector2.zero, bounds.size), houseArt);
             var mask = GameUI.Image(house, "Doorway mask", art.DoorMask(), doorPoint, opening);
             mask.gameObject.AddComponent<Mask>().showMaskGraphic = false; doorway = mask.rectTransform;
             face = GameUI.Fit(doorway, "Species face", null, opening * 0.5f, opening * 1.2f);
@@ -54,30 +57,46 @@ namespace PerchSort.Game
             roof = GameUI.Image(house, "Colored roof", art.Get("house_roof_teal"), center, bounds.size);
             roof.gameObject.SetActive(false);
             ApplyStyle(snapshot.HouseStyle);
-            const float size = 96;
+            Rect firstRing = HudView.Measured("goal_ring_yellow");
             for (int i = 0; i < snapshot.Goals.Length; i++)
             {
                 var data = snapshot.Goals[i]; string id = data.Species;
-                Vector2 point = new Vector2(540 + (i - (snapshot.Goals.Length - 1) * 0.5f) * 124, 468);
+                Vector2 point = new Vector2(560.5f + (i - (snapshot.Goals.Length - 1) * 0.5f) * 139.5f, 449);
                 var hit = GameUI.Image(transform, id + " goal info", null, point, Vector2.one * 108);
                 hit.color = Color.clear; hit.raycastTarget = true;
                 var button = hit.gameObject.AddComponent<GameButton>(); button.targetGraphic = hit;
                 button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
                 button.onClick.AddListener(() => screen.RequestGoal(id));
                 button.gameObject.AddComponent<BoardControlFeedback>().Configure(button, screen);
-                var ring = GameUI.Fit(hit.transform, "Gold ring", art.Get("badge_ring_gold"), Vector2.one * 54, Vector2.one * size);
+                var ring = HudView.Artwork(hit.transform, "Gold ring", art.Get("badge_ring_gold"),
+                    GameLayout.Centered(Vector2.one * 54, firstRing.size), HudView.Pixels(5, 7, 175, 177, 192, 192));
+                var portraitMask = GameUI.Image(hit.transform, "Portrait crop", art.DoorMask(), new Vector2(54, 54), new Vector2(80, 78));
+                portraitMask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
                 var portraitSprite = art.Optional(id + "_front");
                 if (portraitSprite == null) { screen.Fail(id + "_front"); continue; }
-                var portrait = GameUI.Fit(ring.transform, "Front portrait", portraitSprite, Vector2.one * size * 0.5f, Vector2.one * size * 0.8f);
+                Rect crop = PortraitCrop(id);
+                var portrait = HudView.Artwork(portraitMask.transform, "Front portrait", portraitSprite, new Rect(0, 0, 80, 78), crop);
                 var life = portrait.gameObject.AddComponent<UiBirdLife>();
                 life.Configure(portrait, art, id, feetPivot: false, frontFacing: true, friend: true); life.Begin();
-                var gift = GameUI.Fit(ring.transform, "Species gift badge", art.Get(data.GiftKey), new Vector2(84, 84), Vector2.one * 40);
-                var check = GameUI.Fit(ring.transform, "Delivery check", art.Get("badge_check"), new Vector2(84, 84), Vector2.one * 40);
+                var gift = HudView.Artwork(hit.transform, "Species gift badge", art.Get(data.GiftKey),
+                    new Rect(62, 60, 58, 53), HudView.Pixels(3, 4, 135, 137, 144, 144));
+                var check = GameUI.Fit(hit.transform, "Delivery check", art.Get("badge_check"), new Vector2(91, 86.5f), new Vector2(58, 53));
                 goals.Add(id, new Goal { Button = button, Portrait = portrait, Check = check.gameObject, Gift = gift.gameObject, Life = life });
                 badges.Add(id, button); SetBadge(id, data.Home);
             }
             GiftPoint = bounds.position + new Vector2(center.x, bounds.height * 0.2f);
             SetResident(snapshot.ResidentSpecies); DoorPose(0);
+        }
+        // Front frames share a padded canvas. Crop the head and upper body inside the portrait mask.
+        private static Rect PortraitCrop(string species)
+        {
+            switch (species)
+            {
+                case "sunny": return HudView.Pixels(66, 74, 189, 184, 320, 320);
+                case "sky": return HudView.Pixels(63, 66, 195, 190, 320, 320);
+                case "hoot": return HudView.Pixels(63, 119, 178, 174, 320, 320);
+                default: return HudView.Pixels(64, 70, 192, 187, 320, 320);
+            }
         }
         public void ApplyStyle(string style)
         {
@@ -87,8 +106,7 @@ namespace PerchSort.Game
         }
         public Vector2 DoorPoint()
         {
-            Vector2 local = GameLayout.HouseDoorLocal(bounds.size) - bounds.size * 0.5f;
-            var point = transform.InverseTransformPoint(house.TransformPoint(new Vector3(local.x, -local.y, 0)));
+            var point = transform.InverseTransformPoint(doorway.TransformPoint(Vector3.zero));
             var area = ((RectTransform)transform).rect;
             return new Vector2(point.x - area.xMin, area.yMax - point.y);
         }
