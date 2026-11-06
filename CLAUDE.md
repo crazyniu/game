@@ -22,6 +22,15 @@ Perch Sort has one game: Unity **6000.6.7f1**, portrait, 40 fixed authored level
 - Primary action buttons must be **at most 1.25 times** the size of sibling buttons.
 - Workers may and must run applicable serialized Unity tests and screenshots. There is no coordinator-only Unity monopoly, no no-tests continuation rule, and no documentation-only exemption for an implementation task.
 
+## UI style and lettering (user-approved 2026-11-06, binding)
+
+- One unified style: **velvet plush**. Every UI surface (panels, ribbons, buttons, pills, stars, rings, bars, HUD, map nodes) has the same soft short fur and gentle velvet sheen as the birds: puffy, rounded, warm light from top-left. Never yarn, knit, wool, crochet, felt-craft, embroidery or stitch lines; never glossy plastic, flat vector or hard lacquered wood. Forest backgrounds and trees stay naturally painted (not plush).
+- Colour kit: honey-orange velvet frames and secondary discs; bright leaf-green velvet (about #6CB02C) primary discs and ribbons; warm cream velvet (about #F6E7C8) panels and pills; golden velvet coins, stars and rings; bright red (about #E0362C) count badges.
+- Reference: the approved mockups on branch `ui-design-review` (`art/ui_design/*.png`, review sheets in `art/ui_design/review/`) and the runtime kit in `PerchSort/Assets/Resources/Art`. Component sizes and modal rules: `docs/work-log/plush-ui/components.md`; build contract: `docs/work-log/plush-ui/spec.md`.
+- **Lettering is painted art, never a font.** Every word and number the player sees is produced by the image-generation tool together with its ribbon, pill or plate as one painted image: smooth, thick, puffy letters with soft emboss and shadow; cream-white letters with dark-green outline on green ribbons, dark-brown letters on cream plates, cream-white with brown outline on orange and red discs. Forbidden for player-visible text: TextMeshPro/Text, PIL `ImageDraw.text`/`ImageFont`, SVG/HTML text, any font file, font-based baking scripts. PIL and code are allowed only for geometry (crop, scale, mask, place, measure).
+- Fixed words use the painted label sprites in `Art/labels` (mapping in `docs/work-log/plush-ui/text-inventory.md`); numbers use the painted glyph sets in `Art/glyphs` (`brown`, `cream`, `white`; digits, plus, minus, times, infinity, slash) placed side by side at runtime. The third star threshold is the infinity glyph, never letters. A word without a painted sprite is never rendered with a font: paint it first.
+- Producing new art: generate large (at least 2x), downscale, real transparency, same name/canvas/bounds when replacing an existing sprite; check spelling at 300 % (every letter, every i-dot and apostrophe) before acceptance; one consistent family per kind (all caption plates the same rounded cream pill, all ribbons the same green velvet with two leaf clusters).
+
 ## Permanent naming policy and review acceptance
 
 - Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
