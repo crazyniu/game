@@ -8,16 +8,11 @@ namespace PerchSort.Game
 {
     public sealed class MapView : MonoBehaviour
     {
-        private const float NodeSize = 240;
-        private const float NumberSize = 64, StarSize = 54, StarPitch = 56;
-        private const float ChickSize = 310, ChickLift = 230;
-        private static readonly Rect CoinPill = new Rect(40, 82, 240, 96);
-        private static readonly Rect NavigationBar = new Rect(60, 1740, 960, 150);
-        private static readonly Vector2 TitlePoint = new Vector2(540, 130);
-        private const float TitleHeight = 90, NavigationSize = 108;
-        private static readonly Vector2 GateSize = new Vector2(320, 600f * 320 / 560);
-        private const float TopPadding = 400, HudMargin = 32, BarMargin = 40, EdgeFade = 48;
-        private static readonly Rect ViewportBounds = ViewportArea();
+        private static Rect Layout(string key) => GameLayout.Screen("map", key);
+        private static readonly Rect CoinPill = Layout("coin_pill"), NavigationBar = Layout("nav_bar");
+        private static readonly Vector2 GateSize = Layout("gate").size;
+        private const float TopPadding = 400, BottomPadding = 600, BarMargin = 40;
+        private static readonly Rect ViewportBounds = new Rect(0, 203, 1080, NavigationBar.y - 203 - BarMargin);
         private GameRoot root;
         private GameArt art;
         private RectTransform content, scenery;
@@ -30,10 +25,14 @@ namespace PerchSort.Game
         private bool scrollWasEnabled;
         private RectTransform effects;
         private bool countingCoins;
-        private Sprite[] stones;
+        private readonly Dictionary<string, Sprite> croppedSprites = new Dictionary<string, Sprite>();
+        private readonly Dictionary<string, (RectTransform rect, Rect region)> measured =
+            new Dictionary<string, (RectTransform, Rect)>();
         private readonly Dictionary<int, GateView> gates = new Dictionary<int, GateView>();
         private readonly Dictionary<int, bool> gateStates = new Dictionary<int, bool>();
         private readonly Dictionary<int, Button> nodes = new Dictionary<int, Button>();
+        private readonly List<(CanvasGroup group, float top, float bottom)> nodeVisibility =
+            new List<(CanvasGroup, float, float)>();
         public IReadOnlyDictionary<int, Button> Nodes => nodes;
         public int FocusLevel { get; private set; }
         public ScrollRect Scroller => scroll;
@@ -57,42 +56,139 @@ namespace PerchSort.Game
             focus = gameObject.AddComponent<GameMotion>(); gateMotion = gameObject.AddComponent<GameMotion>();
             var backdrop = GameUI.Rect(transform, "Map scenery", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             backdrop.gameObject.AddComponent<RectMask2D>();
+            Measure("forest", backdrop);
             scenery = GameUI.Rect(backdrop, "Scrolling forest", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
             scenery.pivot = new Vector2(0.5f, 1);
             var viewport = GameUI.Rect(transform, "Map viewport", ViewportBounds.center, ViewportBounds.size);
             var hit = viewport.gameObject.AddComponent<Image>(); hit.color = Color.clear; hit.raycastTarget = true;
-            viewport.gameObject.AddComponent<RectMask2D>().softness = new Vector2Int(0, (int)EdgeFade);
+            viewport.gameObject.AddComponent<RectMask2D>();
             scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport;
             scroll.horizontal = false; scroll.vertical = true; scroll.inertia = true;
             scroll.decelerationRate = 0.135f;
             scroll.movementType = ScrollRect.MovementType.Clamped; scroll.scrollSensitivity = GameLayout.MapScrollSensitivity;
             viewport.gameObject.AddComponent<MapInput>().CancelFocus = CancelFocus;
-            content = GameUI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding));
+            content = GameUI.Rect(viewport, "Forty level path", Vector2.zero, new Vector2(1080, GameLayout.MapHeight + TopPadding + BottomPadding));
             content.pivot = new Vector2(0.5f, 1); content.anchoredPosition = new Vector2(540, 0); scroll.content = content;
             scroll.onValueChanged.AddListener(_ => ClampOffset());
-            LoadStones();
             BuildHeader();
-            GameUI.Surface(transform, "Padded navigation bar", art, "panel_wood", NavigationBar);
-            navigation[0] = MapButton("Shop", "icon_basket", 300, () => root.OpenPopup(PopupKind.ShopPlaceholder));
-            navigation[1] = MapButton("Aviary", "icon_aviary", 540, () => root.OpenPopup(PopupKind.AviaryPlaceholder));
-            navigation[2] = MapButton("Settings", "icon_gear", 780, root.OpenSettings);
+            var rim = GameUI.Image(transform, "Padded navigation rim", Crop("btn_wood", new Rect(4, 3, 152, 152),
+                Vector4.one * 60), NavigationBar.center, NavigationBar.size);
+            rim.type = Image.Type.Sliced; rim.pixelsPerUnitMultiplier = 0.8f;
+            Measure("nav_bar", rim.rectTransform);
+            Pill(transform, "Padded navigation bar", new Rect(NavigationBar.x + 20, NavigationBar.y + 20,
+                NavigationBar.width - 40, NavigationBar.height - 40));
+            navigation[0] = MapButton("Shop", "nav_shop", "icon_shop", "icon_basket", () => root.OpenPopup(PopupKind.ShopPlaceholder));
+            navigation[1] = MapButton("Aviary", "nav_aviary", "icon_aviary", "icon_aviary", () => root.OpenPopup(PopupKind.AviaryPlaceholder));
+            navigation[2] = MapButton("Settings", "nav_settings", "icon_settings", "icon_gear", root.OpenSettings);
+#if UNITY_EDITOR
+            if (Application.isBatchMode) Application.logMessageReceived += CaptureLayout;
+#endif
             rewards = gameObject.AddComponent<GameMotion>();
             effects = GameUI.Rect(transform, "Map reward coins", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             gameObject.SetActive(false);
         }
         private void BuildHeader()
         {
-            GameUI.Fit(transform, "Coin pill", art.Get("coin_pill"), CoinPill.center, CoinPill.size);
-            coins = PaintedNumber.Create(transform, "Coins", GlyphSet.Brown, 30, TextAnchor.MiddleCenter);
-            coins.Rect.anchoredPosition = new Vector2(CoinPill.x + 164, -CoinPill.center.y);
-            coins.Rect.sizeDelta = new Vector2(132, 64);
-            PaintedLabels.Create(transform, "World title", "label_title_forest_trail", TitlePoint, TitleHeight);
+            Measure("coin_pill", Pill(transform, "Coin pill", CoinPill).rectTransform);
+            var coin = SpriteImage(transform, "Coin", "coin", Layout("coin"), new Rect(3, 2, 90, 92));
+            Measure("coin", coin.rectTransform);
+            Measure("coin_leaf", coin.rectTransform, new Rect(24f / 90, 22f / 92, 44f / 90, 47f / 92));
+            coins = PaintedNumber.Create(transform, "Coins", GlyphSet.Brown, 47, TextAnchor.MiddleCenter);
+            Place(coins.Rect, Layout("coin_count"));
+            Measure("coin_count", coins.Rect);
+            var ribbon = SpriteImage(transform, "World ribbon", "ribbon_green", Layout("world_ribbon"), new Rect(4, 9, 632, 182));
+            Measure("world_ribbon", ribbon.rectTransform);
+            var leaf = SpriteImage(transform, "Ribbon left leaves", "leaf_sprig_b", Layout("ribbon_leaf_l"), new Rect(37, 24, 111, 92));
+            Measure("ribbon_leaf_l", leaf.rectTransform);
+            leaf = SpriteImage(transform, "Ribbon right leaves", "leaf_sprig_c", Layout("ribbon_leaf_r"), new Rect(32, 29, 105, 74));
+            Measure("ribbon_leaf_r", leaf.rectTransform);
+            // Reuse the painted word and its green backing; the side leaves have their own measured slots.
+            Rect title = Layout("world_title");
+            Vector2 scale = title.size / new Vector2(1215, 200);
+            var label = SpriteImage(transform, "World title", "labels/label_title_forest_trail",
+                new Rect(title.position - new Vector2(245, 70) * scale, new Vector2(1680, 360) * scale),
+                new Rect(180, 0, 1680, 360));
+            Measure("world_title", label.rectTransform, new Rect(245f / 1680, 70f / 360, 1215f / 1680, 200f / 360));
         }
-        private Button MapButton(string name, string icon, float x, System.Action action)
+        private Button MapButton(string name, string discKey, string iconKey, string sprite, System.Action action)
         {
-            return GameUI.Button(transform, art, name, icon,
-                GameLayout.Centered(new Vector2(x, NavigationBar.center.y), Vector2.one * NavigationSize), action);
+            Rect bounds = Layout(discKey);
+            var face = SpriteImage(transform, name, "btn_wood", bounds, new Rect(4, 3, 152, 152));
+            face.raycastTarget = true;
+            var button = face.gameObject.AddComponent<GameButton>();
+            button.targetGraphic = face; button.RestSprite = face.sprite;
+            button.PressedSprite = Crop("btn_wood_pressed", new Rect(4, 3, 152, 152));
+            button.transition = Selectable.Transition.None;
+            button.navigation = new Navigation { mode = Navigation.Mode.None };
+            button.onClick.AddListener(() => action());
+            SpriteImage(face.transform, "Velvet ring", "badge_ring_gold", new Rect(Vector2.zero, bounds.size),
+                new Rect(5, 7, 175, 175));
+            Rect source = sprite == "icon_basket" ? new Rect(24, 26, 205, 206) :
+                sprite == "icon_aviary" ? new Rect(0, 33, 241, 204) : new Rect(2, 2, 91, 91);
+            var icon = SpriteImage(face.transform, "Icon", sprite, Relative(Layout(iconKey), bounds), source);
+            Measure(discKey, face.rectTransform); Measure(iconKey, icon.rectTransform);
+            if (sprite == "icon_aviary")
+                Measure("aviary_bird", icon.rectTransform, new Rect(0.30f, 0.45f, 0.49f, 0.37f));
+            return button;
         }
+        private static Rect Relative(Rect child, Rect parent) => new Rect(child.position - parent.position, child.size);
+        private static void Place(RectTransform rect, Rect bounds)
+        {
+            rect.anchorMin = rect.anchorMax = new Vector2(0, 1);
+            rect.pivot = Vector2.one * 0.5f;
+            rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y);
+            rect.sizeDelta = bounds.size;
+        }
+        private Sprite Crop(string key, Rect source, Vector4 border = default)
+        {
+            string cacheKey = key + ":" + source;
+            if (croppedSprites.TryGetValue(cacheKey, out var sprite)) return sprite;
+            var original = art.Get(key);
+            Rect pixels = new Rect(original.rect.x + source.x, original.rect.yMax - source.yMax, source.width, source.height);
+            sprite = Sprite.Create(original.texture, pixels, Vector2.one * 0.5f, original.pixelsPerUnit,
+                0, SpriteMeshType.FullRect, border);
+            sprite.name = key; croppedSprites.Add(cacheKey, sprite);
+            return sprite;
+        }
+        private Image SpriteImage(Transform parent, string name, string key, Rect bounds, Rect source)
+            => GameUI.Image(parent, name, Crop(key, source), bounds.center, bounds.size);
+        private Image Pill(Transform parent, string name, Rect bounds)
+        {
+            var image = GameUI.Image(parent, name, Crop("stat_pill", new Rect(4, 5, 392, 86),
+                new Vector4(44, 37, 44, 37)), bounds.center, bounds.size);
+            image.type = Image.Type.Sliced;
+            image.pixelsPerUnitMultiplier = bounds.height > 100 ? 0.5f : 1;
+            return image;
+        }
+        private void Measure(string key, RectTransform rect) => Measure(key, rect, new Rect(0, 0, 1, 1));
+        private void Measure(string key, RectTransform rect, Rect region) => measured[key] = (rect, region);
+        private void SetCoins(int value)
+        {
+            coins.SetValue(value);
+            FitNumber(coins, value < 1000);
+        }
+        private void FitNumber(PaintedNumber number, bool naturalWidth = false)
+        {
+            var glyphs = number.GetComponentsInChildren<Image>();
+            float width = 0;
+            foreach (var glyph in glyphs) width += art.Get(GlyphKey(glyph)).rect.width - 12;
+            const float gap = 6;
+            width += gap * (glyphs.Length - 1);
+            Vector2 size = number.Rect.sizeDelta;
+            float scaleX = naturalWidth ? Mathf.Min(size.x / width, size.y / 100) : size.x / width;
+            float x = (size.x - width * scaleX) / 2;
+            foreach (var glyph in glyphs)
+            {
+                string key = GlyphKey(glyph);
+                var original = art.Get(key);
+                float glyphWidth = original.rect.width - 12;
+                glyph.sprite = Crop(key, new Rect(6, 26, glyphWidth, 100));
+                Place(glyph.rectTransform, new Rect(x, 0, glyphWidth * scaleX, size.y));
+                x += (glyphWidth + gap) * scaleX;
+            }
+        }
+        private static string GlyphKey(Image glyph) => glyph.sprite.name.StartsWith("glyphs/") ?
+            glyph.sprite.name : "glyphs/" + glyph.sprite.name;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         public void SetNavigationEnabled(bool value)
         {
@@ -101,149 +197,122 @@ namespace PerchSort.Game
 #endif
         public void Show(GameProfile profile)
         {
-            CancelMotions(false); gameObject.SetActive(true); nodes.Clear(); gates.Clear(); gateStates.Clear();
+            CancelMotions(false); gameObject.SetActive(true); nodes.Clear(); nodeVisibility.Clear(); gates.Clear(); gateStates.Clear();
             for (int i = effects.childCount - 1; i >= 0; i--) GameUI.Dispose(effects.GetChild(i).gameObject);
             for (int i = content.childCount - 1; i >= 0; i--) GameUI.Dispose(content.GetChild(i).gameObject);
             for (int i = scenery.childCount - 1; i >= 0; i--) GameUI.Dispose(scenery.GetChild(i).gameObject);
-            coins.SetValue(profile.DisplayCoins);
+            SetCoins(profile.DisplayCoins);
             foreach (var button in navigation) button.interactable = true;
             FocusLevel = MapModel.CurrentLevel(profile);
-            // The outer strips retain transparent end bands, so keep their scenery continuations.
-            GameUI.Image(scenery, "Forest top continuation", art.Get("map_bg_continuous_w4"),
-                new Vector2(540, TopPadding + GameLayout.MapOverlap - GameLayout.MapSegmentHeight / 2),
-                new Vector2(1080, GameLayout.MapSegmentHeight));
-            for (int world = 4; world >= 1; world--)
-            {
-                float top = GameLayout.WorldTop(world) + TopPadding;
-                GameUI.Image(scenery, "World " + world + " background", art.Get("map_bg_continuous_w" + world),
-                    new Vector2(540, top + GameLayout.MapSegmentHeight / 2), new Vector2(1080, GameLayout.MapSegmentHeight));
-            }
-            GameUI.Image(scenery, "Forest bottom continuation", art.Get("map_bg_continuous_w1"),
-                new Vector2(540, GameLayout.MapHeight + TopPadding - GameLayout.MapOverlap + GameLayout.MapSegmentHeight / 2),
-                new Vector2(1080, GameLayout.MapSegmentHeight));
-            BuildStones();
+            // Keep the transparent transition bands and their continuation strips intact.
+            BuildForest(4, TopPadding + GameLayout.MapOverlap - GameLayout.MapSegmentHeight);
+            for (int world = 4; world >= 1; world--) BuildForest(world, GameLayout.WorldTop(world) + TopPadding);
+            BuildForest(1, GameLayout.MapHeight + TopPadding - GameLayout.MapOverlap);
             for (int world = 2; world <= 4; world++)
             {
-                Vector2 gate = MapModel.GatePosition(world) + Vector2.up * TopPadding;
+                Vector2 gate = GatePoint(world) + Vector2.up * TopPadding;
                 gateStates.Add(world, MapModel.WorldOpen(profile, world));
                 BuildGate(world, gate, gateStates[world]);
-                GameUI.Fit(content, "World " + world + " sign", art.Get("world_sign_w" + world), gate + new Vector2(395, 0), new Vector2(220, 100));
             }
             for (int id = 1; id <= 40; id++) Node(profile, id);
             Canvas.ForceUpdateCanvases();
             float target = OffsetFor(FocusLevel);
             SetOffset(target + (target + 140 <= MaximumOffset ? 140 : -140)); ScrollToLevel(FocusLevel);
-            BuildCorners();
         }
-        private void LoadStones()
+        private void BuildForest(int world, float top)
         {
-            var sheet = Resources.Load<Sprite>("World/map_stepping_stones");
-            if (sheet == null) return;
-            stones = new Sprite[6];
-            for (int i = 0; i < stones.Length; i++)
+            string key = "map_bg_continuous_w" + world;
+            for (int i = 1; i < MapModel.SceneryRows.Length; i++)
             {
-                Rect cell = new Rect(sheet.rect.x + i % 3 * sheet.rect.width / 3,
-                    sheet.rect.y + i / 3 * sheet.rect.height / 2, sheet.rect.width / 3, sheet.rect.height / 2);
-                stones[i] = Sprite.Create(sheet.texture, cell, Vector2.one * 0.5f, sheet.pixelsPerUnit);
-            }
-        }
-        private void BuildStones()
-        {
-            if (stones == null) return;
-            for (int id = 1; id < 40; id++)
-            {
-                var random = new System.Random(id);
-                Vector2 start = MapModel.Position(id), end = MapModel.Position(id + 1);
-                float dx = Mathf.Abs(end.x - start.x), dy = Mathf.Abs(end.y - start.y);
-                float startRadius = NodeSize / 2, endRadius = NodeSize / 2;
-                float lift = id == FocusLevel ? GameLayout.MapBounceHeight : 0;
-                Rect startBounds = GameLayout.Centered(start, Vector2.one * startRadius * 2);
-                startBounds.yMin -= lift;
-                Rect endBounds = GameLayout.Centered(end, Vector2.one * endRadius * 2);
-                float from = Mathf.Min((startRadius + 32) / dx, (startRadius + 12 + lift) / dy) + 0.002f;
-                float to = 1 - Mathf.Min((endRadius + 32) / dx, (endRadius + 12) / dy) - 0.002f;
-                int count = random.Next(3, 6);
-                for (int i = 0; i < count; i++)
-                {
-                    float t = Mathf.Lerp(from, to, (i + 0.5f) / count);
-                    Vector2 point = Vector2.Lerp(start, end, t);
-                    Vector2 scattered = point + Vector2.right * ((float)random.NextDouble() * 60 - 30);
-                    Rect stone = GameLayout.Centered(scattered, new Vector2(64, 24));
-                    if (!stone.Overlaps(startBounds) && !stone.Overlaps(endBounds)) point = scattered;
-                    GameUI.Image(content, "Path stone", stones[random.Next(stones.Length)],
-                        point + Vector2.up * TopPadding, new Vector2(64, 24));
-                }
-            }
-        }
-        private void BuildCorners()
-        {
-            // Corners begin at the viewport foot and remain in the scrolling sprite layer.
-            float bottom = ViewportBounds.height + OffsetFor(FocusLevel);
-            for (int side = 0; side < 2; side++)
-            {
-                bool right = side == 1;
-                var sprite = Resources.Load<Sprite>("World/map_foreground_corner_" + (right ? "right" : "left"));
-                if (sprite == null) continue;
-                Vector2 size = new Vector2(180, 180 * sprite.rect.height / sprite.rect.width);
-                GameUI.Image(content, "Foreground corner", sprite,
-                    new Vector2(right ? 1080 : 0, bottom - size.y / 2), size);
+                float sourceTop = MapModel.SceneryRows[i - 1], targetTop = MapModel.LayoutRows[i - 1];
+                SpriteImage(scenery, "World " + world + " trail band", key,
+                    new Rect(0, top + targetTop, 1080, MapModel.LayoutRows[i] - targetTop),
+                    new Rect(0, sourceTop, 1080, MapModel.SceneryRows[i] - sourceTop));
             }
         }
         private void Node(GameProfile profile, int id)
         {
-            var state = MapModel.State(profile, id); Vector2 point = MapModel.Position(id) + Vector2.up * TopPadding;
+            var state = MapModel.State(profile, id);
+            Vector2 point = LevelPoint(id) + Vector2.up * TopPadding;
             bool current = id == FocusLevel;
-            float diameter = NodeSize;
-            var holder = GameUI.Rect(content, "Node " + id, point, Vector2.one * diameter);
-            Vector2 center = Vector2.one * diameter * 0.5f;
-            if (current)
-            {
-                var shadow = GameUI.Fit(content, "Current node shadow", art.Get("glow_soft"), point + Vector2.up * GameLayout.MapShadowOffsetY, GameLayout.MapShadowSize);
-                shadow.color = new Color(0.25f, 0.16f, 0.06f, 0.5f); shadow.transform.SetSiblingIndex(holder.GetSiblingIndex());
-                var glow = GameUI.Fit(holder, "Current node golden halo", art.Get("glow_soft"), center, new Vector2(560, 440));
-                glow.color = new Color(1, 0.8f, 0.15f, 0.8f);
-                holder.gameObject.AddComponent<GameMotion>().Loop(1.8f, t =>
-                    glow.color = new Color(1, 0.8f, 0.15f, 0.6f + 0.2f * Mathf.Sin(t * Mathf.PI * 2)));
-            }
+            int template = current ? 8 : state == LevelNodeState.Locked ? (id == FocusLevel + 1 ? 9 : 10) :
+                (id == FocusLevel - 1 ? 7 : 6);
+            Rect reference = Layout("level_" + template);
+            var holder = GameUI.Rect(content, "Node " + id, point, reference.size);
+            float top = current ? point.y + Layout("yellow_bird").y - Layout("level_8").center.y : point.y - reference.height / 2;
+            nodeVisibility.Add((holder.gameObject.AddComponent<CanvasGroup>(), top, point.y + reference.height / 2));
+            Rect faceBounds = new Rect(Vector2.zero, reference.size);
             string sprite = state == LevelNodeState.Locked ? "node_stone_locked" : current ? "node_wood_current_glow" : "node_wood";
-            var face = GameUI.Fit(holder, "Level " + id, art.Get(sprite), center, Vector2.one * diameter); face.raycastTarget = true;
+            Rect source = state == LevelNodeState.Locked ? new Rect(6, 26, 308, 233) :
+                current ? new Rect(10, 13, 299, 261) : new Rect(7, 6, 305, 271);
+            var face = SpriteImage(holder, "Level " + id, sprite, faceBounds, source);
+            face.raycastTarget = true;
             var button = face.gameObject.AddComponent<GameButton>(); button.targetGraphic = face;
-            button.RestSprite = face.sprite;
-            button.SetDisabledAppearance(false);
+            button.RestSprite = face.sprite; button.SetDisabledAppearance(false);
             button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
             button.interactable = state != LevelNodeState.Locked;
             button.onClick.AddListener(() => root.OpenLevelCard(id)); nodes.Add(id, button);
-            var number = PaintedNumber.Create(face.transform, "Level number", GlyphSet.Cream, NumberSize, TextAnchor.MiddleCenter);
-            float numberY = state == LevelNodeState.Locked ? -58 : state == LevelNodeState.Cleared ? -34 : -20;
-            number.Rect.anchoredPosition = new Vector2(center.x, -(center.y + numberY));
-            number.Rect.sizeDelta = new Vector2(diameter - 48, 100);
-            number.SetValue(id);
-            if (state == LevelNodeState.Cleared) for (int i = 0; i < 3; i++)
-                GameUI.Fit(holder, "Star " + (i + 1), art.Get(i < profile.BestStars(id) ? "star_full_small" : "star_empty_small"),
-                    center + new Vector2((i - 1) * StarPitch, i == 1 ? 65 : 57), Vector2.one * StarSize);
-            if (current)
+            Measure("level_" + id, face.rectTransform);
+            var number = PaintedNumber.Create(holder, "Level number", GlyphSet.White, 110, TextAnchor.MiddleCenter);
+            int numberTemplate = current && state == LevelNodeState.Cleared ? 7 : template;
+            Rect numberBounds = Relative(Layout("num_" + numberTemplate), Layout("level_" + numberTemplate));
+            numberBounds.x += (reference.width - Layout("level_" + numberTemplate).width) * 0.5f;
+            if (id < 10 && template == 10)
             {
-                for (int i = 0; i < 2; i++)
-                    GameUI.Fit(holder, "Current node sparkle " + (i + 1), art.Get("sparkle"),
-                        center + new Vector2(i == 0 ? -150 : 150, i == 0 ? -70 : -20), Vector2.one * 110);
-                // Draw after the face so the toes overlap its upper rim, not behind it.
-                var chick = GameUI.Fit(holder, "Sunny chick", art.Get("sunny_idle"),
-                    center + Vector2.down * ChickLift, Vector2.one * ChickSize);
-                var life = chick.gameObject.AddComponent<UiBirdLife>();
-                life.Configure(chick, art, "sunny", frontFacing: true, friend: true);
-                life.Begin();
+                numberBounds.width = 62;
+                numberBounds.x = (reference.width - numberBounds.width) * 0.5f;
             }
+            if (id >= 10 && template != 10)
+            {
+                numberBounds.x -= numberBounds.width * 0.3f;
+                numberBounds.width *= 1.6f;
+            }
+            Place(number.Rect, numberBounds); number.SetValue(id); FitNumber(number);
+            Measure("num_" + id, number.Rect);
+            if (state == LevelNodeState.Locked)
+                Measure("lock_" + id, face.rectTransform, new Rect(105f / 308, 107f / 233, 100f / 308, 106f / 233));
+            if (state == LevelNodeState.Cleared) for (int i = 1; i <= 3; i++)
+            {
+                int starTemplate = template == 8 ? 7 : template;
+                Rect star = Relative(Layout("star_" + starTemplate + "_" + i), Layout("level_" + starTemplate));
+                star.x += (reference.width - Layout("level_" + starTemplate).width) * 0.5f;
+                bool earned = i <= profile.BestStars(id);
+                var image = SpriteImage(holder, "Star " + i, earned ? "star_full" : "star_empty",
+                    star, earned ? new Rect(0, 21, 243, 220) : new Rect(0, 11, 252, 240));
+                Measure("star_" + id + "_" + i, image.rectTransform);
+            }
+            if (!current) return;
+            foreach (string key in new[] { "sparkle_l", "sparkle_r" })
+            {
+                var sparkle = SpriteImage(holder, key, "sparkle", Relative(Layout(key), reference), new Rect(42, 39, 42, 48));
+                Measure(key, sparkle.rectTransform);
+            }
+            Rect birdBounds = Relative(Layout("yellow_bird"), reference);
+            Vector2 birdScale = birdBounds.size / new Vector2(188, 228);
+            var chick = GameUI.Image(holder, "Sunny chick", art.Get("sunny_front"),
+                birdBounds.position + (Vector2.one * 160 - new Vector2(67, 74)) * birdScale, Vector2.one * 320 * birdScale);
+            var life = chick.gameObject.AddComponent<UiBirdLife>();
+            life.Configure(chick, art, "sunny", frontFacing: true, friend: true); life.Begin();
+            Measure("yellow_bird", chick.rectTransform, new Rect(67f / 320, 74f / 320, 188f / 320, 228f / 320));
         }
-        private static Rect ViewportArea()
+        private Vector2 LevelPoint(int id)
         {
-            Rect safe = GameLayout.SafeDesignArea;
-            float top = Mathf.Max(CoinPill.yMax, TitlePoint.y + TitleHeight / 2) + HudMargin;
-            float bottom = NavigationBar.yMin - BarMargin;
-            return Rect.MinMaxRect(safe.xMin, Mathf.Max(safe.yMin, top), safe.xMax, Mathf.Min(safe.yMax, bottom));
+            Vector2 point = MapModel.Position(id);
+            // The last two nodes share a column. Leave room below the enlarged current disc.
+            if (id == FocusLevel && id % 10 == 0) point.y -= 64;
+            return point;
         }
-        private static float MaximumOffset => Mathf.Max(0, GameLayout.MapHeight + TopPadding - ViewportBounds.height);
+        private Vector2 GatePoint(int world)
+        {
+            Vector2 point = MapModel.GatePosition(world);
+            // At the world boundary the chick occupies the right lane beside the gate.
+            if (FocusLevel % 10 >= 9 || FocusLevel % 10 == 0)
+                if (world == (FocusLevel - 1) / 10 + 2) point.x = 280;
+            return point;
+        }
+        private static float MaximumOffset => Mathf.Max(0, GameLayout.MapHeight + TopPadding + BottomPadding - ViewportBounds.height);
         private static float Clamp(float value) => Mathf.Clamp(value, 0, MaximumOffset);
-        private static float OffsetFor(int level) => Clamp(MapModel.Position(level).y + TopPadding - ViewportBounds.height * GameLayout.MapFocusRatio);
+        private float OffsetFor(int level) => Clamp(LevelPoint(level).y + TopPadding - (Layout("level_8").center.y - ViewportBounds.y));
         private void SetOffset(float value)
         {
             content.anchoredPosition = new Vector2(540, Clamp(value));
@@ -253,6 +322,12 @@ namespace PerchSort.Game
         {
             float offset = content.anchoredPosition.y;
             scenery.anchoredPosition = new Vector2(540, offset - ViewportBounds.yMin);
+            // Fade whole nodes before the viewport would cut their numerals or stars in half.
+            foreach (var node in nodeVisibility)
+            {
+                node.group.alpha = Mathf.Clamp01(Mathf.Min(node.top - offset, offset + ViewportBounds.height - node.bottom) / 36);
+                node.group.blocksRaycasts = node.group.alpha > 0.9f;
+            }
             foreach (var gate in gates.Values)
             {
                 var rect = (RectTransform)gate.transform;
@@ -295,14 +370,14 @@ namespace PerchSort.Game
             scrollWasEnabled = scroll.enabled; scroll.enabled = false;
             ReplaceGate(world, false);
             int token = gateRevision;
-            float y = MapModel.GatePosition(world).y;
+            float y = GatePoint(world).y;
             float top = y - GateSize.y / 2, bottom = y + GateSize.y / 2;
             int boundary = (world - 1) * 10;
             if (FocusLevel == boundary || FocusLevel == boundary + 1)
             {
-                float nodeY = MapModel.Position(FocusLevel).y;
-                top = Mathf.Min(top, nodeY - ChickLift - ChickSize / 2 - GameLayout.MapBounceHeight);
-                bottom = Mathf.Max(bottom, nodeY + NodeSize / 2);
+                float nodeY = LevelPoint(FocusLevel).y;
+                top = Mathf.Min(top, nodeY + Layout("yellow_bird").y - Layout("level_8").center.y - GameLayout.MapBounceHeight);
+                bottom = Mathf.Max(bottom, nodeY + Layout("level_8").height / 2);
             }
             float start = content.anchoredPosition.y, end = Clamp((top + bottom) / 2 + TopPadding - ViewportBounds.height / 2);
             gateMotion.Play(0.5f, t =>
@@ -324,11 +399,10 @@ namespace PerchSort.Game
             CancelRewards(); countingCoins = true; rewardTarget = to; rewardDone = done;
             int token = rewardRevision;
             Vector2 source = GameLayout.Screen("popup_daily_gift", "gift_basket").center;
-            Rect pill = CoinPill;
-            Vector2 destination = pill.position + Vector2.one * pill.height * 0.5f;
+            Vector2 destination = Layout("coin").center;
             rewards.Play(0.89f, t =>
             {
-                if (token == rewardRevision) coins.SetValue(Mathf.RoundToInt(Mathf.Lerp(from, to, t)));
+                if (token == rewardRevision) SetCoins(Mathf.RoundToInt(Mathf.Lerp(from, to, t)));
             });
             for (int i = 0; i < 5; i++)
             {
@@ -346,7 +420,7 @@ namespace PerchSort.Game
                     GameUI.Dispose(coin.gameObject);
                     if (last)
                     {
-                        countingCoins = false; coins.SetValue(to);
+                        countingCoins = false; SetCoins(to);
                         var callback = rewardDone; rewardDone = null; callback?.Invoke();
                     }
                 }, i * 0.06f);
@@ -357,21 +431,34 @@ namespace PerchSort.Game
             CancelMotions();
             gameObject.SetActive(false);
         }
-        public void RefreshCoins(int value) { if (!countingCoins) coins.SetValue(value); }
+        public void RefreshCoins(int value) { if (!countingCoins) SetCoins(value); }
         private void BuildGate(int world, Vector2 point, bool open)
         {
-            var view = GameUI.Rect(content, "World " + world + " gate", point, GateSize).gameObject.AddComponent<GateView>();
-            view.ConfigureMap(world - 1, open); gates[world] = view;
+            Rect visible = GameLayout.Centered(point, GateSize);
+            Vector2 scale = GateSize / new Vector2(784, 752);
+            Rect canvas = new Rect(visible.position - new Vector2(118, 108) * scale, Vector2.one * 1024 * scale);
+            var view = GameUI.Rect(content, "World " + world + " gate", canvas.center, canvas.size).gameObject.AddComponent<GateView>();
+            view.Configure(art, world, open); gates[world] = view;
+            view.transform.Find("Gate backdrop").gameObject.SetActive(false);
+            var padlock = (RectTransform)view.transform.Find("Gate padlock");
+            Rect targetLock = Relative(Layout("gate_lock"), Layout("gate"));
+            targetLock.position += visible.position - canvas.position;
+            padlock.sizeDelta = Vector2.one * 1024 * targetLock.size / new Vector2(63, 78);
+            Vector2 delta = targetLock.center - canvas.size * 0.5f;
+            padlock.pivot = new Vector2(511.5f / 1024 - delta.x / padlock.sizeDelta.x,
+                1 - 610f / 1024 + delta.y / padlock.sizeDelta.y);
+            if (world == (FocusLevel - 1) / 10 + 2)
+            {
+                Measure("gate", (RectTransform)view.transform.Find("Gate arch"), new Rect(118f / 1024, 108f / 1024, 784f / 1024, 752f / 1024));
+                Measure("gate_lock", padlock, new Rect(480f / 1024, 571f / 1024, 63f / 1024, 78f / 1024));
+            }
         }
         private void ReplaceGate(int world, bool open)
         {
-            var old = gates[world];
-            var rect = (RectTransform)old.transform;
-            Vector2 point = new Vector2(rect.anchoredPosition.x, -rect.anchoredPosition.y);
-            int sibling = rect.GetSiblingIndex();
-            GameUI.Dispose(old.gameObject); BuildGate(world, point, open);
-            gates[world].transform.SetSiblingIndex(sibling);
-            SyncScenery();
+            var old = gates[world]; int sibling = old.transform.GetSiblingIndex();
+            GameUI.Dispose(old.gameObject);
+            BuildGate(world, GatePoint(world) + Vector2.up * TopPadding, open);
+            gates[world].transform.SetSiblingIndex(sibling); SyncScenery();
         }
         private void CancelGate(bool restore)
         {
@@ -390,7 +477,7 @@ namespace PerchSort.Game
         {
             rewardRevision++;
             if (rewards != null) rewards.CancelAll();
-            if (countingCoins && coins != null) coins.SetValue(rewardTarget);
+            if (countingCoins && coins != null) SetCoins(rewardTarget);
             countingCoins = false; rewardDone = null;
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--)
                 GameUI.Dispose(effects.GetChild(i).gameObject);
@@ -402,10 +489,64 @@ namespace PerchSort.Game
             if (focus != null) focus.CancelAll();
             CancelGate(restoreGates); CancelRewards();
         }
+#if UNITY_EDITOR
+        private void CaptureLayout(string message, string stack, LogType type)
+        {
+            if (!message.StartsWith("UiStateCapture: ") || !message.EndsWith(".png")) return;
+            string file = message.Substring(message.LastIndexOf(' ') + 1);
+            if (!file.StartsWith("Map/") && file != "Real_game/Map.png") return;
+            Canvas.ForceUpdateCanvases();
+            var lines = new List<string> { "element\tx\ty\twidth\theight\tvisible\tobject" };
+            foreach (var pair in measured)
+            {
+                var rect = pair.Value.rect;
+                if (rect == null || !rect.gameObject.activeInHierarchy) continue;
+                Rect bounds = DesignRect(rect, pair.Value.region);
+                var image = rect.GetComponent<Image>();
+                bool visible = bounds.Overlaps(rect.IsChildOf(content) ? ViewportBounds : GameLayout.SafeDesignArea) &&
+                    (image == null || image.enabled && image.color.a > 0);
+                foreach (var group in rect.GetComponentsInParent<CanvasGroup>()) visible &= group.alpha > 0;
+                lines.Add(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    "{0}\t{1:F2}\t{2:F2}\t{3:F2}\t{4:F2}\t{5}\t{6}", pair.Key,
+                    bounds.x, bounds.y, bounds.width, bounds.height, visible, rect.name));
+            }
+            string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath,
+                "../../build/screens/states/", file.Replace(".png", ".rects.tsv")));
+            System.IO.File.WriteAllLines(path, lines);
+            // Exercise the actual ScrollRect event and restore the captured position immediately.
+            float start = content.anchoredPosition.y;
+            var data = new PointerEventData(EventSystem.current) { scrollDelta = new Vector2(0, 1) };
+            scroll.OnScroll(data); ClampOffset(); Canvas.ForceUpdateCanvases();
+            float after = content.anchoredPosition.y;
+            float nodeDelta = 0, sceneryDelta = 0;
+            Rect beforeNode = DesignRect((RectTransform)nodes[FocusLevel].transform, new Rect(0, 0, 1, 1));
+            float sceneryBefore = scenery.anchoredPosition.y;
+            SetOffset(start); scroll.StopMovement(); Canvas.ForceUpdateCanvases();
+            nodeDelta = DesignRect((RectTransform)nodes[FocusLevel].transform, new Rect(0, 0, 1, 1)).y - beforeNode.y;
+            sceneryDelta = sceneryBefore - scenery.anchoredPosition.y;
+            System.IO.File.AppendAllText(path, string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                "# scroll\tbefore={0:F2}\tafter={1:F2}\tnodeDelta={2:F2}\tsceneryDelta={3:F2}\trestored={4:F2}\n",
+                start, after, nodeDelta, sceneryDelta, content.anchoredPosition.y));
+            Debug.Log("Map layout dump: " + path);
+        }
+        private Rect DesignRect(RectTransform rect, Rect region)
+        {
+            Rect local = rect.rect;
+            Vector3 a = transform.InverseTransformPoint(rect.TransformPoint(new Vector3(
+                local.xMin + region.xMin * local.width, local.yMax - region.yMin * local.height)));
+            Vector3 b = transform.InverseTransformPoint(rect.TransformPoint(new Vector3(
+                local.xMin + region.xMax * local.width, local.yMax - region.yMax * local.height)));
+            Rect design = ((RectTransform)transform).rect;
+            return Rect.MinMaxRect(a.x - design.xMin, design.yMax - a.y, b.x - design.xMin, design.yMax - b.y);
+        }
+#endif
         private void OnDisable() => CancelMotions(false);
         private void OnDestroy()
         {
-            if (stones != null) foreach (var stone in stones) GameUI.Dispose(stone);
+#if UNITY_EDITOR
+            Application.logMessageReceived -= CaptureLayout;
+#endif
+            foreach (var sprite in croppedSprites.Values) GameUI.Dispose(sprite);
             generation++;
             CancelGate(false); CancelRewards();
             if (focus != null) focus.CancelAll();

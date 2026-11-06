@@ -1002,19 +1002,47 @@ namespace PerchSort.Game
                 case "map":
                     switch (element)
                     {
-                        case "coin_pill": return new Rect(50f, 20f, 256f, 106f);
-                        case "gear": return new Rect(930f, 18f, 116f, 116f);
-                        case "gate": return new Rect(484f, 146f, 444f, 364f);
-                        case "node_1": return new Rect(278f, 1390f, 216f, 188f);
-                        case "node_2": return new Rect(360f, 1180f, 212f, 188f);
-                        case "node_3": return new Rect(480f, 1016f, 198f, 166f);
-                        case "node_4": return new Rect(320f, 812f, 228f, 202f);
-                        case "node_5": return new Rect(486f, 600f, 192f, 142f);
-                        case "node_6": return new Rect(632f, 496f, 180f, 126f);
-                        case "current_bird": return new Rect(312f, 656f, 192f, 204f);
-                        case "shop": return new Rect(214f, 1752f, 152f, 152f);
-                        case "aviary": return new Rect(460f, 1752f, 152f, 152f);
-                        case "settings": return new Rect(706f, 1752f, 152f, 152f);
+                        case "forest": return new Rect(0f, 0f, 1080f, 1920f);
+                        case "gate": return new Rect(455f, 203f, 490f, 365f);
+                        case "gate_lock": return new Rect(670f, 422f, 64f, 76f);
+                        case "coin_pill": return new Rect(91f, 89f, 216f, 90f);
+                        case "coin_count": return new Rect(160f, 108f, 119f, 47f);
+                        case "coin": return new Rect(38f, 78f, 112f, 108f);
+                        case "coin_leaf": return new Rect(69f, 103f, 52f, 54f);
+                        case "world_ribbon": return new Rect(315f, 72f, 464f, 131f);
+                        case "ribbon_leaf_l": return new Rect(300f, 109f, 75f, 122f);
+                        case "ribbon_leaf_r": return new Rect(729f, 119f, 80f, 75f);
+                        case "world_title": return new Rect(378f, 96f, 345f, 68f);
+                        case "level_10": return new Rect(633f, 580f, 221f, 152f);
+                        case "num_10": return new Rect(697f, 590f, 99f, 62f);
+                        case "level_9": return new Rect(632f, 753f, 251f, 176f);
+                        case "num_9": return new Rect(722f, 767f, 76f, 70f);
+                        case "level_8": return new Rect(249f, 918f, 326f, 224f);
+                        case "num_8": return new Rect(366f, 951f, 105f, 110f);
+                        case "level_7": return new Rect(482f, 1127f, 308f, 228f);
+                        case "num_7": return new Rect(598f, 1151f, 83f, 87f);
+                        case "level_6": return new Rect(249f, 1320f, 309f, 232f);
+                        case "num_6": return new Rect(365f, 1349f, 87f, 87f);
+                        case "lock_10": return new Rect(711f, 649f, 70f, 73f);
+                        case "lock_9": return new Rect(722f, 838f, 74f, 77f);
+                        case "yellow_bird": return new Rect(265f, 618f, 295f, 331f);
+                        case "sparkle_l": return new Rect(210f, 899f, 48f, 50f);
+                        case "sparkle_r": return new Rect(576f, 895f, 47f, 53f);
+                        case "star_7_1": return new Rect(536f, 1226f, 69f, 63f);
+                        case "star_7_2": return new Rect(604f, 1238f, 70f, 63f);
+                        case "star_7_3": return new Rect(671f, 1225f, 70f, 66f);
+                        case "star_6_1": return new Rect(302f, 1423f, 74f, 66f);
+                        case "star_6_2": return new Rect(373f, 1436f, 71f, 66f);
+                        case "star_6_3": return new Rect(441f, 1422f, 73f, 66f);
+                        case "nav_bar": return new Rect(51f, 1733f, 978f, 171f);
+                        case "nav_shop": return new Rect(246f, 1763f, 108f, 108f);
+                        case "nav_aviary": return new Rect(486f, 1763f, 108f, 108f);
+                        case "nav_settings": return new Rect(726f, 1763f, 108f, 108f);
+                        case "icon_shop": return new Rect(272f, 1782f, 56f, 62f);
+                        case "icon_aviary": return new Rect(507f, 1781f, 68f, 63f);
+                        case "icon_settings": return new Rect(748f, 1783f, 64f, 63f);
+                        case "aviary_bird": return new Rect(530f, 1813f, 28f, 24f);
+                        case "settings": return new Rect(726f, 1763f, 108f, 108f);
                     }
                     break;
             }
