@@ -328,6 +328,8 @@ namespace PerchSort.Game
                         case "hint_icon": return new Rect(503f, 1761f, 77f, 74f);
                         case "branch_plus": return new Rect(726f, 1748f, 109f, 106f);
                         case "branch_plus_icon": return new Rect(744f, 1769f, 73f, 62f);
+                    }
+                    break;
                 case "shop_boosters":
                     switch (element)
                     {
