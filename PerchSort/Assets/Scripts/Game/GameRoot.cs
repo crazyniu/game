@@ -265,6 +265,19 @@ namespace PerchSort.Game
             if (!IsBoardPreview) return;
             Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); BoardScreen.HideAndCancel(); ShowMapSurface(); Refresh();
         }
+        public void PreviewMap(GameProfile fixture)
+        {
+            if (fixture == null) throw new ArgumentNullException(nameof(fixture));
+            if (!IsBoardPreview) BoardStates.Apply("Data / Typical");
+            CancelPresentation();
+            profile = fixture; persistProgress = false; notificationsEnabled = false;
+            Session = profile.CreateSession(LevelLoader.Load(1));
+            if (audioManager != null)
+            {
+                audioManager.SetSfxEnabled(!Muted); audioManager.SetMusicEnabled(!Muted);
+            }
+            ShowMapSurface(); Refresh();
+        }
         public void PreviewCoins(int coins)
         {
             if (!IsBoardPreview) return;
