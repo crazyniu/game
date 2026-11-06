@@ -71,8 +71,11 @@ namespace PerchSort.Editor
             if (instant != GameMotion.Instant)
             {
                 GameMotion.Instant = instant;
-                if (activeScreen != null) Apply(activeScreen, activeState);
-                else if (root.BoardStates.Active) root.BoardStates.Reapply();
+                if (root.BoardStates.Active && (activeScreen == null || activeScreen == root.BoardStates))
+                {
+                    root.BoardStates.Reapply(); activeState = root.BoardStates.CurrentState;
+                }
+                else if (activeScreen != null) Apply(activeScreen, activeState);
             }
             EditorGUILayout.HelpBox("Synthetic data only. Return to real game restores the untouched attempt and profile. Select a state again to replay its motion.", MessageType.Info);
             if (GUILayout.Button("Return to real game"))

@@ -76,6 +76,8 @@ namespace PerchSort.Editor
             if (name == "gift_box_lid") pivot = new Vector2(0.5f, 378f / 768);
             if (name == "gate_door_left") pivot = new Vector2(246f / 1024, 414f / 1024);
             if (name == "gate_door_right") pivot = new Vector2(778f / 1024, 414f / 1024);
+            if (name.StartsWith("gate_door_left_w", StringComparison.Ordinal)) pivot = new Vector2(0.025f, 0.5f);
+            if (name.StartsWith("gate_door_right_w", StringComparison.Ordinal)) pivot = new Vector2(0.975f, 0.5f);
             // The five egg frames share a foot baseline; the two family overlays are centered.
             // These seven authored imports preserve FullRect (serialized 0), 1024 limit, and no generated physics shape.
             if (overlay && name.StartsWith("egg_", StringComparison.Ordinal)) pivot = new Vector2(0.5f, 0.0625f);

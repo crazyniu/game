@@ -68,7 +68,7 @@ namespace PerchSort.Game
 
         public void SetValue(int value)
         {
-            value = Mathf.Clamp(value, -99999, 99999);
+            value = Mathf.Min(value, 99999);
             if (hasValue && lastValue == value) return;
             SetText(BoardNumber.Format(value, 99999));
             lastValue = value; hasValue = true;
@@ -93,7 +93,7 @@ namespace PerchSort.Game
                 glyph.sizeDelta = new Vector2(metric.width, CanvasHeight) * scale;
                 // Metrics measure baseline down from the top of the full transparent canvas.
                 glyph.anchoredPosition = new Vector2(x + metric.width * scale * 0.5f,
-                    bottom + (metric.baseline - CanvasHeight * 0.5f) * scale);
+                    bottom + (metric.baseline - CanvasHeight * 0.5f) * scale) - bounds.center;
                 x += metric.advance * scale;
             }
         }

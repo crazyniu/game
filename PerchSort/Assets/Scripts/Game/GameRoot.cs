@@ -15,7 +15,6 @@ namespace PerchSort.Game
         [SerializeField] private TMP_FontAsset font;
         private GameArt art;
         private BoardTutorial tutorial;
-        private SettingsPanel settings;
         private PanelsView panels;
         public ShopView Shop { get; private set; }
         public AviaryView Aviary { get; private set; }
@@ -79,7 +78,7 @@ namespace PerchSort.Game
         public Canvas Canvas { get; private set; }
         public bool IsReady => initialized;
         private bool IsWiping => leafTransition != null && leafTransition.IsPlaying;
-        private bool Modal => settings.IsOpen || Win.IsOpen || panels.IsOpen || Shop.IsOpen || Aviary.IsOpen || IsIntroducing || notificationTransition || IsWiping;
+        private bool Modal => Win.IsOpen || panels.IsOpen || Shop.IsOpen || Aviary.IsOpen || IsIntroducing || notificationTransition || IsWiping;
         public void ConfigureFont(TMP_FontAsset value) => font = value;
         private void Start() => Initialize();
         private void Update()
@@ -91,7 +90,7 @@ namespace PerchSort.Game
             Board?.FastForwardPlayback();
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame && initialized && !IsMap && !IsBusy && !IsIntroducing)
             {
-                if (settings.IsOpen) CloseSettings();
+                if (panels.IsSettings) CloseSettings();
                 else if (Shop.IsOpen || panels.IsOpen) BoardScreen.RequestDismissTop();
                 else if (!Win.IsOpen) BoardScreen.RequestSettings();
             }
@@ -127,7 +126,6 @@ namespace PerchSort.Game
             BoardScreen.transform.SetAsLastSibling();
             var hand = Layer<TutorialHand>(design, "Tutorial"); hand.Configure(art);
             tutorial = new BoardTutorial(BoardScreen);
-            settings = Layer<SettingsPanel>(design, "Settings overlay"); settings.Configure(this, art);
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<PanelsView>(design, "Information cards"); panels.Configure(this, art, font);
             Shop = Layer<ShopView>(design, "Shop"); Shop.Configure(this, art, font);
@@ -166,7 +164,7 @@ namespace PerchSort.Game
             BoardScreen.ShopRequested += kind => OpenShop(kind);
             BoardScreen.GoalInfoRequested += OpenGoalInfo;
             BoardScreen.SettingsRequested += OpenSettings;
-            BoardScreen.DismissTopRequested += () => { if (settings.IsOpen) CloseSettings(); else ClosePanel(); };
+            BoardScreen.DismissTopRequested += () => { if (panels.IsSettings) CloseSettings(); else ClosePanel(); };
             BoardScreen.EntranceSkipRequested += BoardScreen.SkipEntrance;
             BoardScreen.HintDismissRequested += () => BoardScreen.ShowBubble(null);
             BoardScreen.DeferredActionRequested += action => Board.FastForwardPlayback();
@@ -263,7 +261,7 @@ namespace PerchSort.Game
         public void PreviewMap()
         {
             if (!IsBoardPreview) return;
-            Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); BoardScreen.HideAndCancel(); ShowMapSurface(); Refresh();
+            Win.Hide(); panels.Hide(); Shop.Hide(); BoardScreen.HideAndCancel(); ShowMapSurface(); Refresh();
         }
         public void PreviewMap(GameProfile fixture)
         {
@@ -658,9 +656,9 @@ namespace PerchSort.Game
             if (!initialized || Modal) return;
             InputTap(); if (ConsumePlaybackTap()) return;
             if (!IsMap) { Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); }
-            settings.Show(); if (IsMap) PlaySound(Sfx.Click); Refresh();
+            panels.Settings(); if (IsMap) PlaySound(Sfx.Click); Refresh();
         }
-        public void CloseSettings() { settings.Hide(); PlaySound(Sfx.Back); Refresh(); }
+        public void CloseSettings() { panels.Hide(); PlaySound(Sfx.Back); Refresh(); }
         public void OpenMap()
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -881,7 +879,7 @@ namespace PerchSort.Game
             previewNotificationNext = null;
 #endif
             profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel();
-            BoardScreen.HideAndCancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
+            BoardScreen.HideAndCancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
         }
         private void OnApplicationFocus(bool focus)
         {
