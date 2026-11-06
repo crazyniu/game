@@ -1,0 +1,611 @@
+{
+  "screen": "map",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "origin": "top-left",
+    "units": "pixels"
+  },
+  "elements": [
+    {
+      "id": "forest",
+      "role": "background",
+      "rect": [
+        0,
+        0,
+        1080,
+        1920
+      ],
+      "z": 0,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "bg_forest_trail",
+      "notes": "Painted scenery, undimmed. Rectangles use absolute top-left canvas coordinates, not parent-local offsets. Exclude diffuse shadows and glow from bounds; painted objects have soft antialiased edges, so boundaries are measured to approximately 2–4 px. Nested entries describe separable runtime parts, not duplicate artwork."
+    },
+    {
+      "id": "gate",
+      "role": "decoration",
+      "rect": [
+        455,
+        203,
+        490,
+        365
+      ],
+      "z": 1,
+      "parent": "forest",
+      "text": null,
+      "sprite_hint": "map_gate_vines",
+      "notes": "Environmental painted gate including floral vine arch; not a UI panel."
+    },
+    {
+      "id": "gate_lock",
+      "role": "icon",
+      "rect": [
+        670,
+        422,
+        64,
+        76
+      ],
+      "z": 2,
+      "parent": "gate",
+      "text": null,
+      "sprite_hint": "map_gate_lock_gold",
+      "notes": ""
+    },
+    {
+      "id": "coin_pill",
+      "role": "pill",
+      "rect": [
+        91,
+        89,
+        216,
+        90
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "coin_pill_cream",
+      "notes": "Coin overlaps left side. Counter is painted into this pill."
+    },
+    {
+      "id": "coin_count",
+      "role": "caption",
+      "rect": [
+        160,
+        108,
+        119,
+        47
+      ],
+      "z": 11,
+      "parent": "coin_pill",
+      "text": "1240",
+      "sprite_hint": "glyph_brown_1240",
+      "notes": ""
+    },
+    {
+      "id": "coin",
+      "role": "icon",
+      "rect": [
+        38,
+        78,
+        112,
+        108
+      ],
+      "z": 12,
+      "parent": "coin_pill",
+      "text": null,
+      "sprite_hint": "coin_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "coin_leaf",
+      "role": "icon",
+      "rect": [
+        69,
+        103,
+        52,
+        54
+      ],
+      "z": 13,
+      "parent": "coin",
+      "text": null,
+      "sprite_hint": "coin_leaf_mark",
+      "notes": ""
+    },
+    {
+      "id": "world_ribbon",
+      "role": "ribbon",
+      "rect": [
+        315,
+        72,
+        464,
+        131
+      ],
+      "z": 10,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "ribbon_green_velvet",
+      "notes": "Folded tails included; leaf clusters have separate bounds below. No modal."
+    },
+    {
+      "id": "ribbon_leaf_l",
+      "role": "decoration",
+      "rect": [
+        300,
+        109,
+        75,
+        122
+      ],
+      "z": 11,
+      "parent": "world_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_left",
+      "notes": ""
+    },
+    {
+      "id": "ribbon_leaf_r",
+      "role": "decoration",
+      "rect": [
+        729,
+        119,
+        80,
+        75
+      ],
+      "z": 11,
+      "parent": "world_ribbon",
+      "text": null,
+      "sprite_hint": "ribbon_leaf_cluster_right",
+      "notes": ""
+    },
+    {
+      "id": "world_title",
+      "role": "title",
+      "rect": [
+        378,
+        96,
+        345,
+        68
+      ],
+      "z": 12,
+      "parent": "world_ribbon",
+      "text": "Forest Trail",
+      "sprite_hint": "label_title_forest_trail",
+      "notes": "Painted cream letters plus dark green outline and embossed shadow; not runtime font text."
+    },
+    {
+      "id": "level_10",
+      "role": "disc",
+      "rect": [
+        633,
+        580,
+        221,
+        152
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "level_disc_gray_velvet",
+      "notes": "Visible oval plush platform including rounded sidewall. Preserve this measured footprint; do not substitute a screen-facing circle."
+    },
+    {
+      "id": "num_10",
+      "role": "caption",
+      "rect": [
+        697,
+        590,
+        99,
+        62
+      ],
+      "z": 22,
+      "parent": "level_10",
+      "text": "10",
+      "sprite_hint": "glyph_cream_level_10",
+      "notes": "Painted together with platform; bounds include brown outline/shadow."
+    },
+    {
+      "id": "level_9",
+      "role": "disc",
+      "rect": [
+        632,
+        753,
+        251,
+        176
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "level_disc_gray_velvet",
+      "notes": "Visible oval plush platform including rounded sidewall. Preserve this measured footprint; do not substitute a screen-facing circle."
+    },
+    {
+      "id": "num_9",
+      "role": "caption",
+      "rect": [
+        722,
+        767,
+        76,
+        70
+      ],
+      "z": 22,
+      "parent": "level_9",
+      "text": "9",
+      "sprite_hint": "glyph_cream_level_9",
+      "notes": "Painted together with platform; bounds include brown outline/shadow."
+    },
+    {
+      "id": "level_8",
+      "role": "disc",
+      "rect": [
+        249,
+        918,
+        326,
+        224
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "level_disc_orange_velvet",
+      "notes": "Visible oval plush platform including rounded sidewall. Preserve this measured footprint; do not substitute a screen-facing circle."
+    },
+    {
+      "id": "num_8",
+      "role": "caption",
+      "rect": [
+        366,
+        951,
+        105,
+        110
+      ],
+      "z": 22,
+      "parent": "level_8",
+      "text": "8",
+      "sprite_hint": "glyph_cream_level_8",
+      "notes": "Painted together with platform; bounds include brown outline/shadow."
+    },
+    {
+      "id": "level_7",
+      "role": "disc",
+      "rect": [
+        482,
+        1127,
+        308,
+        228
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "level_disc_orange_velvet",
+      "notes": "Visible oval plush platform including rounded sidewall. Preserve this measured footprint; do not substitute a screen-facing circle."
+    },
+    {
+      "id": "num_7",
+      "role": "caption",
+      "rect": [
+        598,
+        1151,
+        83,
+        87
+      ],
+      "z": 22,
+      "parent": "level_7",
+      "text": "7",
+      "sprite_hint": "glyph_cream_level_7",
+      "notes": "Painted together with platform; bounds include brown outline/shadow."
+    },
+    {
+      "id": "level_6",
+      "role": "disc",
+      "rect": [
+        249,
+        1320,
+        309,
+        232
+      ],
+      "z": 20,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "level_disc_orange_velvet",
+      "notes": "Visible oval plush platform including rounded sidewall. Preserve this measured footprint; do not substitute a screen-facing circle."
+    },
+    {
+      "id": "num_6",
+      "role": "caption",
+      "rect": [
+        365,
+        1349,
+        87,
+        87
+      ],
+      "z": 22,
+      "parent": "level_6",
+      "text": "6",
+      "sprite_hint": "glyph_cream_level_6",
+      "notes": "Painted together with platform; bounds include brown outline/shadow."
+    },
+    {
+      "id": "lock_10",
+      "role": "icon",
+      "rect": [
+        711,
+        649,
+        70,
+        73
+      ],
+      "z": 23,
+      "parent": "level_10",
+      "text": null,
+      "sprite_hint": "lock_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "lock_9",
+      "role": "icon",
+      "rect": [
+        722,
+        838,
+        74,
+        77
+      ],
+      "z": 23,
+      "parent": "level_9",
+      "text": null,
+      "sprite_hint": "lock_plush_gold",
+      "notes": ""
+    },
+    {
+      "id": "yellow_bird",
+      "role": "bird",
+      "rect": [
+        265,
+        618,
+        295,
+        331
+      ],
+      "z": 24,
+      "parent": "level_8",
+      "text": null,
+      "sprite_hint": "bird_yellow_front",
+      "notes": "Original bird restored with silhouette mask in finish.py. Feet overlap level 8 rim; unchanged original scale and position."
+    },
+    {
+      "id": "sparkle_l",
+      "role": "decoration",
+      "rect": [
+        210,
+        899,
+        48,
+        50
+      ],
+      "z": 21,
+      "parent": "level_8",
+      "text": null,
+      "sprite_hint": "sparkle_gold",
+      "notes": "Bright core; diffuse glow extends beyond rect."
+    },
+    {
+      "id": "sparkle_r",
+      "role": "decoration",
+      "rect": [
+        576,
+        895,
+        47,
+        53
+      ],
+      "z": 21,
+      "parent": "level_8",
+      "text": null,
+      "sprite_hint": "sparkle_gold",
+      "notes": "Bright core; diffuse glow extends beyond rect."
+    },
+    {
+      "id": "star_7_1",
+      "role": "star",
+      "rect": [
+        536,
+        1226,
+        69,
+        63
+      ],
+      "z": 23,
+      "parent": "level_7",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "star_7_2",
+      "role": "star",
+      "rect": [
+        604,
+        1238,
+        70,
+        63
+      ],
+      "z": 23,
+      "parent": "level_7",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "star_7_3",
+      "role": "star",
+      "rect": [
+        671,
+        1225,
+        70,
+        66
+      ],
+      "z": 23,
+      "parent": "level_7",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "star_6_1",
+      "role": "star",
+      "rect": [
+        302,
+        1423,
+        74,
+        66
+      ],
+      "z": 23,
+      "parent": "level_6",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "star_6_2",
+      "role": "star",
+      "rect": [
+        373,
+        1436,
+        71,
+        66
+      ],
+      "z": 23,
+      "parent": "level_6",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "star_6_3",
+      "role": "star",
+      "rect": [
+        441,
+        1422,
+        73,
+        66
+      ],
+      "z": 23,
+      "parent": "level_6",
+      "text": null,
+      "sprite_hint": "star_plush_gold",
+      "notes": "Ordered left to right."
+    },
+    {
+      "id": "nav_bar",
+      "role": "bar",
+      "rect": [
+        51,
+        1733,
+        978,
+        171
+      ],
+      "z": 30,
+      "parent": null,
+      "text": null,
+      "sprite_hint": "nav_bar_cream_orange_velvet",
+      "notes": "One cream padded bar with integrated orange rolled border; not three separate panels."
+    },
+    {
+      "id": "nav_shop",
+      "role": "button",
+      "rect": [
+        246,
+        1763,
+        108,
+        108
+      ],
+      "z": 31,
+      "parent": "nav_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_velvet",
+      "notes": "Centre (300,1817). Derived from final geometric reduction: 134 px source crop resized to 122 px; visible disc ~108 px. Soft cast shadow extends below."
+    },
+    {
+      "id": "nav_aviary",
+      "role": "button",
+      "rect": [
+        486,
+        1763,
+        108,
+        108
+      ],
+      "z": 31,
+      "parent": "nav_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_velvet",
+      "notes": "Centre (540,1817). Derived from final geometric reduction: 134 px source crop resized to 122 px; visible disc ~108 px. Soft cast shadow extends below."
+    },
+    {
+      "id": "nav_settings",
+      "role": "button",
+      "rect": [
+        726,
+        1763,
+        108,
+        108
+      ],
+      "z": 31,
+      "parent": "nav_bar",
+      "text": null,
+      "sprite_hint": "btn_orange_velvet",
+      "notes": "Centre (780,1817). Derived from final geometric reduction: 134 px source crop resized to 122 px; visible disc ~108 px. Soft cast shadow extends below."
+    },
+    {
+      "id": "icon_shop",
+      "role": "icon",
+      "rect": [
+        272,
+        1782,
+        56,
+        62
+      ],
+      "z": 32,
+      "parent": "nav_shop",
+      "text": null,
+      "sprite_hint": "icon_basket_white",
+      "notes": "White plush glyph with dark brown outline/shadow."
+    },
+    {
+      "id": "icon_aviary",
+      "role": "icon",
+      "rect": [
+        507,
+        1781,
+        68,
+        63
+      ],
+      "z": 32,
+      "parent": "nav_aviary",
+      "text": null,
+      "sprite_hint": "icon_aviary_house_white",
+      "notes": "White plush glyph with dark brown outline/shadow."
+    },
+    {
+      "id": "icon_settings",
+      "role": "icon",
+      "rect": [
+        748,
+        1783,
+        64,
+        63
+      ],
+      "z": 32,
+      "parent": "nav_settings",
+      "text": null,
+      "sprite_hint": "icon_gear_white",
+      "notes": "White plush glyph with dark brown outline/shadow."
+    },
+    {
+      "id": "aviary_bird",
+      "role": "bird",
+      "rect": [
+        530,
+        1813,
+        28,
+        24
+      ],
+      "z": 33,
+      "parent": "icon_aviary",
+      "text": null,
+      "sprite_hint": "icon_aviary_bird_silhouette",
+      "notes": "Tiny white right-facing bird inside house glyph, not an additional map character."
+    }
+  ]
+}
