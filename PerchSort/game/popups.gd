@@ -28,29 +28,48 @@ const SMALL_PRIMARY := 124.0
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, on_replay: Callable, on_next: Callable,
 		on_home: Callable, next_enabled: bool) -> Control:
 	var s := "board_win_panel"
+	var live := not _instant(host)
 	var p = _open(host, Layout.r(s, "panel_frame"))
 	var c: Control = p.content
-	_bird_view(c, "sunny", Rect2(412, 616, 246, 309), Rect2(300, 560, 480, 255), _instant(host), 0.6)
-	_title(c, "label_title_well_done", Layout.r(s, "win_ribbon"))
-	_stars(c, [Layout.r(s, "win_star_1"), Layout.r(s, "win_star_2"), Layout.r(s, "win_star_3")], stars, not _instant(host), 0.5)
+	if live:
+		_rays(p, Layout.r(s, "panel_frame").get_center())
+	# The hero peeks over the ribbon; the clip hides its feet but leaves room above the screen for the fly-in.
+	var hero := _bird_view(c, "sunny", Rect2(412, 616, 246, 309), Rect2(0, -400, 1080, 1215), not live, 2.4)
+	var sides := [_bird_view(c, "sky", Rect2(95, 746, 130, 124), Rect2(), not live, 0.0),
+		_bird_view(c, "berry", Rect2(855, 746, 130, 124), Rect2(), not live, 0.0)]
+	if live:
+		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
+		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
+		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
+	var ribbon := _title(c, "label_title_well_done", Layout.r(s, "win_ribbon"))
+	if live:
+		_drop(ribbon, 0.25)
+	_stars(c, [Layout.r(s, "win_star_1"), Layout.r(s, "win_star_2"), Layout.r(s, "win_star_3")], stars, live, 0.6, 0.18)
 	var limits := [str(par), str(par + 3), "∞"]
 	for i in 3:
 		_pill(c, Layout.r(s, "threshold_pill_%d" % (i + 1)))
 		UI.number(c, limits[i], Layout.r(s, "threshold_value_%d" % (i + 1)))
 	_pill(c, Layout.r(s, "move_pill"))
 	UI.art(c, "footprints", Layout.r(s, "move_footprint"))
-	UI.number(c, str(moves), Layout.r(s, "move_value"))
+	var moves_box := UI.number(c, str(moves), Layout.r(s, "move_value"))
+	if live:
+		_count(moves_box, moves, "%d", 0.5, 0.6)
 	if reward > 0:
-		_reward(c, Layout.r(s, "reward_pill"), Layout.r(s, "reward_coin"), Layout.r(s, "reward_value"), reward)
+		var reward_box := _reward(c, Layout.r(s, "reward_pill"), Layout.r(s, "reward_coin"), Layout.r(s, "reward_value"), reward)
+		if live:
+			_count(reward_box, reward, "+%d", 1.0, 0.7)
+			_coin_flight(p, Layout.r(s, "reward_coin").get_center(), Layout.r(s, "coin_hud_icon").get_center(), 1.8)
 	_action(p, Layout.r(s, "action_retry"), DISC, "icon_replay", on_replay)
 	UI.set_enabled(_action(p, Layout.r(s, "action_play"), PRIMARY, "icon_play", on_next, "btn_green"), next_enabled)
 	_action(p, Layout.r(s, "action_home"), DISC, "icon_home", on_home)
+	if live:
+		_confetti(p, 0.3)
 	return p
 
 static func settings(host: Control, muted: bool, on_toggle_sound: Callable, on_restart: Callable, on_home: Callable,
 		show_restart: bool) -> Control:
 	var s := "settings"
-	var p = _open(host, Layout.r(s, "panel"), Layout.r(s, "close"))
+	var p = _open(host, Layout.r(s, "panel"), Layout.r(s, "close"), true)
 	var c: Control = p.content
 	_title(c, "label_title_settings", Layout.r(s, "leaves_left").merge(Layout.r(s, "ribbon")).merge(Layout.r(s, "leaves_right")))
 	var spread := Layout.r(s, "restart").position.x - Layout.r(s, "sound").position.x
@@ -228,6 +247,92 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 	return p
 
 
+# ---------------------------------------------------------------- win motion
+
+## Slowly turning light rays behind the panel; they fade in with it.
+static func _rays(p: Control, center: Vector2) -> void:
+	var rays := TextureRect.new()
+	rays.name = "Rays"
+	rays.texture = Art.tex("light_rays")
+	rays.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	rays.size = Vector2.ONE * 1700.0
+	rays.position = center - rays.size * 0.5
+	rays.pivot_offset = rays.size * 0.5
+	rays.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rays.material = CanvasItemMaterial.new()
+	rays.material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	rays.modulate.a = 0.0
+	p.add_child(rays)
+	p.move_child(rays, 1)
+	rays.create_tween().tween_property(rays, "modulate:a", 0.38, 0.8)
+	rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
+
+## Bird flies in along its arc from `offset` away and then keeps living (idle, breathing).
+static func _fly_in(bird: BirdView, offset: Vector2, delay: float, duration: float) -> void:
+	var target := bird.position
+	bird.position = target + offset
+	bird.fly_to(target, delay, duration)
+
+## The node falls in from above with a bounce.
+static func _drop(t: Control, delay: float) -> void:
+	var rest := t.position
+	t.position = rest + Vector2(0, -90)
+	t.modulate.a = 0.0
+	var tw := t.create_tween().set_parallel()
+	tw.tween_property(t, "position", rest, 0.4).set_delay(delay).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(t, "modulate:a", 1.0, 0.15).set_delay(delay)
+
+## Painted number counting from 0 to `amount`; `pattern` is "%d" or "+%d".
+static func _count(box: Control, amount: int, pattern: String, delay: float, duration: float) -> void:
+	UI.set_number(box, pattern % 0)
+	var tw := box.create_tween()
+	tw.tween_interval(delay)
+	tw.tween_method(func(v: float): UI.set_number(box, pattern % roundi(v)), 0.0, float(amount), duration)
+
+## About 3 s of confetti falling from above the screen across the whole popup.
+static func _confetti(p: Control, delay: float) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 11
+	var layer := Control.new()
+	layer.name = "Confetti"
+	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_child(layer)
+	for i in 44:
+		var piece := TextureRect.new()
+		piece.texture = Art.tex("confetti_%d" % (1 + i % 4))
+		piece.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		piece.size = Vector2.ONE * rng.randf_range(34.0, 52.0)
+		piece.pivot_offset = piece.size * 0.5
+		piece.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		piece.modulate.a = 0.0
+		layer.add_child(piece)
+		var x := rng.randf_range(40.0, 1040.0)
+		var sway := rng.randf_range(25.0, 70.0)
+		var spin := rng.randf_range(360.0, 720.0) * (1.0 if i % 2 == 0 else -1.0)
+		var fall := rng.randf_range(2.6, 3.2)
+		var tw := piece.create_tween()
+		tw.tween_interval(delay + rng.randf_range(0.0, 0.5))
+		tw.tween_method(func(t: float):
+			piece.position = Vector2(x + sin(t * 9.0 + i) * sway, lerpf(-80.0, 1500.0, t * t * 0.4 + t * 0.6))
+			piece.rotation_degrees = spin * t
+			piece.modulate.a = minf(1.0, t * 12.0) * minf(1.0, (1.0 - t) * 5.0), 0.0, 1.0, fall)
+		tw.tween_callback(piece.queue_free)
+
+## A burst of coins flying from the reward to the HUD coin counter.
+static func _coin_flight(p: Control, from: Vector2, to: Vector2, delay: float) -> void:
+	for i in 7:
+		var coin := UI.image(p, "coin", Rect2(Vector2.ZERO, Vector2(60, 60)))
+		coin.modulate.a = 0.0
+		var tw := coin.create_tween()
+		tw.tween_interval(delay + i * 0.07)
+		tw.tween_method(func(t: float):
+			var at := from.lerp(to, t) + Vector2((i - 3) * 26.0 * sin(t * PI), -160.0 * sin(t * PI))
+			coin.position = at - coin.size * 0.5
+			coin.scale = Vector2.ONE * lerpf(1.0, 0.55, t)
+			coin.modulate.a = minf(1.0, t * 10.0) * minf(1.0, (1.0 - t) * 6.0), 0.0, 1.0, 0.65)
+		tw.tween_callback(coin.queue_free)
+
+
 # ---------------------------------------------------------------- helpers
 
 static func _sound_icon(muted: bool) -> String:
@@ -237,12 +342,9 @@ static func _instant(host: Node) -> bool:
 	var main := host.get_parent()
 	return main != null and main.has_method("instant") and main.instant()
 
-## The measured rect is the visible frame; panel_wood has transparent margins (left, top, right, bottom) around it.
-const PANEL_PAD := Vector4(4, 36, 4, 21)
-
-static func _open(host: Control, panel: Rect2, close := Rect2()) -> Control:
-	var full := Rect2(panel.position - Vector2(PANEL_PAD.x, PANEL_PAD.y), panel.size + Vector2(PANEL_PAD.x + PANEL_PAD.z, PANEL_PAD.y + PANEL_PAD.w))
-	return FRAME.open(host, full, "", Rect2(), close, _instant(host))
+## The measured rect is the visible frame; popup.gd compensates for panel_wood's transparent margins.
+static func _open(host: Control, panel: Rect2, close := Rect2(), quick := false) -> Control:
+	return FRAME.open(host, panel, "", Rect2(), close, _instant(host), quick)
 
 ## Disc centered on the rect of a measured button, drawn at a uniform role size.
 static func _action(p: Control, measured: Rect2, size: float, icon: String, on_press: Callable, base := "btn_wood", closes := true) -> Button:
@@ -264,8 +366,8 @@ static func _fit(parent: Node, name: String, box: Rect2, bottom := false) -> Tex
 	return t
 
 ## Title ribbons are flatter than the mockup ribbons, so they are drawn a little larger than the measured width.
-static func _title(c: Control, label: String, bounds: Rect2) -> void:
-	_fit(c, label, Rect2(bounds.get_center() - bounds.size * 0.575, bounds.size * 1.15))
+static func _title(c: Control, label: String, bounds: Rect2) -> TextureRect:
+	return _fit(c, label, Rect2(bounds.get_center() - bounds.size * 0.575, bounds.size * 1.15))
 
 static func _canvas(stage: Control, name: String) -> TextureRect:
 	var t := TextureRect.new()
@@ -291,13 +393,13 @@ static func _fill(parent: Node, r: Rect2, color: Color) -> Panel:
 static func _pill(c: Control, r: Rect2) -> NinePatchRect:
 	return UI.panel(c, "stat_pill", r, minf(1.0, r.size.y / 96.0))
 
-static func _reward(c: Control, pill: Rect2, coin: Rect2, value: Rect2, amount: int) -> void:
+static func _reward(c: Control, pill: Rect2, coin: Rect2, value: Rect2, amount: int) -> Control:
 	_pill(c, pill)
 	UI.art(c, "coin", coin)
-	UI.number(c, "+%d" % amount, value)
+	return UI.number(c, "+%d" % amount, value)
 
 ## Empty stars first, then the earned ones on top; earned stars pop in one after another with a sound.
-static func _stars(c: Control, rects: Array, filled: int, animate: bool, delay := 0.0) -> void:
+static func _stars(c: Control, rects: Array, filled: int, animate: bool, delay := 0.0, spacing := 0.4) -> void:
 	for r in rects:
 		UI.art(c, "star_empty", r)
 	for i in filled:
@@ -306,7 +408,7 @@ static func _stars(c: Control, rects: Array, filled: int, animate: bool, delay :
 			continue
 		star.scale = Vector2.ZERO
 		var tw := star.create_tween()
-		tw.tween_interval(delay + 0.4 * i)
+		tw.tween_interval(delay + spacing * i)
 		tw.tween_callback(Sound.play.bind("star_%d" % (i + 1)))
 		tw.tween_property(star, "scale", Vector2.ONE * 1.28, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -394,6 +496,10 @@ static func preview(main: Control, state: String) -> void:
 	var mechanics: Array[String] = ["sleep", "egg", "daynight"]
 	var none: Array[String] = []
 	match state:
+		"leaf_transition":
+			main.open_map()
+			await main.get_tree().create_timer(0.6).timeout
+			main.open_board(1, false)
 		"win_three_stars": win(host, 3, 12, 12, 30, noop, noop, noop, true)
 		"win_two_stars": win(host, 2, 14, 12, 20, noop, noop, noop, true)
 		"win_one_star": win(host, 1, 20, 12, 10, noop, noop, noop, false)

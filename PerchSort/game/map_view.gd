@@ -21,11 +21,12 @@ const NODES := [
 	[[508, 2700], [306, 2440], [752, 2180], [640, 1920], [240, 1660], [699, 1400], [620, 1140], [298, 880], [750, 620], [598, 360]],
 	[[512, 2700], [312, 2440], [738, 2180], [650, 1920], [250, 1660], [668, 1400], [618, 1140], [299, 880], [750, 620], [604, 360]],
 ]
-const CURRENT_SIZE := Vector2(300, 200)
-const NODE_SIZE := Vector2(260, 170)
-const GATE_RECT_SIZE := Vector2(490, 365)
-const GATE_CENTER_X := 640.0
-const GATE_CENTER_Y := 10.0
+const CURRENT_SIZE := Vector2(326, 224)
+const NODE_SIZE := Vector2(306, 226)
+const LOCKED_SIZE := Vector2(250, 176)
+const GATE_RECT_SIZE := Vector2(402, 300)
+const GATE_CENTER_X := 700.0   # mockup gate spans x 455..945
+const GATE_CENTER_Y := 110.0   # between the last node of a world and the first of the next
 
 var profile: Profile
 var current_level := 1
@@ -120,7 +121,7 @@ func _build_node(level: int) -> void:
 	var state := Progress.node_state(profile, level)
 	var c := _node_pos(level)
 	var big := state == "current"
-	var box := CURRENT_SIZE if big else NODE_SIZE
+	var box := CURRENT_SIZE if big else (LOCKED_SIZE if state == "locked" else NODE_SIZE)
 	var rect := Rect2(c - box * 0.5, box)
 	var layer := Control.new()
 	layer.name = "Level %d" % level
@@ -143,19 +144,21 @@ func _build_node(level: int) -> void:
 			UI.art(layer, "node_wood", rect)
 			UI.number(layer, str(level), Rect2(c.x - 50, rect.position.y + box.y * 0.31, 100, box.y * 0.44), "cream")
 			if level == current_level:
-				_add_bird(layer, Vector2(c.x, rect.position.y + 30))
+				# The last node of a world sits right under the gate, so its bird stands smaller beside the node.
+				var beside := level % 10 == 0 and level < 40
+				_add_bird(layer, Vector2(c.x - 270, c.y + 10) if beside else Vector2(c.x, rect.position.y + 30), 2.2 if beside else 2.9)
 
 func _add_stars(layer: Control, c: Vector2, rect: Rect2, earned: int, _unused: float) -> void:
 	for i in 3:
 		var name := "star_full_small" if i < earned else "star_empty_small"
-		var r := Rect2(c.x + (i - 1) * 62 - 28, rect.position.y + rect.size.y * 0.53, 56, 52)
+		var r := Rect2(c.x + (i - 1) * 67 - 34, rect.position.y + rect.size.y * 0.53, 68, 62)
 		UI.art(layer, name, r)
 
-func _add_bird(layer: Control, feet: Vector2) -> void:
+func _add_bird(layer: Control, feet: Vector2, density: float) -> void:
 	_bird = BirdViewScript.new()
 	_bird.position = feet
 	layer.add_child(_bird)
-	_bird.setup(Board.bird(0, 0, 0), false, 2.9)
+	_bird.setup(Board.bird(0, 0, 0), false, density)
 	for x in [-175.0, 175.0]:
 		var s := UI.art(layer, "sparkle", Rect2(feet.x + x - 24, feet.y - 30, 48, 50))
 		var tw := s.create_tween().set_loops()
@@ -177,7 +180,9 @@ func _build_hud() -> void:
 	_title.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_title)
 	_title_world = 0
-	UI.panel(_hud, "stat_pill", Layout.r("map", "nav_bar"))
+	var bar := Layout.r("map", "nav_bar")   # orange felt rim around a cream bar: panel_wood with thin borders
+	var k := 0.22
+	UI.panel(_hud, "panel_wood", bar.grow_individual(4 * k, 21 * k, 4 * k, 21 * k), k)
 	UI.disc(_hud, "Shop", Layout.r("map", "nav_shop"), "icon_basket", shop_requested.emit, "btn_wood", 0.52)
 	UI.disc(_hud, "Aviary", Layout.r("map", "nav_aviary"), "icon_aviary", aviary_requested.emit, "btn_wood", 0.62)
 	UI.disc(_hud, "Settings", Layout.r("map", "nav_settings"), "icon_gear", settings_requested.emit, "btn_wood", 0.54)

@@ -7,6 +7,13 @@ var profile: Profile
 var screen: Control
 var popups: Control
 var args := {}
+var _booted := false
+var _wipe: Control
+var _wipe_leaves: Array[TextureRect] = []
+var _wipe_back: ColorRect
+var _wiping := false
+
+const WIPE_SECONDS := 0.4
 
 
 func _ready() -> void:
@@ -36,6 +43,8 @@ func _ready() -> void:
 	else:
 		open_map()
 		_offer_daily_gift()
+	_booted = true
+	_build_wipe()
 	if args.has("autoplay"):
 		_autoplay()
 	if args.has("frames"):
@@ -72,6 +81,9 @@ func instant() -> bool:
 	return args.has("capture") and not args.has("motion")
 
 func open_map() -> void:
+	_go(_open_map)
+
+func _open_map() -> void:
 	var map: Control = MapScreen.new()
 	set_screen(map)
 	map.setup(profile)
@@ -122,14 +134,76 @@ func show_level_card(level_id: int) -> void:
 		mechanics_of(def), func(): _start_level(level_id), Progress.is_level_unlocked(profile, level_id))
 
 func _start_level(level_id: int) -> void:
-	_clear_popups()
-	open_board(level_id, not instant())
+	_go(func():
+		_clear_popups()
+		_open_board(level_id, not instant()))
+
+## Runs a screen change under the leaf wipe: the action fires while the curtain covers the screen.
+func _go(action: Callable) -> void:
+	if not _booted or instant() or _wiping:
+		action.call()
+		return
+	_wiping = true
+	_wipe.visible = true
+	move_child(_wipe, get_child_count() - 1)
+	var tw := create_tween()
+	tw.tween_method(_pose_wipe, 0.0, 1.0, WIPE_SECONDS * 0.5)
+	tw.tween_callback(action)
+	tw.tween_method(_pose_wipe, 1.0, 0.0, WIPE_SECONDS * 0.5)
+	await tw.finished
+	_wipe.visible = false
+	_wiping = false
+
+## Six leaf sprites slide in from both sides and close over the screen; the right-hand ones are mirrored scenery.
+func _build_wipe() -> void:
+	_wipe = Control.new()
+	_wipe.name = "LeafWipe"
+	_wipe.size = size
+	_wipe.visible = false
+	add_child(_wipe)
+	_wipe_back = ColorRect.new()
+	_wipe_back.color = Color(0.22, 0.38, 0.09, 0.0)
+	_wipe_back.size = size
+	_wipe_back.mouse_filter = Control.MOUSE_FILTER_STOP
+	_wipe.add_child(_wipe_back)
+	for i in 6:
+		var leaf := TextureRect.new()
+		leaf.texture = Art.tex("leaf_wipe")
+		leaf.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		leaf.size = Vector2.ONE * maxf(size.x * 1.7, size.y * 1.2)
+		leaf.pivot_offset = leaf.size * 0.5
+		leaf.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if i % 2 == 1:
+			leaf.scale.x = -1.0
+		_wipe.add_child(leaf)
+		_wipe_leaves.append(leaf)
+
+func _pose_wipe(cover: float) -> void:
+	var t := cover * cover * (3.0 - 2.0 * cover)
+	_wipe_back.color.a = clampf((t - 0.85) / 0.15, 0.0, 1.0)
+	for i in 6:
+		var leaf := _wipe_leaves[i]
+		var right := i % 2 == 1
+		var from := (size.x + leaf.size.x * 0.65) if right else -leaf.size.x * 0.65
+		var center := Vector2(lerpf(from, size.x if right else 0.0, t), size.y * (0.2 + (i / 2) * 0.3))
+		leaf.position = center - leaf.size * 0.5
+		leaf.rotation_degrees = (-1.0 if right else 1.0) * (1.0 - t) * 12.0
+
+## Music pauses with the app and resumes on return.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and _booted and not sandboxed():
+		get_tree().paused = true
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		get_tree().paused = false
 
 func _clear_popups() -> void:
 	for child in popups.get_children():
 		child.queue_free()
 
 func open_board(level_id: int, entrance := true) -> void:
+	_go(_open_board.bind(level_id, entrance))
+
+func _open_board(level_id: int, entrance: bool) -> void:
 	_close_overlay()
 	var board := BoardView.new()
 	board.instant = instant()
@@ -154,8 +228,8 @@ func open_board(level_id: int, entrance := true) -> void:
 			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
 	save()
 	if not queue.is_empty():
-		if entrance:
-			await get_tree().create_timer(BoardView.ENTRANCE_SECONDS + 0.2).timeout
+		while entrance and is_instance_valid(board) and board.busy:
+			await get_tree().process_frame
 		_run_queue(queue)
 
 ## Shows popups one after another; each receives a `done` callable.
@@ -188,6 +262,12 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 		func(): _run_queue(after_win, func(): open_board(level_id)),
 		func(): _run_queue(after_win, func(): open_board(next_level) if has_next else open_map()),
 		func(): _run_queue(after_win, open_map), has_next)
+	# The HUD coin counter takes the reward once the win panel's coin burst lands on it.
+	var board := screen as BoardView
+	if not instant():
+		await get_tree().create_timer(2.8).timeout
+	if is_instance_valid(board) and screen == board:
+		board.refresh_hud()
 
 func show_settings(on_board: bool) -> void:
 	Popups.settings(popups, profile.muted,
@@ -201,12 +281,15 @@ func show_settings(on_board: bool) -> void:
 				var board: BoardView = screen
 				board.session.restart()
 				board.start(board.level, profile, false),
-		func():
+		func(): _go(func():
 			_clear_popups()
-			open_map(),
+			_open_map()),
 		on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:
+	_go(_open_shop.bind(tab))
+
+func _open_shop(tab: int) -> void:
 	var shop: Control = ShopScreen.new()
 	shop.setup(profile, tab)
 	shop.profile_changed.connect(func():
@@ -218,21 +301,24 @@ func open_shop(tab := 0, over_board := false) -> void:
 				if gained > 0:
 					board.granted(kind, gained)
 		_refresh_screen())
-	shop.closed.connect(_close_overlay)
+	shop.closed.connect(func(): _go(_close_overlay))
 	_show_overlay(shop)
 
 func open_aviary() -> void:
+	_go(_open_aviary)
+
+func _open_aviary() -> void:
 	var aviary: Control = AviaryScreen.new()
 	aviary.setup(profile)
 	aviary.profile_changed.connect(save)
-	aviary.closed.connect(_close_overlay)
+	aviary.closed.connect(func(): _go(_close_overlay))
 	_show_overlay(aviary)
 
 func _show_overlay(node: Control) -> void:
 	_close_overlay()
 	_overlay = node
 	add_child(node)
-	move_child(node, get_child_count() - 2)  # below the popup layer
+	move_child(node, popups.get_index())  # below the popup layer
 	Sound.music("bgm_menu")
 
 func _close_overlay() -> void:
