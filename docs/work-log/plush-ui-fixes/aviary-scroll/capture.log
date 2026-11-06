@@ -1,0 +1,13 @@
+Unity 6000.6.7f1; final batch process exit code 0
+Audio disabled before scene initialization; instant motion; nonpersistent preview profiles
+Silent UI capture: List / Reference; listenerVolume=0; listenerPaused=True; path=reference.png
+Silent UI capture: List / Last row; listenerVolume=0; listenerPaused=True; path=last-row.png
+Silent UI capture: List / Maximum coins and homecomings; listenerVolume=0; listenerPaused=True; path=maximum.png
+Silent UI capture: List / Mid-scroll; listenerVolume=0; listenerPaused=True; path=mid-scroll.png
+Silent UI capture: Detail / Reference Berry; listenerVolume=0; listenerPaused=True; path=detail-reference.png
+Silent UI capture: Detail / Equipped outfit; listenerVolume=0; listenerPaused=True; path=detail-equipped.png
+Silent UI capture: Detail / All outfits locked; listenerVolume=0; listenerPaused=True; path=detail-locked.png
+Silent UI capture: Detail / Maximum homecomings; listenerVolume=0; listenerPaused=True; path=detail-maximum.png
+Silent UI capture: Detail / Longest name Flurry; listenerVolume=0; listenerPaused=True; path=detail-flurry.png
+Silent UI capture: Detail / Last outfit; listenerVolume=0; listenerPaused=True; path=detail-last-outfit.png
+Silent UI state capture completed: /Users/apple/orca/workspaces/game/aviary-scroll-fix/build/screens/aviary-scroll

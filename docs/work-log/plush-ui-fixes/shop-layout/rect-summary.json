@@ -1,0 +1,162 @@
+[
+  {
+    "state": "Boosters / Stock badges",
+    "screen": "shop_boosters",
+    "pair": "boosters-stock-badges.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Boosters / Zero stock",
+    "screen": "shop_boosters",
+    "pair": "boosters-zero-stock.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Boosters / Locked tools",
+    "screen": "shop_boosters",
+    "pair": "boosters-locked-tools.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Boosters / All tools unlocked",
+    "screen": "shop_boosters",
+    "pair": "boosters-all-tools-unlocked.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Numbers / Zero coins",
+    "screen": "shop_boosters",
+    "pair": "numbers-zero-coins.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Numbers / Maximum coins",
+    "screen": "shop_boosters",
+    "pair": "numbers-maximum-coins.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Numbers / Maximum stock",
+    "screen": "shop_boosters",
+    "pair": "numbers-maximum-stock.jpg",
+    "maximum": 20.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Houses / Not owned",
+    "screen": "shop_houses",
+    "pair": "houses-not-owned.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Houses / Owned and equipped",
+    "screen": "shop_houses",
+    "pair": "houses-owned-and-equipped.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Outfits / Mixed ownership",
+    "screen": "shop_outfits",
+    "pair": "outfits-mixed-ownership.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Outfits / All not owned",
+    "screen": "shop_outfits",
+    "pair": "outfits-all-not-owned.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Outfits / Owned not equipped",
+    "screen": "shop_outfits",
+    "pair": "outfits-owned-not-equipped.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Outfits / Equipped",
+    "screen": "shop_outfits",
+    "pair": "outfits-equipped.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Names / Longest painted ribbon",
+    "screen": "shop_outfits",
+    "pair": "names-longest-painted-ribbon.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Names / Full outfit catalog",
+    "screen": "shop_outfits",
+    "pair": "names-full-outfit-catalog.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Confirm / Booster",
+    "screen": "shop_confirm",
+    "pair": "confirm-booster.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 51.0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Confirm / Outfit",
+    "screen": "shop_confirm",
+    "pair": "confirm-outfit.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 176.0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Confirm / House",
+    "screen": "shop_confirm",
+    "pair": "confirm-house.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 363.0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Confirm / Disabled accept",
+    "screen": "shop_confirm",
+    "pair": "confirm-disabled-accept.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 51.0,
+    "above_tolerance": []
+  },
+  {
+    "state": "Feedback / Insufficient coins",
+    "screen": "shop_boosters",
+    "pair": "feedback-insufficient-coins.jpg",
+    "maximum": 18.0,
+    "backdrop_max": 0,
+    "above_tolerance": []
+  }
+]
