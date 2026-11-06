@@ -22,12 +22,14 @@ namespace PerchSort.Game
         private long entranceTransaction;
         private long completedEntrance = long.MinValue, completedResolution = long.MinValue;
         private float bubbleShown;
+        private Vector2 bubblePoint;
+        private CanvasGroup bubbleFade;
         public BoardSnapshot Snapshot { get; private set; }
         public BoardView Board { get; private set; }
         public HudView Hud { get; private set; }
         public SceneView Scene { get; private set; }
         public bool IsIntroducing => entrance != null && entrance.IsPlaying;
-        public bool BubbleVisible => bubble != null && bubble.gameObject.activeSelf;
+        public bool BubbleVisible => (bubble != null && bubble.gameObject.activeSelf) || (Hud != null && Hud.ToolHintVisible);
         public event Action<int> BranchRequested;
         public event Action SelectionCancelRequested;
         public event Action<int> SwivelRequested;
@@ -77,7 +79,7 @@ namespace PerchSort.Game
                 !Board.gameObject.activeSelf || !Board.CanSettle(snapshot))
             { Show(snapshot); return; }
             generation++; Snapshot = snapshot; overlay = false;
-            Board.Cancel(); Board.Settle(snapshot); Hud.Render(snapshot.Hud); SetInput(snapshot.Input);
+            HideBubble(); Board.Cancel(); Board.Settle(snapshot); Hud.Render(snapshot.Hud); SetInput(snapshot.Input);
         }
         public void UpdateHud(HudSnapshot snapshot) { if (Snapshot == null) return; Snapshot.Hud = snapshot; Hud.Render(snapshot); }
         public void SetSelection(SelectionPresentation selection) { if (Snapshot != null) Board.ShowSelection(selection ?? new SelectionPresentation()); }
@@ -103,37 +105,59 @@ namespace PerchSort.Game
         }
         public void ShowHint(HintPresentation hint)
         {
-            Board.ClearHints();
+            Board.ClearHints(); HideBubble();
             if (hint == null) return;
             if (hint.Path.HasValue) Board.Hint(hint.Path.Value);
-            if (hint.Stuck) ShowBubble(new BubblePresentation { Visible = true, Delay = 0.8f, Point = new Vector2(540, 1630), IconKeys = new[] { "icon_undo", "tool_hint", "tool_branch" } });
-            else if (!string.IsNullOrEmpty(hint.ReasonIcon)) ShowBubble(new BubblePresentation { Visible = true, Point = new Vector2(540, 1550), IconKeys = new[] { hint.ReasonIcon } });
+            if (hint.Stuck) Hud.ShowToolHint(delay: 0.8f);
+            else if (!string.IsNullOrEmpty(hint.ReasonIcon)) Hud.ShowToolHint(hint.ReasonIcon);
         }
         public void ShowBubble(BubblePresentation data)
         {
             HideBubble();
             if (data == null || !data.Visible || overlay || !focused) return;
-            Vector2 point = data.Point; point.x = Mathf.Clamp(point.x, 184, 896); point.y = Mathf.Clamp(point.y, 530, 1650);
-            bubble = GameUI.Rect(transform, "Board icon bubble", point, new Vector2(320, 140));
-            GameUI.Fit(bubble, "Cream bubble", art.Get("sleep_bubble"), new Vector2(160, 70), new Vector2(320, 140));
             var keys = data.IconKeys ?? Array.Empty<string>();
+            foreach (string key in keys)
+                if (key == "icon_undo" || key == "tool_hint" || key == "tool_branch")
+                { Hud.ShowToolHint(keys.Length == 1 ? key : null, data.Delay); return; }
+            Vector2 point = data.Point; point.x = Mathf.Clamp(point.x, 120, 960); point.y = Mathf.Clamp(point.y, 550, 1650);
+            bubblePoint = point;
+            bubble = GameUI.Rect(transform, "Plush sleep explanation", point, new Vector2(200, 136));
+            bubbleFade = bubble.gameObject.AddComponent<CanvasGroup>();
+            bubbleFade.blocksRaycasts = bubbleFade.interactable = false;
+            GameUI.Fit(bubble, "Cream bubble", art.Get("sleep_bubble"), new Vector2(100, 68), new Vector2(200, 136));
             for (int i = 0; i < keys.Length; i++)
-                GameUI.Fit(bubble, keys[i], art.Get(keys[i]), new Vector2(160 + (i - (keys.Length - 1) * 0.5f) * 78, 67), Vector2.one * 60);
+                GameUI.Fit(bubble, keys[i], art.Get(keys[i]), new Vector2(100 + (i - (keys.Length - 1) * 0.5f) * 62, 60), Vector2.one * 66);
+            BirdView nearest = null; float distance = float.PositiveInfinity;
+            foreach (var bird in Board.Birds.Values)
+            {
+                if (!bird.Sleeping || bird.Bird.IsEgg) continue;
+                float candidate = Vector2.SqrMagnitude(data.Point - (bird.Position + new Vector2(0, -200 * bird.DisplayScale)));
+                if (candidate < distance) { distance = candidate; nearest = bird; }
+            }
+            nearest?.ReactToSleepTap();
             bubbleShown = Time.unscaledTime + (GameMotion.Instant ? 0 : data.Delay);
             bubble.gameObject.SetActive(data.Delay <= 0 || GameMotion.Instant);
         }
         private void Update()
         {
             if (bubble == null) return;
-            if (Time.unscaledTime >= bubbleShown + 1.6f) { HideBubble(); return; }
-            if (Time.unscaledTime >= bubbleShown) bubble.gameObject.SetActive(true);
+            float elapsed = Time.unscaledTime - bubbleShown;
+            if (elapsed >= SleepBubble.BubbleSeconds + SleepBubble.FadeSeconds) { HideBubble(); return; }
+            if (elapsed >= 0)
+            {
+                bubble.gameObject.SetActive(true);
+                bubbleFade.alpha = 1 - Mathf.Clamp01((elapsed - SleepBubble.BubbleSeconds) / SleepBubble.FadeSeconds);
+                float bob = GameMotion.Instant ? 0 : SleepBubble.BobPixels * Mathf.Sin(elapsed * Mathf.PI * 2 / 1.6f);
+                bubble.anchoredPosition = new Vector2(bubblePoint.x, -bubblePoint.y + bob);
+            }
             if (Time.unscaledTime > bubbleShown && Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
             { HideBubble(); HintDismissRequested?.Invoke(); }
         }
         private void HideBubble()
         {
+            Hud?.HideToolHint();
             if (bubble != null) GameUI.Dispose(bubble.gameObject);
-            bubble = null;
+            bubble = null; bubbleFade = null;
         }
         public void SetTutorial(TutorialPresentation value) => tutorial?.Render(overlay || !focused ? null : value);
         public void PlayEntrance(EntrancePresentation value)

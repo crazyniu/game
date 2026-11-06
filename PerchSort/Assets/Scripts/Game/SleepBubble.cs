@@ -8,7 +8,7 @@ namespace PerchSort.Game
     // Real-session input adapter; bubble geometry and lifetime are owned by IBoardView.
     public sealed class SleepBubble : MonoBehaviour
     {
-        public const float RefusalSeconds = 0.35f, BubbleSeconds = 1.6f, DriftSeconds = 1.6f;
+        public const float RefusalSeconds = 0.25f, BubbleSeconds = 1.6f, FadeSeconds = 0.2f, DriftSeconds = 1.6f;
         public const float BobPixels = 6, RisePixels = 30;
         private GameRoot root;
         public bool IsVisible => root != null && root.BoardScreen.BubbleVisible;
@@ -28,7 +28,7 @@ namespace PerchSort.Game
             if (target == null) return false;
             var icons = new List<string>();
             if (target.Bird.Species.IsNocturnal && state.NocturnalDaySleep) icons.Add("dial_moon");
-            if (target.Bird.IsAsleep) { icons.Add(target.Bird.Species.Id + "_face"); icons.Add("gift_sun_note"); }
+            if (target.Bird.IsAsleep) icons.Add("gift_sun_note");
             root.BoardScreen.ShowBubble(new BubblePresentation { Visible = true,
                 Point = target.Position + new Vector2(0, -200 * target.DisplayScale), IconKeys = icons.ToArray() });
             return true;
