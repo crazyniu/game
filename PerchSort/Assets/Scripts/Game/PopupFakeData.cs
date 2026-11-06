@@ -31,7 +31,7 @@ namespace PerchSort.Game
             foreach (string id in species)
             {
                 string bird = id;
-                Add("Goal info / " + bird, p => p.GoalInfo(bird));
+                if (bird != "crow") Add("Goal info / " + bird, p => p.GoalInfo(bird));
                 Add("New friend / " + bird, p => p.Popup(PopupKind.NewFriend, bird, 20));
             }
             foreach (BoosterKind kind in Enum.GetValues(typeof(BoosterKind)))
@@ -54,6 +54,7 @@ namespace PerchSort.Game
             Add("Level card / Maximum moves", p => Level(p, 40, 3, 999));
             Add("Edges / Zero coins", p => { Coins(0); p.Popup(PopupKind.DailyGift, "sunny", 50); });
             Add("Edges / Maximum coins", p => { Coins(99999); p.Popup(PopupKind.DailyGift, "sunny", 50); });
+            Add("Level card / Locked", p => { root.PreviewMap(); p.PreviewLevelCard(40, 0, -1, false); });
             Add("Edges / Longest bird name", p => p.GoalInfo("snow"));
         }
 

@@ -121,14 +121,19 @@ namespace PerchSort.Game
             content = PopupMotion.Lift(panel);
             Title(content, title, new Vector2(430, 0));
             dismissible = informationModal = close;
-            if (close) GameUI.Button(content, art, "Close " + title, "icon_close",
-                new Rect(786, -26, 100, 100), root.ClosePanel);
+            if (close) GameUI.Button(content, art,
+                title == "label_title_settings" ? "Close settings" : title.StartsWith("label_level_", StringComparison.Ordinal) ? "Close level card" : "Close goal info",
+                "icon_close", new Rect(786, -26, 100, 100), root.ClosePanel);
             ModalLayer.Enter(presentation, content, origin);
             return content;
         }
 
-        internal static Image Title(Transform parent, string key, Vector2 point) =>
-            PaintedLabels.Create(parent, "Title ribbon", key, point, 120);
+        internal static Image Title(Transform parent, string key, Vector2 point)
+        {
+            var title = PaintedLabels.Create(parent, "Title ribbon", key, point, 120);
+            title.rectTransform.sizeDelta = new Vector2(640, 120);
+            return title;
+        }
 
         internal static PaintedNumber Number(Transform parent, string name, string value, Vector2 point,
             Vector2 size, float cap = 40)
@@ -145,9 +150,9 @@ namespace PerchSort.Game
         private void NameRibbon(Transform parent, string species, Vector2 point, float height = 120) =>
             PaintedLabels.Create(parent, "Species name", "label_name_" + species, point, height);
 
-        private void Action(string name, string icon, Action action)
+        private Button Action(string name, string icon, Action action)
         {
-            PopupMotion.PrimaryBar(transform, art, name, icon, new Vector2(540, panelBounds.yMax + 110),
+            return PopupMotion.PrimaryBar(transform, art, name, icon, new Vector2(540, panelBounds.yMax + 110),
                 presentation.Once(() => presentation.Close(action)));
         }
 
@@ -235,11 +240,11 @@ namespace PerchSort.Game
             var body = Body(680, "label_name_" + species, true, 860);
             Portrait(body, species, new Vector2(430, 290), 380);
             GameUI.Fit(body, "Gift", art.Get(ViewModel.GiftIcon(species)), new Vector2(170, 558), Vector2.one * 100);
-            Caption(body, species == "sunny" ? "Wakes sleepers" : ShortGiftEffect(species), new Vector2(490, 558), 76);
+            Caption(body, species == "sunny" ? "Wakes sleepers" : species == "crow" ? "Never goes home" : ShortGiftEffect(species), new Vector2(500, 558), 64);
         }
 
         public void LevelCard(int id) => LevelCard(id, root.BestStars(id), root.BestMoves(id));
-        private void LevelCard(int id, int bestStars, int bestMoves)
+        private void LevelCard(int id, int bestStars, int bestMoves, bool playable = true)
         {
             var level = LevelLoader.Load(id); var board = level.CreateBoard();
             var species = Species(board); var mechanics = Mechanics(board);
@@ -274,7 +279,7 @@ namespace PerchSort.Game
                 GameUI.Fit(body, "Mechanic " + mechanics[i], sprite,
                     new Vector2(430 + (i - (mechanics.Count - 1) * 0.5f) * 120, height - 90), Vector2.one * 100);
             }
-            Action("Play level " + id, "icon_play", () => root.LoadLevel(id));
+            Action("Play level " + id, "icon_play", () => root.LoadLevel(id)).interactable = playable;
         }
 
         private static string MechanicSprite(string mechanic)
@@ -358,7 +363,7 @@ namespace PerchSort.Game
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        public void PreviewLevelCard(int id, int stars, int moves) => LevelCard(id, stars, moves);
+        public void PreviewLevelCard(int id, int stars, int moves, bool playable = true) => LevelCard(id, stars, moves, playable);
 #endif
         public static List<string> Species(BoardState board)
         {
