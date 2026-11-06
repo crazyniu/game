@@ -9,7 +9,7 @@ The previous coordinator session (Claude on Linux 251) handed over to a new sess
 - Code: OMP with gpt-6.1-sol only (never terra). Images: Codex gpt-6-astra. Decide model/effort yourself; write very concrete specs.
 - Every worker prompt must say: the user's Editor has the primary checkout open, a different path; it never blocks worker runs.
 - Merge reviewed work quickly (squash PR, CI), delete the merged branch and its Mac worktree at once; keep only main plus active branches. /tmp/mergepr.sh on 251 is the helper (deletes branch only after a real merge).
-- No version or task numbers in any name. Text that sits on art is baked into the image (tools/bake_labels.py, tools/layout_metrics.py).
+- No version or task numbers in any name. Text that sits on art is painted by image generation together with its plate (superseded 2026-11-06: never tools/bake_labels.py or fonts; see CLAUDE.md "UI style and lettering").
 - Use many fresh parallel conversations; restart a worker whose session grows long or stalls; check worker liveness, not only pushes.
 
 ## Decisions
