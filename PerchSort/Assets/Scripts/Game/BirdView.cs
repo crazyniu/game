@@ -17,6 +17,7 @@ namespace PerchSort.Game
         private GameArt art;
         private BirdOverlay overlays;
         private Sprite idleFrame, baseIdleFrame, cheerFrame, sleep, flyUp, flyDown;
+        private Sprite outfitBlinkOne, outfitBlinkTwo;
         private string outfitKey;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
@@ -217,6 +218,9 @@ namespace PerchSort.Game
             outfitKey = key;
             // Side-facing outfit stills must not replace the front-facing resting pose.
             idleFrame = string.IsNullOrEmpty(key) ? baseIdleFrame : art.Optional(key + "_front") ?? baseIdleFrame;
+            outfitBlinkOne = string.IsNullOrEmpty(key) ? null : art.Optional(key + "_front_blink_01");
+            outfitBlinkTwo = string.IsNullOrEmpty(key) ? null : art.Optional(key + "_front_blink_02");
+            sleep = outfitBlinkTwo ?? idleSequences[0][2];
             if (!acting && !idleActing) SetFrame(RestFrame);
         }
         public void Sync(Bird bird, bool sleeping)
@@ -311,9 +315,11 @@ namespace PerchSort.Game
                 case 0:
                     const float blinkDuration = 4f / 12;
                     if (twice && elapsed >= blinkDuration + 0.2f) elapsed -= blinkDuration + 0.2f;
-                    else if (elapsed >= blinkDuration) return idleSequences[0][0];
+                    else if (elapsed >= blinkDuration) return idleFrame;
                     int blinkIndex = Mathf.Min(4, Mathf.FloorToInt(elapsed * 12));
-                    return idleSequences[0][blinkIndex <= 2 ? blinkIndex : 4 - blinkIndex];
+                    blinkIndex = blinkIndex <= 2 ? blinkIndex : 4 - blinkIndex;
+                    return blinkIndex == 0 ? idleFrame : blinkIndex == 1 ?
+                        outfitBlinkOne ?? idleSequences[0][1] : outfitBlinkTwo ?? idleSequences[0][2];
                 case 1:
                     var turn = idleSequences[direction];
                     if (elapsed < 0.4f) return turn[Mathf.Min(3, Mathf.FloorToInt(elapsed * 10))];

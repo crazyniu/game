@@ -74,7 +74,8 @@ namespace PerchSort.Game
             ModalLayer.Enter(presentation, body);
             presentation.Track(ribbon); Vector2 rest = ribbon.anchoredPosition;
             presentation.Play(0.18f, t => ribbon.anchoredPosition = rest + Vector2.up * (36 * (1 - t)), ease: Ease.OutCubic);
-            presentation.FrontBird(art, heroBird, "sunny");
+            owner.Collection.EquippedOutfits.TryGetValue("sunny", out string outfit);
+            presentation.FrontBird(art, heroBird, art.FrontKey("sunny", outfit));
             for (int i = 0; i < stars.Length; i++)
             {
                 int index = i;

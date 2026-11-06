@@ -40,6 +40,7 @@ namespace PerchSort.Game
         private sealed class FrontMotion
         {
             public Image Image;
+            public string Species;
             public Sprite Rest;
             public Sprite[] Blink;
             public Vector2 Position;
@@ -164,7 +165,7 @@ namespace PerchSort.Game
             var mask = GameUI.Image(card, "Portrait mask", art.DoorMask(), new Vector2(190, 174), Vector2.one * 310);
             mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
             var portrait = GameUI.Fit(mask.transform, "Species portrait", art.Get(species.Id + "_front"), Vector2.one * 155, Vector2.one * 338);
-            LivingBird(portrait, species.Id, true, !species.Met);
+            LivingBird(portrait, species.Id, true, !species.Met, species.Equipped);
             GameUI.Fit(card, "Portrait ring", art.Get("aviary_frame"), new Vector2(190, 174), Vector2.one * 344);
             Label(card, "Name ribbon", species.Met ? "label_name_" + species.Id : "label_name_unknown", new Vector2(190, 323), new Vector2(350, 110));
             HomeChip(card, new Vector2(125, 415), species.Met ? species.Homes : 0, new Vector2(240, 101), 40);
@@ -221,7 +222,7 @@ namespace PerchSort.Game
             var panel = GameUI.Surface(detail, "Detail wood panel", art, "panel_wood", new Rect(110, 1040, 860, 800));
             var living = GameUI.Rect(detail, "Living bird", new Vector2(540, 695), Vector2.one * 820);
             var bird = GameUI.Fit(living, "Bird", art.Get(speciesId + "_front"), Vector2.one * 410, Vector2.one * 820);
-            LivingBird(bird, speciesId);
+            LivingBird(bird, speciesId, outfit: species.Equipped);
             // Keep every canonical outfit reachable, including the default look.
             if (card.CanWearOutfits)
             {
@@ -245,7 +246,7 @@ namespace PerchSort.Game
             tile.type = Image.Type.Simple;
             if (selected) GameUI.Fit(tile.transform, "Equipped ring", art.Get("node_wood_current_glow"), new Vector2(90, 115), new Vector2(196, 246));
             var portrait = GameUI.Fit(tile.transform, "Outfit portrait", art.Get(species.Id + "_front"), new Vector2(90, 115), Vector2.one * 174);
-            LivingBird(portrait, species.Id, locked: !owned);
+            LivingBird(portrait, species.Id, locked: !owned, outfit: id);
             if (selected) GameUI.Fit(tile.transform, "Selected look", art.Get("check_green"), new Vector2(148, 194), Vector2.one * 56);
             if (!owned) GameUI.Fit(tile.transform, "Locked outfit", art.Get("padlock"), new Vector2(90, 115), Vector2.one * 64);
             tile.raycastTarget = true;
@@ -269,16 +270,24 @@ namespace PerchSort.Game
                 if (!root.ToggleCosmetic(id ?? species.Equipped)) return;
                 presentation = Capture();
             }
+            string key = art.FrontKey(species.Id, id);
+            foreach (var motion in listMotion)
+                if (motion.Species == species.Id)
+                {
+                    motion.Rest = art.Get(key + "_front"); motion.Blink = Frames(key + "_front_blink", false);
+                    motion.Image.sprite = motion.Rest; motion.Acting = false;
+                }
             OpenDetail(species.Id);
         }
 
-        private void LivingBird(Image image, string species, bool inList = false, bool locked = false)
+        private void LivingBird(Image image, string species, bool inList = false, bool locked = false, string outfit = null)
         {
-            var rest = art.Get(species + "_front");
-            var blink = Frames(species + "_front_blink", locked);
+            string key = art.FrontKey(species, outfit);
+            var rest = art.Get(key + "_front");
+            var blink = Frames(key + "_front_blink", locked);
             if (locked) rest = Silhouette(rest);
             image.sprite = rest;
-            var motion = new FrontMotion { Image = image, Rest = rest, Blink = blink, Position = image.rectTransform.anchoredPosition, Elapsed = Random.Range(0, 1f) };
+            var motion = new FrontMotion { Image = image, Species = species, Rest = rest, Blink = blink, Position = image.rectTransform.anchoredPosition, Elapsed = Random.Range(0, 1f) };
             (inList ? listMotion : detailMotion).Add(motion);
         }
 

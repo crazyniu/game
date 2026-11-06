@@ -2,7 +2,7 @@
 
 ## Status and ownership
 
-Current branch: `plush-ui-integration`, starting at the coordinator's combined merge `ee76e7e`. The conditional no-font cleanup is now implemented. Earlier sections retain the original `mac-painted-text/work` checkpoints and their evidence boundaries; the final combined cutover is recorded below. This report does not claim visual, timed-animation or device acceptance.
+Current branch: `plush-ui-integration`, refreshed to the coordinator's `315d3d70` integration base after the completed cutover. The latest plain Unity compile passed with exit 0 and zero C# errors; its equipped-outfit routing changes and evidence are recorded at the end. Earlier sections retain historical worker/combined-smoke outcomes, including the prior edit-mode fixture failure. This report does not claim visual, timed-animation or device acceptance.
 
 Read the complete project guide, shared plush UI contract, component rules, text inventory and UI-first shell guidance. Extracted `component_sheet.png` from `origin/ui-design-review` to `/tmp/component_sheet.png` and viewed it. No artwork was generated or edited.
 
@@ -179,4 +179,30 @@ Unity rewrote 925 existing resource metadata files. Inspected and classified eve
 The conditional cleanup is complete on the combined integration branch. Earlier settings/font-helper merge blockers in this report are historical and no longer apply. The retired legacy tests and empty test assembly are explicitly removed, not hidden or skipped; discovery safeguards were not lowered. Rendered screenshots, Play-mode material lifecycle, full state enumeration, timed motion/audio and device acceptance are intentionally not claimed.
 
 Final staged naming guard: 260 tracked text files inspected, zero violations. Final source scan: no CoinHeader, TextFit, TextMeshProUGUI, TMP_Text construction/update paths, or ForceMeshUpdate calls remain in Game/Editor/test sources. Temporary smoke/compiler scaffolding was removed; only the requested canonical cleanup and report/spec changes are committed.
+
+## Refreshed integration and equipped front outfits
+
+Per coordinator instruction, fetched origin and reset this isolated worktree to `origin/plush-ui-integration` at `315d3d70`, which already contains the cutover, hint-sound fix and the new front-facing outfit artwork. No work was reset from the primary checkout.
+
+### Equipped-outfit resource routing
+
+- BoardSessionAdapter already maps saved IDs such as `outfit.mint.1` to `mint_outfit_1`; BirdView already loaded `<key>_front`. Confirmed that prefix matches the new file names. BirdView now also prefers the equipped `_front_blink_01` and `_front_blink_02` for its front blink and sleeping pose, without mutating shared species animation caches or allocating during frame updates.
+- GameArt.FrontKey resolves the existing outfit ID to the canonical prefix only when that outfit-front sprite exists; otherwise it returns the base species prefix.
+- PanelsView popup birds and WinPanel's hero now resolve the equipped prefix before PopupMotion loads the existing front/blink loop.
+- Aviary list portraits, detail birds and outfit-slot portraits use the same resolver and matching blink prefix. Equipping an outfit refreshes the existing list portrait motion as well as rebuilding the detail, so returning to the list shows the new look.
+- No save keys, outfit IDs, schema, rules, economy, artwork, mirroring or animation timing changed.
+
+The asset-key audit verified nine complete outfit sets: tiers 1–3 for cocoa, mint and snow. All **27** canonical `_front`, `_front_blink_01`, `_front_blink_02` files exist and match the saved-ID-to-resource mapping. Sets not supplied by art continue using base front art rather than side-facing outfit stills.
+
+### Requested plain Unity compile
+
+```sh
+flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -quit -projectPath /Users/apple/orca/workspaces/game/painted-text/PerchSort -logFile /Users/apple/orca/workspaces/game/painted-text/build/integration-compile.log
+```
+
+**Exit 0. C# error count: 0. Shader error count: 0.** Exactly one plain invocation was run for this refreshed check; no retry was needed. No `-executeMethod`, smoke entry, test runner or screenshot script was used. Log: `build/integration-compile.log` (generated, not committed).
+
+Naming checks: 14 self-tests passed; repository guard inspected 260 tracked text files with zero violations. Captured 1851 protected scene/meta/settings/package files before Unity. Inspected the resulting 925 metadata rewrites: 918 were whitespace-only and seven authored egg/family overlays gained additive defaults without changing prior authored values. Restored their recorded bytes; all 1851 protected inputs are byte-identical afterward.
+
+This verifies compilation and exact resource-key/file correspondence. Actual equipped animation playback and rendered comparison were not exercised by this compile-only invocation.
 

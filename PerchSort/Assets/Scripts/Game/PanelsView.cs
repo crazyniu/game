@@ -165,12 +165,12 @@ namespace PerchSort.Game
             presentation.Count(amount, reward, 0.2f);
         }
 
-        private Sprite Front(string species) => art.Get(species + "_front");
-
         private Image Bird(Transform parent, string species, Vector2 point, float size, bool celebrate = false)
         {
-            var bird = GameUI.Fit(parent, "Bird " + species, Front(species), point, Vector2.one * size);
-            presentation.FrontBird(art, bird, species);
+            root.Collection.EquippedOutfits.TryGetValue(species, out string outfit);
+            string key = art.FrontKey(species, outfit);
+            var bird = GameUI.Fit(parent, "Bird " + species, art.Get(key + "_front"), point, Vector2.one * size);
+            presentation.FrontBird(art, bird, key);
             return bird;
         }
 
