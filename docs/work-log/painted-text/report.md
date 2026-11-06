@@ -114,3 +114,5 @@ The first EditMode-source compilation reported a missing generated Editor refere
 
 A disposable CPU formula check verified the shader's declared 0.4 default and the 40% luminance blend for red, green, blue and neutral-gray samples. No serialized references to the retired SettingsPanel GUID or type remain. GPU shader compilation/rendering, native material defaults and updated test runtime behavior were not exercised; the one-Unity-invocation limit remains in force.
 
+After staging the settings-source deletion, the naming guard inspected 260 tracked text files and reported zero violations. The post-merge CoinHeader/font-helper cleanup remains gated on the coordinator merging the migrated screen branches; this checkpoint does not claim that conditional removal is complete.
+
