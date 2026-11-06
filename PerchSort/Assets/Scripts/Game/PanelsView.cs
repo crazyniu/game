@@ -298,7 +298,10 @@ namespace PerchSort.Game
         public void Buy(BoosterKind kind) => root.OpenShop(kind);
         public void Unlock(BoosterKind kind)
         {
-            var body = Body(725, "label_booster_" + BoosterName(kind).ToLowerInvariant().Replace(' ', '_'), centreY: 961.5f);
+            // Measured panel and complete ribbon, including both leaf clusters.
+            var body = Body(new Rect(109, 599, 861, 725),
+                "label_title_booster_" + BoosterName(kind).ToLowerInvariant().Replace(' ', '_'),
+                new Rect(242, 545, 596, 123));
             IsUnlock = true;
             Image Part(string id, string sprite, Rect opaque)
             {
@@ -449,7 +452,7 @@ namespace PerchSort.Game
                 case "crow": return "crow_face";
                 case "swivel": return "swivel_knot";
                 case "growing": return "icon_rain_sprout";
-                default: return "gift_coin_nightcall";
+                default: return "mechanic_day_night";
             }
         }
 
@@ -553,37 +556,25 @@ namespace PerchSort.Game
                     GameUI.Image(opening.transform, "portal_forest", meadow, size * 0.5f,
                         new Vector2(size.x, size.x * meadow.rect.height / meadow.rect.width));
                 }
-                // The retained autumn pixels are in w3; w2 currently contains bamboo.
-                else Part("portal_forest", "gate_backdrop_w" + (world == 2 ? 3 : world), new Rect(241, 251, 526, 602));
+                else Part("portal_forest", "gate_backdrop_w" + world, new Rect(241, 251, 526, 602));
                 Part("portal_arch", "gate_arch", new Rect(117, 108, 785, 754));
                 // The opposite closed leaf has the curved outer edge of an open door, without mirroring it.
                 Part("door_left", "gate_door_right", new Rect(512, 237, 275, 620));
                 Part("door_right", "gate_door_left", new Rect(237, 237, 275, 620));
                 for (int i = 0; i < 5; i++)
                 {
-                    if (world == 2 || world == 3)
+                    if (world == 3)
                         Part("portal_leaves_" + i, "leaf_fall_w3", new Rect(4, 5, 55, 53));
                     else if (world == 4)
                         Part("portal_leaves_" + i, "leaf_fall_w4", new Rect(14, 13, 35, 37));
                     else Part("portal_leaves_" + i, "leaf_sprig_a", new Rect(45, 26, 86, 75));
                 }
-                Part("portal_crown", "world_sign_w" + (world == 2 ? 3 : world), new Rect(6, 19, 372, 281));
+                Part("portal_crown", "world_sign_w" + world, new Rect(6, 19, 372, 281));
                 Rect caption = GameLayout.Screen(screen, "caption_plate");
-                if (world <= 3)
-                {
-                    string key = world == 1 ? "label_caption_green_forest" : "label_caption_autumn_forest";
-                    var plate = PaintedLabels.Create(body, "World caption", key, caption.center - panelBounds.position, caption.height);
-                    plate.preserveAspect = false;
-                    plate.rectTransform.sizeDelta = caption.size * plate.sprite.rect.size / (plate.sprite.rect.size - Vector2.one * 24);
-                }
-                else
-                {
-                    var plate = GameUI.Image(body, "World caption", art.Get("stat_pill"), caption.center - panelBounds.position,
-                        caption.size * new Vector2(400f / 392, 96f / 86));
-                    // These worlds have no painted caption words; retain their existing identifying plaques.
-                    GameUI.Fit(plate.transform, "World sign", art.Get("world_sign_w" + world),
-                        plate.rectTransform.sizeDelta * 0.5f, new Vector2(120, 88));
-                }
+                var plate = PaintedLabels.Create(body, "World caption", PaintedLabels.WorldCaptionKey(world),
+                    caption.center - panelBounds.position, caption.height);
+                plate.preserveAspect = false;
+                plate.rectTransform.sizeDelta = caption.size * plate.sprite.rect.size / (plate.sprite.rect.size - Vector2.one * 24);
             }
         }
 

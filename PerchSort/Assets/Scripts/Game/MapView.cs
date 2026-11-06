@@ -17,6 +17,8 @@ namespace PerchSort.Game
         private GameArt art;
         private RectTransform content, scenery;
         private PaintedNumber coins;
+        private Image worldTitle;
+        private int titleWorld = 1;
         private readonly Button[] navigation = new Button[3];
         private ScrollRect scroll;
         private GameMotion focus, gateMotion, rewards;
@@ -105,10 +107,10 @@ namespace PerchSort.Game
             // Reuse the painted word and its green backing; the side leaves have their own measured slots.
             Rect title = Layout("world_title");
             Vector2 scale = title.size / new Vector2(1215, 200);
-            var label = SpriteImage(transform, "World title", "labels/label_title_forest_trail",
+            worldTitle = SpriteImage(transform, "World title", "labels/" + PaintedLabels.WorldTitleKey(titleWorld),
                 new Rect(title.position - new Vector2(245, 70) * scale, new Vector2(1680, 360) * scale),
                 new Rect(180, 0, 1680, 360));
-            Measure("world_title", label.rectTransform, new Rect(245f / 1680, 70f / 360, 1215f / 1680, 200f / 360));
+            Measure("world_title", worldTitle.rectTransform, new Rect(245f / 1680, 70f / 360, 1215f / 1680, 200f / 360));
         }
         private Button MapButton(string name, string discKey, string iconKey, string sprite, System.Action action)
         {
@@ -321,6 +323,12 @@ namespace PerchSort.Game
         private void SyncScenery()
         {
             float offset = content.anchoredPosition.y;
+            int world = MapModel.WorldAt(offset + ViewportBounds.height * 0.5f - TopPadding);
+            if (titleWorld != world)
+            {
+                titleWorld = world;
+                worldTitle.sprite = Crop("labels/" + PaintedLabels.WorldTitleKey(world), new Rect(180, 0, 1680, 360));
+            }
             scenery.anchoredPosition = new Vector2(540, offset - ViewportBounds.yMin);
             // Fade whole nodes before the viewport would cut their numerals or stars in half.
             foreach (var node in nodeVisibility)
