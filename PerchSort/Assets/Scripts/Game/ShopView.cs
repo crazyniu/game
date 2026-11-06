@@ -48,9 +48,35 @@ namespace PerchSort.Game
         {
             "outfit.sunny.1", "outfit.sky.1", "outfit.berry.1", "outfit.mint.1"
         };
-        private static readonly string[] outfitLabels =
+        private static readonly Dictionary<string, string> outfitLabels = new Dictionary<string, string>(StringComparer.Ordinal)
         {
-            "label_card_straw_hat", "label_card_cozy_scarf", "label_card_round_glasses", "label_card_flower"
+            { "outfit.sunny.1", "label_card_straw_hat" },
+            { "outfit.sunny.2", "label_card_blue_bow_tie" },
+            { "outfit.sunny.3", "label_card_little_crown" },
+            { "outfit.sky.1", "label_card_cozy_scarf" },
+            { "outfit.sky.2", "label_card_aviator_goggles" },
+            { "outfit.sky.3", "label_card_tiny_top_hat" },
+            { "outfit.berry.1", "label_card_round_glasses" },
+            { "outfit.berry.2", "label_card_pink_bow" },
+            { "outfit.berry.3", "label_card_sparkle_tiara" },
+            { "outfit.mint.1", "label_card_flower" },
+            { "outfit.mint.2", "label_card_mushroom_cap" },
+            { "outfit.mint.3", "label_card_acorn_cap" },
+            { "outfit.cocoa.1", "label_card_red_beanie" },
+            { "outfit.cocoa.2", "label_card_plaid_bow_tie" },
+            { "outfit.cocoa.3", "label_card_monocle" },
+            { "outfit.snow.1", "label_card_earmuffs" },
+            { "outfit.snow.2", "label_card_snowflake_clip" },
+            { "outfit.snow.3", "label_card_ice_tiara" },
+            { "outfit.ember.1", "label_card_red_bandana" },
+            { "outfit.ember.2", "label_card_flame_headband" },
+            { "outfit.ember.3", "label_card_knight_helmet" },
+            { "outfit.ink.1", "label_card_star_nightcap" },
+            { "outfit.ink.2", "label_card_silver_glasses" },
+            { "outfit.ink.3", "label_card_little_star_hat" },
+            { "outfit.hoot.1", "label_card_graduation_cap" },
+            { "outfit.hoot.2", "label_card_reading_glasses" },
+            { "outfit.hoot.3", "label_card_wizard_cape" }
         };
         public bool IsOpen => gameObject.activeSelf;
         public bool ConfirmOpen => confirmation != null && confirmation.activeSelf;
@@ -218,8 +244,7 @@ namespace PerchSort.Game
         private static string CosmeticLabel(Meta.ShopItem item)
         {
             if (item.Kind == Meta.ShopItemKind.Birdhouse) return "label_card_" + item.StyleId;
-            int index = Array.IndexOf(featuredOutfits, item.Id);
-            return index < 0 ? null : outfitLabels[index];
+            return outfitLabels.TryGetValue(item.Id, out string key) ? key : null;
         }
         private bool Owned(Meta.ShopItem item)
         {
