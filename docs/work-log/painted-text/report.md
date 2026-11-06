@@ -2,7 +2,7 @@
 
 ## Status and ownership
 
-Branch: `mac-painted-text/work`. UI-shell stage. Foundation implementation is published; this is **not a complete no-font cutover or integrated runtime acceptance**. The remaining cross-owner retirement boundary is listed below rather than hidden behind a font-backed adapter.
+Current branch: `plush-ui-integration`, starting at the coordinator's combined merge `ee76e7e`. The conditional no-font cleanup is now implemented. Earlier sections retain the original `mac-painted-text/work` checkpoints and their evidence boundaries; the final combined cutover is recorded below. This report does not claim visual, timed-animation or device acceptance.
 
 Read the complete project guide, shared plush UI contract, component rules, text inventory and UI-first shell guidance. Extracted `component_sheet.png` from `origin/ui-design-review` to `/tmp/component_sheet.png` and viewed it. No artwork was generated or edited.
 
@@ -22,7 +22,7 @@ The requested branch-creation command fetched successfully but reported that `ma
 - `Assets/Tests/PlayMode/GameplayTests.cs` and `ModalLayerTests.cs`: settings callers now use PanelsView. Removed obsolete former-panel geometry assertions; retained input blocking, immediate visibility, same-role control dimensions, close/raycast and stacking checks. Scrim assertions now check displayed brightness in the active color space rather than pinning the superseded raw alpha.
 - `docs/work-log/painted-text/spec.md` and this report.
 
-All Assets paths above are under `PerchSort/`. No peer-owned source was edited or merged. No Core, Meta, levels, economy, save keys/schema, scene, project settings or packages were changed.
+All Assets paths above are under `PerchSort/`. The original Foundation work respected the parallel file boundaries; the final coordinator-authorized integration cleanup also edits the shared HudView helper and removes obsolete text-specific tests. No authored Core, Meta, levels, economy, save keys/schema, scene, project settings or packages were changed.
 
 ## State list and click paths
 
@@ -86,7 +86,7 @@ EditMode suites: NOT RUN. PlayMode suites: NOT RUN. Screenshot scripts: NOT RUN.
 
 None among the 89 inventory mappings or 40 supplied level plates. Unknown words deliberately return no key and render no font. No spelling/300-percent art-generation acceptance is claimed; this worker consumed the supplied artwork unchanged.
 
-## Integration prerequisites and anything not done
+## Original worker integration boundaries (resolved by final cutover where noted)
 
 1. **Settings dependency:** integrate popup commit `5efd78979fb8bce8bcd6aa5cb4d1a40512a5c5fb` with this branch. The Foundation commits through `15d73304` are independently compatible with the old views; the final clean GameRoot settings cutover requires the supplied popup members. Do not treat the isolated branch's failed Unity compile as green.
 2. **Legacy font-helper retirement is blocked by foreign callers.** The old TMP-signature GameUI.Text overload and TextFit.cs remain unchanged for the current branch's screen-owned callers, including HudView.CoinHeader and the retained PopupTextFitTests type references. Their removal cannot be completed without those consumers' coordinated migration. No peer files or tests were silently rewritten, and no TMP-to-painted adapter was introduced. The new fontless overload and Foundation API are implemented, but the branch still contains the pre-existing font path. This is an explicit unmet cutover boundary, not a claim of a font-free game.
@@ -115,4 +115,68 @@ The first EditMode-source compilation reported a missing generated Editor refere
 A disposable CPU formula check verified the shader's declared 0.4 default and the 40% luminance blend for red, green, blue and neutral-gray samples. No serialized references to the retired SettingsPanel GUID or type remain. GPU shader compilation/rendering, native material defaults and updated test runtime behavior were not exercised; the one-Unity-invocation limit remains in force.
 
 After staging the settings-source deletion, the naming guard inspected 260 tracked text files and reported zero violations. The post-merge CoinHeader/font-helper cleanup remains gated on the coordinator merging the migrated screen branches; this checkpoint does not claim that conditional removal is complete.
+
+## Final combined cutover
+
+The coordinator merged the six UI branches into `origin/plush-ui-integration` at `ee76e7e` and authorized this worker to finish cleanup and push that integration branch directly. Checked out a new local `plush-ui-integration` tracking branch; no peer branches were merged by this worker.
+
+### Removed dead paths
+
+- Deleted the unused `HudView.CoinHeader` TMP helper and its obsolete migration comment. The board, map, shop and aviary already render their own painted coin rows.
+- Deleted `CoinHeaderTests.cs` and metadata: the old helper's reflection-based TMP geometry test, with eight declared parameter cases.
+- Deleted `TextFit.cs` and metadata and removed the unused TMP-rendering `GameUI.Text` overload. The generic fontless overload and the exact Foundation API remain.
+- Deleted the obsolete `PopupTextFitTests.cs` and metadata. Its single test checked retired TMP/TextFit/ellipsis behavior and would otherwise become vacuous on the painted views. Deleted its now-empty popup test assembly definition, associated metadata and empty folder metadata.
+- Removed GameCapture's unused TMP import and ForceMeshUpdate loop. Capture still rebuilds the UI layout and canvas before rendering.
+- A final targeted source scan found no CoinHeader, TextFit, TextMeshProUGUI or TMP_Text references in runtime/editor/test source after removal. Serialized font references and ignored TMP_FontAsset configuration parameters remain for existing scene/caller compatibility; none instantiate or render player text.
+
+No replacement stubs, aliases, font-backed adapters or parallel UI implementation were added. Existing test-discovery safeguards were not lowered; obsolete tests were explicitly retired rather than re-pinned to a different implementation. No test suite was executed.
+
+### Combined managed preflight
+
+Rebuilt managed compiler inputs from the actual combined Game/Editor source tree, excluding deleted files. No counterpart source substitution or peer-worktree inputs were needed for this final pass. Game, Editor, EditMode-test source and PlayMode-test source assemblies all compiled with exit 0, including the temporary direct-API smoke entry.
+
+Naming self-test: 14 passed. Pre-Unity naming guard: 264 tracked text files inspected, zero violations. Recorded 1815 protected scene/meta/settings/package inputs before the final authorized Unity invocation; aggregate SHA-256 `7ec37018e63995b7819335a644fc47ddf2b11ada76fe4b09f6a7af72bf1b55a2`.
+
+### The single authorized combined Unity invocation
+
+Working directory: `PerchSort/`.
+
+```sh
+flock /tmp/unity.lock /Applications/Unity/Hub/Editor/6000.6.7f1/Unity.app/Contents/MacOS/Unity -batchmode -nographics -quit -projectPath /Users/apple/orca/workspaces/game/painted-text/PerchSort -executeMethod PerchSort.Editor.UiStateSwitcherWindow.CompileSmoke -logFile /Users/apple/orca/workspaces/game/painted-text/build/plush-ui-integration-compile.log
+```
+
+Unity compiled the combined source assemblies and invoked the temporary direct-API smoke entry. **Overall command exit: 1**, not a fully passing smoke command. The smoke stopped at its edit-mode modal-material assertion after the following completed checks:
+
+```text
+INTEGRATION_DISCOVERY_PASS providers=5
+INTEGRATION_PAINTED_COUNTER_PASS
+INTEGRATION_ART_IMPORT_PASS glyphs=45 levels=40 hinges=6
+INTEGRATION_STATE_PASS Board / Data / Typical
+INTEGRATION_STATE_PASS Map / Forest trail
+INTEGRATION_STATE_PASS Popups / Settings / Sound on
+INTEGRATION_STATE_PASS Shop / Boosters / Stock badges
+INTEGRATION_STATE_PASS Aviary / List / Reference
+```
+
+Observed native smoke evidence:
+
+- Reflection discovered all five provider groups and reused the exact root-owned BoardStates instance.
+- PaintedNumber handled positive overflow, all allowed symbol images, pooled-glyph clearing, and a noncentral Rect pivot. The fontless generic helper created the actual Daily Gift plate and a PaintedNumber row.
+- All 45 glyph imports were single/full-rect/centered/uncompressed. All 40 level plates loaded; the widest checked caption retained its native 3117-pixel canvas. All six world-door pivots retained their left/right hinges after ImportExisting.
+- Each of the five representative provider states instantiated with zero TMP_Text components anywhere in the root hierarchy.
+- After all five preview transitions, EndBoardPreview restored the original session reference, coin balance and map surface. GameRoot.OpenSettings then opened the canonical PanelsView with IsSettings true.
+
+The next assertion expected ModalBackdrop's runtime OnEnable to have applied its material during this edit-mode fixture and failed with `InvalidOperationException: Modal desaturation parameter`. ModalBackdrop is an ordinary MonoBehaviour; Unity documents that [event functions execute at runtime by default unless ExecuteAlways is applied](https://docs.unity.com/en-us/engine/6000.6/script-reference/unityengine/executealways). The fixture did not enter Play mode or invoke that lifecycle callback. This does not establish a production shader defect, and no ExecuteAlways flag or runtime workaround was added to satisfy the fixture. Play-mode material application/restoration, shader rendering, timed motion and full visual acceptance remain **NOT ASSESSED**. The later material-restoration assertions were not reached.
+
+No second Unity process was started. No EditMode/PlayMode suites, screenshot scripts or scene-builder command were executed. The temporary smoke entry was removed after the run.
+
+### Final source verification and preservation
+
+After removing the temporary smoke entry, compiled the final Game, Editor, EditMode-test source and PlayMode-test source assemblies with Unity's bundled Roslyn compiler and the current generated response files: **all four exit 0**. This compile-only pass executed no tests. Generated compiler evidence is `build/plush-ui-integration-managed.log`; native evidence is `build/plush-ui-integration-compile.log`.
+
+Unity rewrote 925 existing resource metadata files. Inspected and classified every diff before restoration: 918 were trailing-whitespace serialization changes; seven authored egg/family overlays gained only additive serialization defaults with every prior authored value unchanged. Restored their exact recorded pre-run bytes. All 1815 recorded scene/meta/settings/package inputs are now byte-identical to the pre-run snapshot; no unrelated import churn is included in this cleanup.
+
+The conditional cleanup is complete on the combined integration branch. Earlier settings/font-helper merge blockers in this report are historical and no longer apply. The retired legacy tests and empty test assembly are explicitly removed, not hidden or skipped; discovery safeguards were not lowered. Rendered screenshots, Play-mode material lifecycle, full state enumeration, timed motion/audio and device acceptance are intentionally not claimed.
+
+Final staged naming guard: 260 tracked text files inspected, zero violations. Final source scan: no CoinHeader, TextFit, TextMeshProUGUI, TMP_Text construction/update paths, or ForceMeshUpdate calls remain in Game/Editor/test sources. Temporary smoke/compiler scaffolding was removed; only the requested canonical cleanup and report/spec changes are committed.
 

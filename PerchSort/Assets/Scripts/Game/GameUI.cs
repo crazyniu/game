@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -61,20 +60,6 @@ namespace PerchSort.Game
             }
             Debug.LogError("Missing painted label for text: " + value);
             return Rect(parent, name, point, size);
-        }
-
-        public static TextMeshProUGUI Text(Transform parent, string name, string value, TMP_FontAsset font,
-            Vector2 point, Vector2 size, float fontSize)
-        {
-            var text = Rect(parent, name, point, size).gameObject.AddComponent<TextMeshProUGUI>();
-            if (font != null) text.font = font;
-            text.text = value;
-            text.fontSize = fontSize;
-            text.fontStyle = FontStyles.Bold;
-            text.alignment = TextAlignmentOptions.Center;
-            text.color = Ink;
-            text.raycastTarget = false;
-            return text;
         }
 
         public static Image Surface(Transform parent, string name, GameArt art, string sprite, Rect bounds)

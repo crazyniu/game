@@ -99,19 +99,6 @@ namespace PerchSort.Game
             effects = GameUI.Rect(transform, "HUD particles", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
         }
 
-        // Other screen owners migrate their own coin headers; this helper is not used by the board.
-        public static TextMeshProUGUI CoinHeader(Transform parent, GameArt art, TMP_FontAsset font, bool map = false)
-        {
-            Rect bounds = map ? GameLayout.Screen("map", "coin_pill") : GameLayout.CoinPill;
-            Rect canvas = map ? new Rect(40, bounds.y + 8, 232, 232 * 128f / 320) : bounds;
-            GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
-            Rect text = map ? new Rect(canvas.x + canvas.width * 142 / 320, canvas.y + canvas.height * 32 / 128,
-                canvas.width * 152 / 320, canvas.height * 60 / 128) : GameLayout.CoinNumber;
-            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, map ? GameLayout.CoinFontSize : 20);
-            label.color = GameUI.Ink; label.textWrappingMode = TextWrappingModes.NoWrap;
-            label.enableAutoSizing = map; label.fontSizeMin = GameLayout.CoinMinimumFontSize; label.fontSizeMax = GameLayout.CoinFontSize;
-            return label;
-        }
         public void SetLevel(BoardSnapshot snapshot)
         {
             Cancel(); displayedMoves = -1;
