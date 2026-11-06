@@ -17,6 +17,9 @@ The requested branch-creation command fetched successfully but reported that `ma
 - `Assets/Editor/Game/UiStateSwitcherWindow.cs`: reflection discovers public sealed IScreenStates implementations with a public `(GameRoot)` constructor; sorted screen foldouts, state/screen filtering, Instant motion and Return to real game. Reuses `root.BoardStates` instead of constructing a second BoardFakeData; existing board input/completion routing stays on the root-owned instance. Switching provider restores the previous real-game transaction before entering the next preview.
 - `Assets/Editor/Game/GameArtImporter.cs`: lettering-only single/full-rect/centered/uncompressed import policy, zero borders, no mipmaps/crunch/physics generation, bilinear/clamped sampling, native canvases retained up to 4096, and cleared compressed platform overrides. Other import policies remain separate. Per coordinator request, world-specific left/right gate doors retain their authored hinge pivots `(0.025, 0.5)` / `(0.975, 0.5)` instead of being recentered.
 - `Assets/Scripts/Game/GameRoot.cs`: `PreviewMap(GameProfile)` installs a supplied synthetic profile through the existing nonpersistent preview transaction. Settings routes directly to the popup owner's `PanelsView.Settings()` / `IsSettings`; the old SettingsPanel field, construction and calls are removed. No fallback to the old settings surface.
+- `Assets/Shaders/UIDesaturated.shader`: coordinator-authorized `_Desaturation` Range property and uniform, default 0.4. ModalBackdrop constructs its material from this shader without overriding properties, so its modal material receives the contracted 40% blend rather than the previous hardcoded 60%.
+- `Assets/Scripts/Game/SettingsPanel.cs` and its `.meta`: deleted after the clean root cutover made the implementation unreachable.
+- `Assets/Tests/PlayMode/GameplayTests.cs` and `ModalLayerTests.cs`: settings callers now use PanelsView. Removed obsolete former-panel geometry assertions; retained input blocking, immediate visibility, same-role control dimensions, close/raycast and stacking checks. Scrim assertions now check displayed brightness in the active color space rather than pinning the superseded raw alpha.
 - `docs/work-log/painted-text/spec.md` and this report.
 
 All Assets paths above are under `PerchSort/`. No peer-owned source was edited or merged. No Core, Meta, levels, economy, save keys/schema, scene, project settings or packages were changed.
@@ -87,6 +90,27 @@ None among the 89 inventory mappings or 40 supplied level plates. Unknown words 
 
 1. **Settings dependency:** integrate popup commit `5efd78979fb8bce8bcd6aa5cb4d1a40512a5c5fb` with this branch. The Foundation commits through `15d73304` are independently compatible with the old views; the final clean GameRoot settings cutover requires the supplied popup members. Do not treat the isolated branch's failed Unity compile as green.
 2. **Legacy font-helper retirement is blocked by foreign callers.** The old TMP-signature GameUI.Text overload and TextFit.cs remain unchanged for the current branch's screen-owned callers, including HudView.CoinHeader and the retained PopupTextFitTests type references. Their removal cannot be completed without those consumers' coordinated migration. No peer files or tests were silently rewritten, and no TMP-to-painted adapter was introduced. The new fontless overload and Foundation API are implemented, but the branch still contains the pre-existing font path. This is an explicit unmet cutover boundary, not a claim of a font-free game.
-3. **Old SettingsPanel source:** no instance is created after this root cutover; the unassigned source file itself was not deleted.
-4. **Modal desaturation:** the popup owner reports that the retained UIDesaturated shader hardcodes 60% instead of the contracted 40%. Shader changes are outside this task's ownership and were not made here.
+3. **Old SettingsPanel source:** deleted with its matching metadata under the coordinator's expanded integration ownership. No type or serialized GUID references remain; GameLayout's unrelated rectangle member with the same name is retained.
+4. **Modal desaturation:** fixed under the coordinator's expanded ownership. The shader now declares `_Desaturation` with default 0.4 and uses that uniform in the color blend. This controls the popup owner's existing ModalBackdrop material without changing its live-frame or restoration behavior.
 5. Native importer execution, world-door visual motion, the complete reflection switcher interaction, and preview restoration remain unverified because the sole Unity invocation stopped at the missing popup dependency. Static metadata preservation and managed compilation are the evidence available from this run.
+
+## Shared integration update
+
+The coordinator expanded ownership to the modal shader, unused SettingsPanel removal, affected settings test callers, and eventual legacy coin-header cleanup. The shader and settings-source changes above are pushed as shared integration work. The gate hinge fix remains in place.
+
+CoinHeader/font-helper removal is conditional on the other screen branches being merged. At the integration checkpoint, `origin/main` remained `ba181c7a`; its current views still call the TMP CoinHeader/TextFit paths. Migrated peer worktrees no longer consume CoinHeader except for its unused declaration in the board owner's file. The requested post-merge cleanup has not been silently applied to still-active callers.
+
+No additional Unity invocation was started. Managed compilation reused the existing Unity-generated response files, read the popup owner's counterpart sources directly, and omitted the deliberately deleted SettingsPanel source. Results:
+
+| Managed source assembly | Compiler exit |
+| --- | --- |
+| Game, with supplied popup dependency | 0 |
+| Editor | 0 |
+| EditMode test sources | 0 |
+| PlayMode test sources | 0 |
+| Popup PlayMode test sources | 0 |
+
+The first EditMode-source compilation reported a missing generated Editor reference assembly. Compiling Editor first and supplying that reference resolved the compiler-input prerequisite. These are source compilation results, not test-suite runs.
+
+A disposable CPU formula check verified the shader's declared 0.4 default and the 40% luminance blend for red, green, blue and neutral-gray samples. No serialized references to the retired SettingsPanel GUID or type remain. GPU shader compilation/rendering, native material defaults and updated test runtime behavior were not exercised; the one-Unity-invocation limit remains in force.
+

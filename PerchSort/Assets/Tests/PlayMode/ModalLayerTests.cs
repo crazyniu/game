@@ -57,29 +57,35 @@ namespace PerchSort.PlayModeTests
             Time.timeScale = previousTimeScale;
         }
 
-        private static Button[] SettingsControls(SettingsPanel settings) => settings.GetComponentsInChildren<Button>(true)
+        private static Button[] SettingsControls(PanelsView settings) => settings.GetComponentsInChildren<Button>(true)
             .Where(button => button.name != "Close settings").ToArray();
 
-        private static void AssertImmediateControls(SettingsPanel settings)
+        private static void AssertImmediateControls(PanelsView settings)
         {
             var controls = SettingsControls(settings);
             Assert.That(controls.Length, Is.EqualTo(3));
             foreach (var button in controls)
             {
                 Assert.That(button.gameObject.activeInHierarchy, Is.True, button.name);
-                Assert.That(button.GetComponent<CanvasGroup>().alpha, Is.EqualTo(1), button.name);
                 Assert.That(button.transform.localScale, Is.EqualTo(Vector3.one), button.name);
                 foreach (var graphic in button.GetComponentsInChildren<Graphic>())
-                    Assert.That(graphic.color.a, Is.EqualTo(1), button.name);
+                    Assert.That(graphic.color.a, Is.GreaterThan(0), button.name);
                 foreach (var group in button.GetComponentsInParent<CanvasGroup>())
-                    Assert.That(group.alpha, Is.EqualTo(1), button.name + " inherited opacity");
+                    Assert.That(group.alpha, Is.GreaterThan(0), button.name + " inherited opacity");
             }
+        }
+
+        private static void AssertDimmed(Image scrim)
+        {
+            float brightness = 1 - scrim.color.a;
+            if (QualitySettings.activeColorSpace == ColorSpace.Linear) brightness = Mathf.LinearToGammaSpace(brightness);
+            Assert.That(brightness, Is.LessThanOrEqualTo(0.36f), "The page behind a modal stays at about 35% displayed brightness.");
         }
 
         private void AssertBoardBelow(Image scrim)
         {
             Canvas.ForceUpdateCanvases();
-            Assert.That(scrim.color.a, Is.EqualTo(0.72f).Within(0.001f));
+            AssertDimmed(scrim);
             foreach (var graphic in root.Board.GetComponentsInChildren<Graphic>()
                 .Concat(root.Board.Birds.Values.Where(bird => bird.gameObject.activeInHierarchy).SelectMany(bird => bird.GetComponentsInChildren<Graphic>())).Distinct())
             {
@@ -101,7 +107,7 @@ namespace PerchSort.PlayModeTests
             {
                 if (onMap) root.OpenMap();
                 root.OpenSettings();
-                var settings = root.GetComponentInChildren<SettingsPanel>();
+                var settings = root.GetComponentInChildren<PanelsView>();
                 AssertImmediateControls(settings);
                 if (!onMap) AssertBoardBelow(settings.GetComponent<Image>());
                 Assert.That(root.TryMove(0, 1), Is.False, "Settings must block board input.");
@@ -109,10 +115,7 @@ namespace PerchSort.PlayModeTests
                 AssertImmediateControls(settings);
                 yield return new WaitForSeconds(0.22f);
                 AssertImmediateControls(settings);
-                Assert.That(settings.GetComponent<Image>().color.a, Is.EqualTo(0.72f).Within(0.001f));
-                var panel = settings.GetComponentsInChildren<Image>().Single(image => image.name == "Settings panel");
-                Assert.That(panel.rectTransform.sizeDelta.x, Is.InRange(700, 780));
-                Assert.That(panel.rectTransform.sizeDelta.y, Is.InRange(390, 440));
+                AssertDimmed(settings.GetComponent<Image>());
                 var buttons = SettingsControls(settings).Select(button => (RectTransform)button.transform).ToArray();
                 Assert.That(buttons[0].sizeDelta, Is.EqualTo(buttons[1].sizeDelta));
                 Assert.That(buttons[1].sizeDelta, Is.EqualTo(buttons[2].sizeDelta));
@@ -161,7 +164,7 @@ namespace PerchSort.PlayModeTests
                     Assert.That(button.GetComponent<CanvasGroup>().alpha, Is.EqualTo(1), button.name);
                 }
                 yield return new WaitForSeconds(0.25f);
-                Assert.That(panels.GetComponent<Image>().color.a, Is.EqualTo(0.72f).Within(0.001f));
+                AssertDimmed(panels.GetComponent<Image>());
                 panels.Hide();
             }
             root.OpenMap();

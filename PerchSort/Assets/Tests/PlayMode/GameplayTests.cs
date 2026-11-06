@@ -366,7 +366,7 @@ namespace PerchSort.PlayModeTests
             Assert.That(cards.CardLevel, Is.EqualTo(1)); Assert.That(root.TryMove(0, 1), Is.False);
             cards.GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
             root.OpenSettings(); Assert.That(root.TryMove(0, 1), Is.False);
-            root.GetComponentInChildren<SettingsPanel>().GetComponentsInChildren<Button>().Single(button => button.name == "Return to map").onClick.Invoke();
+            root.GetComponentInChildren<PanelsView>().GetComponentsInChildren<Button>().Single(button => button.name == "Return to map").onClick.Invoke();
             Assert.That(root.IsMap, Is.True);
             root.Map.Nodes[1].onClick.Invoke();
             root.GetComponentInChildren<PanelsView>().GetComponentsInChildren<Button>().Single(button => button.name == "Play level 1").onClick.Invoke();
