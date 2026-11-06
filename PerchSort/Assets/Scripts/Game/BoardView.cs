@@ -314,6 +314,16 @@ namespace PerchSort.Game
                     screen.Hud.Phase(data.Phase, data.Snapshot.Hud.PhaseMovesLeft, data.Snapshot.Hud.PhaseEnabled);
                     screen.Scene.ChangePhase(data.Phase, next); break;
                 case Kind.Booster:
+                    screen.PlaySound(data.Booster switch
+                    {
+                        PerchSort.Core.BoosterKind.Firefly => Sfx.Hint,
+                        PerchSort.Core.BoosterKind.Sapling => data.Source is PerchSort.Core.BoosterUsed { ConsumedInventory: false } ? Sfx.ExtraBranch : Sfx.Sapling,
+                        PerchSort.Core.BoosterKind.OwlEye => Sfx.OwlEye,
+                        PerchSort.Core.BoosterKind.MorningBell => Sfx.MorningBell,
+                        PerchSort.Core.BoosterKind.Scarecrow => Sfx.Scarecrow,
+                        PerchSort.Core.BoosterKind.SpringRain => Sfx.SpringRain,
+                        _ => throw new ArgumentOutOfRangeException()
+                    });
                     screen.Hud.SetStock(data.Booster, data.Remaining);
                     if (data.Booster == PerchSort.Core.BoosterKind.Sapling) { RebuildViews(data.Snapshot); screen.Scene.SetLevel(data.Snapshot); }
                     screen.Hud.FlyIcon(ViewModel.Icon(data.Booster), screen.Hud.BoosterPoint(data.Booster), new Vector2(540, 1050), next); break;

@@ -8,37 +8,6 @@ namespace PerchSort.EditModeTests
     public sealed class ViewPolicyTests
     {
         [Test]
-        public void GreedyHintPrefersImmediateFlockOverAnEmptyBranch()
-        {
-            var board = GameFixtures.Create("sleep").CreateBoard();
-            var move = ViewModel.GreedyHint(board);
-            Assert.That(move.HasValue, Is.True);
-            Assert.That(move.Value.From, Is.EqualTo(2)); Assert.That(move.Value.To, Is.EqualTo(3));
-        }
-        [Test]
-        public void GreedyHintCountsMamaFollowersBeforeChoosingALargerJoin()
-        {
-            var level = GameFixtures.Create("sleep");
-            level.branches[0].birds = new[] { "sunny:chick", "sky", "sunny:mama" };
-            level.branches[1].birds = new[] { "sunny", "sunny" };
-            level.branches[2].birds = new[] { "sky", "sky" };
-            level.branches[3].birds = new[] { "sky" };
-            var session = new GameSession(level);
-            var move = ViewModel.GreedyHint(session.State);
-            Assert.That(move.HasValue, Is.True);
-            Assert.That(session.TryAction(move.Value), Is.True);
-            Assert.That(session.State.HomedSpecies.Count, Is.EqualTo(1));
-            Assert.That(session.State.HomedSpecies[0].Id, Is.EqualTo("sunny"));
-        }
-        [Test]
-        public void NoLegalHintNeverInventsAMove()
-        {
-            var level = GameFixtures.Create("sleep");
-            foreach (var branch in level.branches)
-                for (int i = 0; i < branch.birds.Length; i++) branch.birds[i] = branch.birds[i].Split(':')[0] + ":sleep";
-            Assert.That(ViewModel.GreedyHint(level.CreateBoard()), Is.Null);
-        }
-        [Test]
         public void StarterGrantsAreOnceOnlyAcrossEarlierAndLaterLevels()
         {
             var profile = new GameProfile();

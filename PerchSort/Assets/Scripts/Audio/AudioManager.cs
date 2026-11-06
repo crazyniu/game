@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 namespace PerchSort.Audio
 {
-    public enum Sfx { Select,Move,Collect,Win,Error,Undo,Click,Flutter,Sleep,Crate,Star1,Star2,Star3,Hint,Back,Sapling,OwlEye,MorningBell,Scarecrow,SpringRain }
+    public enum Sfx { Select,Move,Collect,Win,Error,Undo,Click,Flutter,Sleep,Crate,Star1,Star2,Star3,Hint,Back,Sapling,OwlEye,MorningBell,Scarecrow,SpringRain,ExtraBranch }
     public enum MusicPage { None,Menu,Game }
     public sealed class AudioManager:MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace PerchSort.Audio
         public bool IsCrossfading{get;private set;}
         public const float CrossfadeSeconds=1f;
         public static readonly string[] SoundKeys={"chirp_01","chirp_02","chirp_03","chirp_04","chirp_05","flutter","sleep_z","nest_home","crate_open","star_1","star_2","star_3","win_fanfare","hint","ui_tap","ui_back"};
-        public static readonly string[] EffectKeys={"chirp","chirp","nest_home","win_fanfare","error","undo","ui_tap","flutter","sleep_z","crate_open","star_1","star_2","star_3","hint","ui_back","crate_open","star_1","chirp_05","star_3","star_2"};
+        public static readonly string[] EffectKeys={"chirp","chirp","nest_home","win_fanfare","error","undo","ui_tap","flutter","sleep_z","crate_open","star_1","star_2","star_3","hint","ui_back","crate_open","star_1","chirp_05","star_3","star_2","flutter"};
         private static readonly string[] Legacy={"select","move","collect","win","error","undo","click"};
         private readonly AudioClip[] fallback=new AudioClip[7],effects=new AudioClip[EffectKeys.Length],chirps=new AudioClip[5],music=new AudioClip[2];
         private readonly AudioSource[] voices=new AudioSource[8],songs=new AudioSource[2];
