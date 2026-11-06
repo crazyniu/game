@@ -1,4 +1,0 @@
-Documented native-size source-layer assembly, not a runtime screenshot metric.
-world 1: source-layer RGBA mean absolute difference=17.2302/255; closed masters and separated layers are not identical
-world 2: source-layer RGBA mean absolute difference=17.4494/255; closed masters and separated layers are not identical
-world 3: source-layer RGBA mean absolute difference=19.6977/255; closed masters and separated layers are not identical
