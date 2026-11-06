@@ -179,6 +179,6735 @@
       82
     ]
   },
+  "board_win_panel": {
+    "elements": [
+      {
+        "id": "board",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "coin_hud",
+        "rect": [
+          37,
+          50,
+          304,
+          116
+        ]
+      },
+      {
+        "id": "coin_hud_icon",
+        "rect": [
+          39,
+          51,
+          126,
+          112
+        ]
+      },
+      {
+        "id": "coin_hud_value",
+        "rect": [
+          174,
+          78,
+          131,
+          54
+        ]
+      },
+      {
+        "id": "moves_hud",
+        "rect": [
+          34,
+          164,
+          405,
+          116
+        ]
+      },
+      {
+        "id": "moves_hud_feet",
+        "rect": [
+          50,
+          199,
+          63,
+          47
+        ]
+      },
+      {
+        "id": "moves_hud_value",
+        "rect": [
+          120,
+          193,
+          44,
+          55
+        ]
+      },
+      {
+        "id": "moves_hud_divider",
+        "rect": [
+          179,
+          181,
+          9,
+          79
+        ]
+      },
+      {
+        "id": "hud_star_1",
+        "rect": [
+          208,
+          173,
+          50,
+          49
+        ]
+      },
+      {
+        "id": "hud_threshold_1",
+        "rect": [
+          211,
+          227,
+          39,
+          36
+        ]
+      },
+      {
+        "id": "hud_star_2",
+        "rect": [
+          278,
+          173,
+          51,
+          49
+        ]
+      },
+      {
+        "id": "hud_threshold_2",
+        "rect": [
+          279,
+          227,
+          41,
+          36
+        ]
+      },
+      {
+        "id": "hud_star_3",
+        "rect": [
+          349,
+          173,
+          51,
+          49
+        ]
+      },
+      {
+        "id": "hud_threshold_3",
+        "rect": [
+          349,
+          227,
+          57,
+          36
+        ]
+      },
+      {
+        "id": "goal_count",
+        "rect": [
+          35,
+          282,
+          202,
+          94
+        ]
+      },
+      {
+        "id": "goal_sun",
+        "rect": [
+          49,
+          292,
+          94,
+          73
+        ]
+      },
+      {
+        "id": "goal_number",
+        "rect": [
+          157,
+          303,
+          46,
+          48
+        ]
+      },
+      {
+        "id": "settings",
+        "rect": [
+          952,
+          79,
+          114,
+          104
+        ]
+      },
+      {
+        "id": "settings_icon",
+        "rect": [
+          981,
+          100,
+          57,
+          57
+        ]
+      },
+      {
+        "id": "house_rope",
+        "rect": [
+          550,
+          0,
+          50,
+          182
+        ]
+      },
+      {
+        "id": "goal_house",
+        "rect": [
+          417,
+          174,
+          323,
+          227
+        ]
+      },
+      {
+        "id": "house_entry",
+        "rect": [
+          542,
+          269,
+          83,
+          81
+        ]
+      },
+      {
+        "id": "goal_ring_yellow",
+        "rect": [
+          371,
+          402,
+          100,
+          94
+        ]
+      },
+      {
+        "id": "goal_bird_yellow",
+        "rect": [
+          385,
+          419,
+          71,
+          69
+        ]
+      },
+      {
+        "id": "goal_badge_yellow",
+        "rect": [
+          431,
+          459,
+          53,
+          48
+        ]
+      },
+      {
+        "id": "goal_ring_blue",
+        "rect": [
+          510,
+          402,
+          98,
+          94
+        ]
+      },
+      {
+        "id": "goal_bird_blue",
+        "rect": [
+          523,
+          418,
+          72,
+          70
+        ]
+      },
+      {
+        "id": "goal_badge_blue",
+        "rect": [
+          571,
+          459,
+          53,
+          48
+        ]
+      },
+      {
+        "id": "goal_ring_owl",
+        "rect": [
+          648,
+          400,
+          98,
+          96
+        ]
+      },
+      {
+        "id": "goal_bird_owl",
+        "rect": [
+          661,
+          415,
+          76,
+          73
+        ]
+      },
+      {
+        "id": "goal_badge_owl",
+        "rect": [
+          709,
+          459,
+          54,
+          48
+        ]
+      },
+      {
+        "id": "branch_yellow_1",
+        "rect": [
+          59,
+          688,
+          128,
+          137
+        ]
+      },
+      {
+        "id": "branch_blue_1",
+        "rect": [
+          184,
+          696,
+          130,
+          129
+        ]
+      },
+      {
+        "id": "branch_owl_1",
+        "rect": [
+          312,
+          708,
+          75,
+          89
+        ]
+      },
+      {
+        "id": "branch_blue_fragment",
+        "rect": [
+          844,
+          837,
+          41,
+          23
+        ]
+      },
+      {
+        "id": "branch_yellow_2",
+        "rect": [
+          951,
+          831,
+          95,
+          136
+        ]
+      },
+      {
+        "id": "branch_yellow_3",
+        "rect": [
+          58,
+          1049,
+          55,
+          99
+        ]
+      },
+      {
+        "id": "branch_yellow_4",
+        "rect": [
+          968,
+          1158,
+          80,
+          135
+        ]
+      },
+      {
+        "id": "tools_bar",
+        "rect": [
+          193,
+          1727,
+          729,
+          146
+        ]
+      },
+      {
+        "id": "tool_undo",
+        "rect": [
+          245,
+          1750,
+          99,
+          103
+        ]
+      },
+      {
+        "id": "tool_icon_undo",
+        "rect": [
+          269,
+          1773,
+          51,
+          49
+        ]
+      },
+      {
+        "id": "tool_hint",
+        "rect": [
+          488,
+          1749,
+          101,
+          105
+        ]
+      },
+      {
+        "id": "tool_icon_hint",
+        "rect": [
+          517,
+          1770,
+          44,
+          62
+        ]
+      },
+      {
+        "id": "tool_branch",
+        "rect": [
+          730,
+          1749,
+          103,
+          104
+        ]
+      },
+      {
+        "id": "tool_icon_branch",
+        "rect": [
+          748,
+          1769,
+          67,
+          59
+        ]
+      },
+      {
+        "id": "win_panel",
+        "rect": [
+          110,
+          856,
+          860,
+          514
+        ]
+      },
+      {
+        "id": "panel_frame",
+        "rect": [
+          110,
+          856,
+          860,
+          514
+        ]
+      },
+      {
+        "id": "panel_cream",
+        "rect": [
+          143,
+          889,
+          795,
+          442
+        ]
+      },
+      {
+        "id": "hero",
+        "rect": [
+          369,
+          616,
+          330,
+          173
+        ]
+      },
+      {
+        "id": "win_ribbon",
+        "rect": [
+          220,
+          777,
+          638,
+          137
+        ]
+      },
+      {
+        "id": "ribbon_leaves_left",
+        "rect": [
+          217,
+          797,
+          111,
+          114
+        ]
+      },
+      {
+        "id": "ribbon_leaves_right",
+        "rect": [
+          753,
+          795,
+          105,
+          115
+        ]
+      },
+      {
+        "id": "win_title",
+        "rect": [
+          357,
+          796,
+          366,
+          69
+        ]
+      },
+      {
+        "id": "win_star_1",
+        "rect": [
+          286,
+          934,
+          107,
+          98
+        ]
+      },
+      {
+        "id": "threshold_pill_1",
+        "rect": [
+          257,
+          1056,
+          166,
+          58
+        ]
+      },
+      {
+        "id": "threshold_value_1",
+        "rect": [
+          305,
+          1063,
+          69,
+          42
+        ]
+      },
+      {
+        "id": "win_star_2",
+        "rect": [
+          486,
+          934,
+          107,
+          98
+        ]
+      },
+      {
+        "id": "threshold_pill_2",
+        "rect": [
+          457,
+          1056,
+          166,
+          58
+        ]
+      },
+      {
+        "id": "threshold_value_2",
+        "rect": [
+          505,
+          1063,
+          69,
+          42
+        ]
+      },
+      {
+        "id": "win_star_3",
+        "rect": [
+          686,
+          934,
+          107,
+          98
+        ]
+      },
+      {
+        "id": "threshold_pill_3",
+        "rect": [
+          657,
+          1056,
+          166,
+          58
+        ]
+      },
+      {
+        "id": "threshold_value_3",
+        "rect": [
+          698,
+          1063,
+          84,
+          42
+        ]
+      },
+      {
+        "id": "move_pill",
+        "rect": [
+          405,
+          1138,
+          270,
+          74
+        ]
+      },
+      {
+        "id": "move_footprint",
+        "rect": [
+          470,
+          1155,
+          62,
+          40
+        ]
+      },
+      {
+        "id": "move_value",
+        "rect": [
+          567,
+          1157,
+          91,
+          39
+        ]
+      },
+      {
+        "id": "reward_pill",
+        "rect": [
+          380,
+          1236,
+          320,
+          94
+        ]
+      },
+      {
+        "id": "reward_coin",
+        "rect": [
+          380,
+          1237,
+          104,
+          93
+        ]
+      },
+      {
+        "id": "reward_value",
+        "rect": [
+          522,
+          1252,
+          126,
+          56
+        ]
+      },
+      {
+        "id": "action_retry",
+        "rect": [
+          339,
+          1432,
+          88,
+          93
+        ]
+      },
+      {
+        "id": "action_icon_retry",
+        "rect": [
+          360,
+          1453,
+          47,
+          51
+        ]
+      },
+      {
+        "id": "action_play",
+        "rect": [
+          484,
+          1419,
+          111,
+          120
+        ]
+      },
+      {
+        "id": "action_icon_play",
+        "rect": [
+          517,
+          1451,
+          54,
+          60
+        ]
+      },
+      {
+        "id": "action_home",
+        "rect": [
+          654,
+          1432,
+          95,
+          96
+        ]
+      },
+      {
+        "id": "action_icon_home",
+        "rect": [
+          681,
+          1452,
+          49,
+          52
+        ]
+      }
+    ],
+    "sprites": [
+      {
+        "name": "sunny_outfit_3_cheer",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          20,
+          66,
+          277,
+          238
+        ]
+      },
+      {
+        "name": "sunny_outfit_2_cheer",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          19,
+          70,
+          278,
+          232
+        ]
+      },
+      {
+        "name": "sunny_outfit_1_cheer",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          18,
+          63,
+          280,
+          240
+        ]
+      },
+      {
+        "name": "sunny_cheer",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          13,
+          65,
+          288,
+          237
+        ]
+      },
+      {
+        "name": "panel_wood",
+        "canvas": [
+          800,
+          540
+        ],
+        "rect": [
+          4,
+          38,
+          792,
+          481
+        ]
+      },
+      {
+        "name": "stat_pill",
+        "canvas": [
+          400,
+          96
+        ],
+        "rect": [
+          4,
+          5,
+          392,
+          86
+        ]
+      },
+      {
+        "name": "aviary_frame",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          5,
+          4,
+          310,
+          312
+        ]
+      },
+      {
+        "name": "btn_wood",
+        "canvas": [
+          160,
+          160
+        ],
+        "rect": [
+          4,
+          3,
+          152,
+          152
+        ]
+      },
+      {
+        "name": "btn_green",
+        "canvas": [
+          220,
+          220
+        ],
+        "rect": [
+          7,
+          3,
+          205,
+          213
+        ]
+      },
+      {
+        "name": "coin",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          3,
+          2,
+          90,
+          92
+        ]
+      },
+      {
+        "name": "star_full",
+        "canvas": [
+          256,
+          256
+        ],
+        "rect": [
+          0,
+          21,
+          243,
+          220
+        ]
+      },
+      {
+        "name": "star_empty",
+        "canvas": [
+          256,
+          256
+        ],
+        "rect": [
+          0,
+          11,
+          252,
+          241
+        ]
+      },
+      {
+        "name": "footprints",
+        "canvas": [
+          64,
+          64
+        ],
+        "rect": [
+          2,
+          7,
+          60,
+          49
+        ]
+      },
+      {
+        "name": "hoot_sleep_bare",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          69,
+          148,
+          168,
+          153
+        ]
+      },
+      {
+        "name": "dial_frame",
+        "canvas": [
+          720,
+          288
+        ],
+        "rect": [
+          9,
+          9,
+          702,
+          270
+        ]
+      },
+      {
+        "name": "dial_sun",
+        "canvas": [
+          128,
+          128
+        ],
+        "rect": [
+          5,
+          4,
+          117,
+          119
+        ]
+      },
+      {
+        "name": "dial_moon",
+        "canvas": [
+          128,
+          128
+        ],
+        "rect": [
+          6,
+          4,
+          115,
+          120
+        ]
+      },
+      {
+        "name": "zzz",
+        "canvas": [
+          192,
+          192
+        ],
+        "rect": [
+          39,
+          40,
+          125,
+          102
+        ]
+      },
+      {
+        "name": "gift_nest",
+        "canvas": [
+          768,
+          768
+        ],
+        "rect": [
+          70,
+          390,
+          628,
+          350
+        ]
+      },
+      {
+        "name": "icon_close",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          2,
+          2,
+          92,
+          91
+        ]
+      },
+      {
+        "name": "icon_replay",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          2,
+          3,
+          92,
+          90
+        ]
+      },
+      {
+        "name": "icon_home",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          2,
+          5,
+          92,
+          86
+        ]
+      },
+      {
+        "name": "icon_sound_on",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          2,
+          14,
+          92,
+          68
+        ]
+      },
+      {
+        "name": "icon_sound_off",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          2,
+          4,
+          92,
+          87
+        ]
+      },
+      {
+        "name": "icon_play",
+        "canvas": [
+          96,
+          96
+        ],
+        "rect": [
+          7,
+          2,
+          81,
+          92
+        ]
+      },
+      {
+        "name": "gift_coin_nightcall",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          136
+        ]
+      },
+      {
+        "name": "gift_coin_encore",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          136
+        ]
+      },
+      {
+        "name": "gift_coin_lightstep",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          136
+        ]
+      },
+      {
+        "name": "gift_coin_reveal",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          136
+        ]
+      },
+      {
+        "name": "gift_coin_hatch",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          6,
+          6,
+          129,
+          133
+        ]
+      },
+      {
+        "name": "gift_coin_moonbeam",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          134,
+          133
+        ]
+      },
+      {
+        "name": "gift_coin_grow",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          136
+        ]
+      },
+      {
+        "name": "gift_coin_scare",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          135,
+          135
+        ]
+      },
+      {
+        "name": "gift_coin_wake",
+        "canvas": [
+          144,
+          144
+        ],
+        "rect": [
+          3,
+          4,
+          134,
+          134
+        ]
+      },
+      {
+        "name": "label_caption_land_anywhere",
+        "canvas": [
+          1597,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1573,
+          204
+        ]
+      },
+      {
+        "name": "label_level_7",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_show_off_loves_an_encore",
+        "canvas": [
+          1957,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1933,
+          186
+        ]
+      },
+      {
+        "name": "label_name_cocoa",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_caption_sleepy_eyed_never_in_a_hurry",
+        "canvas": [
+          1936,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1912,
+          186
+        ]
+      },
+      {
+        "name": "label_caption_home",
+        "canvas": [
+          654,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          630,
+          156
+        ]
+      },
+      {
+        "name": "label_title_daily_gift",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_level_6",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_plaid_bow_tie",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_little_crown",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_4",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_name_ink",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_level_5",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_hot_headed_cracks_eggs_open",
+        "canvas": [
+          2088,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          2064,
+          186
+        ]
+      },
+      {
+        "name": "label_caption_light_on_her_feet_takes_a_shortcut",
+        "canvas": [
+          2271,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          2247,
+          186
+        ]
+      },
+      {
+        "name": "label_caption_wakes_sleepers",
+        "canvas": [
+          1654,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1630,
+          204
+        ]
+      },
+      {
+        "name": "label_caption_see_inside_every_egg",
+        "canvas": [
+          1729,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1705,
+          192
+        ]
+      },
+      {
+        "name": "label_level_1",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_trouble_in_black_feathers",
+        "canvas": [
+          1866,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1842,
+          186
+        ]
+      },
+      {
+        "name": "label_caption_reveals_every_egg",
+        "canvas": [
+          1698,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1674,
+          204
+        ]
+      },
+      {
+        "name": "label_caption_next_move_is_free",
+        "canvas": [
+          2195,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2171,
+          246
+        ]
+      },
+      {
+        "name": "label_card_reveal",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          42,
+          1344,
+          210
+        ]
+      },
+      {
+        "name": "label_card_silver_glasses",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_booster_morning_bell",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          110,
+          1536,
+          248
+        ]
+      },
+      {
+        "name": "label_caption_next_landing_breaks_the_rules",
+        "canvas": [
+          3117,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          3093,
+          246
+        ]
+      },
+      {
+        "name": "label_card_aviator_goggles",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_2",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_scares_nearby_crows_away",
+        "canvas": [
+          2806,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2782,
+          246
+        ]
+      },
+      {
+        "name": "label_small_hatch_then_gather",
+        "canvas": [
+          1356,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          1332,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_dreamy_calls_the_moon",
+        "canvas": [
+          1843,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1819,
+          186
+        ]
+      },
+      {
+        "name": "label_name_hoot",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_name_unknown",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_level_3",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_gardener_makes_branches_grow",
+        "canvas": [
+          2064,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          2040,
+          186
+        ]
+      },
+      {
+        "name": "label_title_level_40",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_teapot",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          47,
+          1344,
+          200
+        ]
+      },
+      {
+        "name": "label_small_zzz",
+        "canvas": [
+          301,
+          108
+        ],
+        "rect": [
+          12,
+          12,
+          277,
+          84
+        ]
+      },
+      {
+        "name": "label_caption_cheerful_always_first_to_sing",
+        "canvas": [
+          1892,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1868,
+          186
+        ]
+      },
+      {
+        "name": "label_title_level_33",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_27",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_send_crows_away",
+        "canvas": [
+          1743,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1719,
+          192
+        ]
+      },
+      {
+        "name": "label_card_bell",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          30,
+          1344,
+          234
+        ]
+      },
+      {
+        "name": "label_card_flower",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          26,
+          1344,
+          241
+        ]
+      },
+      {
+        "name": "label_level_28",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_14",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_level_6",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_red_bandana",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_7",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_level_15",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_settings",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          20,
+          2004,
+          319
+        ]
+      },
+      {
+        "name": "label_level_29",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_level_26",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_32",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_cozy_scarf",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          68,
+          1344,
+          157
+        ]
+      },
+      {
+        "name": "label_title_level_24",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_30",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_18",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_level_17",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_level_5",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_grows_branches",
+        "canvas": [
+          1613,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1589,
+          204
+        ]
+      },
+      {
+        "name": "label_title_level_4",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_level_16",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_sparkle_tiara",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_small_use_the_new_seats",
+        "canvas": [
+          1052,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          1028,
+          156
+        ]
+      },
+      {
+        "name": "label_card_mushroom",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          57,
+          1344,
+          179
+        ]
+      },
+      {
+        "name": "label_title_world_complete",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          62,
+          2004,
+          236
+        ]
+      },
+      {
+        "name": "label_caption_hatches_every_egg",
+        "canvas": [
+          1767,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1743,
+          204
+        ]
+      },
+      {
+        "name": "label_title_level_19",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_31",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_25",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_booster_owl_eye",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          110,
+          1536,
+          248
+        ]
+      },
+      {
+        "name": "label_card_acorn",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          67,
+          1344,
+          159
+        ]
+      },
+      {
+        "name": "label_title_level_21",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_35",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_small_advance_the_day_night_cycle",
+        "canvas": [
+          1750,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          1726,
+          156
+        ]
+      },
+      {
+        "name": "label_title_aviary",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          19,
+          2004,
+          321
+        ]
+      },
+      {
+        "name": "label_level_12",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_wake_sleeping_birds",
+        "canvas": [
+          1757,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1733,
+          192
+        ]
+      },
+      {
+        "name": "label_title_level_1",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_pink_bow",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_flame_headband",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_13",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_booster_scarecrow",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          93,
+          1536,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_night_owl_flips_the_sky",
+        "canvas": [
+          1797,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1773,
+          186
+        ]
+      },
+      {
+        "name": "label_title_level_34",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_20",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_round_glasses",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          49,
+          1344,
+          195
+        ]
+      },
+      {
+        "name": "label_title_level_36",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_22",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_monocle",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_restart",
+        "canvas": [
+          811,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          787,
+          156
+        ]
+      },
+      {
+        "name": "label_level_11",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_39",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_level_3",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_2",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_add_one_branch",
+        "canvas": [
+          1797,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1773,
+          192
+        ]
+      },
+      {
+        "name": "label_level_38",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_10",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_one_free_move",
+        "canvas": [
+          1457,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1433,
+          204
+        ]
+      },
+      {
+        "name": "label_caption_never_goes_home",
+        "canvas": [
+          1621,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1597,
+          204
+        ]
+      },
+      {
+        "name": "label_card_straw_hat",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_23",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_booster_firefly",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          110,
+          1536,
+          248
+        ]
+      },
+      {
+        "name": "label_title_level_37",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_new_friend",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          44,
+          2004,
+          272
+        ]
+      },
+      {
+        "name": "label_card_mushroom_cap",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_12",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_sends_crows_away",
+        "canvas": [
+          1806,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1782,
+          204
+        ]
+      },
+      {
+        "name": "label_level_21",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_35",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_shows_every_egg_s_secret",
+        "canvas": [
+          2534,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2510,
+          246
+        ]
+      },
+      {
+        "name": "label_card_reading_glasses",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_34",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_20",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_acorn_cap",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_graduation_cap",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_13",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_11",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_wakes_all_sleepers",
+        "canvas": [
+          1726,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1702,
+          204
+        ]
+      },
+      {
+        "name": "label_title_level_39",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_caption_wakes_every_sleeping_bird",
+        "canvas": [
+          2633,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2609,
+          246
+        ]
+      },
+      {
+        "name": "label_caption_three_moves_of_night",
+        "canvas": [
+          2268,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2244,
+          246
+        ]
+      },
+      {
+        "name": "label_booster_spring_rain",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          97,
+          1536,
+          274
+        ]
+      },
+      {
+        "name": "label_level_36",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_22",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_reveals_eggs",
+        "canvas": [
+          1377,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1353,
+          192
+        ]
+      },
+      {
+        "name": "label_level_23",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_37",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_branches_grow_one_seat",
+        "canvas": [
+          2611,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2587,
+          246
+        ]
+      },
+      {
+        "name": "label_card_wizard_cape",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_38",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_10",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_world_unlocked",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          51,
+          2004,
+          257
+        ]
+      },
+      {
+        "name": "label_title_level_28",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_14",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_tiny_top_hat",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_rain",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          37,
+          1344,
+          219
+        ]
+      },
+      {
+        "name": "label_level_33",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_27",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_level_9",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_8",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_level_26",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_32",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_red_beanie",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_title_level_15",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_level_29",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_title_forest_trail",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          42,
+          2004,
+          276
+        ]
+      },
+      {
+        "name": "label_title_level_17",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_small_wake_then_gather",
+        "canvas": [
+          1337,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          1313,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_moonlit_moves",
+        "canvas": [
+          1466,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1442,
+          204
+        ]
+      },
+      {
+        "name": "label_level_24",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_30",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_18",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_snowflake_clip",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_19",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_level_31",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_name_ember",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_level_25",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_name_sunny",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_title_level_16",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          39,
+          2004,
+          281
+        ]
+      },
+      {
+        "name": "label_card_extra_branch",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          58,
+          1344,
+          178
+        ]
+      },
+      {
+        "name": "label_caption_switches_day_night",
+        "canvas": [
+          1734,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1710,
+          204
+        ]
+      },
+      {
+        "name": "label_small_bring_the_flock_together",
+        "canvas": [
+          1653,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          1629,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_sound",
+        "canvas": [
+          683,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          659,
+          156
+        ]
+      },
+      {
+        "name": "label_name_crow",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_card_hint",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          30,
+          1344,
+          233
+        ]
+      },
+      {
+        "name": "label_word_best",
+        "canvas": [
+          280,
+          150
+        ],
+        "rect": [
+          6,
+          26,
+          268,
+          100
+        ]
+      },
+      {
+        "name": "label_caption_grow_branches_fully",
+        "canvas": [
+          1657,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1633,
+          192
+        ]
+      },
+      {
+        "name": "label_name_mint",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_level_40",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_caption_best",
+        "canvas": [
+          532,
+          180
+        ],
+        "rect": [
+          12,
+          12,
+          508,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_autumn_forest",
+        "canvas": [
+          1699,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1675,
+          204
+        ]
+      },
+      {
+        "name": "label_name_sky",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_name_berry",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_card_lantern",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          67,
+          1344,
+          160
+        ]
+      },
+      {
+        "name": "label_name_snow",
+        "canvas": [
+          640,
+          200
+        ],
+        "rect": [
+          4,
+          9,
+          632,
+          182
+        ]
+      },
+      {
+        "name": "label_caption_find_a_helpful_move",
+        "canvas": [
+          1704,
+          216
+        ],
+        "rect": [
+          12,
+          12,
+          1680,
+          192
+        ]
+      },
+      {
+        "name": "label_level_8",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_title_well_done",
+        "canvas": [
+          2040,
+          360
+        ],
+        "rect": [
+          18,
+          43,
+          2004,
+          273
+        ]
+      },
+      {
+        "name": "label_caption_grumpy_scares_crows_away",
+        "canvas": [
+          1824,
+          210
+        ],
+        "rect": [
+          12,
+          12,
+          1800,
+          186
+        ]
+      },
+      {
+        "name": "label_caption_free_move",
+        "canvas": [
+          1511,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          1487,
+          246
+        ]
+      },
+      {
+        "name": "label_card_knight_helmet",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_blue_bow_tie",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_card_little_star_hat",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_level_9",
+        "canvas": [
+          256,
+          180
+        ],
+        "rect": [
+          4,
+          9,
+          248,
+          162
+        ]
+      },
+      {
+        "name": "label_card_earmuffs",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_caption_every_egg_hatches_now",
+        "canvas": [
+          2265,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2241,
+          246
+        ]
+      },
+      {
+        "name": "label_card_shoo",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          36,
+          1344,
+          221
+        ]
+      },
+      {
+        "name": "label_caption_green_forest",
+        "canvas": [
+          1574,
+          228
+        ],
+        "rect": [
+          12,
+          12,
+          1550,
+          204
+        ]
+      },
+      {
+        "name": "label_caption_day_and_night_swap",
+        "canvas": [
+          2114,
+          270
+        ],
+        "rect": [
+          12,
+          12,
+          2090,
+          246
+        ]
+      },
+      {
+        "name": "label_card_ice_tiara",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "label_booster_sapling",
+        "canvas": [
+          1560,
+          468
+        ],
+        "rect": [
+          12,
+          110,
+          1536,
+          248
+        ]
+      },
+      {
+        "name": "label_card_star_nightcap",
+        "canvas": [
+          1368,
+          294
+        ],
+        "rect": [
+          12,
+          69,
+          1344,
+          156
+        ]
+      },
+      {
+        "name": "snow_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          62,
+          85,
+          197,
+          215
+        ]
+      },
+      {
+        "name": "cocoa_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          56,
+          84,
+          207,
+          218
+        ]
+      },
+      {
+        "name": "hoot_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          119,
+          191,
+          182
+        ]
+      },
+      {
+        "name": "ember_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          27,
+          206,
+          273
+        ]
+      },
+      {
+        "name": "mint_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          37,
+          206,
+          265
+        ]
+      },
+      {
+        "name": "berry_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          64,
+          64,
+          189,
+          238
+        ]
+      },
+      {
+        "name": "snow_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          62,
+          85,
+          197,
+          215
+        ]
+      },
+      {
+        "name": "cocoa_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          56,
+          84,
+          207,
+          218
+        ]
+      },
+      {
+        "name": "sky_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          65,
+          195,
+          236
+        ]
+      },
+      {
+        "name": "sunny_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          66,
+          74,
+          189,
+          228
+        ]
+      },
+      {
+        "name": "sunny_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          66,
+          74,
+          189,
+          228
+        ]
+      },
+      {
+        "name": "snow_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          62,
+          85,
+          197,
+          215
+        ]
+      },
+      {
+        "name": "ink_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          66,
+          205,
+          236
+        ]
+      },
+      {
+        "name": "hoot_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          119,
+          178,
+          182
+        ]
+      },
+      {
+        "name": "mint_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          37,
+          206,
+          265
+        ]
+      },
+      {
+        "name": "sky_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          65,
+          195,
+          236
+        ]
+      },
+      {
+        "name": "cocoa_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          56,
+          84,
+          207,
+          218
+        ]
+      },
+      {
+        "name": "ink_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          66,
+          205,
+          236
+        ]
+      },
+      {
+        "name": "sunny_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          66,
+          74,
+          189,
+          228
+        ]
+      },
+      {
+        "name": "hoot_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          119,
+          178,
+          182
+        ]
+      },
+      {
+        "name": "mint_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          37,
+          206,
+          265
+        ]
+      },
+      {
+        "name": "hoot_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          48,
+          112,
+          200,
+          189
+        ]
+      },
+      {
+        "name": "ember_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          27,
+          206,
+          273
+        ]
+      },
+      {
+        "name": "berry_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          64,
+          64,
+          189,
+          238
+        ]
+      },
+      {
+        "name": "ink_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          66,
+          205,
+          236
+        ]
+      },
+      {
+        "name": "berry_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          64,
+          64,
+          189,
+          238
+        ]
+      },
+      {
+        "name": "sky_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          65,
+          195,
+          236
+        ]
+      },
+      {
+        "name": "mint_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          37,
+          206,
+          265
+        ]
+      },
+      {
+        "name": "sunny_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          66,
+          74,
+          189,
+          228
+        ]
+      },
+      {
+        "name": "snow_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          62,
+          85,
+          197,
+          215
+        ]
+      },
+      {
+        "name": "ember_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          27,
+          206,
+          273
+        ]
+      },
+      {
+        "name": "ember_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          27,
+          206,
+          273
+        ]
+      },
+      {
+        "name": "crow_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          69,
+          66,
+          183,
+          236
+        ]
+      },
+      {
+        "name": "cocoa_outfit_1_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          56,
+          75,
+          207,
+          227
+        ]
+      },
+      {
+        "name": "ink_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          57,
+          66,
+          205,
+          236
+        ]
+      },
+      {
+        "name": "berry_outfit_2_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          64,
+          64,
+          189,
+          238
+        ]
+      },
+      {
+        "name": "sky_outfit_3_front",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          63,
+          43,
+          195,
+          258
+        ]
+      },
+      {
+        "name": "egg_idle",
+        "canvas": [
+          320,
+          320
+        ],
+        "rect": [
+          24,
+          55,
+          272,
+          245
+        ]
+      }
+    ]
+  },
+  "board_win_panel_two_stars": {
+    "elements": [
+      {
+        "id": "board",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "board_dim",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "coin_hud",
+        "rect": [
+          91,
+          57,
+          251,
+          103
+        ]
+      },
+      {
+        "id": "coin_hud_icon",
+        "rect": [
+          38,
+          48,
+          127,
+          124
+        ]
+      },
+      {
+        "id": "coin_hud_leaf",
+        "rect": [
+          71,
+          77,
+          63,
+          60
+        ]
+      },
+      {
+        "id": "coin_hud_value",
+        "rect": [
+          176,
+          79,
+          126,
+          56
+        ]
+      },
+      {
+        "id": "moves_hud",
+        "rect": [
+          32,
+          165,
+          406,
+          115
+        ]
+      },
+      {
+        "id": "moves_hud_feet",
+        "rect": [
+          49,
+          198,
+          64,
+          45
+        ]
+      },
+      {
+        "id": "moves_hud_value",
+        "rect": [
+          122,
+          195,
+          40,
+          51
+        ]
+      },
+      {
+        "id": "moves_hud_divider",
+        "rect": [
+          180,
+          181,
+          9,
+          79
+        ]
+      },
+      {
+        "id": "hud_star_1",
+        "rect": [
+          208,
+          173,
+          50,
+          47
+        ]
+      },
+      {
+        "id": "hud_threshold_1",
+        "rect": [
+          209,
+          228,
+          46,
+          33
+        ]
+      },
+      {
+        "id": "hud_star_2",
+        "rect": [
+          282,
+          173,
+          50,
+          47
+        ]
+      },
+      {
+        "id": "hud_threshold_2",
+        "rect": [
+          282,
+          229,
+          48,
+          33
+        ]
+      },
+      {
+        "id": "hud_star_3",
+        "rect": [
+          354,
+          173,
+          52,
+          47
+        ]
+      },
+      {
+        "id": "hud_threshold_3",
+        "rect": [
+          356,
+          231,
+          48,
+          29
+        ]
+      },
+      {
+        "id": "sun_hud",
+        "rect": [
+          33,
+          283,
+          207,
+          94
+        ]
+      },
+      {
+        "id": "sun_icon",
+        "rect": [
+          51,
+          288,
+          87,
+          79
+        ]
+      },
+      {
+        "id": "sun_value",
+        "rect": [
+          157,
+          303,
+          43,
+          49
+        ]
+      },
+      {
+        "id": "settings",
+        "rect": [
+          953,
+          78,
+          115,
+          105
+        ]
+      },
+      {
+        "id": "settings_gear",
+        "rect": [
+          975,
+          102,
+          71,
+          57
+        ]
+      },
+      {
+        "id": "goal_rope",
+        "rect": [
+          556,
+          0,
+          41,
+          177
+        ]
+      },
+      {
+        "id": "goal_house",
+        "rect": [
+          414,
+          173,
+          324,
+          229
+        ]
+      },
+      {
+        "id": "goal_roof",
+        "rect": [
+          414,
+          173,
+          324,
+          143
+        ]
+      },
+      {
+        "id": "goal_hole",
+        "rect": [
+          535,
+          269,
+          77,
+          80
+        ]
+      },
+      {
+        "id": "goal_yellow_ring",
+        "rect": [
+          370,
+          401,
+          104,
+          96
+        ]
+      },
+      {
+        "id": "goal_yellow",
+        "rect": [
+          383,
+          415,
+          78,
+          67
+        ]
+      },
+      {
+        "id": "goal_yellow_badge",
+        "rect": [
+          430,
+          456,
+          56,
+          52
+        ]
+      },
+      {
+        "id": "goal_yellow_gift",
+        "rect": [
+          443,
+          467,
+          33,
+          33
+        ]
+      },
+      {
+        "id": "goal_blue_ring",
+        "rect": [
+          509,
+          401,
+          105,
+          96
+        ]
+      },
+      {
+        "id": "goal_blue",
+        "rect": [
+          522,
+          415,
+          80,
+          68
+        ]
+      },
+      {
+        "id": "goal_blue_badge",
+        "rect": [
+          568,
+          456,
+          58,
+          52
+        ]
+      },
+      {
+        "id": "goal_blue_gift",
+        "rect": [
+          581,
+          467,
+          35,
+          33
+        ]
+      },
+      {
+        "id": "goal_owl_ring",
+        "rect": [
+          649,
+          401,
+          105,
+          96
+        ]
+      },
+      {
+        "id": "goal_owl",
+        "rect": [
+          661,
+          415,
+          82,
+          67
+        ]
+      },
+      {
+        "id": "goal_owl_badge",
+        "rect": [
+          707,
+          456,
+          58,
+          52
+        ]
+      },
+      {
+        "id": "goal_owl_gift",
+        "rect": [
+          720,
+          467,
+          35,
+          33
+        ]
+      },
+      {
+        "id": "branch1_yellow",
+        "rect": [
+          58,
+          689,
+          127,
+          138
+        ]
+      },
+      {
+        "id": "branch1_blue",
+        "rect": [
+          181,
+          695,
+          134,
+          118
+        ]
+      },
+      {
+        "id": "branch1_owl",
+        "rect": [
+          312,
+          710,
+          86,
+          84
+        ]
+      },
+      {
+        "id": "branch2_blue_tuft",
+        "rect": [
+          831,
+          834,
+          53,
+          24
+        ]
+      },
+      {
+        "id": "branch2_yellow",
+        "rect": [
+          967,
+          833,
+          83,
+          134
+        ]
+      },
+      {
+        "id": "branch3_yellow",
+        "rect": [
+          58,
+          1051,
+          55,
+          94
+        ]
+      },
+      {
+        "id": "branch4_yellow",
+        "rect": [
+          967,
+          1158,
+          83,
+          128
+        ]
+      },
+      {
+        "id": "tools_bar",
+        "rect": [
+          195,
+          1728,
+          731,
+          144
+        ]
+      },
+      {
+        "id": "tool_undo",
+        "rect": [
+          246,
+          1750,
+          110,
+          106
+        ]
+      },
+      {
+        "id": "tool_undo_icon",
+        "rect": [
+          269,
+          1774,
+          64,
+          51
+        ]
+      },
+      {
+        "id": "tool_hint",
+        "rect": [
+          484,
+          1749,
+          112,
+          108
+        ]
+      },
+      {
+        "id": "tool_hint_icon",
+        "rect": [
+          514,
+          1770,
+          49,
+          65
+        ]
+      },
+      {
+        "id": "tool_branch",
+        "rect": [
+          730,
+          1751,
+          110,
+          104
+        ]
+      },
+      {
+        "id": "tool_branch_icon",
+        "rect": [
+          749,
+          1775,
+          72,
+          53
+        ]
+      },
+      {
+        "id": "panel",
+        "rect": [
+          110,
+          854,
+          860,
+          516
+        ]
+      },
+      {
+        "id": "panel_frame",
+        "rect": [
+          110,
+          854,
+          860,
+          516
+        ]
+      },
+      {
+        "id": "panel_cream",
+        "rect": [
+          145,
+          891,
+          790,
+          439
+        ]
+      },
+      {
+        "id": "hero",
+        "rect": [
+          367,
+          616,
+          335,
+          174
+        ]
+      },
+      {
+        "id": "ribbon",
+        "rect": [
+          214,
+          778,
+          655,
+          135
+        ]
+      },
+      {
+        "id": "ribbon_left_leaves",
+        "rect": [
+          214,
+          794,
+          114,
+          119
+        ]
+      },
+      {
+        "id": "ribbon_right_leaves",
+        "rect": [
+          748,
+          795,
+          121,
+          117
+        ]
+      },
+      {
+        "id": "ribbon_face",
+        "rect": [
+          305,
+          778,
+          477,
+          113
+        ]
+      },
+      {
+        "id": "title",
+        "rect": [
+          353,
+          795,
+          373,
+          72
+        ]
+      },
+      {
+        "id": "star_1",
+        "rect": [
+          285,
+          933,
+          109,
+          101
+        ]
+      },
+      {
+        "id": "star_2",
+        "rect": [
+          485,
+          933,
+          109,
+          101
+        ]
+      },
+      {
+        "id": "star_3",
+        "rect": [
+          682,
+          932,
+          114,
+          102
+        ]
+      },
+      {
+        "id": "threshold_pill_1",
+        "rect": [
+          256,
+          1055,
+          168,
+          61
+        ]
+      },
+      {
+        "id": "threshold_1",
+        "rect": [
+          306,
+          1062,
+          68,
+          41
+        ]
+      },
+      {
+        "id": "threshold_pill_2",
+        "rect": [
+          456,
+          1055,
+          168,
+          61
+        ]
+      },
+      {
+        "id": "threshold_2",
+        "rect": [
+          507,
+          1062,
+          68,
+          42
+        ]
+      },
+      {
+        "id": "threshold_pill_3",
+        "rect": [
+          656,
+          1055,
+          168,
+          61
+        ]
+      },
+      {
+        "id": "threshold_3",
+        "rect": [
+          703,
+          1066,
+          78,
+          33
+        ]
+      },
+      {
+        "id": "result_pill",
+        "rect": [
+          403,
+          1138,
+          289,
+          75
+        ]
+      },
+      {
+        "id": "result_feet",
+        "rect": [
+          470,
+          1155,
+          61,
+          42
+        ]
+      },
+      {
+        "id": "result_value",
+        "rect": [
+          548,
+          1151,
+          66,
+          47
+        ]
+      },
+      {
+        "id": "reward_pill",
+        "rect": [
+          414,
+          1238,
+          283,
+          92
+        ]
+      },
+      {
+        "id": "reward_coin",
+        "rect": [
+          379,
+          1235,
+          107,
+          96
+        ]
+      },
+      {
+        "id": "reward_leaf",
+        "rect": [
+          401,
+          1255,
+          60,
+          57
+        ]
+      },
+      {
+        "id": "reward_value",
+        "rect": [
+          521,
+          1254,
+          132,
+          50
+        ]
+      },
+      {
+        "id": "retry",
+        "rect": [
+          339,
+          1432,
+          88,
+          94
+        ]
+      },
+      {
+        "id": "retry_glyph",
+        "rect": [
+          360,
+          1452,
+          47,
+          53
+        ]
+      },
+      {
+        "id": "play",
+        "rect": [
+          483,
+          1419,
+          112,
+          120
+        ]
+      },
+      {
+        "id": "play_glyph",
+        "rect": [
+          520,
+          1442,
+          51,
+          71
+        ]
+      },
+      {
+        "id": "home",
+        "rect": [
+          653,
+          1432,
+          96,
+          97
+        ]
+      },
+      {
+        "id": "home_glyph",
+        "rect": [
+          674,
+          1450,
+          56,
+          57
+        ]
+      }
+    ],
+    "sprites": []
+  },
+  "settings": {
+    "elements": [
+      {
+        "id": "board",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "coin_pill",
+        "rect": [
+          36,
+          50,
+          305,
+          121
+        ]
+      },
+      {
+        "id": "coin",
+        "rect": [
+          37,
+          50,
+          128,
+          120
+        ]
+      },
+      {
+        "id": "coin_leaf",
+        "rect": [
+          66,
+          76,
+          65,
+          64
+        ]
+      },
+      {
+        "id": "coins",
+        "rect": [
+          174,
+          80,
+          126,
+          50
+        ]
+      },
+      {
+        "id": "moves_pill",
+        "rect": [
+          31,
+          165,
+          408,
+          115
+        ]
+      },
+      {
+        "id": "bird_feet",
+        "rect": [
+          51,
+          198,
+          64,
+          44
+        ]
+      },
+      {
+        "id": "moves",
+        "rect": [
+          122,
+          196,
+          39,
+          49
+        ]
+      },
+      {
+        "id": "hud_divider",
+        "rect": [
+          183,
+          181,
+          8,
+          83
+        ]
+      },
+      {
+        "id": "star1",
+        "rect": [
+          203,
+          172,
+          57,
+          49
+        ]
+      },
+      {
+        "id": "star2",
+        "rect": [
+          278,
+          172,
+          57,
+          49
+        ]
+      },
+      {
+        "id": "star3",
+        "rect": [
+          350,
+          172,
+          57,
+          49
+        ]
+      },
+      {
+        "id": "threshold1",
+        "rect": [
+          207,
+          228,
+          48,
+          33
+        ]
+      },
+      {
+        "id": "threshold2",
+        "rect": [
+          282,
+          228,
+          49,
+          33
+        ]
+      },
+      {
+        "id": "threshold3",
+        "rect": [
+          354,
+          228,
+          52,
+          33
+        ]
+      },
+      {
+        "id": "sun_pill",
+        "rect": [
+          32,
+          280,
+          207,
+          98
+        ]
+      },
+      {
+        "id": "sun",
+        "rect": [
+          49,
+          288,
+          93,
+          78
+        ]
+      },
+      {
+        "id": "sun_count",
+        "rect": [
+          156,
+          304,
+          44,
+          46
+        ]
+      },
+      {
+        "id": "gear",
+        "rect": [
+          955,
+          78,
+          112,
+          105
+        ]
+      },
+      {
+        "id": "gear_icon",
+        "rect": [
+          979,
+          99,
+          64,
+          61
+        ]
+      },
+      {
+        "id": "goal_rope",
+        "rect": [
+          556,
+          0,
+          39,
+          179
+        ]
+      },
+      {
+        "id": "goal_house",
+        "rect": [
+          414,
+          171,
+          326,
+          228
+        ]
+      },
+      {
+        "id": "house_hole",
+        "rect": [
+          529,
+          253,
+          88,
+          98
+        ]
+      },
+      {
+        "id": "goal_yellow_ring",
+        "rect": [
+          370,
+          402,
+          100,
+          97
+        ]
+      },
+      {
+        "id": "goal_yellow",
+        "rect": [
+          382,
+          410,
+          75,
+          76
+        ]
+      },
+      {
+        "id": "gift_yellow",
+        "rect": [
+          432,
+          455,
+          54,
+          52
+        ]
+      },
+      {
+        "id": "goal_blue_ring",
+        "rect": [
+          509,
+          401,
+          99,
+          98
+        ]
+      },
+      {
+        "id": "goal_blue",
+        "rect": [
+          520,
+          412,
+          76,
+          76
+        ]
+      },
+      {
+        "id": "gift_blue",
+        "rect": [
+          573,
+          456,
+          51,
+          51
+        ]
+      },
+      {
+        "id": "goal_owl_ring",
+        "rect": [
+          649,
+          400,
+          101,
+          101
+        ]
+      },
+      {
+        "id": "goal_owl",
+        "rect": [
+          660,
+          407,
+          78,
+          82
+        ]
+      },
+      {
+        "id": "gift_owl",
+        "rect": [
+          712,
+          455,
+          53,
+          53
+        ]
+      },
+      {
+        "id": "upper_yellow",
+        "rect": [
+          58,
+          690,
+          91,
+          137
+        ]
+      },
+      {
+        "id": "middle_yellow",
+        "rect": [
+          967,
+          832,
+          85,
+          134
+        ]
+      },
+      {
+        "id": "lower_left_yellow",
+        "rect": [
+          59,
+          1016,
+          126,
+          139
+        ]
+      },
+      {
+        "id": "lower_left_blue",
+        "rect": [
+          184,
+          1039,
+          131,
+          117
+        ]
+      },
+      {
+        "id": "lower_left_yellow2",
+        "rect": [
+          310,
+          1039,
+          133,
+          116
+        ]
+      },
+      {
+        "id": "lower_right_yellow",
+        "rect": [
+          667,
+          1154,
+          132,
+          140
+        ]
+      },
+      {
+        "id": "lower_right_blue",
+        "rect": [
+          792,
+          1162,
+          128,
+          133
+        ]
+      },
+      {
+        "id": "lower_right_yellow2",
+        "rect": [
+          919,
+          1157,
+          130,
+          138
+        ]
+      },
+      {
+        "id": "tools_bar",
+        "rect": [
+          195,
+          1728,
+          730,
+          146
+        ]
+      },
+      {
+        "id": "tool_undo",
+        "rect": [
+          247,
+          1751,
+          107,
+          100
+        ]
+      },
+      {
+        "id": "tool_undo_icon",
+        "rect": [
+          269,
+          1773,
+          63,
+          51
+        ]
+      },
+      {
+        "id": "tool_hint",
+        "rect": [
+          488,
+          1752,
+          106,
+          101
+        ]
+      },
+      {
+        "id": "tool_hint_icon",
+        "rect": [
+          507,
+          1764,
+          69,
+          75
+        ]
+      },
+      {
+        "id": "tool_branch",
+        "rect": [
+          728,
+          1751,
+          106,
+          102
+        ]
+      },
+      {
+        "id": "tool_branch_icon",
+        "rect": [
+          741,
+          1771,
+          77,
+          60
+        ]
+      },
+      {
+        "id": "panel",
+        "rect": [
+          110,
+          680,
+          860,
+          360
+        ]
+      },
+      {
+        "id": "panel_fill",
+        "rect": [
+          146,
+          722,
+          790,
+          277
+        ]
+      },
+      {
+        "id": "ribbon",
+        "rect": [
+          335,
+          616,
+          409,
+          156
+        ]
+      },
+      {
+        "id": "leaves_left",
+        "rect": [
+          258,
+          632,
+          92,
+          127
+        ]
+      },
+      {
+        "id": "leaves_right",
+        "rect": [
+          729,
+          632,
+          88,
+          125
+        ]
+      },
+      {
+        "id": "title",
+        "rect": [
+          394,
+          632,
+          290,
+          85
+        ]
+      },
+      {
+        "id": "close",
+        "rect": [
+          898,
+          658,
+          94,
+          97
+        ]
+      },
+      {
+        "id": "close_x",
+        "rect": [
+          926,
+          680,
+          41,
+          47
+        ]
+      },
+      {
+        "id": "sound",
+        "rect": [
+          342,
+          790,
+          100,
+          100
+        ]
+      },
+      {
+        "id": "sound_icon",
+        "rect": [
+          365,
+          814,
+          58,
+          46
+        ]
+      },
+      {
+        "id": "sound_plate",
+        "rect": [
+          311,
+          910,
+          149,
+          68
+        ]
+      },
+      {
+        "id": "sound_label",
+        "rect": [
+          347,
+          922,
+          89,
+          39
+        ]
+      },
+      {
+        "id": "restart",
+        "rect": [
+          490,
+          790,
+          100,
+          100
+        ]
+      },
+      {
+        "id": "restart_icon",
+        "rect": [
+          515,
+          813,
+          55,
+          51
+        ]
+      },
+      {
+        "id": "restart_plate",
+        "rect": [
+          470,
+          910,
+          141,
+          68
+        ]
+      },
+      {
+        "id": "restart_label",
+        "rect": [
+          488,
+          923,
+          109,
+          38
+        ]
+      },
+      {
+        "id": "home",
+        "rect": [
+          638,
+          790,
+          100,
+          100
+        ]
+      },
+      {
+        "id": "home_icon",
+        "rect": [
+          659,
+          811,
+          58,
+          56
+        ]
+      },
+      {
+        "id": "home_plate",
+        "rect": [
+          623,
+          911,
+          146,
+          67
+        ]
+      },
+      {
+        "id": "home_label",
+        "rect": [
+          654,
+          922,
+          84,
+          40
+        ]
+      }
+    ],
+    "sprites": []
+  },
+  "goal_info": {
+    "elements": [
+      {
+        "id": "board",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "coin_pill",
+        "rect": [
+          36,
+          49,
+          309,
+          117
+        ]
+      },
+      {
+        "id": "coin",
+        "rect": [
+          36,
+          49,
+          130,
+          115
+        ]
+      },
+      {
+        "id": "coin_leaf",
+        "rect": [
+          65,
+          72,
+          70,
+          67
+        ]
+      },
+      {
+        "id": "coins",
+        "rect": [
+          174,
+          77,
+          128,
+          60
+        ]
+      },
+      {
+        "id": "moves_pill",
+        "rect": [
+          32,
+          166,
+          407,
+          114
+        ]
+      },
+      {
+        "id": "footprints",
+        "rect": [
+          51,
+          195,
+          65,
+          48
+        ]
+      },
+      {
+        "id": "moves",
+        "rect": [
+          120,
+          193,
+          44,
+          54
+        ]
+      },
+      {
+        "id": "hud_divider",
+        "rect": [
+          179,
+          181,
+          8,
+          78
+        ]
+      },
+      {
+        "id": "star_1",
+        "rect": [
+          207,
+          174,
+          54,
+          49
+        ]
+      },
+      {
+        "id": "threshold_1",
+        "rect": [
+          208,
+          229,
+          47,
+          33
+        ]
+      },
+      {
+        "id": "star_2",
+        "rect": [
+          283,
+          174,
+          54,
+          49
+        ]
+      },
+      {
+        "id": "threshold_2",
+        "rect": [
+          282,
+          229,
+          49,
+          33
+        ]
+      },
+      {
+        "id": "star_3",
+        "rect": [
+          355,
+          174,
+          54,
+          49
+        ]
+      },
+      {
+        "id": "threshold_3",
+        "rect": [
+          354,
+          229,
+          53,
+          33
+        ]
+      },
+      {
+        "id": "sun_pill",
+        "rect": [
+          34,
+          281,
+          210,
+          96
+        ]
+      },
+      {
+        "id": "hud_sun",
+        "rect": [
+          55,
+          290,
+          85,
+          75
+        ]
+      },
+      {
+        "id": "sun_count",
+        "rect": [
+          156,
+          300,
+          46,
+          50
+        ]
+      },
+      {
+        "id": "settings",
+        "rect": [
+          953,
+          77,
+          113,
+          107
+        ]
+      },
+      {
+        "id": "settings_gear",
+        "rect": [
+          980,
+          98,
+          59,
+          61
+        ]
+      },
+      {
+        "id": "house_rope",
+        "rect": [
+          553,
+          0,
+          44,
+          181
+        ]
+      },
+      {
+        "id": "goal_house",
+        "rect": [
+          414,
+          170,
+          332,
+          231
+        ]
+      },
+      {
+        "id": "house_roof",
+        "rect": [
+          414,
+          170,
+          332,
+          149
+        ]
+      },
+      {
+        "id": "house_opening",
+        "rect": [
+          535,
+          276,
+          89,
+          78
+        ]
+      },
+      {
+        "id": "goal_sunny_ring",
+        "rect": [
+          371,
+          400,
+          101,
+          66
+        ]
+      },
+      {
+        "id": "goal_sunny",
+        "rect": [
+          382,
+          416,
+          76,
+          50
+        ]
+      },
+      {
+        "id": "goal_blue_ring",
+        "rect": [
+          510,
+          399,
+          101,
+          67
+        ]
+      },
+      {
+        "id": "goal_blue",
+        "rect": [
+          525,
+          415,
+          75,
+          51
+        ]
+      },
+      {
+        "id": "goal_owl_ring",
+        "rect": [
+          650,
+          400,
+          100,
+          80
+        ]
+      },
+      {
+        "id": "goal_owl",
+        "rect": [
+          665,
+          416,
+          73,
+          62
+        ]
+      },
+      {
+        "id": "goal_owl_badge",
+        "rect": [
+          720,
+          461,
+          37,
+          20
+        ]
+      },
+      {
+        "id": "branch_left_yellow_1",
+        "rect": [
+          58,
+          721,
+          54,
+          104
+        ]
+      },
+      {
+        "id": "branch_right_yellow_1",
+        "rect": [
+          968,
+          832,
+          81,
+          134
+        ]
+      },
+      {
+        "id": "branch_left_yellow_2",
+        "rect": [
+          58,
+          1045,
+          54,
+          110
+        ]
+      },
+      {
+        "id": "branch_bottom_yellow_1",
+        "rect": [
+          668,
+          1220,
+          126,
+          73
+        ]
+      },
+      {
+        "id": "branch_bottom_blue",
+        "rect": [
+          792,
+          1220,
+          133,
+          73
+        ]
+      },
+      {
+        "id": "branch_bottom_yellow_2",
+        "rect": [
+          919,
+          1157,
+          131,
+          137
+        ]
+      },
+      {
+        "id": "tools_bar",
+        "rect": [
+          195,
+          1727,
+          730,
+          146
+        ]
+      },
+      {
+        "id": "undo",
+        "rect": [
+          246,
+          1745,
+          108,
+          110
+        ]
+      },
+      {
+        "id": "undo_icon",
+        "rect": [
+          266,
+          1772,
+          70,
+          50
+        ]
+      },
+      {
+        "id": "hint",
+        "rect": [
+          486,
+          1745,
+          109,
+          110
+        ]
+      },
+      {
+        "id": "hint_icon",
+        "rect": [
+          511,
+          1762,
+          65,
+          70
+        ]
+      },
+      {
+        "id": "branch",
+        "rect": [
+          727,
+          1745,
+          108,
+          110
+        ]
+      },
+      {
+        "id": "branch_icon",
+        "rect": [
+          746,
+          1768,
+          75,
+          60
+        ]
+      },
+      {
+        "id": "modal",
+        "rect": [
+          109,
+          499,
+          863,
+          724
+        ]
+      },
+      {
+        "id": "modal_frame",
+        "rect": [
+          109,
+          499,
+          863,
+          724
+        ]
+      },
+      {
+        "id": "modal_cream",
+        "rect": [
+          135,
+          526,
+          807,
+          669
+        ]
+      },
+      {
+        "id": "ribbon",
+        "rect": [
+          266,
+          462,
+          515,
+          137
+        ]
+      },
+      {
+        "id": "leaves_left",
+        "rect": [
+          220,
+          466,
+          117,
+          138
+        ]
+      },
+      {
+        "id": "leaves_right",
+        "rect": [
+          735,
+          466,
+          124,
+          137
+        ]
+      },
+      {
+        "id": "sunny_title",
+        "rect": [
+          399,
+          477,
+          301,
+          86
+        ]
+      },
+      {
+        "id": "close",
+        "rect": [
+          895,
+          474,
+          101,
+          103
+        ]
+      },
+      {
+        "id": "close_x",
+        "rect": [
+          920,
+          500,
+          52,
+          48
+        ]
+      },
+      {
+        "id": "sunny_ring",
+        "rect": [
+          316,
+          590,
+          431,
+          431
+        ]
+      },
+      {
+        "id": "portrait_well",
+        "rect": [
+          345,
+          625,
+          370,
+          362
+        ]
+      },
+      {
+        "id": "sunny_hero",
+        "rect": [
+          352,
+          630,
+          357,
+          355
+        ]
+      },
+      {
+        "id": "ability_plate",
+        "rect": [
+          294,
+          1024,
+          582,
+          135
+        ]
+      },
+      {
+        "id": "ability_disc",
+        "rect": [
+          212,
+          1007,
+          167,
+          163
+        ]
+      },
+      {
+        "id": "ability_sun",
+        "rect": [
+          239,
+          1038,
+          91,
+          91
+        ]
+      },
+      {
+        "id": "ability_note",
+        "rect": [
+          312,
+          1077,
+          48,
+          56
+        ]
+      },
+      {
+        "id": "ability_text",
+        "rect": [
+          393,
+          1055,
+          453,
+          65
+        ]
+      }
+    ],
+    "sprites": []
+  },
+  "level_card": {
+    "elements": [
+      {
+        "id": "forest",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "forest_dim",
+        "rect": [
+          0,
+          0,
+          1080,
+          1920
+        ]
+      },
+      {
+        "id": "panel_frame",
+        "rect": [
+          110,
+          340,
+          860,
+          1040
+        ]
+      },
+      {
+        "id": "panel",
+        "rect": [
+          135,
+          365,
+          810,
+          980
+        ]
+      },
+      {
+        "id": "forest_ribbon",
+        "rect": [
+          290,
+          76,
+          510,
+          109
+        ]
+      },
+      {
+        "id": "forest_title",
+        "rect": [
+          370,
+          94,
+          346,
+          56
+        ]
+      },
+      {
+        "id": "coin_pill",
+        "rect": [
+          39,
+          87,
+          266,
+          87
+        ]
+      },
+      {
+        "id": "coin",
+        "rect": [
+          39,
+          88,
+          112,
+          86
+        ]
+      },
+      {
+        "id": "coin_leaf",
+        "rect": [
+          66,
+          107,
+          55,
+          43
+        ]
+      },
+      {
+        "id": "coin_count",
+        "rect": [
+          158,
+          110,
+          121,
+          44
+        ]
+      },
+      {
+        "id": "level_ribbon",
+        "rect": [
+          210,
+          282,
+          660,
+          118
+        ]
+      },
+      {
+        "id": "level_leaves_l",
+        "rect": [
+          236,
+          296,
+          90,
+          59
+        ]
+      },
+      {
+        "id": "level_leaves_r",
+        "rect": [
+          768,
+          296,
+          84,
+          59
+        ]
+      },
+      {
+        "id": "level_title",
+        "rect": [
+          389,
+          303,
+          317,
+          54
+        ]
+      },
+      {
+        "id": "close",
+        "rect": [
+          896,
+          314,
+          100,
+          100
+        ]
+      },
+      {
+        "id": "close_x",
+        "rect": [
+          927,
+          344,
+          39,
+          39
+        ]
+      },
+      {
+        "id": "star_1",
+        "rect": [
+          284,
+          434,
+          120,
+          114
+        ]
+      },
+      {
+        "id": "star_2",
+        "rect": [
+          484,
+          434,
+          120,
+          114
+        ]
+      },
+      {
+        "id": "star_3",
+        "rect": [
+          684,
+          434,
+          120,
+          114
+        ]
+      },
+      {
+        "id": "threshold_12",
+        "rect": [
+          263,
+          577,
+          154,
+          52
+        ]
+      },
+      {
+        "id": "threshold_12_text",
+        "rect": [
+          314,
+          585,
+          52,
+          36
+        ]
+      },
+      {
+        "id": "threshold_16",
+        "rect": [
+          463,
+          577,
+          154,
+          52
+        ]
+      },
+      {
+        "id": "threshold_16_text",
+        "rect": [
+          514,
+          585,
+          52,
+          36
+        ]
+      },
+      {
+        "id": "threshold_inf",
+        "rect": [
+          663,
+          577,
+          154,
+          52
+        ]
+      },
+      {
+        "id": "threshold_inf_text",
+        "rect": [
+          704,
+          585,
+          72,
+          36
+        ]
+      },
+      {
+        "id": "best_pill",
+        "rect": [
+          340,
+          656,
+          400,
+          69
+        ]
+      },
+      {
+        "id": "best_tracks",
+        "rect": [
+          377,
+          665,
+          72,
+          49
+        ]
+      },
+      {
+        "id": "best_text",
+        "rect": [
+          468,
+          668,
+          238,
+          43
+        ]
+      },
+      {
+        "id": "yellow_ring",
+        "rect": [
+          171,
+          788,
+          177,
+          164
+        ]
+      },
+      {
+        "id": "yellow_bird",
+        "rect": [
+          185,
+          767,
+          148,
+          167
+        ]
+      },
+      {
+        "id": "yellow_badge",
+        "rect": [
+          264,
+          885,
+          79,
+          78
+        ]
+      },
+      {
+        "id": "yellow_ability",
+        "rect": [
+          274,
+          901,
+          59,
+          44
+        ]
+      },
+      {
+        "id": "blue_ring",
+        "rect": [
+          356,
+          790,
+          176,
+          163
+        ]
+      },
+      {
+        "id": "blue_bird",
+        "rect": [
+          368,
+          774,
+          151,
+          158
+        ]
+      },
+      {
+        "id": "blue_badge",
+        "rect": [
+          450,
+          886,
+          80,
+          79
+        ]
+      },
+      {
+        "id": "blue_ability",
+        "rect": [
+          462,
+          901,
+          57,
+          45
+        ]
+      },
+      {
+        "id": "pink_ring",
+        "rect": [
+          543,
+          790,
+          178,
+          163
+        ]
+      },
+      {
+        "id": "pink_bird",
+        "rect": [
+          556,
+          766,
+          152,
+          167
+        ]
+      },
+      {
+        "id": "pink_badge",
+        "rect": [
+          641,
+          885,
+          81,
+          80
+        ]
+      },
+      {
+        "id": "pink_ability",
+        "rect": [
+          654,
+          900,
+          44,
+          50
+        ]
+      },
+      {
+        "id": "mint_ring",
+        "rect": [
+          730,
+          790,
+          177,
+          163
+        ]
+      },
+      {
+        "id": "mint_bird",
+        "rect": [
+          743,
+          769,
+          152,
+          166
+        ]
+      },
+      {
+        "id": "mint_badge",
+        "rect": [
+          831,
+          886,
+          80,
+          79
+        ]
+      },
+      {
+        "id": "mint_ability",
+        "rect": [
+          843,
+          901,
+          57,
+          43
+        ]
+      },
+      {
+        "id": "owl_ring",
+        "rect": [
+          247,
+          973,
+          187,
+          182
+        ]
+      },
+      {
+        "id": "owl_bird",
+        "rect": [
+          261,
+          984,
+          161,
+          155
+        ]
+      },
+      {
+        "id": "owl_badge",
+        "rect": [
+          350,
+          1087,
+          82,
+          79
+        ]
+      },
+      {
+        "id": "owl_ability",
+        "rect": [
+          364,
+          1110,
+          55,
+          31
+        ]
+      },
+      {
+        "id": "white_ring",
+        "rect": [
+          448,
+          978,
+          184,
+          179
+        ]
+      },
+      {
+        "id": "white_bird",
+        "rect": [
+          463,
+          975,
+          155,
+          165
+        ]
+      },
+      {
+        "id": "white_badge",
+        "rect": [
+          549,
+          1087,
+          83,
+          80
+        ]
+      },
+      {
+        "id": "white_ability",
+        "rect": [
+          565,
+          1104,
+          51,
+          42
+        ]
+      },
+      {
+        "id": "fire_ring",
+        "rect": [
+          643,
+          977,
+          187,
+          180
+        ]
+      },
+      {
+        "id": "fire_bird",
+        "rect": [
+          657,
+          960,
+          162,
+          180
+        ]
+      },
+      {
+        "id": "fire_badge",
+        "rect": [
+          745,
+          1086,
+          83,
+          81
+        ]
+      },
+      {
+        "id": "fire_ability",
+        "rect": [
+          761,
+          1099,
+          53,
+          52
+        ]
+      },
+      {
+        "id": "pink_count",
+        "rect": [
+          696,
+          917,
+          18,
+          30
+        ]
+      },
+      {
+        "id": "lower_card",
+        "rect": [
+          183,
+          1194,
+          707,
+          148
+        ]
+      },
+      {
+        "id": "sleep_owl",
+        "rect": [
+          242,
+          1213,
+          163,
+          110
+        ]
+      },
+      {
+        "id": "sleep_caption",
+        "rect": [
+          369,
+          1203,
+          64,
+          44
+        ]
+      },
+      {
+        "id": "nest_leaves_l",
+        "rect": [
+          450,
+          1251,
+          35,
+          41
+        ]
+      },
+      {
+        "id": "nest_leaves_r",
+        "rect": [
+          598,
+          1251,
+          36,
+          39
+        ]
+      },
+      {
+        "id": "egg",
+        "rect": [
+          483,
+          1208,
+          114,
+          93
+        ]
+      },
+      {
+        "id": "nest",
+        "rect": [
+          464,
+          1277,
+          149,
+          48
+        ]
+      },
+      {
+        "id": "daynight",
+        "rect": [
+          665,
+          1204,
+          159,
+          130
+        ]
+      },
+      {
+        "id": "day_sun",
+        "rect": [
+          684,
+          1236,
+          45,
+          45
+        ]
+      },
+      {
+        "id": "night_moon",
+        "rect": [
+          768,
+          1243,
+          32,
+          38
+        ]
+      },
+      {
+        "id": "daynight_hand",
+        "rect": [
+          728,
+          1210,
+          38,
+          116
+        ]
+      },
+      {
+        "id": "play",
+        "rect": [
+          477,
+          1427,
+          126,
+          126
+        ]
+      },
+      {
+        "id": "play_icon",
+        "rect": [
+          521,
+          1460,
+          50,
+          58
+        ]
+      },
+      {
+        "id": "nav_frame",
+        "rect": [
+          60,
+          1770,
+          960,
+          150
+        ]
+      },
+      {
+        "id": "nav_bar",
+        "rect": [
+          83,
+          1794,
+          915,
+          104
+        ]
+      },
+      {
+        "id": "nav_shop",
+        "rect": [
+          249,
+          1795,
+          110,
+          105
+        ]
+      },
+      {
+        "id": "nav_shop_icon",
+        "rect": [
+          284,
+          1823,
+          39,
+          44
+        ]
+      },
+      {
+        "id": "nav_home",
+        "rect": [
+          488,
+          1795,
+          111,
+          105
+        ]
+      },
+      {
+        "id": "nav_home_icon",
+        "rect": [
+          517,
+          1826,
+          42,
+          40
+        ]
+      },
+      {
+        "id": "nav_settings",
+        "rect": [
+          722,
+          1795,
+          112,
+          105
+        ]
+      },
+      {
+        "id": "nav_settings_icon",
+        "rect": [
+          754,
+          1825,
+          43,
+          45
+        ]
+      }
+    ],
+    "sprites": []
+  },
   "shop_boosters": {
     "background": [
       0,

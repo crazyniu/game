@@ -72,6 +72,65 @@ namespace PerchSort.Game
         {
             var image = Image(parent, name, sprite, point, size); image.preserveAspect = true; return image;
         }
+
+        public static Rect Local(Rect bounds, Rect parent) => new Rect(bounds.position - parent.position, bounds.size);
+
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+        public static void DumpPopupRects(Transform scope, string screen)
+        {
+#if UNITY_EDITOR
+            if (!Application.isBatchMode) return;
+            Canvas.ForceUpdateCanvases();
+            var space = (RectTransform)scope;
+            var corners = new Vector3[4];
+            Debug.Log("POPUP_RECTS_BEGIN\t" + screen);
+            foreach (var rect in scope.GetComponentsInChildren<RectTransform>())
+            {
+                rect.GetWorldCorners(corners);
+                Vector3 lower = space.InverseTransformPoint(corners[0]);
+                Vector3 upper = space.InverseTransformPoint(corners[2]);
+                string path = rect.name;
+                for (var parent = rect.parent; parent != scope && parent != null; parent = parent.parent)
+                    path = parent.name + "/" + path;
+                Debug.Log(string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    "POPUP_RECT\t{0}\t{1}\t{2:F2},{3:F2},{4:F2},{5:F2}", screen, path,
+                    lower.x - space.rect.xMin, space.rect.yMax - upper.y, upper.x - lower.x, upper.y - lower.y));
+            }
+            Debug.Log("POPUP_RECTS_END\t" + screen);
+#endif
+        }
+
+        public static void Place(RectTransform rect, Rect bounds)
+        {
+            rect.anchorMin = rect.anchorMax = new Vector2(0, 1);
+            rect.pivot = Vector2.one * 0.5f;
+            rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y);
+            rect.sizeDelta = bounds.size;
+        }
+
+        public static Image MeasuredImage(Transform parent, string name, GameArt art, Sprite sprite, Rect bounds)
+            => Image(parent, name, art.Measured(sprite), bounds.center, bounds.size);
+
+        public static Image MeasuredSurface(Transform parent, string name, GameArt art, string sprite, Rect bounds)
+        {
+            var image = MeasuredImage(parent, name, art, art.Get(sprite), bounds);
+            image.type = UnityEngine.UI.Image.Type.Sliced;
+            if (sprite == "panel_wood") image.pixelsPerUnitMultiplier = 2;
+            return image;
+        }
+
+        public static Button MeasuredButton(Transform parent, GameArt art, string name, string icon,
+            Rect bounds, Rect iconBounds, Action action, bool primary = false)
+        {
+            var button = Button(parent, art, name, icon, bounds, action, primary);
+            var face = button.GetComponent<Image>();
+            face.sprite = art.Measured(face.sprite); face.preserveAspect = false;
+            ((GameButton)button).RestSprite = face.sprite;
+            var glyph = button.transform.Find("Icon").GetComponent<Image>();
+            glyph.sprite = art.Measured(art.Icon(icon)); glyph.preserveAspect = false;
+            Place(glyph.rectTransform, Local(iconBounds, bounds));
+            return button;
+        }
         public static Button Button(Transform parent, GameArt art, string accessibleName, string icon,
             Vector2 point, Action click, bool primary = false) => Button(parent, art, accessibleName, icon,
                 GameLayout.Centered(point, Vector2.one * (primary ? GameLayout.PrimaryButtonSize : GameLayout.SecondaryButtonSize)), click, primary);
