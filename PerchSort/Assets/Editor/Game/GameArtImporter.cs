@@ -66,6 +66,7 @@ namespace PerchSort.Editor
         private static bool Configure(TextureImporter importer)
         {
             if (IsFallback(importer.assetPath)) return ConfigureFallback(importer);
+            if (IsPaintedLettering(importer.assetPath)) return ConfigurePaintedLettering(importer);
             string name = Path.GetFileNameWithoutExtension(importer.assetPath);
             bool overlay = IsAuthoredOverlay(importer.assetPath);
             int maxSize = overlay ? 1024 : name.StartsWith("map_bg_w", StringComparison.Ordinal) || name.StartsWith("map_bg_continuous_w", StringComparison.Ordinal) || name.StartsWith("bg_level_", StringComparison.Ordinal) ? 4096 : 2048;
@@ -112,6 +113,42 @@ namespace PerchSort.Editor
                     if (importer != null && Configure(importer)) importer.SaveAndReimport();
                 }
             }
+        }
+
+        private static bool IsPaintedLettering(string path) =>
+            path.StartsWith("Assets/Resources/Art/glyphs/", StringComparison.Ordinal) ||
+            path.StartsWith("Assets/Resources/Art/labels/", StringComparison.Ordinal);
+
+        private static bool ConfigurePaintedLettering(TextureImporter importer)
+        {
+            var settings = new TextureImporterSettings(); importer.ReadTextureSettings(settings);
+            bool changed = importer.textureType != TextureImporterType.Sprite ||
+                importer.spriteImportMode != SpriteImportMode.Single ||
+                importer.alphaSource != TextureImporterAlphaSource.FromInput || !importer.alphaIsTransparency ||
+                importer.mipmapEnabled || importer.maxTextureSize != 4096 ||
+                importer.textureCompression != TextureImporterCompression.Uncompressed ||
+                importer.crunchedCompression || importer.compressionQuality != 100 ||
+                importer.filterMode != FilterMode.Bilinear || importer.wrapMode != TextureWrapMode.Clamp ||
+                importer.spriteBorder != Vector4.zero || importer.spritePixelsPerUnit != 100 ||
+                settings.spriteMeshType != SpriteMeshType.FullRect || settings.spriteAlignment != 0 ||
+                settings.spritePivot != Vector2.one * 0.5f || settings.spriteGenerateFallbackPhysicsShape;
+            importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Single;
+            importer.alphaSource = TextureImporterAlphaSource.FromInput; importer.alphaIsTransparency = true;
+            importer.mipmapEnabled = false; importer.maxTextureSize = 4096;
+            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            importer.crunchedCompression = false; importer.compressionQuality = 100;
+            importer.filterMode = FilterMode.Bilinear; importer.wrapMode = TextureWrapMode.Clamp;
+            importer.spriteBorder = Vector4.zero; importer.spritePixelsPerUnit = 100;
+            importer.ReadTextureSettings(settings);
+            settings.spriteMeshType = SpriteMeshType.FullRect; settings.spriteAlignment = 0;
+            settings.spritePivot = Vector2.one * 0.5f; settings.spriteGenerateFallbackPhysicsShape = false;
+            importer.SetTextureSettings(settings);
+            foreach (string platform in new[] { "Standalone", "Android", "iPhone", "WebGL" })
+            {
+                if (!importer.GetPlatformTextureSettings(platform).overridden) continue;
+                importer.ClearPlatformTextureSettings(platform); changed = true;
+            }
+            return changed;
         }
 
         private static bool ConfigureFallback(TextureImporter importer)
