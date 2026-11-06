@@ -99,3 +99,36 @@ Contact sheet order is this table, left to right then top to bottom. `review_*.j
 | Inky | Meta/Aviary.cs:38; Game/AviaryView.cs:81,110; Game/PanelsView.cs:126 | name ribbon | label_name_ink.png | 640 × 200 | other-owner existing; not written by this job |
 | Hoot | Meta/Aviary.cs:38; Game/AviaryView.cs:81,110; Game/PanelsView.cs:126 | name ribbon | label_name_hoot.png | 640 × 200 | other-owner existing; not written by this job |
 | ? | Game/AviaryView.cs:78,81 | name ribbon | label_name_unknown.png | 640 × 200 | other-owner existing; not written by this job |
+
+
+## Outfit ribbon additions
+
+23 additional painted outfit labels (112 inventory entries including the original 89 above). Each PNG is RGBA on a 1368 × 294 canvas. The four existing outfit ribbons remain unchanged. No `.meta` files are supplied, per coordinator instruction; Unity and `GameArtImporter` own import settings.
+
+[All 27 outfit ribbons](outfit-labels.jpg): the four existing references first (Straw Hat, Cozy Scarf, Round Glasses, Flower), followed by the rows below, left to right and top to bottom. New labels use Straw Hat as the common ribbon/letter/leaf scale reference. Source-resolution and Unity-verification limits are recorded in [the outfit label report](../outfit-labels/report.md).
+
+| Outfit ID | Exact painted text | Final file | Canvas (px) | Review |
+|---|---|---|---|---|
+| outfit.sunny.2 | Blue Bow Tie | label_card_blue_bow_tie.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.sunny.3 | Little Crown | label_card_little_crown.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.sky.2 | Aviator Goggles | label_card_aviator_goggles.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.sky.3 | Tiny Top Hat | label_card_tiny_top_hat.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.berry.2 | Pink Bow | label_card_pink_bow.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.berry.3 | Sparkle Tiara | label_card_sparkle_tiara.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.mint.2 | Mushroom Cap | label_card_mushroom_cap.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.mint.3 | Acorn Cap | label_card_acorn_cap.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.cocoa.1 | Red Beanie | label_card_red_beanie.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.cocoa.2 | Plaid Bow Tie | label_card_plaid_bow_tie.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.cocoa.3 | Monocle | label_card_monocle.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.snow.1 | Earmuffs | label_card_earmuffs.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.snow.2 | Snowflake Clip | label_card_snowflake_clip.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.snow.3 | Ice Tiara | label_card_ice_tiara.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ember.1 | Red Bandana | label_card_red_bandana.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ember.2 | Flame Headband | label_card_flame_headband.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ember.3 | Knight Helmet | label_card_knight_helmet.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ink.1 | Star Nightcap | label_card_star_nightcap.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ink.2 | Silver Glasses | label_card_silver_glasses.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.ink.3 | Little Star Hat | label_card_little_star_hat.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.hoot.1 | Graduation Cap | label_card_graduation_cap.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.hoot.2 | Reading Glasses | label_card_reading_glasses.png | 1368 × 294 | spelling and i-dots checked at 300% |
+| outfit.hoot.3 | Wizard Cape | label_card_wizard_cape.png | 1368 × 294 | spelling and i-dots checked at 300% |
