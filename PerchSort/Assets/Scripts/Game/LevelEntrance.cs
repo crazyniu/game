@@ -15,31 +15,31 @@ namespace PerchSort.Game
         private readonly Dictionary<int, int> attempts = new Dictionary<int, int>();
         private int arrivals;
         private bool poseComplete, prepared;
-        private GameRoot root;
+        private BoardPresentation root;
         private GameMotion motion;
         private Action completed;
         private int revision;
         public bool IsPlaying { get; private set; }
-        public void Configure(GameRoot owner)
+        public void Configure(BoardPresentation owner)
         {
             root = owner; motion = gameObject.AddComponent<GameMotion>();
             var skip = gameObject.AddComponent<Image>(); skip.color = Color.clear; skip.raycastTarget = true;
-            gameObject.AddComponent<EmptyClick>().Click = Skip;
+            gameObject.AddComponent<EmptyClick>().Click = root.RequestEntranceSkip;
             gameObject.SetActive(false);
         }
         internal void Prepare()
         {
             Cancel();
-            int level = root.LevelId;
+            int level = root.Snapshot.LevelId;
             attempts.TryGetValue(level, out int attempt);
             attempts[level] = attempt + 1;
             var random = new System.Random(unchecked(level + attempt));
             foreach (var branch in root.Board.Branches)
             {
-                var state = root.Session.State.Branches[branch.Index];
-                for (int seat = 0; seat < state.Birds.Count; seat++)
+                var state = root.Snapshot.Branches[branch.Index];
+                for (int seat = 0; seat < state.Birds.Length; seat++)
                 {
-                    var bird = root.Board.Birds[state.Birds[seat].Id];
+                    var bird = root.Board.Birds[state.Birds[seat].Bird.Id];
                     bool seated = bird.Bird.IsEgg || bird.Sleeping;
                     bird.Place(seated ? branch.Slot(seat) : StartPoint(branch, random));
                 }
@@ -47,7 +47,7 @@ namespace PerchSort.Game
             // Hold the starting poses without idle motion while the wipe still covers the level.
             root.Board.Cancel();
             foreach (var bird in root.Board.Birds.Values)
-                if (bird.Bird.IsEgg || bird.Sleeping) bird.transform.localScale = Vector3.zero;
+                if (bird.Bird.IsEgg || bird.Sleeping) bird.SetEntranceAlpha(0);
             Pose(0);
             prepared = true;
         }
@@ -61,13 +61,13 @@ namespace PerchSort.Game
             return new Vector2(x + Mathf.Lerp(-60, 60, (float)random.NextDouble()),
                 y + Mathf.Lerp(-60, 60, (float)random.NextDouble()));
         }
-        public void Play(Action done)
+        public void Play(Action done, float startAt = 0)
         {
             if (!prepared) Prepare();
             prepared = false; completed = done; IsPlaying = true;
             int token = ++revision;
             transform.SetAsLastSibling(); gameObject.SetActive(true);
-            Pose(0);
+            Pose(startAt);
             root.PresentationInputChanged();
             arrivals = root.Board.Birds.Count; poseComplete = false;
             float duration = MinimumDuration;
@@ -80,21 +80,24 @@ namespace PerchSort.Game
             };
             foreach (var branch in root.Board.Branches)
             {
-                var state = root.Session.State.Branches[branch.Index];
+                var state = root.Snapshot.Branches[branch.Index];
                 if (state.Row != row) { row = state.Row; rowBird = 0; }
-                for (int seat = 0; seat < state.Birds.Count; seat++)
+                for (int seat = 0; seat < state.Birds.Length; seat++)
                 {
-                    var bird = root.Board.Birds[state.Birds[seat].Id];
+                    var bird = root.Board.Birds[state.Birds[seat].Bird.Id];
                     Vector2 target = branch.Slot(seat);
                     Vector2 start = bird.Position;
                     // Rows overlap, but birds within each row keep their own readable cadence.
                     float delay = HouseDuration + BranchDuration + state.Row * RowStagger + rowBird * BirdStagger;
-                    root.Board.Enter(bird, start, target, delay, branch, arrived);
-                    duration = Mathf.Max(duration, delay + (bird.Bird.IsEgg || bird.Sleeping ? SeatedDuration : FlightSettleDuration));
+                    float arrival = delay + (bird.Bird.IsEgg || bird.Sleeping ? SeatedDuration : FlightSettleDuration);
+                    duration = Mathf.Max(duration, arrival);
+                    if (startAt >= arrival) { bird.Place(target); bird.SetEntranceAlpha(1); arrived(); }
+                    else root.Board.Enter(bird, start, target, Mathf.Max(0, delay - startAt), branch, arrived);
                     rowBird++;
                 }
             }
-            motion.Play(duration, t => { if (token == revision) Pose(t * duration, duration); },
+            float remainingDuration = Mathf.Max(0, duration - startAt);
+            motion.Play(remainingDuration, t => { if (token == revision) Pose(startAt + t * remainingDuration, duration); },
                 () =>
                 {
                     if (token != revision) return;
@@ -112,7 +115,7 @@ namespace PerchSort.Game
             for (int i = 0; i < branches.Count; i++)
             {
                 var branch = branches[i];
-                float progress = Mathf.Clamp01((elapsed - HouseDuration - root.Session.State.Branches[branch.Index].Row * RowStagger) / BranchDuration);
+                float progress = Mathf.Clamp01((elapsed - HouseDuration - root.Snapshot.Branches[branch.Index].Row * RowStagger) / BranchDuration);
                 branch.Entrance(1 - Mathf.Pow(1 - progress, 3));
             }
         }
@@ -120,7 +123,7 @@ namespace PerchSort.Game
         {
             if (!IsPlaying) return;
             IsPlaying = false; revision++; motion.CancelAll();
-            root.Board.Cancel(); root.Board.Settle(root.Session.State);
+            root.Board.Cancel(); root.Board.Settle(root.Snapshot);
             ResetPose();
             var next = completed; completed = null;
             gameObject.SetActive(false); next?.Invoke();
@@ -143,7 +146,7 @@ namespace PerchSort.Game
             revision++; completed = null; IsPlaying = prepared = false; motion.CancelAll();
             if (restore && root != null && root.Board != null)
             {
-                root.Board.Cancel(); root.Board.Settle(root.Session.State);
+                root.Board.Cancel(); root.Board.Settle(root.Snapshot);
             }
             ResetPose(); gameObject.SetActive(false);
         }

@@ -225,6 +225,7 @@ namespace PerchSort.PlayModeTests
         {
             var house = root.Hud.Houses["sky"];
             int obsolete = 0, current = 0;
+            house.BeginDelivery("sky");
             house.OpenDoor(() => obsolete++);
             yield return new WaitForSecondsRealtime(0.1f);
             house.OpenDoor(() => current++);
@@ -232,7 +233,7 @@ namespace PerchSort.PlayModeTests
             Assert.That(obsolete, Is.Zero); Assert.That(current, Is.EqualTo(1));
             house.CompleteFlock(() => obsolete++);
             yield return new WaitForSecondsRealtime(0.1f);
-            house.SetHome(false);
+            house.SyncState(new HudSnapshot { Goals = Array.Empty<BoardSnapshot.Goal>(), ResidentSpecies = null });
             yield return new WaitForSecondsRealtime(0.6f);
             house.OpenDoor(() => current++);
             yield return new WaitForSecondsRealtime(1);

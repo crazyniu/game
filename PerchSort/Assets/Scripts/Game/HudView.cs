@@ -10,315 +10,223 @@ namespace PerchSort.Game
     public sealed class HudView : MonoBehaviour
     {
         private GameArt art;
-        private GameRoot root;
-        private TextMeshProUGUI coins, phaseCount, chorusLabel;
-        private Image phaseIcon;
-        private GameObject phaseGroup, feather, chorus;
-        private GameMotion motion, coinMotion, undoMotion;
+        private BoardPresentation screen;
+        private TMP_FontAsset font;
+        private TextMeshProUGUI coins, moves, phaseCount, chorusLabel;
+        private readonly Image[] stars = new Image[3];
+        private readonly TextMeshProUGUI[] limits = new TextMeshProUGUI[2];
+        private Image phaseIcon, moveFrame;
+        private GameObject phaseGroup, feather, chorus, moonbeam;
+        private GameMotion motion, coinMotion, moveMotion;
         private bool countingCoins;
-        private int coinRevision;
-        private RectTransform housesLayer, homeFlights, effects, bottomBar;
+        private int coinRevision, displayedMoves = -1;
+        private RectTransform housesLayer, homeFlights, effects, bottomBar, controls;
+        private BirdhouseView house;
+        // Every species routes to the one physical doorway. Goal state is held by its badge.
         private readonly Dictionary<string, BirdhouseView> houses = new Dictionary<string, BirdhouseView>();
         private readonly Button[] tools = new Button[4];
         private readonly Image[] badges = new Image[4];
+        private readonly Image[] stockHits = new Image[4];
         private readonly TextMeshProUGUI[] counts = new TextMeshProUGUI[4];
-        private readonly RectTransform[] plusBadges = new RectTransform[4];
+        private readonly GameObject[] plusBadges = new GameObject[4];
         private readonly BoosterKind[] kinds = new BoosterKind[4];
-        private static readonly string[] ToolGlyphs = { "tool_hint", "tool_branch", "tool_owl_eye", "tool_bell", "tool_scarecrow", "tool_rain" };
-        private readonly int[] inventory = new int[ViewModel.BoosterCount];
         private Button settings;
-        private bool contextMechanic;
+        private CanvasGroup controlFade;
+        private HudSnapshot current;
         private int toolCount = 3;
-        private bool tutorialLevel;
-        private Rect ToolBounds(int index)
-        {
-            Rect bounds = GameLayout.ToolButton(index, index == 3 ? 4 : toolCount);
-            Vector2 size = tutorialLevel ? Vector2.one * 64 : GameLayout.ToolButton(0, toolCount).size;
-            return GameLayout.Centered(bounds.center, size);
-        }
-        private RectTransform coinPlate;
-        private CanvasGroup coinFade, gearFade, toolFade;
-        private CanvasGroup undoFade;
-        private bool undoVisible;
-        private Rect headerBounds = CoinCanvas(GameLayout.CoinPill), gearBounds = GameLayout.SettingsButton;
-        private Rect coinTextBounds = CoinText(CoinCanvas(GameLayout.CoinPill));
-        // Keep the whole 320x128 sprite proportional and clear of suspension ropes and leaves.
-        private static Rect CoinCanvas(Rect visible) => new Rect(40, visible.y + 8, 232, 232 * 128f / 320);
-        private static Rect CoinText(Rect canvas) => new Rect(canvas.x + canvas.width * 142 / 320,
-            canvas.y + canvas.height * 32 / 128, canvas.width * 152 / 320, canvas.height * 60 / 128);
         public IReadOnlyDictionary<string, BirdhouseView> Houses => houses;
+        public BirdhouseView GoalHouse => house;
         public BoosterKind ContextBooster => kinds[3];
         public Transform HomeFlightLayer => homeFlights;
-        public void Configure(GameRoot owner, GameArt assets, TMP_FontAsset font)
+        public void Configure(BoardPresentation owner, GameArt assets, TMP_FontAsset textFont)
         {
-            root = owner; art = assets; motion = gameObject.AddComponent<GameMotion>();
-            coinMotion = gameObject.AddComponent<GameMotion>();
-            coins = CoinHeader(transform, art, font);
-            settings = GameUI.Button(transform, art, "Settings", "icon_gear", GameLayout.SettingsButton, root.OpenSettings);
-            coinPlate = (RectTransform)transform.Find("Coin pill");
-            coinFade = coinPlate.gameObject.AddComponent<CanvasGroup>();
-            gearFade = settings.GetComponent<CanvasGroup>();
-            phaseGroup = GameUI.Rect(transform, "Day night dial", GameLayout.PhaseDial.center, GameLayout.PhaseDial.size).gameObject;
+            screen = owner; art = assets; font = textFont;
+            motion = gameObject.AddComponent<GameMotion>(); coinMotion = gameObject.AddComponent<GameMotion>(); moveMotion = gameObject.AddComponent<GameMotion>();
+            controls = GameUI.Rect(transform, "Board controls", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            controlFade = controls.gameObject.AddComponent<CanvasGroup>();
+            coins = CoinHeader(controls, art, font);
+            settings = GameUI.Button(controls, art, "Settings", "icon_gear", GameLayout.SettingsButton, screen.RequestSettings);
+            settings.gameObject.AddComponent<BoardControlFeedback>().Configure(settings, screen);
+            Rect pill = GameLayout.MovePill;
+            moveFrame = GameUI.Fit(controls, "Move pill", art.Get("move_pill_frame"), pill.center, pill.size);
+            GameUI.Fit(moveFrame.transform, "Footprints", art.Get("icon_footprint"), new Vector2(16, 30), Vector2.one * 24);
+            moves = GameUI.Text(moveFrame.transform, "Counted moves", "0", font, new Vector2(46, 31), new Vector2(40, 42), 18);
+            for (int i = 0; i < 3; i++)
+            {
+                stars[i] = GameUI.Fit(moveFrame.transform, "Reachable star", art.Get("star_full"), new Vector2(82 + i * 37, 21), Vector2.one * 26);
+                if (i < 2) limits[i] = GameUI.Text(moveFrame.transform, "Star limit", "", font, new Vector2(82 + i * 37, 48), new Vector2(34, 23), 16);
+                else
+                {
+                    // Two linked rings are an icon, not a live text infinity glyph.
+                    for (int ring = 0; ring < 2; ring++)
+                    {
+                        var icon = GameUI.Fit(moveFrame.transform, "Any clear", art.DoorMask(), new Vector2(150 + ring * 11, 48), new Vector2(17, 11));
+                        icon.color = GameUI.Ink;
+                        GameUI.Fit(icon.transform, "Ring inset", art.DoorMask(), new Vector2(8.5f, 5.5f), new Vector2(11, 5)).color = new Color32(251, 233, 198, 255);
+                    }
+                }
+            }
+            phaseGroup = GameUI.Fit(controls, "Day night dial", art.Get("dial_frame"), GameLayout.PhaseDial.center, GameLayout.PhaseDial.size).gameObject;
             phaseIcon = GameUI.Fit(phaseGroup.transform, "Sun moon", art.Get("dial_sun"), GameLayout.PhaseIconCenter, Vector2.one * GameLayout.PhaseIconSize);
             phaseCount = GameUI.Text(phaseGroup.transform, "Moves until phase", "0", font, GameLayout.PhaseCountCenter, GameLayout.PhaseCountSize, GameLayout.PhaseFontSize);
-            // Homeward birds render behind the aligned house body and doorway portrait.
+            moonbeam = GameUI.Fit(phaseGroup.transform, "Moonbeam status", art.Get("gift_moon_ray"), new Vector2(166, 30), Vector2.one * 36).gameObject;
             homeFlights = GameUI.Rect(transform, "Homeward flights", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             housesLayer = GameUI.Rect(transform, "Species goals", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
-            bottomBar = GameUI.Rect(transform, "Bottom bar", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
-            toolFade = bottomBar.gameObject.AddComponent<CanvasGroup>();
-            var undoLayer = GameUI.Rect(bottomBar, "Undo visibility", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
-            undoFade = undoLayer.gameObject.AddComponent<CanvasGroup>();
-            undoFade.alpha = 0; undoFade.blocksRaycasts = undoFade.interactable = false;
-            undoMotion = undoLayer.gameObject.AddComponent<GameMotion>();
-            tools[0] = GameUI.Button(undoLayer, art, "Undo", "icon_undo", GameLayout.ToolButton(0), () => root.Undo());
+            bottomBar = GameUI.Rect(controls, "Bottom bar", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            tools[0] = GameUI.Button(bottomBar, art, "Undo", "icon_undo", GameLayout.ToolButton(0), screen.RequestUndo);
             for (int i = 1; i < tools.Length; i++)
             {
                 int slot = i;
-                tools[i] = GameUI.Button(bottomBar, art, "Booster " + i, ToolGlyphs[i - 1], GameLayout.ToolButton(i, 4), () => root.TapBooster(kinds[slot]));
-                badges[i] = GameUI.Fit(tools[i].transform, "Inventory badge", art.Get("badge_red"), GameLayout.StockCenter, Vector2.one * GameLayout.StockSize);
-                counts[i] = GameUI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * GameLayout.StockSize * 0.5f, Vector2.one * GameLayout.StockSize, GameLayout.StockFontSize);
-                counts[i].color = Color.white;
-                plusBadges[i] = GameUI.Rect(badges[i].transform, "Zero stock plus", Vector2.one * GameLayout.StockSize * 0.5f, Vector2.one * GameLayout.StockSize);
-                var horizontal = GameUI.Image(plusBadges[i], "Horizontal", null, Vector2.zero, Vector2.zero);
-                horizontal.rectTransform.anchorMin = new Vector2(0.24f, 0.42f); horizontal.rectTransform.anchorMax = new Vector2(0.76f, 0.58f);
-                horizontal.rectTransform.offsetMin = horizontal.rectTransform.offsetMax = Vector2.zero;
-                var vertical = GameUI.Image(plusBadges[i], "Vertical", null, Vector2.zero, Vector2.zero);
-                vertical.rectTransform.anchorMin = new Vector2(0.42f, 0.24f); vertical.rectTransform.anchorMax = new Vector2(0.58f, 0.76f);
-                vertical.rectTransform.offsetMin = vertical.rectTransform.offsetMax = Vector2.zero;
-                GameUI.Stretch(plusBadges[i]);
+                tools[i] = GameUI.Button(bottomBar, art, "Tool", "tool_hint", GameLayout.ToolButton(i, 4), () => screen.RequestTool(kinds[slot]));
+                badges[i] = GameUI.Fit(tools[i].transform, "Inventory badge", art.Get("badge_red"), GameLayout.StockCenter, Vector2.one * 64);
+                counts[i] = GameUI.Text(badges[i].transform, "Owned", "0", font, Vector2.one * 32, new Vector2(58, 52), 22); counts[i].color = Color.white;
+                plusBadges[i] = GameUI.Rect(badges[i].transform, "Zero stock plus", Vector2.one * 32, Vector2.one * 64).gameObject;
+                var horizontal = GameUI.Image(plusBadges[i].transform, "Plus horizontal", null, Vector2.one * 32, new Vector2(32, 9));
+                var vertical = GameUI.Image(plusBadges[i].transform, "Plus vertical", null, Vector2.one * 32, new Vector2(9, 32));
+                horizontal.color = vertical.color = Color.white;
+                stockHits[i] = GameUI.Image(tools[i].transform, "Inventory action", null, GameLayout.StockCenter, Vector2.one * 88);
+                stockHits[i].color = Color.clear;
+                stockHits[i].gameObject.AddComponent<BoardControlFeedback>().Configure(tools[i], screen, () => screen.RequestTool(kinds[slot]));
             }
-            feather = GameUI.Fit(bottomBar, "Light step pending", art.Get("gift_feather"), GameLayout.LightStepPoint, Vector2.one * GameLayout.FeatherSize).gameObject;
-            chorus = GameUI.Fit(transform, "Chorus ribbon", art.Get("ribbon_green"), GameLayout.ChainRibbon.center, GameLayout.ChainRibbon.size).gameObject;
-            chorusLabel = GameUI.Text(chorus.transform, "Chorus multiplier", "", font, GameLayout.ChainRibbon.size * 0.5f, GameLayout.ChainRibbon.size, GameLayout.ChainFontSize);
+            feather = GameUI.Fit(controls, "Light step pending", art.Get("gift_feather"), new Vector2(267, 282), Vector2.one * 36).gameObject;
+            chorus = GameUI.Fit(controls, "Chorus ribbon", art.Get("ribbon_green"), GameLayout.ChainRibbon.center, GameLayout.ChainRibbon.size).gameObject;
+            GameUI.Fit(chorus.transform, "Chain mark", art.Icon("icon_close"), new Vector2(60, 30), Vector2.one * 22);
+            chorusLabel = GameUI.Text(chorus.transform, "Chorus multiplier", "", font, new Vector2(110, 30), new Vector2(50, 44), 32);
             chorus.SetActive(false);
             effects = GameUI.Rect(transform, "HUD particles", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
+            foreach (var tool in tools) tool.gameObject.AddComponent<BoardControlFeedback>().Configure(tool, screen);
         }
         public static TextMeshProUGUI CoinHeader(Transform parent, GameArt art, TMP_FontAsset font, bool map = false)
         {
+            // Keep map geometry untouched; the board uses the pattern's measured source-local rect.
             Rect bounds = map ? GameLayout.Screen("map", "coin_pill") : GameLayout.CoinPill;
-            Rect canvas = CoinCanvas(bounds);
+            Rect canvas = map ? new Rect(40, bounds.y + 8, 232, 232 * 128f / 320) : bounds;
             GameUI.Fit(parent, "Coin pill", art.Get("coin_pill"), canvas.center, canvas.size);
-            Rect text = CoinText(canvas);
-            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, GameLayout.CoinFontSize);
-            label.color = new Color32(95, 22, 6, 255);
-            label.margin = new Vector4(8, 0, 8, 0);
-            label.textWrappingMode = TextWrappingModes.NoWrap;
-            label.enableAutoSizing = true;
-            label.fontSizeMin = GameLayout.CoinMinimumFontSize;
-            label.fontSizeMax = GameLayout.CoinFontSize;
+            Rect text = map ? new Rect(canvas.x + canvas.width * 142 / 320, canvas.y + canvas.height * 32 / 128,
+                canvas.width * 152 / 320, canvas.height * 60 / 128) : GameLayout.CoinNumber;
+            var label = GameUI.Text(parent, "Coins", "0", font, text.center, text.size, map ? GameLayout.CoinFontSize : 20);
+            label.color = GameUI.Ink; label.textWrappingMode = TextWrappingModes.NoWrap;
+            label.enableAutoSizing = map; label.fontSizeMin = GameLayout.CoinMinimumFontSize; label.fontSizeMax = GameLayout.CoinFontSize;
             return label;
         }
-        public void SetLevel(BoardState state)
+        public void SetLevel(BoardSnapshot snapshot)
         {
             Cancel();
-            undoVisible = false;
-            undoFade.alpha = 0; undoFade.blocksRaycasts = undoFade.interactable = false;
             for (int i = housesLayer.childCount - 1; i >= 0; i--) GameUI.Dispose(housesLayer.GetChild(i).gameObject);
             houses.Clear();
-            var species = new List<string>();
-            foreach (var branch in state.Branches) foreach (var bird in branch.Birds)
-                if (!bird.Species.IsCrow && !species.Contains(bird.Species.Id)) species.Add(bird.Species.Id);
-            foreach (var home in state.HomedSpecies) if (!species.Contains(home.Id)) species.Add(home.Id);
-            // Fresh progression keeps the tutorial minimal; explicit test stock stays accessible.
-            tutorialLevel = state.LevelId == 1 && root.HighestUnlocked < ViewModel.Unlock(BoosterKind.Firefly);
-            string screen = BirdhouseView.UsesBeam(species.Count) ? "level_k7" : "level_k3";
-            Rect header = GameLayout.Screen(screen, "coin_pill"), gear = GameLayout.Screen(screen, "gear");
-            headerBounds = CoinCanvas(header); gearBounds = gear;
-            var coinRect = (RectTransform)transform.Find("Coin pill");
-            coinRect.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y); coinRect.sizeDelta = headerBounds.size;
-            coinTextBounds = CoinText(headerBounds);
-            coins.rectTransform.anchoredPosition = new Vector2(coinTextBounds.center.x, -coinTextBounds.center.y);
-            coins.rectTransform.sizeDelta = coinTextBounds.size;
-            var gearRect = (RectTransform)settings.transform;
-            gearRect.anchoredPosition = new Vector2(gear.center.x, -gear.center.y); gearRect.sizeDelta = gear.size;
-            GlyphMetrics.Apply(settings.transform.GetChild(0).GetComponent<Image>(), gear.size);
-            if (BirdhouseView.UsesBeam(species.Count))
-            {
-                var beam = GameLayout.Screen("level_k7", "house_beam");
-                GameUI.Image(housesLayer, "House beam", art.Get("house_beam_w" + state.World), beam.center, beam.size);
-            }
-            for (int i = 0; i < species.Count; i++)
-            {
-                Rect canvas = BirdhouseView.CanvasBounds(i, species.Count);
-                float end = canvas.y + canvas.height * 58 / 512;
-                Rect beam = GameLayout.Screen("level_k7", "house_beam");
-                bool usesBeam = BirdhouseView.UsesBeam(species.Count);
-                float start = usesBeam ? beam.y + beam.height * (state.World == 4 ? 120 : 170) / 200 : 0;
-                float length = end - start;
-                // Rope alpha occupies only x=20..44, y=4..252 of its 64x256 canvas.
-                float width = (usesBeam ? 12 : 14) * 64 / 24f;
-                GameUI.Image(housesLayer, "House rope", art.Get("house_rope"),
-                    new Vector2(canvas.center.x, (start + end) * 0.5f), new Vector2(width, length * 256 / 248));
-                if (!usesBeam)
-                {
-                    HangingLeaf(new Vector2(canvas.center.x - 34, 32), 25);
-                    HangingLeaf(new Vector2(canvas.center.x + 28, 48), -75);
-                    HangingLeaf(new Vector2(canvas.center.x - 34, 106), 25);
-                }
-            }
-            for (int i = 0; i < species.Count; i++)
-            {
-                var house = GameUI.Rect(housesLayer, species[i] + " goal", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize).gameObject.AddComponent<BirdhouseView>();
-                house.Configure(root, art, species[i], i, species.Count); houses.Add(species[i], house);
-            }
-            kinds[1] = BoosterKind.Firefly; kinds[2] = BoosterKind.Sapling;
-            kinds[3] = ViewModel.ContextBooster(state, out contextMechanic);
-            toolCount = contextMechanic && root.HighestUnlocked >= ViewModel.Unlock(kinds[3]) ? 4 : 3;
-            for (int i = 0; i < tools.Length; i++)
-            {
-                Rect bounds = ToolBounds(i);
-                var rect = (RectTransform)tools[i].transform;
-                rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y); rect.sizeDelta = bounds.size;
-                var icon = rect.GetChild(0).GetComponent<Image>();
-                if (i > 0) icon.sprite = art.Get(ToolGlyphs[(int)kinds[i]]);
-                GlyphMetrics.Apply(icon, bounds.size);
-                if (i > 0)
-                {
-                    Rect badge = GameLayout.Screen(toolCount == 3 ? "level_k3" : "level_k7", "hint_count");
-                    Vector2 size = Vector2.one * (toolCount == 3 ? 46 : 50);
-                    badges[i].rectTransform.anchoredPosition = new Vector2(bounds.width * 0.82f, bounds.y - badge.center.y);
-                    badges[i].rectTransform.sizeDelta = size;
-                    counts[i].rectTransform.anchoredPosition = new Vector2(size.x * 0.5f, -size.y * 0.5f);
-                    counts[i].rectTransform.sizeDelta = size;
-                }
-            }
-            for (int i = 1; i < tools.Length; i++)
-            {
-                tools[i].name = kinds[i].ToString();
-                tools[i].gameObject.SetActive(!tutorialLevel && i < toolCount && root.HighestUnlocked >= ViewModel.Unlock(kinds[i]));
-            }
-            SyncState(state);
-        }
-        private void HangingLeaf(Vector2 point, float angle)
-        {
-            var leaf = GameUI.Fit(housesLayer, "Rope leaf", art.Get("leaf_badge"), point, new Vector2(76, 54));
-            leaf.rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
+            GameUI.Fit(housesLayer, "Single house rope", art.Get("goal_rope_single"), new Vector2(540, 80), new Vector2(15.24f, 160));
+            house = GameUI.Rect(housesLayer, "Single goal house", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize).gameObject.AddComponent<BirdhouseView>();
+            house.Configure(screen, art, snapshot);
+            foreach (var goal in snapshot.Goals) houses.Add(goal.Species, house);
+            Render(snapshot.Hud);
         }
         public BirdhouseView House(string species) => houses[species];
         public Vector2 BoosterPoint(BoosterKind kind)
         {
-            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return ToolBounds(i).center;
-            return ToolBounds(2).center;
+            for (int i = 1; i < kinds.Length; i++) if (kinds[i] == kind) return GameLayout.ToolButton(i, toolCount).center;
+            return GameLayout.ToolButton(2, toolCount).center;
         }
-        public void SyncState(BoardState state)
+        public void Render(HudSnapshot snapshot)
         {
-            for (int i = 0; i < inventory.Length; i++) inventory[i] = state.Inventory[(BoosterKind)i];
-            DrawCounts();
-            foreach (var house in houses.Values)
+            if (snapshot == null) return;
+            current = snapshot;
+            if (!countingCoins) coins.text = snapshot.Coins.HasValue ? BoardNumber.Format(snapshot.Coins.Value, 99999) : "";
+            coins.name = "Coins " + snapshot.Coins;
+            if (snapshot.CountedMoves.HasValue && displayedMoves != snapshot.CountedMoves.Value)
             {
-                bool home = false; foreach (var species in state.HomedSpecies) if (species.Id == house.Species) home = true;
-                house.SetHome(home);
+                int before = displayedMoves < 0 ? snapshot.CountedMoves.Value : displayedMoves, after = snapshot.CountedMoves.Value;
+                displayedMoves = after; moveMotion.CancelAll();
+                moveMotion.Play(0.5f, t => moves.text = BoardNumber.Format((int)Math.Round(before + ((double)after - before) * t)),
+                    () => moves.text = BoardNumber.Format(after), ease: LitMotion.Ease.OutCubic);
             }
-            Phase(state.Phase, state.DayLength - state.PhaseCounter, state.DayLength > 0); feather.SetActive(state.LightStep);
+            else if (!snapshot.CountedMoves.HasValue) moves.text = "";
+            moves.name = "Counted moves " + snapshot.CountedMoves;
+            for (int i = 0; i < stars.Length; i++) stars[i].color = new Color(1, 1, 1, snapshot.ReachableStars.HasValue && i >= 3 - snapshot.ReachableStars.Value ? 1 : 0.35f);
+            limits[0].text = snapshot.ThreeStarLimit?.ToString() ?? ""; limits[1].text = snapshot.TwoStarLimit?.ToString() ?? "";
+            Phase(snapshot.Phase, snapshot.PhaseMovesLeft, snapshot.PhaseEnabled);
+            moonbeam.SetActive(snapshot.MoonbeamActive);
+            LightStep(snapshot.LightStep || snapshot.FreeMove);
+            moveFrame.color = snapshot.FreeMove ? new Color(0.7f, 1, 0.65f) : Color.white;
+            tools[0].gameObject.SetActive(snapshot.UndoAvailable);
+            tools[0].interactable = snapshot.UndoAvailable;
+            settings.interactable = snapshot.SettingsEnabled;
+            toolCount = snapshot.Tools.Length >= 3 ? 4 : 3;
+            for (int i = 0; i < tools.Length; i++)
+            {
+                Rect bounds = GameLayout.ToolButton(i, toolCount);
+                var rect = (RectTransform)tools[i].transform; rect.anchoredPosition = new Vector2(bounds.center.x, -bounds.center.y); rect.sizeDelta = bounds.size;
+                if (i == 0) { GlyphMetrics.Apply(rect.GetChild(0).GetComponent<Image>(), bounds.size); continue; }
+                bool supplied = i - 1 < snapshot.Tools.Length;
+                var data = supplied ? snapshot.Tools[i - 1] : null;
+                tools[i].gameObject.SetActive(supplied && data.Visible);
+                if (!supplied) continue;
+                kinds[i] = data.Kind; tools[i].name = data.Kind.ToString();
+                var icon = rect.GetChild(0).GetComponent<Image>(); icon.sprite = art.Get(ViewModel.ToolGlyph(data.Kind)); GlyphMetrics.Apply(icon, bounds.size);
+                tools[i].interactable = data.Enabled && data.Stock.HasValue;
+                stockHits[i].raycastTarget = tools[i].interactable;
+                badges[i].gameObject.SetActive(data.Stock.HasValue);
+                counts[i].gameObject.SetActive(data.Stock.HasValue && !data.ZeroPlus);
+                counts[i].text = data.Stock.HasValue ? BoardNumber.Format(data.Stock.Value) : ""; counts[i].name = "Owned " + data.Stock;
+                plusBadges[i].SetActive(data.ZeroPlus);
+            }
+            if (!snapshot.Presenting) house?.SyncState(snapshot);
+            chorus.SetActive(snapshot.Chain >= 2); chorusLabel.text = snapshot.Chain.ToString();
         }
-        public void Refresh(GameSession session, int coinCount, bool blocked, bool presenting)
+        public void SetStock(BoosterKind kind, int remaining)
         {
-            if (!countingCoins) coins.text = coinCount.ToString();
-            if (!presenting) SyncState(session.State);
-            bottomBar.gameObject.SetActive(!root.HasModal || root.IsIntroducing);
-            ((GameButton)tools[0]).SetDisabledAppearance(session.CanUndo);
-            SetUndoVisible(session.CanUndo, blocked);
-            tools[0].interactable = !blocked && session.CanUndo;
-            // Airborne input locking must not turn the gear into a faded disabled control.
-            ((GameButton)settings).SetDisabledAppearance(root.HasModal && !root.IsIntroducing);
-            settings.interactable = !blocked;
-            for (int i = 1; i < tools.Length; i++)
+            for (int i = 1; i < tools.Length; i++) if (kinds[i] == kind)
             {
-                int count = root.DisplayStock(inventory[(int)kinds[i]]);
-                tools[i].interactable = !blocked && !session.State.IsWon && (i != 3 || contextMechanic) &&
-                    (kinds[i] != BoosterKind.Firefly || !root.HintPending) && (count == 0 || session.BoosterHasEffect(kinds[i]));
+                counts[i].text = BoardNumber.Format(remaining); counts[i].gameObject.SetActive(remaining > 0); plusBadges[i].SetActive(remaining == 0);
             }
         }
-        private void SetUndoVisible(bool visible, bool blocked)
-        {
-            undoFade.blocksRaycasts = undoFade.interactable = visible && !blocked;
-            if (!undoFade.gameObject.activeInHierarchy)
-            {
-                undoMotion.CancelAll(); undoVisible = visible;
-                undoFade.alpha = visible ? 1 : 0;
-                return;
-            }
-            if (undoVisible == visible) return;
-            undoVisible = visible; undoMotion.CancelAll();
-            float from = undoFade.alpha, to = visible ? 1 : 0;
-            undoMotion.Play(0.15f, t => undoFade.alpha = Mathf.Lerp(from, to, t));
-        }
-        private void DrawCounts()
-        {
-            for (int i = 1; i < tools.Length; i++)
-            {
-                int count = root.DisplayStock(inventory[(int)kinds[i]]); badges[i].sprite = art.Get("badge_red");
-                counts[i].gameObject.SetActive(count > 0); counts[i].text = count.ToString();
-                plusBadges[i].gameObject.SetActive(count == 0);
-            }
-        }
-        public void BoosterSpent(BoosterUsed used) { inventory[(int)used.Booster] = used.Remaining; DrawCounts(); }
         public void Phase(DayPhase value, int movesLeft, bool enabled)
         {
             phaseGroup.SetActive(enabled); phaseIcon.sprite = art.Get(value == DayPhase.Day ? "dial_sun" : "dial_moon"); phaseCount.text = movesLeft.ToString();
         }
-        public void Chorus(int chain)
-        {
-            if (chain < 2) return;
-            chorus.SetActive(true); chorusLabel.text = "x" + chain;
-            motion.Play(0.3f, t => chorus.transform.localScale = Vector3.one * (0.6f + 0.4f * t));
-            motion.Play(0.8f, t => { }, () => chorus.SetActive(false), 0.3f);
-        }
+        public void Chorus(int chain) { chorus.SetActive(chain >= 2); chorusLabel.text = chain.ToString(); }
         public void LightStep(bool value) => feather.SetActive(value);
+        public void ShowFreeMove(bool value)
+        {
+            if (!value) return;
+            moveFrame.color = new Color(0.7f, 1, 0.65f); feather.SetActive(true);
+            motion.Play(0.5f, _ => { }, () => { moveFrame.color = Color.white; feather.SetActive(current != null && current.LightStep); });
+        }
         public void FlyIcon(string icon, Vector2 from, Vector2 to, Action done)
         {
             var image = GameUI.Fit(effects, "Flying " + icon, art.Get(icon), from, Vector2.one * GameLayout.IconSize);
             motion.Play(0.4f, t =>
             {
                 var p = Vector2.Lerp(from, to, t) + Vector2.up * (-60 * Mathf.Sin(t * Mathf.PI));
-                image.rectTransform.anchoredPosition = new Vector2(p.x, -p.y); image.rectTransform.localScale = Vector3.one * (1 + 0.3f * Mathf.Sin(t * Mathf.PI));
-            }, () => { GameUI.Dispose(image.gameObject); done(); });
+                image.rectTransform.anchoredPosition = new Vector2(p.x, -p.y);
+            }, () => { GameUI.Dispose(image.gameObject); done?.Invoke(); });
         }
         public void CountCoins(int from, int to) => CountCoins(from, to, null);
         public void CountCoins(int from, int to, Action done)
         {
-            coinMotion.CancelAll(); countingCoins = true; coins.text = from.ToString();
-            int token = ++coinRevision;
-            coinMotion.Play(0.65f, t =>
+            coinMotion.CancelAll(); countingCoins = true; int token = ++coinRevision;
+            coinMotion.Play(0.5f, t =>
             {
-                if (token == coinRevision) coins.text = Mathf.RoundToInt(Mathf.Lerp(from, to, t)).ToString();
+                if (token == coinRevision) coins.text = BoardNumber.Format((int)Math.Round(from + ((double)to - from) * t), 99999);
             }, () =>
             {
-                if (token != coinRevision || !countingCoins) return;
-                countingCoins = false; coins.text = to.ToString(); done?.Invoke();
-            });
+                if (token != coinRevision) return;
+                countingCoins = false; coins.text = BoardNumber.Format(to, 99999); done?.Invoke();
+            }, ease: LitMotion.Ease.OutCubic);
         }
-        public void Entrance(float homes, float controls)
+        public void Entrance(float homes, float visibleControls)
         {
-            housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 550);
-            housesLayer.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(homes * Mathf.PI * 4) * (1 - Mathf.Clamp01(homes)) * 2);
-            coinFade.alpha = toolFade.alpha = coins.alpha = controls;
-            gearFade.alpha = controls * (root.HasModal && !root.IsIntroducing ? GameLayout.DisabledAlpha : 1);
-            float offset = (1 - controls) * 160;
-            coinPlate.anchoredPosition = new Vector2(headerBounds.center.x, -headerBounds.center.y + offset);
-            coins.rectTransform.anchoredPosition = new Vector2(coinTextBounds.center.x, -coinTextBounds.center.y + offset);
-            ((RectTransform)settings.transform).anchoredPosition = new Vector2(gearBounds.center.x, -gearBounds.center.y + offset);
-            bottomBar.localScale = Vector3.one;
-            for (int i = 0; i < tools.Length; i++)
-            {
-                Rect bounds = ToolBounds(i);
-                float progress = Mathf.Clamp01(controls * 1.6f - i * 0.2f);
-                float settle = 1 + 2.7f * Mathf.Pow(progress - 1, 3) + 1.7f * Mathf.Pow(progress - 1, 2);
-                ((RectTransform)tools[i].transform).anchoredPosition =
-                    new Vector2(bounds.center.x, -bounds.center.y - (1 - settle) * 120);
-            }
+            if (housesLayer == null) return;
+            housesLayer.anchoredPosition = new Vector2(540, -960 + (1 - homes) * 650);
+            controlFade.alpha = visibleControls;
+            controlFade.blocksRaycasts = controlFade.interactable = visibleControls >= 1;
         }
         public void Cancel()
         {
             if (motion == null) return;
-            coinRevision++; motion.CancelAll(); coinMotion.CancelAll(); countingCoins = false;
-            undoMotion.CancelAll();
-            undoFade.alpha = undoVisible ? 1 : 0;
-            if (root != null) coins.text = root.Coins.ToString();
-            foreach (var house in houses.Values) house.Cancel();
-            Entrance(1, 1);
+            coinRevision++; motion.CancelAll(); coinMotion.CancelAll(); moveMotion.CancelAll(); countingCoins = false;
+            house?.Cancel(); Entrance(1, 1);
+            if (current != null && coins != null) coins.text = current.Coins.HasValue ? BoardNumber.Format(current.Coins.Value, 99999) : "";
             if (effects != null) for (int i = effects.childCount - 1; i >= 0; i--) GameUI.Dispose(effects.GetChild(i).gameObject);
-            if (chorus != null) chorus.SetActive(false);
         }
         private void OnDisable() => Cancel();
     }

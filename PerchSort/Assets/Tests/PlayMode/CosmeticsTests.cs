@@ -121,10 +121,10 @@ namespace PerchSort.PlayModeTests
                     Assert.That(Vector2.Distance(pair.Value.DoorPoint(), originalDoors[pair.Key]), Is.LessThan(0.01f));
                 }
                 SaveFrame("houses-" + style);
-                Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Hud.Houses["sky"].IsHome, Is.True);
+                Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.True);
                 SaveFrame("houses-" + style + "-delivered");
-                root.Undo(); Assert.That(root.Hud.Houses["sky"].IsHome, Is.False);
-                Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Hud.Houses["sky"].IsHome, Is.True);
+                root.Undo(); Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.False);
+                Assert.That(root.TryMove(0, 1), Is.True); Assert.That(root.Hud.GoalHouse.IsDelivered("sky"), Is.True);
                 root.Undo(); root.OpenShop(); root.Shop.ShowTab(Meta.ShopItemKind.Birdhouse);
             }
             SaveFrame("shop-birdhouses");
@@ -132,8 +132,7 @@ namespace PerchSort.PlayModeTests
             root.ClosePanel();
             foreach (var house in root.Hud.Houses.Values)
             {
-                Assert.That(house.transform.Find("Birdhouse/House body").GetComponent<Image>().sprite.name, Is.EqualTo("house_body"));
-                Assert.That(house.transform.Find("Birdhouse/Colored roof").gameObject.activeSelf, Is.True);
+                Assert.That(house.transform.Find("Birdhouse/House body").GetComponent<Image>().sprite.name, Is.EqualTo("goal_house_single"));
             }
             Assert.That(root.Board.Birds.Values.Select(view => view.GetComponentInChildren<Image>().sprite).ToArray(), Is.EqualTo(boardSprites));
             yield return null;

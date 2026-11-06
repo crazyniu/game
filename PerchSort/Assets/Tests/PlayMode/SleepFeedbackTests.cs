@@ -45,88 +45,31 @@ namespace PerchSort.PlayModeTests
             DevOptions.OverrideForTests = previousOptions;
         }
         [UnityTest]
-        public IEnumerator SleepingTapBobsPulsesExplainsAndExpiresWithoutChangingRules()
+        public IEnumerator SleepingTapExplainsAndExpiresWithoutChangingRules()
         {
             var model = root.Session.State.Branches[0].Birds[2];
             var bird = root.Board.Birds[model.Id];
-            var body = (RectTransform)bird.transform.Find("Bird body");
-            var zzz = body.Find("Sleep bubble").GetComponent<Image>();
-            Vector2 rest = body.anchoredPosition;
-            float began, min = 0, max = 0, pulse = 1;
-            int signChanges = 0, previousSign = 0, sample = 0;
-            string directory = Environment.GetEnvironmentVariable("SLEEP_FEEDBACK_EVIDENCE_DIR");
-            var rows = new List<string> { "scheduled_seconds,actual_seconds,bob_y,zzz_scale,zzz_alpha,bubble_visible" };
-            RenderTexture target = null; Texture2D image = null;
-            var oldTarget = root.RenderCamera.targetTexture; var oldActive = RenderTexture.active;
+            string before = root.Session.State.Branches[0].Birds[2].Flags.ToString();
+            Assert.That(root.TapBranch(0), Is.False);
             var feedback = root.GetComponent<SleepBubble>();
-            try
-            {
-                if (!string.IsNullOrEmpty(directory))
-                {
-                    Assert.That(SystemInfo.graphicsDeviceType, Is.Not.EqualTo(UnityEngine.Rendering.GraphicsDeviceType.Null));
-                    Directory.CreateDirectory(directory);
-                    target = new RenderTexture(540, 960, 24); target.Create(); root.RenderCamera.targetTexture = target;
-                    image = new Texture2D(540, 960, TextureFormat.RGB24, false);
-                    root.Canvas.GetComponent<PerchSort.Game.SafeArea>().Apply(); Canvas.ForceUpdateCanvases();
-                    root.RenderCamera.Render(); RenderTexture.active = target;
-                    image.ReadPixels(new Rect(0, 0, 540, 960), 0, 0); image.Apply(); image.EncodeToPNG();
-                    yield return null;
-                }
-                Assert.That(root.TapBranch(0), Is.False);
-                began = Time.unscaledTime;
-                Assert.That(feedback.IsVisible, Is.True);
-                var bubble = (RectTransform)root.Board.transform.Find("Sleep wake hint");
-                Assert.That(bubble.sizeDelta, Is.EqualTo(new Vector2(300, 120)));
-                Assert.That(bubble.Find("Matching bird").GetComponent<Image>().sprite, Is.SameAs(bubble.Find("Same species landing").GetComponent<Image>().sprite));
-                Assert.That(bubble.Find("Homecoming song"), Is.Not.Null);
-                while (Time.unscaledTime - began < SleepBubble.BubbleSeconds + 0.15f)
-                {
-                    yield return null;
-                    float elapsed = Time.unscaledTime - began;
-                    float offset = body.anchoredPosition.y - rest.y;
-                    if (elapsed < SleepBubble.RefusalSeconds)
-                    {
-                        min = Mathf.Min(min, offset); max = Mathf.Max(max, offset); pulse = Mathf.Max(pulse, zzz.transform.localScale.x);
-                        int sign = offset > 0.2f ? 1 : offset < -0.2f ? -1 : 0;
-                        if (sign != 0) { if (previousSign != 0 && sign != previousSign) signChanges++; previousSign = sign; }
-                        Assert.That(Mathf.Abs(offset), Is.LessThanOrEqualTo(SleepBubble.BobPixels + 0.01f));
-                        Assert.That(zzz.color.a, Is.EqualTo(1));
-                    }
-                    else if (elapsed > SleepBubble.RefusalSeconds + 0.03f) Assert.That(offset, Is.EqualTo(0).Within(0.01));
-                    Assert.That(body.localScale.x, Is.GreaterThan(0));
-                    Assert.That(body.localRotation, Is.EqualTo(Quaternion.identity));
-                    Assert.That(zzz.color.a, Is.InRange(0f, 1f));
-                    Assert.That(body.Find("Pose").GetComponent<Image>().color.a, Is.EqualTo(1).Within(0.001f), "Zzz fading must not fade the bird.");
-                    if (elapsed >= sample * 0.1f)
-                    {
-                        rows.Add(string.Format(CultureInfo.InvariantCulture, "{0:F1},{1:F4},{2:F3},{3:F3},{4:F3},{5}", sample * 0.1f, elapsed, offset, zzz.transform.localScale.x, zzz.color.a, feedback.IsVisible));
-                        if (target != null)
-                        {
-                            root.Canvas.GetComponent<PerchSort.Game.SafeArea>().Apply(); Canvas.ForceUpdateCanvases(); root.RenderCamera.Render(); RenderTexture.active = target;
-                            image.ReadPixels(new Rect(0, 0, 540, 960), 0, 0); image.Apply();
-                            File.WriteAllBytes(Path.Combine(directory, "sleep_" + sample.ToString("D2") + ".png"), image.EncodeToPNG());
-                        }
-                        sample++;
-                    }
-                }
-            }
-            finally
-            {
-                root.RenderCamera.targetTexture = oldTarget; RenderTexture.active = oldActive;
-                if (target != null) { target.Release(); Object.Destroy(target); Object.Destroy(image); File.WriteAllLines(Path.Combine(directory, "sleep-timing.csv"), rows); }
-            }
-            Assert.That(min, Is.LessThan(-SleepBubble.BobPixels * 0.9f)); Assert.That(max, Is.GreaterThan(SleepBubble.BobPixels * 0.9f));
-            Assert.That(signChanges, Is.EqualTo(3)); Assert.That(pulse, Is.EqualTo(1.5f).Within(0.02));
-            Assert.That(feedback.IsVisible, Is.False); Assert.That(bird.Sleeping, Is.True);
-            Assert.That(root.Session.State.Moves, Is.Zero); Assert.That(root.Session.SelectedBranch, Is.EqualTo(-1));
+            Assert.That(feedback.IsVisible, Is.True);
+            var bubble = root.BoardScreen.transform.Find("Board icon bubble");
+            foreach (var graphic in bubble.GetComponentsInChildren<UnityEngine.UI.Graphic>())
+                Assert.That(graphic.raycastTarget, Is.False, "Hint art must not intercept the next board tap.");
+            yield return new WaitForSecondsRealtime(SleepBubble.BubbleSeconds + 0.1f);
+            Assert.That(feedback.IsVisible, Is.False);
+            Assert.That(bird.Sleeping, Is.True);
+            Assert.That(root.Session.State.Branches[0].Birds[2].Flags.ToString(), Is.EqualTo(before));
+            Assert.That(root.Session.MoveCount, Is.Zero);
+            Assert.That(root.Session.SelectedBranch, Is.EqualTo(-1));
         }
         [UnityTest]
         public IEnumerator NextTapDismissesNightExplanationAndLandingCanStillWakeAuthoredSleep()
         {
             root.LoadFixture(GameFixtures.Create("night")); yield return null;
             Assert.That(root.TapBranch(0), Is.False);
-            var bubble = root.Board.transform.Find("Sleep wake hint");
-            Assert.That(bubble.Find("Wake at night").GetComponent<Image>().sprite.name, Is.EqualTo("dial_moon"));
+            var bubble = root.BoardScreen.transform.Find("Board icon bubble");
+            Assert.That(bubble.Find("dial_moon").GetComponent<Image>().sprite.name, Is.EqualTo("dial_moon"));
             root.CancelSelection(); Assert.That(root.GetComponent<SleepBubble>().IsVisible, Is.False);
             GameMotion.Instant = true; root.LoadFixture(GameFixtures.Create("sleep"));
             Assert.That(root.TapBranch(1), Is.True); Assert.That(root.TapBranch(0), Is.True);

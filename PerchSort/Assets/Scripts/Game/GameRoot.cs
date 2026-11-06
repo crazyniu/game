@@ -14,7 +14,7 @@ namespace PerchSort.Game
     {
         [SerializeField] private TMP_FontAsset font;
         private GameArt art;
-        private TutorialHand tutorial;
+        private BoardTutorial tutorial;
         private SettingsPanel settings;
         private PanelsView panels;
         public ShopView Shop { get; private set; }
@@ -25,6 +25,7 @@ namespace PerchSort.Game
         private LeafTransition leafTransition;
         private bool notificationsEnabled, notificationTransition;
         private bool suspended, resumeWin;
+        private bool focusEntrance, focusResolution;
         public IClock Clock { get; set; } = new PerchSort.Meta.SystemClock();
         public Notification CurrentNotification => profile?.Notifications.Current;
         public bool IsIntroducing => entrance != null && entrance.IsPlaying;
@@ -42,6 +43,20 @@ namespace PerchSort.Game
         private GameSession lastMoveSession;
         private Move? lastMove;
         private string lastMoveReason;
+        private Action entranceCompleted, resolutionCompleted;
+        private readonly OverlayPresentation boardOverlay = new OverlayPresentation();
+        public BoardPresentation BoardScreen { get; private set; }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public BoardFakeData BoardStates { get; private set; }
+        private GameProfile savedProfile;
+        private GameSession savedSession;
+        private BoardSnapshot savedBoard;
+        private Action previewNotificationNext;
+        private bool savedPersistence, savedNotifications, savedMap, savedBusy, savedIntroduction, savedWin;
+        public bool IsBoardPreview => BoardStates != null && BoardStates.Active;
+#else
+        public bool IsBoardPreview => false;
+#endif
         public GameSession Session { get; private set; }
         public BoardView Board { get; private set; }
         public HudView Hud { get; private set; }
@@ -74,6 +89,12 @@ namespace PerchSort.Game
             if (!pressed) return;
             audioManager?.ResumeMusicOnUserInteraction();
             Board?.FastForwardPlayback();
+            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame && initialized && !IsMap && !IsBusy && !IsIntroducing)
+            {
+                if (settings.IsOpen) CloseSettings();
+                else if (Shop.IsOpen || panels.IsOpen) BoardScreen.RequestDismissTop();
+                else if (!Win.IsOpen) BoardScreen.RequestSettings();
+            }
         }
 
         // Capture initializes outside play mode without reading/writing the player's profile.
@@ -95,26 +116,34 @@ namespace PerchSort.Game
             var design = GameUI.Rect(safe, "1080x1920 design", GameLayout.DesignSize * 0.5f, GameLayout.DesignSize);
             var safeArea = canvasObject.AddComponent<SafeArea>(); UnityEngine.Canvas.ForceUpdateCanvases();
             safeArea.Configure((RectTransform)Canvas.transform, safe, design);
-            Scene = Layer<SceneView>(design, "Forest"); Scene.Configure(art, CancelSelection);
+            BoardScreen = Layer<BoardPresentation>(design, "Board presentation");
+            Scene = Layer<SceneView>(design, "Forest"); Scene.Configure(art, () => BoardScreen.RequestCancel());
             Scene.FillScreen(Canvas.transform);
-            Board = Layer<BoardView>(design, "Board"); Board.Configure(this, art);
+            Board = Layer<BoardView>(design, "Board"); Board.Configure(BoardScreen, art);
             sleepFeedback = gameObject.AddComponent<SleepBubble>(); sleepFeedback.Configure(this, art);
             Map = Layer<MapView>(design, "World map"); Map.Configure(this, art, font);
             Scene.PlaceLighting(Board.transform);
-            Hud = Layer<HudView>(design, "HUD"); Hud.Configure(this, art, font);
-            tutorial = Layer<TutorialHand>(design, "Tutorial"); tutorial.Configure(art);
+            Hud = Layer<HudView>(design, "HUD"); Hud.Configure(BoardScreen, art, font);
+            BoardScreen.transform.SetAsLastSibling();
+            var hand = Layer<TutorialHand>(design, "Tutorial"); hand.Configure(art);
+            tutorial = new BoardTutorial(BoardScreen);
             settings = Layer<SettingsPanel>(design, "Settings overlay"); settings.Configure(this, art);
             Win = Layer<WinPanel>(design, "Win overlay"); Win.Configure(this, art, font);
             panels = Layer<PanelsView>(design, "Information cards"); panels.Configure(this, art, font);
             Shop = Layer<ShopView>(design, "Shop"); Shop.Configure(this, art, font);
             Aviary = Layer<AviaryView>(design, "Aviary"); Aviary.Configure(this, art, font);
-            entrance = Layer<LevelEntrance>(design, "Level entrance"); entrance.Configure(this);
+            entrance = Layer<LevelEntrance>(design, "Level entrance"); entrance.Configure(BoardScreen);
             var leafLayer = GameUI.Rect(Canvas.transform, "Leaf transition", Vector2.zero, GameLayout.DesignSize);
             GameUI.Stretch(leafLayer);
             leafTransition = leafLayer.gameObject.AddComponent<LeafTransition>(); leafTransition.Configure(art);
             hudInput = Hud.gameObject.AddComponent<CanvasGroup>();
             boardInput = Board.gameObject.AddComponent<CanvasGroup>();
             mapInput = Map.gameObject.AddComponent<CanvasGroup>();
+            BoardScreen.Configure(art, Board, Hud, Scene, hand, entrance, boardInput, hudInput);
+            BindBoardRequests();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            BoardStates = new BoardFakeData(this, BoardScreen);
+#endif
             if (Application.isPlaying)
             {
                 audioManager = AudioManager.Instance;
@@ -127,6 +156,166 @@ namespace PerchSort.Game
             Session = profile.CreateSession(LevelLoader.Load(1));
             OpenMap();
         }
+        private void BindBoardRequests()
+        {
+            BoardScreen.BranchRequested += id => DispatchBoard(new BoardAction { Kind = "branch", BranchId = id });
+            BoardScreen.SwivelRequested += id => DispatchBoard(new BoardAction { Kind = "swivel", BranchId = id });
+            BoardScreen.SelectionCancelRequested += () => DispatchBoard(new BoardAction { Kind = "cancel" });
+            BoardScreen.UndoRequested += () => DispatchBoard(new BoardAction { Kind = "undo" });
+            BoardScreen.BoosterRequested += kind => DispatchBoard(new BoardAction { Kind = "tool", Booster = kind });
+            BoardScreen.ShopRequested += kind => OpenShop(kind);
+            BoardScreen.GoalInfoRequested += OpenGoalInfo;
+            BoardScreen.SettingsRequested += OpenSettings;
+            BoardScreen.DismissTopRequested += () => { if (settings.IsOpen) CloseSettings(); else ClosePanel(); };
+            BoardScreen.EntranceSkipRequested += BoardScreen.SkipEntrance;
+            BoardScreen.HintDismissRequested += () => BoardScreen.ShowBubble(null);
+            BoardScreen.DeferredActionRequested += action => Board.FastForwardPlayback();
+            BoardScreen.EntrancePresented += id =>
+            {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (IsBoardPreview) { BoardStates.EntranceFinished(id); return; }
+#endif
+                var completed = entranceCompleted; entranceCompleted = null; completed?.Invoke();
+            };
+            BoardScreen.ResolutionPresented += id =>
+            {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (IsBoardPreview) { BoardStates.ResolutionFinished(id); return; }
+#endif
+                var completed = resolutionCompleted; resolutionCompleted = null; completed?.Invoke();
+            };
+            BoardScreen.SoundRequested += PlaySound;
+            BoardScreen.InputChanged += PresentationInputChanged;
+        }
+        private void DispatchBoard(BoardAction action)
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.Handle(action); return; }
+#endif
+            switch (action.Kind)
+            {
+                case "branch": TapBranch(action.BranchId); break;
+                case "swivel": TapSwivel(action.BranchId); break;
+                case "cancel": CancelSelection(); break;
+                case "undo": Undo(); break;
+                case "tool": TapBooster(action.Booster); break;
+                case "settings": OpenSettings(); break;
+            }
+        }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public void BeginBoardPreview(BoardSnapshot snapshot)
+        {
+            if (savedProfile == null)
+            {
+                savedProfile = profile; savedSession = Session; savedBoard = BoardScreen.Snapshot; savedPersistence = persistProgress;
+                savedNotifications = notificationsEnabled; savedMap = IsMap;
+                savedBusy = IsBusy; savedIntroduction = IsIntroducing; savedWin = Win.IsOpen;
+            }
+            // Swap before cancellation: fake presentation cannot alter the real notification ledger.
+            profile = new GameProfile { Coins = snapshot?.Hud?.Coins ?? 240, HighestUnlocked = 40 };
+            persistProgress = false; notificationsEnabled = false;
+            if (snapshot?.Hud != null)
+                foreach (var tool in snapshot.Hud.Tools) profile.Boosters[(int)tool.Kind] = tool.Stock ?? 0;
+            Session = profile.CreateSession(LevelLoader.Load(snapshot?.LevelId > 0 ? snapshot.LevelId : 1));
+            CancelPresentation(); IsMap = false;
+            if (audioManager != null)
+            {
+                audioManager.SetSfxEnabled(!(snapshot?.Muted ?? false)); audioManager.SetMusicEnabled(!(snapshot?.Muted ?? false));
+                audioManager.SwitchMusic(MusicPage.Game);
+            }
+            profile.Muted = snapshot?.Muted ?? false;
+        }
+        public void EndBoardPreview()
+        {
+            if (savedProfile == null) return;
+            BoardStates.Stop(); CancelPresentation();
+            profile = savedProfile; Session = savedSession; persistProgress = savedPersistence;
+            notificationsEnabled = savedNotifications; IsMap = savedMap; savedProfile = null; savedSession = null;
+            BoardScreen.BindResolutionSnapshot(savedBoard); savedBoard = null;
+            if (audioManager != null) { audioManager.SetSfxEnabled(!Muted); audioManager.SetMusicEnabled(!Muted); }
+            if (IsMap) ShowMapSurface(); else BoardScreen.Show(BoardSessionAdapter.Capture(this));
+            if (!IsMap)
+            {
+                if (savedBusy && !savedIntroduction) FinishAction();
+                else if (savedIntroduction) BeginLevelEntrance();
+                else if (savedWin) Win.Show(Session.Stars, 0, 0);
+            }
+            if (audioManager != null) audioManager.SwitchMusic(IsMap ? MusicPage.Menu : MusicPage.Game);
+            if (notificationsEnabled) PumpNotifications();
+            Refresh();
+        }
+        public void PreviewOverlay(string kind, string species = "sunny", BoosterKind booster = BoosterKind.Firefly, int stars = 3, int reward = 30)
+        {
+            switch (kind)
+            {
+                case "Settings": OpenSettings(); break;
+                case "Goal info": OpenGoalInfo(species); break;
+                case "Shop": OpenShop(booster); break;
+                case "Win": Win.Show(stars, reward, 0); break;
+                case "New friend": panels.Popup(PopupKind.NewFriend, species, 20); break;
+                case "Booster unlock": panels.Unlock(booster); break;
+                case "World complete": panels.Popup(PopupKind.WorldComplete, species, 200); break;
+                case "World unlock": panels.Popup(PopupKind.WorldUnlock, species, 0); break;
+                case "Daily gift": panels.Popup(PopupKind.DailyGift, species, 50); break;
+            }
+            BoardScreen.SetOverlay(new OverlayPresentation { Kind = kind, BlocksInput = true });
+        }
+        public void PreviewMap()
+        {
+            if (!IsBoardPreview) return;
+            Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); BoardScreen.HideAndCancel(); ShowMapSurface(); Refresh();
+        }
+        public void PreviewCoins(int coins)
+        {
+            if (!IsBoardPreview) return;
+            profile.Coins = coins;
+        }
+        public void PreviewNotificationSequence()
+        {
+            if (!IsBoardPreview) return;
+            int token = revision, cursor = 0;
+            Action advance = null;
+            advance = () =>
+            {
+                if (!IsBoardPreview || token != revision) return;
+                panels.Hide();
+                switch (cursor++)
+                {
+                    case 0: panels.Popup(PopupKind.NewFriend, "sunny", 20, advance); break;
+                    case 1: previewNotificationNext = advance; panels.Unlock(BoosterKind.Firefly); break;
+                    case 2: panels.Popup(PopupKind.NewFriend, "sky", 20, advance); break;
+                    default: previewNotificationNext = null; Refresh(); return;
+                }
+                BoardScreen.SetOverlay(new OverlayPresentation { BlocksInput = true });
+            };
+            advance();
+        }
+        public void PreviewWorldSequence(int world)
+        {
+            if (!IsBoardPreview) return;
+            int token = revision;
+            BoardScreen.SetOverlay(new OverlayPresentation { BlocksInput = true });
+            panels.Popup(PopupKind.WorldComplete, "sunny", 200, () =>
+            {
+                if (!IsBoardPreview || token != revision) return;
+                PreviewMap();
+                if (world == 4) return;
+                profile.HighestUnlocked = world * 10 + 1;
+                Map.Show(profile);
+                Map.UnlockGate(world + 1, () =>
+                {
+                    if (!IsBoardPreview || token != revision) return;
+                    panels.Popup(PopupKind.WorldUnlock, "sunny", 0, () =>
+                    {
+                        if (!IsBoardPreview || token != revision) return;
+                        panels.Hide(); panels.Popup(PopupKind.DailyGift, "sunny", 50, () => { panels.Hide(); Refresh(); }, world + 1);
+                        Refresh();
+                    }, world + 1);
+                    Refresh();
+                });
+            }, world);
+        }
+#endif
         private static T Layer<T>(Transform parent, string name) where T : Component =>
             GameUI.Rect(parent, name, GameLayout.DesignSize * 0.5f, GameLayout.DesignSize).gameObject.AddComponent<T>();
         private void Save()
@@ -136,6 +325,9 @@ namespace PerchSort.Game
         }
         public void LoadLevel(int id)
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.OpenLevel(id); return; }
+#endif
             if (!initialized || IsIntroducing || notificationTransition || CurrentNotification != null || id < 1 || id > HighestUnlocked) return;
             LoadDefinition(LevelLoader.Load(id), true);
         }
@@ -157,8 +349,8 @@ namespace PerchSort.Game
             if (audioManager != null) audioManager.SwitchMusic(MusicPage.Game);
             if (starters) profile.GrantStarters(Math.Min(level.id, profile.HighestUnlocked));
             Session = profile.CreateSession(level);
-            Board.Rebuild(Session.State); Hud.SetLevel(Session.State); Scene.SetLevel(Session.State);
-            if (starters && notificationsEnabled) entrance.Prepare();
+            BoardScreen.Show(BoardSessionAdapter.Capture(this));
+            if (starters && notificationsEnabled) BoardScreen.PlayEntrance(new EntrancePresentation { PreparedOnly = true });
             tutorial.Begin(level.id, !profile.Tutorials[level.id], Session.Inventory[BoosterKind.Sapling] > 0);
             // Persist on presentation, not consumption: leaving before the first tap must not repeat it.
             if (tutorial.SaplingPromptPending) profile.Tutorials[level.id] = true;
@@ -174,14 +366,18 @@ namespace PerchSort.Game
             profile.Notifications.BeginLevel(LevelId, LevelSpecies(Session.State)); IsBusy = true;
             int token = ++revision; var session = Session;
             Save(); Refresh();
-            entrance.Play(() =>
+            entranceCompleted = () =>
             {
                 if (!PresentationCurrent(token) || Session != session) return;
                 IsBusy = false; profile.Notifications.FinishIntro(); Save(); PumpNotifications(); Refresh();
-            });
+            };
+            BoardScreen.PlayEntrance(new EntrancePresentation { TransactionId = token });
         }
         public void NextLevel()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.NextFromWin(); return; }
+#endif
             if (!Session.State.IsWon) return;
             if (CurrentNotification != null || notificationTransition || TryLeaveFinale(true)) return;
             // After the finale there is no next level: return to the map instead of ignoring the tap.
@@ -205,9 +401,8 @@ namespace PerchSort.Game
         private bool ConsumePlaybackTap()
         {
             if (!IsBusy) return false;
-            // Playback taps accelerate presentation; they never enqueue another logical action.
-            Board.FastForwardPlayback();
-            return true;
+            // Coordinator input-lock policy: consume the tap, accelerate, never queue a logical action.
+            Board.FastForwardPlayback(); return true;
         }
         public bool TapBranch(int branch)
         {
@@ -217,10 +412,10 @@ namespace PerchSort.Game
             int source = Session.SelectedBranch;
             if ((source < 0 || source == branch) && sleepFeedback.Refuse(branch))
             {
-                Session.CancelSelection(); Board.ShowSelection(Session.State, -1); PlaySound(Sfx.Sleep); Refresh(); return false;
+                Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); PlaySound(Sfx.Sleep); Refresh(); return false;
             }
             if (source >= 0 && source != branch) return TryMove(source, branch);
-            Session.Select(branch); Board.ShowSelection(Session.State, Session.SelectedBranch); PlaySound(Sfx.Select); Refresh();
+            Session.Select(branch); BoardScreen.SetSelection(BoardSessionAdapter.Selection(Session, Session.SelectedBranch)); PlaySound(Sfx.Select); Refresh();
             return Session.SelectedBranch >= 0;
         }
         public bool TapSwivel(int branch)
@@ -238,8 +433,8 @@ namespace PerchSort.Game
             InputTap(); tutorial.DismissSaplingPrompt(); int selected = Session.SelectedBranch;
             if (!Session.TryMove(from, to))
             {
-                Board.ShowSelection(Session.State, -1);
-                if (selected >= 0) { Board.Illegal(Session.State, selected); PlaySound(Sfx.Error); }
+                BoardScreen.SetSelection(new SelectionPresentation());
+                if (selected >= 0) { BoardScreen.SetSelection(BoardSessionAdapter.Selection(Session, selected, true)); PlaySound(Sfx.Error); }
                 Refresh(); return false;
             }
             profile.RecordAction();
@@ -251,17 +446,20 @@ namespace PerchSort.Game
             IsBusy = true; tutorial.Hide();
             var events = new GameEvent[Session.Events.Count];
             for (int i = 0; i < events.Length; i++) events[i] = Session.Events[i];
+            bool freeMove = BoardScreen.Snapshot.Hud.CountedMoves == Session.MoveCount;
+            int previousChain = BoardScreen.Snapshot.Hud.Chain;
             CommitWin(); Save(); Refresh();
             // Input may invalidate a hint while playback still owns its committed completion.
             int token = ++transactionGeneration; var session = Session;
             bool finished = false;
-            Board.Play(events, () =>
+            resolutionCompleted = () =>
             {
                 if (this == null || !initialized || !isActiveAndEnabled ||
                     token != transactionGeneration || Session != session || finished) return;
                 finished = true;
                 FinishAction(); after?.Invoke();
-            });
+            };
+            BoardScreen.PlayResolution(BoardSessionAdapter.Resolution(this, events, BoardSessionAdapter.Capture(this), freeMove, previousChain), token);
         }
         private void CommitWin()
         {
@@ -274,7 +472,7 @@ namespace PerchSort.Game
         }
         private void FinishAction()
         {
-            Board.Settle(Session.State); IsBusy = false;
+            IsBusy = false; BoardScreen.Restore(BoardSessionAdapter.Capture(this));
             CommitWin();
             int reward = pendingWinReward, before = winCoinStart;
             pendingWinReward = 0; winCountPending = reward > 0;
@@ -293,26 +491,36 @@ namespace PerchSort.Game
             if (tutorial.Completed) profile.Tutorials[LevelId] = true;
             Save(); Refresh();
         }
-        public void PresentationInputChanged() { if (initialized) Refresh(); }
+        public void PresentationInputChanged()
+        {
+            if (!initialized) return;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.PresentationChanged(); return; }
+#endif
+            Refresh();
+        }
         public void CancelSelection()
         {
             if (!initialized || IsMap || Modal) return;
             InputTap(); if (ConsumePlaybackTap()) return;
-            Session.CancelSelection(); Board.ShowSelection(Session.State, -1); Refresh();
+            Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); Refresh();
         }
         public bool Undo()
         {
             if (!initialized || IsMap || (Modal && !Win.IsOpen && !IsIntroducing && !IsWiping) || !Session.CanUndo) return false;
-            CancelPresentation(); pendingWinReward = 0; Session.Undo(); profile.UndoAction(); Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
+            CancelPresentation(); pendingWinReward = 0; Session.Undo(); profile.UndoAction(); BoardScreen.Restore(BoardSessionAdapter.Capture(this));
             lastMove = null;
             tutorial.DisableForAttempt(); PlaySound(Sfx.Undo); Save(); Refresh(); return true;
         }
         public void Restart()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.Apply("Entrance / Replay"); return; }
+#endif
             if (!initialized || IsMap || (notificationTransition && !IsWiping) || CurrentNotification != null) return;
             CancelPresentation(); Session.Restart(); profile.RestartSession(); rewardGranted = false; pendingWinReward = 0; tutorial.DisableForAttempt();
             lastMove = null;
-            Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State); Save(); Refresh();
+            BoardScreen.Restore(BoardSessionAdapter.Capture(this)); Save(); Refresh();
             if (notificationsEnabled) BeginLevelEntrance();
         }
         public void TapBooster(BoosterKind kind)
@@ -371,7 +579,7 @@ namespace PerchSort.Game
             string after = JsonUtility.ToJson(new CosmeticReceipt { rewardLedger = next.ToText() });
             profile.Notifications.Restore(snapshot.Replace(before.Substring(1, before.Length - 2), after.Substring(1, after.Length - 2)));
             Save();
-            foreach (var house in Hud.Houses.Values) house.ApplyStyle(next.EquippedBirdhouseStyle);
+            Hud.GoalHouse?.ApplyStyle(next.EquippedBirdhouseStyle);
             Refresh();
         }
         public bool UseBooster(BoosterKind kind)
@@ -393,7 +601,7 @@ namespace PerchSort.Game
         public async void Hint()
         {
             if (!initialized || IsMap || Modal || IsBusy || HintPending || HighestUnlocked < 2 || Session.Inventory[BoosterKind.Firefly] == 0) return;
-            InputTap(); Session.CancelSelection(); Board.ShowSelection(Session.State, -1); tutorial.Hide();
+            InputTap(); Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); tutorial.Hide();
             int token = revision; var session = Session; var snapshot = session.State.Clone(); hintPending = true;
             Refresh();
             try
@@ -412,7 +620,7 @@ namespace PerchSort.Game
                 PlayCommitted(() =>
                 {
                     if (token != revision || Session != session || IsBusy) return;
-                    Board.Hint(hint, reverse ? lastMoveReason : null);
+                    BoardScreen.ShowHint(new HintPresentation { Path = hint });
                 });
             }
             catch (Exception error)
@@ -436,12 +644,15 @@ namespace PerchSort.Game
         {
             if (!initialized || Modal) return;
             InputTap(); if (ConsumePlaybackTap()) return;
-            if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
-            settings.Show(); PlaySound(Sfx.Click); Refresh();
+            if (!IsMap) { Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); }
+            settings.Show(); if (IsMap) PlaySound(Sfx.Click); Refresh();
         }
         public void CloseSettings() { settings.Hide(); PlaySound(Sfx.Back); Refresh(); }
         public void OpenMap()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { PreviewMap(); return; }
+#endif
             if (!initialized || IsAirborne || IsIntroducing || notificationTransition || CurrentNotification != null) return;
             if (TryLeaveFinale(false)) return;
             if (ConsumePlaybackTap()) return;
@@ -572,14 +783,14 @@ namespace PerchSort.Game
         {
             if (!initialized || IsBusy || Modal) return;
             InputTap();
-            if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
-            Shop.Show(focus); PlaySound(Sfx.Click); Refresh();
+            if (!IsMap) { Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); }
+            Shop.Show(focus); if (IsMap) PlaySound(Sfx.Click); Refresh();
         }
         public void OpenAviary()
         {
             if (!initialized || IsBusy || Modal) return;
             InputTap();
-            if (!IsMap) { Session.CancelSelection(); Board.ShowSelection(Session.State, -1); }
+            if (!IsMap) { Session.CancelSelection(); BoardScreen.SetSelection(new SelectionPresentation()); }
             Aviary.Show(); PlaySound(Sfx.Click); Refresh();
         }
         public void OpenPopup(PopupKind kind, string species = "mint", int reward = 0)
@@ -601,6 +812,12 @@ namespace PerchSort.Game
         }
         public void AcknowledgeUnlock()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview && previewNotificationNext != null)
+            {
+                var next = previewNotificationNext; previewNotificationNext = null; next(); return;
+            }
+#endif
             if (!panels.IsUnlock) return;
             if (CurrentNotification != null && CurrentNotification.Kind == NotificationKind.BoosterUnlock)
                 AcknowledgeNotification(CurrentNotification);
@@ -627,21 +844,56 @@ namespace PerchSort.Game
         private void Refresh()
         {
             bool blocked = IsAirborne || Modal;
-            Hud.Refresh(Session, pendingWinReward > 0 || winCountPending ? winCoinStart : Coins, blocked, IsBusy);
-            tutorial.Refresh(Session, Board, IsMap || IsBusy || Modal);
-            SetRaycasts(hudInput, !blocked && !IsMap);
-            SetRaycasts(boardInput, !Modal && !IsMap);
+            if (!IsMap && !IsBoardPreview && BoardScreen.Snapshot != null)
+            {
+                BoardScreen.UpdateHud(BoardSessionAdapter.CaptureHud(this, BoardScreen.Snapshot, pendingWinReward > 0 || winCountPending ? winCoinStart : Coins));
+                boardOverlay.BlocksInput = Modal && !IsIntroducing; BoardScreen.SetOverlay(boardOverlay);
+                BoardScreen.SetInput(BoardSessionAdapter.Input(this, BoardScreen.Snapshot.Input));
+                tutorial.Refresh(Session, Board, IsBusy || Modal);
+                StuckHint.Observe(this);
+            }
+            else if (IsMap) { tutorial.Hide(); Map.RefreshCoins(Coins); }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            else if (IsBoardPreview) BoardStates.RefreshOverlay(Modal);
+#endif
             SetRaycasts(mapInput, !Modal && IsMap);
-            StuckHint.Observe(this);
-            if (IsMap) Map.RefreshCoins(Coins);
         }
         private static void SetRaycasts(CanvasGroup group, bool enabled) => group.blocksRaycasts = group.interactable = enabled;
         private bool PresentationCurrent(int token) => this != null && initialized && isActiveAndEnabled && token == revision;
         private void CancelPresentation()
         {
             revision++; transactionGeneration++; hintPending = false; winCountPending = false;
-            profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel(); entrance.Cancel();
-            Board.Cancel(); Hud.Cancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
+            entranceCompleted = resolutionCompleted = null;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            previewNotificationNext = null;
+#endif
+            profile.Notifications.CancelPresentation(); notificationTransition = false; leafTransition.Cancel();
+            BoardScreen.HideAndCancel(); Map.Hide(); tutorial.Hide(); Win.Hide(); settings.Hide(); panels.Hide(); Shop.Hide(); Aviary.Hide(); Scene.Cancel(); IsBusy = false;
+        }
+        private void OnApplicationFocus(bool focus)
+        {
+            if (!initialized || IsMap) return;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview)
+            {
+                if (focus) BoardStates.Reapply();
+                else BoardScreen.SetLifecycle(false, GameMotion.Instant ? BoardMotionMode.Instant : BoardMotionMode.Normal);
+                return;
+            }
+#endif
+            if (!focus)
+            {
+                focusEntrance = IsIntroducing; focusResolution = IsBusy && !focusEntrance;
+                revision++; transactionGeneration++; entranceCompleted = resolutionCompleted = null; IsBusy = false;
+                BoardScreen.SetLifecycle(false, GameMotion.Instant ? BoardMotionMode.Instant : BoardMotionMode.Normal);
+            }
+            else
+            {
+                BoardScreen.Show(BoardSessionAdapter.Capture(this));
+                if (focusResolution) FinishAction();
+                else if (focusEntrance) BeginLevelEntrance();
+                focusEntrance = focusResolution = false; Refresh();
+            }
         }
         private void OnDisable()
         {
@@ -653,6 +905,9 @@ namespace PerchSort.Game
         {
             if (!initialized || !suspended) return;
             suspended = false;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (IsBoardPreview) { BoardStates.Reapply(); return; }
+#endif
             if (IsMap)
             {
                 ShowMapSurface();
@@ -660,7 +915,7 @@ namespace PerchSort.Game
             }
             else
             {
-                Board.Rebuild(Session.State); Hud.SyncState(Session.State); Scene.SetLevel(Session.State);
+                BoardScreen.Restore(BoardSessionAdapter.Capture(this));
                 if (Session.State.IsWon && (!rewardGranted || pendingWinReward > 0)) FinishAction();
                 else if (resumeWin) Win.Show(Session.Stars, 0, 0);
                 else if (notificationsEnabled && (profile.Notifications.NeedsMap || profile.Notifications.HasWorldSequence) && Session.State.IsWon)
