@@ -19,8 +19,16 @@ namespace PerchSort.Game
         {
             bool show = data != null && data.Visible && !data.Completed;
             if (!show) { Hide(); return; }
-            if (visible && target == data.Point) return;
-            target = data.Point; visible = true; motion.CancelAll();
+            Vector2 requested = data.Point;
+            if (data.TargetKind == "tool")
+            {
+                for (int count = 3; count <= 4; count++)
+                    for (int i = 0; i < count; i++)
+                        if (Vector2.SqrMagnitude(data.Point - GameLayout.ToolButton(i, count).center) < 4)
+                            requested = HudView.ToolBounds(Mathf.Min(i, 2)).center;
+            }
+            if (visible && target == requested) return;
+            target = requested; visible = true; motion.CancelAll();
             var rect = hand.rectTransform;
             Vector2 point = new Vector2(Mathf.Clamp(target.x, 24, 1080 - 24 - (1 - rect.pivot.x) * 160),
                 Mathf.Clamp(target.y, (1 - rect.pivot.y) * 160 + 24, 1920 - rect.pivot.y * 160 - 24));

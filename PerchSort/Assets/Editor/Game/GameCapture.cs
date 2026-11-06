@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using PerchSort.Game;
-using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -168,7 +167,6 @@ namespace PerchSort.Editor
             Canvas.ForceUpdateCanvases();
             root.Canvas.GetComponent<PerchSort.Game.SafeArea>().Apply();
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)root.Canvas.transform);
-            foreach (var text in root.GetComponentsInChildren<TextMeshProUGUI>()) text.ForceMeshUpdate();
             Canvas.ForceUpdateCanvases();
             root.RenderCamera.Render();
             RenderTexture.active = target;

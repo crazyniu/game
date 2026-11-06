@@ -12,6 +12,8 @@ namespace PerchSort.Game
             public Button Button;
             public Image Portrait;
             public GameObject Check;
+            public GameObject Gift;
+            public UiBirdLife Life;
             public bool Delivered;
         }
         private readonly Dictionary<string, Goal> goals = new Dictionary<string, Goal>();
@@ -35,7 +37,7 @@ namespace PerchSort.Game
 
         public void Configure(BoardPresentation screen, GameArt assets, BoardSnapshot snapshot)
         {
-            art = assets; bounds = GameLayout.NestCanvas;
+            art = assets; bounds = new Rect(366, 88, 348, 348);
             doorMotion = gameObject.AddComponent<GameMotion>(); feedback = gameObject.AddComponent<GameMotion>();
             house = GameUI.Rect(transform, "Birdhouse", bounds.center, bounds.size);
             Vector2 center = bounds.size * 0.5f;
@@ -52,23 +54,26 @@ namespace PerchSort.Game
             roof = GameUI.Image(house, "Colored roof", art.Get("house_roof_teal"), center, bounds.size);
             roof.gameObject.SetActive(false);
             ApplyStyle(snapshot.HouseStyle);
-            float size = GameLayout.GoalBadgeSize(snapshot.Goals.Length);
+            const float size = 96;
             for (int i = 0; i < snapshot.Goals.Length; i++)
             {
                 var data = snapshot.Goals[i]; string id = data.Species;
-                var hit = GameUI.Image(transform, id + " goal info", null, GameLayout.GoalBadgePoint(i, snapshot.Goals.Length), Vector2.one * 88);
+                Vector2 point = new Vector2(540 + (i - (snapshot.Goals.Length - 1) * 0.5f) * 124, 468);
+                var hit = GameUI.Image(transform, id + " goal info", null, point, Vector2.one * 108);
                 hit.color = Color.clear; hit.raycastTarget = true;
                 var button = hit.gameObject.AddComponent<GameButton>(); button.targetGraphic = hit;
                 button.transition = Selectable.Transition.None; button.navigation = new Navigation { mode = Navigation.Mode.None };
                 button.onClick.AddListener(() => screen.RequestGoal(id));
                 button.gameObject.AddComponent<BoardControlFeedback>().Configure(button, screen);
-                var ring = GameUI.Fit(hit.transform, "Gold ring", art.Get("badge_ring_gold"), Vector2.one * 44, Vector2.one * size);
-                var portraitSprite = art.Optional(data.PortraitKey);
-                if (portraitSprite == null) { screen.Fail(data.PortraitKey); continue; }
+                var ring = GameUI.Fit(hit.transform, "Gold ring", art.Get("badge_ring_gold"), Vector2.one * 54, Vector2.one * size);
+                var portraitSprite = art.Optional(id + "_front");
+                if (portraitSprite == null) { screen.Fail(id + "_front"); continue; }
                 var portrait = GameUI.Fit(ring.transform, "Front portrait", portraitSprite, Vector2.one * size * 0.5f, Vector2.one * size * 0.8f);
-                GameUI.Fit(ring.transform, "Gift coin", art.Get(data.GiftKey), new Vector2(size - 4, size - 4), Vector2.one * 22);
-                var check = GameUI.Fit(ring.transform, "Delivery check", art.Get("badge_check"), new Vector2(4, size - 4), Vector2.one * 20);
-                goals.Add(id, new Goal { Button = button, Portrait = portrait, Check = check.gameObject });
+                var life = portrait.gameObject.AddComponent<UiBirdLife>();
+                life.Configure(portrait, art, id, feetPivot: false, frontFacing: true, friend: true); life.Begin();
+                var gift = GameUI.Fit(ring.transform, "Species gift badge", art.Get(data.GiftKey), new Vector2(84, 84), Vector2.one * 40);
+                var check = GameUI.Fit(ring.transform, "Delivery check", art.Get("badge_check"), new Vector2(84, 84), Vector2.one * 40);
+                goals.Add(id, new Goal { Button = button, Portrait = portrait, Check = check.gameObject, Gift = gift.gameObject, Life = life });
                 badges.Add(id, button); SetBadge(id, data.Home);
             }
             GiftPoint = bounds.position + new Vector2(center.x, bounds.height * 0.2f);
@@ -107,7 +112,9 @@ namespace PerchSort.Game
             doorMotion.Play(0.25f, t => { if (run == generation) DoorPose(Mathf.Lerp(start, target, t)); }, () =>
             {
                 if (run != generation) return;
-                DoorPose(target); done?.Invoke();
+                DoorPose(target);
+                if (target == 0 && IsHome && isActiveAndEnabled) resident?.Begin();
+                done?.Invoke();
             });
         }
         private void DoorPose(float value)
@@ -137,8 +144,8 @@ namespace PerchSort.Game
         private void SetBadge(string species, bool delivered)
         {
             if (!goals.TryGetValue(species, out var goal)) return;
-            goal.Delivered = delivered; goal.Portrait.color = new Color(1, 1, 1, delivered ? 1 : 0.45f);
-            goal.Check.SetActive(delivered);
+            goal.Delivered = delivered;
+            goal.Gift.SetActive(!delivered); goal.Check.SetActive(delivered);
         }
         public void SyncState(HudSnapshot snapshot)
         {
@@ -147,6 +154,7 @@ namespace PerchSort.Game
             if (changed) BeginTransition();
             foreach (var goal in snapshot.Goals) SetBadge(goal.Species, goal.Home);
             ApplyStyle(snapshot.HouseStyle); SetResident(snapshot.ResidentSpecies);
+            if (changed && IsHome && isActiveAndEnabled) resident?.Begin();
         }
         private void SetResident(string species)
         {
@@ -157,7 +165,7 @@ namespace PerchSort.Game
             Species = species; face.gameObject.SetActive(species != null);
             face.rectTransform.localScale = Vector3.one;
             if (species == null) { ArrivalCount = 0; return; }
-            face.sprite = art.Optional(species + "_front") ?? art.Get(species + "_face");
+            face.sprite = art.Get(species + "_front");
             resident = face.gameObject.AddComponent<UiBirdLife>();
             resident.Configure(face, art, species, feetPivot: false, frontFacing: true, friend: true); resident.Begin();
         }
@@ -167,8 +175,16 @@ namespace PerchSort.Game
             BeginTransition(); delivering = null; DoorPose(0);
             if (face != null) { face.gameObject.SetActive(IsHome); if (IsHome && isActiveAndEnabled) resident?.Begin(); }
         }
-        private void OnEnable() { if (resident != null && IsHome) resident.Begin(); }
-        private void OnDisable() { Cancel(); resident?.Stop(); }
+        private void OnEnable()
+        {
+            if (resident != null && IsHome) resident.Begin();
+            foreach (var goal in goals.Values) goal.Life.Begin();
+        }
+        private void OnDisable()
+        {
+            Cancel(); resident?.Stop();
+            foreach (var goal in goals.Values) goal.Life.Stop();
+        }
         private void OnDestroy() => Cancel();
     }
 }

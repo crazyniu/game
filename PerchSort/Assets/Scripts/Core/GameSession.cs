@@ -13,7 +13,7 @@ namespace PerchSort.Core
     public sealed class GameSession
     {
         private readonly BoardState initial;
-        private readonly Stack<BoardState> history = new Stack<BoardState>();
+        private readonly Stack<(BoardState State, Move? LastMove)> history = new Stack<(BoardState, Move?)>();
         private readonly List<GameEvent> events = new List<GameEvent>();
         private readonly ResolutionBuffer resolution = new ResolutionBuffer();
         public BoardState State { get; private set; }
@@ -23,6 +23,7 @@ namespace PerchSort.Core
         public int MoveCount => State.CountedMoves;
         public int Stars => StarsFor(MoveCount, Par);
         public bool CanUndo => history.Count > 0;
+        public Move? LastMove { get; private set; }
         // Persist these outputs externally; Core owns no global progression or economy state.
         public BoosterInventory Inventory => State.Inventory;
 
@@ -46,16 +47,18 @@ namespace PerchSort.Core
         {
             ClearPresentation();
             if (!CanMove(State, from, to)) return false;
-            history.Push(State.Clone());
+            history.Push((State.Clone(), LastMove));
             GameRules.Transfer(State, from, to, events, resolution);
+            LastMove = new Move(from, to);
             return true;
         }
         public bool Swivel(int branch)
         {
             ClearPresentation();
             if (!CanSwivel(State, branch)) return false;
-            history.Push(State.Clone());
+            history.Push((State.Clone(), LastMove));
             GameRules.Swivel(State, branch, events, resolution);
+            LastMove = Move.Swivel(branch);
             return true;
         }
         public bool TryAction(Move move)
@@ -74,11 +77,11 @@ namespace PerchSort.Core
             SolveResult hint = null;
             if (kind == BoosterKind.Firefly)
             {
-                hint = Solver.Solve(State, maxStates, maxMilliseconds);
+                hint = Solver.SolveHint(State, LastMove, maxStates, maxMilliseconds);
                 if (hint.Status != SolveStatus.Solved || hint.Moves.Count == 0) return new BoosterResult(false, hint);
             }
             else if (!GameRules.BoosterHasEffect(State, kind)) return new BoosterResult(false);
-            history.Push(State.Clone());
+            history.Push((State.Clone(), LastMove));
             GameRules.Booster(State, kind, true, events, resolution);
             return new BoosterResult(true, hint);
         }
@@ -89,7 +92,7 @@ namespace PerchSort.Core
             if (State.IsWon || State.Inventory[BoosterKind.Firefly] == 0 ||
                 !(hint.Kind == MoveKind.Swivel ? CanSwivel(State, hint.From) : CanMove(State, hint.From, hint.To)))
                 return false;
-            history.Push(State.Clone());
+            history.Push((State.Clone(), LastMove));
             GameRules.Booster(State, BoosterKind.Firefly, true, events, resolution);
             return true;
         }
@@ -101,10 +104,10 @@ namespace PerchSort.Core
             if (State.Inventory[kind] > int.MaxValue - count || initial.Inventory[kind] > int.MaxValue - count)
                 throw new ArgumentOutOfRangeException(nameof(count));
             foreach (var snapshot in history)
-                if (snapshot.Inventory[kind] > int.MaxValue - count) throw new ArgumentOutOfRangeException(nameof(count));
+                if (snapshot.State.Inventory[kind] > int.MaxValue - count) throw new ArgumentOutOfRangeException(nameof(count));
             State.Inventory.Add(kind, count);
             initial.Inventory.Add(kind, count);
-            foreach (var snapshot in history) snapshot.Inventory.Add(kind, count);
+            foreach (var snapshot in history) snapshot.State.Inventory.Add(kind, count);
         }
 
         public bool BoosterHasEffect(BoosterKind kind) => kind == BoosterKind.Firefly
@@ -113,18 +116,18 @@ namespace PerchSort.Core
         {
             ClearPresentation();
             if (history.Count == 0) return false;
-            State = history.Pop(); return true;
+            var snapshot = history.Pop(); State = snapshot.State; LastMove = snapshot.LastMove; return true;
         }
         public void Restart()
         {
-            State = initial.Clone(); history.Clear(); ClearPresentation();
+            State = initial.Clone(); LastMove = null; history.Clear(); ClearPresentation();
         }
         // Authorized HUD compatibility: free Sapling effect, shared once-per-level allowance.
         public bool AddBranch()
         {
             ClearPresentation();
             if (!GameRules.BoosterHasEffect(State, BoosterKind.Sapling)) return false;
-            history.Push(State.Clone());
+            history.Push((State.Clone(), LastMove));
             GameRules.Booster(State, BoosterKind.Sapling, false, events, resolution);
             return true;
         }

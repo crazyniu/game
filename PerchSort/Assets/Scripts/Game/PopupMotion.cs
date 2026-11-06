@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using LitMotion;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,25 +31,18 @@ namespace PerchSort.Game
         private CanvasGroup group;
         private int generation;
         private bool closing;
-        // In the linear-color project, 72% black alpha leaves roughly 56% displayed brightness.
-        private const float DimAlpha = 0.72f;
+        private const float DimAlpha = ModalLayer.DimAlpha;
 
-        public static readonly Vector2 PrimaryBarSize = new Vector2(520, 120);
+        public static readonly Vector2 PrimaryBarSize = Vector2.one * 124;
 
         public static Button PrimaryBar(Transform parent, GameArt art, string name, string icon,
             Vector2 center, Action action)
         {
             var button = (GameButton)GameUI.Button(parent, art, name, icon,
                 GameLayout.Centered(center, PrimaryBarSize), action, true);
-            var image = (Image)button.targetGraphic;
-            image.sprite = art.Get("btn_green_pill"); image.type = Image.Type.Sliced; image.preserveAspect = false;
-            button.RestSprite = button.PressedSprite = image.sprite;
             var glyph = button.transform.Find("Icon").GetComponent<Image>();
-            glyph.rectTransform.sizeDelta = Vector2.one * 56;
-            glyph.color = Color.white;
-            var outline = glyph.gameObject.AddComponent<Outline>();
-            outline.effectColor = new Color32(90, 47, 14, 255);
-            outline.effectDistance = new Vector2(2, -2);
+            GlyphMetrics.Apply(glyph, PrimaryBarSize);
+            if (icon == "icon_play") glyph.rectTransform.anchoredPosition += Vector2.right * 4;
             return button;
         }
 
@@ -87,8 +79,7 @@ namespace PerchSort.Game
             dim = overlay;
             if (dim != null)
             {
-                dim.color = new Color(0, 0, 0, 0);
-                Play(0.2f, t => dim.color = new Color(0, 0, 0, DimAlpha * t));
+                dim.color = new Color(0, 0, 0, DimAlpha);
             }
         }
         public void Track(RectTransform rect)
@@ -124,7 +115,7 @@ namespace PerchSort.Game
             group.interactable = false;
             foreach (var pose in poses.Values) if (pose.Rect != null) pose.ClosingScale = pose.Rect.localScale;
             float alpha = group.alpha; bool finished = false;
-            Play(0.15f, t =>
+            Play(0.12f, t =>
             {
                 group.alpha = alpha * (1 - t);
                 foreach (var pose in poses.Values)
@@ -264,10 +255,39 @@ namespace PerchSort.Game
             }
             life.Begin(); life.Play("flap");
         }
-        public void Count(TextMeshProUGUI label, int amount, float delay)
+        public void FrontBird(GameArt art, Image bird, string species)
+        {
+            var front = art.Optional(species + "_front");
+            if (front == null)
+                throw new InvalidOperationException("Missing front-facing popup bird: " + species);
+            bird.sprite = front;
+            Track(bird.rectTransform);
+            var frames = new List<Sprite>();
+            for (int i = 1; ; i++)
+            {
+                var frame = art.Optional(species + "_front_blink_" + i.ToString("D2"));
+                if (frame == null) break;
+                frames.Add(frame);
+            }
+            if (frames.Count < 2)
+                throw new InvalidOperationException("Missing front blink sequence for popup bird: " + species);
+            Vector3 scale = bird.rectTransform.localScale;
+            int token = generation;
+            motion.Loop(2.8f, t =>
+            {
+                if (token != generation || bird == null) return;
+                float breath = 0.5f + 0.5f * Mathf.Sin(t * Mathf.PI * 2);
+                bird.rectTransform.localScale = Vector3.Scale(scale, new Vector3(1 - 0.008f * breath, 1 + 0.02f * breath, 1));
+                float blink = t * 2.8f - 1.4f;
+                int frame = Mathf.FloorToInt(blink * 12);
+                bird.sprite = frame >= 0 && frame < frames.Count ? frames[frame] : front;
+            });
+        }
+        public void Count(PaintedNumber label, int amount, float delay)
         {
             int previous = -1;
-            Play(0.6f, t => { int value = Mathf.RoundToInt(Mathf.Max(0, amount) * t); if (value != previous) { previous = value; label.text = "+" + value; } }, delay: delay);
+            int capped = Mathf.Clamp(amount, 0, 99999);
+            Play(0.6f, t => { int value = Mathf.RoundToInt(capped * t); if (value != previous) { previous = value; label.SetText("+" + value); } }, delay: delay);
         }
         public Image Transient(Transform parent, string name, Sprite sprite, Vector2 point, Vector2 size)
         {

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace PerchSort.Game
 {
-    // Session-side policy. The board receives a supplied icon bubble and never searches moves.
+    // Session-side policy; presentation highlights one available tool without repeating its icon.
     public sealed class StuckHint : MonoBehaviour
     {
         private GameRoot root;
@@ -45,8 +45,7 @@ namespace PerchSort.Game
             if (deadline <= 0 || Time.unscaledTime < deadline) return;
             pending = false;
             if (!session.State.IsWon && !GameSession.HasLegalMove(session.State))
-                root.BoardScreen.ShowBubble(new BubblePresentation { Visible = true, Point = new Vector2(540, 1620),
-                    IconKeys = new[] { "icon_undo", "tool_hint", "tool_branch" } });
+                root.BoardScreen.ShowHint(new HintPresentation { Stuck = true });
         }
         private void OnDisable() { pending = false; deadline = 0; }
     }

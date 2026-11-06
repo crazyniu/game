@@ -33,6 +33,15 @@ namespace PerchSort.Game
         }
         public Sprite Icon(string name) => Get(name);
         public static void Warn(string key, string message) { if (warnings.Add(key)) Debug.LogWarning(message); }
+        public string FrontKey(string species, string outfit)
+        {
+            if (!string.IsNullOrEmpty(outfit))
+            {
+                string key = species + "_outfit_" + outfit[outfit.Length - 1];
+                if (Optional(key + "_front") != null) return key;
+            }
+            return species;
+        }
         public Sprite World(string name, int world) => Get(name + "_w" + world);
         public Sprite Background(int world, string variant) => Get("bg_level_w" + world + "_" + variant);
         public Sprite Portrait(string species)

@@ -17,6 +17,7 @@ namespace PerchSort.Game
         private GameArt art;
         private BirdOverlay overlays;
         private Sprite idleFrame, baseIdleFrame, cheerFrame, sleep, flyUp, flyDown;
+        private Sprite outfitBlinkOne, outfitBlinkTwo;
         private string outfitKey;
         private Sprite egg, wobbleLeft, wobbleRight, crack, shell;
         private Sprite RestFrame => Bird.IsEgg ? egg : asleep ? sleep : idleFrame;
@@ -87,9 +88,9 @@ namespace PerchSort.Game
             rect.sizeDelta = GameLayout.BirdDisplaySize * density;
             DisplayScale = density;
             string prefix = bird.Species.Id;
-            idleFrame = baseIdleFrame = art.Optional(prefix + "_front") ?? art.Get(prefix + "_idle");
+            idleFrame = baseIdleFrame = art.Get(prefix + "_front");
             cheerFrame = art.Get(prefix + "_cheer");
-            sleep = art.Get(prefix + "_sleep");
+            sleep = art.Get(prefix + "_front_blink_02");
             flyUp = art.Get(prefix + "_fly_up"); flyDown = art.Get(prefix + "_fly_down");
             for (int i = 0; i < idlePoses.Length; i++)
             {
@@ -100,6 +101,7 @@ namespace PerchSort.Game
             {
                 idleSequences = new Sprite[IdleNames.Length][];
                 for (int i = 0; i < idleSequences.Length; i++) idleSequences[i] = LoadSequence(art, prefix + "_" + IdleNames[i]);
+                idleSequences[0] = new[] { baseIdleFrame, art.Get(prefix + "_front_blink_01"), art.Get(prefix + "_front_blink_02") };
                 speciesSequences.Add(prefix, idleSequences);
             }
             var speciesFlights = FlightCache.GetOrCreateValue(art);
@@ -124,7 +126,7 @@ namespace PerchSort.Game
             reveal.color = new Color(1, 1, 1, 0.45f);
             bow = GameUI.Image(body, "Mama bow", art.Get("mama_bow"), Vector2.zero, Vector2.zero);
             fluff = GameUI.Image(body, "Chick fluff", art.Get("chick_fluff"), Vector2.zero, Vector2.zero);
-            zzz = GameUI.Image(body, "Sleep bubble", art.Get("zzz"), new Vector2(118, 16) * density, Vector2.one * (36 * density));
+            zzz = PaintedLabels.Create(body, "Painted sleep Zzz", "label_small_zzz", new Vector2(132, 16) * density, 28 * density);
             trail = new Image[3];
             for (int i = 0; i < trail.Length; i++)
             {
@@ -214,7 +216,11 @@ namespace PerchSort.Game
         {
             if (outfitKey == key) return;
             outfitKey = key;
-            idleFrame = string.IsNullOrEmpty(key) ? baseIdleFrame : art.Get(key);
+            // Side-facing outfit stills must not replace the front-facing resting pose.
+            idleFrame = string.IsNullOrEmpty(key) ? baseIdleFrame : art.Optional(key + "_front") ?? baseIdleFrame;
+            outfitBlinkOne = string.IsNullOrEmpty(key) ? null : art.Optional(key + "_front_blink_01");
+            outfitBlinkTwo = string.IsNullOrEmpty(key) ? null : art.Optional(key + "_front_blink_02");
+            sleep = outfitBlinkTwo ?? idleSequences[0][2];
             if (!acting && !idleActing) SetFrame(RestFrame);
         }
         public void Sync(Bird bird, bool sleeping)
@@ -309,9 +315,11 @@ namespace PerchSort.Game
                 case 0:
                     const float blinkDuration = 4f / 12;
                     if (twice && elapsed >= blinkDuration + 0.2f) elapsed -= blinkDuration + 0.2f;
-                    else if (elapsed >= blinkDuration) return idleSequences[0][0];
+                    else if (elapsed >= blinkDuration) return idleFrame;
                     int blinkIndex = Mathf.Min(4, Mathf.FloorToInt(elapsed * 12));
-                    return idleSequences[0][blinkIndex <= 2 ? blinkIndex : 4 - blinkIndex];
+                    blinkIndex = blinkIndex <= 2 ? blinkIndex : 4 - blinkIndex;
+                    return blinkIndex == 0 ? idleFrame : blinkIndex == 1 ?
+                        outfitBlinkOne ?? idleSequences[0][1] : outfitBlinkTwo ?? idleSequences[0][2];
                 case 1:
                     var turn = idleSequences[direction];
                     if (elapsed < 0.4f) return turn[Mathf.Min(3, Mathf.FloorToInt(elapsed * 10))];
@@ -432,6 +440,22 @@ namespace PerchSort.Game
             {
                 if (selected) motion.Loop(1.2f, t => rect.anchoredPosition = end + Vector2.up * (3 * Mathf.Sin(t * Mathf.PI * 2)));
             }, ease: Ease.OutBack);
+        }
+        public void ReactToSleepTap()
+        {
+            if (!asleep || Bird.IsEgg) return;
+            Cancel(); acting = true;
+            zzz.gameObject.SetActive(true); zzz.color = Color.white;
+            motion.Play(SleepBubble.RefusalSeconds, t =>
+            {
+                float pulse = Mathf.Sin(t * Mathf.PI);
+                body.localScale = Scale(1 + 0.08f * pulse, 1 + 0.08f * pulse);
+                zzz.rectTransform.localScale = Vector3.one * (1 + 0.35f * pulse);
+            }, () =>
+            {
+                zzz.rectTransform.localScale = Vector3.one;
+                Idle();
+            });
         }
         public void Shake()
         {
@@ -613,6 +637,7 @@ namespace PerchSort.Game
             rect.anchoredPosition = perch;
             reveal.color = new Color(1, 1, 1, 0.45f);
             zzz.rectTransform.anchoredPosition = new Vector2(118, -16) * DisplayScale;
+            zzz.rectTransform.localScale = Vector3.one; zzz.color = Color.white;
             zzz.gameObject.SetActive(asleep && !Bird.IsEgg);
         }
         private void OnDisable() => Cancel();

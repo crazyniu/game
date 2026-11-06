@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,18 +36,30 @@ namespace PerchSort.Game
             return image;
         }
 
-        public static TextMeshProUGUI Text(Transform parent, string name, string value, TMP_FontAsset font,
-            Vector2 point, Vector2 size, float fontSize)
+        public static RectTransform Text(Transform parent, string name, string value,
+            Vector2 point, Vector2 size, float capHeight)
         {
-            var text = Rect(parent, name, point, size).gameObject.AddComponent<TextMeshProUGUI>();
-            if (font != null) text.font = font;
-            text.text = value;
-            text.fontSize = fontSize;
-            text.fontStyle = FontStyles.Bold;
-            text.alignment = TextAlignmentOptions.Center;
-            text.color = Ink;
-            text.raycastTarget = false;
-            return text;
+            string key = PaintedLabels.KeyForText(value);
+            if (key != null)
+            {
+                var label = PaintedLabels.Create(parent, name, key, point, size.y);
+                if (label.rectTransform.sizeDelta.x > size.x)
+                    label.rectTransform.sizeDelta *= size.x / label.rectTransform.sizeDelta.x;
+                return label.rectTransform;
+            }
+            bool numeric = true;
+            foreach (char character in value ?? "")
+                if ((character < '0' || character > '9') && character != '+' && character != '-' &&
+                    character != 'x' && character != '/' && character != '∞') { numeric = false; break; }
+            if (numeric)
+            {
+                var number = PaintedNumber.Create(parent, name, GlyphSet.Brown, capHeight, TextAnchor.MiddleCenter);
+                number.Rect.anchoredPosition = new Vector2(point.x, -point.y);
+                number.Rect.sizeDelta = size; number.SetText(value);
+                return number.Rect;
+            }
+            Debug.LogError("Missing painted label for text: " + value);
+            return Rect(parent, name, point, size);
         }
 
         public static Image Surface(Transform parent, string name, GameArt art, string sprite, Rect bounds)

@@ -102,6 +102,12 @@ namespace PerchSort.Core
         public static SolveResult Solve(BoardState start, int maxStates = 100000, int maxMilliseconds = 3000)
             => Search(start, maxStates, maxMilliseconds, false, out _);
 
+        // Prefer a non-reversing first action without taking a detour: every returned hint
+        // reduces the exact remaining BFS distance, even when a phase change needs a reverse.
+        public static SolveResult SolveHint(BoardState start, Move? previousMove = null,
+            int maxStates = 100000, int maxMilliseconds = 3000)
+            => Search(start, maxStates, maxMilliseconds, false, out _, previousMove);
+
         // Minimums and paths count real actions (BFS depth), not the Encore-discounted star counter.
         public static CompletionOrderResult MinMovesByCompletionOrder(BoardState start,
             int maxStates = 100000, int maxMilliseconds = 3000)
@@ -111,7 +117,7 @@ namespace PerchSort.Core
         }
 
         private static SolveResult Search(BoardState start, int maxStates, int maxMilliseconds,
-            bool allOrders, out List<CompletionOrderMinimum> orders)
+            bool allOrders, out List<CompletionOrderMinimum> orders, Move? previousMove = null)
         {
             if (start == null) throw new ArgumentNullException(nameof(start));
             if (maxStates < 1) throw new ArgumentOutOfRangeException(nameof(maxStates));
@@ -133,14 +139,19 @@ namespace PerchSort.Core
                 var current = nodes[cursor];
                 var board = current.Board;
                 int branches = board.Branches.Count;
+                // Only the root is reordered. FIFO expansion then prefers non-reversing
+                // solutions at equal depth; a necessary reverse remains searchable.
+                for (int pass = 0; pass < (cursor == 0 && previousMove.HasValue ? 2 : 1); pass++)
                 for (int from = 0; from < branches; from++)
                     for (int to = 0; to <= branches; to++)
                     {
                         if (clock.ElapsedMilliseconds >= maxMilliseconds) return new SolveResult(SolveStatus.BudgetExceeded);
                         bool swivel = to == branches;
+                        var move = swivel ? Move.Swivel(from) : new Move(from, to);
+                        if (cursor == 0 && previousMove.HasValue &&
+                            Reverses(move, previousMove.Value) != (pass == 1)) continue;
                         if (swivel ? !GameRules.CanSwivel(board, from) : !GameRules.CanTransfer(board, from, to)) continue;
                         var next = board.CloneForSearch();
-                        var move = swivel ? Move.Swivel(from) : new Move(from, to);
                         if (swivel) GameRules.Swivel(next, from, null, resolution);
                         else GameRules.Transfer(next, from, to, null, resolution);
                         if (!visited.Add(keys.Board(next, allOrders))) continue;
@@ -156,6 +167,9 @@ namespace PerchSort.Core
             }
             return new SolveResult(allOrders && orders.Count > 0 ? SolveStatus.Solved : SolveStatus.Unsolvable);
         }
+
+        private static bool Reverses(Move move, Move previous) => move.Kind == previous.Kind &&
+            move.From == previous.To && move.To == previous.From;
 
         private static SolveResult Path(List<Node> nodes, int end)
         {

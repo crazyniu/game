@@ -40,9 +40,9 @@ namespace PerchSort.PlayModeTests
             DevOptions.OverrideForTests = previousOptions;
         }
         [UnityTest]
-        public IEnumerator RepeatedHintsWinEveryAuthoredLevelWithReasonsForShortestPathReversals()
+        public IEnumerator RepeatedHintsWinEveryAuthoredLevelWithStrictlyDecreasingDistance()
         {
-            var rows = new List<string> { "level,step,kind,from,to,optimum,reason" };
+            var rows = new List<string> { "level,step,kind,from,to,remaining,reverse" };
             var failures = new List<string>();
             try
             {
@@ -53,6 +53,7 @@ namespace PerchSort.PlayModeTests
                     var optimum = Solver.Solve(root.Session.State, 200000, 3000);
                     Assert.That(optimum.Status, Is.EqualTo(SolveStatus.Solved), "Optimum unavailable for level " + id);
                     Move? previous = null;
+                    int remaining = optimum.Moves.Count;
                     for (int step = 0; !root.Session.State.IsWon && step < optimum.Moves.Count + 3; step++)
                     {
                         root.Hint();
@@ -63,13 +64,15 @@ namespace PerchSort.PlayModeTests
                         var move = root.Board.DisplayedHint.Value;
                         bool reverse = previous.HasValue && move.Kind == MoveKind.Transfer && previous.Value.Kind == MoveKind.Transfer &&
                             move.From == previous.Value.To && move.To == previous.Value.From;
-                        var reason = root.Board.transform.Find("Board particles/Hint reason");
-                        rows.Add($"{id},{step},{move.Kind},{move.From},{move.To},{optimum.Moves.Count},{(reason == null ? "" : reason.name)}");
-                        if (reverse && reason == null) failures.Add($"Level {id} step {step}: unexplained reverse {move.From}->{move.To}");
+                        rows.Add($"{id},{step},{move.Kind},{move.From},{move.To},{remaining},{reverse}");
                         Assert.That(move.Kind == MoveKind.Swivel ? root.TapSwivel(move.From) : root.TryMove(move.From, move.To), Is.True);
+                        var next = Solver.Solve(root.Session.State, 200000, 3000);
+                        Assert.That(next.Status, Is.EqualTo(SolveStatus.Solved));
+                        Assert.That(next.Moves.Count, Is.EqualTo(--remaining),
+                            $"Level {id} step {step}: following a hint must strictly reduce solver distance.");
                         previous = move;
                     }
-                    if (!root.Session.State.IsWon || root.Session.State.Moves > optimum.Moves.Count + 2)
+                    if (!root.Session.State.IsWon || root.Session.State.Moves != optimum.Moves.Count)
                         failures.Add($"Level {id}: won={root.Session.State.IsWon}, moves={root.Session.State.Moves}, optimum={optimum.Moves.Count}");
                 }
             }
