@@ -1,0 +1,115 @@
+{
+ "world": 2,
+ "slots": [
+  {
+   "side": "L",
+   "row": 0,
+   "name": "board_w2_branch_L0",
+   "at": [
+    0,
+    702
+   ],
+   "perch": 760.0,
+   "tip": 539
+  },
+  {
+   "side": "L",
+   "row": 1,
+   "name": "board_w2_branch_L1",
+   "at": [
+    0,
+    945
+   ],
+   "perch": 1009.0,
+   "tip": 538
+  },
+  {
+   "side": "L",
+   "row": 2,
+   "name": "board_w2_branch_L2",
+   "at": [
+    0,
+    1165
+   ],
+   "perch": 1220.0,
+   "tip": 537
+  },
+  {
+   "side": "L",
+   "row": 3,
+   "name": "board_w2_branch_L3",
+   "at": [
+    0,
+    1373
+   ],
+   "perch": 1426.0,
+   "tip": 537
+  },
+  {
+   "side": "L",
+   "row": 4,
+   "name": "board_w2_branch_L4",
+   "at": [
+    0,
+    1573
+   ],
+   "perch": 1629.0,
+   "tip": 537
+  },
+  {
+   "side": "R",
+   "row": 0,
+   "name": "board_w2_branch_R0",
+   "at": [
+    518,
+    828
+   ],
+   "perch": 891.0,
+   "tip": 519
+  },
+  {
+   "side": "R",
+   "row": 1,
+   "name": "board_w2_branch_R1",
+   "at": [
+    516,
+    1056
+   ],
+   "perch": 1107.0,
+   "tip": 517
+  },
+  {
+   "side": "R",
+   "row": 2,
+   "name": "board_w2_branch_R2",
+   "at": [
+    517,
+    1267
+   ],
+   "perch": 1320.5,
+   "tip": 518
+  },
+  {
+   "side": "R",
+   "row": 3,
+   "name": "board_w2_branch_R3",
+   "at": [
+    518,
+    1476
+   ],
+   "perch": 1529.0,
+   "tip": 519
+  },
+  {
+   "side": "R",
+   "row": 4,
+   "name": "board_w2_branch_R4",
+   "at": [
+    518,
+    1668
+   ],
+   "perch": 1712.0,
+   "tip": 519
+  }
+ ]
+}

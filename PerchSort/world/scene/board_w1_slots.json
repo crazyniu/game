@@ -1,0 +1,93 @@
+{
+ "world": 1,
+ "slots": [
+  {
+   "side": "L",
+   "row": 0,
+   "name": "board_w1_branch_L0",
+   "at": [
+    0,
+    700
+   ],
+   "perch": 760.0,
+   "tip": 515
+  },
+  {
+   "side": "L",
+   "row": 1,
+   "name": "board_w1_branch_L1",
+   "at": [
+    0,
+    974
+   ],
+   "perch": 1032.0,
+   "tip": 524
+  },
+  {
+   "side": "L",
+   "row": 2,
+   "name": "board_w1_branch_L2",
+   "at": [
+    0,
+    1234
+   ],
+   "perch": 1292.0,
+   "tip": 528
+  },
+  {
+   "side": "L",
+   "row": 3,
+   "name": "board_w1_branch_L3",
+   "at": [
+    0,
+    1487
+   ],
+   "perch": 1546.0,
+   "tip": 528
+  },
+  {
+   "side": "R",
+   "row": 0,
+   "name": "board_w1_branch_R0",
+   "at": [
+    531,
+    835
+   ],
+   "perch": 889.0,
+   "tip": 532
+  },
+  {
+   "side": "R",
+   "row": 1,
+   "name": "board_w1_branch_R1",
+   "at": [
+    529,
+    1091
+   ],
+   "perch": 1146.0,
+   "tip": 530
+  },
+  {
+   "side": "R",
+   "row": 2,
+   "name": "board_w1_branch_R2",
+   "at": [
+    524,
+    1349
+   ],
+   "perch": 1400.0,
+   "tip": 525
+  },
+  {
+   "side": "R",
+   "row": 3,
+   "name": "board_w1_branch_R3",
+   "at": [
+    523,
+    1600
+   ],
+   "perch": 1648.0,
+   "tip": 524
+  }
+ ]
+}
