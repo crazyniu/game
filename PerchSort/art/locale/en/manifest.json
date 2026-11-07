@@ -1,0 +1,625 @@
+{
+  "locale": "en",
+  "labels": {
+    "aviary.title": {
+      "text": "Aviary",
+      "file": "label_aviary_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_aviary_title.png"
+    },
+    "bird.sunny.name": {
+      "text": "Sunny",
+      "file": "label_bird_sunny_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_sunny_name.png"
+    },
+    "bird.sky.name": {
+      "text": "Skye",
+      "file": "label_bird_sky_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_sky_name.png"
+    },
+    "bird.berry.name": {
+      "text": "Berry",
+      "file": "label_bird_berry_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_berry_name.png"
+    },
+    "bird.mint.name": {
+      "text": "Minty",
+      "file": "label_bird_mint_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_mint_name.png"
+    },
+    "bird.cocoa.name": {
+      "text": "Cocoa",
+      "file": "label_bird_cocoa_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_cocoa_name.png"
+    },
+    "bird.snow.name": {
+      "text": "Flurry",
+      "file": "label_bird_snow_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_snow_name.png"
+    },
+    "bird.ember.name": {
+      "text": "Ember",
+      "file": "label_bird_ember_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_ember_name.png"
+    },
+    "bird.crow.name": {
+      "text": "Rook",
+      "file": "label_bird_crow_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_crow_name.png"
+    },
+    "bird.ink.name": {
+      "text": "Inky",
+      "file": "label_bird_ink_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_ink_name.png"
+    },
+    "bird.hoot.name": {
+      "text": "Hoot",
+      "file": "label_bird_hoot_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_bird_hoot_name.png"
+    },
+    "shop.title": {
+      "text": "Shop",
+      "file": "label_shop_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_shop_title.png"
+    },
+    "world.green.name": {
+      "text": "Green Forest",
+      "file": "label_world_green_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_green_name.png"
+    },
+    "world.bamboo.name": {
+      "text": "Bamboo Forest",
+      "file": "label_world_bamboo_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_bamboo_name.png"
+    },
+    "world.autumn.name": {
+      "text": "Autumn Forest",
+      "file": "label_world_autumn_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_autumn_name.png"
+    },
+    "world.snow.name": {
+      "text": "Snow Forest",
+      "file": "label_world_snow_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_snow_name.png"
+    },
+    "bird.sunny.ability": {
+      "text": "Wakes sleepers",
+      "file": "label_bird_sunny_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.sky.ability": {
+      "text": "Reveals eggs",
+      "file": "label_bird_sky_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.berry.ability": {
+      "text": "One free move",
+      "file": "label_bird_berry_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.mint.ability": {
+      "text": "Grows branches",
+      "file": "label_bird_mint_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.cocoa.ability": {
+      "text": "Sends crows away",
+      "file": "label_bird_cocoa_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.snow.ability": {
+      "text": "Land anywhere",
+      "file": "label_bird_snow_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.ember.ability": {
+      "text": "Hatches every egg",
+      "file": "label_bird_ember_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.ink.ability": {
+      "text": "Switches day and night",
+      "file": "label_bird_ink_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.hoot.ability": {
+      "text": "Moonlit moves",
+      "file": "label_bird_hoot_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "bird.crow.ability": {
+      "text": "Never goes home",
+      "file": "label_bird_crow_ability.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.firefly.name": {
+      "text": "Firefly",
+      "file": "label_booster_firefly_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.firefly.description": {
+      "text": "Find a helpful move",
+      "file": "label_booster_firefly_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.sapling.name": {
+      "text": "Sapling",
+      "file": "label_booster_sapling_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.sapling.description": {
+      "text": "Add one branch",
+      "file": "label_booster_sapling_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.owl_eye.name": {
+      "text": "Owl Eye",
+      "file": "label_booster_owl_eye_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.owl_eye.description": {
+      "text": "Reveals eggs",
+      "file": "label_booster_owl_eye_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.morning_bell.name": {
+      "text": "Morning Bell",
+      "file": "label_booster_morning_bell_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.morning_bell.description": {
+      "text": "Wake sleeping birds",
+      "file": "label_booster_morning_bell_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.scarecrow.name": {
+      "text": "Scarecrow",
+      "file": "label_booster_scarecrow_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.scarecrow.description": {
+      "text": "Send crows away",
+      "file": "label_booster_scarecrow_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.spring_rain.name": {
+      "text": "Spring Rain",
+      "file": "label_booster_spring_rain_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "booster.spring_rain.description": {
+      "text": "Grow branches fully",
+      "file": "label_booster_spring_rain_description.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.mushroom.name": {
+      "text": "Mushroom",
+      "file": "label_house_mushroom_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.teapot.name": {
+      "text": "Teapot",
+      "file": "label_house_teapot_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.lantern.name": {
+      "text": "Lantern",
+      "file": "label_house_lantern_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.acorn.name": {
+      "text": "Acorn",
+      "file": "label_house_acorn_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sunny.1.name": {
+      "text": "Straw Hat",
+      "file": "label_outfit_sunny_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sunny.2.name": {
+      "text": "Blue Bow Tie",
+      "file": "label_outfit_sunny_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sunny.3.name": {
+      "text": "Little Crown",
+      "file": "label_outfit_sunny_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sky.1.name": {
+      "text": "Cozy Scarf",
+      "file": "label_outfit_sky_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sky.2.name": {
+      "text": "Aviator Goggles",
+      "file": "label_outfit_sky_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sky.3.name": {
+      "text": "Tiny Top Hat",
+      "file": "label_outfit_sky_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.berry.1.name": {
+      "text": "Round Glasses",
+      "file": "label_outfit_berry_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.berry.2.name": {
+      "text": "Pink Bow",
+      "file": "label_outfit_berry_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.berry.3.name": {
+      "text": "Sparkle Tiara",
+      "file": "label_outfit_berry_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.mint.1.name": {
+      "text": "Flower",
+      "file": "label_outfit_mint_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.mint.2.name": {
+      "text": "Mushroom Cap",
+      "file": "label_outfit_mint_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.mint.3.name": {
+      "text": "Acorn Cap",
+      "file": "label_outfit_mint_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.cocoa.1.name": {
+      "text": "Red Beanie",
+      "file": "label_outfit_cocoa_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.cocoa.2.name": {
+      "text": "Plaid Bow Tie",
+      "file": "label_outfit_cocoa_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.cocoa.3.name": {
+      "text": "Monocle",
+      "file": "label_outfit_cocoa_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.snow.1.name": {
+      "text": "Earmuffs",
+      "file": "label_outfit_snow_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.snow.2.name": {
+      "text": "Snowflake Clip",
+      "file": "label_outfit_snow_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.snow.3.name": {
+      "text": "Ice Tiara",
+      "file": "label_outfit_snow_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ember.1.name": {
+      "text": "Red Bandana",
+      "file": "label_outfit_ember_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ember.2.name": {
+      "text": "Flame Headband",
+      "file": "label_outfit_ember_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ember.3.name": {
+      "text": "Knight Helmet",
+      "file": "label_outfit_ember_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ink.1.name": {
+      "text": "Star Nightcap",
+      "file": "label_outfit_ink_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ink.2.name": {
+      "text": "Silver Glasses",
+      "file": "label_outfit_ink_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ink.3.name": {
+      "text": "Little Star Hat",
+      "file": "label_outfit_ink_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.hoot.1.name": {
+      "text": "Graduation Cap",
+      "file": "label_outfit_hoot_1_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.hoot.2.name": {
+      "text": "Reading Glasses",
+      "file": "label_outfit_hoot_2_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.hoot.3.name": {
+      "text": "Wizard Cape",
+      "file": "label_outfit_hoot_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.win.title": {
+      "text": "Well done!",
+      "file": "label_popup_win_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.settings.title": {
+      "text": "Settings",
+      "file": "label_popup_settings_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.level.title": {
+      "text": "Level",
+      "file": "label_popup_level_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.best": {
+      "text": "Best",
+      "file": "label_popup_best.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.daily_gift.title": {
+      "text": "Daily Gift",
+      "file": "label_popup_daily_gift_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.new_friend.title": {
+      "text": "New Friend",
+      "file": "label_popup_new_friend_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.world_complete.title": {
+      "text": "World Complete",
+      "file": "label_popup_world_complete_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "popup.world_unlock.title": {
+      "text": "World Unlocked",
+      "file": "label_popup_world_unlock_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "shop.buy": {
+      "text": "Buy",
+      "file": "label_shop_buy.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.play": {
+      "text": "Play",
+      "file": "label_action_play.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "hud.level": {
+      "text": "Level",
+      "file": "label_hud_level.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    }
+  },
+  "numbers": {
+    "cap": 128,
+    "line_height": 128,
+    "baseline": 126,
+    "advance": 126,
+    "advances": {
+      "0": 126,
+      "1": 126,
+      "2": 126,
+      "3": 126,
+      "4": 126,
+      "5": 126,
+      "6": 126,
+      "7": 126,
+      "8": 126,
+      "9": 126,
+      "/": 68,
+      "?": 95,
+      "+": 120,
+      "-": 91,
+      "x": 113,
+      "%": 176,
+      "∞": 120
+    },
+    "glyphs": {
+      "0": "number_0.png",
+      "1": "number_1.png",
+      "2": "number_2.png",
+      "3": "number_3.png",
+      "4": "number_4.png",
+      "5": "number_5.png",
+      "6": "number_6.png",
+      "7": "number_7.png",
+      "8": "number_8.png",
+      "9": "number_9.png",
+      "/": "number_slash.png",
+      "?": "number_question.png",
+      "+": "number_plus.png",
+      "-": "number_minus.png",
+      "x": "number_x.png",
+      "%": "number_percent.png",
+      "∞": "number_infinity.png"
+    }
+  }
+}

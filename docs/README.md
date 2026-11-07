@@ -6,7 +6,7 @@ Start with [CURRENT_GAME](CURRENT_GAME.md), then [CODE_MAP](spec/CODE_MAP.md), t
 | --- | --- | --- |
 | Project conventions | [CONVENTIONS](CONVENTIONS.md) | Binding naming, layout and verification rules |
 | Current behavior and paths | [CURRENT_GAME](CURRENT_GAME.md), [CODE_MAP](spec/CODE_MAP.md) | Source facts, not a new gameplay redesign |
-| Current collaboration / execution | [AGENTS](../AGENTS.md) | Claude develops; Codex paints art and may help test |
+| Current collaboration / execution | [AGENTS](../AGENTS.md) | Shared scope, ownership and execution rules |
 | Existing gameplay decisions | [design record](GAME_DESIGN.md), [Chinese gameplay record](GAMEPLAY_CN.md) | Canonical filenames; old ownership/paths/layouts are superseded by current entry and accepted later contracts |
 | Release preparation | [release checklist](RELEASE_CHECKLIST.md) | Inspect current paths/flags first; historical instructions do not grant release authority |
 

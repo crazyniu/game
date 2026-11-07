@@ -2,6 +2,8 @@ class_name UI
 extends RefCounted
 ## UI builders (docs/design/ui-system.md). All rects are design pixels, origin top-left of the parent.
 
+const TextArt := preload("res://game/ui_text.gd")
+
 
 
 static func place(node: Control, r: Rect2) -> Control:
@@ -76,17 +78,11 @@ const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
 const SECONDARY := 128.0
+const PLAY_SIZE := Vector2(360.0, 128.0)
 const COUNTER_H := 96.0
 const NUMBER_X := 108.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
 const DISABLED_ALPHA := 0.45
-const WORD_CAP := 96.0                    # cap height the word sprites are built at (tools/kit/build_words.py)
-const WORD_PAD := 29.0                    # their canvas padding around the outlined lettering
-const EDGE := Color8(150, 82, 28)         # warm outline of lettering on cream and on the scenes
-const LETTER_GAP := 0.1                   # gap between number glyphs, in caps
-
-static var _letters: Dictionary = {}
-
 ## Ink on cream, white on every coloured fill.
 static func ink_on(kind: String) -> Color:
 	return INK if kind == "cream" else Color.WHITE
@@ -115,31 +111,64 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 	parent.add_child(p)
 	return p
 
-## White icon sprite tinted and fitted into a square around `center`.
+const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell", "sun", "moon"]
+
+static func icon_texture(name: String) -> Texture2D:
+	if name == "back":
+		return Art.tex("icon_left")
+	if name == "close":
+		return load("res://art/icons/icon_aviary_close.svg")
+	if name == "feather":
+		return load("res://art/icons/icon_aviary_feather.svg")
+	if name in CONTROL_ICONS:
+		return load("res://art/icons/icon_control_" + name + ".svg")
+	return Art.tex("icon_" + name)
+
+## Control symbols share a square canvas; illustrated effect symbols retain their alpha-fitted bounds.
 static func icon(parent: Node, name: String, center: Vector2, size: float, color := Color.WHITE) -> TextureRect:
-	var t := art(parent, "icon_" + name, Rect2(center - Vector2.ONE * size * 0.5, Vector2.ONE * size))
+	var bounds := Rect2(center - Vector2.ONE * size * 0.5, Vector2.ONE * size)
+	var t: TextureRect
+	if name == "back":
+		t = art(parent, "icon_left", bounds)
+	elif name in CONTROL_ICONS or name in ["close", "feather"]:
+		t = TextureRect.new()
+		t.name = "icon_" + name
+		t.texture = icon_texture(name)
+		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		place(t, bounds)
+		parent.add_child(t)
+	else:
+		t = art(parent, "icon_" + name, bounds)
 	t.modulate = color
 	return t
 
-## Round button: kind "green" (primary, 160), "orange" or "cream" (secondary, 128). A press sinks it by its edge.
+## Round icon buttons; Play uses a green labelled pill. A press sinks the face by its edge.
 static func button(parent: Node, name: String, center: Vector2, kind: String, icon_name: String, on_press: Callable,
 		size := -1.0) -> Button:
 	if size < 0.0:
 		size = PRIMARY if kind == "green" else SECONDARY
+	var dimensions := PLAY_SIZE if icon_name == "play" else Vector2.ONE * size
 	var b := Button.new()
 	b.name = name
 	b.focus_mode = Control.FOCUS_NONE
-	var up := _box(FILL[kind], RIM[kind], size * 0.5, 10.0)
-	var down := _box(FILL[kind], RIM[kind], size * 0.5, 4.0)
+	var up := _box(FILL[kind], RIM[kind], dimensions.y * 0.5, 10.0)
+	var down := _box(FILL[kind], RIM[kind], dimensions.y * 0.5, 4.0)
 	down.expand_margin_top = -6.0
 	for state in ["normal", "hover", "disabled", "focus"]:
 		b.add_theme_stylebox_override(state, up)
 	b.add_theme_stylebox_override("pressed", down)
 	b.add_theme_stylebox_override("hover_pressed", down)
-	place(b, Rect2(center - Vector2.ONE * size * 0.5, Vector2.ONE * size))
+	place(b, Rect2(center - dimensions * 0.5, dimensions))
 	if not icon_name.is_empty():
-		var ic := icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * 0.56, ink_on(kind))
-		ic.name = "Icon"
+		var ic: TextureRect
+		if icon_name == "play":
+			ic = label(b, "action.play", Rect2(32, 12, dimensions.x - 64.0, dimensions.y - 34.0), 48.0, Color.WHITE)
+			ic.name = "Label"
+		else:
+			ic = icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * 0.56, ink_on(kind))
+			ic.name = "Icon"
 		b.button_down.connect(func(): ic.position.y += 6.0)
 		b.button_up.connect(func(): ic.position.y -= 6.0)
 	b.pressed.connect(func():
@@ -163,123 +192,40 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 	var w := NUMBER_X + number_width(value, 44.0) + 32.0 + extra
 	var p := shape(parent, Rect2(at, Vector2(w, COUNTER_H)), kind, COUNTER_H * 0.5, 8.0)
 	p.name = "Counter"
-	var t := art(p, icon_name, Rect2(16, 8, 72, 72))
+	var t: TextureRect
+	if icon_name.begins_with("icon_"):
+		t = icon(p, icon_name.trim_prefix("icon_"), Vector2(52, 44), 64.0)
+	else:
+		t = art(p, icon_name, Rect2(16, 8, 72, 72))
 	if icon_color.a > 0.0:
 		t.modulate = icon_color
 	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 24.0 - extra, 44), ink_on(kind), -1)
 	n.name = "Value"
 	return p
 
-static func _letter_meta() -> Dictionary:
-	if _letters.is_empty():
-		_letters = JSON.parse_string(FileAccess.get_file_as_string("res://art/letters/letters.json"))
-	return _letters
+## Whole locale label fitted to its dedicated layout box.
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK) -> TextureRect:
+	return TextArt.label(parent, id, bounds, cap, color)
 
-## Width of a painted number at a cap height.
+static func label_width(id: String, cap: float) -> float:
+	return TextArt.label_width(id, cap)
+
+## Original white-and-brown heading treatment, baked as one shaped phrase.
+static func heading(parent: Node, id: String, bounds: Rect2, cap: float) -> TextureRect:
+	return TextArt.label(parent, id, bounds, cap, Color.WHITE, true)
+
+static func heading_width(id: String, cap: float) -> float:
+	return TextArt.label_width(id, cap, true)
+
+## Dynamic numerals fit their complete painted cells; alignment is -1 left, 0 centre, 1 right.
 static func number_width(text: String, cap: float) -> float:
-	var m := _letter_meta()
-	var k: float = cap / float(m["cap"])
-	var gap := cap * LETTER_GAP
-	var w := 0.0
-	for ch in text:
-		var g: Dictionary = m["glyphs"].get(str(ch.unicode_at(0)), {})
-		if g.is_empty():
-			continue
-		w += float(g["w"]) * k + gap
-	return maxf(0.0, w - gap)
+	return TextArt.number_width(text, cap)
 
-## Painted number (digits and + - x / % and infinity) from the lettering glyphs. The rect height is the cap
-## height; align -1 left, 0 centre, 1 right. Numbers are plain glyphs tinted `color`: dark ink on cream (best
-## contrast at small sizes), white on coloured fills. Only words carry the warm outline.
 static func number(parent: Node, text: String, r: Rect2, color := INK, align := 0) -> Control:
-	var box := Control.new()
-	box.name = "Number"
-	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	place(box, r)
-	box.set_meta("align", align)
-	box.modulate = color
-	parent.add_child(box)
-	set_number(box, text)
-	return box
+	return TextArt.number(parent, text, r, r.size.y, color, align)
 
 static func set_number(box: Control, text: String) -> void:
-	for child in box.get_children():
-		child.queue_free()
-	var m := _letter_meta()
-	var cap := box.size.y
-	var k: float = cap / float(m["cap"])
-	var width := number_width(text, cap)
-	if width > box.size.x and width > 0.0:   # shrink to fit
-		cap *= box.size.x / width
-		k = cap / float(m["cap"])
-		width = box.size.x
-	var align: int = box.get_meta("align", 0)
-	var x := (box.size.x - width) * (0.5 + 0.5 * align)
-	var baseline := (box.size.y + cap) * 0.5
-	var glyphs := []
-	for ch in text:
-		var code := ch.unicode_at(0)
-		var g: Dictionary = m["glyphs"].get(str(code), {})
-		if g.is_empty():
-			continue
-		var at := Vector2(x, baseline + float(g["dy"]) * cap)
-		var size := Vector2(float(g["w"]), float(g["h"])) * k
-		glyphs.append([code, at, size])
-		x += size.x + cap * LETTER_GAP
-	for item in glyphs:
-		_glyph(box, "letter_%04x" % item[0], item[1], item[2])
-
-static func _glyph(box: Control, name: String, at: Vector2, size: Vector2) -> TextureRect:
-	var t := TextureRect.new()
-	t.texture = Art.tex(name)
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_SCALE
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	t.size = size
-	t.position = at
-	box.add_child(t)
-	return t
-
-## Slug of a phrase: the word sprite is art/words/word_<slug>.png (tools/kit/build_words.py builds every phrase
-## passed to UI.word as a literal, plus tools/kit/words.txt).
-static func slug(text: String) -> String:
-	var out := ""
-	for ch in text.to_lower():
-		var c := ch.unicode_at(0)
-		out += ch if (c >= 97 and c <= 122) or (c >= 48 and c <= 57) else "_"
-	while out.contains("__"):
-		out = out.replace("__", "_")
-	return out.strip_edges().trim_prefix("_").trim_suffix("_")
-
-## Width of a painted phrase at a cap height.
-static func word_width(text: String, cap: float) -> float:
-	var t := Art.tex("word_" + slug(text))
-	if t == null:
-		return 0.0
-	return (float(t.get_width()) - 2.0 * WORD_PAD) * cap / WORD_CAP
-
-## Painted phrase whose cap height is `cap`, centred vertically on `at.y`; align -1 starts at at.x, 0 centres on
-## it, 1 ends at it. Lettering is white with the warm outline baked in; `color` is kept for callers and ignored.
-## The sprite canvas is padded by WORD_PAD around 1.5 caps, with the baseline at WORD_PAD + 1.15 caps.
-static func word(parent: Node, text: String, at: Vector2, cap: float, color := INK, align := 0) -> TextureRect:
-	var name := "word_" + slug(text)
-	var t := TextureRect.new()
-	t.name = name
-	t.texture = Art.tex(name)
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_SCALE
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if t.texture == null:
-		push_error("missing word sprite %s (run tools/kit/build_words.py)" % name)
-		return t
-	var k := cap / WORD_CAP
-	t.size = Vector2(t.texture.get_size()) * k
-	var top := at.y + cap * 0.5 - (WORD_PAD + WORD_CAP * 1.15) * k
-	var ink_w := t.size.x - 2.0 * WORD_PAD * k
-	t.position = Vector2(at.x - ink_w * (0.5 + 0.5 * align) - WORD_PAD * k, top)
-	t.pivot_offset = t.size * 0.5
-	parent.add_child(t)
-	return t
+	TextArt.set_number(box as TextArt.NumberSprite, text)
 
 ## Fills `filled` of `count` stars in a row centred on `center`.
 static func stars(parent: Node, center: Vector2, size: float, gap: float, filled: int, count := 3) -> Array:
@@ -287,6 +233,21 @@ static func stars(parent: Node, center: Vector2, size: float, gap: float, filled
 	for i in count:
 		var c := center + Vector2((i - (count - 1) * 0.5) * (size + gap), 0)
 		out.append(icon(parent, "star", c, size, GOLD if i < filled else FADED))
+	return out
+
+## Outlined map ratings remain legible on both snow and the golden trail. Empty slots are hollow.
+static func rating_stars(parent: Node, center: Vector2, size: float, gap: float, filled: int, count := 3) -> Array:
+	var out := []
+	for i in count:
+		var star := TextureRect.new()
+		star.texture = load("res://art/icons/icon_rating_%s.svg" % ("filled" if i < filled else "empty"))
+		star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var c := center + Vector2((i - (count - 1) * 0.5) * (size + gap), 0)
+		place(star, Rect2(c - Vector2.ONE * size * 0.5, Vector2.ONE * size))
+		parent.add_child(star)
+		out.append(star)
 	return out
 
 ## Dims a control to show it is disabled; it keeps its size and stops taking input.

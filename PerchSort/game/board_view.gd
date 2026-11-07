@@ -37,15 +37,19 @@ var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
 const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px): clear of the leaf tuft
-const SEAT_FIRST := 110.0     # seat 0 distance from the screen edge at density 1
+const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
+const SEAT_OUTWARD_SHIFT := 24.0  # screen pixels toward each branch's outer edge
+const BIRD_SCALE := 1.10
+const PERCH_TOP := 660.0
+const PERCH_BOTTOM := 1640.0
+const ROW_REFLOW_SECONDS := 0.45
 var _branch_widths := {}      # slot key -> drawn width share, so growth can animate
 var _slots: Array = []       # painted branch slots of this world (world/scene/board_wN_slots.json)
 var _row_offset := 0
 var _rows := 2
-var _density := 1.0
+var _perch_step := 0.0
 var _house: Control
 var _goal_nodes := {}   # species -> Control
-var _move_number: Control
 var _sun_pill: Control
 var _sun_number: Control
 var _tool_bar: Control
@@ -65,9 +69,22 @@ var _bubble: Node2D
 var _bubble_tween: Tween
 var _stuck: Control
 var _entrance_running := false
+var _hint_button: Button
+var _hint_task := -1
+var _hint_result := {}
+var _hint_moves := {}
+var _shown_hint_key := PackedInt32Array()
+var _hint_pointer: Sprite2D
+var _hint_motion: Tween
+var _hint_move: Array = []
 
 
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
+	_release_hint_task()
+	_hide_hint()
+	_hint_moves.clear()
+	_shown_hint_key = PackedInt32Array()
+	busy = false
 	level = level_def
 	profile = player
 	session = GameSession.new(level, profile.inventory)
@@ -88,6 +105,8 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		_entrance()
 
 func _exit_tree() -> void:
+	_release_hint_task()
+	_hide_hint()
 	Engine.time_scale = 1.0
 
 ## ---------- scene ----------
@@ -133,6 +152,7 @@ func _add_mote(sprite: String, kind: String, origin: Vector2, size_px: Vector2, 
 func _process(delta: float) -> void:
 	_clock += delta
 	_tick_ambient()
+	_poll_hint()
 
 func _tick_ambient() -> void:
 	for m in _motes:
@@ -171,14 +191,18 @@ func _layout_branches() -> void:
 	var painted := _slot_rows()
 	if _branch_nodes.is_empty():
 		_row_offset = clampi(mini((painted - _rows) / 2, painted - _rows - 1), 0, maxi(0, painted - _rows))
-	# Bird scale follows the painted row pitch (257 px between rows holds full-size birds at 0.88).
-	var pitch := absf(float(_slot(1, false).get("perch", 1017.0)) - float(_slot(0, false).get("perch", 760.0)))
-	_density = clampf(0.88 * pitch / 257.0, 0.6, 0.95)
+	# Use the available play area instead of the painting's original vertical placement.
+	var s := session.state
+	var last_perch := 0
+	for b in s.branch_count():
+		last_perch = maxi(last_perch, s.rows[b] * 2 + s.rights[b])
+	_perch_step = (PERCH_BOTTOM - PERCH_TOP) / float(last_perch)
 	var before := _branch_nodes.size()
+	var previous_positions: Array[Vector2] = []
 	for node in _branch_nodes:
+		previous_positions.append(node.position)
 		node.queue_free()
 	_branch_nodes.clear()
-	var s := session.state
 	for b in s.branch_count():
 		var right := s.rights[b] == 1
 		var slot := _slot(s.rows[b], right)
@@ -187,20 +211,25 @@ func _layout_branches() -> void:
 		# The node origin is where the branch leaves the screen edge, so wobble and growth pivot there.
 		var node := Node2D.new()
 		var edge := 1080.0 if right else 0.0
-		node.position = Vector2(edge, y + 20.0 * _density)
+		node.position = Vector2(edge, y + 20.0 * BIRD_SCALE)
 		_add_branch_art(node, slot, right, b, twig)
 		if s.kinds[b] == Board.Kind.SWIVEL:
 			var knot := Sprite2D.new()
 			knot.texture = Art.tex("swivel_knot")
-			knot.scale = Vector2.ONE * 0.5 * _density
-			knot.position = Vector2((930.0 if right else 150.0) - edge, 10.0 * _density)
+			knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
+			knot.position = Vector2((930.0 if right else 150.0) - edge, 10.0 * BIRD_SCALE)
 			node.add_child(knot)
+			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * 48.0, Vector2.ONE * 96.0), func(): _tap_swivel(b))
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
 		if b >= before and before > 0 and not instant:
 			# A branch added by the sapling grows in from the edge.
 			node.scale = Vector2(0.05, 0.6)
 			create_tween().tween_property(node, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		elif b < before and not instant and node.position != previous_positions[b]:
+			var target := node.position
+			node.position = previous_positions[b]
+			node.create_tween().tween_property(node, "position", target, ROW_REFLOW_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 ## The painted branch layer in a child node anchored at the screen edge. A branch with fewer than four seats
 ## (twig, growing branch) is the same painting narrowed from the edge, so its tuft stays whole; twigs are also
@@ -208,6 +237,7 @@ func _layout_branches() -> void:
 func _add_branch_art(node: Node2D, slot: Dictionary, right: bool, b: int, twig: bool) -> void:
 	var tex := Art.tex(slot["name"])
 	var at := Vector2(slot["at"][0], slot["at"][1])
+	at.y += perch_y(b) - float(slot["perch"])
 	var art := Node2D.new()
 	art.name = "Art"
 	node.add_child(art)
@@ -235,14 +265,14 @@ func _painted_length(slot: Dictionary) -> float:
 func _seat_step(b: int) -> float:
 	var s := session.state
 	var slot := _slot(s.rows[b], s.rights[b] == 1)
-	var free := _painted_length(slot) - SEAT_FIRST * _density - END_CLEAR
-	return clampf(free / 3.0, 100.0 * _density, 150.0 * _density)
+	var free := _painted_length(slot) - SEAT_FIRST * BIRD_SCALE - END_CLEAR
+	return clampf(free / 3.0, 100.0 * BIRD_SCALE, 150.0 * BIRD_SCALE)
 
 ## Length a branch needs for `seats` seats, from the screen edge to the end of its tuft.
 func _branch_width(b: int, seats: int) -> float:
 	var s := session.state
 	var full := _painted_length(_slot(s.rows[b], s.rights[b] == 1))
-	return minf(full, SEAT_FIRST * _density + (seats - 1) * _seat_step(b) + END_CLEAR)
+	return minf(full, SEAT_FIRST * BIRD_SCALE + (seats - 1) * _seat_step(b) + END_CLEAR)
 
 func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 	var spr := Sprite2D.new()
@@ -252,14 +282,14 @@ func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 	spr.position = pos
 	return spr
 
-## Screen y the birds of a branch stand on: the painted branch's measured top surface.
+## Perches fill the play area, alternating left and right in the authored row order.
 func perch_y(b: int) -> float:
 	var s := session.state
-	return float(_slot(s.rows[b], s.rights[b] == 1).get("perch", 900.0))
+	return PERCH_TOP + (s.rows[b] * 2 + s.rights[b]) * _perch_step
 
 ## Seat x on branch b; seat 0 is nearest the screen edge.
 func seat_x(b: int, i: int) -> float:
-	var d := SEAT_FIRST * _density + i * _seat_step(b)
+	var d := SEAT_FIRST * BIRD_SCALE + i * _seat_step(b) - SEAT_OUTWARD_SHIFT
 	return 1080.0 - d if session.state.rights[b] == 1 else d
 
 func seat_point(b: int, i: int) -> Vector2:
@@ -277,7 +307,7 @@ func _spawn_birds() -> void:
 func _make_bird(code: int, at: Vector2) -> BirdView:
 	var bird := BirdView.new()
 	var species: String = Board.SPECIES[Board.species_of(code)]
-	bird.setup(code, session.state.is_asleep(code), _density, profile.equipped.get(species, "").replace("outfit.", "").replace(".", "_outfit_") if profile.equipped.has(species) else "")
+	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, profile.equipped.get(species, "").replace("outfit.", "").replace(".", "_outfit_") if profile.equipped.has(species) else "")
 	bird.position = at
 	_bird_layer.add_child(bird)
 	if instant:
@@ -298,15 +328,15 @@ func sync_birds() -> void:
 			var bird: BirdView = _birds.get(id)
 			if bird == null or not is_instance_valid(bird):
 				bird = _make_bird(code, seat_point(b, i))
-			elif bird.code != code or bird.asleep != s.is_asleep(code) or bird.density != _density:
-				bird.setup(code, s.is_asleep(code), _density, bird.outfit)
+			elif bird.code != code or bird.asleep != s.is_asleep(code) or bird.density != BIRD_SCALE:
+				bird.setup(code, s.is_asleep(code), BIRD_SCALE, bird.outfit)
 			if instant or bird.position.distance_to(seat_point(b, i)) < 2.0:
 				bird.position = seat_point(b, i)
 			else:
 				# Rows can shift when a branch is added; birds glide to their new seats.
 				if glide == null:
 					glide = create_tween().set_parallel()
-				glide.tween_property(bird, "position", seat_point(b, i), 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				glide.tween_property(bird, "position", seat_point(b, i), ROW_REFLOW_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			bird.set_selected(false)
 	for id in _birds.keys():
 		if not seen.has(id):
@@ -363,13 +393,9 @@ func _entrance() -> void:
 
 ## ---------- HUD ----------
 
-## HUD layout (docs/design/ui-system.md section 6, 1080x1920 design pixels).
-## The spec's left column (x 40-380) cannot hold footprints + moves + three star columns with two-digit
-## thresholds at the specified sizes, so both pills end at x 404 and the goal house narrows to 240 (16 px gap).
-## ---------- HUD (docs/design/ui-system.md: board) ----------
-const MOVES_AT := Vector2(48, 56)        # moves counter; the three-star meter sits inside its right end
-const STAR_METER := 146.0                # extra counter width holding the three meter stars
-const SUN_AT := Vector2(48, 176)
+## Level and phase share a compact row, clear of the central house.
+const LEVEL_RECT := Rect2(48, 64, 200, 80)
+const PHASE_RECT := Rect2(264, 64, 136, 80)
 const GEAR := Vector2(968, 104)
 const TOOL_Y := 1792.0
 const TOOL_GAP := 48.0
@@ -392,7 +418,6 @@ const BUBBLE_PAD := 32.0
 const BUBBLE_ICON_GAP := 16.0
 
 var _door_rect := Rect2()
-var _meter: Array = []                   # the three meter stars
 
 func _house_spec() -> Array:
 	return HOUSES.get(profile.equipped_house, HOUSES["default"])
@@ -443,17 +468,19 @@ func _build_hud() -> void:
 	UI.place(_door_mask, opening)
 	_house.add_child(_door_mask)
 	_door_open = null
-	# Moves, with the three-star meter inside the same counter.
-	var moves := UI.counter(_hud, MOVES_AT, "icon_hop", "00", UI.INK, STAR_METER)
-	_move_number = moves.get_node("Value")
-	var divider := UI.shape(moves, Rect2(moves.size.x - 28.0 - 138.0 - 12.0, 24.0, 4.0, 40.0), "cream", 2.0, 0.0, false)
-	divider.add_theme_stylebox_override("panel", UI._box(UI.FADED, UI.FADED, 2.0, 0.0, false))
-	_meter = []
-	for i in 3:
-		_meter.append(UI.icon(moves, "star", Vector2(moves.size.x - 28.0 - 138.0 + 23.0 + i * 46.0, 44.0), 42.0, UI.GOLD))
+	var level_pill := UI.shape(_hud, LEVEL_RECT, "cream", LEVEL_RECT.size.y * 0.5, 6.0)
+	level_pill.name = "Level"
+	var status_cap := 32.0 * minf(1.0, (LEVEL_RECT.size.x - 44.0) / (UI.label_width("hud.level", 32.0) + UI.number_width("00", 32.0)))
+	var label_w := UI.label_width("hud.level", status_cap)
+	# Align the label's painted cap band, accounting for its baked line padding.
+	UI.label(level_pill, "hud.level", Rect2(18, status_cap / 16.0, label_w, 74), status_cap)
+	var number_x := 18.0 + label_w + 8.0
+	UI.number(level_pill, str(session.state.level_id), Rect2(number_x, 37.0 - status_cap * 0.5, LEVEL_RECT.size.x - number_x - 18.0, status_cap))
 	# Day and night: suns (or moons) left in the current phase.
-	_sun_pill = UI.counter(_hud, SUN_AT, "icon_sun", "0", Color8(255, 176, 40))
-	_sun_number = _sun_pill.get_node("Value")
+	_sun_pill = UI.shape(_hud, PHASE_RECT, "cream", PHASE_RECT.size.y * 0.5, 6.0)
+	_sun_pill.name = "Phase"
+	UI.icon(_sun_pill, "sun", Vector2(38, 37), 44.0, Color8(255, 176, 40))
+	_sun_number = UI.number(_sun_pill, "0", Rect2(70, 37.0 - status_cap * 0.5, 48, status_cap))
 	_sun_pill.visible = session.state.day_length > 0
 	UI.button(_hud, "Settings", GEAR, "cream", "gear", func(): settings_requested.emit())
 	_build_goals()
@@ -493,19 +520,13 @@ func _build_goals() -> void:
 		_goal_nodes[sp] = node
 
 func refresh_hud() -> void:
-	var used := session.move_count()
-	UI.set_number(_move_number, str(used))
-	# Stars still reachable at this move count: 3 within par, 2 within par + 3, 1 after.
-	var reachable := 3 if used <= session.par else (2 if used <= session.par + 3 else 1)
-	for i in 3:
-		_meter[i].modulate = UI.GOLD if i < reachable else UI.FADED
 	var s := session.state
 	if s.day_length > 0:
 		UI.set_number(_sun_number, str(s.day_length - s.phase_counter))
 		var night := s.phase == Board.Phase.NIGHT
 		for child in _sun_pill.get_children():
 			if child is TextureRect and String(child.name).begins_with("icon_"):
-				child.texture = Art.tex("icon_moon" if night else "icon_sun")
+				child.texture = UI.icon_texture("moon" if night else "sun")
 				child.modulate = Color8(160, 170, 230) if night else Color8(255, 176, 40)
 	for sp in _goal_nodes:
 		var home: bool = s.homed.has(Board.species_index(sp))
@@ -532,6 +553,7 @@ const TOOL_ICON_NAME := {Board.Booster.FIREFLY: "bulb", Board.Booster.SAPLING: "
 
 ## Tools as a centred row of buttons: undo (cream) then boosters (orange) with a red stock badge ("+" buys more).
 func _build_tools() -> void:
+	_hint_button = null
 	for child in _tool_bar.get_children():
 		child.queue_free()
 	var tools := _visible_tools()
@@ -546,9 +568,13 @@ func _build_tools() -> void:
 			UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo)
 			continue
 		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind))
+		if kind == Board.Booster.FIREFLY:
+			_hint_button = b
 		var stock: int = session.state.inventory[kind]
 		UI.badge(b, str(stock) if stock > 0 else "+")
 		UI.set_active(b, stock == 0 or session.booster_has_effect(kind))
+	if _hint_task >= 0:
+		_show_hint_loading()
 
 ## ---------- input ----------
 
@@ -577,7 +603,7 @@ func branch_at(p: Vector2) -> int:
 		var right := s.rights[b] == 1
 		var y := perch_y(b)
 		var x_ok := p.x >= 560.0 if right else p.x <= 520.0
-		var dy := y - 70.0 * _density - p.y
+		var dy := y - 70.0 * BIRD_SCALE - p.y
 		if x_ok and absf(dy) < 110.0 and absf(dy) < best_d:
 			best = b
 			best_d = absf(dy)
@@ -594,6 +620,7 @@ func tap_branch(b: int) -> void:
 			_lift(b, true)
 		else:
 			_refuse(b)
+		_refresh_hint_selection()
 		return
 	var from := session.selected
 	if from == b:
@@ -601,6 +628,8 @@ func tap_branch(b: int) -> void:
 		session.cancel_selection()
 		if Rules.can_swivel(s, b):
 			_do(func(): return session.swivel(b))
+		else:
+			_refresh_hint_selection()
 		return
 	if Rules.can_transfer(s, from, b):
 		_lift(from, false)
@@ -613,6 +642,23 @@ func tap_branch(b: int) -> void:
 			_lift(b, true)
 		else:
 			_refuse(b)
+		_refresh_hint_selection()
+
+func _tap_swivel(b: int) -> void:
+	if busy or session.state.is_won():
+		return
+	_hide_bubble()
+	if session.selected >= 0:
+		_lift(session.selected, false)
+	_do(func(): return session.swivel(b))
+
+func _refresh_hint_selection() -> void:
+	if _hint_move.is_empty():
+		return
+	if session.selected < 0 or session.selected == _hint_move[0]:
+		show_hint(_hint_move)
+	else:
+		_hide_hint()
 
 func _lift(b: int, on: bool) -> void:
 	var s := session.state
@@ -649,20 +695,21 @@ func _refuse(b: int) -> void:
 func _sleeper_on(b: int) -> BirdView:
 	if b < 0 or b >= session.state.branch_count():
 		return null
-	var list: Array = session.state.items[b]
+	var list := session.state.items[b]
 	for i in range(list.size() - 1, -1, -1):
 		if (list[i] & Board.EGG) == 0 and session.state.is_asleep(list[i]):
 			return _birds.get(Board.id_of(list[i]))
 	return null
 
-## Cream thought bubble above a sleeper; the pictures say what wakes it (the moon for night owls, the sun note otherwise).
+## Sleep cues distinguish waiting for night from a matching bird landing or a nearby flock's song.
 func _show_bubble(bird: BirdView) -> void:
 	_hide_bubble()
 	var icons: Array[String] = []
 	if Board.is_nocturnal(Board.species_of(bird.code)) and session.state.nocturnal_day_sleep():
 		icons.append("moon")
 	if (bird.code & Board.ASLEEP) != 0:
-		icons.append("sun")
+		icons.append(bird.species + "_face")
+		icons.append("gift_coin_wake")
 	if icons.is_empty():
 		return
 	var n := icons.size()
@@ -676,10 +723,12 @@ func _show_bubble(bird: BirdView) -> void:
 	var body := Rect2(Vector2(-BUBBLE_PAD - 8.0, -BUBBLE_H - 36.0), Vector2(body_w, BUBBLE_H))
 	UI.shape(holder, body, "cream", BUBBLE_H * 0.5, 8.0)
 	UI.shape(holder, Rect2(Vector2(-14, -34), Vector2(28, 28)), "cream", 14.0, 4.0)
-	var colors := {"moon": Color8(120, 130, 200), "sun": Color8(255, 176, 40)}
 	for i in n:
 		var c := Vector2(body.position.x + BUBBLE_PAD + HUD_ICON * 0.5 + i * (HUD_ICON + BUBBLE_ICON_GAP), body.position.y + (BUBBLE_H - 8.0) * 0.5)
-		UI.icon(holder, icons[i], c, HUD_ICON, colors[icons[i]])
+		if icons[i] == "moon":
+			UI.icon(holder, "moon", c, HUD_ICON, Color8(120, 130, 200))
+		else:
+			UI.art(holder, icons[i], Rect2(c - Vector2.ONE * HUD_ICON * 0.5, Vector2.ONE * HUD_ICON))
 	var tip := bird.position + Vector2(-10.0, -135.0 * bird.density)
 	tip.x = clampf(tip.x, 48.0 + BUBBLE_PAD + 8.0, 1032.0 - body_w + BUBBLE_PAD + 8.0)
 	_bubble.position = tip
@@ -732,8 +781,7 @@ func show_stuck_hint() -> void:
 	glow.modulate = Color(1, 0.72, 0.15, 0.3)   # translucent gold so the disc stays readable
 	# Pointer 16 px above the disc (and its stock badge), pointing down; it bobs upwards so it never touches.
 	var arrow_rect := Rect2(centre + Vector2(-HUD_ICON * 0.5, -UI.SECONDARY * 0.5 - 24.0 - HUD_ICON), Vector2.ONE * HUD_ICON)
-	var arrow := UI.art(_stuck, "icon_right", arrow_rect)
-	arrow.modulate = Color8(255, 165, 60)
+	var arrow := UI.icon(_stuck, "right", arrow_rect.get_center(), HUD_ICON, UI.FILL["orange"])
 	var base_y := arrow.position.y
 	arrow.rotation = PI * 0.5   # points down at the tool
 	if instant:
@@ -750,6 +798,7 @@ func _hide_stuck() -> void:
 		_stuck = null
 
 func _do(action: Callable) -> void:
+	_hide_hint()
 	busy = true
 	var ok: bool = action.call()
 	if ok:
@@ -765,6 +814,7 @@ func _do(action: Callable) -> void:
 func _on_undo() -> void:
 	if busy or not session.undo():
 		return
+	_hide_hint()
 	Sound.play("undo")
 	busy = true
 	_hide_bubble()
@@ -777,12 +827,13 @@ func _on_undo() -> void:
 func _on_tool(kind: int) -> void:
 	if busy:
 		return
-	if session.state.inventory[kind] == 0:
-		buy_requested.emit(kind)
-		return
 	if kind == Board.Booster.FIREFLY:
 		_hint()
 		return
+	if session.state.inventory[kind] == 0:
+		buy_requested.emit(kind)
+		return
+	_hide_hint()
 	busy = true
 	var result := session.use_booster(kind)
 	if result.get("applied", false):
@@ -798,45 +849,118 @@ func _on_tool(kind: int) -> void:
 	busy = false
 	_watch_stuck()
 
-## Hint: solve on a worker thread so the screen never freezes; commit only if the state is unchanged.
+## Hint search has one short worker budget; later steps reuse its complete winning route.
 func _hint() -> void:
+	var key := session.state.search_key(false)
+	if _shown_hint_key == key and _hint_moves.has(key):
+		show_hint(_hint_moves[key])
+		return
+	if session.state.inventory[Board.Booster.FIREFLY] == 0:
+		buy_requested.emit(Board.Booster.FIREFLY)
+		return
+	if _hint_moves.has(key):
+		_apply_hint(_hint_moves[key])
+		return
+	_hide_hint()
 	busy = true
 	var snapshot := session.state.clone()
 	var last := session.last_move.duplicate()
-	var result := {}
-	var task := WorkerThreadPool.add_task(func(): result.merge(Solver.solve(snapshot, last, 200000, 12000)))
-	while not WorkerThreadPool.is_task_completed(task):
-		await get_tree().process_frame
-	WorkerThreadPool.wait_for_task_completion(task)
+	_hint_result = {}
+	var result := _hint_result
+	_hint_task = WorkerThreadPool.add_task(func(): result.merge(Solver.hint(snapshot, last)))
+	_build_tools()
+
+func _poll_hint() -> void:
+	if _hint_task < 0 or not WorkerThreadPool.is_task_completed(_hint_task):
+		return
+	WorkerThreadPool.wait_for_task_completion(_hint_task)
+	_hint_task = -1
 	busy = false
-	if result.get("status", -1) != Solver.Status.SOLVED or result["moves"].is_empty():
+	if _hint_result["status"] != Solver.Status.SOLVED or _hint_result["moves"].is_empty():
+		refresh_hud()
+		_show_hint_failure(_hint_result["status"])
 		Sound.play("error")
 		return
-	var move: Array = result["moves"][0]
+	_hint_moves.merge(_hint_result["continuation"], true)
+	_apply_hint(_hint_result["moves"][0])
+
+func _release_hint_task() -> void:
+	if _hint_task >= 0:
+		WorkerThreadPool.wait_for_task_completion(_hint_task)
+		_hint_task = -1
+	_hint_result = {}
+
+func _show_hint_loading() -> void:
+	for tool in _tool_bar.get_children():
+		if tool is Button:
+			UI.set_active(tool, false)
+	_hint_button.modulate.a = 1.0
+	_hint_button.get_node("Icon").hide()
+	var spinner := Node2D.new()
+	spinner.position = Vector2(UI.SECONDARY * 0.5, UI.SECONDARY * 0.5 - 5.0)
+	_hint_button.add_child(spinner)
+	var arc := Line2D.new()
+	arc.width = 6.0
+	arc.default_color = Color.WHITE
+	arc.antialiased = true
+	for i in 25:
+		arc.add_point(Vector2.from_angle(float(i) / 24.0 * PI * 1.5) * 25.0)
+	spinner.add_child(arc)
+	if not instant:
+		spinner.create_tween().set_loops().tween_property(spinner, "rotation", TAU, 0.8).from(0.0)
+
+func _show_hint_failure(status: int) -> void:
+	var icon: TextureRect = _hint_button.get_node("Icon")
+	icon.texture = UI.icon_texture("retry" if status == Solver.Status.BUDGET_EXCEEDED else "close")
+	for state in ["normal", "hover", "focus"]:
+		_hint_button.add_theme_stylebox_override(state, UI._box(UI.FILL["red"], UI.RIM["red"], UI.SECONDARY * 0.5, 10.0))
+
+func _apply_hint(move: Array) -> void:
+	if session.selected >= 0:
+		_lift(session.selected, false)
 	if not session.try_use_firefly(move):
 		return
+	_shown_hint_key = session.state.search_key(false)
 	profile.inventory[Board.Booster.FIREFLY] = session.state.inventory[Board.Booster.FIREFLY]
 	profile_changed.emit()
 	Sound.play("hint")
 	refresh_hud()
 	show_hint(move)
 
-## Pointing hand travels from the source branch to the target (or taps a swivel).
+## Point to the next click: awake source first, then its landing seat; swivels target the knot.
 func show_hint(move: Array) -> void:
+	_hide_hint()
+	_hint_move = move.duplicate()
 	var hand := Sprite2D.new()
+	_hint_pointer = hand
 	hand.texture = Art.tex("hand_pointer")
 	hand.scale = Vector2.ONE * 0.45
 	hand.offset = Vector2(40, 60)
 	add_child(hand)
-	var from := seat_point(move[0], maxi(0, session.state.items[move[0]].size() - 1)) + Vector2(0, -60)
-	var to := from if move[1] < 0 else seat_point(move[1], session.state.items[move[1]].size()) + Vector2(0, -60)
-	hand.position = from
-	var tw := create_tween().set_loops(3)
-	tw.tween_property(hand, "position", to, 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_interval(0.3)
-	tw.tween_callback(func(): hand.position = from)
-	await tw.finished
-	hand.queue_free()
+	var target: Vector2
+	if move[1] < 0:
+		target = Vector2(930.0 if session.state.rights[move[0]] == 1 else 150.0, perch_y(move[0]) + 30.0 * BIRD_SCALE)
+	elif session.selected == move[0]:
+		target = seat_point(move[1], session.state.items[move[1]].size()) + Vector2(0, -60)
+	else:
+		target = seat_point(move[0], session.state.items[move[0]].size() - 1) + Vector2(0, -60)
+	hand.position = target
+	if instant:
+		return
+	var tw := hand.create_tween().set_loops()
+	_hint_motion = tw
+	tw.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(hand, "position:y", target.y - 18.0, 0.4)
+	tw.tween_property(hand, "position:y", target.y, 0.4)
+
+func _hide_hint() -> void:
+	_hint_move = []
+	if _hint_motion:
+		_hint_motion.kill()
+		_hint_motion = null
+	if _hint_pointer:
+		_hint_pointer.queue_free()
+		_hint_pointer = null
 
 ## ---------- event playback ----------
 
@@ -935,7 +1059,9 @@ func _flock_home(e: Dictionary) -> void:
 		if bird == null:
 			continue
 		_birds.erase(ids[ids.size() - 1 - k])
-		bird.fly_to(_door_point() + Vector2(0, 40), k * 0.12, 0.6, true)
+		# Approach in front of the house; clipping starts only once the bird fits inside its doorway.
+		bird.reparent(_hud)
+		bird.fly_to(_door_point(), k * 0.12, 0.6, true, false, _door_mask)
 		last = bird
 	if last:
 		await last.finished
@@ -1025,6 +1151,22 @@ func granted(kind: int, count: int) -> void:
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left).
 static func preview(main: Control, state: String) -> void:
+	if state in ["hint_searching", "hint_timeout", "hint_unavailable", "hint_transfer"]:
+		var player: Profile = main.profile.duplicate_profile()
+		player.highest_unlocked = 40
+		player.inventory[Board.Booster.FIREFLY] = 5
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(2), player, false)
+		match state:
+			"hint_searching":
+				board.busy = true
+				board._show_hint_loading()
+			"hint_timeout": board._show_hint_failure(Solver.Status.BUDGET_EXCEEDED)
+			"hint_unavailable": board._show_hint_failure(Solver.Status.UNSOLVABLE)
+			"hint_transfer": board.show_hint([0, 2])
+		return
 	if state.begins_with("level_"):   # the real level on the board, without the first-visit popups
 		var board := BoardView.new()
 		board.instant = true

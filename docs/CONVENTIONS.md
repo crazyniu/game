@@ -50,7 +50,7 @@ Menu and map page play `bgm_menu`, level page plays `bgm_game`, loop, 1 s crossf
 
 ## 8. Working with agents and git
 1. Features are split into parallel tasks with non-overlapping file ownership and one shared written contract. The coordinator writes requirements in concrete numbers, names owned files, and verifies delivered work by looking at real screenshots and frame sequences, not by trusting reports.
-2. Claude develops the game; Codex only paints art and helps test on the Mac. Subagents do not spawn workers, do not merge, do not touch `main`, and do not invent features beyond the spec.
+2. Subagents do not spawn workers, do not merge, do not touch `main`, and do not invent features beyond the spec.
 3. Work happens in isolated worktrees. Close a worktree as soon as its work is merged; keep the primary checkouts untouched while the user tests.
 4. Pull requests merge by squash only, after CI passes. Never force-push. Never use admin bypass for branch protection.
 5. Talk to the user in Chinese; everything written for agents and the repository is English.
