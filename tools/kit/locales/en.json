@@ -101,6 +101,15 @@
     "popup.daily_gift.title": "Daily Gift",
     "popup.new_friend.title": "New Friend",
     "popup.world_complete.title": "World Complete",
-    "popup.world_unlock.title": "World Unlocked"
+    "popup.world_unlock.title": "World Unlocked",
+    "tutorial.title": "How to Play",
+    "tutorial.pick": "Tap a branch to pick up its birds",
+    "tutorial.move.a": "Tap another branch with room",
+    "tutorial.move.b": "to move them: same bird on top,",
+    "tutorial.move.c": "or an empty branch",
+    "tutorial.home.a": "Fill a branch with one kind of bird",
+    "tutorial.home.b": "and they fly home to the house",
+    "tutorial.win.a": "Send every kind home to win.",
+    "tutorial.win.b": "Fewer moves, more stars"
   }
 }

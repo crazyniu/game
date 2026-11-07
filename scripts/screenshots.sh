@@ -15,6 +15,7 @@ states=(
   shop_view:locked_tools shop_view:insufficient
   aviary_view:list aviary_view:list_some_unmet aviary_view:list_scrolled
   aviary_view:detail_berry aviary_view:detail_crow aviary_view:detail_hoot aviary_view:buy_outfit aviary_view:buy_outfit_short aviary_view:bought_outfit
+  tutorial:tutorial_1 tutorial:tutorial_2 tutorial:tutorial_3 tutorial:tutorial_4
 )
 failed=0
 for s in "${states[@]}"; do
