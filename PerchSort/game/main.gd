@@ -191,6 +191,9 @@ func _pose_wipe(cover: float) -> void:
 
 ## Music pauses with the app and resumes on return.
 func _notification(what: int) -> void:
+	# Focus notifications also arrive while the window opens or closes, outside the scene tree.
+	if not is_inside_tree():
+		return
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and _booted and not sandboxed():
 		get_tree().paused = true
 	elif what == NOTIFICATION_APPLICATION_FOCUS_IN:
