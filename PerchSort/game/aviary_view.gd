@@ -1,7 +1,8 @@
 extends Control
 ## Aviary (docs/design/ui-system.md): a top bar (close, title word, met counter) over a scrolling two-column grid
 ## of cream cards, one per species; tapping a met bird opens its detail page with a live bird, its ability
-## and a row of outfit tiles (tap an owned outfit to equip it).
+## and a row of outfit tiles (tap an owned outfit to equip it). The shop opens the same detail page on its own
+## (`setup(profile, species)`): then Back closes the page and a coin counter shows what the player can spend.
 
 signal closed
 signal profile_changed
@@ -52,6 +53,9 @@ const SILHOUETTE := """shader_type canvas_item;
 void fragment() { COLOR = vec4(0.25, 0.19, 0.13, texture(TEXTURE, UV).a * 0.88); }"""
 
 var profile: Profile
+var instant := false        # set by the shop for captures; the aviary itself asks its parent
+var _from_shop := false
+var _coins: Panel
 var _page: Control
 var _clip: Control
 var _content: Control
@@ -72,8 +76,9 @@ var _tiles: Control
 var _tile_row := Rect2()
 
 
-func setup(p: Profile) -> void:
+func setup(p: Profile, species := "") -> void:
 	profile = p
+	_from_shop = not species.is_empty()
 	size = Vector2(1080, 1920)
 	UI.image(self, "board_w1_bg", Rect2(0, 0, 1080, 1920), false)
 	# Calm the painting so the cards read first.
@@ -83,7 +88,10 @@ func setup(p: Profile) -> void:
 	wash.size = size
 	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(wash)
-	_show_list()
+	if _from_shop:
+		_show_detail(species)
+	else:
+		_show_list()
 
 func _process(delta: float) -> void:
 	if _content == null or not is_instance_valid(_content) or _pressed or absf(_velocity) < 4.0:
@@ -127,8 +135,8 @@ func _live_bird(parent: Node, species: String, outfit: String, box: Rect2) -> Bi
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
 	return bird
 
-## Dark breathing silhouette of a species fitted into the box (unmet birds).
-func _silhouette(parent: Node, species: String, box: Rect2) -> TextureRect:
+## Dark breathing silhouette of a species fitted into the box (unmet birds); the shop's outfits tab shares it.
+static func _silhouette(parent: Node, species: String, box: Rect2) -> TextureRect:
 	var front := species + "_front"
 	var used := UI.used_rect(front)
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
@@ -347,9 +355,28 @@ func _show_detail(id: String) -> void:
 		_build_tiles()
 	UI.button(_page, "Back", Vector2(112, 104), "cream", "back", _back)
 	UI.heading(_page, "bird.%s.name" % id, Rect2(240, 52, 600, 104), 56.0)
+	_build_coins()
 
 func _back() -> void:
-	_show_list()
+	if _from_shop:
+		closed.emit()
+	else:
+		_show_list()
+
+func _is_instant() -> bool:
+	return instant or (get_parent() != null and get_parent().has_method("instant") and get_parent().instant())
+
+## Shop mode only: the player's coins at the right margin of the bar, rebuilt after a purchase.
+func _build_coins() -> void:
+	if _coins and is_instance_valid(_coins):
+		_coins.queue_free()
+	_coins = null
+	if not _from_shop:
+		return
+	var value := str(profile.coins)
+	var w := UI.NUMBER_X + UI.number_width(value, 44.0) + 32.0
+	_coins = UI.counter(_page, Vector2(RIGHT - w, 104.0 - UI.COUNTER_H * 0.5), "coin", value)
+	_coins.name = "Coins"
 
 ## Ability badge and caption on one centred line; the crow has none and shows that it never goes home.
 func _ability(id: String, y: float, max_w: float) -> void:
@@ -369,6 +396,7 @@ func _ability(id: String, y: float, max_w: float) -> void:
 ## lock and their price; the equipped one wears a green check badge.
 func _build_tiles() -> void:
 	for c in _tiles.get_children():
+		_tiles.remove_child(c)   # rebuilt tiles keep their names
 		c.queue_free()
 	var x := _tile_row.position.x + (_tile_row.size.x - (TILE_W * 4.0 + TILE_GAP * 3.0)) * 0.5
 	var current: String = profile.equipped.get(_species, "outfit.%s.default" % _species)
@@ -417,7 +445,7 @@ func _equip(id: String, index: int) -> void:
 	_page.move_child(_hero, 1)
 	_hero.cheer()
 	_build_tiles()
-	_bump(_tiles.get_child(_tiles.get_child_count() - 4 + index))
+	_bump(_tiles.get_child(index))
 
 ## Buying a locked outfit: the shop's confirm popup (name, the bird wearing it, price) over this page. With enough
 ## coins the green check buys and puts it on; without, the check is dimmed and the price shakes.
@@ -425,8 +453,8 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	Sound.play("ui_tap")
 	var it := Shop.item(id)
 	var title_id := id + ".name"
-	var instant: bool = get_parent() != null and get_parent().has_method("instant") and get_parent().instant()
-	var modal := Modal.open(self, title_id, [CONFIRM_PIC, CONFIRM_LINE], true, UI.PRIMARY, 0.0, instant)
+	var quick := _is_instant()
+	var modal := Modal.open(self, title_id, [CONFIRM_PIC, CONFIRM_LINE], true, UI.PRIMARY, 0.0, quick)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - CONFIRM_PIC * 0.5, ys[0], CONFIRM_PIC, CONFIRM_PIC)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
@@ -436,7 +464,7 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var tw := line.create_tween()
-		tw.tween_interval(0.0 if instant else 0.35)
+		tw.tween_interval(0.0 if quick else 0.35)
 		tw.tween_callback(func(): Sound.play("error"))
 		for dx in [16.0, -16.0, 10.0, -10.0, 4.0, 0.0]:
 			tw.tween_property(line, "position:x", dx, 0.05)
@@ -461,6 +489,7 @@ func _buy_outfit(id: String, index: int) -> void:
 		Sound.play("error")
 		return
 	Sound.play("collect")
+	_build_coins()
 	_equip(id, index)
 
 # ---------------------------------------------------------------- capture preview
