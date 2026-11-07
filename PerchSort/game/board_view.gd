@@ -368,7 +368,7 @@ func _entrance() -> void:
 ## thresholds at the specified sizes, so both pills end at x 404 and the goal house narrows to 240 (16 px gap).
 ## ---------- HUD (docs/design/ui-system.md: board) ----------
 const MOVES_AT := Vector2(48, 56)        # moves counter; the three-star meter sits inside its right end
-const STAR_METER := 150.0                # extra counter width holding the three meter stars
+const STAR_METER := 146.0                # extra counter width holding the three meter stars
 const SUN_AT := Vector2(48, 176)
 const GEAR := Vector2(968, 104)
 const TOOL_Y := 1792.0
@@ -446,9 +446,11 @@ func _build_hud() -> void:
 	# Moves, with the three-star meter inside the same counter.
 	var moves := UI.counter(_hud, MOVES_AT, "icon_hop", "00", UI.INK, STAR_METER)
 	_move_number = moves.get_node("Value")
+	var divider := UI.shape(moves, Rect2(moves.size.x - 28.0 - 138.0 - 12.0, 24.0, 4.0, 40.0), "cream", 2.0, 0.0, false)
+	divider.add_theme_stylebox_override("panel", UI._box(UI.FADED, UI.FADED, 2.0, 0.0, false))
 	_meter = []
 	for i in 3:
-		_meter.append(UI.icon(moves, "star", Vector2(moves.size.x - STAR_METER + 22.0 + i * 46.0, 44.0), 42.0, UI.GOLD))
+		_meter.append(UI.icon(moves, "star", Vector2(moves.size.x - 28.0 - 138.0 + 23.0 + i * 46.0, 44.0), 42.0, UI.GOLD))
 	# Day and night: suns (or moons) left in the current phase.
 	_sun_pill = UI.counter(_hud, SUN_AT, "icon_sun", "0", Color8(255, 176, 40))
 	_sun_number = _sun_pill.get_node("Value")

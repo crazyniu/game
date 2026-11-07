@@ -77,12 +77,13 @@ const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
 const SECONDARY := 128.0
 const COUNTER_H := 96.0
+const NUMBER_X := 108.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
 const DISABLED_ALPHA := 0.45
 const WORD_CAP := 96.0                    # cap height the word sprites are built at (tools/kit/build_words.py)
 const WORD_PAD := 29.0                    # their canvas padding around the outlined lettering
 const EDGE := Color8(150, 82, 28)         # warm outline of lettering on cream and on the scenes
-const LETTER_GAP := 0.07                  # glyph gap in caps; outlined numbers add twice the outline
+const LETTER_GAP := 0.1                   # gap between number glyphs, in caps
 
 static var _letters: Dictionary = {}
 
@@ -159,13 +160,13 @@ static func badge(b: Control, count_text: String) -> Panel:
 ## `extra` room on the right. Returns the pill; its child "Value" is the number box (see set_number).
 static func counter(parent: Node, at: Vector2, icon_name: String, value: String, icon_color := Color(0, 0, 0, 0),
 		extra := 0.0, kind := "cream") -> Panel:
-	var w := 100.0 + number_width(value, 44.0) + 32.0 + extra
+	var w := NUMBER_X + number_width(value, 44.0) + 32.0 + extra
 	var p := shape(parent, Rect2(at, Vector2(w, COUNTER_H)), kind, COUNTER_H * 0.5, 8.0)
 	p.name = "Counter"
 	var t := art(p, icon_name, Rect2(16, 8, 72, 72))
 	if icon_color.a > 0.0:
 		t.modulate = icon_color
-	var n := number(p, value, Rect2(100, (COUNTER_H - 8.0 - 44.0) * 0.5, w - 100.0 - 24.0 - extra, 44), ink_on(kind), -1)
+	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 24.0 - extra, 44), ink_on(kind), -1)
 	n.name = "Value"
 	return p
 
@@ -174,15 +175,11 @@ static func _letter_meta() -> Dictionary:
 		_letters = JSON.parse_string(FileAccess.get_file_as_string("res://art/letters/letters.json"))
 	return _letters
 
-## Gap between glyphs of a number: outlined (ink) numbers leave room for the outline.
-static func _gap(cap: float, outlined: bool) -> float:
-	return cap * (LETTER_GAP + (2.0 * float(_letter_meta().get("edge", 0.0)) if outlined else 0.0))
-
-## Width of a painted number at a cap height (outlined, as numbers on cream are drawn).
-static func number_width(text: String, cap: float, outlined := true) -> float:
+## Width of a painted number at a cap height.
+static func number_width(text: String, cap: float) -> float:
 	var m := _letter_meta()
 	var k: float = cap / float(m["cap"])
-	var gap := _gap(cap, outlined)
+	var gap := cap * LETTER_GAP
 	var w := 0.0
 	for ch in text:
 		var g: Dictionary = m["glyphs"].get(str(ch.unicode_at(0)), {})
@@ -192,17 +189,15 @@ static func number_width(text: String, cap: float, outlined := true) -> float:
 	return maxf(0.0, w - gap)
 
 ## Painted number (digits and + - x / % and infinity) from the lettering glyphs. The rect height is the cap
-## height; align -1 left, 0 centre, 1 right. INK means the lettering style on cream and scenes: white glyphs with
-## the warm outline. Any other colour draws plain glyphs in that colour (white on coloured fills).
+## height; align -1 left, 0 centre, 1 right. Numbers are plain glyphs tinted `color`: dark ink on cream (best
+## contrast at small sizes), white on coloured fills. Only words carry the warm outline.
 static func number(parent: Node, text: String, r: Rect2, color := INK, align := 0) -> Control:
 	var box := Control.new()
 	box.name = "Number"
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	place(box, r)
 	box.set_meta("align", align)
-	box.set_meta("outlined", color == INK)
-	if color != INK:
-		box.modulate = color
+	box.modulate = color
 	parent.add_child(box)
 	set_number(box, text)
 	return box
@@ -211,10 +206,9 @@ static func set_number(box: Control, text: String) -> void:
 	for child in box.get_children():
 		child.queue_free()
 	var m := _letter_meta()
-	var outlined: bool = box.get_meta("outlined", false)
 	var cap := box.size.y
 	var k: float = cap / float(m["cap"])
-	var width := number_width(text, cap, outlined)
+	var width := number_width(text, cap)
 	if width > box.size.x and width > 0.0:   # shrink to fit
 		cap *= box.size.x / width
 		k = cap / float(m["cap"])
@@ -222,7 +216,6 @@ static func set_number(box: Control, text: String) -> void:
 	var align: int = box.get_meta("align", 0)
 	var x := (box.size.x - width) * (0.5 + 0.5 * align)
 	var baseline := (box.size.y + cap) * 0.5
-	var edge := float(m.get("edge", 0.0)) * cap
 	var glyphs := []
 	for ch in text:
 		var code := ch.unicode_at(0)
@@ -232,11 +225,7 @@ static func set_number(box: Control, text: String) -> void:
 		var at := Vector2(x, baseline + float(g["dy"]) * cap)
 		var size := Vector2(float(g["w"]), float(g["h"])) * k
 		glyphs.append([code, at, size])
-		x += size.x + _gap(cap, outlined)
-	if outlined:   # all outlines first, so neighbouring outlines never cover a glyph
-		for item in glyphs:
-			var o := _glyph(box, "letter_%04x_edge" % item[0], item[1] - Vector2.ONE * edge, item[2] + Vector2.ONE * edge * 2.0)
-			o.modulate = EDGE
+		x += size.x + cap * LETTER_GAP
 	for item in glyphs:
 		_glyph(box, "letter_%04x" % item[0], item[1], item[2])
 
