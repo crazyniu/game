@@ -101,14 +101,80 @@ static func _box(fill: Color, rim: Color, radius: float, edge: float, shadow := 
 		sb.shadow_offset = Vector2(0, 8)
 	return sb
 
-## Rounded flat shape: panel (radius 56, edge 12), card (40, 10), pill (height / 2, 8).
+## ---------- painted kit (tools/kit/cut_painted_kit.py, art/kit) ----------
+## Every surface is a Codex-painted piece: discs, pills, capsules, cards, the wooden panel and the HUD bar.
+
+static var _kit_meta: Dictionary = {}
+const PANEL_SCALE := 0.6     # the wooden popup frame keeps this share of its painted thickness
+const CARD_SCALE := 0.62
+
+static func _kit(name: String) -> Dictionary:
+	if _kit_meta.is_empty():
+		_kit_meta = JSON.parse_string(FileAccess.get_file_as_string("res://art/kit/kit.json"))
+	return _kit_meta.get(name, {})
+
+## The painted piece `name` (art/kit) drawn over `r` inside `parent`: nine-sliced and scaled so its rim keeps the
+## painted proportions (`scale` 0 = fit the height, for round-ended pieces).
+static func kit_piece(parent: Node, name: String, r: Rect2, scale := 0.0) -> Control:
+	var m := _kit(name)
+	var tex := Art.tex("kit/" + name)
+	var margins: Array = m.get("margins", [0, 0, 0, 0])
+	if margins == [0, 0, 0, 0]:
+		var t := TextureRect.new()
+		t.name = name
+		t.texture = tex
+		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		t.stretch_mode = TextureRect.STRETCH_SCALE
+		t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		place(t, r)
+		parent.add_child(t)
+		return t
+	var src: Array = m["size"]
+	if scale <= 0.0:
+		scale = r.size.y / float(src[1])
+	# Never let the rims overlap: shrink until both pairs of margins fit.
+	scale = minf(scale, minf(r.size.x / float(margins[0] + margins[2] + 2), r.size.y / float(margins[1] + margins[3] + 2)))
+	var n := NinePatchRect.new()
+	n.name = name
+	n.texture = tex
+	n.patch_margin_left = margins[0]
+	n.patch_margin_top = margins[1]
+	n.patch_margin_right = margins[2]
+	n.patch_margin_bottom = margins[3]
+	n.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	n.position = r.position
+	n.size = r.size / scale
+	n.scale = Vector2.ONE * scale
+	parent.add_child(n)
+	return n
+
+## The painted piece for a shape: discs for round shapes (cream = white disc with the leaf-green ring), pills for
+## round-ended coloured shapes, the cream capsule for round-ended cream ones, "hud" for the dark HUD bar, the card
+## for smaller rectangles and the wooden panel for large ones.
+static func _shape_piece(r: Rect2, kind: String, radius: float) -> Array:
+	var round := absf(r.size.x - r.size.y) < 2.0 and radius >= r.size.x * 0.5 - 1.0
+	if round:
+		return ["disc_ring" if kind == "cream" else "disc_" + kind, 0.0]
+	if kind == "hud":
+		return ["hud_bar", 0.0]
+	if radius >= r.size.y * 0.5 - 1.0:
+		return [("capsule_plain" if _kit("capsule_plain").size() > 0 else "capsule") if kind == "cream" else "pill_" + kind, 0.0]
+	if kind == "cream" and r.size.x >= 600.0 and r.size.y >= 360.0:
+		return ["panel", PANEL_SCALE]
+	return ["card", CARD_SCALE]
+
+## Painted shape: the container is transparent and holds the painted piece as its first child, so content added
+## to the returned node sits on the piece. `edge` and `shadow` are kept for callers; the art has its own.
 static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge := 12.0, shadow := true) -> Panel:
 	var p := Panel.new()
 	p.name = "Shape"
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	p.add_theme_stylebox_override("panel", _box(FILL[kind], RIM[kind], radius, edge, shadow))
+	p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	place(p, r)
 	parent.add_child(p)
+	var piece := _shape_piece(r, kind, radius)
+	var art := kit_piece(p, piece[0], Rect2(Vector2.ZERO, r.size), piece[1])
+	art.name = "Skin"
 	return p
 
 ## Painted full-colour pictures (tools/kit/pics, booster illustrations) that replace the white symbols wherever an
@@ -181,21 +247,16 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 	var b := Button.new()
 	b.name = name
 	b.focus_mode = Control.FOCUS_NONE
-	var up := _box(FILL[kind], RIM[kind], dimensions.y * 0.5, 10.0)
-	var down := _box(FILL[kind], RIM[kind], dimensions.y * 0.5, 4.0)
-	down.expand_margin_top = -6.0
-	for state in ["normal", "hover", "disabled", "focus"]:
-		b.add_theme_stylebox_override(state, up)
-	b.add_theme_stylebox_override("pressed", down)
-	b.add_theme_stylebox_override("hover_pressed", down)
+	_skin_button(b, ("pill_" + kind) if icon_name == "play" else ("disc_ring" if kind == "cream" else "disc_" + kind),
+		Rect2(Vector2.ZERO, dimensions))
 	place(b, Rect2(center - dimensions * 0.5, dimensions))
 	if not icon_name.is_empty():
 		var ic: TextureRect
 		if icon_name == "play":
-			ic = label(b, "action.play", Rect2(32, 12, dimensions.x - 64.0, dimensions.y - 34.0), 48.0, Color.WHITE)
+			ic = label(b, "action.play", Rect2(48, 14, dimensions.x - 96.0, dimensions.y - 40.0), 52.0, Color.WHITE)
 			ic.name = "Label"
 		else:
-			var scale := 0.66 if not picture_of(icon_name, ink_on(kind)).is_empty() else 0.56
+			var scale := 0.58 if not picture_of(icon_name, ink_on(kind)).is_empty() else 0.5
 			ic = icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * scale, ink_on(kind))
 			ic.name = "Icon"
 		b.button_down.connect(func(): ic.position.y += 6.0)
@@ -206,11 +267,62 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 	parent.add_child(b)
 	return b
 
+## Transparent button states with a painted piece as its face; a press sinks every child and darkens the face.
+static func _skin_button(b: Button, piece: String, r: Rect2) -> void:
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(state, empty)
+	var face := kit_piece(b, piece, r)
+	face.name = "Face"
+	b.button_down.connect(func(): face.self_modulate = Color(0.88, 0.88, 0.88))
+	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
+
+## Long painted pill button with a whole label in white (Play, Next, Buy, settings rows). `kind`: green, orange,
+## blue, red or grey. Height 128 by default; the label fits inside the round ends.
+static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: String, on_press: Callable,
+		icon_name := "", cap := 0.0) -> Button:
+	var b := Button.new()
+	b.name = name
+	b.focus_mode = Control.FOCUS_NONE
+	place(b, r)
+	_skin_button(b, "pill_" + kind, Rect2(Vector2.ZERO, r.size))
+	var content := Control.new()
+	content.name = "Content"
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.size = r.size
+	b.add_child(content)
+	if cap <= 0.0:
+		cap = minf(48.0, r.size.y * 0.36)
+	var pad := r.size.y * 0.42
+	var x := pad
+	var w := r.size.x - pad * 2.0
+	if not icon_name.is_empty():
+		var s := r.size.y * 0.62
+		icon(content, icon_name, Vector2(pad + s * 0.5, r.size.y * 0.46), s, Color.WHITE)
+		x += s + 12.0
+		w -= s + 12.0
+	if not label_id.is_empty():
+		var lw := minf(w, label_width(label_id, cap))
+		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
+		label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE)
+	b.button_down.connect(func(): content.position.y = 5.0)
+	b.button_up.connect(func(): content.position.y = 0.0)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	parent.add_child(b)
+	return b
+
 ## Red count badge on a button's rim at 45 degrees (upper right).
 static func badge(b: Control, count_text: String) -> Panel:
 	var c := Vector2.ONE * b.size.x * 0.5 + Vector2(1, -1) * b.size.x * 0.5 * 0.7071
-	var p := shape(b, Rect2(c - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE), "red", BADGE * 0.5, 5.0, false)
+	var p := Panel.new()
 	p.name = "Badge"
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	place(p, Rect2(c - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE))
+	b.add_child(p)
+	kit_piece(p, "badge", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (BADGE + 8.0)))
 	number(p, count_text, Rect2(8, BADGE * 0.5 - 18.0, BADGE - 16, 30), Color.WHITE)
 	return p
 
@@ -238,6 +350,19 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := 
 
 static func label_width(id: String, cap: float) -> float:
 	return TextArt.label_width(id, cap)
+
+## A page title on the painted ribbon, centred on `center`: the ribbon grows with the words.
+static func title_ribbon(parent: Node, id: String, center: Vector2, cap := 56.0, max_w := 560.0) -> Control:
+	var holder := Control.new()
+	holder.name = "TitleRibbon"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(holder)
+	var text_w := minf(label_width(id, cap), max_w - 230.0)
+	var w := clampf(text_w + 230.0, 400.0, max_w)
+	var h := 150.0
+	kit_piece(holder, "ribbon", Rect2(center.x - w * 0.5, center.y - h * 0.4, w, h))
+	label(holder, id, Rect2(center.x - text_w * 0.5, center.y - 52.0, text_w, 104.0), cap, Color.WHITE)
+	return holder
 
 ## Original white-and-brown heading treatment, baked as one shaped phrase.
 static func heading(parent: Node, id: String, bounds: Rect2, cap: float) -> TextureRect:

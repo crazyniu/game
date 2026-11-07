@@ -110,6 +110,23 @@
     "tutorial.pick": "Tap a branch to pick birds",
     "tutorial.move.a": "Tap a branch with room",
     "tutorial.home.a": "A full branch flies home",
-    "tutorial.win.a": "All home: you win!"
+    "tutorial.win.a": "All home: you win!",
+    "settings.music": "Music",
+    "settings.sound": "Sound",
+    "settings.restart": "Restart",
+    "settings.home": "Home",
+    "settings.help": "How to Play",
+    "settings.privacy": "Privacy Policy",
+    "settings.terms": "Terms of Service",
+    "settings.credits": "Credits",
+    "settings.contact": "Contact",
+    "doc.privacy.title": "Privacy Policy",
+    "doc.terms.title": "Terms of Service",
+    "doc.credits.title": "Credits",
+    "doc.contact.title": "Contact",
+    "home.map": "Map",
+    "home.shop": "Shop",
+    "home.aviary": "Aviary",
+    "home.help": "Help"
   }
 }

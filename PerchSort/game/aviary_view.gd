@@ -200,19 +200,14 @@ func _show_list() -> void:
 	_set_scroll(_list_scroll)
 
 func _list_panel(parent: Node, rect: Rect2, color: Color, radius: float) -> Panel:
+	# The painted kit card, like the shop's cards.
 	var panel := Panel.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.border_color = Color("e5ddcc")
-	style.border_width_bottom = 5
-	style.set_corner_radius_all(int(radius))
-	style.shadow_color = Color(0.18, 0.22, 0.12, 0.12)
-	style.shadow_size = 10
-	style.shadow_offset = Vector2(0, 5)
-	style.anti_aliasing = true
-	panel.add_theme_stylebox_override("panel", style)
+	panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(panel, rect)
+	var round_ends := radius * 2.0 >= rect.size.y - 2.0
+	UI.kit_piece(panel, "capsule_plain" if round_ends else "card", Rect2(Vector2.ZERO, rect.size),
+		0.0 if round_ends else UI.CARD_SCALE).name = "Skin"
 	parent.add_child(panel)
 	return panel
 
@@ -232,7 +227,7 @@ func _list_header(met: int, count: int) -> void:
 	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
 	close.button_down.connect(func(): icon.position.y += 6.0)
 	close.button_up.connect(func(): icon.position.y -= 6.0)
-	UI.heading(_page, "aviary.title", Rect2(392, 52, 296, 104), 56.0)
+	UI.title_ribbon(_page, "aviary.title", Vector2(430, 104), 52.0, 460.0)   # between the close button and the counter
 	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
 	counter.name = "MetCounter"
 	_list_icon(counter, FEATHER_ICON, Rect2(16, 20, 56, 56), LIST_GREEN)
@@ -354,7 +349,7 @@ func _show_detail(id: String) -> void:
 		_page.add_child(_tiles)
 		_build_tiles()
 	UI.button(_page, "Back", Vector2(112, 104), "cream", "back", _back)
-	UI.heading(_page, "bird.%s.name" % id, Rect2(240, 52, 600, 104), 56.0)
+	UI.title_ribbon(_page, "bird.%s.name" % id, Vector2(540, 104), 52.0, 600.0)
 	_build_coins()
 
 func _back() -> void:

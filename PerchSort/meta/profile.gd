@@ -22,7 +22,8 @@ var last_daily_gift := ""
 var tutorials := {}
 var starters := {}                  # booster index -> true
 var rewarded_worlds := {}           # world -> true
-var muted := false
+var muted := false                  # sound effects off
+var music_muted := false            # background music off
 
 
 func _init() -> void:
@@ -84,7 +85,7 @@ func to_dict() -> Dictionary:
 		"ownedBirdhouseStyles": _sorted(houses), "equippedBirdhouseStyle": equipped_house,
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
-		"worldRewardsGranted": worlds, "muted": muted,
+		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
 	}
 
 ## Lenient load: unknown or invalid entries are dropped, like the original deserializer.
@@ -93,6 +94,7 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.coins = maxi(0, int(data.get("coins", 0)))
 	p.highest_unlocked = clampi(int(data.get("highestUnlockedLevel", 1)), 1, 40)
 	p.muted = bool(data.get("muted", false))
+	p.music_muted = bool(data.get("musicMuted", p.muted))   # saves from before the split mute both
 	var boosters: Dictionary = data.get("boosters", {})
 	for i in BOOSTER_IDS.size():
 		p.inventory[i] = maxi(0, int(boosters.get(BOOSTER_IDS[i], 0)))

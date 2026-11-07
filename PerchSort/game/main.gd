@@ -25,6 +25,7 @@ func _ready() -> void:
 	if args.has("profile"):
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
 	Sound.set_muted(profile.muted or sandboxed())
+	Sound.set_music_muted(profile.music_muted or sandboxed())
 	popups = Control.new()
 	popups.name = "Popups"
 	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -298,21 +299,26 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 		board.refresh_hud()
 
 func show_settings(on_board: bool) -> void:
-	Popups.settings(popups, profile.muted,
-		func():
-			profile.muted = not profile.muted
+	Popups.settings(popups, not profile.music_muted, not profile.muted, {
+		"music": func(on: bool):
+			profile.music_muted = not on
+			Sound.set_music_muted(profile.music_muted)
+			save(),
+		"sound": func(on: bool):
+			profile.muted = not on
 			Sound.set_muted(profile.muted)
 			save(),
-		func():
+		"restart": func():
 			_clear_popups()
 			if screen is BoardView:
 				var board: BoardView = screen
 				board.session.restart()
 				board.start(board.level, profile, false),
-		func(): _go(func():
+		"home": func(): _go(func():
 			_clear_popups()
 			_open_home()),
-		on_board)
+		"help": func(): Tutorial.open(popups, Callable(), instant()),
+	}, on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:
 	_go(_open_shop.bind(tab))
