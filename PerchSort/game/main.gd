@@ -41,7 +41,7 @@ func _ready() -> void:
 	elif args.has("level"):
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
-		open_map()
+		open_home()
 		_offer_daily_gift()
 	_booted = true
 	_build_wipe()
@@ -82,6 +82,23 @@ var _overlay: Control   # shop or aviary opened above the board
 func instant() -> bool:
 	return args.has("capture") and not args.has("motion")
 
+func open_home() -> void:
+	_go(_open_home)
+
+func _open_home() -> void:
+	_clear_popups()
+	var home := HomeView.new()
+	home.instant = instant()
+	set_screen(home)
+	home.setup(profile)
+	home.play_requested.connect(_start_level)
+	home.map_requested.connect(open_map)
+	home.shop_requested.connect(func(): open_shop(0))
+	home.aviary_requested.connect(open_aviary)
+	home.settings_requested.connect(func(): show_settings(false))
+	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
+	Sound.music("bgm_menu")
+
 func open_map() -> void:
 	_go(_open_map)
 
@@ -94,6 +111,7 @@ func _open_map() -> void:
 	map.aviary_requested.connect(open_aviary)
 	map.settings_requested.connect(func(): show_settings(false))
 	map.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
+	map.home_requested.connect(open_home)
 	Sound.music("bgm_menu")
 
 func _offer_daily_gift() -> void:
@@ -271,7 +289,7 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 	Popups.win(popups, payout["stars"], session.move_count(), session.par, payout["total"] - payout["world"],
 		func(): _run_queue(after_win, func(): open_board(level_id)),
 		func(): _run_queue(after_win, func(): open_board(next_level) if has_next else open_map()),
-		func(): _run_queue(after_win, open_map), has_next)
+		func(): _run_queue(after_win, open_home), has_next)
 	# The HUD coin counter takes the reward once the win panel's coin burst lands on it.
 	var board := screen as BoardView
 	if not instant():
@@ -293,7 +311,7 @@ func show_settings(on_board: bool) -> void:
 				board.start(board.level, profile, false),
 		func(): _go(func():
 			_clear_popups()
-			_open_map()),
+			_open_home()),
 		on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:

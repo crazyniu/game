@@ -7,6 +7,7 @@ signal shop_requested
 signal aviary_requested
 signal settings_requested
 signal help_requested
+signal home_requested
 signal gate_tapped(world: int)
 
 const SEGMENT := 3000.0
@@ -272,9 +273,11 @@ func _build_hud() -> void:
 	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
 	_coins.name = "Coins"
 	_title_world = 0
+	UI.button(_hud, "Home", Vector2(MARGIN + UI.SECONDARY * 0.5, TOP_Y + UI.COUNTER_H * 0.5), "cream", "back",
+		func(): home_requested.emit())
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
 	var buttons := [["Shop", "orange", "shop", shop_requested], ["Aviary", "orange", "aviary", aviary_requested],
-		["Settings", "orange", "gear", settings_requested], ["Help", "cream", "info", help_requested]]
+		["Help", "cream", "info", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
 		var x := 540.0 + (i - (buttons.size() - 1) * 0.5) * NAV_GAP

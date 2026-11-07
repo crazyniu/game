@@ -97,11 +97,24 @@ var _hint_motion: Tween
 var _hint_move: Array = []
 
 
+static var _start_hints: Dictionary = {}
+
+## Hint routes from each level's start, precomputed by tools/levels/export_hints.gd, so the first hint is instant.
+func _load_start_hints(id: int) -> void:
+	if _start_hints.is_empty() and FileAccess.file_exists("res://levels/hints.json"):
+		_start_hints = JSON.parse_string(FileAccess.get_file_as_string("res://levels/hints.json"))
+	for entry in _start_hints.get(str(id), []):
+		var key := PackedInt32Array()
+		for v in entry[0]:
+			key.append(int(v))
+		_hint_moves[key] = [int(entry[1][0]), int(entry[1][1])]
+
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
 	_release_hint_task()
 	_hide_hint()
 	if int(level_def["id"]) != _hint_level:
 		_hint_moves.clear()
+		_load_start_hints(int(level_def["id"]))
 	_hint_level = int(level_def["id"])
 	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
