@@ -75,6 +75,7 @@ var _breath_phase := 0.0
 var _next_idle := 0.0
 var _idle_rise := 0.0
 var _idle_landing := 0.0   # >0 squash (wider, shorter), <0 stretch
+var _snap := 0.0           # 0..1..0 squash around a switch between two different poses
 var _idle_tween: Tween
 var _move_tween: Tween
 var _selection_tween: Tween
@@ -190,12 +191,35 @@ func _load_frames() -> void:
 ## Show `base` with `next` crossfading over it by `mix` (0..1); the base fades out in the second half so parts
 ## that exist only in the old frame never pop at the swap. Overlays follow the shown frames at once.
 func _show(base: Texture2D, next: Texture2D = null, mix := 0.0) -> void:
+	_snap = 0.0
+	if next and mix > 0.0 and mix < 1.0 and not _same_action(base, next):
+		# Painted frames that differ in pose never blend: a blend of two drawings shows a ghost double image.
+		# They switch at the midpoint. Leaving or reaching the rest frame or a still pose adds a quick squash so
+		# the switch reads as a motion; frames inside one action simply follow each other.
+		if _is_rest_or_pose(base) or _is_rest_or_pose(next):
+			_snap = sin(clampf(mix, 0.0, 1.0) * PI)
+		if mix >= 0.5:
+			base = next
+		next = null
+		mix = 0.0
 	_sprite.texture = base
 	_blend.texture = next
 	_blend_alpha = clampf(mix, 0.0, 1.0) if next else 0.0
 	_blend.modulate.a = _blend_alpha
 	_sprite.self_modulate.a = 1.0 - smoothstep(0.5, 1.0, _blend_alpha)
 	_sync_overlays()
+
+## True when two frames may crossfade: the rest frame and its blinks differ only in the eyes.
+func _same_action(a: Texture2D, b: Texture2D) -> bool:
+	var na: String = _frame_names.get(a, "")
+	var nb: String = _frame_names.get(b, "")
+	if na.is_empty() or nb.is_empty():
+		return false
+	return na.begins_with("front") and nb.begins_with("front")   # only the rest frame and its blinks blend
+
+func _is_rest_or_pose(t: Texture2D) -> bool:
+	var n: String = _frame_names.get(t, "")
+	return n.begins_with("front") or _pose_names.has(t)
 
 ## Continuous playback position `pos` (0 .. size-1) through `frames`, crossfading each frame into the next.
 func _play(frames: Array, pos: float) -> void:
@@ -321,8 +345,8 @@ func _process(delta: float) -> void:
 	var sx := 1.0 - 0.008 * breath
 	var sy := 1.0 + 0.02 * breath
 	if not asleep and not is_egg:
-		sx *= 1.0 + 0.05 * _idle_landing
-		sy *= 1.0 - 0.05 * _idle_landing
+		sx *= 1.0 + 0.05 * _idle_landing + 0.045 * _snap
+		sy *= 1.0 - 0.05 * _idle_landing - 0.06 * _snap
 	var pulse := sin(maxf(_nudge, 0.0) * PI)
 	if not acting:
 		_body.scale = Vector2(sx * (1.0 + 0.05 * pulse), sy * (1.0 - 0.04 * pulse)) * base
