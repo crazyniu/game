@@ -70,11 +70,22 @@ func _build(title: String, close_button: bool) -> void:
 	var panel := UI.shape(content, panel_rect, "cream", 56.0, 12.0)
 	panel.name = "Panel"
 	if not title.is_empty():
-		var t := UI.word(content, title, Vector2(540, panel_rect.position.y + TITLE_TOP + TITLE_CAP * 0.5), TITLE_CAP)
-		t.name = "Title"
+		_title(title, panel_rect.position.y + TITLE_TOP + TITLE_CAP * 0.5)
 	if close_button:
 		var c := Vector2(panel_rect.end.x - 32.0, panel_rect.position.y + 32.0)
 		UI.button(content, "Close", c, "cream", "close", close, CLOSE)
+
+## Title word centred on the panel. "Level 12" is the painted word "Level" followed by the painted number.
+func _title(title: String, cy: float) -> void:
+	var parts := title.split(" ")
+	if parts.size() == 2 and parts[0] == "Level" and parts[1].is_valid_int():
+		var num_w := UI.number_width(parts[1], TITLE_CAP)
+		var w := UI.word_width("Level", TITLE_CAP) + TITLE_CAP * 0.35 + num_w
+		var x := 540.0 - w * 0.5
+		UI.word(content, "Level", Vector2(x, cy), TITLE_CAP, UI.INK, -1).name = "Title"
+		UI.number(content, parts[1], Rect2(x + w - num_w - 1.0, cy - TITLE_CAP * 0.5, num_w + 2.0, TITLE_CAP), UI.INK, 1)
+		return
+	UI.word(content, title, Vector2(540, cy), TITLE_CAP).name = "Title"
 
 func _appear() -> void:
 	Sound.play("ui_tap")

@@ -113,7 +113,7 @@ def letters():
         b = bbox(alpha[y0:y1, x0:x1])
         b = (x0 + b[0], y0 + b[1], x0 + b[2], y0 + b[3])
         glyphs[ch] = (r, b)
-        if ch not in DESCENDERS and ch not in "-'+:%#\u00d7\u221e.":
+        if ch not in DESCENDERS and ch not in "-'+:\u00d7\u221e.":   # % and # sit on the baseline (row 9)
             rows.setdefault(r, []).append(b[3])
     baseline = {r: float(np.median(v)) for r, v in rows.items()}
     cap = float(glyphs["H"][1][3] - glyphs["H"][1][1])

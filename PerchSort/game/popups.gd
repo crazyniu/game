@@ -123,10 +123,9 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		heights.append(rows * RING + (rows - 1) * RING_GAP)
 	if not mechanics.is_empty():
 		heights.append(UI.COUNTER_H)
-	var p := Modal.open(host, "", heights, true, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "Level %d" % level, heights, true, UI.PRIMARY, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	_level_title(c, level, p.panel_rect)
 	var g := 0
 	# Stars earned so far, each with its move limit under it.
 	var limits := [str(par), str(par + 3), "∞"]
@@ -283,16 +282,6 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 
 
 # ---------------------------------------------------------------- content pieces
-
-## "Level" and the level number as the popup title.
-static func _level_title(c: Control, level: int, panel: Rect2) -> void:
-	var cap := Modal.TITLE_CAP
-	var num_w := UI.number_width(str(level), cap)
-	var w := UI.word_width("Level", cap) + cap * 0.35 + num_w
-	var x := 540.0 - w * 0.5
-	var cy := panel.position.y + Modal.TITLE_TOP + cap * 0.5
-	UI.word(c, "Level", Vector2(x, cy), cap, UI.INK, -1)
-	UI.number(c, str(level), Rect2(x + w - num_w - 1.0, cy - cap * 0.5, num_w + 2.0, cap), UI.INK, 1)
 
 ## Three big stars, the middle one larger and raised; earned ones pop in one after another with a sound.
 static func _big_stars(c: Control, y: float, filled: int, animate: bool, delay: float) -> void:
