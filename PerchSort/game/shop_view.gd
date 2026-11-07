@@ -203,7 +203,7 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	UI.button(_bar, "Close", Vector2(112, BAR_Y), "red", "close", func(): closed.emit())
-	UI.heading(_bar, "shop.title", Rect2(420, BAR_Y - 52.0, 240, 104), TITLE_CAP)
+	UI.title_ribbon(_bar, "shop.title", Vector2(540, BAR_Y), 52.0, 460.0)
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -380,20 +380,20 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 	var b := Button.new()
 	b.name = n
 	b.focus_mode = Control.FOCUS_NONE
-	var up := UI._box(UI.FILL[kind], UI.RIM[kind], r.size.y * 0.5, PILL_EDGE)
-	var down := UI._box(UI.FILL[kind], UI.RIM[kind], r.size.y * 0.5, 3.0)
-	down.expand_margin_top = -5.0
-	for state in ["normal", "hover", "disabled", "focus"]:
-		b.add_theme_stylebox_override(state, up)
-	b.add_theme_stylebox_override("pressed", down)
-	b.add_theme_stylebox_override("hover_pressed", down)
+	# Painted kit faces: square buttons are discs (cream = the white disc with the leaf ring), others pills.
+	var square := absf(r.size.x - r.size.y) < 2.0
+	var piece := ("disc_ring" if kind == "cream" else "disc_" + kind) if square \
+		else ("capsule_plain" if kind == "cream" else "pill_" + kind)
+	UI._skin_button(b, piece, Rect2(Vector2.ZERO, r.size))
 	UI.place(b, r)
 	b.button_down.connect(func():
 		for c in b.get_children():
-			c.position.y += 5.0)
+			if c.name != "Face":
+				c.position.y += 5.0)
 	b.button_up.connect(func():
 		for c in b.get_children():
-			c.position.y -= 5.0)
+			if c.name != "Face":
+				c.position.y -= 5.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

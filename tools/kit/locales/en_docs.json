@@ -1,0 +1,18 @@
+{
+  "privacy": {
+    "title": "Privacy Policy",
+    "body": "Perch Sort is a game you play on your own device.\n\nWhat we collect: nothing. The game does not ask for an account, does not collect personal information, and does not use advertising, analytics or tracking.\n\nWhat stays on your device: your progress, coins, items, outfits and settings are saved in a file on your device so you can continue where you left off. This file is not sent anywhere. Deleting the game deletes it.\n\nChildren: the game is suitable for all ages and collects no information from anyone, including children.\n\nChanges: if a future version adds anything that handles personal data, this policy will be updated before that version is released, and you will see the new policy here.\n\nQuestions: please use the contact details on the game's store page."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "body": "Welcome to Perch Sort. By playing you agree to these terms.\n\nYour licence: you may play the game for your own personal, non-commercial enjoyment. Please do not copy, sell, modify or redistribute the game or its art and sounds.\n\nCoins and items: coins, boosters, outfits and houses are part of the game. They have no real-world money value, cannot be exchanged for money, and exist only inside the game on your device.\n\nFair play: please do not tamper with the game or its save file. Doing so can break your progress.\n\nNo warranty: the game is provided as it is. We work hard to make it fun and reliable, but we cannot promise it will always be free of errors.\n\nChanges: these terms may be updated with a new version of the game. The current terms are always shown here.\n\nContact: please use the contact details on the game's store page."
+  },
+  "credits": {
+    "title": "Credits",
+    "body": "Perch Sort\nA cozy bird-sorting puzzle.\n\nMade with the Godot Engine.\nGodot Engine is released under the MIT licence:\nCopyright (c) 2014-present Godot Engine contributors.\nCopyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the software without restriction. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the software. The software is provided \"as is\", without warranty of any kind.\n\nFonts:\nLilita One by Juan Montoreano, SIL Open Font License 1.1.\nNunito by Vernon Adams, Cyreal and Jacques Le Bailly, SIL Open Font License 1.1.\n\nThank you for playing!"
+  },
+  "contact": {
+    "title": "Contact",
+    "body": "We would love to hear from you.\n\nFor questions, ideas or problems, please use the contact details on the game's store page. Tell us what happened and, if you can, which level you were playing.\n\nThank you for helping us make Perch Sort better!"
+  }
+}

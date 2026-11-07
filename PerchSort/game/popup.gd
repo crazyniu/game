@@ -88,22 +88,29 @@ func _build() -> void:
 		var c := Vector2(panel_rect.end.x - 32.0, panel_rect.position.y + 40.0)
 		UI.button(content, "Close", c, "red", "close", close, CLOSE)
 
-## Whole-phrase titles have a fixed safe width, clear of the close button. Level numbers remain numeral sprites.
-func _title() -> void:
-	var cy := panel_rect.position.y + TITLE_TOP + TITLE_CAP * 0.5
-	var width := WIDTH - (224.0 if _has_close else 128.0)
-	if not _title_number.is_empty():
-		var natural := UI.label_width(_title_id, TITLE_CAP) + 24.0 + UI.number_width(_title_number, TITLE_CAP)
-		var k := minf(1.0, width / natural)
-		var cap := TITLE_CAP * k
-		var word_w := UI.label_width(_title_id, cap)
-		var num_w := UI.number_width(_title_number, cap)
-		var x := 540.0 - natural * k * 0.5
-		UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0, word_w, 112.0), cap, UI.INK).name = "Title"
-		UI.number(_title_layer, _title_number, Rect2(x + word_w + 24.0 * k, cy - cap * 0.5, num_w, cap), UI.INK)
-		return
-	UI.label(_title_layer, _title_id, Rect2(540.0 - width * 0.5, cy - 56.0, width, 112.0), TITLE_CAP, UI.INK).name = "Title"
+## The title sits on the painted ribbon straddling the panel's top edge, in white; level numbers stay numeral sprites.
+const RIBBON_H := 150.0
+const RIBBON_TEXT_PAD := 150.0   # ribbon tails and rounded ends on each side of the words
 
+func _title() -> void:
+	var cap := 56.0
+	var max_text := WIDTH - (224.0 if _has_close else 128.0) - RIBBON_TEXT_PAD * 2.0 + 120.0
+	var word_w := UI.label_width(_title_id, cap)
+	var num_w := UI.number_width(_title_number, cap) if not _title_number.is_empty() else 0.0
+	var natural := word_w + ((20.0 + num_w) if num_w > 0.0 else 0.0)
+	var k := minf(1.0, max_text / natural)
+	cap *= k
+	word_w *= k
+	num_w *= k
+	var text_w := natural * k
+	var ribbon_w := clampf(text_w + RIBBON_TEXT_PAD * 2.0, 460.0, 800.0)
+	var top := panel_rect.position.y - RIBBON_H * 0.42
+	UI.kit_piece(_title_layer, "ribbon", Rect2(540.0 - ribbon_w * 0.5, top, ribbon_w, RIBBON_H)).name = "Ribbon"
+	var cy := top + RIBBON_H * 0.4
+	var x := 540.0 - text_w * 0.5
+	UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE).name = "Title"
+	if num_w > 0.0:
+		UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.5, num_w, cap), Color.WHITE)
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and _title_layer != null and not _title_number.is_empty():
 		for child in _title_layer.get_children():

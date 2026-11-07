@@ -625,6 +625,125 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "settings.music": {
+      "text": "Music",
+      "file": "label_settings_music.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.sound": {
+      "text": "Sound",
+      "file": "label_settings_sound.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.restart": {
+      "text": "Restart",
+      "file": "label_settings_restart.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.home": {
+      "text": "Home",
+      "file": "label_settings_home.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.help": {
+      "text": "How to Play",
+      "file": "label_settings_help.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.privacy": {
+      "text": "Privacy Policy",
+      "file": "label_settings_privacy.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.terms": {
+      "text": "Terms of Service",
+      "file": "label_settings_terms.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.credits": {
+      "text": "Credits",
+      "file": "label_settings_credits.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.contact": {
+      "text": "Contact",
+      "file": "label_settings_contact.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "doc.privacy.title": {
+      "text": "Privacy Policy",
+      "file": "label_doc_privacy_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "doc.terms.title": {
+      "text": "Terms of Service",
+      "file": "label_doc_terms_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "doc.credits.title": {
+      "text": "Credits",
+      "file": "label_doc_credits_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "doc.contact.title": {
+      "text": "Contact",
+      "file": "label_doc_contact_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.map": {
+      "text": "Map",
+      "file": "label_home_map.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.shop": {
+      "text": "Shop",
+      "file": "label_home_shop.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.aviary": {
+      "text": "Aviary",
+      "file": "label_home_aviary.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.help": {
+      "text": "Help",
+      "file": "label_home_help.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

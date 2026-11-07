@@ -49,16 +49,17 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 	var heights := [STAR_ROW, LINE]
 	if reward > 0:
 		heights.append(REWARD_H)
-	var p := Modal.open(host, "popup.win.title", heights, false, UI.PLAY_SIZE.y, HERO - 40.0, not live)
+	var p := Modal.open(host, "popup.win.title", heights, false, UI.PLAY_SIZE.y, HERO + 30.0, not live)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var panel := p.panel_rect
 	if live:
 		_rays(p, panel.get_center())
-	# Birds stand on the panel's top edge: the hero in the middle, friends at the sides.
-	var hero := _bird_view(c, "sunny", Rect2(540.0 - HERO * 0.5, panel.position.y + 18.0 - HERO, HERO, HERO), not live, 2.4)
-	var sides := [_bird_view(c, "sky", Rect2(panel.position.x + 40.0, panel.position.y + 18.0 - SIDE, SIDE, SIDE), not live, 0.0),
-		_bird_view(c, "berry", Rect2(panel.end.x - 40.0 - SIDE, panel.position.y + 18.0 - SIDE, SIDE, SIDE), not live, 0.0)]
+	# The hero stands on the title ribbon, its friends on the panel's top corners beside the ribbon tails.
+	var ribbon_top := panel.position.y - Modal.RIBBON_H * 0.42 + 14.0
+	var hero := _bird_view(c, "sunny", Rect2(540.0 - HERO * 0.5, ribbon_top + 18.0 - HERO, HERO, HERO), not live, 2.4)
+	var sides := [_bird_view(c, "sky", Rect2(panel.position.x + 4.0, panel.position.y + 30.0 - SIDE, SIDE, SIDE), not live, 0.0),
+		_bird_view(c, "berry", Rect2(panel.end.x - 4.0 - SIDE, panel.position.y + 30.0 - SIDE, SIDE, SIDE), not live, 0.0)]
 	if live:
 		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
 		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
@@ -78,29 +79,99 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 		_confetti(p, 0.3)
 	return p
 
-static func settings(host: Control, muted: bool, on_toggle_sound: Callable, on_restart: Callable, on_home: Callable,
-		show_restart: bool) -> Control:
-	var p := Modal.open(host, "popup.settings.title", [UI.SECONDARY], true, 0.0, 0.0, _instant(host), true)
+## Settings: music and sound switches, Restart and Home while playing, then How to Play and the documents
+## (privacy policy, terms of service, credits and licences, contact). `on` holds the callbacks: music, sound,
+## restart, home, help; music and sound receive the new "on" state.
+static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
+	var row := 104.0
+	var heights := [row, row]
+	if show_restart:
+		heights.append(PILL_H)
+	heights.append(PILL_H * 5.0 + 4.0 * 20.0)
+	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
+	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var ids := ["sound", "restart", "home"] if show_restart else ["sound", "home"]
-	var state := {"muted": muted}
-	var gap := 72.0
-	var x := 540.0 - (ids.size() * UI.SECONDARY + (ids.size() - 1) * gap) * 0.5 + UI.SECONDARY * 0.5
-	for id in ids:
-		var cb: Callable = {"sound": on_toggle_sound, "restart": on_restart, "home": on_home}[id]
-		var icon: String = {"sound": _sound_icon(muted), "restart": "retry", "home": "home"}[id]
-		var b := UI.button(p.content, id.capitalize(), Vector2(x, ys[0] + UI.SECONDARY * 0.5), "orange", icon, func():
-			if id == "sound":
-				p.invoke(func():
-					cb.call()
-					state["muted"] = not state["muted"]
-					var ic: TextureRect = state["button"].get_node("Icon")
-					ic.texture = UI.icon_texture(_sound_icon(state["muted"])), false)
-			else:
-				p.invoke(cb))
-		if id == "sound":
-			state["button"] = b
-		x += UI.SECONDARY + gap
+	var left := p.panel_rect.position.x + 96.0
+	var right := p.panel_rect.end.x - 96.0
+	var g := 0
+	for item in [["settings.music", "music", music_on], ["settings.sound", "sound", sound_on]]:
+		var y: float = ys[g]
+		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 36.0, 72, 72))
+		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
+		g += 1
+	var wide := (right - left - 24.0) * 0.5
+	if show_restart:
+		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
+			func(): p.invoke(on["restart"]), "retry", 36.0)
+		UI.pill(c, "Home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), "green", "settings.home",
+			func(): p.invoke(on["home"]), "home", 36.0)
+		g += 1
+	var links := [["settings.help", "green", func(): p.invoke(on["help"])],
+		["settings.contact", "blue", func(): document(host, "contact")],
+		["settings.privacy", "blue", func(): document(host, "privacy")],
+		["settings.terms", "blue", func(): document(host, "terms")],
+		["settings.credits", "blue", func(): document(host, "credits")]]
+	for i in links.size():   # one full-width pill per row, every label the same size
+		var r := Rect2(left, ys[g] + i * (PILL_H + 20.0), right - left, PILL_H)
+		UI.pill(c, links[i][0], r, links[i][1], links[i][0], links[i][2], "", 40.0)
+	return p
+
+const PILL_H := 104.0
+
+## Painted on/off switch; tapping flips it and reports the new state.
+static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
+	var b := Button.new()
+	b.name = "Toggle"
+	b.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(state, empty)
+	UI.place(b, r)
+	parent.add_child(b)
+	var face := TextureRect.new()
+	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	face.size = r.size
+	b.add_child(face)
+	var state := {"on": value}
+	face.texture = Art.tex("kit/toggle_on" if value else "kit/toggle_off")
+	b.pressed.connect(func():
+		state["on"] = not state["on"]
+		face.texture = Art.tex("kit/toggle_on" if state["on"] else "kit/toggle_off")
+		Sound.play("ui_tap")
+		on_change.call(state["on"]))
+	return b
+
+## A document page (privacy policy, terms of service, credits, contact): the baked text in a scrolling column.
+static func document(host: Control, id: String) -> Control:
+	var page: Texture2D = load("res://art/locale/en/doc_%s.png" % id)
+	var column := 864.0 - 144.0
+	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
+	var p := Modal.open(host, "doc.%s.title" % id, [view_h], true, 0.0, 0.0, _instant(host), true)
+	var ys: Array = p.get_meta("ys")
+	var clip := Control.new()
+	clip.name = "Scroll"
+	clip.clip_contents = true
+	UI.place(clip, Rect2(p.panel_rect.position.x + 72.0, ys[0], p.panel_rect.size.x - 144.0, view_h))
+	p.content.add_child(clip)
+	var text := TextureRect.new()
+	text.texture = load("res://art/locale/en/doc_%s.png" % id)
+	text.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var k := clip.size.x / float(text.texture.get_width())
+	text.size = Vector2(text.texture.get_size()) * k
+	text.modulate = UI.INK
+	clip.add_child(text)
+	var span := maxf(0.0, text.size.y - view_h)
+	clip.gui_input.connect(func(e: InputEvent):
+		var dy := 0.0
+		if e is InputEventScreenDrag or (e is InputEventMouseMotion and e.button_mask & MOUSE_BUTTON_MASK_LEFT):
+			dy = e.relative.y
+		elif e is InputEventMouseButton and e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
+			dy = 80.0 if e.button_index == MOUSE_BUTTON_WHEEL_UP else -80.0
+		text.position.y = clampf(text.position.y + dy, -span, 0.0))
 	return p
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
@@ -320,8 +391,7 @@ static func _ability_line(c: Control, species: String, y: float) -> void:
 ## Cream circle with a live bird and its ability badge at the lower right.
 static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
 	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
-	var disc := UI.shape(c, r, "cream", RING * 0.5, 8.0)
-	disc.add_theme_stylebox_override("panel", UI._box(Color8(250, 236, 208), UI.RIM["cream"], RING * 0.5, 8.0, false))
+	UI.shape(c, r, "cream", RING * 0.5, 8.0)
 	var inner := RING * 0.82
 	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
 	var effect: String = EFFECT.get(species, "")
@@ -335,8 +405,7 @@ static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> v
 	var gap := 32.0
 	var w := 40.0 * 2.0 + mechanics.size() * size + (mechanics.size() - 1) * gap
 	var pill := Rect2(540.0 - w * 0.5, y, w, UI.COUNTER_H)
-	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0).add_theme_stylebox_override("panel",
-		UI._box(Color8(250, 236, 208), UI.RIM["cream"], UI.COUNTER_H * 0.5, 8.0, false))
+	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0)
 	for i in mechanics.size():
 		var box := Rect2(pill.position.x + 40.0 + i * (size + gap), y + (UI.COUNTER_H - 8.0 - size) * 0.5, size, size)
 		var art: String = MECHANIC_ART[mechanics[i]]
@@ -493,6 +562,7 @@ static func preview(main: Control, state: String) -> void:
 	main._clear_popups()
 	var host: Control = main.popups
 	var noop := func(): pass
+	var noop1 := func(_v): pass
 	var roster: Array[String] = ["sunny", "sky", "berry", "mint", "cocoa", "snow", "ember"]
 	var few: Array[String] = ["sunny", "sky", "berry"]
 	var mechanics: Array[String] = ["sleep", "egg", "daynight"]
@@ -506,8 +576,10 @@ static func preview(main: Control, state: String) -> void:
 		"win_two_stars": win(host, 2, 14, 12, 20, noop, noop, noop, true)
 		"win_one_star": win(host, 1, 20, 12, 10, noop, noop, noop, false)
 		"win_zero_reward": win(host, 3, 12, 12, 0, noop, noop, noop, true)
-		"settings_sound_on": settings(host, false, noop, noop, noop, true)
-		"settings_muted": settings(host, true, noop, noop, noop, false)
+		"settings_sound_on": settings(host, true, true, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, true)
+		"settings_muted": settings(host, false, false, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, false)
+		"document_privacy": document(host, "privacy")
+		"document_credits": document(host, "credits")
 		"level_card_first_visit": level_card(host, 1, 0, 0, 6, few, none, noop, true)
 		"level_card_full_roster": level_card(host, 40, 3, 28, 12, roster, mechanics, noop, true)
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)

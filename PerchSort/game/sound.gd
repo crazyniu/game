@@ -1,7 +1,8 @@
 extends Node
 ## Autoload "Sound": background music per page and one-shot effects, following the mute setting.
 
-var muted := false
+var muted := false          # sound effects off
+var music_muted := false    # background music off
 const MUSIC_DB := -8.0
 const CROSSFADE := 1.0
 var _music: AudioStreamPlayer      # the track that is current (fading in or full)
@@ -32,7 +33,7 @@ func _music_player() -> AudioStreamPlayer:
 	var p := AudioStreamPlayer.new()
 	p.volume_db = MUSIC_DB
 	add_child(p)
-	p.finished.connect(func(): if not muted and p.stream and p == _music: p.play())
+	p.finished.connect(func(): if not music_muted and p.stream and p == _music: p.play())
 	return p
 
 func _stream(name: String) -> AudioStream:
@@ -46,7 +47,7 @@ func _stream(name: String) -> AudioStream:
 ## "bgm_game" on the board, "bgm_menu" elsewhere. Switching crossfades over one second; asking for the
 ## track that already plays does nothing, so popups and reopened screens never restart the music.
 func music(name: String) -> void:
-	if name == _music_name and (_music.playing or muted):
+	if name == _music_name and (_music.playing or music_muted):
 		return
 	_music_name = name
 	var stream := _stream(name)
@@ -56,7 +57,7 @@ func music(name: String) -> void:
 	_old_music = _music
 	_music = swap
 	_music.stream = stream
-	if muted or stream == null:
+	if music_muted or stream == null:
 		_music.stop()
 		_old_music.stop()
 		return
@@ -89,13 +90,18 @@ func play(name: String, pitch := 1.0) -> void:
 			p.play()
 			return
 
+## Sound effects on or off.
 func set_muted(value: bool) -> void:
 	muted = value
+
+## Background music on or off.
+func set_music_muted(value: bool) -> void:
+	music_muted = value
 	if _fade:
 		_fade.kill()
 	_old_music.stop()
 	_music.volume_db = MUSIC_DB
-	if muted:
+	if music_muted:
 		_music.stop()
 	elif _music.stream:
 		_music.play()
