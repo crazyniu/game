@@ -117,6 +117,15 @@ func _load_frames() -> void:
 		var t := Art.tex(prefix + "_" + pose)
 		if t:
 			_pose_names[t] = pose
+	if not outfit.is_empty() and Art.has(outfit + "_front"):
+		# Only blink and cheer are painted per outfit. Idle actions without outfit frames are dropped so the outfit
+		# never disappears; the hop keeps the outfit's own standing frame and lives on its rise and landing squash.
+		var cheer := Art.frames(outfit + "_cheer")
+		for name in ["turn_left", "turn_right", "preen", "flap"]:
+			_seqs[name] = []
+		_seqs["hop"] = [_rest, _rest, _rest, _rest, _rest, _rest]
+		_seqs["cheer"] = cheer
+		_pose_names.clear()
 
 func _show_rest() -> void:
 	_blend_alpha = 0.0

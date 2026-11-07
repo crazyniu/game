@@ -16,7 +16,6 @@ Bring the Flock Together
 Cheerful always first to sing
 Cocoa
 Cozy Scarf
-Crow
 Daily Gift
 Day and night swap
 Dreamy calls the moon
@@ -28,6 +27,7 @@ Find a helpful move
 Firefly
 Flame Headband
 Flower
+Flurry
 Forest Trail
 Free move
 Gardener makes branches grow
@@ -43,14 +43,14 @@ Home
 Hoot
 Hot-headed cracks eggs open
 Ice Tiara
-Ink
+Inky
 Knight Helmet
 Land anywhere
 Lantern
 Light on her feet takes a shortcut
 Little Crown
 Little Star Hat
-Mint
+Minty
 Monocle
 Moonlit moves
 Morning Bell
@@ -73,6 +73,7 @@ Restart
 Reveal
 Reveals eggs
 Reveals every egg
+Rook
 Round Glasses
 Sapling
 Scarecrow
@@ -85,7 +86,7 @@ Shoo
 Show-off loves an encore
 Shows every egg's secret
 Silver Glasses
-Sky
+Skye
 Sleepy-eyed never in a hurry
 Snow
 Snow Forest

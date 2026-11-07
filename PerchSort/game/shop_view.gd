@@ -281,7 +281,6 @@ func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: flo
 	bird.position = Vector2(box.get_center().x - (used.get_center().x - BirdView.CANVAS * 0.5) * k,
 		box.end.y - (used.end.y - BirdView.FEET_Y) * k)
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
-	_dress(bird, outfit)
 	bird.quiet = instant
 	if not instant:
 		# Breathing and blinks run inside BirdView; a cheer and a hop alternate on top of them.
@@ -296,17 +295,6 @@ func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: flo
 		tw.tween_property(bird, "position:y", rest.y, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 		tw.tween_interval(1.6)
 	return bird
-
-## BirdView plays its species idle frames, which show the bird without the outfit. Keep only actions that have
-## outfit frames (blinks come from the outfit already; cheer frames exist for every outfit) so the item never
-## disappears while the bird idles.
-func _dress(bird: BirdView, outfit: String) -> void:
-	var cheer := Art.frames(outfit + "_cheer")
-	for key in bird._seqs.keys():
-		bird._seqs[key] = cheer if key == "cheer" and not cheer.is_empty() else []
-	if cheer.is_empty():
-		bird._seqs["cheer"] = []
-	bird._pose_names.clear()
 
 
 # ---------------------------------------------------------------- purchase flow

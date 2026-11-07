@@ -5,8 +5,6 @@ extends RefCounted
 
 const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
 	"ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
-const NAME := {"sunny": "Sunny", "sky": "Sky", "berry": "Berry", "mint": "Mint", "cocoa": "Cocoa", "snow": "Snow",
-	"ember": "Ember", "ink": "Ink", "hoot": "Hoot", "crow": "Crow"}
 const ABILITY := {"sunny": "Wakes sleepers", "sky": "Reveals eggs", "berry": "One free move", "mint": "Grows branches",
 	"cocoa": "Sends crows away", "snow": "Land anywhere", "ember": "Hatches every egg", "ink": "Switches day night",
 	"hoot": "Moonlit moves"}
@@ -154,7 +152,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	return p
 
 static func goal_info(host: Control, species: String) -> Control:
-	var p := Modal.open(host, NAME.get(species, "Crow"), [FRIEND, LINE], true, 0.0, 0.0, _instant(host))
+	var p := Modal.open(host, Aviary.display_name(species), [FRIEND, LINE], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 0.0)
@@ -193,7 +191,7 @@ static func new_friend(host: Control, species: String, reward: int, on_ok: Calla
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 1.2)
-	UI.word(c, NAME.get(species, "Crow"), Vector2(540, ys[1] + LINE * 0.5), 56.0)
+	UI.word(c, Aviary.display_name(species), Vector2(540, ys[1] + LINE * 0.5), 56.0)
 	_reward(c, ys[2], reward)
 	p.actions([["green", "check", on_ok]])
 	return p

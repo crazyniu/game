@@ -129,30 +129,7 @@ func _live_bird(parent: Node, species: String, outfit: String, box: Rect2) -> Bi
 	parent.add_child(bird)
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
 	if not outfit.is_empty() and Art.has(outfit + "_front"):
-		_dress(bird, outfit)
 	return bird
-
-## BirdView plays the plain species frames for turns, preens, flaps, hops and still poses, so a dressed bird
-## would lose its outfit in those actions. A dressed bird keeps only the actions painted with its outfit (blink and
-## cheer) and this timer keeps them coming: a blink every 1.5 to 3 s and a cheer every third or fourth beat.
-func _dress(bird: BirdView, outfit: String) -> void:
-	bird._seqs = {"cheer": Art.frames(outfit + "_cheer")}
-	bird._pose_names.clear()
-	var beat := Timer.new()
-	beat.one_shot = true
-	beat.wait_time = randf_range(0.6, 2.0)
-	beat.autostart = true          # the screen is built before it enters the tree
-	bird.add_child(beat)
-	var state := {"count": randi() % 3}
-	beat.timeout.connect(func():
-		state["count"] += 1
-		if not bird.acting and bird._idle_tween == null:
-			if state["count"] % 4 == 0:
-				bird.cheer()
-			else:
-				bird._last_action = -1
-				bird._start_idle(0)
-		beat.start(randf_range(1.5, 3.0)))
 
 ## Dark breathing silhouette of a species fitted into the box (unmet birds).
 func _silhouette(parent: Node, species: String, box: Rect2) -> TextureRect:
@@ -177,7 +154,7 @@ func _outfit_key(species: String) -> String:
 	return "" if id.is_empty() else "%s_outfit_%s" % [species, id.get_slice(".", 2)]
 
 func _name(species: String) -> String:
-	return PopupsScript.NAME.get(species, "Crow")
+	return Aviary.display_name(species)
 
 ## A quick squash on a tapped card or tile.
 func _bump(c: Control) -> void:
