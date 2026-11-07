@@ -6,7 +6,11 @@ static func run(main: Control) -> void:
 	var failures := 0
 	for dir in ["res://core", "res://meta", "res://game"]:
 		for file in DirAccess.get_files_at(dir):
-			if file.ends_with(".gd") and load("%s/%s" % [dir, file]) == null:
+			if not file.ends_with(".gd"):
+				continue
+			# A script with a parse error still loads as a resource; it just cannot be instantiated.
+			var script := load("%s/%s" % [dir, file]) as GDScript
+			if script == null or not script.can_instantiate():
 				failures += 1
 				print("FAIL load %s/%s" % [dir, file])
 	for level in Levels.all():

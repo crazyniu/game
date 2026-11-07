@@ -7,7 +7,8 @@ signal closed
 signal profile_changed
 
 const PopupsScript := preload("res://game/popups.gd")
-const ShopScript := preload("res://game/shop_view.gd")   # layout and price line of the confirm popup
+const CONFIRM_PIC := 320.0    # outfit picture of the buy popup
+const CONFIRM_LINE := 72.0    # its price line
 const TextArt := preload("res://game/ui_text.gd")
 const CLOSE_ICON := preload("res://art/icons/icon_aviary_close.svg")
 const FEATHER_ICON := preload("res://art/icons/icon_aviary_feather.svg")
@@ -425,12 +426,12 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	var it := Shop.item(id)
 	var title_id := id + ".name"
 	var instant: bool = get_parent() != null and get_parent().has_method("instant") and get_parent().instant()
-	var modal := Modal.open(self, title_id, [ShopScript.POPUP_PIC, ShopScript.POPUP_LINE], true, UI.PRIMARY, 0.0, instant)
+	var modal := Modal.open(self, title_id, [CONFIRM_PIC, CONFIRM_LINE], true, UI.PRIMARY, 0.0, instant)
 	var ys: Array = modal.get_meta("ys")
-	var pic := Rect2(540.0 - ShopScript.POPUP_PIC * 0.5, ys[0], ShopScript.POPUP_PIC, ShopScript.POPUP_PIC)
+	var pic := Rect2(540.0 - CONFIRM_PIC * 0.5, ys[0], CONFIRM_PIC, CONFIRM_PIC)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
-	var line := ShopScript._price_line(modal.content, ys[1], it["price"], UI.INK if affordable else UI.FILL["red"])
+	var line := _price_line(modal.content, ys[1], it["price"], UI.INK if affordable else UI.FILL["red"])
 	var accept: Button = modal.actions([["green", "check", func(): _buy_outfit(id, index)]])[0]
 	UI.set_active(accept, affordable)
 	if not affordable:
@@ -439,6 +440,21 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 		tw.tween_callback(func(): Sound.play("error"))
 		for dx in [16.0, -16.0, 10.0, -10.0, 4.0, 0.0]:
 			tw.tween_property(line, "position:x", dx, 0.05)
+
+## Coin and price centred on one line; returns the holder that shakes.
+func _price_line(c: Control, y: float, price: int, color: Color) -> Control:
+	var holder := Control.new()
+	holder.name = "PriceLine"
+	holder.size = Vector2(1080, 1920)
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(holder)
+	var text := str(price)
+	var cap := 52.0
+	var num_w := UI.number_width(text, cap)
+	var x := 540.0 - (CONFIRM_LINE + 16.0 + num_w) * 0.5
+	UI.art(holder, "coin", Rect2(x, y, CONFIRM_LINE, CONFIRM_LINE))
+	UI.number(holder, text, Rect2(x + CONFIRM_LINE + 16.0, y + (CONFIRM_LINE - cap) * 0.5, num_w + 2.0, cap), color, -1)
+	return holder
 
 func _buy_outfit(id: String, index: int) -> void:
 	if Shop.purchase(profile, id) != "":
