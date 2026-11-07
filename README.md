@@ -4,7 +4,7 @@ A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, 
 
 ## Open the game
 
-Open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`). From a shell: `godot --path PerchSort`. Start at a level directly with `godot --path PerchSort -- --level=12`.
+One click: `./run.sh` (finds Godot 4.7.2 via `$GODOT`, `godot` on PATH or `/Applications/Godot.app`, imports assets on the first run, then starts the game). Options: `./run.sh --level=12` starts on a level, `--reset` deletes the saved progress, `--update` pulls the latest main first, `--help` lists them. Or open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`).
 
 | Need | Entry |
 | --- | --- |
