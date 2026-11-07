@@ -46,12 +46,23 @@ const GATE_LOCK := 112.0
 const TITLE_CAP := 40.0
 const TITLE_PAD := 32.0
 const TOP_Y := 56.0              # top bar row 48..160, controls centred on 104
-const SHADE_H := 240.0
-const SHADE_ALPHA := 0.32
+## Soft fades in the painting's own colour behind the top bar and the bottom button row, so nodes passing under
+## them read as behind. WORLD_SHADE: each painting's mean grass colour beside the trail, darkened to 45 percent.
+const TOP_FADE := Rect2(0, 0, 1080, 200)
+const BOTTOM_FADE := Rect2(0, 1660, 1080, 260)
+const TOP_FADE_ALPHA := 0.62
+const BOTTOM_FADE_ALPHA := 0.78
+const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63)]
+## At either end of the scroll the last / first node rests fully clear of both fades (16 px air).
+const TOP_CLEAR := 216.0
+const BOTTOM_CLEAR := 1644.0
 const NAV_Y := 1792.0
 const NAV_GAP := 200.0
-const TOP_PAD := 160.0           # extra scroll room above the last world and below the first
-const BOTTOM_PAD := 160.0
+## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
+## BOTTOM_CLEAR: level 40 at y 360 with a bird up to 240 above its centre, level 1 at y 2700 + 3 strides with its
+## stars down to 111 below.
+const TOP_PAD := TOP_CLEAR - (360.0 - 240.0)
+const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + 111.0) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
 
 var profile: Profile
 var current_level := 1
@@ -62,6 +73,8 @@ var _hud: Control
 var _coins: Panel
 var _title: Panel
 var _title_world := 0
+var _top_fade: TextureRect
+var _bottom_fade: TextureRect
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
 var _dragging := false
 var _drag_travel := 0.0
@@ -104,6 +117,7 @@ func scroll_to(value: float) -> void:
 	offset = clampf(value, -TOP_PAD, CONTENT_H - size.y + BOTTOM_PAD)
 	_content.position.y = -offset
 	_update_title()
+	_update_fades()
 
 ## True while silent captures run: no tweens, birds hold still.
 func _instant() -> bool:
@@ -230,7 +244,8 @@ func _build_hud() -> void:
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.size = size
 	add_child(_hud)
-	_shade(Rect2(0, 0, 1080, SHADE_H))
+	_top_fade = _fade(TOP_FADE, TOP_FADE_ALPHA, false)
+	_bottom_fade = _fade(BOTTOM_FADE, BOTTOM_FADE_ALPHA, true)
 	var coins := str(profile.coins)
 	var coin_w := 100.0 + UI.number_width(coins, 44.0) + 32.0
 	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
@@ -274,13 +289,33 @@ func _strip(tex: Texture2D, region: Rect2, r: Rect2, flip: bool) -> void:
 	UI.place(t, r)
 	_content.add_child(t)
 
-## Subtle dark shade under the top bar so trail nodes scrolling beneath never fight it.
-func _shade(r: Rect2) -> void:
+## A white fade (eased, no hard edge) tinted per frame with the colour of the painting under it.
+func _fade(r: Rect2, alpha: float, from_bottom: bool) -> TextureRect:
 	var g := Gradient.new()
-	g.colors = PackedColorArray([Color(0.06, 0.15, 0.07, SHADE_ALPHA), Color(0.06, 0.15, 0.07, 0.0)])
+	var ramp := [0.0, 0.3, 0.6, 0.85, 1.0]   # eased alpha from the clear edge to the screen edge
+	g.offsets = PackedFloat32Array([0.0, 0.25, 0.5, 0.75, 1.0])
+	var colors := PackedColorArray()
+	for i in ramp.size():
+		colors.append(Color(1, 1, 1, alpha * ramp[i if from_bottom else ramp.size() - 1 - i]))
+	g.colors = colors
 	var t := _gradient_rect(g, r)
-	t.name = "Shade"
+	t.name = "Fade"
 	_hud.add_child(t)
+	return t
+
+func _update_fades() -> void:
+	if _top_fade == null:
+		return
+	_top_fade.modulate = _paint_color(offset + TOP_FADE.get_center().y)
+	_bottom_fade.modulate = _paint_color(offset + BOTTOM_FADE.get_center().y)
+
+## Shade colour of the painting at a content y, blended smoothly across each seam between worlds.
+func _paint_color(y: float) -> Color:
+	var c: Color = WORLD_SHADE[3]
+	for k in range(1, 4):
+		var seam := k * STRIDE + OVERLAP * 0.5
+		c = c.lerp(WORLD_SHADE[3 - k], smoothstep(seam - 160.0, seam + 160.0, y))
+	return c
 
 func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
 	var tex := GradientTexture2D.new()
