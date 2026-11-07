@@ -6,23 +6,23 @@ Task: [task-board.md](task-board.md), contract: [spec.md](spec.md). Branch `craz
 
 ### 1. Top-left HUD (`game/board_view.gd`)
 
-The Level pill and the separate sun pill are replaced by one cream status card at (48,40), 352 px wide, rows of
-56 px with 2 px rim dividers. Every row starts on the same left edge (x = 20 inside the card) and has its cap band
-centred, so baselines line up within each row:
+The first four-row card was replaced during the task by the coordinator's minimal HUD (user feedback: too much
+text). There are no words and no "Level N" on the board:
 
-1. `Level` + level number.
-2. `Moves` + moves used. The level and moves numbers share one value column.
-3. Star meter: three tiers, each showing its stars followed by the most moves that still earn them. The tiers are
-   three stars with par, two stars with par + 3, and one star with infinity (matching `GameSession.stars_for`). A
-   tier the player can no longer reach turns hollow and dims to 40 %.
-4. Day/night levels only: a sun or moon (the phase now), then `Night in` / `Day in`, then the moves left.
-
-The labels are new painted labels in Lilita One, the same face as `Level`, at cap 32. Tier numbers use cap 24 and
-painted numeral sprites. No runtime font is used. A changed value (moves, phase count) pulses briefly. The card
-ends 30 px before the house and Settings is untouched. When a wide goal row (5 or more goals) would reach under
-the card, the goal row moves below the card (the card is 248 px tall on day/night levels). Otherwise goal
-positions are unchanged. The move count updates as soon as a move is applied. On a move that changes the phase,
-the phase row updates when the cross-fade starts.
+- One cream pill at (48,48), 336x80, radius 40. It holds three painted stars (`pic_star`), the painted footprint
+  (`moves`) and the moves used (numeral sprites, cap 40). The stars still reachable stay full. A star whose limit
+  has passed swaps to `pic_star_empty` (par for three stars, par + 3 for two, per `GameSession.stars_for`). There is
+  no modulate dimming. The star art comes from one function, `_star_texture(lit)`, so swapping it is a one-line
+  change.
+- Day/night levels add a second pill 16 px below: 144x80, same radius and left edge, holding the painted sun or moon
+  (the phase now) and the moves until the switch.
+- Changed numbers pulse briefly. The move count updates when the move is applied. On a move that switches the
+  phase, the phase pill updates when the cross-fade starts.
+- Everything sits on the 8 px grid and ends 46 px before the house; Settings is untouched. If a wide goal row would
+  reach under the pills, it moves below them. That does not happen with the default house; goal positions are
+  otherwise unchanged.
+- After the rebase onto `origin/polish-round` (one typeface, painted pictures), the HUD uses the `UI.icon(...,
+  UI.INK)` pictures. Only the two banner labels remain new in `en.json`.
 
 ### 2. Day and night
 
@@ -67,14 +67,14 @@ background ready time and first press, then quit).
 
 ## Commands and results
 
-- `bash scripts/run_tests.sh`: naming guard OK, `smoke checks: 0 failures`, `core checks: 0 failures` (exit 0;
-  run before and after the last changes).
+- `bash scripts/run_tests.sh` after the rebase and the minimal HUD: `0 violation(s)`, `smoke checks: 0 failures`,
+  `core checks: 0 failures` (exit 0).
 - Stills: `bash scripts/capture.sh <abs.png> --preview=board_view:<state>` for `level_5`, `level_33`,
   `hud_progress`, `day_w1..4` and `night_w1..4`. Output is in `build/screens/polish-board/board_*.png` (ignored).
 - Frame sequences, fixed 30 fps so frames are evenly spaced in game time (software GL saves are slow):
   `xvfb-run -a -s "-screen 0 1280x2000x24" godot --path PerchSort --audio-driver Dummy --rendering-driver opengl3
   --resolution 1080x1920 --fixed-fps 30 -- --capture=<x> --motion --frames=<dir> --wait=6 --step=0.1
-  --preview=board_view:phase_change` (60 frames), and the same with `day_break`, `--wait=3.5` (35 frames).
+  --preview=board_view:phase_change` (30 frames, `--wait=3`), and the same with `day_break`.
   Output is in `build/screens/polish-board/phase_change_frames/` and `day_break_frames/`.
 - Hint timing (xvfb, rendering on): `... -- --capture=<x> --motion --wait=140 --preview=board_view:hint_timing_N` and
   `hint_think_N` for N = 1, 17, 30, 34.
@@ -83,9 +83,10 @@ background ready time and first press, then quit).
 
 Committed evidence in [board-evidence/](board-evidence/):
 
-- `hud.jpg`: HUD on level 5 (normal), level 33 (day/night) and level 36 with three stars lost.
+- `hud.jpg`: HUD on level 5 (normal), level 33 (day, sun pill), level 36 at 13 moves (third star empty) and level
+  35 at night (moon pill).
 - `day_night_worlds.jpg`: a day frame (top) and a night frame (bottom) for each world, levels 5/15/25/35.
-- `night_falls_frames.jpg`: t = 0.4–2.7 s at 0.1 s steps. The move lands, then at t ≈ 1.0 s the banner, HUD moon row
+- `night_falls_frames.jpg`: t = 0.2–2.5 s at 0.1 s steps. The move lands, then at t ≈ 1.0 s the banner, HUD moon pill
   and cross-fade start together. Night is complete about 0.8 s later, and the banner is gone by about t = 2.2 s.
   Fireflies and stars are visible.
 - `day_breaks_frames.jpg`: the same for night to day. The original day look returns.
@@ -114,11 +115,11 @@ in 0.0 ms on all 40 levels.
 - Pressing within the first seconds of levels 17/30/34 still shows the spinner until the background search
   lands. During the normal 3.5–4.5 s entrance the search usually finishes before input is allowed on 17 and 34.
 - Shared files touched outside the board ownership:
-  - `tools/kit/locales/en.json`: five ids inserted directly after `hud.level` (`hud.moves`, `hud.night_in`,
-    `hud.day_in`, `board.night_falls`, `board.day_breaks`) and added to `display_labels`.
+  - `tools/kit/locales/en.json`: two ids inserted directly after `hud.level` (`board.night_falls`,
+    `board.day_breaks`), baked with the shared Lilita One pipeline.
   - Baked labels in `PerchSort/art/locale/en/` and `manifest.json`. `manifest.json` will likely conflict with
     other workers' bakes; resolve it by re-running the label tool for the union of ids.
-  - `docs/design/ui-system.md`: the Board HUD bullet now describes this HUD.
+  - `docs/design/ui-system.md`: the Board HUD bullet now describes the minimal HUD.
 - I did not check other house styles (acorn, teapot) with a 6-goal level visually. The rule that moves the goal row
   below the card covers them by construction.
 - None of this is user-approved. The user still needs to try the HUD, the night look and the banner on the Mac

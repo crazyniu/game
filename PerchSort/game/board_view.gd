@@ -60,7 +60,7 @@ var _status: Panel          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
 var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
-var _phase_icon: TextureRect
+var _phase_icons := {}       # Board.Phase -> painted sun or moon
 var _phase_number: Control
 var _shown_moves := -1
 var _shown_phase := ""
@@ -263,8 +263,7 @@ func _phase_banner(night: bool) -> void:
 	var face := (BANNER_H - 8.0) * 0.5
 	var pill := UI.shape(_hud, Rect2(540.0 - w * 0.5, top + 32.0, w, BANNER_H), "cream", BANNER_H * 0.5, 8.0)
 	pill.name = "PhaseBanner"
-	UI.icon(pill, "moon" if night else "sun", Vector2(40.0 + BANNER_ICON * 0.5, face), BANNER_ICON,
-		MOON_INK if night else SUN_INK)
+	UI.icon(pill, "moon" if night else "sun", Vector2(40.0 + BANNER_ICON * 0.5, face), BANNER_ICON, UI.INK)
 	_place_label(pill, id, 40.0 + BANNER_ICON + 16.0, face + BANNER_CAP * 0.5, BANNER_CAP)
 	_banner = pill
 	if instant:
@@ -549,7 +548,7 @@ func _entrance() -> void:
 ## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
 const STATUS_AT := Vector2(48, 48)
 const STATUS_H := 80.0
-const STATUS_W := 288.0
+const STATUS_W := 336.0
 const PHASE_W := 144.0
 const STATUS_GAP := 16.0         # between the two pills
 const STATUS_INSET := 24.0
@@ -557,9 +556,6 @@ const STATUS_CAP := 40.0
 const STATUS_STAR := 44.0
 const STATUS_STAR_GAP := 4.0
 const STATUS_ICON := 44.0
-const DIM_STAR_ALPHA := 0.55
-const SUN_INK := Color8(255, 176, 40)
-const MOON_INK := Color8(122, 132, 214)
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
@@ -655,9 +651,9 @@ func _place_label(parent: Node, id: String, x: float, baseline: float, cap: floa
 	var k := cap / LABEL_CAP
 	return UI.label(parent, id, Rect2(x, baseline - LABEL_BASELINE * k, UI.label_width(id, cap) + 1.0, LABEL_LINE * k + 1.0), cap)
 
-## The single place that picks the HUD star art: swap this line for the painted stars.
+## The single place that picks the HUD star art (painted stars; an unreachable star is the empty one).
 static func _star_texture(lit: bool) -> Texture2D:
-	return load("res://art/icons/icon_rating_%s.svg" % ("filled" if lit else "empty"))
+	return Art.tex("pic_star" if lit else "pic_star_empty")
 
 ## Stars as one row of `count` sprites in `bounds` (left aligned); see _set_stars.
 func _make_stars(parent: Node, at: Vector2, size: float, gap: float, count := 3) -> Array:
@@ -673,12 +669,10 @@ func _make_stars(parent: Node, at: Vector2, size: float, gap: float, count := 3)
 		out.append(star)
 	return out
 
-## The first `lit` stars are bright; the others dim (no longer reachable).
+## The first `lit` stars are full; the others are empty (no longer reachable).
 func _set_stars(stars: Array, lit: int) -> void:
 	for i in stars.size():
-		var on: bool = i < lit
-		stars[i].texture = _star_texture(on)
-		stars[i].modulate.a = 1.0 if on else DIM_STAR_ALPHA
+		stars[i].texture = _star_texture(i < lit)
 
 func _build_status() -> void:
 	var face := (STATUS_H - 6.0) * 0.5   # visual centre of the raised face
@@ -686,18 +680,22 @@ func _build_status() -> void:
 	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "cream", STATUS_H * 0.5, 6.0)
 	_status.name = "Status"
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
-	var number_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
+	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
+	UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	var number_x := moves_x + STATUS_ICON + 8.0
 	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
 		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
 	_phase_chip = null
-	_phase_icon = null
+	_phase_icons.clear()
 	_phase_number = null
 	if session.state.day_length <= 0:
 		return
 	_phase_chip = UI.shape(_hud, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)),
 		"cream", STATUS_H * 0.5, 6.0)
 	_phase_chip.name = "Phase"
-	_phase_icon = UI.icon(_phase_chip, "sun", Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, SUN_INK)
+	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
+		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
+			Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
 	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
 	_phase_number = UI.number(_phase_chip, "0", Rect2(phase_x, baseline - STATUS_CAP * NUMBER_BASELINE,
 		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), UI.INK, -1)
@@ -713,11 +711,10 @@ func _refresh_status(with_phase := true) -> void:
 	_shown_moves = moves
 	if _phase_number == null or not with_phase:
 		return
-	var night := s.phase == Board.Phase.NIGHT
 	var left := str(s.day_length - s.phase_counter)
 	UI.set_number(_phase_number, left)
-	_phase_icon.texture = UI.icon_texture("moon" if night else "sun")
-	_phase_icon.modulate = MOON_INK if night else SUN_INK
+	for phase in _phase_icons:
+		_phase_icons[phase].visible = phase == s.phase
 	var shown := "%d:%s" % [s.phase, left]
 	if not _shown_phase.is_empty() and shown != _shown_phase:
 		_pulse(_phase_number)
