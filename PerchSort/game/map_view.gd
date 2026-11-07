@@ -174,7 +174,7 @@ func _build_node(level: int) -> void:
 ## Level number centred horizontally at `y_ratio` of the node's height; cream on the orange or grey node.
 func _node_number(layer: Control, level: int, rect: Rect2, cap: float, y_ratio: float) -> void:
 	var cy := rect.position.y + rect.size.y * y_ratio
-	UI.number(layer, str(level), Rect2(rect.get_center().x - rect.size.x * 0.4, cy - cap * 0.5, rect.size.x * 0.8, cap), "cream")
+	UI.number(layer, str(level), Rect2(rect.get_center().x - rect.size.x * 0.4, cy - cap * 0.5, rect.size.x * 0.8, cap), Color8(255, 247, 232))
 
 ## Three small stars along the lower rim (the middle one sits a little lower).
 func _add_stars(layer: Control, rect: Rect2, earned: int) -> void:
@@ -210,7 +210,7 @@ func _build_hud() -> void:
 	var pill := Rect2(coin.get_center().x, MARGIN, COIN_ICON * 0.5 + 24.0 + number_w + 28.0, PILL_H)
 	UI.panel(_hud, "stat_pill", pill)
 	UI.art(_hud, "coin", coin)
-	_coin_number = UI.number(_hud, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), "brown", -1)
+	_coin_number = UI.number(_hud, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), UI.INK, -1)
 	_title = TextureRect.new()
 	_title.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_title.stretch_mode = TextureRect.STRETCH_SCALE

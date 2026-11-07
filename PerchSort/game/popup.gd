@@ -1,25 +1,41 @@
 class_name Modal
 extends Control
-## Shared modal: dimmed backdrop, plush panel, painted title ribbon, optional close disc, action discs.
-## Content uses absolute design coordinates (same space as res://layout/*.json); add it to `content`.
+## Shared modal (docs/design/ui-system.md): dim backdrop, one cream panel whose height follows its content, a painted
+## title word at the top inside the panel, an optional close button on the panel's top-right corner, and actions
+## in a row centred under the panel. Content uses absolute design coordinates; add it to `content`.
 
 signal closed
 
-const DIM_ALPHA := 0.72
-## Transparent margins of panel_wood around its visible frame (left, top, right, bottom).
-const PAD := Vector4(4, 36, 4, 21)
-const SHADOW_ALPHA := 0.16
+const WIDTH := 864.0
+const TITLE_CAP := 64.0
+const TITLE_TOP := 56.0          # panel top to the title's cap top
+const BODY_GAP := 40.0           # title cap bottom to the first content group
+const BOTTOM := 56.0             # last content group to the panel's visible bottom (above its edge)
+const GAP := 32.0                # between content groups
+const CLOSE := 96.0
+const ACTION_DROP := 48.0        # panel bottom to the action row's top
+const ACTION_GAP := 56.0
+const DIM := Color(0.118, 0.165, 0.102, 0.55)
 
 var content: Control
-var panel_rect: Rect2   # the visible frame
-var quick := false      # plain fade+scale (settings) instead of the springy pop
+var panel_rect: Rect2
+var quick := false
 var _dim: ColorRect
 var _closing := false
 
-
-## panel: the visible frame rect. title: a painted label sprite name (e.g. "label_title_settings"); "" for none.
-static func open(host: Control, panel: Rect2, title: String = "", title_rect := Rect2(), close_rect := Rect2(), instant := false,
-		quick_motion := false) -> Modal:
+## Opens a modal whose panel holds `heights` content groups below an optional title. Returns the modal; read
+## `ys` (top y of each group) and `actions_y` (top of the action row) from its metadata.
+static func open(host: Control, title: String, heights: Array, close_button := false, action_h := 0.0, above := 0.0,
+		instant := false, quick_motion := false) -> Modal:
+	var inner := 0.0
+	for h in heights:
+		inner += h
+	inner += GAP * maxf(0.0, heights.size() - 1)
+	var head := (TITLE_TOP + TITLE_CAP + BODY_GAP) if not title.is_empty() else BOTTOM
+	var panel_h := roundf(head + inner + BOTTOM + 12.0)
+	var below := (ACTION_DROP + action_h) if action_h > 0.0 else 0.0
+	var top := roundf((1920.0 - (above + panel_h + below)) * 0.5 + above)
+	var panel := Rect2((1080.0 - WIDTH) * 0.5, top, WIDTH, panel_h)
 	var p := Modal.new()
 	p.name = "Popup"
 	p.size = Vector2(1080, 1920)
@@ -27,14 +43,21 @@ static func open(host: Control, panel: Rect2, title: String = "", title_rect := 
 	p.quick = quick_motion
 	host.add_child(p)
 	host.move_child(p, host.get_child_count() - 1)
-	p._build(title, title_rect, close_rect)
+	p._build(title, close_button)
+	var ys := []
+	var y := top + head
+	for h in heights:
+		ys.append(y)
+		y += h + GAP
+	p.set_meta("ys", ys)
+	p.set_meta("actions_y", panel.end.y + ACTION_DROP)
 	if not instant:
 		p._appear()
 	return p
 
-func _build(title: String, title_rect: Rect2, close_rect: Rect2) -> void:
+func _build(title: String, close_button: bool) -> void:
 	_dim = ColorRect.new()
-	_dim.color = Color(0.03, 0.05, 0.02, DIM_ALPHA)
+	_dim.color = DIM
 	_dim.size = size
 	_dim.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_dim)
@@ -44,38 +67,49 @@ func _build(title: String, title_rect: Rect2, close_rect: Rect2) -> void:
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.pivot_offset = panel_rect.get_center()
 	add_child(content)
-	var full := Rect2(panel_rect.position - Vector2(PAD.x, PAD.y), panel_rect.size + Vector2(PAD.x + PAD.z, PAD.y + PAD.w))
-	# Soft shadow: two dark copies of the frame, lower and slightly larger, so the modal separates from the scene.
-	for grow in [Vector2(10, 14), Vector2(26, 30)]:
-		var shadow := UI.panel(content, "panel_wood", Rect2(full.position - grow * 0.5 + Vector2(0, 16), full.size + grow))
-		shadow.modulate = Color(0.06, 0.03, 0.01, SHADOW_ALPHA)
-		shadow.name = "Shadow"
-	UI.panel(content, "panel_wood", full)
+	var panel := UI.shape(content, panel_rect, "cream", 56.0, 12.0)
+	panel.name = "Panel"
 	if not title.is_empty():
-		UI.art(content, title, title_rect)
-	if close_rect.size != Vector2.ZERO:
-		UI.disc(content, "Close", close_rect, "icon_close", close, "btn_wood", 0.5)
+		var t := UI.word(content, title, Vector2(540, panel_rect.position.y + TITLE_TOP + TITLE_CAP * 0.5), TITLE_CAP)
+		t.name = "Title"
+	if close_button:
+		var c := Vector2(panel_rect.end.x - 32.0, panel_rect.position.y + 32.0)
+		UI.button(content, "Close", c, "cream", "close", close, CLOSE)
 
 func _appear() -> void:
 	Sound.play("ui_tap")
 	_dim.modulate.a = 0.0
-	content.scale = Vector2.ONE * (0.9 if quick else 0.7)
+	content.scale = Vector2.ONE * (0.92 if quick else 0.85)
 	content.modulate.a = 0.0
 	var tw := create_tween().set_parallel()
-	tw.tween_property(_dim, "modulate:a", 1.0, 0.18 if quick else 0.2)
-	tw.tween_property(content, "modulate:a", 1.0, 0.18 if quick else 0.15)
-	if quick:
-		tw.tween_property(content, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	else:
-		tw.tween_property(content, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_dim, "modulate:a", 1.0, 0.2)
+	tw.tween_property(content, "modulate:a", 1.0, 0.15)
+	tw.tween_property(content, "scale", Vector2.ONE, 0.18 if quick else 0.3).set_trans(
+		Tween.TRANS_QUAD if quick else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Disc button below or on the panel; base "btn_green" for the primary action (160 px), "btn_wood" otherwise (128 px).
-## An action disc; by default pressing it closes the popup, then runs `on_press`.
-func action(rect: Rect2, icon: String, on_press: Callable, base := "btn_wood", closes := true) -> Button:
-	return UI.disc(content, icon, rect, icon, func():
-		if closes:
-			close()
-		on_press.call(), base, 0.5)
+## Row of round actions centred under the panel. Each item: [kind ("green" primary or "orange"/"cream"), icon,
+## callback]; by default pressing one closes the popup first. Returns the buttons.
+func actions(items: Array, closes := true) -> Array:
+	var sizes := []
+	var total := 0.0
+	for it in items:
+		var s := UI.PRIMARY if it[0] == "green" else UI.SECONDARY
+		sizes.append(s)
+		total += s
+	total += ACTION_GAP * (items.size() - 1)
+	var x := 540.0 - total * 0.5
+	var cy: float = get_meta("actions_y") + UI.PRIMARY * 0.5
+	var out := []
+	for i in items.size():
+		var cb: Callable = items[i][2]
+		var b := UI.button(content, str(items[i][1]).capitalize(), Vector2(x + sizes[i] * 0.5, cy), items[i][0], items[i][1],
+			func():
+				if closes:
+					close()
+				cb.call())
+		out.append(b)
+		x += sizes[i] + ACTION_GAP
+	return out
 
 func close() -> void:
 	if _closing:
@@ -85,7 +119,7 @@ func close() -> void:
 	var t := 0.12
 	var tw := create_tween().set_parallel()
 	tw.tween_property(self, "modulate:a", 0.0, t)
-	tw.tween_property(content, "scale", Vector2.ONE * 0.88, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tw.tween_property(content, "scale", Vector2.ONE * 0.9, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	await tw.finished
 	closed.emit()
 	queue_free()

@@ -83,14 +83,14 @@ func _build_header() -> void:
 	var coin := Rect2(MARGIN, MARGIN + (HUD_PILL_H - COIN_ICON) * 0.5, COIN_ICON, COIN_ICON)
 	UI.panel(self, "stat_pill", Rect2(coin.get_center().x, MARGIN, COIN_ICON * 0.5 + 24.0 + number_w + 28.0, HUD_PILL_H))
 	UI.art(self, "coin", coin)
-	_coin_number = UI.number(self, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), "brown", -1)
+	_coin_number = UI.number(self, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), UI.INK, -1)
 	UI.disc(self, "Close", Rect2(1080.0 - MARGIN - CLOSE_DISC, MARGIN, CLOSE_DISC, CLOSE_DISC), "icon_close", func(): closed.emit(), "btn_wood", 0.5)
 	_tab_node = Control.new()
 	_tab_node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_tab_node)
 
 func _refresh() -> void:
-	UI.set_number(_coin_number, str(profile.coins), "brown", -1)
+	UI.set_number(_coin_number, str(profile.coins))
 	for node in [_page_node, _tab_node]:
 		for c in node.get_children():
 			c.queue_free()
@@ -246,7 +246,7 @@ func _card(it: Dictionary, at: Vector2, n: int) -> void:
 	if kind == Shop.BOOSTER and profile.inventory[it["booster"]] > 0:
 		var badge := Rect2(ring.end.x - 36.0, ring.position.y - 4.0, 52, 52)
 		UI.art(card, "badge_red", badge)
-		UI.number(card, str(profile.inventory[it["booster"]]), Rect2(badge.position.x + 8, badge.position.y + 11, 36, 30), "white")
+		UI.number(card, str(profile.inventory[it["booster"]]), Rect2(badge.position.x + 8, badge.position.y + 11, 36, 30), Color.WHITE)
 	if _locked(it):
 		card.modulate = Color(1, 1, 1, 0.5)
 		UI.art(card, "padlock", Rect2(ring.get_center() - Vector2(40, 44), Vector2(80, 88)))
@@ -302,7 +302,7 @@ func _confirm(it: Dictionary) -> void:
 	var panel := Rect2((1080.0 - POPUP_W) * 0.5, 760.0 - height * 0.5, POPUP_W, height)
 	var close := Rect2(panel.end.x - 24.0 - 48.0, panel.position.y + 24.0 - 48.0, 96, 96)
 	var title_rect := Rect2(Vector2(540.0 - POPUP_RIBBON_W * 0.5, panel.position.y - title_h * 0.5), Vector2(POPUP_RIBBON_W, title_h))
-	_modal = Modal.open(self, panel, title, title_rect, close, instant)
+	_modal = Modal.open(self, "", [pic_h, PILL_H], true, UI.PRIMARY, 0.0, instant)   # interim until the shop is redrawn
 	var box := _modal.content
 	var pic := Rect2(540.0 - pic_h * 0.5, panel.position.y + top_gap, pic_h, pic_h)
 	match it["kind"]:

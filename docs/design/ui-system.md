@@ -1,59 +1,76 @@
-# UI system
+# Perch Sort UI system
 
-One visual system for every screen. Mockups in `art/approved_ui` set the mood (soft plush felt, warm forest colours); they are **not** a pixel target. When a mockup and this file disagree, this file wins. All values are in the 1080x1920 design space.
+The binding visual system for every screen. Direction from the user (2026-11-07): cartoon, simple, clean, nothing
+fancy. The screens are designed from scratch on this system; earlier layouts and mockups are not a reference.
 
-## 1. Grid and spacing
-- 8 px grid. Spacing steps: 8, 16, 24, 32, 48, 64.
-- Screen side margin 40; top margin 40; bottom margin 48.
-- Two elements never touch: at least 16 px between separate controls, 24 px between a control and a panel edge, 32 px between content groups in a popup.
-- Nothing may overlap another element unless this file says so (coin overlapping its pill, close disc overlapping a panel corner, badge on a portrait ring, title ribbon across a panel's top edge).
+## Principles
 
-## 2. Painted numbers (UI.number) and words
-Cap heights (the `rect` height passed to UI.number):
-| Role | Cap height |
-| --- | --- |
-| Hero number (reward total, level number on the map current node) | 72 |
-| HUD and pill main numbers (coins, moves) | 52 |
-| Secondary numbers in pills and cards (prices, counts) | 40 |
-| Small labels (star thresholds, badge counts) | 30 |
-Colour: `brown` on cream/light surfaces (pills, panel interiors, cards). `cream` on orange/green/grey surfaces (map nodes, buttons). `white` only on red badges. Never mix colours within one group.
-Words are painted label sprites: title ribbons (`label_title_*`) 110-130 px tall; caption plates (`label_caption_*`) 60-64 px tall. All captions in one group share one height (and one width when they sit side by side). If a caption cannot be made uniform, drop it where the icon is clear.
+1. One source per kind of art. Scenes are one painting per world. Icons come from one icon sheet, words and numbers
+   from one lettering sheet. Shapes (panels, buttons, counters) are drawn by code. Nothing is assembled from
+   separately generated pieces that must visually match.
+2. Few elements. Every screen shows only what the player needs now. No decorative frames, ribbons, leaves,
+   stitching or textures on UI.
+3. Same role, same look. A role (primary button, secondary button, counter, panel, card) has one size and one style
+   on every screen and in every state. Disabled is dimmed to 45 percent and not interactive, never smaller.
 
-## 3. Buttons
-- Round disc (`btn_wood`): standard 128. Primary disc (`btn_green`): 160 (= 1.25x). Close disc: 96, centred on the panel's top-right corner, inset 24 px.
-- Glyph icon inside a disc: 50 % of the disc diameter, centred.
-- Same-role buttons have identical sizes in every state; disabled = 45 % alpha, never smaller.
-- Hit area is at least the disc; touch targets never smaller than 96.
+## Canvas and grid
 
-## 4. Pills and badges
-- `stat_pill` height 96 (HUD) or 80 (inside popups and cards). Icon in a pill 60-64 high; number per section 2.
-- Coin pill: coin icon 104 overlapping the pill's left end by half its width, number left-aligned 24 px after the coin.
-- Red stock badge 52 at a disc's top-right, white number 30.
-- Portrait ring (`badge_ring_gold`) 104 on the board, 150 in popups; the bird face/front frame fits inside at 80 % of the ring and is never stretched; ability badge 44 % of the ring at its bottom-right.
+- Design canvas 1080 x 1920 (portrait). Safe margin 48 on all sides. Spacing on an 8 px grid: 8, 16, 24, 32, 48, 64.
+- The top bar row is y 48 to 160; the bottom action row is centred on y 1792.
 
-## 5. Popups
-- Dim 0.72, soft shadow, `panel_wood` frame.
-- Width 880 (x 100-980) for content popups, 720 for small ones (settings, confirmations). Inner padding 56. Height follows the content: no empty areas larger than one content row.
-- Title ribbon centred on the panel top edge (half above, half below), width 520-640.
-- Content stacked top to bottom with 32 px between groups, centred.
-- Actions sit BELOW the panel, 40 px under its bottom edge: one primary disc 160, or a row with secondaries 128 and one primary 160 spaced 64 apart.
-- Birds in popups are live BirdViews (breathing, blinking, cheering), sized so the whole bird is visible; a hero bird stands on the top edge of the ribbon, never hidden behind it.
+## Colour
 
-## 6. Board
-- Top-left column (x 40-380): coin pill (y 40, h 96), level pill (y 152, h 112: footprints + moves, divider, three stars 44 with thresholds 30 below them), day/night pill (y 280, h 88) only when the level has day/night.
-- Gear disc 112 at the top-right (x 928, y 40).
-- Goal house centred at x 540, at most 260 wide, hanging from its rope; goal badges in one centred row 24 px under the house, rings 104, 24 px apart.
-- Bottom toolbar: cream bar centred, tool discs 128 with stock badges, 48 px from the bottom.
-- Side trees: complete trees standing at both screen edges (never cropped strips or straight poles); every branch grows out of its tree through a bark collar.
+| Token | Fill | Bottom edge | Use |
+| --- | --- | --- | --- |
+| cream | #FFF7E8 | #E9D6B0 | panels, cards, counters, neutral buttons |
+| green | #6CC24A | #4C9631 | primary action |
+| orange | #FFA53C | #DA7A14 | secondary action, tools |
+| blue | #5DB9EE | #3C93C9 | selected tab, information |
+| red | #EF5548 | #C23A2F | count badges |
+| ink | #5A3A1E | | words and numbers on cream |
+| white | #FFFFFF | | icons, words and numbers on coloured fills |
+| dim | #1E2A1A at 55 percent | | behind popups |
 
-## 7. Map
-- A soft top shade (dark green to transparent, y 0-280) behind the HUD so path nodes passing under it never fight the HUD. Coin pill top-left, world title ribbon centred at the top (480 wide), both on the shade.
-- Nodes: number centred inside the node at cap 52 (`cream`); locked nodes show the number and a small padlock badge (56) at the node's bottom-right, both inside the node; cleared nodes show three small stars along the node's lower rim.
-- Current node: larger node, live bird standing on it at 70 % of the node width.
-- Bottom nav bar 160 tall, 48 from the bottom, three discs 128 evenly spaced.
+## Shapes (drawn by code, `UI` kit)
 
-## 8. Shop and aviary
-Same pills, buttons, numbers and ribbons as above; cards keep 24 px gutters; item pictures fit inside their card's picture area without stretching.
+- Every shape is a rounded flat fill with a darker bottom edge (cartoon thickness) and one soft shadow
+  (offset 0,8; blur 24; 18 percent black). No outlines, no gradients, no texture.
+- Panel: radius 56, bottom edge 12. Popup panels are 864 wide (centred, x 108 to 972); their height follows content.
+- Card: radius 40, bottom edge 10.
+- Counter: full pill, height 96, bottom edge 8; icon 72 at the left inside, number cap height 44 in ink.
+- Buttons are circles with a bottom edge of 10 and a white icon at 56 percent of the diameter:
+  primary 160 (green), secondary 128 (orange, or cream with an ink icon for neutral actions such as undo, close,
+  settings). Primary is 1.25 times secondary, the maximum allowed. A pressed button sinks by its bottom edge.
+- Badge: red circle 56 at the button's upper right (45 degrees on the rim), white number cap height 30.
 
-## 9. Window
-Design space 1080x1920, stretch `canvas_items`, aspect `keep` (letterbox in the dark forest-green clear colour), desktop window 468x832 so it fits a laptop screen without being resized.
+## Lettering
+
+- Words are painted label sprites built from the painted lettering sheet (`tools/kit/letters_white.png`) by
+  `tools/kit/build_words.py` into `art/words/word_<slug>.png` (white with alpha; the kit tints them ink or white).
+- Numbers are painted glyphs from the same sheet (`art/glyphs`), so words and numbers share one hand.
+- Cap heights: title 64, body 44, small 34. Numbers: large 72, medium 52, small 36.
+
+## Icons
+
+- One white icon family from `tools/kit/icons_white.png`, cut into `art/icons/icon_<name>.png`.
+- Coloured objects (coin, star, booster items, birds, houses, outfits) are illustrations, shown on cream cards or
+  circles, never on coloured buttons.
+
+## Screens
+
+- Board: the world painting fills the screen; the hanging house and goal rings at the top centre; top-left counters
+  for moves (with a three-star meter) and, in day/night levels, the sun count; settings (neutral secondary) at the
+  top right; tools as a row of secondary buttons with stock badges at the bottom, no bar behind them.
+- Popups: dim, one panel, a title word at the top inside the panel, one content block, buttons in a row centred
+  48 below the panel. Close (neutral secondary) sits on the panel's top-right corner when the popup can be dismissed.
+- Map: the painted world map; level nodes are cream circles with the number, the current node larger with its bird,
+  locked nodes dimmed with a lock; coins counter top left, world title top centre; shop, aviary and settings as
+  secondary buttons at the bottom.
+- Shop and aviary: a top bar (close, title word, coins), a row of three tab buttons where needed, and a two-column
+  grid of cream cards.
+
+## Motion
+
+- Buttons: press sinks 6 px over 0.06 s and springs back. Popups: dim fades in 0.2 s; the panel scales from 0.85 with a
+  back ease over 0.3 s. Counters bump to 1.1 and back when their number changes.
+- Birds always breathe and idle; scenes keep their ambient drift. Level entrance stays 3.5 to 4.5 seconds.

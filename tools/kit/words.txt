@@ -1,0 +1,115 @@
+# Data-driven phrases (names, items, captions). Code literals in UI.word(...) are collected automatically.
+Acorn
+Acorn Cap
+Add one branch
+Advance the Day Night Cycle
+Autumn Forest
+Aviary
+Aviator Goggles
+Bamboo Forest
+Bell
+Berry
+Best
+Blue Bow Tie
+Branches grow one seat
+Bring the Flock Together
+Cheerful always first to sing
+Cocoa
+Cozy Scarf
+Crow
+Daily Gift
+Day and night swap
+Dreamy calls the moon
+Earmuffs
+Ember
+Every egg hatches now
+Extra Branch
+Find a helpful move
+Firefly
+Flame Headband
+Flower
+Forest Trail
+Free move
+Gardener makes branches grow
+Graduation Cap
+Green Forest
+Grow branches fully
+Grows branches
+Grumpy scares crows away
+Hatch Then Gather
+Hatches every egg
+Hint
+Home
+Hoot
+Hot-headed cracks eggs open
+Ice Tiara
+Ink
+Knight Helmet
+Land anywhere
+Lantern
+Light on her feet takes a shortcut
+Little Crown
+Little Star Hat
+Mint
+Monocle
+Moonlit moves
+Morning Bell
+Mushroom
+Mushroom Cap
+Never goes home
+New Friend
+Next landing breaks the rules
+Next move is free
+Night owl flips the sky
+One free move
+Owl Eye
+Pink Bow
+Plaid Bow Tie
+Rain
+Reading Glasses
+Red Bandana
+Red Beanie
+Restart
+Reveal
+Reveals eggs
+Reveals every egg
+Round Glasses
+Sapling
+Scarecrow
+Scares nearby crows away
+See inside every egg
+Send crows away
+Sends crows away
+Settings
+Shoo
+Show-off loves an encore
+Shows every egg's secret
+Silver Glasses
+Sky
+Sleepy-eyed never in a hurry
+Snow
+Snow Forest
+Snowflake Clip
+Sound
+Sparkle Tiara
+Spring Rain
+Star Nightcap
+Straw Hat
+Sunny
+Switches day night
+Teapot
+Three moves of night
+Tiny Top Hat
+Trouble in black feathers
+Unknown
+Use the New Seats
+Wake Then Gather
+Wake sleeping birds
+Wakes all sleepers
+Wakes every sleeping bird
+Wakes sleepers
+Well done!
+Wizard Cape
+World Complete
+World Unlocked
+Zzz

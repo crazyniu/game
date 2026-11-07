@@ -89,7 +89,7 @@ func _header(on_close: Callable, title := "", title_w := TITLE_W) -> void:
 	var coin := Rect2(MARGIN, MARGIN + (HUD_PILL_H - COIN_ICON) * 0.5, COIN_ICON, COIN_ICON)
 	UI.panel(_page, "stat_pill", Rect2(coin.get_center().x, MARGIN, COIN_ICON * 0.5 + 24.0 + number_w + 28.0, HUD_PILL_H))
 	UI.art(_page, "coin", coin)
-	_coin_number = UI.number(_page, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), "brown", -1)
+	_coin_number = UI.number(_page, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), UI.INK, -1)
 	UI.disc(_page, "Close", Rect2(1080.0 - MARGIN - CLOSE_DISC, MARGIN, CLOSE_DISC, CLOSE_DISC), "icon_close", on_close, "btn_wood", 0.5)
 	if not title.is_empty():
 		var used := UI.used_rect(title)
