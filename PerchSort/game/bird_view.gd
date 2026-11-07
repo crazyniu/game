@@ -18,7 +18,7 @@ const IDLE_WEIGHTS := [30, 14, 10, 8, 6, 4, 4, 4, 3, 3, 3, 3, 3, 3]
 const ACTION_NAMES := ["blink", "turn", "preen", "flap", "hop"]
 const POSE_FIRST := 5
 ## Fraction of each painted frame's time spent crossfading into the next one.
-const FADE := 0.5
+const FADE := 0.35
 ## Idle coordination: minimum time between any two idle starts, and the pause a branch keeps after an action.
 const START_GAP := 0.22
 const BRANCH_REST := 0.3
@@ -40,6 +40,8 @@ static var _clock_frame := -1
 static var _now := 0.0
 static var _last_start := -10.0
 static var _branch_free := {}   # branch key -> shared clock time when its next bird may start an idle action
+static var _oldest_due := INF   # earliest due time among birds ready to start last frame (first come, first served)
+static var _next_oldest := INF
 static var _log := false
 
 var code := 0
@@ -81,6 +83,7 @@ var _settle_tween: Tween
 var _last_action := -1
 var _clock := 0.0
 var _glance := 0
+var _due := -1.0          # shared clock time this bird became ready for its next idle action, -1 while not due
 
 
 func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key := "") -> void:
@@ -298,6 +301,8 @@ static func _tick(delta: float) -> float:
 	if frame != _clock_frame:
 		_clock_frame = frame
 		_now += delta
+		_oldest_due = _next_oldest
+		_next_oldest = INF
 	return _now
 
 func _branch_key() -> String:
@@ -329,16 +334,23 @@ func _process(delta: float) -> void:
 		_zzz.scale = Vector2.ONE * 0.6 * (1.0 + 0.7 * pulse)
 		if _nudge >= 0.0:
 			_zzz.modulate.a = 1.0
-	if acting or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween:
+	if acting or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween or not is_visible_in_tree():
+		_due = -1.0
 		return
 	_next_idle -= delta
 	if _next_idle > 0.0:
 		return
-	# One bird per branch at a time, and never two starts together anywhere: wait a little and try again.
+	# One bird per branch at a time, and never two starts together anywhere. Ready birds on a free branch queue
+	# for the next start slot; the one that has waited longest takes it.
 	var key := _branch_key()
-	if now - _last_start < START_GAP or float(_branch_free.get(key, -1.0)) > now:
-		_next_idle = randf_range(0.08, 0.3)
+	if float(_branch_free.get(key, -1.0)) > now:
 		return
+	if _due < 0.0:
+		_due = now
+	_next_oldest = minf(_next_oldest, _due)
+	if now - _last_start < START_GAP or _due > _oldest_due:
+		return
+	_due = -1.0
 	var action := _pick_idle()
 	var duration := _start_idle(action)
 	if action >= 0:
@@ -655,6 +667,9 @@ func cheer() -> void:
 		finished.emit()
 		return
 	acting = true
+	if _log:
+		print("BIRDLOG t=%.2f bird=%s@%d,%d branch=%s action=cheer dur=%.2f" % [_now, species, roundi(global_position.x),
+			roundi(global_position.y), _branch_key(), (frames.size() + 1) / 10.0])
 	var seq: Array = [_rest_frame()] + frames + [_rest_frame()]
 	var tw := create_tween()
 	tw.tween_method(func(t: float): _play(seq, (seq.size() - 1) * _ease(t)), 0.0, 1.0, (frames.size() + 1) / 10.0)
