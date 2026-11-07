@@ -1,6 +1,6 @@
 # Perch Sort · 小鸟归巢
 
-A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **40 fixed authored levels** across four sequential forest worlds (Green, Bamboo, Autumn, Snow), in a soft plush art style.
+A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **40 fixed authored levels** across four sequential forest worlds (Green, Bamboo, Autumn, Snow), in a clean cartoon style: one painted scene per world, a code-drawn UI kit and painted lettering (see docs/design/ui-system.md).
 
 ## Open the game
 

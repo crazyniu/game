@@ -2,7 +2,7 @@
 
 ## Identity and authority
 
-There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The game was rebuilt from the former Unity project, which now lives only in Git history; rules, levels, art and the approved plush UI direction were carried over unchanged.
+There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 40 fixed authored levels across four sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The game was rebuilt from the former Unity project, which now lives only in Git history; rules and levels were carried over unchanged. On 2026-11-07 the whole UI was rebuilt on the cartoon system in [docs/design/ui-system.md](design/ui-system.md): one painted scene per world with branch layers cut from it (`tools/scene`), a code-drawn shape kit, one icon family and one painted lettering sheet (`tools/kit`).
 
 ## Canonical-edit policy
 
@@ -10,7 +10,7 @@ There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatib
 - Task branches and PRs are temporary and merge into `main`; they are not permanent forks.
 - `python3 ci/check_current_game_names.py` must pass; it complements human review and runtime acceptance.
 
-[`art/approved_ui`](../art/approved_ui) holds the approved mockups (style direction). Visual acceptance is the user's approval of each clickable screen; approved runtime captures in `art/approved_runtime` are then the baseline. Measured mockup rects used at runtime live in `PerchSort/layout/*.json`.
+[`art/approved_ui`](../art/approved_ui) holds the approved mockups (style direction). Visual acceptance is the user's approval of each clickable screen; approved runtime captures in `art/approved_runtime` are then the baseline. Layout comes from the UI system, not from measured mockup rects.
 
 ## Read current behavior at its owner
 

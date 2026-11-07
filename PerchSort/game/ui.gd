@@ -1,12 +1,8 @@
 class_name UI
 extends RefCounted
-## Builders for the plush UI kit. All rects are design pixels [x, y, w, h], origin top-left of the parent.
-
-const PRESS_SCALE := 0.92
+## UI builders (docs/design/ui-system.md). All rects are design pixels, origin top-left of the parent.
 
 
-static func rect(r: Array) -> Rect2:
-	return Rect2(r[0], r[1], r[2], r[3])
 
 static func place(node: Control, r: Rect2) -> Control:
 	node.position = r.position
@@ -53,75 +49,6 @@ static func art(parent: Node, name: String, bounds: Rect2, content := Rect2()) -
 	t.pivot_offset = bounds.position - t.position + bounds.size * 0.5
 	parent.add_child(t)
 	return t
-
-## Nine-sliced surface; margins come from the sprite's measured inner rect (scaled by `border_scale`).
-static func panel(parent: Node, name: String, r: Rect2, border_scale := 1.0) -> NinePatchRect:
-	var p := NinePatchRect.new()
-	p.texture = Art.tex(name)
-	p.name = name
-	var m := Art.metrics(name)
-	if not m.is_empty():
-		var size: Array = m["size"]
-		var inner: Array = m["inner"]
-		p.patch_margin_left = int(inner[0]); p.patch_margin_top = int(inner[1])
-		p.patch_margin_right = int(size[0] - inner[0] - inner[2]); p.patch_margin_bottom = int(size[1] - inner[1] - inner[3])
-	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	place(p, r)
-	if border_scale != 1.0:
-		# Draw at a scaled-down resolution so the borders shrink with the panel.
-		p.size = r.size / border_scale
-		p.scale = Vector2.ONE * border_scale
-		p.pivot_offset = Vector2.ZERO
-	parent.add_child(p)
-	return p
-
-## Round disc button with an icon; press scales to 0.92 with easing. Disabled = dimmed, same size.
-static func disc(parent: Node, name: String, r: Rect2, icon: String, on_press: Callable, base := "btn_wood", icon_ratio := 0.54) -> Button:
-	var b := Button.new()
-	b.name = name
-	b.flat = true
-	b.focus_mode = Control.FOCUS_NONE
-	var empty := StyleBoxEmpty.new()
-	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
-		b.add_theme_stylebox_override(state, empty)
-	place(b, r)
-	var bg := TextureRect.new()
-	bg.name = "Base"
-	bg.texture = Art.tex(base)
-	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bg.size = r.size
-	b.add_child(bg)
-	if not icon.is_empty():
-		var s := r.size * icon_ratio
-		var ic := TextureRect.new()
-		ic.name = "Icon"
-		ic.texture = Art.tex(icon)
-		ic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		ic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		ic.position = (r.size - s) * 0.5
-		ic.size = s
-		b.add_child(ic)
-	make_pressable(b, on_press)
-	parent.add_child(b)
-	return b
-
-static func make_pressable(b: BaseButton, on_press: Callable) -> void:
-	b.button_down.connect(func():
-		var tw := b.create_tween()
-		tw.tween_property(b, "scale", Vector2.ONE * PRESS_SCALE, 0.08).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD))
-	b.button_up.connect(func():
-		var tw := b.create_tween()
-		tw.tween_property(b, "scale", Vector2.ONE, 0.18).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK))
-	b.pressed.connect(func():
-		Sound.play("ui_tap")
-		on_press.call())
-
-static func set_enabled(b: BaseButton, enabled: bool) -> void:
-	b.disabled = not enabled
-	b.modulate = Color.WHITE if enabled else Color(1, 1, 1, 0.45)
 
 ## Transparent full-rect click catcher.
 static func hit_area(parent: Node, r: Rect2, on_press: Callable) -> Button:

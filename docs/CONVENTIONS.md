@@ -11,7 +11,7 @@ One game, one version. Godot 4.7.2 (GDScript), portrait, 40 authored levels in f
 6. Branches are temporary and follow rule 1 (for example `bird-idle`, `popup-layering`); delete them after merge. Commits and PR titles say what changed in plain words.
 
 ## 2. Repository layout
-- `PerchSort/` Godot project: `core/` pure rules and solver, `meta/` profile/economy policies, `game/` screens, animation, navigation and audio, `art/ birds/ world/ audio/` assets, `levels/levels.json`, `layout/` measured mockup rects, `tests/`. `game/main.tscn` is the only scene.
+- `PerchSort/` Godot project: `core/` pure rules and solver, `meta/` profile/economy policies, `game/` screens, animation, navigation and audio, `art/ birds/ world/ audio/` assets, `levels/levels.json`, `tests/`. `game/main.tscn` is the only scene.
 - `art/approved_ui/` approved mockups and measured layout: the style direction. Originals are never edited; derived files are new files.
 - `art/approved_runtime/` runtime captures of user-approved UI screens: the visual acceptance baseline.
 - `docs/` documentation (`docs/work-log/<topic>/{spec.md,report.md,evidence/}` for every feature, one directory per subject, no numbering); `ci/`, `scripts/`, `tools/` automation. `build/` is generated output and is never committed.
