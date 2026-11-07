@@ -19,7 +19,15 @@ File changed: `PerchSort/game/map_view.gd` (rewritten on the cartoon kit). No ot
   Same kind, same size everywhere. Tap areas cover node, stars and bird.
 - Top bar (fixed): world title word (cap 40, as in the approved `map_screen()`) in a cream pill 96 high at
   x 48, y 56; coins counter (`UI.counter` with the coin art) right-aligned to x 1032. The title follows the world
-  in view. A subtle shade (32 percent at the top, clear at 240) sits under them.
+  in view.
+- Fades: soft gradients in the painting's own colour behind the top bar (y 0..200, up to 62 percent at the edge) and
+  the bottom button row (y 1660..1920, up to 78 percent), eased so there is no band edge. Their colour follows the
+  painting under each fade (each world's mean grass colour darkened to 45 percent, blended across the seams), so
+  nodes passing under the bars read as behind.
+- Scroll range: clamped so that at either end the end node rests fully clear of both fades with 16 px air: level 40
+  (bird top included) at y >= 216, level 1 (stars included) at y <= 1644. Top room 96, bottom room 87 (derived in
+  `TOP_PAD` / `BOTTOM_PAD`). Measured: level 40 centre at y 456 in `all_cleared`, level 1 lowest edge at y 1614 in
+  `first_level`.
 - Bottom: shop (orange, icon shop), aviary (orange, icon aviary), settings (cream, icon gear), `UI.button`
   secondaries 128, centred on y 1792 at x 340 / 540 / 740. No bar.
 - World gates: the gate art and behaviour are unchanged (open arch with light and swung doors, closed arch, tap
@@ -35,8 +43,7 @@ sprite's visible pixels), `_strip` / `_overscroll_top` / `_overscroll_bottom`, `
 ## Verification
 
 - `godot --headless --path PerchSort --import`, then `godot --headless --path PerchSort --audio-driver Dummy -- --smoke`:
-  `smoke checks: 0 failures`. Script errors all come from `BoardView` (worlds 3 and 4 slots missing, expected); the
-  exit leak warnings are identical with the previous map_view.gd.
+  `smoke checks: 0 failures`, no script errors (on top of the world 3 and 4 scenes).
 - `python3 tools/kit/build_words.py --check`: `missing word sprites: []`.
 - `python3 ci/check_current_game_names.py`: 0 violations.
 - `bash scripts/screenshots.sh map_view`: failed=0. Captures `build/screens/map_view__{forest_trail,first_level,
@@ -49,9 +56,8 @@ sprite's visible pixels), `_strip` / `_overscroll_top` / `_overscroll_bottom`, `
 
 ## Open points
 
-- Scrolling nodes pass under the fixed top bar and the bottom buttons at some positions (e.g. level 35 behind the
-  shop button in `all_cleared`); that is inherent to a fixed bar over a scrolling map. The old bottom shade was
-  dropped per "no bar behind them".
+- Mid-scroll, nodes still pass under the top bar and the bottom buttons (unavoidable with fixed bars); the fades dim
+  them so they read as behind.
 - `gate_tapped` is not connected in `main.gd` (unchanged; out of this task's ownership).
 - `all_cleared` has no current node, so no bird on the map in that state (as before).
 - Not yet reviewed or approved by the user.
