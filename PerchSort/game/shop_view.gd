@@ -1,13 +1,17 @@
 extends Control
-## Shop (docs/design/ui-system.md): top bar (close, title, coins), three tabs, a two-column grid of cream cards and
-## a purchase confirm popup. Words are localized painted labels and numbers use the shared painted glyphs.
+## Shop (docs/design/ui-system.md): top bar (close, title, coins), three painted picture tabs, a two-column grid of
+## cream cards and a purchase confirm popup. Boosters carry a one-line caption of what they do. The outfits tab is a
+## grid of bird kinds; a met kind opens that bird's outfit page (the aviary's detail page) above the shop. Words are
+## localized painted labels and numbers use the shared painted glyphs.
 
 signal closed
 signal profile_changed
 
+const AviaryScript := preload("res://game/aviary_view.gd")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
-const TAB_ICONS := ["bulb", "hanger", "aviary"]
+const TAB_ART := ["tab_boosters", "tab_outfits", "tab_houses"]   # full-colour pictures on the round tab
 const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
+const TAB_PICTURE := 96.0
 const PER_PAGE := 4
 const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
@@ -21,12 +25,28 @@ const TAB_GAP := 48.0
 const GRID_TOP := 384.0
 const GAP := 32.0
 const CARD_W := (1080.0 - MARGIN * 2.0 - GAP) * 0.5
-const CARD_H := {Shop.BOOSTER: 448.0, Shop.OUTFIT: 608.0, Shop.HOUSE: 608.0}
+const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 608.0}
 const CARD_RADIUS := 40.0
 const CARD_EDGE := 10.0
 const CARD_PAD := 32.0
 const NAME_CAP := 40.0
 const PIC_TOP := 120.0
+const CAPTION := Rect2(24, 88, 428, 48)   # booster card: what it does, under the name
+const CAPTION_CAP := 28.0
+const BOOSTER_PIC_TOP := 148.0
+const POPUP_CAPTION := 72.0               # booster buy popup: the same caption under the title
+const POPUP_CAPTION_CAP := 44.0
+## Outfits tab: three columns of bird kinds (every species with outfits), all on one page.
+const KIND_COLUMNS := 3
+const KIND_GAP := 24.0
+const KIND_W := (1080.0 - MARGIN * 2.0 - KIND_GAP * (KIND_COLUMNS - 1)) / KIND_COLUMNS
+const KIND_H := 456.0
+const KIND_BIRD := Rect2(28, 28, 256, 256)
+const KIND_NAME := Rect2(16, 292, 280, 72)
+const KIND_NAME_CAP := 44.0
+const KIND_COUNT_Y := 404.0               # centre of the hanger + owned/total row
+const KIND_COUNT_CAP := 40.0
+const KIND_HANGER := 52.0
 const PILL := Vector2(240, 96)            # price, equip button and equipped marker share this slot
 const PILL_BOTTOM := 40.0                 # card bottom (with its edge) to the pill bottom
 const PILL_EDGE := 8.0
@@ -61,6 +81,7 @@ var _minus: Button
 var _plus: Button
 var _purchase_button: Button
 var _purchase_contents: Control
+var _outfit_page: Control   # a bird's outfit page opened from the outfits tab
 
 
 ## LineEdit handles keyboard input; only the existing painted digits are visible.
@@ -196,16 +217,18 @@ func _refresh() -> void:
 	_build_coins()
 	for node in [_tabs, _grid]:
 		for c in node.get_children():
+			node.remove_child(c)   # rebuilt cards keep their names
 			c.queue_free()
 	var x := 540.0 - (TABS.size() - 1) * (UI.SECONDARY + TAB_GAP) * 0.5
 	for i in TABS.size():
-		var index := i
-		UI.button(_tabs, TAB_NAMES[i], Vector2(x + i * (UI.SECONDARY + TAB_GAP), TAB_Y), "blue" if i == tab else "cream",
-			TAB_ICONS[i], func(): _select_tab(index))
+		_tab_button(i, Vector2(x + i * (UI.SECONDARY + TAB_GAP), TAB_Y))
+	if TABS[tab] == Shop.OUTFIT:
+		_kind_cards()
+		return
 	var items := _items(TABS[tab])
-	var pages := ceili(items.size() / float(PER_PAGE)) if TABS[tab] != Shop.BOOSTER else 1
+	var pages := ceili(items.size() / float(PER_PAGE)) if TABS[tab] == Shop.HOUSE else 1
 	page = clampi(page, 0, pages - 1)
-	var shown := items if TABS[tab] == Shop.BOOSTER else items.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE)
+	var shown := items if pages == 1 else items.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE)
 	for n in shown.size():
 		_card(shown[n], n)
 	if pages > 1:
@@ -229,20 +252,28 @@ func _build_coins() -> void:
 		tw.tween_property(_coins, "scale", Vector2.ONE * 1.1, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(_coins, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+## Round tab with its painted picture: blue behind the selected tab, cream behind the others; same size in every state.
+func _tab_button(i: int, center: Vector2) -> Button:
+	var b := UI.button(_tabs, TAB_NAMES[i], center, "blue" if i == tab else "cream", "", func(): _select_tab(i))
+	var side := UI.SECONDARY
+	var pic := UI.art(b, TAB_ART[i], Rect2(Vector2(side - TAB_PICTURE, side - TAB_PICTURE - 10.0) * 0.5, Vector2.ONE * TAB_PICTURE))
+	pic.name = "Picture"
+	b.button_down.connect(func(): pic.position.y += 6.0)
+	b.button_up.connect(func(): pic.position.y -= 6.0)
+	return b
+
 func _select_tab(i: int) -> void:
 	if i != tab:
 		tab = i
 		page = 0
 		_refresh()
 
-## Single boosters; outfits by tier then species so the first page shows one tier-1 outfit per species.
+## Single boosters, or the houses.
 func _items(kind: int) -> Array:
 	var out := []
 	for it in Shop.catalog():
 		if it["kind"] == kind and (kind != Shop.BOOSTER or it["quantity"] == 1):
 			out.append(it)
-	if kind == Shop.OUTFIT:
-		out = [1, 2, 3].reduce(func(acc, tier): return acc + out.filter(func(it): return it["index"] == tier), [])
 	return out
 
 func _build_pager(pages: int) -> void:
@@ -294,10 +325,14 @@ func _card(it: Dictionary, n: int) -> void:
 	body.size = cs
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(body)
-	UI.label(body, _name_id(it), Rect2(CARD_PAD, 24, cs.x - CARD_PAD * 2.0, 80), NAME_CAP)
+	UI.label(body, _name_id(it), Rect2(CARD_PAD, 24, cs.x - CARD_PAD * 2.0, 80 if kind != Shop.BOOSTER else 64), NAME_CAP)
+	var top := PIC_TOP
+	if kind == Shop.BOOSTER:
+		UI.label(body, _caption_id(it), CAPTION, CAPTION_CAP, Color(UI.INK, 0.85)).name = "Caption"
+		top = BOOSTER_PIC_TOP
 	var slot := Rect2(Vector2((cs.x - PILL.x) * 0.5, cs.y - PILL_BOTTOM - PILL.y), PILL)
-	var pic := Rect2(CARD_PAD, PIC_TOP, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - PIC_TOP)
-	_picture(body, it, pic, n)
+	var pic := Rect2(CARD_PAD, top, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - top)
+	_picture(body, it, pic)
 	if _equipped(it):
 		var mark := UI.shape(body, Rect2(slot.get_center() - Vector2.ONE * MARK * 0.5, Vector2.ONE * MARK), "green", MARK * 0.5, 6.0, false)
 		mark.name = "Equipped"
@@ -318,23 +353,27 @@ func _card(it: Dictionary, n: int) -> void:
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
 		UI.icon(card, "lock", pic.get_center(), LOCK, UI.INK).name = "Lock"
-	if not instant:
-		card.modulate.a = 0.0
-		card.scale = Vector2.ONE * 0.94
-		var tw := card.create_tween().set_parallel()
-		tw.tween_property(card, "modulate:a", 1.0, 0.18).set_delay(n * 0.04)
-		tw.tween_property(card, "scale", Vector2.ONE, 0.26).set_delay(n * 0.04).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_pop_in(card, n)
 
-## Item picture: booster illustration, the bird wearing the outfit (live), or the house illustration.
-func _picture(parent: Node, it: Dictionary, box: Rect2, n: int) -> void:
-	match it["kind"]:
-		Shop.BOOSTER:
-			var side := minf(box.size.x, box.size.y)
-			UI.art(parent, "booster_%s_illus" % BOOSTER_ILLUS[it["booster"]], Rect2(box.get_center() - Vector2.ONE * side * 0.5, Vector2.ONE * side))
-		Shop.OUTFIT:
-			_bird(parent, it["species"], "%s_outfit_%d" % [it["species"], it["index"]], box.grow(-16.0), n * 0.6)
-		_:
-			UI.art(parent, "house_style_%s_body" % it["style"], box.grow(-8.0))
+func _pop_in(card: Control, n: int) -> void:
+	if instant:
+		return
+	card.modulate.a = 0.0
+	card.scale = Vector2.ONE * 0.94
+	var tw := card.create_tween().set_parallel()
+	tw.tween_property(card, "modulate:a", 1.0, 0.18).set_delay(n * 0.04)
+	tw.tween_property(card, "scale", Vector2.ONE, 0.26).set_delay(n * 0.04).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+func _caption_id(it: Dictionary) -> String:
+	return "booster.%s.description" % BOOSTER_LABEL[it["booster"]]
+
+## Item picture: booster illustration or house illustration (outfits are shown on the bird's own page).
+func _picture(parent: Node, it: Dictionary, box: Rect2) -> void:
+	if it["kind"] == Shop.BOOSTER:
+		var side := minf(box.size.x, box.size.y)
+		UI.art(parent, "booster_%s_illus" % BOOSTER_ILLUS[it["booster"]], Rect2(box.get_center() - Vector2.ONE * side * 0.5, Vector2.ONE * side))
+	else:
+		UI.art(parent, "house_style_%s_body" % it["style"], box.grow(-8.0))
 
 ## Pill-shaped button in a card slot; a press sinks it by its edge.
 func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Callable) -> Button:
@@ -390,6 +429,98 @@ func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: flo
 	return bird
 
 
+# ---------------------------------------------------------------- outfits tab: bird kinds
+
+## Species that wear outfits, in aviary order (the crow has none).
+static func outfit_species() -> Array:
+	var out := []
+	for card in Aviary.SPECIES:
+		if card[0] != "crow":
+			out.append(card[0])
+	return out
+
+## Owned outfits of a species, counting the plain look that every bird has.
+func owned_outfits(species: String) -> int:
+	var owned := 1
+	for index in range(1, 4):
+		if profile.owns_outfit("outfit.%s.%d" % [species, index]):
+			owned += 1
+	return owned
+
+func _kind_cards() -> void:
+	var kinds := outfit_species()
+	for n in kinds.size():
+		var at := Vector2(MARGIN + (n % KIND_COLUMNS) * (KIND_W + KIND_GAP), GRID_TOP + (n / KIND_COLUMNS) * (KIND_H + KIND_GAP))
+		_kind_card(kinds[n], Rect2(at, Vector2(KIND_W, KIND_H)), n)
+
+## A met kind: the bird in its current outfit, its name and owned/total outfits; tapping opens its outfit page.
+## An unmet kind: a breathing silhouette with a question mark; a tap only squashes the card.
+func _kind_card(species: String, r: Rect2, n: int) -> void:
+	var card := UI.shape(_grid, r, "cream", CARD_RADIUS, CARD_EDGE)
+	card.name = "Kind_" + species
+	var met := profile.has_met(species)
+	if met:
+		var current: String = profile.equipped.get(species, "")
+		var outfit := "" if current.is_empty() else "%s_outfit_%s" % [species, current.get_slice(".", 2)]
+		_bird(card, species, outfit, KIND_BIRD, n * 0.45)
+		UI.label(card, "bird.%s.name" % species, KIND_NAME, KIND_NAME_CAP).name = "Name"
+		var text := "%d/4" % owned_outfits(species)
+		var num_w := UI.number_width(text, KIND_COUNT_CAP)
+		var x := (KIND_W - (KIND_HANGER + 12.0 + num_w)) * 0.5
+		UI.icon(card, "hanger", Vector2(x + KIND_HANGER * 0.5, KIND_COUNT_Y), KIND_HANGER, UI.INK).name = "Hanger"
+		UI.number(card, text, Rect2(x + KIND_HANGER + 12.0, KIND_COUNT_Y - KIND_COUNT_CAP * 0.5, num_w + 2.0, KIND_COUNT_CAP),
+			UI.INK, -1).name = "Owned"
+	else:
+		AviaryScript._silhouette(card, species, KIND_BIRD)
+		var q := UI.number(card, "?", Rect2(KIND_BIRD.get_center().x - 60.0, KIND_BIRD.get_center().y - 72.0, 120.0, 160.0),
+			Color.WHITE)
+		q.name = "Question"
+	var hit := UI.hit_area(card, Rect2(Vector2.ZERO, r.size), func(): _tap_kind(species, card))
+	hit.name = "Open" if met else "Unmet"
+	_pop_in(card, n)
+
+func _tap_kind(species: String, card: Control) -> void:
+	card.pivot_offset = card.size * 0.5
+	var tw := card.create_tween()
+	tw.tween_property(card, "scale", Vector2.ONE * 0.95, 0.06).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(card, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if not profile.has_met(species) or _outfit_page != null:
+		return
+	Sound.play("ui_tap")
+	if instant:
+		open_outfits(species)
+	else:
+		get_tree().create_timer(0.12).timeout.connect(func(): if _outfit_page == null: open_outfits(species))
+
+## The aviary's detail page for one bird (equip, buy, preview) over the shop; its Back returns here.
+func open_outfits(species: String) -> Control:
+	var page: Control = AviaryScript.new()
+	page.name = "BirdOutfits"
+	page.instant = instant
+	add_child(page)
+	page.setup(profile, species)
+	page.profile_changed.connect(func(): profile_changed.emit())
+	page.closed.connect(_close_outfits)
+	_outfit_page = page
+	if not instant:
+		page.modulate.a = 0.0
+		page.create_tween().tween_property(page, "modulate:a", 1.0, 0.18)
+	return page
+
+func _close_outfits() -> void:
+	if _outfit_page == null:
+		return
+	var page := _outfit_page
+	_outfit_page = null
+	_refresh()   # owned counts, worn outfits and coins
+	if instant:
+		page.queue_free()
+		return
+	var tw := page.create_tween()
+	tw.tween_property(page, "modulate:a", 0.0, 0.16)
+	tw.tween_callback(page.queue_free)
+
+
 # ---------------------------------------------------------------- purchase flow
 
 func _tap(it: Dictionary) -> void:
@@ -411,14 +542,19 @@ func _confirm(it: Dictionary) -> void:
 	var repeatable: bool = it["kind"] == Shop.BOOSTER
 	_quantity_limit = maxi(1, profile.coins / int(it["price"])) if repeatable else 1
 	var picture_size := POPUP_PIC if repeatable else SINGLE_PIC
-	var heights := [picture_size, UI.SECONDARY, BUY_SIZE.y] if repeatable else [picture_size, BUY_SIZE.y]
+	var heights := [POPUP_CAPTION, picture_size, UI.SECONDARY, BUY_SIZE.y] if repeatable else [picture_size, BUY_SIZE.y]
 	_modal = Modal.open(self, _name_id(it), heights, true, 0.0, 0.0, instant)
 	var c := _modal.content
 	var ys: Array = _modal.get_meta("ys")
-	var pic := Rect2(540.0 - picture_size * 0.5, ys[0], picture_size, picture_size)
-	_picture(c, it, pic, 0)
+	var row := 0
 	if repeatable:
-		_quantity_row(c, ys[1])
+		var inner := Rect2(_modal.panel_rect.position.x + 48.0, ys[0], _modal.panel_rect.size.x - 96.0, POPUP_CAPTION)
+		UI.label(c, _caption_id(it), inner, POPUP_CAPTION_CAP).name = "Caption"
+		row = 1
+	var pic := Rect2(540.0 - picture_size * 0.5, ys[row], picture_size, picture_size)
+	_picture(c, it, pic)
+	if repeatable:
+		_quantity_row(c, ys[row + 1])
 		_modal.closed.connect(_quantity_input.release_focus)
 	_purchase_button = _pill_button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, ys[-1]), BUY_SIZE), "orange",
 		func(): _modal.invoke(func(): _buy(it, _quantity)))
@@ -489,19 +625,21 @@ static func preview(main: Control, state: String) -> void:
 	p.inventory = PackedInt32Array([3, 2, 1, 1, 0, 0])
 	var start := 0
 	match state:
-		"outfits":
-			p.coins = 1240
-			p.outfits = {"outfit.sky.1": true, "outfit.mint.1": true}
-			p.equipped = {"sky": "outfit.sky.1"}
+		"outfits", "outfits_some_unmet", "bird_outfits", "confirm_outfit", "confirm_outfit_short":
+			p.coins = 120 if state == "confirm_outfit_short" else 1240
+			p.met = {}
+			for species in ["sunny", "sky", "berry", "mint", "cocoa", "snow", "ember", "crow", "ink", "hoot"]:
+				p.met[species] = true
+			if state == "outfits_some_unmet":
+				p.met = {"sunny": true, "sky": true, "berry": true, "mint": true}
+			p.outfits = {"outfit.sky.1": true, "outfit.mint.1": true, "outfit.berry.1": true, "outfit.berry.2": true}
+			p.equipped = {"sky": "outfit.sky.1", "berry": "outfit.berry.2"}
 			start = 1
 		"houses":
 			p.coins = 1240
 			p.houses = {"teapot": true, "acorn": true}
 			p.equipped_house = "teapot"
 			start = 2
-		"confirm_outfit":
-			p.coins = 1240
-			start = 1
 		"confirm_multiple", "confirm_maximum":
 			p.coins = 1240
 		"locked_tools":
@@ -518,8 +656,11 @@ static func preview(main: Control, state: String) -> void:
 	match state:
 		"confirm_booster", "insufficient":
 			view._confirm(Shop.item("booster.firefly"))
-		"confirm_outfit":
-			view._confirm(Shop.item("outfit.berry.1"))
+		"bird_outfits":
+			view.open_outfits("berry")
+		"confirm_outfit", "confirm_outfit_short":
+			var page: Control = view.open_outfits("berry")
+			page._confirm_outfit("outfit.berry.3", 3, page._tiles.get_child(3))
 		"confirm_multiple", "confirm_maximum":
-			view._confirm(Shop.item("booster.owl_eye"))
+			view._confirm(Shop.item("booster.owlEye"))
 			view._quantity_input.set_value(5 if state == "confirm_multiple" else view._quantity_limit)

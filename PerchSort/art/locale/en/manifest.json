@@ -207,7 +207,7 @@
       "baseline": 160
     },
     "booster.firefly.description": {
-      "text": "Find a helpful move",
+      "text": "Shows a good move",
       "file": "label_booster_firefly_description.png",
       "cap": 128,
       "line_height": 208,
@@ -221,7 +221,7 @@
       "baseline": 160
     },
     "booster.sapling.description": {
-      "text": "Add one branch",
+      "text": "Adds one branch",
       "file": "label_booster_sapling_description.png",
       "cap": 128,
       "line_height": 208,
@@ -235,7 +235,7 @@
       "baseline": 160
     },
     "booster.owl_eye.description": {
-      "text": "Reveals eggs",
+      "text": "Peeks inside the eggs",
       "file": "label_booster_owl_eye_description.png",
       "cap": 128,
       "line_height": 208,
@@ -249,7 +249,7 @@
       "baseline": 160
     },
     "booster.morning_bell.description": {
-      "text": "Wake sleeping birds",
+      "text": "Wakes sleeping birds",
       "file": "label_booster_morning_bell_description.png",
       "cap": 128,
       "line_height": 208,
@@ -263,7 +263,7 @@
       "baseline": 160
     },
     "booster.scarecrow.description": {
-      "text": "Send crows away",
+      "text": "Sends the crows away",
       "file": "label_booster_scarecrow_description.png",
       "cap": 128,
       "line_height": 208,
@@ -277,7 +277,7 @@
       "baseline": 160
     },
     "booster.spring_rain.description": {
-      "text": "Grow branches fully",
+      "text": "Lets branches grow",
       "file": "label_booster_spring_rain_description.png",
       "cap": 128,
       "line_height": 208,
