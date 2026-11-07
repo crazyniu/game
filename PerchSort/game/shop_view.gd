@@ -11,8 +11,9 @@ const BirdViewScript := preload("res://game/bird_view.gd")
 const PER_PAGE := 4
 const BOOSTER_KEYS := ["hint", "branch", "reveal", "bell", "shoo", "rain"]
 const TOOL_ART := ["tool_hint", "tool_branch", "tool_owl_eye", "tool_bell", "tool_scarecrow", "tool_rain"]
-const BOOSTER_LABEL := ["label_card_hint", "label_card_extra_branch", "label_card_reveal", "label_card_bell",
-	"label_card_shoo", "label_card_rain"]
+# Booster cards use the same names as their unlock and confirm titles.
+const BOOSTER_LABEL := ["label_booster_firefly", "label_booster_sapling", "label_booster_owl_eye", "label_booster_morning_bell",
+	"label_booster_scarecrow", "label_booster_spring_rain"]
 const HOUSE_LABEL := {"mushroom": "label_card_mushroom", "teapot": "label_card_teapot", "lantern": "label_card_lantern",
 	"acorn": "label_card_acorn"}
 const OUTFIT_LABEL := {
