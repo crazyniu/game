@@ -111,6 +111,25 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 	parent.add_child(p)
 	return p
 
+## Painted full-colour pictures (tools/kit/pics, booster illustrations) that replace the white symbols wherever an
+## icon sits on cream or on a scene. White symbols remain only on solid green and red fills (play, check, close).
+const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
+	"back": "pic_back", "left": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
+	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
+	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
+	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "booster_hint_illus", "sapling": "booster_sapling_illus",
+	"eye": "booster_owl_eye_illus", "bell": "booster_bell_illus", "scarecrow": "booster_scarecrow_illus",
+	"rain": "booster_rain_illus"}
+
+## The painted picture for an icon drawn in `color`, or "" when the white symbol stays (white on a solid fill).
+## A faded star is the painted empty star.
+static func picture_of(name: String, color: Color) -> String:
+	if not PICTURES.has(name) or (color.r > 0.99 and color.g > 0.99 and color.b > 0.99):
+		return ""
+	if name == "star" and color.is_equal_approx(FADED):
+		return "pic_star_empty"
+	return PICTURES[name]
+
 const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell", "sun", "moon"]
 
 static func icon_texture(name: String) -> Texture2D:
@@ -128,6 +147,12 @@ static func icon_texture(name: String) -> Texture2D:
 static func icon(parent: Node, name: String, center: Vector2, size: float, color := Color.WHITE) -> TextureRect:
 	var bounds := Rect2(center - Vector2.ONE * size * 0.5, Vector2.ONE * size)
 	var t: TextureRect
+	var pic := picture_of(name, color)
+	if not pic.is_empty():
+		t = art(parent, pic, bounds)
+		t.name = "icon_" + name
+		t.modulate = Color(1, 1, 1, color.a)
+		return t
 	if name == "back":
 		t = art(parent, "icon_left", bounds)
 	elif name in CONTROL_ICONS or name in ["close", "feather"]:
@@ -149,6 +174,9 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 		size := -1.0) -> Button:
 	if size < 0.0:
 		size = PRIMARY if kind == "green" else SECONDARY
+	# Painted pictures sit on cream faces, so every secondary picture button reads as one family.
+	if kind == "orange" and PICTURES.has(icon_name):
+		kind = "cream"
 	var dimensions := PLAY_SIZE if icon_name == "play" else Vector2.ONE * size
 	var b := Button.new()
 	b.name = name
@@ -167,7 +195,8 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 			ic = label(b, "action.play", Rect2(32, 12, dimensions.x - 64.0, dimensions.y - 34.0), 48.0, Color.WHITE)
 			ic.name = "Label"
 		else:
-			ic = icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * 0.56, ink_on(kind))
+			var scale := 0.66 if not picture_of(icon_name, ink_on(kind)).is_empty() else 0.56
+			ic = icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * scale, ink_on(kind))
 			ic.name = "Icon"
 		b.button_down.connect(func(): ic.position.y += 6.0)
 		b.button_up.connect(func(): ic.position.y -= 6.0)
@@ -240,7 +269,7 @@ static func rating_stars(parent: Node, center: Vector2, size: float, gap: float,
 	var out := []
 	for i in count:
 		var star := TextureRect.new()
-		star.texture = load("res://art/icons/icon_rating_%s.svg" % ("filled" if i < filled else "empty"))
+		star.texture = Art.tex("pic_star" if i < filled else "pic_star_empty")
 		star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		star.mouse_filter = Control.MOUSE_FILTER_IGNORE

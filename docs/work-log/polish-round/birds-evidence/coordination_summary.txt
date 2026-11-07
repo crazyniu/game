@@ -1,0 +1,2 @@
+before_board starts 36 min gap 0.00 starts within one frame 13 same-branch overlaps 17
+after_board starts 21 min gap 0.25 starts within one frame 0 same-branch overlaps 0

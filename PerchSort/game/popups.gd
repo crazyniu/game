@@ -107,9 +107,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		mechanics: Array[String], on_play: Callable, playable: bool) -> Control:
 	var per_row := 4
 	var rows := ceili(species.size() / float(per_row))
-	var heights := [SMALL_STAR + 16.0 + LIMIT_CAP]
-	if best_moves > 0:
-		heights.append(LINE)
+	var heights := [SMALL_STAR, LINE]
 	if rows > 0:
 		heights.append(rows * RING + (rows - 1) * RING_GAP)
 	if not mechanics.is_empty():
@@ -118,21 +116,11 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var g := 0
-	# Stars earned so far, each with its move limit under it.
-	var limits := [str(par), str(par + 3), "∞"]
-	var stars := UI.stars(c, Vector2(540, ys[g] + SMALL_STAR * 0.5), SMALL_STAR, 60.0, best_stars)
-	for i in 3:
-		var at: Vector2 = stars[i].position + stars[i].size * 0.5
-		UI.number(c, limits[i], Rect2(at.x - 80.0, ys[g] + SMALL_STAR + 16.0, 160.0, LIMIT_CAP))
+	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
+	UI.stars(c, Vector2(540, ys[g] + SMALL_STAR * 0.5), SMALL_STAR, 40.0, best_stars)
 	g += 1
-	if best_moves > 0:
-		var label_w := minf(UI.label_width("popup.best", CAPTION_CAP), 420.0)
-		var w := label_w + 24.0 + UI.number_width(str(best_moves), 52.0)
-		var x := 540.0 - w * 0.5
-		UI.label(c, "popup.best", Rect2(x, ys[g], label_w, LINE), CAPTION_CAP)
-		UI.number(c, str(best_moves), Rect2(x + w - UI.number_width(str(best_moves), 52.0), ys[g] + (LINE - 52.0) * 0.5,
-			UI.number_width(str(best_moves), 52.0) + 2.0, 52.0), UI.INK, 1)
-		g += 1
+	_icon_line(c, ys[g], "moves", str(par))
+	g += 1
 	for i in species.size():
 		var in_row := mini(per_row, species.size() - (i / per_row) * per_row)
 		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (RING + RING_GAP),

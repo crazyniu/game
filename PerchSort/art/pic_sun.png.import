@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br4bshvcipi8x"
-path="res://.godot/imported/night_overlay.png-793d6f0b4714537d53b4793349908fb5.ctex"
+uid="uid://cqmm3vl7yb8if"
+path="res://.godot/imported/pic_sun.png-36ef24cc39012e46293773dd745265c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/night_overlay.png"
-dest_files=["res://.godot/imported/night_overlay.png-793d6f0b4714537d53b4793349908fb5.ctex"]
+source_file="res://art/pic_sun.png"
+dest_files=["res://.godot/imported/pic_sun.png-36ef24cc39012e46293773dd745265c5.ctex"]
 
 [params]
 

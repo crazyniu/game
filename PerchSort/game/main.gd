@@ -74,6 +74,8 @@ var ShopScreen: GDScript:
 	get: return load("res://game/shop_view.gd")
 var AviaryScreen: GDScript:
 	get: return load("res://game/aviary_view.gd")
+var Tutorial: GDScript:
+	get: return load("res://game/tutorial.gd")
 
 var _overlay: Control   # shop or aviary opened above the board
 
@@ -91,6 +93,7 @@ func _open_map() -> void:
 	map.shop_requested.connect(func(): open_shop(0))
 	map.aviary_requested.connect(open_aviary)
 	map.settings_requested.connect(func(): show_settings(false))
+	map.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	Sound.music("bgm_menu")
 
 func _offer_daily_gift() -> void:
@@ -229,6 +232,10 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		if info[2] == level_id and not profile.has_tutorial(flag):
 			profile.set_tutorial(flag)
 			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
+	# The first open of level 1 ends with the how-to-play steps, shown once.
+	if level_id == 1 and not profile.has_tutorial(Tutorial.FLAG):
+		profile.set_tutorial(Tutorial.FLAG)
+		queue.append(func(done: Callable): Tutorial.open(popups, done, instant()))
 	save()
 	if not queue.is_empty():
 		while entrance and is_instance_valid(board) and board.busy:

@@ -17,9 +17,11 @@ static func solve(start: Board, previous_move: Array = [], max_states := 100000,
 
 ## Interactive hints need a winning route, not an exhaustive shortest-path proof.
 ## Prefer consolidated flocks and fewer blockers; keep reversal in the same search with a small penalty.
-static func hint(start: Board, previous_move: Array = [], max_states := 24000, max_ms := 1500) -> Dictionary:
+## `cancel` ([false]) lets a background caller stop the search early by setting cancel[0] = true.
+static func hint(start: Board, previous_move: Array = [], max_states := 24000, max_ms := 1500, cancel: Array = []) -> Dictionary:
 	if start.is_won():
 		return {"status": Status.SOLVED, "moves": [], "continuation": {}}
+	var cancellable := not cancel.is_empty()
 	var deadline := Time.get_ticks_msec() + max_ms
 	var rules := Rules.new()
 	rules.track_economy = false
@@ -32,6 +34,8 @@ static func hint(start: Board, previous_move: Array = [], max_states := 24000, m
 	var visited := {start.search_key(false): true}
 	var frontier: Array[Vector2i] = [Vector2i(_hint_score(start), 0)]
 	while not frontier.is_empty():
+		if cancellable and cancel[0]:
+			return {"status": Status.BUDGET_EXCEEDED, "moves": []}
 		var cursor := _hint_pop(frontier)
 		var board := boards[cursor]
 		boards[cursor] = null
@@ -81,6 +85,37 @@ static func hint(start: Board, previous_move: Array = [], max_states := 24000, m
 					return {"status": Status.SOLVED, "moves": moves, "continuation": continuation}
 				_hint_push(frontier, Vector2i(depth + penalty + _hint_score(next), index))
 	return {"status": Status.UNSOLVABLE, "moves": []}
+
+## One-move suggestion when no full route was found in budget: the legal move whose result has the best
+## (lowest) hint score; a winning move first, and undoing the previous move only as a last resort.
+## Returns [from, to] ([b, -1] for a swivel), or [] when no legal move exists.
+static func best_move(start: Board, previous_move: Array = []) -> Array:
+	var rules := Rules.new()
+	rules.track_economy = false
+	var best: Array = []
+	var best_score := 0
+	var n := start.branch_count()
+	for from in n:
+		for to in n + 1:
+			var swivel := to == n
+			var target := -1 if swivel else to
+			if swivel:
+				if not Rules.can_swivel(start, from):
+					continue
+			elif not Rules.can_transfer(start, from, to):
+				continue
+			var next := start.clone(false)
+			if swivel:
+				rules.swivel(next, from, null)
+			else:
+				rules.transfer(next, from, to, null)
+			var score := -1000000 if next.is_won() else _hint_score(next)
+			if previous_move.size() == 2 and previous_move[1] >= 0 and from == previous_move[1] and target == previous_move[0]:
+				score += 24
+			if best.is_empty() or score < best_score:
+				best = [from, target]
+				best_score = score
+	return best
 
 static func _hint_score(board: Board) -> int:
 	var groups := 0

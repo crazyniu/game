@@ -1,0 +1,120 @@
+HINT_SEARCH level=1 result=search search_ms=354.3
+HINT_READY level=1 ready_after_start_ms=2292.7
+HINT level=1 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=2 result=search search_ms=6.9
+HINT_READY level=2 ready_after_start_ms=28.3
+HINT level=2 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=3 result=search search_ms=6.5
+HINT_READY level=3 ready_after_start_ms=583.0
+HINT level=3 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=4 result=search search_ms=20.5
+HINT_READY level=4 ready_after_start_ms=32.0
+HINT level=4 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=5 result=search search_ms=14.3
+HINT_READY level=5 ready_after_start_ms=42.8
+HINT level=5 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=6 result=search search_ms=15.3
+HINT_READY level=6 ready_after_start_ms=774.1
+HINT level=6 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=7 result=search search_ms=50.5
+HINT_READY level=7 ready_after_start_ms=90.7
+HINT level=7 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=8 result=search search_ms=45.4
+HINT_READY level=8 ready_after_start_ms=136.9
+HINT level=8 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=9 result=search search_ms=5.7
+HINT_READY level=9 ready_after_start_ms=593.0
+HINT level=9 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=10 result=search search_ms=60.5
+HINT_READY level=10 ready_after_start_ms=98.1
+HINT level=10 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=11 result=search search_ms=4.4
+HINT_READY level=11 ready_after_start_ms=399.5
+HINT level=11 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=12 result=search search_ms=18.6
+HINT_READY level=12 ready_after_start_ms=72.2
+HINT level=12 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=13 result=search search_ms=44.8
+HINT_READY level=13 ready_after_start_ms=81.7
+HINT level=13 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=14 result=search search_ms=4.2
+HINT_READY level=14 ready_after_start_ms=550.4
+HINT level=14 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=15 result=search search_ms=1.8
+HINT_READY level=15 ready_after_start_ms=48.0
+HINT level=15 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=16 result=search search_ms=32.0
+HINT_READY level=16 ready_after_start_ms=75.2
+HINT level=16 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=17 result=search search_ms=2560.9
+HINT_READY level=17 ready_after_start_ms=2603.4
+HINT level=17 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=18 result=search search_ms=17.8
+HINT_READY level=18 ready_after_start_ms=113.3
+HINT level=18 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=19 result=search search_ms=152.1
+HINT_READY level=19 ready_after_start_ms=714.7
+HINT level=19 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=20 result=search search_ms=520.8
+HINT_READY level=20 ready_after_start_ms=567.6
+HINT level=20 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=21 result=search search_ms=13.1
+HINT_READY level=21 ready_after_start_ms=930.5
+HINT level=21 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=22 result=search search_ms=53.0
+HINT_READY level=22 ready_after_start_ms=127.6
+HINT level=22 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=23 result=search search_ms=69.3
+HINT_READY level=23 ready_after_start_ms=138.2
+HINT level=23 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=24 result=search search_ms=19.4
+HINT_READY level=24 ready_after_start_ms=89.3
+HINT level=24 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=25 result=search search_ms=164.3
+HINT_READY level=25 ready_after_start_ms=224.4
+HINT level=25 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=26 result=search search_ms=215.3
+HINT_READY level=26 ready_after_start_ms=762.2
+HINT level=26 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=27 result=search search_ms=102.3
+HINT_READY level=27 ready_after_start_ms=196.8
+HINT level=27 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=28 result=search search_ms=5.4
+HINT_READY level=28 ready_after_start_ms=74.1
+HINT level=28 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=29 result=search search_ms=85.5
+HINT_READY level=29 ready_after_start_ms=161.0
+HINT level=29 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=30 result=search search_ms=4668.2
+HINT_READY level=30 ready_after_start_ms=4752.0
+HINT level=30 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=31 result=search search_ms=4.3
+HINT_READY level=31 ready_after_start_ms=355.0
+HINT level=31 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=32 result=search search_ms=101.5
+HINT_READY level=32 ready_after_start_ms=135.6
+HINT level=32 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=33 result=search search_ms=5.2
+HINT_READY level=33 ready_after_start_ms=528.2
+HINT level=33 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=34 result=search search_ms=428.8
+HINT_READY level=34 ready_after_start_ms=459.6
+HINT level=34 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=35 result=search search_ms=20.9
+HINT_READY level=35 ready_after_start_ms=69.4
+HINT level=35 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=36 result=search search_ms=34.1
+HINT_READY level=36 ready_after_start_ms=76.5
+HINT level=36 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=37 result=search search_ms=67.7
+HINT_READY level=37 ready_after_start_ms=121.8
+HINT level=37 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=38 result=search search_ms=105.8
+HINT_READY level=38 ready_after_start_ms=197.5
+HINT level=38 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=39 result=search search_ms=28.3
+HINT_READY level=39 ready_after_start_ms=116.4
+HINT level=39 moves=0 source=cached press_to_hand_ms=0.0
+HINT_SEARCH level=40 result=search search_ms=23.8
+HINT_READY level=40 ready_after_start_ms=93.8
+HINT level=40 moves=0 source=cached press_to_hand_ms=0.0

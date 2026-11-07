@@ -1,0 +1,38 @@
+== hint_timing 1
+HINT_SEARCH level=1 result=search search_ms=233.1
+HINT level=1 moves=0 source=cached press_to_hand_ms=0.0
+HINT level=1 moves=1 source=cached press_to_hand_ms=0.0
+== hint_timing 17
+HINT_SEARCH level=17 result=search search_ms=4076.3
+HINT level=17 moves=0 source=search press_to_hand_ms=3761.1
+HINT level=17 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=17 moves=2 source=cached press_to_hand_ms=0.0
+== hint_timing 30
+HINT_SEARCH level=30 result=search search_ms=5470.6
+HINT level=30 moves=0 source=search press_to_hand_ms=5228.7
+HINT level=30 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=30 moves=2 source=cached press_to_hand_ms=0.0
+== hint_timing 34
+HINT_SEARCH level=34 result=search search_ms=1531.6
+HINT level=34 moves=0 source=search press_to_hand_ms=1165.5
+HINT level=34 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=34 moves=2 source=cached press_to_hand_ms=0.0
+== hint_think 1
+HINT_SEARCH level=1 result=search search_ms=130.7
+HINT level=1 moves=0 source=cached press_to_hand_ms=0.0
+HINT level=1 moves=1 source=cached press_to_hand_ms=0.0
+== hint_think 17
+HINT_SEARCH level=17 result=search search_ms=3024.9
+HINT level=17 moves=0 source=cached press_to_hand_ms=0.0
+HINT level=17 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=17 moves=2 source=cached press_to_hand_ms=0.0
+== hint_think 30
+HINT_SEARCH level=30 result=search search_ms=5214.7
+HINT level=30 moves=0 source=cached press_to_hand_ms=0.0
+HINT level=30 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=30 moves=2 source=cached press_to_hand_ms=0.0
+== hint_think 34
+HINT_SEARCH level=34 result=search search_ms=1261.3
+HINT level=34 moves=0 source=cached press_to_hand_ms=0.0
+HINT level=34 moves=1 source=cached press_to_hand_ms=0.0
+HINT level=34 moves=2 source=cached press_to_hand_ms=0.0

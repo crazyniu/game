@@ -1,6 +1,34 @@
 {
   "locale": "en",
   "labels": {
+    "hud.level": {
+      "text": "Level",
+      "file": "label_hud_level.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "board.night_falls": {
+      "text": "Night falls",
+      "file": "label_board_night_falls.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "board.day_breaks": {
+      "text": "Day breaks",
+      "file": "label_board_day_breaks.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.play": {
+      "text": "Play",
+      "file": "label_action_play.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "aviary.title": {
       "text": "Aviary",
       "file": "label_aviary_title.png",
@@ -96,6 +124,13 @@
       "line_height": 208,
       "baseline": 160,
       "heading_file": "heading_shop_title.png"
+    },
+    "shop.buy": {
+      "text": "Buy",
+      "file": "label_shop_buy.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     },
     "world.green.name": {
       "text": "Green Forest",
@@ -207,7 +242,7 @@
       "baseline": 160
     },
     "booster.firefly.description": {
-      "text": "Find a helpful move",
+      "text": "Shows a good move",
       "file": "label_booster_firefly_description.png",
       "cap": 128,
       "line_height": 208,
@@ -221,7 +256,7 @@
       "baseline": 160
     },
     "booster.sapling.description": {
-      "text": "Add one branch",
+      "text": "Adds one branch",
       "file": "label_booster_sapling_description.png",
       "cap": 128,
       "line_height": 208,
@@ -235,7 +270,7 @@
       "baseline": 160
     },
     "booster.owl_eye.description": {
-      "text": "Reveals eggs",
+      "text": "Peeks inside the eggs",
       "file": "label_booster_owl_eye_description.png",
       "cap": 128,
       "line_height": 208,
@@ -249,7 +284,7 @@
       "baseline": 160
     },
     "booster.morning_bell.description": {
-      "text": "Wake sleeping birds",
+      "text": "Wakes sleeping birds",
       "file": "label_booster_morning_bell_description.png",
       "cap": 128,
       "line_height": 208,
@@ -263,7 +298,7 @@
       "baseline": 160
     },
     "booster.scarecrow.description": {
-      "text": "Send crows away",
+      "text": "Sends the crows away",
       "file": "label_booster_scarecrow_description.png",
       "cap": 128,
       "line_height": 208,
@@ -277,7 +312,7 @@
       "baseline": 160
     },
     "booster.spring_rain.description": {
-      "text": "Grow branches fully",
+      "text": "Lets branches grow",
       "file": "label_booster_spring_rain_description.png",
       "cap": 128,
       "line_height": 208,
@@ -556,23 +591,37 @@
       "line_height": 208,
       "baseline": 160
     },
-    "shop.buy": {
-      "text": "Buy",
-      "file": "label_shop_buy.png",
+    "tutorial.title": {
+      "text": "How to Play",
+      "file": "label_tutorial_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
-    "action.play": {
-      "text": "Play",
-      "file": "label_action_play.png",
+    "tutorial.pick": {
+      "text": "Tap a branch to pick birds",
+      "file": "label_tutorial_pick.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
-    "hud.level": {
-      "text": "Level",
-      "file": "label_hud_level.png",
+    "tutorial.move.a": {
+      "text": "Tap a branch with room",
+      "file": "label_tutorial_move_a.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.home.a": {
+      "text": "A full branch flies home",
+      "file": "label_tutorial_home_a.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.win.a": {
+      "text": "All home: you win!",
+      "file": "label_tutorial_win_a.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
