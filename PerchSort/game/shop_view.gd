@@ -76,7 +76,7 @@ func setup(p: Profile, start_tab := 0) -> void:
 	_grid = _layer("Grid")
 	_tabs = _layer("Tabs")
 	_bar = _layer("Bar")
-	UI.button(_bar, "Close", Vector2(MARGIN + UI.SECONDARY * 0.5, BAR_Y), "cream", "close", func(): closed.emit())
+	UI.button(_bar, "Close", Vector2(MARGIN + UI.SECONDARY * 0.5, BAR_Y), "red", "close", func(): closed.emit())
 	UI.word(_bar, "Shop", Vector2(540, BAR_Y), TITLE_CAP)
 	_refresh()
 

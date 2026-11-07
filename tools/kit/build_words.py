@@ -4,8 +4,8 @@ python3 tools/kit/build_words.py [--check]
 
 Phrases: every string literal passed as the second argument of UI.word( ... ) in PerchSort/game/*.gd, plus each
 line of tools/kit/words.txt (data-driven text such as bird, item and world names). Output:
-PerchSort/art/words/word_<slug>.png, white with alpha, 1.5 caps high with the baseline at 1.15 caps, built at
-cap height 96 (UI.WORD_CAP). The slug matches UI.slug. --check only reports phrases without a sprite.
+PerchSort/art/words/word_<slug>.png: white letters with a warm outline and soft shadow, 1.5 caps plus 2 x PAD
+high with the baseline at PAD + 1.15 caps, built at cap height 96 (UI.WORD_CAP, UI.WORD_PAD). The slug matches UI.slug. --check only reports phrases without a sprite.
 """
 import glob
 import json
@@ -13,12 +13,15 @@ import os
 import re
 import sys
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 P = os.path.join(ROOT, "PerchSort")
 CAP = 96.0
-GAP = 0.07
+GAP = 0.17                 # letter gap in caps (room for the outline)
+PAD = 29                   # canvas padding (UI.WORD_PAD) so outline and shadow are never cut
+EDGE = (150, 82, 28)       # warm brown outline (UI.EDGE)
+SHADOW = (60, 30, 10)
 
 
 def slug(text):
@@ -46,6 +49,7 @@ def phrases():
 
 
 def build(text, meta, letters_dir):
+    """White lettering with a warm outline and a soft shadow, baseline at PAD + 1.15 caps."""
     k = CAP / meta["cap"]
     parts, x = [], 0.0
     for ch in text:
@@ -55,14 +59,22 @@ def build(text, meta, letters_dir):
         g = meta["glyphs"].get(str(ord(ch)))
         if g is None:
             raise SystemExit("no glyph for %r in %r" % (ch, text))
-        im = Image.open(os.path.join(letters_dir, "letter_%04x.png" % ord(ch))).convert("RGBA")
+        im = Image.open(os.path.join(letters_dir, "letter_%04x.png" % ord(ch))).split()[3]
         im = im.resize((max(1, round(g["w"] * k)), max(1, round(g["h"] * k))), Image.LANCZOS)
         parts.append((im, x, g["dy"] * CAP))
         x += im.width + GAP * CAP
-    w = int(round(x - GAP * CAP)) + 4
-    out = Image.new("RGBA", (max(w, 4), int(CAP * 1.5)), (255, 255, 255, 0))
+    w = int(round(x - GAP * CAP)) + 2 * PAD
+    mask = Image.new("L", (max(w, 4), int(CAP * 1.5) + 2 * PAD), 0)
     for im, px, dy in parts:
-        out.alpha_composite(im, (int(round(px)) + 2, int(round(CAP * 1.15 + dy))))
+        mask.paste(im, (int(round(px)) + PAD, int(round(PAD + CAP * 1.15 + dy))), im)
+    r = int(round(meta.get("edge", 0.11) * CAP))
+    edge = mask.filter(ImageFilter.MaxFilter(2 * r + 1))
+    out = Image.new("RGBA", mask.size, (0, 0, 0, 0))
+    shadow = Image.new("RGBA", mask.size, SHADOW + (0,))
+    shadow.putalpha(edge.filter(ImageFilter.GaussianBlur(CAP * 0.04)).point(lambda v: int(v * 0.35)))
+    out.alpha_composite(shadow, (0, int(CAP * 0.06)))
+    out.paste(Image.new("RGBA", mask.size, EDGE + (255,)), (0, 0), edge)
+    out.paste(Image.new("RGBA", mask.size, (255, 255, 255, 255)), (0, 0), mask)
     return out
 
 

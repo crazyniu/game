@@ -7,13 +7,15 @@ tools/kit/letters_white.png (9 x 9 white letters on black)  -> PerchSort/art/let
                                                               + PerchSort/art/letters/letters.json
 Sprites are white with alpha taken from brightness, so the kit can tint them (ink on cream, white on colour).
 letters.json: per character code point {"w", "h", "dy"}: dy is the glyph top relative to the baseline in units of
-the cap height (H), plus "cap" (cap height in pixels) and "space".
+the cap height (H), plus "cap" (cap height in pixels), "space" and "edge" (outline width in caps). Each glyph also
+gets letter_<code>_edge.png: its outline shape, padded by the outline width on every side.
 """
 import json
 import os
+import sys
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KIT = os.path.join(ROOT, "tools", "kit")
@@ -25,6 +27,7 @@ ICONS = ["undo", "bulb", "sapling", "gear", "home", "play", "retry", "check", "c
 ICONS_MORE = ["hop", "plus", "info", "gift", "egg", "feather", "trophy", "pin", "coins"]
 LETTERS = list("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?'-:/+&()%#") + ["×", "∞"]
 DESCENDERS = set("gjpqy,()")
+EDGE = 0.11   # outline width in caps (letter_<code>_edge.png)
 
 
 def white_alpha(cell):
@@ -91,11 +94,11 @@ def runs(profile, min_gap):
     return spans
 
 
-def letters():
+def letters(sheet="letters_white.png", out=None):
     """Characters are found by projection gaps (rows, then columns), not by a fixed grid."""
-    out = os.path.join(ART, "letters")
+    out = out or os.path.join(ART, "letters")
     os.makedirs(out, exist_ok=True)
-    rgba = white_alpha(Image.open(os.path.join(KIT, "letters_white.png")))
+    rgba = white_alpha(Image.open(os.path.join(KIT, sheet)))
     alpha = rgba[..., 3]
     ink = (alpha > 60).astype(np.int32)
     row_spans = runs(ink.sum(1), 12)
@@ -117,10 +120,19 @@ def letters():
             rows.setdefault(r, []).append(b[3])
     baseline = {r: float(np.median(v)) for r, v in rows.items()}
     cap = float(glyphs["H"][1][3] - glyphs["H"][1][1])
-    meta = {"cap": cap, "space": round(cap * 0.32, 1), "glyphs": {}}
+    meta = {"cap": cap, "space": round(cap * 0.32, 1), "edge": EDGE, "glyphs": {}}
     for ch, (r, b) in glyphs.items():
         crop = rgba[b[1]:b[3], b[0]:b[2]]
         Image.fromarray(crop, "RGBA").save(os.path.join(out, "letter_%04x.png" % ord(ch)))
+        # Outline of the glyph: its shape grown by EDGE caps, on a canvas padded by the same amount.
+        rad = int(round(EDGE * cap))
+        padded = np.zeros((crop.shape[0] + 2 * rad, crop.shape[1] + 2 * rad), np.uint8)
+        padded[rad:rad + crop.shape[0], rad:rad + crop.shape[1]] = crop[..., 3]
+        grown = Image.fromarray(padded).filter(ImageFilter.MaxFilter(2 * rad + 1))
+        edge = np.zeros(padded.shape + (4,), np.uint8)
+        edge[..., :3] = 255
+        edge[..., 3] = np.asarray(grown)
+        Image.fromarray(edge, "RGBA").save(os.path.join(out, "letter_%04x_edge.png" % ord(ch)))
         base = baseline.get(r, baseline[min(baseline, key=lambda k: abs(k - r))])
         meta["glyphs"][str(ord(ch))] = {"w": int(b[2] - b[0]), "h": int(b[3] - b[1]),
                                         "dy": round((b[1] - base) / cap, 4)}
@@ -129,5 +141,8 @@ def letters():
     print("letters:", len(glyphs), "cap", cap)
 
 
-icons()
-letters()
+if len(sys.argv) > 3 and sys.argv[1] == "--letters":   # try another sheet: --letters <sheet> <out_dir>
+    letters(sys.argv[2], sys.argv[3])
+else:
+    icons()
+    letters()

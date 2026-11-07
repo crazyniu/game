@@ -109,7 +109,7 @@ func _reset_page() -> void:
 
 ## Neutral secondary button at the top left (close on the list, back on a detail page).
 func _bar_button(icon_name: String, on_press: Callable) -> Button:
-	return UI.button(_page, "Close" if icon_name == "close" else "Back", BACK, "cream", icon_name, on_press)
+	return UI.button(_page, "Close" if icon_name == "close" else "Back", BACK, "red" if icon_name == "close" else "cream", icon_name, on_press)
 
 ## Painted word centred on `center`, shrunk to fit `max_w` when it is wider.
 func _word_fit(parent: Node, text: String, center: Vector2, cap: float, max_w: float, color := UI.INK) -> TextureRect:
@@ -128,7 +128,6 @@ func _live_bird(parent: Node, species: String, outfit: String, box: Rect2) -> Bi
 		box.end.y - (used.end.y - BirdView.FEET_Y) * k)
 	parent.add_child(bird)
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
-	if not outfit.is_empty() and Art.has(outfit + "_front"):
 	return bird
 
 ## Dark breathing silhouette of a species fitted into the box (unmet birds).
@@ -192,10 +191,12 @@ func _show_list() -> void:
 	_build_track()
 	# Top bar above the clipped grid.
 	_bar_button("close", func(): closed.emit())
-	UI.word(_page, "Aviary", Vector2(540, BAR_Y), TITLE_CAP)
 	var value := "%d/%d" % [met, count]
 	var w := 100.0 + UI.number_width(value, 44.0) + 32.0
 	UI.counter(_page, Vector2(RIGHT - w, COUNTER_TOP), "icon_feather", value, UI.INK).name = "MetCounter"
+	# The title sits centred in the room between the close button and the counter.
+	var left := 48.0 + UI.SECONDARY + 24.0
+	UI.word(_page, "Aviary", Vector2((left + RIGHT - w - 24.0) * 0.5, BAR_Y), TITLE_CAP)
 	_set_scroll(_list_scroll)
 
 ## One cream card: a live bird and its name, or a dark silhouette with a question mark.

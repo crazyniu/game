@@ -73,7 +73,7 @@ func _build(title: String, close_button: bool) -> void:
 		_title(title, panel_rect.position.y + TITLE_TOP + TITLE_CAP * 0.5)
 	if close_button:
 		var c := Vector2(panel_rect.end.x - 32.0, panel_rect.position.y + 32.0)
-		UI.button(content, "Close", c, "cream", "close", close, CLOSE)
+		UI.button(content, "Close", c, "red", "close", close, CLOSE)
 
 ## Title word centred on the panel. "Level 12" is the painted word "Level" followed by the painted number.
 func _title(title: String, cy: float) -> void:

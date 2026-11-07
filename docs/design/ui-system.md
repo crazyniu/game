@@ -26,7 +26,7 @@ fancy. The screens are designed from scratch on this system; earlier layouts and
 | green | #6CC24A | #4C9631 | primary action |
 | orange | #FFA53C | #DA7A14 | secondary action, tools |
 | blue | #5DB9EE | #3C93C9 | selected tab, information |
-| red | #EF5548 | #C23A2F | count badges |
+| red | #EF5548 | #C23A2F | count badges, close buttons |
 | ink | #5A3A1E | | words and numbers on cream |
 | white | #FFFFFF | | icons, words and numbers on coloured fills |
 | dim | #1E2A1A at 55 percent | | behind popups |
@@ -40,15 +40,19 @@ fancy. The screens are designed from scratch on this system; earlier layouts and
 - Counter: full pill, height 96, bottom edge 8; icon 72 at the left inside, number cap height 44 in ink.
 - Buttons are circles with a bottom edge of 10 and a white icon at 56 percent of the diameter:
   primary 160 (green), secondary 128 (orange, or cream with an ink icon for neutral actions such as undo, close,
-  settings). Primary is 1.25 times secondary, the maximum allowed. A pressed button sinks by its bottom edge.
+  settings; red for close). Primary is 1.25 times secondary, the maximum allowed. A pressed button sinks by its bottom edge.
 - Badge: red circle 56 at the button's upper right (45 degrees on the rim), white number cap height 30.
 
 ## Lettering
 
-- Words are painted label sprites built from the painted lettering sheet (`tools/kit/letters_white.png`) by
-  `tools/kit/build_words.py` into `art/words/word_<slug>.png` (white with alpha; the kit tints them ink or white).
-- Numbers are painted glyphs from the same sheet (`art/glyphs`), so words and numbers share one hand.
+- One rounded, friendly typeface painted as a lettering sheet (`tools/kit/letters_white.png`), cut by
+  `tools/kit/cut_kit.py` into glyphs and glyph outlines (`art/letters`).
+- Words are painted label sprites built by `tools/kit/build_words.py` into `art/words/word_<slug>.png`: white
+  letters with a warm brown outline (#96521C, 0.11 cap) and a soft shadow, letter gap 0.29 cap.
+- Numbers are the same glyphs composed at runtime: on cream and scenes white with the same outline; on coloured
+  fills (prices, badges, rewards) plain white.
 - Cap heights: title 64, body 44, small 34. Numbers: large 72, medium 52, small 36.
+- Close buttons are red with a white X (user choice, 2026-11-07).
 
 ## Icons
 
