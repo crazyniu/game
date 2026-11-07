@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8oudf077n0bv"
-path="res://.godot/imported/label_tutorial_win_b.png-e20c4ea2186eaa365d49cd0bbfeb8415.ctex"
+uid="uid://cqmm3vl7yb8if"
+path="res://.godot/imported/pic_sun.png-36ef24cc39012e46293773dd745265c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_tutorial_win_b.png"
-dest_files=["res://.godot/imported/label_tutorial_win_b.png-e20c4ea2186eaa365d49cd0bbfeb8415.ctex"]
+source_file="res://art/pic_sun.png"
+dest_files=["res://.godot/imported/pic_sun.png-36ef24cc39012e46293773dd745265c5.ctex"]
 
 [params]
 

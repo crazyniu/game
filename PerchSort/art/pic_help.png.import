@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjr444lbv0dl6"
-path="res://.godot/imported/label_tutorial_move_b.png-c407cd30cc8dca2aa0f1d8875956cd9a.ctex"
+uid="uid://bj5nepxlgnsme"
+path="res://.godot/imported/pic_help.png-a5154f4918831f971ceda10df516d181.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_tutorial_move_b.png"
-dest_files=["res://.godot/imported/label_tutorial_move_b.png-c407cd30cc8dca2aa0f1d8875956cd9a.ctex"]
+source_file="res://art/pic_help.png"
+dest_files=["res://.godot/imported/pic_help.png-a5154f4918831f971ceda10df516d181.ctex"]
 
 [params]
 

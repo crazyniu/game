@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y5ofcesbu6a2"
-path="res://.godot/imported/label_tutorial_move_c.png-666bb2df38e98840c03801ef194adbe3.ctex"
+uid="uid://b18sclk5nu7w5"
+path="res://.godot/imported/board_w2_night_bg.png-cb619f3bbf65d4c02c1570e565ed0e63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_tutorial_move_c.png"
-dest_files=["res://.godot/imported/label_tutorial_move_c.png-666bb2df38e98840c03801ef194adbe3.ctex"]
+source_file="res://world/scene/board_w2_night_bg.png"
+dest_files=["res://.godot/imported/board_w2_night_bg.png-cb619f3bbf65d4c02c1570e565ed0e63.ctex"]
 
 [params]
 

@@ -7,13 +7,12 @@ extends Control
 const FLAG := "tutorial.how_to_play"
 const STEPS := 4
 ## Painted sentence lines per step (tools/kit/locales/en.json); lines of one step share one cap height.
-const LINES := [["tutorial.pick"], ["tutorial.move.a", "tutorial.move.b", "tutorial.move.c"],
-	["tutorial.home.a", "tutorial.home.b"], ["tutorial.win.a", "tutorial.win.b"]]
+const LINES := [["tutorial.pick"], ["tutorial.move.a"], ["tutorial.home.a"], ["tutorial.win.a"]]
 ## Modal content groups: live scene, sentence (up to three lines), step dots.
 const STAGE_SIZE := Vector2(768, 720)
-const TEXT_H := 176.0
+const TEXT_H := 72.0   # one short line per step
 const TEXT_W := 784.0
-const TEXT_CAP := 36.0
+const TEXT_CAP := 44.0
 const LINE_H := TEXT_CAP * 208.0 / 128.0
 const DOTS_H := 24.0
 const DOT := 24.0

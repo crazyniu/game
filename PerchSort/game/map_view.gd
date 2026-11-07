@@ -353,7 +353,10 @@ func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
 	return t
 
 ## The world title follows the trail node nearest to the upper third of the screen.
+## The world's name is no longer pinned to the map (fewer words; the painting shows the world and the World
+## Unlocked popup names it), so there is nothing to update.
 func _update_title() -> void:
+	return
 	if _hud == null:
 		return
 	var probe := offset + size.y * 0.36

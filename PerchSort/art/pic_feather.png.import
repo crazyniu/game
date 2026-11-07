@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kbyar8foslqq"
-path="res://.godot/imported/label_tutorial_home_b.png-fd5c630e3f6252ff424eca03c437f1eb.ctex"
+uid="uid://ck3x0kkorc632"
+path="res://.godot/imported/pic_feather.png-7b7d5344f69bb8156807af2c79b0a549.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_tutorial_home_b.png"
-dest_files=["res://.godot/imported/label_tutorial_home_b.png-fd5c630e3f6252ff424eca03c437f1eb.ctex"]
+source_file="res://art/pic_feather.png"
+dest_files=["res://.godot/imported/pic_feather.png-7b7d5344f69bb8156807af2c79b0a549.ctex"]
 
 [params]
 

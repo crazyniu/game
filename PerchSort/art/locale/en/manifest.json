@@ -1,6 +1,20 @@
 {
   "locale": "en",
   "labels": {
+    "hud.level": {
+      "text": "Level",
+      "file": "label_hud_level.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.play": {
+      "text": "Play",
+      "file": "label_action_play.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "aviary.title": {
       "text": "Aviary",
       "file": "label_aviary_title.png",
@@ -96,6 +110,13 @@
       "line_height": 208,
       "baseline": 160,
       "heading_file": "heading_shop_title.png"
+    },
+    "shop.buy": {
+      "text": "Buy",
+      "file": "label_shop_buy.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     },
     "world.green.name": {
       "text": "Green Forest",
@@ -556,27 +577,6 @@
       "line_height": 208,
       "baseline": 160
     },
-    "shop.buy": {
-      "text": "Buy",
-      "file": "label_shop_buy.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.play": {
-      "text": "Play",
-      "file": "label_action_play.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "hud.level": {
-      "text": "Level",
-      "file": "label_hud_level.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
     "tutorial.title": {
       "text": "How to Play",
       "file": "label_tutorial_title.png",
@@ -585,57 +585,29 @@
       "baseline": 160
     },
     "tutorial.pick": {
-      "text": "Tap a branch to pick up its birds",
+      "text": "Tap a branch to pick birds",
       "file": "label_tutorial_pick.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "tutorial.move.a": {
-      "text": "Tap another branch with room",
+      "text": "Tap a branch with room",
       "file": "label_tutorial_move_a.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
-    "tutorial.move.b": {
-      "text": "to move them: same bird on top,",
-      "file": "label_tutorial_move_b.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
     "tutorial.home.a": {
-      "text": "Fill a branch with one kind of bird",
+      "text": "A full branch flies home",
       "file": "label_tutorial_home_a.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
-    "tutorial.home.b": {
-      "text": "and they fly home to the house",
-      "file": "label_tutorial_home_b.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
     "tutorial.win.a": {
-      "text": "Send every kind home to win.",
+      "text": "All home: you win!",
       "file": "label_tutorial_win_a.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.win.b": {
-      "text": "Fewer moves, more stars",
-      "file": "label_tutorial_win_b.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.move.c": {
-      "text": "or an empty branch",
-      "file": "label_tutorial_move_c.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160

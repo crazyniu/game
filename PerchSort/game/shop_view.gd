@@ -328,7 +328,7 @@ func _card(it: Dictionary, n: int) -> void:
 	UI.label(body, _name_id(it), Rect2(CARD_PAD, 24, cs.x - CARD_PAD * 2.0, 80 if kind != Shop.BOOSTER else 64), NAME_CAP)
 	var top := PIC_TOP
 	if kind == Shop.BOOSTER:
-		UI.label(body, _caption_id(it), CAPTION, CAPTION_CAP, Color(UI.INK, 0.85)).name = "Caption"
+		pass   # what a booster does is told in its buy popup; cards carry the name only
 		top = BOOSTER_PIC_TOP
 	var slot := Rect2(Vector2((cs.x - PILL.x) * 0.5, cs.y - PILL_BOTTOM - PILL.y), PILL)
 	var pic := Rect2(CARD_PAD, top, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - top)

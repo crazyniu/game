@@ -20,7 +20,9 @@
     "variable_weight": false,
     "weight": 400
   },
-  "display_labels": ["hud.level"],
+  "display_labels": [
+    "hud.level"
+  ],
   "labels": {
     "hud.level": "Level",
     "action.play": "Play",
@@ -103,13 +105,9 @@
     "popup.world_complete.title": "World Complete",
     "popup.world_unlock.title": "World Unlocked",
     "tutorial.title": "How to Play",
-    "tutorial.pick": "Tap a branch to pick up its birds",
-    "tutorial.move.a": "Tap another branch with room",
-    "tutorial.move.b": "to move them: same bird on top,",
-    "tutorial.move.c": "or an empty branch",
-    "tutorial.home.a": "Fill a branch with one kind of bird",
-    "tutorial.home.b": "and they fly home to the house",
-    "tutorial.win.a": "Send every kind home to win.",
-    "tutorial.win.b": "Fewer moves, more stars"
+    "tutorial.pick": "Tap a branch to pick birds",
+    "tutorial.move.a": "Tap a branch with room",
+    "tutorial.home.a": "A full branch flies home",
+    "tutorial.win.a": "All home: you win!"
   }
 }
