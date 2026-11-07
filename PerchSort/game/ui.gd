@@ -36,7 +36,7 @@ static func used_rect(name: String) -> Rect2:
 		_used[name] = Rect2(Vector2.ZERO, t.get_size()) if t == null else Rect2(t.get_image().get_used_rect())
 	return _used[name]
 
-## Places a sprite so that its visible pixels (or `content`, in texture pixels) fill the measured rect exactly.
+## Places a sprite so that its visible pixels (or `content`, in texture pixels) fit inside `bounds`, centred, keeping their aspect ratio.
 static func art(parent: Node, name: String, bounds: Rect2, content := Rect2()) -> TextureRect:
 	var t := TextureRect.new()
 	t.name = name
@@ -45,10 +45,12 @@ static func art(parent: Node, name: String, bounds: Rect2, content := Rect2()) -
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if t.texture:
+		# Uniform scale: the visible pixels fit inside `bounds` (centred), never stretched.
 		var c := content if content.size != Vector2.ZERO else used_rect(name)
-		var s := bounds.size / c.size
-		t.size = t.texture.get_size() * s
-		t.position = bounds.position - c.position * s
+		var k := minf(bounds.size.x / c.size.x, bounds.size.y / c.size.y)
+		var fitted := c.size * k
+		t.size = t.texture.get_size() * k
+		t.position = bounds.position + (bounds.size - fitted) * 0.5 - c.position * k
 	t.pivot_offset = bounds.position - t.position + bounds.size * 0.5
 	parent.add_child(t)
 	return t
