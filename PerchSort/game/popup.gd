@@ -54,7 +54,7 @@ func _build(title: String, title_rect: Rect2, close_rect: Rect2) -> void:
 	if not title.is_empty():
 		UI.art(content, title, title_rect)
 	if close_rect.size != Vector2.ZERO:
-		UI.disc(content, "Close", close_rect, "icon_close", close, "btn_wood", 0.48)
+		UI.disc(content, "Close", close_rect, "icon_close", close, "btn_wood", 0.5)
 
 func _appear() -> void:
 	Sound.play("ui_tap")
@@ -69,7 +69,7 @@ func _appear() -> void:
 	else:
 		tw.tween_property(content, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Disc button below or on the panel; base "btn_green" for the primary action (124 px), "btn_wood" otherwise.
+## Disc button below or on the panel; base "btn_green" for the primary action (160 px), "btn_wood" otherwise (128 px).
 ## An action disc; by default pressing it closes the popup, then runs `on_press`.
 func action(rect: Rect2, icon: String, on_press: Callable, base := "btn_wood", closes := true) -> Button:
 	return UI.disc(content, icon, rect, icon, func():

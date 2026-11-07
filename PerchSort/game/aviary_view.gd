@@ -7,11 +7,33 @@ signal profile_changed
 const BirdViewScript := preload("res://game/bird_view.gd")
 const LIST := "aviary_list"
 const DETAIL := "aviary_detail"
-const ROW_PITCH := 472.0
-const FRAME := Rect2(5, 116, 1070, 1850)   # board art placed so its cream opening starts at the mockup's panel top
+## Layout constants (ui-system.md sections 1-5 and 8). Design space 1080x1920.
+const MARGIN := 40.0
+const HUD_PILL_H := 96.0
+const COIN_ICON := 104.0
+const CLOSE_DISC := 112.0          # same role and size as the board's gear disc
+const TITLE_W := 440.0
+const BOARD_TOP := 168.0           # 16 under the header row
+const BOARD_BOTTOM := 1872.0       # 48 from the screen bottom
+const CELL_W := 300.0
+const RING_D := 260.0              # list portrait ring; the bird fits inside at 80 %
+const NAME_W := 222.0              # every name plate in the list shares this size
+const NAME_H := 64.0
+const PILL_H := 80.0
+const CHIP_W := 190.0
+const GIFT_D := 80.0
+const ROW_GAP := 40.0
+const GRID_PAD := Vector2(28.0, 22.0)
+const SCROLL_GUTTER := 44.0        # right side of the opening is kept for the scroll track
+const DETAIL_CARD_X := 100.0
+const DETAIL_CARD_W := 880.0
+const CARD_PAD_IN := 56.0
+const TILE_GAP := 24.0
+const TILE_H := 200.0
+const GIFT_DETAIL := 96.0
+const CAPTION_H := 62.0
+const BORDER_SCALE := 0.55
 const CARD_PAD := Vector4(15, 48, 15, 4)   # transparent margins of card_wood (left, top, right, bottom)
-const CARD_SCALE := 0.55
-const CREAM := Color(0.97, 0.88, 0.69)
 const ABILITY_GIFT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
 	"snow": "lightstep", "ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
 const ABILITY_LABEL := {"sunny": "wakes_every_sleeping_bird", "sky": "shows_every_egg_s_secret", "berry": "free_move",
@@ -41,16 +63,12 @@ var _hero: BirdView
 var _tiles: Control
 var _species := ""
 var _list_scroll := 0.0
-var _row_pad := 0.0   # gap above the first row so its ring starts where the mockup's does
 
 
 func setup(p: Profile) -> void:
 	profile = p
 	size = Vector2(1080, 1920)
 	UI.image(self, "bg_level_w1_noon", Rect2(0, 0, 1080, 1920), false)
-	for right in [false, true]:
-		var crown := UI.image(self, "tree_crown_w1", Rect2(-80 + (right as int) * 920, -150, 320, 420))
-		crown.flip_h = right
 	_show_list()
 
 ## ---------- shared pieces ----------
@@ -65,11 +83,24 @@ func _reset_page() -> void:
 	add_child(_page)
 	_cells.clear()
 
-func _header(close_rect: Rect2, on_close: Callable) -> void:
-	UI.panel(_page, "stat_pill", Layout.r(LIST, "coin_pill"))
-	UI.art(_page, "coin", Layout.r(LIST, "coin"))
-	_coin_number = UI.number(_page, str(profile.coins), Layout.r(LIST, "coin_value"))
-	UI.disc(_page, "Close", close_rect, "icon_close", on_close, "btn_wood", 0.48)
+## Coin pill top-left (coin overlaps its left end), close disc top-right; optional centred title ribbon.
+func _header(on_close: Callable, title := "", title_w := TITLE_W) -> void:
+	var number_w := 36.0 * maxi(str(profile.coins).length(), 3)
+	var coin := Rect2(MARGIN, MARGIN + (HUD_PILL_H - COIN_ICON) * 0.5, COIN_ICON, COIN_ICON)
+	UI.panel(_page, "stat_pill", Rect2(coin.get_center().x, MARGIN, COIN_ICON * 0.5 + 24.0 + number_w + 28.0, HUD_PILL_H))
+	UI.art(_page, "coin", coin)
+	_coin_number = UI.number(_page, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), "brown", -1)
+	UI.disc(_page, "Close", Rect2(1080.0 - MARGIN - CLOSE_DISC, MARGIN, CLOSE_DISC, CLOSE_DISC), "icon_close", on_close, "btn_wood", 0.5)
+	if not title.is_empty():
+		var used := UI.used_rect(title)
+		var h := title_w * used.size.y / used.size.x
+		_plate(_page, title, Rect2(540.0 - title_w * 0.5, MARGIN + (HUD_PILL_H - h) * 0.5, title_w, h))
+
+## Count chip (house icon, then the number) of height PILL_H at `at`.
+func _count_chip(parent: Node, at: Vector2, count: int) -> void:
+	var chip := Rect2(at, Vector2(CHIP_W, PILL_H))
+	UI.art(parent, "house_count_chip", chip)
+	UI.number(parent, str(count), Rect2(chip.position.x + CHIP_W * 0.42, chip.position.y + (PILL_H - 40.0) * 0.5, CHIP_W * 0.46, 40.0))
 
 ## Painted plate (ribbon or caption sprite, text included) fitted inside `r`, centered, aspect kept.
 func _plate(parent: Node, label: String, r: Rect2) -> void:
@@ -97,12 +128,16 @@ func _outfit_key(species: String) -> String:
 func _show_list() -> void:
 	_species = ""
 	_reset_page()
-	UI.art(_page, "aviary_board", FRAME)
-	_header(Layout.r(LIST, "close"), func(): closed.emit())
-	_plate(_page, "label_title_aviary", Layout.r(LIST, "title_ribbon").grow_individual(0, 8, 0, 8))
-	var opening := _opening(FRAME)
-	opening.size.y = Layout.r(LIST, "cocoa_ability").end.y + 2.0 - opening.position.y   # exactly three rows, no peek of the fourth
-	_row_pad = Layout.r(LIST, "sunny_ring").position.y - opening.position.y
+	# Board art fitted uniformly between the header row and the bottom margin.
+	var m := Art.metrics("aviary_board")
+	var opaque: Array = m["opaque"]
+	var inner: Array = m["inner"]
+	var k := (BOARD_BOTTOM - BOARD_TOP) / float(opaque[3])
+	var visible := Rect2((1080.0 - opaque[2] * k) * 0.5, BOARD_TOP, opaque[2] * k, opaque[3] * k)
+	UI.art(_page, "aviary_board", visible, Rect2(opaque[0], opaque[1], opaque[2], opaque[3]))
+	var origin := visible.position - Vector2(opaque[0], opaque[1]) * k
+	var opening := Rect2(origin + Vector2(inner[0], inner[1]) * k, Vector2(inner[2], inner[3]) * k)
+	_header(func(): closed.emit(), "label_title_aviary")
 	_clip = Control.new()
 	_clip.name = "Scroll"
 	_clip.clip_contents = true
@@ -113,47 +148,41 @@ func _show_list() -> void:
 	_content = Control.new()
 	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_clip.add_child(_content)
+	var grid_w := CELL_W * 2.0 + (opening.size.x - GRID_PAD.x - SCROLL_GUTTER - CELL_W * 2.0)
+	var x0 := GRID_PAD.x
+	var col_gap := grid_w - CELL_W * 2.0
 	for i in Aviary.SPECIES.size():
-		_cell(Aviary.SPECIES[i][0], i % 2, i / 2, opening.position)
-	_content.size = Vector2(opening.size.x, _row_pad * 2 + ROW_PITCH * 5)
+		_cell(Aviary.SPECIES[i][0], x0 + (i % 2) * (CELL_W + col_gap), GRID_PAD.y + (i / 2) * _row_pitch())
+	var rows := ceili(Aviary.SPECIES.size() / 2.0)
+	_content.size = Vector2(opening.size.x, GRID_PAD.y * 2.0 + rows * _row_pitch() - ROW_GAP)
 	_max_scroll = maxf(0.0, _content.size.y - opening.size.y)
-	_edge(opening, false)
-	_edge(opening, true)
 	_build_track(opening)
 	_set_scroll(_list_scroll)
 
-## Cream opening of the board art, derived from its measured inner rect.
-func _opening(frame: Rect2) -> Rect2:
-	var m := Art.metrics("aviary_board")
-	var o: Array = m["opaque"]
-	var inner: Array = m["inner"]
-	var k := Vector2(frame.size.x / o[2], frame.size.y / o[3])
-	return Rect2(frame.position + Vector2(inner[0] - o[0], inner[1] - o[1]) * k, Vector2(inner[2] * k.x, inner[3] * k.y))
+func _row_h() -> float:
+	return RING_D + 8.0 + NAME_H + 16.0 + PILL_H
 
-func _cell(id: String, col: int, row: int, origin: Vector2) -> void:
-	var key := "sunny" if col == 0 else "skye"
+func _row_pitch() -> float:
+	return _row_h() + ROW_GAP
+
+## One species cell: portrait ring with the bird at 80 %, name plate, count chip and ability coin.
+func _cell(id: String, x: float, y: float) -> void:
 	var met := profile.has_met(id)
-	var ring := Layout.r(LIST, key + "_ring")
-	var cell_top := _row_pad + row * ROW_PITCH
-	var shift := Vector2(-origin.x, cell_top - ring.position.y)
-	var at := func(suffix: String) -> Rect2:
-		var r := Layout.r(LIST, key + "_" + suffix)
-		return Rect2(r.position + shift, r.size)
-	UI.art(_content, "badge_ring_gold", at.call("ring"))
-	var bird_fit: Rect2 = (at.call("bird") as Rect2).grow_individual(8, 14, 8, 0)
+	var ring := Rect2(x + (CELL_W - RING_D) * 0.5, y, RING_D, RING_D)
+	UI.art(_content, "badge_ring_gold", ring)
+	var fit := ring.grow(-RING_D * 0.1)
 	if met:
-		_bird(_content, id, _outfit_key(id), bird_fit)
+		_bird(_content, id, _outfit_key(id), fit)
 	else:
-		_silhouette(_content, id, bird_fit)
-	_plate(_content, "label_name_" + (id if met else "unknown"), at.call("ribbon"))
-	var pill: Rect2 = at.call("count")
-	UI.art(_content, "house_count_chip", pill)
-	var num: Rect2 = at.call("number")
-	UI.number(_content, str(profile.flocks_home(id)), Rect2(pill.position.x + 100, num.position.y, 80, num.size.y))
+		_silhouette(_content, id, fit)
+	var name_r := Rect2(x + (CELL_W - NAME_W) * 0.5, ring.end.y + 8.0, NAME_W, NAME_H)
+	_plate(_content, "label_name_" + (id if met else "unknown"), name_r)
+	var row_y := name_r.end.y + 16.0
+	var row_x := x + (CELL_W - (CHIP_W + 10.0 + GIFT_D)) * 0.5
+	_count_chip(_content, Vector2(row_x, row_y), profile.flocks_home(id))
 	if met and ABILITY_GIFT.has(id):
-		UI.art(_content, "gift_coin_" + ABILITY_GIFT[id], at.call("ability"))
-	var top: Rect2 = at.call("ring")
-	_cells.append([Rect2(top.position, Vector2(top.size.x, (at.call("ability") as Rect2).end.y - top.position.y)), id])
+		UI.art(_content, "gift_coin_" + ABILITY_GIFT[id], Rect2(row_x + CHIP_W + 10.0, row_y, GIFT_D, GIFT_D))
+	_cells.append([Rect2(x, y, CELL_W, _row_h()), id])
 
 func _silhouette(parent: Node, species: String, fit: Rect2) -> void:
 	var front := species + "_front"
@@ -171,27 +200,10 @@ func _silhouette(parent: Node, species: String, fit: Rect2) -> void:
 	tw.tween_property(sil, "scale", Vector2(0.992, 1.02), 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_property(sil, "scale", Vector2.ONE, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-## Soft cream fade at the top or bottom of the scroll window.
-func _edge(opening: Rect2, bottom: bool) -> void:
-	var g := Gradient.new()
-	g.colors = PackedColorArray([Color(CREAM, 1.0), Color(CREAM, 0.0)] if not bottom else [Color(CREAM, 0.0), Color(CREAM, 1.0)])
-	var tex := GradientTexture2D.new()
-	tex.gradient = g
-	tex.fill_from = Vector2(0, 0)
-	tex.fill_to = Vector2(0, 1)
-	var t := TextureRect.new()
-	t.texture = tex
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_SCALE
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var h := 8.0 if bottom else 26.0
-	UI.place(t, Rect2(opening.position.x, opening.end.y - h if bottom else opening.position.y, opening.size.x, h))
-	_page.add_child(t)
-
 func _build_track(opening: Rect2) -> void:
-	_track = Rect2(opening.end.x - 32, opening.position.y + 50, 20, opening.size.y - 100)
+	_track = Rect2(opening.end.x - 28, opening.position.y + 50, 16, opening.size.y - 100)
 	_pill(_track, Color(0.8, 0.64, 0.4, 0.7))
-	_thumb = _pill(Rect2(_track.position.x - 3, _track.position.y, 26, 100), Color(1.0, 0.72, 0.16))
+	_thumb = _pill(Rect2(_track.position.x - 3, _track.position.y, 22, 100), Color(1.0, 0.72, 0.16))
 
 func _pill(r: Rect2, color: Color) -> Panel:
 	var p := Panel.new()
@@ -248,44 +260,61 @@ func _tap(point: Vector2) -> void:
 func _show_detail(id: String) -> void:
 	_species = id
 	_reset_page()
+	_header(func(): _show_list(), "label_name_" + id, 340.0)
 	var has_extras := id != "crow"
-	var body := Rect2(104, 1035, 872, 827 if has_extras else 430)
-	var k := CARD_SCALE
+	# Card content, top to bottom, 32 px between groups: tiles, ability row, house chip.
+	var inner_w := DETAIL_CARD_W - CARD_PAD_IN * 2.0
+	var card_h := CARD_PAD_IN * 2.0 + PILL_H
+	if has_extras:
+		card_h += TILE_H + 32.0 + GIFT_DETAIL + 32.0
+	# Vertical block: caption, hero bird (standing on the card's top edge), card; centred in the free area.
+	var top := MARGIN + HUD_PILL_H + 24.0
+	var avail := BOARD_BOTTOM - top
+	var bird_h := minf(avail - CAPTION_H - 24.0 - card_h - 48.0, 780.0)
+	var block := CAPTION_H + 24.0 + bird_h + card_h
+	var y := top + (avail - block) * 0.5
+	_plate(_page, "label_caption_" + PERSONALITY_LABEL[id], Rect2(MARGIN, y, 1000.0, CAPTION_H))
+	var bird_box := Rect2(DETAIL_CARD_X, y + CAPTION_H + 24.0, DETAIL_CARD_W, bird_h)
+	var body := Rect2(DETAIL_CARD_X, bird_box.end.y, DETAIL_CARD_W, card_h)
+	var k := BORDER_SCALE
 	UI.panel(_page, "card_wood", body.grow_individual(CARD_PAD.x * k, CARD_PAD.y * k, CARD_PAD.z * k, CARD_PAD.w * k), k)
-	_hero = _bird(_page, id, _outfit_key(id), Rect2(150, 425, 780, 625))
-	_header(Rect2(922, 77, 115, 115), func(): _show_list())
-	_plate(_page, "label_name_" + id, Layout.r(DETAIL, "berry_ribbon"))
-	_plate(_page, "label_caption_" + PERSONALITY_LABEL[id], Layout.r(DETAIL, "description"))
+	_hero = _bird(_page, id, _outfit_key(id), bird_box)
 	var timer := Timer.new()
 	timer.wait_time = 5.0
 	timer.autostart = true
 	timer.timeout.connect(func(): if not _hero.acting: _hero.cheer())
 	_page.add_child(timer)
+	var cy := body.position.y + CARD_PAD_IN
 	if has_extras:
 		_tiles = Control.new()
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_page.add_child(_tiles)
+		_tile_origin = Vector2(body.position.x + CARD_PAD_IN, cy)
+		_tile_w = (inner_w - TILE_GAP * 3.0) / 4.0
 		_build_tiles()
-		UI.art(_page, "gift_coin_" + ABILITY_GIFT[id], Layout.r(DETAIL, "ability_disc"))
-		_plate(_page, "label_caption_" + ABILITY_LABEL[id], Layout.r(DETAIL, "ability_caption"))
-	var pill := Layout.r(DETAIL, "house_pill")
-	if not has_extras:
-		pill.position.y = 1230
-	pill = Rect2(pill.get_center() - Vector2(165, 69), Vector2(330, 138))
-	UI.art(_page, "house_count_chip", pill)
-	UI.number(_page, str(profile.flocks_home(id)), Rect2(pill.position.x + 215, pill.position.y + 32, 90, 71))
+		cy += TILE_H + 32.0
+		# Ability row: gift coin and its caption plate, centred together.
+		var label: String = "label_caption_" + ABILITY_LABEL[id]
+		var used := UI.used_rect(label)
+		var cap_h := minf(CAPTION_H, (inner_w - GIFT_DETAIL - 16.0) * used.size.y / used.size.x)
+		var cap_w := cap_h * used.size.x / used.size.y
+		var row_x := 540.0 - (GIFT_DETAIL + 16.0 + cap_w) * 0.5
+		UI.art(_page, "gift_coin_" + ABILITY_GIFT[id], Rect2(row_x, cy, GIFT_DETAIL, GIFT_DETAIL))
+		_plate(_page, label, Rect2(row_x + GIFT_DETAIL + 16.0, cy + (GIFT_DETAIL - cap_h) * 0.5, cap_w, cap_h))
+		cy += GIFT_DETAIL + 32.0
+	_count_chip(_page, Vector2(540.0 - CHIP_W * 0.5, cy), profile.flocks_home(id))
+
+var _tile_origin := Vector2.ZERO
+var _tile_w := 174.0
 
 func _build_tiles() -> void:
 	for c in _tiles.get_children():
 		c.queue_free()
-	var tile := Vector2(184, 230)
-	var gap := 12.0
-	var x0 := 141.0 + (796.0 - (tile.x * 4 + gap * 3)) * 0.5
 	for n in 4:
 		var id := "outfit.%s.default" % _species if n == 0 else "outfit.%s.%d" % [_species, n]
 		var owned := n == 0 or profile.owns_outfit(id)
 		var equipped: bool = profile.equipped.get(_species, "outfit.%s.default" % _species) == id
-		var r := Rect2(x0 + n * (tile.x + gap), 1140, tile.x, tile.y)
+		var r := Rect2(_tile_origin + Vector2(n * (_tile_w + TILE_GAP), 0), Vector2(_tile_w, TILE_H))
 		UI.panel(_tiles, "card_wood", r, 0.22)
 		var fit := Rect2(r.position + Vector2(14, 16), r.size - Vector2(28, 30))
 		var outfit := "" if n == 0 else "%s_outfit_%d" % [_species, n]
@@ -293,7 +322,7 @@ func _build_tiles() -> void:
 			_bird(_tiles, _species, outfit, fit)
 		else:
 			_silhouette(_tiles, _species, fit)
-			UI.art(_tiles, "padlock", Rect2(r.get_center() + Vector2(-26, -10), Vector2(52, 60)))
+			UI.art(_tiles, "padlock", Rect2(r.get_center() - Vector2(26, 26), Vector2(52, 52)))
 		if equipped:
 			var edge := Panel.new()
 			var style := StyleBoxFlat.new()
@@ -305,7 +334,7 @@ func _build_tiles() -> void:
 			edge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			UI.place(edge, r.grow(2))
 			_tiles.add_child(edge)
-			UI.art(_tiles, "badge_check", Rect2(r.end - Vector2(66, 56), Vector2(70, 64)))
+			UI.art(_tiles, "badge_check", Rect2(r.end - Vector2(52, 52), Vector2(56, 56)))
 		elif owned:
 			var pick := id
 			UI.hit_area(_tiles, r, func(): _equip(pick))

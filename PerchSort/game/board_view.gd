@@ -350,32 +350,105 @@ func _entrance() -> void:
 
 ## ---------- HUD ----------
 
+## HUD layout (docs/design/ui-system.md section 6, 1080x1920 design pixels).
+## The spec's left column (x 40-380) cannot hold footprints + moves + three star columns with two-digit
+## thresholds at the specified sizes, so both pills end at x 404 and the goal house narrows to 240 (16 px gap).
+const HUD_LEFT := 40.0
+const PILL_ART_HEIGHT := 96.0            # stat_pill is drawn at its own height and scaled, so every pill has round ends
+const COIN_PILL := Rect2(92, 40, 312, 96)
+const COIN_ICON := Rect2(40, 36, 104, 104)   # overlaps the pill's left end by half its width
+const COIN_VALUE := Rect2(168, 62, 212, 52)  # left-aligned 24 px after the coin
+const LEVEL_PILL := Rect2(40, 152, 364, 112)
+const FOOTPRINTS := Rect2(54, 182, 52, 52)
+const MOVE_VALUE := Rect2(114, 182, 84, 52)
+const MOVE_DIVIDER := Rect2(204, 176, 4, 64)
+const STAR_COLUMN_X := 216.0             # first star column; columns are 52 wide, 6 apart
+const STAR_COLUMN_W := 52.0
+const STAR_COLUMN_PITCH := 58.0
+const STAR_Y := 170.0
+const STAR_SIZE := 44.0
+const THRESHOLD_Y := 216.0
+const THRESHOLD_CAP := 30.0
+const SUN_PILL := Rect2(40, 280, 176, 88)
+const SUN_ICON := Rect2(60, 294, 60, 60)
+const SUN_VALUE := Rect2(132, 298, 64, 52)
+const GEAR := Rect2(928, 40, 112, 112)
+const GLYPH_RATIO := 0.5                 # glyph icon inside a disc
+## Goal house: hangs from its rope, centred at x 540; badge row 24 px below it.
+const HOUSE_WIDTH := 240.0
+const HOUSE_TOP := 140.0
+const HOUSE_CONTENT := Rect2(45, 110, 624, 580)      # default house body in sprite pixels (without the hanger loop)
+const HOUSE_DOOR := Rect2(245.75, 325, 240, 247.5)   # its round doorway in sprite pixels
+const HOUSE_LOOP_Y := 50.0                           # hanger loop centre in sprite pixels
+const ROPE_WIDTH := 16.0
+const BADGE_GAP_Y := 24.0
+const RING := 104.0
+const RING_GAP := 24.0
+const RING_MIN_GAP := 16.0
+const RING_ROW_WIDTH := 1000.0           # screen width minus both side margins
+const FACE_RATIO := 0.8                  # face fits inside 80 % of the ring
+const RING_HOLE_RATIO := 0.8             # cream backing disc behind the face
+const ABILITY_RATIO := 0.44
+## Bottom tool bar: cream bar 160 tall, 48 px from the bottom, discs 128 spaced 64 apart.
+const TOOL_BAR_HEIGHT := 160.0
+const TOOL_BAR_BOTTOM := 1872.0
+const TOOL_DISC := 128.0
+const TOOL_GAP := 64.0
+const TOOL_BAR_PAD := 40.0
+const STOCK_BADGE := 52.0
+const STOCK_CAP := 30.0
+## Sleep bubble and stuck pointer use the same icon size as the pills.
+const HUD_ICON := 64.0
+const BUBBLE_SCALE := 0.35               # sleep_bubble art drawn at 35 %: body about 110 px tall
+const BUBBLE_MARGINS := [200, 140, 170, 140]   # nine-slice left, top, right, bottom in sprite pixels (tail inside the left)
+const BUBBLE_TAIL := Vector2(124, 400)   # tail tip in sprite pixels
+const BUBBLE_BODY_CENTRE_Y := 165.0      # body centre in sprite pixels
+const BUBBLE_PAD := 48.0
+const BUBBLE_ICON_GAP := 16.0
+
+var _door_rect := Rect2()
+
+func _house_rect() -> Rect2:
+	var k := HOUSE_WIDTH / HOUSE_CONTENT.size.x
+	return Rect2(540.0 - HOUSE_WIDTH * 0.5, HOUSE_TOP, HOUSE_WIDTH, HOUSE_CONTENT.size.y * k)
+
+## A cream stat pill of any height with fully round ends: the art is sliced at its own height and scaled.
+func _pill(parent: Control, r: Rect2) -> NinePatchRect:
+	return UI.panel(parent, "stat_pill", r, r.size.y / PILL_ART_HEIGHT)
+
 func _build_hud() -> void:
 	_hud = Control.new()
 	_hud.name = "HUD"
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.size = Vector2(1080, 1920)
 	add_child(_hud)
-	var L := "board_base"
 	# Rope and goal house.
-	var hr := Layout.r(L, "goal_house")
+	var hr := _house_rect()
+	var k := HOUSE_WIDTH / HOUSE_CONTENT.size.x
 	_glow = UI.art(_hud, "house_glow", Rect2(hr.get_center() - hr.size * 0.9, hr.size * 1.8))
 	_glow.modulate = Color(1, 0.8, 0.35, 0.0)
 	_rope = Control.new()
+	_rope.name = "Rope"
 	_rope.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_rope.clip_contents = true
+	var rope_bottom := hr.position.y - (HOUSE_CONTENT.position.y - HOUSE_LOOP_Y) * k
+	# It starts above the screen so the entrance overshoot never shows its end.
+	UI.place(_rope, Rect2(540.0 - ROPE_WIDTH * 0.5, -60.0, ROPE_WIDTH, rope_bottom + 60.0))
 	_hud.add_child(_rope)
-	UI.art(_rope, "goal_rope_single", Layout.r(L, "goal_rope"), Rect2(6, 0, 108, 1260))
+	var rope_k := ROPE_WIDTH / 108.0
+	UI.art(_rope, "goal_rope_single", Rect2(0, 0, ROPE_WIDTH, 1260.0 * rope_k), Rect2(6, 0, 108, 1260))
 	_house = Control.new()
+	_house.name = "House"
 	_house.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(_house, hr)
 	_hud.add_child(_house)
 	var style := profile.equipped_house
 	var body_name := "goal_house_single" if style == "default" else "house_style_%s_body" % style
-	var body_content := Rect2(45, 110, 624, 580) if style == "default" else Rect2()
+	var body_content := HOUSE_CONTENT if style == "default" else Rect2()
 	UI.art(_house, body_name, Rect2(Vector2.ZERO, hr.size), body_content)
 	# The doorway is empty and dark until a species is delivered; the open-door art fades in while birds enter.
-	var opening := Layout.r(L, "house_opening")
-	opening.position -= hr.position
+	var opening := Rect2((HOUSE_DOOR.position - HOUSE_CONTENT.position) * k, HOUSE_DOOR.size * k)
+	_door_rect = Rect2(opening.position + hr.position, opening.size)
 	_door_mask = TextureRect.new()
 	_door_mask.texture = _disc_texture()
 	_door_mask.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -383,59 +456,84 @@ func _build_hud() -> void:
 	_door_mask.clip_children = CanvasItem.CLIP_CHILDREN_ONLY
 	UI.place(_door_mask, opening)
 	_house.add_child(_door_mask)
+	_door_open = null
 	if style == "default":
 		_door_open = UI.art(_house, "goal_house_door_open", Rect2(Vector2.ZERO, hr.size), body_content)
 		_door_open.modulate.a = 0.0
 	# Coin pill.
-	UI.panel(_hud, "stat_pill", Layout.r(L, "coin_pill"))
-	UI.art(_hud, "coin", Layout.r(L, "coin_disc"))
-	_coin_number = UI.number(_hud, "0", Layout.r(L, "coin_value"), "brown", -1)
-	# Moves and star thresholds.
-	UI.panel(_hud, "stat_pill", Layout.r(L, "move_pill"))
-	UI.art(_hud, "footprints", Layout.r(L, "footprints"))
-	_move_number = UI.number(_hud, "0", Layout.r(L, "move_value"))
+	_pill(_hud, COIN_PILL)
+	UI.art(_hud, "coin", COIN_ICON)
+	_coin_number = UI.number(_hud, "0", COIN_VALUE, "brown", -1)
+	# Level pill: footprints and moves, a divider, then three stars with their move thresholds.
+	_pill(_hud, LEVEL_PILL)
+	UI.art(_hud, "footprints", FOOTPRINTS)
+	_move_number = UI.number(_hud, "0", MOVE_VALUE)
 	var div := ColorRect.new()
-	div.color = Color(0.62, 0.45, 0.3, 0.6)
-	UI.place(div, Layout.r(L, "move_divider"))
+	div.color = Color(0.62, 0.45, 0.3, 0.55)
+	div.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(div, MOVE_DIVIDER)
 	_hud.add_child(div)
 	var thresholds := [str(session.par), str(session.par + 3), "∞"]
 	for i in 3:
-		UI.art(_hud, "star_full_small", Layout.r(L, "move_star_%d" % (i + 1)))
-		UI.number(_hud, thresholds[i], Layout.r(L, "threshold_%d" % (i + 1)))
+		var x := STAR_COLUMN_X + i * STAR_COLUMN_PITCH
+		UI.art(_hud, "star_full_small", Rect2(x + (STAR_COLUMN_W - STAR_SIZE) * 0.5, STAR_Y, STAR_SIZE, STAR_SIZE))
+		UI.number(_hud, thresholds[i], Rect2(x, THRESHOLD_Y, STAR_COLUMN_W, THRESHOLD_CAP))
 	# Day/night counter.
 	_sun_pill = Control.new()
 	_sun_pill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_sun_pill)
-	UI.panel(_sun_pill, "stat_pill", Layout.r(L, "sun_pill"))
-	UI.art(_sun_pill, "dial_sun", Layout.r(L, "sun_icon"))
-	_sun_number = UI.number(_sun_pill, "0", Layout.r(L, "sun_value"))
+	_pill(_sun_pill, SUN_PILL)
+	UI.art(_sun_pill, "dial_sun", SUN_ICON)
+	_sun_number = UI.number(_sun_pill, "0", SUN_VALUE)
 	_sun_pill.visible = session.state.day_length > 0
 	# Settings.
-	UI.disc(_hud, "Settings", Layout.r(L, "settings"), "icon_gear", func(): settings_requested.emit(), "btn_wood", 0.6)
+	var gear := UI.disc(_hud, "Settings", GEAR, "", func(): settings_requested.emit())
+	_disc_glyph(gear, "icon_gear")
 	_build_goals()
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
 	_tool_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_tool_bar)
 
+## Glyph icon centred in a disc at half its diameter, fitted by its visible pixels.
+func _disc_glyph(b: Control, icon: String, ratio := GLYPH_RATIO) -> void:
+	var s := b.size * ratio
+	UI.art(b, icon, Rect2((b.size - s) * 0.5, s)).name = "Icon"
+
 func _build_goals() -> void:
 	var ids := Levels.species_ids(session.state)
 	var n := ids.size()
-	var ring := Layout.r("board_base", "goal_ring_blue")
-	var pitch := minf(139.0, 900.0 / maxf(1.0, n))
-	var size := ring.size * (1.0 if n <= 6 else 0.8)
+	var ring := RING
+	var gap := RING_GAP
+	if n * ring + (n - 1) * gap > RING_ROW_WIDTH:
+		gap = RING_MIN_GAP
+		ring = minf(RING, (RING_ROW_WIDTH - (n - 1) * gap) / maxf(1.0, n))
+	var size := Vector2.ONE * ring
+	var top := _house_rect().end.y + BADGE_GAP_Y
 	for i in n:
 		var sp: String = ids[i]
-		var cx := 540.0 + (i - (n - 1) * 0.5) * pitch
-		var r := Rect2(Vector2(cx - size.x * 0.5, ring.position.y), size)
+		var cx := 540.0 + (i - (n - 1) * 0.5) * (ring + gap)
 		var node := Control.new()
-		UI.place(node, r)
+		node.name = "Goal " + sp
+		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(node, Rect2(Vector2(cx - ring * 0.5, top), size))
 		_hud.add_child(node)
-		UI.art(node, sp + "_face", Rect2(size * 0.12, size * 0.76))
+		# Cream backing disc that also clips the face to the ring's hole.
+		var hole := TextureRect.new()
+		hole.texture = _disc_texture()
+		hole.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		hole.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		hole.self_modulate = Color(1.0, 0.95, 0.84)
+		hole.clip_children = CanvasItem.CLIP_CHILDREN_AND_DRAW
+		var hole_size := size * RING_HOLE_RATIO
+		UI.place(hole, Rect2((size - hole_size) * 0.5, hole_size))
+		node.add_child(hole)
+		var face_size := size * FACE_RATIO
+		UI.art(hole, sp + "_face", Rect2((hole_size - face_size) * 0.5 + Vector2(0, hole_size.y * 0.04), face_size))
 		UI.art(node, "badge_ring_gold", Rect2(Vector2.ZERO, size))
-		var gift_rect := Rect2(size * Vector2(0.58, 0.56), size * 0.55)
-		_goal_gift[sp] = UI.art(node, "gift_coin_" + GIFT_COIN[sp], gift_rect)
-		_goal_check[sp] = UI.art(node, "badge_check", gift_rect)
+		var badge := Rect2(size * (1.0 - ABILITY_RATIO) + Vector2(4, 4), size * ABILITY_RATIO)
+		_goal_gift[sp] = UI.art(node, "gift_coin_" + GIFT_COIN[sp], badge)
+		_goal_check[sp] = UI.art(node, "badge_check", badge)
 		_goal_check[sp].visible = false
 		UI.hit_area(node, Rect2(Vector2.ZERO, size), func(): goal_info_requested.emit(sp))
 		_goal_nodes[sp] = node
@@ -475,24 +573,27 @@ func _build_tools() -> void:
 	_tool_slots.clear()
 	if tools.is_empty():
 		return
-	var disc := 110.0
-	var gap := 130.0
-	var width := tools.size() * disc + (tools.size() - 1) * gap + 104.0
-	var bar := Rect2(540.0 - width * 0.5, 1727, width, 148)
-	UI.panel(_tool_bar, "stat_pill", bar)
-	for i in tools.size():
+	var n := tools.size()
+	var width := n * TOOL_DISC + (n - 1) * TOOL_GAP + 2.0 * TOOL_BAR_PAD
+	var bar := Rect2(540.0 - width * 0.5, TOOL_BAR_BOTTOM - TOOL_BAR_HEIGHT, width, TOOL_BAR_HEIGHT)
+	_pill(_tool_bar, bar)
+	for i in n:
 		var kind: int = tools[i]
-		var r := Rect2(bar.position.x + 52.0 + i * (disc + gap), 1746, disc, 108)
-		_tool_slots.append([kind, r.get_center(), session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
+		var r := Rect2(bar.position.x + TOOL_BAR_PAD + i * (TOOL_DISC + TOOL_GAP),
+			bar.position.y + (TOOL_BAR_HEIGHT - TOOL_DISC) * 0.5, TOOL_DISC, TOOL_DISC)
+		_tool_slots.append([kind, r.get_center(), kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
-			UI.disc(_tool_bar, "Undo", r, "icon_undo", _on_undo, "btn_wood", 0.55)
+			_disc_glyph(UI.disc(_tool_bar, "Undo", r, "", _on_undo), "icon_undo")
 			continue
-		var b := UI.disc(_tool_bar, "Tool %d" % kind, r, TOOL_ICON[kind], func(): _on_tool(kind), "btn_wood",
-			0.62 if kind <= Board.Booster.SAPLING else 0.8)
+		var b := UI.disc(_tool_bar, "Tool %d" % kind, r, "", func(): _on_tool(kind))
+		# Firefly and sapling are flat glyphs; the world tools are small illustrations and read better a little larger.
+		_disc_glyph(b, TOOL_ICON[kind], GLYPH_RATIO if kind <= Board.Booster.SAPLING else 0.62)
 		var stock := session.state.inventory[kind]
-		var badge := Rect2(r.size.x - 44, -8, 52, 52)
+		# Red badge centred on the disc rim at its top-right (45 degrees).
+		var rim := Vector2.ONE * TOOL_DISC * 0.5 + Vector2(1, -1) * TOOL_DISC * 0.5 * 0.7071
+		var badge := Rect2(rim - Vector2.ONE * STOCK_BADGE * 0.5, Vector2.ONE * STOCK_BADGE)
 		UI.art(b, "badge_red", badge)
-		UI.number(b, str(stock) if stock > 0 else "+", badge.grow(-12), "white")
+		UI.number(b, str(stock) if stock > 0 else "+", Rect2(badge.position.x + 6, badge.get_center().y - STOCK_CAP * 0.5, STOCK_BADGE - 12, STOCK_CAP), "white")
 		UI.set_enabled(b, stock == 0 or session.booster_has_effect(kind))
 
 ## ---------- input ----------
@@ -610,25 +711,29 @@ func _show_bubble(bird: BirdView) -> void:
 		icons.append("gift_sun_note")
 	if icons.is_empty():
 		return
-	var d := bird.density
-	var body := Vector2(150.0 + 76.0 * icons.size(), 124.0) * d
-	var tex_scale := Vector2(body.x / 942.0, body.y / 322.0)
+	var n := icons.size()
+	var body_w := 2.0 * BUBBLE_PAD + n * HUD_ICON + (n - 1) * BUBBLE_ICON_GAP
 	_bubble = Node2D.new()
-	var spr := Sprite2D.new()
-	spr.texture = Art.tex("sleep_bubble")
-	spr.centered = false
-	spr.scale = tex_scale
-	spr.position = -Vector2(124.0, 400.0) * tex_scale   # the tail tip sits at the node origin
-	_bubble.add_child(spr)
-	for i in icons.size():
-		var icon := Sprite2D.new()
-		icon.texture = Art.tex(icons[i])
-		icon.scale = Vector2.ONE * 0.72 * d
-		icon.position = spr.position + Vector2(480.0, 170.0) * tex_scale + Vector2((i - (icons.size() - 1) * 0.5) * 70.0 * d, 0.0)
-		_bubble.add_child(icon)
+	_bubble.name = "SleepBubble"
+	# Nine-sliced at a fixed art scale so the tail and round ends never stretch.
+	var art := NinePatchRect.new()
+	art.texture = Art.tex("sleep_bubble")
+	art.patch_margin_left = BUBBLE_MARGINS[0]
+	art.patch_margin_top = BUBBLE_MARGINS[1]
+	art.patch_margin_right = BUBBLE_MARGINS[2]
+	art.patch_margin_bottom = BUBBLE_MARGINS[3]
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	art.size = Vector2(body_w / BUBBLE_SCALE, float(art.texture.get_height()))
+	art.scale = Vector2.ONE * BUBBLE_SCALE
+	art.position = -BUBBLE_TAIL * BUBBLE_SCALE   # the tail tip sits at the node origin
+	_bubble.add_child(art)
+	var centre_y := art.position.y + BUBBLE_BODY_CENTRE_Y * BUBBLE_SCALE
+	for i in n:
+		var x := art.position.x + BUBBLE_PAD + i * (HUD_ICON + BUBBLE_ICON_GAP)
+		UI.art(_bubble, icons[i], Rect2(x, centre_y - HUD_ICON * 0.5, HUD_ICON, HUD_ICON))
 	# Tail tip just above the bird's head; keep the bubble body on screen.
-	var tip := bird.position + Vector2(-10.0, -135.0 * d)
-	tip.x = clampf(tip.x, 40.0 + 124.0 * tex_scale.x, 1040.0 - body.x + 124.0 * tex_scale.x)
+	var tip := bird.position + Vector2(-10.0, -135.0 * bird.density)
+	tip.x = clampf(tip.x, HUD_LEFT + BUBBLE_TAIL.x * BUBBLE_SCALE, 1040.0 - body_w + BUBBLE_TAIL.x * BUBBLE_SCALE)
 	_bubble.position = tip
 	_scene.add_child(_bubble)
 	var node := _bubble
@@ -674,9 +779,12 @@ func show_stuck_hint() -> void:
 	_stuck = Control.new()
 	_stuck.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_stuck)
-	var glow := UI.image(_stuck, "glow_soft", Rect2(centre - Vector2(88, 88), Vector2(176, 176)))
+	var glow_size := Vector2.ONE * TOOL_DISC * 1.375
+	var glow := UI.image(_stuck, "glow_soft", Rect2(centre - glow_size * 0.5, glow_size))
 	glow.modulate = Color(1, 0.72, 0.15, 0.3)   # translucent gold so the disc stays readable
-	var arrow := UI.art(_stuck, "icon_next_arrow", Rect2(centre + Vector2(-28, -150), Vector2(56, 48)))
+	# Pointer 16 px above the disc (and its stock badge), pointing down; it bobs upwards so it never touches.
+	var arrow_rect := Rect2(centre + Vector2(-HUD_ICON * 0.5, -TOOL_DISC * 0.5 - 16.0 - HUD_ICON), Vector2.ONE * HUD_ICON)
+	var arrow := UI.art(_stuck, "icon_next_arrow", arrow_rect)
 	var base_y := arrow.position.y
 	arrow.rotation = PI * 0.5   # points down at the tool
 	if instant:
@@ -685,7 +793,7 @@ func show_stuck_hint() -> void:
 	tw.tween_method(func(t: float):
 		var wave := (1.0 - cos(t * TAU)) * 0.5
 		_stuck.modulate.a = 0.7 + 0.3 * wave
-		arrow.position.y = base_y + wave * 12.0, 0.0, 1.0, 1.2)
+		arrow.position.y = base_y - wave * 12.0, 0.0, 1.0, 1.2)
 
 func _hide_stuck() -> void:
 	if _stuck:
@@ -867,7 +975,7 @@ func _swivel(e: Dictionary) -> void:
 		await last.finished
 
 func _door_point() -> Vector2:
-	return Layout.r("board_base", "house_opening").get_center()
+	return _door_rect.get_center()
 
 func _flock_home(e: Dictionary) -> void:
 	var ids: PackedInt32Array = e["ids"]
@@ -949,7 +1057,7 @@ func _gift(e: Dictionary) -> void:
 	add_child(coin)
 	Sound.play("collect")
 	var tw := create_tween()
-	tw.tween_property(coin, "scale", Vector2.ONE * 1.0, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(coin, "scale", Vector2.ONE * RING / float(coin.texture.get_width()), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_interval(0.35)
 	tw.tween_property(coin, "modulate:a", 0.0, 0.2)
 	await tw.finished
