@@ -7,6 +7,7 @@ signal closed
 signal profile_changed
 
 const PopupsScript := preload("res://game/popups.gd")
+const ShopScript := preload("res://game/shop_view.gd")   # outfit names and the price line of the confirm popup
 
 ## Top bar: the row y 48 to 160; buttons and counters share the board's positions.
 const BAR_Y := 104.0
@@ -369,7 +370,8 @@ func _build_tiles() -> void:
 			bird.modulate.a = UI.DISABLED_ALPHA
 			UI.icon(tile, "lock", CORNER, 44.0, Color(UI.INK, 0.7))
 			_price(tile, Shop.item(id).get("price", 0))
-			var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, tile.size), func(): _nudge(tile))
+			var pick_locked := id
+			var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, tile.size), func(): _confirm_outfit(pick_locked, n, tile))
 			hit.name = "Locked"
 		if id == current:
 			var check := UI.shape(tile, Rect2(CORNER - Vector2.ONE * CHECK * 0.5, Vector2.ONE * CHECK), "green", CHECK * 0.5, 5.0, false)
@@ -399,13 +401,34 @@ func _equip(id: String, index: int) -> void:
 	_build_tiles()
 	_bump(_tiles.get_child(_tiles.get_child_count() - 4 + index))
 
-## A locked tile shakes sideways and stays put.
-func _nudge(tile: Control) -> void:
+## Buying a locked outfit: the shop's confirm popup (name, the bird wearing it, price) over this page. With enough
+## coins the green check buys and puts it on; without, the check is dimmed and the price shakes.
+func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	Sound.play("ui_tap")
-	var x := tile.position.x
-	var tw := tile.create_tween()
-	for dx in [-10.0, 10.0, -6.0, 6.0, 0.0]:
-		tw.tween_property(tile, "position:x", x + dx, 0.05).set_trans(Tween.TRANS_SINE)
+	var it := Shop.item(id)
+	var name: String = ShopScript.OUTFIT_NAME[it["species"]][it["index"] - 1]
+	var instant: bool = get_parent() != null and get_parent().has_method("instant") and get_parent().instant()
+	var modal := Modal.open(self, name, [ShopScript.POPUP_PIC, ShopScript.POPUP_LINE], true, UI.PRIMARY, 0.0, instant)
+	var ys: Array = modal.get_meta("ys")
+	var pic := Rect2(540.0 - ShopScript.POPUP_PIC * 0.5, ys[0], ShopScript.POPUP_PIC, ShopScript.POPUP_PIC)
+	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
+	var affordable: bool = profile.coins >= it["price"]
+	var line := ShopScript._price_line(modal.content, ys[1], it["price"], UI.INK if affordable else UI.FILL["red"])
+	var accept: Button = modal.actions([["green", "check", func(): _buy_outfit(id, index)]])[0]
+	UI.set_active(accept, affordable)
+	if not affordable:
+		var tw := line.create_tween()
+		tw.tween_interval(0.0 if instant else 0.35)
+		tw.tween_callback(func(): Sound.play("error"))
+		for dx in [16.0, -16.0, 10.0, -10.0, 4.0, 0.0]:
+			tw.tween_property(line, "position:x", dx, 0.05)
+
+func _buy_outfit(id: String, index: int) -> void:
+	if Shop.purchase(profile, id) != "":
+		Sound.play("error")
+		return
+	Sound.play("collect")
+	_equip(id, index)
 
 # ---------------------------------------------------------------- capture preview
 
@@ -417,6 +440,13 @@ static func preview(main: Control, state: String) -> void:
 	p.homes = {"sunny": 12, "sky": 9, "berry": 7, "mint": 5, "cocoa": 3, "snow": 1}
 	if state == "list_some_unmet":
 		p.met = {"sunny": true, "sky": true, "berry": true}
+	if state == "buy_outfit":   # coins for the first outfit but not the others
+		p.coins = 400
+	if state == "bought_outfit":   # the cheapest outfit already bought and worn
+		p.outfits = {"outfit.hoot.1": true}
+		p.equipped = {"hoot": "outfit.hoot.1"}
+	if state == "buy_outfit_short":
+		p.coins = 120
 	if state == "detail_berry":
 		p.outfits = {"outfit.berry.1": true, "outfit.berry.2": true}
 		p.equipped = {"berry": "outfit.berry.1"}
@@ -428,3 +458,7 @@ static func preview(main: Control, state: String) -> void:
 		"detail_berry": view._show_detail("berry")
 		"detail_crow": view._show_detail("crow")
 		"detail_hoot": view._show_detail("hoot")
+		"bought_outfit": view._show_detail("hoot")
+		"buy_outfit", "buy_outfit_short":
+			view._show_detail("hoot")
+			view._confirm_outfit("outfit.hoot.1", 1, view._tiles.get_child(1))

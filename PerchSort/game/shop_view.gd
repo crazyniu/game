@@ -330,7 +330,7 @@ func _confirm(it: Dictionary) -> void:
 			tw.tween_property(line, "position:x", dx, 0.05)
 
 ## Coin and price centred on one line; returns the holder that shakes.
-func _price_line(c: Control, y: float, price: int, color: Color) -> Control:
+static func _price_line(c: Control, y: float, price: int, color: Color) -> Control:
 	var holder := Control.new()
 	holder.name = "PriceLine"
 	holder.size = Vector2(1080, 1920)
