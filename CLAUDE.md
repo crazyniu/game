@@ -6,7 +6,6 @@ Follow [CONVENTIONS](docs/CONVENTIONS.md).
 
 Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 40 fixed authored levels across four sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
 
-- Claude develops the game directly. Codex only paints art and may help run tests on the Mac; it does not write game code.
 - Return questions and reports to the coordinator who assigned the task. AGENTS.md and CLAUDE.md must remain identical.
 - Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. Bounded workers must not spawn workers.
 - Never force-push, deploy or release. Release needs explicit user authority.

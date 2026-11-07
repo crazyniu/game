@@ -1,18 +1,13 @@
 extends RefCounted
 ## Modal popups opened on a host Control (main.popups). Every function returns the popup; callbacks are Callables.
-## Layout: docs/design/ui-system.md. One cream panel, a title word, content groups stacked 32 apart, actions in a
-## row under the panel. Words are painted word sprites, numbers painted glyphs, icons the white icon family.
+## Layout: docs/design/ui-system.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
+## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
 const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
 	"ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
-const ABILITY := {"sunny": "Wakes sleepers", "sky": "Reveals eggs", "berry": "One free move", "mint": "Grows branches",
-	"cocoa": "Sends crows away", "snow": "Land anywhere", "ember": "Hatches every egg", "ink": "Switches day night",
-	"hoot": "Moonlit moves"}
-const BOOSTER_NAME := ["Firefly", "Sapling", "Owl Eye", "Morning Bell", "Scarecrow", "Spring Rain"]
+const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
-const BOOSTER_CAPTION := ["Find a helpful move", "Add one branch", "Reveals eggs", "Wake sleeping birds", "Send crows away",
-	"Grow branches fully"]
-const WORLD_NAME := {1: "Green Forest", 2: "Bamboo Forest", 3: "Autumn Forest", 4: "Snow Forest"}
+const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
 	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot"}
 
@@ -22,7 +17,7 @@ const STAR_MID := 190.0
 const STAR_ROW := 200.0            # height of the star row (the middle star is raised)
 const SMALL_STAR := 120.0
 const LIMIT_CAP := 36.0            # move limits under the level card's stars
-const LINE := 64.0                 # one text line group (icon + number, or a caption)
+const LINE := 80.0                 # one text line group (icon + number, or a caption)
 const CAPTION_CAP := 44.0
 const REWARD_H := 96.0
 const RING := 150.0
@@ -44,8 +39,6 @@ const ARCH_BIRDS := ["sunny", "sky", "berry"]
 const ARCH_BIRD_X := [-0.38, 0.0, 0.38]
 const ARCH_BIRD_H := 190.0
 const ARCH_FLOOR := 44.0
-## Where reward coins fly to: the coin counter of the screen underneath (map top right).
-const HUD_COIN := Vector2(960, 104)
 
 
 # ---------------------------------------------------------------- popups
@@ -56,7 +49,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 	var heights := [STAR_ROW, LINE]
 	if reward > 0:
 		heights.append(REWARD_H)
-	var p := Modal.open(host, "Well done!", heights, false, UI.PRIMARY, HERO - 40.0, not live)
+	var p := Modal.open(host, "popup.win.title", heights, false, UI.PLAY_SIZE.y, HERO - 40.0, not live)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var panel := p.panel_rect
@@ -78,7 +71,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 		var parts := _reward(c, ys[2], reward)
 		if live:
 			_count(parts[0], reward, "+%d", 1.0, 0.7)
-			_coin_flight(p, parts[1], HUD_COIN, 1.8)
+			_coin_burst(p, parts[1], 1.0)
 	var row := p.actions([["orange", "retry", on_replay], ["green", "play", on_next], ["orange", "home", on_home]])
 	UI.set_active(row[1], next_enabled)
 	if live:
@@ -87,7 +80,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 
 static func settings(host: Control, muted: bool, on_toggle_sound: Callable, on_restart: Callable, on_home: Callable,
 		show_restart: bool) -> Control:
-	var p := Modal.open(host, "Settings", [UI.SECONDARY], true, 0.0, 0.0, _instant(host), true)
+	var p := Modal.open(host, "popup.settings.title", [UI.SECONDARY], true, 0.0, 0.0, _instant(host), true)
 	var ys: Array = p.get_meta("ys")
 	var ids := ["sound", "restart", "home"] if show_restart else ["sound", "home"]
 	var state := {"muted": muted}
@@ -98,13 +91,13 @@ static func settings(host: Control, muted: bool, on_toggle_sound: Callable, on_r
 		var icon: String = {"sound": _sound_icon(muted), "restart": "retry", "home": "home"}[id]
 		var b := UI.button(p.content, id.capitalize(), Vector2(x, ys[0] + UI.SECONDARY * 0.5), "orange", icon, func():
 			if id == "sound":
-				cb.call()
-				state["muted"] = not state["muted"]
-				var ic: TextureRect = state["button"].get_node("Icon")
-				ic.texture = Art.tex("icon_" + _sound_icon(state["muted"]))
+				p.invoke(func():
+					cb.call()
+					state["muted"] = not state["muted"]
+					var ic: TextureRect = state["button"].get_node("Icon")
+					ic.texture = UI.icon_texture(_sound_icon(state["muted"])), false)
 			else:
-				p.close()
-				cb.call())
+				p.invoke(cb))
 		if id == "sound":
 			state["button"] = b
 		x += UI.SECONDARY + gap
@@ -121,7 +114,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		heights.append(rows * RING + (rows - 1) * RING_GAP)
 	if not mechanics.is_empty():
 		heights.append(UI.COUNTER_H)
-	var p := Modal.open(host, "Level %d" % level, heights, true, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.level.title", heights, true, UI.PLAY_SIZE.y, 0.0, _instant(host), false, str(level))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var g := 0
@@ -133,9 +126,10 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		UI.number(c, limits[i], Rect2(at.x - 80.0, ys[g] + SMALL_STAR + 16.0, 160.0, LIMIT_CAP))
 	g += 1
 	if best_moves > 0:
-		var w := UI.word_width("Best", CAPTION_CAP) + 16.0 + UI.number_width(str(best_moves), 52.0)
+		var label_w := minf(UI.label_width("popup.best", CAPTION_CAP), 420.0)
+		var w := label_w + 24.0 + UI.number_width(str(best_moves), 52.0)
 		var x := 540.0 - w * 0.5
-		UI.word(c, "Best", Vector2(x, ys[g] + LINE * 0.5), CAPTION_CAP, UI.INK, -1)
+		UI.label(c, "popup.best", Rect2(x, ys[g], label_w, LINE), CAPTION_CAP)
 		UI.number(c, str(best_moves), Rect2(x + w - UI.number_width(str(best_moves), 52.0), ys[g] + (LINE - 52.0) * 0.5,
 			UI.number_width(str(best_moves), 52.0) + 2.0, 52.0), UI.INK, 1)
 		g += 1
@@ -152,7 +146,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	return p
 
 static func goal_info(host: Control, species: String) -> Control:
-	var p := Modal.open(host, Aviary.display_name(species), [FRIEND, LINE], true, 0.0, 0.0, _instant(host))
+	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, LINE], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 0.0)
@@ -160,7 +154,7 @@ static func goal_info(host: Control, species: String) -> Control:
 	return p
 
 static func daily_gift(host: Control, reward: int, on_claim: Callable) -> Control:
-	var p := Modal.open(host, "Daily Gift", [GIFT_H, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.daily_gift.title", [GIFT_H, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var k := GIFT_H / GIFT_CONTENT.size.y
@@ -187,17 +181,17 @@ static func daily_gift(host: Control, reward: int, on_claim: Callable) -> Contro
 	return p
 
 static func new_friend(host: Control, species: String, reward: int, on_ok: Callable) -> Control:
-	var p := Modal.open(host, "New Friend", [FRIEND, LINE, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.new_friend.title", [FRIEND, LINE, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 1.2)
-	UI.word(c, Aviary.display_name(species), Vector2(540, ys[1] + LINE * 0.5), 56.0)
+	UI.label(c, "bird.%s.name" % species, Rect2(220, ys[1] - 8.0, 640, LINE + 16.0), 56.0)
 	_reward(c, ys[2], reward)
 	p.actions([["green", "check", on_ok]])
 	return p
 
 static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
-	var p := Modal.open(host, BOOSTER_NAME[booster], [ILLUS, LINE], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "booster.%s.name" % BOOSTER_ID[booster], [ILLUS, LINE], false, UI.PRIMARY, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
@@ -206,13 +200,13 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 		var at: Vector2 = box.get_center() + sparks[i] * ILLUS * 0.5
 		_twinkle(UI.art(c, "sparkle", Rect2(at - Vector2(32, 32), Vector2(64, 64))), i * 0.35)
 	_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box, true), 0.0)
-	UI.word(c, BOOSTER_CAPTION[booster], Vector2(540, ys[1] + LINE * 0.5), CAPTION_CAP)
+	UI.label(c, "booster.%s.description" % BOOSTER_ID[booster], Rect2(172, ys[1], 736, LINE), CAPTION_CAP)
 	p.actions([["green", "check", on_ok]])
 	return p
 
 static func world_complete(host: Control, world: int, reward: int, on_ok: Callable) -> Control:
 	var arch_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
-	var p := Modal.open(host, "World Complete", [STAR_ROW, arch_h, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.world_complete.title", [STAR_ROW, arch_h, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var live := not _instant(host)
@@ -234,7 +228,7 @@ static func world_complete(host: Control, world: int, reward: int, on_ok: Callab
 
 static func world_unlock(host: Control, world: int, on_play: Callable) -> Control:
 	var gate_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
-	var p := Modal.open(host, "World Unlocked", [gate_h, LINE], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.world_unlock.title", [gate_h, LINE], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	# The light glow is taller than the arch, so the stage sits in a clip the size of the gate's row.
@@ -274,7 +268,7 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 		var tw := p.create_tween()
 		tw.tween_interval(0.5)
 		tw.tween_method(open, 0.0, 1.0, 1.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	UI.word(c, WORLD_NAME.get(world, "Bamboo Forest"), Vector2(540, ys[1] + LINE * 0.5), 52.0)
+	UI.label(c, "world.%s.name" % WORLD_ID[world], Rect2(172, ys[1] - 4.0, 736, LINE + 8.0), 52.0)
 	p.actions([["green", "play", on_play]])
 	return p
 
@@ -307,7 +301,7 @@ static func _icon_line(c: Control, y: float, icon: String, text: String) -> Cont
 	var w := 56.0 + 16.0 + num_w
 	var x := 540.0 - w * 0.5
 	UI.icon(c, icon, Vector2(x + 28.0, y + LINE * 0.5), 56.0, UI.INK)
-	return UI.number(c, text, Rect2(x + 72.0, y + (LINE - cap) * 0.5, num_w + 120.0, cap), UI.INK, -1)
+	return UI.number(c, text, Rect2(x + 72.0, y + (LINE - cap) * 0.5, num_w, cap), UI.INK, -1)
 
 ## Blue reward pill with a coin and "+N" in white; returns [number box, coin centre].
 static func _reward(c: Control, y: float, amount: int) -> Array:
@@ -319,20 +313,21 @@ static func _reward(c: Control, y: float, amount: int) -> Array:
 	pill.name = "Reward"
 	var coin := Rect2(pill.position.x + 16.0, y + 8.0, 72.0, 72.0)
 	UI.art(c, "coin", coin)
-	var box := UI.number(c, text, Rect2(coin.end.x + 16.0, y + (REWARD_H - 8.0 - cap) * 0.5, num_w + 120.0, cap), Color.WHITE, -1)
+	var box := UI.number(c, text, Rect2(coin.end.x + 16.0, y + (REWARD_H - 8.0 - cap) * 0.5, num_w, cap), Color.WHITE, -1)
 	return [box, coin.get_center()]
 
 ## Ability badge and caption of a species, centred on one line.
 static func _ability_line(c: Control, species: String, y: float) -> void:
-	var caption: String = ABILITY.get(species, "Wakes sleepers")
+	var label_id := "bird.%s.ability" % species
 	var badge := 72.0
 	var has_badge := EFFECT.has(species)
-	var w := UI.word_width(caption, CAPTION_CAP) + ((badge + 16.0) if has_badge else 0.0)
+	var lead := (badge + 24.0) if has_badge else 0.0
+	var label_w := minf(UI.label_width(label_id, CAPTION_CAP), 736.0 - lead)
+	var w := label_w + lead
 	var x := 540.0 - w * 0.5
 	if has_badge:
 		UI.art(c, "gift_coin_" + EFFECT[species], Rect2(x, y + (LINE - badge) * 0.5, badge, badge))
-		x += badge + 16.0
-	UI.word(c, caption, Vector2(x, y + LINE * 0.5), CAPTION_CAP, UI.INK, -1)
+	UI.label(c, label_id, Rect2(x + lead, y, label_w, LINE), CAPTION_CAP)
 
 ## Cream circle with a live bird and its ability badge at the lower right.
 static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
@@ -349,7 +344,7 @@ static func _ring(c: Control, species: String, center: Vector2, instant: bool) -
 ## Mechanics of the level as pictures in one cream pill, centred.
 static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> void:
 	var size := 64.0
-	var gap := 40.0
+	var gap := 32.0
 	var w := 40.0 * 2.0 + mechanics.size() * size + (mechanics.size() - 1) * gap
 	var pill := Rect2(540.0 - w * 0.5, y, w, UI.COUNTER_H)
 	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0).add_theme_stylebox_override("panel",
@@ -426,15 +421,15 @@ static func _confetti(p: Control, delay: float) -> void:
 			piece.modulate.a = minf(1.0, t * 12.0) * minf(1.0, (1.0 - t) * 5.0), 0.0, 1.0, fall)
 		tw.tween_callback(piece.queue_free)
 
-## A burst of coins flying from the reward towards the coin counter.
-static func _coin_flight(p: Control, from: Vector2, to: Vector2, delay: float) -> void:
+## Coins rise above the reward and settle back into its visible coin, without crossing unrelated HUD controls.
+static func _coin_burst(p: Control, center: Vector2, delay: float) -> void:
 	for i in 7:
 		var coin := UI.image(p, "coin", Rect2(Vector2.ZERO, Vector2(60, 60)))
 		coin.modulate.a = 0.0
 		var tw := coin.create_tween()
 		tw.tween_interval(delay + i * 0.07)
 		tw.tween_method(func(t: float):
-			var at := from.lerp(to, t) + Vector2((i - 3) * 26.0 * sin(t * PI), -160.0 * sin(t * PI))
+			var at := center + Vector2((i - 3) * 30.0 * sin(t * PI), -(140.0 + i * 12.0) * sin(t * PI))
 			coin.position = at - coin.size * 0.5
 			coin.scale = Vector2.ONE * lerpf(1.0, 0.55, t)
 			coin.modulate.a = minf(1.0, t * 10.0) * minf(1.0, (1.0 - t) * 6.0), 0.0, 1.0, 0.65)

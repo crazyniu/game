@@ -1,6 +1,6 @@
 extends Control
 ## Shop (docs/design/ui-system.md): top bar (close, title, coins), three tabs, a two-column grid of cream cards and
-## a purchase confirm popup. Words are painted word sprites, numbers painted glyphs, icons the white icon family.
+## a purchase confirm popup. Words are localized painted labels and numbers use the shared painted glyphs.
 
 signal closed
 signal profile_changed
@@ -9,32 +9,24 @@ const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_ICONS := ["bulb", "hanger", "aviary"]
 const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
 const PER_PAGE := 4
-const BOOSTER_NAME := ["Firefly", "Sapling", "Owl Eye", "Morning Bell", "Scarecrow", "Spring Rain"]
+const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
-const HOUSE_NAME := {"mushroom": "Mushroom", "teapot": "Teapot", "lantern": "Lantern", "acorn": "Acorn"}
-const OUTFIT_NAME := {
-	"sunny": ["Straw Hat", "Blue Bow Tie", "Little Crown"], "sky": ["Cozy Scarf", "Aviator Goggles", "Tiny Top Hat"],
-	"berry": ["Round Glasses", "Pink Bow", "Sparkle Tiara"], "mint": ["Flower", "Mushroom Cap", "Acorn Cap"],
-	"cocoa": ["Red Beanie", "Plaid Bow Tie", "Monocle"], "snow": ["Earmuffs", "Snowflake Clip", "Ice Tiara"],
-	"ember": ["Red Bandana", "Flame Headband", "Knight Helmet"], "ink": ["Star Nightcap", "Silver Glasses", "Little Star Hat"],
-	"hoot": ["Graduation Cap", "Reading Glasses", "Wizard Cape"]}
 
 ## Layout (design pixels, 1080x1920; margins 48, 8 px grid).
 const MARGIN := 48.0
-const BAR_Y := 112.0                      # centre of the top bar row (y 48 to 176)
-const TITLE_CAP := 64.0
-const TAB_Y := 272.0                      # centre of the tab row (y 208 to 336)
+const BAR_Y := 112.0
+const TITLE_CAP := 56.0
+const TAB_Y := 272.0
 const TAB_GAP := 48.0
 const GRID_TOP := 384.0
 const GAP := 32.0
 const CARD_W := (1080.0 - MARGIN * 2.0 - GAP) * 0.5
-const CARD_H := {Shop.BOOSTER: 456.0, Shop.OUTFIT: 640.0, Shop.HOUSE: 640.0}
+const CARD_H := {Shop.BOOSTER: 448.0, Shop.OUTFIT: 608.0, Shop.HOUSE: 608.0}
 const CARD_RADIUS := 40.0
 const CARD_EDGE := 10.0
 const CARD_PAD := 32.0
 const NAME_CAP := 40.0
-const NAME_Y := 64.0                      # centre of the item name inside a card
-const PIC_TOP := 104.0
+const PIC_TOP := 120.0
 const PILL := Vector2(240, 96)            # price, equip button and equipped marker share this slot
 const PILL_BOTTOM := 40.0                 # card bottom (with its edge) to the pill bottom
 const PILL_EDGE := 8.0
@@ -44,10 +36,11 @@ const MARK := 96.0                        # equipped check badge (flat, no shado
 const LOCK := 96.0
 const PAGER_Y := 1792.0                   # bottom action row centre
 const PAGE_PILL := Vector2(176, 96)
-const POPUP_PIC := 320.0
-const POPUP_LINE := 72.0
-const POPUP_COIN := 72.0
-const POPUP_CAP := 52.0
+const POPUP_PIC := 240.0
+const SINGLE_PIC := 320.0
+const BUY_SIZE := Vector2(512, 128)
+const QUANTITY_WIDTH := 208.0
+const QUANTITY_GAP := 24.0
 const WASH := Color(1.0, 0.969, 0.91, 0.42)   # cream veil over the scene so cards read
 
 var profile: Profile
@@ -60,6 +53,105 @@ var _grid: Control
 var _coins: Panel
 var _coins_shown := -1
 var _modal: Modal
+var _purchase_item: Dictionary
+var _quantity := 1
+var _quantity_limit := 1
+var _quantity_input: QuantityInput
+var _minus: Button
+var _plus: Button
+var _purchase_button: Button
+var _purchase_contents: Control
+
+
+## LineEdit handles keyboard input; only the existing painted digits are visible.
+class QuantityInput extends LineEdit:
+	signal value_changed(value: int)
+
+	const CAP := 44.0
+	var limit := 1
+	var _digits: Control
+	var _caret: ColorRect
+	var _selection: ColorRect
+
+	func _ready() -> void:
+		alignment = HORIZONTAL_ALIGNMENT_CENTER
+		virtual_keyboard_type = LineEdit.KEYBOARD_TYPE_NUMBER
+		select_all_on_focus = true
+		context_menu_enabled = false
+		drag_and_drop_selection_enabled = false
+		max_length = str(limit).length()
+		text = "1"
+		for key in ["font_color", "font_selected_color", "font_uneditable_color", "font_outline_color", "caret_color", "selection_color"]:
+			add_theme_color_override(key, Color.TRANSPARENT)
+		add_theme_font_size_override("font_size", 60)
+		add_theme_constant_override("minimum_character_width", 1)
+		var frame := UI._box(UI.FILL["cream"], UI.RIM["cream"], 32.0, 0.0, false)
+		frame.set_border_width_all(3)
+		add_theme_stylebox_override("normal", frame)
+		add_theme_stylebox_override("read_only", frame)
+		var focus := frame.duplicate() as StyleBoxFlat
+		focus.bg_color = Color.TRANSPARENT
+		focus.border_color = UI.INK
+		add_theme_stylebox_override("focus", focus)
+		_selection = ColorRect.new()
+		_selection.color = UI.RIM["cream"]
+		_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_selection.hide()
+		add_child(_selection)
+		_digits = UI.number(self, text, Rect2(16, 38, size.x - 32, CAP))
+		_caret = ColorRect.new()
+		_caret.color = UI.INK
+		_caret.size = Vector2(3, 52)
+		_caret.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_caret.hide()
+		add_child(_caret)
+		text_changed.connect(_edited)
+		text_submitted.connect(func(_text: String): release_focus())
+		focus_entered.connect(func(): set_process(true))
+		focus_exited.connect(func():
+			if text.is_empty():
+				set_value(1)
+			_caret.hide()
+			_selection.hide()
+			set_process(false))
+		set_process(false)
+
+	func set_value(value: int) -> void:
+		text = str(clampi(value, 1, limit))
+		caret_column = text.length()
+		_refresh_digits()
+		value_changed.emit(int(text))
+
+	func _edited(value: String) -> void:
+		var digits := ""
+		for character in value:
+			if character >= "0" and character <= "9":
+				digits += character
+		var column := caret_column
+		var cleaned := "" if digits.is_empty() else str(clampi(int(digits), 1, limit))
+		if text != cleaned:
+			text = cleaned
+			caret_column = mini(column, text.length())
+		_refresh_digits()
+		value_changed.emit(0 if text.is_empty() else int(text))
+
+	func _refresh_digits() -> void:
+		_digits.visible = not text.is_empty()
+		if _digits.visible:
+			UI.set_number(_digits, text)
+
+	func _process(_delta: float) -> void:
+		var width := UI.number_width(text, CAP)
+		var cap := CAP if width == 0.0 else CAP * minf(1.0, _digits.size.x / width)
+		var left := (size.x - UI.number_width(text, cap)) * 0.5
+		_caret.visible = is_editing() and not has_selection()
+		_caret.position = Vector2(left + UI.number_width(text.left(caret_column), cap), 34)
+		_selection.visible = is_editing() and has_selection()
+		if _selection.visible:
+			var start := UI.number_width(text.left(get_selection_from_column()), cap)
+			var end := UI.number_width(text.left(get_selection_to_column()), cap)
+			_selection.position = Vector2(left + start, 32)
+			_selection.size = Vector2(end - start, 56)
 
 
 func setup(p: Profile, start_tab := 0) -> void:
@@ -76,9 +168,21 @@ func setup(p: Profile, start_tab := 0) -> void:
 	_grid = _layer("Grid")
 	_tabs = _layer("Tabs")
 	_bar = _layer("Bar")
-	UI.button(_bar, "Close", Vector2(MARGIN + UI.SECONDARY * 0.5, BAR_Y), "red", "close", func(): closed.emit())
-	UI.word(_bar, "Shop", Vector2(540, BAR_Y), TITLE_CAP)
+	_build_header()
 	_refresh()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		_build_header()
+		_refresh()
+
+func _build_header() -> void:
+	for child in _bar.get_children():
+		child.queue_free()
+	_coins = null
+	_coins_shown = -1
+	UI.button(_bar, "Close", Vector2(112, BAR_Y), "red", "close", func(): closed.emit())
+	UI.heading(_bar, "shop.title", Rect2(420, BAR_Y - 52.0, 240, 104), TITLE_CAP)
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -107,7 +211,7 @@ func _refresh() -> void:
 	if pages > 1:
 		_build_pager(pages)
 
-## Coins counter at the top right; it bumps when the amount changes.
+## The compact counter stays at the right margin; the title has its own bounded space.
 func _build_coins() -> void:
 	if _coins_shown == profile.coins:
 		return
@@ -115,8 +219,10 @@ func _build_coins() -> void:
 	if _coins:
 		_coins.queue_free()
 	var value := str(profile.coins)
-	var w := 100.0 + UI.number_width(value, 44.0) + 32.0
+	var w := UI.NUMBER_X + UI.number_width(value, 44.0) + 32.0
 	_coins = UI.counter(_bar, Vector2(1080.0 - MARGIN - w, BAR_Y - UI.COUNTER_H * 0.5), "coin", value)
+	_coins.name = "Coins"
+	_coins.pivot_offset = _coins.size * 0.5
 	_coins_shown = profile.coins
 	if bump and not instant:
 		var tw := _coins.create_tween()
@@ -167,11 +273,10 @@ func _equipped(it: Dictionary) -> bool:
 func _locked(it: Dictionary) -> bool:
 	return it["kind"] == Shop.BOOSTER and not Progress.is_booster_unlocked(profile, it["booster"])
 
-func _name(it: Dictionary) -> String:
-	match it["kind"]:
-		Shop.BOOSTER: return BOOSTER_NAME[it["booster"]]
-		Shop.OUTFIT: return OUTFIT_NAME[it["species"]][it["index"] - 1]
-	return HOUSE_NAME[it["style"]]
+func _name_id(it: Dictionary) -> String:
+	if it["kind"] == Shop.BOOSTER:
+		return "booster.%s.name" % BOOSTER_LABEL[it["booster"]]
+	return str(it["id"]) + ".name"
 
 func _card(it: Dictionary, n: int) -> void:
 	var kind: int = it["kind"]
@@ -182,13 +287,14 @@ func _card(it: Dictionary, n: int) -> void:
 	UI.place(card, Rect2(Vector2(MARGIN + (n % 2) * (CARD_W + GAP), GRID_TOP + (n / 2) * (cs.y + GAP)), cs))
 	_grid.add_child(card)
 	UI.shape(card, Rect2(Vector2.ZERO, cs), "cream", CARD_RADIUS, CARD_EDGE)
-	UI.hit_area(card, Rect2(Vector2.ZERO, cs), func(): _tap(it))
+	var hit := UI.hit_area(card, Rect2(Vector2.ZERO, cs), func(): _tap(it))
+	hit.disabled = _locked(it)
 	var body := Control.new()   # everything that dims when the card is locked
 	body.name = "Body"
 	body.size = cs
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(body)
-	_title(body, _name(it), Vector2(cs.x * 0.5, NAME_Y), NAME_CAP, cs.x - CARD_PAD * 2.0)
+	UI.label(body, _name_id(it), Rect2(CARD_PAD, 24, cs.x - CARD_PAD * 2.0, 80), NAME_CAP)
 	var slot := Rect2(Vector2((cs.x - PILL.x) * 0.5, cs.y - PILL_BOTTOM - PILL.y), PILL)
 	var pic := Rect2(CARD_PAD, PIC_TOP, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - PIC_TOP)
 	_picture(body, it, pic, n)
@@ -218,13 +324,6 @@ func _card(it: Dictionary, n: int) -> void:
 		var tw := card.create_tween().set_parallel()
 		tw.tween_property(card, "modulate:a", 1.0, 0.18).set_delay(n * 0.04)
 		tw.tween_property(card, "scale", Vector2.ONE, 0.26).set_delay(n * 0.04).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-
-## Painted name centred on `at`, cap height shrunk if the phrase is wider than `max_w`.
-func _title(parent: Node, text: String, at: Vector2, cap: float, max_w: float) -> void:
-	var w := UI.word_width(text, cap)
-	if w > max_w:
-		cap *= max_w / w
-	UI.word(parent, text, at, cap)
 
 ## Item picture: booster illustration, the bird wearing the outfit (live), or the house illustration.
 func _picture(parent: Node, it: Dictionary, box: Rect2, n: int) -> void:
@@ -262,7 +361,7 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 	parent.add_child(b)
 	return b
 
-## Coin and white price, centred together inside the pill.
+## Coin and white price, centred together inside the orange pill.
 func _price_parts(pill: Control, price: int) -> void:
 	var text := str(price)
 	var num_w := UI.number_width(text, PRICE_CAP)
@@ -283,17 +382,11 @@ func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: flo
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
 	bird.quiet = instant
 	if not instant:
-		# Breathing and blinks run inside BirdView; a cheer and a hop alternate on top of them.
-		var rest := bird.position
+		# Painted cheer poses accompany BirdView's continuous breathing and blinks.
 		var tw := bird.create_tween().set_loops()
 		tw.tween_interval(1.4 + phase)
 		tw.tween_callback(bird.cheer)
-		tw.tween_interval(2.2)
-		tw.tween_property(bird, "position:y", rest.y - 22.0, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(bird, "position:y", rest.y, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		tw.tween_property(bird, "position:y", rest.y - 12.0, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(bird, "position:y", rest.y, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		tw.tween_interval(1.6)
+		tw.tween_interval(3.0)
 	return bird
 
 
@@ -310,41 +403,75 @@ func _tap(it: Dictionary) -> void:
 		return
 	_confirm(it)
 
-## Confirm popup: the item name as title, its picture, the price line and a green check under the panel.
-## Without enough coins the check is dimmed and the price shakes once.
+## Item, editable quantity and total-price Buy bar share the existing cream panel.
 func _confirm(it: Dictionary) -> void:
-	_modal = Modal.open(self, _name(it), [POPUP_PIC, POPUP_LINE], true, UI.PRIMARY, 0.0, instant)
+	_purchase_item = it
+	_quantity = 1
+	_quantity_input = null
+	var repeatable: bool = it["kind"] == Shop.BOOSTER
+	_quantity_limit = maxi(1, profile.coins / int(it["price"])) if repeatable else 1
+	var picture_size := POPUP_PIC if repeatable else SINGLE_PIC
+	var heights := [picture_size, UI.SECONDARY, BUY_SIZE.y] if repeatable else [picture_size, BUY_SIZE.y]
+	_modal = Modal.open(self, _name_id(it), heights, true, 0.0, 0.0, instant)
 	var c := _modal.content
 	var ys: Array = _modal.get_meta("ys")
-	var pic := Rect2(540.0 - POPUP_PIC * 0.5, ys[0], POPUP_PIC, POPUP_PIC)
+	var pic := Rect2(540.0 - picture_size * 0.5, ys[0], picture_size, picture_size)
 	_picture(c, it, pic, 0)
-	var affordable: bool = profile.coins >= it["price"]
-	var line := _price_line(c, ys[1], it["price"], UI.INK if affordable else UI.FILL["red"])
-	var accept: Button = _modal.actions([["green", "check", func(): _buy(it)]])[0]
-	UI.set_active(accept, affordable)
-	if not affordable:
-		var tw := line.create_tween()
-		tw.tween_interval(0.0 if instant else 0.35)
-		tw.tween_callback(func(): Sound.play("error"))
-		for dx in [16.0, -16.0, 10.0, -10.0, 4.0, 0.0]:
-			tw.tween_property(line, "position:x", dx, 0.05)
+	if repeatable:
+		_quantity_row(c, ys[1])
+		_modal.closed.connect(_quantity_input.release_focus)
+	_purchase_button = _pill_button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, ys[-1]), BUY_SIZE), "orange",
+		func(): _modal.invoke(func(): _buy(it, _quantity)))
+	_purchase_contents = Control.new()
+	_purchase_contents.name = "Contents"
+	_purchase_contents.size = BUY_SIZE
+	_purchase_contents.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_purchase_button.add_child(_purchase_contents)
+	_update_purchase()
 
-## Coin and price centred on one line; returns the holder that shakes.
-static func _price_line(c: Control, y: float, price: int, color: Color) -> Control:
-	var holder := Control.new()
-	holder.name = "PriceLine"
-	holder.size = Vector2(1080, 1920)
-	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	c.add_child(holder)
-	var text := str(price)
-	var num_w := UI.number_width(text, POPUP_CAP)
-	var x := 540.0 - (POPUP_COIN + 16.0 + num_w) * 0.5
-	UI.art(holder, "coin", Rect2(x, y + (POPUP_LINE - POPUP_COIN) * 0.5, POPUP_COIN, POPUP_COIN))
-	UI.number(holder, text, Rect2(x + POPUP_COIN + 16.0, y + (POPUP_LINE - POPUP_CAP) * 0.5, num_w + 2.0, POPUP_CAP), color, -1)
-	return holder
+func _quantity_row(c: Control, y: float) -> void:
+	var x := 540.0 - BUY_SIZE.x * 0.5
+	_minus = _pill_button(c, "Decrease", Rect2(x, y, UI.SECONDARY, UI.SECONDARY), "cream", func(): _step_quantity(-1))
+	UI.number(_minus, "-", Rect2(0, 38, UI.SECONDARY, PRICE_CAP))
+	_quantity_input = QuantityInput.new()
+	_quantity_input.name = "Quantity"
+	_quantity_input.limit = _quantity_limit
+	_quantity_input.editable = profile.coins >= _purchase_item["price"]
+	UI.place(_quantity_input, Rect2(x + UI.SECONDARY + QUANTITY_GAP, y, QUANTITY_WIDTH, UI.SECONDARY))
+	c.add_child(_quantity_input)
+	_quantity_input.value_changed.connect(func(value: int):
+		_quantity = value
+		_update_purchase())
+	_plus = _pill_button(c, "Increase", Rect2(x + BUY_SIZE.x - UI.SECONDARY, y, UI.SECONDARY, UI.SECONDARY), "cream",
+		func(): _step_quantity(1))
+	UI.number(_plus, "+", Rect2(0, 38, UI.SECONDARY, PRICE_CAP))
 
-func _buy(it: Dictionary) -> void:
-	var err := Shop.purchase(profile, it["id"])
+func _step_quantity(step: int) -> void:
+	_quantity_input.release_focus()
+	_quantity_input.set_value(_quantity + step)
+
+func _update_purchase() -> void:
+	var total: int = _purchase_item["price"] * maxi(1, _quantity)
+	UI.set_active(_purchase_button, _quantity > 0 and profile.coins >= total)
+	if _quantity_input != null:
+		UI.set_active(_minus, _quantity > 1)
+		UI.set_active(_plus, _quantity < _quantity_limit)
+	for child in _purchase_contents.get_children():
+		_purchase_contents.remove_child(child)
+		child.queue_free()
+	var word_w := UI.label_width("shop.buy", PRICE_CAP)
+	var num_w := UI.number_width(str(total), PRICE_CAP)
+	var x := (BUY_SIZE.x - word_w - 24.0 - PRICE_COIN - 12.0 - num_w) * 0.5
+	var mid := (BUY_SIZE.y - PILL_EDGE) * 0.5
+	UI.label(_purchase_contents, "shop.buy", Rect2(x, 0, word_w, BUY_SIZE.y - PILL_EDGE), PRICE_CAP, Color.WHITE)
+	x += word_w + 24.0
+	UI.art(_purchase_contents, "coin", Rect2(x, mid - PRICE_COIN * 0.5, PRICE_COIN, PRICE_COIN))
+	UI.number(_purchase_contents, str(total), Rect2(x + PRICE_COIN + 12.0, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1)
+
+func _buy(it: Dictionary, quantity: int) -> void:
+	if _quantity_input != null:
+		_quantity_input.release_focus()
+	var err := Shop.purchase(profile, it["id"], quantity)
 	if err != "":
 		Sound.play("error")
 		return
@@ -375,6 +502,8 @@ static func preview(main: Control, state: String) -> void:
 		"confirm_outfit":
 			p.coins = 1240
 			start = 1
+		"confirm_multiple", "confirm_maximum":
+			p.coins = 1240
 		"locked_tools":
 			p.highest_unlocked = 3
 			p.inventory = PackedInt32Array([2, 0, 0, 0, 0, 0])
@@ -384,8 +513,13 @@ static func preview(main: Control, state: String) -> void:
 	view.instant = main.instant()
 	view.setup(p, start)
 	main.set_screen(view)
+	view.closed.connect(func(): main.get_tree().quit())
+	Sound.music("bgm_menu")
 	match state:
 		"confirm_booster", "insufficient":
 			view._confirm(Shop.item("booster.firefly"))
 		"confirm_outfit":
 			view._confirm(Shop.item("outfit.berry.1"))
+		"confirm_multiple", "confirm_maximum":
+			view._confirm(Shop.item("booster.owl_eye"))
+			view._quantity_input.set_value(5 if state == "confirm_multiple" else view._quantity_limit)

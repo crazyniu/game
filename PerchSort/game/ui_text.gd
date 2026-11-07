@@ -1,0 +1,139 @@
+class_name UiText
+extends RefCounted
+## Whole-phrase texture labels selected by locale. Fonts are used only by the offline asset tool.
+
+const ROOT := "res://art/locale/"
+
+static var _catalog: Dictionary = {}
+static var _pack: Dictionary = {}
+static var _number_textures: Dictionary = {}
+static var _locale := ""
+static var _folder := ""
+
+
+class LabelSprite extends TextureRect:
+	var label_id: String
+	var bounds: Rect2
+	var cap: float
+	var heading := false
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_TRANSLATION_CHANGED and not label_id.is_empty():
+			UiText._fit_label(self)
+
+
+class NumberSprite extends Control:
+	var value: String
+	var cap: float
+	var align := 0
+
+	func _draw() -> void:
+		UiText._draw_number(self)
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_TRANSLATION_CHANGED and not value.is_empty():
+			UiText.set_number(self, value)
+		elif what == NOTIFICATION_RESIZED:
+			queue_redraw()
+
+
+static func _load_pack() -> void:
+	if _catalog.is_empty():
+		_catalog = JSON.parse_string(FileAccess.get_file_as_string(ROOT + "catalog.json"))
+	var locale := TranslationServer.get_locale()
+	var available: Dictionary = _catalog["locales"]
+	if not available.has(locale):
+		locale = locale.get_slice("_", 0)
+	if not available.has(locale):
+		locale = _catalog["default_locale"]
+	if locale == _locale:
+		return
+	_locale = locale
+	var path: String = ROOT + available[locale]
+	_folder = path.get_base_dir() + "/"
+	_pack = JSON.parse_string(FileAccess.get_file_as_string(path))
+	# Draw commands use texture RIDs; retain the resources until the locale changes.
+	_number_textures.clear()
+	var glyphs: Dictionary = _pack["numbers"]["glyphs"]
+	for character in glyphs:
+		_number_textures[character] = load(_folder + glyphs[character])
+
+
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false) -> TextureRect:
+	var image := LabelSprite.new()
+	image.name = id.replace(".", "_")
+	image.label_id = id
+	image.bounds = bounds
+	image.cap = cap
+	image.heading = heading
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode = TextureRect.STRETCH_SCALE
+	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	image.modulate = color
+	_fit_label(image)
+	parent.add_child(image)
+	return image
+
+
+static func _fit_label(image: LabelSprite) -> void:
+	_load_pack()
+	var entry: Dictionary = _pack["labels"][image.label_id]
+	image.texture = load(_folder + entry["heading_file" if image.heading else "file"])
+	var natural := image.texture.get_size()
+	var k := minf(image.cap / float(entry["cap"]), minf(image.bounds.size.x / natural.x, image.bounds.size.y / natural.y))
+	image.size = natural * k
+	image.position = image.bounds.position + (image.bounds.size - image.size) * 0.5
+	image.pivot_offset = image.size * 0.5
+
+
+static func label_width(id: String, cap: float, heading := false) -> float:
+	_load_pack()
+	var entry: Dictionary = _pack["labels"][id]
+	var texture: Texture2D = load(_folder + entry["heading_file" if heading else "file"])
+	return texture.get_width() * cap / float(entry["cap"])
+
+
+static func number_width(value: String, cap: float) -> float:
+	_load_pack()
+	var numbers: Dictionary = _pack["numbers"]
+	var width := 0.0
+	for character in value:
+		width += float(numbers["advances"][character])
+	return width * cap / float(numbers["cap"])
+
+
+## Numeral cells share an ink-height canvas and fit together inside the supplied bounds.
+static func number(parent: Node, value: String, bounds: Rect2, cap: float, color: Color, align := 0) -> Control:
+	var box := NumberSprite.new()
+	box.name = "Number"
+	box.cap = cap
+	box.align = align
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.modulate = color
+	box.position = bounds.position
+	box.size = bounds.size
+	box.pivot_offset = bounds.size * 0.5
+	set_number(box, value)
+	parent.add_child(box)
+	return box
+
+
+static func set_number(box: NumberSprite, value: String) -> void:
+	_load_pack()
+	box.value = value
+	box.queue_redraw()
+
+
+## Draw after layout, using one scale for the full string and no child Control sizing.
+static func _draw_number(box: NumberSprite) -> void:
+	var numbers: Dictionary = _pack["numbers"]
+	var width := number_width(box.value, float(numbers["cap"]))
+	var k := minf(box.cap / float(numbers["cap"]), minf(box.size.x / width, box.size.y / float(numbers["line_height"])))
+	var height := float(numbers["line_height"]) * k
+	var x := (box.size.x - width * k) * (0.5 + 0.5 * box.align)
+	var y := (box.size.y - height) * 0.5
+	for character in box.value:
+		var advance := float(numbers["advances"][character]) * k
+		var texture: Texture2D = _number_textures[character]
+		box.draw_texture_rect(texture, Rect2(x, y, advance, height), false)
+		x += advance

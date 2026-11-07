@@ -15,8 +15,8 @@ Sound="*res://game/sound.gd"
 
 window/size/viewport_width=1080
 window/size/viewport_height=1920
-window/size/window_width_override=468
-window/size/window_height_override=832
+window/size/window_width_override=936
+window/size/window_height_override=1664
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 window/handheld/orientation=1

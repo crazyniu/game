@@ -51,6 +51,8 @@ var _idle_rise := 0.0
 var _idle_landing := 0.0
 var _idle_tween: Tween
 var _move_tween: Tween
+var _selection_tween: Tween
+var _hover_tween: Tween
 var _last_action := -1
 var _clock := 0.0
 
@@ -187,7 +189,7 @@ func _process(delta: float) -> void:
 		_zzz.scale = Vector2.ONE * 0.6 * (1.0 + 0.7 * pulse)
 		if _nudge >= 0.0:
 			_zzz.modulate.a = 1.0
-	if acting or selected or asleep or is_egg or _idle_tween:
+	if acting or selected or asleep or is_egg or _idle_tween or _hover_tween:
 		return
 	_next_idle -= delta
 	if _next_idle <= 0.0:
@@ -305,7 +307,7 @@ func _stop_idle() -> void:
 
 ## Glance toward an x position (used when a neighbour is selected).
 func look_at_x(x: float) -> void:
-	if acting or asleep or is_egg or selected or not _has_action(1):
+	if acting or asleep or is_egg or selected or _hover_tween or not _has_action(1):
 		return
 	_stop_idle()
 	_start_idle(1, 0 if x < global_position.x else 1)
@@ -316,37 +318,80 @@ func set_selected(on: bool) -> void:
 		return
 	selected = on
 	_stop_idle()
-	var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(_sprite, "position:y", -34.0 / (DISPLAY / CANVAS) if on else 0.0, 0.18)
+	if _selection_tween:
+		_selection_tween.kill()
+		_selection_tween = null
+	var height := -34.0 / (DISPLAY / CANVAS) if on else 0.0
+	if quiet:
+		_sprite.position.y = height
+		return
+	if on and _hover_tween == null:
+		var frames: Array = _seqs["flight_flap"]
+		_sprite.texture = frames[0]
+		_hover_tween = create_tween().set_loops()
+		_hover_tween.tween_method(func(t: float):
+			_sprite.texture = frames[mini(frames.size() - 1, int(t * frames.size()))],
+			0.0, 1.0, frames.size() / 18.0)
+	_selection_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_selection_tween.tween_property(_sprite, "position:y", height, 0.18)
+	if not on:
+		_selection_tween.tween_callback(func():
+			_stop_hover()
+			_show_rest())
 
-## Fly along an arc to `target` (parent space). home=true shrinks into a door and frees the bird.
-func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false) -> void:
+func _stop_hover() -> void:
+	if _hover_tween:
+		_hover_tween.kill()
+		_hover_tween = null
+
+## Fly to `target` (parent space); home=true shrinks and frees the bird.
+## With a doorway, target is its centre: approach in front, then recede inside its mask.
+func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null) -> void:
 	_stop_idle()
 	acting = true
 	selected = false
+	if _selection_tween:
+		_selection_tween.kill()
+		_selection_tween = null
+	# Carry the lifted sprite offset into the flight origin instead of snapping to the perch.
+	position += _sprite.position * _body.scale
 	_sprite.position = Vector2.ZERO
 	_zzz.visible = false
+	if doorway:
+		position += _body.position
+		_body.position = Vector2.ZERO
 	if delay > 0.0:
 		await get_tree().create_timer(delay).timeout
 	var start := position
 	var left := target.x < start.x
 	var base := DISPLAY / CANVAS * density
+	var centre_offset := Vector2.DOWN * (FEET_Y - CANVAS * 0.5) * base
+	var entry_scale := 0.4
+	var approach_duration := duration
+	if doorway:
+		# Fit the full square frame inside the circular opening before changing parents.
+		entry_scale = minf(doorway.size.x, doorway.size.y) * 0.66 / (DISPLAY * density)
+		target += centre_offset * entry_scale
+		approach_duration = duration * 0.75
 	var crouch := create_tween()
 	crouch.tween_property(_body, "scale", Vector2(1.08, 0.92) * base, 0.06)
 	await crouch.finished
+	_stop_hover()
 	Sound.play("flutter", randf_range(0.95, 1.08))
 	var height := 215.0 if leap else 160.0
+	if doorway:
+		height = minf(height, (start.y - target.y) * 0.25)
 	var takeoff: Array = _seqs.get("flight_takeoff_l" if left else "flight_takeoff", [])
 	var flap: Array = _seqs.get("flight_flap_l" if left else "flight_flap", [])
 	var land: Array = _seqs.get("flight_land_l" if left else "flight_land", [])
 	_move_tween = create_tween()
 	_move_tween.tween_method(func(t: float):
 		position = start.lerp(target, t) + Vector2.UP * (4.0 * t * (1.0 - t) * height)
-		var elapsed := t * duration
+		var elapsed := t * approach_duration
 		if not flap.is_empty():
 			if elapsed < 0.08 and not takeoff.is_empty():
 				_sprite.texture = takeoff[mini(takeoff.size() - 1, int(elapsed / 0.08 * takeoff.size()))]
-			elif t > 0.82 and not land.is_empty():
+			elif t > 0.82 and doorway == null and not land.is_empty():
 				_sprite.texture = land[mini(land.size() - 1, int((t - 0.82) / 0.18 * land.size()))]
 			else:
 				_sprite.texture = flap[int(elapsed * 18.0) % flap.size()]
@@ -354,10 +399,27 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 			_sprite.texture = Art.tex(species + ("_fly_up" if int(elapsed / 0.07) % 2 == 0 else "_fly_down"))
 		var vertical := (target.y - start.y) - 4.0 * (1.0 - 2.0 * t) * height
 		_body.rotation = clampf(atan2(vertical, absf(target.x - start.x) + 1.0), -0.21, 0.21) * (1.0 if target.x >= start.x else -1.0)
-		var shrink := lerpf(1.0, 0.4, t) if home else 1.0
-		_body.scale = Vector2.ONE * base * shrink, 0.0, 1.0, duration)
+		if doorway:
+			_body.rotation *= 1.0 - smoothstep(0.7, 1.0, t)
+		var shrink := 1.0
+		if home:
+			var progress := smoothstep(0.45, 1.0, t) if doorway else t
+			shrink = lerpf(1.0, entry_scale, progress)
+		_body.scale = Vector2.ONE * base * shrink, 0.0, 1.0, approach_duration)
 	await _move_tween.finished
 	_body.rotation = 0.0
+	if doorway:
+		reparent(doorway)
+		var entry_duration := duration - approach_duration
+		_move_tween = create_tween()
+		_move_tween.tween_method(func(t: float):
+			var shrink := entry_scale * lerpf(1.0, 0.15, smoothstep(0.0, 1.0, t))
+			_body.scale = Vector2.ONE * base * shrink
+			# Keep the body centred while its feet pivot moves inward.
+			position = doorway.size * 0.5 + centre_offset * shrink
+			_sprite.texture = flap[int((approach_duration + t * entry_duration) * 18.0) % flap.size()]
+			modulate.a = 1.0 - smoothstep(0.6, 1.0, t), 0.0, 1.0, entry_duration)
+		await _move_tween.finished
 	if home:
 		acting = false
 		finished.emit()
@@ -478,6 +540,10 @@ func set_sleep(value: bool) -> void:
 ## Static pose for instant captures (no tweens running).
 func freeze() -> void:
 	quiet = true
+	if _selection_tween:
+		_selection_tween.kill()
+		_selection_tween = null
+	_stop_hover()
 	_stop_idle()
 	_body.scale = Vector2.ONE * DISPLAY / CANVAS * density
 	_body.position = Vector2.ZERO

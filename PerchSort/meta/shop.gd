@@ -34,8 +34,8 @@ static func item(id: String) -> Dictionary:
 	catalog()
 	return _by_id.get(id, {})
 
-## Returns "" on success or an error id: unknown, locked, owned, coins.
-static func purchase(p: Profile, id: String) -> String:
+## Buy a quantity in one transaction. Returns "" or unknown, locked, owned, quantity, coins.
+static func purchase(p: Profile, id: String, quantity := 1) -> String:
 	var it := item(id)
 	if it.is_empty():
 		return "unknown"
@@ -43,11 +43,14 @@ static func purchase(p: Profile, id: String) -> String:
 		return "locked"
 	if (it["kind"] == OUTFIT and p.owns_outfit(id)) or (it["kind"] == HOUSE and p.owns_house(it["style"])):
 		return "owned"
-	if p.coins < it["price"]:
+	if quantity < 1 or (it["kind"] != BOOSTER and quantity != 1):
+		return "quantity"
+	var total: int = it["price"] * quantity
+	if p.coins < total:
 		return "coins"
-	p.coins -= it["price"]
+	p.coins -= total
 	match it["kind"]:
-		BOOSTER: p.inventory[it["booster"]] += it["quantity"]
+		BOOSTER: p.inventory[it["booster"]] += it["quantity"] * quantity
 		OUTFIT: p.outfits[id] = true
 		HOUSE: p.houses[it["style"]] = true
 	return ""

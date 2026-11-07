@@ -14,7 +14,7 @@ const CONTENT_H := STRIDE * 3.0 + SEGMENT
 const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 160 px, over the world before it
 const FOCUS_RATIO := 0.58
 const TAP_SLOP := 14.0
-const WORLD_NAMES := ["Green Forest", "Bamboo Forest", "Autumn Forest", "Snow Forest"]
+const WORLD_LABELS := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name"]
 ## Node centers per world (x, y within the world segment), levels 1..10.
 const NODES := [
 	[[514, 2700], [310, 2440], [744, 2180], [660, 1920], [252, 1660], [672, 1400], [640, 1140], [305, 880], [754, 620], [613, 360]],
@@ -25,15 +25,15 @@ const NODES := [
 ## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
 const MARGIN := 48.0
 const NODE := 132.0              # cleared and locked nodes (cream)
-const CURRENT := 168.0           # current node (green)
+const CURRENT := 160.0           # current node (green)
 const NODE_EDGE := 10.0
 const NODE_CAP := 52.0
 const CURRENT_CAP := 64.0
 const LOCK := 56.0
 const LOCK_COLOR := Color8(200, 180, 150)
 const LOCKED_DIM := Color(0.92, 0.92, 0.92, 0.82)
-const STAR := 46.0
-const STAR_GAP := 2.0
+const STAR := 50.0
+const STAR_GAP := 4.0
 const STAR_DY := 88.0            # star row centre below the node centre
 const BIRD_FEET := 70.0          # the current bird stands this far above the node centre
 const BIRD_SCALE := 1.0          # BirdView scale (1.0 = 170 px canvas)
@@ -43,43 +43,42 @@ const GATE_CENTER_X := 870.0     # right of the trail so the current bird of the
 const GATE_CENTER_Y := 100.0     # between the last node of a world and the first of the next
 const GATE_PADLOCK := Vector2(0.5, 0.68)   # painted padlock on the closed gate, fraction of its visible box
 const GATE_LOCK := 112.0
-const TITLE_CAP := 40.0
+const TITLE_CAP := 36.0
 const TITLE_PAD := 32.0
-const TOP_Y := 56.0              # top bar row 48..160, controls centred on 104
-## Soft fades in the painting's own colour behind the top bar and the bottom button row, so nodes passing under
-## them read as behind. WORLD_SHADE: each painting's mean grass colour beside the trail, darkened to 45 percent.
+const TOP_Y := 56.0
+const TRAIL_VIEW := Rect2(0, 200, 1080, 1720)
+## A soft fade in the painting's own colour sits behind the fixed header.
+## WORLD_SHADE: each painting's mean grass colour beside the trail, darkened to 45 percent.
 const TOP_FADE := Rect2(0, 0, 1080, 200)
-const BOTTOM_FADE := Rect2(0, 1660, 1080, 260)
 const TOP_FADE_ALPHA := 0.62
-const BOTTOM_FADE_ALPHA := 0.78
 const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63)]
-## At either end of the scroll the last / first node rests fully clear of both fades (16 px air).
+## At either scroll end the bird and stars rest clear of the fixed controls.
 const TOP_CLEAR := 216.0
 const BOTTOM_CLEAR := 1644.0
 const NAV_Y := 1792.0
 const NAV_GAP := 200.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
 ## BOTTOM_CLEAR: level 40 at y 360 with a bird up to 240 above its centre, level 1 at y 2700 + 3 strides with its
-## stars down to 111 below.
+## star row extending below the node centre.
 const TOP_PAD := TOP_CLEAR - (360.0 - 240.0)
-const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + 111.0) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
+const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
 
 var profile: Profile
 var current_level := 1
 var offset := 0.0
 
+var _paintings: Control
+var _clip: Control
 var _content: Control
 var _hud: Control
 var _coins: Panel
 var _title: Panel
 var _title_world := 0
 var _top_fade: TextureRect
-var _bottom_fade: TextureRect
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
 var _dragging := false
 var _drag_travel := 0.0
 var _velocity := 0.0
-var _press_pos := Vector2.ZERO
 var _bird: BirdView
 
 
@@ -89,6 +88,9 @@ func setup(player: Profile) -> void:
 		child.queue_free()
 	_hit_rects.clear()
 	_bird = null
+	_title = null
+	_dragging = false
+	_velocity = 0.0
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -97,6 +99,12 @@ func setup(player: Profile) -> void:
 	_build_content()
 	_build_hud()
 	scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and profile != null:
+		var trail_offset := offset
+		setup(profile)
+		scroll_to(trail_offset)
 
 func _node_y(level: int) -> float:
 	return _node_pos(level).y
@@ -115,7 +123,8 @@ func show_gate(world: int) -> void:
 
 func scroll_to(value: float) -> void:
 	offset = clampf(value, -TOP_PAD, CONTENT_H - size.y + BOTTOM_PAD)
-	_content.position.y = -offset
+	_paintings.position.y = -offset
+	_content.position.y = -offset - TRAIL_VIEW.position.y
 	_update_title()
 	_update_fades()
 
@@ -129,17 +138,29 @@ func _instant() -> bool:
 	return false
 
 func _build_content() -> void:
-	_content = Control.new()
-	_content.name = "Trail"
-	_content.size = Vector2(1080, CONTENT_H)
-	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_content)
+	_paintings = Control.new()
+	_paintings.name = "WorldPaintings"
+	_paintings.size = Vector2(1080, CONTENT_H)
+	_paintings.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_paintings)
 	# Overscroll rooms continue the painting: its edge strip reflected, so no dark band shows behind the bar.
 	_overscroll_top()
 	_overscroll_bottom()
 	for world in range(1, 5):
-		var bg := UI.image(_content, "map_bg_continuous_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
+		var bg := UI.image(_paintings, "map_bg_continuous_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
 		bg.name = "World %d" % world
+	_clip = Control.new()
+	_clip.name = "TrailViewport"
+	_clip.clip_contents = true
+	_clip.mouse_filter = Control.MOUSE_FILTER_STOP
+	UI.place(_clip, TRAIL_VIEW)
+	_clip.gui_input.connect(_on_trail_input)
+	add_child(_clip)
+	_content = Control.new()
+	_content.name = "Trail"
+	_content.size = Vector2(1080, CONTENT_H)
+	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_clip.add_child(_content)
 	for world in range(1, 4):
 		_build_gate(world)
 	for level in range(1, 41):
@@ -202,7 +223,7 @@ func _build_node(level: int) -> void:
 		"cleared":
 			_circle(layer, c, NODE, "cream")
 			_number(layer, level, face, NODE_CAP, UI.INK)
-			UI.stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
+			UI.rating_stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
 			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2(NODE, NODE * 0.5 + STAR_DY + STAR * 0.5)).grow(16), "level", level])
 		"current":
 			_circle(layer, c, CURRENT, "green")
@@ -245,14 +266,13 @@ func _build_hud() -> void:
 	_hud.size = size
 	add_child(_hud)
 	_top_fade = _fade(TOP_FADE, TOP_FADE_ALPHA, false)
-	_bottom_fade = _fade(BOTTOM_FADE, BOTTOM_FADE_ALPHA, true)
 	var coins := str(profile.coins)
-	var coin_w := 100.0 + UI.number_width(coins, 44.0) + 32.0
+	var coin_w := UI.NUMBER_X + UI.number_width(coins, 44.0) + 32.0
 	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
 	_coins.name = "Coins"
 	_title_world = 0
 	var buttons := [["Shop", "orange", "shop", shop_requested], ["Aviary", "orange", "aviary", aviary_requested],
-		["Settings", "cream", "gear", settings_requested]]
+		["Settings", "orange", "gear", settings_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
 		UI.button(_hud, buttons[i][0], Vector2(540.0 + (i - 1) * NAV_GAP, NAV_Y), buttons[i][1], buttons[i][2], sig.emit)
@@ -287,7 +307,7 @@ func _strip(tex: Texture2D, region: Rect2, r: Rect2, flip: bool) -> void:
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(t, r)
-	_content.add_child(t)
+	_paintings.add_child(t)
 
 ## A white fade (eased, no hard edge) tinted per frame with the colour of the painting under it.
 func _fade(r: Rect2, alpha: float, from_bottom: bool) -> TextureRect:
@@ -307,7 +327,6 @@ func _update_fades() -> void:
 	if _top_fade == null:
 		return
 	_top_fade.modulate = _paint_color(offset + TOP_FADE.get_center().y)
-	_bottom_fade.modulate = _paint_color(offset + BOTTOM_FADE.get_center().y)
 
 ## Shade colour of the painting at a content y, blended smoothly across each seam between worlds.
 func _paint_color(y: float) -> Color:
@@ -348,11 +367,12 @@ func _update_title() -> void:
 	_title_world = world
 	if _title != null:
 		_title.queue_free()
-	var text: String = WORLD_NAMES[world - 1]
-	var w := UI.word_width(text, TITLE_CAP) + TITLE_PAD * 2.0
+	var label_id: String = WORLD_LABELS[world - 1]
+	var available := _coins.position.x - MARGIN - 24.0
+	var w := minf(UI.heading_width(label_id, TITLE_CAP) + TITLE_PAD * 2.0, available)
 	_title = UI.shape(_hud, Rect2(MARGIN, TOP_Y, w, UI.COUNTER_H), "cream", UI.COUNTER_H * 0.5, 8.0)
 	_title.name = "Title"
-	UI.word(_title, text, Vector2(w * 0.5, (UI.COUNTER_H - 8.0) * 0.5), TITLE_CAP, UI.INK)
+	UI.heading(_title, label_id, Rect2(TITLE_PAD, 0, w - TITLE_PAD * 2.0, UI.COUNTER_H - 8.0), TITLE_CAP)
 
 func _process(delta: float) -> void:
 	if not _dragging and absf(_velocity) > 8.0:
@@ -361,7 +381,7 @@ func _process(delta: float) -> void:
 		if offset <= -TOP_PAD or offset >= CONTENT_H - size.y + BOTTOM_PAD:
 			_velocity = 0.0
 
-func _gui_input(event: InputEvent) -> void:
+func _on_trail_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index == MOUSE_BUTTON_WHEEL_UP and mb.pressed:
@@ -375,11 +395,10 @@ func _gui_input(event: InputEvent) -> void:
 				_dragging = true
 				_drag_travel = 0.0
 				_velocity = 0.0
-				_press_pos = mb.position
 			elif _dragging:
 				_dragging = false
 				if _drag_travel < TAP_SLOP:
-					_tap(mb.position)
+					_tap(mb.position + TRAIL_VIEW.position)
 	elif event is InputEventMouseMotion and _dragging:
 		var mm := event as InputEventMouseMotion
 		_drag_travel += absf(mm.relative.y) + absf(mm.relative.x)
@@ -388,6 +407,8 @@ func _gui_input(event: InputEvent) -> void:
 			_velocity = lerpf(_velocity, -mm.velocity.y, 0.5)
 
 func _tap(screen_pos: Vector2) -> void:
+	if not TRAIL_VIEW.has_point(screen_pos):
+		return
 	var p := screen_pos + Vector2(0, offset)
 	for hit in _hit_rects:
 		if (hit[0] as Rect2).has_point(p):

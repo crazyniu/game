@@ -1,33 +1,34 @@
 extends Control
 ## Aviary (docs/design/ui-system.md): a top bar (close, title word, met counter) over a scrolling two-column grid
-## of cream cards, one per species; tapping a met bird opens its detail page with a big live bird, its personality
-## and ability lines and a row of outfit tiles (tap an owned outfit to equip it).
+## of cream cards, one per species; tapping a met bird opens its detail page with a live bird, its ability
+## and a row of outfit tiles (tap an owned outfit to equip it).
 
 signal closed
 signal profile_changed
 
 const PopupsScript := preload("res://game/popups.gd")
-const ShopScript := preload("res://game/shop_view.gd")   # outfit names and the price line of the confirm popup
+const ShopScript := preload("res://game/shop_view.gd")   # layout and price line of the confirm popup
+const TextArt := preload("res://game/ui_text.gd")
+const CLOSE_ICON := preload("res://art/icons/icon_aviary_close.svg")
+const FEATHER_ICON := preload("res://art/icons/icon_aviary_feather.svg")
+const LIST_INK := Color("493c2e")
+const LIST_GREEN := Color("34563f")
+const LIST_CREAM := Color("fff9ee")
 
-## Top bar: the row y 48 to 160; buttons and counters share the board's positions.
-const BAR_Y := 104.0
-const BACK := Vector2(112, 104)
-const COUNTER_TOP := 56.0
-const TITLE_CAP := 64.0
 const BODY_CAP := 44.0
-const SMALL_CAP := 34.0
 const MARGIN := 48.0
 const RIGHT := 1032.0
 ## List grid: two columns of cards between the margins, scrolled under the top bar.
-const CLIP_TOP := 176.0
+const CLIP_TOP := 264.0
+const CLIP_HEIGHT := 1536.0
 const GRID_TOP := 16.0            # first card row inside the clip
-const GRID_BOTTOM := 48.0         # under the last card row
+const GRID_BOTTOM := 16.0         # under the last card row
 const GAP := 32.0
 const CARD_W := 476.0
-const CARD_H := 456.0
-const CARD_BIRD := Rect2(48, 40, 380, 300)    # bird box inside a card
-const CARD_NAME_Y := 392.0                    # name word centre inside a card
-const CARD_BADGE := 72.0
+const CARD_H := 480.0
+const CARD_BIRD := Rect2(64, 40, 348, 308)
+const CARD_NAME := Rect2(40, 364, 396, 88)
+const CARD_BADGE := 64.0
 const QUESTION_CAP := 96.0
 const TRACK_X := 1052.0
 const TRACK_W := 8.0
@@ -35,12 +36,10 @@ const THUMB_MIN := 96.0
 const DRAG_START := 12.0
 const FRICTION := 5.0             # fling velocity decay per second (exponential)
 ## Detail page: one hero panel and the outfit row below it, centred in the free area under the bar.
-const PANEL := 56.0
 const PANEL_PAD := 48.0
-const HERO_BIRD := 680.0
-const CROW_BIRD := 840.0
-const LINE := 64.0
-const LINE_GAP := 24.0
+const HERO_BIRD := 480.0
+const CROW_BIRD := 560.0
+const LINE := 96.0
 const SECTION_GAP := 48.0
 const TILE_W := 228.0
 const TILE_H := 312.0
@@ -79,7 +78,7 @@ func setup(p: Profile) -> void:
 	# Calm the painting so the cards read first.
 	var wash := ColorRect.new()
 	wash.name = "Wash"
-	wash.color = Color(UI.FILL["cream"], 0.42)
+	wash.color = Color(Color("fff7e8"), 0.42)
 	wash.size = size
 	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(wash)
@@ -92,6 +91,13 @@ func _process(delta: float) -> void:
 	_velocity *= exp(-FRICTION * delta)
 	if _scroll <= 0.0 or _scroll >= _max_scroll:
 		_velocity = 0.0
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
+		if _species.is_empty():
+			_show_list()
+		else:
+			_show_detail(_species)
 
 # ---------------------------------------------------------------- shared pieces
 
@@ -107,17 +113,6 @@ func _reset_page() -> void:
 	_content = null
 	_velocity = 0.0
 	_pressed = false
-
-## Neutral secondary button at the top left (close on the list, back on a detail page).
-func _bar_button(icon_name: String, on_press: Callable) -> Button:
-	return UI.button(_page, "Close" if icon_name == "close" else "Back", BACK, "red" if icon_name == "close" else "cream", icon_name, on_press)
-
-## Painted word centred on `center`, shrunk to fit `max_w` when it is wider.
-func _word_fit(parent: Node, text: String, center: Vector2, cap: float, max_w: float, color := UI.INK) -> TextureRect:
-	var w := UI.word_width(text, cap)
-	if w > max_w:
-		cap *= max_w / w
-	return UI.word(parent, text, center, cap, color)
 
 ## Live BirdView (breathing and idle actions) whose front frame fits the box, feet on the box bottom.
 func _live_bird(parent: Node, species: String, outfit: String, box: Rect2) -> BirdView:
@@ -153,9 +148,6 @@ func _outfit_key(species: String) -> String:
 	var id: String = profile.equipped.get(species, "")
 	return "" if id.is_empty() else "%s_outfit_%s" % [species, id.get_slice(".", 2)]
 
-func _name(species: String) -> String:
-	return Aviary.display_name(species)
-
 ## A quick squash on a tapped card or tile.
 func _bump(c: Control) -> void:
 	c.pivot_offset = c.size * 0.5
@@ -168,10 +160,15 @@ func _bump(c: Control) -> void:
 func _show_list() -> void:
 	_species = ""
 	_reset_page()
+	var wash := ColorRect.new()
+	wash.color = Color(LIST_CREAM, 0.18)
+	wash.size = size
+	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_page.add_child(wash)
 	_clip = Control.new()
 	_clip.name = "Scroll"
 	_clip.clip_contents = true
-	UI.place(_clip, Rect2(0, CLIP_TOP, 1080, 1920 - CLIP_TOP))
+	UI.place(_clip, Rect2(0, CLIP_TOP, 1080, CLIP_HEIGHT))
 	_clip.mouse_filter = Control.MOUSE_FILTER_STOP
 	_clip.gui_input.connect(_on_scroll_input)
 	_page.add_child(_clip)
@@ -190,34 +187,66 @@ func _show_list() -> void:
 	_content.size = Vector2(1080, GRID_TOP + rows * (CARD_H + GAP) - GAP + GRID_BOTTOM)
 	_max_scroll = maxf(0.0, _content.size.y - _clip.size.y)
 	_build_track()
-	# Top bar above the clipped grid.
-	_bar_button("close", func(): closed.emit())
-	var value := "%d/%d" % [met, count]
-	var w := 100.0 + UI.number_width(value, 44.0) + 32.0
-	UI.counter(_page, Vector2(RIGHT - w, COUNTER_TOP), "icon_feather", value, UI.INK).name = "MetCounter"
-	# The title sits centred in the room between the close button and the counter.
-	var left := 48.0 + UI.SECONDARY + 24.0
-	UI.word(_page, "Aviary", Vector2((left + RIGHT - w - 24.0) * 0.5, BAR_Y), TITLE_CAP)
+	_list_header(met, count)
 	_set_scroll(_list_scroll)
+
+func _list_panel(parent: Node, rect: Rect2, color: Color, radius: float) -> Panel:
+	var panel := Panel.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.border_color = Color("e5ddcc")
+	style.border_width_bottom = 5
+	style.set_corner_radius_all(int(radius))
+	style.shadow_color = Color(0.18, 0.22, 0.12, 0.12)
+	style.shadow_size = 10
+	style.shadow_offset = Vector2(0, 5)
+	style.anti_aliasing = true
+	panel.add_theme_stylebox_override("panel", style)
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(panel, rect)
+	parent.add_child(panel)
+	return panel
+
+func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> TextureRect:
+	var icon := TextureRect.new()
+	icon.texture = texture
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.modulate = color
+	UI.place(icon, rect)
+	parent.add_child(icon)
+	return icon
+
+func _list_header(met: int, count: int) -> void:
+	var close := UI.button(_page, "Close", Vector2(112, 104), "red", "", func(): closed.emit())
+	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
+	close.button_down.connect(func(): icon.position.y += 6.0)
+	close.button_up.connect(func(): icon.position.y -= 6.0)
+	UI.heading(_page, "aviary.title", Rect2(392, 52, 296, 104), 56.0)
+	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
+	counter.name = "MetCounter"
+	_list_icon(counter, FEATHER_ICON, Rect2(16, 20, 56, 56), LIST_GREEN)
+	TextArt.number(counter, "%d/%d" % [met, count], Rect2(80, 4, 224, 88), 44.0, LIST_GREEN)
 
 ## One cream card: a live bird and its name, or a dark silhouette with a question mark.
 func _card(id: String, at: Vector2) -> void:
 	var met := profile.has_met(id)
-	var card := UI.shape(_content, Rect2(at, Vector2(CARD_W, CARD_H)), "cream", 40.0, 10.0)
+	var card := _list_panel(_content, Rect2(at, Vector2(CARD_W, CARD_H)), LIST_CREAM, 44)
 	card.name = "Card_" + id
 	var bird_box := Rect2(CARD_BIRD.position, CARD_BIRD.size)
 	if met:
 		_live_bird(card, id, _outfit_key(id), bird_box)
-		_word_fit(card, _name(id), Vector2(CARD_W * 0.5, CARD_NAME_Y), BODY_CAP, CARD_W - 64.0)
+		TextArt.label(card, "bird.%s.name" % id, CARD_NAME, 48.0, LIST_INK)
 		if PopupsScript.EFFECT.has(id):
+			UI.shape(card, Rect2(CARD_W - 100, 20, 80, 80), "cream", 40.0, 0.0, false)
 			UI.art(card, "gift_coin_" + PopupsScript.EFFECT[id],
-				Rect2(CARD_W - 24.0 - CARD_BADGE, 24.0, CARD_BADGE, CARD_BADGE))
+				Rect2(CARD_W - 92, 28, CARD_BADGE, CARD_BADGE))
 	else:
 		_silhouette(card, id, bird_box)
-		var q := UI.number(card, "?", Rect2(bird_box.get_center().x - 60.0, bird_box.get_center().y - QUESTION_CAP * 0.5 + 24.0,
-			120.0, QUESTION_CAP), Color.WHITE)
+		var q := TextArt.number(card, "?", Rect2(bird_box.get_center().x - 60.0, bird_box.get_center().y - 72.0,
+			120.0, 160.0), QUESTION_CAP, Color.WHITE)
 		q.name = "Question"
-		_word_fit(card, "Unknown", Vector2(CARD_W * 0.5, CARD_NAME_Y), BODY_CAP, CARD_W - 64.0, Color(UI.INK, 0.45))
 	_cards.append([card, id])
 
 func _build_track() -> void:
@@ -293,11 +322,11 @@ func _show_detail(id: String) -> void:
 	_reset_page()
 	var crow := id == "crow"
 	var bird_h := CROW_BIRD if crow else HERO_BIRD
-	var panel_h := PANEL_PAD + bird_h + 32.0 + LINE + LINE_GAP + LINE + PANEL_PAD + 12.0
+	var panel_h := PANEL_PAD + bird_h + 32.0 + LINE + PANEL_PAD + 12.0
 	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H)
 	var top := roundf((160.0 + (1872.0 - 160.0 - block) * 0.5) / 8.0) * 8.0
-	var panel := Rect2(MARGIN, top, RIGHT - MARGIN, panel_h)
-	UI.shape(_page, panel, "cream", PANEL, 12.0).name = "Panel"
+	var panel := Rect2(108, top, 864, panel_h)
+	UI.shape(_page, panel, "cream", 56.0, 12.0).name = "Panel"
 	_hero_box = Rect2(540.0 - bird_h * 0.5, panel.position.y + PANEL_PAD, bird_h, bird_h)
 	_hero = _live_bird(_page, id, _outfit_key(id), _hero_box)
 	var timer := Timer.new()
@@ -307,8 +336,6 @@ func _show_detail(id: String) -> void:
 	_page.add_child(timer)
 	var y := _hero_box.end.y + 32.0
 	var inner_w := panel.size.x - PANEL_PAD * 2.0
-	_word_fit(_page, _personality(id), Vector2(540, y + LINE * 0.5), BODY_CAP, inner_w, Color(UI.INK, 0.8))
-	y += LINE + LINE_GAP
 	_ability(id, y, inner_w)
 	if not crow:
 		_tile_row = Rect2(MARGIN, panel.end.y + SECTION_GAP, RIGHT - MARGIN, TILE_H)
@@ -317,35 +344,25 @@ func _show_detail(id: String) -> void:
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_page.add_child(_tiles)
 		_build_tiles()
-	_bar_button("left", _back)
-	_word_fit(_page, _name(id), Vector2(540, BAR_Y), TITLE_CAP, 600.0)
+	UI.button(_page, "Back", Vector2(112, 104), "cream", "back", _back)
+	UI.heading(_page, "bird.%s.name" % id, Rect2(240, 52, 600, 104), 56.0)
 
 func _back() -> void:
 	_show_list()
 
-func _personality(id: String) -> String:
-	return {"sunny": "Cheerful always first to sing", "sky": "Sleepy-eyed never in a hurry",
-		"berry": "Show-off loves an encore", "mint": "Gardener makes branches grow", "cocoa": "Grumpy scares crows away",
-		"snow": "Light on her feet takes a shortcut", "ember": "Hot-headed cracks eggs open",
-		"crow": "Trouble in black feathers", "ink": "Night owl flips the sky", "hoot": "Dreamy calls the moon"}.get(id, "")
-
 ## Ability badge and caption on one centred line; the crow has none and shows that it never goes home.
 func _ability(id: String, y: float, max_w: float) -> void:
 	var has_badge := PopupsScript.EFFECT.has(id)
-	var caption: String = PopupsScript.ABILITY.get(id, "Never goes home")
-	var badge := LINE + 8.0
+	var label_id := "bird.%s.ability" % id
+	var badge := 72.0
 	var lead := badge + 16.0 if has_badge else 56.0 + 16.0
-	var cap := BODY_CAP
-	var tw := UI.word_width(caption, cap)
-	if lead + tw > max_w:
-		cap *= (max_w - lead) / tw
-		tw = max_w - lead
+	var tw := minf(UI.label_width(label_id, BODY_CAP), max_w - lead)
 	var x := 540.0 - (lead + tw) * 0.5
 	if has_badge:
 		UI.art(_page, "gift_coin_" + PopupsScript.EFFECT[id], Rect2(x, y + (LINE - badge) * 0.5, badge, badge))
 	else:
 		UI.icon(_page, "home", Vector2(x + 28.0, y + LINE * 0.5), 56.0, Color(UI.INK, 0.8))
-	UI.word(_page, caption, Vector2(x + lead, y + LINE * 0.5), cap, UI.INK, -1)
+	UI.label(_page, label_id, Rect2(x + lead, y, tw, LINE), BODY_CAP, UI.INK)
 
 ## Four outfit tiles: the plain bird, then outfits 1 to 3. Owned ones equip on tap; locked ones are dimmed with a
 ## lock and their price; the equipped one wears a green check badge.
@@ -406,9 +423,9 @@ func _equip(id: String, index: int) -> void:
 func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	Sound.play("ui_tap")
 	var it := Shop.item(id)
-	var name: String = ShopScript.OUTFIT_NAME[it["species"]][it["index"] - 1]
+	var title_id := id + ".name"
 	var instant: bool = get_parent() != null and get_parent().has_method("instant") and get_parent().instant()
-	var modal := Modal.open(self, name, [ShopScript.POPUP_PIC, ShopScript.POPUP_LINE], true, UI.PRIMARY, 0.0, instant)
+	var modal := Modal.open(self, title_id, [ShopScript.POPUP_PIC, ShopScript.POPUP_LINE], true, UI.PRIMARY, 0.0, instant)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - ShopScript.POPUP_PIC * 0.5, ys[0], ShopScript.POPUP_PIC, ShopScript.POPUP_PIC)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
@@ -453,6 +470,8 @@ static func preview(main: Control, state: String) -> void:
 	var view: Control = load("res://game/aviary_view.gd").new()
 	view.setup(p)
 	main.set_screen(view)
+	view.closed.connect(func(): main.get_tree().quit())
+	Sound.music("bgm_menu")
 	match state:
 		"list_scrolled": view._set_scroll(1e6)
 		"detail_berry": view._show_detail("berry")
