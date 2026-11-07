@@ -37,6 +37,8 @@ var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
 const TUFT := 110.0           # painted leaf tuft width at a branch tip
+const SEAT_FIRST := 124.0     # seat 0 distance from the screen edge at density 1
+var _branch_widths := {}      # slot key -> drawn width share, so growth can animate
 var _slots: Array = []       # painted branch slots of this world (world/scene/board_wN_slots.json)
 var _row_offset := 0
 var _rows := 2
@@ -186,7 +188,7 @@ func _layout_branches() -> void:
 		var node := Node2D.new()
 		var edge := 1080.0 if right else 0.0
 		node.position = Vector2(edge, y + 20.0 * _density)
-		_add_branch_art(node, slot, right, seat_x(maxi(s.caps[b], 2) - 1, right, true) + 90.0 * _density, twig)
+		_add_branch_art(node, slot, right, b, twig)
 		if s.kinds[b] == Board.Kind.SWIVEL:
 			var knot := Sprite2D.new()
 			knot.texture = Art.tex("swivel_knot")
@@ -200,51 +202,47 @@ func _layout_branches() -> void:
 			node.scale = Vector2(0.05, 0.6)
 			create_tween().tween_property(node, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## The painted branch layer, shown up to `reach` px from the screen edge with its leaf tuft moved to that end.
-## Twigs are drawn thinner. Children are placed relative to the node at (edge, perch + 20).
-func _add_branch_art(node: Node2D, slot: Dictionary, right: bool, reach: float, twig: bool) -> void:
+## The painted branch layer in a child node anchored at the screen edge. A branch with fewer than four seats
+## (twig, growing branch) is the same painting narrowed from the edge, so its tuft stays whole; twigs are also
+## thinner. Growth tweens the width.
+func _add_branch_art(node: Node2D, slot: Dictionary, right: bool, b: int, twig: bool) -> void:
 	var tex := Art.tex(slot["name"])
 	var at := Vector2(slot["at"][0], slot["at"][1])
-	var size := Vector2(tex.get_size())
-	var full := float(slot["tip"]) if not right else 1080.0 - float(slot["tip"])   # painted wood length from the edge
-	full += TUFT * 0.5
-	var origin := node.position
-	var thin := 0.7 if twig else 1.0
-	var show := minf(reach, full)
-	# Body: from the edge to `show - TUFT * 0.6`; tuft: the painted tip region, slid to the visible end.
-	var body := Sprite2D.new()
-	body.texture = tex
-	body.centered = false
-	body.region_enabled = true
-	var cut := show - TUFT * 0.6
-	if right:
-		body.region_rect = Rect2(maxf(0.0, size.x - cut), 0, minf(size.x, cut), size.y)
-		body.position = Vector2(1080.0 - minf(size.x, cut), at.y) - origin
-	else:
-		body.region_rect = Rect2(0, 0, minf(size.x, cut), size.y)
-		body.position = at - origin
-	body.scale.y = thin
-	body.position.y *= thin
-	node.add_child(body)
-	if show >= full - 1.0:
-		# Full length: the body already ends in the painted tuft.
-		body.region_rect = Rect2(Vector2.ZERO, size)
-		body.position = at - origin
-		body.position.y *= thin
-		return
-	var tuft := Sprite2D.new()
-	tuft.texture = tex
-	tuft.centered = false
-	tuft.region_enabled = true
-	if right:
-		tuft.region_rect = Rect2(0, 0, TUFT, size.y)
-		tuft.position = Vector2(1080.0 - show, at.y) - origin
-	else:
-		tuft.region_rect = Rect2(size.x - TUFT, 0, TUFT, size.y)
-		tuft.position = Vector2(show - TUFT, at.y) - origin
-	tuft.scale.y = thin
-	tuft.position.y *= thin
-	node.add_child(tuft)
+	var art := Node2D.new()
+	art.name = "Art"
+	node.add_child(art)
+	var spr := Sprite2D.new()
+	spr.texture = tex
+	spr.centered = false
+	spr.position = at - node.position
+	art.add_child(spr)
+	var seats := maxi(session.state.caps[b], 2)
+	var width := _branch_width(b, seats) / _painted_length(slot)
+	art.scale = Vector2(width, 0.75 if twig else 1.0)
+	var key := "%s%d" % ["R" if right else "L", session.state.rows[b]]
+	var before: float = _branch_widths.get(key, width)
+	_branch_widths[key] = width
+	if not instant and absf(before - width) > 0.01:
+		art.scale.x = before
+		create_tween().tween_property(art, "scale:x", width, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+## Painted wood length of a slot from its screen edge to the end of its tuft.
+func _painted_length(slot: Dictionary) -> float:
+	var tip := float(slot["tip"])
+	return (tip if slot["side"] == "L" else 1080.0 - tip) + TUFT * 0.5
+
+## Seat pitch of a branch: four seats spread over its painted length, clear of the tuft.
+func _seat_step(b: int) -> float:
+	var s := session.state
+	var slot := _slot(s.rows[b], s.rights[b] == 1)
+	var free := _painted_length(slot) - SEAT_FIRST * _density - TUFT
+	return clampf(free / 3.0, 100.0 * _density, 150.0 * _density)
+
+## Length a branch needs for `seats` seats, from the screen edge to the end of its tuft.
+func _branch_width(b: int, seats: int) -> float:
+	var s := session.state
+	var full := _painted_length(_slot(s.rows[b], s.rights[b] == 1))
+	return minf(full, SEAT_FIRST * _density + (seats - 1) * _seat_step(b) + TUFT)
 
 func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 	var spr := Sprite2D.new()
@@ -259,15 +257,13 @@ func perch_y(b: int) -> float:
 	var s := session.state
 	return float(_slot(s.rows[b], s.rights[b] == 1).get("perch", 900.0))
 
-## Seat x on a branch; seat 0 is nearest the screen edge. `local` returns distance from the edge.
-func seat_x(i: int, right: bool, local := false) -> float:
-	var d := 124.0 + 126.0 * i * _density
-	if local:
-		return d
-	return 1080.0 - d if right else d
+## Seat x on branch b; seat 0 is nearest the screen edge.
+func seat_x(b: int, i: int) -> float:
+	var d := SEAT_FIRST * _density + i * _seat_step(b)
+	return 1080.0 - d if session.state.rights[b] == 1 else d
 
 func seat_point(b: int, i: int) -> Vector2:
-	return Vector2(seat_x(i, session.state.rights[b] == 1), perch_y(b))
+	return Vector2(seat_x(b, i), perch_y(b))
 
 func _spawn_birds() -> void:
 	for bird in _birds.values():
@@ -627,7 +623,7 @@ func _lift(b: int, on: bool) -> void:
 	if on:
 		for other in _birds.values():
 			if is_instance_valid(other) and not other.selected and randf() < 0.3:
-				other.look_at_x(seat_x(0, s.rights[b] == 1))
+				other.look_at_x(seat_x(b, 0))
 
 ## A refused tap: a sleeping bird gets a visible reaction and an explanation, anything else a branch shake.
 func _refuse(b: int) -> void:
@@ -1027,6 +1023,12 @@ func granted(kind: int, count: int) -> void:
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left).
 static func preview(main: Control, state: String) -> void:
+	if state.begins_with("level_"):   # the real level on the board, without the first-visit popups
+		var board := BoardView.new()
+		board.instant = true
+		main.set_screen(board)
+		board.start(Levels.get_level(int(state.trim_prefix("level_"))), main.profile, false)
+		return
 	var def := {"id": 99, "world": 1, "variant": "morning", "capacity": 4, "par": 12, "dayLength": 4, "branches": [
 		{"side": "L", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "hoot:sleep"]},
 		{"side": "R", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "sunny"]},

@@ -68,8 +68,11 @@ def morph(mask, size, grow=True):
     return np.array(im) > 127
 
 
-def cut_slot(raw, empty, side, y_guide):
-    y0, y1 = int(max(0, y_guide - 110)), int(min(H, y_guide + 80))
+def cut_slot(raw, empty, side, y_guide, pitch=260.0):
+    """Cut the branch whose top is near y_guide; the window follows the row pitch so neighbours stay out."""
+    up = min(110.0, 0.62 * pitch)
+    down = min(80.0, 0.48 * pitch)
+    y0, y1 = int(max(0, y_guide - up)), int(min(H, y_guide + down))
     x0, x1 = (0, 700) if side == "L" else (380, W)
     a = raw[y0:y1, x0:x1].astype(np.float32)
     b = empty[y0:y1, x0:x1].astype(np.float32)
@@ -93,7 +96,10 @@ def cut_slot(raw, empty, side, y_guide):
             if k in keep or sizes[k] < 60:
                 continue
             kys, kxs = np.nonzero(lab == k)
-            near = np.abs((kxs.mean()) - tip) < 120 and abs(kys.mean() - ys.mean()) < 90
+            near = np.abs((kxs.mean()) - tip) < 120 and abs(kys.mean() - ys.mean()) < 50
+            # a tuft touches the branch; loose painted leaves drifting nearby are not part of it
+            touch = morph(lab == main, 9, True)
+            near = near and bool((touch & (lab == k)).any())
             if near:
                 keep.add(k)
     mask = np.isin(lab, list(keep))
@@ -167,8 +173,10 @@ def main():
         print(side, "branch bands", found)
         if len(found) != rows:
             raise SystemExit("world %d side %s: %d painted branches, expected %d" % (world, side, len(found), rows))
+        tops = [t for t, _ in found]
+        pitch = min([b - a for a, b in zip(tops, tops[1:])] or [260.0])
         for row, (top, bottom) in enumerate(found):
-            res = cut_slot(raw, empty, side, float(top))
+            res = cut_slot(raw, empty, side, float(top), pitch)
             if res is None:
                 raise SystemExit("no branch at %s row %d" % (side, row))
             img, at, perch, tip = res
