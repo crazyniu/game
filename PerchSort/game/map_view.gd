@@ -1,11 +1,12 @@
 extends Control
 ## The level map: all 40 levels on a scrolling trail across the four painted world maps, with a fixed top bar
-## (world title, coins) and the shop, aviary and settings buttons at the bottom.
+## (world title, coins) and the shop, aviary, settings and help buttons at the bottom.
 
 signal level_tapped(level: int)
 signal shop_requested
 signal aviary_requested
 signal settings_requested
+signal help_requested
 signal gate_tapped(world: int)
 
 const SEGMENT := 3000.0
@@ -271,11 +272,13 @@ func _build_hud() -> void:
 	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
 	_coins.name = "Coins"
 	_title_world = 0
+	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
 	var buttons := [["Shop", "orange", "shop", shop_requested], ["Aviary", "orange", "aviary", aviary_requested],
-		["Settings", "orange", "gear", settings_requested]]
+		["Settings", "orange", "gear", settings_requested], ["Help", "cream", "info", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
-		UI.button(_hud, buttons[i][0], Vector2(540.0 + (i - 1) * NAV_GAP, NAV_Y), buttons[i][1], buttons[i][2], sig.emit)
+		var x := 540.0 + (i - (buttons.size() - 1) * 0.5) * NAV_GAP
+		UI.button(_hud, buttons[i][0], Vector2(x, NAV_Y), buttons[i][1], buttons[i][2], sig.emit, UI.SECONDARY)
 
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
 ## nothing is above world 4), reflected upwards at the painting's top edge.

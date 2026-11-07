@@ -576,6 +576,69 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "tutorial.title": {
+      "text": "How to Play",
+      "file": "label_tutorial_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.pick": {
+      "text": "Tap a branch to pick up its birds",
+      "file": "label_tutorial_pick.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.move.a": {
+      "text": "Tap another branch with room",
+      "file": "label_tutorial_move_a.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.move.b": {
+      "text": "to move them: same bird on top,",
+      "file": "label_tutorial_move_b.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.home.a": {
+      "text": "Fill a branch with one kind of bird",
+      "file": "label_tutorial_home_a.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.home.b": {
+      "text": "and they fly home to the house",
+      "file": "label_tutorial_home_b.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.win.a": {
+      "text": "Send every kind home to win.",
+      "file": "label_tutorial_win_a.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.win.b": {
+      "text": "Fewer moves, more stars",
+      "file": "label_tutorial_win_b.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tutorial.move.c": {
+      "text": "or an empty branch",
+      "file": "label_tutorial_move_c.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {
