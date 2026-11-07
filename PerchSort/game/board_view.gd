@@ -36,8 +36,8 @@ var _night: TextureRect
 var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
-const TUFT := 110.0           # painted leaf tuft width at a branch tip
-const SEAT_FIRST := 124.0     # seat 0 distance from the screen edge at density 1
+const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px): clear of the leaf tuft
+const SEAT_FIRST := 110.0     # seat 0 distance from the screen edge at density 1
 var _branch_widths := {}      # slot key -> drawn width share, so growth can animate
 var _slots: Array = []       # painted branch slots of this world (world/scene/board_wN_slots.json)
 var _row_offset := 0
@@ -229,20 +229,20 @@ func _add_branch_art(node: Node2D, slot: Dictionary, right: bool, b: int, twig: 
 ## Painted wood length of a slot from its screen edge to the end of its tuft.
 func _painted_length(slot: Dictionary) -> float:
 	var tip := float(slot["tip"])
-	return (tip if slot["side"] == "L" else 1080.0 - tip) + TUFT * 0.5
+	return tip if slot["side"] == "L" else 1080.0 - tip
 
 ## Seat pitch of a branch: four seats spread over its painted length, clear of the tuft.
 func _seat_step(b: int) -> float:
 	var s := session.state
 	var slot := _slot(s.rows[b], s.rights[b] == 1)
-	var free := _painted_length(slot) - SEAT_FIRST * _density - TUFT
+	var free := _painted_length(slot) - SEAT_FIRST * _density - END_CLEAR
 	return clampf(free / 3.0, 100.0 * _density, 150.0 * _density)
 
 ## Length a branch needs for `seats` seats, from the screen edge to the end of its tuft.
 func _branch_width(b: int, seats: int) -> float:
 	var s := session.state
 	var full := _painted_length(_slot(s.rows[b], s.rights[b] == 1))
-	return minf(full, SEAT_FIRST * _density + (seats - 1) * _seat_step(b) + TUFT)
+	return minf(full, SEAT_FIRST * _density + (seats - 1) * _seat_step(b) + END_CLEAR)
 
 func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 	var spr := Sprite2D.new()
