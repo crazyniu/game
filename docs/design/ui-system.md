@@ -49,8 +49,8 @@ fancy. The screens are designed from scratch on this system; earlier layouts and
   `tools/kit/cut_kit.py` into glyphs and glyph outlines (`art/letters`).
 - Words are painted label sprites built by `tools/kit/build_words.py` into `art/words/word_<slug>.png`: white
   letters with a warm brown outline (#96521C, 0.11 cap) and a soft shadow, letter gap 0.29 cap.
-- Numbers are the same glyphs composed at runtime: on cream and scenes white with the same outline; on coloured
-  fills (prices, badges, rewards) plain white.
+- Numbers are the same glyphs composed at runtime, plain and unoutlined for contrast at small sizes: dark ink on
+  cream, white on coloured fills (prices, badges, rewards). Only words carry the outline.
 - Cap heights: title 64, body 44, small 34. Numbers: large 72, medium 52, small 36.
 - Close buttons are red with a white X (user choice, 2026-11-07).
 
