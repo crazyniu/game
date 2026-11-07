@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://br4bshvcipi8x"
-path="res://.godot/imported/night_overlay.png-793d6f0b4714537d53b4793349908fb5.ctex"
+uid="uid://cqxof6g26mo8c"
+path="res://.godot/imported/label_board_night_falls.png-cb4d96b5c09532ab163f595db064a86d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/night_overlay.png"
-dest_files=["res://.godot/imported/night_overlay.png-793d6f0b4714537d53b4793349908fb5.ctex"]
+source_file="res://art/locale/en/label_board_night_falls.png"
+dest_files=["res://.godot/imported/label_board_night_falls.png-cb4d96b5c09532ab163f595db064a86d.ctex"]
 
 [params]
 

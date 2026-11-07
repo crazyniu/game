@@ -25,6 +25,8 @@
   ],
   "labels": {
     "hud.level": "Level",
+    "board.night_falls": "Night falls",
+    "board.day_breaks": "Day breaks",
     "action.play": "Play",
     "aviary.title": "Aviary",
     "bird.sunny.name": "Sunny",

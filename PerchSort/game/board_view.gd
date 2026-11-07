@@ -32,7 +32,13 @@ var _scene: Node2D
 var _branch_layer: Node2D
 var _bird_layer: Node2D
 var _hud: Control
-var _night: TextureRect
+var _night_bg: TextureRect   # the world's night painting over the day painting; alpha = night amount
+var _night_fx: Node2D        # twinkling stars and fireflies, visible at night
+var _night_amount := 0.0     # 0 day .. 1 night; drives the painting cross-fade, moonlight tint and night life
+var _night_tween: Tween
+var _night_stars: Array = []   # {node, at, period, offset, size}
+var _fireflies: Array = []     # {node, glow, at, reach, speed, offset}
+var _banner: Control
 var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
@@ -50,8 +56,14 @@ var _rows := 2
 var _perch_step := 0.0
 var _house: Control
 var _goal_nodes := {}   # species -> Control
-var _sun_pill: Control
-var _sun_number: Control
+var _status: Panel          # stars and move count
+var _status_stars: Array = []  # TextureRect per star
+var _moves_number: Control
+var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
+var _phase_icon: TextureRect
+var _phase_number: Control
+var _shown_moves := -1
+var _shown_phase := ""
 var _tool_bar: Control
 var _sky: Node2D
 var _motes: Array = []  # ambient drifters: {node, kind, origin, period, offset, alpha, drift}
@@ -70,9 +82,15 @@ var _bubble_tween: Tween
 var _stuck: Control
 var _entrance_running := false
 var _hint_button: Button
-var _hint_task := -1
+var _hint_thread: Thread    # dedicated, so it never queues behind engine pool tasks
 var _hint_result := {}
-var _hint_moves := {}
+var _hint_cancel: Array = [false]
+var _hint_task_key := PackedInt32Array()
+var _hint_moves := {}       # search_key -> move: winning routes and one-move fallbacks found in the background
+var _hint_waiting := false  # the firefly was pressed before the background search finished
+var _hint_press_usec := 0
+var _hint_task_usec := 0
+var _hint_level := -1
 var _shown_hint_key := PackedInt32Array()
 var _hint_pointer: Sprite2D
 var _hint_motion: Tween
@@ -82,7 +100,10 @@ var _hint_move: Array = []
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
 	_release_hint_task()
 	_hide_hint()
-	_hint_moves.clear()
+	if int(level_def["id"]) != _hint_level:
+		_hint_moves.clear()
+	_hint_level = int(level_def["id"])
+	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
 	busy = false
 	level = level_def
@@ -93,6 +114,12 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_birds.clear()
 	_goal_nodes.clear()
 	_motes.clear()
+	_night_stars.clear()
+	_fireflies.clear()
+	_banner = null
+	_night_tween = null
+	_shown_moves = -1
+	_shown_phase = ""
 	_resident_species = -1
 	Engine.time_scale = 1.0
 	size = Vector2(1080, 1920)
@@ -101,6 +128,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_layout_branches()
 	_spawn_birds()
 	refresh_hud()
+	_prefetch_hint()
 	if play_entrance and not instant:
 		_entrance()
 
@@ -117,18 +145,139 @@ func _world() -> int:
 func _build_scene() -> void:
 	# One painting per world (docs/design/ui-system.md): the branch-free scene, then each branch layer cut from the
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
+	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
+	_night_bg = UI.image(self, "board_w%d_night_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
 	_slots = JSON.parse_string(FileAccess.get_file_as_string("res://world/scene/board_w%d_slots.json" % _world()))["slots"]
 	_build_ambient()
+	_build_night_fx()
 	_scene = Node2D.new()
 	_scene.name = "Scene"
 	add_child(_scene)
 	_branch_layer = Node2D.new()
+	_branch_layer.name = "Branches"
 	_scene.add_child(_branch_layer)
 	_bird_layer = Node2D.new()
+	_bird_layer.name = "Birds"
 	_scene.add_child(_bird_layer)
-	_night = UI.image(self, "night_overlay", Rect2(0, 0, 1080, 1920), false)
-	_night.modulate.a = 0.0
+	# The first frame already shows the level's phase.
+	_apply_night(1.0 if session.state.phase == Board.Phase.NIGHT else 0.0)
+
+## ---------- day and night ----------
+
+## Moonlight multiplies the branches and the birds on them; no dark overlay is drawn.
+const NIGHT_TINT := Color(0.70, 0.76, 0.98)
+const NIGHT_FADE := 0.8
+## Extra twinkling stars in the sky band, clear of the HUD card, the house and Settings.
+const NIGHT_STARS := [Vector2(712, 64), Vector2(846, 222), Vector2(1018, 318), Vector2(742, 372), Vector2(452, 336),
+	Vector2(318, 362), Vector2(96, 404), Vector2(958, 470), Vector2(630, 452), Vector2(214, 486), Vector2(866, 40)]
+const FIREFLY_COUNT := 9
+
+func _build_night_fx() -> void:
+	_night_fx = Node2D.new()
+	_night_fx.name = "NightLife"
+	add_child(_night_fx)
+	for i in NIGHT_STARS.size():
+		var star := Sprite2D.new()
+		star.texture = Art.tex("sparkle")
+		star.modulate = Color(1.0, 0.98, 0.86)
+		_night_fx.add_child(star)
+		_night_stars.append({"node": star, "at": NIGHT_STARS[i], "period": 1.6 + 0.37 * (i % 5),
+			"offset": fposmod(i * 0.618, 1.0), "size": 18.0 + 6.0 * ((i * 7) % 4)})
+	for i in FIREFLY_COUNT:
+		var fly := Node2D.new()
+		var glow := Sprite2D.new()
+		glow.texture = Art.tex("glow_soft")
+		glow.scale = Vector2.ONE * 0.16
+		glow.modulate = Color(1.0, 0.9, 0.4, 0.55)
+		fly.add_child(glow)
+		var body := Sprite2D.new()
+		body.texture = Art.tex("firefly")
+		body.scale = Vector2.ONE * 0.75
+		fly.add_child(body)
+		_night_fx.add_child(fly)
+		_fireflies.append({"node": fly, "glow": glow,
+			"at": Vector2(110.0 + fposmod(i * 389.0, 860.0), 600.0 + fposmod(i * 457.0, 1080.0)),
+			"reach": Vector2(70.0 + 15.0 * (i % 4), 40.0 + 12.0 * (i % 3)), "speed": 0.23 + 0.05 * (i % 5),
+			"offset": i * 1.7})
+	_tick_night()
+
+## Stars twinkle (alpha and size pulse at their own rates); fireflies wander on slow loops and blink.
+func _tick_night() -> void:
+	if _night_fx == null:
+		return
+	_night_fx.modulate.a = _night_amount
+	if _night_amount <= 0.001:
+		return
+	for s in _night_stars:
+		var u := fposmod(_clock / s["period"] + s["offset"], 1.0)
+		var wave := 0.5 - 0.5 * cos(u * TAU)
+		var node: Sprite2D = s["node"]
+		node.position = s["at"]
+		node.scale = Vector2.ONE * s["size"] * (0.75 + 0.35 * wave) / 50.0
+		node.modulate.a = 0.25 + 0.75 * wave * wave
+	for f in _fireflies:
+		var t: float = _clock * f["speed"] + f["offset"]
+		var reach: Vector2 = f["reach"]
+		var node: Node2D = f["node"]
+		node.position = f["at"] + Vector2(sin(t * 1.3) * reach.x, sin(t * 2.1 + 0.7) * reach.y - 20.0 * sin(t * 0.5))
+		var blink := 0.5 + 0.5 * sin(t * 4.7)
+		node.modulate.a = 0.35 + 0.65 * blink * blink
+		(f["glow"] as Sprite2D).scale = Vector2.ONE * (0.13 + 0.05 * blink)
+
+## 0 = day, 1 = night: night painting alpha, moonlight tint of branches and birds, night life alpha.
+func _apply_night(amount: float) -> void:
+	_night_amount = amount
+	_night_bg.modulate.a = amount
+	_night_bg.visible = amount > 0.001
+	var tint := Color.WHITE.lerp(NIGHT_TINT, amount)
+	_branch_layer.modulate = tint
+	_bird_layer.modulate = tint
+	_tick_night()
+
+func _fade_night(target: float, seconds := NIGHT_FADE) -> Tween:
+	if _night_tween:
+		_night_tween.kill()
+		_night_tween = null
+	if instant or absf(_night_amount - target) < 0.001:
+		_apply_night(target)
+		return null
+	_night_tween = create_tween()
+	_night_tween.tween_method(_apply_night, _night_amount, target, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	return _night_tween
+
+## A short painted word below the goals: "Night falls" or "Day breaks", fading in and out.
+const BANNER_H := 104.0
+const BANNER_CAP := 48.0
+const BANNER_ICON := 56.0
+
+func _phase_banner(night: bool) -> void:
+	if _banner and is_instance_valid(_banner):
+		_banner.queue_free()
+	var id := "board.night_falls" if night else "board.day_breaks"
+	var label_w := UI.label_width(id, BANNER_CAP)
+	var w := 40.0 + BANNER_ICON + 16.0 + label_w + 40.0
+	var top := 0.0
+	for goal in _goal_nodes.values():
+		top = maxf(top, goal.position.y + goal.size.y)
+	var face := (BANNER_H - 8.0) * 0.5
+	var pill := UI.shape(_hud, Rect2(540.0 - w * 0.5, top + 32.0, w, BANNER_H), "cream", BANNER_H * 0.5, 8.0)
+	pill.name = "PhaseBanner"
+	UI.icon(pill, "moon" if night else "sun", Vector2(40.0 + BANNER_ICON * 0.5, face), BANNER_ICON,
+		MOON_INK if night else SUN_INK)
+	_place_label(pill, id, 40.0 + BANNER_ICON + 16.0, face + BANNER_CAP * 0.5, BANNER_CAP)
+	_banner = pill
+	if instant:
+		return
+	pill.modulate.a = 0.0
+	pill.scale = Vector2.ONE * 0.7
+	var tw := pill.create_tween()
+	tw.tween_property(pill, "modulate:a", 1.0, 0.25)
+	tw.parallel().tween_property(pill, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(1.0)
+	tw.tween_property(pill, "modulate:a", 0.0, 0.4)
+	tw.parallel().tween_property(pill, "position:y", pill.position.y - 16.0, 0.4).set_ease(Tween.EASE_IN)
+	tw.tween_callback(pill.queue_free)
 
 ## ---------- ambient ----------
 
@@ -152,6 +301,7 @@ func _add_mote(sprite: String, kind: String, origin: Vector2, size_px: Vector2, 
 func _process(delta: float) -> void:
 	_clock += delta
 	_tick_ambient()
+	_tick_night()
 	_poll_hint()
 
 func _tick_ambient() -> void:
@@ -343,7 +493,8 @@ func sync_birds() -> void:
 			if is_instance_valid(_birds[id]):
 				_birds[id].queue_free()
 			_birds.erase(id)
-	_night.modulate.a = 0.45 if s.phase == Board.Phase.NIGHT else 0.0
+	# Undo can return to the other phase: cross-fade without the banner.
+	_fade_night(1.0 if s.phase == Board.Phase.NIGHT else 0.0)
 	if glide:
 		await glide.finished
 
@@ -393,9 +544,27 @@ func _entrance() -> void:
 
 ## ---------- HUD ----------
 
-## Level and phase share a compact row, clear of the central house.
-const LEVEL_RECT := Rect2(48, 64, 200, 80)
-const PHASE_RECT := Rect2(264, 64, 136, 80)
+## Minimal status (top left, clear of the house and Settings): one pill with the three stars still reachable
+## and the moves used; on day/night levels a second pill below it with only a sun or moon and the moves until
+## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
+const STATUS_AT := Vector2(48, 48)
+const STATUS_H := 80.0
+const STATUS_W := 288.0
+const PHASE_W := 144.0
+const STATUS_GAP := 16.0         # between the two pills
+const STATUS_INSET := 24.0
+const STATUS_CAP := 40.0
+const STATUS_STAR := 44.0
+const STATUS_STAR_GAP := 4.0
+const STATUS_ICON := 44.0
+const DIM_STAR_ALPHA := 0.55
+const SUN_INK := Color8(255, 176, 40)
+const MOON_INK := Color8(122, 132, 214)
+## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
+const LABEL_CAP := 128.0
+const LABEL_BASELINE := 160.0
+const LABEL_LINE := 208.0
+const NUMBER_BASELINE := 126.0 / 128.0
 const GEAR := Vector2(968, 104)
 const TOOL_Y := 1792.0
 const TOOL_GAP := 48.0
@@ -468,26 +637,100 @@ func _build_hud() -> void:
 	UI.place(_door_mask, opening)
 	_house.add_child(_door_mask)
 	_door_open = null
-	var level_pill := UI.shape(_hud, LEVEL_RECT, "cream", LEVEL_RECT.size.y * 0.5, 6.0)
-	level_pill.name = "Level"
-	var status_cap := 32.0 * minf(1.0, (LEVEL_RECT.size.x - 44.0) / (UI.label_width("hud.level", 32.0) + UI.number_width("00", 32.0)))
-	var label_w := UI.label_width("hud.level", status_cap)
-	# Align the label's painted cap band, accounting for its baked line padding.
-	UI.label(level_pill, "hud.level", Rect2(18, status_cap / 16.0, label_w, 74), status_cap)
-	var number_x := 18.0 + label_w + 8.0
-	UI.number(level_pill, str(session.state.level_id), Rect2(number_x, 37.0 - status_cap * 0.5, LEVEL_RECT.size.x - number_x - 18.0, status_cap))
-	# Day and night: suns (or moons) left in the current phase.
-	_sun_pill = UI.shape(_hud, PHASE_RECT, "cream", PHASE_RECT.size.y * 0.5, 6.0)
-	_sun_pill.name = "Phase"
-	UI.icon(_sun_pill, "sun", Vector2(38, 37), 44.0, Color8(255, 176, 40))
-	_sun_number = UI.number(_sun_pill, "0", Rect2(70, 37.0 - status_cap * 0.5, 48, status_cap))
-	_sun_pill.visible = session.state.day_length > 0
+	_build_status()
 	UI.button(_hud, "Settings", GEAR, "cream", "gear", func(): settings_requested.emit())
 	_build_goals()
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
 	_tool_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_tool_bar)
+
+## Bottom of the status pills (the phase pill only on day/night levels).
+func _status_rect() -> Rect2:
+	var h := STATUS_H * 2.0 + STATUS_GAP if session.state.day_length > 0 else STATUS_H
+	return Rect2(STATUS_AT, Vector2(STATUS_W, h))
+
+## A painted label whose baseline sits at `baseline`, at exactly `cap` cap height.
+func _place_label(parent: Node, id: String, x: float, baseline: float, cap: float) -> TextureRect:
+	var k := cap / LABEL_CAP
+	return UI.label(parent, id, Rect2(x, baseline - LABEL_BASELINE * k, UI.label_width(id, cap) + 1.0, LABEL_LINE * k + 1.0), cap)
+
+## The single place that picks the HUD star art: swap this line for the painted stars.
+static func _star_texture(lit: bool) -> Texture2D:
+	return load("res://art/icons/icon_rating_%s.svg" % ("filled" if lit else "empty"))
+
+## Stars as one row of `count` sprites in `bounds` (left aligned); see _set_stars.
+func _make_stars(parent: Node, at: Vector2, size: float, gap: float, count := 3) -> Array:
+	var out := []
+	for i in count:
+		var star := TextureRect.new()
+		star.name = "Star %d" % i
+		star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		star.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(star, Rect2(at + Vector2(i * (size + gap), 0), Vector2.ONE * size))
+		parent.add_child(star)
+		out.append(star)
+	return out
+
+## The first `lit` stars are bright; the others dim (no longer reachable).
+func _set_stars(stars: Array, lit: int) -> void:
+	for i in stars.size():
+		var on: bool = i < lit
+		stars[i].texture = _star_texture(on)
+		stars[i].modulate.a = 1.0 if on else DIM_STAR_ALPHA
+
+func _build_status() -> void:
+	var face := (STATUS_H - 6.0) * 0.5   # visual centre of the raised face
+	var baseline := face + STATUS_CAP * 0.5
+	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "cream", STATUS_H * 0.5, 6.0)
+	_status.name = "Status"
+	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
+	var number_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
+	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
+		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
+	_phase_chip = null
+	_phase_icon = null
+	_phase_number = null
+	if session.state.day_length <= 0:
+		return
+	_phase_chip = UI.shape(_hud, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)),
+		"cream", STATUS_H * 0.5, 6.0)
+	_phase_chip.name = "Phase"
+	_phase_icon = UI.icon(_phase_chip, "sun", Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, SUN_INK)
+	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
+	_phase_number = UI.number(_phase_chip, "0", Rect2(phase_x, baseline - STATUS_CAP * NUMBER_BASELINE,
+		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), UI.INK, -1)
+
+## `with_phase` false leaves the day/night pill for the phase_changed playback.
+func _refresh_status(with_phase := true) -> void:
+	var s := session.state
+	var moves := session.move_count()
+	UI.set_number(_moves_number, str(moves))
+	_set_stars(_status_stars, GameSession.stars_for(moves, session.par))
+	if _shown_moves >= 0 and moves != _shown_moves:
+		_pulse(_moves_number)
+	_shown_moves = moves
+	if _phase_number == null or not with_phase:
+		return
+	var night := s.phase == Board.Phase.NIGHT
+	var left := str(s.day_length - s.phase_counter)
+	UI.set_number(_phase_number, left)
+	_phase_icon.texture = UI.icon_texture("moon" if night else "sun")
+	_phase_icon.modulate = MOON_INK if night else SUN_INK
+	var shown := "%d:%s" % [s.phase, left]
+	if not _shown_phase.is_empty() and shown != _shown_phase:
+		_pulse(_phase_number)
+	_shown_phase = shown
+
+## A changed value grows briefly so the player sees what moved.
+func _pulse(node: Control) -> void:
+	if instant:
+		return
+	node.pivot_offset = Vector2(0.0, node.size.y * 0.5)
+	var tw := node.create_tween()
+	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
+	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## Goal birds under the house: a cream circle with the face, the ability badge until delivered, then a check.
 func _build_goals() -> void:
@@ -499,6 +742,11 @@ func _build_goals() -> void:
 		gap = 12.0
 		size = minf(GOAL, (984.0 - (n - 1) * gap) / maxf(1.0, n))
 	var top := _house_rect().end.y + GOAL_TOP_GAP
+	# A wide goal row moves below the status card instead of touching it.
+	var left := 540.0 - (n * 0.5) * size - (n - 1) * 0.5 * gap
+	var status := _status_rect()
+	if left < status.end.x + GOAL_GAP:
+		top = maxf(top, status.end.y + GOAL_TOP_GAP)
 	for i in n:
 		var sp: String = ids[i]
 		var cx := 540.0 + (i - (n - 1) * 0.5) * (size + gap)
@@ -521,13 +769,7 @@ func _build_goals() -> void:
 
 func refresh_hud() -> void:
 	var s := session.state
-	if s.day_length > 0:
-		UI.set_number(_sun_number, str(s.day_length - s.phase_counter))
-		var night := s.phase == Board.Phase.NIGHT
-		for child in _sun_pill.get_children():
-			if child is TextureRect and String(child.name).begins_with("icon_"):
-				child.texture = UI.icon_texture("moon" if night else "sun")
-				child.modulate = Color8(160, 170, 230) if night else Color8(255, 176, 40)
+	_refresh_status()
 	for sp in _goal_nodes:
 		var home: bool = s.homed.has(Board.species_index(sp))
 		_goal_gift[sp].visible = not home
@@ -573,7 +815,7 @@ func _build_tools() -> void:
 		var stock: int = session.state.inventory[kind]
 		UI.badge(b, str(stock) if stock > 0 else "+")
 		UI.set_active(b, stock == 0 or session.booster_has_effect(kind))
-	if _hint_task >= 0:
+	if _hint_waiting:
 		_show_hint_loading()
 
 ## ---------- input ----------
@@ -802,6 +1044,9 @@ func _do(action: Callable) -> void:
 	busy = true
 	var ok: bool = action.call()
 	if ok:
+		_prefetch_hint()   # searches while the move plays and the player thinks
+		# Counts change with the move, not after its animation; a new phase shows when its cross-fade starts.
+		_refresh_status(not session.events.any(func(e): return e["type"] == "phase_changed"))
 		await play_events(session.events.duplicate())
 	await sync_birds()
 	refresh_hud()
@@ -815,6 +1060,7 @@ func _on_undo() -> void:
 	if busy or not session.undo():
 		return
 	_hide_hint()
+	_prefetch_hint()
 	Sound.play("undo")
 	busy = true
 	_hide_bubble()
@@ -839,6 +1085,7 @@ func _on_tool(kind: int) -> void:
 	if result.get("applied", false):
 		profile.inventory[kind] = session.state.inventory[kind]
 		profile_changed.emit()
+		_prefetch_hint()
 		Sound.play(BOOSTER_SOUND[kind])
 		await play_events(session.events.duplicate())
 	else:
@@ -849,7 +1096,12 @@ func _on_tool(kind: int) -> void:
 	busy = false
 	_watch_stuck()
 
-## Hint search has one short worker budget; later steps reuse its complete winning route.
+## Hints are searched in the background (worker thread) as soon as a level starts and after every move,
+## undo or booster, and cached by search key, so a press shows the hand at once. The background search has
+## a large budget; when it still finds no full route it caches a one-move suggestion (Solver.best_move).
+const HINT_STATES := 400000
+const HINT_MS := 8000
+
 func _hint() -> void:
 	var key := session.state.search_key(false)
 	if _shown_hint_key == key and _hint_moves.has(key):
@@ -858,36 +1110,89 @@ func _hint() -> void:
 	if session.state.inventory[Board.Booster.FIREFLY] == 0:
 		buy_requested.emit(Board.Booster.FIREFLY)
 		return
+	_hint_press_usec = Time.get_ticks_usec()
 	if _hint_moves.has(key):
+		_log_hint("cached")
 		_apply_hint(_hint_moves[key])
 		return
+	# The background search is still running: show the spinner until it lands.
 	_hide_hint()
 	busy = true
-	var snapshot := session.state.clone()
-	var last := session.last_move.duplicate()
-	_hint_result = {}
-	var result := _hint_result
-	_hint_task = WorkerThreadPool.add_task(func(): result.merge(Solver.hint(snapshot, last)))
+	_hint_waiting = true
+	_prefetch_hint()
 	_build_tools()
 
-func _poll_hint() -> void:
-	if _hint_task < 0 or not WorkerThreadPool.is_task_completed(_hint_task):
+## Starts a background search for the current board unless its hint is cached or already being searched.
+## A search for an older board is cancelled; _poll_hint starts the current one when it has stopped.
+func _prefetch_hint() -> void:
+	if session == null or session.state.is_won():
 		return
-	WorkerThreadPool.wait_for_task_completion(_hint_task)
-	_hint_task = -1
-	busy = false
-	if _hint_result["status"] != Solver.Status.SOLVED or _hint_result["moves"].is_empty():
+	var key := session.state.search_key(false)
+	if _hint_moves.has(key):
+		return
+	if _hint_thread:
+		if _hint_task_key != key:
+			_hint_cancel[0] = true
+		return
+	var snapshot := session.state.clone()
+	var last := session.last_move.duplicate()
+	var cancel: Array = [false]
+	_hint_cancel = cancel
+	_hint_task_key = key
+	_hint_result = {}
+	var result := _hint_result
+	_hint_task_usec = Time.get_ticks_usec()
+	_hint_thread = Thread.new()
+	_hint_thread.start(func():
+		var found := Solver.hint(snapshot, last, HINT_STATES, HINT_MS, cancel)
+		if found["status"] != Solver.Status.SOLVED and not cancel[0]:
+			found["fallback"] = Solver.best_move(snapshot, last)
+		result.merge(found))
+
+func _poll_hint() -> void:
+	if _hint_thread == null or _hint_thread.is_alive():
+		return
+	_hint_thread.wait_to_finish()
+	_hint_thread = null
+	var found := _hint_result
+	_hint_result = {}
+	var source := "search"
+	if found.get("status", -1) == Solver.Status.SOLVED and not found["moves"].is_empty():
+		_hint_moves.merge(found["continuation"], true)
+	elif not found.get("fallback", []).is_empty():
+		_hint_moves[_hint_task_key] = found["fallback"]
+		source = "fallback"
+	elif _hint_cancel[0]:
+		source = "cancelled"
+	if OS.is_debug_build():
+		print("HINT_SEARCH level=%d result=%s search_ms=%.1f" % [session.state.level_id, source, (Time.get_ticks_usec() - _hint_task_usec) / 1000.0])
+	var key := session.state.search_key(false)
+	if _hint_waiting and key == _hint_task_key and not _hint_moves.has(key) and not _hint_cancel[0]:
+		# Searched this very board and no legal move exists.
+		_hint_waiting = false
+		busy = false
 		refresh_hud()
-		_show_hint_failure(_hint_result["status"])
+		_show_hint_failure(found.get("status", Solver.Status.UNSOLVABLE))
 		Sound.play("error")
 		return
-	_hint_moves.merge(_hint_result["continuation"], true)
-	_apply_hint(_hint_result["moves"][0])
+	if _hint_waiting and _hint_moves.has(key):
+		_hint_waiting = false
+		busy = false
+		_log_hint(source)
+		_apply_hint(_hint_moves[key])
+	_prefetch_hint()
+
+## Debug timing evidence: press to hand shown.
+func _log_hint(source: String) -> void:
+	if OS.is_debug_build():
+		print("HINT level=%d moves=%d source=%s press_to_hand_ms=%.1f" % [session.state.level_id, session.move_count(),
+			source, (Time.get_ticks_usec() - _hint_press_usec) / 1000.0])
 
 func _release_hint_task() -> void:
-	if _hint_task >= 0:
-		WorkerThreadPool.wait_for_task_completion(_hint_task)
-		_hint_task = -1
+	if _hint_thread:
+		_hint_cancel[0] = true
+		_hint_thread.wait_to_finish()
+		_hint_thread = null
 	_hint_result = {}
 
 func _show_hint_loading() -> void:
@@ -1006,12 +1311,15 @@ func play_events(events: Array) -> void:
 						crow.fly_to(Vector2(crow.position.x + (600.0 if crow.position.x > 540 else -600.0), -200), 0.0, 0.8, true)
 				await get_tree().create_timer(0.8).timeout
 			"phase_changed":
-				var tw := create_tween()
-				tw.tween_property(_night, "modulate:a", 0.45 if e["phase"] == Board.Phase.NIGHT else 0.0, 0.6)
+				var night: bool = e["phase"] == Board.Phase.NIGHT
+				_phase_banner(night)
+				_refresh_status()
+				var tw := _fade_night(1.0 if night else 0.0)
 				for bird in _birds.values():
 					if is_instance_valid(bird):
 						bird.set_sleep(session.state.is_asleep(bird.code))
-				await tw.finished
+				if tw:
+					await tw.finished
 			"won":
 				pass
 
@@ -1149,8 +1457,99 @@ func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
 
-## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left).
+## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
+## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (three stars already lost),
+## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
+## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
+## levels: background search time and first press, then quit).
 static func preview(main: Control, state: String) -> void:
+	if state.begins_with("day_w") or state.begins_with("night_w"):
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(int(state.right(1)) * 10 - 5), main.profile, false)
+		if state.begins_with("night_w"):
+			board.session.state.phase = Board.Phase.NIGHT
+			board._apply_night(1.0)
+			board.sync_birds()
+			board.refresh_hud()
+		return
+	if state == "hud_progress":
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(36), main.profile, false)
+		board.session.state.counted_moves = 13
+		board.session.state.phase_counter = 1
+		board.refresh_hud()
+		return
+	if state in ["phase_change", "day_break"]:
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(33), main.profile, false)
+		# Fake clock: one move before the change; a plain move (no flock flies home) keeps the sequence short.
+		var s := board.session.state
+		if state == "day_break":
+			s.phase = Board.Phase.NIGHT
+			board._apply_night(1.0)
+			board.sync_birds()
+		s.phase_counter = s.day_length - 1
+		board.refresh_hud()
+		await main.get_tree().create_timer(0.6).timeout
+		var pick := []
+		for from in s.branch_count():
+			for to in s.branch_count():
+				var events := []
+				var probe := s.clone()
+				if pick.is_empty() and from != to and Rules.can_transfer(s, from, to):
+					Rules.new().transfer(probe, from, to, events)
+					if not events.any(func(e): return e["type"] == "flock_home"):
+						pick = [from, to]
+		if pick.is_empty():
+			pick = Solver.best_move(s)
+		if pick.is_empty() or pick[1] < 0:
+			return
+		board.tap_branch(pick[0])
+		board.tap_branch(pick[1])
+		return
+	if state.begins_with("hint_timing_") or state.begins_with("hint_think_") or state == "hint_all":
+		var player: Profile = main.profile.duplicate_profile()
+		player.highest_unlocked = 40
+		var ids: Array = range(1, 41) if state == "hint_all" else [int(state.get_slice("_", 2))]
+		var think := 3.0 if state.begins_with("hint_think_") else 0.0
+		for id in ids:
+			player.inventory[Board.Booster.FIREFLY] = 5
+			var board := BoardView.new()
+			board.instant = state == "hint_all"
+			main.set_screen(board)
+			var started := Time.get_ticks_usec()
+			board.start(Levels.get_level(id), player, false)
+			if state == "hint_all":
+				while not board._hint_moves.has(board.session.state.search_key(false)):
+					await main.get_tree().process_frame
+				print("HINT_READY level=%d ready_after_start_ms=%.1f" % [id, (Time.get_ticks_usec() - started) / 1000.0])
+			else:
+				await main.get_tree().create_timer(think + 0.05).timeout
+			# Three presses: the first hint, then the next one after following it.
+			for press in (1 if state == "hint_all" else 3):
+				board._on_tool(Board.Booster.FIREFLY)
+				while board._hint_waiting:
+					await main.get_tree().process_frame
+				if state == "hint_all" or board._hint_move.is_empty() or board.session.state.is_won():
+					break
+				var move: Array = board._hint_move
+				await main.get_tree().create_timer(0.3).timeout
+				board.tap_branch(move[0])
+				if move[1] >= 0:
+					board.tap_branch(move[1])
+				elif board.session.selected >= 0:
+					board.tap_branch(move[0])
+				await main.get_tree().process_frame
+				while board.busy and not board.session.state.is_won():
+					await main.get_tree().process_frame
+				await main.get_tree().create_timer(0.2 if state == "hint_all" else 0.6).timeout
+		main.get_tree().quit()
+		return
 	if state in ["hint_searching", "hint_timeout", "hint_unavailable", "hint_transfer"]:
 		var player: Profile = main.profile.duplicate_profile()
 		player.highest_unlocked = 40

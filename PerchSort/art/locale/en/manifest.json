@@ -611,6 +611,20 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "board.night_falls": {
+      "text": "Night falls",
+      "file": "label_board_night_falls.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "board.day_breaks": {
+      "text": "Day breaks",
+      "file": "label_board_day_breaks.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {
