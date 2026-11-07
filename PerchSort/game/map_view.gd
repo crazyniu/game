@@ -1,5 +1,6 @@
 extends Control
-## The level map: all 40 levels on a scrolling serpentine trail across four worlds, with a fixed HUD and nav bar.
+## The level map: all 40 levels on a scrolling trail across the four painted world maps, with a fixed top bar
+## (world title, coins) and the shop, aviary and settings buttons at the bottom.
 
 signal level_tapped(level: int)
 signal shop_requested
@@ -7,13 +8,13 @@ signal aviary_requested
 signal settings_requested
 signal gate_tapped(world: int)
 
-const BirdViewScript := preload("res://game/bird_view.gd")
 const SEGMENT := 3000.0
 const STRIDE := 2840.0
 const CONTENT_H := STRIDE * 3.0 + SEGMENT
+const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 160 px, over the world before it
 const FOCUS_RATIO := 0.58
 const TAP_SLOP := 14.0
-const WORLD_TITLES := ["label_title_green_forest", "label_title_bamboo_forest", "label_title_autumn_forest", "label_title_snow_forest"]
+const WORLD_NAMES := ["Green Forest", "Bamboo Forest", "Autumn Forest", "Snow Forest"]
 ## Node centers per world (x, y within the world segment), levels 1..10.
 const NODES := [
 	[[514, 2700], [310, 2440], [744, 2180], [660, 1920], [252, 1660], [672, 1400], [640, 1140], [305, 880], [754, 620], [613, 360]],
@@ -21,32 +22,36 @@ const NODES := [
 	[[508, 2700], [306, 2440], [752, 2180], [640, 1920], [240, 1660], [699, 1400], [620, 1140], [298, 880], [750, 620], [598, 360]],
 	[[512, 2700], [312, 2440], [738, 2180], [650, 1920], [250, 1660], [668, 1400], [618, 1140], [299, 880], [750, 620], [604, 360]],
 ]
-## Layout constants (ui-system.md section 7). All values in the 1080x1920 design space.
-const NODE_W := 216.0            # cleared and locked nodes
-const CURRENT_W := 260.0         # current node
-const NODE_ASPECT := 0.905       # visible height / width of node_wood and node_stone_locked
-const NODE_NUMBER_CAP := 52.0
-const CURRENT_NUMBER_CAP := 72.0
-const BIRD_WIDTH_RATIO := 0.7    # bird width / current node width
-const BIRD_VISIBLE_W := 100.0    # visible width of a bird at density 1.0
-const STAR_W := 36.0
-const GATE_SIZE := Vector2(300, 224)
-const GATE_CENTER_X := 870.0   # right of the trail so the current bird of the last node never touches the gate
-const GATE_CENTER_Y := 100.0   # between the last node of a world and the first of the next
-const MARGIN := 40.0
-const SHADE_H := 280.0
-const COIN_ICON := 104.0
-const PILL_H := 96.0
-const RIBBON_W := 480.0
-const RIBBON_Y := 152.0          # second HUD row, 16 under the coin pill
-const NAV_Y := 1712.0
-const NAV_H := 160.0
-const NAV_W := 840.0
-const DISC := 128.0
+## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
+const MARGIN := 48.0
+const NODE := 132.0              # cleared and locked nodes (cream)
+const CURRENT := 168.0           # current node (green)
+const NODE_EDGE := 10.0
+const NODE_CAP := 52.0
+const CURRENT_CAP := 64.0
+const LOCK := 56.0
+const LOCK_COLOR := Color8(200, 180, 150)
+const LOCKED_DIM := Color(0.92, 0.92, 0.92, 0.82)
+const STAR := 46.0
+const STAR_GAP := 2.0
+const STAR_DY := 88.0            # star row centre below the node centre
+const BIRD_FEET := 70.0          # the current bird stands this far above the node centre
+const BIRD_SCALE := 1.0          # BirdView scale (1.0 = 170 px canvas)
+const BOUNCE := 10.0
+const GATE_SIZE := Vector2(320, 280)
+const GATE_CENTER_X := 870.0     # right of the trail so the current bird of the last node never touches the gate
+const GATE_CENTER_Y := 100.0     # between the last node of a world and the first of the next
+const GATE_PADLOCK := Vector2(0.5, 0.68)   # painted padlock on the closed gate, fraction of its visible box
+const GATE_LOCK := 112.0
+const TITLE_CAP := 40.0
+const TITLE_PAD := 32.0
+const TOP_Y := 56.0              # top bar row 48..160, controls centred on 104
+const SHADE_H := 240.0
+const SHADE_ALPHA := 0.32
+const NAV_Y := 1792.0
+const NAV_GAP := 200.0
 const TOP_PAD := 160.0           # extra scroll room above the last world and below the first
-const BOTTOM_PAD := 200.0
-const FADE_H := 120.0
-const FILL_COLOR := Color(0.1, 0.19, 0.1)
+const BOTTOM_PAD := 160.0
 
 var profile: Profile
 var current_level := 1
@@ -54,16 +59,15 @@ var offset := 0.0
 
 var _content: Control
 var _hud: Control
-var _coin_number: Control
-var _title: TextureRect
+var _coins: Panel
+var _title: Panel
 var _title_world := 0
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
-var _gates := {}
 var _dragging := false
 var _drag_travel := 0.0
 var _velocity := 0.0
 var _press_pos := Vector2.ZERO
-var _bird: Node2D
+var _bird: BirdView
 
 
 func setup(player: Profile) -> void:
@@ -71,7 +75,7 @@ func setup(player: Profile) -> void:
 	for child in get_children():
 		child.queue_free()
 	_hit_rects.clear()
-	_gates.clear()
+	_bird = null
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -101,15 +105,24 @@ func scroll_to(value: float) -> void:
 	_content.position.y = -offset
 	_update_title()
 
+## True while silent captures run: no tweens, birds hold still.
+func _instant() -> bool:
+	var n := get_parent()
+	while n != null:
+		if n.has_method("instant"):
+			return n.instant()
+		n = n.get_parent()
+	return false
+
 func _build_content() -> void:
 	_content = Control.new()
 	_content.name = "Trail"
 	_content.size = Vector2(1080, CONTENT_H)
 	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_content)
-	# Overscroll rooms fade from the clear colour into the painted trail.
-	_fade(Rect2(0, -TOP_PAD, 1080, TOP_PAD + FADE_H), false)
-	_fade(Rect2(0, CONTENT_H - FADE_H, 1080, BOTTOM_PAD + FADE_H), true)
+	# Overscroll rooms continue the painting: its edge strip reflected, so no dark band shows behind the bar.
+	_overscroll_top()
+	_overscroll_bottom()
 	for world in range(1, 5):
 		var bg := UI.image(_content, "map_bg_continuous_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
 		bg.name = "World %d" % world
@@ -127,73 +140,89 @@ func _build_gate(world: int) -> void:
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_content.add_child(holder)
 	if open:
-		UI.art(holder, "gate_light_w%d" % world, Rect2(rect.position + Vector2(120, 140), Vector2(250, 225)))
+		var box := _fitted("gate_arch_frame_w%d" % world, rect)
+		UI.art(holder, "gate_light_w%d" % world, Rect2(box.position + box.size * Vector2(0.2, 0.22), box.size * Vector2(0.6, 0.78)))
 		UI.art(holder, "gate_arch_frame_w%d" % world, rect)
-		var door := Vector2(rect.size.x * 0.17, rect.size.y * 0.5)
-		var left := UI.art(holder, "gate_door_left_w%d" % world, Rect2(rect.position + Vector2(rect.size.x * 0.155, rect.size.y * 0.42), door))
-		var right := UI.art(holder, "gate_door_right_w%d" % world, Rect2(rect.position + Vector2(rect.size.x * 0.675, rect.size.y * 0.42), door))
+		var door := Vector2(box.size.x * 0.17, box.size.y * 0.5)
+		var left := UI.art(holder, "gate_door_left_w%d" % world, Rect2(box.position + Vector2(box.size.x * 0.155, box.size.y * 0.42), door))
+		var right := UI.art(holder, "gate_door_right_w%d" % world, Rect2(box.position + Vector2(box.size.x * 0.675, box.size.y * 0.42), door))
 		left.scale.x = 0.35
 		right.scale.x = 0.35
-		left.pivot_offset = Vector2(left.size.x * 0.0, left.size.y * 0.5)
+		left.pivot_offset = Vector2(0.0, left.size.y * 0.5)
 		right.pivot_offset = Vector2(right.size.x, right.size.y * 0.5)
 	else:
 		UI.art(holder, "gate_arch_closed_w%d" % world, rect)
+		var box := _fitted("gate_arch_closed_w%d" % world, rect)
+		# The lock reads in the UI style: an ink lock on a cream circle over the painted padlock.
+		var at := box.position + box.size * GATE_PADLOCK
+		_circle(holder, at, GATE_LOCK, "cream")
+		UI.icon(holder, "lock", at + Vector2(0, -NODE_EDGE * 0.5), GATE_LOCK * 0.5, UI.INK)
 	_hit_rects.append([rect, "gate", world])
+
+## Where UI.art puts the visible pixels of a sprite fitted into `bounds`.
+func _fitted(name: String, bounds: Rect2) -> Rect2:
+	var used := UI.used_rect(name)
+	var k := minf(bounds.size.x / used.size.x, bounds.size.y / used.size.y)
+	return Rect2(bounds.position + (bounds.size - used.size * k) * 0.5, used.size * k)
+
+## Round cream or coloured disc (same shape as the kit's buttons) centred on `at`.
+func _circle(parent: Control, at: Vector2, diameter: float, kind: String) -> Panel:
+	var p := UI.shape(parent, Rect2(at - Vector2.ONE * diameter * 0.5, Vector2.ONE * diameter), kind, diameter * 0.5, NODE_EDGE)
+	p.name = "Node"
+	return p
 
 func _build_node(level: int) -> void:
 	var state := Progress.node_state(profile, level)
 	var c := _node_pos(level)
-	var big := state == "current"
-	var w := CURRENT_W if big else NODE_W
-	var box := Vector2(w, w * NODE_ASPECT)
-	var rect := Rect2(c - box * 0.5, box)
 	var layer := Control.new()
 	layer.name = "Level %d" % level
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_content.add_child(layer)
-	_hit_rects.append([rect.grow(12), "level", level])
+	var face := Vector2(c.x, c.y - NODE_EDGE * 0.5)   # optical centre of the face above the bottom edge
 	match state:
 		"locked":
-			UI.art(layer, "node_stone_locked", rect)
-			# The stone sprite carries its own painted padlock at the bottom centre; the number sits on the upper face.
-			_node_number(layer, level, rect, NODE_NUMBER_CAP, 0.25)
+			_circle(layer, c, NODE, "cream")
+			UI.icon(layer, "lock", face, LOCK, LOCK_COLOR)
+			layer.modulate = LOCKED_DIM
+			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2.ONE * NODE).grow(16), "level", level])
 		"cleared":
-			UI.art(layer, "node_wood", rect)
-			_node_number(layer, level, rect, NODE_NUMBER_CAP, 0.38)
-			_add_stars(layer, rect, profile.best_stars(level))
+			_circle(layer, c, NODE, "cream")
+			_number(layer, level, face, NODE_CAP, UI.INK)
+			UI.stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
+			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2(NODE, NODE * 0.5 + STAR_DY + STAR * 0.5)).grow(16), "level", level])
 		"current":
-			var glow := UI.art(layer, "node_wood_current_glow", rect.grow(14))
-			var tw := glow.create_tween().set_loops()
-			tw.tween_property(glow, "modulate:a", 0.55, 1.1).set_trans(Tween.TRANS_SINE)
-			tw.tween_property(glow, "modulate:a", 1.0, 1.1).set_trans(Tween.TRANS_SINE)
-			UI.art(layer, "node_wood", rect)
-			_node_number(layer, level, rect, CURRENT_NUMBER_CAP, 0.56)
+			_circle(layer, c, CURRENT, "green")
+			_number(layer, level, face, CURRENT_CAP, Color.WHITE)
+			var top := c.y - BIRD_FEET - BirdView.DISPLAY * BIRD_SCALE
+			_hit_rects.append([Rect2(c.x - CURRENT * 0.5, top, CURRENT, c.y + CURRENT * 0.5 - top).grow(16), "level", level])
 			if level == current_level:
-				_add_bird(layer, Vector2(c.x, rect.position.y + box.y * 0.3), BIRD_WIDTH_RATIO * w)
+				_add_bird(layer, Vector2(c.x, c.y - BIRD_FEET), _level_species(level))
+			if not _instant():
+				_bounce(layer)
 
-## Level number centred horizontally at `y_ratio` of the node's height; cream on the orange or grey node.
-func _node_number(layer: Control, level: int, rect: Rect2, cap: float, y_ratio: float) -> void:
-	var cy := rect.position.y + rect.size.y * y_ratio
-	UI.number(layer, str(level), Rect2(rect.get_center().x - rect.size.x * 0.4, cy - cap * 0.5, rect.size.x * 0.8, cap), Color8(255, 247, 232))
+func _number(layer: Control, level: int, center: Vector2, cap: float, color: Color) -> void:
+	var w := UI.number_width(str(level), cap) + 8.0
+	UI.number(layer, str(level), Rect2(center.x - w * 0.5, center.y - cap * 0.5, w, cap), color)
 
-## Three small stars along the lower rim (the middle one sits a little lower).
-func _add_stars(layer: Control, rect: Rect2, earned: int) -> void:
-	for i in 3:
-		var name := "star_full_small" if i < earned else "star_empty_small"
-		var cx := rect.get_center().x + (i - 1) * (STAR_W + 4.0)
-		var cy := rect.position.y + rect.size.y * 0.78 + (6.0 if i == 1 else 0.0)
-		UI.art(layer, name, Rect2(cx - STAR_W * 0.5, cy - STAR_W * 0.5, STAR_W, STAR_W))
+## A gentle hop of the current node (and the bird on it): up and back, then a rest.
+func _bounce(layer: Control) -> void:
+	var tw := layer.create_tween().set_loops()
+	tw.tween_property(layer, "position:y", -BOUNCE, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_property(layer, "position:y", 0.0, 0.55).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(1.2)
 
-func _add_bird(layer: Control, feet: Vector2, bird_width: float) -> void:
-	_bird = BirdViewScript.new()
+## The first bird species of the level, so the node shows who the player is about to meet.
+func _level_species(level: int) -> String:
+	var ids := Levels.species_ids(Levels.create_board(Levels.get_level(level)))
+	return ids[0] if not ids.is_empty() else "sunny"
+
+func _add_bird(layer: Control, feet: Vector2, species: String) -> void:
+	_bird = BirdView.new()
+	_bird.name = "Bird"
 	_bird.position = feet
 	layer.add_child(_bird)
-	_bird.setup(Board.bird(0, 0, 0), false, bird_width / BIRD_VISIBLE_W)
-	for x in [-(bird_width * 0.5 + 40.0), bird_width * 0.5 + 40.0]:
-		var s := UI.art(layer, "sparkle", Rect2(feet.x + x - 20, feet.y - 60, 40, 40))
-		var tw := s.create_tween().set_loops()
-		tw.tween_property(s, "modulate:a", 0.3, 0.9 + absf(x) * 0.001).set_trans(Tween.TRANS_SINE)
-		tw.tween_property(s, "modulate:a", 1.0, 0.9).set_trans(Tween.TRANS_SINE)
+	_bird.setup(Board.bird(0, Board.species_index(species), 0), false, BIRD_SCALE)
+	_bird.quiet = _instant()
 
 func _build_hud() -> void:
 	_hud = Control.new()
@@ -201,73 +230,74 @@ func _build_hud() -> void:
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.size = size
 	add_child(_hud)
-	_shade(Rect2(0, 0, 1080, SHADE_H), false)
-	_shade(Rect2(0, NAV_Y - 96.0, 1080, 1920.0 - NAV_Y + 96.0), true)
-	# Coin pill: the coin overlaps the pill's left end by half its width; the number is left-aligned 24 after the coin.
-	var digits := str(profile.coins).length()
-	var number_w := 36.0 * digits
-	var coin := Rect2(MARGIN, MARGIN + (PILL_H - COIN_ICON) * 0.5, COIN_ICON, COIN_ICON)
-	var pill := Rect2(coin.get_center().x, MARGIN, COIN_ICON * 0.5 + 24.0 + number_w + 28.0, PILL_H)
-	UI.panel(_hud, "stat_pill", pill)
-	UI.art(_hud, "coin", coin)
-	_coin_number = UI.number(_hud, str(profile.coins), Rect2(coin.end.x + 24.0, MARGIN + 22.0, number_w, 52.0), UI.INK, -1)
-	_title = TextureRect.new()
-	_title.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	_title.stretch_mode = TextureRect.STRETCH_SCALE
-	_title.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_hud.add_child(_title)
+	_shade(Rect2(0, 0, 1080, SHADE_H))
+	var coins := str(profile.coins)
+	var coin_w := 100.0 + UI.number_width(coins, 44.0) + 32.0
+	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
+	_coins.name = "Coins"
 	_title_world = 0
-	var bar := Rect2((1080.0 - NAV_W) * 0.5, NAV_Y, NAV_W, NAV_H)   # orange felt rim around a cream bar
-	var k := 0.22
-	UI.panel(_hud, "panel_wood", bar.grow_individual(4 * k, 21 * k, 4 * k, 21 * k), k)
-	var icons := [["Shop", "icon_basket", shop_requested], ["Aviary", "icon_aviary", aviary_requested], ["Settings", "icon_gear", settings_requested]]
-	for i in 3:
-		var cx := bar.position.x + bar.size.x * (2.0 * i + 1.0) / 6.0
-		var sig: Signal = icons[i][2]
-		UI.disc(_hud, icons[i][0], Rect2(cx - DISC * 0.5, bar.get_center().y - DISC * 0.5, DISC, DISC), icons[i][1], sig.emit, "btn_wood", 0.5)
+	var buttons := [["Shop", "orange", "shop", shop_requested], ["Aviary", "orange", "aviary", aviary_requested],
+		["Settings", "cream", "gear", settings_requested]]
+	for i in buttons.size():
+		var sig: Signal = buttons[i][3]
+		UI.button(_hud, buttons[i][0], Vector2(540.0 + (i - 1) * NAV_GAP, NAV_Y), buttons[i][1], buttons[i][2], sig.emit)
 
-func _fade(r: Rect2, from_bottom: bool) -> void:
-	var g := Gradient.new()
-	var solid := Color(FILL_COLOR, 1.0)
-	var clear := Color(FILL_COLOR, 0.0)
-	var hold := (r.size.y - FADE_H) / r.size.y   # fully solid over the empty room, then fading into the painting
-	g.colors = PackedColorArray([clear, solid, solid] if from_bottom else [solid, solid, clear])
-	g.offsets = PackedFloat32Array([0.0, 1.0 - hold, 1.0] if from_bottom else [0.0, hold, 1.0])
-	var tex := GradientTexture2D.new()
-	tex.gradient = g
-	tex.fill_from = Vector2(0, 0)
-	tex.fill_to = Vector2(0, 1)
+## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
+## nothing is above world 4), reflected upwards at the painting's top edge.
+func _overscroll_top() -> void:
+	var tex := Art.tex("map_bg_continuous_w4")
+	var k := float(tex.get_height()) / SEGMENT
+	var h := ceilf(maxf(TOP_PAD, OVERLAP) * k)
+	var img := tex.get_image().get_region(Rect2i(0, 0, tex.get_width(), int(h)))
+	img.convert(Image.FORMAT_RGB8)
+	var opaque := ImageTexture.create_from_image(img)
+	_strip(opaque, Rect2(0, 0, tex.get_width(), TOP_PAD * k), Rect2(0, -TOP_PAD, 1080, TOP_PAD), true)
+	_strip(opaque, Rect2(0, 0, tex.get_width(), OVERLAP * k), Rect2(0, 0, 1080, OVERLAP), false)
+
+## The room below the first world: its bottom rows reflected downwards.
+func _overscroll_bottom() -> void:
+	var tex := Art.tex("map_bg_continuous_w1")
+	var h := BOTTOM_PAD * float(tex.get_height()) / SEGMENT
+	_strip(tex, Rect2(0, tex.get_height() - h, tex.get_width(), h), Rect2(0, CONTENT_H, 1080, BOTTOM_PAD), true)
+
+func _strip(tex: Texture2D, region: Rect2, r: Rect2, flip: bool) -> void:
+	var atlas := AtlasTexture.new()
+	atlas.atlas = tex
+	atlas.region = region
 	var t := TextureRect.new()
 	t.name = "Overscroll"
-	t.texture = tex
+	t.texture = atlas
+	t.flip_v = flip
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(t, r)
 	_content.add_child(t)
 
-## Soft dark-green gradient so trail nodes passing under the HUD never fight it.
-func _shade(r: Rect2, from_bottom: bool) -> void:
+## Subtle dark shade under the top bar so trail nodes scrolling beneath never fight it.
+func _shade(r: Rect2) -> void:
 	var g := Gradient.new()
-	var dark := Color(0.06, 0.15, 0.07, 0.82)
-	var clear := Color(0.06, 0.15, 0.07, 0.0)
-	g.colors = PackedColorArray([clear, dark] if from_bottom else [dark, clear])
+	g.colors = PackedColorArray([Color(0.06, 0.15, 0.07, SHADE_ALPHA), Color(0.06, 0.15, 0.07, 0.0)])
+	var t := _gradient_rect(g, r)
+	t.name = "Shade"
+	_hud.add_child(t)
+
+func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
 	var tex := GradientTexture2D.new()
 	tex.gradient = g
 	tex.fill_from = Vector2(0, 0)
 	tex.fill_to = Vector2(0, 1)
 	var t := TextureRect.new()
-	t.name = "Shade"
 	t.texture = tex
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(t, r)
-	_hud.add_child(t)
+	return t
 
 ## The world title follows the trail node nearest to the upper third of the screen.
 func _update_title() -> void:
-	if _title == null:
+	if _hud == null:
 		return
 	var probe := offset + size.y * 0.36
 	var best := 1
@@ -281,12 +311,13 @@ func _update_title() -> void:
 	if world == _title_world:
 		return
 	_title_world = world
-	var tex := Art.tex(WORLD_TITLES[world - 1])
-	_title.texture = tex
-	var used := UI.used_rect(WORLD_TITLES[world - 1])
-	var scale := RIBBON_W / used.size.x
-	_title.size = tex.get_size() * scale
-	_title.position = Vector2(540.0, RIBBON_Y + used.size.y * scale * 0.5) - (used.position + used.size * 0.5) * scale
+	if _title != null:
+		_title.queue_free()
+	var text: String = WORLD_NAMES[world - 1]
+	var w := UI.word_width(text, TITLE_CAP) + TITLE_PAD * 2.0
+	_title = UI.shape(_hud, Rect2(MARGIN, TOP_Y, w, UI.COUNTER_H), "cream", UI.COUNTER_H * 0.5, 8.0)
+	_title.name = "Title"
+	UI.word(_title, text, Vector2(w * 0.5, (UI.COUNTER_H - 8.0) * 0.5), TITLE_CAP, UI.INK)
 
 func _process(delta: float) -> void:
 	if not _dragging and absf(_velocity) > 8.0:
@@ -349,7 +380,7 @@ static func preview(main: Control, state: String) -> void:
 			cleared = 9
 			p.coins = 1240
 	for level in range(1, cleared + 1):
-		p.stars[level] = 3
+		p.stars[level] = [3, 3, 2, 3, 1][(level - 1) % 5]
 	p.highest_unlocked = mini(40, cleared + 1)
 	var view: Control = load("res://game/map_view.gd").new()
 	main.set_screen(view)
