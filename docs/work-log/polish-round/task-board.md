@@ -7,9 +7,8 @@
    until day) with a sun or moon icon. Keep clear of the house and the settings button; same-role elements the same
    size. A player must understand every number without explanation.
 2. Day and night. Today night only fades a dark overlay (`night_overlay`) over the day painting, so the sun, glow
-   and bright colours remain. Replace it: each world has a night painting (the coordinator delivers
-   `PerchSort/world/scene/board_wN_night_bg.png`, N = 1..4, same framing as `board_wN_bg.png`; until they exist on your
-   branch, do not block: wire by name and fall back to the day painting). On a phase change cross-fade the backgrounds
+   and bright colours remain. Replace it: each world has a night painting (already in the repo:
+   `PerchSort/world/scene/board_wN_night_bg.png`, N = 1..4, same framing as `board_wN_bg.png`). On a phase change cross-fade the backgrounds
    (0.8 s), tint the branch layers and the birds on them to cool moonlight (a multiply tint, no dark overlay), twinkle a few
    stars, drift fireflies at night, and show a short banner word ("Night falls" / "Day breaks", painted label) that
    fades in and out. Day returns the original look. The first frame of a night level must already be night. Remove

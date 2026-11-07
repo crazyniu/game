@@ -16,9 +16,9 @@ Do:
    wearing its current outfit, its name, and how many of its outfits are owned like "2/4"). Tapping a card opens that
    bird's outfit page: reuse the aviary's detail page (equip, buy, preview). Closing returns to the shop. Unmet birds
    are silhouettes with "?" and do nothing. In the aviary, the detail page keeps working as is.
-3. Tab icons: the coordinator delivers full-colour icons `PerchSort/art/tabs/tab_boosters.png`, `tab_outfits.png`,
+3. Tab icons: delivered (already in the repo), full-colour icons `PerchSort/art/tab_boosters.png`, `tab_outfits.png`,
    `tab_houses.png` (512 px, transparent). Use them as the tab pictures (selected = blue circle behind, others cream);
-   if a file is missing on your branch, wire by name and continue.
+   look them up with `Art.tex("tab_boosters")` etc.
 4. Check every tap target in both screens does something sensible (no dead buttons) and list them in the report.
 Evidence: captures of boosters, outfits grid, a bird's outfit page opened from the shop, the buy popup, the tabs; a
 scripted run that taps through shop -> outfits -> bird -> buy and equips, with coin and equip results logged.
