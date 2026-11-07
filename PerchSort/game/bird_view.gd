@@ -187,6 +187,37 @@ func _load_frames() -> void:
 			for t in _seqs["cheer"]:
 				_frame_names.erase(t)
 			_seqs["cheer"] = cheer   # painted with the outfit: drawn without the overlay
+		_keep_reliable(table.get("repaired", []))
+
+## An outfit overlay follows measured anchors; frames whose anchors had to be repaired place it slightly off, so
+## an outfitted bird never rests on them: a turn keeps only its reliable leading frames (a small glance), flap
+## and hop frames hold the nearest reliable frame, unreliable still poses and the preen (a wing covers the face)
+## are not used. Flights keep every frame: they are fast and travel across the screen.
+func _keep_reliable(repaired: Array) -> void:
+	var bad := {}
+	for entry in repaired:
+		bad[str(entry).get_slice(":", 0)] = true
+	var good := func(t: Texture2D) -> bool: return not bad.has(_frame_names.get(t, ""))
+	for name in ["turn_left", "turn_right"]:
+		var kept := []
+		for t in _seqs.get(name, []):
+			if not good.call(t):
+				break
+			kept.append(t)
+		_seqs[name] = kept
+	_seqs["preen"] = []
+	for name in ["flap", "hop"]:
+		var frames: Array = _seqs.get(name, [])
+		var held := []
+		var last: Texture2D = _rest
+		for t in frames:
+			if good.call(t):
+				last = t
+			held.append(last)
+		_seqs[name] = held if frames.any(func(t): return good.call(t)) else []
+	for t in _pose_names.keys():
+		if not good.call(t):
+			_pose_names.erase(t)
 
 ## Show `base` with `next` crossfading over it by `mix` (0..1); the base fades out in the second half so parts
 ## that exist only in the old frame never pop at the swap. Overlays follow the shown frames at once.
@@ -384,7 +415,7 @@ func _process(delta: float) -> void:
 func _has_action(a: int) -> bool:
 	match a:
 		0: return _blink.size() >= 3 and _blink[1] != null
-		1: return _seqs.get("turn_left", []).size() >= 4 and _seqs.get("turn_right", []).size() >= 4
+		1: return not _seqs.get("turn_left", []).is_empty() and not _seqs.get("turn_right", []).is_empty()
 		2: return _seqs.get("preen", []).size() >= 5
 		3: return _seqs.get("flap", []).size() >= 6
 		4: return _seqs.get("hop", []).size() >= 6

@@ -119,7 +119,7 @@ const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
 	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "booster_hint_illus", "sapling": "booster_sapling_illus",
 	"eye": "booster_owl_eye_illus", "bell": "booster_bell_illus", "scarecrow": "booster_scarecrow_illus",
-	"rain": "booster_rain_illus"}
+	"rain": "booster_rain_illus", "map": "pic_map"}
 
 ## The painted picture for an icon drawn in `color`, or "" when the white symbol stays (white on a solid fill).
 ## A faded star is the painted empty star.
