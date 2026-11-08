@@ -3,6 +3,7 @@ extends Node
 
 var muted := false          # sound effects off
 var music_muted := false    # background music off
+var vibration := true       # haptic pulses (profile setting); only handheld devices vibrate
 const MUSIC_DB := -8.0
 const CROSSFADE := 1.0
 var _music: AudioStreamPlayer      # the track that is current (fading in or full)
@@ -89,6 +90,16 @@ func play(name: String, pitch := 1.0) -> void:
 			p.pitch_scale = pitch
 			p.play()
 			return
+
+## Haptic pulse lengths (ms) for board feedback.
+const PULSE_PICK := 15
+const PULSE_LAND := 25
+const PULSE_HOME := 40
+
+## A short vibration on phones and tablets when the setting is on; nothing elsewhere.
+func vibrate(ms: int) -> void:
+	if vibration and OS.has_feature("mobile"):
+		Input.vibrate_handheld(clampi(ms, 15, 40))
 
 ## Sound effects on or off.
 func set_muted(value: bool) -> void:

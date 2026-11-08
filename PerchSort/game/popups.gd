@@ -84,7 +84,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var row := 104.0
-	var heights := [row, row]
+	var heights := [row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(PILL_H * 5.0 + 4.0 * 20.0)
@@ -100,6 +100,14 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
+	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
+	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
+		Sound.vibration = value
+		if on.has("vibration"):
+			on["vibration"].call(value)
+		Sound.vibrate(Sound.PULSE_LAND))
+	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
 		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",

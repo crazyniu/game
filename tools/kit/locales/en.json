@@ -127,6 +127,7 @@
     "home.map": "Map",
     "home.shop": "Shop",
     "home.aviary": "Aviary",
-    "home.help": "Help"
+    "home.help": "Help",
+    "settings.vibration": "Vibration"
   }
 }
