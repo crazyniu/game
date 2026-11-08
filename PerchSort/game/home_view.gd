@@ -15,7 +15,8 @@ signal chest_requested
 signal challenge_requested
 
 ## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
-const LOGO := Rect2(180, 0, 720, 300)
+const LOGO := Rect2(352, 4, 376, 240)   # between the coin counter and the settings button
+const SETTINGS := Rect2(904, 44, 124, 124)
 ## Seats in the painted birdhouse (home_clearing): two on the shelf in front of the doorway, two on the roof slopes.
 const SEATS := [Vector2(446, 784), Vector2(640, 784), Vector2(730, 456), Vector2(350, 456)]
 const BIRD_SCALE := 1.85
@@ -46,7 +47,7 @@ func setup(p: Profile) -> void:
 	_build_birds()
 	var coins := str(profile.coins)
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
-	UI.button(self, "Settings", Vector2(956, 104), "cream", "gear", func(): settings_requested.emit(), 104.0)
+	_art_button("Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
 	var level := _next_level()
 	_art_button("Play", "home_button_play", PLAY, func(): play_requested.emit(level))
 	var top := [["Daily", "daily", challenge_requested], ["Checkin", "checkin", checkin_requested]]
