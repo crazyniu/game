@@ -29,7 +29,7 @@ const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 608.0}
 const CARD_RADIUS := 40.0
 const CARD_EDGE := 10.0
 const CARD_PAD := 32.0
-const NAME_CAP := 40.0
+const NAME_CAP := 34.0
 const PIC_TOP := 120.0
 const CAPTION := Rect2(24, 88, 428, 48)   # booster card: what it does, under the name
 const CAPTION_CAP := 28.0
@@ -47,7 +47,7 @@ const KIND_NAME_CAP := 44.0
 const KIND_COUNT_Y := 404.0               # centre of the hanger + owned/total row
 const KIND_COUNT_CAP := 40.0
 const KIND_HANGER := 52.0
-const PILL := Vector2(240, 96)            # price, equip button and equipped marker share this slot
+const PILL := Vector2(300, 112)            # price, equip button and equipped marker share this slot
 const PILL_BOTTOM := 40.0                 # card bottom (with its edge) to the pill bottom
 const PILL_EDGE := 8.0
 const PRICE_COIN := 64.0
@@ -407,7 +407,7 @@ func _price_parts(pill: Control, price: int) -> void:
 	var x := (PILL.x - (PRICE_COIN + 12.0 + num_w)) * 0.5
 	var mid := (PILL.y - PILL_EDGE) * 0.5
 	UI.art(pill, "coin", Rect2(x, mid - PRICE_COIN * 0.5, PRICE_COIN, PRICE_COIN))
-	UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1)
+	UI.outline_to(UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1), "orange")
 
 ## Live BirdView wearing `outfit`, its front frame fitted in the box with the feet on the box bottom.
 func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: float) -> BirdView:

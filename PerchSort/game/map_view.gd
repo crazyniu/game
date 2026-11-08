@@ -55,8 +55,9 @@ const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13)
 ## At either scroll end the bird and stars rest clear of the fixed controls.
 const TOP_CLEAR := 216.0
 const BOTTOM_CLEAR := 1644.0
-const NAV_Y := 1792.0
-const NAV_GAP := 200.0
+const NAV_Y := 1838.0
+const NAV_TILE := Vector2(150.0, 132.0)   # smaller than the home tiles so the trail stays visible above them
+const NAV_GAP := 176.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
 ## BOTTOM_CLEAR: level 40 at y 360 with a bird up to 240 above its centre, level 1 at y 2700 + 3 strides with its
 ## star row extending below the node centre.
@@ -65,8 +66,8 @@ const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEA
 ## At either scroll end no node may sit under the bottom buttons: the end moves outward (extra painted room) to
 ## the offset where nodes, their stars and the buttons overlap least (ideally not at all), at most END_SEARCH px.
 const NAV_COUNT := 3
-const NAV_CLEAR := 8.0           # free ring around each bottom button
-const END_SEARCH := 600.0
+const NAV_CLEAR := 12.0          # free ring around each bottom button
+const END_SEARCH := 900.0
 ## World ribbon: shown for RIBBON_SECONDS when the view enters a world, below the top bar.
 const RIBBON_Y := 292.0
 const RIBBON_CAP := 56.0
@@ -292,12 +293,11 @@ func _build_hud() -> void:
 	UI.button(_hud, "Home", Vector2(MARGIN + UI.SECONDARY * 0.5, TOP_Y + UI.COUNTER_H * 0.5), "cream", "back",
 		func(): home_requested.emit())
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
-	var buttons := [["Shop", "orange", "shop", shop_requested], ["Aviary", "orange", "aviary", aviary_requested],
-		["Help", "cream", "info", help_requested]]
+	var buttons := [["Shop", "shop", "home.shop", shop_requested], ["Aviary", "aviary", "home.aviary", aviary_requested],
+		["Help", "help", "home.help", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
-		var x := _nav_x(i)
-		UI.button(_hud, buttons[i][0], Vector2(x, NAV_Y), buttons[i][1], buttons[i][2], sig.emit, UI.SECONDARY)
+		UI.tile(_hud, buttons[i][0], buttons[i][1], buttons[i][2], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
 
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
 ## nothing is above world 4), reflected upwards at the painting's top edge.
@@ -448,7 +448,7 @@ func _nav_overlap(at: float) -> float:
 			stars = Rect2(c.x - row_w * 0.5, c.y + STAR_DY - STAR * 0.5, row_w, STAR)
 		for i in NAV_COUNT:
 			var b := Vector2(_nav_x(i), NAV_Y)
-			var ring := UI.SECONDARY * 0.5 + NAV_CLEAR
+			var ring := NAV_TILE.y * 0.5 + NAV_CLEAR
 			worst = maxf(worst, radius + ring - c.distance_to(b))
 			if stars.has_area():
 				var near := Vector2(clampf(b.x, stars.position.x, stars.end.x), clampf(b.y, stars.position.y, stars.end.y))

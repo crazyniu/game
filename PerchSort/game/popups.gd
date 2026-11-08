@@ -9,7 +9,7 @@ const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
-	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot"}
+	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot", "mama": "mama_bow"}
 
 ## Content sizes (design pixels).
 const STAR_SIDE := 150.0
@@ -87,7 +87,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	var heights := [row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
-	heights.append(PILL_H * 5.0 + 4.0 * 20.0)
+	heights.append(PILL_H)
 	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
@@ -97,12 +97,12 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	for item in [["settings.music", "music", music_on], ["settings.sound", "sound", sound_on]]:
 		var y: float = ys[g]
 		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 36.0, 72, 72))
-		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 32.0, 300.0, 64.0), 36.0)
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
 	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
 	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 36.0, 72, 72))
-	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 32.0, 300.0, 64.0), 36.0)
 	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
 		Sound.vibration = value
 		if on.has("vibration"):
@@ -112,21 +112,14 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
 		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
-			func(): p.invoke(on["restart"]), "retry", 36.0)
+			func(): p.invoke(on["restart"]), "", 40.0)
 		UI.pill(c, "Home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), "green", "settings.home",
-			func(): p.invoke(on["home"]), "home", 36.0)
+			func(): p.invoke(on["home"]), "", 40.0)
 		g += 1
-	var links := [["settings.help", "green", func(): p.invoke(on["help"])],
-		["settings.contact", "blue", func(): document(host, "contact")],
-		["settings.privacy", "blue", func(): document(host, "privacy")],
-		["settings.terms", "blue", func(): document(host, "terms")],
-		["settings.credits", "blue", func(): document(host, "credits")]]
-	for i in links.size():   # one full-width pill per row, every label the same size
-		var r := Rect2(left, ys[g] + i * (PILL_H + 20.0), right - left, PILL_H)
-		UI.pill(c, links[i][0], r, links[i][1], links[i][0], links[i][2], "", 40.0)
+	UI.pill(c, "Help", Rect2(left, ys[g], right - left, PILL_H), "green", "settings.help", func(): p.invoke(on["help"]), "", 40.0)
 	return p
 
-const PILL_H := 104.0
+const PILL_H := 124.0
 
 ## Painted on/off switch; tapping flips it and reports the new state.
 static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
@@ -484,7 +477,7 @@ static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> v
 		var t := _fit(c, art, box, true)
 		if art.begins_with("icon_"):
 			t.modulate = UI.INK
-		if mechanics[i] in ["sleep", "egg", "crow"]:
+		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
 			_breathe(t, i * 0.7)
 
 

@@ -22,14 +22,13 @@ everything below. Chat with the user in Chinese, write code, commits and reports
 
 ## In progress elsewhere
 
-1. **UI layout and kit restyle (owned by the session `game-d7`).** The user compared the glossy candy kit with the
-   merged matte kit (`build/style_compare.png`) and, per game-d7, rejected both because they only reskin the current
-   layout. The target is the user's reference screenshots: far fewer and smaller words, a bottom tab bar (raised
-   selected tab, icons, label only on the selected tab), bundle-style shop cards, a new palette. game-d7 owns
-   `game/home_view.gd`, `game/shop_view.gd`, `game/popup.gd`, the settings/win/level-card parts of `game/popups.gd`,
-   the `game/map_view.gd` footer, `game/ui.gd`, `game/ui_text.gd`, `game/outline.gdshader`, `art/kit/*`,
-   `tools/kit/render_kit.py` and the note at the top of `docs/design/ui-system.md`. Its uncommitted candy-kit files
-   were in the 251 working tree at merge time and are not part of main. Do not edit those files without asking it.
+1. **UI fixes on the existing UI (owned by the session `game-d7`).** The user rejected both the glossy candy kit and
+   a full relayout; the experiment lives only in `git stash` ("glossy candy kit experiment"). The agreed path is
+   targeted fixes on the current UI: fewer and smaller words, labelled tiles instead of bare icons, bigger buttons,
+   brighter greens, board perch spacing, auto-home of the last flock. See
+   [ui-fixes](work-log/ui-fixes/report.md). game-d7 still owns `game/home_view.gd`, `game/shop_view.gd`,
+   `game/popup.gd`, the settings/win/level-card parts of `game/popups.gd`, the `game/map_view.gd` footer,
+   `game/ui.gd`, `game/ui_text.gd` and `art/kit/*`. Do not edit those without asking it.
 
 ## Waiting on the user
 
@@ -47,17 +46,17 @@ everything below. Chat with the user in Chinese, write code, commits and reports
 
 ## Known defects and follow-ups (nobody owns these yet)
 
-6. Map top end: no scroll stop keeps every node clear of the bottom buttons; level 36's stars sit a few pixels from
-   the Aviary and Help rims. A real fix needs a different footer or trail; fold it into item 1's footer redesign.
+6. Map top end: fixed in the UI fixes round (footer tiles are 150x132 and sit lower; level 36's stars clear them).
+   Recheck on the Mac.
 7. Mechanic lessons show only on the first level with that mechanic, so a save already past it never sees the lesson
    unless that level is replayed. Deliberate; could add a "lessons" entry in How to Play.
-8. `main.mechanics_of` (used by the level card) does not list mama/chick; `tutorial.gd` has its own detector that
-   does. Unify them.
-9. Headless autoplay runs often print `ERROR: 1-2 resources still in use at exit`. Not investigated; check whether it
-   predates the growth round.
+8. Done: `main.mechanics_of` now calls `tutorial.mechanics_in` (one detector); the level card shows mama/chick too.
+9. Headless runs print `ERROR: 1 resources still in use at exit` and 2 leaked ObjectDB instances: the still-playing
+   background music stream (`audio/bgm_menu.wav`) under the Dummy audio driver. Stopping the players in
+   `Sound._exit_tree` did not clear it. An engine exit notice, not a game defect; ignore.
 10. Haptics are guarded by `OS.has_feature("mobile")` and have not been felt on a device.
-11. Hints on levels 17, 30 and 34 could spin early in a level (noted in the polish round); recheck after the level
-    reorder, since numbers changed.
+11. Done: after the level reorder every level's hint is ready within 0.5 s of the level start (levels 17, 30 and 34
+    in about 14 ms), all served from the cache (`hint_all` preview).
 12. A few 3/4 bird frames placed outfit overlays badly; the painted turn frames fix turns, but other overlay frames
     are limited to the reliable set (`bird_view._keep_reliable`). Painting more outfit frames would remove the limit.
 

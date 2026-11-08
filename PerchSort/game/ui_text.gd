@@ -16,6 +16,7 @@ class LabelSprite extends TextureRect:
 	var bounds: Rect2
 	var cap: float
 	var heading := false
+	var outlined := false
 
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_TRANSLATION_CHANGED and not label_id.is_empty():
@@ -35,6 +36,30 @@ class NumberSprite extends Control:
 			UiText.set_number(self, value)
 		elif what == NOTIFICATION_RESIZED:
 			queue_redraw()
+
+
+const OUTLINE_SHADER := preload("res://game/outline.gdshader")
+const OUTLINE_PAD := 12
+static var _outline_material: ShaderMaterial
+static var _padded: Dictionary = {}
+
+## White words and numbers on coloured surfaces get a dark outline (shader), as in the candy-button style.
+static func _is_white(color: Color) -> bool:
+	return color.r > 0.99 and color.g > 0.99 and color.b > 0.99
+
+static func outline_material(width: float) -> ShaderMaterial:
+	var m := ShaderMaterial.new()
+	m.shader = OUTLINE_SHADER
+	m.set_shader_parameter("width", width)
+	return m
+
+static func _padded_texture(path: String, source: Texture2D) -> Texture2D:
+	if not _padded.has(path):
+		var img := source.get_image()
+		var big := Image.create(img.get_width() + OUTLINE_PAD * 2, img.get_height() + OUTLINE_PAD * 2, false, Image.FORMAT_RGBA8)
+		big.blit_rect(img, Rect2i(Vector2i.ZERO, img.get_size()), Vector2i(OUTLINE_PAD, OUTLINE_PAD))
+		_padded[path] = ImageTexture.create_from_image(big)
+	return _padded[path]
 
 
 static func _load_pack() -> void:
@@ -70,6 +95,7 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Co
 	image.stretch_mode = TextureRect.STRETCH_SCALE
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	image.modulate = color
+	image.outlined = not heading and _is_white(color)
 	_fit_label(image)
 	parent.add_child(image)
 	return image
@@ -78,11 +104,21 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Co
 static func _fit_label(image: LabelSprite) -> void:
 	_load_pack()
 	var entry: Dictionary = _pack["labels"][image.label_id]
-	image.texture = load(_folder + entry["heading_file" if image.heading else "file"])
-	var natural := image.texture.get_size()
+	var path: String = _folder + entry["heading_file" if image.heading else "file"]
+	var base: Texture2D = load(path)
+	var natural := base.get_size()
 	var k := minf(image.cap / float(entry["cap"]), minf(image.bounds.size.x / natural.x, image.bounds.size.y / natural.y))
-	image.size = natural * k
-	image.position = image.bounds.position + (image.bounds.size - image.size) * 0.5
+	var shown := natural * k
+	var origin := image.bounds.position + (image.bounds.size - shown) * 0.5
+	if image.outlined:
+		image.texture = _padded_texture(path, base)
+		image.material = outline_material(maxf(3.0, float(entry["cap"]) * 0.12))
+		image.size = (natural + Vector2.ONE * OUTLINE_PAD * 2.0) * k
+		image.position = origin - Vector2.ONE * OUTLINE_PAD * k
+	else:
+		image.texture = base
+		image.size = shown
+		image.position = origin
 	image.pivot_offset = image.size * 0.5
 
 
@@ -110,6 +146,8 @@ static func number(parent: Node, value: String, bounds: Rect2, cap: float, color
 	box.align = align
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.modulate = color
+	if _is_white(color):
+		box.material = outline_material(5.0)
 	box.position = bounds.position
 	box.size = bounds.size
 	box.pivot_offset = bounds.size * 0.5
