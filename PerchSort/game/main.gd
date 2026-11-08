@@ -117,6 +117,7 @@ func _open_map() -> void:
 	map.settings_requested.connect(func(): show_settings(false))
 	map.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	map.home_requested.connect(open_home)
+	map.chapters_requested.connect(func(): Popups.chapters(popups, profile, map.show_world))
 	Sound.music("bgm_menu")
 
 ## The seven-day check-in opens by itself on the first launch of a day.

@@ -8,6 +8,7 @@ signal aviary_requested
 signal settings_requested
 signal help_requested
 signal home_requested
+signal chapters_requested
 signal gate_tapped(world: int)
 
 const SEGMENT := 3000.0
@@ -55,6 +56,8 @@ const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13)
 ## At either scroll end the bird and stars rest clear of the fixed controls.
 const TOP_CLEAR := 216.0
 const BOTTOM_CLEAR := 1644.0
+const CHIP := Vector2(300.0, 96.0)
+const CURRENT_CHIP_Y := 1664.0
 const NAV_Y := 1838.0
 const NAV_TILE := Vector2(150.0, 132.0)   # smaller than the home tiles so the trail stays visible above them
 const NAV_GAP := 176.0
@@ -286,18 +289,51 @@ func _build_hud() -> void:
 	add_child(_hud)
 	_top_fade = _fade(TOP_FADE, TOP_FADE_ALPHA, false)
 	var coins := str(profile.coins)
-	var coin_w := UI.NUMBER_X + UI.number_width(coins, 44.0) + 32.0
-	_coins = UI.counter(_hud, Vector2(1080.0 - MARGIN - coin_w, TOP_Y), "coin", coins)
+	_coins = UI.counter(_hud, Vector2(MARGIN + UI.SECONDARY + 24.0, TOP_Y), "coin", coins)
 	_coins.name = "Coins"
 	_title_world = 0
 	UI.button(_hud, "Home", Vector2(MARGIN + UI.SECONDARY * 0.5, TOP_Y + UI.COUNTER_H * 0.5), "cream", "back",
 		func(): home_requested.emit())
+	_chip("Chapters", "pic_map", "map.chapters", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 - CHIP.y * 0.5, CHIP.x, CHIP.y),
+		func(): chapters_requested.emit())
+	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, CURRENT_CHIP_Y, CHIP.x, CHIP.y),
+		func(): scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO))
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
 	var buttons := [["Shop", "shop", "home.shop", shop_requested], ["Aviary", "aviary", "home.aviary", aviary_requested],
 		["Help", "help", "home.help", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
 		UI.tile(_hud, buttons[i][0], buttons[i][1], buttons[i][2], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
+
+## Cream capsule with a picture and a word (Chapters, Current).
+func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
+	var b := Button.new()
+	b.name = n
+	b.focus_mode = Control.FOCUS_NONE
+	UI.place(b, r)
+	UI._skin_button(b, "capsule_plain", Rect2(Vector2.ZERO, r.size))
+	var content := Control.new()
+	content.name = "Content"
+	content.size = r.size
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(content)
+	var pic := r.size.y * 0.6
+	var cap := 36.0
+	var lw := minf(r.size.x - pic - 72.0, UI.label_width(label_id, cap))
+	var x := (r.size.x - (pic + 12.0 + lw)) * 0.5
+	UI.art(content, picture, Rect2(x, (r.size.y - 8.0 - pic) * 0.5, pic, pic))
+	UI.label(content, label_id, Rect2(x + pic + 12.0, (r.size.y - 8.0 - 48.0) * 0.5, lw, 48.0), cap)
+	b.button_down.connect(func(): content.position.y = 4.0)
+	b.button_up.connect(func(): content.position.y = 0.0)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	_hud.add_child(b)
+	return b
+
+## Scrolls so the chapter's first level sits at the focus line.
+func show_world(world: int) -> void:
+	scroll_to(_node_y((world - 1) * 10 + 1) - size.y * FOCUS_RATIO)
 
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
 ## nothing is above world 4), reflected upwards at the painting's top edge.

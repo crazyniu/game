@@ -961,6 +961,55 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "tab.boosters": {
+      "text": "Boosters",
+      "file": "label_tab_boosters.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tab.outfits": {
+      "text": "Outfits",
+      "file": "label_tab_outfits.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "tab.houses": {
+      "text": "Birdhouses",
+      "file": "label_tab_houses.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "map.chapters": {
+      "text": "Chapters",
+      "file": "label_map_chapters.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "map.current": {
+      "text": "Current",
+      "file": "label_map_current.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "chapter.word": {
+      "text": "Chapter",
+      "file": "label_chapter_word.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "chapter.levels": {
+      "text": "Levels",
+      "file": "label_chapter_levels.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {
