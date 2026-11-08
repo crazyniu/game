@@ -233,8 +233,8 @@ static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
 ## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
 ## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
-	var tile := Vector2(176, 200)
-	var gap := 20.0
+	var tile := Vector2(184, 212)
+	var gap := 16.0
 	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
@@ -273,13 +273,13 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 ## Chapter browser: one row per world (painting, "Chapter N", level range, stars, state). Tapping an unlocked row
 ## calls `on_pick(world)`; a locked row is dimmed and does nothing.
 static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
-	var row_h := 184.0
-	var gap := 20.0
+	var row_h := 236.0
+	var gap := 22.0
 	var m := Modal.open(host, "map.chapters", [row_h * 4.0 + gap * 3.0], true, 0.0, 0.0, _instant(host), true)
 	var c := m.content
 	var ys: Array = m.get_meta("ys")
-	var left: float = m.panel_rect.position.x + 72.0
-	var width: float = Modal.WIDTH - 144.0
+	var left: float = m.panel_rect.position.x + 56.0
+	var width: float = Modal.WIDTH - 112.0
 	var next := Progress.next_level(p)
 	var frontier := Progress.world_of_level(next if next > 0 else 40)
 	for i in 4:
@@ -304,8 +304,8 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		thumb.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		thumb.stretch_mode = TextureRect.STRETCH_SCALE
 		thumb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		thumb.position = Vector2(36, 34)
-		thumb.size = Vector2(196, 120)
+		thumb.position = Vector2(34, 32)
+		thumb.size = Vector2(264, 166)
 		var clip := Control.new()
 		clip.clip_contents = true
 		clip.position = Vector2.ZERO
@@ -313,18 +313,18 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		body.add_child(clip)
 		clip.add_child(thumb)
-		var x := 256.0
-		var word_w := UI.label_width("chapter.word", 40.0)
-		UI.label(body, "chapter.word", Rect2(x, 16, word_w, 56), 40.0)
-		UI.number(body, str(world), Rect2(x + word_w + 12.0, 24, UI.number_width(str(world), 40.0) + 4.0, 40), UI.INK, -1)
+		var x := 322.0
+		var word_w := UI.label_width("chapter.word", 46.0)
+		UI.label(body, "chapter.word", Rect2(x, 26, word_w, 64), 46.0)
+		UI.number(body, str(world), Rect2(x + word_w + 12.0, 36, UI.number_width(str(world), 46.0) + 4.0, 46), UI.INK, -1)
 		var levels := "%d-%d" % [i * 10 + 1, i * 10 + 10]
-		UI.number(body, levels, Rect2(x, 84, UI.number_width(levels, 30.0) + 4.0, 30), UI.INK, -1)
+		UI.number(body, levels, Rect2(x, 102, UI.number_width(levels, 32.0) + 4.0, 32), UI.INK, -1)
 		var earned := 0
 		for level in range(i * 10 + 1, i * 10 + 11):
 			earned += p.best_stars(level)
-		UI.art(body, "pic_star", Rect2(x, 122, 32, 32))
+		UI.art(body, "pic_star", Rect2(x, 150, 40, 40))
 		var text := "%d/30" % earned
-		UI.number(body, text, Rect2(x + 42.0, 124, UI.number_width(text, 28.0) + 4.0, 28), UI.INK, -1)
+		UI.number(body, text, Rect2(x + 50.0, 155, UI.number_width(text, 30.0) + 4.0, 30), UI.INK, -1)
 		var end := Vector2(r.size.x - 64.0, r.size.y * 0.5 - 4.0)
 		if not open:
 			UI.icon(body, "lock", end, 64.0, UI.INK)

@@ -387,7 +387,13 @@ func _row(it: Dictionary, n: int) -> void:
 	_picture(body, it, pic)
 	var name_x := pic.end.x + 40.0
 	var slot := Rect2(Vector2(rs.x - 36.0 - PILL.x, (rs.y - CARD_EDGE - PILL.y) * 0.5), PILL)
-	UI.label(body, _name_id(it), Rect2(name_x, rs.y * 0.5 - 40.0, slot.position.x - name_x - 24.0, 72.0), 40.0)
+	var name_w := minf(slot.position.x - name_x - 24.0, UI.label_width(_name_id(it), 40.0))   # left-aligned (sketch)
+	UI.label(body, _name_id(it), Rect2(name_x, rs.y * 0.5 - 40.0, name_w, 72.0), 40.0)
+	var rule := ColorRect.new()   # thin divider between picture and name
+	rule.color = Color(UI.RIM["cream"], 0.9)
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(rule, Rect2(name_x - 22.0, rs.y * 0.5 - 44.0, 3.0, 80.0))
+	body.add_child(rule)
 	var buy := _pill_button(body, "Price", slot, "orange", func(): _tap(it))
 	_price_parts(buy, it["price"])
 	buy.disabled = _locked(it)
