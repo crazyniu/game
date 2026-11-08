@@ -112,7 +112,7 @@ static func _fit_label(image: LabelSprite) -> void:
 	var origin := image.bounds.position + (image.bounds.size - shown) * 0.5
 	if image.outlined:
 		image.texture = _padded_texture(path, base)
-		image.material = outline_material(maxf(3.0, float(entry["cap"]) * 0.12))
+		image.material = outline_material(maxf(3.0, float(entry["cap"]) * 0.16))
 		image.size = (natural + Vector2.ONE * OUTLINE_PAD * 2.0) * k
 		image.position = origin - Vector2.ONE * OUTLINE_PAD * k
 	else:

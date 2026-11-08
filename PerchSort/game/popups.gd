@@ -233,9 +233,9 @@ static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
 ## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
 ## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
-	var tile := Vector2(176, 200)
-	var gap := 20.0
-	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var tile := Vector2(184, 212)
+	var gap := 16.0
+	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	for i in 7:
@@ -264,20 +264,22 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 		if done:
 			card.modulate.a = 0.5
 			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
-	var claim: Button = p.actions([["green", "play", on_claim, "checkin.claim"]])[0]
+	# Claim sits inside the panel under the days (user sketch).
+	var claim := UI.pill(c, "Claim", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[1]), UI.PLAY_SIZE), "green", "checkin.claim",
+		func(): p.invoke(on_claim), "", 52.0)
 	UI.set_active(claim, day > 0)
 	return p
 
 ## Chapter browser: one row per world (painting, "Chapter N", level range, stars, state). Tapping an unlocked row
 ## calls `on_pick(world)`; a locked row is dimmed and does nothing.
 static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
-	var row_h := 184.0
-	var gap := 20.0
+	var row_h := 236.0
+	var gap := 22.0
 	var m := Modal.open(host, "map.chapters", [row_h * 4.0 + gap * 3.0], true, 0.0, 0.0, _instant(host), true)
 	var c := m.content
 	var ys: Array = m.get_meta("ys")
-	var left: float = m.panel_rect.position.x + 72.0
-	var width: float = Modal.WIDTH - 144.0
+	var left: float = m.panel_rect.position.x + 56.0
+	var width: float = Modal.WIDTH - 112.0
 	var next := Progress.next_level(p)
 	var frontier := Progress.world_of_level(next if next > 0 else 40)
 	for i in 4:
@@ -302,8 +304,8 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		thumb.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		thumb.stretch_mode = TextureRect.STRETCH_SCALE
 		thumb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		thumb.position = Vector2(36, 34)
-		thumb.size = Vector2(196, 120)
+		thumb.position = Vector2(34, 32)
+		thumb.size = Vector2(264, 166)
 		var clip := Control.new()
 		clip.clip_contents = true
 		clip.position = Vector2.ZERO
@@ -311,18 +313,18 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		body.add_child(clip)
 		clip.add_child(thumb)
-		var x := 256.0
-		var word_w := UI.label_width("chapter.word", 40.0)
-		UI.label(body, "chapter.word", Rect2(x, 16, word_w, 56), 40.0)
-		UI.number(body, str(world), Rect2(x + word_w + 12.0, 24, UI.number_width(str(world), 40.0) + 4.0, 40), UI.INK, -1)
+		var x := 322.0
+		var word_w := UI.label_width("chapter.word", 46.0)
+		UI.label(body, "chapter.word", Rect2(x, 26, word_w, 64), 46.0)
+		UI.number(body, str(world), Rect2(x + word_w + 12.0, 36, UI.number_width(str(world), 46.0) + 4.0, 46), UI.INK, -1)
 		var levels := "%d-%d" % [i * 10 + 1, i * 10 + 10]
-		UI.number(body, levels, Rect2(x, 84, UI.number_width(levels, 30.0) + 4.0, 30), UI.INK, -1)
+		UI.number(body, levels, Rect2(x, 102, UI.number_width(levels, 32.0) + 4.0, 32), UI.INK, -1)
 		var earned := 0
 		for level in range(i * 10 + 1, i * 10 + 11):
 			earned += p.best_stars(level)
-		UI.art(body, "pic_star", Rect2(x, 122, 32, 32))
+		UI.art(body, "pic_star", Rect2(x, 150, 40, 40))
 		var text := "%d/30" % earned
-		UI.number(body, text, Rect2(x + 42.0, 124, UI.number_width(text, 28.0) + 4.0, 28), UI.INK, -1)
+		UI.number(body, text, Rect2(x + 50.0, 155, UI.number_width(text, 30.0) + 4.0, 30), UI.INK, -1)
 		var end := Vector2(r.size.x - 64.0, r.size.y * 0.5 - 4.0)
 		if not open:
 			UI.icon(body, "lock", end, 64.0, UI.INK)
@@ -336,8 +338,10 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 	return m
 
 ## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
-static func chest(host: Control, progress: int, ready: int, on_open: Callable) -> Control:
-	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+## With `on_play` a second green Play sits under Open (user sketch), so the player can go on playing for stars.
+static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable()) -> Control:
+	var actions_h := UI.PLAY_SIZE.y * (2.0 if on_play.is_valid() else 1.0) + (ACTION_STACK if on_play.is_valid() else 0.0)
+	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, actions_h, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
@@ -354,7 +358,12 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable) -
 	UI.number(c, text, Rect2(bar.position.x + 80.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
 	var open: Button = p.actions([["green", "play", on_open, "chest.open"]])[0]
 	UI.set_active(open, ready > 0)
+	if on_play.is_valid():
+		var at := Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, open.position.y + UI.PLAY_SIZE.y + ACTION_STACK)
+		UI.pill(c, "Play", Rect2(at, UI.PLAY_SIZE), "green", "action.play", func(): p.invoke(on_play), "", 52.0)
 	return p
+
+const ACTION_STACK := 28.0
 
 ## What a check-in or chest gave: coins and boosters, in a row; OK closes.
 static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable) -> Control:
@@ -727,7 +736,7 @@ static func preview(main: Control, state: String) -> void:
 		"level_gift": level_gift(host, Board.Booster.MORNING_BELL, noop)
 		"checkin_day3": checkin(host, 3, 2, noop)
 		"chapters": chapters(host, _chapter_profile(), noop1)
-		"chest_half": chest(host, 17, 0, noop)
+		"chest_half": chest(host, 17, 0, noop, noop)
 		"chest_ready": chest(host, 31, 1, noop)
 		"rewards_chest": rewards(host, "chest.title", 150, [0, 3], noop)
 		"new_friend_berry": new_friend(host, "berry", 25, noop)

@@ -27,18 +27,18 @@ const NODES := [
 ]
 ## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
 const MARGIN := 48.0
-const NODE := 132.0              # cleared and locked nodes (cream)
-const CURRENT := 160.0           # current node (green)
+const NODE := 164.0              # cleared and locked nodes (painted gold disc, stars inside)
+const CURRENT := 210.0           # current node (painted glowing disc)
 const NODE_EDGE := 10.0
-const NODE_CAP := 52.0
-const CURRENT_CAP := 64.0
+const NODE_CAP := 60.0
+const CURRENT_CAP := 76.0
 const LOCK := 56.0
 const LOCK_COLOR := Color8(200, 180, 150)
 const LOCKED_DIM := Color(0.92, 0.92, 0.92, 0.82)
-const STAR := 50.0
-const STAR_GAP := 4.0
-const STAR_DY := 88.0            # star row centre below the node centre
-const BIRD_FEET := 70.0          # the current bird stands this far above the node centre
+const STAR := 48.0
+const STAR_GAP := -6.0
+const STAR_DY := 34.0            # star row centre below the node centre, inside the disc
+const BIRD_FEET := 82.0          # the current bird stands this far above the node centre
 const BIRD_SCALE := 1.0          # BirdView scale (1.0 = 170 px canvas)
 const BOUNCE := 10.0
 const GATE_SIZE := Vector2(320, 280)
@@ -54,13 +54,13 @@ const TOP_FADE := Rect2(0, 0, 1080, 200)
 const TOP_FADE_ALPHA := 0.62
 const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63)]
 ## At either scroll end the bird and stars rest clear of the fixed controls.
-const TOP_CLEAR := 216.0
+const TOP_CLEAR := 340.0
 const BOTTOM_CLEAR := 1644.0
 const CHIP := Vector2(300.0, 96.0)
-const CURRENT_CHIP_Y := 1664.0
-const NAV_Y := 1838.0
-const NAV_TILE := Vector2(150.0, 132.0)   # smaller than the home tiles so the trail stays visible above them
-const NAV_GAP := 176.0
+const CURRENT_CHIP_Y := 1620.0
+const NAV_Y := 1818.0
+const NAV_TILE := Vector2(214.0, 176.0)   # the painted home tiles, a little smaller than on the home page
+const NAV_GAP := 236.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
 ## BOTTOM_CLEAR: level 40 at y 360 with a bird up to 240 above its centre, level 1 at y 2700 + 3 strides with its
 ## star row extending below the node centre.
@@ -71,15 +71,8 @@ const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEA
 const NAV_COUNT := 3
 const NAV_CLEAR := 12.0          # free ring around each bottom button
 const END_SEARCH := 900.0
-## World ribbon: shown for RIBBON_SECONDS when the view enters a world, below the top bar.
-const RIBBON_Y := 292.0
-const RIBBON_CAP := 56.0
-const RIBBON_MAX_W := 720.0
-const RIBBON_SECONDS := 2.0
-const RIBBON_FADE := 0.35
-const PROGRESS_H := 88.0
-const PROGRESS_STAR := 56.0
-const PROGRESS_CAP := 44.0
+## World sign: the current world's name on a hanging plank under the top bar, swapped when the view changes world.
+const SIGN := Rect2(270, 112, 540, 212)   # hanging world sign (ropes rise behind the top bar)
 
 var profile: Profile
 var current_level := 1
@@ -91,10 +84,9 @@ var _content: Control
 var _hud: Control
 var _coins: Panel
 var _title_world := 0
-var _ribbon: Control
+var _sign: Control
 var _top_pad := TOP_PAD
 var _bottom_pad := BOTTOM_PAD
-static var _announced_world := 0   # the world whose ribbon was shown last in this run
 var _top_fade: TextureRect
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
 var _dragging := false
@@ -109,7 +101,6 @@ func setup(player: Profile) -> void:
 		child.queue_free()
 	_hit_rects.clear()
 	_bird = null
-	_ribbon = null
 	_dragging = false
 	_velocity = 0.0
 	size = Vector2(1080, 1920)
@@ -222,6 +213,10 @@ func _fitted(name: String, bounds: Rect2) -> Rect2:
 	var k := minf(bounds.size.x / used.size.x, bounds.size.y / used.size.y)
 	return Rect2(bounds.position + (bounds.size - used.size * k) * 0.5, used.size * k)
 
+## Painted level disc centred on `at` (its glow may reach outside `diameter`).
+func _disc(parent: Control, picture: String, at: Vector2, diameter: float) -> void:
+	UI.art(parent, picture, Rect2(at - Vector2.ONE * diameter * 0.5, Vector2.ONE * diameter)).name = "Node"
+
 ## Round cream or coloured disc (same shape as the kit's buttons) centred on `at`.
 func _circle(parent: Control, at: Vector2, diameter: float, kind: String) -> Panel:
 	var p := UI.shape(parent, Rect2(at - Vector2.ONE * diameter * 0.5, Vector2.ONE * diameter), kind, diameter * 0.5, NODE_EDGE)
@@ -238,18 +233,18 @@ func _build_node(level: int) -> void:
 	var face := Vector2(c.x, c.y - NODE_EDGE * 0.5)   # optical centre of the face above the bottom edge
 	match state:
 		"locked":
-			_circle(layer, c, NODE, "cream")
+			_disc(layer, "map_node", c, NODE)
 			UI.icon(layer, "lock", face, LOCK, LOCK_COLOR)
 			layer.modulate = LOCKED_DIM
 			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2.ONE * NODE).grow(16), "level", level])
 		"cleared":
-			_circle(layer, c, NODE, "cream")
-			_number(layer, level, face, NODE_CAP, UI.INK)
+			_disc(layer, "map_node", c, NODE)
+			_number(layer, level, face - Vector2(0, 24), NODE_CAP, UI.INK)
 			UI.rating_stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
-			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2(NODE, NODE * 0.5 + STAR_DY + STAR * 0.5)).grow(16), "level", level])
+			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2.ONE * NODE).grow(16), "level", level])
 		"current":
-			_circle(layer, c, CURRENT, "green")
-			_number(layer, level, face, CURRENT_CAP, Color.WHITE)
+			_disc(layer, "map_node_current", c, CURRENT)
+			_number(layer, level, face - Vector2(0, 10), CURRENT_CAP, UI.INK)
 			var top := c.y - BIRD_FEET - BirdView.DISPLAY * BIRD_SCALE
 			_hit_rects.append([Rect2(c.x - CURRENT * 0.5, top, CURRENT, c.y + CURRENT * 0.5 - top).grow(16), "level", level])
 			if level == current_level:
@@ -299,11 +294,16 @@ func _build_hud() -> void:
 	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, CURRENT_CHIP_Y, CHIP.x, CHIP.y),
 		func(): scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO))
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
-	var buttons := [["Shop", "shop", "home.shop", shop_requested], ["Aviary", "aviary", "home.aviary", aviary_requested],
-		["Help", "help", "home.help", help_requested]]
+	var buttons := [["Shop", "home_button_shop", shop_requested], ["Aviary", "home_button_aviary", aviary_requested],
+		["Help", "map_button_help", help_requested]]
 	for i in buttons.size():
-		var sig: Signal = buttons[i][3]
-		UI.tile(_hud, buttons[i][0], buttons[i][1], buttons[i][2], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
+		var sig: Signal = buttons[i][2]
+		UI.art_button(_hud, buttons[i][0], buttons[i][1], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
+	_sign = Control.new()
+	_sign.name = "WorldSign"
+	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_sign.size = size
+	_hud.add_child(_sign)
 
 ## Cream capsule with a picture and a word (Chapters, Current).
 func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
@@ -424,44 +424,31 @@ func _update_title() -> void:
 	if world == _title_world:
 		return
 	_title_world = world
-	if world == _announced_world or _instant():
-		return
-	_announced_world = world
-	show_world_ribbon(world)
+	_build_sign(world)
 
-## The world's name on the painted title ribbon with its star progress (painted star, "N/30") on a dark HUD pill
-## below; it fades in, holds and fades out over RIBBON_SECONDS. It never takes input.
-func show_world_ribbon(world: int) -> void:
-	if _ribbon != null and is_instance_valid(_ribbon):
-		_ribbon.queue_free()
-	_ribbon = Control.new()
-	_ribbon.name = "WorldRibbon"
-	_ribbon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_ribbon.size = size
-	_hud.add_child(_ribbon)
-	UI.title_ribbon(_ribbon, WORLD_LABELS[world - 1], Vector2(540.0, RIBBON_Y), RIBBON_CAP, RIBBON_MAX_W)
-	var earned := 0
-	for level in range((world - 1) * 10 + 1, world * 10 + 1):
-		earned += profile.best_stars(level)
-	var text := "%d/30" % earned
-	var number_w := UI.number_width(text, PROGRESS_CAP) + 8.0
-	var w := 32.0 + PROGRESS_STAR + 12.0 + number_w + 36.0
-	var face := (PROGRESS_H - 6.0) * 0.5
-	var pill := UI.shape(_ribbon, Rect2(540.0 - w * 0.5, RIBBON_Y + 104.0, w, PROGRESS_H), "hud", PROGRESS_H * 0.5, 6.0)
-	pill.name = "StarProgress"
-	UI.art(pill, "pic_star", Rect2(32.0, face - PROGRESS_STAR * 0.5, PROGRESS_STAR, PROGRESS_STAR))
-	UI.number(pill, text, Rect2(32.0 + PROGRESS_STAR + 12.0, face - PROGRESS_CAP * 0.5, number_w, PROGRESS_CAP), Color.WHITE, -1)
-	if _instant():
+## The world's name on the painted hanging sign under the top bar; it stays while the view is in that world.
+func _build_sign(world: int) -> void:
+	if _sign == null:
 		return
-	var node := _ribbon
-	node.modulate.a = 0.0
-	node.position.y = -24.0
-	var tw := node.create_tween()
-	tw.tween_property(node, "modulate:a", 1.0, RIBBON_FADE)
-	tw.parallel().tween_property(node, "position:y", 0.0, RIBBON_FADE).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_interval(RIBBON_SECONDS - RIBBON_FADE * 2.0)
-	tw.tween_property(node, "modulate:a", 0.0, RIBBON_FADE).set_ease(Tween.EASE_IN)
-	tw.tween_callback(node.queue_free)
+	for child in _sign.get_children():
+		child.queue_free()
+	var r := SIGN
+	UI.art(_sign, "map_sign", r)
+	var plank := Rect2(r.position.x + r.size.x * 0.12, r.position.y + r.size.y * 0.44, r.size.x * 0.76, r.size.y * 0.42)
+	var cap := 46.0
+	var w := minf(plank.size.x, UI.label_width(WORLD_LABELS[world - 1], cap))
+	UI.outline_to(UI.label(_sign, WORLD_LABELS[world - 1], Rect2(plank.get_center().x - w * 0.5, plank.position.y, w, plank.size.y), cap,
+		Color.WHITE), "orange")
+	if not _instant():
+		_sign.pivot_offset = Vector2(540.0, r.position.y)
+		_sign.rotation = 0.05
+		var tw := _sign.create_tween()
+		tw.tween_property(_sign, "rotation", 0.0, 0.6).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+## Shows the world's hanging sign at once (captures and callers that announce a world).
+func show_world_ribbon(world: int) -> void:
+	_title_world = world
+	_build_sign(world)
 
 ## ---------- scroll ends ----------
 
@@ -557,7 +544,7 @@ func _tap(screen_pos: Vector2) -> void:
 			return
 
 ## Fake data for captures. States: forest_trail, first_level, autumn_world, all_cleared, gate_locked,
-## top_end / bottom_end (both scroll ends, all cleared / first level) and world_ribbon (the autumn ribbon).
+## top_end / bottom_end (both scroll ends, all cleared / first level) and world_ribbon (the autumn sign).
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
 	var cleared := 0
