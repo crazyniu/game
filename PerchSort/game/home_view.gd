@@ -15,16 +15,16 @@ signal chest_requested
 signal challenge_requested
 
 ## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
-const LOGO := Rect2(352, 4, 376, 240)   # between the coin counter and the settings button
+const LOGO := Rect2(200, 140, 680, 428)   # in the open sky under the top row, above the roof
 const SETTINGS := Rect2(904, 44, 124, 124)
 ## Seats in the painted birdhouse (home_clearing): two on the shelf in front of the doorway, two on the roof slopes.
-const SEATS := [Vector2(446, 784), Vector2(640, 784), Vector2(730, 456), Vector2(350, 456)]
+const SEATS := [Vector2(466, 1004), Vector2(612, 1004), Vector2(870, 728), Vector2(212, 728)]
 const BIRD_SCALE := 1.85
 const BIRD_COUNT := 3
-const PLAY := Rect2(200, 1086, 680, 184)
+const PLAY := Rect2(200, 1150, 680, 184)
 const TILE := Vector2(252, 208)
-const TOP_ROW_Y := 1338.0
-const NAV_Y := 1640.0
+const TOP_ROW_Y := 1384.0
+const NAV_Y := 1652.0
 const NAV_GAP := 10.0
 const FLIT_EVERY := 6.0
 

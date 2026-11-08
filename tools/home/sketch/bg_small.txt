@@ -1,0 +1,5 @@
+Use your image generation tool. Reference: the attached ref_bg.png (a mobile game home background). Repaint the SAME scene in the same style, colours and lighting (portrait 1024x1536), changing only where the birdhouse sits. Exact measurements, in fractions of the image:
+- The birdhouse (teal shingle roof, rope knot on top, ivy and white flowers, large round EMPTY doorway, wooden shelf in front, resting on the thick branch of the big tree on the right) keeps nearly its size: the roof from eave to eave spans 52% of the image width (x from 24% to 76%), horizontally centred.
+- Vertical placement: top of the rope at 21% of the height, roof peak at 27%, doorway from 31% to 44%, top of the shelf at 45%, the branch under the house ends at 53%.
+- Above 20% of the height: open bright sky, leafy canopy in both top corners, sun rays from the top-left. A big game title will sit there.
+- Absolutely no birds or animals; doorway empty. Lower half as in the reference: calm meadow, stone path down the centre, mushrooms bottom-left, flower bushes bottom-right. No UI, no text, no letters, no numbers.
