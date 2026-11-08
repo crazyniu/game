@@ -468,6 +468,7 @@ func _spawn_birds() -> void:
 
 func _make_bird(code: int, at: Vector2) -> BirdView:
 	var bird := BirdView.new()
+	bird.sounds = true
 	var species: String = Board.SPECIES[Board.species_of(code)]
 	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, profile.equipped.get(species, "").replace("outfit.", "").replace(".", "_outfit_") if profile.equipped.has(species) else "")
 	bird.position = at

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://je2txeiorehv"
-path="res://.godot/imported/disc_ring.png-bc0f6913908390e20da5b70dfa1c0976.ctex"
+uid="uid://dllj3aatmi0gp"
+path="res://.godot/imported/disc_cream.png-07010945d927d36fbb03565157f84c12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/kit/disc_ring.png"
-dest_files=["res://.godot/imported/disc_ring.png-bc0f6913908390e20da5b70dfa1c0976.ctex"]
+source_file="res://art/kit/disc_cream.png"
+dest_files=["res://.godot/imported/disc_cream.png-07010945d927d36fbb03565157f84c12.ctex"]
 
 [params]
 

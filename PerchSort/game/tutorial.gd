@@ -367,7 +367,7 @@ func _tap() -> void:
 	tw.parallel().tween_property(_hand, "position:y", _hand.position.y + 10.0, 0.08)
 	tw.tween_property(_hand, "scale", Vector2.ONE * HAND_SCALE, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.parallel().tween_property(_hand, "position:y", _hand.position.y, 0.14)
-	Sound.play("select")
+	pass   # the demo is silent; menus play only the music
 	await tw.finished
 
 ## Taps branch `from` (its top run lifts with flapping frames), then branch `to` (the run flies there).
@@ -393,7 +393,7 @@ func _move(run: int, from: int, to: int) -> void:
 		row_to.append(bird)
 		last = bird
 		if k == 0:
-			Sound.play("move")
+			pass   # the demo is silent; menus play only the music
 		await _wait(0.07)
 		if not _alive(run): return
 	if last and is_instance_valid(last):
@@ -414,7 +414,7 @@ func _fly_home(run: int, b: int) -> void:
 	if last and is_instance_valid(last):
 		await last.finished
 	if not _alive(run): return
-	Sound.play("nest_home")
+	pass   # the demo is silent; menus play only the music
 	_set_resident(group[0].species if not group.is_empty() else "")
 	var tw := _tw()
 	tw.tween_property(_house, "scale", Vector2(1.08, 0.94), 0.1)
@@ -503,7 +503,7 @@ func _stars_pop(run: int) -> void:
 		s.scale = Vector2.ONE * 0.2
 		var tw := _tw()
 		tw.tween_property(s, "scale", Vector2.ONE, 0.32).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		Sound.play("star_%d" % (i + 1))
+		pass   # the demo is silent; menus play only the music
 		await _wait(0.28)
 		if not _alive(run): return
 

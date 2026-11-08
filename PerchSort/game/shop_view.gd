@@ -40,7 +40,7 @@ const POPUP_CAPTION_CAP := 44.0
 const KIND_COLUMNS := 3
 const KIND_GAP := 24.0
 const KIND_W := (1080.0 - MARGIN * 2.0 - KIND_GAP * (KIND_COLUMNS - 1)) / KIND_COLUMNS
-const KIND_H := 456.0
+const KIND_H := 388.0
 const KIND_BIRD := Rect2(28, 28, 256, 256)
 const KIND_NAME := Rect2(16, 292, 280, 72)
 const KIND_NAME_CAP := 44.0
@@ -382,7 +382,7 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 	b.focus_mode = Control.FOCUS_NONE
 	# Painted kit faces: square buttons are discs (cream = the white disc with the leaf ring), others pills.
 	var square := absf(r.size.x - r.size.y) < 2.0
-	var piece := ("disc_ring" if kind == "cream" else "disc_" + kind) if square \
+	var piece := ("disc_cream" if kind == "cream" else "disc_" + kind) if square \
 		else ("capsule_plain" if kind == "cream" else "pill_" + kind)
 	UI._skin_button(b, piece, Rect2(Vector2.ZERO, r.size))
 	UI.place(b, r)
@@ -453,7 +453,7 @@ func _kind_cards() -> void:
 		var at := Vector2(MARGIN + (n % KIND_COLUMNS) * (KIND_W + KIND_GAP), GRID_TOP + (n / KIND_COLUMNS) * (KIND_H + KIND_GAP))
 		_kind_card(kinds[n], Rect2(at, Vector2(KIND_W, KIND_H)), n)
 
-## A met kind: the bird in its current outfit, its name and owned/total outfits; tapping opens its outfit page.
+## A met kind: the bird in its current outfit and its name; tapping opens its outfit page.
 ## An unmet kind: a breathing silhouette with a question mark; a tap only squashes the card.
 func _kind_card(species: String, r: Rect2, n: int) -> void:
 	var card := UI.shape(_grid, r, "cream", CARD_RADIUS, CARD_EDGE)
@@ -467,9 +467,7 @@ func _kind_card(species: String, r: Rect2, n: int) -> void:
 		var text := "%d/4" % owned_outfits(species)
 		var num_w := UI.number_width(text, KIND_COUNT_CAP)
 		var x := (KIND_W - (KIND_HANGER + 12.0 + num_w)) * 0.5
-		UI.icon(card, "hanger", Vector2(x + KIND_HANGER * 0.5, KIND_COUNT_Y), KIND_HANGER, UI.INK).name = "Hanger"
-		UI.number(card, text, Rect2(x + KIND_HANGER + 12.0, KIND_COUNT_Y - KIND_COUNT_CAP * 0.5, num_w + 2.0, KIND_COUNT_CAP),
-			UI.INK, -1).name = "Owned"
+		pass   # name only: the bird's page shows its outfits
 	else:
 		AviaryScript._silhouette(card, species, KIND_BIRD)
 		var q := UI.number(card, "?", Rect2(KIND_BIRD.get_center().x - 60.0, KIND_BIRD.get_center().y - 72.0, 120.0, 160.0),
