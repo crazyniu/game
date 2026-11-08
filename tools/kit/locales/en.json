@@ -158,6 +158,13 @@
     "lesson.daynight.title": "Day and Night",
     "lesson.daynight.line": "Owls sleep until night falls",
     "challenge.title": "Daily Challenge",
-    "home.daily": "Daily"
+    "home.daily": "Daily",
+    "tab.boosters": "Boosters",
+    "tab.outfits": "Outfits",
+    "tab.houses": "Birdhouses",
+    "map.chapters": "Chapters",
+    "map.current": "Current",
+    "chapter.word": "Chapter",
+    "chapter.levels": "Levels"
   }
 }

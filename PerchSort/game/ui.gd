@@ -353,22 +353,22 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 ## A big painted tile: the picture above one short painted word. A press darkens it and sinks the contents.
 const TILE := Vector2(176.0, 168.0)
 
-static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
+static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable, piece := "card", ink := INK) -> Button:
 	var b := Button.new()
 	b.name = n
 	b.focus_mode = Control.FOCUS_NONE
 	place(b, r)
-	_skin_button(b, "card", Rect2(Vector2.ZERO, r.size))
+	_skin_button(b, piece, Rect2(Vector2.ZERO, r.size))
 	var body := Control.new()
 	body.name = "Content"
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	body.size = r.size
 	b.add_child(body)
 	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
-	art(body, "pic_" + picture, Rect2(r.size.x * 0.5 - 52.0 * k, 10.0 * k, 104.0 * k, 104.0 * k))
+	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 52.0 * k, 10.0 * k, 104.0 * k, 104.0 * k))
 	var cap := 30.0 * k
 	var lw := minf(r.size.x - 24.0, label_width(label_id, cap))
-	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 60.0 * k, lw, 40.0 * k), cap, INK)
+	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 60.0 * k, lw, 40.0 * k), cap, ink)
 	b.button_down.connect(func(): body.position.y = 4.0)
 	b.button_up.connect(func(): body.position.y = 0.0)
 	b.pressed.connect(func():

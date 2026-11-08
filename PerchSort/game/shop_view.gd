@@ -11,6 +11,11 @@ const AviaryScript := preload("res://game/aviary_view.gd")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_ART := ["tab_boosters", "tab_outfits", "tab_houses"]   # full-colour pictures on the round tab
 const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
+const TAB_LABELS := ["tab.boosters", "tab.outfits", "tab.houses"]
+const TAB_SIZE := Vector2(296, 168)
+const ROW_H := 208.0
+const ROW_GAP := 24.0
+const ROW_PICTURE := 160.0
 const TAB_PICTURE := 96.0
 const PER_PAGE := 4
 const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
@@ -20,9 +25,9 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 const MARGIN := 48.0
 const BAR_Y := 112.0
 const TITLE_CAP := 56.0
-const TAB_Y := 272.0
+const TAB_Y := 292.0
 const TAB_GAP := 48.0
-const GRID_TOP := 384.0
+const GRID_TOP := 424.0
 const GAP := 32.0
 const CARD_W := (1080.0 - MARGIN * 2.0 - GAP) * 0.5
 const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 608.0}
@@ -219,9 +224,9 @@ func _refresh() -> void:
 		for c in node.get_children():
 			node.remove_child(c)   # rebuilt cards keep their names
 			c.queue_free()
-	var x := 540.0 - (TABS.size() - 1) * (UI.SECONDARY + TAB_GAP) * 0.5
+	var x := 540.0 - (TABS.size() - 1) * (TAB_SIZE.x + TAB_GAP * 0.5) * 0.5
 	for i in TABS.size():
-		_tab_button(i, Vector2(x + i * (UI.SECONDARY + TAB_GAP), TAB_Y))
+		_tab_button(i, Vector2(x + i * (TAB_SIZE.x + TAB_GAP * 0.5), TAB_Y))
 	if TABS[tab] == Shop.OUTFIT:
 		_kind_cards()
 		return
@@ -230,7 +235,10 @@ func _refresh() -> void:
 	page = clampi(page, 0, pages - 1)
 	var shown := items if pages == 1 else items.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE)
 	for n in shown.size():
-		_card(shown[n], n)
+		if TABS[tab] == Shop.BOOSTER:
+			_row(shown[n], n)
+		else:
+			_card(shown[n], n)
 	if pages > 1:
 		_build_pager(pages)
 
@@ -252,15 +260,11 @@ func _build_coins() -> void:
 		tw.tween_property(_coins, "scale", Vector2.ONE * 1.1, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(_coins, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Round tab with its painted picture: blue behind the selected tab, cream behind the others; same size in every state.
+## Tab: picture over its word on a cream card; the selected tab is green with white outlined word. Same size always.
 func _tab_button(i: int, center: Vector2) -> Button:
-	var b := UI.button(_tabs, TAB_NAMES[i], center, "blue" if i == tab else "cream", "", func(): _select_tab(i))
-	var side := UI.SECONDARY
-	var pic := UI.art(b, TAB_ART[i], Rect2(Vector2(side - TAB_PICTURE, side - TAB_PICTURE - 10.0) * 0.5, Vector2.ONE * TAB_PICTURE))
-	pic.name = "Picture"
-	b.button_down.connect(func(): pic.position.y += 6.0)
-	b.button_up.connect(func(): pic.position.y -= 6.0)
-	return b
+	var on := i == tab
+	return UI.tile(_tabs, TAB_NAMES[i], TAB_ART[i], TAB_LABELS[i], Rect2(center - TAB_SIZE * 0.5, TAB_SIZE), func(): _select_tab(i),
+		"pill_green" if on else "card", Color.WHITE if on else UI.INK)
 
 func _select_tab(i: int) -> void:
 	if i != tab:
@@ -354,6 +358,40 @@ func _card(it: Dictionary, n: int) -> void:
 		body.modulate.a = UI.DISABLED_ALPHA
 		UI.icon(card, "lock", pic.get_center(), LOCK, UI.INK).name = "Lock"
 	_pop_in(card, n)
+
+## Booster row: picture, name and price pill on one cream strip (the stock badge sits on the picture).
+func _row(it: Dictionary, n: int) -> void:
+	var rs := Vector2(1080.0 - MARGIN * 2.0, ROW_H)
+	var row := Control.new()
+	row.name = it["id"]
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(row, Rect2(Vector2(MARGIN, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
+	_grid.add_child(row)
+	UI.shape(row, Rect2(Vector2.ZERO, rs), "cream", CARD_RADIUS, CARD_EDGE)
+	var hit := UI.hit_area(row, Rect2(Vector2.ZERO, rs), func(): _tap(it))
+	hit.disabled = _locked(it)
+	var body := Control.new()
+	body.name = "Body"
+	body.size = rs
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(body)
+	var pic := Rect2(36.0, (rs.y - CARD_EDGE - ROW_PICTURE) * 0.5, ROW_PICTURE, ROW_PICTURE)
+	_picture(body, it, pic)
+	var name_x := pic.end.x + 40.0
+	var slot := Rect2(Vector2(rs.x - 36.0 - PILL.x, (rs.y - CARD_EDGE - PILL.y) * 0.5), PILL)
+	UI.label(body, _name_id(it), Rect2(name_x, rs.y * 0.5 - 40.0, slot.position.x - name_x - 24.0, 72.0), 40.0)
+	var buy := _pill_button(body, "Price", slot, "orange", func(): _tap(it))
+	_price_parts(buy, it["price"])
+	buy.disabled = _locked(it)
+	if profile.inventory[it["booster"]] > 0:
+		var d := UI.BADGE
+		var badge := UI.shape(body, Rect2(Vector2(pic.end.x - d * 0.7, pic.position.y - d * 0.1), Vector2.ONE * d), "red", d * 0.5, 5.0, false)
+		badge.name = "Stock"
+		UI.number(badge, str(profile.inventory[it["booster"]]), Rect2(8, d * 0.5 - 18.0, d - 16.0, 30), Color.WHITE)
+	if _locked(it):
+		body.modulate.a = UI.DISABLED_ALPHA
+		UI.icon(row, "lock", pic.get_center(), LOCK * 0.8, UI.INK).name = "Lock"
+	_pop_in(row, n)
 
 func _pop_in(card: Control, n: int) -> void:
 	if instant:
