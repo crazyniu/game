@@ -821,6 +821,13 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "settings.vibration": {
+      "text": "Vibration",
+      "file": "label_settings_vibration.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

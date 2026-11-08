@@ -30,6 +30,7 @@ var music_muted := false            # background music off
 var level_gifts := {}               # level -> true once its start booster gift was given
 var chests_opened := 0              # star chests opened (one per CHEST_STARS stars earned)
 var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
+var vibration := true               # short haptic pulses on mobile
 
 
 func _init() -> void:
@@ -93,6 +94,7 @@ func to_dict() -> Dictionary:
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
 		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak,
+		"vibration": vibration,
 	}
 
 ## Lenient load: unknown or invalid entries are dropped, like the original deserializer.
@@ -102,6 +104,7 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.highest_unlocked = clampi(int(data.get("highestUnlockedLevel", 1)), 1, 40)
 	p.muted = bool(data.get("muted", false))
 	p.music_muted = bool(data.get("musicMuted", p.muted))   # saves from before the split mute both
+	p.vibration = bool(data.get("vibration", true))
 	var boosters: Dictionary = data.get("boosters", {})
 	for i in BOOSTER_IDS.size():
 		p.inventory[i] = maxi(0, int(boosters.get(BOOSTER_IDS[i], 0)))

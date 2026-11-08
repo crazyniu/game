@@ -84,7 +84,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var row := 104.0
-	var heights := [row, row]
+	var heights := [row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(PILL_H * 5.0 + 4.0 * 20.0)
@@ -100,6 +100,14 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
+	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
+	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
+		Sound.vibration = value
+		if on.has("vibration"):
+			on["vibration"].call(value)
+		Sound.vibrate(Sound.PULSE_LAND))
+	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
 		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
@@ -270,18 +278,25 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 		var r := Rect2(x, ys[0] + row * (tile.y + gap), tile.x, tile.y)
 		var today := i + 1 == day
 		var done := i + 1 <= claimed
-		var card := UI.shape(c, r, "green" if today else "cream", 32.0, 8.0)
+		if today:   # today's tile: a warm glow behind it and a gentle bob
+			var glow := UI.image(c, "glow_soft", r.grow(64.0))
+			glow.modulate = Color(1, 0.72, 0.18, 1.0)
+		var card := UI.shape(c, r, "cream", 32.0, 8.0)
 		card.name = "Day%d" % (i + 1)
-		var ink := Color.WHITE if today else UI.INK
-		UI.number(card, str(i + 1), Rect2(12, 10, 40, 36), ink, -1)
+		if today and not _instant(host):
+			card.pivot_offset = r.size * 0.5
+			var bob := card.create_tween().set_loops()
+			bob.tween_property(card, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
+			bob.tween_property(card, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 		var reward: Array = Progress.CHECKIN[i]
-		UI.art(card, "coin", Rect2(tile.x * 0.5 - 34.0, 52, 68, 68))
-		UI.number(card, str(reward[0]), Rect2(10, 128, tile.x - 20.0, 36), ink)
+		UI.number(card, str(i + 1), Rect2(0, 18, tile.x, 34), UI.INK)
+		UI.art(card, "coin", Rect2(tile.x * 0.5 - 34.0, 62, 68, 68))
+		UI.number(card, str(reward[0]), Rect2(14, 140, tile.x - 28.0, 34), UI.INK)
 		if reward[1] > 0:
-			UI.art(card, "booster_hint_illus", Rect2(tile.x - 64.0, 6, 56, 56))
+			UI.art(card, "booster_hint_illus", Rect2(tile.x - 58.0, 6, 50, 50))
 		if done:
-			card.modulate.a = 0.55
-			UI.icon(card, "check", Vector2(tile.x * 0.5, tile.y * 0.45), 96.0, UI.INK)
+			card.modulate.a = 0.5
+			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
 	var claim: Button = p.actions([["green", "play", on_claim, "checkin.claim"]])[0]
 	UI.set_active(claim, day > 0)
 	return p

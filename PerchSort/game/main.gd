@@ -26,6 +26,7 @@ func _ready() -> void:
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
+	Sound.vibration = profile.vibration
 	popups = Control.new()
 	popups.name = "Popups"
 	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -331,6 +332,10 @@ func show_settings(on_board: bool) -> void:
 		"sound": func(on: bool):
 			profile.muted = not on
 			Sound.set_muted(profile.muted)
+			save(),
+		"vibration": func(on: bool):
+			profile.vibration = on
+			Sound.vibration = on
 			save(),
 		"restart": func():
 			_clear_popups()

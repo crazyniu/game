@@ -138,6 +138,7 @@
     "chest.line": "Earn stars to fill the chest",
     "home.checkin": "Check-in",
     "home.chest": "Chest",
-    "action.ok": "Got it"
+    "action.ok": "Got it",
+    "settings.vibration": "Vibration"
   }
 }

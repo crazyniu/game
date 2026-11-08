@@ -18,6 +18,8 @@ const ENTRANCE_BRANCHES := 0.95
 const ENTRANCE_BIRDS := 1.6
 const ENTRANCE_BIRD_SPREAD := 0.85
 const ENTRANCE_FLIGHT := 0.8
+## Replays and the next level right after a win use the same beats, faster: about 1.5 s in all.
+const ENTRANCE_QUICK := 0.36
 const SKIP_TIME_SCALE := 12.0
 const BUBBLE_SECONDS := 1.6
 const STUCK_DELAY := 0.8
@@ -95,9 +97,14 @@ var _shown_hint_key := PackedInt32Array()
 var _hint_pointer: Sprite2D
 var _hint_motion: Tween
 var _hint_move: Array = []
+var _home_chain := 0        # homings in the current chain already played
 
 
 static var _start_hints: Dictionary = {}
+## This run of the game: levels already opened, the last level started and the last level won.
+static var _opened_levels: Dictionary = {}
+static var _last_started := -1
+static var _last_won := -1
 
 ## Hint routes from each level's start, precomputed by tools/levels/export_hints.gd, so the first hint is instant.
 func _load_start_hints(id: int) -> void:
@@ -142,8 +149,12 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_spawn_birds()
 	refresh_hud()
 	_prefetch_hint()
+	var id := int(level_def["id"])
+	var quick := _opened_levels.has(id) or (_last_won >= 0 and _last_won == _last_started and id == _last_won + 1)
+	_opened_levels[id] = true
+	_last_started = id
 	if play_entrance and not instant:
-		_entrance()
+		_entrance(quick)
 
 func _exit_tree() -> void:
 	_release_hint_task()
@@ -512,27 +523,30 @@ func sync_birds() -> void:
 		await glide.finished
 
 ## Houses drop in, branches grow out of the trunks, then the birds fly to their seats. A tap speeds it up.
-func _entrance() -> void:
+## `quick` (a replay, or the next level right after a win) plays the same beats at ENTRANCE_QUICK of the time.
+func _entrance(quick := false) -> void:
 	busy = true
 	_entrance_running = true
+	var started := Time.get_ticks_msec()
+	var k := ENTRANCE_QUICK if quick else 1.0
 	modulate.a = 0.0
-	create_tween().tween_property(self, "modulate:a", 1.0, 0.4)
+	create_tween().tween_property(self, "modulate:a", 1.0, 0.4 * k)
 	var rise := create_tween().set_parallel()
 	var drop := [_rope, _house]
 	for node in drop:
 		var rest_y: float = node.position.y
 		node.position.y -= 420.0
-		rise.tween_property(node, "position:y", rest_y, 0.7).set_delay(ENTRANCE_HOUSE).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	var k := 0
+		rise.tween_property(node, "position:y", rest_y, 0.7 * k).set_delay(ENTRANCE_HOUSE * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var g := 0
 	for goal in _goal_nodes.values():
 		goal.scale = Vector2.ZERO
-		rise.tween_property(goal, "scale", Vector2.ONE, 0.35).set_delay(ENTRANCE_HOUSE + 0.5 + 0.08 * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		k += 1
+		rise.tween_property(goal, "scale", Vector2.ONE, 0.35 * k).set_delay((ENTRANCE_HOUSE + 0.5 + 0.08 * g) * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		g += 1
 	var grow := create_tween().set_parallel()
 	for i in _branch_nodes.size():
 		var node: Node2D = _branch_nodes[i]
 		node.scale = Vector2(0.02, 0.6)
-		grow.tween_property(node, "scale", Vector2.ONE, 0.5).set_delay(ENTRANCE_BRANCHES + 0.1 * i).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		grow.tween_property(node, "scale", Vector2.ONE, 0.5 * k).set_delay((ENTRANCE_BRANCHES + 0.1 * i) * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	var s := session.state
 	var birds: Array = []
 	for b in s.branch_count():
@@ -545,14 +559,18 @@ func _entrance() -> void:
 		var target := bird.position
 		var right: bool = s.rights[birds[j][1]] == 1
 		bird.position = Vector2(1240.0 if right else -160.0, target.y - 420.0 - randf() * 200.0)
-		bird.fly_to(target, ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0), ENTRANCE_FLIGHT, false, true)
+		bird.fly_to(target, (ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0)) * k, ENTRANCE_FLIGHT * k, false, true)
 		last = bird
 	if last:
 		await last.finished
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1 * k).timeout
+	var skipped := Engine.time_scale > 1.0
 	Engine.time_scale = 1.0
 	_entrance_running = false
 	busy = false
+	if OS.is_debug_build():
+		print("ENTRANCE level=%d kind=%s skipped=%s ms=%d" % [int(level["id"]), "quick" if quick else "full", skipped,
+			Time.get_ticks_msec() - started])
 	_watch_stuck()
 
 ## ---------- HUD ----------
@@ -576,8 +594,10 @@ const LABEL_BASELINE := 160.0
 const LABEL_LINE := 208.0
 const NUMBER_BASELINE := 126.0 / 128.0
 const GEAR := Vector2(968, 104)
-const TOOL_Y := 1792.0
+## Tools sit on one dark HUD bar centred at the bottom, 48 px from the screen edge like the status pill at the top.
+const TOOL_Y := 1784.0
 const TOOL_GAP := 48.0
+const TOOL_PAD := 24.0           # bar edge to the buttons, all four sides
 ## Hanging house: sprite, visible content and doorway in sprite pixels, and where the rope meets it.
 const HOUSES := {
 	"default": ["house_default", Rect2(122, 62, 778, 878), Rect2(313, 418, 378, 380), 70.0],
@@ -812,7 +832,13 @@ func _build_tools() -> void:
 	var tools := _visible_tools()
 	_tool_slots.clear()
 	var n := tools.size()
-	var x := 540.0 - (n * UI.SECONDARY + (n - 1) * TOOL_GAP) * 0.5 + UI.SECONDARY * 0.5
+	var row_w := n * UI.SECONDARY + (n - 1) * TOOL_GAP
+	if n > 0:
+		var bar_h := UI.SECONDARY + TOOL_PAD * 2.0
+		var bar := UI.shape(_tool_bar, Rect2(540.0 - row_w * 0.5 - TOOL_PAD, TOOL_Y - bar_h * 0.5, row_w + TOOL_PAD * 2.0, bar_h),
+			"hud", bar_h * 0.5, 6.0)
+		bar.name = "ToolBar"
+	var x := 540.0 - row_w * 0.5 + UI.SECONDARY * 0.5
 	for kind in tools:
 		var centre := Vector2(x, TOOL_Y)
 		x += UI.SECONDARY + TOOL_GAP
@@ -870,6 +896,7 @@ func tap_branch(b: int) -> void:
 			return
 		if session.select(b):
 			Sound.play("select")
+			Sound.vibrate(Sound.PULSE_PICK)
 			_lift(b, true)
 		else:
 			_refuse(b)
@@ -892,6 +919,7 @@ func tap_branch(b: int) -> void:
 		session.cancel_selection()
 		if session.select(b):
 			Sound.play("select")
+			Sound.vibrate(Sound.PULSE_PICK)
 			_lift(b, true)
 		else:
 			_refuse(b)
@@ -1044,6 +1072,39 @@ func show_stuck_hint() -> void:
 		var wave := (1.0 - cos(t * TAU)) * 0.5
 		_stuck.modulate.a = 0.7 + 0.3 * wave
 		arrow.position.y = base_y - wave * 12.0, 0.0, 1.0, 1.2)
+
+## After a level gift: the gifted booster's button grows and pulses and a hand taps it, until the player acts.
+func point_at_tool(kind: int) -> void:
+	_hide_stuck()
+	var pick := -1
+	for i in _tool_slots.size():
+		if _tool_slots[i][0] == kind:
+			pick = i
+	if pick < 0:
+		return
+	var centre: Vector2 = _tool_slots[pick][1]
+	_stuck = Control.new()
+	_stuck.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(_stuck)
+	var glow_size := Vector2.ONE * UI.SECONDARY * 1.5
+	var glow := UI.image(_stuck, "glow_soft", Rect2(centre - glow_size * 0.5, glow_size))
+	glow.modulate = Color(1, 0.8, 0.3, 0.45)
+	var hand := TextureRect.new()
+	hand.texture = Art.tex("hand_pointer")
+	hand.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	hand.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	hand.size = Vector2(110, 110)
+	var rest := centre + Vector2(6, -6)
+	hand.position = rest
+	_stuck.add_child(hand)
+	if instant:
+		return
+	var tw := _stuck.create_tween().set_loops()
+	tw.tween_method(func(t: float):
+		var wave := (1.0 - cos(t * TAU)) * 0.5
+		glow.modulate.a = 0.25 + 0.35 * wave
+		glow.scale = Vector2.ONE * (0.9 + 0.2 * wave)
+		hand.position = rest + Vector2(14, 14) * wave, 0.0, 1.0, 1.0)
 
 func _hide_stuck() -> void:
 	if _stuck:
@@ -1283,6 +1344,10 @@ func _hide_hint() -> void:
 func play_events(events: Array) -> void:
 	if instant:
 		return
+	# Homings continue the board's chain of consecutive homing moves (the chorus chain), so a second flock in a
+	# row, in this move or the one before, sounds higher.
+	var homes := events.filter(func(e): return e["type"] == "flock_home").size()
+	_home_chain = maxi(0, session.state.chain - homes)
 	for e in events:
 		match e["type"]:
 			"transferred", "chicks_followed":
@@ -1353,7 +1418,56 @@ func _fly_group(e: Dictionary) -> void:
 		last = bird
 	Sound.play("move")
 	if last:
+		# The first bird touches down after its crouch (0.06 s) and flight (0.45 s): the branch takes the weight.
+		var touch := create_tween()
+		touch.tween_interval(0.51)
+		touch.tween_callback(func():
+			Sound.vibrate(Sound.PULSE_LAND)
+			_dip_branch(to))
 		await last.finished
+
+## Landing: the branch dips a few pixels under the weight and springs back (LAND_DIP_SECONDS). It bends from the
+## screen edge, so the tip moves most; the birds on it move with their seat. A refused tap keeps its wobble.
+const LAND_DIP := 7.0            # tip travel in px
+const LAND_DIP_ROOT := 0.4       # share of the travel at the screen edge
+const LAND_DIP_SECONDS := 0.25
+
+func _dip_branch(b: int) -> void:
+	if instant or b < 0 or b >= _branch_nodes.size() or not is_instance_valid(_branch_nodes[b]):
+		return
+	var node: Node2D = _branch_nodes[b]
+	var art: Node2D = node.get_node_or_null("Art")
+	if art == null:
+		return
+	var s := session.state
+	var right := s.rights[b] == 1
+	var length := maxf(1.0, _painted_length(_slot(s.rows[b], right)))
+	var riders: Array = []
+	for code in s.items[b]:
+		var bird: BirdView = _birds.get(Board.id_of(code))
+		if bird:
+			riders.append([bird, clampf(absf(bird.position.x - node.position.x) / length, 0.0, 1.0)])
+	var bend := LAND_DIP * (1.0 - LAND_DIP_ROOT) / length
+	var pose := func(f: float):
+		if not is_instance_valid(art):
+			return
+		art.position.y = LAND_DIP * LAND_DIP_ROOT * f
+		art.rotation = bend * f * (-1.0 if right else 1.0)
+		for r in riders:
+			if is_instance_valid(r[0]):
+				r[0].sag = LAND_DIP * (LAND_DIP_ROOT + (1.0 - LAND_DIP_ROOT) * r[1]) * f
+	var tw := create_tween()
+	tw.tween_method(func(u: float): pose.call(_dip_curve(u)), 0.0, 1.0, LAND_DIP_SECONDS)
+	tw.tween_callback(func(): pose.call(0.0))
+
+## 0 -> 1 eased down in the first 30 percent, then a spring back past rest (slightly up) and settle at 0.
+static func _dip_curve(u: float) -> float:
+	if u < 0.3:
+		return sin(u / 0.3 * PI * 0.5)
+	var v := (u - 0.3) / 0.7
+	var c := 1.70158
+	var back := 1.0 + (c + 1.0) * pow(v - 1.0, 3.0) + c * pow(v - 1.0, 2.0)   # ease-out back, overshoots past 1
+	return 1.0 - back
 
 func _swivel(e: Dictionary) -> void:
 	var b: int = e["branch"]
@@ -1384,16 +1498,32 @@ func _flock_home(e: Dictionary) -> void:
 		last = bird
 	if last:
 		await last.finished
-	Sound.play("nest_home")
+	# The high point: each further homing in one move chain sounds a whole tone higher.
+	_home_chain += 1
+	var pitch := pow(2.0, HOME_PITCH_STEP * mini(_home_chain - 1, HOME_PITCH_MAX) / 12.0)
+	Sound.play("nest_home", pitch)
+	if OS.is_debug_build():
+		print("FLOCK_HOME species=%s chain=%d pitch=%.3f" % [e["species"], _home_chain, pitch])
+	Sound.vibrate(Sound.PULSE_HOME)
 	_set_resident(Board.species_index(e["species"]), true)
 	_goal_gift[e["species"]].visible = false
 	_goal_check[e["species"]].visible = true
+	_sparkle_burst(_door_point())
+	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
+	_house.pivot_offset = Vector2(_house.size.x * 0.5, 0.0)
+	var rest_y := _house.position.y
 	var tw := create_tween()
-	tw.tween_property(_house, "scale", Vector2(1.08, 0.94), 0.1)
-	tw.tween_property(_house, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK)
+	tw.tween_property(_house, "scale", Vector2(1.12, 0.88), 0.08).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_property(_house, "position:y", rest_y - 14.0, 0.08).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_house, "scale", Vector2(0.94, 1.07), 0.1).set_trans(Tween.TRANS_SINE)
+	tw.parallel().tween_property(_house, "position:y", rest_y, 0.1).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(_house, "scale", Vector2.ONE, 0.17).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_glow.pivot_offset = _glow.size * 0.5
 	var glow := create_tween()
-	glow.tween_property(_glow, "modulate:a", 0.6, 0.15)
-	glow.tween_property(_glow, "modulate:a", 0.0, 0.35)
+	glow.tween_property(_glow, "modulate:a", 0.95, 0.12)
+	glow.parallel().tween_property(_glow, "scale", Vector2.ONE * 1.2, 0.3).from(Vector2.ONE * 0.9).set_ease(Tween.EASE_OUT)
+	glow.tween_property(_glow, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
+	glow.parallel().tween_property(_glow, "scale", Vector2.ONE, 0.5)
 	var goal: Control = _goal_nodes.get(e["species"])
 	if goal:
 		var pop := create_tween()
@@ -1401,6 +1531,34 @@ func _flock_home(e: Dictionary) -> void:
 		pop.tween_property(goal, "scale", Vector2.ONE, 0.2)
 	await tw.finished
 	await _door(0.0, 0.25)
+
+const HOME_PITCH_STEP := 2.0     # semitones per further homing in one chain
+const HOME_PITCH_MAX := 5
+const SPARKLES := 12
+const SPARKLE_SECONDS := 0.6
+
+## A ring of painted sparkles bursts from the doorway, spins out and fades (fire and forget, never awaited).
+func _sparkle_burst(at: Vector2) -> void:
+	if instant:
+		return
+	var tex := Art.tex("pic_sparkle")
+	if tex == null:
+		return
+	for i in SPARKLES:
+		var spark := Sprite2D.new()
+		spark.texture = tex
+		spark.position = at
+		var size := (46.0 if i % 2 == 0 else 32.0) / float(tex.get_width())
+		spark.scale = Vector2.ONE * size * 0.3
+		_hud.add_child(spark)
+		var dir := Vector2.from_angle(TAU * i / SPARKLES + 0.2)
+		var reach := 150.0 if i % 2 == 0 else 112.0
+		var tw := spark.create_tween().set_parallel()
+		tw.tween_property(spark, "position", at + dir * reach, SPARKLE_SECONDS).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw.tween_property(spark, "rotation", (1.0 if i % 2 == 0 else -1.0) * PI, SPARKLE_SECONDS)
+		tw.tween_property(spark, "scale", Vector2.ONE * size, SPARKLE_SECONDS * 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(spark, "modulate:a", 0.0, SPARKLE_SECONDS * 0.45).set_delay(SPARKLE_SECONDS * 0.55)
+		tw.chain().tween_callback(spark.queue_free)
 
 ## Fades the open-door art in or out.
 func _door(open: float, seconds: float) -> void:
@@ -1459,6 +1617,7 @@ func _gift(e: Dictionary) -> void:
 
 func _celebrate() -> void:
 	busy = true
+	_last_won = int(level["id"])
 	Sound.play("win_fanfare")
 	await get_tree().create_timer(0.4 if not instant else 0.0).timeout
 	won.emit({"session": session})
@@ -1472,7 +1631,9 @@ func granted(kind: int, count: int) -> void:
 ## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (three stars already lost),
 ## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
-## levels: background search time and first press, then quit).
+## levels: background search time and first press, then quit); "replay_N" / "next_N" (level N with the quick
+## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
+## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
 	if state.begins_with("day_w") or state.begins_with("night_w"):
 		var board := BoardView.new()
@@ -1576,6 +1737,63 @@ static func preview(main: Control, state: String) -> void:
 			"hint_timeout": board._show_hint_failure(Solver.Status.BUDGET_EXCEEDED)
 			"hint_unavailable": board._show_hint_failure(Solver.Status.UNSOLVABLE)
 			"hint_transfer": board.show_hint([0, 2])
+		return
+	if state.begins_with("replay_") or state.begins_with("next_"):
+		# The quick entrance: level N opened before in this run, or N right after winning N - 1.
+		var id := int(state.get_slice("_", 1))
+		if state.begins_with("replay_"):
+			_opened_levels[id] = true
+		else:
+			_last_won = id - 1
+			_last_started = id - 1
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(id), main.profile, true)
+		return
+	if state.begins_with("tool_bar"):
+		# Every tool unlocked, stock on some, one move made so undo shows: "tool_bar" (level 25), "tool_bar_N".
+		var player: Profile = main.profile.duplicate_profile()
+		player.highest_unlocked = 40
+		for kind in Board.BOOSTER_COUNT:
+			player.inventory[kind] = [3, 0, 2, 1, 5, 0][kind % 6]
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(int(state.trim_prefix("tool_bar_")) if state != "tool_bar" else 25), player, false)
+		var move: Array = Solver.best_move(board.session.state)
+		if not move.is_empty() and move[1] >= 0:
+			board.session.try_move(move[0], move[1])
+			board.sync_birds()
+			board.refresh_hud()
+		return
+	if state in ["flock_home", "landing", "flock_home_slow", "landing_slow"]:
+		# Two plain moves: "landing" lands a bird on a matching one twice; "flock_home" completes two flocks in a
+		# row (the second home sound is a whole tone higher).
+		var feel := {"id": 98, "world": 1, "variant": "morning", "capacity": 4, "par": 12, "branches": [
+			{"side": "L", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sunny", "sunny"]},
+			{"side": "R", "row": 0, "kind": "normal", "seats": 0, "birds": ["berry", "sunny"]},
+			{"side": "L", "row": 1, "kind": "normal", "seats": 0, "birds": ["sky", "sky", "sky"]},
+			{"side": "R", "row": 1, "kind": "normal", "seats": 0, "birds": ["berry", "sky"]},
+			{"side": "L", "row": 2, "kind": "normal", "seats": 0, "birds": ["berry", "berry"]},
+			{"side": "R", "row": 2, "kind": "normal", "seats": 0, "birds": []}]}
+		if state.begins_with("landing"):
+			for b in 6:
+				feel["branches"][b]["birds"] = [["berry", "sunny"], ["berry", "sunny"], ["berry", "sky"], ["berry", "sky"],
+					["sunny", "sunny"], ["sky", "sky"]][b]
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(feel, main.profile, false)
+		if state.ends_with("_slow"):
+			Engine.time_scale = 0.2   # frame evidence: game time runs at a fifth, so each saved frame is a short step
+		for move in [[1, 0], [3, 2]]:
+			await main.get_tree().create_timer(0.8).timeout
+			board.tap_branch(move[0])
+			await main.get_tree().create_timer(0.4).timeout
+			board.tap_branch(move[1])
+			await main.get_tree().process_frame
+			while board.busy:
+				await main.get_tree().process_frame
 		return
 	if state.begins_with("level_"):   # the real level on the board, without the first-visit popups
 		var board := BoardView.new()
