@@ -47,13 +47,13 @@ func setup(p: Profile) -> void:
 	_build_birds()
 	var coins := str(profile.coins)
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
-	_art_button("Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
+	UI.art_button(self, "Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
 	var level := _next_level()
-	_art_button("Play", "home_button_play", PLAY, func(): play_requested.emit(level))
+	UI.art_button(self, "Play", "home_button_play", PLAY, func(): play_requested.emit(level))
 	var top := [["Daily", "daily", challenge_requested], ["Checkin", "checkin", checkin_requested]]
 	for i in top.size():
 		var r := Rect2(540.0 - TILE.x - NAV_GAP if i == 0 else 540.0 + NAV_GAP, TOP_ROW_Y, TILE.x, TILE.y)
-		var tb := _art_button(top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
+		var tb := UI.art_button(self, top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
 		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(tb, "1")
 		elif top[i][0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
@@ -62,7 +62,7 @@ func setup(p: Profile) -> void:
 		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]
 	var left := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
 	for i in places.size():
-		var nb := _art_button(places[i][0], "home_button_" + places[i][1], Rect2(left + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y),
+		var nb := UI.art_button(self, places[i][0], "home_button_" + places[i][1], Rect2(left + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y),
 			(places[i][2] as Signal).emit)
 		if places[i][0] == "Chest" and Progress.chests_ready(profile) > 0:
 			_badge(nb, str(Progress.chests_ready(profile)))
@@ -105,30 +105,6 @@ func _free_seat() -> int:
 		if not _birds.any(func(b): return b[1] == i):
 			return i
 	return -1
-
-## Painted button picture (word painted in); a press sinks it slightly.
-func _art_button(n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
-	var b := Button.new()
-	b.name = n
-	b.focus_mode = Control.FOCUS_NONE
-	var empty := StyleBoxEmpty.new()
-	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
-		b.add_theme_stylebox_override(state, empty)
-	UI.place(b, r)
-	var face := UI.art(b, picture, Rect2(Vector2.ZERO, r.size))
-	face.name = "Face"
-	face.pivot_offset = r.size * 0.5
-	b.button_down.connect(func():
-		face.scale = Vector2.ONE * 0.95
-		face.self_modulate = Color(0.92, 0.92, 0.92))
-	b.button_up.connect(func():
-		face.scale = Vector2.ONE
-		face.self_modulate = Color.WHITE)
-	b.pressed.connect(func():
-		Sound.play("ui_tap")
-		on_press.call())
-	add_child(b)
-	return b
 
 ## Red count badge on a tile's top-right corner.
 func _badge(b: Control, text: String) -> void:

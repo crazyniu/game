@@ -170,7 +170,12 @@ func show_chest() -> void:
 			return
 		Sound.play("collect")
 		save()
-		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen))
+		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen),
+		_play_next if screen is HomeView else Callable())
+
+func _play_next() -> void:
+	var level := Progress.next_level(profile)
+	_start_level(level if level > 0 else 40)
 
 func _refresh_screen() -> void:
 	if screen and screen.has_method("setup") and not screen is BoardView:

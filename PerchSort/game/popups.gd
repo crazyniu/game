@@ -235,7 +235,7 @@ static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
 	var tile := Vector2(176, 200)
 	var gap := 20.0
-	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	for i in 7:
@@ -264,7 +264,9 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 		if done:
 			card.modulate.a = 0.5
 			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
-	var claim: Button = p.actions([["green", "play", on_claim, "checkin.claim"]])[0]
+	# Claim sits inside the panel under the days (user sketch).
+	var claim := UI.pill(c, "Claim", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[1]), UI.PLAY_SIZE), "green", "checkin.claim",
+		func(): p.invoke(on_claim), "", 52.0)
 	UI.set_active(claim, day > 0)
 	return p
 
@@ -336,8 +338,10 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 	return m
 
 ## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
-static func chest(host: Control, progress: int, ready: int, on_open: Callable) -> Control:
-	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+## With `on_play` a second green Play sits under Open (user sketch), so the player can go on playing for stars.
+static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable()) -> Control:
+	var actions_h := UI.PLAY_SIZE.y * (2.0 if on_play.is_valid() else 1.0) + (ACTION_STACK if on_play.is_valid() else 0.0)
+	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, actions_h, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
@@ -354,7 +358,12 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable) -
 	UI.number(c, text, Rect2(bar.position.x + 80.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
 	var open: Button = p.actions([["green", "play", on_open, "chest.open"]])[0]
 	UI.set_active(open, ready > 0)
+	if on_play.is_valid():
+		var at := Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, open.position.y + UI.PLAY_SIZE.y + ACTION_STACK)
+		UI.pill(c, "Play", Rect2(at, UI.PLAY_SIZE), "green", "action.play", func(): p.invoke(on_play), "", 52.0)
 	return p
+
+const ACTION_STACK := 28.0
 
 ## What a check-in or chest gave: coins and boosters, in a row; OK closes.
 static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable) -> Control:
@@ -727,7 +736,7 @@ static func preview(main: Control, state: String) -> void:
 		"level_gift": level_gift(host, Board.Booster.MORNING_BELL, noop)
 		"checkin_day3": checkin(host, 3, 2, noop)
 		"chapters": chapters(host, _chapter_profile(), noop1)
-		"chest_half": chest(host, 17, 0, noop)
+		"chest_half": chest(host, 17, 0, noop, noop)
 		"chest_ready": chest(host, 31, 1, noop)
 		"rewards_chest": rewards(host, "chest.title", 150, [0, 3], noop)
 		"new_friend_berry": new_friend(host, "berry", 25, noop)

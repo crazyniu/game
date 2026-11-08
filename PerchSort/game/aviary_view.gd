@@ -21,19 +21,23 @@ const BODY_CAP := 44.0
 const MARGIN := 48.0
 const RIGHT := 1032.0
 ## List grid: two columns of cards between the margins, scrolled under the top bar.
-const CLIP_TOP := 264.0
-const CLIP_HEIGHT := 1536.0
+const FRAME := Rect2(36, 300, 1008, 1590)   # the wooden frame around the grid (user sketch)
+const CLIP_TOP := 392.0
+const CLIP_X := 84.0
+const CLIP_W := 912.0
+const GRID_X := 24.0
+const CLIP_HEIGHT := 1440.0
 const GRID_TOP := 16.0            # first card row inside the clip
 const GRID_BOTTOM := 16.0         # under the last card row
 const GAP := 32.0
-const CARD_W := 476.0
-const CARD_H := 480.0
-const CARD_BIRD := Rect2(64, 40, 348, 308)
-const CARD_NAME := Rect2(40, 364, 396, 88)
+const CARD_W := 416.0
+const CARD_H := 420.0
+const CARD_BIRD := Rect2(56, 35, 304, 270)
+const CARD_NAME := Rect2(35, 316, 346, 78)
 const CARD_BADGE := 64.0
 const QUESTION_CAP := 96.0
-const TRACK_X := 1052.0
-const TRACK_W := 8.0
+const TRACK_X := 990.0
+const TRACK_W := 12.0
 const THUMB_MIN := 96.0
 const DRAG_START := 12.0
 const FRICTION := 5.0             # fling velocity decay per second (exponential)
@@ -174,10 +178,11 @@ func _show_list() -> void:
 	wash.size = size
 	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page.add_child(wash)
+	UI.kit_piece(_page, "panel", FRAME, UI.PANEL_SCALE).name = "Frame"
 	_clip = Control.new()
 	_clip.name = "Scroll"
 	_clip.clip_contents = true
-	UI.place(_clip, Rect2(0, CLIP_TOP, 1080, CLIP_HEIGHT))
+	UI.place(_clip, Rect2(CLIP_X, CLIP_TOP, CLIP_W, CLIP_HEIGHT))
 	_clip.mouse_filter = Control.MOUSE_FILTER_STOP
 	_clip.gui_input.connect(_on_scroll_input)
 	_page.add_child(_clip)
@@ -191,9 +196,9 @@ func _show_list() -> void:
 		var id: String = Aviary.SPECIES[i][0]
 		if profile.has_met(id):
 			met += 1
-		_card(id, Vector2(MARGIN + (i % 2) * (CARD_W + GAP), GRID_TOP + (i / 2) * (CARD_H + GAP)))
+		_card(id, Vector2(GRID_X + (i % 2) * (CARD_W + GAP), GRID_TOP + (i / 2) * (CARD_H + GAP)))
 	var rows := ceili(count / 2.0)
-	_content.size = Vector2(1080, GRID_TOP + rows * (CARD_H + GAP) - GAP + GRID_BOTTOM)
+	_content.size = Vector2(CLIP_W, GRID_TOP + rows * (CARD_H + GAP) - GAP + GRID_BOTTOM)
 	_max_scroll = maxf(0.0, _content.size.y - _clip.size.y)
 	_build_track()
 	_list_header(met, count)
@@ -227,7 +232,7 @@ func _list_header(met: int, count: int) -> void:
 	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
 	close.button_down.connect(func(): icon.position.y += 6.0)
 	close.button_up.connect(func(): icon.position.y -= 6.0)
-	UI.title_ribbon(_page, "aviary.title", Vector2(430, 104), 52.0, 460.0)   # between the close button and the counter
+	UI.title_ribbon(_page, "aviary.title", Vector2(540, FRAME.position.y + 8.0), 56.0, 520.0)   # on the frame top
 	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
 	counter.name = "MetCounter"
 	_list_icon(counter, FEATHER_ICON, Rect2(16, 20, 56, 56), LIST_GREEN)
@@ -241,7 +246,7 @@ func _card(id: String, at: Vector2) -> void:
 	var bird_box := Rect2(CARD_BIRD.position, CARD_BIRD.size)
 	if met:
 		_live_bird(card, id, _outfit_key(id), bird_box)
-		TextArt.label(card, "bird.%s.name" % id, CARD_NAME, 48.0, LIST_INK)
+		TextArt.label(card, "bird.%s.name" % id, CARD_NAME, 44.0, LIST_INK)
 		if PopupsScript.EFFECT.has(id):
 			UI.shape(card, Rect2(CARD_W - 100, 20, 80, 80), "cream", 40.0, 0.0, false)
 			UI.art(card, "gift_coin_" + PopupsScript.EFFECT[id],
@@ -256,9 +261,9 @@ func _card(id: String, at: Vector2) -> void:
 func _build_track() -> void:
 	var visible_h := _clip.size.y - GRID_BOTTOM
 	_track = Rect2(TRACK_X, CLIP_TOP + GRID_TOP, TRACK_W, visible_h - GRID_TOP)
-	var track := _pill(_track, Color(UI.INK, 0.12))
+	var track := _pill(_track, Color(UI.RIM["cream"], 0.9))
 	track.name = "Track"
-	_thumb = _pill(Rect2(_track.position, Vector2(TRACK_W, THUMB_MIN)), Color(UI.INK, 0.45))
+	_thumb = _pill(Rect2(_track.position, Vector2(TRACK_W, THUMB_MIN)), UI.FILL["green"])
 	_thumb.name = "Thumb"
 	var show := _max_scroll > 0.0
 	track.visible = show

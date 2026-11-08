@@ -112,8 +112,8 @@ static func _box(fill: Color, rim: Color, radius: float, edge: float, shadow := 
 ## Every surface is a Codex-painted piece: discs, pills, capsules, cards, the wooden panel and the HUD bar.
 
 static var _kit_meta: Dictionary = {}
-const PANEL_SCALE := 0.6     # the wooden popup frame keeps this share of its painted thickness
-const CARD_SCALE := 0.62
+const PANEL_SCALE := 0.5     # the wooden popup frame keeps this share of its painted thickness
+const CARD_SCALE := 0.72
 
 static func _kit(name: String) -> Dictionary:
 	if _kit_meta.is_empty():
@@ -298,7 +298,7 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.size = r.size
 	b.add_child(content)
-	cap = minf(cap if cap > 0.0 else 48.0, r.size.y * 0.30)   # words stay about a third of the button height
+	cap = minf(cap if cap > 0.0 else 56.0, r.size.y * 0.40)   # words fill about two fifths of the button height (sketch)
 	var pad := r.size.y * 0.42
 	var x := pad
 	var w := r.size.x - pad * 2.0
@@ -371,6 +371,30 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 60.0 * k, lw, 40.0 * k), cap, ink)
 	b.button_down.connect(func(): body.position.y = 4.0)
 	b.button_up.connect(func(): body.position.y = 0.0)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	parent.add_child(b)
+	return b
+
+## Painted button picture (word painted in); a press sinks it slightly.
+static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
+	var b := Button.new()
+	b.name = n
+	b.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(state, empty)
+	place(b, r)
+	var face := art(b, picture, Rect2(Vector2.ZERO, r.size))
+	face.name = "Face"
+	face.pivot_offset = r.size * 0.5
+	b.button_down.connect(func():
+		face.scale = Vector2.ONE * 0.95
+		face.self_modulate = Color(0.92, 0.92, 0.92))
+	b.button_up.connect(func():
+		face.scale = Vector2.ONE
+		face.self_modulate = Color.WHITE)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

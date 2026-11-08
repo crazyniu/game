@@ -208,7 +208,13 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	UI.button(_bar, "Close", Vector2(112, BAR_Y), "red", "close", func(): closed.emit())
-	UI.title_ribbon(_bar, "shop.title", Vector2(540, BAR_Y), 52.0, 460.0)
+	# The title hangs on the painted wooden sign (user sketch), ropes rising behind the top edge.
+	var sign := Rect2(540.0 - 230.0, BAR_Y - 112.0, 460.0, 180.0)
+	UI.art(_bar, "map_sign", sign).name = "Sign"
+	var plank := Rect2(sign.position.x + sign.size.x * 0.12, sign.position.y + sign.size.y * 0.44, sign.size.x * 0.76, sign.size.y * 0.42)
+	var w := minf(plank.size.x, UI.label_width("shop.title", 56.0))
+	UI.outline_to(UI.label(_bar, "shop.title", Rect2(plank.get_center().x - w * 0.5, plank.position.y - 4.0, w, plank.size.y + 8.0), 56.0,
+		Color.WHITE), "orange")
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -227,6 +233,8 @@ func _refresh() -> void:
 	var x := 540.0 - (TABS.size() - 1) * (TAB_SIZE.x + TAB_GAP * 0.5) * 0.5
 	for i in TABS.size():
 		_tab_button(i, Vector2(x + i * (TAB_SIZE.x + TAB_GAP * 0.5), TAB_Y))
+	# One big cream card with the green rim holds every tab's content (user sketch).
+	UI.kit_piece(_grid, "card", Rect2(24, GRID_TOP - 28.0, 1032, 1896.0 - GRID_TOP), UI.CARD_SCALE).name = "Sheet"
 	if TABS[tab] == Shop.OUTFIT:
 		_kind_cards()
 		return
