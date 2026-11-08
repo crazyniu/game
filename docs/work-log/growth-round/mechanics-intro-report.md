@@ -59,7 +59,10 @@ All commands were run from the worktree root.
   `godot --path PerchSort --audio-driver Dummy --rendering-driver opengl3 --resolution 1080x1920 --fixed-fps 30 --
   --capture=<abs>/m.png --motion --preview=tutorial:lesson_<m> --frames=<abs>/build/lesson-frames/<m> --wait=16
   --step=0.1` under `xvfb-run`. This gives 160 frames per lesson in `build/lesson-frames/<m>/`. The contact sheets
-  `build/lesson-frames/sheet_<m>.jpg` (every 4th frame) were inspected; each lesson plays its full cycle and loops.
+  `build/lesson-frames/sheet_<m>.jpg` (every 4th frame, 0.4 s apart) were inspected; each lesson plays its full
+  cycle and loops (cycle length: sleep about 9.6 s, mama 4.8 s plus reset, egg 5.6 s, day/night 12.4 s). Committed
+  copies: [mechanics-intro-evidence/frames_<m>.jpg](mechanics-intro-evidence/), stills overview
+  `stills_all_lessons.jpg`, proof log `lesson_once.log`.
   Note: `--frames` takes an absolute path; a relative one resolves against `PerchSort/`.
 - Once-per-mechanic proof: real autoplay runs with a persisted profile in an isolated user directory
   (`XDG_DATA_HOME=<scratch>/data`, so the real save is never touched). The profile was pre-seeded with every species
