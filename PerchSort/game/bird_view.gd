@@ -53,6 +53,7 @@ var outfit := ""          # outfit key, e.g. "sunny_outfit_1"
 var acting := false
 var selected := false
 var quiet := false         # true while instant captures run
+var sounds := false        # wing sounds: only birds on the board make them; menus play just the music
 
 var _body: Node2D
 var _sprite: Sprite2D
@@ -639,7 +640,8 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, 0.06)
 	await crouch.finished
 	_stop_hover()
-	Sound.play("flutter", randf_range(0.95, 1.08))
+	if sounds:
+		Sound.play("flutter", randf_range(0.95, 1.08))
 	var height := 215.0 if leap else 160.0
 	if doorway:
 		height = minf(height, (start.y - target.y) * 0.25)

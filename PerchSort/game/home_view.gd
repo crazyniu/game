@@ -17,8 +17,10 @@ const RIGHT_PERCH := 1243.0
 const LEFT_SEATS := [120.0, 250.0, 380.0, 510.0]
 const RIGHT_SEATS := [470.0, 600.0, 730.0]
 const BIRD_SCALE := 0.95
-const PLAY_Y := 1500.0
-const NAV_Y := 1752.0
+const PLAY_Y := 1520.0
+const PLAY_W := 520.0
+const PLAY_H := 152.0          # at most 1.25 x the 128 secondary buttons
+const NAV_Y := 1724.0
 const NAV_GAP := 200.0
 const FLIT_EVERY := 6.0
 
@@ -43,21 +45,24 @@ func setup(p: Profile) -> void:
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
 	UI.button(self, "Settings", Vector2(968, 104), "cream", "gear", func(): settings_requested.emit())
 	var level := _next_level()
-	var play := UI.button(self, "Play", Vector2(540, PLAY_Y), "green", "play", func(): play_requested.emit(level))
-	play.name = "Play"
-	# Which level Play opens: the map picture and its number on a small chip under the button.
-	var num_w := UI.number_width(str(level), 40.0)
-	var chip_w := 16.0 + 56.0 + 12.0 + num_w + 28.0
-	var chip := UI.shape(self, Rect2(540.0 - chip_w * 0.5, PLAY_Y + 84.0, chip_w, 72.0), "cream", 36.0, 6.0)
+	# Which level Play opens: a cream chip with the map picture and the number, right above the button.
+	var num_w := UI.number_width(str(level), 44.0)
+	var chip_w := 20.0 + 60.0 + 12.0 + num_w + 32.0
+	var chip := UI.shape(self, Rect2(540.0 - chip_w * 0.5, PLAY_Y - 160.0, chip_w, 80.0), "cream", 40.0, 6.0)
 	chip.name = "Level"
-	UI.art(chip, "pic_map", Rect2(16, 6, 56, 56))
-	UI.number(chip, str(level), Rect2(84, 13, num_w + 2.0, 40), UI.INK, -1)
-	var buttons := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
-		["Aviary", "aviary", aviary_requested], ["Help", "info", help_requested]]
+	UI.art(chip, "pic_map", Rect2(20, 8, 60, 60))
+	UI.number(chip, str(level), Rect2(92, 16, num_w + 2.0, 44), UI.INK, -1)
+	var play := UI.pill(self, "Play", Rect2(540.0 - PLAY_W * 0.5, PLAY_Y - PLAY_H * 0.5, PLAY_W, PLAY_H), "green",
+		"action.play", func(): play_requested.emit(level), "", 64.0)
+	play.name = "Play"
+	var buttons := [["Map", "map", map_requested, "home.map"], ["Shop", "shop", shop_requested, "home.shop"],
+		["Aviary", "aviary", aviary_requested, "home.aviary"], ["Help", "info", help_requested, "home.help"]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][2]
 		var x := 540.0 + (i - (buttons.size() - 1) * 0.5) * NAV_GAP
 		UI.button(self, buttons[i][0], Vector2(x, NAV_Y), "cream", buttons[i][1], sig.emit)
+		var lw := minf(180.0, UI.label_width(buttons[i][3], 34.0))
+		UI.label(self, buttons[i][3], Rect2(x - lw * 0.5, NAV_Y + 62.0, lw, 60.0), 34.0, UI.INK).name = "Caption"
 	if not instant:
 		_entrance()
 

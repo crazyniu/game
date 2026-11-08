@@ -154,7 +154,7 @@ static func kit_piece(parent: Node, name: String, r: Rect2, scale := 0.0) -> Con
 static func _shape_piece(r: Rect2, kind: String, radius: float) -> Array:
 	var round := absf(r.size.x - r.size.y) < 2.0 and radius >= r.size.x * 0.5 - 1.0
 	if round:
-		return ["disc_ring" if kind == "cream" else "disc_" + kind, 0.0]
+		return ["disc_cream" if kind == "cream" else "disc_" + kind, 0.0]
 	if kind == "hud":
 		return ["hud_bar", 0.0]
 	if radius >= r.size.y * 0.5 - 1.0:
@@ -247,7 +247,7 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 	var b := Button.new()
 	b.name = name
 	b.focus_mode = Control.FOCUS_NONE
-	_skin_button(b, ("pill_" + kind) if icon_name == "play" else ("disc_ring" if kind == "cream" else "disc_" + kind),
+	_skin_button(b, ("pill_" + kind) if icon_name == "play" else ("disc_cream" if kind == "cream" else "disc_" + kind),
 		Rect2(Vector2.ZERO, dimensions))
 	place(b, Rect2(center - dimensions * 0.5, dimensions))
 	if not icon_name.is_empty():

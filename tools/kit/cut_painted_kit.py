@@ -13,13 +13,15 @@ import numpy as np
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SRC = os.path.join(ROOT, "tools", "kit", "painted")
-OUT = os.path.join(ROOT, "PerchSort", "art", "kit")
+import sys
+# python3 tools/kit/cut_painted_kit.py [source dir] [output dir] (defaults: tools/kit/painted -> PerchSort/art/kit)
+SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "tools", "kit", "painted")
+OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, "PerchSort", "art", "kit")
 
 # Reading order (rows top to bottom, then left to right) of each sheet.
 NAMES = {
     "kit_buttons.png": ["pill_green", "pill_orange", "pill_blue", "pill_red", "pill_grey", "toggle_on",
-                        "disc_green", "disc_orange", "disc_blue", "disc_red", "disc_ring"],
+                        "disc_green", "disc_orange", "disc_blue", "disc_red", "disc_cream"],
     "kit_frames.png": ["ribbon", "capsule", "panel", "card", "hud_bar"],
     "kit_extra.png": ["capsule_plain", "toggle_off", "badge"],
 }
