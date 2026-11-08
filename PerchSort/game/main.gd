@@ -26,6 +26,7 @@ func _ready() -> void:
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
+	Sound.vibration = profile.vibration
 	popups = Control.new()
 	popups.name = "Popups"
 	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -98,6 +99,9 @@ func _open_home() -> void:
 	home.aviary_requested.connect(open_aviary)
 	home.settings_requested.connect(func(): show_settings(false))
 	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
+	home.checkin_requested.connect(show_checkin)
+	home.chest_requested.connect(show_chest)
+	home.challenge_requested.connect(start_challenge)
 	Sound.music("bgm_menu")
 
 func open_map() -> void:
@@ -115,14 +119,57 @@ func _open_map() -> void:
 	map.home_requested.connect(open_home)
 	Sound.music("bgm_menu")
 
+## The seven-day check-in opens by itself on the first launch of a day.
 func _offer_daily_gift() -> void:
-	if Progress.today() <= profile.last_daily_gift:
-		return
-	Popups.daily_gift(popups, 50, func():
-		Progress.claim_daily_gift(profile, Progress.today())
+	if Progress.checkin_day(profile, Progress.today()) > 0:
+		show_checkin()
+
+func show_checkin() -> void:
+	var day := Progress.checkin_day(profile, Progress.today())
+	Popups.checkin(popups, day, day - 1 if day > 0 else profile.checkin_streak, func():
+		var got := Progress.claim_checkin(profile, Progress.today())
+		if got.is_empty():
+			return
 		Sound.play("collect")
 		save()
-		_refresh_screen())
+		Popups.rewards(popups, "checkin.title", got["coins"], got["boosters"], _refresh_screen))
+
+## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
+func start_challenge() -> void:
+	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
+	if def.is_empty():
+		Sound.play("error")
+		return
+	_go(func():
+		_clear_popups()
+		_close_overlay()
+		var board := BoardView.new()
+		board.instant = instant()
+		set_screen(board)
+		board.start(def, profile, not instant())
+		board.profile_changed.connect(save)
+		board.settings_requested.connect(func(): show_settings(true))
+		board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
+		board.buy_requested.connect(func(kind): open_shop(0, true))
+		board.won.connect(func(_result: Dictionary):
+			profile.inventory = board.session.state.inventory.duplicate()
+			var got := Progress.complete_challenge(profile, Progress.today())
+			save()
+			if got.is_empty():
+				open_home()
+				return
+			Sound.play("collect")
+			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
+		Sound.music("bgm_game"))
+
+func show_chest() -> void:
+	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
+		var got := Progress.open_chest(profile)
+		if got.is_empty():
+			return
+		Sound.play("collect")
+		save()
+		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen))
 
 func _refresh_screen() -> void:
 	if screen and screen.has_method("setup") and not screen is BoardView:
@@ -234,6 +281,8 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.instant = instant()
 	set_screen(board)
 	var def := Levels.get_level(level_id)
+	# Each level's first open hands out one useful booster, so players learn to use them (shown after the entrance).
+	var gift := Progress.level_gift(profile, level_id, def)
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
@@ -251,10 +300,19 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		if info[2] == level_id and not profile.has_tutorial(flag):
 			profile.set_tutorial(flag)
 			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
+	if gift >= 0:
+		queue.append(func(done: Callable): Popups.level_gift(popups, gift, func():
+			if is_instance_valid(board) and board.has_method("point_at_tool"):
+				board.point_at_tool(gift)
+			done.call()))
 	# The first open of level 1 ends with the how-to-play steps, shown once.
 	if level_id == 1 and not profile.has_tutorial(Tutorial.FLAG):
 		profile.set_tutorial(Tutorial.FLAG)
 		queue.append(func(done: Callable): Tutorial.open(popups, done, instant()))
+	# A mechanic's first level then shows its one-step lesson, once per mechanic.
+	for mechanic in Tutorial.due_lessons(profile, def):
+		profile.set_tutorial(Tutorial.lesson_flag(mechanic))
+		queue.append(func(done: Callable): Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
 	save()
 	if not queue.is_empty():
 		while entrance and is_instance_valid(board) and board.busy:
@@ -307,6 +365,10 @@ func show_settings(on_board: bool) -> void:
 		"sound": func(on: bool):
 			profile.muted = not on
 			Sound.set_muted(profile.muted)
+			save(),
+		"vibration": func(on: bool):
+			profile.vibration = on
+			Sound.vibration = on
 			save(),
 		"restart": func():
 			_clear_popups()

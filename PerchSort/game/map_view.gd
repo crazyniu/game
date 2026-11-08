@@ -45,8 +45,6 @@ const GATE_CENTER_X := 870.0     # right of the trail so the current bird of the
 const GATE_CENTER_Y := 100.0     # between the last node of a world and the first of the next
 const GATE_PADLOCK := Vector2(0.5, 0.68)   # painted padlock on the closed gate, fraction of its visible box
 const GATE_LOCK := 112.0
-const TITLE_CAP := 36.0
-const TITLE_PAD := 32.0
 const TOP_Y := 56.0
 const TRAIL_VIEW := Rect2(0, 200, 1080, 1720)
 ## A soft fade in the painting's own colour sits behind the fixed header.
@@ -64,6 +62,20 @@ const NAV_GAP := 200.0
 ## star row extending below the node centre.
 const TOP_PAD := TOP_CLEAR - (360.0 - 240.0)
 const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
+## At either scroll end no node may sit under the bottom buttons: the end moves outward (extra painted room) to
+## the offset where nodes, their stars and the buttons overlap least (ideally not at all), at most END_SEARCH px.
+const NAV_COUNT := 3
+const NAV_CLEAR := 8.0           # free ring around each bottom button
+const END_SEARCH := 600.0
+## World ribbon: shown for RIBBON_SECONDS when the view enters a world, below the top bar.
+const RIBBON_Y := 292.0
+const RIBBON_CAP := 56.0
+const RIBBON_MAX_W := 720.0
+const RIBBON_SECONDS := 2.0
+const RIBBON_FADE := 0.35
+const PROGRESS_H := 88.0
+const PROGRESS_STAR := 56.0
+const PROGRESS_CAP := 44.0
 
 var profile: Profile
 var current_level := 1
@@ -74,8 +86,11 @@ var _clip: Control
 var _content: Control
 var _hud: Control
 var _coins: Panel
-var _title: Panel
 var _title_world := 0
+var _ribbon: Control
+var _top_pad := TOP_PAD
+var _bottom_pad := BOTTOM_PAD
+static var _announced_world := 0   # the world whose ribbon was shown last in this run
 var _top_fade: TextureRect
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
 var _dragging := false
@@ -90,7 +105,7 @@ func setup(player: Profile) -> void:
 		child.queue_free()
 	_hit_rects.clear()
 	_bird = null
-	_title = null
+	_ribbon = null
 	_dragging = false
 	_velocity = 0.0
 	size = Vector2(1080, 1920)
@@ -98,6 +113,7 @@ func setup(player: Profile) -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var next := Progress.next_level(profile)
 	current_level = next if next > 0 else 40
+	_fit_scroll_ends()
 	_build_content()
 	_build_hud()
 	scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO)
@@ -124,7 +140,7 @@ func show_gate(world: int) -> void:
 	scroll_to(_gate_center(world).y - size.y * 0.35)
 
 func scroll_to(value: float) -> void:
-	offset = clampf(value, -TOP_PAD, CONTENT_H - size.y + BOTTOM_PAD)
+	offset = clampf(value, -_top_pad, CONTENT_H - size.y + _bottom_pad)
 	_paintings.position.y = -offset
 	_content.position.y = -offset - TRAIL_VIEW.position.y
 	_update_title()
@@ -280,7 +296,7 @@ func _build_hud() -> void:
 		["Help", "cream", "info", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][3]
-		var x := 540.0 + (i - (buttons.size() - 1) * 0.5) * NAV_GAP
+		var x := _nav_x(i)
 		UI.button(_hud, buttons[i][0], Vector2(x, NAV_Y), buttons[i][1], buttons[i][2], sig.emit, UI.SECONDARY)
 
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
@@ -288,18 +304,18 @@ func _build_hud() -> void:
 func _overscroll_top() -> void:
 	var tex := Art.tex("map_bg_continuous_w4")
 	var k := float(tex.get_height()) / SEGMENT
-	var h := ceilf(maxf(TOP_PAD, OVERLAP) * k)
+	var h := ceilf(maxf(_top_pad, OVERLAP) * k)
 	var img := tex.get_image().get_region(Rect2i(0, 0, tex.get_width(), int(h)))
 	img.convert(Image.FORMAT_RGB8)
 	var opaque := ImageTexture.create_from_image(img)
-	_strip(opaque, Rect2(0, 0, tex.get_width(), TOP_PAD * k), Rect2(0, -TOP_PAD, 1080, TOP_PAD), true)
+	_strip(opaque, Rect2(0, 0, tex.get_width(), _top_pad * k), Rect2(0, -_top_pad, 1080, _top_pad), true)
 	_strip(opaque, Rect2(0, 0, tex.get_width(), OVERLAP * k), Rect2(0, 0, 1080, OVERLAP), false)
 
 ## The room below the first world: its bottom rows reflected downwards.
 func _overscroll_bottom() -> void:
 	var tex := Art.tex("map_bg_continuous_w1")
-	var h := BOTTOM_PAD * float(tex.get_height()) / SEGMENT
-	_strip(tex, Rect2(0, tex.get_height() - h, tex.get_width(), h), Rect2(0, CONTENT_H, 1080, BOTTOM_PAD), true)
+	var h := _bottom_pad * float(tex.get_height()) / SEGMENT
+	_strip(tex, Rect2(0, tex.get_height() - h, tex.get_width(), h), Rect2(0, CONTENT_H, 1080, _bottom_pad), true)
 
 func _strip(tex: Texture2D, region: Rect2, r: Rect2, flip: bool) -> void:
 	var atlas := AtlasTexture.new()
@@ -355,11 +371,9 @@ func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
 	UI.place(t, r)
 	return t
 
-## The world title follows the trail node nearest to the upper third of the screen.
-## The world's name is no longer pinned to the map (fewer words; the painting shows the world and the World
-## Unlocked popup names it), so there is nothing to update.
+## The world the view is in follows the trail node nearest to the upper third of the screen. Entering a world
+## (also the first map view of a run) shows its ribbon; silent captures show it only when a preview asks.
 func _update_title() -> void:
-	return
 	if _hud == null:
 		return
 	var probe := offset + size.y * 0.36
@@ -374,20 +388,99 @@ func _update_title() -> void:
 	if world == _title_world:
 		return
 	_title_world = world
-	if _title != null:
-		_title.queue_free()
-	var label_id: String = WORLD_LABELS[world - 1]
-	var available := _coins.position.x - MARGIN - 24.0
-	var w := minf(UI.heading_width(label_id, TITLE_CAP) + TITLE_PAD * 2.0, available)
-	_title = UI.shape(_hud, Rect2(MARGIN, TOP_Y, w, UI.COUNTER_H), "cream", UI.COUNTER_H * 0.5, 8.0)
-	_title.name = "Title"
-	UI.heading(_title, label_id, Rect2(TITLE_PAD, 0, w - TITLE_PAD * 2.0, UI.COUNTER_H - 8.0), TITLE_CAP)
+	if world == _announced_world or _instant():
+		return
+	_announced_world = world
+	show_world_ribbon(world)
+
+## The world's name on the painted title ribbon with its star progress (painted star, "N/30") on a dark HUD pill
+## below; it fades in, holds and fades out over RIBBON_SECONDS. It never takes input.
+func show_world_ribbon(world: int) -> void:
+	if _ribbon != null and is_instance_valid(_ribbon):
+		_ribbon.queue_free()
+	_ribbon = Control.new()
+	_ribbon.name = "WorldRibbon"
+	_ribbon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_ribbon.size = size
+	_hud.add_child(_ribbon)
+	UI.title_ribbon(_ribbon, WORLD_LABELS[world - 1], Vector2(540.0, RIBBON_Y), RIBBON_CAP, RIBBON_MAX_W)
+	var earned := 0
+	for level in range((world - 1) * 10 + 1, world * 10 + 1):
+		earned += profile.best_stars(level)
+	var text := "%d/30" % earned
+	var number_w := UI.number_width(text, PROGRESS_CAP) + 8.0
+	var w := 32.0 + PROGRESS_STAR + 12.0 + number_w + 36.0
+	var face := (PROGRESS_H - 6.0) * 0.5
+	var pill := UI.shape(_ribbon, Rect2(540.0 - w * 0.5, RIBBON_Y + 104.0, w, PROGRESS_H), "hud", PROGRESS_H * 0.5, 6.0)
+	pill.name = "StarProgress"
+	UI.art(pill, "pic_star", Rect2(32.0, face - PROGRESS_STAR * 0.5, PROGRESS_STAR, PROGRESS_STAR))
+	UI.number(pill, text, Rect2(32.0 + PROGRESS_STAR + 12.0, face - PROGRESS_CAP * 0.5, number_w, PROGRESS_CAP), Color.WHITE, -1)
+	if _instant():
+		return
+	var node := _ribbon
+	node.modulate.a = 0.0
+	node.position.y = -24.0
+	var tw := node.create_tween()
+	tw.tween_property(node, "modulate:a", 1.0, RIBBON_FADE)
+	tw.parallel().tween_property(node, "position:y", 0.0, RIBBON_FADE).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(RIBBON_SECONDS - RIBBON_FADE * 2.0)
+	tw.tween_property(node, "modulate:a", 0.0, RIBBON_FADE).set_ease(Tween.EASE_IN)
+	tw.tween_callback(node.queue_free)
+
+## ---------- scroll ends ----------
+
+func _nav_x(i: int) -> float:
+	return 540.0 + (i - (NAV_COUNT - 1) * 0.5) * NAV_GAP
+
+## How far (px) any node, its stars or the current bird reach into a bottom button's clear ring at scroll offset
+## `at`; 0 or less means every node is clear.
+func _nav_overlap(at: float) -> float:
+	var worst := -INF
+	for level in range(1, 41):
+		var c := _node_pos(level) - Vector2(0.0, at)
+		if c.y < 1600.0 or c.y > 2100.0:
+			continue
+		var state := Progress.node_state(profile, level)
+		var radius := (CURRENT if state == "current" else NODE) * 0.5
+		var stars := Rect2()
+		if state == "cleared":
+			var row_w := STAR * 3.0 + STAR_GAP * 2.0
+			stars = Rect2(c.x - row_w * 0.5, c.y + STAR_DY - STAR * 0.5, row_w, STAR)
+		for i in NAV_COUNT:
+			var b := Vector2(_nav_x(i), NAV_Y)
+			var ring := UI.SECONDARY * 0.5 + NAV_CLEAR
+			worst = maxf(worst, radius + ring - c.distance_to(b))
+			if stars.has_area():
+				var near := Vector2(clampf(b.x, stars.position.x, stars.end.x), clampf(b.y, stars.position.y, stars.end.y))
+				worst = maxf(worst, ring - near.distance_to(b))
+	return worst
+
+## Moves each scroll end outward to the least-overlapping offset (the first fully clear one when there is one).
+func _fit_scroll_ends() -> void:
+	_top_pad = TOP_PAD
+	_bottom_pad = BOTTOM_PAD
+	var low := -TOP_PAD
+	var high := CONTENT_H - size.y + BOTTOM_PAD
+	_top_pad = TOP_PAD + _clear_distance(low, -1.0)
+	_bottom_pad = BOTTOM_PAD + _clear_distance(high, 1.0)
+
+func _clear_distance(from: float, direction: float) -> float:
+	var best := 0.0
+	var best_overlap := _nav_overlap(from)
+	var d := 2.0
+	while best_overlap > 0.0 and d <= END_SEARCH:
+		var overlap := _nav_overlap(from + direction * d)
+		if overlap < best_overlap - 0.5:
+			best_overlap = overlap
+			best = d
+		d += 2.0
+	return best
 
 func _process(delta: float) -> void:
 	if not _dragging and absf(_velocity) > 8.0:
 		scroll_to(offset + _velocity * delta)
 		_velocity *= pow(0.135, delta)
-		if offset <= -TOP_PAD or offset >= CONTENT_H - size.y + BOTTOM_PAD:
+		if offset <= -_top_pad or offset >= CONTENT_H - size.y + _bottom_pad:
 			_velocity = 0.0
 
 func _on_trail_input(event: InputEvent) -> void:
@@ -427,7 +520,8 @@ func _tap(screen_pos: Vector2) -> void:
 				gate_tapped.emit(hit[2])
 			return
 
-## Fake data for captures. States: forest_trail, first_level, autumn_world, all_cleared, gate_locked.
+## Fake data for captures. States: forest_trail, first_level, autumn_world, all_cleared, gate_locked,
+## top_end / bottom_end (both scroll ends, all cleared / first level) and world_ribbon (the autumn ribbon).
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
 	var cleared := 0
@@ -444,6 +538,9 @@ static func preview(main: Control, state: String) -> void:
 		"gate_locked":
 			cleared = 9
 			p.coins = 1240
+		"top_end", "world_ribbon":
+			cleared = 40 if state == "top_end" else 24
+			p.coins = 1240
 	for level in range(1, cleared + 1):
 		p.stars[level] = [3, 3, 2, 3, 1][(level - 1) % 5]
 	p.highest_unlocked = mini(40, cleared + 1)
@@ -452,3 +549,9 @@ static func preview(main: Control, state: String) -> void:
 	view.setup(p)
 	if state == "gate_locked":
 		view.show_gate(1)
+	elif state == "top_end":
+		view.scroll_to(-INF)
+	elif state == "bottom_end":
+		view.scroll_to(INF)
+	elif state == "world_ribbon":
+		view.show_world_ribbon(3)

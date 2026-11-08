@@ -84,7 +84,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var row := 104.0
-	var heights := [row, row]
+	var heights := [row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(PILL_H * 5.0 + 4.0 * 20.0)
@@ -100,6 +100,15 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
+	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
+	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 36.0, 72, 72))
+	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
+	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
+		Sound.vibration = value
+		if on.has("vibration"):
+			on["vibration"].call(value)
+		Sound.vibrate(Sound.PULSE_LAND))
+	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
 		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
@@ -212,31 +221,94 @@ static func goal_info(host: Control, species: String) -> Control:
 	_ability_line(c, species, ys[1])
 	return p
 
-static func daily_gift(host: Control, reward: int, on_claim: Callable) -> Control:
-	var p := Modal.open(host, "popup.daily_gift.title", [GIFT_H, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+## The level's start gift: the booster, "+1" and one line inviting the player to use it; Got it closes.
+static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
+	var p := Modal.open(host, "popup.gift.title", [ILLUS, LINE], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var k := GIFT_H / GIFT_CONTENT.size.y
-	var stage := Control.new()
-	stage.name = "Gift"
-	stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.size = Vector2(768, 768)
-	stage.scale = Vector2.ONE * k
-	stage.position = Vector2(540.0 - GIFT_CONTENT.get_center().x * k, ys[0] - GIFT_CONTENT.position.y * k)
-	c.add_child(stage)
-	_canvas(stage, "gift_nest")
-	for r in GIFT_COINS:
-		UI.art(stage, "coin", r)
-	_canvas(stage, "gift_box_base")
-	var lid := _canvas(stage, "gift_box_lid")
-	_canvas(stage, "gift_nest_front")
-	var bob := lid.create_tween().set_loops()
-	bob.tween_property(lid, "position:y", -8.0, 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	bob.tween_property(lid, "position:y", 0.0, 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	for i in GIFT_SPARKS.size():
-		_twinkle(UI.art(stage, "sparkle", GIFT_SPARKS[i]), i * 0.4)
-	_reward(c, ys[1], reward)
-	p.actions([["green", "check", on_claim]])
+	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
+	for i in 4:
+		var at: Vector2 = box.get_center() + Vector2.from_angle(i * TAU / 4.0 + 0.6) * ILLUS * 0.48
+		_twinkle(UI.icon(c, "sparkle", at, 56.0, UI.INK), i * 0.35)
+	_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box.grow(-20.0), true), 0.0)
+	var badge := UI.shape(c, Rect2(box.end.x - 110.0, box.position.y + 10.0, 110.0, 80.0), "green", 40.0, 6.0)
+	UI.number(badge, "+1", Rect2(14, 16, 82, 44), Color.WHITE)
+	UI.label(c, "gift.line", Rect2(108.0 + 64.0, ys[1], 864.0 - 128.0, LINE), 44.0)
+	p.actions([["green", "play", on_ok, "action.ok"]])
+	return p
+
+## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
+## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
+static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
+	var tile := Vector2(176, 200)
+	var gap := 20.0
+	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var c := p.content
+	var ys: Array = p.get_meta("ys")
+	for i in 7:
+		var row := i / 4
+		var in_row := 4 if row == 0 else 3
+		var x := 540.0 + ((i % 4) - (in_row - 1) * 0.5) * (tile.x + gap) - tile.x * 0.5
+		var r := Rect2(x, ys[0] + row * (tile.y + gap), tile.x, tile.y)
+		var today := i + 1 == day
+		var done := i + 1 <= claimed
+		if today:   # today's tile: a warm glow behind it and a gentle bob
+			var glow := UI.image(c, "glow_soft", r.grow(64.0))
+			glow.modulate = Color(1, 0.72, 0.18, 1.0)
+		var card := UI.shape(c, r, "cream", 32.0, 8.0)
+		card.name = "Day%d" % (i + 1)
+		if today and not _instant(host):
+			card.pivot_offset = r.size * 0.5
+			var bob := card.create_tween().set_loops()
+			bob.tween_property(card, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
+			bob.tween_property(card, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
+		var reward: Array = Progress.CHECKIN[i]
+		UI.number(card, str(i + 1), Rect2(0, 18, tile.x, 34), UI.INK)
+		UI.art(card, "coin", Rect2(tile.x * 0.5 - 34.0, 62, 68, 68))
+		UI.number(card, str(reward[0]), Rect2(14, 140, tile.x - 28.0, 34), UI.INK)
+		if reward[1] > 0:
+			UI.art(card, "booster_hint_illus", Rect2(tile.x - 58.0, 6, 50, 50))
+		if done:
+			card.modulate.a = 0.5
+			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
+	var claim: Button = p.actions([["green", "play", on_claim, "checkin.claim"]])[0]
+	UI.set_active(claim, day > 0)
+	return p
+
+## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
+static func chest(host: Control, progress: int, ready: int, on_open: Callable) -> Control:
+	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var c := p.content
+	var ys: Array = p.get_meta("ys")
+	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
+	var art := _fit(c, "pic_chest_open" if ready > 0 else "pic_chest", box, true)
+	_breathe(art, 0.0)
+	UI.label(c, "chest.line", Rect2(172.0, ys[1], 736.0, LINE), 40.0)
+	var bar := Rect2(220.0, ys[2], 640.0, 88.0)
+	UI.shape(c, bar, "hud", 44.0, 6.0)
+	var fill := clampf(float(progress % Progress.CHEST_STARS if ready == 0 else Progress.CHEST_STARS) / Progress.CHEST_STARS, 0.0, 1.0)
+	if fill > 0.0:
+		UI.shape(c, Rect2(bar.position + Vector2(10, 10), Vector2(maxf(68.0, (bar.size.x - 20.0) * fill), 60.0)), "orange", 30.0, 4.0)
+	UI.icon(c, "star", Vector2(bar.position.x + 4.0, bar.get_center().y - 4.0), 92.0, UI.GOLD)
+	var text := "%d/%d" % [mini(progress, Progress.CHEST_STARS) if ready == 0 else Progress.CHEST_STARS, Progress.CHEST_STARS]
+	UI.number(c, text, Rect2(bar.position.x + 80.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
+	var open: Button = p.actions([["green", "play", on_open, "chest.open"]])[0]
+	UI.set_active(open, ready > 0)
+	return p
+
+## What a check-in or chest gave: coins and boosters, in a row; OK closes.
+static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable) -> Control:
+	var p := Modal.open(host, title_id, [200.0, REWARD_H], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var c := p.content
+	var ys: Array = p.get_meta("ys")
+	var n := boosters.size()
+	for i in n:
+		var x := 540.0 + (i - (n - 1) * 0.5) * 210.0
+		_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[boosters[i]], Rect2(x - 90.0, ys[0], 180.0, 180.0), true), i * 0.4)
+	if n == 0:
+		_breathe(_fit(c, "pic_chest_open", Rect2(540.0 - 100.0, ys[0], 200.0, 200.0), true), 0.0)
+	_reward(c, ys[1], coins)
+	p.actions([["green", "play", on_ok, "action.ok"]])
 	return p
 
 static func new_friend(host: Control, species: String, reward: int, on_ok: Callable) -> Control:
@@ -585,7 +657,11 @@ static func preview(main: Control, state: String) -> void:
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")
-		"daily_gift": daily_gift(host, 50, noop)
+		"level_gift": level_gift(host, Board.Booster.MORNING_BELL, noop)
+		"checkin_day3": checkin(host, 3, 2, noop)
+		"chest_half": chest(host, 17, 0, noop)
+		"chest_ready": chest(host, 31, 1, noop)
+		"rewards_chest": rewards(host, "chest.title", 150, [0, 3], noop)
 		"new_friend_berry": new_friend(host, "berry", 25, noop)
 		"unlock_owl_eye": unlock(host, 2, noop)
 		"unlock_sapling": unlock(host, 1, noop)

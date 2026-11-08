@@ -54,6 +54,8 @@ var acting := false
 var selected := false
 var quiet := false         # true while instant captures run
 var sounds := false        # wing sounds: only birds on the board make them; menus play just the music
+var sag := 0.0             # px the perch pushes the bird down while its branch dips under a landing
+var _sag_applied := 0.0
 
 var _body: Node2D
 var _sprite: Sprite2D
@@ -189,6 +191,12 @@ func _load_frames() -> void:
 				_frame_names.erase(t)
 			_seqs["cheer"] = cheer   # painted with the outfit: drawn without the overlay
 		_keep_reliable(table.get("repaired", []))
+		# Turns painted with the outfit on (birds/<outfit>_turn_<side>_<nn>.png) replace the plain frames: the
+		# outfit turns with the head, so no overlay is drawn on them.
+		for name in ["turn_left", "turn_right"]:
+			var painted := Art.frames(outfit + "_" + name)
+			if painted.size() >= 4:
+				_seqs[name] = painted
 
 ## An outfit overlay follows measured anchors; frames whose anchors had to be repaired place it slightly off, so
 ## an outfitted bird never rests on them: a turn keeps only its reliable leading frames (a small glance), flap
@@ -382,7 +390,10 @@ func _process(delta: float) -> void:
 	var pulse := sin(maxf(_nudge, 0.0) * PI)
 	if not acting:
 		_body.scale = Vector2(sx * (1.0 + 0.05 * pulse), sy * (1.0 - 0.04 * pulse)) * base
-		_body.position = Vector2(0, -(_idle_rise + 14.0 * pulse) * density)
+		_body.position = Vector2(0, -(_idle_rise + 14.0 * pulse) * density + sag)
+	else:
+		_body.position.y += sag - _sag_applied   # a landing bird rides the dip while it finishes its squash
+	_sag_applied = sag
 	if asleep:
 		var drift := fmod(_clock, 2.4) / 2.4
 		_zzz.position = Vector2(90, -230 - 40 * drift)

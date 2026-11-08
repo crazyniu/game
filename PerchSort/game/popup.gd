@@ -147,8 +147,13 @@ func actions(items: Array, closes := true) -> Array:
 	var out := []
 	for i in items.size():
 		var cb: Callable = items[i][2]
-		var b := UI.button(content, str(items[i][1]).capitalize(), Vector2(x + sizes[i] * 0.5, cy), items[i][0], items[i][1],
-			func(): invoke(cb, closes))
+		var b: Button
+		if items[i].size() > 3:   # [kind, "play", callback, label id]: a pill with that label instead of Play
+			var at := Vector2(x, cy - UI.PLAY_SIZE.y * 0.5)
+			b = UI.pill(content, items[i][3], Rect2(at, UI.PLAY_SIZE), items[i][0], items[i][3], func(): invoke(cb, closes), "", 52.0)
+		else:
+			b = UI.button(content, str(items[i][1]).capitalize(), Vector2(x + sizes[i] * 0.5, cy), items[i][0], items[i][1],
+				func(): invoke(cb, closes))
 		out.append(b)
 		x += sizes[i] + ACTION_GAP
 	return out
