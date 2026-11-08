@@ -2,7 +2,10 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
+## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
+## records move from the old level number (key) to the new one (value) on load.
+const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
 const SAVE_PATH := "user://profile.json"
 const BOOSTER_IDS: PackedStringArray = ["firefly", "sapling", "owlEye", "morningBell", "scarecrow", "springRain"]
 
@@ -24,6 +27,9 @@ var starters := {}                  # booster index -> true
 var rewarded_worlds := {}           # world -> true
 var muted := false                  # sound effects off
 var music_muted := false            # background music off
+var level_gifts := {}               # level -> true once its start booster gift was given
+var chests_opened := 0              # star chests opened (one per CHEST_STARS stars earned)
+var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
 
 
 func _init() -> void:
@@ -86,6 +92,7 @@ func to_dict() -> Dictionary:
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
+		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak,
 	}
 
 ## Lenient load: unknown or invalid entries are dropped, like the original deserializer.
@@ -100,12 +107,17 @@ static func from_dict(data: Dictionary) -> Profile:
 		p.inventory[i] = maxi(0, int(boosters.get(BOOSTER_IDS[i], 0)))
 	var star_list: Array = data.get("bestStars", [])
 	var clear_list: Array = data.get("clearCounts", [])
+	var moves_source: Array = data.get("bestMoves", [])
+	if int(data.get("schemaVersion", 1)) < 2:
+		star_list = _renumbered(star_list)
+		clear_list = _renumbered(clear_list)
+		moves_source = _renumbered(moves_source)
 	for level in range(1, 41):
 		var s := clampi(int(star_list[level]) if level < star_list.size() else 0, 0, 3)
 		p.stars[level] = s
 		var c := int(clear_list[level]) if level < clear_list.size() else 0
 		p.clears[level] = 0 if s == 0 else maxi(1, c)
-		var moves_list: Array = data.get("bestMoves", [])
+		var moves_list: Array = moves_source
 		p.best_moves[level] = maxi(0, int(moves_list[level])) if s > 0 and level < moves_list.size() else 0
 		if s > 0:
 			p.highest_unlocked = maxi(p.highest_unlocked, mini(40, level + 1))
@@ -141,10 +153,36 @@ static func from_dict(data: Dictionary) -> Profile:
 		var index := BOOSTER_IDS.find(str(id))
 		if index >= 0:
 			p.starters[index] = true
+	for level in data.get("levelGifts", []):
+		if int(level) >= 1 and int(level) <= 40:
+			p.level_gifts[int(level)] = true
+	p.chests_opened = maxi(0, int(data.get("chestsOpened", 0)))
+	p.checkin_streak = clampi(int(data.get("checkinStreak", 0)), 0, 7)
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= 4:
 			p.rewarded_worlds[int(w)] = true
 	return p
+
+## A per-level list (index = level) from the schema 1 level order moved to the current order.
+static func _renumbered(list: Array) -> Array:
+	var out := []
+	out.resize(41)
+	out.fill(0)
+	for old in LEVEL_RENUMBER:
+		if old < list.size():
+			out[LEVEL_RENUMBER[old]] = list[old]
+	return out
+
+static func _sorted_levels(d: Dictionary) -> Array:
+	var out := d.keys()
+	out.sort()
+	return out
+
+func total_stars() -> int:
+	var n := 0
+	for level in range(1, 41):
+		n += stars[level]
+	return n
 
 func save(path := SAVE_PATH) -> void:
 	var file := FileAccess.open(path, FileAccess.WRITE)

@@ -2,7 +2,17 @@ class_name Progress
 extends RefCounted
 ## Unlocks, economy, world map and daily gift rules. Functions mutate the given profile and return payouts.
 
-const WORLD_COMPLETE_COINS := 200
+const WORLD_COMPLETE_COINS := 300
+## Coins for a first clear by stars (1, 2, 3), for a replay, and per star improved on a replay.
+const FIRST_CLEAR_COINS := [0, 30, 45, 60]
+const REPLAY_COINS := 10
+const IMPROVE_COINS := 15
+## Star chest: one chest per this many stars; it holds coins and boosters.
+const CHEST_STARS := 30
+const CHEST_COINS := 150
+const CHEST_BOOSTERS := 2
+## Seven-day check-in: [coins, booster count] for day 1..7; the streak restarts after a missed day or day 7.
+const CHECKIN := [[50, 0], [60, 1], [80, 0], [100, 1], [120, 1], [150, 2], [300, 3]]
 ## [booster index, id, unlock level, price, starter count]
 const BOOSTERS := [
 	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 7, 80, 2],
@@ -70,9 +80,9 @@ static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_
 		p.rewarded_worlds[world] = true
 	var payout := {
 		"stars": stars,
-		"first_clear": 10 + 5 * stars if old == 0 else 0,
-		"replay": 5 if old > 0 else 0,
-		"improvement": 5 * maxi(0, stars - old) if old > 0 else 0,
+		"first_clear": FIRST_CLEAR_COINS[stars] if old == 0 else 0,
+		"replay": REPLAY_COINS if old > 0 else 0,
+		"improvement": IMPROVE_COINS * maxi(0, stars - old) if old > 0 else 0,
 		"chorus": chorus_coins,
 		"world": WORLD_COMPLETE_COINS if world_bonus else 0,
 	}
@@ -81,13 +91,88 @@ static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_
 	payout["starters"] = grant_starter_gifts(p)
 	return payout
 
-## Pays the daily gift once per calendar day (never when the date moves backwards). Returns coins paid.
-static func claim_daily_gift(p: Profile, today: String) -> int:
+## ---------- gifts that teach booster use ----------
+
+## The booster a level hands out on its first open: the one that helps with this level's mechanic if unlocked
+## (sleepers: Morning Bell, eggs: Owl Eye, crows: Scarecrow, growing branches: Spring Rain), else Firefly and
+## Sapling in turn. -1 when the level already gave its gift or nothing is unlocked. Adds it to the inventory.
+static func level_gift(p: Profile, level: int, def: Dictionary) -> int:
+	if p.level_gifts.has(level):
+		return -1
+	var text := JSON.stringify(def.get("branches", []))
+	var wanted := []
+	if text.contains(":sleep"):
+		wanted.append(Board.Booster.MORNING_BELL)
+	if text.contains("egg"):
+		wanted.append(Board.Booster.OWL_EYE)
+	if text.contains("crow"):
+		wanted.append(Board.Booster.SCARECROW)
+	if text.contains("growing"):
+		wanted.append(Board.Booster.SPRING_RAIN)
+	wanted.append(Board.Booster.FIREFLY if level % 2 == 1 else Board.Booster.SAPLING)
+	wanted.append(Board.Booster.SAPLING if level % 2 == 1 else Board.Booster.FIREFLY)
+	for kind in wanted:
+		if is_booster_unlocked(p, kind) or level >= booster_unlock_level(kind):
+			p.level_gifts[level] = true
+			p.inventory[kind] += 1
+			return kind
+	return -1
+
+## Unlocked boosters, for random rewards.
+static func unlocked_boosters(p: Profile) -> Array:
+	var out := []
+	for info in BOOSTERS:
+		if is_booster_unlocked(p, info[0]):
+			out.append(info[0])
+	return out if not out.is_empty() else [Board.Booster.FIREFLY]
+
+static func _random_boosters(p: Profile, count: int, rng: RandomNumberGenerator) -> Array:
+	var pool := unlocked_boosters(p)
+	var out := []
+	for i in count:
+		var kind: int = pool[rng.randi() % pool.size()]
+		p.inventory[kind] += 1
+		out.append(kind)
+	return out
+
+## Stars collected towards the next chest and chests ready to open.
+static func chest_progress(p: Profile) -> int:
+	return p.total_stars() - p.chests_opened * CHEST_STARS
+
+static func chests_ready(p: Profile) -> int:
+	return chest_progress(p) / CHEST_STARS
+
+## Opens one ready chest: {"coins", "boosters"} or {} when none is ready.
+static func open_chest(p: Profile, rng := RandomNumberGenerator.new()) -> Dictionary:
+	if chests_ready(p) <= 0:
+		return {}
+	p.chests_opened += 1
+	p.coins += CHEST_COINS
+	return {"coins": CHEST_COINS, "boosters": _random_boosters(p, CHEST_BOOSTERS, rng)}
+
+## The check-in day (1..7) today's claim would be, or 0 when today is already claimed.
+static func checkin_day(p: Profile, today: String) -> int:
 	if today <= p.last_daily_gift:
 		return 0
+	var yesterday := Time.get_date_string_from_unix_time(Time.get_unix_time_from_datetime_string(today) - 86400)
+	if p.last_daily_gift == yesterday and p.checkin_streak < 7:
+		return p.checkin_streak + 1
+	return 1
+
+## Claims today's check-in: {"day", "coins", "boosters"} or {} when already claimed today.
+static func claim_checkin(p: Profile, today: String, rng := RandomNumberGenerator.new()) -> Dictionary:
+	var day := checkin_day(p, today)
+	if day == 0:
+		return {}
 	p.last_daily_gift = today
-	p.coins += 50
-	return 50
+	p.checkin_streak = day
+	var reward: Array = CHECKIN[day - 1]
+	p.coins += reward[0]
+	return {"day": day, "coins": reward[0], "boosters": _random_boosters(p, reward[1], rng)}
+
+## Older name kept for the check-in: pays today's check-in coins. Returns coins paid.
+static func claim_daily_gift(p: Profile, today: String) -> int:
+	return claim_checkin(p, today).get("coins", 0)
 
 static func today() -> String:
 	return Time.get_date_string_from_system()

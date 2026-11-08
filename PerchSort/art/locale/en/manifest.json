@@ -744,6 +744,83 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "popup.gift.title": {
+      "text": "A Gift for You",
+      "file": "label_popup_gift_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "gift.line": {
+      "text": "Try it in this level!",
+      "file": "label_gift_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "checkin.title": {
+      "text": "Daily Check-in",
+      "file": "label_checkin_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "checkin.claim": {
+      "text": "Claim",
+      "file": "label_checkin_claim.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "checkin.done": {
+      "text": "Come back tomorrow",
+      "file": "label_checkin_done.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "chest.title": {
+      "text": "Star Chest",
+      "file": "label_chest_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "chest.open": {
+      "text": "Open",
+      "file": "label_chest_open.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "chest.line": {
+      "text": "Earn stars to fill the chest",
+      "file": "label_chest_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.checkin": {
+      "text": "Check-in",
+      "file": "label_home_checkin.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.chest": {
+      "text": "Chest",
+      "file": "label_home_chest.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.ok": {
+      "text": "Got it",
+      "file": "label_action_ok.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

@@ -127,6 +127,17 @@
     "home.map": "Map",
     "home.shop": "Shop",
     "home.aviary": "Aviary",
-    "home.help": "Help"
+    "home.help": "Help",
+    "popup.gift.title": "A Gift for You",
+    "gift.line": "Try it in this level!",
+    "checkin.title": "Daily Check-in",
+    "checkin.claim": "Claim",
+    "checkin.done": "Come back tomorrow",
+    "chest.title": "Star Chest",
+    "chest.open": "Open",
+    "chest.line": "Earn stars to fill the chest",
+    "home.checkin": "Check-in",
+    "home.chest": "Chest",
+    "action.ok": "Got it"
   }
 }
