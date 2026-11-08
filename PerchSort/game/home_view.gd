@@ -1,7 +1,8 @@
 class_name HomeView
 extends Control
-## The game's home page: one painted forest clearing with the logo, live birds on two painted branches, a big Play
-## that continues at the next level, and the map, shop, aviary and help as painted picture buttons.
+## The game's home page (user's home sketch): a painted forest clearing with the birdhouse, the logo, live birds in
+## and on the house, a wide Play that continues at the next level, Daily and Check-in tiles, and Map, Shop, Aviary
+## and Chest along the bottom. Button faces are painted pictures with their words painted in.
 
 signal play_requested(level: int)
 signal map_requested
@@ -13,25 +14,22 @@ signal checkin_requested
 signal chest_requested
 signal challenge_requested
 
-const LOGO := Rect2(150, 170, 780, 520)
-## Perch lines measured on tools/home/home_raw.png (tools/scene/cut_branches.py cut_slot) and seat x positions.
-const LEFT_PERCH := 1042.0
-const RIGHT_PERCH := 1243.0
-const LEFT_SEATS := [120.0, 250.0, 380.0, 510.0]
-const RIGHT_SEATS := [470.0, 600.0, 730.0]
-const BIRD_SCALE := 0.95
-const PLAY_Y := 1520.0
-const PLAY_W := 460.0
-const PLAY_H := 152.0          # at most 1.25 x the 128 secondary buttons
-const NAV_Y := 1690.0
-const TILE_W := 176.0
-const TILE_H := 168.0
-const NAV_GAP := 200.0
+## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
+const LOGO := Rect2(180, 0, 720, 300)
+## Seats in the painted birdhouse (home_clearing): two on the shelf in front of the doorway, two on the roof slopes.
+const SEATS := [Vector2(446, 784), Vector2(640, 784), Vector2(730, 456), Vector2(350, 456)]
+const BIRD_SCALE := 1.85
+const BIRD_COUNT := 3
+const PLAY := Rect2(200, 1086, 680, 184)
+const TILE := Vector2(252, 208)
+const TOP_ROW_Y := 1338.0
+const NAV_Y := 1640.0
+const NAV_GAP := 10.0
 const FLIT_EVERY := 6.0
 
 var profile: Profile
 var instant := false
-var _birds: Array = []      # [BirdView, side ("L"/"R"), seat index]
+var _birds: Array = []      # [BirdView, seat index]
 var _logo: TextureRect
 var _clock := 0.0
 var _next_flit := FLIT_EVERY
@@ -42,7 +40,7 @@ func setup(p: Profile) -> void:
 		child.queue_free()
 	_birds.clear()
 	size = Vector2(1080, 1920)
-	UI.image(self, "home_bg", Rect2(0, 0, 1080, 1920), false)
+	UI.image(self, "home_clearing", Rect2(0, 0, 1080, 1920), false)
 	_logo = UI.art(self, "home_logo", LOGO)
 	_logo.pivot_offset = _logo.size * Vector2(0.5, 0.9)
 	_build_birds()
@@ -50,27 +48,23 @@ func setup(p: Profile) -> void:
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
 	UI.button(self, "Settings", Vector2(956, 104), "cream", "gear", func(): settings_requested.emit(), 104.0)
 	var level := _next_level()
-	var play := UI.pill(self, "Play", Rect2(540.0 - PLAY_W * 0.5, PLAY_Y - PLAY_H * 0.5, PLAY_W, PLAY_H), "green",
-		"action.play", func(): play_requested.emit(level), "", 56.0)
-	play.name = "Play"
-	# Daily and check-in under the top bar, the four places along the bottom: every one a big tile with its picture
-	# and one short word, so nothing has to be guessed.
-	var top := [["Daily", "daily", "home.daily", challenge_requested, Rect2(540.0 - TILE_W - 10.0, 700, TILE_W, TILE_H)],
-		["Checkin", "calendar", "home.checkin", checkin_requested, Rect2(550.0, 700, TILE_W, TILE_H)]]
-	for item in top:
-		var tb := UI.tile(self, item[0], item[1], item[2], item[4], (item[3] as Signal).emit)
-		if item[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
-			UI.badge(tb, "1")
-		elif item[0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
-			UI.badge(tb, "1")
-	var places := [["Map", "map", "home.map", map_requested], ["Shop", "shop", "home.shop", shop_requested],
-		["Aviary", "aviary", "home.aviary", aviary_requested], ["Chest", "chest", "home.chest", chest_requested]]
-	var gap := 18.0
-	var w := (1080.0 - 96.0 - gap * 3.0) / 4.0
+	_art_button("Play", "home_button_play", PLAY, func(): play_requested.emit(level))
+	var top := [["Daily", "daily", challenge_requested], ["Checkin", "checkin", checkin_requested]]
+	for i in top.size():
+		var r := Rect2(540.0 - TILE.x - NAV_GAP if i == 0 else 540.0 + NAV_GAP, TOP_ROW_Y, TILE.x, TILE.y)
+		var tb := _art_button(top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
+		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
+			_badge(tb, "1")
+		elif top[i][0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
+			_badge(tb, "1")
+	var places := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
+		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]
+	var left := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
 	for i in places.size():
-		var nb := UI.tile(self, places[i][0], places[i][1], places[i][2], Rect2(48.0 + i * (w + gap), NAV_Y, w, TILE_H), (places[i][3] as Signal).emit)
+		var nb := _art_button(places[i][0], "home_button_" + places[i][1], Rect2(left + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y),
+			(places[i][2] as Signal).emit)
 		if places[i][0] == "Chest" and Progress.chests_ready(profile) > 0:
-			UI.badge(nb, str(Progress.chests_ready(profile)))
+			_badge(nb, str(Progress.chests_ready(profile)))
 	if not instant:
 		_entrance()
 
@@ -81,41 +75,70 @@ func _next_level() -> int:
 			return level
 	return profile.highest_unlocked
 
-## Met birds (the first five met, else the starters) on the two branches, alive.
+## Met birds (the first three met, else the starters) in and on the birdhouse, alive.
 func _build_birds() -> void:
 	var kinds: Array = []
 	for card in Aviary.SPECIES:
 		if card[0] != "crow" and profile.met.has(card[0]):
 			kinds.append(card[0])
-	for fallback in ["sunny", "sky", "berry", "mint", "cocoa"]:
-		if kinds.size() >= 5:
+	for fallback in ["sunny", "sky", "berry"]:
+		if kinds.size() >= BIRD_COUNT:
 			break
 		if not kinds.has(fallback):
 			kinds.append(fallback)
-	var places := [["L", 0], ["L", 1], ["L", 2], ["R", 1], ["R", 2]]
-	for i in places.size():
+	for i in BIRD_COUNT:
 		var outfit: String = profile.equipped.get(kinds[i], "")
 		var key := outfit.replace("outfit.", "").replace(".", "_outfit_") if not outfit.is_empty() and not outfit.ends_with("default") else ""
 		var bird := BirdView.new()
 		add_child(bird)
 		bird.setup(Board.bird(0, Board.species_index(kinds[i]), 0), false, BIRD_SCALE, key)
 		bird.quiet = instant
-		bird.position = _seat(places[i][0], places[i][1])
-		_birds.append([bird, places[i][0], places[i][1]])
+		bird.position = SEATS[i]
+		_birds.append([bird, i])
 	# Keep the HUD and buttons above the birds.
 	for b in _birds:
 		move_child(b[0], 2)
 
-func _seat(side: String, i: int) -> Vector2:
-	return Vector2(LEFT_SEATS[i], LEFT_PERCH) if side == "L" else Vector2(RIGHT_SEATS[i], RIGHT_PERCH)
+func _free_seat() -> int:
+	for i in SEATS.size():
+		if not _birds.any(func(b): return b[1] == i):
+			return i
+	return -1
 
-func _free_seat() -> Array:
-	for side in ["L", "R"]:
-		var seats: Array = LEFT_SEATS if side == "L" else RIGHT_SEATS
-		for i in seats.size():
-			if not _birds.any(func(b): return b[1] == side and b[2] == i):
-				return [side, i]
-	return []
+## Painted button picture (word painted in); a press sinks it slightly.
+func _art_button(n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
+	var b := Button.new()
+	b.name = n
+	b.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(state, empty)
+	UI.place(b, r)
+	var face := UI.art(b, picture, Rect2(Vector2.ZERO, r.size))
+	face.name = "Face"
+	face.pivot_offset = r.size * 0.5
+	b.button_down.connect(func():
+		face.scale = Vector2.ONE * 0.95
+		face.self_modulate = Color(0.92, 0.92, 0.92))
+	b.button_up.connect(func():
+		face.scale = Vector2.ONE
+		face.self_modulate = Color.WHITE)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	add_child(b)
+	return b
+
+## Red count badge on a tile's top-right corner.
+func _badge(b: Control, text: String) -> void:
+	var d := 64.0
+	var p := Control.new()
+	p.name = "Badge"
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(p, Rect2(Vector2(b.size.x - d * 0.75, -d * 0.3), Vector2.ONE * d))
+	b.add_child(p)
+	UI.kit_piece(p, "badge", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (d + 8.0)))
+	UI.number(p, text, Rect2(10, d * 0.5 - 20.0, d - 20.0, 34), Color.WHITE)
 
 ## Logo drops in with a bounce, birds fly in one after another.
 func _entrance() -> void:
@@ -126,7 +149,7 @@ func _entrance() -> void:
 	for k in _birds.size():
 		var bird: BirdView = _birds[k][0]
 		var target := bird.position
-		bird.position = Vector2(-160.0 if _birds[k][1] == "L" else 1240.0, target.y - 500.0)
+		bird.position = Vector2(-160.0 if k % 2 == 0 else 1240.0, target.y - 500.0)
 		bird.fly_to(target, 0.5 + 0.18 * k, 0.8, false, true)
 
 func _process(delta: float) -> void:
@@ -139,15 +162,14 @@ func _process(delta: float) -> void:
 	if _clock >= _next_flit:
 		_next_flit = _clock + FLIT_EVERY
 		var free := _free_seat()
-		if free.is_empty():
+		if free < 0:
 			return
 		var pick: Array = _birds[randi() % _birds.size()]
 		var bird: BirdView = pick[0]
 		if bird.acting:
 			return
-		pick[1] = free[0]
-		pick[2] = free[1]
-		bird.fly_to(_seat(free[0], free[1]), 0.0, 0.9)
+		pick[1] = free
+		bird.fly_to(SEATS[free], 0.0, 0.9)
 
 ## Capture states: "home" (a player at level 12) and "home_new" (a first launch).
 static func preview(main: Control, state: String) -> void:

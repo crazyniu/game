@@ -1,0 +1,7 @@
+Use your image generation tool. Reference: the attached sketch_home.png (a mobile game home screen sketch). Paint ONLY the background scene as a portrait image (1024x1536), in the same soft, bright, glossy cartoon style, colours and lighting as the sketch. It does not have to be a pixel copy, but the composition must match:
+- Top: leafy canopy framing both top corners, warm sun rays from the top-left, light blue sky.
+- Upper middle (from about 8% to 50% of the height, centred): a big wooden birdhouse with a teal shingle roof, a thick rope knot on top of the roof, ivy and white flowers on it, a large round doorway, and a wooden shelf in front of the doorway, sitting on the thick branch of the big tree on the right.
+- THE DOORWAY IS EMPTY (dark hollow inside) and NOBODY sits on the roof or the shelf: absolutely no birds or animals anywhere in the picture. Live birds are added by the game.
+- Lower half: soft green meadow, a stone and dirt path going down the centre, mushrooms with white dots and pink flowers bottom-left, flower bushes bottom-right. Keep the lower 45% calm and slightly softer, without strong detail, because buttons are placed there.
+- No UI at all: no logo, no title, no text, no letters, no numbers, no buttons, no panels, no icons, no coin counter, no gear.
+Save the final image as /home/developer/Projects/game/build/home_gen/out/home_bg.png. Do not create or change any other file.

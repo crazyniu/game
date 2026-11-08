@@ -1,0 +1,11 @@
+Use your image generation tool. Reference: the attached sketch_home.png (a mobile game home screen sketch). Paint a sprite sheet of its buttons in the same glossy, soft, bright cartoon mobile-game style, on a FULLY TRANSPARENT background (PNG with alpha). Landscape image 1536x1024. Lay the 7 pieces out on a clean grid with wide empty transparent gaps (at least 60 px) between them, no piece touching another or the image edge, no drop shadows on the background, nothing else in the image:
+Row 1: one wide PLAY button: a rounded pill about 4:1 wide, bright lime-green glossy candy face with a darker green rim and a soft highlight on top; the word "Play" in big bold rounded white letters with a thick dark-green outline, centred.
+Row 2: three square tiles. Row 3: three square tiles. Every tile is the same size (about 300x260), a rounded square with a warm cream face, a bright leaf-green rim and a thin darker green bottom edge, a cute painted picture in the upper two thirds and one word in bold rounded dark-brown letters at the bottom:
+ 1 "Daily": a golden trophy cup with a tiny yellow chick on it and a sparkle.
+ 2 "Check-In": a small calendar page with a red check mark and two green leaves on top.
+ 3 "Map": a rolled parchment treasure map with a red location pin.
+ 4 "Shop": a red-and-white striped shopping bag with a little smiling face.
+ 5 "Aviary": a woven straw bird nest with speckled eggs and a green sprout.
+ 6 "Chest": a wooden treasure chest with gold trim and a leaf emblem.
+Spell the words exactly: Play, Daily, Check-In, Map, Shop, Aviary, Chest. No other text, no red badges, no numbers.
+Save the final image as /home/developer/Projects/game/build/home_gen/out/home_ui.png. Do not create or change any other file.
