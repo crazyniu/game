@@ -50,12 +50,14 @@ const SEAT_OUTWARD_SHIFT := 24.0  # screen pixels toward each branch's outer edg
 const BIRD_SCALE := 1.10
 const PERCH_TOP := 660.0
 const PERCH_BOTTOM := 1640.0
+const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
 const ROW_REFLOW_SECONDS := 0.45
 var _branch_widths := {}      # slot key -> drawn width share, so growth can animate
 var _slots: Array = []       # painted branch slots of this world (world/scene/board_wN_slots.json)
 var _row_offset := 0
 var _rows := 2
 var _perch_step := 0.0
+var _perch_top := PERCH_TOP   # first perch line; the block of perches is centred in the play area
 var _house: Control
 var _goal_nodes := {}   # species -> Control
 var _status: Panel          # stars and move count
@@ -369,7 +371,9 @@ func _layout_branches() -> void:
 	var last_perch := 0
 	for b in s.branch_count():
 		last_perch = maxi(last_perch, s.rows[b] * 2 + s.rights[b])
-	_perch_step = (PERCH_BOTTOM - PERCH_TOP) / float(last_perch)
+	# Few branches stay close together (never further apart than the fullest board's spacing) and sit centred.
+	_perch_step = minf((PERCH_BOTTOM - PERCH_TOP) / float(maxi(1, last_perch)), PERCH_STEP_MAX)
+	_perch_top = PERCH_TOP + ((PERCH_BOTTOM - PERCH_TOP) - _perch_step * last_perch) * 0.5
 	var before := _branch_nodes.size()
 	var previous_positions: Array[Vector2] = []
 	for node in _branch_nodes:
@@ -458,7 +462,7 @@ func _sprite(name: String, pos: Vector2, flip: bool) -> Sprite2D:
 ## Perches fill the play area, alternating left and right in the authored row order.
 func perch_y(b: int) -> float:
 	var s := session.state
-	return PERCH_TOP + (s.rows[b] * 2 + s.rights[b]) * _perch_step
+	return _perch_top + (s.rows[b] * 2 + s.rights[b]) * _perch_step
 
 ## Seat x on branch b; seat 0 is nearest the screen edge.
 func seat_x(b: int, i: int) -> float:
@@ -1494,7 +1498,7 @@ func _flock_home(e: Dictionary) -> void:
 		_birds.erase(ids[ids.size() - 1 - k])
 		# Approach in front of the house; clipping starts only once the bird fits inside its doorway.
 		bird.reparent(_hud)
-		bird.fly_to(_door_point(), k * 0.12, 0.6, true, false, _door_mask)
+		bird.fly_to(_door_point(), k * 0.12, FLOCK_FLIGHT_SECONDS, true, false, _door_mask)
 		last = bird
 	if last:
 		await last.finished
@@ -1532,6 +1536,8 @@ func _flock_home(e: Dictionary) -> void:
 	await tw.finished
 	await _door(0.0, 0.25)
 
+## Every flock takes the same time to reach the house on every level, whatever the distance.
+const FLOCK_FLIGHT_SECONDS := 0.9
 const HOME_PITCH_STEP := 2.0     # semitones per further homing in one chain
 const HOME_PITCH_MAX := 5
 const SPARKLES := 12

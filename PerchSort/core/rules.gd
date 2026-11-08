@@ -111,6 +111,7 @@ func _begin_move(s: Board) -> void:
 
 func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landing_bird: int, out) -> void:
 	_resolve(s, landing_branch, landing_bird, out)
+	_auto_home(s, out)
 	if move and s.day_length > 0 and s.phase_counter >= s.day_length:
 		_toggle_phase(s, "clock", out)
 		_resolve(s, -1, -1, out)
@@ -126,6 +127,36 @@ func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landin
 				s.chorus_coins += 5
 	if s.is_won() and out != null:
 		out.append({"type": "won"})
+
+## When the only birds left are one full flock of a single kind (all awake, no eggs, no crows), they go home on
+## their own: nothing is left to decide, so the player is not asked to tap. It costs no move.
+func _auto_home(s: Board, out) -> bool:
+	if s.homed.size() != s.species_count - 1:
+		return false
+	var species := -1
+	var count := 0
+	for b in s.branch_count():
+		for code in s.items[b]:
+			var kind := Board.species_of(code)
+			if kind == Board.CROW or (code & Board.EGG) or s.is_asleep(code) or (species >= 0 and kind != species):
+				return false
+			species = kind
+			count += 1
+	if species < 0 or count != s.capacity:
+		return false
+	var ids := PackedInt32Array()
+	var first := -1
+	for b in s.branch_count():
+		for code in s.items[b]:
+			ids.append(Board.id_of(code))
+		if first < 0 and not s.items[b].is_empty():
+			first = b
+		s.items[b] = PackedInt32Array()
+		s.kinds[b] = Board.Kind.NORMAL if s.kinds[b] != Board.Kind.TWIG else s.kinds[b]
+	if out != null:
+		out.append({"type": "flock_home", "branch": first, "species": Board.SPECIES[species], "ids": ids})
+	s.homed.append(species)
+	return true
 
 func _resolve(s: Board, landing_branch: int, landing_bird: int, out) -> void:
 	var changed := true

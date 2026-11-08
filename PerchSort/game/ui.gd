@@ -74,11 +74,18 @@ const FILL := {"cream": Color8(255, 247, 232), "green": Color8(108, 194, 74), "o
 const RIM := {"cream": Color8(233, 214, 176), "green": Color8(76, 150, 49), "orange": Color8(218, 122, 20),
 	"blue": Color8(60, 147, 201), "red": Color8(194, 58, 47)}
 const INK := Color8(90, 58, 30)
+## White words and numbers on coloured surfaces carry a dark outline of the surface's own hue.
+const TEXT_OUTLINE := {"green": Color8(34, 92, 18), "orange": Color8(128, 68, 8), "blue": Color8(20, 74, 140),
+	"red": Color8(130, 30, 26), "grey": Color8(72, 80, 90)}
+
+static func outline_to(node: Control, kind: String) -> void:
+	if node.material is ShaderMaterial and TEXT_OUTLINE.has(kind):
+		(node.material as ShaderMaterial).set_shader_parameter("outline_color", TEXT_OUTLINE[kind])
 const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
 const SECONDARY := 128.0
-const PLAY_SIZE := Vector2(360.0, 128.0)
+const PLAY_SIZE := Vector2(400.0, 144.0)   # at most 1.25 x the 128 secondary buttons
 const COUNTER_H := 96.0
 const NUMBER_X := 108.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
@@ -291,8 +298,7 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.size = r.size
 	b.add_child(content)
-	if cap <= 0.0:
-		cap = minf(48.0, r.size.y * 0.36)
+	cap = minf(cap if cap > 0.0 else 48.0, r.size.y * 0.30)   # words stay about a third of the button height
 	var pad := r.size.y * 0.42
 	var x := pad
 	var w := r.size.x - pad * 2.0
@@ -304,7 +310,7 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	if not label_id.is_empty():
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
-		label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE)
+		outline_to(label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE), kind)
 	b.button_down.connect(func(): content.position.y = 5.0)
 	b.button_up.connect(func(): content.position.y = 0.0)
 	b.pressed.connect(func():
@@ -343,6 +349,33 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 24.0 - extra, 44), ink_on(kind), -1)
 	n.name = "Value"
 	return p
+
+## A big painted tile: the picture above one short painted word. A press darkens it and sinks the contents.
+const TILE := Vector2(176.0, 168.0)
+
+static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
+	var b := Button.new()
+	b.name = n
+	b.focus_mode = Control.FOCUS_NONE
+	place(b, r)
+	_skin_button(b, "card", Rect2(Vector2.ZERO, r.size))
+	var body := Control.new()
+	body.name = "Content"
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.size = r.size
+	b.add_child(body)
+	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
+	art(body, "pic_" + picture, Rect2(r.size.x * 0.5 - 52.0 * k, 10.0 * k, 104.0 * k, 104.0 * k))
+	var cap := 30.0 * k
+	var lw := minf(r.size.x - 24.0, label_width(label_id, cap))
+	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 60.0 * k, lw, 40.0 * k), cap, INK)
+	b.button_down.connect(func(): body.position.y = 4.0)
+	b.button_up.connect(func(): body.position.y = 0.0)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	parent.add_child(b)
+	return b
 
 ## Whole locale label fitted to its dedicated layout box.
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK) -> TextureRect:

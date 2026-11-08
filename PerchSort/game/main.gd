@@ -177,22 +177,9 @@ func _refresh_screen() -> void:
 	elif screen is BoardView:
 		screen.refresh_hud()
 
+## The mechanics a level uses (one detector, shared with the lessons in tutorial.gd).
 static func mechanics_of(level_def: Dictionary) -> Array[String]:
-	var found: Array[String] = []
-	var add := func(m: String): if not found.has(m): found.append(m)
-	for b in level_def["branches"]:
-		match str(b.get("kind", "")):
-			"twig": add.call("twig")
-			"growing": add.call("growing")
-			"swivel": add.call("swivel")
-		for token in b["birds"]:
-			var t := str(token)
-			if t.begins_with("egg:"): add.call("egg")
-			if t.ends_with(":sleep"): add.call("sleep")
-			if t == "crow": add.call("crow")
-	if int(level_def.get("dayLength", 0)) > 0:
-		add.call("daynight")
-	return found
+	return (load("res://game/tutorial.gd") as GDScript).mechanics_in(level_def)
 
 func show_level_card(level_id: int) -> void:
 	var def := Levels.get_level(level_id)

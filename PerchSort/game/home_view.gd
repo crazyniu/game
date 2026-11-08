@@ -21,9 +21,11 @@ const LEFT_SEATS := [120.0, 250.0, 380.0, 510.0]
 const RIGHT_SEATS := [470.0, 600.0, 730.0]
 const BIRD_SCALE := 0.95
 const PLAY_Y := 1520.0
-const PLAY_W := 520.0
+const PLAY_W := 460.0
 const PLAY_H := 152.0          # at most 1.25 x the 128 secondary buttons
-const NAV_Y := 1724.0
+const NAV_Y := 1690.0
+const TILE_W := 176.0
+const TILE_H := 168.0
 const NAV_GAP := 200.0
 const FLIT_EVERY := 6.0
 
@@ -46,40 +48,29 @@ func setup(p: Profile) -> void:
 	_build_birds()
 	var coins := str(profile.coins)
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
-	UI.button(self, "Settings", Vector2(968, 104), "cream", "gear", func(): settings_requested.emit())
+	UI.button(self, "Settings", Vector2(956, 104), "cream", "gear", func(): settings_requested.emit(), 104.0)
 	var level := _next_level()
-	# Which level Play opens: a cream chip with the map picture and the number, right above the button.
-	var num_w := UI.number_width(str(level), 44.0)
-	var chip_w := 20.0 + 60.0 + 12.0 + num_w + 32.0
-	var chip := UI.shape(self, Rect2(540.0 - chip_w * 0.5, PLAY_Y - 160.0, chip_w, 80.0), "cream", 40.0, 6.0)
-	chip.name = "Level"
-	UI.art(chip, "pic_map", Rect2(20, 8, 60, 60))
-	UI.number(chip, str(level), Rect2(92, 16, num_w + 2.0, 44), UI.INK, -1)
 	var play := UI.pill(self, "Play", Rect2(540.0 - PLAY_W * 0.5, PLAY_Y - PLAY_H * 0.5, PLAY_W, PLAY_H), "green",
-		"action.play", func(): play_requested.emit(level), "", 64.0)
+		"action.play", func(): play_requested.emit(level), "", 56.0)
 	play.name = "Play"
-	# Rewards on the left (check-in and star chest, like the gift corner of casual games), places along the bottom.
-	var side := [["Daily", "daily", challenge_requested, "home.daily", Vector2(112, 1150)],
-		["Checkin", "calendar", checkin_requested, "home.checkin", Vector2(112, 1330)],
-		["Chest", "chest", chest_requested, "home.chest", Vector2(968, 1330)]]
-	for item in side:
-		var sb := UI.button(self, item[0], item[4], "cream", item[1], (item[2] as Signal).emit)
-		if item[0] == "Chest" and Progress.chests_ready(profile) > 0:
-			UI.badge(sb, str(Progress.chests_ready(profile)))
-		elif item[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
-			UI.badge(sb, "1")
+	# Daily and check-in under the top bar, the four places along the bottom: every one a big tile with its picture
+	# and one short word, so nothing has to be guessed.
+	var top := [["Daily", "daily", "home.daily", challenge_requested, Rect2(540.0 - TILE_W - 10.0, 700, TILE_W, TILE_H)],
+		["Checkin", "calendar", "home.checkin", checkin_requested, Rect2(550.0, 700, TILE_W, TILE_H)]]
+	for item in top:
+		var tb := UI.tile(self, item[0], item[1], item[2], item[4], (item[3] as Signal).emit)
+		if item[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
+			UI.badge(tb, "1")
 		elif item[0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
-			UI.badge(sb, "1")
-		var sw := minf(190.0, UI.label_width(item[3], 32.0))
-		UI.label(self, item[3], Rect2(item[4].x - sw * 0.5, item[4].y + 60.0, sw, 56.0), 32.0, UI.INK).name = "Caption"
-	var buttons := [["Map", "map", map_requested, "home.map"], ["Shop", "shop", shop_requested, "home.shop"],
-		["Aviary", "aviary", aviary_requested, "home.aviary"], ["Help", "info", help_requested, "home.help"]]
-	for i in buttons.size():
-		var sig: Signal = buttons[i][2]
-		var x := 540.0 + (i - (buttons.size() - 1) * 0.5) * NAV_GAP
-		UI.button(self, buttons[i][0], Vector2(x, NAV_Y), "cream", buttons[i][1], sig.emit)
-		var lw := minf(180.0, UI.label_width(buttons[i][3], 34.0))
-		UI.label(self, buttons[i][3], Rect2(x - lw * 0.5, NAV_Y + 62.0, lw, 60.0), 34.0, UI.INK).name = "Caption"
+			UI.badge(tb, "1")
+	var places := [["Map", "map", "home.map", map_requested], ["Shop", "shop", "home.shop", shop_requested],
+		["Aviary", "aviary", "home.aviary", aviary_requested], ["Chest", "chest", "home.chest", chest_requested]]
+	var gap := 18.0
+	var w := (1080.0 - 96.0 - gap * 3.0) / 4.0
+	for i in places.size():
+		var nb := UI.tile(self, places[i][0], places[i][1], places[i][2], Rect2(48.0 + i * (w + gap), NAV_Y, w, TILE_H), (places[i][3] as Signal).emit)
+		if places[i][0] == "Chest" and Progress.chests_ready(profile) > 0:
+			UI.badge(nb, str(Progress.chests_ready(profile)))
 	if not instant:
 		_entrance()
 
