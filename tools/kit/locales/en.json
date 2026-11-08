@@ -127,6 +127,23 @@
     "home.map": "Map",
     "home.shop": "Shop",
     "home.aviary": "Aviary",
-    "home.help": "Help"
+    "home.help": "Help",
+    "action.got_it": "Got it",
+    "lesson.sleep.title": "Sleepy Birds",
+    "lesson.sleep.line": "Land a match to wake it",
+    "lesson.mama.title": "Mama and Chicks",
+    "lesson.mama.line": "Chicks follow their mama",
+    "lesson.egg.title": "Mystery Eggs",
+    "lesson.egg.line": "Uncover an egg to hatch it",
+    "lesson.crow.title": "Crows",
+    "lesson.crow.line": "Crows never go home",
+    "lesson.twig.title": "Twigs",
+    "lesson.twig.line": "A twig holds only two",
+    "lesson.swivel.title": "Swivel Branch",
+    "lesson.swivel.line": "Tap the knot to turn it",
+    "lesson.growing.title": "Growing Branch",
+    "lesson.growing.line": "Each flock home adds a seat",
+    "lesson.daynight.title": "Day and Night",
+    "lesson.daynight.line": "Owls sleep until night falls"
   }
 }

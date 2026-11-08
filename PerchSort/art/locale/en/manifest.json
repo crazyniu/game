@@ -744,6 +744,125 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "action.got_it": {
+      "text": "Got it",
+      "file": "label_action_got_it.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.sleep.title": {
+      "text": "Sleepy Birds",
+      "file": "label_lesson_sleep_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.sleep.line": {
+      "text": "Land a match to wake it",
+      "file": "label_lesson_sleep_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.mama.title": {
+      "text": "Mama and Chicks",
+      "file": "label_lesson_mama_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.mama.line": {
+      "text": "Chicks follow their mama",
+      "file": "label_lesson_mama_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.egg.title": {
+      "text": "Mystery Eggs",
+      "file": "label_lesson_egg_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.egg.line": {
+      "text": "Uncover an egg to hatch it",
+      "file": "label_lesson_egg_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.crow.title": {
+      "text": "Crows",
+      "file": "label_lesson_crow_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.crow.line": {
+      "text": "Crows never go home",
+      "file": "label_lesson_crow_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.twig.title": {
+      "text": "Twigs",
+      "file": "label_lesson_twig_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.twig.line": {
+      "text": "A twig holds only two",
+      "file": "label_lesson_twig_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.swivel.title": {
+      "text": "Swivel Branch",
+      "file": "label_lesson_swivel_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.swivel.line": {
+      "text": "Tap the knot to turn it",
+      "file": "label_lesson_swivel_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.growing.title": {
+      "text": "Growing Branch",
+      "file": "label_lesson_growing_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.growing.line": {
+      "text": "Each flock home adds a seat",
+      "file": "label_lesson_growing_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.daynight.title": {
+      "text": "Day and Night",
+      "file": "label_lesson_daynight_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "lesson.daynight.line": {
+      "text": "Owls sleep until night falls",
+      "file": "label_lesson_daynight_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

@@ -255,6 +255,10 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	if level_id == 1 and not profile.has_tutorial(Tutorial.FLAG):
 		profile.set_tutorial(Tutorial.FLAG)
 		queue.append(func(done: Callable): Tutorial.open(popups, done, instant()))
+	# A mechanic's first level then shows its one-step lesson, once per mechanic.
+	for mechanic in Tutorial.due_lessons(profile, def):
+		profile.set_tutorial(Tutorial.lesson_flag(mechanic))
+		queue.append(func(done: Callable): Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
 	save()
 	if not queue.is_empty():
 		while entrance and is_instance_valid(board) and board.busy:
