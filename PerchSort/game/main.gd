@@ -101,6 +101,7 @@ func _open_home() -> void:
 	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	home.checkin_requested.connect(show_checkin)
 	home.chest_requested.connect(show_chest)
+	home.challenge_requested.connect(start_challenge)
 	Sound.music("bgm_menu")
 
 func open_map() -> void:
@@ -132,6 +133,34 @@ func show_checkin() -> void:
 		Sound.play("collect")
 		save()
 		Popups.rewards(popups, "checkin.title", got["coins"], got["boosters"], _refresh_screen))
+
+## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
+func start_challenge() -> void:
+	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
+	if def.is_empty():
+		Sound.play("error")
+		return
+	_go(func():
+		_clear_popups()
+		_close_overlay()
+		var board := BoardView.new()
+		board.instant = instant()
+		set_screen(board)
+		board.start(def, profile, not instant())
+		board.profile_changed.connect(save)
+		board.settings_requested.connect(func(): show_settings(true))
+		board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
+		board.buy_requested.connect(func(kind): open_shop(0, true))
+		board.won.connect(func(_result: Dictionary):
+			profile.inventory = board.session.state.inventory.duplicate()
+			var got := Progress.complete_challenge(profile, Progress.today())
+			save()
+			if got.is_empty():
+				open_home()
+				return
+			Sound.play("collect")
+			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
+		Sound.music("bgm_game"))
 
 func show_chest() -> void:
 	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():

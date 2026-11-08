@@ -11,6 +11,7 @@ signal settings_requested
 signal help_requested
 signal checkin_requested
 signal chest_requested
+signal challenge_requested
 
 const LOGO := Rect2(150, 170, 780, 520)
 ## Perch lines measured on tools/home/home_raw.png (tools/scene/cut_branches.py cut_slot) and seat x positions.
@@ -58,12 +59,15 @@ func setup(p: Profile) -> void:
 		"action.play", func(): play_requested.emit(level), "", 64.0)
 	play.name = "Play"
 	# Rewards on the left (check-in and star chest, like the gift corner of casual games), places along the bottom.
-	var side := [["Checkin", "calendar", checkin_requested, "home.checkin", Vector2(112, 1150)],
-		["Chest", "chest", chest_requested, "home.chest", Vector2(112, 1330)]]
+	var side := [["Daily", "daily", challenge_requested, "home.daily", Vector2(112, 1150)],
+		["Checkin", "calendar", checkin_requested, "home.checkin", Vector2(112, 1330)],
+		["Chest", "chest", chest_requested, "home.chest", Vector2(968, 1330)]]
 	for item in side:
 		var sb := UI.button(self, item[0], item[4], "cream", item[1], (item[2] as Signal).emit)
 		if item[0] == "Chest" and Progress.chests_ready(profile) > 0:
 			UI.badge(sb, str(Progress.chests_ready(profile)))
+		elif item[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
+			UI.badge(sb, "1")
 		elif item[0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
 			UI.badge(sb, "1")
 		var sw := minf(190.0, UI.label_width(item[3], 32.0))

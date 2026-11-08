@@ -191,6 +191,12 @@ func _load_frames() -> void:
 				_frame_names.erase(t)
 			_seqs["cheer"] = cheer   # painted with the outfit: drawn without the overlay
 		_keep_reliable(table.get("repaired", []))
+		# Turns painted with the outfit on (birds/<outfit>_turn_<side>_<nn>.png) replace the plain frames: the
+		# outfit turns with the head, so no overlay is drawn on them.
+		for name in ["turn_left", "turn_right"]:
+			var painted := Art.frames(outfit + "_" + name)
+			if painted.size() >= 4:
+				_seqs[name] = painted
 
 ## An outfit overlay follows measured anchors; frames whose anchors had to be repaired place it slightly off, so
 ## an outfitted bird never rests on them: a turn keeps only its reliable leading frames (a small glance), flap

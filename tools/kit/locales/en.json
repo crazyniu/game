@@ -156,6 +156,8 @@
     "lesson.growing.title": "Growing Branch",
     "lesson.growing.line": "Each flock home adds a seat",
     "lesson.daynight.title": "Day and Night",
-    "lesson.daynight.line": "Owls sleep until night falls"
+    "lesson.daynight.line": "Owls sleep until night falls",
+    "challenge.title": "Daily Challenge",
+    "home.daily": "Daily"
   }
 }

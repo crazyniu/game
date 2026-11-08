@@ -101,6 +101,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
 	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
+	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 36.0, 72, 72))
 	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 40.0, 300.0, 80.0), 44.0)
 	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
 		Sound.vibration = value
@@ -218,33 +219,6 @@ static func goal_info(host: Control, species: String) -> Control:
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 0.0)
 	_ability_line(c, species, ys[1])
-	return p
-
-static func daily_gift(host: Control, reward: int, on_claim: Callable) -> Control:
-	var p := Modal.open(host, "popup.daily_gift.title", [GIFT_H, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
-	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	var k := GIFT_H / GIFT_CONTENT.size.y
-	var stage := Control.new()
-	stage.name = "Gift"
-	stage.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	stage.size = Vector2(768, 768)
-	stage.scale = Vector2.ONE * k
-	stage.position = Vector2(540.0 - GIFT_CONTENT.get_center().x * k, ys[0] - GIFT_CONTENT.position.y * k)
-	c.add_child(stage)
-	_canvas(stage, "gift_nest")
-	for r in GIFT_COINS:
-		UI.art(stage, "coin", r)
-	_canvas(stage, "gift_box_base")
-	var lid := _canvas(stage, "gift_box_lid")
-	_canvas(stage, "gift_nest_front")
-	var bob := lid.create_tween().set_loops()
-	bob.tween_property(lid, "position:y", -8.0, 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	bob.tween_property(lid, "position:y", 0.0, 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	for i in GIFT_SPARKS.size():
-		_twinkle(UI.art(stage, "sparkle", GIFT_SPARKS[i]), i * 0.4)
-	_reward(c, ys[1], reward)
-	p.actions([["green", "check", on_claim]])
 	return p
 
 ## The level's start gift: the booster, "+1" and one line inviting the player to use it; Got it closes.
@@ -683,7 +657,6 @@ static func preview(main: Control, state: String) -> void:
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")
-		"daily_gift": daily_gift(host, 50, noop)
 		"level_gift": level_gift(host, Board.Booster.MORNING_BELL, noop)
 		"checkin_day3": checkin(host, 3, 2, noop)
 		"chest_half": chest(host, 17, 0, noop)

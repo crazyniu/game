@@ -170,6 +170,24 @@ static func claim_checkin(p: Profile, today: String, rng := RandomNumberGenerato
 	p.coins += reward[0]
 	return {"day": day, "coins": reward[0], "boosters": _random_boosters(p, reward[1], rng)}
 
+## ---------- daily challenge ----------
+const CHALLENGE_COINS := 80
+
+static func challenge_available(p: Profile, today: String) -> bool:
+	return today > p.challenge_date
+
+## The day's seed: the same puzzle for the whole day.
+static func challenge_seed(today: String) -> int:
+	return hash("perch-sort-daily-" + today)
+
+## Pays the daily challenge once a day: {"coins", "boosters"} or {} when already done today.
+static func complete_challenge(p: Profile, today: String, rng := RandomNumberGenerator.new()) -> Dictionary:
+	if not challenge_available(p, today):
+		return {}
+	p.challenge_date = today
+	p.coins += CHALLENGE_COINS
+	return {"coins": CHALLENGE_COINS, "boosters": _random_boosters(p, 1, rng)}
+
 ## Older name kept for the check-in: pays today's check-in coins. Returns coins paid.
 static func claim_daily_gift(p: Profile, today: String) -> int:
 	return claim_checkin(p, today).get("coins", 0)

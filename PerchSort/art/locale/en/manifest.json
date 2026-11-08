@@ -947,6 +947,20 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "challenge.title": {
+      "text": "Daily Challenge",
+      "file": "label_challenge_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "home.daily": {
+      "text": "Daily",
+      "file": "label_home_daily.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

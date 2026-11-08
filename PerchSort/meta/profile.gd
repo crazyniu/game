@@ -30,6 +30,7 @@ var music_muted := false            # background music off
 var level_gifts := {}               # level -> true once its start booster gift was given
 var chests_opened := 0              # star chests opened (one per CHEST_STARS stars earned)
 var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
+var challenge_date := ""            # last day the daily challenge was completed
 var vibration := true               # short haptic pulses on mobile
 
 
@@ -93,7 +94,7 @@ func to_dict() -> Dictionary:
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
-		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak,
+		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "challengeDate": challenge_date,
 		"vibration": vibration,
 	}
 
@@ -161,6 +162,7 @@ static func from_dict(data: Dictionary) -> Profile:
 			p.level_gifts[int(level)] = true
 	p.chests_opened = maxi(0, int(data.get("chestsOpened", 0)))
 	p.checkin_streak = clampi(int(data.get("checkinStreak", 0)), 0, 7)
+	p.challenge_date = str(data.get("challengeDate", ""))
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= 4:
 			p.rewarded_worlds[int(w)] = true

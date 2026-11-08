@@ -63,3 +63,11 @@ func _check_meta() -> void:
 		p.stars[level] = 3
 	check(Progress.chests_ready(p) == 1 and not Progress.open_chest(p).is_empty() and Progress.chests_ready(p) == 0,
 		"star chest opens once per 30 stars")
+	# Daily challenge: the same deal all day, solvable, paid once.
+	var day_a := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), 40)
+	var day_b := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), 40)
+	check(not day_a.is_empty() and JSON.stringify(day_a) == JSON.stringify(day_b), "daily challenge is fixed per day")
+	var solved := Solver.solve(Levels.create_board(day_a), [], 200000, 20000)
+	check(solved["status"] == Solver.Status.SOLVED, "daily challenge solvable")
+	check(not Progress.complete_challenge(p, "2026-03-04").is_empty() and Progress.complete_challenge(p, "2026-03-04").is_empty(),
+		"daily challenge pays once a day")
