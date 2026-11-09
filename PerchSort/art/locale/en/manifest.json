@@ -564,35 +564,35 @@
       "baseline": 160
     },
     "popup.daily_gift.title": {
-      "text": "Daily Gift",
+      "text": "Gift",
       "file": "label_popup_daily_gift_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "popup.new_friend.title": {
-      "text": "New Friend",
+      "text": "New Bird",
       "file": "label_popup_new_friend_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "popup.world_complete.title": {
-      "text": "World Complete",
+      "text": "Cleared!",
       "file": "label_popup_world_complete_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "popup.world_unlock.title": {
-      "text": "World Unlocked",
+      "text": "Unlocked",
       "file": "label_popup_world_unlock_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "tutorial.title": {
-      "text": "How to Play",
+      "text": "Guide",
       "file": "label_tutorial_title.png",
       "cap": 128,
       "line_height": 208,
@@ -690,14 +690,14 @@
       "baseline": 160
     },
     "doc.privacy.title": {
-      "text": "Privacy Policy",
+      "text": "Privacy",
       "file": "label_doc_privacy_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "doc.terms.title": {
-      "text": "Terms of Service",
+      "text": "Terms",
       "file": "label_doc_terms_title.png",
       "cap": 128,
       "line_height": 208,
@@ -746,7 +746,7 @@
       "baseline": 160
     },
     "popup.gift.title": {
-      "text": "A Gift for You",
+      "text": "Gift",
       "file": "label_popup_gift_title.png",
       "cap": 128,
       "line_height": 208,
@@ -760,7 +760,7 @@
       "baseline": 160
     },
     "checkin.title": {
-      "text": "Daily Check-in",
+      "text": "Lucky Draw",
       "file": "label_checkin_title.png",
       "cap": 128,
       "line_height": 208,
@@ -837,7 +837,7 @@
       "baseline": 160
     },
     "lesson.sleep.title": {
-      "text": "Sleepy Birds",
+      "text": "Sleepy",
       "file": "label_lesson_sleep_title.png",
       "cap": 128,
       "line_height": 208,
@@ -851,7 +851,7 @@
       "baseline": 160
     },
     "lesson.mama.title": {
-      "text": "Mama and Chicks",
+      "text": "Mama",
       "file": "label_lesson_mama_title.png",
       "cap": 128,
       "line_height": 208,
@@ -865,7 +865,7 @@
       "baseline": 160
     },
     "lesson.egg.title": {
-      "text": "Mystery Eggs",
+      "text": "Eggs",
       "file": "label_lesson_egg_title.png",
       "cap": 128,
       "line_height": 208,
@@ -907,7 +907,7 @@
       "baseline": 160
     },
     "lesson.swivel.title": {
-      "text": "Swivel Branch",
+      "text": "Swivel",
       "file": "label_lesson_swivel_title.png",
       "cap": 128,
       "line_height": 208,
@@ -921,7 +921,7 @@
       "baseline": 160
     },
     "lesson.growing.title": {
-      "text": "Growing Branch",
+      "text": "Growing",
       "file": "label_lesson_growing_title.png",
       "cap": 128,
       "line_height": 208,
@@ -935,7 +935,7 @@
       "baseline": 160
     },
     "lesson.daynight.title": {
-      "text": "Day and Night",
+      "text": "Night",
       "file": "label_lesson_daynight_title.png",
       "cap": 128,
       "line_height": 208,
@@ -949,7 +949,7 @@
       "baseline": 160
     },
     "challenge.title": {
-      "text": "Daily Challenge",
+      "text": "Daily",
       "file": "label_challenge_title.png",
       "cap": 128,
       "line_height": 208,
