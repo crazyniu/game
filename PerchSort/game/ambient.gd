@@ -91,9 +91,9 @@ func _apply(delta: float) -> void:
 	# Sunbeams: two layers turn slowly in opposite directions and breathe out of step, so the light shimmers.
 	_beams[0].rotation = _clock * 0.05
 	_beams[1].rotation = -_clock * 0.08 + 0.4
-	_beams[0].modulate.a = (0.11 + 0.05 * sin(_clock * 0.7)) * _sun_strength
-	_beams[1].modulate.a = (0.08 + 0.05 * sin(_clock * 1.1 + 1.6)) * _sun_strength
-	_glow.modulate.a = (0.28 + 0.12 * sin(_clock * 0.9 + 0.8)) * _sun_strength
+	_beams[0].modulate.a = (0.055 + 0.03 * sin(_clock * 0.7)) * _sun_strength
+	_beams[1].modulate.a = (0.04 + 0.03 * sin(_clock * 1.1 + 1.6)) * _sun_strength
+	_glow.modulate.a = (0.09 + 0.05 * sin(_clock * 0.9 + 0.8)) * _sun_strength
 	_glow.scale = Vector2.ONE * (1.0 + 0.05 * sin(_clock * 0.9 + 0.8))
 	_glow.pivot_offset = _glow.size * 0.5
 	for leaf in _leaves:
