@@ -178,7 +178,7 @@ func start_challenge() -> void:
 		Sound.music("bgm_game"))
 
 func show_chest() -> void:
-	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
+	var chest: Control = Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
 		var got := Progress.open_chest(profile)
 		if got.is_empty():
 			return
@@ -186,6 +186,9 @@ func show_chest() -> void:
 		save()
 		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen),
 		_play_next if screen is HomeView else Callable())
+	# Over the home page its own Play, Daily and Check-In sit right behind the popup's buttons: dim them out.
+	if screen is HomeView:
+		chest._dim.color.a = 0.88
 
 func _play_next() -> void:
 	var level := Progress.next_level(profile)
