@@ -46,7 +46,7 @@ var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
 const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px): clear of the leaf tuft
 const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
-const SEAT_OUTWARD_SHIFT := 24.0  # screen pixels toward each branch's outer edge
+const SEAT_OUTWARD_SHIFT := 38.0  # screen pixels toward each branch's outer edge (keeps seat 3 off the tuft)
 const BIRD_SCALE := 1.10
 const PERCH_TOP := 660.0
 const PERCH_BOTTOM := 1640.0
@@ -443,7 +443,7 @@ func _seat_step(b: int) -> float:
 	var s := session.state
 	var slot := _slot(s.rows[b], s.rights[b] == 1)
 	var free := _painted_length(slot) - SEAT_FIRST * BIRD_SCALE - END_CLEAR
-	return clampf(free / 3.0, 100.0 * BIRD_SCALE, 150.0 * BIRD_SCALE)
+	return clampf(free / 3.0, 94.0 * BIRD_SCALE, 150.0 * BIRD_SCALE)   # never pitch past the painted tip
 
 ## Length a branch needs for `seats` seats, from the screen edge to the end of its tuft.
 func _branch_width(b: int, seats: int) -> float:

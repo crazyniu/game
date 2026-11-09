@@ -341,7 +341,7 @@ static func badge(b: Control, count_text: String) -> Panel:
 ## `extra` room on the right. Returns the pill; its child "Value" is the number box (see set_number).
 static func counter(parent: Node, at: Vector2, icon_name: String, value: String, icon_color := Color(0, 0, 0, 0),
 		extra := 0.0, kind := "cream") -> Panel:
-	var w := NUMBER_X + number_width(value, 44.0) + 32.0 + extra
+	var w := NUMBER_X + number_width(value, 44.0) + 48.0 + extra   # the last digit stays clear of the right rim
 	var p := shape(parent, Rect2(at, Vector2(w, COUNTER_H)), kind, COUNTER_H * 0.5, 8.0)
 	p.name = "Counter"
 	var t: TextureRect
@@ -351,7 +351,7 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 		t = art(p, icon_name, Rect2(16, 8, 72, 72))
 	if icon_color.a > 0.0:
 		t.modulate = icon_color
-	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 24.0 - extra, 44), ink_on(kind), -1)
+	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 36.0 - extra, 44), ink_on(kind), -1)
 	n.name = "Value"
 	return p
 

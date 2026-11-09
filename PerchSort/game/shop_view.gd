@@ -13,7 +13,7 @@ const TAB_ART := ["tab_boosters", "tab_outfits", "tab_houses"]   # full-colour p
 const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
 const TAB_LABELS := ["tab.boosters", "tab.outfits", "tab.houses"]
 const TAB_SIZE := Vector2(296, 168)
-const ROW_H := 208.0
+const ROW_H := 200.0
 const ROW_GAP := 24.0
 const ROW_PICTURE := 160.0
 const TAB_PICTURE := 96.0
@@ -23,19 +23,22 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 
 ## Layout (design pixels, 1080x1920; margins 48, 8 px grid).
 const MARGIN := 48.0
+const INSET := 88.0                       # screen edge to content: the sheet (x 24) and its green rim, with air
+const SHEET_PAD := 40.0                   # sheet rim to the first and last content
 const BAR_Y := 112.0
+const SIGN_W := 400.0
 const TITLE_CAP := 56.0
 const TAB_Y := 292.0
 const TAB_GAP := 48.0
-const GRID_TOP := 424.0
+const GRID_TOP := 440.0
 const GAP := 32.0
-const CARD_W := (1080.0 - MARGIN * 2.0 - GAP) * 0.5
-const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 608.0}
+const CARD_W := (1080.0 - INSET * 2.0 - GAP) * 0.5
+const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 540.0}
 const CARD_RADIUS := 40.0
 const CARD_EDGE := 10.0
 const CARD_PAD := 32.0
 const NAME_CAP := 34.0
-const PIC_TOP := 120.0
+const PIC_TOP := 104.0
 const CAPTION := Rect2(24, 88, 428, 48)   # booster card: what it does, under the name
 const CAPTION_CAP := 28.0
 const BOOSTER_PIC_TOP := 148.0
@@ -44,11 +47,11 @@ const POPUP_CAPTION_CAP := 44.0
 ## Outfits tab: three columns of bird kinds (every species with outfits), all on one page.
 const KIND_COLUMNS := 3
 const KIND_GAP := 24.0
-const KIND_W := (1080.0 - MARGIN * 2.0 - KIND_GAP * (KIND_COLUMNS - 1)) / KIND_COLUMNS
-const KIND_H := 388.0
-const KIND_BIRD := Rect2(28, 28, 256, 256)
-const KIND_NAME := Rect2(16, 292, 280, 72)
-const KIND_NAME_CAP := 44.0
+const KIND_W := (1080.0 - INSET * 2.0 - KIND_GAP * (KIND_COLUMNS - 1)) / KIND_COLUMNS
+const KIND_H := 352.0
+const KIND_BIRD := Rect2(26, 22, 232, 232)
+const KIND_NAME := Rect2(14, 260, 256, 64)
+const KIND_NAME_CAP := 42.0
 const KIND_COUNT_Y := 404.0               # centre of the hanger + owned/total row
 const KIND_COUNT_CAP := 40.0
 const KIND_HANGER := 52.0
@@ -57,15 +60,15 @@ const PILL_BOTTOM := 40.0                 # card bottom (with its edge) to the p
 const PILL_EDGE := 8.0
 const PRICE_COIN := 64.0
 const PRICE_CAP := 44.0
-const MARK := 96.0                        # equipped check badge (flat, no shadow: a state, not a button)
 const LOCK := 96.0
 const PAGER_Y := 1792.0                   # bottom action row centre
 const PAGE_PILL := Vector2(176, 96)
 const POPUP_PIC := 240.0
 const SINGLE_PIC := 320.0
 const BUY_SIZE := Vector2(512, 128)
-const QUANTITY_WIDTH := 208.0
-const QUANTITY_GAP := 24.0
+const QUANTITY_WIDTH := 200.0
+const STEP := Vector2(176, 104)            # - and + are short pills (no round buttons in popups)
+const QUANTITY_GAP := 20.0
 const WASH := Color(1.0, 0.969, 0.91, 0.42)   # cream veil over the scene so cards read
 
 var profile: Profile
@@ -75,6 +78,7 @@ var instant := false   # captures skip the pop-in motion
 var _bar: Control
 var _tabs: Control
 var _grid: Control
+var _sign: Control
 var _coins: Panel
 var _coins_shown := -1
 var _modal: Modal
@@ -82,6 +86,7 @@ var _purchase_item: Dictionary
 var _quantity := 1
 var _quantity_limit := 1
 var _quantity_input: QuantityInput
+const SIGN_BAR := Vector2(48, 14)
 var _minus: Button
 var _plus: Button
 var _purchase_button: Button
@@ -208,13 +213,30 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	UI.button(_bar, "Close", Vector2(112, BAR_Y), "red", "close", func(): closed.emit())
-	# The title hangs on the painted wooden sign (user sketch), ropes rising behind the top edge.
-	var sign := Rect2(540.0 - 230.0, BAR_Y - 112.0, 460.0, 180.0)
-	UI.art(_bar, "map_sign", sign).name = "Sign"
-	var plank := Rect2(sign.position.x + sign.size.x * 0.12, sign.position.y + sign.size.y * 0.44, sign.size.x * 0.76, sign.size.y * 0.42)
-	var w := minf(plank.size.x, UI.label_width("shop.title", 56.0))
-	UI.outline_to(UI.label(_bar, "shop.title", Rect2(plank.get_center().x - w * 0.5, plank.position.y - 4.0, w, plank.size.y + 8.0), 56.0,
+	# The title hangs on the painted wooden sign, ropes rising behind the top edge; _place_sign keeps it
+	# between the close button and the coin counter, whatever the counter's width.
+	_sign = Control.new()
+	_sign.name = "SignHolder"
+	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_bar.add_child(_sign)
+	var sign := Rect2(-SIGN_W * 0.5, BAR_Y - 112.0, SIGN_W, 180.0)
+	UI.art(_sign, "map_sign", sign).name = "Sign"
+	var plank := Rect2(sign.position.x + sign.size.x * 0.2, sign.position.y + sign.size.y * 0.54, sign.size.x * 0.6, sign.size.y * 0.32)
+	var w := minf(plank.size.x, UI.label_width("shop.title", 48.0))
+	UI.outline_to(UI.label(_sign, "shop.title", Rect2(plank.get_center().x - w * 0.5, plank.position.y - 4.0, w, plank.size.y + 8.0), 48.0,
 		Color.WHITE), "orange")
+	_sign.position.x = 540.0
+	_sign.pivot_offset = Vector2(0.0, BAR_Y - 112.0)   # shrinks from the rope tops
+
+## Centre the sign in the free space between the close button and the coins (never under either).
+func _place_sign(coins_left: float) -> void:
+	if _sign == null:
+		return
+	var left := 112.0 + UI.SECONDARY * 0.5 + 12.0
+	var right := coins_left - 12.0
+	_sign.position.x = clampf(540.0, left + SIGN_W * 0.5, right - SIGN_W * 0.5) if right - left >= SIGN_W else (left + right) * 0.5
+	var k := minf(1.0, (right - left) / SIGN_W)
+	_sign.scale = Vector2.ONE * k
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -233,10 +255,9 @@ func _refresh() -> void:
 	var x := 540.0 - (TABS.size() - 1) * (TAB_SIZE.x + TAB_GAP * 0.5) * 0.5
 	for i in TABS.size():
 		_tab_button(i, Vector2(x + i * (TAB_SIZE.x + TAB_GAP * 0.5), TAB_Y))
-	# One big cream card with the green rim holds every tab's content (user sketch).
-	UI.kit_piece(_grid, "card", Rect2(24, GRID_TOP - 28.0, 1032, 1896.0 - GRID_TOP), UI.CARD_SCALE).name = "Sheet"
 	if TABS[tab] == Shop.OUTFIT:
 		_kind_cards()
+		_add_sheet()
 		return
 	var items := _items(TABS[tab])
 	var pages := ceili(items.size() / float(PER_PAGE)) if TABS[tab] == Shop.HOUSE else 1
@@ -249,6 +270,17 @@ func _refresh() -> void:
 			_card(shown[n], n)
 	if pages > 1:
 		_build_pager(pages)
+	_add_sheet()
+
+## One cream sheet with the green rim behind the tab's content, ending just below its last card.
+func _add_sheet() -> void:
+	var bottom := GRID_TOP
+	for c in _grid.get_children():
+		if c is Control:
+			bottom = maxf(bottom, c.position.y + c.size.y)
+	var sheet := UI.kit_piece(_grid, "card", Rect2(24, GRID_TOP - SHEET_PAD, 1032, bottom - GRID_TOP + SHEET_PAD * 2.0), UI.CARD_SCALE)
+	sheet.name = "Sheet"
+	_grid.move_child(sheet, 0)
 
 ## The compact counter stays at the right margin; the title has its own bounded space.
 func _build_coins() -> void:
@@ -261,6 +293,7 @@ func _build_coins() -> void:
 	var w := UI.NUMBER_X + UI.number_width(value, 44.0) + 32.0
 	_coins = UI.counter(_bar, Vector2(1080.0 - MARGIN - w, BAR_Y - UI.COUNTER_H * 0.5), "coin", value)
 	_coins.name = "Coins"
+	_place_sign(_coins.position.x)
 	_coins.pivot_offset = _coins.size * 0.5
 	_coins_shown = profile.coins
 	if bump and not instant:
@@ -327,7 +360,7 @@ func _card(it: Dictionary, n: int) -> void:
 	var card := Control.new()
 	card.name = it["id"]
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(card, Rect2(Vector2(MARGIN + (n % 2) * (CARD_W + GAP), GRID_TOP + (n / 2) * (cs.y + GAP)), cs))
+	UI.place(card, Rect2(Vector2(INSET + (n % 2) * (CARD_W + GAP), GRID_TOP + (n / 2) * (cs.y + GAP)), cs))
 	_grid.add_child(card)
 	UI.shape(card, Rect2(Vector2.ZERO, cs), "cream", CARD_RADIUS, CARD_EDGE)
 	var hit := UI.hit_area(card, Rect2(Vector2.ZERO, cs), func(): _tap(it))
@@ -346,9 +379,10 @@ func _card(it: Dictionary, n: int) -> void:
 	var pic := Rect2(CARD_PAD, top, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - top)
 	_picture(body, it, pic)
 	if _equipped(it):
-		var mark := UI.shape(body, Rect2(slot.get_center() - Vector2.ONE * MARK * 0.5, Vector2.ONE * MARK), "green", MARK * 0.5, 6.0, false)
+		# In use: a cream capsule in the button's slot, same size, with a green tick (a state, not a button).
+		var mark := UI.shape(body, slot, "cream", PILL.y * 0.5, PILL_EDGE, false)
 		mark.name = "Equipped"
-		UI.icon(mark, "check", Vector2.ONE * MARK * 0.5 - Vector2(0, 3), MARK * 0.56)
+		UI.art(mark, "pic_check", Rect2(PILL.x * 0.5 - 36.0, PILL.y * 0.5 - 40.0, 72.0, 72.0))
 	elif _owned(it):
 		var equip := _pill_button(body, "Equip", slot, "green", func(): _tap(it))
 		UI.icon(equip, "hanger", PILL * 0.5 - Vector2(0, PILL_EDGE * 0.5), 64.0).name = "Icon"
@@ -369,11 +403,11 @@ func _card(it: Dictionary, n: int) -> void:
 
 ## Booster row: picture, name and price pill on one cream strip (the stock badge sits on the picture).
 func _row(it: Dictionary, n: int) -> void:
-	var rs := Vector2(1080.0 - MARGIN * 2.0, ROW_H)
+	var rs := Vector2(1080.0 - INSET * 2.0, ROW_H)
 	var row := Control.new()
 	row.name = it["id"]
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(row, Rect2(Vector2(MARGIN, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
+	UI.place(row, Rect2(Vector2(INSET, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
 	_grid.add_child(row)
 	UI.shape(row, Rect2(Vector2.ZERO, rs), "cream", CARD_RADIUS, CARD_EDGE)
 	var hit := UI.hit_area(row, Rect2(Vector2.ZERO, rs), func(): _tap(it))
@@ -502,7 +536,7 @@ func owned_outfits(species: String) -> int:
 func _kind_cards() -> void:
 	var kinds := outfit_species()
 	for n in kinds.size():
-		var at := Vector2(MARGIN + (n % KIND_COLUMNS) * (KIND_W + KIND_GAP), GRID_TOP + (n / KIND_COLUMNS) * (KIND_H + KIND_GAP))
+		var at := Vector2(INSET + (n % KIND_COLUMNS) * (KIND_W + KIND_GAP), GRID_TOP + (n / KIND_COLUMNS) * (KIND_H + KIND_GAP))
 		_kind_card(kinds[n], Rect2(at, Vector2(KIND_W, KIND_H)), n)
 
 ## A met kind: the bird in its current outfit and its name; tapping opens its outfit page.
@@ -616,21 +650,42 @@ func _confirm(it: Dictionary) -> void:
 	_update_purchase()
 
 func _quantity_row(c: Control, y: float) -> void:
-	var x := 540.0 - BUY_SIZE.x * 0.5
-	_minus = _pill_button(c, "Decrease", Rect2(x, y, UI.SECONDARY, UI.SECONDARY), "cream", func(): _step_quantity(-1))
-	UI.number(_minus, "-", Rect2(0, 38, UI.SECONDARY, PRICE_CAP))
+	var row_w := STEP.x * 2.0 + QUANTITY_GAP * 2.0 + QUANTITY_WIDTH
+	var x := 540.0 - row_w * 0.5
+	var sy := y + (UI.SECONDARY - STEP.y) * 0.5
+	_minus = _pill_button(c, "Decrease", Rect2(Vector2(x, sy), STEP), "green", func(): _step_quantity(-1))
+	_sign_bars(_minus, false)
 	_quantity_input = QuantityInput.new()
 	_quantity_input.name = "Quantity"
 	_quantity_input.limit = _quantity_limit
 	_quantity_input.editable = profile.coins >= _purchase_item["price"]
-	UI.place(_quantity_input, Rect2(x + UI.SECONDARY + QUANTITY_GAP, y, QUANTITY_WIDTH, UI.SECONDARY))
+	UI.place(_quantity_input, Rect2(x + STEP.x + QUANTITY_GAP, y, QUANTITY_WIDTH, UI.SECONDARY))
 	c.add_child(_quantity_input)
 	_quantity_input.value_changed.connect(func(value: int):
 		_quantity = value
 		_update_purchase())
-	_plus = _pill_button(c, "Increase", Rect2(x + BUY_SIZE.x - UI.SECONDARY, y, UI.SECONDARY, UI.SECONDARY), "cream",
+	_plus = _pill_button(c, "Increase", Rect2(Vector2(x + row_w - STEP.x, sy), STEP), "green",
 		func(): _step_quantity(1))
-	UI.number(_plus, "+", Rect2(0, 38, UI.SECONDARY, PRICE_CAP))
+	_sign_bars(_plus, true)
+
+## A bold white minus (or plus) on a green pill: two rounded bars, centred on the disc face.
+func _sign_bars(b: Button, plus: bool) -> void:
+	var face := Vector2(STEP.x, STEP.y - PILL_EDGE) * 0.5
+	var bars := [Vector2(SIGN_BAR.x, SIGN_BAR.y)]
+	if plus:
+		bars.append(Vector2(SIGN_BAR.y, SIGN_BAR.x))
+	for size in bars:
+		var bar := Panel.new()
+		bar.name = "Sign"
+		bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var box := StyleBoxFlat.new()
+		box.bg_color = Color.WHITE
+		box.set_corner_radius_all(int(SIGN_BAR.y * 0.5))
+		box.shadow_color = Color(0.1, 0.35, 0.05, 0.6)
+		box.shadow_offset = Vector2(0, 3)
+		bar.add_theme_stylebox_override("panel", box)
+		UI.place(bar, Rect2(face - size * 0.5, size))
+		b.add_child(bar)
 
 func _step_quantity(step: int) -> void:
 	_quantity_input.release_focus()
@@ -686,7 +741,7 @@ static func preview(main: Control, state: String) -> void:
 			p.equipped = {"sky": "outfit.sky.1", "berry": "outfit.berry.2"}
 			start = 1
 		"houses":
-			p.coins = 1240
+			p.coins = 50270   # a long counter: the title sign must stay clear of it
 			p.houses = {"teapot": true, "acorn": true}
 			p.equipped_house = "teapot"
 			start = 2
