@@ -3,13 +3,15 @@ extends Control
 ## Living light and air over a forest painting. The home page uses the default look (sunbeams from the top-left
 ## corner, leaves and petals drifting down) above the screen and below the popups. A level uses `for_level()`:
 ## the same layer sits between the world painting and the branches, so the scene breathes behind play, with
-## falling things, mist, floating motes and light chosen by the world (spring, bamboo, autumn, snow) and the
+## falling things, mist, floating motes and light chosen by the world (spring, bamboo, autumn, snow, blossom,
+## mushrooms, willow lake, misty pines, waterfall jungle, wisteria) and the
 ## level's weather variant. Never takes input.
 
 const SPRITES := ["fall_leaf_lime", "fall_leaf_green", "fall_leaf_olive", "fall_petal_cream", "fall_petal_pink", "fall_leaf_gold"]
 const SUN_CORNER := Vector2(-40.0, -40.0)
 const AUTUMN_ORANGE := Color(1.0, 0.66, 0.42)
 const AUTUMN_RED := Color(1.0, 0.46, 0.36)
+const WISTERIA := Color(0.82, 0.7, 1.0)
 
 var still := false               # captures: everything stays where it was seeded
 var night := 0.0:                # 0 day .. 1 night: the sun fades out and falling things take moonlight
@@ -64,6 +66,42 @@ static func for_level(world: int, variant: String) -> Dictionary:
 			l["tumble"] = false
 			l["sun"] = 0.6
 			l["sun_tint"] = Color(0.92, 0.94, 1.0)
+		5:   # cherry blossom: a steady fall of pink and cream petals
+			l["fall"] = ["fall_petal_pink", "fall_petal_pink", "fall_petal_cream"]
+			l["count"] = 12
+			l["scale"] = [0.24, 0.42]
+			l["speed"] = 0.8
+			l["sun_tint"] = Color(1.0, 0.94, 0.96)
+		6:   # mushroom wood: a few green leaves, glowing spores rising from the floor
+			l["fall"] = ["fall_leaf_green", "fall_leaf_lime"]
+			l["count"] = 5
+			l["motes"] = 10
+			l["mote_tint"] = Color(0.85, 1.0, 0.7)
+		7:   # willow lake: slim willow leaves, glints over the water
+			l["fall"] = ["fall_leaf_lime", "fall_leaf_olive"]
+			l["count"] = 6
+			l["scale"] = [0.26, 0.44]
+			l["motes"] = 8
+			l["mote_tint"] = Color(0.9, 0.97, 1.0)
+		8:   # misty pines: mist drifting through the valley, hardly anything falls
+			l["fall"] = ["fall_leaf_olive"]
+			l["count"] = 3
+			l["scale"] = [0.24, 0.38]
+			l["mist"] = 4
+			l["mist_tint"] = Color(0.92, 1.0, 1.0)
+			l["sun"] = 0.6
+		9:   # waterfall jungle: big green leaves, spray mist low down
+			l["fall"] = ["fall_leaf_green", "fall_leaf_green", "fall_leaf_lime"]
+			l["count"] = 6
+			l["scale"] = [0.36, 0.6]
+			l["mist"] = 2
+			l["sun"] = 0.9
+		10:  # wisteria: lilac petals drift through violet light
+			l["fall"] = [["fall_petal_pink", WISTERIA], ["fall_petal_cream", WISTERIA], "fall_petal_cream"]
+			l["count"] = 10
+			l["scale"] = [0.22, 0.4]
+			l["speed"] = 0.8
+			l["sun_tint"] = Color(0.96, 0.9, 1.0)
 	match variant:
 		"morning":   # fresh light with pollen in the air
 			l["sun"] *= 1.2
