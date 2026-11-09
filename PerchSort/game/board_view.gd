@@ -1603,7 +1603,7 @@ func play_events(events: Array) -> void:
 				var night: bool = e["phase"] == Board.Phase.NIGHT
 				_phase_banner(night)
 				_refresh_status()
-				_fade_night(1.0 if night else 0.0)
+				var tw := _fade_night(1.0 if night else 0.0, NIGHT_FADE * 2.0 if e.get("cause", "") == "stuck" else NIGHT_FADE)
 				for bird in _birds.values():
 					if is_instance_valid(bird):
 						bird.set_sleep(session.state.is_asleep(bird.code))

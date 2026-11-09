@@ -121,7 +121,7 @@
       "heading_file": "heading_bird_snow_name.png"
     },
     "bird.ember.name": {
-      "text": "火苗",
+      "text": "火火",
       "file": "label_bird_ember_name.png",
       "cap": 128,
       "line_height": 208,
@@ -129,7 +129,7 @@
       "heading_file": "heading_bird_ember_name.png"
     },
     "bird.crow.name": {
-      "text": "乌鸦",
+      "text": "乌乌",
       "file": "label_bird_crow_name.png",
       "cap": 128,
       "line_height": 208,
@@ -168,7 +168,7 @@
       "baseline": 160
     },
     "world.green.name": {
-      "text": "绿野森林",
+      "text": "青青森林",
       "file": "label_world_green_name.png",
       "cap": 128,
       "line_height": 208,
@@ -200,7 +200,7 @@
       "heading_file": "heading_world_snow_name.png"
     },
     "world.blossom.name": {
-      "text": "花开森林",
+      "text": "樱花林",
       "file": "label_world_blossom_name.png",
       "cap": 128,
       "line_height": 208,
@@ -224,7 +224,7 @@
       "heading_file": "heading_world_lakeside_name.png"
     },
     "world.pine.name": {
-      "text": "迷雾松林",
+      "text": "雾松林",
       "file": "label_world_pine_name.png",
       "cap": 128,
       "line_height": 208,
@@ -240,7 +240,7 @@
       "heading_file": "heading_world_rainforest_name.png"
     },
     "world.wisteria.name": {
-      "text": "紫藤森林",
+      "text": "紫藤林",
       "file": "label_world_wisteria_name.png",
       "cap": 128,
       "line_height": 208,
@@ -248,21 +248,21 @@
       "heading_file": "heading_world_wisteria_name.png"
     },
     "bird.sunny.ability": {
-      "text": "唤醒睡鸟",
+      "text": "唤醒睡着的鸟",
       "file": "label_bird_sunny_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.sky.ability": {
-      "text": "看见蛋里",
+      "text": "揭开鸟蛋",
       "file": "label_bird_sky_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.berry.ability": {
-      "text": "免费一步",
+      "text": "免费走一步",
       "file": "label_bird_berry_ability.png",
       "cap": 128,
       "line_height": 208,
@@ -283,35 +283,35 @@
       "baseline": 160
     },
     "bird.snow.ability": {
-      "text": "随处落脚",
+      "text": "可落在任何位置",
       "file": "label_bird_snow_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.ember.ability": {
-      "text": "孵化所有蛋",
+      "text": "孵化所有鸟蛋",
       "file": "label_bird_ember_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.ink.ability": {
-      "text": "切换昼夜",
+      "text": "切换白天黑夜",
       "file": "label_bird_ink_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.hoot.ability": {
-      "text": "月光之步",
+      "text": "月光下的额外步数",
       "file": "label_bird_hoot_ability.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "bird.crow.ability": {
-      "text": "永不回巢",
+      "text": "从不回巢",
       "file": "label_bird_crow_ability.png",
       "cap": 128,
       "line_height": 208,
@@ -374,7 +374,7 @@
       "baseline": 160
     },
     "booster.scarecrow.name": {
-      "text": "赶走",
+      "text": "稻草人",
       "file": "label_booster_scarecrow_name.png",
       "cap": 128,
       "line_height": 208,
@@ -395,71 +395,64 @@
       "baseline": 160
     },
     "booster.spring_rain.description": {
-      "text": "让树枝长出新位置",
+      "text": "让树枝长大",
       "file": "label_booster_spring_rain_description.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.mushroom.name": {
-      "text": "蘑菇屋",
+      "text": "蘑菇",
       "file": "label_house_mushroom_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.teapot.name": {
-      "text": "茶壶屋",
+      "text": "茶壶",
       "file": "label_house_teapot_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.lantern.name": {
-      "text": "灯笼屋",
+      "text": "灯笼",
       "file": "label_house_lantern_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.acorn.name": {
-      "text": "橡果屋",
+      "text": "橡果",
       "file": "label_house_acorn_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.pumpkin.name": {
-      "text": "南瓜屋",
+      "text": "南瓜",
       "file": "label_house_pumpkin_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.beehive.name": {
-      "text": "蜂巢屋",
+      "text": "蜂巢",
       "file": "label_house_beehive_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.teacup.name": {
-      "text": "茶杯屋",
+      "text": "茶杯",
       "file": "label_house_teacup_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "house.pinecone.name": {
-      "text": "松果屋",
+      "text": "松果",
       "file": "label_house_pinecone_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.cage.name": {
-      "text": "鸟笼屋",
-      "file": "label_house_cage_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -703,7 +696,7 @@
       "baseline": 160
     },
     "outfit.ember.5.name": {
-      "text": "小龙",
+      "text": "飞龙",
       "file": "label_outfit_ember_5_name.png",
       "cap": 128,
       "line_height": 208,
@@ -759,7 +752,7 @@
       "baseline": 160
     },
     "outfit.hoot.3.name": {
-      "text": "巫师",
+      "text": "魔法师",
       "file": "label_outfit_hoot_3_name.png",
       "cap": 128,
       "line_height": 208,
@@ -843,7 +836,7 @@
       "baseline": 160
     },
     "tutorial.pick": {
-      "text": "点树枝选小鸟",
+      "text": "点一根树枝选鸟",
       "file": "label_tutorial_pick.png",
       "cap": 128,
       "line_height": 208,
@@ -857,7 +850,7 @@
       "baseline": 160
     },
     "tutorial.home.a": {
-      "text": "满枝的小鸟飞回家",
+      "text": "站满的树枝会飞回家",
       "file": "label_tutorial_home_a.png",
       "cap": 128,
       "line_height": 208,
@@ -1046,7 +1039,7 @@
       "baseline": 160
     },
     "action.ok": {
-      "text": "好",
+      "text": "好的",
       "file": "label_action_ok.png",
       "cap": 128,
       "line_height": 208,
@@ -1060,7 +1053,7 @@
       "baseline": 160
     },
     "action.got_it": {
-      "text": "好",
+      "text": "好的",
       "file": "label_action_got_it.png",
       "cap": 128,
       "line_height": 208,
@@ -1074,7 +1067,7 @@
       "baseline": 160
     },
     "lesson.sleep.line": {
-      "text": "凑成一组就能叫醒它",
+      "text": "落上同类就能叫醒它",
       "file": "label_lesson_sleep_line.png",
       "cap": 128,
       "line_height": 208,
@@ -1088,7 +1081,7 @@
       "baseline": 160
     },
     "lesson.mama.line": {
-      "text": "小鸟宝宝跟着妈妈走",
+      "text": "小鸟会跟着妈妈",
       "file": "label_lesson_mama_line.png",
       "cap": 128,
       "line_height": 208,
@@ -1102,7 +1095,7 @@
       "baseline": 160
     },
     "lesson.egg.line": {
-      "text": "揭开蛋就会孵化",
+      "text": "揭开鸟蛋就会孵化",
       "file": "label_lesson_egg_line.png",
       "cap": 128,
       "line_height": 208,
@@ -1116,63 +1109,63 @@
       "baseline": 160
     },
     "lesson.crow.line": {
-      "text": "乌鸦永远不回家",
+      "text": "乌鸦从不回家",
       "file": "label_lesson_crow_line.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.twig.title": {
-      "text": "小树枝",
+      "text": "小细枝",
       "file": "label_lesson_twig_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.twig.line": {
-      "text": "小树枝只能站两只",
+      "text": "细枝只能站两只",
       "file": "label_lesson_twig_line.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.swivel.title": {
-      "text": "转盘结",
+      "text": "转转枝",
       "file": "label_lesson_swivel_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.swivel.line": {
-      "text": "点一下绳结来转动",
+      "text": "点圆结让它转向",
       "file": "label_lesson_swivel_line.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.growing.title": {
-      "text": "生长",
+      "text": "长大枝",
       "file": "label_lesson_growing_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.growing.line": {
-      "text": "每回家一群，就多一个位置",
+      "text": "每回家一群就多一个位置",
       "file": "label_lesson_growing_line.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.daynight.title": {
-      "text": "夜晚",
+      "text": "黑夜",
       "file": "label_lesson_daynight_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "lesson.daynight.line": {
-      "text": "猫头鹰要等到夜里才醒",
+      "text": "猫头鹰睡到天黑才醒",
       "file": "label_lesson_daynight_line.png",
       "cap": 128,
       "line_height": 208,
@@ -1200,7 +1193,7 @@
       "baseline": 160
     },
     "tab.outfits": {
-      "text": "服装",
+      "text": "装扮",
       "file": "label_tab_outfits.png",
       "cap": 128,
       "line_height": 208,
@@ -1237,6 +1230,13 @@
     "chapter.levels": {
       "text": "关卡",
       "file": "label_chapter_levels.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.cage.name": {
+      "text": "鸟笼",
+      "file": "label_house_cage_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160

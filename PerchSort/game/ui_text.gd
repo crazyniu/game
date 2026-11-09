@@ -71,20 +71,8 @@ static func _padded_texture(path: String, source: Texture2D, extra := 0) -> Text
 
 ## The locale whose painted words are showing: the engine locale when a pack exists for it, else the default.
 static func locale() -> String:
-	_load_catalog()
-	var code := TranslationServer.get_locale()
-	var available: Dictionary = _catalog["locales"]
-	if not available.has(code):
-		code = code.get_slice("_", 0)
-	return code if available.has(code) else str(_catalog["default_locale"])
-
-static func _load_catalog() -> void:
-	if _catalog.is_empty():
-		_catalog = JSON.parse_string(FileAccess.get_file_as_string(ROOT + "catalog.json"))
-
-## A baked page (document) of the current locale.
-static func page(id: String) -> Texture2D:
-	return load("%s%s/doc_%s.png" % [ROOT, locale(), id])
+	_load_pack()
+	return _locale
 
 ## The player's language choice; "" leaves the device language in charge.
 static func set_language(code: String) -> void:
@@ -113,6 +101,19 @@ static func _load_pack() -> void:
 		_number_textures[character] = load(_folder + glyphs[character])
 		var ink: Rect2i = _number_textures[character].get_image().get_used_rect()
 		_number_ink[character] = [float(ink.position.x), float(ink.size.x)]
+
+
+## A painted picture with words in it (home tiles): the active locale's copy when it has one, else the shared picture.
+static func picture(name: String) -> Texture2D:
+	_load_pack()
+	var path := _folder + name + ".png"
+	return load(path) if ResourceLoader.exists(path) else Art.tex(name)
+
+
+## Baked settings document page (privacy, terms, credits, contact) of the active locale.
+static func document_texture(id: String) -> Texture2D:
+	_load_pack()
+	return load(_folder + "doc_%s.png" % id)
 
 
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false, bend := 0.0) -> TextureRect:
