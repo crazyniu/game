@@ -341,8 +341,9 @@ func _show_detail(id: String) -> void:
 	var timer := Timer.new()
 	timer.wait_time = 5.0
 	timer.autostart = true
-	timer.timeout.connect(func(): if is_instance_valid(_hero) and not _hero.acting: _hero.cheer())
+	timer.timeout.connect(func(): if is_instance_valid(_hero) and not _hero.acting and not _hero.showcasing: _hero.cheer())
 	_page.add_child(timer)
+	UI.hit_area(_page, _hero_box, func(): if is_instance_valid(_hero): _hero.showcase())   # tap the bird: every action
 	var y := _hero_box.end.y + 32.0
 	var inner_w := panel.size.x - PANEL_PAD * 2.0
 	_ability(id, y, inner_w)
@@ -443,7 +444,7 @@ func _equip(id: String, index: int) -> void:
 	_hero.queue_free()
 	_hero = _live_bird(_page, _species, _outfit_key(_species), _hero_box)
 	_page.move_child(_hero, 1)
-	_hero.cheer()
+	_hero.showcase()
 	_build_tiles()
 	_bump(_tiles.get_child(index))
 
@@ -524,7 +525,9 @@ static func preview(main: Control, state: String) -> void:
 		"list_scrolled": view._set_scroll(1e6)
 		"detail_berry": view._show_detail("berry")
 		"detail_crow": view._show_detail("crow")
-		"detail_ember_skin": view._show_detail("ember")
+		"detail_ember_skin":
+			view._show_detail("ember")
+			view._hero.showcase()   # what a tap on the bird does
 		"detail_hoot": view._show_detail("hoot")
 		"bought_outfit": view._show_detail("hoot")
 		"buy_outfit", "buy_outfit_short":
