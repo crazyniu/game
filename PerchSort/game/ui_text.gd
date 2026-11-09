@@ -7,8 +7,6 @@ const ROOT := "res://art/locale/"
 static var _catalog: Dictionary = {}
 static var _pack: Dictionary = {}
 static var _number_textures: Dictionary = {}
-static var _ink: Dictionary = {}      # character -> painted columns [first, width] inside its cell
-const NUMBER_GAP := 8.0               # space between two numerals, in glyph-cell units (128 = digit height)
 static var _locale := ""
 static var _folder := ""
 
@@ -23,6 +21,10 @@ class LabelSprite extends TextureRect:
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_TRANSLATION_CHANGED and not label_id.is_empty():
 			UiText._fit_label(self)
+
+
+const NUMBER_GAP := 14.0   # between the painted inks of neighbouring digits, in glyph pixels (cap 128)
+static var _number_ink := {}   # character -> [ink left, ink width] in glyph pixels
 
 
 class NumberSprite extends Control:
@@ -83,10 +85,9 @@ static func _load_pack() -> void:
 	_number_textures.clear()
 	var glyphs: Dictionary = _pack["numbers"]["glyphs"]
 	for character in glyphs:
-		var texture: Texture2D = load(_folder + glyphs[character])
-		_number_textures[character] = texture
-		var used := texture.get_image().get_used_rect()
-		_ink[character] = Vector2(used.position.x, used.size.x)
+		_number_textures[character] = load(_folder + glyphs[character])
+		var ink: Rect2i = _number_textures[character].get_image().get_used_rect()
+		_number_ink[character] = [float(ink.position.x), float(ink.size.x)]
 
 
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false) -> TextureRect:
@@ -136,11 +137,11 @@ static func label_width(id: String, cap: float, heading := false) -> float:
 
 static func number_width(value: String, cap: float) -> float:
 	_load_pack()
+	var numbers: Dictionary = _pack["numbers"]
 	var width := 0.0
 	for character in value:
-		width += float(_ink[character].y)
-	width += NUMBER_GAP * maxf(0.0, value.length() - 1.0)
-	return width * cap / float(_pack["numbers"]["cap"])
+		width += _number_ink[character][1] + NUMBER_GAP
+	return width * cap / float(numbers["cap"])
 
 
 ## Numeral cells share an ink-height canvas and fit together inside the supplied bounds.
@@ -175,9 +176,9 @@ static func _draw_number(box: NumberSprite) -> void:
 	var height := float(numbers["line_height"]) * k
 	var x := (box.size.x - width * k) * (0.5 + 0.5 * box.align)
 	var y := (box.size.y - height) * 0.5
-	for character in box.value:
-		var ink: Vector2 = _ink[character]
+	for character in box.value:   # set by painted ink, not by the wide glyph cells, so digits sit close together
+		var advance := float(numbers["advances"][character]) * k
+		var ink: Array = _number_ink[character]
 		var texture: Texture2D = _number_textures[character]
-		var cell := texture.get_size()
-		box.draw_texture_rect_region(texture, Rect2(x, y, ink.y * k, height), Rect2(ink.x, 0.0, ink.y, cell.y))
-		x += (ink.y + NUMBER_GAP) * k
+		box.draw_texture_rect(texture, Rect2(x + (NUMBER_GAP * 0.5 - ink[0]) * k, y, advance, height), false)
+		x += (ink[1] + NUMBER_GAP) * k

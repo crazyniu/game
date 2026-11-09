@@ -2,12 +2,13 @@
 """Soft, musical UI and reward effects (original synthesis, numpy only).
 
 uv run --no-project --with numpy python tools/audio/ui_sfx.py
-Writes PerchSort/audio/{ui_tap,ui_back,undo,sapling_grow,reward}.wav (44.1 kHz mono 16-bit).
+Writes PerchSort/audio/{ui_tap,ui_back,undo,sapling_grow,reward,egg_hatch}.wav (44.1 kHz mono 16-bit).
 - ui_tap: a round bubble pop (button press, restart, home).
 - ui_back: the same pop a fourth lower and softer (close, back).
 - undo: a short rewind swish into two falling marimba notes.
 - sapling_grow: a rising marimba arpeggio with a leafy rustle and a small sparkle (sapling booster).
 - reward: two coin chimes and a sparkle tail (check-in, purchases, gifts, rewards).
+- egg_hatch: three small shell ticks, then two cute rising peeps.
 """
 from pathlib import Path
 import wave
@@ -109,3 +110,21 @@ write("sapling_grow", norm(place(0.85, [(0.0, 0.18 * rustle), (0.0, marimba(C5, 
                                          (0.3, 0.6 * sparkle(0.5, 4, 2600, 5))]), -6))
 write("reward", norm(place(1.0, [(0.0, coin(2093, 0.6)), (0.12, coin(2637, 0.7)), (0.05, 0.5 * marimba(C6, 0.5, 0.2)),
                                    (0.17, 0.5 * marimba(E6, 0.5, 0.2)), (0.3, 0.7 * sparkle(0.65, 6, 2800, 9))]), -5))
+
+
+def tick(d=0.03, hz=3200):
+    t = t_axis(d)
+    x = highpass(lowpass(rng.uniform(-1, 1, len(t)), hz * 1.6), hz * 0.6) * np.exp(-t / 0.006)
+    return fade(x + 0.5 * np.sin(2 * np.pi * hz * t) * np.exp(-t / 0.005), 0.0005, 0.005)
+
+
+def peep(f0, f1, d=0.13):
+    t = t_axis(d)
+    u = t / d
+    f = f0 + (f1 - f0) * np.sin(u * np.pi / 2) + 40 * np.sin(2 * np.pi * 26 * t)
+    ph = 2 * np.pi * np.cumsum(f) / RATE
+    return fade((np.sin(ph) + 0.12 * np.sin(2 * ph)) * np.sin(u * np.pi) ** 0.7, 0.003, 0.01)
+
+
+write("egg_hatch", norm(place(0.55, [(0.0, 0.5 * tick(hz=2600)), (0.07, 0.7 * tick(hz=3000)), (0.13, tick(hz=3400)),
+                                      (0.2, 0.8 * peep(1500, 2300)), (0.36, 0.9 * peep(1700, 2600, 0.15))]), -8))

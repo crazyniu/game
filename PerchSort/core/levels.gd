@@ -3,6 +3,9 @@ extends RefCounted
 ## Level catalog loading and board construction (validation mirrors the original rules).
 
 const PATH := "res://levels/levels.json"
+const COUNT := 100
+const WORLDS := 10
+const PER_WORLD := 10
 
 static var _catalog: Array = []
 

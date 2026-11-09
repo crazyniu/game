@@ -9,7 +9,7 @@ states=(
   board_view:tool_bar board_view:tool_bar_35
   popups:win_three_stars popups:win_two_stars popups:win_one_star popups:win_zero_reward
   popups:settings_sound_on popups:settings_muted popups:document_privacy popups:document_credits popups:level_card_first_visit popups:level_card_full_roster popups:level_card_locked
-  popups:goal_info_berry popups:goal_info_hoot popups:level_gift popups:checkin_day3 popups:lucky_draw popups:lucky_draw_none popups:chest_half popups:chest_ready popups:rewards_chest popups:new_friend_berry
+  popups:goal_info_berry popups:goal_info_hoot popups:win_milestone popups:checkin_day3 popups:lucky_draw popups:lucky_draw_none popups:chest_half popups:chest_ready popups:rewards_chest popups:new_friend_berry
   popups:unlock_owl_eye popups:unlock_sapling popups:world_complete_1 popups:world_unlock_2 popups:world_unlock_4
   home_view:home home_view:home_new
   map_view:forest_trail map_view:first_level map_view:autumn_world map_view:all_cleared map_view:gate_locked

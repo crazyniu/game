@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # One-click launcher for Perch Sort.
-#   ./run.sh                 open all 40 levels and top up to at least 50,000 coins
+#   ./run.sh                 open all levels and top up to at least 50,000 coins
 #   ./run.sh --level=12      start directly on level 12
 #   ./run.sh --reset         delete saved progress, then apply the launcher defaults
 #   ./run.sh --update        pull the latest main first (only if the checkout has no local changes)
@@ -66,13 +66,16 @@ if [[ -z "$stamp" || ! -f "$stamp_file" || "$(cat "$stamp_file")" != "$stamp" ]]
 fi
 
 if [[ "$boost_profile" == true ]]; then
-  python3 - "$(save_dir)" <<'PY'
+  python3 - "$(save_dir)" "$project/meta/profile.gd" <<'PY'
 import json
 from pathlib import Path
+import re
 import sys
 import tempfile
 
+LEVELS = 100
 save_directory = Path(sys.argv[1])
+profile_source = Path(sys.argv[2]).read_text(encoding="utf-8")
 save_directory.mkdir(parents=True, exist_ok=True)
 profile_path = save_directory / "profile.json"
 backup_path = save_directory / "profile.before-launcher-access.json"
@@ -86,12 +89,29 @@ else:
     profile = {}
 
 profile["coins"] = max(profile.get("coins", 0), 50000)
-profile["highestUnlockedLevel"] = 40
+# Older saves number their levels differently: move the records as the game would, before opening the levels.
+def table(name):
+    body = re.search(name + r" := \{(.*?)\}", profile_source).group(1)
+    return {int(a): int(b) for a, b in re.findall(r"(\d+): (\d+)", body)}
+
+schema = int(profile.get("schemaVersion", 1)) if profile else 3
+for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION")):
+    if schema < step:
+        moves = table(name)
+        for field in ("bestStars", "clearCounts", "bestMoves"):
+            old = profile.get(field, [])
+            new = [0] * (LEVELS + 1)
+            for source, target in moves.items():
+                if source < len(old):
+                    new[target] = old[source]
+            profile[field] = new
+profile["schemaVersion"] = 3
+profile["highestUnlockedLevel"] = LEVELS
 # The game's existing unlock rule requires a star on each preceding level.
 for field in ("bestStars", "clearCounts"):
     entries = profile.setdefault(field, [])
-    entries.extend([0] * (41 - len(entries)))
-    for level in range(1, 40):
+    entries.extend([0] * (LEVELS + 1 - len(entries)))
+    for level in range(1, LEVELS):
         entries[level] = max(entries[level], 1)
 
 with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=save_directory,

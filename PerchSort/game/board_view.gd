@@ -14,6 +14,7 @@ const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "s
 	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
 ## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
 const ENTRANCE_HOUSE := 0.1
+const ENTRANCE_WING_DB := -15.0
 const ENTRANCE_BRANCHES := 0.95
 const ENTRANCE_BIRDS := 1.6
 const ENTRANCE_BIRD_SPREAD := 0.85
@@ -23,11 +24,15 @@ const ENTRANCE_QUICK := 0.36
 const SKIP_TIME_SCALE := 12.0
 const BUBBLE_SECONDS := 1.6
 const STUCK_DELAY := 0.8
+## Seconds without a tap or move before the hint tool is pointed at (once per level, only with hints in stock).
+const IDLE_NUDGE := 12.0
 
 var session: GameSession
 var profile: Profile
 var level: Dictionary
 var busy := false
+var _idle_time := 0.0
+var _idle_nudged := false
 var instant := false   # captures: no motion
 
 var _scene: Node2D
@@ -131,6 +136,8 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
 	busy = false
+	_idle_time = 0.0
+	_idle_nudged = false
 	level = level_def
 	profile = player
 	session = GameSession.new(level, profile.inventory)
@@ -331,6 +338,20 @@ func _process(delta: float) -> void:
 	_tick_ambient()
 	_tick_night()
 	_poll_hint()
+	_tick_idle(delta)
+
+## A player who sits still for IDLE_NUDGE seconds gets the hand on the hint tool, so tools become a habit.
+func _tick_idle(delta: float) -> void:
+	if instant or _idle_nudged or busy or session == null or session.state.is_won():
+		return
+	_idle_time += delta
+	if _idle_time < IDLE_NUDGE or is_instance_valid(_stuck):
+		return
+	if session.state.inventory[Board.Booster.FIREFLY] <= 0 or not get_tree().root.find_children("Popup", "", true, false).is_empty():
+		_idle_time = IDLE_NUDGE * 0.5   # look again a little later
+		return
+	_idle_nudged = true
+	point_at_tool(Board.Booster.FIREFLY)
 
 func _tick_ambient() -> void:
 	for m in _motes:
@@ -566,7 +587,9 @@ func _entrance(quick := false) -> void:
 		var target := bird.position
 		var right: bool = s.rights[birds[j][1]] == 1
 		bird.position = Vector2(1240.0 if right else -160.0, target.y - 420.0 - randf() * 200.0)
-		bird.fly_to(target, (ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0)) * k, ENTRANCE_FLIGHT * k, false, true)
+		# A whole flock arrives at once: only every third bird is heard, softly.
+		bird.fly_to(target, (ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0)) * k, ENTRANCE_FLIGHT * k, false, true, null,
+			ENTRANCE_WING_DB if j % 3 == 0 else BirdView.WING_SILENT)
 		last = bird
 	if last:
 		await last.finished
@@ -897,6 +920,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 		return
 	if pressed:
+		_idle_time = 0.0
 		_hide_bubble()
 		_hide_stuck()
 	if busy or session.state.is_won():
@@ -1106,7 +1130,8 @@ func show_stuck_hint() -> void:
 		_stuck.modulate.a = 0.7 + 0.3 * wave
 		arrow.position.y = base_y - wave * 12.0, 0.0, 1.0, 1.2)
 
-## After a level gift: the gifted booster's button grows and pulses and a hand taps it, until the player acts.
+## A glow and a tapping hand on one tool (a fitting booster at level start, or the hint after a long pause),
+## until the player acts.
 func point_at_tool(kind: int) -> void:
 	_hide_stuck()
 	var pick := -1
@@ -1189,6 +1214,7 @@ func _on_tool(kind: int) -> void:
 	var result := session.use_booster(kind)
 	if result.get("applied", false):
 		profile.inventory[kind] = session.state.inventory[kind]
+		profile.set_tutorial(Progress.used_flag(kind))
 		profile_changed.emit()
 		_prefetch_hint()
 		Sound.play(BOOSTER_SOUND[kind])
@@ -1332,6 +1358,7 @@ func _apply_hint(move: Array) -> void:
 		return
 	_shown_hint_key = session.state.search_key(false)
 	profile.inventory[Board.Booster.FIREFLY] = session.state.inventory[Board.Booster.FIREFLY]
+	profile.set_tutorial(Progress.used_flag(Board.Booster.FIREFLY))
 	profile_changed.emit()
 	Sound.play("hint")
 	refresh_hud()
@@ -1394,7 +1421,7 @@ func play_events(events: Array) -> void:
 			"hatched":
 				var bird: BirdView = _birds.get(e["id"])
 				if bird:
-					Sound.play("crate_open")
+					Sound.play("egg_hatch")
 					bird.hatch()
 					await bird.finished
 			"egg_revealed":
@@ -1680,6 +1707,18 @@ func granted(kind: int, count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "lifted_both_sides":   # one left and one right branch lifted: each flock looks across the board
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		await main.get_tree().create_timer(5.0).timeout
+		var sides := {}
+		for b in board.session.state.branch_count():
+			if board.session.state.items[b].size() > 0 and not sides.has(board.session.state.rights[b]):
+				sides[board.session.state.rights[b]] = b
+		for b in sides.values():
+			board._lift(b, true)
+		return
 	if state.begins_with("day_w") or state.begins_with("night_w"):
 		var board := BoardView.new()
 		board.instant = main.instant()
@@ -1742,7 +1781,7 @@ static func preview(main: Control, state: String) -> void:
 		return
 	if state.begins_with("hint_timing_") or state.begins_with("hint_think_") or state == "hint_all":
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		var ids: Array = range(1, 41) if state == "hint_all" else [int(state.get_slice("_", 2))]
 		var think := 3.0 if state.begins_with("hint_think_") else 0.0
 		for id in ids:
@@ -1780,7 +1819,7 @@ static func preview(main: Control, state: String) -> void:
 		return
 	if state in ["hint_searching", "hint_timeout", "hint_unavailable", "hint_transfer"]:
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		player.inventory[Board.Booster.FIREFLY] = 5
 		var board := BoardView.new()
 		board.instant = main.instant()
@@ -1810,7 +1849,7 @@ static func preview(main: Control, state: String) -> void:
 	if state.begins_with("tool_bar"):
 		# Every tool unlocked, stock on some, one move made so undo shows: "tool_bar" (level 25), "tool_bar_N".
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		for kind in Board.BOOSTER_COUNT:
 			player.inventory[kind] = [3, 0, 2, 1, 5, 0][kind % 6]
 		var board := BoardView.new()

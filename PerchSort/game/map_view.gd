@@ -1,5 +1,5 @@
 extends Control
-## The level map: all 40 levels on a scrolling trail across the four painted world maps, with a fixed top bar
+## The level map: every level on a scrolling trail across the painted world maps, with a fixed top bar
 ## (world title, coins) and the shop, aviary, settings and help buttons at the bottom.
 
 signal level_tapped(level: int)
@@ -13,11 +13,12 @@ signal gate_tapped(world: int)
 
 const SEGMENT := 1620.0
 const STRIDE := 1500.0
-const CONTENT_H := STRIDE * 3.0 + SEGMENT
+const CONTENT_H := STRIDE * (Levels.WORLDS - 1) + SEGMENT
 const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 120 px, over the world above it
 const FOCUS_RATIO := 0.58
 const TAP_SLOP := 14.0
-const WORLD_LABELS := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name"]
+const WORLD_LABELS := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name", "world.blossom.name",
+	"world.mushroom.name", "world.lakeside.name", "world.pine.name", "world.rainforest.name", "world.wisteria.name"]
 ## Node centers per world (x, y within the world segment), levels 1..10: two or three on each switchback of the
 ## painted trail (tools/map/sketch), in walking order from the bottom.
 const NODES := [
@@ -26,6 +27,8 @@ const NODES := [
 	[[250, 1127], [540, 1121], [830, 1120], [770, 896], [290, 895], [250, 689], [540, 666], [830, 652], [770, 456], [290, 447]],
 	[[250, 1133], [540, 1119], [830, 1101], [770, 910], [290, 895], [250, 697], [540, 680], [830, 658], [770, 483], [290, 462]],
 ]
+## Which of the painted trail shapes above each world uses (the new forests repeat the first four trails).
+const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
 ## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
 const MARGIN := 48.0
 const NODE := 150.0              # cleared and locked nodes (painted gold disc, stars inside)
@@ -55,7 +58,8 @@ const TOP_FADE := Rect2(0, 0, 1080, 200)
 const TOP_FADE_ALPHA := 0.62
 const BOTTOM_FADE := Rect2(0, 1660, 1080, 260)   # calms the trail under the bottom buttons
 const BOTTOM_FADE_ALPHA := 0.55
-const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63)]
+const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63), Color8(85, 80, 48),
+	Color8(60, 66, 19), Color8(75, 76, 22), Color8(37, 66, 58), Color8(62, 68, 28), Color8(78, 66, 57)]
 ## At either scroll end the bird and stars rest clear of the fixed controls.
 const TOP_CLEAR := 340.0
 const BOTTOM_CLEAR := 1644.0
@@ -65,10 +69,10 @@ const NAV_Y := 1818.0
 const NAV_TILE := Vector2(214.0, 176.0)   # the painted home tiles, a little smaller than on the home page
 const NAV_GAP := 236.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
-## BOTTOM_CLEAR: level 40 at y 462 with a bird up to 210 above its centre, level 1 at y 1321 + 3 strides with its
+## BOTTOM_CLEAR: the last level at y 402 with a bird up to 210 above its centre, level 1 at y 1321 + the strides below it with its
 ## star row extending below the node centre.
-const TOP_PAD := TOP_CLEAR - (462.0 - 210.0)
-const BOTTOM_PAD := (1321.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
+const TOP_PAD := TOP_CLEAR - (402.0 - 210.0)
+const BOTTOM_PAD := (1321.0 + STRIDE * (Levels.WORLDS - 1) + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
 ## At either scroll end no node may sit under the bottom buttons: the end moves outward (extra painted room) to
 ## the offset where nodes, their stars and the buttons overlap least (ideally not at all), at most END_SEARCH px.
 const NAV_COUNT := 3
@@ -111,7 +115,7 @@ func setup(player: Profile) -> void:
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var next := Progress.next_level(profile)
-	current_level = next if next > 0 else 40
+	current_level = next if next > 0 else Levels.COUNT
 	_fit_scroll_ends()
 	_build_content()
 	_build_hud()
@@ -128,11 +132,11 @@ func _node_y(level: int) -> float:
 
 func _node_pos(level: int) -> Vector2:
 	var world := Progress.world_of_level(level)
-	var p: Array = NODES[world - 1][(level - 1) % 10]
-	return Vector2(p[0], p[1] + (4 - world) * STRIDE)
+	var p: Array = NODES[TRAIL_OF_WORLD[world - 1]][(level - 1) % Levels.PER_WORLD]
+	return Vector2(p[0], p[1] + (Levels.WORLDS - world) * STRIDE)
 
 func _gate_center(world: int) -> Vector2:
-	return Vector2(GATE_CENTER_X, GATE_CENTER_Y + (4 - world) * STRIDE)
+	return Vector2(GATE_CENTER_X, GATE_CENTER_Y + (Levels.WORLDS - world) * STRIDE)
 
 ## Scrolls so the world's gate sits near the middle of the screen.
 func show_gate(world: int) -> void:
@@ -163,8 +167,8 @@ func _build_content() -> void:
 	# Overscroll rooms continue the painting: its edge strip reflected, so no dark band shows behind the bar.
 	_overscroll_top()
 	_overscroll_bottom()
-	for world in range(4, 0, -1):   # lower worlds last: each top fade lies over the world above
-		var bg := UI.image(_paintings, "map_world_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
+	for world in range(Levels.WORLDS, 0, -1):   # lower worlds last: each top fade lies over the world above
+		var bg := UI.image(_paintings, "map_world_w%d" % world, Rect2(0, (Levels.WORLDS - world) * STRIDE, 1080, SEGMENT), false)
 		bg.name = "World %d" % world
 	_clip = Control.new()
 	_clip.name = "TrailViewport"
@@ -178,9 +182,9 @@ func _build_content() -> void:
 	_content.size = Vector2(1080, CONTENT_H)
 	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_clip.add_child(_content)
-	for world in range(1, 4):
+	for world in range(1, Levels.WORLDS):
 		_build_gate(world)
-	for level in range(1, 41):
+	for level in range(1, Levels.COUNT + 1):
 		_build_node(level)
 
 func _build_gate(world: int) -> void:
@@ -339,12 +343,12 @@ func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Cal
 
 ## Scrolls so the chapter's first level sits at the focus line.
 func show_world(world: int) -> void:
-	scroll_to(_node_y((world - 1) * 10 + 1) - size.y * FOCUS_RATIO)
+	scroll_to(_node_y((world - 1) * Levels.PER_WORLD + 1) - size.y * FOCUS_RATIO)
 
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
-## nothing is above world 4), reflected upwards at the painting's top edge.
+## nothing is above the last world), reflected upwards at the painting's top edge.
 func _overscroll_top() -> void:
-	var tex := Art.tex("map_world_w4")
+	var tex := Art.tex("map_world_w%d" % Levels.WORLDS)
 	var k := float(tex.get_height()) / SEGMENT
 	var h := ceilf(maxf(_top_pad, OVERLAP) * k)
 	var img := tex.get_image().get_region(Rect2i(0, 0, tex.get_width(), int(h)))
@@ -395,10 +399,11 @@ func _update_fades() -> void:
 
 ## Shade colour of the painting at a content y, blended smoothly across each seam between worlds.
 func _paint_color(y: float) -> Color:
-	var c: Color = WORLD_SHADE[3]
-	for k in range(1, 4):
+	var top := Levels.WORLDS - 1
+	var c: Color = WORLD_SHADE[top]
+	for k in range(1, Levels.WORLDS):
 		var seam := k * STRIDE + OVERLAP * 0.5
-		c = c.lerp(WORLD_SHADE[3 - k], smoothstep(seam - 160.0, seam + 160.0, y))
+		c = c.lerp(WORLD_SHADE[top - k], smoothstep(seam - 160.0, seam + 160.0, y))
 	return c
 
 func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
@@ -422,7 +427,7 @@ func _update_title() -> void:
 	var probe := offset + size.y * 0.36
 	var best := 1
 	var best_d := INF
-	for level in range(1, 41):
+	for level in range(1, Levels.COUNT + 1):
 		var d := absf(_node_y(level) - probe)
 		if d < best_d:
 			best_d = d
@@ -467,7 +472,7 @@ func _nav_x(i: int) -> float:
 ## `at`; 0 or less means every node is clear.
 func _nav_overlap(at: float) -> float:
 	var worst := -INF
-	for level in range(1, 41):
+	for level in range(1, Levels.COUNT + 1):
 		var c := _node_pos(level) - Vector2(0.0, at)
 		if c.y < 1600.0 or c.y > 2100.0:
 			continue
@@ -564,17 +569,17 @@ static func preview(main: Control, state: String) -> void:
 			cleared = 20
 			p.coins = 1240
 		"all_cleared":
-			cleared = 40
+			cleared = Levels.COUNT
 			p.coins = 1240
 		"gate_locked":
 			cleared = 9
 			p.coins = 1240
 		"top_end", "world_ribbon":
-			cleared = 40 if state == "top_end" else 24
+			cleared = Levels.COUNT if state == "top_end" else 24
 			p.coins = 1240
 	for level in range(1, cleared + 1):
 		p.stars[level] = [3, 3, 2, 3, 1][(level - 1) % 5]
-	p.highest_unlocked = mini(40, cleared + 1)
+	p.highest_unlocked = mini(Levels.COUNT, cleared + 1)
 	var view: Control = load("res://game/map_view.gd").new()
 	main.set_screen(view)
 	view.setup(p)

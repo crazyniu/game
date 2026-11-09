@@ -26,7 +26,7 @@ const MARGIN := 48.0
 const INSET := 88.0                       # screen edge to content: the sheet (x 24) and its green rim, with air
 const SHEET_PAD := 40.0                   # sheet rim to the first and last content
 const BAR_Y := 112.0
-const SIGN_W := 400.0
+const SIGN_W := 320.0
 const TITLE_CAP := 56.0
 const TAB_Y := 292.0
 const TAB_GAP := 48.0
@@ -213,8 +213,7 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	UI.button(_bar, "Close", Vector2(112, BAR_Y), "red", "close", func(): closed.emit())
-	# The title hangs on the painted wooden sign, ropes rising behind the top edge; _place_sign keeps it
-	# between the close button and the coin counter, whatever the counter's width.
+	# The title hangs on the painted wooden sign, centred on the screen, ropes rising behind the top edge.
 	_sign = Control.new()
 	_sign.name = "SignHolder"
 	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -228,15 +227,10 @@ func _build_header() -> void:
 	_sign.position.x = 540.0
 	_sign.pivot_offset = Vector2(0.0, BAR_Y - 112.0)   # shrinks from the rope tops
 
-## Centre the sign in the free space between the close button and the coins (never under either).
+## The sign stays centred on the screen and only shrinks if a very long counter would reach it.
 func _place_sign(coins_left: float) -> void:
-	if _sign == null:
-		return
-	var left := 112.0 + UI.SECONDARY * 0.5 + 12.0
-	var right := coins_left - 12.0
-	_sign.position.x = clampf(540.0, left + SIGN_W * 0.5, right - SIGN_W * 0.5) if right - left >= SIGN_W else (left + right) * 0.5
-	var k := minf(1.0, (right - left) / SIGN_W)
-	_sign.scale = Vector2.ONE * k
+	if _sign != null:
+		_sign.scale = Vector2.ONE * minf(1.0, (coins_left - 12.0 - 540.0) * 2.0 / SIGN_W)
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -726,7 +720,7 @@ func _buy(it: Dictionary, quantity: int) -> void:
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
 	p.coins = 240
-	p.highest_unlocked = 40
+	p.highest_unlocked = Levels.COUNT
 	p.inventory = PackedInt32Array([3, 2, 1, 1, 0, 0])
 	var start := 0
 	match state:

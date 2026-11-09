@@ -4,7 +4,7 @@ Follow [CONVENTIONS](docs/CONVENTIONS.md).
 
 ## Current execution contract
 
-Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 40 fixed authored levels across four sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
+Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 100 fixed levels across ten sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
 
 - Return questions and reports to the coordinator who assigned the task. AGENTS.md and CLAUDE.md must remain identical.
 - Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. Bounded workers must not spawn workers.
@@ -45,12 +45,12 @@ Keep `core/` and `meta/` independent of presentation. Inspect actual code and ob
 
 - Chinese with the user. Agent instructions, task specs/reports, comments and commits are English. No emoji in deliveries.
 - [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; approved visual contracts and actual source resolve superseded prose. Old Unity-era documents are historical research, not execution instructions.
-- Preserve 40 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
+- Preserve 100 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
 - Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers.
 
 ## Verification
 
-1. `bash scripts/run_tests.sh`: naming guard, smoke test (every script loads, every level builds) and the core test (all 40 levels solved by the solver and replayed through a session). About 5 minutes.
+1. `bash scripts/run_tests.sh`: naming guard, smoke test (every script loads, every level builds) and the core test (every level replayed through a session along its stored solution in `levels/hints.json`).
 2. `bash scripts/screenshots.sh [filter]`: silent 1080x1920 captures of every screen state into `build/screens/` (xvfb). Compare with the mockups and the approved baseline. Stills do not prove animation.
 3. Timed evidence: `scripts/capture.sh` with `--motion --wait=S`, or `main.tscn -- --frames=<dir> --wait=S --step=0.25` for frame sequences; `--autoplay` plays a level through the real board and logs entrance and total timings.
 4. CI runs the naming guard, syntax checks and `scripts/run_tests.sh` on headless Godot. CI is not a substitute for GUI acceptance.

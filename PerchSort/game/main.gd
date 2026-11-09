@@ -184,7 +184,7 @@ func show_chest() -> void:
 
 func _play_next() -> void:
 	var level := Progress.next_level(profile)
-	_start_level(level if level > 0 else 40)
+	_start_level(level if level > 0 else Levels.COUNT)
 
 func _refresh_screen() -> void:
 	if screen and screen.has_method("setup") and not screen is BoardView:
@@ -283,8 +283,8 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.instant = instant()
 	set_screen(board)
 	var def := Levels.get_level(level_id)
-	# Each level's first open hands out one useful booster, so players learn to use them (shown after the entrance).
-	var gift := Progress.level_gift(profile, level_id, def)
+	# A held booster that helps here and was never used gets a pointing hand once the popups are done.
+	var point := Progress.booster_to_point_at(profile, def)
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
@@ -302,11 +302,6 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		if info[2] == level_id and not profile.has_tutorial(flag):
 			profile.set_tutorial(flag)
 			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
-	if gift >= 0:
-		queue.append(func(done: Callable): Popups.level_gift(popups, gift, func():
-			if is_instance_valid(board) and board.has_method("point_at_tool"):
-				board.point_at_tool(gift)
-			done.call()))
 	# The first open of level 1 ends with the how-to-play steps, shown once.
 	if level_id == 1 and not profile.has_tutorial(Tutorial.FLAG):
 		profile.set_tutorial(Tutorial.FLAG)
@@ -316,10 +311,13 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		profile.set_tutorial(Tutorial.lesson_flag(mechanic))
 		queue.append(func(done: Callable): Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
 	save()
-	if not queue.is_empty():
-		while entrance and is_instance_valid(board) and board.busy:
-			await get_tree().process_frame
-		_run_queue(queue)
+	if queue.is_empty() and point < 0:
+		return
+	while entrance and is_instance_valid(board) and board.busy:
+		await get_tree().process_frame
+	_run_queue(queue, func():
+		if point >= 0 and is_instance_valid(board) and screen == board:
+			board.point_at_tool(point))
 
 ## Shows popups one after another; each receives a `done` callable.
 func _run_queue(queue: Array[Callable], then := Callable()) -> void:
@@ -336,18 +334,20 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 	var was_complete := profile.rewarded_worlds.has(world)
 	for sp in session.state.homed:
 		Aviary.add_flock_home(profile, Board.SPECIES[sp])
-	var payout := Progress.on_win(profile, level_id, session.move_count(), session.par, session.state.chorus_coins)
-	profile.record_moves(level_id, session.move_count())
+	# Take the board's stock first: on_win then adds starter stocks and this win's booster drops on top.
 	profile.inventory = session.state.inventory.duplicate()
+	var next_def := Levels.get_level(level_id + 1) if level_id < Levels.all().size() else {}
+	var payout := Progress.on_win(profile, level_id, session.move_count(), session.par, session.state.chorus_coins, next_def)
+	profile.record_moves(level_id, session.move_count())
 	save()
 	var next_level := level_id + 1
-	var has_next := next_level <= 40 and Progress.is_level_unlocked(profile, next_level)
+	var has_next := next_level <= Levels.COUNT and Progress.is_level_unlocked(profile, next_level)
 	var after_win: Array[Callable] = []
 	if not was_complete and payout["world"] > 0:
 		after_win.append(func(done: Callable): Popups.world_complete(popups, world, payout["world"], done))
-		if world < 4:
+		if world < Levels.WORLDS:
 			after_win.append(func(done: Callable): Popups.world_unlock(popups, world + 1, done))
-	Popups.win(popups, payout["stars"], session.move_count(), session.par, payout["total"] - payout["world"],
+	Popups.win(popups, payout["stars"], session.move_count(), session.par, payout["total"] - payout["world"], payout["boosters"],
 		func(): _run_queue(after_win, func(): open_board(level_id)),
 		func(): _run_queue(after_win, func(): open_board(next_level) if has_next else open_map()),
 		func(): _run_queue(after_win, open_home), has_next)
