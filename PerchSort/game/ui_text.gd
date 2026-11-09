@@ -7,6 +7,8 @@ const ROOT := "res://art/locale/"
 static var _catalog: Dictionary = {}
 static var _pack: Dictionary = {}
 static var _number_textures: Dictionary = {}
+static var _ink: Dictionary = {}      # character -> painted columns [first, width] inside its cell
+const NUMBER_GAP := 8.0               # space between two numerals, in glyph-cell units (128 = digit height)
 static var _locale := ""
 static var _folder := ""
 
@@ -81,7 +83,10 @@ static func _load_pack() -> void:
 	_number_textures.clear()
 	var glyphs: Dictionary = _pack["numbers"]["glyphs"]
 	for character in glyphs:
-		_number_textures[character] = load(_folder + glyphs[character])
+		var texture: Texture2D = load(_folder + glyphs[character])
+		_number_textures[character] = texture
+		var used := texture.get_image().get_used_rect()
+		_ink[character] = Vector2(used.position.x, used.size.x)
 
 
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false) -> TextureRect:
@@ -131,11 +136,11 @@ static func label_width(id: String, cap: float, heading := false) -> float:
 
 static func number_width(value: String, cap: float) -> float:
 	_load_pack()
-	var numbers: Dictionary = _pack["numbers"]
 	var width := 0.0
 	for character in value:
-		width += float(numbers["advances"][character])
-	return width * cap / float(numbers["cap"])
+		width += float(_ink[character].y)
+	width += NUMBER_GAP * maxf(0.0, value.length() - 1.0)
+	return width * cap / float(_pack["numbers"]["cap"])
 
 
 ## Numeral cells share an ink-height canvas and fit together inside the supplied bounds.
@@ -171,7 +176,8 @@ static func _draw_number(box: NumberSprite) -> void:
 	var x := (box.size.x - width * k) * (0.5 + 0.5 * box.align)
 	var y := (box.size.y - height) * 0.5
 	for character in box.value:
-		var advance := float(numbers["advances"][character]) * k
+		var ink: Vector2 = _ink[character]
 		var texture: Texture2D = _number_textures[character]
-		box.draw_texture_rect(texture, Rect2(x, y, advance, height), false)
-		x += advance
+		var cell := texture.get_size()
+		box.draw_texture_rect_region(texture, Rect2(x, y, ink.y * k, height), Rect2(ink.x, 0.0, ink.y, cell.y))
+		x += (ink.y + NUMBER_GAP) * k

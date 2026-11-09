@@ -78,7 +78,6 @@ var _door_open: Control
 var _door_mask: Control
 var _resident: BirdView
 var _resident_species := -1
-var _goal_gift := {}    # species -> gift badge shown until delivered
 var _goal_check := {}   # species -> check mark shown after delivery
 var _tool_slots: Array = []  # [kind, centre] per visible tool, for the stuck pointer
 var _bubble: Node2D
@@ -588,7 +587,7 @@ const STATUS_W := 372.0          # ends left of the widest painted house (houses
 const PHASE_W := 192.0
 const STATUS_GAP := 16.0         # between the two pills
 const STATUS_INSET := 34.0
-const STATUS_CAP := 48.0
+const STATUS_CAP := 34.0
 const STATUS_STAR := 50.0
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 50.0
@@ -766,7 +765,7 @@ func _pulse(node: Control) -> void:
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Goal birds under the house: a cream circle with the face, the ability badge until delivered, then a check.
+## Goal birds under the house: a cream circle with the face, then a check once delivered.
 func _build_goals() -> void:
 	var ids := Levels.species_ids(session.state)
 	var n := ids.size()
@@ -793,7 +792,6 @@ func _build_goals() -> void:
 		var face := size * 0.78
 		UI.art(node, sp + "_face", Rect2(Vector2.ONE * (size - face) * 0.5 + Vector2(0, -4), Vector2.ONE * face))
 		var badge := Rect2(Vector2.ONE * size * 0.6, Vector2.ONE * size * 0.46)
-		_goal_gift[sp] = UI.art(node, "gift_coin_" + GIFT_COIN[sp], badge)
 		var check := UI.shape(node, badge, "green", badge.size.x * 0.5, 4.0, false)
 		UI.icon(check, "check", badge.size * 0.5, badge.size.x * 0.6)
 		_goal_check[sp] = check
@@ -806,7 +804,6 @@ func refresh_hud() -> void:
 	_refresh_status()
 	for sp in _goal_nodes:
 		var home: bool = s.homed.has(Board.species_index(sp))
-		_goal_gift[sp].visible = not home
 		_goal_check[sp].visible = home
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
@@ -1505,7 +1502,6 @@ func _flock_home(e: Dictionary) -> void:
 		print("FLOCK_HOME species=%s chain=%d pitch=%.3f" % [e["species"], _home_chain, pitch])
 	Sound.vibrate(Sound.PULSE_HOME)
 	_set_resident(Board.species_index(e["species"]), true)
-	_goal_gift[e["species"]].visible = false
 	_goal_check[e["species"]].visible = true
 	_sparkle_burst(_door_point())
 	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
@@ -1602,17 +1598,27 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.position.y = feet.y + 90.0
 		create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+## The ability badge of a delivered flock flies from the doorway to its goal circle (never over the birds below).
 func _gift(e: Dictionary) -> void:
 	var coin := Sprite2D.new()
 	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
-	coin.position = _door_point() + Vector2(0, 120)
+	coin.position = _door_point()
 	coin.scale = Vector2.ONE * 0.2
 	add_child(coin)
 	Sound.play("collect")
+	var goal: Control = _goal_nodes.get(e["species"])
+	var target := coin.position
+	var small := 0.46 * GOAL / float(coin.texture.get_width())
+	if goal:
+		target = goal.position + goal.size * 0.8
+		small = 0.46 * goal.size.x / float(coin.texture.get_width())
+	var big := 0.8 * GOAL / float(coin.texture.get_width())
 	var tw := create_tween()
-	tw.tween_property(coin, "scale", Vector2.ONE * GOAL / float(coin.texture.get_width()), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_interval(0.35)
-	tw.tween_property(coin, "modulate:a", 0.0, 0.2)
+	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(0.15)
+	tw.tween_property(coin, "position", target, 0.3).set_ease(Tween.EASE_IN_OUT)
+	tw.parallel().tween_property(coin, "scale", Vector2.ONE * small, 0.3)
+	tw.tween_property(coin, "modulate:a", 0.0, 0.15)
 	await tw.finished
 	coin.queue_free()
 
