@@ -16,6 +16,8 @@ var _wiping := false
 const WIPE_SECONDS := 0.4
 
 
+var _daily_thread: Thread
+
 func _ready() -> void:
 	size = Vector2(1080, 1920)
 	for a in OS.get_cmdline_user_args():
@@ -103,6 +105,25 @@ func _open_home() -> void:
 	home.chest_requested.connect(show_chest)
 	home.challenge_requested.connect(start_challenge)
 	Sound.music("bgm_menu")
+	_warm_daily()
+
+## The daily puzzle needs the solver (up to seconds): solve it in the background while the player is on the home page.
+func _warm_daily() -> void:
+	if _daily_thread != null or not Progress.challenge_available(profile, Progress.today()):
+		return
+	Levels.all()
+	var day_seed := Progress.challenge_seed(Progress.today())
+	var reach := profile.highest_unlocked
+	_daily_thread = Thread.new()
+	_daily_thread.start(func(): Levels.daily_cached(day_seed, reach))
+
+func _finish_daily_warmup() -> void:
+	if _daily_thread != null:
+		_daily_thread.wait_to_finish()
+		_daily_thread = null
+
+func _exit_tree() -> void:
+	_finish_daily_warmup()
 
 func open_map() -> void:
 	_go(_open_map)
@@ -137,7 +158,8 @@ func show_checkin() -> void:
 
 ## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
 func start_challenge() -> void:
-	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
+	_finish_daily_warmup()
+	var def := Levels.daily_cached(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
 	if def.is_empty():
 		Sound.play("error")
 		return
