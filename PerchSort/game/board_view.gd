@@ -1385,6 +1385,8 @@ func _hint() -> void:
 		_log_hint("cached")
 		_apply_hint(_hint_moves[key])
 		return
+	if _hint_failures.has(key) and _hint_failures[key] == Solver.Status.BUDGET_EXCEEDED:
+		_hint_failures.erase(key)   # the retry icon promises another search
 	if _hint_failures.has(key):
 		_show_hint_failure(_hint_failures[key])
 		Sound.play("error")
