@@ -17,6 +17,7 @@ class LabelSprite extends TextureRect:
 	var cap: float
 	var heading := false
 	var outlined := false
+	var bend := 0.0      # screen pixels the two ends sit below the middle (words on a curved ribbon)
 
 	func _notification(what: int) -> void:
 		if what == NOTIFICATION_TRANSLATION_CHANGED and not label_id.is_empty():
@@ -57,13 +58,15 @@ static func outline_material(width: float) -> ShaderMaterial:
 	m.set_shader_parameter("width", width)
 	return m
 
-static func _padded_texture(path: String, source: Texture2D) -> Texture2D:
-	if not _padded.has(path):
+static func _padded_texture(path: String, source: Texture2D, extra := 0) -> Texture2D:
+	var key := "%s:%d" % [path, extra]
+	if not _padded.has(key):
 		var img := source.get_image()
-		var big := Image.create(img.get_width() + OUTLINE_PAD * 2, img.get_height() + OUTLINE_PAD * 2, false, Image.FORMAT_RGBA8)
-		big.blit_rect(img, Rect2i(Vector2i.ZERO, img.get_size()), Vector2i(OUTLINE_PAD, OUTLINE_PAD))
-		_padded[path] = ImageTexture.create_from_image(big)
-	return _padded[path]
+		var pad_y := OUTLINE_PAD + extra
+		var big := Image.create(img.get_width() + OUTLINE_PAD * 2, img.get_height() + pad_y * 2, false, Image.FORMAT_RGBA8)
+		big.blit_rect(img, Rect2i(Vector2i.ZERO, img.get_size()), Vector2i(OUTLINE_PAD, pad_y))
+		_padded[key] = ImageTexture.create_from_image(big)
+	return _padded[key]
 
 
 static func _load_pack() -> void:
@@ -90,13 +93,14 @@ static func _load_pack() -> void:
 		_number_ink[character] = [float(ink.position.x), float(ink.size.x)]
 
 
-static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false) -> TextureRect:
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false, bend := 0.0) -> TextureRect:
 	var image := LabelSprite.new()
 	image.name = id.replace(".", "_")
 	image.label_id = id
 	image.bounds = bounds
 	image.cap = cap
 	image.heading = heading
+	image.bend = bend
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_SCALE
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -117,10 +121,13 @@ static func _fit_label(image: LabelSprite) -> void:
 	var shown := natural * k
 	var origin := image.bounds.position + (image.bounds.size - shown) * 0.5
 	if image.outlined:
-		image.texture = _padded_texture(path, base)
-		image.material = outline_material(maxf(3.0, float(entry["cap"]) * 0.16))
-		image.size = (natural + Vector2.ONE * OUTLINE_PAD * 2.0) * k
-		image.position = origin - Vector2.ONE * OUTLINE_PAD * k
+		var extra := ceili(image.bend / k) if image.bend > 0.0 else 0
+		image.texture = _padded_texture(path, base, extra)
+		var material := outline_material(maxf(3.0, float(entry["cap"]) * 0.11))
+		material.set_shader_parameter("bend", (image.bend / k) / (natural.y + 2.0 * (OUTLINE_PAD + extra)))
+		image.material = material
+		image.size = (natural + Vector2(OUTLINE_PAD * 2.0, (OUTLINE_PAD + extra) * 2.0)) * k
+		image.position = origin - Vector2(OUTLINE_PAD, OUTLINE_PAD + extra) * k
 	else:
 		image.texture = base
 		image.size = shown
