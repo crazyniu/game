@@ -4,7 +4,7 @@ A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, 
 
 ## Open the game
 
-One click: `./run.sh` (finds Godot 4.7.2 via `$GODOT`, `godot` on PATH or `/Applications/Godot.app`, imports assets on the first run, then starts the game). Options: `./run.sh --level=12` starts on a level, `--reset` deletes the saved progress, `--update` pulls the latest main first, `--help` lists them. Or open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`).
+One click: `./run.sh` (finds Godot 4.7.2 via `$GODOT`, `godot` on PATH or `/Applications/Godot.app`, imports assets on the first run, then starts the game). Options: `./run.sh --level=12` starts on a level, `--reset` deletes the saved progress, `--update` pulls the latest main first, `--help` lists them. On Windows use `run.bat` (or `.\run.ps1`) with the same options; Godot is found via `$env:GODOT`, `godot.exe` on PATH or common install folders. Or open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`).
 
 Normal launcher runs, including `--level`, make all 100 levels playable and top up coins to at least 50,000. This requires Python 3 and records at least one star and one clear for levels 1–99 under the existing unlock rules; higher records, level 100, and other saved fields are preserved. Before the first adjustment, the existing save is copied once to `profile.before-launcher-access.json` beside `profile.json`; that backup is never overwritten. `--reset` still deletes progress before applying these defaults. Capture, frame, preview, smoke, autoplay, and explicit `--profile` runs skip the adjustment.
 
