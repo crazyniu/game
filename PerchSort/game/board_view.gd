@@ -23,11 +23,15 @@ const ENTRANCE_QUICK := 0.36
 const SKIP_TIME_SCALE := 12.0
 const BUBBLE_SECONDS := 1.6
 const STUCK_DELAY := 0.8
+## Seconds without a tap or move before the hint tool is pointed at (once per level, only with hints in stock).
+const IDLE_NUDGE := 12.0
 
 var session: GameSession
 var profile: Profile
 var level: Dictionary
 var busy := false
+var _idle_time := 0.0
+var _idle_nudged := false
 var instant := false   # captures: no motion
 
 var _scene: Node2D
@@ -128,6 +132,8 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
 	busy = false
+	_idle_time = 0.0
+	_idle_nudged = false
 	level = level_def
 	profile = player
 	session = GameSession.new(level, profile.inventory)
@@ -328,6 +334,20 @@ func _process(delta: float) -> void:
 	_tick_ambient()
 	_tick_night()
 	_poll_hint()
+	_tick_idle(delta)
+
+## A player who sits still for IDLE_NUDGE seconds gets the hand on the hint tool, so tools become a habit.
+func _tick_idle(delta: float) -> void:
+	if instant or _idle_nudged or busy or session == null or session.state.is_won():
+		return
+	_idle_time += delta
+	if _idle_time < IDLE_NUDGE or is_instance_valid(_stuck):
+		return
+	if session.state.inventory[Board.Booster.FIREFLY] <= 0 or not get_tree().root.find_children("Popup", "", true, false).is_empty():
+		_idle_time = IDLE_NUDGE * 0.5   # look again a little later
+		return
+	_idle_nudged = true
+	point_at_tool(Board.Booster.FIREFLY)
 
 func _tick_ambient() -> void:
 	for m in _motes:
@@ -863,6 +883,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 		return
 	if pressed:
+		_idle_time = 0.0
 		_hide_bubble()
 		_hide_stuck()
 	if busy or session.state.is_won():
@@ -1072,7 +1093,8 @@ func show_stuck_hint() -> void:
 		_stuck.modulate.a = 0.7 + 0.3 * wave
 		arrow.position.y = base_y - wave * 12.0, 0.0, 1.0, 1.2)
 
-## After a level gift: the gifted booster's button grows and pulses and a hand taps it, until the player acts.
+## A glow and a tapping hand on one tool (a fitting booster at level start, or the hint after a long pause),
+## until the player acts.
 func point_at_tool(kind: int) -> void:
 	_hide_stuck()
 	var pick := -1
@@ -1155,6 +1177,7 @@ func _on_tool(kind: int) -> void:
 	var result := session.use_booster(kind)
 	if result.get("applied", false):
 		profile.inventory[kind] = session.state.inventory[kind]
+		profile.set_tutorial(Progress.used_flag(kind))
 		profile_changed.emit()
 		_prefetch_hint()
 		Sound.play(BOOSTER_SOUND[kind])
@@ -1298,6 +1321,7 @@ func _apply_hint(move: Array) -> void:
 		return
 	_shown_hint_key = session.state.search_key(false)
 	profile.inventory[Board.Booster.FIREFLY] = session.state.inventory[Board.Booster.FIREFLY]
+	profile.set_tutorial(Progress.used_flag(Board.Booster.FIREFLY))
 	profile_changed.emit()
 	Sound.play("hint")
 	refresh_hud()
