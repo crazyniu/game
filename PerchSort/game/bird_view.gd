@@ -46,6 +46,7 @@ static var _next_oldest := INF
 static var _log := false
 
 const WING_SILENT := -60.0     # fly_to wing_db: no wing sound for this flight
+const TAKEOFF_SECONDS := 0.06
 const CENTRE_X := 540.0
 
 var code := 0
@@ -641,7 +642,7 @@ func _stop_hover() -> void:
 
 ## Fly to `target` (parent space); home=true shrinks and frees the bird.
 ## With a doorway, target is its centre: approach in front, then recede inside its mask.
-func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null, wing_db := 0.0) -> void:
+func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null, wing_db := 0.0, landing_seconds := 0.16) -> void:
 	_stop_idle()
 	_glance += 1
 	acting = true
@@ -678,7 +679,7 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 	crouch.tween_method(func(t: float):
 		_body.scale = Vector2(lerpf(1.0, 1.08, t), lerpf(1.0, 0.92, t)) * base
 		if not hovering and not takeoff.is_empty():
-			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, 0.06)
+			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, TAKEOFF_SECONDS)
 	await crouch.finished
 	_stop_hover()
 	if sounds and wing_db > WING_SILENT:
@@ -734,7 +735,7 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 	squash.tween_method(func(t: float):
 		var k := 1.0 - smoothstep(0.0, 1.0, t)
 		_body.scale = Vector2(1.0 + 0.15 * k, 1.0 - 0.15 * k) * base
-		_show(last, rest, smoothstep(0.1, 0.9, t)), 0.0, 1.0, 0.16)
+		_show(last, rest, smoothstep(0.1, 0.9, t)), 0.0, 1.0, landing_seconds)
 	await squash.finished
 	acting = false
 	_show_rest()

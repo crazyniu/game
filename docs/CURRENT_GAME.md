@@ -6,6 +6,10 @@ There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatib
 
 ## Canonical-edit policy
 
+The [gameplay repairs](work-log/gameplay-repairs/report.md) cover settlement, inventory, animation cancellation,
+input, hints, tools and navigation. The [difficulty continuity report](work-log/difficulty-continuity/report.md)
+owns the current level order, hint allowances and save migration; the hundred-level round above is historical.
+
 - Maintain **one current game**, editing canonical files in place. Never create numbered parallel folders, files, classes, scenes or resource roots, or alternate implementation copies under any other name.
 - Task branches and PRs are temporary and merge into `main`; they are not permanent forks.
 - `python3 ci/check_current_game_names.py` must pass; it complements human review and runtime acceptance.
@@ -25,7 +29,7 @@ There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatib
 
 ## Persistence
 
-The profile is one JSON file, `user://profile.json`, written by `meta/profile.gd` with the original Unity-era field names (`coins`, `highestUnlockedLevel`, `boosters`, `bestStars`, `clearCounts`, `bestMoves`, `ownedOutfits`, `equippedOutfits`, ...) and `schemaVersion`. Keep field names, schema values and enum numeric orders stable. Saves from the former Unity build (PlayerPrefs) are not imported; that build was never released.
+The profile is one JSON file, `user://profile.json`, written by `meta/profile.gd` with the original Unity-era field names (`coins`, `highestUnlockedLevel`, `boosters`, `bestStars`, `clearCounts`, `bestMoves`, `ownedOutfits`, `equippedOutfits`, ...) and `schemaVersion`. Keep field names and enum numeric orders stable and retain all existing migrations. Schema 4 moves per-puzzle records into the continuous difficulty order through `LEVEL_DIFFICULTY`; both launchers apply the same mapping. Saves from the former Unity build (PlayerPrefs) are not imported; that build was never released.
 
 ## Validation
 
