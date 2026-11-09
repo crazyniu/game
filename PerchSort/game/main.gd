@@ -49,7 +49,6 @@ func _ready() -> void:
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
 		open_home()
-		_offer_daily_gift()
 	_booted = true
 	_build_wipe()
 	if args.has("autoplay"):
@@ -108,7 +107,7 @@ func _open_home() -> void:
 	home.aviary_requested.connect(open_aviary)
 	home.settings_requested.connect(func(): show_settings(false))
 	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
-	home.checkin_requested.connect(show_checkin)
+	home.lucky_draw_requested.connect(show_lucky_draw)
 	home.chest_requested.connect(show_chest)
 	home.challenge_requested.connect(start_challenge)
 	Sound.music("bgm_menu")
@@ -129,12 +128,8 @@ func _open_map() -> void:
 	map.chapters_requested.connect(func(): Popups.chapters(popups, profile, map.show_world))
 	Sound.music("bgm_menu")
 
-## The daily lucky draw opens by itself on the first launch of a day.
-func _offer_daily_gift() -> void:
-	if Progress.draws_available(profile, Progress.today()):
-		show_checkin()
-
-func show_checkin() -> void:
+## The daily lucky draw opens only from its home tile; the tile's badge says draws are waiting.
+func show_lucky_draw() -> void:
 	var today := Progress.today()
 	Progress.begin_draw_day(profile, today)
 	save()
@@ -142,7 +137,6 @@ func show_checkin() -> void:
 		var got := Progress.draw(profile, today)
 		if got.is_empty():
 			return {}
-		Sound.play("collect")
 		save()
 		_refresh_screen()
 		return got)

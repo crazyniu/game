@@ -996,27 +996,6 @@
       "line_height": 208,
       "baseline": 160
     },
-    "checkin.title": {
-      "text": "Lucky Draw",
-      "file": "label_checkin_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "checkin.claim": {
-      "text": "Claim",
-      "file": "label_checkin_claim.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "checkin.done": {
-      "text": "Come back tomorrow",
-      "file": "label_checkin_done.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
     "chest.title": {
       "text": "Star Chest",
       "file": "label_chest_title.png",
@@ -1034,13 +1013,6 @@
     "chest.line": {
       "text": "Earn stars to fill the chest",
       "file": "label_chest_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.checkin": {
-      "text": "Check-in",
-      "file": "label_home_checkin.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -1244,6 +1216,20 @@
     "chapter.levels": {
       "text": "Levels",
       "file": "label_chapter_levels.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "draw.title": {
+      "text": "Lucky Draw",
+      "file": "label_draw_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "draw.go": {
+      "text": "Draw",
+      "file": "label_draw_go.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
