@@ -18,8 +18,8 @@ signal challenge_requested
 const LOGO := Rect2(100, 90, 880, 560)    # a big title alone in the sky; the birdhouse stands on the branch below
 const SETTINGS := Rect2(904, 44, 124, 124)
 ## Seats in the painted birdhouse (home_clearing_soft: house on the branch right of centre): two on the shelf, two on the roof slopes.
-const SEATS := [Vector2(591, 1018), Vector2(708, 1018), Vector2(810, 742), Vector2(460, 766)]
-const BIRD_SCALE := 1.5
+const SEATS := [Vector2(595, 1014), Vector2(690, 1014), Vector2(795, 772), Vector2(500, 786)]
+const BIRD_SCALE := 1.3
 const BIRD_COUNT := 3
 const PLAY := Rect2(200, 1150, 680, 184)
 const TILE := Vector2(252, 208)
