@@ -16,7 +16,7 @@ const INSET := 72.0              # panel edge to content: the wooden frame (48 p
 const CLOSE := 128.0
 const ACTION_DROP := 48.0        # panel bottom to the action row's top
 const ACTION_GAP := 56.0
-const DIM := Color(0.118, 0.165, 0.102, 0.78)
+const DIM := Color(0.118, 0.165, 0.102, 0.55)
 
 var content: Control
 var panel_rect: Rect2
