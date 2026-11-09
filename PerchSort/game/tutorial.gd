@@ -335,8 +335,9 @@ func _build_phase_chip() -> void:
 	for icon_name in ["sun", "moon"]:
 		_phase_icons.append(UI.icon(chip, icon_name, Vector2(34.0 + 28.0, face), 56.0, UI.INK))
 	var x := 34.0 + 56.0 + 16.0
-	_phase_number = UI.number(chip, str(LESSON_DAY_LENGTH), Rect2(x, face + 26.0 - 52.0 * 126.0 / 128.0,
-		PHASE_RECT.size.x - 34.0 - x, 52.0), Color.WHITE, -1)
+	var cap := BoardView.STATUS_CAP
+	_phase_number = UI.number(chip, str(LESSON_DAY_LENGTH), Rect2(x, face + cap * 0.5 - cap * BoardView.NUMBER_BASELINE,
+		PHASE_RECT.size.x - 34.0 - x, cap), Color.WHITE, -1)
 	_show_phase(false, LESSON_DAY_LENGTH)
 
 func _show_phase(night: bool, left: int) -> void:

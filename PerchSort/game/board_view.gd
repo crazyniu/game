@@ -68,6 +68,10 @@ var _goal_nodes := {}   # species -> Control
 var _status: Panel          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
+var _moves_icon: Control
+var _stars_centred := false
+var _stars_tween: Tween
+var _shown_stars := -1
 var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
 var _phase_icons := {}       # Board.Phase -> painted sun or moon
 var _phase_number: Control
@@ -83,7 +87,6 @@ var _door_open: Control
 var _door_mask: Control
 var _resident: BirdView
 var _resident_species := -1
-var _goal_gift := {}    # species -> gift badge shown until delivered
 var _goal_check := {}   # species -> check mark shown after delivery
 var _tool_slots: Array = []  # [kind, centre] per visible tool, for the stuck pointer
 var _bubble: Node2D
@@ -603,7 +606,8 @@ func _entrance(quick := false) -> void:
 ## ---------- HUD ----------
 
 ## Minimal status (top left, clear of the house and Settings): one pill with the three stars still reachable
-## and the moves used; on day/night levels a second pill below it with only a sun or moon and the moves until
+## and the moves that can still be made before the next star is lost (hidden on the last star, which cannot
+## be lost; the stars then centre in the pill); on day/night levels a second pill below it with only a sun or moon and the moves until
 ## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
 const STATUS_AT := Vector2(48, 48)
 const STATUS_H := 104.0
@@ -611,7 +615,7 @@ const STATUS_W := 372.0          # ends left of the widest painted house (houses
 const PHASE_W := 192.0
 const STATUS_GAP := 16.0         # between the two pills
 const STATUS_INSET := 34.0
-const STATUS_CAP := 48.0
+const STATUS_CAP := 34.0
 const STATUS_STAR := 50.0
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 50.0
@@ -741,7 +745,9 @@ func _build_status() -> void:
 	_status.name = "Status"
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
 	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
-	UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	_moves_icon = UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	_stars_centred = false
+	_shown_stars = -1
 	var number_x := moves_x + STATUS_ICON + 8.0
 	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
 		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
@@ -764,11 +770,19 @@ func _build_status() -> void:
 func _refresh_status(with_phase := true) -> void:
 	var s := session.state
 	var moves := session.move_count()
-	UI.set_number(_moves_number, str(moves))
-	_set_stars(_status_stars, GameSession.stars_for(moves, session.par))
+	var stars := GameSession.stars_for(moves, session.par)
+	var keep := GameSession.moves_left_for_star(moves, session.par)
+	UI.set_number(_moves_number, str(maxi(keep, 0)))
+	_moves_number.visible = keep >= 0
+	_moves_icon.visible = keep >= 0
+	_set_stars(_status_stars, stars)
+	_centre_status_stars(keep < 0, _shown_moves >= 0)
 	if _shown_moves >= 0 and moves != _shown_moves:
 		_pulse(_moves_number)
+		if stars < _shown_stars:
+			_pulse(_status_stars[stars], _status_stars[stars].size.x * 0.5)
 	_shown_moves = moves
+	_shown_stars = stars
 	if _phase_number == null or not with_phase:
 		return
 	var left := str(s.day_length - s.phase_counter)
@@ -780,16 +794,38 @@ func _refresh_status(with_phase := true) -> void:
 		_pulse(_phase_number)
 	_shown_phase = shown
 
+## With the counter gone the stars glide to the middle of the pill; undo brings them back.
+func _centre_status_stars(centred: bool, animate: bool) -> void:
+	if centred == _stars_centred:
+		return
+	_stars_centred = centred
+	if _stars_tween:
+		_stars_tween.kill()
+	var row := 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP
+	var x := (STATUS_W - row) * 0.5 if centred else STATUS_INSET
+	if instant or not animate:
+		for i in _status_stars.size():
+			_status_stars[i].position.x = x + i * (STATUS_STAR + STATUS_STAR_GAP)
+		return
+	_stars_tween = _status.create_tween().set_parallel()
+	for i in _status_stars.size():
+		_stars_tween.tween_property(_status_stars[i], "position:x", x + i * (STATUS_STAR + STATUS_STAR_GAP), 0.3) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if not centred:   # the counter returns only once the stars have left its place
+		for node: Control in [_moves_icon, _moves_number]:
+			node.modulate.a = 0.0
+			_stars_tween.tween_property(node, "modulate:a", 1.0, 0.12).set_delay(0.22)
+
 ## A changed value grows briefly so the player sees what moved.
-func _pulse(node: Control) -> void:
+func _pulse(node: Control, pivot_x := 0.0) -> void:
 	if instant:
 		return
-	node.pivot_offset = Vector2(0.0, node.size.y * 0.5)
+	node.pivot_offset = Vector2(pivot_x, node.size.y * 0.5)
 	var tw := node.create_tween()
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Goal birds under the house: a cream circle with the face, the ability badge until delivered, then a check.
+## Goal birds under the house: a cream circle with the face, then a check once delivered.
 func _build_goals() -> void:
 	var ids := Levels.species_ids(session.state)
 	var n := ids.size()
@@ -816,7 +852,6 @@ func _build_goals() -> void:
 		var face := size * 0.78
 		UI.art(node, sp + "_face", Rect2(Vector2.ONE * (size - face) * 0.5 + Vector2(0, -4), Vector2.ONE * face))
 		var badge := Rect2(Vector2.ONE * size * 0.6, Vector2.ONE * size * 0.46)
-		_goal_gift[sp] = UI.art(node, "gift_coin_" + GIFT_COIN[sp], badge)
 		var check := UI.shape(node, badge, "green", badge.size.x * 0.5, 4.0, false)
 		UI.icon(check, "check", badge.size * 0.5, badge.size.x * 0.6)
 		_goal_check[sp] = check
@@ -829,7 +864,6 @@ func refresh_hud() -> void:
 	_refresh_status()
 	for sp in _goal_nodes:
 		var home: bool = s.homed.has(Board.species_index(sp))
-		_goal_gift[sp].visible = not home
 		_goal_check[sp].visible = home
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
@@ -1532,7 +1566,6 @@ func _flock_home(e: Dictionary) -> void:
 		print("FLOCK_HOME species=%s chain=%d pitch=%.3f" % [e["species"], _home_chain, pitch])
 	Sound.vibrate(Sound.PULSE_HOME)
 	_set_resident(Board.species_index(e["species"]), true)
-	_goal_gift[e["species"]].visible = false
 	_goal_check[e["species"]].visible = true
 	_sparkle_burst(_door_point())
 	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
@@ -1629,17 +1662,27 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.position.y = feet.y + 90.0
 		create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+## The ability badge of a delivered flock flies from the doorway to its goal circle (never over the birds below).
 func _gift(e: Dictionary) -> void:
 	var coin := Sprite2D.new()
 	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
-	coin.position = _door_point() + Vector2(0, 120)
+	coin.position = _door_point()
 	coin.scale = Vector2.ONE * 0.2
 	add_child(coin)
 	Sound.play("collect")
+	var goal: Control = _goal_nodes.get(e["species"])
+	var target := coin.position
+	var small := 0.46 * GOAL / float(coin.texture.get_width())
+	if goal:
+		target = goal.position + goal.size * 0.8
+		small = 0.46 * goal.size.x / float(coin.texture.get_width())
+	var big := 0.8 * GOAL / float(coin.texture.get_width())
 	var tw := create_tween()
-	tw.tween_property(coin, "scale", Vector2.ONE * GOAL / float(coin.texture.get_width()), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_interval(0.35)
-	tw.tween_property(coin, "modulate:a", 0.0, 0.2)
+	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_interval(0.15)
+	tw.tween_property(coin, "position", target, 0.3).set_ease(Tween.EASE_IN_OUT)
+	tw.parallel().tween_property(coin, "scale", Vector2.ONE * small, 0.3)
+	tw.tween_property(coin, "modulate:a", 0.0, 0.15)
 	await tw.finished
 	coin.queue_free()
 
@@ -1656,7 +1699,8 @@ func granted(kind: int, count: int) -> void:
 	refresh_hud()
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
-## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (three stars already lost),
+## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
+## then par+B after a pause, and so on; values may be negative),
 ## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
 ## levels: background search time and first press, then quit); "replay_N" / "next_N" (level N with the quick
@@ -1685,6 +1729,17 @@ static func preview(main: Control, state: String) -> void:
 			board._apply_night(1.0)
 			board.sync_birds()
 			board.refresh_hud()
+		return
+	if state.begins_with("hud_over_"):
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		for step in state.trim_prefix("hud_over_").split("_"):
+			board.session.state.counted_moves = maxi(0, board.session.par + step.to_int())
+			board.refresh_hud()
+			if not board.instant:
+				await board.get_tree().create_timer(1.0).timeout
 		return
 	if state == "hud_progress":
 		var board := BoardView.new()

@@ -13,6 +13,9 @@ const CHEST_COINS := 300
 const CHEST_BOOSTERS := 3
 ## Seven-day check-in: [coins, booster count] for day 1..7; the streak restarts after a missed day or day 7.
 const CHECKIN := [[100, 1], [120, 1], [160, 1], [200, 1], [240, 2], [300, 2], [600, 3]]
+## Daily lucky draw board, clockwise from the top-left cell: [coins, boosters]. One of the two is zero.
+const DRAW_PRIZES := [[20, 0], [40, 0], [0, 1], [60, 0], [100, 0], [0, 2], [30, 0], [200, 0]]
+const DRAW_MAX_SPINS := 5   # one draw a day, one more for each day in a row, up to this many
 ## [booster index, id, unlock level, price, starter count]
 const BOOSTERS := [
 	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 7, 80, 2],

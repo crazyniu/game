@@ -86,7 +86,7 @@ func _check_meta() -> void:
 		p.stars[level] = 3
 	check(Progress.chests_ready(p) == 1 and not Progress.open_chest(p).is_empty() and Progress.chests_ready(p) == 0,
 		"star chest opens once per 30 stars")
-	# Daily challenge: the same deal all day, solvable, paid once.
+	# Daily challenge: the same authored level all day, solvable, paid once.
 	var day_a := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Levels.COUNT)
 	var day_b := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Levels.COUNT)
 	check(not day_a.is_empty() and JSON.stringify(day_a) == JSON.stringify(day_b), "daily challenge is fixed per day")

@@ -230,24 +230,26 @@ static func goal_info(host: Control, species: String) -> Control:
 	return p
 
 ## The level's start gift: the booster, "+1" and one line inviting the player to use it; Got it closes.
-## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
-## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
+## Seven-day check-in: a tile per day with its coins and booster count, claimed days dimmed with a green check in the
+## corner, today's tile gold, glowing and bobbing. `day` is today's claimable day (0 = already claimed today),
+## `claimed` days are shown done.
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
-	# Two even rows inside the wooden frame: days 1-4, then 5, 6 and a double-width day 7 (the big reward).
-	var tile := Vector2(164, 196)
-	var gap := 16.0
+	# Two rows inside the wooden frame: days 1-4, then 5, 6 and a double-width day 7 (the big reward).
+	var tile := Vector2(160, 196)
+	var gap := 24.0
+	var vgap := 44.0   # rows leave room for the booster that sticks out of each tile's corner
 	var row_w := tile.x * 4.0 + gap * 3.0
-	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
+	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + vgap + 24.0, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	for i in 7:
 		var col := i % 4
 		var row := i / 4
 		var w := tile.x * 2.0 + gap if i == 6 else tile.x
-		var r := Rect2(540.0 - row_w * 0.5 + col * (tile.x + gap), ys[0] + row * (tile.y + gap), w, tile.y)
+		var r := Rect2(540.0 - row_w * 0.5 + col * (tile.x + gap), ys[0] + 24.0 + row * (tile.y + vgap), w, tile.y)
 		var today := i + 1 == day
 		var done := i + 1 <= claimed
-		if today:   # today's tile: a warm glow behind it and a gentle bob
+		if today:
 			var glow := UI.image(c, "glow_soft", r.grow(64.0))
 			glow.modulate = Color(1, 0.72, 0.18, 1.0)
 		var card := UI.shape(c, r, "gold" if today else "cream", 32.0, 8.0)
@@ -258,27 +260,125 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 			bob.tween_property(card, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
 			bob.tween_property(card, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 		var reward: Array = Progress.CHECKIN[i]
-		UI.number(card, str(i + 1), Rect2(0, 16, w, 32), UI.INK)
-		var mid := w * 0.5
-		if i == 6:   # the week's prize: coins beside a chest
-			UI.art(card, "coin", Rect2(mid - 132.0, 66, 56, 56))
-			UI.number(card, str(reward[0]), Rect2(mid - 132.0, 130, 120, 32), UI.INK)
-			UI.art(card, "pic_chest", Rect2(mid + 4.0, 52, 120, 110))
-		elif reward[1] > 0:   # coins and a booster side by side, both inside the tile
-			UI.art(card, "coin", Rect2(mid - 64.0, 62, 60, 60))
-			UI.art(card, "booster_hint_illus", Rect2(mid + 4.0, 62, 60, 60))
-			UI.number(card, str(reward[0]), Rect2(14, 136, w - 28.0, 32), UI.INK)
-		else:
-			UI.art(card, "coin", Rect2(mid - 32.0, 60, 64, 64))
-			UI.number(card, str(reward[0]), Rect2(14, 136, w - 28.0, 32), UI.INK)
+		# Coin and its amount only; the booster sticks out of the tile's top-right corner with a count badge.
+		var cx := w * 0.28 if i == 6 else w * 0.5
+		UI.art(card, "coin", Rect2(cx - 44.0, 30, 88, 88))
+		UI.number(card, str(reward[0]), Rect2(cx - 70.0, 130, 140, 36), UI.INK)
+		if i == 6:   # the week's prize
+			UI.art(card, "pic_chest", Rect2(w * 0.7 - 80.0, 36, 160, 150))
+		if reward[1] > 0:
+			var pic := UI.art(c, "booster_hint_illus", Rect2(r.end.x - 92.0, r.position.y - 36.0, 88, 88))
+			UI.badge(pic, str(reward[1]))
 		if done:
-			card.modulate.a = 0.5
-			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
-	# Claim sits inside the panel under the days (user sketch).
+			card.modulate.a = 0.55
+			var d := 56.0
+			var mark := UI.shape(c, Rect2(r.position.x - 10.0, r.position.y - 10.0, d, d), "green", d * 0.5, 5.0)
+			UI.icon(mark, "check", Vector2.ONE * d * 0.5, d * 0.62)
+	# Claim sits inside the panel under the days.
 	var claim := UI.pill(c, "Claim", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[1]), UI.PLAY_SIZE), "green", "checkin.claim",
 		func(): p.invoke(on_claim), "", 52.0)
 	UI.set_active(claim, day > 0)
 	return p
+
+## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
+## round the ring, slows down and stops on the prize (coins, or a booster with its count). The star row shows today's
+## draws: filled = left, hollow = unlocked by playing more days in a row. `draw` performs one draw (grants the prize)
+## and returns its ring cell 0..7, or -1 when none is left.
+const DRAW_CELL := 204.0
+const DRAW_GAP := 20.0
+const DRAW_SPOTS := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(1, 2), Vector2i(0, 2), Vector2i(0, 1)]
+
+static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) -> Control:
+	var board_w := DRAW_CELL * 3.0 + DRAW_GAP * 2.0
+	var star := 64.0
+	var p := Modal.open(host, "checkin.title", [star, board_w, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
+	var c := p.content
+	var ys: Array = p.get_meta("ys")
+	var instant := _instant(host)
+	# Draws left today.
+	var stars := []
+	for i in slots:
+		var x := 540.0 + (i - (slots - 1) * 0.5) * (star + 16.0)
+		var s := UI.art(c, "star_full" if i < spins else "star_empty", Rect2(x - star * 0.5, ys[0], star, star))
+		s.pivot_offset = s.size * 0.5
+		stars.append(s)
+	# The board.
+	var left := 540.0 - board_w * 0.5
+	var cards := []
+	var lights := []
+	for i in 8:
+		var r := Rect2(left + DRAW_SPOTS[i].x * (DRAW_CELL + DRAW_GAP), ys[1] + DRAW_SPOTS[i].y * (DRAW_CELL + DRAW_GAP), DRAW_CELL, DRAW_CELL)
+		var card := UI.shape(c, r, "cream", 36.0, 8.0)
+		card.name = "Prize%d" % i
+		card.pivot_offset = r.size * 0.5
+		var lit := UI.shape(card, Rect2(Vector2.ZERO, r.size), "gold", 36.0, 8.0)
+		lit.modulate.a = 0.0
+		lights.append(lit)
+		var prize: Array = Progress.DRAW_PRIZES[i]
+		if prize[0] > 0:
+			UI.art(card, "coin", Rect2(r.size.x * 0.5 - 50.0, 20, 100, 100))
+			UI.number(card, str(prize[0]), Rect2(14, 142, r.size.x - 28.0, 40), UI.INK)
+		else:
+			var pic := UI.art(card, "booster_hint_illus", Rect2(r.size.x * 0.5 - 62.0, 30, 124, 124))
+			UI.badge(pic, str(prize[1]))
+		cards.append(card)
+	var mid := Rect2(left + DRAW_CELL + DRAW_GAP, ys[1] + DRAW_CELL + DRAW_GAP, DRAW_CELL, DRAW_CELL)
+	var centre := UI.shape(c, mid, "gold", 36.0, 8.0)
+	centre.name = "Chest"
+	centre.pivot_offset = mid.size * 0.5
+	var chest := UI.art(centre, "pic_chest", Rect2(14, 14, DRAW_CELL - 28.0, DRAW_CELL - 28.0))
+	if not instant:
+		_breathe(chest, 0.0)
+	var state := {"left": spins, "busy": false, "at": 0}
+	var claim := UI.pill(c, "Claim", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[2]), UI.PLAY_SIZE), "green", "checkin.claim",
+		func(): pass, "", 52.0)
+	UI.set_active(claim, spins > 0)
+	var run := func() -> void:
+		if state["busy"] or state["left"] <= 0:
+			return
+		var target: int = draw.call()
+		if target < 0:
+			return
+		state["busy"] = true
+		UI.set_active(claim, false)
+		state["left"] -= 1
+		var used: Control = stars[state["left"]]
+		var tw := used.create_tween()
+		tw.tween_property(used, "scale", Vector2.ONE * 1.4, 0.12)
+		tw.tween_callback(func(): (used as TextureRect).texture = Art.tex("star_empty"))
+		tw.tween_property(used, "scale", Vector2.ONE, 0.2)
+		var steps: int = 24 + posmod(target - int(state["at"]), 8)
+		var at: int = state["at"]
+		for n in steps:
+			var prev: int = at
+			at = posmod(at + 1, 8)
+			lights[prev].modulate.a = 0.0
+			lights[at].modulate.a = 1.0
+			cards[at].scale = Vector2.ONE * 1.06
+			create_step_tween(cards[at], not instant)
+			Sound.play("ui_tap", 1.0 + 0.03 * n if n < 24 else 1.7)
+			if not instant:
+				var t := float(n) / float(steps - 1)
+				await c.get_tree().create_timer(0.045 + 0.3 * t * t * t).timeout
+		state["at"] = at
+		Sound.play("reward")
+		if not instant:
+			var pop: Tween = (cards[at] as Control).create_tween()
+			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.22, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.1, 0.25)
+			await c.get_tree().create_timer(0.9).timeout
+		cards[at].scale = Vector2.ONE
+		lights[at].modulate.a = 0.0
+		state["busy"] = false
+		UI.set_active(claim, state["left"] > 0)
+	(claim as Button).pressed.connect(run)
+	return p
+
+static func create_step_tween(card: Control, animate: bool) -> void:
+	if not animate:
+		return
+	var tw := card.create_tween()
+	tw.tween_property(card, "scale", Vector2.ONE, 0.18).set_ease(Tween.EASE_OUT)
 
 const CHAPTERS_PER_PAGE := 4
 const CHAPTER_TAG := Vector2(216.0, 76.0)
@@ -812,6 +912,11 @@ static func preview(main: Control, state: String) -> void:
 		"goal_info_hoot": goal_info(host, "hoot")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
 		"checkin_day3": checkin(host, 3, 2, noop)
+		"lucky_draw": lucky_draw(host, 3, 5, func(): return randi() % 8)
+		"lucky_draw_spin":
+			var drawn := lucky_draw(host, 3, 5, func(): return 5)
+			host.get_tree().create_timer(0.3).timeout.connect(func(): (drawn.find_child("Claim", true, false) as Button).pressed.emit())
+		"lucky_draw_none": lucky_draw(host, 0, 5, func(): return -1)
 		"chapters": chapters(host, _chapter_profile(), noop1)
 		"chest_half": chest(host, 17, 0, noop, noop)
 		"chest_ready": chest(host, 31, 1, noop)
