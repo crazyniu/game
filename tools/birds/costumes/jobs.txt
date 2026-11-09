@@ -1,0 +1,18 @@
+berry 4|a big strawberry hood costume: a plump red strawberry cap with seeds and a green leafy calyx on top covering the whole top of the head, cute
+berry 5|a sakura fairy costume: a large ring of pink cherry-blossom flowers around the head and a wide pink petal collar with tiny sparkles
+cocoa 4|a teddy bear hood costume: a chunky brown knitted bear hood with two round ears and a little tan snout patch on the brow
+cocoa 5|a gingerbread costume: a gingerbread-cookie hat with white icing swirls, candy buttons down the chest and an icing scarf
+ember 4|a fox hood costume: a bright orange fox hood with two big pointed ears with white tips and a white fluffy cheek ruff
+ember 5|a dragon helmet costume: a red-orange scaly dragon helmet with two curved horns, spikes along the crown and small spiky shoulder frills
+hoot 4|an explorer costume: a big tan safari pith helmet with a brown band and a leather satchel strap across the chest
+hoot 5|a cowboy costume: a wide tan cowboy hat with a stitched band and a knotted tan bandana neckerchief with a sheriff star
+ink 4|a pirate costume: a navy-and-gold tricorn pirate hat with a skull badge, an eye patch and a small gold-buttoned navy coat collar
+ink 5|a ninja costume: a navy ninja hood with a headband covering the head and a long flowing scarf tail, eyes still clearly visible
+mint 4|a frog hood costume: a green frog hood with two big round eye bumps on top of the head and a lighter belly bib
+mint 5|a dinosaur hood costume: a green dinosaur hood with a row of rounded spikes along the crown and little teeth along the brow
+sky 4|a whale hood costume: a blue whale hood with a white belly band, a small water-spout on top of the head and a tail fin behind the head
+sky 5|a sea-captain costume: a white-and-blue captain cap with an anchor badge, a big blue sailor collar and a small red tie
+snow 4|a bunny hood costume: a white fluffy bunny hood with two very long soft ears with pink-lilac insides standing up above the head
+snow 5|an ice-queen costume: a tall pale-blue crystal ice crown with snowflakes and a big fluffy white fur collar around the neck
+sunny 4|a bee costume: a black-and-yellow striped bee hood with two bobbing antennae with round tips and small translucent bee wings on the back
+sunny 5|a sunflower costume: a huge ring of big yellow sunflower petals around the face with a brown seed centre cap on the head
