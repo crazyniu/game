@@ -7,7 +7,8 @@ const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "g
 	"ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
 const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
-const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow"}
+const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
+	9: "rainforest", 10: "wisteria"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
 	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot", "mama": "mama_bow"}
 
@@ -279,21 +280,30 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 	UI.set_active(claim, day > 0)
 	return p
 
+const CHAPTERS_PER_PAGE := 4
 const CHAPTER_TAG := Vector2(216.0, 76.0)
 
 ## Chapter browser: one row per world (painting, "Chapter N", level range and stars, then a worded pill). Tapping an unlocked row
 ## calls `on_pick(world)`; a locked row is dimmed and does nothing.
-static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
+static func chapters(host: Control, p: Profile, on_pick: Callable, page := -1) -> Control:
 	var row_h := 236.0
 	var gap := 22.0
-	var m := Modal.open(host, "map.chapters", [row_h * 4.0 + gap * 3.0], true, 0.0, 0.0, _instant(host), true)
+	if page < 0:   # opens on the page holding the player's current chapter
+		var next := Progress.next_level(p)
+		page = (Progress.world_of_level(next if next > 0 else Levels.COUNT) - 1) / CHAPTERS_PER_PAGE
+	var last_page := (Levels.WORLDS - 1) / CHAPTERS_PER_PAGE
+	var m := Modal.open(host, "map.chapters", [row_h * CHAPTERS_PER_PAGE + gap * (CHAPTERS_PER_PAGE - 1.0)], true,
+		Modal.SECONDARY_PILL.y, 0.0, _instant(host), true)
 	var c := m.content
 	var ys: Array = m.get_meta("ys")
 	var left: float = m.panel_rect.position.x + Modal.INSET
 	var width: float = Modal.WIDTH - Modal.INSET * 2.0
-	for i in 4:
+	for slot in CHAPTERS_PER_PAGE:
+		var i := page * CHAPTERS_PER_PAGE + slot
+		if i >= Levels.WORLDS:
+			break
 		var world := i + 1
-		var r := Rect2(left, ys[0] + i * (row_h + gap), width, row_h)
+		var r := Rect2(left, ys[0] + slot * (row_h + gap), width, row_h)
 		var open := Progress.is_world_unlocked(p, world)
 		var done := Progress.is_world_complete(p, world)
 		var card := UI.shape(c, r, "cream", 40.0, 8.0)
@@ -350,6 +360,18 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 			UI.pill(body, "ReplayTag", tag, "orange", "action.replay", func(): m.invoke(on_pick.bind(world)), "", 30.0)
 		else:
 			UI.pill(body, "PlayTag", tag, "green", "action.play", func(): m.invoke(on_pick.bind(world)), "", 30.0)
+	# Worded page pills under the panel (no round buttons in popups); a closed end is dimmed.
+	var turn := func(to: int):
+		var parent := m.get_parent()
+		m.queue_free()
+		chapters(parent, p, on_pick, to)
+	var row_y: float = m.get_meta("actions_y")
+	var back := UI.pill(c, "PagePrevious", Rect2(540.0 - Modal.SECONDARY_PILL.x - 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y), "orange",
+		"action.back", func(): turn.call(page - 1), "", 44.0)
+	var forward := UI.pill(c, "PageNext", Rect2(540.0 + 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y), "orange",
+		"action.next", func(): turn.call(page + 1), "", 44.0)
+	UI.set_active(back, page > 0)
+	UI.set_active(forward, page < last_page)
 	return m
 
 ## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
@@ -784,7 +806,7 @@ static func preview(main: Control, state: String) -> void:
 		"document_privacy": document(host, "privacy")
 		"document_credits": document(host, "credits")
 		"level_card_first_visit": level_card(host, 1, 0, 0, 6, few, none, noop, true)
-		"level_card_full_roster": level_card(host, 40, 3, 28, 12, roster, mechanics, noop, true)
+		"level_card_full_roster": level_card(host, Levels.COUNT, 3, 28, 12, roster, mechanics, noop, true)
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")

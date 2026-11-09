@@ -2,19 +2,21 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
 ## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
 ## records move from the old level number (key) to the new one (value) on load.
 const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
+## Schema 2 to 3: the forty levels took new places in the hundred-level order.
+const LEVEL_EXPANSION := {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 10, 9: 35, 10: 9, 11: 11, 12: 21, 13: 28, 14: 22, 15: 24, 16: 15, 17: 12, 18: 37, 19: 39, 20: 46, 21: 31, 22: 41, 23: 48, 24: 34, 25: 33, 26: 44, 27: 53, 28: 67, 29: 58, 30: 72, 31: 51, 32: 61, 33: 71, 34: 66, 35: 60, 36: 43, 37: 42, 38: 62, 39: 64, 40: 63}
 const SAVE_PATH := "user://profile.json"
 const BOOSTER_IDS: PackedStringArray = ["firefly", "sapling", "owlEye", "morningBell", "scarecrow", "springRain"]
 
 var coins := 0
 var highest_unlocked := 1
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
-var stars := PackedInt32Array()     # index 1..40
-var clears := PackedInt32Array()    # index 1..40
-var best_moves := PackedInt32Array() # index 1..40, fewest counted moves of a win (0 = none)
+var stars := PackedInt32Array()     # index 1..Levels.COUNT
+var clears := PackedInt32Array()    # index 1..Levels.COUNT
+var best_moves := PackedInt32Array() # index 1..Levels.COUNT, fewest counted moves of a win (0 = none)
 var outfits := {}                   # item id -> true
 var equipped := {}                  # species id -> outfit item id
 var houses := {}                    # style id -> true
@@ -35,9 +37,9 @@ var vibration := true               # short haptic pulses on mobile
 
 
 func _init() -> void:
-	stars.resize(41)
-	clears.resize(41)
-	best_moves.resize(41)
+	stars.resize(Levels.COUNT + 1)
+	clears.resize(Levels.COUNT + 1)
+	best_moves.resize(Levels.COUNT + 1)
 
 func best_stars(level: int) -> int:
 	return stars[level]
@@ -67,7 +69,7 @@ func record_moves(level: int, moves: int) -> void:
 
 func clears_count() -> int:
 	var total := 0
-	for i in range(1, 41):
+	for i in range(1, Levels.COUNT + 1):
 		total += clears[i]
 	return total
 
@@ -83,7 +85,7 @@ func to_dict() -> Dictionary:
 		if starters.has(i):
 			starter_ids.append(BOOSTER_IDS[i])
 	var worlds := []
-	for w in range(1, 5):
+	for w in range(1, Levels.WORLDS + 1):
 		if rewarded_worlds.has(w):
 			worlds.append(w)
 	return {
@@ -102,7 +104,7 @@ func to_dict() -> Dictionary:
 static func from_dict(data: Dictionary) -> Profile:
 	var p := Profile.new()
 	p.coins = maxi(0, int(data.get("coins", 0)))
-	p.highest_unlocked = clampi(int(data.get("highestUnlockedLevel", 1)), 1, 40)
+	p.highest_unlocked = clampi(int(data.get("highestUnlockedLevel", 1)), 1, Levels.COUNT)
 	p.muted = bool(data.get("muted", false))
 	p.music_muted = bool(data.get("musicMuted", p.muted))   # saves from before the split mute both
 	p.vibration = bool(data.get("vibration", true))
@@ -112,11 +114,13 @@ static func from_dict(data: Dictionary) -> Profile:
 	var star_list: Array = data.get("bestStars", [])
 	var clear_list: Array = data.get("clearCounts", [])
 	var moves_source: Array = data.get("bestMoves", [])
-	if int(data.get("schemaVersion", 1)) < 2:
-		star_list = _renumbered(star_list)
-		clear_list = _renumbered(clear_list)
-		moves_source = _renumbered(moves_source)
-	for level in range(1, 41):
+	var schema := int(data.get("schemaVersion", 1))
+	for step in [[2, LEVEL_RENUMBER], [3, LEVEL_EXPANSION]]:
+		if schema < step[0]:
+			star_list = _renumbered(star_list, step[1])
+			clear_list = _renumbered(clear_list, step[1])
+			moves_source = _renumbered(moves_source, step[1])
+	for level in range(1, Levels.COUNT + 1):
 		var s := clampi(int(star_list[level]) if level < star_list.size() else 0, 0, 3)
 		p.stars[level] = s
 		var c := int(clear_list[level]) if level < clear_list.size() else 0
@@ -124,7 +128,7 @@ static func from_dict(data: Dictionary) -> Profile:
 		var moves_list: Array = moves_source
 		p.best_moves[level] = maxi(0, int(moves_list[level])) if s > 0 and level < moves_list.size() else 0
 		if s > 0:
-			p.highest_unlocked = maxi(p.highest_unlocked, mini(40, level + 1))
+			p.highest_unlocked = maxi(p.highest_unlocked, mini(Levels.COUNT, level + 1))
 	for id in data.get("ownedOutfits", []):
 		var item := Shop.item(str(id))
 		if not item.is_empty() and item["kind"] == Shop.OUTFIT:
@@ -158,24 +162,24 @@ static func from_dict(data: Dictionary) -> Profile:
 		if index >= 0:
 			p.starters[index] = true
 	for level in data.get("levelGifts", []):
-		if int(level) >= 1 and int(level) <= 40:
+		if int(level) >= 1 and int(level) <= Levels.COUNT:
 			p.level_gifts[int(level)] = true
 	p.chests_opened = maxi(0, int(data.get("chestsOpened", 0)))
 	p.checkin_streak = clampi(int(data.get("checkinStreak", 0)), 0, 7)
 	p.challenge_date = str(data.get("challengeDate", ""))
 	for w in data.get("worldRewardsGranted", []):
-		if int(w) >= 1 and int(w) <= 4:
+		if int(w) >= 1 and int(w) <= Levels.WORLDS:
 			p.rewarded_worlds[int(w)] = true
 	return p
 
 ## A per-level list (index = level) from the schema 1 level order moved to the current order.
-static func _renumbered(list: Array) -> Array:
+static func _renumbered(list: Array, table: Dictionary) -> Array:
 	var out := []
-	out.resize(41)
+	out.resize(Levels.COUNT + 1)
 	out.fill(0)
-	for old in LEVEL_RENUMBER:
+	for old in table:
 		if old < list.size():
-			out[LEVEL_RENUMBER[old]] = list[old]
+			out[table[old]] = list[old]
 	return out
 
 static func _sorted_levels(d: Dictionary) -> Array:
@@ -185,7 +189,7 @@ static func _sorted_levels(d: Dictionary) -> Array:
 
 func total_stars() -> int:
 	var n := 0
-	for level in range(1, 41):
+	for level in range(1, Levels.COUNT + 1):
 		n += stars[level]
 	return n
 

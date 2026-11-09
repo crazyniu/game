@@ -16,9 +16,10 @@ const CHECKIN := [[100, 1], [120, 1], [160, 1], [200, 1], [240, 2], [300, 2], [6
 ## [booster index, id, unlock level, price, starter count]
 const BOOSTERS := [
 	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 7, 80, 2],
-	[3, "morningBell", 12, 80, 2], [4, "scarecrow", 22, 100, 2], [5, "springRain", 32, 100, 2],
+	[3, "morningBell", 12, 80, 2], [4, "scarecrow", 32, 100, 2], [5, "springRain", 52, 100, 2],
 ]
-const WORLD_NAMES: PackedStringArray = ["", "Green Forest", "Bamboo Forest", "Autumn Forest", "Snow Forest"]
+const WORLD_NAMES: PackedStringArray = ["", "Green Forest", "Bamboo Forest", "Autumn Forest", "Snow Forest", "Blossom Forest",
+	"Mushroom Forest", "Lakeside Forest", "Misty Pine Forest", "Rainforest", "Wisteria Forest"]
 
 
 static func booster_unlock_level(kind: int) -> int:
@@ -28,16 +29,22 @@ static func booster_price(kind: int) -> int:
 	return BOOSTERS[kind][3]
 
 static func world_of_level(level: int) -> int:
-	return (level - 1) / 10 + 1
+	return (level - 1) / Levels.PER_WORLD + 1
 
 static func is_world_unlocked(p: Profile, world: int) -> bool:
-	return world == 1 or p.best_stars((world - 1) * 10) > 0
+	if world == 1 or p.best_stars((world - 1) * Levels.PER_WORLD) > 0:
+		return true
+	# A migrated save can hold cleared levels further on; those worlds stay open.
+	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
+		if p.best_stars(level) > 0:
+			return true
+	return false
 
 static func is_level_unlocked(p: Profile, level: int) -> bool:
-	return level == 1 or (is_world_unlocked(p, world_of_level(level)) and p.best_stars(level - 1) > 0)
+	return level == 1 or p.best_stars(level) > 0 or (is_world_unlocked(p, world_of_level(level)) and p.best_stars(level - 1) > 0)
 
 static func is_world_complete(p: Profile, world: int) -> bool:
-	for level in range(world * 10 - 9, world * 10 + 1):
+	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
 		if p.best_stars(level) == 0:
 			return false
 	return true
@@ -60,9 +67,9 @@ static func grant_starter_gifts(p: Profile) -> Array:
 static func world_booster_for(level: int) -> int:
 	if level <= 10:
 		return Board.Booster.OWL_EYE
-	if level <= 20:
+	if level <= 30:
 		return Board.Booster.MORNING_BELL
-	return Board.Booster.SCARECROW if level <= 30 else Board.Booster.SPRING_RAIN
+	return Board.Booster.SCARECROW if level <= 50 else Board.Booster.SPRING_RAIN
 
 static func stars_for_moves(counted: int, par: int) -> int:
 	return GameSession.stars_for(counted, par)
@@ -83,7 +90,7 @@ static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_
 	var old := p.best_stars(level)
 	p.stars[level] = maxi(old, stars)
 	p.clears[level] += 1
-	p.highest_unlocked = maxi(p.highest_unlocked, mini(40, level + 1))
+	p.highest_unlocked = maxi(p.highest_unlocked, mini(Levels.COUNT, level + 1))
 	var world := world_of_level(level)
 	var world_bonus := not p.rewarded_worlds.has(world) and is_world_complete(p, world)
 	if world_bonus:
@@ -234,7 +241,7 @@ static func today() -> String:
 
 ## Next playable uncleared level, or 0 when every unlocked level is cleared.
 static func next_level(p: Profile) -> int:
-	for level in range(1, 41):
+	for level in range(1, Levels.COUNT + 1):
 		if p.best_stars(level) == 0 and is_level_unlocked(p, level):
 			return level
 	return 0
