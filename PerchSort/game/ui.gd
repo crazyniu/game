@@ -87,7 +87,7 @@ const PRIMARY := 160.0
 const SECONDARY := 128.0
 const PLAY_SIZE := Vector2(400.0, 144.0)   # at most 1.25 x the 128 secondary buttons
 const COUNTER_H := 96.0
-const NUMBER_X := 108.0                  # a counter's number starts here, clear of its icon
+const NUMBER_X := 100.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
 const DISABLED_ALPHA := 0.45
 ## Ink on cream, white on every coloured fill.
@@ -341,7 +341,7 @@ static func badge(b: Control, count_text: String) -> Panel:
 ## `extra` room on the right. Returns the pill; its child "Value" is the number box (see set_number).
 static func counter(parent: Node, at: Vector2, icon_name: String, value: String, icon_color := Color(0, 0, 0, 0),
 		extra := 0.0, kind := "cream") -> Panel:
-	var w := NUMBER_X + number_width(value, 44.0) + 48.0 + extra   # the last digit stays clear of the right rim
+	var w := NUMBER_X + number_width(value, 44.0) + 40.0 + extra   # the last digit stays clear of the right rim
 	var p := shape(parent, Rect2(at, Vector2(w, COUNTER_H)), kind, COUNTER_H * 0.5, 8.0)
 	p.name = "Counter"
 	var t: TextureRect
@@ -351,7 +351,7 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 		t = art(p, icon_name, Rect2(16, 8, 72, 72))
 	if icon_color.a > 0.0:
 		t.modulate = icon_color
-	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 36.0 - extra, 44), ink_on(kind), -1)
+	var n := number(p, value, Rect2(NUMBER_X, (COUNTER_H - 8.0 - 44.0) * 0.5, w - NUMBER_X - 28.0 - extra, 44), ink_on(kind), -1)
 	n.name = "Value"
 	return p
 

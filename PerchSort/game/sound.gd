@@ -71,7 +71,7 @@ func music(name: String) -> void:
 		_fade.tween_property(_old_music, "volume_db", -60.0, CROSSFADE)
 		_fade.chain().tween_callback(_old_music.stop)
 
-func play(name: String, pitch := 1.0) -> void:
+func play(name: String, pitch := 1.0, volume_db := 0.0) -> void:
 	if muted:
 		return
 	if name == "select" or name == "move":
@@ -89,6 +89,7 @@ func play(name: String, pitch := 1.0) -> void:
 		if not p.playing:
 			p.stream = stream
 			p.pitch_scale = pitch
+			p.volume_db = volume_db
 			p.play()
 			return
 

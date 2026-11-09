@@ -14,6 +14,7 @@ const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "s
 	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
 ## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
 const ENTRANCE_HOUSE := 0.1
+const ENTRANCE_WING_DB := -15.0
 const ENTRANCE_BRANCHES := 0.95
 const ENTRANCE_BIRDS := 1.6
 const ENTRANCE_BIRD_SPREAD := 0.85
@@ -583,7 +584,9 @@ func _entrance(quick := false) -> void:
 		var target := bird.position
 		var right: bool = s.rights[birds[j][1]] == 1
 		bird.position = Vector2(1240.0 if right else -160.0, target.y - 420.0 - randf() * 200.0)
-		bird.fly_to(target, (ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0)) * k, ENTRANCE_FLIGHT * k, false, true)
+		# A whole flock arrives at once: only every third bird is heard, softly.
+		bird.fly_to(target, (ENTRANCE_BIRDS + ENTRANCE_BIRD_SPREAD * j / maxf(1.0, n - 1.0)) * k, ENTRANCE_FLIGHT * k, false, true, null,
+			ENTRANCE_WING_DB if j % 3 == 0 else BirdView.WING_SILENT)
 		last = bird
 	if last:
 		await last.finished
@@ -1384,7 +1387,7 @@ func play_events(events: Array) -> void:
 			"hatched":
 				var bird: BirdView = _birds.get(e["id"])
 				if bird:
-					Sound.play("crate_open")
+					Sound.play("egg_hatch")
 					bird.hatch()
 					await bird.finished
 			"egg_revealed":
@@ -1660,6 +1663,18 @@ func granted(kind: int, count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "lifted_both_sides":   # one left and one right branch lifted: each flock looks across the board
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		await main.get_tree().create_timer(5.0).timeout
+		var sides := {}
+		for b in board.session.state.branch_count():
+			if board.session.state.items[b].size() > 0 and not sides.has(board.session.state.rights[b]):
+				sides[board.session.state.rights[b]] = b
+		for b in sides.values():
+			board._lift(b, true)
+		return
 	if state.begins_with("day_w") or state.begins_with("night_w"):
 		var board := BoardView.new()
 		board.instant = main.instant()

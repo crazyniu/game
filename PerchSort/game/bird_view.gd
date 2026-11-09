@@ -44,6 +44,9 @@ static var _oldest_due := INF   # earliest due time among birds ready to start l
 static var _next_oldest := INF
 static var _log := false
 
+const WING_SILENT := -60.0     # fly_to wing_db: no wing sound for this flight
+const CENTRE_X := 540.0
+
 var code := 0
 var species := "sunny"
 var density := 1.0
@@ -585,8 +588,10 @@ func set_selected(on: bool) -> void:
 		_sprite.position.y = height
 		return
 	if on and _hover_tween == null:
-		var frames: Array = _seqs["flight_flap"]
-		var lift: Array = [_rest_frame()] + _seqs.get("flight_takeoff", [])
+		# A lifted bird looks across the board: right-hand birds to the left, left-hand birds to the right.
+		var left := global_position.x > CENTRE_X
+		var frames: Array = _seqs["flight_flap_l" if left else "flight_flap"]
+		var lift: Array = [_rest_frame()] + _seqs.get("flight_takeoff_l" if left else "flight_takeoff", [])
 		var since := _clock
 		# Blend up through the takeoff frames, then keep flapping until released.
 		_hover_tween = create_tween().set_loops()
@@ -611,7 +616,7 @@ func _stop_hover() -> void:
 
 ## Fly to `target` (parent space); home=true shrinks and frees the bird.
 ## With a doorway, target is its centre: approach in front, then recede inside its mask.
-func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null) -> void:
+func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null, wing_db := 0.0) -> void:
 	_stop_idle()
 	_glance += 1
 	acting = true
@@ -651,8 +656,8 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, 0.06)
 	await crouch.finished
 	_stop_hover()
-	if sounds:
-		Sound.play("flutter", randf_range(0.95, 1.08))
+	if sounds and wing_db > WING_SILENT:
+		Sound.play("flutter", randf_range(0.95, 1.08), wing_db)
 	var height := 215.0 if leap else 160.0
 	if doorway:
 		height = minf(height, (start.y - target.y) * 0.25)
