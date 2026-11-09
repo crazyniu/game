@@ -50,9 +50,10 @@ func setup(p: Profile) -> void:
 	UI.art_button(self, "Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
 	var level := _next_level()
 	UI.art_button(self, "Play", "home_button_play", PLAY, func(): play_requested.emit(level))
+	var left_edge := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
 	var top := [["Daily", "daily", challenge_requested], ["LuckyDraw", "lucky_draw", lucky_draw_requested]]
 	for i in top.size():
-		var r := Rect2(540.0 - TILE.x - NAV_GAP if i == 0 else 540.0 + NAV_GAP, TOP_ROW_Y, TILE.x, TILE.y)
+		var r := Rect2(left_edge + (1 + i) * (TILE.x + NAV_GAP), TOP_ROW_Y, TILE.x, TILE.y)   # columns 2 and 3 of the bottom row
 		var tb := UI.art_button(self, top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
 		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(tb, "1")
