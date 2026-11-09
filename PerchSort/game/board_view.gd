@@ -584,24 +584,23 @@ func _entrance(quick := false) -> void:
 ## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
 const STATUS_AT := Vector2(48, 48)
 const STATUS_H := 104.0
-const STATUS_W := 432.0
+const STATUS_W := 372.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
 const PHASE_W := 192.0
 const STATUS_GAP := 16.0         # between the two pills
 const STATUS_INSET := 34.0
-const STATUS_CAP := 52.0
-const STATUS_STAR := 58.0
-const STATUS_STAR_GAP := 4.0
-const STATUS_ICON := 56.0
+const STATUS_CAP := 48.0
+const STATUS_STAR := 50.0
+const STATUS_STAR_GAP := 2.0
+const STATUS_ICON := 50.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
 const LABEL_LINE := 208.0
 const NUMBER_BASELINE := 126.0 / 128.0
 const GEAR := Vector2(968, 104)
-## Tools sit on one dark HUD bar centred at the bottom, 48 px from the screen edge like the status pill at the top.
+## Tool buttons stand in one centred row at the bottom (no tray), 48 px from the screen edge like the status pill at the top.
 const TOOL_Y := 1784.0
 const TOOL_GAP := 48.0
-const TOOL_PAD := 24.0           # bar edge to the buttons, all four sides
 ## Hanging house: sprite, visible content and doorway in sprite pixels, and where the rope meets it.
 const HOUSES := {
 	"default": ["house_default", Rect2(122, 62, 778, 878), Rect2(313, 418, 378, 380), 70.0],
@@ -837,11 +836,7 @@ func _build_tools() -> void:
 	_tool_slots.clear()
 	var n := tools.size()
 	var row_w := n * UI.SECONDARY + (n - 1) * TOOL_GAP
-	if n > 0:
-		var bar_h := UI.SECONDARY + TOOL_PAD * 2.0
-		var bar := UI.shape(_tool_bar, Rect2(540.0 - row_w * 0.5 - TOOL_PAD, TOOL_Y - bar_h * 0.5, row_w + TOOL_PAD * 2.0, bar_h),
-			"hud", bar_h * 0.5, 6.0)
-		bar.name = "ToolBar"
+	# The tool buttons stand on their own (user: no tray around them).
 	var x := 540.0 - row_w * 0.5 + UI.SECONDARY * 0.5
 	for kind in tools:
 		var centre := Vector2(x, TOOL_Y)
