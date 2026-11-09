@@ -13,7 +13,7 @@ var _music_name := ""
 var _effects: Array[AudioStreamPlayer] = []
 var _cache := {}
 var _last_chirp := -1
-var _last_play := {}   # effect name -> msec of its last start, to drop duplicates within one frame burst
+var _last_play := {}   # effect name -> [process frame, msec] of its last start, to drop duplicates
 
 ## Effect names used by the game mapped to audio files (the former AudioManager effect table).
 ## Boosters each get a distinct clip; "select" and "move" rotate through the chirps.
@@ -78,10 +78,15 @@ func play(name: String, pitch := 1.0) -> void:
 		var pick := randi() % 4
 		_last_chirp = pick if pick < _last_chirp else pick + 1
 		name = "chirp_0%d" % (_last_chirp + 1)
+	# One effect starts at most once per frame and per 50 ms. The frame check matters when a tap opens a popup:
+	# the button and the popup both ask for "ui_tap" in the same frame, but the first build of a popup loads
+	# textures and can take longer than 50 ms, which used to let the tap sound twice, slightly out of step.
 	var now := Time.get_ticks_msec()
-	if now - _last_play.get(name, -1000) < 50:
+	var frame := Engine.get_process_frames()
+	var last: Array = _last_play.get(name, [-1, -1000])
+	if frame == last[0] or now - last[1] < 50:
 		return
-	_last_play[name] = now
+	_last_play[name] = [frame, now]
 	var stream := _stream(ALIASES.get(name, name))
 	if stream == null:
 		return

@@ -34,6 +34,7 @@ var _scene: Node2D
 var _branch_layer: Node2D
 var _bird_layer: Node2D
 var _hud: Control
+var _air: Ambient           # living air of the world painting: leaves, snow, mist, motes, sunlight
 var _night_bg: TextureRect   # the world's night painting over the day painting; alpha = night amount
 var _night_fx: Node2D        # twinkling stars and fireflies, visible at night
 var _night_amount := 0.0     # 0 day .. 1 night; drives the painting cross-fade, moonlight tint and night life
@@ -177,6 +178,12 @@ func _build_scene() -> void:
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
 	_night_bg = UI.image(self, "board_w%d_night_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
+	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
+	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
+	_air = Ambient.new()
+	_air.look = Ambient.for_level(_world(), session.state.variant)
+	_air.still = instant
+	add_child(_air)
 	_slots = JSON.parse_string(FileAccess.get_file_as_string("res://world/scene/board_w%d_slots.json" % _world()))["slots"]
 	_build_ambient()
 	_build_night_fx()
@@ -259,6 +266,7 @@ func _apply_night(amount: float) -> void:
 	_night_amount = amount
 	_night_bg.modulate.a = amount
 	_night_bg.visible = amount > 0.001
+	_air.night = amount
 	var tint := Color.WHITE.lerp(NIGHT_TINT, amount)
 	_branch_layer.modulate = tint
 	_bird_layer.modulate = tint
@@ -1672,7 +1680,8 @@ func granted(kind: int, count: int) -> void:
 	refresh_hud()
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
-## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
+## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
+## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
 ## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
@@ -1680,11 +1689,12 @@ func granted(kind: int, count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
-	if state.begins_with("day_w") or state.begins_with("night_w"):
+	if state.begins_with("day_w") or state.begins_with("night_w") or state.begins_with("air_"):
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		board.start(Levels.get_level(int(state.right(1)) * 10 - 5), main.profile, false)
+		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.right(1)) * 10 - 5
+		board.start(Levels.get_level(id), main.profile, false)
 		if state.begins_with("night_w"):
 			board.session.state.phase = Board.Phase.NIGHT
 			board._apply_night(1.0)
