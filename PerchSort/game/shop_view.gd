@@ -455,7 +455,7 @@ func _picture(parent: Node, it: Dictionary, box: Rect2) -> void:
 	else:
 		UI.art(parent, "house_style_%s_body" % it["style"], box.grow(-8.0))
 
-## Pill-shaped button in a card slot; a press sinks it by its edge.
+## Pill-shaped button in a card slot; a press darkens its face (UI._skin_button).
 func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Callable) -> Button:
 	var b := Button.new()
 	b.name = n
@@ -466,14 +466,6 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 		else ("capsule_plain" if kind == "cream" else "pill_" + kind)
 	UI._skin_button(b, piece, Rect2(Vector2.ZERO, r.size))
 	UI.place(b, r)
-	b.button_down.connect(func():
-		for c in b.get_children():
-			if c.name != "Face":
-				c.position.y += 5.0)
-	b.button_up.connect(func():
-		for c in b.get_children():
-			if c.name != "Face":
-				c.position.y -= 5.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -522,7 +514,7 @@ static func outfit_species() -> Array:
 ## Owned outfits of a species, counting the plain look that every bird has.
 func owned_outfits(species: String) -> int:
 	var owned := 1
-	for index in range(1, 4):
+	for index in range(1, Shop.OUTFIT_COUNT + 1):
 		if profile.owns_outfit("outfit.%s.%d" % [species, index]):
 			owned += 1
 	return owned
@@ -544,7 +536,7 @@ func _kind_card(species: String, r: Rect2, n: int) -> void:
 		var outfit := "" if current.is_empty() else "%s_outfit_%s" % [species, current.get_slice(".", 2)]
 		_bird(card, species, outfit, KIND_BIRD, n * 0.45)
 		UI.label(card, "bird.%s.name" % species, KIND_NAME, KIND_NAME_CAP).name = "Name"
-		var text := "%d/4" % owned_outfits(species)
+		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
 		var num_w := UI.number_width(text, KIND_COUNT_CAP)
 		var x := (KIND_W - (KIND_HANGER + 12.0 + num_w)) * 0.5
 		pass   # name only: the bird's page shows its outfits

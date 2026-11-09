@@ -429,6 +429,34 @@
       "line_height": 208,
       "baseline": 160
     },
+    "house.pumpkin.name": {
+      "text": "Pumpkin",
+      "file": "label_house_pumpkin_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.beehive.name": {
+      "text": "Beehive",
+      "file": "label_house_beehive_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.teacup.name": {
+      "text": "Teacup",
+      "file": "label_house_teacup_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "house.pinecone.name": {
+      "text": "Pinecone",
+      "file": "label_house_pinecone_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "outfit.sunny.1.name": {
       "text": "Straw Hat",
       "file": "label_outfit_sunny_1_name.png",
@@ -446,6 +474,20 @@
     "outfit.sunny.3.name": {
       "text": "Little Crown",
       "file": "label_outfit_sunny_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sunny.4.name": {
+      "text": "Bee",
+      "file": "label_outfit_sunny_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sunny.5.name": {
+      "text": "Sunflower",
+      "file": "label_outfit_sunny_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -471,6 +513,20 @@
       "line_height": 208,
       "baseline": 160
     },
+    "outfit.sky.4.name": {
+      "text": "Whale Hood",
+      "file": "label_outfit_sky_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.sky.5.name": {
+      "text": "Captain",
+      "file": "label_outfit_sky_5_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "outfit.berry.1.name": {
       "text": "Round Glasses",
       "file": "label_outfit_berry_1_name.png",
@@ -488,6 +544,20 @@
     "outfit.berry.3.name": {
       "text": "Sparkle Tiara",
       "file": "label_outfit_berry_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.berry.4.name": {
+      "text": "Strawberry Hood",
+      "file": "label_outfit_berry_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.berry.5.name": {
+      "text": "Blossom Fairy",
+      "file": "label_outfit_berry_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -513,6 +583,20 @@
       "line_height": 208,
       "baseline": 160
     },
+    "outfit.mint.4.name": {
+      "text": "Frog Hood",
+      "file": "label_outfit_mint_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.mint.5.name": {
+      "text": "Dino Hood",
+      "file": "label_outfit_mint_5_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "outfit.cocoa.1.name": {
       "text": "Red Beanie",
       "file": "label_outfit_cocoa_1_name.png",
@@ -530,6 +614,20 @@
     "outfit.cocoa.3.name": {
       "text": "Monocle",
       "file": "label_outfit_cocoa_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.cocoa.4.name": {
+      "text": "Teddy Hood",
+      "file": "label_outfit_cocoa_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.cocoa.5.name": {
+      "text": "Gingerbread",
+      "file": "label_outfit_cocoa_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -555,6 +653,20 @@
       "line_height": 208,
       "baseline": 160
     },
+    "outfit.snow.4.name": {
+      "text": "Bunny Hood",
+      "file": "label_outfit_snow_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.snow.5.name": {
+      "text": "Ice Queen",
+      "file": "label_outfit_snow_5_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "outfit.ember.1.name": {
       "text": "Red Bandana",
       "file": "label_outfit_ember_1_name.png",
@@ -572,6 +684,20 @@
     "outfit.ember.3.name": {
       "text": "Knight Helmet",
       "file": "label_outfit_ember_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ember.4.name": {
+      "text": "Fox Hood",
+      "file": "label_outfit_ember_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ember.5.name": {
+      "text": "Dragon Helm",
+      "file": "label_outfit_ember_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -597,6 +723,20 @@
       "line_height": 208,
       "baseline": 160
     },
+    "outfit.ink.4.name": {
+      "text": "Pirate",
+      "file": "label_outfit_ink_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.ink.5.name": {
+      "text": "Ninja",
+      "file": "label_outfit_ink_5_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
     "outfit.hoot.1.name": {
       "text": "Graduation Cap",
       "file": "label_outfit_hoot_1_name.png",
@@ -614,6 +754,20 @@
     "outfit.hoot.3.name": {
       "text": "Wizard Cape",
       "file": "label_outfit_hoot_3_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.hoot.4.name": {
+      "text": "Explorer",
+      "file": "label_outfit_hoot_4_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "outfit.hoot.5.name": {
+      "text": "Cowboy",
+      "file": "label_outfit_hoot_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160

@@ -333,8 +333,6 @@ func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Cal
 	var x := (r.size.x - (pic + 12.0 + lw)) * 0.5
 	UI.art(content, picture, Rect2(x, (r.size.y - 8.0 - pic) * 0.5, pic, pic))
 	UI.label(content, label_id, Rect2(x + pic + 12.0, (r.size.y - 8.0 - 48.0) * 0.5, lw, 48.0), cap)
-	b.button_down.connect(func(): content.position.y = 4.0)
-	b.button_up.connect(func(): content.position.y = 0.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

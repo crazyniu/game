@@ -271,22 +271,23 @@ static func button(parent: Node, name: String, center: Vector2, kind: String, ic
 			var scale := 0.58 if not picture_of(icon_name, ink_on(kind)).is_empty() else 0.5
 			ic = icon(b, icon_name, Vector2(size * 0.5, size * 0.5 - 5.0), size * scale, ink_on(kind))
 			ic.name = "Icon"
-		b.button_down.connect(func(): ic.position.y += 6.0)
-		b.button_up.connect(func(): ic.position.y -= 6.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
 	parent.add_child(b)
 	return b
 
-## Transparent button states with a painted piece as its face; a press sinks every child and darkens the face.
+## Transparent button states with a painted piece as its face. A press only darkens the face: the button keeps
+## its shape, size and contents in place (user, 2026-11-09).
+const PRESSED_TINT := Color(0.84, 0.84, 0.84)
+
 static func _skin_button(b: Button, piece: String, r: Rect2) -> void:
 	var empty := StyleBoxEmpty.new()
 	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
 		b.add_theme_stylebox_override(state, empty)
 	var face := kit_piece(b, piece, r)
 	face.name = "Face"
-	b.button_down.connect(func(): face.self_modulate = Color(0.88, 0.88, 0.88))
+	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
 	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
 
 ## Long painted pill button with a whole label in white (Play, Next, Buy, settings rows). `kind`: green, orange,
@@ -316,8 +317,6 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
 		outline_to(label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE), kind)
-	b.button_down.connect(func(): content.position.y = 5.0)
-	b.button_up.connect(func(): content.position.y = 0.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -355,7 +354,7 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 	n.name = "Value"
 	return p
 
-## A big painted tile: the picture above one short painted word. A press darkens it and sinks the contents.
+## A big painted tile: the picture above one short painted word. A press darkens its face.
 const TILE := Vector2(176.0, 168.0)
 
 static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable, piece := "card", ink := INK) -> Button:
@@ -374,15 +373,13 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	var cap := 32.0 * k
 	var lw := minf(r.size.x - 28.0, label_width(label_id, cap))
 	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 56.0 * k, lw, 42.0 * k), cap, ink)
-	b.button_down.connect(func(): body.position.y = 4.0)
-	b.button_up.connect(func(): body.position.y = 0.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
 	parent.add_child(b)
 	return b
 
-## Painted button picture (word painted in); a press sinks it slightly.
+## Painted button picture (word painted in); a press darkens it.
 static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
 	var b := Button.new()
 	b.name = n
@@ -393,13 +390,8 @@ static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_pr
 	place(b, r)
 	var face := art(b, picture, Rect2(Vector2.ZERO, r.size))
 	face.name = "Face"
-	face.pivot_offset = r.size * 0.5
-	b.button_down.connect(func():
-		face.scale = Vector2.ONE * 0.95
-		face.self_modulate = Color(0.92, 0.92, 0.92))
-	b.button_up.connect(func():
-		face.scale = Vector2.ONE
-		face.self_modulate = Color.WHITE)
+	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
+	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

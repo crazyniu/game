@@ -50,6 +50,8 @@ const SECTION_GAP := 48.0
 const TILE_W := 228.0
 const TILE_H := 312.0
 const TILE_GAP := 24.0
+const TILE_COLS := 3                          # six tiles (plain + five outfits) in two rows
+const TILE_ROWS := 2
 const TILE_BIRD := Rect2(24, 56, 180, 176)    # same bird size in every tile
 const CORNER := Vector2(188, 40)              # centre of the lock or check mark
 const CHECK := 56.0
@@ -230,8 +232,6 @@ func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> 
 func _list_header(met: int, count: int) -> void:
 	var close := UI.button(_page, "Close", Vector2(112, 104), "red", "", func(): closed.emit())
 	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
-	close.button_down.connect(func(): icon.position.y += 6.0)
-	close.button_up.connect(func(): icon.position.y -= 6.0)
 	UI.title_ribbon(_page, "aviary.title", Vector2(540, FRAME.position.y + 8.0), 56.0, 520.0)   # on the frame top
 	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
 	counter.name = "MetCounter"
@@ -332,7 +332,7 @@ func _show_detail(id: String) -> void:
 	var crow := id == "crow"
 	var bird_h := CROW_BIRD if crow else HERO_BIRD
 	var panel_h := PANEL_PAD + bird_h + 32.0 + LINE + PANEL_PAD + 12.0
-	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H)
+	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H * TILE_ROWS + TILE_GAP * (TILE_ROWS - 1))
 	var top := roundf((160.0 + (1872.0 - 160.0 - block) * 0.5) / 8.0) * 8.0
 	var panel := Rect2(108, top, 864, panel_h)
 	UI.shape(_page, panel, "cream", 56.0, 12.0).name = "Panel"
@@ -347,7 +347,7 @@ func _show_detail(id: String) -> void:
 	var inner_w := panel.size.x - PANEL_PAD * 2.0
 	_ability(id, y, inner_w)
 	if not crow:
-		_tile_row = Rect2(MARGIN, panel.end.y + SECTION_GAP, RIGHT - MARGIN, TILE_H)
+		_tile_row = Rect2(MARGIN, panel.end.y + SECTION_GAP, RIGHT - MARGIN, TILE_H * TILE_ROWS + TILE_GAP * (TILE_ROWS - 1))
 		_tiles = Control.new()
 		_tiles.name = "Outfits"
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -392,18 +392,18 @@ func _ability(id: String, y: float, max_w: float) -> void:
 		UI.icon(_page, "home", Vector2(x + 28.0, y + LINE * 0.5), 56.0, Color(UI.INK, 0.8))
 	UI.label(_page, label_id, Rect2(x + lead, y, tw, LINE), BODY_CAP, UI.INK)
 
-## Four outfit tiles: the plain bird, then outfits 1 to 3. Owned ones equip on tap; locked ones are dimmed with a
+## Outfit tiles in two rows of three: the plain bird, then outfits 1 to 5. Owned ones equip on tap; locked ones are dimmed with a
 ## lock and their price; the equipped one wears a green check badge.
 func _build_tiles() -> void:
 	for c in _tiles.get_children():
 		_tiles.remove_child(c)   # rebuilt tiles keep their names
 		c.queue_free()
-	var x := _tile_row.position.x + (_tile_row.size.x - (TILE_W * 4.0 + TILE_GAP * 3.0)) * 0.5
+	var x := _tile_row.position.x + (_tile_row.size.x - (TILE_W * TILE_COLS + TILE_GAP * (TILE_COLS - 1))) * 0.5
 	var current: String = profile.equipped.get(_species, "outfit.%s.default" % _species)
-	for n in 4:
+	for n in Shop.OUTFIT_COUNT + 1:
 		var id := "outfit.%s.default" % _species if n == 0 else "outfit.%s.%d" % [_species, n]
 		var owned := n == 0 or profile.owns_outfit(id)
-		var tile := UI.shape(_tiles, Rect2(x + n * (TILE_W + TILE_GAP), _tile_row.position.y, TILE_W, TILE_H), "cream", 40.0, 10.0)
+		var tile := UI.shape(_tiles, Rect2(x + (n % TILE_COLS) * (TILE_W + TILE_GAP), _tile_row.position.y + (n / TILE_COLS) * (TILE_H + TILE_GAP), TILE_W, TILE_H), "cream", 40.0, 10.0)
 		tile.name = "Tile_%d" % n
 		var outfit := "" if n == 0 else "%s_outfit_%d" % [_species, n]
 		var bird := _live_bird(tile, _species, outfit, TILE_BIRD)

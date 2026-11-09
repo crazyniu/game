@@ -39,6 +39,7 @@ var _scene: Node2D
 var _branch_layer: Node2D
 var _bird_layer: Node2D
 var _hud: Control
+var _air: Ambient           # living air of the world painting: leaves, snow, mist, motes, sunlight
 var _night_bg: TextureRect   # the world's night painting over the day painting; alpha = night amount
 var _night_fx: Node2D        # twinkling stars and fireflies, visible at night
 var _night_amount := 0.0     # 0 day .. 1 night; drives the painting cross-fade, moonlight tint and night life
@@ -184,6 +185,12 @@ func _build_scene() -> void:
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
 	_night_bg = UI.image(self, "board_w%d_night_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
+	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
+	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
+	_air = Ambient.new()
+	_air.look = Ambient.for_level(_world(), session.state.variant)
+	_air.still = instant
+	add_child(_air)
 	_slots = JSON.parse_string(FileAccess.get_file_as_string("res://world/scene/board_w%d_slots.json" % _world()))["slots"]
 	_build_ambient()
 	_build_night_fx()
@@ -266,6 +273,7 @@ func _apply_night(amount: float) -> void:
 	_night_amount = amount
 	_night_bg.modulate.a = amount
 	_night_bg.visible = amount > 0.001
+	_air.night = amount
 	var tint := Color.WHITE.lerp(NIGHT_TINT, amount)
 	_branch_layer.modulate = tint
 	_bird_layer.modulate = tint
@@ -634,7 +642,11 @@ const HOUSES := {
 	"acorn": ["house_style_acorn_body", Rect2(56, 51, 397, 403), Rect2(148, 205, 204, 199), 51.0],
 	"teapot": ["house_style_teapot_body", Rect2(29, 55, 458, 398), Rect2(148, 205, 204, 199), 55.0],
 	"mushroom": ["house_style_mushroom_body", Rect2(41, 51, 426, 401), Rect2(148, 204, 204, 200), 51.0],
-	"lantern": ["house_style_lantern_body", Rect2(50, 61, 408, 393), Rect2(148, 204, 204, 200), 61.0]}
+	"lantern": ["house_style_lantern_body", Rect2(50, 61, 408, 393), Rect2(148, 204, 204, 200), 61.0],
+	"pumpkin": ["house_style_pumpkin_body", Rect2(49, 37, 413, 423), Rect2(148, 205, 204, 199), 37.0],
+	"beehive": ["house_style_beehive_body", Rect2(54, 53, 401, 403), Rect2(148, 205, 204, 199), 53.0],
+	"teacup": ["house_style_teacup_body", Rect2(83, 136, 389, 324), Rect2(165, 221, 170, 169), 136.0],
+	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0]}
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
@@ -1699,7 +1711,8 @@ func granted(kind: int, count: int) -> void:
 	refresh_hud()
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
-## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
+## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
+## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
 ## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
@@ -1719,11 +1732,12 @@ static func preview(main: Control, state: String) -> void:
 		for b in sides.values():
 			board._lift(b, true)
 		return
-	if state.begins_with("day_w") or state.begins_with("night_w"):
+	if state.begins_with("day_w") or state.begins_with("night_w") or state.begins_with("air_"):
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		board.start(Levels.get_level(int(state.right(1)) * 10 - 5), main.profile, false)
+		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.right(1)) * 10 - 5
+		board.start(Levels.get_level(id), main.profile, false)
 		if state.begins_with("night_w"):
 			board.session.state.phase = Board.Phase.NIGHT
 			board._apply_night(1.0)
