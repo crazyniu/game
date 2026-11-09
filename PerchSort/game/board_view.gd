@@ -1446,9 +1446,17 @@ func play_events(events: Array) -> void:
 					bird.wake()
 					Sound.play("chirp_0%d" % (1 + randi() % 5))
 			"flock_home":
-				await _flock_home(e)
+				# The house celebration never holds the board: the next tap works while the flock still flies.
+				# Only the winning move waits, so the win popup follows the last homing.
+				if session.state.is_won():
+					await _flock_home(e)
+				else:
+					_flock_home(e)
 			"gift":
-				await _gift(e)
+				if session.state.is_won():
+					await _gift(e)
+				else:
+					_gift(e)
 			"branch_grew", "twig_upgraded":
 				_layout_branches()
 			"crows_left":
