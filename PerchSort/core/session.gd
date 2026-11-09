@@ -12,6 +12,9 @@ var _initial: Board
 var _history: Array = []  # [Board, last_move]
 var _rules := Rules.new()
 
+## Moves over par that still earn two stars.
+const TWO_STAR_SLACK := 3
+
 
 func _init(level_def: Dictionary, inventory := PackedInt32Array()) -> void:
 	level = level_def
@@ -20,7 +23,13 @@ func _init(level_def: Dictionary, inventory := PackedInt32Array()) -> void:
 	par = int(level_def.get("par", 0))
 
 static func stars_for(moves: int, par_value: int) -> int:
-	return 3 if moves <= par_value else (2 if moves <= par_value + 3 else 1)
+	return 3 if moves <= par_value else (2 if moves <= par_value + TWO_STAR_SLACK else 1)
+
+## Moves that can still be made while keeping the current rating; -1 on the last star, which cannot be lost.
+static func moves_left_for_star(moves: int, par_value: int) -> int:
+	if moves <= par_value:
+		return par_value - moves
+	return par_value + TWO_STAR_SLACK - moves if moves <= par_value + TWO_STAR_SLACK else -1
 
 func move_count() -> int:
 	return state.counted_moves

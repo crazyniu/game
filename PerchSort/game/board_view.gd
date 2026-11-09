@@ -63,6 +63,10 @@ var _goal_nodes := {}   # species -> Control
 var _status: Panel          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
+var _moves_icon: Control
+var _stars_centred := false
+var _stars_tween: Tween
+var _shown_stars := -1
 var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
 var _phase_icons := {}       # Board.Phase -> painted sun or moon
 var _phase_number: Control
@@ -579,7 +583,8 @@ func _entrance(quick := false) -> void:
 ## ---------- HUD ----------
 
 ## Minimal status (top left, clear of the house and Settings): one pill with the three stars still reachable
-## and the moves used; on day/night levels a second pill below it with only a sun or moon and the moves until
+## and the moves that can still be made before the next star is lost (hidden on the last star, which cannot
+## be lost; the stars then centre in the pill); on day/night levels a second pill below it with only a sun or moon and the moves until
 ## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
 const STATUS_AT := Vector2(48, 48)
 const STATUS_H := 104.0
@@ -717,7 +722,9 @@ func _build_status() -> void:
 	_status.name = "Status"
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
 	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
-	UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	_moves_icon = UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	_stars_centred = false
+	_shown_stars = -1
 	var number_x := moves_x + STATUS_ICON + 8.0
 	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
 		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
@@ -740,11 +747,19 @@ func _build_status() -> void:
 func _refresh_status(with_phase := true) -> void:
 	var s := session.state
 	var moves := session.move_count()
-	UI.set_number(_moves_number, str(moves))
-	_set_stars(_status_stars, GameSession.stars_for(moves, session.par))
+	var stars := GameSession.stars_for(moves, session.par)
+	var keep := GameSession.moves_left_for_star(moves, session.par)
+	UI.set_number(_moves_number, str(maxi(keep, 0)))
+	_moves_number.visible = keep >= 0
+	_moves_icon.visible = keep >= 0
+	_set_stars(_status_stars, stars)
+	_centre_status_stars(keep < 0, _shown_moves >= 0)
 	if _shown_moves >= 0 and moves != _shown_moves:
 		_pulse(_moves_number)
+		if stars < _shown_stars:
+			_pulse(_status_stars[stars], _status_stars[stars].size.x * 0.5)
 	_shown_moves = moves
+	_shown_stars = stars
 	if _phase_number == null or not with_phase:
 		return
 	var left := str(s.day_length - s.phase_counter)
@@ -756,11 +771,33 @@ func _refresh_status(with_phase := true) -> void:
 		_pulse(_phase_number)
 	_shown_phase = shown
 
+## With the counter gone the stars glide to the middle of the pill; undo brings them back.
+func _centre_status_stars(centred: bool, animate: bool) -> void:
+	if centred == _stars_centred:
+		return
+	_stars_centred = centred
+	if _stars_tween:
+		_stars_tween.kill()
+	var row := 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP
+	var x := (STATUS_W - row) * 0.5 if centred else STATUS_INSET
+	if instant or not animate:
+		for i in _status_stars.size():
+			_status_stars[i].position.x = x + i * (STATUS_STAR + STATUS_STAR_GAP)
+		return
+	_stars_tween = _status.create_tween().set_parallel()
+	for i in _status_stars.size():
+		_stars_tween.tween_property(_status_stars[i], "position:x", x + i * (STATUS_STAR + STATUS_STAR_GAP), 0.3) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if not centred:   # the counter returns only once the stars have left its place
+		for node: Control in [_moves_icon, _moves_number]:
+			node.modulate.a = 0.0
+			_stars_tween.tween_property(node, "modulate:a", 1.0, 0.12).set_delay(0.22)
+
 ## A changed value grows briefly so the player sees what moved.
-func _pulse(node: Control) -> void:
+func _pulse(node: Control, pivot_x := 0.0) -> void:
 	if instant:
 		return
-	node.pivot_offset = Vector2(0.0, node.size.y * 0.5)
+	node.pivot_offset = Vector2(pivot_x, node.size.y * 0.5)
 	var tw := node.create_tween()
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -1635,7 +1672,8 @@ func granted(kind: int, count: int) -> void:
 	refresh_hud()
 
 ## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
-## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (three stars already lost),
+## "day_wN" / "night_wN" (a level of world N in each phase), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
+## then par+B after a pause, and so on; values may be negative),
 ## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
 ## levels: background search time and first press, then quit); "replay_N" / "next_N" (level N with the quick
@@ -1652,6 +1690,17 @@ static func preview(main: Control, state: String) -> void:
 			board._apply_night(1.0)
 			board.sync_birds()
 			board.refresh_hud()
+		return
+	if state.begins_with("hud_over_"):
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		for step in state.trim_prefix("hud_over_").split("_"):
+			board.session.state.counted_moves = maxi(0, board.session.par + step.to_int())
+			board.refresh_hud()
+			if not board.instant:
+				await board.get_tree().create_timer(1.0).timeout
 		return
 	if state == "hud_progress":
 		var board := BoardView.new()
