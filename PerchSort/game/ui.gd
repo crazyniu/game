@@ -357,7 +357,7 @@ static func counter(parent: Node, at: Vector2, icon_name: String, value: String,
 ## A big painted tile: the picture above one short painted word. A press darkens its face.
 const TILE := Vector2(176.0, 168.0)
 
-static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable, piece := "card", ink := INK) -> Button:
+static func tile(parent: Node, n: String, picture: String, label_id: String, r: Rect2, on_press: Callable, piece := "card", ink := INK, side := 28.0) -> Button:
 	var b := Button.new()
 	b.name = n
 	b.focus_mode = Control.FOCUS_NONE
@@ -371,7 +371,7 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
 	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 46.0 * k, 8.0 * k, 92.0 * k, 92.0 * k))
 	var cap := 32.0 * k
-	var lw := minf(r.size.x - 28.0, label_width(label_id, cap))
+	var lw := minf(r.size.x - side, label_width(label_id, cap))
 	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 56.0 * k, lw, 42.0 * k), cap, ink)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
