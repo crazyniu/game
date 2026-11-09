@@ -161,15 +161,20 @@ func start_challenge() -> void:
 		board.settings_requested.connect(func(): show_settings(true))
 		board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
 		board.buy_requested.connect(func(kind): open_shop(0, true))
-		board.won.connect(func(_result: Dictionary):
-			profile.inventory = board.session.state.inventory.duplicate()
+		board.won.connect(func(result: Dictionary):
+			var session: GameSession = result["session"]
+			profile.inventory = session.state.inventory.duplicate()
 			var got := Progress.complete_challenge(profile, Progress.today())
 			save()
-			if got.is_empty():
-				open_home()
-				return
-			Sound.play("collect")
-			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
+			# The win panel always shows; the once-a-day reward follows it when it is still unclaimed.
+			var finish := func():
+				if got.is_empty():
+					open_home()
+				else:
+					Sound.play("collect")
+					Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home)
+			Popups.win(popups, Progress.stars_for_moves(session.move_count(), session.par), session.move_count(), session.par, 0,
+				start_challenge, finish, finish, false))
 		Sound.music("bgm_game"))
 
 func show_chest() -> void:
