@@ -17,8 +17,9 @@ var _last_play := {}   # effect name -> msec of its last start, to drop duplicat
 
 ## Effect names used by the game mapped to audio files (the former AudioManager effect table).
 ## Boosters each get a distinct clip; "select" and "move" rotate through the chirps.
-const ALIASES := {"collect": "nest_home", "win": "win_fanfare", "click": "ui_tap", "sleep": "sleep_z",
-	"sapling": "crate_open", "owl_eye": "star_1", "morning_bell": "chirp_05", "scarecrow": "star_3",
+## "collect" (check-in, purchases, gifts, rewards) is the coin chime; nest_home stays the flock-home sound.
+const ALIASES := {"collect": "reward", "win": "win_fanfare", "click": "ui_tap", "sleep": "sleep_z",
+	"sapling": "sapling_grow", "owl_eye": "star_1", "morning_bell": "chirp_05", "scarecrow": "star_3",
 	"spring_rain": "star_2"}
 
 

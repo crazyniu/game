@@ -239,16 +239,18 @@ static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
 ## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
 ## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
-	var tile := Vector2(164, 196)   # four in a row stay inside the wooden frame (Modal.INSET)
+	# Two even rows inside the wooden frame: days 1-4, then 5, 6 and a double-width day 7 (the big reward).
+	var tile := Vector2(164, 196)
 	var gap := 16.0
+	var row_w := tile.x * 4.0 + gap * 3.0
 	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	for i in 7:
+		var col := i % 4
 		var row := i / 4
-		var in_row := 4 if row == 0 else 3
-		var x := 540.0 + ((i % 4) - (in_row - 1) * 0.5) * (tile.x + gap) - tile.x * 0.5
-		var r := Rect2(x, ys[0] + row * (tile.y + gap), tile.x, tile.y)
+		var w := tile.x * 2.0 + gap if i == 6 else tile.x
+		var r := Rect2(540.0 - row_w * 0.5 + col * (tile.x + gap), ys[0] + row * (tile.y + gap), w, tile.y)
 		var today := i + 1 == day
 		var done := i + 1 <= claimed
 		if today:   # today's tile: a warm glow behind it and a gentle bob
@@ -262,11 +264,19 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 			bob.tween_property(card, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
 			bob.tween_property(card, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 		var reward: Array = Progress.CHECKIN[i]
-		UI.number(card, str(i + 1), Rect2(0, 16, tile.x, 32), UI.INK)
-		UI.art(card, "coin", Rect2(tile.x * 0.5 - 32.0, 58, 64, 64))
-		UI.number(card, str(reward[0]), Rect2(14, 130, tile.x - 28.0, 32), UI.INK)
-		if reward[1] > 0:
-			UI.art(card, "booster_hint_illus", Rect2(tile.x - 54.0, 8, 44, 44))
+		UI.number(card, str(i + 1), Rect2(0, 16, w, 32), UI.INK)
+		var mid := w * 0.5
+		if i == 6:   # the week's prize: coins beside a chest
+			UI.art(card, "coin", Rect2(mid - 132.0, 66, 56, 56))
+			UI.number(card, str(reward[0]), Rect2(mid - 132.0, 130, 120, 32), UI.INK)
+			UI.art(card, "pic_chest", Rect2(mid + 4.0, 52, 120, 110))
+		elif reward[1] > 0:   # coins and a booster side by side, both inside the tile
+			UI.art(card, "coin", Rect2(mid - 64.0, 62, 60, 60))
+			UI.art(card, "booster_hint_illus", Rect2(mid + 4.0, 62, 60, 60))
+			UI.number(card, str(reward[0]), Rect2(14, 136, w - 28.0, 32), UI.INK)
+		else:
+			UI.art(card, "coin", Rect2(mid - 32.0, 60, 64, 64))
+			UI.number(card, str(reward[0]), Rect2(14, 136, w - 28.0, 32), UI.INK)
 		if done:
 			card.modulate.a = 0.5
 			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)

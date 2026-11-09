@@ -15,7 +15,7 @@ signal chest_requested
 signal challenge_requested
 
 ## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
-const LOGO := Rect2(200, 140, 680, 428)   # in the open sky under the top row, above the roof
+const LOGO := Rect2(160, 84, 760, 484)    # fills the sky between the coins and the gear; its foot stays on the rope
 const SETTINGS := Rect2(904, 44, 124, 124)
 ## Seats in the painted birdhouse (home_clearing): two on the shelf in front of the doorway, two on the roof slopes.
 const SEATS := [Vector2(466, 1004), Vector2(612, 1004), Vector2(870, 728), Vector2(212, 728)]
@@ -151,7 +151,7 @@ func _process(delta: float) -> void:
 ## Capture states: "home" (a player at level 12) and "home_new" (a first launch).
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
-	p.coins = 1240 if state == "home" else 0
+	p.coins = 50270 if state == "home" else 0
 	if state == "home":
 		p.highest_unlocked = 12
 		for level in range(1, 12):
