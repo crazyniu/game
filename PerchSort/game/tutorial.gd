@@ -11,9 +11,9 @@ const STEPS := 4
 ## Painted sentence lines per step (tools/kit/locales/en.json); lines of one step share one cap height.
 const LINES := [["tutorial.pick"], ["tutorial.move.a"], ["tutorial.home.a"], ["tutorial.win.a"]]
 ## Modal content groups: live scene, sentence (up to three lines), step dots.
-const STAGE_SIZE := Vector2(768, 720)
+const STAGE_SIZE := Vector2(704, 660)   # inside the wooden frame (Modal.INSET)
 const TEXT_H := 72.0   # one short line per step
-const TEXT_W := 784.0
+const TEXT_W := 720.0
 const TEXT_CAP := 44.0
 const LINE_H := TEXT_CAP * 208.0 / 128.0
 const DOTS_H := 24.0
@@ -22,7 +22,7 @@ const DOT_GAP := 20.0
 const STAGE_RADIUS := 40.0
 ## The scene is laid out in board pixels and scaled into the card.
 const WORLD := 1
-const K := 768.0 / 1080.0
+const K := 704.0 / 1080.0
 const CROP_Y := 380.0               # painting rows shown: CROP_Y .. CROP_Y + STAGE_SIZE.y / K
 const BIRD_SCALE := 1.10            # board bird scale (board_view.gd)
 const SEAT_FIRST := 98.0

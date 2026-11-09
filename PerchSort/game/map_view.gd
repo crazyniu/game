@@ -441,8 +441,9 @@ func _build_sign(world: int) -> void:
 		child.queue_free()
 	var r := SIGN
 	UI.art(_sign, "map_sign", r)
-	var plank := Rect2(r.position.x + r.size.x * 0.12, r.position.y + r.size.y * 0.44, r.size.x * 0.76, r.size.y * 0.42)
-	var cap := 46.0
+	# The words stay on the plank face, clear of its rim and the flowers on its corners.
+	var plank := Rect2(r.position.x + r.size.x * 0.2, r.position.y + r.size.y * 0.56, r.size.x * 0.6, r.size.y * 0.3)
+	var cap := 40.0
 	var w := minf(plank.size.x, UI.label_width(WORLD_LABELS[world - 1], cap))
 	UI.outline_to(UI.label(_sign, WORLD_LABELS[world - 1], Rect2(plank.get_center().x - w * 0.5, plank.position.y, w, plank.size.y), cap,
 		Color.WHITE), "orange")
