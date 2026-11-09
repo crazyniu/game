@@ -12,6 +12,7 @@ const TITLE_TOP := 56.0          # panel top to the title's cap top
 const BODY_GAP := 40.0           # title cap bottom to the first content group
 const BOTTOM := 56.0             # last content group to the panel's visible bottom (above its edge)
 const GAP := 32.0                # between content groups
+const INSET := 72.0              # panel edge to content: the wooden frame (48 px) and a little air
 const CLOSE := 128.0
 const ACTION_DROP := 48.0        # panel bottom to the action row's top
 const ACTION_GAP := 56.0

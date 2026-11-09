@@ -239,7 +239,7 @@ static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
 ## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
 ## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
-	var tile := Vector2(184, 212)
+	var tile := Vector2(164, 196)   # four in a row stay inside the wooden frame (Modal.INSET)
 	var gap := 16.0
 	var p := Modal.open(host, "checkin.title", [tile.y * 2.0 + gap, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
@@ -262,11 +262,11 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 			bob.tween_property(card, "scale", Vector2.ONE * 1.06, 0.6).set_trans(Tween.TRANS_SINE)
 			bob.tween_property(card, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE)
 		var reward: Array = Progress.CHECKIN[i]
-		UI.number(card, str(i + 1), Rect2(0, 18, tile.x, 34), UI.INK)
-		UI.art(card, "coin", Rect2(tile.x * 0.5 - 34.0, 62, 68, 68))
-		UI.number(card, str(reward[0]), Rect2(14, 140, tile.x - 28.0, 34), UI.INK)
+		UI.number(card, str(i + 1), Rect2(0, 16, tile.x, 32), UI.INK)
+		UI.art(card, "coin", Rect2(tile.x * 0.5 - 32.0, 58, 64, 64))
+		UI.number(card, str(reward[0]), Rect2(14, 130, tile.x - 28.0, 32), UI.INK)
 		if reward[1] > 0:
-			UI.art(card, "booster_hint_illus", Rect2(tile.x - 58.0, 6, 50, 50))
+			UI.art(card, "booster_hint_illus", Rect2(tile.x - 54.0, 8, 44, 44))
 		if done:
 			card.modulate.a = 0.5
 			UI.icon(c, "check", r.get_center(), 104.0, UI.INK)
@@ -284,8 +284,8 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 	var m := Modal.open(host, "map.chapters", [row_h * 4.0 + gap * 3.0], true, 0.0, 0.0, _instant(host), true)
 	var c := m.content
 	var ys: Array = m.get_meta("ys")
-	var left: float = m.panel_rect.position.x + 56.0
-	var width: float = Modal.WIDTH - 112.0
+	var left: float = m.panel_rect.position.x + Modal.INSET
+	var width: float = Modal.WIDTH - Modal.INSET * 2.0
 	var next := Progress.next_level(p)
 	var frontier := Progress.world_of_level(next if next > 0 else 40)
 	for i in 4:
@@ -334,15 +334,15 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		UI.art(body, "pic_star", Rect2(x - 4.0, 148, 46, 46))
 		var text := "%d/30" % earned
 		UI.number(body, text, Rect2(x + 50.0, 156, UI.number_width(text, 32.0) + 4.0, 32), UI.INK, -1)
-		var end := Vector2(r.size.x - 64.0, r.size.y * 0.5 - 4.0)
+		var end := Vector2(r.size.x - 84.0, r.size.y * 0.5 - 4.0)   # clear of the row's green rim
 		if not open:
 			UI.icon(body, "lock", end, 64.0, UI.INK)
 			body.modulate.a = UI.DISABLED_ALPHA
 		elif done:
-			var d := UI.shape(body, Rect2(end - Vector2.ONE * 50.0, Vector2.ONE * 100.0), "green", 50.0, 6.0, false)
-			UI.icon(d, "check", Vector2.ONE * 50.0 - Vector2(0, 4), 60.0)
+			var d := UI.shape(body, Rect2(end - Vector2.ONE * 44.0, Vector2.ONE * 88.0), "green", 44.0, 6.0, false)
+			UI.icon(d, "check", Vector2.ONE * 44.0 - Vector2(0, 4), 52.0)
 		if world == frontier and open and not done:
-			UI.pill(body, "CurrentTag", Rect2(Vector2(r.size.x - 32.0 - 164.0, 136.0), Vector2(164.0, 72.0)), "green", "map.current",
+			UI.pill(body, "CurrentTag", Rect2(Vector2(r.size.x - 40.0 - 164.0, 132.0), Vector2(164.0, 72.0)), "green", "map.current",
 				func(): m.invoke(on_pick.bind(world)), "", 24.0)
 	return m
 
