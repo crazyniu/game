@@ -31,6 +31,8 @@ var muted := false                  # sound effects off
 var music_muted := false            # background music off
 var level_gifts := {}               # level -> true: old start-gift record, no longer granted, kept in saves
 var chests_opened := 0              # star chests opened (one per CHEST_STARS stars earned)
+var draws_date := ""                # day the lucky draw chances were handed out
+var draws_left := 0                 # draws still unused on draws_date
 var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
 var challenge_date := ""            # last day the daily challenge was completed
 var vibration := true               # short haptic pulses on mobile
@@ -96,7 +98,7 @@ func to_dict() -> Dictionary:
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
-		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "challengeDate": challenge_date,
+		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "drawDate": draws_date, "drawsLeft": draws_left, "challengeDate": challenge_date,
 		"vibration": vibration,
 	}
 
@@ -166,6 +168,8 @@ static func from_dict(data: Dictionary) -> Profile:
 			p.level_gifts[int(level)] = true
 	p.chests_opened = maxi(0, int(data.get("chestsOpened", 0)))
 	p.checkin_streak = clampi(int(data.get("checkinStreak", 0)), 0, 7)
+	p.draws_date = str(data.get("drawDate", ""))
+	p.draws_left = clampi(int(data.get("drawsLeft", 0)), 0, 99)
 	p.challenge_date = str(data.get("challengeDate", ""))
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= Levels.WORLDS:

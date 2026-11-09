@@ -129,24 +129,27 @@ func _open_map() -> void:
 	map.chapters_requested.connect(func(): Popups.chapters(popups, profile, map.show_world))
 	Sound.music("bgm_menu")
 
-## The seven-day check-in opens by itself on the first launch of a day.
+## The daily lucky draw opens by itself on the first launch of a day.
 func _offer_daily_gift() -> void:
-	if Progress.checkin_day(profile, Progress.today()) > 0:
+	if Progress.draws_available(profile, Progress.today()):
 		show_checkin()
 
 func show_checkin() -> void:
-	var day := Progress.checkin_day(profile, Progress.today())
-	Popups.checkin(popups, day, day - 1 if day > 0 else profile.checkin_streak, func():
-		var got := Progress.claim_checkin(profile, Progress.today())
+	var today := Progress.today()
+	Progress.begin_draw_day(profile, today)
+	save()
+	Popups.lucky_draw(popups, profile.draws_left, Progress.DRAW_MAX_SPINS, func() -> Dictionary:
+		var got := Progress.draw(profile, today)
 		if got.is_empty():
-			return
+			return {}
 		Sound.play("collect")
 		save()
-		Popups.rewards(popups, "checkin.title", got["coins"], got["boosters"], _refresh_screen))
+		_refresh_screen()
+		return got)
 
 ## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
 func start_challenge() -> void:
-	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
+	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), Progress.highest_cleared(profile))
 	if def.is_empty():
 		Sound.play("error")
 		return
