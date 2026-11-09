@@ -3,8 +3,9 @@ extends RefCounted
 ## Shop catalog, purchases and equipping.
 
 enum { BOOSTER, OUTFIT, HOUSE }
-const HOUSE_STYLES: PackedStringArray = ["mushroom", "teapot", "lantern", "acorn"]
-const OUTFIT_PRICES := [300, 500, 800]
+const HOUSE_STYLES: PackedStringArray = ["mushroom", "teapot", "lantern", "acorn", "pumpkin", "beehive", "teacup", "pinecone"]
+const OUTFIT_PRICES := [300, 500, 800, 1000, 1300]
+const OUTFIT_COUNT := 5            # outfits per species, besides the plain look
 
 static var _catalog: Array = []
 static var _by_id: Dictionary = {}
@@ -19,7 +20,7 @@ static func catalog() -> Array:
 		for card in Aviary.SPECIES:
 			if card[0] == "crow":
 				continue
-			for index in range(1, 4):
+			for index in range(1, OUTFIT_COUNT + 1):
 				_add({"id": "outfit.%s.%d" % [card[0], index], "kind": OUTFIT, "price": OUTFIT_PRICES[index - 1],
 					"quantity": 1, "species": card[0], "index": index})
 		for style in HOUSE_STYLES:

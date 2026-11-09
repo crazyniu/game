@@ -634,7 +634,11 @@ const HOUSES := {
 	"acorn": ["house_style_acorn_body", Rect2(56, 51, 397, 403), Rect2(148, 205, 204, 199), 51.0],
 	"teapot": ["house_style_teapot_body", Rect2(29, 55, 458, 398), Rect2(148, 205, 204, 199), 55.0],
 	"mushroom": ["house_style_mushroom_body", Rect2(41, 51, 426, 401), Rect2(148, 204, 204, 200), 51.0],
-	"lantern": ["house_style_lantern_body", Rect2(50, 61, 408, 393), Rect2(148, 204, 204, 200), 61.0]}
+	"lantern": ["house_style_lantern_body", Rect2(50, 61, 408, 393), Rect2(148, 204, 204, 200), 61.0],
+	"pumpkin": ["house_style_pumpkin_body", Rect2(49, 37, 413, 423), Rect2(148, 205, 204, 199), 37.0],
+	"beehive": ["house_style_beehive_body", Rect2(54, 53, 401, 403), Rect2(148, 205, 204, 199), 53.0],
+	"teacup": ["house_style_teacup_body", Rect2(83, 136, 389, 324), Rect2(165, 221, 170, 169), 136.0],
+	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0]}
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
