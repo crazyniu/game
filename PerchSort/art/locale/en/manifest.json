@@ -318,7 +318,7 @@
       "baseline": 160
     },
     "booster.firefly.name": {
-      "text": "Firefly",
+      "text": "Hint",
       "file": "label_booster_firefly_name.png",
       "cap": 128,
       "line_height": 208,
@@ -346,7 +346,7 @@
       "baseline": 160
     },
     "booster.owl_eye.name": {
-      "text": "Owl Eye",
+      "text": "Peek",
       "file": "label_booster_owl_eye_name.png",
       "cap": 128,
       "line_height": 208,
@@ -374,7 +374,7 @@
       "baseline": 160
     },
     "booster.scarecrow.name": {
-      "text": "Scarecrow",
+      "text": "Shoo",
       "file": "label_booster_scarecrow_name.png",
       "cap": 128,
       "line_height": 208,
