@@ -195,7 +195,7 @@ def win():
 
 
 def map_screen():
-    m = img("art/map_bg_continuous_w1.png")
+    m = img("art/map_world_w1.png")
     top = 1080
     base = m.crop((0, top, W, top + H))
     nodes = [[514, 2700], [310, 2440], [744, 2180], [660, 1920], [252, 1660], [672, 1400], [640, 1140]]
