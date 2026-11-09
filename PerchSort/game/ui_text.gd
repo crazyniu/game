@@ -93,6 +93,19 @@ static func _load_pack() -> void:
 		_number_ink[character] = [float(ink.position.x), float(ink.size.x)]
 
 
+## A painted picture with words in it (home tiles): the active locale's copy when it has one, else the shared picture.
+static func picture(name: String) -> Texture2D:
+	_load_pack()
+	var path := _folder + name + ".png"
+	return load(path) if ResourceLoader.exists(path) else Art.tex(name)
+
+
+## Baked settings document page (privacy, terms, credits, contact) of the active locale.
+static func document_texture(id: String) -> Texture2D:
+	_load_pack()
+	return load(_folder + "doc_%s.png" % id)
+
+
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false, bend := 0.0) -> TextureRect:
 	var image := LabelSprite.new()
 	image.name = id.replace(".", "_")

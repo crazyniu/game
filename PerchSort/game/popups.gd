@@ -163,7 +163,7 @@ static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable)
 
 ## A document page (privacy policy, terms of service, credits, contact): the baked text in a scrolling column.
 static func document(host: Control, id: String) -> Control:
-	var page: Texture2D = load("res://art/locale/en/doc_%s.png" % id)
+	var page: Texture2D = UiText.document_texture(id)
 	var column := 864.0 - 144.0
 	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
 	var p := Modal.open(host, "doc.%s.title" % id, [view_h], true, 0.0, 0.0, _instant(host), true)
@@ -174,7 +174,7 @@ static func document(host: Control, id: String) -> Control:
 	UI.place(clip, Rect2(p.panel_rect.position.x + 72.0, ys[0], p.panel_rect.size.x - 144.0, view_h))
 	p.content.add_child(clip)
 	var text := TextureRect.new()
-	text.texture = load("res://art/locale/en/doc_%s.png" % id)
+	text.texture = UiText.document_texture(id)
 	text.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var k := clip.size.x / float(text.texture.get_width())

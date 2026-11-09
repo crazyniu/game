@@ -23,6 +23,8 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
+	if args.has("lang"):
+		TranslationServer.set_locale(args["lang"])   # captures: --lang=zh
 	profile = Profile.new() if sandboxed() else Profile.load_saved()
 	if args.has("profile"):
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
