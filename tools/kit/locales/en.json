@@ -4,8 +4,8 @@
     "file": "../fonts/nunito.ttf",
     "variable_weight": true,
     "weights": {
-      "title": 900,
-      "name": 800,
+      "title": 800,
+      "name": 700,
       "numbers": 800
     }
   },
@@ -16,9 +16,9 @@
     "padding": 8
   },
   "number_font": {
-    "file": "../fonts/lilita_one.ttf",
-    "variable_weight": false,
-    "weight": 400
+    "file": "../fonts/nunito.ttf",
+    "variable_weight": true,
+    "weight": 800
   },
   "display_labels": [
     "hud.level"

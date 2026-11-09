@@ -94,7 +94,7 @@ const RIBBON_H := 172.0
 const RIBBON_TEXT_PAD := 150.0   # ribbon tails and rounded ends on each side of the words
 
 func _title() -> void:
-	var cap := 58.0
+	var cap := 46.0
 	var max_text := WIDTH - (224.0 if _has_close else 128.0) - RIBBON_TEXT_PAD * 2.0 + 120.0
 	var word_w := UI.label_width(_title_id, cap)
 	var num_w := UI.number_width(_title_number, cap) if not _title_number.is_empty() else 0.0
@@ -109,7 +109,7 @@ func _title() -> void:
 	UI.kit_piece(_title_layer, "ribbon", Rect2(540.0 - ribbon_w * 0.5, top, ribbon_w, RIBBON_H)).name = "Ribbon"
 	var cy := top + RIBBON_H * 0.4
 	var x := 540.0 - text_w * 0.5
-	var title := UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE)
+	var title := UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE, UI.ribbon_bend(text_w, ribbon_w, RIBBON_H))
 	title.name = "Title"
 	UI.outline_to(title, "green")
 	if num_w > 0.0:

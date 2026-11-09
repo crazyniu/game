@@ -107,8 +107,6 @@ def main():
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8")) if args.numbers_only or args.labels_only else {
         "locale": locale, "labels": {}
     }
-    display_settings = catalog["number_font"]
-    display_font = load_font(catalog_path, display_settings, display_settings["weight"])
     labels = {label_id: catalog["labels"][label_id] for label_id in args.labels_only} if args.labels_only else catalog["labels"]
     if args.numbers_only:
         labels = {}
@@ -116,14 +114,14 @@ def main():
     for label_id, text in labels.items():
         filename = "label_" + label_id.replace(".", "_") + ".png"
         role = "title" if label_id.endswith(".title") else "name"
-        face = display_font   # one typeface for every word (user: fonts must match); symbols keep the body font
+        face = fonts[role]   # one typeface family for every word and numeral, a lighter weight than the old display face
         render(text, face, locale, metrics, output / filename)
         manifest["labels"][label_id] = {"text": text, "file": filename, **shared}
         if label_id in ("aviary.title", "shop.title") or (
             label_id.startswith(("bird.", "world.")) and label_id.endswith(".name")
         ):
             heading_file = "heading_" + label_id.replace(".", "_") + ".png"
-            render(text, display_font, locale, metrics, output / heading_file, heading=True)
+            render(text, fonts["title"], locale, metrics, output / heading_file, heading=True)
             manifest["labels"][label_id]["heading_file"] = heading_file
             headings += 1
 

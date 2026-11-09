@@ -369,10 +369,10 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	body.size = r.size
 	b.add_child(body)
 	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
-	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 54.0 * k, 6.0 * k, 108.0 * k, 108.0 * k))
-	var cap := 38.0 * k
+	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 46.0 * k, 8.0 * k, 92.0 * k, 92.0 * k))
+	var cap := 32.0 * k
 	var lw := minf(r.size.x - 28.0, label_width(label_id, cap))
-	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 66.0 * k, lw, 50.0 * k), cap, ink)
+	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 56.0 * k, lw, 42.0 * k), cap, ink)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -399,11 +399,17 @@ static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_pr
 	return b
 
 ## Whole locale label fitted to its dedicated layout box.
-static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK) -> TextureRect:
-	return TextArt.label(parent, id, bounds, cap, color)
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK, bend := 0.0) -> TextureRect:
+	return TextArt.label(parent, id, bounds, cap, color, false, bend)
 
 static func label_width(id: String, cap: float) -> float:
 	return TextArt.label_width(id, cap)
+
+## How far the ends of words of width `text_w` sit below their middle to follow the painted ribbon's arch
+## (the arch spans about 72 % of the ribbon's width and drops about 18 % of its height).
+static func ribbon_bend(text_w: float, ribbon_w: float, ribbon_h: float) -> float:
+	var reach := minf(1.0, text_w * 0.5 / (0.36 * ribbon_w))
+	return ribbon_h * 0.185 * reach * reach * 0.9
 
 ## A page title on the painted ribbon, centred on `center`: the ribbon grows with the words.
 static func title_ribbon(parent: Node, id: String, center: Vector2, cap := 56.0, max_w := 560.0) -> Control:
@@ -415,7 +421,7 @@ static func title_ribbon(parent: Node, id: String, center: Vector2, cap := 56.0,
 	var w := clampf(text_w + 230.0, 400.0, max_w)
 	var h := 150.0
 	kit_piece(holder, "ribbon", Rect2(center.x - w * 0.5, center.y - h * 0.4, w, h))
-	label(holder, id, Rect2(center.x - text_w * 0.5, center.y - 52.0, text_w, 104.0), cap, Color.WHITE)
+	outline_to(label(holder, id, Rect2(center.x - text_w * 0.5, center.y - 52.0, text_w, 104.0), cap, Color.WHITE, ribbon_bend(text_w, w, h)), "green")
 	return holder
 
 ## Original white-and-brown heading treatment, baked as one shaped phrase.
