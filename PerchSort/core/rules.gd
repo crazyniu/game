@@ -117,6 +117,8 @@ func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landin
 		_resolve(s, -1, -1, out)
 	if move and s.moonbeam_left > 0 and not _moonbeam_granted:
 		s.moonbeam_left -= 1
+	if move:
+		_rescue_deadlock(s, out)
 	if track_economy:
 		var homes := s.homed.size() - home_before
 		if homes == 0 and move:
@@ -127,6 +129,22 @@ func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landin
 				s.chorus_coins += 5
 	if s.is_won() and out != null:
 		out.append({"type": "won"})
+
+## A position where every remaining bird is asleep has no move and no way to wake anyone: the flock wakes up.
+func _rescue_deadlock(s: Board, out) -> void:
+	if s.is_won() or has_legal_move(s):
+		return
+	var slept := false
+	for b in s.branch_count():
+		for code in s.items[b]:
+			slept = slept or (code & Board.ASLEEP) != 0
+	if slept:
+		_wake_rows(s, 0, false, out)
+		_resolve(s, -1, -1, out)
+		_auto_home(s, out)
+	if not s.is_won() and not has_legal_move(s) and s.nocturnal_day_sleep():
+		_toggle_phase(s, "stuck", out)
+		_resolve(s, -1, -1, out)
 
 ## When the only birds left are one full flock of a single kind (all awake, no eggs, no crows), they go home on
 ## their own: nothing is left to decide, so the player is not asked to tap. It costs no move.

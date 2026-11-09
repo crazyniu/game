@@ -44,6 +44,8 @@ def render(text, font, locale, metrics, destination, heading=False):
     image = Image.new("RGBA", (math.ceil(width / scale), math.ceil(height / scale)))
     draw = ImageDraw.Draw(image)
     outline = {"stroke_width": round(stroke / scale), "stroke_fill": "#96521c"} if heading else {}
+    if not heading and metrics.get("embolden"):   # thin faces (Chinese) are thickened with a same-colour stroke
+        outline = {"stroke_width": round(metrics["embolden"] / scale), "stroke_fill": "white"}
     for row, line in enumerate(lines):
         x = padding / scale - left
         baseline = (metrics["baseline"] + row * metrics["line_height"] + stroke) / scale

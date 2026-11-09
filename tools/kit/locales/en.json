@@ -1,12 +1,12 @@
 {
   "locale": "en",
   "font": {
-    "file": "../fonts/nunito.ttf",
-    "variable_weight": true,
+    "file": "../fonts/lilita_one.ttf",
+    "variable_weight": false,
     "weights": {
-      "title": 800,
-      "name": 700,
-      "numbers": 800
+      "title": 0,
+      "name": 0,
+      "numbers": 0
     }
   },
   "metrics": {

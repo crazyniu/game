@@ -37,7 +37,7 @@ static func used_rect(name: String) -> Rect2:
 static func art(parent: Node, name: String, bounds: Rect2, content := Rect2()) -> TextureRect:
 	var t := TextureRect.new()
 	t.name = name
-	t.texture = Art.tex(name)
+	t.texture = UiText.picture(name) if (name.begins_with("home_button_") or name.begins_with("map_button_")) else Art.tex(name)
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_SCALE
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
