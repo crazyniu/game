@@ -715,28 +715,28 @@ func _set_stars(stars: Array, lit: int) -> void:
 func _build_status() -> void:
 	var face := (STATUS_H - 4.0) * 0.5   # visual centre of the painted bar
 	var baseline := face + STATUS_CAP * 0.5
-	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "hud", STATUS_H * 0.5, 6.0)
+	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "cream", STATUS_H * 0.5, 6.0)   # cream capsule like the coin counters
 	_status.name = "Status"
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
 	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
 	UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
 	var number_x := moves_x + STATUS_ICON + 8.0
 	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), Color.WHITE, -1)
+		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
 	_phase_chip = null
 	_phase_icons.clear()
 	_phase_number = null
 	if session.state.day_length <= 0:
 		return
 	_phase_chip = UI.shape(_hud, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)),
-		"hud", STATUS_H * 0.5, 6.0)
+		"cream", STATUS_H * 0.5, 6.0)
 	_phase_chip.name = "Phase"
 	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
 		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
 			Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
 	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
 	_phase_number = UI.number(_phase_chip, "0", Rect2(phase_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), Color.WHITE, -1)
+		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), UI.INK, -1)
 
 ## `with_phase` false leaves the day/night pill for the phase_changed playback.
 func _refresh_status(with_phase := true) -> void:

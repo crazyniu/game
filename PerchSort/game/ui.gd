@@ -112,8 +112,9 @@ static func _box(fill: Color, rim: Color, radius: float, edge: float, shadow := 
 ## Every surface is a Codex-painted piece: discs, pills, capsules, cards, the wooden panel and the HUD bar.
 
 static var _kit_meta: Dictionary = {}
-const PANEL_SCALE := 0.5     # the wooden popup frame keeps this share of its painted thickness
+const PANEL_SCALE := 0.75    # the wooden popup frame keeps this share of its painted thickness
 const CARD_SCALE := 0.72
+const SMALL_CARD := 300.0
 
 static func _kit(name: String) -> Dictionary:
 	if _kit_meta.is_empty():
@@ -164,10 +165,14 @@ static func _shape_piece(r: Rect2, kind: String, radius: float) -> Array:
 		return ["disc_cream" if kind == "cream" else "disc_" + kind, 0.0]
 	if kind == "hud":
 		return ["hud_bar", 0.0]
+	if kind == "gold":   # today's check-in tile (sketch)
+		return ["card_gold", CARD_SCALE * 0.62]   # rounder painted corners than the cream card
 	if radius >= r.size.y * 0.5 - 1.0:
 		return [("capsule_plain" if _kit("capsule_plain").size() > 0 else "capsule") if kind == "cream" else "pill_" + kind, 0.0]
 	if kind == "cream" and r.size.x >= 600.0 and r.size.y >= 360.0:
 		return ["panel", PANEL_SCALE]
+	if minf(r.size.x, r.size.y) < SMALL_CARD:   # small tiles keep a finer rim and tighter corners (sketch)
+		return ["card", CARD_SCALE * 0.7]
 	return ["card", CARD_SCALE]
 
 ## Painted shape: the container is transparent and holds the painted piece as its first child, so content added
@@ -365,10 +370,10 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	body.size = r.size
 	b.add_child(body)
 	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
-	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 52.0 * k, 10.0 * k, 104.0 * k, 104.0 * k))
-	var cap := 30.0 * k
-	var lw := minf(r.size.x - 24.0, label_width(label_id, cap))
-	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 60.0 * k, lw, 40.0 * k), cap, ink)
+	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 54.0 * k, 6.0 * k, 108.0 * k, 108.0 * k))
+	var cap := 38.0 * k
+	var lw := minf(r.size.x - 28.0, label_width(label_id, cap))
+	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 66.0 * k, lw, 50.0 * k), cap, ink)
 	b.button_down.connect(func(): body.position.y = 4.0)
 	b.button_up.connect(func(): body.position.y = 0.0)
 	b.pressed.connect(func():

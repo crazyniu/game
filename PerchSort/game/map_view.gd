@@ -11,39 +11,40 @@ signal home_requested
 signal chapters_requested
 signal gate_tapped(world: int)
 
-const SEGMENT := 3000.0
-const STRIDE := 2840.0
+const SEGMENT := 1620.0
+const STRIDE := 1500.0
 const CONTENT_H := STRIDE * 3.0 + SEGMENT
-const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 160 px, over the world before it
+const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 120 px, over the world above it
 const FOCUS_RATIO := 0.58
 const TAP_SLOP := 14.0
 const WORLD_LABELS := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name"]
-## Node centers per world (x, y within the world segment), levels 1..10.
+## Node centers per world (x, y within the world segment), levels 1..10: two or three on each switchback of the
+## painted trail (tools/map/sketch), in walking order from the bottom.
 const NODES := [
-	[[514, 2700], [310, 2440], [744, 2180], [660, 1920], [252, 1660], [672, 1400], [640, 1140], [305, 880], [754, 620], [613, 360]],
-	[[512, 2700], [304, 2440], [729, 2180], [656, 1920], [251, 1660], [667, 1400], [634, 1140], [302, 880], [752, 620], [614, 360]],
-	[[508, 2700], [306, 2440], [752, 2180], [640, 1920], [240, 1660], [699, 1400], [620, 1140], [298, 880], [750, 620], [598, 360]],
-	[[512, 2700], [312, 2440], [738, 2180], [650, 1920], [250, 1660], [668, 1400], [618, 1140], [299, 880], [750, 620], [604, 360]],
+	[[770, 1315], [290, 1321], [290, 1084], [770, 1099], [770, 881], [290, 866], [290, 663], [770, 650], [770, 450], [290, 448]],
+	[[250, 1129], [540, 1130], [830, 1115], [770, 882], [290, 875], [250, 637], [540, 638], [830, 620], [770, 407], [290, 402]],
+	[[250, 1127], [540, 1121], [830, 1120], [770, 896], [290, 895], [250, 689], [540, 666], [830, 652], [770, 456], [290, 447]],
+	[[250, 1133], [540, 1119], [830, 1101], [770, 910], [290, 895], [250, 697], [540, 680], [830, 658], [770, 483], [290, 462]],
 ]
 ## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
 const MARGIN := 48.0
-const NODE := 164.0              # cleared and locked nodes (painted gold disc, stars inside)
-const CURRENT := 210.0           # current node (painted glowing disc)
+const NODE := 150.0              # cleared and locked nodes (painted gold disc, stars inside)
+const CURRENT := 196.0           # current node (painted glowing disc)
 const NODE_EDGE := 10.0
-const NODE_CAP := 60.0
-const CURRENT_CAP := 76.0
+const NODE_CAP := 54.0
+const CURRENT_CAP := 70.0
 const LOCK := 56.0
-const LOCK_COLOR := Color8(200, 180, 150)
-const LOCKED_DIM := Color(0.92, 0.92, 0.92, 0.82)
-const STAR := 48.0
+const LOCK_COLOR := Color8(150, 110, 70)
+const LOCKED_DIM := Color(0.86, 0.84, 0.8, 1.0)   # opaque, a little greyed
+const STAR := 44.0
 const STAR_GAP := -6.0
-const STAR_DY := 34.0            # star row centre below the node centre, inside the disc
-const BIRD_FEET := 82.0          # the current bird stands this far above the node centre
-const BIRD_SCALE := 1.0          # BirdView scale (1.0 = 170 px canvas)
+const STAR_DY := 31.0            # star row centre below the node centre, inside the disc
+const BIRD_FEET := 76.0          # the current bird stands this far above the node centre
+const BIRD_SCALE := 0.72         # BirdView scale (1.0 = 170 px canvas)
 const BOUNCE := 10.0
-const GATE_SIZE := Vector2(320, 280)
-const GATE_CENTER_X := 870.0     # right of the trail so the current bird of the last node never touches the gate
-const GATE_CENTER_Y := 100.0     # between the last node of a world and the first of the next
+const GATE_SIZE := Vector2(300, 262)
+const GATE_CENTER_X := 540.0     # astride the trail where it leaves the world at the top
+const GATE_CENTER_Y := 150.0     # between the last node of a world and the first of the next
 const GATE_PADLOCK := Vector2(0.5, 0.68)   # painted padlock on the closed gate, fraction of its visible box
 const GATE_LOCK := 112.0
 const TOP_Y := 56.0
@@ -52,27 +53,29 @@ const TRAIL_VIEW := Rect2(0, 200, 1080, 1720)
 ## WORLD_SHADE: each painting's mean grass colour beside the trail, darkened to 45 percent.
 const TOP_FADE := Rect2(0, 0, 1080, 200)
 const TOP_FADE_ALPHA := 0.62
+const BOTTOM_FADE := Rect2(0, 1660, 1080, 260)   # calms the trail under the bottom buttons
+const BOTTOM_FADE_ALPHA := 0.55
 const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63)]
 ## At either scroll end the bird and stars rest clear of the fixed controls.
 const TOP_CLEAR := 340.0
 const BOTTOM_CLEAR := 1644.0
-const CHIP := Vector2(300.0, 96.0)
-const CURRENT_CHIP_Y := 1620.0
+const CHIP := Vector2(260.0, 92.0)
+const CHIP_STACK := 16.0        # Current sits under Chapters, clear of the trail
 const NAV_Y := 1818.0
 const NAV_TILE := Vector2(214.0, 176.0)   # the painted home tiles, a little smaller than on the home page
 const NAV_GAP := 236.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
-## BOTTOM_CLEAR: level 40 at y 360 with a bird up to 240 above its centre, level 1 at y 2700 + 3 strides with its
+## BOTTOM_CLEAR: level 40 at y 462 with a bird up to 210 above its centre, level 1 at y 1321 + 3 strides with its
 ## star row extending below the node centre.
-const TOP_PAD := TOP_CLEAR - (360.0 - 240.0)
-const BOTTOM_PAD := (2700.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
+const TOP_PAD := TOP_CLEAR - (462.0 - 210.0)
+const BOTTOM_PAD := (1321.0 + STRIDE * 3.0 + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
 ## At either scroll end no node may sit under the bottom buttons: the end moves outward (extra painted room) to
 ## the offset where nodes, their stars and the buttons overlap least (ideally not at all), at most END_SEARCH px.
 const NAV_COUNT := 3
 const NAV_CLEAR := 12.0          # free ring around each bottom button
 const END_SEARCH := 900.0
 ## World sign: the current world's name on a hanging plank under the top bar, swapped when the view changes world.
-const SIGN := Rect2(270, 112, 540, 212)   # hanging world sign (ropes rise behind the top bar)
+const SIGN := Rect2(290, 112, 500, 196)   # hanging world sign (ropes rise behind the top bar)
 
 var profile: Profile
 var current_level := 1
@@ -88,6 +91,7 @@ var _sign: Control
 var _top_pad := TOP_PAD
 var _bottom_pad := BOTTOM_PAD
 var _top_fade: TextureRect
+var _bottom_fade: TextureRect
 var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
 var _dragging := false
 var _drag_travel := 0.0
@@ -159,8 +163,8 @@ func _build_content() -> void:
 	# Overscroll rooms continue the painting: its edge strip reflected, so no dark band shows behind the bar.
 	_overscroll_top()
 	_overscroll_bottom()
-	for world in range(1, 5):
-		var bg := UI.image(_paintings, "map_bg_continuous_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
+	for world in range(4, 0, -1):   # lower worlds last: each top fade lies over the world above
+		var bg := UI.image(_paintings, "map_world_w%d" % world, Rect2(0, (4 - world) * STRIDE, 1080, SEGMENT), false)
 		bg.name = "World %d" % world
 	_clip = Control.new()
 	_clip.name = "TrailViewport"
@@ -283,6 +287,7 @@ func _build_hud() -> void:
 	_hud.size = size
 	add_child(_hud)
 	_top_fade = _fade(TOP_FADE, TOP_FADE_ALPHA, false)
+	_bottom_fade = _fade(BOTTOM_FADE, BOTTOM_FADE_ALPHA, true)
 	var coins := str(profile.coins)
 	_coins = UI.counter(_hud, Vector2(MARGIN + UI.SECONDARY + 24.0, TOP_Y), "coin", coins)
 	_coins.name = "Coins"
@@ -291,7 +296,7 @@ func _build_hud() -> void:
 		func(): home_requested.emit())
 	_chip("Chapters", "pic_map", "map.chapters", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 - CHIP.y * 0.5, CHIP.x, CHIP.y),
 		func(): chapters_requested.emit())
-	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, CURRENT_CHIP_Y, CHIP.x, CHIP.y),
+	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 + CHIP.y * 0.5 + CHIP_STACK, CHIP.x, CHIP.y),
 		func(): scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO))
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
 	var buttons := [["Shop", "home_button_shop", shop_requested], ["Aviary", "home_button_aviary", aviary_requested],
@@ -304,6 +309,7 @@ func _build_hud() -> void:
 	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_sign.size = size
 	_hud.add_child(_sign)
+	_hud.move_child(_sign, _top_fade.get_index() + 1)   # ropes pass behind the top bar's counter and chips
 
 ## Cream capsule with a picture and a word (Chapters, Current).
 func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
@@ -338,7 +344,7 @@ func show_world(world: int) -> void:
 ## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
 ## nothing is above world 4), reflected upwards at the painting's top edge.
 func _overscroll_top() -> void:
-	var tex := Art.tex("map_bg_continuous_w4")
+	var tex := Art.tex("map_world_w4")
 	var k := float(tex.get_height()) / SEGMENT
 	var h := ceilf(maxf(_top_pad, OVERLAP) * k)
 	var img := tex.get_image().get_region(Rect2i(0, 0, tex.get_width(), int(h)))
@@ -349,7 +355,7 @@ func _overscroll_top() -> void:
 
 ## The room below the first world: its bottom rows reflected downwards.
 func _overscroll_bottom() -> void:
-	var tex := Art.tex("map_bg_continuous_w1")
+	var tex := Art.tex("map_world_w1")
 	var h := _bottom_pad * float(tex.get_height()) / SEGMENT
 	_strip(tex, Rect2(0, tex.get_height() - h, tex.get_width(), h), Rect2(0, CONTENT_H, 1080, _bottom_pad), true)
 
@@ -385,6 +391,7 @@ func _update_fades() -> void:
 	if _top_fade == null:
 		return
 	_top_fade.modulate = _paint_color(offset + TOP_FADE.get_center().y)
+	_bottom_fade.modulate = _paint_color(offset + BOTTOM_FADE.get_center().y)
 
 ## Shade colour of the painting at a content y, blended smoothly across each seam between worlds.
 func _paint_color(y: float) -> Color:

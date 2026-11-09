@@ -1,0 +1,8 @@
+Use your image generation tool. Paint ONE portrait 1024x1536 level-map painting for a cozy bird-sorting mobile game, matching the art style, colours, light and detail of ref_sketch.png (my map sketch) and the season/theme of ref_theme.png.
+
+Composition (most important):
+- A NARROW winding cream-sand footpath (about 90 px wide, soft rounded edges, a little lighter in the middle) that zig-zags across the picture in FIVE horizontal switchbacks, exactly like the snaking trail in ref_sketch.png: it enters at the very BOTTOM edge at the horizontal centre, runs left, turns up, runs right across, turns up, runs left, and so on, and leaves at the very TOP edge at the horizontal centre. The horizontal runs are evenly spaced about 260 px apart and reach to about 150 px from the left and right picture edges.
+- Leave the path completely empty: NO level buttons, NO numbers, NO stars, NO coins, NO signs with text, NO birds, NO characters, NO UI.
+- Scenery between and around the path runs, small enough not to cover the path: THEME_SCENERY.
+- The top 120 px and bottom 120 px of the picture are plain grass with only the path, so the paintings can be stacked one above another.
+- Seen from slightly above, soft painterly cartoon style, bright and saturated like the sketch, soft sunlight from the top left.

@@ -96,13 +96,13 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	var g := 0
 	for item in [["settings.music", "music", music_on], ["settings.sound", "sound", sound_on]]:
 		var y: float = ys[g]
-		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 36.0, 72, 72))
-		UI.label(c, item[0], Rect2(left + 88.0, y + row * 0.5 - 32.0, 300.0, 64.0), 36.0)
+		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 42.0, 84, 84))
+		_row_label(c, item[0], Vector2(left + 112.0, y + row * 0.5))
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
 	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
-	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 36.0, 72, 72))
-	UI.label(c, "settings.vibration", Rect2(left + 88.0, ys[g] + row * 0.5 - 32.0, 300.0, 64.0), 36.0)
+	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 42.0, 84, 84))
+	_row_label(c, "settings.vibration", Vector2(left + 112.0, ys[g] + row * 0.5))
 	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
 		Sound.vibration = value
 		if on.has("vibration"):
@@ -120,6 +120,12 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	return p
 
 const PILL_H := 124.0
+const ROW_CAP := 42.0
+
+## A settings row word, left-aligned at `at` (its left edge, vertical centre), like the sketch.
+static func _row_label(parent: Control, id: String, at: Vector2) -> void:
+	var w := UI.label_width(id, ROW_CAP)
+	UI.label(parent, id, Rect2(at.x, at.y - ROW_CAP, w, ROW_CAP * 2.0), ROW_CAP)
 
 ## Painted on/off switch; tapping flips it and reports the new state.
 static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
@@ -248,7 +254,7 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 		if today:   # today's tile: a warm glow behind it and a gentle bob
 			var glow := UI.image(c, "glow_soft", r.grow(64.0))
 			glow.modulate = Color(1, 0.72, 0.18, 1.0)
-		var card := UI.shape(c, r, "cream", 32.0, 8.0)
+		var card := UI.shape(c, r, "gold" if today else "cream", 32.0, 8.0)
 		card.name = "Day%d" % (i + 1)
 		if today and not _instant(host):
 			card.pivot_offset = r.size * 0.5
@@ -298,14 +304,14 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		card.add_child(body)
 		var thumb := TextureRect.new()
 		var at := AtlasTexture.new()
-		at.atlas = Art.tex("map_bg_continuous_w%d" % world)
-		at.region = Rect2(120, 1000, 840, 540)
+		at.atlas = Art.tex("map_world_w%d" % world)
+		at.region = Rect2(60, 180, 960, 604)
 		thumb.texture = at
 		thumb.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		thumb.stretch_mode = TextureRect.STRETCH_SCALE
 		thumb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		thumb.position = Vector2(34, 32)
-		thumb.size = Vector2(264, 166)
+		thumb.position = Vector2(30, 28)
+		thumb.size = Vector2(246, 174)
 		var clip := Control.new()
 		clip.clip_contents = true
 		clip.position = Vector2.ZERO
@@ -313,28 +319,31 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		body.add_child(clip)
 		clip.add_child(thumb)
-		var x := 322.0
-		var word_w := UI.label_width("chapter.word", 46.0)
-		UI.label(body, "chapter.word", Rect2(x, 26, word_w, 64), 46.0)
-		UI.number(body, str(world), Rect2(x + word_w + 12.0, 36, UI.number_width(str(world), 46.0) + 4.0, 46), UI.INK, -1)
+		var x := 300.0
+		var word_w := UI.label_width("chapter.word", 48.0)
+		UI.label(body, "chapter.word", Rect2(x, 24, word_w, 66), 48.0)
+		UI.number(body, str(world), Rect2(x + word_w + 4.0, 34, UI.number_width(str(world), 48.0) + 4.0, 48), UI.INK, -1)
+		# "Levels 1-10" in one brown line, smaller (sketch).
+		var lw := UI.label_width("chapter.levels", 32.0)
+		UI.label(body, "chapter.levels", Rect2(x, 96, lw, 46), 32.0, Color8(140, 98, 58))
 		var levels := "%d-%d" % [i * 10 + 1, i * 10 + 10]
-		UI.number(body, levels, Rect2(x, 102, UI.number_width(levels, 32.0) + 4.0, 32), UI.INK, -1)
+		UI.number(body, levels, Rect2(x + lw + 12.0, 104, UI.number_width(levels, 30.0) + 4.0, 30), Color8(140, 98, 58), -1)
 		var earned := 0
 		for level in range(i * 10 + 1, i * 10 + 11):
 			earned += p.best_stars(level)
-		UI.art(body, "pic_star", Rect2(x, 150, 40, 40))
+		UI.art(body, "pic_star", Rect2(x - 4.0, 148, 46, 46))
 		var text := "%d/30" % earned
-		UI.number(body, text, Rect2(x + 50.0, 155, UI.number_width(text, 30.0) + 4.0, 30), UI.INK, -1)
+		UI.number(body, text, Rect2(x + 50.0, 156, UI.number_width(text, 32.0) + 4.0, 32), UI.INK, -1)
 		var end := Vector2(r.size.x - 64.0, r.size.y * 0.5 - 4.0)
 		if not open:
 			UI.icon(body, "lock", end, 64.0, UI.INK)
 			body.modulate.a = UI.DISABLED_ALPHA
 		elif done:
-			var d := UI.shape(body, Rect2(end - Vector2.ONE * 40.0, Vector2.ONE * 80.0), "green", 40.0, 6.0, false)
-			UI.icon(d, "check", Vector2.ONE * 40.0 - Vector2(0, 3), 48.0)
+			var d := UI.shape(body, Rect2(end - Vector2.ONE * 50.0, Vector2.ONE * 100.0), "green", 50.0, 6.0, false)
+			UI.icon(d, "check", Vector2.ONE * 50.0 - Vector2(0, 4), 60.0)
 		if world == frontier and open and not done:
-			UI.pill(body, "CurrentTag", Rect2(Vector2(r.size.x - 44.0 - 190.0, end.y - 42.0), Vector2(190.0, 84.0)), "green", "map.current",
-				func(): m.invoke(on_pick.bind(world)), "", 26.0)
+			UI.pill(body, "CurrentTag", Rect2(Vector2(r.size.x - 32.0 - 164.0, 136.0), Vector2(164.0, 72.0)), "green", "map.current",
+				func(): m.invoke(on_pick.bind(world)), "", 24.0)
 	return m
 
 ## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
@@ -345,6 +354,16 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
+	# Sketch: the chest sits in a warm glow with sparkles around it.
+	var glow := UI.image(c, "glow_soft", box.grow(90.0))
+	glow.modulate = Color(1.0, 0.86, 0.4, 0.9)
+	var sparks := [Vector2(-0.86, -0.3), Vector2(0.86, -0.42), Vector2(-0.7, 0.4), Vector2(0.78, 0.3)]
+	for i in sparks.size():
+		var at: Vector2 = box.get_center() + sparks[i] * ILLUS * 0.5
+		var spark := UI.art(c, "sparkle", Rect2(at - Vector2(30, 30), Vector2(60, 60)))
+		spark.pivot_offset = Vector2(30, 30)
+		if not _instant(host):
+			_twinkle(spark, i * 0.35)
 	var art := _fit(c, "pic_chest_open" if ready > 0 else "pic_chest", box, true)
 	_breathe(art, 0.0)
 	UI.label(c, "chest.line", Rect2(172.0, ys[1], 736.0, LINE), 40.0)
@@ -355,7 +374,7 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 		UI.shape(c, Rect2(bar.position + Vector2(10, 10), Vector2(maxf(68.0, (bar.size.x - 20.0) * fill), 60.0)), "orange", 30.0, 4.0)
 	UI.icon(c, "star", Vector2(bar.position.x + 4.0, bar.get_center().y - 4.0), 92.0, UI.GOLD)
 	var text := "%d/%d" % [mini(progress, Progress.CHEST_STARS) if ready == 0 else Progress.CHEST_STARS, Progress.CHEST_STARS]
-	UI.number(c, text, Rect2(bar.position.x + 80.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
+	UI.number(c, text, Rect2(bar.position.x + 60.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
 	var open: Button = p.actions([["green", "play", on_open, "chest.open"]])[0]
 	UI.set_active(open, ready > 0)
 	if on_play.is_valid():

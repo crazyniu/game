@@ -9,3 +9,7 @@ then cut by alpha with `cut.py` (`uv run --no-project --with scipy --with pillow
 - frame.txt: ribbon (margins 240/110) and panel (wooden frame, margins 180/232/180/180, PANEL_SCALE 0.5).
 - cards.txt: card (margins 108/108/108/124, CARD_SCALE 0.72), capsule_plain, hud_bar.
 - pieces.txt: map_button_help, map_sign; nodes.txt: map_node, map_node_current.
+
+Tone: the painted pieces were toned down once with `tools/kit/tone.py` (saturation 0.82, value 0.93 on the pills,
+discs, ribbon, cards, toggles, home tiles and map nodes; 0.7/0.9 on the wooden panel; 0.88/0.96 on the map worlds and
+the home clearing). Do not run it again on the same files.
