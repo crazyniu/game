@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# paint.sh <skin> <frame>...: Codex repaints plain animation frames of a bird as the whole skinned bird.
+# A skin is a different bird, not a layer: every frame is one painting with the costume part of the bird.
+# Inputs tools/birds/painted_skins/src/<species>_<frame>.png (plain frames upscaled to 1024) and
+# src/<skin>_reference.png; outputs out/<skin>_<frame>.png (1024, transparent). <skin> is e.g. ember_outfit_5.
+skin=$1; shift; sp=${skin%%_*}; D=tools/birds/painted_skins
+list=""
+for f in "$@"; do list="$list $D/src/${sp}_${f}.png -> $D/out/${skin}_${f}.png;"; done
+tag=$(echo "$1" | tr -c 'a-z0-9_' '_')
+timeout 5400 codex exec --skip-git-repo-check --dangerously-bypass-approvals-and-sandbox -C "$(pwd)" "You repaint animation frames of a cartoon plush bird as a costumed version of the same bird. Reference: $D/src/${skin}_reference.png shows the costumed bird from the front: a red-orange scaly dragon hood with two curved horns, a row of spikes along the crown, a face opening framed by a golden rim, and spiky shoulder frills. The hood is part of the bird, painted as ONE picture with it (never a pasted layer). For EACH pair below, use your image generation tool once, with the source frame as the input image and the reference as a second input, and paint the SAME bird in exactly the same pose, position, size, head angle, wing and feet positions and lighting, now wearing the dragon hood exactly as designed in the reference (same horns, spikes, rim, colours and scale), seen from this frame's angle: when the head turns, the hood, horns and face opening turn with it; the eyes, eyelids and beak inside the opening are the source frame's own (closed eyes stay closed, a beak seen from the side stays from the side); only one pair of eyes ever. Wings and feet stay the bird's own. Exactly one bird per picture, always wearing the hood; no ground shadow, no motion blur, no speed lines, no extra copies. Keep the whole bird inside the frame with margin, fully transparent background, nothing else added. Pairs (input -> output path):$list Save each output exactly at its path as a 1024x1024 RGBA PNG with transparent background. Do not edit any other file. Reply with DONE." < /dev/null > $D/out/${skin}_${tag}.log 2>&1
+echo "${skin} $1.. exit $?"
