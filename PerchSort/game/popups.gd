@@ -20,6 +20,9 @@ const LIMIT_CAP := 36.0            # move limits under the level card's stars
 const LINE := 80.0                 # one text line group (icon + number, or a caption)
 const CAPTION_CAP := 44.0
 const REWARD_H := 96.0
+const DROP_ROW := 150.0            # booster drops on the win panel
+const DROP_SIDE := 132.0
+const DROP_GAP := 40.0
 const RING := 150.0
 const RING_GAP := 28.0
 const HERO := 240.0
@@ -43,12 +46,14 @@ const ARCH_FLOOR := 44.0
 
 # ---------------------------------------------------------------- popups
 
-static func win(host: Control, stars: int, moves: int, par: int, reward: int, on_replay: Callable, on_next: Callable,
-		on_home: Callable, next_enabled: bool) -> Control:
+static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
+		on_next: Callable, on_home: Callable, next_enabled: bool) -> Control:
 	var live := not _instant(host)
 	var heights := [STAR_ROW, LINE]
 	if reward > 0:
 		heights.append(REWARD_H)
+	if not boosters.is_empty():
+		heights.append(DROP_ROW)
 	var items := [["orange", "retry", on_replay], ["green", "play", on_next, "action.next"], ["orange", "home", on_home]]
 	var p := Modal.open(host, "popup.win.title", heights, false, Modal.actions_height(items), HERO + 30.0, not live)
 	var c := p.content
@@ -74,6 +79,8 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 		if live:
 			_count(parts[0], reward, "+%d", 1.0, 0.7)
 			_coin_burst(p, parts[1], 1.0)
+	if not boosters.is_empty():
+		_drops(c, ys[-1], boosters, live, 1.5)
 	var row := p.actions(items)
 	UI.set_active(row[1], next_enabled)
 	if live:
@@ -222,21 +229,6 @@ static func goal_info(host: Control, species: String) -> Control:
 	return p
 
 ## The level's start gift: the booster, "+1" and one line inviting the player to use it; Got it closes.
-static func level_gift(host: Control, booster: int, on_ok: Callable) -> Control:
-	var p := Modal.open(host, "popup.gift.title", [ILLUS, LINE], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
-	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
-	for i in 4:
-		var at: Vector2 = box.get_center() + Vector2.from_angle(i * TAU / 4.0 + 0.6) * ILLUS * 0.48
-		_twinkle(UI.icon(c, "sparkle", at, 56.0, UI.INK), i * 0.35)
-	_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box.grow(-20.0), true), 0.0)
-	var badge := UI.shape(c, Rect2(box.end.x - 110.0, box.position.y + 10.0, 110.0, 80.0), "green", 40.0, 6.0)
-	UI.number(badge, "+1", Rect2(14, 16, 82, 44), Color.WHITE)
-	UI.label(c, "gift.line", Rect2(108.0 + 64.0, ys[1], 864.0 - 128.0, LINE), 44.0)
-	p.actions([["green", "play", on_ok, "action.ok"]])
-	return p
-
 ## Seven-day check-in: a tile per day (coins and booster count), claimed days checked, today's tile raised and
 ## green. `day` is today's claimable day (0 = already claimed today, `claimed` days shown done).
 static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -> Control:
@@ -549,6 +541,36 @@ static func _reward(c: Control, y: float, amount: int) -> Array:
 	var box := UI.number(c, text, Rect2(coin.end.x + 16.0, y + (REWARD_H - 8.0 - cap) * 0.5, num_w, cap), Color.WHITE, -1)
 	return [box, coin.get_center()]
 
+## The win's booster drops, one picture per kind with a green "+N" badge; live, each pops in after `delay`.
+static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: float) -> void:
+	var kinds := []
+	var counts := {}
+	for kind in boosters:
+		if not counts.has(kind):
+			kinds.append(kind)
+			counts[kind] = 0
+		counts[kind] += 1
+	var n := kinds.size()
+	for i in n:
+		var x := 540.0 + (i - (n - 1) * 0.5) * (DROP_SIDE + DROP_GAP)
+		var holder := Control.new()
+		holder.name = "Drop%d" % kinds[i]
+		holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(holder, Rect2(x - DROP_SIDE * 0.5, y + (DROP_ROW - DROP_SIDE) * 0.5, DROP_SIDE, DROP_SIDE))
+		holder.pivot_offset = holder.size * 0.5
+		c.add_child(holder)
+		_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[kinds[i]], Rect2(Vector2.ZERO, holder.size), true)
+		var text := "+%d" % counts[kinds[i]]
+		var badge := UI.shape(holder, Rect2(DROP_SIDE - 64.0, -6.0, 80.0, 60.0), "green", 30.0, 5.0)
+		UI.number(badge, text, Rect2(12, 12, 56, 32), Color.WHITE)
+		if live:
+			holder.scale = Vector2.ZERO
+			var tw := holder.create_tween()
+			tw.tween_interval(delay + i * 0.18)
+			tw.tween_callback(func(): Sound.play("reward"))
+			tw.tween_property(holder, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			tw.tween_callback(func(): _breathe(holder, i * 0.4))
+
 ## Ability badge and caption of a species, centred on one line.
 static func _ability_line(c: Control, species: String, y: float) -> void:
 	var label_id := "bird.%s.ability" % species
@@ -753,10 +775,10 @@ static func preview(main: Control, state: String) -> void:
 			main.open_map()
 			await main.get_tree().create_timer(0.6).timeout
 			main.open_board(1, false)
-		"win_three_stars": win(host, 3, 12, 12, 30, noop, noop, noop, true)
-		"win_two_stars": win(host, 2, 14, 12, 20, noop, noop, noop, true)
-		"win_one_star": win(host, 1, 20, 12, 10, noop, noop, noop, false)
-		"win_zero_reward": win(host, 3, 12, 12, 0, noop, noop, noop, true)
+		"win_three_stars": win(host, 3, 12, 12, 120, [Board.Booster.MORNING_BELL, Board.Booster.FIREFLY], noop, noop, noop, true)
+		"win_two_stars": win(host, 2, 14, 12, 80, [Board.Booster.SAPLING], noop, noop, noop, true)
+		"win_one_star": win(host, 1, 20, 12, 50, [Board.Booster.OWL_EYE], noop, noop, noop, false)
+		"win_zero_reward": win(host, 3, 12, 12, 0, [], noop, noop, noop, true)
 		"settings_sound_on": settings(host, true, true, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, true)
 		"settings_muted": settings(host, false, false, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, false)
 		"document_privacy": document(host, "privacy")
@@ -766,7 +788,7 @@ static func preview(main: Control, state: String) -> void:
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")
-		"level_gift": level_gift(host, Board.Booster.MORNING_BELL, noop)
+		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
 		"checkin_day3": checkin(host, 3, 2, noop)
 		"chapters": chapters(host, _chapter_profile(), noop1)
 		"chest_half": chest(host, 17, 0, noop, noop)

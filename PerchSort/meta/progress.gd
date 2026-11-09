@@ -2,17 +2,17 @@ class_name Progress
 extends RefCounted
 ## Unlocks, economy, world map and daily gift rules. Functions mutate the given profile and return payouts.
 
-const WORLD_COMPLETE_COINS := 300
+const WORLD_COMPLETE_COINS := 500
 ## Coins for a first clear by stars (1, 2, 3), for a replay, and per star improved on a replay.
-const FIRST_CLEAR_COINS := [0, 30, 45, 60]
-const REPLAY_COINS := 10
-const IMPROVE_COINS := 15
+const FIRST_CLEAR_COINS := [0, 50, 80, 120]
+const REPLAY_COINS := 20
+const IMPROVE_COINS := 30
 ## Star chest: one chest per this many stars; it holds coins and boosters.
 const CHEST_STARS := 30
-const CHEST_COINS := 150
-const CHEST_BOOSTERS := 2
+const CHEST_COINS := 300
+const CHEST_BOOSTERS := 3
 ## Seven-day check-in: [coins, booster count] for day 1..7; the streak restarts after a missed day or day 7.
-const CHECKIN := [[50, 0], [60, 1], [80, 0], [100, 1], [120, 1], [150, 2], [300, 3]]
+const CHECKIN := [[100, 1], [120, 1], [160, 1], [200, 1], [240, 2], [300, 2], [600, 3]]
 ## [booster index, id, unlock level, price, starter count]
 const BOOSTERS := [
 	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 7, 80, 2],
@@ -68,7 +68,17 @@ static func stars_for_moves(counted: int, par: int) -> int:
 	return GameSession.stars_for(counted, par)
 
 ## Applies a win. Returns {"stars", "first_clear", "replay", "improvement", "chorus", "world", "total", "starters"}.
-static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_coins: int) -> Dictionary:
+## Booster drops on a win, so players always hold tools and learn to use them: a first clear drops 1 (2 with three
+## stars), every DROP_MILESTONE-th level's first clear drops DROP_MILESTONE_COUNT, a replay drops 1 with
+## DROP_REPLAY_CHANCE. Half the drops favour a booster that helps on `next_def` (the next level).
+const DROP_MILESTONE := 5
+const DROP_MILESTONE_COUNT := 3
+const DROP_REPLAY_CHANCE := 0.3
+
+## Applies a win. Returns {"stars", "first_clear", "replay", "improvement", "chorus", "world", "total", "starters",
+## "boosters"}; "boosters" lists the dropped booster indices (already added to the inventory).
+static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_coins: int, next_def := {},
+		rng := RandomNumberGenerator.new()) -> Dictionary:
 	var stars := stars_for_moves(counted_moves, par)
 	var old := p.best_stars(level)
 	p.stars[level] = maxi(old, stars)
@@ -89,34 +99,61 @@ static func on_win(p: Profile, level: int, counted_moves: int, par: int, chorus_
 	payout["total"] = payout["first_clear"] + payout["replay"] + payout["improvement"] + payout["chorus"] + payout["world"]
 	p.coins += payout["total"]
 	payout["starters"] = grant_starter_gifts(p)
+	payout["boosters"] = win_drops(p, level, stars, old == 0, next_def, rng)
 	return payout
 
-## ---------- gifts that teach booster use ----------
+## Drops for one win (see DROP_*); adds them to the inventory and returns their indices.
+static func win_drops(p: Profile, level: int, stars: int, first_clear: bool, next_def: Dictionary,
+		rng: RandomNumberGenerator) -> Array:
+	var count := 0
+	if first_clear:
+		count = DROP_MILESTONE_COUNT if level % DROP_MILESTONE == 0 else (2 if stars == 3 else 1)
+	elif rng.randf() < DROP_REPLAY_CHANCE:
+		count = 1
+	var fitting := []
+	for kind in fitting_boosters(next_def):
+		if is_booster_unlocked(p, kind):
+			fitting.append(kind)
+	var pool := unlocked_boosters(p)
+	var out := []
+	for i in count:
+		var kind: int
+		if not fitting.is_empty() and (i == 0 or rng.randf() < 0.5):
+			kind = fitting[rng.randi() % fitting.size()]
+		else:
+			kind = pool[rng.randi() % pool.size()]
+		p.inventory[kind] += 1
+		out.append(kind)
+	return out
 
-## The booster a level hands out on its first open: the one that helps with this level's mechanic if unlocked
-## (sleepers: Morning Bell, eggs: Owl Eye, crows: Scarecrow, growing branches: Spring Rain), else Firefly and
-## Sapling in turn. -1 when the level already gave its gift or nothing is unlocked. Adds it to the inventory.
-static func level_gift(p: Profile, level: int, def: Dictionary) -> int:
-	if p.level_gifts.has(level):
-		return -1
+## ---------- boosters that teach themselves ----------
+
+## Boosters that help with a level's mechanics: sleepers -> Morning Bell, eggs -> Owl Eye, crows -> Scarecrow,
+## growing branches -> Spring Rain. Empty for a plain level or an empty definition.
+static func fitting_boosters(def: Dictionary) -> Array:
 	var text := JSON.stringify(def.get("branches", []))
-	var wanted := []
+	var out := []
 	if text.contains(":sleep"):
-		wanted.append(Board.Booster.MORNING_BELL)
+		out.append(Board.Booster.MORNING_BELL)
 	if text.contains("egg"):
-		wanted.append(Board.Booster.OWL_EYE)
+		out.append(Board.Booster.OWL_EYE)
 	if text.contains("crow"):
-		wanted.append(Board.Booster.SCARECROW)
+		out.append(Board.Booster.SCARECROW)
 	if text.contains("growing"):
-		wanted.append(Board.Booster.SPRING_RAIN)
-	wanted.append(Board.Booster.FIREFLY if level % 2 == 1 else Board.Booster.SAPLING)
-	wanted.append(Board.Booster.SAPLING if level % 2 == 1 else Board.Booster.FIREFLY)
-	for kind in wanted:
-		if is_booster_unlocked(p, kind) or level >= booster_unlock_level(kind):
-			p.level_gifts[level] = true
-			p.inventory[kind] += 1
+		out.append(Board.Booster.SPRING_RAIN)
+	return out
+
+## The booster a level start points at: one the player holds, that helps here, and that was never used yet.
+## -1 when none qualifies.
+static func booster_to_point_at(p: Profile, def: Dictionary) -> int:
+	for kind in fitting_boosters(def):
+		if p.inventory[kind] > 0 and not p.has_tutorial(used_flag(kind)):
 			return kind
 	return -1
+
+## Tutorial flag set the first time a booster is used.
+static func used_flag(kind: int) -> String:
+	return "used.%s" % BOOSTERS[kind][1]
 
 ## Unlocked boosters, for random rewards.
 static func unlocked_boosters(p: Profile) -> Array:
@@ -171,7 +208,7 @@ static func claim_checkin(p: Profile, today: String, rng := RandomNumberGenerato
 	return {"day": day, "coins": reward[0], "boosters": _random_boosters(p, reward[1], rng)}
 
 ## ---------- daily challenge ----------
-const CHALLENGE_COINS := 80
+const CHALLENGE_COINS := 150
 
 static func challenge_available(p: Profile, today: String) -> bool:
 	return today > p.challenge_date

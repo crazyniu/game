@@ -48,12 +48,25 @@ func _check_meta() -> void:
 	check(old.best_moves[4] == 7, "schema 1 best moves renumbered")
 	var again := Profile.from_dict(old.to_dict())
 	check(again.best_stars(4) == 2 and again.best_stars(9) == 0, "schema 2 save keeps its numbering")
-	# Level gift: once per level, into the inventory.
+	# Win drops: boosters on every first clear (more for three stars and every fifth level), favouring the next
+	# level's mechanic; a fitting held booster that was never used is pointed at.
 	var p := Profile.new()
 	p.highest_unlocked = 40
-	var gift := Progress.level_gift(p, 12, Levels.get_level(12))
-	check(gift >= 0 and p.inventory[gift] == 1, "level gift adds a booster")
-	check(Progress.level_gift(p, 12, Levels.get_level(12)) == -1, "level gift only once")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 7
+	Progress.grant_starter_gifts(p)
+	var bells := p.inventory[Board.Booster.MORNING_BELL]
+	var won := Progress.on_win(p, 11, 3, 3, 0, Levels.get_level(12), rng)
+	check(won["boosters"].size() == 2, "three-star first clear drops 2 boosters")
+	check(Board.Booster.MORNING_BELL in won["boosters"], "drops favour the next level's mechanic")
+	check(p.inventory[Board.Booster.MORNING_BELL] == bells + won["boosters"].count(Board.Booster.MORNING_BELL),
+		"drops land in the inventory")
+	check(Progress.on_win(p, 15, 99, 3, 0, {}, rng)["boosters"].size() == Progress.DROP_MILESTONE_COUNT,
+		"every fifth level drops the milestone count")
+	check(Progress.on_win(p, 9, 99, 3, 0, {}, rng)["boosters"].size() == 1, "one-star first clear drops 1 booster")
+	check(Progress.booster_to_point_at(p, Levels.get_level(12)) == Board.Booster.MORNING_BELL, "fitting booster pointed at")
+	p.set_tutorial(Progress.used_flag(Board.Booster.MORNING_BELL))
+	check(Progress.booster_to_point_at(p, Levels.get_level(12)) == -1, "a used booster is not pointed at again")
 	# Check-in streak and star chest.
 	var c := Progress.claim_checkin(p, "2026-01-01")
 	check(c["day"] == 1 and Progress.claim_checkin(p, "2026-01-01").is_empty(), "check-in once a day")
