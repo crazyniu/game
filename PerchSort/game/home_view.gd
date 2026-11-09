@@ -56,7 +56,7 @@ func setup(p: Profile) -> void:
 		var tb := UI.art_button(self, top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
 		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(tb, "1")
-		elif top[i][0] == "Checkin" and Progress.checkin_day(profile, Progress.today()) > 0:
+		elif top[i][0] == "Checkin" and Progress.draws_available(profile, Progress.today()):
 			_badge(tb, "1")
 	var places := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
 		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]

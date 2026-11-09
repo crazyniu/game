@@ -78,10 +78,24 @@ func _check_meta() -> void:
 	p.set_tutorial(Progress.used_flag(Board.Booster.MORNING_BELL))
 	check(Progress.booster_to_point_at(p, Levels.get_level(11)) == -1, "a used booster is not pointed at again")
 	# Check-in streak and star chest.
-	var c := Progress.claim_checkin(p, "2026-01-01")
-	check(c["day"] == 1 and Progress.claim_checkin(p, "2026-01-01").is_empty(), "check-in once a day")
-	check(Progress.claim_checkin(p, "2026-01-02")["day"] == 2, "check-in streak continues")
-	check(Progress.claim_checkin(p, "2026-01-05")["day"] == 1, "check-in streak restarts after a gap")
+	var spent := 0
+	while not Progress.draw(p, "2026-01-01", rng).is_empty():
+		spent += 1
+	check(spent == 1 and p.draws_left == 0 and not Progress.draws_available(p, "2026-01-01"), "one draw on the first day")
+	spent = 0
+	while not Progress.draw(p, "2026-01-02", rng).is_empty():
+		spent += 1
+	check(spent == 2, "the streak adds a draw each day in a row")
+	spent = 0
+	while not Progress.draw(p, "2026-01-05", rng).is_empty():
+		spent += 1
+	check(spent == 1, "the draws restart after a gap")
+	var day := Profile.from_dict(p.to_dict())
+	check(day.draws_date == "2026-01-05" and day.draws_left == 0, "draw state survives a save")
+	var daily_cleared := Profile.new()
+	daily_cleared.stars[2] = 3
+	check(int(Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Progress.highest_cleared(daily_cleared))["id"]) <= 2,
+		"the daily level is never past the last cleared level")
 	for level in range(1, 11):
 		p.stars[level] = 3
 	check(Progress.chests_ready(p) == 1 and not Progress.open_chest(p).is_empty() and Progress.chests_ready(p) == 0,
