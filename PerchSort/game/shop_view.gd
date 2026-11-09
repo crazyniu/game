@@ -10,7 +10,7 @@ signal profile_changed
 const AviaryScript := preload("res://game/aviary_view.gd")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_ART := ["tab_boosters", "tab_outfits", "tab_houses"]   # full-colour pictures on the round tab
-const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
+const TAB_NAMES := ["Items", "Outfits", "Homes"]
 const TAB_LABELS := ["tab.boosters", "tab.outfits", "tab.houses"]
 const TAB_SIZE := Vector2(285, 176)   # three tabs span exactly the content width (INSET to INSET)
 const ROW_H := 200.0
@@ -356,7 +356,7 @@ func _card(it: Dictionary, n: int) -> void:
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(card, Rect2(Vector2(INSET + (n % 2) * (CARD_W + GAP), GRID_TOP + (n / 2) * (cs.y + GAP)), cs))
 	_grid.add_child(card)
-	UI.shape(card, Rect2(Vector2.ZERO, cs), "cream", CARD_RADIUS, CARD_EDGE)
+	_flat_card(card, Rect2(Vector2.ZERO, cs))
 	var hit := UI.hit_area(card, Rect2(Vector2.ZERO, cs), func(): _tap(it))
 	hit.disabled = _locked(it)
 	var body := Control.new()   # everything that dims when the card is locked
@@ -395,15 +395,9 @@ func _card(it: Dictionary, n: int) -> void:
 		UI.icon(card, "lock", pic.get_center(), LOCK, UI.INK).name = "Lock"
 	_pop_in(card, n)
 
-## Booster row: picture, name and price pill on one cream strip (the stock badge sits on the picture).
-func _row(it: Dictionary, n: int) -> void:
-	var rs := Vector2(1080.0 - INSET * 2.0, ROW_H)
-	var row := Control.new()
-	row.name = it["id"]
-	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(row, Rect2(Vector2(INSET, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
-	_grid.add_child(row)
-	var strip := Panel.new()   # a soft, flat strip: the sheet carries the only green frame
+## A soft flat cream card: the sheet carries the only green frame.
+func _flat_card(parent: Node, r: Rect2) -> Panel:
+	var strip := Panel.new()
 	strip.name = "Shape"
 	strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var box := StyleBoxFlat.new()
@@ -415,8 +409,19 @@ func _row(it: Dictionary, n: int) -> void:
 	box.shadow_size = 6
 	box.shadow_offset = Vector2(0, 4)
 	strip.add_theme_stylebox_override("panel", box)
-	UI.place(strip, Rect2(Vector2.ZERO, rs))
-	row.add_child(strip)
+	UI.place(strip, r)
+	parent.add_child(strip)
+	return strip
+
+## Booster row: picture, name and price pill on one cream strip (the stock badge sits on the picture).
+func _row(it: Dictionary, n: int) -> void:
+	var rs := Vector2(1080.0 - INSET * 2.0, ROW_H)
+	var row := Control.new()
+	row.name = it["id"]
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(row, Rect2(Vector2(INSET, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
+	_grid.add_child(row)
+	_flat_card(row, Rect2(Vector2.ZERO, rs))
 	var hit := UI.hit_area(row, Rect2(Vector2.ZERO, rs), func(): _tap(it))
 	hit.disabled = _locked(it)
 	var body := Control.new()
@@ -542,7 +547,9 @@ func _kind_cards() -> void:
 ## A met kind: the bird in its current outfit and its name; tapping opens its outfit page.
 ## An unmet kind: a breathing silhouette with a question mark; a tap only squashes the card.
 func _kind_card(species: String, r: Rect2, n: int) -> void:
-	var card := UI.shape(_grid, r, "cream", CARD_RADIUS, CARD_EDGE)
+	var card := UI.shape(_grid, r, "cream", CARD_RADIUS, CARD_EDGE)   # holder; the flat card is drawn inside
+	card.get_child(0).queue_free()
+	_flat_card(card, Rect2(Vector2.ZERO, r.size))
 	card.name = "Kind_" + species
 	card.clip_contents = true
 	var met := profile.has_met(species)

@@ -224,7 +224,7 @@
       "heading_file": "heading_world_lakeside_name.png"
     },
     "world.pine.name": {
-      "text": "Misty Pine Forest",
+      "text": "Misty Pines",
       "file": "label_world_pine_name.png",
       "cap": 128,
       "line_height": 208,
@@ -318,7 +318,7 @@
       "baseline": 160
     },
     "booster.firefly.name": {
-      "text": "Firefly",
+      "text": "Hint",
       "file": "label_booster_firefly_name.png",
       "cap": 128,
       "line_height": 208,
@@ -346,7 +346,7 @@
       "baseline": 160
     },
     "booster.owl_eye.name": {
-      "text": "Owl Eye",
+      "text": "Peek",
       "file": "label_booster_owl_eye_name.png",
       "cap": 128,
       "line_height": 208,
@@ -360,7 +360,7 @@
       "baseline": 160
     },
     "booster.morning_bell.name": {
-      "text": "Morning Bell",
+      "text": "Bell",
       "file": "label_booster_morning_bell_name.png",
       "cap": 128,
       "line_height": 208,
@@ -374,7 +374,7 @@
       "baseline": 160
     },
     "booster.scarecrow.name": {
-      "text": "Scarecrow",
+      "text": "Shoo",
       "file": "label_booster_scarecrow_name.png",
       "cap": 128,
       "line_height": 208,
@@ -388,7 +388,7 @@
       "baseline": 160
     },
     "booster.spring_rain.name": {
-      "text": "Spring Rain",
+      "text": "Rain",
       "file": "label_booster_spring_rain_name.png",
       "cap": 128,
       "line_height": 208,
@@ -465,14 +465,14 @@
       "baseline": 160
     },
     "outfit.sunny.2.name": {
-      "text": "Blue Bow Tie",
+      "text": "Bow Tie",
       "file": "label_outfit_sunny_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.sunny.3.name": {
-      "text": "Little Crown",
+      "text": "Crown",
       "file": "label_outfit_sunny_3_name.png",
       "cap": 128,
       "line_height": 208,
@@ -493,28 +493,28 @@
       "baseline": 160
     },
     "outfit.sky.1.name": {
-      "text": "Cozy Scarf",
+      "text": "Scarf",
       "file": "label_outfit_sky_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.sky.2.name": {
-      "text": "Aviator Goggles",
+      "text": "Goggles",
       "file": "label_outfit_sky_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.sky.3.name": {
-      "text": "Tiny Top Hat",
+      "text": "Top Hat",
       "file": "label_outfit_sky_3_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.sky.4.name": {
-      "text": "Whale Hood",
+      "text": "Whale",
       "file": "label_outfit_sky_4_name.png",
       "cap": 128,
       "line_height": 208,
@@ -528,35 +528,35 @@
       "baseline": 160
     },
     "outfit.berry.1.name": {
-      "text": "Round Glasses",
+      "text": "Glasses",
       "file": "label_outfit_berry_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.berry.2.name": {
-      "text": "Pink Bow",
+      "text": "Bow",
       "file": "label_outfit_berry_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.berry.3.name": {
-      "text": "Sparkle Tiara",
+      "text": "Tiara",
       "file": "label_outfit_berry_3_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.berry.4.name": {
-      "text": "Strawberry Hood",
+      "text": "Berry Hood",
       "file": "label_outfit_berry_4_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.berry.5.name": {
-      "text": "Blossom Fairy",
+      "text": "Fairy",
       "file": "label_outfit_berry_5_name.png",
       "cap": 128,
       "line_height": 208,
@@ -570,42 +570,42 @@
       "baseline": 160
     },
     "outfit.mint.2.name": {
-      "text": "Mushroom Cap",
+      "text": "Mushroom",
       "file": "label_outfit_mint_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.mint.3.name": {
-      "text": "Acorn Cap",
+      "text": "Acorn",
       "file": "label_outfit_mint_3_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.mint.4.name": {
-      "text": "Frog Hood",
+      "text": "Frog",
       "file": "label_outfit_mint_4_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.mint.5.name": {
-      "text": "Dino Hood",
+      "text": "Dino",
       "file": "label_outfit_mint_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.cocoa.1.name": {
-      "text": "Red Beanie",
+      "text": "Beanie",
       "file": "label_outfit_cocoa_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.cocoa.2.name": {
-      "text": "Plaid Bow Tie",
+      "text": "Bow Tie",
       "file": "label_outfit_cocoa_2_name.png",
       "cap": 128,
       "line_height": 208,
@@ -619,7 +619,7 @@
       "baseline": 160
     },
     "outfit.cocoa.4.name": {
-      "text": "Teddy Hood",
+      "text": "Teddy",
       "file": "label_outfit_cocoa_4_name.png",
       "cap": 128,
       "line_height": 208,
@@ -640,21 +640,21 @@
       "baseline": 160
     },
     "outfit.snow.2.name": {
-      "text": "Snowflake Clip",
+      "text": "Snowflake",
       "file": "label_outfit_snow_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.snow.3.name": {
-      "text": "Ice Tiara",
+      "text": "Ice Crown",
       "file": "label_outfit_snow_3_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.snow.4.name": {
-      "text": "Bunny Hood",
+      "text": "Bunny",
       "file": "label_outfit_snow_4_name.png",
       "cap": 128,
       "line_height": 208,
@@ -668,56 +668,56 @@
       "baseline": 160
     },
     "outfit.ember.1.name": {
-      "text": "Red Bandana",
+      "text": "Bandana",
       "file": "label_outfit_ember_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ember.2.name": {
-      "text": "Flame Headband",
+      "text": "Headband",
       "file": "label_outfit_ember_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ember.3.name": {
-      "text": "Knight Helmet",
+      "text": "Helmet",
       "file": "label_outfit_ember_3_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ember.4.name": {
-      "text": "Fox Hood",
+      "text": "Fox",
       "file": "label_outfit_ember_4_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ember.5.name": {
-      "text": "Dragon Helm",
+      "text": "Dragon",
       "file": "label_outfit_ember_5_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ink.1.name": {
-      "text": "Star Nightcap",
+      "text": "Nightcap",
       "file": "label_outfit_ink_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ink.2.name": {
-      "text": "Silver Glasses",
+      "text": "Specs",
       "file": "label_outfit_ink_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.ink.3.name": {
-      "text": "Little Star Hat",
+      "text": "Star Hat",
       "file": "label_outfit_ink_3_name.png",
       "cap": 128,
       "line_height": 208,
@@ -738,21 +738,21 @@
       "baseline": 160
     },
     "outfit.hoot.1.name": {
-      "text": "Graduation Cap",
+      "text": "Grad Cap",
       "file": "label_outfit_hoot_1_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.hoot.2.name": {
-      "text": "Reading Glasses",
+      "text": "Glasses",
       "file": "label_outfit_hoot_2_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "outfit.hoot.3.name": {
-      "text": "Wizard Cape",
+      "text": "Wizard",
       "file": "label_outfit_hoot_3_name.png",
       "cap": 128,
       "line_height": 208,
@@ -892,21 +892,21 @@
       "baseline": 160
     },
     "settings.help": {
-      "text": "How to Play",
+      "text": "Help",
       "file": "label_settings_help.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "settings.privacy": {
-      "text": "Privacy Policy",
+      "text": "Privacy",
       "file": "label_settings_privacy.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "settings.terms": {
-      "text": "Terms of Service",
+      "text": "Terms",
       "file": "label_settings_terms.png",
       "cap": 128,
       "line_height": 208,
@@ -990,8 +990,22 @@
       "baseline": 160
     },
     "gift.line": {
-      "text": "Try it in this level!",
+      "text": "Try it!",
       "file": "label_gift_line.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "draw.title": {
+      "text": "Lucky Spin",
+      "file": "label_draw_title.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "draw.go": {
+      "text": "Spin",
+      "file": "label_draw_go.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
@@ -1011,7 +1025,7 @@
       "baseline": 160
     },
     "chest.line": {
-      "text": "Earn stars to fill the chest",
+      "text": "Earn stars",
       "file": "label_chest_line.png",
       "cap": 128,
       "line_height": 208,
@@ -1025,7 +1039,7 @@
       "baseline": 160
     },
     "action.ok": {
-      "text": "Got it",
+      "text": "OK",
       "file": "label_action_ok.png",
       "cap": 128,
       "line_height": 208,
@@ -1039,7 +1053,7 @@
       "baseline": 160
     },
     "action.got_it": {
-      "text": "Got it",
+      "text": "OK",
       "file": "label_action_got_it.png",
       "cap": 128,
       "line_height": 208,
@@ -1172,7 +1186,7 @@
       "baseline": 160
     },
     "tab.boosters": {
-      "text": "Boosters",
+      "text": "Items",
       "file": "label_tab_boosters.png",
       "cap": 128,
       "line_height": 208,
@@ -1186,7 +1200,7 @@
       "baseline": 160
     },
     "tab.houses": {
-      "text": "Birdhouses",
+      "text": "Homes",
       "file": "label_tab_houses.png",
       "cap": 128,
       "line_height": 208,
@@ -1216,20 +1230,6 @@
     "chapter.levels": {
       "text": "Levels",
       "file": "label_chapter_levels.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "draw.title": {
-      "text": "Lucky Draw",
-      "file": "label_draw_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "draw.go": {
-      "text": "Draw",
-      "file": "label_draw_go.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
