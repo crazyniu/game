@@ -60,15 +60,6 @@ everything below. Chat with the user in Chinese, write code, commits and reports
 12. A few 3/4 bird frames placed outfit overlays badly; the painted turn frames fix turns, but other overlay frames
     are limited to the reliable set (`bird_view._keep_reliable`). Painting more outfit frames would remove the limit.
 
-## Housekeeping
-
-13. On 251 `main` two stashes are obsolete ("superseded aviary scroll-window change", "Local AGENTS/CLAUDE/README
-    edits before the Godot port"); drop them when the user agrees.
-14. Local branches `crazyniu/polish-birds`, `polish-board`, `polish-shop-aviary`, `polish-tutorial` were integrated
-    through #170 (squash), so Git does not see them as merged; delete them after a quick diff against main.
-15. Remote branches of merged PRs (#164-#173) can be deleted: `ui-rebuild`, `seat-clearance`, `counter-style`,
-    `aviary-outfit-buy`, `ui-and-gameplay-polish`, `polish-followup`, `painted-kit`, `matte-kit`.
-
 ## Verification
 
 `bash scripts/run_tests.sh` (naming 0, smoke 0, core 0; about 5 minutes) and `bash scripts/screenshots.sh`; motion

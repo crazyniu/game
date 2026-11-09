@@ -407,7 +407,7 @@ func _build_dots(top: float) -> void:
 		UI.place(dot, Rect2(540.0 - total * 0.5 + i * (DOT + DOT_GAP), top, DOT, DOT))
 		_layer.add_child(dot)
 
-## Next (green round) on steps 1-3, Play (green pill) on the last; the panel's red close skips.
+## Next on steps 1-3, Play on the last (both green worded pills); the panel's red close skips.
 func _build_actions() -> void:
 	for b in _buttons:
 		if is_instance_valid(b):
