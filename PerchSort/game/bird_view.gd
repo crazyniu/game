@@ -69,6 +69,8 @@ var _wear: Polygon2D      # equipped outfit overlay, drawn over both frames as t
 var _bow: Sprite2D
 var _fluff: Sprite2D
 var _zzz: Sprite2D
+var _fx_back: Node2D
+var _fx: SkinFx           # living effects of the advanced costumes, drawn around the body
 var _pose_names := {}     # Texture2D -> pose name, for family overlay calibration
 var _frame_names := {}    # Texture2D -> painted frame name, for outfit anchors
 var _wear_frames := {}    # frame name -> [tx, ty, sx_left, sx_right, sy, degrees, fit cost]
@@ -125,11 +127,28 @@ func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key
 		_body.add_child(_zzz)
 		_log = OS.get_cmdline_user_args().has("--bird-log")
 	_body.scale = Vector2.ONE * DISPLAY / CANVAS * density
+	_setup_fx()
 	_load_frames()
 	_breath_period = randf_range(2.4, 3.2)
 	_breath_phase = randf()
 	_next_idle = randf_range(0.6, 3.0)
 	_show_rest()
+
+## Advanced costumes (outfits 3 to 5) live: aura, particles, orbiting sparkles. Sleepers and eggs show none.
+func _setup_fx() -> void:
+	var on := SkinFx.wanted(outfit) and not is_egg and not asleep
+	if on:
+		if _fx == null:
+			_fx_back = Node2D.new()
+			_body.add_child(_fx_back)
+			_body.move_child(_fx_back, 0)   # aura behind the bird
+			_fx = SkinFx.new()
+			_body.add_child(_fx)             # particles in front
+		if _fx.get_meta("outfit", "") != outfit:
+			_fx.set_meta("outfit", outfit)
+			_fx.setup(outfit, _fx_back)
+	if _fx != null:
+		_fx.set_awake(on)
 
 func _overlay(art_name: String) -> Sprite2D:
 	var s := Sprite2D.new()
