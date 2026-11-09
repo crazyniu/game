@@ -1233,6 +1233,27 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "house.cage.name": {
+      "text": "Cage",
+      "file": "label_house_cage_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.language": {
+      "text": "Language",
+      "file": "label_settings_language.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.language_name": {
+      "text": "English",
+      "file": "label_settings_language_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

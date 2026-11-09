@@ -2,12 +2,14 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 ## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
 ## records move from the old level number (key) to the new one (value) on load.
 const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
 ## Schema 2 to 3: the forty levels took new places in the hundred-level order.
 const LEVEL_EXPANSION := {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 10, 9: 35, 10: 9, 11: 11, 12: 21, 13: 28, 14: 22, 15: 24, 16: 15, 17: 12, 18: 37, 19: 39, 20: 46, 21: 31, 22: 41, 23: 48, 24: 34, 25: 33, 26: 44, 27: 53, 28: 67, 29: 58, 30: 72, 31: 51, 32: 61, 33: 71, 34: 66, 35: 60, 36: 43, 37: 42, 38: 62, 39: 64, 40: 63}
+## The continuous difficulty order keeps every puzzle and moves its records with it.
+const LEVEL_DIFFICULTY := {1: 1, 2: 2, 3: 4, 4: 5, 5: 6, 6: 12, 7: 13, 8: 19, 9: 26, 10: 27, 11: 7, 12: 14, 13: 18, 14: 17, 15: 16, 16: 25, 17: 22, 18: 23, 19: 28, 20: 24, 21: 3, 22: 15, 23: 32, 24: 33, 25: 29, 26: 35, 27: 34, 28: 43, 29: 39, 30: 36, 31: 8, 32: 37, 33: 30, 34: 20, 35: 41, 36: 45, 37: 42, 38: 40, 39: 46, 40: 50, 41: 11, 42: 21, 43: 38, 44: 31, 45: 44, 46: 47, 47: 55, 48: 49, 49: 54, 50: 56, 51: 9, 52: 52, 53: 51, 54: 59, 55: 61, 56: 57, 57: 65, 58: 62, 59: 66, 60: 67, 61: 10, 62: 53, 63: 60, 64: 48, 65: 58, 66: 73, 67: 64, 68: 70, 69: 68, 70: 76, 71: 63, 72: 69, 73: 71, 74: 72, 75: 74, 76: 75, 77: 81, 78: 78, 79: 84, 80: 86, 81: 80, 82: 77, 83: 88, 84: 85, 85: 83, 86: 87, 87: 94, 88: 82, 89: 91, 90: 93, 91: 97, 92: 79, 93: 95, 94: 89, 95: 90, 96: 92, 97: 98, 98: 99, 99: 96, 100: 100}
 const SAVE_PATH := "user://profile.json"
 const BOOSTER_IDS: PackedStringArray = ["firefly", "sapling", "owlEye", "morningBell", "scarecrow", "springRain"]
 
@@ -36,6 +38,7 @@ var draws_left := 0                 # draws still unused on draws_date
 var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
 var challenge_date := ""            # last day the daily challenge was completed
 var vibration := true               # short haptic pulses on mobile
+var language := ""                  # "" follows the device; "en" or "zh" is the player's choice
 
 
 func _init() -> void:
@@ -99,7 +102,7 @@ func to_dict() -> Dictionary:
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
 		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "drawDate": draws_date, "drawsLeft": draws_left, "challengeDate": challenge_date,
-		"vibration": vibration,
+		"vibration": vibration, "language": language,
 	}
 
 ## Lenient load: unknown or invalid entries are dropped, like the original deserializer.
@@ -110,18 +113,31 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.muted = bool(data.get("muted", false))
 	p.music_muted = bool(data.get("musicMuted", p.muted))   # saves from before the split mute both
 	p.vibration = bool(data.get("vibration", true))
+	var language := str(data.get("language", ""))
+	p.language = language if language in ["en", "zh"] else ""
 	var boosters: Dictionary = data.get("boosters", {})
 	for i in BOOSTER_IDS.size():
 		p.inventory[i] = maxi(0, int(boosters.get(BOOSTER_IDS[i], 0)))
 	var star_list: Array = data.get("bestStars", [])
 	var clear_list: Array = data.get("clearCounts", [])
 	var moves_source: Array = data.get("bestMoves", [])
+	var gift_list: Array = data.get("levelGifts", [])
 	var schema := int(data.get("schemaVersion", 1))
-	for step in [[2, LEVEL_RENUMBER], [3, LEVEL_EXPANSION]]:
+	for step in [[2, LEVEL_RENUMBER], [3, LEVEL_EXPANSION], [4, LEVEL_DIFFICULTY]]:
 		if schema < step[0]:
 			star_list = _renumbered(star_list, step[1])
 			clear_list = _renumbered(clear_list, step[1])
 			moves_source = _renumbered(moves_source, step[1])
+			var unlocked := 1
+			for old in step[1]:
+				if old <= p.highest_unlocked:
+					unlocked = maxi(unlocked, step[1][old])
+			p.highest_unlocked = unlocked
+			var gifts := []
+			for old in gift_list:
+				if step[1].has(int(old)):
+					gifts.append(step[1][int(old)])
+			gift_list = gifts
 	for level in range(1, Levels.COUNT + 1):
 		var s := clampi(int(star_list[level]) if level < star_list.size() else 0, 0, 3)
 		p.stars[level] = s
@@ -163,7 +179,7 @@ static func from_dict(data: Dictionary) -> Profile:
 		var index := BOOSTER_IDS.find(str(id))
 		if index >= 0:
 			p.starters[index] = true
-	for level in data.get("levelGifts", []):
+	for level in gift_list:
 		if int(level) >= 1 and int(level) <= Levels.COUNT:
 			p.level_gifts[int(level)] = true
 	p.chests_opened = maxi(0, int(data.get("chestsOpened", 0)))
@@ -176,7 +192,7 @@ static func from_dict(data: Dictionary) -> Profile:
 			p.rewarded_worlds[int(w)] = true
 	return p
 
-## A per-level list (index = level) from the schema 1 level order moved to the current order.
+## Move a per-level list (index = level) through one catalog migration.
 static func _renumbered(list: Array, table: Dictionary) -> Array:
 	var out := []
 	out.resize(Levels.COUNT + 1)

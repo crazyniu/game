@@ -76,6 +76,7 @@ import tempfile
 LEVELS = 100
 save_directory = Path(sys.argv[1])
 profile_source = Path(sys.argv[2]).read_text(encoding="utf-8")
+current_schema = int(re.search(r"const SCHEMA_VERSION := (\d+)", profile_source).group(1))
 save_directory.mkdir(parents=True, exist_ok=True)
 profile_path = save_directory / "profile.json"
 backup_path = save_directory / "profile.before-launcher-access.json"
@@ -88,14 +89,14 @@ if profile_path.exists():
 else:
     profile = {}
 
-profile["coins"] = max(profile.get("coins", 0), 50000)
 # Older saves number their levels differently: move the records as the game would, before opening the levels.
 def table(name):
     body = re.search(name + r" := \{(.*?)\}", profile_source).group(1)
     return {int(a): int(b) for a, b in re.findall(r"(\d+): (\d+)", body)}
 
-schema = int(profile.get("schemaVersion", 1)) if profile else 3
-for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION")):
+schema = int(profile.get("schemaVersion", 1)) if profile else current_schema
+profile["coins"] = max(profile.get("coins", 0), 50000)
+for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION"), (4, "LEVEL_DIFFICULTY")):
     if schema < step:
         moves = table(name)
         for field in ("bestStars", "clearCounts", "bestMoves"):
@@ -105,7 +106,8 @@ for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION")):
                 if source < len(old):
                     new[target] = old[source]
             profile[field] = new
-profile["schemaVersion"] = 3
+        profile["levelGifts"] = [moves[int(level)] for level in profile.get("levelGifts", []) if int(level) in moves]
+profile["schemaVersion"] = current_schema
 profile["highestUnlockedLevel"] = LEVELS
 # The game's existing unlock rule requires a star on each preceding level.
 for field in ("bestStars", "clearCounts"):

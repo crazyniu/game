@@ -93,7 +93,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var row := 104.0
-	var heights := [row, row, row]
+	var heights := [row, row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(PILL_H)
@@ -117,6 +117,11 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		if on.has("vibration"):
 			on["vibration"].call(value)
 		Sound.vibrate(Sound.PULSE_LAND))
+	g += 1
+	# Language: the pill shows the language now in use; tapping switches to the other one.
+	_row_label(c, "settings.language", Vector2(left, ys[g] + row * 0.5))
+	UI.pill(c, "Language", Rect2(right - 300.0, ys[g] + (row - 88.0) * 0.5, 300.0, 88.0), "green", "settings.language_name",
+		func(): on["language"].call(), "", 40.0)
 	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:

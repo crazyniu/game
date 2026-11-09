@@ -398,6 +398,41 @@ static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_pr
 	parent.add_child(b)
 	return b
 
+## Icon-only menu button: a soft cream plate (no rim) with the painted icon on it. Same size in every state; pressing dims it.
+const TILE_FILL := Color(1.0, 0.969, 0.902)
+const TILE_SHADOW := Color(0.22, 0.13, 0.04, 0.38)
+
+static func icon_tile(parent: Node, n: String, icon: String, r: Rect2, on_press: Callable) -> Button:
+	var b := Button.new()
+	b.name = n
+	b.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		b.add_theme_stylebox_override(state, empty)
+	place(b, r)
+	var plate := Panel.new()
+	plate.name = "Face"
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.size = r.size
+	var box := StyleBoxFlat.new()
+	box.bg_color = TILE_FILL
+	box.set_corner_radius_all(int(minf(r.size.x, r.size.y) * 0.26))
+	box.shadow_color = TILE_SHADOW
+	box.shadow_size = 14
+	box.shadow_offset = Vector2(0, 9)
+	plate.add_theme_stylebox_override("panel", box)
+	b.add_child(plate)
+	var pad := r.size * 0.12
+	var picture := art(plate, icon, Rect2(pad, r.size - pad * 2.0))
+	picture.name = "Icon"
+	b.button_down.connect(func(): plate.self_modulate = PRESSED_TINT)
+	b.button_up.connect(func(): plate.self_modulate = Color.WHITE)
+	b.pressed.connect(func():
+		Sound.play("ui_tap")
+		on_press.call())
+	parent.add_child(b)
+	return b
+
 ## Whole locale label fitted to its dedicated layout box.
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK, bend := 0.0) -> TextureRect:
 	return TextArt.label(parent, id, bounds, cap, color, false, bend)

@@ -1,0 +1,21 @@
+Paint six standalone home-screen menu icons for a cozy mobile bird puzzle game, as ONE sheet on a fully transparent
+background (real alpha), laid out in a clean grid of 3 columns x 2 rows with generous empty space between them.
+Reading order: 1 Daily Challenge, 2 Spin, 3 Map, 4 Shop, 5 Aviary, 6 Chest.
+
+Each icon is a single self-contained painted object, NO frame, NO button plate, NO border, NO tile, NO text, NO letters,
+NO numbers anywhere. Each object is about 700 px wide, centred in its grid cell, with a soft thin cream-white sticker rim
+around its silhouette and a small soft contact shadow directly under it (the shadow is part of the object, nothing else
+touches the background). Style: soft plush, felt-and-fleece storybook look like the game's fluffy birds, gently rounded
+forms, matte, calm natural colours (not over-bright, no neon), warm light from the upper left. All six share the same
+visual weight, the same lighting and the same rim, so they read as one set.
+
+Icons:
+1 Daily Challenge: a tear-off desk calendar page with a small yellow chick sitting on top of it and a little red flag stuck in the page, one golden sparkle.
+2 Spin: a round prize wheel seen almost front-on, divided into 6 soft wedges in green, cream, coral, gold, blue and
+  pink, with a gold hub and a small red pointer on top, two tiny sparkles.
+3 Map: a rolled parchment treasure map with a dotted red path and a red location pin.
+4 Shop: a cute red-and-cream striped shop bag with a golden handle and a little smiling chick face on it.
+5 Aviary: a woven straw nest holding three speckled pink eggs with two green leaves.
+6 Chest: a wooden treasure chest with golden bands and a lock, lid closed.
+
+Output: the single sheet only, transparent background, at least 2000 px wide.

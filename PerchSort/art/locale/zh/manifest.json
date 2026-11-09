@@ -1172,14 +1172,14 @@
       "baseline": 160
     },
     "challenge.title": {
-      "text": "每日",
+      "text": "每日挑战",
       "file": "label_challenge_title.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160
     },
     "home.daily": {
-      "text": "每日",
+      "text": "每日挑战",
       "file": "label_home_daily.png",
       "cap": 128,
       "line_height": 208,
@@ -1233,6 +1233,27 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "house.cage.name": {
+      "text": "鸟笼",
+      "file": "label_house_cage_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.language": {
+      "text": "语言",
+      "file": "label_settings_language.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "settings.language_name": {
+      "text": "中文",
+      "file": "label_settings_language_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {
@@ -1251,13 +1272,13 @@
       "7": 118,
       "8": 118,
       "9": 118,
-      "/": 63,
-      "?": 96,
-      "+": 114,
-      "-": 76,
-      "x": 110,
-      "%": 173,
-      "∞": 185
+      "/": 68,
+      "?": 95,
+      "+": 120,
+      "-": 91,
+      "x": 113,
+      "%": 176,
+      "∞": 120
     },
     "glyphs": {
       "0": "number_0.png",

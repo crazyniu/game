@@ -128,7 +128,8 @@ def main():
             headings += 1
 
     if not args.labels_only:
-        manifest["numbers"] = render_numbers(catalog_path, catalog, output, fonts["numbers"])
+        number_face = load_font(catalog_path, catalog["number_font"], catalog["number_font"]["weight"])
+        manifest["numbers"] = render_numbers(catalog_path, catalog, output, number_face)
     (output / "manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )

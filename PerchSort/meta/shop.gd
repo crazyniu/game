@@ -3,7 +3,7 @@ extends RefCounted
 ## Shop catalog, purchases and equipping.
 
 enum { BOOSTER, OUTFIT, HOUSE }
-const HOUSE_STYLES: PackedStringArray = ["mushroom", "teapot", "lantern", "acorn", "pumpkin", "beehive", "teacup", "pinecone"]
+const HOUSE_STYLES: PackedStringArray = ["mushroom", "teapot", "lantern", "acorn", "pumpkin", "beehive", "teacup", "pinecone", "cage"]
 const OUTFIT_PRICES := [300, 500, 800, 1000, 1300]
 const OUTFIT_COUNT := 5            # outfits per species, besides the plain look
 

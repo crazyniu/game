@@ -6,6 +6,7 @@ extends Control
 
 signal closed
 signal profile_changed
+signal booster_purchased(kind: int, count: int)
 
 const AviaryScript := preload("res://game/aviary_view.gd")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
@@ -724,6 +725,8 @@ func _buy(it: Dictionary, quantity: int) -> void:
 	if err != "":
 		Sound.play("error")
 		return
+	if it["kind"] == Shop.BOOSTER:
+		booster_purchased.emit(it["booster"], it["quantity"] * quantity)
 	Sound.play("collect")
 	profile_changed.emit()
 	_refresh()

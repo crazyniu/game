@@ -46,6 +46,7 @@ static var _next_oldest := INF
 static var _log := false
 
 const WING_SILENT := -60.0     # fly_to wing_db: no wing sound for this flight
+const TAKEOFF_SECONDS := 0.06
 const CENTRE_X := 540.0
 
 var code := 0
@@ -56,6 +57,7 @@ var is_egg := false
 var outfit := ""          # outfit key, e.g. "sunny_outfit_1"
 var _prefix := ""         # art name prefix of every frame: the species, or a skin painted as a whole bird
 var acting := false
+var showcasing := false    # true while showcase() runs through every action
 var selected := false
 var quiet := false         # true while instant captures run
 var sounds := false        # wing sounds: only birds on the board make them; menus play just the music
@@ -69,6 +71,8 @@ var _wear: Polygon2D      # equipped outfit overlay, drawn over both frames as t
 var _bow: Sprite2D
 var _fluff: Sprite2D
 var _zzz: Sprite2D
+var _fx_back: Node2D
+var _fx: SkinFx           # living effects of the advanced costumes, drawn around the body
 var _pose_names := {}     # Texture2D -> pose name, for family overlay calibration
 var _frame_names := {}    # Texture2D -> painted frame name, for outfit anchors
 var _wear_frames := {}    # frame name -> [tx, ty, sx_left, sx_right, sy, degrees, fit cost]
@@ -125,11 +129,28 @@ func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key
 		_body.add_child(_zzz)
 		_log = OS.get_cmdline_user_args().has("--bird-log")
 	_body.scale = Vector2.ONE * DISPLAY / CANVAS * density
+	_setup_fx()
 	_load_frames()
 	_breath_period = randf_range(2.4, 3.2)
 	_breath_phase = randf()
 	_next_idle = randf_range(0.6, 3.0)
 	_show_rest()
+
+## Advanced costumes (outfits 3 to 5) live: aura, particles, orbiting sparkles. Sleepers and eggs show none.
+func _setup_fx() -> void:
+	var on := SkinFx.wanted(outfit) and not is_egg and not asleep
+	if on:
+		if _fx == null:
+			_fx_back = Node2D.new()
+			_body.add_child(_fx_back)
+			_body.move_child(_fx_back, 0)   # aura behind the bird
+			_fx = SkinFx.new()
+			_body.add_child(_fx)             # particles in front
+		if _fx.get_meta("outfit", "") != outfit:
+			_fx.set_meta("outfit", outfit)
+			_fx.setup(outfit, _fx_back)
+	if _fx != null:
+		_fx.set_awake(on)
 
 func _overlay(art_name: String) -> Sprite2D:
 	var s := Sprite2D.new()
@@ -410,7 +431,7 @@ func _process(delta: float) -> void:
 		_zzz.scale = Vector2.ONE * 0.6 * (1.0 + 0.7 * pulse)
 		if _nudge >= 0.0:
 			_zzz.modulate.a = 1.0
-	if acting or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween or not is_visible_in_tree():
+	if acting or showcasing or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween or not is_visible_in_tree():
 		_due = -1.0
 		return
 	_next_idle -= delta
@@ -622,7 +643,7 @@ func _stop_hover() -> void:
 
 ## Fly to `target` (parent space); home=true shrinks and frees the bird.
 ## With a doorway, target is its centre: approach in front, then recede inside its mask.
-func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null, wing_db := 0.0) -> void:
+func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap := false, doorway: Control = null, wing_db := 0.0, landing_seconds := 0.16) -> void:
 	_stop_idle()
 	_glance += 1
 	acting = true
@@ -659,7 +680,7 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 	crouch.tween_method(func(t: float):
 		_body.scale = Vector2(lerpf(1.0, 1.08, t), lerpf(1.0, 0.92, t)) * base
 		if not hovering and not takeoff.is_empty():
-			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, 0.06)
+			_show(from, takeoff[0], smoothstep(0.0, 1.0, t)), 0.0, 1.0, TAKEOFF_SECONDS)
 	await crouch.finished
 	_stop_hover()
 	if sounds and wing_db > WING_SILENT:
@@ -715,7 +736,7 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 	squash.tween_method(func(t: float):
 		var k := 1.0 - smoothstep(0.0, 1.0, t)
 		_body.scale = Vector2(1.0 + 0.15 * k, 1.0 - 0.15 * k) * base
-		_show(last, rest, smoothstep(0.1, 0.9, t)), 0.0, 1.0, 0.16)
+		_show(last, rest, smoothstep(0.1, 0.9, t)), 0.0, 1.0, landing_seconds)
 	await squash.finished
 	acting = false
 	_show_rest()
@@ -756,6 +777,26 @@ func cheer() -> void:
 	acting = false
 	_show_rest()
 	finished.emit()
+
+## Plays every action this bird has, one after another with no pause (blink, both turns, hop, flap, preen, each
+## still pose), then the cheer. Used when a bird is shown off; idle actions and cheers wait until it is done.
+func showcase() -> void:
+	if showcasing or acting or is_egg or asleep:
+		return
+	showcasing = true
+	var order: Array = [[0, 0], [1, 0], [1, 1], [4, 0], [3, 0], [2, 0]]
+	for pose in POSES.size():
+		order.append([POSE_FIRST + pose, 0])
+	_stop_idle()
+	for entry in order:
+		if not _has_action(entry[0]):
+			continue
+		_start_idle(entry[0], entry[1])
+		var tween := _idle_tween
+		await tween.finished
+	showcasing = false
+	if not _seqs.get("cheer", []).is_empty():
+		cheer()
 
 func hatch() -> void:
 	_stop_idle()

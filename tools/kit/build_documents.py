@@ -54,7 +54,7 @@ def main():
     docs = json.loads((ROOT / "tools/kit/locales" / f"{locale}_docs.json").read_text(encoding="utf-8"))
     out = ROOT / "PerchSort/art/locale" / locale
     chinese = locale == "zh"
-    body = ImageFont.truetype(str(ROOT / "tools/kit/fonts" / ("zcool_kuaile.ttf" if chinese else "lilita_one.ttf")), SIZE,
+    body = ImageFont.truetype(str(ROOT / "tools/kit/fonts" / ("noto_sans_sc_bold.otf" if chinese else "lilita_one.ttf")), SIZE,
                               layout_engine=ImageFont.Layout.RAQM)
     probe = ImageDraw.Draw(Image.new("L", (10, 10)))
     for doc_id, doc in docs.items():

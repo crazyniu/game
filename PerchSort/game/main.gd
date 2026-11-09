@@ -31,6 +31,9 @@ func _ready() -> void:
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
 	Sound.vibration = profile.vibration
+	UiText.set_language(profile.language)
+	if args.has("lang"):
+		UiText.set_language(args["lang"])   # captures and tests: --lang=zh
 	ambient = Ambient.new()
 	ambient.still = instant()
 	add_child(ambient)
@@ -67,6 +70,9 @@ func _capture() -> void:
 	get_tree().quit()
 
 func set_screen(node: Control) -> void:
+	if screen is BoardView:
+		screen.suspend_input()
+	_close_overlay(false)
 	if screen:
 		screen.queue_free()
 	screen = node
@@ -151,14 +157,15 @@ func start_challenge() -> void:
 		return
 	_go(func():
 		_clear_popups()
-		_close_overlay()
 		var board := BoardView.new()
 		board.instant = instant()
 		set_screen(board)
 		board.start(def, profile, not instant())
 		board.profile_changed.connect(save)
 		board.settings_requested.connect(func(): show_settings(true))
-		board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
+		board.goal_info_requested.connect(func(sp):
+			board.suspend_input()
+			Popups.goal_info(popups, sp))
 		board.buy_requested.connect(func(kind): open_shop(0, true))
 		board.won.connect(func(_result: Dictionary):
 			profile.inventory = board.session.state.inventory.duplicate()
@@ -213,6 +220,8 @@ func _start_level(level_id: int) -> void:
 
 ## Runs a screen change under the leaf wipe: the action fires while the curtain covers the screen.
 func _go(action: Callable) -> void:
+	if screen is BoardView:
+		screen.suspend_input()
 	if not _booted or instant() or _wiping:
 		action.call()
 		return
@@ -280,7 +289,6 @@ func open_board(level_id: int, entrance := true) -> void:
 	_go(_open_board.bind(level_id, entrance))
 
 func _open_board(level_id: int, entrance: bool) -> void:
-	_close_overlay()
 	var board := BoardView.new()
 	board.instant = instant()
 	set_screen(board)
@@ -290,7 +298,9 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
-	board.goal_info_requested.connect(func(sp): Popups.goal_info(popups, sp))
+	board.goal_info_requested.connect(func(sp):
+		board.suspend_input()
+		Popups.goal_info(popups, sp))
 	board.buy_requested.connect(func(kind): open_shop(0, true))
 	board.won.connect(_on_won.bind(level_id))
 	Sound.music("bgm_game")
@@ -301,7 +311,7 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		queue.append(func(done: Callable): Popups.new_friend(popups, sp, Aviary.NEW_SPECIES_COINS, done))
 	for info in Progress.BOOSTERS:
 		var flag := "unlock.%s" % info[1]
-		if info[2] == level_id and not profile.has_tutorial(flag):
+		if Progress.booster_unlock_level(info[0]) == level_id and not profile.has_tutorial(flag):
 			profile.set_tutorial(flag)
 			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
 	# The first open of level 1 ends with the how-to-play steps, shown once.
@@ -361,6 +371,8 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 		board.refresh_hud()
 
 func show_settings(on_board: bool) -> void:
+	if screen is BoardView:
+		screen.suspend_input()
 	Popups.settings(popups, not profile.music_muted, not profile.muted, {
 		"music": func(on: bool):
 			profile.music_muted = not on
@@ -378,12 +390,17 @@ func show_settings(on_board: bool) -> void:
 			_clear_popups()
 			if screen is BoardView:
 				var board: BoardView = screen
-				board.session.restart()
-				board.start(board.level, profile, false),
+				board.restart(),
 		"home": func(): _go(func():
 			_clear_popups()
 			_open_home()),
 		"help": func(): Tutorial.open(popups, Callable(), instant()),
+		"language": func():
+			profile.language = "zh" if UiText.locale() == "en" else "en"
+			UiText.set_language(profile.language)
+			save()
+			_clear_popups()
+			show_settings(on_board),
 	}, on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:
@@ -392,15 +409,11 @@ func open_shop(tab := 0, over_board := false) -> void:
 func _open_shop(tab: int) -> void:
 	var shop: Control = ShopScreen.new()
 	shop.setup(profile, tab)
-	shop.profile_changed.connect(func():
-		save()
+	shop.booster_purchased.connect(func(kind: int, count: int):
 		if screen is BoardView:
 			var board: BoardView = screen
-			for kind in Board.BOOSTER_COUNT:
-				var gained := profile.inventory[kind] - board.session.state.inventory[kind]
-				if gained > 0:
-					board.granted(kind, gained)
-		_refresh_screen())
+			board.granted(kind, count))
+	shop.profile_changed.connect(save)
 	shop.closed.connect(func(): _go(_close_overlay))
 	_show_overlay(shop)
 
@@ -415,16 +428,21 @@ func _open_aviary() -> void:
 	_show_overlay(aviary)
 
 func _show_overlay(node: Control) -> void:
-	_close_overlay()
+	if screen is BoardView:
+		screen.suspend_input()
+	_close_overlay(false)
 	_overlay = node
 	add_child(node)
 	move_child(node, popups.get_index())  # below the popup layer
 	Sound.music("bgm_menu")
 
-func _close_overlay() -> void:
-	if _overlay and is_instance_valid(_overlay):
-		_overlay.queue_free()
+func _close_overlay(refresh_underlay := true) -> void:
+	if _overlay == null:
+		return
+	_overlay.queue_free()
 	_overlay = null
+	if not refresh_underlay:
+		return
 	if screen is BoardView:
 		Sound.music("bgm_game")
 		screen.refresh_hud()

@@ -66,7 +66,7 @@ const BOTTOM_CLEAR := 1644.0
 const CHIP := Vector2(260.0, 92.0)
 const CHIP_STACK := 16.0        # Current sits under Chapters, clear of the trail
 const NAV_Y := 1818.0
-const NAV_TILE := Vector2(214.0, 176.0)   # the painted home tiles, a little smaller than on the home page
+const NAV_TILE := Vector2(176.0, 176.0)   # icon tiles, a little smaller than on the home page
 const NAV_GAP := 236.0
 ## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
 ## BOTTOM_CLEAR: the last level at y 402 with a bird up to 210 above its centre, level 1 at y 1321 + the strides below it with its
@@ -303,11 +303,11 @@ func _build_hud() -> void:
 	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 + CHIP.y * 0.5 + CHIP_STACK, CHIP.x, CHIP.y),
 		func(): scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO))
 	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
-	var buttons := [["Shop", "home_button_shop", shop_requested], ["Aviary", "home_button_aviary", aviary_requested],
-		["Help", "map_button_help", help_requested]]
+	var buttons := [["Shop", "home_icon_shop", shop_requested], ["Aviary", "home_icon_aviary", aviary_requested],
+		["Help", "home_icon_help", help_requested]]
 	for i in buttons.size():
 		var sig: Signal = buttons[i][2]
-		UI.art_button(_hud, buttons[i][0], buttons[i][1], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
+		UI.icon_tile(_hud, buttons[i][0], buttons[i][1], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
 	_sign = Control.new()
 	_sign.name = "WorldSign"
 	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE

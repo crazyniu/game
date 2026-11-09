@@ -26,11 +26,20 @@ const BUBBLE_SECONDS := 1.6
 const STUCK_DELAY := 0.8
 ## Seconds without a tap or move before the hint tool is pointed at (once per level, only with hints in stock).
 const IDLE_NUDGE := 12.0
+const MOVE_FLIGHT_SECONDS := 0.28
+const MOVE_STAGGER_SECONDS := 0.04
+const MOVE_LANDING_SECONDS := 0.10
 
 var session: GameSession
 var profile: Profile
 var level: Dictionary
 var busy := false
+var _buffering_move := false
+var _queued_taps: Array = []   # at most the next source and destination, [branch, swivel]
+var _playback_id := 0
+var _playback_tweens: Array[Tween] = []
+var _homing_birds := {}        # departing birds are no longer in _birds
+var _home_effects: Node2D
 var _idle_time := 0.0
 var _idle_nudged := false
 var instant := false   # captures: no motion
@@ -100,7 +109,9 @@ var _hint_result := {}
 var _hint_cancel: Array = [false]
 var _hint_task_key := PackedInt32Array()
 var _hint_moves := {}       # search_key -> move: winning routes and one-move fallbacks found in the background
+var _hint_failures := {}    # search_key -> status; cancelled work is never cached
 var _hint_waiting := false  # the firefly was pressed before the background search finished
+var _hint_request_key := PackedInt32Array()
 var _hint_press_usec := 0
 var _hint_task_usec := 0
 var _hint_level := -1
@@ -128,15 +139,19 @@ func _load_start_hints(id: int) -> void:
 		_hint_moves[key] = [int(entry[1][0]), int(entry[1][1])]
 
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
+	_cancel_playback()
 	_release_hint_task()
 	_hide_hint()
 	if int(level_def["id"]) != _hint_level:
 		_hint_moves.clear()
+		_hint_failures.clear()
 		_load_start_hints(int(level_def["id"]))
 	_hint_level = int(level_def["id"])
 	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
 	busy = false
+	_entrance_running = false
+	modulate.a = 1.0
 	_idle_time = 0.0
 	_idle_nudged = false
 	level = level_def
@@ -146,6 +161,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		child.queue_free()
 	_birds.clear()
 	_goal_nodes.clear()
+	_goal_check.clear()
 	_motes.clear()
 	_night_stars.clear()
 	_fireflies.clear()
@@ -170,9 +186,71 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		_entrance(quick)
 
 func _exit_tree() -> void:
+	_cancel_playback()
 	_release_hint_task()
 	_hide_hint()
 	Engine.time_scale = 1.0
+
+## Restored inventory and purchases share one profile balance.
+func sync_inventory() -> void:
+	profile.inventory = session.state.inventory.duplicate()
+	profile_changed.emit()
+
+func restart() -> void:
+	session.restart()
+	sync_inventory()
+	start(level, profile, false)
+
+## Modals cancel deferred input and unpaid hint requests, not the move already playing.
+func suspend_input() -> void:
+	_queued_taps.clear()
+	_cancel_hint_request()
+	_hide_hint()
+	_build_tools()
+
+func _playback_tween() -> Tween:
+	var tw := create_tween()
+	_playback_tweens.append(tw)
+	tw.finished.connect(func(): _playback_tweens.erase(tw), CONNECT_ONE_SHOT)
+	return tw
+
+## Undo/restart invalidates suspended callbacks as well as the visible homecoming.
+func _cancel_playback() -> void:
+	_playback_id += 1
+	_buffering_move = false
+	_queued_taps.clear()
+	_cancel_hint_request()
+	_hide_bubble()
+	if is_instance_valid(_banner):
+		_banner.queue_free()
+		_banner = null
+	for tw in _playback_tweens:
+		tw.kill()
+	_playback_tweens.clear()
+	for bird in _homing_birds.values():
+		if is_instance_valid(bird):
+			bird.hide()
+			bird.queue_free()
+	_homing_birds.clear()
+	if is_instance_valid(_home_effects):
+		for child in _home_effects.get_children():
+			child.queue_free()
+	if is_instance_valid(_house):
+		_house.position = _house_rect().position
+		_house.scale = Vector2.ONE
+		_glow.modulate.a = 0.0
+		_glow.scale = Vector2.ONE
+		if _door_open:
+			_door_open.modulate.a = 0.0
+		for goal in _goal_nodes.values():
+			goal.scale = Vector2.ONE
+	if _night_tween:
+		_night_tween.kill()
+		_night_tween = null
+
+func _cancel_hint_request() -> void:
+	_hint_waiting = false
+	_hint_request_key = PackedInt32Array()
 
 ## ---------- scene ----------
 
@@ -434,7 +512,7 @@ func _layout_branches() -> void:
 		if b >= before and before > 0 and not instant:
 			# A branch added by the sapling grows in from the edge.
 			node.scale = Vector2(0.05, 0.6)
-			create_tween().tween_property(node, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			node.create_tween().tween_property(node, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		elif b < before and not instant and node.position != previous_positions[b]:
 			var target := node.position
 			node.position = previous_positions[b]
@@ -463,7 +541,7 @@ func _add_branch_art(node: Node2D, slot: Dictionary, right: bool, b: int, twig: 
 	_branch_widths[key] = width
 	if not instant and absf(before - width) > 0.01:
 		art.scale.x = before
-		create_tween().tween_property(art, "scale:x", width, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		art.create_tween().tween_property(art, "scale:x", width, 0.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## Painted wood length of a slot from its screen edge to the end of its tuft.
 func _painted_length(slot: Dictionary) -> float:
@@ -545,7 +623,7 @@ func sync_birds() -> void:
 			else:
 				# Rows can shift when a branch is added; birds glide to their new seats.
 				if glide == null:
-					glide = create_tween().set_parallel()
+					glide = _bird_layer.create_tween().set_parallel()
 				glide.tween_property(bird, "position", seat_point(b, i), ROW_REFLOW_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			bird.set_selected(false)
 	for id in _birds.keys():
@@ -561,13 +639,14 @@ func sync_birds() -> void:
 ## Houses drop in, branches grow out of the trunks, then the birds fly to their seats. A tap speeds it up.
 ## `quick` (a replay, or the next level right after a win) plays the same beats at ENTRANCE_QUICK of the time.
 func _entrance(quick := false) -> void:
+	var playback := _playback_id
 	busy = true
 	_entrance_running = true
 	var started := Time.get_ticks_msec()
 	var k := ENTRANCE_QUICK if quick else 1.0
 	modulate.a = 0.0
-	create_tween().tween_property(self, "modulate:a", 1.0, 0.4 * k)
-	var rise := create_tween().set_parallel()
+	_playback_tween().tween_property(self, "modulate:a", 1.0, 0.4 * k)
+	var rise := _playback_tween().set_parallel()
 	var drop := [_rope, _house]
 	for node in drop:
 		var rest_y: float = node.position.y
@@ -578,7 +657,7 @@ func _entrance(quick := false) -> void:
 		goal.scale = Vector2.ZERO
 		rise.tween_property(goal, "scale", Vector2.ONE, 0.35 * k).set_delay((ENTRANCE_HOUSE + 0.5 + 0.08 * g) * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		g += 1
-	var grow := create_tween().set_parallel()
+	var grow := _playback_tween().set_parallel()
 	for i in _branch_nodes.size():
 		var node: Node2D = _branch_nodes[i]
 		node.scale = Vector2(0.02, 0.6)
@@ -602,6 +681,8 @@ func _entrance(quick := false) -> void:
 	if last:
 		await last.finished
 	await get_tree().create_timer(0.1 * k).timeout
+	if playback != _playback_id:
+		return
 	var skipped := Engine.time_scale > 1.0
 	Engine.time_scale = 1.0
 	_entrance_running = false
@@ -646,7 +727,8 @@ const HOUSES := {
 	"pumpkin": ["house_style_pumpkin_body", Rect2(49, 37, 413, 423), Rect2(148, 205, 204, 199), 37.0],
 	"beehive": ["house_style_beehive_body", Rect2(54, 53, 401, 403), Rect2(148, 205, 204, 199), 53.0],
 	"teacup": ["house_style_teacup_body", Rect2(83, 136, 389, 324), Rect2(165, 221, 170, 169), 136.0],
-	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0]}
+	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0],
+	"cage": ["house_style_cage_body", Rect2(58, 28, 390, 430), Rect2(150, 205, 204, 200), 28.0]}
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
@@ -697,6 +779,12 @@ func _build_hud() -> void:
 	UI.place(_house, hr)
 	_hud.add_child(_house)
 	UI.art(_house, spec[0], Rect2(Vector2.ZERO, hr.size), content)
+	if profile.equipped_house == "cage":
+		# The birdcage never hangs still: it sways on its rope about the ring on top, easing at both ends.
+		_house.pivot_offset = Vector2(hr.size.x * 0.5, 0.0)
+		var sway := _house.create_tween().set_loops()
+		sway.tween_property(_house, "rotation", deg_to_rad(2.6), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sway.tween_property(_house, "rotation", deg_to_rad(-2.6), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	# The doorway is dark until a species is delivered; the resident then looks out of it.
 	var door: Rect2 = spec[2]
 	var opening := Rect2((door.position - content.position) * k, door.size * k)
@@ -716,6 +804,9 @@ func _build_hud() -> void:
 	_tool_bar.name = "Tools"
 	_tool_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(_tool_bar)
+	_home_effects = Node2D.new()
+	_home_effects.name = "HomeEffects"
+	_hud.add_child(_home_effects)
 
 ## Bottom of the status pills (the phase pill only on day/night levels).
 func _status_rect() -> Rect2:
@@ -888,9 +979,9 @@ func _visible_tools() -> Array:
 	for kind in [Board.Booster.FIREFLY, Board.Booster.SAPLING]:
 		if Progress.is_booster_unlocked(profile, kind):
 			tools.append(kind)
-	var context := Progress.world_booster_for(int(level["id"]))
-	if Progress.is_booster_unlocked(profile, context) and session.booster_has_effect(context):
-		tools.append(context)
+	for kind in [Board.Booster.OWL_EYE, Board.Booster.MORNING_BELL, Board.Booster.SCARECROW, Board.Booster.SPRING_RAIN]:
+		if Progress.is_booster_unlocked(profile, kind) and session.booster_has_effect(kind):
+			tools.append(kind)
 	return tools
 
 const TOOL_ICON_NAME := {Board.Booster.FIREFLY: "bulb", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "eye",
@@ -904,12 +995,13 @@ func _build_tools() -> void:
 	var tools := _visible_tools()
 	_tool_slots.clear()
 	var n := tools.size()
-	var row_w := n * UI.SECONDARY + (n - 1) * TOOL_GAP
+	var gap := minf(TOOL_GAP, (984.0 - n * UI.SECONDARY) / maxf(1.0, n - 1))
+	var row_w := n * UI.SECONDARY + (n - 1) * gap
 	# The tool buttons stand on their own (user: no tray around them).
 	var x := 540.0 - row_w * 0.5 + UI.SECONDARY * 0.5
 	for kind in tools:
 		var centre := Vector2(x, TOOL_Y)
-		x += UI.SECONDARY + TOOL_GAP
+		x += UI.SECONDARY + gap
 		_tool_slots.append([kind, centre, kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
 			UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo)
@@ -935,7 +1027,7 @@ func _gui_input(event: InputEvent) -> void:
 		_idle_time = 0.0
 		_hide_bubble()
 		_hide_stuck()
-	if busy or session.state.is_won():
+	if session.state.is_won():
 		return
 	if pressed:
 		var b := branch_at(event.position)
@@ -958,6 +1050,11 @@ func branch_at(p: Vector2) -> int:
 	return best
 
 func tap_branch(b: int) -> void:
+	if session.state.is_won():
+		return
+	if busy:
+		_queue_tap(b, false)
+		return
 	var s := session.state
 	if session.selected < 0:
 		if Rules.can_swivel(s, b) and s.run_count(b) == 0:
@@ -995,12 +1092,27 @@ func tap_branch(b: int) -> void:
 		_refresh_hint_selection()
 
 func _tap_swivel(b: int) -> void:
-	if busy or session.state.is_won():
+	if session.state.is_won():
+		return
+	if busy:
+		_queue_tap(b, true)
 		return
 	_hide_bubble()
 	if session.selected >= 0:
 		_lift(session.selected, false)
 	_do(func(): return session.swivel(b))
+
+func _queue_tap(branch: int, swivel: bool) -> void:
+	if _buffering_move and _queued_taps.size() < 2:
+		_queued_taps.append([branch, swivel])
+
+func _drain_taps() -> void:
+	while not busy and not _queued_taps.is_empty():
+		var tap: Array = _queued_taps.pop_front()
+		if tap[1]:
+			_tap_swivel(tap[0])
+		else:
+			tap_branch(tap[0])
 
 func _refresh_hint_selection() -> void:
 	if _hint_move.is_empty():
@@ -1036,7 +1148,7 @@ func _refuse(b: int) -> void:
 	if b < 0 or b >= _branch_nodes.size():
 		return
 	var node: Node2D = _branch_nodes[b]
-	var tw := create_tween()
+	var tw := node.create_tween()
 	for k in 4:
 		tw.tween_property(node, "rotation", 0.025 * (1 if k % 2 == 0 else -1), 0.05)
 	tw.tween_property(node, "rotation", 0.0, 0.05)
@@ -1182,35 +1294,47 @@ func _hide_stuck() -> void:
 		_stuck = null
 
 func _do(action: Callable) -> void:
+	_cancel_hint_request()
 	_hide_hint()
+	var playback := _playback_id
 	busy = true
+	_buffering_move = true
 	var ok: bool = action.call()
 	if ok:
 		_prefetch_hint()   # searches while the move plays and the player thinks
 		# Counts change with the move, not after its animation; a new phase shows when its cross-fade starts.
 		_refresh_status(not session.events.any(func(e): return e["type"] == "phase_changed"))
 		await play_events(session.events.duplicate())
+	if playback != _playback_id:
+		return
+	await _finish_action(playback)
+
+## Moves and boosters both settle through the same completion path.
+func _finish_action(playback: int) -> void:
 	await sync_birds()
+	if playback != _playback_id:
+		return
 	refresh_hud()
 	busy = false
+	_buffering_move = false
 	if session.state.is_won():
+		_queued_taps.clear()
 		_celebrate()
 	else:
 		_watch_stuck()
+		_drain_taps()
 
 func _on_undo() -> void:
 	if busy or not session.undo():
 		return
+	_cancel_playback()
+	sync_inventory()
 	_hide_hint()
 	_prefetch_hint()
 	Sound.play("undo")
 	busy = true
-	_hide_bubble()
 	_layout_branches()
-	await sync_birds()
-	refresh_hud()
-	busy = false
-	_watch_stuck()
+	await _finish_action(_playback_id)
 
 func _on_tool(kind: int) -> void:
 	if busy:
@@ -1219,25 +1343,27 @@ func _on_tool(kind: int) -> void:
 		_hint()
 		return
 	if session.state.inventory[kind] == 0:
+		suspend_input()
 		buy_requested.emit(kind)
 		return
+	_cancel_hint_request()
+	_queued_taps.clear()
 	_hide_hint()
+	var playback := _playback_id
 	busy = true
 	var result := session.use_booster(kind)
 	if result.get("applied", false):
-		profile.inventory[kind] = session.state.inventory[kind]
 		profile.set_tutorial(Progress.used_flag(kind))
-		profile_changed.emit()
+		sync_inventory()
 		_prefetch_hint()
 		Sound.play(BOOSTER_SOUND[kind])
 		await play_events(session.events.duplicate())
 	else:
 		Sound.play("error")
+	if playback != _playback_id:
+		return
 	_layout_branches()
-	await sync_birds()
-	refresh_hud()
-	busy = false
-	_watch_stuck()
+	await _finish_action(playback)
 
 ## Hints are searched in the background (worker thread) as soon as a level starts and after every move,
 ## undo or booster, and cached by search key, so a press shows the hand at once. The background search has
@@ -1251,6 +1377,7 @@ func _hint() -> void:
 		show_hint(_hint_moves[key])
 		return
 	if session.state.inventory[Board.Booster.FIREFLY] == 0:
+		suspend_input()
 		buy_requested.emit(Board.Booster.FIREFLY)
 		return
 	_hint_press_usec = Time.get_ticks_usec()
@@ -1258,24 +1385,30 @@ func _hint() -> void:
 		_log_hint("cached")
 		_apply_hint(_hint_moves[key])
 		return
-	# The background search is still running: show the spinner until it lands.
+	if _hint_failures.has(key) and _hint_failures[key] == Solver.Status.BUDGET_EXCEEDED:
+		_hint_failures.erase(key)   # the retry icon promises another search
+	if _hint_failures.has(key):
+		_show_hint_failure(_hint_failures[key])
+		Sound.play("error")
+		return
+	# Only Hint waits. A move cancels this request without consuming a Firefly.
 	_hide_hint()
-	busy = true
 	_hint_waiting = true
+	_hint_request_key = key
 	_prefetch_hint()
 	_build_tools()
 
 ## Starts a background search for the current board unless its hint is cached or already being searched.
 ## A search for an older board is cancelled; _poll_hint starts the current one when it has stopped.
 func _prefetch_hint() -> void:
-	if session == null or session.state.is_won():
+	if session == null:
 		return
 	var key := session.state.search_key(false)
-	if _hint_moves.has(key):
-		return
 	if _hint_thread:
-		if _hint_task_key != key:
+		if _hint_task_key != key or session.state.is_won():
 			_hint_cancel[0] = true
+		return
+	if session.state.is_won() or _hint_moves.has(key) or _hint_failures.has(key):
 		return
 	var snapshot := session.state.clone()
 	var last := session.last_move.duplicate()
@@ -1300,29 +1433,29 @@ func _poll_hint() -> void:
 	var found := _hint_result
 	_hint_result = {}
 	var source := "search"
-	if found.get("status", -1) == Solver.Status.SOLVED and not found["moves"].is_empty():
+	if _hint_cancel[0]:
+		source = "cancelled"
+	elif found.get("status", -1) == Solver.Status.SOLVED and not found["moves"].is_empty():
 		_hint_moves.merge(found["continuation"], true)
 	elif not found.get("fallback", []).is_empty():
 		_hint_moves[_hint_task_key] = found["fallback"]
 		source = "fallback"
-	elif _hint_cancel[0]:
-		source = "cancelled"
+	else:
+		_hint_failures[_hint_task_key] = found["status"]
+		source = "failed"
 	if OS.is_debug_build():
 		print("HINT_SEARCH level=%d result=%s search_ms=%.1f" % [session.state.level_id, source, (Time.get_ticks_usec() - _hint_task_usec) / 1000.0])
 	var key := session.state.search_key(false)
-	if _hint_waiting and key == _hint_task_key and not _hint_moves.has(key) and not _hint_cancel[0]:
-		# Searched this very board and no legal move exists.
-		_hint_waiting = false
-		busy = false
-		refresh_hud()
-		_show_hint_failure(found.get("status", Solver.Status.UNSOLVABLE))
-		Sound.play("error")
-		return
-	if _hint_waiting and _hint_moves.has(key):
-		_hint_waiting = false
-		busy = false
-		_log_hint(source)
-		_apply_hint(_hint_moves[key])
+	if _hint_waiting and key == _hint_request_key and not busy:
+		if _hint_moves.has(key):
+			_cancel_hint_request()
+			_log_hint(source)
+			_apply_hint(_hint_moves[key])
+		elif _hint_failures.has(key):
+			_cancel_hint_request()
+			_build_tools()
+			_show_hint_failure(_hint_failures[key])
+			Sound.play("error")
 	_prefetch_hint()
 
 ## Debug timing evidence: press to hand shown.
@@ -1339,9 +1472,7 @@ func _release_hint_task() -> void:
 	_hint_result = {}
 
 func _show_hint_loading() -> void:
-	for tool in _tool_bar.get_children():
-		if tool is Button:
-			UI.set_active(tool, false)
+	UI.set_active(_hint_button, false)
 	_hint_button.modulate.a = 1.0
 	_hint_button.get_node("Icon").hide()
 	var spinner := Node2D.new()
@@ -1369,9 +1500,8 @@ func _apply_hint(move: Array) -> void:
 	if not session.try_use_firefly(move):
 		return
 	_shown_hint_key = session.state.search_key(false)
-	profile.inventory[Board.Booster.FIREFLY] = session.state.inventory[Board.Booster.FIREFLY]
 	profile.set_tutorial(Progress.used_flag(Board.Booster.FIREFLY))
-	profile_changed.emit()
+	sync_inventory()
 	Sound.play("hint")
 	refresh_hud()
 	show_hint(move)
@@ -1416,11 +1546,14 @@ func _hide_hint() -> void:
 func play_events(events: Array) -> void:
 	if instant:
 		return
+	var playback := _playback_id
 	# Homings continue the board's chain of consecutive homing moves (the chorus chain), so a second flock in a
 	# row, in this move or the one before, sounds higher.
 	var homes := events.filter(func(e): return e["type"] == "flock_home").size()
 	_home_chain = maxi(0, session.state.chain - homes)
 	for e in events:
+		if playback != _playback_id:
+			return
 		match e["type"]:
 			"transferred", "chicks_followed":
 				await _fly_group(e)
@@ -1474,8 +1607,6 @@ func play_events(events: Array) -> void:
 				for bird in _birds.values():
 					if is_instance_valid(bird):
 						bird.set_sleep(session.state.is_asleep(bird.code))
-				if tw:
-					await tw.finished
 			"won":
 				pass
 
@@ -1494,13 +1625,14 @@ func _fly_group(e: Dictionary) -> void:
 		var bird: BirdView = _birds.get(flights[k][0])
 		if bird == null:
 			continue
-		bird.fly_to(seat_point(to, flights[k][1]), k * 0.07, 0.45)
+		bird.fly_to(seat_point(to, flights[k][1]), k * MOVE_STAGGER_SECONDS, MOVE_FLIGHT_SECONDS,
+			false, false, null, BirdView.WING_SILENT, MOVE_LANDING_SECONDS)
 		last = bird
 	Sound.play("move")
 	if last:
-		# The first bird touches down after its crouch (0.06 s) and flight (0.45 s): the branch takes the weight.
-		var touch := create_tween()
-		touch.tween_interval(0.51)
+		# The branch takes the first bird's weight at touchdown.
+		var touch := _playback_tween()
+		touch.tween_interval(BirdView.TAKEOFF_SECONDS + MOVE_FLIGHT_SECONDS)
 		touch.tween_callback(func():
 			Sound.vibrate(Sound.PULSE_LAND)
 			_dip_branch(to))
@@ -1564,6 +1696,7 @@ func _door_point() -> Vector2:
 	return _door_rect.get_center()
 
 func _flock_home(e: Dictionary) -> void:
+	var playback := _playback_id
 	var ids: PackedInt32Array = e["ids"]
 	_door(1.0, 0.2)
 	var last: BirdView = null
@@ -1572,12 +1705,17 @@ func _flock_home(e: Dictionary) -> void:
 		if bird == null:
 			continue
 		_birds.erase(ids[ids.size() - 1 - k])
+		_homing_birds[ids[ids.size() - 1 - k]] = bird
 		# Approach in front of the house; clipping starts only once the bird fits inside its doorway.
 		bird.reparent(_hud)
 		bird.fly_to(_door_point(), k * 0.12, FLOCK_FLIGHT_SECONDS, true, false, _door_mask)
 		last = bird
 	if last:
 		await last.finished
+	if playback != _playback_id:
+		return
+	for id in ids:
+		_homing_birds.erase(id)
 	# The high point: each further homing in one move chain sounds a whole tone higher.
 	_home_chain += 1
 	var pitch := pow(2.0, HOME_PITCH_STEP * mini(_home_chain - 1, HOME_PITCH_MAX) / 12.0)
@@ -1590,25 +1728,27 @@ func _flock_home(e: Dictionary) -> void:
 	_sparkle_burst(_door_point())
 	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
 	_house.pivot_offset = Vector2(_house.size.x * 0.5, 0.0)
-	var rest_y := _house.position.y
-	var tw := create_tween()
+	var rest_y := _house_rect().position.y
+	var tw := _playback_tween()
 	tw.tween_property(_house, "scale", Vector2(1.12, 0.88), 0.08).set_ease(Tween.EASE_OUT)
 	tw.parallel().tween_property(_house, "position:y", rest_y - 14.0, 0.08).set_ease(Tween.EASE_OUT)
 	tw.tween_property(_house, "scale", Vector2(0.94, 1.07), 0.1).set_trans(Tween.TRANS_SINE)
 	tw.parallel().tween_property(_house, "position:y", rest_y, 0.1).set_trans(Tween.TRANS_SINE)
 	tw.tween_property(_house, "scale", Vector2.ONE, 0.17).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_glow.pivot_offset = _glow.size * 0.5
-	var glow := create_tween()
+	var glow := _playback_tween()
 	glow.tween_property(_glow, "modulate:a", 0.95, 0.12)
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE * 1.2, 0.3).from(Vector2.ONE * 0.9).set_ease(Tween.EASE_OUT)
 	glow.tween_property(_glow, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE, 0.5)
 	var goal: Control = _goal_nodes.get(e["species"])
 	if goal:
-		var pop := create_tween()
+		var pop := _playback_tween()
 		pop.tween_property(goal, "scale", Vector2.ONE * 1.25, 0.12)
 		pop.tween_property(goal, "scale", Vector2.ONE, 0.2)
 	await tw.finished
+	if playback != _playback_id:
+		return
 	await _door(0.0, 0.25)
 
 ## Every flock takes the same time to reach the house on every level, whatever the distance.
@@ -1631,7 +1771,7 @@ func _sparkle_burst(at: Vector2) -> void:
 		spark.position = at
 		var size := (46.0 if i % 2 == 0 else 32.0) / float(tex.get_width())
 		spark.scale = Vector2.ONE * size * 0.3
-		_hud.add_child(spark)
+		_home_effects.add_child(spark)
 		var dir := Vector2.from_angle(TAU * i / SPARKLES + 0.2)
 		var reach := 150.0 if i % 2 == 0 else 112.0
 		var tw := spark.create_tween().set_parallel()
@@ -1645,7 +1785,7 @@ func _sparkle_burst(at: Vector2) -> void:
 func _door(open: float, seconds: float) -> void:
 	if _door_open == null:
 		return
-	var tw := create_tween()
+	var tw := _playback_tween()
 	tw.tween_property(_door_open, "modulate:a", open, seconds)
 	await tw.finished
 
@@ -1680,7 +1820,7 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.freeze()
 	elif rise:
 		_resident.position.y = feet.y + 90.0
-		create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		_resident.create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## The ability badge of a delivered flock flies from the doorway to its goal circle (never over the birds below).
 func _gift(e: Dictionary) -> void:
@@ -1688,7 +1828,7 @@ func _gift(e: Dictionary) -> void:
 	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
 	coin.position = _door_point()
 	coin.scale = Vector2.ONE * 0.2
-	add_child(coin)
+	_home_effects.add_child(coin)
 	Sound.play("collect")
 	var goal: Control = _goal_nodes.get(e["species"])
 	var target := coin.position
@@ -1697,7 +1837,7 @@ func _gift(e: Dictionary) -> void:
 		target = goal.position + goal.size * 0.8
 		small = 0.46 * goal.size.x / float(coin.texture.get_width())
 	var big := 0.8 * GOAL / float(coin.texture.get_width())
-	var tw := create_tween()
+	var tw := coin.create_tween()
 	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_interval(0.15)
 	tw.tween_property(coin, "position", target, 0.3).set_ease(Tween.EASE_IN_OUT)
@@ -1707,10 +1847,13 @@ func _gift(e: Dictionary) -> void:
 	coin.queue_free()
 
 func _celebrate() -> void:
+	var playback := _playback_id
 	busy = true
 	_last_won = int(level["id"])
 	Sound.play("win_fanfare")
 	await get_tree().create_timer(0.4 if not instant else 0.0).timeout
+	if playback != _playback_id:
+		return
 	won.emit({"session": session})
 
 ## Called after a booster purchase.

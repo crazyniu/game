@@ -1,20 +1,19 @@
 {
   "locale": "zh",
   "font": {
-    "file": "../fonts/zcool_kuaile.ttf",
+    "file": "../fonts/noto_sans_sc_bold.otf",
     "variable_weight": false,
     "weights": {
-      "title": 0,
-      "name": 0,
-      "numbers": 0
+      "title": 700,
+      "name": 700,
+      "numbers": 700
     }
   },
   "metrics": {
     "cap": 128,
     "line_height": 208,
     "baseline": 160,
-    "padding": 8,
-    "embolden": 3
+    "padding": 8
   },
   "number_font": {
     "file": "../fonts/nunito.ttf",
@@ -189,14 +188,17 @@
     "lesson.growing.line": "每回家一群就多一个位置",
     "lesson.daynight.title": "黑夜",
     "lesson.daynight.line": "猫头鹰睡到天黑才醒",
-    "challenge.title": "每日",
-    "home.daily": "每日",
+    "challenge.title": "每日挑战",
+    "home.daily": "每日挑战",
     "tab.boosters": "道具",
     "tab.outfits": "装扮",
     "tab.houses": "小屋",
     "map.chapters": "章节",
     "map.current": "当前",
     "chapter.word": "章节",
-    "chapter.levels": "关卡"
+    "chapter.levels": "关卡",
+    "house.cage.name": "鸟笼",
+    "settings.language": "语言",
+    "settings.language_name": "中文"
   }
 }

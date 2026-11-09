@@ -132,6 +132,7 @@ if ($boostProfile) {
     $levels = 100
     # Older saves number their levels differently: move the records as the game would, before opening the levels.
     $profileSource = [IO.File]::ReadAllText((Join-Path $project 'meta\profile.gd'), $utf8)
+    $currentSchema = [int][regex]::Match($profileSource, 'const SCHEMA_VERSION := (\d+)').Groups[1].Value
     function Get-LevelTable($name) {
         $body = [regex]::Match($profileSource, $name + ' := \{(.*?)\}').Groups[1].Value
         $moves = @{}
@@ -140,13 +141,13 @@ if ($boostProfile) {
     }
 
     # No save yet counts as the current schema; a save without the field is schema 1.
-    $schema = 3
+    $schema = $currentSchema
     if (Test-Path $profilePath) {
         $schema = if ($profile.PSObject.Properties['schemaVersion']) { [int]$profile.schemaVersion } else { 1 }
     }
     $coins = if ($profile.PSObject.Properties['coins']) { [long]$profile.coins } else { 0 }
     Set-Field $profile 'coins' ([Math]::Max($coins, 50000))
-    foreach ($step in @(@(2, 'LEVEL_RENUMBER'), @(3, 'LEVEL_EXPANSION'))) {
+    foreach ($step in @(@(2, 'LEVEL_RENUMBER'), @(3, 'LEVEL_EXPANSION'), @(4, 'LEVEL_DIFFICULTY'))) {
         if ($schema -ge $step[0]) { continue }
         $moves = Get-LevelTable $step[1]
         foreach ($field in 'bestStars', 'clearCounts', 'bestMoves') {
@@ -158,8 +159,15 @@ if ($boostProfile) {
             }
             Set-Field $profile $field $new
         }
+        $gifts = @()
+        if ($profile.PSObject.Properties['levelGifts']) {
+            foreach ($level in @($profile.levelGifts)) {
+                if ($moves.ContainsKey([int]$level)) { $gifts += $moves[[int]$level] }
+            }
+        }
+        Set-Field $profile 'levelGifts' $gifts
     }
-    Set-Field $profile 'schemaVersion' 3
+    Set-Field $profile 'schemaVersion' $currentSchema
     Set-Field $profile 'highestUnlockedLevel' $levels
     # The game's existing unlock rule requires a star on each preceding level.
     foreach ($field in 'bestStars', 'clearCounts') {

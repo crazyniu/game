@@ -16,17 +16,23 @@ const CHEST_BOOSTERS := 3
 ## A day's draws are the check-in streak day (1..7) up to DRAW_MAX_SPINS; the streak restarts after a missed day or day 7.
 const DRAW_PRIZES := [[40, 0], [80, 0], [0, 1], [120, 0], [200, 0], [0, 2], [60, 0], [400, 0]]
 const DRAW_MAX_SPINS := 5
-## [booster index, id, unlock level, price, starter count]
+## [booster index, id, general-tool unlock level, price, starter count]. Mechanic tools unlock at their first fitting puzzle.
 const BOOSTERS := [
-	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 7, 80, 2],
-	[3, "morningBell", 12, 80, 2], [4, "scarecrow", 32, 100, 2], [5, "springRain", 52, 100, 2],
+	[0, "firefly", 2, 30, 3], [1, "sapling", 4, 60, 2], [2, "owlEye", 0, 80, 2],
+	[3, "morningBell", 0, 80, 2], [4, "scarecrow", 0, 100, 2], [5, "springRain", 0, 100, 2],
 ]
+static var _booster_levels := PackedInt32Array()
 const WORLD_NAMES: PackedStringArray = ["", "Green Forest", "Bamboo Forest", "Autumn Forest", "Snow Forest", "Blossom Forest",
 	"Mushroom Forest", "Lakeside Forest", "Misty Pine Forest", "Rainforest", "Wisteria Forest"]
 
 
 static func booster_unlock_level(kind: int) -> int:
-	return BOOSTERS[kind][2]
+	if _booster_levels.is_empty():
+		_booster_levels = PackedInt32Array([BOOSTERS[0][2], BOOSTERS[1][2], Levels.COUNT + 1, Levels.COUNT + 1, Levels.COUNT + 1, Levels.COUNT + 1])
+		for level in Levels.all():
+			for fitting in fitting_boosters(level):
+				_booster_levels[fitting] = mini(_booster_levels[fitting], int(level["id"]))
+	return _booster_levels[kind]
 
 static func booster_price(kind: int) -> int:
 	return BOOSTERS[kind][3]
@@ -35,7 +41,7 @@ static func world_of_level(level: int) -> int:
 	return (level - 1) / Levels.PER_WORLD + 1
 
 static func is_world_unlocked(p: Profile, world: int) -> bool:
-	if world == 1 or p.best_stars((world - 1) * Levels.PER_WORLD) > 0:
+	if (world - 1) * Levels.PER_WORLD + 1 <= p.highest_unlocked or p.best_stars((world - 1) * Levels.PER_WORLD) > 0:
 		return true
 	# A migrated save can hold cleared levels further on; those worlds stay open.
 	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
@@ -44,7 +50,7 @@ static func is_world_unlocked(p: Profile, world: int) -> bool:
 	return false
 
 static func is_level_unlocked(p: Profile, level: int) -> bool:
-	return level == 1 or p.best_stars(level) > 0 or (is_world_unlocked(p, world_of_level(level)) and p.best_stars(level - 1) > 0)
+	return level <= p.highest_unlocked or p.best_stars(level) > 0 or (is_world_unlocked(p, world_of_level(level)) and p.best_stars(level - 1) > 0)
 
 static func is_world_complete(p: Profile, world: int) -> bool:
 	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
@@ -53,7 +59,7 @@ static func is_world_complete(p: Profile, world: int) -> bool:
 	return true
 
 static func is_booster_unlocked(p: Profile, kind: int) -> bool:
-	return p.highest_unlocked >= booster_unlock_level(kind)
+	return p.starters.has(kind) or p.inventory[kind] > 0 or p.highest_unlocked >= booster_unlock_level(kind)
 
 ## Grants each unlocked booster's starter stock once. Returns the granted booster indices.
 static func grant_starter_gifts(p: Profile) -> Array:
@@ -65,14 +71,6 @@ static func grant_starter_gifts(p: Profile) -> Array:
 			p.starters[kind] = true
 			granted.append(kind)
 	return granted
-
-## World default booster for the level card and tool bar context slot.
-static func world_booster_for(level: int) -> int:
-	if level <= 10:
-		return Board.Booster.OWL_EYE
-	if level <= 30:
-		return Board.Booster.MORNING_BELL
-	return Board.Booster.SCARECROW if level <= 50 else Board.Booster.SPRING_RAIN
 
 static func stars_for_moves(counted: int, par: int) -> int:
 	return GameSession.stars_for(counted, par)
@@ -141,16 +139,22 @@ static func win_drops(p: Profile, level: int, stars: int, first_clear: bool, nex
 ## Boosters that help with a level's mechanics: sleepers -> Morning Bell, eggs -> Owl Eye, crows -> Scarecrow,
 ## growing branches -> Spring Rain. Empty for a plain level or an empty definition.
 static func fitting_boosters(def: Dictionary) -> Array:
-	var text := JSON.stringify(def.get("branches", []))
+	var fitting := {}
+	for branch in def.get("branches", []):
+		if branch.get("kind", "") == "growing" and int(branch.get("seats", 0)) < int(def["capacity"]):
+			fitting[Board.Booster.SPRING_RAIN] = true
+		for token in branch["birds"]:
+			var bird := str(token)
+			if bird.ends_with(":sleep"):
+				fitting[Board.Booster.MORNING_BELL] = true
+			elif bird.begins_with("egg:"):
+				fitting[Board.Booster.OWL_EYE] = true
+			elif bird == "crow":
+				fitting[Board.Booster.SCARECROW] = true
 	var out := []
-	if text.contains(":sleep"):
-		out.append(Board.Booster.MORNING_BELL)
-	if text.contains("egg"):
-		out.append(Board.Booster.OWL_EYE)
-	if text.contains("crow"):
-		out.append(Board.Booster.SCARECROW)
-	if text.contains("growing"):
-		out.append(Board.Booster.SPRING_RAIN)
+	for kind in [Board.Booster.MORNING_BELL, Board.Booster.OWL_EYE, Board.Booster.SCARECROW, Board.Booster.SPRING_RAIN]:
+		if fitting.has(kind):
+			out.append(kind)
 	return out
 
 ## The booster a level start points at: one the player holds, that helps here, and that was never used yet.

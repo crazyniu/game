@@ -86,6 +86,7 @@
     "house.beehive.name": "Beehive",
     "house.teacup.name": "Teacup",
     "house.pinecone.name": "Pinecone",
+    "house.cage.name": "Cage",
     "outfit.sunny.1.name": "Straw Hat",
     "outfit.sunny.2.name": "Bow Tie",
     "outfit.sunny.3.name": "Crown",
@@ -196,6 +197,8 @@
     "map.chapters": "Chapters",
     "map.current": "Current",
     "chapter.word": "Chapter",
-    "chapter.levels": "Levels"
+    "chapter.levels": "Levels",
+    "settings.language": "Language",
+    "settings.language_name": "English"
   }
 }
