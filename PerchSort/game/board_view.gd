@@ -646,7 +646,8 @@ const HOUSES := {
 	"pumpkin": ["house_style_pumpkin_body", Rect2(49, 37, 413, 423), Rect2(148, 205, 204, 199), 37.0],
 	"beehive": ["house_style_beehive_body", Rect2(54, 53, 401, 403), Rect2(148, 205, 204, 199), 53.0],
 	"teacup": ["house_style_teacup_body", Rect2(83, 136, 389, 324), Rect2(165, 221, 170, 169), 136.0],
-	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0]}
+	"pinecone": ["house_style_pinecone_body", Rect2(59, 14, 390, 441), Rect2(148, 205, 204, 199), 14.0],
+	"cage": ["house_style_cage_body", Rect2(58, 28, 390, 430), Rect2(150, 205, 204, 200), 28.0]}
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
@@ -697,6 +698,12 @@ func _build_hud() -> void:
 	UI.place(_house, hr)
 	_hud.add_child(_house)
 	UI.art(_house, spec[0], Rect2(Vector2.ZERO, hr.size), content)
+	if profile.equipped_house == "cage":
+		# The birdcage never hangs still: it sways on its rope about the ring on top, easing at both ends.
+		_house.pivot_offset = Vector2(hr.size.x * 0.5, 0.0)
+		var sway := _house.create_tween().set_loops()
+		sway.tween_property(_house, "rotation", deg_to_rad(2.6), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sway.tween_property(_house, "rotation", deg_to_rad(-2.6), 1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	# The doorway is dark until a species is delivered; the resident then looks out of it.
 	var door: Rect2 = spec[2]
 	var opening := Rect2((door.position - content.position) * k, door.size * k)

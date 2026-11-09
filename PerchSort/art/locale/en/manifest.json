@@ -1233,6 +1233,13 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "house.cage.name": {
+      "text": "Cage",
+      "file": "label_house_cage_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {
