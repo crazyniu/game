@@ -69,6 +69,28 @@ static func _padded_texture(path: String, source: Texture2D, extra := 0) -> Text
 	return _padded[key]
 
 
+## The locale whose painted words are showing: the engine locale when a pack exists for it, else the default.
+static func locale() -> String:
+	_load_catalog()
+	var code := TranslationServer.get_locale()
+	var available: Dictionary = _catalog["locales"]
+	if not available.has(code):
+		code = code.get_slice("_", 0)
+	return code if available.has(code) else str(_catalog["default_locale"])
+
+static func _load_catalog() -> void:
+	if _catalog.is_empty():
+		_catalog = JSON.parse_string(FileAccess.get_file_as_string(ROOT + "catalog.json"))
+
+## A baked page (document) of the current locale.
+static func page(id: String) -> Texture2D:
+	return load("%s%s/doc_%s.png" % [ROOT, locale(), id])
+
+## The player's language choice; "" leaves the device language in charge.
+static func set_language(code: String) -> void:
+	if not code.is_empty():
+		TranslationServer.set_locale(code)
+
 static func _load_pack() -> void:
 	if _catalog.is_empty():
 		_catalog = JSON.parse_string(FileAccess.get_file_as_string(ROOT + "catalog.json"))

@@ -93,7 +93,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var row := 104.0
-	var heights := [row, row, row]
+	var heights := [row, row, row, row]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(PILL_H)
@@ -117,6 +117,11 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		if on.has("vibration"):
 			on["vibration"].call(value)
 		Sound.vibrate(Sound.PULSE_LAND))
+	g += 1
+	# Language: the pill shows the language now in use; tapping switches to the other one.
+	_row_label(c, "settings.language", Vector2(left, ys[g] + row * 0.5))
+	UI.pill(c, "Language", Rect2(right - 300.0, ys[g] + (row - 88.0) * 0.5, 300.0, 88.0), "green", "settings.language_name",
+		func(): on["language"].call(), "", 40.0)
 	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
@@ -163,7 +168,7 @@ static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable)
 
 ## A document page (privacy policy, terms of service, credits, contact): the baked text in a scrolling column.
 static func document(host: Control, id: String) -> Control:
-	var page: Texture2D = load("res://art/locale/en/doc_%s.png" % id)
+	var page: Texture2D = UiText.page(id)
 	var column := 864.0 - 144.0
 	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
 	var p := Modal.open(host, "doc.%s.title" % id, [view_h], true, 0.0, 0.0, _instant(host), true)
@@ -174,7 +179,7 @@ static func document(host: Control, id: String) -> Control:
 	UI.place(clip, Rect2(p.panel_rect.position.x + 72.0, ys[0], p.panel_rect.size.x - 144.0, view_h))
 	p.content.add_child(clip)
 	var text := TextureRect.new()
-	text.texture = load("res://art/locale/en/doc_%s.png" % id)
+	text.texture = page
 	text.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	text.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var k := clip.size.x / float(text.texture.get_width())

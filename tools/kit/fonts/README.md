@@ -27,3 +27,5 @@ Append `--numbers-only` to regenerate the 17 numeral/symbol cells and their mani
 Append `--labels-only hud.level` to regenerate only that complete label and its manifest entry. This preserves all other labels and numeral cells.
 
 Source catalogs in `tools/kit/locales/` declare `font` and `number_font` paths relative to the catalog and can include explicit `\n` line breaks in phrases. The renderer shapes each complete phrase through Pillow's RAQM layout engine and writes white ink on transparency. Labels retain their line metrics. Numerals use a separate 128 px ink-height canvas, a common digit baseline and equal digit advances; symbols have proportional advances and are centred within the digit band.
+
+`noto_sans_sc_bold.otf` is the Simplified Chinese face of Noto Sans CJK Bold (Google and Adobe, SIL Open Font License 1.1; see `OFL.txt`), cut down to the characters the zh locale uses by `tools/kit/subset_cjk_font.py` (needs fonttools and the system `NotoSansCJK-Bold.ttc`). Re-run it after adding Chinese phrases. Used only by the offline builders.

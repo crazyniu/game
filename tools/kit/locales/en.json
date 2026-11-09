@@ -197,6 +197,8 @@
     "map.chapters": "Chapters",
     "map.current": "Current",
     "chapter.word": "Chapter",
-    "chapter.levels": "Levels"
+    "chapter.levels": "Levels",
+    "settings.language": "Language",
+    "settings.language_name": "English"
   }
 }

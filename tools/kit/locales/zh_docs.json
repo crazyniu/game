@@ -1,0 +1,18 @@
+{
+  "privacy": {
+    "title": "隐私政策",
+    "body": "Perch Sort是一款在你自己设备上玩的游戏。\n\n我们收集什么：什么都不收集。游戏不需要账号，不收集个人信息，也不使用广告、统计或跟踪。\n\n留在你设备上的内容：你的进度、金币、道具、服装和设置保存在设备上的一个文件里，方便你下次接着玩。这个文件不会被发送到任何地方。删除游戏就会删除它。\n\n儿童：游戏适合所有年龄的人，不会向任何人（包括儿童）收集信息。\n\n变更：如果未来的版本加入了任何会处理个人数据的功能，我们会在该版本发布前更新本政策，你可以在这里看到新的政策。\n\n问题：请通过游戏商店页面上的联系方式与我们联系。"
+  },
+  "terms": {
+    "title": "服务条款",
+    "body": "欢迎来到Perch Sort。开始游玩即表示你同意以下条款。\n\n你的许可：你可以为个人、非商业的娱乐目的玩这款游戏。请不要复制、出售、修改或再分发游戏及其美术和声音。\n\n金币和道具：金币、道具、服装和小屋都是游戏的一部分。它们没有现实货币价值，不能兑换成钱，只存在于你设备上的游戏里。\n\n公平游戏：请不要篡改游戏或它的存档文件，否则可能会损坏你的进度。\n\n无担保：游戏按现状提供。我们努力让它有趣又可靠，但不能保证它永远没有错误。\n\n变更：这些条款可能会随游戏的新版本更新。这里始终显示当前的条款。\n\n联系：请通过游戏商店页面上的联系方式与我们联系。"
+  },
+  "credits": {
+    "title": "制作",
+    "body": "Perch Sort\n一款温馨的小鸟分类益智游戏。\n\n使用 Godot 引擎制作。\nGodot 引擎以 MIT 许可发布：\nCopyright (c) 2014-present Godot Engine contributors.\nCopyright (c) 2007-2014 Juan Linietsky, Ariel Manzur.\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the software without restriction. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the software. The software is provided \"as is\", without warranty of any kind.\n\n字体：\nLilita One，作者 Juan Montoreano，SIL 开放字体许可 1.1。\nNunito，作者 Vernon Adams、Cyreal 和 Jacques Le Bailly，SIL 开放字体许可 1.1。\n思源黑体（Noto Sans SC），作者 Google 和 Adobe，SIL 开放字体许可 1.1。\n\n感谢你的游玩！"
+  },
+  "contact": {
+    "title": "联系我们",
+    "body": "我们很想听到你的声音。\n\n如有问题、想法或故障，请通过游戏商店页面上的联系方式联系我们。请告诉我们发生了什么，如果可以，也告诉我们你玩到了哪一关。\n\n感谢你帮助我们把Perch Sort做得更好！"
+  }
+}

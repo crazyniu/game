@@ -22,10 +22,10 @@ const SEATS := [Vector2(492, 934), Vector2(590, 934), Vector2(742, 706), Vector2
 const BIRD_SCALE := 1.3
 const BIRD_COUNT := 3
 const PLAY := Rect2(200, 1150, 680, 184)
-const TILE := Vector2(252, 208)
-const TOP_ROW_Y := 1384.0
-const NAV_Y := 1652.0
-const NAV_GAP := 10.0
+const TILE := Vector2(206, 206)       # icon tiles, all one size
+const TOP_ROW_Y := 1372.0
+const NAV_Y := 1648.0
+const NAV_GAP := 30.0
 const FLIT_EVERY := 6.0
 
 var profile: Profile
@@ -49,22 +49,22 @@ func setup(p: Profile) -> void:
 	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
 	UI.art_button(self, "Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
 	var level := _next_level()
-	UI.art_button(self, "Play", "home_button_play", PLAY, func(): play_requested.emit(level))
+	var play := UI.art_button(self, "Play", "home_play_plate", PLAY, func(): play_requested.emit(level))
+	UI.label(play, "action.play", Rect2(PLAY.size.x * 0.2, 14.0, PLAY.size.x * 0.6, PLAY.size.y - 40.0), 92.0, Color.WHITE)
 	var left_edge := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
 	var top := [["Daily", "daily", challenge_requested], ["LuckyDraw", "lucky_draw", lucky_draw_requested]]
 	for i in top.size():
 		var r := Rect2(left_edge + (1 + i) * (TILE.x + NAV_GAP), TOP_ROW_Y, TILE.x, TILE.y)   # columns 2 and 3 of the bottom row
-		var tb := UI.art_button(self, top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
+		var tb := UI.icon_tile(self, top[i][0], "home_icon_" + top[i][1], r, (top[i][2] as Signal).emit)
 		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(tb, "1")
 		elif top[i][0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
 			_badge(tb, "1")
 	var places := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
 		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]
-	var left := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
 	for i in places.size():
-		var nb := UI.art_button(self, places[i][0], "home_button_" + places[i][1], Rect2(left + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y),
-			(places[i][2] as Signal).emit)
+		var nb := UI.icon_tile(self, places[i][0], "home_icon_" + places[i][1],
+			Rect2(left_edge + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y), (places[i][2] as Signal).emit)
 		if places[i][0] == "Chest" and Progress.chests_ready(profile) > 0:
 			_badge(nb, str(Progress.chests_ready(profile)))
 	if not instant:

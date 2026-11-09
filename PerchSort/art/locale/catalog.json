@@ -1,6 +1,7 @@
 {
   "default_locale": "en",
   "locales": {
-    "en": "en/manifest.json"
+    "en": "en/manifest.json",
+    "zh": "zh/manifest.json"
   }
 }

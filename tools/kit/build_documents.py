@@ -25,8 +25,9 @@ def wrap(draw, text, font):
             lines.append("")
             continue
         line = ""
-        for word in para.split(" "):
-            trial = (line + " " + word).strip()
+        cjk = any(ord(ch) > 0x2E80 for ch in para)
+        for word in (para if cjk else para.split(" ")):   # Chinese breaks between any two characters
+            trial = (line + word) if cjk else (line + " " + word).strip()
             if draw.textlength(trial, font=font) <= WIDTH:
                 line = trial
             else:
@@ -40,8 +41,11 @@ def main():
     locale = sys.argv[1] if len(sys.argv) > 1 else "en"
     docs = json.loads((ROOT / "tools/kit/locales" / f"{locale}_docs.json").read_text(encoding="utf-8"))
     out = ROOT / "PerchSort/art/locale" / locale
-    body = ImageFont.truetype(str(ROOT / "tools/kit/fonts/nunito.ttf"), SIZE, layout_engine=ImageFont.Layout.RAQM)
-    body.set_variation_by_axes([700])
+    if locale == "zh":
+        body = ImageFont.truetype(str(ROOT / "tools/kit/fonts/noto_sans_sc_bold.otf"), SIZE, layout_engine=ImageFont.Layout.RAQM)
+    else:
+        body = ImageFont.truetype(str(ROOT / "tools/kit/fonts/nunito.ttf"), SIZE, layout_engine=ImageFont.Layout.RAQM)
+        body.set_variation_by_axes([700])
     probe = ImageDraw.Draw(Image.new("L", (10, 10)))
     for doc_id, doc in docs.items():
         lines = wrap(probe, doc["body"], body)

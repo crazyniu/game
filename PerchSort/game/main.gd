@@ -29,6 +29,9 @@ func _ready() -> void:
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
 	Sound.vibration = profile.vibration
+	UiText.set_language(profile.language)
+	if args.has("lang"):
+		UiText.set_language(args["lang"])   # captures and tests: --lang=zh
 	ambient = Ambient.new()
 	ambient.still = instant()
 	add_child(ambient)
@@ -390,6 +393,12 @@ func show_settings(on_board: bool) -> void:
 			_clear_popups()
 			_open_home()),
 		"help": func(): Tutorial.open(popups, Callable(), instant()),
+		"language": func():
+			profile.language = "zh" if UiText.locale() == "en" else "en"
+			UiText.set_language(profile.language)
+			save()
+			_clear_popups()
+			show_settings(on_board),
 	}, on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:
