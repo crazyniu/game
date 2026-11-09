@@ -1,0 +1,11 @@
+Paint one home-screen tile button for a cozy mobile bird puzzle game, matching the two reference tiles exactly in style:
+same rounded-rectangle shape and proportions (about 371x305), same thick soft lime-green rim, same warm cream inside,
+same soft painted 3D look, same calm colours (not over-bright), and the label set in the same chunky dark-brown rounded
+lettering at the same size and position along the bottom.
+
+Content: the icon is a cheerful wrapped gift box with a red ribbon bow and two or three small golden sparkles around it,
+centred in the upper part of the tile, the same size as the calendar icon in the reference. The label reads exactly
+"Lucky Draw" on one line, spelled exactly so, centred, fully inside the cream area and never touching the green rim.
+
+Output: only this one tile on a fully transparent background (real alpha), nothing else, no shadow on the background,
+landscape, at least 1100 px wide.
