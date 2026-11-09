@@ -17,8 +17,8 @@ signal challenge_requested
 ## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
 const LOGO := Rect2(100, 90, 880, 560)    # a big title alone in the sky; the birdhouse stands on the branch below
 const SETTINGS := Rect2(904, 44, 124, 124)
-## Seats in the painted birdhouse (home_clearing_soft: house on the branch right of centre): two on the shelf, two on the roof slopes.
-const SEATS := [Vector2(595, 1014), Vector2(690, 1014), Vector2(795, 772), Vector2(500, 786)]
+## Seats in the painted birdhouse (home_clearing_soft: house centred on the branch): two on the shelf, two on the roof slopes.
+const SEATS := [Vector2(492, 1024), Vector2(590, 1024), Vector2(742, 796), Vector2(338, 800)]
 const BIRD_SCALE := 1.3
 const BIRD_COUNT := 3
 const PLAY := Rect2(200, 1150, 680, 184)
