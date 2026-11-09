@@ -8,6 +8,7 @@ var screen: Control
 var popups: Control
 var args := {}
 var _booted := false
+var ambient: Ambient
 var _wipe: Control
 var _wipe_leaves: Array[TextureRect] = []
 var _wipe_back: ColorRect
@@ -15,6 +16,8 @@ var _wiping := false
 
 const WIPE_SECONDS := 0.4
 
+
+var _daily_thread: Thread
 
 func _ready() -> void:
 	size = Vector2(1080, 1920)
@@ -27,6 +30,9 @@ func _ready() -> void:
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
 	Sound.vibration = profile.vibration
+	ambient = Ambient.new()
+	ambient.still = instant()
+	add_child(ambient)
 	popups = Control.new()
 	popups.name = "Popups"
 	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -66,6 +72,10 @@ func set_screen(node: Control) -> void:
 	screen = node
 	add_child(node)
 	move_child(node, 0)
+	# Sunlight and drifting leaves belong to the home page only.
+	if ambient:
+		ambient.visible = node is HomeView
+		ambient.set_process(ambient.visible and not ambient.still)
 
 ## Screen scripts are loaded on demand so each can be built and previewed independently.
 var Popups: GDScript:
@@ -103,6 +113,25 @@ func _open_home() -> void:
 	home.chest_requested.connect(show_chest)
 	home.challenge_requested.connect(start_challenge)
 	Sound.music("bgm_menu")
+	_warm_daily()
+
+## The daily puzzle needs the solver (up to seconds): solve it in the background while the player is on the home page.
+func _warm_daily() -> void:
+	if _daily_thread != null or not Progress.challenge_available(profile, Progress.today()):
+		return
+	Levels.all()
+	var day_seed := Progress.challenge_seed(Progress.today())
+	var reach := profile.highest_unlocked
+	_daily_thread = Thread.new()
+	_daily_thread.start(func(): Levels.daily_cached(day_seed, reach))
+
+func _finish_daily_warmup() -> void:
+	if _daily_thread != null:
+		_daily_thread.wait_to_finish()
+		_daily_thread = null
+
+func _exit_tree() -> void:
+	_finish_daily_warmup()
 
 func open_map() -> void:
 	_go(_open_map)
@@ -137,7 +166,8 @@ func show_checkin() -> void:
 
 ## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
 func start_challenge() -> void:
-	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
+	_finish_daily_warmup()
+	var def := Levels.daily_cached(Progress.challenge_seed(Progress.today()), profile.highest_unlocked)
 	if def.is_empty():
 		Sound.play("error")
 		return

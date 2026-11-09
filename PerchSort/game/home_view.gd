@@ -15,11 +15,11 @@ signal chest_requested
 signal challenge_requested
 
 ## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
-const LOGO := Rect2(160, 84, 760, 484)    # fills the sky between the coins and the gear; its foot stays on the rope
+const LOGO := Rect2(100, 60, 880, 560)    # a big title alone in the sky; the birdhouse stands on the branch below
 const SETTINGS := Rect2(904, 44, 124, 124)
-## Seats in the painted birdhouse (home_clearing): two on the shelf in front of the doorway, two on the roof slopes.
-const SEATS := [Vector2(466, 1004), Vector2(612, 1004), Vector2(870, 728), Vector2(212, 728)]
-const BIRD_SCALE := 1.85
+## Seats in the painted birdhouse (home_clearing_soft: house centred on the branch): two on the shelf, two on the roof slopes.
+const SEATS := [Vector2(492, 934), Vector2(590, 934), Vector2(742, 706), Vector2(338, 710)]
+const BIRD_SCALE := 1.3
 const BIRD_COUNT := 3
 const PLAY := Rect2(200, 1150, 680, 184)
 const TILE := Vector2(252, 208)
@@ -41,7 +41,7 @@ func setup(p: Profile) -> void:
 		child.queue_free()
 	_birds.clear()
 	size = Vector2(1080, 1920)
-	UI.image(self, "home_clearing", Rect2(0, 0, 1080, 1920), false)
+	UI.image(self, "home_clearing_soft", Rect2(0, 0, 1080, 1920), false)
 	_logo = UI.art(self, "home_logo", LOGO)
 	_logo.pivot_offset = _logo.size * Vector2(0.5, 0.9)
 	_build_birds()

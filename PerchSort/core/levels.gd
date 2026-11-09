@@ -5,6 +5,7 @@ extends RefCounted
 const PATH := "res://levels/levels.json"
 
 static var _catalog: Array = []
+static var _daily: Dictionary = {}
 
 
 static func all() -> Array:
@@ -127,6 +128,13 @@ static func species_ids(board: Board, include_crow := false) -> PackedStringArra
 ## with its birds dealt again over the same branches, kept only when the solver solves it in at least 3 moves.
 ## The result is a level definition with "challenge": true, the source level's id and world, and par = the found
 ## solution length. Empty when no candidate passed (the caller then offers no challenge today).
+## daily_challenge, solved once per day and level reach: the solver can take seconds, so callers warm this off-thread.
+static func daily_cached(day_seed: int, max_level: int) -> Dictionary:
+	var key := "%d:%d" % [day_seed, max_level]
+	if not _daily.has(key):
+		_daily[key] = daily_challenge(day_seed, max_level)
+	return _daily[key]
+
 static func daily_challenge(day_seed: int, max_level: int) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = day_seed
