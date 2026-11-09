@@ -4,7 +4,8 @@ extends Node2D
 ## Always alive: continuous breathing plus weighted idle actions; never a mirrored still.
 ## Every texture change goes through _show(): consecutive painted frames crossfade, actions blend into and out
 ## of the rest frame, and an equipped outfit is drawn as its painted overlay following measured anchors per frame
-## (birds/outfit_anchors.json, tools/birds/measure_outfit_anchors.py), so it stays on through every action.
+## (birds/outfit_anchors.json, tools/birds/measure_outfit_anchors.py), so it stays on through every action. A skin
+## painted as a whole bird in every frame replaces the species frames entirely and draws no overlay.
 ## Idle actions are coordinated: one bird per branch at a time, and starts are spread across the screen.
 
 signal finished
@@ -53,6 +54,7 @@ var density := 1.0
 var asleep := false
 var is_egg := false
 var outfit := ""          # outfit key, e.g. "sunny_outfit_1"
+var _prefix := ""         # art name prefix of every frame: the species, or a skin painted as a whole bird
 var acting := false
 var selected := false
 var quiet := false         # true while instant captures run
@@ -147,7 +149,11 @@ static func _outfit_anchors(key: String) -> Dictionary:
 	return _anchors.get(key, {})
 
 func _load_frames() -> void:
-	var prefix := species
+	# A skin painted frame by frame as a whole bird (birds/<outfit>_hop_01.png ..., tools/birds/painted_skins) is
+	# simply another bird: all its frames load under its own prefix and no overlay is drawn.
+	var whole := not outfit.is_empty() and Art.has(outfit + "_hop_01")
+	var prefix := outfit if whole else species
+	_prefix = prefix
 	_seqs.clear()
 	_pose_names.clear()
 	_frame_names.clear()
@@ -176,7 +182,7 @@ func _load_frames() -> void:
 		if t:
 			_pose_names[t] = pose
 			_frame_names[t] = pose
-	var overlay := Art.tex(outfit + "_front_overlay") if not outfit.is_empty() else null
+	var overlay := Art.tex(outfit + "_front_overlay") if not outfit.is_empty() and not whole else null
 	if overlay:
 		var table := _outfit_anchors(outfit)
 		_wear.texture = overlay
@@ -437,7 +443,7 @@ func _has_action(a: int) -> bool:
 	return a >= POSE_FIRST and _pose_names.has(_pose_tex(a))
 
 func _pose_tex(action: int) -> Texture2D:
-	return Art.tex(species + "_" + POSES[action - POSE_FIRST])
+	return Art.tex(_prefix + "_" + POSES[action - POSE_FIRST])
 
 func _pick_idle() -> int:
 	var total := 0
@@ -673,7 +679,7 @@ func fly_to(target: Vector2, delay := 0.0, duration := 0.45, home := false, leap
 			else:
 				_show(flap[int(elapsed * 18.0) % flap.size()])
 		else:
-			_show(Art.tex(species + ("_fly_up" if int(elapsed / 0.07) % 2 == 0 else "_fly_down")))
+			_show(Art.tex(_prefix + ("_fly_up" if int(elapsed / 0.07) % 2 == 0 else "_fly_down")))
 		var vertical := (target.y - start.y) - 4.0 * (1.0 - 2.0 * t) * height
 		_body.rotation = clampf(atan2(vertical, absf(target.x - start.x) + 1.0), -0.21, 0.21) * (1.0 if target.x >= start.x else -1.0)
 		if doorway:
