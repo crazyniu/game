@@ -8,6 +8,7 @@ var screen: Control
 var popups: Control
 var args := {}
 var _booted := false
+var ambient: Ambient
 var _wipe: Control
 var _wipe_leaves: Array[TextureRect] = []
 var _wipe_back: ColorRect
@@ -29,6 +30,9 @@ func _ready() -> void:
 	Sound.set_muted(profile.muted or sandboxed())
 	Sound.set_music_muted(profile.music_muted or sandboxed())
 	Sound.vibration = profile.vibration
+	ambient = Ambient.new()
+	ambient.still = instant()
+	add_child(ambient)
 	popups = Control.new()
 	popups.name = "Popups"
 	popups.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -68,6 +72,9 @@ func set_screen(node: Control) -> void:
 	screen = node
 	add_child(node)
 	move_child(node, 0)
+	# Light and drifting leaves over every page; the board keeps them sparse so play stays clear.
+	if ambient:
+		ambient.set_density(5 if node is BoardView else 10, 0.5 if node is BoardView else 1.0)
 
 ## Screen scripts are loaded on demand so each can be built and previewed independently.
 var Popups: GDScript:
