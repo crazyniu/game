@@ -1,8 +1,8 @@
 # Whole-bird skins: report
 
 ## Done
-- 66 frames of `ember_outfit_5` (dragon hood) painted whole by local Codex from the plain Ember frames: turns,
-  preen, flap, hop, cheer, nine still poses, fly up/down and all flight frames. Five first attempts were rejected and
+- 69 frames of `ember_outfit_5` (dragon hood) painted whole by local Codex from the plain Ember frames: turns,
+  preen, flap, hop, cheer, nine still poses, fly up/down, all flight frames, and the front and blink frames. Five first attempts were rejected and
   repainted (two birds in one frame, hood missing, motion smear, ground shadow).
 - `BirdView` loads such a skin as its own bird; the overlay is not drawn for it.
 - Preview state `aviary_view:detail_ember_skin` (also in `scripts/screenshots.sh`).
@@ -15,4 +15,3 @@
 ## Open
 - User review of the trial skin's motion on device.
 - After approval: repaint the other skins the same way and retire the overlay path and `outfit_anchors.json`.
-- The front and blink frames of this skin are still the earlier composites (they line up); repaint them with the rest.
