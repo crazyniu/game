@@ -2,7 +2,8 @@ extends SceneTree
 ## Precomputes each level's hint route from its starting position, so the first hint of a level never waits.
 ## godot --headless --path PerchSort -s ../tools/levels/export_hints.gd
 ## Writes PerchSort/levels/hints.json: {"<level id>": [[search key ints...], [from, to]], ...}; the board merges
-## it into its hint cache when the level starts. Rerun whenever levels.json or the rules change.
+## it into its hint cache when the level starts. Raises each level's par to cover its exported route.
+## Rerun whenever levels.json or the rules change.
 
 func _init() -> void:
 	var out := {}
@@ -19,6 +20,13 @@ func _init() -> void:
 		for key in cont:
 			route.append([Array(key), cont[key]])
 		out[str(id)] = route
+		var session := GameSession.new(level)
+		for move in found["moves"]:
+			session.try_action(move)
+		level["par"] = maxi(int(level["par"]), session.move_count())
+	var catalog := FileAccess.open(Levels.PATH, FileAccess.WRITE)
+	catalog.store_string(JSON.stringify({"levels": Levels.all()}))
+	catalog.close()
 	var f := FileAccess.open("res://levels/hints.json", FileAccess.WRITE)
 	f.store_string(JSON.stringify(out))
 	f.close()
