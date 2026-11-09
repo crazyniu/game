@@ -23,6 +23,10 @@ class LabelSprite extends TextureRect:
 			UiText._fit_label(self)
 
 
+const NUMBER_GAP := 14.0   # between the painted inks of neighbouring digits, in glyph pixels (cap 128)
+static var _number_ink := {}   # character -> [ink left, ink width] in glyph pixels
+
+
 class NumberSprite extends Control:
 	var value: String
 	var cap: float
@@ -82,6 +86,8 @@ static func _load_pack() -> void:
 	var glyphs: Dictionary = _pack["numbers"]["glyphs"]
 	for character in glyphs:
 		_number_textures[character] = load(_folder + glyphs[character])
+		var ink: Rect2i = _number_textures[character].get_image().get_used_rect()
+		_number_ink[character] = [float(ink.position.x), float(ink.size.x)]
 
 
 static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Color, heading := false) -> TextureRect:
@@ -134,7 +140,7 @@ static func number_width(value: String, cap: float) -> float:
 	var numbers: Dictionary = _pack["numbers"]
 	var width := 0.0
 	for character in value:
-		width += float(numbers["advances"][character])
+		width += _number_ink[character][1] + NUMBER_GAP
 	return width * cap / float(numbers["cap"])
 
 
@@ -170,8 +176,9 @@ static func _draw_number(box: NumberSprite) -> void:
 	var height := float(numbers["line_height"]) * k
 	var x := (box.size.x - width * k) * (0.5 + 0.5 * box.align)
 	var y := (box.size.y - height) * 0.5
-	for character in box.value:
+	for character in box.value:   # set by painted ink, not by the wide glyph cells, so digits sit close together
 		var advance := float(numbers["advances"][character]) * k
+		var ink: Array = _number_ink[character]
 		var texture: Texture2D = _number_textures[character]
-		box.draw_texture_rect(texture, Rect2(x, y, advance, height), false)
-		x += advance
+		box.draw_texture_rect(texture, Rect2(x + (NUMBER_GAP * 0.5 - ink[0]) * k, y, advance, height), false)
+		x += (ink[1] + NUMBER_GAP) * k
