@@ -1,6 +1,6 @@
 class_name Ambient
 extends Control
-## Living forest light over every screen: sunbeams that turn and breathe from the top-left corner, and leaves and
+## Living forest light for the home page: sunbeams that turn and breathe from the top-left corner, and leaves and
 ## petals that drift down, sway, spin and tumble. Sits above the screen and below the popups; never takes input.
 
 const SPRITES := ["fall_leaf_lime", "fall_leaf_green", "fall_leaf_olive", "fall_petal_cream", "fall_petal_pink", "fall_leaf_gold"]

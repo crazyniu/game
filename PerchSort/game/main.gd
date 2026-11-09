@@ -72,9 +72,10 @@ func set_screen(node: Control) -> void:
 	screen = node
 	add_child(node)
 	move_child(node, 0)
-	# Light and drifting leaves over every page; the board keeps them sparse so play stays clear.
+	# Sunlight and drifting leaves belong to the home page only.
 	if ambient:
-		ambient.set_density(5 if node is BoardView else 10, 0.5 if node is BoardView else 1.0)
+		ambient.visible = node is HomeView
+		ambient.set_process(ambient.visible and not ambient.still)
 
 ## Screen scripts are loaded on demand so each can be built and previewed independently.
 var Popups: GDScript:
