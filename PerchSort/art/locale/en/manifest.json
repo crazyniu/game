@@ -1038,6 +1038,61 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "world.blossom.name": {
+      "text": "Blossom Forest",
+      "file": "label_world_blossom_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_blossom_name.png"
+    },
+    "world.mushroom.name": {
+      "text": "Mushroom Forest",
+      "file": "label_world_mushroom_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_mushroom_name.png"
+    },
+    "world.lakeside.name": {
+      "text": "Lakeside Forest",
+      "file": "label_world_lakeside_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_lakeside_name.png"
+    },
+    "world.pine.name": {
+      "text": "Misty Pine Forest",
+      "file": "label_world_pine_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_pine_name.png"
+    },
+    "world.rainforest.name": {
+      "text": "Rainforest",
+      "file": "label_world_rainforest_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_rainforest_name.png"
+    },
+    "world.wisteria.name": {
+      "text": "Wisteria Forest",
+      "file": "label_world_wisteria_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_world_wisteria_name.png"
+    },
+    "action.back": {
+      "text": "Back",
+      "file": "label_action_back.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

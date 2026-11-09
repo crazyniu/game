@@ -19,6 +19,6 @@ Source organization of the Godot game. Start at [CURRENT_GAME](../CURRENT_GAME.m
 | `game/map_view.gd`, `shop_view.gd`, `aviary_view.gd` | screens | Level map, shop tabs and confirm, aviary list and detail |
 | `game/ui.gd`, `popup.gd`, `art.gd`, `sound.gd` | UI kit | Code-drawn shapes, buttons, counters and badges, white icons, painted words and numbers (docs/design/ui-system.md), modal frame, asset lookup, audio (autoload `Sound`) |
 | `tools/kit`, `tools/scene` | Art pipeline | Icon and lettering sheets cut into sprites, word sprites built from the letters, world paintings cut into a background and branch layers with measured perch lines |
-| `tests/smoke.gd`, `tests/run_core.gd` | headless tests | Every script loads and every level builds; all 40 levels solve and replay |
+| `tests/smoke.gd`, `tests/run_core.gd` | headless tests | Every script loads and every level builds; every level replays along its stored solution |
 
 Every screen script provides `static func preview(main, state)` used by `scripts/capture.sh --preview=<script>:<state>` and `scripts/screenshots.sh`.

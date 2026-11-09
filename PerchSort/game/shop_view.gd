@@ -720,7 +720,7 @@ func _buy(it: Dictionary, quantity: int) -> void:
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
 	p.coins = 240
-	p.highest_unlocked = 40
+	p.highest_unlocked = Levels.COUNT
 	p.inventory = PackedInt32Array([3, 2, 1, 1, 0, 0])
 	var start := 0
 	match state:

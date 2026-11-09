@@ -1726,7 +1726,7 @@ static func preview(main: Control, state: String) -> void:
 		return
 	if state.begins_with("hint_timing_") or state.begins_with("hint_think_") or state == "hint_all":
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		var ids: Array = range(1, 41) if state == "hint_all" else [int(state.get_slice("_", 2))]
 		var think := 3.0 if state.begins_with("hint_think_") else 0.0
 		for id in ids:
@@ -1764,7 +1764,7 @@ static func preview(main: Control, state: String) -> void:
 		return
 	if state in ["hint_searching", "hint_timeout", "hint_unavailable", "hint_transfer"]:
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		player.inventory[Board.Booster.FIREFLY] = 5
 		var board := BoardView.new()
 		board.instant = main.instant()
@@ -1794,7 +1794,7 @@ static func preview(main: Control, state: String) -> void:
 	if state.begins_with("tool_bar"):
 		# Every tool unlocked, stock on some, one move made so undo shows: "tool_bar" (level 25), "tool_bar_N".
 		var player: Profile = main.profile.duplicate_profile()
-		player.highest_unlocked = 40
+		player.highest_unlocked = Levels.COUNT
 		for kind in Board.BOOSTER_COUNT:
 			player.inventory[kind] = [3, 0, 2, 1, 5, 0][kind % 6]
 		var board := BoardView.new()

@@ -1,6 +1,6 @@
 # Perch Sort conventions
 
-One game, one version. Godot 4.7.2 (GDScript), portrait, 40 authored levels in four forest worlds. These rules apply to every contributor, human or agent. When a rule here conflicts with an older document, this file wins.
+One game, one version. Godot 4.7.2 (GDScript), portrait, 100 levels in ten forest worlds. These rules apply to every contributor, human or agent. When a rule here conflicts with an older document, this file wins.
 
 ## 1. Names
 1. Name everything by what it is or does: files, folders, classes, methods, tests, assets, scenes, docs, evidence, branches, PRs. Examples: `MusicTests`, `bird-frame-sequences`, `map-viewport`.
@@ -43,7 +43,7 @@ One game, one version. Godot 4.7.2 (GDScript), portrait, 40 authored levels in f
 Menu and map page play `bgm_menu`, level page plays `bgm_game`, loop, 1 s crossfade, never restart on popups, follow the single mute control (mute only, no sliders), pause on focus loss, retry on first user input.
 
 ## 7. Verification and evidence
-1. Run `bash scripts/run_tests.sh` (naming guard, smoke test, 40-level core test) and report its results. Never skip, weaken or delete a test to get green; report failures as failures.
+1. Run `bash scripts/run_tests.sh` (naming guard, smoke test, core test of every level) and report its results. Never skip, weaken or delete a test to get green; report failures as failures.
 2. Static screenshots do not prove animation. Motion and audio need timed evidence: contact sheets of real game frames (`-- --frames=<dir>`) at fixed intervals (0.1 s for entrances and popups, 0.25 s for idle), or timestamped audio logs, committed as small JPEGs under the feature's `evidence/` directory.
 3. A test that asserts a number must read it from the production constant where one exists.
 4. Report honestly: what ran, what did not, limits (no device or listening test counts as not done).

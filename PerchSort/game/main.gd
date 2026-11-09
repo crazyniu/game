@@ -205,7 +205,7 @@ func show_chest() -> void:
 
 func _play_next() -> void:
 	var level := Progress.next_level(profile)
-	_start_level(level if level > 0 else 40)
+	_start_level(level if level > 0 else Levels.COUNT)
 
 func _refresh_screen() -> void:
 	if screen and screen.has_method("setup") and not screen is BoardView:
@@ -362,11 +362,11 @@ func _on_won(result: Dictionary, level_id: int) -> void:
 	profile.record_moves(level_id, session.move_count())
 	save()
 	var next_level := level_id + 1
-	var has_next := next_level <= 40 and Progress.is_level_unlocked(profile, next_level)
+	var has_next := next_level <= Levels.COUNT and Progress.is_level_unlocked(profile, next_level)
 	var after_win: Array[Callable] = []
 	if not was_complete and payout["world"] > 0:
 		after_win.append(func(done: Callable): Popups.world_complete(popups, world, payout["world"], done))
-		if world < 4:
+		if world < Levels.WORLDS:
 			after_win.append(func(done: Callable): Popups.world_unlock(popups, world + 1, done))
 	Popups.win(popups, payout["stars"], session.move_count(), session.par, payout["total"] - payout["world"], payout["boosters"],
 		func(): _run_queue(after_win, func(): open_board(level_id)),
