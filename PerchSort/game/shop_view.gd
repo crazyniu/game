@@ -12,7 +12,7 @@ const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_ART := ["tab_boosters", "tab_outfits", "tab_houses"]   # full-colour pictures on the round tab
 const TAB_NAMES := ["Boosters", "Outfits", "Houses"]
 const TAB_LABELS := ["tab.boosters", "tab.outfits", "tab.houses"]
-const TAB_SIZE := Vector2(296, 168)
+const TAB_SIZE := Vector2(285, 176)   # three tabs span exactly the content width (INSET to INSET)
 const ROW_H := 200.0
 const ROW_GAP := 24.0
 const ROW_PICTURE := 160.0
@@ -24,13 +24,13 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 ## Layout (design pixels, 1080x1920; margins 48, 8 px grid).
 const MARGIN := 48.0
 const INSET := 88.0                       # screen edge to content: the sheet (x 24) and its green rim, with air
-const SHEET_PAD := 40.0                   # sheet rim to the first and last content
+const SHEET_PAD := 64.0                   # sheet rim to the first and last content
 const BAR_Y := 112.0
 const SIGN_W := 320.0
 const TITLE_CAP := 56.0
 const TAB_Y := 292.0
-const TAB_GAP := 48.0
-const GRID_TOP := 440.0
+const TAB_GAP := 24.0
+const GRID_TOP := 472.0
 const GAP := 32.0
 const CARD_W := (1080.0 - INSET * 2.0 - GAP) * 0.5
 const CARD_H := {Shop.BOOSTER: 472.0, Shop.HOUSE: 540.0}
@@ -56,12 +56,13 @@ const KIND_COUNT_Y := 404.0               # centre of the hanger + owned/total r
 const KIND_COUNT_CAP := 40.0
 const KIND_HANGER := 52.0
 const PILL := Vector2(300, 112)            # price, equip button and equipped marker share this slot
+const ROW_PILL := Vector2(236, 112)         # booster row price: narrower, leaves the name room
 const PILL_BOTTOM := 40.0                 # card bottom (with its edge) to the pill bottom
 const PILL_EDGE := 8.0
 const PRICE_COIN := 64.0
 const PRICE_CAP := 44.0
 const LOCK := 96.0
-const PAGER_Y := 1792.0                   # bottom action row centre
+const PAGER_Y := 1712.0                   # bottom action row centre
 const PAGE_PILL := Vector2(176, 96)
 const POPUP_PIC := 240.0
 const SINGLE_PIC := 320.0
@@ -246,9 +247,8 @@ func _refresh() -> void:
 		for c in node.get_children():
 			node.remove_child(c)   # rebuilt cards keep their names
 			c.queue_free()
-	var x := 540.0 - (TABS.size() - 1) * (TAB_SIZE.x + TAB_GAP * 0.5) * 0.5
 	for i in TABS.size():
-		_tab_button(i, Vector2(x + i * (TAB_SIZE.x + TAB_GAP * 0.5), TAB_Y))
+		_tab_button(i, Vector2(INSET + TAB_SIZE.x * 0.5 + i * (TAB_SIZE.x + TAB_GAP), TAB_Y))
 	if TABS[tab] == Shop.OUTFIT:
 		_kind_cards()
 		_add_sheet()
@@ -299,7 +299,7 @@ func _build_coins() -> void:
 func _tab_button(i: int, center: Vector2) -> Button:
 	var on := i == tab
 	return UI.tile(_tabs, TAB_NAMES[i], TAB_ART[i], TAB_LABELS[i], Rect2(center - TAB_SIZE * 0.5, TAB_SIZE), func(): _select_tab(i),
-		"pill_green" if on else "card", Color.WHITE if on else UI.INK)
+		"pill_green" if on else "capsule_plain", Color.WHITE if on else UI.INK, 72.0)
 
 func _select_tab(i: int) -> void:
 	if i != tab:
@@ -403,7 +403,20 @@ func _row(it: Dictionary, n: int) -> void:
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(row, Rect2(Vector2(INSET, GRID_TOP + n * (ROW_H + ROW_GAP)), rs))
 	_grid.add_child(row)
-	UI.shape(row, Rect2(Vector2.ZERO, rs), "cream", CARD_RADIUS, CARD_EDGE)
+	var strip := Panel.new()   # a soft, flat strip: the sheet carries the only green frame
+	strip.name = "Shape"
+	strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color8(255, 250, 238)
+	box.border_color = UI.RIM["cream"]
+	box.set_border_width_all(3)
+	box.set_corner_radius_all(36)
+	box.shadow_color = Color(0.45, 0.3, 0.1, 0.16)
+	box.shadow_size = 6
+	box.shadow_offset = Vector2(0, 4)
+	strip.add_theme_stylebox_override("panel", box)
+	UI.place(strip, Rect2(Vector2.ZERO, rs))
+	row.add_child(strip)
 	var hit := UI.hit_area(row, Rect2(Vector2.ZERO, rs), func(): _tap(it))
 	hit.disabled = _locked(it)
 	var body := Control.new()
@@ -414,7 +427,7 @@ func _row(it: Dictionary, n: int) -> void:
 	var pic := Rect2(36.0, (rs.y - CARD_EDGE - ROW_PICTURE) * 0.5, ROW_PICTURE, ROW_PICTURE)
 	_picture(body, it, pic)
 	var name_x := pic.end.x + 40.0
-	var slot := Rect2(Vector2(rs.x - 36.0 - PILL.x, (rs.y - CARD_EDGE - PILL.y) * 0.5), PILL)
+	var slot := Rect2(Vector2(rs.x - 36.0 - ROW_PILL.x, (rs.y - CARD_EDGE - ROW_PILL.y) * 0.5), ROW_PILL)
 	var name_w := minf(slot.position.x - name_x - 24.0, UI.label_width(_name_id(it), 40.0))   # left-aligned (sketch)
 	UI.label(body, _name_id(it), Rect2(name_x, rs.y * 0.5 - 40.0, name_w, 72.0), 40.0)
 	var rule := ColorRect.new()   # thin divider between picture and name
@@ -423,13 +436,13 @@ func _row(it: Dictionary, n: int) -> void:
 	UI.place(rule, Rect2(name_x - 22.0, rs.y * 0.5 - 44.0, 3.0, 80.0))
 	body.add_child(rule)
 	var buy := _pill_button(body, "Price", slot, "orange", func(): _tap(it))
-	_price_parts(buy, it["price"])
+	_price_parts(buy, it["price"], ROW_PILL.x)
 	buy.disabled = _locked(it)
 	if profile.inventory[it["booster"]] > 0:
-		var d := UI.BADGE
-		var badge := UI.shape(body, Rect2(Vector2(pic.end.x - d * 0.7, pic.position.y - d * 0.1), Vector2.ONE * d), "red", d * 0.5, 5.0, false)
+		var d := 44.0   # owned count: a small green dot on the picture's lower right, clear of the artwork
+		var badge := UI.shape(body, Rect2(Vector2(pic.end.x - d * 0.8, pic.end.y - d * 0.9), Vector2.ONE * d), "green", d * 0.5, 4.0, false)
 		badge.name = "Stock"
-		UI.number(badge, str(profile.inventory[it["booster"]]), Rect2(8, d * 0.5 - 18.0, d - 16.0, 30), Color.WHITE)
+		UI.number(badge, str(profile.inventory[it["booster"]]), Rect2(6, d * 0.5 - 13.0, d - 12.0, 24), Color.WHITE)
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
 		UI.icon(row, "lock", pic.get_center(), LOCK * 0.8, UI.INK).name = "Lock"
@@ -473,13 +486,14 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 	return b
 
 ## Coin and white price, centred together inside the orange pill.
-func _price_parts(pill: Control, price: int) -> void:
+func _price_parts(pill: Control, price: int, width := PILL.x) -> void:
 	var text := str(price)
 	var num_w := UI.number_width(text, PRICE_CAP)
-	var x := (PILL.x - (PRICE_COIN + 12.0 + num_w)) * 0.5
+	var slot_w := maxf(num_w, UI.number_width("000", PRICE_CAP))   # coin and digits keep one place whatever the price
+	var x := (width - (PRICE_COIN + 12.0 + slot_w)) * 0.5
 	var mid := (PILL.y - PILL_EDGE) * 0.5
 	UI.art(pill, "coin", Rect2(x, mid - PRICE_COIN * 0.5, PRICE_COIN, PRICE_COIN))
-	UI.outline_to(UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1), "orange")
+	UI.outline_to(UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0 + slot_w - num_w, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1), "orange")
 
 ## Live BirdView wearing `outfit`, its front frame fitted in the box with the feet on the box bottom.
 func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: float) -> BirdView:
