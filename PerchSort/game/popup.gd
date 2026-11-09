@@ -132,33 +132,52 @@ func _appear() -> void:
 	_appearance.tween_property(content, "scale", Vector2.ONE, 0.18 if quick else 0.3).set_trans(
 		Tween.TRANS_QUAD if quick else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Row of actions centred under the panel, with a wide Play pill. Each item: [kind ("green" primary or "orange"/"cream"), icon,
-## callback]; by default pressing one closes the popup first. Returns the buttons.
-func actions(items: Array, closes := true) -> Array:
-	var sizes := []
-	var total := 0.0
-	var height := 0.0
+## Actions under the panel, every one a long pill with a word (no round buttons in popups). Each item:
+## [kind ("green" primary, "orange" secondary), icon, callback] or [kind, icon, callback, label id]; the word comes
+## from the label id, else from the icon (ACTION_WORDS). Green pills are PLAY_SIZE and sit on the first row; the
+## others are SECONDARY_PILL (1/1.25 of it) on a second row. By default pressing one closes the popup first.
+## Returns the buttons in item order.
+const SECONDARY_PILL := Vector2(320.0, 116.0)
+const ROW_STACK := 28.0
+const ACTION_WORDS := {"play": "action.play", "check": "action.ok", "right": "action.next", "retry": "action.replay",
+	"home": "action.home", "buy": "action.buy"}
+
+## Height of the action block for these items: one row, or the primary row plus a secondary row.
+static func actions_height(items: Array) -> float:
+	var primary := false
+	var secondary := false
 	for it in items:
-		var s := UI.PRIMARY if it[0] == "green" else UI.SECONDARY
-		var dimensions := UI.PLAY_SIZE if it[1] == "play" else Vector2.ONE * s
-		sizes.append(dimensions.x)
-		total += dimensions.x
-		height = maxf(height, dimensions.y)
-	total += ACTION_GAP * (items.size() - 1)
-	var x := 540.0 - total * 0.5
-	var cy: float = get_meta("actions_y") + height * 0.5
-	var out := []
-	for i in items.size():
-		var cb: Callable = items[i][2]
-		var b: Button
-		if items[i].size() > 3:   # [kind, "play", callback, label id]: a pill with that label instead of Play
-			var at := Vector2(x, cy - UI.PLAY_SIZE.y * 0.5)
-			b = UI.pill(content, items[i][3], Rect2(at, UI.PLAY_SIZE), items[i][0], items[i][3], func(): invoke(cb, closes), "", 52.0)
+		if it[0] == "green":
+			primary = true
 		else:
-			b = UI.button(content, str(items[i][1]).capitalize(), Vector2(x + sizes[i] * 0.5, cy), items[i][0], items[i][1],
-				func(): invoke(cb, closes))
-		out.append(b)
-		x += sizes[i] + ACTION_GAP
+			secondary = true
+	if primary and secondary:
+		return UI.PLAY_SIZE.y + ROW_STACK + SECONDARY_PILL.y
+	return UI.PLAY_SIZE.y if primary else SECONDARY_PILL.y
+
+func actions(items: Array, closes := true) -> Array:
+	var rows := [[], []]
+	for i in items.size():
+		rows[0 if items[i][0] == "green" else 1].append(i)
+	var out := []
+	out.resize(items.size())
+	var y: float = get_meta("actions_y")
+	for r in 2:
+		var row: Array = rows[r]
+		if row.is_empty():
+			continue
+		var dimensions: Vector2 = UI.PLAY_SIZE if r == 0 else SECONDARY_PILL
+		var total: float = dimensions.x * row.size() + ACTION_GAP * (row.size() - 1)
+		var x := 540.0 - total * 0.5
+		for i in row:
+			var it: Array = items[i]
+			var cb: Callable = it[2]
+			var word: String = it[3] if it.size() > 3 else ACTION_WORDS.get(it[1], "action.ok")
+			var n: String = it[3] if it.size() > 3 else str(it[1]).capitalize()
+			out[i] = UI.pill(content, n, Rect2(Vector2(x, y), dimensions), it[0], word, func(): invoke(cb, closes), "",
+				52.0 if r == 0 else 44.0)
+			x += dimensions.x + ACTION_GAP
+		y += dimensions.y + ROW_STACK
 	return out
 
 ## A closing modal cannot dispatch another action during its exit animation.

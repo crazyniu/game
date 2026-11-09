@@ -448,7 +448,7 @@ func _equip(id: String, index: int) -> void:
 	_bump(_tiles.get_child(index))
 
 ## Buying a locked outfit: the shop's confirm popup (name, the bird wearing it, price) over this page. With enough
-## coins the green check buys and puts it on; without, the check is dimmed and the price shakes.
+## coins the green Buy pill buys and puts it on; without, Buy is dimmed and the price shakes.
 func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	Sound.play("ui_tap")
 	var it := Shop.item(id)
@@ -460,7 +460,7 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
 	var line := _price_line(modal.content, ys[1], it["price"], UI.INK if affordable else UI.FILL["red"])
-	var accept: Button = modal.actions([["green", "check", func(): _buy_outfit(id, index)]])[0]
+	var accept: Button = modal.actions([["green", "buy", func(): _buy_outfit(id, index)]])[0]
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var tw := line.create_tween()

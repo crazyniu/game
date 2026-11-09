@@ -1010,6 +1010,34 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
+    },
+    "action.next": {
+      "text": "Next",
+      "file": "label_action_next.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.replay": {
+      "text": "Replay",
+      "file": "label_action_replay.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.home": {
+      "text": "Home",
+      "file": "label_action_home.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
+    },
+    "action.buy": {
+      "text": "Buy",
+      "file": "label_action_buy.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160
     }
   },
   "numbers": {

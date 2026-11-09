@@ -49,7 +49,8 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 	var heights := [STAR_ROW, LINE]
 	if reward > 0:
 		heights.append(REWARD_H)
-	var p := Modal.open(host, "popup.win.title", heights, false, UI.PLAY_SIZE.y, HERO + 30.0, not live)
+	var items := [["orange", "retry", on_replay], ["green", "play", on_next, "action.next"], ["orange", "home", on_home]]
+	var p := Modal.open(host, "popup.win.title", heights, false, Modal.actions_height(items), HERO + 30.0, not live)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var panel := p.panel_rect
@@ -73,7 +74,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, on
 		if live:
 			_count(parts[0], reward, "+%d", 1.0, 0.7)
 			_coin_burst(p, parts[1], 1.0)
-	var row := p.actions([["orange", "retry", on_replay], ["green", "play", on_next], ["orange", "home", on_home]])
+	var row := p.actions(items)
 	UI.set_active(row[1], next_enabled)
 	if live:
 		_confetti(p, 0.3)
@@ -286,7 +287,9 @@ static func checkin(host: Control, day: int, claimed: int, on_claim: Callable) -
 	UI.set_active(claim, day > 0)
 	return p
 
-## Chapter browser: one row per world (painting, "Chapter N", level range, stars, state). Tapping an unlocked row
+const CHAPTER_TAG := Vector2(216.0, 76.0)
+
+## Chapter browser: one row per world (painting, "Chapter N", level range and stars, then a worded pill). Tapping an unlocked row
 ## calls `on_pick(world)`; a locked row is dimmed and does nothing.
 static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 	var row_h := 236.0
@@ -296,8 +299,6 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 	var ys: Array = m.get_meta("ys")
 	var left: float = m.panel_rect.position.x + Modal.INSET
 	var width: float = Modal.WIDTH - Modal.INSET * 2.0
-	var next := Progress.next_level(p)
-	var frontier := Progress.world_of_level(next if next > 0 else 40)
 	for i in 4:
 		var world := i + 1
 		var r := Rect2(left, ys[0] + i * (row_h + gap), width, row_h)
@@ -333,27 +334,30 @@ static func chapters(host: Control, p: Profile, on_pick: Callable) -> Control:
 		var word_w := UI.label_width("chapter.word", 48.0)
 		UI.label(body, "chapter.word", Rect2(x, 24, word_w, 66), 48.0)
 		UI.number(body, str(world), Rect2(x + word_w + 4.0, 34, UI.number_width(str(world), 48.0) + 4.0, 48), UI.INK, -1)
-		# "Levels 1-10" in one brown line, smaller (sketch).
-		var lw := UI.label_width("chapter.levels", 32.0)
-		UI.label(body, "chapter.levels", Rect2(x, 96, lw, 46), 32.0, Color8(140, 98, 58))
+		# "Levels 1-10" on the second line; under it a worded pill (no round buttons in popups) with the stars beside
+		# it: Replay on a finished chapter, Play on the open one, a lock on a closed one.
+		var brown := Color8(140, 98, 58)
+		var lw := UI.label_width("chapter.levels", 30.0)
+		UI.label(body, "chapter.levels", Rect2(x, 90, lw, 44), 30.0, brown)
 		var levels := "%d-%d" % [i * 10 + 1, i * 10 + 10]
-		UI.number(body, levels, Rect2(x + lw + 12.0, 104, UI.number_width(levels, 30.0) + 4.0, 30), Color8(140, 98, 58), -1)
+		var levels_w := UI.number_width(levels, 28.0) + 4.0
+		UI.number(body, levels, Rect2(x + lw + 10.0, 98, levels_w, 28), brown, -1)
 		var earned := 0
 		for level in range(i * 10 + 1, i * 10 + 11):
 			earned += p.best_stars(level)
-		UI.art(body, "pic_star", Rect2(x - 4.0, 148, 46, 46))
+		var tag := Rect2(Vector2(x, 140.0), CHAPTER_TAG)
+		var sx := tag.end.x + 20.0
+		var mid := tag.get_center().y
+		UI.art(body, "pic_star", Rect2(sx, mid - 22.0, 40, 40))
 		var text := "%d/30" % earned
-		UI.number(body, text, Rect2(x + 50.0, 156, UI.number_width(text, 32.0) + 4.0, 32), UI.INK, -1)
-		var end := Vector2(r.size.x - 84.0, r.size.y * 0.5 - 4.0)   # clear of the row's green rim
+		UI.number(body, text, Rect2(sx + 44.0, mid - 16.0, UI.number_width(text, 28.0) + 4.0, 28), UI.INK, -1)
 		if not open:
-			UI.icon(body, "lock", end, 64.0, UI.INK)
+			UI.icon(body, "lock", Vector2(x + 32.0, tag.get_center().y), 56.0, UI.INK)
 			body.modulate.a = UI.DISABLED_ALPHA
 		elif done:
-			var d := UI.shape(body, Rect2(end - Vector2.ONE * 44.0, Vector2.ONE * 88.0), "green", 44.0, 6.0, false)
-			UI.icon(d, "check", Vector2.ONE * 44.0 - Vector2(0, 4), 52.0)
-		if world == frontier and open and not done:
-			UI.pill(body, "CurrentTag", Rect2(Vector2(r.size.x - 40.0 - 164.0, 132.0), Vector2(164.0, 72.0)), "green", "map.current",
-				func(): m.invoke(on_pick.bind(world)), "", 24.0)
+			UI.pill(body, "ReplayTag", tag, "orange", "action.replay", func(): m.invoke(on_pick.bind(world)), "", 30.0)
+		else:
+			UI.pill(body, "PlayTag", tag, "green", "action.play", func(): m.invoke(on_pick.bind(world)), "", 30.0)
 	return m
 
 ## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
