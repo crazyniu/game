@@ -192,7 +192,7 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 ## Painted full-colour pictures (tools/kit/pics, booster illustrations) that replace the white symbols wherever an
 ## icon sits on cream or on a scene. White symbols remain only on solid green and red fills (play, check, close).
 const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
-	"back": "pic_back", "left": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
+	"back": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
 	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
 	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "booster_hint_illus", "sapling": "booster_sapling_illus",
@@ -369,10 +369,10 @@ static func tile(parent: Node, n: String, picture: String, label_id: String, r: 
 	body.size = r.size
 	b.add_child(body)
 	var k := r.size.y / TILE.y   # the picture and word scale with the tile's height
-	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 46.0 * k, 8.0 * k, 92.0 * k, 92.0 * k))
+	art(body, picture if Art.has(picture) else "pic_" + picture, Rect2(r.size.x * 0.5 - 44.0 * k, 4.0 * k, 88.0 * k, 88.0 * k))
 	var cap := 32.0 * k
 	var lw := minf(r.size.x - side, label_width(label_id, cap))
-	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 56.0 * k, lw, 42.0 * k), cap, ink)
+	label(body, label_id, Rect2((r.size.x - lw) * 0.5, r.size.y - 68.0 * k, lw, 42.0 * k), cap, ink)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

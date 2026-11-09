@@ -100,18 +100,18 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var left := p.panel_rect.position.x + 96.0
-	var right := p.panel_rect.end.x - 96.0
+	var left := p.panel_rect.position.x + 88.0
+	var right := p.panel_rect.end.x - 88.0
 	var g := 0
 	for item in [["settings.music", "music", music_on], ["settings.sound", "sound", sound_on]]:
 		var y: float = ys[g]
 		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 42.0, 84, 84))
-		_row_label(c, item[0], Vector2(left + 112.0, y + row * 0.5))
+		_row_label(c, item[0], Vector2(left + 132.0, y + row * 0.5))
 		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
 		g += 1
 	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
 	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 42.0, 84, 84))
-	_row_label(c, "settings.vibration", Vector2(left + 112.0, ys[g] + row * 0.5))
+	_row_label(c, "settings.vibration", Vector2(left + 132.0, ys[g] + row * 0.5))
 	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
 		Sound.vibration = value
 		if on.has("vibration"):
@@ -266,17 +266,17 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		lights.append(lit)
 		var prize: Array = Progress.DRAW_PRIZES[i]
 		if prize[0] > 0:
-			UI.art(card, "coin", Rect2(r.size.x * 0.5 - 50.0, 20, 100, 100))
-			UI.number(card, str(prize[0]), Rect2(14, 142, r.size.x - 28.0, 40), UI.INK)
+			UI.art(card, "coin", Rect2(r.size.x * 0.5 - 46.0, 20, 92, 92))
+			UI.number(card, str(prize[0]), Rect2(14, 126, r.size.x - 28.0, 38), UI.INK)
 		else:
 			# A wrapped gift until the light stops on it, then the booster it really holds.
 			var gift := Control.new()
 			gift.name = "Gift"
 			gift.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			card.add_child(gift)
-			UI.art(gift, "gift_box_base", Rect2(r.size.x * 0.5 - 80.0, 10, 160, 160))
-			UI.art(gift, "gift_box_lid", Rect2(r.size.x * 0.5 - 80.0, -14, 160, 160))
-			var count := UI.number(card, "x%d" % prize[1], Rect2(14, 142, r.size.x - 28.0, 40), UI.INK)
+			UI.art(gift, "gift_box_base", Rect2(r.size.x * 0.5 - 56.0, 10, 112, 112))
+			UI.art(gift, "gift_box_lid", Rect2(r.size.x * 0.5 - 56.0, -8, 112, 112))
+			var count := UI.number(card, "x%d" % prize[1], Rect2(14, 126, r.size.x - 28.0, 38), UI.INK)
 			count.name = "GiftCount"
 		cards.append(card)
 	var mid := Rect2(left + DRAW_CELL + DRAW_GAP, ys[1] + DRAW_CELL + DRAW_GAP, DRAW_CELL, DRAW_CELL)
@@ -323,7 +323,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		if int(got.get("booster", -1)) >= 0:
 			var holder := cards[at] as Control
 			holder.get_node("Gift").queue_free()
-			_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[got["booster"]], Rect2((holder.size.x - 140.0) * 0.5, 14.0, 140.0, 140.0), true)
+			_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[got["booster"]], Rect2((holder.size.x - 112.0) * 0.5, 12.0, 112.0, 112.0), true)
 		if not instant:
 			var pop: Tween = (cards[at] as Control).create_tween()
 			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.22, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

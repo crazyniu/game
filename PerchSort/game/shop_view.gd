@@ -28,7 +28,7 @@ const SHEET_PAD := 64.0                   # sheet rim to the first and last cont
 const BAR_Y := 112.0
 const SIGN_W := 320.0
 const TITLE_CAP := 56.0
-const TAB_Y := 292.0
+const TAB_Y := 280.0
 const TAB_GAP := 24.0
 const GRID_TOP := 472.0
 const GAP := 32.0
@@ -222,8 +222,8 @@ func _build_header() -> void:
 	var sign := Rect2(-SIGN_W * 0.5, BAR_Y - 112.0, SIGN_W, 180.0)
 	UI.art(_sign, "map_sign", sign).name = "Sign"
 	var plank := Rect2(sign.position.x + sign.size.x * 0.2, sign.position.y + sign.size.y * 0.54, sign.size.x * 0.6, sign.size.y * 0.32)
-	var w := minf(plank.size.x, UI.label_width("shop.title", 48.0))
-	UI.outline_to(UI.label(_sign, "shop.title", Rect2(plank.get_center().x - w * 0.5, plank.position.y - 4.0, w, plank.size.y + 8.0), 48.0,
+	var w := minf(plank.size.x, UI.label_width("shop.title", 40.0))
+	UI.outline_to(UI.label(_sign, "shop.title", Rect2(plank.get_center().x - w * 0.5, plank.position.y - 2.0, w, plank.size.y + 4.0), 40.0,
 		Color.WHITE), "orange")
 	_sign.position.x = 540.0
 	_sign.pivot_offset = Vector2(0.0, BAR_Y - 112.0)   # shrinks from the rope tops
@@ -370,7 +370,7 @@ func _card(it: Dictionary, n: int) -> void:
 		pass   # what a booster does is told in its buy popup; cards carry the name only
 		top = BOOSTER_PIC_TOP
 	var slot := Rect2(Vector2((cs.x - PILL.x) * 0.5, cs.y - PILL_BOTTOM - PILL.y), PILL)
-	var pic := Rect2(CARD_PAD, top, cs.x - CARD_PAD * 2.0, slot.position.y - 24.0 - top)
+	var pic := Rect2(CARD_PAD, top, cs.x - CARD_PAD * 2.0, slot.position.y - 44.0 - top)
 	_picture(body, it, pic)
 	if _equipped(it):
 		# In use: a cream capsule in the button's slot, same size, with a green tick (a state, not a button).
@@ -499,7 +499,7 @@ func _price_parts(pill: Control, price: int, width := PILL.x) -> void:
 func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: float) -> BirdView:
 	var front := outfit + "_front" if Art.has(outfit + "_front") else species + "_front"
 	var used := UI.used_rect(front)
-	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
+	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y) * 0.88   # headroom for crests, horns and cheer poses
 	var bird := BirdView.new()
 	parent.add_child(bird)
 	bird.position = Vector2(box.get_center().x - (used.get_center().x - BirdView.CANVAS * 0.5) * k,
@@ -544,6 +544,7 @@ func _kind_cards() -> void:
 func _kind_card(species: String, r: Rect2, n: int) -> void:
 	var card := UI.shape(_grid, r, "cream", CARD_RADIUS, CARD_EDGE)
 	card.name = "Kind_" + species
+	card.clip_contents = true
 	var met := profile.has_met(species)
 	if met:
 		var current: String = profile.equipped.get(species, "")

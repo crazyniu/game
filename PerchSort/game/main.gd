@@ -162,10 +162,10 @@ func start_challenge() -> void:
 			profile.inventory = board.session.state.inventory.duplicate()
 			var got := Progress.complete_challenge(profile, Progress.today())
 			save()
-			if got.is_empty():
-				open_home()
-				return
 			Sound.play("collect")
+			if got.is_empty():   # today's prize was already taken: still say the puzzle is done
+				Popups.rewards(popups, "challenge.title", 0, [], open_home, "pic_check")
+				return
 			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
 		Sound.music("bgm_game"))
 
