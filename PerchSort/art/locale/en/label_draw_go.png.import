@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjwdg4653kjgb"
-path="res://.godot/imported/label_checkin_title.png-8f2b8873e43860787e590fbe24cc394d.ctex"
+uid="uid://5x7lmpjc7yow"
+path="res://.godot/imported/label_draw_go.png-062bf285272258f2e60e5cc8a1ac71fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_checkin_title.png"
-dest_files=["res://.godot/imported/label_checkin_title.png-8f2b8873e43860787e590fbe24cc394d.ctex"]
+source_file="res://art/locale/en/label_draw_go.png"
+dest_files=["res://.godot/imported/label_draw_go.png-062bf285272258f2e60e5cc8a1ac71fa.ctex"]
 
 [params]
 

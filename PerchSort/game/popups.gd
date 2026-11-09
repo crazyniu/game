@@ -229,11 +229,11 @@ static func goal_info(host: Control, species: String) -> Control:
 	_ability_line(c, species, ys[1])
 	return p
 
-## The level's start gift: the booster, "+1" and one line inviting the player to use it; Got it closes.
 ## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
 ## round the ring, slows down and stops on the prize (coins, or a booster with its count). The star row shows today's
 ## draws: filled = left, hollow = unlocked by playing more days in a row. `draw` performs one draw (grants the prize)
-## and returns {"cell": ring cell 0..7, "booster": kind or -1}, or {} when none is left.
+## and returns {"cell", "coins", "booster", "count"} like Progress.draw, or {} when none is left. When the light stops,
+## a rewards popup over the board names what was won; the next draw is possible once it is dismissed.
 const DRAW_CELL := 204.0
 const DRAW_GAP := 20.0
 const DRAW_SPOTS := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(1, 2), Vector2i(0, 2), Vector2i(0, 1)]
@@ -241,7 +241,7 @@ const DRAW_SPOTS := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(2,
 static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) -> Control:
 	var board_w := DRAW_CELL * 3.0 + DRAW_GAP * 2.0
 	var star := 64.0
-	var p := Modal.open(host, "checkin.title", [star, board_w, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
+	var p := Modal.open(host, "draw.title", [star, board_w, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var instant := _instant(host)
@@ -287,9 +287,9 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	if not instant:
 		_breathe(chest, 0.0)
 	var state := {"left": spins, "busy": false, "at": 0}
-	var claim := UI.pill(c, "Claim", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[2]), UI.PLAY_SIZE), "green", "checkin.claim",
+	var go := UI.pill(c, "Draw", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[2]), UI.PLAY_SIZE), "green", "draw.go",
 		func(): pass, "", 52.0)
-	UI.set_active(claim, spins > 0)
+	UI.set_active(go, spins > 0)
 	var run := func() -> void:
 		if state["busy"] or state["left"] <= 0:
 			return
@@ -298,7 +298,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			return
 		var target: int = got["cell"]
 		state["busy"] = true
-		UI.set_active(claim, false)
+		UI.set_active(go, false)
 		state["left"] -= 1
 		var used: Control = stars[state["left"]]
 		var tw := used.create_tween()
@@ -328,12 +328,24 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			var pop: Tween = (cards[at] as Control).create_tween()
 			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.22, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.1, 0.25)
-			await c.get_tree().create_timer(0.9).timeout
-		cards[at].scale = Vector2.ONE
-		lights[at].modulate.a = 0.0
-		state["busy"] = false
-		UI.set_active(claim, state["left"] > 0)
-	(claim as Button).pressed.connect(run)
+			await c.get_tree().create_timer(0.7).timeout
+		if not is_instance_valid(c):
+			return
+		# Name the win in the rewards popup; the board steps aside until it is dismissed, then the light clears.
+		var kinds := []
+		if int(got.get("booster", -1)) >= 0:
+			for k in int(got.get("count", 0)):
+				kinds.append(got["booster"])
+		p.content.visible = false
+		rewards(host, "draw.title", int(got.get("coins", 0)), kinds, func():
+			if not is_instance_valid(c):
+				return
+			p.content.visible = true
+			cards[at].scale = Vector2.ONE
+			lights[at].modulate.a = 0.0
+			state["busy"] = false
+			UI.set_active(go, state["left"] > 0), "coin")
+	(go as Button).pressed.connect(run)
 	return p
 
 static func create_step_tween(card: Control, animate: bool) -> void:
@@ -475,8 +487,9 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 const ACTION_STACK := 28.0
 
 ## What a check-in or chest gave: coins and boosters, in a row; OK closes.
-static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable) -> Control:
-	var p := Modal.open(host, title_id, [200.0, REWARD_H], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
+## `picture` stands in when no booster is won (coins only).
+static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable, picture := "pic_chest_open") -> Control:
+	var p := Modal.open(host, title_id, [200.0, REWARD_H] if coins > 0 else [200.0], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var n := boosters.size()
@@ -484,8 +497,9 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 		var x := 540.0 + (i - (n - 1) * 0.5) * 210.0
 		_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[boosters[i]], Rect2(x - 90.0, ys[0], 180.0, 180.0), true), i * 0.4)
 	if n == 0:
-		_breathe(_fit(c, "pic_chest_open", Rect2(540.0 - 100.0, ys[0], 200.0, 200.0), true), 0.0)
-	_reward(c, ys[1], coins)
+		_breathe(_fit(c, picture, Rect2(540.0 - 100.0, ys[0], 200.0, 200.0), true), 0.0)
+	if coins > 0:
+		_reward(c, ys[1], coins)
 	p.actions([["green", "play", on_ok, "action.ok"]])
 	return p
 
@@ -873,10 +887,16 @@ static func preview(main: Control, state: String) -> void:
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
-		"lucky_draw": lucky_draw(host, 3, 5, func(): return {"cell": randi() % 8, "booster": 0})
+		"lucky_draw": lucky_draw(host, 3, 5, func():
+			var cell := randi() % 8
+			var prize: Array = Progress.DRAW_PRIZES[cell]
+			return {"cell": cell, "coins": prize[0], "booster": 0 if prize[1] > 0 else -1, "count": prize[1]})
 		"lucky_draw_spin":
-			var drawn := lucky_draw(host, 3, 5, func(): return {"cell": 2, "booster": Board.Booster.SAPLING})
-			host.get_tree().create_timer(0.3).timeout.connect(func(): (drawn.find_child("Claim", true, false) as Button).pressed.emit())
+			var drawn := lucky_draw(host, 3, 5, func(): return {"cell": 2, "coins": 0, "booster": Board.Booster.SAPLING, "count": 1})
+			host.get_tree().create_timer(0.3).timeout.connect(func(): (drawn.find_child("Draw", true, false) as Button).pressed.emit())
+		"lucky_draw_coins":
+			var won := lucky_draw(host, 3, 5, func(): return {"cell": 4, "coins": 200, "booster": -1, "count": 0})
+			host.get_tree().create_timer(0.3).timeout.connect(func(): (won.find_child("Draw", true, false) as Button).pressed.emit())
 		"lucky_draw_none": lucky_draw(host, 0, 5, func(): return {})
 		"chapters": chapters(host, _chapter_profile(), noop1)
 		"chest_half": chest(host, 17, 0, noop, noop)

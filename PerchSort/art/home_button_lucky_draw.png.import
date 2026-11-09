@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgoiun0x0k740"
-path="res://.godot/imported/label_checkin_claim.png-6f7c8ec6450d1bd51ab4ef60cff35ea5.ctex"
+uid="uid://dudolqfcupmie"
+path="res://.godot/imported/home_button_lucky_draw.png-5009aad2708159898be2dee2351a95f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/locale/en/label_checkin_claim.png"
-dest_files=["res://.godot/imported/label_checkin_claim.png-6f7c8ec6450d1bd51ab4ef60cff35ea5.ctex"]
+source_file="res://art/home_button_lucky_draw.png"
+dest_files=["res://.godot/imported/home_button_lucky_draw.png-5009aad2708159898be2dee2351a95f6.ctex"]
 
 [params]
 

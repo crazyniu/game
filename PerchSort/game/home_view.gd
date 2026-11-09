@@ -1,7 +1,7 @@
 class_name HomeView
 extends Control
 ## The game's home page (user's home sketch): a painted forest clearing with the birdhouse, the logo, live birds in
-## and on the house, a wide Play that continues at the next level, Daily and Check-in tiles, and Map, Shop, Aviary
+## and on the house, a wide Play that continues at the next level, Daily and Lucky Draw tiles, and Map, Shop, Aviary
 ## and Chest along the bottom. Button faces are painted pictures with their words painted in.
 
 signal play_requested(level: int)
@@ -10,7 +10,7 @@ signal shop_requested
 signal aviary_requested
 signal settings_requested
 signal help_requested
-signal checkin_requested
+signal lucky_draw_requested
 signal chest_requested
 signal challenge_requested
 
@@ -50,13 +50,13 @@ func setup(p: Profile) -> void:
 	UI.art_button(self, "Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
 	var level := _next_level()
 	UI.art_button(self, "Play", "home_button_play", PLAY, func(): play_requested.emit(level))
-	var top := [["Daily", "daily", challenge_requested], ["Checkin", "checkin", checkin_requested]]
+	var top := [["Daily", "daily", challenge_requested], ["LuckyDraw", "lucky_draw", lucky_draw_requested]]
 	for i in top.size():
 		var r := Rect2(540.0 - TILE.x - NAV_GAP if i == 0 else 540.0 + NAV_GAP, TOP_ROW_Y, TILE.x, TILE.y)
 		var tb := UI.art_button(self, top[i][0], "home_button_" + top[i][1], r, (top[i][2] as Signal).emit)
 		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(tb, "1")
-		elif top[i][0] == "Checkin" and Progress.draws_available(profile, Progress.today()):
+		elif top[i][0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
 			_badge(tb, "1")
 	var places := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
 		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]
