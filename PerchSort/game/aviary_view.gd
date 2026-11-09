@@ -232,8 +232,6 @@ func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> 
 func _list_header(met: int, count: int) -> void:
 	var close := UI.button(_page, "Close", Vector2(112, 104), "red", "", func(): closed.emit())
 	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
-	close.button_down.connect(func(): icon.position.y += 6.0)
-	close.button_up.connect(func(): icon.position.y -= 6.0)
 	UI.title_ribbon(_page, "aviary.title", Vector2(540, FRAME.position.y + 8.0), 56.0, 520.0)   # on the frame top
 	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
 	counter.name = "MetCounter"

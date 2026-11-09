@@ -455,7 +455,7 @@ func _picture(parent: Node, it: Dictionary, box: Rect2) -> void:
 	else:
 		UI.art(parent, "house_style_%s_body" % it["style"], box.grow(-8.0))
 
-## Pill-shaped button in a card slot; a press sinks it by its edge.
+## Pill-shaped button in a card slot; a press darkens its face (UI._skin_button).
 func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Callable) -> Button:
 	var b := Button.new()
 	b.name = n
@@ -466,14 +466,6 @@ func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Cal
 		else ("capsule_plain" if kind == "cream" else "pill_" + kind)
 	UI._skin_button(b, piece, Rect2(Vector2.ZERO, r.size))
 	UI.place(b, r)
-	b.button_down.connect(func():
-		for c in b.get_children():
-			if c.name != "Face":
-				c.position.y += 5.0)
-	b.button_up.connect(func():
-		for c in b.get_children():
-			if c.name != "Face":
-				c.position.y -= 5.0)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

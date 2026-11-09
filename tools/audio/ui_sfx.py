@@ -3,8 +3,8 @@
 
 uv run --no-project --with numpy python tools/audio/ui_sfx.py
 Writes PerchSort/audio/{ui_tap,ui_back,undo,sapling_grow,reward,egg_hatch}.wav (44.1 kHz mono 16-bit).
-- ui_tap: a round bubble pop (button press, restart, home).
-- ui_back: the same pop a fourth lower and softer (close, back).
+- ui_tap: a soft felted wood tap (every button press, restart, home).
+- ui_back: the same tap a fourth lower and softer (close, back).
 - undo: a short rewind swish into two falling marimba notes.
 - sapling_grow: a rising marimba arpeggio with a leafy rustle and a small sparkle (sapling booster).
 - reward: two coin chimes and a sparkle tail (check-in, purchases, gifts, rewards).
@@ -42,14 +42,14 @@ def highpass(x, hz):
     return x - lowpass(x, hz)
 
 
-def pop(f0, f1, d=0.11, decay=0.035):
+def tap(freq, d=0.12, decay=0.028):
+    """A soft wood-block knock muffled by felt: a warm fundamental, one inharmonic overtone that dies at once,
+    a short low thump and no click or pitch glide."""
     t = t_axis(d)
-    f = f1 + (f0 - f1) * np.exp(-t / 0.012)          # quick downward glide: a bubble
-    ph = 2 * np.pi * np.cumsum(f) / RATE
-    body = np.sin(ph) + 0.18 * np.sin(2 * ph)
-    env = np.exp(-t / decay)
-    click = lowpass(rng.uniform(-1, 1, len(t)), 3000) * np.exp(-t / 0.003) * 0.25
-    return fade(body * env + click, 0.002, 0.02)
+    x = (np.sin(2 * np.pi * freq * t) * np.exp(-t / decay)
+         + 0.22 * np.sin(2 * np.pi * freq * 2.71 * t) * np.exp(-t / (decay * 0.3))
+         + 0.35 * np.sin(2 * np.pi * freq * 0.5 * t) * np.exp(-t / (decay * 0.6)))
+    return fade(lowpass(x, 2600), 0.003, 0.03)
 
 
 def marimba(freq, d=0.45, decay=0.16, gain=1.0):
@@ -98,8 +98,10 @@ def write(name, x):
 
 C5, D5, E5, G5, A5, C6, E6, G6 = 523.25, 587.33, 659.26, 783.99, 880.0, 1046.5, 1318.5, 1568.0
 
-write("ui_tap", norm(pop(880, 520), -6))
-write("ui_back", norm(pop(660, 390, 0.12, 0.04), -9))
+# The former bubble pops drew their click noise from rng; the same draws keep undo and reward byte-identical.
+rng.uniform(-1, 1, int(0.11 * RATE)); rng.uniform(-1, 1, int(0.12 * RATE))
+write("ui_tap", norm(tap(740), -7))
+write("ui_back", norm(tap(555, 0.13, 0.032), -10))
 swish = lowpass(highpass(rng.uniform(-1, 1, int(0.12 * RATE)), 600), 2500)
 swish *= np.sin(np.linspace(0, np.pi, len(swish))) ** 2
 write("undo", norm(place(0.42, [(0.0, 0.35 * swish), (0.08, marimba(G5, 0.3, 0.09)), (0.17, marimba(D5, 0.25, 0.1, 0.9))]), -7))
