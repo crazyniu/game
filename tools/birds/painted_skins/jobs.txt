@@ -1,0 +1,10 @@
+turn_left_01 turn_left_02 turn_left_03 turn_left_04 turn_right_01 turn_right_02 turn_right_03
+turn_right_04 preen_01 preen_02 preen_03 preen_04 preen_05 flap_01
+flap_02 flap_03 flap_04 flap_05 flap_06 hop_01 hop_02
+hop_03 hop_04 hop_05 hop_06 cheer_01 cheer_02 cheer_03
+cheer_04 cheer_05 cheer_06 fluff stretch yawn tilt_left
+tilt_right look_up look_down quirk1 quirk2 fly_up fly_down
+flight_takeoff_01 flight_takeoff_02 flight_takeoff_03 flight_flap_01 flight_flap_02 flight_flap_03 flight_flap_04
+flight_flap_05 flight_flap_06 flight_land_01 flight_land_02 flight_land_03 flight_takeoff_l_01 flight_takeoff_l_02
+flight_takeoff_l_03 flight_flap_l_01 flight_flap_l_02 flight_flap_l_03 flight_flap_l_04 flight_flap_l_05 flight_flap_l_06
+flight_land_l_01 flight_land_l_02 flight_land_l_03
