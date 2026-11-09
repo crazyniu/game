@@ -11,7 +11,7 @@ cancelled by the user ("中文先不做"); `task-chinese.md` stays as the plan f
 | Level gift | First visit of each level gives one booster that fits it (mechanic-matched, else firefly/sapling alternating); after the popup the tool glows and a hand points at it | `meta/progress.gd`, `game/popups.gd`, `game/board_view.gd` (`point_at_tool`), `game/main.gd` |
 | Star chest | Every 30 stars opens a chest: 150 coins and 2 boosters | `meta/progress.gd`, `game/popups.gd` |
 | Check-in | Seven-day streak, rewards rise to day 7; entry on Home with a badge | `meta/progress.gd`, `game/popups.gd`, `game/home_view.gd` |
-| Daily challenge | One seeded deal per day from a reached level, solver-verified (at least 3 moves), par = solution length, pays 80 coins once a day | `core/levels.gd` (`daily_challenge`), `meta/progress.gd`, `game/main.gd` |
+| Daily challenge | One authored level per day picked by seed from the reached easier levels (no search, opens instantly), pays 80 coins once a day | `core/levels.gd` (`daily_challenge`), `meta/progress.gd`, `game/main.gd` |
 | Level order | Each world now runs easy to hard (first level kept); schema-2 saves migrate old level numbers via `LEVEL_RENUMBER`; start hints regenerated | `levels/levels.json`, `levels/hints.json`, `meta/profile.gd` |
 | Feel and layout | Quick entrance on replays, flock-home sparkle and rising pitch, branch dip on landing, haptics with a Settings switch, tools on a HUD bar, world ribbon | worker report: [feel-layout](feel-layout-report.md) |
 | Mechanic lessons | An animated lesson the first time each of 8 mechanics appears | worker report: [mechanics-intro](mechanics-intro-report.md) |

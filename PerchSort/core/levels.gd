@@ -5,7 +5,6 @@ extends RefCounted
 const PATH := "res://levels/levels.json"
 
 static var _catalog: Array = []
-static var _daily: Dictionary = {}
 
 
 static func all() -> Array:
@@ -124,17 +123,9 @@ static func species_ids(board: Board, include_crow := false) -> PackedStringArra
 
 ## ---------- daily challenge ----------
 
-## A fresh puzzle for `day_seed`: one of the first `max_level` levels (from the easier ones a player has reached)
-## with its birds dealt again over the same branches, kept only when the solver solves it in at least 3 moves.
-## The result is a level definition with "challenge": true, the source level's id and world, and par = the found
-## solution length. Empty when no candidate passed (the caller then offers no challenge today).
-## daily_challenge, solved once per day and level reach: the solver can take seconds, so callers warm this off-thread.
-static func daily_cached(day_seed: int, max_level: int) -> Dictionary:
-	var key := "%d:%d" % [day_seed, max_level]
-	if not _daily.has(key):
-		_daily[key] = daily_challenge(day_seed, max_level)
-	return _daily[key]
-
+## The day's challenge: one authored level picked by `day_seed` from the easier ones the player has reached
+## (the first `max_level` levels, par at most 12). No search and no dealing: the level is a copy of the source with
+## "challenge": true, so the same level shows all day and opening it is instant.
 static func daily_challenge(day_seed: int, max_level: int) -> Dictionary:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = day_seed
@@ -142,30 +133,9 @@ static func daily_challenge(day_seed: int, max_level: int) -> Dictionary:
 	for level in all():
 		if int(level["id"]) <= maxi(3, max_level) and int(level.get("par", 0)) <= 12:
 			pool.append(level)
-	for attempt in 24:
-		var source: Dictionary = pool[rng.randi() % pool.size()]
-		var def: Dictionary = source.duplicate(true)
-		var tokens := []
-		var sizes := []
-		for b in def["branches"]:
-			tokens.append_array(b["birds"])
-			sizes.append(b["birds"].size())
-		for i in range(tokens.size() - 1, 0, -1):   # Fisher-Yates with the day's generator
-			var j := rng.randi() % (i + 1)
-			var t = tokens[i]
-			tokens[i] = tokens[j]
-			tokens[j] = t
-		var k := 0
-		for bi in def["branches"].size():
-			def["branches"][bi]["birds"] = tokens.slice(k, k + sizes[bi])
-			k += sizes[bi]
-		def["world"] = world_of(source)
-		var board := create_board(def)
-		if board == null or board.is_won():
-			continue
-		var found := Solver.solve(board, [], 60000, 1500)
-		if found.get("status") == Solver.Status.SOLVED and found["moves"].size() >= 3:
-			def["par"] = found["moves"].size()
-			def["challenge"] = true
-			return def
-	return {}
+	if pool.is_empty():
+		return {}
+	var def: Dictionary = pool[rng.randi() % pool.size()].duplicate(true)
+	def["world"] = world_of(def)
+	def["challenge"] = true
+	return def
