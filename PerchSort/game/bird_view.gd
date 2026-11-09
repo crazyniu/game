@@ -56,6 +56,7 @@ var is_egg := false
 var outfit := ""          # outfit key, e.g. "sunny_outfit_1"
 var _prefix := ""         # art name prefix of every frame: the species, or a skin painted as a whole bird
 var acting := false
+var showcasing := false    # true while showcase() runs through every action
 var selected := false
 var quiet := false         # true while instant captures run
 var sounds := false        # wing sounds: only birds on the board make them; menus play just the music
@@ -410,7 +411,7 @@ func _process(delta: float) -> void:
 		_zzz.scale = Vector2.ONE * 0.6 * (1.0 + 0.7 * pulse)
 		if _nudge >= 0.0:
 			_zzz.modulate.a = 1.0
-	if acting or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween or not is_visible_in_tree():
+	if acting or showcasing or selected or asleep or is_egg or _idle_tween or _hover_tween or _settle_tween or not is_visible_in_tree():
 		_due = -1.0
 		return
 	_next_idle -= delta
@@ -756,6 +757,26 @@ func cheer() -> void:
 	acting = false
 	_show_rest()
 	finished.emit()
+
+## Plays every action this bird has, one after another with no pause (blink, both turns, hop, flap, preen, each
+## still pose), then the cheer. Used when a bird is shown off; idle actions and cheers wait until it is done.
+func showcase() -> void:
+	if showcasing or acting or is_egg or asleep:
+		return
+	showcasing = true
+	var order: Array = [[0, 0], [1, 0], [1, 1], [4, 0], [3, 0], [2, 0]]
+	for pose in POSES.size():
+		order.append([POSE_FIRST + pose, 0])
+	_stop_idle()
+	for entry in order:
+		if not _has_action(entry[0]):
+			continue
+		_start_idle(entry[0], entry[1])
+		var tween := _idle_tween
+		await tween.finished
+	showcasing = false
+	if not _seqs.get("cheer", []).is_empty():
+		cheer()
 
 func hatch() -> void:
 	_stop_idle()
