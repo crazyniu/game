@@ -22,7 +22,6 @@ const PLAY_SIZE := Vector2(460, 191)
 const PLAY_FACE_SIZE := Vector2(440, 171)
 const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
-const PLAY_WORD_SHADER := preload("res://game/home_play_word.gdshader")
 # Contact rows of the existing drawn claws, not the old padding-based registration row.
 const PARROT_FOOT_Y := {
 	"macaw": [320, 324, 323, 328, 324, 323, 323, 322],
@@ -34,7 +33,7 @@ var instant := false
 var _birds: Array[Dictionary] = []
 var _clock := 0.0
 var _last_idle := {"house": -1.0, "logo": -1.0}
-var _play_word: TextureRect
+var _play_face: TextureRect
 
 static func _rect(x: float, y: float, w: float, h: float) -> Rect2:
 	return Rect2(Vector2(x, y) * REFERENCE_SCALE, Vector2(w, h) * REFERENCE_SCALE)
@@ -64,19 +63,13 @@ func setup(p: Profile) -> void:
 	_add_coin_display()
 	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
 	var level := _next_level()
-	var play := _button("Play", "button_play_blank", _rect(240, 1122.5, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
+	var play := _button("Play", "button_play_" + UiText.locale(), _rect(240, 1122.5, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
 	# The elongated primary stays prominent without restoring the oversized original mockup pill.
 	var face_origin := (PLAY_SIZE - PLAY_FACE_SIZE) * 0.5
-	var play_face := play.get_node("Face") as TextureRect
-	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
-	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	# Keep the painted ink near 60% of the face height, with room around the icon and rim.
-	# The bright green surface sits above the thick lower rim: align the letter fill to that surface.
-	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 187, face_origin.y + 28.5, 210, 100))
-	_play_word.name = "PlayWord"
-	var word_material := ShaderMaterial.new()
-	word_material.shader = PLAY_WORD_SHADER
-	_play_word.material = word_material
+	_play_face = play.get_node("Face") as TextureRect
+	UI.place(_play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
+	# Each accepted texture contains the complete centered icon-and-word composition.
+	_play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]
 	for i in events.size():
@@ -98,8 +91,8 @@ func setup(p: Profile) -> void:
 			_badge(button, str(Progress.chests_ready(profile)))
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_word):
-		_play_word.texture = Art.tex("label_home_island_play_" + UiText.locale())
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_face):
+		_play_face.texture = Art.tex("btn_home_island_play_" + UiText.locale())
 
 func _add_coin_display() -> void:
 	var coins := Control.new()

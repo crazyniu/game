@@ -70,7 +70,8 @@
       "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
       "technical_validation": "passed",
       "runtime_visual_approved": false,
-      "sha256": "68e5e3543e5a51009092fd7adfa065f4987b39be9ff6e54c9b92e1c8a43a4242"
+      "sha256": "68e5e3543e5a51009092fd7adfa065f4987b39be9ff6e54c9b92e1c8a43a4242",
+      "usage": "retained_source_for_localized_composite"
     },
     {
       "name": "button_settings",
@@ -198,7 +199,8 @@
       "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
       "generation": "Approved independent painted localized word sprite; English Play, Chinese 开始.",
       "source_image": "exec-3c2aa633-4258-4a09-9fdd-e4102bd6093c.png",
-      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance."
+      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance.",
+      "usage": "retained_source_for_localized_composite"
     },
     {
       "name": "label_home_island_play_zh",
@@ -215,7 +217,8 @@
       "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
       "generation": "Approved independent painted localized word sprite; English Play, Chinese 开始.",
       "source_image": "exec-f1e95049-23d6-4b5a-848b-84f6dbcd5bb7.png",
-      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance."
+      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance.",
+      "usage": "retained_source_for_localized_composite"
     },
     {
       "name": "icon_home_island_digit_0",
@@ -386,6 +389,38 @@
       "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
       "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
       "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "button_play_zh",
+      "path": "PerchSort/art/btn_home_island_play_zh.png",
+      "size": [
+        1993,
+        757
+      ],
+      "sha256": "c67ffd14a96de30501ddda818cd438157c77b964f46d9db348f98ad47a1f06ef",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User approved the complete Chinese/English button comparison and explicitly said to continue.",
+      "generation": "Exact composition of accepted base and word artwork, with the previously reviewed soft-white letter treatment; no redraw.",
+      "normalization": "Source words trimmed and uniformly scaled to 390-pixel ink height; source base pixels outside text alpha and baked triangle unchanged.",
+      "usage": "runtime_whole_button"
+    },
+    {
+      "name": "button_play_en",
+      "path": "PerchSort/art/btn_home_island_play_en.png",
+      "size": [
+        1993,
+        757
+      ],
+      "sha256": "83e3b3aa50e06d4ccff9b0ef0c025d20af0d77cbf5cacaa88faabea8f6182311",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User approved the complete Chinese/English button comparison and explicitly said to continue.",
+      "generation": "Exact composition of accepted base and word artwork, with the previously reviewed soft-white letter treatment; no redraw.",
+      "normalization": "Source words trimmed and uniformly scaled to 390-pixel ink height; source base pixels outside text alpha and baked triangle unchanged.",
+      "usage": "runtime_whole_button"
     }
   ],
   "birds": {
@@ -1670,7 +1705,7 @@
     "path": "art/approved_ui/island_home.png",
     "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
   },
-  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch. The user then questioned the text/button balance; accepted lettering is scaled and recentered without changing the button surface or other pages. User then requested corrected vertical centering and reference-consistent text color, followed by actual runtime images for review.",
+  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch. The user then questioned the text/button balance; accepted lettering is scaled and recentered without changing the button surface or other pages. User then requested corrected vertical centering and reference-consistent text color, followed by actual runtime images for review. User then approved the complete localized button images and authorized integration and a focused runtime language-switch check.",
   "runtime_visual_approved": false,
   "current_layout": {
     "title": [
@@ -1703,12 +1738,6 @@
       440,
       171
     ],
-    "play_label_local": [
-      197,
-      38.5,
-      210,
-      100
-    ],
     "coin_display_max": 99999,
     "coin_separator": null,
     "nav_touch_size": [
@@ -1720,7 +1749,7 @@
       174
     ],
     "coin_vertical_alignment": "visible ink union centered in numeric area",
-    "play_label_fill": "Runtime soft-white correction toward #fdfdf7; approved PNG unchanged.",
+    "play_label_fill": "Soft-white fill baked into the approved complete button composite; no runtime word shader.",
     "parrot_contacts": {
       "macaw": [
         190,
@@ -1731,6 +1760,6 @@
         905
       ]
     },
-    "whole_localized_button": "candidate preparation; not integrated"
+    "whole_localized_button": "approved and integrated; KEEP_ASPECT_CENTERED in the unchanged 440x171 container"
   }
 }

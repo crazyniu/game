@@ -84,11 +84,11 @@ func _run() -> void:
 	home.setup(main.profile)
 	UiText.set_language("zh")
 	await process_frame
-	check(home.get_node("Play/PlayWord").texture.resource_path.ends_with("label_home_island_play_zh.png"), "Chinese painted Play refreshes in place")
+	check(home.get_node("Play/Face").texture.resource_path.ends_with("btn_home_island_play_zh.png"), "Chinese complete Play refreshes in place")
 	await _capture("home_zh_max")
 	UiText.set_language("en")
 	await process_frame
-	check(home.get_node("Play/PlayWord").texture.resource_path.ends_with("label_home_island_play_en.png"), "English painted Play refreshes in place")
+	check(home.get_node("Play/Face").texture.resource_path.ends_with("btn_home_island_play_en.png"), "English complete Play refreshes in place")
 	check(home.get_node("Play").size.is_equal_approx(home.PLAY_SIZE * home.REFERENCE_SCALE), "localized Play keeps its footprint")
 	for name in buttons:
 		main._open_home()
