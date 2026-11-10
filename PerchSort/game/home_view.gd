@@ -23,6 +23,11 @@ const PLAY_FACE_SIZE := Vector2(440, 171)
 const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
 const PLAY_WORD_SHADER := preload("res://game/home_play_word.gdshader")
+# Contact rows of the existing drawn claws, not the old padding-based registration row.
+const PARROT_FOOT_Y := {
+	"macaw": [320, 324, 323, 328, 324, 323, 323, 322],
+	"green_parrot": [326, 328, 325, 331, 327, 326, 328, 327],
+}
 
 var profile: Profile
 var instant := false
@@ -44,10 +49,10 @@ func setup(p: Profile) -> void:
 	_last_idle = {"house": -1.0, "logo": -1.0}
 	size = CANVAS_SIZE
 	UI.image(self, "panel_home_island_background", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
-	_add_bird("macaw", Vector2(206, 849), 574, 4, "house")
+	_add_bird("macaw", Vector2(190, 855), 580, 4, "house")
 	_add_bird("yellow_chick", Vector2(419, 834), 650, 0, "house")
 	_add_bird("blue_chick", Vector2(529, 835), 649, 2, "house")
-	_add_bird("green_parrot", Vector2(671, 898), 675, 4, "house")
+	_add_bird("green_parrot", Vector2(671, 905), 682, 4, "house")
 	# Only the branch foreground hides the parrot's tail; its feet stay above the perch.
 	UI.image(self, "house_home_island_foreground", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
 	UI.image(self, "panel_home_island_logo", _rect(260, 159, 420, 226))
@@ -161,6 +166,11 @@ func _add_bird(kind: String, at: Vector2, top: float, rest_frame: int, group: St
 		frames.add_frame("default", texture)
 	bird.sprite_frames = frames
 	bird.frame = rest_frame
+	var contact_rows: Array = PARROT_FOOT_Y.get(kind, [])
+	if not contact_rows.is_empty():
+		var align_feet := func(): bird.position.y = -float(contact_rows[bird.frame]) * pixel_scale * REFERENCE_SCALE.y
+		bird.frame_changed.connect(align_feet)
+		align_feet.call()
 	pivot.add_child(bird)
 	bird.animation_finished.connect(func(): bird.frame = rest_frame)
 	_birds.append({"pivot": pivot, "view": bird, "group": group, "phase": _birds.size() * 0.91,

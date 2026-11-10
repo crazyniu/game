@@ -1,6 +1,10 @@
 # Island homepage report
 
 ## Current refinement
+- Corrected both parrot perch contacts without changing source frames or display scale. Red contact pivot is `(190,855)`, green is `(671,905)`; per-frame claw rows replace the old padding-based contact assumption. Each pose is anchored before display and on `frame_changed`, and breathing stays about the contact pivot. The red bird shifts onto an unobstructed branch section.
+- Ran the canonical homepage again in both languages and captured 40 sampled motion frames. Personally inspected the full foot-contact sheet; independent review inspected f000, f010, f022 and f039. Both parrots meet the branch in the reviewed samples. No all-eight-poses coverage, exact frame-rate, timing or audio claim is made.
+- The combined icon-and-word alignment request remains open. Localized whole-button candidates are being prepared from existing accepted artwork for user asset review; they are not implemented by this commit.
+
 - Integrated the approved `Bird Sorting` title at the smaller phone-reviewed size. Its transparent cut retains all 166,511 visible original RGB pixels exactly; only transparency and display size change.
 - Replaced the homepage coin HUD with the approved feather-coin / dark-slot / green-plus artwork. The number region is separate from the plus. The plus is retained visually for a future entry; no purchase, recharge or new click action exists.
 - Homepage coins now display plain digits without commas, capped at 99999. The profile balance, economy, saves and values on other pages are not changed.
@@ -26,14 +30,17 @@ Ran Godot 4.7.2 asset import and two focused canonical-homepage captures using `
 - Under `xvfb-run -a -s '-screen 0 1280x2000x24'`: the same Godot binary with `--path PerchSort --audio-driver Dummy --rendering-driver opengl3 --resolution 1080x1920 -- --capture=<output> --lang=<locale> --profile=<fake profile JSON> --wait=0.8`.
 - Chinese input: `{"coins":50585,"language":"zh"}`. English input: `{"coins":1234567,"language":"en"}`.
 - Both runs completed successfully and produced 1080x1920 screenshots. No parse/script/error lines occurred. Both logs contain only the expected virtual-display warning that V-Sync cannot be changed.
-- Personally inspected both real runtime images against the user screenshot and retained design: visible coin numerals are vertically centered, 50585/99999 are clear of the plus, Play/开始 fit their larger surface, and all four smaller bottom faces retain even spacing. The header, house and six entries remain present. These captures were rerun after the vertical-alignment and fill-color correction; no screenshot from the preceding correction is reused. These stills establish layout only, not animation or sound.
+- Personally inspected both real runtime images against the user screenshot and retained design: visible coin numerals are vertically centered, 50585/99999 are clear of the plus, Play/开始 fit their larger surface, and all four smaller bottom faces retain even spacing. The header, house and six entries remain present. These captures were rerun after the parrot contact correction; no screenshot from the preceding correction is reused. These stills establish layout only, not animation or sound.
 - Evidence: `build/island-home/layout-review/{home_zh.png,home_en.png,home_zh.log,home_en.log,import.log}`. Small copies of the current captures and logs are in `evidence/layout-review/` for review, not in the approved-runtime baseline.
 
 Independent review inspected the source diff, the same actual runtime images and capture logs and reported no blocking findings.
 
-**NOT RUN:** regression/core/smoke suites, lint, build/export, navigation interactions, timed animation and audio checks. Static review and two focused captures are not a full pass. Updated regression assertions remain unexecuted. No new approved runtime baseline is created.
+**NOT RUN:** regression/core/smoke suites, lint, build/export, navigation interactions, full animation acceptance and audio checks. The limited parrot contact inspection is described below. Static review and two focused captures are not a full pass. Updated regression assertions remain unexecuted. No new approved runtime baseline is created.
 
 Asset files were not redrawn, replaced or modified for this correction. The completed earlier source-pixel and asset checks remain provenance evidence. Tests and runtime evidence from baseline `e4d98be73f9e24954f25aa1933ed5431b30b2975` are historical and do not verify this correction.
+
+## Parrot runtime evidence
+`build/island-home/layout-review/run-perches.sh` repeats the two focused homepage captures, then uses the canonical scene with `--capture=<unused path> --frames=<perch-motion> --motion --wait=5 --step=0.125 --lang=zh --profile={"coins":50585,"language":"zh"}`. Capture mode prevents save writes. The result is 40 sampled PNG frames; `main.gd` waits after saving each frame, so this is not a proven five-second / fixed-8fps sequence. No frame timestamps or pose IDs were logged. The contact-sheet order is left-to-right, top-to-bottom; each tile shows red then green feet. See `evidence/perch-review/contact-sheet.jpg` and `runtime.log`. Runtime logs have no script/parse errors, only the virtual-display V-Sync warning.
 
 ## User handover
 Push `island-ui-redesign` and keep PR #209 a draft. Ask the user to pull that branch and try the normal Godot homepage. Suggested checks: button/text balance, `Play` / `开始` switching while the homepage remains open, no commas in coins, balances above 99999 displayed as 99999 without changing the real balance, the retained plus, and all six existing entries. Runtime and visual acceptance remain with the user.

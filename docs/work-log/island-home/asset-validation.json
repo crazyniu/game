@@ -83,7 +83,15 @@
       "audio"
     ],
     "user_visual_approval": "pending",
-    "layout_review": "Fresh captures after shifting the 210x100 painted word region upward 7 reference pixels and applying a soft-white fill shader. The letter fills align with the green surface center, excluding the lower rim. All accepted PNG bytes, button dimensions, bottom controls and coin alignment remain unchanged."
+    "layout_review": "Fresh homepage captures after the parrot contact correction; button artwork remains unchanged pending whole-button asset review.",
+    "parrot_contact": {
+      "sampled_frames": 40,
+      "configured_wait_between_saves": 0.125,
+      "fixed_rate_proven": false,
+      "all_poses_proven": false,
+      "inspection": "All sampled foot crops viewed; independent samples f000, f010, f022, f039. No visible floating in reviewed samples.",
+      "evidence": "evidence/perch-review/contact-sheet.jpg"
+    }
   },
   "title_source_validation": "title-source-validation.json",
   "new_assets_approved": 14

@@ -1720,6 +1720,17 @@
       174
     ],
     "coin_vertical_alignment": "visible ink union centered in numeric area",
-    "play_label_fill": "Runtime soft-white correction toward #fdfdf7; approved PNG unchanged."
+    "play_label_fill": "Runtime soft-white correction toward #fdfdf7; approved PNG unchanged.",
+    "parrot_contacts": {
+      "macaw": [
+        190,
+        855
+      ],
+      "green_parrot": [
+        671,
+        905
+      ]
+    },
+    "whole_localized_button": "candidate preparation; not integrated"
   }
 }
