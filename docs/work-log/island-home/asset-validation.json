@@ -82,7 +82,8 @@
       "timed animation",
       "audio"
     ],
-    "user_visual_approval": "pending"
+    "user_visual_approval": "pending",
+    "layout_review": "Fresh captures after restoring bottom faces to 190x174 and Play to 440x171; compared visually against the design and user feedback."
   },
   "title_source_validation": "title-source-validation.json",
   "new_assets_approved": 14

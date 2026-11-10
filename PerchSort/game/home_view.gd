@@ -16,10 +16,10 @@ const REFERENCE_SIZE := Vector2(940, 1674)
 const CANVAS_SIZE := Vector2(1080, 1920)
 const REFERENCE_SCALE := CANVAS_SIZE / REFERENCE_SIZE
 const NAV_SIZE := Vector2(208, 191)
-const NAV_FACE_SIZE := Vector2(164, 151)
+const NAV_FACE_SIZE := Vector2(190, 174)
 const EVENT_SIZE := Vector2(142, 135)
-const PLAY_SIZE := Vector2(360, 152)
-const PLAY_FACE_SIZE := Vector2(340, 132)
+const PLAY_SIZE := Vector2(460, 191)
+const PLAY_FACE_SIZE := Vector2(440, 171)
 const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
 
@@ -58,13 +58,13 @@ func setup(p: Profile) -> void:
 	_add_coin_display()
 	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
 	var level := _next_level()
-	var play := _button("Play", "button_play_blank", _rect(290, 1142, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
+	var play := _button("Play", "button_play_blank", _rect(240, 1122.5, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
 	# The elongated primary stays prominent without restoring the oversized original mockup pill.
 	var face_origin := (PLAY_SIZE - PLAY_FACE_SIZE) * 0.5
 	var play_face := play.get_node("Face") as TextureRect
 	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
 	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 129, face_origin.y + 16, 193, 99))
+	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 167, face_origin.y + 21, 250, 128))
 	_play_word.name = "PlayWord"
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]

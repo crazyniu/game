@@ -1670,7 +1670,7 @@
     "path": "art/approved_ui/island_home.png",
     "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
   },
-  "refinement_authority": "User approved the prepared homepage assets, requested larger Play, smaller bottom controls and centered coin digits, then explicitly authorized running the game and checking images before committing to the existing branch.",
+  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch.",
   "runtime_visual_approved": false,
   "current_layout": {
     "title": [
@@ -1692,22 +1692,22 @@
       38
     ],
     "play_touch": [
-      290,
-      1142,
-      360,
-      152
+      240,
+      1122.5,
+      460,
+      191
     ],
     "play_surface": [
-      300,
-      1152,
-      340,
-      132
+      250,
+      1132.5,
+      440,
+      171
     ],
     "play_label_local": [
-      139,
-      26,
-      193,
-      99
+      177,
+      31,
+      250,
+      128
     ],
     "coin_display_max": 99999,
     "coin_separator": null,
@@ -1716,8 +1716,8 @@
       191
     ],
     "nav_surface_size": [
-      164,
-      151
+      190,
+      174
     ],
     "coin_vertical_alignment": "visible ink union centered in numeric area"
   }
