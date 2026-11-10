@@ -38,3 +38,8 @@ Earlier baseline `e4d98be73f9e24954f25aa1933ed5431b30b2975` test results are his
 
 ## User handover
 Pull `island-ui-redesign` and open `PerchSort/project.godot` in Godot 4.7.2. Check the whole button's balance, switch language from Settings without leaving Home, and review the retained parrot contacts. Keep PR #209 a draft. No merge, deployment or release is authorized.
+
+## Confirmed image filing
+The user subsequently requested a fixed repository location for the confirmed images. Added `art/approved_ui/README.md` as the index and `island_home_buttons.png` as the exact previously confirmed Chinese/English comparison. Existing homepage references, title source, typography review and canonical production buttons are linked in place rather than copied. The index distinguishes style direction, title-only source, superseded review details, accepted button assets and still-unapproved runtime captures. No unconfirmed Shop or Map candidate was added. The comparison copy's SHA-256 is `3c775671e989b6173878404d1f3587df05066e3123a3c0da214537f1f8acfffb`, identical to the user-reviewed file.
+
+No game, tests, lint, builds or new captures were run for this image/index-only change. The preceding complete-button runtime checks belong to implementation commit `5d8ba119`; they are not a new run for this filing task. No production source or asset was modified.
