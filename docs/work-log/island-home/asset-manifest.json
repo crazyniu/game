@@ -1670,7 +1670,7 @@
     "path": "art/approved_ui/island_home.png",
     "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
   },
-  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch. The user then questioned the text/button balance; accepted lettering is scaled and recentered without changing the button surface or other pages.",
+  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch. The user then questioned the text/button balance; accepted lettering is scaled and recentered without changing the button surface or other pages. User then requested corrected vertical centering and reference-consistent text color, followed by actual runtime images for review.",
   "runtime_visual_approved": false,
   "current_layout": {
     "title": [
@@ -1705,7 +1705,7 @@
     ],
     "play_label_local": [
       197,
-      45.5,
+      38.5,
       210,
       100
     ],
@@ -1719,6 +1719,7 @@
       190,
       174
     ],
-    "coin_vertical_alignment": "visible ink union centered in numeric area"
+    "coin_vertical_alignment": "visible ink union centered in numeric area",
+    "play_label_fill": "Runtime soft-white correction toward #fdfdf7; approved PNG unchanged."
   }
 }

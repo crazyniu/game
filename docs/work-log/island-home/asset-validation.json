@@ -83,7 +83,7 @@
       "audio"
     ],
     "user_visual_approval": "pending",
-    "layout_review": "Fresh captures after reducing the painted word box to 210x100 inside the unchanged 440x171 Play face. Actual ink is about 58 percent of visible face height in both languages. Bottom faces, hit areas and coin centering remain unchanged."
+    "layout_review": "Fresh captures after shifting the 210x100 painted word region upward 7 reference pixels and applying a soft-white fill shader. The letter fills align with the green surface center, excluding the lower rim. All accepted PNG bytes, button dimensions, bottom controls and coin alignment remain unchanged."
   },
   "title_source_validation": "title-source-validation.json",
   "new_assets_approved": 14

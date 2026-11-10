@@ -22,6 +22,7 @@ const PLAY_SIZE := Vector2(460, 191)
 const PLAY_FACE_SIZE := Vector2(440, 171)
 const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
+const PLAY_WORD_SHADER := preload("res://game/home_play_word.gdshader")
 
 var profile: Profile
 var instant := false
@@ -65,8 +66,12 @@ func setup(p: Profile) -> void:
 	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
 	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	# Keep the painted ink near 60% of the face height, with room around the icon and rim.
-	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 187, face_origin.y + 35.5, 210, 100))
+	# The bright green surface sits above the thick lower rim: align the letter fill to that surface.
+	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 187, face_origin.y + 28.5, 210, 100))
 	_play_word.name = "PlayWord"
+	var word_material := ShaderMaterial.new()
+	word_material.shader = PLAY_WORD_SHADER
+	_play_word.material = word_material
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]
 	for i in events.size():
