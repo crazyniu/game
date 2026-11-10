@@ -1,0 +1,96 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PASS canonical homepage opens
+PASS entry exists: Daily
+PASS entry exists: LuckyDraw
+PASS entry exists: Map
+PASS entry exists: Shop
+PASS entry exists: Aviary
+PASS entry exists: Chest
+PASS entry exists: Play
+PASS entry exists: Settings
+PASS event siblings match
+PASS navigation size: Shop
+PASS navigation size: Aviary
+PASS navigation size: Chest
+PASS six animated birds
+PASS eight drawn frames: Bird_macaw
+PASS no mirrored bird: Bird_macaw
+PASS eight drawn frames: Bird_yellow_chick
+PASS no mirrored bird: Bird_yellow_chick
+PASS eight drawn frames: Bird_blue_chick
+PASS no mirrored bird: Bird_blue_chick
+PASS eight drawn frames: Bird_green_parrot
+PASS no mirrored bird: Bird_green_parrot
+PASS eight drawn frames: Bird_logo_yellow
+PASS no mirrored bird: Bird_logo_yellow
+PASS eight drawn frames: Bird_logo_blue
+PASS no mirrored bird: Bird_logo_blue
+CAPTURE idle_00 elapsed_ms=2769
+CAPTURE idle_01 elapsed_ms=4259
+CAPTURE idle_02 elapsed_ms=5686
+CAPTURE idle_03 elapsed_ms=7088
+CAPTURE idle_04 elapsed_ms=8509
+CAPTURE idle_05 elapsed_ms=9980
+CAPTURE idle_06 elapsed_ms=11393
+CAPTURE idle_07 elapsed_ms=12828
+CAPTURE idle_08 elapsed_ms=14258
+CAPTURE idle_09 elapsed_ms=15715
+CAPTURE idle_10 elapsed_ms=17160
+CAPTURE idle_11 elapsed_ms=18608
+CAPTURE idle_12 elapsed_ms=20113
+CAPTURE idle_13 elapsed_ms=21610
+CAPTURE idle_14 elapsed_ms=23052
+CAPTURE idle_15 elapsed_ms=24531
+PASS drawn idle poses observed: Bird_macaw [1, 2, 3, 4, 6, 7, 0, 5]
+PASS continuous breathing: Bird_macaw
+PASS drawn idle poses observed: Bird_yellow_chick [0, 1, 2, 3, 4, 5, 6, 7]
+PASS continuous breathing: Bird_yellow_chick
+PASS drawn idle poses observed: Bird_blue_chick [2, 0, 1, 3, 4, 5, 6, 7]
+PASS continuous breathing: Bird_blue_chick
+PASS drawn idle poses observed: Bird_green_parrot [4, 0, 1, 2, 3, 5, 6, 7]
+PASS continuous breathing: Bird_green_parrot
+PASS drawn idle poses observed: Bird_logo_yellow [1, 2, 3, 4, 6, 7, 0, 5]
+PASS continuous breathing: Bird_logo_yellow
+PASS drawn idle poses observed: Bird_logo_blue [0, 1, 2, 3, 4, 5, 6, 7]
+PASS continuous breathing: Bird_logo_blue
+PASS homepage menu music plays
+PASS music mute stops playback
+PASS music unmute resumes playback
+CAPTURE home_en elapsed_ms=26038
+PASS dynamic high coin counter
+CAPTURE home_zh_max elapsed_ms=27226
+PASS localized Play keeps its footprint
+PASS pressed size unchanged: Daily
+PASS click opens board: Daily
+ENTRANCE level=1 kind=full skipped=false ms=3497
+PASS board entrance finishes: Daily
+CAPTURE entry_daily elapsed_ms=32818
+PASS pressed size unchanged: LuckyDraw
+PASS click opens Lucky Draw popup
+CAPTURE entry_luckydraw elapsed_ms=34960
+PASS pressed size unchanged: Map
+PASS click opens Map
+CAPTURE entry_map elapsed_ms=37728
+PASS pressed size unchanged: Shop
+PASS click opens Shop
+CAPTURE entry_shop elapsed_ms=39284
+PASS pressed size unchanged: Aviary
+PASS click opens Aviary
+CAPTURE entry_aviary elapsed_ms=41900
+PASS pressed size unchanged: Chest
+PASS click opens Chest popup
+CAPTURE entry_chest elapsed_ms=43685
+PASS pressed size unchanged: Play
+PASS click opens board: Play
+ENTRANCE level=1 kind=quick skipped=false ms=1448
+PASS board entrance finishes: Play
+CAPTURE entry_play elapsed_ms=46806
+PASS pressed size unchanged: Settings
+PASS click opens Settings popup
+CAPTURE entry_settings elapsed_ms=48758
+PASS home survives repeated navigation
+home checks: 0 failures

@@ -1,0 +1,53 @@
+{
+  "frames": {
+    "macaw": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 43,
+      "anchor_consistent": true
+    },
+    "yellow_chick": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 79,
+      "anchor_consistent": true
+    },
+    "blue_chick": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 78,
+      "anchor_consistent": true
+    },
+    "green_parrot": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 42,
+      "anchor_consistent": true
+    },
+    "logo_yellow": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 83,
+      "anchor_consistent": true
+    },
+    "logo_blue": {
+      "count": 8,
+      "unique": 8,
+      "min_transparent_margin": 84,
+      "anchor_consistent": true
+    }
+  },
+  "errors": [],
+  "static_asset_count": 13,
+  "frame_count": 48,
+  "status": "passed",
+  "boundary": "Technical asset and runtime tests passed. Final visual acceptance remains with the user; no device or listening test was performed.",
+  "runtime_checks": {
+    "navigation": "all six entries plus Play and Settings passed",
+    "drawn_idle": "six birds, eight frames each, all eight observed per bird",
+    "breathing": "continuous transform observed on all six birds",
+    "music": "menu stream plays, mute stops, unmute resumes",
+    "timed_frames": 24,
+    "capture_step_seconds": 0.25
+  }
+}

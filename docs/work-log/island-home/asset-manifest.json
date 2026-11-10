@@ -1,0 +1,1462 @@
+{
+  "status": "technically_validated_for_home_only_integration",
+  "implementation_started": true,
+  "assets": [
+    {
+      "name": "button_map",
+      "path": "PerchSort/art/btn_home_island_map.png",
+      "source_image": "exec-b68f13c7-3e4f-4194-bab7-eb4e0fc8603a.png",
+      "size": [
+        891,
+        869
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "3d0e18c9c360bfd12e6fed94474e0b2f9274aea00c23017f251f0b68ad120f91"
+    },
+    {
+      "name": "button_shop",
+      "path": "PerchSort/art/btn_home_island_shop.png",
+      "source_image": "exec-953bf673-8e31-466c-8f83-2aa4d313561e.png",
+      "size": [
+        789,
+        788
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "6add06d26997931a01f9cf4c67e6f6c162052bd6377d25f60a100e9850ef289e"
+    },
+    {
+      "name": "button_aviary",
+      "path": "PerchSort/art/btn_home_island_aviary.png",
+      "source_image": "exec-3fea72cd-3c6c-4eea-a073-e9d686c93519.png",
+      "size": [
+        746,
+        731
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "bed6d4e8d20e3d83796583928ba162dd04360680398c57d7e1eac94ede65467e"
+    },
+    {
+      "name": "button_chest",
+      "path": "PerchSort/art/btn_home_island_chest.png",
+      "source_image": "exec-f37e0635-cee0-48d5-9eff-f8487a5b05e5.png",
+      "size": [
+        903,
+        895
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "eeb6e54c7abf386df35451277306872701264f6740ca9835c07ce8ed748d48bc"
+    },
+    {
+      "name": "button_play_blank",
+      "path": "PerchSort/art/btn_home_island_play_blank.png",
+      "source_image": "exec-78eaaa9c-44b6-453a-93a4-788dcfb64a5b.png",
+      "size": [
+        1993,
+        757
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "68e5e3543e5a51009092fd7adfa065f4987b39be9ff6e54c9b92e1c8a43a4242"
+    },
+    {
+      "name": "button_settings",
+      "path": "PerchSort/art/btn_home_island_settings.png",
+      "source_image": "exec-c3884c72-9589-4509-9278-f559996be7e1.png",
+      "size": [
+        838,
+        852
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "ad12b6ebd79c5864bcd8399e010246de008211208a86d5f50638b8fc982bdabd"
+    },
+    {
+      "name": "button_daily",
+      "path": "PerchSort/art/btn_home_island_daily.png",
+      "source_image": "exec-805a675c-5a77-4368-9c96-cc64ef8d16ec.png",
+      "size": [
+        932,
+        928
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "3931502edadf55d0df343eeba4d0fb6c2b1b6ef2b99c9d574dff110d8534ab87"
+    },
+    {
+      "name": "button_draw",
+      "path": "PerchSort/art/btn_home_island_draw.png",
+      "source_image": "exec-1a15304c-fbde-4a16-8d5d-6c28ac4624ae.png",
+      "size": [
+        980,
+        980
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "6e56b98518a88c8bf5d9806cab14e9027ff827cedcad9e550116a140c3cbb4d4"
+    },
+    {
+      "name": "home_logo",
+      "path": "PerchSort/art/panel_home_island_logo.png",
+      "source_image": "exec-2a5f6e12-fe14-4f73-ba5a-f4fba1f0ec21.png",
+      "size": [
+        2085,
+        552
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "f268d85c5341e62e9972e9191d16b6e1557f22fc7d5ab297a5eca229f7f0fc6f"
+    },
+    {
+      "name": "counter_coin_empty",
+      "path": "PerchSort/art/panel_home_island_coin.png",
+      "source_image": "exec-5da6a7f8-132f-4dc0-a182-fb36d3663f22.png",
+      "size": [
+        1312,
+        626
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "56ebc431b4335057e6fa84027c0d8576fd39ae0ea54ac1dcd869e33a3e66b5ed"
+    },
+    {
+      "name": "badge_notification_empty",
+      "path": "PerchSort/art/badge_home_island_notification.png",
+      "source_image": "exec-30f538c9-7174-465c-a2c6-87cd93599ace.png",
+      "size": [
+        773,
+        792
+      ],
+      "generation": "AI candidate derived from approved design",
+      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "d06e3d56b4b62aab4e110a6a8d7742afa08224fb27ea05c9bbf7af40ba310741"
+    },
+    {
+      "name": "home_background",
+      "path": "PerchSort/art/panel_home_island_background.png",
+      "size": [
+        940,
+        1674
+      ],
+      "generation": "AI scene completion behind removed objects",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "ec23755280cc74598f0ab9de125b46efa223f97607a021a78ae299aacdd13684"
+    },
+    {
+      "name": "branch_foreground",
+      "path": "PerchSort/art/house_home_island_foreground.png",
+      "source_image": "exec-3f7d245a-d619-42d0-a010-a5d2dea8aafb.png",
+      "generation": "Foreground branch alpha mask from the generated clean background; no repainting",
+      "technical_validation": "passed",
+      "runtime_visual_approved": false,
+      "sha256": "bd30fa1cf9bb77c5168c70d4fd850cfc32864c9ad5b7b6c248f4a507826cbbec"
+    }
+  ],
+  "birds": {
+    "macaw": {
+      "source_sheet": "exec-1fe26b72-ec8a-4e78-a377-6457a185cfc4.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        560
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_macaw_idle_01.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            79,
+            45,
+            344,
+            461
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            275.0,
+            304.70000000000005
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_macaw_idle_02.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            80,
+            49,
+            343,
+            466
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            274.0,
+            300.24
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_macaw_idle_03.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            78,
+            43,
+            339,
+            464
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            276.0,
+            301.74
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_macaw_idle_04.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            79,
+            56,
+            343,
+            470
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            276.0,
+            296.0
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_macaw_idle_05.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            79,
+            53,
+            345,
+            467
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            275.0,
+            299.02
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_macaw_idle_06.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            80,
+            45,
+            380,
+            464
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            274.0,
+            302.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_macaw_idle_07.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            78,
+            51,
+            348,
+            465
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            276.0,
+            301.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_macaw_idle_08.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            81,
+            49,
+            345,
+            463
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            274.0,
+            303.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    },
+    "yellow_chick": {
+      "source_sheet": "exec-173c9c77-30a4-47ce-a544-00973aad95fd.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        560
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_01.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            133,
+            107,
+            388,
+            480
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            223.0,
+            406.0
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_02.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            131,
+            103,
+            386,
+            480
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            405.7250000000058
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_03.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            133,
+            100,
+            386,
+            481
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            405.16999999999825
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_04.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            133,
+            103,
+            388,
+            480
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            406.0
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_05.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            132,
+            106,
+            388,
+            480
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            224.0,
+            405.0
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_06.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            131,
+            105,
+            385,
+            480
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            224.0,
+            405.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_07.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            133,
+            107,
+            388,
+            480
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            224.0,
+            405.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_yellow_chick_idle_08.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            132,
+            108,
+            389,
+            480
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            225.0,
+            405.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    },
+    "blue_chick": {
+      "source_sheet": "exec-d6748d7b-964e-44dc-b74a-d83898e34973.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        560
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_01.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            129,
+            90,
+            398,
+            481
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            226.0,
+            404.0
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_02.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            128,
+            87,
+            390,
+            481
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            226.0,
+            404.0
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_03.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            128,
+            85,
+            388,
+            481
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            226.0,
+            404.0
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_04.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            127,
+            86,
+            383,
+            481
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            225.5,
+            404.0
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_05.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            129,
+            87,
+            389,
+            481
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            226.0,
+            404.0
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_06.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            129,
+            91,
+            424,
+            482
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            225.0,
+            403.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_07.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            129,
+            90,
+            390,
+            481
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            227.0,
+            404.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_blue_chick_idle_08.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            128,
+            90,
+            397,
+            481
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            226.0,
+            404.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    },
+    "green_parrot": {
+      "source_sheet": "exec-1b8eaa0d-0598-4509-8e32-63ac2452ab33.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        649
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_01.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            161,
+            48,
+            358,
+            504
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            302.5799999999999
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_02.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            161,
+            51,
+            357,
+            508
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            300.0
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_03.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            161,
+            42,
+            360,
+            502
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            224.0,
+            303.0
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_04.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            158,
+            54,
+            364,
+            509
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            223.0,
+            297.82000000000016
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_05.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            160,
+            48,
+            365,
+            504
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            222.0,
+            302.0
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_06.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            153,
+            44,
+            364,
+            502
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            230.0,
+            303.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_07.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            160,
+            50,
+            360,
+            505
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            225.0,
+            301.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_green_parrot_idle_08.png",
+          "foot_anchor": [
+            256,
+            330
+          ],
+          "bbox": [
+            164,
+            51,
+            362,
+            505
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            222.0,
+            301.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    },
+    "logo_yellow": {
+      "source_sheet": "exec-84c44666-d4ef-48c9-8349-9fb96f12190a.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        560
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_01.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            85,
+            161,
+            395,
+            476
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            238.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_02.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            85,
+            160,
+            396,
+            476
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            238.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_03.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            85,
+            161,
+            395,
+            476
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            238.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_04.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            85,
+            161,
+            395,
+            476
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            239.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_05.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            86,
+            161,
+            396,
+            477
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            239.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_06.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            88,
+            161,
+            402,
+            477
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            238.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_07.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            87,
+            161,
+            400,
+            477
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            238.0,
+            368.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_logo_yellow_idle_08.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            85,
+            161,
+            396,
+            477
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            239.0,
+            368.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    },
+    "logo_blue": {
+      "source_sheet": "exec-1c0c6c73-8440-4740-a5fe-cc2ea7f17d79.png",
+      "frame_count": 8,
+      "canvas": [
+        560,
+        560
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_01.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            110,
+            172,
+            424,
+            476
+          ],
+          "source_cell": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "source_anchor": [
+            216.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 2,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_02.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            112,
+            169,
+            421,
+            476
+          ],
+          "source_cell": [
+            444,
+            0,
+            887,
+            444
+          ],
+          "source_anchor": [
+            216.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 3,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_03.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            113,
+            170,
+            422,
+            476
+          ],
+          "source_cell": [
+            887,
+            0,
+            1330,
+            444
+          ],
+          "source_anchor": [
+            216.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 4,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_04.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            110,
+            172,
+            423,
+            476
+          ],
+          "source_cell": [
+            1330,
+            0,
+            1774,
+            444
+          ],
+          "source_anchor": [
+            217.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 5,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_05.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            112,
+            170,
+            425,
+            476
+          ],
+          "source_cell": [
+            0,
+            444,
+            444,
+            887
+          ],
+          "source_anchor": [
+            216.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 6,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_06.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            111,
+            167,
+            421,
+            476
+          ],
+          "source_cell": [
+            444,
+            444,
+            887,
+            887
+          ],
+          "source_anchor": [
+            216.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 7,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_07.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            110,
+            171,
+            420,
+            476
+          ],
+          "source_cell": [
+            887,
+            444,
+            1330,
+            887
+          ],
+          "source_anchor": [
+            217.0,
+            369.0
+          ]
+        },
+        {
+          "frame": 8,
+          "file": "PerchSort/birds/home_island_logo_blue_idle_08.png",
+          "foot_anchor": [
+            256,
+            470
+          ],
+          "bbox": [
+            110,
+            171,
+            424,
+            476
+          ],
+          "source_cell": [
+            1330,
+            444,
+            1774,
+            887
+          ],
+          "source_anchor": [
+            217.0,
+            369.0
+          ]
+        }
+      ],
+      "technical_validation": "passed",
+      "runtime_visual_approved": false
+    }
+  },
+  "preview_bird_layout": {
+    "macaw": [
+      -48,
+      521,
+      556,
+      556
+    ],
+    "yellow_chick": [
+      289,
+      596,
+      284,
+      284
+    ],
+    "blue_chick": [
+      405,
+      608,
+      271,
+      271
+    ],
+    "green_parrot": [
+      469,
+      637,
+      443,
+      513
+    ],
+    "logo_yellow": [
+      175,
+      77,
+      198,
+      198
+    ],
+    "logo_blue": [
+      563,
+      85,
+      197,
+      197
+    ]
+  },
+  "layout_reference_size": [
+    940,
+    1674
+  ],
+  "differences": [
+    "New bird poses preserve species/color but change expression, silhouette and feather detail.",
+    "Independent buttons preserve function and layout but differ in icon detail, bevel and highlight.",
+    "Logo lettering is reconstructed and differs slightly in curves/spacing.",
+    "The clean background contains newly completed hidden areas.",
+    "Branch foreground mask is cut from the newly completed background to preserve correct tail layering.",
+    "English PLAY is baked in this candidate; a Chinese state must preserve language behavior before integration."
+  ],
+  "runtime_acceptance": "pending_user_visual_review",
+  "source_reference": {
+    "path": "art/approved_ui/island_home.png",
+    "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
+  }
+}
