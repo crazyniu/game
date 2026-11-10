@@ -40,8 +40,8 @@
   "errors": [],
   "static_asset_count": 25,
   "frame_count": 48,
-  "status": "assets_validated_current_runtime_not_run",
-  "boundary": "This refinement has approved assets and static review only. Tests, builds, lint, game execution, captures and timed checks were not run, as explicitly requested by the user. Runtime visual acceptance remains pending.",
+  "status": "assets_unchanged_home_layout_captures_reviewed",
+  "boundary": "Latest explicit user authorization covers a focused homepage run and image comparison before commit. Two 1080x1920 captures were reviewed. Full suites, navigation, timed animation, audio and builds were not run. User runtime visual acceptance remains pending.",
   "previous_runtime_checks": {
     "navigation": "all six entries plus Play and Settings passed",
     "drawn_idle": "six birds, eight frames each, all eight observed per bird",
@@ -52,8 +52,37 @@
   },
   "previous_runtime_commit": "e4d98be73f9e24954f25aa1933ed5431b30b2975",
   "runtime_checks": {
-    "status": "not_run",
-    "reason": "Latest explicit user instruction assigns testing to the user."
+    "status": "focused_home_capture_only",
+    "engine": "Godot 4.7.2",
+    "resolution": [
+      1080,
+      1920
+    ],
+    "states": [
+      {
+        "locale": "zh",
+        "coins": 50585,
+        "display": "50585",
+        "path": "evidence/layout-review/home-zh.jpg"
+      },
+      {
+        "locale": "en",
+        "coins": 1234567,
+        "display": "99999",
+        "path": "evidence/layout-review/home-en.jpg"
+      }
+    ],
+    "script_or_parse_errors": false,
+    "warning": "Virtual X11 display cannot change V-Sync mode.",
+    "not_run": [
+      "regression/core/smoke suites",
+      "lint",
+      "build/export",
+      "navigation",
+      "timed animation",
+      "audio"
+    ],
+    "user_visual_approval": "pending"
   },
   "title_source_validation": "title-source-validation.json",
   "new_assets_approved": 14

@@ -40,10 +40,14 @@ func _run() -> void:
 	for name in buttons:
 		check(home.get_node_or_null(name) is Button, "entry exists: " + name)
 	check(home.get_node("Daily").size.is_equal_approx(home.get_node("LuckyDraw").size), "event siblings match")
-	check(home.get_node("Play").size.x <= home.get_node("Map").size.x * 1.25 + 0.01, "primary width respects sibling limit")
+	# The UI system explicitly permits an elongated Play pill; its height remains restrained.
+	check(home.get_node("Play").size.y <= home.get_node("Map").size.y * 1.25 + 0.01, "primary height respects sibling limit")
 	check(home.get_node("Play/Face").size.x < home.get_node("Play").size.x, "visible Play retains a larger touch area")
 	for name in ["Shop", "Aviary", "Chest"]:
 		check(home.get_node("Map").size.is_equal_approx(home.get_node(name).size), "navigation size: " + name)
+	for name in ["Map", "Shop", "Aviary", "Chest"]:
+		check(home.get_node(name).size.is_equal_approx(home.NAV_SIZE * home.REFERENCE_SCALE), "navigation touch area retained: " + name)
+		check(home.get_node(name + "/Face").size.is_equal_approx(home.NAV_FACE_SIZE * home.REFERENCE_SCALE), "compact navigation art: " + name)
 	check(home._birds.size() == 6, "six animated birds")
 	for entry in home._birds:
 		var bird: AnimatedSprite2D = entry.view

@@ -16,9 +16,10 @@ const REFERENCE_SIZE := Vector2(940, 1674)
 const CANVAS_SIZE := Vector2(1080, 1920)
 const REFERENCE_SCALE := CANVAS_SIZE / REFERENCE_SIZE
 const NAV_SIZE := Vector2(208, 191)
+const NAV_FACE_SIZE := Vector2(164, 151)
 const EVENT_SIZE := Vector2(142, 135)
-const PLAY_SIZE := Vector2(260, 112)
-const PLAY_FACE_SIZE := Vector2(240, 93)
+const PLAY_SIZE := Vector2(360, 152)
+const PLAY_FACE_SIZE := Vector2(340, 132)
 const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
 
@@ -57,13 +58,13 @@ func setup(p: Profile) -> void:
 	_add_coin_display()
 	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
 	var level := _next_level()
-	var play := _button("Play", "button_play_blank", _rect(340, 1162, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
-	# Keep the touch area generous while tightening the visible button around its painted word.
+	var play := _button("Play", "button_play_blank", _rect(290, 1142, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
+	# The elongated primary stays prominent without restoring the oversized original mockup pill.
 	var face_origin := (PLAY_SIZE - PLAY_FACE_SIZE) * 0.5
 	var play_face := play.get_node("Face") as TextureRect
 	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
 	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 91, face_origin.y + 11, 136, 70))
+	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 129, face_origin.y + 16, 193, 99))
 	_play_word.name = "PlayWord"
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]
@@ -79,6 +80,9 @@ func setup(p: Profile) -> void:
 	for i in places.size():
 		var entry: Array = places[i]
 		var button := _button(entry[0], entry[1], _rect(33 + 223 * i, 1413, NAV_SIZE.x, NAV_SIZE.y), (entry[2] as Signal).emit)
+		# Reduce only the artwork; the existing generous navigation targets stay in place.
+		var nav_face_origin := (NAV_SIZE - NAV_FACE_SIZE) * 0.5
+		UI.place(button.get_node("Face"), _rect(nav_face_origin.x, nav_face_origin.y, NAV_FACE_SIZE.x, NAV_FACE_SIZE.y))
 		if entry[0] == "Chest" and Progress.chests_ready(profile) > 0:
 			_badge(button, str(Progress.chests_ready(profile)))
 
@@ -90,7 +94,7 @@ func _add_coin_display() -> void:
 	var coins := Control.new()
 	coins.name = "Coins"
 	coins.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(coins, _rect(139.5, 68, 135, 38))
+	UI.place(coins, _rect(139.5, 71.5, 135, 38))
 	add_child(coins)
 	# This cap is presentation-only. The actual balance remains available to the economy and saves.
 	var value := str(clampi(profile.coins, 0, COIN_DISPLAY_MAX))
@@ -99,6 +103,11 @@ func _add_coin_display() -> void:
 	var scale_factor := minf(coins.size.x / (cell.x * value.length()), coins.size.y / cell.y)
 	var glyph_size := cell * scale_factor
 	var origin := (coins.size - Vector2(glyph_size.x * value.length(), glyph_size.y)) * 0.5
+	var ink := UI.used_rect("icon_home_island_digit_" + value[0])
+	for digit in value:
+		ink = ink.merge(UI.used_rect("icon_home_island_digit_" + digit))
+	# Center the visible painted ink, not the cells' unequal transparent top/bottom margins.
+	origin.y = coins.size.y * 0.5 - ink.get_center().y * scale_factor
 	for i in value.length():
 		UI.image(coins, "icon_home_island_digit_" + value[i], Rect2(origin + Vector2(glyph_size.x * i, 0), glyph_size), false)
 
@@ -111,7 +120,8 @@ func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> But
 
 func _badge(button: Control, value: String) -> void:
 	var d := 54.0 * REFERENCE_SCALE.y
-	var origin := Vector2(button.size.x - d * 0.84, -d * 0.33)
+	var face := button.get_node("Face") as TextureRect
+	var origin := face.position + Vector2(face.size.x - d * 0.84, -d * 0.33)
 	var badge := UI.image(button, "badge_home_island_notification", Rect2(origin, Vector2.ONE * d), false)
 	badge.name = "Badge"
 	UI.number(button, value, Rect2(origin + Vector2(9, 8), Vector2(d - 18, d - 18)), Color.WHITE)
