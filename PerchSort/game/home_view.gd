@@ -17,6 +17,9 @@ const CANVAS_SIZE := Vector2(1080, 1920)
 const REFERENCE_SCALE := CANVAS_SIZE / REFERENCE_SIZE
 const NAV_SIZE := Vector2(208, 191)
 const EVENT_SIZE := Vector2(142, 135)
+const PLAY_SIZE := Vector2(260, 112)
+const PLAY_FACE_SIZE := Vector2(240, 93)
+const COIN_DISPLAY_MAX := 99999
 const IDLE_FPS := 8.0
 
 var profile: Profile
@@ -24,6 +27,7 @@ var instant := false
 var _birds: Array[Dictionary] = []
 var _clock := 0.0
 var _last_idle := {"house": -1.0, "logo": -1.0}
+var _play_word: TextureRect
 
 static func _rect(x: float, y: float, w: float, h: float) -> Rect2:
 	return Rect2(Vector2(x, y) * REFERENCE_SCALE, Vector2(w, h) * REFERENCE_SCALE)
@@ -44,17 +48,23 @@ func setup(p: Profile) -> void:
 	_add_bird("green_parrot", Vector2(671, 898), 675, 4, "house")
 	# Only the branch foreground hides the parrot's tail; its feet stay above the perch.
 	UI.image(self, "house_home_island_foreground", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
-	UI.image(self, "panel_home_island_logo", _rect(123, 209, 691, 171), false)
-	_add_bird("logo_yellow", Vector2(265, 243), 134, 0, "logo")
+	UI.image(self, "panel_home_island_logo", _rect(260, 159, 420, 226))
+	_add_bird("logo_yellow", Vector2(285, 243), 134, 0, "logo")
 	_add_bird("logo_blue", Vector2(653, 251), 146, 0, "logo")
 
-	UI.image(self, "panel_home_island_coin", _rect(22, 31, 191, 93), false)
-	UI.number(self, str(profile.coins), _rect(107, 55, 91, 43), UI.INK).name = "Coins"
+	# The approved HUD retains its plus as artwork for a future entry; no purchase action is added.
+	UI.image(self, "panel_home_island_coin", _rect(22, 31, 350, 117))
+	_add_coin_display()
 	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
 	var level := _next_level()
-	var play := _button("Play", "button_play_blank", _rect(153, 1096, 626, 242), func(): play_requested.emit(level))
-	# Localized painted words retain the existing language preference; no fixed English text is baked in.
-	UI.label(play, "action.play", _rect(231, 52, 321, 127), 114.0, Color.WHITE)
+	var play := _button("Play", "button_play_blank", _rect(340, 1162, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
+	# Keep the touch area generous while tightening the visible button around its painted word.
+	var face_origin := (PLAY_SIZE - PLAY_FACE_SIZE) * 0.5
+	var play_face := play.get_node("Face") as TextureRect
+	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
+	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 91, face_origin.y + 11, 136, 70))
+	_play_word.name = "PlayWord"
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]
 	for i in events.size():
@@ -71,6 +81,26 @@ func setup(p: Profile) -> void:
 		var button := _button(entry[0], entry[1], _rect(33 + 223 * i, 1413, NAV_SIZE.x, NAV_SIZE.y), (entry[2] as Signal).emit)
 		if entry[0] == "Chest" and Progress.chests_ready(profile) > 0:
 			_badge(button, str(Progress.chests_ready(profile)))
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_word):
+		_play_word.texture = Art.tex("label_home_island_play_" + UiText.locale())
+
+func _add_coin_display() -> void:
+	var coins := Control.new()
+	coins.name = "Coins"
+	coins.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(coins, _rect(139.5, 68, 135, 38))
+	add_child(coins)
+	# This cap is presentation-only. The actual balance remains available to the economy and saves.
+	var value := str(clampi(profile.coins, 0, COIN_DISPLAY_MAX))
+	coins.set_meta("display_value", value)
+	var cell := Art.tex("icon_home_island_digit_0").get_size()
+	var scale_factor := minf(coins.size.x / (cell.x * value.length()), coins.size.y / cell.y)
+	var glyph_size := cell * scale_factor
+	var origin := (coins.size - Vector2(glyph_size.x * value.length(), glyph_size.y)) * 0.5
+	for i in value.length():
+		UI.image(coins, "icon_home_island_digit_" + value[i], Rect2(origin + Vector2(glyph_size.x * i, 0), glyph_size), false)
 
 func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> Button:
 	var button := UI.art_button(self, n, "btn_home_island_" + picture.trim_prefix("button_"), bounds, action)

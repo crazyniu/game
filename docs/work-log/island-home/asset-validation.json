@@ -38,16 +38,23 @@
     }
   },
   "errors": [],
-  "static_asset_count": 13,
+  "static_asset_count": 25,
   "frame_count": 48,
-  "status": "passed",
-  "boundary": "Technical asset and runtime tests passed. Final visual acceptance remains with the user; no device or listening test was performed.",
-  "runtime_checks": {
+  "status": "assets_validated_current_runtime_not_run",
+  "boundary": "This refinement has approved assets and static review only. Tests, builds, lint, game execution, captures and timed checks were not run, as explicitly requested by the user. Runtime visual acceptance remains pending.",
+  "previous_runtime_checks": {
     "navigation": "all six entries plus Play and Settings passed",
     "drawn_idle": "six birds, eight frames each, all eight observed per bird",
     "breathing": "continuous transform observed on all six birds",
     "music": "menu stream plays, mute stops, unmute resumes",
     "timed_frames": 24,
     "capture_step_seconds": 0.25
-  }
+  },
+  "previous_runtime_commit": "e4d98be73f9e24954f25aa1933ed5431b30b2975",
+  "runtime_checks": {
+    "status": "not_run",
+    "reason": "Latest explicit user instruction assigns testing to the user."
+  },
+  "title_source_validation": "title-source-validation.json",
+  "new_assets_approved": 14
 }

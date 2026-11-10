@@ -1,5 +1,5 @@
 {
-  "status": "technically_validated_for_home_only_integration",
+  "status": "approved_asset_pack_integrated_pending_user_runtime_review",
   "implementation_started": true,
   "assets": [
     {
@@ -117,30 +117,36 @@
     {
       "name": "home_logo",
       "path": "PerchSort/art/panel_home_island_logo.png",
-      "source_image": "exec-2a5f6e12-fe14-4f73-ba5a-f4fba1f0ec21.png",
+      "source_image": "art/approved_ui/island_home_title_source.png",
       "size": [
-        2085,
-        552
+        670,
+        360
       ],
-      "generation": "AI candidate derived from approved design",
-      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
-      "technical_validation": "passed",
+      "generation": "Exact original source RGB with transparency-only masking; all visible pixels match source.",
+      "normalization": "Transparency mask and crop only; original RGB unchanged.",
+      "technical_validation": "passed_before_integration",
       "runtime_visual_approved": false,
-      "sha256": "f268d85c5341e62e9972e9191d16b6e1557f22fc7d5ab297a5eca229f7f0fc6f"
+      "sha256": "9cb00a7469afaf1682d9b4960941e5d521571074757d77536ad7f19361cbfa30",
+      "source_file": "panel_home_title_source.png",
+      "asset_status": "approved",
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art."
     },
     {
       "name": "counter_coin_empty",
       "path": "PerchSort/art/panel_home_island_coin.png",
-      "source_image": "exec-5da6a7f8-132f-4dc0-a182-fb36d3663f22.png",
+      "source_image": "exec-e7a7a17c-5f68-4c8e-bdf4-a62815d2f70a.png",
       "size": [
-        1312,
-        626
+        2172,
+        724
       ],
-      "generation": "AI candidate derived from approved design",
-      "normalization": "alpha-only disconnected speck removal and transparent trim; no RGB repainting",
-      "technical_validation": "passed",
+      "generation": "Approved generated empty coin HUD with retained plus; differences disclosed in asset review.",
+      "normalization": "Approved generated PNG copied byte-for-byte.",
+      "technical_validation": "passed_before_integration",
       "runtime_visual_approved": false,
-      "sha256": "56ebc431b4335057e6fa84027c0d8576fd39ae0ea54ac1dcd869e33a3e66b5ed"
+      "sha256": "a0e5188a339255c9bc3d8d13d6cad92371667efbb171d15af304434a0fa35763",
+      "source_file": "panel_home_coin_candidate.png",
+      "asset_status": "approved",
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art."
     },
     {
       "name": "badge_notification_empty",
@@ -176,6 +182,210 @@
       "technical_validation": "passed",
       "runtime_visual_approved": false,
       "sha256": "bd30fa1cf9bb77c5168c70d4fd850cfc32864c9ad5b7b6c248f4a507826cbbec"
+    },
+    {
+      "name": "label_home_island_play_en",
+      "path": "PerchSort/art/label_home_island_play_en.png",
+      "size": [
+        1314,
+        635
+      ],
+      "sha256": "516520060bdb16fe1c2798f1dbf389b2c49dc23c56599f259e290c1719906be9",
+      "source_file": "label_home_play_art_en.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Approved independent painted localized word sprite; English Play, Chinese 开始.",
+      "source_image": "exec-3c2aa633-4258-4a09-9fdd-e4102bd6093c.png",
+      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance."
+    },
+    {
+      "name": "label_home_island_play_zh",
+      "path": "PerchSort/art/label_home_island_play_zh.png",
+      "size": [
+        1072,
+        543
+      ],
+      "sha256": "c693036d900ed364487b1d393181b382fe5f7929d98e2a9cc85090eb613576fd",
+      "source_file": "label_home_play_art_zh.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Approved independent painted localized word sprite; English Play, Chinese 开始.",
+      "source_image": "exec-f1e95049-23d6-4b5a-848b-84f6dbcd5bb7.png",
+      "normalization": "Transparent crop and faint alpha cleanup performed before user acceptance."
+    },
+    {
+      "name": "icon_home_island_digit_0",
+      "path": "PerchSort/art/icon_home_island_digit_0.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "1ab52f61415c90c425193b5e10d99a5a3eba8d881d4758a90e9a1d91a6b99609",
+      "source_file": "number_home_0.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_1",
+      "path": "PerchSort/art/icon_home_island_digit_1.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "9a018212208c5fb83862483e0a7bedccc2c90a230f0247c36dbffb9e0aef55aa",
+      "source_file": "number_home_1.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_2",
+      "path": "PerchSort/art/icon_home_island_digit_2.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "63d0b55e2f6805032d331909318cafbbe5ca90bd7be99363e923a6a0c4141609",
+      "source_file": "number_home_2.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_3",
+      "path": "PerchSort/art/icon_home_island_digit_3.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "cde88781ffa81b5c217e638d41c7e36e6c21a2a026f71eee33604414db694396",
+      "source_file": "number_home_3.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_4",
+      "path": "PerchSort/art/icon_home_island_digit_4.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "99c4a8c89b247cc754941beaae1e27f93030738ad4ddf58425b293f38f98b090",
+      "source_file": "number_home_4.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_5",
+      "path": "PerchSort/art/icon_home_island_digit_5.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "2d5567846f2ab615fcd20251f9ff279b34bafff91a912a9230c48c57862f88a7",
+      "source_file": "number_home_5.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_6",
+      "path": "PerchSort/art/icon_home_island_digit_6.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "6194567cbfe955fb2f777e3c9cf5f3cc8f874b4c614358cc0e28d2874661fe3f",
+      "source_file": "number_home_6.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_7",
+      "path": "PerchSort/art/icon_home_island_digit_7.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "6c784b7894d1d3dc47a66655b1fe299a817b8df4033e6b9c5885174c94ba4f11",
+      "source_file": "number_home_7.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_8",
+      "path": "PerchSort/art/icon_home_island_digit_8.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "029702089caaef8301101d3c97808e549d5691192c1f183f2554eb0c3f6afeff",
+      "source_file": "number_home_8.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
+    },
+    {
+      "name": "icon_home_island_digit_9",
+      "path": "PerchSort/art/icon_home_island_digit_9.png",
+      "size": [
+        85,
+        120
+      ],
+      "sha256": "173bf99d261d65bce2162c51c412f89aec315c0aaf75be806c394fbd366becb8",
+      "source_file": "number_home_9.png",
+      "asset_status": "approved",
+      "technical_validation": "passed_before_integration",
+      "runtime_visual_approved": false,
+      "approval": "User reviewed the full homepage asset composites and then explicitly requested implementing the homepage. Later feedback changes button/text proportions using the same approved art.",
+      "generation": "Offline Fredoka 650 numeral texture; SIL OFL 1.1.",
+      "source_image": "https://github.com/google/fonts/tree/main/ofl/fredoka",
+      "normalization": "Approved equal-size numeral cells copied byte-for-byte."
     }
   ],
   "birds": {
@@ -1449,14 +1659,57 @@
   "differences": [
     "New bird poses preserve species/color but change expression, silhouette and feather detail.",
     "Independent buttons preserve function and layout but differ in icon detail, bevel and highlight.",
-    "Logo lettering is reconstructed and differs slightly in curves/spacing.",
     "The clean background contains newly completed hidden areas.",
     "Branch foreground mask is cut from the newly completed background to preserve correct tail layering.",
-    "English PLAY is baked in this candidate; a Chinese state must preserve language behavior before integration."
+    "Bird Sorting title is an exact-RGB source extraction; only its transparency and display size change.",
+    "Play and 开始 are separate approved painted word images.",
+    "The empty coin HUD is a generated approved state with disclosed highlight/proportion differences; its plus is visual only."
   ],
   "runtime_acceptance": "pending_user_visual_review",
   "source_reference": {
     "path": "art/approved_ui/island_home.png",
     "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
+  },
+  "refinement_authority": "User approved the prepared homepage and requested implementation, no comma, display maximum 99999, existing branch push, no assistant-run tests or screenshots.",
+  "runtime_visual_approved": false,
+  "current_layout": {
+    "title": [
+      260,
+      159,
+      420,
+      226
+    ],
+    "coin_hud": [
+      22,
+      31,
+      350,
+      117
+    ],
+    "coin_digits": [
+      139.5,
+      68,
+      135,
+      38
+    ],
+    "play_touch": [
+      340,
+      1162,
+      260,
+      112
+    ],
+    "play_surface": [
+      350,
+      1171.5,
+      240,
+      93
+    ],
+    "play_label_local": [
+      101,
+      20.5,
+      136,
+      70
+    ],
+    "coin_display_max": 99999,
+    "coin_separator": null
   }
 }

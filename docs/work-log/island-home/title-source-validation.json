@@ -1,0 +1,41 @@
+{
+  "asset": "PerchSort/art/panel_home_island_logo.png",
+  "status": "asset_approved_runtime_pending",
+  "source": "art/approved_ui/island_home_title_source.png",
+  "source_sha256": "c2f225067d58e84938346f1d29883a0b2b4444749f455888cb1f85b94ebb5da1",
+  "source_crop_xywh": [
+    145,
+    140,
+    670,
+    360
+  ],
+  "output_size": [
+    670,
+    360
+  ],
+  "alpha_range": [
+    0,
+    255
+  ],
+  "nontransparent_pixels": 166511,
+  "preserved_rgb_fraction": 1.0,
+  "max_rgb_delta_visible": 0,
+  "mean_rgb_delta_visible": 0.0,
+  "visible_bbox": [
+    7,
+    11,
+    659,
+    350
+  ],
+  "crop_border_clear": true,
+  "source_rgb_repainted": false,
+  "method": "Original source RGB copied unchanged; only a source-guided transparency mask is applied. Generated extraction was used solely as a coarse spatial support mask, never as color artwork.",
+  "visual_checks": [
+    "Read Bird Sorting correctly",
+    "Original line proportions, letter outlines, flowers, leaves, wood sign and feather retained",
+    "Inspected against warm light and dark teal backgrounds",
+    "No disconnected fragments outside the connected title object"
+  ],
+  "approved": true,
+  "sha256": "9cb00a7469afaf1682d9b4960941e5d521571074757d77536ad7f19361cbfa30"
+}

@@ -40,6 +40,8 @@ func _run() -> void:
 	for name in buttons:
 		check(home.get_node_or_null(name) is Button, "entry exists: " + name)
 	check(home.get_node("Daily").size.is_equal_approx(home.get_node("LuckyDraw").size), "event siblings match")
+	check(home.get_node("Play").size.x <= home.get_node("Map").size.x * 1.25 + 0.01, "primary width respects sibling limit")
+	check(home.get_node("Play/Face").size.x < home.get_node("Play").size.x, "visible Play retains a larger touch area")
 	for name in ["Shop", "Aviary", "Chest"]:
 		check(home.get_node("Map").size.is_equal_approx(home.get_node(name).size), "navigation size: " + name)
 	check(home._birds.size() == 6, "six animated birds")
@@ -66,14 +68,24 @@ func _run() -> void:
 	sound.set_music_muted(false)
 	check(sound._music.playing, "music unmute resumes playback")
 	await _capture("home_en")
-	main.profile.coins = 99999
+	var coin_limit: int = home.COIN_DISPLAY_MAX
+	for balance in [0, 2480, coin_limit, coin_limit + 1, 1234567]:
+		main.profile.coins = balance
+		home.setup(main.profile)
+		var display := str(home.get_node("Coins").get_meta("display_value"))
+		check(display == str(mini(balance, coin_limit)), "coin display cap: " + str(balance))
+		check(not display.contains(",") and display.length() <= 5, "coin display has at most five digits and no comma")
+		check(main.profile.coins == balance, "coin presentation preserves actual balance: " + str(balance))
+	main.profile.coins = coin_limit
 	home.setup(main.profile)
-	check(home.get_node("Coins").value == "99999", "dynamic high coin counter")
 	UiText.set_language("zh")
 	await process_frame
+	check(home.get_node("Play/PlayWord").texture.resource_path.ends_with("label_home_island_play_zh.png"), "Chinese painted Play refreshes in place")
 	await _capture("home_zh_max")
 	UiText.set_language("en")
-	check(home.get_node("Play").size == Vector2(626, 242) * Vector2(1080.0 / 940.0, 1920.0 / 1674.0), "localized Play keeps its footprint")
+	await process_frame
+	check(home.get_node("Play/PlayWord").texture.resource_path.ends_with("label_home_island_play_en.png"), "English painted Play refreshes in place")
+	check(home.get_node("Play").size.is_equal_approx(home.PLAY_SIZE * home.REFERENCE_SCALE), "localized Play keeps its footprint")
 	for name in buttons:
 		main._open_home()
 		await create_timer(0.5).timeout
