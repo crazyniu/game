@@ -83,7 +83,7 @@
       "audio"
     ],
     "user_visual_approval": "pending",
-    "layout_review": "Fresh captures after restoring bottom faces to 190x174 and Play to 440x171; compared visually against the design and user feedback."
+    "layout_review": "Fresh captures after reducing the painted word box to 210x100 inside the unchanged 440x171 Play face. Actual ink is about 58 percent of visible face height in both languages. Bottom faces, hit areas and coin centering remain unchanged."
   },
   "title_source_validation": "title-source-validation.json",
   "new_assets_approved": 14

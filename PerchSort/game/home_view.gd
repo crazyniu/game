@@ -64,7 +64,8 @@ func setup(p: Profile) -> void:
 	var play_face := play.get_node("Face") as TextureRect
 	UI.place(play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
 	play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 167, face_origin.y + 21, 250, 128))
+	# Keep the painted ink near 60% of the face height, with room around the icon and rim.
+	_play_word = UI.image(play, "label_home_island_play_" + UiText.locale(), _rect(face_origin.x + 187, face_origin.y + 35.5, 210, 100))
 	_play_word.name = "PlayWord"
 
 	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]

@@ -1670,7 +1670,7 @@
     "path": "art/approved_ui/island_home.png",
     "sha256": "5f3caf4c12203b301026945165f91a491f293276d8bc33122769d8000130b1e4"
   },
-  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch.",
+  "refinement_authority": "User approved the prepared homepage assets, requested centered coin digits and smaller controls, then clarified that only a moderate reduction from the design was intended. User authorized running the game and checking images before committing to the existing branch. The user then questioned the text/button balance; accepted lettering is scaled and recentered without changing the button surface or other pages.",
   "runtime_visual_approved": false,
   "current_layout": {
     "title": [
@@ -1704,10 +1704,10 @@
       171
     ],
     "play_label_local": [
-      177,
-      31,
-      250,
-      128
+      197,
+      45.5,
+      210,
+      100
     ],
     "coin_display_max": 99999,
     "coin_separator": null,
