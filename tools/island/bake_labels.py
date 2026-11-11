@@ -6,7 +6,7 @@ font is rendered at runtime.
 python3 tools/island/bake_labels.py
 Output: PerchSort/art/labels/label_<id>_<style>_<lang>.png, one line box per font (same height and baseline for every
 word), built at CAP px.
-Styles: ink (warm brown on cream), soft (lighter brown, captions) and white (white with a soft green-dark shadow, for green buttons).
+Styles: ink (warm brown on cream), soft (lighter brown, captions), title (white, brown outline) and white (white with a soft green-dark shadow, for green buttons).
 """
 import json
 import os
@@ -19,7 +19,7 @@ OUT = os.path.join(ROOT, "PerchSort", "art", "labels")
 FONTS = {"en": os.path.join(ROOT, "tools", "kit", "fonts", "lilita_one.ttf"),
          "zh": os.path.join(ROOT, "tools", "kit", "fonts", "noto_sans_sc_bold.otf")}
 CAP = 120                  # build size: the font's em in px
-MARGIN = 16
+MARGIN = 24
 INK = (107, 58, 23)        # warm brown
 SOFT = (150, 104, 62)      # lighter brown for one-line captions
 WHITE_SHADOW = (30, 100, 20)
@@ -37,6 +37,7 @@ WORDS = {
     "lang_en": ("English", "English", ["ink", "white"]),
     "lang_zh": ("中文", "中文", ["ink", "white"]),
     # Shop
+    "shop": ("Shop", "商店", ["title"]),
     "tab_boosters": ("Boosters", "道具", ["ink", "white"]),
     "tab_outfits": ("Outfits", "装扮", ["ink", "white"]),
     "tab_nests": ("Nests", "鸟窝", ["ink", "white"]),
@@ -105,7 +106,14 @@ def render(text, lang, style):
     mask = Image.new("L", (w, h), 0)
     ImageDraw.Draw(mask).text((MARGIN - left, MARGIN), text, font=font, fill=255)
     out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    if style == "white":
+    if style == "title":   # screen titles over the sky: white, warm-brown outline, soft drop
+        ring = Image.new("L", (w, h), 0)
+        ImageDraw.Draw(ring).text((MARGIN - left, MARGIN), text, font=font, fill=255, stroke_width=9, stroke_fill=255)
+        drop = ImageChops.offset(ring, 0, 6).filter(ImageFilter.GaussianBlur(3))
+        out.paste(Image.new("RGBA", (w, h), (60, 30, 8, 255)), (0, 0), drop.point(lambda a: a * 0.4))
+        out.paste(Image.new("RGBA", (w, h), INK + (255,)), (0, 0), ring)
+        out.paste(Image.new("RGBA", (w, h), (255, 255, 255, 255)), (0, 0), mask)
+    elif style == "white":
         shadow = ImageChops.offset(mask, 0, 5).filter(ImageFilter.GaussianBlur(2))
         out.paste(Image.new("RGBA", (w, h), WHITE_SHADOW + (255,)), (0, 0), shadow.point(lambda a: a * 0.55))
         out.paste(Image.new("RGBA", (w, h), (255, 255, 255, 255)), (0, 0), mask)

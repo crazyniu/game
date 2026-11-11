@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f4sbh1c816t6"
-path="res://.godot/imported/btn_tab_outfits_off_zh.png-0033cbf43c5beb77b111d3e32cae3e42.ctex"
+uid="uid://b30pmy477kq10"
+path="res://.godot/imported/label_shop_title_en.png-e7d2e2106e284cbd532475f0e2cdf73c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/buttons/btn_tab_outfits_off_zh.png"
-dest_files=["res://.godot/imported/btn_tab_outfits_off_zh.png-0033cbf43c5beb77b111d3e32cae3e42.ctex"]
+source_file="res://art/labels/label_shop_title_en.png"
+dest_files=["res://.godot/imported/label_shop_title_en.png-e7d2e2106e284cbd532475f0e2cdf73c.ctex"]
 
 [params]
 

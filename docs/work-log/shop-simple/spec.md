@@ -1,13 +1,11 @@
-# Simple shop
+# Shop layout (rebuilt)
 
-Clean but still glossy (not the plain settings look). Applies to the Boosters, Outfits and Nests tabs of
-`game/shop_view.gd`.
-- Backdrop: the open-sea `island_map_backdrop`; a light translucent veil groups the cards instead of a framed sheet.
-- One card style (glossy soft cream tile); the equipped nest keeps the green outline and check.
-- Words from `tools/island/bake_labels.py` (Lilita One / full Noto Sans CJK SC Bold): names in warm brown, one-line uses
-  in a lighter brown, "Equipped" as a quiet state word. Tabs and the Equip / Open buttons are baked by
-  `tools/island/bake_buttons.py` with the same words; nothing is stretched.
-- Boosters: picture, name, use, gold price; the owned count badge sits in the card's top-right corner.
-- Outfits: the same veil; a large middle card (bird, name, hanger n/m outfits, Open), neighbours peeking at the sides,
-  page dots; no arrows, plank or roster strip. Swipe, tap a neighbour or a dot to turn.
-- Unused baked pieces from the earlier settings work were removed.
+New layout, not a restyle of the old one. `game/shop_view.gd`:
+- Header: close tile, feather bar, the title word "Shop" (baked title style: white, brown outline) over the sky.
+- Content fits one screen on every tab (no scrolling, no scroll rail):
+  Boosters: a list of six rows (picture with its owned count, name over one-line use, gold price on the right).
+  Outfits: a 3 x 3 grid of bird kinds (bird in its current outfit, name, hanger n/m); a met kind opens its outfit page.
+  Nests: a 3 x 3 grid of houses (picture, name, price / Equip / the quiet word "Equipped"; the equipped one has a green rim and check).
+- Tabs: a tab bar docked at the bottom, picture over word; the current tab's picture is raised and its word is white on a green pill.
+- Surfaces: frosted white glass cards over the open sea (no cream cards, no veil); drawn shapes, never stretched.
+- Words from `tools/island/bake_labels.py` (one font per language); Equip / Open from `tools/island/bake_buttons.py`.

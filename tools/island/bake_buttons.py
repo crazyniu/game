@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Bakes the shop's worded buttons and tabs into one complete picture per language: the glossy
+"""Bakes the shop's worded buttons (Equip, Open) into one complete picture per language: the glossy
 base, its picture, and the font-baked word (tools/island/bake_labels.py), centred on the measured face of the base (not on the picture's
 box, whose bottom lip and shadow would push the word up). The game shows each button as that single picture.
 
 python3 tools/island/bake_buttons.py
-Output: PerchSort/art/buttons/btn_<open|equip>_<lang>.png and btn_tab_<name>_<on|off>_<lang>.png.
+Output: PerchSort/art/buttons/btn_<open|equip>_<lang>.png.
 """
 import os
 
@@ -98,35 +98,12 @@ def green_button(size, word_img, icon=None, word_h=0.5):
     return img
 
 
-def tab(selected, picture, word_img, size):
-    w, h = size[0] * SCALE, size[1] * SCALE
-    if selected:
-        img = green_face(w, h)
-    else:
-        base = soft_rim(load("island/island_tab_plain.png"))
-        img = stretch(base, (w, h), base.height * 0.5)
-    cy = face_center_y(img, selected)
-    pic = fit(trim(picture), h * 0.96, h * 0.96)
-    img.alpha_composite(pic, (round(h * 0.14), round(h / 2.0 - pic.height / 2.0)))
-    left = h * 0.14 + pic.width
-    room = w - left - h * 0.34
-    wd = fit(word_img, room, h * 0.52)
-    img.alpha_composite(wd, (round(left + (w - h * 0.22 - left - wd.width) / 2.0), round(cy - wd.height / 2.0)))
-    return img
-
-
 def main():
     os.makedirs(OUT, exist_ok=True)
     shop = {"open": (420, 128), "equip": (320, 104)}
     for lang in LANGS:
         for name, size in shop.items():
             green_button(size, label(lang, name, "white"), None, 0.46).save(os.path.join(OUT, "btn_%s_%s.png" % (name, lang)))
-        for name in ["boosters", "outfits", "nests"]:
-            pic = load("island/island_tab_%s.png" % name)
-            for on in [True, False]:
-                wd = label(lang, "tab_" + name, "white" if on else "ink")
-                tab(on, pic, wd, (322, 124)).save(
-                    os.path.join(OUT, "btn_tab_%s_%s_%s.png" % (name, "on" if on else "off", lang)))
 
 
 if __name__ == "__main__":
