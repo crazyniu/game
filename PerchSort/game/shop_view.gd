@@ -263,7 +263,7 @@ func _build_coins() -> void:
 ## The tab bar docked at the bottom: one glossy cream bar, three cells (picture over word). The current tab's picture
 ## sits a little higher and its word is white on a green pill; every cell keeps one size.
 func _tab_bar() -> void:
-	_glass(_tabs, TAB_BAR, 44.0, false, Color(1, 1, 1, 0.96)).name = "TabBar"   # nearly solid: the flowers stay behind it
+	_glass(_tabs, TAB_BAR, 44.0).name = "TabBar"
 	var words := Simple.Words.new()
 	var cell := TAB_BAR.size.x / TABS.size()
 	for i in TABS.size():
@@ -391,18 +391,26 @@ func _item_holder(it: Dictionary, r: Rect2) -> Control:
 	return card
 
 ## A soft cream card; the chosen one carries the green outline.
-func _flat_card(parent: Node, r: Rect2, selected := false) -> Panel:
+func _flat_card(parent: Node, r: Rect2, selected := false) -> Control:
 	return _glass(parent, r, 34.0, selected)
 
-## Frosted white glass over the sea: the one card surface of the shop (rows, tiles, tab bar). The chosen card has a
-## green rim instead of the white one.
-const GLASS := Color(1.0, 1.0, 1.0, 0.86)
-const GLASS_RIM := Color(1.0, 1.0, 1.0, 1.0)
+## The home page's tile (painted by local Codex in the style of its buttons): the one card surface of the shop (rows,
+## tiles, tab bar). A nine-patch keeps the rounded corners and bevel at every size; the chosen card has the green rim.
+const TILE_MARGIN := 110                          # texture px: the painted corner and bevel
 
-func _glass(parent: Node, r: Rect2, radius: float, selected := false, fill := GLASS) -> Panel:
-	var style := Simple._box(fill, radius, Color.TRANSPARENT, 0.0, 6.0 if selected else 4.0,
-		Simple.GREEN if selected else GLASS_RIM, 14.0)
-	return Simple._panel(parent, r, style, "Shape")
+func _glass(parent: Node, r: Rect2, radius: float, selected := false) -> Control:
+	# Small cards draw the tile at a larger size and scale down, so the corners keep their painted proportions.
+	var k := clampf(radius / 70.0, 0.35, 1.0)
+	var holder := Control.new()
+	holder.name = "Shape"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, r)
+	parent.add_child(holder)
+	var tile := Island.nine(holder, "island_tile_selected" if selected else "island_tile", Rect2(Vector2.ZERO, r.size / k),
+		Vector4(TILE_MARGIN, TILE_MARGIN, TILE_MARGIN, TILE_MARGIN))
+	tile.pivot_offset = Vector2.ZERO
+	tile.scale = Vector2.ONE * k
+	return holder
 
 func _pop_in(card: Control, n: int) -> void:
 	if instant:

@@ -7,5 +7,7 @@ New layout, not a restyle of the old one. `game/shop_view.gd`:
   Outfits: a 3 x 3 grid of bird kinds (bird in its current outfit, name, hanger n/m); a met kind opens its outfit page.
   Nests: a 3 x 3 grid of houses (picture, name, price / Equip / the quiet word "Equipped"; the equipped one has a green rim and check).
 - Tabs: a tab bar docked at the bottom, picture over word; the current tab's picture is raised and its word is white on a green pill.
-- Surfaces: frosted white glass cards over the open sea (no cream cards, no veil); drawn shapes, never stretched.
+- Surfaces: the home page's tile look (user choice 2026-11-11): one blank tile painted by local Codex from crops of the home
+  buttons, installed by `tools/island/install_tile.py` as `island_tile` / `island_tile_selected`, drawn as nine-patches
+  (corners kept, never stretched) for rows, tiles and the tab bar; the equipped nest uses the green-rim tile.
 - Words from `tools/island/bake_labels.py` (one font per language); Equip / Open from `tools/island/bake_buttons.py`.
