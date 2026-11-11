@@ -7,7 +7,7 @@ Rebuild the world-card carousel in `PerchSort/game/map_view.gd` from `art/approv
 - World number badge 140 px on the card's top edge: green on the centred card, gold on the neighbours.
 - Card picture: one scenic painting per world (`world/card_scene_w<N>`), not the level-path painting.
 - Name on a wooden plank with hibiscus ends (`island_name_plank`), plank centre 741 px below the card top.
-- Stars chip 400 x 104 at y 1423 (cream pill with round ends); Play pill 590 x 170 at y 1546, triangle and word centred together.
+- Stars chip 400 x 104 at y 1423 (cream pill with round ends). Play is the home page's painted button (one complete picture per language, word baked in), 560 x 213 at y 1536.
 - Ten page dots at y 1771, 54 px apart, 32 px, cream with the current one green.
 - No bottom button row (the design has none; shop and aviary stay on the home page).
 - Backdrop `island_map_backdrop`: open sea, palm fronds in the top corners, hibiscus and sand at the bottom.

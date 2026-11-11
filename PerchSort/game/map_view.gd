@@ -39,7 +39,7 @@ const BADGE := 140.0                     # the world number disc on the card's t
 const BADGE_Y := 12.0                    # badge centre below the card top
 const CHIP := Vector2(400, 104)          # stars chip under the centred card
 const CHIP_Y := 1423.0
-const PLAY := Rect2(245, 1546, 590, 170)
+const PLAY := Rect2(260, 1536, 560, 213)       # the home page's painted Play button (word baked in), at its own ratio
 const TAP_SLOP := 18.0
 const DOT_Y := 1771.0
 const DOT := 32.0
@@ -259,15 +259,8 @@ func _build_info(world: int) -> void:
 	var left := chip.get_center().x - (star + 22.0 + w) * 0.5
 	Island.piece_fit(_info, "island_star_full", Vector2(left + star * 0.5, chip.get_center().y - 3.0), Vector2(star, star))
 	UI.number(_info, text, Rect2(left + star + 22.0, chip.get_center().y - cap * 0.5 - 4.0, w + 4.0, cap), UI.INK, -1)
-	var play := UI.pill(_info, "Play", PLAY, "green", "action.play", func(): _play(world))
-	# The play triangle and the word sit together in the middle of the pill, as in the design.
-	var word: Control = play.get_node("Content").get_child(-1)
-	var tri := PLAY.size.y * 0.72
-	var gap := 10.0
-	var group := tri + gap + word.size.x
-	var start := (PLAY.size.x - group) * 0.5
-	word.position.x = start + tri + gap
-	UI.icon(play.get_node("Content"), "play", Vector2(start + tri * 0.5, PLAY.size.y * 0.46), tri, Color.WHITE)
+	# One painted picture per language, the same button as on the home page, so the word is always centred.
+	var play := UI.art_button(_info, "Play", "btn_home_island_play_" + UiText.locale(), PLAY, func(): _play(world))
 	UI.set_active(play, Progress.is_world_unlocked(profile, world))
 
 func _play(world: int) -> void:
