@@ -1,7 +1,0 @@
-Use your image generation tool. The attached ref_pill_green.png, ref_pill_orange.png and ref_pill_disabled.png are crops of buttons from my UI sketch. Reproduce THESE EXACT button faces (same colours, same gradient from light top to deeper bottom, same thin dark outline, same thick darker bottom edge, same soft highlight line along the top, same corner roundness) but WITHOUT any text, as a portrait 1024x1536 sheet on a FULLY TRANSPARENT background (PNG alpha). Five empty pills stacked vertically, centred, each about 820x200 with fully rounded ends and a straight middle, at least 60 px apart:
-1 green exactly like ref_pill_green.png (the "How to Play" button),
-2 orange exactly like ref_pill_orange.png (the price button),
-3 blue in the same style (sky blue top, deeper blue bottom, dark blue outline),
-4 red in the same style (cherry red, dark red outline),
-5 the pale disabled green exactly like ref_pill_disabled.png (the "Open" button).
-The colours must be as saturated and as deep as in the crops, NOT lighter, NOT more yellow. No text, no shadows on the background.

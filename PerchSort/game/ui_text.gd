@@ -24,6 +24,18 @@ class LabelSprite extends TextureRect:
 			UiText._fit_label(self)
 
 
+## A painted word in its own colours (island lettering): fits the box keeping its ratio, centred or edge-aligned,
+## and swaps to the other language's picture when the locale changes. No tint or outline is applied.
+class PaintedSprite extends TextureRect:
+	var painted_id: String
+	var bounds: Rect2
+	var align := 0   # -1 left, 0 centre, 1 right
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_TRANSLATION_CHANGED and not painted_id.is_empty():
+			UiText._fit_painted(self)
+
+
 const NUMBER_GAP := 14.0   # between the painted inks of neighbouring digits, in glyph pixels (cap 128)
 static var _number_ink := {}   # character -> [ink left, ink width] in glyph pixels
 
@@ -132,6 +144,42 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Co
 	_fit_label(image)
 	parent.add_child(image)
 	return image
+
+static func painted(parent: Node, id: String, bounds: Rect2, align := 0) -> TextureRect:
+	var image := PaintedSprite.new()
+	image.name = "Word_" + id
+	image.painted_id = id
+	image.bounds = bounds
+	image.align = align
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode = TextureRect.STRETCH_SCALE
+	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_fit_painted(image)
+	parent.add_child(image)
+	return image
+
+static func _fit_painted(image: PaintedSprite) -> void:
+	_load_pack()
+	var entry: Dictionary = _pack["painted"][image.painted_id]
+	var base: Texture2D = load(_folder + entry["file"])
+	var natural := base.get_size()
+	var k := minf(image.bounds.size.x / natural.x, image.bounds.size.y / natural.y)
+	var shown := natural * k
+	var free := image.bounds.size - shown
+	image.texture = base
+	image.size = shown
+	image.position = image.bounds.position + Vector2(free.x * (0.5 + 0.5 * image.align), free.y * 0.5)
+	image.pivot_offset = shown * 0.5
+
+## The width a painted word takes when its height is `height` (for laying out rows before placing them).
+static func has_painted(id: String) -> bool:
+	_load_pack()
+	return _pack.has("painted") and _pack["painted"].has(id)
+
+static func painted_width(id: String, height: float) -> float:
+	_load_pack()
+	var base: Texture2D = load(_folder + _pack["painted"][id]["file"])
+	return base.get_width() * height / base.get_height()
 
 
 static func _fit_label(image: LabelSprite) -> void:

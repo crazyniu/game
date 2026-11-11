@@ -1,8 +1,0 @@
-# popup-motion — task contract
-
-YOUR FILES: PerchSort/game/popups.gd, PerchSort/game/popup.gd, PerchSort/game/main.gd, report docs/work-log/popup-motion/report.md. Topic: popup-motion. Do not edit board_view.gd or bird_view.gd.
-1. Win panel (CONVENTIONS 5.4): panel scale-in with overshoot, ribbon drop, stars one after another 0.18 s apart, counters counting up (moves and coin reward glyph numbers), light rays rotating behind the panel (art light_rays), confetti for about 3 s (art confetti_1..4), side birds and the hero bird fly in (fly frames) and keep animating until the panel closes. Reference: Unity PopupMotion.cs / WinPanel.cs.
-2. Modal standard (CONVENTIONS 4.4 and issue #100): dim layer alpha 0.72 above everything; a soft panel shadow so every modal separates from the background; settings: one panel fade+scale 0.18 s in, 0.12 s out. popup.gd `panel_wood` has transparent margins (popups.gd compensates with PANEL_PAD); fix it inside popup.gd so the visible frame fills the requested rect, and remove the compensation.
-3. Screen transition: port LeafTransition.cs (art leaf_wipe) for map <-> board <-> shop/aviary changes in main.gd; skip it in instant capture mode.
-4. Sounds: popups open/close with ui_tap/ui_back like Unity AudioManager; music per CONVENTIONS 6 (bgm_menu on map/shop/aviary, bgm_game on the board, 1 s crossfade, never restart on popups, pause on focus loss) - check sound.gd's API and call it from main.gd; if sound.gd lacks crossfade or focus pause, list it in the report (board agent owns sound.gd).
-Verify with timed frame sequences of the win panel (use the preview state with --motion, e.g. `-- --frames=/tmp/pm/f --wait=3.5 --step=0.15 --preview=popups:win_three_stars` plus `--motion`) and of a transition; look at contact sheets.

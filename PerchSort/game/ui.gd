@@ -1,6 +1,6 @@
 class_name UI
 extends RefCounted
-## UI builders (docs/design/ui-system.md). All rects are design pixels, origin top-left of the parent.
+## UI builders (docs/design/island-style.md). All rects are design pixels, origin top-left of the parent.
 
 const TextArt := preload("res://game/ui_text.gd")
 
@@ -65,7 +65,7 @@ static func hit_area(parent: Node, r: Rect2, on_press: Callable) -> Button:
 	parent.add_child(b)
 	return b
 
-## ---------- cartoon kit (docs/design/ui-system.md) ----------
+## ---------- cartoon kit (docs/design/island-style.md) ----------
 ## Shapes are flat rounded fills with a darker bottom edge and one soft shadow, drawn by code so every role has
 ## one exact size and look. Icons, words and numbers are painted white sprites tinted here.
 
@@ -316,7 +316,9 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	if not label_id.is_empty():
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
-		outline_to(label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE), kind)
+		var word := label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, INK if kind == "orange" else Color.WHITE)
+		if kind != "orange":
+			outline_to(word, kind)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

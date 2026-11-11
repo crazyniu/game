@@ -1299,5 +1299,112 @@
       "%": "number_percent.png",
       "∞": "number_infinity.png"
     }
+  },
+  "painted": {
+    "cap_firefly": {
+      "file": "island_words/cap_firefly.png"
+    },
+    "cap_owl_eye": {
+      "file": "island_words/cap_owl_eye.png"
+    },
+    "cap_scarecrow": {
+      "file": "island_words/cap_scarecrow.png"
+    },
+    "cap_spring_rain": {
+      "file": "island_words/cap_spring_rain.png"
+    },
+    "cap_sprout": {
+      "file": "island_words/cap_sprout.png"
+    },
+    "cap_wake_bell": {
+      "file": "island_words/cap_wake_bell.png"
+    },
+    "item_firefly": {
+      "file": "island_words/item_firefly.png"
+    },
+    "item_owl_eye": {
+      "file": "island_words/item_owl_eye.png"
+    },
+    "item_scarecrow": {
+      "file": "island_words/item_scarecrow.png"
+    },
+    "item_spring_rain": {
+      "file": "island_words/item_spring_rain.png"
+    },
+    "item_sprout": {
+      "file": "island_words/item_sprout.png"
+    },
+    "item_wake_bell": {
+      "file": "island_words/item_wake_bell.png"
+    },
+    "row_language": {
+      "file": "island_words/row_language.png"
+    },
+    "row_music": {
+      "file": "island_words/row_music.png"
+    },
+    "row_sound": {
+      "file": "island_words/row_sound.png"
+    },
+    "row_vibration": {
+      "file": "island_words/row_vibration.png"
+    },
+    "tab_boosters": {
+      "file": "island_words/tab_boosters.png"
+    },
+    "tab_nests": {
+      "file": "island_words/tab_nests.png"
+    },
+    "tab_outfits": {
+      "file": "island_words/tab_outfits.png"
+    },
+    "title_aviary": {
+      "file": "island_words/title_aviary.png"
+    },
+    "title_lucky_spin": {
+      "file": "island_words/title_lucky_spin.png"
+    },
+    "title_outfits": {
+      "file": "island_words/title_outfits.png"
+    },
+    "title_settings": {
+      "file": "island_words/title_settings.png"
+    },
+    "title_shop": {
+      "file": "island_words/title_shop.png"
+    },
+    "title_star_chest": {
+      "file": "island_words/title_star_chest.png"
+    },
+    "white_buy": {
+      "file": "island_words/white_buy.png"
+    },
+    "white_equip": {
+      "file": "island_words/white_equip.png"
+    },
+    "white_equipped": {
+      "file": "island_words/white_equipped.png"
+    },
+    "white_help": {
+      "file": "island_words/white_help.png"
+    },
+    "white_open": {
+      "file": "island_words/white_open.png"
+    },
+    "white_play": {
+      "file": "island_words/white_play.png"
+    },
+    "white_spin": {
+      "file": "island_words/white_spin.png"
+    },
+    "white_tab_boosters": {
+      "file": "island_words/white_tab_boosters.png"
+    },
+    "white_tab_nests": {
+      "file": "island_words/white_tab_nests.png"
+    },
+    "white_tab_outfits": {
+      "file": "island_words/white_tab_outfits.png"
+    }
   }
 }

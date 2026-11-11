@@ -20,7 +20,7 @@ const NAV_FACE_SIZE := Vector2(190, 174)
 const EVENT_SIZE := Vector2(142, 135)
 const PLAY_SIZE := Vector2(460, 191)
 const PLAY_FACE_SIZE := Vector2(440, 171)
-const COIN_DISPLAY_MAX := 99999
+const COIN_DISPLAY_MAX := FeatherBar.DISPLAY_MAX
 const IDLE_FPS := 8.0
 # Contact rows of the existing drawn claws, not the old padding-based registration row.
 const PARROT_FOOT_Y := {
@@ -58,9 +58,8 @@ func setup(p: Profile) -> void:
 	_add_bird("logo_yellow", Vector2(285, 243), 134, 0, "logo")
 	_add_bird("logo_blue", Vector2(653, 251), 146, 0, "logo")
 
-	# The approved HUD retains its plus as artwork for a future entry; no purchase action is added.
-	UI.image(self, "panel_home_island_coin", _rect(22, 31, 350, 117))
-	_add_coin_display()
+	# The approved HUD keeps its plus as artwork; the shared bar draws it and adds no purchase action.
+	FeatherBar.create(self, _rect(22, 31, 350, 117).position, 350.0 * REFERENCE_SCALE.x, profile.coins)
 	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
 	var level := _next_level()
 	var play := _button("Play", "button_play_" + UiText.locale(), _rect(240, 1122.5, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
@@ -93,27 +92,6 @@ func setup(p: Profile) -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_face):
 		_play_face.texture = Art.tex("btn_home_island_play_" + UiText.locale())
-
-func _add_coin_display() -> void:
-	var coins := Control.new()
-	coins.name = "Coins"
-	coins.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(coins, _rect(139.5, 71.5, 135, 38))
-	add_child(coins)
-	# This cap is presentation-only. The actual balance remains available to the economy and saves.
-	var value := str(clampi(profile.coins, 0, COIN_DISPLAY_MAX))
-	coins.set_meta("display_value", value)
-	var cell := Art.tex("icon_home_island_digit_0").get_size()
-	var scale_factor := minf(coins.size.x / (cell.x * value.length()), coins.size.y / cell.y)
-	var glyph_size := cell * scale_factor
-	var origin := (coins.size - Vector2(glyph_size.x * value.length(), glyph_size.y)) * 0.5
-	var ink := UI.used_rect("icon_home_island_digit_" + value[0])
-	for digit in value:
-		ink = ink.merge(UI.used_rect("icon_home_island_digit_" + digit))
-	# Center the visible painted ink, not the cells' unequal transparent top/bottom margins.
-	origin.y = coins.size.y * 0.5 - ink.get_center().y * scale_factor
-	for i in value.length():
-		UI.image(coins, "icon_home_island_digit_" + value[i], Rect2(origin + Vector2(glyph_size.x * i, 0), glyph_size), false)
 
 func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> Button:
 	var button := UI.art_button(self, n, "btn_home_island_" + picture.trim_prefix("button_"), bounds, action)

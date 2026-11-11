@@ -1,6 +1,6 @@
 # Godot port: shared contract
 
-The game is rebuilt in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/` on branch `godot-port`. Rules, levels, art and the approved plush UI direction are unchanged; Unity code lives only in Git history (reference copy for porting: `git show origin/main:PerchSort/Assets/Scripts/Game/<File>.cs`).
+The game is rebuilt in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/` on branch `godot-port`. Rules, levels, art and the approved plush UI direction are unchanged; the former implementation lives only in Git history (reference copy for porting: `git show origin/main:PerchSort/Assets/Scripts/Game/<File>.cs`).
 
 ## Layout
 
@@ -13,7 +13,6 @@ The game is rebuilt in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/` 
 | `art/`, `art/labels/`, `art/glyphs/`, `birds/`, `world/`, `audio/` | assets, loaded by bare name with `Art.tex("name")` |
 | `tests/` | headless checks: `godot --headless --path PerchSort -s res://tests/run_core.gd` |
 
-Mockups: `git show origin/ui-design-review:art/ui_design/<screen>.png`. Old Unity runtime captures for behaviour reference only.
 
 ## UI kit (`UI`, `Layout`, `Art`)
 

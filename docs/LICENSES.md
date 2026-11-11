@@ -10,8 +10,6 @@
 ## UI geometry
 Rounded panel and icon PNGs were created for this project by `art/ui_sources/generate_ui.py`. They contain no external source artwork. Existing bird and environment originals are unchanged; see `art/ASSETS.md` for their provenance.
 
-## TextMeshPro essential resources
-`Assets/Fonts/TextMesh Pro` contains Unity's bundled TextMeshPro essential resources from the installed `com.unity.ugui` package (shaders, settings and default fallback assets). Source: https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/TMP.html ; distributed under the Unity Companion License, copied to `Assets/Fonts/TextMesh Pro/Unity Companion License.md`. The bundled Liberation Sans fallback has its own SIL OFL text at `Assets/Fonts/TextMesh Pro/Fonts/LiberationSans - OFL.txt`; player UI explicitly uses Fredoka.
 
 ## T10a v2 original game artwork — 2026-10-31
 

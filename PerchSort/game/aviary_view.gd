@@ -1,5 +1,5 @@
 extends Control
-## Aviary (docs/design/ui-system.md): a top bar (close, title word, met counter) over a scrolling two-column grid
+## Aviary (docs/design/island-style.md): a top bar (close, title word, met counter) over a scrolling two-column grid
 ## of cream cards, one per species; tapping a met bird opens its detail page with a live bird, its ability
 ## and a row of outfit tiles (tap an owned outfit to equip it). The shop opens the same detail page on its own
 ## (`setup(profile, species)`): then Back closes the page and a coin counter shows what the player can spend.
@@ -21,23 +21,23 @@ const BODY_CAP := 44.0
 const MARGIN := 48.0
 const RIGHT := 1032.0
 ## List grid: two columns of cards between the margins, scrolled under the top bar.
-const FRAME := Rect2(36, 300, 1008, 1590)   # the wooden frame around the grid (user sketch)
-const CLIP_TOP := 392.0
-const CLIP_X := 84.0
-const CLIP_W := 912.0
-const GRID_X := 24.0
-const CLIP_HEIGHT := 1440.0
+const FRAME := Rect2(28, 392, 1024, 1500)   # the wooden frame around the grid (user sketch)
+const CLIP_TOP := 424.0
+const CLIP_X := 60.0
+const CLIP_W := 948.0
+const GRID_X := 0.0
+const CLIP_HEIGHT := 1436.0
 const GRID_TOP := 16.0            # first card row inside the clip
 const GRID_BOTTOM := 16.0         # under the last card row
 const GAP := 32.0
-const CARD_W := 416.0
-const CARD_H := 420.0
-const CARD_BIRD := Rect2(56, 35, 304, 270)
-const CARD_NAME := Rect2(35, 316, 346, 78)
+const CARD_W := 460.0
+const CARD_H := 440.0
+const CARD_BIRD := Rect2(70, 30, 320, 290)
+const CARD_NAME := Rect2(40, 330, 380, 84)
 const CARD_BADGE := 64.0
 const QUESTION_CAP := 96.0
-const TRACK_X := 990.0
-const TRACK_W := 12.0
+const TRACK_X := 1018.0
+const TRACK_W := 20.0
 const THUMB_MIN := 96.0
 const DRAG_START := 12.0
 const FRICTION := 5.0             # fling velocity decay per second (exponential)
@@ -61,7 +61,7 @@ void fragment() { COLOR = vec4(0.25, 0.19, 0.13, texture(TEXTURE, UV).a * 0.88);
 var profile: Profile
 var instant := false        # set by the shop for captures; the aviary itself asks its parent
 var _from_shop := false
-var _coins: Panel
+var _coins: Control
 var _page: Control
 var _clip: Control
 var _content: Control
@@ -86,14 +86,7 @@ func setup(p: Profile, species := "") -> void:
 	profile = p
 	_from_shop = not species.is_empty()
 	size = Vector2(1080, 1920)
-	UI.image(self, "board_w1_bg", Rect2(0, 0, 1080, 1920), false)
-	# Calm the painting so the cards read first.
-	var wash := ColorRect.new()
-	wash.name = "Wash"
-	wash.color = Color(Color("fff7e8"), 0.42)
-	wash.size = size
-	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(wash)
+	UI.image(self, "island_backdrop", Rect2(0, 0, 1080, 1920), false)
 	if _from_shop:
 		_show_detail(species)
 	else:
@@ -175,12 +168,9 @@ func _bump(c: Control) -> void:
 func _show_list() -> void:
 	_species = ""
 	_reset_page()
-	var wash := ColorRect.new()
-	wash.color = Color(LIST_CREAM, 0.18)
-	wash.size = size
-	wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_page.add_child(wash)
-	UI.kit_piece(_page, "panel", FRAME, UI.PANEL_SCALE).name = "Frame"
+	var sheet := Island.nine(_page, "island_grid_card", FRAME, Vector4(60, 60, 60, 60))
+	sheet.name = "Frame"
+	sheet.self_modulate = Color(1.0, 0.96, 0.86)
 	_clip = Control.new()
 	_clip.name = "Scroll"
 	_clip.clip_contents = true
@@ -206,17 +196,16 @@ func _show_list() -> void:
 	_list_header(met, count)
 	_set_scroll(_list_scroll)
 
-func _list_panel(parent: Node, rect: Rect2, color: Color, radius: float) -> Panel:
-	# The painted kit card, like the shop's cards.
-	var panel := Panel.new()
-	panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(panel, rect)
-	var round_ends := radius * 2.0 >= rect.size.y - 2.0
-	UI.kit_piece(panel, "capsule_plain" if round_ends else "card", Rect2(Vector2.ZERO, rect.size),
-		0.0 if round_ends else UI.CARD_SCALE).name = "Skin"
-	parent.add_child(panel)
-	return panel
+func _list_panel(parent: Node, rect: Rect2, _color := Color.WHITE, radius := 44.0) -> Control:
+	var holder := Control.new()
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	if radius * 2.0 >= rect.size.y - 2.0:
+		Island.nine(holder, "island_pill_cream", Rect2(Vector2.ZERO, rect.size), Vector4(70, 70, 70, 70)).name = "Skin"
+	else:
+		Island.nine(holder, "island_grid_card", Rect2(Vector2.ZERO, rect.size), Vector4(60, 60, 60, 60)).name = "Skin"
+	return holder
 
 func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> TextureRect:
 	var icon := TextureRect.new()
@@ -230,13 +219,16 @@ func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> 
 	return icon
 
 func _list_header(met: int, count: int) -> void:
-	var close := UI.button(_page, "Close", Vector2(112, 104), "red", "", func(): closed.emit())
-	var icon := _list_icon(close, CLOSE_ICON, Rect2(28, 23, 72, 72), Color.WHITE)
-	UI.title_ribbon(_page, "aviary.title", Vector2(540, FRAME.position.y + 8.0), 56.0, 520.0)   # on the frame top
-	var counter := _list_panel(_page, Rect2(712, 56, 320, 96), Color("e3edd9"), 48)
-	counter.name = "MetCounter"
-	_list_icon(counter, FEATHER_ICON, Rect2(16, 20, 56, 56), LIST_GREEN)
-	TextArt.number(counter, "%d/%d" % [met, count], Rect2(80, 4, 224, 88), 44.0, LIST_GREEN)
+	Island.button(_page, "Close", "island_close_tile", Rect2(30, 26, 112, 112), func(): closed.emit())
+	var plank := Island.hanging_sign(_page, 540.0, 240.0, 500.0)
+	UiText.painted(_page, "title_aviary", plank)
+	var chip := Control.new()
+	chip.name = "MetCounter"
+	UI.place(chip, Rect2(716, 56, 320, 88))
+	_page.add_child(chip)
+	Island.nine(chip, "island_pill_cream", Rect2(Vector2.ZERO, chip.size), Vector4(70, 70, 70, 70))
+	Island.piece_fit(chip, "island_badge_check", Vector2(50, 44), Vector2(52, 52)).visible = false
+	TextArt.number(chip, "%d/%d" % [met, count], Rect2(48, 16, 224, 56), 44.0, LIST_INK)
 
 ## One cream card: a live bird and its name, or a dark silhouette with a question mark.
 func _card(id: String, at: Vector2) -> void:
@@ -335,7 +327,7 @@ func _show_detail(id: String) -> void:
 	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H * TILE_ROWS + TILE_GAP * (TILE_ROWS - 1))
 	var top := roundf((160.0 + (1872.0 - 160.0 - block) * 0.5) / 8.0) * 8.0
 	var panel := Rect2(108, top, 864, panel_h)
-	UI.shape(_page, panel, "cream", 56.0, 12.0).name = "Panel"
+	Island.nine(_page, "island_grid_card", panel, Vector4(60, 60, 60, 60)).name = "Panel"
 	_hero_box = Rect2(540.0 - bird_h * 0.5, panel.position.y + PANEL_PAD, bird_h, bird_h)
 	_hero = _live_bird(_page, id, _outfit_key(id), _hero_box)
 	var timer := Timer.new()
@@ -354,8 +346,9 @@ func _show_detail(id: String) -> void:
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_page.add_child(_tiles)
 		_build_tiles()
-	UI.button(_page, "Back", Vector2(112, 104), "cream", "back", _back)
-	UI.title_ribbon(_page, "bird.%s.name" % id, Vector2(540, 104), 52.0, 600.0)
+	Island.button(_page, "Back", "island_back_tile", Rect2(30, 26, 112, 112), _back)
+	var plank := Island.hanging_sign(_page, 540.0, 150.0, 460.0)
+	UI.heading(_page, "bird.%s.name" % id, plank, 52.0)
 	_build_coins()
 
 func _back() -> void:
@@ -374,10 +367,7 @@ func _build_coins() -> void:
 	_coins = null
 	if not _from_shop:
 		return
-	var value := str(profile.coins)
-	var w := UI.NUMBER_X + UI.number_width(value, 44.0) + 32.0
-	_coins = UI.counter(_page, Vector2(RIGHT - w, 104.0 - UI.COUNTER_H * 0.5), "coin", value)
-	_coins.name = "Coins"
+	_coins = FeatherBar.create(_page, Vector2(1080.0 - 32.0 - 402.0, 24.0), 402.0, profile.coins)
 
 ## Ability badge and caption on one centred line; the crow has none and shows that it never goes home.
 func _ability(id: String, y: float, max_w: float) -> void:
@@ -404,8 +394,11 @@ func _build_tiles() -> void:
 	for n in Shop.OUTFIT_COUNT + 1:
 		var id := "outfit.%s.default" % _species if n == 0 else "outfit.%s.%d" % [_species, n]
 		var owned := n == 0 or profile.owns_outfit(id)
-		var tile := UI.shape(_tiles, Rect2(x + (n % TILE_COLS) * (TILE_W + TILE_GAP), _tile_row.position.y + (n / TILE_COLS) * (TILE_H + TILE_GAP), TILE_W, TILE_H), "cream", 40.0, 10.0)
+		var tile := Control.new()
 		tile.name = "Tile_%d" % n
+		UI.place(tile, Rect2(x + (n % TILE_COLS) * (TILE_W + TILE_GAP), _tile_row.position.y + (n / TILE_COLS) * (TILE_H + TILE_GAP), TILE_W, TILE_H))
+		_tiles.add_child(tile)
+		Island.nine(tile, "island_grid_card_selected" if id == current else "island_grid_card", Rect2(Vector2.ZERO, tile.size), Vector4(60, 60, 60, 60)).name = "Shape"
 		var outfit := "" if n == 0 else "%s_outfit_%d" % [_species, n]
 		var bird := _live_bird(tile, _species, outfit, TILE_BIRD)
 		if owned:
@@ -415,15 +408,13 @@ func _build_tiles() -> void:
 			hit.disabled = id == current
 		else:
 			bird.modulate.a = UI.DISABLED_ALPHA
-			UI.icon(tile, "lock", CORNER, 44.0, Color(UI.INK, 0.7))
-			_price(tile, Shop.item(id).get("price", 0))
+			Island.piece_fit(tile, "island_padlock", Vector2(TILE_W - 44.0, 44.0), Vector2(60.0, 60.0)).name = "Lock"
+			Island.price_pill(tile, Rect2(14.0, TILE_H - 100.0, TILE_W - 28.0, 78.0), Shop.item(id).get("price", 0))
 			var pick_locked := id
 			var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, tile.size), func(): _confirm_outfit(pick_locked, n, tile))
 			hit.name = "Locked"
 		if id == current:
-			var check := UI.shape(tile, Rect2(CORNER - Vector2.ONE * CHECK * 0.5, Vector2.ONE * CHECK), "green", CHECK * 0.5, 5.0, false)
-			check.name = "Equipped"
-			UI.icon(check, "check", Vector2(CHECK * 0.5, CHECK * 0.5 - 2.0), CHECK * 0.6)
+			Island.check_badge(tile, Vector2(TILE_W - 40.0, 40.0)).name = "Equipped"
 
 ## Coin and price centred at the bottom of a locked tile.
 func _price(tile: Control, price: int) -> void:

@@ -17,6 +17,7 @@ Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibi
 - Mockups in `art/approved_ui` are the style direction, not a pixel target. After the user approves a screen, its runtime captures in `art/approved_runtime` become the visual acceptance baseline; later UI changes must match that baseline or be re-approved by the user.
 - Animation and audio acceptance requires timed evidence: frame sequences and logs, never one static frame. Level entrance must take **3.5–4.5 seconds**. Birds must never look static: continuous breathing plus frequent idle actions. Background music must always be present on the applicable page and follow the mute control. All same-role buttons must have identical sizes in every state; disabled means dimmed and non-interactive, not smaller.
 - Never fake animation by mirroring or flipping a still image, or by showing a fixed picture. Birds in popups, houses and on branches move continuously through breathing, hops and pose-frame changes with easing. Turning a bird is never a sprite mirror.
+- UI documents live only in `docs/design/` (the UI specification is `docs/design/island-style.md`) and all design images live only in `art/approved_ui/`. Never put either anywhere else; replace revised files in place and keep superseded ones in Git history only.
 - Primary action buttons must be **at most 1.25 times** the size of sibling buttons.
 - Player-visible words are painted label sprites and numbers are painted glyphs; never render them with a font.
 
@@ -25,7 +26,7 @@ Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibi
 - Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
 - Preserve the save JSON field names in `meta/profile.gd` and enum numeric orders in `core/board.gd`; never reset user data.
 - Run `python3 ci/check_current_game_names.py --self-test` and `python3 ci/check_current_game_names.py`. The guard checks tracked paths and source identifiers; it complements review, not runtime acceptance.
-- Removed implementation (including the former Unity project) and superseded art live only in Git history. Do not recreate removed trees.
+- Removed implementation and superseded art live only in Git history. Do not recreate removed trees.
 
 ## Source and data ownership
 
@@ -44,7 +45,7 @@ Keep `core/` and `meta/` independent of presentation. Inspect actual code and ob
 ## Specification and language
 
 - Chinese with the user. Agent instructions, task specs/reports, comments and commits are English. No emoji in deliveries.
-- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; approved visual contracts and actual source resolve superseded prose. Old Unity-era documents are historical research, not execution instructions.
+- [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; approved visual contracts and actual source resolve superseded prose.
 - Preserve 100 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
 - Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers.
 

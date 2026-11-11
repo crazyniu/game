@@ -1,6 +1,0 @@
-Use your image generation tool. References: sketch_map.png (a level map screen sketch) and ref_home_tiles.png (the game's painted home tiles). Paint a landscape 1536x1024 sheet with FOUR separate pieces on a FULLY TRANSPARENT background (PNG alpha), each separated by at least 60 px of empty space, nothing else:
-1 (top-left): a "Help" tile in exactly the same style, size and proportions as the tiles in ref_home_tiles.png (cream rounded square, bright leaf-green rim, picture above, word below): the picture is a glossy orange round speech bubble with a white question mark, the word "Help" in the same bold rounded dark-brown letters.
-2 (top-middle): an empty level node for the map, like the numbered level discs in sketch_map.png: a round glossy pale-gold cream disc with a thick golden rim and a soft bottom edge, about 230 px, EMPTY (no number, no stars).
-3 (top-right): the CURRENT level node like level 138 in sketch_map.png: a bigger glossy bright yellow-gold disc with a warm glow ring, about 300 px, empty.
-4 (bottom, wide): an empty hanging wooden sign like the "Treehouse Glade" title sign at the top of sketch_map.png: a rounded dark-honey wooden plank about 760x190 with two thick ropes going up from its top corners (the ropes end about 120 px above the plank), green leaves and small white flowers on both ends, EMPTY (no words).
-Spell nothing except "Help".

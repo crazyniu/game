@@ -1,6 +1,6 @@
 class_name Modal
 extends Control
-## Shared modal (docs/design/ui-system.md): dim backdrop, one cream panel whose height follows its content, a painted
+## Shared modal (docs/design/island-style.md): dim backdrop, one cream panel whose height follows its content, a painted
 ## localized title at the top inside the panel, an optional close button on the panel's top-right corner, and actions
 ## in a row centred under the panel. Content uses absolute design coordinates; add it to `content`.
 
@@ -86,8 +86,7 @@ func _build() -> void:
 	if not _title_id.is_empty():
 		_title()
 	if _has_close:
-		var c := Vector2(panel_rect.end.x - 32.0, panel_rect.position.y + 40.0)
-		UI.button(content, "Close", c, "red", "close", close, CLOSE)
+		Island.button(content, "Close", "island_close_tile", Rect2(panel_rect.end.x - 92.0, panel_rect.position.y - 40.0, 112, 112), close)
 
 ## The title sits on the painted ribbon straddling the panel's top edge, in white; level numbers stay numeral sprites.
 const RIBBON_H := 172.0
@@ -104,16 +103,16 @@ func _title() -> void:
 	word_w *= k
 	num_w *= k
 	var text_w := natural * k
-	var ribbon_w := clampf(text_w + RIBBON_TEXT_PAD * 2.0, 520.0, 820.0)
-	var top := panel_rect.position.y - RIBBON_H * 0.42
-	UI.kit_piece(_title_layer, "ribbon", Rect2(540.0 - ribbon_w * 0.5, top, ribbon_w, RIBBON_H)).name = "Ribbon"
-	var cy := top + RIBBON_H * 0.4
+	var sign_w := clampf(text_w + 300.0, 520.0, 700.0)
+	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 6.0, sign_w)
+	var cy := plank.get_center().y
 	var x := 540.0 - text_w * 0.5
-	var title := UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE, UI.ribbon_bend(text_w, ribbon_w, RIBBON_H))
+	var title := UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE)
 	title.name = "Title"
-	UI.outline_to(title, "green")
+	UI.outline_to(title, "orange")
 	if num_w > 0.0:
 		UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.5, num_w, cap), Color.WHITE)
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and _title_layer != null and not _title_number.is_empty():
 		for child in _title_layer.get_children():

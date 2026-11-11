@@ -1,6 +1,6 @@
 extends RefCounted
 ## Modal popups opened on a host Control (main.popups). Every function returns the popup; callbacks are Callables.
-## Layout: docs/design/ui-system.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
+## Layout: docs/design/island-style.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
 ## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
 const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",

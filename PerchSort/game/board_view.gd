@@ -258,7 +258,7 @@ func _world() -> int:
 	return session.state.world
 
 func _build_scene() -> void:
-	# One painting per world (docs/design/ui-system.md): the branch-free scene, then each branch layer cut from the
+	# One painting per world (docs/design/island-style.md): the branch-free scene, then each branch layer cut from the
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)

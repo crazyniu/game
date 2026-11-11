@@ -1,6 +1,6 @@
 # Work log
 
-One folder per feature, named by subject: `spec.md` (contract) and `report.md` (results and evidence). Unity-era logs live in Git history.
+One folder per feature, named by subject: `spec.md` (contract) and `report.md` (results and evidence).
 
 | Path | Summary |
 | --- | --- |

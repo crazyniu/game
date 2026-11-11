@@ -29,7 +29,7 @@ const NODES := [
 ]
 ## Which of the painted trail shapes above each world uses (the new forests repeat the first four trails).
 const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
-## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
+## Layout (docs/design/island-style.md, approved map style). All values in the 1080x1920 design space.
 const MARGIN := 48.0
 const NODE := 150.0              # cleared and locked nodes (painted gold disc, stars inside)
 const CURRENT := 196.0           # current node (painted glowing disc)

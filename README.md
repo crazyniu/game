@@ -1,6 +1,6 @@
 # Perch Sort · 小鸟归巢
 
-A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **100 fixed levels** across ten sequential forest worlds (Green, Bamboo, Autumn, Snow, Blossom, Mushroom, Lakeside, Misty Pine, Rainforest, Wisteria), in a clean cartoon style: one painted scene per world, a code-drawn UI kit and painted lettering (see docs/design/ui-system.md).
+A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **100 fixed levels** across ten sequential forest worlds (Green, Bamboo, Autumn, Snow, Blossom, Mushroom, Lakeside, Misty Pine, Rainforest, Wisteria), in a clean cartoon style: one painted scene per world, a code-drawn UI kit and painted lettering (see docs/design/island-style.md).
 
 ## Open the game
 
@@ -20,8 +20,7 @@ UI words use complete localized label textures; only English is currently author
 | Framework contract | [Godot port contract](docs/work-log/godot-port/spec.md) |
 | Documentation status / historical research | [docs router](docs/README.md) |
 
-Rules and solver live in `PerchSort/core`, profile and progression in `PerchSort/meta`, screens and animation in `PerchSort/game`. Assets load by bare name from `PerchSort/{art,birds,world}`; levels come from `PerchSort/levels/levels.json`. Mockups (style direction) live in `art/approved_ui`; captures of user-approved screens in `art/approved_runtime` are the visual acceptance baseline. The former Unity project lives only in Git history.
-
+Rules and solver live in `PerchSort/core`, profile and progression in `PerchSort/meta`, screens and animation in `PerchSort/game`. Assets load by bare name from `PerchSort/{art,birds,world}`; levels come from `PerchSort/levels/levels.json`. Mockups (style direction) live in `art/approved_ui`; captures of user-approved screens in `art/approved_runtime` are the visual acceptance baseline.
 ## Validation and tooling
 
 ```bash
