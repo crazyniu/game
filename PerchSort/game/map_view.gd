@@ -183,7 +183,7 @@ func _build_card(world: int) -> Control:
 	card.size = CARD
 	card.pivot_offset = CARD * 0.5
 	_carousel.add_child(card)
-	Island.nine(card, "island_grid_card", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60)).name = "Frame"
+	Island.nine(card, "island_grid_card_soft", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60)).name = "Frame"
 	var chosen := Island.nine(card, "island_grid_card_selected", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60))
 	chosen.name = "Chosen"
 	var window := Control.new()
@@ -248,8 +248,8 @@ func _build_info(world: int) -> void:
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
 	var chip := Rect2(540.0 - CHIP.x * 0.5, CHIP_Y, CHIP.x, CHIP.y)
 	# The cream pill keeps its round ends: drawn at the texture's own height, then scaled down to the chip.
-	var k := Art.tex("island_pill_cream").get_height() / CHIP.y
-	var pill := Island.nine(_info, "island_pill_cream", Rect2(chip.position, CHIP * k), Vector4(82, 82, 82, 82))
+	var k := Art.tex("island_pill_cream_soft").get_height() / CHIP.y
+	var pill := Island.nine(_info, "island_pill_cream_soft", Rect2(chip.position, CHIP * k), Vector4(82, 82, 82, 82))
 	pill.name = "Stars"
 	pill.pivot_offset = Vector2.ZERO
 	pill.scale = Vector2.ONE / k
@@ -361,7 +361,7 @@ func open_world(world: int) -> void:
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
 	var w := UI.number_width(text, 44.0)
 	var chip := Rect2(540.0 - (w + 130.0) * 0.5, 300.0, w + 130.0, 80.0)
-	Island.nine(_page, "island_pill_cream", chip, Vector4(60, 50, 60, 50)).name = "Stars"
+	Island.nine(_page, "island_pill_cream_soft", chip, Vector4(60, 50, 60, 50)).name = "Stars"
 	Island.piece_fit(_page, "island_star_full", Vector2(chip.position.x + 52.0, chip.get_center().y - 2.0), Vector2(56, 56))
 	UI.number(_page, text, Rect2(chip.position.x + 90.0, chip.position.y + 18.0, w + 4.0, 44.0), UI.INK, -1)
 	for n in Levels.PER_WORLD:

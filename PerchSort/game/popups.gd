@@ -97,7 +97,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var languages := UiText.languages()
-	var heights := [ROW_H, ROW_H, ROW_H, ROW_CAP * 2.0, LANG_SWITCH.y]
+	var heights := [ROW_H, ROW_H, ROW_H, LANG_HEAD, LANG_SWITCH.y]
 	if show_restart:
 		heights.append(PILL_H)
 	heights.append(HELP.y)
@@ -117,7 +117,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	for g in rows.size():
 		var item: Array = rows[g]
 		var y: float = ys[g]
-		Island.nine(c, "island_row_card", Rect2(left, y, right - left, ROW_H), Vector4(40, 40, 40, 40))
+		Island.nine(c, "island_row_card_soft", Rect2(left, y, right - left, ROW_H), Vector4(40, 40, 40, 40))
 		UI.art(c, item[1], Rect2(left + 28.0, y + (ROW_H - ROW_ICON) * 0.5, ROW_ICON, ROW_ICON))
 		_row_label(c, item[0], Vector2(left + 28.0 + ROW_ICON + 24.0, y + ROW_H * 0.5))
 		_toggle(c, Rect2(right - 28.0 - TOGGLE.x, y + (ROW_H - TOGGLE.y) * 0.5, TOGGLE.x, TOGGLE.y), item[2], item[3])
@@ -130,9 +130,9 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	UI.place(rule, Rect2(left + 20.0, ys[g] - GAP_RULE, right - left - 40.0, 3.0))
 	c.add_child(rule)
 	var lw := UI.label_width("settings.language", ROW_CAP)
-	UI.label(c, "settings.language", Rect2(540.0 - lw * 0.5, ys[g], lw, ROW_CAP * 2.0), ROW_CAP)
+	UI.label(c, "settings.language", Rect2(540.0 - lw * 0.5, ys[g], lw, LANG_HEAD), ROW_CAP)
 	for side in [-1.0, 1.0]:
-		var leaf := UI.art(c, "fall_leaf_green", Rect2(540.0 + side * (lw * 0.5 + 60.0) - 32.0, ys[g] + ROW_CAP - 26.0, 64, 52))
+		var leaf := UI.art(c, "fall_leaf_green", Rect2(540.0 + side * (lw * 0.5 + 60.0) - 32.0, ys[g] + LANG_HEAD * 0.5 - 26.0, 64, 52))
 		leaf.flip_h = side > 0.0   # static decoration, not an animation
 	g += 1
 	var switch := Rect2(Vector2(540.0 - LANG_SWITCH.x * 0.5, ys[g]), LANG_SWITCH)
@@ -156,6 +156,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 const ROW_H := 176.0
 const LANG_SWITCH := Vector2(816.0, 140.0)   # baked language switch (tools/island/bake_buttons.py)
 const HELP := Vector2(620.0, 172.0)          # baked Help picture
+const LANG_HEAD := 124.0                     # the Language heading row
 const GAP_RULE := 20.0                       # the rule sits this far above the Language heading
 const TOGGLE := Vector2(268.0, 116.0)
 const PILL_H := 120.0
@@ -184,10 +185,10 @@ static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable)
 	face.size = r.size
 	b.add_child(face)
 	var state := {"on": value}
-	face.texture = Art.tex("island_toggle_on" if value else "island_toggle_off")
+	face.texture = Art.tex("island_toggle_on_soft" if value else "island_toggle_off")
 	b.pressed.connect(func():
 		state["on"] = not state["on"]
-		face.texture = Art.tex("island_toggle_on" if state["on"] else "island_toggle_off")
+		face.texture = Art.tex("island_toggle_on_soft" if state["on"] else "island_toggle_off")
 		Sound.play("ui_tap")
 		on_change.call(state["on"]))
 	return b
@@ -294,7 +295,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		UI.place(card, r)
 		c.add_child(card)
-		Island.nine(card, "island_grid_card", Rect2(Vector2.ZERO, r.size), Vector4(48, 48, 48, 48))
+		Island.nine(card, "island_grid_card_soft", Rect2(Vector2.ZERO, r.size), Vector4(48, 48, 48, 48))
 		card.name = "Prize%d" % i
 		card.pivot_offset = r.size * 0.5
 		var lit := UI.shape(card, Rect2(Vector2.ZERO, r.size), "gold", 36.0, 8.0)
@@ -539,7 +540,7 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 	for i in n:
 		var x := 540.0 + (i - (n - 1) * 0.5) * (tw + 20.0)
 		var r := Rect2(x - tw * 0.5, ys[1], tw, REWARD_TILE)
-		Island.nine(c, "island_grid_card", r, Vector4(48, 48, 48, 48))
+		Island.nine(c, "island_grid_card_soft", r, Vector4(48, 48, 48, 48))
 		if tiles[i][0] == "coins":
 			_fit(c, "coin", Rect2(r.position.x + tw * 0.2, r.position.y + 24.0, tw * 0.6, REWARD_TILE * 0.5), true)
 			UI.number(c, "+%d" % tiles[i][1], Rect2(r.position.x + 12.0, r.end.y - 84.0, tw - 24.0, 56.0), UI.INK)
@@ -715,7 +716,7 @@ static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: flo
 static func _ability_line(c: Control, species: String, y: float) -> void:
 	var label_id := "bird.%s.ability" % species
 	var row := Rect2(540.0 - ROW_W * 0.5, y, ROW_W, ABILITY_H)
-	Island.nine(c, "island_row_card", row, Vector4(40, 40, 40, 40))
+	Island.nine(c, "island_row_card_soft", row, Vector4(40, 40, 40, 40))
 	var badge := 84.0
 	var has_badge := EFFECT.has(species)
 	var lead := (badge + 20.0) if has_badge else 0.0

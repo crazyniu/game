@@ -168,7 +168,7 @@ func _bump(c: Control) -> void:
 func _show_list() -> void:
 	_species = ""
 	_reset_page()
-	var sheet := Island.nine(_page, "island_grid_card", FRAME, Vector4(60, 60, 60, 60))
+	var sheet := Island.nine(_page, "island_grid_card_soft", FRAME, Vector4(60, 60, 60, 60))
 	sheet.name = "Frame"
 	sheet.self_modulate = Color(1.0, 0.96, 0.86)
 	_clip = Control.new()
@@ -202,9 +202,9 @@ func _list_panel(parent: Node, rect: Rect2, _color := Color.WHITE, radius := 44.
 	UI.place(holder, rect)
 	parent.add_child(holder)
 	if radius * 2.0 >= rect.size.y - 2.0:
-		Island.nine(holder, "island_pill_cream", Rect2(Vector2.ZERO, rect.size), Vector4(70, 70, 70, 70)).name = "Skin"
+		Island.nine(holder, "island_pill_cream_soft", Rect2(Vector2.ZERO, rect.size), Vector4(70, 70, 70, 70)).name = "Skin"
 	else:
-		Island.nine(holder, "island_grid_card", Rect2(Vector2.ZERO, rect.size), Vector4(60, 60, 60, 60)).name = "Skin"
+		Island.nine(holder, "island_grid_card_soft", Rect2(Vector2.ZERO, rect.size), Vector4(60, 60, 60, 60)).name = "Skin"
 	return holder
 
 func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> TextureRect:
@@ -227,7 +227,7 @@ func _list_header(met: int, count: int) -> void:
 	chip.name = "MetCounter"
 	UI.place(chip, Rect2(400, 302, 280, 96))
 	_page.add_child(chip)
-	Island.nine(chip, "island_pill_cream", Rect2(Vector2.ZERO, chip.size), Vector4(70, 70, 70, 70))
+	Island.nine(chip, "island_pill_cream_soft", Rect2(Vector2.ZERO, chip.size), Vector4(70, 70, 70, 70))
 	UI.art(chip, "pic_feather", Rect2(30, 14, 64, 64))
 	TextArt.number(chip, "%d/%d" % [met, count], Rect2(104, 22, 150, 50), 50.0, LIST_INK)
 
@@ -326,7 +326,7 @@ func _show_detail(id: String) -> void:
 	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H * TILE_ROWS + TILE_GAP * (TILE_ROWS - 1))
 	var top := roundf((160.0 + (1872.0 - 160.0 - block) * 0.5) / 8.0) * 8.0
 	var panel := Rect2(72, top, 936, panel_h)
-	Island.nine(_page, "island_grid_card", panel, Vector4(60, 60, 60, 60)).name = "Panel"
+	Island.nine(_page, "island_grid_card_soft", panel, Vector4(60, 60, 60, 60)).name = "Panel"
 	_hero_box = Rect2(540.0 - bird_h * 0.5, panel.position.y + PANEL_PAD, bird_h, bird_h)
 	_hero = _live_bird(_page, id, _outfit_key(id), _hero_box)
 	var timer := Timer.new()
@@ -380,7 +380,7 @@ func _ability(id: String, y: float, max_w: float) -> void:
 	var lead := badge + 16.0 if has_badge else 56.0 + 16.0
 	var tw := minf(UI.label_width(label_id, BODY_CAP), max_w - lead - 60.0)
 	var x := 540.0 - (lead + tw) * 0.5
-	Island.nine(_page, "island_row_card", Rect2(540.0 - max_w * 0.5, y - 8.0, max_w, LINE + 16.0), Vector4(40, 40, 40, 40)).name = "AbilityRow"
+	Island.nine(_page, "island_row_card_soft", Rect2(540.0 - max_w * 0.5, y - 8.0, max_w, LINE + 16.0), Vector4(40, 40, 40, 40)).name = "AbilityRow"
 	if has_badge:
 		UI.art(_page, "gift_coin_" + PopupsScript.EFFECT[id], Rect2(x, y + (LINE - badge) * 0.5, badge, badge))
 	else:
@@ -402,7 +402,7 @@ func _build_tiles() -> void:
 		tile.name = "Tile_%d" % n
 		UI.place(tile, Rect2(x + (n % TILE_COLS) * (TILE_W + TILE_GAP), _tile_row.position.y + (n / TILE_COLS) * (TILE_H + TILE_GAP), TILE_W, TILE_H))
 		_tiles.add_child(tile)
-		Island.nine(tile, "island_grid_card_selected" if id == current else "island_grid_card", Rect2(Vector2.ZERO, tile.size), Vector4(60, 60, 60, 60)).name = "Shape"
+		Island.nine(tile, "island_grid_card_selected" if id == current else "island_grid_card_soft", Rect2(Vector2.ZERO, tile.size), Vector4(60, 60, 60, 60)).name = "Shape"
 		var outfit := "" if n == 0 else "%s_outfit_%d" % [_species, n]
 		var bird := _live_bird(tile, _species, outfit, TILE_BIRD)
 		if owned:

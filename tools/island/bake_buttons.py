@@ -11,6 +11,8 @@ import os
 import numpy as np
 from PIL import Image
 
+from soften_palette import soft_rim
+
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "PerchSort", "art")
 OUT = os.path.join(ROOT, "buttons")
 LANGS = ["en", "zh"]
@@ -21,9 +23,26 @@ def load(rel):
     return Image.open(os.path.join(ROOT, rel)).convert("RGBA")
 
 
+INK_TOP = np.array([125, 69, 23], np.float32)      # warm brown ink, lighter at the top (same as warm_ink.gdshader)
+INK_BOTTOM = np.array([92, 43, 10], np.float32)
+
+
+def warm_ink(img):
+    """Near-black brown fill to the warm brown of the designs; the cream outline stays."""
+    a = np.asarray(img).astype(np.float32)
+    lum = a[..., :3] @ np.array([0.3, 0.59, 0.11], np.float32) / 255.0
+    ink = 1.0 - np.clip((lum - 0.18) / (0.42 - 0.18), 0.0, 1.0)
+    ink = ink * ink * (3.0 - 2.0 * ink)
+    y = np.linspace(0.0, 1.0, a.shape[0], dtype=np.float32)[:, None, None]
+    warm = INK_TOP * (1.0 - y) + INK_BOTTOM * y
+    a[..., :3] = a[..., :3] * (1.0 - ink[..., None]) + warm * ink[..., None]
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGBA")
+
+
 def word(lang, wid):
     img = load("locale/%s/island_words/%s.png" % (lang, wid))
-    return img.crop(img.getchannel("A").point(lambda a: 255 if a > 24 else 0).getbbox())
+    img = img.crop(img.getchannel("A").point(lambda a: 255 if a > 24 else 0).getbbox())
+    return img if wid.startswith("white_") else warm_ink(img)
 
 
 def trim(img):
@@ -72,7 +91,7 @@ def place_group(canvas, parts, center, gap):
 
 
 GREEN = load("island/island_pill_glossy.png")   # the home Play base with its triangle painted out
-CREAM = load("island/island_pill_cream.png")
+CREAM = soft_rim(load("island/island_pill_cream.png"))
 CREAM_CAP = 82
 
 
@@ -109,7 +128,7 @@ def tab(selected, picture, word_img, size):
     if selected:
         img = green_face(w, h)
     else:
-        base = load("island/island_tab_plain.png")
+        base = soft_rim(load("island/island_tab_plain.png"))
         img = stretch(base, (w, h), base.height * 0.5)
     cy = face_center_y(img, selected)
     pic = fit(trim(picture), h * 0.96, h * 0.96)

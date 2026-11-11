@@ -90,6 +90,8 @@ var _purchase_contents: Control
 var _outfit_page: Control   # a bird's outfit page opened from the outfits tab
 var _carousel: Control      # the outfits tab: one bird kind at a time
 var _kind_at := 0
+var _drag_travel := 0.0
+const TAP_SLOP := 14.0
 
 
 ## LineEdit handles keyboard input; only the existing painted digits are visible.
@@ -196,6 +198,7 @@ func setup(p: Profile, start_tab := 0) -> void:
 	_scroll.scroll_deadzone = 12
 	UI.place(_scroll, VIEW)
 	add_child(_scroll)
+	_scroll.gui_input.connect(_on_scroll_input)
 	_grid = Control.new()
 	_grid.name = "Grid"
 	_grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -263,6 +266,21 @@ func _refresh() -> void:
 func _process(_delta: float) -> void:
 	_update_rail()
 
+## Every new press starts a fresh tap-or-drag decision.
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_drag_travel = 0.0
+
+## Mouse drag scrolls the card grid (touch screens drag through ScrollContainer itself). Motion over a card reaches
+## here because the card buttons pass what they do not use.
+func _on_scroll_input(event: InputEvent) -> void:
+	if DisplayServer.is_touchscreen_available():
+		return
+	if event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+		_drag_travel += absf(event.relative.y)
+		if _drag_travel >= TAP_SLOP:
+			_scroll.scroll_vertical -= roundi(event.relative.y)
+
 ## The green thumb beside the sheet follows the scroll position; hidden when everything fits.
 func _update_rail() -> void:
 	var total := _grid.custom_minimum_size.y
@@ -277,7 +295,7 @@ func _update_rail() -> void:
 
 ## The cream sheet the cards sit on.
 func _add_sheet_frame() -> void:
-	var sheet := Island.nine(self, "island_grid_card", SHEET, Vector4(60, 60, 60, 60))
+	var sheet := Island.nine(self, "island_grid_card_soft", SHEET, Vector4(60, 60, 60, 60))
 	sheet.name = "Sheet"
 	sheet.self_modulate = Color(1.0, 0.96, 0.86)
 
@@ -354,6 +372,7 @@ func _card(it: Dictionary, n: int) -> void:
 	_grid.add_child(card)
 	_flat_card(card, Rect2(Vector2.ZERO, cs), _equipped(it))
 	var hit := UI.hit_area(card, Rect2(Vector2.ZERO, cs), func(): _tap(it))
+	hit.mouse_filter = Control.MOUSE_FILTER_PASS   # wheel and drags go on to the scroll view
 	hit.disabled = _locked(it)
 	var body := Control.new()   # everything that dims when the card is locked
 	body.name = "Body"
@@ -390,7 +409,7 @@ func _card(it: Dictionary, n: int) -> void:
 
 ## A soft cream card; the chosen one carries the green outline.
 func _flat_card(parent: Node, r: Rect2, selected := false) -> NinePatchRect:
-	var card := Island.nine(parent, "island_grid_card_selected" if selected else "island_grid_card", r, Vector4(60, 60, 60, 60))
+	var card := Island.nine(parent, "island_grid_card_selected" if selected else "island_grid_card_soft", r, Vector4(60, 60, 60, 60))
 	card.name = "Shape"
 	return card
 
@@ -529,8 +548,8 @@ func _kind_carousel() -> void:
 		UI.heading(card, id, Rect2(plank.position + plank.size * Vector2(0.17, 0.12), plank.size * Vector2(0.66, 0.7)), 80.0).name = "Name"
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
 		var chip := Rect2(KIND_CARD.size.x * 0.5 - 120.0, 604, 240, 76)
-		var k := Art.tex("island_pill_cream").get_height() / chip.size.y
-		var pill := Island.nine(card, "island_pill_cream", Rect2(chip.position, chip.size * k), Vector4(82, 82, 82, 82))
+		var k := Art.tex("island_pill_cream_soft").get_height() / chip.size.y
+		var pill := Island.nine(card, "island_pill_cream_soft", Rect2(chip.position, chip.size * k), Vector4(82, 82, 82, 82))
 		pill.pivot_offset = Vector2.ZERO
 		pill.scale = Vector2.ONE / k
 		var cap := 44.0
@@ -639,6 +658,8 @@ func _close_outfits() -> void:
 # ---------------------------------------------------------------- purchase flow
 
 func _tap(it: Dictionary) -> void:
+	if _drag_travel >= TAP_SLOP:   # the press became a scroll
+		return
 	if _locked(it):
 		Sound.play("error")
 		return

@@ -55,6 +55,24 @@ class NumberSprite extends Control:
 			queue_redraw()
 
 
+## Brown words and digits are drawn through this material (game/warm_ink.gdshader); tools/island/bake_buttons.py applies
+## the same colours to the baked buttons.
+static var _warm: ShaderMaterial
+
+static func warm_ink() -> ShaderMaterial:
+	if _warm == null:
+		_warm = ShaderMaterial.new()
+		_warm.shader = load("res://game/warm_ink.gdshader")
+	return _warm
+
+const BROWN_PAINTED := ["brown_", "row_", "tab_", "cap_", "caption_"]
+
+static func _is_brown_painted(id: String) -> bool:
+	for prefix in BROWN_PAINTED:
+		if id.begins_with(prefix):
+			return true
+	return false
+
 static func _is_white(color: Color) -> bool:
 	return color.r > 0.99 and color.g > 0.99 and color.b > 0.99
 
@@ -139,6 +157,8 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Co
 	image.bounds = bounds
 	image.cap = cap
 	image.styles = ["gold"] if heading else (["white"] if _is_white(color) else ["brown", "caption"])
+	if image.styles[0] == "brown":
+		image.material = warm_ink()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_SCALE
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -152,6 +172,8 @@ static func painted(parent: Node, id: String, bounds: Rect2, align := 0) -> Text
 	image.painted_id = id
 	image.bounds = bounds
 	image.align = align
+	if _is_brown_painted(id):
+		image.material = warm_ink()
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_SCALE
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -264,6 +286,8 @@ static func number(parent: Node, value: String, bounds: Rect2, cap: float, color
 	box.cap = cap
 	box.align = align
 	box.style = number_style(color)
+	if box.style == "brown":
+		box.material = warm_ink()
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.position = bounds.position
 	box.size = bounds.size
