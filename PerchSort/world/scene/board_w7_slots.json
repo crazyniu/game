@@ -7,10 +7,10 @@
    "name": "board_w7_branch_L0",
    "at": [
     0,
-    665
+    0
    ],
-   "perch": 706.0,
-   "tip": 528
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -18,10 +18,10 @@
    "name": "board_w7_branch_L1",
    "at": [
     0,
-    835
+    0
    ],
-   "perch": 876.0,
-   "tip": 529
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -29,10 +29,10 @@
    "name": "board_w7_branch_L2",
    "at": [
     0,
-    1003
+    0
    ],
-   "perch": 1047.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -40,10 +40,10 @@
    "name": "board_w7_branch_L3",
    "at": [
     0,
-    1171
+    0
    ],
-   "perch": 1213.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -51,10 +51,10 @@
    "name": "board_w7_branch_L4",
    "at": [
     0,
-    1340
+    0
    ],
-   "perch": 1381.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -62,76 +62,76 @@
    "name": "board_w7_branch_L5",
    "at": [
     0,
-    1507
+    0
    ],
-   "perch": 1550.0,
-   "tip": 533
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 0,
    "name": "board_w7_branch_R0",
    "at": [
-    530,
-    758
+    540,
+    0
    ],
-   "perch": 799.0,
-   "tip": 531
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 1,
    "name": "board_w7_branch_R1",
    "at": [
-    528,
-    921
+    540,
+    0
    ],
-   "perch": 962.0,
-   "tip": 529
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 2,
    "name": "board_w7_branch_R2",
    "at": [
-    529,
-    1086
+    540,
+    0
    ],
-   "perch": 1132.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 3,
    "name": "board_w7_branch_R3",
    "at": [
-    529,
-    1256
+    540,
+    0
    ],
-   "perch": 1297.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 4,
    "name": "board_w7_branch_R4",
    "at": [
-    529,
-    1420
+    540,
+    0
    ],
-   "perch": 1461.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 5,
    "name": "board_w7_branch_R5",
    "at": [
-    528,
-    1591
+    540,
+    0
    ],
-   "perch": 1630.0,
-   "tip": 529
+   "perch": 46.0,
+   "tip": 540
   }
  ]
 }

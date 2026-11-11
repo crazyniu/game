@@ -7,10 +7,10 @@
    "name": "board_w1_branch_L0",
    "at": [
     0,
-    700
+    0
    ],
-   "perch": 760.0,
-   "tip": 515
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -18,10 +18,10 @@
    "name": "board_w1_branch_L1",
    "at": [
     0,
-    974
+    0
    ],
-   "perch": 1032.0,
-   "tip": 524
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -29,10 +29,10 @@
    "name": "board_w1_branch_L2",
    "at": [
     0,
-    1234
+    0
    ],
-   "perch": 1292.0,
-   "tip": 528
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "L",
@@ -40,54 +40,98 @@
    "name": "board_w1_branch_L3",
    "at": [
     0,
-    1487
+    0
    ],
-   "perch": 1546.0,
-   "tip": 528
+   "perch": 46.0,
+   "tip": 540
+  },
+  {
+   "side": "L",
+   "row": 4,
+   "name": "board_w1_branch_L4",
+   "at": [
+    0,
+    0
+   ],
+   "perch": 46.0,
+   "tip": 540
+  },
+  {
+   "side": "L",
+   "row": 5,
+   "name": "board_w1_branch_L5",
+   "at": [
+    0,
+    0
+   ],
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 0,
    "name": "board_w1_branch_R0",
    "at": [
-    531,
-    835
+    540,
+    0
    ],
-   "perch": 889.0,
-   "tip": 532
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 1,
    "name": "board_w1_branch_R1",
    "at": [
-    529,
-    1091
+    540,
+    0
    ],
-   "perch": 1146.0,
-   "tip": 530
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 2,
    "name": "board_w1_branch_R2",
    "at": [
-    524,
-    1349
+    540,
+    0
    ],
-   "perch": 1400.0,
-   "tip": 525
+   "perch": 46.0,
+   "tip": 540
   },
   {
    "side": "R",
    "row": 3,
    "name": "board_w1_branch_R3",
    "at": [
-    523,
-    1600
+    540,
+    0
    ],
-   "perch": 1648.0,
-   "tip": 524
+   "perch": 46.0,
+   "tip": 540
+  },
+  {
+   "side": "R",
+   "row": 4,
+   "name": "board_w1_branch_R4",
+   "at": [
+    540,
+    0
+   ],
+   "perch": 46.0,
+   "tip": 540
+  },
+  {
+   "side": "R",
+   "row": 5,
+   "name": "board_w1_branch_R5",
+   "at": [
+    540,
+    0
+   ],
+   "perch": 46.0,
+   "tip": 540
   }
  ]
 }
