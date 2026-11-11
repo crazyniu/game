@@ -181,7 +181,7 @@ static func progress_bar(parent: Node, r: Rect2, fill: float, text: String) -> C
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(icon, Rect2(Vector2(-star * 0.1, (r.size.y - star) * 0.5), Vector2(star * 130.0 / 128.0, star)))
 	holder.add_child(icon)
-	var cap := r.size.y * 0.42
+	var cap := r.size.y * 0.58
 	UI.number(holder, text, Rect2(track.position.x + star * 0.4, (r.size.y - cap) * 0.5, track.size.x - star * 0.6, cap), Color.WHITE)
 	return holder
 

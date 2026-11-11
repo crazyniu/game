@@ -198,7 +198,7 @@ func _build_card(world: int) -> Control:
 	painting.name = "Painting"
 	var plaque := Island.piece_fit(card, "island_ribbon_plaque", Vector2(CARD.x * 0.5, CARD.y - 70.0), PLAQUE)
 	plaque.name = "Plaque"
-	UI.heading(card, WORLD_NAMES[world - 1], Rect2(plaque.position + plaque.size * Vector2(0.2, 0.1), plaque.size * Vector2(0.6, 0.72)), 64.0)
+	UI.heading(card, WORLD_NAMES[world - 1], Rect2(plaque.position + plaque.size * Vector2(0.14, 0.06), plaque.size * Vector2(0.72, 0.8)), 76.0)
 	# The world number on a green disc over the card's top edge.
 	var badge := UI.image(card, "island_badge_green", Rect2(CARD.x * 0.5 - BADGE * 0.5, -BADGE * 0.42, BADGE, BADGE), false)
 	badge.name = "Number"

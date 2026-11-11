@@ -119,8 +119,8 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		var item: Array = rows[g]
 		var y: float = ys[g]
 		Island.nine(c, "island_row_card", Rect2(left, y, right - left, ROW_H), Vector4(40, 40, 40, 40))
-		UI.art(c, item[1], Rect2(left + 28.0, y + (ROW_H - 96.0) * 0.5, 96, 96))
-		_row_label(c, item[0], Vector2(left + 148.0, y + ROW_H * 0.5))
+		UI.art(c, item[1], Rect2(left + 28.0, y + (ROW_H - ROW_ICON) * 0.5, ROW_ICON, ROW_ICON))
+		_row_label(c, item[0], Vector2(left + 28.0 + ROW_ICON + 24.0, y + ROW_H * 0.5))
 		_toggle(c, Rect2(right - 28.0 - TOGGLE.x, y + (ROW_H - TOGGLE.y) * 0.5, TOGGLE.x, TOGGLE.y), item[2], item[3])
 	# Language: a centred heading, then one chip per language (each named in its own words); the current one is green.
 	var g := rows.size()
@@ -142,25 +142,26 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		word.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		word.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		word.modulate = Color.WHITE if current else UI.INK
-		UI.place(word, Rect2(r.size.x * 0.15, r.size.y * 0.24, r.size.x * 0.7, r.size.y * 0.46))
+		UI.place(word, Rect2(r.size.x * 0.12, r.size.y * 0.16, r.size.x * 0.76, r.size.y * 0.58))
 		chip.add_child(word)
 	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
 		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
-			func(): p.invoke(on["restart"]), "", 48.0)
+			func(): p.invoke(on["restart"]), "", 60.0)
 		UI.pill(c, "Home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), "green", "settings.home",
-			func(): p.invoke(on["home"]), "", 48.0)
+			func(): p.invoke(on["home"]), "", 60.0)
 		g += 1
 	UI.pill(c, "Help", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[g]), UI.PLAY_SIZE), "green", "settings.help",
-		func(): p.invoke(on["help"]), "help", 60.0)
+		func(): p.invoke(on["help"]), "help", 84.0)
 	return p
 
-const ROW_H := 140.0
-const LANG_H := 110.0
-const TOGGLE := Vector2(220.0, 94.0)
+const ROW_H := 176.0
+const LANG_H := 132.0
+const TOGGLE := Vector2(268.0, 116.0)
 const PILL_H := 120.0
-const ROW_CAP := 56.0
+const ROW_CAP := 76.0
+const ROW_ICON := 128.0
 
 ## A settings row word, left-aligned at `at` (its left edge, vertical centre), like the sketch.
 static func _row_label(parent: Control, id: String, at: Vector2) -> void:
@@ -574,7 +575,7 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 		_twinkle(UI.art(c, "sparkle", Rect2(at - Vector2(32, 32), Vector2(64, 64))), i * 0.35)
 	_halo(c, box)
 	_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box.grow(-40.0), true), 0.0)
-	UI.label(c, "booster.%s.description" % BOOSTER_ID[booster], Rect2(132, ys[1], 816, LINE), CAPTION_CAP)
+	UI.label(c, "booster.%s.description" % BOOSTER_ID[booster], Rect2(132, ys[1], 816, LINE), CAPTION_CAP * 1.3)
 	p.actions([["green", "check", on_ok]])
 	return p
 

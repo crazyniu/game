@@ -297,8 +297,8 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.size = r.size
 	b.add_child(content)
-	cap = minf(cap if cap > 0.0 else 56.0, r.size.y * 0.46)   # words fill about half the button height (island mockups)
-	var pad := r.size.y * 0.42
+	cap = r.size.y * 0.52   # every worded pill fills the same share of its height (island designs)
+	var pad := r.size.y * 0.32
 	var x := pad
 	var w := r.size.x - pad * 2.0
 	if not icon_name.is_empty():

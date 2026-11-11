@@ -18,7 +18,7 @@ const ACTION_BOTTOM := 104.0     # action block to the panel's bottom edge (the 
 const ACTION_GAP := 32.0
 const SIGN_W := 760.0            # the hanging title sign
 const SIGN_ABOVE := 250.0        # how far the sign reaches above the panel top
-const DIM := Color(0.118, 0.165, 0.102, 0.55)
+const DIM := Color(0.08, 0.09, 0.24, 0.68)   # dusk over the island, as in the designs
 
 var content: Control
 var panel_rect: Rect2
@@ -94,14 +94,14 @@ func _build() -> void:
 ## The title is the gold painted heading on the big hanging sign whose plank straddles the panel's top edge; level
 ## numbers stay numeral sprites beside it.
 const RIBBON_H := 172.0
-const TITLE_CAP := 92.0
+const TITLE_CAP := 112.0
 
 func _title() -> void:
 	var cap := TITLE_CAP
 	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 4.0, SIGN_W)
-	var max_text := plank.size.x * 1.25
+	var max_text := plank.size.x * 1.12
 	var word_w := UI.heading_width(_title_id, cap)
-	var num_w := UI.number_width(_title_number, cap * 0.8) if not _title_number.is_empty() else 0.0
+	var num_w := UI.number_width(_title_number, cap * 1.0) if not _title_number.is_empty() else 0.0
 	var natural := word_w + ((20.0 + num_w) if num_w > 0.0 else 0.0)
 	var k := minf(1.0, max_text / natural)
 	cap *= k
@@ -113,7 +113,7 @@ func _title() -> void:
 	var title := UI.heading(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap)
 	title.name = "Title"
 	if num_w > 0.0:
-		var num := UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.4, num_w, cap * 0.8), UI.GOLD)
+		var num := UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.5, num_w, cap * 1.0), UI.GOLD)
 		num.name = "TitleNumber"
 
 func _notification(what: int) -> void:
