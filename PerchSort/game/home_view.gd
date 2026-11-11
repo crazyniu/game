@@ -1,6 +1,6 @@
 class_name HomeView
 extends Control
-## The approved island homepage; existing navigation and progression remain owned by main/meta.
+## Coastal homepage with one birdhouse-title focal group; navigation remains owned by main/meta.
 
 signal play_requested(level: int)
 signal map_requested
@@ -12,18 +12,29 @@ signal lucky_draw_requested
 signal chest_requested
 signal challenge_requested
 
-const REFERENCE_SIZE := Vector2(940, 1674)
 const CANVAS_SIZE := Vector2(1080, 1920)
-const REFERENCE_SCALE := CANVAS_SIZE / REFERENCE_SIZE
-const NAV_SIZE := Vector2(208, 191)
-const NAV_FACE_SIZE := Vector2(190, 174)
-const EVENT_SIZE := Vector2(142, 135)
-const PLAY_SIZE := Vector2(460, 191)
-const PLAY_FACE_SIZE := Vector2(440, 171)
+const LOGO := Rect2(128, 208, 832, 832)
+const LOGO_CONTENT := Rect2(64, 50, 1120, 1121)
+const ICON_ENTRY_SIZE := Vector2(160, 160)
+const NAV_ICON_SIDE := 132.0
+const EVENT_ICON_SIDE := 120.0
+const SETTINGS_ICON_SIDE := 96.0
+# Visible painted bodies, excluding transparent padding and faint cutout residue.
+const ICON_CONTENT := {
+	"pic_gear": Rect2(21, 28, 203, 202),
+	"pic_daily": Rect2(43, 27, 161, 212),
+	"icon_home_draw": Rect2(175, 75, 958, 972),
+	"pic_map": Rect2(18, 36, 226, 177),
+	"pic_shop": Rect2(18, 17, 196, 221),
+	"pic_aviary": Rect2(21, 49, 200, 164),
+	"pic_chest": Rect2(36, 50, 185, 170),
+}
+const ICON_OUTLINE := preload("res://game/home_icon_outline.gdshader")
+const PLAY := Rect2(290, 1360, 500, 200)
 const COIN_DISPLAY_MAX := FeatherBar.DISPLAY_MAX
 const IDLE_FPS := 8.0
 # Contact rows of the existing drawn claws, not the old padding-based registration row.
-const PARROT_FOOT_Y := {
+const BIRD_FOOT_Y := {
 	"macaw": [320, 324, 323, 328, 324, 323, 323, 322],
 	"green_parrot": [326, 328, 325, 331, 327, 326, 328, 327],
 }
@@ -32,11 +43,8 @@ var profile: Profile
 var instant := false
 var _birds: Array[Dictionary] = []
 var _clock := 0.0
-var _last_idle := {"house": -1.0, "logo": -1.0}
+var _last_idle := {"perch": -1.0}
 var _play_face: TextureRect
-
-static func _rect(x: float, y: float, w: float, h: float) -> Rect2:
-	return Rect2(Vector2(x, y) * REFERENCE_SCALE, Vector2(w, h) * REFERENCE_SCALE)
 
 func setup(p: Profile) -> void:
 	profile = p
@@ -45,68 +53,89 @@ func setup(p: Profile) -> void:
 		child.queue_free()
 	_birds.clear()
 	_clock = 0.0
-	_last_idle = {"house": -1.0, "logo": -1.0}
+	_last_idle = {"perch": -1.0}
 	size = CANVAS_SIZE
-	UI.image(self, "panel_home_island_background", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
-	_add_bird("macaw", Vector2(190, 855), 580, 4, "house")
-	_add_bird("yellow_chick", Vector2(419, 834), 650, 0, "house")
-	_add_bird("blue_chick", Vector2(529, 835), 649, 2, "house")
-	_add_bird("green_parrot", Vector2(671, 905), 682, 4, "house")
-	# Only the branch foreground hides the parrot's tail; its feet stay above the perch.
-	UI.image(self, "house_home_island_foreground", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
-	UI.image(self, "panel_home_island_logo", _rect(260, 159, 420, 226))
-	_add_bird("logo_yellow", Vector2(285, 243), 134, 0, "logo")
-	_add_bird("logo_blue", Vector2(653, 251), 146, 0, "logo")
+	UI.image(self, "background_home_beach", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
+	var title := UI.art(self, "panel_home_perch_title", LOGO, LOGO_CONTENT)
+	title.name = "Title"
+	# The open lower branch holds the original live birds; no characters are baked into the title.
+	var title_scale := title.size / title.texture.get_size()
+	var seats := [
+		["macaw", Vector2(325, 1084), 228.0, 4],
+		["yellow_chick", Vector2(510, 1096), 176.0, 0],
+		["blue_chick", Vector2(715, 1084), 178.0, 2],
+		["green_parrot", Vector2(905, 1082), 184.0, 4],
+	]
+	for seat in seats:
+		var contact: Vector2 = title.position + seat[1] * title_scale
+		_add_bird(seat[0], contact, contact.y - seat[2], seat[3], "perch")
+	# The same intact transparent branch covers tails beneath its top contact edge.
+	move_child(title, get_child_count() - 1)
 
-	# The approved HUD keeps its plus as artwork; the shared bar draws it and adds no purchase action.
-	FeatherBar.create(self, _rect(22, 31, 350, 117).position, 350.0 * REFERENCE_SCALE.x, profile.coins)
-	_button("Settings", "button_settings", _rect(796, 25, 119, 111), func(): settings_requested.emit())
+	FeatherBar.create(self, Vector2(48, 48), profile.coins)
+	_icon_button("Settings", "pic_gear", Vector2(976, 104), func(): settings_requested.emit(), SETTINGS_ICON_SIDE)
 	var level := _next_level()
-	var play := _button("Play", "button_play_" + UiText.locale(), _rect(240, 1122.5, PLAY_SIZE.x, PLAY_SIZE.y), func(): play_requested.emit(level))
-	# The elongated primary stays prominent without restoring the oversized original mockup pill.
-	var face_origin := (PLAY_SIZE - PLAY_FACE_SIZE) * 0.5
+	var play := _button("Play", "play_" + UiText.locale(), PLAY, func(): play_requested.emit(level))
 	_play_face = play.get_node("Face") as TextureRect
-	UI.place(_play_face, _rect(face_origin.x, face_origin.y, PLAY_FACE_SIZE.x, PLAY_FACE_SIZE.y))
-	# Each accepted texture contains the complete centered icon-and-word composition.
+	# Both locale textures share a canvas; swapping them preserves the complete painted composition.
+	UI.place(_play_face, Rect2(Vector2.ZERO, PLAY.size))
 	_play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
-	var events := [["Daily", "button_daily", challenge_requested], ["LuckyDraw", "button_draw", lucky_draw_requested]]
+	var events := [["Daily", "pic_daily", challenge_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
 	for i in events.size():
 		var entry: Array = events[i]
-		var button := _button(entry[0], entry[1], _rect(765, 534 + 161 * i, EVENT_SIZE.x, EVENT_SIZE.y), (entry[2] as Signal).emit)
+		var button := _icon_button(entry[0], entry[1], Vector2(960, 920 + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE)
 		if entry[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
-			_badge(button, "1")
+			_badge(button, 1)
 		elif entry[0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
-			_badge(button, "1")
-	var places := [["Map", "button_map", map_requested], ["Shop", "button_shop", shop_requested],
-		["Aviary", "button_aviary", aviary_requested], ["Chest", "button_chest", chest_requested]]
+			_badge(button, 1)
+
+	var places := [["Map", "pic_map", map_requested], ["Shop", "pic_shop", shop_requested],
+		["Aviary", "pic_aviary", aviary_requested], ["Chest", "pic_chest", chest_requested]]
 	for i in places.size():
 		var entry: Array = places[i]
-		var button := _button(entry[0], entry[1], _rect(33 + 223 * i, 1413, NAV_SIZE.x, NAV_SIZE.y), (entry[2] as Signal).emit)
-		# Reduce only the artwork; the existing generous navigation targets stay in place.
-		var nav_face_origin := (NAV_SIZE - NAV_FACE_SIZE) * 0.5
-		UI.place(button.get_node("Face"), _rect(nav_face_origin.x, nav_face_origin.y, NAV_FACE_SIZE.x, NAV_FACE_SIZE.y))
+		var button := _icon_button(entry[0], entry[1], Vector2(174 + 244 * i, 1760), (entry[2] as Signal).emit, NAV_ICON_SIDE)
 		if entry[0] == "Chest" and Progress.chests_ready(profile) > 0:
-			_badge(button, str(Progress.chests_ready(profile)))
+			_badge(button, Progress.chests_ready(profile))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_face):
 		_play_face.texture = Art.tex("btn_home_island_play_" + UiText.locale())
 
 func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> Button:
-	var button := UI.art_button(self, n, "btn_home_island_" + picture.trim_prefix("button_"), bounds, action)
-	# Export footprints match the approved composition; all siblings use identical bounds.
-	var face := button.get_node("Face") as TextureRect
-	UI.place(face, Rect2(Vector2.ZERO, bounds.size))
+	return UI.art_button(self, n, "btn_home_island_" + picture, bounds, action)
+
+func _icon_button(n: String, picture: String, center: Vector2, action: Callable, side: float) -> Button:
+	var button := Button.new()
+	button.name = n
+	button.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		button.add_theme_stylebox_override(state, empty)
+	UI.place(button, Rect2(center - ICON_ENTRY_SIZE * 0.5, ICON_ENTRY_SIZE))
+	# Fit the painted body uniformly; a common slot must never stretch the source art.
+	var content: Rect2 = ICON_CONTENT[picture]
+	var pixel_scale := side / maxf(content.size.x, content.size.y)
+	var face_size := Art.tex(picture).get_size() * pixel_scale
+	var face_at := ICON_ENTRY_SIZE * 0.5 - content.get_center() * pixel_scale
+	var face := UI.image(button, picture, Rect2(face_at, face_size), false)
+	face.name = "Face"
+	var outline := ShaderMaterial.new()
+	outline.shader = ICON_OUTLINE
+	outline.set_shader_parameter("draw_size", face.size)
+	face.material = outline
+	button.button_down.connect(func(): face.self_modulate = UI.PRESSED_TINT)
+	button.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	button.pressed.connect(func():
+		Sound.play("ui_tap")
+		action.call())
+	add_child(button)
 	return button
 
-func _badge(button: Control, value: String) -> void:
-	var d := 54.0 * REFERENCE_SCALE.y
-	var face := button.get_node("Face") as TextureRect
-	var origin := face.position + Vector2(face.size.x - d * 0.84, -d * 0.33)
-	var badge := UI.image(button, "badge_home_island_notification", Rect2(origin, Vector2.ONE * d), false)
-	badge.name = "Badge"
-	UI.number(button, value, Rect2(origin + Vector2(9, 8), Vector2(d - 18, d - 18)), Color.WHITE)
+func _badge(button: Control, value: int) -> void:
+	var badge := Island.badge(button, Vector2(button.size.x - 16, 20), value, true)
+	badge.pivot_offset = badge.size * 0.5
+	badge.scale = Vector2.ONE * (48.0 / Island.BADGE_SIZE)
 
 ## The next level to play: first unlocked level without stars, else the highest unlocked one.
 func _next_level() -> int:
@@ -123,13 +152,13 @@ func _add_bird(kind: String, at: Vector2, top: float, rest_frame: int, group: St
 	var pixel_scale := (at.y - top) / (feet.y - used.position.y)
 	var pivot := Node2D.new()
 	pivot.name = "Bird_" + kind
-	pivot.position = at * REFERENCE_SCALE
+	pivot.position = at
 	add_child(pivot)
 	var bird := AnimatedSprite2D.new()
 	bird.name = "Pose"
 	bird.centered = false
-	bird.position = -feet * pixel_scale * REFERENCE_SCALE
-	bird.scale = Vector2.ONE * pixel_scale * REFERENCE_SCALE
+	bird.position = -feet * pixel_scale
+	bird.scale = Vector2.ONE * pixel_scale
 	var frames := SpriteFrames.new()
 	frames.set_animation_loop("default", false)
 	frames.set_animation_speed("default", IDLE_FPS)
@@ -137,9 +166,9 @@ func _add_bird(kind: String, at: Vector2, top: float, rest_frame: int, group: St
 		frames.add_frame("default", texture)
 	bird.sprite_frames = frames
 	bird.frame = rest_frame
-	var contact_rows: Array = PARROT_FOOT_Y.get(kind, [])
+	var contact_rows: Array = BIRD_FOOT_Y.get(kind, [])
 	if not contact_rows.is_empty():
-		var align_feet := func(): bird.position.y = -float(contact_rows[bird.frame]) * pixel_scale * REFERENCE_SCALE.y
+		var align_feet := func(): bird.position.y = -float(contact_rows[bird.frame]) * pixel_scale
 		bird.frame_changed.connect(align_feet)
 		align_feet.call()
 	pivot.add_child(bird)
@@ -182,3 +211,4 @@ static func preview(main: Control, state: String) -> void:
 	view.instant = main.instant()
 	main.set_screen(view)
 	view.setup(p)
+	Sound.music("bgm_menu")

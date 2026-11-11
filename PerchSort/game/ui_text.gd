@@ -55,8 +55,8 @@ class NumberSprite extends Control:
 			queue_redraw()
 
 
-## Brown words and digits are drawn through this material (game/warm_ink.gdshader); tools/island/bake_buttons.py applies
-## the same colours to the baked buttons.
+## Legacy brown-source words and digits are drawn in ocean teal through this shared material. Source style keys
+## remain unchanged so existing language packs and glyph metrics keep working.
 static var _warm: ShaderMaterial
 
 static func warm_ink() -> ShaderMaterial:
@@ -166,6 +166,11 @@ static func label(parent: Node, id: String, bounds: Rect2, cap: float, color: Co
 	parent.add_child(image)
 	return image
 
+## Fit an existing AI-painted word by visible ink, using the semantic label's locale-pack entry.
+static func painted_label(parent: Node, id: String, bounds: Rect2, heading := false) -> TextureRect:
+	var entry := _word(id, ["gold", "brown", "caption"] if heading else ["brown", "caption", "white"])
+	return painted(parent, entry.get("painted_id", str(entry["file"]).get_file().get_basename()), bounds)
+
 static func painted(parent: Node, id: String, bounds: Rect2, align := 0) -> TextureRect:
 	var image := PaintedSprite.new()
 	image.name = "Word_" + id
@@ -202,15 +207,21 @@ static func _fit_painted(image: PaintedSprite) -> void:
 static var _ink_cache := {}
 
 static func _painted_ink(id: String) -> Texture2D:
-	var path: String = _folder + _pack["painted"][id]["file"]
-	if not _ink_cache.has(path):
+	var entry: Dictionary = _pack["painted"][id]
+	var path: String = _folder + entry["file"]
+	var key := path + str(entry.get("region", []))
+	if not _ink_cache.has(key):
 		var base: Texture2D = load(path)
-		var used := base.get_image().get_used_rect()
 		var cut := AtlasTexture.new()
 		cut.atlas = base
-		cut.region = Rect2(used.grow(2)).intersection(Rect2(Vector2.ZERO, base.get_size()))
-		_ink_cache[path] = cut
-	return _ink_cache[path]
+		if entry.has("region"):
+			var r: Array = entry["region"]
+			cut.region = Rect2(r[0], r[1], r[2], r[3])
+		else:
+			var used := base.get_image().get_used_rect()
+			cut.region = Rect2(used.grow(2)).intersection(Rect2(Vector2.ZERO, base.get_size()))
+		_ink_cache[key] = cut
+	return _ink_cache[key]
 
 ## The width a painted word takes when its height is `height` (for laying out rows before placing them).
 static func has_painted(id: String) -> bool:
@@ -240,7 +251,7 @@ static func _fit_label(image: LabelSprite) -> void:
 		image.texture = null
 		image.size = Vector2.ZERO
 		return
-	var base: Texture2D = load(_folder + entry["file"])
+	var base: Texture2D = _painted_ink(entry["painted_id"]) if entry.has("painted_id") else load(_folder + entry["file"])
 	var natural := base.get_size()
 	var k := minf(image.cap / float(entry["cap"]), minf(image.bounds.size.x / natural.x, image.bounds.size.y / natural.y))
 	var shown := natural * k
@@ -258,7 +269,7 @@ static func label_width(id: String, cap: float, heading := false) -> float:
 	var entry := _word(id, ["gold"] if heading else ["brown", "caption", "white"])
 	if entry.is_empty():
 		return 0.0
-	var texture: Texture2D = load(_folder + entry["file"])
+	var texture: Texture2D = _painted_ink(entry["painted_id"]) if entry.has("painted_id") else load(_folder + entry["file"])
 	return texture.get_width() * cap / float(entry["cap"])
 
 

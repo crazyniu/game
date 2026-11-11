@@ -1,23 +1,23 @@
 class_name Modal
 extends Control
 ## Shared modal (docs/design/island-style.md): dim backdrop, one wide wooden-framed panel whose height follows its
-## content, a large hanging sign with the gold title straddling the panel's top edge, an optional close tile on the
+## content, a wooden name plank with the gold title straddling the panel's top edge, an optional close tile on the
 ## panel's top-right corner, and the actions inside the panel at its bottom. Content uses absolute design coordinates;
 ## add it to `content`.
 
 signal closed
 
 const WIDTH := 960.0
-const HEAD := 150.0              # panel top to the first content group: the lower half of the sign and some air
+const HEAD := 150.0              # panel top to the first content group: the lower half of the plank and some air
 const BOTTOM := 64.0             # last content group to the panel's visible bottom (no actions)
 const GAP := 36.0                # between content groups
-const INSET := 72.0              # panel edge to content: the wooden frame (48 px) and a little air
+const INSET := 72.0              # panel edge to content: the wooden frame and a little air
 const CLOSE := 120.0
 const ACTION_DROP := 48.0        # last content group to the action block
-const ACTION_BOTTOM := 104.0     # action block to the panel's bottom edge (the frame's flowers and shell)
+const ACTION_BOTTOM := 104.0     # action block to the panel's bottom edge, clear of the frame's flowers
 const ACTION_GAP := 32.0
-const SIGN_W := 760.0            # the hanging title sign
-const SIGN_ABOVE := 250.0        # how far the sign reaches above the panel top
+const SIGN_W := 760.0            # the wooden title plank
+const SIGN_ABOVE := 250.0        # existing title reservation, kept for callers' vertical layout
 const DIM := Color(0.08, 0.09, 0.24, 0.68)   # dusk over the island, as in the designs
 
 var content: Control
@@ -30,11 +30,12 @@ var _title_layer: Control
 var _title_id := ""
 var _title_number := ""
 var _has_close := false
+var _decorate_title := true
 
 ## Opens a modal whose panel holds `heights` content groups below an optional title. Returns the modal; read
 ## `ys` (top y of each group) and `actions_y` (top of the action row) from its metadata.
 static func open(host: Control, title_id: String, heights: Array, close_button := false, action_h := 0.0, above := 0.0,
-		instant := false, quick_motion := false, title_number := "") -> Modal:
+		instant := false, quick_motion := false, title_number := "", decorate_title := true) -> Modal:
 	var inner := 0.0
 	for h in heights:
 		inner += h
@@ -55,6 +56,7 @@ static func open(host: Control, title_id: String, heights: Array, close_button :
 	p._title_id = title_id
 	p._title_number = title_number
 	p._has_close = close_button
+	p._decorate_title = decorate_title
 	p._build()
 	var ys := []
 	var y := top + head
@@ -79,27 +81,42 @@ func _build() -> void:
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.pivot_offset = panel_rect.get_center()
 	add_child(content)
-	var panel := UI.shape(content, panel_rect, "cream", 56.0, 12.0)
-	panel.name = "Panel"
+	frame(content, panel_rect)
 	_title_layer = Control.new()
 	_title_layer.name = "TitleGroup"
 	_title_layer.size = size
 	_title_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.add_child(_title_layer)
-	if not _title_id.is_empty():
+	if not _title_id.is_empty() and _decorate_title:
 		_title()
 	if _has_close:
 		Island.button(content, "Close", "island_close_tile", Rect2(panel_rect.end.x - 96.0, panel_rect.position.y - 44.0, CLOSE, CLOSE), close)
 
-## The title is the gold painted heading on the big hanging sign whose plank straddles the panel's top edge; level
-## numbers stay numeral sprites beside it.
-const RIBBON_H := 172.0
+## Keep all frame art under Panel so page-specific modals can replace the complete surface.
+static func frame(parent: Control, bounds: Rect2) -> Control:
+	var panel := Control.new()
+	panel.name = "Panel"
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(panel, bounds)
+	parent.add_child(panel)
+	UI.kit_piece(panel, "panel", Rect2(Vector2.ZERO, bounds.size), 1.0).name = "Skin"
+	return panel
+
+## The native plank keeps its wood grain and flowers intact; only its central clear area holds lettering.
+static func title_plank(parent: Control, center: Vector2, width: float) -> Rect2:
+	var tex := Art.tex("island_name_plank")
+	var height := width * tex.get_height() / tex.get_width()
+	Island.piece(parent, "island_name_plank", center - Vector2(width, height) * 0.5, width)
+	return Rect2(center - Vector2(width * 0.28, height * 0.33), Vector2(width * 0.56, height * 0.58))
+
+## Gold painted heading and optional numeral sprites on the wooden plank.
 const TITLE_CAP := 112.0
+const TITLE_CENTER_Y := 24.0
 
 func _title() -> void:
 	var cap := TITLE_CAP
-	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 4.0, SIGN_W)
-	var max_text := plank.size.x * 1.12
+	var plank := title_plank(_title_layer, Vector2(540.0, panel_rect.position.y + TITLE_CENTER_Y), SIGN_W)
+	var max_text := plank.size.x
 	var word_w := UI.heading_width(_title_id, cap)
 	var num_w := UI.number_width(_title_number, cap * 1.0) if not _title_number.is_empty() else 0.0
 	var natural := word_w + ((20.0 + num_w) if num_w > 0.0 else 0.0)

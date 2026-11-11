@@ -1,6 +1,16 @@
 {
  "gold": [
   [
+   "coins.title",
+   "Coin Shop",
+   "金币商店"
+  ],
+  [
+   "coins.preview",
+   "Purchase Preview",
+   "模拟购买"
+  ],
+  [
    "popup.win.title",
    "Well done!",
    "太棒了！"
@@ -668,6 +678,8 @@
   ]
  ],
  "reuse": {
+  "gold.coins.title": "gold_coin_shop_title",
+  "gold.coins.preview": "gold_coin_purchase_preview",
   "gold.shop.title": "title_shop",
   "gold.aviary.title": "title_aviary",
   "gold.popup.settings.title": "title_settings",

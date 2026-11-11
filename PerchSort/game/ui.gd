@@ -73,7 +73,7 @@ const FILL := {"cream": Color8(255, 247, 232), "green": Color8(108, 194, 74), "o
 	"blue": Color8(93, 185, 238), "red": Color8(239, 85, 72)}
 const RIM := {"cream": Color8(233, 214, 176), "green": Color8(76, 150, 49), "orange": Color8(218, 122, 20),
 	"blue": Color8(60, 147, 201), "red": Color8(194, 58, 47)}
-const INK := Color8(90, 58, 30)
+const INK := Color8(20, 105, 123)        # ocean teal for readable text and symbols on cream
 const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0

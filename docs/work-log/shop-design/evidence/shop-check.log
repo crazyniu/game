@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+OpenGL API 4.1 Metal - 91.7 - Compatibility - Using Device: Apple - Apple M4 Pro
+
+PASS six booster cards
+OUTFITS handler_ms=1.94 input_to_draw_ms=119.37
+PASS outfit category and heading
+PASS outfit tab retains live content
+PASS outfit purchase and equip
+PASS detail survives language change
+PASS detail returns to shop
+PASS nest purchase
+PASS nest equips
+PASS booster quantity and purchase
+PASS shop closes to home
+shop quick check: 0 failures

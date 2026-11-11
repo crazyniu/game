@@ -9,7 +9,7 @@ const CREAM_DEEP := Color8(241, 226, 200)   # recessed tracks
 const RIM := Color8(214, 168, 112)          # card and cream-button rim
 const RIM_DARK := Color8(186, 136, 82)      # lip under cream shapes
 const LINE := Color8(234, 214, 182)         # row dividers
-const SOFT_INK := Color8(150, 104, 62)      # captions (tools/island/bake_labels.py SOFT)
+const SOFT_INK := Color8(40, 137, 146)      # lighter ocean teal for secondary information
 const GREEN := Color8(92, 184, 58)
 const GREEN_LIP := Color8(60, 136, 34)
 const OFF := Color8(214, 202, 184)
@@ -97,6 +97,7 @@ class Words extends RefCounted:
 		var anchor: Vector2 = item[3]
 		var x: float = anchor.x - size.x * (0.5 + 0.5 * float(item[5]))
 		t.texture = tex
+		t.material = UiText.warm_ink() if item[2] in ["ink", "soft"] else null
 		t.size = size
 		t.position = Vector2(x, anchor.y - float(meta[name]) * k)
 

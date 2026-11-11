@@ -203,6 +203,9 @@
     "white_play": {
       "file": "island_words/white_play.png"
     },
+    "home_checkin": {
+      "file": "island_words/home_checkin.png"
+    },
     "white_spin": {
       "file": "island_words/white_spin.png"
     },
@@ -214,6 +217,477 @@
     },
     "white_tab_outfits": {
       "file": "island_words/white_tab_outfits.png"
+    },
+    "gold_popup_win_title": {
+      "file": "island_words/gold_popup_win_title.png"
+    },
+    "gold_popup_level_title": {
+      "file": "island_words/gold_popup_level_title.png"
+    },
+    "gold_popup_new_friend_title": {
+      "file": "island_words/gold_popup_new_friend_title.png"
+    },
+    "gold_popup_world_complete_title": {
+      "file": "island_words/gold_popup_world_complete_title.png"
+    },
+    "gold_popup_world_unlock_title": {
+      "file": "island_words/gold_popup_world_unlock_title.png"
+    },
+    "gold_popup_gift_title": {
+      "file": "island_words/gold_popup_gift_title.png"
+    },
+    "gold_bird_sunny_name": {
+      "file": "island_words/gold_bird_sunny_name.png"
+    },
+    "gold_bird_sky_name": {
+      "file": "island_words/gold_bird_sky_name.png"
+    },
+    "gold_bird_berry_name": {
+      "file": "island_words/gold_bird_berry_name.png"
+    },
+    "gold_bird_mint_name": {
+      "file": "island_words/gold_bird_mint_name.png"
+    },
+    "gold_bird_cocoa_name": {
+      "file": "island_words/gold_bird_cocoa_name.png"
+    },
+    "gold_bird_snow_name": {
+      "file": "island_words/gold_bird_snow_name.png"
+    },
+    "gold_bird_ember_name": {
+      "file": "island_words/gold_bird_ember_name.png"
+    },
+    "gold_bird_crow_name": {
+      "file": "island_words/gold_bird_crow_name.png"
+    },
+    "gold_bird_ink_name": {
+      "file": "island_words/gold_bird_ink_name.png"
+    },
+    "gold_bird_hoot_name": {
+      "file": "island_words/gold_bird_hoot_name.png"
+    },
+    "gold_world_green_name": {
+      "file": "island_words/gold_world_green_name.png"
+    },
+    "gold_world_bamboo_name": {
+      "file": "island_words/gold_world_bamboo_name.png"
+    },
+    "gold_world_autumn_name": {
+      "file": "island_words/gold_world_autumn_name.png"
+    },
+    "gold_world_snow_name": {
+      "file": "island_words/gold_world_snow_name.png"
+    },
+    "gold_world_blossom_name": {
+      "file": "island_words/gold_world_blossom_name.png"
+    },
+    "gold_world_mushroom_name": {
+      "file": "island_words/gold_world_mushroom_name.png"
+    },
+    "gold_world_lakeside_name": {
+      "file": "island_words/gold_world_lakeside_name.png"
+    },
+    "gold_world_pine_name": {
+      "file": "island_words/gold_world_pine_name.png"
+    },
+    "gold_world_rainforest_name": {
+      "file": "island_words/gold_world_rainforest_name.png"
+    },
+    "gold_world_wisteria_name": {
+      "file": "island_words/gold_world_wisteria_name.png"
+    },
+    "gold_outfit_sunny_1_name": {
+      "file": "island_words/gold_outfit_sunny_1_name.png"
+    },
+    "gold_outfit_sunny_2_name": {
+      "file": "island_words/gold_outfit_sunny_2_name.png"
+    },
+    "gold_outfit_sunny_3_name": {
+      "file": "island_words/gold_outfit_sunny_3_name.png"
+    },
+    "gold_outfit_sunny_4_name": {
+      "file": "island_words/gold_outfit_sunny_4_name.png"
+    },
+    "gold_outfit_sunny_5_name": {
+      "file": "island_words/gold_outfit_sunny_5_name.png"
+    },
+    "gold_outfit_sky_1_name": {
+      "file": "island_words/gold_outfit_sky_1_name.png"
+    },
+    "gold_outfit_sky_2_name": {
+      "file": "island_words/gold_outfit_sky_2_name.png"
+    },
+    "gold_outfit_sky_3_name": {
+      "file": "island_words/gold_outfit_sky_3_name.png"
+    },
+    "gold_outfit_sky_4_name": {
+      "file": "island_words/gold_outfit_sky_4_name.png"
+    },
+    "gold_outfit_sky_5_name": {
+      "file": "island_words/gold_outfit_sky_5_name.png"
+    },
+    "gold_outfit_berry_1_name": {
+      "file": "island_words/gold_outfit_berry_1_name.png"
+    },
+    "gold_outfit_berry_2_name": {
+      "file": "island_words/gold_outfit_berry_2_name.png"
+    },
+    "gold_outfit_berry_3_name": {
+      "file": "island_words/gold_outfit_berry_3_name.png"
+    },
+    "gold_outfit_berry_4_name": {
+      "file": "island_words/gold_outfit_berry_4_name.png"
+    },
+    "gold_outfit_berry_5_name": {
+      "file": "island_words/gold_outfit_berry_5_name.png"
+    },
+    "gold_outfit_mint_1_name": {
+      "file": "island_words/gold_outfit_mint_1_name.png"
+    },
+    "gold_outfit_mint_2_name": {
+      "file": "island_words/gold_outfit_mint_2_name.png"
+    },
+    "gold_outfit_mint_3_name": {
+      "file": "island_words/gold_outfit_mint_3_name.png"
+    },
+    "gold_outfit_mint_4_name": {
+      "file": "island_words/gold_outfit_mint_4_name.png"
+    },
+    "gold_outfit_mint_5_name": {
+      "file": "island_words/gold_outfit_mint_5_name.png"
+    },
+    "gold_outfit_cocoa_1_name": {
+      "file": "island_words/gold_outfit_cocoa_1_name.png"
+    },
+    "gold_outfit_cocoa_3_name": {
+      "file": "island_words/gold_outfit_cocoa_3_name.png"
+    },
+    "gold_outfit_cocoa_4_name": {
+      "file": "island_words/gold_outfit_cocoa_4_name.png"
+    },
+    "gold_outfit_cocoa_5_name": {
+      "file": "island_words/gold_outfit_cocoa_5_name.png"
+    },
+    "gold_outfit_snow_1_name": {
+      "file": "island_words/gold_outfit_snow_1_name.png"
+    },
+    "gold_outfit_snow_2_name": {
+      "file": "island_words/gold_outfit_snow_2_name.png"
+    },
+    "gold_outfit_snow_3_name": {
+      "file": "island_words/gold_outfit_snow_3_name.png"
+    },
+    "gold_outfit_snow_4_name": {
+      "file": "island_words/gold_outfit_snow_4_name.png"
+    },
+    "gold_outfit_snow_5_name": {
+      "file": "island_words/gold_outfit_snow_5_name.png"
+    },
+    "gold_outfit_ember_1_name": {
+      "file": "island_words/gold_outfit_ember_1_name.png"
+    },
+    "gold_outfit_ember_2_name": {
+      "file": "island_words/gold_outfit_ember_2_name.png"
+    },
+    "gold_outfit_ember_3_name": {
+      "file": "island_words/gold_outfit_ember_3_name.png"
+    },
+    "gold_outfit_ember_4_name": {
+      "file": "island_words/gold_outfit_ember_4_name.png"
+    },
+    "gold_outfit_ember_5_name": {
+      "file": "island_words/gold_outfit_ember_5_name.png"
+    },
+    "gold_outfit_ink_1_name": {
+      "file": "island_words/gold_outfit_ink_1_name.png"
+    },
+    "gold_outfit_ink_2_name": {
+      "file": "island_words/gold_outfit_ink_2_name.png"
+    },
+    "gold_outfit_ink_3_name": {
+      "file": "island_words/gold_outfit_ink_3_name.png"
+    },
+    "gold_outfit_ink_4_name": {
+      "file": "island_words/gold_outfit_ink_4_name.png"
+    },
+    "gold_outfit_ink_5_name": {
+      "file": "island_words/gold_outfit_ink_5_name.png"
+    },
+    "gold_outfit_hoot_1_name": {
+      "file": "island_words/gold_outfit_hoot_1_name.png"
+    },
+    "gold_outfit_hoot_3_name": {
+      "file": "island_words/gold_outfit_hoot_3_name.png"
+    },
+    "gold_outfit_hoot_4_name": {
+      "file": "island_words/gold_outfit_hoot_4_name.png"
+    },
+    "gold_outfit_hoot_5_name": {
+      "file": "island_words/gold_outfit_hoot_5_name.png"
+    },
+    "gold_tutorial_title": {
+      "file": "island_words/gold_tutorial_title.png"
+    },
+    "gold_doc_terms_title": {
+      "file": "island_words/gold_doc_terms_title.png"
+    },
+    "gold_doc_credits_title": {
+      "file": "island_words/gold_doc_credits_title.png"
+    },
+    "gold_doc_contact_title": {
+      "file": "island_words/gold_doc_contact_title.png"
+    },
+    "gold_challenge_title": {
+      "file": "island_words/gold_challenge_title.png"
+    },
+    "gold_map_chapters": {
+      "file": "island_words/gold_map_chapters.png"
+    },
+    "gold_lesson_sleep_title": {
+      "file": "island_words/gold_lesson_sleep_title.png"
+    },
+    "gold_lesson_mama_title": {
+      "file": "island_words/gold_lesson_mama_title.png"
+    },
+    "gold_lesson_egg_title": {
+      "file": "island_words/gold_lesson_egg_title.png"
+    },
+    "gold_lesson_crow_title": {
+      "file": "island_words/gold_lesson_crow_title.png"
+    },
+    "gold_lesson_twig_title": {
+      "file": "island_words/gold_lesson_twig_title.png"
+    },
+    "gold_lesson_swivel_title": {
+      "file": "island_words/gold_lesson_swivel_title.png"
+    },
+    "gold_lesson_growing_title": {
+      "file": "island_words/gold_lesson_growing_title.png"
+    },
+    "gold_lesson_daynight_title": {
+      "file": "island_words/gold_lesson_daynight_title.png"
+    },
+    "brown_action_replay": {
+      "file": "island_words/brown_action_replay.png"
+    },
+    "brown_action_home": {
+      "file": "island_words/brown_action_home.png"
+    },
+    "brown_settings_restart": {
+      "file": "island_words/brown_settings_restart.png"
+    },
+    "brown_settings_language_name": {
+      "file": "island_words/brown_settings_language_name.png"
+    },
+    "white_settings_language_name": {
+      "file": "island_words/white_settings_language_name.png"
+    },
+    "brown_house_mushroom_name": {
+      "file": "island_words/brown_house_mushroom_name.png"
+    },
+    "brown_house_teapot_name": {
+      "file": "island_words/brown_house_teapot_name.png"
+    },
+    "brown_house_lantern_name": {
+      "file": "island_words/brown_house_lantern_name.png"
+    },
+    "brown_house_acorn_name": {
+      "file": "island_words/brown_house_acorn_name.png"
+    },
+    "brown_house_pumpkin_name": {
+      "file": "island_words/brown_house_pumpkin_name.png"
+    },
+    "brown_house_beehive_name": {
+      "file": "island_words/brown_house_beehive_name.png"
+    },
+    "brown_house_teacup_name": {
+      "file": "island_words/brown_house_teacup_name.png"
+    },
+    "brown_house_pinecone_name": {
+      "file": "island_words/brown_house_pinecone_name.png"
+    },
+    "brown_house_cage_name": {
+      "file": "island_words/brown_house_cage_name.png"
+    },
+    "brown_action_back": {
+      "file": "island_words/brown_action_back.png"
+    },
+    "brown_chapter_word": {
+      "file": "island_words/brown_chapter_word.png"
+    },
+    "brown_chapter_levels": {
+      "file": "island_words/brown_chapter_levels.png"
+    },
+    "brown_board_night_falls": {
+      "file": "island_words/brown_board_night_falls.png"
+    },
+    "brown_board_day_breaks": {
+      "file": "island_words/brown_board_day_breaks.png"
+    },
+    "caption_bird_sunny_ability": {
+      "file": "island_words/caption_bird_sunny_ability.png"
+    },
+    "caption_bird_sky_ability": {
+      "file": "island_words/caption_bird_sky_ability.png"
+    },
+    "caption_bird_berry_ability": {
+      "file": "island_words/caption_bird_berry_ability.png"
+    },
+    "caption_bird_mint_ability": {
+      "file": "island_words/caption_bird_mint_ability.png"
+    },
+    "caption_bird_cocoa_ability": {
+      "file": "island_words/caption_bird_cocoa_ability.png"
+    },
+    "caption_bird_snow_ability": {
+      "file": "island_words/caption_bird_snow_ability.png"
+    },
+    "caption_bird_ember_ability": {
+      "file": "island_words/caption_bird_ember_ability.png"
+    },
+    "caption_bird_ink_ability": {
+      "file": "island_words/caption_bird_ink_ability.png"
+    },
+    "caption_bird_hoot_ability": {
+      "file": "island_words/caption_bird_hoot_ability.png"
+    },
+    "caption_bird_crow_ability": {
+      "file": "island_words/caption_bird_crow_ability.png"
+    },
+    "caption_chest_line": {
+      "file": "island_words/caption_chest_line.png"
+    },
+    "caption_lesson_sleep_line": {
+      "file": "island_words/caption_lesson_sleep_line.png"
+    },
+    "caption_lesson_mama_line": {
+      "file": "island_words/caption_lesson_mama_line.png"
+    },
+    "caption_lesson_egg_line": {
+      "file": "island_words/caption_lesson_egg_line.png"
+    },
+    "caption_lesson_crow_line": {
+      "file": "island_words/caption_lesson_crow_line.png"
+    },
+    "caption_lesson_twig_line": {
+      "file": "island_words/caption_lesson_twig_line.png"
+    },
+    "caption_lesson_swivel_line": {
+      "file": "island_words/caption_lesson_swivel_line.png"
+    },
+    "caption_lesson_growing_line": {
+      "file": "island_words/caption_lesson_growing_line.png"
+    },
+    "caption_lesson_daynight_line": {
+      "file": "island_words/caption_lesson_daynight_line.png"
+    },
+    "caption_tutorial_pick": {
+      "file": "island_words/caption_tutorial_pick.png"
+    },
+    "caption_tutorial_move_a": {
+      "file": "island_words/caption_tutorial_move_a.png"
+    },
+    "caption_tutorial_home_a": {
+      "file": "island_words/caption_tutorial_home_a.png"
+    },
+    "caption_tutorial_win_a": {
+      "file": "island_words/caption_tutorial_win_a.png"
+    },
+    "white_action_ok": {
+      "file": "island_words/white_action_ok.png"
+    },
+    "white_action_next": {
+      "file": "island_words/white_action_next.png"
+    },
+    "white_settings_home": {
+      "file": "island_words/white_settings_home.png"
+    },
+    "gold_house_mushroom_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        37,
+        23,
+        762,
+        167
+      ]
+    },
+    "gold_house_teapot_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        119,
+        237,
+        593,
+        191
+      ]
+    },
+    "gold_house_lantern_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        92,
+        463,
+        655,
+        164
+      ]
+    },
+    "gold_house_acorn_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        155,
+        666,
+        524,
+        165
+      ]
+    },
+    "gold_house_pumpkin_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        70,
+        860,
+        696,
+        180
+      ]
+    },
+    "gold_house_beehive_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        86,
+        1063,
+        664,
+        172
+      ]
+    },
+    "gold_house_teacup_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        118,
+        1260,
+        599,
+        188
+      ]
+    },
+    "gold_house_pinecone_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        49,
+        1463,
+        736,
+        171
+      ]
+    },
+    "gold_house_cage_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        194,
+        1665,
+        447,
+        198
+      ]
+    },
+    "gold_coin_shop_title": {
+      "file": "island_words/gold_coin_shop_title.png"
+    },
+    "gold_coin_purchase_preview": {
+      "file": "island_words/gold_coin_purchase_preview.png"
     }
   },
   "words": {
@@ -765,54 +1239,99 @@
       "brown": {
         "file": "island_words/brown_house_mushroom_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_mushroom_name",
+        "cap": 167
       }
     },
     "house.teapot.name": {
       "brown": {
         "file": "island_words/brown_house_teapot_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_teapot_name",
+        "cap": 191
       }
     },
     "house.lantern.name": {
       "brown": {
         "file": "island_words/brown_house_lantern_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_lantern_name",
+        "cap": 164
       }
     },
     "house.acorn.name": {
       "brown": {
         "file": "island_words/brown_house_acorn_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_acorn_name",
+        "cap": 165
       }
     },
     "house.pumpkin.name": {
       "brown": {
         "file": "island_words/brown_house_pumpkin_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_pumpkin_name",
+        "cap": 180
       }
     },
     "house.beehive.name": {
       "brown": {
         "file": "island_words/brown_house_beehive_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_beehive_name",
+        "cap": 172
       }
     },
     "house.teacup.name": {
       "brown": {
         "file": "island_words/brown_house_teacup_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_teacup_name",
+        "cap": 188
       }
     },
     "house.pinecone.name": {
       "brown": {
         "file": "island_words/brown_house_pinecone_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_pinecone_name",
+        "cap": 171
       }
     },
     "house.cage.name": {
       "brown": {
         "file": "island_words/brown_house_cage_name.png",
         "cap": 96.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_cage_name",
+        "cap": 198
       }
     },
     "action.back": {
@@ -1189,6 +1708,20 @@
       "caption": {
         "file": "island_words/cap_spring_rain.png",
         "cap": 40.8
+      }
+    },
+    "coins.title": {
+      "gold": {
+        "file": "island_words/gold_coin_shop_title.png",
+        "painted_id": "gold_coin_shop_title",
+        "cap": 128
+      }
+    },
+    "coins.preview": {
+      "gold": {
+        "file": "island_words/gold_coin_purchase_preview.png",
+        "painted_id": "gold_coin_purchase_preview",
+        "cap": 128
       }
     }
   }

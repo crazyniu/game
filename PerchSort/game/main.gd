@@ -13,6 +13,7 @@ var _wipe: Control
 var _wipe_leaves: Array[TextureRect] = []
 var _wipe_back: ColorRect
 var _wiping := false
+var _coin_shop: Control
 
 const WIPE_SECONDS := 0.4
 
@@ -20,6 +21,7 @@ const WIPE_SECONDS := 0.4
 
 func _ready() -> void:
 	size = Vector2(1080, 1920)
+	get_tree().node_added.connect(_connect_coin_counter)
 	for a in OS.get_cmdline_user_args():
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
@@ -36,6 +38,8 @@ func _ready() -> void:
 		UiText.set_language(args["lang"])   # captures and tests: --lang=zh
 	ambient = Ambient.new()
 	ambient.still = instant()
+	# The Home composition keeps the beach clear; level ambience is created by BoardView.
+	ambient.look = {"count": 0, "sun": 0.0}
 	add_child(ambient)
 	popups = Control.new()
 	popups.name = "Popups"
@@ -178,17 +182,14 @@ func start_challenge() -> void:
 		Sound.music("bgm_game"))
 
 func show_chest() -> void:
-	var chest: Control = Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
+	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
 		var got := Progress.open_chest(profile)
 		if got.is_empty():
 			return
 		Sound.play("collect")
 		save()
-		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen),
-		_play_next if screen is HomeView else Callable())
-	# Over the home page its own Play, Daily and Check-In sit right behind the popup's buttons: dim them out.
-	if screen is HomeView:
-		chest._dim.color.a = 0.88
+		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen, "pic_chest_open", profile.coins),
+		_play_next if screen is HomeView else Callable(), profile.coins)
 
 func _play_next() -> void:
 	var level := Progress.next_level(profile)
@@ -404,6 +405,29 @@ func show_settings(on_board: bool) -> void:
 
 func open_shop(tab := 0, over_board := false) -> void:
 	_go(_open_shop.bind(tab))
+
+## Counters on every screen share the same entry, including counters created inside popups.
+func _connect_coin_counter(node: Node) -> void:
+	if node is FeatherBar:
+		node.purchase_requested.connect(open_coin_shop)
+
+func open_coin_shop(balance: int) -> void:
+	if _coin_shop != null:
+		return
+	var view: Control = load("res://game/coin_shop_view.gd").new()
+	view.name = "CoinShop"
+	view.instant = instant()
+	_coin_shop = view
+	# Keep the originating screen, overlay and confirmation mounted underneath this page.
+	add_child(view)
+	view.setup(balance)
+	view.purchase_requested.connect(view.show_preview_purchase)
+	view.closed.connect(func():
+		remove_child(view)
+		view.queue_free()
+		_coin_shop = null
+		Sound.music("bgm_game" if screen is BoardView and _overlay == null else "bgm_menu"))
+	Sound.music("bgm_menu")
 
 func _open_shop(tab: int) -> void:
 	var shop: Control = ShopScreen.new()

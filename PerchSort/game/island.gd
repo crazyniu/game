@@ -108,9 +108,8 @@ static func badge(parent: Node, center: Vector2, count: int, red := false) -> Co
 static func check_badge(parent: Node, center: Vector2) -> TextureRect:
 	return UI.image(parent, "island_badge_check", Rect2(center - Vector2.ONE * BADGE_SIZE * 0.5, Vector2.ONE * BADGE_SIZE), false)
 
-## The feather price: the feather coin on a gold bar (island_price_gold) with the price in the painted digits in dark
-## ink; a locked price is the same bar greyed out.
-const PRICE_INK := Color(0.29, 0.15, 0.06)
+## Feather prices use cream-white painted glyphs; locked faces retain their dimensions.
+const PRICE_INK := Color.WHITE
 
 static func price_pill(parent: Node, r: Rect2, price: int, locked := false) -> Control:
 	var holder := _coin_bar(parent, r, "Price")
@@ -165,22 +164,20 @@ static func progress_bar(parent: Node, r: Rect2, fill: float, text: String) -> C
 	var track := Rect2(star * 0.45, r.size.y * 0.12, r.size.x - star * 0.45, r.size.y * 0.76)
 	nine(holder, "island_progress_track", track, Vector4(44, 40, 44, 40))
 	if fill > 0.0:
-		var inner := track.grow(-track.size.y * 0.12)
+		var inner := track.grow(-track.size.y * 0.18)
 		var clip := Control.new()
 		clip.clip_contents = true
 		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		UI.place(clip, Rect2(inner.position, Vector2(maxf(inner.size.y, inner.size.x * fill), inner.size.y)))
+		UI.place(clip, Rect2(inner.position, Vector2(inner.size.x * fill, inner.size.y)))
 		holder.add_child(clip)
-		nine(clip, "island_pill_green", Rect2(Vector2.ZERO, inner.size), Vector4(56, 48, 56, 48))
-	var cut := AtlasTexture.new()
-	cut.atlas = Art.tex("island_progress_star")
-	cut.region = Rect2(0, 0, 130, 128)
-	var icon := TextureRect.new()
-	icon.texture = cut
-	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(icon, Rect2(Vector2(-star * 0.1, (r.size.y - star) * 0.5), Vector2(star * 130.0 / 128.0, star)))
-	holder.add_child(icon)
+		# Use only green paint: the source button's rim must not become a second track frame.
+		var paint := AtlasTexture.new()
+		paint.atlas = Art.tex("island_pill_green")
+		paint.region = Rect2(26, 24, 362, 70)
+		var face := UI.image(clip, "island_pill_green", Rect2(Vector2.ZERO, inner.size), false)
+		face.texture = paint
+	# The combined star-and-bar picture leaves a rectangular gold stub when cropped.
+	UI.art(holder, "island_star_full", Rect2(-star * 0.1, (r.size.y - star) * 0.5, star, star))
 	var cap := r.size.y * 0.58
 	UI.number(holder, text, Rect2(track.position.x + star * 0.4, (r.size.y - cap) * 0.5, track.size.x - star * 0.6, cap), Color.WHITE)
 	return holder

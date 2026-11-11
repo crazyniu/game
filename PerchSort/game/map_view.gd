@@ -1,5 +1,5 @@
 extends Control
-## Map (docs/design/island-style.md): ten world cards swiped left and right with a snap, and, when a card is opened, that
+## Map (docs/design/map.md): ten equal world cards in a horizontal strip, and, when a card is opened, that
 ## world's page: its painting on one screen with ten level nodes along the path. Level numbers restart at 1 in every
 ## world; the global level id and the saves are unchanged. Words are painted labels, numbers painted glyphs.
 
@@ -22,28 +22,24 @@ const NODES := [
 ]
 const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
 
-## Carousel layout, measured from art/approved_ui/map_carousel.png in 1080 x 1920 design pixels.
-const MARGIN := 40.0
-const BAR_Y := 72.0
-const COIN_W := 430.0
-const BACK := Rect2(40, 70, 128, 128)
+## Equal-sized forest cards; docs/design/map.md owns the horizontal layout.
+const BACK := Rect2(48, 48, 112, 112)
+const STRIP := Rect2(0, 300, 1080, 1256)
 const CARD := Vector2(626, 844)
-const CARD_CENTER_Y := 956.0
-const STRIDE := 540.0                    # card to card; both neighbours show their inner third
-const SIDE_SCALE := 0.72
+const CARD_TOP := 128.0                 # within the strip; the paintings start at screen y=428
+const CARD_GAP := 40.0
+const SIDE_MARGIN := 64.0
+const STRIDE := CARD.x + CARD_GAP
 const WINDOW := Rect2(26, 26, 574, 792)  # the painting fills the card inside its rim
 const PLAQUE := Vector2(600, 200)        # the wooden name plank over the card's lower part
 const PLAQUE_Y := 741.0                  # plank centre from the card top
 const PLAQUE_WORD := Rect2(0.16, 0.1, 0.68, 0.74)   # word area on the plank, shares of the plank box
 const BADGE := 140.0                     # the world number disc on the card's top edge
 const BADGE_Y := 12.0                    # badge centre below the card top
-const CHIP := Vector2(400, 104)          # stars chip under the centred card
-const CHIP_Y := 1423.0
-const PLAY := Rect2(260, 1536, 560, 213)       # the home page's painted Play button (word baked in), at its own ratio
+const STAR_PROGRESS := Rect2(113, 550, 400, 96) # inside each painting, above its wooden name
+const PLAY := Rect2(103, 880, 420, 160)  # one painted Play per card, at the same size in every state
 const TAP_SLOP := 18.0
-const DOT_Y := 1771.0
-const DOT := 32.0
-const DOT_STEP := 54.0
+const SCROLL_STEP := 112.0
 const PAGE_TOP := 250.0                  # world page: the painting starts under the bar
 const NODE := 150.0
 const CURRENT := 196.0
@@ -59,34 +55,32 @@ const LOCK_COLOR := Color8(150, 110, 70)
 
 var profile: Profile
 var current_level := 1
-var _world := 1                          # centred card (1..10); the opened world while a page shows
-var _pos := 0.0                          # carousel position in cards (0 = world 1)
+var _world := 1                          # requested or opened world (1..10)
+var _scroll_x := 0.0
+var _max_scroll := 0.0
 var _cards: Array = []
-var _dots: Array = []
-var _carousel: Control
+var _strip: Control
+var _content: Control
 var _page: Control
 var _bar: Control
 var _coins: FeatherBar
-var _snap: Tween
+var _scroll_tween: Tween
 var _pressed := false
-var _press_x := 0.0
 var _travel := 0.0
-var _velocity := 0.0
 var _bird: BirdView
-var _info: Control                       # stars chip and Play of the centred world
-var _info_world := 0
 
 
 func setup(player: Profile) -> void:
+	if _scroll_tween != null:
+		_scroll_tween.kill()
 	profile = player
 	for child in get_children():
 		child.queue_free()
 	_cards.clear()
-	_dots.clear()
 	_page = null
 	_bird = null
-	_info_world = 0
 	_pressed = false
+	_travel = 0.0
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -94,17 +88,18 @@ func setup(player: Profile) -> void:
 	var next := Progress.next_level(profile)
 	current_level = next if next > 0 else Levels.COUNT
 	_world = Progress.world_of_level(current_level)
-	_pos = float(_world - 1)
-	_build_carousel()
+	_build_strip()
 	_build_bar()
-	_layout()
+	show_world(_world, true)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and profile != null:
 		var keep := _world
+		var scroll := _scroll_x
 		var was_page := _page != null
 		setup(profile)
-		show_world(keep)
+		_world = keep
+		_set_scroll(scroll)
 		if was_page:
 			open_world(keep)
 
@@ -126,7 +121,7 @@ func _build_bar() -> void:
 	_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_bar.size = size
 	add_child(_bar)
-	_coins = FeatherBar.create(_bar, Vector2(1080.0 - MARGIN - COIN_W, BAR_Y), COIN_W, profile.coins)
+	_coins = ShopSkin.counter(_bar, profile)
 	Island.button(_bar, "Home", "island_back_tile", BACK, _back)
 
 ## Back arrow: from a world page to the cards, from the cards to the home page.
@@ -137,7 +132,7 @@ func _back() -> void:
 		home_requested.emit()
 
 
-# ---------------------------------------------------------------- carousel
+# ---------------------------------------------------------------- horizontal forest strip
 
 func _world_stars(world: int) -> int:
 	var total := 0
@@ -151,41 +146,36 @@ func _world_cleared(world: int) -> bool:
 			return false
 	return true
 
-func _build_carousel() -> void:
-	_carousel = Control.new()
-	_carousel.name = "Carousel"
-	_carousel.mouse_filter = Control.MOUSE_FILTER_STOP
-	_carousel.size = size
-	_carousel.gui_input.connect(_on_carousel_input)
-	add_child(_carousel)
+func _build_strip() -> void:
+	_strip = Control.new()
+	_strip.name = "WorldStrip"
+	_strip.clip_contents = true
+	_strip.mouse_filter = Control.MOUSE_FILTER_STOP
+	UI.place(_strip, STRIP)
+	_strip.gui_input.connect(_on_scroll_input)
+	add_child(_strip)
+	_content = Control.new()
+	_content.name = "Cards"
+	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_content.size = Vector2(SIDE_MARGIN * 2.0 + Levels.WORLDS * STRIDE - CARD_GAP, STRIP.size.y)
+	_strip.add_child(_content)
+	_max_scroll = _content.size.x - STRIP.size.x
 	for world in range(1, Levels.WORLDS + 1):
 		_cards.append(_build_card(world))
-	_info = Control.new()
-	_info.name = "Info"
-	_info.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_info.size = size
-	_carousel.add_child(_info)
-	var dots := Control.new()
-	dots.name = "Dots"
-	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	dots.size = size
-	_carousel.add_child(dots)
-	for i in Levels.WORLDS:
-		var dot := Island.piece(dots, "island_round_plate", Vector2(540.0 + (i - 4.5) * DOT_STEP - DOT * 0.5, DOT_Y - DOT * 0.5), DOT)
-		dot.name = "Dot_%d" % (i + 1)
-		_dots.append(dot)
 
 func _build_card(world: int) -> Control:
 	var open := Progress.is_world_unlocked(profile, world)
 	var card := Control.new()
 	card.name = "World_%d" % world
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.size = CARD
-	card.pivot_offset = CARD * 0.5
-	_carousel.add_child(card)
+	card.size = Vector2(CARD.x, PLAY.end.y)
+	card.position = Vector2(SIDE_MARGIN + (world - 1) * STRIDE, CARD_TOP)
+	_content.add_child(card)
 	Island.nine(card, "island_grid_card_soft", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60)).name = "Frame"
 	var chosen := Island.nine(card, "island_grid_card_selected", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60))
 	chosen.name = "Chosen"
+	var current := world == Progress.world_of_level(current_level)
+	chosen.visible = current
 	var window := Control.new()
 	window.name = "Window"
 	window.clip_contents = true
@@ -196,75 +186,42 @@ func _build_card(world: int) -> Control:
 	var tall := WINDOW.size.x * scene.get_height() / scene.get_width()
 	var painting := UI.image(window, "card_scene_w%d" % world, Rect2(0, -(tall - WINDOW.size.y) * 0.5, WINDOW.size.x, tall), false)
 	painting.name = "Painting"
+	_star_progress(card, world, STAR_PROGRESS)
 	var plank := Island.piece_fit(card, "island_name_plank", Vector2(CARD.x * 0.5, PLAQUE_Y), PLAQUE)
 	plank.name = "Plaque"
 	var word := Rect2(plank.position + plank.size * PLAQUE_WORD.position, plank.size * PLAQUE_WORD.size)
 	UI.heading(card, WORLD_NAMES[world - 1], word, 120.0)
-	# The world number on a disc over the card's top edge: green on the centred card, gold on its neighbours.
+	# Green marks the next playable forest; browsing never changes a card's size or status.
 	var at := Rect2(CARD.x * 0.5 - BADGE * 0.5, BADGE_Y - BADGE * 0.5, BADGE, BADGE)
-	for kind in ["Gold", "Green"]:
-		var badge := UI.image(card, "island_badge_gold" if kind == "Gold" else "island_badge_green", at, false)
-		badge.name = kind
-		Island.digits(badge, str(world), Rect2(BADGE * 0.24, BADGE * 0.22, BADGE * 0.52, BADGE * 0.52))
+	var badge := UI.image(card, "island_badge_green" if current else "island_badge_gold", at, false)
+	badge.name = "WorldNumber"
+	Island.digits(badge, str(world), Rect2(BADGE * 0.24, BADGE * 0.22, BADGE * 0.52, BADGE * 0.52))
 	if not open:
 		window.modulate = Color(0.62, 0.62, 0.66)
 		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 60.0), Vector2(220, 220)).name = "Lock"
 	elif _world_cleared(world):
 		Island.check_badge(card, Vector2(CARD.x - 50.0, 50.0)).name = "Done"
+	var play := UI.art_button(card, "Play", "btn_home_island_play_" + UiText.locale(), PLAY, func(): _play(world))
+	play.mouse_filter = Control.MOUSE_FILTER_PASS
+	UI.set_active(play, open)
 	return card
 
-## Places every card by its distance from the carousel position: the centred one large, neighbours smaller and behind.
-func _layout() -> void:
-	for i in _cards.size():
-		var d := float(i) - _pos
-		var card: Control = _cards[i]
-		var near := clampf(absf(d), 0.0, 1.0)
-		var s := lerpf(1.0, SIDE_SCALE, near)
-		card.scale = Vector2.ONE * s
-		card.position = Vector2(540.0 + d * STRIDE, CARD_CENTER_Y) - CARD * 0.5
-		card.modulate = Color.WHITE if absf(d) < 2.2 else Color(1, 1, 1, 0)
-		card.get_node("Chosen").visible = absf(d) < 0.5
-		card.get_node("Green").visible = absf(d) < 0.5
-		card.get_node("Gold").visible = absf(d) >= 0.5
-	# Nearer cards draw over farther ones: reorder siblings (z_index would also lift them over popups).
-	var order := range(_cards.size())
-	order.sort_custom(func(x, y): return absf(float(x) - _pos) > absf(float(y) - _pos))
-	for k in order.size():
-		_carousel.move_child(_cards[order[k]], k)
-	if roundi(_pos) + 1 != _info_world:
-		_build_info(roundi(_pos) + 1)
-	for i in _dots.size():
-		var on := i == roundi(_pos)
-		var dot: TextureRect = _dots[i]
-		dot.modulate = Color(0.3, 0.75, 0.2) if on else Color.WHITE
-		dot.scale = Vector2.ONE * (1.25 if on else 1.0)
-		dot.pivot_offset = dot.size * 0.5
-
-## Under the centred card: its stars (n of 30) on a cream chip and the green Play that opens the world page.
-func _build_info(world: int) -> void:
-	_info_world = world
-	for c in _info.get_children():
-		c.queue_free()
-	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
-	var chip := Rect2(540.0 - CHIP.x * 0.5, CHIP_Y, CHIP.x, CHIP.y)
-	# The cream pill keeps its round ends: drawn at the texture's own height, then scaled down to the chip.
-	var k := Art.tex("island_pill_cream_soft").get_height() / CHIP.y
-	var pill := Island.nine(_info, "island_pill_cream_soft", Rect2(chip.position, CHIP * k), Vector4(82, 82, 82, 82))
-	pill.name = "Stars"
-	pill.pivot_offset = Vector2.ZERO
-	pill.scale = Vector2.ONE / k
-	var cap := 58.0
-	var w := UI.number_width(text, cap)
-	var star := 78.0
-	var left := chip.get_center().x - (star + 22.0 + w) * 0.5
-	Island.piece_fit(_info, "island_star_full", Vector2(left + star * 0.5, chip.get_center().y - 3.0), Vector2(star, star))
-	UI.number(_info, text, Rect2(left + star + 22.0, chip.get_center().y - cap * 0.5 - 4.0, w + 4.0, cap), UI.INK, -1)
-	# One painted picture per language, the same button as on the home page, so the word is always centred.
-	var play := UI.art_button(_info, "Play", "btn_home_island_play_" + UiText.locale(), PLAY, func(): _play(world))
-	UI.set_active(play, Progress.is_world_unlocked(profile, world))
+## Fit the shared painted track and its overhanging star into the existing progress slot.
+func _star_progress(parent: Control, world: int, bounds: Rect2) -> void:
+	var stars := _world_stars(world)
+	var total := Levels.PER_WORLD * 3
+	# Build at the shared component's reference height so its nine-patch corners do not set the final size.
+	var height := 112.0
+	var star := height * 1.25
+	var fit := bounds.size.y / star
+	var inset := Vector2(star * 0.1, (star - height) * 0.5)
+	var track := Rect2(bounds.position + inset * fit, Vector2(bounds.size.x / fit - inset.x, height))
+	var progress := Island.progress_bar(parent, track, float(stars) / total, "%d/%d" % [stars, total])
+	progress.name = "Stars"
+	progress.scale = Vector2.ONE * fit
 
 func _play(world: int) -> void:
-	if world != _world or _page != null:
+	if _travel >= TAP_SLOP:
 		return
 	if Progress.is_world_unlocked(profile, world):
 		open_world(world)
@@ -272,57 +229,63 @@ func _play(world: int) -> void:
 		Sound.play("error")
 		gate_tapped.emit(world)
 
-func _set_pos(value: float) -> void:
-	_pos = value
-	_layout()
+func _set_scroll(value: float) -> void:
+	_scroll_x = clampf(value, 0.0, _max_scroll)
+	_content.position.x = -_scroll_x
 
-## Slides to world `world` (1..10) with a soft snap, or at once when `instant`.
+## External navigation reveals a forest; ordinary dragging never snaps to one.
 func show_world(world: int, instant := false) -> void:
 	_world = clampi(world, 1, Levels.WORLDS)
-	if _snap != null:
-		_snap.kill()
+	if _scroll_tween != null:
+		_scroll_tween.kill()
+	var target := clampf((_world - 1) * STRIDE, 0.0, _max_scroll)
 	if instant or _instant():
-		_set_pos(float(_world - 1))
+		_set_scroll(target)
 		return
-	_snap = create_tween()
-	_snap.tween_method(_set_pos, _pos, float(_world - 1), 0.38).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_scroll_tween = create_tween()
+	_scroll_tween.tween_method(_set_scroll, _scroll_x, target, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
-func _on_carousel_input(event: InputEvent) -> void:
+## Reset before child buttons handle the press, so a drag starting on Play cannot activate it.
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_pressed = false
+		_travel = 0.0
+		if _scroll_tween != null:
+			_scroll_tween.kill()
+
+func _on_scroll_input(event: InputEvent) -> void:
 	if _page != null:
 		return
-	if event is InputEventMouseButton and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton:
 		var e := event as InputEventMouseButton
-		if e.pressed:
-			_pressed = true
-			_press_x = e.position.x
-			_travel = 0.0
-			_velocity = 0.0
-			if _snap != null:
-				_snap.kill()
-		elif _pressed:
-			_pressed = false
-			if _travel < TAP_SLOP:
-				_tap(e.position)
-			else:
-				var target := roundi(_pos - _velocity * 0.12 / STRIDE)
-				show_world(clampi(target + 1, 1, Levels.WORLDS))
-	elif event is InputEventMouseMotion and _pressed:
+		if e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_LEFT]:
+			_set_scroll(_scroll_x - SCROLL_STEP * e.factor)
+		elif e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_DOWN, MOUSE_BUTTON_WHEEL_RIGHT]:
+			_set_scroll(_scroll_x + SCROLL_STEP * e.factor)
+		elif e.button_index == MOUSE_BUTTON_LEFT:
+			if e.pressed:
+				_pressed = true
+			elif _pressed:
+				_pressed = false
+				if _travel < TAP_SLOP:
+					_tap(e.position + Vector2(_scroll_x, 0))
+	elif event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
 		var m := event as InputEventMouseMotion
 		_travel += absf(m.relative.x)
 		if _travel >= TAP_SLOP:
-			_set_pos(clampf(_pos - m.relative.x / STRIDE, -0.15, Levels.WORLDS - 0.85))
-			_velocity = lerpf(_velocity, m.velocity.x, 0.5)
+			_set_scroll(_scroll_x - m.relative.x)
+	elif event is InputEventPanGesture:
+		var delta: Vector2 = event.delta
+		_set_scroll(_scroll_x + (delta.x if absf(delta.x) >= absf(delta.y) else delta.y) * SCROLL_STEP)
 
 func _tap(at: Vector2) -> void:
 	for i in _cards.size():
 		var card: Control = _cards[i]
-		var box := Rect2(card.position + CARD * 0.5 - CARD * card.scale * 0.5, CARD * card.scale)
+		var box := Rect2(card.position, CARD)
 		if not box.has_point(at):
 			continue
 		var world := i + 1
-		if world != _world:
-			show_world(world)
-		elif Progress.is_world_unlocked(profile, world):
+		if Progress.is_world_unlocked(profile, world):
 			Sound.play("ui_tap")
 			open_world(world)
 		else:
@@ -347,7 +310,7 @@ func open_world(world: int) -> void:
 	if _page != null:
 		_page.queue_free()
 	_world = world
-	_carousel.visible = false
+	_strip.visible = false
 	_page = Control.new()
 	_page.name = "WorldPage"
 	_page.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -360,10 +323,7 @@ func open_world(world: int) -> void:
 	UI.heading(_page, WORLD_NAMES[world - 1], plank.grow_individual(50.0, 34.0, 50.0, 20.0), 76.0)
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
 	var w := UI.number_width(text, 44.0)
-	var chip := Rect2(540.0 - (w + 130.0) * 0.5, 300.0, w + 130.0, 80.0)
-	Island.nine(_page, "island_pill_cream_soft", chip, Vector4(60, 50, 60, 50)).name = "Stars"
-	Island.piece_fit(_page, "island_star_full", Vector2(chip.position.x + 52.0, chip.get_center().y - 2.0), Vector2(56, 56))
-	UI.number(_page, text, Rect2(chip.position.x + 90.0, chip.position.y + 18.0, w + 4.0, 44.0), UI.INK, -1)
+	_star_progress(_page, world, Rect2(540.0 - (w + 130.0) * 0.5, 300.0, w + 130.0, 80.0))
 	for n in Levels.PER_WORLD:
 		_build_node((world - 1) * Levels.PER_WORLD + n + 1)
 	if not _instant():
@@ -376,7 +336,7 @@ func close_world() -> void:
 	_page.queue_free()
 	_page = null
 	_bird = null
-	_carousel.visible = true
+	_strip.visible = true
 
 func _node_pos(level: int) -> Vector2:
 	var world := Progress.world_of_level(level)
