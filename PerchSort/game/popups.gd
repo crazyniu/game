@@ -92,84 +92,74 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		_confetti(p, 0.3)
 	return p
 
-## Settings (art/approved_ui/settings.png): one painted panel per language with its words, rows and icons drawn in
-## (tools/island/install_settings_art.py); the switches, the language switch and the buttons are painted in the same
-## style and placed on it. Restart and Home appear only while playing. `on` holds the callbacks: music, sound,
-## vibration, language, restart, home, help; the switches receive the new "on" state.
-const SETTINGS_ROWS := [625.0, 805.0, 985.0]   # row centres on the screen (panel picture at (28, 200))
-const SETTINGS_SWITCH_X := 818.0
-const SETTINGS_SWITCH := Vector2(270, 122)
-const SETTINGS_CLOSE := Rect2(955, 445, 110, 110)
-const SETTINGS_MENU := {"language": 1290.0, "help": 1462.0}
-const SETTINGS_PLAYING := {"language": 1262.0, "actions": 1398.0, "help": 1530.0}
-const SETTINGS_LANGUAGE := Vector2(840, 150)
-const SETTINGS_HELP := Vector2(620, 170)
-const SETTINGS_ACTION := Vector2(360, 116)
+## Settings: a simple cream card. Four identical rows (icon, word, control): Music, Sound and Vibration switches and
+## the Language choice, then one row of equal buttons (Help; Restart and Home only while playing). Every surface is drawn
+## from the same few shapes in Simple, every word is a baked label (tools/island/bake_labels.py) shown at one cap
+## height, and nothing is stretched. Changing the language swaps the words in place: the popup stays open.
+## `on` holds the callbacks: music, sound, vibration, language, restart, home, help.
+const SET_W := 840.0
+const SET_PAD := 48.0
+const SET_TITLE_H := 128.0
+const SET_ROW_H := 132.0
+const SET_ICON := 72.0
+const SET_WORD_CAP := 54.0
+const SET_TITLE_CAP := 76.0
+const SET_BUTTON := Vector2(340, 116)
+const SET_BUTTON_GAP := 24.0
+const SET_BUTTON_CAP := 52.0
 
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
+	var buttons_h := SET_BUTTON.y * (2.0 if show_restart else 1.0) + (SET_BUTTON_GAP if show_restart else 0.0)
+	var panel_h := SET_PAD * 0.5 + SET_TITLE_H + SET_ROW_H * 4.0 + 40.0 + buttons_h + SET_PAD
 	var p := Modal.open(host, "", [], false, 0.0, 0.0, _instant(host), true)
 	var c := p.content
 	c.get_node("Panel").visible = false
-	c.pivot_offset = Vector2(540, 1000)
-	UI.image(c, "panel_settings_" + UiText.locale(), Rect2(0, 0, 1080, 1920), false).name = "SettingsPanel"
-	Island.button(c, "Close", "island_close_tile", SETTINGS_CLOSE, p.close)
-	var rows := [[music_on, func(v: bool): on["music"].call(v)],
-		[sound_on, func(v: bool): on["sound"].call(v)],
+	var box := Rect2(540.0 - SET_W * 0.5, roundf(960.0 - panel_h * 0.5), SET_W, panel_h)
+	c.pivot_offset = box.get_center()
+	Simple.card(c, box)
+	var words := Simple.Words.new()
+	words.place(c, "settings", "ink", Vector2(box.get_center().x, box.position.y + SET_PAD * 0.5 + SET_TITLE_H * 0.5), SET_TITLE_CAP, 0)
+	Simple.close_button(c, Vector2(box.end.x - 20.0, box.position.y + 20.0), p.close)
+	var rows := [["pic_music", "music", music_on, func(v: bool): on["music"].call(v)],
+		["pic_sound_on", "sound", sound_on, func(v: bool): on["sound"].call(v)],
 		# Vibration: the state lives in Sound.vibration (profile.vibration).
-		[Sound.vibration, func(v: bool):
+		["pic_vibration", "vibration", Sound.vibration, func(v: bool):
 			Sound.vibration = v
 			if on.has("vibration"):
 				on["vibration"].call(v)
-			Sound.vibrate(Sound.PULSE_LAND)]]
+			Sound.vibrate(Sound.PULSE_LAND)],
+		["pic_globe", "language", false, Callable()]]
+	var left := box.position.x + SET_PAD
+	var right := box.end.x - SET_PAD
+	var y := box.position.y + SET_PAD * 0.5 + SET_TITLE_H
 	for i in rows.size():
-		var at := Vector2(SETTINGS_SWITCH_X, SETTINGS_ROWS[i])
-		_toggle(c, Rect2(at - SETTINGS_SWITCH * 0.5, SETTINGS_SWITCH), rows[i][0], rows[i][1])
-	var spots: Dictionary = SETTINGS_PLAYING if show_restart else SETTINGS_MENU
-	# Language: one painted switch, the green half under the current language; each half is a tap target.
-	var switch := Rect2(Vector2(540, spots["language"]) - SETTINGS_LANGUAGE * 0.5, SETTINGS_LANGUAGE)
-	var pick := "english" if UiText.locale() == "en" else "chinese"
-	Island.piece_fit(c, "btn_language_pick_" + pick, switch.get_center(), switch.size).name = "Language"
-	var languages := UiText.languages()
-	for i in languages.size():
-		var code: String = languages[i]
-		var half := Rect2(switch.position + Vector2(switch.size.x * 0.5 * i, 0), Vector2(switch.size.x * 0.5, switch.size.y))
-		UI.hit_area(c, half, func():
-			Sound.play("ui_tap")
-			on["language"].call(code)).name = "Language_" + code
+		var mid := y + SET_ROW_H * (i + 0.5)
+		if i > 0:
+			Simple.divider(c, Rect2(left, y + SET_ROW_H * i - 1.5, right - left, 3.0))
+		_fit(c, rows[i][0], Rect2(Vector2(left, mid - SET_ICON * 0.5), Vector2.ONE * SET_ICON))   # by visible pixels: one size
+		words.place(c, rows[i][1], "ink", Vector2(left + SET_ICON + 28.0, mid), SET_WORD_CAP, -1)
+		if rows[i][1] == "language":
+			Simple.language_choice(c, words, Vector2(right, mid), func(code: String):
+				on["language"].call(code)
+				words.refresh())
+		else:
+			Simple.switch(c, Vector2(right, mid), rows[i][2], rows[i][3])
+	y += SET_ROW_H * 4.0 + 40.0
+	var actions := []
 	if show_restart:
-		var y: float = spots["actions"]
-		Island.word_button(c, "Restart", "btn_restart", Rect2(Vector2(350, y) - SETTINGS_ACTION * 0.5, SETTINGS_ACTION),
-			func(): p.invoke(on["restart"]))
-		Island.word_button(c, "Home", "btn_home", Rect2(Vector2(730, y) - SETTINGS_ACTION * 0.5, SETTINGS_ACTION),
-			func(): p.invoke(on["home"]))
-	var help_size := SETTINGS_HELP * (0.88 if show_restart else 1.0)
-	Island.word_button(c, "Help", "btn_help", Rect2(Vector2(540, spots["help"]) - help_size * 0.5, help_size),
-		func(): p.invoke(on["help"]))
+		actions = [[["restart", "cream", on["restart"]], ["home", "green", on["home"]]], [["help", "green", on["help"]]]]
+	else:
+		actions = [[["help", "green", on["help"]]]]
+	for line in actions:
+		var count: int = (line as Array).size()
+		var width := SET_BUTTON.x * count + SET_BUTTON_GAP * (count - 1)
+		for k in count:
+			var item: Array = line[k]
+			var at := Vector2(540.0 - width * 0.5 + k * (SET_BUTTON.x + SET_BUTTON_GAP), y)
+			var callback: Callable = item[2]
+			Simple.button(c, words, item[0], item[1], Rect2(at, SET_BUTTON), SET_BUTTON_CAP, func(): p.invoke(callback))
+		y += SET_BUTTON.y + SET_BUTTON_GAP
 	return p
-
-static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
-	var b := Button.new()
-	b.name = "Toggle"
-	b.focus_mode = Control.FOCUS_NONE
-	var empty := StyleBoxEmpty.new()
-	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
-		b.add_theme_stylebox_override(state, empty)
-	UI.place(b, r)
-	parent.add_child(b)
-	var face := TextureRect.new()
-	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	face.size = r.size
-	b.add_child(face)
-	var state := {"on": value}
-	face.texture = Art.tex("btn_switch_on" if value else "btn_switch_off")
-	b.pressed.connect(func():
-		state["on"] = not state["on"]
-		face.texture = Art.tex("btn_switch_on" if state["on"] else "btn_switch_off")
-		Sound.play("ui_tap")
-		on_change.call(state["on"]))
-	return b
 
 ## A document page (terms of service, credits, contact): the baked text in a scrolling column.
 static func document(host: Control, id: String) -> Control:

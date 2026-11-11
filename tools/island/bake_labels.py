@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Bakes the simple-UI word pictures offline from one font per language (Lilita One for English, Noto Sans SC Bold for
+Chinese), so every word on a screen has the same letter shapes, weight and colour. The game shows these pictures; no
+font is rendered at runtime.
+
+python3 tools/island/bake_labels.py
+Output: PerchSort/art/labels/label_<id>_<style>_<lang>.png, one line box per font (same height and baseline for every
+word), built at CAP px.
+Styles: ink (warm brown on cream) and white (white with a soft green-dark shadow, for green buttons).
+"""
+import json
+import os
+
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.join(HERE, "..", "..")
+OUT = os.path.join(ROOT, "PerchSort", "art", "labels")
+FONTS = {"en": os.path.join(ROOT, "tools", "kit", "fonts", "lilita_one.ttf"),
+         "zh": os.path.join(ROOT, "tools", "kit", "fonts", "noto_sans_sc_bold.otf")}
+CAP = 120                  # build size: the font's em in px
+MARGIN = 16
+INK = (107, 58, 23)        # warm brown
+WHITE_SHADOW = (30, 100, 20)
+
+# id -> (English, Chinese, styles). The language names are written in their own language in both packs.
+WORDS = {
+    "settings": ("Settings", "设置", ["ink"]),
+    "music": ("Music", "音乐", ["ink"]),
+    "sound": ("Sound", "音效", ["ink"]),
+    "vibration": ("Vibration", "震动", ["ink"]),
+    "language": ("Language", "语言", ["ink"]),
+    "help": ("Help", "帮助", ["white"]),
+    "restart": ("Restart", "重来", ["ink"]),
+    "home": ("Home", "主页", ["white"]),
+    "lang_en": ("English", "English", ["ink", "white"]),
+    "lang_zh": ("中文", "中文", ["ink", "white"]),
+}
+
+
+def font_for(text, lang):
+    # A language name is drawn in its own script's font.
+    script = "zh" if any(ord(ch) > 0x2E80 for ch in text) else "en"
+    return ImageFont.truetype(FONTS[script], CAP)
+
+
+def render(text, lang, style):
+    """One fixed line box per font (ascent + descent), so every word of a style has the same height and baseline and
+    can be shown at one size; only the width follows the word."""
+    font = font_for(text, lang)
+    ascent, descent = font.getmetrics()
+    left, _, right, _ = font.getbbox(text)
+    w, h = right - left + MARGIN * 2, ascent + descent + MARGIN * 2
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).text((MARGIN - left, MARGIN), text, font=font, fill=255)
+    out = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    if style == "white":
+        shadow = ImageChops.offset(mask, 0, 5).filter(ImageFilter.GaussianBlur(2))
+        out.paste(Image.new("RGBA", (w, h), WHITE_SHADOW + (255,)), (0, 0), shadow.point(lambda a: a * 0.55))
+        out.paste(Image.new("RGBA", (w, h), (255, 255, 255, 255)), (0, 0), mask)
+    else:
+        out.paste(Image.new("RGBA", (w, h), INK + (255,)), (0, 0), mask)
+    return out
+
+
+def visual_mid(text):
+    """Height (px from the picture top) of the line's optical middle: half the capital height for Latin, the middle of
+    a full ideograph for Chinese. Words are centred on this, not on the box, so descenders never push them up."""
+    font = font_for(text, "")
+    if any(ord(ch) > 0x2E80 for ch in text):
+        _, top, _, bottom = font.getbbox("中")
+        return MARGIN + (top + bottom) / 2.0
+    _, top, _, _ = font.getbbox("H")
+    ascent, _ = font.getmetrics()
+    return MARGIN + (top + ascent) / 2.0
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    meta = {"cap": CAP}
+    for wid, (en, zh, styles) in WORDS.items():
+        for lang, text in [("en", en), ("zh", zh)]:
+            for style in styles:
+                name = "label_%s_%s_%s" % (wid, style, lang)
+                img = render(text, lang, style)
+                img.save(os.path.join(OUT, name + ".png"))
+                meta[name] = round(visual_mid(text), 1)
+    with open(os.path.join(OUT, "labels.json"), "w") as f:
+        json.dump(meta, f, indent=1, sort_keys=True)
+    print("baked", len(os.listdir(OUT)), "files")
+
+
+if __name__ == "__main__":
+    main()

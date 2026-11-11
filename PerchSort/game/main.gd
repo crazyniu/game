@@ -399,9 +399,7 @@ func show_settings(on_board: bool) -> void:
 				return
 			profile.language = code
 			UiText.set_language(profile.language)
-			save()
-			_clear_popups()
-			show_settings(on_board),
+			save(),   # the open settings swap their own words; no reopening, no flash
 	}, on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyjp8jtwb2hv4"
-path="res://.godot/imported/panel_settings_zh.png-5953373728edaea8c282908465ec38e3.ctex"
+uid="uid://b0m15wenb6m4p"
+path="res://.godot/imported/label_vibration_ink_zh.png-dae3ac053f2a2f0c55958e84a2e72280.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/island/panel_settings_zh.png"
-dest_files=["res://.godot/imported/panel_settings_zh.png-5953373728edaea8c282908465ec38e3.ctex"]
+source_file="res://art/labels/label_vibration_ink_zh.png"
+dest_files=["res://.godot/imported/label_vibration_ink_zh.png-dae3ac053f2a2f0c55958e84a2e72280.ctex"]
 
 [params]
 
