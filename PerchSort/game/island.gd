@@ -186,5 +186,14 @@ static func progress_bar(parent: Node, r: Rect2, fill: float, text: String) -> C
 	return holder
 
 ## A painted-picture button: the whole picture is the face and a press tints it. Sizes never change.
+## A worded button baked into one complete picture per language (tools/island/bake_buttons.py), so its word is part of
+## the art and always sits on the middle of the face. `picture` is the name without the language suffix.
+static func word_button(parent: Node, n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
+	return UI.art_button(parent, n, "%s_%s" % [picture, UiText.locale()], r, on_press)
+
+## The same baked picture as a plain state marker (not a button).
+static func word_picture(parent: Node, picture: String, r: Rect2) -> TextureRect:
+	return UI.image(parent, "%s_%s" % [picture, UiText.locale()], r, false)
+
 static func button(parent: Node, n: String, picture: String, r: Rect2, on_press: Callable) -> Button:
 	return UI.art_button(parent, n, picture, r, on_press)

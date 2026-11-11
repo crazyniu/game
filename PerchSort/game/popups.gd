@@ -97,11 +97,10 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var languages := UiText.languages()
-	var lang_rows := ceili(languages.size() / 2.0)
-	var heights := [ROW_H, ROW_H, ROW_H, ROW_CAP * 2.0, lang_rows * LANG_H + (lang_rows - 1) * 20.0]
+	var heights := [ROW_H, ROW_H, ROW_H, ROW_CAP * 2.0, LANG_SWITCH.y]
 	if show_restart:
 		heights.append(PILL_H)
-	heights.append(UI.PLAY_SIZE.y)
+	heights.append(HELP.y)
 	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
@@ -122,42 +121,42 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 		UI.art(c, item[1], Rect2(left + 28.0, y + (ROW_H - ROW_ICON) * 0.5, ROW_ICON, ROW_ICON))
 		_row_label(c, item[0], Vector2(left + 28.0 + ROW_ICON + 24.0, y + ROW_H * 0.5))
 		_toggle(c, Rect2(right - 28.0 - TOGGLE.x, y + (ROW_H - TOGGLE.y) * 0.5, TOGGLE.x, TOGGLE.y), item[2], item[3])
-	# Language: a centred heading, then one chip per language (each named in its own words); the current one is green.
+	# Language: a thin rule, the heading between two leaves, then one switch baked as a single picture (each language
+	# named in its own words, the green half under the current one); each half is a tap target.
 	var g := rows.size()
+	var rule := ColorRect.new()
+	rule.color = Color(0.55, 0.36, 0.18, 0.35)
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(rule, Rect2(left + 20.0, ys[g] - GAP_RULE, right - left - 40.0, 3.0))
+	c.add_child(rule)
 	var lw := UI.label_width("settings.language", ROW_CAP)
 	UI.label(c, "settings.language", Rect2(540.0 - lw * 0.5, ys[g], lw, ROW_CAP * 2.0), ROW_CAP)
 	for side in [-1.0, 1.0]:
-		var leaf := UI.art(c, "pic_sparkle", Rect2(540.0 + side * (lw * 0.5 + 56.0) - 24.0, ys[g] + ROW_CAP - 24.0, 48, 48))
-		leaf.modulate = Color(1, 1, 1, 0.9)
+		var leaf := UI.art(c, "fall_leaf_green", Rect2(540.0 + side * (lw * 0.5 + 60.0) - 32.0, ys[g] + ROW_CAP - 26.0, 64, 52))
+		leaf.flip_h = side > 0.0   # static decoration, not an animation
 	g += 1
-	var chip_w := (right - left - 20.0) * 0.5
+	var switch := Rect2(Vector2(540.0 - LANG_SWITCH.x * 0.5, ys[g]), LANG_SWITCH)
+	var pick := "english" if UiText.locale() == "en" else "chinese"
+	UI.image(c, "btn_language_pick_" + pick, switch, false).name = "Language"
 	for i in languages.size():
 		var code: String = languages[i]
-		var r := Rect2(left + (i % 2) * (chip_w + 20.0), ys[g] + (i / 2) * (LANG_H + 20.0), chip_w, LANG_H)
-		var current := code == UiText.locale()
-		var chip := UI.pill(c, "Language_" + code, r, "green" if current else "orange", "", func(): on["language"].call(code))
-		var word := TextureRect.new()
-		word.texture = UiText.foreign_label(code, "settings.language_name")
-		word.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		word.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		word.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		word.modulate = Color.WHITE if current else UI.INK
-		UI.place(word, Rect2(r.size.x * 0.12, r.size.y * 0.16, r.size.x * 0.76, r.size.y * 0.58))
-		chip.add_child(word)
+		var half := Rect2(switch.position + Vector2(switch.size.x * 0.5 * i, 0), Vector2(switch.size.x * 0.5, switch.size.y))
+		UI.hit_area(c, half, func():
+			Sound.play("ui_tap")
+			on["language"].call(code)).name = "Language_" + code
 	g += 1
 	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
-		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
-			func(): p.invoke(on["restart"]), "", 60.0)
-		UI.pill(c, "Home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), "green", "settings.home",
-			func(): p.invoke(on["home"]), "", 60.0)
+		Island.word_button(c, "Restart", "btn_restart", Rect2(left, ys[g], wide, PILL_H), func(): p.invoke(on["restart"]))
+		Island.word_button(c, "Home", "btn_home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), func(): p.invoke(on["home"]))
 		g += 1
-	UI.pill(c, "Help", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[g]), UI.PLAY_SIZE), "green", "settings.help",
-		func(): p.invoke(on["help"]), "help", 84.0)
+	Island.word_button(c, "Help", "btn_help", Rect2(Vector2(540.0 - HELP.x * 0.5, ys[g]), HELP), func(): p.invoke(on["help"]))
 	return p
 
 const ROW_H := 176.0
-const LANG_H := 132.0
+const LANG_SWITCH := Vector2(816.0, 140.0)   # baked language switch (tools/island/bake_buttons.py)
+const HELP := Vector2(620.0, 172.0)          # baked Help picture
+const GAP_RULE := 20.0                       # the rule sits this far above the Language heading
 const TOGGLE := Vector2(268.0, 116.0)
 const PILL_H := 120.0
 const ROW_CAP := 76.0
