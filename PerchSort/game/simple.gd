@@ -9,6 +9,7 @@ const CREAM_DEEP := Color8(241, 226, 200)   # recessed tracks
 const RIM := Color8(214, 168, 112)          # card and cream-button rim
 const RIM_DARK := Color8(186, 136, 82)      # lip under cream shapes
 const LINE := Color8(234, 214, 182)         # row dividers
+const SOFT_INK := Color8(150, 104, 62)      # captions (tools/island/bake_labels.py SOFT)
 const GREEN := Color8(92, 184, 58)
 const GREEN_LIP := Color8(60, 136, 34)
 const OFF := Color8(214, 202, 184)

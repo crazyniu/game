@@ -6,7 +6,7 @@ font is rendered at runtime.
 python3 tools/island/bake_labels.py
 Output: PerchSort/art/labels/label_<id>_<style>_<lang>.png, one line box per font (same height and baseline for every
 word), built at CAP px.
-Styles: ink (warm brown on cream) and white (white with a soft green-dark shadow, for green buttons).
+Styles: ink (warm brown on cream), soft (lighter brown, captions) and white (white with a soft green-dark shadow, for green buttons).
 """
 import json
 import os
@@ -21,6 +21,7 @@ FONTS = {"en": os.path.join(ROOT, "tools", "kit", "fonts", "lilita_one.ttf"),
 CAP = 120                  # build size: the font's em in px
 MARGIN = 16
 INK = (107, 58, 23)        # warm brown
+SOFT = (150, 104, 62)      # lighter brown for one-line captions
 WHITE_SHADOW = (30, 100, 20)
 
 # id -> (English, Chinese, styles). The language names are written in their own language in both packs.
@@ -35,13 +36,63 @@ WORDS = {
     "home": ("Home", "主页", ["white"]),
     "lang_en": ("English", "English", ["ink", "white"]),
     "lang_zh": ("中文", "中文", ["ink", "white"]),
+    # Shop
+    "tab_boosters": ("Boosters", "道具", ["ink", "white"]),
+    "tab_outfits": ("Outfits", "装扮", ["ink", "white"]),
+    "tab_nests": ("Nests", "鸟窝", ["ink", "white"]),
+    "equip": ("Equip", "装备", ["white"]),
+    "equipped": ("Equipped", "已装备", ["soft"]),
+    "open": ("Open", "打开", ["white"]),
+    "buy": ("Buy", "购买", ["white"]),
+    "item_firefly": ("Firefly", "萤火灯", ["ink"]),
+    "item_sprout": ("Sprout", "新枝芽", ["ink"]),
+    "item_owl_eye": ("Owl Eye", "猫头鹰眼", ["ink"]),
+    "item_wake_bell": ("Wake Bell", "唤醒铃", ["ink"]),
+    "item_scarecrow": ("Scarecrow", "稻草人", ["ink"]),
+    "item_spring_rain": ("Spring Rain", "春雨", ["ink"]),
+    "cap_firefly": ("Lights a good move", "照亮好走法", ["soft"]),
+    "cap_sprout": ("Grows a new perch", "长出一根新树枝", ["soft"]),
+    "cap_owl_eye": ("See inside an egg", "看清蛋里的鸟", ["soft"]),
+    "cap_wake_bell": ("Wakes sleeping birds", "叫醒睡着的鸟", ["soft"]),
+    "cap_scarecrow": ("Shoos crows away", "赶走乌鸦", ["soft"]),
+    "cap_spring_rain": ("Grows your branches", "让树枝长大", ["soft"]),
+    "house_mushroom": ("Mushroom", "蘑菇", ["ink"]),
+    "house_teapot": ("Teapot", "茶壶", ["ink"]),
+    "house_lantern": ("Lantern", "灯笼", ["ink"]),
+    "house_acorn": ("Acorn", "橡果", ["ink"]),
+    "house_pumpkin": ("Pumpkin", "南瓜", ["ink"]),
+    "house_beehive": ("Beehive", "蜂巢", ["ink"]),
+    "house_teacup": ("Teacup", "茶杯", ["ink"]),
+    "house_pinecone": ("Pinecone", "松果", ["ink"]),
+    "house_cage": ("Cage", "鸟笼", ["ink"]),
+    "bird_sunny": ("Sunny", "阳阳", ["ink"]),
+    "bird_sky": ("Skye", "天天", ["ink"]),
+    "bird_berry": ("Berry", "莓莓", ["ink"]),
+    "bird_mint": ("Minty", "薄荷", ["ink"]),
+    "bird_cocoa": ("Cocoa", "可可", ["ink"]),
+    "bird_snow": ("Flurry", "雪球", ["ink"]),
+    "bird_ember": ("Ember", "火火", ["ink"]),
+    "bird_crow": ("Rook", "乌乌", ["ink"]),
+    "bird_ink": ("Inky", "墨墨", ["ink"]),
+    "bird_hoot": ("Hoot", "咕咕", ["ink"]),
+    "outfits_owned": ("outfits", "套装扮", ["soft"]),
 }
+
+
+# The bundled Chinese face is a subset for the old labels; new words need the full Simplified Chinese face (Noto Sans
+# CJK Bold, OFL, index 2 of the collection). Set NOTO_CJK to its path where it lives elsewhere.
+NOTO_CJK = os.environ.get("NOTO_CJK", "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc")
 
 
 def font_for(text, lang):
     # A language name is drawn in its own script's font.
-    script = "zh" if any(ord(ch) > 0x2E80 for ch in text) else "en"
-    return ImageFont.truetype(FONTS[script], CAP)
+    if any(ord(ch) > 0x2E80 for ch in text):
+        font = ImageFont.truetype(NOTO_CJK, CAP, index=2)
+        missing = [ch for ch in text if ch.strip() and font.getmask(ch).getbbox() is None]
+        if missing:
+            raise SystemExit("no glyph for %s in %s" % ("".join(missing), NOTO_CJK))
+        return font
+    return ImageFont.truetype(FONTS["en"], CAP)
 
 
 def render(text, lang, style):
@@ -59,7 +110,7 @@ def render(text, lang, style):
         out.paste(Image.new("RGBA", (w, h), WHITE_SHADOW + (255,)), (0, 0), shadow.point(lambda a: a * 0.55))
         out.paste(Image.new("RGBA", (w, h), (255, 255, 255, 255)), (0, 0), mask)
     else:
-        out.paste(Image.new("RGBA", (w, h), INK + (255,)), (0, 0), mask)
+        out.paste(Image.new("RGBA", (w, h), (SOFT if style == "soft" else INK) + (255,)), (0, 0), mask)
     return out
 
 

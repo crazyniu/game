@@ -31,24 +31,24 @@ const SIGN_W := 560.0
 const TITLE_CAP := 56.0
 const TAB_Y := 418.0
 const TAB_GAP := 13.0
-const SHEET := Rect2(28, 500, 1024, 1392)   # the cream sheet behind the scrolling cards
-const VIEW := Rect2(60, 532, 948, 1328)     # scrolling viewport inside the sheet
+const SHEET := Rect2(40, 498, 1000, 1382)   # the cream sheet behind the scrolling cards
+const VIEW := Rect2(72, 530, 936, 1318)     # scrolling viewport inside the sheet
 const TOP_PAD := 6.0
-const RAIL_X := 1014.0
-const GAP := 28.0
+const RAIL_X := 1012.0
+const GAP := 24.0
 const CARD_W := (VIEW.size.x - GAP) * 0.5
-const CARD_H := {Shop.BOOSTER: 508.0, Shop.HOUSE: 520.0}
+const CARD_H := {Shop.BOOSTER: 470.0, Shop.HOUSE: 470.0}
 const CARD_RADIUS := 40.0
 const CARD_EDGE := 10.0
 const CARD_PAD := 32.0
-const NAME_CAP := 54.0
+const NAME_CAP := 62.0
 const PIC_TOP := 104.0
 const CAPTION := Rect2(24, 88, 428, 48)   # booster card: what it does, under the name
-const CAPTION_CAP := 28.0
+const CAPTION_CAP := 36.0
 const BOOSTER_PIC_TOP := 148.0
 const POPUP_CAPTION := 80.0               # booster buy popup: the same caption under the title
 const POPUP_CAPTION_CAP := 56.0
-const PILL := Vector2(320, 104)            # price, equip button and equipped marker share this slot
+const PILL := Vector2(300, 98)             # price, equip button and equipped marker share this slot
 const ROW_PILL := Vector2(300, 112)         # booster row price: narrower, leaves the name room
 const PILL_BOTTOM := 30.0                 # card bottom (with its edge) to the pill bottom
 const PILL_EDGE := 8.0
@@ -189,7 +189,7 @@ func setup(p: Profile, start_tab := 0) -> void:
 	profile = p
 	tab = start_tab
 	size = Vector2(1080, 1920)
-	UI.image(self, "island_backdrop", Rect2(0, 0, 1080, 1920), false)
+	UI.image(self, "island_map_backdrop", Rect2(0, 0, 1080, 1920), false)
 	_add_sheet_frame()
 	_scroll = ScrollContainer.new()
 	_scroll.name = "Scroll"
@@ -250,7 +250,6 @@ func _refresh() -> void:
 		_carousel.remove_child(c)
 		c.queue_free()
 	_scroll.visible = TABS[tab] != Shop.OUTFIT
-	get_node("Sheet").visible = _scroll.visible
 	if TABS[tab] == Shop.OUTFIT:
 		_kind_carousel()
 	else:
@@ -295,9 +294,9 @@ func _update_rail() -> void:
 
 ## The cream sheet the cards sit on.
 func _add_sheet_frame() -> void:
-	var sheet := Island.nine(self, "island_grid_card_soft", SHEET, Vector4(60, 60, 60, 60))
-	sheet.name = "Sheet"
-	sheet.self_modulate = Color(1.0, 0.96, 0.86)
+	# A light veil over the sea that groups the cards, so the cards themselves carry the only rims.
+	var sheet := Simple._panel(self, SHEET, Simple._box(Color(1.0, 0.97, 0.9, 0.62), 48.0), "Sheet")
+	sheet.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 ## The feather bar stays at the right margin: the homepage counter, plain digits, never past 99999.
 func _build_coins() -> void:
@@ -361,6 +360,12 @@ func _name_id(it: Dictionary) -> String:
 		return "booster.%s.name" % BOOSTER_LABEL[it["booster"]]
 	return str(it["id"]) + ".name"
 
+## The baked label of an item's name (tools/island/bake_labels.py).
+func _label_id(it: Dictionary) -> String:
+	if it["kind"] == Shop.BOOSTER:
+		return "item_" + BOOSTER_WORD[it["booster"]]
+	return "house_" + str(it["style"])
+
 func _card(it: Dictionary, n: int) -> void:
 	var kind: int = it["kind"]
 	var booster := kind == Shop.BOOSTER
@@ -379,30 +384,26 @@ func _card(it: Dictionary, n: int) -> void:
 	body.size = cs
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(body)
+	# Picture, then the name (and a booster's one-line use), then the price or the state, all centred on one axis.
 	var slot := Rect2(Vector2((cs.x - PILL.x) * 0.5, cs.y - PILL_BOTTOM - PILL.y), PILL)
-	var pic: Rect2
+	var words := Simple.Words.new()
+	var name_y := slot.position.y - (100.0 if booster else 60.0)
+	_picture(body, it, Rect2(CARD_PAD, 26.0, cs.x - CARD_PAD * 2.0, name_y - 60.0))
+	words.place(body, _label_id(it), "ink", Vector2(cs.x * 0.5, name_y), NAME_CAP, 0)
 	if booster:
-		var word: String = BOOSTER_WORD[it["booster"]]
-		pic = Rect2(CARD_PAD, 16.0, cs.x - CARD_PAD * 2.0, 236.0)
-		_picture(body, it, pic)
-		UiText.painted(body, "item_" + word, Rect2(20.0, 246.0, cs.x - 40.0, 78.0), 0)
-		UiText.painted(body, "cap_" + word, Rect2(26.0, 326.0, cs.x - 52.0, 40.0), 0)
-	else:
-		pic = Rect2(CARD_PAD, 22.0, cs.x - CARD_PAD * 2.0, slot.position.y - 112.0)
-		_picture(body, it, pic)
-		UI.label(body, _name_id(it), Rect2(CARD_PAD, slot.position.y - 90.0, cs.x - CARD_PAD * 2.0, 80), NAME_CAP)
+		words.place(body, "cap_" + BOOSTER_WORD[it["booster"]], "soft", Vector2(cs.x * 0.5, name_y + 54.0), CAPTION_CAP, 0)
 	if _equipped(it):
-		Island.word_picture(body, "btn_equipped", slot).name = "Pill"   # in use: a state, not a button
-		Island.check_badge(body, Vector2(cs.x - 46.0, 46.0))
+		words.place(body, "equipped", "soft", slot.get_center() + Vector2(0, -4), 44.0, 0)   # a state, not a button
+		Island.check_badge(body, Vector2(cs.x - 40.0, 40.0))
 	elif _owned(it):
 		Island.word_picture(body, "btn_equip", slot).name = "Pill"
 	else:
 		Island.price_pill(body, slot, it["price"], _locked(it))
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
-		Island.piece_fit(card, "island_padlock", Vector2(cs.x - 56.0, 62.0), Vector2(72.0, 72.0)).name = "Lock"
+		Island.piece_fit(card, "island_padlock", Vector2(cs.x - 50.0, 52.0), Vector2(64.0, 64.0)).name = "Lock"
 	elif booster:
-		var stock := Island.badge(card, Vector2(cs.x - 92.0, 212.0), profile.inventory[it["booster"]])
+		var stock := Island.badge(card, Vector2(cs.x - 44.0, 44.0), profile.inventory[it["booster"]])
 		if stock != null:
 			stock.name = "Stock"
 	_pop_in(card, n)
@@ -498,38 +499,35 @@ func owned_outfits(species: String) -> int:
 			owned += 1
 	return owned
 
-## Outfits tab: a carousel of bird kinds. The middle card shows the bird in its current outfit, its name on the leafy
-## plaque, how many looks it owns and Open (its outfit page); the neighbours peek in at the sides and the arrows, a
-## swipe or a tap on a neighbour turns it. Under it the page dots and a strip of every kind (unmet ones as "?").
-## Layout measured from art/approved_ui/shop_outfits.png (1080 x 1920 design pixels).
-const KIND_PANEL := Rect2(36, 500, 1008, 1270)   # wooden-framed panel under the tabs
-const KIND_CARD := Rect2(262, 574, 556, 790)
-const KIND_SIDE := Vector2(214, 440)
-const KIND_SIDE_INSET := 70.0                     # side cards' outer edge from the screen edge
-const KIND_PLANK_Y := 520.0                       # name plank centre from the card top
-const KIND_ROSTER_Y := 1560.0
-const KIND_FACE := 92.0
+## Outfits tab: a carousel of bird kinds on the same sheet as the other tabs. The middle card shows the bird in its
+## current outfit, its name, how many looks it owns and Open (its outfit page); the neighbours peek in at the sides and a
+## swipe, a tap on a neighbour or a page dot turns it.
+const KIND_CARD := Rect2(250, 556, 580, 860)
+const KIND_SIDE := Vector2(230, 560)
+const KIND_SIDE_INSET := 58.0                     # side cards' outer edge from the screen edge
 const KIND_OPEN := Vector2(420, 128)              # baked Open picture
+const KIND_NAME_CAP := 84.0
+const KIND_DOTS_Y := 1470.0
 
 func _kind_carousel() -> void:
 	var kinds := outfit_species()
 	_kind_at = clampi(_kind_at, 0, kinds.size() - 1)
-	UI.shape(_carousel, KIND_PANEL, "cream", 56.0, 12.0).name = "Panel"
+	var words := Simple.Words.new()
+	# The neighbours peek in behind the middle card: bird and name only.
 	for side in [-1, 1]:
 		var j: int = posmod(_kind_at + side, kinds.size())
 		var x: float = KIND_SIDE_INSET if side < 0 else 1080.0 - KIND_SIDE_INSET - KIND_SIDE.x
-		var r := Rect2(Vector2(x, KIND_CARD.position.y + 120.0), KIND_SIDE)
+		var r := Rect2(Vector2(x, KIND_CARD.get_center().y - KIND_SIDE.y * 0.5), KIND_SIDE)
 		var side_card := Control.new()
 		side_card.name = "Side_" + kinds[j]
 		side_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		UI.place(side_card, r)
 		_carousel.add_child(side_card)
 		_flat_card(side_card, Rect2(Vector2.ZERO, r.size))
-		_kind_face(side_card, kinds[j], Rect2(10, 40, r.size.x - 20.0, 260), j, 1.05)
-		var plank := Island.piece_fit(side_card, "island_name_plank", Vector2(r.size.x * 0.5, 340), Vector2(r.size.x + 10.0, 96))
+		var inner := 40.0 if side < 0 else r.size.x - 190.0   # the part that shows beside the middle card
+		_kind_face(side_card, kinds[j], Rect2(inner - 20.0, 120, 190, 220), j, 1.0)
 		if profile.has_met(kinds[j]):
-			UI.heading(side_card, "bird.%s.name" % kinds[j], Rect2(plank.position + plank.size * Vector2(0.18, 0.14),
-				plank.size * Vector2(0.64, 0.66)), 40.0)
+			words.place(side_card, "bird_" + kinds[j], "ink", Vector2(inner + 75.0, 390), 46.0, 0)
 		var turn: int = side
 		UI.hit_area(side_card, Rect2(Vector2.ZERO, r.size), func(): _turn_kind(turn))
 	var species: String = kinds[_kind_at]
@@ -539,56 +537,38 @@ func _kind_carousel() -> void:
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(card, KIND_CARD)
 	_carousel.add_child(card)
-	_flat_card(card, Rect2(Vector2.ZERO, KIND_CARD.size), true)
-	_kind_face(card, species, Rect2(24, 8, KIND_CARD.size.x - 48.0, 470), _kind_at, 1.12)
-	var plank := Island.piece_fit(card, "island_name_plank", Vector2(KIND_CARD.size.x * 0.5, KIND_PLANK_Y), Vector2(500, 150))
-	plank.name = "Plaque"
+	_flat_card(card, Rect2(Vector2.ZERO, KIND_CARD.size))
+	var w := KIND_CARD.size.x
+	_kind_face(card, species, Rect2(40, 30, w - 80.0, 470), _kind_at, 1.05)
 	if met:
-		var id := "bird.%s.name" % species
-		UI.heading(card, id, Rect2(plank.position + plank.size * Vector2(0.17, 0.12), plank.size * Vector2(0.66, 0.7)), 80.0).name = "Name"
+		words.place(card, "bird_" + species, "ink", Vector2(w * 0.5, 566), KIND_NAME_CAP, 0).name = "Name"
+		# How many looks it owns: hanger, n/m, "outfits", one centred line.
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
-		var chip := Rect2(KIND_CARD.size.x * 0.5 - 120.0, 604, 240, 76)
-		var k := Art.tex("island_pill_cream_soft").get_height() / chip.size.y
-		var pill := Island.nine(card, "island_pill_cream_soft", Rect2(chip.position, chip.size * k), Vector4(82, 82, 82, 82))
-		pill.pivot_offset = Vector2.ZERO
-		pill.scale = Vector2.ONE / k
-		var cap := 44.0
-		var w := UI.number_width(text, cap)
-		var left := chip.get_center().x - (48.0 + 12.0 + w) * 0.5
-		UI.icon(card, "hanger", Vector2(left + 24.0, chip.get_center().y - 2.0), 48.0, UI.INK)
-		UI.number(card, text, Rect2(left + 60.0, chip.get_center().y - cap * 0.5 - 3.0, w + 4.0, cap), UI.INK, -1)
-	var open := Island.word_button(card, "Open", "btn_open", Rect2(Vector2(KIND_CARD.size.x * 0.5 - KIND_OPEN.x * 0.5, 692), KIND_OPEN),
+		var cap := 46.0
+		var nw := UI.number_width(text, cap)
+		var lw := words.width("outfits_owned", "soft", 40.0)
+		var row := 44.0 + 12.0 + nw + 12.0 + lw
+		var x0 := w * 0.5 - row * 0.5
+		UI.icon(card, "hanger", Vector2(x0 + 22.0, 646), 44.0, Simple.SOFT_INK)
+		UI.number(card, text, Rect2(x0 + 56.0, 646 - cap * 0.5, nw + 4.0, cap), UI.INK, -1)
+		words.place(card, "outfits_owned", "soft", Vector2(x0 + 56.0 + nw + 12.0, 646), 40.0, -1)
+	var open := Island.word_button(card, "Open", "btn_open", Rect2(Vector2(w * 0.5 - KIND_OPEN.x * 0.5, 702), KIND_OPEN),
 		func(): _open_kind(species))
 	UI.set_active(open, met)
-	# Arrows on the side cards' inner edges, beside the middle card (the chevron turned, not mirrored).
-	for side in [-1, 1]:
-		var at := Vector2(KIND_CARD.position.x - 22.0 if side < 0 else KIND_CARD.end.x + 22.0, KIND_CARD.position.y + 340.0)
-		var turn: int = side
-		var arrow := Island.button(_carousel, "Previous" if side < 0 else "Next", "island_chevron",
-			Rect2(at - Vector2(44, 30), Vector2(88, 60)), func(): _turn_kind(turn))
-		arrow.pivot_offset = arrow.size * 0.5
-		arrow.rotation = PI * 0.5 if side < 0 else -PI * 0.5
-	# Page dots and the roster strip of every kind (unmet ones as the "?" silhouette).
-	var dot := 26.0
+	# Page dots: one per kind, the current one green.
+	var dot := 24.0
 	for i in kinds.size():
 		var d := UI.art(_carousel, "island_round_plate", Rect2(540.0 + (i - (kinds.size() - 1) * 0.5) * 40.0 - dot * 0.5,
-			KIND_CARD.end.y + 42.0, dot, dot))
-		d.modulate = Color(0.3, 0.75, 0.2) if i == _kind_at else Color.WHITE
-	var step := minf(104.0, 900.0 / kinds.size())
-	for i in kinds.size():
-		var cx := 540.0 + (i - (kinds.size() - 1) * 0.5) * step
-		var r := Rect2(cx - KIND_FACE * 0.5, KIND_ROSTER_Y - KIND_FACE * 0.5, KIND_FACE, KIND_FACE)
-		if i == _kind_at:
-			UI.art(_carousel, "island_round_plate", r.grow(8.0)).modulate = Color(0.6, 0.9, 0.45)
-		_kind_face(_carousel, kinds[i], r, i, 1.15)
+			KIND_DOTS_Y - dot * 0.5, dot, dot))
+		d.modulate = Color(0.36, 0.72, 0.23) if i == _kind_at else Color.WHITE
 		var j := i
-		UI.hit_area(_carousel, r, func(): _show_kind(j))
+		UI.hit_area(_carousel, Rect2(d.position - Vector2(8, 8), d.size + Vector2(16, 16)), func(): _show_kind(j))
 	var swipe := Control.new()
 	swipe.name = "Swipe"
 	swipe.mouse_filter = Control.MOUSE_FILTER_PASS
 	UI.place(swipe, Rect2(0, KIND_CARD.position.y, 1080, KIND_CARD.size.y))
 	_carousel.add_child(swipe)
-	_carousel.move_child(swipe, 1)
+	_carousel.move_child(swipe, 0)
 	swipe.gui_input.connect(func(e: InputEvent):
 		if e is InputEventScreenDrag or (e is InputEventMouseMotion and e.button_mask & MOUSE_BUTTON_MASK_LEFT):
 			if absf(e.relative.x) > 18.0:

@@ -7,7 +7,7 @@ picture through `Island.word_button` / `Island.word_picture` (name + `_` + local
 (price pills, counters) stay composed.
 
 Base: `art/island/island_pill_glossy.png`, the home page's Play base with its triangle painted out (derived file).
-Help icon: `art/island/island_question.png` (local Codex, settings design as style reference).
+(The Help button and its icon were later replaced by the simple settings; see docs/work-log/settings-simple.)
 
 Layout from `art/approved_ui/shop.png`, `shop_outfits.png`, `shop_nests.png`, `settings.png`:
 - Shop: smaller title sign (560), tabs 322 x 124 at y 418, sheet from y 500; booster pictures 236 tall with the

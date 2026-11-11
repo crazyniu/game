@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Bakes every worded button of the shop and settings screens into one complete picture per language: the glossy
-base, its picture or icon, and the painted word, centred on the measured face of the base (not on the picture's
+"""Bakes the shop's worded buttons and tabs into one complete picture per language: the glossy
+base, its picture, and the font-baked word (tools/island/bake_labels.py), centred on the measured face of the base (not on the picture's
 box, whose bottom lip and shadow would push the word up). The game shows each button as that single picture.
 
 python3 tools/island/bake_buttons.py
-Output: PerchSort/art/buttons/btn_<name>_<lang>.png (and btn_language_pick_<english|chinese>.png, one per state).
+Output: PerchSort/art/buttons/btn_<open|equip>_<lang>.png and btn_tab_<name>_<on|off>_<lang>.png.
 """
 import os
 
@@ -23,26 +23,9 @@ def load(rel):
     return Image.open(os.path.join(ROOT, rel)).convert("RGBA")
 
 
-INK_TOP = np.array([125, 69, 23], np.float32)      # warm brown ink, lighter at the top (same as warm_ink.gdshader)
-INK_BOTTOM = np.array([92, 43, 10], np.float32)
-
-
-def warm_ink(img):
-    """Near-black brown fill to the warm brown of the designs; the cream outline stays."""
-    a = np.asarray(img).astype(np.float32)
-    lum = a[..., :3] @ np.array([0.3, 0.59, 0.11], np.float32) / 255.0
-    ink = 1.0 - np.clip((lum - 0.18) / (0.42 - 0.18), 0.0, 1.0)
-    ink = ink * ink * (3.0 - 2.0 * ink)
-    y = np.linspace(0.0, 1.0, a.shape[0], dtype=np.float32)[:, None, None]
-    warm = INK_TOP * (1.0 - y) + INK_BOTTOM * y
-    a[..., :3] = a[..., :3] * (1.0 - ink[..., None]) + warm * ink[..., None]
-    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), "RGBA")
-
-
-def word(lang, wid):
-    img = load("locale/%s/island_words/%s.png" % (lang, wid))
-    img = img.crop(img.getchannel("A").point(lambda a: 255 if a > 24 else 0).getbbox())
-    return img if wid.startswith("white_") else warm_ink(img)
+def label(lang, wid, style):
+    """A font-baked word (tools/island/bake_labels.py), cut to its ink."""
+    return trim(load("labels/label_%s_%s_%s.png" % (wid, style, lang)))
 
 
 def trim(img):
@@ -115,14 +98,6 @@ def green_button(size, word_img, icon=None, word_h=0.5):
     return img
 
 
-def cream_button(size, word_img, word_h=0.5):
-    w, h = size[0] * SCALE, size[1] * SCALE
-    img = stretch(CREAM, (w, h), CREAM_CAP)
-    cy = face_center_y(img, False)
-    place_group(img, [fit(word_img, w - h * 0.9, h * word_h)], (w / 2.0, cy), 0)
-    return img
-
-
 def tab(selected, picture, word_img, size):
     w, h = size[0] * SCALE, size[1] * SCALE
     if selected:
@@ -140,49 +115,18 @@ def tab(selected, picture, word_img, size):
     return img
 
 
-def language_switch(pick, size):
-    """Cream track with the green half under the chosen language; each language named in its own words."""
-    w, h = size[0] * SCALE, size[1] * SCALE
-    img = stretch(CREAM, (w, h), CREAM_CAP)
-    inset = round(h * 0.05)
-    half = (w - inset * 2) // 2
-    knob = green_face(half, h - inset * 2)
-    img.alpha_composite(knob, (inset if pick == "english" else inset + half, inset))
-    cy = face_center_y(img.crop((inset, 0, inset + half, h)) if pick == "english" else img.crop((inset + half, 0, w, h)), True)
-    names = {"english": ("en",), "chinese": ("zh",)}
-    for i, key in enumerate(["english", "chinese"]):
-        lang = names[key][0]
-        chosen = key == pick
-        wd = word(lang, ("white_" if chosen else "brown_") + "settings_language_name")
-        wd = fit(wd, half * 0.72, h * 0.56)
-        x0 = inset + i * half
-        img.alpha_composite(wd, (round(x0 + half / 2.0 - wd.width / 2.0), round(cy - wd.height / 2.0)))
-    return img
-
-
 def main():
     os.makedirs(OUT, exist_ok=True)
-    question = trim(Image.open(os.path.join(ROOT, "island", "island_question.png")).convert("RGBA"))
-    pills = {
-        "help": ((620, 172), "white_help", question),
-        "open": ((420, 128), "white_open", None),
-        "equip": ((320, 104), "white_equip", None),
-        "equipped": ((320, 104), "white_equipped", None),
-    }
+    shop = {"open": (420, 128), "equip": (320, 104)}
     for lang in LANGS:
-        for name, (size, wid, icon) in pills.items():
-            green_button(size, word(lang, wid), icon, 0.56 if name == "help" else 0.5).save(os.path.join(OUT, "btn_%s_%s.png" % (name, lang)))
-        # Settings while playing: Restart (secondary, cream) beside Home (green), one size.
-        cream_button((396, 120), word(lang, "brown_settings_restart")).save(os.path.join(OUT, "btn_restart_%s.png" % lang))
-        green_button((396, 120), word(lang, "white_settings_home")).save(os.path.join(OUT, "btn_home_%s.png" % lang))
+        for name, size in shop.items():
+            green_button(size, label(lang, name, "white"), None, 0.46).save(os.path.join(OUT, "btn_%s_%s.png" % (name, lang)))
         for name in ["boosters", "outfits", "nests"]:
             pic = load("island/island_tab_%s.png" % name)
             for on in [True, False]:
-                wd = word(lang, ("white_tab_" if on else "tab_") + name)
+                wd = label(lang, "tab_" + name, "white" if on else "ink")
                 tab(on, pic, wd, (322, 124)).save(
                     os.path.join(OUT, "btn_tab_%s_%s_%s.png" % (name, "on" if on else "off", lang)))
-    for pick in ["english", "chinese"]:
-        language_switch(pick, (816, 140)).save(os.path.join(OUT, "btn_language_pick_%s.png" % pick))
 
 
 if __name__ == "__main__":
