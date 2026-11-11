@@ -92,83 +92,61 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		_confetti(p, 0.3)
 	return p
 
-## Settings: music and sound switches, Restart and Home while playing, then How to Play and the documents
-## (terms of service, credits and licences, contact). `on` holds the callbacks: music, sound,
-## restart, home, help; music and sound receive the new "on" state.
+## Settings (art/approved_ui/settings.png): one painted panel per language with its words, rows and icons drawn in
+## (tools/island/install_settings_art.py); the switches, the language switch and the buttons are painted in the same
+## style and placed on it. Restart and Home appear only while playing. `on` holds the callbacks: music, sound,
+## vibration, language, restart, home, help; the switches receive the new "on" state.
+const SETTINGS_ROWS := [625.0, 805.0, 985.0]   # row centres on the screen (panel picture at (28, 200))
+const SETTINGS_SWITCH_X := 818.0
+const SETTINGS_SWITCH := Vector2(270, 122)
+const SETTINGS_CLOSE := Rect2(955, 445, 110, 110)
+const SETTINGS_MENU := {"language": 1290.0, "help": 1462.0}
+const SETTINGS_PLAYING := {"language": 1262.0, "actions": 1398.0, "help": 1530.0}
+const SETTINGS_LANGUAGE := Vector2(840, 150)
+const SETTINGS_HELP := Vector2(620, 170)
+const SETTINGS_ACTION := Vector2(360, 116)
+
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
-	var languages := UiText.languages()
-	var heights := [ROW_H, ROW_H, ROW_H, LANG_HEAD, LANG_SWITCH.y]
-	if show_restart:
-		heights.append(PILL_H)
-	heights.append(HELP.y)
-	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, _instant(host), true)
 	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	var left := 132.0
-	var right := 948.0
-	var rows := [["settings.music", "pic_music", music_on, func(v: bool): on["music"].call(v)],
-		["settings.sound", "pic_sound_on", sound_on, func(v: bool): on["sound"].call(v)],
+	c.get_node("Panel").visible = false
+	c.pivot_offset = Vector2(540, 1000)
+	UI.image(c, "panel_settings_" + UiText.locale(), Rect2(0, 0, 1080, 1920), false).name = "SettingsPanel"
+	Island.button(c, "Close", "island_close_tile", SETTINGS_CLOSE, p.close)
+	var rows := [[music_on, func(v: bool): on["music"].call(v)],
+		[sound_on, func(v: bool): on["sound"].call(v)],
 		# Vibration: the state lives in Sound.vibration (profile.vibration).
-		["settings.vibration", "pic_vibration", Sound.vibration, func(v: bool):
+		[Sound.vibration, func(v: bool):
 			Sound.vibration = v
 			if on.has("vibration"):
 				on["vibration"].call(v)
 			Sound.vibrate(Sound.PULSE_LAND)]]
-	for g in rows.size():
-		var item: Array = rows[g]
-		var y: float = ys[g]
-		Island.nine(c, "island_row_card_soft", Rect2(left, y, right - left, ROW_H), Vector4(40, 40, 40, 40))
-		UI.art(c, item[1], Rect2(left + 28.0, y + (ROW_H - ROW_ICON) * 0.5, ROW_ICON, ROW_ICON))
-		_row_label(c, item[0], Vector2(left + 28.0 + ROW_ICON + 24.0, y + ROW_H * 0.5))
-		_toggle(c, Rect2(right - 28.0 - TOGGLE.x, y + (ROW_H - TOGGLE.y) * 0.5, TOGGLE.x, TOGGLE.y), item[2], item[3])
-	# Language: a thin rule, the heading between two leaves, then one switch baked as a single picture (each language
-	# named in its own words, the green half under the current one); each half is a tap target.
-	var g := rows.size()
-	var rule := ColorRect.new()
-	rule.color = Color(0.55, 0.36, 0.18, 0.35)
-	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(rule, Rect2(left + 20.0, ys[g] - GAP_RULE, right - left - 40.0, 3.0))
-	c.add_child(rule)
-	var lw := UI.label_width("settings.language", ROW_CAP)
-	UI.label(c, "settings.language", Rect2(540.0 - lw * 0.5, ys[g], lw, LANG_HEAD), ROW_CAP)
-	for side in [-1.0, 1.0]:
-		var leaf := UI.art(c, "fall_leaf_green", Rect2(540.0 + side * (lw * 0.5 + 60.0) - 32.0, ys[g] + LANG_HEAD * 0.5 - 26.0, 64, 52))
-		leaf.flip_h = side > 0.0   # static decoration, not an animation
-	g += 1
-	var switch := Rect2(Vector2(540.0 - LANG_SWITCH.x * 0.5, ys[g]), LANG_SWITCH)
+	for i in rows.size():
+		var at := Vector2(SETTINGS_SWITCH_X, SETTINGS_ROWS[i])
+		_toggle(c, Rect2(at - SETTINGS_SWITCH * 0.5, SETTINGS_SWITCH), rows[i][0], rows[i][1])
+	var spots: Dictionary = SETTINGS_PLAYING if show_restart else SETTINGS_MENU
+	# Language: one painted switch, the green half under the current language; each half is a tap target.
+	var switch := Rect2(Vector2(540, spots["language"]) - SETTINGS_LANGUAGE * 0.5, SETTINGS_LANGUAGE)
 	var pick := "english" if UiText.locale() == "en" else "chinese"
-	UI.image(c, "btn_language_pick_" + pick, switch, false).name = "Language"
+	Island.piece_fit(c, "btn_language_pick_" + pick, switch.get_center(), switch.size).name = "Language"
+	var languages := UiText.languages()
 	for i in languages.size():
 		var code: String = languages[i]
 		var half := Rect2(switch.position + Vector2(switch.size.x * 0.5 * i, 0), Vector2(switch.size.x * 0.5, switch.size.y))
 		UI.hit_area(c, half, func():
 			Sound.play("ui_tap")
 			on["language"].call(code)).name = "Language_" + code
-	g += 1
-	var wide := (right - left - 24.0) * 0.5
 	if show_restart:
-		Island.word_button(c, "Restart", "btn_restart", Rect2(left, ys[g], wide, PILL_H), func(): p.invoke(on["restart"]))
-		Island.word_button(c, "Home", "btn_home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), func(): p.invoke(on["home"]))
-		g += 1
-	Island.word_button(c, "Help", "btn_help", Rect2(Vector2(540.0 - HELP.x * 0.5, ys[g]), HELP), func(): p.invoke(on["help"]))
+		var y: float = spots["actions"]
+		Island.word_button(c, "Restart", "btn_restart", Rect2(Vector2(350, y) - SETTINGS_ACTION * 0.5, SETTINGS_ACTION),
+			func(): p.invoke(on["restart"]))
+		Island.word_button(c, "Home", "btn_home", Rect2(Vector2(730, y) - SETTINGS_ACTION * 0.5, SETTINGS_ACTION),
+			func(): p.invoke(on["home"]))
+	var help_size := SETTINGS_HELP * (0.88 if show_restart else 1.0)
+	Island.word_button(c, "Help", "btn_help", Rect2(Vector2(540, spots["help"]) - help_size * 0.5, help_size),
+		func(): p.invoke(on["help"]))
 	return p
 
-const ROW_H := 176.0
-const LANG_SWITCH := Vector2(816.0, 140.0)   # baked language switch (tools/island/bake_buttons.py)
-const HELP := Vector2(620.0, 172.0)          # baked Help picture
-const LANG_HEAD := 124.0                     # the Language heading row
-const GAP_RULE := 20.0                       # the rule sits this far above the Language heading
-const TOGGLE := Vector2(268.0, 116.0)
-const PILL_H := 120.0
-const ROW_CAP := 76.0
-const ROW_ICON := 128.0
-
-## A settings row word, left-aligned at `at` (its left edge, vertical centre), like the sketch.
-static func _row_label(parent: Control, id: String, at: Vector2) -> void:
-	var w := UI.label_width(id, ROW_CAP)
-	UI.label(parent, id, Rect2(at.x, at.y - ROW_CAP, w, ROW_CAP * 2.0), ROW_CAP)
-
-## Painted on/off switch; tapping flips it and reports the new state.
 static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
 	var b := Button.new()
 	b.name = "Toggle"
@@ -185,10 +163,10 @@ static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable)
 	face.size = r.size
 	b.add_child(face)
 	var state := {"on": value}
-	face.texture = Art.tex("island_toggle_on_soft" if value else "island_toggle_off")
+	face.texture = Art.tex("btn_switch_on" if value else "btn_switch_off")
 	b.pressed.connect(func():
 		state["on"] = not state["on"]
-		face.texture = Art.tex("island_toggle_on_soft" if state["on"] else "island_toggle_off")
+		face.texture = Art.tex("btn_switch_on" if state["on"] else "btn_switch_off")
 		Sound.play("ui_tap")
 		on_change.call(state["on"]))
 	return b
