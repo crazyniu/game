@@ -22,23 +22,28 @@ const NODES := [
 ]
 const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
 
-const MARGIN := 32.0
-const BAR_Y := 24.0
-const COIN_W := 402.0
-const CARD := Vector2(600, 860)
-const CARD_CENTER_Y := 860.0
-const STRIDE := 660.0                    # card to card; neighbours peek in from the sides
-const SIDE_SCALE := 0.8
-const WINDOW := Rect2(26, 26, 548, 808)  # the painting fills the card inside its rim
-const PLAQUE := Vector2(560, 170)        # the leafy name plaque over the card's lower edge
-const BADGE := 120.0                     # the world number disc on the card's top edge
-const INFO_Y := 1360.0                   # stars chip under the centred card, Play under it
+## Carousel layout, measured from art/approved_ui/map_carousel.png in 1080 x 1920 design pixels.
+const MARGIN := 40.0
+const BAR_Y := 72.0
+const COIN_W := 430.0
+const BACK := Rect2(40, 70, 128, 128)
+const CARD := Vector2(626, 844)
+const CARD_CENTER_Y := 956.0
+const STRIDE := 540.0                    # card to card; both neighbours show their inner third
+const SIDE_SCALE := 0.72
+const WINDOW := Rect2(26, 26, 574, 792)  # the painting fills the card inside its rim
+const PLAQUE := Vector2(600, 200)        # the wooden name plank over the card's lower part
+const PLAQUE_Y := 741.0                  # plank centre from the card top
+const PLAQUE_WORD := Rect2(0.16, 0.1, 0.68, 0.74)   # word area on the plank, shares of the plank box
+const BADGE := 140.0                     # the world number disc on the card's top edge
+const BADGE_Y := 12.0                    # badge centre below the card top
+const CHIP := Vector2(400, 104)          # stars chip under the centred card
+const CHIP_Y := 1423.0
+const PLAY := Rect2(245, 1546, 590, 170)
 const TAP_SLOP := 18.0
-const DOT_Y := 1676.0
-const DOT := 28.0
-const NAV_Y := 1782.0
-const NAV_TILE := Vector2(168, 168)
-const NAV_GAP := 236.0
+const DOT_Y := 1771.0
+const DOT := 32.0
+const DOT_STEP := 54.0
 const PAGE_TOP := 250.0                  # world page: the painting starts under the bar
 const NODE := 150.0
 const CURRENT := 196.0
@@ -85,7 +90,7 @@ func setup(player: Profile) -> void:
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	UI.image(self, "island_backdrop", Rect2(0, 0, 1080, 1920), false)
+	UI.image(self, "island_map_backdrop", Rect2(0, 0, 1080, 1920), false)
 	var next := Progress.next_level(profile)
 	current_level = next if next > 0 else Levels.COUNT
 	_world = Progress.world_of_level(current_level)
@@ -122,12 +127,7 @@ func _build_bar() -> void:
 	_bar.size = size
 	add_child(_bar)
 	_coins = FeatherBar.create(_bar, Vector2(1080.0 - MARGIN - COIN_W, BAR_Y), COIN_W, profile.coins)
-	Island.button(_bar, "Home", "island_back_tile", Rect2(30, 26, 112, 112), _back)
-	var buttons := [["Shop", "home_icon_shop", shop_requested], ["Aviary", "home_icon_aviary", aviary_requested],
-		["Help", "home_icon_help", help_requested]]
-	for i in buttons.size():
-		var sig: Signal = buttons[i][2]
-		UI.icon_tile(_bar, buttons[i][0], buttons[i][1], Rect2(Vector2(540.0 + (i - 1) * NAV_GAP, NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
+	Island.button(_bar, "Home", "island_back_tile", BACK, _back)
 
 ## Back arrow: from a world page to the cards, from the cards to the home page.
 func _back() -> void:
@@ -170,9 +170,8 @@ func _build_carousel() -> void:
 	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	dots.size = size
 	_carousel.add_child(dots)
-	var step := 52.0
 	for i in Levels.WORLDS:
-		var dot := Island.piece(dots, "island_round_plate", Vector2(540.0 + (i - 4.5) * step - DOT * 0.5, DOT_Y - DOT * 0.5), DOT)
+		var dot := Island.piece(dots, "island_round_plate", Vector2(540.0 + (i - 4.5) * DOT_STEP - DOT * 0.5, DOT_Y - DOT * 0.5), DOT)
 		dot.name = "Dot_%d" % (i + 1)
 		_dots.append(dot)
 
@@ -193,19 +192,23 @@ func _build_card(world: int) -> Control:
 	window.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(window, WINDOW)
 	card.add_child(window)
-	var tall := WINDOW.size.x * 1.5
-	var painting := UI.image(window, "map_world_w%d" % world, Rect2(0, -(tall - WINDOW.size.y) * 0.5, WINDOW.size.x, tall), false)
+	var scene := Art.tex("card_scene_w%d" % world)
+	var tall := WINDOW.size.x * scene.get_height() / scene.get_width()
+	var painting := UI.image(window, "card_scene_w%d" % world, Rect2(0, -(tall - WINDOW.size.y) * 0.5, WINDOW.size.x, tall), false)
 	painting.name = "Painting"
-	var plaque := Island.piece_fit(card, "island_ribbon_plaque", Vector2(CARD.x * 0.5, CARD.y - 70.0), PLAQUE)
-	plaque.name = "Plaque"
-	UI.heading(card, WORLD_NAMES[world - 1], Rect2(plaque.position + plaque.size * Vector2(0.14, 0.06), plaque.size * Vector2(0.72, 0.8)), 76.0)
-	# The world number on a green disc over the card's top edge.
-	var badge := UI.image(card, "island_badge_green", Rect2(CARD.x * 0.5 - BADGE * 0.5, -BADGE * 0.42, BADGE, BADGE), false)
-	badge.name = "Number"
-	Island.digits(badge, str(world), Rect2(BADGE * 0.22, BADGE * 0.2, BADGE * 0.56, BADGE * 0.56))
+	var plank := Island.piece_fit(card, "island_name_plank", Vector2(CARD.x * 0.5, PLAQUE_Y), PLAQUE)
+	plank.name = "Plaque"
+	var word := Rect2(plank.position + plank.size * PLAQUE_WORD.position, plank.size * PLAQUE_WORD.size)
+	UI.heading(card, WORLD_NAMES[world - 1], word, 120.0)
+	# The world number on a disc over the card's top edge: green on the centred card, gold on its neighbours.
+	var at := Rect2(CARD.x * 0.5 - BADGE * 0.5, BADGE_Y - BADGE * 0.5, BADGE, BADGE)
+	for kind in ["Gold", "Green"]:
+		var badge := UI.image(card, "island_badge_gold" if kind == "Gold" else "island_badge_green", at, false)
+		badge.name = kind
+		Island.digits(badge, str(world), Rect2(BADGE * 0.24, BADGE * 0.22, BADGE * 0.52, BADGE * 0.52))
 	if not open:
-		window.modulate = Color(0.55, 0.55, 0.6)
-		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 40.0), Vector2(190, 190)).name = "Lock"
+		window.modulate = Color(0.62, 0.62, 0.66)
+		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 60.0), Vector2(220, 220)).name = "Lock"
 	elif _world_cleared(world):
 		Island.check_badge(card, Vector2(CARD.x - 50.0, 50.0)).name = "Done"
 	return card
@@ -219,8 +222,10 @@ func _layout() -> void:
 		var s := lerpf(1.0, SIDE_SCALE, near)
 		card.scale = Vector2.ONE * s
 		card.position = Vector2(540.0 + d * STRIDE, CARD_CENTER_Y) - CARD * 0.5
-		card.modulate = Color(1, 1, 1, lerpf(1.0, 0.9, near)) if absf(d) < 2.2 else Color(1, 1, 1, 0)
+		card.modulate = Color.WHITE if absf(d) < 2.2 else Color(1, 1, 1, 0)
 		card.get_node("Chosen").visible = absf(d) < 0.5
+		card.get_node("Green").visible = absf(d) < 0.5
+		card.get_node("Gold").visible = absf(d) >= 0.5
 	# Nearer cards draw over farther ones: reorder siblings (z_index would also lift them over popups).
 	var order := range(_cards.size())
 	order.sort_custom(func(x, y): return absf(float(x) - _pos) > absf(float(y) - _pos))
@@ -231,7 +236,7 @@ func _layout() -> void:
 	for i in _dots.size():
 		var on := i == roundi(_pos)
 		var dot: TextureRect = _dots[i]
-		dot.modulate = Color(0.3, 0.75, 0.2) if on else Color(1, 1, 1, 0.7)
+		dot.modulate = Color(0.3, 0.75, 0.2) if on else Color.WHITE
 		dot.scale = Vector2.ONE * (1.25 if on else 1.0)
 		dot.pivot_offset = dot.size * 0.5
 
@@ -241,14 +246,28 @@ func _build_info(world: int) -> void:
 	for c in _info.get_children():
 		c.queue_free()
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
-	var w := UI.number_width(text, 52.0)
-	var chip_w := w + 150.0
-	var chip := Rect2(540.0 - chip_w * 0.5, INFO_Y, chip_w, 96.0)
-	Island.nine(_info, "island_pill_cream", chip, Vector4(60, 50, 60, 50)).name = "Stars"
-	Island.piece_fit(_info, "island_star_full", Vector2(chip.position.x + 60.0, chip.get_center().y - 2.0), Vector2(66, 66))
-	UI.number(_info, text, Rect2(chip.position.x + 104.0, chip.position.y + 20.0, w + 4.0, 52.0), UI.INK, -1)
-	var play := UI.pill(_info, "Play", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, chip.end.y + 28.0), UI.PLAY_SIZE), "green",
-		"action.play", func(): _play(world), "play", 64.0)
+	var chip := Rect2(540.0 - CHIP.x * 0.5, CHIP_Y, CHIP.x, CHIP.y)
+	# The cream pill keeps its round ends: drawn at the texture's own height, then scaled down to the chip.
+	var k := Art.tex("island_pill_cream").get_height() / CHIP.y
+	var pill := Island.nine(_info, "island_pill_cream", Rect2(chip.position, CHIP * k), Vector4(82, 82, 82, 82))
+	pill.name = "Stars"
+	pill.pivot_offset = Vector2.ZERO
+	pill.scale = Vector2.ONE / k
+	var cap := 58.0
+	var w := UI.number_width(text, cap)
+	var star := 78.0
+	var left := chip.get_center().x - (star + 22.0 + w) * 0.5
+	Island.piece_fit(_info, "island_star_full", Vector2(left + star * 0.5, chip.get_center().y - 3.0), Vector2(star, star))
+	UI.number(_info, text, Rect2(left + star + 22.0, chip.get_center().y - cap * 0.5 - 4.0, w + 4.0, cap), UI.INK, -1)
+	var play := UI.pill(_info, "Play", PLAY, "green", "action.play", func(): _play(world))
+	# The play triangle and the word sit together in the middle of the pill, as in the design.
+	var word: Control = play.get_node("Content").get_child(-1)
+	var tri := PLAY.size.y * 0.72
+	var gap := 10.0
+	var group := tri + gap + word.size.x
+	var start := (PLAY.size.x - group) * 0.5
+	word.position.x = start + tri + gap
+	UI.icon(play.get_node("Content"), "play", Vector2(start + tri * 0.5, PLAY.size.y * 0.46), tri, Color.WHITE)
 	UI.set_active(play, Progress.is_world_unlocked(profile, world))
 
 func _play(world: int) -> void:
