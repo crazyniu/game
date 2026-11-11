@@ -319,7 +319,7 @@ func _tab_button(i: int, center: Vector2) -> Button:
 	b.add_child(face)
 	Island.nine(face, "island_tab_selected" if on else "island_tab_plain", Rect2(Vector2.ZERO, TAB_SIZE), Vector4(70, 60, 70, 60))
 	UI.art(face, TAB_ART[i], Rect2(4, -6, TAB_PICTURE + 18.0, TAB_SIZE.y + 4.0))
-	var word: String = "white_" + TAB_WORD[i] if on and UiText.has_painted("white_" + TAB_WORD[i]) else TAB_WORD[i]
+	var word: String = "white_" + TAB_WORD[i] if on else TAB_WORD[i]
 	UiText.painted(face, word, Rect2(TAB_PICTURE + 24.0, 42.0, TAB_SIZE.x - TAB_PICTURE - 44.0, 50.0))
 	b.button_down.connect(func(): face.modulate = Island.PRESSED)
 	b.button_up.connect(func(): face.modulate = Color.WHITE)
@@ -421,12 +421,11 @@ func _card(it: Dictionary, n: int) -> void:
 			stock.name = "Stock"
 	_pop_in(card, n)
 
-## A green pill with its painted white word (the word only when the lettering has been installed).
+## A green pill with its painted white word.
 func _status_pill(parent: Node, slot: Rect2, word: String) -> void:
 	var pill := Island.piece_fit(parent, "island_pill_green", slot.get_center(), slot.size)
 	pill.name = "Pill"
-	if UiText.has_painted(word):
-		UiText.painted(parent, word, Rect2(slot.position + slot.size * Vector2(0.16, 0.22), slot.size * Vector2(0.68, 0.42)))
+	UiText.painted(parent, word, Rect2(slot.position + slot.size * Vector2(0.16, 0.22), slot.size * Vector2(0.68, 0.42)))
 
 ## A soft cream card; the chosen one carries the green outline.
 func _flat_card(parent: Node, r: Rect2, selected := false) -> NinePatchRect:
@@ -479,7 +478,7 @@ func _price_parts(pill: Control, price: int, width := PILL.x) -> void:
 	var x := (width - (PRICE_COIN + 12.0 + slot_w)) * 0.5
 	var mid := (PILL.y - PILL_EDGE) * 0.5
 	UI.art(pill, "coin", Rect2(x, mid - PRICE_COIN * 0.5, PRICE_COIN, PRICE_COIN))
-	UI.outline_to(UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0 + slot_w - num_w, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), Color.WHITE, -1), "orange")
+	UI.number(pill, text, Rect2(x + PRICE_COIN + 12.0 + slot_w - num_w, mid - PRICE_CAP * 0.5, num_w + 2.0, PRICE_CAP), UI.INK, -1)
 
 ## Live BirdView wearing `outfit`, its front frame fitted in the box with the feet on the box bottom.
 func _bird(parent: Node, species: String, outfit: String, box: Rect2, phase: float) -> BirdView:
@@ -543,7 +542,7 @@ func _kind_carousel() -> void:
 		_kind_face(side_card, kinds[j], Rect2(20, 40, r.size.x - 40.0, 250), j)
 		Island.piece_fit(side_card, "island_wide_plaque", Vector2(r.size.x * 0.5, 340), Vector2(r.size.x - 20.0, 80))
 		if profile.has_met(kinds[j]):
-			UI.label(side_card, "bird.%s.name" % kinds[j], Rect2(24, 314, r.size.x - 48.0, 52), 34.0)
+			UI.heading(side_card, "bird.%s.name" % kinds[j], Rect2(24, 314, r.size.x - 48.0, 52), 34.0)
 		var turn: int = side
 		UI.hit_area(side_card, Rect2(Vector2.ZERO, r.size), func(): _turn_kind(turn))
 	var species: String = kinds[_kind_at]
@@ -558,11 +557,8 @@ func _kind_carousel() -> void:
 	Island.piece_fit(card, "island_ribbon_plaque", Vector2(KIND_CARD.size.x * 0.5, 540), Vector2(470, 140)).name = "Plaque"
 	if met:
 		var id := "bird.%s.name" % species
-		if UiText.has_heading(id):
-			var w := minf(320.0, UI.heading_width(id, 64.0))
-			UI.heading(card, id, Rect2(KIND_CARD.size.x * 0.5 - w * 0.5, 476, w, 128), 64.0).name = "Name"
-		else:
-			UI.label(card, id, Rect2(90, 500, 320, 80), 52.0).name = "Name"
+		var w := minf(320.0, UI.heading_width(id, 64.0))
+		UI.heading(card, id, Rect2(KIND_CARD.size.x * 0.5 - w * 0.5, 476, w, 128), 64.0).name = "Name"
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
 		var chip := Rect2(KIND_CARD.size.x * 0.5 - 120.0, 624, 240, 76)
 		Island.nine(card, "island_pill_cream", chip, Vector4(60, 50, 60, 50))
@@ -771,7 +767,7 @@ func _update_purchase() -> void:
 	var price := Vector2(250.0, 96.0)
 	var x := (BUY_SIZE.x - word_w - 20.0 - price.x) * 0.5
 	var mid := (BUY_SIZE.y - PILL_EDGE) * 0.5
-	UI.outline_to(UI.label(_purchase_contents, "shop.buy", Rect2(x, 0, word_w, BUY_SIZE.y - PILL_EDGE), cap, Color.WHITE), "green")
+	UI.label(_purchase_contents, "shop.buy", Rect2(x, 0, word_w, BUY_SIZE.y - PILL_EDGE), cap, Color.WHITE)
 	Island.price_pill(_purchase_contents, Rect2(Vector2(x + word_w + 20.0, mid - price.y * 0.5), price), total)
 
 func _buy(it: Dictionary, quantity: int) -> void:

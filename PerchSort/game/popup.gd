@@ -100,8 +100,7 @@ func _title() -> void:
 	var cap := TITLE_CAP
 	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 4.0, SIGN_W)
 	var max_text := plank.size.x * 1.25
-	var gold := UiText.has_heading(_title_id)
-	var word_w := UI.heading_width(_title_id, cap) if gold else UI.label_width(_title_id, cap)
+	var word_w := UI.heading_width(_title_id, cap)
 	var num_w := UI.number_width(_title_number, cap * 0.8) if not _title_number.is_empty() else 0.0
 	var natural := word_w + ((20.0 + num_w) if num_w > 0.0 else 0.0)
 	var k := minf(1.0, max_text / natural)
@@ -111,12 +110,7 @@ func _title() -> void:
 	var text_w := natural * k
 	var cy := plank.get_center().y
 	var x := 540.0 - text_w * 0.5
-	var title: TextureRect
-	if gold:
-		title = UI.heading(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap)
-	else:
-		title = UI.label(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap, Color.WHITE)
-		UI.outline_to(title, "orange")
+	var title := UI.heading(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap)
 	title.name = "Title"
 	if num_w > 0.0:
 		var num := UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.4, num_w, cap * 0.8), UI.GOLD)

@@ -240,10 +240,7 @@ func _card(id: String, at: Vector2) -> void:
 	if met:
 		_live_bird(card, id, _outfit_key(id), bird_box)
 		var name_id := "bird.%s.name" % id
-		if UiText.has_heading(name_id):
-			UI.heading(card, name_id, CARD_NAME.grow(16.0), 60.0)
-		else:
-			TextArt.label(card, name_id, CARD_NAME, 44.0, LIST_INK)
+		UI.heading(card, name_id, CARD_NAME.grow(16.0), 60.0)
 		if PopupsScript.EFFECT.has(id):
 			UI.shape(card, Rect2(CARD_W - 100, 20, 80, 80), "cream", 40.0, 0.0, false)
 			UI.art(card, "gift_coin_" + PopupsScript.EFFECT[id],

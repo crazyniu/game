@@ -769,11 +769,8 @@ static func _halo(c: Control, box: Rect2) -> void:
 ## A gold painted name (bird, world) centred on its own line; falls back to the ink word when no heading exists.
 static func _name_heading(c: Control, id: String, y: float) -> void:
 	var h := NAME_CAP * 1.3
-	if UiText.has_heading(id):
-		var w := minf(816.0, UI.heading_width(id, NAME_CAP))
-		UI.heading(c, id, Rect2(540.0 - w * 0.5, y + h * 0.5 - NAME_CAP, w, NAME_CAP * 2.0), NAME_CAP)
-	else:
-		UI.label(c, id, Rect2(132.0, y, 816.0, h), NAME_CAP * 0.7)
+	var w := minf(816.0, UI.heading_width(id, NAME_CAP))
+	UI.heading(c, id, Rect2(540.0 - w * 0.5, y + h * 0.5 - NAME_CAP, w, NAME_CAP * 2.0), NAME_CAP)
 
 
 # ---------------------------------------------------------------- motion

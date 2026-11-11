@@ -10,7 +10,7 @@ Normal launcher runs, including `--level`, make all 100 levels playable and top 
 
 The desktop window defaults to 936 x 1664. To inspect individual UI pages with example data and without saving progress, run `./run.sh --preview=aviary_view:detail_hoot`, `./run.sh --preview=shop_view:boosters`, `./run.sh --preview=map_view:forest_trail` or `./run.sh --preview=popups:win_three_stars`. Close an old game window and relaunch to load source/asset changes.
 
-UI words use complete localized label textures; only English is currently authored. The editable catalog is `tools/kit/locales/en.json`, the runtime pack selector is `PerchSort/art/locale/catalog.json`, and the production command is `DYLD_LIBRARY_PATH=/opt/homebrew/opt/fribidi/lib uv run --no-project --isolated --with pillow tools/kit/build_localized_labels.py en` on this Mac. See [UI polish](docs/work-log/ui-polish/report.md) for scope and acceptance boundaries.
+UI words are hand-painted pictures, one set per language (`PerchSort/art/locale/<lang>/island_words`, registered under `words` in each pack's `manifest.json`), and numbers are painted glyphs in three colours. No font is used at runtime. Word lists live in `tools/island/word_catalog.json`; generated sheets are cut and installed with `tools/island/install_painted_words.py` and `tools/island/install_numbers.py`.
 
 | Need | Entry |
 | --- | --- |

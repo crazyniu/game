@@ -74,13 +74,6 @@ const FILL := {"cream": Color8(255, 247, 232), "green": Color8(108, 194, 74), "o
 const RIM := {"cream": Color8(233, 214, 176), "green": Color8(76, 150, 49), "orange": Color8(218, 122, 20),
 	"blue": Color8(60, 147, 201), "red": Color8(194, 58, 47)}
 const INK := Color8(90, 58, 30)
-## White words and numbers on coloured surfaces carry a dark outline of the surface's own hue.
-const TEXT_OUTLINE := {"green": Color8(34, 92, 18), "orange": Color8(128, 68, 8), "blue": Color8(20, 74, 140),
-	"red": Color8(130, 30, 26), "grey": Color8(72, 80, 90)}
-
-static func outline_to(node: Control, kind: String) -> void:
-	if node.material is ShaderMaterial and TEXT_OUTLINE.has(kind):
-		(node.material as ShaderMaterial).set_shader_parameter("outline_color", TEXT_OUTLINE[kind])
 const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
@@ -316,9 +309,7 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	if not label_id.is_empty():
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
-		var word := label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, INK if kind == "orange" else Color.WHITE)
-		if kind != "orange":
-			outline_to(word, kind)
+		label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, INK if kind == "orange" else Color.WHITE)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -436,32 +427,13 @@ static func icon_tile(parent: Node, n: String, icon: String, r: Rect2, on_press:
 	return b
 
 ## Whole locale label fitted to its dedicated layout box.
-static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK, bend := 0.0) -> TextureRect:
-	return TextArt.label(parent, id, bounds, cap, color, false, bend)
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK) -> TextureRect:
+	return TextArt.label(parent, id, bounds, cap, color, false)
 
 static func label_width(id: String, cap: float) -> float:
 	return TextArt.label_width(id, cap)
 
-## How far the ends of words of width `text_w` sit below their middle to follow the painted ribbon's arch
-## (the arch spans about 72 % of the ribbon's width and drops about 18 % of its height).
-static func ribbon_bend(text_w: float, ribbon_w: float, ribbon_h: float) -> float:
-	var reach := minf(1.0, text_w * 0.5 / (0.36 * ribbon_w))
-	return ribbon_h * 0.185 * reach * reach * 0.9
-
-## A page title on the painted ribbon, centred on `center`: the ribbon grows with the words.
-static func title_ribbon(parent: Node, id: String, center: Vector2, cap := 56.0, max_w := 560.0) -> Control:
-	var holder := Control.new()
-	holder.name = "TitleRibbon"
-	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	parent.add_child(holder)
-	var text_w := minf(label_width(id, cap), max_w - 230.0)
-	var w := clampf(text_w + 230.0, 400.0, max_w)
-	var h := 150.0
-	kit_piece(holder, "ribbon", Rect2(center.x - w * 0.5, center.y - h * 0.4, w, h))
-	outline_to(label(holder, id, Rect2(center.x - text_w * 0.5, center.y - 52.0, text_w, 104.0), cap, Color.WHITE, ribbon_bend(text_w, w, h)), "green")
-	return holder
-
-## Original white-and-brown heading treatment, baked as one shaped phrase.
+## A gold heading word.
 static func heading(parent: Node, id: String, bounds: Rect2, cap: float) -> TextureRect:
 	return TextArt.label(parent, id, bounds, cap, Color.WHITE, true)
 
