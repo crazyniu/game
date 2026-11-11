@@ -195,9 +195,9 @@ const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "
 	"back": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
 	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
-	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "booster_hint_illus", "sapling": "booster_sapling_illus",
-	"eye": "booster_owl_eye_illus", "bell": "booster_bell_illus", "scarecrow": "booster_scarecrow_illus",
-	"rain": "booster_rain_illus", "map": "pic_map", "calendar": "pic_calendar", "chest": "pic_chest", "daily": "pic_daily"}
+	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "island_icon_firefly", "sapling": "island_icon_sprout",
+	"eye": "island_icon_owl_eye", "bell": "island_icon_bell", "scarecrow": "island_icon_scarecrow",
+	"rain": "island_icon_rain", "map": "pic_map", "calendar": "pic_calendar", "chest": "pic_chest", "daily": "pic_daily"}
 
 ## The painted picture for an icon drawn in `color`, or "" when the white symbol stays (white on a solid fill).
 ## A faded star is the painted empty star.
@@ -334,7 +334,7 @@ static func badge(b: Control, count_text: String) -> Panel:
 	p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	place(p, Rect2(c - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE))
 	b.add_child(p)
-	kit_piece(p, "badge", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (BADGE + 8.0)))
+	kit_piece(p, "disc_green", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (BADGE + 8.0)))
 	number(p, count_text, Rect2(8, BADGE * 0.5 - 18.0, BADGE - 16, 30), Color.WHITE)
 	return p
 

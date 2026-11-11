@@ -38,7 +38,7 @@ var draws_left := 0                 # draws still unused on draws_date
 var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
 var challenge_date := ""            # last day the daily challenge was completed
 var vibration := true               # short haptic pulses on mobile
-var language := ""                  # "" follows the device; "en" or "zh" is the player's choice
+var language := ""                  # "" follows the device; a language code is the player's choice
 
 
 func _init() -> void:
@@ -114,7 +114,7 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.music_muted = bool(data.get("musicMuted", p.muted))   # saves from before the split mute both
 	p.vibration = bool(data.get("vibration", true))
 	var language := str(data.get("language", ""))
-	p.language = language if language in ["en", "zh"] else ""
+	p.language = language if language.length() in range(2, 9) and language.to_lower() == language else ""
 	var boosters: Dictionary = data.get("boosters", {})
 	for i in BOOSTER_IDS.size():
 		p.inventory[i] = maxi(0, int(boosters.get(BOOSTER_IDS[i], 0)))

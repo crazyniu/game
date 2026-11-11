@@ -12,8 +12,7 @@ states=(
   popups:goal_info_berry popups:goal_info_hoot popups:win_milestone popups:lucky_draw popups:lucky_draw_none popups:lucky_draw_coins popups:chest_half popups:chest_ready popups:rewards_chest popups:new_friend_berry
   popups:unlock_owl_eye popups:unlock_sapling popups:world_complete_1 popups:world_unlock_2 popups:world_unlock_4
   home_view:home home_view:home_new
-  map_view:forest_trail map_view:first_level map_view:autumn_world map_view:all_cleared map_view:gate_locked
-  map_view:top_end map_view:bottom_end map_view:world_ribbon
+  map_view:cards map_view:cards_late map_view:cards_all map_view:world_page map_view:world_page_late
   shop_view:boosters shop_view:outfits shop_view:outfits_some_unmet shop_view:bird_outfits shop_view:houses shop_view:confirm_booster shop_view:confirm_outfit shop_view:confirm_outfit_short shop_view:confirm_multiple
   shop_view:locked_tools shop_view:insufficient
   aviary_view:list aviary_view:list_some_unmet aviary_view:list_scrolled

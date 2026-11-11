@@ -133,7 +133,6 @@ func _open_map() -> void:
 	map.settings_requested.connect(func(): show_settings(false))
 	map.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	map.home_requested.connect(open_home)
-	map.chapters_requested.connect(func(): Popups.chapters(popups, profile, map.show_world))
 	Sound.music("bgm_menu")
 
 ## The daily lucky draw opens only from its home tile; the tile's badge says draws are waiting.
@@ -396,7 +395,7 @@ func show_settings(on_board: bool) -> void:
 			_open_home()),
 		"help": func(): Tutorial.open(popups, Callable(), instant()),
 		"language": func():
-			profile.language = "zh" if UiText.locale() == "en" else "en"
+			profile.language = UiText.next_language(UiText.locale())
 			UiText.set_language(profile.language)
 			save()
 			_clear_popups()

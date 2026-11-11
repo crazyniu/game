@@ -86,6 +86,17 @@ static func locale() -> String:
 	_load_pack()
 	return _locale
 
+## Language codes that have a painted pack, in catalog order (the settings language row cycles through them).
+static func languages() -> Array:
+	_load_pack()
+	return _catalog["locales"].keys()
+
+## The code after `code` in catalog order, wrapping around.
+static func next_language(code: String) -> String:
+	var all := languages()
+	var at := all.find(code)
+	return all[(at + 1) % all.size()]
+
 ## The player's language choice; "" leaves the device language in charge.
 static func set_language(code: String) -> void:
 	if not code.is_empty():
