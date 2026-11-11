@@ -1,6 +1,6 @@
 class_name HomeView
 extends Control
-## Coastal homepage with one birdhouse-title focal group; navigation remains owned by main/meta.
+## Forest homepage with one birdhouse-title focal group; navigation remains owned by main/meta.
 
 signal play_requested(level: int)
 signal map_requested
@@ -55,7 +55,7 @@ func setup(p: Profile) -> void:
 	_clock = 0.0
 	_last_idle = {"perch": -1.0}
 	size = CANVAS_SIZE
-	UI.image(self, "background_home_beach", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
+	UI.image(self, "background_home_jungle", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
 	var title := UI.art(self, "panel_home_perch_title", LOGO, LOGO_CONTENT)
 	title.name = "Title"
 	# The open lower branch holds the original live birds; no characters are baked into the title.

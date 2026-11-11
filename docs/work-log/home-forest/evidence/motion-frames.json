@@ -1,0 +1,92 @@
+{
+  "runtime": "Godot 4.7.2 canonical Home preview on cloud desktop",
+  "capture_size": [
+    456,
+    812
+  ],
+  "requested_step_seconds": 0.25,
+  "requested_duration_seconds": 5,
+  "exact_wall_clock_duration_verified": false,
+  "frames": [
+    {
+      "file": "f000.png",
+      "sha256": "267227105a0017826cec846dea84d14dbcebeb395b65342896e384bcfd50cf92"
+    },
+    {
+      "file": "f001.png",
+      "sha256": "9f3720e4dffd2c341faec3e22a1894d966e757bd684119868872d241eda9a14a"
+    },
+    {
+      "file": "f002.png",
+      "sha256": "35d71c63e3eb133dcacbe1ff8d86d788957c852fa6afc6218ca943739cdb4a49"
+    },
+    {
+      "file": "f003.png",
+      "sha256": "fe75129ed14ac4dab6c3addc32f208391f6703b0bea3f9411795a0accb1ada0e"
+    },
+    {
+      "file": "f004.png",
+      "sha256": "1b375c3494eb8a36cc004724a7e59b918a1b0cd00e00c76eeb643464bed7afa1"
+    },
+    {
+      "file": "f005.png",
+      "sha256": "845ff31ac17996928853c8cddcfad94600113446e483cab72f468080708492d3"
+    },
+    {
+      "file": "f006.png",
+      "sha256": "e245b396170e5c4d69b02a318e626c2f238f2e5e628ac9f1a27883f1e30bce2e"
+    },
+    {
+      "file": "f007.png",
+      "sha256": "9834dce616344a2eee2327ccf9f23af484d3457e15916330f03e29f24d8c9f2f"
+    },
+    {
+      "file": "f008.png",
+      "sha256": "a5212e6179642347ffbe6eb536bba0f38c0149ed9373afdb8962bb53a51f4ef0"
+    },
+    {
+      "file": "f009.png",
+      "sha256": "ec8bfc412493322d9d499de66f871323b6057897e0eec19d38998381bd90faa6"
+    },
+    {
+      "file": "f010.png",
+      "sha256": "c5c1db83af9d8556619436a1537f5c7438af245dba3f7ad0cc4754e148a42608"
+    },
+    {
+      "file": "f011.png",
+      "sha256": "f7cd42b22e2078c8bae07afb9722a0cebbeb9660105461ac3c9473899091b7e5"
+    },
+    {
+      "file": "f012.png",
+      "sha256": "efa6b76b5885393ea4f7b5a98889b9e6cecbc2e654c18fb9a937d67dda2bf0f5"
+    },
+    {
+      "file": "f013.png",
+      "sha256": "5894239cb0a9985782f53bf8901cf550d0232d217a96c9849bf5278d72e8ea58"
+    },
+    {
+      "file": "f014.png",
+      "sha256": "ae4b269eb5b2057af88d97fa33449a952ade737f14a2855397a7d3139a73fb1d"
+    },
+    {
+      "file": "f015.png",
+      "sha256": "a0aa5e09d8aaa38cc4b5923465ebb1aa70b85c5bd76a75c3d20768f2a84702a2"
+    },
+    {
+      "file": "f016.png",
+      "sha256": "0b00b0e220bac5356f87e3e6e507d25207f42c6a827fef69ca8f95330af148b0"
+    },
+    {
+      "file": "f017.png",
+      "sha256": "d063e372ade853ce6f6358e11f2c506ea7fcdbeee0b051e15044d4187978f21c"
+    },
+    {
+      "file": "f018.png",
+      "sha256": "a915a78096fd9d976cd2d3005b27dc881e9b467755c7067f2a1b2fe289a243b9"
+    },
+    {
+      "file": "f019.png",
+      "sha256": "92e1ad76079f5ecbc41eeca9c39a398654f1c679f4789f563d3a541a3faa496e"
+    }
+  ]
+}

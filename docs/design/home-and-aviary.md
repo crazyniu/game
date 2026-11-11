@@ -10,14 +10,16 @@ retains its separate current contract; this Home repair does not change that scr
 The user approved the raised, connected title-and-perch composition in
 `art/approved_ui/home_title_concept.png`. The integrated Bird Sort roof/title extends into a natural
 left branch and one lower open perch. Four existing animated birds occupy the middle, replacing
-the empty gap; no separate large birdhouse or extra roof mascots remain. The coastal backdrop
-retains a broad sandy foreground. Settings and all other pages remain frozen.
+the empty gap; no separate large birdhouse or extra roof mascots remain. The user subsequently
+approved the independent `background_home_jungle` image and requested that it replace only Home's
+backdrop on 2026-11-11. The title, birds, controls, geometry and functionality stay unchanged.
+This background-only change does not modify Settings or any other page.
 
 All geometry uses the 1080 × 1920 canvas.
 
 | Element | Placement |
 | --- | --- |
-| Coastal backdrop | Full canvas; independent `background_home_beach`, derived from the actual `board_w1_bg` style |
+| Forest backdrop | Full canvas; approved `background_home_jungle`, installed unchanged |
 | Connected title and branch | Visible artwork fit in 128,208,832,832; `panel_home_perch_title` |
 | Structure source bounds | 64,50,1120,1121 within the 1254 × 1254 transparent PNG |
 | Macaw | Source contact 325,1084; 228 px nominal head-to-foot height; rest pose 4 |
@@ -26,7 +28,7 @@ All geometry uses the 1080 × 1920 canvas.
 | Green parrot | Source contact 905,1082; 184 px nominal height; rest pose 4 |
 | Counter / Settings | Counter at 48,48; Settings centered at 976,104, 96 px proportional icon |
 | Daily challenge / draw | Centers 960,920 and 960,1140; 120 px icon boxes, 220 px vertical spacing |
-| Play | 290,1360,500,200; existing complete localized action, retained on the lower beach |
+| Play | 290,1360,500,200; existing complete localized action, unchanged placement |
 | Bottom destinations | Centers x=174+244×column, y=1760; 132 px proportional icon boxes |
 | Hit areas / badges | Seven icon hit areas 160 × 160; red availability badges 48 px |
 
@@ -50,13 +52,14 @@ leaves and additional sunlight; BoardView's independent level ambience is untouc
 | Runtime asset | Provenance |
 | --- | --- |
 | `PerchSort/art/island/panel_home_perch_title.png` | Independent transparent production drawing of the approved connected structure |
-| `PerchSort/art/island/background_home_beach.png` | Independent 941 × 1672 coast painting, reused from this Home refinement |
+| `PerchSort/art/island/background_home_jungle.png` | Independent bright jungle painting, explicitly approved for Home on 2026-11-11; installed byte-for-byte |
 | `PerchSort/birds/home_island_{macaw,yellow_chick,blue_chick,green_parrot}_idle_*.png` | Retained original eight-frame animation sets |
 
-Original source assets are retained. Exact prompts and source paths are in `home-title-concept.md`.
-The user explicitly requested focused self-checks before delivery; scope and evidence are recorded
-in `docs/work-log/home-title-integration/report.md`. User runtime approval remains pending and no
-approved-runtime baseline is replaced.
+Original source assets are retained. The connected foreground provenance remains in
+`home-title-concept.md`. The approved bright background, checksum and latest validation are
+recorded in `docs/work-log/home-forest/asset-validation.json` and
+`docs/work-log/home-forest/report.md`. The background is a standalone production image, not a
+flattened UI mockup. User runtime approval remains pending and no approved-runtime baseline is replaced.
 
 ## Aviary
 
