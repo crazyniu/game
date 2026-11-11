@@ -21,6 +21,18 @@ Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibi
 - Primary action buttons must be **at most 1.25 times** the size of sibling buttons.
 - Player-visible words are painted label sprites and numbers are painted glyphs; never render them with a font.
 
+## Design images are reference, not pixels to extract
+
+The images in `art/approved_ui` tell you the look and feel: layout, proportions, scale, colour, material and mood. They are not artwork to trace, slice or recreate pixel for pixel. How to work from them:
+
+1. **Read the structure, not the pixels.** For each screen note what is on it, where the blocks sit (top bar, sign, panel, rows, buttons), how big they are relative to the 1080x1920 canvas and to each other, and which style each piece uses. Write that down as element boxes and place by those numbers. Close is good; exact is not required.
+2. **Own the assets.** Never copy, crop or slice pixels out of a design image into the game, and never place a design image in the runtime. Every shipped picture is either an existing clean game asset or newly generated (Codex image generation) with the design only as a style reference.
+3. **Generate what is hard to slice.** Anything that would need careful cutting (coin piles, rope frames, name plaques, scenery, icons with soft glows) or that does not exist yet is generated fresh in the same style, as separate transparent pieces. Cut pieces keep clean edges and one consistent light direction; stretchable frames and bars are drawn so they work as nine-patches.
+4. **Words are generated too.** Every word is an AI-painted image, one set per language, in the style group it appears in (gold title, brown label, caption, white on green). Numbers are painted glyphs. Check every generated word letter by letter; regenerate wrong ones. Layout fits a word into a fixed box by its visible ink, so any language length works.
+5. **Keep one family.** All pieces of the same role (button, tile, row card, badge) share one size, one look and one source in every state. Prefer a few well-made reusable pieces over many one-off ones, so new screens inherit the style.
+6. **Characters are ours.** Use the game's own birds and layout decisions; take nothing from the design's characters or positions.
+7. **Verify by looking.** After every asset or layout change, capture the screen and compare it with its design side by side (`scripts/compare.sh`). Judge: same structure, same proportions, same style and polish. Differences in drawing detail are fine; a different structure, scale or style is not. Report what matches, what differs, and what was not checked.
+
 ## Naming policy and review acceptance
 
 - Edit canonical files in place. No parallel implementation, alternate scene, replacement resource root or runnable historical copy under any name.
