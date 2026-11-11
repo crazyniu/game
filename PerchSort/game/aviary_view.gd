@@ -8,8 +8,8 @@ signal closed
 signal profile_changed
 
 const PopupsScript := preload("res://game/popups.gd")
-const CONFIRM_PIC := 320.0    # outfit picture of the buy popup
-const CONFIRM_LINE := 72.0    # its price line
+const CONFIRM_PIC := 420.0    # outfit picture of the buy popup
+const CONFIRM_LINE := 110.0   # its price line
 const TextArt := preload("res://game/ui_text.gd")
 const CLOSE_ICON := preload("res://art/icons/icon_aviary_close.svg")
 const FEATHER_ICON := preload("res://art/icons/icon_aviary_feather.svg")
@@ -17,16 +17,16 @@ const LIST_INK := Color("493c2e")
 const LIST_GREEN := Color("34563f")
 const LIST_CREAM := Color("fff9ee")
 
-const BODY_CAP := 44.0
+const BODY_CAP := 50.0
 const MARGIN := 48.0
 const RIGHT := 1032.0
 ## List grid: two columns of cards between the margins, scrolled under the top bar.
-const FRAME := Rect2(28, 392, 1024, 1500)   # the wooden frame around the grid (user sketch)
-const CLIP_TOP := 424.0
+const FRAME := Rect2(28, 420, 1024, 1472)   # the wooden frame around the grid (user sketch)
+const CLIP_TOP := 452.0
 const CLIP_X := 60.0
 const CLIP_W := 948.0
 const GRID_X := 0.0
-const CLIP_HEIGHT := 1436.0
+const CLIP_HEIGHT := 1408.0
 const GRID_TOP := 16.0            # first card row inside the clip
 const GRID_BOTTOM := 16.0         # under the last card row
 const GAP := 32.0
@@ -46,13 +46,13 @@ const PANEL_PAD := 48.0
 const HERO_BIRD := 480.0
 const CROW_BIRD := 560.0
 const LINE := 96.0
-const SECTION_GAP := 48.0
-const TILE_W := 228.0
-const TILE_H := 312.0
+const SECTION_GAP := 128.0
+const TILE_W := 280.0
+const TILE_H := 330.0
 const TILE_GAP := 24.0
 const TILE_COLS := 3                          # six tiles (plain + five outfits) in two rows
 const TILE_ROWS := 2
-const TILE_BIRD := Rect2(24, 56, 180, 176)    # same bird size in every tile
+const TILE_BIRD := Rect2(36, 36, 208, 200)    # same bird size in every tile
 const CORNER := Vector2(188, 40)              # centre of the lock or check mark
 const CHECK := 56.0
 const SILHOUETTE := """shader_type canvas_item;
@@ -220,15 +220,16 @@ func _list_icon(parent: Node, texture: Texture2D, rect: Rect2, color: Color) -> 
 
 func _list_header(met: int, count: int) -> void:
 	Island.button(_page, "Close", "island_close_tile", Rect2(30, 26, 112, 112), func(): closed.emit())
-	var plank := Island.hanging_sign(_page, 540.0, 240.0, 500.0)
-	UiText.painted(_page, "title_aviary", plank)
+	var plank := Island.hanging_sign(_page, 540.0, 200.0, 640.0)
+	UiText.painted(_page, "title_aviary", plank.grow_individual(plank.size.x * 0.04, plank.size.y * 0.1, plank.size.x * 0.04, 0.0))
+	# Friends met so far: a feather and the count on a cream chip under the sign.
 	var chip := Control.new()
 	chip.name = "MetCounter"
-	UI.place(chip, Rect2(716, 56, 320, 88))
+	UI.place(chip, Rect2(400, 302, 280, 96))
 	_page.add_child(chip)
 	Island.nine(chip, "island_pill_cream", Rect2(Vector2.ZERO, chip.size), Vector4(70, 70, 70, 70))
-	Island.piece_fit(chip, "island_badge_check", Vector2(50, 44), Vector2(52, 52)).visible = false
-	TextArt.number(chip, "%d/%d" % [met, count], Rect2(48, 16, 224, 56), 44.0, LIST_INK)
+	UI.art(chip, "pic_feather", Rect2(30, 14, 64, 64))
+	TextArt.number(chip, "%d/%d" % [met, count], Rect2(104, 22, 150, 50), 50.0, LIST_INK)
 
 ## One cream card: a live bird and its name, or a dark silhouette with a question mark.
 func _card(id: String, at: Vector2) -> void:
@@ -238,16 +239,17 @@ func _card(id: String, at: Vector2) -> void:
 	var bird_box := Rect2(CARD_BIRD.position, CARD_BIRD.size)
 	if met:
 		_live_bird(card, id, _outfit_key(id), bird_box)
-		TextArt.label(card, "bird.%s.name" % id, CARD_NAME, 44.0, LIST_INK)
+		var name_id := "bird.%s.name" % id
+		if UiText.has_heading(name_id):
+			UI.heading(card, name_id, CARD_NAME.grow(16.0), 60.0)
+		else:
+			TextArt.label(card, name_id, CARD_NAME, 44.0, LIST_INK)
 		if PopupsScript.EFFECT.has(id):
 			UI.shape(card, Rect2(CARD_W - 100, 20, 80, 80), "cream", 40.0, 0.0, false)
 			UI.art(card, "gift_coin_" + PopupsScript.EFFECT[id],
 				Rect2(CARD_W - 92, 28, CARD_BADGE, CARD_BADGE))
 	else:
-		_silhouette(card, id, bird_box)
-		var q := TextArt.number(card, "?", Rect2(bird_box.get_center().x - 60.0, bird_box.get_center().y - 72.0,
-			120.0, 160.0), QUESTION_CAP, Color.WHITE)
-		q.name = "Question"
+		Island.piece_fit(card, "island_unknown_bird", bird_box.get_center() + Vector2(0, 30), bird_box.size * 0.95).name = "Question"
 	_cards.append([card, id])
 
 func _build_track() -> void:
@@ -326,7 +328,7 @@ func _show_detail(id: String) -> void:
 	var panel_h := PANEL_PAD + bird_h + 32.0 + LINE + PANEL_PAD + 12.0
 	var block := panel_h + (0.0 if crow else SECTION_GAP + TILE_H * TILE_ROWS + TILE_GAP * (TILE_ROWS - 1))
 	var top := roundf((160.0 + (1872.0 - 160.0 - block) * 0.5) / 8.0) * 8.0
-	var panel := Rect2(108, top, 864, panel_h)
+	var panel := Rect2(72, top, 936, panel_h)
 	Island.nine(_page, "island_grid_card", panel, Vector4(60, 60, 60, 60)).name = "Panel"
 	_hero_box = Rect2(540.0 - bird_h * 0.5, panel.position.y + PANEL_PAD, bird_h, bird_h)
 	_hero = _live_bird(_page, id, _outfit_key(id), _hero_box)
@@ -347,8 +349,12 @@ func _show_detail(id: String) -> void:
 		_page.add_child(_tiles)
 		_build_tiles()
 	Island.button(_page, "Back", "island_back_tile", Rect2(30, 26, 112, 112), _back)
-	var plank := Island.hanging_sign(_page, 540.0, 150.0, 460.0)
-	UI.heading(_page, "bird.%s.name" % id, plank, 52.0)
+	var plank := Island.hanging_sign(_page, 540.0, 170.0, 600.0)
+	UI.heading(_page, "bird.%s.name" % id, plank.grow_individual(40.0, 30.0, 40.0, 20.0), 84.0)
+	if not crow:   # the "Outfits" plaque between the bird's panel and its outfit tiles
+		var tag := Island.piece_fit(_page, "island_ribbon_plaque", Vector2(540.0, panel.end.y + SECTION_GAP * 0.5 + 4.0), Vector2(440, 120))
+		tag.name = "OutfitsTag"
+		UiText.painted(_page, "tab_outfits", Rect2(tag.position + tag.size * Vector2(0.22, 0.2), tag.size * Vector2(0.56, 0.5)))
 	_build_coins()
 
 func _back() -> void:
@@ -373,10 +379,11 @@ func _build_coins() -> void:
 func _ability(id: String, y: float, max_w: float) -> void:
 	var has_badge := PopupsScript.EFFECT.has(id)
 	var label_id := "bird.%s.ability" % id
-	var badge := 72.0
+	var badge := 80.0
 	var lead := badge + 16.0 if has_badge else 56.0 + 16.0
-	var tw := minf(UI.label_width(label_id, BODY_CAP), max_w - lead)
+	var tw := minf(UI.label_width(label_id, BODY_CAP), max_w - lead - 60.0)
 	var x := 540.0 - (lead + tw) * 0.5
+	Island.nine(_page, "island_row_card", Rect2(540.0 - max_w * 0.5, y - 8.0, max_w, LINE + 16.0), Vector4(40, 40, 40, 40)).name = "AbilityRow"
 	if has_badge:
 		UI.art(_page, "gift_coin_" + PopupsScript.EFFECT[id], Rect2(x, y + (LINE - badge) * 0.5, badge, badge))
 	else:
@@ -446,7 +453,7 @@ func _confirm_outfit(id: String, index: int, tile: Control) -> void:
 	var it := Shop.item(id)
 	var title_id := id + ".name"
 	var quick := _is_instant()
-	var modal := Modal.open(self, title_id, [CONFIRM_PIC, CONFIRM_LINE], true, UI.PRIMARY, 0.0, quick)
+	var modal := Modal.open(self, title_id, [CONFIRM_PIC, CONFIRM_LINE], true, UI.PLAY_SIZE.y, 0.0, quick)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - CONFIRM_PIC * 0.5, ys[0], CONFIRM_PIC, CONFIRM_PIC)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
@@ -468,12 +475,8 @@ func _price_line(c: Control, y: float, price: int, color: Color) -> Control:
 	holder.size = Vector2(1080, 1920)
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	c.add_child(holder)
-	var text := str(price)
-	var cap := 52.0
-	var num_w := UI.number_width(text, cap)
-	var x := 540.0 - (CONFIRM_LINE + 16.0 + num_w) * 0.5
-	UI.art(holder, "coin", Rect2(x, y, CONFIRM_LINE, CONFIRM_LINE))
-	UI.number(holder, text, Rect2(x + CONFIRM_LINE + 16.0, y + (CONFIRM_LINE - cap) * 0.5, num_w + 2.0, cap), color, -1)
+	# The shop's gold price bar; unaffordable is the same bar greyed (the shake says why).
+	Island.price_pill(holder, Rect2(540.0 - 170.0, y, 340.0, CONFIRM_LINE), price, color != UI.INK)
 	return holder
 
 func _buy_outfit(id: String, index: int) -> void:

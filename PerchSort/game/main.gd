@@ -394,8 +394,10 @@ func show_settings(on_board: bool) -> void:
 			_clear_popups()
 			_open_home()),
 		"help": func(): Tutorial.open(popups, Callable(), instant()),
-		"language": func():
-			profile.language = UiText.next_language(UiText.locale())
+		"language": func(code: String):
+			if code == UiText.locale():
+				return
+			profile.language = code
 			UiText.set_language(profile.language)
 			save()
 			_clear_popups()

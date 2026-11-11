@@ -318,11 +318,12 @@
       "baseline": 160
     },
     "booster.firefly.name": {
-      "text": "Hint",
+      "text": "Firefly",
       "file": "label_booster_firefly_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_firefly_name.png"
     },
     "booster.firefly.description": {
       "text": "Shows a good move",
@@ -332,11 +333,12 @@
       "baseline": 160
     },
     "booster.sapling.name": {
-      "text": "Sapling",
+      "text": "Sprout",
       "file": "label_booster_sapling_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_sapling_name.png"
     },
     "booster.sapling.description": {
       "text": "Adds one branch",
@@ -346,11 +348,12 @@
       "baseline": 160
     },
     "booster.owl_eye.name": {
-      "text": "Peek",
+      "text": "Owl Eye",
       "file": "label_booster_owl_eye_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_owl_eye_name.png"
     },
     "booster.owl_eye.description": {
       "text": "Peeks inside the eggs",
@@ -360,11 +363,12 @@
       "baseline": 160
     },
     "booster.morning_bell.name": {
-      "text": "Bell",
+      "text": "Wake Bell",
       "file": "label_booster_morning_bell_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_morning_bell_name.png"
     },
     "booster.morning_bell.description": {
       "text": "Wakes sleeping birds",
@@ -374,11 +378,12 @@
       "baseline": 160
     },
     "booster.scarecrow.name": {
-      "text": "Shoo",
+      "text": "Scarecrow",
       "file": "label_booster_scarecrow_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_scarecrow_name.png"
     },
     "booster.scarecrow.description": {
       "text": "Sends the crows away",
@@ -388,11 +393,12 @@
       "baseline": 160
     },
     "booster.spring_rain.name": {
-      "text": "Rain",
+      "text": "Spring Rain",
       "file": "label_booster_spring_rain_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_spring_rain_name.png"
     },
     "booster.spring_rain.description": {
       "text": "Lets branches grow",
@@ -406,434 +412,504 @@
       "file": "label_house_mushroom_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_mushroom_name.png"
     },
     "house.teapot.name": {
       "text": "Teapot",
       "file": "label_house_teapot_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_teapot_name.png"
     },
     "house.lantern.name": {
       "text": "Lantern",
       "file": "label_house_lantern_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_lantern_name.png"
     },
     "house.acorn.name": {
       "text": "Acorn",
       "file": "label_house_acorn_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_acorn_name.png"
     },
     "house.pumpkin.name": {
       "text": "Pumpkin",
       "file": "label_house_pumpkin_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_pumpkin_name.png"
     },
     "house.beehive.name": {
       "text": "Beehive",
       "file": "label_house_beehive_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_beehive_name.png"
     },
     "house.teacup.name": {
       "text": "Teacup",
       "file": "label_house_teacup_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_teacup_name.png"
     },
     "house.pinecone.name": {
       "text": "Pinecone",
       "file": "label_house_pinecone_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_pinecone_name.png"
+    },
+    "house.cage.name": {
+      "text": "Cage",
+      "file": "label_house_cage_name.png",
+      "cap": 128,
+      "line_height": 208,
+      "baseline": 160,
+      "heading_file": "heading_house_cage_name.png"
     },
     "outfit.sunny.1.name": {
       "text": "Straw Hat",
       "file": "label_outfit_sunny_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_1_name.png"
     },
     "outfit.sunny.2.name": {
       "text": "Bow Tie",
       "file": "label_outfit_sunny_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_2_name.png"
     },
     "outfit.sunny.3.name": {
       "text": "Crown",
       "file": "label_outfit_sunny_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_3_name.png"
     },
     "outfit.sunny.4.name": {
       "text": "Bee",
       "file": "label_outfit_sunny_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_4_name.png"
     },
     "outfit.sunny.5.name": {
       "text": "Sunflower",
       "file": "label_outfit_sunny_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_5_name.png"
     },
     "outfit.sky.1.name": {
       "text": "Scarf",
       "file": "label_outfit_sky_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_1_name.png"
     },
     "outfit.sky.2.name": {
       "text": "Goggles",
       "file": "label_outfit_sky_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_2_name.png"
     },
     "outfit.sky.3.name": {
       "text": "Top Hat",
       "file": "label_outfit_sky_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_3_name.png"
     },
     "outfit.sky.4.name": {
       "text": "Whale",
       "file": "label_outfit_sky_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_4_name.png"
     },
     "outfit.sky.5.name": {
       "text": "Captain",
       "file": "label_outfit_sky_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_5_name.png"
     },
     "outfit.berry.1.name": {
       "text": "Glasses",
       "file": "label_outfit_berry_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_1_name.png"
     },
     "outfit.berry.2.name": {
       "text": "Bow",
       "file": "label_outfit_berry_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_2_name.png"
     },
     "outfit.berry.3.name": {
       "text": "Tiara",
       "file": "label_outfit_berry_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_3_name.png"
     },
     "outfit.berry.4.name": {
       "text": "Berry Hood",
       "file": "label_outfit_berry_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_4_name.png"
     },
     "outfit.berry.5.name": {
       "text": "Fairy",
       "file": "label_outfit_berry_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_5_name.png"
     },
     "outfit.mint.1.name": {
       "text": "Flower",
       "file": "label_outfit_mint_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_1_name.png"
     },
     "outfit.mint.2.name": {
       "text": "Mushroom",
       "file": "label_outfit_mint_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_2_name.png"
     },
     "outfit.mint.3.name": {
       "text": "Acorn",
       "file": "label_outfit_mint_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_3_name.png"
     },
     "outfit.mint.4.name": {
       "text": "Frog",
       "file": "label_outfit_mint_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_4_name.png"
     },
     "outfit.mint.5.name": {
       "text": "Dino",
       "file": "label_outfit_mint_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_5_name.png"
     },
     "outfit.cocoa.1.name": {
       "text": "Beanie",
       "file": "label_outfit_cocoa_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_1_name.png"
     },
     "outfit.cocoa.2.name": {
       "text": "Bow Tie",
       "file": "label_outfit_cocoa_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_2_name.png"
     },
     "outfit.cocoa.3.name": {
       "text": "Monocle",
       "file": "label_outfit_cocoa_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_3_name.png"
     },
     "outfit.cocoa.4.name": {
       "text": "Teddy",
       "file": "label_outfit_cocoa_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_4_name.png"
     },
     "outfit.cocoa.5.name": {
       "text": "Gingerbread",
       "file": "label_outfit_cocoa_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_5_name.png"
     },
     "outfit.snow.1.name": {
       "text": "Earmuffs",
       "file": "label_outfit_snow_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_1_name.png"
     },
     "outfit.snow.2.name": {
       "text": "Snowflake",
       "file": "label_outfit_snow_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_2_name.png"
     },
     "outfit.snow.3.name": {
       "text": "Ice Crown",
       "file": "label_outfit_snow_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_3_name.png"
     },
     "outfit.snow.4.name": {
       "text": "Bunny",
       "file": "label_outfit_snow_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_4_name.png"
     },
     "outfit.snow.5.name": {
       "text": "Ice Queen",
       "file": "label_outfit_snow_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_5_name.png"
     },
     "outfit.ember.1.name": {
       "text": "Bandana",
       "file": "label_outfit_ember_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_1_name.png"
     },
     "outfit.ember.2.name": {
       "text": "Headband",
       "file": "label_outfit_ember_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_2_name.png"
     },
     "outfit.ember.3.name": {
       "text": "Helmet",
       "file": "label_outfit_ember_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_3_name.png"
     },
     "outfit.ember.4.name": {
       "text": "Fox",
       "file": "label_outfit_ember_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_4_name.png"
     },
     "outfit.ember.5.name": {
       "text": "Dragon",
       "file": "label_outfit_ember_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_5_name.png"
     },
     "outfit.ink.1.name": {
       "text": "Nightcap",
       "file": "label_outfit_ink_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_1_name.png"
     },
     "outfit.ink.2.name": {
       "text": "Specs",
       "file": "label_outfit_ink_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_2_name.png"
     },
     "outfit.ink.3.name": {
       "text": "Star Hat",
       "file": "label_outfit_ink_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_3_name.png"
     },
     "outfit.ink.4.name": {
       "text": "Pirate",
       "file": "label_outfit_ink_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_4_name.png"
     },
     "outfit.ink.5.name": {
       "text": "Ninja",
       "file": "label_outfit_ink_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_5_name.png"
     },
     "outfit.hoot.1.name": {
       "text": "Grad Cap",
       "file": "label_outfit_hoot_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_1_name.png"
     },
     "outfit.hoot.2.name": {
       "text": "Glasses",
       "file": "label_outfit_hoot_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_2_name.png"
     },
     "outfit.hoot.3.name": {
       "text": "Wizard",
       "file": "label_outfit_hoot_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_3_name.png"
     },
     "outfit.hoot.4.name": {
       "text": "Explorer",
       "file": "label_outfit_hoot_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_4_name.png"
     },
     "outfit.hoot.5.name": {
       "text": "Cowboy",
       "file": "label_outfit_hoot_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_5_name.png"
     },
     "popup.win.title": {
       "text": "Well done!",
       "file": "label_popup_win_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_win_title.png"
     },
     "popup.settings.title": {
       "text": "Settings",
       "file": "label_popup_settings_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_settings_title.png"
     },
     "popup.level.title": {
       "text": "Level",
       "file": "label_popup_level_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_level_title.png"
     },
     "popup.best": {
       "text": "Best",
       "file": "label_popup_best.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_best.png"
     },
     "popup.daily_gift.title": {
       "text": "Gift",
       "file": "label_popup_daily_gift_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_daily_gift_title.png"
     },
     "popup.new_friend.title": {
       "text": "New Bird",
       "file": "label_popup_new_friend_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_new_friend_title.png"
     },
     "popup.world_complete.title": {
       "text": "Cleared!",
       "file": "label_popup_world_complete_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_world_complete_title.png"
     },
     "popup.world_unlock.title": {
       "text": "Unlocked",
       "file": "label_popup_world_unlock_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_world_unlock_title.png"
     },
     "tutorial.title": {
       "text": "Guide",
       "file": "label_tutorial_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_tutorial_title.png"
     },
     "tutorial.pick": {
       "text": "Tap a branch to pick birds",
@@ -931,28 +1007,32 @@
       "file": "label_doc_privacy_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_privacy_title.png"
     },
     "doc.terms.title": {
       "text": "Terms",
       "file": "label_doc_terms_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_terms_title.png"
     },
     "doc.credits.title": {
       "text": "Credits",
       "file": "label_doc_credits_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_credits_title.png"
     },
     "doc.contact.title": {
       "text": "Contact",
       "file": "label_doc_contact_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_contact_title.png"
     },
     "home.map": {
       "text": "Map",
@@ -987,7 +1067,8 @@
       "file": "label_popup_gift_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_gift_title.png"
     },
     "gift.line": {
       "text": "Try it!",
@@ -1001,7 +1082,8 @@
       "file": "label_draw_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_draw_title.png"
     },
     "draw.go": {
       "text": "Spin",
@@ -1015,7 +1097,8 @@
       "file": "label_chest_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_chest_title.png"
     },
     "chest.open": {
       "text": "Open",
@@ -1064,7 +1147,8 @@
       "file": "label_lesson_sleep_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_sleep_title.png"
     },
     "lesson.sleep.line": {
       "text": "Land a match to wake it",
@@ -1078,7 +1162,8 @@
       "file": "label_lesson_mama_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_mama_title.png"
     },
     "lesson.mama.line": {
       "text": "Chicks follow their mama",
@@ -1092,7 +1177,8 @@
       "file": "label_lesson_egg_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_egg_title.png"
     },
     "lesson.egg.line": {
       "text": "Uncover an egg to hatch it",
@@ -1106,7 +1192,8 @@
       "file": "label_lesson_crow_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_crow_title.png"
     },
     "lesson.crow.line": {
       "text": "Crows never go home",
@@ -1120,7 +1207,8 @@
       "file": "label_lesson_twig_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_twig_title.png"
     },
     "lesson.twig.line": {
       "text": "A twig holds only two",
@@ -1134,7 +1222,8 @@
       "file": "label_lesson_swivel_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_swivel_title.png"
     },
     "lesson.swivel.line": {
       "text": "Tap the knot to turn it",
@@ -1148,7 +1237,8 @@
       "file": "label_lesson_growing_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_growing_title.png"
     },
     "lesson.growing.line": {
       "text": "Each flock home adds a seat",
@@ -1162,7 +1252,8 @@
       "file": "label_lesson_daynight_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_daynight_title.png"
     },
     "lesson.daynight.line": {
       "text": "Owls sleep until night falls",
@@ -1176,7 +1267,8 @@
       "file": "label_challenge_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_challenge_title.png"
     },
     "home.daily": {
       "text": "Daily",
@@ -1211,7 +1303,8 @@
       "file": "label_map_chapters.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_map_chapters.png"
     },
     "map.current": {
       "text": "Current",
@@ -1230,13 +1323,6 @@
     "chapter.levels": {
       "text": "Levels",
       "file": "label_chapter_levels.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.cage.name": {
-      "text": "Cage",
-      "file": "label_house_cage_name.png",
       "cap": 128,
       "line_height": 208,
       "baseline": 160

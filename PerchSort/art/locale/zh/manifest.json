@@ -318,11 +318,12 @@
       "baseline": 160
     },
     "booster.firefly.name": {
-      "text": "提示",
+      "text": "萤火灯",
       "file": "label_booster_firefly_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_firefly_name.png"
     },
     "booster.firefly.description": {
       "text": "指出一步好棋",
@@ -332,11 +333,12 @@
       "baseline": 160
     },
     "booster.sapling.name": {
-      "text": "树苗",
+      "text": "新枝芽",
       "file": "label_booster_sapling_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_sapling_name.png"
     },
     "booster.sapling.description": {
       "text": "增加一根树枝",
@@ -346,11 +348,12 @@
       "baseline": 160
     },
     "booster.owl_eye.name": {
-      "text": "偷看",
+      "text": "猫头鹰眼",
       "file": "label_booster_owl_eye_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_owl_eye_name.png"
     },
     "booster.owl_eye.description": {
       "text": "看看蛋里是谁",
@@ -360,11 +363,12 @@
       "baseline": 160
     },
     "booster.morning_bell.name": {
-      "text": "铃铛",
+      "text": "唤醒铃",
       "file": "label_booster_morning_bell_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_morning_bell_name.png"
     },
     "booster.morning_bell.description": {
       "text": "叫醒睡着的鸟",
@@ -378,7 +382,8 @@
       "file": "label_booster_scarecrow_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_scarecrow_name.png"
     },
     "booster.scarecrow.description": {
       "text": "赶走乌鸦",
@@ -392,7 +397,8 @@
       "file": "label_booster_spring_rain_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_booster_spring_rain_name.png"
     },
     "booster.spring_rain.description": {
       "text": "让树枝长大",
@@ -406,434 +412,496 @@
       "file": "label_house_mushroom_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_mushroom_name.png"
     },
     "house.teapot.name": {
       "text": "茶壶",
       "file": "label_house_teapot_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_teapot_name.png"
     },
     "house.lantern.name": {
       "text": "灯笼",
       "file": "label_house_lantern_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_lantern_name.png"
     },
     "house.acorn.name": {
       "text": "橡果",
       "file": "label_house_acorn_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_acorn_name.png"
     },
     "house.pumpkin.name": {
       "text": "南瓜",
       "file": "label_house_pumpkin_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_pumpkin_name.png"
     },
     "house.beehive.name": {
       "text": "蜂巢",
       "file": "label_house_beehive_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_beehive_name.png"
     },
     "house.teacup.name": {
       "text": "茶杯",
       "file": "label_house_teacup_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_teacup_name.png"
     },
     "house.pinecone.name": {
       "text": "松果",
       "file": "label_house_pinecone_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_pinecone_name.png"
     },
     "outfit.sunny.1.name": {
       "text": "草帽",
       "file": "label_outfit_sunny_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_1_name.png"
     },
     "outfit.sunny.2.name": {
       "text": "领结",
       "file": "label_outfit_sunny_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_2_name.png"
     },
     "outfit.sunny.3.name": {
       "text": "王冠",
       "file": "label_outfit_sunny_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_3_name.png"
     },
     "outfit.sunny.4.name": {
       "text": "小蜜蜂",
       "file": "label_outfit_sunny_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_4_name.png"
     },
     "outfit.sunny.5.name": {
       "text": "向日葵",
       "file": "label_outfit_sunny_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sunny_5_name.png"
     },
     "outfit.sky.1.name": {
       "text": "围巾",
       "file": "label_outfit_sky_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_1_name.png"
     },
     "outfit.sky.2.name": {
       "text": "护目镜",
       "file": "label_outfit_sky_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_2_name.png"
     },
     "outfit.sky.3.name": {
       "text": "礼帽",
       "file": "label_outfit_sky_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_3_name.png"
     },
     "outfit.sky.4.name": {
       "text": "鲸鱼",
       "file": "label_outfit_sky_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_4_name.png"
     },
     "outfit.sky.5.name": {
       "text": "船长",
       "file": "label_outfit_sky_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_sky_5_name.png"
     },
     "outfit.berry.1.name": {
       "text": "眼镜",
       "file": "label_outfit_berry_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_1_name.png"
     },
     "outfit.berry.2.name": {
       "text": "蝴蝶结",
       "file": "label_outfit_berry_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_2_name.png"
     },
     "outfit.berry.3.name": {
       "text": "小皇冠",
       "file": "label_outfit_berry_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_3_name.png"
     },
     "outfit.berry.4.name": {
       "text": "莓果帽",
       "file": "label_outfit_berry_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_4_name.png"
     },
     "outfit.berry.5.name": {
       "text": "仙子",
       "file": "label_outfit_berry_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_berry_5_name.png"
     },
     "outfit.mint.1.name": {
       "text": "小花",
       "file": "label_outfit_mint_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_1_name.png"
     },
     "outfit.mint.2.name": {
       "text": "蘑菇",
       "file": "label_outfit_mint_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_2_name.png"
     },
     "outfit.mint.3.name": {
       "text": "橡果",
       "file": "label_outfit_mint_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_3_name.png"
     },
     "outfit.mint.4.name": {
       "text": "青蛙",
       "file": "label_outfit_mint_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_4_name.png"
     },
     "outfit.mint.5.name": {
       "text": "恐龙",
       "file": "label_outfit_mint_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_mint_5_name.png"
     },
     "outfit.cocoa.1.name": {
       "text": "毛线帽",
       "file": "label_outfit_cocoa_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_1_name.png"
     },
     "outfit.cocoa.2.name": {
       "text": "领结",
       "file": "label_outfit_cocoa_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_2_name.png"
     },
     "outfit.cocoa.3.name": {
       "text": "单片镜",
       "file": "label_outfit_cocoa_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_3_name.png"
     },
     "outfit.cocoa.4.name": {
       "text": "泰迪熊",
       "file": "label_outfit_cocoa_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_4_name.png"
     },
     "outfit.cocoa.5.name": {
       "text": "姜饼人",
       "file": "label_outfit_cocoa_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_cocoa_5_name.png"
     },
     "outfit.snow.1.name": {
       "text": "耳罩",
       "file": "label_outfit_snow_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_1_name.png"
     },
     "outfit.snow.2.name": {
       "text": "雪花",
       "file": "label_outfit_snow_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_2_name.png"
     },
     "outfit.snow.3.name": {
       "text": "冰冠",
       "file": "label_outfit_snow_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_3_name.png"
     },
     "outfit.snow.4.name": {
       "text": "兔兔",
       "file": "label_outfit_snow_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_4_name.png"
     },
     "outfit.snow.5.name": {
       "text": "冰雪女王",
       "file": "label_outfit_snow_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_snow_5_name.png"
     },
     "outfit.ember.1.name": {
       "text": "头巾",
       "file": "label_outfit_ember_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_1_name.png"
     },
     "outfit.ember.2.name": {
       "text": "发带",
       "file": "label_outfit_ember_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_2_name.png"
     },
     "outfit.ember.3.name": {
       "text": "头盔",
       "file": "label_outfit_ember_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_3_name.png"
     },
     "outfit.ember.4.name": {
       "text": "狐狸",
       "file": "label_outfit_ember_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_4_name.png"
     },
     "outfit.ember.5.name": {
       "text": "飞龙",
       "file": "label_outfit_ember_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ember_5_name.png"
     },
     "outfit.ink.1.name": {
       "text": "睡帽",
       "file": "label_outfit_ink_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_1_name.png"
     },
     "outfit.ink.2.name": {
       "text": "眼镜",
       "file": "label_outfit_ink_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_2_name.png"
     },
     "outfit.ink.3.name": {
       "text": "星星帽",
       "file": "label_outfit_ink_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_3_name.png"
     },
     "outfit.ink.4.name": {
       "text": "海盗",
       "file": "label_outfit_ink_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_4_name.png"
     },
     "outfit.ink.5.name": {
       "text": "忍者",
       "file": "label_outfit_ink_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_ink_5_name.png"
     },
     "outfit.hoot.1.name": {
       "text": "学士帽",
       "file": "label_outfit_hoot_1_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_1_name.png"
     },
     "outfit.hoot.2.name": {
       "text": "眼镜",
       "file": "label_outfit_hoot_2_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_2_name.png"
     },
     "outfit.hoot.3.name": {
       "text": "魔法师",
       "file": "label_outfit_hoot_3_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_3_name.png"
     },
     "outfit.hoot.4.name": {
       "text": "探险家",
       "file": "label_outfit_hoot_4_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_4_name.png"
     },
     "outfit.hoot.5.name": {
       "text": "牛仔",
       "file": "label_outfit_hoot_5_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_outfit_hoot_5_name.png"
     },
     "popup.win.title": {
       "text": "太棒了！",
       "file": "label_popup_win_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_win_title.png"
     },
     "popup.settings.title": {
       "text": "设置",
       "file": "label_popup_settings_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_settings_title.png"
     },
     "popup.level.title": {
       "text": "关卡",
       "file": "label_popup_level_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_level_title.png"
     },
     "popup.best": {
       "text": "最佳",
       "file": "label_popup_best.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_best.png"
     },
     "popup.daily_gift.title": {
       "text": "礼物",
       "file": "label_popup_daily_gift_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_daily_gift_title.png"
     },
     "popup.new_friend.title": {
       "text": "新朋友",
       "file": "label_popup_new_friend_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_new_friend_title.png"
     },
     "popup.world_complete.title": {
       "text": "通关！",
       "file": "label_popup_world_complete_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_world_complete_title.png"
     },
     "popup.world_unlock.title": {
       "text": "已解锁",
       "file": "label_popup_world_unlock_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_world_unlock_title.png"
     },
     "tutorial.title": {
       "text": "指南",
       "file": "label_tutorial_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_tutorial_title.png"
     },
     "tutorial.pick": {
       "text": "点一根树枝选鸟",
@@ -931,28 +999,32 @@
       "file": "label_doc_privacy_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_privacy_title.png"
     },
     "doc.terms.title": {
       "text": "条款",
       "file": "label_doc_terms_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_terms_title.png"
     },
     "doc.credits.title": {
       "text": "制作",
       "file": "label_doc_credits_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_credits_title.png"
     },
     "doc.contact.title": {
       "text": "联系",
       "file": "label_doc_contact_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_doc_contact_title.png"
     },
     "home.map": {
       "text": "地图",
@@ -987,7 +1059,8 @@
       "file": "label_popup_gift_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_popup_gift_title.png"
     },
     "gift.line": {
       "text": "试试看！",
@@ -1001,7 +1074,8 @@
       "file": "label_draw_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_draw_title.png"
     },
     "draw.go": {
       "text": "转",
@@ -1015,7 +1089,8 @@
       "file": "label_chest_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_chest_title.png"
     },
     "chest.open": {
       "text": "打开",
@@ -1064,7 +1139,8 @@
       "file": "label_lesson_sleep_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_sleep_title.png"
     },
     "lesson.sleep.line": {
       "text": "落上同类就能叫醒它",
@@ -1078,7 +1154,8 @@
       "file": "label_lesson_mama_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_mama_title.png"
     },
     "lesson.mama.line": {
       "text": "小鸟会跟着妈妈",
@@ -1092,7 +1169,8 @@
       "file": "label_lesson_egg_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_egg_title.png"
     },
     "lesson.egg.line": {
       "text": "揭开鸟蛋就会孵化",
@@ -1106,7 +1184,8 @@
       "file": "label_lesson_crow_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_crow_title.png"
     },
     "lesson.crow.line": {
       "text": "乌鸦从不回家",
@@ -1120,7 +1199,8 @@
       "file": "label_lesson_twig_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_twig_title.png"
     },
     "lesson.twig.line": {
       "text": "细枝只能站两只",
@@ -1134,7 +1214,8 @@
       "file": "label_lesson_swivel_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_swivel_title.png"
     },
     "lesson.swivel.line": {
       "text": "点圆结让它转向",
@@ -1148,7 +1229,8 @@
       "file": "label_lesson_growing_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_growing_title.png"
     },
     "lesson.growing.line": {
       "text": "每回家一群就多一个位置",
@@ -1162,7 +1244,8 @@
       "file": "label_lesson_daynight_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_lesson_daynight_title.png"
     },
     "lesson.daynight.line": {
       "text": "猫头鹰睡到天黑才醒",
@@ -1176,7 +1259,8 @@
       "file": "label_challenge_title.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_challenge_title.png"
     },
     "home.daily": {
       "text": "每日挑战",
@@ -1211,7 +1295,8 @@
       "file": "label_map_chapters.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_map_chapters.png"
     },
     "map.current": {
       "text": "当前",
@@ -1239,7 +1324,8 @@
       "file": "label_house_cage_name.png",
       "cap": 128,
       "line_height": 208,
-      "baseline": 160
+      "baseline": 160,
+      "heading_file": "heading_house_cage_name.png"
     },
     "settings.language": {
       "text": "语言",

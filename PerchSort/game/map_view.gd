@@ -25,15 +25,16 @@ const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
 const MARGIN := 32.0
 const BAR_Y := 24.0
 const COIN_W := 402.0
-const CARD := Vector2(640, 1040)
-const CARD_CENTER_Y := 930.0
-const STRIDE := 700.0                    # card to card; neighbours peek in from the sides
-const SIDE_SCALE := 0.84
-const WINDOW := Rect2(40, 150, 560, 760)  # the painting's window inside a card
-const PLAQUE := Rect2(70, 24, 500, 124)
-const STARS_Y := 970.0
+const CARD := Vector2(600, 860)
+const CARD_CENTER_Y := 860.0
+const STRIDE := 660.0                    # card to card; neighbours peek in from the sides
+const SIDE_SCALE := 0.8
+const WINDOW := Rect2(26, 26, 548, 808)  # the painting fills the card inside its rim
+const PLAQUE := Vector2(560, 170)        # the leafy name plaque over the card's lower edge
+const BADGE := 120.0                     # the world number disc on the card's top edge
+const INFO_Y := 1360.0                   # stars chip under the centred card, Play under it
 const TAP_SLOP := 18.0
-const DOT_Y := 1590.0
+const DOT_Y := 1676.0
 const DOT := 28.0
 const NAV_Y := 1782.0
 const NAV_TILE := Vector2(168, 168)
@@ -46,8 +47,8 @@ const CURRENT_CAP := 70.0
 const STAR := 44.0
 const STAR_GAP := -6.0
 const STAR_DY := 31.0
-const BIRD_FEET := 76.0
-const BIRD_SCALE := 0.72
+const BIRD_FEET := 84.0
+const BIRD_SCALE := 1.0
 const BOUNCE := 10.0
 const LOCK_COLOR := Color8(150, 110, 70)
 
@@ -67,6 +68,8 @@ var _press_x := 0.0
 var _travel := 0.0
 var _velocity := 0.0
 var _bird: BirdView
+var _info: Control                       # stars chip and Play of the centred world
+var _info_world := 0
 
 
 func setup(player: Profile) -> void:
@@ -77,6 +80,7 @@ func setup(player: Profile) -> void:
 	_dots.clear()
 	_page = null
 	_bird = null
+	_info_world = 0
 	_pressed = false
 	size = Vector2(1080, 1920)
 	clip_contents = true
@@ -156,6 +160,11 @@ func _build_carousel() -> void:
 	add_child(_carousel)
 	for world in range(1, Levels.WORLDS + 1):
 		_cards.append(_build_card(world))
+	_info = Control.new()
+	_info.name = "Info"
+	_info.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_info.size = size
+	_carousel.add_child(_info)
 	var dots := Control.new()
 	dots.name = "Dots"
 	dots.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -176,32 +185,29 @@ func _build_card(world: int) -> Control:
 	card.pivot_offset = CARD * 0.5
 	_carousel.add_child(card)
 	Island.nine(card, "island_grid_card", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60)).name = "Frame"
+	var chosen := Island.nine(card, "island_grid_card_selected", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60))
+	chosen.name = "Chosen"
 	var window := Control.new()
 	window.name = "Window"
 	window.clip_contents = true
 	window.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(window, WINDOW)
 	card.add_child(window)
-	var painting := UI.image(window, "map_world_w%d" % world, Rect2(0, -(WINDOW.size.x * 1.5 - WINDOW.size.y) * 0.5, WINDOW.size.x, WINDOW.size.x * 1.5), false)
+	var tall := WINDOW.size.x * 1.5
+	var painting := UI.image(window, "map_world_w%d" % world, Rect2(0, -(tall - WINDOW.size.y) * 0.5, WINDOW.size.x, tall), false)
 	painting.name = "Painting"
-	var plaque := Island.piece(card, "island_plaque_blank", PLAQUE.position, PLAQUE.size.x)
+	var plaque := Island.piece_fit(card, "island_ribbon_plaque", Vector2(CARD.x * 0.5, CARD.y - 70.0), PLAQUE)
 	plaque.name = "Plaque"
-	UI.heading(card, WORLD_NAMES[world - 1], Rect2(PLAQUE.position + Vector2(110, 22), PLAQUE.size - Vector2(220, 54)), 46.0)
-	# Stars collected, n out of the world's thirty.
-	var row := Control.new()
-	row.name = "Stars"
-	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	card.add_child(row)
-	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
-	var w := UI.number_width(text, 48.0)
-	var x := (CARD.x - (60.0 + 12.0 + w)) * 0.5
-	Island.piece_fit(row, "island_star_full", Vector2(x + 30.0, STARS_Y), Vector2(60, 60))
-	UI.number(row, text, Rect2(x + 72.0, STARS_Y - 28.0, w + 2.0, 56.0), UI.INK, -1)
+	UI.heading(card, WORLD_NAMES[world - 1], Rect2(plaque.position + plaque.size * Vector2(0.2, 0.1), plaque.size * Vector2(0.6, 0.72)), 64.0)
+	# The world number on a green disc over the card's top edge.
+	var badge := UI.image(card, "island_badge_green", Rect2(CARD.x * 0.5 - BADGE * 0.5, -BADGE * 0.42, BADGE, BADGE), false)
+	badge.name = "Number"
+	Island.digits(badge, str(world), Rect2(BADGE * 0.22, BADGE * 0.2, BADGE * 0.56, BADGE * 0.56))
 	if not open:
 		window.modulate = Color(0.55, 0.55, 0.6)
-		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y), Vector2(170, 170)).name = "Lock"
+		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 40.0), Vector2(190, 190)).name = "Lock"
 	elif _world_cleared(world):
-		Island.check_badge(card, Vector2(CARD.x - 58.0, 190.0)).name = "Done"
+		Island.check_badge(card, Vector2(CARD.x - 50.0, 50.0)).name = "Done"
 	return card
 
 ## Places every card by its distance from the carousel position: the centred one large, neighbours smaller and behind.
@@ -214,13 +220,45 @@ func _layout() -> void:
 		card.scale = Vector2.ONE * s
 		card.position = Vector2(540.0 + d * STRIDE, CARD_CENTER_Y) - CARD * 0.5
 		card.modulate = Color(1, 1, 1, lerpf(1.0, 0.9, near)) if absf(d) < 2.2 else Color(1, 1, 1, 0)
-		card.z_index = 10 - int(round(absf(d) * 3.0))
+		card.get_node("Chosen").visible = absf(d) < 0.5
+	# Nearer cards draw over farther ones: reorder siblings (z_index would also lift them over popups).
+	var order := range(_cards.size())
+	order.sort_custom(func(x, y): return absf(float(x) - _pos) > absf(float(y) - _pos))
+	for k in order.size():
+		_carousel.move_child(_cards[order[k]], k)
+	if roundi(_pos) + 1 != _info_world:
+		_build_info(roundi(_pos) + 1)
 	for i in _dots.size():
 		var on := i == roundi(_pos)
 		var dot: TextureRect = _dots[i]
 		dot.modulate = Color(0.3, 0.75, 0.2) if on else Color(1, 1, 1, 0.7)
 		dot.scale = Vector2.ONE * (1.25 if on else 1.0)
 		dot.pivot_offset = dot.size * 0.5
+
+## Under the centred card: its stars (n of 30) on a cream chip and the green Play that opens the world page.
+func _build_info(world: int) -> void:
+	_info_world = world
+	for c in _info.get_children():
+		c.queue_free()
+	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
+	var w := UI.number_width(text, 52.0)
+	var chip_w := w + 150.0
+	var chip := Rect2(540.0 - chip_w * 0.5, INFO_Y, chip_w, 96.0)
+	Island.nine(_info, "island_pill_cream", chip, Vector4(60, 50, 60, 50)).name = "Stars"
+	Island.piece_fit(_info, "island_star_full", Vector2(chip.position.x + 60.0, chip.get_center().y - 2.0), Vector2(66, 66))
+	UI.number(_info, text, Rect2(chip.position.x + 104.0, chip.position.y + 20.0, w + 4.0, 52.0), UI.INK, -1)
+	var play := UI.pill(_info, "Play", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, chip.end.y + 28.0), UI.PLAY_SIZE), "green",
+		"action.play", func(): _play(world), "play", 64.0)
+	UI.set_active(play, Progress.is_world_unlocked(profile, world))
+
+func _play(world: int) -> void:
+	if world != _world or _page != null:
+		return
+	if Progress.is_world_unlocked(profile, world):
+		open_world(world)
+	else:
+		Sound.play("error")
+		gate_tapped.emit(world)
 
 func _set_pos(value: float) -> void:
 	_pos = value
@@ -306,8 +344,14 @@ func open_world(world: int) -> void:
 	move_child(_page, _bar.get_index())
 	var painting := UI.image(_page, "map_world_w%d" % world, Rect2(0, PAGE_TOP, 1080, 1620), false)
 	painting.name = "Painting"
-	var plank := Island.hanging_sign(_page, 540.0, 190.0, 460.0)
-	UI.heading(_page, WORLD_NAMES[world - 1], plank, 50.0)
+	var plank := Island.hanging_sign(_page, 540.0, 200.0, 680.0)
+	UI.heading(_page, WORLD_NAMES[world - 1], plank.grow_individual(50.0, 34.0, 50.0, 20.0), 76.0)
+	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
+	var w := UI.number_width(text, 44.0)
+	var chip := Rect2(540.0 - (w + 130.0) * 0.5, 300.0, w + 130.0, 80.0)
+	Island.nine(_page, "island_pill_cream", chip, Vector4(60, 50, 60, 50)).name = "Stars"
+	Island.piece_fit(_page, "island_star_full", Vector2(chip.position.x + 52.0, chip.get_center().y - 2.0), Vector2(56, 56))
+	UI.number(_page, text, Rect2(chip.position.x + 90.0, chip.position.y + 18.0, w + 4.0, 44.0), UI.INK, -1)
 	for n in Levels.PER_WORLD:
 		_build_node((world - 1) * Levels.PER_WORLD + n + 1)
 	if not _instant():
@@ -341,23 +385,31 @@ func _build_node(level: int) -> void:
 	var face := Vector2(c.x, c.y - 5.0)
 	match state:
 		"locked":
-			_disc(layer, "map_node", c, NODE)
-			UI.icon(layer, "lock", face, 56.0, LOCK_COLOR)
-			layer.modulate = Color(0.86, 0.84, 0.8)
+			_disc(layer, "island_round_plate", c, NODE * 0.92)
+			Island.piece_fit(layer, "island_padlock", face + Vector2(0, 4), Vector2(64, 64))
 			_hit(layer, c, NODE, level)
 		"cleared":
-			_disc(layer, "map_node", c, NODE)
-			_number(layer, shown, face - Vector2(0, 24), NODE_CAP)
-			UI.rating_stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
+			_disc(layer, "island_badge_green", c, NODE)
+			_white_number(layer, shown, face - Vector2(0, 12), NODE_CAP)
+			UI.rating_stars(layer, Vector2(c.x, c.y + STAR_DY + 6.0), STAR, STAR_GAP, profile.best_stars(level))
 			_hit(layer, c, NODE, level)
 		"current":
-			_disc(layer, "map_node_current", c, CURRENT)
-			_number(layer, shown, face - Vector2(0, 10), CURRENT_CAP)
+			var glow := UI.image(layer, "glow_soft", Rect2(c - Vector2.ONE * CURRENT * 0.9, Vector2.ONE * CURRENT * 1.8))
+			glow.modulate = Color(1.0, 0.85, 0.3, 0.9)
+			_disc(layer, "island_badge_green", c, CURRENT)
+			_white_number(layer, shown, face, CURRENT_CAP)
 			_hit(layer, c, CURRENT, level)
 			if level == current_level:
 				_add_bird(layer, Vector2(c.x, c.y - BIRD_FEET), _level_species(level))
 			if not _instant():
 				_bounce(layer)
+
+## Level number in the painted white digits (the homepage digits), centred.
+func _white_number(layer: Control, value: int, center: Vector2, cap: float) -> void:
+	var text := str(value)
+	var h := cap * 1.25
+	var w := h * 0.8 * text.length()
+	Island.digits(layer, text, Rect2(center - Vector2(w, h) * 0.5, Vector2(w, h)))
 
 func _hit(layer: Control, c: Vector2, diameter: float, level: int) -> void:
 	var b := UI.hit_area(layer, Rect2(c - Vector2.ONE * (diameter + 32.0) * 0.5, Vector2.ONE * (diameter + 32.0)),

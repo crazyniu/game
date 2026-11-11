@@ -85,7 +85,7 @@ const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
 const SECONDARY := 128.0
-const PLAY_SIZE := Vector2(400.0, 144.0)   # at most 1.25 x the 128 secondary buttons
+const PLAY_SIZE := Vector2(480.0, 150.0)   # 1.25 x the popup secondary pills (Modal.SECONDARY_PILL)
 const COUNTER_H := 96.0
 const NUMBER_X := 100.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
@@ -191,7 +191,7 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 
 ## Painted full-colour pictures (tools/kit/pics, booster illustrations) that replace the white symbols wherever an
 ## icon sits on cream or on a scene. White symbols remain only on solid green and red fills (play, check, close).
-const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
+const PICTURES := {"star": "island_star_full", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
 	"back": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
 	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
@@ -205,7 +205,7 @@ static func picture_of(name: String, color: Color) -> String:
 	if not PICTURES.has(name) or (color.r > 0.99 and color.g > 0.99 and color.b > 0.99):
 		return ""
 	if name == "star" and color.is_equal_approx(FADED):
-		return "pic_star_empty"
+		return "island_star_empty"
 	return PICTURES[name]
 
 const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell", "sun", "moon"]
@@ -304,7 +304,7 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.size = r.size
 	b.add_child(content)
-	cap = minf(cap if cap > 0.0 else 56.0, r.size.y * 0.40)   # words fill about two fifths of the button height (sketch)
+	cap = minf(cap if cap > 0.0 else 56.0, r.size.y * 0.46)   # words fill about half the button height (island mockups)
 	var pad := r.size.y * 0.42
 	var x := pad
 	var w := r.size.x - pad * 2.0
@@ -491,7 +491,7 @@ static func rating_stars(parent: Node, center: Vector2, size: float, gap: float,
 	var out := []
 	for i in count:
 		var star := TextureRect.new()
-		star.texture = Art.tex("pic_star" if i < filled else "pic_star_empty")
+		star.texture = Art.tex("island_star_full" if i < filled else "island_star_empty")
 		star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		star.mouse_filter = Control.MOUSE_FILTER_IGNORE

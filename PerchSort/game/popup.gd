@@ -1,21 +1,23 @@
 class_name Modal
 extends Control
-## Shared modal (docs/design/island-style.md): dim backdrop, one cream panel whose height follows its content, a painted
-## localized title at the top inside the panel, an optional close button on the panel's top-right corner, and actions
-## in a row centred under the panel. Content uses absolute design coordinates; add it to `content`.
+## Shared modal (docs/design/island-style.md): dim backdrop, one wide wooden-framed panel whose height follows its
+## content, a large hanging sign with the gold title straddling the panel's top edge, an optional close tile on the
+## panel's top-right corner, and the actions inside the panel at its bottom. Content uses absolute design coordinates;
+## add it to `content`.
 
 signal closed
 
-const WIDTH := 864.0
-const TITLE_CAP := 56.0
-const TITLE_TOP := 56.0          # panel top to the title's cap top
-const BODY_GAP := 40.0           # title cap bottom to the first content group
-const BOTTOM := 56.0             # last content group to the panel's visible bottom (above its edge)
-const GAP := 32.0                # between content groups
+const WIDTH := 960.0
+const HEAD := 150.0              # panel top to the first content group: the lower half of the sign and some air
+const BOTTOM := 64.0             # last content group to the panel's visible bottom (no actions)
+const GAP := 36.0                # between content groups
 const INSET := 72.0              # panel edge to content: the wooden frame (48 px) and a little air
-const CLOSE := 128.0
-const ACTION_DROP := 48.0        # panel bottom to the action row's top
-const ACTION_GAP := 56.0
+const CLOSE := 120.0
+const ACTION_DROP := 48.0        # last content group to the action block
+const ACTION_BOTTOM := 104.0     # action block to the panel's bottom edge (the frame's flowers and shell)
+const ACTION_GAP := 32.0
+const SIGN_W := 760.0            # the hanging title sign
+const SIGN_ABOVE := 250.0        # how far the sign reaches above the panel top
 const DIM := Color(0.118, 0.165, 0.102, 0.55)
 
 var content: Control
@@ -37,10 +39,11 @@ static func open(host: Control, title_id: String, heights: Array, close_button :
 	for h in heights:
 		inner += h
 	inner += GAP * maxf(0.0, heights.size() - 1)
-	var head := (TITLE_TOP + TITLE_CAP + BODY_GAP) if not title_id.is_empty() else BOTTOM
-	var panel_h := roundf(head + inner + BOTTOM + 12.0)
-	var below := (ACTION_DROP + action_h) if action_h > 0.0 else 0.0
-	var top := roundf((1920.0 - (above + panel_h + below)) * 0.5 + above)
+	var head := HEAD if not title_id.is_empty() else BOTTOM
+	var tail := (ACTION_DROP + action_h + ACTION_BOTTOM) if action_h > 0.0 else BOTTOM
+	var panel_h := roundf(head + inner + tail)
+	var lift := maxf(above, SIGN_ABOVE if not title_id.is_empty() else 0.0)
+	var top := clampf(roundf((1920.0 - (lift + panel_h)) * 0.5 + lift), lift + 20.0, maxf(lift + 20.0, 1900.0 - panel_h))
 	var panel := Rect2((1080.0 - WIDTH) * 0.5, top, WIDTH, panel_h)
 	var p := Modal.new()
 	p.name = "Popup"
@@ -59,7 +62,7 @@ static func open(host: Control, title_id: String, heights: Array, close_button :
 		ys.append(y)
 		y += h + GAP
 	p.set_meta("ys", ys)
-	p.set_meta("actions_y", panel.end.y + ACTION_DROP)
+	p.set_meta("actions_y", panel.end.y - ACTION_BOTTOM - action_h)
 	if not instant:
 		p._appear()
 	return p
@@ -86,32 +89,38 @@ func _build() -> void:
 	if not _title_id.is_empty():
 		_title()
 	if _has_close:
-		Island.button(content, "Close", "island_close_tile", Rect2(panel_rect.end.x - 92.0, panel_rect.position.y - 40.0, 112, 112), close)
+		Island.button(content, "Close", "island_close_tile", Rect2(panel_rect.end.x - 96.0, panel_rect.position.y - 44.0, CLOSE, CLOSE), close)
 
-## The title sits on the painted ribbon straddling the panel's top edge, in white; level numbers stay numeral sprites.
+## The title is the gold painted heading on the big hanging sign whose plank straddles the panel's top edge; level
+## numbers stay numeral sprites beside it.
 const RIBBON_H := 172.0
-const RIBBON_TEXT_PAD := 150.0   # ribbon tails and rounded ends on each side of the words
+const TITLE_CAP := 92.0
 
 func _title() -> void:
-	var cap := 46.0
-	var max_text := WIDTH - (224.0 if _has_close else 128.0) - RIBBON_TEXT_PAD * 2.0 + 120.0
-	var word_w := UI.label_width(_title_id, cap)
-	var num_w := UI.number_width(_title_number, cap) if not _title_number.is_empty() else 0.0
+	var cap := TITLE_CAP
+	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 4.0, SIGN_W)
+	var max_text := plank.size.x * 1.25
+	var gold := UiText.has_heading(_title_id)
+	var word_w := UI.heading_width(_title_id, cap) if gold else UI.label_width(_title_id, cap)
+	var num_w := UI.number_width(_title_number, cap * 0.8) if not _title_number.is_empty() else 0.0
 	var natural := word_w + ((20.0 + num_w) if num_w > 0.0 else 0.0)
 	var k := minf(1.0, max_text / natural)
 	cap *= k
 	word_w *= k
 	num_w *= k
 	var text_w := natural * k
-	var sign_w := clampf(text_w + 300.0, 520.0, 700.0)
-	var plank := Island.hanging_sign(_title_layer, 540.0, panel_rect.position.y + 6.0, sign_w)
 	var cy := plank.get_center().y
 	var x := 540.0 - text_w * 0.5
-	var title := UI.label(_title_layer, _title_id, Rect2(x, cy - 56.0 * k, word_w, 112.0 * k), cap, Color.WHITE)
+	var title: TextureRect
+	if gold:
+		title = UI.heading(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap)
+	else:
+		title = UI.label(_title_layer, _title_id, Rect2(x, cy - cap * 1.1, word_w, cap * 2.2), cap, Color.WHITE)
+		UI.outline_to(title, "orange")
 	title.name = "Title"
-	UI.outline_to(title, "orange")
 	if num_w > 0.0:
-		UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.5, num_w, cap), Color.WHITE)
+		var num := UI.number(_title_layer, _title_number, Rect2(x + word_w + 20.0 * k, cy - cap * 0.4, num_w, cap * 0.8), UI.GOLD)
+		num.name = "TitleNumber"
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED and _title_layer != null and not _title_number.is_empty():
@@ -131,12 +140,12 @@ func _appear() -> void:
 	_appearance.tween_property(content, "scale", Vector2.ONE, 0.18 if quick else 0.3).set_trans(
 		Tween.TRANS_QUAD if quick else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Actions under the panel, every one a long pill with a word (no round buttons in popups). Each item:
+## Actions at the bottom inside the panel, every one a long pill with a word (no round buttons in popups). Each item:
 ## [kind ("green" primary, "orange" secondary), icon, callback] or [kind, icon, callback, label id]; the word comes
 ## from the label id, else from the icon (ACTION_WORDS). Green pills are PLAY_SIZE and sit on the first row; the
 ## others are SECONDARY_PILL (1/1.25 of it) on a second row. By default pressing one closes the popup first.
 ## Returns the buttons in item order.
-const SECONDARY_PILL := Vector2(320.0, 116.0)
+const SECONDARY_PILL := Vector2(384.0, 120.0)   # 1/1.25 of UI.PLAY_SIZE
 const ROW_STACK := 28.0
 const ACTION_WORDS := {"play": "action.play", "check": "action.ok", "right": "action.next", "retry": "action.replay",
 	"home": "action.home", "buy": "action.buy"}
@@ -174,7 +183,7 @@ func actions(items: Array, closes := true) -> Array:
 			var word: String = it[3] if it.size() > 3 else ACTION_WORDS.get(it[1], "action.ok")
 			var n: String = it[3] if it.size() > 3 else str(it[1]).capitalize()
 			out[i] = UI.pill(content, n, Rect2(Vector2(x, y), dimensions), it[0], word, func(): invoke(cb, closes), "",
-				52.0 if r == 0 else 44.0)
+				64.0 if r == 0 else 50.0)
 			x += dimensions.x + ACTION_GAP
 		y += dimensions.y + ROW_STACK
 	return out

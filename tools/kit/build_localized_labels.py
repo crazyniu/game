@@ -28,9 +28,15 @@ def load_font(catalog_path, settings, weight):
     return font
 
 
+GOLD_TOP = (255, 232, 110)
+GOLD_BOTTOM = (245, 160, 20)
+BROWN = (122, 58, 14, 255)
+
+
 def render(text, font, locale, metrics, destination, heading=False):
+    """Plain labels are white; a heading is island lettering: gold gradient fill, soft top shine, brown outline and shadow."""
     scale = metrics["cap"] / -font.getbbox("H", anchor="ls")[1]
-    stroke = round(metrics["cap"] * 0.10) if heading else 0
+    stroke = round(metrics["cap"] * 0.12) if heading else 0
     padding = metrics["padding"] + stroke
     lines = text.split("\n")
     bounds = [font.getbbox(line, anchor="ls", language=locale) for line in lines]
@@ -40,16 +46,44 @@ def render(text, font, locale, metrics, destination, heading=False):
         for line, box in zip(lines, bounds)
     )
     width = math.ceil((right - left) * scale + padding * 2)
-    height = metrics["line_height"] * len(lines) + stroke * 2
-    image = Image.new("RGBA", (math.ceil(width / scale), math.ceil(height / scale)))
+    height = metrics["line_height"] * len(lines) + stroke * 2 + (round(metrics["cap"] * 0.06) if heading else 0)
+    size = (math.ceil(width / scale), math.ceil(height / scale))
+    image = Image.new("RGBA", size)
     draw = ImageDraw.Draw(image)
     outline = {"stroke_width": round(stroke / scale), "stroke_fill": "#96521c"} if heading else {}
     if not heading and metrics.get("embolden"):   # thin faces (Chinese) are thickened with a same-colour stroke
         outline = {"stroke_width": round(metrics["embolden"] / scale), "stroke_fill": "white"}
-    for row, line in enumerate(lines):
-        x = padding / scale - left
-        baseline = (metrics["baseline"] + row * metrics["line_height"] + stroke) / scale
-        draw.text((x, baseline), line, font=font, fill="white", anchor="ls", language=locale, **outline)
+    if heading:
+        outline_layer = Image.new("RGBA", size)
+        fill_mask = Image.new("L", size)
+        odraw = ImageDraw.Draw(outline_layer)
+        mdraw = ImageDraw.Draw(fill_mask)
+        for row, line in enumerate(lines):
+            x = padding / scale - left
+            baseline = (metrics["baseline"] + row * metrics["line_height"] + stroke) / scale
+            odraw.text((x, baseline), line, font=font, fill=BROWN, anchor="ls", language=locale,
+                       stroke_width=round(stroke / scale), stroke_fill=BROWN)
+            mdraw.text((x, baseline), line, font=font, fill=255, anchor="ls", language=locale)
+        gradient = Image.new("RGBA", size)
+        gpix = gradient.load()
+        for y in range(size[1]):
+            t = min(1.0, max(0.0, y / size[1]))
+            col = tuple(round(GOLD_TOP[i] * (1 - t) + GOLD_BOTTOM[i] * t) for i in range(3)) + (255,)
+            for x in range(size[0]):
+                gpix[x, y] = col
+        shine = Image.new("RGBA", size, (255, 255, 255, 0))
+        sdraw = ImageDraw.Draw(shine)
+        sdraw.rectangle((0, 0, size[0], int(size[1] * 0.42)), fill=(255, 255, 255, 70))
+        gradient = Image.alpha_composite(gradient, shine)
+        shadow = Image.new("RGBA", size)
+        shadow.paste((60, 25, 5, 110), (0, round(metrics["cap"] * 0.05 / scale)), outline_layer.split()[3])
+        image = Image.alpha_composite(shadow, outline_layer)
+        image.paste(gradient, (0, 0), fill_mask)
+    else:
+        for row, line in enumerate(lines):
+            x = padding / scale - left
+            baseline = (metrics["baseline"] + row * metrics["line_height"] + stroke) / scale
+            draw.text((x, baseline), line, font=font, fill="white", anchor="ls", language=locale, **outline)
     image.resize((width, height), Image.Resampling.LANCZOS).save(destination)
 
 
@@ -106,9 +140,12 @@ def main():
         for role, weight in settings["weights"].items()
     }
     shared = {key: metrics[key] for key in ("cap", "line_height", "baseline")}
-    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8")) if args.numbers_only or args.labels_only else {
-        "locale": locale, "labels": {}
-    }
+    existing = output / "manifest.json"
+    previous = json.loads(existing.read_text(encoding="utf-8")) if existing.exists() else {}
+    manifest = previous if args.numbers_only or args.labels_only else {"locale": locale, "labels": {}}
+    # Painted (image-generated) words are not rendered here; a full rebuild must keep them.
+    if "painted" in previous:
+        manifest["painted"] = previous["painted"]
     labels = {label_id: catalog["labels"][label_id] for label_id in args.labels_only} if args.labels_only else catalog["labels"]
     if args.numbers_only:
         labels = {}
@@ -119,9 +156,7 @@ def main():
         face = fonts[role]   # one typeface family for every word and numeral, a lighter weight than the old display face
         render(text, face, locale, metrics, output / filename)
         manifest["labels"][label_id] = {"text": text, "file": filename, **shared}
-        if label_id in ("aviary.title", "shop.title") or (
-            label_id.startswith(("bird.", "world.")) and label_id.endswith(".name")
-        ):
+        if label_id.endswith((".title", ".name")) or label_id in ("map.chapters", "popup.best"):
             heading_file = "heading_" + label_id.replace(".", "_") + ".png"
             render(text, fonts["title"], locale, metrics, output / heading_file, heading=True)
             manifest["labels"][label_id]["heading_file"] = heading_file

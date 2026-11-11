@@ -91,6 +91,13 @@ static func languages() -> Array:
 	_load_pack()
 	return _catalog["locales"].keys()
 
+## The word `id` painted in another language's pack (the language chooser names each language in its own words).
+static func foreign_label(code: String, id: String) -> Texture2D:
+	_load_pack()
+	var path: String = ROOT + _catalog["locales"][code]
+	var pack: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return load(path.get_base_dir() + "/" + pack["labels"][id]["file"])
+
 ## The code after `code` in catalog order, wrapping around.
 static func next_language(code: String) -> String:
 	var all := languages()
@@ -171,8 +178,7 @@ static func painted(parent: Node, id: String, bounds: Rect2, align := 0) -> Text
 
 static func _fit_painted(image: PaintedSprite) -> void:
 	_load_pack()
-	var entry: Dictionary = _pack["painted"][image.painted_id]
-	var base: Texture2D = load(_folder + entry["file"])
+	var base := _painted_ink(image.painted_id)
 	var natural := base.get_size()
 	var k := minf(image.bounds.size.x / natural.x, image.bounds.size.y / natural.y)
 	var shown := natural * k
@@ -182,6 +188,21 @@ static func _fit_painted(image: PaintedSprite) -> void:
 	image.position = image.bounds.position + Vector2(free.x * (0.5 + 0.5 * image.align), free.y * 0.5)
 	image.pivot_offset = shown * 0.5
 
+## A painted word cut to its visible ink: the pictures carry uneven transparent margins, so words fit their boxes
+## by what is actually drawn.
+static var _ink_cache := {}
+
+static func _painted_ink(id: String) -> Texture2D:
+	var path: String = _folder + _pack["painted"][id]["file"]
+	if not _ink_cache.has(path):
+		var base: Texture2D = load(path)
+		var used := base.get_image().get_used_rect()
+		var cut := AtlasTexture.new()
+		cut.atlas = base
+		cut.region = Rect2(used.grow(2)).intersection(Rect2(Vector2.ZERO, base.get_size()))
+		_ink_cache[path] = cut
+	return _ink_cache[path]
+
 ## The width a painted word takes when its height is `height` (for laying out rows before placing them).
 static func has_painted(id: String) -> bool:
 	_load_pack()
@@ -189,7 +210,7 @@ static func has_painted(id: String) -> bool:
 
 static func painted_width(id: String, height: float) -> float:
 	_load_pack()
-	var base: Texture2D = load(_folder + _pack["painted"][id]["file"])
+	var base := _painted_ink(id)
 	return base.get_width() * height / base.get_height()
 
 
@@ -216,6 +237,10 @@ static func _fit_label(image: LabelSprite) -> void:
 		image.position = origin
 	image.pivot_offset = image.size * 0.5
 
+
+static func has_heading(id: String) -> bool:
+	_load_pack()
+	return _pack["labels"].has(id) and _pack["labels"][id].has("heading_file")
 
 static func label_width(id: String, cap: float, heading := false) -> float:
 	_load_pack()

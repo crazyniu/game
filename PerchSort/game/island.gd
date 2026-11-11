@@ -108,21 +108,81 @@ static func badge(parent: Node, center: Vector2, count: int, red := false) -> Co
 static func check_badge(parent: Node, center: Vector2) -> TextureRect:
 	return UI.image(parent, "island_badge_check", Rect2(center - Vector2.ONE * BADGE_SIZE * 0.5, Vector2.ONE * BADGE_SIZE), false)
 
-## The feather price: the homepage counter without its plus (gold feather coin, dark pill) with the price in the same
-## painted digits; a locked price is the same bar greyed out.
+## The feather price: the feather coin on a gold bar (island_price_gold) with the price in the painted digits in dark
+## ink; a locked price is the same bar greyed out.
+const PRICE_INK := Color(0.29, 0.15, 0.06)
+
 static func price_pill(parent: Node, r: Rect2, price: int, locked := false) -> Control:
-	var tex := Art.tex("island_price_bar")
+	var holder := _coin_bar(parent, r, "Price")
+	if locked:
+		holder.get_child(0).modulate = Color(0.72, 0.7, 0.68)
+	var shown := holder.size
+	digits(holder, str(clampi(price, 0, 99999)), Rect2(shown.x * 0.38, shown.y * 0.22, shown.x * 0.50, shown.y * 0.56), PRICE_INK)
+	return holder
+
+## A gained amount ("+30") on the same gold coin bar; the number box is the child named "Number".
+static func reward_bar(parent: Node, r: Rect2, text: String) -> Control:
+	var holder := _coin_bar(parent, r, "Reward")
+	var shown := holder.size
+	var cap := shown.y * 0.46
+	var w := minf(shown.x * 0.56, UI.number_width(text, cap))
+	var box := UI.number(holder, text, Rect2(shown.x * 0.36 + (shown.x * 0.56 - w) * 0.5, (shown.y - cap) * 0.5 - 2.0, w, cap), PRICE_INK)
+	box.name = "Number"
+	return holder
+
+static func _coin_bar(parent: Node, r: Rect2, n: String) -> Control:
+	var tex := Art.tex("island_price_gold")
 	var k := minf(r.size.x / tex.get_width(), r.size.y / tex.get_height())
 	var shown := tex.get_size() * k
 	var holder := Control.new()
-	holder.name = "Price"
+	holder.name = n
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(holder, Rect2(r.get_center() - shown * 0.5, shown))
 	parent.add_child(holder)
-	var bar := UI.image(holder, "island_price_bar", Rect2(Vector2.ZERO, shown), false)
-	if locked:
-		bar.modulate = Color(0.72, 0.7, 0.68)
-	digits(holder, str(clampi(price, 0, 99999)), Rect2(shown.x * 0.40, shown.y * 0.24, shown.x * 0.50, shown.y * 0.52))
+	UI.image(holder, "island_price_gold", Rect2(Vector2.ZERO, shown), false)
+	return holder
+
+## Green "+N" badge (a gained count on a prize picture).
+static func plus_badge(parent: Node, center: Vector2, count: int) -> Control:
+	var s := BADGE_SIZE * 1.15
+	var holder := Control.new()
+	holder.name = "PlusBadge"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, Rect2(center - Vector2.ONE * s * 0.5, Vector2.ONE * s))
+	parent.add_child(holder)
+	UI.image(holder, "island_badge_green", Rect2(Vector2.ZERO, Vector2.ONE * s), false)
+	UI.number(holder, "+%d" % count, Rect2(s * 0.14, s * 0.3, s * 0.72, s * 0.38), Color.WHITE)
+	return holder
+
+## Star progress bar: a dark track, a green fill for `fill` (0..1), the gold star over its left end and the count.
+static func progress_bar(parent: Node, r: Rect2, fill: float, text: String) -> Control:
+	var holder := Control.new()
+	holder.name = "Progress"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, r)
+	parent.add_child(holder)
+	var star := r.size.y * 1.25
+	var track := Rect2(star * 0.45, r.size.y * 0.12, r.size.x - star * 0.45, r.size.y * 0.76)
+	nine(holder, "island_progress_track", track, Vector4(44, 40, 44, 40))
+	if fill > 0.0:
+		var inner := track.grow(-track.size.y * 0.12)
+		var clip := Control.new()
+		clip.clip_contents = true
+		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(clip, Rect2(inner.position, Vector2(maxf(inner.size.y, inner.size.x * fill), inner.size.y)))
+		holder.add_child(clip)
+		nine(clip, "island_pill_green", Rect2(Vector2.ZERO, inner.size), Vector4(56, 48, 56, 48))
+	var cut := AtlasTexture.new()
+	cut.atlas = Art.tex("island_progress_star")
+	cut.region = Rect2(0, 0, 130, 128)
+	var icon := TextureRect.new()
+	icon.texture = cut
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(icon, Rect2(Vector2(-star * 0.1, (r.size.y - star) * 0.5), Vector2(star * 130.0 / 128.0, star)))
+	holder.add_child(icon)
+	var cap := r.size.y * 0.42
+	UI.number(holder, text, Rect2(track.position.x + star * 0.4, (r.size.y - cap) * 0.5, track.size.x - star * 0.6, cap), Color.WHITE)
 	return holder
 
 ## A painted-picture button: the whole picture is the face and a press tints it. Sizes never change.

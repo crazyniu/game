@@ -55,6 +55,8 @@ def main():
     put("pill_blue", shift(green, 0.56), pill_margins(green))
     put("pill_red", shift(green, 0.0, 1.1, 1.05), pill_margins(green))
     put("pill_grey", shift(green, 0.1, 0.0, 1.15), pill_margins(green))
+    gold = load("island_pill_gold")
+    put("pill_gold", gold, pill_margins(gold))
     put("capsule", cream, pill_margins(cream))
     put("capsule_plain", cream, pill_margins(cream))
     badge = load("island_badge_green")
