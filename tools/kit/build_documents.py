@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bake the settings documents (privacy policy, terms, credits, contact) into painted text pages.
+"""Bake the settings documents (terms, credits, contact) into painted text pages.
 
 uv run --no-project --isolated --with pillow tools/kit/build_documents.py [locale]
 Source: tools/kit/locales/<locale>_docs.json ({id: {title, body}}). Output: PerchSort/art/locale/<locale>/doc_<id>.png,

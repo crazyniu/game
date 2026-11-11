@@ -140,7 +140,7 @@ static func picture(name: String) -> Texture2D:
 	return load(path) if ResourceLoader.exists(path) else Art.tex(name)
 
 
-## Baked settings document page (privacy, terms, credits, contact) of the active locale.
+## Baked settings document page (terms, credits, contact) of the active locale.
 static func document_texture(id: String) -> Texture2D:
 	_load_pack()
 	return load(_folder + "doc_%s.png" % id)

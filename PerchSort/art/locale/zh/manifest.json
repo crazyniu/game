@@ -966,13 +966,6 @@
       "line_height": 208,
       "baseline": 160
     },
-    "settings.privacy": {
-      "text": "隐私",
-      "file": "label_settings_privacy.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
     "settings.terms": {
       "text": "条款",
       "file": "label_settings_terms.png",
@@ -993,14 +986,6 @@
       "cap": 128,
       "line_height": 208,
       "baseline": 160
-    },
-    "doc.privacy.title": {
-      "text": "隐私",
-      "file": "label_doc_privacy_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_doc_privacy_title.png"
     },
     "doc.terms.title": {
       "text": "条款",

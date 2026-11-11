@@ -93,7 +93,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	return p
 
 ## Settings: music and sound switches, Restart and Home while playing, then How to Play and the documents
-## (privacy policy, terms of service, credits and licences, contact). `on` holds the callbacks: music, sound,
+## (terms of service, credits and licences, contact). `on` holds the callbacks: music, sound,
 ## restart, home, help; music and sound receive the new "on" state.
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
 	var languages := UiText.languages()
@@ -192,7 +192,7 @@ static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable)
 		on_change.call(state["on"]))
 	return b
 
-## A document page (privacy policy, terms of service, credits, contact): the baked text in a scrolling column.
+## A document page (terms of service, credits, contact): the baked text in a scrolling column.
 static func document(host: Control, id: String) -> Control:
 	var page: Texture2D = UiText.document_texture(id)
 	var column := Modal.WIDTH - 144.0
@@ -945,7 +945,6 @@ static func preview(main: Control, state: String) -> void:
 		"win_zero_reward": win(host, 3, 12, 12, 0, [], noop, noop, noop, true)
 		"settings_sound_on": settings(host, true, true, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, true)
 		"settings_muted": settings(host, false, false, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, false)
-		"document_privacy": document(host, "privacy")
 		"document_credits": document(host, "credits")
 		"level_card_first_visit": level_card(host, 1, 0, 0, 6, few, none, noop, true)
 		"level_card_full_roster": level_card(host, Levels.COUNT, 3, 28, 12, roster, mechanics, noop, true)
