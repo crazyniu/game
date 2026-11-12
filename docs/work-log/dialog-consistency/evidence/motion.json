@@ -1,0 +1,74 @@
+[
+  {
+    "state": "new_friend_berry",
+    "frames": 16,
+    "distinct": 16,
+    "times_ms": [
+      1061,
+      2200,
+      3427,
+      4623,
+      5795,
+      6985,
+      8185,
+      9381,
+      10519,
+      11685,
+      12931,
+      14303,
+      15596,
+      16801,
+      17994,
+      19208
+    ],
+    "note": "Synchronous software-renderer PNG capture adds wall-clock latency; this is motion evidence, not device timing."
+  },
+  {
+    "state": "win_three_stars",
+    "frames": 16,
+    "distinct": 16,
+    "times_ms": [
+      1128,
+      2379,
+      3651,
+      4863,
+      6227,
+      7549,
+      8749,
+      9989,
+      11230,
+      12496,
+      13776,
+      15093,
+      16303,
+      17443,
+      18610,
+      19849
+    ],
+    "note": "Synchronous software-renderer PNG capture adds wall-clock latency; this is motion evidence, not device timing."
+  },
+  {
+    "state": "world_unlock_2",
+    "frames": 16,
+    "distinct": 16,
+    "times_ms": [
+      1185,
+      2497,
+      3782,
+      5085,
+      6405,
+      7712,
+      8986,
+      10258,
+      11551,
+      12781,
+      14035,
+      15294,
+      16528,
+      17725,
+      19033,
+      20282
+    ],
+    "note": "Synchronous software-renderer PNG capture adds wall-clock latency; this is motion evidence, not device timing."
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "matches": true,
+  "sources": {
+    "family_dialog.gd": "8456449f692fe9b616c5ef2425d77f069bc8be92ba0d832a3a4acd33c885ea3a",
+    "purchase_dialog.gd": "4e68bfc07302922de4aab1796c2a81e2cd35d1d53bd9016e3deb42e420ef4277",
+    "dialog_cartoon_skin.gd": "1be5467a0909e12a20397876d5eab27c3ccea5bc9cafb5cdcc3a8452b4e3096c",
+    "aviary_view.gd": "f5d3ee9a35c2cb07a94ad219304a76694f0aa2c026b0469543ad106ae6fa01d6",
+    "shop_view.gd": "a80a3f57cfaf4de3ba92e6fb99573aae1045080de38d0cf5ad391fdbe4c1af38",
+    "popups.gd": "8677be3a4867da338f52fb87fa74b7690b945bfb54814dafc9f5238cc3e35756",
+    "coin_shop_view.gd": "7045861e831377f98419c54823ff30ff4892f263ef9398a611930e54362a74d0",
+    "map_view.gd": "b9a4683e4b8926af1bbac4d8a942d0092027dd68460a22f5fa49b33c9ddb285f"
+  },
+  "art": {
+    "PerchSort/art/island/panel_dialog_cartoon.png": "d85cfa3e55011589352a46cafdc15e31b57b93585458061459d4481e51155ddd",
+    "PerchSort/art/island/map_branch_tree.png": "539e2931be8bc1634f7bdd83f80b3b01b82a168c6a4d974d7cfdfc671a84ad34",
+    "PerchSort/art/island/background_aviary_forest.png": "a6d7be8e20610d5b3d147fa3a257dc1aaa282f1906ad9cc4d1e30f6618c0d794"
+  },
+  "original_assets": {
+    "count": 2948,
+    "changed": 0,
+    "missing": 0,
+    "full_check": "build/text-centering/all-pages/feedback-art-scope-check.json"
+  }
+}

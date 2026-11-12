@@ -1,0 +1,39 @@
+Star chest implementation
+
+Worktree: /workspace/scratch/2bd695cff14d/game-star-chest
+Base: 57445427
+Binary patch: /workspace/scratch/2bd695cff14d/chest-reference/star-chest.patch
+
+Scope
+- Only the chest block of PerchSort/game/popups.gd changed: chest, _chest_page, _chest_hero, _chest_action, _chest_rewards and their constants.
+- Independent new red-and-gold chest sprites replace no existing asset. Existing accepted jungle, support, painted words, currency bar and item illustrations are reused.
+- Added a chest-only disabled-action shader and focused regression test.
+- No progression, economy, randomness, save schema, lucky-draw code, generic reward code, documentation, commits or remote state changed.
+
+Visual result
+- Approved jungle composition, large freestanding title, wooden support, exposed star progress, same-size grey/green actions.
+- Rewards are isolated icons plus painted quantities above the opened chest, without colored reward containers. Duplicate boosters combine with exact counts.
+- Opening and closed chest states share a 610-pixel body width and y=1160 floor. The reward page has its separately specified lower hero position.
+- Images are unmodified imagegen RGBA outputs. Visible alpha>=16 rectangles drive positioning, avoiding invisible padding/noise.
+- Independent raw-material review passed after brighter scarlet, broader gold straps and a mostly gold inner-lid refinement.
+- Actual runtime review corrected the action skin's scale pivot and the support sprite's padded bounds.
+- Shared currency bar, painted words, support decorations and booster illustrations intentionally retain existing game assets; independent drawing details differ from the design reference.
+
+Verification
+- XDG directories isolated under chest-reference. Godot 4.7.2.
+- GODOT=/workspace/scratch/2bd695cff14d/godot472/godot bash scripts/run_tests.sh: naming self-tests and guard pass, painted-word guard pass, smoke 0 failures, all 100 core levels 0 failures.
+- Graphical run: godot --path game-star-chest/PerchSort --audio-driver Dummy --rendering-driver opengl3 -s res://tests/run_chest.gd -- --chest-evidence=chest-reference/gui
+- 62 checks passed, exit 0. Final graphical log has no script/resource errors; only the host graphics driver's V-Sync warning.
+- Covered zero/partial/ready/multiple-ready, exact progress threshold, same-sized buttons, disabled input, no mutation on close, repeated Open input, production coin/booster payouts, duplicate prize counts, remaining chest state, confirmation, coin-shop overlay, Play navigation, full level entrance, locale switching and mute service state.
+- Fixed Open double-tap clicking through to the appearing confirmation.
+- Captured real motion at 7138 and 7887 ms; breathing changes observed. Level entrance reached interactive state at 3505 ms.
+- No human listening, mobile-device, frame-rate or memory-budget assessment.
+
+Evidence
+- design-runtime-comparison.png: approved reference beside final runtime for both pages.
+- state-review.png: all principal states plus English/max-balance layout.
+- gui/: 456x812 real Godot viewport captures, including motion_start and motion_middle.
+- gui-tests.log, full-tests.log: exact final results.
+- asset-qa.png / asset-qa.json: light/dark raw-asset review and hashes.
+
+Desktop released to the map/aviary worker. Original unrelated game window preserved.

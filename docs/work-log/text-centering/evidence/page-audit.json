@@ -1,0 +1,2532 @@
+[
+	{
+		"error": 0.0000152587890625,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@153/Bar/Word_white_tab_boosters",
+		"state": "en/shop_view/boosters"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_sunny_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_sunny/Word_gold_bird_sunny_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sky_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_sky/Word_gold_bird_sky_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_berry/Word_gold_bird_berry_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_mint_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_mint/Word_gold_bird_mint_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_cocoa/Word_gold_bird_cocoa_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_snow_name",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_snow/Word_gold_bird_snow_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ember_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_ember/Word_gold_bird_ember_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_ink/Word_gold_bird_ink_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Scroll/Content/Grid_Outfits/Kind_hoot/Word_gold_bird_hoot_name",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_outfits",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@253/Bar/Word_white_tab_outfits",
+		"state": "en/shop_view/outfits"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_house_mushroom_name",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_mushroom/Body/Word_gold_house_mushroom_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.12567138671875,
+		"id": "gold_house_teapot_name",
+		"material": true,
+		"offset": [
+			-0.12567138671875,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_teapot/Body/Word_gold_house_teapot_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "white_equipped",
+		"material": false,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_teapot/Body/Word_white_equipped",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_lantern_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_lantern/Body/Word_gold_house_lantern_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.14544677734375,
+		"id": "gold_house_acorn_name",
+		"material": true,
+		"offset": [
+			-0.14544677734375,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_acorn/Body/Word_gold_house_acorn_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_acorn/Body/Word_white_equip",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_pumpkin_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_pumpkin/Body/Word_gold_house_pumpkin_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_beehive_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_beehive/Body/Word_gold_house_beehive_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_teacup_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_teacup/Body/Word_gold_house_teacup_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_pinecone_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_pinecone/Body/Word_gold_house_pinecone_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_cage_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Scroll/Content/Grid_Nests/house_cage/Body/Word_gold_house_cage_name",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_nests",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@298/Bar/Word_white_tab_nests",
+		"state": "en/shop_view/houses"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Bar/Word_white_tab_boosters",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Popup/Content/TitleGroup/Word_item_firefly",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@331/Popup/Content/Caption",
+		"state": "en/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_sunny_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_sunny/Word_gold_bird_sunny_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sky_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_sky/Word_gold_bird_sky_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_berry/Word_gold_bird_berry_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_mint_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_mint/Word_gold_bird_mint_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_cocoa/Word_gold_bird_cocoa_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_snow_name",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_snow/Word_gold_bird_snow_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ember_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_ember/Word_gold_bird_ember_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_ink/Word_gold_bird_ink_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Scroll/Content/Grid_Outfits/Kind_hoot/Word_gold_bird_hoot_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_outfits",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/Bar/Word_white_tab_outfits",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Page/AbilityWord",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Page/Outfits/Tile_0/Status/Word_white_equip",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Page/Outfits/Tile_1/Status/Word_white_equip",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Page/Outfits/Tile_2/Status/Word_white_equipped",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Page/Word_gold_bird_berry_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_outfit_berry_3_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@439/BirdOutfits/Popup/Content/TitleGroup/Word_gold_outfit_berry_3_name",
+		"state": "en/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Bar/Word_white_tab_boosters",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Popup/Content/TitleGroup/Word_item_owl_eye",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@591/Popup/Content/Caption",
+		"state": "en/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Bar/Word_white_tab_boosters",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Popup/Content/TitleGroup/Word_item_firefly",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@633/Popup/Content/Caption",
+		"state": "en/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_coin_purchase_preview",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@684/Popup/Content/TitleGroup/Word_gold_coin_purchase_preview",
+		"state": "en/coin_shop_view/purchase_preview"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_ok",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@684/Popup/Content/Confirm/Word_white_action_ok",
+		"state": "en/coin_shop_view/purchase_preview"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sunny_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_sunny/Word_gold_bird_sunny_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sky_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_sky/Word_gold_bird_sky_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_berry/Word_gold_bird_berry_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_mint_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_mint/Word_gold_bird_mint_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_cocoa/Word_gold_bird_cocoa_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_snow_name",
+		"material": false,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_snow/Word_gold_bird_snow_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_ember_name",
+		"material": false,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_ember/Word_gold_bird_ember_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_crow_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_crow/Word_gold_bird_crow_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_ink/Word_gold_bird_ink_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Scroll/Grid/Card_hoot/Word_gold_bird_hoot_name",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "title_aviary",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@802/Page/Word_title_aviary",
+		"state": "en/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_sunny_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@897/Page/AbilityWord",
+		"state": "en/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@897/Page/Outfits/Tile_0/Status/Word_white_equipped",
+		"state": "en/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@897/Page/Word_title_outfits",
+		"state": "en/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sunny_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@897/Page/Word_gold_bird_sunny_name",
+		"state": "en/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/AbilityWord",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/Outfits/Tile_0/Status/Word_white_equip",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/Outfits/Tile_1/Status/Word_white_equipped",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/Outfits/Tile_2/Status/Word_white_equip",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/Word_title_outfits",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1092/Page/Word_gold_bird_berry_name",
+		"state": "en/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_crow_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1288/Page/AbilityWord",
+		"state": "en/aviary_view/detail_crow"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_crow_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1288/Page/Word_gold_bird_crow_name",
+		"state": "en/aviary_view/detail_crow"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_hoot_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1395/Page/AbilityWord",
+		"state": "en/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1395/Page/Outfits/Tile_0/Status/Word_white_equipped",
+		"state": "en/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1395/Page/Word_title_outfits",
+		"state": "en/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@1395/Page/Word_gold_bird_hoot_name",
+		"state": "en/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_win_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@1798/Content/TitleGroup/Word_gold_popup_win_title",
+		"state": "en/popups/win_three_stars"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_next",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@1798/Content/action_next/Word_white_action_next",
+		"state": "en/popups/win_three_stars"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_popup_level_title",
+		"material": false,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@1976/Content/TitleGroup/Word_gold_popup_level_title",
+		"state": "en/popups/level_card_full_roster"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_ok",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/DrawResult/Content/Confirm/Word_white_action_ok",
+		"state": "en/popups/lucky_draw_coins"
+	},
+	{
+		"error": 0.0,
+		"id": "title_star_chest",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/StarChest/Content/TitleGroup",
+		"state": "en/popups/chest_ready"
+	},
+	{
+		"error": 0.0,
+		"id": "title_star_chest",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/StarChest/Content/TitleGroup",
+		"state": "en/popups/rewards_chest"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_new_friend_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2550/Content/TitleGroup/Word_gold_popup_new_friend_title",
+		"state": "en/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2550/Content/Word_gold_bird_berry_name",
+		"state": "en/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2550/Content/Ability/Word_caption_bird_berry_ability",
+		"state": "en/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2710/Content/TitleGroup/Word_item_owl_eye",
+		"state": "en/popups/unlock_owl_eye"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2710/Content/Word_cap_owl_eye",
+		"state": "en/popups/unlock_owl_eye"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_world_complete_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@2865/Content/TitleGroup/Word_gold_popup_world_complete_title",
+		"state": "en/popups/world_complete_1"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_world_unlock_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@3041/Content/TitleGroup/Word_gold_popup_world_unlock_title",
+		"state": "en/popups/world_unlock_2"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_world_bamboo_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@3041/Content/Word_gold_world_bamboo_name",
+		"state": "en/popups/world_unlock_2"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3192/Bar/Word_white_tab_boosters",
+		"state": "zh/shop_view/boosters"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sunny_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_sunny/Word_gold_bird_sunny_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_sky_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_sky/Word_gold_bird_sky_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_berry/Word_gold_bird_berry_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_mint_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_mint/Word_gold_bird_mint_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_cocoa/Word_gold_bird_cocoa_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_snow_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_snow/Word_gold_bird_snow_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ember_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_ember/Word_gold_bird_ember_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_ink/Word_gold_bird_ink_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Scroll/Content/Grid_Outfits/Kind_hoot/Word_gold_bird_hoot_name",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_outfits",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3292/Bar/Word_white_tab_outfits",
+		"state": "zh/shop_view/outfits"
+	},
+	{
+		"error": 0.268330872058868,
+		"id": "gold_house_mushroom_name",
+		"material": true,
+		"offset": [
+			-0.240005493164062,
+			-0.1199951171875
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_mushroom/Body/Word_gold_house_mushroom_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.11822509765625,
+		"id": "gold_house_teapot_name",
+		"material": true,
+		"offset": [
+			-0.11822509765625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_teapot/Body/Word_gold_house_teapot_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_teapot/Body/Word_white_equipped",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_lantern_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_lantern/Body/Word_gold_house_lantern_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_house_acorn_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_acorn/Body/Word_gold_house_acorn_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_acorn/Body/Word_white_equip",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.127655029296875,
+		"id": "gold_house_pumpkin_name",
+		"material": true,
+		"offset": [
+			0.127655029296875,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_pumpkin/Body/Word_gold_house_pumpkin_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_beehive_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_beehive/Body/Word_gold_house_beehive_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.126312255859375,
+		"id": "gold_house_teacup_name",
+		"material": true,
+		"offset": [
+			0.126312255859375,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_teacup/Body/Word_gold_house_teacup_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_house_pinecone_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_pinecone/Body/Word_gold_house_pinecone_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_house_cage_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Scroll/Content/Grid_Nests/house_cage/Body/Word_gold_house_cage_name",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_nests",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3337/Bar/Word_white_tab_nests",
+		"state": "zh/shop_view/houses"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Bar/Word_white_tab_boosters",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Popup/Content/TitleGroup/Word_item_firefly",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3370/Popup/Content/Caption",
+		"state": "zh/shop_view/confirm_booster"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sunny_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_sunny/Word_gold_bird_sunny_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_sky_name",
+		"material": true,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_sky/Word_gold_bird_sky_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_berry/Word_gold_bird_berry_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_mint_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_mint/Word_gold_bird_mint_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_cocoa/Word_gold_bird_cocoa_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_snow_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_snow/Word_gold_bird_snow_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ember_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_ember/Word_gold_bird_ember_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_ink/Word_gold_bird_ink_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Scroll/Content/Grid_Outfits/Kind_hoot/Word_gold_bird_hoot_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_outfits",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/Bar/Word_white_tab_outfits",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Page/AbilityWord",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Page/Outfits/Tile_0/Status/Word_white_equip",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Page/Outfits/Tile_1/Status/Word_white_equip",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Page/Outfits/Tile_2/Status/Word_white_equipped",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Page/Word_gold_bird_berry_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_outfit_berry_3_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3478/BirdOutfits/Popup/Content/TitleGroup/Word_gold_outfit_berry_3_name",
+		"state": "zh/shop_view/confirm_outfit"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Bar/Word_white_tab_boosters",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Popup/Content/TitleGroup/Word_item_owl_eye",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3630/Popup/Content/Caption",
+		"state": "zh/shop_view/confirm_multiple"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_firefly/Body/Word_item_firefly",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_sprout",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_sapling/Body/Word_item_sprout",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_owlEye/Body/Word_item_owl_eye",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_wake_bell",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_morningBell/Body/Word_item_wake_bell",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_scarecrow",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_scarecrow/Body/Word_item_scarecrow",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_spring_rain",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Scroll/Content/Grid_Boosters/booster_springRain/Body/Word_item_spring_rain",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "white_tab_boosters",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Bar/Word_white_tab_boosters",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "item_firefly",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Popup/Content/TitleGroup/Word_item_firefly",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_firefly",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3672/Popup/Content/Caption",
+		"state": "zh/shop_view/insufficient"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_coin_purchase_preview",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3723/Popup/Content/TitleGroup/Word_gold_coin_purchase_preview",
+		"state": "zh/coin_shop_view/purchase_preview"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_ok",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3723/Popup/Content/Confirm/Word_white_action_ok",
+		"state": "zh/coin_shop_view/purchase_preview"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_sunny_name",
+		"material": false,
+		"offset": [
+			-0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_sunny/Word_gold_bird_sunny_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sky_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_sky/Word_gold_bird_sky_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_berry/Word_gold_bird_berry_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_mint_name",
+		"material": false,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_mint/Word_gold_bird_mint_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_cocoa_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_cocoa/Word_gold_bird_cocoa_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_snow_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_snow/Word_gold_bird_snow_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0000152587890625,
+		"id": "gold_bird_ember_name",
+		"material": false,
+		"offset": [
+			0.0000152587890625,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_ember/Word_gold_bird_ember_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_crow_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_crow/Word_gold_bird_crow_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_ink_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_ink/Word_gold_bird_ink_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Scroll/Grid/Card_hoot/Word_gold_bird_hoot_name",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "title_aviary",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3841/Page/Word_title_aviary",
+		"state": "zh/aviary_view/list"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_sunny_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3936/Page/AbilityWord",
+		"state": "zh/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3936/Page/Outfits/Tile_0/Status/Word_white_equipped",
+		"state": "zh/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3936/Page/Word_title_outfits",
+		"state": "zh/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_sunny_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@3936/Page/Word_gold_bird_sunny_name",
+		"state": "zh/aviary_view/detail_sunny"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/AbilityWord",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/Outfits/Tile_0/Status/Word_white_equip",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/Outfits/Tile_1/Status/Word_white_equipped",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equip",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/Outfits/Tile_2/Status/Word_white_equip",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/Word_title_outfits",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4131/Page/Word_gold_bird_berry_name",
+		"state": "zh/aviary_view/detail_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_crow_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4327/Page/AbilityWord",
+		"state": "zh/aviary_view/detail_crow"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_crow_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4327/Page/Word_gold_bird_crow_name",
+		"state": "zh/aviary_view/detail_crow"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_hoot_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4434/Page/AbilityWord",
+		"state": "zh/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "white_equipped",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4434/Page/Outfits/Tile_0/Status/Word_white_equipped",
+		"state": "zh/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "title_outfits",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4434/Page/Word_title_outfits",
+		"state": "zh/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_hoot_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/@Control@4434/Page/Word_gold_bird_hoot_name",
+		"state": "zh/aviary_view/detail_hoot"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_win_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@4837/Content/TitleGroup/Word_gold_popup_win_title",
+		"state": "zh/popups/win_three_stars"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_next",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@4837/Content/action_next/Word_white_action_next",
+		"state": "zh/popups/win_three_stars"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_level_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5015/Content/TitleGroup/Word_gold_popup_level_title",
+		"state": "zh/popups/level_card_full_roster"
+	},
+	{
+		"error": 0.0,
+		"id": "white_action_ok",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/DrawResult/Content/Confirm/Word_white_action_ok",
+		"state": "zh/popups/lucky_draw_coins"
+	},
+	{
+		"error": 0.0,
+		"id": "title_star_chest",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/StarChest/Content/TitleGroup",
+		"state": "zh/popups/chest_ready"
+	},
+	{
+		"error": 0.0,
+		"id": "title_star_chest",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/StarChest/Content/TitleGroup",
+		"state": "zh/popups/rewards_chest"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_new_friend_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5589/Content/TitleGroup/Word_gold_popup_new_friend_title",
+		"state": "zh/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_bird_berry_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5589/Content/Word_gold_bird_berry_name",
+		"state": "zh/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "caption_bird_berry_ability",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5589/Content/Ability/Word_caption_bird_berry_ability",
+		"state": "zh/popups/new_friend_berry"
+	},
+	{
+		"error": 0.0,
+		"id": "item_owl_eye",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5749/Content/TitleGroup/Word_item_owl_eye",
+		"state": "zh/popups/unlock_owl_eye"
+	},
+	{
+		"error": 0.0,
+		"id": "cap_owl_eye",
+		"material": true,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5749/Content/Word_cap_owl_eye",
+		"state": "zh/popups/unlock_owl_eye"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_world_complete_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@5904/Content/TitleGroup/Word_gold_popup_world_complete_title",
+		"state": "zh/popups/world_complete_1"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_popup_world_unlock_title",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@6080/Content/TitleGroup/Word_gold_popup_world_unlock_title",
+		"state": "zh/popups/world_unlock_2"
+	},
+	{
+		"error": 0.0,
+		"id": "gold_world_bamboo_name",
+		"material": false,
+		"offset": [
+			0.0,
+			0.0
+		],
+		"path": "/root/Main/Popups/@Control@6080/Content/Word_gold_world_bamboo_name",
+		"state": "zh/popups/world_unlock_2"
+	}
+]

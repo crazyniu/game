@@ -1,0 +1,5 @@
+run_menu_navigation exit=0
+run_draw_purchase exit=0
+run_draw_result exit=0
+run_purchase_dialogs exit=0
+run_chest exit=0

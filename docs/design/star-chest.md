@@ -1,76 +1,88 @@
 # Star chest
 
-Status: presentation implementation requested by the user on 2026-11-11; runtime acceptance belongs to the user.
+Status: the user approved the two-column jungle chest/reward reference and authorized
+implementation, self-review and combined runtime testing. The current reference is
+`art/approved_ui/star_chest.png`. Keep the canonical `Popups.chest` / `Popups.rewards`
+interfaces; no approved-runtime baseline is replaced by this engineering review.
 
 ## Direction and scope
 
-The fourth homepage navigation button opens the star chest. Retain the bright tropical sea, compact rope-free honey-wood heading, painted gold title and dimensional green actions. The approved page-materials repair removes large cream hero/progress panels and repeated reward cards. Give each material a purpose: sea for space, a sandy wooden islet for physical support, light for celebration and a dark track for progress. Reuse clean runtime artwork; never slice a design image.
+Use the approved bright jungle, freestanding gold heading, red-and-gold chest, low wooden
+support and exposed star progress. Rewards appear as separate objects with painted amounts
+above the opened chest. Do not add hero cards, progress cards or individual reward containers.
+Retain accepted background, support, source word images, currency bar and booster art.
+Use the Home lettering and digit family for chest actions and progress. The missing Open/OK
+words and separator are independent, reviewed companion images; existing sources stay intact.
+The two missing chest states are independently generated sprites, not crops of the reference.
 
-Cover the chest's zero, partial, ready and multiple-ready states, its reward result and generic rewards. Keep the existing `Popups.chest` / `Popups.rewards` interfaces and canonical `preview()` path. Do not change progression, reward amounts, randomness, save fields, homepage button geometry or the draw/win dialogs. Existing live callbacks remain connected; preview states use fake data through the same view interface.
+The fourth Home navigation button opens the chest. Cover zero, partial, ready and multiple-ready
+states, actual reward results, confirmation, Play and the existing coin-shop overlay. Preview
+states use fake data through the same view. Do not change progression, reward amounts,
+randomness, save fields, Home controls, the daily draw or generic non-chest rewards.
 
 ## Composition
 
-Use the 1080 x 1920 canvas. Follow the shop's 48-pixel outer margin, close tile and compact centred plaque. The calm sea remains visible around the chest, which rests on a low sandy islet with a wooden platform. Warm rays sit behind the chest, and the star track stands independently below it. No hero card, progress card or decorative replacement rectangle. Keep the chest as the single main focal object, followed by the star counter and actions. Add no supporting copy.
+Design space is 1080 x 1920. Coordinates are from the canonical chest constants and helpers.
+Original RGBA sprites retain their pixels; visible-ink rectangles ignore transparent padding.
 
-| Component | Layout contract |
+| Component | Geometry and contract |
 | --- | --- |
-| Background | Full canvas, shared `background_shop_sea` |
-| Close | 48, 48, 112, 112, same family as the shop |
-| Heading | 324, 48, 432, 112; compact rope-free `panel_shop_sign` |
-| Optional balance | 712, 48, width 320; same visible right-edge alignment as the shop |
-| Hero art | 270, 372, 540, 540; bottom-aligned on the wooden support, native proportions preserved |
-| Islet support | 126, 812, 828, 280; independent transparent `chest_islet_support` sprite behind the chest |
-| Warm rays | 60, 172, 960, 960; soft opacity, behind the islet and chest |
-| Star progress | 168, 1120, 744, 112; exposed dark track, gold star and painted current / threshold glyphs |
-| Ready count | Shared badge centred at 808, 416, shown only when more than one chest is ready |
-| Open / Play | Both 560 x 132 at x 260, y 1376 / 1536; unavailable Open stays dimmed and inert |
-| Reward result | Same opened-chest hero; prize objects in a shallow arc starting around y 1016, with painted amounts below; no prize cards; 560 x 132 confirmation at 260, 1376 |
+| Background | Full canvas, existing `background_home_jungle` |
+| Close | Origin48,48, shared MenuNavigation.SIZE, unchanged coin-shop Close art |
+| Heading | 230,230,620,170, existing painted title without a surrounding plaque |
+| Optional balance | Existing FeatherBar, right edge 1032 and top 48 |
+| Closed chest | 235,680,610,480 visible-ink fit, bottom aligned at y1160 |
+| Ready chest | 235,544,610,616 visible-ink fit, same body width and bottom |
+| Support | 145,1070,790,214, existing `chest_islet_support` |
+| Rays and glow | Existing soft art behind the chest; no opaque hero card |
+| Star progress | 168,1300,744,112; independent green round-ended rail and fill, 9px inner inset; current / production threshold in unchanged Home glyphs plus matching slash, centered at x540 |
+| Ready count | Shared badge centered at 842,704, only when more than one chest is ready |
+| Open / Play | Both 520 x 176, x280, y1456 / 1648; unavailable Open is grey and inert |
+| Reward chest | 270,792,540,540, with support at 145,1242,790,214 |
+| Reward objects | Centered shallow arc above the chest, spacing at most 228; icon height190 and amount height56 |
+| Reward confirmation | 280,1536,520,176, same action geometry |
 
-Chest prizes use a maximum 228-pixel centre spacing within a 792-pixel group. Their outer slots
-sit up to 28 pixels higher, linking them back to the chest. Object boxes are 164 pixels high;
-amounts use 56-pixel painted glyphs. Keep quantities fixed while only the prop art breathes.
-Generic rewards preserve the shared modal frame and action geometry, show the existing hero with
-warm rays, and use a compact card-free arc of coins and full booster illustrations. Duplicate
-boosters combine into one object with their actual `+count`. The existing no-prize completion
-state shows its supplied picture and confirmation without an empty reward row.
+Actions use a 424 x 100 visible-ink box at 48,36 within the identical 520 x 176
+buttons. Play uses the accepted standalone Home word and the same soft-white formula
+as the complete Home button. Open and OK use separately generated companion words
+in both languages. Their transparent source bounds are preserved and fitted by ink.
 
-Labels and amounts use existing locale sprites and painted glyphs; no fonts or new copy. Same-role buttons keep one size across every state. Selected and disabled states never shrink their geometry.
+Amounts reflect the actual returned result. Duplicate boosters share one object with their
+combined count. The reward page keeps the same title and balance but has no separate Close;
+its confirmation invokes the existing refresh callback. All words and digits use independently painted
+artwork, with original Home digits retained. Button press and disabled states never resize their hit geometry.
 
-## State and interaction contract
+## State and interaction
 
-| State | Presentation and interaction |
-| --- | --- |
-| Zero stars | Closed chest, empty progress, 0/30, Open dimmed; existing Play remains available from the homepage |
-| Partial | Closed chest, proportional fill and current/30; Open dimmed |
-| Ready | Opened chest, full progress and 30/30; Open enabled |
-| Multiple ready | Same ready layout plus a painted ready-count badge; one activation opens one chest through the existing callback |
-| Reward result | Actual returned coins and boosters; duplicate booster kinds share one prize object with their actual painted +count; confirmation follows the existing refresh callback |
-| Close | Existing modal close/navigation semantics; no profile mutation |
-| Preview | Fake data shows zero, partial, ready, multiple-ready and result through the canonical popup implementation |
+- Zero/partial: closed chest, clamped progress, Open disabled; Play remains available.
+- Ready/multiple: opened chest, enabled Open, optional ready-count badge. One activation
+  consumes one chest through the existing callback.
+- Rewards: show actual coins and booster counts. A second Open tap cannot click through the
+  newly appearing result confirmation. Confirm returns through the existing refresh path.
+- Close: existing modal navigation and no profile mutation. Coin-plus opens the purchase
+  preview overlay and returns to the same chest; purchase remains simulation only.
+- Play: existing level navigation and the shared tap-to-playable entrance requirement.
 
-Progression remains owned by `meta/progress.gd`: one chest costs `CHEST_STARS` (currently 30), gives `CHEST_COINS` (currently 300), and draws `CHEST_BOOSTERS` (currently 3) boosters. UI reads production values rather than inventing reward logic.
+Production values remain owned by `meta/progress.gd`: `CHEST_STARS`, `CHEST_COINS` and
+`CHEST_BOOSTERS`. Neither this presentation nor its tests invents new economy rules.
 
-## Motion and sound
+## Motion, materials and acceptance
 
-Use the existing modal entrance/exit and shared button press feedback. Rays rotate once in 28 seconds;
-ready-state sparkles use the existing twinkle. The chest breathes around its feet and prize objects
-use the existing prop breathing. These are prop effects, not a drawn chest-opening animation.
-Honor instant previews and modal lifecycle. Preserve the underlying music and route feedback through
-`Sound`, respecting mute. No bird or sound assets are changed.
+The background stays fixed while the controls fade in. Rays rotate in 28 seconds, the chest
+and reward props breathe, and ready-state sparkles twinkle. These are prop effects, not a
+frame-by-frame chest-opening animation. Honor instant previews, modal lifetime, existing music
+and mute settings. There are no mirrored character stills or new audio assets.
 
-## Production asset
+The independent red/gold closed and open chest sprites passed raw alpha/edge/style review
+before wiring. The chest-only disabled shader greys the action face; it does not change the
+accepted button texture. Source hashes, exact generation prompts, component tests and fresh
+merged runtime comparisons are in `docs/work-log/approved-ui-integration/`.
+The subsequent Home-family lettering and green progress correction, including raw
+material review and all retained hashes, is recorded in `docs/work-log/chest-style/`.
 
-`PerchSort/art/island/chest_islet_support.png` is a fresh built-in Codex image generation output,
-saved at its original 2172 x 724 RGBA dimensions and transparency. It contains only the low honey-wood platform, sandy bank,
-small rocks, side leaves, one hibiscus and a shell. The upper-left light and warm dimensional paint
-match the existing golden chest and tropical scenery. It contains no text, rewards or UI controls.
-All other assets, labels and glyphs are reused unchanged. The generated source is retained outside
-the project; no old asset is replaced. Raw artwork was inspected; in-game placement is unassessed.
-
-Generation prompt (built-in `image_gen`, transparent background):
-
-> Use case: stylized-concept. Asset type: isolated transparent game scenery sprite for the Star Chest page of a polished 1080x1920 portrait tropical island casual game. Create ONE broad low oval sandy islet with a central honey-colored wooden platform, viewed from the front with a little view of its top, camera looking slightly down (about 20 degrees). This is ONLY the support under an existing golden treasure chest, not a chest itself. The central top area is broad, empty, flat and readable, five rounded honey-wood planks running left-right, visible wood grain and thick dimensional edges. Small irregular ivory-gold sand bank underneath, restrained coral-brown rounded rocks along the bottom, sparse lush green tropical leaves fanning out at the left and right edges, one small red hibiscus blossom on the far right and one small seashell on the far left. Whole composition about 3.2 times wider than tall, a low horizontal grounded support, no tall plants. Bright saturated hand-painted casual mobile game art, detailed soft brush rendering, warm golden sunlight from upper left, dimensional materials and clean edges, soft contact shading painted within the object. Render full isolated object centered, generous transparent margin, genuine transparent RGBA background. No sky, no sea, no landscape background, no drop shadow outside the object, no treasure chest, no coins, no birds, no text, no letters, no numerals, no buttons, no cards, no UI frames, no checkerboard pattern. This must be a fresh original independent production asset, not extracted from any UI mockup.
-
-## Acceptance boundary
-
-The user explicitly assigns tests and visual acceptance to themselves. Do not run tests, lint, builds, UI automation, runtime screenshots, timed captures or temporary validation programs for this change. Deliver source and preview entry points, state what was changed, and leave runtime appearance, interaction, motion and listening acceptance pending.
+The latest user instruction authorizes implementation and self-testing without repeated
+approval questions, superseding the former no-testing note. Run the complete repository
+suite, focused chest checks, real GUI interaction, comparison and timed motion evidence.
+Preserve accepted assets and runtime baselines, report actual screenshot dimensions and
+remaining boundaries, and do not merge or deploy. Cloud rendering and mute-state checks do
+not claim physical-device performance, touch input or human audio listening.

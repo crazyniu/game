@@ -1,0 +1,5 @@
+run_family_dialogs exit=0
+run_map_nodes exit=0
+run_menu_navigation exit=0
+run_map_aviary exit=0
+family capture exit=0

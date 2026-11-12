@@ -1,0 +1,182 @@
+[
+  {
+    "path": "PerchSort/art/island/background_home_jungle.png",
+    "sha256": "e418dbb71938021250625771461726fe2526ab758d7f301ca0192152f9f2f5b4",
+    "size": [
+      941,
+      1672
+    ],
+    "alpha_bounds": [
+      0,
+      0,
+      941,
+      1672
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/panel_shop_forest.png",
+    "sha256": "5ecf7fe3fa64016556f37b6298ba3dfe843f2b415f478c2ab0de48d81cfd492b",
+    "size": [
+      1388,
+      1133
+    ],
+    "alpha_bounds": [
+      0,
+      0,
+      1371,
+      1105
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/home_play_plate.png",
+    "sha256": "215485194a0ce06ec6f7769fbb36f57f339f4a28833cb6022aa1bfc07409b534",
+    "size": [
+      983,
+      264
+    ],
+    "alpha_bounds": [
+      0,
+      0,
+      983,
+      264
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/island_star_full.png",
+    "sha256": "e350030a803bdafc819a9bf03c45a6e0018647c8600cfe2acc76261ae43b0dc9",
+    "size": [
+      257,
+      241
+    ],
+    "alpha_bounds": [
+      4,
+      5,
+      253,
+      236
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/island_star_empty.png",
+    "sha256": "00267954afdbc0dfe9a77f243187c7178e4d260e774bbcf25f0a2b9a6fd7c9fa",
+    "size": [
+      262,
+      241
+    ],
+    "alpha_bounds": [
+      4,
+      4,
+      258,
+      237
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/btn_purchase_close.png",
+    "sha256": "b9dc81fbf92722a443dcb49f523acc9c6fddef65efe48b4f02d3fb0481b5d264",
+    "size": [
+      116,
+      119
+    ],
+    "alpha_bounds": [
+      7,
+      7,
+      108,
+      110
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/label_home_island_play_en.png",
+    "sha256": "516520060bdb16fe1c2798f1dbf389b2c49dc23c56599f259e290c1719906be9",
+    "size": [
+      1314,
+      635
+    ],
+    "alpha_bounds": [
+      11,
+      11,
+      1303,
+      624
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/label_home_island_play_zh.png",
+    "sha256": "c693036d900ed364487b1d393181b382fe5f7929d98e2a9cc85090eb613576fd",
+    "size": [
+      1072,
+      543
+    ],
+    "alpha_bounds": [
+      11,
+      11,
+      1061,
+      532
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/label_chest_confirm_en.png",
+    "sha256": "954859d23cc4eb2c7f64143ec71ac00105b866eb118ad33b55c06327ec5a8a9b",
+    "size": [
+      1912,
+      823
+    ],
+    "alpha_bounds": [
+      230,
+      9,
+      1691,
+      823
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/island/label_chest_confirm_zh.png",
+    "sha256": "29745ca9f5bac2e01e90fd06783c1548d2ec108a5893a1c356da00c1a6d36109",
+    "size": [
+      1762,
+      892
+    ],
+    "alpha_bounds": [
+      0,
+      6,
+      1752,
+      892
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/locale/en/island_words/white_action_next.png",
+    "sha256": "3bf8b49cc3cec96940898dcdc953431b6e2d1a67b9a0324ad2ed12e38633953e",
+    "size": [
+      280,
+      106
+    ],
+    "alpha_bounds": [
+      0,
+      0,
+      280,
+      106
+    ],
+    "status": "reviewed-existing"
+  },
+  {
+    "path": "PerchSort/art/locale/zh/island_words/white_action_next.png",
+    "sha256": "2409a7e00833eef948f3ec455b6ca159b065a752ebd414c5a7b0d6de15e71e3e",
+    "size": [
+      225,
+      87
+    ],
+    "alpha_bounds": [
+      0,
+      0,
+      225,
+      87
+    ],
+    "status": "reviewed-existing"
+  }
+]

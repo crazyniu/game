@@ -19,6 +19,9 @@ const ICON_ENTRY_SIZE := Vector2(160, 160)
 const NAV_ICON_SIDE := 132.0
 const EVENT_ICON_SIDE := 120.0
 const SETTINGS_ICON_SIDE := 96.0
+const NAV_BACKING_SIDE := 204.0
+const EVENT_BACKING_SIDE := 184.0
+const BACKING_OPACITY := 0.88
 # Visible painted bodies, excluding transparent padding and faint cutout residue.
 const ICON_CONTENT := {
 	"pic_gear": Rect2(21, 28, 203, 202),
@@ -84,7 +87,7 @@ func setup(p: Profile) -> void:
 	var events := [["Daily", "pic_daily", challenge_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
 	for i in events.size():
 		var entry: Array = events[i]
-		var button := _icon_button(entry[0], entry[1], Vector2(960, 920 + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE)
+		var button := _icon_button(entry[0], entry[1], Vector2(960, 920 + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE, EVENT_BACKING_SIDE)
 		if entry[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(button, 1)
 		elif entry[0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
@@ -94,7 +97,7 @@ func setup(p: Profile) -> void:
 		["Aviary", "pic_aviary", aviary_requested], ["Chest", "pic_chest", chest_requested]]
 	for i in places.size():
 		var entry: Array = places[i]
-		var button := _icon_button(entry[0], entry[1], Vector2(174 + 244 * i, 1760), (entry[2] as Signal).emit, NAV_ICON_SIDE)
+		var button := _icon_button(entry[0], entry[1], Vector2(174 + 244 * i, 1760), (entry[2] as Signal).emit, NAV_ICON_SIDE, NAV_BACKING_SIDE)
 		if entry[0] == "Chest" and Progress.chests_ready(profile) > 0:
 			_badge(button, Progress.chests_ready(profile))
 
@@ -105,7 +108,7 @@ func _notification(what: int) -> void:
 func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> Button:
 	return UI.art_button(self, n, "btn_home_island_" + picture, bounds, action)
 
-func _icon_button(n: String, picture: String, center: Vector2, action: Callable, side: float) -> Button:
+func _icon_button(n: String, picture: String, center: Vector2, action: Callable, side: float, backing_side := 0.0) -> Button:
 	var button := Button.new()
 	button.name = n
 	button.focus_mode = Control.FOCUS_NONE
@@ -113,6 +116,14 @@ func _icon_button(n: String, picture: String, center: Vector2, action: Callable,
 	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
 		button.add_theme_stylebox_override(state, empty)
 	UI.place(button, Rect2(center - ICON_ENTRY_SIZE * 0.5, ICON_ENTRY_SIZE))
+	if backing_side > 0.0:
+		# Keep the independent frame's transparent padding; the accepted icon and hit area stay intact.
+		var backing_size := Vector2.ONE * backing_side
+		var backing := UI.image(button, "btn_home_icon_frame", Rect2((ICON_ENTRY_SIZE - backing_size) * 0.5, backing_size))
+		backing.name = "Backing"
+		backing.modulate.a = BACKING_OPACITY
+		button.button_down.connect(func(): backing.self_modulate = UI.PRESSED_TINT)
+		button.button_up.connect(func(): backing.self_modulate = Color.WHITE)
 	# Fit the painted body uniformly; a common slot must never stretch the source art.
 	var content: Rect2 = ICON_CONTENT[picture]
 	var pixel_scale := side / maxf(content.size.x, content.size.y)

@@ -1,0 +1,14 @@
+{
+  "protected_sources": {
+    "game/home_view.gd": "dea21a2a24846eb6a8e34e50992d53863685d6cb7c3429050e51456cd92c6381",
+    "game/island.gd": "bc4e99cb3bbe96f079280f4f8f0104402f3a5f57fe60003ab38416368edc46dc",
+    "game/main.gd": "cd9c79e1d38dbd2e4c9f05db1c69964c381f6ebe695b7b525981bdaa13ef9724",
+    "game/board_view.gd": "def09ec97c75834aa95a089fb3778dad04ec54611b12ad500ba70ab818def838",
+    "game/tutorial.gd": "8527f2e12404fe67467588f3aa56f69bbb8c8ecf735c6c66289a082bb0da36e5",
+    "game/popup.gd": "dcd1378f37f241c3dffbfeb90a2465b2f4dafc49c918ada0cfe69738ebf4425d"
+  },
+  "retained_asset_files": 2948,
+  "mismatches": [],
+  "settings": "Unchanged popups.settings function recorded by reward-quantity/retained-sources.json",
+  "new_art": "None in these follow-up increments"
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "path": "PerchSort/art/island/label_dialog_replay_zh.png",
+    "size": [
+      1707,
+      921
+    ],
+    "alpha_bounds": [
+      41,
+      0,
+      1657,
+      921
+    ],
+    "transparent_corners": true,
+    "sha256": "9085560f614414152506748ada725ef8adf4457b039b2b39895d08e6068604b5",
+    "self_review": "Exact word inspected, readable strokes, soft cream face, restrained dark-green contour, no halo or backing; accepted for runtime testing.",
+    "runtime_region": [
+      274,
+      180,
+      1161,
+      571
+    ],
+    "alpha_note": "Generated 1/255 noise outside the visible glyph is excluded by the documented region. Every source pixel is retained unchanged; strong alpha boundaries are stable at thresholds 8,16,24."
+  },
+  {
+    "path": "PerchSort/art/island/label_dialog_replay_en.png",
+    "size": [
+      2172,
+      724
+    ],
+    "alpha_bounds": [
+      71,
+      23,
+      2132,
+      724
+    ],
+    "transparent_corners": true,
+    "sha256": "cf8c34d837efeebfe25bbe176b1cad7b0ad81c8ec5e62b36919b0717991dfa6f",
+    "self_review": "Exact word inspected, readable strokes, soft cream face, restrained dark-green contour, no halo or backing; accepted for runtime testing.",
+    "runtime_region": [
+      207,
+      69,
+      1760,
+      590
+    ],
+    "alpha_note": "Generated 1/255 noise outside the visible glyph is excluded by the documented region. Every source pixel is retained unchanged; strong alpha boundaries are stable at thresholds 8,16,24."
+  }
+]

@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+en level 1 union=[P: (136.5997, 1.964912), S: (406.8006, 108.0702)] center_offset=(0.0, 0.0)
+zh live level 1 union=[P: (187.7478, 2.51685), S: (304.5044, 106.9663)] center_offset=(0.0, -0.000004)
+en restored level 1 union=[P: (136.5997, 1.964912), S: (406.8006, 108.0702)] center_offset=(0.0, 0.0)
+en level 12 union=[P: (90.74455, 1.964912), S: (498.5109, 108.0702)] center_offset=(0.0, 0.0)
+zh live level 12 union=[P: (142.3611, 2.51685), S: (395.2779, 106.9663)] center_offset=(0.0, -0.000004)
+en restored level 12 union=[P: (90.74455, 1.964912), S: (498.5109, 108.0702)] center_offset=(0.0, 0.0)
+en level 100 union=[P: (39.90814, 1.964912), S: (600.1837, 108.0702)] center_offset=(0.0, 0.0)
+zh live level 100 union=[P: (92.04391, 2.51685), S: (495.9121, 106.9663)] center_offset=(-0.000031, -0.000004)
+en restored level 100 union=[P: (39.90814, 1.964912), S: (600.1837, 108.0702)] center_offset=(0.0, 0.0)
+zh level 1 union=[P: (187.7478, 2.51685), S: (304.5044, 106.9663)] center_offset=(0.0, -0.000004)
+en live level 1 union=[P: (136.5997, 1.964912), S: (406.8006, 108.0702)] center_offset=(0.0, 0.0)
+zh restored level 1 union=[P: (187.7478, 2.51685), S: (304.5044, 106.9663)] center_offset=(0.0, -0.000004)
+zh level 12 union=[P: (142.3611, 2.51685), S: (395.2779, 106.9663)] center_offset=(0.0, -0.000004)
+en live level 12 union=[P: (90.74455, 1.964912), S: (498.5109, 108.0702)] center_offset=(0.0, 0.0)
+zh restored level 12 union=[P: (142.3611, 2.51685), S: (395.2779, 106.9663)] center_offset=(0.0, -0.000004)
+zh level 100 union=[P: (92.04391, 2.51685), S: (495.9121, 106.9663)] center_offset=(-0.000031, -0.000004)
+en live level 100 union=[P: (39.90814, 1.964912), S: (600.1837, 108.0702)] center_offset=(0.0, 0.0)
+zh restored level 100 union=[P: (92.04391, 2.51685), S: (495.9121, 106.9663)] center_offset=(-0.000031, -0.000004)
+heading composite checks: 18 checks, 0 failures

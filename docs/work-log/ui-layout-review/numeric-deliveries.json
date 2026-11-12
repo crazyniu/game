@@ -1,0 +1,386 @@
+[
+  {
+    "state": "shop_view:boosters",
+    "language": "en",
+    "label": "English - Shop Boosters",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Shop Boosters.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__boosters_en.png",
+    "sha256": "8f7d2033774bf9d58c4e83610c96062cec27621f9c35d5422ae4cd5285581d49",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-49257e588fc88191b11147c6d7d055fd_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000028308212b782d23ad90520d1",
+    "saved_name": "English - Shop Boosters.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:outfits",
+    "language": "en",
+    "label": "English - Shop Outfits",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Shop Outfits.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__outfits_en.png",
+    "sha256": "36111ab4086689c26834284508ff5a5d4a8f976b1cdd55ba517292e1b13a0362",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-4bdb4133dc8c819180a0aecae22128b2_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000fb588212a67ba1cdd22f509c",
+    "saved_name": "English - Shop Outfits.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:houses",
+    "language": "en",
+    "label": "English - Shop Nests",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Shop Nests.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__houses_en.png",
+    "sha256": "724595e0a9dd331ad34d188799ebb0f8586a55cc7fc7a8d5b4050ec1bb3bf8bd",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-2129d38d9d4c8191871263b4c970ea0b_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000007bc08212afdb234326c99501",
+    "saved_name": "English - Shop Nests.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:confirm_booster",
+    "language": "en",
+    "label": "English - Buy Booster",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Buy Booster.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_booster_en.png",
+    "sha256": "152136ba428080801ea8e602063ac161e727260791649299990dc3df99159c8d",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-acae871bc6288191ac8b104ba965f39a_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000003008212b943900860145099",
+    "saved_name": "English - Buy Booster.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_maximum",
+    "language": "en",
+    "label": "English - Buy Maximum Quantity",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Buy Maximum Quantity.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_maximum_en.png",
+    "sha256": "22d57fe1d8a1d202ff6ca266a87de9f70a2cc924472ff9ed279f2edf39b04bef",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-bc6b5619a6e081918a26d05ffa812b9f_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000006ddc8212af16865cc7d55b44",
+    "saved_name": "English - Buy Maximum Quantity.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_nest",
+    "language": "en",
+    "label": "English - Buy Nest",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Buy Nest.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_nest_en.png",
+    "sha256": "c1a48ed558627650b8574af98d1bf04b6bfb63cb2bf21f503a12e467966ab0aa",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-b42e18683cd8819181316a82a044d092_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000056d48212b39c79da5d4b9e48",
+    "saved_name": "English - Buy Nest.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_outfit_short",
+    "language": "en",
+    "label": "English - Purchase Insufficient Balance",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Purchase Insufficient Balance.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_outfit_short_en.png",
+    "sha256": "dca231abd0c6215f58a8c858cecd506cb0e7c77f7a744d9a8bde2e93b63461b3",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-09b69f85ca048191af6854f9a1e0134f_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000043ac8212884d1f5bc876f872",
+    "saved_name": "English - Purchase Insufficient Balance.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "aviary_view:buy_outfit",
+    "language": "en",
+    "label": "English - Buy Bird Outfit",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Buy Bird Outfit.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/aviary_view__buy_outfit_en.png",
+    "sha256": "3c4df98eed4588378f7719fba2552280a091b5e9285286d4fd034a05b65828e5",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-d625f1d7346c8191b205a1083c268234_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000f5e88212adcc3f998a2c50b5",
+    "saved_name": "English - Buy Bird Outfit.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "aviary_view:buy_outfit_short",
+    "language": "en",
+    "label": "English - Outfit Insufficient Balance",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Outfit Insufficient Balance.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/aviary_view__buy_outfit_short_en.png",
+    "sha256": "cd59285e311445793691f624f1d10697efb9eb0868d83ac3754af735f68c3588",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-ac42de1f80108191a77358022df48ccf_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000813c8212b0b651a32f47298f",
+    "saved_name": "English - Outfit Insufficient Balance.png",
+    "review_status": "Current PNG exists locally and in complete screenshot packages; individual replacement blocked by version conflict. Do not send this old Library item as current.",
+    "library_content_matches_local": false,
+    "intended_current": {
+      "state": "aviary_view:buy_outfit_short",
+      "language": "en",
+      "label": "English - Outfit Insufficient Balance",
+      "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/cartoon-conflict-working/English - Outfit Insufficient Balance.png",
+      "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/aviary_view__buy_outfit_short_en.png",
+      "sha256": "f276f4121cf958ee5c640663fa1027d8e487dd7e45b748b884ba08556db76e64",
+      "size": [
+        1080,
+        1920
+      ],
+      "library_file_id": "libfile_fde3_f-ac42de1f80108191a77358022df48ccf_551017e8727c8191babd00e1503f3fd8",
+      "file_id": "file_00000000813c8212b0b651a32f47298f",
+      "saved_name": "English - Outfit Insufficient Balance.png",
+      "review_status": "current integrated runtime, visual review passed",
+      "manifest_group": "numeric",
+      "refreshed_old_sha256": "cd59285e311445793691f624f1d10697efb9eb0868d83ac3754af735f68c3588",
+      "refreshed_version": 0
+    }
+  },
+  {
+    "state": "home_view:home",
+    "language": "en",
+    "label": "English - Home",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/English - Home.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/english-ui-review/home_view__home.png",
+    "sha256": "c53484d4aad174ac253b503b5812371ae1e64a1bf8f94dd00d861e69bbddfcda",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-1023876acc2c8191897c57a4aa5dcb61_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000fde88212a88a4d82faff757d",
+    "saved_name": "English - Home.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:boosters",
+    "language": "zh",
+    "label": "中文 - 商城道具",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 商城道具.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__boosters_zh.png",
+    "sha256": "06a35e53a46e3e8420b5f39a906bbb47a591baebc4e8de991ef745e421d25d2e",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-f30cbf9dca288191a75bf42657e1ff0f_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000010cc821283e0dc69e301d922",
+    "saved_name": "中文 - 商城道具.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:outfits",
+    "language": "zh",
+    "label": "中文 - 商城装扮",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 商城装扮.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__outfits_zh.png",
+    "sha256": "f16693d03909dd5b13290c3f9d5c543ad606f120c57a1525719af3d970fab06d",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-57ec40388af88191bc2c652e6d62126b_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000063b082129c295fc872b2f178",
+    "saved_name": "中文 - 商城装扮.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:houses",
+    "language": "zh",
+    "label": "中文 - 商城鸟窝",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 商城鸟窝.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/shop_view__houses_zh.png",
+    "sha256": "56533ba66d4bb2d791d9b96b21444bd6be42ce5b2aa16a6c6063878acd0de7c2",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-0035b5adafe881918c9d5356a026b14a_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000016448212b04820029c7abbc0",
+    "saved_name": "中文 - 商城鸟窝.png",
+    "review_status": "current runtime evidence"
+  },
+  {
+    "state": "shop_view:confirm_booster",
+    "language": "zh",
+    "label": "中文 - 购买道具",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 购买道具.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_booster_zh.png",
+    "sha256": "57a15062119c6f3b1d920a10b4caaa29d7e9d7d030e115ad4ab1b185f5cd6715",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-7230adbfe6d481918d604235f929995a_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000005340822fac3c2720b2412c2a",
+    "saved_name": "中文 - 购买道具.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_maximum",
+    "language": "zh",
+    "label": "中文 - 购买最大数量",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 购买最大数量.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_maximum_zh.png",
+    "sha256": "c5a6d729c5c80c14657f88d4bc0d960a56a8873b7eb822b4b9b9beb67bdfdd0a",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-f815f4ec65688191b423f6d2688da971_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000007f64822fa62814a1925474da",
+    "saved_name": "中文 - 购买最大数量.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_nest",
+    "language": "zh",
+    "label": "中文 - 购买鸟窝",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/cartoon-conflict-working/中文 - 购买鸟窝.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_nest_zh.png",
+    "sha256": "b068ebb2dcfc27a03e55ed39f98409533d08557df1864ded3dc698fc57ecb649",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-beaacde9496c8191a0d8eed1f1cdeb0e_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000000a8081f5ade5889714dab73e",
+    "saved_name": "中文 - 购买鸟窝.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "refreshed_old_sha256": "2b6436ef21b5c805fd5f679bcc071afbd329634fcbc7f8695dcab76ef17ba920",
+    "refreshed_version": 0,
+    "current_version_number": 1
+  },
+  {
+    "state": "shop_view:confirm_outfit_short",
+    "language": "zh",
+    "label": "中文 - 购买余额不足",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/cartoon-conflict-working/中文 - 购买余额不足.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/shop_view__confirm_outfit_short_zh.png",
+    "sha256": "8049aa93d1b91fd5b27833687edf4fcbc0517264dc242656704fb2c09d293510",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-d1df8c611ef481919cdd4ddffc46d547_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_000000008ef081f5acdd75273eb8e5e8",
+    "saved_name": "中文 - 购买余额不足.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "refreshed_old_sha256": "27bbc33f6a4655d307f1d9b9e2b57b1695b35d69d205ba6891b2f79161de1941",
+    "refreshed_version": 0,
+    "current_version_number": 1
+  },
+  {
+    "state": "aviary_view:buy_outfit",
+    "language": "zh",
+    "label": "中文 - 购买小鸟装扮",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 购买小鸟装扮.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/aviary_view__buy_outfit_zh.png",
+    "sha256": "d69097ae99ae0e7b0978b6fb2ebafd210f1f9f085e951ccb19fdd3c800834015",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-f0701ed9490481918629cc58069507ee_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000841c82128b0ac640e8ecb58b",
+    "saved_name": "中文 - 购买小鸟装扮.png",
+    "review_status": "Current PNG exists locally and in complete screenshot packages; individual replacement blocked by version conflict. Do not send this old Library item as current.",
+    "library_content_matches_local": false,
+    "intended_current": {
+      "state": "aviary_view:buy_outfit",
+      "language": "zh",
+      "label": "中文 - 购买小鸟装扮",
+      "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/cartoon-conflict-working/中文 - 购买小鸟装扮.png",
+      "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/aviary_view__buy_outfit_zh.png",
+      "sha256": "9d1d5b70f113d47d8c9372dd936f256a30e72ea5317c90323c903ec7a19cd18c",
+      "size": [
+        1080,
+        1920
+      ],
+      "library_file_id": "libfile_fde3_f-f0701ed9490481918629cc58069507ee_551017e8727c8191babd00e1503f3fd8",
+      "file_id": "file_00000000841c82128b0ac640e8ecb58b",
+      "saved_name": "中文 - 购买小鸟装扮.png",
+      "review_status": "current integrated runtime, visual review passed",
+      "manifest_group": "numeric",
+      "refreshed_old_sha256": "d69097ae99ae0e7b0978b6fb2ebafd210f1f9f085e951ccb19fdd3c800834015",
+      "refreshed_version": 0
+    }
+  },
+  {
+    "state": "aviary_view:buy_outfit_short",
+    "language": "zh",
+    "label": "中文 - 装扮余额不足",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 装扮余额不足.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/aviary_view__buy_outfit_short_zh.png",
+    "sha256": "bca0dbe5a97e52d30a348b37403a1c2ae5da09eed882efed83f19afca963ee97",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-22180a9b03f0819198f05476ddfb6d18_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_0000000075d0822f83e69a6fb5800528",
+    "saved_name": "中文 - 装扮余额不足.png",
+    "review_status": "current integrated runtime, visual review passed",
+    "manifest_group": "numeric",
+    "current_version_number": 1
+  },
+  {
+    "state": "home_view:home",
+    "language": "zh",
+    "label": "中文 - 首页",
+    "path": "/workspace/scratch/2bd695cff14d/output/runtime-ui-layout/中文 - 首页.png",
+    "source": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/screens/home_view__home_zh.png",
+    "sha256": "a5bd9aa2f6d9898cbcca12ae4b5badfb810cb254091e0bced1c01920e7f6f12e",
+    "size": [
+      1080,
+      1920
+    ],
+    "library_file_id": "libfile_fde3_f-37ca0b58f5bc81918df15b23ab7b6fc2_551017e8727c8191babd00e1503f3fd8",
+    "file_id": "file_00000000c3388212b1db25d43ef2c274",
+    "saved_name": "中文 - 首页.png",
+    "review_status": "current runtime evidence"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "asset": "PerchSort/art/island/chest_star_closed.png",
+    "sha256": "2f1a03ae976a0e6701f3888edbd17a776cd7c3ebf9370b632206de312f3fdb69",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds_alpha_at_least_16": [
+      33,
+      172,
+      1222,
+      1105
+    ],
+    "source_pixels_preserved": true
+  },
+  {
+    "asset": "PerchSort/art/island/chest_star_open.png",
+    "sha256": "2d68945179b42425886e18851d034544df8a904d87bd20e0b50294b0bcbc4d50",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "visible_bounds_alpha_at_least_16": [
+      101,
+      90,
+      1132,
+      1102
+    ],
+    "source_pixels_preserved": true
+  }
+]

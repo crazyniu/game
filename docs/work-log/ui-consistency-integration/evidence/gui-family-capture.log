@@ -1,0 +1,51 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE win_three_stars en 1080x1920
+CAPTURE win_three_stars zh 1080x1920
+CAPTURE win_two_stars en 1080x1920
+CAPTURE win_two_stars zh 1080x1920
+CAPTURE win_one_star en 1080x1920
+CAPTURE win_one_star zh 1080x1920
+CAPTURE win_zero_reward en 1080x1920
+CAPTURE win_zero_reward zh 1080x1920
+CAPTURE win_milestone en 1080x1920
+CAPTURE win_milestone zh 1080x1920
+CAPTURE level_card_first_visit en 1080x1920
+CAPTURE level_card_first_visit zh 1080x1920
+CAPTURE level_card_full_roster en 1080x1920
+CAPTURE level_card_full_roster zh 1080x1920
+CAPTURE level_card_locked en 1080x1920
+CAPTURE level_card_locked zh 1080x1920
+CAPTURE new_friend_berry en 1080x1920
+CAPTURE new_friend_berry zh 1080x1920
+CAPTURE unlock_owl_eye en 1080x1920
+CAPTURE unlock_owl_eye zh 1080x1920
+CAPTURE unlock_sapling en 1080x1920
+CAPTURE unlock_sapling zh 1080x1920
+CAPTURE world_complete_1 en 1080x1920
+CAPTURE world_complete_1 zh 1080x1920
+CAPTURE world_unlock_2 en 1080x1920
+CAPTURE world_unlock_2 zh 1080x1920
+CAPTURE world_unlock_4 en 1080x1920
+CAPTURE world_unlock_4 zh 1080x1920
+CAPTURE rewards_challenge en 1080x1920
+CAPTURE rewards_challenge zh 1080x1920
+CAPTURE rewards_challenge_empty en 1080x1920
+CAPTURE rewards_challenge_empty zh 1080x1920
+CAPTURE rewards_challenge_all en 1080x1920
+CAPTURE rewards_challenge_all zh 1080x1920
+CAPTURE unlock_firefly en 1080x1920
+CAPTURE unlock_firefly zh 1080x1920
+CAPTURE unlock_morning_bell en 1080x1920
+CAPTURE unlock_morning_bell zh 1080x1920
+CAPTURE unlock_scarecrow en 1080x1920
+CAPTURE unlock_scarecrow zh 1080x1920
+CAPTURE unlock_spring_rain en 1080x1920
+CAPTURE unlock_spring_rain zh 1080x1920
+MOTION win_three_stars [1072, 2240, 3419, 4630, 5828, 6988, 8158, 9391, 10580, 11813, 13072, 14286, 15514, 16753, 17961, 19125]
+MOTION new_friend_berry [1248, 2499, 3697, 4876, 6076, 7273, 8440, 9624, 10813, 12001, 13227, 14422, 15600, 16778, 17921, 19095]
+MOTION world_unlock_2 [1258, 2611, 3872, 5192, 6520, 7800, 9104, 10388, 11734, 12987, 14273, 15578, 16859, 18105, 19406, 20725]
+FAMILY CAPTURE COMPLETE

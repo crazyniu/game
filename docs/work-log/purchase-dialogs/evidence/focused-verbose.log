@@ -1,0 +1,1164 @@
+WorkerThreadPool: 9 threads, 2 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+SDL: Init OK!
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+Loading resource: res://tests/run_purchase_dialogs.gd remapped: res://tests/run_purchase_dialogs.gd
+Completed load for: 'res://tests/run_purchase_dialogs.gd' remapped 'res://tests/run_purchase_dialogs.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://game/sound.gd remapped: res://game/sound.gd
+Completed load for: 'res://game/sound.gd' remapped 'res://game/sound.gd' at thread -1
+Loaded system CA certificates
+Loading resource: res://game/main.tscn remapped: res://game/main.tscn
+Loading resource: res://game/main.gd remapped: res://game/main.gd
+Loading resource: res://game/home_icon_outline.gdshader remapped: res://game/home_icon_outline.gdshader
+Completed load for: 'res://game/home_icon_outline.gdshader' remapped 'res://game/home_icon_outline.gdshader' at thread -1
+Completed load for: 'res://game/main.gd' remapped 'res://game/main.gd' at thread -1
+Completed load for: 'res://game/main.tscn' remapped 'res://game/main.tscn' at thread -1
+Loading resource: res://art/light_rays.png remapped: res://art/light_rays.png
+Loading resource: res://.godot/imported/light_rays.png-d66fe40d80b95b0832371644901b8d4a.ctex remapped: res://.godot/imported/light_rays.png-d66fe40d80b95b0832371644901b8d4a.ctex
+Completed load for: 'res://art/light_rays.png' remapped 'res://art/light_rays.png' at thread -1
+Loading resource: res://art/glow_soft.png remapped: res://art/glow_soft.png
+Loading resource: res://.godot/imported/glow_soft.png-a2f463619cab129b77f0ff48029d945a.ctex remapped: res://.godot/imported/glow_soft.png-a2f463619cab129b77f0ff48029d945a.ctex
+Completed load for: 'res://art/glow_soft.png' remapped 'res://art/glow_soft.png' at thread -1
+Loading resource: res://game/shop_view.gd remapped: res://game/shop_view.gd
+Loading resource: res://game/shop_heading.gdshader remapped: res://game/shop_heading.gdshader
+Completed load for: 'res://game/shop_heading.gdshader' remapped 'res://game/shop_heading.gdshader' at thread -1
+Loading resource: res://game/shop_label.gdshader remapped: res://game/shop_label.gdshader
+Completed load for: 'res://game/shop_label.gdshader' remapped 'res://game/shop_label.gdshader' at thread -1
+Completed load for: 'res://game/shop_view.gd' remapped 'res://game/shop_view.gd' at thread -1
+Loading resource: res://art/island/background_shop_sea.png remapped: res://art/island/background_shop_sea.png
+Loading resource: res://.godot/imported/background_shop_sea.png-96dce336d501c5a65a72c3e827d5c9b5.ctex remapped: res://.godot/imported/background_shop_sea.png-96dce336d501c5a65a72c3e827d5c9b5.ctex
+Completed load for: 'res://art/island/background_shop_sea.png' remapped 'res://art/island/background_shop_sea.png' at thread -1
+Loading resource: res://art/island/island_close_tile.png remapped: res://art/island/island_close_tile.png
+Loading resource: res://.godot/imported/island_close_tile.png-45c48ac2249d077220e013d43e61686a.ctex remapped: res://.godot/imported/island_close_tile.png-45c48ac2249d077220e013d43e61686a.ctex
+Completed load for: 'res://art/island/island_close_tile.png' remapped 'res://art/island/island_close_tile.png' at thread -1
+Loading resource: res://art/island/panel_shop_sign.png remapped: res://art/island/panel_shop_sign.png
+Loading resource: res://.godot/imported/panel_shop_sign.png-3a65f7126f36fac920121c60c09243db.ctex remapped: res://.godot/imported/panel_shop_sign.png-3a65f7126f36fac920121c60c09243db.ctex
+Completed load for: 'res://art/island/panel_shop_sign.png' remapped 'res://art/island/panel_shop_sign.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_0.png remapped: res://art/locale/en/number_cream_0.png
+Loading resource: res://.godot/imported/number_cream_0.png-7113cc0e60bfd38451d9699857403866.ctex remapped: res://.godot/imported/number_cream_0.png-7113cc0e60bfd38451d9699857403866.ctex
+Completed load for: 'res://art/locale/en/number_cream_0.png' remapped 'res://art/locale/en/number_cream_0.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_1.png remapped: res://art/locale/en/number_cream_1.png
+Loading resource: res://.godot/imported/number_cream_1.png-1ebae8e923324b431e629dcf3647642b.ctex remapped: res://.godot/imported/number_cream_1.png-1ebae8e923324b431e629dcf3647642b.ctex
+Completed load for: 'res://art/locale/en/number_cream_1.png' remapped 'res://art/locale/en/number_cream_1.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_2.png remapped: res://art/locale/en/number_cream_2.png
+Loading resource: res://.godot/imported/number_cream_2.png-defe8f0c1ecd4ad53b83708581ea42eb.ctex remapped: res://.godot/imported/number_cream_2.png-defe8f0c1ecd4ad53b83708581ea42eb.ctex
+Completed load for: 'res://art/locale/en/number_cream_2.png' remapped 'res://art/locale/en/number_cream_2.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_3.png remapped: res://art/locale/en/number_cream_3.png
+Loading resource: res://.godot/imported/number_cream_3.png-6a1d964370e997cdf28fd2051e9f47fc.ctex remapped: res://.godot/imported/number_cream_3.png-6a1d964370e997cdf28fd2051e9f47fc.ctex
+Completed load for: 'res://art/locale/en/number_cream_3.png' remapped 'res://art/locale/en/number_cream_3.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_4.png remapped: res://art/locale/en/number_cream_4.png
+Loading resource: res://.godot/imported/number_cream_4.png-b2f0e161994db25fbddded8d443dbf6a.ctex remapped: res://.godot/imported/number_cream_4.png-b2f0e161994db25fbddded8d443dbf6a.ctex
+Completed load for: 'res://art/locale/en/number_cream_4.png' remapped 'res://art/locale/en/number_cream_4.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_5.png remapped: res://art/locale/en/number_cream_5.png
+Loading resource: res://.godot/imported/number_cream_5.png-a0a81ae49a3c2f2203a6ba8f97af487f.ctex remapped: res://.godot/imported/number_cream_5.png-a0a81ae49a3c2f2203a6ba8f97af487f.ctex
+Completed load for: 'res://art/locale/en/number_cream_5.png' remapped 'res://art/locale/en/number_cream_5.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_6.png remapped: res://art/locale/en/number_cream_6.png
+Loading resource: res://.godot/imported/number_cream_6.png-19375686be7213140385660de6e58eaa.ctex remapped: res://.godot/imported/number_cream_6.png-19375686be7213140385660de6e58eaa.ctex
+Completed load for: 'res://art/locale/en/number_cream_6.png' remapped 'res://art/locale/en/number_cream_6.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_7.png remapped: res://art/locale/en/number_cream_7.png
+Loading resource: res://.godot/imported/number_cream_7.png-84d4951a2b44bafaa9dff74f9029ddc2.ctex remapped: res://.godot/imported/number_cream_7.png-84d4951a2b44bafaa9dff74f9029ddc2.ctex
+Completed load for: 'res://art/locale/en/number_cream_7.png' remapped 'res://art/locale/en/number_cream_7.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_8.png remapped: res://art/locale/en/number_cream_8.png
+Loading resource: res://.godot/imported/number_cream_8.png-5af3d0b6c61982689e220c949fb88890.ctex remapped: res://.godot/imported/number_cream_8.png-5af3d0b6c61982689e220c949fb88890.ctex
+Completed load for: 'res://art/locale/en/number_cream_8.png' remapped 'res://art/locale/en/number_cream_8.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_9.png remapped: res://art/locale/en/number_cream_9.png
+Loading resource: res://.godot/imported/number_cream_9.png-2d687890cd5f0ff9030d83f645febb1a.ctex remapped: res://.godot/imported/number_cream_9.png-2d687890cd5f0ff9030d83f645febb1a.ctex
+Completed load for: 'res://art/locale/en/number_cream_9.png' remapped 'res://art/locale/en/number_cream_9.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_slash.png remapped: res://art/locale/en/number_cream_slash.png
+Loading resource: res://.godot/imported/number_cream_slash.png-2b20bdc049bbd2fd9f20d1904e99f676.ctex remapped: res://.godot/imported/number_cream_slash.png-2b20bdc049bbd2fd9f20d1904e99f676.ctex
+Completed load for: 'res://art/locale/en/number_cream_slash.png' remapped 'res://art/locale/en/number_cream_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_plus.png remapped: res://art/locale/en/number_cream_plus.png
+Loading resource: res://.godot/imported/number_cream_plus.png-fec4b311e1f4cb86c58a4677ca672d9d.ctex remapped: res://.godot/imported/number_cream_plus.png-fec4b311e1f4cb86c58a4677ca672d9d.ctex
+Completed load for: 'res://art/locale/en/number_cream_plus.png' remapped 'res://art/locale/en/number_cream_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_x.png remapped: res://art/locale/en/number_cream_x.png
+Loading resource: res://.godot/imported/number_cream_x.png-4a0d85456aba21c63249644749ded3fd.ctex remapped: res://.godot/imported/number_cream_x.png-4a0d85456aba21c63249644749ded3fd.ctex
+Completed load for: 'res://art/locale/en/number_cream_x.png' remapped 'res://art/locale/en/number_cream_x.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_minus.png remapped: res://art/locale/en/number_cream_minus.png
+Loading resource: res://.godot/imported/number_cream_minus.png-887fdf9a539bd48fa7125a559eccb8d1.ctex remapped: res://.godot/imported/number_cream_minus.png-887fdf9a539bd48fa7125a559eccb8d1.ctex
+Completed load for: 'res://art/locale/en/number_cream_minus.png' remapped 'res://art/locale/en/number_cream_minus.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_0.png remapped: res://art/locale/en/number_brown_0.png
+Loading resource: res://.godot/imported/number_brown_0.png-1db624fb7d31e41eb91ec44273a56b4e.ctex remapped: res://.godot/imported/number_brown_0.png-1db624fb7d31e41eb91ec44273a56b4e.ctex
+Completed load for: 'res://art/locale/en/number_brown_0.png' remapped 'res://art/locale/en/number_brown_0.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_1.png remapped: res://art/locale/en/number_brown_1.png
+Loading resource: res://.godot/imported/number_brown_1.png-e251f997d70958fd50d1d673b8e7cb47.ctex remapped: res://.godot/imported/number_brown_1.png-e251f997d70958fd50d1d673b8e7cb47.ctex
+Completed load for: 'res://art/locale/en/number_brown_1.png' remapped 'res://art/locale/en/number_brown_1.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_2.png remapped: res://art/locale/en/number_brown_2.png
+Loading resource: res://.godot/imported/number_brown_2.png-66a7ee327a8f22077d35c603020ed2c2.ctex remapped: res://.godot/imported/number_brown_2.png-66a7ee327a8f22077d35c603020ed2c2.ctex
+Completed load for: 'res://art/locale/en/number_brown_2.png' remapped 'res://art/locale/en/number_brown_2.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_3.png remapped: res://art/locale/en/number_brown_3.png
+Loading resource: res://.godot/imported/number_brown_3.png-42a40020e7f08933b7842b34e170f9b4.ctex remapped: res://.godot/imported/number_brown_3.png-42a40020e7f08933b7842b34e170f9b4.ctex
+Completed load for: 'res://art/locale/en/number_brown_3.png' remapped 'res://art/locale/en/number_brown_3.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_4.png remapped: res://art/locale/en/number_brown_4.png
+Loading resource: res://.godot/imported/number_brown_4.png-4061400d8331f6cbe88b992c4b8786cd.ctex remapped: res://.godot/imported/number_brown_4.png-4061400d8331f6cbe88b992c4b8786cd.ctex
+Completed load for: 'res://art/locale/en/number_brown_4.png' remapped 'res://art/locale/en/number_brown_4.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_5.png remapped: res://art/locale/en/number_brown_5.png
+Loading resource: res://.godot/imported/number_brown_5.png-92a27cd68836dfd3250fbc80f5e2b8ac.ctex remapped: res://.godot/imported/number_brown_5.png-92a27cd68836dfd3250fbc80f5e2b8ac.ctex
+Completed load for: 'res://art/locale/en/number_brown_5.png' remapped 'res://art/locale/en/number_brown_5.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_6.png remapped: res://art/locale/en/number_brown_6.png
+Loading resource: res://.godot/imported/number_brown_6.png-f3ff3e9b2a0dede9ff4bd9b28e119691.ctex remapped: res://.godot/imported/number_brown_6.png-f3ff3e9b2a0dede9ff4bd9b28e119691.ctex
+Completed load for: 'res://art/locale/en/number_brown_6.png' remapped 'res://art/locale/en/number_brown_6.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_7.png remapped: res://art/locale/en/number_brown_7.png
+Loading resource: res://.godot/imported/number_brown_7.png-c79f3270ae4b8332c1421e58da52477c.ctex remapped: res://.godot/imported/number_brown_7.png-c79f3270ae4b8332c1421e58da52477c.ctex
+Completed load for: 'res://art/locale/en/number_brown_7.png' remapped 'res://art/locale/en/number_brown_7.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_8.png remapped: res://art/locale/en/number_brown_8.png
+Loading resource: res://.godot/imported/number_brown_8.png-c4f095b52ef0ddb2e7d8029637a0cc1b.ctex remapped: res://.godot/imported/number_brown_8.png-c4f095b52ef0ddb2e7d8029637a0cc1b.ctex
+Completed load for: 'res://art/locale/en/number_brown_8.png' remapped 'res://art/locale/en/number_brown_8.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_9.png remapped: res://art/locale/en/number_brown_9.png
+Loading resource: res://.godot/imported/number_brown_9.png-40a2415a31e2cc51ff8eea28f3447cb9.ctex remapped: res://.godot/imported/number_brown_9.png-40a2415a31e2cc51ff8eea28f3447cb9.ctex
+Completed load for: 'res://art/locale/en/number_brown_9.png' remapped 'res://art/locale/en/number_brown_9.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_slash.png remapped: res://art/locale/en/number_brown_slash.png
+Loading resource: res://.godot/imported/number_brown_slash.png-3ee2ed9429556ec4b4df09fe8750a251.ctex remapped: res://.godot/imported/number_brown_slash.png-3ee2ed9429556ec4b4df09fe8750a251.ctex
+Completed load for: 'res://art/locale/en/number_brown_slash.png' remapped 'res://art/locale/en/number_brown_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_plus.png remapped: res://art/locale/en/number_brown_plus.png
+Loading resource: res://.godot/imported/number_brown_plus.png-2f28e60a955f3167060135c0f0873a23.ctex remapped: res://.godot/imported/number_brown_plus.png-2f28e60a955f3167060135c0f0873a23.ctex
+Completed load for: 'res://art/locale/en/number_brown_plus.png' remapped 'res://art/locale/en/number_brown_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_x.png remapped: res://art/locale/en/number_brown_x.png
+Loading resource: res://.godot/imported/number_brown_x.png-83651a815f1f0ac11a53654c367f102f.ctex remapped: res://.godot/imported/number_brown_x.png-83651a815f1f0ac11a53654c367f102f.ctex
+Completed load for: 'res://art/locale/en/number_brown_x.png' remapped 'res://art/locale/en/number_brown_x.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_minus.png remapped: res://art/locale/en/number_brown_minus.png
+Loading resource: res://.godot/imported/number_brown_minus.png-e2f2289adce781aea808187b622152dd.ctex remapped: res://.godot/imported/number_brown_minus.png-e2f2289adce781aea808187b622152dd.ctex
+Completed load for: 'res://art/locale/en/number_brown_minus.png' remapped 'res://art/locale/en/number_brown_minus.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_0.png remapped: res://art/locale/en/number_gold_0.png
+Loading resource: res://.godot/imported/number_gold_0.png-ecec388a542d0f715edebfca19021210.ctex remapped: res://.godot/imported/number_gold_0.png-ecec388a542d0f715edebfca19021210.ctex
+Completed load for: 'res://art/locale/en/number_gold_0.png' remapped 'res://art/locale/en/number_gold_0.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_1.png remapped: res://art/locale/en/number_gold_1.png
+Loading resource: res://.godot/imported/number_gold_1.png-a5dad5e118702339fe79671a1bdef0c1.ctex remapped: res://.godot/imported/number_gold_1.png-a5dad5e118702339fe79671a1bdef0c1.ctex
+Completed load for: 'res://art/locale/en/number_gold_1.png' remapped 'res://art/locale/en/number_gold_1.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_2.png remapped: res://art/locale/en/number_gold_2.png
+Loading resource: res://.godot/imported/number_gold_2.png-87f50113c560162be2583d9ebc82f4be.ctex remapped: res://.godot/imported/number_gold_2.png-87f50113c560162be2583d9ebc82f4be.ctex
+Completed load for: 'res://art/locale/en/number_gold_2.png' remapped 'res://art/locale/en/number_gold_2.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_3.png remapped: res://art/locale/en/number_gold_3.png
+Loading resource: res://.godot/imported/number_gold_3.png-12d6033588ff65de008c2ae52efdd243.ctex remapped: res://.godot/imported/number_gold_3.png-12d6033588ff65de008c2ae52efdd243.ctex
+Completed load for: 'res://art/locale/en/number_gold_3.png' remapped 'res://art/locale/en/number_gold_3.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_4.png remapped: res://art/locale/en/number_gold_4.png
+Loading resource: res://.godot/imported/number_gold_4.png-703349350c68a9f4fc780b857beab439.ctex remapped: res://.godot/imported/number_gold_4.png-703349350c68a9f4fc780b857beab439.ctex
+Completed load for: 'res://art/locale/en/number_gold_4.png' remapped 'res://art/locale/en/number_gold_4.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_5.png remapped: res://art/locale/en/number_gold_5.png
+Loading resource: res://.godot/imported/number_gold_5.png-4b842f0de37a317f90601339c645eb33.ctex remapped: res://.godot/imported/number_gold_5.png-4b842f0de37a317f90601339c645eb33.ctex
+Completed load for: 'res://art/locale/en/number_gold_5.png' remapped 'res://art/locale/en/number_gold_5.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_6.png remapped: res://art/locale/en/number_gold_6.png
+Loading resource: res://.godot/imported/number_gold_6.png-ebd9df520aa65f5c05d0ec0b3e7fb8bd.ctex remapped: res://.godot/imported/number_gold_6.png-ebd9df520aa65f5c05d0ec0b3e7fb8bd.ctex
+Completed load for: 'res://art/locale/en/number_gold_6.png' remapped 'res://art/locale/en/number_gold_6.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_7.png remapped: res://art/locale/en/number_gold_7.png
+Loading resource: res://.godot/imported/number_gold_7.png-e1d74742968795b4808812f34fb0e513.ctex remapped: res://.godot/imported/number_gold_7.png-e1d74742968795b4808812f34fb0e513.ctex
+Completed load for: 'res://art/locale/en/number_gold_7.png' remapped 'res://art/locale/en/number_gold_7.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_8.png remapped: res://art/locale/en/number_gold_8.png
+Loading resource: res://.godot/imported/number_gold_8.png-b9ac03f58ea695a5d2b19a34abb25ba7.ctex remapped: res://.godot/imported/number_gold_8.png-b9ac03f58ea695a5d2b19a34abb25ba7.ctex
+Completed load for: 'res://art/locale/en/number_gold_8.png' remapped 'res://art/locale/en/number_gold_8.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_9.png remapped: res://art/locale/en/number_gold_9.png
+Loading resource: res://.godot/imported/number_gold_9.png-bfdb037cf74fb6ff84f23ead51f6daec.ctex remapped: res://.godot/imported/number_gold_9.png-bfdb037cf74fb6ff84f23ead51f6daec.ctex
+Completed load for: 'res://art/locale/en/number_gold_9.png' remapped 'res://art/locale/en/number_gold_9.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_slash.png remapped: res://art/locale/en/number_gold_slash.png
+Loading resource: res://.godot/imported/number_gold_slash.png-3ccac7a37067052d42c6adf19efaae28.ctex remapped: res://.godot/imported/number_gold_slash.png-3ccac7a37067052d42c6adf19efaae28.ctex
+Completed load for: 'res://art/locale/en/number_gold_slash.png' remapped 'res://art/locale/en/number_gold_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_plus.png remapped: res://art/locale/en/number_gold_plus.png
+Loading resource: res://.godot/imported/number_gold_plus.png-0dcb03180fcb378e3620a5b61e76819a.ctex remapped: res://.godot/imported/number_gold_plus.png-0dcb03180fcb378e3620a5b61e76819a.ctex
+Completed load for: 'res://art/locale/en/number_gold_plus.png' remapped 'res://art/locale/en/number_gold_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_x.png remapped: res://art/locale/en/number_gold_x.png
+Loading resource: res://.godot/imported/number_gold_x.png-104b45b2e638f43f9789081f8a6d71ab.ctex remapped: res://.godot/imported/number_gold_x.png-104b45b2e638f43f9789081f8a6d71ab.ctex
+Completed load for: 'res://art/locale/en/number_gold_x.png' remapped 'res://art/locale/en/number_gold_x.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_minus.png remapped: res://art/locale/en/number_gold_minus.png
+Loading resource: res://.godot/imported/number_gold_minus.png-d107305bff697a1ddfd5ca033215374d.ctex remapped: res://.godot/imported/number_gold_minus.png-d107305bff697a1ddfd5ca033215374d.ctex
+Completed load for: 'res://art/locale/en/number_gold_minus.png' remapped 'res://art/locale/en/number_gold_minus.png' at thread -1
+Loading resource: res://art/locale/en/island_words/white_tab_boosters.png remapped: res://art/locale/en/island_words/white_tab_boosters.png
+Loading resource: res://.godot/imported/white_tab_boosters.png-837cf401b41aa77678bf688134703cfd.ctex remapped: res://.godot/imported/white_tab_boosters.png-837cf401b41aa77678bf688134703cfd.ctex
+Completed load for: 'res://art/locale/en/island_words/white_tab_boosters.png' remapped 'res://art/locale/en/island_words/white_tab_boosters.png' at thread -1
+Loading resource: res://art/panel_home_island_coin.png remapped: res://art/panel_home_island_coin.png
+Loading resource: res://.godot/imported/panel_home_island_coin.png-422217976464716ae8885baec91f91e3.ctex remapped: res://.godot/imported/panel_home_island_coin.png-422217976464716ae8885baec91f91e3.ctex
+Completed load for: 'res://art/panel_home_island_coin.png' remapped 'res://art/panel_home_island_coin.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_0.png remapped: res://art/icon_home_island_digit_0.png
+Loading resource: res://.godot/imported/icon_home_island_digit_0.png-6d1ce53fe0178dfcd0716af0864a7ed0.ctex remapped: res://.godot/imported/icon_home_island_digit_0.png-6d1ce53fe0178dfcd0716af0864a7ed0.ctex
+Completed load for: 'res://art/icon_home_island_digit_0.png' remapped 'res://art/icon_home_island_digit_0.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_1.png remapped: res://art/icon_home_island_digit_1.png
+Loading resource: res://.godot/imported/icon_home_island_digit_1.png-456e4ee91d1195cb67fa56464e1fae27.ctex remapped: res://.godot/imported/icon_home_island_digit_1.png-456e4ee91d1195cb67fa56464e1fae27.ctex
+Completed load for: 'res://art/icon_home_island_digit_1.png' remapped 'res://art/icon_home_island_digit_1.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_2.png remapped: res://art/icon_home_island_digit_2.png
+Loading resource: res://.godot/imported/icon_home_island_digit_2.png-1b9adb1c5759bb789e3e341112e63839.ctex remapped: res://.godot/imported/icon_home_island_digit_2.png-1b9adb1c5759bb789e3e341112e63839.ctex
+Completed load for: 'res://art/icon_home_island_digit_2.png' remapped 'res://art/icon_home_island_digit_2.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_8.png remapped: res://art/icon_home_island_digit_8.png
+Loading resource: res://.godot/imported/icon_home_island_digit_8.png-440c60159dc319c72551edde9e386614.ctex remapped: res://.godot/imported/icon_home_island_digit_8.png-440c60159dc319c72551edde9e386614.ctex
+Completed load for: 'res://art/icon_home_island_digit_8.png' remapped 'res://art/icon_home_island_digit_8.png' at thread -1
+Loading resource: res://art/island/btn_shop_tab.png remapped: res://art/island/btn_shop_tab.png
+Loading resource: res://.godot/imported/btn_shop_tab.png-7e133eda2f55c8eb28385130f57e21e1.ctex remapped: res://.godot/imported/btn_shop_tab.png-7e133eda2f55c8eb28385130f57e21e1.ctex
+Completed load for: 'res://art/island/btn_shop_tab.png' remapped 'res://art/island/btn_shop_tab.png' at thread -1
+Loading resource: res://art/island/island_tab_boosters.png remapped: res://art/island/island_tab_boosters.png
+Loading resource: res://.godot/imported/island_tab_boosters.png-e95a6d2a1cc81b5cce24e52782487c89.ctex remapped: res://.godot/imported/island_tab_boosters.png-e95a6d2a1cc81b5cce24e52782487c89.ctex
+Completed load for: 'res://art/island/island_tab_boosters.png' remapped 'res://art/island/island_tab_boosters.png' at thread -1
+Loading resource: res://art/island/island_badge_check.png remapped: res://art/island/island_badge_check.png
+Loading resource: res://.godot/imported/island_badge_check.png-7eeec4191bb1b94e2a6d4ee5e773ad98.ctex remapped: res://.godot/imported/island_badge_check.png-7eeec4191bb1b94e2a6d4ee5e773ad98.ctex
+Completed load for: 'res://art/island/island_badge_check.png' remapped 'res://art/island/island_badge_check.png' at thread -1
+Loading resource: res://art/island/island_tab_outfits.png remapped: res://art/island/island_tab_outfits.png
+Loading resource: res://.godot/imported/island_tab_outfits.png-551ed4cac481a8140260bc3c97956635.ctex remapped: res://.godot/imported/island_tab_outfits.png-551ed4cac481a8140260bc3c97956635.ctex
+Completed load for: 'res://art/island/island_tab_outfits.png' remapped 'res://art/island/island_tab_outfits.png' at thread -1
+Loading resource: res://art/island/island_tab_nests.png remapped: res://art/island/island_tab_nests.png
+Loading resource: res://.godot/imported/island_tab_nests.png-bce77a05fa0bfce94eda23f4cd5ec2fa.ctex remapped: res://.godot/imported/island_tab_nests.png-bce77a05fa0bfce94eda23f4cd5ec2fa.ctex
+Completed load for: 'res://art/island/island_tab_nests.png' remapped 'res://art/island/island_tab_nests.png' at thread -1
+Loading resource: res://art/island/prop_shop_shelf.png remapped: res://art/island/prop_shop_shelf.png
+Loading resource: res://.godot/imported/prop_shop_shelf.png-607f835e448660765ded820e7d3c3e63.ctex remapped: res://.godot/imported/prop_shop_shelf.png-607f835e448660765ded820e7d3c3e63.ctex
+Completed load for: 'res://art/island/prop_shop_shelf.png' remapped 'res://art/island/prop_shop_shelf.png' at thread -1
+Loading resource: res://art/island/island_icon_firefly.png remapped: res://art/island/island_icon_firefly.png
+Loading resource: res://.godot/imported/island_icon_firefly.png-fb132d084d630cf758f2cd761e3d82ff.ctex remapped: res://.godot/imported/island_icon_firefly.png-fb132d084d630cf758f2cd761e3d82ff.ctex
+Completed load for: 'res://art/island/island_icon_firefly.png' remapped 'res://art/island/island_icon_firefly.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_firefly.png remapped: res://art/locale/en/island_words/item_firefly.png
+Loading resource: res://.godot/imported/item_firefly.png-b14b009e60b77e8383ec38ac6928245d.ctex remapped: res://.godot/imported/item_firefly.png-b14b009e60b77e8383ec38ac6928245d.ctex
+Completed load for: 'res://art/locale/en/island_words/item_firefly.png' remapped 'res://art/locale/en/island_words/item_firefly.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_3.png remapped: res://art/icon_home_island_digit_3.png
+Loading resource: res://.godot/imported/icon_home_island_digit_3.png-807d5fad6469567ab0ddff39f84e8497.ctex remapped: res://.godot/imported/icon_home_island_digit_3.png-807d5fad6469567ab0ddff39f84e8497.ctex
+Completed load for: 'res://art/icon_home_island_digit_3.png' remapped 'res://art/icon_home_island_digit_3.png' at thread -1
+Loading resource: res://art/island/badge_shop_stock.png remapped: res://art/island/badge_shop_stock.png
+Loading resource: res://.godot/imported/badge_shop_stock.png-e4ee89cf57b224b0134d358f39a8c6ca.ctex remapped: res://.godot/imported/badge_shop_stock.png-e4ee89cf57b224b0134d358f39a8c6ca.ctex
+Completed load for: 'res://art/island/badge_shop_stock.png' remapped 'res://art/island/badge_shop_stock.png' at thread -1
+Loading resource: res://art/island/island_icon_sprout.png remapped: res://art/island/island_icon_sprout.png
+Loading resource: res://.godot/imported/island_icon_sprout.png-79f497df361abf921fd695f4172e390e.ctex remapped: res://.godot/imported/island_icon_sprout.png-79f497df361abf921fd695f4172e390e.ctex
+Completed load for: 'res://art/island/island_icon_sprout.png' remapped 'res://art/island/island_icon_sprout.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_sprout.png remapped: res://art/locale/en/island_words/item_sprout.png
+Loading resource: res://.godot/imported/item_sprout.png-cf2a94b1783f29b90c6964353b2ed477.ctex remapped: res://.godot/imported/item_sprout.png-cf2a94b1783f29b90c6964353b2ed477.ctex
+Completed load for: 'res://art/locale/en/island_words/item_sprout.png' remapped 'res://art/locale/en/island_words/item_sprout.png' at thread -1
+Loading resource: res://art/icon_home_island_digit_6.png remapped: res://art/icon_home_island_digit_6.png
+Loading resource: res://.godot/imported/icon_home_island_digit_6.png-02600a757831f7b034b78b809ffb371a.ctex remapped: res://.godot/imported/icon_home_island_digit_6.png-02600a757831f7b034b78b809ffb371a.ctex
+Completed load for: 'res://art/icon_home_island_digit_6.png' remapped 'res://art/icon_home_island_digit_6.png' at thread -1
+Loading resource: res://art/island/island_icon_owl_eye.png remapped: res://art/island/island_icon_owl_eye.png
+Loading resource: res://.godot/imported/island_icon_owl_eye.png-ebd884635fb819916d4a3f64759efc6f.ctex remapped: res://.godot/imported/island_icon_owl_eye.png-ebd884635fb819916d4a3f64759efc6f.ctex
+Completed load for: 'res://art/island/island_icon_owl_eye.png' remapped 'res://art/island/island_icon_owl_eye.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_owl_eye.png remapped: res://art/locale/en/island_words/item_owl_eye.png
+Loading resource: res://.godot/imported/item_owl_eye.png-093d06b2f0a46cb66f55ad93502ac467.ctex remapped: res://.godot/imported/item_owl_eye.png-093d06b2f0a46cb66f55ad93502ac467.ctex
+Completed load for: 'res://art/locale/en/island_words/item_owl_eye.png' remapped 'res://art/locale/en/island_words/item_owl_eye.png' at thread -1
+Loading resource: res://art/island/island_icon_bell.png remapped: res://art/island/island_icon_bell.png
+Loading resource: res://.godot/imported/island_icon_bell.png-0a9a1dd72124142b07574a8c1ea9a43b.ctex remapped: res://.godot/imported/island_icon_bell.png-0a9a1dd72124142b07574a8c1ea9a43b.ctex
+Completed load for: 'res://art/island/island_icon_bell.png' remapped 'res://art/island/island_icon_bell.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_wake_bell.png remapped: res://art/locale/en/island_words/item_wake_bell.png
+Loading resource: res://.godot/imported/item_wake_bell.png-e9d7744856fde150ac12c6e731c2956f.ctex remapped: res://.godot/imported/item_wake_bell.png-e9d7744856fde150ac12c6e731c2956f.ctex
+Completed load for: 'res://art/locale/en/island_words/item_wake_bell.png' remapped 'res://art/locale/en/island_words/item_wake_bell.png' at thread -1
+Loading resource: res://art/island/island_icon_scarecrow.png remapped: res://art/island/island_icon_scarecrow.png
+Loading resource: res://.godot/imported/island_icon_scarecrow.png-6bda72670518baf617dc80655d109729.ctex remapped: res://.godot/imported/island_icon_scarecrow.png-6bda72670518baf617dc80655d109729.ctex
+Completed load for: 'res://art/island/island_icon_scarecrow.png' remapped 'res://art/island/island_icon_scarecrow.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_scarecrow.png remapped: res://art/locale/en/island_words/item_scarecrow.png
+Loading resource: res://.godot/imported/item_scarecrow.png-0dc9e722a6f79c1f241ddef945acebf5.ctex remapped: res://.godot/imported/item_scarecrow.png-0dc9e722a6f79c1f241ddef945acebf5.ctex
+Completed load for: 'res://art/locale/en/island_words/item_scarecrow.png' remapped 'res://art/locale/en/island_words/item_scarecrow.png' at thread -1
+Loading resource: res://art/island/island_icon_rain.png remapped: res://art/island/island_icon_rain.png
+Loading resource: res://.godot/imported/island_icon_rain.png-1eed41f60cf5dad70affda7ef21fea58.ctex remapped: res://.godot/imported/island_icon_rain.png-1eed41f60cf5dad70affda7ef21fea58.ctex
+Completed load for: 'res://art/island/island_icon_rain.png' remapped 'res://art/island/island_icon_rain.png' at thread -1
+Loading resource: res://art/locale/en/island_words/item_spring_rain.png remapped: res://art/locale/en/island_words/item_spring_rain.png
+Loading resource: res://.godot/imported/item_spring_rain.png-110e6c16adc32bd79912772d8335c4b5.ctex remapped: res://.godot/imported/item_spring_rain.png-110e6c16adc32bd79912772d8335c4b5.ctex
+Completed load for: 'res://art/locale/en/island_words/item_spring_rain.png' remapped 'res://art/locale/en/island_words/item_spring_rain.png' at thread -1
+Loading resource: res://audio/bgm_menu.wav remapped: res://audio/bgm_menu.wav
+Loading resource: res://.godot/imported/bgm_menu.wav-c111bd455dcb5db9fd6c6924b998caa1.sample remapped: res://.godot/imported/bgm_menu.wav-c111bd455dcb5db9fd6c6924b998caa1.sample
+Completed load for: 'res://audio/bgm_menu.wav' remapped 'res://audio/bgm_menu.wav' at thread -1
+Loading resource: res://art/leaf_wipe.png remapped: res://art/leaf_wipe.png
+Loading resource: res://.godot/imported/leaf_wipe.png-4825c42a82e34e35704d045d38b86070.ctex remapped: res://.godot/imported/leaf_wipe.png-4825c42a82e34e35704d045d38b86070.ctex
+Completed load for: 'res://art/leaf_wipe.png' remapped 'res://art/leaf_wipe.png' at thread -1
+Loading resource: res://art/island/island_branch.png remapped: res://art/island/island_branch.png
+Loading resource: res://.godot/imported/island_branch.png-048a7ae86f8f18498f72680794eaf35e.ctex remapped: res://.godot/imported/island_branch.png-048a7ae86f8f18498f72680794eaf35e.ctex
+Completed load for: 'res://art/island/island_branch.png' remapped 'res://art/island/island_branch.png' at thread -1
+Loading resource: res://art/island/island_unknown_bird.png remapped: res://art/island/island_unknown_bird.png
+Loading resource: res://.godot/imported/island_unknown_bird.png-19b937cce42300c4f883beec58f0f1c7.ctex remapped: res://.godot/imported/island_unknown_bird.png-19b937cce42300c4f883beec58f0f1c7.ctex
+Completed load for: 'res://art/island/island_unknown_bird.png' remapped 'res://art/island/island_unknown_bird.png' at thread -1
+Loading resource: res://art/kit/panel.png remapped: res://art/kit/panel.png
+Loading resource: res://.godot/imported/panel.png-2edd9ebcd95a2702063c76ccb27ed1a5.ctex remapped: res://.godot/imported/panel.png-2edd9ebcd95a2702063c76ccb27ed1a5.ctex
+Completed load for: 'res://art/kit/panel.png' remapped 'res://art/kit/panel.png' at thread -1
+Loading resource: res://art/island/panel_shop_forest.png remapped: res://art/island/panel_shop_forest.png
+Loading resource: res://.godot/imported/panel_shop_forest.png-1fe41152bc24a24396351b38d0c2e246.ctex remapped: res://.godot/imported/panel_shop_forest.png-1fe41152bc24a24396351b38d0c2e246.ctex
+Completed load for: 'res://art/island/panel_shop_forest.png' remapped 'res://art/island/panel_shop_forest.png' at thread -1
+Loading resource: res://art/island/btn_purchase_close.png remapped: res://art/island/btn_purchase_close.png
+Loading resource: res://.godot/imported/btn_purchase_close.png-af3ecfe23c7405e3f0d5b0839b2b7848.ctex remapped: res://.godot/imported/btn_purchase_close.png-af3ecfe23c7405e3f0d5b0839b2b7848.ctex
+Completed load for: 'res://art/island/btn_purchase_close.png' remapped 'res://art/island/btn_purchase_close.png' at thread -1
+Loading resource: res://game/warm_ink.gdshader remapped: res://game/warm_ink.gdshader
+Completed load for: 'res://game/warm_ink.gdshader' remapped 'res://game/warm_ink.gdshader' at thread -1
+Loading resource: res://art/locale/en/island_words/cap_firefly.png remapped: res://art/locale/en/island_words/cap_firefly.png
+Loading resource: res://.godot/imported/cap_firefly.png-1bb0657feeab779a6736433d8e95b3c9.ctex remapped: res://.godot/imported/cap_firefly.png-1bb0657feeab779a6736433d8e95b3c9.ctex
+Completed load for: 'res://art/locale/en/island_words/cap_firefly.png' remapped 'res://art/locale/en/island_words/cap_firefly.png' at thread -1
+Loading resource: res://art/island/island_pill_green.png remapped: res://art/island/island_pill_green.png
+Loading resource: res://.godot/imported/island_pill_green.png-6cb1d330b4d1a1f6bdb3a1d073f8afa5.ctex remapped: res://.godot/imported/island_pill_green.png-6cb1d330b4d1a1f6bdb3a1d073f8afa5.ctex
+Completed load for: 'res://art/island/island_pill_green.png' remapped 'res://art/island/island_pill_green.png' at thread -1
+Loading resource: res://art/island/btn_shop_gold.png remapped: res://art/island/btn_shop_gold.png
+Loading resource: res://.godot/imported/btn_shop_gold.png-bed182604a679627e4794e88221be471.ctex remapped: res://.godot/imported/btn_shop_gold.png-bed182604a679627e4794e88221be471.ctex
+Completed load for: 'res://art/island/btn_shop_gold.png' remapped 'res://art/island/btn_shop_gold.png' at thread -1
+PASS booster uses existing forest surface
+PASS booster uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS booster Close matches coin-shop dimensions
+PASS booster Close press retains geometry
+PASS repeated booster open keeps one modal
+PASS one-unit quantity bounds
+Loading resource: res://art/icon_home_island_digit_5.png remapped: res://art/icon_home_island_digit_5.png
+Loading resource: res://.godot/imported/icon_home_island_digit_5.png-379e740f7ab8dc5a3276de837da5f24b.ctex remapped: res://.godot/imported/icon_home_island_digit_5.png-379e740f7ab8dc5a3276de837da5f24b.ctex
+Completed load for: 'res://art/icon_home_island_digit_5.png' remapped 'res://art/icon_home_island_digit_5.png' at thread -1
+PASS editable quantity updates purchase
+PASS quantity caps at affordability
+PASS empty quantity disables Buy
+PASS empty quantity restores one on blur
+Loading resource: res://art/icon_home_island_digit_9.png remapped: res://art/icon_home_island_digit_9.png
+Loading resource: res://.godot/imported/icon_home_island_digit_9.png-c40786be85baa5f0db1d584ba0bccd78.ctex remapped: res://.godot/imported/icon_home_island_digit_9.png-c40786be85baa5f0db1d584ba0bccd78.ctex
+Completed load for: 'res://art/icon_home_island_digit_9.png' remapped 'res://art/icon_home_island_digit_9.png' at thread -1
+PASS quantity strips non-digits
+Loading resource: res://art/locale/zh/number_cream_0.png remapped: res://art/locale/zh/number_cream_0.png
+Loading resource: res://.godot/imported/number_cream_0.png-3b12eafd113168cd6ef2598d5eec94e6.ctex remapped: res://.godot/imported/number_cream_0.png-3b12eafd113168cd6ef2598d5eec94e6.ctex
+Completed load for: 'res://art/locale/zh/number_cream_0.png' remapped 'res://art/locale/zh/number_cream_0.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_1.png remapped: res://art/locale/zh/number_cream_1.png
+Loading resource: res://.godot/imported/number_cream_1.png-b89ff72531fcdf02ca4ba67cf668ad7b.ctex remapped: res://.godot/imported/number_cream_1.png-b89ff72531fcdf02ca4ba67cf668ad7b.ctex
+Completed load for: 'res://art/locale/zh/number_cream_1.png' remapped 'res://art/locale/zh/number_cream_1.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_2.png remapped: res://art/locale/zh/number_cream_2.png
+Loading resource: res://.godot/imported/number_cream_2.png-01fc0a1e81e171b0ce6a9d7a14045f8d.ctex remapped: res://.godot/imported/number_cream_2.png-01fc0a1e81e171b0ce6a9d7a14045f8d.ctex
+Completed load for: 'res://art/locale/zh/number_cream_2.png' remapped 'res://art/locale/zh/number_cream_2.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_3.png remapped: res://art/locale/zh/number_cream_3.png
+Loading resource: res://.godot/imported/number_cream_3.png-991b3701f72b453e5570c9d5cccb5bdf.ctex remapped: res://.godot/imported/number_cream_3.png-991b3701f72b453e5570c9d5cccb5bdf.ctex
+Completed load for: 'res://art/locale/zh/number_cream_3.png' remapped 'res://art/locale/zh/number_cream_3.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_4.png remapped: res://art/locale/zh/number_cream_4.png
+Loading resource: res://.godot/imported/number_cream_4.png-3a96e8bdc9a07c8ebe0607534dc504ef.ctex remapped: res://.godot/imported/number_cream_4.png-3a96e8bdc9a07c8ebe0607534dc504ef.ctex
+Completed load for: 'res://art/locale/zh/number_cream_4.png' remapped 'res://art/locale/zh/number_cream_4.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_5.png remapped: res://art/locale/zh/number_cream_5.png
+Loading resource: res://.godot/imported/number_cream_5.png-5868e9fb52060de69957cc3429ae7a02.ctex remapped: res://.godot/imported/number_cream_5.png-5868e9fb52060de69957cc3429ae7a02.ctex
+Completed load for: 'res://art/locale/zh/number_cream_5.png' remapped 'res://art/locale/zh/number_cream_5.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_6.png remapped: res://art/locale/zh/number_cream_6.png
+Loading resource: res://.godot/imported/number_cream_6.png-431ba8f19c71048b40fbcc7b2ba4928a.ctex remapped: res://.godot/imported/number_cream_6.png-431ba8f19c71048b40fbcc7b2ba4928a.ctex
+Completed load for: 'res://art/locale/zh/number_cream_6.png' remapped 'res://art/locale/zh/number_cream_6.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_7.png remapped: res://art/locale/zh/number_cream_7.png
+Loading resource: res://.godot/imported/number_cream_7.png-59c90be19b00605f68deeb359c9a11a2.ctex remapped: res://.godot/imported/number_cream_7.png-59c90be19b00605f68deeb359c9a11a2.ctex
+Completed load for: 'res://art/locale/zh/number_cream_7.png' remapped 'res://art/locale/zh/number_cream_7.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_8.png remapped: res://art/locale/zh/number_cream_8.png
+Loading resource: res://.godot/imported/number_cream_8.png-51833ce6af83543f24717c228e9c87bd.ctex remapped: res://.godot/imported/number_cream_8.png-51833ce6af83543f24717c228e9c87bd.ctex
+Completed load for: 'res://art/locale/zh/number_cream_8.png' remapped 'res://art/locale/zh/number_cream_8.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_9.png remapped: res://art/locale/zh/number_cream_9.png
+Loading resource: res://.godot/imported/number_cream_9.png-53ad5bdccc25e2ee88002ae7d95c20f4.ctex remapped: res://.godot/imported/number_cream_9.png-53ad5bdccc25e2ee88002ae7d95c20f4.ctex
+Completed load for: 'res://art/locale/zh/number_cream_9.png' remapped 'res://art/locale/zh/number_cream_9.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_slash.png remapped: res://art/locale/zh/number_cream_slash.png
+Loading resource: res://.godot/imported/number_cream_slash.png-0a9be511d4309dd6b2248af7b8496f16.ctex remapped: res://.godot/imported/number_cream_slash.png-0a9be511d4309dd6b2248af7b8496f16.ctex
+Completed load for: 'res://art/locale/zh/number_cream_slash.png' remapped 'res://art/locale/zh/number_cream_slash.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_plus.png remapped: res://art/locale/zh/number_cream_plus.png
+Loading resource: res://.godot/imported/number_cream_plus.png-f14b6c8797555aaa363e64a574a6d4dc.ctex remapped: res://.godot/imported/number_cream_plus.png-f14b6c8797555aaa363e64a574a6d4dc.ctex
+Completed load for: 'res://art/locale/zh/number_cream_plus.png' remapped 'res://art/locale/zh/number_cream_plus.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_x.png remapped: res://art/locale/zh/number_cream_x.png
+Loading resource: res://.godot/imported/number_cream_x.png-50276fe0025b8dbc54f23abb27c134e1.ctex remapped: res://.godot/imported/number_cream_x.png-50276fe0025b8dbc54f23abb27c134e1.ctex
+Completed load for: 'res://art/locale/zh/number_cream_x.png' remapped 'res://art/locale/zh/number_cream_x.png' at thread -1
+Loading resource: res://art/locale/zh/number_cream_minus.png remapped: res://art/locale/zh/number_cream_minus.png
+Loading resource: res://.godot/imported/number_cream_minus.png-b74609aae627dd86b0d754263cac1e7b.ctex remapped: res://.godot/imported/number_cream_minus.png-b74609aae627dd86b0d754263cac1e7b.ctex
+Completed load for: 'res://art/locale/zh/number_cream_minus.png' remapped 'res://art/locale/zh/number_cream_minus.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_0.png remapped: res://art/locale/zh/number_brown_0.png
+Loading resource: res://.godot/imported/number_brown_0.png-58e11efc712866d7ae0ea06cb3e6bc1e.ctex remapped: res://.godot/imported/number_brown_0.png-58e11efc712866d7ae0ea06cb3e6bc1e.ctex
+Completed load for: 'res://art/locale/zh/number_brown_0.png' remapped 'res://art/locale/zh/number_brown_0.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_1.png remapped: res://art/locale/zh/number_brown_1.png
+Loading resource: res://.godot/imported/number_brown_1.png-5f93187bf2fdd0b808a4042aa4e6b6c4.ctex remapped: res://.godot/imported/number_brown_1.png-5f93187bf2fdd0b808a4042aa4e6b6c4.ctex
+Completed load for: 'res://art/locale/zh/number_brown_1.png' remapped 'res://art/locale/zh/number_brown_1.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_2.png remapped: res://art/locale/zh/number_brown_2.png
+Loading resource: res://.godot/imported/number_brown_2.png-d735dd9e6b7f97b2feb9dd8f40228b0d.ctex remapped: res://.godot/imported/number_brown_2.png-d735dd9e6b7f97b2feb9dd8f40228b0d.ctex
+Completed load for: 'res://art/locale/zh/number_brown_2.png' remapped 'res://art/locale/zh/number_brown_2.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_3.png remapped: res://art/locale/zh/number_brown_3.png
+Loading resource: res://.godot/imported/number_brown_3.png-8281f5cd497a3bbc3510b089fd46ce53.ctex remapped: res://.godot/imported/number_brown_3.png-8281f5cd497a3bbc3510b089fd46ce53.ctex
+Completed load for: 'res://art/locale/zh/number_brown_3.png' remapped 'res://art/locale/zh/number_brown_3.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_4.png remapped: res://art/locale/zh/number_brown_4.png
+Loading resource: res://.godot/imported/number_brown_4.png-f1b05fd50baa34545ecae53f9326858d.ctex remapped: res://.godot/imported/number_brown_4.png-f1b05fd50baa34545ecae53f9326858d.ctex
+Completed load for: 'res://art/locale/zh/number_brown_4.png' remapped 'res://art/locale/zh/number_brown_4.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_5.png remapped: res://art/locale/zh/number_brown_5.png
+Loading resource: res://.godot/imported/number_brown_5.png-e1a1087433bc1dc22f8d796ea5cfffae.ctex remapped: res://.godot/imported/number_brown_5.png-e1a1087433bc1dc22f8d796ea5cfffae.ctex
+Completed load for: 'res://art/locale/zh/number_brown_5.png' remapped 'res://art/locale/zh/number_brown_5.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_6.png remapped: res://art/locale/zh/number_brown_6.png
+Loading resource: res://.godot/imported/number_brown_6.png-6fed477b2b25b41d714db87dec668320.ctex remapped: res://.godot/imported/number_brown_6.png-6fed477b2b25b41d714db87dec668320.ctex
+Completed load for: 'res://art/locale/zh/number_brown_6.png' remapped 'res://art/locale/zh/number_brown_6.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_7.png remapped: res://art/locale/zh/number_brown_7.png
+Loading resource: res://.godot/imported/number_brown_7.png-132ea98a94aa96c56a7406de2270be9a.ctex remapped: res://.godot/imported/number_brown_7.png-132ea98a94aa96c56a7406de2270be9a.ctex
+Completed load for: 'res://art/locale/zh/number_brown_7.png' remapped 'res://art/locale/zh/number_brown_7.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_8.png remapped: res://art/locale/zh/number_brown_8.png
+Loading resource: res://.godot/imported/number_brown_8.png-7d156acd43f52d327bc3358439319a14.ctex remapped: res://.godot/imported/number_brown_8.png-7d156acd43f52d327bc3358439319a14.ctex
+Completed load for: 'res://art/locale/zh/number_brown_8.png' remapped 'res://art/locale/zh/number_brown_8.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_9.png remapped: res://art/locale/zh/number_brown_9.png
+Loading resource: res://.godot/imported/number_brown_9.png-fc50c29809562482cc67e00f227e1430.ctex remapped: res://.godot/imported/number_brown_9.png-fc50c29809562482cc67e00f227e1430.ctex
+Completed load for: 'res://art/locale/zh/number_brown_9.png' remapped 'res://art/locale/zh/number_brown_9.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_slash.png remapped: res://art/locale/zh/number_brown_slash.png
+Loading resource: res://.godot/imported/number_brown_slash.png-d779cbf311922cc113375ee847e3c904.ctex remapped: res://.godot/imported/number_brown_slash.png-d779cbf311922cc113375ee847e3c904.ctex
+Completed load for: 'res://art/locale/zh/number_brown_slash.png' remapped 'res://art/locale/zh/number_brown_slash.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_plus.png remapped: res://art/locale/zh/number_brown_plus.png
+Loading resource: res://.godot/imported/number_brown_plus.png-d48c54cc8cb9a92dd8b22e562d9ceff0.ctex remapped: res://.godot/imported/number_brown_plus.png-d48c54cc8cb9a92dd8b22e562d9ceff0.ctex
+Completed load for: 'res://art/locale/zh/number_brown_plus.png' remapped 'res://art/locale/zh/number_brown_plus.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_x.png remapped: res://art/locale/zh/number_brown_x.png
+Loading resource: res://.godot/imported/number_brown_x.png-52ff9875fdbf4bd360e87e58296eeee5.ctex remapped: res://.godot/imported/number_brown_x.png-52ff9875fdbf4bd360e87e58296eeee5.ctex
+Completed load for: 'res://art/locale/zh/number_brown_x.png' remapped 'res://art/locale/zh/number_brown_x.png' at thread -1
+Loading resource: res://art/locale/zh/number_brown_minus.png remapped: res://art/locale/zh/number_brown_minus.png
+Loading resource: res://.godot/imported/number_brown_minus.png-341719def61c106c3bf2d7bbff0d950c.ctex remapped: res://.godot/imported/number_brown_minus.png-341719def61c106c3bf2d7bbff0d950c.ctex
+Completed load for: 'res://art/locale/zh/number_brown_minus.png' remapped 'res://art/locale/zh/number_brown_minus.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_0.png remapped: res://art/locale/zh/number_gold_0.png
+Loading resource: res://.godot/imported/number_gold_0.png-b02e873604c93887735b9ca13ff5f656.ctex remapped: res://.godot/imported/number_gold_0.png-b02e873604c93887735b9ca13ff5f656.ctex
+Completed load for: 'res://art/locale/zh/number_gold_0.png' remapped 'res://art/locale/zh/number_gold_0.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_1.png remapped: res://art/locale/zh/number_gold_1.png
+Loading resource: res://.godot/imported/number_gold_1.png-51744ab0b5e6f6248b9659819fb255a5.ctex remapped: res://.godot/imported/number_gold_1.png-51744ab0b5e6f6248b9659819fb255a5.ctex
+Completed load for: 'res://art/locale/zh/number_gold_1.png' remapped 'res://art/locale/zh/number_gold_1.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_2.png remapped: res://art/locale/zh/number_gold_2.png
+Loading resource: res://.godot/imported/number_gold_2.png-899ea27c3fb8403ca96b0e1158ac9e91.ctex remapped: res://.godot/imported/number_gold_2.png-899ea27c3fb8403ca96b0e1158ac9e91.ctex
+Completed load for: 'res://art/locale/zh/number_gold_2.png' remapped 'res://art/locale/zh/number_gold_2.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_3.png remapped: res://art/locale/zh/number_gold_3.png
+Loading resource: res://.godot/imported/number_gold_3.png-0310624010f80e1292b03fc042f7b2a3.ctex remapped: res://.godot/imported/number_gold_3.png-0310624010f80e1292b03fc042f7b2a3.ctex
+Completed load for: 'res://art/locale/zh/number_gold_3.png' remapped 'res://art/locale/zh/number_gold_3.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_4.png remapped: res://art/locale/zh/number_gold_4.png
+Loading resource: res://.godot/imported/number_gold_4.png-02d18cea54cbb7f4443219a245a1a339.ctex remapped: res://.godot/imported/number_gold_4.png-02d18cea54cbb7f4443219a245a1a339.ctex
+Completed load for: 'res://art/locale/zh/number_gold_4.png' remapped 'res://art/locale/zh/number_gold_4.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_5.png remapped: res://art/locale/zh/number_gold_5.png
+Loading resource: res://.godot/imported/number_gold_5.png-1039263af863140ef2b6c2a03e206433.ctex remapped: res://.godot/imported/number_gold_5.png-1039263af863140ef2b6c2a03e206433.ctex
+Completed load for: 'res://art/locale/zh/number_gold_5.png' remapped 'res://art/locale/zh/number_gold_5.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_6.png remapped: res://art/locale/zh/number_gold_6.png
+Loading resource: res://.godot/imported/number_gold_6.png-f885c7d208f3f0e0f9ec2b61dd4fd55d.ctex remapped: res://.godot/imported/number_gold_6.png-f885c7d208f3f0e0f9ec2b61dd4fd55d.ctex
+Completed load for: 'res://art/locale/zh/number_gold_6.png' remapped 'res://art/locale/zh/number_gold_6.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_7.png remapped: res://art/locale/zh/number_gold_7.png
+Loading resource: res://.godot/imported/number_gold_7.png-f567ce3159c33575d821a2cbccecc90f.ctex remapped: res://.godot/imported/number_gold_7.png-f567ce3159c33575d821a2cbccecc90f.ctex
+Completed load for: 'res://art/locale/zh/number_gold_7.png' remapped 'res://art/locale/zh/number_gold_7.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_8.png remapped: res://art/locale/zh/number_gold_8.png
+Loading resource: res://.godot/imported/number_gold_8.png-ed1022a8b6f1b7f6a982fa9b05d0aa79.ctex remapped: res://.godot/imported/number_gold_8.png-ed1022a8b6f1b7f6a982fa9b05d0aa79.ctex
+Completed load for: 'res://art/locale/zh/number_gold_8.png' remapped 'res://art/locale/zh/number_gold_8.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_9.png remapped: res://art/locale/zh/number_gold_9.png
+Loading resource: res://.godot/imported/number_gold_9.png-b3fcd2b55cfc4606d81c1ffc86815eaa.ctex remapped: res://.godot/imported/number_gold_9.png-b3fcd2b55cfc4606d81c1ffc86815eaa.ctex
+Completed load for: 'res://art/locale/zh/number_gold_9.png' remapped 'res://art/locale/zh/number_gold_9.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_slash.png remapped: res://art/locale/zh/number_gold_slash.png
+Loading resource: res://.godot/imported/number_gold_slash.png-67016aab625ed9b4377c8a885d47ec85.ctex remapped: res://.godot/imported/number_gold_slash.png-67016aab625ed9b4377c8a885d47ec85.ctex
+Completed load for: 'res://art/locale/zh/number_gold_slash.png' remapped 'res://art/locale/zh/number_gold_slash.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_plus.png remapped: res://art/locale/zh/number_gold_plus.png
+Loading resource: res://.godot/imported/number_gold_plus.png-91504514e0a52a606c508ee714cd9996.ctex remapped: res://.godot/imported/number_gold_plus.png-91504514e0a52a606c508ee714cd9996.ctex
+Completed load for: 'res://art/locale/zh/number_gold_plus.png' remapped 'res://art/locale/zh/number_gold_plus.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_x.png remapped: res://art/locale/zh/number_gold_x.png
+Loading resource: res://.godot/imported/number_gold_x.png-3136528e583161634b7eb054c20cf140.ctex remapped: res://.godot/imported/number_gold_x.png-3136528e583161634b7eb054c20cf140.ctex
+Completed load for: 'res://art/locale/zh/number_gold_x.png' remapped 'res://art/locale/zh/number_gold_x.png' at thread -1
+Loading resource: res://art/locale/zh/number_gold_minus.png remapped: res://art/locale/zh/number_gold_minus.png
+Loading resource: res://.godot/imported/number_gold_minus.png-2a9661f332bfdc2c6dac02e8037341c0.ctex remapped: res://.godot/imported/number_gold_minus.png-2a9661f332bfdc2c6dac02e8037341c0.ctex
+Completed load for: 'res://art/locale/zh/number_gold_minus.png' remapped 'res://art/locale/zh/number_gold_minus.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/white_tab_boosters.png remapped: res://art/locale/zh/island_words/white_tab_boosters.png
+Loading resource: res://.godot/imported/white_tab_boosters.png-e4da75f05cf38c933e51978f829c0a35.ctex remapped: res://.godot/imported/white_tab_boosters.png-e4da75f05cf38c933e51978f829c0a35.ctex
+Completed load for: 'res://art/locale/zh/island_words/white_tab_boosters.png' remapped 'res://art/locale/zh/island_words/white_tab_boosters.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_firefly.png remapped: res://art/locale/zh/island_words/item_firefly.png
+Loading resource: res://.godot/imported/item_firefly.png-032bb50627f3a2e7545cf63ad32a8f81.ctex remapped: res://.godot/imported/item_firefly.png-032bb50627f3a2e7545cf63ad32a8f81.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_firefly.png' remapped 'res://art/locale/zh/island_words/item_firefly.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_sprout.png remapped: res://art/locale/zh/island_words/item_sprout.png
+Loading resource: res://.godot/imported/item_sprout.png-9ceffa4369ce5e70384ac29860a67afd.ctex remapped: res://.godot/imported/item_sprout.png-9ceffa4369ce5e70384ac29860a67afd.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_sprout.png' remapped 'res://art/locale/zh/island_words/item_sprout.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_owl_eye.png remapped: res://art/locale/zh/island_words/item_owl_eye.png
+Loading resource: res://.godot/imported/item_owl_eye.png-21958362ae3af17c14b020f43f39a400.ctex remapped: res://.godot/imported/item_owl_eye.png-21958362ae3af17c14b020f43f39a400.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_owl_eye.png' remapped 'res://art/locale/zh/island_words/item_owl_eye.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_wake_bell.png remapped: res://art/locale/zh/island_words/item_wake_bell.png
+Loading resource: res://.godot/imported/item_wake_bell.png-1d1a5b3b5feb0a03890651b6c1d1f4fc.ctex remapped: res://.godot/imported/item_wake_bell.png-1d1a5b3b5feb0a03890651b6c1d1f4fc.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_wake_bell.png' remapped 'res://art/locale/zh/island_words/item_wake_bell.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_scarecrow.png remapped: res://art/locale/zh/island_words/item_scarecrow.png
+Loading resource: res://.godot/imported/item_scarecrow.png-46e6782ab4eb4d44c40d2e5835919679.ctex remapped: res://.godot/imported/item_scarecrow.png-46e6782ab4eb4d44c40d2e5835919679.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_scarecrow.png' remapped 'res://art/locale/zh/island_words/item_scarecrow.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/item_spring_rain.png remapped: res://art/locale/zh/island_words/item_spring_rain.png
+Loading resource: res://.godot/imported/item_spring_rain.png-ad0c9b3e7d89677f16a82ed3705b424f.ctex remapped: res://.godot/imported/item_spring_rain.png-ad0c9b3e7d89677f16a82ed3705b424f.ctex
+Completed load for: 'res://art/locale/zh/island_words/item_spring_rain.png' remapped 'res://art/locale/zh/island_words/item_spring_rain.png' at thread -1
+Loading resource: res://art/locale/zh/island_words/cap_firefly.png remapped: res://art/locale/zh/island_words/cap_firefly.png
+Loading resource: res://.godot/imported/cap_firefly.png-62097c74bbb67d0b4beec0e52c89b168.ctex remapped: res://.godot/imported/cap_firefly.png-62097c74bbb67d0b4beec0e52c89b168.ctex
+Completed load for: 'res://art/locale/zh/island_words/cap_firefly.png' remapped 'res://art/locale/zh/island_words/cap_firefly.png' at thread -1
+PASS open quantity caption survives Chinese switch
+Loading resource: res://art/locale/en/number_cream_0.png remapped: res://art/locale/en/number_cream_0.png
+Loading resource: res://.godot/imported/number_cream_0.png-7113cc0e60bfd38451d9699857403866.ctex remapped: res://.godot/imported/number_cream_0.png-7113cc0e60bfd38451d9699857403866.ctex
+Completed load for: 'res://art/locale/en/number_cream_0.png' remapped 'res://art/locale/en/number_cream_0.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_1.png remapped: res://art/locale/en/number_cream_1.png
+Loading resource: res://.godot/imported/number_cream_1.png-1ebae8e923324b431e629dcf3647642b.ctex remapped: res://.godot/imported/number_cream_1.png-1ebae8e923324b431e629dcf3647642b.ctex
+Completed load for: 'res://art/locale/en/number_cream_1.png' remapped 'res://art/locale/en/number_cream_1.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_2.png remapped: res://art/locale/en/number_cream_2.png
+Loading resource: res://.godot/imported/number_cream_2.png-defe8f0c1ecd4ad53b83708581ea42eb.ctex remapped: res://.godot/imported/number_cream_2.png-defe8f0c1ecd4ad53b83708581ea42eb.ctex
+Completed load for: 'res://art/locale/en/number_cream_2.png' remapped 'res://art/locale/en/number_cream_2.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_3.png remapped: res://art/locale/en/number_cream_3.png
+Loading resource: res://.godot/imported/number_cream_3.png-6a1d964370e997cdf28fd2051e9f47fc.ctex remapped: res://.godot/imported/number_cream_3.png-6a1d964370e997cdf28fd2051e9f47fc.ctex
+Completed load for: 'res://art/locale/en/number_cream_3.png' remapped 'res://art/locale/en/number_cream_3.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_4.png remapped: res://art/locale/en/number_cream_4.png
+Loading resource: res://.godot/imported/number_cream_4.png-b2f0e161994db25fbddded8d443dbf6a.ctex remapped: res://.godot/imported/number_cream_4.png-b2f0e161994db25fbddded8d443dbf6a.ctex
+Completed load for: 'res://art/locale/en/number_cream_4.png' remapped 'res://art/locale/en/number_cream_4.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_5.png remapped: res://art/locale/en/number_cream_5.png
+Loading resource: res://.godot/imported/number_cream_5.png-a0a81ae49a3c2f2203a6ba8f97af487f.ctex remapped: res://.godot/imported/number_cream_5.png-a0a81ae49a3c2f2203a6ba8f97af487f.ctex
+Completed load for: 'res://art/locale/en/number_cream_5.png' remapped 'res://art/locale/en/number_cream_5.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_6.png remapped: res://art/locale/en/number_cream_6.png
+Loading resource: res://.godot/imported/number_cream_6.png-19375686be7213140385660de6e58eaa.ctex remapped: res://.godot/imported/number_cream_6.png-19375686be7213140385660de6e58eaa.ctex
+Completed load for: 'res://art/locale/en/number_cream_6.png' remapped 'res://art/locale/en/number_cream_6.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_7.png remapped: res://art/locale/en/number_cream_7.png
+Loading resource: res://.godot/imported/number_cream_7.png-84d4951a2b44bafaa9dff74f9029ddc2.ctex remapped: res://.godot/imported/number_cream_7.png-84d4951a2b44bafaa9dff74f9029ddc2.ctex
+Completed load for: 'res://art/locale/en/number_cream_7.png' remapped 'res://art/locale/en/number_cream_7.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_8.png remapped: res://art/locale/en/number_cream_8.png
+Loading resource: res://.godot/imported/number_cream_8.png-5af3d0b6c61982689e220c949fb88890.ctex remapped: res://.godot/imported/number_cream_8.png-5af3d0b6c61982689e220c949fb88890.ctex
+Completed load for: 'res://art/locale/en/number_cream_8.png' remapped 'res://art/locale/en/number_cream_8.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_9.png remapped: res://art/locale/en/number_cream_9.png
+Loading resource: res://.godot/imported/number_cream_9.png-2d687890cd5f0ff9030d83f645febb1a.ctex remapped: res://.godot/imported/number_cream_9.png-2d687890cd5f0ff9030d83f645febb1a.ctex
+Completed load for: 'res://art/locale/en/number_cream_9.png' remapped 'res://art/locale/en/number_cream_9.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_slash.png remapped: res://art/locale/en/number_cream_slash.png
+Loading resource: res://.godot/imported/number_cream_slash.png-2b20bdc049bbd2fd9f20d1904e99f676.ctex remapped: res://.godot/imported/number_cream_slash.png-2b20bdc049bbd2fd9f20d1904e99f676.ctex
+Completed load for: 'res://art/locale/en/number_cream_slash.png' remapped 'res://art/locale/en/number_cream_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_plus.png remapped: res://art/locale/en/number_cream_plus.png
+Loading resource: res://.godot/imported/number_cream_plus.png-fec4b311e1f4cb86c58a4677ca672d9d.ctex remapped: res://.godot/imported/number_cream_plus.png-fec4b311e1f4cb86c58a4677ca672d9d.ctex
+Completed load for: 'res://art/locale/en/number_cream_plus.png' remapped 'res://art/locale/en/number_cream_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_x.png remapped: res://art/locale/en/number_cream_x.png
+Loading resource: res://.godot/imported/number_cream_x.png-4a0d85456aba21c63249644749ded3fd.ctex remapped: res://.godot/imported/number_cream_x.png-4a0d85456aba21c63249644749ded3fd.ctex
+Completed load for: 'res://art/locale/en/number_cream_x.png' remapped 'res://art/locale/en/number_cream_x.png' at thread -1
+Loading resource: res://art/locale/en/number_cream_minus.png remapped: res://art/locale/en/number_cream_minus.png
+Loading resource: res://.godot/imported/number_cream_minus.png-887fdf9a539bd48fa7125a559eccb8d1.ctex remapped: res://.godot/imported/number_cream_minus.png-887fdf9a539bd48fa7125a559eccb8d1.ctex
+Completed load for: 'res://art/locale/en/number_cream_minus.png' remapped 'res://art/locale/en/number_cream_minus.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_0.png remapped: res://art/locale/en/number_brown_0.png
+Loading resource: res://.godot/imported/number_brown_0.png-1db624fb7d31e41eb91ec44273a56b4e.ctex remapped: res://.godot/imported/number_brown_0.png-1db624fb7d31e41eb91ec44273a56b4e.ctex
+Completed load for: 'res://art/locale/en/number_brown_0.png' remapped 'res://art/locale/en/number_brown_0.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_1.png remapped: res://art/locale/en/number_brown_1.png
+Loading resource: res://.godot/imported/number_brown_1.png-e251f997d70958fd50d1d673b8e7cb47.ctex remapped: res://.godot/imported/number_brown_1.png-e251f997d70958fd50d1d673b8e7cb47.ctex
+Completed load for: 'res://art/locale/en/number_brown_1.png' remapped 'res://art/locale/en/number_brown_1.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_2.png remapped: res://art/locale/en/number_brown_2.png
+Loading resource: res://.godot/imported/number_brown_2.png-66a7ee327a8f22077d35c603020ed2c2.ctex remapped: res://.godot/imported/number_brown_2.png-66a7ee327a8f22077d35c603020ed2c2.ctex
+Completed load for: 'res://art/locale/en/number_brown_2.png' remapped 'res://art/locale/en/number_brown_2.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_3.png remapped: res://art/locale/en/number_brown_3.png
+Loading resource: res://.godot/imported/number_brown_3.png-42a40020e7f08933b7842b34e170f9b4.ctex remapped: res://.godot/imported/number_brown_3.png-42a40020e7f08933b7842b34e170f9b4.ctex
+Completed load for: 'res://art/locale/en/number_brown_3.png' remapped 'res://art/locale/en/number_brown_3.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_4.png remapped: res://art/locale/en/number_brown_4.png
+Loading resource: res://.godot/imported/number_brown_4.png-4061400d8331f6cbe88b992c4b8786cd.ctex remapped: res://.godot/imported/number_brown_4.png-4061400d8331f6cbe88b992c4b8786cd.ctex
+Completed load for: 'res://art/locale/en/number_brown_4.png' remapped 'res://art/locale/en/number_brown_4.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_5.png remapped: res://art/locale/en/number_brown_5.png
+Loading resource: res://.godot/imported/number_brown_5.png-92a27cd68836dfd3250fbc80f5e2b8ac.ctex remapped: res://.godot/imported/number_brown_5.png-92a27cd68836dfd3250fbc80f5e2b8ac.ctex
+Completed load for: 'res://art/locale/en/number_brown_5.png' remapped 'res://art/locale/en/number_brown_5.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_6.png remapped: res://art/locale/en/number_brown_6.png
+Loading resource: res://.godot/imported/number_brown_6.png-f3ff3e9b2a0dede9ff4bd9b28e119691.ctex remapped: res://.godot/imported/number_brown_6.png-f3ff3e9b2a0dede9ff4bd9b28e119691.ctex
+Completed load for: 'res://art/locale/en/number_brown_6.png' remapped 'res://art/locale/en/number_brown_6.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_7.png remapped: res://art/locale/en/number_brown_7.png
+Loading resource: res://.godot/imported/number_brown_7.png-c79f3270ae4b8332c1421e58da52477c.ctex remapped: res://.godot/imported/number_brown_7.png-c79f3270ae4b8332c1421e58da52477c.ctex
+Completed load for: 'res://art/locale/en/number_brown_7.png' remapped 'res://art/locale/en/number_brown_7.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_8.png remapped: res://art/locale/en/number_brown_8.png
+Loading resource: res://.godot/imported/number_brown_8.png-c4f095b52ef0ddb2e7d8029637a0cc1b.ctex remapped: res://.godot/imported/number_brown_8.png-c4f095b52ef0ddb2e7d8029637a0cc1b.ctex
+Completed load for: 'res://art/locale/en/number_brown_8.png' remapped 'res://art/locale/en/number_brown_8.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_9.png remapped: res://art/locale/en/number_brown_9.png
+Loading resource: res://.godot/imported/number_brown_9.png-40a2415a31e2cc51ff8eea28f3447cb9.ctex remapped: res://.godot/imported/number_brown_9.png-40a2415a31e2cc51ff8eea28f3447cb9.ctex
+Completed load for: 'res://art/locale/en/number_brown_9.png' remapped 'res://art/locale/en/number_brown_9.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_slash.png remapped: res://art/locale/en/number_brown_slash.png
+Loading resource: res://.godot/imported/number_brown_slash.png-3ee2ed9429556ec4b4df09fe8750a251.ctex remapped: res://.godot/imported/number_brown_slash.png-3ee2ed9429556ec4b4df09fe8750a251.ctex
+Completed load for: 'res://art/locale/en/number_brown_slash.png' remapped 'res://art/locale/en/number_brown_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_plus.png remapped: res://art/locale/en/number_brown_plus.png
+Loading resource: res://.godot/imported/number_brown_plus.png-2f28e60a955f3167060135c0f0873a23.ctex remapped: res://.godot/imported/number_brown_plus.png-2f28e60a955f3167060135c0f0873a23.ctex
+Completed load for: 'res://art/locale/en/number_brown_plus.png' remapped 'res://art/locale/en/number_brown_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_x.png remapped: res://art/locale/en/number_brown_x.png
+Loading resource: res://.godot/imported/number_brown_x.png-83651a815f1f0ac11a53654c367f102f.ctex remapped: res://.godot/imported/number_brown_x.png-83651a815f1f0ac11a53654c367f102f.ctex
+Completed load for: 'res://art/locale/en/number_brown_x.png' remapped 'res://art/locale/en/number_brown_x.png' at thread -1
+Loading resource: res://art/locale/en/number_brown_minus.png remapped: res://art/locale/en/number_brown_minus.png
+Loading resource: res://.godot/imported/number_brown_minus.png-e2f2289adce781aea808187b622152dd.ctex remapped: res://.godot/imported/number_brown_minus.png-e2f2289adce781aea808187b622152dd.ctex
+Completed load for: 'res://art/locale/en/number_brown_minus.png' remapped 'res://art/locale/en/number_brown_minus.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_0.png remapped: res://art/locale/en/number_gold_0.png
+Loading resource: res://.godot/imported/number_gold_0.png-ecec388a542d0f715edebfca19021210.ctex remapped: res://.godot/imported/number_gold_0.png-ecec388a542d0f715edebfca19021210.ctex
+Completed load for: 'res://art/locale/en/number_gold_0.png' remapped 'res://art/locale/en/number_gold_0.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_1.png remapped: res://art/locale/en/number_gold_1.png
+Loading resource: res://.godot/imported/number_gold_1.png-a5dad5e118702339fe79671a1bdef0c1.ctex remapped: res://.godot/imported/number_gold_1.png-a5dad5e118702339fe79671a1bdef0c1.ctex
+Completed load for: 'res://art/locale/en/number_gold_1.png' remapped 'res://art/locale/en/number_gold_1.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_2.png remapped: res://art/locale/en/number_gold_2.png
+Loading resource: res://.godot/imported/number_gold_2.png-87f50113c560162be2583d9ebc82f4be.ctex remapped: res://.godot/imported/number_gold_2.png-87f50113c560162be2583d9ebc82f4be.ctex
+Completed load for: 'res://art/locale/en/number_gold_2.png' remapped 'res://art/locale/en/number_gold_2.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_3.png remapped: res://art/locale/en/number_gold_3.png
+Loading resource: res://.godot/imported/number_gold_3.png-12d6033588ff65de008c2ae52efdd243.ctex remapped: res://.godot/imported/number_gold_3.png-12d6033588ff65de008c2ae52efdd243.ctex
+Completed load for: 'res://art/locale/en/number_gold_3.png' remapped 'res://art/locale/en/number_gold_3.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_4.png remapped: res://art/locale/en/number_gold_4.png
+Loading resource: res://.godot/imported/number_gold_4.png-703349350c68a9f4fc780b857beab439.ctex remapped: res://.godot/imported/number_gold_4.png-703349350c68a9f4fc780b857beab439.ctex
+Completed load for: 'res://art/locale/en/number_gold_4.png' remapped 'res://art/locale/en/number_gold_4.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_5.png remapped: res://art/locale/en/number_gold_5.png
+Loading resource: res://.godot/imported/number_gold_5.png-4b842f0de37a317f90601339c645eb33.ctex remapped: res://.godot/imported/number_gold_5.png-4b842f0de37a317f90601339c645eb33.ctex
+Completed load for: 'res://art/locale/en/number_gold_5.png' remapped 'res://art/locale/en/number_gold_5.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_6.png remapped: res://art/locale/en/number_gold_6.png
+Loading resource: res://.godot/imported/number_gold_6.png-ebd9df520aa65f5c05d0ec0b3e7fb8bd.ctex remapped: res://.godot/imported/number_gold_6.png-ebd9df520aa65f5c05d0ec0b3e7fb8bd.ctex
+Completed load for: 'res://art/locale/en/number_gold_6.png' remapped 'res://art/locale/en/number_gold_6.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_7.png remapped: res://art/locale/en/number_gold_7.png
+Loading resource: res://.godot/imported/number_gold_7.png-e1d74742968795b4808812f34fb0e513.ctex remapped: res://.godot/imported/number_gold_7.png-e1d74742968795b4808812f34fb0e513.ctex
+Completed load for: 'res://art/locale/en/number_gold_7.png' remapped 'res://art/locale/en/number_gold_7.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_8.png remapped: res://art/locale/en/number_gold_8.png
+Loading resource: res://.godot/imported/number_gold_8.png-b9ac03f58ea695a5d2b19a34abb25ba7.ctex remapped: res://.godot/imported/number_gold_8.png-b9ac03f58ea695a5d2b19a34abb25ba7.ctex
+Completed load for: 'res://art/locale/en/number_gold_8.png' remapped 'res://art/locale/en/number_gold_8.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_9.png remapped: res://art/locale/en/number_gold_9.png
+Loading resource: res://.godot/imported/number_gold_9.png-bfdb037cf74fb6ff84f23ead51f6daec.ctex remapped: res://.godot/imported/number_gold_9.png-bfdb037cf74fb6ff84f23ead51f6daec.ctex
+Completed load for: 'res://art/locale/en/number_gold_9.png' remapped 'res://art/locale/en/number_gold_9.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_slash.png remapped: res://art/locale/en/number_gold_slash.png
+Loading resource: res://.godot/imported/number_gold_slash.png-3ccac7a37067052d42c6adf19efaae28.ctex remapped: res://.godot/imported/number_gold_slash.png-3ccac7a37067052d42c6adf19efaae28.ctex
+Completed load for: 'res://art/locale/en/number_gold_slash.png' remapped 'res://art/locale/en/number_gold_slash.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_plus.png remapped: res://art/locale/en/number_gold_plus.png
+Loading resource: res://.godot/imported/number_gold_plus.png-0dcb03180fcb378e3620a5b61e76819a.ctex remapped: res://.godot/imported/number_gold_plus.png-0dcb03180fcb378e3620a5b61e76819a.ctex
+Completed load for: 'res://art/locale/en/number_gold_plus.png' remapped 'res://art/locale/en/number_gold_plus.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_x.png remapped: res://art/locale/en/number_gold_x.png
+Loading resource: res://.godot/imported/number_gold_x.png-104b45b2e638f43f9789081f8a6d71ab.ctex remapped: res://.godot/imported/number_gold_x.png-104b45b2e638f43f9789081f8a6d71ab.ctex
+Completed load for: 'res://art/locale/en/number_gold_x.png' remapped 'res://art/locale/en/number_gold_x.png' at thread -1
+Loading resource: res://art/locale/en/number_gold_minus.png remapped: res://art/locale/en/number_gold_minus.png
+Loading resource: res://.godot/imported/number_gold_minus.png-d107305bff697a1ddfd5ca033215374d.ctex remapped: res://.godot/imported/number_gold_minus.png-d107305bff697a1ddfd5ca033215374d.ctex
+Completed load for: 'res://art/locale/en/number_gold_minus.png' remapped 'res://art/locale/en/number_gold_minus.png' at thread -1
+Loading resource: res://audio/ui_tap.wav remapped: res://audio/ui_tap.wav
+Loading resource: res://.godot/imported/ui_tap.wav-4e72e88d3fdb54742913049115d0de38.sample remapped: res://.godot/imported/ui_tap.wav-4e72e88d3fdb54742913049115d0de38.sample
+Completed load for: 'res://audio/ui_tap.wav' remapped 'res://audio/ui_tap.wav' at thread -1
+Loading resource: res://audio/ui_back.wav remapped: res://audio/ui_back.wav
+Loading resource: res://.godot/imported/ui_back.wav-f164c78e1f57e9f400b109a5d94774c7.sample remapped: res://.godot/imported/ui_back.wav-f164c78e1f57e9f400b109a5d94774c7.sample
+Completed load for: 'res://audio/ui_back.wav' remapped 'res://audio/ui_back.wav' at thread -1
+PASS Close cancels booster purchase without mutation
+Loading resource: res://audio/reward.wav remapped: res://audio/reward.wav
+Loading resource: res://.godot/imported/reward.wav-51017eaa4d9fdad4105eb15e67555949.sample remapped: res://.godot/imported/reward.wav-51017eaa4d9fdad4105eb15e67555949.sample
+Completed load for: 'res://audio/reward.wav' remapped 'res://audio/reward.wav' at thread -1
+PASS double Buy grants exactly one selected booster transaction
+PASS insufficient booster funds disable purchase and quantity
+PASS disabled booster Buy retains dimensions
+Loading resource: res://art/locale/en/island_words/house_names.png remapped: res://art/locale/en/island_words/house_names.png
+Loading resource: res://.godot/imported/house_names.png-b30762120202260a9f3f2058e343643a.ctex remapped: res://.godot/imported/house_names.png-b30762120202260a9f3f2058e343643a.ctex
+Completed load for: 'res://art/locale/en/island_words/house_names.png' remapped 'res://art/locale/en/island_words/house_names.png' at thread -1
+Loading resource: res://art/house_style_pinecone_body.png remapped: res://art/house_style_pinecone_body.png
+Loading resource: res://.godot/imported/house_style_pinecone_body.png-d315f8eff0b3f4323ff33668d06298ef.ctex remapped: res://.godot/imported/house_style_pinecone_body.png-d315f8eff0b3f4323ff33668d06298ef.ctex
+Completed load for: 'res://art/house_style_pinecone_body.png' remapped 'res://art/house_style_pinecone_body.png' at thread -1
+PASS nest uses existing forest surface
+PASS nest uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS nest Close matches coin-shop dimensions
+PASS nest Close press retains geometry
+PASS single nest has no quantity controls
+PASS nest purchased exactly once
+PASS owned nest still equips
+Loading resource: res://art/island/background_aviary_forest.png remapped: res://art/island/background_aviary_forest.png
+Loading resource: res://.godot/imported/background_aviary_forest.png-42091a3ad7fbc6f49b423a1cbb4faca9.ctex remapped: res://.godot/imported/background_aviary_forest.png-42091a3ad7fbc6f49b423a1cbb4faca9.ctex
+Completed load for: 'res://art/island/background_aviary_forest.png' remapped 'res://art/island/background_aviary_forest.png' at thread -1
+Loading resource: res://art/island/branch_aviary_perch.png remapped: res://art/island/branch_aviary_perch.png
+Loading resource: res://.godot/imported/branch_aviary_perch.png-3d6c710c9ac13e3f91ae332002c2ab79.ctex remapped: res://.godot/imported/branch_aviary_perch.png-3d6c710c9ac13e3f91ae332002c2ab79.ctex
+Completed load for: 'res://art/island/branch_aviary_perch.png' remapped 'res://art/island/branch_aviary_perch.png' at thread -1
+Loading resource: res://birds/berry_front.png remapped: res://birds/berry_front.png
+Loading resource: res://.godot/imported/berry_front.png-b1a1832e5717005466674385d2c76b52.ctex remapped: res://.godot/imported/berry_front.png-b1a1832e5717005466674385d2c76b52.ctex
+Completed load for: 'res://birds/berry_front.png' remapped 'res://birds/berry_front.png' at thread -1
+Loading resource: res://birds/mama_bow.png remapped: res://birds/mama_bow.png
+Loading resource: res://.godot/imported/mama_bow.png-d1cce15fb2c19e2a23ef9cadcaf57a9c.ctex remapped: res://.godot/imported/mama_bow.png-d1cce15fb2c19e2a23ef9cadcaf57a9c.ctex
+Completed load for: 'res://birds/mama_bow.png' remapped 'res://birds/mama_bow.png' at thread -1
+Loading resource: res://birds/chick_fluff.png remapped: res://birds/chick_fluff.png
+Loading resource: res://.godot/imported/chick_fluff.png-f48152070893a69b71017216b3324998.ctex remapped: res://.godot/imported/chick_fluff.png-f48152070893a69b71017216b3324998.ctex
+Completed load for: 'res://birds/chick_fluff.png' remapped 'res://birds/chick_fluff.png' at thread -1
+Loading resource: res://art/zzz.png remapped: res://art/zzz.png
+Loading resource: res://.godot/imported/zzz.png-e4440bb688082233f328ac481c3a18d2.ctex remapped: res://.godot/imported/zzz.png-e4440bb688082233f328ac481c3a18d2.ctex
+Completed load for: 'res://art/zzz.png' remapped 'res://art/zzz.png' at thread -1
+Loading resource: res://birds/berry_front_blink_01.png remapped: res://birds/berry_front_blink_01.png
+Loading resource: res://.godot/imported/berry_front_blink_01.png-4c6afa1e06286c7df6487b56b0d2afe8.ctex remapped: res://.godot/imported/berry_front_blink_01.png-4c6afa1e06286c7df6487b56b0d2afe8.ctex
+Completed load for: 'res://birds/berry_front_blink_01.png' remapped 'res://birds/berry_front_blink_01.png' at thread -1
+Loading resource: res://birds/berry_front_blink_02.png remapped: res://birds/berry_front_blink_02.png
+Loading resource: res://.godot/imported/berry_front_blink_02.png-f5747956912c01d936b44870a28a5f57.ctex remapped: res://.godot/imported/berry_front_blink_02.png-f5747956912c01d936b44870a28a5f57.ctex
+Completed load for: 'res://birds/berry_front_blink_02.png' remapped 'res://birds/berry_front_blink_02.png' at thread -1
+Loading resource: res://birds/berry_turn_left_01.png remapped: res://birds/berry_turn_left_01.png
+Loading resource: res://.godot/imported/berry_turn_left_01.png-8112740ef0b77d9ce530980c8cb94143.ctex remapped: res://.godot/imported/berry_turn_left_01.png-8112740ef0b77d9ce530980c8cb94143.ctex
+Completed load for: 'res://birds/berry_turn_left_01.png' remapped 'res://birds/berry_turn_left_01.png' at thread -1
+Loading resource: res://birds/berry_turn_left_02.png remapped: res://birds/berry_turn_left_02.png
+Loading resource: res://.godot/imported/berry_turn_left_02.png-68be4184b6471b421289a6aa7e3b8121.ctex remapped: res://.godot/imported/berry_turn_left_02.png-68be4184b6471b421289a6aa7e3b8121.ctex
+Completed load for: 'res://birds/berry_turn_left_02.png' remapped 'res://birds/berry_turn_left_02.png' at thread -1
+Loading resource: res://birds/berry_turn_left_03.png remapped: res://birds/berry_turn_left_03.png
+Loading resource: res://.godot/imported/berry_turn_left_03.png-76984f700ce0218e62822db019441847.ctex remapped: res://.godot/imported/berry_turn_left_03.png-76984f700ce0218e62822db019441847.ctex
+Completed load for: 'res://birds/berry_turn_left_03.png' remapped 'res://birds/berry_turn_left_03.png' at thread -1
+Loading resource: res://birds/berry_turn_left_04.png remapped: res://birds/berry_turn_left_04.png
+Loading resource: res://.godot/imported/berry_turn_left_04.png-328c0754cf458abcdea4edf748977c69.ctex remapped: res://.godot/imported/berry_turn_left_04.png-328c0754cf458abcdea4edf748977c69.ctex
+Completed load for: 'res://birds/berry_turn_left_04.png' remapped 'res://birds/berry_turn_left_04.png' at thread -1
+Loading resource: res://birds/berry_turn_right_01.png remapped: res://birds/berry_turn_right_01.png
+Loading resource: res://.godot/imported/berry_turn_right_01.png-12dac05ad143e58301b4ab4bb9621cba.ctex remapped: res://.godot/imported/berry_turn_right_01.png-12dac05ad143e58301b4ab4bb9621cba.ctex
+Completed load for: 'res://birds/berry_turn_right_01.png' remapped 'res://birds/berry_turn_right_01.png' at thread -1
+Loading resource: res://birds/berry_turn_right_02.png remapped: res://birds/berry_turn_right_02.png
+Loading resource: res://.godot/imported/berry_turn_right_02.png-871765ef320870ebd75977fa71a2d8e2.ctex remapped: res://.godot/imported/berry_turn_right_02.png-871765ef320870ebd75977fa71a2d8e2.ctex
+Completed load for: 'res://birds/berry_turn_right_02.png' remapped 'res://birds/berry_turn_right_02.png' at thread -1
+Loading resource: res://birds/berry_turn_right_03.png remapped: res://birds/berry_turn_right_03.png
+Loading resource: res://.godot/imported/berry_turn_right_03.png-0e404fcda587042a49b575172f0d917f.ctex remapped: res://.godot/imported/berry_turn_right_03.png-0e404fcda587042a49b575172f0d917f.ctex
+Completed load for: 'res://birds/berry_turn_right_03.png' remapped 'res://birds/berry_turn_right_03.png' at thread -1
+Loading resource: res://birds/berry_turn_right_04.png remapped: res://birds/berry_turn_right_04.png
+Loading resource: res://.godot/imported/berry_turn_right_04.png-f7cd3bac25b0f52213b1eb21513c6b67.ctex remapped: res://.godot/imported/berry_turn_right_04.png-f7cd3bac25b0f52213b1eb21513c6b67.ctex
+Completed load for: 'res://birds/berry_turn_right_04.png' remapped 'res://birds/berry_turn_right_04.png' at thread -1
+Loading resource: res://birds/berry_preen_01.png remapped: res://birds/berry_preen_01.png
+Loading resource: res://.godot/imported/berry_preen_01.png-6f934ebc251dad27e544a41a1e3d2e40.ctex remapped: res://.godot/imported/berry_preen_01.png-6f934ebc251dad27e544a41a1e3d2e40.ctex
+Completed load for: 'res://birds/berry_preen_01.png' remapped 'res://birds/berry_preen_01.png' at thread -1
+Loading resource: res://birds/berry_preen_02.png remapped: res://birds/berry_preen_02.png
+Loading resource: res://.godot/imported/berry_preen_02.png-d1a77115c6c14773c2d4363d0f536292.ctex remapped: res://.godot/imported/berry_preen_02.png-d1a77115c6c14773c2d4363d0f536292.ctex
+Completed load for: 'res://birds/berry_preen_02.png' remapped 'res://birds/berry_preen_02.png' at thread -1
+Loading resource: res://birds/berry_preen_03.png remapped: res://birds/berry_preen_03.png
+Loading resource: res://.godot/imported/berry_preen_03.png-1d3471976d0d07c75675a9c1fc13a564.ctex remapped: res://.godot/imported/berry_preen_03.png-1d3471976d0d07c75675a9c1fc13a564.ctex
+Completed load for: 'res://birds/berry_preen_03.png' remapped 'res://birds/berry_preen_03.png' at thread -1
+Loading resource: res://birds/berry_preen_04.png remapped: res://birds/berry_preen_04.png
+Loading resource: res://.godot/imported/berry_preen_04.png-0a6b0c60bcc9946c1266ee4e17986077.ctex remapped: res://.godot/imported/berry_preen_04.png-0a6b0c60bcc9946c1266ee4e17986077.ctex
+Completed load for: 'res://birds/berry_preen_04.png' remapped 'res://birds/berry_preen_04.png' at thread -1
+Loading resource: res://birds/berry_preen_05.png remapped: res://birds/berry_preen_05.png
+Loading resource: res://.godot/imported/berry_preen_05.png-ee186f6b93056074ccb67555918c770a.ctex remapped: res://.godot/imported/berry_preen_05.png-ee186f6b93056074ccb67555918c770a.ctex
+Completed load for: 'res://birds/berry_preen_05.png' remapped 'res://birds/berry_preen_05.png' at thread -1
+Loading resource: res://birds/berry_flap_01.png remapped: res://birds/berry_flap_01.png
+Loading resource: res://.godot/imported/berry_flap_01.png-bb5f991d851645aa2c9ec332902c6342.ctex remapped: res://.godot/imported/berry_flap_01.png-bb5f991d851645aa2c9ec332902c6342.ctex
+Completed load for: 'res://birds/berry_flap_01.png' remapped 'res://birds/berry_flap_01.png' at thread -1
+Loading resource: res://birds/berry_flap_02.png remapped: res://birds/berry_flap_02.png
+Loading resource: res://.godot/imported/berry_flap_02.png-f1e340a1f73600dba6f34867ccfe41d4.ctex remapped: res://.godot/imported/berry_flap_02.png-f1e340a1f73600dba6f34867ccfe41d4.ctex
+Completed load for: 'res://birds/berry_flap_02.png' remapped 'res://birds/berry_flap_02.png' at thread -1
+Loading resource: res://birds/berry_flap_03.png remapped: res://birds/berry_flap_03.png
+Loading resource: res://.godot/imported/berry_flap_03.png-31e17dd93db4a940b59f5c390afd3bc3.ctex remapped: res://.godot/imported/berry_flap_03.png-31e17dd93db4a940b59f5c390afd3bc3.ctex
+Completed load for: 'res://birds/berry_flap_03.png' remapped 'res://birds/berry_flap_03.png' at thread -1
+Loading resource: res://birds/berry_flap_04.png remapped: res://birds/berry_flap_04.png
+Loading resource: res://.godot/imported/berry_flap_04.png-147c114499d6c2a6f5341ced5d599a8b.ctex remapped: res://.godot/imported/berry_flap_04.png-147c114499d6c2a6f5341ced5d599a8b.ctex
+Completed load for: 'res://birds/berry_flap_04.png' remapped 'res://birds/berry_flap_04.png' at thread -1
+Loading resource: res://birds/berry_flap_05.png remapped: res://birds/berry_flap_05.png
+Loading resource: res://.godot/imported/berry_flap_05.png-3ee4cd0a5de5606cf4c253a7d3bb63b6.ctex remapped: res://.godot/imported/berry_flap_05.png-3ee4cd0a5de5606cf4c253a7d3bb63b6.ctex
+Completed load for: 'res://birds/berry_flap_05.png' remapped 'res://birds/berry_flap_05.png' at thread -1
+Loading resource: res://birds/berry_flap_06.png remapped: res://birds/berry_flap_06.png
+Loading resource: res://.godot/imported/berry_flap_06.png-7bb159ebcacb1034a89ff6cd5ec686fe.ctex remapped: res://.godot/imported/berry_flap_06.png-7bb159ebcacb1034a89ff6cd5ec686fe.ctex
+Completed load for: 'res://birds/berry_flap_06.png' remapped 'res://birds/berry_flap_06.png' at thread -1
+Loading resource: res://birds/berry_hop_01.png remapped: res://birds/berry_hop_01.png
+Loading resource: res://.godot/imported/berry_hop_01.png-f825cb883d6054ec7a63b072cbaf9db3.ctex remapped: res://.godot/imported/berry_hop_01.png-f825cb883d6054ec7a63b072cbaf9db3.ctex
+Completed load for: 'res://birds/berry_hop_01.png' remapped 'res://birds/berry_hop_01.png' at thread -1
+Loading resource: res://birds/berry_hop_02.png remapped: res://birds/berry_hop_02.png
+Loading resource: res://.godot/imported/berry_hop_02.png-45f2963f09648f90abffbd8b91830c35.ctex remapped: res://.godot/imported/berry_hop_02.png-45f2963f09648f90abffbd8b91830c35.ctex
+Completed load for: 'res://birds/berry_hop_02.png' remapped 'res://birds/berry_hop_02.png' at thread -1
+Loading resource: res://birds/berry_hop_03.png remapped: res://birds/berry_hop_03.png
+Loading resource: res://.godot/imported/berry_hop_03.png-f49972412d664c7da7298e30152586b8.ctex remapped: res://.godot/imported/berry_hop_03.png-f49972412d664c7da7298e30152586b8.ctex
+Completed load for: 'res://birds/berry_hop_03.png' remapped 'res://birds/berry_hop_03.png' at thread -1
+Loading resource: res://birds/berry_hop_04.png remapped: res://birds/berry_hop_04.png
+Loading resource: res://.godot/imported/berry_hop_04.png-88190fbdb667cbe6d044b81b58a05359.ctex remapped: res://.godot/imported/berry_hop_04.png-88190fbdb667cbe6d044b81b58a05359.ctex
+Completed load for: 'res://birds/berry_hop_04.png' remapped 'res://birds/berry_hop_04.png' at thread -1
+Loading resource: res://birds/berry_hop_05.png remapped: res://birds/berry_hop_05.png
+Loading resource: res://.godot/imported/berry_hop_05.png-5588abc14a96c0e5c93f181ca04c7faf.ctex remapped: res://.godot/imported/berry_hop_05.png-5588abc14a96c0e5c93f181ca04c7faf.ctex
+Completed load for: 'res://birds/berry_hop_05.png' remapped 'res://birds/berry_hop_05.png' at thread -1
+Loading resource: res://birds/berry_hop_06.png remapped: res://birds/berry_hop_06.png
+Loading resource: res://.godot/imported/berry_hop_06.png-bc69dc98a87e7dc1e65a88cf86f28e9d.ctex remapped: res://.godot/imported/berry_hop_06.png-bc69dc98a87e7dc1e65a88cf86f28e9d.ctex
+Completed load for: 'res://birds/berry_hop_06.png' remapped 'res://birds/berry_hop_06.png' at thread -1
+Loading resource: res://birds/berry_cheer_01.png remapped: res://birds/berry_cheer_01.png
+Loading resource: res://.godot/imported/berry_cheer_01.png-d8641f37e353899f6b4ee6e75290f7d3.ctex remapped: res://.godot/imported/berry_cheer_01.png-d8641f37e353899f6b4ee6e75290f7d3.ctex
+Completed load for: 'res://birds/berry_cheer_01.png' remapped 'res://birds/berry_cheer_01.png' at thread -1
+Loading resource: res://birds/berry_cheer_02.png remapped: res://birds/berry_cheer_02.png
+Loading resource: res://.godot/imported/berry_cheer_02.png-01406af862d60417593ba02a57550b4a.ctex remapped: res://.godot/imported/berry_cheer_02.png-01406af862d60417593ba02a57550b4a.ctex
+Completed load for: 'res://birds/berry_cheer_02.png' remapped 'res://birds/berry_cheer_02.png' at thread -1
+Loading resource: res://birds/berry_cheer_03.png remapped: res://birds/berry_cheer_03.png
+Loading resource: res://.godot/imported/berry_cheer_03.png-8fcebd748eeb9e3215b238ea46dcd814.ctex remapped: res://.godot/imported/berry_cheer_03.png-8fcebd748eeb9e3215b238ea46dcd814.ctex
+Completed load for: 'res://birds/berry_cheer_03.png' remapped 'res://birds/berry_cheer_03.png' at thread -1
+Loading resource: res://birds/berry_cheer_04.png remapped: res://birds/berry_cheer_04.png
+Loading resource: res://.godot/imported/berry_cheer_04.png-430a72f3ec2f48978652c2181df7441d.ctex remapped: res://.godot/imported/berry_cheer_04.png-430a72f3ec2f48978652c2181df7441d.ctex
+Completed load for: 'res://birds/berry_cheer_04.png' remapped 'res://birds/berry_cheer_04.png' at thread -1
+Loading resource: res://birds/berry_cheer_05.png remapped: res://birds/berry_cheer_05.png
+Loading resource: res://.godot/imported/berry_cheer_05.png-361ecd2ee116389a0a508ae19ff9f3da.ctex remapped: res://.godot/imported/berry_cheer_05.png-361ecd2ee116389a0a508ae19ff9f3da.ctex
+Completed load for: 'res://birds/berry_cheer_05.png' remapped 'res://birds/berry_cheer_05.png' at thread -1
+Loading resource: res://birds/berry_cheer_06.png remapped: res://birds/berry_cheer_06.png
+Loading resource: res://.godot/imported/berry_cheer_06.png-ee4e27876bb8e09e152e500d8eed0328.ctex remapped: res://.godot/imported/berry_cheer_06.png-ee4e27876bb8e09e152e500d8eed0328.ctex
+Completed load for: 'res://birds/berry_cheer_06.png' remapped 'res://birds/berry_cheer_06.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_01.png remapped: res://birds/berry_flight_takeoff_01.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_01.png-971fcaf1a6496922665f9e495387cc71.ctex remapped: res://.godot/imported/berry_flight_takeoff_01.png-971fcaf1a6496922665f9e495387cc71.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_01.png' remapped 'res://birds/berry_flight_takeoff_01.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_02.png remapped: res://birds/berry_flight_takeoff_02.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_02.png-eace042bdbf9c3c9d879cfab84bd4d38.ctex remapped: res://.godot/imported/berry_flight_takeoff_02.png-eace042bdbf9c3c9d879cfab84bd4d38.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_02.png' remapped 'res://birds/berry_flight_takeoff_02.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_03.png remapped: res://birds/berry_flight_takeoff_03.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_03.png-f4aab2838f1996c56be2c8206668411f.ctex remapped: res://.godot/imported/berry_flight_takeoff_03.png-f4aab2838f1996c56be2c8206668411f.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_03.png' remapped 'res://birds/berry_flight_takeoff_03.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_01.png remapped: res://birds/berry_flight_flap_01.png
+Loading resource: res://.godot/imported/berry_flight_flap_01.png-d4fc90057ae18970977b16ac287d201c.ctex remapped: res://.godot/imported/berry_flight_flap_01.png-d4fc90057ae18970977b16ac287d201c.ctex
+Completed load for: 'res://birds/berry_flight_flap_01.png' remapped 'res://birds/berry_flight_flap_01.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_02.png remapped: res://birds/berry_flight_flap_02.png
+Loading resource: res://.godot/imported/berry_flight_flap_02.png-48059d759ab5822ac150c5e2101a9b62.ctex remapped: res://.godot/imported/berry_flight_flap_02.png-48059d759ab5822ac150c5e2101a9b62.ctex
+Completed load for: 'res://birds/berry_flight_flap_02.png' remapped 'res://birds/berry_flight_flap_02.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_03.png remapped: res://birds/berry_flight_flap_03.png
+Loading resource: res://.godot/imported/berry_flight_flap_03.png-4b72b1b2b55d8a4a51ce88d20ddf8ef0.ctex remapped: res://.godot/imported/berry_flight_flap_03.png-4b72b1b2b55d8a4a51ce88d20ddf8ef0.ctex
+Completed load for: 'res://birds/berry_flight_flap_03.png' remapped 'res://birds/berry_flight_flap_03.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_04.png remapped: res://birds/berry_flight_flap_04.png
+Loading resource: res://.godot/imported/berry_flight_flap_04.png-1200e45bbbc6699799d1922c52cf2c9b.ctex remapped: res://.godot/imported/berry_flight_flap_04.png-1200e45bbbc6699799d1922c52cf2c9b.ctex
+Completed load for: 'res://birds/berry_flight_flap_04.png' remapped 'res://birds/berry_flight_flap_04.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_05.png remapped: res://birds/berry_flight_flap_05.png
+Loading resource: res://.godot/imported/berry_flight_flap_05.png-5907b27377e8ec1e2fab6b2c57f8962d.ctex remapped: res://.godot/imported/berry_flight_flap_05.png-5907b27377e8ec1e2fab6b2c57f8962d.ctex
+Completed load for: 'res://birds/berry_flight_flap_05.png' remapped 'res://birds/berry_flight_flap_05.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_06.png remapped: res://birds/berry_flight_flap_06.png
+Loading resource: res://.godot/imported/berry_flight_flap_06.png-cd578c7101c5b3e43f25ddf60eadf0d6.ctex remapped: res://.godot/imported/berry_flight_flap_06.png-cd578c7101c5b3e43f25ddf60eadf0d6.ctex
+Completed load for: 'res://birds/berry_flight_flap_06.png' remapped 'res://birds/berry_flight_flap_06.png' at thread -1
+Loading resource: res://birds/berry_flight_land_01.png remapped: res://birds/berry_flight_land_01.png
+Loading resource: res://.godot/imported/berry_flight_land_01.png-755e706972f7f52961cc8242d2f70ec0.ctex remapped: res://.godot/imported/berry_flight_land_01.png-755e706972f7f52961cc8242d2f70ec0.ctex
+Completed load for: 'res://birds/berry_flight_land_01.png' remapped 'res://birds/berry_flight_land_01.png' at thread -1
+Loading resource: res://birds/berry_flight_land_02.png remapped: res://birds/berry_flight_land_02.png
+Loading resource: res://.godot/imported/berry_flight_land_02.png-8e708913de80d20743875cd614e90d2c.ctex remapped: res://.godot/imported/berry_flight_land_02.png-8e708913de80d20743875cd614e90d2c.ctex
+Completed load for: 'res://birds/berry_flight_land_02.png' remapped 'res://birds/berry_flight_land_02.png' at thread -1
+Loading resource: res://birds/berry_flight_land_03.png remapped: res://birds/berry_flight_land_03.png
+Loading resource: res://.godot/imported/berry_flight_land_03.png-b7236e202b10b41325b557e893b81822.ctex remapped: res://.godot/imported/berry_flight_land_03.png-b7236e202b10b41325b557e893b81822.ctex
+Completed load for: 'res://birds/berry_flight_land_03.png' remapped 'res://birds/berry_flight_land_03.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_l_01.png remapped: res://birds/berry_flight_takeoff_l_01.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_l_01.png-32079ace4e3e48a666c4160d7dc3f2e5.ctex remapped: res://.godot/imported/berry_flight_takeoff_l_01.png-32079ace4e3e48a666c4160d7dc3f2e5.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_l_01.png' remapped 'res://birds/berry_flight_takeoff_l_01.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_l_02.png remapped: res://birds/berry_flight_takeoff_l_02.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_l_02.png-fef9954f8dcd6fab5ef4d02b61286e6b.ctex remapped: res://.godot/imported/berry_flight_takeoff_l_02.png-fef9954f8dcd6fab5ef4d02b61286e6b.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_l_02.png' remapped 'res://birds/berry_flight_takeoff_l_02.png' at thread -1
+Loading resource: res://birds/berry_flight_takeoff_l_03.png remapped: res://birds/berry_flight_takeoff_l_03.png
+Loading resource: res://.godot/imported/berry_flight_takeoff_l_03.png-41fe8069f98975f8891112ab8da2a4cb.ctex remapped: res://.godot/imported/berry_flight_takeoff_l_03.png-41fe8069f98975f8891112ab8da2a4cb.ctex
+Completed load for: 'res://birds/berry_flight_takeoff_l_03.png' remapped 'res://birds/berry_flight_takeoff_l_03.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_01.png remapped: res://birds/berry_flight_flap_l_01.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_01.png-01c9f6e8d5d5ef9da35e0fbdb2f70cef.ctex remapped: res://.godot/imported/berry_flight_flap_l_01.png-01c9f6e8d5d5ef9da35e0fbdb2f70cef.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_01.png' remapped 'res://birds/berry_flight_flap_l_01.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_02.png remapped: res://birds/berry_flight_flap_l_02.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_02.png-2898f2f6283ec1621f1d8cc6b8779f90.ctex remapped: res://.godot/imported/berry_flight_flap_l_02.png-2898f2f6283ec1621f1d8cc6b8779f90.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_02.png' remapped 'res://birds/berry_flight_flap_l_02.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_03.png remapped: res://birds/berry_flight_flap_l_03.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_03.png-fdb8fbd7e3db57370b84aa5cc6466147.ctex remapped: res://.godot/imported/berry_flight_flap_l_03.png-fdb8fbd7e3db57370b84aa5cc6466147.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_03.png' remapped 'res://birds/berry_flight_flap_l_03.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_04.png remapped: res://birds/berry_flight_flap_l_04.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_04.png-2bdba7943689d53d6c445f91b87d1361.ctex remapped: res://.godot/imported/berry_flight_flap_l_04.png-2bdba7943689d53d6c445f91b87d1361.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_04.png' remapped 'res://birds/berry_flight_flap_l_04.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_05.png remapped: res://birds/berry_flight_flap_l_05.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_05.png-6bb5ea230b702672bdc615b3fcda55b1.ctex remapped: res://.godot/imported/berry_flight_flap_l_05.png-6bb5ea230b702672bdc615b3fcda55b1.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_05.png' remapped 'res://birds/berry_flight_flap_l_05.png' at thread -1
+Loading resource: res://birds/berry_flight_flap_l_06.png remapped: res://birds/berry_flight_flap_l_06.png
+Loading resource: res://.godot/imported/berry_flight_flap_l_06.png-6c8ffaf45fb3af42e73cf8cdac8070a8.ctex remapped: res://.godot/imported/berry_flight_flap_l_06.png-6c8ffaf45fb3af42e73cf8cdac8070a8.ctex
+Completed load for: 'res://birds/berry_flight_flap_l_06.png' remapped 'res://birds/berry_flight_flap_l_06.png' at thread -1
+Loading resource: res://birds/berry_flight_land_l_01.png remapped: res://birds/berry_flight_land_l_01.png
+Loading resource: res://.godot/imported/berry_flight_land_l_01.png-87922fbd937ede4bf5c62abd7188b6dc.ctex remapped: res://.godot/imported/berry_flight_land_l_01.png-87922fbd937ede4bf5c62abd7188b6dc.ctex
+Completed load for: 'res://birds/berry_flight_land_l_01.png' remapped 'res://birds/berry_flight_land_l_01.png' at thread -1
+Loading resource: res://birds/berry_flight_land_l_02.png remapped: res://birds/berry_flight_land_l_02.png
+Loading resource: res://.godot/imported/berry_flight_land_l_02.png-7535274292998970a57f225138ee8ca4.ctex remapped: res://.godot/imported/berry_flight_land_l_02.png-7535274292998970a57f225138ee8ca4.ctex
+Completed load for: 'res://birds/berry_flight_land_l_02.png' remapped 'res://birds/berry_flight_land_l_02.png' at thread -1
+Loading resource: res://birds/berry_flight_land_l_03.png remapped: res://birds/berry_flight_land_l_03.png
+Loading resource: res://.godot/imported/berry_flight_land_l_03.png-7133b3a72a94d208172b8df60d0b3819.ctex remapped: res://.godot/imported/berry_flight_land_l_03.png-7133b3a72a94d208172b8df60d0b3819.ctex
+Completed load for: 'res://birds/berry_flight_land_l_03.png' remapped 'res://birds/berry_flight_land_l_03.png' at thread -1
+Loading resource: res://birds/berry_fluff.png remapped: res://birds/berry_fluff.png
+Loading resource: res://.godot/imported/berry_fluff.png-76dcfe31a1cc2ac0c29e06c3933756e2.ctex remapped: res://.godot/imported/berry_fluff.png-76dcfe31a1cc2ac0c29e06c3933756e2.ctex
+Completed load for: 'res://birds/berry_fluff.png' remapped 'res://birds/berry_fluff.png' at thread -1
+Loading resource: res://birds/berry_stretch.png remapped: res://birds/berry_stretch.png
+Loading resource: res://.godot/imported/berry_stretch.png-3104e8c08a15c7c0914382a8f0832513.ctex remapped: res://.godot/imported/berry_stretch.png-3104e8c08a15c7c0914382a8f0832513.ctex
+Completed load for: 'res://birds/berry_stretch.png' remapped 'res://birds/berry_stretch.png' at thread -1
+Loading resource: res://birds/berry_yawn.png remapped: res://birds/berry_yawn.png
+Loading resource: res://.godot/imported/berry_yawn.png-4e0b4aa368d91c8ddb6e05464a986bff.ctex remapped: res://.godot/imported/berry_yawn.png-4e0b4aa368d91c8ddb6e05464a986bff.ctex
+Completed load for: 'res://birds/berry_yawn.png' remapped 'res://birds/berry_yawn.png' at thread -1
+Loading resource: res://birds/berry_tilt_left.png remapped: res://birds/berry_tilt_left.png
+Loading resource: res://.godot/imported/berry_tilt_left.png-90d4a459099869dff5ad32a15eab008b.ctex remapped: res://.godot/imported/berry_tilt_left.png-90d4a459099869dff5ad32a15eab008b.ctex
+Completed load for: 'res://birds/berry_tilt_left.png' remapped 'res://birds/berry_tilt_left.png' at thread -1
+Loading resource: res://birds/berry_tilt_right.png remapped: res://birds/berry_tilt_right.png
+Loading resource: res://.godot/imported/berry_tilt_right.png-dfdafc7d3c6dc40217795698fc3f7de1.ctex remapped: res://.godot/imported/berry_tilt_right.png-dfdafc7d3c6dc40217795698fc3f7de1.ctex
+Completed load for: 'res://birds/berry_tilt_right.png' remapped 'res://birds/berry_tilt_right.png' at thread -1
+Loading resource: res://birds/berry_look_up.png remapped: res://birds/berry_look_up.png
+Loading resource: res://.godot/imported/berry_look_up.png-adddff0a1f27ad608ae69e8d7fe01da8.ctex remapped: res://.godot/imported/berry_look_up.png-adddff0a1f27ad608ae69e8d7fe01da8.ctex
+Completed load for: 'res://birds/berry_look_up.png' remapped 'res://birds/berry_look_up.png' at thread -1
+Loading resource: res://birds/berry_look_down.png remapped: res://birds/berry_look_down.png
+Loading resource: res://.godot/imported/berry_look_down.png-3df42148965a3617bb4773274e7004a6.ctex remapped: res://.godot/imported/berry_look_down.png-3df42148965a3617bb4773274e7004a6.ctex
+Completed load for: 'res://birds/berry_look_down.png' remapped 'res://birds/berry_look_down.png' at thread -1
+Loading resource: res://birds/berry_quirk1.png remapped: res://birds/berry_quirk1.png
+Loading resource: res://.godot/imported/berry_quirk1.png-7bc7ee253f21e5519f8aa1dac9e3a1c7.ctex remapped: res://.godot/imported/berry_quirk1.png-7bc7ee253f21e5519f8aa1dac9e3a1c7.ctex
+Completed load for: 'res://birds/berry_quirk1.png' remapped 'res://birds/berry_quirk1.png' at thread -1
+Loading resource: res://birds/berry_quirk2.png remapped: res://birds/berry_quirk2.png
+Loading resource: res://.godot/imported/berry_quirk2.png-c39b1c940dc9e3fca67787d7b60ecbfd.ctex remapped: res://.godot/imported/berry_quirk2.png-c39b1c940dc9e3fca67787d7b60ecbfd.ctex
+Completed load for: 'res://birds/berry_quirk2.png' remapped 'res://birds/berry_quirk2.png' at thread -1
+Loading resource: res://birds/berry_preen.png remapped: res://birds/berry_preen.png
+Loading resource: res://.godot/imported/berry_preen.png-a185fc94a5433b0c302e04425a2078ab.ctex remapped: res://.godot/imported/berry_preen.png-a185fc94a5433b0c302e04425a2078ab.ctex
+Completed load for: 'res://birds/berry_preen.png' remapped 'res://birds/berry_preen.png' at thread -1
+Loading resource: res://art/island/panel_aviary_ability.png remapped: res://art/island/panel_aviary_ability.png
+Loading resource: res://.godot/imported/panel_aviary_ability.png-1f3b98d5feff0aaa29c7f23f0953c3ad.ctex remapped: res://.godot/imported/panel_aviary_ability.png-1f3b98d5feff0aaa29c7f23f0953c3ad.ctex
+Completed load for: 'res://art/island/panel_aviary_ability.png' remapped 'res://art/island/panel_aviary_ability.png' at thread -1
+Loading resource: res://art/locale/en/island_words/caption_bird_berry_ability.png remapped: res://art/locale/en/island_words/caption_bird_berry_ability.png
+Loading resource: res://.godot/imported/caption_bird_berry_ability.png-25b2f110bf8b6438cfbec86dd5fc6e13.ctex remapped: res://.godot/imported/caption_bird_berry_ability.png-25b2f110bf8b6438cfbec86dd5fc6e13.ctex
+Completed load for: 'res://art/locale/en/island_words/caption_bird_berry_ability.png' remapped 'res://art/locale/en/island_words/caption_bird_berry_ability.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_front.png remapped: res://birds/berry_outfit_1_front.png
+Loading resource: res://.godot/imported/berry_outfit_1_front.png-01dee7b3300a3a605172eb83bbdff1f2.ctex remapped: res://.godot/imported/berry_outfit_1_front.png-01dee7b3300a3a605172eb83bbdff1f2.ctex
+Completed load for: 'res://birds/berry_outfit_1_front.png' remapped 'res://birds/berry_outfit_1_front.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_front_overlay.png remapped: res://birds/berry_outfit_1_front_overlay.png
+Loading resource: res://.godot/imported/berry_outfit_1_front_overlay.png-fbc531ed08f17b051dcc92680e595e13.ctex remapped: res://.godot/imported/berry_outfit_1_front_overlay.png-fbc531ed08f17b051dcc92680e595e13.ctex
+Completed load for: 'res://birds/berry_outfit_1_front_overlay.png' remapped 'res://birds/berry_outfit_1_front_overlay.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_01.png remapped: res://birds/berry_outfit_1_cheer_01.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_01.png-f7fd02e923d4c6797cf15885f400f1f5.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_01.png-f7fd02e923d4c6797cf15885f400f1f5.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_01.png' remapped 'res://birds/berry_outfit_1_cheer_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_02.png remapped: res://birds/berry_outfit_1_cheer_02.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_02.png-3cab4978257834b329b5709a65377a02.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_02.png-3cab4978257834b329b5709a65377a02.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_02.png' remapped 'res://birds/berry_outfit_1_cheer_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_03.png remapped: res://birds/berry_outfit_1_cheer_03.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_03.png-bfa98ea6a3d06a939f640337d2272e31.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_03.png-bfa98ea6a3d06a939f640337d2272e31.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_03.png' remapped 'res://birds/berry_outfit_1_cheer_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_04.png remapped: res://birds/berry_outfit_1_cheer_04.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_04.png-16f2ebfe1f1eead550deb46761d27cbc.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_04.png-16f2ebfe1f1eead550deb46761d27cbc.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_04.png' remapped 'res://birds/berry_outfit_1_cheer_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_05.png remapped: res://birds/berry_outfit_1_cheer_05.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_05.png-5eb0316eb326602f7875d3b554371de1.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_05.png-5eb0316eb326602f7875d3b554371de1.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_05.png' remapped 'res://birds/berry_outfit_1_cheer_05.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_cheer_06.png remapped: res://birds/berry_outfit_1_cheer_06.png
+Loading resource: res://.godot/imported/berry_outfit_1_cheer_06.png-3bce353ac26adbee39bebf8dc5eeb7be.ctex remapped: res://.godot/imported/berry_outfit_1_cheer_06.png-3bce353ac26adbee39bebf8dc5eeb7be.ctex
+Completed load for: 'res://birds/berry_outfit_1_cheer_06.png' remapped 'res://birds/berry_outfit_1_cheer_06.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_left_01.png remapped: res://birds/berry_outfit_1_turn_left_01.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_left_01.png-e258b7de2660fbfcb932c61cc5936f78.ctex remapped: res://.godot/imported/berry_outfit_1_turn_left_01.png-e258b7de2660fbfcb932c61cc5936f78.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_left_01.png' remapped 'res://birds/berry_outfit_1_turn_left_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_left_02.png remapped: res://birds/berry_outfit_1_turn_left_02.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_left_02.png-5552fb852fa8876ba7306059132f5d69.ctex remapped: res://.godot/imported/berry_outfit_1_turn_left_02.png-5552fb852fa8876ba7306059132f5d69.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_left_02.png' remapped 'res://birds/berry_outfit_1_turn_left_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_left_03.png remapped: res://birds/berry_outfit_1_turn_left_03.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_left_03.png-ce4c8d1c0d88296d704b5acb2f848cb4.ctex remapped: res://.godot/imported/berry_outfit_1_turn_left_03.png-ce4c8d1c0d88296d704b5acb2f848cb4.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_left_03.png' remapped 'res://birds/berry_outfit_1_turn_left_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_left_04.png remapped: res://birds/berry_outfit_1_turn_left_04.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_left_04.png-631eb2ac07beb1d3712bc59c0c7cf8fb.ctex remapped: res://.godot/imported/berry_outfit_1_turn_left_04.png-631eb2ac07beb1d3712bc59c0c7cf8fb.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_left_04.png' remapped 'res://birds/berry_outfit_1_turn_left_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_right_01.png remapped: res://birds/berry_outfit_1_turn_right_01.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_right_01.png-a0831adb7dc442d78db357c67996c994.ctex remapped: res://.godot/imported/berry_outfit_1_turn_right_01.png-a0831adb7dc442d78db357c67996c994.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_right_01.png' remapped 'res://birds/berry_outfit_1_turn_right_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_right_02.png remapped: res://birds/berry_outfit_1_turn_right_02.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_right_02.png-6445ff1c43ab8705931658bcb3a14c21.ctex remapped: res://.godot/imported/berry_outfit_1_turn_right_02.png-6445ff1c43ab8705931658bcb3a14c21.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_right_02.png' remapped 'res://birds/berry_outfit_1_turn_right_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_right_03.png remapped: res://birds/berry_outfit_1_turn_right_03.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_right_03.png-2254349dcb3528c10ed49d2aadee06bc.ctex remapped: res://.godot/imported/berry_outfit_1_turn_right_03.png-2254349dcb3528c10ed49d2aadee06bc.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_right_03.png' remapped 'res://birds/berry_outfit_1_turn_right_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_1_turn_right_04.png remapped: res://birds/berry_outfit_1_turn_right_04.png
+Loading resource: res://.godot/imported/berry_outfit_1_turn_right_04.png-a66f9f9b781de5cd6c8f9cf59294e48c.ctex remapped: res://.godot/imported/berry_outfit_1_turn_right_04.png-a66f9f9b781de5cd6c8f9cf59294e48c.ctex
+Completed load for: 'res://birds/berry_outfit_1_turn_right_04.png' remapped 'res://birds/berry_outfit_1_turn_right_04.png' at thread -1
+Loading resource: res://art/island/island_padlock.png remapped: res://art/island/island_padlock.png
+Loading resource: res://.godot/imported/island_padlock.png-bd499a960ecd8abc89d41eeb773ee54e.ctex remapped: res://.godot/imported/island_padlock.png-bd499a960ecd8abc89d41eeb773ee54e.ctex
+Completed load for: 'res://art/island/island_padlock.png' remapped 'res://art/island/island_padlock.png' at thread -1
+Loading resource: res://art/island/island_price_gold.png remapped: res://art/island/island_price_gold.png
+Loading resource: res://.godot/imported/island_price_gold.png-e0a200ce1e4649fe003f9372cb1ca42b.ctex remapped: res://.godot/imported/island_price_gold.png-e0a200ce1e4649fe003f9372cb1ca42b.ctex
+Completed load for: 'res://art/island/island_price_gold.png' remapped 'res://art/island/island_price_gold.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_front.png remapped: res://birds/berry_outfit_2_front.png
+Loading resource: res://.godot/imported/berry_outfit_2_front.png-5dd16c6c98ca78ee6be4f6816f843ad8.ctex remapped: res://.godot/imported/berry_outfit_2_front.png-5dd16c6c98ca78ee6be4f6816f843ad8.ctex
+Completed load for: 'res://birds/berry_outfit_2_front.png' remapped 'res://birds/berry_outfit_2_front.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_front_overlay.png remapped: res://birds/berry_outfit_2_front_overlay.png
+Loading resource: res://.godot/imported/berry_outfit_2_front_overlay.png-f2b86fc65d0fe7ef499736e8b99f5a89.ctex remapped: res://.godot/imported/berry_outfit_2_front_overlay.png-f2b86fc65d0fe7ef499736e8b99f5a89.ctex
+Completed load for: 'res://birds/berry_outfit_2_front_overlay.png' remapped 'res://birds/berry_outfit_2_front_overlay.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_01.png remapped: res://birds/berry_outfit_2_cheer_01.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_01.png-26b66f3d0a8f38ff6446c97825881464.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_01.png-26b66f3d0a8f38ff6446c97825881464.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_01.png' remapped 'res://birds/berry_outfit_2_cheer_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_02.png remapped: res://birds/berry_outfit_2_cheer_02.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_02.png-67c035c357a97d9976c486e975ea9046.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_02.png-67c035c357a97d9976c486e975ea9046.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_02.png' remapped 'res://birds/berry_outfit_2_cheer_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_03.png remapped: res://birds/berry_outfit_2_cheer_03.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_03.png-fc152384d0b4d1c41e42d7c3e64b0816.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_03.png-fc152384d0b4d1c41e42d7c3e64b0816.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_03.png' remapped 'res://birds/berry_outfit_2_cheer_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_04.png remapped: res://birds/berry_outfit_2_cheer_04.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_04.png-fab14679b4a95f6af348d6fff435fe6e.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_04.png-fab14679b4a95f6af348d6fff435fe6e.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_04.png' remapped 'res://birds/berry_outfit_2_cheer_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_05.png remapped: res://birds/berry_outfit_2_cheer_05.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_05.png-7a0dd238c3b78b2820e3c1856733158e.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_05.png-7a0dd238c3b78b2820e3c1856733158e.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_05.png' remapped 'res://birds/berry_outfit_2_cheer_05.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_cheer_06.png remapped: res://birds/berry_outfit_2_cheer_06.png
+Loading resource: res://.godot/imported/berry_outfit_2_cheer_06.png-303eafde868629ac5bbbb3628a1c1ca8.ctex remapped: res://.godot/imported/berry_outfit_2_cheer_06.png-303eafde868629ac5bbbb3628a1c1ca8.ctex
+Completed load for: 'res://birds/berry_outfit_2_cheer_06.png' remapped 'res://birds/berry_outfit_2_cheer_06.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_left_01.png remapped: res://birds/berry_outfit_2_turn_left_01.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_left_01.png-f524b4f79207699c2750bc9f9f3a7513.ctex remapped: res://.godot/imported/berry_outfit_2_turn_left_01.png-f524b4f79207699c2750bc9f9f3a7513.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_left_01.png' remapped 'res://birds/berry_outfit_2_turn_left_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_left_02.png remapped: res://birds/berry_outfit_2_turn_left_02.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_left_02.png-b67757912ce49a2f54bf69ebcc2fd0ad.ctex remapped: res://.godot/imported/berry_outfit_2_turn_left_02.png-b67757912ce49a2f54bf69ebcc2fd0ad.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_left_02.png' remapped 'res://birds/berry_outfit_2_turn_left_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_left_03.png remapped: res://birds/berry_outfit_2_turn_left_03.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_left_03.png-ed8f6c92f9c4607ae3881b651fc3ce00.ctex remapped: res://.godot/imported/berry_outfit_2_turn_left_03.png-ed8f6c92f9c4607ae3881b651fc3ce00.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_left_03.png' remapped 'res://birds/berry_outfit_2_turn_left_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_left_04.png remapped: res://birds/berry_outfit_2_turn_left_04.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_left_04.png-19858cfb697fe77c71aa270b480d1cca.ctex remapped: res://.godot/imported/berry_outfit_2_turn_left_04.png-19858cfb697fe77c71aa270b480d1cca.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_left_04.png' remapped 'res://birds/berry_outfit_2_turn_left_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_right_01.png remapped: res://birds/berry_outfit_2_turn_right_01.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_right_01.png-0d3d9448f6f8337bbbb6f3331d6a7499.ctex remapped: res://.godot/imported/berry_outfit_2_turn_right_01.png-0d3d9448f6f8337bbbb6f3331d6a7499.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_right_01.png' remapped 'res://birds/berry_outfit_2_turn_right_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_right_02.png remapped: res://birds/berry_outfit_2_turn_right_02.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_right_02.png-13515b720860033266120cfa2dc381e6.ctex remapped: res://.godot/imported/berry_outfit_2_turn_right_02.png-13515b720860033266120cfa2dc381e6.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_right_02.png' remapped 'res://birds/berry_outfit_2_turn_right_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_right_03.png remapped: res://birds/berry_outfit_2_turn_right_03.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_right_03.png-a806dc38a734ce1b422157bb569ad22f.ctex remapped: res://.godot/imported/berry_outfit_2_turn_right_03.png-a806dc38a734ce1b422157bb569ad22f.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_right_03.png' remapped 'res://birds/berry_outfit_2_turn_right_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_2_turn_right_04.png remapped: res://birds/berry_outfit_2_turn_right_04.png
+Loading resource: res://.godot/imported/berry_outfit_2_turn_right_04.png-e352dbc2568e86b710595677ce5d3355.ctex remapped: res://.godot/imported/berry_outfit_2_turn_right_04.png-e352dbc2568e86b710595677ce5d3355.ctex
+Completed load for: 'res://birds/berry_outfit_2_turn_right_04.png' remapped 'res://birds/berry_outfit_2_turn_right_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_front.png remapped: res://birds/berry_outfit_3_front.png
+Loading resource: res://.godot/imported/berry_outfit_3_front.png-64ac0eddd76c1cf3d453e11e4586df70.ctex remapped: res://.godot/imported/berry_outfit_3_front.png-64ac0eddd76c1cf3d453e11e4586df70.ctex
+Completed load for: 'res://birds/berry_outfit_3_front.png' remapped 'res://birds/berry_outfit_3_front.png' at thread -1
+Loading resource: res://art/sparkle.png remapped: res://art/sparkle.png
+Loading resource: res://.godot/imported/sparkle.png-d246af6526f168228fe4821e711e25f7.ctex remapped: res://.godot/imported/sparkle.png-d246af6526f168228fe4821e711e25f7.ctex
+Completed load for: 'res://art/sparkle.png' remapped 'res://art/sparkle.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_front_overlay.png remapped: res://birds/berry_outfit_3_front_overlay.png
+Loading resource: res://.godot/imported/berry_outfit_3_front_overlay.png-f49abf3eed4b5bfea471c1fc91fc6c20.ctex remapped: res://.godot/imported/berry_outfit_3_front_overlay.png-f49abf3eed4b5bfea471c1fc91fc6c20.ctex
+Completed load for: 'res://birds/berry_outfit_3_front_overlay.png' remapped 'res://birds/berry_outfit_3_front_overlay.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_01.png remapped: res://birds/berry_outfit_3_cheer_01.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_01.png-f93ab9c7e85d19b865f0f6c3879e6155.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_01.png-f93ab9c7e85d19b865f0f6c3879e6155.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_01.png' remapped 'res://birds/berry_outfit_3_cheer_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_02.png remapped: res://birds/berry_outfit_3_cheer_02.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_02.png-325e052595c13c72b926d6ccc49bf2a2.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_02.png-325e052595c13c72b926d6ccc49bf2a2.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_02.png' remapped 'res://birds/berry_outfit_3_cheer_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_03.png remapped: res://birds/berry_outfit_3_cheer_03.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_03.png-8664fe6217d30ea788e7067b6465cebe.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_03.png-8664fe6217d30ea788e7067b6465cebe.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_03.png' remapped 'res://birds/berry_outfit_3_cheer_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_04.png remapped: res://birds/berry_outfit_3_cheer_04.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_04.png-d0c607e3da10e1446a283c996689e731.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_04.png-d0c607e3da10e1446a283c996689e731.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_04.png' remapped 'res://birds/berry_outfit_3_cheer_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_05.png remapped: res://birds/berry_outfit_3_cheer_05.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_05.png-c4fcfc160d7478e514c4ac7bf8a63c43.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_05.png-c4fcfc160d7478e514c4ac7bf8a63c43.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_05.png' remapped 'res://birds/berry_outfit_3_cheer_05.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_cheer_06.png remapped: res://birds/berry_outfit_3_cheer_06.png
+Loading resource: res://.godot/imported/berry_outfit_3_cheer_06.png-77b9cce1886506794ab99aec5a4fb22e.ctex remapped: res://.godot/imported/berry_outfit_3_cheer_06.png-77b9cce1886506794ab99aec5a4fb22e.ctex
+Completed load for: 'res://birds/berry_outfit_3_cheer_06.png' remapped 'res://birds/berry_outfit_3_cheer_06.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_left_01.png remapped: res://birds/berry_outfit_3_turn_left_01.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_left_01.png-b9e5910d81e958aed3410a6ac9acd6ba.ctex remapped: res://.godot/imported/berry_outfit_3_turn_left_01.png-b9e5910d81e958aed3410a6ac9acd6ba.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_left_01.png' remapped 'res://birds/berry_outfit_3_turn_left_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_left_02.png remapped: res://birds/berry_outfit_3_turn_left_02.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_left_02.png-226efc72d9de5fd5a4d7d5e07d5a2784.ctex remapped: res://.godot/imported/berry_outfit_3_turn_left_02.png-226efc72d9de5fd5a4d7d5e07d5a2784.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_left_02.png' remapped 'res://birds/berry_outfit_3_turn_left_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_left_03.png remapped: res://birds/berry_outfit_3_turn_left_03.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_left_03.png-23d62ca2e55b43921ad0850ad83de7cd.ctex remapped: res://.godot/imported/berry_outfit_3_turn_left_03.png-23d62ca2e55b43921ad0850ad83de7cd.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_left_03.png' remapped 'res://birds/berry_outfit_3_turn_left_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_left_04.png remapped: res://birds/berry_outfit_3_turn_left_04.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_left_04.png-9d48789df9107312b86d6e7c8977fd6c.ctex remapped: res://.godot/imported/berry_outfit_3_turn_left_04.png-9d48789df9107312b86d6e7c8977fd6c.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_left_04.png' remapped 'res://birds/berry_outfit_3_turn_left_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_right_01.png remapped: res://birds/berry_outfit_3_turn_right_01.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_right_01.png-8bf89c5a77af61e4cd6a94f8abf1b1d0.ctex remapped: res://.godot/imported/berry_outfit_3_turn_right_01.png-8bf89c5a77af61e4cd6a94f8abf1b1d0.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_right_01.png' remapped 'res://birds/berry_outfit_3_turn_right_01.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_right_02.png remapped: res://birds/berry_outfit_3_turn_right_02.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_right_02.png-70ac87278490b6509f9f923bd500f786.ctex remapped: res://.godot/imported/berry_outfit_3_turn_right_02.png-70ac87278490b6509f9f923bd500f786.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_right_02.png' remapped 'res://birds/berry_outfit_3_turn_right_02.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_right_03.png remapped: res://birds/berry_outfit_3_turn_right_03.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_right_03.png-9886c9559615e3ad160fd7bbd52e1181.ctex remapped: res://.godot/imported/berry_outfit_3_turn_right_03.png-9886c9559615e3ad160fd7bbd52e1181.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_right_03.png' remapped 'res://birds/berry_outfit_3_turn_right_03.png' at thread -1
+Loading resource: res://birds/berry_outfit_3_turn_right_04.png remapped: res://birds/berry_outfit_3_turn_right_04.png
+Loading resource: res://.godot/imported/berry_outfit_3_turn_right_04.png-148a50e01158a5016b9a11a0e9180f93.ctex remapped: res://.godot/imported/berry_outfit_3_turn_right_04.png-148a50e01158a5016b9a11a0e9180f93.ctex
+Completed load for: 'res://birds/berry_outfit_3_turn_right_04.png' remapped 'res://birds/berry_outfit_3_turn_right_04.png' at thread -1
+Loading resource: res://birds/berry_outfit_4_front.png remapped: res://birds/berry_outfit_4_front.png
+Loading resource: res://.godot/imported/berry_outfit_4_front.png-5a1ff2c89f96a5631eb1c3b1b0e4ede7.ctex remapped: res://.godot/imported/berry_outfit_4_front.png-5a1ff2c89f96a5631eb1c3b1b0e4ede7.ctex
+Completed load for: 'res://birds/berry_outfit_4_front.png' remapped 'res://birds/berry_outfit_4_front.png' at thread -1
+Loading resource: res://art/fall_petal_pink.png remapped: res://art/fall_petal_pink.png
+Loading resource: res://.godot/imported/fall_petal_pink.png-94715864c629d1579ff87cfc619f2272.ctex remapped: res://.godot/imported/fall_petal_pink.png-94715864c629d1579ff87cfc619f2272.ctex
+Completed load for: 'res://art/fall_petal_pink.png' remapped 'res://art/fall_petal_pink.png' at thread -1
+Loading resource: res://birds/berry_outfit_4_front_overlay.png remapped: res://birds/berry_outfit_4_front_overlay.png
+Loading resource: res://.godot/imported/berry_outfit_4_front_overlay.png-347e1ad732a027688629e630fbdae70f.ctex remapped: res://.godot/imported/berry_outfit_4_front_overlay.png-347e1ad732a027688629e630fbdae70f.ctex
+Completed load for: 'res://birds/berry_outfit_4_front_overlay.png' remapped 'res://birds/berry_outfit_4_front_overlay.png' at thread -1
+Loading resource: res://birds/berry_outfit_5_front.png remapped: res://birds/berry_outfit_5_front.png
+Loading resource: res://.godot/imported/berry_outfit_5_front.png-5a01c1ccb4aa21d2a52f0bcc42ac8a16.ctex remapped: res://.godot/imported/berry_outfit_5_front.png-5a01c1ccb4aa21d2a52f0bcc42ac8a16.ctex
+Completed load for: 'res://birds/berry_outfit_5_front.png' remapped 'res://birds/berry_outfit_5_front.png' at thread -1
+Loading resource: res://birds/berry_outfit_5_front_overlay.png remapped: res://birds/berry_outfit_5_front_overlay.png
+Loading resource: res://.godot/imported/berry_outfit_5_front_overlay.png-c2c51a2712b75dcc6560389272ff0ccc.ctex remapped: res://.godot/imported/berry_outfit_5_front_overlay.png-c2c51a2712b75dcc6560389272ff0ccc.ctex
+Completed load for: 'res://birds/berry_outfit_5_front_overlay.png' remapped 'res://birds/berry_outfit_5_front_overlay.png' at thread -1
+Loading resource: res://art/island/btn_forest_back.png remapped: res://art/island/btn_forest_back.png
+Loading resource: res://.godot/imported/btn_forest_back.png-be957592fb153fb437f2febf3de55038.ctex remapped: res://.godot/imported/btn_forest_back.png-be957592fb153fb437f2febf3de55038.ctex
+Completed load for: 'res://art/island/btn_forest_back.png' remapped 'res://art/island/btn_forest_back.png' at thread -1
+Loading resource: res://art/island/panel_aviary_title.png remapped: res://art/island/panel_aviary_title.png
+Loading resource: res://.godot/imported/panel_aviary_title.png-80343e668331e01449000ab1318e17c9.ctex remapped: res://.godot/imported/panel_aviary_title.png-80343e668331e01449000ab1318e17c9.ctex
+Completed load for: 'res://art/island/panel_aviary_title.png' remapped 'res://art/island/panel_aviary_title.png' at thread -1
+Loading resource: res://art/locale/en/island_words/gold_bird_berry_name.png remapped: res://art/locale/en/island_words/gold_bird_berry_name.png
+Loading resource: res://.godot/imported/gold_bird_berry_name.png-8472b4fb86dd01587bd67b9713c684a8.ctex remapped: res://.godot/imported/gold_bird_berry_name.png-8472b4fb86dd01587bd67b9713c684a8.ctex
+Completed load for: 'res://art/locale/en/island_words/gold_bird_berry_name.png' remapped 'res://art/locale/en/island_words/gold_bird_berry_name.png' at thread -1
+Loading resource: res://art/locale/en/island_words/gold_outfit_berry_3_name.png remapped: res://art/locale/en/island_words/gold_outfit_berry_3_name.png
+Loading resource: res://.godot/imported/gold_outfit_berry_3_name.png-ffdfea61bed4a3cd527b3645bfbcf9af.ctex remapped: res://.godot/imported/gold_outfit_berry_3_name.png-ffdfea61bed4a3cd527b3645bfbcf9af.ctex
+Completed load for: 'res://art/locale/en/island_words/gold_outfit_berry_3_name.png' remapped 'res://art/locale/en/island_words/gold_outfit_berry_3_name.png' at thread -1
+PASS outfit uses existing forest surface
+PASS outfit uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS outfit Close matches coin-shop dimensions
+PASS outfit Close press retains geometry
+PASS outfit retains actual live BirdView
+PASS repeated outfit open keeps one modal
+Loading resource: res://art/icon_home_island_digit_4.png remapped: res://art/icon_home_island_digit_4.png
+Loading resource: res://.godot/imported/icon_home_island_digit_4.png-86f70b431bb5cd6722e2bff7501e03b3.ctex remapped: res://.godot/imported/icon_home_island_digit_4.png-86f70b431bb5cd6722e2bff7501e03b3.ctex
+Completed load for: 'res://art/icon_home_island_digit_4.png' remapped 'res://art/icon_home_island_digit_4.png' at thread -1
+PASS outfit purchases once and equips through existing callback
+Loading resource: res://art/locale/en/island_words/gold_outfit_berry_2_name.png remapped: res://art/locale/en/island_words/gold_outfit_berry_2_name.png
+Loading resource: res://.godot/imported/gold_outfit_berry_2_name.png-aff8540d4b80cccc7a4ab51d4bb99e22.ctex remapped: res://.godot/imported/gold_outfit_berry_2_name.png-aff8540d4b80cccc7a4ab51d4bb99e22.ctex
+Completed load for: 'res://art/locale/en/island_words/gold_outfit_berry_2_name.png' remapped 'res://art/locale/en/island_words/gold_outfit_berry_2_name.png' at thread -1
+PASS unaffordable outfit Buy disabled
+Loading resource: res://audio/Audio/error.wav remapped: res://audio/Audio/error.wav
+Loading resource: res://.godot/imported/error.wav-1a22379bf338d1c637107b17b942c245.sample remapped: res://.godot/imported/error.wav-1a22379bf338d1c637107b17b942c245.sample
+Completed load for: 'res://audio/Audio/error.wav' remapped 'res://audio/Audio/error.wav' at thread -1
+PASS closing unaffordable outfit preserves profile
+Loading resource: res://game/coin_shop_view.gd remapped: res://game/coin_shop_view.gd
+Completed load for: 'res://game/coin_shop_view.gd' remapped 'res://game/coin_shop_view.gd' at thread -1
+Loading resource: res://art/island/background_shop_forest.png remapped: res://art/island/background_shop_forest.png
+Loading resource: res://.godot/imported/background_shop_forest.png-c5c1c8f13e77fd6b735cbe5de2fe25cd.ctex remapped: res://.godot/imported/background_shop_forest.png-c5c1c8f13e77fd6b735cbe5de2fe25cd.ctex
+Completed load for: 'res://art/island/background_shop_forest.png' remapped 'res://art/island/background_shop_forest.png' at thread -1
+Loading resource: res://art/island/panel_purchase_balance.png remapped: res://art/island/panel_purchase_balance.png
+Loading resource: res://.godot/imported/panel_purchase_balance.png-3a08415fe4b66a0a7728993493a8a65b.ctex remapped: res://.godot/imported/panel_purchase_balance.png-3a08415fe4b66a0a7728993493a8a65b.ctex
+Completed load for: 'res://art/island/panel_purchase_balance.png' remapped 'res://art/island/panel_purchase_balance.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_zero.png remapped: res://art/island/label_draw_purchase_zero.png
+Loading resource: res://.godot/imported/label_draw_purchase_zero.png-1ca9b7c88ef09a38ee6ff4f68a6532cb.ctex remapped: res://.godot/imported/label_draw_purchase_zero.png-1ca9b7c88ef09a38ee6ff4f68a6532cb.ctex
+Completed load for: 'res://art/island/label_draw_purchase_zero.png' remapped 'res://art/island/label_draw_purchase_zero.png' at thread -1
+Loading resource: res://art/island/label_purchase_title_zh.png remapped: res://art/island/label_purchase_title_zh.png
+Loading resource: res://.godot/imported/label_purchase_title_zh.png-23b5af1f34b6a41a3f69985f726d4b47.ctex remapped: res://.godot/imported/label_purchase_title_zh.png-23b5af1f34b6a41a3f69985f726d4b47.ctex
+Completed load for: 'res://art/island/label_purchase_title_zh.png' remapped 'res://art/island/label_purchase_title_zh.png' at thread -1
+Loading resource: res://art/island/label_purchase_title_en.png remapped: res://art/island/label_purchase_title_en.png
+Loading resource: res://.godot/imported/label_purchase_title_en.png-131052b442c8cbf64bcbacc1ccc86be3.ctex remapped: res://.godot/imported/label_purchase_title_en.png-131052b442c8cbf64bcbacc1ccc86be3.ctex
+Completed load for: 'res://art/island/label_purchase_title_en.png' remapped 'res://art/island/label_purchase_title_en.png' at thread -1
+Loading resource: res://art/island/icon_purchase_stack.png remapped: res://art/island/icon_purchase_stack.png
+Loading resource: res://.godot/imported/icon_purchase_stack.png-7c0ffeda8bbf8fb309b3f279f8c52aa5.ctex remapped: res://.godot/imported/icon_purchase_stack.png-7c0ffeda8bbf8fb309b3f279f8c52aa5.ctex
+Completed load for: 'res://art/island/icon_purchase_stack.png' remapped 'res://art/island/icon_purchase_stack.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_six.png remapped: res://art/island/label_draw_purchase_six.png
+Loading resource: res://.godot/imported/label_draw_purchase_six.png-1bd9723140327674244bd2d11deab031.ctex remapped: res://.godot/imported/label_draw_purchase_six.png-1bd9723140327674244bd2d11deab031.ctex
+Completed load for: 'res://art/island/label_draw_purchase_six.png' remapped 'res://art/island/label_draw_purchase_six.png' at thread -1
+Loading resource: res://art/island/btn_purchase_six.png remapped: res://art/island/btn_purchase_six.png
+Loading resource: res://.godot/imported/btn_purchase_six.png-156ed623f8a9c8e6730faaad3f451938.ctex remapped: res://.godot/imported/btn_purchase_six.png-156ed623f8a9c8e6730faaad3f451938.ctex
+Completed load for: 'res://art/island/btn_purchase_six.png' remapped 'res://art/island/btn_purchase_six.png' at thread -1
+Loading resource: res://art/island/icon_purchase_cluster.png remapped: res://art/island/icon_purchase_cluster.png
+Loading resource: res://.godot/imported/icon_purchase_cluster.png-185436d5ca24230f3d2b182b0b8a3651.ctex remapped: res://.godot/imported/icon_purchase_cluster.png-185436d5ca24230f3d2b182b0b8a3651.ctex
+Completed load for: 'res://art/island/icon_purchase_cluster.png' remapped 'res://art/island/icon_purchase_cluster.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_two.png remapped: res://art/island/label_draw_purchase_two.png
+Loading resource: res://.godot/imported/label_draw_purchase_two.png-b32f087e4e14a0905a38f4015650ec60.ctex remapped: res://.godot/imported/label_draw_purchase_two.png-b32f087e4e14a0905a38f4015650ec60.ctex
+Completed load for: 'res://art/island/label_draw_purchase_two.png' remapped 'res://art/island/label_draw_purchase_two.png' at thread -1
+Loading resource: res://art/island/btn_purchase_eighteen.png remapped: res://art/island/btn_purchase_eighteen.png
+Loading resource: res://.godot/imported/btn_purchase_eighteen.png-7f9075ac7b05b0a0cf687c58ecf7a9f1.ctex remapped: res://.godot/imported/btn_purchase_eighteen.png-7f9075ac7b05b0a0cf687c58ecf7a9f1.ctex
+Completed load for: 'res://art/island/btn_purchase_eighteen.png' remapped 'res://art/island/btn_purchase_eighteen.png' at thread -1
+Loading resource: res://art/island/icon_purchase_pouch.png remapped: res://art/island/icon_purchase_pouch.png
+Loading resource: res://.godot/imported/icon_purchase_pouch.png-36e955b78bd88b477dce7b60651a8ea2.ctex remapped: res://.godot/imported/icon_purchase_pouch.png-36e955b78bd88b477dce7b60651a8ea2.ctex
+Completed load for: 'res://art/island/icon_purchase_pouch.png' remapped 'res://art/island/icon_purchase_pouch.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_three.png remapped: res://art/island/label_draw_purchase_three.png
+Loading resource: res://.godot/imported/label_draw_purchase_three.png-d821b26882fb5ee56977032f7e9ed62a.ctex remapped: res://.godot/imported/label_draw_purchase_three.png-d821b26882fb5ee56977032f7e9ed62a.ctex
+Completed load for: 'res://art/island/label_draw_purchase_three.png' remapped 'res://art/island/label_draw_purchase_three.png' at thread -1
+Loading resource: res://art/island/btn_purchase_thirty.png remapped: res://art/island/btn_purchase_thirty.png
+Loading resource: res://.godot/imported/btn_purchase_thirty.png-dcda9a265607f4f5d97ed997fa879c07.ctex remapped: res://.godot/imported/btn_purchase_thirty.png-dcda9a265607f4f5d97ed997fa879c07.ctex
+Completed load for: 'res://art/island/btn_purchase_thirty.png' remapped 'res://art/island/btn_purchase_thirty.png' at thread -1
+Loading resource: res://art/island/icon_purchase_basket.png remapped: res://art/island/icon_purchase_basket.png
+Loading resource: res://.godot/imported/icon_purchase_basket.png-800e496f8cc08dfae43bc961a8a783af.ctex remapped: res://.godot/imported/icon_purchase_basket.png-800e496f8cc08dfae43bc961a8a783af.ctex
+Completed load for: 'res://art/island/icon_purchase_basket.png' remapped 'res://art/island/icon_purchase_basket.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_nine.png remapped: res://art/island/label_draw_purchase_nine.png
+Loading resource: res://.godot/imported/label_draw_purchase_nine.png-3b544fca332664022b0c98273dfedc2f.ctex remapped: res://.godot/imported/label_draw_purchase_nine.png-3b544fca332664022b0c98273dfedc2f.ctex
+Completed load for: 'res://art/island/label_draw_purchase_nine.png' remapped 'res://art/island/label_draw_purchase_nine.png' at thread -1
+Loading resource: res://art/island/btn_purchase_sixty_eight.png remapped: res://art/island/btn_purchase_sixty_eight.png
+Loading resource: res://.godot/imported/btn_purchase_sixty_eight.png-0a88f3f6a9649285accc0b993332be55.ctex remapped: res://.godot/imported/btn_purchase_sixty_eight.png-0a88f3f6a9649285accc0b993332be55.ctex
+Completed load for: 'res://art/island/btn_purchase_sixty_eight.png' remapped 'res://art/island/btn_purchase_sixty_eight.png' at thread -1
+Loading resource: res://art/island/icon_purchase_chest.png remapped: res://art/island/icon_purchase_chest.png
+Loading resource: res://.godot/imported/icon_purchase_chest.png-36918a729e9759ff354ef58c1c8e550b.ctex remapped: res://.godot/imported/icon_purchase_chest.png-36918a729e9759ff354ef58c1c8e550b.ctex
+Completed load for: 'res://art/island/icon_purchase_chest.png' remapped 'res://art/island/icon_purchase_chest.png' at thread -1
+Loading resource: res://art/island/btn_purchase_one_twenty_eight.png remapped: res://art/island/btn_purchase_one_twenty_eight.png
+Loading resource: res://.godot/imported/btn_purchase_one_twenty_eight.png-4b215959dc290f1437db8f6acd9efd90.ctex remapped: res://.godot/imported/btn_purchase_one_twenty_eight.png-4b215959dc290f1437db8f6acd9efd90.ctex
+Completed load for: 'res://art/island/btn_purchase_one_twenty_eight.png' remapped 'res://art/island/btn_purchase_one_twenty_eight.png' at thread -1
+Loading resource: res://art/island/icon_purchase_hoard.png remapped: res://art/island/icon_purchase_hoard.png
+Loading resource: res://.godot/imported/icon_purchase_hoard.png-0e025b2549903f1cea9510fd56be8bbf.ctex remapped: res://.godot/imported/icon_purchase_hoard.png-0e025b2549903f1cea9510fd56be8bbf.ctex
+Completed load for: 'res://art/island/icon_purchase_hoard.png' remapped 'res://art/island/icon_purchase_hoard.png' at thread -1
+Loading resource: res://art/island/btn_purchase_one_ninety_eight.png remapped: res://art/island/btn_purchase_one_ninety_eight.png
+Loading resource: res://.godot/imported/btn_purchase_one_ninety_eight.png-df55734c253534c18c308c88d7a3aea4.ctex remapped: res://.godot/imported/btn_purchase_one_ninety_eight.png-df55734c253534c18c308c88d7a3aea4.ctex
+Completed load for: 'res://art/island/btn_purchase_one_ninety_eight.png' remapped 'res://art/island/btn_purchase_one_ninety_eight.png' at thread -1
+Loading resource: res://art/locale/en/island_words/gold_coin_purchase_preview.png remapped: res://art/locale/en/island_words/gold_coin_purchase_preview.png
+Loading resource: res://.godot/imported/gold_coin_purchase_preview.png-7f9cdad212112f47bfc4c6256d1edab5.ctex remapped: res://.godot/imported/gold_coin_purchase_preview.png-7f9cdad212112f47bfc4c6256d1edab5.ctex
+Completed load for: 'res://art/locale/en/island_words/gold_coin_purchase_preview.png' remapped 'res://art/locale/en/island_words/gold_coin_purchase_preview.png' at thread -1
+Loading resource: res://art/island/label_draw_purchase_plus.png remapped: res://art/island/label_draw_purchase_plus.png
+Loading resource: res://.godot/imported/label_draw_purchase_plus.png-7d8479c5abdc683666a33c53ea7922c4.ctex remapped: res://.godot/imported/label_draw_purchase_plus.png-7d8479c5abdc683666a33c53ea7922c4.ctex
+Completed load for: 'res://art/island/label_draw_purchase_plus.png' remapped 'res://art/island/label_draw_purchase_plus.png' at thread -1
+Loading resource: res://art/locale/en/island_words/white_action_ok.png remapped: res://art/locale/en/island_words/white_action_ok.png
+Loading resource: res://.godot/imported/white_action_ok.png-9a062e21d08cd2a206c674c0fc287e47.ctex remapped: res://.godot/imported/white_action_ok.png-9a062e21d08cd2a206c674c0fc287e47.ctex
+Completed load for: 'res://art/locale/en/island_words/white_action_ok.png' remapped 'res://art/locale/en/island_words/white_action_ok.png' at thread -1
+PASS feather stack uses existing forest surface
+PASS feather stack uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather stack Close matches coin-shop dimensions
+PASS feather stack Close press retains geometry
+PASS repeated feather preview keeps one modal stack
+PASS feather preview labels simulation and exact amount stack
+PASS feather confirmation closes without charge or grant stack
+PASS feather cluster uses existing forest surface
+PASS feather cluster uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather cluster Close matches coin-shop dimensions
+PASS feather cluster Close press retains geometry
+PASS repeated feather preview keeps one modal cluster
+PASS feather preview labels simulation and exact amount cluster
+PASS feather confirmation closes without charge or grant cluster
+PASS feather pouch uses existing forest surface
+PASS feather pouch uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather pouch Close matches coin-shop dimensions
+PASS feather pouch Close press retains geometry
+PASS repeated feather preview keeps one modal pouch
+PASS feather preview labels simulation and exact amount pouch
+PASS feather confirmation closes without charge or grant pouch
+PASS feather basket uses existing forest surface
+PASS feather basket uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather basket Close matches coin-shop dimensions
+PASS feather basket Close press retains geometry
+PASS repeated feather preview keeps one modal basket
+PASS feather preview labels simulation and exact amount basket
+PASS feather confirmation closes without charge or grant basket
+PASS feather chest uses existing forest surface
+PASS feather chest uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather chest Close matches coin-shop dimensions
+PASS feather chest Close press retains geometry
+PASS repeated feather preview keeps one modal chest
+PASS feather preview labels simulation and exact amount chest
+PASS feather confirmation closes without charge or grant chest
+PASS feather hoard uses existing forest surface
+PASS feather hoard uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather hoard Close matches coin-shop dimensions
+PASS feather hoard Close press retains geometry
+PASS repeated feather preview keeps one modal hoard
+PASS feather preview labels simulation and exact amount hoard
+PASS feather confirmation closes without charge or grant hoard
+purchase dialog checks: 74 checks, 0 failures
+WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit.
+   at: clear (core/io/resource.cpp:817)
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Leaked instance: AudioStreamPlaybackWAV:9223372119885219796 - Reference count: 1
+Leaked instance: AudioStreamWAV:9223372119834888151 - Reference count: 1
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Resource still in use: res://audio/bgm_menu.wav (AudioStreamWAV)
+Orphan StringName: Master (static: 0, total: 2)
+StringName: 1 unclaimed string names at exit.

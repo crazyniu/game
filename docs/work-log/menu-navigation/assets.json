@@ -1,0 +1,28 @@
+[
+  {
+    "path": "PerchSort/art/island/btn_purchase_close.png",
+    "sha256": "b9dc81fbf92722a443dcb49f523acc9c6fddef65efe48b4f02d3fb0481b5d264",
+    "size": [
+      116,
+      119
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "review": "existing approved standalone art inspected directly; orange/red glossy face with white navigation mark; pixels preserved"
+  },
+  {
+    "path": "PerchSort/art/island/btn_forest_back.png",
+    "sha256": "5ce8657342b2fbbe57dad14d0ad9a3a8d9618bfc04eac1c72e6da1ba8e36bcff",
+    "size": [
+      263,
+      272
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "review": "existing approved standalone art inspected directly; orange/red glossy face with white navigation mark; pixels preserved"
+  }
+]

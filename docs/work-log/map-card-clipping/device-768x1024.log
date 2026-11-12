@@ -1,0 +1,23 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE world_01 size=(576, 1024)
+CAPTURE world_02 size=(576, 1024)
+CAPTURE world_03 size=(576, 1024)
+CAPTURE world_04 size=(576, 1024)
+CAPTURE world_05 size=(576, 1024)
+CAPTURE world_06 size=(576, 1024)
+CAPTURE world_07 size=(576, 1024)
+CAPTURE world_08 size=(576, 1024)
+CAPTURE world_09 size=(576, 1024)
+CAPTURE world_10 size=(576, 1024)
+CAPTURE world_locked size=(576, 1024)
+SWIPE 0.013 scroll=2550.67
+SWIPE 0.074 scroll=2643.01
+SWIPE 0.143 scroll=2663.69
+SWIPE 0.216 scroll=2664.00
+SWIPE 0.310 scroll=2664.00
+SWIPE 0.368 scroll=2664.00
+map card clipping: 193 checks, 0 failures; window=(768, 1024) final_transform=[X: (0.533333, 0.0), Y: (0.0, 0.533333), O: (96.0, 0.0)]

@@ -1,0 +1,13 @@
+{
+  "baseline": "build/ui-layout-review/before-sources.json",
+  "baseline_files": 3017,
+  "changed_existing_files": [
+    "PerchSort/game/popups.gd",
+    "PerchSort/game/map_view.gd",
+    "PerchSort/game/coin_shop_view.gd",
+    "PerchSort/game/family_dialog.gd",
+    "PerchSort/game/aviary_view.gd",
+    "PerchSort/game/shop_view.gd"
+  ],
+  "retained_original_art_unchanged": true
+}

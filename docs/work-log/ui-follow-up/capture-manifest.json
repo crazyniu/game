@@ -1,0 +1,1794 @@
+[
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_00.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d3a5f4f5b779764e0d783ede9a31874c9905293f51b3e2d03a53a04243912289",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_01.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7c41146ccf6144c232c4d37448a079b8d8e6c04d2989b80a09561c2eafbcab6e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_02.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "121965a742db9c014ebdf5e903df8dbcd656666cf1f9228d4f2e624be23f532e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_03.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "121965a742db9c014ebdf5e903df8dbcd656666cf1f9228d4f2e624be23f532e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_04.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "121965a742db9c014ebdf5e903df8dbcd656666cf1f9228d4f2e624be23f532e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/swipe_05.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "121965a742db9c014ebdf5e903df8dbcd656666cf1f9228d4f2e624be23f532e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_01.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "bb0831df96340ab51ff60bf803ae200164fbeab6dbc121f24873674934e2d863",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_02.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1bc6014932470ab45ae6f9fee86e602905bbda9eb79fcdb03d77df5c331c40c6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_03.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "0c3bda30a820d98d22e26a63d9a0149df606a74b6252aea33083ed4927b38c61",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_04.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "cd75e2da414d2db696b707045dc0d468cd914d2cffeb8438955bdaaeb147ca3e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_05.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d46ad4ae8ba83a9080da40741b422984fffacab748276ab8c6281aded2e116cf",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_06.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "95a547be66e54a251346b8bc1639a892f7c7146840856503370dedc91a4d6c0f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_07.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "4d19d60b82fdbf3dcc9630d29b7fa63ec9f26f5c787ba0607db045a678358031",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_08.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f0139cf19c3e5d37b1baae29241b938dbb3dae7706df6bf1df368db339a3013b",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_09.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "8a436880a7edd03d2175f3d0a649dc7104fa11e2e3efbbaca07de7975556c53e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_10.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e0d9a5b1b6cf06ebf4a6c53f5197503deb61326cc44de0ca69d18615dc6dd467",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-1080x1920/world_locked.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "121965a742db9c014ebdf5e903df8dbcd656666cf1f9228d4f2e624be23f532e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_00.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "837287dfb09a84f3422d339da58fb25b62c30e2047340c302934ed43223362be",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_01.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "36bfeb33e74fd20a6e8bcf31a2d7f8c27db2b99866f29aaed05fe2c2b53aad07",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_02.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "61884a44be5472a47632c0873add4558eeb318da0f4c99ce03959d8b3ef8cc83",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_03.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "8a5638080c3a7307762d957cf23a09bcd4a5d4e4753784abedb487e463fdf250",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_04.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "8a5638080c3a7307762d957cf23a09bcd4a5d4e4753784abedb487e463fdf250",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/swipe_05.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "8a5638080c3a7307762d957cf23a09bcd4a5d4e4753784abedb487e463fdf250",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_01.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "a67e6f2898e9384b3155802c5b297394357bfd441e75865290e56a7e5e9d9eeb",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_02.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "f4be73f497f049e03d2579f5001027fa1cd89125f7137f0d5a0e5e8d24d03e75",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_03.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "26f08000dbbea7360babe151fdeb9dade9dfe52e515e3b9d1eea868a576b6744",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_04.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "1581d19dbd27b42c78110e35de3e5b652cf64531534c315c75382c94a2184bf4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_05.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "ce114da0a3e431d4398d41236eb2183a0eed0a40cf7c60f08e50efbbc3913f41",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_06.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "611fd9d8ec3cf71b7c9e8852763135198d0fe3f862a6c8de2b314d442d6db401",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_07.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "84dfff53b02323ab34aa33450f61df593faf02ecf8ee1d5ca544f6e201d72097",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_08.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "a81183107b33db179ca3be9a8f214b2ba304d0b9e5fd73d81bbfd2545fc8c8eb",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_09.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "17b87ad2cab51f3668f0ea63e0da0d0b753ed531c4f94c0a144638ed50e0aed1",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_10.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "72cd9dda4055ecded9e62e363973e4f07871948e2cb296ade6c6fc90223aff86",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-360x640/world_locked.png",
+    "width": 360,
+    "height": 640,
+    "sha256": "8a5638080c3a7307762d957cf23a09bcd4a5d4e4753784abedb487e463fdf250",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_00.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "e82b5432e272506a64e19dca5c147fc43e480865dfae240b18dcb1ad9bb81569",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_01.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "8e449d9385bc72719d67b1f06d1543a560c0119f14dd80612354a100b4919f2d",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_02.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "031b88bdb87aa4c8828948334c21d7be51f7afb1a31bb69a2dc1007325150e21",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_03.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "93e30f51e20b36a6f1ec91d5e7d460704d7ffefe3de3ea051249924a31b3e895",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_04.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "93e30f51e20b36a6f1ec91d5e7d460704d7ffefe3de3ea051249924a31b3e895",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/swipe_05.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "93e30f51e20b36a6f1ec91d5e7d460704d7ffefe3de3ea051249924a31b3e895",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_01.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "4082d6cd7dd024eff4f9a43174947b3d420526f86d9f9501ed4f57250e638797",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_02.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "8bdc61b6f560a070fb608917a1bad8ef97130435db2724bacb0c5804a66085f0",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_03.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "52eab63069b674e14e5580317c3bd22bf1a3aa7174153b187e52302589f0e500",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_04.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "8a616cadbf55545cfa06f3cd2d542c0dd1cada2da9865e15410a64428173ab56",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_05.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "4558043b78770e1ae6b4b0fa2d4f44df8ceddf5f9ade632001db9c024a3b55df",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_06.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "73e7d79cbf4fb34097f5a9d512654c0bf7d6fab5a20b593afb9569c26ef99df6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_07.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "3156527ba93140af243b2b3bac1e0320b2c5ca3c9d7ceaa5b296fb4c9a1d09df",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_08.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "0bd2db491c62879c4e7539d8bc7ed12007496c11691fdc3565d986ce75247d13",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_09.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "014f968fc0ff7b70f5dde3c2b8b5508b46bc60a17a90395b966956610554a68d",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_10.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "bfed914bad2881799cd4851bef483f761a2da166b542487196e2c982f4d1d1bd",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-390x844/world_locked.png",
+    "width": 390,
+    "height": 693,
+    "sha256": "93e30f51e20b36a6f1ec91d5e7d460704d7ffefe3de3ea051249924a31b3e895",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_00.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "22a8543b707cb3367f62c69df3bdefb7779bb2e7dd371c18c83326fe28223d43",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_01.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "cee556dc5b28e3d2eda5813881eeb6497a7eb840c20bed2eacad91785fa12ae8",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_02.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "43364f035c5b6296407ed25f3a69e3032ac4c2425ef62a659e76b0595f285b42",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_03.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "7d0bcb296ecdafb93698e01ee11c037092e6eb61bcb02f069f1282490e1eb809",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_04.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "7d0bcb296ecdafb93698e01ee11c037092e6eb61bcb02f069f1282490e1eb809",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/swipe_05.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "7d0bcb296ecdafb93698e01ee11c037092e6eb61bcb02f069f1282490e1eb809",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_01.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "110e10c1c19b1363d0dc415c76a2fe8c3291142911c43f0a28d8a41c17df7a3e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_02.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "bb6faa4517b8d5ead1da5b52a963e5d45eae04828761286b3674fcc272c5bf36",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_03.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "4b4af198dfc95f72b5668872e5f91d2c4c51b15ed0d91641645471069d96f59f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_04.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "2b8f679c61844a65f2a0944acb683a7a0a81d85641685a753f3bd70888e9a788",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_05.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "7c266b246c374576adb179c860cb1b67ec223b581cd09e2d2373ad88b592071e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_06.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "bd549cf42c94cabe8eae1f22a2ece193805e8f2927748e156b93be930cd10347",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_07.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "0903ba4d8627138c0b3ffb5e46244c33ce5ae44b785c16a449c0bcb216e022cc",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_08.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "dd804509f2fda558184b50a399e36560956d8535f24c162c154c9111bfe94601",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_09.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "b6ceb64f9cf58fe2beaabd35e0486e908dd29c8276ad303b1d2ec6c81d944770",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_10.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "19fa01b783c2a60538d8b0bc5867438759f0784f1a86e8dcf42c22d0d14f4b33",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/map-cards-768x1024/world_locked.png",
+    "width": 576,
+    "height": 1024,
+    "sha256": "7d0bcb296ecdafb93698e01ee11c037092e6eb61bcb02f069f1282490e1eb809",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_default_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "056051b5c5713b09ffdee2f33ad0b2ea93ee2caec4e42b52c88cecb9110c787d",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_default_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ff4b0907234ff29bb48bdf8b02f6027879edef3586fa3651922586bb44fae0f3",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_equipped_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "81162f612674d18188b4607f5cb5347f7bbc633598b5335fcccdf7c0f860823e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_equipped_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "0824459c13d9f9ecd8be1e78b2806c1022806ad6b242419e580515ec14954cc1",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_owned_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "5eca74e8e36a814463f3d07bde6f8dd04729baa7649b6ffcaadeb872177907bf",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/ember_owned_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7f6688937d4d240472ab0696f6326bdb49150f0a39192e9f24f6b62f2fb2bb1a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_default_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "105ab9dffcd560f0baa27cf24a8901cdb730989381ff8d4227f3726fe558160a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_default_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "6cf949a6d3260292f3df7cc3e0fd21e2a6a79d1c4273040499eb3d464f9e23de",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_equipped_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "cef395151c67b1ac69b97408bbae3b1faf9b5e78317773bea0f602fdd516bde7",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_equipped_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "87f8401fce9b20420a8ceb957afb7d453fe443e873aa4482ede427d9358909e6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_owned_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "4ab9ca39bf10f763c138860d16dd7c7691465431ad2540da6f1e9626b775d0c0",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/hoot_owned_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e9f9ad8daef8eb9d4e2c341511b518439304b86518cbe9c446356778deefac6a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_default_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1581a147bdfb728813c538fdb1ebe6212473915b8718fc33fbbd3690e158acdc",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_default_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "78b9a08da0ca2b3f5dd97b2bcd72f1b5d717783f84d6d72f0393f7dc184b7819",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_equipped_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e6df1aa6ef5a7350f5b43206a82311216847c3a2f874017f82b4d507a7e528a1",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_equipped_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "16250c1769fddcea952a9bb7da313b6262759ed24ea3746031b376b7e46dd39c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_owned_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "295f88f56ae829820528263e7e8c62fb69204e847620ac20b1b9dcbb59d3bd0a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_owned_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b70721e67eeb7b3cc481e4f3059d3d2e4aea72289bfeb0f8b1c485085ca28be4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_aviary_actions/sunny_price_confirmation_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d77c1692e58f668a5e4ef43f81cc4f427bc02527062fe2f5a290d633afe58ce6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_crow.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "9db3630f50e03d77301ffe37a12190aad02a97afe13ada7f50a74b04912238c2",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_english.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "9c8c09564a8b183d63ba1bc29124a49b99f6cb11ef7ecee875e2fc116ff4fc11",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_equipped.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "92396afdb9f93ea2ebff0293e7205a3671e4310686669cbfcabbf8b32ca96118",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_insufficient.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "0887f90bb22e23c30ac3161d44647b5abe236e47ff3428b4046e35aaff2e76b2",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_list.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c4c10fcc15d6b3be15953c96167143a766f9b6c722df9002b00fc0e343492d83",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_maximum.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1ecc370e39b3a731084dda38e1f975fb5bb512148dd4fad10c9ec38ecf8913de",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_purchase.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "141769f88fc30460be08390488223dbed6ee34748e064a71b767920c03dc0b5c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_scrolled.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1b31d225f70b2dd8dfcd0a224f04423e6cc90deffa4b18a6ede198472411b198",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/aviary_sunny.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d258a5802154357fecfbd459651d90253bc24335f5ca27a361e35858616dd2fd",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_english.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e0d9a5b1b6cf06ebf4a6c53f5197503deb61326cc44de0ca69d18615dc6dd467",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_first.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "87e371565c3854c24ef13836250063e260a0371dfaefdce4e655a6ed8b5ca020",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_last.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a1aea50d11b4f4a790bc6f3bd04d0c6a3d55eec55b05d03d6257624e4211ec82",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_level_card.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c262816fd283991d1571185cc37a9bd1a4623dddad272e05c4d874515de9db9a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_locked.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b387a659ad5c486679971ce6d7bfbed19b1ea588afae5eb4a185e9517e7f26d3",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_middle.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "3f0ff6a331a42eff0f602aec0af41876145ecd525161b951626c5ab01a80a323",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/map_trail.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "741abb56a14d36900066a2cd977c2b201b93453f11d3eeeb96feeb063f0a4d04",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_00.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "942779136f6b967e2467999938643d674536c60214d9a4088b8083c7418d4e9f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_01.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "36230fa935dad917d1b12bd25d16cfd9476aea05b7786a90c3880b0259edced2",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_02.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "428c17139b62a0c99f08876217bbf48a483497c15030f7e06a7785ed269ac821",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_03.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "8f0179872108cac369f0abd3ecb6054ed2eaf1620f73c4af206123712a778625",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_04.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "cab6f7e5b719046b4189798f3ede5809ea359eafc573c8e936301c1f99f60c20",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_05.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "75c688097e8fd83954fefd88f0d3d20076eabba9d8e580aa24728ae96d146967",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_06.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "3f1d38bdd56678a40a4133287dbd0a13ca7f4db5e616658c4c03b215b985c235",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_07.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "5afd45f51562cbadee81d406f3ae882fe5aa5d678f6d1d73f72c8622ec080a23",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_08.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "15a8c24d2a00becc75dba8f51939a72a5c8328083e9a67ee3a97a38d1b07fb5a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_09.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7a39fe77a12d59731a530387f3491ea4e7e18fc4a584d5af38cbf7790ae2878b",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_10.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7f78a566854d3f793db170e4ca85b37a33781284aa2c203df70797165ec8560f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_11.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2cd2f861fca7b8ee1dc2e7d6da6ffc8dcaa9289af4165cd57cdb9d139fa1288a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_12.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "efbc9996a3bb3399feac7e7fb8b20bb56912331dc5d8924673241356cf61d59e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_13.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "fcd8038c4bb129d32c45e498bd16f97acead7bb917061a70d5e0a2a89b5bd807",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_14.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f1187eab1034e209a0f9ad0141c27070886383567f8289c8a6fe7deb2d3c6f8a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_15.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "431be0c8c2019ed336ccb28eff2699f78ec1400b61d8b4a35bbd67c25979c109",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_16.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "fbb9cb501961b9479c2491684a422cf638c69dd1d375dd11c1c17db26b0b9038",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_17.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "69b3c91364184276f929d6201a4c86fa3b15155e0d226ba63a0885aadf2db258",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_18.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "0d7d0520cd296f86fac9c63e166f5ef5856baebcfc65a079ea26fda353abf06e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_aviary/motion_19.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "79e1efaf26d07993643bcd98c87071903a730f78b3f70274e35d11478ad2b3b4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_00.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ddf438e6600af720a5de0f43e8c6b55909f0d5a1f27b060263bea17d3c43cb1c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_01.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a75e798f7a4c340b0b408ea56a0b717e167f33f195d8fea704deaf05223a3e29",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_02.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f00f6a1394f105e92e150c8b9b35a83348a298f0f724e2635ee2c8280fb86c49",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_03.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "3c87b8ae9341279eb5d3a2aa7ffbd6a6de46c2af3fec297b5ce1302ab7902c74",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_04.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2616c1e2030858ada32a0328c2beaf8a0b05d7926139ec3162095b4561230e96",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_05.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "63b58ccec3f6bb987eeef09daff6a4becc35892273a0dc185cecf0e45a5bf633",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_06.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d4ea2e6968c7449cbc65da83fd64de625a87184a6a956f6311d42b20a14f7474",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_07.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "562a806eea7888716aa7811f49eed283b59e0002bec73a94e76079c5ae85c646",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_08.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "5fdc9607a3ee86edd3fdc120e05b06fe88649bf16d00ac74dac00c93cdd00b8e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/motion_09.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b86df06cdefa35a4d18138ac0f16cb899e71a0387869a27bc832195cf881d5f2",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/selector_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "cb1391827d782b305d4f7dcf0448a5a96295052b339ca7f5e7f6529f907c5b5f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/selector_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e92eb8104456df4fb35e4229c9813dae101b6aa560b9c4c79db2bee3184ea757",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_100_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a39bbad052e003f2c26e6ec77766c8fbc2d744fa73778824f08c040333e6223f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_100_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "6053901cacb59f5744fb8b75722de056042403266440ddab123ade92fdec9ad2",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_10_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c626ba6af28f12802c4fc44211949e84820f7b318edb699fd2f733647dd3b412",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_10_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "9241fe936aa5ad5d6c9ae8c9c3b2522351b030e279f64104c92db3a23d4358c4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_12_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2664f86172d3b764d3c0476987d7aea0fc0d04d92e64600e8fee2dac8c10fec4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_12_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "872bd19750b4078cb2d1d2a25090b7fec8832abcbfc8a98a879ca4d754065a75",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_1_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7fb7f8a81f4bcb5eec4433836a02890c5430158b58f3afa64289aec617923bc8",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_1_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "0be57849f7389f63c9f7e1372a061ac82c542adf69c2d87fd07760e58e17e0bf",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_25_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ef13685c720bac342925a4867bd1db238701d01111d9959e04e071dc77251307",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_25_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f8aeec18c07b816ba2e51ae631c7e3afddff67382125bbf60c61e6678c9f9e29",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_35_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "60f8fbef7a34b66a485446cc47acb70ad1acef7174481b9baba20b83dd840161",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_35_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1c3e5e2b815c3e55687368edb2b108633cfff0db8a7e3c041641dd40a4d511e5",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_8_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2e5adbde0b48eef2180bfbadd11ca0723955bc81a16ec5e4914b9af555fe7261",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_map_nodes/trail_8_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "03d7f3070d61d28caea160fc4105e47c79c7cb87dda3e102c1dcaafa38030f26",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_reward_quantities/reward_1_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "87f9932a23384c35003d1d8bb249de9f191ee64af1851d3cfcf82051b7ad4561",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_reward_quantities/reward_1_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "39a35d92d9c0648d8c7213cd1ea2fa2c61d24f158cd1221931c3d9f5ec17b133",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_reward_quantities/reward_99_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "eaa96fe481d9bf5a9853c091c25fc238733fd0f9f754b6338d517b0f190e47ae",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_reward_quantities/reward_99_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a51fe1ef31a28fdbee4f8ecf78f691fccf14817269a21372714275adca48ad34",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/boosters_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7f8dff8a676ee8e30de8bef93aa28cb7cc8528a5a364d6fd13b7f2c8a248cdea",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/boosters_return_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7f8dff8a676ee8e30de8bef93aa28cb7cc8528a5a364d6fd13b7f2c8a248cdea",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/boosters_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "25f2f53fecd29cdd7f972969d747aa5cceecb2ec90279889fb1a9adc1c9624bf",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/nests_bottom_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f93b3f636dd5d4bd2cf2dcd90bad0d5c941fead5394594de1cd72e3e703f01e5",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/nests_top_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c689d270d3bfdb5752244ca32d5f413b50506a430407b2b23909614ae520c4e6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/nests_top_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c23760e15cfb4f0749fc922fbba60cf3fcd8c72196604c201b0c674dc2ebb637",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/outfits_bottom_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "4d96a87c7049c3d4478eca13a64f1120418249c97fdf6a7f4d482790679324d5",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/outfits_top_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "66efa9024a2bb9ab45a3f5a5bf08c73fcd74f783b05e388c9c7d9f2aa7aaaa0e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/final-ui-review/gui/run_shop_cards_gui/outfits_top_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d578c06d55eba393c1c0ecd2bab520afcc2630f8744239ebfabf2ba220131f01",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f000.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ab38c8b94cd92834c9bb21fac47ca13cc0895bfcd4fe84395a7efb7848a1fa98",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f001.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7f75ac529b15351ccd6734d348e1875eeed627db5caa3ae9371b38fe881c391b",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f002.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "18da7d834358d154ee96d994eadd1bb5b30fa3842aa7be783fd62380d8a72d3f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f003.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "48f09576ab48a6d76eaacdfbe14b9d5dda0f8929d1957215a5d155b6d4bd6406",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f004.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a96b072eed6a4e6a3f7ffddf94199947fdeaa3c41961fe55619b68dc88da3a17",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f005.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "6fe909c475889c8912549f47a22ac95dc1f0a4312f03244a1cde49d0d213a5ec",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f006.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "af4163962236695fe125256250aebe71c3adac85204b7f3a88e6659919d38951",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f007.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "698533cbc5bda5cfa5590276d53ffaebcf835488e133fa1f688dd44f3a854eca",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f008.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2dee64a2ab9d7d1d14be994fde41b2ba4674bd31bac8f37bcb66435d25d86dcc",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f009.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "85f63501b069a40edf864d38607877dd53eae646cc99993adda809f098266e68",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f010.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e9dc2f64e4a366121de3f6cf1f4be3650a505cd58c4074053f4c854aec3a1476",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f011.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f87f1bb1267b564801f76e38cb3395e3565294afd310c4f37117729d3385dbd1",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f012.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "10908e6b47a8e745cd4978fb894a5f91f6214212cb822c3cb080c2550f7e5610",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f013.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "040f059dd2e4e7c62a48582b00476b7806e1da6f17c54988e3e37ef0529395d1",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f014.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7dc603097de563d696813e9abb68c08bfd3ba3896b80472ab00699820d905d26",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/new_friend_berry/f015.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "981481e5517e6ff6b87d8b8f7dd1c2a3d1a9393938464838cd8f73aa8d9af415",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f000.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1053a5b56fb9b9c64920ad566d9b45695029218713a1211cb5748c766ef7e4eb",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f001.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a1260ca72ddba633d8511e51bd9613390790c9e1dfee3d61c8d1d3fc9998d00f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f002.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "890d37f103dde5a5da15fe2f47216ada90a1fc518ec716375864d0be34cde3c0",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f003.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a2d0c75e632c5e4bd5c99fed9595df35c23d50fd937668da2b0a660764ed9eab",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f004.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "07e5a4e10da5ea247376c91950fc41db9cbdd65931e508e95df0d10a7b796b3d",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f005.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f4fc4c08f2da943e89dea748679ed804504ffc97310f1e1aa90170cb9e0ff589",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f006.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "152bd7ec13090ef621a4bc7bc7c1123520c685f8586d777402949a47f46ada27",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f007.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "613081cc419aa6ca3a848508b213ddac015b7a84d551f9bd5c7ea7632289af94",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f008.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "485d2d3b15318fd99f0c99ebde4466bc39a7ebfaf735698a3a68c3a7531b6822",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f009.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "99e74a1b44cd5b455a4cb5ae672d45c4041225b3b3279a8ac7796715bebff9f4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f010.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "9ef2986858b209767a4abb0610a083cda35606148c08a027a39d6a1ab5fa6d59",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f011.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "c43bd1138a4276874275b33a604726a212d1e7cd522b7dfad3cb75529750dbfd",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f012.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "13f9f18c7ea0df739b801941434401b25118a291059b9da434a13e635c87ad72",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f013.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "be75c275eec97c0aefd13f70d21c9e4126802e480a292475316d6d5879337aea",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f014.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f0bed44048f134fe7767bfcbcd8e8ce594daf3ae63701959b64fb01bff91398e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/win_three_stars/f015.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "81a26f50a490867cf51c54b6babb62ac23fdb043c642617b579dd4bc1e78b71c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f000.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "92b045c8aab7fb3d9d67e0e20b054e0ab0f726d1489f50424512a94f052564d3",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f001.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "df9136ed67060711a9aa2fbe435cedb93210b2d65a6d4f168fc09b766d7f5dc4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f002.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "48bc20838f4ebdc4b5d2671e10724a8a3320f787de2af56357881e60adf0f59f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f003.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f3aac2cdeabdba47d13ed2ee0cb603b11b37eead059fd384c3b4435a72805af9",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f004.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "8d934462619edd20e5ec04db61e0b4edad1c91a8ae1478e641ae41dda59d1565",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f005.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2b5ef49a85c259dd09f65cd796d6906e3065326fb07b981bc9498add89b79350",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f006.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b67c12398f8a9b73ec4bf7a10a4cc410edb9a2133169599e4cd1a0ac2e4fac48",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f007.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ed9a130dba0d77e1240940710c0813205db0cc42345e63a11cc6b87e1e9a8257",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f008.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "25d2f056991594c8746c98c3f4061fae9460caf5afb10a70ea49409a58c7e782",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f009.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "02e9e619e67dcb46b87c6a9568f457dca685e681bfed25cb225b59b09c4a7387",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f010.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b442f7be273156d5311079825ced58ac3f74d6f2a099a35aea084ff6be3ccab8",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f011.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "17627d3a052e8117462854e30ca0c9be0a714088c21f68b6acfd7d423a431798",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f012.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "3a10d87c71d23c2b029e61f0115d8421b4edfa2b6527bdca841f8665577cfcf4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f013.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ec8cbc643aea449774f13473f1fe2bcb4f44633c9505b656ef11e518e24513b7",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f014.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "1e99248914dd7e2775687fb521e1c37c340ec90f65ba4b9391c6e5ce7ee56243",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/motion/world_unlock_2/f015.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b43fd11cc06347f77365a6f2fb2c89659584c6c532aca905523c13dbdb9247fa",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_first_visit_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "30f070d2ea23c0c1f12522e7bb4cacaa890d220ce8213361a708cf6522473822",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_first_visit_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2232c087e72bad6b9243d3a661a1de21bca88b8776e3dc8e81366a2af151b6ad",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_full_roster_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "44bae9a3166d71f05b6ca51ef982c19a8e6e8ee29ec87af456bba8c78c713cb6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_full_roster_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "84697cbf6c7996671b39ad77e8615272f7183cac18c5246d521ec3b96e64012e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_locked_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "bfebb189fc5fdb562cafabb6060ca39ab46ebdc35c3d150b75ac5dd0078154d5",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/level_card_locked_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "267a5a3157543fa87be43fce45ef5c01e33c3c621537990ff33756df1ff6da40",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/new_friend_berry_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "728b3f44e2a49484d31f925273a826600b39b2a5a1d168b0184b0d53fafc9e0c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/new_friend_berry_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "4cecca04fbf0a9efeac461d991e3625f143b4272b153800c854880acc52ca682",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/reference_coin_shop_view_normal.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "35eedc29ce0d1295be63bd0903986749427208b9149abddc33b0091c5cd4b965",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/reference_coin_shop_view_purchase_preview.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "48d07abb321af55590a824e5214ff5ab341bf1fc0ada6bbcd507bb3772595438",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/reference_popups_chest_ready.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "48b2f94a0a55e1f16465047f8ef82fa462745d0f507c85f0c3f612f05fb2a63a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/reference_shop_view_boosters.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e490e1b952a18b66ada093d98d3f1dc78def117fbdb7594cd83e33ff1520272f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_all_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "40f3fb9fd47a02468bc94d33e85c72f0bb2909bac0c450727cb666301ea3aea6",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_all_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "959ebd1c4a544cf94204a7665095f515b11e7804dea6848442491b02049d757a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_empty_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a03814ae8b3377ad76091e77ee98aee930d0e320bb37da3a72017577b42aa326",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_empty_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "709513bb654cceeaaaeacc578b69bda9f36468c47d40319f296c9e2e70c93102",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "469481dde71240eba4a996a81a925d7372b19275daf179cbf4a38cae19001b8e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/rewards_challenge_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "fd0637baf354ae7fb305d75cc3f1f1ab43b32c68ae9ce81c310e6b0f154d0ceb",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_firefly_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "640a7b67dfcc1b466669370bc9249ee3dfd1e03fba97e629b3a93e5a9cf59708",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_firefly_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "98371f14351fb6e1ae9e9b715efc093f63c3708d7ed2cb8c9b1642a54efa150a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_morning_bell_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "16ac162f3c38243c258d5e38d23f68bf0b3bbf832d17853c87c00a40999bbf84",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_morning_bell_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7a9044e7b3b427dd6214775ff0a57b13a50bdc284fce8302ddfb3901064481c4",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_owl_eye_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "604fa793f0dfe5f8ffdfafbf1bf4a1661474c598aa5fa0c3927e97fac6c3a0c7",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_owl_eye_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "7121f5a6e1a66b56f211a71a43c982bfdb9ed3614302d6d9acc39a66afbf0143",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_sapling_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "485128ab943e23bc7d30ae802aa803e0897d7a06c834aca8e3f6d2f347ac155e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_sapling_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a01460fd933aba05ddc52da604330b4b780cd5cb10be5f1508644cb8d1f6c356",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_scarecrow_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "3d1571841d42fa8d96986dfb3d4088a1384c5b2c8833a0efbffc7b5838872586",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_scarecrow_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "f56280308fe7551dcd05b928bd71cf8dc2265c9a674e628970f928c2bf90d232",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_spring_rain_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "216f22d5798bb5eeef42f8d9ace61a525e98bdc4f52263166e17aa11f0123b0c",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/unlock_spring_rain_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "d6b2ab0734c766e33f55336d859217dc927fc202f2e39f57fd04ba1c196f1d98",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_milestone_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "43ba4d1b35ec727bf5163fa1b22f57785c0d7f14bd6c33320e32d10a1a13edc5",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_milestone_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "ef1773b4d8d5df0b115f5d5e2c6d8b2fbc8b9edafeb4f3d870e538ed82461f52",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_one_star_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "19278480e8b5d185056535376aa05841b9c49f4f7242c413af0243102bb69509",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_one_star_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "6ee6a4ad0d01e69809ba3045cdc4c684e500978c5f173d749bb31964701b6909",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_three_stars_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "e633dca71ec6a14c05c94acf7841989a322f8f25e14379efe3ad05dd4fad7acc",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_three_stars_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "a306bdbbcf2c0834fca191c5dd880ccee739a38bf6fbb1b28ab0da993d8a3800",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_two_stars_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "9db8036ddf311f779cfb2a405b7a44a21295870f7393f47ddebc98a6c786835f",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_two_stars_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "2066ece21e76057020211e98a3ea431ac3c8c22b6db9ee623604277943a72532",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_zero_reward_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "78c10948b133677324426453a16a1d3cd4cb74de5df4bf92d969174fc52e7d8a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/win_zero_reward_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "8ffa64d4f8afef8a2360c815b1fb1da7f5391b9a4b8fef6b2a7d901fd7ae2693",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_complete_1_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "91d9e88a8a8a44953570f84fc4840e36192b0685567a82fdee3bb6ccf0a27786",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_complete_1_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "af325fd136ebe17f7f8fcc024830863b5c6c91fc4f032d56d6fbdef634bb8986",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_unlock_2_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "63b2e36a3c884cd92a4699b360bccd0ebd586b5e076ab5f0364a1fb0ffa30a17",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_unlock_2_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "fb1268a4ade68393728ac956ce64722284affafb256cae6cf4700d4f147dcb3e",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_unlock_4_en.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "b25a97df6554112f8c6e060dc6e0300d44ec7349159af2643840e837d9e32f0a",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  },
+  {
+    "path": "build/dialog-surface/screens/world_unlock_4_zh.png",
+    "width": 1080,
+    "height": 1920,
+    "sha256": "76328446572419aedf658acb750e0e10473e711945530053d3237bfe0f0285e9",
+    "kind": "Actual engine render with test fixtures; no image enlargement"
+  }
+]

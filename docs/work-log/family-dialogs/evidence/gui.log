@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE win_three_stars en 1080x1920
+CAPTURE win_three_stars zh 1080x1920
+CAPTURE win_two_stars en 1080x1920
+CAPTURE win_two_stars zh 1080x1920
+CAPTURE win_one_star en 1080x1920
+CAPTURE win_one_star zh 1080x1920
+CAPTURE win_zero_reward en 1080x1920
+CAPTURE win_zero_reward zh 1080x1920
+CAPTURE win_milestone en 1080x1920
+CAPTURE win_milestone zh 1080x1920
+CAPTURE level_card_first_visit en 1080x1920
+CAPTURE level_card_first_visit zh 1080x1920
+CAPTURE level_card_full_roster en 1080x1920
+CAPTURE level_card_full_roster zh 1080x1920
+CAPTURE level_card_locked en 1080x1920
+CAPTURE level_card_locked zh 1080x1920
+CAPTURE new_friend_berry en 1080x1920
+CAPTURE new_friend_berry zh 1080x1920
+CAPTURE unlock_owl_eye en 1080x1920
+CAPTURE unlock_owl_eye zh 1080x1920
+CAPTURE unlock_sapling en 1080x1920
+CAPTURE unlock_sapling zh 1080x1920
+CAPTURE world_complete_1 en 1080x1920
+CAPTURE world_complete_1 zh 1080x1920
+CAPTURE world_unlock_2 en 1080x1920
+CAPTURE world_unlock_2 zh 1080x1920
+CAPTURE world_unlock_4 en 1080x1920
+CAPTURE world_unlock_4 zh 1080x1920
+CAPTURE rewards_challenge en 1080x1920
+CAPTURE rewards_challenge zh 1080x1920
+CAPTURE rewards_challenge_empty en 1080x1920
+CAPTURE rewards_challenge_empty zh 1080x1920
+CAPTURE rewards_challenge_all en 1080x1920
+CAPTURE rewards_challenge_all zh 1080x1920
+MOTION win_three_stars [1075, 2290, 3506, 4686, 5870, 7110, 8336, 9531, 10719, 11956, 13158, 14320, 15573, 16784, 18027, 19230, 20394, 21606, 22777, 24071, 25315, 26484, 27667, 28826, 30032, 31220, 32368, 33526, 34747, 35976, 37110, 38319, 39469, 40672, 41827, 43028, 44244, 45406, 46622, 47724]
+MOTION new_friend_berry [1087, 2289, 3393, 4572, 5698, 6849, 8064, 9230, 10441, 11544, 12674, 13741, 14901, 16095, 17291, 18497, 19660, 20845, 21995, 23144, 24322, 25457, 26650, 27906, 29113, 30247, 31391, 32562, 33734, 34926, 36056, 37252, 38360, 39552, 40768, 41953, 43119, 44298, 45399, 46596]
+MOTION world_unlock_2 [1148, 2451, 3708, 4957, 6227, 7432, 8683, 9905, 11094, 12328, 13647, 14900, 16229, 17505, 18780, 20032, 21317, 22558, 23808, 25094, 26340, 27533, 28770, 30021, 31263, 32565, 33816, 35082, 36369, 37679, 38948, 40267, 41611, 42895, 44133, 45431, 46687, 47933, 49197, 50453]
+FAMILY CAPTURE COMPLETE

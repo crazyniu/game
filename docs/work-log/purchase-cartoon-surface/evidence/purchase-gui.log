@@ -1,0 +1,113 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PASS booster uses the independently reviewed cartoon surface
+PASS booster uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS booster Close matches coin-shop dimensions
+PASS booster Close press retains geometry
+PASS repeated booster open keeps one modal
+PASS one-unit quantity bounds
+PASS en quantity enters actual editing
+PASS en caret uses the same glyph style as visible digits
+PASS en visible caret follows painted digits
+PASS en partial selection follows first painted digit
+PASS en full selection follows complete painted number
+PASS en blur stops caret processing and clears selection
+PASS zh quantity enters actual editing
+PASS zh caret uses the same glyph style as visible digits
+PASS zh visible caret follows painted digits
+PASS zh partial selection follows first painted digit
+PASS zh full selection follows complete painted number
+PASS zh blur stops caret processing and clears selection
+PASS editable quantity updates purchase
+PASS quantity caps at affordability
+PASS empty quantity disables Buy
+PASS empty quantity restores one on blur
+PASS quantity strips non-digits
+PASS open quantity caption survives Chinese switch
+PASS Close cancels booster purchase without mutation
+PASS double Buy grants exactly one selected booster transaction
+PASS insufficient booster funds disable purchase and quantity
+PASS disabled booster Buy retains dimensions
+PASS nest uses the independently reviewed cartoon surface
+PASS nest uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS nest Close matches coin-shop dimensions
+PASS nest Close press retains geometry
+PASS single nest has no quantity controls
+PASS nest purchased exactly once
+PASS owned nest still equips
+PASS outfit uses the independently reviewed cartoon surface
+PASS outfit uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS outfit Close matches coin-shop dimensions
+PASS outfit Close press retains geometry
+PASS outfit retains actual live BirdView
+PASS repeated outfit open keeps one modal
+PASS outfit purchases once and equips through existing callback
+PASS unaffordable outfit Buy disabled
+PASS closing unaffordable outfit preserves profile
+PASS feather stack uses the independently reviewed cartoon surface
+PASS feather stack uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather stack Close matches coin-shop dimensions
+PASS feather stack Close press retains geometry
+PASS repeated feather preview keeps one modal stack
+PASS feather preview labels simulation and exact amount stack
+PASS existing preview Confirm and hit area are wholly outside the frame stack
+PASS preview Confirm retains accepted dimensions and fits the viewport stack
+PASS feather confirmation closes without charge or grant stack
+PASS feather cluster uses the independently reviewed cartoon surface
+PASS feather cluster uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather cluster Close matches coin-shop dimensions
+PASS feather cluster Close press retains geometry
+PASS repeated feather preview keeps one modal cluster
+PASS feather preview labels simulation and exact amount cluster
+PASS existing preview Confirm and hit area are wholly outside the frame cluster
+PASS preview Confirm retains accepted dimensions and fits the viewport cluster
+PASS feather confirmation closes without charge or grant cluster
+PASS feather pouch uses the independently reviewed cartoon surface
+PASS feather pouch uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather pouch Close matches coin-shop dimensions
+PASS feather pouch Close press retains geometry
+PASS repeated feather preview keeps one modal pouch
+PASS feather preview labels simulation and exact amount pouch
+PASS existing preview Confirm and hit area are wholly outside the frame pouch
+PASS preview Confirm retains accepted dimensions and fits the viewport pouch
+PASS feather confirmation closes without charge or grant pouch
+PASS feather basket uses the independently reviewed cartoon surface
+PASS feather basket uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather basket Close matches coin-shop dimensions
+PASS feather basket Close press retains geometry
+PASS repeated feather preview keeps one modal basket
+PASS feather preview labels simulation and exact amount basket
+PASS existing preview Confirm and hit area are wholly outside the frame basket
+PASS preview Confirm retains accepted dimensions and fits the viewport basket
+PASS feather confirmation closes without charge or grant basket
+PASS feather chest uses the independently reviewed cartoon surface
+PASS feather chest uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather chest Close matches coin-shop dimensions
+PASS feather chest Close press retains geometry
+PASS repeated feather preview keeps one modal chest
+PASS feather preview labels simulation and exact amount chest
+PASS existing preview Confirm and hit area are wholly outside the frame chest
+PASS preview Confirm retains accepted dimensions and fits the viewport chest
+PASS feather confirmation closes without charge or grant chest
+PASS feather hoard uses the independently reviewed cartoon surface
+PASS feather hoard uses coin-shop Close
+CLOSE_GEOMETRY actual=(129.7146, 133.0693) expected=(129.7146, 133.0693)
+PASS feather hoard Close matches coin-shop dimensions
+PASS feather hoard Close press retains geometry
+PASS repeated feather preview keeps one modal hoard
+PASS feather preview labels simulation and exact amount hoard
+PASS existing preview Confirm and hit area are wholly outside the frame hoard
+PASS preview Confirm retains accepted dimensions and fits the viewport hoard
+PASS feather confirmation closes without charge or grant hoard
+purchase dialog checks: 98 checks, 0 failures

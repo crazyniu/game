@@ -1,0 +1,146 @@
+[
+  {
+    "file": "level_card_first_visit_en.png",
+    "sha256": "068bd335efc6493e5e7308d02dedd5c40afddba3f8b461a67cb3d19bb8b0c96c"
+  },
+  {
+    "file": "level_card_first_visit_zh.png",
+    "sha256": "ee7bd7d2f030a95789d2c1ae49fb60b28282e9dd5875ab81d82a0f8fc819e690"
+  },
+  {
+    "file": "level_card_full_roster_en.png",
+    "sha256": "1dfaddf8a4d4d54eb1ba4c0352759eb4eaddfac99d2f79b6a21fdb15523e2ab7"
+  },
+  {
+    "file": "level_card_full_roster_zh.png",
+    "sha256": "f67d7fc534205c7e438fb77e35db5f2b65802762a426a7f5d29f614b9c4633a2"
+  },
+  {
+    "file": "level_card_locked_en.png",
+    "sha256": "e71245892afda0884fb37e4f2991a2ae9f03a8f8dbc48b85d875889c54deca2c"
+  },
+  {
+    "file": "level_card_locked_zh.png",
+    "sha256": "98247e43c957b92266c650232e5da005f99c1a8709ad6f294591064762e8a4f8"
+  },
+  {
+    "file": "new_friend_berry_en.png",
+    "sha256": "e223c9ccd0aa04f3fd3cf2528be6be3e239aa4d47805f22f6d086a0c8c8f764f"
+  },
+  {
+    "file": "new_friend_berry_zh.png",
+    "sha256": "84a55ca176ffd7a22e8f4d98d7d1ae417b1072390d123b41bd5526b681a5b578"
+  },
+  {
+    "file": "unlock_firefly_en.png",
+    "sha256": "a9ebf83e6ac070748ff3db766337410f26835a57eeef1d05897c966b480ec1c7"
+  },
+  {
+    "file": "unlock_firefly_zh.png",
+    "sha256": "e4fcd1dcfe89493ac5aa40dbd77fac8bc3dd25b0ef537ef0472769beb5413c55"
+  },
+  {
+    "file": "unlock_morning_bell_en.png",
+    "sha256": "f31717418b67e8a3ef710476973da14ded69a2a59cc58493fa894322e0509792"
+  },
+  {
+    "file": "unlock_morning_bell_zh.png",
+    "sha256": "67775d5e110646b4d7d0532b44e0f7ef2b95584f7edf6e9c0c3ec7e8136147dd"
+  },
+  {
+    "file": "unlock_owl_eye_en.png",
+    "sha256": "cca862ba869dffe87c31710da209b00acb0ea4da8afb252f03b92bb8db0ac5c3"
+  },
+  {
+    "file": "unlock_owl_eye_zh.png",
+    "sha256": "24ecec3d91d73721b06212b5bb5fa496e7640ba3938f19ecd1688143432dfa2c"
+  },
+  {
+    "file": "unlock_sapling_en.png",
+    "sha256": "039c4516d8b74a7c3a0d91819b1c0e4d6a74767deae0b407122d3017e069ea2e"
+  },
+  {
+    "file": "unlock_sapling_zh.png",
+    "sha256": "30b80d742125779cb2d3345d8780601a58fcbea0faeb38b111c39ef1a5b51425"
+  },
+  {
+    "file": "unlock_scarecrow_en.png",
+    "sha256": "432eaf97cc56bbb5d778ad36b0692ae9721465d0921252414ad7a838d95c34b1"
+  },
+  {
+    "file": "unlock_scarecrow_zh.png",
+    "sha256": "f68e811a6275eda235fea12fd7b2654118a6082d1b2a668bdd1bf61938deb89b"
+  },
+  {
+    "file": "unlock_spring_rain_en.png",
+    "sha256": "de9e31b81413b02668ebcfb18b59b222b2976fe43083726a2ceeb8b663c92f87"
+  },
+  {
+    "file": "unlock_spring_rain_zh.png",
+    "sha256": "91af5a519386a8b54045b0a8cc8d255283931ee8302032dd72778c7eee93418c"
+  },
+  {
+    "file": "win_milestone_en.png",
+    "sha256": "6a510fa28ef1c2862fce0cf74b4044ffa17f7dc22995e2b89e92ab6eb1ec93bc"
+  },
+  {
+    "file": "win_milestone_zh.png",
+    "sha256": "06cdb812869483630d347977b3aa83ae06b497e3526dffde2df49de1ba8abef3"
+  },
+  {
+    "file": "win_one_star_en.png",
+    "sha256": "1ba9cbd205c1074ec551a62208e55221e7ba54d0ac5415f25759c187115a7e03"
+  },
+  {
+    "file": "win_one_star_zh.png",
+    "sha256": "9877fa02619db1bb0a6c29c9045506f92b288b8d5610f2ca32650acb910b111b"
+  },
+  {
+    "file": "win_three_stars_en.png",
+    "sha256": "a55f37fcff322f4ac00428789f86b7d76b1dffc96d13962465c23f5ec1167b46"
+  },
+  {
+    "file": "win_three_stars_zh.png",
+    "sha256": "e89709d49b1b7c4a0c6963b9aba5f5d718bd20c4d6bdbc09583aee8a3af4aab0"
+  },
+  {
+    "file": "win_two_stars_en.png",
+    "sha256": "f1893ee30bd53b053bdd1800c718d23f1e28ef32b92bc793c69d4d18db17351d"
+  },
+  {
+    "file": "win_two_stars_zh.png",
+    "sha256": "04c906a1c1a892fac8a9e570de981eb5dbf600fdf26993a51a4175e2973fa3b1"
+  },
+  {
+    "file": "win_zero_reward_en.png",
+    "sha256": "ccad6457b764b84fe963ac6badf900399b95f429491686906177cf1174c25df8"
+  },
+  {
+    "file": "win_zero_reward_zh.png",
+    "sha256": "e7422445c4d30e441eb541fd136c75428decdb708869a37737d5dc3736232f2c"
+  },
+  {
+    "file": "world_complete_1_en.png",
+    "sha256": "12b6466998d730ed277123f0dffebdd97c51cd8af56e5b1d07bdc62113f1b144"
+  },
+  {
+    "file": "world_complete_1_zh.png",
+    "sha256": "8685ac5e1fcd063b9ce7a08495c2516ffcfea54f90a5b55ae273212d37577d35"
+  },
+  {
+    "file": "world_unlock_2_en.png",
+    "sha256": "fbed418973fa3be3a3fa8e5d9922b0cea07dfd08c51b92b1aa10c9c3c39cefe2"
+  },
+  {
+    "file": "world_unlock_2_zh.png",
+    "sha256": "4cb114fb1684cad11da66cec8a7015a53267b8af65b796f8a9dd73c7db023dc8"
+  },
+  {
+    "file": "world_unlock_4_en.png",
+    "sha256": "233881733d59b1b04bea5af95a3ecbea346a640649cc1656f40ed1016d0d00cf"
+  },
+  {
+    "file": "world_unlock_4_zh.png",
+    "sha256": "03648fb9da714666fe8503794efe97bb51bdb85ae98cd0940ec33af34657be53"
+  }
+]

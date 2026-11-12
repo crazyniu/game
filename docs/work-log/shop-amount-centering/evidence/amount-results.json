@@ -1,0 +1,5318 @@
+{
+	"checks": 1338,
+	"failures": 0,
+	"measurements": [
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "outfits en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "outfits_some_unmet en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "bird_outfits en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters_empty en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters_maximum en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "locked_tools en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "locked_tools en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "locked_tools en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "houses en balance",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses en house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_booster en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_booster en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_multiple en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_multiple en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "400",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_maximum en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_maximum en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-4.0333251953125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "insufficient en balance",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "20",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient en booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient en booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "insufficient en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_nest en balance",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest en house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_nest en buy",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-1.10003662109375,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_nest_short en balance",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "20",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short en house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_nest_short en buy",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-1.10003662109375,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_outfit en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "confirm_outfit en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "800",
+			"translation": [
+				-0.316680908203125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_outfit_short en balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "120",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "confirm_outfit_short en buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "800",
+			"translation": [
+				-0.316680908203125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "aviary buy_outfit en",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "aviary buy_outfit_short en",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "en changed quantity 1",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "en changed quantity 2",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-1.10000610351562,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "en changed quantity 4",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "120",
+			"translation": [
+				-4.03335571289062,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "en changed quantity 10",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "en changed quantity 40",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-4.0333251953125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 0",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 1",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.144760131835938,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 30",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 100",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 1200",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 1240",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 50270",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 99999",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en changed balance 100000",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "en after live locale change balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "en after live locale change booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "en after live locale change booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "outfits zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "outfits_some_unmet zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "bird_outfits zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters_empty zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_empty zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "boosters_maximum zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "boosters_maximum zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99",
+			"translation": [
+				-0.105880737304688,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "locked_tools zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "locked_tools zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "houses zh balance",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "houses zh house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_booster zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1280",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_booster zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_booster zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_multiple zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_multiple zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_multiple zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "400",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_maximum zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "confirm_maximum zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_maximum zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-4.0333251953125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "insufficient zh balance",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "20",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "insufficient zh booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "insufficient zh booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "insufficient zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_nest zh balance",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest zh house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_nest zh buy",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-1.10003662109375,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_nest_short zh balance",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "20",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_mushroom price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_lantern price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_pumpkin price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_beehive price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_teacup price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_pinecone price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "confirm_nest_short zh house_cage price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "confirm_nest_short zh buy",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "600",
+			"translation": [
+				-1.10003662109375,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_outfit zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "confirm_outfit zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "800",
+			"translation": [
+				-0.316680908203125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "confirm_outfit_short zh balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "120",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "confirm_outfit_short zh buy",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "800",
+			"translation": [
+				-0.316680908203125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "aviary buy_outfit zh",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				432.0,
+				76.0
+			],
+			"node": "aviary buy_outfit_short zh",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "zh changed quantity 1",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "zh changed quantity 2",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-1.10000610351562,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "zh changed quantity 4",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "120",
+			"translation": [
+				-4.03335571289062,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "zh changed quantity 10",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "300",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				512.0,
+				88.0
+			],
+			"node": "zh changed quantity 40",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-4.0333251953125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 0",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 1",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.144760131835938,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 30",
+			"offset": [
+				-0.000003814697265625,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.000003814697265625,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 100",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 1200",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1200",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 1240",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1240",
+			"translation": [
+				-1.59238433837891,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 50270",
+			"offset": [
+				0.000003814697265625,
+				0.0
+			],
+			"text": "50270",
+			"translation": [
+				-0.434284210205078,
+				0.0
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 99999",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh changed balance 100000",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				123.428596496582,
+				34.7428588867188
+			],
+			"node": "zh after live locale change balance",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "99999",
+			"translation": [
+				-0.144760131835938,
+				0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_firefly price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "30",
+			"translation": [
+				-0.00000762939453125,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_firefly stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "3",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_sapling price",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "60",
+			"translation": [
+				-0.450004577636719,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_sapling stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_owlEye price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_owlEye stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_morningBell price",
+			"offset": [
+				-0.0000152587890625,
+				-0.0000019073486328125
+			],
+			"text": "80",
+			"translation": [
+				-0.150009155273438,
+				-0.0000019073486328125
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_morningBell stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "1",
+			"translation": [
+				0.149999618530273,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_scarecrow price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_scarecrow stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "0",
+			"translation": [
+				0.0,
+				0.0
+			]
+		},
+		{
+			"box": [
+				244.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_springRain price",
+			"offset": [
+				-0.0000152587890625,
+				0.0
+			],
+			"text": "100",
+			"translation": [
+				-1.65000915527344,
+				0.0
+			]
+		},
+		{
+			"box": [
+				36.0,
+				36.0
+			],
+			"node": "zh after live locale change booster_springRain stock",
+			"offset": [
+				0.0,
+				0.0
+			],
+			"text": "2",
+			"translation": [
+				-0.149999618530273,
+				0.0
+			]
+		}
+	]
+}

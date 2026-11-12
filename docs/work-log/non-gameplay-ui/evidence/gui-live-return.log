@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+NATIVE_EVIDENCE {"coins":1280,"file":"native_01.png","popups":1,"screen":"res://game/map_view.gd","size":[456,812],"time_ms":52743}
+NATIVE_EVIDENCE {"coins":1280,"file":"native_02.png","popups":1,"screen":"res://game/map_view.gd","size":[456,812],"time_ms":72740}
+NATIVE_EVIDENCE {"coins":1360,"file":"native_03.png","popups":2,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":121255}
+NATIVE_EVIDENCE {"coins":1360,"file":"native_04.png","popups":1,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":135646}
+NATIVE_EVIDENCE {"coins":1360,"file":"native_05.png","popups":1,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":149078}
+NATIVE_EVIDENCE {"coins":1360,"file":"native_06.png","popups":1,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":164447}
+NATIVE_EVIDENCE {"coins":1660,"file":"native_07.png","popups":1,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":190648}
+NATIVE_EVIDENCE {"coins":1660,"file":"native_08.png","popups":0,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":347870}
+NATIVE_EVIDENCE {"coins":1660,"file":"native_09.png","popups":0,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":364574}
+NATIVE_EVIDENCE {"coins":1660,"file":"native_10.png","popups":0,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":380058}
+NATIVE_EVIDENCE {"coins":1660,"file":"native_11.png","popups":0,"screen":"res://game/home_view.gd","size":[456,812],"time_ms":401172}

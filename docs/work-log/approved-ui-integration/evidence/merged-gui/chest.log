@@ -1,0 +1,95 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PASS menu music is preserved
+PASS Open availability at 0 stars
+PASS Open and Play keep equal sizes at 0 stars
+PASS existing painted action is legible at 0 stars
+PASS ready badge at 0 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+CAPTURE chest_0_stars time_ms=2278
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 18 stars
+PASS Open and Play keep equal sizes at 18 stars
+PASS existing painted action is legible at 18 stars
+PASS ready badge at 18 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS green progress stays inside gold end caps at 18 stars
+PASS progress retains rounded interior mask
+CAPTURE chest_18_stars time_ms=3779
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 30 stars
+PASS Open and Play keep equal sizes at 30 stars
+PASS existing painted action is legible at 30 stars
+PASS ready badge at 30 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS green progress stays inside gold end caps at 30 stars
+PASS progress retains rounded interior mask
+CAPTURE chest_30_stars time_ms=5273
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 92 stars
+PASS Open and Play keep equal sizes at 92 stars
+PASS existing painted action is legible at 92 stars
+PASS ready badge at 92 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS green progress stays inside gold end caps at 92 stars
+PASS progress retains rounded interior mask
+CAPTURE chest_92_stars time_ms=6298
+PASS Close dismisses chest
+PASS Close preserves all profile values
+CAPTURE motion_start time_ms=7292
+CAPTURE motion_middle time_ms=8056
+PASS chest has live prop breathing
+PASS repeated input opens exactly one chest
+PASS production coin reward preserved
+PASS production booster count preserved
+PASS remaining ready chests preserved
+PASS open shows reward result
+CAPTURE chest_actual_rewards time_ms=8578
+PASS Confirm dismisses result
+PASS chest can reopen with remaining rewards
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+PASS duplicate booster quantity is exact
+CAPTURE reward_2_kinds time_ms=10361
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+CAPTURE reward_3_kinds time_ms=11296
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+CAPTURE reward_0_kinds time_ms=12231
+CAPTURE chest_en time_ms=13181
+CAPTURE chest_zh time_ms=14104
+PASS balance still opens purchase page over chest
+PASS Play keeps real level navigation
+ENTRANCE level=32 kind=full skipped=false ms=3474
+PASS Play reaches an interactive board
+PASS mute still stops music
+chest checks: 0 failures
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

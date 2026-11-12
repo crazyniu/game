@@ -32,6 +32,15 @@ All geometry uses the 1080 × 1920 canvas.
 | Bottom destinations | Centers x=174+244×column, y=1760; 132 px proportional icon boxes |
 | Hit areas / badges | Seven icon hit areas 160 × 160; red availability badges 48 px |
 
+The bottom four and right-side two icon controls also share the independent
+`btn_home_icon_frame` backing. The complete texture box is 204 × 204 for bottom
+destinations and 184 × 184 for events, centered on the existing control. Its
+original transparent padding is retained, and the frame is drawn at 0.88 opacity
+behind the accepted icon and notification badge. Its low-saturation dark-green center is translucent (approximately 40% source
+alpha), allowing the background to remain visible while reducing its interference. Settings has no new backing. Press feedback only darkens the
+existing icon and new frame without moving or resizing either. See
+`docs/work-log/home-icon-contrast/` for the delegated asset review and checks.
+
 Map, Shop, Aviary and Chest keep their current order. Icons fit measured painted bounds with ONE
 uniform scale factor; never stretch width and height independently. Their 3.5 px pale contour,
 6 px brown outer edge and restrained shadow remain. No cream backing cards or captions are added.
@@ -63,58 +72,81 @@ flattened UI mockup. User runtime approval remains pending and no approved-runti
 
 ## Aviary
 
-The user approved repairing the repeated cream backdrops on 2026-11-11. Species and outfit
-positions are open displays over the retained tropical sea. Warm wood supports the birds;
-small labels, counters and price tags carry information. No enclosing list sheet, hero panel
-or outfit card is drawn. This section supersedes the earlier cream-card treatment for Aviary.
-
-All measurements use the 1080 x 1920 canvas.
+The user approved the forest aviary list and bird detail references in
+`art/approved_ui/aviary.png` and `art/approved_ui/aviary_detail.png`. This supersedes the
+older sea-background treatment. Live species and outfit positions remain open displays,
+with independent leafy wooden perches over turquoise forest bokeh. No enclosing list,
+hero or outfit cards are added. All measurements use the 1080 x 1920 canvas.
 
 | Element | Bounds or placement |
 | --- | --- |
-| Sea | 0, 0, 1080, 1920; retained `background_shop_sea` |
-| Close/back | 48, 48, 112, 112 |
-| List title plaque | 324, 48, 432, 112 |
-| Detail title plaque | 232, 48, 432, 112; clear of the balance |
-| Met counter | 768, 168, 264, 72; compact cream chip |
-| List viewport | 48, 256, 984, 1568 |
-| Species hit region | 480 x 432, two columns, 24 gap; transparent backing |
-| List bird | Local 80, 24, 320, 288; feet at y312 |
-| List perch and name | 360 px wide leafy branch at y312 contact; painted name 40, 370, 400, 54 |
-| Unknown species | Existing question-bird artwork in local 60, 40, 360, 322; padlock at 240, 394; no revealed name |
-| Detail glow | 232, 204, 616, 472; soft warm glow, behind the branch and live bird |
-| Detail bird | 340, 232, 400, 400; feet at y632 |
-| Detail perch | 592 px wide leafy branch, centre x540, contact y632 |
-| Ability strip | 112, 748, 856, 80; painted caption inside 140, 762, 800, 52 |
-| Outfit heading | 340, 850, 400, 48; retained standalone-list label |
-| Outfit positions | 48, 936, 984, 688; six 312 x 332 transparent hit regions, three columns, two rows, 24 gaps |
-| Outfit bird and perch | Local 40, 8, 232, 220; 272 px branch with contact at y228 |
-| Outfit footer | Locked price at 52, 278, 208, 52; equipped small green marker at 156, 304 |
-| Outfit status badge | Existing 66 px check or 56 px padlock centred at 272, 40 |
+| Forest | 0,0,1080,1920; `background_aviary_forest`, aspect covered |
+| Close/back | x48; actual visible button face centered at y119; shared `MenuNavigation.SIZE`, existing coin-shop Close and forest Back sprites |
+| List title | 300,32,480,174; amber leafy sign and painted word centered by visible ink at x540, y119 |
+| Detail title | 308,32,464,174; same sign, visible center x540, y119; balance ends at x1056 |
+| Met counter | 784,79,248,80; existing dark painted bar, green leaf, painted count |
+| List viewport | 48,232,960,1592 |
+| Species region | 464 x 468, two columns, 32 gap; transparent backing |
+| List bird | Local 52,8,360,356; feet at y364 |
+| List perch/name | 416 px branch at feet; name in 38,400,388,80 |
+| Unknown species | Teal breathing species silhouette, cream question and 72 x 80 padlock; no name |
+| Scroll rail | x1036, width18; 32 x 96 gold thumb, fixed readable size |
+| Detail hero | 336,212,408,432; live bird, feet at y644 |
+| Detail perch | Width640, center x540, contact y644 |
+| Ability | Leafy cream capsule 232,714,616,104; warm painted caption 304,740,472,52 |
+| Outfit heading | 340,836,400,80; existing gold painted heading |
+| Outfit positions | 24,940,1032,768; six 328 x 372 regions in three columns, 24 gaps |
+| Outfit bird/perch | Local 28,0,272,280; width328 branch, feet at y280 |
+| Outfit state/price | Local 44,318,240,68; shared shop green/gold face, explicit Equip/Equipped label or coin and amount inside |
+| Equipped marker | Explicit localized Equipped word in the shared action face; existing check badge at the upper right |
 
 ### Materials, states and interaction
 
-Reuse the complete `island_branch`, `island_unknown_bird`, `glow_soft`, existing painted words,
-status badges and dimensional controls. The leafy branch keeps its native proportions; its
-painted centre contact is registered to the live bird's feet. The list name has no large backing.
-The hero glow is translucent scenery, not a replacement card. The ability sentence keeps a slim
-cream strip for contrast. Outfit price tags stay gold with white painted digits. An equipped
-outfit has both the check badge and a small green foot marker; all six hit regions retain the
-same dimensions. Locked outfit birds remain dimmed and open the existing purchase confirmation.
+Missing background, amber title, leafy perch, orange navigation, cream question and ability
+capsule are independent generated production art, not extracted reference pixels. All passed
+independent visual/alpha review before wiring. Perches retain native aspect ratios and place
+their source wood contact at each live bird's feet. Existing character frames and localized
+painted words remain canonical. No character mirror or static substitute is used.
 
-List taps, drag thresholds, fling behavior and saved scroll position remain unchanged. Unmet
-species cannot open details. Detail bird taps still showcase drawn actions, and the existing
-idle and cheer scheduling remains. Equipping replaces only the live hero inside its display
-layer, keeping the perch below it. The crow keeps its ability sentence without outfit choices.
-The shop continues to open this same detail view; Back closes to its existing owner. The standalone
-Back restores the Aviary list. Balances, affordability, purchase/equip operations, mute/music,
-locale switching and profile signals retain their current owners.
+Unmet species cannot open details and do not mutate progress. Met birds use continuous
+breathing and existing drawn idle actions; tapping the hero invokes its existing showcase.
+The marked default/price strips use the same shop action-face family and equal 240 x 68 bounds.
+Owned outfits say Equip or Equipped using the existing painted locale words. Locked prices
+keep the coin and exact canonical amount within the gold face, without an overhanging coin.
+See `docs/work-log/aviary-action-consistency/report.md` for the focused correction.
 
-`setup(profile, species)` and the canonical `preview(main, state)` remain the only view path.
-Existing list, scrolled, unknown, bird-detail, equipped, maximum-balance and purchase previews
-remain. No assets are generated, edited or sliced, and no shared helper or locale manifest changes.
-Runtime layout, input, animation, sound and performance remain unassessed pending user review.
+Aviary aligns title words, ability captions and action words by their actual visible alpha,
+not texture padding. Header navigation, sign lettering and coin-counter artwork share
+y119; price coins and tight glyph ink form one centered group inside each action face.
+A view-local luminance-alpha treatment reduces the dark baked surrounds on ownership
+words and price digits without editing retained source images or shared text helpers.
+The cream balance digits retain their original treatment. See
+`docs/work-log/text-centering/report.md` for bilingual rendered checks and limits.
+
+The detail keeps six equal outfit hit regions. Locked purchasable outfits remain full-color
+as in the approved reference, with locks and price tags; actual disabled actions dim without
+resizing. Existing owned/equipped, affordability, purchase and equip callbacks are unchanged.
+The crow retains its ability with no outfit choices. Back restores the saved list scroll,
+or closes to the shop when the shop owns this same detail view.
+
+`setup(profile, species)` and canonical `preview(main, state)` remain the only view paths.
+Previews include list/scrolled/unknown, sunny/berry/crow/hoot/ember detail, equipped,
+maximum-balance and purchase/insufficient-funds states. Balance signals, save ownership,
+locale switching, menu music and mute stay with their existing owners.
+
+Material provenance, measured GUI comparisons, focused input checks and timed animation
+results are in `docs/work-log/map-aviary-approval/`. No approved-runtime baseline is replaced.
+
+## Aviary runtime acceptance
+
+The user explicitly retained the Sunny detail page on 2026-11-12. Its supplied original is preserved at `art/approved_runtime/aviary_detail.png` (English). Keep this page's title plaque, header alignment, background, perches, ownership/price faces, visible lettering and layout unchanged. Source/provenance hashes are recorded in `docs/work-log/ui-layout-review/aviary-acceptance.json`. The separately opened purchase dialog can receive its authorized outside-frame Close placement through the local PurchaseDialog helper; that does not authorize changes to this detail page.
 
 ## Review boundary
 
-Keep and extend the existing `preview(main, state)` entry points with fake profiles. The user explicitly owns tests and acceptance; do not run tests, lint/builds, screenshots, UI automation or temporary validation programs. Visual and motion acceptance remain pending user review; no runtime baseline is replaced.
+Use the existing canonical `preview(main, state)` entry points and isolated fake profiles.
+The user's current instruction authorizes implementation, repository checks, screenshots and
+GUI interaction testing without another confirmation for each detail. The earlier no-testing
+restriction is superseded. Complete the integrated tests and real runtime review before the
+requested publication workflow; do not infer visual acceptance from headless tests alone.
+Retain accepted assets and their source hashes. No approved-runtime baseline is replaced,
+and no merge or deployment is part of this work.

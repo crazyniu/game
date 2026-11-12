@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MOTION 0.19 texture=res://birds/sunny_front.png
+MOTION 0.45 texture=res://birds/sunny_front.png
+MOTION 0.71 texture=res://birds/sunny_front.png
+MOTION 0.96 texture=res://birds/sunny_front.png
+MOTION 1.22 texture=res://birds/sunny_front.png
+MOTION 1.47 texture=res://birds/sunny_front.png
+MOTION 1.73 texture=res://birds/sunny_front.png
+MOTION 1.98 texture=res://birds/sunny_front.png
+MOTION 2.24 texture=res://birds/sunny_front.png
+MOTION 2.50 texture=res://birds/sunny_front.png
+map node checks: 666 checks, 0 failures

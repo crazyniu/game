@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+MOTION 0.12 texture=res://birds/sunny_front.png
+MOTION 0.37 texture=res://birds/sunny_front.png
+MOTION 0.62 texture=res://birds/sunny_front.png
+MOTION 0.88 texture=res://birds/sunny_front.png
+MOTION 1.15 texture=res://birds/sunny_front.png
+MOTION 1.40 texture=res://birds/sunny_front.png
+MOTION 1.67 texture=res://birds/sunny_front.png
+MOTION 1.92 texture=res://birds/sunny_front.png
+MOTION 2.17 texture=res://birds/sunny_front.png
+MOTION 2.44 texture=res://birds/sunny_front.png
+map node checks: 882 checks, 0 failures

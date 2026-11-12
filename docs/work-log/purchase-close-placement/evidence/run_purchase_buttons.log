@@ -1,0 +1,131 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS confirm_booster en Buy is below unchanged frame
+PASS confirm_booster en hit area does not overlap frame
+PASS confirm_booster en size and horizontal center preserved
+PASS confirm_booster en entire Buy remains on screen
+PASS confirm_booster en affordability state preserved
+PASS confirm_booster en pressed geometry unchanged
+PASS confirm_booster en real outside-frame Buy hit invokes callback
+PASS confirm_booster en exact existing quantity and price charged
+PASS confirm_multiple en Buy is below unchanged frame
+PASS confirm_multiple en hit area does not overlap frame
+PASS confirm_multiple en size and horizontal center preserved
+PASS confirm_multiple en entire Buy remains on screen
+PASS confirm_multiple en affordability state preserved
+PASS confirm_multiple en pressed geometry unchanged
+PASS confirm_multiple en real outside-frame Buy hit invokes callback
+PASS confirm_multiple en exact existing quantity and price charged
+PASS confirm_maximum en Buy is below unchanged frame
+PASS confirm_maximum en hit area does not overlap frame
+PASS confirm_maximum en size and horizontal center preserved
+PASS confirm_maximum en entire Buy remains on screen
+PASS confirm_maximum en affordability state preserved
+PASS confirm_maximum en pressed geometry unchanged
+PASS confirm_maximum en real outside-frame Buy hit invokes callback
+PASS confirm_maximum en exact existing quantity and price charged
+PASS insufficient en Buy is below unchanged frame
+PASS insufficient en hit area does not overlap frame
+PASS insufficient en size and horizontal center preserved
+PASS insufficient en entire Buy remains on screen
+PASS insufficient en affordability state preserved
+PASS insufficient en pressed geometry unchanged
+PASS insufficient en real disabled hit does not purchase
+PASS insufficient en Close still dismisses
+PASS confirm_nest en Buy is below unchanged frame
+PASS confirm_nest en hit area does not overlap frame
+PASS confirm_nest en size and horizontal center preserved
+PASS confirm_nest en entire Buy remains on screen
+PASS confirm_nest en affordability state preserved
+PASS confirm_nest en pressed geometry unchanged
+PASS confirm_nest en real outside-frame Buy hit invokes callback
+PASS confirm_nest en exact existing quantity and price charged
+PASS confirm_nest_short en Buy is below unchanged frame
+PASS confirm_nest_short en hit area does not overlap frame
+PASS confirm_nest_short en size and horizontal center preserved
+PASS confirm_nest_short en entire Buy remains on screen
+PASS confirm_nest_short en affordability state preserved
+PASS confirm_nest_short en pressed geometry unchanged
+PASS confirm_nest_short en real disabled hit does not purchase
+PASS confirm_nest_short en Close still dismisses
+PASS confirm_outfit en Buy is below unchanged frame
+PASS confirm_outfit en hit area does not overlap frame
+PASS confirm_outfit en size and horizontal center preserved
+PASS confirm_outfit en entire Buy remains on screen
+PASS confirm_outfit en affordability state preserved
+PASS confirm_outfit en pressed geometry unchanged
+PASS confirm_outfit en real outside-frame Buy hit invokes callback
+PASS confirm_outfit en exact existing quantity and price charged
+PASS confirm_outfit_short en Buy is below unchanged frame
+PASS confirm_outfit_short en hit area does not overlap frame
+PASS confirm_outfit_short en size and horizontal center preserved
+PASS confirm_outfit_short en entire Buy remains on screen
+PASS confirm_outfit_short en affordability state preserved
+PASS confirm_outfit_short en pressed geometry unchanged
+PASS confirm_outfit_short en real disabled hit does not purchase
+PASS confirm_outfit_short en Close still dismisses
+PASS confirm_booster zh Buy is below unchanged frame
+PASS confirm_booster zh hit area does not overlap frame
+PASS confirm_booster zh size and horizontal center preserved
+PASS confirm_booster zh entire Buy remains on screen
+PASS confirm_booster zh affordability state preserved
+PASS confirm_booster zh pressed geometry unchanged
+PASS confirm_booster zh real outside-frame Buy hit invokes callback
+PASS confirm_booster zh exact existing quantity and price charged
+PASS confirm_multiple zh Buy is below unchanged frame
+PASS confirm_multiple zh hit area does not overlap frame
+PASS confirm_multiple zh size and horizontal center preserved
+PASS confirm_multiple zh entire Buy remains on screen
+PASS confirm_multiple zh affordability state preserved
+PASS confirm_multiple zh pressed geometry unchanged
+PASS confirm_multiple zh real outside-frame Buy hit invokes callback
+PASS confirm_multiple zh exact existing quantity and price charged
+PASS confirm_maximum zh Buy is below unchanged frame
+PASS confirm_maximum zh hit area does not overlap frame
+PASS confirm_maximum zh size and horizontal center preserved
+PASS confirm_maximum zh entire Buy remains on screen
+PASS confirm_maximum zh affordability state preserved
+PASS confirm_maximum zh pressed geometry unchanged
+PASS confirm_maximum zh real outside-frame Buy hit invokes callback
+PASS confirm_maximum zh exact existing quantity and price charged
+PASS insufficient zh Buy is below unchanged frame
+PASS insufficient zh hit area does not overlap frame
+PASS insufficient zh size and horizontal center preserved
+PASS insufficient zh entire Buy remains on screen
+PASS insufficient zh affordability state preserved
+PASS insufficient zh pressed geometry unchanged
+PASS insufficient zh real disabled hit does not purchase
+PASS insufficient zh Close still dismisses
+PASS confirm_nest zh Buy is below unchanged frame
+PASS confirm_nest zh hit area does not overlap frame
+PASS confirm_nest zh size and horizontal center preserved
+PASS confirm_nest zh entire Buy remains on screen
+PASS confirm_nest zh affordability state preserved
+PASS confirm_nest zh pressed geometry unchanged
+PASS confirm_nest zh real outside-frame Buy hit invokes callback
+PASS confirm_nest zh exact existing quantity and price charged
+PASS confirm_nest_short zh Buy is below unchanged frame
+PASS confirm_nest_short zh hit area does not overlap frame
+PASS confirm_nest_short zh size and horizontal center preserved
+PASS confirm_nest_short zh entire Buy remains on screen
+PASS confirm_nest_short zh affordability state preserved
+PASS confirm_nest_short zh pressed geometry unchanged
+PASS confirm_nest_short zh real disabled hit does not purchase
+PASS confirm_nest_short zh Close still dismisses
+PASS confirm_outfit zh Buy is below unchanged frame
+PASS confirm_outfit zh hit area does not overlap frame
+PASS confirm_outfit zh size and horizontal center preserved
+PASS confirm_outfit zh entire Buy remains on screen
+PASS confirm_outfit zh affordability state preserved
+PASS confirm_outfit zh pressed geometry unchanged
+PASS confirm_outfit zh real outside-frame Buy hit invokes callback
+PASS confirm_outfit zh exact existing quantity and price charged
+PASS confirm_outfit_short zh Buy is below unchanged frame
+PASS confirm_outfit_short zh hit area does not overlap frame
+PASS confirm_outfit_short zh size and horizontal center preserved
+PASS confirm_outfit_short zh entire Buy remains on screen
+PASS confirm_outfit_short zh affordability state preserved
+PASS confirm_outfit_short zh pressed geometry unchanged
+PASS confirm_outfit_short zh real disabled hit does not purchase
+PASS confirm_outfit_short zh Close still dismisses
+purchase button checks: 128 checks, 0 failures

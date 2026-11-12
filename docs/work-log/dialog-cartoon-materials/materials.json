@@ -1,0 +1,40 @@
+{
+  "asset": "panel_dialog_cartoon",
+  "status": "self-review and independent material gate passed before implementation",
+  "source": "/workspace/scratch/2bd695cff14d/generated_images/exec-969b5c22-0b83-434a-baf4-dd77f4c6ca47.png",
+  "sha256": "d85cfa3e55011589352a46cafdc15e31b57b93585458061459d4481e51155ddd",
+  "size": [
+    1254,
+    1254
+  ],
+  "alpha_region": [
+    18,
+    52,
+    1218,
+    1152
+  ],
+  "fixed_corners": [
+    220,
+    220,
+    220,
+    220
+  ],
+  "corner_scale": 0.55,
+  "field_median_rgb": [
+    19,
+    148,
+    51
+  ],
+  "cream_contrast_at_median": 3.6119842,
+  "checks": [
+    "Independent blank panel; no source art extracted",
+    "Rounded edges and clean central field",
+    "No text, objects, icons, decorations or grain",
+    "Retained source bytes; only transparent margin excluded at runtime"
+  ],
+  "background_reuse": "background_aviary_forest",
+  "generation": "Built-in imagegen, independent source followed by one targeted green-field correction",
+  "unaccepted_first_source": "exec-bc4fe025-f5d8-44f7-bafc-7929d363d07b.png",
+  "rejection_reason": "Neon field with insufficient cream-letter contrast",
+  "independent_reviewer": "integration coordinator"
+}

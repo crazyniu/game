@@ -1,0 +1,1568 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Compile Error: Identifier not found: Sound
+          at: GDScript::reload (res://game/popup.gd:144)
+SCRIPT ERROR: Compile Error: Identifier not found: Sound
+          at: GDScript::reload (res://game/ui.gd:268)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://game/dialog_cartoon_skin.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://tests/run_purchase_surface.gd:0)
+ERROR: Failed to load script "res://tests/run_purchase_surface.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _ready (res://game/main.gd:56)
+              [4] _run (res://tests/run_purchase_surface.gd:102)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _ready (res://game/main.gd:56)
+              [3] _run (res://tests/run_purchase_surface.gd:102)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:795)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:795)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@28").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:802)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:802)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_value' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:803)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:803)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@31").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:802)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:802)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_value' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:803)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:803)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@34").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:795)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:795)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@37").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:805)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:805)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@40").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:805)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:805)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@43").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: setup (res://game/aviary_view.gd:73)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/aviary_view.gd:73)
+              [1] open_outfits (res://game/shop_view.gd:606)
+              [2] preview (res://game/shop_view.gd:799)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_child' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:800)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:800)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@46/BirdOutfits").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: setup (res://game/aviary_view.gd:73)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/aviary_view.gd:73)
+              [1] open_outfits (res://game/shop_view.gd:606)
+              [2] preview (res://game/shop_view.gd:799)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_child' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:800)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:800)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@49/BirdOutfits").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@50").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@51").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@52").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@53").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@54").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@55").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:795)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:795)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@58").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:802)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:802)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_value' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:803)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:803)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@61").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:802)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:802)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:802)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_value' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:803)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:803)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@64").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:795)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:795)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:795)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@67").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:805)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:805)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@70").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] _purchase_modal (res://game/shop_view.gd:678)
+              [3] _confirm (res://game/shop_view.gd:655)
+              [4] preview (res://game/shop_view.gd:805)
+              [5] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] _purchase_modal (res://game/shop_view.gd:678)
+              [2] _confirm (res://game/shop_view.gd:655)
+              [3] preview (res://game/shop_view.gd:805)
+              [4] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid access to property or key 'closed' on a base object of type 'Nil'.
+          at: _confirm (res://game/shop_view.gd:656)
+          GDScript backtrace (most recent call first):
+              [0] _confirm (res://game/shop_view.gd:656)
+              [1] preview (res://game/shop_view.gd:805)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@73").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: setup (res://game/aviary_view.gd:73)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/aviary_view.gd:73)
+              [1] open_outfits (res://game/shop_view.gd:606)
+              [2] preview (res://game/shop_view.gd:799)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_child' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:800)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:800)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@76/BirdOutfits").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/shop_view.gd:178)
+              [2] preview (res://game/shop_view.gd:789)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'place' in base 'GDScript'.
+          at: setup (res://game/shop_view.gd:185)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/shop_view.gd:185)
+              [1] preview (res://game/shop_view.gd:789)
+              [2] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: setup (res://game/aviary_view.gd:73)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/aviary_view.gd:73)
+              [1] open_outfits (res://game/shop_view.gd:606)
+              [2] preview (res://game/shop_view.gd:799)
+              [3] _run (res://tests/run_purchase_surface.gd:111)
+SCRIPT ERROR: Invalid call. Nonexistent function 'get_child' in base 'Nil'.
+          at: preview (res://game/shop_view.gd:800)
+          GDScript backtrace (most recent call first):
+              [0] preview (res://game/shop_view.gd:800)
+              [1] _run (res://tests/run_purchase_surface.gd:111)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@79/BirdOutfits").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:118)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@80").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@81").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@82").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@83").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@84").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid call. Nonexistent function 'image' in base 'GDScript'.
+          at: background (res://game/draw_purchase_art.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] background (res://game/draw_purchase_art.gd:47)
+              [1] setup (res://game/coin_shop_view.gd:26)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'hit_area' in base 'GDScript'.
+          at: button (res://game/draw_purchase_art.gd:68)
+          GDScript backtrace (most recent call first):
+              [0] button (res://game/draw_purchase_art.gd:68)
+              [1] setup (res://game/coin_shop_view.gd:28)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'art' in base 'GDScript'.
+          at: fit (res://game/draw_purchase_art.gd:53)
+          GDScript backtrace (most recent call first):
+              [0] fit (res://game/draw_purchase_art.gd:53)
+              [1] setup (res://game/coin_shop_view.gd:29)
+              [2] preview (res://game/coin_shop_view.gd:70)
+              [3] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid assignment of property or key 'name' with value of type 'StringName' on a base object of type 'Nil'.
+          at: setup (res://game/coin_shop_view.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://game/coin_shop_view.gd:29)
+              [1] preview (res://game/coin_shop_view.gd:70)
+              [2] _run (res://tests/run_purchase_surface.gd:120)
+SCRIPT ERROR: Invalid call. Nonexistent function 'open' in base 'GDScript'.
+          at: product_modal (res://game/shop_skin.gd:96)
+          GDScript backtrace (most recent call first):
+              [0] product_modal (res://game/shop_skin.gd:96)
+              [1] open (res://game/purchase_dialog.gd:7)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'content' on a base object of type 'Nil'.
+          at: replace_close (res://game/menu_navigation.gd:21)
+          GDScript backtrace (most recent call first):
+              [0] replace_close (res://game/menu_navigation.gd:21)
+              [1] open (res://game/purchase_dialog.gd:8)
+              [2] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [3] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Invalid access to property or key 'position' on a base object of type 'Nil'.
+          at: open (res://game/purchase_dialog.gd:9)
+          GDScript backtrace (most recent call first):
+              [0] open (res://game/purchase_dialog.gd:9)
+              [1] show_preview_purchase (res://game/coin_shop_view.gd:51)
+              [2] _run (res://tests/run_purchase_surface.gd:122)
+SCRIPT ERROR: Cannot call method 'get_meta' on a null value.
+          at: show_preview_purchase (res://game/coin_shop_view.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] show_preview_purchase (res://game/coin_shop_view.gd:52)
+              [1] _run (res://tests/run_purchase_surface.gd:122)
+ERROR: Node not found: "Popup" (relative to "/root/Main/@Control@85").
+   at: get_node (scene/main/node.cpp:1975)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://tests/run_purchase_surface.gd:124)
+SCRIPT ERROR: Invalid access to property or key 'panel_rect' on a base object of type 'null instance'.
+          at: _verify (res://tests/run_purchase_surface.gd:36)
+          GDScript backtrace (most recent call first):
+              [0] _verify (res://tests/run_purchase_surface.gd:36)
+              [1] _run (res://tests/run_purchase_surface.gd:124)
+purchase surface checks: 0 checks, 0 failures; 0 states
+WARNING: 102 RIDs of type "CanvasItem" were leaked.
+   at: _free_rids (servers/rendering/renderer_canvas_cull.cpp:2735)
+WARNING: 216 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

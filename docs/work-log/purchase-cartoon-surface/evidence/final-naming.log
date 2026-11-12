@@ -1,0 +1,11 @@
+test_accepts_ordinary_words_and_metadata (test_current_game_names.NamingPolicyTests.test_accepts_ordinary_words_and_metadata) ... ok
+test_numbered_paths_are_rejected (test_current_game_names.NamingPolicyTests.test_numbered_paths_are_rejected) ... ok
+test_only_source_files_are_read (test_current_game_names.NamingPolicyTests.test_only_source_files_are_read) ... ok
+test_rejects_numbered_identities_in_source (test_current_game_names.NamingPolicyTests.test_rejects_numbered_identities_in_source) ... ok
+test_repository_check_reads_unstaged_changes (test_current_game_names.NamingPolicyTests.test_repository_check_reads_unstaged_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.011s
+
+OK
+Current game naming: 168 tracked source files inspected; 0 violation(s).

@@ -1,0 +1,130 @@
+[
+  {
+    "file": "confirm_booster-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "366b36d4098655a9275586ec2ecd78f678f71e5d416c89b263e63967e061c1f3"
+  },
+  {
+    "file": "confirm_multiple-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "816e72a3ecd329319ede22d2de43b735e6a49d50256810b565f82c2326468eab"
+  },
+  {
+    "file": "confirm_maximum-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "fa9ed90e75e6811cb12646932cdd03cdf1c08bfb9f22b26855c9b250a539e2ca"
+  },
+  {
+    "file": "insufficient-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ad9492d764f052b4b5b825a775cd0380de611361cf6292f34f52066fc3b712db"
+  },
+  {
+    "file": "confirm_nest-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e43af0187bac25bee568d0423f5203ff4efcca2e46e297307f2fa1009ae1f1c2"
+  },
+  {
+    "file": "confirm_nest_short-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a1521edbaa0079aa33ccee3e9e06a2c7b4a1f34e0da0c484f9674d7dadf8a939"
+  },
+  {
+    "file": "confirm_outfit-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "99593f5a91dd5c55961211fff6932e36deb1c85a986f9af3e62506176bdffa6a"
+  },
+  {
+    "file": "confirm_outfit_short-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d59227f510edc66fc479c3d31597fa9f508af726ae173dd161a5e4ae13cd1761"
+  },
+  {
+    "file": "confirm_booster-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "df58557eb0d38f47d37fb0a1c455397026c1ce73580bd277c0e80e708cd43a0a"
+  },
+  {
+    "file": "confirm_multiple-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0e9c64147f0e5b3e1a18e3d2919514715a977c7b4306f1aad04356be3e341e0b"
+  },
+  {
+    "file": "confirm_maximum-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e36ab0d494a4b7013502c8c7ab669116b53e0536ca3e0a30e671eafd591d7a2b"
+  },
+  {
+    "file": "insufficient-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9deb9ff5d30d3c8d3a57f31074dac37ba8dd8e9936139bfdd81cf0095ce1bf33"
+  },
+  {
+    "file": "confirm_nest-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "87bbf538ef140c2420356529707a8c16c00d61a93322c3a729d5d854d4e3b6eb"
+  },
+  {
+    "file": "confirm_nest_short-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "fddb168c1a4a107aa8cd9b8146ce3112cecfeb0d60580535b40aed3078803dc5"
+  },
+  {
+    "file": "confirm_outfit-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "df07a439ee2290695aa980eaba1af5df669dd28b4f9d6397ed21ed4cc424aba8"
+  },
+  {
+    "file": "confirm_outfit_short-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8c05275c3031cf43474834afc682833591c0becc5d2212991467a44dceb4477f"
+  }
+]

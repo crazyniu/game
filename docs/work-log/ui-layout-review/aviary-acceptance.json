@@ -1,0 +1,9 @@
+{
+  "reference": "libfile_a02ab4c60c70819197c2a04e8a1c1d7a",
+  "instruction": "The user said not to change this Sunny detail page. Preserve its current visual layout and accepted assets.",
+  "runtime_baseline": "art/approved_runtime/aviary_detail.png",
+  "runtime_sha256": "b53274b935d26395779b6578cea9612a1cbf68152ea61bfe1cecde4e76e49ae5",
+  "source": "PerchSort/game/aviary_view.gd",
+  "source_sha256": "f5d3ee9a35c2cb07a94ad219304a76694f0aa2c026b0469543ad106ae6fa01d6",
+  "boundary": "The separately opened purchase dialog may receive its authorized Close-position and independent bright-surface corrections through PurchaseDialog, without changing this detail page or its art."
+}

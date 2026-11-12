@@ -1,0 +1,274 @@
+[
+  {
+    "file": "level_card_first_visit_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "level_card_first_visit_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "level_card_full_roster_en.png",
+    "identical": false,
+    "difference_bounds": [
+      412,
+      1372,
+      572,
+      1432
+    ],
+    "note": "Different animated mechanic preview frame only"
+  },
+  {
+    "file": "level_card_full_roster_zh.png",
+    "identical": false,
+    "difference_bounds": [
+      412,
+      1372,
+      572,
+      1432
+    ],
+    "note": "Different animated mechanic preview frame only"
+  },
+  {
+    "file": "level_card_locked_en.png",
+    "identical": false,
+    "difference_bounds": [
+      412,
+      1270,
+      571,
+      1330
+    ],
+    "note": "Different animated mechanic preview frame only"
+  },
+  {
+    "file": "level_card_locked_zh.png",
+    "identical": false,
+    "difference_bounds": [
+      412,
+      1270,
+      572,
+      1330
+    ],
+    "note": "Different animated mechanic preview frame only"
+  },
+  {
+    "file": "new_friend_berry_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "new_friend_berry_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_all_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_all_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_empty_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_empty_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "rewards_challenge_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_firefly_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_firefly_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_morning_bell_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_morning_bell_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_owl_eye_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_owl_eye_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_sapling_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_sapling_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_scarecrow_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_scarecrow_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_spring_rain_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "unlock_spring_rain_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_milestone_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_milestone_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_one_star_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_one_star_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_three_stars_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_three_stars_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_two_stars_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_two_stars_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_zero_reward_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "win_zero_reward_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_complete_1_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_complete_1_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_unlock_2_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_unlock_2_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_unlock_4_en.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  },
+  {
+    "file": "world_unlock_4_zh.png",
+    "identical": true,
+    "difference_bounds": null,
+    "note": "Pixel-identical to independently reviewed final component capture"
+  }
+]

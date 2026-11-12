@@ -1,0 +1,326 @@
+[
+  {
+    "file": "build/ui-layout-review/n1-component/aviary-buy_outfit-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3540d593dcc4f9d42d2a1adb8e6c0f4266240c92c30b469bbd08d4a7bf188973",
+    "original_file": "aviary-buy_outfit-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/aviary-buy_outfit-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "2988feadd5563a1be8e91a2f76b1483c20592e9fdc72660dbd1fd3d586f9af29",
+    "original_file": "aviary-buy_outfit-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/aviary-buy_outfit_short-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "b729e5e9e2793469229928c0105c45e37a094e7fd37afbe2069f620f80586d84",
+    "original_file": "aviary-buy_outfit_short-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/aviary-buy_outfit_short-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e9c528e7c0e6a668404f9d60c9399f13c9a617f7c400ae024233af9226dc497b",
+    "original_file": "aviary-buy_outfit_short-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/bird_outfits-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5c79805ee4e5be6376d98988c6062c302fd40de8e79a9264eb81d3ea729c7f49",
+    "original_file": "bird_outfits-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/bird_outfits-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "22715d034b12c05e0d23b62b9ead17b0a1fd25c1752d7d72cff36128d4f08442",
+    "original_file": "bird_outfits-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8f7d2033774bf9d58c4e83610c96062cec27621f9c35d5422ae4cd5285581d49",
+    "original_file": "boosters-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "06a35e53a46e3e8420b5f39a906bbb47a591baebc4e8de991ef745e421d25d2e",
+    "original_file": "boosters-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters_empty-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f1030ca9eb937c4cb8e9f944b6f79a20ee28b5eed7b62bce6e55b53a32a1bf4d",
+    "original_file": "boosters_empty-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters_empty-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5167a1540bd464dfed26d3feaf8ba341a11f02498ea824ba6995bba0770fbcbd",
+    "original_file": "boosters_empty-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters_maximum-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8e3e1ada505a1924257118a5fdb365370b0a82284678859d4ad57d97a756cc22",
+    "original_file": "boosters_maximum-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/boosters_maximum-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6fbe3c0565a149930b6c045f9c672da3b5a3c489eae154f74aa8960a9ac68fcd",
+    "original_file": "boosters_maximum-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_booster-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "42fdfce23eb2b7772b67860f503ffb77f613d7283c0641ef157702e8cfc28471",
+    "original_file": "confirm_booster-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_booster-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "4f45cd6a8b8fc5921d9bcb8eab08739d1cc123885060cf9fb3e1d91510237bb3",
+    "original_file": "confirm_booster-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_maximum-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "cd2b3b19455ad66a8c91f575997826f1ee8b916e9cd6f8066d30b6140969c0d0",
+    "original_file": "confirm_maximum-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_maximum-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3b01dc6ebc5c1cfde7e5e6a7a160d7775b15cb112fcdbeae6e00b7669e922ea1",
+    "original_file": "confirm_maximum-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_multiple-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f35de823cd10e36fb11eb5586dbc681858ef47f0517f73282b8c577348b4aabc",
+    "original_file": "confirm_multiple-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_multiple-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "201409902b6625c5c807723b5dc060a0632de54f390384ae5ca7ada80c98780c",
+    "original_file": "confirm_multiple-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_nest-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "1e843f394a9742f80302159c545106bba77f8790734939f42feba817954abc8a",
+    "original_file": "confirm_nest-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_nest-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "2b6436ef21b5c805fd5f679bcc071afbd329634fcbc7f8695dcab76ef17ba920",
+    "original_file": "confirm_nest-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_nest_short-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a670f94a350e860e81f0deed40c9ab88a52d06bac1db4d944df9dc12fe22a741",
+    "original_file": "confirm_nest_short-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_nest_short-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5450b583ade72f17b5060095e704606856f3c3c7c4379c0372996e8d75683df2",
+    "original_file": "confirm_nest_short-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_outfit-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f8d76bbf769084c6ca1a83e1bc00b178b970b0a929a9104823d72bd0b6668f86",
+    "original_file": "confirm_outfit-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_outfit-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "de04a6f1ab758e2f2cd987df7d41560c328a37b0a32907fd86114e08d963b0d4",
+    "original_file": "confirm_outfit-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_outfit_short-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "4981ccbfbea14dcbc69f36e0a26ddc10995d2f77a3b42bf541005961b447a02d",
+    "original_file": "confirm_outfit_short-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/confirm_outfit_short-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "98040bc7aa3f0c0b140635e0907c5267b491c621f5b2cef2093a6058fdfd7253",
+    "original_file": "confirm_outfit_short-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/houses-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "724595e0a9dd331ad34d188799ebb0f8586a55cc7fc7a8d5b4050ec1bb3bf8bd",
+    "original_file": "houses-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/houses-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "56533ba66d4bb2d791d9b96b21444bd6be42ce5b2aa16a6c6063878acd0de7c2",
+    "original_file": "houses-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/insufficient-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "7bc4168bbe4b0ef88273ea53e677bf6b61069aa3aae320b49f4981c4149fe1c2",
+    "original_file": "insufficient-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/insufficient-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a01ae1f8b5b24f8bc608ab84027ab236aa90536483e0590ced263c2a05514568",
+    "original_file": "insufficient-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/locked_tools-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "deede514c89d9bbd979c7d888b2be58773055216bfbb0bb4bd316822b55bb2c5",
+    "original_file": "locked_tools-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/locked_tools-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "84d1313a86d1fc95dd5bc5078f3e7b38725d36d15650c03eddade4f5f29f34e7",
+    "original_file": "locked_tools-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/outfits-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "36111ab4086689c26834284508ff5a5d4a8f976b1cdd55ba517292e1b13a0362",
+    "original_file": "outfits-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/outfits-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f16693d03909dd5b13290c3f9d5c543ad606f120c57a1525719af3d970fab06d",
+    "original_file": "outfits-zh.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/outfits_some_unmet-en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6cd15a33ec55b3d31abac1cbc2a06196dc2d82321bf76f45c87366a54a75640d",
+    "original_file": "outfits_some_unmet-en.png"
+  },
+  {
+    "file": "build/ui-layout-review/n1-component/outfits_some_unmet-zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e0ba0eb298781ffcf213a41b1b94316da82d4a1dacd89cf589862f263194c6df",
+    "original_file": "outfits_some_unmet-zh.png"
+  }
+]

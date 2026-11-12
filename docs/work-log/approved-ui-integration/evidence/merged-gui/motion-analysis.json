@@ -1,0 +1,32 @@
+{
+  "home_view__home_motion": {
+    "requested_step_seconds": 0.25,
+    "frames": 24,
+    "size": [
+      456,
+      812
+    ],
+    "unique_pngs": 24,
+    "changed_frame_count": 23
+  },
+  "aviary_view__detail_berry_motion": {
+    "requested_step_seconds": 0.25,
+    "frames": 24,
+    "size": [
+      456,
+      812
+    ],
+    "unique_pngs": 24,
+    "changed_frame_count": 23
+  },
+  "popups__lucky_draw_spin_motion": {
+    "requested_step_seconds": 0.25,
+    "frames": 24,
+    "size": [
+      456,
+      812
+    ],
+    "unique_pngs": 24,
+    "changed_frame_count": 23
+  }
+}

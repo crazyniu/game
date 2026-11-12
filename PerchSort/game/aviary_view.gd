@@ -1,41 +1,42 @@
 extends Control
-## Open leafy perches keep the live birds prominent over the tropical sea. The standalone list
+## Open leafy perches keep the live birds prominent over the turquoise forest. The standalone list
 ## opens bird details; the shop opens those same details directly and owns their Back destination.
 
 signal closed
 signal profile_changed
 
-## Two equal columns float directly over the sea, below the compact header.
-const CLIP_TOP := 256.0
+## Two equal columns float directly over the forest, below the compact header.
+const CLIP_TOP := 232.0
 const CLIP_X := 48.0
-const CLIP_W := 984.0
-const CLIP_HEIGHT := 1568.0
+const CLIP_W := 960.0
+const CLIP_HEIGHT := 1592.0
 const GRID_TOP := 0.0
 const GRID_BOTTOM := 16.0
-const GAP := 24.0
-const CARD_W := 480.0
-const CARD_H := 432.0
-const CARD_BIRD := Rect2(80, 24, 320, 288)
-const CARD_NAME := Rect2(40, 370, 400, 54)
-const CARD_PERCH_WIDTH := 360.0
-const TRACK_X := 1044.0
-const TRACK_W := 8.0
+const GAP := 32.0
+const CARD_W := 464.0
+const CARD_H := 468.0
+const CARD_BIRD := Rect2(52, 8, 360, 356)
+const CARD_NAME := Rect2(38, 400, 388, 80)
+const CARD_PERCH_WIDTH := 416.0
+const TRACK_X := 1036.0
+const TRACK_W := 18.0
 const THUMB_MIN := 96.0
 const DRAG_START := 12.0
 const FRICTION := 5.0             # fling velocity decay per second (exponential)
-const CLOSE := Rect2(48, 48, 112, 112)
-const TITLE_SIGN := Rect2(324, 48, 432, 112)
-const DETAIL_TITLE_SIGN := Rect2(232, 48, 432, 112)
+const HEADER_CENTER_Y := 119.0
+const CLOSE := Rect2(48, HEADER_CENTER_Y - 56, 112, 112)
+const TITLE_SIGN := Rect2(300, 32, 480, 174)
+const DETAIL_TITLE_SIGN := Rect2(308, 32, 464, 174)
 const TILE_GAP := 24.0
 const TILE_COLS := 3
-const SHOP_BIRD := Rect2(340, 232, 400, 400)
-const HERO_PERCH_WIDTH := 592.0
-const SHOP_TILE_SIZE := Vector2(312, 332)
-const SHOP_TILE_BIRD := Rect2(40, 8, 232, 220)
-const SHOP_TILE_PRICE := Rect2(52, 278, 208, 52)
-const SHOP_TILES := Rect2(48, 936, 984, 688)
-const TILE_PERCH_WIDTH := 272.0
-const PERCH_CONTACT_Y := 46.0     # centre top of the wood in island_branch's source pixels
+const SHOP_BIRD := Rect2(336, 212, 408, 432)
+const HERO_PERCH_WIDTH := 640.0
+const SHOP_TILE_SIZE := Vector2(328, 372)
+const SHOP_TILE_BIRD := Rect2(28, 0, 272, 280)
+const SHOP_TILE_ACTION := Rect2(44, 318, 240, 68)
+const SHOP_TILES := Rect2(24, 940, 1032, 768)
+const TILE_PERCH_WIDTH := 328.0
+const PERCH_CONTACT_Y := 140.0     # centre wood contact in branch_aviary_perch's padded source pixels
 const SILHOUETTE := """shader_type canvas_item;
 void fragment() { COLOR = vec4(0.25, 0.19, 0.13, texture(TEXTURE, UV).a * 0.88); }"""
 
@@ -57,6 +58,7 @@ var _pressed := false
 var _dragging := false
 var _list_scroll := 0.0
 var _species := ""
+var _backdrop: TextureRect
 var _hero: BirdView
 var _hero_display: Control
 var _hero_box := Rect2()
@@ -68,7 +70,8 @@ func setup(p: Profile, species := "") -> void:
 	profile = p
 	_from_shop = not species.is_empty()
 	size = Vector2(1080, 1920)
-	UI.image(self, "background_shop_sea", Rect2(0, 0, 1080, 1920), false)
+	_backdrop = UI.image(self, "background_aviary_forest", Rect2(0, 0, 1080, 1920))
+	_backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	if _from_shop:
 		_show_detail(species)
 	else:
@@ -83,6 +86,9 @@ func _process(delta: float) -> void:
 		_velocity = 0.0
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_pressed = false
+		_velocity = 0.0
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready():
 		if _species.is_empty():
 			_show_list.call_deferred()
@@ -115,15 +121,17 @@ func _live_bird(parent: Node, species: String, outfit: String, box: Rect2) -> Bi
 		box.end.y)
 	parent.add_child(bird)
 	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, outfit)
+	if _is_instant():
+		bird.freeze()
 	return bird
 
 ## The complete production branch keeps its leaves and native ratio, with wood meeting the feet.
 func _perch(parent: Node, contact: Vector2, width: float) -> TextureRect:
-	var k := width / Art.tex("island_branch").get_width()
-	return Island.piece(parent, "island_branch", contact - Vector2(width * 0.5, PERCH_CONTACT_Y * k), width)
+	var k := width / Art.tex("branch_aviary_perch").get_width()
+	return Island.piece(parent, "branch_aviary_perch", contact - Vector2(width * 0.5, PERCH_CONTACT_Y * k), width)
 
 ## Dark breathing silhouette of a species fitted into the box (unmet birds); the shop's outfits tab shares it.
-static func _silhouette(parent: Node, species: String, box: Rect2) -> TextureRect:
+static func _silhouette(parent: Node, species: String, box: Rect2, quiet := false) -> TextureRect:
 	var front := species + "_front"
 	var used := UI.used_rect(front)
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
@@ -135,8 +143,10 @@ static func _silhouette(parent: Node, species: String, box: Rect2) -> TextureRec
 	mat.shader = shader
 	sil.material = mat
 	sil.pivot_offset = Vector2(box.get_center().x, box.end.y) - sil.position
+	if quiet:
+		return sil
 	var tw := sil.create_tween().set_loops()
-	tw.tween_property(sil, "scale", Vector2(0.99, 1.025), 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(sil, "scale", Vector2(0.992, 1.02), 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_property(sil, "scale", Vector2.ONE, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	return sil
 
@@ -183,12 +193,25 @@ func _show_list() -> void:
 	_set_scroll(_list_scroll)
 
 func _list_header(met: int, count: int) -> void:
-	Island.button(_page, "Close", "island_close_tile", CLOSE, func(): closed.emit())
-	ShopSkin.plaque(_page, "aviary.title", TITLE_SIGN)
-	var chip := ShopSkin.card(_page, Rect2(768, 168, 264, 72))
+	var close := MenuNavigation.close(_page, "Close", CLOSE.position, func(): closed.emit())
+	_align_navigation(close)
+	_title("aviary.title", TITLE_SIGN)
+	var chip := Control.new()
 	chip.name = "MetCounter"
-	UI.art(chip, "pic_feather", Rect2(20, 12, 48, 48))
-	UI.number(chip, "%d/%d" % [met, count], Rect2(80, 14, 164, 44), UI.INK)
+	chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(chip, Rect2(784, HEADER_CENTER_Y - 40, 248, 80))
+	_page.add_child(chip)
+	UI.kit_piece(chip, "hud_bar", Rect2(0, 0, 248, 80))
+	UI.art(chip, "fall_leaf_green", Rect2(0, 0, 80, 80))
+	UI.number(chip, "%d/%d" % [met, count], Rect2(80, 16, 152, 48), Color.WHITE)
+
+func _title(label_id: String, bounds: Rect2) -> void:
+	var sign := UI.art(_page, "panel_aviary_title", bounds)
+	sign.name = "TitleGroup"
+	var word_bounds := Rect2(bounds.position + Vector2(bounds.size.x * 0.23, 26),
+		Vector2(bounds.size.x * 0.54, bounds.size.y - 52))
+	var word := ShopSkin.word(_page, label_id, word_bounds)
+	_center_sprite(word, word_bounds)
 
 ## Transparent hit regions retain list dragging while the birds sit on independent leafy perches.
 func _card(id: String, at: Vector2) -> void:
@@ -205,16 +228,32 @@ func _card(id: String, at: Vector2) -> void:
 		var name_id := "bird.%s.name" % id
 		ShopSkin.word(card, name_id, CARD_NAME)
 	else:
-		UI.art(card, "island_unknown_bird", Rect2(60, 40, 360, 322)).name = "Question"
-		Island.piece_fit(card, "island_padlock", Vector2(240, 394), Vector2(48, 48)).name = "Lock"
+		_perch(card, Vector2(bird_box.get_center().x, bird_box.end.y), CARD_PERCH_WIDTH)
+		var silhouette := _silhouette(card, id, bird_box, _is_instant())
+		var shader := Shader.new()
+		shader.code = """shader_type canvas_item;
+void fragment() {
+	float a = texture(TEXTURE, UV).a;
+	vec2 step_size = TEXTURE_PIXEL_SIZE * 3.0;
+	float rim = max(max(texture(TEXTURE, UV + vec2(step_size.x, 0)).a,
+		texture(TEXTURE, UV - vec2(step_size.x, 0)).a),
+		max(texture(TEXTURE, UV + vec2(0, step_size.y)).a,
+		texture(TEXTURE, UV - vec2(0, step_size.y)).a));
+	COLOR = vec4(mix(vec3(0.60, 1.0, 0.91), vec3(0.02, 0.34, 0.31), a), max(a, rim * 0.85));
+}"""
+		var material := ShaderMaterial.new()
+		material.shader = shader
+		silhouette.material = material
+		UI.art(card, "icon_aviary_question", Rect2(bird_box.get_center() - Vector2(52, 32), Vector2(104, 116))).name = "Question"
+		Island.piece_fit(card, "island_padlock", Vector2(CARD_W * 0.5, 450), Vector2(72, 80)).name = "Lock"
 	_cards.append([card, id])
 
 func _build_track() -> void:
 	var visible_h := _clip.size.y - GRID_BOTTOM
 	_track = Rect2(TRACK_X, CLIP_TOP + GRID_TOP, TRACK_W, visible_h - GRID_TOP)
-	var track := _pill(_track, Color(UI.RIM["cream"], 0.9))
+	var track := _pill(_track, Color(0.13, 0.65, 0.55, 0.5))
 	track.name = "Track"
-	_thumb = _pill(Rect2(_track.position, Vector2(TRACK_W, THUMB_MIN)), UI.FILL["green"])
+	_thumb = _pill(Rect2(_track.position, Vector2(TRACK_W + 14.0, THUMB_MIN)), Color8(255, 195, 34))
 	_thumb.name = "Thumb"
 	var show := _max_scroll > 0.0
 	track.visible = show
@@ -224,6 +263,8 @@ func _pill(r: Rect2, color: Color) -> Panel:
 	var p := Panel.new()
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
+	style.border_color = Color(1.0, 0.97, 0.78, 0.9)
+	style.set_border_width_all(3)
 	style.set_corner_radius_all(int(r.size.x * 0.5))
 	style.anti_aliasing = true
 	p.add_theme_stylebox_override("panel", style)
@@ -236,8 +277,9 @@ func _set_scroll(value: float) -> void:
 	_scroll = clampf(value, 0.0, _max_scroll)
 	_list_scroll = _scroll
 	_content.position.y = -_scroll
-	var h := maxf(THUMB_MIN, _track.size.y * _clip.size.y / maxf(_content.size.y, 1.0))
+	var h := THUMB_MIN
 	_thumb.size.y = h
+	_thumb.position.x = _track.position.x - 7.0
 	_thumb.position.y = _track.position.y + (_track.size.y - h) * (_scroll / maxf(_max_scroll, 1.0))
 
 func _on_scroll_input(event: InputEvent) -> void:
@@ -295,8 +337,14 @@ func _show_detail(id: String) -> void:
 	timer.timeout.connect(func(): if is_instance_valid(_hero) and not _hero.acting and not _hero.showcasing: _hero.cheer())
 	_page.add_child(timer)
 	UI.hit_area(_page, _hero_box, func(): if is_instance_valid(_hero): _hero.showcase())
-	ShopSkin.card(_page, Rect2(112, 748, 856, 80)).name = "AbilityStrip"
-	UiText.painted_label(_page, "bird.%s.ability" % id, Rect2(140, 762, 800, 52))
+	UI.art(_page, "panel_aviary_ability", Rect2(232, 714, 616, 104)).name = "AbilityStrip"
+	var ability := UiText.painted_label(_page, "bird.%s.ability" % id, Rect2(304, 740, 472, 52))
+	ability.name = "AbilityWord"
+	_center_sprite(ability, Rect2(304, 740, 472, 52))
+	var ability_ink := UiText.warm_ink().duplicate() as ShaderMaterial
+	ability_ink.set_shader_parameter("top_color", Color8(137, 71, 20))
+	ability_ink.set_shader_parameter("bottom_color", Color8(101, 47, 9))
+	ability.material = ability_ink
 	if not crow:
 		_tile_row = SHOP_TILES
 		_tiles = Control.new()
@@ -305,9 +353,10 @@ func _show_detail(id: String) -> void:
 		_page.add_child(_tiles)
 		_build_tiles()
 		if not _from_shop:
-			UiText.painted(_page, "tab_outfits", Rect2(340, 850, 400, 48))
-	Island.button(_page, "Back", "island_back_tile", CLOSE, _back)
-	ShopSkin.plaque(_page, "bird.%s.name" % id, DETAIL_TITLE_SIGN)
+			UiText.painted(_page, "title_outfits", Rect2(340, 836, 400, 80))
+	var back := MenuNavigation.back(_page, "Back", CLOSE.position, _back)
+	_align_navigation(back)
+	_title("bird.%s.name" % id, DETAIL_TITLE_SIGN)
 	_build_coins()
 
 func _back() -> void:
@@ -325,10 +374,14 @@ func _build_coins() -> void:
 		_coins.get_parent().remove_child(_coins)
 		_coins.queue_free()
 	_coins = null
-	_coins = ShopSkin.counter(_page, profile)
+	_coins = ShopSkin.counter(_page, profile, 1056.0)
+	var panel := _coins.get_child(0) as TextureRect
+	var visible := _sprite_ink(panel)
+	_coins.position.y = HEADER_CENTER_Y - visible.get_center().y
+	_center_digits(_coins.get_node("Digits").get_child(0))
 
 ## Six open perch positions: plain bird, then outfits 1 to 5. Owned ones equip on tap; locked ones
-## are dimmed with compact prices. A green foot marker and check identify the equipped outfit.
+## retain full-color art with locks and prices. Shared action faces label Equip/Equipped explicitly.
 func _build_tiles() -> void:
 	for c in _tiles.get_children():
 		_tiles.remove_child(c)   # rebuilt tiles keep their names
@@ -346,29 +399,111 @@ func _build_tiles() -> void:
 		UI.place(tile, Rect2(Vector2(x + (n % TILE_COLS) * (tile_size.x + TILE_GAP), _tile_row.position.y + (n / TILE_COLS) * (tile_size.y + TILE_GAP)), tile_size))
 		_tiles.add_child(tile)
 		_perch(tile, Vector2(bird_box.get_center().x, bird_box.end.y), TILE_PERCH_WIDTH)
-		if id == current:
-			Island.piece_fit(tile, "island_pill_green", Vector2(tile_size.x * 0.5, 304), Vector2(144, 32)).name = "Selected"
 		var outfit := "" if n == 0 else "%s_outfit_%d" % [_species, n]
-		var bird := _live_bird(tile, _species, outfit, bird_box)
+		_live_bird(tile, _species, outfit, bird_box)
+		_tile_action(tile, owned, id == current, 0 if owned else Shop.item(id)["price"])
+		var hit_bounds := Rect2(Vector2.ZERO, Vector2(tile.size.x, maxf(tile.size.y, SHOP_TILE_ACTION.end.y)))
 		if owned:
 			var pick := id
-			var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, tile.size), func(): _equip(pick, n))
+			var hit := UI.hit_area(tile, hit_bounds, func(): _equip(pick, n))
 			hit.name = "Equip"
 			hit.disabled = id == current
 		else:
-			bird.modulate.a = UI.DISABLED_ALPHA
 			var lock_center := Vector2(tile_size.x - 40.0, 40.0)
 			var lock_size := Vector2(56, 56)
 			Island.piece_fit(tile, "island_padlock", lock_center, lock_size).name = "Lock"
-			ShopSkin.price(tile, SHOP_TILE_PRICE, Shop.item(id)["price"])
 			var pick_locked := id
-			var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, tile.size), func(): _confirm_outfit(pick_locked, n, tile))
+			var hit := UI.hit_area(tile, hit_bounds, func(): _confirm_outfit(pick_locked, n, tile))
 			hit.name = "Locked"
 		var tap_area: Button = tile.get_node("Equip" if owned else "Locked")
 		tap_area.button_down.connect(func(): tile.modulate = Island.PRESSED)
 		tap_area.button_up.connect(func(): tile.modulate = Color.WHITE)
 		if id == current:
 			Island.check_badge(tile, Vector2(tile_size.x - 40.0, 40.0)).name = "Equipped"
+
+## Shared shop skins keep state and price legible without an empty marker or overhanging coin.
+func _tile_action(tile: Control, owned: bool, selected: bool, price: int) -> void:
+	var face := ShopSkin._product_action_face(tile, SHOP_TILE_ACTION, "green" if owned else "gold")
+	face.name = "Status" if owned else "Price"
+	if owned:
+		var bounds := Rect2(16, 10, 208, 48)
+		var word := UiText.painted(face, "white_equipped" if selected else "white_equip", bounds)
+		word.material = _action_ink()
+		_center_sprite(word, bounds, true)
+	else:
+		var coin := UI.art(face, "coin", Rect2(14, 12, 44, 44))
+		coin.name = "Coin"
+		var amount := ShopSkin.amount(face, Rect2(70, 12, 152, 44), price)
+		amount.name = "Amount"
+		_center_digits(amount, true)
+		amount.size.x = _digits_ink(amount, true).size.x
+		_center_digits(amount, true)
+		var coin_width := _sprite_ink(coin).size.x
+		var start := (face.size.x - coin_width - 12.0 - amount.size.x) * 0.5
+		_center_sprite(coin, Rect2(start, 12, coin_width, 44))
+		amount.position.x = start + coin_width + 12.0
+
+## Keep this correction local: other accepted screens retain their original materials and glyph layout.
+static var _action_material: ShaderMaterial
+static var _visible_ink: Dictionary = {}
+
+static func _action_ink() -> ShaderMaterial:
+	if _action_material == null:
+		var shader := Shader.new()
+		shader.code = """shader_type canvas_item;
+varying vec4 item_tint;
+void vertex() { item_tint = COLOR; }
+void fragment() {
+	vec4 paint = texture(TEXTURE, UV);
+	float light = dot(paint.rgb, vec3(0.299, 0.587, 0.114));
+	float face = smoothstep(0.48, 0.64, light);
+	COLOR = vec4(paint.rgb, paint.a * face) * item_tint;
+}"""
+		_action_material = ShaderMaterial.new()
+		_action_material.shader = shader
+	return _action_material
+
+## Measure the visible result, including the local material's removed dark surround.
+static func _texture_ink(texture: Texture2D, soften := false) -> Rect2:
+	var key := str(texture.get_instance_id()) + ("soft" if soften else "painted")
+	if not _visible_ink.has(key):
+		var image := texture.get_image().duplicate() as Image
+		if soften:
+			for y in image.get_height():
+				for x in image.get_width():
+					var pixel := image.get_pixel(x, y)
+					var light := pixel.r * 0.299 + pixel.g * 0.587 + pixel.b * 0.114
+					pixel.a *= smoothstep(0.48, 0.64, light)
+					image.set_pixel(x, y, pixel)
+		_visible_ink[key] = Rect2(image.get_used_rect())
+	return _visible_ink[key]
+
+static func _sprite_ink(sprite: TextureRect, soften := false) -> Rect2:
+	var ink := _texture_ink(sprite.texture, soften)
+	var scale := sprite.size / sprite.texture.get_size()
+	return Rect2(sprite.position + ink.position * scale, ink.size * scale)
+
+static func _center_sprite(sprite: TextureRect, bounds: Rect2, soften := false) -> void:
+	sprite.position += bounds.get_center() - _sprite_ink(sprite, soften).get_center()
+	sprite.pivot_offset = bounds.get_center() - sprite.position
+
+static func _align_navigation(button: Button) -> void:
+	var face := button.get_node("Face") as TextureRect
+	button.position.y = HEADER_CENTER_Y - _sprite_ink(face).get_center().y
+
+static func _digits_ink(digits: Control, soften := false) -> Rect2:
+	var visible := Rect2()
+	for child in digits.get_children():
+		var ink := _sprite_ink(child, soften)
+		visible = ink if not visible.has_area() else visible.merge(ink)
+	return visible
+
+static func _center_digits(digits: Control, soften := false) -> void:
+	var shift := digits.size * 0.5 - _digits_ink(digits, soften).get_center()
+	for child in digits.get_children():
+		if soften:
+			child.material = _action_ink()
+		child.position += shift
 
 func _equip(id: String, index: int) -> void:
 	Sound.play("ui_tap")
@@ -383,18 +518,22 @@ func _equip(id: String, index: int) -> void:
 
 ## One shared shop-style preview and numeric gold purchase action; insufficient funds dim it.
 func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
+	if get_node_or_null("Popup") != null:
+		return
 	Sound.play("ui_tap")
 	var it := Shop.item(id)
 	var quick := _is_instant()
-	var pic_side := 320.0
-	var modal := ShopSkin.modal(self, id + ".name", [pic_side], quick, 132.0)
+	var pic_side := 400.0
+	var modal := PurchaseDialog.open(self, id + ".name", [pic_side], quick, 132.0)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - pic_side * 0.5, ys[0], pic_side, pic_side)
+	PurchaseDialog.glow(modal.content, pic)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
-	var accept := ShopSkin.button(modal.content, "Buy", Rect2(300, modal.get_meta("actions_y"), 480, 132),
+	var accept := ShopSkin.product_button(modal.content, "Buy", Rect2(300, modal.panel_rect.end.y + Modal.ACTION_DROP, 480, 132),
 		func(): modal.invoke(func(): _buy_outfit(id, index)), "gold")
 	var line := ShopSkin.amount(accept, Rect2(24, 28, 432, 76), it["price"])
+	_center_digits(line)
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var origin_x := line.position.x
@@ -425,7 +564,7 @@ static func preview(main: Control, state: String) -> void:
 	if state == "detail_maximum":
 		p.coins = FeatherBar.DISPLAY_MAX
 	if state == "list_some_unmet":
-		p.met = {"sunny": true, "sky": true, "berry": true}
+		p.met = {"sunny": true, "sky": true, "berry": true, "mint": true}
 	if state == "buy_outfit":   # coins for the first outfit but not the others
 		p.coins = 400
 	if state == "bought_outfit":   # the cheapest outfit already bought and worn
@@ -447,6 +586,7 @@ static func preview(main: Control, state: String) -> void:
 	Sound.music("bgm_menu")
 	match state:
 		"list_scrolled": view._set_scroll(1e6)
+		"detail_sunny": view._show_detail("sunny")
 		"detail_berry": view._show_detail("berry")
 		"detail_crow": view._show_detail("crow")
 		"detail_ember_skin":

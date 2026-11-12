@@ -1,0 +1,93 @@
+[
+  {
+    "file": "coin_shop_view.gd",
+    "function": "setup",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/coin_shop_view.gd",
+    "matches": true,
+    "current_function_sha256": "88f2aec89714bb8df5bc225c0e085343fe3674fa566273f4813ade3c9badcbb8"
+  },
+  {
+    "file": "popups.gd",
+    "function": "document",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "a988f219bb16b22774da4a7c5dbd480b76a76c3145625fe9f7c7c7739e6c37d3"
+  },
+  {
+    "file": "popups.gd",
+    "function": "lucky_draw",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "de3bd9eb7760f52a69070c64137d83c5c95ad686b4d13e338ad33582405fbc8f"
+  },
+  {
+    "file": "popups.gd",
+    "function": "chapters",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "b79496467df4cd874bad91ac488ec959f5cc8c8340c623e436095d53e3ed8cd8"
+  },
+  {
+    "file": "home_view.gd",
+    "function": "setup",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/home_view.gd",
+    "matches": true,
+    "current_function_sha256": "b5468b653360a4fbef72b5924d0362eef2ea29bbc6db72c0785d5dc297e3558e"
+  },
+  {
+    "file": "home_view.gd",
+    "function": "_icon_button",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/home_view.gd",
+    "matches": true,
+    "current_function_sha256": "fac5c8ae4b6ea581adaf0d0a53bcfb3fcb8bbad1dbf8873fabf27ee23c4cfd47"
+  },
+  {
+    "file": "home_view.gd",
+    "function": "preview",
+    "baseline_source": "/workspace/scratch/2bd695cff14d/purchase-button-layout/PerchSort/game/home_view.gd",
+    "matches": true,
+    "current_function_sha256": "52ec727096233d2026632dc746fd60ff2f223e1e148614ebfcc8c44f89d4e407"
+  },
+  {
+    "file": "popups.gd",
+    "function": "win",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "e76848d14e48b6333f7751e70183fcbf785a14e8ca961dcd5d50e99e7e2c40f3"
+  },
+  {
+    "file": "popups.gd",
+    "function": "rewards",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "4d8432e78658a486fd0be2c2e7048d6984b358b195c475fc6f6a12df7c76a867"
+  },
+  {
+    "file": "popups.gd",
+    "function": "new_friend",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "3f81e0e6591e0ab22ef9b5fbd43abcbc00c24909fdde746fccaf7996238960ea"
+  },
+  {
+    "file": "popups.gd",
+    "function": "unlock",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "e51b613cf25f83a8ba8e14dbfa491929a7c96857e58b20016e754bfb692f0b94"
+  },
+  {
+    "file": "popups.gd",
+    "function": "world_complete",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "bc41d56fda7db44aeb6f461698c2d3bfe0c95981320dfd9cbff1c024a79722a6"
+  },
+  {
+    "file": "popups.gd",
+    "function": "world_unlock",
+    "capture_source": "/workspace/scratch/2bd695cff14d/game-dialog-layout/PerchSort/game/popups.gd",
+    "matches": true,
+    "current_function_sha256": "111e3db2244b1ec8d6a72097c410588f95397a65eb48929b639de5bd164fbbe9"
+  }
+]

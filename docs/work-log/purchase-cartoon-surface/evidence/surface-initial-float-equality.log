@@ -1,0 +1,255 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS confirm_booster en replacement panel preserves bounds and content stacking
+PASS confirm_booster en frozen cartoon panel texture and crop are exact
+PASS confirm_booster en frozen nine-patch measurements are retained
+PASS confirm_booster en unchanged forest art fills behind the dialog
+PASS confirm_booster en background is not darkened
+PASS confirm_booster en surface and background do not intercept pointer input
+PASS confirm_booster en has recorded pre-material geometry
+PASS confirm_booster en content node structure preserved
+PASS confirm_booster en all non-panel content geometry unchanged
+PASS confirm_multiple en replacement panel preserves bounds and content stacking
+PASS confirm_multiple en frozen cartoon panel texture and crop are exact
+PASS confirm_multiple en frozen nine-patch measurements are retained
+PASS confirm_multiple en unchanged forest art fills behind the dialog
+PASS confirm_multiple en background is not darkened
+PASS confirm_multiple en surface and background do not intercept pointer input
+PASS confirm_multiple en has recorded pre-material geometry
+PASS confirm_multiple en content node structure preserved
+PASS confirm_multiple en all non-panel content geometry unchanged
+PASS confirm_maximum en replacement panel preserves bounds and content stacking
+PASS confirm_maximum en frozen cartoon panel texture and crop are exact
+PASS confirm_maximum en frozen nine-patch measurements are retained
+PASS confirm_maximum en unchanged forest art fills behind the dialog
+PASS confirm_maximum en background is not darkened
+PASS confirm_maximum en surface and background do not intercept pointer input
+PASS confirm_maximum en has recorded pre-material geometry
+PASS confirm_maximum en content node structure preserved
+PASS confirm_maximum en all non-panel content geometry unchanged
+PASS insufficient en replacement panel preserves bounds and content stacking
+PASS insufficient en frozen cartoon panel texture and crop are exact
+PASS insufficient en frozen nine-patch measurements are retained
+PASS insufficient en unchanged forest art fills behind the dialog
+PASS insufficient en background is not darkened
+PASS insufficient en surface and background do not intercept pointer input
+PASS insufficient en has recorded pre-material geometry
+PASS insufficient en content node structure preserved
+PASS insufficient en all non-panel content geometry unchanged
+PASS confirm_nest en replacement panel preserves bounds and content stacking
+PASS confirm_nest en frozen cartoon panel texture and crop are exact
+PASS confirm_nest en frozen nine-patch measurements are retained
+PASS confirm_nest en unchanged forest art fills behind the dialog
+PASS confirm_nest en background is not darkened
+PASS confirm_nest en surface and background do not intercept pointer input
+PASS confirm_nest en has recorded pre-material geometry
+PASS confirm_nest en content node structure preserved
+PASS confirm_nest en all non-panel content geometry unchanged
+PASS confirm_nest_short en replacement panel preserves bounds and content stacking
+PASS confirm_nest_short en frozen cartoon panel texture and crop are exact
+PASS confirm_nest_short en frozen nine-patch measurements are retained
+PASS confirm_nest_short en unchanged forest art fills behind the dialog
+PASS confirm_nest_short en background is not darkened
+PASS confirm_nest_short en surface and background do not intercept pointer input
+PASS confirm_nest_short en has recorded pre-material geometry
+PASS confirm_nest_short en content node structure preserved
+PASS confirm_nest_short en all non-panel content geometry unchanged
+PASS confirm_outfit en replacement panel preserves bounds and content stacking
+PASS confirm_outfit en frozen cartoon panel texture and crop are exact
+PASS confirm_outfit en frozen nine-patch measurements are retained
+PASS confirm_outfit en unchanged forest art fills behind the dialog
+PASS confirm_outfit en background is not darkened
+PASS confirm_outfit en surface and background do not intercept pointer input
+PASS confirm_outfit en has recorded pre-material geometry
+PASS confirm_outfit en content node structure preserved
+PASS confirm_outfit en all non-panel content geometry unchanged
+PASS confirm_outfit_short en replacement panel preserves bounds and content stacking
+PASS confirm_outfit_short en frozen cartoon panel texture and crop are exact
+PASS confirm_outfit_short en frozen nine-patch measurements are retained
+PASS confirm_outfit_short en unchanged forest art fills behind the dialog
+PASS confirm_outfit_short en background is not darkened
+PASS confirm_outfit_short en surface and background do not intercept pointer input
+PASS confirm_outfit_short en has recorded pre-material geometry
+PASS confirm_outfit_short en content node structure preserved
+PASS confirm_outfit_short en all non-panel content geometry unchanged
+PASS preview_stack en replacement panel preserves bounds and content stacking
+PASS preview_stack en frozen cartoon panel texture and crop are exact
+FAIL preview_stack en frozen nine-patch measurements are retained
+PASS preview_stack en unchanged forest art fills behind the dialog
+PASS preview_stack en background is not darkened
+PASS preview_stack en surface and background do not intercept pointer input
+PASS preview_stack en has recorded pre-material geometry
+PASS preview_stack en content node structure preserved
+PASS preview_stack en all non-panel content geometry unchanged
+PASS preview_cluster en replacement panel preserves bounds and content stacking
+PASS preview_cluster en frozen cartoon panel texture and crop are exact
+FAIL preview_cluster en frozen nine-patch measurements are retained
+PASS preview_cluster en unchanged forest art fills behind the dialog
+PASS preview_cluster en background is not darkened
+PASS preview_cluster en surface and background do not intercept pointer input
+PASS preview_cluster en has recorded pre-material geometry
+PASS preview_cluster en content node structure preserved
+PASS preview_cluster en all non-panel content geometry unchanged
+PASS preview_pouch en replacement panel preserves bounds and content stacking
+PASS preview_pouch en frozen cartoon panel texture and crop are exact
+FAIL preview_pouch en frozen nine-patch measurements are retained
+PASS preview_pouch en unchanged forest art fills behind the dialog
+PASS preview_pouch en background is not darkened
+PASS preview_pouch en surface and background do not intercept pointer input
+PASS preview_pouch en has recorded pre-material geometry
+PASS preview_pouch en content node structure preserved
+PASS preview_pouch en all non-panel content geometry unchanged
+PASS preview_basket en replacement panel preserves bounds and content stacking
+PASS preview_basket en frozen cartoon panel texture and crop are exact
+FAIL preview_basket en frozen nine-patch measurements are retained
+PASS preview_basket en unchanged forest art fills behind the dialog
+PASS preview_basket en background is not darkened
+PASS preview_basket en surface and background do not intercept pointer input
+PASS preview_basket en has recorded pre-material geometry
+PASS preview_basket en content node structure preserved
+PASS preview_basket en all non-panel content geometry unchanged
+PASS preview_chest en replacement panel preserves bounds and content stacking
+PASS preview_chest en frozen cartoon panel texture and crop are exact
+FAIL preview_chest en frozen nine-patch measurements are retained
+PASS preview_chest en unchanged forest art fills behind the dialog
+PASS preview_chest en background is not darkened
+PASS preview_chest en surface and background do not intercept pointer input
+PASS preview_chest en has recorded pre-material geometry
+PASS preview_chest en content node structure preserved
+PASS preview_chest en all non-panel content geometry unchanged
+PASS preview_hoard en replacement panel preserves bounds and content stacking
+PASS preview_hoard en frozen cartoon panel texture and crop are exact
+FAIL preview_hoard en frozen nine-patch measurements are retained
+PASS preview_hoard en unchanged forest art fills behind the dialog
+PASS preview_hoard en background is not darkened
+PASS preview_hoard en surface and background do not intercept pointer input
+PASS preview_hoard en has recorded pre-material geometry
+PASS preview_hoard en content node structure preserved
+PASS preview_hoard en all non-panel content geometry unchanged
+PASS confirm_booster zh replacement panel preserves bounds and content stacking
+PASS confirm_booster zh frozen cartoon panel texture and crop are exact
+PASS confirm_booster zh frozen nine-patch measurements are retained
+PASS confirm_booster zh unchanged forest art fills behind the dialog
+PASS confirm_booster zh background is not darkened
+PASS confirm_booster zh surface and background do not intercept pointer input
+PASS confirm_booster zh has recorded pre-material geometry
+PASS confirm_booster zh content node structure preserved
+PASS confirm_booster zh all non-panel content geometry unchanged
+PASS confirm_multiple zh replacement panel preserves bounds and content stacking
+PASS confirm_multiple zh frozen cartoon panel texture and crop are exact
+PASS confirm_multiple zh frozen nine-patch measurements are retained
+PASS confirm_multiple zh unchanged forest art fills behind the dialog
+PASS confirm_multiple zh background is not darkened
+PASS confirm_multiple zh surface and background do not intercept pointer input
+PASS confirm_multiple zh has recorded pre-material geometry
+PASS confirm_multiple zh content node structure preserved
+PASS confirm_multiple zh all non-panel content geometry unchanged
+PASS confirm_maximum zh replacement panel preserves bounds and content stacking
+PASS confirm_maximum zh frozen cartoon panel texture and crop are exact
+PASS confirm_maximum zh frozen nine-patch measurements are retained
+PASS confirm_maximum zh unchanged forest art fills behind the dialog
+PASS confirm_maximum zh background is not darkened
+PASS confirm_maximum zh surface and background do not intercept pointer input
+PASS confirm_maximum zh has recorded pre-material geometry
+PASS confirm_maximum zh content node structure preserved
+PASS confirm_maximum zh all non-panel content geometry unchanged
+PASS insufficient zh replacement panel preserves bounds and content stacking
+PASS insufficient zh frozen cartoon panel texture and crop are exact
+PASS insufficient zh frozen nine-patch measurements are retained
+PASS insufficient zh unchanged forest art fills behind the dialog
+PASS insufficient zh background is not darkened
+PASS insufficient zh surface and background do not intercept pointer input
+PASS insufficient zh has recorded pre-material geometry
+PASS insufficient zh content node structure preserved
+PASS insufficient zh all non-panel content geometry unchanged
+PASS confirm_nest zh replacement panel preserves bounds and content stacking
+PASS confirm_nest zh frozen cartoon panel texture and crop are exact
+PASS confirm_nest zh frozen nine-patch measurements are retained
+PASS confirm_nest zh unchanged forest art fills behind the dialog
+PASS confirm_nest zh background is not darkened
+PASS confirm_nest zh surface and background do not intercept pointer input
+PASS confirm_nest zh has recorded pre-material geometry
+PASS confirm_nest zh content node structure preserved
+PASS confirm_nest zh all non-panel content geometry unchanged
+PASS confirm_nest_short zh replacement panel preserves bounds and content stacking
+PASS confirm_nest_short zh frozen cartoon panel texture and crop are exact
+PASS confirm_nest_short zh frozen nine-patch measurements are retained
+PASS confirm_nest_short zh unchanged forest art fills behind the dialog
+PASS confirm_nest_short zh background is not darkened
+PASS confirm_nest_short zh surface and background do not intercept pointer input
+PASS confirm_nest_short zh has recorded pre-material geometry
+PASS confirm_nest_short zh content node structure preserved
+PASS confirm_nest_short zh all non-panel content geometry unchanged
+PASS confirm_outfit zh replacement panel preserves bounds and content stacking
+PASS confirm_outfit zh frozen cartoon panel texture and crop are exact
+PASS confirm_outfit zh frozen nine-patch measurements are retained
+PASS confirm_outfit zh unchanged forest art fills behind the dialog
+PASS confirm_outfit zh background is not darkened
+PASS confirm_outfit zh surface and background do not intercept pointer input
+PASS confirm_outfit zh has recorded pre-material geometry
+PASS confirm_outfit zh content node structure preserved
+PASS confirm_outfit zh all non-panel content geometry unchanged
+PASS confirm_outfit_short zh replacement panel preserves bounds and content stacking
+PASS confirm_outfit_short zh frozen cartoon panel texture and crop are exact
+PASS confirm_outfit_short zh frozen nine-patch measurements are retained
+PASS confirm_outfit_short zh unchanged forest art fills behind the dialog
+PASS confirm_outfit_short zh background is not darkened
+PASS confirm_outfit_short zh surface and background do not intercept pointer input
+PASS confirm_outfit_short zh has recorded pre-material geometry
+PASS confirm_outfit_short zh content node structure preserved
+PASS confirm_outfit_short zh all non-panel content geometry unchanged
+PASS preview_stack zh replacement panel preserves bounds and content stacking
+PASS preview_stack zh frozen cartoon panel texture and crop are exact
+FAIL preview_stack zh frozen nine-patch measurements are retained
+PASS preview_stack zh unchanged forest art fills behind the dialog
+PASS preview_stack zh background is not darkened
+PASS preview_stack zh surface and background do not intercept pointer input
+PASS preview_stack zh has recorded pre-material geometry
+PASS preview_stack zh content node structure preserved
+PASS preview_stack zh all non-panel content geometry unchanged
+PASS preview_cluster zh replacement panel preserves bounds and content stacking
+PASS preview_cluster zh frozen cartoon panel texture and crop are exact
+FAIL preview_cluster zh frozen nine-patch measurements are retained
+PASS preview_cluster zh unchanged forest art fills behind the dialog
+PASS preview_cluster zh background is not darkened
+PASS preview_cluster zh surface and background do not intercept pointer input
+PASS preview_cluster zh has recorded pre-material geometry
+PASS preview_cluster zh content node structure preserved
+PASS preview_cluster zh all non-panel content geometry unchanged
+PASS preview_pouch zh replacement panel preserves bounds and content stacking
+PASS preview_pouch zh frozen cartoon panel texture and crop are exact
+FAIL preview_pouch zh frozen nine-patch measurements are retained
+PASS preview_pouch zh unchanged forest art fills behind the dialog
+PASS preview_pouch zh background is not darkened
+PASS preview_pouch zh surface and background do not intercept pointer input
+PASS preview_pouch zh has recorded pre-material geometry
+PASS preview_pouch zh content node structure preserved
+PASS preview_pouch zh all non-panel content geometry unchanged
+PASS preview_basket zh replacement panel preserves bounds and content stacking
+PASS preview_basket zh frozen cartoon panel texture and crop are exact
+FAIL preview_basket zh frozen nine-patch measurements are retained
+PASS preview_basket zh unchanged forest art fills behind the dialog
+PASS preview_basket zh background is not darkened
+PASS preview_basket zh surface and background do not intercept pointer input
+PASS preview_basket zh has recorded pre-material geometry
+PASS preview_basket zh content node structure preserved
+PASS preview_basket zh all non-panel content geometry unchanged
+PASS preview_chest zh replacement panel preserves bounds and content stacking
+PASS preview_chest zh frozen cartoon panel texture and crop are exact
+FAIL preview_chest zh frozen nine-patch measurements are retained
+PASS preview_chest zh unchanged forest art fills behind the dialog
+PASS preview_chest zh background is not darkened
+PASS preview_chest zh surface and background do not intercept pointer input
+PASS preview_chest zh has recorded pre-material geometry
+PASS preview_chest zh content node structure preserved
+PASS preview_chest zh all non-panel content geometry unchanged
+PASS preview_hoard zh replacement panel preserves bounds and content stacking
+PASS preview_hoard zh frozen cartoon panel texture and crop are exact
+FAIL preview_hoard zh frozen nine-patch measurements are retained
+PASS preview_hoard zh unchanged forest art fills behind the dialog
+PASS preview_hoard zh background is not darkened
+PASS preview_hoard zh surface and background do not intercept pointer input
+PASS preview_hoard zh has recorded pre-material geometry
+PASS preview_hoard zh content node structure preserved
+PASS preview_hoard zh all non-panel content geometry unchanged
+purchase surface checks: 252 checks, 12 failures; 28 states

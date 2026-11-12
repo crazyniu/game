@@ -1,0 +1,104 @@
+{
+  "zh": {
+    "native_size": [
+      456,
+      812
+    ],
+    "changed_bounds": [
+      32,
+      351,
+      444,
+      787
+    ],
+    "canonical_backing_rectangles_projected_with_floor_and_ceil": [
+      [
+        30,
+        701,
+        117,
+        788
+      ],
+      [
+        133,
+        701,
+        220,
+        788
+      ],
+      [
+        236,
+        701,
+        323,
+        788
+      ],
+      [
+        339,
+        701,
+        426,
+        788
+      ],
+      [
+        366,
+        350,
+        445,
+        428
+      ],
+      [
+        366,
+        443,
+        445,
+        522
+      ]
+    ],
+    "outside_backing_rectangles_changed_bounds": null
+  },
+  "en": {
+    "native_size": [
+      456,
+      812
+    ],
+    "changed_bounds": [
+      32,
+      351,
+      444,
+      787
+    ],
+    "canonical_backing_rectangles_projected_with_floor_and_ceil": [
+      [
+        30,
+        701,
+        117,
+        788
+      ],
+      [
+        133,
+        701,
+        220,
+        788
+      ],
+      [
+        236,
+        701,
+        323,
+        788
+      ],
+      [
+        339,
+        701,
+        426,
+        788
+      ],
+      [
+        366,
+        350,
+        445,
+        428
+      ],
+      [
+        366,
+        443,
+        445,
+        522
+      ]
+    ],
+    "outside_backing_rectangles_changed_bounds": null
+  }
+}

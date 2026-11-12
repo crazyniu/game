@@ -1,0 +1,120 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "!actions.custom_samplers.has(function->arguments[j].tex_builtin)" is true. Continuing.
+   at: _dump_node_code (servers/rendering/shader_compiler.cpp:1329)
+   GDScript backtrace (most recent call first):
+       [0] _icon_button (res://game/home_view.gd:135)
+       [1] setup (res://game/home_view.gd:79)
+       [2] _open_home (res://game/main.gd:115)
+       [3] _go (res://game/main.gd:226)
+       [4] open_home (res://game/main.gd:108)
+       [5] _ready (res://game/main.gd:60)
+       [6] _run (res://tests/run_menu_navigation.gd:54)
+PASS zh Map Back uses coin-shop game-space size
+PASS zh Map Back reuses accepted original image
+PASS zh Map Back press tints without movement
+PASS zh Map Back release restores without movement
+PASS trail Back retains selected world
+PASS Map Back returns Home
+PASS zh Aviary Close uses coin-shop game-space size
+PASS zh Aviary Close reuses accepted original image
+PASS zh Aviary Close press tints without movement
+PASS zh Aviary Close release restores without movement
+PASS zh Aviary Back uses coin-shop game-space size
+PASS zh Aviary Back reuses accepted original image
+PASS zh Aviary Back press tints without movement
+PASS zh Aviary Back release restores without movement
+PASS detail Back returns collection
+PASS Aviary Close returns Home
+PASS zh Shop Close uses coin-shop game-space size
+PASS zh Shop Close reuses accepted original image
+PASS zh Shop Close press tints without movement
+PASS zh Shop Close release restores without movement
+PASS Shop Close returns Home
+PASS zh coin-shop reference uses coin-shop game-space size
+PASS zh coin-shop reference reuses accepted original image
+PASS zh coin-shop reference press tints without movement
+PASS zh coin-shop reference release restores without movement
+PASS coin shop retains dismissal callback
+PASS zh Chest Close uses coin-shop game-space size
+PASS zh Chest Close reuses accepted original image
+PASS zh Chest Close press tints without movement
+PASS zh Chest Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS zh Draw Close uses coin-shop game-space size
+PASS zh Draw Close reuses accepted original image
+PASS zh Draw Close press tints without movement
+PASS zh Draw Close release restores without movement
+PASS Draw Close retains dismissal callback
+PASS zh Draw result Close uses coin-shop game-space size
+PASS zh Draw result Close reuses accepted original image
+PASS zh Draw result Close press tints without movement
+PASS zh Draw result Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS zh document Close uses coin-shop game-space size
+PASS zh document Close reuses accepted original image
+PASS zh document Close press tints without movement
+PASS zh document Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS zh chapter Close uses coin-shop game-space size
+PASS zh chapter Close reuses accepted original image
+PASS zh chapter Close press tints without movement
+PASS zh chapter Close release restores without movement
+PASS zh PagePrevious retains an existing painted word
+PASS zh PageNext retains an existing painted word
+PASS repeated Close completes one modal exit
+PASS en Map Back uses coin-shop game-space size
+PASS en Map Back reuses accepted original image
+PASS en Map Back press tints without movement
+PASS en Map Back release restores without movement
+PASS trail Back retains selected world
+PASS Map Back returns Home
+PASS en Aviary Close uses coin-shop game-space size
+PASS en Aviary Close reuses accepted original image
+PASS en Aviary Close press tints without movement
+PASS en Aviary Close release restores without movement
+PASS en Aviary Back uses coin-shop game-space size
+PASS en Aviary Back reuses accepted original image
+PASS en Aviary Back press tints without movement
+PASS en Aviary Back release restores without movement
+PASS detail Back returns collection
+PASS Aviary Close returns Home
+PASS en Shop Close uses coin-shop game-space size
+PASS en Shop Close reuses accepted original image
+PASS en Shop Close press tints without movement
+PASS en Shop Close release restores without movement
+PASS Shop Close returns Home
+PASS en coin-shop reference uses coin-shop game-space size
+PASS en coin-shop reference reuses accepted original image
+PASS en coin-shop reference press tints without movement
+PASS en coin-shop reference release restores without movement
+PASS coin shop retains dismissal callback
+PASS en Chest Close uses coin-shop game-space size
+PASS en Chest Close reuses accepted original image
+PASS en Chest Close press tints without movement
+PASS en Chest Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS en Draw Close uses coin-shop game-space size
+PASS en Draw Close reuses accepted original image
+PASS en Draw Close press tints without movement
+PASS en Draw Close release restores without movement
+PASS Draw Close retains dismissal callback
+PASS en Draw result Close uses coin-shop game-space size
+PASS en Draw result Close reuses accepted original image
+PASS en Draw result Close press tints without movement
+PASS en Draw result Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS en document Close uses coin-shop game-space size
+PASS en document Close reuses accepted original image
+PASS en document Close press tints without movement
+PASS en document Close release restores without movement
+PASS repeated Close completes one modal exit
+PASS en chapter Close uses coin-shop game-space size
+PASS en chapter Close reuses accepted original image
+PASS en chapter Close press tints without movement
+PASS en chapter Close release restores without movement
+PASS en PagePrevious retains an existing painted word
+PASS en PageNext retains an existing painted word
+PASS repeated Close completes one modal exit
+PASS navigation does not mutate profile
+menu navigation checks: 107 checks, 0 failures

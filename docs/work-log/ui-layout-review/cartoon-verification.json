@@ -1,0 +1,518 @@
+[
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/check_map_hit_regions.log",
+    "evidence_scope": "current",
+    "sha256": "43b65f337a97ac1aa81b70f7fbe3860c25283763ef0b059e5492114d0be56c87",
+    "summary": [
+      "map hit regions: 17500 checks, 0 failures; all100 current levels"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/check_trail_clearance.log",
+    "evidence_scope": "current",
+    "sha256": "a8a2e71f79aad7c0d06998910e11806c0ea4d8f99180d53d9db7a14834f8e851",
+    "summary": [
+      "tree trail clearance: 100 current levels x 9 species, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/map-details-all.log",
+    "evidence_scope": "current",
+    "sha256": "f081b12072c88db0698591371802dd1f3b19ec79e5c2f34007dcf12fa9c42b8c",
+    "summary": [
+      "map node checks: 26900 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/map-details-default.log",
+    "evidence_scope": "default subset; all-level evidence is map-details-all.log",
+    "sha256": "306efb860fcfeb939dc8596d7101b6e9cf1f6172010f18e98d1bf9ce72c60c91",
+    "summary": [
+      "map node checks: 3482 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/map-details-status.log",
+    "evidence_scope": "current",
+    "sha256": "e2e16c1e1a2fc7aacbbd76472b941de00d32a4123cbec94dd6e45768e6912952",
+    "summary": [],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_aviary_actions.log",
+    "evidence_scope": "current",
+    "sha256": "d923bcc5c95224d55358d8a92480ce0dea51a63fce730caf30fb78bb8b5937b1",
+    "summary": [
+      "aviary action checks: 1203 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_aviary_text.log",
+    "evidence_scope": "current",
+    "sha256": "3fe7952889c570a6d6894cc84c54d063d6bdf91403177f6b1a4e1ff78bb08884",
+    "summary": [
+      "aviary text checks: 378 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_chest.log",
+    "evidence_scope": "current",
+    "sha256": "3a7a476eb398a6a32b1f335ab289f5de432dfbc9e96da7e6c9f9c7ad1609ce52",
+    "summary": [
+      "chest checks: 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_dialog_skin.log",
+    "evidence_scope": "current",
+    "sha256": "5cb3418e4c0f8aaf62a4f116b7736793d83e7578c934d102fc1e6361e18dbe6d",
+    "summary": [
+      "dialog skin checks: 192 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_draw_purchase.log",
+    "evidence_scope": "current",
+    "sha256": "89fa1c843d13960b11ee27c508f868f516db6322e7dd5f22cbe26e72faffd5aa",
+    "summary": [
+      "draw/purchase checks: 180 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_draw_result.log",
+    "evidence_scope": "current",
+    "sha256": "5a579ed9a9279f0156af6145d3a4a37a43d39cda88971360438329c7dd7e35f9",
+    "summary": [
+      "draw result checks: 353 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_family_dialogs.log",
+    "evidence_scope": "current",
+    "sha256": "252b1c0072f38ece9cef11a969df7cd565fa45a3b2ce429847df2e9108ea6369",
+    "summary": [
+      "family dialog checks: 2306 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_heading_composites.log",
+    "evidence_scope": "current",
+    "sha256": "9ac5026c9d6d0e2bb30dc5c64cc0008bc1f97cfc3a101541f340d8e97398d83a",
+    "summary": [
+      "heading composite checks: 18 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_level_heading.log",
+    "evidence_scope": "current",
+    "sha256": "ab89b40fc44d7b10de2eebde39051cfcf700833e37c53eb48683f5e5032d6967",
+    "summary": [
+      "level heading checks: 3229 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_map_aviary.log",
+    "evidence_scope": "current",
+    "sha256": "d9ea4752692f735fba33c7c95c91c920e721a9ae54aac3a2582172f87fd530c8",
+    "summary": [
+      "map/aviary GUI checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_map_card_clip.log",
+    "evidence_scope": "current",
+    "sha256": "a9c5646266959ed179017b9923b1c5e1e7cbecd5ff1446f69f35f06da7942388",
+    "summary": [],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_map_nodes.log",
+    "evidence_scope": "pre-polish connected-tree checkpoint; not final polish coverage",
+    "sha256": "68ff523fe17786c9f69de27c96bc6e073b2493f6f0898fea3e8ef3f1ab9da31d",
+    "summary": [
+      "map node checks: 2090 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_menu_navigation.log",
+    "evidence_scope": "current",
+    "sha256": "a7657e7d18106c78fdd572a92e977f2a7a254aac6359c44e93a16a291ea5cd14",
+    "summary": [
+      "menu navigation checks: 107 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 3 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_purchase_buttons.log",
+    "evidence_scope": "current",
+    "sha256": "5374c7bb6cdc20f2470aeeca008d5514b86c829f3c860535991696a20aee157b",
+    "summary": [
+      "purchase button checks: 128 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_purchase_close.log",
+    "evidence_scope": "current",
+    "sha256": "6cabcda5ec2cdcc12c587011f6a1e0b125d943a3f8d9c6c3ec2b827c81c29281",
+    "summary": [
+      "purchase Close checks: 1676 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_purchase_dialogs.log",
+    "evidence_scope": "current",
+    "sha256": "1a02a1333d159281e37f39142032332e62bf0fed6922d9cecd55b0a4fd11a509",
+    "summary": [
+      "purchase dialog checks: 98 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_purchase_surface-missing-argument.log",
+    "evidence_scope": "failed harness invocation; corrected log retained separately",
+    "sha256": "4f9a59aa530e1e22ce292f462efd17ea9da966fdfd684759edbfd0c5df3ffe87",
+    "summary": [],
+    "diagnostics": [
+      "ERROR: Supply --surface-baseline for the recorded geometry"
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_purchase_surface.log",
+    "evidence_scope": "current",
+    "sha256": "d3b44c05a56dcbb616a32c705177019b65b3082d4d1837ddde1ab49ccd420bc3",
+    "summary": [
+      "purchase surface checks: 252 checks, 0 failures; 28 states"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_reward_quantities.log",
+    "evidence_scope": "current",
+    "sha256": "513c353266ccc366f02bf7fed250d3cae4a44adecc3dc6d14b0c51052f536455",
+    "summary": [
+      "reward quantity checks: 176 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_shop_amounts.log",
+    "evidence_scope": "current",
+    "sha256": "b0e2d711ef61f9f0ed6dd429f810781aaedd14df484ade8fd993b547db296cfb",
+    "summary": [
+      "shop amount checks: 1338 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/run_shop_cards.log",
+    "evidence_scope": "current",
+    "sha256": "ef157c3f801cbd1b7b815d90626703c6fcfcae3d4022448b8e846009585c603c",
+    "summary": [
+      "shop card check: 0 failures"
+    ],
+    "diagnostics": [
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "evidence/cartoon-headless/status.log",
+    "evidence_scope": "current",
+    "sha256": "df868accc98d0181155cf3a89ed106ec7a4c31cf73368b6dcc0b7b66061b9e98",
+    "summary": [],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/check_map_hit_regions.log",
+    "evidence_scope": "current",
+    "sha256": "2b650c3a94b8dca72dedb92dec48f03c58f7e6ef6ef7d87b356b4585d4122e45",
+    "summary": [
+      "map hit regions: 17500 checks, 0 failures; all100 current levels"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/rounded-cards.log",
+    "evidence_scope": "current",
+    "sha256": "3279add4e106554103db9cc22dc72e31df6974997e4057e41124dd1ddab4dc48",
+    "summary": [],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_aviary_actions.log",
+    "evidence_scope": "current",
+    "sha256": "c5677dfdb13d2c384789a7c0a554a9240ad5d2a6543100dede31bd1238f48568",
+    "summary": [
+      "aviary action checks: 1203 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_aviary_text.log",
+    "evidence_scope": "current",
+    "sha256": "82cd4809f85601fd2f42fef1599425c1b166757dba508ddd71e3e205aa9181ac",
+    "summary": [
+      "aviary text checks: 378 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_chest.log",
+    "evidence_scope": "current",
+    "sha256": "2e8579575a9c378efa4d67ce158ff6b6637606e19d9d10b3d93480242de8e088",
+    "summary": [
+      "chest checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_dialog_skin.log",
+    "evidence_scope": "current",
+    "sha256": "cfae4577e2a1b352975e2b5040ca5ec5e9e31a4a2d01fa723cd23507af6141bb",
+    "summary": [
+      "dialog skin checks: 192 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_draw_result.log",
+    "evidence_scope": "current",
+    "sha256": "6f0829c939cfd4bb117710a3a534863b1c5de4fd411fec98cfe6a4cb3fbd7471",
+    "summary": [
+      "draw result checks: 353 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_family_dialogs.log",
+    "evidence_scope": "current",
+    "sha256": "f980451ce846fed286e36135d74ec9fb581863b34304738f1b8c233613ede833",
+    "summary": [
+      "family dialog checks: 2306 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_heading_composites.log",
+    "evidence_scope": "current",
+    "sha256": "822c85039715ff56fcfbe1420d043a168aaf3d4c619562d87e6c7bdd601b73b3",
+    "summary": [
+      "heading composite checks: 18 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_level_heading.log",
+    "evidence_scope": "current",
+    "sha256": "370612ea79c84e2903e98379a631c864d62bcb392153afad3344e3454dd4c553",
+    "summary": [
+      "level heading checks: 3229 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_map_aviary.log",
+    "evidence_scope": "current",
+    "sha256": "182f0e6abcd0db0d9dc148ee126abef96b55589704fd155ec4262e28cea8e2c1",
+    "summary": [
+      "map/aviary GUI checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_map_nodes.log",
+    "evidence_scope": "current",
+    "sha256": "d8c1bd7342c0801521d6aa0f9924831ac46758012ff59ba35425145161d10d51",
+    "summary": [
+      "map node checks: 3482 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_menu_navigation.log",
+    "evidence_scope": "current",
+    "sha256": "9da37fac087f9dc8d9df8d5339cb9cc8da53409d34693a509fccd98b3a3a301b",
+    "summary": [
+      "menu navigation checks: 107 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_purchase_buttons.log",
+    "evidence_scope": "current",
+    "sha256": "6d304ac67d32c4af1aa92a440e4d254e27a84e79e9a10abd722e1270eb7a67b3",
+    "summary": [
+      "purchase button checks: 128 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_purchase_close.log",
+    "evidence_scope": "current",
+    "sha256": "d767aba73b970512aa10cf5ee7022f2b105565bc1fcd8af7e490da8b8a45fad3",
+    "summary": [
+      "purchase Close checks: 1676 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_purchase_dialogs.log",
+    "evidence_scope": "current",
+    "sha256": "cf04261807286c61ab0fbf7df6520f44c83178a62ff6673448479610b0844df7",
+    "summary": [
+      "purchase dialog checks: 98 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_purchase_surface.log",
+    "evidence_scope": "current",
+    "sha256": "567e8fd2c21331a83c1e5af6772f662132a1bd648a8d4b49e5b1570e0e5eff75",
+    "summary": [
+      "purchase surface checks: 252 checks, 0 failures; 28 states"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/run_reward_quantities.log",
+    "evidence_scope": "current",
+    "sha256": "04f763d4ff0b34b1ae3bd182feb13598353850b6b23a26296ffd00500e9e5250",
+    "summary": [
+      "reward quantity checks: 176 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/shop.log",
+    "evidence_scope": "current",
+    "sha256": "4674ab8eb84b05dacf8487172cc9f0515015d40e9b84cbf436b9decbbcd516dc",
+    "summary": [
+      "shop GUI check: 0 failures"
+    ],
+    "diagnostics": [
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/status.log",
+    "evidence_scope": "current",
+    "sha256": "05fba62c9a7aeb2f97d061246481c75c02a142a52a1c89640b239e3a07cba354",
+    "summary": [],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/tree-360x640.log",
+    "evidence_scope": "current",
+    "sha256": "78664aad0d59a42b6719a7464e4fd763040b956ea2e6a32158d8ae48542b94d5",
+    "summary": [
+      "map node checks: 882 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/tree-390x844.log",
+    "evidence_scope": "current",
+    "sha256": "cad9e6bd25c06c6f67bd1c2b553797a7f5460197a3f6a44698ac0cb3b8bc6244",
+    "summary": [
+      "map node checks: 882 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "evidence/cartoon-gui/tree-768x1024.log",
+    "evidence_scope": "current",
+    "sha256": "33bf21127a7ea45df205b3cd3ddbfdf59b6c046e811f1992a7d12d6d00487d9d",
+    "summary": [
+      "map node checks: 882 checks, 0 failures"
+    ],
+    "diagnostics": []
+  }
+]

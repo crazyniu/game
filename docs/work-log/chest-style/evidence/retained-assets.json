@@ -1,0 +1,116 @@
+[
+  {
+    "path": "PerchSort/art/label_home_island_play_zh.png",
+    "source_sha256": "c693036d900ed364487b1d393181b382fe5f7929d98e2a9cc85090eb613576fd",
+    "current_sha256": "c693036d900ed364487b1d393181b382fe5f7929d98e2a9cc85090eb613576fd",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/label_home_island_play_en.png",
+    "source_sha256": "516520060bdb16fe1c2798f1dbf389b2c49dc23c56599f259e290c1719906be9",
+    "current_sha256": "516520060bdb16fe1c2798f1dbf389b2c49dc23c56599f259e290c1719906be9",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/home_play_plate.png",
+    "source_sha256": "215485194a0ce06ec6f7769fbb36f57f339f4a28833cb6022aa1bfc07409b534",
+    "current_sha256": "215485194a0ce06ec6f7769fbb36f57f339f4a28833cb6022aa1bfc07409b534",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/btn_home_island_play_zh.png",
+    "source_sha256": "c67ffd14a96de30501ddda818cd438157c77b964f46d9db348f98ad47a1f06ef",
+    "current_sha256": "c67ffd14a96de30501ddda818cd438157c77b964f46d9db348f98ad47a1f06ef",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/btn_home_island_play_en.png",
+    "source_sha256": "83e3b3aa50e06d4ccff9b0ef0c025d20af0d77cbf5cacaa88faabea8f6182311",
+    "current_sha256": "83e3b3aa50e06d4ccff9b0ef0c025d20af0d77cbf5cacaa88faabea8f6182311",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_0.png",
+    "source_sha256": "1ab52f61415c90c425193b5e10d99a5a3eba8d881d4758a90e9a1d91a6b99609",
+    "current_sha256": "1ab52f61415c90c425193b5e10d99a5a3eba8d881d4758a90e9a1d91a6b99609",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_1.png",
+    "source_sha256": "9a018212208c5fb83862483e0a7bedccc2c90a230f0247c36dbffb9e0aef55aa",
+    "current_sha256": "9a018212208c5fb83862483e0a7bedccc2c90a230f0247c36dbffb9e0aef55aa",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_2.png",
+    "source_sha256": "63d0b55e2f6805032d331909318cafbbe5ca90bd7be99363e923a6a0c4141609",
+    "current_sha256": "63d0b55e2f6805032d331909318cafbbe5ca90bd7be99363e923a6a0c4141609",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_3.png",
+    "source_sha256": "cde88781ffa81b5c217e638d41c7e36e6c21a2a026f71eee33604414db694396",
+    "current_sha256": "cde88781ffa81b5c217e638d41c7e36e6c21a2a026f71eee33604414db694396",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_4.png",
+    "source_sha256": "99c4a8c89b247cc754941beaae1e27f93030738ad4ddf58425b293f38f98b090",
+    "current_sha256": "99c4a8c89b247cc754941beaae1e27f93030738ad4ddf58425b293f38f98b090",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_5.png",
+    "source_sha256": "2d5567846f2ab615fcd20251f9ff279b34bafff91a912a9230c48c57862f88a7",
+    "current_sha256": "2d5567846f2ab615fcd20251f9ff279b34bafff91a912a9230c48c57862f88a7",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_6.png",
+    "source_sha256": "6194567cbfe955fb2f777e3c9cf5f3cc8f874b4c614358cc0e28d2874661fe3f",
+    "current_sha256": "6194567cbfe955fb2f777e3c9cf5f3cc8f874b4c614358cc0e28d2874661fe3f",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_7.png",
+    "source_sha256": "6c784b7894d1d3dc47a66655b1fe299a817b8df4033e6b9c5885174c94ba4f11",
+    "current_sha256": "6c784b7894d1d3dc47a66655b1fe299a817b8df4033e6b9c5885174c94ba4f11",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_8.png",
+    "source_sha256": "029702089caaef8301101d3c97808e549d5691192c1f183f2554eb0c3f6afeff",
+    "current_sha256": "029702089caaef8301101d3c97808e549d5691192c1f183f2554eb0c3f6afeff",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/icon_home_island_digit_9.png",
+    "source_sha256": "173bf99d261d65bce2162c51c412f89aec315c0aaf75be806c394fbd366becb8",
+    "current_sha256": "173bf99d261d65bce2162c51c412f89aec315c0aaf75be806c394fbd366becb8",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/island/chest_star_closed.png",
+    "source_sha256": "2f1a03ae976a0e6701f3888edbd17a776cd7c3ebf9370b632206de312f3fdb69",
+    "current_sha256": "2f1a03ae976a0e6701f3888edbd17a776cd7c3ebf9370b632206de312f3fdb69",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/island/chest_star_open.png",
+    "source_sha256": "2d68945179b42425886e18851d034544df8a904d87bd20e0b50294b0bcbc4d50",
+    "current_sha256": "2d68945179b42425886e18851d034544df8a904d87bd20e0b50294b0bcbc4d50",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/island/background_home_jungle.png",
+    "source_sha256": "e418dbb71938021250625771461726fe2526ab758d7f301ca0192152f9f2f5b4",
+    "current_sha256": "e418dbb71938021250625771461726fe2526ab758d7f301ca0192152f9f2f5b4",
+    "unchanged": true
+  },
+  {
+    "path": "PerchSort/art/island/chest_islet_support.png",
+    "source_sha256": "384bde20f1d89690ed348cbb8fb29ca8590dc0aa92fa82cdb57ad500a4e58334",
+    "current_sha256": "384bde20f1d89690ed348cbb8fb29ca8590dc0aa92fa82cdb57ad500a4e58334",
+    "unchanged": true
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "reference": "libfile_26739ee3526481919b63d88179fcbaa0",
+    "path": "/workspace/scratch/2bd695cff14d/ui-layout-feedback/image(7).png",
+    "sha256": "e681da16c80b50a0d9116b15107537a98525976ec85fdc57e31e3a06f9e7fe89"
+  },
+  {
+    "reference": "libfile_5eabf6e1d1488191bf8e1b89a3cc1250",
+    "path": "/workspace/scratch/2bd695cff14d/ui-layout-feedback/image(8).png",
+    "sha256": "90e23cbb15ab5e2e1ea8bbf9eeca1f7c92b46dd94f12dff65b9e060a17b8b522"
+  },
+  {
+    "reference": "libfile_f57fb23a07e481919ac89fcb76ca5ede",
+    "path": "/workspace/scratch/2bd695cff14d/ui-layout-feedback/image(9).png",
+    "sha256": "67b12ee189dad6e7c93f8bc0562eccf269205362c6408640bc5c0df06f6d250a"
+  },
+  {
+    "reference": "libfile_e3600272a2b48191b35a8d8d27d63d48",
+    "path": "/workspace/scratch/2bd695cff14d/ui-layout-feedback/image(10).png",
+    "sha256": "e2c633341b696ffd565c5ae7d32d885904837deafa4748e6a28d9142e2ead232"
+  },
+  {
+    "reference": "libfile_192e0c30108c81919004a91513e05c6f",
+    "path": "/workspace/scratch/2bd695cff14d/branch-layout-feedback/image(20261112-040741).png",
+    "sha256": "375737696a2447a8a23e647caedf3c37bf30ba73d7b2522f31d2241a46199f69",
+    "scope": "Latest follow-up: title/close review or no-road tree/branch redesign; pending isolated increments."
+  },
+  {
+    "reference": "libfile_e2a6d75ea2cc8191921a54c868605a83",
+    "path": "/workspace/scratch/2bd695cff14d/branch-layout-feedback/image(20261112-040743).png",
+    "sha256": "4fafacff55f90a3452e5c1f355d3ec0dceac43c57ef52e3e989c0a6974c9bd59",
+    "scope": "Latest follow-up: title/close review or no-road tree/branch redesign; pending isolated increments."
+  },
+  {
+    "reference": "libfile_a02ab4c60c70819197c2a04e8a1c1d7a",
+    "path": "/workspace/scratch/2bd695cff14d/dialog-style-feedback/image(20261112-042222).png",
+    "sha256": "b53274b935d26395779b6578cea9612a1cbf68152ea61bfe1cecde4e76e49ae5",
+    "scope": "Explicitly retained Sunny Aviary detail. No page layout, art or shared-style changes."
+  },
+  {
+    "reference": "libfile_a8140db67e14819192485be035d83ac3",
+    "path": "/workspace/scratch/2bd695cff14d/dialog-style-feedback/image(20261112-042224).png",
+    "sha256": "21abf2211d2461d55b52523b35914b7c823c6aeadaf18a6a16525a7741efe862",
+    "scope": "Unapproved Family and similar framed purchase surfaces must use a brighter cartoon treatment; new independent material is under review."
+  }
+]

@@ -1,0 +1,274 @@
+[
+  {
+    "file": "build/family-dialogs/screens/level_card_first_visit_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0adc5f697cf6805e16fd97d6ec4a5bcf53b987fa3dc5ab4fa6d748bb392da457"
+  },
+  {
+    "file": "build/family-dialogs/screens/level_card_first_visit_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3f9d569e37029bf066b6df3613043f0cfeebbe2af1a7f7d167bcb00188bd8897"
+  },
+  {
+    "file": "build/family-dialogs/screens/level_card_full_roster_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "29db4e2ee4093fdf530053e3e08d64f945a53e19449b9db3f4613a2017348abb"
+  },
+  {
+    "file": "build/family-dialogs/screens/level_card_full_roster_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "2e787fb0b27da1c84d5c86418ab907c99ed7ba3963ac32f0c8a905716afbfc90"
+  },
+  {
+    "file": "build/family-dialogs/screens/level_card_locked_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "19db4d450bb993f70c912b30b7f64e927ac8d6a5976f8d8e30fd5463fe3b6804"
+  },
+  {
+    "file": "build/family-dialogs/screens/level_card_locked_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "aa7a9c2171efca07b0d9e7f0de05ee0e6bf0234e5ef59681d37cdf3ca56ef083"
+  },
+  {
+    "file": "build/family-dialogs/screens/new_friend_berry_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0ab54a6c19f41c0728a1d303f2786d23f08dd17e7cb11e895a60183dfb96196f"
+  },
+  {
+    "file": "build/family-dialogs/screens/new_friend_berry_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9fca78cf1d85064bf55802b589a342013db626f887e11b0beed212562af31d60"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_all_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "761a8040979ee9a17287c5a6bc7de43543d419c39feb64397a8c6626a95fd7fa"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_all_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5777d9da9a52d642e38eef17c0b85b7c04e6646df4b9c5c01527b9c71eee75ef"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_empty_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bd4e69e802742983d655a4701e7e14b0ec952d3a6bff3dc62b35e3bbcc2428ee"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_empty_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "98a95aada43879276fb90cc2a090e235bba1098a09e579ad07c45671426a7422"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "203052f43e62d7220d1f6020534bff4865f0d4d7de69b9240a4225584bc29080"
+  },
+  {
+    "file": "build/family-dialogs/screens/rewards_challenge_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "446f03d13dbff91682fe28d404fe28e0679556d664647867367ad31c2bb46503"
+  },
+  {
+    "file": "build/family-dialogs/screens/unlock_owl_eye_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e8d186d9d1b55650c7be28b94d23ed1be0685e193a3177f171b6757342ec0fc8"
+  },
+  {
+    "file": "build/family-dialogs/screens/unlock_owl_eye_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ef53eaa73537b7482ced53e19ed191c84e6491e5871609a3928a22eb022ff4f8"
+  },
+  {
+    "file": "build/family-dialogs/screens/unlock_sapling_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d72a149b01f1968e6cf3fa862c4c73240e28952cd58dfc9ea04b1331749bc88a"
+  },
+  {
+    "file": "build/family-dialogs/screens/unlock_sapling_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "74049f0580547109ec98ffb36800ec5693f37ecfb60c0680ab48fb32273a5df4"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_milestone_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "78f585ce7d51b1a80a289f8a38bb14acbff9e04ebddbdf8a7926a98adc380b1e"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_milestone_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6b71c062d17bc13910cc5c22b5a8d8a34acc372b51cbcdca749345b83e91c43c"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_one_star_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3f67f914e6f3484656c4f1f16a6fe4770b9ca868aa4ef75444c9559554f11244"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_one_star_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3c7e10e9c739a8f15d113c4939f4bd2071453082577224337970ddf35d711767"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_three_stars_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9ddcfdc5b0dd922cd366161f5c901df0a0c8abf23a07cbe1853f21eb4c6f1e50"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_three_stars_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6e8023224b042450d6a6a0176e4ffdec3009adbb7616bb064edff5a099914c07"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_two_stars_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "02bae750e22c240d16ba03396ed004279b42bf33fdd8a3caf78cd9e121189d40"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_two_stars_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3efe757afe0fe08cb1f25656981cfdd14895e9f7a400056d7fe673bf16b25288"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_zero_reward_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "50cf532a6be3e02e17cc9290453563ce60be440b5f1731fe9b953582b66e2d4c"
+  },
+  {
+    "file": "build/family-dialogs/screens/win_zero_reward_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ab5d315c1380e59653ef249a5e2e06d20604fbe1f116e79274cd7dcbd37666f1"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_complete_1_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0d14790b72a31becbde4a65ab170ae452e7c15012c91284e550aab34238541c7"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_complete_1_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3d0a9be805c1222a94edb17591f10cf9523efabd802b353924a8ffdb260311d3"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_unlock_2_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "07b659a1d224b228e5409922628177e0706becfd26959a7722dd321ee6058e99"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_unlock_2_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "1fcffe8c547b4683e0e5815e4d7a7588629accef989b0b785c9195d641224a18"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_unlock_4_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "81e3ed4da7732ca1a7c901a1218f32d317d09310a13c1590da485909a7a3fbb7"
+  },
+  {
+    "file": "build/family-dialogs/screens/world_unlock_4_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "4539341aee392acbe6713b69f8afefab52bf864a81eb94fa963935e2c6dab958"
+  }
+]

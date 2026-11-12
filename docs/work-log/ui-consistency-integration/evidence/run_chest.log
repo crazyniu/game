@@ -1,0 +1,163 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Condition "!actions.custom_samplers.has(function->arguments[j].tex_builtin)" is true. Continuing.
+   at: _dump_node_code (servers/rendering/shader_compiler.cpp:1329)
+   GDScript backtrace (most recent call first):
+       [0] _icon_button (res://game/home_view.gd:135)
+       [1] setup (res://game/home_view.gd:79)
+       [2] _open_home (res://game/main.gd:115)
+       [3] _go (res://game/main.gd:226)
+       [4] open_home (res://game/main.gd:108)
+       [5] _ready (res://game/main.gd:60)
+       [6] _run (res://tests/run_chest.gd:32)
+PASS menu music is preserved
+PASS Open availability at 0 stars
+PASS Open and Play keep equal sizes at 0 stars
+PASS Home-family action ink has consistent height at 0 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 0 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 1 stars
+PASS Open and Play keep equal sizes at 1 stars
+PASS Home-family action ink has consistent height at 1 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 1 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS green fill stays inside green end caps at 1 stars
+PASS fill retains fixed rounded end caps
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 18 stars
+PASS Open and Play keep equal sizes at 18 stars
+PASS Home-family action ink has consistent height at 18 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 18 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS green fill stays inside green end caps at 18 stars
+PASS fill retains fixed rounded end caps
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 29 stars
+PASS Open and Play keep equal sizes at 29 stars
+PASS Home-family action ink has consistent height at 29 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 29 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS green fill stays inside green end caps at 29 stars
+PASS fill retains fixed rounded end caps
+PASS disabled Open ignores input
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 30 stars
+PASS Open and Play keep equal sizes at 30 stars
+PASS Home-family action ink has consistent height at 30 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 30 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS green fill stays inside green end caps at 30 stars
+PASS fill retains fixed rounded end caps
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS Open availability at 92 stars
+PASS Open and Play keep equal sizes at 92 stars
+PASS Home-family action ink has consistent height at 92 stars
+PASS Open uses the reviewed Home-family word
+PASS ready badge at 92 stars
+PASS approved jungle background
+PASS no enclosing chest card
+PASS progress uses the production threshold
+PASS progress uses the green rail
+PASS current/total is centered in the approved progress group
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS progress uses Home digits and matching separator
+PASS green fill stays inside green end caps at 92 stars
+PASS fill retains fixed rounded end caps
+PASS Close dismisses chest
+PASS Close preserves all profile values
+PASS chest has live prop breathing
+PASS repeated input opens exactly one chest
+PASS production coin reward preserved
+PASS production booster count preserved
+PASS remaining ready chests preserved
+PASS open shows reward result
+PASS reward confirmation uses the reviewed Home-family word
+PASS Confirm dismisses result
+PASS chest can reopen with remaining rewards
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+PASS duplicate booster quantity is exact
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+PASS duplicate boosters combine in one object
+PASS prize consists only of an icon and painted amount
+PASS card-free feather reward keeps exact amount
+PASS Open locale remains live
+PASS Play reuses the accepted Home source
+PASS existing chest word updates after locale change
+PASS Open locale remains live
+PASS Play reuses the accepted Home source
+PASS existing chest word updates after locale change
+PASS balance still opens purchase page over chest
+PASS Play keeps real level navigation
+ENTRANCE level=32 kind=full skipped=false ms=3460
+PASS Play reaches an interactive board
+PASS mute still stops music
+chest checks: 0 failures

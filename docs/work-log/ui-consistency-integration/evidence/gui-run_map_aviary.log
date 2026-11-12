@@ -1,0 +1,57 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PASS exactly one shared Play
+PASS initial forest selected without entry
+PASS neighbour card selects without opening
+PASS locked Play dims without resizing
+PASS locked Play cannot enter
+PASS shared Play opens selected world and hides on trail
+PASS current marker is last only inside the trail, never above modal layers
+PASS level card paints above the complete trail in normal scene order
+PASS level-card Close restores the same trail without leftover overlay
+PASS Back restores same selected card and shared Play
+PASS last forest centres at strip end
+PASS swipe selects next forest without entry
+PASS click after swipe opens chosen forest
+PASS language refresh retains map selection
+PASS language refresh retains open world trail
+PASS unknown bird is non-destructive and does not open
+PASS met bird enters detail
+PASS opening detail does not mutate profile
+PASS six equal outfit choices retained
+PASS existing outfit purchase equips
+PASS purchase preserves canonical price
+PASS unaffordable outfit action is disabled
+PASS unaffordable action does not purchase
+PASS detail Back restores list
+PASS detail Back preserves list scroll
+PASS crow keeps no outfit choices
+MOTION 0.11 scale=(1.896238, 1.949671) texture=res://birds/sunny_front.png
+MOTION 1.25 scale=(1.89845, 1.944141) texture=res://birds/sunny_front.png
+MOTION 2.54 scale=(1.903005, 1.932752) texture=res://birds/sunny_front.png
+MOTION 3.69 scale=(1.908061, 1.920113) texture=res://birds/sunny_front.png
+MOTION 4.85 scale=(1.911134, 1.912431) texture=res://birds/sunny_front.png
+MOTION 5.97 scale=(1.911073, 1.912582) texture=res://birds/sunny_front.png
+MOTION 7.13 scale=(1.908012, 1.920237) texture=res://birds/sunny_front.png
+MOTION 8.26 scale=(1.903331, 1.931937) texture=res://birds/sunny_front.png
+MOTION 9.38 scale=(1.898606, 1.943814) texture=res://birds/sunny_tilt_left.png
+MOTION 10.48 scale=(1.896301, 1.949514) texture=res://birds/sunny_front.png
+MOTION 11.62 scale=(1.897213, 1.947233) texture=res://birds/sunny_front.png
+MOTION 12.75 scale=(1.901264, 1.937105) texture=res://birds/sunny_front.png
+MOTION 13.87 scale=(1.991253, 1.810069) texture=res://birds/sunny_tilt_left.png
+MOTION 14.96 scale=(1.910255, 1.914629) texture=res://birds/sunny_front.png
+MOTION 16.09 scale=(1.911471, 1.911589) texture=res://birds/sunny_front.png
+MOTION 17.21 scale=(1.909391, 1.916787) texture=res://birds/sunny_front.png
+MOTION 18.35 scale=(1.904922, 1.927961) texture=res://birds/sunny_front.png
+MOTION 19.43 scale=(1.90015, 1.93989) texture=res://birds/sunny_front.png
+MOTION 20.54 scale=(1.896751, 1.948387) texture=res://birds/sunny_outfit_1_turn_left_03.png
+MOTION 21.65 scale=(1.89622, 1.949714) texture=res://birds/sunny_outfit_1_cheer_02.png
+PASS live hero breathes continuously
+PASS live hero uses distinct drawn poses
+PASS menu music player active
+PASS mute stops music player
+PASS unmute restores menu music
+map/aviary GUI checks: 0 failures

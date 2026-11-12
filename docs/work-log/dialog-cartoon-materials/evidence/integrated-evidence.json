@@ -1,0 +1,126 @@
+{
+  "rewards": [
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_all_en.png",
+      "sha256": "2861d89dad8786a040e5fffa8693ea255ab297c5188ac7549ddcc30e9de739bb",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_all_zh.png",
+      "sha256": "3792cce1acdda16c4c4853a217a1b4b29ff42526ae07bc536bebddf4df2edb43",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_empty_en.png",
+      "sha256": "02cd3b01b9a87211c10aa50e7d47c3607b05eb86cad59d68944cc7bc528f58d9",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_empty_zh.png",
+      "sha256": "55688d4e5f78bfbdfac86bd9bc45398304328edec1dcd74d805112ccf03aa184",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_en.png",
+      "sha256": "3efd9dfe82442e23e26a747baf71ac7026dcf042f4a2db1bce273067d91313b7",
+      "size": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "file": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-screens/popups__rewards_challenge_zh.png",
+      "sha256": "9936e13bbbd64b8e9d0d804ef2f55b937307e43703e7cdda1f55e5d45f08d518",
+      "size": [
+        1080,
+        1920
+      ]
+    }
+  ],
+  "motion": [
+    {
+      "state": "win_three_stars",
+      "directory": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-motion/motion/win_three_stars",
+      "frames": 16,
+      "sample_times_ms": [
+        1317,
+        2643,
+        3812,
+        4971,
+        6123,
+        7248,
+        8365,
+        9511,
+        10653,
+        11838,
+        12965,
+        14087,
+        15251,
+        16350,
+        17495,
+        18613
+      ],
+      "span_ms": 17296
+    },
+    {
+      "state": "new_friend_berry",
+      "directory": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-motion/motion/new_friend_berry",
+      "frames": 16,
+      "sample_times_ms": [
+        1170,
+        2682,
+        3735,
+        4855,
+        5964,
+        7046,
+        8196,
+        9356,
+        10514,
+        11666,
+        12801,
+        13965,
+        15082,
+        16233,
+        17368,
+        18531
+      ],
+      "span_ms": 17361
+    },
+    {
+      "state": "world_unlock_2",
+      "directory": "/workspace/scratch/2bd695cff14d/game-approved-ui-integration/build/text-centering/all-pages/feedback-motion/motion/world_unlock_2",
+      "frames": 16,
+      "sample_times_ms": [
+        1175,
+        2669,
+        3916,
+        5122,
+        6299,
+        7500,
+        8690,
+        9938,
+        11138,
+        12349,
+        13539,
+        14732,
+        15942,
+        17137,
+        18315,
+        19499
+      ],
+      "span_ms": 18324
+    }
+  ]
+}

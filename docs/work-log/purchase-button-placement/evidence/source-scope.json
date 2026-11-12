@@ -1,0 +1,28 @@
+{
+  "shop_view.gd": {
+    "only_expected_coordinate_change": true,
+    "sha256": "669a279b6caa6f34d23f2127c368cd3438a10937f7827efc20176f3c687e8621"
+  },
+  "aviary_view.gd": {
+    "only_expected_coordinate_change": true,
+    "sha256": "f81ad9e489e6503ac6a5d3b58a57df61b80b39ee3854a1bf6576277fda06f98c"
+  },
+  "unchanged_files": {
+    "coin_shop_view.gd": {
+      "worktree_sha256": "126dad194614504c6b1c2532837be2f421a1e2456a9df57f83c98f3c58bec0b0",
+      "unchanged_against_snapshot": true
+    },
+    "purchase_dialog.gd": {
+      "worktree_sha256": "d1e2f68dc3090092311a7400dc9699a158d3309d63a5f6aeaeea09dcb26a62b2",
+      "unchanged_against_snapshot": true
+    },
+    "popup.gd": {
+      "worktree_sha256": "dcd1378f37f241c3dffbfeb90a2465b2f4dafc49c918ada0cfe69738ebf4425d",
+      "unchanged_against_snapshot": true
+    },
+    "shop_skin.gd": {
+      "worktree_sha256": "5dd0bd78f32cbd4427f892dade260e8fa456900f0470648838976d4e66f19ffb",
+      "unchanged_against_snapshot": true
+    }
+  }
+}

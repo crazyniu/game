@@ -1,0 +1,378 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS zero reward suppresses reward group
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS coin-shop close picture
+PASS action remains visible
+PASS action remains visible
+PASS level play availability
+PASS modal exit disposes all owned nodes
+PASS level close never starts play
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS coin-shop close picture
+PASS action remains visible
+PASS action remains visible
+PASS level play availability
+PASS modal exit disposes all owned nodes
+PASS level close never starts play
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS new friend reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS action remains visible
+PASS action remains visible
+PASS feather reward has no backing
+PASS win reward quantity
+PASS next availability
+PASS repeated win actions dispatch exactly once
+PASS modal exit disposes all owned nodes
+PASS zero reward suppresses reward group
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS coin-shop close picture
+PASS action remains visible
+PASS action remains visible
+PASS level play availability
+PASS modal exit disposes all owned nodes
+PASS level close never starts play
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS coin-shop close picture
+PASS action remains visible
+PASS action remains visible
+PASS level play availability
+PASS modal exit disposes all owned nodes
+PASS level close never starts play
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS new friend reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS world reward quantity
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS instant gate arrives fully open
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS independent jungle background
+PASS forest panel preserves fixed corner material
+PASS original close semantics
+PASS panel stays in design viewport
+PASS primary remains at most 1.25 times secondary
+PASS action remains visible
+PASS challenge repeated confirm dispatches once
+PASS modal exit disposes all owned nodes
+PASS all presentation paths preserve profile
+PASS interrupted live celebration has no callback or overlay
+family dialog checks: 372 checks, 0 failures

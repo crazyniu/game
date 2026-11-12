@@ -1,0 +1,333 @@
+[
+  {
+    "mode": "headless",
+    "log": "headless/run_aviary_actions.log",
+    "summary": [
+      "aviary action checks: 1203 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_aviary_text.log",
+    "summary": [
+      "aviary text checks: 378 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_chest.log",
+    "summary": [
+      "chest checks: 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_draw_purchase.log",
+    "summary": [
+      "draw/purchase checks: 180 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_draw_result.log",
+    "summary": [
+      "draw result checks: 353 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_family_dialogs.log",
+    "summary": [
+      "family dialog checks: 2306 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_heading_composites.log",
+    "summary": [
+      "heading composite checks: 18 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_map_aviary.log",
+    "summary": [
+      "map/aviary GUI checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_map_nodes.log",
+    "summary": [
+      "map node checks: 2012 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_map_nodes_all.log",
+    "summary": [
+      "map node checks: 15500 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_menu_navigation.log",
+    "summary": [
+      "menu navigation checks: 107 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: Condition \"!actions.custom_samplers.has(function->arguments[j].tex_builtin)\" is true. Continuing.",
+      "ERROR: 3 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_purchase_buttons.log",
+    "summary": [
+      "purchase button checks: 128 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_purchase_dialogs.log",
+    "summary": [
+      "purchase dialog checks: 98 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_reward_quantities.log",
+    "summary": [
+      "reward quantity checks: 176 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_shop_amounts.log",
+    "summary": [
+      "shop amount checks: 1338 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "headless",
+    "log": "headless/run_shop_cards.log",
+    "summary": [],
+    "diagnostics": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "gui/entry-timing-repeat.log",
+    "summary": [
+      "TAP_TO_PLAYABLE route=home_play elapsed_ms=4441 playable=true pass=true",
+      "TAP_TO_PLAYABLE route=daily elapsed_ms=3828 playable=true pass=true",
+      "TAP_TO_PLAYABLE route=chest_play elapsed_ms=3819 playable=true pass=true",
+      "entry timing checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/entry-timing.log",
+    "summary": [
+      "TAP_TO_PLAYABLE route=home_play elapsed_ms=4621 playable=true pass=false",
+      "TAP_TO_PLAYABLE route=daily elapsed_ms=3801 playable=true pass=true",
+      "TAP_TO_PLAYABLE route=chest_play elapsed_ms=3810 playable=true pass=true",
+      "entry timing checks: 1 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/family-pointer.log",
+    "summary": [
+      "POINTER PASS: disabled Play and Close preserve callback count",
+      "POINTER PASS: Home callbacks=100",
+      "POINTER PASS: Retry callbacks=101",
+      "POINTER PASS: action_next callbacks=111",
+      "POINTER PASS: world Play; all callbacks exact; preserved balance=0"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_aviary_actions.log",
+    "summary": [
+      "aviary action checks: 1203 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_aviary_text.log",
+    "summary": [
+      "aviary text checks: 378 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_chest.log",
+    "summary": [
+      "chest checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_draw_result.log",
+    "summary": [
+      "draw result checks: 353 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_family_dialogs.log",
+    "summary": [
+      "family dialog checks: 2306 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_heading_composites.log",
+    "summary": [
+      "heading composite checks: 18 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_map_aviary.log",
+    "summary": [
+      "map/aviary GUI checks: 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_map_nodes.log",
+    "summary": [
+      "map node checks: 2012 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_menu_navigation.log",
+    "summary": [
+      "menu navigation checks: 107 checks, 0 failures"
+    ],
+    "diagnostics": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_purchase_buttons-after-numeric.log",
+    "summary": [
+      "purchase button checks: 128 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_purchase_buttons.log",
+    "summary": [
+      "purchase button checks: 128 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_purchase_dialogs-after-numeric.log",
+    "summary": [
+      "purchase dialog checks: 98 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_purchase_dialogs.log",
+    "summary": [
+      "purchase dialog checks: 98 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_reward_quantities.log",
+    "summary": [
+      "reward quantity checks: 176 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/run_shop_amounts-after-numeric.log",
+    "summary": [
+      "shop amount checks: 1338 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/tree-360x640.log",
+    "summary": [
+      "map node checks: 480 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/tree-390x844.log",
+    "summary": [
+      "map node checks: 480 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/tree-768x1024.log",
+    "summary": [
+      "map node checks: 480 checks, 0 failures"
+    ],
+    "diagnostics": []
+  },
+  {
+    "mode": "gui",
+    "log": "gui/tree-pointer.log",
+    "summary": [
+      "POINTER PASS: locked9 ignored, current8 opened exactly once; close card",
+      "POINTER PASS: cleared7 opens exactly once; close then Back",
+      "POINTER PASS: Back restores selector, profile unchanged"
+    ],
+    "diagnostics": []
+  }
+]

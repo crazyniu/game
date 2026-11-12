@@ -1,0 +1,24 @@
+{
+  "requested_interval_seconds": 0.2,
+  "requested_capture_duration_seconds": 30,
+  "physical_hold_requested_seconds": 2,
+  "exact_wall_clock_duration_independently_verified": false,
+  "selected_frames": [
+    {
+      "file": "f014.png",
+      "state": "Normal",
+      "sha256": "9c1f1a84180f9599170f0796e530735263d6f1935d4cdd97f21829f4ee4536b8"
+    },
+    {
+      "file": "f016.png",
+      "state": "Pressed",
+      "sha256": "bbc8249312162ffa87975497e869aa2ceea03fad4af7df402465eaba92da89c7"
+    },
+    {
+      "file": "f039.png",
+      "state": "Returned",
+      "sha256": "551579c23d0b2ebc0cb95cfb786d856c595745cbe8e8a0fe94dc52de4ac4397e"
+    }
+  ],
+  "captured_frame_count": 150
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "function": "settings",
+    "unchanged": true,
+    "sha256": "f038a59e7b741d2584a7776d309de8810665713f24751e5571decf18afd37160"
+  },
+  {
+    "function": "document",
+    "unchanged": true,
+    "sha256": "f27a55986a247e2626e184438d478bfbd4f039833f83c0964576bd679f890314"
+  },
+  {
+    "function": "goal_info",
+    "unchanged": true,
+    "sha256": "134650f717538c24d76f017f371dc44f416b264539833f71d3d75b9d0fd7bd44"
+  },
+  {
+    "function": "lucky_draw",
+    "unchanged": true,
+    "sha256": "55b215f932d7b28b6400e1b4ef253bf553b4bb25132f2bf6266fd457c5f52f34"
+  },
+  {
+    "function": "chapters",
+    "unchanged": true,
+    "sha256": "782f3b054b340913cdf1bcb9965b6b90aecc00e921914e828d8ac24d9afe3ab2"
+  },
+  {
+    "function": "chest",
+    "unchanged": true,
+    "sha256": "ec06a5dfb28396db8e35f488f26c86b42888a21157ee09b0180ab45150085479"
+  },
+  {
+    "function": "_chest_progress",
+    "unchanged": true,
+    "sha256": "a31bd9da0155ad3e053f359ed091e8b1e044ecefcb361a1891c96fe0b2570a8d"
+  },
+  {
+    "function": "_chest_page",
+    "unchanged": true,
+    "sha256": "0afd647fbfcb6a1a135f0a79b7b335f81280788362a4197adfd170bd67891136"
+  },
+  {
+    "function": "_chest_rewards",
+    "unchanged": true,
+    "sha256": "a63a1677ae510681465f81acbf6529b09ce40e2e2015d9b3d793d7e8cdea6ae8"
+  },
+  {
+    "function": "_draw_rewards",
+    "unchanged": true,
+    "sha256": "cfd1703a738e5e65d45b42339e6313e5b9a5b136184fa6508a94712cdc369205"
+  },
+  {
+    "file": "PerchSort/game/popup.gd",
+    "unchanged": true,
+    "sha256": "dcd1378f37f241c3dffbfeb90a2465b2f4dafc49c918ada0cfe69738ebf4425d"
+  },
+  {
+    "file": "PerchSort/game/board_view.gd",
+    "unchanged": true,
+    "sha256": "def09ec97c75834aa95a089fb3778dad04ec54611b12ad500ba70ab818def838"
+  },
+  {
+    "file": "PerchSort/core/board.gd",
+    "unchanged": true,
+    "sha256": "bfd27c1c047d7699fefb8d4530f2389fb3e8519fd05342f4df55db461a051542"
+  },
+  {
+    "file": "PerchSort/meta/profile.gd",
+    "unchanged": true,
+    "sha256": "3c68fa9ffed848e6699fac81f6f2715691e3a333dd69012293b409fad6f0ed9e"
+  }
+]

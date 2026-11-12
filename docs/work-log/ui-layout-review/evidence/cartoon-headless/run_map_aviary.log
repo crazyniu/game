@@ -1,0 +1,54 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS exactly one shared Play
+PASS initial forest selected without entry
+PASS neighbour card selects without opening
+PASS locked Play dims without resizing
+PASS locked Play cannot enter
+PASS shared Play opens selected world and hides on trail
+PASS current marker is last only inside the trail, never above modal layers
+PASS level card paints above the complete trail in normal scene order
+PASS level-card Close restores the same trail without leftover overlay
+PASS Back restores same selected card and shared Play
+PASS last forest centres at strip end
+PASS swipe selects next forest without entry
+PASS click after swipe opens chosen forest
+PASS language refresh retains map selection
+PASS language refresh retains open world trail
+PASS unknown bird is non-destructive and does not open
+PASS met bird enters detail
+PASS opening detail does not mutate profile
+PASS six equal outfit choices retained
+PASS existing outfit purchase equips
+PASS purchase preserves canonical price
+PASS unaffordable outfit action is disabled
+PASS unaffordable action does not purchase
+PASS detail Back restores list
+PASS detail Back preserves list scroll
+PASS crow keeps no outfit choices
+MOTION 0.22 scale=(1.9112, 1.912264) texture=res://birds/sunny_front.png
+MOTION 0.48 scale=(1.911307, 1.911999) texture=res://birds/sunny_front.png
+MOTION 0.73 scale=(1.909458, 1.91662) texture=res://birds/sunny_front.png
+MOTION 0.99 scale=(1.906123, 1.924959) texture=res://birds/sunny_front.png
+MOTION 1.24 scale=(1.902271, 1.934588) texture=res://birds/sunny_front.png
+MOTION 1.49 scale=(1.898823, 1.943208) texture=res://birds/sunny_front.png
+MOTION 1.73 scale=(1.896656, 1.948627) texture=res://birds/sunny_front.png
+MOTION 1.99 scale=(1.896337, 1.949423) texture=res://birds/sunny_front.png
+MOTION 2.25 scale=(1.898015, 1.945228) texture=res://birds/sunny_front.png
+MOTION 2.50 scale=(1.90124, 1.937167) texture=res://birds/sunny_front.png
+MOTION 2.75 scale=(1.975021, 1.833135) texture=res://birds/sunny_yawn.png
+MOTION 3.01 scale=(1.908731, 1.918438) texture=res://birds/sunny_front.png
+MOTION 3.27 scale=(1.911016, 1.912727) texture=res://birds/sunny_front.png
+MOTION 3.52 scale=(1.911406, 1.911751) texture=res://birds/sunny_front.png
+MOTION 3.78 scale=(1.909799, 1.915768) texture=res://birds/sunny_front.png
+MOTION 4.03 scale=(1.90662, 1.923716) texture=res://birds/sunny_front.png
+MOTION 4.29 scale=(1.90271, 1.933491) texture=res://birds/sunny_front.png
+MOTION 4.54 scale=(1.899104, 1.942505) texture=res://birds/sunny_front.png
+MOTION 4.80 scale=(1.896756, 1.948375) texture=res://birds/sunny_front.png
+MOTION 5.05 scale=(1.896213, 1.949733) texture=res://birds/sunny_front.png
+PASS live hero breathes continuously
+PASS live hero uses distinct drawn poses
+PASS menu music player active
+PASS mute stops music player
+PASS unmute restores menu music
+map/aviary GUI checks: 0 failures

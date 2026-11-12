@@ -1,0 +1,83 @@
+[
+  {
+    "file": "chest_30_stars.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "1c5c9824c2f54bc8a7cff4fa17438608287168b178eecd4e124900ebff159eaf",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "chest_92_stars.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "9428793b565b59bc58e07bb38483452a82113bfcd878e6812bf0a0346bcd5273",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "chest_actual_rewards.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "6718ce0d5e3df675ee596193d1dd0df544d77269de0171c68887b75bfbd10b68",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "chest_en.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "22161d4b1f93dfb5dc1a7e8878ac2e70711a3ab8f6fa4abc583fd711df6842bb",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "home_view__home_en.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "a1160bc184310190a0c3ce950832f0ebd7f66d10fd6f5f6ff299f8a3b15e4bfc",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "home_view__home_zh.png",
+    "dimensions": [
+      456,
+      812
+    ],
+    "sha256": "3ecbbf21fd4ba6ce10875f3bc137781c2fe8e40bf1f0aa93301f34bd1f5558b0",
+    "capture_kind": "native desktop-window viewport"
+  },
+  {
+    "file": "level_12.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "sha256": "363e86f75b3f9e860ef4e0e2df38d49f247d3e9e5649d39f4d5bacff31bfb8d6",
+    "capture_kind": "QA-only 1080x1920 engine render target"
+  },
+  {
+    "file": "level_25.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "sha256": "bd280a6a9ec9a98e3adccb847fbda6821dd94d28936588357d8e632fa5b8255e",
+    "capture_kind": "QA-only 1080x1920 engine render target"
+  },
+  {
+    "file": "level_8.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "sha256": "f678f0ea52f3bc28153c3e9bee34415992b7ad1eb864b9fa1e9cc7a5f0ecf547",
+    "capture_kind": "QA-only 1080x1920 engine render target"
+  }
+]

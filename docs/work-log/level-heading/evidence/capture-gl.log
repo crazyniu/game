@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+CAPTURE level_card_first_visit_en 1080x1920
+CAPTURE level_card_full_roster_en 1080x1920
+CAPTURE level_card_locked_en 1080x1920
+CAPTURE level_card_twelve_en 1080x1920
+CAPTURE coin_shop_normal_en 1080x1920
+CAPTURE coin_shop_purchase_preview_en 1080x1920
+CAPTURE level_card_first_visit_zh 1080x1920
+CAPTURE level_card_full_roster_zh 1080x1920
+CAPTURE level_card_locked_zh 1080x1920
+CAPTURE level_card_twelve_zh 1080x1920
+CAPTURE coin_shop_normal_zh 1080x1920
+CAPTURE coin_shop_purchase_preview_zh 1080x1920
+POINTER READY: click full-roster Level 100 Close above the frame
+POINTER PASS: outside-frame Close dismissed without Play or profile mutation

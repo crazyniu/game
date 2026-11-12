@@ -1,0 +1,24 @@
+{
+  "base_head": "5744542795b2065a9c23cf90dc78c20d5686f691",
+  "previous_complete_local_backup_sha256": "af447d1f3be5168021d670431a478bbf4128a28c32c39887b386928de567785d",
+  "family": {
+    "functions": [
+      "win",
+      "level_card",
+      "rewards",
+      "new_friend",
+      "unlock",
+      "world_complete",
+      "world_unlock"
+    ],
+    "original_hashes_verified": true,
+    "patch_sha256": "b47cedf213dce8ccff74393bfde28997cdec1f434d63c7592e6de317dc7b8a64"
+  },
+  "map_patch_sha256": "346e0fe89c13d483380772262a158dad599e3971628fb2724567435346e3066b",
+  "publication": "no code upload, authentication, commit, push, merge or deployment",
+  "source_images": "retained; none changed",
+  "documentation_corrections": [
+    "clarified map changed-pixel statement applies to live-motion frames, not before/after layouts",
+    "updated world doorway comment to match retained soft glow"
+  ]
+}

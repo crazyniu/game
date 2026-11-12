@@ -1,0 +1,37 @@
+[
+  {
+    "asset": "PerchSort/art/island/background_shop_forest.png",
+    "sha256": "d847a532b6429f6840f6db4ec8db6b0df65c76f87ee011fb0a756acf3e8079d3",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/island/panel_shop_forest.png",
+    "sha256": "5ecf7fe3fa64016556f37b6298ba3dfe843f2b415f478c2ab0de48d81cfd492b",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/island/btn_purchase_close.png",
+    "sha256": "b9dc81fbf92722a443dcb49f523acc9c6fddef65efe48b4f02d3fb0481b5d264",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/coin.png",
+    "sha256": "6190c4aabbd8abb7b00954812525b00530490ef1f45bab00e0f2e15bf833034e",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/island/island_pill_green.png",
+    "sha256": "9e861acba94d20cab7b0fdd207cc715c5b0ddf7e5524bac9f52e600886bb6451",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/island/island_name_plank.png",
+    "sha256": "9ced17490ac19df1367e624390dcf7006a70aefc259852499acd06836f51f56d",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  },
+  {
+    "asset": "PerchSort/art/gate_arch.png",
+    "sha256": "8172249d0d01b4c35b5713e6fb07b01ec67f3f8b08ca9cd5803c7b2660aeb268",
+    "gate": "reused unchanged; visually reviewed before implementation"
+  }
+]

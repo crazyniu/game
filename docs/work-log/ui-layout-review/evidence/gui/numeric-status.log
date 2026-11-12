@@ -1,0 +1,3 @@
+run_shop_amounts final exit=0
+run_purchase_buttons final exit=0
+run_purchase_dialogs final exit=0

@@ -1,0 +1,61 @@
+{
+  "source_sha256": "539e2931be8bc1634f7bdd83f80b3b01b82a168c6a4d974d7cfdfc671a84ad34",
+  "source_canvas": [
+    1024,
+    1536
+  ],
+  "content_rect": [
+    33,
+    63,
+    958,
+    1420
+  ],
+  "runtime_scale": 1.08,
+  "runtime_origin": [
+    -12.96,
+    308.0
+  ],
+  "face_centres_y": [
+    238,
+    518,
+    801,
+    1083.5,
+    1363
+  ],
+  "face_centres_x": [
+    232,
+    790
+  ],
+  "perch_centres_y": [
+    183,
+    463,
+    746,
+    1028.5,
+    1308
+  ],
+  "notes": "Natural aspect only; raw source bytes unchanged. Ten continuous branch landings, no road. Full visible roots end at 1909.64 logical pixels. Bird fit 176 x 154, validated against all 68-frame alpha unions for all nine species.",
+  "alpha": {
+    "0": {
+      "components": 6316,
+      "detached_pixels": 33093
+    },
+    "8": {
+      "components": 25,
+      "detached_pixels": 26
+    },
+    "32": {
+      "components": 1,
+      "detached_pixels": 0
+    },
+    "128": {
+      "components": 1,
+      "detached_pixels": 0
+    }
+  },
+  "asset": "PerchSort/art/island/map_branch_tree.png",
+  "generation_source": "Codex image generation, transparent independent connected tree, generated before canonical wiring",
+  "raw_source": "exec-19bab7d9-afbf-42d1-887f-9323f9431361.png",
+  "permission": "User explicitly requested redrawing the entire unfinalized road trail with tree-connected levels. Approved selector and original character/icon art remain outside that redraw scope.",
+  "material_review": "Independent gate passed before wiring; practical-scale light and dark composites clean, single meaningful alpha component. Raw low-alpha flecks retained.",
+  "runtime_review": "Independent static and motion gates passed. User final acceptance pending."
+}

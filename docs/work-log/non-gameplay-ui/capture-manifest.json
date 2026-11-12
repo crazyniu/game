@@ -1,0 +1,2207 @@
+[
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_0_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "185abcfcadaba9a8b8c997b7af773858738b393c7f0a8c748b8f25e3a79305eb",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_18_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "368bfe5d488f94cd55810d574a9fea22fe224e5d1262713f4e1054dbc6a48a5d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_1_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "077964d1edd7e27f077c878ffb1547f4ed2fc0b68f352bbbda46a9d8d0cdeacf",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_29_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "484b5f2ac5e4a73f5d2cba0ab4ef0d2fa9916a6d780cd2b76307a3be74874170",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_30_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "20fd4c393eb14062ef2f1f59830bd43803fd342789ab4d3f96f4b3ecc209c48c",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_92_stars.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "896252632694141cf9f4fc7bb9a5804f3666b43a7afc6a2e7ea0f6003fbb00a8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_actual_rewards.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "88f43cf68c3cfe48daf14319809d406418154b8683837171fab24e87a3bcb081",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "238c856415747071d5da2e67951cbe0aaa20a2aec936aa87dd68092f1cbad2a8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/chest_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a1df9e79e5c087a6a0ce181c3aa1c20111617987343251fc6b505c2daa5a5f95",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/home_lettering_reference.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "c8d892d106c206c81331cc758d3463e039cbb2e65626888ee8ace6661a2829bf",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/motion_middle.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bbea6ad1ff9e7359c343bf4c85d8dacda70358f039fbb939f666caa6fbdea49d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/motion_start.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e65f10d211600c1effe5d7ee0509d9867abdcbd98e90b8303f92f5adc0e0e6c0",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/reward_0_kinds.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9e113e20f0a753fb6b0e5dc21c68b76eeb842594d173fe9a361dfd572a6afb3c",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/reward_2_kinds.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "21380ebb4bccc044c2d154d1bf8e55e0c9c9f1fdb32c4660d3615eed2f0a6bd6",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/chest/reward_3_kinds.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ebf8947c0c287ddec98abaf05382ecbeb200b7e225dc396c4ee849ec1a6e4fd3",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/default-window/home_view__home_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "a1160bc184310190a0c3ce950832f0ebd7f66d10fd6f5f6ff299f8a3b15e4bfc",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/default-window/home_view__home_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3ecbbf21fd4ba6ce10875f3bc137781c2fe8e40bf1f0aa93301f34bd1f5558b0",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/default-window/popups__settings_muted_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8414bbc07aee08b2402fc6e094da4c3b6053814b0d2d662ec75fb5f27e54c489",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/default-window/popups__settings_muted_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8824764d1a347e2f7c3376f190b98db8dc7794e522fad80d256ef1289bd57687",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/actual_0_left.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2e7f6321ca796ca29acff7bfc8cf9dfa6c4ab6c4270e0d7c6aa54e43ad2b6322",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/actual_1_left.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3a931029699d864cc9f109ea8cc20791bd6683ba60d86e41296762f14c22bf64",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/booster_1_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "d1dc57cfcc67f1996de0be3fd2981d51d524695f7dc2157c86f03a2bac661ece",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/booster_1_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5e1094d59616d80d448d3c62118b5c82933cd25f7c84211e7796fcd01a4415d4",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/booster_2_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "17e16b5b337c648619a1e8ce1071e43a540b1b83b71d097de2cc0b602a9fda75",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/booster_2_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "63632a0fc575a7122a498c9938d3916981d666d06d25f6d29b8785f88bdcb5ca",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/coins_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9267bb935349e671c553dada4eed9ade6cdd0fccc6d644b086ae243cd4ee69f1",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/coins_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9348197597ea575a6dd802acb29789fbe68b1d424395bd8eb5be8a51b365e2cb",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/mixed_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0a5823e42c0663120859e992ad4e0b38c5be055765233297bcee801b1f9f602a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/result_motion_end.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "21f6baa1c195a9b411c836dea1c675dd852e25661f1e3f7c271648fbd3aa0f7c",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/result_motion_start.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3af87b9f27a0bb7f97c084d67e2d29a323dcab0b8245ff3fd29e4868d7f80bea",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_00.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f014fcbcd79829f6531576b0cdb8328189f97f0d1a18ab0ec902c91d3b4abffc",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_01.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6a1340e264440d1f3e318d10e56561e8e1cf7287402ac4959d40de62abf552d4",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_02.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e350f77d54ac442bfb6d3cfa367cb9ddbcd5fe872db99768984ebe751c55e8c6",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_03.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ccca3027ace6be1aabe81d2e7bc4f5e35f77c6215a319557f0838e17c1a6e422",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_04.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "89a9e60ef6c3b0dff66ea652226a0d890e7d16377bc273ba1e39a9e24a16ad94",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_05.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4bb362e212388939a90213e76e71eadeb17513cda30e909438c390339636cd45",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_06.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "bf79800432119dad25406106d3a48c106427727eaadd1bdae0404ceaa7e920f1",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_07.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "54fd0075548c6e5ab47d2cc93451b9d84bcabf020b71f154c88cf4841e451567",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/draw-result/roll_08.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4ea8c8a6f00c8b632e58a37dfc4ddc9af3c3caab2463674337b43161e79fb6d4",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_crow.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f75a3f719982ef076d1345140af40a6b7318c7b73e8e731bd51be644a67003fa",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_english.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6b8070dec75cff821726969c206330ba3eca8e1116e686281ffaf6082d0f79c8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_equipped.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "25f0677c5ce252a86a527fd2ff683e58b89dd352bde805ad91267bcbce01fa29",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_insufficient.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "97bff1987d72b0224801c1067d0eaaf02fc0896e01c2bedc4d83be7afe50139f",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_list.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "b02da3da9a6673f0b0529a2a6504717e5623d662f7029c8cc33d1f11b09ad2f4",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_maximum.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "88ac974d6e21c0259f3e8f4a349f5eab1e522b61fc48aa997614a5bcafb22fc8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_purchase.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "528211d3bb580da24649526e01fd05aa9a408315abfac93da12b287637f0d315",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_scrolled.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "664bfedeb98615cbb6c78c6a7d44c421236e738f184c12de9acf6acfdb7636d0",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/aviary_sunny.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f32ffad4fcafd03980b23cde0af91e1020e5ae33930012acadb4fb64aa342e9a",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_english.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "107447a3beaceb286d26f547e2eca82048e398b388fb0132d89fde2068fb43c7",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_first.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e190724ff1a4c87957c15e55796bfcaf07c66c89c54291fd77d1c48b95bde69c",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_last.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "50686d2b28448dd351465fb574eab47f29ffc366d1b2398a110474f74aed425a",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_locked.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "dae14b912e938d19f4201695533bd9e99b60da0a88845892f2fc0ddf08805202",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_middle.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "277a8e69a1380ba2c7ab440f9ffd17666c66695143d45a0ce4f8701a00aae0f8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/map_trail.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bc166d8d6df4fb804004e0f856362e4e73ca772b39f8fbed274953950058cf2f",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_00.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "040551d0333a076a77bba175c8dc4a43ffb55b05df5aa863c8f1944b46efc32b",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_01.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ebd53282bddd3bc95972f0a89ef132f24cb6302990f2c7fa1f7a5088938247f0",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_02.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "b8f8437ac5b1dfcb9b74a9d60de6a63b80f3838b124e342a7a3f97c60c29a58e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_03.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "cdb62d122cba25b931f5eb05b67209ffd561bdd371d6ecf4396ec6ae01083d96",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_04.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6f7e315afcd0a8791e732f46d42d14764d4e40590242fd9ac8c90496713a644e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_05.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "14c443dda88fdfbb37121e4b7eb613aff69896dab93c05514b117639131b9138",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_06.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "606e578c4bf846484ad89ce32a042c3fb38b8f58a51d48efdf050965ea3dc25d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_07.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6f1d16d2f7e86799989d98a162155a6420dd6f5bbb419c48c8fa798e2d828fc4",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_08.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d2ed6841176332bf6be0c21812870a8a198805fccbe5c5f4308f1d2d05dce82a",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_09.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e401295c8e52fa6ac4bff106eb45c829269563fa164b826dab8d525132ea64be",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_10.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "40d5018edf4c7ae6f146fb11ba976ed853fdc45c9a0dc05fe823de20fe6e1b89",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_11.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9b860e00ad66c9864986327df662cb49b7194b63795f8e23aa82748a7eb14f6b",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_12.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bbe3845d8247550632125c4f2e8c20a31a0ba367dd173502d5cb7934a65daced",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_13.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6cdddd3f14bd2e4b262968ca55ed0cd81df834edabc29a704e38a35c00c945cf",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_14.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3850e2a6939ac79d428038f4c848ea29d8510b459c02d1214741761a9ebed3a1",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_15.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9437c64272d0ab06b5b0fa73d6223a61b377d9299d8d0ef5285d9df344bac87d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_16.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "7bc649ae104a06c1b36f3d7ef2b4a3dacd9a6661d3595870353321ecb77efacd",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_17.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "650d327dbcfc38752b4ae9156e64f7a40d4fb9213b20e5e0ba56190fb8f3f1d5",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_18.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "fe7e3d49bb5bda92e816ac752c00d540eb504d7d352171fb310509e09e6d8733",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-aviary/motion_19.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0a3afa816a3806cd945215726a877dc4d1e38ead5093ed08f69bf020ea5d58b7",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_crow.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "c7a4fb55e4e6871b1e42f5f11cfd8c2d1a6cd1fe6e3b6f04621a51f6342f556e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_english.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6b8070dec75cff821726969c206330ba3eca8e1116e686281ffaf6082d0f79c8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_equipped.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d964573557f35d69a20538282393fdee43fe2675711237965fa228875b8196bd",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_insufficient.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "b83bace91c95bd1bfbefc0d4be9f2d0a8296504ce6b143c271e70aa298185dd8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_list.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d656c19e7978320c8f6a9c2b4d009e3b9794f67559174f0b02df95c92d8a87da",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_maximum.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "7260ed41d5999367a0fef82103ccd36e2ee6c56162332680b4b76e99d487088f",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_purchase.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "03007e1a4537741e204c6bf792fc3b1fecf9d6edff28c1761a885df8e6cebcd8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_scrolled.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e3e159071e9f1d72d339507a5edd6dab413f9ef2b7d50490a750f188989d1b93",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/aviary_sunny.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "f433d15ed47388aa1ae0ba4d865e59802bcaa801e9e6f6e617f0cc46d72f4c11",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_english.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "107447a3beaceb286d26f547e2eca82048e398b388fb0132d89fde2068fb43c7",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_first.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e190724ff1a4c87957c15e55796bfcaf07c66c89c54291fd77d1c48b95bde69c",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_last.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "50686d2b28448dd351465fb574eab47f29ffc366d1b2398a110474f74aed425a",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_level_card.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "387d80279508a42a6a4b843f1ecf919736269c9b2e446bc3e3614878042d34d5",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_locked.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "dae14b912e938d19f4201695533bd9e99b60da0a88845892f2fc0ddf08805202",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_middle.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "277a8e69a1380ba2c7ab440f9ffd17666c66695143d45a0ce4f8701a00aae0f8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/map_trail.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a0160367758602a21ada12ba8d6abe35a748c57bce792dd1aa7db5df08e99821",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_00.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "1f4499a5bb8dff5992be5f920ec33363373db975dcc419cae40050d356572d65",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_01.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "cf9575b19a722f2c9e6e2e40e5c3014f349c472ecbcf523e41d16287c6d693ca",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_02.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "698614b9aa9ae2a11ab142ba06c29186ed88b4166c7ebd48f4e88d0d8cf979aa",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_03.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "024a858c1ee8a931f9e57cd484c77bc82ea5f996b75757ee54dbb611be8cc077",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_04.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bffb5b1ff0dd7afa2297c89f24864f9801594188463489a7024ef22481707d7a",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_05.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ba503c113e44223c2d4402dbbe79409f9535011359d626ca3e79b6063a51408d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_06.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "055a1f6b707708aedd75a8755efb17cb26a92b8de933b0e25487cf69543e0a84",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_07.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "cf2da2f44dfdd9ed0b488dc44bbf813f80a8e7b2449a586a81078e7607bcc63e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_08.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "55e9fc968250dd2f7f441fd1cac814e62e0ae72ff432cae709647ff8aec8d4a5",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_09.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8ff44069df5b867fb56708ed2aa7ee424c524afbdfcdcc4b7e9cdc89b70f5d9d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_10.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "cf96105d480d7126ac6bdf7dce3d77c10b67f7a003d199285a9b601f616b933b",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_11.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "47ef7f4d6b0b50ed56b69746e1b21b445218d60c1c899a4df0de2187e6cfa43d",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_12.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8ec8b3572f6c690cfb1629d1777060a414d43653ca0a35743477d08cb93fa7aa",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_13.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "47030b71c414245e6f61d669cc272ef70474e7649736b662161e2aea7da9e3cd",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_14.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "eb1d9da6112103a7eb9a18134b06a9a944ef86913f8ba6dd404ac3b8bcf6a746",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_15.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "54d3a157fbfcb092570c9cce68b10937b9b84d6e13f453d19da4bcc7b2092e81",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_16.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "29a6883b3abd1a440b2662af52cbe3dcd0cefb6ebcfec57e487868e8c53350b9",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_17.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "7d1e19a2c2907884ae026706023c5dea94c35d65b621385dee6ebf474d80560c",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_18.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "d11fc3a114c58fda388f4f1a21c71b899909bf44db1736071e27a2929d1d749e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/map-layer/motion_19.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3ce6195db075a614ee01d173ba19c9fc23b0271edf406ddc9f7f6129c71ff987",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_01.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "a0efe33234c65caf86a260be1c7071a27923375e4b2e2a11df734e5d92d72d00",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_02.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5e838ef97fe62cbd8caf69b3f887deb57309aad454b2c834d83068278db392bf",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_03.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "59e00b7c9cc9e6b9a864b40c2e06bd8b7e7cd8bcb7b9b175c0694549723277df",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_04.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "400ae24bb26ab5822ffa91569091530ccc07c80ba8867e6273362b5fdbb6abc3",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_05.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2694a14b33f2ae207f6ddca78577ecc28c028a40fb406ec73ebd7a788cf5327b",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_06.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "7c20ab27fbe50f266d9e9ac3d1a8ec5775de3feb7de181d35eabcfa0fce0d4c5",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_07.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2b229dd62660a1680d1c2da36679d8a084c7a3bde258c74724a704fceca12c24",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_08.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "707fad7b46a5110dc48463f47118d26997b327b493119d556ccadb36ee6ddd1f",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native/native_09.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4d89e041fb60a868cfec21a5a95ef2b882b716e5b2541dd3d187185e377a6211",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_01.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0f79091efa37d8546a152814046e7bdc18ae0454aeece3301dc5c6442182e428",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_02.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "b0ced4921d4e05e1e3814970902abe93f99f2f8f3cd333419991d8eddf465740",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_03.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ef91fce06f6d3ad0342665f9711475eacaba0aea5be05283221fd24a652c9d27",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_04.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "fb36ef2bc1528a8b1bee273e64cf9a556ca96ab98f886e9f2d20c4c58102b8d2",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_05.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9b328bcb0fdd0cddabffa66b8d0dec27e8b51fa4daf08cdcd67d8392f25a97c0",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_06.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "99005c4a7380c977a6b21c40a4602aa528ae94f34728b5dfb8ea85909e57e736",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_07.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3636483a27952bc1a9a53192961af1c110ad3cd73e7eb22986b8f152fd9c21b0",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_08.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e9a2a9bd53d0b05affcb1671d00d3ed41b0fc683c74905d1a35b0b15175bb2d4",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_09.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "015006d5e312d8d0a2d782c4f941a13a1b91396c201d929bf0ec9ed76ca36ce0",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_10.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "23db5a50e46fab153840b70f09b725f8afae33ea68025ec32f00af53482eec26",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/native-return/native_11.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9de48cac381b92a2c1a5ec933370f0bfd83498d2683a75dc26d6ee71fd1a78ea",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f000.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e58a75b43f83f978476d049b72d2bd2d6b0ba405e6f9fc815fe1d1988d91dfc7",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f001.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "899ab956d38385b2f442fb2a0f478b0118b2dda7bbbe86e0adda2ab30fe52ac2",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f002.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8cbdd5901c1f320a60c343929a1f4f78dfbf68580e554edfe968d106a807bd11",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f003.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e76dfe7572279d4ee87a6388167aa58e8219accad57319395128702d7139b461",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f004.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5f9179848d2ad44258385095589473f47e90744a998ec17a095dff215cf96f4c",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f005.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "65b2a849060730ecd26da718d728d005b4e5a2e2e018024851dd751439cb6739",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f006.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4936429e0dba179c6605e8f43f44bc53a543b45aadbc5849912407fa6e07790d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f007.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e1613d0e3ed21964fbfef69f14b9e1f87fa2e0c7610754e9887b5c2e4fdd469d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f008.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2666a4729cdb69ec06d9b9f5d7ae1f15a11031876181beabb6f89b511e2b326f",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f009.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "de3107d3379fd16041cf15dc72a7521444874980ec858d4ed05060b313f8ff58",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f010.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f5664b9281299a9e296413d167e38e736951d34ef16d2c97e152355b198af171",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f011.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0ad31f818cb0432ff88fdf78244661f2546e21ad1533e3e2bb73e5ca3576e1fd",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f012.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8913e6912ec74b231efae30bb35fec19d1c482b906de6b0a9ea096b72379069a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f013.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f01ffdf4af4180747e38dfa193a7429e1a907a15612753270ad31f02ca18c230",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f014.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ab106d9189057278add892354f12899de6b36ca4a0a4241a65936ab8e456c223",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f015.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6fa017f21ff0e884291867c1596a3bd71f65a493d92050099adb48489c1ad105",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f016.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6aba23a2fc39f37708d22767fe6af39db8760331c2f85328e8b5da6b66514ebf",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f017.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "aafd41c34017994641de6d09009fad19a9bb0b68766b28ad71ce65804ed9e010",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f018.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6dc2ce1df85381a1fc588bf7c9d675a9557a3831a6e93a98b6ae2336edb67f22",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f019.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "75a004a0216e5df692a1edf26193bc4975a0aae79e4f329523c156a27301a33f",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f020.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5fd6702df97cb258344386c7db3f147010f22d889f0d23bfa4bd6579a0ef3571",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f021.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8d3f8eb8f8d05fa936bc7d9ea696467b4c36bb5598e58c44bbba241846d9ea8a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f022.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e0760240384fa6ad7444a90b1298b5073898258210786994d15499711a640af4",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__new_friend_berry_motion/f023.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "c92d39c54139ffee14277b11e4c97c136164a1fe04e31c8c4444741a7f1a0104",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f000.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "35c3aa36f403244c0113e257766aefc4d067dca48147bd4884898e74e73eb2f3",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f001.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0be1b0cdb35e5230ca28f7df28d421bb47766ec33562863ce85623c7aade04c7",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f002.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5110b320350163cbf3a6da700dfe77794ff25ef7075f65590224c60dbc1f615a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f003.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "20c7e70e4f1b8dc4364d9356cacfb3fca87a265cd5011d2f9f92acaeb5d648b9",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f004.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "aeca06a43e396b6a3d2c653aad5bee4e76e69efb01da19266c7607ccf66cded8",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f005.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "a752724e9ab62297bc7b75f714bf1fcddb8d328f00d56f8483c6a00b51e124a6",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f006.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f367bd63b6529768462577a8193954980386f42a8212d997bf3e931292308881",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f007.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "732ff2c0ded23860cd165f6b7eb473d6df5aa85b24f5227507052f60183e5937",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f008.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "25485f8d12814532b836456770bd31c579f34731022ac0f2ffd9d05a08a0b341",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f009.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ca403f111e08107cc6f1aca1d0ddc55acf5bfb04f4f19af30e386764b337f16d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f010.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "00525e5825df49666bd74c36ed4a63f3d8cfd2e3026dd59685fb599ea9459d95",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f011.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3dc55bd2119fc3400b0487fa65e02e00ae945b539df96976a9fd816f6f225d94",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f012.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "90381c3df17855f5a32d37a0fdd4abb2391a2cda8845616b8571e87b5ca4d4d3",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f013.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5af946374e49dd6137e6dd04dbfee5fa025274d56b76e2cf59b2157720468f60",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f014.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8a0bd1472a27b05c71a8a51eeadb2cd0942780a1d143ee44a5d0640eaf57e135",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f015.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "eda7f21bdccca7933854ef63f48352f194782d31d475867611b2f8617f572c7d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f016.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "bca77a44540d49dab697c274e4c84573231984fcca5ec4a771fcdda2f789dfc3",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f017.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "bea19ce30ecc030bbf15e8fa79cbfdd27f471df95aec4c6c8100ed2239ea3cc8",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f018.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8c72b2dfef66062ef65945b8fda0e2a4cf9916dd5d4351e4ce4b35e1fbccbfd9",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f019.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "884988f4029bd44896e72ebb9fd06ab1b24d3de1605ec908c8f0591919911b8d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f020.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "fd1bee2c70549535c3e09aa607d3f278712b69d950f634167327ce80e6991c69",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f021.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f08931b5abda0a1b81ef5823cad60b77c32bb309ab431ec7d1c4dae9686e93f2",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f022.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9893b0243cfc2966ee1333e407776730598346a8ab5aa12b026f87728fb4892a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__win_three_stars_motion/f023.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e330972003419f1bdfd981625b0978b2783b31ed95da1a6758774db36ec41206",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f000.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3eadd893347a9f41ed473e1b662b7df825086c479b36a4b45a466e6204cf537b",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f001.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5e4e30af9d6fff2171476c6b3a79c7cc73004e38681a0acd94f987a3a04273bf",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f002.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "69f7320ab2d7e7f68f03a860be2ee4b2b345f68d7fa0667364c3b94559db4a12",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f003.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "09359a84dbeb85205598f0cb7d6b593b13d1b98af29d9943e406bb7632f6bae6",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f004.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8bf9d124018f6a8677706952a37a6c0a101bd8b487d222ebe5a04544ba5ba72f",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f005.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "f861aaaf3d0ca62af093416f11e3613dab117dff347eaff59115bf2215652907",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f006.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "c4b40b6b453f21e706171a6dd69d26c4779e66d680f96eab1bb8406290b9e38a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f007.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "7bf379fa65aad3b4fe52caed464b62b8de4e3bc13ed06249a1e5ceb2668d06d6",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f008.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "eba5bad96b5d27cb6821b5140ad7feeec42df84b45d6b8012b69148177a9a00a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f009.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9d98bc03ac162ddd7fc2880dee5b08286f198573d7e7d29fb3b3019aaa63c402",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f010.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ded0c33726c88bacac21d75af1f5333945628b64e39f3e1d568523eb91c83711",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f011.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "8ef034dd043928abd2849f44dbc978e09940e658df0f95e8b0bc202bab673128",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f012.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "309065db5886a0c318f226c9c20c6a420e1370a6ba14fa75d220a2ed4ac7a093",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f013.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4a5112e2830d221d243f1b8d5251ffa48236a35024ed09d83abf3aa23fe9c127",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f014.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4d30512bf4cb855543a5ba65b8cb3f88fcaa25e948e8d761c842c747de25bc72",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f015.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "55a4c8852121d7cdc36beab91c1f33144e70e20a334a14bcc21fd25f12324c7d",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f016.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "91f5372a60e6f1647fdec9a1924668ea88b0914071b6253781c6e3b85d283be5",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f017.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "06928fa5d453c8377aa4a55629863e3fbd7ab159ecf64e969f769135fa1ead0e",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f018.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "ce4e6d85213d370334aa8bf0ccea6d884339b334ba2b295a81f284b903eb8104",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f019.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "c95d702323c7ace3d745a6c6c790d1d68b6ffa812c3411493fa98652730d18bb",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f020.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "d9018049aceb62eae29a590412ed9d445c8101cb9584751cb8428284ff5982fa",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f021.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "dc3e2b0339d13f276696fe24c9ab04694155eccff2afa518cef176e44ca131ce",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f022.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "c74cfeccef2fee52bdb7857724cb2011132b3ba3b3e95702228eb7ec263b3ce6",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/popups__world_unlock_2_motion/f023.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "7fbb0b4d07662164cd504c72f17b3c556bf553c37a356fcb2ce4cebf8bd983ba",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/chapters_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "448d8cbcf6cc9dc33cdbaac24e5576a229b38743679280f2768fb867176f3e42",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/chapters_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "71bc75a559cedf3b3ecd3c0b3b23f65f5929e7ad7fb87303d7f7f62eee1e2312",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/coin_shop_view__purchase_preview_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "48d07abb321af55590a824e5214ff5ab341bf1fc0ada6bbcd507bb3772595438",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/coin_shop_view__purchase_preview_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bd81157af3e5f7a425b7d6fbfd3c11038167df75e4212748813e135eab534d96",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__level_card_locked_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "44625b9c44fbaf27b02ace7db25679e5159f9701a493b7afb2827bcffa5a4faf",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__level_card_locked_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "c61996390e3e7b07aa9c4702095a90f56e3438923a9157f04081e47bd79205fd",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__new_friend_berry_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0ab54a6c19f41c0728a1d303f2786d23f08dd17e7cb11e895a60183dfb96196f",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__new_friend_berry_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9fca78cf1d85064bf55802b589a342013db626f887e11b0beed212562af31d60",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__rewards_challenge_all_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "761a8040979ee9a17287c5a6bc7de43543d419c39feb64397a8c6626a95fd7fa",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__rewards_challenge_all_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5777d9da9a52d642e38eef17c0b85b7c04e6646df4b9c5c01527b9c71eee75ef",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__unlock_owl_eye_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "e8d186d9d1b55650c7be28b94d23ed1be0685e193a3177f171b6757342ec0fc8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__unlock_owl_eye_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "ef53eaa73537b7482ced53e19ed191c84e6491e5871609a3928a22eb022ff4f8",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__win_three_stars_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "9ddcfdc5b0dd922cd366161f5c901df0a0c8abf23a07cbe1853f21eb4c6f1e50",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__win_three_stars_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6e8023224b042450d6a6a0176e4ffdec3009adbb7616bb064edff5a099914c07",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__world_complete_1_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "0d14790b72a31becbde4a65ab170ae452e7c15012c91284e550aab34238541c7",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__world_complete_1_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "3d0a9be805c1222a94edb17591f10cf9523efabd802b353924a8ffdb260311d3",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__world_unlock_2_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "07b659a1d224b228e5409922628177e0706becfd26959a7722dd321ee6058e99",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/popups__world_unlock_2_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "1fcffe8c547b4683e0e5815e4d7a7588629accef989b0b785c9195d641224a18",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_booster_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "bf5084178b0cef78ca3283f9f8e2ab424d2cef74e98018f23d3ae42f6c224593",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_booster_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "1d96646de8bc389868aa66670aaedd2915f98548bc71073ed602a1615881c3e0",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_maximum_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "7414bb0435ba0b73d0a7c752d02ea68e8ce90f137854df629880dd1ea71ad2eb",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_maximum_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "fc0478dd022ac46a8656a952c8e54ad1b55996125a32c2275e971654bcde48b1",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_multiple_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "080940e68588b999a61698339293e5a3b0d52a5cc9da186e60286116e7e56939",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_multiple_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "028d9a1bbdafdf3511fe18126186a2a30e292f97ba695237962d887eda4e5f9e",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_nest_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "6186eb14e3b811bd7a554ec831c375a3c6444302546307a6112a72e1ee7b5db6",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_nest_short_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "022666eddbbbbff579481d28c1a2bace49c1794245d93b8e7472d962f18441ad",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_nest_short_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a2745c20705bfc12f2d6211f9ab40a88c7e4235ecafcd753a3b2a813b1f089a3",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_nest_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "a968c5b0f976a190458688578dcd6bdb042ed7773172a2c826a7a011405c8948",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_outfit_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "aa4c662e08c76a3befffa65b18fa9d8ff0835145f920fb153606dbaaeafd30de",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_outfit_short_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "775df08fbdfc8b2cba1378c47e377b192b00594b7bb89328ef672c167338b5bd",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_outfit_short_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "5109dc6b7ac0494adcf28373c1ecc33474b3da3664a0cbd1745376dd61e90a32",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__confirm_outfit_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "37eab200bf5234678648f9a1c5e03fa840198a78464e4427f1ef3ee8dd9f3028",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__insufficient_en.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "4418b307f82890d150c48d99a0e8cc80a9c9b6892ea30b264bbd4b54c19eaf10",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/render-target/shop_view__insufficient_zh.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "sha256": "8b840621e3a7c6f2a59085d59325f1bced739f1112d7fcad677086ae4a8e38b9",
+    "kind": "QA render target; not physical device screenshot"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/boosters_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4f055ce7b7ca8de89f44d7a59d385eb8c04a9236ce5a0cf781cb0bff1f9b1d74",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/boosters_return_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4f055ce7b7ca8de89f44d7a59d385eb8c04a9236ce5a0cf781cb0bff1f9b1d74",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/boosters_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "bceea6f03666482fede125f5babebc39c08cb9f404547fb4ecfb1859cc3a8b51",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/nests_bottom_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0037abc3db8f4f30bad38cc09db754154a5480926e098a3fded99095f54b6666",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/nests_top_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "004ba7b48e33506517375625b28ebaa9ad1ecf753d5961d0698958b05b9b7907",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/nests_top_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "612b90f27a116092b92ace6524394849927071b32e823dd6acdfba27dea16413",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/outfits_bottom_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "eed0ee00e94ad11bf0a9aa0997fe1e3110ab28d0cede070f299f0f0e9ba4f475",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/outfits_top_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "d8981e3e0c159778cbb110dcbb1aa92f3122f14b32efec0e3cf54ff023e05e6a",
+    "kind": "native engine frame"
+  },
+  {
+    "path": "build/non-gameplay-integration/gui/shop/outfits_top_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2bf0782ef8a6d3a198d8d538188b923d9581685c55368b7ed3c63f022403b848",
+    "kind": "native engine frame"
+  }
+]

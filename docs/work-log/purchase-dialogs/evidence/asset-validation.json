@@ -1,0 +1,57 @@
+{
+  "status": "Existing production assets inspected before UI implementation. No new bitmap or reference extraction needed.",
+  "assets": [
+    {
+      "path": "PerchSort/art/island/panel_shop_forest.png",
+      "sha256": "5ecf7fe3fa64016556f37b6298ba3dfe843f2b415f478c2ab0de48d81cfd492b",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/btn_shop_gold.png",
+      "sha256": "bb2b80bf3eaa4988db0f53acc7cbaa39af068faa381849c166f67348e7b0dab4",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_pill_green.png",
+      "sha256": "9e861acba94d20cab7b0fdd207cc715c5b0ddf7e5524bac9f52e600886bb6451",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/btn_purchase_close.png",
+      "sha256": "b9dc81fbf92722a443dcb49f523acc9c6fddef65efe48b4f02d3fb0481b5d264",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_firefly.png",
+      "sha256": "8eb1831fa6b1e7c3a88567d7138f1e20babfc02c5359573109bf160f6fa9f118",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_sprout.png",
+      "sha256": "65e91c32837d4e51f53c584c840b0f0cc112e00c2063bc77cf26e3a71980dc2e",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_owl_eye.png",
+      "sha256": "236b1e140d9022ba2de57b3976ac268bae33062ddf1585eecdbe149e65264523",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_bell.png",
+      "sha256": "9157d2f0b563d304b8134318823ae4052affdb6fab0d432064cb22e7f42b60a5",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_scarecrow.png",
+      "sha256": "9c0f6b3645cfae97b8cd67bca476be825748e73bd619084dcedeb1e7e11fd425",
+      "source": "Existing independent production artwork; reused unchanged."
+    },
+    {
+      "path": "PerchSort/art/island/island_icon_rain.png",
+      "sha256": "caacbaa4f10b9f8796121421d44262de49eed0839071d183d3f1ab1d517e18d4",
+      "source": "Existing independent production artwork; reused unchanged."
+    }
+  ],
+  "review": "Panel and action source pixels inspected before implementation. All reused production artwork stays byte-identical; no new art, slicing, font labels, or finalized reference overwrite.",
+  "hash_verification_after_implementation": true
+}

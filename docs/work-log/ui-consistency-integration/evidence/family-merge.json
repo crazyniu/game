@@ -1,0 +1,13 @@
+{
+  "functions": [
+    "win",
+    "level_card",
+    "rewards",
+    "new_friend",
+    "unlock",
+    "world_complete",
+    "world_unlock"
+  ],
+  "original_hashes_verified": true,
+  "patch_sha256": "b47cedf213dce8ccff74393bfde28997cdec1f434d63c7592e6de317dc7b8a64"
+}

@@ -1,0 +1,13 @@
+run_aviary_actions exit=0
+run_reward_quantities exit=0
+run_family_dialogs exit=0
+run_map_nodes exit=0
+run_map_aviary exit=0
+run_menu_navigation exit=0
+run_shop_cards_gui exit=0
+family capture exit=0
+map cards 1080x1920 exit=0
+map cards 390x844 exit=0
+map cards 360x640 exit=0
+map cards 768x1024 exit=0
+reward quantities cleanup exit=0

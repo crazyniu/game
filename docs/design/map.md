@@ -1,65 +1,91 @@
-# Map material direction
+# World selector and forest trails
 
-Status: authorized presentation repair; runtime acceptance pending with the user.
-Godot 4.7.2, portrait 1080 x 1920, existing touch/mouse carousel and world trail.
-This page follows the forest selection geometry in `island-style.md` and the scoped
-material repair in `../work-log/page-materials/spec.md`.
+Status: the user approved the forest selector with one shared Play action. Implementation
+uses the canonical `game/map_view.gd`; runtime review does not replace a user-approved baseline.
+Reference: `art/approved_ui/map_carousel.png`. Godot 4.7.2, portrait 1080 x 1920.
 
-## Purpose and materials
+## Presentation
 
-Choose a forest, see its collected stars, then open its ten-level trail. Keep the
-bright island backdrop and detailed forest paintings as the dominant surfaces.
-World preview cards remain meaningful: their narrow painted rims separate adjacent
-landscapes, green marks the centered card, and warm wooden plaques carry painted
-localized names. Keep the numbered discs, locks and completion checks.
+A bright softly focused forest surrounds ten equal landscape cards. Each card retains its
+existing detailed forest painting, number badge, star progress and localized wooden name
+plaque. Green identifies the selected card. The next card peeks in from the edge. Locked
+worlds retain their padlock and shaded painting. There is exactly one fixed bright green
+Play action beneath the strip, never a button inside each card.
 
-Replace the cream star-count chips with the existing painted progress treatment:
-gold star, gold-rimmed dark green track, green fill and white painted `collected/30`
-digits. The fill expresses the same collected stars already shown by the count.
-Do not add an enclosing panel, extra copy or new navigation decorations.
-
-## Layout
-
-| Element | Existing box or placement retained |
+| Element | Design-pixel geometry |
 | --- | --- |
-| Back | 48,48,112,112 |
-| Balance | Shared 320 x 106.97; visible right edge 1032, top 48 |
-| Centered card | 227,428,626,844; center 540,850 |
-| Neighbor cards | 540 px stride; 0.72 scale |
-| Painting inside each card | 26,26,574,792 in card coordinates |
-| Name plaque | Fits 600 x 200; center 313,741 in card coordinates |
-| World badge | 140 px; center 12 px below card top |
-| Carousel star progress | Complete star/track group fits 340,1312,400,104 |
-| Play | 260,1440,560,213 in both enabled and disabled states |
-| Page dots | Centers at y=1712, 54 px spacing, 32 px base diameter |
-| World painting | 0,250,1080,1620 |
-| World title | Existing 680 px hanging sign, plank center 540,200 |
-| World star progress | Centered at y=340; 80 px high; width remains the former count-chip width |
-| Trail nodes and current bird | Existing measured node centers, sizes and bird feet anchors |
+| Background | Full 1080 x 1920; independent `background_map_forest`, aspect covered |
+| Back | Top-left 48,48; shared `MenuNavigation.SIZE`, unchanged accepted orange/white-arrow tile |
+| Balance | Existing shared FeatherBar; right edge 1032, top 48 |
+| Strip viewport | 0,300,1080,1096 |
+| Card | 626 x 900, top 140 within strip, horizontal stride 666 |
+| First centered card | 227,440,626,900 |
+| Painting window | 24,24,578,852 relative to card; natural ratio, 30px rounded alpha clip |
+| Number badge | 140 x 140, center 313,12 relative to card |
+| Star progress | 93,620,440,96 relative to card; uniform scaling from shared component |
+| Name plaque | Fits 520 x 156, center 313,810 relative to card |
+| Shared Play | 220,1424,640,216, identical bounds in enabled/disabled states |
+| Play word | Existing localized painted sprite in 164,40,312,120 within button |
 
-The progress component is built at its existing 112 px reference height and scaled
-uniformly into each slot, including the overhanging star. This keeps its painted
-corners proportional without changing the shared helper or surrounding geometry.
+World paintings are clipped with a shared rounded-rectangle alpha mask in window-local
+coordinates. The existing crop, image ratio and artwork stay unchanged. The derivative-based
+edge follows the actual render scale, including during a swipe. Filled green/gold frames
+remain behind the masked painting; badges, names, progress and locks keep their original layers.
+See `docs/work-log/map-card-clipping/report.md` for all-world and device-size evidence.
 
-## View and interaction contract
+The user requested the entire unfinalized trail to be redrawn without a winding road. The
+canonical trail now displays one continuous tree with five paired branch tiers over the
+unchanged soft forest background. Every level is physically attached to the same trunk.
+World identity remains in the localized sign, progress and global level mapping. The ten
+original world paintings remain exclusively on the approved selector cards, unchanged.
 
-Keep `setup`, `show_world`, `open_world`, `close_world`, `preview` and all signals.
-Profile stars supply the count and fill; progression still owns availability. Card
-swipes keep the 0.38 s snap; selecting a neighbor centers it; selecting an available
-center card or Play opens its trail. Locked cards retain their lock, shake and gate
-event. Play remains disabled at the same dimensions. Back returns to the same forest
-or Home. Level taps, balance purchase entry, translations, music and mute are unchanged.
-Current-node breathing, pose animations, bounce and instant mode remain unchanged.
+The new transparent `map_branch_tree` is an independent image-generation asset, not a
+screenshot or an extraction from a design image. Source pixels stay untouched. It renders
+at one natural scale 1.08 with origin (-12.96,308); measured content bounds stay inside the
+1080×1920 canvas, including roots ending around 1909.6. There is no separate footer overlay
+or hidden road painting. Source face columns are 232/790; row centres 238/518/801/1083.5/1363.
+Local levels 1–10 ascend in the existing serpentine order from the bottom right.
 
-Existing fake-profile states remain `cards`, `cards_late`, `cards_all`, `world_page`
-and `world_page_late`. Headings retain the same fitting boxes for long translations;
-only existing painted words and digits are used. No new assets or locale entries.
+Each face has a 64px cream painted numeral, centred by its complete glyph ink. Completed
+stars use the accepted full/empty sprites at 64px visible width with 8px ink gaps. Each
+natural-aspect star aligns its lower visible edge to the branch plane; the centered group
+is 208px wide. The original current bird and
+lock occupy the measured top plane,55 source pixels above the face centre. Bird scale is
+fitted from the exact 68-frame union into 176×154; front-frame body/feet registration preserves
+natural contact. No glow, halo or whole-marker bounce is added; original idle actions remain.
 
-## User acceptance
+Every state shares 396×298 hit bounds with offset(198,244) above/left of the face centre.
+All pairs remain nonoverlapping, and full animated bird envelopes, wood fronts and status
+icons remain covered. Locked input stays disabled. Top birds occupy the side lanes, clear of
+the title and centred progress bar. The current marker draws last only inside its own subtree
+at z 0, below later modals. All 100 current levels and nine species are tested against actual
+animation alpha unions, click regions and boundaries.
 
-Review first, middle and last forests; unlocked, locked and cleared cards; zero,
-partial and full star totals; swipe/neighbor selection; Play and Back; world titles
-in available languages; current-node bird; zero/maximum balance and purchase entry.
-The two progress groups should occupy their original slots and remain subordinate
-to the landscape and Play. Runtime visuals, input, motion, audio, accessibility,
-other resolutions and performance are NOT ASSESSED. No runtime baseline is replaced.
+See `docs/work-log/tree-canopy/report.md` for material provenance and route evidence, and
+`docs/work-log/tree-details/report.md` for the subsequent user-requested star polish.
+
+## Interaction
+
+Card taps select and center only. Dragging chooses the nearest forest and release snaps it
+into place over 0.3 seconds; wheel input moves one forest at a time. Play opens the selected
+unlocked world. Locked selection dims and disables the same Play control without resizing it.
+Back from a trail restores the same selected card; Back from the selector returns Home.
+Release outside the strip and application focus loss clear the drag state. Language rebuilding
+is deferred until the scene tree is safe and preserves selection, scroll and trail state.
+
+Keep `setup`, `show_world`, `open_world`, `close_world`, `preview` and all public signals.
+The canonical fake-data states include `cards`, `cards_late`, `cards_all`, `cards_locked`,
+`world_page` and `world_page_late`. Existing balance purchase entry, music and mute are retained.
+
+## Assets and acceptance
+
+Only missing independent background, orange navigation and plain Play art was generated in
+the approved style. Accepted source paintings, frames, names, stars, locks and badges remain.
+New alpha pieces passed independent material review before UI wiring: clean components,
+transparent borders and 8 px safety margins. Provenance is recorded in
+`docs/work-log/map-aviary-approval/assets.json`.
+
+Focused GUI input checks and full-resolution comparisons cover first, middle, last and locked
+worlds, selection versus entry, swipe then Play, Back and English/Chinese labels. See the work-log
+report for commands, results and evidence. Cloud verification does not constitute final user
+visual acceptance, on-device testing, assistive-technology testing or human audio listening.

@@ -1,0 +1,98 @@
+[
+  {
+    "state": "unlock_firefly",
+    "language": "en",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_firefly_en.png",
+    "sha256": "8c6568d0ec5cffff74d08523bd945a2748952a3ee7393f7d86004a6110d73f00",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_morning_bell",
+    "language": "en",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_morning_bell_en.png",
+    "sha256": "01fad894a6d1fffc709a124ed06b7ef1693c42fe2b3e3127ccd6ea2cec545e32",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_scarecrow",
+    "language": "en",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_scarecrow_en.png",
+    "sha256": "7be001ef6a15f9ed0f00a59f74dc120a96503f54a6f0e3151044f1284965a10a",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_spring_rain",
+    "language": "en",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_spring_rain_en.png",
+    "sha256": "fceee5bcd342dbd944ec5d98a8689068995f0b86318a0a98c15887f7f2be2328",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_firefly",
+    "language": "zh",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_firefly_zh.png",
+    "sha256": "e9db64d1fe7453f7d136956e5517cb2e8d63f90cb75297d14f02cf26b6020cc3",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_morning_bell",
+    "language": "zh",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_morning_bell_zh.png",
+    "sha256": "64b7a51f0877e9632bcdf844516bb9c336a2e22868a895dd2154d801a15b0d2a",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_scarecrow",
+    "language": "zh",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_scarecrow_zh.png",
+    "sha256": "38eb62171445e6226824336354744cb9b407b2f322f21264a9b592597ed897aa",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  },
+  {
+    "state": "unlock_spring_rain",
+    "language": "zh",
+    "path": "/workspace/scratch/2bd695cff14d/game-dialog-layout/build/dialog-layout/screens/unlock_spring_rain_zh.png",
+    "sha256": "549e4469db3569eab61be142e082235aa0e2cc3f645e2a9679f4e7065e93a766",
+    "size": [
+      1080,
+      1920
+    ],
+    "visual_status": "Pass",
+    "source_scope": "popups.unlock matches integrated source per reused-source-check.json; Family nonordinal heading branch unchanged."
+  }
+]

@@ -1,6 +1,6 @@
 extends Control
-## Shop: two wooden booster shelves, live birds on perches and nests on display stands.
-## Cached categories share the sea and icon-only tabs; purchases keep the quantity popup.
+## Shop: two-column forest cards with painted names and live outfit previews.
+## Cached categories share a scalable scroll viewport and three icon-only tabs.
 
 signal closed
 signal profile_changed
@@ -8,31 +8,30 @@ signal booster_purchased(kind: int, count: int)
 
 const AviaryScript := preload("res://game/aviary_view.gd")
 const HeadingInk := preload("res://game/shop_heading.gdshader")
+const ProductInk := preload("res://game/shop_product_word.gdshader")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_NAMES := ["Boosters", "Outfits", "Nests"]
 const TAB_PICTURE_NAMES := ["boosters", "outfits", "nests"]
 ## Shop composition, in 1080 x 1920 design pixels; awaiting user visual acceptance.
 const CLOSE := Rect2(48, 48, 112, 112)
-const TITLE_SIGN := Rect2(324, 48, 432, 112)
-const TITLE_WORD := Rect2(372, 64, 336, 80)
-const SIGN_ART_CONTENT := Rect2(18, 76, 2080, 610)
-const AREA := Rect2(48, 224, 984, 1372)
-const BOOSTER_SLOT := Vector2(312, 600)
-const BOOSTER_TOP := 48.0
+const TITLE_WORD := Rect2(220, 208, 640, 112)
+const AREA := Rect2(48, 352, 984, 1240)
+const BOOSTER_SLOT := Vector2(480, 392)
 const TILE_GAP := 24.0
-const ITEM_TILE := Vector2(312, 440)
-const TAB_BAR := Rect2(72, 1660, 936, 160)
-const TAB_GAP := 24.0
-const TAB_ICON := 112.0
-const TAB_SELECTED := Color8(156, 231, 77)
-const BOOSTER_PICTURE := Rect2(36, 40, 240, 288)
-const BOOSTER_NAME := Rect2(36, 360, 240, 44)
-const PRICE_SIZE := Vector2(224, 80)
-const BOOSTER_PRICE := Rect2(Vector2(44, 520), PRICE_SIZE)
-const ITEM_PICTURE := Rect2(36, 16, 240, 216)
-const ITEM_NAME := Rect2(32, 292, 248, 44)
-const ITEM_ACTION := Rect2(Vector2(44, 352), PRICE_SIZE)
-const STOCK := Vector2(268, 56)
+const ITEM_TILE := BOOSTER_SLOT
+const COLUMNS := 2
+const TAB_BAR := Rect2(152, 1668, 776, 168)
+const TAB_GAP := 88.0
+const TAB_ICON := 128.0
+const TAB_SELECTED := Color(1.15, 1.28, 1.06)
+const BOOSTER_PICTURE := Rect2(100, 28, 280, 224)
+const BOOSTER_NAME := Rect2(40, 256, 400, 48)
+const PRICE_SIZE := Vector2(280, 60)
+const BOOSTER_PRICE := Rect2(Vector2(100, 316), PRICE_SIZE)
+const ITEM_PICTURE := BOOSTER_PICTURE
+const ITEM_NAME := BOOSTER_NAME
+const ITEM_ACTION := BOOSTER_PRICE
+const STOCK := Vector2(410, 64)
 const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]   # island_icon_<name>
 const BOOSTER_WORD := ["firefly", "sprout", "owl_eye", "wake_bell", "scarecrow", "spring_rain"]   # painted item_/cap_ words
@@ -40,9 +39,8 @@ const BOOSTER_WORD := ["firefly", "sprout", "owl_eye", "wake_bell", "scarecrow",
 ## Layout (design pixels, 1080x1920; margins 48, 8 px grid).
 const POPUP_CAPTION := 56.0
 const PILL_EDGE := 8.0
-const POPUP_PIC := 280.0
-const SINGLE_PIC := 340.0
-const POPUP_STAND_HEIGHT := 96.0
+const POPUP_PIC := 360.0
+const SINGLE_PIC := 400.0
 const BUY_SIZE := Vector2(560, 132)
 const QUANTITY_WIDTH := 212.0
 const STEP := Vector2(150, 112)            # - and + are short pills (no round buttons in popups)
@@ -63,6 +61,7 @@ var _coins: FeatherBar
 var _coins_shown := -1
 var _title: TextureRect
 var _heading_ink: ShaderMaterial
+var _product_ink: ShaderMaterial
 var _modal: Modal
 var _purchase_item: Dictionary
 var _quantity := 1
@@ -103,18 +102,17 @@ class QuantityInput extends LineEdit:
 		var frame := StyleBoxEmpty.new()
 		add_theme_stylebox_override("normal", frame)
 		add_theme_stylebox_override("read_only", frame)
-		ShopSkin.card(self, Rect2(Vector2.ZERO, size))
-		var focus := UI._box(Color.TRANSPARENT, UI.INK, 28.0, 0.0, false)
+		var focus := UI._box(Color.TRANSPARENT, UI.GOLD, 28.0, 0.0, false)
 		focus.set_border_width_all(2)
 		add_theme_stylebox_override("focus", focus)
 		_selection = ColorRect.new()
-		_selection.color = UI.RIM["cream"]
+		_selection.color = Color(1.0, 0.91, 0.55, 0.26)
 		_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_selection.hide()
 		add_child(_selection)
-		_digits = UI.number(self, text, Rect2(16, (size.y - CAP) * 0.5, size.x - 32, CAP))
+		_digits = UI.number(self, text, Rect2(16, (size.y - CAP) * 0.5, size.x - 32, CAP), Color.WHITE)
 		_caret = ColorRect.new()
-		_caret.color = UI.INK
+		_caret.color = Color.WHITE
 		_caret.size = Vector2(3, 52)
 		_caret.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_caret.hide()
@@ -155,15 +153,16 @@ class QuantityInput extends LineEdit:
 			UI.set_number(_digits, text)
 
 	func _process(_delta: float) -> void:
-		var width := UI.number_width(text, CAP)
+		var style := UiText.number_style(Color.WHITE)
+		var width := UiText.number_width(text, CAP, style)
 		var cap := CAP if width == 0.0 else CAP * minf(1.0, _digits.size.x / width)
-		var left := (size.x - UI.number_width(text, cap)) * 0.5
+		var left := (size.x - UiText.number_width(text, cap, style)) * 0.5
 		_caret.visible = is_editing() and not has_selection()
-		_caret.position = Vector2(left + UI.number_width(text.left(caret_column), cap), 34)
+		_caret.position = Vector2(left + UiText.number_width(text.left(caret_column), cap, style), 34)
 		_selection.visible = is_editing() and has_selection()
 		if _selection.visible:
-			var start := UI.number_width(text.left(get_selection_from_column()), cap)
-			var end := UI.number_width(text.left(get_selection_to_column()), cap)
+			var start := UiText.number_width(text.left(get_selection_from_column()), cap, style)
+			var end := UiText.number_width(text.left(get_selection_to_column()), cap, style)
 			_selection.position = Vector2(left + start, 32)
 			_selection.size = Vector2(end - start, 56)
 
@@ -174,9 +173,12 @@ func setup(p: Profile, start_tab := 0) -> void:
 	size = Vector2(1080, 1920)
 	_heading_ink = ShaderMaterial.new()
 	_heading_ink.shader = HeadingInk
-	UI.image(self, "background_shop_sea", Rect2(0, 0, 1080, 1920), false)
+	_product_ink = ShaderMaterial.new()
+	_product_ink.shader = ProductInk
+	DrawPurchaseArt.background(self)
 	_scroll = ScrollContainer.new()
 	_scroll.name = "Scroll"
+	_scroll.clip_contents = true
 	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	_scroll.scroll_deadzone = 12
@@ -214,11 +216,10 @@ func _build_header() -> void:
 	_title = null
 	_coins = null
 	_coins_shown = -1
-	Island.button(_bar, "Close", "island_close_tile", CLOSE, func(): closed.emit())
-	UI.art(_bar, "panel_shop_sign", TITLE_SIGN, SIGN_ART_CONTENT)
+	MenuNavigation.close(_bar, "Close", CLOSE.position, func(): closed.emit())
 	_build_title()
 
-## The plaque names the visible category in the active locale, using the same painted word family for all tabs.
+## Floating category words keep the existing painted lettering and locale updates.
 func _build_title() -> void:
 	if _title != null:
 		_bar.remove_child(_title)
@@ -255,6 +256,7 @@ func _refresh(rebuild := true) -> void:
 	_grid = _pages[tab]
 	_grid.show()
 	_grid.process_mode = Node.PROCESS_MODE_INHERIT
+	_sync_content_size()
 	_scroll.scroll_vertical = 0
 
 func _build_page(category: int) -> void:
@@ -263,7 +265,7 @@ func _build_page(category: int) -> void:
 		return
 	var page := Control.new()
 	page.name = "Grid_" + TAB_NAMES[category]
-	page.size = AREA.size
+	page.size = Vector2(AREA.size.x, _page_height(category))
 	page.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	page.hide()
 	page.process_mode = Node.PROCESS_MODE_DISABLED
@@ -271,19 +273,30 @@ func _build_page(category: int) -> void:
 	_pages[category] = page
 	_grid = page
 	if TABS[category] == Shop.BOOSTER:
-		_booster_shelves()
 		var items := _items(Shop.BOOSTER)
 		for n in items.size():
-			var origin := Vector2((n % 3) * (BOOSTER_SLOT.x + TILE_GAP), BOOSTER_TOP + (n / 3) * (BOOSTER_SLOT.y + TILE_GAP))
-			_booster_card(items[n], Rect2(origin, BOOSTER_SLOT), n)
+			_booster_card(items[n], _tile_rect(n), n)
 	else:
 		var tiles: Array = outfit_species() if TABS[category] == Shop.OUTFIT else _items(Shop.HOUSE)
 		for n in tiles.size():
-			var r := Rect2(Vector2((n % 3) * (ITEM_TILE.x + TILE_GAP), (n / 3) * (ITEM_TILE.y + TILE_GAP)), ITEM_TILE)
 			if TABS[category] == Shop.OUTFIT:
-				_kind_tile(tiles[n], r, n)
+				_kind_tile(tiles[n], _tile_rect(n), n)
 			else:
-				_card(tiles[n], r, n)
+				_card(tiles[n], _tile_rect(n), n)
+
+func _tile_rect(index: int) -> Rect2:
+	return Rect2(Vector2((index % COLUMNS) * (ITEM_TILE.x + TILE_GAP),
+		(index / COLUMNS) * (ITEM_TILE.y + TILE_GAP)), ITEM_TILE)
+
+func _page_height(category: int) -> float:
+	var count := outfit_species().size() if TABS[category] == Shop.OUTFIT else _items(TABS[category]).size()
+	var rows := ceili(float(count) / COLUMNS)
+	return maxf(AREA.size.y, rows * ITEM_TILE.y + maxi(0, rows - 1) * TILE_GAP + 8)
+
+## Only the visible category sizes the scroll content, including during background outfit warming.
+func _sync_content_size() -> void:
+	_content.custom_minimum_size = Vector2(AREA.size.x, _page_height(tab))
+	_content.size = _content.custom_minimum_size
 
 ## Prepare one live bird per frame; switching to a cached page never reloads nine animation sets at once.
 func _warm_outfits() -> void:
@@ -292,7 +305,7 @@ func _warm_outfits() -> void:
 	var shown := _grid
 	var page := Control.new()
 	page.name = "Grid_Outfits"
-	page.size = AREA.size
+	page.size = Vector2(AREA.size.x, _page_height(1))
 	page.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	page.visible = tab == 1
 	page.process_mode = Node.PROCESS_MODE_INHERIT if tab == 1 else Node.PROCESS_MODE_DISABLED
@@ -306,7 +319,7 @@ func _warm_outfits() -> void:
 			return
 		shown = _grid
 		_grid = page
-		_kind_tile(species[n], Rect2(Vector2((n % 3) * (ITEM_TILE.x + TILE_GAP), (n / 3) * (ITEM_TILE.y + TILE_GAP)), ITEM_TILE), n)
+		_kind_tile(species[n], _tile_rect(n), n)
 		_grid = page if tab == 1 else shown
 
 ## Every new press starts a fresh tap-or-drag decision.
@@ -324,7 +337,7 @@ func _on_scroll_input(event: InputEvent) -> void:
 		if _drag_travel >= TAP_SLOP:
 			_scroll.scroll_vertical -= roundi(event.relative.y)
 
-## A compact shop counter leaves the category plaque and content as the main focus.
+## The compact balance leaves the floating heading and cards as the main focus.
 func _build_coins() -> void:
 	if _coins == null:
 		_coins = ShopSkin.counter(_bar, profile)
@@ -332,6 +345,7 @@ func _build_coins() -> void:
 	elif _coins_shown != profile.coins:
 		_coins.set_amount(profile.coins, not instant)
 		_coins_shown = profile.coins
+	AviaryScript._center_digits(_coins.get_node("Digits").get_child(0))
 
 ## Three separate painted tiles. Selection changes the face, never the tile or icon size.
 func _tab_bar() -> void:
@@ -344,12 +358,10 @@ func _tab_bar() -> void:
 				Sound.play("ui_tap")
 			_select_tab(i))
 		hit.name = TAB_NAMES[i]
-		var face := ShopSkin.card(hit, Rect2(Vector2.ZERO, bounds.size))
+		var face := ShopSkin.product_card(hit, Rect2(Vector2.ZERO, bounds.size))
 		var tint := TAB_SELECTED if on else Color.WHITE
 		face.modulate = tint
 		_fit_visible(hit, "island_tab_" + TAB_PICTURE_NAMES[i], bounds.size * 0.5, TAB_ICON)
-		if on:
-			Island.check_badge(hit, Vector2(width - 36, 36))
 		hit.button_down.connect(func(): face.modulate = tint * Island.PRESSED)
 		hit.button_up.connect(func(): face.modulate = tint)
 
@@ -396,45 +408,39 @@ func _label_id(it: Dictionary) -> String:
 		return "item_" + BOOSTER_WORD[it["booster"]]
 	return "house_" + str(it["style"])
 
-## Nests rest on a low wooden stand; only the compact action carries a state face.
+## Nests share the booster card geometry, with a consistent numeric or equip action.
 func _card(it: Dictionary, r: Rect2, n: int) -> void:
 	var card := _item_holder(it, r)
 	var body: Control = card.get_node("Body")
-	_support(body, "prop_shop_nest_stand", Vector2(r.size.x * 0.5, ITEM_PICTURE.end.y), 264, 0.20)
 	_picture(body, it, ITEM_PICTURE)
-	ShopSkin.word(body, _name_id(it), ITEM_NAME)
+	_product_word(body, _name_id(it), ITEM_NAME)
 	if _owned(it):
-		var equip := ShopSkin.card(body, ITEM_ACTION)
-		equip.get_node("Skin").self_modulate = ShopSkin.GREEN
+		ShopSkin._product_action_face(body, ITEM_ACTION, "green")
 		UiText.painted(body, "white_equipped" if _equipped(it) else "white_equip", ITEM_ACTION.grow(-16))
 		if _equipped(it):
 			Island.check_badge(body, Vector2(r.size.x - 40, 40))
 	else:
-		ShopSkin.price(body, ITEM_ACTION, it["price"])
+		var price := ShopSkin.product_price(body, ITEM_ACTION, it["price"])
+		AviaryScript._center_digits(price.get_node("Digits"))
 	var hit: Button = card.get_node("Select")
 	hit.button_down.connect(func(): body.modulate = Island.PRESSED)
 	hit.button_up.connect(func(): body.modulate = Color.WHITE)
 	_pop_in(card, n)
 
-## Three items share each shelf; the smaller names sit on its front rail.
-func _booster_shelves() -> void:
-	for row in 2:
-		var seat_y := BOOSTER_TOP + row * (BOOSTER_SLOT.y + TILE_GAP) + BOOSTER_PICTURE.end.y
-		_support(_grid, "prop_shop_shelf", Vector2(AREA.size.x * 0.5, seat_y), AREA.size.x, 0.15)
+## The same painted source words keep their outline and become warm ivory on teal.
+func _product_word(parent: Node, label_id: String, bounds: Rect2) -> TextureRect:
+	var label := UiText.painted_label(parent, label_id, bounds, true)
+	label.material = _product_ink
+	return label
 
-## Register a support's seat within its visible art, excluding transparent canvas padding.
-func _support(parent: Node, picture: String, seat: Vector2, width: float, seat_ratio: float) -> TextureRect:
-	var used := UI.used_rect(picture)
-	var height := width * used.size.y / used.size.x
-	return UI.art(parent, picture, Rect2(seat.x - width * 0.5, seat.y - height * seat_ratio, width, height))
-
-## Six open product slots retain the same stock badge and numeric-only purchase action.
+## Equal grouped product cards keep stock badges and numeric-only purchase actions.
 func _booster_card(it: Dictionary, r: Rect2, n: int) -> void:
 	var card := _item_holder(it, r)
 	var body: Control = card.get_node("Body")
 	_picture(body, it, BOOSTER_PICTURE)
-	UiText.painted(body, _label_id(it), BOOSTER_NAME)
-	ShopSkin.price(body, BOOSTER_PRICE, it["price"])
+	_product_word(body, _name_id(it), BOOSTER_NAME)
+	var price := ShopSkin.product_price(body, BOOSTER_PRICE, it["price"])
+	AviaryScript._center_digits(price.get_node("Digits"))
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
 		Island.piece_fit(card, "island_padlock", STOCK, Vector2(66, 66)).name = "Lock"
@@ -454,7 +460,8 @@ func _stock_badge(parent: Node, count: int) -> void:
 	UI.place(badge, Rect2(STOCK - Vector2.ONE * side * 0.5, Vector2.ONE * side))
 	parent.add_child(badge)
 	UI.art(badge, "badge_shop_stock", Rect2(Vector2.ZERO, badge.size), Rect2(197, 214, 842, 844))
-	Island.digits(badge, str(mini(count, Island.BADGE_CAP)), Rect2(12, 12, side - 24, side - 24))
+	var digits := Island.digits(badge, str(mini(count, Island.BADGE_CAP)), Rect2(12, 12, side - 24, side - 24))
+	AviaryScript._center_digits(digits)
 
 ## A picture whose visible pixels (not its padded canvas) fill a `side` x `side` box centred on `center`.
 func _fit_visible(parent: Node, picture: String, center: Vector2, side: float) -> TextureRect:
@@ -480,6 +487,7 @@ func _item_holder(it: Dictionary, r: Rect2) -> Control:
 	body.size = r.size
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(body)
+	ShopSkin.product_card(body, Rect2(Vector2.ZERO, r.size))
 	return card
 
 func _pop_in(card: Control, n: int) -> void:
@@ -552,22 +560,24 @@ func _kind_tile(species: String, r: Rect2, n: int) -> void:
 	tile.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(tile, r)
 	_grid.add_child(tile)
-	_support(tile, "island_branch", Vector2(r.size.x * 0.5, ITEM_PICTURE.end.y), 272, 0.47)
+	var face := ShopSkin.product_card(tile, Rect2(Vector2.ZERO, r.size))
 	_kind_face(tile, species, ITEM_PICTURE, n, 1.0)
 	if met:
-		UiText.painted_label(tile, "bird.%s.name" % species, ITEM_NAME, true)
-		var slot := Rect2(84, 360, 144, 64)
-		ShopSkin.card(tile, slot)
+		_product_word(tile, "bird.%s.name" % species, ITEM_NAME)
+		var slot := ITEM_ACTION
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
 		var cap := 36.0
 		var nw := UI.number_width(text, cap)
 		var cy := slot.get_center().y
-		UI.number(tile, text, Rect2((r.size.x - nw) * 0.5, cy - cap * 0.5, nw + 4.0, cap), UI.INK)
+		UI.number(tile, text, Rect2((r.size.x - nw) * 0.5, cy - cap * 0.5, nw + 4.0, cap), Color.WHITE)
 		var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, r.size), func():
 			if _drag_travel < TAP_SLOP:
 				Sound.play("ui_tap")
 				_open_kind(species))
+		hit.name = "Select"
 		hit.mouse_filter = Control.MOUSE_FILTER_PASS
+		hit.button_down.connect(func(): face.modulate = Island.PRESSED)
+		hit.button_up.connect(func(): face.modulate = Color.WHITE)
 	_pop_in(tile, n)
 
 ## A met kind wears its current outfit and keeps living; an unmet one is the "?" silhouette.
@@ -631,31 +641,31 @@ func _tap(it: Dictionary) -> void:
 		return
 	_confirm(it)
 
-## One wooden frame contains the supported item, necessary caption, quantity and total.
+## One forest surface contains the existing item, necessary caption, quantity and total.
 func _confirm(it: Dictionary) -> void:
+	if is_instance_valid(_modal):
+		return
 	_purchase_item = it
 	_quantity = 1
 	_quantity_input = null
 	var repeatable: bool = it["kind"] == Shop.BOOSTER
 	_quantity_limit = maxi(1, profile.coins / int(it["price"])) if repeatable else 1
 	var picture_size := POPUP_PIC if repeatable else SINGLE_PIC
-	var display_height := picture_size + POPUP_STAND_HEIGHT
-	var heights := [display_height, POPUP_CAPTION, UI.SECONDARY, BUY_SIZE.y] if repeatable else [display_height, BUY_SIZE.y]
+	var heights := [picture_size, POPUP_CAPTION, UI.SECONDARY, BUY_SIZE.y] if repeatable else [picture_size, BUY_SIZE.y]
 	_modal = _purchase_modal(_name_id(it), heights)
+	_modal.closed.connect(func(): _modal = null)
 	var c := _modal.content
 	var ys: Array = _modal.get_meta("ys")
 	var pic := Rect2(540.0 - picture_size * 0.5, ys[0], picture_size, picture_size)
-	var glow := UI.image(c, "glow_soft", pic.grow(picture_size * 0.15))
-	glow.modulate = Color(1.0, 0.86, 0.42, 0.8)
-	_support(c, "prop_shop_nest_stand", Vector2(540, pic.end.y), picture_size * 1.15, 0.20)
+	PurchaseDialog.glow(c, pic)
 	_picture(c, it, pic)
 	if repeatable:
 		var inner := Rect2(_modal.panel_rect.position.x + 96, ys[1], _modal.panel_rect.size.x - 192, POPUP_CAPTION)
-		UiText.painted_label(c, _caption_id(it), inner).name = "Caption"
+		ShopSkin.product_word(c, _caption_id(it), inner).name = "Caption"
 		_quantity_row(c, ys[2])
 		_modal.closed.connect(_quantity_input.release_focus)
-	_purchase_button = _pill_button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, ys[-1]), BUY_SIZE), "gold",
-		func(): _modal.invoke(func(): _buy(it, _quantity)))
+	_purchase_button = ShopSkin.product_button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, _modal.panel_rect.end.y + Modal.ACTION_DROP), BUY_SIZE),
+		func(): _modal.invoke(func(): _buy(it, _quantity)), "gold")
 	_purchase_contents = Control.new()
 	_purchase_contents.name = "Contents"
 	_purchase_contents.size = BUY_SIZE
@@ -663,31 +673,15 @@ func _confirm(it: Dictionary) -> void:
 	_purchase_button.add_child(_purchase_contents)
 	_update_purchase()
 
-## Keep the shared modal lifecycle, with a page-local wood frame and compact item plaque.
+## Keep modal ownership and callbacks while changing only the purchase presentation.
 func _purchase_modal(title_id: String, heights: Array) -> Modal:
-	var view := Modal.open(self, title_id, heights, true, 0.0, 0.0, instant, false, "", false)
-	for node_name in ["Panel", "TitleGroup"]:
-		var old := view.content.get_node(node_name)
-		view.content.remove_child(old)
-		old.queue_free()
-	var frame := UI.kit_piece(view.content, "panel", view.panel_rect, 0.58)
-	frame.name = "Panel"
-	view.content.move_child(frame, 0)
-	var title := Control.new()
-	title.name = "TitleGroup"
-	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(title, Rect2(280, view.panel_rect.position.y - 56, 520, 132))
-	view.content.add_child(title)
-	UI.art(title, "panel_shop_sign", Rect2(Vector2.ZERO, title.size), SIGN_ART_CONTENT)
-	ShopSkin.word(title, title_id, Rect2(56, 38, 408, 56))
-	view._title_layer = title
-	return view
+	return PurchaseDialog.open(self, title_id, heights, instant)
 
 func _quantity_row(c: Control, y: float) -> void:
 	var row_w := STEP.x * 2.0 + QUANTITY_GAP * 2.0 + QUANTITY_WIDTH
 	var x := 540.0 - row_w * 0.5
 	var sy := y + (UI.SECONDARY - STEP.y) * 0.5
-	_minus = _pill_button(c, "Decrease", Rect2(Vector2(x, sy), STEP), "green", func(): _step_quantity(-1))
+	_minus = ShopSkin.product_button(c, "Decrease", Rect2(Vector2(x, sy), STEP), func(): _step_quantity(-1), "green")
 	_sign_bars(_minus, false)
 	_quantity_input = QuantityInput.new()
 	_quantity_input.name = "Quantity"
@@ -698,8 +692,8 @@ func _quantity_row(c: Control, y: float) -> void:
 	_quantity_input.value_changed.connect(func(value: int):
 		_quantity = value
 		_update_purchase())
-	_plus = _pill_button(c, "Increase", Rect2(Vector2(x + row_w - STEP.x, sy), STEP), "green",
-		func(): _step_quantity(1))
+	_plus = ShopSkin.product_button(c, "Increase", Rect2(Vector2(x + row_w - STEP.x, sy), STEP),
+		func(): _step_quantity(1), "green")
 	_sign_bars(_plus, true)
 
 ## A bold white minus (or plus) on a green pill: two rounded bars, centred on the disc face.
@@ -734,7 +728,8 @@ func _update_purchase() -> void:
 	for child in _purchase_contents.get_children():
 		_purchase_contents.remove_child(child)
 		child.queue_free()
-	ShopSkin.amount(_purchase_contents, Rect2(24, 22, BUY_SIZE.x - 48, BUY_SIZE.y - 44), total)
+	var amount := ShopSkin.amount(_purchase_contents, Rect2(24, 22, BUY_SIZE.x - 48, BUY_SIZE.y - 44), total)
+	AviaryScript._center_digits(amount)
 
 func _buy(it: Dictionary, quantity: int) -> void:
 	if _quantity_input != null:
@@ -775,8 +770,10 @@ static func preview(main: Control, state: String) -> void:
 			p.outfits = {"outfit.sky.1": true, "outfit.mint.1": true, "outfit.berry.1": true, "outfit.berry.2": true}
 			p.equipped = {"sky": "outfit.sky.1", "berry": "outfit.berry.2"}
 			start = 1
-		"houses":
+		"houses", "confirm_nest", "confirm_nest_short":
 			p.coins = 50270   # a long counter: the title sign must stay clear of it
+			if state == "confirm_nest_short":
+				p.coins = 20
 			p.houses = {"teapot": true, "acorn": true}
 			p.equipped_house = "teapot"
 			start = 2
@@ -804,3 +801,5 @@ static func preview(main: Control, state: String) -> void:
 		"confirm_multiple", "confirm_maximum":
 			view._confirm(Shop.item("booster.owlEye"))
 			view._quantity_input.set_value(5 if state == "confirm_multiple" else view._quantity_limit)
+		"confirm_nest", "confirm_nest_short":
+			view._confirm(Shop.item("house.pinecone"))

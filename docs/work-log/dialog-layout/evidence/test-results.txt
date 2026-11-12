@@ -1,0 +1,13 @@
+Engine: Godot 4.7.2 official ed1daf0bf, GL Compatibility.
+Environment HOME/XDG paths: build/dialog-layout/{home,config,data,cache}.
+Headless: godot --headless --path PerchSort --audio-driver Dummy -s res://tests/run_family_dialogs.gd
+Result: 2306 checks, 0 failures.
+Headless: godot --headless --path PerchSort --audio-driver Dummy -s res://tests/run_purchase_dialogs.gd
+Result: 98 checks, 0 failures.
+Aggregate: GODOT=/workspace/scratch/2bd695cff14d/godot472/godot bash scripts/run_tests.sh
+Result: naming self-test/guard, painted-word guard, smoke and all 100 core levels passed.
+GL final extended checks: Family 2306 and Purchase 98 checks, 0 failures.
+Final preview captures: 12 six-pack bilingual images, 1080×1920. Actual pointer OK dismissed the preview without payment, grant or profile mutation.
+Family GL captures: 42 bilingual states + 4 references, all 1080×1920.
+Family motion: 16 frames each of win/newfriend/worldunlock,48 total, actual 19.3–20.5seconds.
+Family pointer: disabled Play does not dispatch; Close 0, Home 100, Replay 101, Next 111, world Play 1111; balance 0 unchanged.

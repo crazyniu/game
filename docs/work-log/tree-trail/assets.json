@@ -1,0 +1,14 @@
+{
+  "scope": "User-authorized redesign of unfinalized level-trail markers only",
+  "asset": "PerchSort/art/island/map_level_stump.png",
+  "source_sha256": "aad888164c6caa9bcd9392b8b5842b6c046ff9f53d020d3cd5667a95070ac973",
+  "method": "New independent image generation, followed by an image-generation edge-cleanup edit; chosen source bytes copied unchanged",
+  "brief": "A broad low warm honey/chestnut wooden stump with elliptical growth-ring top, a clear front face for separate numerals, and small green sprouts. Transparent background, matching cheerful forest game art. No lettering, character, stone, glow or halo.",
+  "source_canvas": [1816, 866],
+  "visible_content_rect": [89, 143, 1632, 623],
+  "visible_width": 230,
+  "front_face_anchor": [905, 530],
+  "perch_plane_anchor": [905, 235],
+  "material_gate": "Independent review passed before implementation at230px visible width and enlarged on light/dark backgrounds. One alpha component above32/255; raw subthreshold noise was invisible at runtime size. Source pixels preserved, not manually repainted or thresholded.",
+  "preserved": "All existing world paintings, approved selector art and rounded-card shader, bird frames, full/empty stars, locks, names, number glyphs and navigation assets"
+}

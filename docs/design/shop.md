@@ -1,23 +1,38 @@
-# Shop card direction
+# Shop forest cards
 
-Status: design preview awaiting explicit user approval. The user rejected the wooden shelves and repeated plaques, and requested an image before any further Shop implementation. This proposal does not alter `shop_view.gd`, prices, inventory or purchases. The existing shelf implementation remains paused.
+## Current direction and scope
 
-Preview: `art/approved_ui/shop.png`. The built-in image generation output is `/Users/apple/.codex/generated_images/01a1cad1-6a3e-7c53-920e-f87dbb76cd58/exec-2a37b897-8d41-4297-937f-dacdb19a69d7.png`.
+The current visual reference is `art/approved_ui/shop.png`: a bright forest setting with two columns of deep-teal cards, narrow honey-gold rattan edges and three icon-only category tabs. The earlier coastal three-column proposal and shelf presentation are superseded; they are not the implementation target.
 
-## Proposed hierarchy
+The user requested card grouping, improved product lettering and colors, navigation controls matching the coin shop, and completion of the confirmed non-gameplay UI without additional confirmation or code upload. The later report of missing tabs and content emerging below the navigation requires fixed visible tabs and a clipped item viewport. This authorizes the current implementation and self-checks; it does not claim a new owner acceptance of the runtime captures.
 
-- Compact header with close control and current feather balance, followed by one painted gold category title without a wooden sign.
-- Six equal product cards in three columns and two rows. Each uses one pale aqua/ivory grouping surface, thin warm edge, prominent item illustration, smaller teal name, small inset stock badge and one numeric gold price button.
-- Fixed picture/name/price baselines and equal card/button sizes; no shelves, pedestals, nested price panels, descriptions or promotional copy.
-- Three independent proportional category icons at the bottom, with a small green active marker instead of broad cream tab backplates.
-- Coastal background consistent with Home: blue sky, limited bay, sandy foreground and restrained peripheral plants.
+The canonical implementation remains `PerchSort/game/shop_view.gd` for Boosters, Outfits and Nests. Purchase dialogs are handled by their separate task. Existing economics, item order, inventory, unlock rules, saved fields, quantity behavior and equip/navigation contracts remain unchanged.
 
-The mockup keeps the six existing booster identities/order and their current unit prices: Firefly 30, Sprout 60, Owl Eye 80, Wake Bell 80, Scarecrow 100, Spring Rain 100. Stock values are illustrative. This image covers the booster tab; outfit and house details must follow an approved material direction before implementation.
+## Composition
 
-## Gate
+All measurements use the 1080 x 1920 design canvas.
 
-Wait for user feedback. Do not implement this proposal, generate production cards or alter shared components before approval. The image is reference only and must never be sliced or installed as runtime UI.
+- Close begins at (48,48), using `MenuNavigation.SIZE` and the unchanged coin-shop close artwork. Its dimensions are approximately 130 x 133, derived from the coin-shop canvas scale rather than a separate Shop-specific size.
+- The existing compact feather balance remains aligned to the upper-right. One floating painted category heading occupies (220,208,640,112), without a sign backing or subtitle.
+- The item viewport is (48,352,984,1240), ending at y=1592. It explicitly clips all item content.
+- Equal cards measure 480 x 392, with 24px horizontal and vertical gaps. The current six boosters occupy two columns and three rows. Outfits and nests use the same geometry and additional rows.
+- Each card reserves (100,28,280,224) for its illustration, (40,256,400,48) for its localized painted name, and (100,316,280,60) for its numeric price or ownership action. Booster stock is a small badge near the top-right.
+- The fixed tab region begins at y=1668, outside the scroll container. Three equal 200 x 168 category frames are centered at x=252, 540 and 828, y=1752. Their lantern, outfit hat and birdhouse icons retain their proportions. Selection changes the face tint, not control size. There are no visible tab labels or broad cream backplates.
 
-## Exact image prompt
+## Scrolling and interaction
 
-Use case: ui-mockup. Create ONE finished 9:16 portrait mobile-game BOOSTER SHOP design preview, 1080x1920 logical layout, for user approval ONLY. Reference image 1 is the APPROVED game's Home style: use its bright tropical coastal palette, polished dimensional painted materials, restrained foliage and readable icon contours. Reference image 2 shows the six existing shop item illustrations and current data; preserve their identities, but the USER REJECTS its long wooden shelves, repeated wooden plaques, scattered floating objects and excessive blank gaps. Do not repeat those layout/material mistakes. New hierarchy: one clear modest page title, six cohesive COMPACT PRODUCT CARDS in a 3-column x 2-row grid, strong item art, quiet names/stock, consistent small price buttons, then restrained category navigation. Cards have an actual grouping purpose; use ONE slim pale-ivory/light-aqua surface per product with softly rounded corners, a very narrow warm rim and subtle painted shadow, no nested panels, no giant tall blank cream rectangles, no wooden product pedestals, NO SHELVES anywhere. Place grid around x=48..1032, y=350..1460; equal card width312, height520, gaps24. Each card's illustrated object fills the upper ~58%, its smaller accurately painted name one fixed line below, then a modest gold rounded price button of equal size at its bottom. Inventory is a small green badge tucked inside top-right; keep all picture/name/price baselines aligned. TOP HEADER: small existing orange X close control at upper-left, existing feather coin HUD at upper-right displaying exactly 50000. Center a single gold painted word 'Boosters' below the header around y=230, clear and smaller than the main Home logo. No wooden sign backing behind this heading. PRODUCT DATA in exact left-to-right, top-to-bottom order: 1) Firefly: the existing golden lantern with tiny glowing firefly, stock 99, price 30. 2) Sprout: fresh two-leaf sapling in small soil mound, stock 2, price 60. 3) Owl Eye: friendly owl holding a magnifying glass, stock 28, price 80. 4) Wake Bell: golden bell with red ribbon, stock 11, price 80. 5) Scarecrow: friendly small straw-hat scarecrow, stock 8, price 100. 6) Spring Rain: blue rain cloud watering green sprout, stock 36, price 100. Names should be smaller dark teal painted game lettering with clean edges, not large competing gold headings. Prices are WHITE PAINTED NUMERALS ONLY on the gold buttons, no Buy word, no currency symbol, no coin graphic inside them. Stock numbers are smaller than prices. No feature descriptions, instruction subtitles, promotional copy, offers or ads. BOTTOM NAV around y=1660: three same-size standalone illustrated category icons: lantern, bird outfit/straw hat, birdhouse. Preserve icon proportions. No wide cream tab backplates. Show selected lantern with a small clean green underline/low glow, not a large check badge or a huge green rectangle. Background is the same calm COASTAL scene as approved Home: blue sky above, turquoise mid-distance bay, visible warm SAND in lower third; few palm leaves only at extreme top-left and two small green beach plants at bottom corners. Keep it subdued behind the product cards. No flowers, dense vegetation, giant mountains, waterfalls, ropes, floating leaves, wooden furniture, extra decorative labels, device frame, application chrome, screenshot markup or watermark. Polished dimensional casual-game UI with clear visual priorities and excellent alignment. The image is a fresh design preview, not production art.
+Each category derives its scrollable height from its item count. Six boosters fit within the viewport, and adding more than six produces reachable additional rows. All nine outfit species and all nine nests remain available. Hidden cached pages and background outfit preparation must not change the active category's content height.
+
+Switching categories resets to the top. Cards cannot render or receive item interaction through the clipped boundary into the fixed navigation area. Dragging does not trigger a purchase. Existing live outfit birds, locked/unmet states, owned/equipped states, item actions and return navigation remain supported.
+
+## Materials and lettering
+
+Reuse the existing clean standalone assets: `background_shop_forest`, `panel_shop_forest`, `btn_shop_gold`, `badge_shop_stock`, current booster/bird/house illustrations, category icons and localized painted words. The existing illustrations and accepted cutouts remain unchanged. The reference image is not cropped into runtime.
+
+Product names use the Shop-only `shop_product_word.gdshader`: warm ivory faces retain the original painted dark outlines and relief for contrast against teal. Category headings keep the existing painted gold treatment. Prices and owned counts remain painted numeric glyphs. No runtime font-rendered words, new descriptions, promotional copy, shelves, display stands or repeated plaques are introduced.
+
+The six booster unit prices remain Firefly 30, Sprout 60, Owl Eye 80, Wake Bell 80, Scarecrow 100 and Spring Rain 100. Screenshots use illustrative profile data; production values continue to come from the existing Shop/Profile sources.
+
+## Evidence
+
+Current implementation checks, screenshots, comparison images and limitations are recorded in `docs/work-log/shop-card-layout/report.md`. Validation results belong there rather than serving as an additional visual-approval claim in this specification. No protected Home, Settings or gameplay redesign is part of this Shop change.

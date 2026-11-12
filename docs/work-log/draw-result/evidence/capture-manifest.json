@@ -1,0 +1,162 @@
+[
+  {
+    "file": "actual_0_left.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "2e7f6321ca796ca29acff7bfc8cf9dfa6c4ab6c4270e0d7c6aa54e43ad2b6322"
+  },
+  {
+    "file": "actual_1_left.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3a931029699d864cc9f109ea8cc20791bd6683ba60d86e41296762f14c22bf64"
+  },
+  {
+    "file": "booster_1_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "d1dc57cfcc67f1996de0be3fd2981d51d524695f7dc2157c86f03a2bac661ece"
+  },
+  {
+    "file": "booster_1_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "5e1094d59616d80d448d3c62118b5c82933cd25f7c84211e7796fcd01a4415d4"
+  },
+  {
+    "file": "booster_2_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "17e16b5b337c648619a1e8ce1071e43a540b1b83b71d097de2cc0b602a9fda75"
+  },
+  {
+    "file": "booster_2_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "63632a0fc575a7122a498c9938d3916981d666d06d25f6d29b8785f88bdcb5ca"
+  },
+  {
+    "file": "coins_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9267bb935349e671c553dada4eed9ade6cdd0fccc6d644b086ae243cd4ee69f1"
+  },
+  {
+    "file": "coins_zh.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "9348197597ea575a6dd802acb29789fbe68b1d424395bd8eb5be8a51b365e2cb"
+  },
+  {
+    "file": "mixed_en.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "0a5823e42c0663120859e992ad4e0b38c5be055765233297bcee801b1f9f602a"
+  },
+  {
+    "file": "result_motion_end.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "59911f6f1a1ae4d98a52681122770787c61504805591e13c159f839ebc91ad62"
+  },
+  {
+    "file": "result_motion_start.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "b780151a0e95d4913b20938904d03439b51635e73f15ac75cd39033a8e4718ce"
+  },
+  {
+    "file": "roll_00.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6a8e3e7503eb5006dd33fb13151c7fcd3589fe2615120ad7eb502c92cf050642"
+  },
+  {
+    "file": "roll_01.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "e6e3ff7976d77f2ea6d0b16e2f2031b635a9d53ffa892c2cf481194f934d3eeb"
+  },
+  {
+    "file": "roll_02.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "d4fa325a7dd6d705fec20ae6742d42c37c12b39dbd2e7e415593295151cf0085"
+  },
+  {
+    "file": "roll_03.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "4d7a7ab168ff600307615f97fc6ebeca665ac0e1c0fc77ed929f9d152e619242"
+  },
+  {
+    "file": "roll_04.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "63d6721738ff27f8a4499303ee25627fc1011741aba751bd48a3136830d5589a"
+  },
+  {
+    "file": "roll_05.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "6227fe0d37bce2aaa38767797e5b551c743ed1552b345ecde9c4e665d5d8e842"
+  },
+  {
+    "file": "roll_06.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "78b4ec46f5e148a32b06e0a0d69768363818719ac64b6105e4b9ea7b47db2134"
+  },
+  {
+    "file": "roll_07.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "3f1a4493a5de1ec26df87bda1176d03942bf9d401cf6c9436e88ed9bd1141aeb"
+  },
+  {
+    "file": "roll_08.png",
+    "size": [
+      456,
+      812
+    ],
+    "sha256": "7f8cbe061d62eaa487cf06688c27a0de3ca81714fbe84632a3eea87d97ba8a19"
+  }
+]
