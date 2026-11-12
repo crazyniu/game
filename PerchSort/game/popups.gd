@@ -237,11 +237,11 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 
 static func goal_info(host: Control, species: String) -> Control:
 	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, ABILITY_H], true, 0.0, 0.0, _instant(host))
+	FamilyDialog.decorate(p, false)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	_halo(c, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND))
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0)
-	_ability_line(c, species, ys[1])
+	FamilyDialog.ability(c, species, EFFECT.get(species, ""), ys[1])
 	return p
 
 ## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
@@ -273,7 +273,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	var background := DrawPurchaseArt.background(p)
 	p.move_child(background, 1)
 	var c := DrawPurchaseArt.canvas(p.content)
-	p._title_layer = DrawPurchaseArt.localized(c, "label_draw_title", Rect2(121, 111, 673, 218))
+	p._title_layer = DrawPurchaseArt.draw_heading(p.content)
 	var close := MenuNavigation.close(c, "Close", Vector2(23, 52), p.close, DrawPurchaseArt.SCALE)
 	var stars := []
 	for i in slots:
@@ -761,7 +761,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	var background := DrawPurchaseArt.background(p)
 	p.move_child(background, 1)
 	var canvas := DrawPurchaseArt.canvas(p.content)
-	p._title_layer = DrawPurchaseArt.localized(canvas, "label_draw_title", Rect2(121, 111, 673, 218))
+	p._title_layer = DrawPurchaseArt.draw_heading(p.content)
 	# Keep the existing direct Content/Close and Content/Confirm contracts for callers.
 	var close_at := Vector2(23, 50) * DrawPurchaseArt.SCALE + canvas.position
 	MenuNavigation.close(p.content, "Close", close_at, p.close)
@@ -1007,7 +1007,7 @@ const ABILITY_H := 128.0
 ## Cream circle with a live bird and its ability badge at the lower right.
 static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
 	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
-	UI.shape(c, r, "cream", RING * 0.5, 8.0)
+	UI.art(c, "btn_home_icon_frame", r)
 	var inner := RING * 0.82
 	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
 	var effect: String = EFFECT.get(species, "")

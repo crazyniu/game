@@ -75,14 +75,14 @@ var _perch_step := 0.0
 var _perch_top := PERCH_TOP   # first perch line; the block of perches is centred in the play area
 var _house: Control
 var _goal_nodes := {}   # species -> Control
-var _status: Panel          # stars and move count
+var _status: Control          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
 var _moves_icon: Control
 var _stars_centred := false
 var _stars_tween: Tween
 var _shown_stars := -1
-var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
+var _phase_chip: Control      # day/night levels: sun or moon and the moves until the switch
 var _phase_icons := {}       # Board.Phase -> painted sun or moon
 var _phase_number: Control
 var _shown_moves := -1
@@ -261,8 +261,9 @@ func _build_scene() -> void:
 	# One painting per world (docs/design/island-style.md): the branch-free scene, then each branch layer cut from the
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
-	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
-	_night_bg = UI.image(self, "board_w%d_night_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
+	var scene_name := "board_w%d_open" % _world() if _world() in [1, 10] else "board_w%d" % _world()
+	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false)
+	_night_bg = UI.image(self, scene_name + "_night_bg", Rect2(0, 0, 1080, 1920), false)
 	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
 	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
 	_air = Ambient.new()
@@ -694,20 +695,18 @@ func _entrance(quick := false) -> void:
 
 ## ---------- HUD ----------
 
-## Minimal status (top left, clear of the house and Settings): one pill with the three stars still reachable
-## and the moves that can still be made before the next star is lost (hidden on the last star, which cannot
-## be lost; the stars then centre in the pill); on day/night levels a second pill below it with only a sun or moon and the moves until
-## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
-const STATUS_AT := Vector2(48, 48)
+## Exposed, aligned HUD: stars, footprint and remaining star-budget share one row.
+## The budget hides on the last star; day/night information stays below without a backing panel.
+const STATUS_AT := Vector2(72, 52)
 const STATUS_H := 104.0
 const STATUS_W := 372.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
 const PHASE_W := 192.0
 const STATUS_GAP := 16.0         # between the two pills
-const STATUS_INSET := 34.0
-const STATUS_CAP := 34.0
-const STATUS_STAR := 50.0
+const STATUS_INSET := 0.0
+const STATUS_CAP := 48.0
+const STATUS_STAR := 64.0
 const STATUS_STAR_GAP := 2.0
-const STATUS_ICON := 50.0
+const STATUS_ICON := 56.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
@@ -715,8 +714,12 @@ const LABEL_LINE := 208.0
 const NUMBER_BASELINE := 126.0 / 128.0
 const GEAR := Vector2(968, 104)
 ## Tool buttons stand in one centred row at the bottom (no tray), 48 px from the screen edge like the status pill at the top.
-const TOOL_Y := 1784.0
-const TOOL_GAP := 48.0
+const TOOL_Y := 1768.0
+const TOOL_GAP := 24.0
+const TOOL_SIZE := 136.0
+const TOOL_ITEM_HEIGHT := 184.0
+const TOOL_ICON_SIZE := 104.0
+const TOOL_ROW_WIDTH := 1000.0
 ## Hanging house: sprite, visible content and doorway in sprite pixels, and where the rope meets it.
 const HOUSES := {
 	"default": ["house_default", Rect2(122, 62, 778, 878), Rect2(313, 418, 378, 380), 70.0],
@@ -798,7 +801,10 @@ func _build_hud() -> void:
 	_house.add_child(_door_mask)
 	_door_open = null
 	_build_status()
-	UI.button(_hud, "Settings", GEAR, "cream", "gear", func(): settings_requested.emit())
+	UI.art(_hud, "pic_gear", Rect2(GEAR - Vector2.ONE * 40.0, Vector2.ONE * 80.0))
+	UI.hit_area(_hud, Rect2(GEAR - Vector2.ONE * 64.0, Vector2.ONE * 128.0), func():
+		Sound.play("ui_tap")
+		settings_requested.emit())
 	_build_goals()
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
@@ -844,23 +850,28 @@ func _set_stars(stars: Array, lit: int) -> void:
 func _build_status() -> void:
 	var face := (STATUS_H - 4.0) * 0.5   # visual centre of the painted bar
 	var baseline := face + STATUS_CAP * 0.5
-	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "cream", STATUS_H * 0.5, 6.0)   # cream capsule like the coin counters
+	_status = Control.new()
+	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_status, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)))
+	_hud.add_child(_status)
 	_status.name = "Status"
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
 	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
-	_moves_icon = UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	_moves_icon = UI.art(_status, "icon_star_budget_steps", Rect2(moves_x, face - STATUS_ICON * 0.5, STATUS_ICON, STATUS_ICON), Rect2(317, 217, 652, 801))
 	_stars_centred = false
 	_shown_stars = -1
 	var number_x := moves_x + STATUS_ICON + 8.0
 	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
+		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), Color(1.0, 0.8, 0.1), -1)
 	_phase_chip = null
 	_phase_icons.clear()
 	_phase_number = null
 	if session.state.day_length <= 0:
 		return
-	_phase_chip = UI.shape(_hud, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)),
-		"cream", STATUS_H * 0.5, 6.0)
+	_phase_chip = Control.new()
+	_phase_chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_phase_chip, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)))
+	_hud.add_child(_phase_chip)
 	_phase_chip.name = "Phase"
 	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
 		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
@@ -904,8 +915,7 @@ func _centre_status_stars(centred: bool, animate: bool) -> void:
 	_stars_centred = centred
 	if _stars_tween:
 		_stars_tween.kill()
-	var row := 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP
-	var x := (STATUS_W - row) * 0.5 if centred else STATUS_INSET
+	var x := STATUS_INSET  # Keep the exposed left edge stable when the budget hides.
 	if instant or not animate:
 		for i in _status_stars.size():
 			_status_stars[i].position.x = x + i * (STATUS_STAR + STATUS_STAR_GAP)
@@ -951,7 +961,7 @@ func _build_goals() -> void:
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		UI.place(node, Rect2(Vector2(cx - size * 0.5, top), Vector2.ONE * size))
 		_hud.add_child(node)
-		UI.shape(node, Rect2(Vector2.ZERO, Vector2.ONE * size), "cream", size * 0.5, 6.0)
+		UI.art(node, "btn_home_icon_frame", Rect2(Vector2.ZERO, Vector2.ONE * size))
 		var face := size * 0.78
 		UI.art(node, sp + "_face", Rect2(Vector2.ONE * (size - face) * 0.5 + Vector2(0, -4), Vector2.ONE * face))
 		var badge := Rect2(Vector2.ONE * size * 0.6, Vector2.ONE * size * 0.46)
@@ -988,6 +998,49 @@ const TOOL_ICON_NAME := {Board.Booster.FIREFLY: "bulb", Board.Booster.SAPLING: "
 	Board.Booster.MORNING_BELL: "bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "rain"}
 
 ## Tools as a centred row of buttons: undo (cream) then boosters (orange) with a red stock badge ("+" buys more).
+## Counts belong to each inventory item, not floating badges. The whole item is clickable.
+func _tool_count(button: Button, value: String) -> void:
+	var number := Label.new()
+	number.name = "Stock"
+	number.text = value
+	number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["DejaVu Sans"])
+	font.font_weight = 700
+	number.add_theme_font_override("font", font)
+	number.add_theme_font_size_override("font_size", 48)
+	number.add_theme_color_override("font_color", Color.WHITE)
+	number.add_theme_color_override("font_outline_color", Color("19352b"))
+	number.add_theme_constant_override("outline_size", 8)
+	number.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(number, Rect2(0, TOOL_SIZE, TOOL_SIZE, 48.0))
+	button.add_child(number)
+
+func _restyle_tool(button: Button, icon_name: String) -> void:
+	var old_face := button.get_node_or_null("Face")
+	if old_face:
+		old_face.hide()
+	var frame := UI.art(button, "btn_home_icon_frame", Rect2(0, 0, TOOL_SIZE, TOOL_SIZE), Rect2(82, 92, 1082, 1076))
+	button.move_child(frame, 0)
+	var old_icon := button.get_node_or_null("Icon")
+	if old_icon:
+		old_icon.name = "UnusedIcon"
+		old_icon.hide()
+	var picture: String = UI.PICTURES[icon_name]
+	var content: Rect2 = {
+		"undo": Rect2(30, 26, 201, 220), "bulb": Rect2(19, 11, 304, 371),
+		"sapling": Rect2(16, 17, 333, 289), "eye": Rect2(17, 12, 366, 359),
+		"bell": Rect2(16, 17, 368, 335), "scarecrow": Rect2(16, 16, 387, 395),
+		"rain": Rect2(16, 17, 319, 386)
+	}[icon_name]
+	var bounds := Rect2(Vector2.ONE * (TOOL_SIZE - TOOL_ICON_SIZE) * 0.5, Vector2.ONE * TOOL_ICON_SIZE)
+	var icon := UI.art(button, picture, bounds, Rect2(content))
+	icon.name = "Icon"
+	button.size.y = TOOL_ITEM_HEIGHT
+	button.button_down.connect(func(): frame.modulate = UI.PRESSED_TINT; icon.modulate = UI.PRESSED_TINT)
+	button.button_up.connect(func(): frame.modulate = Color.WHITE; icon.modulate = Color.WHITE)
+
 func _build_tools() -> void:
 	_hint_button = null
 	for child in _tool_bar.get_children():
@@ -995,22 +1048,23 @@ func _build_tools() -> void:
 	var tools := _visible_tools()
 	_tool_slots.clear()
 	var n := tools.size()
-	var gap := minf(TOOL_GAP, (984.0 - n * UI.SECONDARY) / maxf(1.0, n - 1))
-	var row_w := n * UI.SECONDARY + (n - 1) * gap
+	var gap := minf(TOOL_GAP, (TOOL_ROW_WIDTH - n * TOOL_SIZE) / maxf(1.0, n - 1))
+	var row_w := n * TOOL_SIZE + (n - 1) * gap
 	# The tool buttons stand on their own (user: no tray around them).
-	var x := 540.0 - row_w * 0.5 + UI.SECONDARY * 0.5
+	var x := 540.0 - row_w * 0.5 + TOOL_SIZE * 0.5
 	for kind in tools:
 		var centre := Vector2(x, TOOL_Y)
-		x += UI.SECONDARY + gap
+		x += TOOL_SIZE + gap
 		_tool_slots.append([kind, centre, kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
-			UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo)
+			_restyle_tool(UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE), "undo")
 			continue
-		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind))
+		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind), TOOL_SIZE)
+		_restyle_tool(b, TOOL_ICON_NAME[kind])
 		if kind == Board.Booster.FIREFLY:
 			_hint_button = b
 		var stock: int = session.state.inventory[kind]
-		UI.badge(b, str(stock) if stock > 0 else "+")
+		_tool_count(b, str(stock) if stock > 0 else "+")
 		UI.set_active(b, stock == 0 or session.booster_has_effect(kind))
 	if _hint_waiting:
 		_show_hint_loading()
@@ -1476,7 +1530,7 @@ func _show_hint_loading() -> void:
 	_hint_button.modulate.a = 1.0
 	_hint_button.get_node("Icon").hide()
 	var spinner := Node2D.new()
-	spinner.position = Vector2(UI.SECONDARY * 0.5, UI.SECONDARY * 0.5 - 5.0)
+	spinner.position = Vector2.ONE * TOOL_SIZE * 0.5
 	_hint_button.add_child(spinner)
 	var arc := Line2D.new()
 	arc.width = 6.0

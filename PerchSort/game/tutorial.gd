@@ -94,6 +94,7 @@ var _run := 0                 # bumps on every step change so old loops stop
 ## Opens the tutorial in `host` (the popup layer); `done` runs once after it closes by Play or by skipping.
 static func open(host: Control, done := Callable(), instant_motion := false) -> Control:
 	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PRIMARY, 0.0, instant_motion)
+	FamilyDialog.decorate(m)
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Tutorial"
 	t.modal = m
@@ -111,6 +112,7 @@ static func open_lesson(host: Control, mechanic: String, world_index: int, done 
 	if OS.get_cmdline_user_args().has("--autoplay"):
 		print("LESSON mechanic=%s" % mechanic)   # test driver log (main.gd --autoplay)
 	var m := Modal.open(host, "lesson.%s.title" % mechanic, [STAGE_SIZE.y, TEXT_H], false, GOT_IT.y, 0.0, instant_motion)
+	FamilyDialog.decorate(m)
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Lesson"
 	t.modal = m
@@ -266,7 +268,7 @@ func _build_stage(r: Rect2) -> void:
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var corners := StyleBoxFlat.new()
 	corners.draw_center = false
-	corners.border_color = UI.FILL["cream"]
+	corners.border_color = Color("188d36")
 	corners.set_border_width_all(24)
 	corners.set_expand_margin_all(24)
 	corners.set_corner_radius_all(int(STAGE_RADIUS) + 24)
@@ -278,7 +280,7 @@ func _build_stage(r: Rect2) -> void:
 	rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var line := StyleBoxFlat.new()
 	line.draw_center = false
-	line.border_color = UI.RIM["cream"]
+	line.border_color = Color("b5eb62")
 	line.set_border_width_all(6)
 	line.set_corner_radius_all(int(STAGE_RADIUS))
 	line.anti_aliasing = true
@@ -391,7 +393,8 @@ func _build_text(top: float) -> void:
 	var line_h := LINE_H * cap / TEXT_CAP
 	var y := top + (TEXT_H - line_h * ids.size()) * 0.5
 	for id in ids:
-		UI.label(_layer, id, Rect2(540.0 - TEXT_W * 0.5, y, TEXT_W, line_h), cap, UI.INK)
+		var caption := UI.label(_layer, id, Rect2(540.0 - TEXT_W * 0.5, y, TEXT_W, line_h), cap, UI.INK)
+		caption.material = ShopSkin.product_ink()
 		y += line_h
 
 func _build_dots(top: float) -> void:
@@ -417,6 +420,7 @@ func _build_actions() -> void:
 		var at := Vector2(540.0 - GOT_IT.x * 0.5, modal.get_meta("actions_y"))
 		_buttons = [UI.pill(modal.content, "GotIt", Rect2(at, GOT_IT), "green", "action.got_it",
 			func(): modal.invoke(func(): pass))]
+		_style_action(_buttons[0])
 		return
 	if step < STEPS - 1:
 		_buttons = modal.actions([["green", "right", func(): show_step(step + 1)]], false)
@@ -424,6 +428,27 @@ func _build_actions() -> void:
 		_buttons = modal.actions([["green", "play", func(): pass]], true)
 	for b in _buttons:
 		b.name = "Next" if step < STEPS - 1 else "Play"
+		_style_action(b)
+
+## Keep the original hit area, face and callbacks; replace only painted action content.
+func _style_action(button: Button) -> void:
+	var content := button.get_node("Content")
+	for child in content.get_children():
+		content.remove_child(child)
+		child.queue_free()
+	var height := button.size.y * 100.0 / 176.0
+	var bounds := Rect2(32, (button.size.y - height) * 0.5, button.size.x - 64, height)
+	if button.name == "Play":
+		preload("res://game/chest_lettering.gd").word(content, "action.play", bounds)
+		return
+	var word: TextureRect
+	if button.name == "Next":
+		word = UiText.painted(content, "white_action_next", bounds)
+	else:
+		word = UiText.painted_label(content, "action.got_it", bounds)
+	var paint := ShaderMaterial.new()
+	paint.shader = preload("res://game/chest_play_word.gdshader")
+	word.material = paint
 
 ## ---------- scene helpers ----------
 

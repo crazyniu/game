@@ -122,11 +122,12 @@ static func count(box: Number, amount: int, pattern: String, delay: float, durat
 	tween.tween_interval(delay)
 	tween.tween_method(func(value: float): box.set_value(pattern % roundi(value)), 0.0, float(amount), duration)
 
-static func decorate(dialog: Modal) -> void:
+static func decorate(dialog: Modal, external_actions := true) -> void:
 	# Keep Modal's content and total allocation, but end this opt-in frame before its actions.
 	var previous_actions_y: float = dialog.get_meta("actions_y")
-	dialog.panel_rect.size.y = previous_actions_y - Modal.ACTION_DROP + Modal.BOTTOM - dialog.panel_rect.position.y
-	dialog.set_meta("actions_y", dialog.panel_rect.end.y + ACTION_CLEARANCE)
+	if external_actions:
+		dialog.panel_rect.size.y = previous_actions_y - Modal.ACTION_DROP + Modal.BOTTOM - dialog.panel_rect.position.y
+		dialog.set_meta("actions_y", dialog.panel_rect.end.y + ACTION_CLEARANCE)
 	DialogCartoonSkin.apply(dialog)
 	var old_title := dialog.content.get_node("TitleGroup")
 	dialog.content.remove_child(old_title)

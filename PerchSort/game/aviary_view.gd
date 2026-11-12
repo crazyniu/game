@@ -11,7 +11,7 @@ const CLIP_X := 48.0
 const CLIP_W := 960.0
 const CLIP_HEIGHT := 1592.0
 const GRID_TOP := 0.0
-const GRID_BOTTOM := 16.0
+const GRID_BOTTOM := 64.0 # Include the name/lock ink below CARD_H and breathing room.
 const GAP := 32.0
 const CARD_W := 464.0
 const CARD_H := 468.0
@@ -431,17 +431,7 @@ func _tile_action(tile: Control, owned: bool, selected: bool, price: int) -> voi
 		word.material = _action_ink()
 		_center_sprite(word, bounds, true)
 	else:
-		var coin := UI.art(face, "coin", Rect2(14, 12, 44, 44))
-		coin.name = "Coin"
-		var amount := ShopSkin.amount(face, Rect2(70, 12, 152, 44), price)
-		amount.name = "Amount"
-		_center_digits(amount, true)
-		amount.size.x = _digits_ink(amount, true).size.x
-		_center_digits(amount, true)
-		var coin_width := _sprite_ink(coin).size.x
-		var start := (face.size.x - coin_width - 12.0 - amount.size.x) * 0.5
-		_center_sprite(coin, Rect2(start, 12, coin_width, 44))
-		amount.position.x = start + coin_width + 12.0
+		ShopSkin.feather_amount(face, Rect2(14, 6, 212, 56), price)
 
 ## Keep this correction local: other accepted screens retain their original materials and glyph layout.
 static var _action_material: ShaderMaterial
@@ -532,8 +522,7 @@ func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	var affordable: bool = profile.coins >= it["price"]
 	var accept := ShopSkin.product_button(modal.content, "Buy", Rect2(300, modal.panel_rect.end.y + Modal.ACTION_DROP, 480, 132),
 		func(): modal.invoke(func(): _buy_outfit(id, index)), "gold")
-	var line := ShopSkin.amount(accept, Rect2(24, 28, 432, 76), it["price"])
-	_center_digits(line)
+	var line := ShopSkin.feather_amount(accept, Rect2(24, 28, 432, 76), it["price"])
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var origin_x := line.position.x

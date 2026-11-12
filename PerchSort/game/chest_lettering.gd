@@ -36,11 +36,9 @@ static func word(parent: Node, id: String, bounds: Rect2) -> TextureRect:
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_SCALE
 	image.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	if id == "action.play":
-		var paint := ShaderMaterial.new()
-		# The exact soft-white formula baked into the accepted complete Home button.
-		paint.shader = preload("res://game/chest_play_word.gdshader")
-		image.material = paint
+	var paint := ShaderMaterial.new()
+	paint.shader = preload("res://game/chest_play_word.gdshader")
+	image.material = paint
 	image.refresh()
 	parent.add_child(image)
 	return image

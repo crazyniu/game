@@ -278,10 +278,23 @@ static func _skin_button(b: Button, piece: String, r: Rect2) -> void:
 	var empty := StyleBoxEmpty.new()
 	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
 		b.add_theme_stylebox_override(state, empty)
-	var face := kit_piece(b, piece, r)
+	var face: Control = action_face(b, r) if piece.begins_with("pill_") else kit_piece(b, piece, r)
 	face.name = "Face"
-	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
-	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	b.button_down.connect(func(): face.modulate = PRESSED_TINT)
+	b.button_up.connect(func(): face.modulate = Color.WHITE)
+
+## One clean bright-green action skin. The wrapper leaves child coordinates unscaled.
+static func action_face(parent: Node, rect: Rect2) -> Control:
+	var holder := Control.new()
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	place(holder, rect)
+	parent.add_child(holder)
+	var face := Island.nine(holder, "home_play_plate", Rect2(Vector2.ZERO, rect.size), Vector4(220, 100, 220, 100))
+	var k := minf(rect.size.y / face.texture.get_height(), rect.size.x / 442.0)
+	face.size = rect.size / k
+	face.pivot_offset = Vector2.ZERO
+	face.scale = Vector2.ONE * k
+	return holder
 
 ## Long painted pill button with a whole label in white (Play, Next, Buy, settings rows). `kind`: green, orange,
 ## blue, red or grey. Height 128 by default; the label fits inside the round ends.
@@ -309,7 +322,10 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	if not label_id.is_empty():
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
-		label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, INK if kind == "orange" else Color.WHITE)
+		var word := label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE)
+		var paint := ShaderMaterial.new()
+		paint.shader = preload("res://game/chest_play_word.gdshader")
+		word.material = paint
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -383,8 +399,8 @@ static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_pr
 	place(b, r)
 	var face := art(b, picture, Rect2(Vector2.ZERO, r.size))
 	face.name = "Face"
-	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
-	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	b.button_down.connect(func(): face.modulate = PRESSED_TINT)
+	b.button_up.connect(func(): face.modulate = Color.WHITE)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())

@@ -55,6 +55,18 @@ func _run() -> void:
 	await click(view.get_node("Tabs/Nests"))
 	await capture("nests_top_zh")
 	check(view._modal == null, "scroll and category navigation never trigger purchase")
+	# Stock remains readable without a notification badge, including zero and capped large values.
+	for language in ["en", "zh"]:
+		UiText.set_language(language)
+		view._select_tab(0)
+		for count in [0, 5000]:
+			profile.inventory = PackedInt32Array([count, count, count, count, count, count])
+			view._refresh()
+			await create_timer(0.2).timeout
+			var stock: Control = view._grid.get_child(0).get_node("Body/Stock")
+			check(stock.get_child_count() == 1 and stock.get_node("Count") is Label, "inventory has no badge surface")
+			check(stock.get_node("Count").text == "×" + str(mini(count, load("res://game/island.gd").BADGE_CAP)), "inventory count preserved")
+			await capture("boosters_" + ("empty_" if count == 0 else "maximum_") + language)
 	var closed := [false]
 	view.closed.connect(func(): closed[0] = true)
 	await click(view.get_node("Bar/Close"))

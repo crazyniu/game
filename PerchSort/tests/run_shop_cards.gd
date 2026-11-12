@@ -27,10 +27,14 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	check(view._grid.get_child_count() == 6, "six unchanged booster identities")
+	check(ShopView.BOOSTER_PRICE.get_center().y == 95, "purchase action centered on row surface")
+	check(ShopView.ITEM_NAME.get_center().y == 95, "nest name aligns with purchase action")
+	check(ShopView.BOOSTER_NAME.end.y < view._grid.get_child(0).get_node("Body/Stock").position.y, "inventory follows name without overlap")
+	check(view._grid.get_child(0).get_node("Body/Stock/Count") is Label, "stock uses plain centered numerals")
 	check(view._grid.get_child(0).size == ShopView.ITEM_TILE, "equal forest card size")
-	check(view._grid.get_child(2).position == Vector2(0, 416), "two-column card order")
-	check(view._grid.get_child(5).get_rect().end.y <= ShopView.AREA.size.y, "six boosters fit above fixed tabs")
-	check(view._scroll.get_v_scroll_bar().max_value <= ShopView.AREA.size.y, "six-card page has no blank scroll tail")
+	check(view._grid.get_child(2).position == Vector2(0, 2 * (ShopView.ITEM_TILE.y + ShopView.TILE_GAP)), "single-column shelf order")
+	check(view._grid.get_child(5).get_rect().end.y > ShopView.AREA.size.y, "booster shelves extend through scroll area")
+	check(view._scroll.get_v_scroll_bar().max_value > ShopView.AREA.size.y, "all booster shelves remain scrollable")
 	check(view.get_node("Tabs").get_child_count() == 3, "three icon-only category controls")
 	check(view._scroll.clip_contents and view._scroll.get_rect().end.y < ShopView.TAB_BAR.position.y, "scroll content clips above fixed navigation")
 	check(view.get_node("Bar/Close").size == load("res://game/menu_navigation.gd").SIZE, "close size matches coin shop")
@@ -50,7 +54,7 @@ func _run() -> void:
 	var cached: Control = view._grid
 	view._select_tab(0)
 	await process_frame
-	check(view._content.custom_minimum_size.y == ShopView.AREA.size.y, "short tab clears tall cached page extent")
+	check(view._content.custom_minimum_size.y == view._page_height(0), "short tab clears tall cached page extent")
 	view._select_tab(1)
 	check(view._grid == cached, "tab switches retain live outfit content")
 	view._select_tab(2)
@@ -106,7 +110,7 @@ func _run() -> void:
 	for i in 14:
 		await process_frame
 	check(view._pages[1].get_child_count() == 9, "outfits warm asynchronously without loss")
-	check(view._content.custom_minimum_size.y == ShopView.AREA.size.y, "background warming preserves active booster height")
+	check(view._content.custom_minimum_size.y == view._page_height(0), "background warming preserves active booster height")
 	view.queue_free()
 	await process_frame
 	print("shop card check: %d failures" % failures)

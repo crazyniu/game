@@ -17,6 +17,8 @@ class LocalizedSprite extends TextureRect:
 		var source_scale := minf(bounds.size.x / source.get_width(), bounds.size.y / source.get_height())
 		var target := Rect2(bounds.position + (bounds.size - source.get_size() * source_scale) * 0.5 + source_ink.position * source_scale, source_ink.size * source_scale)
 		var key := prefix + "_" + UiText.locale()
+		if key == "btn_draw_action_en":
+			key = "btn_lucky_spin_action_en"
 		texture = Art.tex(key)
 		var visible := DrawPurchaseArt.ink(key)
 		var k := minf(target.size.x / visible.size.x, target.size.y / visible.size.y)
@@ -27,7 +29,33 @@ class LocalizedSprite extends TextureRect:
 		if what == NOTIFICATION_TRANSLATION_CHANGED and not prefix.is_empty():
 			refresh()
 
+class DrawHeading extends TextureRect:
+	func refresh() -> void:
+		texture = Art.tex("label_daily_draw_heading_zh") if UiText.locale() == "zh" else load("res://art/locale/en/island_words/title_lucky_spin.png")
+		var visible := Rect2(142, 97, 1840, 560) if UiText.locale() == "zh" else Rect2(texture.get_image().get_used_rect())
+		# Match the shop heading box; fit visible painted ink rather than transparent padding.
+		var bounds := Rect2(260, 224, 560, 100)
+		var k := minf(bounds.size.x / visible.size.x, bounds.size.y / visible.size.y)
+		size = texture.get_size() * k
+		position = bounds.get_center() - visible.get_center() * k
+
+	func _notification(what: int) -> void:
+		if what == NOTIFICATION_TRANSLATION_CHANGED:
+			refresh()
+
+static func draw_heading(parent: Node) -> DrawHeading:
+	var heading := DrawHeading.new()
+	heading.name = "DrawHeading"
+	heading.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	heading.stretch_mode = TextureRect.STRETCH_SCALE
+	heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.refresh()
+	parent.add_child(heading)
+	return heading
+
 static func ink(key: String) -> Rect2:
+	if key == "btn_lucky_spin_action_en":
+		return Rect2(33, 29, 2015, 702)
 	if _inks.is_empty():
 		_inks = JSON.parse_string(FileAccess.get_file_as_string("res://art/island/draw_purchase_ink.json"))
 	var box: Array = _inks[key]

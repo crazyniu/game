@@ -67,17 +67,13 @@ static func product_word(parent: Node, label_id: String, bounds: Rect2) -> Textu
 static func product_heading(parent: Node, label_id: String, bounds: Rect2) -> TextureRect:
 	return word(parent, label_id, bounds)
 
-static func _product_action_face(parent: Node, rect: Rect2, kind: String) -> Control:
-	if kind == "green":
-		return _product_surface(parent, rect, "island_pill_green", GREEN_CONTENT,
-			Vector4(56, 28, 56, 28), rect.size.y / GREEN_CONTENT.size.y)
-	return _product_surface(parent, rect, "btn_shop_gold", PRICE_CONTENT,
-		Vector4(340, 100, 340, 130), rect.size.y / PRICE_CONTENT.size.y)
+static func _product_action_face(parent: Node, rect: Rect2, _kind: String) -> Control:
+	return UI.action_face(parent, rect)
 
 static func product_price(parent: Node, rect: Rect2, value: int) -> Control:
 	var face := _product_action_face(parent, rect, "gold")
 	face.name = "Price"
-	amount(face, Rect2(Vector2(18, 12), rect.size - Vector2(36, 24)), value)
+	feather_amount(face, Rect2(Vector2(20, 10), rect.size - Vector2(40, 20)), value)
 	return face
 
 static func product_button(parent: Node, name: String, rect: Rect2, callback: Callable,
@@ -135,7 +131,41 @@ static func card(parent: Node, rect: Rect2, selected := false) -> Control:
 	return holder
 
 static func amount(parent: Node, rect: Rect2, value: int) -> Control:
-	return Island.digits(parent, str(value), rect, PRICE)
+	var digits := Island.digits(parent, str(value), rect, PRICE)
+	var paint := ShaderMaterial.new()
+	paint.shader = preload("res://game/chest_play_word.gdshader")
+	for glyph in digits.get_children():
+		if glyph is CanvasItem:
+			glyph.material = paint
+	return digits
+
+## Currency icon and painted digits are centered by visible ink, not transparent padding.
+static func feather_amount(parent: Node, rect: Rect2, value: int) -> Control:
+	var group := Control.new()
+	group.name = "FeatherPrice"
+	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(group, rect)
+	parent.add_child(group)
+	var height := minf(rect.size.y, 80.0)
+	var gap := height * 0.18
+	var digits := amount(group, Rect2(0, 0, rect.size.x - height - gap, height), value)
+	var visible := Rect2()
+	var cursor := 0.0
+	var tracking := height * 0.055
+	for glyph in digits.get_children():
+		var sprite := glyph as TextureRect
+		var used := Rect2(sprite.texture.get_image().get_used_rect())
+		var scale := sprite.size / sprite.texture.get_size()
+		sprite.position.x = cursor - used.position.x * scale.x
+		var ink := Rect2(sprite.position + used.position * scale, used.size * scale)
+		cursor += ink.size.x + tracking
+		visible = ink if visible.size == Vector2.ZERO else visible.merge(ink)
+	var feather_width := height * 0.9
+	var start := (rect.size.x - feather_width - gap - visible.size.x) * 0.5
+	UI.art(group, "icon_purchase_feather", Rect2(start, (rect.size.y - height) * 0.5, feather_width, height)).name = "Feather"
+	digits.position = Vector2(start + feather_width + gap - visible.position.x,
+		(rect.size.y - visible.size.y) * 0.5 - visible.position.y)
+	return group
 
 static func price(parent: Node, rect: Rect2, value: int) -> Control:
 	var holder := card(parent, rect)

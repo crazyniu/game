@@ -1,5 +1,5 @@
 extends Control
-## Shop: two-column forest cards with painted names and live outfit previews.
+## Shop: single-column forest shelves with painted names and live outfit previews.
 ## Cached categories share a scalable scroll viewport and three icon-only tabs.
 
 signal closed
@@ -14,24 +14,36 @@ const TAB_NAMES := ["Boosters", "Outfits", "Nests"]
 const TAB_PICTURE_NAMES := ["boosters", "outfits", "nests"]
 ## Shop composition, in 1080 x 1920 design pixels; awaiting user visual acceptance.
 const CLOSE := Rect2(48, 48, 112, 112)
-const TITLE_WORD := Rect2(220, 208, 640, 112)
-const AREA := Rect2(48, 352, 984, 1240)
-const BOOSTER_SLOT := Vector2(480, 392)
-const TILE_GAP := 24.0
+const TITLE_WORD := Rect2(260, 224, 560, 100)
+const AREA := Rect2(60, 390, 960, 1240)
+const BOOSTER_SLOT := Vector2(960, 238)
+const TILE_GAP := 14.0
 const ITEM_TILE := BOOSTER_SLOT
-const COLUMNS := 2
+const COLUMNS := 1
 const TAB_BAR := Rect2(152, 1668, 776, 168)
 const TAB_GAP := 88.0
 const TAB_ICON := 128.0
 const TAB_SELECTED := Color(1.15, 1.28, 1.06)
-const BOOSTER_PICTURE := Rect2(100, 28, 280, 224)
-const BOOSTER_NAME := Rect2(40, 256, 400, 48)
-const PRICE_SIZE := Vector2(280, 60)
-const BOOSTER_PRICE := Rect2(Vector2(100, 316), PRICE_SIZE)
+const BOOSTER_PICTURE := Rect2(28, 4, 232, 184)
+const BOOSTER_NAME := Rect2(280, 30, 340, 76)
+const PRICE_SIZE := Vector2(286, 100)
+const BOOSTER_PRICE := Rect2(Vector2(648, 45), PRICE_SIZE)
+## Visible contours exclude near-transparent export noise without modifying the source art.
+const HOUSE_INK := {
+	"house_style_acorn_body": Rect2(56, 51, 398, 404),
+	"house_style_beehive_body": Rect2(54, 53, 401, 402),
+	"house_style_cage_body": Rect2(61, 29, 384, 427),
+	"house_style_lantern_body": Rect2(50, 61, 409, 394),
+	"house_style_mushroom_body": Rect2(41, 50, 427, 403),
+	"house_style_pinecone_body": Rect2(59, 14, 390, 441),
+	"house_style_pumpkin_body": Rect2(49, 37, 413, 423),
+	"house_style_teacup_body": Rect2(83, 136, 389, 324),
+	"house_style_teapot_body": Rect2(29, 55, 459, 399),
+}
 const ITEM_PICTURE := BOOSTER_PICTURE
-const ITEM_NAME := BOOSTER_NAME
+const ITEM_NAME := Rect2(280, 57, 340, 76)
 const ITEM_ACTION := BOOSTER_PRICE
-const STOCK := Vector2(410, 64)
+const STOCK := Vector2(250, 29)
 const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]   # island_icon_<name>
 const BOOSTER_WORD := ["firefly", "sprout", "owl_eye", "wake_bell", "scarecrow", "spring_rain"]   # painted item_/cap_ words
@@ -217,6 +229,7 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	MenuNavigation.close(_bar, "Close", CLOSE.position, func(): closed.emit())
+	UI.art(_bar, "panel_shop_sign", Rect2(194, 192, 692, 166))
 	_build_title()
 
 ## Floating category words keep the existing painted lettering and locale updates.
@@ -420,8 +433,7 @@ func _card(it: Dictionary, r: Rect2, n: int) -> void:
 		if _equipped(it):
 			Island.check_badge(body, Vector2(r.size.x - 40, 40))
 	else:
-		var price := ShopSkin.product_price(body, ITEM_ACTION, it["price"])
-		AviaryScript._center_digits(price.get_node("Digits"))
+		ShopSkin.product_price(body, ITEM_ACTION, it["price"])
 	var hit: Button = card.get_node("Select")
 	hit.button_down.connect(func(): body.modulate = Island.PRESSED)
 	hit.button_up.connect(func(): body.modulate = Color.WHITE)
@@ -433,35 +445,41 @@ func _product_word(parent: Node, label_id: String, bounds: Rect2) -> TextureRect
 	label.material = _product_ink
 	return label
 
-## Equal grouped product cards keep stock badges and numeric-only purchase actions.
+## Equal grouped product rows keep inline stock counts and feather-price actions.
 func _booster_card(it: Dictionary, r: Rect2, n: int) -> void:
 	var card := _item_holder(it, r)
 	var body: Control = card.get_node("Body")
 	_picture(body, it, BOOSTER_PICTURE)
 	_product_word(body, _name_id(it), BOOSTER_NAME)
-	var price := ShopSkin.product_price(body, BOOSTER_PRICE, it["price"])
-	AviaryScript._center_digits(price.get_node("Digits"))
+	ShopSkin.product_price(body, BOOSTER_PRICE, it["price"])
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
 		Island.piece_fit(card, "island_padlock", STOCK, Vector2(66, 66)).name = "Lock"
 	else:
-		_stock_badge(body, profile.inventory[it["booster"]])
+		_stock_count(body, profile.inventory[it["booster"]])
 		var hit: Button = card.get_node("Select")
 		hit.button_down.connect(func(): body.modulate = Island.PRESSED)
 		hit.button_up.connect(func(): body.modulate = Color.WHITE)
 	_pop_in(card, n)
 
-## Zero is useful stock information, so shop badges remain visible even when the item is used up.
-func _stock_badge(parent: Node, count: int) -> void:
-	var side := 60.0
-	var badge := Control.new()
-	badge.name = "Stock"
-	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(badge, Rect2(STOCK - Vector2.ONE * side * 0.5, Vector2.ONE * side))
-	parent.add_child(badge)
-	UI.art(badge, "badge_shop_stock", Rect2(Vector2.ZERO, badge.size), Rect2(197, 214, 842, 844))
-	var digits := Island.digits(badge, str(mini(count, Island.BADGE_CAP)), Rect2(12, 12, side - 24, side - 24))
-	AviaryScript._center_digits(digits)
+## Zero remains useful stock information; show it inline even when the item is used up.
+func _stock_count(parent: Node, count: int) -> void:
+	var stock := Control.new()
+	stock.name = "Stock"
+	stock.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(stock, Rect2(280, 112, 340, 52))
+	parent.add_child(stock)
+	# Stock belongs beside the product name, not in a floating notification badge.
+	var digits := Label.new()
+	digits.name = "Count"
+	digits.text = "×" + str(mini(count, Island.BADGE_CAP))
+	digits.size = stock.size
+	digits.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	digits.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	digits.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	digits.add_theme_font_size_override("font_size", 34)
+	digits.add_theme_color_override("font_color", Color.WHITE)
+	stock.add_child(digits)
 
 ## A picture whose visible pixels (not its padded canvas) fill a `side` x `side` box centred on `center`.
 func _fit_visible(parent: Node, picture: String, center: Vector2, side: float) -> TextureRect:
@@ -487,8 +505,27 @@ func _item_holder(it: Dictionary, r: Rect2) -> Control:
 	body.size = r.size
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(body)
-	ShopSkin.product_card(body, Rect2(Vector2.ZERO, r.size))
+	_shelf(body, r.size)
 	return card
+
+## One reusable clean shelf, with a flat translucent row rather than a gradient card.
+func _shelf(parent: Node, bounds: Vector2) -> Control:
+	var holder := Control.new()
+	holder.name = "Shelf"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	holder.size = bounds
+	parent.add_child(holder)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.10, 0.27, 0.14, 0.74)
+	style.set_corner_radius_all(28)
+	var surface := Panel.new()
+	surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	surface.size = Vector2(bounds.x, 190)
+	surface.add_theme_stylebox_override("panel", style)
+	holder.add_child(surface)
+	ShopSkin._product_surface(holder, Rect2(0, 184, bounds.x, 54), "prop_shop_shelf",
+		Rect2(0, 370, 1760, 350), Vector4(180, 50, 180, 80), 0.15)
+	return holder
 
 func _pop_in(card: Control, n: int) -> void:
 	if instant:
@@ -505,10 +542,10 @@ func _caption_id(it: Dictionary) -> String:
 ## Fit visible item art to a shared baseline; its feet/base rests on the display surface.
 func _picture(parent: Node, it: Dictionary, box: Rect2) -> void:
 	var picture: String = "island_icon_%s" % BOOSTER_ILLUS[it["booster"]] if it["kind"] == Shop.BOOSTER else "house_style_%s_body" % it["style"]
-	var used := UI.used_rect(picture)
+	var used: Rect2 = HOUSE_INK.get(picture, UI.used_rect(picture))
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
 	var fitted := used.size * k
-	UI.art(parent, picture, Rect2(Vector2(box.get_center().x - fitted.x * 0.5, box.end.y - fitted.y), fitted))
+	UI.art(parent, picture, Rect2(Vector2(box.get_center().x - fitted.x * 0.5, box.end.y - fitted.y), fitted), used)
 
 func _pill_button(parent: Node, n: String, r: Rect2, kind: String, on_press: Callable) -> Button:
 	return ShopSkin.button(parent, n, r, on_press, kind)
@@ -560,16 +597,19 @@ func _kind_tile(species: String, r: Rect2, n: int) -> void:
 	tile.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(tile, r)
 	_grid.add_child(tile)
-	var face := ShopSkin.product_card(tile, Rect2(Vector2.ZERO, r.size))
+	var face := _shelf(tile, r.size)
 	_kind_face(tile, species, ITEM_PICTURE, n, 1.0)
 	if met:
 		_product_word(tile, "bird.%s.name" % species, ITEM_NAME)
-		var slot := ITEM_ACTION
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
-		var cap := 36.0
+		var cap := 48.0
 		var nw := UI.number_width(text, cap)
-		var cy := slot.get_center().y
-		UI.number(tile, text, Rect2((r.size.x - nw) * 0.5, cy - cap * 0.5, nw + 4.0, cap), Color.WHITE)
+		var cy := 160.0
+		UI.number(tile, text, Rect2(ITEM_NAME.get_center().x - nw * 0.5, cy - cap * 0.5, nw + 4.0, cap), Color.WHITE)
+		UI.action_face(tile, Rect2(738, 45, 154, 100))
+		var arrow := _fit_visible(tile, "island_chevron", Vector2(815, 95), 48)
+		arrow.pivot_offset = arrow.size * 0.5
+		arrow.rotation = -PI * 0.5
 		var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, r.size), func():
 			if _drag_travel < TAP_SLOP:
 				Sound.play("ui_tap")
@@ -728,8 +768,7 @@ func _update_purchase() -> void:
 	for child in _purchase_contents.get_children():
 		_purchase_contents.remove_child(child)
 		child.queue_free()
-	var amount := ShopSkin.amount(_purchase_contents, Rect2(24, 22, BUY_SIZE.x - 48, BUY_SIZE.y - 44), total)
-	AviaryScript._center_digits(amount)
+	ShopSkin.feather_amount(_purchase_contents, Rect2(24, 22, BUY_SIZE.x - 48, BUY_SIZE.y - 44), total)
 
 func _buy(it: Dictionary, quantity: int) -> void:
 	if _quantity_input != null:

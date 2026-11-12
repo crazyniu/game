@@ -30,41 +30,87 @@ func _ink(digits: Control) -> Rect2:
 		union = ink if not union.has_area() else union.merge(ink)
 	return union
 
-func _measure(digits: Control, label: String, owner: Control = null) -> void:
+func _text(digits: Control) -> String:
+	var result := ""
+	for glyph: TextureRect in digits.get_children():
+		result += glyph.texture.resource_path.get_file().get_basename().trim_prefix(island_script.DIGIT)
+	return result
+
+func _source_art(digits: Control, label: String) -> void:
+	var preserved := true
+	for glyph: TextureRect in digits.get_children():
+		var digit := glyph.texture.resource_path.get_file().get_basename().trim_prefix(island_script.DIGIT)
+		preserved = preserved and digit in "0123456789" and digit.length() == 1
+		preserved = preserved and glyph.texture == Art.tex(island_script.DIGIT + digit)
+		preserved = preserved and absf(glyph.size.aspect() - glyph.texture.get_size().aspect()) < 0.001
+	check(preserved, label + " original painted digit textures and aspect preserved")
+
+func _measure(digits: Control, label: String, owner: Control = null, expected := -1) -> void:
 	var union := _ink(digits)
 	var offset := union.get_center() - digits.size * 0.5
 	check(offset.length() < 0.01, label + " visible union centered")
-	check(Rect2(Vector2.ZERO, digits.size).encloses(union), label + " ink fits unchanged box")
-	var text := ""
-	for glyph: TextureRect in digits.get_children():
-		text += glyph.texture.resource_path.get_file().get_basename().trim_prefix(island_script.DIGIT)
-	var fixture := Control.new()
-	var original: Control = island_script.digits(fixture, text, Rect2(Vector2.ZERO, digits.size))
-	var unchanged := original.get_child_count() == digits.get_child_count()
-	var shift: Vector2 = digits.get_child(0).position - original.get_child(0).position
-	for i in original.get_child_count():
-		var current: TextureRect = digits.get_child(i)
-		var before: TextureRect = original.get_child(i)
-		unchanged = unchanged and current.texture == before.texture and current.size.distance_to(before.size) < 0.001
-		unchanged = unchanged and current.material == before.material and current.self_modulate == before.self_modulate
-		unchanged = unchanged and (current.position - before.position - shift).length() < 0.001
-	check(unchanged, label + " only common translation; art, material, size and spacing preserved")
+	check(Rect2(Vector2.ZERO, digits.size).encloses(union), label + " ink fits amount box")
+	_source_art(digits, label)
+	if expected >= 0:
+		check(_text(digits) == str(expected), label + " exact displayed value")
 	if owner != null:
-		var center := digits.position + union.get_center()
-		check(center.distance_to(owner.size * 0.5) < 0.01, label + " complete amount centered in owning face")
-	measurements.append({"node": label, "text": text, "offset": [offset.x, offset.y],
-		"translation": [shift.x, shift.y], "box": [digits.size.x, digits.size.y]})
-	fixture.free()
+		check((digits.position + union.get_center()).distance_to(owner.size * 0.5) < 0.01,
+			label + " complete amount centered in owning face")
+	measurements.append({"node": label, "text": _text(digits), "offset": [offset.x, offset.y]})
+
+func _sprite_ink(sprite: TextureRect) -> Rect2:
+	var source := Rect2(sprite.texture.get_image().get_used_rect())
+	var ratio := sprite.size / sprite.texture.get_size()
+	return Rect2(sprite.position + source.position * ratio, source.size * ratio)
+
+func _feather(group: Control, label: String, owner: Control, expected: int) -> void:
+	check(group != null, label + " currency group exists")
+	if group == null:
+		return
+	var digits: Control = group.get_node("Digits")
+	var feather: TextureRect = group.get_node("Feather")
+	var numeral_ink := _ink(digits)
+	numeral_ink.position += digits.position
+	var feather_ink := _sprite_ink(feather)
+	var union := numeral_ink.merge(feather_ink)
+	# Transparent art is fitted into its icon box; allow at most two raster pixels of optical slack.
+	check(union.get_center().distance_to(group.size * 0.5) <= 2.0, label + " full feather amount visually centered")
+	check(Rect2(Vector2.ZERO, group.size).grow(0.01).encloses(union), label + " full feather amount fits group")
+	check((group.position + union.get_center()).distance_to(owner.size * 0.5) <= 2.0,
+		label + " full feather amount centered in action")
+	check(feather_ink.end.x < numeral_ink.position.x, label + " icon and digits do not overlap")
+	check(_text(digits) == str(expected), label + " exact catalog or quantity total")
+	_source_art(digits, label)
+	var previous_end := -INF
+	var tight := true
+	for glyph: TextureRect in digits.get_children():
+		var ink := _sprite_ink(glyph)
+		if previous_end != -INF:
+			var gap := ink.position.x - previous_end
+			tight = tight and gap >= 0 and gap <= minf(group.size.y, 80.0) * 0.08
+		previous_end = ink.end.x
+	check(tight, label + " compact painted digits retain nonoverlapping spacing")
+	measurements.append({"node": label, "text": _text(digits), "box": [union.position.x, union.position.y, union.size.x, union.size.y]})
+
+func _purchase(owner: Control, label: String, expected: int) -> void:
+	_feather(owner.get_node_or_null("FeatherPrice"), label, owner, expected)
 
 func _shop_amounts(shop: Control, label: String) -> void:
-	_measure(shop._coins.get_node("Digits").get_child(0), label + " balance", shop._coins.get_node("Digits"))
+	_measure(shop._coins.get_node("Digits").get_child(0), label + " balance", shop._coins.get_node("Digits"), mini(shop.profile.coins, load("res://game/feather_bar.gd").DISPLAY_MAX))
+	var catalog: Array = shop._items(shop.TABS[shop.tab])
 	for card in shop._grid.get_children():
+		var index: int = card.get_index()
+		var item: Dictionary = catalog[index] if index < catalog.size() else {}
 		var price: Control = card.get_node_or_null("Body/Price")
 		if price != null:
-			_measure(price.get_node("Digits"), label + " " + str(card.name) + " price", price)
+			_feather(price.get_node_or_null("FeatherPrice"), label + " " + str(card.name) + " price", price, item["price"])
 		var stock: Control = card.get_node_or_null("Body/Stock")
 		if stock != null:
-			_measure(stock.get_node("Digits"), label + " " + str(card.name) + " stock", stock)
+			var count: Label = stock.get_node("Count")
+			check(count.text == "×" + str(mini(shop.profile.inventory[item["booster"]], island_script.BADGE_CAP)), label + " exact stock " + str(card.name))
+			check(count.horizontal_alignment == HORIZONTAL_ALIGNMENT_CENTER and count.vertical_alignment == VERTICAL_ALIGNMENT_CENTER,
+				label + " stock text aligns centrally")
+			check(count.position == Vector2.ZERO and count.size == stock.size, label + " stock text fills inline count region")
 
 func _run() -> void:
 	for arg in OS.get_cmdline_user_args():
@@ -103,8 +149,8 @@ func _run() -> void:
 				var host: Control = shop._outfit_page if outfit else shop
 				var modal: Control = host.get_node("Popup")
 				var buy: Control = modal.content.get_node("Buy")
-				var amount: Control = buy.get_node("Digits" if outfit else "Contents/Digits")
-				_measure(amount, label + " buy", buy if outfit else buy.get_node("Contents"))
+				var expected: int = Shop.item("outfit.berry.3")["price"] if outfit else shop._purchase_item["price"] * shop._quantity
+				_purchase(buy if outfit else buy.get_node("Contents"), label + " buy", expected)
 			if DisplayServer.get_name() != "headless" and not evidence.is_empty():
 				await create_timer(0.36).timeout
 				await RenderingServer.frame_post_draw
@@ -114,7 +160,7 @@ func _run() -> void:
 			await process_frame
 			await create_timer(0.36).timeout
 			var buy: Control = main.screen.get_node("Popup/Content/Buy")
-			_measure(buy.get_node("Digits"), "aviary " + state + " " + language, buy)
+			_purchase(buy, "aviary " + state + " " + language, Shop.item("outfit.hoot.1")["price"])
 			if DisplayServer.get_name() != "headless" and not evidence.is_empty():
 				await create_timer(0.36).timeout
 				await RenderingServer.frame_post_draw
@@ -125,11 +171,11 @@ func _run() -> void:
 		var shop: Control = main.screen
 		for quantity in [1, 2, 4, 10, 40]:
 			shop._quantity_input.set_value(quantity)
-			_measure(shop._purchase_contents.get_node("Digits"), language + " changed quantity " + str(quantity), shop._purchase_contents)
+			_purchase(shop._purchase_contents, language + " changed quantity " + str(quantity), shop._purchase_item["price"] * shop._quantity)
 		for balance in [0, 1, 30, 100, 1200, 1240, 50270, 99999, 100000]:
 			shop.profile.coins = balance
 			shop._build_coins()
-			_measure(shop._coins.get_node("Digits").get_child(0), language + " changed balance " + str(balance), shop._coins.get_node("Digits"))
+			_measure(shop._coins.get_node("Digits").get_child(0), language + " changed balance " + str(balance), shop._coins.get_node("Digits"), mini(balance, load("res://game/feather_bar.gd").DISPLAY_MAX))
 		UiText.set_language("zh" if language == "en" else "en")
 		await process_frame
 		await process_frame

@@ -1,14 +1,11 @@
 shader_type canvas_item;
-// Match the reference's soft-white fill without changing the approved texture, silhouette or dark rim.
+// Normalize existing approved lettering to white ink and a deep green outline.
 varying vec4 item_tint;
-
-void vertex() {
-	item_tint = COLOR;
-}
-
+void vertex() { item_tint = COLOR; }
 void fragment() {
 	vec4 ink = texture(TEXTURE, UV);
-	float fill = smoothstep(0.84, 0.94, ink.r) * smoothstep(0.68, 0.82, ink.g);
-	vec3 soft_white = vec3(ink.r, ink.r, ink.r * (247.0 / 253.0));
-	COLOR = vec4(mix(ink.rgb, soft_white, fill), ink.a) * item_tint;
+	float fill = smoothstep(0.55, 0.82, max(ink.r, max(ink.g, ink.b)));
+	vec3 white_ink = vec3(max(ink.r, max(ink.g, ink.b)));
+	vec3 outline = vec3(0.055, 0.24, 0.035);
+	COLOR = vec4(mix(outline, white_ink, fill), ink.a) * item_tint;
 }
