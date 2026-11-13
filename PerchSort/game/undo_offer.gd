@@ -20,8 +20,10 @@ static func open(host: Control, price: int, on_buy: Callable, on_ad: Callable, i
 	var buy := ButtonKit.button(c, "Buy", Rect2(Vector2(left, y), size), "green", func(): p.invoke(on_buy))
 	ButtonKit.price(buy.get_node("Content"), size, price)
 	var ad := ButtonKit.button(c, "WatchAd", Rect2(Vector2(540.0 + Modal.ACTION_GAP * 0.5, y), size), "green", func(): p.invoke(on_ad))
-	var icon := size.y * 0.8
-	UI.art(ad.get_node("Content"), "icon_watch_ad", Rect2((size.x - icon) * 0.5, (size.y - icon) * 0.47, icon, icon)).name = "Icon"
+	# The TV is as tall as the price's feather and digits on the sibling button and centred the same way, so both faces
+	# read as one pair (ButtonKit.price: digits 0.52 of the height, ink centred on the face).
+	var icon := size.y * 0.56
+	UI.art(ad.get_node("Content"), "icon_watch_ad", Rect2((size - Vector2.ONE * icon) * 0.5, Vector2.ONE * icon)).name = "Icon"
 	p.panel_rect = p.get_meta("card_rect")
 	return p
 
