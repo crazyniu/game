@@ -43,10 +43,10 @@ func _run() -> void:
 	main.args["smoke"] = "1"
 	main.args["capture"] = "1"
 	await process_frame
-	# Level 41 has opening moves that can never be recovered from: play one, then one more.
+	# The dead-end level has opening moves that can never be recovered from: play one, then one more.
 	var board: Control = load("res://game/board_view.gd").new()
 	main.set_screen(board)
-	board.start(Levels.get_level(41), main.profile, false)
+	board.start(load("res://game/stuck_offer.gd").DEAD_END_LEVEL, main.profile, false)
 	var fatal := []
 	for m in _legal(board.session.state):
 		var probe: Board = board.session.state.clone(false)
@@ -54,7 +54,7 @@ func _run() -> void:
 		if Solver.hint(probe, [], 24000, 5000)["status"] == Solver.Status.UNSOLVABLE:
 			fatal = m
 			break
-	check(not fatal.is_empty(), "level 41 has a losing opening move")
+	check(not fatal.is_empty(), "the dead-end level has a losing opening move")
 	if not fatal.is_empty():
 		var opening: PackedInt32Array = board.session.state.search_key(false)
 		board.session.try_move(fatal[0], fatal[1])
