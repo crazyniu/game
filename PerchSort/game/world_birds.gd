@@ -5,7 +5,8 @@ extends RefCounted
 ## bird under the prefix "<species>_<family>" (tools/birds/world_birds). World 1 keeps the original birds. Outfits
 ## are worn only by the original birds. The crow is the same troublemaker everywhere.
 
-const FAMILY := {2: "budgie"}
+## Empty until the worlds' own birds (real species, docs/work-log/world-birds) are approved and painted.
+const FAMILY := {}
 
 ## The painted prefix of `species` in `world` ("" = the original bird). A slot of a family world whose bird is not
 ## painted yet shows the original bird and says so in the log.
