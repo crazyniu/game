@@ -56,7 +56,7 @@ const ARCH_FLOOR := 44.0
 ## Home (green key) in one row, the style of the shop and purchase popups (ButtonKit).
 const WIN_STATS_H := 96.0
 const WIN_STATS_CAP := 64.0
-const WIN_KEY := 112.0          # PRIMARY height 136 / 112 = 1.21 (at most 1.25)
+const WIN_KEY := 152.0          # PRIMARY height 188 / 152 = 1.24 (at most 1.25)
 const WIN_ROW_GAP := 28.0
 const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
 
@@ -498,9 +498,9 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 ## dimmed with a tick; today's card has the shop's green selected outline and bounces until it is claimed.
 ## `claim` pays today and returns {"day", "coins", "boosters"} like Progress.claim_daily_reward, or {} when already
 ## claimed. The tick stamps in, coins burst, then the rewards dialog names what was won; its OK closes the page.
-const DAILY_AREA := Rect2(48, 352, 984, 1220)
+const DAILY_AREA := Rect2(48, 352, 984, 1196)
 const DAILY_GAP := 20.0
-const DAILY_ACTION := Rect2(280, 1600, 520, 176)
+const DAILY_ACTION := Rect2(260, 1590, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
 const DAILY_DISC := 76.0                # the day disc, the shop's stock badge size
 const DAILY_OUTLINE := Color8(63, 181, 43)   # the shop's selected green
 ## Coin pile pictures of the draw board, from the smallest amount they stand for.
@@ -776,7 +776,7 @@ const CHEST_HERO := Rect2(235, 680, 610, 480)
 const CHEST_READY_HERO := Rect2(235, 544, 610, 616)
 const CHEST_PROGRESS := Rect2(168, 1300, 744, 112)
 const CHEST_PROGRESS_INSET := 9.0
-const CHEST_ACTION := Rect2(280, 1456, 520, 176)
+const CHEST_ACTION := Rect2(260, 1440, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
 const CHEST_RESULT_HERO := Rect2(270, 792, 540, 540)
 const CHEST_RESULT_SUPPORT := Rect2(145, 1242, 790, 214)
 # Ignore invisible generation padding when positioning the original, unchanged RGBA pictures.
@@ -802,7 +802,7 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 		open.get_node("Face").material = disabled_ink
 		open.modulate = Color(0.76, 0.79, 0.75, 1.0)
 	if on_play.is_valid():
-		_chest_action(p, "Play", "action.play", Rect2(280, 1648, 520, 176), on_play)
+		_chest_action(p, "Play", "action.play", Rect2(260, 1672, 560, 208), on_play)
 	return p
 
 ## The approved green rail uses its own slim rim; numbers reuse the homepage glyph family.
@@ -944,7 +944,7 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		if not _instant(host):
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
-	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(280, 1536, 520, 176), on_ok)
+	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520, 560, 208), on_ok)
 	return p
 
 const REWARD_TILE := 250.0
@@ -1070,8 +1070,9 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 			rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(reward, "Number", Rect2(20, tile.y - 108, tile.x - 40, 80), "+%d" % prizes[i][1])
-	var action_box := Rect2(Vector2(218, 1366) * DrawPurchaseArt.SCALE + canvas.position,
-		Vector2(480, 150) * DrawPurchaseArt.SCALE)
+	# The hit area holds the on-screen ButtonKit.PRIMARY plate (560 x 208 around 500 x 188).
+	var action_box := Rect2(Vector2(208, 1340) * DrawPurchaseArt.SCALE + canvas.position,
+		Vector2(500, 186) * DrawPurchaseArt.SCALE)
 	var action := ShopSkin.product_button(p.content, "Confirm", action_box, p.close, "green")
 	_kit_action(action, "white_action_ok")
 	if not instant:

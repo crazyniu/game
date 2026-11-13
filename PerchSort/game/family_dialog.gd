@@ -3,8 +3,8 @@ extends RefCounted
 ## Opt-in presentation for non-gameplay celebrations and the level card.
 
 ## Actions use the shop's button family (ButtonKit): green plates, painted white words.
-const PRIMARY := Vector2(360, 136)     # ButtonKit.PRIMARY (literal: a const reference would cycle the scripts)
-const SECONDARY := PRIMARY / 1.25      # 288 x 108.8: Primary is at most 1.25 times its siblings
+const PRIMARY := Vector2(500, 188)     # ButtonKit.PRIMARY (literal: a const reference would cycle the scripts)
+const SECONDARY := Vector2(400, 152)   # Primary 188 / 152 = 1.24: at most 1.25 times its siblings
 const STAR_SIZE := 180.0
 const STAR_ROW := 224.0
 const STAR_GAP := 36.0

@@ -32,7 +32,7 @@ the base panel and title as before. No shared UI helper or locale catalog change
 | Statistics | One 120 px row when coins exist; move icon and count beside a 380 x 120 gold reward bar, separated by 64 px |
 | Zero reward | Centred move count in the existing 100 px row |
 | Booster drops | Existing group and count badges, no extra card |
-| Actions | Existing 480 x 150 green Next above 384 x 120 Replay and Home |
+| Actions | 500 x 188 green Next (home Play size) between 152 x 152 Replay and Home keys |
 
 Keep the three live birds, stars, counts, drop animations, rotating rays and confetti. The next-action
 availability and every callback remain unchanged. Reward data is presented without a second backing

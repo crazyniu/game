@@ -59,7 +59,7 @@ const LESSON_BRANCHES := {
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
 const LESSON_DAY_LENGTH := 2
-const GOT_IT := Vector2(360, 136)    # ButtonKit.PRIMARY: the same size as every Play plate
+const GOT_IT := Vector2(500, 188)    # ButtonKit.PRIMARY: the same size as every Play plate
 const NIGHT_TINT := Color(0.70, 0.76, 0.98)   # board_view.gd moonlight
 const PHASE_RECT := Rect2(40, 36, 192, 104)    # board HUD day/night pill, in scene pixels
 
@@ -93,7 +93,7 @@ var _run := 0                 # bumps on every step change so old loops stop
 
 ## Opens the tutorial in `host` (the popup layer); `done` runs once after it closes by Play or by skipping.
 static func open(host: Control, done := Callable(), instant_motion := false) -> Control:
-	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PRIMARY, 0.0, instant_motion)
+	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PLAY_SIZE.y, 0.0, instant_motion)
 	FamilyDialog.decorate(m)
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Tutorial"

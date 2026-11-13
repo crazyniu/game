@@ -28,3 +28,15 @@ unchanged.
 
 ## Open
 - The level card's bird rings still use the mint `hud_tool_slot` inside the cream dialog card.
+
+## Primary buttons (user, 2026-11-13: "all pages' main buttons bigger and longer, like the home Play")
+- `ButtonKit.PRIMARY` 360 x 136 -> 500 x 188, the home Play button's visible size and shape (same 2.65 ratio as the
+  green plate). Same in `FamilyDialog.PRIMARY`, `UI.PLAY_SIZE`, the tutorial Got It.
+- Purchase Buy `WIDE` 520 x 132 -> 560 x 188. List and shop-card actions (`SECONDARY` 288 x 108) are not page
+  primaries and stay.
+- The 1.25 rule: buttons beside a primary grow with it. Dialog secondaries 400 x 152, Modal secondary pills
+  400 x 152, win Retry/Home keys 152, quantity keys 152 with a 240 x 150 field.
+- Hit areas of the chest, draw result and daily pages enclose the larger plate.
+- Checks: run_tests (naming, smoke, core), run_chest, run_family_dialogs 1780, run_purchase_buttons 128,
+  run_purchase_dialogs 98, run_draw_result 353, run_gameplay_dialogs 72, run_dialog_skin 192, run_menu_navigation
+  107: all 0 failures. Captures of 16 pages: `evidence/primary_buttons.jpg`.
