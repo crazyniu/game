@@ -1,8 +1,6 @@
 class_name HomeView
 extends Control
-## The game's home page (user's home sketch): a painted forest clearing with the birdhouse, the logo, live birds in
-## and on the house, a wide Play that continues at the next level, Daily and Lucky Draw tiles, and Map, Shop, Aviary
-## and Chest along the bottom. Button faces are painted pictures with their words painted in.
+## Forest homepage with one birdhouse-title focal group; navigation remains owned by main/meta.
 
 signal play_requested(level: int)
 signal map_requested
@@ -12,145 +10,206 @@ signal settings_requested
 signal help_requested
 signal lucky_draw_requested
 signal chest_requested
-signal challenge_requested
+signal daily_reward_requested
 
-## Layout follows the user's home sketch (2:3 sketch fitted to 9:16 by height, buttons anchored to the bottom).
-const LOGO := Rect2(100, 60, 880, 560)    # a big title alone in the sky; the birdhouse stands on the branch below
-const SETTINGS := Rect2(904, 44, 124, 124)
-## Seats in the painted birdhouse (home_clearing_soft: house centred on the branch): two on the shelf, two on the roof slopes.
-const SEATS := [Vector2(492, 934), Vector2(590, 934), Vector2(742, 706), Vector2(338, 710)]
-const BIRD_SCALE := 1.3
-const BIRD_COUNT := 3
-const PLAY := Rect2(200, 1150, 680, 184)
-const TILE := Vector2(206, 206)       # icon tiles, all one size
-const TOP_ROW_Y := 1372.0
-const NAV_Y := 1648.0
-const NAV_GAP := 30.0
-const FLIT_EVERY := 6.0
+const CANVAS_SIZE := Vector2(1080, 1920)
+# The title sign hangs on two vines that leave the top edge into the canopy.
+const SIGN_AT := Vector2(94, -30)
+# A thick leafy branch crosses the whole screen; its level top edge is the perch at y=950.
+const BRANCH_AT := Vector2(-74, 760)
+const PERCH_Y := 950.0
+const EVENT_Y := 1230.0
+const ICON_ENTRY_SIZE := Vector2(160, 160)
+const NAV_ICON_SIDE := 132.0
+const EVENT_ICON_SIDE := 120.0
+const SETTINGS_ICON_SIDE := 96.0
+const NAV_BACKING_SIDE := 204.0
+const EVENT_BACKING_SIDE := 184.0
+const BACKING_OPACITY := 0.88
+# Visible painted bodies, excluding transparent padding and faint cutout residue.
+const ICON_CONTENT := {
+	"pic_gear": Rect2(21, 28, 203, 202),
+	"pic_calendar": Rect2(49, 39, 154, 194),
+	"icon_home_draw": Rect2(175, 75, 958, 972),
+	"pic_map": Rect2(18, 36, 226, 177),
+	"pic_shop": Rect2(18, 17, 196, 221),
+	"pic_aviary": Rect2(21, 49, 200, 164),
+	"pic_chest": Rect2(36, 50, 185, 170),
+}
+const ICON_OUTLINE := preload("res://game/home_icon_outline.gdshader")
+const PLAY := Rect2(290, 1360, 500, 200)
+const COIN_DISPLAY_MAX := FeatherBar.DISPLAY_MAX
+const IDLE_FPS := 8.0
+# Contact rows of the existing drawn claws, not the old padding-based registration row.
+const BIRD_FOOT_Y := {
+	"macaw": [320, 324, 323, 328, 324, 323, 323, 322],
+	"green_parrot": [326, 328, 325, 331, 327, 326, 328, 327],
+}
 
 var profile: Profile
 var instant := false
-var _birds: Array = []      # [BirdView, seat index]
-var _logo: TextureRect
+var _birds: Array[Dictionary] = []
 var _clock := 0.0
-var _next_flit := FLIT_EVERY
+var _last_idle := {"perch": -1.0}
+var _play_face: TextureRect
 
 func setup(p: Profile) -> void:
 	profile = p
 	for child in get_children():
+		remove_child(child)
 		child.queue_free()
 	_birds.clear()
-	size = Vector2(1080, 1920)
-	UI.image(self, "home_clearing_soft", Rect2(0, 0, 1080, 1920), false)
-	_logo = UI.art(self, "home_logo", LOGO)
-	_logo.pivot_offset = _logo.size * Vector2(0.5, 0.9)
-	_build_birds()
-	var coins := str(profile.coins)
-	UI.counter(self, Vector2(48, 56), "coin", coins).name = "Coins"
-	UI.art_button(self, "Settings", "home_button_settings", SETTINGS, func(): settings_requested.emit())
+	_clock = 0.0
+	_last_idle = {"perch": -1.0}
+	size = CANVAS_SIZE
+	UI.image(self, "background_home_jungle", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
+	var title_sign := UI.image(self, "panel_home_title_sign", Rect2(SIGN_AT, Art.tex("panel_home_title_sign").get_size()), false)
+	title_sign.name = "Title"
+	# The open branch holds the live birds; no characters are baked into the title.
+	var seats := [
+		["macaw", 330.0, 228.0, 4],
+		["yellow_chick", 500.0, 176.0, 0],
+		["blue_chick", 665.0, 178.0, 2],
+		["green_parrot", 830.0, 184.0, 4],
+	]
+	for seat in seats:
+		var contact := Vector2(seat[1], PERCH_Y)
+		_add_bird(seat[0], contact, contact.y - seat[2], seat[3], "perch")
+	# The branch is drawn over the birds so it covers their tails beneath the perch line.
+	var branch := UI.image(self, "panel_home_perch_branch", Rect2(BRANCH_AT, Art.tex("panel_home_perch_branch").get_size()), false)
+	branch.name = "Branch"
+
+	FeatherBar.create(self, Vector2(48, 48), profile.coins)
+	_icon_button("Settings", "pic_gear", Vector2(976, 104), func(): settings_requested.emit(), SETTINGS_ICON_SIDE)
 	var level := _next_level()
-	var play := UI.art_button(self, "Play", "home_play_plate", PLAY, func(): play_requested.emit(level))
-	UI.label(play, "action.play", Rect2(PLAY.size.x * 0.2, 14.0, PLAY.size.x * 0.6, PLAY.size.y - 40.0), 92.0, Color.WHITE)
-	var left_edge := (1080.0 - TILE.x * 4.0 - NAV_GAP * 3.0) * 0.5
-	var top := [["Daily", "daily", challenge_requested], ["LuckyDraw", "lucky_draw", lucky_draw_requested]]
-	for i in top.size():
-		var r := Rect2(left_edge + (1 + i) * (TILE.x + NAV_GAP), TOP_ROW_Y, TILE.x, TILE.y)   # columns 2 and 3 of the bottom row
-		var tb := UI.icon_tile(self, top[i][0], "home_icon_" + top[i][1], r, (top[i][2] as Signal).emit)
-		if top[i][0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
-			_badge(tb, "1")
-		elif top[i][0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
-			_badge(tb, "1")
-	var places := [["Map", "map", map_requested], ["Shop", "shop", shop_requested],
-		["Aviary", "aviary", aviary_requested], ["Chest", "chest", chest_requested]]
+	var play := _button("Play", "play_" + UiText.locale(), PLAY, func(): play_requested.emit(level))
+	_play_face = play.get_node("Face") as TextureRect
+	# Both locale textures share a canvas; swapping them preserves the complete painted composition.
+	UI.place(_play_face, Rect2(Vector2.ZERO, PLAY.size))
+	_play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+	var events := [["DailyReward", "pic_calendar", daily_reward_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
+	for i in events.size():
+		var entry: Array = events[i]
+		var button := _icon_button(entry[0], entry[1], Vector2(960, EVENT_Y + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE, EVENT_BACKING_SIDE)
+		if entry[0] == "DailyReward" and Progress.daily_reward_available(profile, Progress.today()):
+			_badge(button, 1)
+		elif entry[0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
+			_badge(button, 1)
+
+	var places := [["Map", "pic_map", map_requested], ["Shop", "pic_shop", shop_requested],
+		["Aviary", "pic_aviary", aviary_requested], ["Chest", "pic_chest", chest_requested]]
 	for i in places.size():
-		var nb := UI.icon_tile(self, places[i][0], "home_icon_" + places[i][1],
-			Rect2(left_edge + i * (TILE.x + NAV_GAP), NAV_Y, TILE.x, TILE.y), (places[i][2] as Signal).emit)
-		if places[i][0] == "Chest" and Progress.chests_ready(profile) > 0:
-			_badge(nb, str(Progress.chests_ready(profile)))
-	if not instant:
-		_entrance()
+		var entry: Array = places[i]
+		var button := _icon_button(entry[0], entry[1], Vector2(174 + 244 * i, 1760), (entry[2] as Signal).emit, NAV_ICON_SIDE, NAV_BACKING_SIDE)
+		if entry[0] == "Chest" and Progress.chests_ready(profile) > 0:
+			_badge(button, Progress.chests_ready(profile))
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED and is_instance_valid(_play_face):
+		_play_face.texture = Art.tex("btn_home_island_play_" + UiText.locale())
+
+func _button(n: String, picture: String, bounds: Rect2, action: Callable) -> Button:
+	return UI.art_button(self, n, "btn_home_island_" + picture, bounds, action)
+
+func _icon_button(n: String, picture: String, center: Vector2, action: Callable, side: float, backing_side := 0.0) -> Button:
+	var button := Button.new()
+	button.name = n
+	button.focus_mode = Control.FOCUS_NONE
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
+		button.add_theme_stylebox_override(state, empty)
+	UI.place(button, Rect2(center - ICON_ENTRY_SIZE * 0.5, ICON_ENTRY_SIZE))
+	if backing_side > 0.0:
+		# Keep the independent frame's transparent padding; the accepted icon and hit area stay intact.
+		var backing_size := Vector2.ONE * backing_side
+		var backing := UI.image(button, "btn_home_icon_frame", Rect2((ICON_ENTRY_SIZE - backing_size) * 0.5, backing_size))
+		backing.name = "Backing"
+		backing.modulate.a = BACKING_OPACITY
+		button.button_down.connect(func(): backing.self_modulate = UI.PRESSED_TINT)
+		button.button_up.connect(func(): backing.self_modulate = Color.WHITE)
+	# Fit the painted body uniformly; a common slot must never stretch the source art.
+	var content: Rect2 = ICON_CONTENT[picture]
+	var pixel_scale := side / maxf(content.size.x, content.size.y)
+	var face_size := Art.tex(picture).get_size() * pixel_scale
+	var face_at := ICON_ENTRY_SIZE * 0.5 - content.get_center() * pixel_scale
+	var face := UI.image(button, picture, Rect2(face_at, face_size), false)
+	face.name = "Face"
+	var outline := ShaderMaterial.new()
+	outline.shader = ICON_OUTLINE
+	outline.set_shader_parameter("draw_size", face.size)
+	face.material = outline
+	button.button_down.connect(func(): face.self_modulate = UI.PRESSED_TINT)
+	button.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	button.pressed.connect(func():
+		Sound.play("ui_tap")
+		action.call())
+	add_child(button)
+	return button
+
+func _badge(button: Control, value: int) -> void:
+	var badge := Island.badge(button, Vector2(button.size.x - 16, 20), value, true)
+	badge.pivot_offset = badge.size * 0.5
+	badge.scale = Vector2.ONE * (48.0 / Island.BADGE_SIZE)
 
 ## Play continues where the player left off (Progress.resume_level).
 func _next_level() -> int:
 	return Progress.resume_level(profile)
 
-## Met birds (the first three met, else the starters) in and on the birdhouse, alive.
-func _build_birds() -> void:
-	var kinds: Array = []
-	for card in Aviary.SPECIES:
-		if card[0] != "crow" and profile.met.has(card[0]):
-			kinds.append(card[0])
-	for fallback in ["sunny", "sky", "berry"]:
-		if kinds.size() >= BIRD_COUNT:
-			break
-		if not kinds.has(fallback):
-			kinds.append(fallback)
-	for i in BIRD_COUNT:
-		var outfit: String = profile.equipped.get(kinds[i], "")
-		var key := outfit.replace("outfit.", "").replace(".", "_outfit_") if not outfit.is_empty() and not outfit.ends_with("default") else ""
-		var bird := BirdView.new()
-		add_child(bird)
-		bird.setup(Board.bird(0, Board.species_index(kinds[i]), 0), false, BIRD_SCALE, key)
-		bird.quiet = instant
-		bird.position = SEATS[i]
-		_birds.append([bird, i])
-	# Keep the HUD and buttons above the birds.
-	for b in _birds:
-		move_child(b[0], 2)
-
-func _free_seat() -> int:
-	for i in SEATS.size():
-		if not _birds.any(func(b): return b[1] == i):
-			return i
-	return -1
-
-## Red count badge on a tile's top-right corner.
-func _badge(b: Control, text: String) -> void:
-	var d := 64.0
-	var p := Control.new()
-	p.name = "Badge"
-	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(p, Rect2(Vector2(b.size.x - d * 0.75, -d * 0.3), Vector2.ONE * d))
-	b.add_child(p)
-	UI.kit_piece(p, "badge", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (d + 8.0)))
-	UI.number(p, text, Rect2(10, d * 0.5 - 20.0, d - 20.0, 34), Color.WHITE)
-
-## Logo drops in with a bounce, birds fly in one after another.
-func _entrance() -> void:
-	var rest := _logo.position
-	_logo.position.y -= 600.0
-	var tw := create_tween()
-	tw.tween_property(_logo, "position", rest, 0.7).set_delay(0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	for k in _birds.size():
-		var bird: BirdView = _birds[k][0]
-		var target := bird.position
-		bird.position = Vector2(-160.0 if k % 2 == 0 else 1240.0, target.y - 500.0)
-		bird.fly_to(target, 0.5 + 0.18 * k, 0.8, false, true)
+func _add_bird(kind: String, at: Vector2, top: float, rest_frame: int, group: String) -> void:
+	var textures := Art.frames("home_island_%s_idle" % kind)
+	assert(textures.size() == 8, "Island homepage bird needs its complete drawn idle sequence: " + kind)
+	var feet := Vector2(256, 330 if kind in ["macaw", "green_parrot"] else 470)
+	var used := textures[rest_frame].get_image().get_used_rect()
+	var pixel_scale := (at.y - top) / (feet.y - used.position.y)
+	var pivot := Node2D.new()
+	pivot.name = "Bird_" + kind
+	pivot.position = at
+	add_child(pivot)
+	var bird := AnimatedSprite2D.new()
+	bird.name = "Pose"
+	bird.centered = false
+	bird.position = -feet * pixel_scale
+	bird.scale = Vector2.ONE * pixel_scale
+	var frames := SpriteFrames.new()
+	frames.set_animation_loop("default", false)
+	frames.set_animation_speed("default", IDLE_FPS)
+	for texture in textures:
+		frames.add_frame("default", texture)
+	bird.sprite_frames = frames
+	bird.frame = rest_frame
+	var contact_rows: Array = BIRD_FOOT_Y.get(kind, [])
+	if not contact_rows.is_empty():
+		var align_feet := func(): bird.position.y = -float(contact_rows[bird.frame]) * pixel_scale
+		bird.frame_changed.connect(align_feet)
+		align_feet.call()
+	pivot.add_child(bird)
+	bird.animation_finished.connect(func(): bird.frame = rest_frame)
+	_birds.append({"pivot": pivot, "view": bird, "group": group, "phase": _birds.size() * 0.91,
+		"next": 0.45 + (_birds.size() % 4) * 0.65})
 
 func _process(delta: float) -> void:
-	if instant or _logo == null:
+	if instant:
 		return
 	_clock += delta
-	# The logo breathes gently; every few seconds one bird flits to a free seat on the other branch.
-	_logo.scale = Vector2.ONE * (1.0 + 0.015 * sin(_clock * 1.6))
-	_logo.rotation = 0.012 * sin(_clock * 0.9)
-	if _clock >= _next_flit:
-		_next_flit = _clock + FLIT_EVERY
-		var free := _free_seat()
-		if free < 0:
-			return
-		var pick: Array = _birds[randi() % _birds.size()]
-		var bird: BirdView = pick[0]
-		if bird.acting:
-			return
-		pick[1] = free
-		bird.fly_to(SEATS[free], 0.0, 0.9)
+	for entry in _birds:
+		var pivot: Node2D = entry["pivot"]
+		var bird: AnimatedSprite2D = entry["view"]
+		var breath := (sin(_clock * TAU / 2.8 + entry["phase"]) + 1.0) * 0.5
+		pivot.scale = Vector2(1.0 - 0.008 * breath, 1.0 + 0.02 * breath)
+		var group: String = entry["group"]
+		if not bird.is_playing() and _clock >= entry["next"] and _clock - _last_idle[group] >= 0.62:
+			bird.frame = 0
+			bird.frame_progress = 0.0
+			bird.play("default")
+			_last_idle[group] = _clock
+			entry["next"] = _clock + randf_range(1.8, 2.8)
 
-## Capture states: "home" (a player at level 12) and "home_new" (a first launch).
+## Fake-data review states use the same production view and signals.
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
-	p.coins = 50270 if state == "home" else 0
-	if state == "home":
+	p.coins = 50270 if state != "home_new" else 0
+	if state != "home_new":
 		p.highest_unlocked = 12
 		for level in range(1, 12):
 			p.stars[level] = 3 if level % 3 else 2
@@ -158,7 +217,10 @@ static func preview(main: Control, state: String) -> void:
 			p.met[kind] = true
 		p.outfits = {"outfit.berry.1": true}
 		p.equipped = {"berry": "outfit.berry.1"}
+	if state == "home_max":
+		p.coins = 99999
 	var view := HomeView.new()
 	view.instant = main.instant()
 	main.set_screen(view)
 	view.setup(p)
+	Sound.music("bgm_menu")

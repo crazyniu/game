@@ -1,4 +1,0 @@
-Use your image generation tool. ref_node.png and ref_node_current.png are crops of level buttons from my map sketch. Reproduce THESE EXACT level discs WITHOUT the number and WITHOUT the stars, on a FULLY TRANSPARENT background (PNG alpha), landscape 1536x1024, two pieces side by side at least 100 px apart, nothing else:
-Left (about 420 px wide): the normal level disc exactly like ref_node.png: an opaque warm butter-cream face (solid, not glassy, not transparent-looking), a thick glossy golden rim, a deeper golden bottom edge that gives it a coin-like thickness, seen slightly from above.
-Right (about 520 px wide): the current level disc exactly like ref_node_current.png: the same coin shape, a brighter golden face and rim, with a soft warm yellow glow and a few small sparkles around it.
-Same colours and saturation as the crops. No text, no digits, no stars, no shadow on the background.

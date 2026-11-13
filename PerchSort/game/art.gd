@@ -2,7 +2,7 @@ class_name Art
 extends RefCounted
 ## Texture lookup by bare name across the art roots, cached. Missing names return null.
 
-const ROOTS: PackedStringArray = ["res://art/", "res://art/icons/", "res://art/words/", "res://art/letters/",
+const ROOTS: PackedStringArray = ["res://art/", "res://art/island/", "res://art/icons/",
 	"res://birds/", "res://world/", "res://world/scene/"]
 
 static var _cache: Dictionary = {}

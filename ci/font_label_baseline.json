@@ -1,0 +1,10 @@
+{
+ "aviary_view.gd": 4,
+ "board_view.gd": 1,
+ "map_view.gd": 2,
+ "popup.gd": 2,
+ "popups.gd": 9,
+ "shop_view.gd": 6,
+ "tutorial.gd": 1,
+ "ui.gd": 2
+}

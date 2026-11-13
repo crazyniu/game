@@ -1,0 +1,1723 @@
+{
+  "gate": "complete before implementation",
+  "material_count": 48,
+  "assets": {
+    "btn_purchase_close": {
+      "name": "recharge_close",
+      "source": "recharge",
+      "source_box_xyxy": [
+        23,
+        50,
+        139,
+        169
+      ],
+      "size_px": [
+        116,
+        119
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        7,
+        7,
+        108,
+        110
+      ],
+      "touches_crop_edge": false,
+      "sha256": "b9dc81fbf92722a443dcb49f523acc9c6fddef65efe48b4f02d3fb0481b5d264",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        23,
+        50,
+        139,
+        169
+      ],
+      "source_name": "recharge_close",
+      "alpha_128_bbox": [
+        7,
+        7,
+        108,
+        110
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_close.png"
+    },
+    "label_purchase_title_zh": {
+      "name": "recharge_title",
+      "source": "recharge",
+      "source_box_xyxy": [
+        135,
+        115,
+        783,
+        314
+      ],
+      "size_px": [
+        648,
+        199
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        7,
+        5,
+        629,
+        194
+      ],
+      "touches_crop_edge": false,
+      "sha256": "f0e9b64a37f100e1cb4c871e384a1e3e806edc9fae61c68560846324375d1361",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        135,
+        115,
+        783,
+        314
+      ],
+      "source_name": "recharge_title",
+      "alpha_128_bbox": [
+        7,
+        5,
+        629,
+        194
+      ],
+      "destination": "PerchSort/art/island/label_purchase_title_zh.png"
+    },
+    "icon_purchase_stack": {
+      "name": "recharge_stack",
+      "source": "recharge",
+      "source_box_xyxy": [
+        138,
+        328,
+        377,
+        493
+      ],
+      "size_px": [
+        239,
+        165
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        9,
+        15,
+        224,
+        158
+      ],
+      "touches_crop_edge": false,
+      "sha256": "a4dad35c9f8d3ca6b1e296826eeebf195608c6040a9cd4498b520e492299ec49",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        138,
+        328,
+        377,
+        493
+      ],
+      "source_name": "recharge_stack",
+      "alpha_128_bbox": [
+        9,
+        15,
+        224,
+        158
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_stack.png"
+    },
+    "icon_purchase_cluster": {
+      "name": "recharge_cluster",
+      "source": "recharge",
+      "source_box_xyxy": [
+        511,
+        323,
+        797,
+        498
+      ],
+      "size_px": [
+        286,
+        175
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        9,
+        8,
+        260,
+        168
+      ],
+      "touches_crop_edge": false,
+      "sha256": "d58cd17f79c6be75868f3d6b98bd25c6e00e7b2a09321fcdd1a59a18147cb14c",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        511,
+        323,
+        797,
+        498
+      ],
+      "source_name": "recharge_cluster",
+      "alpha_128_bbox": [
+        9,
+        8,
+        260,
+        168
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_cluster.png"
+    },
+    "icon_purchase_pouch": {
+      "name": "recharge_pouch",
+      "source": "recharge",
+      "source_box_xyxy": [
+        122,
+        668,
+        393,
+        905
+      ],
+      "size_px": [
+        271,
+        237
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        6,
+        11,
+        254,
+        227
+      ],
+      "touches_crop_edge": false,
+      "sha256": "60768c30beeed9d2ee01deae5e2d7d1aa0a7de293c2cda1ae8b6457b739c417f",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        122,
+        668,
+        393,
+        905
+      ],
+      "source_name": "recharge_pouch",
+      "alpha_128_bbox": [
+        6,
+        11,
+        254,
+        227
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_pouch.png"
+    },
+    "icon_purchase_basket": {
+      "name": "recharge_basket",
+      "source": "recharge",
+      "source_box_xyxy": [
+        513,
+        669,
+        799,
+        900
+      ],
+      "size_px": [
+        286,
+        231
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        6,
+        9,
+        271,
+        225
+      ],
+      "touches_crop_edge": false,
+      "sha256": "c5f3958924db6d7ff75231d00fbf4b09308559b0ed5ca2e2d64c6ba15795df1f",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        513,
+        669,
+        799,
+        900
+      ],
+      "source_name": "recharge_basket",
+      "alpha_128_bbox": [
+        6,
+        9,
+        271,
+        225
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_basket.png"
+    },
+    "icon_purchase_chest": {
+      "name": "recharge_chest",
+      "source": "recharge",
+      "source_box_xyxy": [
+        119,
+        1088,
+        385,
+        1335
+      ],
+      "size_px": [
+        266,
+        247
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        11,
+        13,
+        253,
+        238
+      ],
+      "touches_crop_edge": false,
+      "sha256": "564efb183fc05d3b6dc23e6c835be79b7fe5daf6feda642cdef452a26530761a",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        119,
+        1088,
+        385,
+        1335
+      ],
+      "source_name": "recharge_chest",
+      "alpha_128_bbox": [
+        11,
+        13,
+        253,
+        238
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_chest.png"
+    },
+    "icon_purchase_hoard": {
+      "name": "recharge_hoard",
+      "source": "recharge",
+      "source_box_xyxy": [
+        496,
+        1073,
+        821,
+        1338
+      ],
+      "size_px": [
+        325,
+        265
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        10,
+        9,
+        315,
+        258
+      ],
+      "touches_crop_edge": false,
+      "sha256": "16b19184b083daaa99a71d18f335dffeddab10cda69f1450fac374b512dc74e4",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        496,
+        1073,
+        821,
+        1338
+      ],
+      "source_name": "recharge_hoard",
+      "alpha_128_bbox": [
+        10,
+        9,
+        315,
+        258
+      ],
+      "destination": "PerchSort/art/island/icon_purchase_hoard.png"
+    },
+    "btn_purchase_six": {
+      "name": "recharge_price_six",
+      "source": "recharge",
+      "source_box_xyxy": [
+        117,
+        560,
+        392,
+        665
+      ],
+      "size_px": [
+        275,
+        105
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        7,
+        4,
+        268,
+        98
+      ],
+      "touches_crop_edge": false,
+      "sha256": "c7b23ef054d56bff420120507474cf3bbe3aaf079d1ce4e18859fc084ea37fd1",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        117,
+        560,
+        392,
+        665
+      ],
+      "source_name": "recharge_price_six",
+      "alpha_128_bbox": [
+        7,
+        4,
+        268,
+        98
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_six.png"
+    },
+    "btn_purchase_eighteen": {
+      "name": "recharge_price_eighteen",
+      "source": "recharge",
+      "source_box_xyxy": [
+        518,
+        560,
+        794,
+        665
+      ],
+      "size_px": [
+        276,
+        105
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        3,
+        4,
+        271,
+        99
+      ],
+      "touches_crop_edge": false,
+      "sha256": "6463c5ded66a6c4ba7ad460cda64d2e98eb5ff2e847e2edc9c7e7133815cb4e5",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        518,
+        560,
+        794,
+        665
+      ],
+      "source_name": "recharge_price_eighteen",
+      "alpha_128_bbox": [
+        3,
+        4,
+        271,
+        99
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_eighteen.png"
+    },
+    "btn_purchase_thirty": {
+      "name": "recharge_price_thirty",
+      "source": "recharge",
+      "source_box_xyxy": [
+        117,
+        961,
+        392,
+        1068
+      ],
+      "size_px": [
+        275,
+        107
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        6,
+        6,
+        268,
+        101
+      ],
+      "touches_crop_edge": false,
+      "sha256": "b67270b029ca1d9e57585e5412299812d537dee96ad6da33f8be845a8769a790",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        117,
+        961,
+        392,
+        1068
+      ],
+      "source_name": "recharge_price_thirty",
+      "alpha_128_bbox": [
+        6,
+        6,
+        268,
+        101
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_thirty.png"
+    },
+    "btn_purchase_sixty_eight": {
+      "name": "recharge_price_sixty_eight",
+      "source": "recharge",
+      "source_box_xyxy": [
+        518,
+        961,
+        794,
+        1068
+      ],
+      "size_px": [
+        276,
+        107
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        3,
+        6,
+        271,
+        101
+      ],
+      "touches_crop_edge": false,
+      "sha256": "be963ec51fc3cf7f98177b2f51d2d1f082820b5150149ae38e0b6a31bbfe8777",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        518,
+        961,
+        794,
+        1068
+      ],
+      "source_name": "recharge_price_sixty_eight",
+      "alpha_128_bbox": [
+        3,
+        6,
+        271,
+        101
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_sixty_eight.png"
+    },
+    "btn_purchase_one_twenty_eight": {
+      "name": "recharge_price_one_twenty_eight",
+      "source": "recharge",
+      "source_box_xyxy": [
+        117,
+        1395,
+        392,
+        1503
+      ],
+      "size_px": [
+        275,
+        108
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        6,
+        6,
+        268,
+        101
+      ],
+      "touches_crop_edge": false,
+      "sha256": "5d461254534e24ddacabe131fb71f6fb4904c2bf2f27e78461d84308f9f2fd68",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        117,
+        1395,
+        392,
+        1503
+      ],
+      "source_name": "recharge_price_one_twenty_eight",
+      "alpha_128_bbox": [
+        6,
+        6,
+        268,
+        101
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_one_twenty_eight.png"
+    },
+    "btn_purchase_one_ninety_eight": {
+      "name": "recharge_price_one_ninety_eight",
+      "source": "recharge",
+      "source_box_xyxy": [
+        518,
+        1395,
+        794,
+        1503
+      ],
+      "size_px": [
+        276,
+        108
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        3,
+        6,
+        271,
+        101
+      ],
+      "touches_crop_edge": false,
+      "sha256": "e23ac127baade65872407d5c7df92ba20f47b6e7981584053055813d55b947cc",
+      "source_library_file_id": "libfile_fde3_f-4bde2cacc9488191be054069ea5a6233_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u7fbd\u6bdb\u5145\u503c_\u5f00\u653e\u5f0f\u9648\u5217_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        518,
+        1395,
+        794,
+        1503
+      ],
+      "source_name": "recharge_price_one_ninety_eight",
+      "alpha_128_bbox": [
+        3,
+        6,
+        271,
+        101
+      ],
+      "destination": "PerchSort/art/island/btn_purchase_one_ninety_eight.png"
+    },
+    "label_draw_title_zh": {
+      "name": "lottery_title",
+      "source": "lottery",
+      "source_box_xyxy": [
+        121,
+        111,
+        794,
+        329
+      ],
+      "size_px": [
+        673,
+        218
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        7,
+        8,
+        655,
+        204
+      ],
+      "touches_crop_edge": false,
+      "sha256": "7237f3ddbe9fda875e134b750128b2392439763ce5fa6032940fc142e7e636a6",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        121,
+        111,
+        794,
+        329
+      ],
+      "source_name": "lottery_title",
+      "alpha_128_bbox": [
+        7,
+        8,
+        655,
+        204
+      ],
+      "destination": "PerchSort/art/island/label_draw_title_zh.png"
+    },
+    "btn_draw_close": {
+      "name": "lottery_close",
+      "source": "lottery",
+      "source_box_xyxy": [
+        23,
+        52,
+        139,
+        168
+      ],
+      "size_px": [
+        116,
+        116
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        7,
+        5,
+        108,
+        108
+      ],
+      "touches_crop_edge": false,
+      "sha256": "c10cb9ef2fd0c6faeb2231f99df278fbbe09a3d09104fc562e655b0d0fe7c5eb",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        23,
+        52,
+        139,
+        168
+      ],
+      "source_name": "lottery_close",
+      "alpha_128_bbox": [
+        7,
+        5,
+        108,
+        108
+      ],
+      "destination": "PerchSort/art/island/btn_draw_close.png"
+    },
+    "icon_draw_prize_forty": {
+      "name": "lottery_prize_forty",
+      "source": "lottery",
+      "source_box_xyxy": [
+        126,
+        565,
+        302,
+        702
+      ],
+      "size_px": [
+        176,
+        137
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        13,
+        9,
+        146,
+        131
+      ],
+      "touches_crop_edge": false,
+      "sha256": "53c948218ff9bcb186e9859c2bc20b3cefc240a041b858f4f458c4a086404174",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        126,
+        565,
+        302,
+        702
+      ],
+      "source_name": "lottery_prize_forty",
+      "alpha_128_bbox": [
+        13,
+        9,
+        146,
+        131
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_forty.png"
+    },
+    "icon_draw_prize_eighty": {
+      "name": "lottery_prize_eighty",
+      "source": "lottery",
+      "source_box_xyxy": [
+        368,
+        559,
+        571,
+        701
+      ],
+      "size_px": [
+        203,
+        142
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        6,
+        13,
+        176,
+        132
+      ],
+      "touches_crop_edge": false,
+      "sha256": "147a9a05328fd66fe3e5bed6bd077f64b9572b832c463ad55e58b718ecc5c4e6",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        368,
+        559,
+        571,
+        701
+      ],
+      "source_name": "lottery_prize_eighty",
+      "alpha_128_bbox": [
+        6,
+        13,
+        176,
+        132
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_eighty.png"
+    },
+    "icon_draw_mystery_single": {
+      "name": "lottery_mystery_single",
+      "source": "lottery",
+      "source_box_xyxy": [
+        616,
+        559,
+        811,
+        708
+      ],
+      "size_px": [
+        195,
+        149
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        10,
+        14,
+        186,
+        138
+      ],
+      "touches_crop_edge": false,
+      "sha256": "16a9dd7acd156a1b38875343b25d68b4e0b8f25e51ef1fdcdffd3409d59f66e8",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        616,
+        559,
+        811,
+        708
+      ],
+      "source_name": "lottery_mystery_single",
+      "alpha_128_bbox": [
+        10,
+        14,
+        186,
+        138
+      ],
+      "destination": "PerchSort/art/island/icon_draw_mystery_single.png"
+    },
+    "icon_draw_prize_four_hundred": {
+      "name": "lottery_prize_four_hundred",
+      "source": "lottery",
+      "source_box_xyxy": [
+        94,
+        791,
+        316,
+        952
+      ],
+      "size_px": [
+        222,
+        161
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        13,
+        20,
+        204,
+        154
+      ],
+      "touches_crop_edge": false,
+      "sha256": "81ebebbcea11d499c708c0b2cee6dbc56f8efe5e9533d2fe829329e5a6d089ad",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        94,
+        791,
+        316,
+        952
+      ],
+      "source_name": "lottery_prize_four_hundred",
+      "alpha_128_bbox": [
+        13,
+        20,
+        204,
+        154
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_four_hundred.png"
+    },
+    "icon_draw_prize_one_twenty": {
+      "name": "lottery_prize_one_twenty",
+      "source": "lottery",
+      "source_box_xyxy": [
+        594,
+        794,
+        828,
+        955
+      ],
+      "size_px": [
+        234,
+        161
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        24,
+        19,
+        216,
+        141
+      ],
+      "touches_crop_edge": false,
+      "sha256": "65d1d8b12c833449a20b731d75d2ceb94f81a09b72deab28eeac6a05a2a9d181",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        594,
+        794,
+        828,
+        955
+      ],
+      "source_name": "lottery_prize_one_twenty",
+      "alpha_128_bbox": [
+        24,
+        19,
+        216,
+        141
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_one_twenty.png"
+    },
+    "icon_draw_prize_sixty": {
+      "name": "lottery_prize_sixty",
+      "source": "lottery",
+      "source_box_xyxy": [
+        92,
+        1040,
+        318,
+        1200
+      ],
+      "size_px": [
+        226,
+        160
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        23,
+        27,
+        201,
+        150
+      ],
+      "touches_crop_edge": false,
+      "sha256": "947b211b506a93a3a67e31d0af99b8a5749904fff993fc2e2e9a008654cb555d",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        92,
+        1040,
+        318,
+        1200
+      ],
+      "source_name": "lottery_prize_sixty",
+      "alpha_128_bbox": [
+        23,
+        27,
+        201,
+        150
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_sixty.png"
+    },
+    "icon_draw_mystery_double": {
+      "name": "lottery_mystery_double",
+      "source": "lottery",
+      "source_box_xyxy": [
+        354,
+        1035,
+        575,
+        1201
+      ],
+      "size_px": [
+        221,
+        166
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        18,
+        33,
+        194,
+        160
+      ],
+      "touches_crop_edge": false,
+      "sha256": "68003c5cc3a776733aeab2fef60b83ea4ef1bb7e98b3512d3a73f13e99cf03de",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        354,
+        1035,
+        575,
+        1201
+      ],
+      "source_name": "lottery_mystery_double",
+      "alpha_128_bbox": [
+        18,
+        33,
+        194,
+        160
+      ],
+      "destination": "PerchSort/art/island/icon_draw_mystery_double.png"
+    },
+    "icon_draw_prize_two_hundred": {
+      "name": "lottery_prize_two_hundred",
+      "source": "lottery",
+      "source_box_xyxy": [
+        591,
+        1036,
+        831,
+        1201
+      ],
+      "size_px": [
+        240,
+        165
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        18,
+        23,
+        222,
+        162
+      ],
+      "touches_crop_edge": false,
+      "sha256": "8414e002408858f431fcfb9ff7e04e4af7ca2d144f845bd4acbac6fd64ac0753",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate shadow/occluded pixels not recovered",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        591,
+        1036,
+        831,
+        1201
+      ],
+      "source_name": "lottery_prize_two_hundred",
+      "alpha_128_bbox": [
+        18,
+        23,
+        222,
+        162
+      ],
+      "destination": "PerchSort/art/island/icon_draw_prize_two_hundred.png"
+    },
+    "btn_draw_action_zh": {
+      "name": "lottery_draw_action",
+      "source": "lottery",
+      "source_box_xyxy": [
+        182,
+        1366,
+        735,
+        1568
+      ],
+      "size_px": [
+        553,
+        202
+      ],
+      "alpha": "binary source-color mask; original white interior highlights retained; no RGB changed",
+      "rgb_identical_to_source": true,
+      "nonzero_alpha_bbox": [
+        9,
+        9,
+        541,
+        194
+      ],
+      "touches_crop_edge": false,
+      "sha256": "59f80c688c24306328a6eadf8b04d43a8f5a272486cb56ea8e0195dd79324391",
+      "source_library_file_id": "libfile_fde3_f-22fd7d6f3edc81918bb6b45a47b1e21e_551017e8727c8191babd00e1503f3fd8",
+      "source_file_name": "\u6bcf\u65e5\u62bd\u5956_\u70ed\u5e26\u7cd6\u679c\u98ce_\u8bbe\u8ba1\u5019\u9009.png",
+      "edge_quality": "REVIEW: complete visible silhouette at native size, no detected cut-edge clipping or large cyan holes. Binary alpha retains hard/faint color edge risk; original blended shadow not recovered. No retouch or reconstruction.",
+      "missing": "Separate editable label/base not supplied",
+      "kind": "accepted_exact_cutout",
+      "acceptance": "User accepted original-pixel preview. Latest instruction permits independent integration after material checks.",
+      "source_original_box": [
+        182,
+        1366,
+        735,
+        1568
+      ],
+      "source_name": "lottery_draw_action",
+      "alpha_128_bbox": [
+        9,
+        9,
+        541,
+        194
+      ],
+      "destination": "PerchSort/art/island/btn_draw_action_zh.png"
+    },
+    "panel_draw_empty_board": {
+      "name": "lottery_empty_board",
+      "mode": "RGBA",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "alpha_minmax": [
+        0,
+        255
+      ],
+      "transparent_percent": 11.73,
+      "alpha_128_bbox": [
+        39,
+        42,
+        1212,
+        1211
+      ],
+      "alpha_240_bbox": [
+        40,
+        43,
+        1211,
+        1210
+      ],
+      "sha256": "ec4b62d765536fb71031bd37396139073e7ac195c859514ffadf9f6e852d482f",
+      "source": "AI-generated missing-material candidate using confirmed original screen as style/layout reference",
+      "acceptance": "User accepted supplemental board, center chest and both stars.",
+      "kind": "accepted_generated_missing",
+      "source_name": "lottery_empty_board",
+      "destination": "PerchSort/art/island/panel_draw_empty_board.png"
+    },
+    "icon_draw_center_chest": {
+      "name": "lottery_center_chest",
+      "mode": "RGBA",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "alpha_minmax": [
+        0,
+        255
+      ],
+      "transparent_percent": 74.11,
+      "alpha_128_bbox": [
+        294,
+        248,
+        970,
+        970
+      ],
+      "alpha_240_bbox": [
+        294,
+        249,
+        969,
+        969
+      ],
+      "sha256": "5ce1ca5f589ce4db465fe1228e5824c594b79a4ab146a4b25d69d331965714e7",
+      "source": "AI-generated missing-material candidate using confirmed original screen as style/layout reference",
+      "acceptance": "User accepted supplemental board, center chest and both stars.",
+      "kind": "accepted_generated_missing",
+      "source_name": "lottery_center_chest",
+      "destination": "PerchSort/art/island/icon_draw_center_chest.png"
+    },
+    "star_draw_available": {
+      "name": "lottery_attempt_available",
+      "mode": "RGBA",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "alpha_minmax": [
+        0,
+        255
+      ],
+      "transparent_percent": 74.25,
+      "alpha_128_bbox": [
+        223,
+        247,
+        1016,
+        1004
+      ],
+      "alpha_240_bbox": [
+        224,
+        248,
+        1015,
+        1003
+      ],
+      "sha256": "aa85b5a205c7d6d1dff880e4e93158207eb06b781a02bd3d25f26cb8b3554b8d",
+      "source": "AI-generated missing-material candidate using confirmed original screen as style/layout reference",
+      "acceptance": "User accepted supplemental board, center chest and both stars.",
+      "kind": "accepted_generated_missing",
+      "source_name": "lottery_attempt_available",
+      "destination": "PerchSort/art/island/star_draw_available.png"
+    },
+    "star_draw_used": {
+      "name": "lottery_attempt_used",
+      "mode": "RGBA",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "alpha_minmax": [
+        0,
+        255
+      ],
+      "transparent_percent": 57.48,
+      "alpha_128_bbox": [
+        221,
+        246,
+        1020,
+        1009
+      ],
+      "alpha_240_bbox": [
+        222,
+        247,
+        1019,
+        1008
+      ],
+      "sha256": "903f958d23627c24d1c0a101e5aec2928e6c7fac606b07489d4370e0ea054121",
+      "source": "AI-generated missing-material candidate using confirmed original screen as style/layout reference",
+      "acceptance": "User accepted supplemental board, center chest and both stars.",
+      "kind": "accepted_generated_missing",
+      "source_name": "lottery_attempt_used",
+      "destination": "PerchSort/art/island/star_draw_used.png"
+    },
+    "panel_purchase_balance": {
+      "name": "balance_empty",
+      "size_px": [
+        2092,
+        752
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        157,
+        98,
+        1932,
+        656
+      ],
+      "source_file": "exec-44ad7cda-8e9f-4f2b-b0db-7c581cbf55db.png",
+      "source_crop": null,
+      "sha256": "4ba8be80a7a75fb5eb1782fd85b206cec099a338b0e04d854940c0a8a7fcaaac",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "balance_empty",
+      "destination": "PerchSort/art/island/panel_purchase_balance.png"
+    },
+    "label_draw_title_en": {
+      "name": "lottery_title_en",
+      "size_px": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        25,
+        34,
+        2117,
+        666
+      ],
+      "source_file": "exec-03828029-6605-45d4-b3b4-8281cfbdff99.png",
+      "source_crop": null,
+      "sha256": "6044b671292e52bdb23f6b196046fe2e526c4beff9156edc9b34eae1f554e389",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "lottery_title_en",
+      "destination": "PerchSort/art/island/label_draw_title_en.png"
+    },
+    "label_purchase_title_en": {
+      "name": "purchase_title_en",
+      "size_px": [
+        2176,
+        723
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        25,
+        47,
+        2112,
+        678
+      ],
+      "source_file": "exec-60855e8d-56b6-41b1-af92-9790f50dde2f.png",
+      "source_crop": null,
+      "sha256": "4c2dfb85590b62151372543c930ae2561d9f42828da34d223b547152ed78e815",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "purchase_title_en",
+      "destination": "PerchSort/art/island/label_purchase_title_en.png"
+    },
+    "btn_draw_action_en": {
+      "name": "lottery_action_en",
+      "size_px": [
+        2075,
+        758
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        33,
+        30,
+        2033,
+        729
+      ],
+      "source_file": "exec-c5ebfe6e-ed27-44e7-9817-0e1041d96fc2.png",
+      "source_crop": null,
+      "sha256": "2c8de6fd809e0b974fd48efa55fb3419f7825a6bbabccf6a9e778e1dd5ad8fcb",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "lottery_action_en",
+      "destination": "PerchSort/art/island/btn_draw_action_en.png"
+    },
+    "label_draw_purchase_zero": {
+      "name": "glyph_0",
+      "size_px": [
+        234,
+        281
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        17,
+        218,
+        265
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        62,
+        68,
+        296,
+        349
+      ],
+      "sha256": "854cea9063cc93e4eca0dbc739c48e91efa9c8ad50b283cb1e0fb5b0a013823f",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_0",
+      "destination": "PerchSort/art/island/label_draw_purchase_zero.png"
+    },
+    "label_draw_purchase_one": {
+      "name": "glyph_1",
+      "size_px": [
+        216,
+        281
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        19,
+        200,
+        259
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        374,
+        68,
+        590,
+        349
+      ],
+      "sha256": "a5621dbd553aef611e10bbf5ff58d6f58436b3acc70ccbba0891ad3cbb250647",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_1",
+      "destination": "PerchSort/art/island/label_draw_purchase_one.png"
+    },
+    "label_draw_purchase_two": {
+      "name": "glyph_2",
+      "size_px": [
+        226,
+        281
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        210,
+        261
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        662,
+        68,
+        888,
+        349
+      ],
+      "sha256": "fd0e14aa3ec3ac3fd3eb1582067c2b6772f2c7c5ad3062e7c8be8dd7b50ae398",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_2",
+      "destination": "PerchSort/art/island/label_draw_purchase_two.png"
+    },
+    "label_draw_purchase_three": {
+      "name": "glyph_3",
+      "size_px": [
+        223,
+        281
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        207,
+        265
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        962,
+        68,
+        1185,
+        349
+      ],
+      "sha256": "757842e7a5dedc81e955c02363ed28fcb2164aa5730232b7aeae3f1b75d9e236",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_3",
+      "destination": "PerchSort/art/island/label_draw_purchase_three.png"
+    },
+    "label_draw_purchase_four": {
+      "name": "glyph_4",
+      "size_px": [
+        249,
+        291
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        233,
+        269
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        58,
+        375,
+        307,
+        666
+      ],
+      "sha256": "bd5d294e92f5197921b9b98148c4fe78a60a07ea11e98d4ee4614932ba988b03",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_4",
+      "destination": "PerchSort/art/island/label_draw_purchase_four.png"
+    },
+    "label_draw_purchase_five": {
+      "name": "glyph_5",
+      "size_px": [
+        231,
+        291
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        18,
+        215,
+        274
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        363,
+        375,
+        594,
+        666
+      ],
+      "sha256": "89bd51cea9d43e928030acd94af53c6ced071232f68190bcaa9a423a3d2bdeae",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_5",
+      "destination": "PerchSort/art/island/label_draw_purchase_five.png"
+    },
+    "label_draw_purchase_six": {
+      "name": "glyph_6",
+      "size_px": [
+        238,
+        291
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        222,
+        275
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        656,
+        375,
+        894,
+        666
+      ],
+      "sha256": "d88a0dafaf5146d101dcc6e2722465018026f28af9d8b16ba4e80d98b4374247",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_6",
+      "destination": "PerchSort/art/island/label_draw_purchase_six.png"
+    },
+    "label_draw_purchase_seven": {
+      "name": "glyph_7",
+      "size_px": [
+        233,
+        291
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        18,
+        217,
+        274
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        959,
+        375,
+        1192,
+        666
+      ],
+      "sha256": "27f31e8e4ad0ae61e09cffdbfa18ae0eb895f8844b7254540062cb13270807ec",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_7",
+      "destination": "PerchSort/art/island/label_draw_purchase_seven.png"
+    },
+    "label_draw_purchase_eight": {
+      "name": "glyph_8",
+      "size_px": [
+        237,
+        290
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        221,
+        274
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        57,
+        673,
+        294,
+        963
+      ],
+      "sha256": "1679a294df873c2ea36976fc4c6086ac7875ddaa95d67e55e336efcf00e5053d",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_8",
+      "destination": "PerchSort/art/island/label_draw_purchase_eight.png"
+    },
+    "label_draw_purchase_nine": {
+      "name": "glyph_9",
+      "size_px": [
+        237,
+        290
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        221,
+        274
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        356,
+        673,
+        593,
+        963
+      ],
+      "sha256": "5cec44529063dbc4dcf2b7a966aedd1af0cd3be8513e5109b4e3e3a565f8b48d",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_9",
+      "destination": "PerchSort/art/island/label_draw_purchase_nine.png"
+    },
+    "label_draw_purchase_plus": {
+      "name": "glyph_plus",
+      "size_px": [
+        256,
+        290
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        36,
+        240,
+        251
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        645,
+        673,
+        901,
+        963
+      ],
+      "sha256": "525725ce6f528580aa3d277d417020f63b21aaf1264b02a59cb8f26fecfee9e2",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_plus",
+      "destination": "PerchSort/art/island/label_draw_purchase_plus.png"
+    },
+    "label_draw_purchase_multiply": {
+      "name": "glyph_multiply",
+      "size_px": [
+        240,
+        290
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        45,
+        224,
+        252
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        957,
+        673,
+        1197,
+        963
+      ],
+      "sha256": "3f0eac417455db2c22c0597d9dd52ebdd58f23b4e75f1e835a86125a8eb686ac",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_multiply",
+      "destination": "PerchSort/art/island/label_draw_purchase_multiply.png"
+    },
+    "label_draw_purchase_yuan": {
+      "name": "glyph_yuan",
+      "size_px": [
+        232,
+        266
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        16,
+        216,
+        250
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        62,
+        976,
+        294,
+        1242
+      ],
+      "sha256": "98b199c2cad7a7f2bfca97d4268d5ce40c8c5797fe88d9c615ba5a92d58da2c1",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_yuan",
+      "destination": "PerchSort/art/island/label_draw_purchase_yuan.png"
+    },
+    "label_draw_purchase_slash": {
+      "name": "glyph_slash",
+      "size_px": [
+        187,
+        266
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        19,
+        171,
+        250
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        384,
+        976,
+        571,
+        1242
+      ],
+      "sha256": "f60670d2040dc8f9354c175d4655d870b769aee254a33ec8e5d3c060854694e6",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_slash",
+      "destination": "PerchSort/art/island/label_draw_purchase_slash.png"
+    },
+    "label_draw_purchase_minus": {
+      "name": "glyph_minus",
+      "size_px": [
+        234,
+        266
+      ],
+      "mode": "RGBA",
+      "alpha_128_bbox": [
+        16,
+        85,
+        218,
+        174
+      ],
+      "source_file": "exec-d497cd55-3739-4aec-9e03-bd81de8ce882.png",
+      "source_crop": [
+        656,
+        976,
+        890,
+        1242
+      ],
+      "sha256": "f159aff4116326c92317a8dac980d71748b87a00b5ae109d24d97fce64a83b4f",
+      "acceptance": "Visual self-acceptance authorized by user: exact spelling, complete silhouette, true alpha, no stretching; reviewed against confirmed reference.",
+      "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
+      "kind": "self_accepted_generated_missing",
+      "source_name": "glyph_minus",
+      "destination": "PerchSort/art/island/label_draw_purchase_minus.png"
+    }
+  }
+}

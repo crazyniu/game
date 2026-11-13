@@ -1,0 +1,4 @@
+src/*
+!src/*_reference.png
+!src/budgie_family_lineup.png
+out/

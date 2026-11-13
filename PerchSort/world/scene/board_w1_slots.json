@@ -88,6 +88,50 @@
    ],
    "perch": 1648.0,
    "tip": 524
+  },
+  {
+   "side": "L",
+   "row": 4,
+   "name": "board_w1_branch_L3",
+   "at": [
+    0,
+    1487
+   ],
+   "perch": 1546.0,
+   "tip": 528
+  },
+  {
+   "side": "R",
+   "row": 4,
+   "name": "board_w1_branch_R3",
+   "at": [
+    523,
+    1600
+   ],
+   "perch": 1648.0,
+   "tip": 524
+  },
+  {
+   "side": "L",
+   "row": 5,
+   "name": "board_w1_branch_L3",
+   "at": [
+    0,
+    1487
+   ],
+   "perch": 1546.0,
+   "tip": 528
+  },
+  {
+   "side": "R",
+   "row": 5,
+   "name": "board_w1_branch_R3",
+   "at": [
+    523,
+    1600
+   ],
+   "perch": 1648.0,
+   "tip": 524
   }
  ]
 }

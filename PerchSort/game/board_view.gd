@@ -5,7 +5,7 @@ extends Control
 signal won(result: Dictionary)          # {"session": GameSession}
 signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
-signal goal_info_requested(species: String)
+signal undo_more_requested               # undo was tapped with no undo left in this attempt
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
@@ -63,7 +63,12 @@ const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px):
 const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
 const SEAT_OUTWARD_SHIFT := 38.0  # screen pixels toward each branch's outer edge (keeps seat 3 off the tuft)
 const BIRD_SCALE := 1.10
-const PERCH_TOP := 660.0
+const CALM_BACKDROP := preload("res://game/calm_backdrop.gdshader")
+const SWIVEL_ART := "btn_swivel_green"
+const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
+const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
+const SWIVEL_DROP := -8.0     # its centre relative to the branch line
+const PERCH_TOP := 520.0   # the play area starts right under the hanging house
 const PERCH_BOTTOM := 1640.0
 const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
 const ROW_REFLOW_SECONDS := 0.45
@@ -74,15 +79,14 @@ var _rows := 2
 var _perch_step := 0.0
 var _perch_top := PERCH_TOP   # first perch line; the block of perches is centred in the play area
 var _house: Control
-var _goal_nodes := {}   # species -> Control
-var _status: Panel          # stars and move count
+var _status: Control          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
 var _moves_icon: Control
 var _stars_centred := false
 var _stars_tween: Tween
 var _shown_stars := -1
-var _phase_chip: Panel      # day/night levels: sun or moon and the moves until the switch
+var _phase_chip: Control      # day/night levels: sun or moon and the moves until the switch
 var _phase_icons := {}       # Board.Phase -> painted sun or moon
 var _phase_number: Control
 var _shown_moves := -1
@@ -97,7 +101,6 @@ var _door_open: Control
 var _door_mask: Control
 var _resident: BirdView
 var _resident_species := -1
-var _goal_check := {}   # species -> check mark shown after delivery
 var _tool_slots: Array = []  # [kind, centre] per visible tool, for the stuck pointer
 var _bubble: Node2D
 var _bubble_tween: Tween
@@ -160,8 +163,6 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	for child in get_children():
 		child.queue_free()
 	_birds.clear()
-	_goal_nodes.clear()
-	_goal_check.clear()
 	_motes.clear()
 	_night_stars.clear()
 	_fireflies.clear()
@@ -242,8 +243,6 @@ func _cancel_playback() -> void:
 		_glow.scale = Vector2.ONE
 		if _door_open:
 			_door_open.modulate.a = 0.0
-		for goal in _goal_nodes.values():
-			goal.scale = Vector2.ONE
 	if _night_tween:
 		_night_tween.kill()
 		_night_tween = null
@@ -258,11 +257,20 @@ func _world() -> int:
 	return session.state.world
 
 func _build_scene() -> void:
-	# One painting per world (docs/design/ui-system.md): the branch-free scene, then each branch layer cut from the
+	# One painting per world (docs/design/island-style.md): the branch-free scene, then each branch layer cut from the
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
-	UI.image(self, "board_w%d_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
-	_night_bg = UI.image(self, "board_w%d_night_bg" % _world(), Rect2(0, 0, 1080, 1920), false)
+	var scene_name := "board_w%d_open" % _world() if _world() in [1, 10] else "board_w%d" % _world()
+	# The painting is calmed behind play (calm_backdrop.gdshader) so the birds read first; the branches stay sharp.
+	var calm := ShaderMaterial.new()
+	calm.shader = CALM_BACKDROP
+	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false).material = calm
+	_night_bg = UI.image(self, scene_name + "_night_bg", Rect2(0, 0, 1080, 1920), false)
+	var calm_night := ShaderMaterial.new()   # night keeps its dark: a lighter, deep-blue wash
+	calm_night.shader = CALM_BACKDROP
+	calm_night.set_shader_parameter("wash", 0.22)
+	calm_night.set_shader_parameter("wash_color", Color(0.12, 0.16, 0.30))
+	_night_bg.material = calm_night
 	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
 	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
 	_air = Ambient.new()
@@ -379,9 +387,7 @@ func _phase_banner(night: bool) -> void:
 	var id := "board.night_falls" if night else "board.day_breaks"
 	var label_w := UI.label_width(id, BANNER_CAP)
 	var w := 40.0 + BANNER_ICON + 16.0 + label_w + 40.0
-	var top := 0.0
-	for goal in _goal_nodes.values():
-		top = maxf(top, goal.position.y + goal.size.y)
+	var top := _house_rect().end.y
 	var face := (BANNER_H - 8.0) * 0.5
 	var pill := UI.shape(_hud, Rect2(540.0 - w * 0.5, top + 32.0, w, BANNER_H), "cream", BANNER_H * 0.5, 8.0)
 	pill.name = "PhaseBanner"
@@ -501,12 +507,21 @@ func _layout_branches() -> void:
 		node.position = Vector2(edge, y + 20.0 * BIRD_SCALE)
 		_add_branch_art(node, slot, right, b, twig)
 		if s.kinds[b] == Board.Kind.SWIVEL:
+			# The turn-around button sits on the branch tip, clear of every seat, as a round green button that breathes.
 			var knot := Sprite2D.new()
-			knot.texture = Art.tex("swivel_knot")
-			knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
-			knot.position = Vector2((930.0 if right else 150.0) - edge, 10.0 * BIRD_SCALE)
+			knot.name = "SwivelButton"
+			knot.texture = Art.tex(SWIVEL_ART)
+			var side := SWIVEL_SIDE * BIRD_SCALE
+			knot.scale = Vector2.ONE * side / knot.texture.get_width()
+			var reach := _branch_width(b, s.capacity) - SWIVEL_TIP_IN * BIRD_SCALE
+			knot.position = Vector2(-reach if right else reach, SWIVEL_DROP * BIRD_SCALE)
 			node.add_child(knot)
-			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * 48.0, Vector2.ONE * 96.0), func(): _tap_swivel(b))
+			var rest := knot.scale
+			var pulse := knot.create_tween().set_loops()
+			pulse.tween_property(knot, "scale", rest * 1.07, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			pulse.tween_property(knot, "scale", rest, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			var hit := side + 24.0
+			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * hit * 0.5, Vector2.ONE * hit), func(): _tap_swivel(b))
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
 		if b >= before and before > 0 and not instant:
@@ -595,7 +610,11 @@ func _make_bird(code: int, at: Vector2) -> BirdView:
 	var bird := BirdView.new()
 	bird.sounds = true
 	var species: String = Board.SPECIES[Board.species_of(code)]
-	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, profile.equipped.get(species, "").replace("outfit.", "").replace(".", "_outfit_") if profile.equipped.has(species) else "")
+	# A world with its own birds shows them (WorldBirds); only the original birds wear outfits.
+	var look := WorldBirds.look(species, _world())
+	if look.is_empty() and profile.equipped.has(species):
+		look = profile.equipped[species].replace("outfit.", "").replace(".", "_outfit_")
+	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, look)
 	bird.position = at
 	_bird_layer.add_child(bird)
 	if instant:
@@ -652,11 +671,6 @@ func _entrance(quick := false) -> void:
 		var rest_y: float = node.position.y
 		node.position.y -= 420.0
 		rise.tween_property(node, "position:y", rest_y, 0.7 * k).set_delay(ENTRANCE_HOUSE * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	var g := 0
-	for goal in _goal_nodes.values():
-		goal.scale = Vector2.ZERO
-		rise.tween_property(goal, "scale", Vector2.ONE, 0.35 * k).set_delay((ENTRANCE_HOUSE + 0.5 + 0.08 * g) * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		g += 1
 	var grow := _playback_tween().set_parallel()
 	for i in _branch_nodes.size():
 		var node: Node2D = _branch_nodes[i]
@@ -694,29 +708,37 @@ func _entrance(quick := false) -> void:
 
 ## ---------- HUD ----------
 
-## Minimal status (top left, clear of the house and Settings): one pill with the three stars still reachable
-## and the moves that can still be made before the next star is lost (hidden on the last star, which cannot
-## be lost; the stars then centre in the pill); on day/night levels a second pill below it with only a sun or moon and the moves until
-## the switch. Both pills share height, corner radius and left edge on the 8 px grid; no words.
-const STATUS_AT := Vector2(48, 48)
-const STATUS_H := 104.0
-const STATUS_W := 372.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
-const PHASE_W := 192.0
-const STATUS_GAP := 16.0         # between the two pills
-const STATUS_INSET := 34.0
-const STATUS_CAP := 34.0
-const STATUS_STAR := 50.0
+## Exposed, aligned HUD: stars, footprint and remaining star-budget share one row.
+## The budget hides on the last star; day/night information stays below without a backing panel.
+const STATUS_AT := Vector2(28, 48)
+const STATUS_H := 92.0
+const STATUS_HOUSE_CLEAR := 48.0  # the capsule always ends at least this far left of the house
+const PHASE_W := 200.0
+const STATUS_GAP := 16.0         # between the two cards
+const STATUS_INSET := 30.0       # inside the capsule's round ends
+const STATUS_CAP := 44.0
+const STATUS_STAR := 46.0
+## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
+const CAPSULE := "hud_status_capsule"   # the light frosted-green status capsule, the title banner's family
+const CAPSULE_END := 260         # capsule source pixels kept at each end (round end, leaf sprig); the middle extends
+const CAPSULE_BODY := Vector2(78.0 / 370.0, 1.0)   # the capsule body's top and bottom (the leaf rises above it), shares of its height
 const STATUS_STAR_GAP := 2.0
-const STATUS_ICON := 50.0
+const STATUS_ICON := 46.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
 const LABEL_LINE := 208.0
 const NUMBER_BASELINE := 126.0 / 128.0
-const GEAR := Vector2(968, 104)
+const GEAR := Vector2(992, 100)
+const GEAR_ICON := 112.0         # the painted round green gear button
 ## Tool buttons stand in one centred row at the bottom (no tray), 48 px from the screen edge like the status pill at the top.
-const TOOL_Y := 1784.0
-const TOOL_GAP := 48.0
+const TOOL_Y := 1736.0
+const TOOL_GAP := 24.0
+const TOOL_SIZE := 136.0
+const TOOL_ICON_SIZE := 100.0
+const TOOL_COUNT_H := 46.0       # painted stock numerals under each tool slot (no badge)
+const TOOL_COUNT_GAP := 6.0
+const TOOL_ROW_WIDTH := 1000.0
 ## Hanging house: sprite, visible content and doorway in sprite pixels, and where the rope meets it.
 const HOUSES := {
 	"default": ["house_default", Rect2(122, 62, 778, 878), Rect2(313, 418, 378, 380), 70.0],
@@ -732,9 +754,7 @@ const HOUSES := {
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
-const GOAL := 112.0
-const GOAL_GAP := 24.0
-const GOAL_TOP_GAP := 20.0
+const GOAL := 100.0
 const HUD_ICON := 64.0
 const BUBBLE_H := 112.0
 const BUBBLE_PAD := 32.0
@@ -798,8 +818,14 @@ func _build_hud() -> void:
 	_house.add_child(_door_mask)
 	_door_open = null
 	_build_status()
-	UI.button(_hud, "Settings", GEAR, "cream", "gear", func(): settings_requested.emit())
-	_build_goals()
+	var gear := UI.art(_hud, "hud_gear_button", Rect2(GEAR - Vector2.ONE * GEAR_ICON * 0.5, Vector2.ONE * GEAR_ICON))
+	gear.name = "Gear"
+	var gear_hit := UI.hit_area(_hud, Rect2(GEAR - Vector2.ONE * 64.0, Vector2.ONE * 128.0), func():
+		Sound.play("ui_tap")
+		settings_requested.emit())
+	gear_hit.name = "Settings"
+	gear_hit.button_down.connect(func(): gear.self_modulate = UI.PRESSED_TINT)
+	gear_hit.button_up.connect(func(): gear.self_modulate = Color.WHITE)
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
 	_tool_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -811,7 +837,16 @@ func _build_hud() -> void:
 ## Bottom of the status pills (the phase pill only on day/night levels).
 func _status_rect() -> Rect2:
 	var h := STATUS_H * 2.0 + STATUS_GAP if session.state.day_length > 0 else STATUS_H
-	return Rect2(STATUS_AT, Vector2(STATUS_W, h))
+	return Rect2(STATUS_AT, Vector2(_status_width(), h))
+
+## The capsule hugs its content: three stars, the footprint and room for a two-digit count.
+func _status_width() -> float:
+	return STATUS_INSET * 2.0 + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 14.0 + STATUS_ICON + 6.0 \
+		+ ButtonKit.number_width("88", STATUS_CAP)
+
+## The vertical centre of the capsule body (below the leaf sprig) in a plate of height h.
+static func _capsule_mid(h: float) -> float:
+	return h * (CAPSULE_BODY.x + CAPSULE_BODY.y) * 0.5
 
 ## A painted label whose baseline sits at `baseline`, at exactly `cap` cap height.
 func _place_label(parent: Node, id: String, x: float, baseline: float, cap: float) -> TextureRect:
@@ -820,7 +855,7 @@ func _place_label(parent: Node, id: String, x: float, baseline: float, cap: floa
 
 ## The single place that picks the HUD star art (painted stars; an unreachable star is the empty one).
 static func _star_texture(lit: bool) -> Texture2D:
-	return Art.tex("pic_star" if lit else "pic_star_empty")
+	return Art.tex("island_star_full" if lit else "island_star_empty")
 
 ## Stars as one row of `count` sprites in `bounds` (left aligned); see _set_stars.
 func _make_stars(parent: Node, at: Vector2, size: float, gap: float, count := 3) -> Array:
@@ -842,32 +877,37 @@ func _set_stars(stars: Array, lit: int) -> void:
 		stars[i].texture = _star_texture(i < lit)
 
 func _build_status() -> void:
-	var face := (STATUS_H - 4.0) * 0.5   # visual centre of the painted bar
-	var baseline := face + STATUS_CAP * 0.5
-	_status = UI.shape(_hud, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)), "cream", STATUS_H * 0.5, 6.0)   # cream capsule like the coin counters
+	var face := _capsule_mid(STATUS_H)   # content centres on the capsule body, not on the leaf above it
+	var width := _status_width()
+	_status = Control.new()
+	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_status, Rect2(STATUS_AT, Vector2(width, STATUS_H)))
+	_hud.add_child(_status)
 	_status.name = "Status"
+	_hud_pill(_status, Rect2(Vector2.ZERO, _status.size))
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
-	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
-	_moves_icon = UI.icon(_status, "moves", Vector2(moves_x + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
+	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 14.0
+	_moves_icon = UI.art(_status, "icon_star_budget_steps", Rect2(moves_x, face - STATUS_ICON * 0.5, STATUS_ICON, STATUS_ICON), Rect2(317, 217, 652, 801))
 	_stars_centred = false
 	_shown_stars = -1
-	var number_x := moves_x + STATUS_ICON + 8.0
-	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), UI.INK, -1)
+	var number_x := moves_x + STATUS_ICON + 6.0
+	_moves_number = _digits(_status, Rect2(number_x, face - STATUS_CAP * 0.5, width - STATUS_INSET - number_x, STATUS_CAP))
 	_phase_chip = null
 	_phase_icons.clear()
 	_phase_number = null
 	if session.state.day_length <= 0:
 		return
-	_phase_chip = UI.shape(_hud, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)),
-		"cream", STATUS_H * 0.5, 6.0)
+	_phase_chip = Control.new()
+	_phase_chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_phase_chip, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)))
+	_hud.add_child(_phase_chip)
 	_phase_chip.name = "Phase"
+	_hud_pill(_phase_chip, Rect2(Vector2.ZERO, _phase_chip.size))
 	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
 		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
 			Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
 	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
-	_phase_number = UI.number(_phase_chip, "0", Rect2(phase_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), UI.INK, -1)
+	_phase_number = _digits(_phase_chip, Rect2(phase_x, face - STATUS_CAP * 0.5, PHASE_W - STATUS_INSET - phase_x, STATUS_CAP))
 
 ## `with_phase` false leaves the day/night pill for the phase_changed playback.
 func _refresh_status(with_phase := true) -> void:
@@ -875,7 +915,7 @@ func _refresh_status(with_phase := true) -> void:
 	var moves := session.move_count()
 	var stars := GameSession.stars_for(moves, session.par)
 	var keep := GameSession.moves_left_for_star(moves, session.par)
-	UI.set_number(_moves_number, str(maxi(keep, 0)))
+	_set_digits(_moves_number, str(maxi(keep, 0)))
 	_moves_number.visible = keep >= 0
 	_moves_icon.visible = keep >= 0
 	_set_stars(_status_stars, stars)
@@ -889,13 +929,50 @@ func _refresh_status(with_phase := true) -> void:
 	if _phase_number == null or not with_phase:
 		return
 	var left := str(s.day_length - s.phase_counter)
-	UI.set_number(_phase_number, left)
+	_set_digits(_phase_number, left)
 	for phase in _phase_icons:
 		_phase_icons[phase].visible = phase == s.phase
 	var shown := "%d:%s" % [s.phase, left]
 	if not _shown_phase.is_empty() and shown != _shown_phase:
 		_pulse(_phase_number)
 	_shown_phase = shown
+
+## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
+## its leafy ends keep their shape, only the plain middle extends.
+func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
+	var tex := Art.tex(CAPSULE)
+	var k := rect.size.y / tex.get_height()
+	var plate := NinePatchRect.new()
+	plate.name = "Plate"
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.texture = tex
+	var end := mini(CAPSULE_END, int(rect.size.x / k * 0.5) - 1)
+	plate.patch_margin_left = end
+	plate.patch_margin_right = end
+	plate.position = rect.position
+	plate.size = rect.size / k
+	plate.scale = Vector2.ONE * k
+	parent.add_child(plate)
+	parent.move_child(plate, 0)
+	return plate
+
+## A holder for the shop's painted numerals (white, dark-green outline), left aligned; _set_digits fills it.
+func _digits(parent: Control, rect: Rect2) -> Control:
+	var holder := Control.new()
+	holder.name = "Number"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	return holder
+
+func _set_digits(holder: Control, text: String) -> void:
+	if holder.get_meta("value", "") == text:
+		return
+	holder.set_meta("value", text)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	ButtonKit.number(holder, text, Rect2(Vector2.ZERO, holder.size), -1)
 
 ## With the counter gone the stars glide to the middle of the pill; undo brings them back.
 func _centre_status_stars(centred: bool, animate: bool) -> void:
@@ -904,8 +981,7 @@ func _centre_status_stars(centred: bool, animate: bool) -> void:
 	_stars_centred = centred
 	if _stars_tween:
 		_stars_tween.kill()
-	var row := 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP
-	var x := (STATUS_W - row) * 0.5 if centred else STATUS_INSET
+	var x := STATUS_INSET  # Keep the exposed left edge stable when the budget hides.
 	if instant or not animate:
 		for i in _status_stars.size():
 			_status_stars[i].position.x = x + i * (STATUS_STAR + STATUS_STAR_GAP)
@@ -928,46 +1004,9 @@ func _pulse(node: Control, pivot_x := 0.0) -> void:
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Goal birds under the house: a cream circle with the face, then a check once delivered.
-func _build_goals() -> void:
-	var ids := Levels.species_ids(session.state)
-	var n := ids.size()
-	var size := GOAL
-	var gap := GOAL_GAP
-	if n * size + (n - 1) * gap > 984.0:
-		gap = 12.0
-		size = minf(GOAL, (984.0 - (n - 1) * gap) / maxf(1.0, n))
-	var top := _house_rect().end.y + GOAL_TOP_GAP
-	# A wide goal row moves below the status card instead of touching it.
-	var left := 540.0 - (n * 0.5) * size - (n - 1) * 0.5 * gap
-	var status := _status_rect()
-	if left < status.end.x + GOAL_GAP:
-		top = maxf(top, status.end.y + GOAL_TOP_GAP)
-	for i in n:
-		var sp: String = ids[i]
-		var cx := 540.0 + (i - (n - 1) * 0.5) * (size + gap)
-		var node := Control.new()
-		node.name = "Goal " + sp
-		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		UI.place(node, Rect2(Vector2(cx - size * 0.5, top), Vector2.ONE * size))
-		_hud.add_child(node)
-		UI.shape(node, Rect2(Vector2.ZERO, Vector2.ONE * size), "cream", size * 0.5, 6.0)
-		var face := size * 0.78
-		UI.art(node, sp + "_face", Rect2(Vector2.ONE * (size - face) * 0.5 + Vector2(0, -4), Vector2.ONE * face))
-		var badge := Rect2(Vector2.ONE * size * 0.6, Vector2.ONE * size * 0.46)
-		var check := UI.shape(node, badge, "green", badge.size.x * 0.5, 4.0, false)
-		UI.icon(check, "check", badge.size * 0.5, badge.size.x * 0.6)
-		_goal_check[sp] = check
-		check.visible = false
-		UI.hit_area(node, Rect2(Vector2.ZERO, Vector2.ONE * size), func(): goal_info_requested.emit(sp))
-		_goal_nodes[sp] = node
-
 func refresh_hud() -> void:
 	var s := session.state
 	_refresh_status()
-	for sp in _goal_nodes:
-		var home: bool = s.homed.has(Board.species_index(sp))
-		_goal_check[sp].visible = home
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
@@ -987,7 +1026,41 @@ func _visible_tools() -> Array:
 const TOOL_ICON_NAME := {Board.Booster.FIREFLY: "bulb", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "eye",
 	Board.Booster.MORNING_BELL: "bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "rain"}
 
-## Tools as a centred row of buttons: undo (cream) then boosters (orange) with a red stock badge ("+" buys more).
+## Tools as a centred row of painted tool slots (hud_tool_slot); the stock stands under each slot in painted numerals
+## (white, dark-green outline; no badge), "+" when empty (pressing buys more). The whole slot is clickable.
+func _tool_count(button: Button, value: String) -> void:
+	var count := Control.new()
+	count.name = "Stock"
+	count.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(count, Rect2(0, TOOL_SIZE + TOOL_COUNT_GAP, TOOL_SIZE, TOOL_COUNT_H))
+	button.add_child(count)
+	ButtonKit.number(count, value, Rect2(Vector2.ZERO, count.size))
+
+func _restyle_tool(button: Button, icon_name: String) -> void:
+	var old_face := button.get_node_or_null("Face")
+	if old_face:
+		old_face.hide()
+	var frame := UI.image(button, "hud_tool_slot", Rect2(0, 0, TOOL_SIZE, TOOL_SIZE), false)
+	frame.name = "Slot"
+	button.move_child(frame, 0)
+	var old_icon := button.get_node_or_null("Icon")
+	if old_icon:
+		old_icon.name = "UnusedIcon"
+		old_icon.hide()
+	# Undo is painted like the boosters (island_icon_undo), so all four slots share one style.
+	var picture: String = "island_icon_undo" if icon_name == "undo" else UI.PICTURES[icon_name]
+	var content: Rect2 = {
+		"undo": UI.used_rect("island_icon_undo"), "bulb": Rect2(19, 11, 304, 371),
+		"sapling": Rect2(16, 17, 333, 289), "eye": Rect2(17, 12, 366, 359),
+		"bell": Rect2(16, 17, 368, 335), "scarecrow": Rect2(16, 16, 387, 395),
+		"rain": Rect2(16, 17, 319, 386)
+	}[icon_name]
+	var bounds := Rect2(Vector2.ONE * (TOOL_SIZE - TOOL_ICON_SIZE) * 0.5, Vector2.ONE * TOOL_ICON_SIZE)
+	var icon := UI.art(button, picture, bounds, Rect2(content))
+	icon.name = "Icon"
+	button.button_down.connect(func(): frame.modulate = ButtonKit.PRESSED; icon.modulate = ButtonKit.PRESSED)
+	button.button_up.connect(func(): frame.modulate = Color.WHITE; icon.modulate = Color.WHITE)
+
 func _build_tools() -> void:
 	_hint_button = null
 	for child in _tool_bar.get_children():
@@ -995,22 +1068,26 @@ func _build_tools() -> void:
 	var tools := _visible_tools()
 	_tool_slots.clear()
 	var n := tools.size()
-	var gap := minf(TOOL_GAP, (984.0 - n * UI.SECONDARY) / maxf(1.0, n - 1))
-	var row_w := n * UI.SECONDARY + (n - 1) * gap
+	var gap := minf(TOOL_GAP, (TOOL_ROW_WIDTH - n * TOOL_SIZE) / maxf(1.0, n - 1))
+	var row_w := n * TOOL_SIZE + (n - 1) * gap
 	# The tool buttons stand on their own (user: no tray around them).
-	var x := 540.0 - row_w * 0.5 + UI.SECONDARY * 0.5
+	var x := 540.0 - row_w * 0.5 + TOOL_SIZE * 0.5
 	for kind in tools:
 		var centre := Vector2(x, TOOL_Y)
-		x += UI.SECONDARY + gap
+		x += TOOL_SIZE + gap
 		_tool_slots.append([kind, centre, kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
-			UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo)
+			var undo := UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE)
+			_restyle_tool(undo, "undo")
+			# Undos left in this attempt, "+" when none is left (pressing offers more, like an empty booster).
+			_tool_count(undo, str(session.undos_left) if session.undos_left > 0 else "+")
 			continue
-		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind))
+		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind), TOOL_SIZE)
+		_restyle_tool(b, TOOL_ICON_NAME[kind])
 		if kind == Board.Booster.FIREFLY:
 			_hint_button = b
 		var stock: int = session.state.inventory[kind]
-		UI.badge(b, str(stock) if stock > 0 else "+")
+		_tool_count(b, str(stock) if stock > 0 else "+")
 		UI.set_active(b, stock == 0 or session.booster_has_effect(kind))
 	if _hint_waiting:
 		_show_hint_loading()
@@ -1170,7 +1247,7 @@ func _show_bubble(bird: BirdView) -> void:
 	if Board.is_nocturnal(Board.species_of(bird.code)) and session.state.nocturnal_day_sleep():
 		icons.append("moon")
 	if (bird.code & Board.ASLEEP) != 0:
-		icons.append(bird.species + "_face")
+		icons.append(WorldBirds.face(bird.species, _world()))
 		icons.append("gift_coin_wake")
 	if icons.is_empty():
 		return
@@ -1329,7 +1406,13 @@ func _finish_action(playback: int) -> void:
 		_drain_taps()
 
 func _on_undo() -> void:
-	if busy or not session.undo():
+	if busy:
+		return
+	if session.can_undo() and session.undos_left <= 0:
+		suspend_input()
+		undo_more_requested.emit()
+		return
+	if not session.undo():
 		return
 	_cancel_playback()
 	sync_inventory()
@@ -1484,7 +1567,7 @@ func _show_hint_loading() -> void:
 	_hint_button.modulate.a = 1.0
 	_hint_button.get_node("Icon").hide()
 	var spinner := Node2D.new()
-	spinner.position = Vector2(UI.SECONDARY * 0.5, UI.SECONDARY * 0.5 - 5.0)
+	spinner.position = Vector2.ONE * TOOL_SIZE * 0.5
 	_hint_button.add_child(spinner)
 	var arc := Line2D.new()
 	arc.width = 6.0
@@ -1732,7 +1815,6 @@ func _flock_home(e: Dictionary) -> void:
 		print("FLOCK_HOME species=%s chain=%d pitch=%.3f" % [e["species"], _home_chain, pitch])
 	Sound.vibrate(Sound.PULSE_HOME)
 	_set_resident(Board.species_index(e["species"]), true)
-	_goal_check[e["species"]].visible = true
 	_sparkle_burst(_door_point())
 	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
 	_house.pivot_offset = Vector2(_house.size.x * 0.5, 0.0)
@@ -1749,11 +1831,6 @@ func _flock_home(e: Dictionary) -> void:
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE * 1.2, 0.3).from(Vector2.ONE * 0.9).set_ease(Tween.EASE_OUT)
 	glow.tween_property(_glow, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE, 0.5)
-	var goal: Control = _goal_nodes.get(e["species"])
-	if goal:
-		var pop := _playback_tween()
-		pop.tween_property(goal, "scale", Vector2.ONE * 1.25, 0.12)
-		pop.tween_property(goal, "scale", Vector2.ONE, 0.2)
 	await tw.finished
 	if playback != _playback_id:
 		return
@@ -1820,7 +1897,7 @@ func _set_resident(species_index: int, rise := false) -> void:
 	if species_index < 0:
 		return
 	_resident = BirdView.new()
-	_resident.setup(Board.bird(0, species_index, 0), false, 0.58)
+	_resident.setup(Board.bird(0, species_index, 0), false, 0.58, WorldBirds.look(Board.SPECIES[species_index], _world()))
 	_door_mask.add_child(_resident)
 	var feet := Vector2(_door_mask.size.x * 0.5, _door_mask.size.y * 0.97)
 	_resident.position = feet
@@ -1838,12 +1915,8 @@ func _gift(e: Dictionary) -> void:
 	coin.scale = Vector2.ONE * 0.2
 	_home_effects.add_child(coin)
 	Sound.play("collect")
-	var goal: Control = _goal_nodes.get(e["species"])
-	var target := coin.position
+	var target := coin.position + Vector2(0, -90)   # the gift rises out of the doorway, then fades
 	var small := 0.46 * GOAL / float(coin.texture.get_width())
-	if goal:
-		target = goal.position + goal.size * 0.8
-		small = 0.46 * goal.size.x / float(coin.texture.get_width())
 	var big := 0.8 * GOAL / float(coin.texture.get_width())
 	var tw := coin.create_tween()
 	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -1854,23 +1927,79 @@ func _gift(e: Dictionary) -> void:
 	await tw.finished
 	coin.queue_free()
 
+## The board cheers before the win panel opens: the house bounces and glows, the goal keys hop one after another,
+## confetti bursts from the doorway and the resident cheers in it (CELEBRATE seconds).
+const CELEBRATE := 1.3
+
 func _celebrate() -> void:
 	var playback := _playback_id
 	busy = true
 	_last_won = int(level["id"])
 	Sound.play("win_fanfare")
-	await get_tree().create_timer(0.4 if not instant else 0.0).timeout
+	if not instant:
+		_play_celebration()
+	await get_tree().create_timer(CELEBRATE if not instant else 0.0).timeout
 	if playback != _playback_id:
 		return
 	won.emit({"session": session})
+
+func _play_celebration() -> void:
+	_house.pivot_offset = Vector2(_house.size.x * 0.5, _house.size.y)
+	var hop := _house.create_tween()
+	hop.tween_property(_house, "scale", Vector2(1.12, 0.9), 0.1).set_ease(Tween.EASE_OUT)
+	hop.tween_property(_house, "scale", Vector2(0.94, 1.12), 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	hop.tween_property(_house, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	var shine := _glow.create_tween()
+	shine.tween_property(_glow, "modulate:a", 0.95, 0.2)
+	shine.tween_property(_glow, "modulate:a", 0.0, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	if _resident and is_instance_valid(_resident):
+		_resident.cheer()
+	_confetti_burst(_door_rect.get_center())
+
+## Confetti pieces fly out of `origin` in a fan, then flutter down and fade.
+func _confetti_burst(origin: Vector2) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(level["id"])
+	var layer := Control.new()
+	layer.name = "Celebration"
+	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(layer)
+	for i in 56:
+		var piece := TextureRect.new()
+		piece.texture = Art.tex("confetti_%d" % (1 + i % 4))
+		piece.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		piece.size = Vector2.ONE * rng.randf_range(40.0, 62.0)
+		piece.pivot_offset = piece.size * 0.5
+		piece.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.add_child(piece)
+		var angle := deg_to_rad(rng.randf_range(-170.0, -10.0))
+		var speed := rng.randf_range(620.0, 1240.0)
+		var velocity := Vector2(cos(angle), sin(angle)) * speed
+		var spin := rng.randf_range(300.0, 720.0) * (1.0 if i % 2 == 0 else -1.0)
+		var life := rng.randf_range(1.3, 1.8)
+		var sway := rng.randf_range(10.0, 30.0)
+		piece.position = origin - piece.pivot_offset
+		var tw := piece.create_tween()
+		tw.tween_method(func(t: float):
+			var drag := 1.0 - exp(-3.0 * t)
+			var at := origin + velocity * drag / 3.0 + Vector2(sin(t * 10.0 + i) * sway, 520.0 * t * t)
+			piece.position = at - piece.pivot_offset
+			piece.rotation_degrees = spin * t
+			piece.modulate.a = minf(1.0, (life - t) * 3.0), 0.0, life, life)
+		tw.tween_callback(piece.queue_free)
 
 ## Called after a booster purchase.
 func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
 
-## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself), "stuck_hint" (no move left) and
-## "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
+## Extra undos bought with coins or earned by an ad.
+func granted_undos(count: int) -> void:
+	session.grant_undos(count)
+	_build_tools()
+
+## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
+## "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
 ## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
@@ -1880,6 +2009,13 @@ func granted(kind: int, count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "celebrate":   # level 12 at rest, then the win celebration on the board (frame sequences)
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board._play_celebration()
+		return
 	if state == "lifted_both_sides":   # one left and one right branch lifted: each flock looks across the board
 		var board := BoardView.new()
 		main.set_screen(board)
@@ -1896,7 +2032,7 @@ static func preview(main: Control, state: String) -> void:
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.right(1)) * 10 - 5
+		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.trim_prefix("day_w").trim_prefix("night_w")) * 10 - 5
 		board.start(Levels.get_level(id), main.profile, false)
 		if state.begins_with("night_w"):
 			board.session.state.phase = Board.Phase.NIGHT

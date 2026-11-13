@@ -1,6 +1,6 @@
 extends RefCounted
 ## Modal popups opened on a host Control (main.popups). Every function returns the popup; callbacks are Callables.
-## Layout: docs/design/ui-system.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
+## Layout: docs/design/island-style.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
 ## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
 const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
@@ -10,28 +10,32 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
 	9: "rainforest", 10: "wisteria"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
-	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot", "mama": "mama_bow"}
+	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "btn_swivel_green", "mama": "mama_bow"}
 
 ## Content sizes (design pixels).
-const STAR_SIDE := 150.0
-const STAR_MID := 190.0
-const STAR_ROW := 200.0            # height of the star row (the middle star is raised)
-const SMALL_STAR := 120.0
+const STAR_SIDE := 190.0
+const STAR_MID := 240.0
+const STAR_ROW := 270.0            # height of the star row (the middle star is raised)
+const STAR_SPREAD := 240.0         # centre to side star
+const SMALL_STAR := 160.0
 const LIMIT_CAP := 36.0            # move limits under the level card's stars
-const LINE := 80.0                 # one text line group (icon + number, or a caption)
-const CAPTION_CAP := 44.0
-const REWARD_H := 96.0
-const DROP_ROW := 150.0            # booster drops on the win panel
-const DROP_SIDE := 132.0
-const DROP_GAP := 40.0
-const RING := 150.0
-const RING_GAP := 28.0
+const LINE := 100.0                # one text line group (icon + number, or a caption)
+const CAPTION_CAP := 54.0
+const LINE_CAP := 64.0             # icon + number lines
+const REWARD_H := 120.0
+const REWARD_W := 380.0
+const DROP_ROW := 200.0            # booster drops on the win panel
+const DROP_SIDE := 180.0
+const DROP_GAP := 48.0
+const RING := 180.0
+const RING_GAP := 24.0
 const HERO := 240.0
 const SIDE := 150.0
-const FRIEND := 300.0
-const ILLUS := 300.0
+const FRIEND := 440.0
+const ILLUS := 440.0
 const GIFT_H := 360.0
-const GATE_W := 520.0
+const GATE_W := 720.0
+const NAME_CAP := 96.0             # gold name heading under a hero picture
 ## Shared art canvases (gift nest/box, world gate): visible content rect in their own pixels.
 const GIFT_CONTENT := Rect2(70, 170, 628, 570)
 const GIFT_COINS := [Rect2(102, 395, 80, 99), Rect2(531, 409, 82, 95), Rect2(137, 449, 145, 138), Rect2(456, 462, 134, 97),
@@ -47,131 +51,232 @@ const ARCH_FLOOR := 44.0
 
 # ---------------------------------------------------------------- popups
 
+## Win: the shop's cream card with the hanging sign "Well done!", three live birds cheering above it, the stars,
+## moves and feather reward in painted numerals, booster drops, then Next (green PRIMARY) with Replay and Home
+## (smaller green pills, white words like Next) on a row below; Next spans the row, the style of the shop and purchase popups (ButtonKit).
+const WIN_STATS_H := 96.0
+const WIN_STATS_CAP := 64.0
+const WIN_ROW_GAP := 22.0       # between the Next row and the Replay / Home row
+const WIN_PILL_GAP := 24.0      # between Replay and Home
+const WIN_ACTIONS_H := 162.0 + WIN_ROW_GAP + 130.0   # ButtonKit.PRIMARY.y + gap + FamilyDialog.SECONDARY.y
+const WIN_STAR_ARC := [Vector3(-1.0, 8.0, -12.0), Vector3(0.0, -14.0, 0.0), Vector3(1.0, 8.0, 12.0)]   # x side, drop, tilt
+const WIN_STAR_ROOM := 56.0     # extra height of the star row for the arc and the larger middle star
+const WIN_STAR_MIDDLE := 1.24   # the middle star is larger, the outer two tilt outwards on an arc
+const WIN_PERCH := 0.38         # the top edge of the title banner, as a share of the title box height
+
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
 		on_next: Callable, on_home: Callable, next_enabled: bool) -> Control:
 	var live := not _instant(host)
-	var heights := [STAR_ROW, LINE]
-	if reward > 0:
-		heights.append(REWARD_H)
+	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var items := [["orange", "retry", on_replay], ["green", "play", on_next, "action.next"], ["orange", "home", on_home]]
-	var p := Modal.open(host, "popup.win.title", heights, false, Modal.actions_height(items), HERO + 30.0, not live)
+	var p := PurchaseDialog.open(host, "win_title", heights, not live, WIN_ACTIONS_H)
+	var close := p.content.get_node_or_null("Close")
+	if close:
+		p.content.remove_child(close)
+		close.queue_free()
+	# The same full jungle backdrop as the other game dialogs (DialogCartoonSkin).
+	var backdrop := UI.image(p, DialogCartoonSkin.BACKGROUND_ART, Rect2(0, 0, 1080, 1920))
+	backdrop.name = "ForestBackground"
+	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	p.move_child(backdrop, 0)
+	p._dim.color = Modal.POPUP_SHADE
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var panel := p.panel_rect
+	var card: Rect2 = p.get_meta("card_rect")
 	if live:
-		_rays(p, panel.get_center())
-	# The hero stands on the title ribbon, its friends on the panel's top corners beside the ribbon tails.
-	var ribbon_top := panel.position.y - Modal.RIBBON_H * 0.42 + 14.0
-	var hero := _bird_view(c, "sunny", Rect2(540.0 - HERO * 0.5, ribbon_top + 18.0 - HERO, HERO, HERO), not live, 2.4)
-	var sides := [_bird_view(c, "sky", Rect2(panel.position.x + 4.0, panel.position.y + 30.0 - SIDE, SIDE, SIDE), not live, 0.0),
-		_bird_view(c, "berry", Rect2(panel.end.x - 4.0 - SIDE, panel.position.y + 30.0 - SIDE, SIDE, SIDE), not live, 0.0)]
+		_rays(p, card.get_center())
+	# The three birds perch on the sign's leafy branch, in front of it.
+	var sign: Control = c.get_node("TitleGroup")
+	var footline := sign.position.y + sign.size.y * WIN_PERCH
+	var hero_box := Rect2(432, footline - 216.0, 216, 216)
+	var side_boxes := [Rect2(208, footline - 184.0, 184, 184), Rect2(688, footline - 184.0, 184, 184)]
+	var hero := _bird_view(c, "sunny", hero_box, not live, 1.6)
+	var sides := [_bird_view(c, "sky", side_boxes[0], not live, 2.0),
+		_bird_view(c, "berry", side_boxes[1], not live, 2.4)]
+	hero.set_meta("visible_box", hero_box)
+	for i in sides.size():
+		sides[i].set_meta("visible_box", side_boxes[i])
 	if live:
 		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
 		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
 		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
-	_big_stars(c, ys[0], stars, live, 0.6)
-	var moves_box := _icon_line(c, ys[1], "hop", str(moves))
+	_win_stars(c, ys[0], stars, live, 0.6)
+	# Moves and the feather reward share one row of painted numerals.
+	var cap := WIN_STATS_CAP
+	var icon := cap * 1.15
+	var moves_w := icon + 12.0 + ButtonKit.number_width(str(moves), cap)
+	var reward_text := "+%d" % reward
+	var reward_w := icon + 12.0 + ButtonKit.number_width(reward_text, cap) if reward > 0 else 0.0
+	var gap := 72.0 if reward > 0 else 0.0
+	var x := 540.0 - (moves_w + gap + reward_w) * 0.5
+	var mid: float = ys[1] + (WIN_STATS_H) * 0.5
+	UI.art(c, "icon_star_budget_steps", Rect2(x, mid - icon * 0.5, icon, icon), Rect2(317, 217, 652, 801)).name = "MovesIcon"
+	var moves_box := _win_digits(c, "Moves", Rect2(x + icon + 12.0, mid - cap * 0.5, moves_w - icon - 12.0, cap))
 	if live:
-		_count(moves_box, moves, "%d", 0.5, 0.6)
+		_win_count(moves_box, moves, "%d", 0.5, 0.6)
+	else:
+		_win_set(moves_box, str(moves))
 	if reward > 0:
-		var parts := _reward(c, ys[2], reward)
+		var group := Control.new()
+		group.name = "Reward"
+		group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(group, Rect2(x + moves_w + gap, mid - icon * 0.5, reward_w, icon))
+		c.add_child(group)
+		UI.image(group, "icon_purchase_feather", Rect2(0, 0, icon, icon), true).name = "Feather"
+		var number := _win_digits(group, "Number", Rect2(icon + 12.0, (icon - cap) * 0.5, reward_w - icon - 12.0, cap))
 		if live:
-			_count(parts[0], reward, "+%d", 1.0, 0.7)
-			_coin_burst(p, parts[1], 1.0)
+			_win_count(number, reward, "+%d", 1.0, 0.7)
+			_coin_burst(p, group.position + Vector2(icon * 0.5, icon * 0.5), 1.0)
+		else:
+			_win_set(number, reward_text)
 	if not boosters.is_empty():
 		_drops(c, ys[-1], boosters, live, 1.5)
-	var row := p.actions(items)
-	UI.set_active(row[1], next_enabled)
+	# Next leads; Replay and Home are the two equal SECONDARY pills under it (PRIMARY / SECONDARY = 1.25).
+	var y := p.panel_rect.end.y + Modal.ACTION_DROP
+	# One block: Next spans exactly the Replay / Home row, so both rows share their left and right edges.
+	var pill := FamilyDialog.SECONDARY   # 346 x 130: PRIMARY 162 / 130 = 1.246
+	var block := pill.x * 2.0 + WIN_PILL_GAP
+	var left := 540.0 - block * 0.5
+	var next_size := Vector2(block, ButtonKit.PRIMARY.y)
+	var next := ButtonKit.button(c, "action_next", Rect2(Vector2(left, y), next_size), "wide", func(): p.invoke(on_next))
+	ButtonKit.word(next.get_node("Content"), "white_action_next", next_size).name = "NextWord"
+	var row_y := y + ButtonKit.PRIMARY.y + WIN_ROW_GAP
+	_win_pill(c, "Retry", Rect2(Vector2(left, row_y), pill), "white_action_replay", func(): p.invoke(on_replay))
+	_win_pill(c, "Home", Rect2(Vector2(left + pill.x + WIN_PILL_GAP, row_y), pill), "white_settings_home",
+		func(): p.invoke(on_home))
+	UI.set_active(next, next_enabled)
 	if live:
 		_confetti(p, 0.3)
 	return p
 
-## Settings: music and sound switches, Restart and Home while playing, then How to Play and the documents
-## (privacy policy, terms of service, credits and licences, contact). `on` holds the callbacks: music, sound,
-## restart, home, help; music and sound receive the new "on" state.
+## Three rating stars on an arc: the middle one larger and higher, the outer two lower and tilted outwards. Earned
+## stars pop in one after another with their chime.
+static func _win_stars(parent: Control, y: float, filled: int, animate: bool, delay: float) -> void:
+	var size := FamilyDialog.STAR_SIZE
+	for i in 3:
+		var arc: Vector3 = WIN_STAR_ARC[i]
+		var side := size * (WIN_STAR_MIDDLE if i == 1 else 1.0)
+		var center := Vector2(540.0 + arc.x * (size * 1.12 + FamilyDialog.STAR_GAP), y + (FamilyDialog.STAR_ROW + WIN_STAR_ROOM) * 0.5 + arc.y)
+		var bounds := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
+		var star := UI.art(parent, "island_star_full" if i < filled else "island_star_empty", bounds)
+		star.name = "RatingStar%d" % i
+		star.rotation_degrees = arc.z
+		star.set_meta("visible_box", bounds)
+		if animate and i < filled:
+			star.scale = Vector2.ZERO
+			var tween := star.create_tween()
+			tween.tween_interval(delay + 0.18 * i)
+			tween.tween_callback(Sound.play.bind("star_%d" % (i + 1)))
+			tween.tween_property(star, "scale", Vector2.ONE * 1.25, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+## A green pill smaller than Next with its white painted word, the same lettering as Next.
+static func _win_pill(parent: Control, n: String, rect: Rect2, word_id: String, action: Callable) -> Button:
+	var button := ButtonKit.button(parent, n, rect, "green", action)
+	ButtonKit.word(button.get_node("Content"), word_id, rect.size).name = "Word"
+	return button
+
+## Painted numerals (ButtonKit, white with a dark-green outline) in a holder whose "value" meta is the text.
+static func _win_digits(parent: Control, n: String, rect: Rect2) -> Control:
+	var holder := Control.new()
+	holder.name = n
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	return holder
+
+static func _win_set(holder: Control, text: String) -> void:
+	if holder.get_meta("value", "") == text:
+		return
+	holder.set_meta("value", text)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	ButtonKit.number(holder, text, Rect2(Vector2.ZERO, holder.size), -1)
+
+static func _win_count(holder: Control, amount: int, pattern: String, delay: float, duration: float) -> void:
+	_win_set(holder, pattern % 0)
+	var tween := holder.create_tween()
+	tween.tween_interval(delay)
+	tween.tween_method(func(v: float): _win_set(holder, pattern % roundi(v)), 0.0, float(amount), duration)
+
+## Settings: a simple cream card. Four identical rows (icon, word, control): Music, Sound and Vibration switches and
+## the Language choice, then one row of equal buttons (Help; Restart and Home only while playing). Every surface is drawn
+## from the same few shapes in Simple, every word is a baked label (tools/island/bake_labels.py) shown at one cap
+## height, and nothing is stretched. Changing the language swaps the words in place: the popup stays open.
+## `on` holds the callbacks: music, sound, vibration, language, restart, home, help.
+const SET_W := 840.0
+const SET_PAD := 48.0
+const SET_TITLE_H := 128.0
+const SET_ROW_H := 132.0
+const SET_ICON := 72.0
+const SET_WORD_CAP := 54.0
+const SET_TITLE_CAP := 76.0
+const SET_BUTTON := Vector2(340, 116)
+const SET_BUTTON_GAP := 24.0
+const SET_BUTTON_CAP := 52.0
+
 static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictionary, show_restart: bool) -> Control:
-	var row := 104.0
-	var heights := [row, row, row, row]
-	if show_restart:
-		heights.append(PILL_H)
-	heights.append(PILL_H)
-	var p := Modal.open(host, "popup.settings.title", heights, true, 0.0, 0.0, _instant(host), true)
+	var buttons_h := SET_BUTTON.y * (2.0 if show_restart else 1.0) + (SET_BUTTON_GAP if show_restart else 0.0)
+	var panel_h := SET_PAD * 0.5 + SET_TITLE_H + SET_ROW_H * 4.0 + 40.0 + buttons_h + SET_PAD
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, _instant(host), true)
 	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	var left := p.panel_rect.position.x + 88.0
-	var right := p.panel_rect.end.x - 88.0
-	var g := 0
-	for item in [["settings.music", "music", music_on], ["settings.sound", "sound", sound_on]]:
-		var y: float = ys[g]
-		UI.art(c, "pic_music" if item[1] == "music" else "pic_sound_on", Rect2(left, y + row * 0.5 - 42.0, 84, 84))
-		_row_label(c, item[0], Vector2(left + 132.0, y + row * 0.5))
-		_toggle(c, Rect2(right - 176.0, y + (row - 88.0) * 0.5, 176.0, 88.0), item[2], on[item[1]])
-		g += 1
-	# Vibration: same row and switch as music and sound; the state lives in Sound.vibration (profile.vibration).
-	UI.art(c, "pic_vibration", Rect2(left, ys[g] + row * 0.5 - 42.0, 84, 84))
-	_row_label(c, "settings.vibration", Vector2(left + 132.0, ys[g] + row * 0.5))
-	_toggle(c, Rect2(right - 176.0, ys[g] + (row - 88.0) * 0.5, 176.0, 88.0), Sound.vibration, func(value: bool):
-		Sound.vibration = value
-		if on.has("vibration"):
-			on["vibration"].call(value)
-		Sound.vibrate(Sound.PULSE_LAND))
-	g += 1
-	# Language: the pill shows the language now in use; tapping switches to the other one.
-	_row_label(c, "settings.language", Vector2(left, ys[g] + row * 0.5))
-	UI.pill(c, "Language", Rect2(right - 300.0, ys[g] + (row - 88.0) * 0.5, 300.0, 88.0), "green", "settings.language_name",
-		func(): on["language"].call(), "", 40.0)
-	g += 1
-	var wide := (right - left - 24.0) * 0.5
+	c.get_node("Panel").visible = false
+	var box := Rect2(540.0 - SET_W * 0.5, roundf(960.0 - panel_h * 0.5), SET_W, panel_h)
+	c.pivot_offset = box.get_center()
+	Simple.card(c, box)
+	var words := Simple.Words.new()
+	words.place(c, "settings", "ink", Vector2(box.get_center().x, box.position.y + SET_PAD * 0.5 + SET_TITLE_H * 0.5), SET_TITLE_CAP, 0)
+	Simple.close_button(c, Vector2(box.end.x - 20.0, box.position.y + 20.0), p.close)
+	var rows := [["pic_music", "music", music_on, func(v: bool): on["music"].call(v)],
+		["pic_sound_on", "sound", sound_on, func(v: bool): on["sound"].call(v)],
+		# Vibration: the state lives in Sound.vibration (profile.vibration).
+		["pic_vibration", "vibration", Sound.vibration, func(v: bool):
+			Sound.vibration = v
+			if on.has("vibration"):
+				on["vibration"].call(v)
+			Sound.vibrate(Sound.PULSE_LAND)],
+		["pic_globe", "language", false, Callable()]]
+	var left := box.position.x + SET_PAD
+	var right := box.end.x - SET_PAD
+	var y := box.position.y + SET_PAD * 0.5 + SET_TITLE_H
+	for i in rows.size():
+		var mid := y + SET_ROW_H * (i + 0.5)
+		if i > 0:
+			Simple.divider(c, Rect2(left, y + SET_ROW_H * i - 1.5, right - left, 3.0))
+		_fit(c, rows[i][0], Rect2(Vector2(left, mid - SET_ICON * 0.5), Vector2.ONE * SET_ICON))   # by visible pixels: one size
+		words.place(c, rows[i][1], "ink", Vector2(left + SET_ICON + 28.0, mid), SET_WORD_CAP, -1)
+		if rows[i][1] == "language":
+			Simple.language_choice(c, words, Vector2(right, mid), func(code: String):
+				on["language"].call(code)
+				words.refresh())
+		else:
+			Simple.switch(c, Vector2(right, mid), rows[i][2], rows[i][3])
+	y += SET_ROW_H * 4.0 + 40.0
+	var actions := []
 	if show_restart:
-		UI.pill(c, "Restart", Rect2(left, ys[g], wide, PILL_H), "orange", "settings.restart",
-			func(): p.invoke(on["restart"]), "", 40.0)
-		UI.pill(c, "Home", Rect2(left + wide + 24.0, ys[g], wide, PILL_H), "green", "settings.home",
-			func(): p.invoke(on["home"]), "", 40.0)
-		g += 1
-	UI.pill(c, "Help", Rect2(left, ys[g], right - left, PILL_H), "green", "settings.help", func(): p.invoke(on["help"]), "", 40.0)
+		actions = [[["restart", "cream", on["restart"]], ["home", "green", on["home"]]], [["help", "green", on["help"]]]]
+	else:
+		actions = [[["help", "green", on["help"]]]]
+	for line in actions:
+		var count: int = (line as Array).size()
+		var width := SET_BUTTON.x * count + SET_BUTTON_GAP * (count - 1)
+		for k in count:
+			var item: Array = line[k]
+			var at := Vector2(540.0 - width * 0.5 + k * (SET_BUTTON.x + SET_BUTTON_GAP), y)
+			var callback: Callable = item[2]
+			Simple.button(c, words, item[0], item[1], Rect2(at, SET_BUTTON), SET_BUTTON_CAP, func(): p.invoke(callback))
+		y += SET_BUTTON.y + SET_BUTTON_GAP
 	return p
 
-const PILL_H := 124.0
-const ROW_CAP := 42.0
-
-## A settings row word, left-aligned at `at` (its left edge, vertical centre), like the sketch.
-static func _row_label(parent: Control, id: String, at: Vector2) -> void:
-	var w := UI.label_width(id, ROW_CAP)
-	UI.label(parent, id, Rect2(at.x, at.y - ROW_CAP, w, ROW_CAP * 2.0), ROW_CAP)
-
-## Painted on/off switch; tapping flips it and reports the new state.
-static func _toggle(parent: Control, r: Rect2, value: bool, on_change: Callable) -> Button:
-	var b := Button.new()
-	b.name = "Toggle"
-	b.focus_mode = Control.FOCUS_NONE
-	var empty := StyleBoxEmpty.new()
-	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
-		b.add_theme_stylebox_override(state, empty)
-	UI.place(b, r)
-	parent.add_child(b)
-	var face := TextureRect.new()
-	face.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	face.size = r.size
-	b.add_child(face)
-	var state := {"on": value}
-	face.texture = Art.tex("kit/toggle_on" if value else "kit/toggle_off")
-	b.pressed.connect(func():
-		state["on"] = not state["on"]
-		face.texture = Art.tex("kit/toggle_on" if state["on"] else "kit/toggle_off")
-		Sound.play("ui_tap")
-		on_change.call(state["on"]))
-	return b
-
-## A document page (privacy policy, terms of service, credits, contact): the baked text in a scrolling column.
+## A document page (terms of service, credits, contact): the baked text in a scrolling column.
 static func document(host: Control, id: String) -> Control:
 	var page: Texture2D = UiText.document_texture(id)
-	var column := 864.0 - 144.0
+	var column := Modal.WIDTH - 144.0
 	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
 	var p := Modal.open(host, "doc.%s.title" % id, [view_h], true, 0.0, 0.0, _instant(host), true)
+	MenuNavigation.replace_close(p)
 	var ys: Array = p.get_meta("ys")
 	var clip := Control.new()
 	clip.name = "Scroll"
@@ -198,40 +303,78 @@ static func document(host: Control, id: String) -> Control:
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
 		mechanics: Array[String], on_play: Callable, playable: bool) -> Control:
-	var per_row := 4
+	# A compact purchase-style card over the dimmed map (the player keeps seeing where they are), sized to its content,
+	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
+	var per_row := 4 if species.size() <= 8 else 5
+	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
 	var rows := ceili(species.size() / float(per_row))
-	var heights := [SMALL_STAR, LINE]
+	var heights := [FamilyDialog.STAR_ROW, LINE]
 	if rows > 0:
-		heights.append(rows * RING + (rows - 1) * RING_GAP)
+		heights.append(rows * tile + (rows - 1) * LEVEL_TILE_GAP)
 	if not mechanics.is_empty():
-		heights.append(UI.COUNTER_H)
-	var p := Modal.open(host, "popup.level.title", heights, true, UI.PLAY_SIZE.y, 0.0, _instant(host), false, str(level))
+		heights.append(LEVEL_MECHANIC)
+	var p := PurchaseDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), heights, _instant(host), LEVEL_PLAY.y, Modal.WIDTH)
+	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
+	# The sign carries the level number after the word, like every game dialog title.
+	var plain := p._title_layer
+	c.remove_child(plain)
+	plain.queue_free()
+	p._title_layer = FamilyDialog.sign_title(c, "popup.level.title", str(level), card)
+	var close: Control = c.get_node("Close")
+	c.move_child(p._title_layer, close.get_index())
+	# Close in the card corner exactly as in the other game dialogs, clear of the wider ordinal sign.
+	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y)
 	var ys: Array = p.get_meta("ys")
 	var g := 0
 	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
-	UI.stars(c, Vector2(540, ys[g] + SMALL_STAR * 0.5), SMALL_STAR, 40.0, best_stars)
+	FamilyDialog.stars(c, ys[g], best_stars)
 	g += 1
-	_icon_line(c, ys[g], "moves", str(par))
+	FamilyDialog.stat(c, ys[g], "hop", str(par))
 	g += 1
 	for i in species.size():
 		var in_row := mini(per_row, species.size() - (i / per_row) * per_row)
-		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (RING + RING_GAP),
-			ys[g] + RING * 0.5 + (i / per_row) * (RING + RING_GAP))
-		_ring(c, species[i], center, _instant(host))
+		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (tile + LEVEL_TILE_GAP),
+			ys[g] + tile * 0.5 + (i / per_row) * (tile + LEVEL_TILE_GAP))
+		_ring(c, species[i], center, _instant(host), tile, Levels.world_of(Levels.get_level(level)))
 	if rows > 0:
 		g += 1
 	if not mechanics.is_empty():
-		_mechanic_strip(c, mechanics, ys[g])
-	UI.set_active(p.actions([["green", "play", on_play]])[0], playable)
+		_mechanic_row(c, mechanics, ys[g])
+	var at := Vector2(540.0 - LEVEL_PLAY.x * 0.5, p.panel_rect.end.y + Modal.ACTION_DROP)
+	var play := UI.art_button(c, "Play", "btn_home_island_play_" + UiText.locale(), Rect2(at, LEVEL_PLAY), func(): p.invoke(on_play))
+	(play.get_node("Face") as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	UI.set_active(play, playable)
+	p.panel_rect = card
 	return p
 
+const LEVEL_TILE := 176.0
+const LEVEL_TILE_SMALL := 152.0
+const LEVEL_TILE_GAP := 20.0
+const LEVEL_MECHANIC := 96.0
+const LEVEL_PLAY := Vector2(500, 200)   # HomeView.PLAY.size: the home Play button
+
+## The level's mechanics as plain pictures in one centred row (no pill behind them).
+static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> void:
+	var side := 88.0
+	var gap := 44.0
+	var x := 540.0 - (mechanics.size() * side + (mechanics.size() - 1) * gap) * 0.5
+	for i in mechanics.size():
+		var art: String = MECHANIC_ART[mechanics[i]]
+		var t := _fit(c, art, Rect2(x + i * (side + gap), y + (LEVEL_MECHANIC - side) * 0.5, side, side), true)
+		t.name = "Mechanic_" + mechanics[i]
+		if art.begins_with("icon_"):
+			t.modulate = UI.INK
+		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
+			_breathe(t, i * 0.7)
+
 static func goal_info(host: Control, species: String) -> Control:
-	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, LINE], true, 0.0, 0.0, _instant(host))
+	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, ABILITY_H], true, 0.0, 0.0, _instant(host))
+	FamilyDialog.decorate(p, false)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 0.0)
-	_ability_line(c, species, ys[1])
+	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0)
+	FamilyDialog.ability(c, species, EFFECT.get(species, ""), ys[1])
 	return p
 
 ## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
@@ -239,61 +382,114 @@ static func goal_info(host: Control, species: String) -> Control:
 ## draws: filled = left, hollow = unlocked by playing more days in a row. `draw` performs one draw (grants the prize)
 ## and returns {"cell", "coins", "booster", "count"} like Progress.draw, or {} when none is left. When the light stops,
 ## a rewards popup over the board names what was won; the next draw is possible once it is dismissed.
-const DRAW_CELL := 204.0
-const DRAW_GAP := 20.0
+const DRAW_BOARD := Rect2(39, 486, 838, 846)
+const DRAW_CELL := Vector2(240, 232)
+const DRAW_ORIGIN := Vector2(46, 58)
+const DRAW_STEP := Vector2(251, 247)
+const DRAW_ART := Rect2(20, 10, 200, 156)
+const DRAW_BOOSTER_ART := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]
 const DRAW_SPOTS := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(1, 2), Vector2i(0, 2), Vector2i(0, 1)]
+const DRAW_PRIZE_KEYS := ["icon_draw_prize_forty", "icon_draw_prize_eighty", "icon_draw_mystery_single", "icon_draw_prize_one_twenty", "icon_draw_prize_two_hundred", "icon_draw_mystery_double", "icon_draw_prize_sixty", "icon_draw_prize_four_hundred"]
+# The original source crops relative to their measured prize wells. No source pixels are changed.
+const DRAW_PICTURES := [Rect2(41, 21, 176, 137), Rect2(32, 15, 203, 142), Rect2(29, 15, 195, 149), Rect2(7, 3, 234, 161), Rect2(4, -2, 240, 165), Rect2(18, -3, 221, 166), Rect2(7, 2, 226, 160), Rect2(9, 0, 222, 161)]
+
+const PAGE_SIGN := Rect2(240, 96, 600, 209)   # the page title sign (as the map's world page)
+
+## Re-dresses an existing action (hit area and callback unchanged) as the shop's green plate with a painted white word,
+## always at ButtonKit.PRIMARY on screen (`coordinate_scale`: the scale of the button's parent canvas).
+static func _kit_action(button: Control, word_id: String, coordinate_scale := 1.0) -> void:
+	for child in button.get_children():
+		if child is CanvasItem:
+			(child as CanvasItem).visible = false
+	var kit := Control.new()
+	kit.name = "Kit"
+	kit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	kit.size = ButtonKit.PRIMARY
+	kit.scale = Vector2.ONE / coordinate_scale
+	kit.position = (button.size - ButtonKit.PRIMARY / coordinate_scale) * 0.5
+	kit.pivot_offset = ButtonKit.PRIMARY * 0.5
+	button.add_child(kit)
+	var face := ButtonKit.face(kit, "green", Rect2(Vector2.ZERO, ButtonKit.PRIMARY))
+	ButtonKit.word(kit, word_id, face.size).position += face.position
+	if button is BaseButton:
+		(button as BaseButton).button_down.connect(func(): kit.modulate = ButtonKit.PRESSED; kit.scale = Vector2.ONE * ButtonKit.SINK / coordinate_scale)
+		(button as BaseButton).button_up.connect(func(): kit.modulate = Color.WHITE; kit.scale = Vector2.ONE / coordinate_scale)
 
 static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) -> Control:
-	var board_w := DRAW_CELL * 3.0 + DRAW_GAP * 2.0
-	var star := 64.0
-	var p := Modal.open(host, "draw.title", [star, board_w, UI.PLAY_SIZE.y], true, 0.0, 0.0, _instant(host))
-	var c := p.content
-	var ys: Array = p.get_meta("ys")
 	var instant := _instant(host)
-	# Draws left today.
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
+	p.name = "DailyDraw"
+	p.panel_rect = Rect2(0, 0, 1080, 1920)
+	p.content.pivot_offset = Vector2(540, 960)
+	for node_name in ["Panel", "TitleGroup"]:
+		var old := p.content.get_node(node_name)
+		p.content.remove_child(old)
+		old.queue_free()
+	var background := DrawPurchaseArt.background(p)
+	p.move_child(background, 1)
+	var c := DrawPurchaseArt.canvas(p.content)
+	# The hanging title sign of the shop and map pages, at the map's page position.
+	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
+	var close := MenuNavigation.close(c, "Close", Vector2(23, 52), p.close, DrawPurchaseArt.SCALE)
 	var stars := []
 	for i in slots:
-		var x := 540.0 + (i - (slots - 1) * 0.5) * (star + 16.0)
-		var s := UI.art(c, "star_full" if i < spins else "star_empty", Rect2(x - star * 0.5, ys[0], star, star))
-		s.pivot_offset = s.size * 0.5
-		stars.append(s)
-	# The board.
-	var left := 540.0 - board_w * 0.5
+		var x := 458.0 + (i - (slots - 1) * 0.5) * 122.0
+		# Both star states use the same visible box; only their accepted texture changes.
+		# A used draw is the same gold star faded to warm tan (never a second colour family on the warm page).
+		var key := "star_draw_available" if i < spins else "star_draw_spent"
+		var star := DrawPurchaseArt.fit(c, key, Rect2(x - 54, 341, 108, 104))
+		star.name = "Attempt%d" % i
+		stars.append(star)
+	var board := Control.new()
+	board.name = "DrawBoard"
+	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(board, DRAW_BOARD)
+	c.add_child(board)
+	# No backing sheet (docs/design/island-style.md): each prize is its own cream card floating on the forest.
+	for i in 9:
+		var cell := Rect2(DRAW_ORIGIN + Vector2(i % 3, i / 3) * DRAW_STEP, DRAW_CELL)
+		ButtonKit.panel(board, cell.grow(-4.0)).name = "Slot%d" % i
+	var cursor := StyleBoxFlat.new()
+	cursor.bg_color = Color(1.0, 0.81, 0.22, 0.08)
+	cursor.border_color = Color8(255, 231, 117)
+	cursor.set_border_width_all(5)
+	cursor.set_corner_radius_all(43)
+	cursor.shadow_color = Color(1.0, 0.69, 0.14, 0.85)
+	cursor.shadow_size = 12
 	var cards := []
 	var lights := []
 	for i in 8:
-		var r := Rect2(left + DRAW_SPOTS[i].x * (DRAW_CELL + DRAW_GAP), ys[1] + DRAW_SPOTS[i].y * (DRAW_CELL + DRAW_GAP), DRAW_CELL, DRAW_CELL)
-		var card := UI.shape(c, r, "cream", 36.0, 8.0)
+		var card := Control.new()
 		card.name = "Prize%d" % i
-		card.pivot_offset = r.size * 0.5
-		var lit := UI.shape(card, Rect2(Vector2.ZERO, r.size), "gold", 36.0, 8.0)
+		card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(card, Rect2(DRAW_ORIGIN + Vector2(DRAW_SPOTS[i]) * DRAW_STEP, DRAW_CELL))
+		board.add_child(card)
+		var lit := Panel.new()
+		lit.name = "Highlight"
+		lit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		lit.add_theme_stylebox_override("panel", cursor)
+		UI.place(lit, Rect2(Vector2(2, 2), DRAW_CELL - Vector2(4, 4)))
 		lit.modulate.a = 0.0
+		card.add_child(lit)
 		lights.append(lit)
 		var prize: Array = Progress.DRAW_PRIZES[i]
-		if prize[0] > 0:
-			UI.art(card, "coin", Rect2(r.size.x * 0.5 - 46.0, 20, 92, 92))
-			UI.number(card, str(prize[0]), Rect2(14, 126, r.size.x - 28.0, 38), UI.INK)
-		else:
-			# A wrapped gift until the light stops on it, then the booster it really holds.
-			var gift := Control.new()
-			gift.name = "Gift"
-			gift.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			card.add_child(gift)
-			UI.art(gift, "gift_box_base", Rect2(r.size.x * 0.5 - 56.0, 10, 112, 112))
-			UI.art(gift, "gift_box_lid", Rect2(r.size.x * 0.5 - 56.0, -8, 112, 112))
-			var count := UI.number(card, "x%d" % prize[1], Rect2(14, 126, r.size.x - 28.0, 38), UI.INK)
-			count.name = "GiftCount"
+		UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i]).name = "PrizeArt"
+		FamilyDialog.digits(card, "Number", Rect2(14, 159, 212, 51), str(prize[0]) if prize[0] > 0 else "×%d" % prize[1])
 		cards.append(card)
-	var mid := Rect2(left + DRAW_CELL + DRAW_GAP, ys[1] + DRAW_CELL + DRAW_GAP, DRAW_CELL, DRAW_CELL)
-	var centre := UI.shape(c, mid, "gold", 36.0, 8.0)
-	centre.name = "Chest"
-	centre.pivot_offset = mid.size * 0.5
-	var chest := UI.art(centre, "pic_chest", Rect2(14, 14, DRAW_CELL - 28.0, DRAW_CELL - 28.0))
+	var chest := DrawPurchaseArt.fit(board, "icon_draw_center_chest", Rect2(311, 305, 216, 224))
+	chest.name = "Chest"
+	chest.pivot_offset = chest.size * 0.5
 	if not instant:
 		_breathe(chest, 0.0)
+		Sound.play("ui_tap")
+		background.modulate.a = 0.0
+		p.content.modulate.a = 0.0
+		p._appearance = p.create_tween().set_parallel()
+		p._appearance.tween_property(background, "modulate:a", 1.0, 0.18)
+		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
 	var state := {"left": spins, "busy": false, "at": 0}
-	var go := UI.pill(c, "Draw", Rect2(Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, ys[2]), UI.PLAY_SIZE), "green", "draw.go",
-		func(): pass, "", 52.0)
+	var go := DrawPurchaseArt.button(c, "Draw", "btn_draw_action", Rect2(182, 1366, 553, 202), func(): pass, true)
+	_kit_action(go, "white_spin", DrawPurchaseArt.SCALE)
 	UI.set_active(go, spins > 0)
 	var run := func() -> void:
 		if state["busy"] or state["left"] <= 0:
@@ -304,60 +500,244 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		var target: int = got["cell"]
 		state["busy"] = true
 		UI.set_active(go, false)
-		state["left"] -= 1
-		var used: Control = stars[state["left"]]
-		var tw := used.create_tween()
-		tw.tween_property(used, "scale", Vector2.ONE * 1.4, 0.12)
-		tw.tween_callback(func(): (used as TextureRect).texture = Art.tex("star_empty"))
-		tw.tween_property(used, "scale", Vector2.ONE, 0.2)
-		var steps: int = 24 + posmod(target - int(state["at"]), 8)
-		var at: int = state["at"]
-		for n in steps:
-			var prev: int = at
-			at = posmod(at + 1, 8)
-			lights[prev].modulate.a = 0.0
+		UI.set_active(close, false)
+		if not Progress.unlimited:   # the launcher's test mode keeps every star lit
+			state["left"] -= 1
+			var used: Control = stars[state["left"]]
+			(used as TextureRect).texture = Art.tex("star_draw_spent")
+		var highlight := func(at: int):
+			lights[state["at"]].modulate.a = 0.0
 			lights[at].modulate.a = 1.0
-			cards[at].scale = Vector2.ONE * 1.06
-			create_step_tween(cards[at], not instant)
-			Sound.play("ui_tap", 1.0 + 0.03 * n if n < 24 else 1.7)
-			if not instant:
-				var t := float(n) / float(steps - 1)
-				await c.get_tree().create_timer(0.045 + 0.3 * t * t * t).timeout
-		state["at"] = at
-		Sound.play("reward")
-		if int(got.get("booster", -1)) >= 0:
-			var holder := cards[at] as Control
-			holder.get_node("Gift").queue_free()
-			_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[got["booster"]], Rect2((holder.size.x - 112.0) * 0.5, 12.0, 112.0, 112.0), true)
-		if not instant:
-			var pop: Tween = (cards[at] as Control).create_tween()
-			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.22, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-			pop.tween_property(cards[at], "scale", Vector2.ONE * 1.1, 0.25)
-			await c.get_tree().create_timer(0.7).timeout
-		if not is_instance_valid(c):
+			state["at"] = at
+		var reveal := func():
+			Sound.play("reward")
+			if got["booster"] >= 0:
+				var holder := cards[target] as Control
+				var old := holder.get_node("PrizeArt")
+				holder.remove_child(old)
+				old.queue_free()
+				var art := _fit(holder, "island_icon_" + DRAW_BOOSTER_ART[got["booster"]], DRAW_ART)
+				art.name = "PrizeArt"
+		var finish := func():
+			var kinds := []
+			if got["booster"] >= 0:
+				for k in int(got["count"]):
+					kinds.append(got["booster"])
+			p.content.hide()
+			var result := _draw_rewards(host, got["coins"], kinds, func():
+				p.content.show()
+				lights[target].modulate.a = 0.0
+				if got["booster"] >= 0:
+					var holder := cards[target] as Control
+					var old := holder.get_node("PrizeArt")
+					holder.remove_child(old)
+					old.queue_free()
+					UI.image(holder, DRAW_PRIZE_KEYS[target], DRAW_PICTURES[target]).name = "PrizeArt"
+				state["busy"] = false
+				UI.set_active(close, true)
+				UI.set_active(go, state["left"] > 0))
+			# The draw's dim backdrop already covers the home screen.
+			result._dim.color.a = 0.0
+			p.tree_exiting.connect(result.queue_free)
+		if instant:
+			highlight.call(target)
+			reveal.call()
+			finish.call()
 			return
-		# Name the win in the rewards popup; the board steps aside until it is dismissed, then the light clears.
-		var kinds := []
-		if int(got.get("booster", -1)) >= 0:
-			for k in int(got.get("count", 0)):
-				kinds.append(got["booster"])
-		p.content.visible = false
-		rewards(host, "draw.title", int(got.get("coins", 0)), kinds, func():
-			if not is_instance_valid(c):
-				return
-			p.content.visible = true
-			cards[at].scale = Vector2.ONE
-			lights[at].modulate.a = 0.0
-			state["busy"] = false
-			UI.set_active(go, state["left"] > 0), "coin")
+		# Binding the complete roll to the modal cancels it when the modal is removed.
+		var roll := p.create_tween()
+		var steps: int = 24 + posmod(target - int(state["at"]), 8)
+		var start: int = state["at"]
+		for n in steps:
+			var at := posmod(start + n + 1, 8)
+			roll.tween_callback(highlight.bind(at))
+			roll.tween_callback(Sound.play.bind("ui_tap", 1.0 + 0.03 * n if n < 24 else 1.7))
+			var t := float(n) / float(steps - 1)
+			roll.tween_interval(0.045 + 0.3 * t * t * t)
+		roll.tween_callback(reveal)
+		roll.tween_interval(0.7)
+		roll.tween_callback(finish)
 	(go as Button).pressed.connect(run)
 	return p
 
-static func create_step_tween(card: Control, animate: bool) -> void:
-	if not animate:
+## Daily reward: the seven-day login calendar as a page in the Shop and Lucky Spin family. As on every page, content
+## floats over the forest on its own cream cards (docs/design/island-style.md: no backing sheet, no card in a card):
+## days 1-6 are two columns of shop-sized cards, day 7 is one full-width card under them, Claim sits below.
+## Each card: the day number on a green disc at its corner, the prize pictures with their amounts. Claimed days are
+## dimmed with a tick; today's card has the shop's green selected outline and bounces until it is claimed.
+## `claim` pays today and returns {"day", "coins", "boosters"} like Progress.claim_daily_reward, or {} when already
+## claimed. The tick stamps in, coins burst, then the rewards dialog names what was won; its OK closes the page.
+const DAILY_AREA := Rect2(48, 352, 984, 1196)
+const DAILY_GAP := 20.0
+const DAILY_ACTION := Rect2(260, 1590, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
+const DAILY_DISC := 76.0                # the day disc, the shop's stock badge size
+const DAILY_OUTLINE := Color8(63, 181, 43)   # the shop's selected green
+## Coin pile pictures of the draw board, from the smallest amount they stand for.
+const DAILY_COIN_ART := [[400, "icon_draw_prize_four_hundred"], [200, "icon_draw_prize_two_hundred"],
+	[120, "icon_draw_prize_one_twenty"], [80, "icon_draw_prize_eighty"], [60, "icon_draw_prize_sixty"], [0, "icon_draw_prize_forty"]]
+
+static func daily_reward(host: Control, today: int, available: bool, balance: int, claim: Callable) -> Control:
+	var instant := _instant(host)
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
+	p.name = "DailyReward"
+	p.panel_rect = Rect2(0, 0, 1080, 1920)
+	p.content.pivot_offset = Vector2(540, 960)
+	for node_name in ["Panel", "TitleGroup"]:
+		var old := p.content.get_node(node_name)
+		p.content.remove_child(old)
+		old.queue_free()
+	var background := DrawPurchaseArt.background(p)
+	p.move_child(background, 1)
+	p._title_layer = ButtonKit.sign(p.content, "daily_reward_title", PAGE_SIGN)
+	MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
+	var bar := FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
+	var days := Progress.DAILY_REWARDS.size()
+	var rows := (days - 1) / 2 + 1
+	var card_h := (DAILY_AREA.size.y - DAILY_GAP * (rows - 1)) / rows
+	var card_w := (DAILY_AREA.size.x - DAILY_GAP) * 0.5
+	var tiles := []
+	for i in days:
+		var day := i + 1
+		var r := Rect2(DAILY_AREA.position + Vector2((i % 2) * (card_w + DAILY_GAP), (i / 2) * (card_h + DAILY_GAP)), Vector2(card_w, card_h))
+		if day == days:
+			r.size.x = DAILY_AREA.size.x
+		var claimed := day < today or (day == today and not available)
+		tiles.append(_daily_card(p.content, day, r, claimed, day == today and available, instant))
+	var go := UI.hit_area(p.content, DAILY_ACTION, func(): pass)
+	go.name = "Claim"
+	_kit_action(go, "white_claim")
+	UI.set_active(go, available)
+	if not instant:
+		Sound.play("ui_tap")
+		background.modulate.a = 0.0
+		p.content.modulate.a = 0.0
+		p._appearance = p.create_tween().set_parallel()
+		p._appearance.tween_property(background, "modulate:a", 1.0, 0.18)
+		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
+	var state := {"busy": false}
+	go.pressed.connect(func() -> void:
+		if state["busy"] or p.content.modulate.a < 0.99:
+			return
+		var got: Dictionary = claim.call()
+		if got.is_empty():
+			return
+		state["busy"] = true
+		Sound.play("ui_tap")
+		UI.set_active(go, false)
+		var tile: Control = tiles[int(got["day"]) - 1]
+		_daily_stamp(tile, instant)
+		Sound.play("reward")
+		bar.set_amount(balance + int(got["coins"]), true)
+		if not instant:
+			_coin_burst(p, tile.position + tile.size * 0.5, 0.15)
+			await p.get_tree().create_timer(0.9).timeout
+		if not is_instance_valid(p):
+			return
+		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
+	return p
+
+## One day: a cream card on the forest with its day disc, prize pictures and amounts; claimed, today or later.
+static func _daily_card(parent: Control, day: int, r: Rect2, claimed: bool, today: bool, instant: bool) -> Control:
+	var tile := Control.new()
+	tile.name = "Day%d" % day
+	tile.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(tile, r)
+	tile.pivot_offset = r.size * 0.5
+	parent.add_child(tile)
+	var body := Control.new()
+	body.name = "Body"
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.size = r.size
+	tile.add_child(body)
+	ButtonKit.panel(body, Rect2(Vector2.ZERO, r.size)).name = "Surface"
+	var prize: Array = Progress.DAILY_REWARDS[day - 1]
+	var coins: int = prize[0]
+	var gifts: int = prize[1]
+	var big := day == Progress.DAILY_REWARDS.size()
+	var coin_art := "icon_draw_prize_forty"
+	for step in DAILY_COIN_ART:
+		if coins >= int(step[0]):
+			coin_art = step[1]
+			break
+	var items := [[coin_art, str(coins)]]
+	if gifts > 0:
+		items.append(["icon_draw_mystery_double" if gifts > 1 else "icon_draw_mystery_single", "×%d" % gifts])
+	# Pictures in one row, centred in the card, each with its amount beneath; the big day gets wider columns.
+	var column := 240.0 if big else (r.size.x - 72.0) / items.size()
+	var left := (r.size.x - column * items.size()) * 0.5
+	var art_h := r.size.y - 132.0
+	if big:
+		var glow := UI.image(body, "glow_soft", Rect2(r.size.x * 0.5 - 300.0, -10.0, 600.0, r.size.y + 20.0))
+		glow.modulate = Color(1.0, 0.86, 0.42, 0.55)
+		for k in 4:
+			var at := Vector2([150.0, 790.0, 220.0, 720.0][k], [60.0, 70.0, 200.0, 190.0][k])
+			var spark := UI.art(body, "sparkle", Rect2(at, Vector2(48, 48)))
+			spark.pivot_offset = Vector2(24, 24)
+			if not instant:
+				_twinkle(spark, k * 0.35)
+	for k in items.size():
+		var art := _fit(body, items[k][0], Rect2(left + k * column + 10.0, 36.0, column - 20.0, art_h), true)
+		art.name = "Prize%d" % k
+		if today and not instant:
+			_breathe(art, k * 0.4)
+		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, 36.0 + art_h + 10.0, column, 58), items[k][1])
+	# The day number on the shop's green disc at the card's top-left corner.
+	var disc := Control.new()
+	disc.name = "DayDisc"
+	disc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(disc, Rect2(Vector2(14, 14), Vector2.ONE * DAILY_DISC))
+	body.add_child(disc)
+	UI.image(disc, "island_badge_green", Rect2(Vector2.ZERO, disc.size), false)
+	ButtonKit.number(disc, str(day), Rect2(DAILY_DISC * 0.14, DAILY_DISC * 0.2, DAILY_DISC * 0.72, DAILY_DISC * 0.56)).name = "DayNumber"
+	if claimed:
+		_daily_claimed(tile)
+	elif today:
+		var lit := Panel.new()
+		lit.name = "Today"
+		lit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var outline := StyleBoxFlat.new()
+		outline.draw_center = false
+		outline.border_color = DAILY_OUTLINE
+		outline.set_border_width_all(8)
+		outline.set_corner_radius_all(48)
+		outline.shadow_color = Color(0.25, 0.71, 0.17, 0.45)
+		outline.shadow_size = 10
+		lit.add_theme_stylebox_override("panel", outline)
+		UI.place(lit, Rect2(Vector2(-4, -4), r.size + Vector2(8, 8)))
+		tile.add_child(lit)
+		if not instant:
+			var bounce := tile.create_tween().set_loops()
+			bounce.tween_property(tile, "scale", Vector2.ONE * 1.03, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			bounce.tween_property(tile, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tile.set_meta("bounce", bounce)
+	return tile
+
+## A claimed day: the card dims like a disabled item and the shop's tick sits on its top-right corner.
+static func _daily_claimed(tile: Control) -> TextureRect:
+	(tile.get_node("Body") as Control).modulate.a = UI.DISABLED_ALPHA
+	var tick := Island.check_badge(tile, Vector2(tile.size.x - 44.0, 44.0))
+	tick.name = "Tick"
+	tick.pivot_offset = tick.size * 0.5
+	return tick
+
+## Today's card is claimed: the bounce and outline stop, the card pops and the tick stamps in.
+static func _daily_stamp(tile: Control, instant: bool) -> void:
+	if tile.has_meta("bounce"):
+		(tile.get_meta("bounce") as Tween).kill()
+	if tile.has_node("Today"):
+		tile.get_node("Today").queue_free()
+	var tick := _daily_claimed(tile)
+	if instant:
+		tile.scale = Vector2.ONE
 		return
-	var tw := card.create_tween()
-	tw.tween_property(card, "scale", Vector2.ONE, 0.18).set_ease(Tween.EASE_OUT)
+	var pop := tile.create_tween()
+	pop.tween_property(tile, "scale", Vector2.ONE * 1.08, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.tween_property(tile, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tick.scale = Vector2.ONE * 2.2
+	tick.modulate.a = 0.0
+	var stamp := tick.create_tween().set_parallel()
+	stamp.tween_property(tick, "scale", Vector2.ONE, 0.3).set_delay(0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	stamp.tween_property(tick, "modulate:a", 1.0, 0.15).set_delay(0.12)
 
 const CHAPTERS_PER_PAGE := 4
 const CHAPTER_TAG := Vector2(216.0, 76.0)
@@ -368,11 +748,11 @@ static func chapters(host: Control, p: Profile, on_pick: Callable, page := -1) -
 	var row_h := 236.0
 	var gap := 22.0
 	if page < 0:   # opens on the page holding the player's current chapter
-		var next := Progress.next_level(p)
-		page = (Progress.world_of_level(next if next > 0 else Levels.COUNT) - 1) / CHAPTERS_PER_PAGE
+		page = (Progress.world_of_level(Progress.resume_level(p)) - 1) / CHAPTERS_PER_PAGE
 	var last_page := (Levels.WORLDS - 1) / CHAPTERS_PER_PAGE
 	var m := Modal.open(host, "map.chapters", [row_h * CHAPTERS_PER_PAGE + gap * (CHAPTERS_PER_PAGE - 1.0)], true,
 		Modal.SECONDARY_PILL.y, 0.0, _instant(host), true)
+	MenuNavigation.replace_close(m)
 	var c := m.content
 	var ys: Array = m.get_meta("ys")
 	var left: float = m.panel_rect.position.x + Modal.INSET
@@ -439,107 +819,382 @@ static func chapters(host: Control, p: Profile, on_pick: Callable, page := -1) -
 			UI.pill(body, "ReplayTag", tag, "orange", "action.replay", func(): m.invoke(on_pick.bind(world)), "", 30.0)
 		else:
 			UI.pill(body, "PlayTag", tag, "green", "action.play", func(): m.invoke(on_pick.bind(world)), "", 30.0)
-	# Worded page pills under the panel (no round buttons in popups); a closed end is dimmed.
+	# Existing painted pagination words share a surface; neither page turn changes saved progress.
 	var turn := func(to: int):
 		var parent := m.get_parent()
 		m.queue_free()
 		chapters(parent, p, on_pick, to)
 	var row_y: float = m.get_meta("actions_y")
-	var back := UI.pill(c, "PagePrevious", Rect2(540.0 - Modal.SECONDARY_PILL.x - 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y), "orange",
-		"action.back", func(): turn.call(page - 1), "", 44.0)
-	var forward := UI.pill(c, "PageNext", Rect2(540.0 + 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y), "orange",
-		"action.next", func(): turn.call(page + 1), "", 44.0)
+	var back := ShopSkin.product_button(c, "PagePrevious",
+		Rect2(540.0 - Modal.SECONDARY_PILL.x - 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y),
+		func(): turn.call(page - 1), "gold")
+	var forward := ShopSkin.product_button(c, "PageNext",
+		Rect2(540.0 + 28.0, row_y, Modal.SECONDARY_PILL.x, Modal.SECONDARY_PILL.y),
+		func(): turn.call(page + 1), "gold")
+	var word_box := Rect2(Vector2(32, 24), Modal.SECONDARY_PILL - Vector2(64, 48))
+	UiText.painted_label(back, "action.back", word_box)
+	UiText.painted_label(forward, "action.next", word_box)
 	UI.set_active(back, page > 0)
 	UI.set_active(forward, page < last_page)
 	return m
 
-## Star chest: the chest, stars collected towards it on a painted bar, and Open when one is ready.
-## With `on_play` a second green Play sits under Open (user sketch), so the player can go on playing for stars.
-static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable()) -> Control:
-	var actions_h := UI.PLAY_SIZE.y * (2.0 if on_play.is_valid() else 1.0) + (ACTION_STACK if on_play.is_valid() else 0.0)
-	var p := Modal.open(host, "chest.title", [ILLUS, LINE, 96.0], true, actions_h, 0.0, _instant(host))
-	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
-	# Sketch: the chest sits in a warm glow with sparkles around it.
-	var glow := UI.image(c, "glow_soft", box.grow(90.0))
-	glow.modulate = Color(1.0, 0.86, 0.4, 0.9)
-	var sparks := [Vector2(-0.86, -0.3), Vector2(0.86, -0.42), Vector2(-0.7, 0.4), Vector2(0.78, 0.3)]
-	for i in sparks.size():
-		var at: Vector2 = box.get_center() + sparks[i] * ILLUS * 0.5
-		var spark := UI.art(c, "sparkle", Rect2(at - Vector2(30, 30), Vector2(60, 60)))
-		spark.pivot_offset = Vector2(30, 30)
-		if not _instant(host):
-			_twinkle(spark, i * 0.35)
-	var art := _fit(c, "pic_chest_open" if ready > 0 else "pic_chest", box, true)
-	_breathe(art, 0.0)
-	UI.label(c, "chest.line", Rect2(172.0, ys[1], 736.0, LINE), 40.0)
-	var bar := Rect2(220.0, ys[2], 640.0, 88.0)
-	UI.shape(c, bar, "hud", 44.0, 6.0)
-	var fill := clampf(float(progress % Progress.CHEST_STARS if ready == 0 else Progress.CHEST_STARS) / Progress.CHEST_STARS, 0.0, 1.0)
-	if fill > 0.0:
-		UI.shape(c, Rect2(bar.position + Vector2(10, 10), Vector2(maxf(68.0, (bar.size.x - 20.0) * fill), 60.0)), "orange", 30.0, 4.0)
-	UI.icon(c, "star", Vector2(bar.position.x + 4.0, bar.get_center().y - 4.0), 92.0, UI.GOLD)
-	var text := "%d/%d" % [mini(progress, Progress.CHEST_STARS) if ready == 0 else Progress.CHEST_STARS, Progress.CHEST_STARS]
-	UI.number(c, text, Rect2(bar.position.x + 60.0, bar.position.y + 20.0, bar.size.x - 120.0, 44.0), Color.WHITE)
-	var open: Button = p.actions([["green", "play", on_open, "chest.open"]])[0]
+## Approved jungle chest page: freestanding gold heading, wooden support and card-free prizes.
+const CHEST_SUPPORT := Rect2(145, 1070, 790, 214)
+const CHEST_HERO := Rect2(235, 680, 610, 480)
+const CHEST_READY_HERO := Rect2(235, 544, 610, 616)
+const CHEST_PROGRESS := Rect2(168, 1300, 744, 112)
+const CHEST_PROGRESS_INSET := 9.0
+const CHEST_ACTION := Rect2(260, 1440, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
+const CHEST_RESULT_HERO := Rect2(270, 792, 540, 540)
+const CHEST_RESULT_SUPPORT := Rect2(145, 1242, 790, 214)
+# Ignore invisible generation padding when positioning the original, unchanged RGBA pictures.
+const CHEST_CLOSED_INK := Rect2(33, 172, 1189, 933)
+const CHEST_OPEN_INK := Rect2(101, 90, 1031, 1012)
+const CHEST_SUPPORT_INK := Rect2(43, 112, 2082, 559)
+const ChestLettering := preload("res://game/chest_lettering.gd")
+const CHEST_BOOSTER_ART := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]
+
+static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable(), balance := -1) -> Control:
+	var p := _chest_page(host, balance, true)
+	_chest_hero(p, ready > 0, ready > 0)
+	if ready > 1:
+		Island.badge(p.content, Vector2(842, 704), ready)
+	var collected := clampi(progress, 0, Progress.CHEST_STARS)
+	_chest_progress(p.content, float(collected) / Progress.CHEST_STARS,
+		"%d/%d" % [collected, Progress.CHEST_STARS])
+	var open := _chest_action(p, "OpenChest", "chest.open", CHEST_ACTION, on_open)
 	UI.set_active(open, ready > 0)
+	if ready <= 0:
+		var disabled_ink := ShaderMaterial.new()
+		disabled_ink.shader = preload("res://game/chest_action_disabled.gdshader")
+		open.get_node("Face").material = disabled_ink
+		open.modulate = Color(0.76, 0.79, 0.75, 1.0)
 	if on_play.is_valid():
-		var at := Vector2(540.0 - UI.PLAY_SIZE.x * 0.5, open.position.y + UI.PLAY_SIZE.y + ACTION_STACK)
-		UI.pill(c, "Play", Rect2(at, UI.PLAY_SIZE), "green", "action.play", func(): p.invoke(on_play), "", 52.0)
+		_chest_action(p, "Play", "action.play", Rect2(260, 1672, 560, 208), on_play)
 	return p
 
-const ACTION_STACK := 28.0
+## The approved green rail uses its own slim rim; numbers reuse the homepage glyph family.
+static func _chest_progress(parent: Control, fill: float, text: String) -> Control:
+	var progress := Control.new()
+	progress.name = "Progress"
+	progress.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(progress, CHEST_PROGRESS)
+	parent.add_child(progress)
+	var star := CHEST_PROGRESS.size.y * 1.25
+	var track := Rect2(star * 0.45, CHEST_PROGRESS.size.y * 0.12,
+		CHEST_PROGRESS.size.x - star * 0.45, CHEST_PROGRESS.size.y * 0.76)
+	var rail := _chest_capsule(progress, "panel_chest_progress", Rect2(112, 285, 1946, 157), track)
+	rail.name = "Track"
+	var inner := track.grow(-CHEST_PROGRESS_INSET)
+	if fill > 0.0:
+		var clip := Control.new()
+		clip.name = "Fill"
+		clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		clip.clip_contents = true
+		UI.place(clip, Rect2(inner.position, Vector2(inner.size.x * clampf(fill, 0.0, 1.0), inner.size.y)))
+		progress.add_child(clip)
+		# A fixed end-cap radius preserves the rounded tip at partial and full progress.
+		var fill_rect := Rect2(Vector2.ZERO, Vector2(maxf(inner.size.y, clip.size.x), inner.size.y))
+		_chest_capsule(clip, "fill_chest_progress", Rect2(160, 273, 1846, 177), fill_rect)
+	UI.art(progress, "island_star_full", Rect2(-star * 0.1, (CHEST_PROGRESS.size.y - star) * 0.5, star, star))
+	ChestLettering.number(progress, text,
+		Rect2(0, 24, CHEST_PROGRESS.size.x, 62))
+	return progress
 
-## What a check-in or chest gave: coins and boosters, in a row; OK closes.
+static func _chest_capsule(parent: Node, key: String, ink: Rect2, bounds: Rect2) -> NinePatchRect:
+	var texture := AtlasTexture.new()
+	texture.atlas = Art.tex(key)
+	texture.region = ink
+	var capsule := NinePatchRect.new()
+	capsule.texture = texture
+	capsule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var k := bounds.size.y / ink.size.y
+	capsule.position = bounds.position
+	capsule.size = bounds.size / k
+	capsule.scale = Vector2.ONE * k
+	var end := int(ceilf(ink.size.y * 0.55))
+	capsule.patch_margin_left = end
+	capsule.patch_margin_right = end
+	parent.add_child(capsule)
+	return capsule
+
+## Keep the background fixed while the controls fade; modal ownership still blocks the page underneath.
+static func _chest_page(host: Control, balance: int, close_button: bool) -> Modal:
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
+	p.name = "StarChest"
+	p.panel_rect = Rect2(0, 0, 1080, 1920)
+	p.content.pivot_offset = Vector2(540, 960)
+	for name in ["Panel", "TitleGroup"]:
+		var old := p.content.get_node(name)
+		p.content.remove_child(old)
+		old.queue_free()
+	var background := UI.image(p, "background_home_jungle", Rect2(0, 0, 1080, 1920), false)
+	p.move_child(background, 1)
+	p._title_layer = ButtonKit.sign(p.content, "star_chest_title", PAGE_SIGN)
+	if close_button:
+		MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
+	if balance >= 0:
+		FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
+	if not _instant(host):
+		Sound.play("ui_tap")
+		background.modulate.a = 0.0
+		p.content.modulate.a = 0.0
+		p._appearance = p.create_tween().set_parallel()
+		p._appearance.tween_property(background, "modulate:a", 1.0, 0.18)
+		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
+	return p
+
+static func _chest_hero(p: Modal, opened: bool, sparkling: bool, result := false) -> void:
+	var live := not _instant(p.get_parent())
+	var hero := CHEST_RESULT_HERO if result else (CHEST_READY_HERO if opened else CHEST_HERO)
+	var rays := UI.image(p.content, "light_rays", Rect2(hero.get_center() - Vector2(480, 480), Vector2(960, 960)))
+	rays.modulate.a = 0.52 if sparkling else 0.3
+	var glow := UI.image(p.content, "glow_soft", hero.grow(80.0))
+	glow.modulate = Color(1.0, 0.86, 0.4, 0.55)
+	UI.art(p.content, "chest_islet_support", CHEST_RESULT_SUPPORT if result else CHEST_SUPPORT, CHEST_SUPPORT_INK)
+	var content := CHEST_OPEN_INK if opened else CHEST_CLOSED_INK
+	var scale := minf(hero.size.x / content.size.x, hero.size.y / content.size.y)
+	var shown := content.size * scale
+	var bounds := Rect2(Vector2(hero.get_center().x - shown.x * 0.5, hero.end.y - shown.y), shown)
+	var art := UI.art(p.content, "chest_star_open" if opened else "chest_star_closed", bounds, content)
+	art.name = "ChestHero"
+	art.pivot_offset = Vector2(bounds.get_center().x, bounds.end.y) - art.position
+	if live:
+		rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
+		_breathe(art, 0.0)
+	if sparkling:
+		var sparks := [Vector2(-320, -180), Vector2(300, -140), Vector2(280, 140), Vector2(-300, 160)]
+		for i in sparks.size():
+			var spark := UI.art(p.content, "sparkle", Rect2(hero.get_center() + sparks[i], Vector2(56, 56)))
+			if live:
+				_twinkle(spark, i * 0.35)
+
+static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, callback: Callable) -> Button:
+	var button := UI.hit_area(p.content, bounds, func():
+		# An Open double-tap must not click through to the newly appearing reward confirmation.
+		if p.content.modulate.a < 0.99:
+			return
+		Sound.play("ui_tap")
+		p.invoke(callback))
+	button.name = name
+	# A hidden "Face" keeps the disabled-ink hook; the visible face is the shop's green plate.
+	var face := Control.new()
+	face.name = "Face"
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(face)
+	_kit_action(button, {"chest.open": "white_open", "action.play": "white_play", "action.ok": "white_action_ok"}.get(word, word))
+	return button
+
+static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Callable, balance: int) -> Control:
+	var p := _chest_page(host, balance, false)
+	_chest_hero(p, true, true, true)
+	var prizes: Array = []
+	if coins > 0:
+		prizes.append(["coin", coins])
+	var counts := {}
+	for kind in boosters:
+		counts[kind] = int(counts.get(kind, 0)) + 1
+	for kind in counts:
+		prizes.append(["island_icon_" + CHEST_BOOSTER_ART[kind], counts[kind]])
+	for i in prizes.size():
+		var spacing := minf(228.0, 912.0 / prizes.size())
+		var offset := i - (prizes.size() - 1) * 0.5
+		var x := 540.0 + offset * spacing
+		var y := 486.0 + minf(1.0, absf(offset)) * 68.0
+		var prize := Control.new()
+		prize.name = "ChestPrize%d" % i
+		prize.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		prize.set_meta("picture", prizes[i][0])
+		prize.set_meta("amount", prizes[i][1])
+		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, 250))
+		p.content.add_child(prize)
+		var art := _fit(prize, prizes[i][0], Rect2(8, 0, spacing - 16, 190), true)
+		if not _instant(host):
+			_breathe(art, i * 0.4)
+		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
+	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520, 560, 208), on_ok)
+	return p
+
+const REWARD_TILE := 250.0
+
+## Coins and boosters form one celebration group with painted amounts; OK closes.
 ## `picture` stands in when no booster is won (coins only).
-static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable, picture := "pic_chest_open") -> Control:
-	var p := Modal.open(host, title_id, [200.0, REWARD_H] if coins > 0 else [200.0], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
+static func rewards(host: Control, title_id: String, coins: int, boosters: Array, on_ok: Callable, picture := "pic_chest_open", balance := -1) -> Control:
+	if title_id == "draw.title":
+		return _draw_rewards(host, coins, boosters, on_ok)
+	if title_id == "chest.title":
+		return _chest_rewards(host, coins, boosters, on_ok, balance)
+	var live := not _instant(host)
+	var prizes := []
+	if coins > 0:
+		prizes.append(["coin", coins])
+	var counts := {}
+	for kind in boosters:
+		counts[kind] = int(counts.get(kind, 0)) + 1
+	for kind in counts:
+		prizes.append(["booster_%s_illus" % BOOSTER_ILLUS[kind], counts[kind]])
+	var rows := ceili(prizes.size() / 3.0)
+	var hero_h := 320.0 if rows > 1 else ILLUS
+	var reward_h := REWARD_TILE * rows + 20.0 * maxf(0.0, rows - 1)
+	var p := Modal.open(host, title_id, [hero_h, reward_h] if not prizes.is_empty() else [hero_h], false,
+		FamilyDialog.PRIMARY.y, 0.0, not live)
+	FamilyDialog.decorate(p)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var n := boosters.size()
-	for i in n:
-		var x := 540.0 + (i - (n - 1) * 0.5) * 210.0
-		_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[boosters[i]], Rect2(x - 90.0, ys[0], 180.0, 180.0), true), i * 0.4)
-	if n == 0:
-		_breathe(_fit(c, picture, Rect2(540.0 - 100.0, ys[0], 200.0, 200.0), true), 0.0)
+	var hero := Rect2(540.0 - hero_h * 0.5, ys[0], hero_h, hero_h)
+	var rays := UI.image(c, "light_rays", hero.grow(76.0))
+	rays.pivot_offset = rays.size * 0.5
+	rays.modulate.a = 0.4
+	var glow := UI.image(c, "glow_soft", hero.grow(52.0))
+	glow.modulate = Color(1.0, 0.86, 0.42, 0.7)
+	var art := _fit(c, picture if picture != "coin" else "pic_chest_open", hero.grow(-30.0), true)
+	if live:
+		rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
+		_breathe(art, 0.0)
+	for i in prizes.size():
+		var row: int = i / 3
+		var columns := mini(3, prizes.size() - row * 3)
+		var spacing := 250.0
+		var x := 540.0 + (i % 3 - (columns - 1) * 0.5) * spacing
+		var y: float = ys[1] + row * (REWARD_TILE + 20.0)
+		var prize := Control.new()
+		prize.name = "Reward%d" % i
+		prize.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, REWARD_TILE))
+		c.add_child(prize)
+		var item := _fit(prize, prizes[i][0], Rect2(20, 0, spacing - 40, 170), true)
+		if live:
+			_breathe(item, i * 0.4)
+		FamilyDialog.digits(prize, "Number", Rect2(8, 190, spacing - 16, 56), "+%d" % prizes[i][1])
+	FamilyDialog.actions(p, [["green", "play", on_ok, "action.ok"]])
+	return p
+
+## Completion keeps the accepted draw header, forest and painted prize family.
+## The actual draw grants one distinct item; the grid also keeps mixed preview data readable.
+static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Callable) -> Modal:
+	var instant := _instant(host)
+	var prizes := []
 	if coins > 0:
-		_reward(c, ys[1], coins)
-	p.actions([["green", "play", on_ok, "action.ok"]])
+		var coin_picture := "icon_draw_prize_four_hundred"
+		for i in Progress.DRAW_PRIZES.size():
+			if Progress.DRAW_PRIZES[i][0] == coins:
+				coin_picture = DRAW_PRIZE_KEYS[i]
+				break
+		prizes.append([coin_picture, coins])
+	var counts := {}
+	for kind in boosters:
+		counts[kind] = int(counts.get(kind, 0)) + 1
+	for kind in counts:
+		prizes.append(["island_icon_" + DRAW_BOOSTER_ART[kind], counts[kind]])
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
+	p.name = "DrawResult"
+	p.panel_rect = Rect2(0, 0, 1080, 1920)
+	p.content.pivot_offset = Vector2(540, 960)
+	for node_name in ["Panel", "TitleGroup"]:
+		var old := p.content.get_node(node_name)
+		p.content.remove_child(old)
+		old.queue_free()
+	var background := DrawPurchaseArt.background(p)
+	p.move_child(background, 1)
+	var canvas := DrawPurchaseArt.canvas(p.content)
+	# The hanging title sign of the shop and map pages, at the map's page position.
+	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
+	# Keep the existing direct Content/Close and Content/Confirm contracts for callers.
+	var close_at := Vector2(23, 50) * DrawPurchaseArt.SCALE + canvas.position
+	MenuNavigation.close(p.content, "Close", close_at, p.close)
+	var columns := maxi(1, mini(prizes.size(), 3))
+	var rows := maxi(1, ceili(prizes.size() / 3.0))
+	var tile := Vector2(260, 360) if columns > 1 else Vector2(500, 540)
+	var gap := 24.0
+	var height := tile.y * rows + gap * (rows - 1)
+	var top := 870.0 - height * 0.5
+	for i in prizes.size():
+		var row := i / 3
+		var in_row := mini(3, prizes.size() - row * 3)
+		var x := 458.0 + (i % 3 - (in_row - 1) * 0.5) * (tile.x + gap)
+		var reward := Control.new()
+		reward.name = "Reward%d" % i
+		reward.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		reward.set_meta("picture", prizes[i][0])
+		reward.set_meta("amount", prizes[i][1])
+		UI.place(reward, Rect2(Vector2(x - tile.x * 0.5, top + row * (tile.y + gap)), tile))
+		canvas.add_child(reward)
+		var icon_box := Rect2(44, 32, tile.x - 88, tile.y - 184)
+		var ray_size := Vector2.ONE * (tile.x + 112)
+		var rays := UI.image(reward, "light_rays", Rect2(icon_box.get_center() - ray_size * 0.5, ray_size))
+		rays.name = "Rays"
+		rays.modulate.a = 0.68
+		rays.pivot_offset = rays.size * 0.5
+		var glow := UI.image(reward, "glow_soft", Rect2(icon_box.get_center() - ray_size * 0.44, ray_size * 0.88))
+		glow.modulate = Color(1.0, 0.87, 0.42, 0.55)
+		var art: TextureRect
+		if str(prizes[i][0]).begins_with("icon_draw_"):
+			art = DrawPurchaseArt.fit(reward, prizes[i][0], icon_box)
+		else:
+			art = _fit(reward, prizes[i][0], icon_box)
+		art.name = "PrizeArt"
+		art.pivot_offset = art.size * 0.5
+		if not instant:
+			rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
+			_breathe(art, i * 0.4)
+		FamilyDialog.digits(reward, "Number", Rect2(20, tile.y - 108, tile.x - 40, 80), "+%d" % prizes[i][1])
+	# The hit area holds the on-screen ButtonKit.PRIMARY plate with room to spare.
+	var action_box := Rect2(Vector2(208, 1340) * DrawPurchaseArt.SCALE + canvas.position,
+		Vector2(500, 186) * DrawPurchaseArt.SCALE)
+	var action := ShopSkin.product_button(p.content, "Confirm", action_box, p.close, "green")
+	_kit_action(action, "white_action_ok")
+	if not instant:
+		p.content.modulate.a = 0.0
+		p._appearance = p.create_tween()
+		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
+	# Both controls restore the board once, after the shared modal exit finishes.
+	p.closed.connect(on_ok)
 	return p
 
 static func new_friend(host: Control, species: String, reward: int, on_ok: Callable) -> Control:
-	var p := Modal.open(host, "popup.new_friend.title", [FRIEND, LINE, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.new_friend.title", [FRIEND, NAME_CAP * 1.3, ABILITY_H, REWARD_H], false,
+		FamilyDialog.PRIMARY.y, 0.0, _instant(host))
+	FamilyDialog.decorate(p)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host), 1.2)
-	UI.label(c, "bird.%s.name" % species, Rect2(220, ys[1] - 8.0, 640, LINE + 16.0), 56.0)
-	_reward(c, ys[2], reward)
-	p.actions([["green", "check", on_ok]])
+	FamilyDialog.halo(c, Rect2(540.0 - FRIEND * 0.5, ys[0], FRIEND, FRIEND), _instant(host))
+	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 30.0, ys[0] + 20.0, FRIEND - 60.0, FRIEND - 40.0), _instant(host), 1.2)
+	FamilyDialog.name_heading(c, "bird.%s.name" % species, ys[1], NAME_CAP * 1.3)
+	FamilyDialog.ability(c, species, EFFECT.get(species, ""), ys[2])
+	FamilyDialog.reward(c, Rect2(540.0 - REWARD_W * 0.5, ys[3], REWARD_W, REWARD_H), reward)
+	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
 static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
-	var p := Modal.open(host, "booster.%s.name" % BOOSTER_ID[booster], [ILLUS, LINE], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "booster.%s.name" % BOOSTER_ID[booster], [ILLUS, LINE], false, FamilyDialog.PRIMARY.y, 0.0, _instant(host))
+	FamilyDialog.decorate(p)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
 	var sparks := [Vector2(-0.78, -0.07), Vector2(0.78, -0.13), Vector2(-0.66, 0.57), Vector2(0.7, 0.55)]
 	for i in sparks.size():
 		var at: Vector2 = box.get_center() + sparks[i] * ILLUS * 0.5
-		_twinkle(UI.art(c, "sparkle", Rect2(at - Vector2(32, 32), Vector2(64, 64))), i * 0.35)
-	_breathe(_fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box, true), 0.0)
-	UI.label(c, "booster.%s.description" % BOOSTER_ID[booster], Rect2(172, ys[1], 736, LINE), CAPTION_CAP)
-	p.actions([["green", "check", on_ok]])
+		var sparkle := UI.art(c, "sparkle", Rect2(at - Vector2(32, 32), Vector2(64, 64)))
+		if not _instant(host):
+			_twinkle(sparkle, i * 0.35)
+	FamilyDialog.halo(c, box, _instant(host))
+	var picture := _fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box.grow(-40.0), true)
+	if not _instant(host):
+		_breathe(picture, 0.0)
+	# The shop's deep green painted caption of the booster.
+	ButtonKit.lettering(c, "cap_" + FamilyDialog.BOOSTER_LETTERING[BOOSTER_ID[booster]], Rect2(132, ys[1] + (LINE - 64) * 0.5, 816, 64))
+	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
 static func world_complete(host: Control, world: int, reward: int, on_ok: Callable) -> Control:
 	var arch_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
-	var p := Modal.open(host, "popup.world_complete.title", [STAR_ROW, arch_h, REWARD_H], false, UI.PRIMARY, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.world_complete.title", [arch_h, FamilyDialog.STAR_ROW, REWARD_H], false, FamilyDialog.PRIMARY.y, 0.0, _instant(host))
+	FamilyDialog.decorate(p)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var live := not _instant(host)
-	_big_stars(c, ys[0], 3, live, 0.5)
-	var arch := Rect2(540.0 - GATE_W * 0.5, ys[1], GATE_W, arch_h)
+	FamilyDialog.stars(c, ys[1], 3, live, 0.5)
+	var arch := Rect2(540.0 - GATE_W * 0.5, ys[0], GATE_W, arch_h)
 	UI.art(c, "gate_arch", arch, GATE_CONTENT)
 	for i in 3:
 		var cx: float = 540.0 + ARCH_BIRD_X[i] * GATE_W
@@ -550,16 +1205,17 @@ static func world_complete(host: Control, world: int, reward: int, on_ok: Callab
 			tw.tween_interval(1.6 + i * 0.9)
 			tw.tween_callback(bird.cheer)
 			tw.tween_interval(2.6)
-	_reward(c, ys[2], reward)
-	p.actions([["green", "check", on_ok]])
+	FamilyDialog.reward(c, Rect2(540.0 - REWARD_W * 0.5, ys[2], REWARD_W, REWARD_H), reward)
+	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
 static func world_unlock(host: Control, world: int, on_play: Callable) -> Control:
 	var gate_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
-	var p := Modal.open(host, "popup.world_unlock.title", [gate_h, LINE], false, UI.PLAY_SIZE.y, 0.0, _instant(host))
+	var p := Modal.open(host, "popup.world_unlock.title", [gate_h, NAME_CAP * 1.3], false, FamilyDialog.PRIMARY.y, 0.0, _instant(host))
+	FamilyDialog.decorate(p)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	# The light glow is taller than the arch, so the stage sits in a clip the size of the gate's row.
+	# Keep the door swing and scene inside the gate row, clear of the title and actions.
 	var clip := Control.new()
 	clip.name = "GateClip"
 	clip.clip_contents = true
@@ -575,15 +1231,18 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 	stage.position = Vector2(clip.size.x * 0.5 - GATE_CONTENT.get_center().x * k, -GATE_CONTENT.position.y * k)
 	clip.add_child(stage)
 	_canvas(stage, "gate_backdrop_w%d" % world)
-	var light := _canvas(stage, "gate_light")
+	# Reuse the soft halo wholly inside the doorway; the old tall light was cut into a rectangle by this clip.
+	var light := UI.art(stage, "glow_soft", Rect2(230, 240, 560, 610))
+	light.modulate = Color(1.0, 0.86, 0.42, 0.75)
 	_canvas(stage, "gate_arch")
 	var left := _canvas(stage, "gate_door_left")
 	var right := _canvas(stage, "gate_door_right")
 	left.pivot_offset.x = 234.0
 	right.pivot_offset.x = 790.0
-	var glow := light.create_tween().set_loops()
-	glow.tween_property(light, "modulate:a", 0.35, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	glow.tween_property(light, "modulate:a", 0.9, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if not _instant(host):
+		var glow := light.create_tween().set_loops()
+		glow.tween_property(light, "modulate:a", 0.35, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		glow.tween_property(light, "modulate:a", 0.9, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	var open := func(t: float):
 		left.scale.x = lerpf(1.0, 0.85, t)
 		left.position.x = lerpf(0.0, -247.0, t)
@@ -596,8 +1255,8 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 		var tw := p.create_tween()
 		tw.tween_interval(0.5)
 		tw.tween_method(open, 0.0, 1.0, 1.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	UI.label(c, "world.%s.name" % WORLD_ID[world], Rect2(172, ys[1] - 4.0, 736, LINE + 8.0), 52.0)
-	p.actions([["green", "play", on_play]])
+	FamilyDialog.name_heading(c, "world.%s.name" % WORLD_ID[world], ys[1], NAME_CAP * 1.3)
+	FamilyDialog.actions(p, [["green", "play", on_play]])
 	return p
 
 
@@ -605,7 +1264,7 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 
 ## Three big stars, the middle one larger and raised; earned ones pop in one after another with a sound.
 static func _big_stars(c: Control, y: float, filled: int, animate: bool, delay: float) -> void:
-	var specs := [[-200.0, STAR_SIDE, 40.0], [0.0, STAR_MID, 0.0], [200.0, STAR_SIDE, 40.0]]
+	var specs := [[-STAR_SPREAD, STAR_SIDE, 50.0], [0.0, STAR_MID, 0.0], [STAR_SPREAD, STAR_SIDE, 50.0]]
 	for i in 3:
 		var s: Array = specs[i]
 		var center := Vector2(540.0 + s[0], y + s[2] + s[1] * 0.5)
@@ -624,27 +1283,20 @@ static func _big_stars(c: Control, y: float, filled: int, animate: bool, delay: 
 
 ## Ink icon and number centred on one line; returns the number box.
 static func _icon_line(c: Control, y: float, icon: String, text: String) -> Control:
-	var cap := 52.0
+	var cap := LINE_CAP
 	var num_w := UI.number_width(text, cap)
-	var w := 56.0 + 16.0 + num_w
+	var w := 80.0 + 20.0 + num_w
 	var x := 540.0 - w * 0.5
-	UI.icon(c, icon, Vector2(x + 28.0, y + LINE * 0.5), 56.0, UI.INK)
-	return UI.number(c, text, Rect2(x + 72.0, y + (LINE - cap) * 0.5, num_w, cap), UI.INK, -1)
+	UI.icon(c, icon, Vector2(x + 40.0, y + LINE * 0.5), 80.0, UI.INK)
+	return UI.number(c, text, Rect2(x + 100.0, y + (LINE - cap) * 0.5, num_w, cap), UI.INK, -1)
 
-## Blue reward pill with a coin and "+N" in white; returns [number box, coin centre].
+## Gold reward bar (the feather coin on a gold face, like the shop prices) with "+N" in dark ink; returns
+## [number box, coin centre].
 static func _reward(c: Control, y: float, amount: int) -> Array:
-	var text := "+%d" % amount
-	var cap := 52.0
-	var num_w := UI.number_width(text, cap)
-	var w := 16.0 + 72.0 + 16.0 + num_w + 40.0
-	var pill := UI.shape(c, Rect2(540.0 - w * 0.5, y, w, REWARD_H), "blue", REWARD_H * 0.5, 8.0)
-	pill.name = "Reward"
-	var coin := Rect2(pill.position.x + 16.0, y + 8.0, 72.0, 72.0)
-	UI.art(c, "coin", coin)
-	var box := UI.number(c, text, Rect2(coin.end.x + 16.0, y + (REWARD_H - 8.0 - cap) * 0.5, num_w, cap), Color.WHITE, -1)
-	return [box, coin.get_center()]
+	var bar := Island.reward_bar(c, Rect2(540.0 - REWARD_W * 0.5, y, REWARD_W, REWARD_H), "+%d" % amount)
+	return [bar.get_node("Number"), bar.position + Vector2(bar.size.y * 0.5, bar.size.y * 0.5)]
 
-## The win's booster drops, one picture per kind with a green "+N" badge; live, each pops in after `delay`.
+## Booster drops keep plain painted "+N" quantities beside each picture, without a glossy badge or halo.
 static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: float) -> void:
 	var kinds := []
 	var counts := {}
@@ -663,9 +1315,9 @@ static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: flo
 		holder.pivot_offset = holder.size * 0.5
 		c.add_child(holder)
 		_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[kinds[i]], Rect2(Vector2.ZERO, holder.size), true)
-		var text := "+%d" % counts[kinds[i]]
-		var badge := UI.shape(holder, Rect2(DROP_SIDE - 64.0, -6.0, 80.0, 60.0), "green", 30.0, 5.0)
-		UI.number(badge, text, Rect2(12, 12, 56, 32), Color.WHITE)
+		# Unboxed painted numerals (ButtonKit: white, dark-green outline) on the item's lower right.
+		var quantity := _win_digits(holder, "Quantity", Rect2(DROP_SIDE - 64.0, DROP_SIDE - 60.0, 100, 56))
+		_win_set(quantity, "+%d" % counts[kinds[i]])
 		if live:
 			holder.scale = Vector2.ZERO
 			var tw := holder.create_tween()
@@ -677,42 +1329,48 @@ static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: flo
 ## Ability badge and caption of a species, centred on one line.
 static func _ability_line(c: Control, species: String, y: float) -> void:
 	var label_id := "bird.%s.ability" % species
-	var badge := 72.0
+	var row := Rect2(540.0 - ROW_W * 0.5, y, ROW_W, ABILITY_H)
+	Island.nine(c, "island_row_card_soft", row, Vector4(40, 40, 40, 40))
+	var badge := 84.0
 	var has_badge := EFFECT.has(species)
-	var lead := (badge + 24.0) if has_badge else 0.0
-	var label_w := minf(UI.label_width(label_id, CAPTION_CAP), 736.0 - lead)
+	var lead := (badge + 20.0) if has_badge else 0.0
+	var label_w := minf(UI.label_width(label_id, CAPTION_CAP), ROW_W - 80.0 - lead)
 	var w := label_w + lead
 	var x := 540.0 - w * 0.5
 	if has_badge:
-		UI.art(c, "gift_coin_" + EFFECT[species], Rect2(x, y + (LINE - badge) * 0.5, badge, badge))
-	UI.label(c, label_id, Rect2(x + lead, y, label_w, LINE), CAPTION_CAP)
+		UI.art(c, "gift_coin_" + EFFECT[species], Rect2(x, y + (ABILITY_H - badge) * 0.5, badge, badge))
+	UI.label(c, label_id, Rect2(x + lead, y, label_w, ABILITY_H), CAPTION_CAP)
+
+const ROW_W := 816.0
+const ABILITY_H := 128.0
 
 ## Cream circle with a live bird and its ability badge at the lower right.
-static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
-	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
-	UI.shape(c, r, "cream", RING * 0.5, 8.0)
-	var inner := RING * 0.82
-	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
+static func _ring(c: Control, species: String, center: Vector2, instant: bool, side := RING, world := 1) -> void:
+	var r := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
+	UI.art(c, "hud_tool_slot", r)   # the game page's painted slot
+	var inner := side * 0.82
+	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0,
+		WorldBirds.look(species, world))
 	var effect: String = EFFECT.get(species, "")
 	if not effect.is_empty():
-		var b := RING * 0.42
+		var b := side * 0.42
 		UI.art(c, "gift_coin_" + effect, Rect2(r.end - Vector2(b, b) * 0.85, Vector2(b, b)))
 
-## Mechanics of the level as pictures in one cream pill, centred.
-static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> void:
-	var size := 64.0
-	var gap := 32.0
-	var w := 40.0 * 2.0 + mechanics.size() * size + (mechanics.size() - 1) * gap
-	var pill := Rect2(540.0 - w * 0.5, y, w, UI.COUNTER_H)
-	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0)
-	for i in mechanics.size():
-		var box := Rect2(pill.position.x + 40.0 + i * (size + gap), y + (UI.COUNTER_H - 8.0 - size) * 0.5, size, size)
-		var art: String = MECHANIC_ART[mechanics[i]]
-		var t := _fit(c, art, box, true)
-		if art.begins_with("icon_"):
-			t.modulate = UI.INK
-		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
-			_breathe(t, i * 0.7)
+
+## Soft warm glow behind a hero picture, slowly pulsing.
+static func _halo(c: Control, box: Rect2) -> void:
+	var glow := UI.image(c, "glow_soft", box.grow(box.size.x * 0.12))
+	glow.modulate = Color(1.0, 0.86, 0.42, 0.85)
+	glow.pivot_offset = glow.size * 0.5
+	var tw := glow.create_tween().set_loops()
+	tw.tween_property(glow, "modulate:a", 0.55, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(glow, "modulate:a", 0.9, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+## A gold painted name (bird, world) centred on its own line; falls back to the ink word when no heading exists.
+static func _name_heading(c: Control, id: String, y: float) -> void:
+	var h := NAME_CAP * 1.3
+	var w := minf(816.0, UI.heading_width(id, NAME_CAP))
+	UI.heading(c, id, Rect2(540.0 - w * 0.5, y + h * 0.5 - NAME_CAP, w, NAME_CAP * 2.0), NAME_CAP)
 
 
 # ---------------------------------------------------------------- motion
@@ -836,15 +1494,15 @@ static func _canvas(stage: Control, name: String) -> TextureRect:
 	return t
 
 ## Full BirdView (breathing plus idle actions) whose front frame fits the box, feet on the box bottom.
-static func _bird_view(c: Control, species: String, box: Rect2, instant: bool, cheer_delay: float) -> BirdView:
-	var used := UI.used_rect(species + "_front")
+static func _bird_view(c: Control, species: String, box: Rect2, instant: bool, cheer_delay: float, look := "") -> BirdView:
+	var used := UI.used_rect((look if not look.is_empty() else species) + "_front")
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
 	var feet := Vector2(box.get_center().x - (used.get_center().x - BirdView.CANVAS * 0.5) * k,
 		box.end.y - (used.end.y - BirdView.FEET_Y) * k)
 	var bird := BirdView.new()
 	c.add_child(bird)
 	bird.position = feet
-	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY)
+	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, look)
 	bird.quiet = instant
 	if cheer_delay > 0.0 and not instant:
 		var tw := bird.create_tween().set_loops()
@@ -864,7 +1522,10 @@ static func _chapter_profile() -> Profile:
 	return p
 
 static func preview(main: Control, state: String) -> void:
-	main.open_board(1, false)
+	if state.begins_with("lucky_draw"):
+		main.open_home()
+	else:
+		main.open_board(1, false)
 	main._clear_popups()
 	var host: Control = main.popups
 	var noop := func(): pass
@@ -884,7 +1545,6 @@ static func preview(main: Control, state: String) -> void:
 		"win_zero_reward": win(host, 3, 12, 12, 0, [], noop, noop, noop, true)
 		"settings_sound_on": settings(host, true, true, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, true)
 		"settings_muted": settings(host, false, false, {"music": noop1, "sound": noop1, "restart": noop, "home": noop, "help": noop}, false)
-		"document_privacy": document(host, "privacy")
 		"document_credits": document(host, "credits")
 		"level_card_first_visit": level_card(host, 1, 0, 0, 6, few, none, noop, true)
 		"level_card_full_roster": level_card(host, Levels.COUNT, 3, 28, 12, roster, mechanics, noop, true)
@@ -903,10 +1563,32 @@ static func preview(main: Control, state: String) -> void:
 			var won := lucky_draw(host, 3, 5, func(): return {"cell": 4, "coins": 200, "booster": -1, "count": 0})
 			host.get_tree().create_timer(0.3).timeout.connect(func(): (won.find_child("Draw", true, false) as Button).pressed.emit())
 		"lucky_draw_none": lucky_draw(host, 0, 5, func(): return {})
+		"lucky_draw_full": lucky_draw(host, Progress.DRAW_MAX_SPINS, Progress.DRAW_MAX_SPINS, func():
+			return {"cell": 5, "coins": 0, "booster": Board.Booster.FIREFLY, "count": 2})
+		"lucky_draw_reward_coins": rewards(host, "draw.title", 400, [], noop)
+		"lucky_draw_reward_boosters": rewards(host, "draw.title", 0, [Board.Booster.SAPLING, Board.Booster.SAPLING], noop)
+		"lucky_draw_reward_single": rewards(host, "draw.title", 0, [Board.Booster.MORNING_BELL], noop)
+		"lucky_draw_reward_mixed": rewards(host, "draw.title", 120, [Board.Booster.SAPLING, Board.Booster.SAPLING, Board.Booster.FIREFLY], noop)
 		"chapters": chapters(host, _chapter_profile(), noop1)
-		"chest_half": chest(host, 17, 0, noop, noop)
-		"chest_ready": chest(host, 31, 1, noop)
-		"rewards_chest": rewards(host, "chest.title", 150, [0, 3], noop)
+		"chest_empty": chest(host, 0, 0, noop, noop, 0)
+		"chest_half": chest(host, 17, 0, noop, noop, 1280)
+		"chest_ready": chest(host, Progress.CHEST_STARS, 1, func():
+			rewards(host, "chest.title", Progress.CHEST_COINS, [0, 3, 0], noop, "pic_chest_open", 1280 + Progress.CHEST_COINS),
+			noop, 1280)
+		"chest_multiple": chest(host, Progress.CHEST_STARS * 3 + 2, 3, func():
+			rewards(host, "chest.title", Progress.CHEST_COINS, [0, 2, 3], noop, "pic_chest_open", 99999), noop, 99999)
+		"rewards_daily": rewards(host, "daily_reward.title", 250, [0, 1], noop, "pic_calendar")
+		"rewards_daily_coins": rewards(host, "daily_reward.title", 120, [], noop, "pic_calendar")
+		"rewards_daily_all": rewards(host, "daily_reward.title", 500, [0, 1, 2, 3, 4, 5], noop, "pic_calendar")
+		"daily_reward": daily_reward(host, 3, true, 1280, func(): return {"day": 3, "coins": 120, "boosters": []})
+		"daily_reward_first": daily_reward(host, 1, true, 0, func(): return {"day": 1, "coins": 50, "boosters": []})
+		"daily_reward_week": daily_reward(host, 7, true, 2400, func(): return {"day": 7, "coins": 500, "boosters": [0, 1, 1]})
+		"daily_reward_claimed": daily_reward(host, 4, false, 1430, func(): return {})
+		"daily_reward_claim":
+			var page := daily_reward(host, 6, true, 1800, func(): return {"day": 6, "coins": 250, "boosters": [0, 2]})
+			host.get_tree().create_timer(0.5).timeout.connect(func(): (page.find_child("Claim", true, false) as Button).pressed.emit())
+		"rewards_chest": rewards(host, "chest.title", Progress.CHEST_COINS, [0, 3, 0], noop, "pic_chest_open", 1580)
+		"rewards_chest_distinct": rewards(host, "chest.title", Progress.CHEST_COINS, [0, 2, 3], noop, "pic_chest_open", 1580)
 		"new_friend_berry": new_friend(host, "berry", 25, noop)
 		"unlock_owl_eye": unlock(host, 2, noop)
 		"unlock_sapling": unlock(host, 1, noop)

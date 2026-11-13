@@ -258,7 +258,7 @@ Rules: boosters are used from the bottom bar; using one is an undoable action (r
 | Level win | 10 + 5 × stars (first clear); replays pay 5 |
 | Chorus | +5 per chain step beyond the first (on win) |
 | World complete (first time) | +200 |
-| Daily nest gift (first open each day) | 50 |
+| Daily reward (seven-day login calendar, `Progress.DAILY_REWARDS`) | 50, 80, 120, 150, 200, 250, 500 by streak day, plus 1, 1, 2 and 3 random boosters on days 2, 4, 6 and 7 |
 | New species met (Aviary card) | 20 |
 
 No ads and no real-money purchases in v5 (store account pending, T14). The design leaves room for a future coin pack but does not depend on it.
@@ -336,8 +336,6 @@ Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 8
 ## 12. Data and validation
 
 `levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. Level 1 stays as in §2 (missing fields default: world 1, variant noon, dayLength 0, kind normal). Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.
-
-A .NET console tool `tools/levels/LevelTool` (run on 251) compiles the Unity Core sources directly, so tool and game share one rule implementation, and validates every level: counts, solvable without boosters by exhaustive search, par = shortest solution, random-play win rate (1000 runs), dead-state share, the role gate (§11) and the ordering rule (§6.5). Core C# has a matching solver used by the Firefly hint and by EditMode tests that re-verify par for every level.
 
 ## 13. Development roadmap
 

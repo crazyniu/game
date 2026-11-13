@@ -83,11 +83,35 @@ func _check_meta() -> void:
 	check(Progress.booster_to_point_at(p, Levels.get_level(11)) == Board.Booster.MORNING_BELL, "fitting booster pointed at")
 	p.set_tutorial(Progress.used_flag(Board.Booster.MORNING_BELL))
 	check(Progress.booster_to_point_at(p, Levels.get_level(11)) == -1, "a used booster is not pointed at again")
-	# Check-in streak and star chest.
+	# Daily reward calendar, the login streak it keeps, and the draws that follow the streak.
+	var cal := Profile.new()
+	var cal_coins := 0
+	var cal_boosters := 0
+	for d in 7:
+		var date := "2026-02-%02d" % (d + 1)
+		check(Progress.daily_reward_available(cal, date) and Progress.daily_reward_day(cal, date) == d + 1,
+			"calendar day %d is waiting" % (d + 1))
+		var paid := Progress.claim_daily_reward(cal, date, rng)
+		check(paid["day"] == d + 1 and paid["coins"] == Progress.DAILY_REWARDS[d][0]
+			and paid["boosters"].size() == Progress.DAILY_REWARDS[d][1], "calendar day %d pays its prize" % (d + 1))
+		check(Progress.claim_daily_reward(cal, date, rng).is_empty() and not Progress.daily_reward_available(cal, date)
+			and Progress.daily_reward_day(cal, date) == d + 1, "calendar day %d pays once" % (d + 1))
+		cal_coins += paid["coins"]
+		cal_boosters += paid["boosters"].size()
+	check(cal.coins == cal_coins and Array(cal.inventory).reduce(func(a, b): return a + b, 0) == cal_boosters,
+		"calendar prizes land in coins and inventory")
+	for d in 6:
+		check(Progress.DAILY_REWARDS[d + 1][0] > Progress.DAILY_REWARDS[d][0], "each day in a row pays more coins")
+	check(Progress.daily_reward_day(cal, "2026-02-08") == 1, "the day after day 7 starts a new week")
+	check(Progress.daily_reward_day(cal, "2026-02-10") == 1, "a missed day restarts at day 1")
+	check(Profile.from_dict(cal.to_dict()).checkin_streak == 7, "the calendar day survives a save")
 	var spent := 0
 	while not Progress.draw(p, "2026-01-01", rng).is_empty():
 		spent += 1
 	check(spent == 1 and p.draws_left == 0 and not Progress.draws_available(p, "2026-01-01"), "one draw on the first day")
+	check(Progress.daily_reward_available(p, "2026-01-01"), "opening the draw does not claim the daily reward")
+	Progress.claim_daily_reward(p, "2026-01-01", rng)
+	Progress.claim_daily_reward(p, "2026-01-02", rng)
 	spent = 0
 	while not Progress.draw(p, "2026-01-02", rng).is_empty():
 		spent += 1
@@ -98,22 +122,10 @@ func _check_meta() -> void:
 	check(spent == 1, "the draws restart after a gap")
 	var day := Profile.from_dict(p.to_dict())
 	check(day.draws_date == "2026-01-05" and day.draws_left == 0, "draw state survives a save")
-	var daily_cleared := Profile.new()
-	daily_cleared.stars[2] = 3
-	check(int(Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Progress.highest_cleared(daily_cleared))["id"]) <= 2,
-		"the daily level is never past the last cleared level")
 	for level in range(1, 11):
 		p.stars[level] = 3
 	check(Progress.chests_ready(p) == 1 and not Progress.open_chest(p).is_empty() and Progress.chests_ready(p) == 0,
 		"star chest opens once per 30 stars")
-	# Daily challenge: the same authored level all day, solvable, paid once.
-	var day_a := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Levels.COUNT)
-	var day_b := Levels.daily_challenge(Progress.challenge_seed("2026-03-04"), Levels.COUNT)
-	check(not day_a.is_empty() and JSON.stringify(day_a) == JSON.stringify(day_b), "daily challenge is fixed per day")
-	var solved := Solver.solve(Levels.create_board(day_a), [], 200000, 20000)
-	check(solved["status"] == Solver.Status.SOLVED, "daily challenge solvable")
-	check(not Progress.complete_challenge(p, "2026-03-04").is_empty() and Progress.complete_challenge(p, "2026-03-04").is_empty(),
-		"daily challenge pays once a day")
 
 ## A position whose only moves shuffle two part-flocks back and forth: legal moves exist, but the hint search
 ## exhausts every reachable position and proves it unsolvable, which is what the board's stuck pointer uses.

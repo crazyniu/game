@@ -1,6 +1,7 @@
 extends Control
-## The level map: every level on a scrolling trail across the painted world maps, with a fixed top bar
-## (world title, coins) and the shop, aviary, settings and help buttons at the bottom.
+## Map (docs/design/map.md): ten equal world cards in a horizontal strip, and, when a card is opened, that
+## world's page: one connected tree with ten numbered branch landings. Level numbers restart at 1 in every
+## world; the global level id and the saves are unchanged. Words are painted labels, numbers painted glyphs.
 
 signal level_tapped(level: int)
 signal shop_requested
@@ -8,145 +9,113 @@ signal aviary_requested
 signal settings_requested
 signal help_requested
 signal home_requested
-signal chapters_requested
 signal gate_tapped(world: int)
 
-const SEGMENT := 1620.0
-const STRIDE := 1500.0
-const CONTENT_H := STRIDE * (Levels.WORLDS - 1) + SEGMENT
-const OVERLAP := SEGMENT - STRIDE   # each painting fades in over its top 120 px, over the world above it
-const FOCUS_RATIO := 0.58
-const TAP_SLOP := 14.0
-const WORLD_LABELS := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name", "world.blossom.name",
+const WORLD_NAMES := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name", "world.blossom.name",
 	"world.mushroom.name", "world.lakeside.name", "world.pine.name", "world.rainforest.name", "world.wisteria.name"]
-## Node centers per world (x, y within the world segment), levels 1..10: two or three on each switchback of the
-## painted trail (tools/map/sketch), in walking order from the bottom.
-const NODES := [
-	[[770, 1315], [290, 1321], [290, 1084], [770, 1099], [770, 881], [290, 866], [290, 663], [770, 650], [770, 450], [290, 448]],
-	[[250, 1129], [540, 1130], [830, 1115], [770, 882], [290, 875], [250, 637], [540, 638], [830, 620], [770, 407], [290, 402]],
-	[[250, 1127], [540, 1121], [830, 1120], [770, 896], [290, 895], [250, 689], [540, 666], [830, 652], [770, 456], [290, 447]],
-	[[250, 1133], [540, 1119], [830, 1101], [770, 910], [290, 895], [250, 697], [540, 680], [830, 658], [770, 483], [290, 462]],
-]
-## Which of the painted trail shapes above each world uses (the new forests repeat the first four trails).
-const TRAIL_OF_WORLD := [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
-## Layout (docs/design/ui-system.md, approved map style). All values in the 1080x1920 design space.
-const MARGIN := 48.0
-const NODE := 150.0              # cleared and locked nodes (painted gold disc, stars inside)
-const CURRENT := 196.0           # current node (painted glowing disc)
-const NODE_EDGE := 10.0
-const NODE_CAP := 54.0
-const CURRENT_CAP := 70.0
-const LOCK := 56.0
-const LOCK_COLOR := Color8(150, 110, 70)
-const LOCKED_DIM := Color(0.86, 0.84, 0.8, 1.0)   # opaque, a little greyed
-const STAR := 44.0
-const STAR_GAP := -6.0
-const STAR_DY := 31.0            # star row centre below the node centre, inside the disc
-const BIRD_FEET := 76.0          # the current bird stands this far above the node centre
-const BIRD_SCALE := 0.72         # BirdView scale (1.0 = 170 px canvas)
-const BOUNCE := 10.0
-const GATE_SIZE := Vector2(300, 262)
-const GATE_CENTER_X := 540.0     # astride the trail where it leaves the world at the top
-const GATE_CENTER_Y := 150.0     # between the last node of a world and the first of the next
-const GATE_PADLOCK := Vector2(0.5, 0.68)   # painted padlock on the closed gate, fraction of its visible box
-const GATE_LOCK := 112.0
-const TOP_Y := 56.0
-const TRAIL_VIEW := Rect2(0, 200, 1080, 1720)
-## A soft fade in the painting's own colour sits behind the fixed header.
-## WORLD_SHADE: each painting's mean grass colour beside the trail, darkened to 45 percent.
-const TOP_FADE := Rect2(0, 0, 1080, 200)
-const TOP_FADE_ALPHA := 0.62
-const BOTTOM_FADE := Rect2(0, 1660, 1080, 260)   # calms the trail under the bottom buttons
-const BOTTOM_FADE_ALPHA := 0.55
-const WORLD_SHADE := [Color8(59, 70, 16), Color8(53, 71, 33), Color8(80, 55, 13), Color8(65, 72, 63), Color8(85, 80, 48),
-	Color8(60, 66, 19), Color8(75, 76, 22), Color8(37, 66, 58), Color8(62, 68, 28), Color8(78, 66, 57)]
-## At either scroll end the bird and stars rest clear of the fixed controls.
-const TOP_CLEAR := 340.0
-const BOTTOM_CLEAR := 1644.0
-const CHIP := Vector2(260.0, 92.0)
-const CHIP_STACK := 16.0        # Current sits under Chapters, clear of the trail
-const NAV_Y := 1818.0
-const NAV_TILE := Vector2(176.0, 176.0)   # icon tiles, a little smaller than on the home page
-const NAV_GAP := 236.0
-## Extra scroll room above the last world and below the first (painted, see _overscroll_*), from TOP_CLEAR and
-## BOTTOM_CLEAR: the last level at y 402 with a bird up to 210 above its centre, level 1 at y 1321 + the strides below it with its
-## star row extending below the node centre.
-const TOP_PAD := TOP_CLEAR - (402.0 - 210.0)
-const BOTTOM_PAD := (1321.0 + STRIDE * (Levels.WORLDS - 1) + STAR_DY + STAR * 0.5) - BOTTOM_CLEAR - (CONTENT_H - 1920.0)
-## At either scroll end no node may sit under the bottom buttons: the end moves outward (extra painted room) to
-## the offset where nodes, their stars and the buttons overlap least (ideally not at all), at most END_SEARCH px.
-const NAV_COUNT := 3
-const NAV_CLEAR := 12.0          # free ring around each bottom button
-const END_SEARCH := 900.0
-## World sign: the current world's name on a hanging plank under the top bar, swapped when the view changes world.
-const SIGN := Rect2(290, 112, 500, 196)   # hanging world sign (ropes rise behind the top bar)
+## World page: ten painted level tiles in a 2 x 5 grid, in reading order (1 2 / 3 4 / ...), tile centres in design px.
+const GRID_X := [370.0, 710.0]
+const GRID_TOP := 486.0
+const GRID_PITCH := 306.0
+const TILE := 184.0
+const STAR_DROP := 8.0   # gap between a tile and its row of stars
+
+## Equal-sized forest cards; docs/design/map.md owns the horizontal layout.
+const BACK := Rect2(48, 48, 112, 112)
+const STRIP := Rect2(0, 300, 1080, 1096)
+const CARD := Vector2(626, 900)
+const CARD_TOP := 140.0                 # within the strip; the paintings start at screen y=440
+const CARD_GAP := 40.0
+const SIDE_MARGIN := (1080.0 - CARD.x) * 0.5
+const STRIDE := CARD.x + CARD_GAP
+const WINDOW := Rect2(24, 24, 578, 852)  # the painting fills the card inside its rim
+const WINDOW_RADIUS := 30.0
+const CARD_CLIP := preload("res://game/map_card_clip.gdshader")
+const PLAQUE := Vector2(520, 124)        # the light-green name banner over the card's lower part
+const PLAQUE_Y := 810.0                  # plank centre from the card top
+const PLAQUE_WORD := Rect2(0.16, 0.1, 0.68, 0.74)   # word area on the plank, shares of the plank box
+const BADGE := 140.0                     # the world number disc on the card's top edge
+const BADGE_Y := 12.0                    # badge centre below the card top
+const STAR_PROGRESS := Rect2(93, 620, 440, 96) # inside each painting, above its wooden name
+const PLAY := Rect2(220, 1424, 640, 216)  # one fixed action for the selected forest
+const TAP_SLOP := 18.0
+const SCROLL_STEP := 112.0
+const TREE_ORIGIN := Vector2(-12.96, 308.0)
+const TREE_SCALE := 1.08
+const TREE_SOURCE := Vector2(1024, 1536)
+const TREE_CONTENT := Rect2(33, 63, 958, 1420)
+const NODE := 380.0
+const NODE_CAP := 64.0
+const NODE_HIT_SIZE := Vector2(396, 298)
+const NODE_HIT_OFFSET := Vector2(198, 244)
+const PERCH_OFFSET := Vector2(0, -55.0 * TREE_SCALE)
+const STAR := 70.0
+const STAR_GAP := 6.0
+const BIRD_LIMIT := Vector2(250, 250)
+const BIRD_GEOMETRY_PATH := "res://layout/map_bird_geometry.json"
+static var _bird_geometry: Dictionary = {}
 
 var profile: Profile
 var current_level := 1
-var offset := 0.0
-
-var _paintings: Control
-var _clip: Control
+var _world := 1                          # requested or opened world (1..10)
+var _scroll_x := 0.0
+var _max_scroll := 0.0
+var _cards: Array = []
+var _strip: Control
 var _content: Control
-var _hud: Control
-var _coins: Panel
-var _title_world := 0
-var _sign: Control
-var _top_pad := TOP_PAD
-var _bottom_pad := BOTTOM_PAD
-var _top_fade: TextureRect
-var _bottom_fade: TextureRect
-var _hit_rects: Array = []   # [Rect2 in content space, kind, id]
-var _dragging := false
-var _drag_travel := 0.0
-var _velocity := 0.0
+var _page: Control
+var _bar: Control
+var _coins: FeatherBar
+var _scroll_tween: Tween
+var _pressed := false
+var _travel := 0.0
 var _bird: BirdView
+var _play_button: Button
 
 
 func setup(player: Profile) -> void:
+	if _scroll_tween != null:
+		_scroll_tween.kill()
 	profile = player
 	for child in get_children():
+		remove_child(child)
 		child.queue_free()
-	_hit_rects.clear()
+	_cards.clear()
+	_page = null
 	_bird = null
-	_dragging = false
-	_velocity = 0.0
+	_pressed = false
+	_travel = 0.0
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	var backdrop := UI.image(self, "background_map_forest", Rect2(0, 0, 1080, 1920))
+	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	current_level = Progress.resume_level(profile)
-	_fit_scroll_ends()
-	_build_content()
-	_build_hud()
-	scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO)
+	_world = Progress.world_of_level(current_level)
+	_build_strip()
+	_build_play()
+	_build_bar()
+	show_world(_world, true)
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_pressed = false
+		_travel = 0.0
 	if what == NOTIFICATION_TRANSLATION_CHANGED and is_node_ready() and profile != null:
-		var trail_offset := offset
-		setup(profile)
-		scroll_to(trail_offset)
+		_refresh_language.call_deferred()
 
-func _node_y(level: int) -> float:
-	return _node_pos(level).y
-
-func _node_pos(level: int) -> Vector2:
-	var world := Progress.world_of_level(level)
-	var p: Array = NODES[TRAIL_OF_WORLD[world - 1]][(level - 1) % Levels.PER_WORLD]
-	return Vector2(p[0], p[1] + (Levels.WORLDS - world) * STRIDE)
-
-func _gate_center(world: int) -> Vector2:
-	return Vector2(GATE_CENTER_X, GATE_CENTER_Y + (Levels.WORLDS - world) * STRIDE)
-
-## Scrolls so the world's gate sits near the middle of the screen.
-func show_gate(world: int) -> void:
-	scroll_to(_gate_center(world).y - size.y * 0.35)
-
-func scroll_to(value: float) -> void:
-	offset = clampf(value, -_top_pad, CONTENT_H - size.y + _bottom_pad)
-	_paintings.position.y = -offset
-	_content.position.y = -offset - TRAIL_VIEW.position.y
-	_update_title()
-	_update_fades()
+func _refresh_language() -> void:
+	if not is_inside_tree():
+		return
+	var keep := _world
+	var scroll := _scroll_x
+	var was_page := _page != null
+	setup(profile)
+	_world = keep
+	_refresh_selection()
+	_set_scroll(scroll)
+	if was_page:
+		open_world(keep)
 
 ## True while silent captures run: no tweens, birds hold still.
 func _instant() -> bool:
@@ -157,434 +126,392 @@ func _instant() -> bool:
 		n = n.get_parent()
 	return false
 
-func _build_content() -> void:
-	_paintings = Control.new()
-	_paintings.name = "WorldPaintings"
-	_paintings.size = Vector2(1080, CONTENT_H)
-	_paintings.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_paintings)
-	# Overscroll rooms continue the painting: its edge strip reflected, so no dark band shows behind the bar.
-	_overscroll_top()
-	_overscroll_bottom()
-	for world in range(Levels.WORLDS, 0, -1):   # lower worlds last: each top fade lies over the world above
-		var bg := UI.image(_paintings, "map_world_w%d" % world, Rect2(0, (Levels.WORLDS - world) * STRIDE, 1080, SEGMENT), false)
-		bg.name = "World %d" % world
-	_clip = Control.new()
-	_clip.name = "TrailViewport"
-	_clip.clip_contents = true
-	_clip.mouse_filter = Control.MOUSE_FILTER_STOP
-	UI.place(_clip, TRAIL_VIEW)
-	_clip.gui_input.connect(_on_trail_input)
-	add_child(_clip)
-	_content = Control.new()
-	_content.name = "Trail"
-	_content.size = Vector2(1080, CONTENT_H)
-	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_clip.add_child(_content)
-	for world in range(1, Levels.WORLDS):
-		_build_gate(world)
-	for level in range(1, Levels.COUNT + 1):
-		_build_node(level)
 
-func _build_gate(world: int) -> void:
-	var open := Progress.is_world_unlocked(profile, world + 1)
-	var c := _gate_center(world)
-	var rect := Rect2(c - GATE_SIZE * 0.5, GATE_SIZE)
-	var holder := Control.new()
-	holder.name = "Gate %d" % world
-	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_content.add_child(holder)
-	if open:
-		var box := _fitted("gate_arch_frame_w%d" % world, rect)
-		UI.art(holder, "gate_light_w%d" % world, Rect2(box.position + box.size * Vector2(0.2, 0.22), box.size * Vector2(0.6, 0.78)))
-		UI.art(holder, "gate_arch_frame_w%d" % world, rect)
-		var door := Vector2(box.size.x * 0.17, box.size.y * 0.5)
-		var left := UI.art(holder, "gate_door_left_w%d" % world, Rect2(box.position + Vector2(box.size.x * 0.155, box.size.y * 0.42), door))
-		var right := UI.art(holder, "gate_door_right_w%d" % world, Rect2(box.position + Vector2(box.size.x * 0.675, box.size.y * 0.42), door))
-		left.scale.x = 0.35
-		right.scale.x = 0.35
-		left.pivot_offset = Vector2(0.0, left.size.y * 0.5)
-		right.pivot_offset = Vector2(right.size.x, right.size.y * 0.5)
+# ---------------------------------------------------------------- bar (shared by carousel and world page)
+
+func _build_bar() -> void:
+	_bar = Control.new()
+	_bar.name = "Bar"
+	_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_bar.size = size
+	add_child(_bar)
+	_coins = ShopSkin.counter(_bar, profile)
+	MenuNavigation.back(_bar, "Home", BACK.position, _back)
+
+## Back arrow: from a world page to the cards, from the cards to the home page.
+func _back() -> void:
+	if _page != null:
+		close_world()
 	else:
-		UI.art(holder, "gate_arch_closed_w%d" % world, rect)
-		var box := _fitted("gate_arch_closed_w%d" % world, rect)
-		# The lock reads in the UI style: an ink lock on a cream circle over the painted padlock.
-		var at := box.position + box.size * GATE_PADLOCK
-		_circle(holder, at, GATE_LOCK, "cream")
-		UI.icon(holder, "lock", at + Vector2(0, -NODE_EDGE * 0.5), GATE_LOCK * 0.5, UI.INK)
-	_hit_rects.append([rect, "gate", world])
+		home_requested.emit()
 
-## Where UI.art puts the visible pixels of a sprite fitted into `bounds`.
-func _fitted(name: String, bounds: Rect2) -> Rect2:
-	var used := UI.used_rect(name)
-	var k := minf(bounds.size.x / used.size.x, bounds.size.y / used.size.y)
-	return Rect2(bounds.position + (bounds.size - used.size * k) * 0.5, used.size * k)
 
-## Painted level disc centred on `at` (its glow may reach outside `diameter`).
-func _disc(parent: Control, picture: String, at: Vector2, diameter: float) -> void:
-	UI.art(parent, picture, Rect2(at - Vector2.ONE * diameter * 0.5, Vector2.ONE * diameter)).name = "Node"
+# ---------------------------------------------------------------- horizontal forest strip
 
-## Round cream or coloured disc (same shape as the kit's buttons) centred on `at`.
-func _circle(parent: Control, at: Vector2, diameter: float, kind: String) -> Panel:
-	var p := UI.shape(parent, Rect2(at - Vector2.ONE * diameter * 0.5, Vector2.ONE * diameter), kind, diameter * 0.5, NODE_EDGE)
-	p.name = "Node"
-	return p
+func _world_stars(world: int) -> int:
+	var total := 0
+	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
+		total += profile.best_stars(level)
+	return total
+
+func _world_cleared(world: int) -> bool:
+	for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
+		if profile.best_stars(level) == 0:
+			return false
+	return true
+
+func _build_strip() -> void:
+	_strip = Control.new()
+	_strip.name = "WorldStrip"
+	_strip.clip_contents = true
+	_strip.mouse_filter = Control.MOUSE_FILTER_STOP
+	UI.place(_strip, STRIP)
+	_strip.gui_input.connect(_on_scroll_input)
+	add_child(_strip)
+	_content = Control.new()
+	_content.name = "Cards"
+	_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_content.size = Vector2(SIDE_MARGIN * 2.0 + Levels.WORLDS * STRIDE - CARD_GAP, STRIP.size.y)
+	_strip.add_child(_content)
+	_max_scroll = _content.size.x - STRIP.size.x
+	for world in range(1, Levels.WORLDS + 1):
+		_cards.append(_build_card(world))
+
+func _build_card(world: int) -> Control:
+	var open := Progress.is_world_unlocked(profile, world)
+	var card := Control.new()
+	card.name = "World_%d" % world
+	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.size = CARD
+	card.position = Vector2(SIDE_MARGIN + (world - 1) * STRIDE, CARD_TOP)
+	_content.add_child(card)
+	Island.nine(card, "island_grid_card", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60)).name = "Frame"
+	var chosen := Island.nine(card, "island_grid_card_selected", Rect2(Vector2.ZERO, CARD), Vector4(60, 60, 60, 60))
+	chosen.name = "Chosen"
+	var current := world == _world
+	chosen.visible = current
+	var window := Control.new()
+	window.name = "Window"
+	window.clip_contents = true
+	window.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(window, WINDOW)
+	card.add_child(window)
+	var scene := Art.tex("card_scene_w%d" % world)
+	var tall := WINDOW.size.x * scene.get_height() / scene.get_width()
+	var painting := UI.image(window, "card_scene_w%d" % world, Rect2(0, -(tall - WINDOW.size.y) * 0.5, WINDOW.size.x, tall), false)
+	painting.name = "Painting"
+	var mask := ShaderMaterial.new()
+	mask.shader = CARD_CLIP
+	mask.set_shader_parameter("window_size", WINDOW.size)
+	mask.set_shader_parameter("image_size", painting.size)
+	mask.set_shader_parameter("image_offset", painting.position)
+	mask.set_shader_parameter("radius", WINDOW_RADIUS)
+	painting.material = mask
+	_star_progress(card, world, STAR_PROGRESS)
+	var plaque := Rect2(Vector2(CARD.x * 0.5, PLAQUE_Y) - PLAQUE * 0.5, PLAQUE)
+	ButtonKit.banner(card, plaque).name = "Plaque"
+	var word := Rect2(plaque.position + plaque.size * PLAQUE_WORD.position, plaque.size * PLAQUE_WORD.size)
+	ButtonKit.lettering(card, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), word.grow_individual(10.0, 6.0, 10.0, 6.0)).name = "WorldName"
+	# Green marks the next playable forest; browsing never changes a card's size or status.
+	var at := Rect2(CARD.x * 0.5 - BADGE * 0.5, BADGE_Y - BADGE * 0.5, BADGE, BADGE)
+	var badge := UI.image(card, "world_medallion", at.grow(26.0), false)
+	badge.name = "WorldNumber"
+	var size := BADGE + 52.0
+	ButtonKit.number(badge, str(world), Rect2(size * 0.27, size * 0.28, size * 0.46, size * 0.42)).name = "Digits"
+	if not open:
+		window.modulate = Color(0.62, 0.62, 0.66)
+		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 60.0), Vector2(220, 220)).name = "Lock"
+	elif _world_cleared(world):
+		Island.check_badge(card, Vector2(CARD.x - 50.0, 50.0)).name = "Done"
+
+	return card
+
+## Fit the shared painted track and its overhanging star into the existing progress slot.
+func _star_progress(parent: Control, world: int, bounds: Rect2) -> void:
+	var stars := _world_stars(world)
+	var total := Levels.PER_WORLD * 3
+	# Build at the shared component's reference height so its nine-patch corners do not set the final size.
+	var height := 112.0
+	var star := height * 1.25
+	var fit := bounds.size.y / star
+	var inset := Vector2(star * 0.1, (star - height) * 0.5)
+	var track := Rect2(bounds.position + inset * fit, Vector2(bounds.size.x / fit - inset.x, height))
+	var progress := Island.progress_bar(parent, track, float(stars) / total, "%d/%d" % [stars, total])
+	progress.name = "Stars"
+	progress.pivot_offset = Vector2.ZERO
+	progress.scale = Vector2.ONE * fit
+
+## A single fixed action belongs to the selection, never to a carousel card.
+func _build_play() -> void:
+	_play_button = UI.art_button(self, "Play", "btn_map_play", PLAY, func(): _play(_world))
+	UI.art(_play_button, "label_home_island_play_" + UiText.locale(), Rect2(164, 40, 312, 120))
+
+func _refresh_selection() -> void:
+	for i in _cards.size():
+		var selected := i + 1 == _world
+		_cards[i].get_node("Chosen").visible = selected
+		_cards[i].get_node("WorldNumber").modulate = Color.WHITE if selected else Color(0.85, 0.85, 0.85)
+	if is_instance_valid(_play_button):
+		UI.set_active(_play_button, Progress.is_world_unlocked(profile, _world))
+
+func _play(world: int) -> void:
+	if _travel >= TAP_SLOP:
+		return
+	if Progress.is_world_unlocked(profile, world):
+		open_world(world)
+	else:
+		Sound.play("error")
+		gate_tapped.emit(world)
+
+func _set_scroll(value: float) -> void:
+	_scroll_x = clampf(value, 0.0, _max_scroll)
+	_content.position.x = -_scroll_x
+	if _pressed:
+		_world = clampi(roundi(_scroll_x / STRIDE) + 1, 1, Levels.WORLDS)
+		_refresh_selection()
+
+## Selection recentres equal cards while the sole Play action remains fixed.
+func show_world(world: int, instant := false) -> void:
+	_world = clampi(world, 1, Levels.WORLDS)
+	_refresh_selection()
+	if _scroll_tween != null:
+		_scroll_tween.kill()
+	var target := clampf((_world - 1) * STRIDE, 0.0, _max_scroll)
+	if instant or _instant():
+		_set_scroll(target)
+		return
+	_scroll_tween = create_tween()
+	_scroll_tween.tween_method(_set_scroll, _scroll_x, target, 0.3).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+## Reset before child buttons handle a press; release outside the strip cannot leave dragging stuck.
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_pressed = false
+		_travel = 0.0
+		if _scroll_tween != null:
+			_scroll_tween.kill()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		if _pressed and not _strip.get_global_rect().has_point(event.position):
+			_pressed = false
+			show_world(_world)
+
+func _on_scroll_input(event: InputEvent) -> void:
+	if _page != null:
+		return
+	if event is InputEventMouseButton:
+		var e := event as InputEventMouseButton
+		if e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_LEFT]:
+			show_world(_world - 1)
+		elif e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_DOWN, MOUSE_BUTTON_WHEEL_RIGHT]:
+			show_world(_world + 1)
+		elif e.button_index == MOUSE_BUTTON_LEFT:
+			if e.pressed:
+				_pressed = true
+			elif _pressed:
+				_pressed = false
+				if _travel < TAP_SLOP:
+					_tap(e.position + Vector2(_scroll_x, 0))
+				else:
+					show_world(_world)
+	elif event is InputEventMouseMotion and event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+		var m := event as InputEventMouseMotion
+		_travel += absf(m.relative.x)
+		if _travel >= TAP_SLOP:
+			_set_scroll(_scroll_x - m.relative.x)
+	elif event is InputEventPanGesture:
+		var delta: Vector2 = event.delta
+		_set_scroll(_scroll_x + (delta.x if absf(delta.x) >= absf(delta.y) else delta.y) * SCROLL_STEP)
+		_world = clampi(roundi(_scroll_x / STRIDE) + 1, 1, Levels.WORLDS)
+		_refresh_selection()
+
+func _tap(at: Vector2) -> void:
+	for i in _cards.size():
+		var card: Control = _cards[i]
+		var box := Rect2(card.position, CARD)
+		if not box.has_point(at):
+			continue
+		Sound.play("ui_tap")
+		show_world(i + 1)
+		return
+
+
+
+# ---------------------------------------------------------------- world page
+
+## A connected tree replaces the rejected road; Back restores the same approved world card.
+func open_world(world: int) -> void:
+	if _page != null:
+		_page.queue_free()
+	_world = world
+	_strip.visible = false
+	_play_button.visible = false
+	_page = Control.new()
+	_page.name = "WorldPage"
+	_page.mouse_filter = Control.MOUSE_FILTER_STOP
+	_page.size = size
+	add_child(_page)
+	move_child(_page, _bar.get_index())
+	ButtonKit.sign(_page, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), Rect2(240, 96, 600, 209)).name = "WorldName"
+	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
+	var w := UI.number_width(text, 44.0)
+	_star_progress(_page, world, Rect2(540.0 - (w + 140.0) * 0.5, 300.0, w + 140.0, 72.0))
+	for n in Levels.PER_WORLD:
+		_build_node((world - 1) * Levels.PER_WORLD + n + 1)
+	# Local sibling order keeps the current marker above locks without crossing modal layers.
+	var current := _page.get_node_or_null("Level %d" % current_level)
+	if current != null:
+		_page.move_child(current, _page.get_child_count() - 1)
+	if not _instant():
+		_page.modulate.a = 0.0
+		_page.create_tween().tween_property(_page, "modulate:a", 1.0, 0.2)
+
+func close_world() -> void:
+	if _page == null:
+		return
+	_page.queue_free()
+	_page = null
+	_bird = null
+	_strip.visible = true
+	_play_button.visible = true
+	show_world(_world, true)
+
+func _base_node_pos(level: int) -> Vector2:
+	var n := (level - 1) % Levels.PER_WORLD
+	return Vector2(GRID_X[n % 2], GRID_TOP + (n / 2) * GRID_PITCH)
+
+func _node_pos(level: int) -> Vector2:
+	return _base_node_pos(level)
+
+## The painted level tile.
+func _landing_bounds(center: Vector2) -> Rect2:
+	return Rect2(center - Vector2.ONE * TILE * 0.5, Vector2.ONE * TILE)
 
 func _build_node(level: int) -> void:
 	var state := Progress.node_state(profile, level)
 	var c := _node_pos(level)
+	var shown := (level - 1) % Levels.PER_WORLD + 1
 	var layer := Control.new()
 	layer.name = "Level %d" % level
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_content.add_child(layer)
-	var face := Vector2(c.x, c.y - NODE_EDGE * 0.5)   # optical centre of the face above the bottom edge
-	match state:
-		"locked":
-			_disc(layer, "map_node", c, NODE)
-			UI.icon(layer, "lock", face, LOCK, LOCK_COLOR)
-			layer.modulate = LOCKED_DIM
-			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2.ONE * NODE).grow(16), "level", level])
-		"cleared":
-			_disc(layer, "map_node", c, NODE)
-			_number(layer, level, face - Vector2(0, 24), NODE_CAP, UI.INK)
-			UI.rating_stars(layer, Vector2(c.x, c.y + STAR_DY), STAR, STAR_GAP, profile.best_stars(level))
-			_hit_rects.append([Rect2(c - Vector2.ONE * NODE * 0.5, Vector2.ONE * NODE).grow(16), "level", level])
-		"current":
-			_disc(layer, "map_node_current", c, CURRENT)
-			_number(layer, level, face - Vector2(0, 10), CURRENT_CAP, UI.INK)
-			var top := c.y - BIRD_FEET - BirdView.DISPLAY * BIRD_SCALE
-			_hit_rects.append([Rect2(c.x - CURRENT * 0.5, top, CURRENT, c.y + CURRENT * 0.5 - top).grow(16), "level", level])
-			if level == current_level:
-				_add_bird(layer, Vector2(c.x, c.y - BIRD_FEET), _level_species(level))
-			if not _instant():
-				_bounce(layer)
+	_page.add_child(layer)
+	if state == "current" and level == current_level:
+		var glow := UI.image(layer, "glow_soft", _landing_bounds(c).grow(TILE * 0.32))
+		glow.name = "Glow"
+		glow.modulate = Color(1.0, 0.92, 0.45, 0.9)
+	var landing := UI.image(layer, "level_tile_locked" if state == "locked" else "level_tile_open", _landing_bounds(c), false)
+	landing.name = "Node"
+	if state == "locked":
+		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.32, TILE * 0.2), Vector2(TILE * 0.64, TILE * 0.4))).modulate = Color(1, 1, 1, 0.55)
+		UI.art(layer, "island_padlock", Rect2(c + Vector2(TILE * 0.22, -TILE * 0.62), Vector2(64, 64))).name = "Lock"
+	else:
+		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.34, TILE * 0.25), Vector2(TILE * 0.68, TILE * 0.46))).name = "Number"
+	var perch := _bird_feet(c)
+	if state != "locked":
+		_node_stars(layer, perch, profile.best_stars(level) if state == "cleared" else 0)
+	if state == "current" and level == current_level:
+		var side := -1.0 if c.x < 540.0 else 1.0
+		_add_bird(layer, c + Vector2(side * (TILE * 0.5 + 100.0), TILE * 0.46), _level_species(level))
+	_hit(layer, c, level)
 
-func _number(layer: Control, level: int, center: Vector2, cap: float, color: Color) -> void:
-	var w := UI.number_width(str(level), cap) + 8.0
-	UI.number(layer, str(level), Rect2(center.x - w * 0.5, center.y - cap * 0.5, w, cap), color)
+## Feet, locks and rating stars share the measured branch plane.
+func _bird_feet(center: Vector2) -> Vector2:
+	return center + Vector2(0, TILE * 0.5 + STAR_DROP + STAR)
 
-## A gentle hop of the current node (and the bird on it): up and back, then a rest.
-func _bounce(layer: Control) -> void:
-	var tw := layer.create_tween().set_loops()
-	tw.tween_property(layer, "position:y", -BOUNCE, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tw.tween_property(layer, "position:y", 0.0, 0.55).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-	tw.tween_interval(1.2)
+## Uniform visible width, natural aspect and a shared lower ink edge on the branch plane.
+func _star_bounds(perch: Vector2) -> Rect2:
+	var width := STAR * 3.0 + STAR_GAP * 2.0
+	return Rect2(perch - Vector2(width * 0.5, STAR), Vector2(width, STAR))
+
+func _node_stars(layer: Control, perch: Vector2, filled: int) -> void:
+	var bounds := _star_bounds(perch)
+	for index in 3:
+		var picture := "island_star_full" if index < filled else "island_star_empty"
+		var ink := UI.used_rect(picture)
+		var height := STAR * ink.size.y / ink.size.x
+		var at := Vector2(bounds.position.x + STAR * 0.5 + index * (STAR + STAR_GAP), bounds.end.y)
+		UI.art(layer, picture, Rect2(at - Vector2(STAR * 0.5, height), Vector2(STAR, height)), ink).name = "Star_%d" % index
+
+## Tight painted-ink widths centre both single and two-digit local level numbers.
+func _white_number(layer: Control, value: int, center: Vector2, cap: float) -> void:
+	var text := str(value)
+	var gap := cap * 0.08
+	var width := gap * (text.length() - 1)
+	for digit in text:
+		var ink := UI.used_rect(Island.DIGIT + digit)
+		width += ink.size.x / ink.size.y * cap
+	var group := Control.new()
+	group.name = "Number"
+	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(group, Rect2(center - Vector2(width, cap) * 0.5, Vector2(width, cap)))
+	layer.add_child(group)
+	var left := 0.0
+	for digit in text:
+		var key := Island.DIGIT + digit
+		var ink := UI.used_rect(key)
+		var w := ink.size.x / ink.size.y * cap
+		UI.art(group, key, Rect2(left, 0, w, cap), ink)
+		left += w + gap
+
+## Includes the full animated bird, landing and rating; adjacent tiers remain disjoint.
+func _hit_bounds(center: Vector2) -> Rect2:
+	return Rect2(center - Vector2(TILE * 0.5 + 20.0, TILE * 0.5 + 20.0), Vector2(TILE + 40.0, TILE + STAR_DROP + STAR + 30.0))
+
+func _hit(layer: Control, center: Vector2, level: int) -> void:
+	var button := UI.hit_area(layer, _hit_bounds(center),
+		func(): level_tapped.emit(level))
+	button.name = "Tap"
+	button.disabled = Progress.node_state(profile, level) == "locked"
 
 ## The first bird species of the level, so the node shows who the player is about to meet.
 func _level_species(level: int) -> String:
 	var ids := Levels.species_ids(Levels.create_board(Levels.get_level(level)))
 	return ids[0] if not ids.is_empty() else "sunny"
 
+func _bird_spec(species: String) -> Dictionary:
+	if _bird_geometry.is_empty():
+		_bird_geometry = JSON.parse_string(FileAccess.get_file_as_string(BIRD_GEOMETRY_PATH))["species"]
+	return _bird_geometry[species]
+
+func _bird_fit(species: String) -> float:
+	var bounds: Array = _bird_spec(species)["animation"]
+	return minf(BIRD_LIMIT.x / float(bounds[2]), BIRD_LIMIT.y / float(bounds[3]))
+
+func _bird_origin(feet: Vector2, species: String) -> Vector2:
+	var data: Array = _bird_spec(species)["front"]
+	var front := Rect2(data[0], data[1], data[2], data[3])
+	return feet - Vector2(front.get_center().x - BirdView.CANVAS * 0.5,
+		front.end.y - BirdView.FEET_Y) * _bird_fit(species)
+
 func _add_bird(layer: Control, feet: Vector2, species: String) -> void:
 	_bird = BirdView.new()
 	_bird.name = "Bird"
-	_bird.position = feet
+	_bird.position = _bird_origin(feet, species)
 	layer.add_child(_bird)
-	_bird.setup(Board.bird(0, Board.species_index(species), 0), false, BIRD_SCALE)
+	_bird.setup(Board.bird(0, Board.species_index(species), 0), false,
+		_bird_fit(species) * BirdView.CANVAS / BirdView.DISPLAY)
 	_bird.quiet = _instant()
 
-func _build_hud() -> void:
-	_hud = Control.new()
-	_hud.name = "HUD"
-	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_hud.size = size
-	add_child(_hud)
-	_top_fade = _fade(TOP_FADE, TOP_FADE_ALPHA, false)
-	_bottom_fade = _fade(BOTTOM_FADE, BOTTOM_FADE_ALPHA, true)
-	var coins := str(profile.coins)
-	_coins = UI.counter(_hud, Vector2(MARGIN + UI.SECONDARY + 24.0, TOP_Y), "coin", coins)
-	_coins.name = "Coins"
-	_title_world = 0
-	UI.button(_hud, "Home", Vector2(MARGIN + UI.SECONDARY * 0.5, TOP_Y + UI.COUNTER_H * 0.5), "cream", "back",
-		func(): home_requested.emit())
-	_chip("Chapters", "pic_map", "map.chapters", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 - CHIP.y * 0.5, CHIP.x, CHIP.y),
-		func(): chapters_requested.emit())
-	_chip("Current", "pic_moves", "map.current", Rect2(1080.0 - MARGIN - CHIP.x, TOP_Y + UI.COUNTER_H * 0.5 + CHIP.y * 0.5 + CHIP_STACK, CHIP.x, CHIP.y),
-		func(): scroll_to(_node_y(current_level) - size.y * FOCUS_RATIO))
-	# Four secondary buttons of one size, centred on the screen; help (how to play) is the cream one at the end.
-	var buttons := [["Shop", "home_icon_shop", shop_requested], ["Aviary", "home_icon_aviary", aviary_requested],
-		["Help", "home_icon_help", help_requested]]
-	for i in buttons.size():
-		var sig: Signal = buttons[i][2]
-		UI.icon_tile(_hud, buttons[i][0], buttons[i][1], Rect2(Vector2(_nav_x(i), NAV_Y) - NAV_TILE * 0.5, NAV_TILE), sig.emit)
-	_sign = Control.new()
-	_sign.name = "WorldSign"
-	_sign.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_sign.size = size
-	_hud.add_child(_sign)
-	_hud.move_child(_sign, _top_fade.get_index() + 1)   # ropes pass behind the top bar's counter and chips
 
-## Cream capsule with a picture and a word (Chapters, Current).
-func _chip(n: String, picture: String, label_id: String, r: Rect2, on_press: Callable) -> Button:
-	var b := Button.new()
-	b.name = n
-	b.focus_mode = Control.FOCUS_NONE
-	UI.place(b, r)
-	UI._skin_button(b, "capsule_plain", Rect2(Vector2.ZERO, r.size))
-	var content := Control.new()
-	content.name = "Content"
-	content.size = r.size
-	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	b.add_child(content)
-	var pic := r.size.y * 0.6
-	var cap := 36.0
-	var lw := minf(r.size.x - pic - 72.0, UI.label_width(label_id, cap))
-	var x := (r.size.x - (pic + 12.0 + lw)) * 0.5
-	UI.art(content, picture, Rect2(x, (r.size.y - 8.0 - pic) * 0.5, pic, pic))
-	UI.label(content, label_id, Rect2(x + pic + 12.0, (r.size.y - 8.0 - 48.0) * 0.5, lw, 48.0), cap)
-	b.pressed.connect(func():
-		Sound.play("ui_tap")
-		on_press.call())
-	_hud.add_child(b)
-	return b
+# ---------------------------------------------------------------- capture preview
 
-## Scrolls so the chapter's first level sits at the focus line.
-func show_world(world: int) -> void:
-	scroll_to(_node_y((world - 1) * Levels.PER_WORLD + 1) - size.y * FOCUS_RATIO)
-
-## The room above the last world: the painting's top rows made opaque (they fade in over the world before, and
-## nothing is above the last world), reflected upwards at the painting's top edge.
-func _overscroll_top() -> void:
-	var tex := Art.tex("map_world_w%d" % Levels.WORLDS)
-	var k := float(tex.get_height()) / SEGMENT
-	var h := ceilf(maxf(_top_pad, OVERLAP) * k)
-	var img := tex.get_image().get_region(Rect2i(0, 0, tex.get_width(), int(h)))
-	img.convert(Image.FORMAT_RGB8)
-	var opaque := ImageTexture.create_from_image(img)
-	_strip(opaque, Rect2(0, 0, tex.get_width(), _top_pad * k), Rect2(0, -_top_pad, 1080, _top_pad), true)
-	_strip(opaque, Rect2(0, 0, tex.get_width(), OVERLAP * k), Rect2(0, 0, 1080, OVERLAP), false)
-
-## The room below the first world: its bottom rows reflected downwards.
-func _overscroll_bottom() -> void:
-	var tex := Art.tex("map_world_w1")
-	var h := _bottom_pad * float(tex.get_height()) / SEGMENT
-	_strip(tex, Rect2(0, tex.get_height() - h, tex.get_width(), h), Rect2(0, CONTENT_H, 1080, _bottom_pad), true)
-
-func _strip(tex: Texture2D, region: Rect2, r: Rect2, flip: bool) -> void:
-	var atlas := AtlasTexture.new()
-	atlas.atlas = tex
-	atlas.region = region
-	var t := TextureRect.new()
-	t.name = "Overscroll"
-	t.texture = atlas
-	t.flip_v = flip
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_SCALE
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(t, r)
-	_paintings.add_child(t)
-
-## A white fade (eased, no hard edge) tinted per frame with the colour of the painting under it.
-func _fade(r: Rect2, alpha: float, from_bottom: bool) -> TextureRect:
-	var g := Gradient.new()
-	var ramp := [0.0, 0.3, 0.6, 0.85, 1.0]   # eased alpha from the clear edge to the screen edge
-	g.offsets = PackedFloat32Array([0.0, 0.25, 0.5, 0.75, 1.0])
-	var colors := PackedColorArray()
-	for i in ramp.size():
-		colors.append(Color(1, 1, 1, alpha * ramp[i if from_bottom else ramp.size() - 1 - i]))
-	g.colors = colors
-	var t := _gradient_rect(g, r)
-	t.name = "Fade"
-	_hud.add_child(t)
-	return t
-
-func _update_fades() -> void:
-	if _top_fade == null:
-		return
-	_top_fade.modulate = _paint_color(offset + TOP_FADE.get_center().y)
-	_bottom_fade.modulate = _paint_color(offset + BOTTOM_FADE.get_center().y)
-
-## Shade colour of the painting at a content y, blended smoothly across each seam between worlds.
-func _paint_color(y: float) -> Color:
-	var top := Levels.WORLDS - 1
-	var c: Color = WORLD_SHADE[top]
-	for k in range(1, Levels.WORLDS):
-		var seam := k * STRIDE + OVERLAP * 0.5
-		c = c.lerp(WORLD_SHADE[top - k], smoothstep(seam - 160.0, seam + 160.0, y))
-	return c
-
-func _gradient_rect(g: Gradient, r: Rect2) -> TextureRect:
-	var tex := GradientTexture2D.new()
-	tex.gradient = g
-	tex.fill_from = Vector2(0, 0)
-	tex.fill_to = Vector2(0, 1)
-	var t := TextureRect.new()
-	t.texture = tex
-	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	t.stretch_mode = TextureRect.STRETCH_SCALE
-	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(t, r)
-	return t
-
-## The world the view is in follows the trail node nearest to the upper third of the screen. Entering a world
-## (also the first map view of a run) shows its ribbon; silent captures show it only when a preview asks.
-func _update_title() -> void:
-	if _hud == null:
-		return
-	var probe := offset + size.y * 0.36
-	var best := 1
-	var best_d := INF
-	for level in range(1, Levels.COUNT + 1):
-		var d := absf(_node_y(level) - probe)
-		if d < best_d:
-			best_d = d
-			best = level
-	var world := Progress.world_of_level(best)
-	if world == _title_world:
-		return
-	_title_world = world
-	_build_sign(world)
-
-## The world's name on the painted hanging sign under the top bar; it stays while the view is in that world.
-func _build_sign(world: int) -> void:
-	if _sign == null:
-		return
-	for child in _sign.get_children():
-		child.queue_free()
-	var r := SIGN
-	UI.art(_sign, "map_sign", r)
-	# The words stay on the plank face, clear of its rim and the flowers on its corners.
-	var plank := Rect2(r.position.x + r.size.x * 0.2, r.position.y + r.size.y * 0.56, r.size.x * 0.6, r.size.y * 0.3)
-	var cap := 40.0
-	var w := minf(plank.size.x, UI.label_width(WORLD_LABELS[world - 1], cap))
-	UI.outline_to(UI.label(_sign, WORLD_LABELS[world - 1], Rect2(plank.get_center().x - w * 0.5, plank.position.y, w, plank.size.y), cap,
-		Color.WHITE), "orange")
-	if not _instant():
-		_sign.pivot_offset = Vector2(540.0, r.position.y)
-		_sign.rotation = 0.05
-		var tw := _sign.create_tween()
-		tw.tween_property(_sign, "rotation", 0.0, 0.6).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
-
-## Shows the world's hanging sign at once (captures and callers that announce a world).
-func show_world_ribbon(world: int) -> void:
-	_title_world = world
-	_build_sign(world)
-
-## ---------- scroll ends ----------
-
-func _nav_x(i: int) -> float:
-	return 540.0 + (i - (NAV_COUNT - 1) * 0.5) * NAV_GAP
-
-## How far (px) any node, its stars or the current bird reach into a bottom button's clear ring at scroll offset
-## `at`; 0 or less means every node is clear.
-func _nav_overlap(at: float) -> float:
-	var worst := -INF
-	for level in range(1, Levels.COUNT + 1):
-		var c := _node_pos(level) - Vector2(0.0, at)
-		if c.y < 1600.0 or c.y > 2100.0:
-			continue
-		var state := Progress.node_state(profile, level)
-		var radius := (CURRENT if state == "current" else NODE) * 0.5
-		var stars := Rect2()
-		if state == "cleared":
-			var row_w := STAR * 3.0 + STAR_GAP * 2.0
-			stars = Rect2(c.x - row_w * 0.5, c.y + STAR_DY - STAR * 0.5, row_w, STAR)
-		for i in NAV_COUNT:
-			var b := Vector2(_nav_x(i), NAV_Y)
-			var ring := NAV_TILE.y * 0.5 + NAV_CLEAR
-			worst = maxf(worst, radius + ring - c.distance_to(b))
-			if stars.has_area():
-				var near := Vector2(clampf(b.x, stars.position.x, stars.end.x), clampf(b.y, stars.position.y, stars.end.y))
-				worst = maxf(worst, ring - near.distance_to(b))
-	return worst
-
-## Moves each scroll end outward to the least-overlapping offset (the first fully clear one when there is one).
-func _fit_scroll_ends() -> void:
-	_top_pad = TOP_PAD
-	_bottom_pad = BOTTOM_PAD
-	var low := -TOP_PAD
-	var high := CONTENT_H - size.y + BOTTOM_PAD
-	_top_pad = TOP_PAD + _clear_distance(low, -1.0)
-	_bottom_pad = BOTTOM_PAD + _clear_distance(high, 1.0)
-
-func _clear_distance(from: float, direction: float) -> float:
-	var best := 0.0
-	var best_overlap := _nav_overlap(from)
-	var d := 2.0
-	while best_overlap > 0.0 and d <= END_SEARCH:
-		var overlap := _nav_overlap(from + direction * d)
-		if overlap < best_overlap - 0.5:
-			best_overlap = overlap
-			best = d
-		d += 2.0
-	return best
-
-func _process(delta: float) -> void:
-	if not _dragging and absf(_velocity) > 8.0:
-		scroll_to(offset + _velocity * delta)
-		_velocity *= pow(0.135, delta)
-		if offset <= -_top_pad or offset >= CONTENT_H - size.y + _bottom_pad:
-			_velocity = 0.0
-
-func _on_trail_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		var mb := event as InputEventMouseButton
-		if mb.button_index == MOUSE_BUTTON_WHEEL_UP and mb.pressed:
-			_velocity = 0.0
-			scroll_to(offset - 220.0)
-		elif mb.button_index == MOUSE_BUTTON_WHEEL_DOWN and mb.pressed:
-			_velocity = 0.0
-			scroll_to(offset + 220.0)
-		elif mb.button_index == MOUSE_BUTTON_LEFT:
-			if mb.pressed:
-				_dragging = true
-				_drag_travel = 0.0
-				_velocity = 0.0
-			elif _dragging:
-				_dragging = false
-				if _drag_travel < TAP_SLOP:
-					_tap(mb.position + TRAIL_VIEW.position)
-	elif event is InputEventMouseMotion and _dragging:
-		var mm := event as InputEventMouseMotion
-		_drag_travel += absf(mm.relative.y) + absf(mm.relative.x)
-		if _drag_travel >= TAP_SLOP:
-			scroll_to(offset - mm.relative.y)
-			_velocity = lerpf(_velocity, -mm.velocity.y, 0.5)
-
-func _tap(screen_pos: Vector2) -> void:
-	if not TRAIL_VIEW.has_point(screen_pos):
-		return
-	var p := screen_pos + Vector2(0, offset)
-	for hit in _hit_rects:
-		if (hit[0] as Rect2).has_point(p):
-			if hit[1] == "level" and Progress.node_state(profile, hit[2]) != "locked":
-				level_tapped.emit(hit[2])
-			elif hit[1] == "gate":
-				gate_tapped.emit(hit[2])
-			return
-
-## Fake data for captures. States: forest_trail, first_level, autumn_world, all_cleared, gate_locked,
-## top_end / bottom_end (both scroll ends, all cleared / first level) and world_ribbon (the autumn sign).
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()
 	var cleared := 0
+	p.coins = 1240
 	match state:
-		"forest_trail":
-			cleared = 7
-			p.coins = 1240
-		"autumn_world":
-			cleared = 20
-			p.coins = 1240
-		"all_cleared":
-			cleared = Levels.COUNT
-			p.coins = 1240
-		"gate_locked":
-			cleared = 9
-			p.coins = 1240
-		"top_end", "world_ribbon":
-			cleared = Levels.COUNT if state == "top_end" else 24
-			p.coins = 1240
+		"cards": cleared = 7
+		"cards_late": cleared = 34
+		"cards_all": cleared = Levels.COUNT
+		"cards_locked": cleared = 7
+		"world_page": cleared = 7
+		"world_page_late": cleared = 34
 	for level in range(1, cleared + 1):
 		p.stars[level] = [3, 3, 2, 3, 1][(level - 1) % 5]
 	p.highest_unlocked = mini(Levels.COUNT, cleared + 1)
 	var view: Control = load("res://game/map_view.gd").new()
 	main.set_screen(view)
 	view.setup(p)
-	if state == "gate_locked":
-		view.show_gate(1)
-	elif state == "top_end":
-		view.scroll_to(-INF)
-	elif state == "bottom_end":
-		view.scroll_to(INF)
-	elif state == "world_ribbon":
-		view.show_world_ribbon(3)
+	if state == "cards_locked":
+		view.show_world(2, true)
+	if state.begins_with("world_page"):
+		view.open_world(Progress.world_of_level(view.current_level))

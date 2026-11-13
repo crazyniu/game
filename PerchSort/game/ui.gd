@@ -1,6 +1,6 @@
 class_name UI
 extends RefCounted
-## UI builders (docs/design/ui-system.md). All rects are design pixels, origin top-left of the parent.
+## UI builders (docs/design/island-style.md). All rects are design pixels, origin top-left of the parent.
 
 const TextArt := preload("res://game/ui_text.gd")
 
@@ -65,7 +65,7 @@ static func hit_area(parent: Node, r: Rect2, on_press: Callable) -> Button:
 	parent.add_child(b)
 	return b
 
-## ---------- cartoon kit (docs/design/ui-system.md) ----------
+## ---------- cartoon kit (docs/design/island-style.md) ----------
 ## Shapes are flat rounded fills with a darker bottom edge and one soft shadow, drawn by code so every role has
 ## one exact size and look. Icons, words and numbers are painted white sprites tinted here.
 
@@ -73,19 +73,12 @@ const FILL := {"cream": Color8(255, 247, 232), "green": Color8(108, 194, 74), "o
 	"blue": Color8(93, 185, 238), "red": Color8(239, 85, 72)}
 const RIM := {"cream": Color8(233, 214, 176), "green": Color8(76, 150, 49), "orange": Color8(218, 122, 20),
 	"blue": Color8(60, 147, 201), "red": Color8(194, 58, 47)}
-const INK := Color8(90, 58, 30)
-## White words and numbers on coloured surfaces carry a dark outline of the surface's own hue.
-const TEXT_OUTLINE := {"green": Color8(34, 92, 18), "orange": Color8(128, 68, 8), "blue": Color8(20, 74, 140),
-	"red": Color8(130, 30, 26), "grey": Color8(72, 80, 90)}
-
-static func outline_to(node: Control, kind: String) -> void:
-	if node.material is ShaderMaterial and TEXT_OUTLINE.has(kind):
-		(node.material as ShaderMaterial).set_shader_parameter("outline_color", TEXT_OUTLINE[kind])
+const INK := Color8(20, 105, 123)        # ocean teal for readable text and symbols on cream
 const GOLD := Color8(255, 200, 61)
 const FADED := Color8(233, 214, 176)      # empty stars, locked marks on cream
 const PRIMARY := 160.0
 const SECONDARY := 128.0
-const PLAY_SIZE := Vector2(400.0, 144.0)   # at most 1.25 x the 128 secondary buttons
+const PLAY_SIZE := Vector2(430.0, 162.0)   # ButtonKit.PRIMARY; 1.25 x the popup secondary pills (Modal.SECONDARY_PILL)
 const COUNTER_H := 96.0
 const NUMBER_X := 100.0                  # a counter's number starts here, clear of its icon
 const BADGE := 56.0
@@ -191,13 +184,13 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 
 ## Painted full-colour pictures (tools/kit/pics, booster illustrations) that replace the white symbols wherever an
 ## icon sits on cream or on a scene. White symbols remain only on solid green and red fills (play, check, close).
-const PICTURES := {"star": "pic_star", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
+const PICTURES := {"star": "island_star_full", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
 	"back": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
 	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
-	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "booster_hint_illus", "sapling": "booster_sapling_illus",
-	"eye": "booster_owl_eye_illus", "bell": "booster_bell_illus", "scarecrow": "booster_scarecrow_illus",
-	"rain": "booster_rain_illus", "map": "pic_map", "calendar": "pic_calendar", "chest": "pic_chest", "daily": "pic_daily"}
+	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "island_icon_firefly", "sapling": "island_icon_sprout",
+	"eye": "island_icon_owl_eye", "bell": "island_icon_bell", "scarecrow": "island_icon_scarecrow",
+	"rain": "island_icon_rain", "map": "pic_map", "calendar": "pic_calendar", "chest": "pic_chest", "daily": "pic_daily"}
 
 ## The painted picture for an icon drawn in `color`, or "" when the white symbol stays (white on a solid fill).
 ## A faded star is the painted empty star.
@@ -205,7 +198,7 @@ static func picture_of(name: String, color: Color) -> String:
 	if not PICTURES.has(name) or (color.r > 0.99 and color.g > 0.99 and color.b > 0.99):
 		return ""
 	if name == "star" and color.is_equal_approx(FADED):
-		return "pic_star_empty"
+		return "island_star_empty"
 	return PICTURES[name]
 
 const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell", "sun", "moon"]
@@ -285,10 +278,38 @@ static func _skin_button(b: Button, piece: String, r: Rect2) -> void:
 	var empty := StyleBoxEmpty.new()
 	for state in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
 		b.add_theme_stylebox_override(state, empty)
-	var face := kit_piece(b, piece, r)
+	var face: Control = action_face(b, r) if piece.begins_with("pill_") else kit_piece(b, piece, r)
 	face.name = "Face"
-	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
-	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	b.button_down.connect(func(): face.modulate = PRESSED_TINT)
+	b.button_up.connect(func(): face.modulate = Color.WHITE)
+
+## One clean bright-green action skin. The wrapper leaves child coordinates unscaled.
+const BUTTON_MIN_RATIO := 1.9    # width / height of every button face: never squarer than this ...
+const BUTTON_MAX_RATIO := 4.6    # ... and never longer than this
+
+## The face rect of a button: its box with the width / height ratio held inside the shared limits, same centre.
+static func button_rect(rect: Rect2) -> Rect2:
+	var ratio := rect.size.x / maxf(rect.size.y, 1.0)
+	if ratio < BUTTON_MIN_RATIO:
+		var w := rect.size.y * BUTTON_MIN_RATIO
+		return Rect2(rect.position.x - (w - rect.size.x) * 0.5, rect.position.y, w, rect.size.y)
+	if ratio > BUTTON_MAX_RATIO:
+		var w := rect.size.y * BUTTON_MAX_RATIO
+		return Rect2(rect.position.x + (rect.size.x - w) * 0.5, rect.position.y, w, rect.size.y)
+	return rect
+
+static func action_face(parent: Node, rect: Rect2) -> Control:
+	rect = button_rect(rect)
+	var holder := Control.new()
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	place(holder, rect)
+	parent.add_child(holder)
+	var face := Island.nine(holder, "home_play_plate", Rect2(Vector2.ZERO, rect.size), Vector4(220, 100, 220, 100))
+	var k := minf(rect.size.y / face.texture.get_height(), rect.size.x / 442.0)
+	face.size = rect.size / k
+	face.pivot_offset = Vector2.ZERO
+	face.scale = Vector2.ONE * k
+	return holder
 
 ## Long painted pill button with a whole label in white (Play, Next, Buy, settings rows). `kind`: green, orange,
 ## blue, red or grey. Height 128 by default; the label fits inside the round ends.
@@ -304,8 +325,8 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.size = r.size
 	b.add_child(content)
-	cap = minf(cap if cap > 0.0 else 56.0, r.size.y * 0.40)   # words fill about two fifths of the button height (sketch)
-	var pad := r.size.y * 0.42
+	cap = r.size.y * 0.52   # every worded pill fills the same share of its height (island designs)
+	var pad := r.size.y * 0.32
 	var x := pad
 	var w := r.size.x - pad * 2.0
 	if not icon_name.is_empty():
@@ -316,7 +337,10 @@ static func pill(parent: Node, name: String, r: Rect2, kind: String, label_id: S
 	if not label_id.is_empty():
 		var lw := minf(w, label_width(label_id, cap))
 		var at := x + (w - lw) * (0.5 if icon_name.is_empty() else 0.0)
-		outline_to(label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE), kind)
+		var word := label(content, label_id, Rect2(at, r.size.y * 0.1, lw, r.size.y * 0.72), cap, Color.WHITE)
+		var paint := ShaderMaterial.new()
+		paint.shader = preload("res://game/chest_play_word.gdshader")
+		word.material = paint
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -332,7 +356,7 @@ static func badge(b: Control, count_text: String) -> Panel:
 	p.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	place(p, Rect2(c - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE))
 	b.add_child(p)
-	kit_piece(p, "badge", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (BADGE + 8.0)))
+	kit_piece(p, "disc_green", Rect2(Vector2.ONE * -4.0, Vector2.ONE * (BADGE + 8.0)))
 	number(p, count_text, Rect2(8, BADGE * 0.5 - 18.0, BADGE - 16, 30), Color.WHITE)
 	return p
 
@@ -390,8 +414,8 @@ static func art_button(parent: Node, n: String, picture: String, r: Rect2, on_pr
 	place(b, r)
 	var face := art(b, picture, Rect2(Vector2.ZERO, r.size))
 	face.name = "Face"
-	b.button_down.connect(func(): face.self_modulate = PRESSED_TINT)
-	b.button_up.connect(func(): face.self_modulate = Color.WHITE)
+	b.button_down.connect(func(): face.modulate = PRESSED_TINT)
+	b.button_up.connect(func(): face.modulate = Color.WHITE)
 	b.pressed.connect(func():
 		Sound.play("ui_tap")
 		on_press.call())
@@ -434,32 +458,13 @@ static func icon_tile(parent: Node, n: String, icon: String, r: Rect2, on_press:
 	return b
 
 ## Whole locale label fitted to its dedicated layout box.
-static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK, bend := 0.0) -> TextureRect:
-	return TextArt.label(parent, id, bounds, cap, color, false, bend)
+static func label(parent: Node, id: String, bounds: Rect2, cap: float, color := INK) -> TextureRect:
+	return TextArt.label(parent, id, bounds, cap, color, false)
 
 static func label_width(id: String, cap: float) -> float:
 	return TextArt.label_width(id, cap)
 
-## How far the ends of words of width `text_w` sit below their middle to follow the painted ribbon's arch
-## (the arch spans about 72 % of the ribbon's width and drops about 18 % of its height).
-static func ribbon_bend(text_w: float, ribbon_w: float, ribbon_h: float) -> float:
-	var reach := minf(1.0, text_w * 0.5 / (0.36 * ribbon_w))
-	return ribbon_h * 0.185 * reach * reach * 0.9
-
-## A page title on the painted ribbon, centred on `center`: the ribbon grows with the words.
-static func title_ribbon(parent: Node, id: String, center: Vector2, cap := 56.0, max_w := 560.0) -> Control:
-	var holder := Control.new()
-	holder.name = "TitleRibbon"
-	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	parent.add_child(holder)
-	var text_w := minf(label_width(id, cap), max_w - 230.0)
-	var w := clampf(text_w + 230.0, 400.0, max_w)
-	var h := 150.0
-	kit_piece(holder, "ribbon", Rect2(center.x - w * 0.5, center.y - h * 0.4, w, h))
-	outline_to(label(holder, id, Rect2(center.x - text_w * 0.5, center.y - 52.0, text_w, 104.0), cap, Color.WHITE, ribbon_bend(text_w, w, h)), "green")
-	return holder
-
-## Original white-and-brown heading treatment, baked as one shaped phrase.
+## A gold heading word.
 static func heading(parent: Node, id: String, bounds: Rect2, cap: float) -> TextureRect:
 	return TextArt.label(parent, id, bounds, cap, Color.WHITE, true)
 
@@ -489,7 +494,7 @@ static func rating_stars(parent: Node, center: Vector2, size: float, gap: float,
 	var out := []
 	for i in count:
 		var star := TextureRect.new()
-		star.texture = Art.tex("pic_star" if i < filled else "pic_star_empty")
+		star.texture = Art.tex("island_star_full" if i < filled else "island_star_empty")
 		star.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		star.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		star.mouse_filter = Control.MOUSE_FILTER_IGNORE

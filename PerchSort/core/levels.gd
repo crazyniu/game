@@ -123,22 +123,3 @@ static func species_ids(board: Board, include_crow := false) -> PackedStringArra
 			if (include_crow or name != "crow") and not out.has(name):
 				out.append(name)
 	return out
-
-## ---------- daily challenge ----------
-
-## The day's challenge: one authored level picked by `day_seed` from the easier ones the player has cleared
-## (the first `max_level` levels, par at most 12). No search and no dealing: the level is a copy of the source with
-## "challenge": true, so the same level shows all day and opening it is instant.
-static func daily_challenge(day_seed: int, max_level: int) -> Dictionary:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = day_seed
-	var pool := []
-	for level in all():
-		if int(level["id"]) <= maxi(1, max_level) and int(level.get("par", 0)) <= 12:
-			pool.append(level)
-	if pool.is_empty():
-		pool.append(all()[0])
-	var def: Dictionary = pool[rng.randi() % pool.size()].duplicate(true)
-	def["world"] = world_of(def)
-	def["challenge"] = true
-	return def

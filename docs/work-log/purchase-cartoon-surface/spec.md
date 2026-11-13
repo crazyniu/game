@@ -1,0 +1,9 @@
+# Purchase cartoon container
+
+The user's current direction includes all dark-green card dialogs, including purchases, in the bright cartoon material update. Reuse the unchanged approved `background_aviary_forest` image and the independently produced, self-reviewed Family panel through its frozen opt-in container contract. Do not integrate an unfinished or unreviewed material.
+
+Owned production scope is PurchaseDialog only. Its four consumers are Shop booster/nest confirmation, Aviary outfit confirmation and CoinShop Preview. Preserve the existing content/panel rectangle, title geometry and lettering, quantities and numeric amounts, lower Buy/Confirm, outside-frame Close, all hit regions and callbacks. Do not change Sunny detail/aviary_view, shared ShopSkin/Modal, accepted asset bytes or full-screen Draw presentation.
+
+Validation: import and focused tests; compare all 28 canonical purchase states in both languages with the recorded layout; all catalog titles, exact Close clearance/edge hits, Buy economics, quantity editing, balance preservation and numeric centering. Add explicit material identity and container-only geometry checks after the stable material contract arrives. Run the aggregate suite on final code. Inspect actual OpenGL images for saturated cartoon appearance, readable text and no clipping; preserve pre-existing desktop windows. No upload or remote publication.
+
+Material gate passed: Family owner and integration reviewer accepted the independent asset before this local opt-in. Frozen helper SHA256: 1be5467a0909e12a20397876d5eab27c3ccea5bc9cafb5cdcc3a8452b4e3096c. Frozen panel PNG SHA256: d85cfa3e55011589352a46cafdc15e31b57b93585458061459d4481e51155ddd. These four dependency files are owned and delivered by Family, not duplicated in the purchase patch. Actual GUI validation is still required; this gate does not imply user acceptance.

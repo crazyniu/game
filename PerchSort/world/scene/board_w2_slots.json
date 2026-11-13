@@ -110,6 +110,28 @@
    ],
    "perch": 1712.0,
    "tip": 519
+  },
+  {
+   "side": "L",
+   "row": 5,
+   "name": "board_w2_branch_L4",
+   "at": [
+    0,
+    1573
+   ],
+   "perch": 1629.0,
+   "tip": 537
+  },
+  {
+   "side": "R",
+   "row": 5,
+   "name": "board_w2_branch_R4",
+   "at": [
+    518,
+    1668
+   ],
+   "perch": 1712.0,
+   "tip": 519
   }
  ]
 }

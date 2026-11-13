@@ -1,0 +1,715 @@
+{
+ "gold": [
+  [
+   "coins.title",
+   "Coin Shop",
+   "金币商店"
+  ],
+  [
+   "coins.preview",
+   "Purchase Preview",
+   "模拟购买"
+  ],
+  [
+   "popup.win.title",
+   "Well done!",
+   "太棒了！"
+  ],
+  [
+   "popup.level.title",
+   "Level",
+   "关卡"
+  ],
+  [
+   "popup.new_friend.title",
+   "New Bird",
+   "新朋友"
+  ],
+  [
+   "popup.world_complete.title",
+   "Cleared!",
+   "通关！"
+  ],
+  [
+   "popup.world_unlock.title",
+   "Unlocked",
+   "已解锁"
+  ],
+  [
+   "popup.gift.title",
+   "Gift",
+   "礼物"
+  ],
+  [
+   "popup.daily_gift.title",
+   "Gift",
+   "礼物"
+  ],
+  [
+   "bird.sunny.name",
+   "Sunny",
+   "阳阳"
+  ],
+  [
+   "bird.sky.name",
+   "Skye",
+   "天天"
+  ],
+  [
+   "bird.berry.name",
+   "Berry",
+   "莓莓"
+  ],
+  [
+   "bird.mint.name",
+   "Minty",
+   "薄荷"
+  ],
+  [
+   "bird.cocoa.name",
+   "Cocoa",
+   "可可"
+  ],
+  [
+   "bird.snow.name",
+   "Flurry",
+   "雪球"
+  ],
+  [
+   "bird.ember.name",
+   "Ember",
+   "火火"
+  ],
+  [
+   "bird.crow.name",
+   "Rook",
+   "乌乌"
+  ],
+  [
+   "bird.ink.name",
+   "Inky",
+   "墨墨"
+  ],
+  [
+   "bird.hoot.name",
+   "Hoot",
+   "咕咕"
+  ],
+  [
+   "world.green.name",
+   "Green Forest",
+   "青青森林"
+  ],
+  [
+   "world.bamboo.name",
+   "Bamboo Forest",
+   "竹林"
+  ],
+  [
+   "world.autumn.name",
+   "Autumn Forest",
+   "秋日森林"
+  ],
+  [
+   "world.snow.name",
+   "Snow Forest",
+   "雪林"
+  ],
+  [
+   "world.blossom.name",
+   "Blossom Forest",
+   "樱花林"
+  ],
+  [
+   "world.mushroom.name",
+   "Mushroom Forest",
+   "蘑菇森林"
+  ],
+  [
+   "world.lakeside.name",
+   "Lakeside Forest",
+   "湖畔森林"
+  ],
+  [
+   "world.pine.name",
+   "Misty Pines",
+   "雾松林"
+  ],
+  [
+   "world.rainforest.name",
+   "Rainforest",
+   "雨林"
+  ],
+  [
+   "world.wisteria.name",
+   "Wisteria Forest",
+   "紫藤林"
+  ],
+  [
+   "outfit.sunny.1.name",
+   "Straw Hat",
+   "草帽"
+  ],
+  [
+   "outfit.sunny.2.name",
+   "Bow Tie",
+   "领结"
+  ],
+  [
+   "outfit.sunny.3.name",
+   "Crown",
+   "王冠"
+  ],
+  [
+   "outfit.sunny.4.name",
+   "Bee",
+   "小蜜蜂"
+  ],
+  [
+   "outfit.sunny.5.name",
+   "Sunflower",
+   "向日葵"
+  ],
+  [
+   "outfit.sky.1.name",
+   "Scarf",
+   "围巾"
+  ],
+  [
+   "outfit.sky.2.name",
+   "Goggles",
+   "护目镜"
+  ],
+  [
+   "outfit.sky.3.name",
+   "Top Hat",
+   "礼帽"
+  ],
+  [
+   "outfit.sky.4.name",
+   "Whale",
+   "鲸鱼"
+  ],
+  [
+   "outfit.sky.5.name",
+   "Captain",
+   "船长"
+  ],
+  [
+   "outfit.berry.1.name",
+   "Glasses",
+   "眼镜"
+  ],
+  [
+   "outfit.berry.2.name",
+   "Bow",
+   "蝴蝶结"
+  ],
+  [
+   "outfit.berry.3.name",
+   "Tiara",
+   "小皇冠"
+  ],
+  [
+   "outfit.berry.4.name",
+   "Berry Hood",
+   "莓果帽"
+  ],
+  [
+   "outfit.berry.5.name",
+   "Fairy",
+   "仙子"
+  ],
+  [
+   "outfit.mint.1.name",
+   "Flower",
+   "小花"
+  ],
+  [
+   "outfit.mint.2.name",
+   "Mushroom",
+   "蘑菇"
+  ],
+  [
+   "outfit.mint.3.name",
+   "Acorn",
+   "橡果"
+  ],
+  [
+   "outfit.mint.4.name",
+   "Frog",
+   "青蛙"
+  ],
+  [
+   "outfit.mint.5.name",
+   "Dino",
+   "恐龙"
+  ],
+  [
+   "outfit.cocoa.1.name",
+   "Beanie",
+   "毛线帽"
+  ],
+  [
+   "outfit.cocoa.2.name",
+   "Bow Tie",
+   "领结"
+  ],
+  [
+   "outfit.cocoa.3.name",
+   "Monocle",
+   "单片镜"
+  ],
+  [
+   "outfit.cocoa.4.name",
+   "Teddy",
+   "泰迪熊"
+  ],
+  [
+   "outfit.cocoa.5.name",
+   "Gingerbread",
+   "姜饼人"
+  ],
+  [
+   "outfit.snow.1.name",
+   "Earmuffs",
+   "耳罩"
+  ],
+  [
+   "outfit.snow.2.name",
+   "Snowflake",
+   "雪花"
+  ],
+  [
+   "outfit.snow.3.name",
+   "Ice Crown",
+   "冰冠"
+  ],
+  [
+   "outfit.snow.4.name",
+   "Bunny",
+   "兔兔"
+  ],
+  [
+   "outfit.snow.5.name",
+   "Ice Queen",
+   "冰雪女王"
+  ],
+  [
+   "outfit.ember.1.name",
+   "Bandana",
+   "头巾"
+  ],
+  [
+   "outfit.ember.2.name",
+   "Headband",
+   "发带"
+  ],
+  [
+   "outfit.ember.3.name",
+   "Helmet",
+   "头盔"
+  ],
+  [
+   "outfit.ember.4.name",
+   "Fox",
+   "狐狸"
+  ],
+  [
+   "outfit.ember.5.name",
+   "Dragon",
+   "飞龙"
+  ],
+  [
+   "outfit.ink.1.name",
+   "Nightcap",
+   "睡帽"
+  ],
+  [
+   "outfit.ink.2.name",
+   "Specs",
+   "眼镜"
+  ],
+  [
+   "outfit.ink.3.name",
+   "Star Hat",
+   "星星帽"
+  ],
+  [
+   "outfit.ink.4.name",
+   "Pirate",
+   "海盗"
+  ],
+  [
+   "outfit.ink.5.name",
+   "Ninja",
+   "忍者"
+  ],
+  [
+   "outfit.hoot.1.name",
+   "Grad Cap",
+   "学士帽"
+  ],
+  [
+   "outfit.hoot.2.name",
+   "Glasses",
+   "眼镜"
+  ],
+  [
+   "outfit.hoot.3.name",
+   "Wizard",
+   "魔法师"
+  ],
+  [
+   "outfit.hoot.4.name",
+   "Explorer",
+   "探险家"
+  ],
+  [
+   "outfit.hoot.5.name",
+   "Cowboy",
+   "牛仔"
+  ],
+  [
+   "tutorial.title",
+   "Guide",
+   "指南"
+  ],
+  [
+   "doc.terms.title",
+   "Terms",
+   "条款"
+  ],
+  [
+   "doc.credits.title",
+   "Credits",
+   "制作"
+  ],
+  [
+   "doc.contact.title",
+   "Contact",
+   "联系"
+  ],
+  [
+   "challenge.title",
+   "Daily",
+   "每日挑战"
+  ],
+  [
+   "map.chapters",
+   "Chapters",
+   "章节"
+  ],
+  [
+   "lesson.sleep.title",
+   "Sleepy",
+   "瞌睡鸟"
+  ],
+  [
+   "lesson.mama.title",
+   "Mama",
+   "鸟妈妈"
+  ],
+  [
+   "lesson.egg.title",
+   "Eggs",
+   "鸟蛋"
+  ],
+  [
+   "lesson.crow.title",
+   "Crows",
+   "乌鸦"
+  ],
+  [
+   "lesson.twig.title",
+   "Twigs",
+   "小细枝"
+  ],
+  [
+   "lesson.swivel.title",
+   "Swivel",
+   "转转枝"
+  ],
+  [
+   "lesson.growing.title",
+   "Growing",
+   "长大枝"
+  ],
+  [
+   "lesson.daynight.title",
+   "Night",
+   "黑夜"
+  ]
+ ],
+ "brown": [
+  [
+   "action.replay",
+   "Replay",
+   "重玩"
+  ],
+  [
+   "action.home",
+   "Home",
+   "主页"
+  ],
+  [
+   "settings.restart",
+   "Restart",
+   "重新开始"
+  ],
+  [
+   "settings.language_name",
+   "English",
+   "中文"
+  ],
+  [
+   "house.mushroom.name",
+   "Mushroom",
+   "蘑菇"
+  ],
+  [
+   "house.teapot.name",
+   "Teapot",
+   "茶壶"
+  ],
+  [
+   "house.lantern.name",
+   "Lantern",
+   "灯笼"
+  ],
+  [
+   "house.acorn.name",
+   "Acorn",
+   "橡果"
+  ],
+  [
+   "house.pumpkin.name",
+   "Pumpkin",
+   "南瓜"
+  ],
+  [
+   "house.beehive.name",
+   "Beehive",
+   "蜂巢"
+  ],
+  [
+   "house.teacup.name",
+   "Teacup",
+   "茶杯"
+  ],
+  [
+   "house.pinecone.name",
+   "Pinecone",
+   "松果"
+  ],
+  [
+   "house.cage.name",
+   "Cage",
+   "鸟笼"
+  ],
+  [
+   "action.back",
+   "Back",
+   "返回"
+  ],
+  [
+   "chapter.word",
+   "Chapter",
+   "章节"
+  ],
+  [
+   "chapter.levels",
+   "Levels",
+   "关卡"
+  ],
+  [
+   "board.night_falls",
+   "Night falls",
+   "夜幕降临"
+  ],
+  [
+   "board.day_breaks",
+   "Day breaks",
+   "天亮了"
+  ]
+ ],
+ "caption": [
+  [
+   "bird.sunny.ability",
+   "Wakes sleepers",
+   "唤醒睡着的鸟"
+  ],
+  [
+   "bird.sky.ability",
+   "Reveals eggs",
+   "揭开鸟蛋"
+  ],
+  [
+   "bird.berry.ability",
+   "One free move",
+   "免费走一步"
+  ],
+  [
+   "bird.mint.ability",
+   "Grows branches",
+   "让树枝长大"
+  ],
+  [
+   "bird.cocoa.ability",
+   "Sends crows away",
+   "赶走乌鸦"
+  ],
+  [
+   "bird.snow.ability",
+   "Land anywhere",
+   "可落在任何位置"
+  ],
+  [
+   "bird.ember.ability",
+   "Hatches every egg",
+   "孵化所有鸟蛋"
+  ],
+  [
+   "bird.ink.ability",
+   "Switches day and night",
+   "切换白天黑夜"
+  ],
+  [
+   "bird.hoot.ability",
+   "Moonlit moves",
+   "月光下的额外步数"
+  ],
+  [
+   "bird.crow.ability",
+   "Never goes home",
+   "从不回巢"
+  ],
+  [
+   "chest.line",
+   "Earn stars",
+   "赚取星星"
+  ],
+  [
+   "lesson.sleep.line",
+   "Land a match to wake it",
+   "落上同类就能叫醒它"
+  ],
+  [
+   "lesson.mama.line",
+   "Chicks follow their mama",
+   "小鸟会跟着妈妈"
+  ],
+  [
+   "lesson.egg.line",
+   "Uncover an egg to hatch it",
+   "揭开鸟蛋就会孵化"
+  ],
+  [
+   "lesson.crow.line",
+   "Crows never go home",
+   "乌鸦从不回家"
+  ],
+  [
+   "lesson.twig.line",
+   "A twig holds only two",
+   "细枝只能站两只"
+  ],
+  [
+   "lesson.swivel.line",
+   "Tap the knot to turn it",
+   "点圆结让它转向"
+  ],
+  [
+   "lesson.growing.line",
+   "Each flock home adds a seat",
+   "每回家一群就多一个位置"
+  ],
+  [
+   "lesson.daynight.line",
+   "Owls sleep until night falls",
+   "猫头鹰睡到天黑才醒"
+  ],
+  [
+   "tutorial.pick",
+   "Tap a branch to pick birds",
+   "点一根树枝选鸟"
+  ],
+  [
+   "tutorial.move.a",
+   "Tap a branch with room",
+   "点有空位的树枝"
+  ],
+  [
+   "tutorial.home.a",
+   "A full branch flies home",
+   "站满的树枝会飞回家"
+  ],
+  [
+   "tutorial.win.a",
+   "All home: you win!",
+   "全部回家，你赢了！"
+  ]
+ ],
+ "white": [
+  [
+   "action.ok",
+   "OK",
+   "好的"
+  ],
+  [
+   "action.next",
+   "Next",
+   "下一关"
+  ],
+  [
+   "action.got_it",
+   "OK",
+   "好的"
+  ],
+  [
+   "settings.home",
+   "Home",
+   "主页"
+  ],
+  [
+   "settings.language_name",
+   "English",
+   "中文"
+  ]
+ ],
+ "reuse": {
+  "gold.coins.title": "gold_coin_shop_title",
+  "gold.coins.preview": "gold_coin_purchase_preview",
+  "gold.shop.title": "title_shop",
+  "gold.aviary.title": "title_aviary",
+  "gold.popup.settings.title": "title_settings",
+  "gold.draw.title": "title_lucky_spin",
+  "gold.chest.title": "title_star_chest",
+  "gold.tab.outfits": "title_outfits",
+  "brown.settings.music": "row_music",
+  "brown.settings.sound": "row_sound",
+  "brown.settings.vibration": "row_vibration",
+  "brown.settings.language": "row_language",
+  "brown.tab.boosters": "tab_boosters",
+  "brown.tab.outfits": "tab_outfits",
+  "brown.tab.houses": "tab_nests",
+  "white.settings.help": "white_help",
+  "white.action.play": "white_play",
+  "white.draw.go": "white_spin",
+  "white.chest.open": "white_open",
+  "white.shop.buy": "white_buy",
+  "white.action.buy": "white_buy",
+  "gold.booster.firefly.name": "item_firefly",
+  "caption.booster.firefly.description": "cap_firefly",
+  "gold.booster.sapling.name": "item_sprout",
+  "caption.booster.sapling.description": "cap_sprout",
+  "gold.booster.owl_eye.name": "item_owl_eye",
+  "caption.booster.owl_eye.description": "cap_owl_eye",
+  "gold.booster.morning_bell.name": "item_wake_bell",
+  "caption.booster.morning_bell.description": "cap_wake_bell",
+  "gold.booster.scarecrow.name": "item_scarecrow",
+  "caption.booster.scarecrow.description": "cap_scarecrow",
+  "gold.booster.spring_rain.name": "item_spring_rain",
+  "caption.booster.spring_rain.description": "cap_spring_rain"
+ }
+}

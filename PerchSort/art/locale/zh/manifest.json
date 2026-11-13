@@ -1,1303 +1,2070 @@
 {
   "locale": "zh",
-  "labels": {
-    "hud.level": {
-      "text": "关卡",
-      "file": "label_hud_level.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "board.night_falls": {
-      "text": "夜幕降临",
-      "file": "label_board_night_falls.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "board.day_breaks": {
-      "text": "天亮了",
-      "file": "label_board_day_breaks.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.play": {
-      "text": "开始",
-      "file": "label_action_play.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.next": {
-      "text": "下一关",
-      "file": "label_action_next.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.back": {
-      "text": "返回",
-      "file": "label_action_back.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.replay": {
-      "text": "重玩",
-      "file": "label_action_replay.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.home": {
-      "text": "主页",
-      "file": "label_action_home.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.buy": {
-      "text": "购买",
-      "file": "label_action_buy.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "aviary.title": {
-      "text": "鸟舍",
-      "file": "label_aviary_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_aviary_title.png"
-    },
-    "bird.sunny.name": {
-      "text": "阳阳",
-      "file": "label_bird_sunny_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_sunny_name.png"
-    },
-    "bird.sky.name": {
-      "text": "天天",
-      "file": "label_bird_sky_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_sky_name.png"
-    },
-    "bird.berry.name": {
-      "text": "莓莓",
-      "file": "label_bird_berry_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_berry_name.png"
-    },
-    "bird.mint.name": {
-      "text": "薄荷",
-      "file": "label_bird_mint_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_mint_name.png"
-    },
-    "bird.cocoa.name": {
-      "text": "可可",
-      "file": "label_bird_cocoa_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_cocoa_name.png"
-    },
-    "bird.snow.name": {
-      "text": "雪球",
-      "file": "label_bird_snow_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_snow_name.png"
-    },
-    "bird.ember.name": {
-      "text": "火火",
-      "file": "label_bird_ember_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_ember_name.png"
-    },
-    "bird.crow.name": {
-      "text": "乌乌",
-      "file": "label_bird_crow_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_crow_name.png"
-    },
-    "bird.ink.name": {
-      "text": "墨墨",
-      "file": "label_bird_ink_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_ink_name.png"
-    },
-    "bird.hoot.name": {
-      "text": "咕咕",
-      "file": "label_bird_hoot_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_bird_hoot_name.png"
-    },
-    "shop.title": {
-      "text": "商店",
-      "file": "label_shop_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_shop_title.png"
-    },
-    "shop.buy": {
-      "text": "购买",
-      "file": "label_shop_buy.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "world.green.name": {
-      "text": "青青森林",
-      "file": "label_world_green_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_green_name.png"
-    },
-    "world.bamboo.name": {
-      "text": "竹林",
-      "file": "label_world_bamboo_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_bamboo_name.png"
-    },
-    "world.autumn.name": {
-      "text": "秋日森林",
-      "file": "label_world_autumn_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_autumn_name.png"
-    },
-    "world.snow.name": {
-      "text": "雪林",
-      "file": "label_world_snow_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_snow_name.png"
-    },
-    "world.blossom.name": {
-      "text": "樱花林",
-      "file": "label_world_blossom_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_blossom_name.png"
-    },
-    "world.mushroom.name": {
-      "text": "蘑菇森林",
-      "file": "label_world_mushroom_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_mushroom_name.png"
-    },
-    "world.lakeside.name": {
-      "text": "湖畔森林",
-      "file": "label_world_lakeside_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_lakeside_name.png"
-    },
-    "world.pine.name": {
-      "text": "雾松林",
-      "file": "label_world_pine_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_pine_name.png"
-    },
-    "world.rainforest.name": {
-      "text": "雨林",
-      "file": "label_world_rainforest_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_rainforest_name.png"
-    },
-    "world.wisteria.name": {
-      "text": "紫藤林",
-      "file": "label_world_wisteria_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160,
-      "heading_file": "heading_world_wisteria_name.png"
-    },
-    "bird.sunny.ability": {
-      "text": "唤醒睡着的鸟",
-      "file": "label_bird_sunny_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.sky.ability": {
-      "text": "揭开鸟蛋",
-      "file": "label_bird_sky_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.berry.ability": {
-      "text": "免费走一步",
-      "file": "label_bird_berry_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.mint.ability": {
-      "text": "让树枝长大",
-      "file": "label_bird_mint_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.cocoa.ability": {
-      "text": "赶走乌鸦",
-      "file": "label_bird_cocoa_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.snow.ability": {
-      "text": "可落在任何位置",
-      "file": "label_bird_snow_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.ember.ability": {
-      "text": "孵化所有鸟蛋",
-      "file": "label_bird_ember_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.ink.ability": {
-      "text": "切换白天黑夜",
-      "file": "label_bird_ink_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.hoot.ability": {
-      "text": "月光下的额外步数",
-      "file": "label_bird_hoot_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "bird.crow.ability": {
-      "text": "从不回巢",
-      "file": "label_bird_crow_ability.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.firefly.name": {
-      "text": "提示",
-      "file": "label_booster_firefly_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.firefly.description": {
-      "text": "指出一步好棋",
-      "file": "label_booster_firefly_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.sapling.name": {
-      "text": "树苗",
-      "file": "label_booster_sapling_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.sapling.description": {
-      "text": "增加一根树枝",
-      "file": "label_booster_sapling_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.owl_eye.name": {
-      "text": "偷看",
-      "file": "label_booster_owl_eye_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.owl_eye.description": {
-      "text": "看看蛋里是谁",
-      "file": "label_booster_owl_eye_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.morning_bell.name": {
-      "text": "铃铛",
-      "file": "label_booster_morning_bell_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.morning_bell.description": {
-      "text": "叫醒睡着的鸟",
-      "file": "label_booster_morning_bell_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.scarecrow.name": {
-      "text": "稻草人",
-      "file": "label_booster_scarecrow_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.scarecrow.description": {
-      "text": "赶走乌鸦",
-      "file": "label_booster_scarecrow_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.spring_rain.name": {
-      "text": "春雨",
-      "file": "label_booster_spring_rain_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "booster.spring_rain.description": {
-      "text": "让树枝长大",
-      "file": "label_booster_spring_rain_description.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.mushroom.name": {
-      "text": "蘑菇",
-      "file": "label_house_mushroom_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.teapot.name": {
-      "text": "茶壶",
-      "file": "label_house_teapot_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.lantern.name": {
-      "text": "灯笼",
-      "file": "label_house_lantern_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.acorn.name": {
-      "text": "橡果",
-      "file": "label_house_acorn_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.pumpkin.name": {
-      "text": "南瓜",
-      "file": "label_house_pumpkin_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.beehive.name": {
-      "text": "蜂巢",
-      "file": "label_house_beehive_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.teacup.name": {
-      "text": "茶杯",
-      "file": "label_house_teacup_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.pinecone.name": {
-      "text": "松果",
-      "file": "label_house_pinecone_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sunny.1.name": {
-      "text": "草帽",
-      "file": "label_outfit_sunny_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sunny.2.name": {
-      "text": "领结",
-      "file": "label_outfit_sunny_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sunny.3.name": {
-      "text": "王冠",
-      "file": "label_outfit_sunny_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sunny.4.name": {
-      "text": "小蜜蜂",
-      "file": "label_outfit_sunny_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sunny.5.name": {
-      "text": "向日葵",
-      "file": "label_outfit_sunny_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sky.1.name": {
-      "text": "围巾",
-      "file": "label_outfit_sky_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sky.2.name": {
-      "text": "护目镜",
-      "file": "label_outfit_sky_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sky.3.name": {
-      "text": "礼帽",
-      "file": "label_outfit_sky_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sky.4.name": {
-      "text": "鲸鱼",
-      "file": "label_outfit_sky_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.sky.5.name": {
-      "text": "船长",
-      "file": "label_outfit_sky_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.berry.1.name": {
-      "text": "眼镜",
-      "file": "label_outfit_berry_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.berry.2.name": {
-      "text": "蝴蝶结",
-      "file": "label_outfit_berry_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.berry.3.name": {
-      "text": "小皇冠",
-      "file": "label_outfit_berry_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.berry.4.name": {
-      "text": "莓果帽",
-      "file": "label_outfit_berry_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.berry.5.name": {
-      "text": "仙子",
-      "file": "label_outfit_berry_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.mint.1.name": {
-      "text": "小花",
-      "file": "label_outfit_mint_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.mint.2.name": {
-      "text": "蘑菇",
-      "file": "label_outfit_mint_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.mint.3.name": {
-      "text": "橡果",
-      "file": "label_outfit_mint_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.mint.4.name": {
-      "text": "青蛙",
-      "file": "label_outfit_mint_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.mint.5.name": {
-      "text": "恐龙",
-      "file": "label_outfit_mint_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.cocoa.1.name": {
-      "text": "毛线帽",
-      "file": "label_outfit_cocoa_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.cocoa.2.name": {
-      "text": "领结",
-      "file": "label_outfit_cocoa_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.cocoa.3.name": {
-      "text": "单片镜",
-      "file": "label_outfit_cocoa_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.cocoa.4.name": {
-      "text": "泰迪熊",
-      "file": "label_outfit_cocoa_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.cocoa.5.name": {
-      "text": "姜饼人",
-      "file": "label_outfit_cocoa_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.snow.1.name": {
-      "text": "耳罩",
-      "file": "label_outfit_snow_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.snow.2.name": {
-      "text": "雪花",
-      "file": "label_outfit_snow_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.snow.3.name": {
-      "text": "冰冠",
-      "file": "label_outfit_snow_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.snow.4.name": {
-      "text": "兔兔",
-      "file": "label_outfit_snow_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.snow.5.name": {
-      "text": "冰雪女王",
-      "file": "label_outfit_snow_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ember.1.name": {
-      "text": "头巾",
-      "file": "label_outfit_ember_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ember.2.name": {
-      "text": "发带",
-      "file": "label_outfit_ember_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ember.3.name": {
-      "text": "头盔",
-      "file": "label_outfit_ember_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ember.4.name": {
-      "text": "狐狸",
-      "file": "label_outfit_ember_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ember.5.name": {
-      "text": "飞龙",
-      "file": "label_outfit_ember_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ink.1.name": {
-      "text": "睡帽",
-      "file": "label_outfit_ink_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ink.2.name": {
-      "text": "眼镜",
-      "file": "label_outfit_ink_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ink.3.name": {
-      "text": "星星帽",
-      "file": "label_outfit_ink_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ink.4.name": {
-      "text": "海盗",
-      "file": "label_outfit_ink_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.ink.5.name": {
-      "text": "忍者",
-      "file": "label_outfit_ink_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.hoot.1.name": {
-      "text": "学士帽",
-      "file": "label_outfit_hoot_1_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.hoot.2.name": {
-      "text": "眼镜",
-      "file": "label_outfit_hoot_2_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.hoot.3.name": {
-      "text": "魔法师",
-      "file": "label_outfit_hoot_3_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.hoot.4.name": {
-      "text": "探险家",
-      "file": "label_outfit_hoot_4_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "outfit.hoot.5.name": {
-      "text": "牛仔",
-      "file": "label_outfit_hoot_5_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.win.title": {
-      "text": "太棒了！",
-      "file": "label_popup_win_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.settings.title": {
-      "text": "设置",
-      "file": "label_popup_settings_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.level.title": {
-      "text": "关卡",
-      "file": "label_popup_level_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.best": {
-      "text": "最佳",
-      "file": "label_popup_best.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.daily_gift.title": {
-      "text": "礼物",
-      "file": "label_popup_daily_gift_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.new_friend.title": {
-      "text": "新朋友",
-      "file": "label_popup_new_friend_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.world_complete.title": {
-      "text": "通关！",
-      "file": "label_popup_world_complete_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.world_unlock.title": {
-      "text": "已解锁",
-      "file": "label_popup_world_unlock_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.title": {
-      "text": "指南",
-      "file": "label_tutorial_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.pick": {
-      "text": "点一根树枝选鸟",
-      "file": "label_tutorial_pick.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.move.a": {
-      "text": "点有空位的树枝",
-      "file": "label_tutorial_move_a.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.home.a": {
-      "text": "站满的树枝会飞回家",
-      "file": "label_tutorial_home_a.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tutorial.win.a": {
-      "text": "全部回家，你赢了！",
-      "file": "label_tutorial_win_a.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.music": {
-      "text": "音乐",
-      "file": "label_settings_music.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.sound": {
-      "text": "音效",
-      "file": "label_settings_sound.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.restart": {
-      "text": "重新开始",
-      "file": "label_settings_restart.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.home": {
-      "text": "主页",
-      "file": "label_settings_home.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.help": {
-      "text": "帮助",
-      "file": "label_settings_help.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.privacy": {
-      "text": "隐私",
-      "file": "label_settings_privacy.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.terms": {
-      "text": "条款",
-      "file": "label_settings_terms.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.credits": {
-      "text": "制作",
-      "file": "label_settings_credits.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.contact": {
-      "text": "联系",
-      "file": "label_settings_contact.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "doc.privacy.title": {
-      "text": "隐私",
-      "file": "label_doc_privacy_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "doc.terms.title": {
-      "text": "条款",
-      "file": "label_doc_terms_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "doc.credits.title": {
-      "text": "制作",
-      "file": "label_doc_credits_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "doc.contact.title": {
-      "text": "联系",
-      "file": "label_doc_contact_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.map": {
-      "text": "地图",
-      "file": "label_home_map.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.shop": {
-      "text": "商店",
-      "file": "label_home_shop.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.aviary": {
-      "text": "鸟舍",
-      "file": "label_home_aviary.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.help": {
-      "text": "帮助",
-      "file": "label_home_help.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "popup.gift.title": {
-      "text": "礼物",
-      "file": "label_popup_gift_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "gift.line": {
-      "text": "试试看！",
-      "file": "label_gift_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "draw.title": {
-      "text": "幸运转盘",
-      "file": "label_draw_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "draw.go": {
-      "text": "转",
-      "file": "label_draw_go.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "chest.title": {
-      "text": "星星宝箱",
-      "file": "label_chest_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "chest.open": {
-      "text": "打开",
-      "file": "label_chest_open.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "chest.line": {
-      "text": "赚取星星",
-      "file": "label_chest_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.chest": {
-      "text": "宝箱",
-      "file": "label_home_chest.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.ok": {
-      "text": "好的",
-      "file": "label_action_ok.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.vibration": {
-      "text": "震动",
-      "file": "label_settings_vibration.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "action.got_it": {
-      "text": "好的",
-      "file": "label_action_got_it.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.sleep.title": {
-      "text": "瞌睡鸟",
-      "file": "label_lesson_sleep_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.sleep.line": {
-      "text": "落上同类就能叫醒它",
-      "file": "label_lesson_sleep_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.mama.title": {
-      "text": "鸟妈妈",
-      "file": "label_lesson_mama_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.mama.line": {
-      "text": "小鸟会跟着妈妈",
-      "file": "label_lesson_mama_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.egg.title": {
-      "text": "鸟蛋",
-      "file": "label_lesson_egg_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.egg.line": {
-      "text": "揭开鸟蛋就会孵化",
-      "file": "label_lesson_egg_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.crow.title": {
-      "text": "乌鸦",
-      "file": "label_lesson_crow_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.crow.line": {
-      "text": "乌鸦从不回家",
-      "file": "label_lesson_crow_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.twig.title": {
-      "text": "小细枝",
-      "file": "label_lesson_twig_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.twig.line": {
-      "text": "细枝只能站两只",
-      "file": "label_lesson_twig_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.swivel.title": {
-      "text": "转转枝",
-      "file": "label_lesson_swivel_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.swivel.line": {
-      "text": "点圆结让它转向",
-      "file": "label_lesson_swivel_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.growing.title": {
-      "text": "长大枝",
-      "file": "label_lesson_growing_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.growing.line": {
-      "text": "每回家一群就多一个位置",
-      "file": "label_lesson_growing_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.daynight.title": {
-      "text": "黑夜",
-      "file": "label_lesson_daynight_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "lesson.daynight.line": {
-      "text": "猫头鹰睡到天黑才醒",
-      "file": "label_lesson_daynight_line.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "challenge.title": {
-      "text": "每日挑战",
-      "file": "label_challenge_title.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "home.daily": {
-      "text": "每日挑战",
-      "file": "label_home_daily.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tab.boosters": {
-      "text": "道具",
-      "file": "label_tab_boosters.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tab.outfits": {
-      "text": "装扮",
-      "file": "label_tab_outfits.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "tab.houses": {
-      "text": "小屋",
-      "file": "label_tab_houses.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "map.chapters": {
-      "text": "章节",
-      "file": "label_map_chapters.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "map.current": {
-      "text": "当前",
-      "file": "label_map_current.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "chapter.word": {
-      "text": "章节",
-      "file": "label_chapter_word.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "chapter.levels": {
-      "text": "关卡",
-      "file": "label_chapter_levels.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "house.cage.name": {
-      "text": "鸟笼",
-      "file": "label_house_cage_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.language": {
-      "text": "语言",
-      "file": "label_settings_language.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    },
-    "settings.language_name": {
-      "text": "中文",
-      "file": "label_settings_language_name.png",
-      "cap": 128,
-      "line_height": 208,
-      "baseline": 160
-    }
-  },
   "numbers": {
     "cap": 128,
     "line_height": 128,
     "baseline": 126,
-    "advance": 118,
-    "advances": {
-      "0": 118,
-      "1": 118,
-      "2": 118,
-      "3": 118,
-      "4": 118,
-      "5": 118,
-      "6": 118,
-      "7": 118,
-      "8": 118,
-      "9": 118,
-      "/": 68,
-      "?": 95,
-      "+": 120,
-      "-": 91,
-      "x": 113,
-      "%": 176,
-      "∞": 120
+    "styles": {
+      "cream": {
+        "glyphs": {
+          "0": "number_cream_0.png",
+          "1": "number_cream_1.png",
+          "2": "number_cream_2.png",
+          "3": "number_cream_3.png",
+          "4": "number_cream_4.png",
+          "5": "number_cream_5.png",
+          "6": "number_cream_6.png",
+          "7": "number_cream_7.png",
+          "8": "number_cream_8.png",
+          "9": "number_cream_9.png",
+          "/": "number_cream_slash.png",
+          "+": "number_cream_plus.png",
+          "x": "number_cream_x.png",
+          "-": "number_cream_minus.png"
+        },
+        "advances": {
+          "0": 112,
+          "1": 86,
+          "2": 105,
+          "3": 105,
+          "4": 114,
+          "5": 109,
+          "6": 111,
+          "7": 105,
+          "8": 112,
+          "9": 110,
+          "/": 92,
+          "+": 110,
+          "x": 104,
+          "-": 109
+        }
+      },
+      "brown": {
+        "glyphs": {
+          "0": "number_brown_0.png",
+          "1": "number_brown_1.png",
+          "2": "number_brown_2.png",
+          "3": "number_brown_3.png",
+          "4": "number_brown_4.png",
+          "5": "number_brown_5.png",
+          "6": "number_brown_6.png",
+          "7": "number_brown_7.png",
+          "8": "number_brown_8.png",
+          "9": "number_brown_9.png",
+          "/": "number_brown_slash.png",
+          "+": "number_brown_plus.png",
+          "x": "number_brown_x.png",
+          "-": "number_brown_minus.png"
+        },
+        "advances": {
+          "0": 111,
+          "1": 79,
+          "2": 108,
+          "3": 107,
+          "4": 116,
+          "5": 108,
+          "6": 111,
+          "7": 109,
+          "8": 115,
+          "9": 110,
+          "/": 67,
+          "+": 84,
+          "x": 79,
+          "-": 80
+        }
+      },
+      "gold": {
+        "glyphs": {
+          "0": "number_gold_0.png",
+          "1": "number_gold_1.png",
+          "2": "number_gold_2.png",
+          "3": "number_gold_3.png",
+          "4": "number_gold_4.png",
+          "5": "number_gold_5.png",
+          "6": "number_gold_6.png",
+          "7": "number_gold_7.png",
+          "8": "number_gold_8.png",
+          "9": "number_gold_9.png",
+          "/": "number_gold_slash.png",
+          "+": "number_gold_plus.png",
+          "x": "number_gold_x.png",
+          "-": "number_gold_minus.png"
+        },
+        "advances": {
+          "0": 112,
+          "1": 92,
+          "2": 108,
+          "3": 106,
+          "4": 118,
+          "5": 108,
+          "6": 111,
+          "7": 106,
+          "8": 110,
+          "9": 113,
+          "/": 90,
+          "+": 100,
+          "x": 95,
+          "-": 94
+        }
+      }
+    }
+  },
+  "painted": {
+    "lettering_lucky_spin_title": {
+      "file": "island_words/lettering_lucky_spin_title.png"
     },
-    "glyphs": {
-      "0": "number_0.png",
-      "1": "number_1.png",
-      "2": "number_2.png",
-      "3": "number_3.png",
-      "4": "number_4.png",
-      "5": "number_5.png",
-      "6": "number_6.png",
-      "7": "number_7.png",
-      "8": "number_8.png",
-      "9": "number_9.png",
-      "/": "number_slash.png",
-      "?": "number_question.png",
-      "+": "number_plus.png",
-      "-": "number_minus.png",
-      "x": "number_x.png",
-      "%": "number_percent.png",
-      "∞": "number_infinity.png"
+    "lettering_star_chest_title": {
+      "file": "island_words/lettering_star_chest_title.png"
+    },
+    "lettering_lesson_crow_title": {
+      "file": "island_words/lettering_lesson_crow_title.png"
+    },
+    "lettering_lesson_daynight_title": {
+      "file": "island_words/lettering_lesson_daynight_title.png"
+    },
+    "lettering_lesson_egg_title": {
+      "file": "island_words/lettering_lesson_egg_title.png"
+    },
+    "lettering_lesson_growing_title": {
+      "file": "island_words/lettering_lesson_growing_title.png"
+    },
+    "lettering_lesson_mama_title": {
+      "file": "island_words/lettering_lesson_mama_title.png"
+    },
+    "lettering_lesson_sleep_title": {
+      "file": "island_words/lettering_lesson_sleep_title.png"
+    },
+    "lettering_lesson_swivel_title": {
+      "file": "island_words/lettering_lesson_swivel_title.png"
+    },
+    "lettering_lesson_twig_title": {
+      "file": "island_words/lettering_lesson_twig_title.png"
+    },
+    "lettering_popup_level_title": {
+      "file": "island_words/lettering_popup_level_title.png"
+    },
+    "lettering_popup_new_friend_title": {
+      "file": "island_words/lettering_popup_new_friend_title.png"
+    },
+    "lettering_popup_world_complete_title": {
+      "file": "island_words/lettering_popup_world_complete_title.png"
+    },
+    "lettering_popup_world_unlock_title": {
+      "file": "island_words/lettering_popup_world_unlock_title.png"
+    },
+    "lettering_tutorial_title": {
+      "file": "island_words/lettering_tutorial_title.png"
+    },
+    "cap_firefly": {
+      "file": "island_words/cap_firefly.png"
+    },
+    "cap_owl_eye": {
+      "file": "island_words/cap_owl_eye.png"
+    },
+    "cap_scarecrow": {
+      "file": "island_words/cap_scarecrow.png"
+    },
+    "cap_spring_rain": {
+      "file": "island_words/cap_spring_rain.png"
+    },
+    "cap_sprout": {
+      "file": "island_words/cap_sprout.png"
+    },
+    "cap_wake_bell": {
+      "file": "island_words/cap_wake_bell.png"
+    },
+    "item_firefly": {
+      "file": "island_words/item_firefly.png"
+    },
+    "item_owl_eye": {
+      "file": "island_words/item_owl_eye.png"
+    },
+    "item_scarecrow": {
+      "file": "island_words/item_scarecrow.png"
+    },
+    "item_spring_rain": {
+      "file": "island_words/item_spring_rain.png"
+    },
+    "item_sprout": {
+      "file": "island_words/item_sprout.png"
+    },
+    "item_wake_bell": {
+      "file": "island_words/item_wake_bell.png"
+    },
+    "lettering_win_title": {
+      "file": "island_words/lettering_win_title.png"
+    },
+    "lettering_world_autumn": {
+      "file": "island_words/lettering_world_autumn.png"
+    },
+    "lettering_world_bamboo": {
+      "file": "island_words/lettering_world_bamboo.png"
+    },
+    "lettering_world_blossom": {
+      "file": "island_words/lettering_world_blossom.png"
+    },
+    "lettering_world_green": {
+      "file": "island_words/lettering_world_green.png"
+    },
+    "lettering_world_lakeside": {
+      "file": "island_words/lettering_world_lakeside.png"
+    },
+    "lettering_world_mushroom": {
+      "file": "island_words/lettering_world_mushroom.png"
+    },
+    "lettering_world_pine": {
+      "file": "island_words/lettering_world_pine.png"
+    },
+    "lettering_world_rainforest": {
+      "file": "island_words/lettering_world_rainforest.png"
+    },
+    "lettering_world_snow": {
+      "file": "island_words/lettering_world_snow.png"
+    },
+    "lettering_world_wisteria": {
+      "file": "island_words/lettering_world_wisteria.png"
+    },
+    "row_language": {
+      "file": "island_words/row_language.png"
+    },
+    "row_music": {
+      "file": "island_words/row_music.png"
+    },
+    "row_sound": {
+      "file": "island_words/row_sound.png"
+    },
+    "row_vibration": {
+      "file": "island_words/row_vibration.png"
+    },
+    "tab_boosters": {
+      "file": "island_words/tab_boosters.png"
+    },
+    "tab_nests": {
+      "file": "island_words/tab_nests.png"
+    },
+    "tab_outfits": {
+      "file": "island_words/tab_outfits.png"
+    },
+    "title_aviary": {
+      "file": "island_words/title_aviary.png"
+    },
+    "title_lucky_spin": {
+      "file": "island_words/title_lucky_spin.png"
+    },
+    "title_outfits": {
+      "file": "island_words/title_outfits.png"
+    },
+    "title_settings": {
+      "file": "island_words/title_settings.png"
+    },
+    "title_shop": {
+      "file": "island_words/title_shop.png"
+    },
+    "title_star_chest": {
+      "file": "island_words/title_star_chest.png"
+    },
+    "white_buy": {
+      "file": "island_words/white_buy.png"
+    },
+    "white_equip": {
+      "file": "island_words/white_equip.png"
+    },
+    "white_equipped": {
+      "file": "island_words/white_equipped.png"
+    },
+    "white_help": {
+      "file": "island_words/white_help.png"
+    },
+    "white_open": {
+      "file": "island_words/white_open.png"
+    },
+    "white_play": {
+      "file": "island_words/white_play.png"
+    },
+    "home_checkin": {
+      "file": "island_words/home_checkin.png"
+    },
+    "white_spin": {
+      "file": "island_words/white_spin.png"
+    },
+    "white_tab_boosters": {
+      "file": "island_words/white_tab_boosters.png"
+    },
+    "white_tab_nests": {
+      "file": "island_words/white_tab_nests.png"
+    },
+    "white_tab_outfits": {
+      "file": "island_words/white_tab_outfits.png"
+    },
+    "gold_popup_win_title": {
+      "file": "island_words/gold_popup_win_title.png"
+    },
+    "gold_popup_level_title": {
+      "file": "island_words/gold_popup_level_title.png"
+    },
+    "gold_popup_new_friend_title": {
+      "file": "island_words/gold_popup_new_friend_title.png"
+    },
+    "gold_popup_world_complete_title": {
+      "file": "island_words/gold_popup_world_complete_title.png"
+    },
+    "gold_popup_world_unlock_title": {
+      "file": "island_words/gold_popup_world_unlock_title.png"
+    },
+    "gold_popup_gift_title": {
+      "file": "island_words/gold_popup_gift_title.png"
+    },
+    "gold_bird_sunny_name": {
+      "file": "island_words/gold_bird_sunny_name.png"
+    },
+    "gold_bird_sky_name": {
+      "file": "island_words/gold_bird_sky_name.png"
+    },
+    "gold_bird_berry_name": {
+      "file": "island_words/gold_bird_berry_name.png"
+    },
+    "gold_bird_mint_name": {
+      "file": "island_words/gold_bird_mint_name.png"
+    },
+    "gold_bird_cocoa_name": {
+      "file": "island_words/gold_bird_cocoa_name.png"
+    },
+    "gold_bird_snow_name": {
+      "file": "island_words/gold_bird_snow_name.png"
+    },
+    "gold_bird_ember_name": {
+      "file": "island_words/gold_bird_ember_name.png"
+    },
+    "gold_bird_crow_name": {
+      "file": "island_words/gold_bird_crow_name.png"
+    },
+    "gold_bird_ink_name": {
+      "file": "island_words/gold_bird_ink_name.png"
+    },
+    "gold_bird_hoot_name": {
+      "file": "island_words/gold_bird_hoot_name.png"
+    },
+    "gold_world_green_name": {
+      "file": "island_words/gold_world_green_name.png"
+    },
+    "gold_world_bamboo_name": {
+      "file": "island_words/gold_world_bamboo_name.png"
+    },
+    "gold_world_autumn_name": {
+      "file": "island_words/gold_world_autumn_name.png"
+    },
+    "gold_world_snow_name": {
+      "file": "island_words/gold_world_snow_name.png"
+    },
+    "gold_world_blossom_name": {
+      "file": "island_words/gold_world_blossom_name.png"
+    },
+    "gold_world_mushroom_name": {
+      "file": "island_words/gold_world_mushroom_name.png"
+    },
+    "gold_world_lakeside_name": {
+      "file": "island_words/gold_world_lakeside_name.png"
+    },
+    "gold_world_pine_name": {
+      "file": "island_words/gold_world_pine_name.png"
+    },
+    "gold_world_rainforest_name": {
+      "file": "island_words/gold_world_rainforest_name.png"
+    },
+    "gold_world_wisteria_name": {
+      "file": "island_words/gold_world_wisteria_name.png"
+    },
+    "gold_outfit_sunny_1_name": {
+      "file": "island_words/gold_outfit_sunny_1_name.png"
+    },
+    "gold_outfit_sunny_2_name": {
+      "file": "island_words/gold_outfit_sunny_2_name.png"
+    },
+    "gold_outfit_sunny_3_name": {
+      "file": "island_words/gold_outfit_sunny_3_name.png"
+    },
+    "gold_outfit_sunny_4_name": {
+      "file": "island_words/gold_outfit_sunny_4_name.png"
+    },
+    "gold_outfit_sunny_5_name": {
+      "file": "island_words/gold_outfit_sunny_5_name.png"
+    },
+    "gold_outfit_sky_1_name": {
+      "file": "island_words/gold_outfit_sky_1_name.png"
+    },
+    "gold_outfit_sky_2_name": {
+      "file": "island_words/gold_outfit_sky_2_name.png"
+    },
+    "gold_outfit_sky_3_name": {
+      "file": "island_words/gold_outfit_sky_3_name.png"
+    },
+    "gold_outfit_sky_4_name": {
+      "file": "island_words/gold_outfit_sky_4_name.png"
+    },
+    "gold_outfit_sky_5_name": {
+      "file": "island_words/gold_outfit_sky_5_name.png"
+    },
+    "gold_outfit_berry_1_name": {
+      "file": "island_words/gold_outfit_berry_1_name.png"
+    },
+    "gold_outfit_berry_2_name": {
+      "file": "island_words/gold_outfit_berry_2_name.png"
+    },
+    "gold_outfit_berry_3_name": {
+      "file": "island_words/gold_outfit_berry_3_name.png"
+    },
+    "gold_outfit_berry_4_name": {
+      "file": "island_words/gold_outfit_berry_4_name.png"
+    },
+    "gold_outfit_berry_5_name": {
+      "file": "island_words/gold_outfit_berry_5_name.png"
+    },
+    "gold_outfit_mint_1_name": {
+      "file": "island_words/gold_outfit_mint_1_name.png"
+    },
+    "gold_outfit_mint_2_name": {
+      "file": "island_words/gold_outfit_mint_2_name.png"
+    },
+    "gold_outfit_mint_3_name": {
+      "file": "island_words/gold_outfit_mint_3_name.png"
+    },
+    "gold_outfit_mint_4_name": {
+      "file": "island_words/gold_outfit_mint_4_name.png"
+    },
+    "gold_outfit_mint_5_name": {
+      "file": "island_words/gold_outfit_mint_5_name.png"
+    },
+    "gold_outfit_cocoa_1_name": {
+      "file": "island_words/gold_outfit_cocoa_1_name.png"
+    },
+    "gold_outfit_cocoa_3_name": {
+      "file": "island_words/gold_outfit_cocoa_3_name.png"
+    },
+    "gold_outfit_cocoa_4_name": {
+      "file": "island_words/gold_outfit_cocoa_4_name.png"
+    },
+    "gold_outfit_cocoa_5_name": {
+      "file": "island_words/gold_outfit_cocoa_5_name.png"
+    },
+    "gold_outfit_snow_1_name": {
+      "file": "island_words/gold_outfit_snow_1_name.png"
+    },
+    "gold_outfit_snow_2_name": {
+      "file": "island_words/gold_outfit_snow_2_name.png"
+    },
+    "gold_outfit_snow_3_name": {
+      "file": "island_words/gold_outfit_snow_3_name.png"
+    },
+    "gold_outfit_snow_4_name": {
+      "file": "island_words/gold_outfit_snow_4_name.png"
+    },
+    "gold_outfit_snow_5_name": {
+      "file": "island_words/gold_outfit_snow_5_name.png"
+    },
+    "gold_outfit_ember_1_name": {
+      "file": "island_words/gold_outfit_ember_1_name.png"
+    },
+    "gold_outfit_ember_2_name": {
+      "file": "island_words/gold_outfit_ember_2_name.png"
+    },
+    "gold_outfit_ember_3_name": {
+      "file": "island_words/gold_outfit_ember_3_name.png"
+    },
+    "gold_outfit_ember_4_name": {
+      "file": "island_words/gold_outfit_ember_4_name.png"
+    },
+    "gold_outfit_ember_5_name": {
+      "file": "island_words/gold_outfit_ember_5_name.png"
+    },
+    "gold_outfit_ink_1_name": {
+      "file": "island_words/gold_outfit_ink_1_name.png"
+    },
+    "gold_outfit_ink_3_name": {
+      "file": "island_words/gold_outfit_ink_3_name.png"
+    },
+    "gold_outfit_ink_4_name": {
+      "file": "island_words/gold_outfit_ink_4_name.png"
+    },
+    "gold_outfit_ink_5_name": {
+      "file": "island_words/gold_outfit_ink_5_name.png"
+    },
+    "gold_outfit_hoot_1_name": {
+      "file": "island_words/gold_outfit_hoot_1_name.png"
+    },
+    "gold_outfit_hoot_3_name": {
+      "file": "island_words/gold_outfit_hoot_3_name.png"
+    },
+    "gold_outfit_hoot_4_name": {
+      "file": "island_words/gold_outfit_hoot_4_name.png"
+    },
+    "gold_outfit_hoot_5_name": {
+      "file": "island_words/gold_outfit_hoot_5_name.png"
+    },
+    "gold_tutorial_title": {
+      "file": "island_words/gold_tutorial_title.png"
+    },
+    "gold_doc_terms_title": {
+      "file": "island_words/gold_doc_terms_title.png"
+    },
+    "gold_doc_credits_title": {
+      "file": "island_words/gold_doc_credits_title.png"
+    },
+    "gold_doc_contact_title": {
+      "file": "island_words/gold_doc_contact_title.png"
+    },
+    "gold_challenge_title": {
+      "file": "island_words/gold_challenge_title.png"
+    },
+    "gold_map_chapters": {
+      "file": "island_words/gold_map_chapters.png"
+    },
+    "gold_lesson_sleep_title": {
+      "file": "island_words/gold_lesson_sleep_title.png"
+    },
+    "gold_lesson_mama_title": {
+      "file": "island_words/gold_lesson_mama_title.png"
+    },
+    "gold_lesson_egg_title": {
+      "file": "island_words/gold_lesson_egg_title.png"
+    },
+    "gold_lesson_crow_title": {
+      "file": "island_words/gold_lesson_crow_title.png"
+    },
+    "gold_lesson_twig_title": {
+      "file": "island_words/gold_lesson_twig_title.png"
+    },
+    "gold_lesson_swivel_title": {
+      "file": "island_words/gold_lesson_swivel_title.png"
+    },
+    "gold_lesson_growing_title": {
+      "file": "island_words/gold_lesson_growing_title.png"
+    },
+    "gold_lesson_daynight_title": {
+      "file": "island_words/gold_lesson_daynight_title.png"
+    },
+    "brown_action_replay": {
+      "file": "island_words/brown_action_replay.png"
+    },
+    "brown_action_home": {
+      "file": "island_words/brown_action_home.png"
+    },
+    "brown_settings_restart": {
+      "file": "island_words/brown_settings_restart.png"
+    },
+    "brown_settings_language_name": {
+      "file": "island_words/brown_settings_language_name.png"
+    },
+    "white_settings_language_name": {
+      "file": "island_words/white_settings_language_name.png"
+    },
+    "brown_house_mushroom_name": {
+      "file": "island_words/brown_house_mushroom_name.png"
+    },
+    "brown_house_teapot_name": {
+      "file": "island_words/brown_house_teapot_name.png"
+    },
+    "brown_house_lantern_name": {
+      "file": "island_words/brown_house_lantern_name.png"
+    },
+    "brown_house_acorn_name": {
+      "file": "island_words/brown_house_acorn_name.png"
+    },
+    "brown_house_pumpkin_name": {
+      "file": "island_words/brown_house_pumpkin_name.png"
+    },
+    "brown_house_beehive_name": {
+      "file": "island_words/brown_house_beehive_name.png"
+    },
+    "brown_house_teacup_name": {
+      "file": "island_words/brown_house_teacup_name.png"
+    },
+    "brown_house_pinecone_name": {
+      "file": "island_words/brown_house_pinecone_name.png"
+    },
+    "brown_house_cage_name": {
+      "file": "island_words/brown_house_cage_name.png"
+    },
+    "brown_action_back": {
+      "file": "island_words/brown_action_back.png"
+    },
+    "brown_chapter_word": {
+      "file": "island_words/brown_chapter_word.png"
+    },
+    "brown_chapter_levels": {
+      "file": "island_words/brown_chapter_levels.png"
+    },
+    "brown_board_night_falls": {
+      "file": "island_words/brown_board_night_falls.png"
+    },
+    "brown_board_day_breaks": {
+      "file": "island_words/brown_board_day_breaks.png"
+    },
+    "caption_bird_sunny_ability": {
+      "file": "island_words/caption_bird_sunny_ability.png"
+    },
+    "caption_bird_sky_ability": {
+      "file": "island_words/caption_bird_sky_ability.png"
+    },
+    "caption_bird_berry_ability": {
+      "file": "island_words/caption_bird_berry_ability.png"
+    },
+    "caption_bird_mint_ability": {
+      "file": "island_words/caption_bird_mint_ability.png"
+    },
+    "caption_bird_cocoa_ability": {
+      "file": "island_words/caption_bird_cocoa_ability.png"
+    },
+    "caption_bird_snow_ability": {
+      "file": "island_words/caption_bird_snow_ability.png"
+    },
+    "caption_bird_ember_ability": {
+      "file": "island_words/caption_bird_ember_ability.png"
+    },
+    "caption_bird_ink_ability": {
+      "file": "island_words/caption_bird_ink_ability.png"
+    },
+    "caption_bird_hoot_ability": {
+      "file": "island_words/caption_bird_hoot_ability.png"
+    },
+    "caption_bird_crow_ability": {
+      "file": "island_words/caption_bird_crow_ability.png"
+    },
+    "caption_chest_line": {
+      "file": "island_words/caption_chest_line.png"
+    },
+    "caption_lesson_sleep_line": {
+      "file": "island_words/caption_lesson_sleep_line.png"
+    },
+    "caption_lesson_mama_line": {
+      "file": "island_words/caption_lesson_mama_line.png"
+    },
+    "caption_lesson_egg_line": {
+      "file": "island_words/caption_lesson_egg_line.png"
+    },
+    "caption_lesson_crow_line": {
+      "file": "island_words/caption_lesson_crow_line.png"
+    },
+    "caption_lesson_twig_line": {
+      "file": "island_words/caption_lesson_twig_line.png"
+    },
+    "caption_lesson_swivel_line": {
+      "file": "island_words/caption_lesson_swivel_line.png"
+    },
+    "caption_lesson_growing_line": {
+      "file": "island_words/caption_lesson_growing_line.png"
+    },
+    "caption_lesson_daynight_line": {
+      "file": "island_words/caption_lesson_daynight_line.png"
+    },
+    "caption_tutorial_pick": {
+      "file": "island_words/caption_tutorial_pick.png"
+    },
+    "caption_tutorial_move_a": {
+      "file": "island_words/caption_tutorial_move_a.png"
+    },
+    "caption_tutorial_home_a": {
+      "file": "island_words/caption_tutorial_home_a.png"
+    },
+    "caption_tutorial_win_a": {
+      "file": "island_words/caption_tutorial_win_a.png"
+    },
+    "white_action_ok": {
+      "file": "island_words/white_action_ok.png"
+    },
+    "white_action_next": {
+      "file": "island_words/white_action_next.png"
+    },
+    "white_settings_home": {
+      "file": "island_words/white_settings_home.png"
+    },
+    "white_action_replay": {
+      "file": "island_words/white_action_replay.png"
+    },
+    "gold_house_mushroom_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        214,
+        11,
+        403,
+        200
+      ]
+    },
+    "gold_house_teapot_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        217,
+        235,
+        402,
+        203
+      ]
+    },
+    "gold_house_lantern_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        218,
+        467,
+        404,
+        192
+      ]
+    },
+    "gold_house_acorn_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        213,
+        685,
+        408,
+        190
+      ]
+    },
+    "gold_house_pumpkin_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        222,
+        896,
+        399,
+        188
+      ]
+    },
+    "gold_house_beehive_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        217,
+        1105,
+        401,
+        190
+      ]
+    },
+    "gold_house_teacup_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        220,
+        1305,
+        398,
+        190
+      ]
+    },
+    "gold_house_pinecone_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        214,
+        1506,
+        405,
+        179
+      ]
+    },
+    "gold_house_cage_name": {
+      "file": "island_words/house_names.png",
+      "region": [
+        214,
+        1693,
+        406,
+        184
+      ]
+    },
+    "gold_coin_shop_title": {
+      "file": "island_words/gold_coin_shop_title.png"
+    },
+    "gold_coin_purchase_preview": {
+      "file": "island_words/gold_coin_purchase_preview.png"
+    },
+    "lettering_aviary": {
+      "file": "island_words/lettering_aviary.png"
+    },
+    "lettering_bird_berry": {
+      "file": "island_words/lettering_bird_berry.png"
+    },
+    "lettering_bird_cocoa": {
+      "file": "island_words/lettering_bird_cocoa.png"
+    },
+    "lettering_bird_crow": {
+      "file": "island_words/lettering_bird_crow.png"
+    },
+    "lettering_bird_ember": {
+      "file": "island_words/lettering_bird_ember.png"
+    },
+    "lettering_bird_hoot": {
+      "file": "island_words/lettering_bird_hoot.png"
+    },
+    "lettering_bird_ink": {
+      "file": "island_words/lettering_bird_ink.png"
+    },
+    "lettering_bird_mint": {
+      "file": "island_words/lettering_bird_mint.png"
+    },
+    "lettering_bird_sky": {
+      "file": "island_words/lettering_bird_sky.png"
+    },
+    "lettering_bird_snow": {
+      "file": "island_words/lettering_bird_snow.png"
+    },
+    "lettering_bird_sunny": {
+      "file": "island_words/lettering_bird_sunny.png"
+    },
+    "lettering_cap_firefly": {
+      "file": "island_words/lettering_cap_firefly.png"
+    },
+    "lettering_cap_owl_eye": {
+      "file": "island_words/lettering_cap_owl_eye.png"
+    },
+    "lettering_cap_scarecrow": {
+      "file": "island_words/lettering_cap_scarecrow.png"
+    },
+    "lettering_cap_spring_rain": {
+      "file": "island_words/lettering_cap_spring_rain.png"
+    },
+    "lettering_cap_sprout": {
+      "file": "island_words/lettering_cap_sprout.png"
+    },
+    "lettering_cap_wake_bell": {
+      "file": "island_words/lettering_cap_wake_bell.png"
+    },
+    "lettering_house_acorn": {
+      "file": "island_words/lettering_house_acorn.png"
+    },
+    "lettering_house_beehive": {
+      "file": "island_words/lettering_house_beehive.png"
+    },
+    "lettering_house_cage": {
+      "file": "island_words/lettering_house_cage.png"
+    },
+    "lettering_house_lantern": {
+      "file": "island_words/lettering_house_lantern.png"
+    },
+    "lettering_house_mushroom": {
+      "file": "island_words/lettering_house_mushroom.png"
+    },
+    "lettering_house_pinecone": {
+      "file": "island_words/lettering_house_pinecone.png"
+    },
+    "lettering_house_pumpkin": {
+      "file": "island_words/lettering_house_pumpkin.png"
+    },
+    "lettering_house_teacup": {
+      "file": "island_words/lettering_house_teacup.png"
+    },
+    "lettering_house_teapot": {
+      "file": "island_words/lettering_house_teapot.png"
+    },
+    "lettering_item_firefly": {
+      "file": "island_words/lettering_item_firefly.png"
+    },
+    "lettering_item_owl_eye": {
+      "file": "island_words/lettering_item_owl_eye.png"
+    },
+    "lettering_item_scarecrow": {
+      "file": "island_words/lettering_item_scarecrow.png"
+    },
+    "lettering_item_spring_rain": {
+      "file": "island_words/lettering_item_spring_rain.png"
+    },
+    "lettering_item_sprout": {
+      "file": "island_words/lettering_item_sprout.png"
+    },
+    "lettering_item_wake_bell": {
+      "file": "island_words/lettering_item_wake_bell.png"
+    },
+    "lettering_tab_boosters": {
+      "file": "island_words/lettering_tab_boosters.png"
+    },
+    "lettering_tab_nests": {
+      "file": "island_words/lettering_tab_nests.png"
+    },
+    "lettering_tab_outfits": {
+      "file": "island_words/lettering_tab_outfits.png"
+    },
+    "lettering_coins_preview": {
+      "file": "island_words/lettering_coins_preview.png"
+    },
+    "lettering_coin_shop_title": {
+      "file": "island_words/lettering_coin_shop_title.png"
+    },
+    "lettering_outfit_berry_1": {
+      "file": "island_words/lettering_outfit_berry_1.png"
+    },
+    "lettering_outfit_berry_2": {
+      "file": "island_words/lettering_outfit_berry_2.png"
+    },
+    "lettering_outfit_berry_3": {
+      "file": "island_words/lettering_outfit_berry_3.png"
+    },
+    "lettering_outfit_berry_4": {
+      "file": "island_words/lettering_outfit_berry_4.png"
+    },
+    "lettering_outfit_berry_5": {
+      "file": "island_words/lettering_outfit_berry_5.png"
+    },
+    "lettering_outfit_cocoa_1": {
+      "file": "island_words/lettering_outfit_cocoa_1.png"
+    },
+    "lettering_outfit_cocoa_2": {
+      "file": "island_words/lettering_outfit_cocoa_2.png"
+    },
+    "lettering_outfit_cocoa_3": {
+      "file": "island_words/lettering_outfit_cocoa_3.png"
+    },
+    "lettering_outfit_cocoa_4": {
+      "file": "island_words/lettering_outfit_cocoa_4.png"
+    },
+    "lettering_outfit_cocoa_5": {
+      "file": "island_words/lettering_outfit_cocoa_5.png"
+    },
+    "lettering_outfit_ember_1": {
+      "file": "island_words/lettering_outfit_ember_1.png"
+    },
+    "lettering_outfit_ember_2": {
+      "file": "island_words/lettering_outfit_ember_2.png"
+    },
+    "lettering_outfit_ember_3": {
+      "file": "island_words/lettering_outfit_ember_3.png"
+    },
+    "lettering_outfit_ember_4": {
+      "file": "island_words/lettering_outfit_ember_4.png"
+    },
+    "lettering_outfit_ember_5": {
+      "file": "island_words/lettering_outfit_ember_5.png"
+    },
+    "lettering_outfit_hoot_1": {
+      "file": "island_words/lettering_outfit_hoot_1.png"
+    },
+    "lettering_outfit_hoot_2": {
+      "file": "island_words/lettering_outfit_hoot_2.png"
+    },
+    "lettering_outfit_hoot_3": {
+      "file": "island_words/lettering_outfit_hoot_3.png"
+    },
+    "lettering_outfit_hoot_4": {
+      "file": "island_words/lettering_outfit_hoot_4.png"
+    },
+    "lettering_outfit_hoot_5": {
+      "file": "island_words/lettering_outfit_hoot_5.png"
+    },
+    "lettering_outfit_ink_1": {
+      "file": "island_words/lettering_outfit_ink_1.png"
+    },
+    "lettering_outfit_ink_2": {
+      "file": "island_words/lettering_outfit_ink_2.png"
+    },
+    "lettering_outfit_ink_3": {
+      "file": "island_words/lettering_outfit_ink_3.png"
+    },
+    "lettering_outfit_ink_4": {
+      "file": "island_words/lettering_outfit_ink_4.png"
+    },
+    "lettering_outfit_ink_5": {
+      "file": "island_words/lettering_outfit_ink_5.png"
+    },
+    "lettering_outfit_mint_1": {
+      "file": "island_words/lettering_outfit_mint_1.png"
+    },
+    "lettering_outfit_mint_2": {
+      "file": "island_words/lettering_outfit_mint_2.png"
+    },
+    "lettering_outfit_mint_3": {
+      "file": "island_words/lettering_outfit_mint_3.png"
+    },
+    "lettering_outfit_mint_4": {
+      "file": "island_words/lettering_outfit_mint_4.png"
+    },
+    "lettering_outfit_mint_5": {
+      "file": "island_words/lettering_outfit_mint_5.png"
+    },
+    "lettering_outfit_sky_1": {
+      "file": "island_words/lettering_outfit_sky_1.png"
+    },
+    "lettering_outfit_sky_2": {
+      "file": "island_words/lettering_outfit_sky_2.png"
+    },
+    "lettering_outfit_sky_3": {
+      "file": "island_words/lettering_outfit_sky_3.png"
+    },
+    "lettering_outfit_sky_4": {
+      "file": "island_words/lettering_outfit_sky_4.png"
+    },
+    "lettering_outfit_sky_5": {
+      "file": "island_words/lettering_outfit_sky_5.png"
+    },
+    "lettering_outfit_snow_1": {
+      "file": "island_words/lettering_outfit_snow_1.png"
+    },
+    "lettering_outfit_snow_2": {
+      "file": "island_words/lettering_outfit_snow_2.png"
+    },
+    "lettering_outfit_snow_3": {
+      "file": "island_words/lettering_outfit_snow_3.png"
+    },
+    "lettering_outfit_snow_4": {
+      "file": "island_words/lettering_outfit_snow_4.png"
+    },
+    "lettering_outfit_snow_5": {
+      "file": "island_words/lettering_outfit_snow_5.png"
+    },
+    "lettering_outfit_sunny_1": {
+      "file": "island_words/lettering_outfit_sunny_1.png"
+    },
+    "lettering_outfit_sunny_2": {
+      "file": "island_words/lettering_outfit_sunny_2.png"
+    },
+    "lettering_outfit_sunny_3": {
+      "file": "island_words/lettering_outfit_sunny_3.png"
+    },
+    "lettering_outfit_sunny_4": {
+      "file": "island_words/lettering_outfit_sunny_4.png"
+    },
+    "lettering_outfit_sunny_5": {
+      "file": "island_words/lettering_outfit_sunny_5.png"
+    },
+    "lettering_daily_reward_title": {
+      "file": "island_words/lettering_daily_reward_title.png"
+    },
+    "white_claim": {
+      "file": "island_words/white_claim.png"
+    },
+    "lettering_undo_more": {
+      "file": "island_words/lettering_undo_more.png"
+    },
+    "lettering_coins_buy": {
+      "file": "island_words/lettering_coins_buy.png"
+    }
+  },
+  "words": {
+    "popup.win.title": {
+      "gold": {
+        "file": "island_words/gold_popup_win_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.level.title": {
+      "gold": {
+        "file": "island_words/gold_popup_level_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.new_friend.title": {
+      "gold": {
+        "file": "island_words/gold_popup_new_friend_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.world_complete.title": {
+      "gold": {
+        "file": "island_words/gold_popup_world_complete_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.world_unlock.title": {
+      "gold": {
+        "file": "island_words/gold_popup_world_unlock_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.gift.title": {
+      "gold": {
+        "file": "island_words/gold_popup_gift_title.png",
+        "cap": 80.0
+      }
+    },
+    "popup.daily_gift.title": {
+      "gold": {
+        "file": "island_words/gold_popup_gift_title.png",
+        "cap": 80.0
+      }
+    },
+    "bird.sunny.name": {
+      "gold": {
+        "file": "island_words/gold_bird_sunny_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.sky.name": {
+      "gold": {
+        "file": "island_words/gold_bird_sky_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.berry.name": {
+      "gold": {
+        "file": "island_words/gold_bird_berry_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.mint.name": {
+      "gold": {
+        "file": "island_words/gold_bird_mint_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.cocoa.name": {
+      "gold": {
+        "file": "island_words/gold_bird_cocoa_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.snow.name": {
+      "gold": {
+        "file": "island_words/gold_bird_snow_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.ember.name": {
+      "gold": {
+        "file": "island_words/gold_bird_ember_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.crow.name": {
+      "gold": {
+        "file": "island_words/gold_bird_crow_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.ink.name": {
+      "gold": {
+        "file": "island_words/gold_bird_ink_name.png",
+        "cap": 80.0
+      }
+    },
+    "bird.hoot.name": {
+      "gold": {
+        "file": "island_words/gold_bird_hoot_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.green.name": {
+      "gold": {
+        "file": "island_words/gold_world_green_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.bamboo.name": {
+      "gold": {
+        "file": "island_words/gold_world_bamboo_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.autumn.name": {
+      "gold": {
+        "file": "island_words/gold_world_autumn_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.snow.name": {
+      "gold": {
+        "file": "island_words/gold_world_snow_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.blossom.name": {
+      "gold": {
+        "file": "island_words/gold_world_blossom_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.mushroom.name": {
+      "gold": {
+        "file": "island_words/gold_world_mushroom_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.lakeside.name": {
+      "gold": {
+        "file": "island_words/gold_world_lakeside_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.pine.name": {
+      "gold": {
+        "file": "island_words/gold_world_pine_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.rainforest.name": {
+      "gold": {
+        "file": "island_words/gold_world_rainforest_name.png",
+        "cap": 80.0
+      }
+    },
+    "world.wisteria.name": {
+      "gold": {
+        "file": "island_words/gold_world_wisteria_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sunny.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sunny.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sunny.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sunny.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sunny.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sky.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sky_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sky.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sky_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sky.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sky_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sky.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sky_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.sky.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sky_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.berry.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.berry.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.berry.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.berry.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.berry.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.mint.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_mint_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.mint.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_mint_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.mint.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_mint_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.mint.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_mint_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.mint.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_mint_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.cocoa.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_cocoa_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.cocoa.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_sunny_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.cocoa.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_cocoa_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.cocoa.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_cocoa_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.cocoa.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_cocoa_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.snow.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_snow_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.snow.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_snow_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.snow.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_snow_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.snow.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_snow_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.snow.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_snow_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ember.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ember_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ember.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ember_2_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ember.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ember_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ember.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ember_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ember.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ember_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ink.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ink_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ink.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ink.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ink_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ink.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ink_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.ink.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_ink_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.hoot.1.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_hoot_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.hoot.2.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_berry_1_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.hoot.3.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_hoot_3_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.hoot.4.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_hoot_4_name.png",
+        "cap": 80.0
+      }
+    },
+    "outfit.hoot.5.name": {
+      "gold": {
+        "file": "island_words/gold_outfit_hoot_5_name.png",
+        "cap": 80.0
+      }
+    },
+    "tutorial.title": {
+      "gold": {
+        "file": "island_words/gold_tutorial_title.png",
+        "cap": 80.0
+      }
+    },
+    "doc.terms.title": {
+      "gold": {
+        "file": "island_words/gold_doc_terms_title.png",
+        "cap": 80.0
+      }
+    },
+    "doc.credits.title": {
+      "gold": {
+        "file": "island_words/gold_doc_credits_title.png",
+        "cap": 80.0
+      }
+    },
+    "doc.contact.title": {
+      "gold": {
+        "file": "island_words/gold_doc_contact_title.png",
+        "cap": 80.0
+      }
+    },
+    "challenge.title": {
+      "gold": {
+        "file": "island_words/gold_challenge_title.png",
+        "cap": 80.0
+      }
+    },
+    "map.chapters": {
+      "gold": {
+        "file": "island_words/gold_map_chapters.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.sleep.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_sleep_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.mama.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_mama_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.egg.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_egg_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.crow.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_crow_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.twig.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_twig_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.swivel.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_swivel_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.growing.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_growing_title.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.daynight.title": {
+      "gold": {
+        "file": "island_words/gold_lesson_daynight_title.png",
+        "cap": 80.0
+      }
+    },
+    "action.replay": {
+      "brown": {
+        "file": "island_words/brown_action_replay.png",
+        "cap": 80.0
+      }
+    },
+    "action.home": {
+      "brown": {
+        "file": "island_words/brown_action_home.png",
+        "cap": 80.0
+      }
+    },
+    "settings.restart": {
+      "brown": {
+        "file": "island_words/brown_settings_restart.png",
+        "cap": 80.0
+      }
+    },
+    "settings.language_name": {
+      "brown": {
+        "file": "island_words/brown_settings_language_name.png",
+        "cap": 80.0
+      },
+      "white": {
+        "file": "island_words/white_settings_language_name.png",
+        "cap": 80.0
+      }
+    },
+    "house.mushroom.name": {
+      "brown": {
+        "file": "island_words/brown_house_mushroom_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_mushroom_name",
+        "cap": 200
+      }
+    },
+    "house.teapot.name": {
+      "brown": {
+        "file": "island_words/brown_house_teapot_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_teapot_name",
+        "cap": 203
+      }
+    },
+    "house.lantern.name": {
+      "brown": {
+        "file": "island_words/brown_house_lantern_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_lantern_name",
+        "cap": 192
+      }
+    },
+    "house.acorn.name": {
+      "brown": {
+        "file": "island_words/brown_house_acorn_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_acorn_name",
+        "cap": 190
+      }
+    },
+    "house.pumpkin.name": {
+      "brown": {
+        "file": "island_words/brown_house_pumpkin_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_pumpkin_name",
+        "cap": 188
+      }
+    },
+    "house.beehive.name": {
+      "brown": {
+        "file": "island_words/brown_house_beehive_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_beehive_name",
+        "cap": 190
+      }
+    },
+    "house.teacup.name": {
+      "brown": {
+        "file": "island_words/brown_house_teacup_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_teacup_name",
+        "cap": 190
+      }
+    },
+    "house.pinecone.name": {
+      "brown": {
+        "file": "island_words/brown_house_pinecone_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_pinecone_name",
+        "cap": 179
+      }
+    },
+    "house.cage.name": {
+      "brown": {
+        "file": "island_words/brown_house_cage_name.png",
+        "cap": 80.0
+      },
+      "gold": {
+        "file": "island_words/house_names.png",
+        "painted_id": "gold_house_cage_name",
+        "cap": 184
+      }
+    },
+    "action.back": {
+      "brown": {
+        "file": "island_words/brown_action_back.png",
+        "cap": 80.0
+      }
+    },
+    "chapter.word": {
+      "brown": {
+        "file": "island_words/brown_chapter_word.png",
+        "cap": 80.0
+      }
+    },
+    "chapter.levels": {
+      "brown": {
+        "file": "island_words/brown_chapter_levels.png",
+        "cap": 80.0
+      }
+    },
+    "board.night_falls": {
+      "brown": {
+        "file": "island_words/brown_board_night_falls.png",
+        "cap": 80.0
+      }
+    },
+    "board.day_breaks": {
+      "brown": {
+        "file": "island_words/brown_board_day_breaks.png",
+        "cap": 80.0
+      }
+    },
+    "bird.sunny.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_sunny_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.sky.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_sky_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.berry.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_berry_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.mint.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_mint_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.cocoa.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_cocoa_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.snow.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_snow_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.ember.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_ember_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.ink.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_ink_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.hoot.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_hoot_ability.png",
+        "cap": 80.0
+      }
+    },
+    "bird.crow.ability": {
+      "caption": {
+        "file": "island_words/caption_bird_crow_ability.png",
+        "cap": 80.0
+      }
+    },
+    "chest.line": {
+      "caption": {
+        "file": "island_words/caption_chest_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.sleep.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_sleep_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.mama.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_mama_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.egg.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_egg_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.crow.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_crow_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.twig.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_twig_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.swivel.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_swivel_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.growing.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_growing_line.png",
+        "cap": 80.0
+      }
+    },
+    "lesson.daynight.line": {
+      "caption": {
+        "file": "island_words/caption_lesson_daynight_line.png",
+        "cap": 80.0
+      }
+    },
+    "tutorial.pick": {
+      "caption": {
+        "file": "island_words/caption_tutorial_pick.png",
+        "cap": 80.0
+      }
+    },
+    "tutorial.move.a": {
+      "caption": {
+        "file": "island_words/caption_tutorial_move_a.png",
+        "cap": 80.0
+      }
+    },
+    "tutorial.home.a": {
+      "caption": {
+        "file": "island_words/caption_tutorial_home_a.png",
+        "cap": 80.0
+      }
+    },
+    "tutorial.win.a": {
+      "caption": {
+        "file": "island_words/caption_tutorial_win_a.png",
+        "cap": 80.0
+      }
+    },
+    "action.ok": {
+      "white": {
+        "file": "island_words/white_action_ok.png",
+        "cap": 80.0
+      }
+    },
+    "action.next": {
+      "white": {
+        "file": "island_words/white_action_next.png",
+        "cap": 80.0
+      }
+    },
+    "action.got_it": {
+      "white": {
+        "file": "island_words/white_action_ok.png",
+        "cap": 80.0
+      }
+    },
+    "settings.home": {
+      "white": {
+        "file": "island_words/white_settings_home.png",
+        "cap": 80.0
+      }
+    },
+    "shop.title": {
+      "gold": {
+        "file": "island_words/title_shop.png",
+        "cap": 95.8
+      }
+    },
+    "aviary.title": {
+      "gold": {
+        "file": "island_words/title_aviary.png",
+        "cap": 95.1
+      }
+    },
+    "popup.settings.title": {
+      "gold": {
+        "file": "island_words/title_settings.png",
+        "cap": 95.1
+      }
+    },
+    "draw.title": {
+      "gold": {
+        "file": "island_words/title_lucky_spin.png",
+        "cap": 92.8
+      }
+    },
+    "chest.title": {
+      "gold": {
+        "file": "island_words/title_star_chest.png",
+        "cap": 93.6
+      }
+    },
+    "tab.outfits": {
+      "gold": {
+        "file": "island_words/title_outfits.png",
+        "cap": 94.3
+      },
+      "brown": {
+        "file": "island_words/tab_outfits.png",
+        "cap": 83.8
+      }
+    },
+    "settings.music": {
+      "brown": {
+        "file": "island_words/row_music.png",
+        "cap": 85.3
+      }
+    },
+    "settings.sound": {
+      "brown": {
+        "file": "island_words/row_sound.png",
+        "cap": 84.5
+      }
+    },
+    "settings.vibration": {
+      "brown": {
+        "file": "island_words/row_vibration.png",
+        "cap": 84.5
+      }
+    },
+    "settings.language": {
+      "brown": {
+        "file": "island_words/row_language.png",
+        "cap": 85.3
+      }
+    },
+    "tab.boosters": {
+      "brown": {
+        "file": "island_words/tab_boosters.png",
+        "cap": 83.8
+      }
+    },
+    "tab.houses": {
+      "brown": {
+        "file": "island_words/tab_nests.png",
+        "cap": 85.3
+      }
+    },
+    "settings.help": {
+      "white": {
+        "file": "island_words/white_help.png",
+        "cap": 71.7
+      }
+    },
+    "action.play": {
+      "white": {
+        "file": "island_words/white_play.png",
+        "cap": 70.2
+      }
+    },
+    "draw.go": {
+      "white": {
+        "file": "island_words/white_spin.png",
+        "cap": 72.5
+      }
+    },
+    "chest.open": {
+      "white": {
+        "file": "island_words/white_open.png",
+        "cap": 70.2
+      }
+    },
+    "shop.buy": {
+      "white": {
+        "file": "island_words/white_buy.png",
+        "cap": 70.2
+      }
+    },
+    "action.buy": {
+      "white": {
+        "file": "island_words/white_buy.png",
+        "cap": 70.2
+      }
+    },
+    "booster.firefly.name": {
+      "gold": {
+        "file": "island_words/item_firefly.png",
+        "cap": 74.7
+      }
+    },
+    "booster.firefly.description": {
+      "caption": {
+        "file": "island_words/cap_firefly.png",
+        "cap": 38.5
+      }
+    },
+    "booster.sapling.name": {
+      "gold": {
+        "file": "island_words/item_sprout.png",
+        "cap": 73.2
+      }
+    },
+    "booster.sapling.description": {
+      "caption": {
+        "file": "island_words/cap_sprout.png",
+        "cap": 37.7
+      }
+    },
+    "booster.owl_eye.name": {
+      "gold": {
+        "file": "island_words/item_owl_eye.png",
+        "cap": 77.7
+      }
+    },
+    "booster.owl_eye.description": {
+      "caption": {
+        "file": "island_words/cap_owl_eye.png",
+        "cap": 37.7
+      }
+    },
+    "booster.morning_bell.name": {
+      "gold": {
+        "file": "island_words/item_wake_bell.png",
+        "cap": 74.7
+      }
+    },
+    "booster.morning_bell.description": {
+      "caption": {
+        "file": "island_words/cap_wake_bell.png",
+        "cap": 39.2
+      }
+    },
+    "booster.scarecrow.name": {
+      "gold": {
+        "file": "island_words/item_scarecrow.png",
+        "cap": 76.2
+      }
+    },
+    "booster.scarecrow.description": {
+      "caption": {
+        "file": "island_words/cap_scarecrow.png",
+        "cap": 38.5
+      }
+    },
+    "booster.spring_rain.name": {
+      "gold": {
+        "file": "island_words/item_spring_rain.png",
+        "cap": 77.7
+      }
+    },
+    "booster.spring_rain.description": {
+      "caption": {
+        "file": "island_words/cap_spring_rain.png",
+        "cap": 38.5
+      }
+    },
+    "coins.title": {
+      "gold": {
+        "file": "island_words/gold_coin_shop_title.png",
+        "painted_id": "gold_coin_shop_title",
+        "cap": 128
+      }
+    },
+    "coins.preview": {
+      "gold": {
+        "file": "island_words/gold_coin_purchase_preview.png",
+        "painted_id": "gold_coin_purchase_preview",
+        "cap": 128
+      }
+    },
+    "daily_reward.title": {
+      "gold": {
+        "file": "island_words/lettering_daily_reward_title.png",
+        "cap": 184.0
+      }
     }
   }
 }

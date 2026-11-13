@@ -59,7 +59,7 @@ const LESSON_BRANCHES := {
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
 const LESSON_DAY_LENGTH := 2
-const GOT_IT := Vector2(360, 128)    # the same size as every Play pill
+const GOT_IT := Vector2(430, 162)    # ButtonKit.PRIMARY: the same size as every Play plate
 const NIGHT_TINT := Color(0.70, 0.76, 0.98)   # board_view.gd moonlight
 const PHASE_RECT := Rect2(40, 36, 192, 104)    # board HUD day/night pill, in scene pixels
 
@@ -93,7 +93,8 @@ var _run := 0                 # bumps on every step change so old loops stop
 
 ## Opens the tutorial in `host` (the popup layer); `done` runs once after it closes by Play or by skipping.
 static func open(host: Control, done := Callable(), instant_motion := false) -> Control:
-	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PRIMARY, 0.0, instant_motion)
+	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PLAY_SIZE.y, 0.0, instant_motion)
+	FamilyDialog.decorate(m)
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Tutorial"
 	t.modal = m
@@ -111,6 +112,7 @@ static func open_lesson(host: Control, mechanic: String, world_index: int, done 
 	if OS.get_cmdline_user_args().has("--autoplay"):
 		print("LESSON mechanic=%s" % mechanic)   # test driver log (main.gd --autoplay)
 	var m := Modal.open(host, "lesson.%s.title" % mechanic, [STAGE_SIZE.y, TEXT_H], false, GOT_IT.y, 0.0, instant_motion)
+	FamilyDialog.decorate(m)
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Lesson"
 	t.modal = m
@@ -198,6 +200,9 @@ func show_step(index: int) -> void:
 
 ## ---------- layout ----------
 
+const STAGE_CARD := Color("f6eed9")    # centre colour of ButtonKit.PANEL
+const STAGE_RIM := Color("e9b949")     # the card's gold rim
+
 func _build_stage(r: Rect2) -> void:
 	# The card clips the scene to its rectangle (the doorway needs the only clip_children mask); a panel-coloured
 	# frame rounds the corners and a thin rim sits on top.
@@ -266,7 +271,7 @@ func _build_stage(r: Rect2) -> void:
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var corners := StyleBoxFlat.new()
 	corners.draw_center = false
-	corners.border_color = UI.FILL["cream"]
+	corners.border_color = STAGE_CARD   # the cream card colour rounds the scene's corners
 	corners.set_border_width_all(24)
 	corners.set_expand_margin_all(24)
 	corners.set_corner_radius_all(int(STAGE_RADIUS) + 24)
@@ -278,7 +283,7 @@ func _build_stage(r: Rect2) -> void:
 	rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var line := StyleBoxFlat.new()
 	line.draw_center = false
-	line.border_color = UI.RIM["cream"]
+	line.border_color = STAGE_RIM
 	line.set_border_width_all(6)
 	line.set_corner_radius_all(int(STAGE_RADIUS))
 	line.anti_aliasing = true
@@ -316,9 +321,11 @@ func _build_branches() -> void:
 		if kind[0] == Board.Kind.SWIVEL:
 			_knot = Sprite2D.new()
 			_knot.name = "Knot"
-			_knot.texture = Art.tex("swivel_knot")
-			_knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
-			_knot.position = Vector2(-150.0 if right else 150.0, 10.0 * BIRD_SCALE)
+			# The board's turn-around button: round green, on the branch tip (board_view.gd SWIVEL_*).
+			_knot.texture = Art.tex(BoardView.SWIVEL_ART)
+			_knot.scale = Vector2.ONE * BoardView.SWIVEL_SIDE * BIRD_SCALE / _knot.texture.get_width()
+			var reach := _length(b) * _branch_scale(b, kind[1]) - BoardView.SWIVEL_TIP_IN * BIRD_SCALE
+			_knot.position = Vector2(-reach if right else reach, BoardView.SWIVEL_DROP * BIRD_SCALE)
 			node.add_child(_knot)
 
 ## Width share of a branch painting that holds `seats` seats (board_view.gd _branch_width).
@@ -391,6 +398,7 @@ func _build_text(top: float) -> void:
 	var line_h := LINE_H * cap / TEXT_CAP
 	var y := top + (TEXT_H - line_h * ids.size()) * 0.5
 	for id in ids:
+		# Warm brown ink on the cream card (as the settings page).
 		UI.label(_layer, id, Rect2(540.0 - TEXT_W * 0.5, y, TEXT_W, line_h), cap, UI.INK)
 		y += line_h
 
@@ -417,6 +425,7 @@ func _build_actions() -> void:
 		var at := Vector2(540.0 - GOT_IT.x * 0.5, modal.get_meta("actions_y"))
 		_buttons = [UI.pill(modal.content, "GotIt", Rect2(at, GOT_IT), "green", "action.got_it",
 			func(): modal.invoke(func(): pass))]
+		_style_action(_buttons[0])
 		return
 	if step < STEPS - 1:
 		_buttons = modal.actions([["green", "right", func(): show_step(step + 1)]], false)
@@ -424,6 +433,23 @@ func _build_actions() -> void:
 		_buttons = modal.actions([["green", "play", func(): pass]], true)
 	for b in _buttons:
 		b.name = "Next" if step < STEPS - 1 else "Play"
+		_style_action(b)
+
+## Keep the original hit area and callbacks; the face is the shop's green plate (ButtonKit) with a painted white word.
+func _style_action(button: Button) -> void:
+	var old_face := button.get_node_or_null("Face")
+	if old_face:
+		old_face.hide()
+	var content := button.get_node("Content")
+	for child in content.get_children():
+		content.remove_child(child)
+		child.queue_free()
+	var face := ButtonKit.face(button, "green", Rect2(Vector2.ZERO, button.size))
+	button.move_child(face, 0)
+	button.button_down.connect(func(): face.modulate = ButtonKit.PRESSED)
+	button.button_up.connect(func(): face.modulate = Color.WHITE)
+	var word_id := "white_play" if button.name == "Play" else ("white_action_next" if button.name == "Next" else "action.got_it")
+	ButtonKit.word(content, word_id, button.size).name = "Word"
 
 ## ---------- scene helpers ----------
 
@@ -470,7 +496,7 @@ func _set_birds(layout: Array) -> void:
 			var code := _code(b * 8 + i, str(layout[b][i]))
 			var asleep := (code & Board.ASLEEP) != 0 or (lesson == "daynight" and not _night
 				and Board.is_nocturnal(Board.species_of(code)))
-			bird.setup(code, asleep, BIRD_SCALE)
+			bird.setup(code, asleep, BIRD_SCALE, WorldBirds.look(Board.SPECIES[Board.species_of(code)], world))
 			bird.position = _seat(b, i)
 			_birds_layer.add_child(bird)
 			if instant:
@@ -515,7 +541,7 @@ func _set_resident(species: String) -> void:
 	if species.is_empty():
 		return
 	_resident = BirdView.new()
-	_resident.setup(Board.bird(0, Board.species_index(species), 0), false, 0.58)
+	_resident.setup(Board.bird(0, Board.species_index(species), 0), false, 0.58, WorldBirds.look(species, world))
 	_door_mask.add_child(_resident)
 	var feet := Vector2(_door_mask.size.x * 0.5, _door_mask.size.y * 0.97)
 	_resident.position = feet

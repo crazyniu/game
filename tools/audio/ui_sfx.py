@@ -130,3 +130,9 @@ def peep(f0, f1, d=0.13):
 
 write("egg_hatch", norm(place(0.55, [(0.0, 0.5 * tick(hz=2600)), (0.07, 0.7 * tick(hz=3000)), (0.13, tick(hz=3400)),
                                       (0.2, 0.8 * peep(1500, 2300)), (0.36, 0.9 * peep(1700, 2600, 0.15))]), -8))
+
+# Equipping a nest or an outfit: a soft dress-up swish, two rising marimba notes, a sparkle and a happy peep.
+dress = lowpass(highpass(rng.uniform(-1, 1, int(0.16 * RATE)), 900), 4200)
+dress *= np.sin(np.linspace(0, np.pi, len(dress))) ** 2
+write("equip", norm(place(0.75, [(0.0, 0.4 * dress), (0.06, marimba(E5, 0.35, 0.12)), (0.14, marimba(A5, 0.45, 0.16)),
+                                  (0.2, 0.5 * sparkle(0.45, 5, 3000, 13)), (0.3, 0.55 * peep(1800, 2500, 0.12))]), -8))

@@ -12,13 +12,7 @@ The font is licensed under the SIL Open Font License 1.1; see `OFL.txt`. It supp
 - Font: https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/LilitaOne-Regular.ttf
 - License: https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/OFL.txt (retained as `lilita_one_license.txt`)
 
-Both fonts are used only by `tools/kit/build_localized_labels.py`. Runtime assets are complete PNG phrases and numeral cells; the game does not load these fonts.
-
-Run `uv run --no-project --isolated --with pillow tools/kit/build_localized_labels.py en` to produce the English pack. On this Apple Silicon Mac, the installed FriBiDi library must be exposed to Pillow:
-
-```bash
-DYLD_LIBRARY_PATH=/opt/homebrew/opt/fribidi/lib uv run --no-project --isolated --with pillow tools/kit/build_localized_labels.py en
-```
+Both fonts are used only by `tools/kit/build_documents.py` for the long baked document pages (terms, credits, contact). No visible UI word or number uses a font: those are hand-painted pictures.
 
 Pillow's macOS wheels require [FriBiDi for RAQM shaping](https://pillow.readthedocs.io/en/stable/installation/basic-installation.html). The isolated environment avoids reusing a system Pillow without RAQM support.
 

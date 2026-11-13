@@ -13,18 +13,22 @@ var _wipe: Control
 var _wipe_leaves: Array[TextureRect] = []
 var _wipe_back: ColorRect
 var _wiping := false
+var _coin_shop: Control
 
 const WIPE_SECONDS := 0.4
+const DAILY_OFFER_DELAY := 0.9   # after the home page has settled
 
 
 
 func _ready() -> void:
 	size = Vector2(1080, 1920)
+	get_tree().node_added.connect(_connect_coin_counter)
 	for a in OS.get_cmdline_user_args():
 		var kv := a.trim_prefix("--").split("=", true, 1)
 		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
 	if args.has("lang"):
 		TranslationServer.set_locale(args["lang"])   # captures: --lang=zh
+	Progress.unlimited = args.has("unlimited")   # the launcher's test mode: chest, check-in and draws never run out
 	profile = Profile.new() if sandboxed() else Profile.load_saved()
 	if args.has("profile"):
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))
@@ -36,6 +40,8 @@ func _ready() -> void:
 		UiText.set_language(args["lang"])   # captures and tests: --lang=zh
 	ambient = Ambient.new()
 	ambient.still = instant()
+	# The Home composition keeps the beach clear; level ambience is created by BoardView.
+	ambient.look = {"count": 0, "sun": 0.0}
 	add_child(ambient)
 	popups = Control.new()
 	popups.name = "Popups"
@@ -54,6 +60,7 @@ func _ready() -> void:
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
 		open_home()
+		_offer_daily_reward()
 	_booted = true
 	_build_wipe()
 	if args.has("autoplay"):
@@ -117,7 +124,7 @@ func _open_home() -> void:
 	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	home.lucky_draw_requested.connect(show_lucky_draw)
 	home.chest_requested.connect(show_chest)
-	home.challenge_requested.connect(start_challenge)
+	home.daily_reward_requested.connect(show_daily_reward)
 	Sound.music("bgm_menu")
 
 func open_map() -> void:
@@ -133,7 +140,6 @@ func _open_map() -> void:
 	map.settings_requested.connect(func(): show_settings(false))
 	map.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	map.home_requested.connect(open_home)
-	map.chapters_requested.connect(func(): Popups.chapters(popups, profile, map.show_world))
 	Sound.music("bgm_menu")
 
 ## The daily lucky draw opens only from its home tile; the tile's badge says draws are waiting.
@@ -149,53 +155,62 @@ func show_lucky_draw() -> void:
 		_refresh_screen()
 		return got)
 
-## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
-func start_challenge() -> void:
-	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), Progress.highest_cleared(profile))
-	if def.is_empty():
-		Sound.play("error")
-		return
-	_go(func():
-		_clear_popups()
-		var board := BoardView.new()
-		board.instant = instant()
-		set_screen(board)
-		board.start(def, profile, not instant())
-		board.profile_changed.connect(save)
-		board.settings_requested.connect(func(): show_settings(true))
-		board.goal_info_requested.connect(func(sp):
-			board.suspend_input()
-			Popups.goal_info(popups, sp))
-		board.buy_requested.connect(func(kind): open_shop(0, true))
-		board.won.connect(func(_result: Dictionary):
-			profile.inventory = board.session.state.inventory.duplicate()
-			var got := Progress.complete_challenge(profile, Progress.today())
+## Daily reward: the seven-day login calendar from its home tile. At launch it opens by itself while today's reward
+## waits, once the player has cleared the first level (a brand-new player goes straight to play).
+func show_daily_reward() -> void:
+	var today := Progress.today()
+	Popups.daily_reward(popups, Progress.daily_reward_day(profile, today), Progress.daily_reward_available(profile, today),
+		profile.coins, func() -> Dictionary:
+			var got := Progress.claim_daily_reward(profile, today)
+			if got.is_empty():
+				return {}
 			save()
-			Sound.play("collect")
-			if got.is_empty():   # today's prize was already taken: still say the puzzle is done
-				Popups.rewards(popups, "challenge.title", 0, [], open_home, "pic_check")
-				return
-			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
-		Sound.music("bgm_game"))
+			_refresh_screen()
+			return got)
+
+## Never in the launcher's test mode, where a reward is always waiting (the tile still opens it).
+func _offer_daily_reward() -> void:
+	if args.has("capture") or Progress.unlimited or profile.best_stars(1) == 0 or not Progress.daily_reward_available(profile, Progress.today()):
+		return
+	await get_tree().create_timer(DAILY_OFFER_DELAY).timeout
+	if screen is HomeView and popups.get_child_count() == 0 and _overlay == null:
+		show_daily_reward()
+
+## Undo pressed with none left: one more for coins (the coin shop opens when the balance is short) or for an ad.
+func _offer_undos(board: BoardView) -> void:
+	UndoOffer.open(popups, Progress.UNDO_PRICE, func():
+		if profile.coins < Progress.UNDO_PRICE:
+			Sound.play("error")
+			open_coin_shop(profile.coins)
+			return
+		profile.coins -= Progress.UNDO_PRICE
+		save()
+		Sound.play("collect")
+		if is_instance_valid(board):
+			board.granted_undos(1),
+	func():
+		AdService.show_rewarded(self, func():
+			if is_instance_valid(board):
+				Sound.play("reward")
+				board.granted_undos(1), instant()),
+	instant())
 
 func show_chest() -> void:
-	var chest: Control = Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
+	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
 		var got := Progress.open_chest(profile)
 		if got.is_empty():
 			return
 		Sound.play("collect")
 		save()
-		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen),
-		_play_next if screen is HomeView else Callable())
-	# Over the home page its own Play, Daily and Check-In sit right behind the popup's buttons: dim them out.
-	if screen is HomeView:
-		chest._dim.color.a = 0.88
+		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen, "pic_chest_open", profile.coins),
+		_play_next if screen is HomeView else Callable(), profile.coins)
 
 func _play_next() -> void:
 	_start_level(Progress.resume_level(profile))
 
 func _refresh_screen() -> void:
-	if screen and screen.has_method("setup") and not screen is BoardView:
+	# The coin page shows only a balance (set_balance), so it is not rebuilt from the profile.
+	if screen and screen.has_method("setup") and not screen is BoardView and not screen.has_method("set_balance"):
 		screen.setup(profile)
 	elif screen is BoardView:
 		screen.refresh_hud()
@@ -298,10 +313,8 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
-	board.goal_info_requested.connect(func(sp):
-		board.suspend_input()
-		Popups.goal_info(popups, sp))
 	board.buy_requested.connect(func(kind): open_shop(0, true))
+	board.undo_more_requested.connect(_offer_undos.bind(board))
 	board.won.connect(_on_won.bind(level_id))
 	Sound.music("bgm_game")
 	# First meetings and booster unlocks are shown after the entrance.
@@ -395,16 +408,47 @@ func show_settings(on_board: bool) -> void:
 			_clear_popups()
 			_open_home()),
 		"help": func(): Tutorial.open(popups, Callable(), instant()),
-		"language": func():
-			profile.language = "zh" if UiText.locale() == "en" else "en"
+		"language": func(code: String):
+			if code == UiText.locale():
+				return
+			profile.language = code
 			UiText.set_language(profile.language)
-			save()
-			_clear_popups()
-			show_settings(on_board),
+			save(),   # the open settings swap their own words; no reopening, no flash
 	}, on_board)
 
 func open_shop(tab := 0, over_board := false) -> void:
 	_go(_open_shop.bind(tab))
+
+## Counters on every screen share the same entry, including counters created inside popups.
+func _connect_coin_counter(node: Node) -> void:
+	if node is FeatherBar:
+		node.purchase_requested.connect(open_coin_shop)
+
+func open_coin_shop(balance: int) -> void:
+	if _coin_shop != null:
+		return
+	var view: Control = load("res://game/coin_shop_view.gd").new()
+	view.name = "CoinShop"
+	view.instant = instant()
+	_coin_shop = view
+	# Keep the originating screen, overlay and confirmation mounted underneath this page.
+	add_child(view)
+	view.setup(balance)
+	view.purchase_requested.connect(func(pack: Dictionary):
+		view.show_purchase(pack, func(chosen: Dictionary):
+			PaymentService.purchase(chosen, func(bought: Dictionary):
+				profile.coins += int(bought["coins"])
+				save()
+				Sound.play("collect")
+				if is_instance_valid(view):
+					view.set_balance(profile.coins)
+				_refresh_screen())))
+	view.closed.connect(func():
+		remove_child(view)
+		view.queue_free()
+		_coin_shop = null
+		Sound.music("bgm_game" if screen is BoardView and _overlay == null else "bgm_menu"))
+	Sound.music("bgm_menu")
 
 func _open_shop(tab: int) -> void:
 	var shop: Control = ShopScreen.new()

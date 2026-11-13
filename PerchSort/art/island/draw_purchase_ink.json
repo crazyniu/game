@@ -1,0 +1,296 @@
+{
+  "btn_purchase_close": [
+    7,
+    7,
+    101,
+    103
+  ],
+  "label_purchase_title_zh": [
+    7,
+    5,
+    622,
+    189
+  ],
+  "icon_purchase_stack": [
+    9,
+    15,
+    215,
+    143
+  ],
+  "icon_purchase_cluster": [
+    9,
+    8,
+    251,
+    160
+  ],
+  "icon_purchase_pouch": [
+    6,
+    11,
+    248,
+    216
+  ],
+  "icon_purchase_basket": [
+    6,
+    9,
+    265,
+    216
+  ],
+  "icon_purchase_chest": [
+    11,
+    13,
+    242,
+    225
+  ],
+  "icon_purchase_hoard": [
+    10,
+    9,
+    305,
+    249
+  ],
+  "btn_purchase_six": [
+    7,
+    4,
+    261,
+    94
+  ],
+  "btn_purchase_eighteen": [
+    3,
+    4,
+    268,
+    95
+  ],
+  "btn_purchase_thirty": [
+    6,
+    6,
+    262,
+    95
+  ],
+  "btn_purchase_sixty_eight": [
+    3,
+    6,
+    268,
+    95
+  ],
+  "btn_purchase_one_twenty_eight": [
+    6,
+    6,
+    262,
+    95
+  ],
+  "btn_purchase_one_ninety_eight": [
+    3,
+    6,
+    268,
+    95
+  ],
+  "label_draw_title_zh": [
+    7,
+    8,
+    648,
+    196
+  ],
+  "btn_draw_close": [
+    7,
+    5,
+    101,
+    103
+  ],
+  "icon_draw_prize_forty": [
+    13,
+    9,
+    133,
+    122
+  ],
+  "icon_draw_prize_eighty": [
+    6,
+    13,
+    170,
+    119
+  ],
+  "icon_draw_mystery_single": [
+    10,
+    14,
+    176,
+    124
+  ],
+  "icon_draw_prize_four_hundred": [
+    13,
+    20,
+    191,
+    134
+  ],
+  "icon_draw_prize_one_twenty": [
+    24,
+    19,
+    192,
+    122
+  ],
+  "icon_draw_prize_sixty": [
+    23,
+    27,
+    178,
+    123
+  ],
+  "icon_draw_mystery_double": [
+    18,
+    33,
+    176,
+    127
+  ],
+  "icon_draw_prize_two_hundred": [
+    18,
+    23,
+    204,
+    139
+  ],
+  "btn_draw_action_zh": [
+    9,
+    9,
+    532,
+    185
+  ],
+  "panel_draw_empty_board": [
+    39,
+    42,
+    1173,
+    1169
+  ],
+  "icon_draw_center_chest": [
+    294,
+    248,
+    676,
+    722
+  ],
+  "star_draw_available": [
+    223,
+    247,
+    793,
+    757
+  ],
+  "star_draw_used": [
+    221,
+    246,
+    799,
+    763
+  ],
+  "star_draw_spent": [
+    223,
+    247,
+    793,
+    757
+  ],
+  "panel_purchase_balance": [
+    157,
+    98,
+    1775,
+    558
+  ],
+  "label_draw_title_en": [
+    25,
+    34,
+    2092,
+    632
+  ],
+  "label_purchase_title_en": [
+    25,
+    47,
+    2087,
+    631
+  ],
+  "btn_draw_action_en": [
+    33,
+    30,
+    2000,
+    699
+  ],
+  "label_draw_purchase_zero": [
+    16,
+    17,
+    202,
+    248
+  ],
+  "label_draw_purchase_one": [
+    16,
+    19,
+    184,
+    240
+  ],
+  "label_draw_purchase_two": [
+    16,
+    16,
+    194,
+    245
+  ],
+  "label_draw_purchase_three": [
+    16,
+    16,
+    191,
+    249
+  ],
+  "label_draw_purchase_four": [
+    16,
+    16,
+    217,
+    253
+  ],
+  "label_draw_purchase_five": [
+    16,
+    18,
+    199,
+    256
+  ],
+  "label_draw_purchase_six": [
+    16,
+    16,
+    206,
+    259
+  ],
+  "label_draw_purchase_seven": [
+    16,
+    18,
+    201,
+    256
+  ],
+  "label_draw_purchase_eight": [
+    16,
+    16,
+    205,
+    258
+  ],
+  "label_draw_purchase_nine": [
+    16,
+    16,
+    205,
+    258
+  ],
+  "label_draw_purchase_plus": [
+    16,
+    36,
+    224,
+    215
+  ],
+  "label_draw_purchase_multiply": [
+    16,
+    45,
+    208,
+    207
+  ],
+  "label_draw_purchase_yuan": [
+    16,
+    16,
+    200,
+    234
+  ],
+  "label_draw_purchase_slash": [
+    16,
+    19,
+    155,
+    231
+  ],
+  "label_draw_purchase_minus": [
+    16,
+    85,
+    202,
+    89
+  ]
+}

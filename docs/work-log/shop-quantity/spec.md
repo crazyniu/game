@@ -10,7 +10,7 @@ AGENTS.md assigns game code to Claude and art to Codex by default. After this bo
 
 ## Existing style
 
-Use the current `docs/design/ui-system.md`, `game/ui.gd`, `game/popup.gd`, and `game/shop_view.gd`, not historical Unity screen specifications.
+Use the current `docs/design/ui-system.md`, `game/ui.gd`, `game/popup.gd`, and `game/shop_view.gd`.
 
 - Panel: cream #fff7e8, rim #e9d6b0, radius 56, bottom edge 12, existing shadow and dim backdrop.
 - Text: existing brown #5a3a1e; white on the orange Buy button.
