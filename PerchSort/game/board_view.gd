@@ -1853,7 +1853,9 @@ func _dip_branch(b: int) -> void:
 		for r in riders:
 			if is_instance_valid(r[0]):
 				r[0].sag = LAND_DIP * (LAND_DIP_ROOT + (1.0 - LAND_DIP_ROOT) * r[1]) * f
-	var tw := create_tween()
+	# Owned by the branch art, so the tween dies with it: a lambda whose captured node was freed (restart,
+	# leaving the level mid-landing) errors when called, before its own validity guard can run.
+	var tw := art.create_tween()
 	tw.tween_method(func(u: float): pose.call(_dip_curve(u)), 0.0, 1.0, LAND_DIP_SECONDS)
 	tw.tween_callback(func(): pose.call(0.0))
 
