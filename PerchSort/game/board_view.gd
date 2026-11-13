@@ -697,14 +697,21 @@ func _entrance(quick := false) -> void:
 
 ## Exposed, aligned HUD: stars, footprint and remaining star-budget share one row.
 ## The budget hides on the last star; day/night information stays below without a backing panel.
-const STATUS_AT := Vector2(72, 52)
+const STATUS_AT := Vector2(32, 48)
 const STATUS_H := 104.0
-const STATUS_W := 372.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
-const PHASE_W := 192.0
-const STATUS_GAP := 16.0         # between the two pills
-const STATUS_INSET := 0.0
-const STATUS_CAP := 48.0
-const STATUS_STAR := 64.0
+const STATUS_W := 396.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
+const PHASE_W := 200.0
+const STATUS_GAP := 16.0         # between the two cards
+const STATUS_INSET := 46.0       # clear of the plank's leafy ends
+const STATUS_CAP := 52.0
+const STATUS_STAR := 56.0
+## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
+const SHELF := "hud_goal_shelf"
+const SHELF_CAP := 170           # shelf source pixels kept at each end; the plain middle extends
+const SHELF_H := 60.0
+const STATUS_WOOD := Color(0.74, 0.56, 0.46)   # the status plates are a darker wood, so gold stars stand out
+const SHELF_LEDGE := 0.12        # the shelf's top ledge, as a share of its height
+const SHELF_ROPE_X := 64.0       # the two ropes hang from under the house, this far either side of the centre
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 56.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
@@ -712,13 +719,15 @@ const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
 const LABEL_LINE := 208.0
 const NUMBER_BASELINE := 126.0 / 128.0
-const GEAR := Vector2(968, 104)
+const GEAR := Vector2(992, 100)
+const GEAR_ICON := 112.0         # the painted round green gear button
 ## Tool buttons stand in one centred row at the bottom (no tray), 48 px from the screen edge like the status pill at the top.
-const TOOL_Y := 1768.0
+const TOOL_Y := 1736.0
 const TOOL_GAP := 24.0
 const TOOL_SIZE := 136.0
-const TOOL_ITEM_HEIGHT := 184.0
-const TOOL_ICON_SIZE := 104.0
+const TOOL_ICON_SIZE := 100.0
+const TOOL_COUNT_H := 46.0       # painted stock numerals under each tool slot (no badge)
+const TOOL_COUNT_GAP := 6.0
 const TOOL_ROW_WIDTH := 1000.0
 ## Hanging house: sprite, visible content and doorway in sprite pixels, and where the rope meets it.
 const HOUSES := {
@@ -735,7 +744,8 @@ const HOUSES := {
 const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
-const GOAL := 112.0
+const GOAL := 100.0
+const GOAL_PAD := 30.0           # shelf overhang past the outer goal faces
 const GOAL_GAP := 24.0
 const GOAL_TOP_GAP := 20.0
 const HUD_ICON := 64.0
@@ -801,10 +811,14 @@ func _build_hud() -> void:
 	_house.add_child(_door_mask)
 	_door_open = null
 	_build_status()
-	UI.art(_hud, "pic_gear", Rect2(GEAR - Vector2.ONE * 40.0, Vector2.ONE * 80.0))
-	UI.hit_area(_hud, Rect2(GEAR - Vector2.ONE * 64.0, Vector2.ONE * 128.0), func():
+	var gear := UI.art(_hud, "hud_gear_button", Rect2(GEAR - Vector2.ONE * GEAR_ICON * 0.5, Vector2.ONE * GEAR_ICON))
+	gear.name = "Gear"
+	var gear_hit := UI.hit_area(_hud, Rect2(GEAR - Vector2.ONE * 64.0, Vector2.ONE * 128.0), func():
 		Sound.play("ui_tap")
 		settings_requested.emit())
+	gear_hit.name = "Settings"
+	gear_hit.button_down.connect(func(): gear.self_modulate = UI.PRESSED_TINT)
+	gear_hit.button_up.connect(func(): gear.self_modulate = Color.WHITE)
 	_build_goals()
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
@@ -826,7 +840,7 @@ func _place_label(parent: Node, id: String, x: float, baseline: float, cap: floa
 
 ## The single place that picks the HUD star art (painted stars; an unreachable star is the empty one).
 static func _star_texture(lit: bool) -> Texture2D:
-	return Art.tex("pic_star" if lit else "pic_star_empty")
+	return Art.tex("island_star_full" if lit else "island_star_empty")
 
 ## Stars as one row of `count` sprites in `bounds` (left aligned); see _set_stars.
 func _make_stars(parent: Node, at: Vector2, size: float, gap: float, count := 3) -> Array:
@@ -849,20 +863,19 @@ func _set_stars(stars: Array, lit: int) -> void:
 
 func _build_status() -> void:
 	var face := (STATUS_H - 4.0) * 0.5   # visual centre of the painted bar
-	var baseline := face + STATUS_CAP * 0.5
 	_status = Control.new()
 	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(_status, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)))
 	_hud.add_child(_status)
 	_status.name = "Status"
+	_hud_pill(_status, Rect2(Vector2.ZERO, _status.size))
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
 	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
 	_moves_icon = UI.art(_status, "icon_star_budget_steps", Rect2(moves_x, face - STATUS_ICON * 0.5, STATUS_ICON, STATUS_ICON), Rect2(317, 217, 652, 801))
 	_stars_centred = false
 	_shown_stars = -1
-	var number_x := moves_x + STATUS_ICON + 8.0
-	_moves_number = UI.number(_status, "0", Rect2(number_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		STATUS_W - STATUS_INSET - number_x, STATUS_CAP), Color(1.0, 0.8, 0.1), -1)
+	var number_x := moves_x + STATUS_ICON + 6.0
+	_moves_number = _digits(_status, Rect2(number_x, face - STATUS_CAP * 0.5, STATUS_W - STATUS_INSET - number_x, STATUS_CAP))
 	_phase_chip = null
 	_phase_icons.clear()
 	_phase_number = null
@@ -873,12 +886,12 @@ func _build_status() -> void:
 	UI.place(_phase_chip, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)))
 	_hud.add_child(_phase_chip)
 	_phase_chip.name = "Phase"
+	_hud_pill(_phase_chip, Rect2(Vector2.ZERO, _phase_chip.size))
 	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
 		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
 			Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
 	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
-	_phase_number = UI.number(_phase_chip, "0", Rect2(phase_x, baseline - STATUS_CAP * NUMBER_BASELINE,
-		PHASE_W - STATUS_INSET - phase_x, STATUS_CAP), UI.INK, -1)
+	_phase_number = _digits(_phase_chip, Rect2(phase_x, face - STATUS_CAP * 0.5, PHASE_W - STATUS_INSET - phase_x, STATUS_CAP))
 
 ## `with_phase` false leaves the day/night pill for the phase_changed playback.
 func _refresh_status(with_phase := true) -> void:
@@ -886,7 +899,7 @@ func _refresh_status(with_phase := true) -> void:
 	var moves := session.move_count()
 	var stars := GameSession.stars_for(moves, session.par)
 	var keep := GameSession.moves_left_for_star(moves, session.par)
-	UI.set_number(_moves_number, str(maxi(keep, 0)))
+	_set_digits(_moves_number, str(maxi(keep, 0)))
 	_moves_number.visible = keep >= 0
 	_moves_icon.visible = keep >= 0
 	_set_stars(_status_stars, stars)
@@ -900,13 +913,68 @@ func _refresh_status(with_phase := true) -> void:
 	if _phase_number == null or not with_phase:
 		return
 	var left := str(s.day_length - s.phase_counter)
-	UI.set_number(_phase_number, left)
+	_set_digits(_phase_number, left)
 	for phase in _phase_icons:
 		_phase_icons[phase].visible = phase == s.phase
 	var shown := "%d:%s" % [s.phase, left]
 	if not _shown_phase.is_empty() and shown != _shown_phase:
 		_pulse(_phase_number)
 	_shown_phase = shown
+
+## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
+## its leafy ends keep their shape, only the plain middle extends.
+func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
+	var plank := _plank(parent, rect)
+	plank.name = "Plate"
+	plank.self_modulate = STATUS_WOOD
+	parent.move_child(plank, 0)
+	return plank
+
+func _plank(parent: Control, rect: Rect2) -> NinePatchRect:
+	var tex := Art.tex(SHELF)
+	var k := rect.size.y / tex.get_height()
+	var plank := NinePatchRect.new()
+	plank.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plank.texture = tex
+	plank.patch_margin_left = SHELF_CAP
+	plank.patch_margin_right = SHELF_CAP
+	plank.position = rect.position
+	plank.size = rect.size / k
+	plank.scale = Vector2.ONE * k
+	parent.add_child(plank)
+	return plank
+
+## The wooden goal shelf, hung from under the house on two ropes; its leafy ends keep their shape.
+func _goal_shelf(parent: Control, rect: Rect2) -> void:
+	var house_bottom := _house_rect().end.y - 24.0
+	var rope_k := ROPE_WIDTH / 108.0
+	for side in [-1.0, 1.0]:
+		var rope := Control.new()
+		rope.name = "ShelfRope"
+		rope.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		rope.clip_contents = true
+		UI.place(rope, Rect2(540.0 + side * SHELF_ROPE_X - ROPE_WIDTH * 0.5, house_bottom, ROPE_WIDTH, rect.position.y + rect.size.y * 0.5 - house_bottom))
+		parent.add_child(rope)
+		UI.art(rope, "goal_rope_single", Rect2(0, 0, ROPE_WIDTH, 1260.0 * rope_k), Rect2(6, 0, 108, 1260))
+	_plank(parent, rect).name = "Shelf"
+
+## A holder for the shop's painted numerals (white, dark-green outline), left aligned; _set_digits fills it.
+func _digits(parent: Control, rect: Rect2) -> Control:
+	var holder := Control.new()
+	holder.name = "Number"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	return holder
+
+func _set_digits(holder: Control, text: String) -> void:
+	if holder.get_meta("value", "") == text:
+		return
+	holder.set_meta("value", text)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	ButtonKit.number(holder, text, Rect2(Vector2.ZERO, holder.size), -1)
 
 ## With the counter gone the stars glide to the middle of the pill; undo brings them back.
 func _centre_status_stars(centred: bool, animate: bool) -> void:
@@ -953,6 +1021,12 @@ func _build_goals() -> void:
 	var status := _status_rect()
 	if left < status.end.x + GOAL_GAP:
 		top = maxf(top, status.end.y + GOAL_TOP_GAP)
+	var tray := Control.new()
+	tray.name = "Goals"
+	tray.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(tray)
+	# The faces stand on the shelf's ledge.
+	_goal_shelf(tray, Rect2(left - GOAL_PAD, top + size - SHELF_H * SHELF_LEDGE - 6.0, n * size + (n - 1) * gap + GOAL_PAD * 2.0, SHELF_H))
 	for i in n:
 		var sp: String = ids[i]
 		var cx := 540.0 + (i - (n - 1) * 0.5) * (size + gap)
@@ -961,12 +1035,9 @@ func _build_goals() -> void:
 		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		UI.place(node, Rect2(Vector2(cx - size * 0.5, top), Vector2.ONE * size))
 		_hud.add_child(node)
-		UI.art(node, "btn_home_icon_frame", Rect2(Vector2.ZERO, Vector2.ONE * size))
-		var face := size * 0.78
-		UI.art(node, sp + "_face", Rect2(Vector2.ONE * (size - face) * 0.5 + Vector2(0, -4), Vector2.ONE * face))
-		var badge := Rect2(Vector2.ONE * size * 0.6, Vector2.ONE * size * 0.46)
-		var check := UI.shape(node, badge, "green", badge.size.x * 0.5, 4.0, false)
-		UI.icon(check, "check", badge.size * 0.5, badge.size.x * 0.6)
+		UI.art(node, sp + "_face", Rect2(Vector2.ZERO, Vector2.ONE * size)).name = "Face"
+		var check := Island.check_badge(node, Vector2(size - 14.0, size - 14.0))
+		check.name = "Check"
 		_goal_check[sp] = check
 		check.visible = false
 		UI.hit_area(node, Rect2(Vector2.ZERO, Vector2.ONE * size), func(): goal_info_requested.emit(sp))
@@ -978,6 +1049,7 @@ func refresh_hud() -> void:
 	for sp in _goal_nodes:
 		var home: bool = s.homed.has(Board.species_index(sp))
 		_goal_check[sp].visible = home
+		_goal_nodes[sp].get_node("Face").modulate = Color(1, 1, 1, 0.55) if home else Color.WHITE
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
@@ -997,31 +1069,22 @@ func _visible_tools() -> Array:
 const TOOL_ICON_NAME := {Board.Booster.FIREFLY: "bulb", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "eye",
 	Board.Booster.MORNING_BELL: "bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "rain"}
 
-## Tools as a centred row of buttons: undo (cream) then boosters (orange) with a red stock badge ("+" buys more).
-## Counts belong to each inventory item, not floating badges. The whole item is clickable.
+## Tools as a centred row of painted tool slots (hud_tool_slot); the stock stands under each slot in painted numerals
+## (white, dark-green outline; no badge), "+" when empty (pressing buys more). The whole slot is clickable.
 func _tool_count(button: Button, value: String) -> void:
-	var number := Label.new()
-	number.name = "Stock"
-	number.text = value
-	number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	number.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var font := SystemFont.new()
-	font.font_names = PackedStringArray(["DejaVu Sans"])
-	font.font_weight = 700
-	number.add_theme_font_override("font", font)
-	number.add_theme_font_size_override("font_size", 48)
-	number.add_theme_color_override("font_color", Color.WHITE)
-	number.add_theme_color_override("font_outline_color", Color("19352b"))
-	number.add_theme_constant_override("outline_size", 8)
-	number.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(number, Rect2(0, TOOL_SIZE, TOOL_SIZE, 48.0))
-	button.add_child(number)
+	var count := Control.new()
+	count.name = "Stock"
+	count.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(count, Rect2(0, TOOL_SIZE + TOOL_COUNT_GAP, TOOL_SIZE, TOOL_COUNT_H))
+	button.add_child(count)
+	ButtonKit.number(count, value, Rect2(Vector2.ZERO, count.size))
 
 func _restyle_tool(button: Button, icon_name: String) -> void:
 	var old_face := button.get_node_or_null("Face")
 	if old_face:
 		old_face.hide()
-	var frame := UI.art(button, "btn_home_icon_frame", Rect2(0, 0, TOOL_SIZE, TOOL_SIZE), Rect2(82, 92, 1082, 1076))
+	var frame := UI.image(button, "hud_tool_slot", Rect2(0, 0, TOOL_SIZE, TOOL_SIZE), false)
+	frame.name = "Slot"
 	button.move_child(frame, 0)
 	var old_icon := button.get_node_or_null("Icon")
 	if old_icon:
@@ -1037,8 +1100,7 @@ func _restyle_tool(button: Button, icon_name: String) -> void:
 	var bounds := Rect2(Vector2.ONE * (TOOL_SIZE - TOOL_ICON_SIZE) * 0.5, Vector2.ONE * TOOL_ICON_SIZE)
 	var icon := UI.art(button, picture, bounds, Rect2(content))
 	icon.name = "Icon"
-	button.size.y = TOOL_ITEM_HEIGHT
-	button.button_down.connect(func(): frame.modulate = UI.PRESSED_TINT; icon.modulate = UI.PRESSED_TINT)
+	button.button_down.connect(func(): frame.modulate = ButtonKit.PRESSED; icon.modulate = ButtonKit.PRESSED)
 	button.button_up.connect(func(): frame.modulate = Color.WHITE; icon.modulate = Color.WHITE)
 
 func _build_tools() -> void:
@@ -1900,15 +1962,76 @@ func _gift(e: Dictionary) -> void:
 	await tw.finished
 	coin.queue_free()
 
+## The board cheers before the win panel opens: the house bounces and glows, the goal keys hop one after another,
+## confetti bursts from the doorway and the resident cheers in it (CELEBRATE seconds).
+const CELEBRATE := 1.3
+
 func _celebrate() -> void:
 	var playback := _playback_id
 	busy = true
 	_last_won = int(level["id"])
 	Sound.play("win_fanfare")
-	await get_tree().create_timer(0.4 if not instant else 0.0).timeout
+	if not instant:
+		_play_celebration()
+	await get_tree().create_timer(CELEBRATE if not instant else 0.0).timeout
 	if playback != _playback_id:
 		return
 	won.emit({"session": session})
+
+func _play_celebration() -> void:
+	_house.pivot_offset = Vector2(_house.size.x * 0.5, _house.size.y)
+	var hop := _house.create_tween()
+	hop.tween_property(_house, "scale", Vector2(1.12, 0.9), 0.1).set_ease(Tween.EASE_OUT)
+	hop.tween_property(_house, "scale", Vector2(0.94, 1.12), 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	hop.tween_property(_house, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	var shine := _glow.create_tween()
+	shine.tween_property(_glow, "modulate:a", 0.95, 0.2)
+	shine.tween_property(_glow, "modulate:a", 0.0, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	if _resident and is_instance_valid(_resident):
+		_resident.cheer()
+	var keys := _goal_nodes.values()
+	for i in keys.size():
+		var key: Control = keys[i]
+		key.pivot_offset = key.size * Vector2(0.5, 1.0)
+		var jump := key.create_tween()
+		jump.tween_interval(0.12 + i * 0.09)
+		jump.tween_property(key, "position:y", key.position.y - 26.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		jump.parallel().tween_property(key, "scale", Vector2.ONE * 1.12, 0.16)
+		jump.tween_property(key, "position:y", key.position.y, 0.24).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+		jump.parallel().tween_property(key, "scale", Vector2.ONE, 0.24)
+	_confetti_burst(_door_rect.get_center())
+
+## Confetti pieces fly out of `origin` in a fan, then flutter down and fade.
+func _confetti_burst(origin: Vector2) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = int(level["id"])
+	var layer := Control.new()
+	layer.name = "Celebration"
+	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(layer)
+	for i in 36:
+		var piece := TextureRect.new()
+		piece.texture = Art.tex("confetti_%d" % (1 + i % 4))
+		piece.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		piece.size = Vector2.ONE * rng.randf_range(30.0, 48.0)
+		piece.pivot_offset = piece.size * 0.5
+		piece.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		layer.add_child(piece)
+		var angle := deg_to_rad(rng.randf_range(-170.0, -10.0))
+		var speed := rng.randf_range(520.0, 980.0)
+		var velocity := Vector2(cos(angle), sin(angle)) * speed
+		var spin := rng.randf_range(300.0, 720.0) * (1.0 if i % 2 == 0 else -1.0)
+		var life := rng.randf_range(1.3, 1.8)
+		var sway := rng.randf_range(10.0, 30.0)
+		piece.position = origin - piece.pivot_offset
+		var tw := piece.create_tween()
+		tw.tween_method(func(t: float):
+			var drag := 1.0 - exp(-3.0 * t)
+			var at := origin + velocity * drag / 3.0 + Vector2(sin(t * 10.0 + i) * sway, 520.0 * t * t)
+			piece.position = at - piece.pivot_offset
+			piece.rotation_degrees = spin * t
+			piece.modulate.a = minf(1.0, (life - t) * 3.0), 0.0, life, life)
+		tw.tween_callback(piece.queue_free)
 
 ## Called after a booster purchase.
 func granted(kind: int, count: int) -> void:

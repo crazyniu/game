@@ -42,12 +42,10 @@ func run() -> void:
 			await process_frame
 			for kind in [0, 3]:
 				var drop: Control = modal.content.get_node("Drop%d" % kind)
-				var quantity: UiText.NumberSprite = drop.get_node("Quantity")
-				check(quantity.value == "+%d" % (count if kind == 0 else 1), "quantity preserves grouped grant")
-				check(quantity.style == "cream", "accepted cream numeral images")
+				var quantity: Control = drop.get_node("Quantity")
+				check(quantity.get_meta("value") == "+%d" % (count if kind == 0 else 1), "quantity preserves grouped grant")
 				check(quantity.material == null, "no glow shader or additive material")
 				check(quantity.size == Vector2(100, 56), "one fixed quantity box")
-				check(quantity.cap == 56.0, "legible unboxed numeral height")
 				check(quantity.mouse_filter == Control.MOUSE_FILTER_IGNORE, "quantity never intercepts controls")
 				check(drop.get_child_count() == 2, "only retained item and painted quantity; no badge or glow")
 				check(not drop.has_node("PlusBadge"), "old glossy reward badge absent")

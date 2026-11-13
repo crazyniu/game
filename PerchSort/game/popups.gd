@@ -51,28 +51,45 @@ const ARCH_FLOOR := 44.0
 
 # ---------------------------------------------------------------- popups
 
+## Win: the shop's cream card with the hanging sign "Well done!", three live birds cheering above it, the stars,
+## moves and feather reward in painted numerals, booster drops, then Replay (green key), Next (green PRIMARY) and
+## Home (green key) in one row, the style of the shop and purchase popups (ButtonKit).
+const WIN_STATS_H := 96.0
+const WIN_STATS_CAP := 64.0
+const WIN_KEY := 112.0          # PRIMARY height 136 / 112 = 1.21 (at most 1.25)
+const WIN_ROW_GAP := 28.0
+const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
+
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
 		on_next: Callable, on_home: Callable, next_enabled: bool) -> Control:
 	var live := not _instant(host)
-	var stats_h := REWARD_H if reward > 0 else LINE
-	var heights := [FamilyDialog.STAR_ROW, stats_h]
+	var heights := [FamilyDialog.STAR_ROW, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var items := [["orange", "retry", on_replay], ["green", "play", on_next, "action.next"], ["orange", "home", on_home]]
-	var p := Modal.open(host, "popup.win.title", heights, false, FamilyDialog.actions_height(items), HERO + 86.0, not live)
-	FamilyDialog.decorate(p)
+	var p := PurchaseDialog.open(host, "win_title", heights, not live, ButtonKit.PRIMARY.y)
+	var close := p.content.get_node_or_null("Close")
+	if close:
+		p.content.remove_child(close)
+		close.queue_free()
+	# The same full jungle backdrop as the other game dialogs (DialogCartoonSkin).
+	var backdrop := UI.image(p, DialogCartoonSkin.BACKGROUND_ART, Rect2(0, 0, 1080, 1920))
+	backdrop.name = "ForestBackground"
+	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	p.move_child(backdrop, 0)
+	p._dim.color = Color(0, 0, 0, 0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var panel := p.panel_rect
+	var card: Rect2 = p.get_meta("card_rect")
 	if live:
-		_rays(p, panel.get_center())
-	# Equal footline, balanced spacing and a clear gap above the title, using the same live birds.
-	var footline := panel.position.y - 92.0
+		_rays(p, card.get_center())
+	# The three birds perch on the sign's leafy branch, in front of it.
+	var sign: Control = c.get_node("TitleGroup")
+	var footline := sign.position.y + sign.size.y * WIN_PERCH
 	var hero_box := Rect2(432, footline - 216.0, 216, 216)
 	var side_boxes := [Rect2(208, footline - 184.0, 184, 184), Rect2(688, footline - 184.0, 184, 184)]
-	var hero := _bird_view(c, "sunny", hero_box, not live, 2.4)
-	var sides := [_bird_view(c, "sky", side_boxes[0], not live, 0.0),
-		_bird_view(c, "berry", side_boxes[1], not live, 0.0)]
+	var hero := _bird_view(c, "sunny", hero_box, not live, 1.6)
+	var sides := [_bird_view(c, "sky", side_boxes[0], not live, 2.0),
+		_bird_view(c, "berry", side_boxes[1], not live, 2.4)]
 	hero.set_meta("visible_box", hero_box)
 	for i in sides.size():
 		sides[i].set_meta("visible_box", side_boxes[i])
@@ -81,28 +98,76 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
 		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
 	FamilyDialog.stars(c, ys[0], stars, live, 0.6)
-	# Moves and feather rewards share one unboxed reading row.
-	var number_w := FamilyDialog.number_width(str(moves), LINE_CAP)
-	var moves_w := 100.0 + number_w
-	var stats_w := moves_w + (64.0 + REWARD_W if reward > 0 else 0.0)
-	var stats_x := 540.0 - stats_w * 0.5
-	var stats_mid: float = ys[1] + stats_h * 0.5
-	UI.icon(c, "hop", Vector2(stats_x + 40.0, stats_mid), 80.0, Color.WHITE)
-	var moves_box := FamilyDialog.number(c, str(moves), Rect2(stats_x + 100.0, stats_mid - LINE_CAP * 0.5, number_w, LINE_CAP))
+	# Moves and the feather reward share one row of painted numerals.
+	var cap := WIN_STATS_CAP
+	var icon := cap * 1.15
+	var moves_w := icon + 12.0 + ButtonKit.number_width(str(moves), cap)
+	var reward_text := "+%d" % reward
+	var reward_w := icon + 12.0 + ButtonKit.number_width(reward_text, cap) if reward > 0 else 0.0
+	var gap := 72.0 if reward > 0 else 0.0
+	var x := 540.0 - (moves_w + gap + reward_w) * 0.5
+	var mid: float = ys[1] + WIN_STATS_H * 0.5
+	UI.art(c, "icon_star_budget_steps", Rect2(x, mid - icon * 0.5, icon, icon), Rect2(317, 217, 652, 801)).name = "MovesIcon"
+	var moves_box := _win_digits(c, "Moves", Rect2(x + icon + 12.0, mid - cap * 0.5, moves_w - icon - 12.0, cap))
 	if live:
-		FamilyDialog.count(moves_box, moves, "%d", 0.5, 0.6)
+		_win_count(moves_box, moves, "%d", 0.5, 0.6)
+	else:
+		_win_set(moves_box, str(moves))
 	if reward > 0:
-		var bar := FamilyDialog.reward(c, Rect2(stats_x + moves_w + 64.0, ys[1], REWARD_W, REWARD_H), reward)
+		var group := Control.new()
+		group.name = "Reward"
+		group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(group, Rect2(x + moves_w + gap, mid - icon * 0.5, reward_w, icon))
+		c.add_child(group)
+		UI.image(group, "icon_purchase_feather", Rect2(0, 0, icon, icon), true).name = "Feather"
+		var number := _win_digits(group, "Number", Rect2(icon + 12.0, (icon - cap) * 0.5, reward_w - icon - 12.0, cap))
 		if live:
-			FamilyDialog.count(bar.get_node("Number"), reward, "+%d", 1.0, 0.7)
-			_coin_burst(p, bar.get_meta("coin_center"), 1.0)
+			_win_count(number, reward, "+%d", 1.0, 0.7)
+			_coin_burst(p, group.position + Vector2(icon * 0.5, icon * 0.5), 1.0)
+		else:
+			_win_set(number, reward_text)
 	if not boosters.is_empty():
 		_drops(c, ys[-1], boosters, live, 1.5)
-	var row := FamilyDialog.actions(p, items)
-	UI.set_active(row[1], next_enabled)
+	# Replay and Home are green keys either side of the green Next.
+	var y := p.panel_rect.end.y + Modal.ACTION_DROP
+	var row_w := WIN_KEY * 2.0 + ButtonKit.PRIMARY.x + WIN_ROW_GAP * 2.0
+	var left := 540.0 - row_w * 0.5
+	var key_y := y + (ButtonKit.PRIMARY.y - WIN_KEY) * 0.5
+	var retry := ButtonKit.button(c, "Retry", Rect2(left, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_replay))
+	UI.art(retry.get_node("Content"), "pic_retry", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
+	var next := ButtonKit.button(c, "action_next", Rect2(left + WIN_KEY + WIN_ROW_GAP, y, ButtonKit.PRIMARY.x, ButtonKit.PRIMARY.y),
+		"green", func(): p.invoke(on_next))
+	ButtonKit.word(next.get_node("Content"), "white_action_next", ButtonKit.PRIMARY).name = "NextWord"
+	var home := ButtonKit.button(c, "Home", Rect2(left + row_w - WIN_KEY, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_home))
+	UI.art(home.get_node("Content"), "pic_home", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
+	UI.set_active(next, next_enabled)
 	if live:
 		_confetti(p, 0.3)
 	return p
+
+## Painted numerals (ButtonKit, white with a dark-green outline) in a holder whose "value" meta is the text.
+static func _win_digits(parent: Control, n: String, rect: Rect2) -> Control:
+	var holder := Control.new()
+	holder.name = n
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	return holder
+
+static func _win_set(holder: Control, text: String) -> void:
+	if holder.get_meta("value", "") == text:
+		return
+	holder.set_meta("value", text)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	ButtonKit.number(holder, text, Rect2(Vector2.ZERO, holder.size), -1)
+
+static func _win_count(holder: Control, amount: int, pattern: String, delay: float, duration: float) -> void:
+	_win_set(holder, pattern % 0)
+	var tween := holder.create_tween()
+	tween.tween_interval(delay)
+	tween.tween_method(func(v: float): _win_set(holder, pattern % roundi(v)), 0.0, float(amount), duration)
 
 ## Settings: a simple cream card. Four identical rows (icon, word, control): Music, Sound and Vibration switches and
 ## the Language choice, then one row of equal buttons (Help; Restart and Home only while playing). Every surface is drawn
@@ -976,8 +1041,9 @@ static func _drops(c: Control, y: float, boosters: Array, live: bool, delay: flo
 		holder.pivot_offset = holder.size * 0.5
 		c.add_child(holder)
 		_fit(holder, "booster_%s_illus" % BOOSTER_ILLUS[kinds[i]], Rect2(Vector2.ZERO, holder.size), true)
-		var quantity := UI.number(holder, "+%d" % counts[kinds[i]], Rect2(DROP_SIDE - 64.0, DROP_SIDE - 60.0, 100, 56), Color.WHITE)
-		quantity.name = "Quantity"
+		# Unboxed painted numerals (ButtonKit: white, dark-green outline) on the item's lower right.
+		var quantity := _win_digits(holder, "Quantity", Rect2(DROP_SIDE - 64.0, DROP_SIDE - 60.0, 100, 56))
+		_win_set(quantity, "+%d" % counts[kinds[i]])
 		if live:
 			holder.scale = Vector2.ZERO
 			var tw := holder.create_tween()

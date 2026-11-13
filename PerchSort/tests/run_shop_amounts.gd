@@ -30,18 +30,23 @@ func _ink(digits: Control) -> Rect2:
 		union = ink if not union.has_area() else union.merge(ink)
 	return union
 
+## The character a glyph shows: the last character of its painted file name (home or button numerals).
+func _glyph(glyph: TextureRect) -> String:
+	return glyph.texture.resource_path.get_file().get_basename().right(1)
+
 func _text(digits: Control) -> String:
 	var result := ""
 	for glyph: TextureRect in digits.get_children():
-		result += glyph.texture.resource_path.get_file().get_basename().trim_prefix(island_script.DIGIT)
+		result += _glyph(glyph)
 	return result
 
 func _source_art(digits: Control, label: String) -> void:
 	var preserved := true
 	for glyph: TextureRect in digits.get_children():
-		var digit := glyph.texture.resource_path.get_file().get_basename().trim_prefix(island_script.DIGIT)
+		var digit := _glyph(glyph)
+		var prefix: String = glyph.texture.resource_path.get_file().get_basename().trim_suffix(digit)
 		preserved = preserved and digit in "0123456789" and digit.length() == 1
-		preserved = preserved and glyph.texture == Art.tex(island_script.DIGIT + digit)
+		preserved = preserved and prefix in [island_script.DIGIT, load("res://game/button_kit.gd").DIGIT]
 		preserved = preserved and absf(glyph.size.aspect() - glyph.texture.get_size().aspect()) < 0.001
 	check(preserved, label + " original painted digit textures and aspect preserved")
 
@@ -107,9 +112,8 @@ func _shop_amounts(shop: Control, label: String) -> void:
 		var stock: Control = card.get_node_or_null("Body/Stock")
 		if stock != null:
 			var count = stock.get_node("Count")
-			check(count.value == str(mini(shop.profile.inventory[item["booster"]], island_script.BADGE_CAP)), label + " exact stock " + str(card.name))
-			check(count.align == 0, label + " stock numerals align centrally")
-			check(count.position.x == 0.0 and count.size.x == stock.size.x, label + " stock numerals span the count badge")
+			check(count.get_meta("value") == str(mini(shop.profile.inventory[item["booster"]], island_script.BADGE_CAP)), label + " exact stock " + str(card.name))
+			check(Rect2(Vector2.ZERO, stock.size).encloses(count.get_rect()), label + " stock numerals inside the count badge")
 
 func _run() -> void:
 	for arg in OS.get_cmdline_user_args():

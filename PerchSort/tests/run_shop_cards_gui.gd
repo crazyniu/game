@@ -64,8 +64,8 @@ func _run() -> void:
 			view._refresh()
 			await create_timer(0.2).timeout
 			var stock: Control = view._grid.get_child(0).get_node("Body/Stock")
-			check(stock.get_node("Count").get("value") != null, "inventory count uses painted numerals")
-			check(stock.get_node("Count").value == str(mini(count, load("res://game/island.gd").BADGE_CAP)), "inventory count preserved")
+			check(stock.get_node("Count").has_meta("value"), "inventory count uses painted numerals")
+			check(stock.get_node("Count").get_meta("value") == str(mini(count, load("res://game/island.gd").BADGE_CAP)), "inventory count preserved")
 			await capture("boosters_" + ("empty_" if count == 0 else "maximum_") + language)
 	var closed := [false]
 	view.closed.connect(func(): closed[0] = true)

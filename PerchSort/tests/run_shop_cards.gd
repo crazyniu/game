@@ -32,7 +32,7 @@ func _run() -> void:
 	check(ShopView.ITEM_NAME.end.y < ShopView.ITEM_ACTION.position.y, "nest name sits above its action pill")
 	check(ShopView.ITEM_ACTION.end.y <= ShopView.CARD_TILE.y, "card action pill stays inside its card")
 	check(not ShopView.BOOSTER_NAME.intersects(view._grid.get_child(0).get_node("Body/Stock").get_rect()), "inventory badge does not overlap the name")
-	check(view._grid.get_child(0).get_node("Body/Stock/Count").get("value") != null, "stock uses painted numerals")
+	check(view._grid.get_child(0).get_node("Body/Stock/Count").has_meta("value"), "stock uses painted numerals")
 	check(view._grid.get_child(0).size == ShopView.ITEM_TILE, "equal forest card size")
 	check(view._grid.get_child(2).position == Vector2(0, 2 * (ShopView.ITEM_TILE.y + ShopView.TILE_GAP)), "single-column shelf order")
 	check(view._grid.get_child(5).get_rect().end.y > ShopView.AREA.size.y, "booster shelves extend through scroll area")

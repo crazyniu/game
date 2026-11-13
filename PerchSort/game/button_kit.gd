@@ -125,10 +125,82 @@ static func word(parent: Node, label_id: String, size: Vector2) -> TextureRect:
 	label.material = paint
 	return label
 
+## Painted numerals for every price, count and quantity: white with a dark-green outline (digit_ui_*).
+const DIGIT := "digit_ui_"
+const GLYPHS := {"/": "slash", "+": "plus", "x": "x", "×": "x"}
+const TRACK := 0.02    # glyph spacing as a share of the height
+
+static func glyph(character: String) -> String:
+	return DIGIT + GLYPHS.get(character, character)
+
+static func number_width(text: String, height: float) -> float:
+	var w := 0.0
+	for c in text:
+		var t := Art.tex(glyph(c))
+		w += t.get_width() * height / t.get_height() + height * TRACK
+	return maxf(0.0, w - height * TRACK)
+
+## Numerals fitted into `rect` (height first, shrunk to fit the width), centred; align -1 left, 0 centre, 1 right.
+static func number(parent: Node, text: String, rect: Rect2, align := 0) -> Control:
+	var box := Control.new()
+	box.name = "Digits"
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.set_meta("value", text)
+	UI.place(box, rect)
+	parent.add_child(box)
+	var h := minf(rect.size.y, rect.size.y * rect.size.x / maxf(1.0, number_width(text, rect.size.y)))
+	var x := (rect.size.x - number_width(text, h)) * (0.5 + 0.5 * align)
+	var y := (rect.size.y - h) * 0.5
+	for c in text:
+		var t := Art.tex(glyph(c))
+		var w := t.get_width() * h / t.get_height()
+		UI.image(box, glyph(c), Rect2(x, y, w, h), false)
+		x += w + h * TRACK
+	return box
+
+static func set_number(box: Control, text: String) -> void:
+	var parent := box.get_parent()
+	var rect := Rect2(box.position, box.size)
+	var align: int = box.get_meta("align", 0)
+	var at := box.get_index()
+	parent.remove_child(box)
+	box.queue_free()
+	var fresh := number(parent, text, rect, align)
+	fresh.set_meta("align", align)
+	parent.move_child(fresh, at)
+
 ## Feather icon and painted price, centred on a face.
 static func price(parent: Node, size: Vector2, value: int) -> Control:
-	var cap := size.y * (0.58 if size.x > PRIMARY.x else CAP)
-	return ShopSkin.feather_amount(parent, Rect2(size.x * 0.14, (size.y - cap * 1.1) * 0.5, size.x * 0.72, cap * 1.1), value)
+	var h := size.y * (0.58 if size.x > PRIMARY.x else 0.52)
+	var group := Control.new()
+	group.name = "FeatherPrice"
+	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	group.size = size
+	parent.add_child(group)
+	var text := str(value)
+	var feather := h * 0.95
+	var gap := h * 0.16
+	var digits_w := minf(number_width(text, h), size.x * 0.72 - feather - gap)
+	var start := (size.x - feather - gap - digits_w) * 0.5
+	var mid := size.y * 0.47
+	UI.image(group, "icon_purchase_feather", Rect2(start, mid - feather * 0.5, feather, feather), true).name = "Feather"
+	var digits := number(group, text, Rect2(start + feather + gap, mid - h * 0.5, digits_w, h), -1)
+	var ink := _ink(group.get_node("Feather"))
+	for g in digits.get_children():
+		ink = ink.merge(_ink(g, digits.position))
+	var shift := size * 0.5 - ink.get_center()
+	for child in group.get_children():
+		child.position += shift
+	return group
+
+## Visible pixels of a fitted picture, in its parent's coordinates (plus `offset`).
+static func _ink(sprite: TextureRect, offset := Vector2.ZERO) -> Rect2:
+	var tex := sprite.texture
+	var used := UI.used_rect(tex.resource_path.get_file().get_basename())
+	var k := minf(sprite.size.x / tex.get_width(), sprite.size.y / tex.get_height())
+	var shown := tex.get_size() * k
+	var origin := sprite.position + (sprite.size - shown) * 0.5 + offset
+	return Rect2(origin + used.position * k, used.size * k)
 
 ## The cream card surface: painted panel with fixed corners.
 const PANEL := "panel_card_cream"

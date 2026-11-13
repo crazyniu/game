@@ -13,8 +13,12 @@ signal chest_requested
 signal challenge_requested
 
 const CANVAS_SIZE := Vector2(1080, 1920)
-const LOGO := Rect2(128, 208, 832, 832)
-const LOGO_CONTENT := Rect2(64, 50, 1120, 1121)
+# The title sign hangs on two vines that leave the top edge into the canopy.
+const SIGN_AT := Vector2(94, -30)
+# A thick leafy branch crosses the whole screen; its level top edge is the perch at y=950.
+const BRANCH_AT := Vector2(-74, 760)
+const PERCH_Y := 950.0
+const EVENT_Y := 1230.0
 const ICON_ENTRY_SIZE := Vector2(160, 160)
 const NAV_ICON_SIDE := 132.0
 const EVENT_ICON_SIDE := 120.0
@@ -59,21 +63,21 @@ func setup(p: Profile) -> void:
 	_last_idle = {"perch": -1.0}
 	size = CANVAS_SIZE
 	UI.image(self, "background_home_jungle", Rect2(Vector2.ZERO, CANVAS_SIZE), false)
-	var title := UI.art(self, "panel_home_perch_title", LOGO, LOGO_CONTENT)
-	title.name = "Title"
-	# The open lower branch holds the original live birds; no characters are baked into the title.
-	var title_scale := title.size / title.texture.get_size()
+	var title_sign := UI.image(self, "panel_home_title_sign", Rect2(SIGN_AT, Art.tex("panel_home_title_sign").get_size()), false)
+	title_sign.name = "Title"
+	# The open branch holds the live birds; no characters are baked into the title.
 	var seats := [
-		["macaw", Vector2(325, 1084), 228.0, 4],
-		["yellow_chick", Vector2(510, 1096), 176.0, 0],
-		["blue_chick", Vector2(715, 1084), 178.0, 2],
-		["green_parrot", Vector2(905, 1082), 184.0, 4],
+		["macaw", 330.0, 228.0, 4],
+		["yellow_chick", 500.0, 176.0, 0],
+		["blue_chick", 665.0, 178.0, 2],
+		["green_parrot", 830.0, 184.0, 4],
 	]
 	for seat in seats:
-		var contact: Vector2 = title.position + seat[1] * title_scale
+		var contact := Vector2(seat[1], PERCH_Y)
 		_add_bird(seat[0], contact, contact.y - seat[2], seat[3], "perch")
-	# The same intact transparent branch covers tails beneath its top contact edge.
-	move_child(title, get_child_count() - 1)
+	# The branch is drawn over the birds so it covers their tails beneath the perch line.
+	var branch := UI.image(self, "panel_home_perch_branch", Rect2(BRANCH_AT, Art.tex("panel_home_perch_branch").get_size()), false)
+	branch.name = "Branch"
 
 	FeatherBar.create(self, Vector2(48, 48), profile.coins)
 	_icon_button("Settings", "pic_gear", Vector2(976, 104), func(): settings_requested.emit(), SETTINGS_ICON_SIDE)
@@ -87,7 +91,7 @@ func setup(p: Profile) -> void:
 	var events := [["Daily", "pic_daily", challenge_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
 	for i in events.size():
 		var entry: Array = events[i]
-		var button := _icon_button(entry[0], entry[1], Vector2(960, 920 + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE, EVENT_BACKING_SIDE)
+		var button := _icon_button(entry[0], entry[1], Vector2(960, EVENT_Y + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE, EVENT_BACKING_SIDE)
 		if entry[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
 			_badge(button, 1)
 		elif entry[0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):

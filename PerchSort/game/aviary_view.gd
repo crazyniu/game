@@ -31,9 +31,9 @@ const TILE_GAP := 24.0
 const TILE_COLS := 3
 const SHOP_BIRD := Rect2(336, 212, 408, 432)
 const HERO_PERCH_WIDTH := 640.0
-const SHOP_TILE_SIZE := Vector2(328, 372)
+const SHOP_TILE_SIZE := Vector2(328, 400)
 const SHOP_TILE_BIRD := Rect2(28, 0, 272, 280)
-const SHOP_TILE_ACTION := Rect2(44, 318, 240, 68)
+const SHOP_TILE_ACTION := Rect2(32, 306, 264, 88)
 const SHOP_TILES := Rect2(24, 940, 1032, 768)
 const TILE_PERCH_WIDTH := 328.0
 const PERCH_CONTACT_Y := 140.0     # centre wood contact in branch_aviary_perch's padded source pixels
@@ -203,15 +203,15 @@ func _list_header(met: int, count: int) -> void:
 	_page.add_child(chip)
 	UI.kit_piece(chip, "hud_bar", Rect2(0, 0, 248, 80))
 	UI.art(chip, "fall_leaf_green", Rect2(0, 0, 80, 80))
-	UI.number(chip, "%d/%d" % [met, count], Rect2(80, 16, 152, 48), Color.WHITE)
+	ButtonKit.number(chip, "%d/%d" % [met, count], Rect2(80, 12, 152, 56)).name = "Count"
 
 func _title(label_id: String, bounds: Rect2) -> void:
 	var sign := UI.art(_page, "panel_aviary_title", bounds)
 	sign.name = "TitleGroup"
 	var word_bounds := Rect2(bounds.position + Vector2(bounds.size.x * 0.23, 26),
 		Vector2(bounds.size.x * 0.54, bounds.size.y - 52))
-	var word := ShopSkin.word(_page, label_id, word_bounds)
-	_center_sprite(word, word_bounds)
+	var key := "aviary" if label_id == "aviary.title" else label_id.replace(".name", "").replace(".", "_")
+	ButtonKit.lettering(_page, key, word_bounds.grow(8.0)).name = "TitleWord"
 
 ## Transparent hit regions retain list dragging while the birds sit on independent leafy perches.
 func _card(id: String, at: Vector2) -> void:
@@ -226,7 +226,7 @@ func _card(id: String, at: Vector2) -> void:
 		_perch(card, Vector2(bird_box.get_center().x, bird_box.end.y), CARD_PERCH_WIDTH)
 		_live_bird(card, id, _outfit_key(id), bird_box)
 		var name_id := "bird.%s.name" % id
-		ShopSkin.word(card, name_id, CARD_NAME)
+		ButtonKit.lettering(card, "bird_" + id, CARD_NAME).name = "Name"
 	else:
 		_perch(card, Vector2(bird_box.get_center().x, bird_box.end.y), CARD_PERCH_WIDTH)
 		var silhouette := _silhouette(card, id, bird_box, _is_instant())
@@ -353,7 +353,7 @@ func _show_detail(id: String) -> void:
 		_page.add_child(_tiles)
 		_build_tiles()
 		if not _from_shop:
-			UiText.painted(_page, "title_outfits", Rect2(340, 836, 400, 80))
+			ButtonKit.lettering(_page, "tab_outfits", Rect2(340, 832, 400, 88)).name = "OutfitsHeading"
 	var back := MenuNavigation.back(_page, "Back", CLOSE.position, _back)
 	_align_navigation(back)
 	_title("bird.%s.name" % id, DETAIL_TITLE_SIGN)
@@ -423,15 +423,12 @@ func _build_tiles() -> void:
 
 ## Shared shop skins keep state and price legible without an empty marker or overhanging coin.
 func _tile_action(tile: Control, owned: bool, selected: bool, price: int) -> void:
-	var face := ShopSkin._product_action_face(tile, SHOP_TILE_ACTION, "green" if owned else "gold")
+	var face := ButtonKit.plate(tile, SHOP_TILE_ACTION)
 	face.name = "Status" if owned else "Price"
 	if owned:
-		var bounds := Rect2(16, 10, 208, 48)
-		var word := UiText.painted(face, "white_equipped" if selected else "white_equip", bounds)
-		word.material = _action_ink()
-		_center_sprite(word, bounds, true)
+		ButtonKit.word(face, "white_equipped" if selected else "white_equip", SHOP_TILE_ACTION.size)
 	else:
-		ShopSkin.feather_amount(face, Rect2(14, 6, 212, 56), price)
+		ButtonKit.price(face, SHOP_TILE_ACTION.size, price)
 
 ## Keep this correction local: other accepted screens retain their original materials and glyph layout.
 static var _action_material: ShaderMaterial

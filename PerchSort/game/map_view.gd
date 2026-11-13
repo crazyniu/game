@@ -13,10 +13,12 @@ signal gate_tapped(world: int)
 
 const WORLD_NAMES := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name", "world.blossom.name",
 	"world.mushroom.name", "world.lakeside.name", "world.pine.name", "world.rainforest.name", "world.wisteria.name"]
-## Face anchors measured in the new independent tree sprite, numbered from its base.
-## The single natural-scale tree connects every landing; progress never shifts a branch.
-const NODES := [[790, 1363], [232, 1363], [232, 1083.5], [790, 1083.5], [790, 801],
-	[232, 801], [232, 518], [790, 518], [790, 238], [232, 238]]
+## World page: ten painted level tiles in a 2 x 5 grid, in reading order (1 2 / 3 4 / ...), tile centres in design px.
+const GRID_X := [370.0, 710.0]
+const GRID_TOP := 486.0
+const GRID_PITCH := 306.0
+const TILE := 184.0
+const STAR_DROP := 8.0   # gap between a tile and its row of stars
 
 ## Equal-sized forest cards; docs/design/map.md owns the horizontal layout.
 const BACK := Rect2(48, 48, 112, 112)
@@ -47,9 +49,9 @@ const NODE_CAP := 64.0
 const NODE_HIT_SIZE := Vector2(396, 298)
 const NODE_HIT_OFFSET := Vector2(198, 244)
 const PERCH_OFFSET := Vector2(0, -55.0 * TREE_SCALE)
-const STAR := 64.0
-const STAR_GAP := 8.0
-const BIRD_LIMIT := Vector2(176, 154)
+const STAR := 70.0
+const STAR_GAP := 6.0
+const BIRD_LIMIT := Vector2(250, 250)
 const BIRD_GEOMETRY_PATH := "res://layout/map_bird_geometry.json"
 static var _bird_geometry: Dictionary = {}
 
@@ -210,12 +212,13 @@ func _build_card(world: int) -> Control:
 	var plank := Island.piece_fit(card, "island_name_plank", Vector2(CARD.x * 0.5, PLAQUE_Y), PLAQUE)
 	plank.name = "Plaque"
 	var word := Rect2(plank.position + plank.size * PLAQUE_WORD.position, plank.size * PLAQUE_WORD.size)
-	UI.heading(card, WORLD_NAMES[world - 1], word, 120.0)
+	ButtonKit.lettering(card, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), word.grow_individual(10.0, 6.0, 10.0, 6.0)).name = "WorldName"
 	# Green marks the next playable forest; browsing never changes a card's size or status.
 	var at := Rect2(CARD.x * 0.5 - BADGE * 0.5, BADGE_Y - BADGE * 0.5, BADGE, BADGE)
-	var badge := UI.image(card, "island_badge_green" if current else "island_badge_gold", at, false)
+	var badge := UI.image(card, "world_medallion", at.grow(26.0), false)
 	badge.name = "WorldNumber"
-	Island.digits(badge, str(world), Rect2(BADGE * 0.24, BADGE * 0.22, BADGE * 0.52, BADGE * 0.52))
+	var size := BADGE + 52.0
+	ButtonKit.number(badge, str(world), Rect2(size * 0.27, size * 0.28, size * 0.46, size * 0.42)).name = "Digits"
 	if not open:
 		window.modulate = Color(0.62, 0.62, 0.66)
 		Island.piece_fit(card, "island_padlock", Vector2(CARD.x * 0.5, WINDOW.get_center().y - 60.0), Vector2(220, 220)).name = "Lock"
@@ -248,7 +251,7 @@ func _refresh_selection() -> void:
 	for i in _cards.size():
 		var selected := i + 1 == _world
 		_cards[i].get_node("Chosen").visible = selected
-		_cards[i].get_node("WorldNumber").texture = Art.tex("island_badge_green" if selected else "island_badge_gold")
+		_cards[i].get_node("WorldNumber").modulate = Color.WHITE if selected else Color(0.85, 0.85, 0.85)
 	if is_instance_valid(_play_button):
 		UI.set_active(_play_button, Progress.is_world_unlocked(profile, _world))
 
@@ -349,13 +352,10 @@ func open_world(world: int) -> void:
 	_page.size = size
 	add_child(_page)
 	move_child(_page, _bar.get_index())
-	var tree := UI.image(_page, "map_branch_tree", Rect2(TREE_ORIGIN, TREE_SOURCE * TREE_SCALE), false)
-	tree.name = "BranchTree"
-	var plank := Island.hanging_sign(_page, 540.0, 200.0, 680.0)
-	UI.heading(_page, WORLD_NAMES[world - 1], plank.grow_individual(50.0, 34.0, 50.0, 20.0), 76.0)
+	ButtonKit.sign(_page, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), Rect2(240, 96, 600, 209)).name = "WorldName"
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
 	var w := UI.number_width(text, 44.0)
-	_star_progress(_page, world, Rect2(540.0 - (w + 130.0) * 0.5, 300.0, w + 130.0, 80.0))
+	_star_progress(_page, world, Rect2(540.0 - (w + 140.0) * 0.5, 300.0, w + 140.0, 72.0))
 	for n in Levels.PER_WORLD:
 		_build_node((world - 1) * Levels.PER_WORLD + n + 1)
 	# Local sibling order keeps the current marker above locks without crossing modal layers.
@@ -377,15 +377,15 @@ func close_world() -> void:
 	show_world(_world, true)
 
 func _base_node_pos(level: int) -> Vector2:
-	var p: Array = NODES[(level - 1) % Levels.PER_WORLD]
-	return TREE_ORIGIN + Vector2(p[0], p[1]) * TREE_SCALE
+	var n := (level - 1) % Levels.PER_WORLD
+	return Vector2(GRID_X[n % 2], GRID_TOP + (n / 2) * GRID_PITCH)
 
 func _node_pos(level: int) -> Vector2:
 	return _base_node_pos(level)
 
-## Includes the full wooden face and top plane; foliage is decorative, not an input target.
+## The painted level tile.
 func _landing_bounds(center: Vector2) -> Rect2:
-	return Rect2(center - Vector2(NODE * 0.5, 94), Vector2(NODE, 146))
+	return Rect2(center - Vector2.ONE * TILE * 0.5, Vector2.ONE * TILE)
 
 func _build_node(level: int) -> void:
 	var state := Progress.node_state(profile, level)
@@ -395,26 +395,28 @@ func _build_node(level: int) -> void:
 	layer.name = "Level %d" % level
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page.add_child(layer)
-	var landing := Control.new()
+	if state == "current" and level == current_level:
+		var glow := UI.image(layer, "glow_soft", _landing_bounds(c).grow(TILE * 0.32))
+		glow.name = "Glow"
+		glow.modulate = Color(1.0, 0.92, 0.45, 0.9)
+	var landing := UI.image(layer, "level_tile_locked" if state == "locked" else "level_tile_open", _landing_bounds(c), false)
 	landing.name = "Node"
-	landing.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(landing, _landing_bounds(c))
-	layer.add_child(landing)
-	_white_number(layer, shown, c, NODE_CAP)
+	if state == "locked":
+		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.32, TILE * 0.2), Vector2(TILE * 0.64, TILE * 0.4))).modulate = Color(1, 1, 1, 0.55)
+		UI.art(layer, "island_padlock", Rect2(c + Vector2(TILE * 0.22, -TILE * 0.62), Vector2(64, 64))).name = "Lock"
+	else:
+		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.34, TILE * 0.25), Vector2(TILE * 0.68, TILE * 0.46))).name = "Number"
 	var perch := _bird_feet(c)
-	match state:
-		"locked":
-			UI.art(layer, "island_padlock", Rect2(perch - Vector2(30, 56), Vector2(60, 60))).name = "Lock"
-		"cleared":
-			_node_stars(layer, perch, profile.best_stars(level))
-		"current":
-			if level == current_level:
-				_add_bird(layer, perch, _level_species(level))
+	if state != "locked":
+		_node_stars(layer, perch, profile.best_stars(level) if state == "cleared" else 0)
+	if state == "current" and level == current_level:
+		var side := -1.0 if c.x < 540.0 else 1.0
+		_add_bird(layer, c + Vector2(side * (TILE * 0.5 + 100.0), TILE * 0.46), _level_species(level))
 	_hit(layer, c, level)
 
 ## Feet, locks and rating stars share the measured branch plane.
 func _bird_feet(center: Vector2) -> Vector2:
-	return center + PERCH_OFFSET
+	return center + Vector2(0, TILE * 0.5 + STAR_DROP + STAR)
 
 ## Uniform visible width, natural aspect and a shared lower ink edge on the branch plane.
 func _star_bounds(perch: Vector2) -> Rect2:
@@ -453,7 +455,7 @@ func _white_number(layer: Control, value: int, center: Vector2, cap: float) -> v
 
 ## Includes the full animated bird, landing and rating; adjacent tiers remain disjoint.
 func _hit_bounds(center: Vector2) -> Rect2:
-	return Rect2(center - NODE_HIT_OFFSET, NODE_HIT_SIZE)
+	return Rect2(center - Vector2(TILE * 0.5 + 20.0, TILE * 0.5 + 20.0), Vector2(TILE + 40.0, TILE + STAR_DROP + STAR + 30.0))
 
 func _hit(layer: Control, center: Vector2, level: int) -> void:
 	var button := UI.hit_area(layer, _hit_bounds(center),

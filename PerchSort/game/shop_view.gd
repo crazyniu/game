@@ -130,9 +130,7 @@ class QuantityInput extends LineEdit:
 		_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_selection.hide()
 		add_child(_selection)
-		_digits = UI.number(self, text, Rect2(16, (size.y - CAP) * 0.5 - 3, size.x - 32, CAP), INK)
-		_digits.material = ShaderMaterial.new()
-		_digits.material.shader = preload("res://game/chest_play_word.gdshader")
+		_digits = ButtonKit.number(self, text, Rect2(16, (size.y - CAP) * 0.5 - 3, size.x - 32, CAP))
 		_caret = ColorRect.new()
 		_caret.color = Color.WHITE
 		_caret.size = Vector2(3, 52)
@@ -172,19 +170,22 @@ class QuantityInput extends LineEdit:
 	func _refresh_digits() -> void:
 		_digits.visible = not text.is_empty()
 		if _digits.visible:
-			UI.set_number(_digits, text)
+			var rect := Rect2(_digits.position, _digits.size)
+			remove_child(_digits)
+			_digits.queue_free()
+			_digits = ButtonKit.number(self, text, rect)
+			move_child(_digits, 1)
 
 	func _process(_delta: float) -> void:
-		var style := UiText.number_style(INK)
-		var width := UiText.number_width(text, CAP, style)
+		var width := ButtonKit.number_width(text, CAP)
 		var cap := CAP if width == 0.0 else CAP * minf(1.0, _digits.size.x / width)
-		var left := (size.x - UiText.number_width(text, cap, style)) * 0.5
+		var left := (size.x - ButtonKit.number_width(text, cap)) * 0.5
 		_caret.visible = is_editing() and not has_selection()
-		_caret.position = Vector2(left + UiText.number_width(text.left(caret_column), cap, style), 34)
+		_caret.position = Vector2(left + ButtonKit.number_width(text.left(caret_column), cap), 34)
 		_selection.visible = is_editing() and has_selection()
 		if _selection.visible:
-			var start := UiText.number_width(text.left(get_selection_from_column()), cap, style)
-			var end := UiText.number_width(text.left(get_selection_to_column()), cap, style)
+			var start := ButtonKit.number_width(text.left(get_selection_from_column()), cap)
+			var end := ButtonKit.number_width(text.left(get_selection_to_column()), cap)
 			_selection.position = Vector2(left + start, 32)
 			_selection.size = Vector2(end - start, 56)
 
@@ -481,7 +482,7 @@ func _stock_count(parent: Node, count: int) -> void:
 	UI.place(stock, Rect2(STOCK - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE))
 	parent.add_child(stock)
 	UI.image(stock, "island_badge_green", Rect2(Vector2.ZERO, stock.size), false)
-	var digits := UI.number(stock, str(mini(count, Island.BADGE_CAP)), Rect2(0, BADGE * 0.24, BADGE, BADGE * 0.5), Color.WHITE)
+	var digits := ButtonKit.number(stock, str(mini(count, Island.BADGE_CAP)), Rect2(BADGE * 0.14, BADGE * 0.2, BADGE * 0.72, BADGE * 0.56))
 	digits.name = "Count"
 
 ## A picture whose visible pixels (not its padded canvas) fill a `side` x `side` box centred on `center`.
@@ -604,13 +605,11 @@ func _kind_tile(species: String, r: Rect2, n: int) -> void:
 		action.name = "Action"
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
 		var cap := ITEM_ACTION.size.y * ButtonKit.CAP
-		var count := ChestLettering.number(action, text, Rect2(ITEM_ACTION.size.x * 0.18, (ITEM_ACTION.size.y - cap) * 0.5 - 2,
-			ITEM_ACTION.size.x * 0.5, cap))
+		cap = ITEM_ACTION.size.y * 0.52
+		ButtonKit.number(action, text, Rect2(ITEM_ACTION.size.x * 0.16, ITEM_ACTION.size.y * 0.47 - cap * 0.5,
+			ITEM_ACTION.size.x * 0.5, cap)).name = "Count"
 		var paint := ShaderMaterial.new()
 		paint.shader = preload("res://game/chest_play_word.gdshader")
-		for glyph in count.get_children():
-			if glyph is CanvasItem:
-				glyph.material = paint
 		var arrow := _fit_visible(action, "island_chevron", Vector2(ITEM_ACTION.size.x * 0.78, ITEM_ACTION.size.y * 0.47), cap * 0.8)
 		arrow.pivot_offset = arrow.size * 0.5
 		arrow.rotation = -PI * 0.5

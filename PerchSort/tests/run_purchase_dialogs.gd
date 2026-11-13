@@ -37,21 +37,21 @@ func _quantity_focus(input, language: String) -> void:
 	input.caret_column = input.text.length()
 	await process_frame
 	input._process(0.0)
-	var style := UiText.number_style(Color.WHITE)
+	var kit: GDScript = load("res://game/button_kit.gd")
 	var text: String = input.text
-	var width := UiText.number_width(text, input.CAP, style)
+	var width: float = kit.number_width(text, input.CAP)
 	var cap: float = input.CAP * minf(1.0, input._digits.size.x / width)
-	var painted_width := UiText.number_width(text, cap, style)
+	var painted_width: float = kit.number_width(text, cap)
 	var left: float = (input.size.x - painted_width) * 0.5
 	check(input.has_focus() and input.is_editing() and input.is_processing(), language + " quantity enters actual editing")
-	check(input._digits.style == style, language + " caret uses the same glyph style as visible digits")
+	check(input._digits.get_meta("value") == text, language + " caret uses the same glyphs as visible digits")
 	check(input._caret.visible and not input._selection.visible and
 		is_equal_approx(input._caret.position.x, left + painted_width), language + " visible caret follows painted digits")
 	input.select(0, 1)
 	input._process(0.0)
 	check(input._selection.visible and not input._caret.visible and
 		is_equal_approx(input._selection.position.x, left) and
-		is_equal_approx(input._selection.size.x, UiText.number_width(text.left(1), cap, style)),
+		is_equal_approx(input._selection.size.x, kit.number_width(text.left(1), cap)),
 		language + " partial selection follows first painted digit")
 	input.select_all()
 	input._process(0.0)

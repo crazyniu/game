@@ -146,6 +146,39 @@
     "item_wake_bell": {
       "file": "island_words/item_wake_bell.png"
     },
+    "lettering_win_title": {
+      "file": "island_words/lettering_win_title.png"
+    },
+    "lettering_world_autumn": {
+      "file": "island_words/lettering_world_autumn.png"
+    },
+    "lettering_world_bamboo": {
+      "file": "island_words/lettering_world_bamboo.png"
+    },
+    "lettering_world_blossom": {
+      "file": "island_words/lettering_world_blossom.png"
+    },
+    "lettering_world_green": {
+      "file": "island_words/lettering_world_green.png"
+    },
+    "lettering_world_lakeside": {
+      "file": "island_words/lettering_world_lakeside.png"
+    },
+    "lettering_world_mushroom": {
+      "file": "island_words/lettering_world_mushroom.png"
+    },
+    "lettering_world_pine": {
+      "file": "island_words/lettering_world_pine.png"
+    },
+    "lettering_world_rainforest": {
+      "file": "island_words/lettering_world_rainforest.png"
+    },
+    "lettering_world_snow": {
+      "file": "island_words/lettering_world_snow.png"
+    },
+    "lettering_world_wisteria": {
+      "file": "island_words/lettering_world_wisteria.png"
+    },
     "row_language": {
       "file": "island_words/row_language.png"
     },
@@ -686,11 +719,17 @@
     "gold_coin_purchase_preview": {
       "file": "island_words/gold_coin_purchase_preview.png"
     },
+    "lettering_aviary": {
+      "file": "island_words/lettering_aviary.png"
+    },
     "lettering_bird_berry": {
       "file": "island_words/lettering_bird_berry.png"
     },
     "lettering_bird_cocoa": {
       "file": "island_words/lettering_bird_cocoa.png"
+    },
+    "lettering_bird_crow": {
+      "file": "island_words/lettering_bird_crow.png"
     },
     "lettering_bird_ember": {
       "file": "island_words/lettering_bird_ember.png"

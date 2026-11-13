@@ -178,8 +178,8 @@ static func progress_bar(parent: Node, r: Rect2, fill: float, text: String) -> C
 		face.texture = paint
 	# The combined star-and-bar picture leaves a rectangular gold stub when cropped.
 	UI.art(holder, "island_star_full", Rect2(-star * 0.1, (r.size.y - star) * 0.5, star, star))
-	var cap := r.size.y * 0.58
-	UI.number(holder, text, Rect2(track.position.x + star * 0.4, (r.size.y - cap) * 0.5, track.size.x - star * 0.6, cap), Color.WHITE)
+	var cap := r.size.y * 0.78
+	ButtonKit.number(holder, text, Rect2(track.position.x + star * 0.4, (r.size.y - cap) * 0.5, track.size.x - star * 0.6, cap)).name = "Number"
 	return holder
 
 ## A painted-picture button: the whole picture is the face and a press tints it. Sizes never change.

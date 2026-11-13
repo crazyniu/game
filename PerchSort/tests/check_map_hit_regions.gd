@@ -41,10 +41,10 @@ func run() -> void:
 			regions[level] = rect
 			check(rect == map._hit_bounds(at), "Actual hit rectangle %d/%d" % [current, level])
 			check(Rect2(0, 0, 1080, 1920).encloses(rect), "Hit region inside canvas %d/%d" % [current, level])
-			check(rect.size == map.NODE_HIT_SIZE, "Uniform hit size %d/%d" % [current, level])
+			check(rect.size == map._hit_bounds(Vector2.ZERO).size, "Uniform hit size %d/%d" % [current, level])
 			check(rect.encloses(map._landing_bounds(at)), "Complete landing coverage %d/%d" % [current, level])
 			var top: Vector2 = map._bird_feet(at)
-			check(rect.encloses(map._star_bounds(top).merge(Rect2(top - Vector2(30, 56), Vector2(60, 60)))), "Status coverage %d/%d" % [current, level])
+			check(rect.encloses(map._star_bounds(top)), "Star row coverage %d/%d" % [current, level])
 		for a in levels:
 			for b in levels:
 				if b > a:

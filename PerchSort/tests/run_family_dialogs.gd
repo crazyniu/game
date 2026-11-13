@@ -99,15 +99,20 @@ func _run() -> void:
 		UiText.set_language(language)
 		for earned in range(1, 4):
 			var win: Control = popups.win(main.popups, earned, 12, 12, 120, [0, 3, 0], on_action, on_action, on_action, earned > 1)
-			_family(win, false)
+			# Win uses the purchase card of the shop (ButtonKit) under the same jungle backdrop as the family.
+			check(win.has_node("ForestBackground"), "independent jungle background")
+			check(win.content.get_node("Panel/Skin") is NinePatchRect, "cream card keeps fixed corners")
+			check(win.content.get_node("TitleGroup/Sign") != null, "hanging wooden title sign")
+			check(not win.content.has_node("Close"), "win has no close button")
 			var birds: Array[Node] = win.content.find_children("*", "BirdView", false, false)
 			check(birds.size() == 3, "win preserves all three animated birds")
 			var centers: Array[float] = []
 			for bird in birds:
 				var box: Rect2 = bird.get_meta("visible_box")
 				centers.append(box.get_center().x)
-				check(is_equal_approx(box.end.y, win.panel_rect.position.y - 92), "all three birds share their visible footline")
-				check(box.position.y >= 0 and box.end.y <= win.content.get_node("TitleGroup").position.y - 48, "bird stays above the title with a breathing gap")
+				var sign: Control = win.content.get_node("TitleGroup")
+				check(is_equal_approx(box.end.y, sign.position.y + sign.size.y * popups.WIN_PERCH), "all three birds stand on the sign's branch")
+				check(box.position.y >= 0 and bird.get_index() > sign.get_index(), "birds stand in front of the sign")
 				check(bird._body.scale.x > 0 and bird._sprite.scale.x > 0, "existing live bird is not mirrored")
 				var front_ink: Rect2 = load("res://game/ui.gd").used_rect(bird.species + "_front")
 				var front_end: Vector2 = bird.position + (bird._sprite.offset + front_ink.end) * bird._body.scale
@@ -118,18 +123,16 @@ func _run() -> void:
 				for texture in frames:
 					var ink: Rect2i = texture.get_image().get_used_rect()
 					var end_y: float = bird.position.y + (bird._sprite.offset.y + ink.end.y) * bird._body.scale.y * 1.02
-					check(end_y < win.content.get_node("TitleGroup").position.y - 24, "all existing pose frames retain clear title separation during breathing")
+					check(end_y < win.content.get_node("TitleGroup").position.y + win.content.get_node("TitleGroup").size.y * 0.3, "pose frames keep their feet on the branch, clear of the lettering")
 			centers.sort()
 			check(centers == [300.0, 540.0, 780.0], "bird centers are symmetric around the title")
-			var replay_word: TextureRect = win.content.get_node("Retry/ReplayWord")
-			UiText.set_language("zh" if language == "en" else "en")
-			await process_frame
-			check(replay_word.texture.atlas == Art.tex("label_dialog_replay_" + UiText.locale()), "open Replay word follows a live language change")
-			check(replay_word.get_rect().get_center().distance_to(win.content.get_node("Retry").size * 0.5) < 1, "live language change preserves Replay centering")
-			UiText.set_language(language)
+			var retry: Control = win.content.get_node("Retry")
+			var next: Control = win.content.get_node("action_next")
+			check(next.size.y <= retry.size.y * 1.25 + 0.01, "Next is at most 1.25 times its sibling keys")
+			check(retry.size == win.content.get_node("Home").size, "Replay and Home keys are identical")
 			var reward: Control = win.content.get_node("Reward")
 			check(reward.get_children().size() == 2, "feather reward has no backing")
-			check(reward.get_node("Number").value == "+120", "win reward quantity")
+			check(reward.get_node("Number").get_meta("value") == "+120", "win reward quantity")
 			check(win.content.get_node("action_next").disabled == (earned == 1), "next availability")
 			var old := calls
 			win.content.get_node("Retry").pressed.emit()

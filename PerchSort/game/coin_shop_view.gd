@@ -53,7 +53,7 @@ func show_preview_purchase(pack: Dictionary) -> void:
 	var picture := Rect2(280, ys[0], 520, 300)
 	PurchaseDialog.glow(modal.content, picture)
 	DrawPurchaseArt.fit(modal.content, "icon_purchase_" + pack["id"], picture)
-	DrawPurchaseArt.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88))
+	ButtonKit.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88)).name = "Number"
 	var confirm := ButtonKit.button(modal.content, "Confirm", Rect2(Vector2(540.0 - ButtonKit.PRIMARY.x * 0.5,
 		modal.panel_rect.end.y + Modal.ACTION_DROP), ButtonKit.PRIMARY), "green", modal.close)
 	ButtonKit.word(confirm.get_node("Content"), "action.ok", ButtonKit.PRIMARY)
