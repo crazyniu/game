@@ -1,3 +1,0 @@
-Independent final runtime visual review, review_map_materials
-
-Final runtime visual review passes with no blocking defect. I inspected the old/new comparison, same-pixel Home/chest lettering sheet, and full-resolution 1/30, 29/30, 30/30 and English captures. Play now matches the Home word family; Open/OK/打开/好的 have consistent soft-white faces, green rims, weight and useful size. Disabled labels remain legible while visibly subdued. Progress digits/slash are centered as a group; 29/30 preserves a dark remainder and 30/30 keeps the right round end safely inset with no rim overpaint. Static visual pass only; GUI149/motion claims remain supported by your separate logs. No files modified, no commit/upload authorization implied.

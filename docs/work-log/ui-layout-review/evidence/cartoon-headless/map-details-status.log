@@ -1,5 +1,0 @@
-map details all exit=0
-check_map_hit_regions exit=0
-check_trail_clearance exit=0
-aggregate exit=0
-map all-levels corrected_argument_exit=0
