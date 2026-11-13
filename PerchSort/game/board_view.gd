@@ -610,7 +610,11 @@ func _make_bird(code: int, at: Vector2) -> BirdView:
 	var bird := BirdView.new()
 	bird.sounds = true
 	var species: String = Board.SPECIES[Board.species_of(code)]
-	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, profile.equipped.get(species, "").replace("outfit.", "").replace(".", "_outfit_") if profile.equipped.has(species) else "")
+	# A world with its own birds shows them (WorldBirds); only the original birds wear outfits.
+	var look := WorldBirds.look(species, _world())
+	if look.is_empty() and profile.equipped.has(species):
+		look = profile.equipped[species].replace("outfit.", "").replace(".", "_outfit_")
+	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, look)
 	bird.position = at
 	_bird_layer.add_child(bird)
 	if instant:
@@ -1231,7 +1235,7 @@ func _show_bubble(bird: BirdView) -> void:
 	if Board.is_nocturnal(Board.species_of(bird.code)) and session.state.nocturnal_day_sleep():
 		icons.append("moon")
 	if (bird.code & Board.ASLEEP) != 0:
-		icons.append(bird.species + "_face")
+		icons.append(WorldBirds.face(bird.species, _world()))
 		icons.append("gift_coin_wake")
 	if icons.is_empty():
 		return
@@ -1873,7 +1877,7 @@ func _set_resident(species_index: int, rise := false) -> void:
 	if species_index < 0:
 		return
 	_resident = BirdView.new()
-	_resident.setup(Board.bird(0, species_index, 0), false, 0.58)
+	_resident.setup(Board.bird(0, species_index, 0), false, 0.58, WorldBirds.look(Board.SPECIES[species_index], _world()))
 	_door_mask.add_child(_resident)
 	var feet := Vector2(_door_mask.size.x * 0.5, _door_mask.size.y * 0.97)
 	_resident.position = feet
