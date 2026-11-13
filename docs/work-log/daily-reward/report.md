@@ -10,17 +10,21 @@
 - Words (Codex, en and zh): `lettering_daily_reward_title`, `white_claim`; gold word entry `daily_reward.title`.
 
 ## Colour fix (user, 2026-11-13: Lucky Spin colours did not match)
-The mint slots, their peach rims, the cyan used stars and the peach button rim clashed with the cream-and-gold card.
-Derived art (originals untouched): `slot_cream_well` (warm well, gold rim; Lucky Spin and Daily Reward),
-`star_draw_spent` (gold star faded to tan), `btn_plate_green_gold_rim` (gold rim, calmer green). `ButtonKit` green
-now uses the gold-rim plate, so every green action across the game changes with it.
+The mint slots with peach rims and the cyan used stars clashed with the cream card. Used stars are now
+`star_draw_spent` (the gold star faded to tan, derived; original untouched).
+
+## Layout fix (user, 2026-11-13: "UI does not match the other pages; card inside card again")
+The first Daily Reward page put slots on a big cream sheet, breaking `island-style.md` ("no big backing sheet").
+Both Daily Reward and Lucky Spin now place each item on its own shop cream card directly on the forest. A gold-rim
+green plate tried in between was withdrawn: the spec gives green actions a cream rim, so every green button is
+unchanged.
 
 ## Checks
 - `bash scripts/run_tests.sh`: naming OK, smoke 0 failures, core 0 failures (new calendar, streak, draw checks).
 - `run_family_dialogs.gd`: 1780 checks, 0 failures.
 - `run_home.gd` hangs on the base branch too (it reads constants that no longer exist); not run as evidence.
-- Captures: `evidence/pages_after_colour_fix.jpg`, `evidence/daily_reward_en_zh.jpg`; claim motion 0.25 s frames
+- Captures: `evidence/pages_after_colour_fix.jpg` (Daily Reward en and zh, week, claimed; Lucky Spin; Shop for comparison); claim motion 0.25 s frames
   `evidence/claim_sequence_frames.jpg` (from `--preview=popups:daily_reward_claim --frames`).
 
 ## Open
-- The level card's bird rings still use the mint `hud_tool_slot` on the cream card.
+- The level card's bird rings still use the mint `hud_tool_slot` inside the cream dialog card.

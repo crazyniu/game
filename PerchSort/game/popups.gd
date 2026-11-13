@@ -377,11 +377,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(board, DRAW_BOARD)
 	c.add_child(board)
-	# The shop's cream card holds the prizes, each in a warm cream well with a gold rim (the card's own colours).
-	ButtonKit.panel(board, Rect2(Vector2.ZERO, DRAW_BOARD.size))
+	# No backing sheet (docs/design/island-style.md): each prize is its own cream card floating on the forest.
 	for i in 9:
 		var cell := Rect2(DRAW_ORIGIN + Vector2(i % 3, i / 3) * DRAW_STEP, DRAW_CELL)
-		UI.image(board, "slot_cream_well", cell.grow(-4.0), true).name = "Slot%d" % i
+		ButtonKit.panel(board, cell.grow(-4.0)).name = "Slot%d" % i
 	var cursor := StyleBoxFlat.new()
 	cursor.bg_color = Color(1.0, 0.81, 0.22, 0.08)
 	cursor.border_color = Color8(255, 231, 117)
@@ -492,21 +491,18 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	(go as Button).pressed.connect(run)
 	return p
 
-## Daily reward: the seven-day login calendar as a page in the Lucky Spin family (forest backdrop, hanging title sign,
-## cream card, green glossy slots, one green Primary action). Days 1-6 sit in two rows of three, day 7 is the wide big
-## prize under them. Claimed days are dimmed with a tick; today's slot glows and bounces until it is claimed.
+## Daily reward: the seven-day login calendar as a page in the Shop and Lucky Spin family. As on every page, content
+## floats over the forest on its own cream cards (docs/design/island-style.md: no backing sheet, no card in a card):
+## days 1-6 are two columns of shop-sized cards, day 7 is one full-width card under them, Claim sits below.
+## Each card: the day number on a green disc at its corner, the prize pictures with their amounts. Claimed days are
+## dimmed with a tick; today's card has the shop's green selected outline and bounces until it is claimed.
 ## `claim` pays today and returns {"day", "coins", "boosters"} like Progress.claim_daily_reward, or {} when already
 ## claimed. The tick stamps in, coins burst, then the rewards dialog names what was won; its OK closes the page.
-const DAILY_BOARD := Rect2(60, 350, 960, 1040)
-const DAILY_TILE := Vector2(272, 300)
-const DAILY_GAP := 32.0
-const DAILY_PAD := 40.0
-const DAILY_WIDE_H := 296.0
-const DAILY_ACTION := Rect2(280, 1440, 520, 176)
-const DAILY_SLOT_MARGIN := 110          # slot rim in its own pixels (nine-patch corners stay unscaled)
-const DAILY_SLOT_SCALE := 0.5
-const DAILY_CLAIMED := Color(1.0, 1.0, 1.0, 0.42)       # claimed prizes fade; the well keeps its warm tone
-const DAILY_CLAIMED_SLOT := Color(0.93, 0.89, 0.8)
+const DAILY_AREA := Rect2(48, 352, 984, 1220)
+const DAILY_GAP := 20.0
+const DAILY_ACTION := Rect2(280, 1600, 520, 176)
+const DAILY_DISC := 76.0                # the day disc, the shop's stock badge size
+const DAILY_OUTLINE := Color8(63, 181, 43)   # the shop's selected green
 ## Coin pile pictures of the draw board, from the smallest amount they stand for.
 const DAILY_COIN_ART := [[400, "icon_draw_prize_four_hundred"], [200, "icon_draw_prize_two_hundred"],
 	[120, "icon_draw_prize_one_twenty"], [80, "icon_draw_prize_eighty"], [60, "icon_draw_prize_sixty"], [0, "icon_draw_prize_forty"]]
@@ -526,20 +522,18 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 	p._title_layer = ButtonKit.sign(p.content, "daily_reward_title", PAGE_SIGN)
 	MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
 	var bar := FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
-	var board := Control.new()
-	board.name = "Calendar"
-	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(board, DAILY_BOARD)
-	p.content.add_child(board)
-	ButtonKit.panel(board, Rect2(Vector2.ZERO, DAILY_BOARD.size))
+	var days := Progress.DAILY_REWARDS.size()
+	var rows := (days - 1) / 2 + 1
+	var card_h := (DAILY_AREA.size.y - DAILY_GAP * (rows - 1)) / rows
+	var card_w := (DAILY_AREA.size.x - DAILY_GAP) * 0.5
 	var tiles := []
-	for i in Progress.DAILY_REWARDS.size():
+	for i in days:
 		var day := i + 1
-		var r := Rect2(Vector2(DAILY_PAD + (i % 3) * (DAILY_TILE.x + DAILY_GAP), DAILY_PAD + (i / 3) * (DAILY_TILE.y + DAILY_GAP)), DAILY_TILE)
-		if day == Progress.DAILY_REWARDS.size():
-			r = Rect2(DAILY_PAD, DAILY_PAD + 2.0 * (DAILY_TILE.y + DAILY_GAP), DAILY_BOARD.size.x - DAILY_PAD * 2.0, DAILY_WIDE_H)
+		var r := Rect2(DAILY_AREA.position + Vector2((i % 2) * (card_w + DAILY_GAP), (i / 2) * (card_h + DAILY_GAP)), Vector2(card_w, card_h))
+		if day == days:
+			r.size.x = DAILY_AREA.size.x
 		var claimed := day < today or (day == today and not available)
-		tiles.append(_daily_tile(board, day, r, claimed, day == today and available, instant))
+		tiles.append(_daily_card(p.content, day, r, claimed, day == today and available, instant))
 	var go := UI.hit_area(p.content, DAILY_ACTION, func(): pass)
 	go.name = "Claim"
 	_kit_action(go, "white_claim")
@@ -566,104 +560,98 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 		Sound.play("reward")
 		bar.set_amount(balance + int(got["coins"]), true)
 		if not instant:
-			_coin_burst(p, board.position + tile.position + tile.size * 0.5, 0.15)
+			_coin_burst(p, tile.position + tile.size * 0.5, 0.15)
 			await p.get_tree().create_timer(0.9).timeout
 		if not is_instance_valid(p):
 			return
 		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
 	return p
 
-## One calendar slot: day number, prize pictures and amounts; claimed, today or later.
-static func _daily_tile(board: Control, day: int, r: Rect2, claimed: bool, today: bool, instant: bool) -> Control:
+## One day: a cream card on the forest with its day disc, prize pictures and amounts; claimed, today or later.
+static func _daily_card(parent: Control, day: int, r: Rect2, claimed: bool, today: bool, instant: bool) -> Control:
 	var tile := Control.new()
 	tile.name = "Day%d" % day
 	tile.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(tile, r)
 	tile.pivot_offset = r.size * 0.5
-	board.add_child(tile)
-	var slot := NinePatchRect.new()
-	slot.name = "Slot"
-	slot.texture = Art.tex("slot_cream_well")
-	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
-		slot.set_patch_margin(side, DAILY_SLOT_MARGIN)
-	slot.size = r.size / DAILY_SLOT_SCALE
-	slot.scale = Vector2.ONE * DAILY_SLOT_SCALE
-	tile.add_child(slot)
+	parent.add_child(tile)
 	var body := Control.new()
 	body.name = "Body"
 	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	body.size = r.size
 	tile.add_child(body)
+	ButtonKit.panel(body, Rect2(Vector2.ZERO, r.size)).name = "Surface"
 	var prize: Array = Progress.DAILY_REWARDS[day - 1]
 	var coins: int = prize[0]
 	var gifts: int = prize[1]
-	var wide := r.size.x > DAILY_TILE.x * 2.0
-	FamilyDialog.digits(body, "DayNumber", Rect2(0, 18, r.size.x, 52), str(day))
+	var big := day == Progress.DAILY_REWARDS.size()
 	var coin_art := "icon_draw_prize_forty"
 	for step in DAILY_COIN_ART:
 		if coins >= int(step[0]):
 			coin_art = step[1]
 			break
-	# Pictures sit in one row under the day number, each with its amount beneath it.
 	var items := [[coin_art, str(coins)]]
 	if gifts > 0:
 		items.append(["icon_draw_mystery_double" if gifts > 1 else "icon_draw_mystery_single", "×%d" % gifts])
-	var art_top := 78.0
-	var art_h := 140.0 if not wide else 150.0
-	var column := (r.size.x - 40.0) / items.size() if not wide else 260.0
+	# Pictures in one row, centred in the card, each with its amount beneath; the big day gets wider columns.
+	var column := 240.0 if big else (r.size.x - 72.0) / items.size()
 	var left := (r.size.x - column * items.size()) * 0.5
-	if wide:
-		var glow := UI.image(body, "glow_soft", Rect2(r.size.x * 0.5 - 300.0, -20.0, 600.0, r.size.y + 40.0))
-		glow.modulate = Color(1.0, 0.86, 0.42, 0.5)
-		body.move_child(glow, 0)
+	var art_h := r.size.y - 132.0
+	if big:
+		var glow := UI.image(body, "glow_soft", Rect2(r.size.x * 0.5 - 300.0, -10.0, 600.0, r.size.y + 20.0))
+		glow.modulate = Color(1.0, 0.86, 0.42, 0.55)
 		for k in 4:
-			var spark := UI.art(body, "sparkle", Rect2(Vector2([90.0, 760.0, 150.0, 700.0][k], [60.0, 70.0, 200.0, 200.0][k]), Vector2(48, 48)))
+			var at := Vector2([150.0, 790.0, 220.0, 720.0][k], [60.0, 70.0, 200.0, 190.0][k])
+			var spark := UI.art(body, "sparkle", Rect2(at, Vector2(48, 48)))
 			spark.pivot_offset = Vector2(24, 24)
 			if not instant:
 				_twinkle(spark, k * 0.35)
 	for k in items.size():
-		var box := Rect2(left + k * column + 8.0, art_top, column - 16.0, art_h)
-		var art := _fit(body, items[k][0], box, true)
+		var art := _fit(body, items[k][0], Rect2(left + k * column + 10.0, 36.0, column - 20.0, art_h), true)
 		art.name = "Prize%d" % k
 		if today and not instant:
 			_breathe(art, k * 0.4)
-		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, art_top + art_h + 6.0, column, 52), items[k][1])
+		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, 36.0 + art_h + 10.0, column, 58), items[k][1])
+	# The day number on the shop's green disc at the card's top-left corner.
+	var disc := Control.new()
+	disc.name = "DayDisc"
+	disc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(disc, Rect2(Vector2(14, 14), Vector2.ONE * DAILY_DISC))
+	body.add_child(disc)
+	UI.image(disc, "island_badge_green", Rect2(Vector2.ZERO, disc.size), false)
+	ButtonKit.number(disc, str(day), Rect2(DAILY_DISC * 0.14, DAILY_DISC * 0.2, DAILY_DISC * 0.72, DAILY_DISC * 0.56)).name = "DayNumber"
 	if claimed:
 		_daily_claimed(tile)
 	elif today:
 		var lit := Panel.new()
 		lit.name = "Today"
 		lit.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var glow := StyleBoxFlat.new()
-		glow.bg_color = Color(1.0, 0.81, 0.22, 0.08)
-		glow.border_color = Color8(255, 231, 117)
-		glow.set_border_width_all(6)
-		glow.set_corner_radius_all(46)
-		glow.shadow_color = Color(1.0, 0.69, 0.14, 0.85)
-		glow.shadow_size = 14
-		lit.add_theme_stylebox_override("panel", glow)
-		UI.place(lit, Rect2(Vector2(2, 2), r.size - Vector2(4, 4)))
+		var outline := StyleBoxFlat.new()
+		outline.draw_center = false
+		outline.border_color = DAILY_OUTLINE
+		outline.set_border_width_all(8)
+		outline.set_corner_radius_all(48)
+		outline.shadow_color = Color(0.25, 0.71, 0.17, 0.45)
+		outline.shadow_size = 10
+		lit.add_theme_stylebox_override("panel", outline)
+		UI.place(lit, Rect2(Vector2(-4, -4), r.size + Vector2(8, 8)))
 		tile.add_child(lit)
-		tile.move_child(lit, 0)
 		if not instant:
 			var bounce := tile.create_tween().set_loops()
-			bounce.tween_property(tile, "scale", Vector2.ONE * 1.04, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			bounce.tween_property(tile, "scale", Vector2.ONE, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			bounce.tween_property(tile, "scale", Vector2.ONE * 1.03, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			bounce.tween_property(tile, "scale", Vector2.ONE, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tile.set_meta("bounce", bounce)
-			lit.create_tween().set_loops().tween_property(lit, "modulate:a", 0.45, 0.7).from(1.0).set_trans(Tween.TRANS_SINE)
 	return tile
 
-## A claimed day: the slot dims and a tick sits on its top-right corner, clear of the amounts.
+## A claimed day: the card dims like a disabled item and the shop's tick sits on its top-right corner.
 static func _daily_claimed(tile: Control) -> TextureRect:
-	(tile.get_node("Body") as Control).modulate = DAILY_CLAIMED
-	(tile.get_node("Slot") as Control).modulate = DAILY_CLAIMED_SLOT
-	var tick := Island.check_badge(tile, Vector2(tile.size.x - 46.0, 46.0))
+	(tile.get_node("Body") as Control).modulate.a = UI.DISABLED_ALPHA
+	var tick := Island.check_badge(tile, Vector2(tile.size.x - 44.0, 44.0))
 	tick.name = "Tick"
 	tick.pivot_offset = tick.size * 0.5
 	return tick
 
-## Today's slot is claimed: the bounce and glow stop, the slot pops and the tick stamps in.
+## Today's card is claimed: the bounce and outline stop, the card pops and the tick stamps in.
 static func _daily_stamp(tile: Control, instant: bool) -> void:
 	if tile.has_meta("bounce"):
 		(tile.get_meta("bounce") as Tween).kill()
@@ -674,7 +662,7 @@ static func _daily_stamp(tile: Control, instant: bool) -> void:
 		tile.scale = Vector2.ONE
 		return
 	var pop := tile.create_tween()
-	pop.tween_property(tile, "scale", Vector2.ONE * 1.14, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.tween_property(tile, "scale", Vector2.ONE * 1.08, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	pop.tween_property(tile, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tick.scale = Vector2.ONE * 2.2
 	tick.modulate.a = 0.0

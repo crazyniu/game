@@ -26,15 +26,19 @@ logging in on consecutive days pays more. The design is left to Claude.
 
 ## Page (`game/popups.gd` `daily_reward`)
 
-- Lucky Spin page family: forest backdrop, hanging sign "Daily Reward / 每日奖励" at `PAGE_SIGN`, Close top-left,
-  feather counter top-right, the cream card (`ButtonKit.panel`) at 60,350,960,1040.
-- Days 1-6: two rows of three 272 x 300 slots; day 7: one wide 880 x 296 slot under them with glow and sparkles. Slots
-  are the warm `slot_cream_well` as a nine-patch (corners never stretched).
-- Each slot: day number, coin-pile picture with its amount, and a mystery chest with "×n" when boosters are included.
-- Claimed days are dimmed with a tick; today's slot has the gold glow, bounces and its pictures breathe.
-- One green Primary action "Claim / 领取" (520 x 176 hit area, 360 x 136 plate), dimmed and inactive once claimed.
+- Shop and Lucky Spin page family: forest backdrop, hanging sign "Daily Reward / 每日奖励" at `PAGE_SIGN`, Close
+  top-left, feather counter top-right.
+- No backing sheet and no card inside a card (`docs/design/island-style.md`): each day is its own cream card
+  (`ButtonKit.panel`, the shop's card) floating on the forest. Days 1-6: two columns of 482 x 290 cards with 20 px
+  gaps in 48,352,984,1220; day 7: one full-width 984 x 290 card under them with glow and sparkles.
+- Each card: the day number on the shop's green disc at the top-left corner, the coin pile with its amount, and a
+  mystery chest with "×n" when boosters are included.
+- Claimed days are dimmed like disabled items with the shop's tick top-right; today's card has the shop's green
+  selected outline, bounces and its pictures breathe.
+- One green Primary action "Claim / 领取", dimmed and inactive once claimed.
 - Claim: the slot pops, the tick stamps in, coins burst, the counter bumps; then the rewards dialog (sign title "Daily
   Reward", calendar hero, coins and the actual boosters). Its OK closes the page.
+- Claim sits at 280,1600,520,176 (360 x 136 Primary plate).
 - New painted words (Codex, en and zh): `lettering_daily_reward_title`, `white_claim`. Manifests only gain entries.
 
 ## Preview states

@@ -23,7 +23,7 @@ const PRESSED := Color(0.86, 0.86, 0.86)
 const SINK := 0.95
 
 const FACES := {
-	"green": "btn_plate_green_gold_rim",
+	"green": "btn_plate_green",
 	"key_green": "btn_key_green",
 	"key_cream": "btn_key_cream",
 	"field": "field_quantity",
