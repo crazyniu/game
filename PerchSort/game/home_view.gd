@@ -152,12 +152,9 @@ func _badge(button: Control, value: int) -> void:
 	badge.pivot_offset = badge.size * 0.5
 	badge.scale = Vector2.ONE * (48.0 / Island.BADGE_SIZE)
 
-## The next level to play: first unlocked level without stars, else the highest unlocked one.
+## Play continues where the player left off (Progress.resume_level).
 func _next_level() -> int:
-	for level in range(1, profile.highest_unlocked + 1):
-		if profile.best_stars(level) == 0:
-			return level
-	return profile.highest_unlocked
+	return Progress.resume_level(profile)
 
 func _add_bird(kind: String, at: Vector2, top: float, rest_frame: int, group: String) -> void:
 	var textures := Art.frames("home_island_%s_idle" % kind)

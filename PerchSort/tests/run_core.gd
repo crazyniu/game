@@ -34,6 +34,8 @@ func _init() -> void:
 		check(used_rows <= painted_rows, "level %d fits its painting" % id)
 		print("L%02d route=%d counted=%d par=%d" % [id, routes[str(id)].size(), session.move_count(), level["par"]])
 	_check_meta()
+	_check_dead_end()
+	_check_resume()
 	print("core checks: %d failures in %d ms" % [failures, Time.get_ticks_msec() - t0])
 	quit(1 if failures else 0)
 
@@ -124,3 +126,31 @@ func _check_meta() -> void:
 		p.stars[level] = 3
 	check(Progress.chests_ready(p) == 1 and not Progress.open_chest(p).is_empty() and Progress.chests_ready(p) == 0,
 		"star chest opens once per 30 stars")
+
+## A position whose only moves shuffle two part-flocks back and forth: legal moves exist, but the hint search
+## exhausts every reachable position and proves it unsolvable, which is what the board's stuck pointer uses.
+func _check_dead_end() -> void:
+	var board := Levels.create_board({"id": 1, "capacity": 4, "par": 10, "world": 1, "variant": "noon", "branches": [
+		{"side": "L", "row": 0, "birds": ["berry", "cocoa"]},
+		{"side": "R", "row": 0, "birds": ["sky", "berry", "sunny"]},
+		{"side": "L", "row": 1, "birds": ["sky", "sunny", "sunny", "sunny"]},
+		{"side": "R", "row": 1, "birds": ["sky"]},
+		{"side": "L", "row": 2, "birds": ["sky", "cocoa", "cocoa", "cocoa"]},
+		{"side": "R", "row": 2, "birds": ["berry", "berry:sleep"]}]})
+	check(Rules.has_legal_move(board), "dead end still has shuffle moves")
+	check(Solver.hint(board, [], 24000, 5000)["status"] == Solver.Status.UNSOLVABLE, "dead end proven unsolvable")
+
+## Play continues from the last level opened; a beaten last level continues with the next one.
+func _check_resume() -> void:
+	var p := Profile.new()
+	check(Progress.resume_level(p) == 1, "fresh profile resumes at level 1")
+	for level in range(1, 21):
+		p.stars[level] = 3
+	p.highest_unlocked = 21
+	p.last_level = 7
+	check(Progress.resume_level(p) == 8, "a beaten last level resumes at the next one")
+	p.stars[15] = 0
+	p.last_level = 15
+	check(Progress.resume_level(p) == 15, "an unbeaten last level resumes itself")
+	check(Profile.from_dict(p.to_dict()).last_level == 15, "the last level is saved")
+	check(Profile.from_dict({}).last_level == 0, "old saves have no last level")

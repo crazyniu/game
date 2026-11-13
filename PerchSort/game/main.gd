@@ -206,8 +206,7 @@ func show_chest() -> void:
 		_play_next if screen is HomeView else Callable(), profile.coins)
 
 func _play_next() -> void:
-	var level := Progress.next_level(profile)
-	_start_level(level if level > 0 else Levels.COUNT)
+	_start_level(Progress.resume_level(profile))
 
 func _refresh_screen() -> void:
 	# The coin page shows only a balance (set_balance), so it is not rebuilt from the profile.
@@ -308,6 +307,7 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.instant = instant()
 	set_screen(board)
 	var def := Levels.get_level(level_id)
+	profile.last_level = level_id   # saved below: the next launch's Play continues here
 	# A held booster that helps here and was never used gets a pointing hand once the popups are done.
 	var point := Progress.booster_to_point_at(profile, def)
 	board.start(def, profile, entrance)

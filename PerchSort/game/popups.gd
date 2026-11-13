@@ -748,8 +748,7 @@ static func chapters(host: Control, p: Profile, on_pick: Callable, page := -1) -
 	var row_h := 236.0
 	var gap := 22.0
 	if page < 0:   # opens on the page holding the player's current chapter
-		var next := Progress.next_level(p)
-		page = (Progress.world_of_level(next if next > 0 else Levels.COUNT) - 1) / CHAPTERS_PER_PAGE
+		page = (Progress.world_of_level(Progress.resume_level(p)) - 1) / CHAPTERS_PER_PAGE
 	var last_page := (Levels.WORLDS - 1) / CHAPTERS_PER_PAGE
 	var m := Modal.open(host, "map.chapters", [row_h * CHAPTERS_PER_PAGE + gap * (CHAPTERS_PER_PAGE - 1.0)], true,
 		Modal.SECONDARY_PILL.y, 0.0, _instant(host), true)

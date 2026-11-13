@@ -39,6 +39,7 @@ var checkin_streak := 0             # daily reward calendar day claimed on last_
 var challenge_date := ""            # old daily-challenge record, no longer used, kept in saves
 var vibration := true               # short haptic pulses on mobile
 var language := ""                  # "" follows the device; a language code is the player's choice
+var last_level := 0                 # last level opened (0 = none): Play continues from it
 
 
 func _init() -> void:
@@ -102,7 +103,7 @@ func to_dict() -> Dictionary:
 		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
 		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "drawDate": draws_date, "drawsLeft": draws_left, "challengeDate": challenge_date,
-		"vibration": vibration, "language": language,
+		"vibration": vibration, "language": language, "lastLevel": last_level,
 	}
 
 ## Lenient load: unknown or invalid entries are dropped, like the original deserializer.
@@ -187,6 +188,7 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.draws_date = str(data.get("drawDate", ""))
 	p.draws_left = clampi(int(data.get("drawsLeft", 0)), 0, 99)
 	p.challenge_date = str(data.get("challengeDate", ""))
+	p.last_level = clampi(int(data.get("lastLevel", 0)), 0, Levels.COUNT)
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= Levels.WORLDS:
 			p.rewarded_worlds[int(w)] = true

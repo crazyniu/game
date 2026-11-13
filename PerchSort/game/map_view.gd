@@ -90,8 +90,7 @@ func setup(player: Profile) -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	var backdrop := UI.image(self, "background_map_forest", Rect2(0, 0, 1080, 1920))
 	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	var next := Progress.next_level(profile)
-	current_level = next if next > 0 else Levels.COUNT
+	current_level = Progress.resume_level(profile)
 	_world = Progress.world_of_level(current_level)
 	_build_strip()
 	_build_play()

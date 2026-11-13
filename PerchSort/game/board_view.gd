@@ -1292,16 +1292,20 @@ func _hide_bubble() -> void:
 
 ## ---------- stuck hint ----------
 
-## With no legal move left, a gold glow and a bobbing pointer mark the tool that helps (undo first).
+## With no legal move left, or only moves that can never win (the background search exhausted every position
+## reachable without boosters), a gold glow and a bobbing pointer mark the tool that helps (undo first).
 func _watch_stuck() -> void:
 	_hide_stuck()
 	var s := session.state
-	if instant or s.is_won() or not session.can_undo() or Rules.has_legal_move(s):
+	if instant or s.is_won() or not session.can_undo() or not _dead_end(s):
 		return
 	var moves := session.move_count()
 	await get_tree().create_timer(STUCK_DELAY).timeout
 	if is_inside_tree() and not busy and session.state == s and session.move_count() == moves:
 		show_stuck_hint()
+
+func _dead_end(s: Board) -> bool:
+	return not Rules.has_legal_move(s) or _hint_failures.get(s.search_key(false), -1) == Solver.Status.UNSOLVABLE
 
 func show_stuck_hint() -> void:
 	_hide_stuck()
@@ -1504,7 +1508,8 @@ func _prefetch_hint() -> void:
 	_hint_thread = Thread.new()
 	_hint_thread.start(func():
 		var found := Solver.hint(snapshot, last, HINT_STATES, HINT_MS, cancel)
-		if found["status"] != Solver.Status.SOLVED and not cancel[0]:
+		# A proven dead end gets no suggestion: it would only shuffle birds back and forth.
+		if found["status"] == Solver.Status.BUDGET_EXCEEDED and not cancel[0]:
 			found["fallback"] = Solver.best_move(snapshot, last)
 		result.merge(found))
 
@@ -1539,6 +1544,9 @@ func _poll_hint() -> void:
 			_build_tools()
 			_show_hint_failure(_hint_failures[key])
 			Sound.play("error")
+	# A dead end proven after the move settled still gets the stuck pointer.
+	if source == "failed" and key == _hint_task_key and not busy and not is_instance_valid(_stuck):
+		_watch_stuck()
 	_prefetch_hint()
 
 ## Debug timing evidence: press to hand shown.
@@ -1990,7 +1998,8 @@ func granted_undos(count: int) -> void:
 	session.grant_undos(count)
 	_build_tools()
 
-## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
+## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
+## "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
 ## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
@@ -2190,6 +2199,27 @@ static func preview(main: Control, state: String) -> void:
 			await main.get_tree().process_frame
 			while board.busy:
 				await main.get_tree().process_frame
+		return
+	if state == "dead_end":   # one real shuffle inside a position that can never win: the pointer appears by itself
+		var board := BoardView.new()
+		board.instant = main.instant()
+		main.set_screen(board)
+		board.start({"id": 10, "world": 1, "variant": "noon", "capacity": 4, "par": 10, "branches": [
+			{"side": "L", "row": 0, "birds": ["berry", "cocoa"]},
+			{"side": "R", "row": 0, "birds": ["sky", "berry", "sunny"]},
+			{"side": "L", "row": 1, "birds": ["sky", "sunny", "sunny", "sunny"]},
+			{"side": "R", "row": 1, "birds": ["sky"]},
+			{"side": "L", "row": 2, "birds": ["sky", "cocoa", "cocoa", "cocoa"]},
+			{"side": "R", "row": 2, "birds": ["berry", "berry:sleep"]}]}, main.profile, false)
+		await main.get_tree().create_timer(0.5).timeout
+		board.tap_branch(4)
+		board.tap_branch(0)
+		var t0 := Time.get_ticks_msec()
+		while not is_instance_valid(board._stuck) and Time.get_ticks_msec() - t0 < 5000:
+			await main.get_tree().process_frame
+		var key := board.session.state.search_key(false)
+		print("DEAD_END moves=%d stuck=%s after_ms=%d hint_failure=%d hint_move=%s" % [board.session.move_count(),
+			is_instance_valid(board._stuck), Time.get_ticks_msec() - t0, board._hint_failures.get(key, -1), board._hint_moves.has(key)])
 		return
 	if state.begins_with("level_"):   # the real level on the board, without the first-visit popups
 		var board := BoardView.new()
