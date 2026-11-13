@@ -70,12 +70,9 @@ func setup(p: Profile) -> void:
 	if not instant:
 		_entrance()
 
-## The next level to play: the first unlocked level without stars, else the highest unlocked one.
+## Play continues where the player left off (Progress.resume_level).
 func _next_level() -> int:
-	for level in range(1, profile.highest_unlocked + 1):
-		if profile.best_stars(level) == 0:
-			return level
-	return profile.highest_unlocked
+	return Progress.resume_level(profile)
 
 ## Met birds (the first three met, else the starters) in and on the birdhouse, alive.
 func _build_birds() -> void:

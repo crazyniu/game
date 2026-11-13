@@ -270,6 +270,17 @@ static func next_level(p: Profile) -> int:
 			return level
 	return 0
 
+## Where Play continues: the last level opened while it is unbeaten, the one after it once it is beaten,
+## else the first unbeaten level (the last level when all are beaten).
+static func resume_level(p: Profile) -> int:
+	var last := p.last_level
+	if last >= 1 and last <= Levels.COUNT and is_level_unlocked(p, last):
+		if p.best_stars(last) > 0 and last < Levels.COUNT and is_level_unlocked(p, last + 1):
+			return last + 1
+		return last
+	var next := next_level(p)
+	return next if next > 0 else Levels.COUNT
+
 ## "locked", "current" or "cleared".
 static func node_state(p: Profile, level: int) -> String:
 	if p.best_stars(level) > 0:
