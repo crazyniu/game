@@ -68,7 +68,7 @@ func _run() -> void:
 			var panel_bounds: Rect2 = modal.panel_rect
 			var label: String = state + " " + language
 			var unavailable: bool = state == "insufficient" or state.ends_with("_short")
-			var expected_size: Vector2 = Vector2(480, 132) if outfit else shop.BUY_SIZE
+			var expected_size: Vector2 = load("res://game/button_kit.gd").WIDE
 			check(is_equal_approx(bounds.position.y, modal.panel_rect.end.y + modal_script.ACTION_DROP), label + " Buy is below unchanged frame")
 			check(not bounds.intersects(modal.panel_rect), label + " hit area does not overlap frame")
 			check(bounds.size == expected_size and is_equal_approx(bounds.get_center().x, 540.0), label + " size and horizontal center preserved")

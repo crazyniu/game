@@ -18,7 +18,7 @@ func _settle() -> void:
 
 func _skin(modal: Control, label: String) -> void:
 	var skin: NinePatchRect = modal.content.get_node("Panel/Skin")
-	check(skin.texture.atlas == Art.tex("panel_dialog_cartoon"), label + " uses the independently reviewed cartoon surface")
+	check(skin.texture == Art.tex(load("res://game/button_kit.gd").PANEL), label + " uses the shared painted cream card")
 	var close: Button = modal.content.get_node("Close")
 	check(close.get_node("Face").texture == Art.tex("btn_purchase_close"), label + " uses coin-shop Close")
 	print("CLOSE_GEOMETRY actual=", close.size, " expected=", load("res://game/menu_navigation.gd").SIZE)
@@ -175,13 +175,13 @@ func _run() -> void:
 		_skin(modal, "feather " + pack.id)
 		coins.show_preview_purchase(pack)
 		check(coins.get_node("Popup") == modal, "repeated feather preview keeps one modal " + pack.id)
-		check(modal._title_id == "coins.preview" and modal.content.get_node("Number").get_meta("value") == "+%d" % pack.coins,
+		check(modal._title_id == "coins_preview" and modal.content.get_node("Number").get_meta("value") == "+%d" % pack.coins,
 			"feather preview labels simulation and exact amount " + pack.id)
 		var confirm: Button = modal.content.get_node("Confirm")
 		check(confirm.position.y == modal.panel_rect.end.y + load("res://game/popup.gd").ACTION_DROP and not confirm.get_rect().intersects(modal.panel_rect),
 			"existing preview Confirm and hit area are wholly outside the frame " + pack.id)
-		check(confirm.size == Vector2(336, 112) and confirm.get_rect().end.y <= 1920,
-			"preview Confirm retains accepted dimensions and fits the viewport " + pack.id)
+		check(confirm.size == load("res://game/button_kit.gd").PRIMARY and confirm.get_rect().end.y <= 1920,
+			"preview Confirm uses the primary button size and fits the viewport " + pack.id)
 		modal.content.get_node("Confirm").pressed.emit()
 		await _settle()
 		check(coins.get_node_or_null("Popup") == null and JSON.stringify(fake.to_dict()) == before,

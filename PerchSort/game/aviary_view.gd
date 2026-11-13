@@ -513,16 +513,16 @@ func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	Sound.play("ui_tap")
 	var it := Shop.item(id)
 	var quick := _is_instant()
-	var pic_side := 400.0
-	var modal := PurchaseDialog.open(self, id + ".name", [pic_side], quick, 132.0)
+	var pic_side := 500.0
+	var modal := PurchaseDialog.open(self, id.replace(".", "_"), [pic_side], quick, ButtonKit.WIDE.y)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - pic_side * 0.5, ys[0], pic_side, pic_side)
 	PurchaseDialog.glow(modal.content, pic)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
-	var accept := ShopSkin.product_button(modal.content, "Buy", Rect2(300, modal.panel_rect.end.y + Modal.ACTION_DROP, 480, 132),
-		func(): modal.invoke(func(): _buy_outfit(id, index)), "gold")
-	var line := ShopSkin.feather_amount(accept, Rect2(24, 28, 432, 76), it["price"])
+	var accept := ButtonKit.button(modal.content, "Buy", Rect2(Vector2(540.0 - ButtonKit.WIDE.x * 0.5,
+		modal.panel_rect.end.y + Modal.ACTION_DROP), ButtonKit.WIDE), "wide", func(): modal.invoke(func(): _buy_outfit(id, index)))
+	var line := ButtonKit.price(accept.get_node("Content"), ButtonKit.WIDE, it["price"])
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var origin_x := line.position.x

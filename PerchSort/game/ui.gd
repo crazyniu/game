@@ -284,7 +284,22 @@ static func _skin_button(b: Button, piece: String, r: Rect2) -> void:
 	b.button_up.connect(func(): face.modulate = Color.WHITE)
 
 ## One clean bright-green action skin. The wrapper leaves child coordinates unscaled.
+const BUTTON_MIN_RATIO := 1.9    # width / height of every button face: never squarer than this ...
+const BUTTON_MAX_RATIO := 4.6    # ... and never longer than this
+
+## The face rect of a button: its box with the width / height ratio held inside the shared limits, same centre.
+static func button_rect(rect: Rect2) -> Rect2:
+	var ratio := rect.size.x / maxf(rect.size.y, 1.0)
+	if ratio < BUTTON_MIN_RATIO:
+		var w := rect.size.y * BUTTON_MIN_RATIO
+		return Rect2(rect.position.x - (w - rect.size.x) * 0.5, rect.position.y, w, rect.size.y)
+	if ratio > BUTTON_MAX_RATIO:
+		var w := rect.size.y * BUTTON_MAX_RATIO
+		return Rect2(rect.position.x + (rect.size.x - w) * 0.5, rect.position.y, w, rect.size.y)
+	return rect
+
 static func action_face(parent: Node, rect: Rect2) -> Control:
+	rect = button_rect(rect)
 	var holder := Control.new()
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	place(holder, rect)

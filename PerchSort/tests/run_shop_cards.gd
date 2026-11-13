@@ -27,10 +27,12 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	check(view._grid.get_child_count() == 6, "six unchanged booster identities")
-	check(ShopView.BOOSTER_PRICE.get_center().y == 95, "purchase action centered on row surface")
-	check(ShopView.ITEM_NAME.get_center().y == 95, "nest name aligns with purchase action")
-	check(ShopView.BOOSTER_NAME.end.y < view._grid.get_child(0).get_node("Body/Stock").position.y, "inventory follows name without overlap")
-	check(view._grid.get_child(0).get_node("Body/Stock/Count") is Label, "stock uses plain centered numerals")
+	check(ShopView.BOOSTER_PRICE.get_center().y == ShopView.ITEM_TILE.y * 0.5, "purchase action centered on row surface")
+	check(ShopView.BOOSTER_PRICE.size == ShopView.PRICE_SIZE and ShopView.ITEM_ACTION.size == ShopView.PRICE_SIZE, "list actions use the secondary button size")
+	check(ShopView.ITEM_NAME.end.y < ShopView.ITEM_ACTION.position.y, "nest name sits above its action pill")
+	check(ShopView.ITEM_ACTION.end.y <= ShopView.CARD_TILE.y, "card action pill stays inside its card")
+	check(not ShopView.BOOSTER_NAME.intersects(view._grid.get_child(0).get_node("Body/Stock").get_rect()), "inventory badge does not overlap the name")
+	check(view._grid.get_child(0).get_node("Body/Stock/Count").get("value") != null, "stock uses painted numerals")
 	check(view._grid.get_child(0).size == ShopView.ITEM_TILE, "equal forest card size")
 	check(view._grid.get_child(2).position == Vector2(0, 2 * (ShopView.ITEM_TILE.y + ShopView.TILE_GAP)), "single-column shelf order")
 	check(view._grid.get_child(5).get_rect().end.y > ShopView.AREA.size.y, "booster shelves extend through scroll area")
@@ -83,7 +85,7 @@ func _run() -> void:
 	check(view._modal == null, "drag does not purchase or open a modal")
 	UiText.set_language("zh")
 	await process_frame
-	check(view._title.painted_id == "white_tab_boosters", "localized heading survives rebuild")
+	check(view._title.painted_id == "lettering_tab_boosters", "localized heading survives rebuild")
 	view.queue_free()
 	await process_frame
 	view = load("res://tests/shop_expanded_fixture.gd").new()

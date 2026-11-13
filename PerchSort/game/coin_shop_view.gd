@@ -48,14 +48,15 @@ func setup(balance: int) -> void:
 func show_preview_purchase(pack: Dictionary) -> void:
 	if get_node_or_null("Popup") != null:
 		return
-	var modal := PurchaseDialog.open(self, "coins.preview", [360.0, 88.0], instant, 112.0)
+	var modal := PurchaseDialog.open(self, "coins_preview", [300.0, 88.0], instant, ButtonKit.PRIMARY.y)
 	var ys: Array = modal.get_meta("ys")
-	var picture := Rect2(280, ys[0], 520, 360)
+	var picture := Rect2(280, ys[0], 520, 300)
 	PurchaseDialog.glow(modal.content, picture)
 	DrawPurchaseArt.fit(modal.content, "icon_purchase_" + pack["id"], picture)
 	DrawPurchaseArt.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88))
-	var confirm := ShopSkin.product_button(modal.content, "Confirm", Rect2(372, modal.panel_rect.end.y + Modal.ACTION_DROP, 336, 112), modal.close, "green")
-	UiText.painted_label(confirm, "action.ok", Rect2(48, 18, 240, 76))
+	var confirm := ButtonKit.button(modal.content, "Confirm", Rect2(Vector2(540.0 - ButtonKit.PRIMARY.x * 0.5,
+		modal.panel_rect.end.y + Modal.ACTION_DROP), ButtonKit.PRIMARY), "green", modal.close)
+	ButtonKit.word(confirm.get_node("Content"), "action.ok", ButtonKit.PRIMARY)
 
 ## Fake-data states use the canonical page and its purchase-request contract.
 static func preview(main: Control, state: String) -> void:

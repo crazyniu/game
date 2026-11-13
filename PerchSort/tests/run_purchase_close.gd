@@ -26,7 +26,8 @@ func check(ok: bool, label: String) -> void:
 	print("PASS " if ok else "FAIL ", label)
 
 func _title_ink(modal: Control) -> Rect2:
-	var sprite: TextureRect = modal.content.get_node("TitleGroup").get_child(0)
+	var group: Control = modal.content.get_node("TitleGroup")
+	var sprite: TextureRect = group.get_child(group.get_child_count() - 1)   # the word, drawn over the sign
 	var ink := Rect2(sprite.texture.get_image().get_used_rect())
 	var scale := sprite.size / sprite.texture.get_size()
 	return sprite.get_global_transform() * Rect2(ink.position * scale, ink.size * scale)
@@ -35,11 +36,11 @@ func _geometry(modal: Control, label: String) -> void:
 	var close: Button = modal.content.get_node("Close")
 	var bounds := close.get_rect()
 	var title := _title_ink(modal)
-	check(is_equal_approx(modal.panel_rect.position.y - bounds.end.y, modal_script.ACTION_DROP), label + " Close has exact outside-frame clearance")
-	check(not bounds.intersects(modal.panel_rect), label + " Close hit area never intersects panel")
+	var card: Rect2 = modal.get_meta("card_rect")
+	check(bounds.get_center().distance_to(Vector2(card.end.x - 150.0, card.position.y + 30.0) + bounds.size * 0.5) < 1.0, label + " Close sits inside the card's top-right corner")
+	check(card.encloses(bounds), label + " Close lies within the card")
 	check(Rect2(0, 0, 1080, 1920).encloses(bounds), label + " entire Close remains on screen")
 	check(bounds.size.is_equal_approx(navigation_script.SIZE), label + " accepted Close size preserved")
-	check(is_equal_approx(bounds.get_center().x, modal.panel_rect.end.x - 36.0), label + " horizontal position preserved")
 	check(not close.get_global_rect().intersects(title), label + " visible title has no hit-area collision")
 	check(close.get_node("Face").texture.resource_path.ends_with("/btn_purchase_close.png"), label + " accepted Close artwork preserved")
 	close.button_down.emit()
@@ -142,7 +143,7 @@ func _run() -> void:
 		await process_frame
 		var shop: Control = main.screen
 		for item in Shop.catalog():
-			var title: String = shop._name_id(item)
+			var title: String = shop._title_key(item)
 			var modal: Control = purchase_script.open(shop, title, [400.0], true, 132.0)
 			_geometry(modal, "title " + title + " " + language)
 			modal.free()

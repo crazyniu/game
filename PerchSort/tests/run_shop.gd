@@ -42,7 +42,7 @@ func _run() -> void:
 	await RenderingServer.frame_post_draw
 	print("OUTFITS handler_ms=%.2f input_to_draw_ms=%.2f" % [handler, (Time.get_ticks_usec() - start) / 1000.0])
 	await create_timer(0.6).timeout
-	check(shop._title.painted_id == "white_tab_outfits", "outfit category and heading")
+	check(shop._title.painted_id == "lettering_tab_outfits", "outfit category and heading")
 	await capture("shop_outfits_zh")
 	var cached: Control = shop._grid
 	await click(shop.get_node("Tabs/Boosters"))
@@ -66,11 +66,15 @@ func _run() -> void:
 	check(shop._outfit_page == null, "detail returns to shop")
 	await click(shop.get_node("Tabs/Nests"))
 	await capture("shop_nests_zh")
+	shop._scroll.ensure_control_visible(shop._grid.get_child(7))
+	await process_frame
 	await click(shop._grid.get_child(7).get_node("Select"))
 	await capture("nest_purchase")
 	balance = main.profile.coins
 	await click(shop._purchase_button)
 	check(main.profile.owns_house("pinecone") and main.profile.coins == balance - 600, "nest purchase")
+	shop._scroll.ensure_control_visible(shop._grid.get_child(7))
+	await process_frame
 	await click(shop._grid.get_child(7).get_node("Select"))
 	check(main.profile.equipped_house == "pinecone", "nest equips")
 	await click(shop.get_node("Tabs/Boosters"))

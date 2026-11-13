@@ -106,11 +106,10 @@ func _shop_amounts(shop: Control, label: String) -> void:
 			_feather(price.get_node_or_null("FeatherPrice"), label + " " + str(card.name) + " price", price, item["price"])
 		var stock: Control = card.get_node_or_null("Body/Stock")
 		if stock != null:
-			var count: Label = stock.get_node("Count")
-			check(count.text == "×" + str(mini(shop.profile.inventory[item["booster"]], island_script.BADGE_CAP)), label + " exact stock " + str(card.name))
-			check(count.horizontal_alignment == HORIZONTAL_ALIGNMENT_CENTER and count.vertical_alignment == VERTICAL_ALIGNMENT_CENTER,
-				label + " stock text aligns centrally")
-			check(count.position == Vector2.ZERO and count.size == stock.size, label + " stock text fills inline count region")
+			var count = stock.get_node("Count")
+			check(count.value == str(mini(shop.profile.inventory[item["booster"]], island_script.BADGE_CAP)), label + " exact stock " + str(card.name))
+			check(count.align == 0, label + " stock numerals align centrally")
+			check(count.position.x == 0.0 and count.size.x == stock.size.x, label + " stock numerals span the count badge")
 
 func _run() -> void:
 	for arg in OS.get_cmdline_user_args():
@@ -150,7 +149,7 @@ func _run() -> void:
 				var modal: Control = host.get_node("Popup")
 				var buy: Control = modal.content.get_node("Buy")
 				var expected: int = Shop.item("outfit.berry.3")["price"] if outfit else shop._purchase_item["price"] * shop._quantity
-				_purchase(buy if outfit else buy.get_node("Contents"), label + " buy", expected)
+				_purchase(buy.get_node("Content"), label + " buy", expected)
 			if DisplayServer.get_name() != "headless" and not evidence.is_empty():
 				await create_timer(0.36).timeout
 				await RenderingServer.frame_post_draw
@@ -160,7 +159,7 @@ func _run() -> void:
 			await process_frame
 			await create_timer(0.36).timeout
 			var buy: Control = main.screen.get_node("Popup/Content/Buy")
-			_purchase(buy, "aviary " + state + " " + language, Shop.item("outfit.hoot.1")["price"])
+			_purchase(buy.get_node("Content"), "aviary " + state + " " + language, Shop.item("outfit.hoot.1")["price"])
 			if DisplayServer.get_name() != "headless" and not evidence.is_empty():
 				await create_timer(0.36).timeout
 				await RenderingServer.frame_post_draw

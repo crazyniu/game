@@ -7,27 +7,36 @@ signal profile_changed
 signal booster_purchased(kind: int, count: int)
 
 const AviaryScript := preload("res://game/aviary_view.gd")
-const HeadingInk := preload("res://game/shop_heading.gdshader")
-const ProductInk := preload("res://game/shop_product_word.gdshader")
+const ChestLettering := preload("res://game/chest_lettering.gd")
 const TABS := [Shop.BOOSTER, Shop.OUTFIT, Shop.HOUSE]
 const TAB_NAMES := ["Boosters", "Outfits", "Nests"]
 const TAB_PICTURE_NAMES := ["boosters", "outfits", "nests"]
-## Shop composition, in 1080 x 1920 design pixels; awaiting user visual acceptance.
+## Shop composition, in 1080 x 1920 design pixels. Every button size comes from ButtonKit's size table.
 const CLOSE := Rect2(48, 48, 112, 112)
-const TITLE_WORD := Rect2(260, 224, 560, 100)
-const AREA := Rect2(60, 390, 960, 1240)
-const BOOSTER_SLOT := Vector2(960, 238)
-const TILE_GAP := 14.0
+const SIGN_RECT := Rect2(220, 150, 640, 223)
+const TITLE_WORD := Rect2(284, 232, 512, 132)
+const AREA := Rect2(48, 384, 984, 1284)
+const BOOSTER_SLOT := Vector2(984, 236)
+const TILE_GAP := 20.0
 const ITEM_TILE := BOOSTER_SLOT
 const COLUMNS := 1
-const TAB_BAR := Rect2(152, 1668, 776, 168)
-const TAB_GAP := 88.0
-const TAB_ICON := 128.0
-const TAB_SELECTED := Color(1.15, 1.28, 1.06)
-const BOOSTER_PICTURE := Rect2(28, 4, 232, 184)
-const BOOSTER_NAME := Rect2(280, 30, 340, 76)
-const PRICE_SIZE := Vector2(286, 100)
-const BOOSTER_PRICE := Rect2(Vector2(648, 45), PRICE_SIZE)
+## Outfit and nest cards: two columns, a picture over its name and one secondary button.
+const CARD_TILE := Vector2(482, 412)
+const CARD_GAP := Vector2(20, 20)
+const CARD_COLUMNS := 2
+const CARD_PICTURE := Rect2(81, 12, 320, 180)
+const CARD_NAME := Rect2(41, 210, 400, 66)
+const CARD_ACTION := Rect2(Vector2(97, 284), ButtonKit.SECONDARY)
+const TAB_BAR := Rect2(198, 1680, 684, 192)
+const TAB_GAP := 48.0
+const TAB_ICON := 132.0
+const TAB_SELECTED := Color(1.0, 1.0, 1.0)
+## Booster rows: picture, name, price button; the owned count is a badge on the picture.
+const BOOSTER_PICTURE := Rect2(36, 18, 200, 200)
+const BOOSTER_NAME := Rect2(262, 78, 380, 80)
+const PRICE_SIZE := ButtonKit.SECONDARY
+const BOOSTER_PRICE := Rect2(Vector2(660, 64), PRICE_SIZE)
+const BADGE := 76.0
 ## Visible contours exclude near-transparent export noise without modifying the source art.
 const HOUSE_INK := {
 	"house_style_acorn_body": Rect2(56, 51, 398, 404),
@@ -40,23 +49,23 @@ const HOUSE_INK := {
 	"house_style_teacup_body": Rect2(83, 136, 389, 324),
 	"house_style_teapot_body": Rect2(29, 55, 459, 399),
 }
-const ITEM_PICTURE := BOOSTER_PICTURE
-const ITEM_NAME := Rect2(280, 57, 340, 76)
-const ITEM_ACTION := BOOSTER_PRICE
-const STOCK := Vector2(250, 29)
+const ITEM_PICTURE := CARD_PICTURE
+const ITEM_NAME := CARD_NAME
+const ITEM_ACTION := CARD_ACTION
+const STOCK := Vector2(222, 196)
 const BOOSTER_LABEL := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]   # island_icon_<name>
 const BOOSTER_WORD := ["firefly", "sprout", "owl_eye", "wake_bell", "scarecrow", "spring_rain"]   # painted item_/cap_ words
 
-## Layout (design pixels, 1080x1920; margins 48, 8 px grid).
-const POPUP_CAPTION := 56.0
-const PILL_EDGE := 8.0
-const POPUP_PIC := 360.0
-const SINGLE_PIC := 400.0
-const BUY_SIZE := Vector2(560, 132)
-const QUANTITY_WIDTH := 212.0
-const STEP := Vector2(150, 112)            # - and + are short pills (no round buttons in popups)
+## Purchase popup (design pixels).
+const POPUP_CAPTION := 80.0
+const POPUP_PIC := 440.0
+const SINGLE_PIC := 500.0
+const BUY_SIZE := ButtonKit.WIDE
+const QUANTITY_WIDTH := ButtonKit.FIELD.x
+const STEP := ButtonKit.KEY
 const QUANTITY_GAP := 24.0
+const SIGN_INK := Color(0.16, 0.52, 0.08)
 
 var profile: Profile
 var tab := 0
@@ -72,14 +81,12 @@ var _scroll: ScrollContainer
 var _coins: FeatherBar
 var _coins_shown := -1
 var _title: TextureRect
-var _heading_ink: ShaderMaterial
-var _product_ink: ShaderMaterial
 var _modal: Modal
 var _purchase_item: Dictionary
 var _quantity := 1
 var _quantity_limit := 1
 var _quantity_input: QuantityInput
-const SIGN_BAR := Vector2(48, 14)
+const SIGN_BAR := Vector2(44, 12)
 var _minus: Button
 var _plus: Button
 var _purchase_button: Button
@@ -93,7 +100,8 @@ const TAP_SLOP := 14.0
 class QuantityInput extends LineEdit:
 	signal value_changed(value: int)
 
-	const CAP := 60.0
+	const CAP := 74.0
+	const INK := Color.WHITE
 	var limit := 1
 	var _digits: Control
 	var _caret: ColorRect
@@ -122,7 +130,9 @@ class QuantityInput extends LineEdit:
 		_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_selection.hide()
 		add_child(_selection)
-		_digits = UI.number(self, text, Rect2(16, (size.y - CAP) * 0.5, size.x - 32, CAP), Color.WHITE)
+		_digits = UI.number(self, text, Rect2(16, (size.y - CAP) * 0.5 - 3, size.x - 32, CAP), INK)
+		_digits.material = ShaderMaterial.new()
+		_digits.material.shader = preload("res://game/chest_play_word.gdshader")
 		_caret = ColorRect.new()
 		_caret.color = Color.WHITE
 		_caret.size = Vector2(3, 52)
@@ -165,7 +175,7 @@ class QuantityInput extends LineEdit:
 			UI.set_number(_digits, text)
 
 	func _process(_delta: float) -> void:
-		var style := UiText.number_style(Color.WHITE)
+		var style := UiText.number_style(INK)
 		var width := UiText.number_width(text, CAP, style)
 		var cap := CAP if width == 0.0 else CAP * minf(1.0, _digits.size.x / width)
 		var left := (size.x - UiText.number_width(text, cap, style)) * 0.5
@@ -183,11 +193,7 @@ func setup(p: Profile, start_tab := 0) -> void:
 	profile = p
 	tab = start_tab
 	size = Vector2(1080, 1920)
-	_heading_ink = ShaderMaterial.new()
-	_heading_ink.shader = HeadingInk
-	_product_ink = ShaderMaterial.new()
-	_product_ink.shader = ProductInk
-	DrawPurchaseArt.background(self)
+	UI.image(self, "background_home_jungle", Rect2(0, 0, 1080, 1920), false).name = "JungleBackground"
 	_scroll = ScrollContainer.new()
 	_scroll.name = "Scroll"
 	_scroll.clip_contents = true
@@ -229,7 +235,7 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	MenuNavigation.close(_bar, "Close", CLOSE.position, func(): closed.emit())
-	UI.art(_bar, "panel_shop_sign", Rect2(194, 192, 692, 166))
+	UI.image(_bar, ButtonKit.SIGN, SIGN_RECT, false).name = "Sign"
 	_build_title()
 
 ## Floating category words keep the existing painted lettering and locale updates.
@@ -237,8 +243,7 @@ func _build_title() -> void:
 	if _title != null:
 		_bar.remove_child(_title)
 		_title.queue_free()
-	_title = UiText.painted(_bar, "white_tab_" + TAB_PICTURE_NAMES[tab], TITLE_WORD)
-	_title.material = _heading_ink
+	_title = ButtonKit.lettering(_bar, "tab_" + TAB_PICTURE_NAMES[tab], TITLE_WORD)
 
 func _layer(n: String) -> Control:
 	var c := Control.new()
@@ -288,21 +293,28 @@ func _build_page(category: int) -> void:
 	if TABS[category] == Shop.BOOSTER:
 		var items := _items(Shop.BOOSTER)
 		for n in items.size():
-			_booster_card(items[n], _tile_rect(n), n)
+			_booster_card(items[n], _tile_rect(n, category), n)
 	else:
 		var tiles: Array = outfit_species() if TABS[category] == Shop.OUTFIT else _items(Shop.HOUSE)
 		for n in tiles.size():
 			if TABS[category] == Shop.OUTFIT:
-				_kind_tile(tiles[n], _tile_rect(n), n)
+				_kind_tile(tiles[n], _tile_rect(n, category), n)
 			else:
-				_card(tiles[n], _tile_rect(n), n)
+				_card(tiles[n], _tile_rect(n, category), n)
 
-func _tile_rect(index: int) -> Rect2:
-	return Rect2(Vector2((index % COLUMNS) * (ITEM_TILE.x + TILE_GAP),
-		(index / COLUMNS) * (ITEM_TILE.y + TILE_GAP)), ITEM_TILE)
+## Boosters are full-width rows; outfits and nests are two columns of tall cards.
+func _tile_rect(index: int, category: int) -> Rect2:
+	if TABS[category] == Shop.BOOSTER:
+		return Rect2(Vector2((index % COLUMNS) * (ITEM_TILE.x + TILE_GAP),
+			(index / COLUMNS) * (ITEM_TILE.y + TILE_GAP)), ITEM_TILE)
+	return Rect2(Vector2((index % CARD_COLUMNS) * (CARD_TILE.x + CARD_GAP.x),
+		(index / CARD_COLUMNS) * (CARD_TILE.y + CARD_GAP.y)), CARD_TILE)
 
 func _page_height(category: int) -> float:
 	var count := outfit_species().size() if TABS[category] == Shop.OUTFIT else _items(TABS[category]).size()
+	if TABS[category] != Shop.BOOSTER:
+		var card_rows := ceili(float(count) / CARD_COLUMNS)
+		return maxf(AREA.size.y, card_rows * CARD_TILE.y + maxi(0, card_rows - 1) * CARD_GAP.y + 8)
 	var rows := ceili(float(count) / COLUMNS)
 	return maxf(AREA.size.y, rows * ITEM_TILE.y + maxi(0, rows - 1) * TILE_GAP + 8)
 
@@ -332,7 +344,7 @@ func _warm_outfits() -> void:
 			return
 		shown = _grid
 		_grid = page
-		_kind_tile(species[n], _tile_rect(n), n)
+		_kind_tile(species[n], _tile_rect(n, 1), n)
 		_grid = page if tab == 1 else shown
 
 ## Every new press starts a fresh tap-or-drag decision.
@@ -362,7 +374,7 @@ func _build_coins() -> void:
 
 ## Three separate painted tiles. Selection changes the face, never the tile or icon size.
 func _tab_bar() -> void:
-	var width := (TAB_BAR.size.x - TAB_GAP * (TABS.size() - 1)) / TABS.size()
+	var width := ButtonKit.TAB.x
 	for i in TABS.size():
 		var on := i == tab
 		var bounds := Rect2(TAB_BAR.position + Vector2(i * (width + TAB_GAP), 0), Vector2(width, TAB_BAR.size.y))
@@ -371,12 +383,10 @@ func _tab_bar() -> void:
 				Sound.play("ui_tap")
 			_select_tab(i))
 		hit.name = TAB_NAMES[i]
-		var face := ShopSkin.product_card(hit, Rect2(Vector2.ZERO, bounds.size))
-		var tint := TAB_SELECTED if on else Color.WHITE
-		face.modulate = tint
-		_fit_visible(hit, "island_tab_" + TAB_PICTURE_NAMES[i], bounds.size * 0.5, TAB_ICON)
-		hit.button_down.connect(func(): face.modulate = tint * Island.PRESSED)
-		hit.button_up.connect(func(): face.modulate = tint)
+		var face := ButtonKit.face(hit, "key_green" if on else "key_cream", Rect2(Vector2.ZERO, bounds.size))
+		_fit_visible(hit, "island_tab_" + TAB_PICTURE_NAMES[i], bounds.size * 0.5 - Vector2(0, 4), TAB_ICON)
+		hit.button_down.connect(func(): face.modulate = ButtonKit.PRESSED)
+		hit.button_up.connect(func(): face.modulate = Color.WHITE)
 
 func _select_tab(i: int) -> void:
 	if i != tab:
@@ -385,9 +395,9 @@ func _select_tab(i: int) -> void:
 		_build_title()
 		_refresh(false)
 		if not instant:
-			var face: Control = _tabs.get_node(TAB_NAMES[i]).get_child(0)
-			face.modulate = Color.WHITE
-			face.create_tween().tween_property(face, "modulate", TAB_SELECTED, 0.14)
+			var face: Control = _tabs.get_node(TAB_NAMES[i]).get_node("Face")
+			face.scale = Vector2.ONE * 0.9
+			face.create_tween().tween_property(face, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## Single boosters, or the houses.
 func _items(kind: int) -> Array:
@@ -415,6 +425,10 @@ func _name_id(it: Dictionary) -> String:
 		return "booster.%s.name" % BOOSTER_LABEL[it["booster"]]
 	return str(it["id"]) + ".name"
 
+## The painted lettering key of any catalog item's title (boosters, nests and outfits).
+func _title_key(it: Dictionary) -> String:
+	return str(it["id"]).replace(".", "_") if it["kind"] == Shop.OUTFIT else _label_id(it)
+
 ## The baked label of an item's name (tools/island/bake_labels.py).
 func _label_id(it: Dictionary) -> String:
 	if it["kind"] == Shop.BOOSTER:
@@ -426,32 +440,29 @@ func _card(it: Dictionary, r: Rect2, n: int) -> void:
 	var card := _item_holder(it, r)
 	var body: Control = card.get_node("Body")
 	_picture(body, it, ITEM_PICTURE)
-	_product_word(body, _name_id(it), ITEM_NAME)
+	ButtonKit.lettering(body, _label_id(it), ITEM_NAME)
+	var action := ButtonKit.plate(body, ITEM_ACTION)
+	action.name = "Price" if not _owned(it) else "Action"
 	if _owned(it):
-		ShopSkin._product_action_face(body, ITEM_ACTION, "green")
-		UiText.painted(body, "white_equipped" if _equipped(it) else "white_equip", ITEM_ACTION.grow(-16))
+		ButtonKit.word(action, "white_equipped" if _equipped(it) else "white_equip", ITEM_ACTION.size)
 		if _equipped(it):
-			Island.check_badge(body, Vector2(r.size.x - 40, 40))
+			Island.check_badge(body, Vector2(r.size.x - 44, 44))
 	else:
-		ShopSkin.product_price(body, ITEM_ACTION, it["price"])
+		ButtonKit.price(action, ITEM_ACTION.size, it["price"])
 	var hit: Button = card.get_node("Select")
 	hit.button_down.connect(func(): body.modulate = Island.PRESSED)
 	hit.button_up.connect(func(): body.modulate = Color.WHITE)
 	_pop_in(card, n)
-
-## The same painted source words keep their outline and become warm ivory on teal.
-func _product_word(parent: Node, label_id: String, bounds: Rect2) -> TextureRect:
-	var label := UiText.painted_label(parent, label_id, bounds, true)
-	label.material = _product_ink
-	return label
 
 ## Equal grouped product rows keep inline stock counts and feather-price actions.
 func _booster_card(it: Dictionary, r: Rect2, n: int) -> void:
 	var card := _item_holder(it, r)
 	var body: Control = card.get_node("Body")
 	_picture(body, it, BOOSTER_PICTURE)
-	_product_word(body, _name_id(it), BOOSTER_NAME)
-	ShopSkin.product_price(body, BOOSTER_PRICE, it["price"])
+	ButtonKit.lettering(body, _label_id(it), BOOSTER_NAME)
+	var price := ButtonKit.plate(body, BOOSTER_PRICE)
+	price.name = "Price"
+	ButtonKit.price(price, BOOSTER_PRICE.size, it["price"])
 	if _locked(it):
 		body.modulate.a = UI.DISABLED_ALPHA
 		Island.piece_fit(card, "island_padlock", STOCK, Vector2(66, 66)).name = "Lock"
@@ -462,24 +473,16 @@ func _booster_card(it: Dictionary, r: Rect2, n: int) -> void:
 		hit.button_up.connect(func(): body.modulate = Color.WHITE)
 	_pop_in(card, n)
 
-## Zero remains useful stock information; show it inline even when the item is used up.
+## The owned count is a green badge on the picture's corner; zero stays visible as stock information.
 func _stock_count(parent: Node, count: int) -> void:
 	var stock := Control.new()
 	stock.name = "Stock"
 	stock.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(stock, Rect2(280, 112, 340, 52))
+	UI.place(stock, Rect2(STOCK - Vector2.ONE * BADGE * 0.5, Vector2.ONE * BADGE))
 	parent.add_child(stock)
-	# Stock belongs beside the product name, not in a floating notification badge.
-	var digits := Label.new()
+	UI.image(stock, "island_badge_green", Rect2(Vector2.ZERO, stock.size), false)
+	var digits := UI.number(stock, str(mini(count, Island.BADGE_CAP)), Rect2(0, BADGE * 0.24, BADGE, BADGE * 0.5), Color.WHITE)
 	digits.name = "Count"
-	digits.text = "×" + str(mini(count, Island.BADGE_CAP))
-	digits.size = stock.size
-	digits.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	digits.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	digits.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	digits.add_theme_font_size_override("font_size", 34)
-	digits.add_theme_color_override("font_color", Color.WHITE)
-	stock.add_child(digits)
 
 ## A picture whose visible pixels (not its padded canvas) fill a `side` x `side` box centred on `center`.
 func _fit_visible(parent: Node, picture: String, center: Vector2, side: float) -> TextureRect:
@@ -508,23 +511,14 @@ func _item_holder(it: Dictionary, r: Rect2) -> Control:
 	_shelf(body, r.size)
 	return card
 
-## One reusable clean shelf, with a flat translucent row rather than a gradient card.
+## One reusable cream card: the painted panel shared with the purchase popup.
 func _shelf(parent: Node, bounds: Vector2) -> Control:
 	var holder := Control.new()
 	holder.name = "Shelf"
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	holder.size = bounds
 	parent.add_child(holder)
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.10, 0.27, 0.14, 0.74)
-	style.set_corner_radius_all(28)
-	var surface := Panel.new()
-	surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	surface.size = Vector2(bounds.x, 190)
-	surface.add_theme_stylebox_override("panel", style)
-	holder.add_child(surface)
-	ShopSkin._product_surface(holder, Rect2(0, 184, bounds.x, 54), "prop_shop_shelf",
-		Rect2(0, 370, 1760, 350), Vector4(180, 50, 180, 80), 0.15)
+	ButtonKit.panel(holder, Rect2(Vector2.ZERO, bounds)).name = "Surface"
 	return holder
 
 func _pop_in(card: Control, n: int) -> void:
@@ -588,8 +582,8 @@ func owned_outfits(species: String) -> int:
 			owned += 1
 	return owned
 
-## An outfit tile: the bird in its current outfit, its name and how many looks it owns; a tap opens its outfit page.
-## An unmet kind is the "?" silhouette and does nothing.
+## An outfit tile: the bird on its branch, its name and one pill with how many looks it owns; a tap opens its
+## outfit page. An unmet kind is the "?" silhouette and does nothing.
 func _kind_tile(species: String, r: Rect2, n: int) -> void:
 	var met := profile.has_met(species)
 	var tile := Control.new()
@@ -598,18 +592,29 @@ func _kind_tile(species: String, r: Rect2, n: int) -> void:
 	UI.place(tile, r)
 	_grid.add_child(tile)
 	var face := _shelf(tile, r.size)
+	if met:
+		var width := ITEM_PICTURE.size.x * 0.94
+		var k := width / Art.tex("branch_aviary_perch").get_width()
+		Island.piece(tile, "branch_aviary_perch", Vector2(ITEM_PICTURE.get_center().x, ITEM_PICTURE.end.y - 4.0)
+			- Vector2(width * 0.5, AviaryScript.PERCH_CONTACT_Y * k), width).name = "Perch"
 	_kind_face(tile, species, ITEM_PICTURE, n, 1.0)
 	if met:
-		_product_word(tile, "bird.%s.name" % species, ITEM_NAME)
+		ButtonKit.lettering(tile, "bird_" + species, ITEM_NAME)
+		var action := ButtonKit.plate(tile, ITEM_ACTION)
+		action.name = "Action"
 		var text := "%d/%d" % [owned_outfits(species), Shop.OUTFIT_COUNT + 1]
-		var cap := 48.0
-		var nw := UI.number_width(text, cap)
-		var cy := 160.0
-		UI.number(tile, text, Rect2(ITEM_NAME.get_center().x - nw * 0.5, cy - cap * 0.5, nw + 4.0, cap), Color.WHITE)
-		UI.action_face(tile, Rect2(738, 45, 154, 100))
-		var arrow := _fit_visible(tile, "island_chevron", Vector2(815, 95), 48)
+		var cap := ITEM_ACTION.size.y * ButtonKit.CAP
+		var count := ChestLettering.number(action, text, Rect2(ITEM_ACTION.size.x * 0.18, (ITEM_ACTION.size.y - cap) * 0.5 - 2,
+			ITEM_ACTION.size.x * 0.5, cap))
+		var paint := ShaderMaterial.new()
+		paint.shader = preload("res://game/chest_play_word.gdshader")
+		for glyph in count.get_children():
+			if glyph is CanvasItem:
+				glyph.material = paint
+		var arrow := _fit_visible(action, "island_chevron", Vector2(ITEM_ACTION.size.x * 0.78, ITEM_ACTION.size.y * 0.47), cap * 0.8)
 		arrow.pivot_offset = arrow.size * 0.5
 		arrow.rotation = -PI * 0.5
+		arrow.material = paint
 		var hit := UI.hit_area(tile, Rect2(Vector2.ZERO, r.size), func():
 			if _drag_travel < TAP_SLOP:
 				Sound.play("ui_tap")
@@ -681,7 +686,8 @@ func _tap(it: Dictionary) -> void:
 		return
 	_confirm(it)
 
-## One forest surface contains the existing item, necessary caption, quantity and total.
+## The shared purchase card (PurchaseDialog): the item on a soft glow, a short caption, the quantity row and one
+## primary Buy button inside the card.
 func _confirm(it: Dictionary) -> void:
 	if is_instance_valid(_modal):
 		return
@@ -690,55 +696,48 @@ func _confirm(it: Dictionary) -> void:
 	_quantity_input = null
 	var repeatable: bool = it["kind"] == Shop.BOOSTER
 	_quantity_limit = maxi(1, profile.coins / int(it["price"])) if repeatable else 1
-	var picture_size := POPUP_PIC if repeatable else SINGLE_PIC
-	var heights := [picture_size, POPUP_CAPTION, UI.SECONDARY, BUY_SIZE.y] if repeatable else [picture_size, BUY_SIZE.y]
-	_modal = _purchase_modal(_name_id(it), heights)
+	var pic_size := POPUP_PIC if repeatable else SINGLE_PIC
+	var heights := [pic_size, POPUP_CAPTION, STEP.y] if repeatable else [pic_size]
+	_modal = PurchaseDialog.open(self, _title_key(it), heights, instant, BUY_SIZE.y)
 	_modal.closed.connect(func(): _modal = null)
 	var c := _modal.content
 	var ys: Array = _modal.get_meta("ys")
-	var pic := Rect2(540.0 - picture_size * 0.5, ys[0], picture_size, picture_size)
+	var pic := Rect2(540.0 - pic_size * 0.5, ys[0], pic_size, pic_size)
 	PurchaseDialog.glow(c, pic)
 	_picture(c, it, pic)
 	if repeatable:
-		var inner := Rect2(_modal.panel_rect.position.x + 96, ys[1], _modal.panel_rect.size.x - 192, POPUP_CAPTION)
-		ShopSkin.product_word(c, _caption_id(it), inner).name = "Caption"
+		var card: Rect2 = _modal.get_meta("card_rect")
+		var caption := ButtonKit.lettering(c, "cap_" + BOOSTER_WORD[it["booster"]], Rect2(card.position.x + 64, ys[1], card.size.x - 128, POPUP_CAPTION))
+		caption.name = "Caption"
 		_quantity_row(c, ys[2])
 		_modal.closed.connect(_quantity_input.release_focus)
-	_purchase_button = ShopSkin.product_button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, _modal.panel_rect.end.y + Modal.ACTION_DROP), BUY_SIZE),
-		func(): _modal.invoke(func(): _buy(it, _quantity)), "gold")
-	_purchase_contents = Control.new()
-	_purchase_contents.name = "Contents"
-	_purchase_contents.size = BUY_SIZE
-	_purchase_contents.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_purchase_button.add_child(_purchase_contents)
+	_purchase_button = ButtonKit.button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, _modal.panel_rect.end.y + Modal.ACTION_DROP), BUY_SIZE),
+		"wide", func(): _modal.invoke(func(): _buy(it, _quantity)))
+	_purchase_contents = _purchase_button.get_node("Content")
 	_update_purchase()
-
-## Keep modal ownership and callbacks while changing only the purchase presentation.
-func _purchase_modal(title_id: String, heights: Array) -> Modal:
-	return PurchaseDialog.open(self, title_id, heights, instant)
 
 func _quantity_row(c: Control, y: float) -> void:
 	var row_w := STEP.x * 2.0 + QUANTITY_GAP * 2.0 + QUANTITY_WIDTH
 	var x := 540.0 - row_w * 0.5
-	var sy := y + (UI.SECONDARY - STEP.y) * 0.5
-	_minus = ShopSkin.product_button(c, "Decrease", Rect2(Vector2(x, sy), STEP), func(): _step_quantity(-1), "green")
+	var field := Rect2(x + STEP.x + QUANTITY_GAP, y + (STEP.y - ButtonKit.FIELD.y) * 0.5, QUANTITY_WIDTH, ButtonKit.FIELD.y)
+	ButtonKit.face(c, "wide", field).name = "QuantityWell"
+	_minus = ButtonKit.button(c, "Decrease", Rect2(Vector2(x, y), STEP), "key_cream", func(): _step_quantity(-1))
 	_sign_bars(_minus, false)
 	_quantity_input = QuantityInput.new()
 	_quantity_input.name = "Quantity"
 	_quantity_input.limit = _quantity_limit
 	_quantity_input.editable = profile.coins >= _purchase_item["price"]
-	UI.place(_quantity_input, Rect2(x + STEP.x + QUANTITY_GAP, sy, QUANTITY_WIDTH, STEP.y))
+	UI.place(_quantity_input, field)
 	c.add_child(_quantity_input)
 	_quantity_input.value_changed.connect(func(value: int):
 		_quantity = value
 		_update_purchase())
-	_plus = ShopSkin.product_button(c, "Increase", Rect2(Vector2(x + row_w - STEP.x, sy), STEP),
-		func(): _step_quantity(1), "green")
+	_plus = ButtonKit.button(c, "Increase", Rect2(Vector2(x + row_w - STEP.x, y), STEP), "key_cream", func(): _step_quantity(1))
 	_sign_bars(_plus, true)
 
-## A bold white minus (or plus) on a green pill: two rounded bars, centred on the disc face.
+## A bold green minus (or plus) on a cream key: rounded bars centred on the key face.
 func _sign_bars(b: Button, plus: bool) -> void:
-	var face := Vector2(STEP.x, STEP.y - PILL_EDGE) * 0.5
+	var centre := Vector2(STEP.x * 0.5, STEP.y * 0.47)
 	var bars := [Vector2(SIGN_BAR.x, SIGN_BAR.y)]
 	if plus:
 		bars.append(Vector2(SIGN_BAR.y, SIGN_BAR.x))
@@ -747,13 +746,11 @@ func _sign_bars(b: Button, plus: bool) -> void:
 		bar.name = "Sign"
 		bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var box := StyleBoxFlat.new()
-		box.bg_color = Color.WHITE
+		box.bg_color = SIGN_INK
 		box.set_corner_radius_all(int(SIGN_BAR.y * 0.5))
-		box.shadow_color = Color(0.1, 0.35, 0.05, 0.6)
-		box.shadow_offset = Vector2(0, 3)
 		bar.add_theme_stylebox_override("panel", box)
-		UI.place(bar, Rect2(face - size * 0.5, size))
-		b.add_child(bar)
+		UI.place(bar, Rect2(centre - size * 0.5, size))
+		b.get_node("Content").add_child(bar)
 
 func _step_quantity(step: int) -> void:
 	_quantity_input.release_focus()
@@ -768,7 +765,7 @@ func _update_purchase() -> void:
 	for child in _purchase_contents.get_children():
 		_purchase_contents.remove_child(child)
 		child.queue_free()
-	ShopSkin.feather_amount(_purchase_contents, Rect2(24, 22, BUY_SIZE.x - 48, BUY_SIZE.y - 44), total)
+	ButtonKit.price(_purchase_contents, BUY_SIZE, total)
 
 func _buy(it: Dictionary, quantity: int) -> void:
 	if _quantity_input != null:

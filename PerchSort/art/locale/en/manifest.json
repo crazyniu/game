@@ -688,6 +688,243 @@
     },
     "gold_coin_purchase_preview": {
       "file": "island_words/gold_coin_purchase_preview.png"
+    },
+    "lettering_bird_berry": {
+      "file": "island_words/lettering_bird_berry.png"
+    },
+    "lettering_bird_cocoa": {
+      "file": "island_words/lettering_bird_cocoa.png"
+    },
+    "lettering_bird_ember": {
+      "file": "island_words/lettering_bird_ember.png"
+    },
+    "lettering_bird_hoot": {
+      "file": "island_words/lettering_bird_hoot.png"
+    },
+    "lettering_bird_ink": {
+      "file": "island_words/lettering_bird_ink.png"
+    },
+    "lettering_bird_mint": {
+      "file": "island_words/lettering_bird_mint.png"
+    },
+    "lettering_bird_sky": {
+      "file": "island_words/lettering_bird_sky.png"
+    },
+    "lettering_bird_snow": {
+      "file": "island_words/lettering_bird_snow.png"
+    },
+    "lettering_bird_sunny": {
+      "file": "island_words/lettering_bird_sunny.png"
+    },
+    "lettering_cap_firefly": {
+      "file": "island_words/lettering_cap_firefly.png"
+    },
+    "lettering_cap_owl_eye": {
+      "file": "island_words/lettering_cap_owl_eye.png"
+    },
+    "lettering_cap_scarecrow": {
+      "file": "island_words/lettering_cap_scarecrow.png"
+    },
+    "lettering_cap_spring_rain": {
+      "file": "island_words/lettering_cap_spring_rain.png"
+    },
+    "lettering_cap_sprout": {
+      "file": "island_words/lettering_cap_sprout.png"
+    },
+    "lettering_cap_wake_bell": {
+      "file": "island_words/lettering_cap_wake_bell.png"
+    },
+    "lettering_house_acorn": {
+      "file": "island_words/lettering_house_acorn.png"
+    },
+    "lettering_house_beehive": {
+      "file": "island_words/lettering_house_beehive.png"
+    },
+    "lettering_house_cage": {
+      "file": "island_words/lettering_house_cage.png"
+    },
+    "lettering_house_lantern": {
+      "file": "island_words/lettering_house_lantern.png"
+    },
+    "lettering_house_mushroom": {
+      "file": "island_words/lettering_house_mushroom.png"
+    },
+    "lettering_house_pinecone": {
+      "file": "island_words/lettering_house_pinecone.png"
+    },
+    "lettering_house_pumpkin": {
+      "file": "island_words/lettering_house_pumpkin.png"
+    },
+    "lettering_house_teacup": {
+      "file": "island_words/lettering_house_teacup.png"
+    },
+    "lettering_house_teapot": {
+      "file": "island_words/lettering_house_teapot.png"
+    },
+    "lettering_item_firefly": {
+      "file": "island_words/lettering_item_firefly.png"
+    },
+    "lettering_item_owl_eye": {
+      "file": "island_words/lettering_item_owl_eye.png"
+    },
+    "lettering_item_scarecrow": {
+      "file": "island_words/lettering_item_scarecrow.png"
+    },
+    "lettering_item_spring_rain": {
+      "file": "island_words/lettering_item_spring_rain.png"
+    },
+    "lettering_item_sprout": {
+      "file": "island_words/lettering_item_sprout.png"
+    },
+    "lettering_item_wake_bell": {
+      "file": "island_words/lettering_item_wake_bell.png"
+    },
+    "lettering_tab_boosters": {
+      "file": "island_words/lettering_tab_boosters.png"
+    },
+    "lettering_tab_nests": {
+      "file": "island_words/lettering_tab_nests.png"
+    },
+    "lettering_tab_outfits": {
+      "file": "island_words/lettering_tab_outfits.png"
+    },
+    "lettering_coins_preview": {
+      "file": "island_words/lettering_coins_preview.png"
+    },
+    "lettering_outfit_berry_1": {
+      "file": "island_words/lettering_outfit_berry_1.png"
+    },
+    "lettering_outfit_berry_2": {
+      "file": "island_words/lettering_outfit_berry_2.png"
+    },
+    "lettering_outfit_berry_3": {
+      "file": "island_words/lettering_outfit_berry_3.png"
+    },
+    "lettering_outfit_berry_4": {
+      "file": "island_words/lettering_outfit_berry_4.png"
+    },
+    "lettering_outfit_berry_5": {
+      "file": "island_words/lettering_outfit_berry_5.png"
+    },
+    "lettering_outfit_cocoa_1": {
+      "file": "island_words/lettering_outfit_cocoa_1.png"
+    },
+    "lettering_outfit_cocoa_2": {
+      "file": "island_words/lettering_outfit_cocoa_2.png"
+    },
+    "lettering_outfit_cocoa_3": {
+      "file": "island_words/lettering_outfit_cocoa_3.png"
+    },
+    "lettering_outfit_cocoa_4": {
+      "file": "island_words/lettering_outfit_cocoa_4.png"
+    },
+    "lettering_outfit_cocoa_5": {
+      "file": "island_words/lettering_outfit_cocoa_5.png"
+    },
+    "lettering_outfit_ember_1": {
+      "file": "island_words/lettering_outfit_ember_1.png"
+    },
+    "lettering_outfit_ember_2": {
+      "file": "island_words/lettering_outfit_ember_2.png"
+    },
+    "lettering_outfit_ember_3": {
+      "file": "island_words/lettering_outfit_ember_3.png"
+    },
+    "lettering_outfit_ember_4": {
+      "file": "island_words/lettering_outfit_ember_4.png"
+    },
+    "lettering_outfit_ember_5": {
+      "file": "island_words/lettering_outfit_ember_5.png"
+    },
+    "lettering_outfit_hoot_1": {
+      "file": "island_words/lettering_outfit_hoot_1.png"
+    },
+    "lettering_outfit_hoot_2": {
+      "file": "island_words/lettering_outfit_hoot_2.png"
+    },
+    "lettering_outfit_hoot_3": {
+      "file": "island_words/lettering_outfit_hoot_3.png"
+    },
+    "lettering_outfit_hoot_4": {
+      "file": "island_words/lettering_outfit_hoot_4.png"
+    },
+    "lettering_outfit_hoot_5": {
+      "file": "island_words/lettering_outfit_hoot_5.png"
+    },
+    "lettering_outfit_ink_1": {
+      "file": "island_words/lettering_outfit_ink_1.png"
+    },
+    "lettering_outfit_ink_2": {
+      "file": "island_words/lettering_outfit_ink_2.png"
+    },
+    "lettering_outfit_ink_3": {
+      "file": "island_words/lettering_outfit_ink_3.png"
+    },
+    "lettering_outfit_ink_4": {
+      "file": "island_words/lettering_outfit_ink_4.png"
+    },
+    "lettering_outfit_ink_5": {
+      "file": "island_words/lettering_outfit_ink_5.png"
+    },
+    "lettering_outfit_mint_1": {
+      "file": "island_words/lettering_outfit_mint_1.png"
+    },
+    "lettering_outfit_mint_2": {
+      "file": "island_words/lettering_outfit_mint_2.png"
+    },
+    "lettering_outfit_mint_3": {
+      "file": "island_words/lettering_outfit_mint_3.png"
+    },
+    "lettering_outfit_mint_4": {
+      "file": "island_words/lettering_outfit_mint_4.png"
+    },
+    "lettering_outfit_mint_5": {
+      "file": "island_words/lettering_outfit_mint_5.png"
+    },
+    "lettering_outfit_sky_1": {
+      "file": "island_words/lettering_outfit_sky_1.png"
+    },
+    "lettering_outfit_sky_2": {
+      "file": "island_words/lettering_outfit_sky_2.png"
+    },
+    "lettering_outfit_sky_3": {
+      "file": "island_words/lettering_outfit_sky_3.png"
+    },
+    "lettering_outfit_sky_4": {
+      "file": "island_words/lettering_outfit_sky_4.png"
+    },
+    "lettering_outfit_sky_5": {
+      "file": "island_words/lettering_outfit_sky_5.png"
+    },
+    "lettering_outfit_snow_1": {
+      "file": "island_words/lettering_outfit_snow_1.png"
+    },
+    "lettering_outfit_snow_2": {
+      "file": "island_words/lettering_outfit_snow_2.png"
+    },
+    "lettering_outfit_snow_3": {
+      "file": "island_words/lettering_outfit_snow_3.png"
+    },
+    "lettering_outfit_snow_4": {
+      "file": "island_words/lettering_outfit_snow_4.png"
+    },
+    "lettering_outfit_snow_5": {
+      "file": "island_words/lettering_outfit_snow_5.png"
+    },
+    "lettering_outfit_sunny_1": {
+      "file": "island_words/lettering_outfit_sunny_1.png"
+    },
+    "lettering_outfit_sunny_2": {
+      "file": "island_words/lettering_outfit_sunny_2.png"
+    },
+    "lettering_outfit_sunny_3": {
+      "file": "island_words/lettering_outfit_sunny_3.png"
+    },
+    "lettering_outfit_sunny_4": {
+      "file": "island_words/lettering_outfit_sunny_4.png"
+    },
+    "lettering_outfit_sunny_5": {
+      "file": "island_words/lettering_outfit_sunny_5.png"
     }
   },
   "words": {
