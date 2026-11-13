@@ -367,7 +367,8 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	for i in slots:
 		var x := 458.0 + (i - (slots - 1) * 0.5) * 122.0
 		# Both star states use the same visible box; only their accepted texture changes.
-		var key := "star_draw_available" if i < spins else "star_draw_used"
+		# A used draw is the same gold star faded to warm tan (never a second colour family on the warm page).
+		var key := "star_draw_available" if i < spins else "star_draw_spent"
 		var star := DrawPurchaseArt.fit(c, key, Rect2(x - 54, 341, 108, 104))
 		star.name = "Attempt%d" % i
 		stars.append(star)
@@ -376,11 +377,11 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(board, DRAW_BOARD)
 	c.add_child(board)
-	# The shop's cream card holds the prizes, each in the game page's painted slot (no orange frame, no blue wells).
+	# The shop's cream card holds the prizes, each in a warm cream well with a gold rim (the card's own colours).
 	ButtonKit.panel(board, Rect2(Vector2.ZERO, DRAW_BOARD.size))
 	for i in 9:
 		var cell := Rect2(DRAW_ORIGIN + Vector2(i % 3, i / 3) * DRAW_STEP, DRAW_CELL)
-		UI.image(board, "hud_tool_slot", cell.grow(-4.0), true).name = "Slot%d" % i
+		UI.image(board, "slot_cream_well", cell.grow(-4.0), true).name = "Slot%d" % i
 	var cursor := StyleBoxFlat.new()
 	cursor.bg_color = Color(1.0, 0.81, 0.22, 0.08)
 	cursor.border_color = Color8(255, 231, 117)
@@ -435,7 +436,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		UI.set_active(close, false)
 		state["left"] -= 1
 		var used: Control = stars[state["left"]]
-		(used as TextureRect).texture = Art.tex("star_draw_used")
+		(used as TextureRect).texture = Art.tex("star_draw_spent")
 		var highlight := func(at: int):
 			lights[state["at"]].modulate.a = 0.0
 			lights[at].modulate.a = 1.0
@@ -490,6 +491,196 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		roll.tween_callback(finish)
 	(go as Button).pressed.connect(run)
 	return p
+
+## Daily reward: the seven-day login calendar as a page in the Lucky Spin family (forest backdrop, hanging title sign,
+## cream card, green glossy slots, one green Primary action). Days 1-6 sit in two rows of three, day 7 is the wide big
+## prize under them. Claimed days are dimmed with a tick; today's slot glows and bounces until it is claimed.
+## `claim` pays today and returns {"day", "coins", "boosters"} like Progress.claim_daily_reward, or {} when already
+## claimed. The tick stamps in, coins burst, then the rewards dialog names what was won; its OK closes the page.
+const DAILY_BOARD := Rect2(60, 350, 960, 1040)
+const DAILY_TILE := Vector2(272, 300)
+const DAILY_GAP := 32.0
+const DAILY_PAD := 40.0
+const DAILY_WIDE_H := 296.0
+const DAILY_ACTION := Rect2(280, 1440, 520, 176)
+const DAILY_SLOT_MARGIN := 110          # slot rim in its own pixels (nine-patch corners stay unscaled)
+const DAILY_SLOT_SCALE := 0.5
+const DAILY_CLAIMED := Color(1.0, 1.0, 1.0, 0.42)       # claimed prizes fade; the well keeps its warm tone
+const DAILY_CLAIMED_SLOT := Color(0.93, 0.89, 0.8)
+## Coin pile pictures of the draw board, from the smallest amount they stand for.
+const DAILY_COIN_ART := [[400, "icon_draw_prize_four_hundred"], [200, "icon_draw_prize_two_hundred"],
+	[120, "icon_draw_prize_one_twenty"], [80, "icon_draw_prize_eighty"], [60, "icon_draw_prize_sixty"], [0, "icon_draw_prize_forty"]]
+
+static func daily_reward(host: Control, today: int, available: bool, balance: int, claim: Callable) -> Control:
+	var instant := _instant(host)
+	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
+	p.name = "DailyReward"
+	p.panel_rect = Rect2(0, 0, 1080, 1920)
+	p.content.pivot_offset = Vector2(540, 960)
+	for node_name in ["Panel", "TitleGroup"]:
+		var old := p.content.get_node(node_name)
+		p.content.remove_child(old)
+		old.queue_free()
+	var background := DrawPurchaseArt.background(p)
+	p.move_child(background, 1)
+	p._title_layer = ButtonKit.sign(p.content, "daily_reward_title", PAGE_SIGN)
+	MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
+	var bar := FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
+	var board := Control.new()
+	board.name = "Calendar"
+	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(board, DAILY_BOARD)
+	p.content.add_child(board)
+	ButtonKit.panel(board, Rect2(Vector2.ZERO, DAILY_BOARD.size))
+	var tiles := []
+	for i in Progress.DAILY_REWARDS.size():
+		var day := i + 1
+		var r := Rect2(Vector2(DAILY_PAD + (i % 3) * (DAILY_TILE.x + DAILY_GAP), DAILY_PAD + (i / 3) * (DAILY_TILE.y + DAILY_GAP)), DAILY_TILE)
+		if day == Progress.DAILY_REWARDS.size():
+			r = Rect2(DAILY_PAD, DAILY_PAD + 2.0 * (DAILY_TILE.y + DAILY_GAP), DAILY_BOARD.size.x - DAILY_PAD * 2.0, DAILY_WIDE_H)
+		var claimed := day < today or (day == today and not available)
+		tiles.append(_daily_tile(board, day, r, claimed, day == today and available, instant))
+	var go := UI.hit_area(p.content, DAILY_ACTION, func(): pass)
+	go.name = "Claim"
+	_kit_action(go, "white_claim")
+	UI.set_active(go, available)
+	if not instant:
+		Sound.play("ui_tap")
+		background.modulate.a = 0.0
+		p.content.modulate.a = 0.0
+		p._appearance = p.create_tween().set_parallel()
+		p._appearance.tween_property(background, "modulate:a", 1.0, 0.18)
+		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
+	var state := {"busy": false}
+	go.pressed.connect(func() -> void:
+		if state["busy"] or p.content.modulate.a < 0.99:
+			return
+		var got: Dictionary = claim.call()
+		if got.is_empty():
+			return
+		state["busy"] = true
+		Sound.play("ui_tap")
+		UI.set_active(go, false)
+		var tile: Control = tiles[int(got["day"]) - 1]
+		_daily_stamp(tile, instant)
+		Sound.play("reward")
+		bar.set_amount(balance + int(got["coins"]), true)
+		if not instant:
+			_coin_burst(p, board.position + tile.position + tile.size * 0.5, 0.15)
+			await p.get_tree().create_timer(0.9).timeout
+		if not is_instance_valid(p):
+			return
+		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
+	return p
+
+## One calendar slot: day number, prize pictures and amounts; claimed, today or later.
+static func _daily_tile(board: Control, day: int, r: Rect2, claimed: bool, today: bool, instant: bool) -> Control:
+	var tile := Control.new()
+	tile.name = "Day%d" % day
+	tile.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(tile, r)
+	tile.pivot_offset = r.size * 0.5
+	board.add_child(tile)
+	var slot := NinePatchRect.new()
+	slot.name = "Slot"
+	slot.texture = Art.tex("slot_cream_well")
+	slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		slot.set_patch_margin(side, DAILY_SLOT_MARGIN)
+	slot.size = r.size / DAILY_SLOT_SCALE
+	slot.scale = Vector2.ONE * DAILY_SLOT_SCALE
+	tile.add_child(slot)
+	var body := Control.new()
+	body.name = "Body"
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.size = r.size
+	tile.add_child(body)
+	var prize: Array = Progress.DAILY_REWARDS[day - 1]
+	var coins: int = prize[0]
+	var gifts: int = prize[1]
+	var wide := r.size.x > DAILY_TILE.x * 2.0
+	FamilyDialog.digits(body, "DayNumber", Rect2(0, 18, r.size.x, 52), str(day))
+	var coin_art := "icon_draw_prize_forty"
+	for step in DAILY_COIN_ART:
+		if coins >= int(step[0]):
+			coin_art = step[1]
+			break
+	# Pictures sit in one row under the day number, each with its amount beneath it.
+	var items := [[coin_art, str(coins)]]
+	if gifts > 0:
+		items.append(["icon_draw_mystery_double" if gifts > 1 else "icon_draw_mystery_single", "×%d" % gifts])
+	var art_top := 78.0
+	var art_h := 140.0 if not wide else 150.0
+	var column := (r.size.x - 40.0) / items.size() if not wide else 260.0
+	var left := (r.size.x - column * items.size()) * 0.5
+	if wide:
+		var glow := UI.image(body, "glow_soft", Rect2(r.size.x * 0.5 - 300.0, -20.0, 600.0, r.size.y + 40.0))
+		glow.modulate = Color(1.0, 0.86, 0.42, 0.5)
+		body.move_child(glow, 0)
+		for k in 4:
+			var spark := UI.art(body, "sparkle", Rect2(Vector2([90.0, 760.0, 150.0, 700.0][k], [60.0, 70.0, 200.0, 200.0][k]), Vector2(48, 48)))
+			spark.pivot_offset = Vector2(24, 24)
+			if not instant:
+				_twinkle(spark, k * 0.35)
+	for k in items.size():
+		var box := Rect2(left + k * column + 8.0, art_top, column - 16.0, art_h)
+		var art := _fit(body, items[k][0], box, true)
+		art.name = "Prize%d" % k
+		if today and not instant:
+			_breathe(art, k * 0.4)
+		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, art_top + art_h + 6.0, column, 52), items[k][1])
+	if claimed:
+		_daily_claimed(tile)
+	elif today:
+		var lit := Panel.new()
+		lit.name = "Today"
+		lit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var glow := StyleBoxFlat.new()
+		glow.bg_color = Color(1.0, 0.81, 0.22, 0.08)
+		glow.border_color = Color8(255, 231, 117)
+		glow.set_border_width_all(6)
+		glow.set_corner_radius_all(46)
+		glow.shadow_color = Color(1.0, 0.69, 0.14, 0.85)
+		glow.shadow_size = 14
+		lit.add_theme_stylebox_override("panel", glow)
+		UI.place(lit, Rect2(Vector2(2, 2), r.size - Vector2(4, 4)))
+		tile.add_child(lit)
+		tile.move_child(lit, 0)
+		if not instant:
+			var bounce := tile.create_tween().set_loops()
+			bounce.tween_property(tile, "scale", Vector2.ONE * 1.04, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			bounce.tween_property(tile, "scale", Vector2.ONE, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tile.set_meta("bounce", bounce)
+			lit.create_tween().set_loops().tween_property(lit, "modulate:a", 0.45, 0.7).from(1.0).set_trans(Tween.TRANS_SINE)
+	return tile
+
+## A claimed day: the slot dims and a tick sits on its top-right corner, clear of the amounts.
+static func _daily_claimed(tile: Control) -> TextureRect:
+	(tile.get_node("Body") as Control).modulate = DAILY_CLAIMED
+	(tile.get_node("Slot") as Control).modulate = DAILY_CLAIMED_SLOT
+	var tick := Island.check_badge(tile, Vector2(tile.size.x - 46.0, 46.0))
+	tick.name = "Tick"
+	tick.pivot_offset = tick.size * 0.5
+	return tick
+
+## Today's slot is claimed: the bounce and glow stop, the slot pops and the tick stamps in.
+static func _daily_stamp(tile: Control, instant: bool) -> void:
+	if tile.has_meta("bounce"):
+		(tile.get_meta("bounce") as Tween).kill()
+	if tile.has_node("Today"):
+		tile.get_node("Today").queue_free()
+	var tick := _daily_claimed(tile)
+	if instant:
+		tile.scale = Vector2.ONE
+		return
+	var pop := tile.create_tween()
+	pop.tween_property(tile, "scale", Vector2.ONE * 1.14, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.tween_property(tile, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tick.scale = Vector2.ONE * 2.2
+	tick.modulate.a = 0.0
+	var stamp := tick.create_tween().set_parallel()
+	stamp.tween_property(tick, "scale", Vector2.ONE, 0.3).set_delay(0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	stamp.tween_property(tick, "modulate:a", 1.0, 0.15).set_delay(0.12)
 
 const CHAPTERS_PER_PAGE := 4
 const CHAPTER_TAG := Vector2(216.0, 76.0)
@@ -1344,9 +1535,16 @@ static func preview(main: Control, state: String) -> void:
 			noop, 1280)
 		"chest_multiple": chest(host, Progress.CHEST_STARS * 3 + 2, 3, func():
 			rewards(host, "chest.title", Progress.CHEST_COINS, [0, 2, 3], noop, "pic_chest_open", 99999), noop, 99999)
-		"rewards_challenge": rewards(host, "challenge.title", 300, [0, 0, 1], noop)
-		"rewards_challenge_empty": rewards(host, "challenge.title", 0, [], noop, "pic_check")
-		"rewards_challenge_all": rewards(host, "challenge.title", 300, [0, 1, 2, 3, 4, 5], noop)
+		"rewards_daily": rewards(host, "daily_reward.title", 250, [0, 1], noop, "pic_calendar")
+		"rewards_daily_coins": rewards(host, "daily_reward.title", 120, [], noop, "pic_calendar")
+		"rewards_daily_all": rewards(host, "daily_reward.title", 500, [0, 1, 2, 3, 4, 5], noop, "pic_calendar")
+		"daily_reward": daily_reward(host, 3, true, 1280, func(): return {"day": 3, "coins": 120, "boosters": []})
+		"daily_reward_first": daily_reward(host, 1, true, 0, func(): return {"day": 1, "coins": 50, "boosters": []})
+		"daily_reward_week": daily_reward(host, 7, true, 2400, func(): return {"day": 7, "coins": 500, "boosters": [0, 1, 1]})
+		"daily_reward_claimed": daily_reward(host, 4, false, 1430, func(): return {})
+		"daily_reward_claim":
+			var page := daily_reward(host, 6, true, 1800, func(): return {"day": 6, "coins": 250, "boosters": [0, 2]})
+			host.get_tree().create_timer(0.5).timeout.connect(func(): (page.find_child("Claim", true, false) as Button).pressed.emit())
 		"rewards_chest": rewards(host, "chest.title", Progress.CHEST_COINS, [0, 3, 0], noop, "pic_chest_open", 1580)
 		"rewards_chest_distinct": rewards(host, "chest.title", Progress.CHEST_COINS, [0, 2, 3], noop, "pic_chest_open", 1580)
 		"new_friend_berry": new_friend(host, "berry", 25, noop)

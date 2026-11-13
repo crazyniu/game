@@ -16,6 +16,7 @@ var _wiping := false
 var _coin_shop: Control
 
 const WIPE_SECONDS := 0.4
+const DAILY_OFFER_DELAY := 0.9   # after the home page has settled
 
 
 
@@ -58,6 +59,7 @@ func _ready() -> void:
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
 		open_home()
+		_offer_daily_reward()
 	_booted = true
 	_build_wipe()
 	if args.has("autoplay"):
@@ -121,7 +123,7 @@ func _open_home() -> void:
 	home.help_requested.connect(func(): Tutorial.open(popups, Callable(), instant()))
 	home.lucky_draw_requested.connect(show_lucky_draw)
 	home.chest_requested.connect(show_chest)
-	home.challenge_requested.connect(start_challenge)
+	home.daily_reward_requested.connect(show_daily_reward)
 	Sound.music("bgm_menu")
 
 func open_map() -> void:
@@ -152,34 +154,25 @@ func show_lucky_draw() -> void:
 		_refresh_screen()
 		return got)
 
-## Daily challenge: today's dealt puzzle; its win pays once a day and leads home.
-func start_challenge() -> void:
-	var def := Levels.daily_challenge(Progress.challenge_seed(Progress.today()), Progress.highest_cleared(profile))
-	if def.is_empty():
-		Sound.play("error")
-		return
-	_go(func():
-		_clear_popups()
-		var board := BoardView.new()
-		board.instant = instant()
-		set_screen(board)
-		board.start(def, profile, not instant())
-		board.profile_changed.connect(save)
-		board.settings_requested.connect(func(): show_settings(true))
-		board.goal_info_requested.connect(func(sp):
-			board.suspend_input()
-			Popups.goal_info(popups, sp))
-		board.buy_requested.connect(func(kind): open_shop(0, true))
-		board.won.connect(func(_result: Dictionary):
-			profile.inventory = board.session.state.inventory.duplicate()
-			var got := Progress.complete_challenge(profile, Progress.today())
+## Daily reward: the seven-day login calendar from its home tile. At launch it opens by itself while today's reward
+## waits, once the player has cleared the first level (a brand-new player goes straight to play).
+func show_daily_reward() -> void:
+	var today := Progress.today()
+	Popups.daily_reward(popups, Progress.daily_reward_day(profile, today), Progress.daily_reward_available(profile, today),
+		profile.coins, func() -> Dictionary:
+			var got := Progress.claim_daily_reward(profile, today)
+			if got.is_empty():
+				return {}
 			save()
-			Sound.play("collect")
-			if got.is_empty():   # today's prize was already taken: still say the puzzle is done
-				Popups.rewards(popups, "challenge.title", 0, [], open_home, "pic_check")
-				return
-			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
-		Sound.music("bgm_game"))
+			_refresh_screen()
+			return got)
+
+func _offer_daily_reward() -> void:
+	if args.has("capture") or profile.best_stars(1) == 0 or not Progress.daily_reward_available(profile, Progress.today()):
+		return
+	await get_tree().create_timer(DAILY_OFFER_DELAY).timeout
+	if screen is HomeView and popups.get_child_count() == 0 and _overlay == null:
+		show_daily_reward()
 
 func show_chest() -> void:
 	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():

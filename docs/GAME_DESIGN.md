@@ -258,7 +258,7 @@ Rules: boosters are used from the bottom bar; using one is an undoable action (r
 | Level win | 10 + 5 × stars (first clear); replays pay 5 |
 | Chorus | +5 per chain step beyond the first (on win) |
 | World complete (first time) | +200 |
-| Daily nest gift (first open each day) | 50 |
+| Daily reward (seven-day login calendar, `Progress.DAILY_REWARDS`) | 50, 80, 120, 150, 200, 250, 500 by streak day, plus 1, 1, 2 and 3 random boosters on days 2, 4, 6 and 7 |
 | New species met (Aviary card) | 20 |
 
 No ads and no real-money purchases in v5 (store account pending, T14). The design leaves room for a future coin pack but does not depend on it.

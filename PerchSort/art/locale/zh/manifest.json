@@ -1006,6 +1006,12 @@
     },
     "lettering_outfit_sunny_5": {
       "file": "island_words/lettering_outfit_sunny_5.png"
+    },
+    "lettering_daily_reward_title": {
+      "file": "island_words/lettering_daily_reward_title.png"
+    },
+    "white_claim": {
+      "file": "island_words/white_claim.png"
     }
   },
   "words": {
@@ -2040,6 +2046,12 @@
         "file": "island_words/gold_coin_purchase_preview.png",
         "painted_id": "gold_coin_purchase_preview",
         "cap": 128
+      }
+    },
+    "daily_reward.title": {
+      "gold": {
+        "file": "island_words/lettering_daily_reward_title.png",
+        "cap": 184.0
       }
     }
   }

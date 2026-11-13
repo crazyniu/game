@@ -174,12 +174,12 @@ func _run() -> void:
 			unlock.content.get_node("Play").pressed.emit()
 			await _disposed(unlock)
 		for boosters in [[], [0, 0, 1], [0, 1, 2, 3, 4, 5]]:
-			var result: Control = popups.rewards(main.popups, "challenge.title", 300 if not boosters.is_empty() else 0, boosters, on_action)
+			var result: Control = popups.rewards(main.popups, "daily_reward.title", 300 if not boosters.is_empty() else 0, boosters, on_action)
 			_family(result, false)
 			var old := calls
 			result.content.get_node("action_ok").pressed.emit()
 			result.content.get_node("action_ok").pressed.emit()
-			check(calls == old + 1, "challenge repeated confirm dispatches once")
+			check(calls == old + 1, "daily reward repeated confirm dispatches once")
 			await _disposed(result)
 	check(JSON.stringify(main.profile.to_dict()) == before, "all presentation paths preserve profile")
 	# An interrupted live celebration must not dispatch a delayed action.

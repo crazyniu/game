@@ -201,6 +201,30 @@ static func open_chest(p: Profile, rng := RandomNumberGenerator.new()) -> Dictio
 	p.coins += CHEST_COINS
 	return {"coins": CHEST_COINS, "boosters": _random_boosters(p, CHEST_BOOSTERS, rng)}
 
+## ---------- daily reward ----------
+## Seven-day login calendar, [coins, boosters] per day; each day in a row pays more and day 7 is the big one. A missed
+## day starts again at day 1, and the day after day 7 starts a new week. Boosters are random unlocked ones.
+const DAILY_REWARDS := [[50, 0], [80, 1], [120, 0], [150, 1], [200, 0], [250, 2], [500, 3]]
+
+static func daily_reward_available(p: Profile, today: String) -> bool:
+	return checkin_day(p, today) > 0
+
+## The calendar day the page shows as today's (1..7): the day to claim, or the day already claimed today.
+static func daily_reward_day(p: Profile, today: String) -> int:
+	var day := checkin_day(p, today)
+	return day if day > 0 else clampi(p.checkin_streak, 1, DAILY_REWARDS.size())
+
+## Pays today's calendar day once: {"day", "coins", "boosters"} or {} when today is already claimed.
+static func claim_daily_reward(p: Profile, today: String, rng := RandomNumberGenerator.new()) -> Dictionary:
+	var day := checkin_day(p, today)
+	if day == 0:
+		return {}
+	p.last_daily_gift = today
+	p.checkin_streak = day
+	var prize: Array = DAILY_REWARDS[day - 1]
+	p.coins += prize[0]
+	return {"day": day, "coins": prize[0], "boosters": _random_boosters(p, prize[1], rng)}
+
 ## The check-in day (1..7) today's claim would be, or 0 when today is already claimed.
 static func checkin_day(p: Profile, today: String) -> int:
 	if today <= p.last_daily_gift:
@@ -210,15 +234,14 @@ static func checkin_day(p: Profile, today: String) -> int:
 		return p.checkin_streak + 1
 	return 1
 
-## Hands out today's draws once (the streak day, at most DRAW_MAX_SPINS); later calls the same day change nothing.
+## Hands out today's draws once (the login streak day, at most DRAW_MAX_SPINS); later calls the same day change
+## nothing. Only the daily reward claims a day; opening the draw first counts today as the day that claim would be.
 static func begin_draw_day(p: Profile, today: String) -> void:
 	if p.draws_date == today:
 		return
 	var day := checkin_day(p, today)
 	if day == 0:
 		day = maxi(1, p.checkin_streak)
-	p.last_daily_gift = today
-	p.checkin_streak = day
 	p.draws_date = today
 	p.draws_left = mini(day, DRAW_MAX_SPINS)
 
@@ -242,24 +265,6 @@ static func draw(p: Profile, today: String, rng := RandomNumberGenerator.new()) 
 		p.inventory[kind] += prize[1]
 	return {"cell": cell, "coins": prize[0], "booster": kind, "count": prize[1]}
 
-## ---------- daily challenge ----------
-const CHALLENGE_COINS := 150
-
-static func challenge_available(p: Profile, today: String) -> bool:
-	return today > p.challenge_date
-
-## The day's seed: the same puzzle for the whole day.
-static func challenge_seed(today: String) -> int:
-	return hash("perch-sort-daily-" + today)
-
-## Pays the daily challenge once a day: {"coins", "boosters"} or {} when already done today.
-static func complete_challenge(p: Profile, today: String, rng := RandomNumberGenerator.new()) -> Dictionary:
-	if not challenge_available(p, today):
-		return {}
-	p.challenge_date = today
-	p.coins += CHALLENGE_COINS
-	return {"coins": CHALLENGE_COINS, "boosters": _random_boosters(p, 1, rng)}
-
 static func today() -> String:
 	return Time.get_date_string_from_system()
 
@@ -275,10 +280,3 @@ static func node_state(p: Profile, level: int) -> String:
 	if p.best_stars(level) > 0:
 		return "cleared"
 	return "current" if is_level_unlocked(p, level) else "locked"
-
-## Highest level the player has cleared (0 when none): the daily challenge never goes past it.
-static func highest_cleared(p: Profile) -> int:
-	for level in range(Levels.COUNT, 0, -1):
-		if p.best_stars(level) > 0:
-			return level
-	return 0

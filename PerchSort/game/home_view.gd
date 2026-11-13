@@ -10,7 +10,7 @@ signal settings_requested
 signal help_requested
 signal lucky_draw_requested
 signal chest_requested
-signal challenge_requested
+signal daily_reward_requested
 
 const CANVAS_SIZE := Vector2(1080, 1920)
 # The title sign hangs on two vines that leave the top edge into the canopy.
@@ -29,7 +29,7 @@ const BACKING_OPACITY := 0.88
 # Visible painted bodies, excluding transparent padding and faint cutout residue.
 const ICON_CONTENT := {
 	"pic_gear": Rect2(21, 28, 203, 202),
-	"pic_daily": Rect2(43, 27, 161, 212),
+	"pic_calendar": Rect2(49, 39, 154, 194),
 	"icon_home_draw": Rect2(175, 75, 958, 972),
 	"pic_map": Rect2(18, 36, 226, 177),
 	"pic_shop": Rect2(18, 17, 196, 221),
@@ -88,11 +88,11 @@ func setup(p: Profile) -> void:
 	UI.place(_play_face, Rect2(Vector2.ZERO, PLAY.size))
 	_play_face.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
-	var events := [["Daily", "pic_daily", challenge_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
+	var events := [["DailyReward", "pic_calendar", daily_reward_requested], ["LuckyDraw", "icon_home_draw", lucky_draw_requested]]
 	for i in events.size():
 		var entry: Array = events[i]
 		var button := _icon_button(entry[0], entry[1], Vector2(960, EVENT_Y + 220 * i), (entry[2] as Signal).emit, EVENT_ICON_SIDE, EVENT_BACKING_SIDE)
-		if entry[0] == "Daily" and Progress.challenge_available(profile, Progress.today()):
+		if entry[0] == "DailyReward" and Progress.daily_reward_available(profile, Progress.today()):
 			_badge(button, 1)
 		elif entry[0] == "LuckyDraw" and Progress.draws_available(profile, Progress.today()):
 			_badge(button, 1)

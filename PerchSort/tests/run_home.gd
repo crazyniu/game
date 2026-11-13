@@ -36,10 +36,10 @@ func _run() -> void:
 	await create_timer(0.6).timeout
 	check(main.screen.get_script().resource_path.ends_with("home_view.gd"), "canonical homepage opens")
 	var home: Control = main.screen
-	var buttons := ["Daily", "LuckyDraw", "Map", "Shop", "Aviary", "Chest", "Play", "Settings"]
+	var buttons := ["DailyReward", "LuckyDraw", "Map", "Shop", "Aviary", "Chest", "Play", "Settings"]
 	for name in buttons:
 		check(home.get_node_or_null(name) is Button, "entry exists: " + name)
-	check(home.get_node("Daily").size.is_equal_approx(home.get_node("LuckyDraw").size), "event siblings match")
+	check(home.get_node("DailyReward").size.is_equal_approx(home.get_node("LuckyDraw").size), "event siblings match")
 	# The UI system explicitly permits an elongated Play pill; its height remains restrained.
 	check(home.get_node("Play").size.y <= home.get_node("Map").size.y * 1.25 + 0.01, "primary height respects sibling limit")
 	check(home.get_node("Play/Face").size.x < home.get_node("Play").size.x, "visible Play retains a larger touch area")
@@ -114,13 +114,14 @@ func _run() -> void:
 			"Map": check(main.screen.get_script().resource_path.ends_with("map_view.gd"), "click opens Map")
 			"Shop": check(main._overlay != null and main._overlay.get_script().resource_path.ends_with("shop_view.gd"), "click opens Shop")
 			"Aviary": check(main._overlay != null and main._overlay.get_script().resource_path.ends_with("aviary_view.gd"), "click opens Aviary")
-			"Daily", "Play":
+			"Play":
 				check(main.screen.get_script().resource_path.ends_with("board_view.gd"), "click opens board: " + name)
 				for tick in 50:
 					if not main.screen.busy:
 						break
 					await create_timer(0.1).timeout
 				check(not main.screen.busy, "board entrance finishes: " + name)
+			"DailyReward": check(main.popups.find_child("DailyReward", true, false) != null, "click opens Daily Reward page")
 			"LuckyDraw": check(_has_label("draw.title"), "click opens Lucky Draw popup")
 			"Chest": check(_has_label("chest.title"), "click opens Chest popup")
 			"Settings": check(_has_label("popup.settings.title"), "click opens Settings popup")

@@ -3,8 +3,8 @@ extends SceneTree
 
 const STATES := ["win_three_stars", "win_two_stars", "win_one_star", "win_zero_reward", "win_milestone",
 	"level_card_first_visit", "level_card_full_roster", "level_card_locked", "new_friend_berry", "unlock_owl_eye",
-	"unlock_sapling", "world_complete_1", "world_unlock_2", "world_unlock_4", "rewards_challenge",
-	"rewards_challenge_empty", "rewards_challenge_all", "unlock_firefly", "unlock_morning_bell", "unlock_scarecrow", "unlock_spring_rain"]
+	"unlock_sapling", "world_complete_1", "world_unlock_2", "world_unlock_4", "rewards_daily",
+	"rewards_daily_coins", "rewards_daily_all", "unlock_firefly", "unlock_morning_bell", "unlock_scarecrow", "unlock_spring_rain"]
 var main: Control
 var output: String
 var surfaces: Array = []

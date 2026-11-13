@@ -35,8 +35,8 @@ var level_gifts := {}               # level -> true: old start-gift record, no l
 var chests_opened := 0              # star chests opened (one per CHEST_STARS stars earned)
 var draws_date := ""                # day the lucky draw chances were handed out
 var draws_left := 0                 # draws still unused on draws_date
-var checkin_streak := 0             # day of the 7-day check-in reached on last_daily_gift (1..7)
-var challenge_date := ""            # last day the daily challenge was completed
+var checkin_streak := 0             # daily reward calendar day claimed on last_daily_gift (1..7)
+var challenge_date := ""            # old daily-challenge record, no longer used, kept in saves
 var vibration := true               # short haptic pulses on mobile
 var language := ""                  # "" follows the device; a language code is the player's choice
 

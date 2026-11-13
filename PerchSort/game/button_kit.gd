@@ -23,7 +23,7 @@ const PRESSED := Color(0.86, 0.86, 0.86)
 const SINK := 0.95
 
 const FACES := {
-	"green": "btn_plate_green",
+	"green": "btn_plate_green_gold_rim",
 	"key_green": "btn_key_green",
 	"key_cream": "btn_key_cream",
 	"field": "field_quantity",
@@ -44,7 +44,7 @@ static func face(parent: Node, kind: String, rect: Rect2) -> Control:
 
 ## The green plate made longer: its round ends keep their painted shape, only the plain middle extends.
 static func _wide(parent: Node, rect: Rect2) -> Control:
-	var tex := Art.tex("btn_plate_green")
+	var tex := Art.tex(FACES["green"])
 	var k := rect.size.y / tex.get_height()
 	var holder := Control.new()
 	holder.name = "Face"

@@ -27,7 +27,7 @@ All geometry uses the 1080 × 1920 canvas.
 | Blue chick | Source contact 715,1084; 178 px nominal height; rest pose 2 |
 | Green parrot | Source contact 905,1082; 184 px nominal height; rest pose 4 |
 | Counter / Settings | Counter at 48,48; Settings centered at 976,104, 96 px proportional icon |
-| Daily challenge / draw | Centers 960,920 and 960,1140; 120 px icon boxes, 220 px vertical spacing |
+| Daily reward / draw | Centers 960,920 and 960,1140; 120 px icon boxes, 220 px vertical spacing |
 | Play | 290,1360,500,200; existing complete localized action, unchanged placement |
 | Bottom destinations | Centers x=174+244×column, y=1760; 132 px proportional icon boxes |
 | Hit areas / badges | Seven icon hit areas 160 × 160; red availability badges 48 px |
