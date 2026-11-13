@@ -63,6 +63,10 @@ const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px):
 const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
 const SEAT_OUTWARD_SHIFT := 38.0  # screen pixels toward each branch's outer edge (keeps seat 3 off the tuft)
 const BIRD_SCALE := 1.10
+const SWIVEL_ART := "btn_swivel_green"
+const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
+const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
+const SWIVEL_DROP := -8.0     # its centre relative to the branch line
 const PERCH_TOP := 660.0
 const PERCH_BOTTOM := 1640.0
 const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
@@ -502,12 +506,21 @@ func _layout_branches() -> void:
 		node.position = Vector2(edge, y + 20.0 * BIRD_SCALE)
 		_add_branch_art(node, slot, right, b, twig)
 		if s.kinds[b] == Board.Kind.SWIVEL:
+			# The turn-around button sits on the branch tip, clear of every seat, as a round green button that breathes.
 			var knot := Sprite2D.new()
-			knot.texture = Art.tex("swivel_knot")
-			knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
-			knot.position = Vector2((930.0 if right else 150.0) - edge, 10.0 * BIRD_SCALE)
+			knot.name = "SwivelButton"
+			knot.texture = Art.tex(SWIVEL_ART)
+			var side := SWIVEL_SIDE * BIRD_SCALE
+			knot.scale = Vector2.ONE * side / knot.texture.get_width()
+			var reach := _branch_width(b, s.capacity) - SWIVEL_TIP_IN * BIRD_SCALE
+			knot.position = Vector2(-reach if right else reach, SWIVEL_DROP * BIRD_SCALE)
 			node.add_child(knot)
-			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * 48.0, Vector2.ONE * 96.0), func(): _tap_swivel(b))
+			var rest := knot.scale
+			var pulse := knot.create_tween().set_loops()
+			pulse.tween_property(knot, "scale", rest * 1.07, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			pulse.tween_property(knot, "scale", rest, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			var hit := side + 24.0
+			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * hit * 0.5, Vector2.ONE * hit), func(): _tap_swivel(b))
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
 		if b >= before and before > 0 and not instant:

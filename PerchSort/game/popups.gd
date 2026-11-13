@@ -10,7 +10,7 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
 	9: "rainforest", 10: "wisteria"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
-	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot", "mama": "mama_bow"}
+	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "btn_swivel_green", "mama": "mama_bow"}
 
 ## Content sizes (design pixels).
 const STAR_SIDE := 190.0
