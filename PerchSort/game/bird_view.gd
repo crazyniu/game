@@ -136,9 +136,24 @@ func setup(bird_code: int, effective_sleep: bool, scale_value: float, outfit_key
 	_next_idle = randf_range(0.6, 3.0)
 	_show_rest()
 
+## Costumes animated on themselves (costume_alive.gdshader): outfit key -> shader parameters (core = body centre).
+const COSTUME_ALIVE := {
+	"berry_outfit_5": {"core": Vector2(0.48, 0.56), "core_radius": 0.2, "glow_color": Color(1.0, 0.86, 0.32)},
+}
+
+func _costume_material(key: String) -> ShaderMaterial:
+	var m := ShaderMaterial.new()
+	m.shader = preload("res://game/costume_alive.gdshader")
+	var spec: Dictionary = COSTUME_ALIVE[key]
+	for name in spec:
+		m.set_shader_parameter(name, spec[name])
+	m.set_shader_parameter("seed", randf())
+	return m
+
 ## Advanced costumes (outfits 3 to 5) live: aura, particles, orbiting sparkles. Sleepers and eggs show none.
 func _setup_fx() -> void:
-	var on := SkinFx.wanted(outfit) and not is_egg and not asleep
+	# A costume that is animated on itself (COSTUME_ALIVE) needs no aura or particles around the bird.
+	var on := SkinFx.wanted(outfit) and not COSTUME_ALIVE.has(outfit) and not is_egg and not asleep
 	if on:
 		if _fx == null:
 			_fx_back = Node2D.new()
@@ -207,6 +222,7 @@ func _load_frames() -> void:
 	if overlay:
 		var table := _outfit_anchors(outfit)
 		_wear.texture = overlay
+		_wear.material = _costume_material(outfit) if COSTUME_ALIVE.has(outfit) else null
 		_wear_frames = table.get("frames", {})
 		var pivot: Array = table.get("pivot", [CANVAS * 0.5, FEET_Y * 0.5])
 		_wear_pivot = Vector2(pivot[0], pivot[1])

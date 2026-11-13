@@ -569,6 +569,9 @@ static func preview(main: Control, state: String) -> void:
 		p.outfits = {"outfit.ember.5": true}
 		p.equipped = {"ember": "outfit.ember.5"}
 	var view: Control = load("res://game/aviary_view.gd").new()
+	if state == "detail_berry_flower":   # the flower costume, animated on itself
+		p.outfits = {"outfit.berry.5": true}
+		p.equipped = {"berry": "outfit.berry.5"}
 	view.instant = main.instant()
 	view.setup(p)
 	main.set_screen(view)
@@ -577,7 +580,7 @@ static func preview(main: Control, state: String) -> void:
 	match state:
 		"list_scrolled": view._set_scroll(1e6)
 		"detail_sunny": view._show_detail("sunny")
-		"detail_berry": view._show_detail("berry")
+		"detail_berry", "detail_berry_flower": view._show_detail("berry")
 		"detail_crow": view._show_detail("crow")
 		"detail_ember_skin":
 			view._show_detail("ember")
