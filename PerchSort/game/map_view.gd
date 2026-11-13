@@ -114,8 +114,7 @@ func setup(player: Profile) -> void:
 	size = Vector2(1080, 1920)
 	clip_contents = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var next := Progress.next_level(profile)
-	current_level = next if next > 0 else Levels.COUNT
+	current_level = Progress.resume_level(profile)
 	_fit_scroll_ends()
 	_build_content()
 	_build_hud()
