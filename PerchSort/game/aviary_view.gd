@@ -71,6 +71,9 @@ func setup(p: Profile, species := "") -> void:
 	_from_shop = not species.is_empty()
 	size = Vector2(1080, 1920)
 	_backdrop = UI.image(self, "background_aviary_forest", Rect2(0, 0, 1080, 1920))
+	var calm := ShaderMaterial.new()   # calmed like the board painting so the birds read first
+	calm.shader = preload("res://game/calm_backdrop.gdshader")
+	_backdrop.material = calm
 	_backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	if _from_shop:
 		_show_detail(species)

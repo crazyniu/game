@@ -63,6 +63,7 @@ const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px):
 const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
 const SEAT_OUTWARD_SHIFT := 38.0  # screen pixels toward each branch's outer edge (keeps seat 3 off the tuft)
 const BIRD_SCALE := 1.10
+const CALM_BACKDROP := preload("res://game/calm_backdrop.gdshader")
 const SWIVEL_ART := "btn_swivel_green"
 const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
 const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
@@ -260,8 +261,16 @@ func _build_scene() -> void:
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	var scene_name := "board_w%d_open" % _world() if _world() in [1, 10] else "board_w%d" % _world()
-	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false)
+	# The painting is calmed behind play (calm_backdrop.gdshader) so the birds read first; the branches stay sharp.
+	var calm := ShaderMaterial.new()
+	calm.shader = CALM_BACKDROP
+	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false).material = calm
 	_night_bg = UI.image(self, scene_name + "_night_bg", Rect2(0, 0, 1080, 1920), false)
+	var calm_night := ShaderMaterial.new()   # night keeps its dark: a lighter, deep-blue wash
+	calm_night.shader = CALM_BACKDROP
+	calm_night.set_shader_parameter("wash", 0.22)
+	calm_night.set_shader_parameter("wash_color", Color(0.12, 0.16, 0.30))
+	_night_bg.material = calm_night
 	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
 	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
 	_air = Ambient.new()
@@ -2003,7 +2012,7 @@ static func preview(main: Control, state: String) -> void:
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.right(1)) * 10 - 5
+		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.trim_prefix("day_w").trim_prefix("night_w")) * 10 - 5
 		board.start(Levels.get_level(id), main.profile, false)
 		if state.begins_with("night_w"):
 			board.session.state.phase = Board.Phase.NIGHT
