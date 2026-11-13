@@ -236,7 +236,8 @@ func _build_header() -> void:
 	_coins = null
 	_coins_shown = -1
 	MenuNavigation.close(_bar, "Close", CLOSE.position, func(): closed.emit())
-	UI.image(_bar, ButtonKit.SIGN, SIGN_RECT, false).name = "Sign"
+	ButtonKit.banner(_bar, Rect2(SIGN_RECT.position.x, SIGN_RECT.position.y + SIGN_RECT.size.y * ButtonKit.BANNER_TOP,
+		SIGN_RECT.size.x, SIGN_RECT.size.y * (1.0 - ButtonKit.BANNER_TOP)))
 	_build_title()
 
 ## Floating category words keep the existing painted lettering and locale updates.

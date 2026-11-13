@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdi37vo7jl4qt"
-path="res://.godot/imported/hud_goal_shelf.png-af237f89163766a13db19655d5fd6989.ctex"
+uid="uid://bwxffj2yfsc0m"
+path="res://.godot/imported/banner_title_green.png-27f8e79e002dd47bcc3ee593b8198faf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/island/hud_goal_shelf.png"
-dest_files=["res://.godot/imported/hud_goal_shelf.png-af237f89163766a13db19655d5fd6989.ctex"]
+source_file="res://art/island/banner_title_green.png"
+dest_files=["res://.godot/imported/banner_title_green.png-27f8e79e002dd47bcc3ee593b8198faf.ctex"]
 
 [params]
 

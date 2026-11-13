@@ -62,7 +62,7 @@ const WIN_ACTIONS_H := 136.0 + WIN_ROW_GAP + 136.0 / 1.25   # ButtonKit PRIMARY.
 const WIN_STAR_ARC := [Vector3(-1.0, 8.0, -12.0), Vector3(0.0, -14.0, 0.0), Vector3(1.0, 8.0, 12.0)]   # x side, drop, tilt
 const WIN_STAR_ROOM := 56.0     # extra height of the star row for the arc and the larger middle star
 const WIN_STAR_MIDDLE := 1.24   # the middle star is larger, the outer two tilt outwards on an arc
-const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
+const WIN_PERCH := 0.38         # the top edge of the title banner, as a share of the title box height
 
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
 		on_next: Callable, on_home: Callable, next_enabled: bool) -> Control:

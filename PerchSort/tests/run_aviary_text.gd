@@ -54,8 +54,8 @@ func run() -> void:
 			view._show_detail(id)
 			await process_frame
 			var tag: String = id + "_" + language
-			var title: TextureRect = view._page.get_node("TitleGroup")
-			centered(script._sprite_ink(title).get_center(), Vector2(540, script.HEADER_CENTER_Y), tag + " title sign")
+			var title: Control = view._page.get_node("TitleGroup")
+			centered(title.position + title.size * 0.5, Vector2(540, script.HEADER_CENTER_Y), tag + " title banner")
 			var coins: Control = view._coins
 			var coin_rect: Rect2 = script._sprite_ink(coins.get_child(0))
 			check(absf(coins.position.y + coin_rect.get_center().y - script.HEADER_CENTER_Y) < 0.05, tag + " header coin Y")

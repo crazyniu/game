@@ -715,9 +715,8 @@ const STATUS_INSET := 46.0       # clear of the plank's leafy ends
 const STATUS_CAP := 52.0
 const STATUS_STAR := 56.0
 ## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
-const SHELF := "hud_goal_shelf"
-const SHELF_CAP := 170           # shelf source pixels kept at each end; the plain middle extends
-const STATUS_WOOD := Color(0.74, 0.56, 0.46)   # the status plates are a darker wood, so gold stars stand out
+const CAPSULE := "hud_status_capsule"   # the light frosted-green status capsule, the title banner's family
+const CAPSULE_END := 260         # capsule source pixels kept at each end (round end, leaf sprig); the middle extends
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 56.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
@@ -926,25 +925,21 @@ func _refresh_status(with_phase := true) -> void:
 ## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
 ## its leafy ends keep their shape, only the plain middle extends.
 func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
-	var plank := _plank(parent, rect)
-	plank.name = "Plate"
-	plank.self_modulate = STATUS_WOOD
-	parent.move_child(plank, 0)
-	return plank
-
-func _plank(parent: Control, rect: Rect2) -> NinePatchRect:
-	var tex := Art.tex(SHELF)
+	var tex := Art.tex(CAPSULE)
 	var k := rect.size.y / tex.get_height()
-	var plank := NinePatchRect.new()
-	plank.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	plank.texture = tex
-	plank.patch_margin_left = SHELF_CAP
-	plank.patch_margin_right = SHELF_CAP
-	plank.position = rect.position
-	plank.size = rect.size / k
-	plank.scale = Vector2.ONE * k
-	parent.add_child(plank)
-	return plank
+	var plate := NinePatchRect.new()
+	plate.name = "Plate"
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.texture = tex
+	var end := mini(CAPSULE_END, int(rect.size.x / k * 0.5) - 1)
+	plate.patch_margin_left = end
+	plate.patch_margin_right = end
+	plate.position = rect.position
+	plate.size = rect.size / k
+	plate.scale = Vector2.ONE * k
+	parent.add_child(plate)
+	parent.move_child(plate, 0)
+	return plate
 
 ## A holder for the shop's painted numerals (white, dark-green outline), left aligned; _set_digits fills it.
 func _digits(parent: Control, rect: Rect2) -> Control:

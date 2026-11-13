@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dodskk7h37iws"
-path="res://.godot/imported/sign_hanging.png-910fec1bcf066d47db59860d280d50a2.ctex"
+uid="uid://cjfivs2kx4xbf"
+path="res://.godot/imported/hud_status_capsule.png-31e41bdbec104622162312b823340916.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/island/sign_hanging.png"
-dest_files=["res://.godot/imported/sign_hanging.png-910fec1bcf066d47db59860d280d50a2.ctex"]
+source_file="res://art/island/hud_status_capsule.png"
+dest_files=["res://.godot/imported/hud_status_capsule.png-31e41bdbec104622162312b823340916.ctex"]
 
 [params]
 

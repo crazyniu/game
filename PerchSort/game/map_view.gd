@@ -31,7 +31,7 @@ const STRIDE := CARD.x + CARD_GAP
 const WINDOW := Rect2(24, 24, 578, 852)  # the painting fills the card inside its rim
 const WINDOW_RADIUS := 30.0
 const CARD_CLIP := preload("res://game/map_card_clip.gdshader")
-const PLAQUE := Vector2(520, 156)        # the wooden name plank over the card's lower part
+const PLAQUE := Vector2(520, 124)        # the light-green name banner over the card's lower part
 const PLAQUE_Y := 810.0                  # plank centre from the card top
 const PLAQUE_WORD := Rect2(0.16, 0.1, 0.68, 0.74)   # word area on the plank, shares of the plank box
 const BADGE := 140.0                     # the world number disc on the card's top edge
@@ -209,9 +209,9 @@ func _build_card(world: int) -> Control:
 	mask.set_shader_parameter("radius", WINDOW_RADIUS)
 	painting.material = mask
 	_star_progress(card, world, STAR_PROGRESS)
-	var plank := Island.piece_fit(card, "island_name_plank", Vector2(CARD.x * 0.5, PLAQUE_Y), PLAQUE)
-	plank.name = "Plaque"
-	var word := Rect2(plank.position + plank.size * PLAQUE_WORD.position, plank.size * PLAQUE_WORD.size)
+	var plaque := Rect2(Vector2(CARD.x * 0.5, PLAQUE_Y) - PLAQUE * 0.5, PLAQUE)
+	ButtonKit.banner(card, plaque).name = "Plaque"
+	var word := Rect2(plaque.position + plaque.size * PLAQUE_WORD.position, plaque.size * PLAQUE_WORD.size)
 	ButtonKit.lettering(card, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), word.grow_individual(10.0, 6.0, 10.0, 6.0)).name = "WorldName"
 	# Green marks the next playable forest; browsing never changes a card's size or status.
 	var at := Rect2(CARD.x * 0.5 - BADGE * 0.5, BADGE_Y - BADGE * 0.5, BADGE, BADGE)

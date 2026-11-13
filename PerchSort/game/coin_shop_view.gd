@@ -28,7 +28,8 @@ func setup(balance: int) -> void:
 	DrawPurchaseArt.button(page, "Close", "btn_purchase_close", Rect2(23, 50, 116, 119), func(): closed.emit())
 	DrawPurchaseArt.fit(page, "panel_purchase_balance", Rect2(619, 48, 270, 92)).name = "Balance"
 	DrawPurchaseArt.number(page, str(clampi(balance, 0, FeatherBar.DISPLAY_MAX)), BALANCE_NUMBER).name = "BalanceNumber"
-	DrawPurchaseArt.localized(page, "label_purchase_title", Rect2(135, 115, 648, 199))
+	# The shared light-green title banner with painted lettering, as every other page title.
+	ButtonKit.sign(page, "coin_shop_title", Rect2(118, 64, 680, 250))
 	for i in PACKS.size():
 		var pack: Dictionary = PACKS[i]
 		var display := Control.new()

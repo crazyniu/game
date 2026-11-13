@@ -84,7 +84,7 @@ func _run() -> void:
 			check(win.content.get_node("Panel/Skin") is NinePatchRect and win.content.get_node("Panel").visible, "the win stays a popup on the cream card")
 			var middle: Control = win.content.get_node("RatingStar1")
 			check(middle.get_meta("visible_box").size.x > win.content.get_node("RatingStar0").get_meta("visible_box").size.x and middle.get_meta("visible_box").position.y < win.content.get_node("RatingStar0").get_meta("visible_box").position.y, "the middle star is larger and higher")
-			check(win.content.get_node("TitleGroup/Sign") != null, "hanging wooden title sign")
+			check(win.content.get_node("TitleGroup/Sign") is NinePatchRect, "light-green title banner")
 			check(not win.content.has_node("Close"), "win has no close button")
 			var birds: Array[Node] = win.content.find_children("*", "BirdView", false, false)
 			check(birds.size() == 3, "win preserves all three animated birds")
@@ -99,13 +99,18 @@ func _run() -> void:
 				var front_ink: Rect2 = load("res://game/ui.gd").used_rect(bird.species + "_front")
 				var front_end: Vector2 = bird.position + (bird._sprite.offset + front_ink.end) * bird._body.scale
 				check(is_equal_approx(front_end.y, box.end.y), "actual front-frame ink lands on the designed footline")
+				var title_group: Control = win.content.get_node("TitleGroup")
+				var lettering: TextureRect = title_group.get_child(1)
+				var used: Rect2i = lettering.texture.get_image().get_used_rect()
+				var ink_top: float = title_group.position.y + lettering.position.y + used.position.y * lettering.size.y / lettering.texture.get_height()
 				var frames: Array = [bird._rest]
-				for sequence in bird._seqs.values():
-					frames.append_array(sequence)
+				for key in bird._seqs:
+					if not str(key).begins_with("flight"):   # flight frames are only shown in the air, while flying in
+						frames.append_array(bird._seqs[key])
 				for texture in frames:
 					var ink: Rect2i = texture.get_image().get_used_rect()
 					var end_y: float = bird.position.y + (bird._sprite.offset.y + ink.end.y) * bird._body.scale.y * 1.02
-					check(end_y < win.content.get_node("TitleGroup").position.y + win.content.get_node("TitleGroup").size.y * 0.3, "pose frames keep their feet on the branch, clear of the lettering")
+					check(end_y < ink_top, "perched frames keep their feet above the lettering")
 			centers.sort()
 			check(centers == [300.0, 540.0, 780.0], "bird centers are symmetric around the title")
 			var retry: Control = win.content.get_node("Retry")
