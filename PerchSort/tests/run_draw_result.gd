@@ -156,7 +156,7 @@ func _check_result(result: Control, picture: String, amount: int, locale: String
 	var canvas: Control = result.content.get_node("ApprovedLayout")
 	var reward: Control = canvas.get_node("Reward0")
 	check(result.get_node("ForestBackground").texture == Art.tex("background_shop_forest"), "approved jungle result background")
-	check(result.content.get_node("DrawHeading").texture == (Art.tex("label_daily_draw_heading_zh") if locale == "zh" else load("res://art/locale/en/island_words/title_lucky_spin.png")), "accepted localized header %s" % locale)
+	check(result.content.get_node("TitleGroup/Sign") != null and result.content.get_node("TitleGroup").get_child(1).painted_id == "lettering_lucky_spin_title", "hanging sign title %s" % locale)
 	check(result.content.get_node("Close/Face").texture == Art.tex("btn_purchase_close"), "coin shop Close sprite")
 	check(reward.get_meta("picture") == picture and reward.get_node("PrizeArt").texture == Art.tex(picture), "actual prize art %s" % picture)
 	check(reward.get_meta("amount") == amount and reward.get_node("Number").get_meta("value") == "+%d" % amount, "exact painted amount %d" % amount)

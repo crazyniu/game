@@ -33,7 +33,7 @@ func _run() -> void:
 		for step in tutorial.STEPS:
 			check(t.step == step, "tutorial preserves step order")
 			var button: Button = t._buttons[0]
-			check(button.position.y >= t.modal.panel_rect.end.y, "action outside panel")
+			check(t.modal.panel_rect.encloses(button.get_rect()), "action inside the card, as in the shop's popups")
 			check(button.position.y + button.size.y <= 1920, "action stays in viewport")
 			check(button.get_node("Content").get_child_count() == 1, "one centered painted action")
 			button.pressed.emit()

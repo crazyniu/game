@@ -59,7 +59,7 @@ const LESSON_BRANCHES := {
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
 const LESSON_DAY_LENGTH := 2
-const GOT_IT := Vector2(360, 128)    # the same size as every Play pill
+const GOT_IT := Vector2(360, 136)    # ButtonKit.PRIMARY: the same size as every Play plate
 const NIGHT_TINT := Color(0.70, 0.76, 0.98)   # board_view.gd moonlight
 const PHASE_RECT := Rect2(40, 36, 192, 104)    # board HUD day/night pill, in scene pixels
 
@@ -200,6 +200,9 @@ func show_step(index: int) -> void:
 
 ## ---------- layout ----------
 
+const STAGE_CARD := Color("f6eed9")    # centre colour of ButtonKit.PANEL
+const STAGE_RIM := Color("e9b949")     # the card's gold rim
+
 func _build_stage(r: Rect2) -> void:
 	# The card clips the scene to its rectangle (the doorway needs the only clip_children mask); a panel-coloured
 	# frame rounds the corners and a thin rim sits on top.
@@ -268,7 +271,7 @@ func _build_stage(r: Rect2) -> void:
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var corners := StyleBoxFlat.new()
 	corners.draw_center = false
-	corners.border_color = Color("188d36")
+	corners.border_color = STAGE_CARD   # the cream card colour rounds the scene's corners
 	corners.set_border_width_all(24)
 	corners.set_expand_margin_all(24)
 	corners.set_corner_radius_all(int(STAGE_RADIUS) + 24)
@@ -280,7 +283,7 @@ func _build_stage(r: Rect2) -> void:
 	rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var line := StyleBoxFlat.new()
 	line.draw_center = false
-	line.border_color = Color("b5eb62")
+	line.border_color = STAGE_RIM
 	line.set_border_width_all(6)
 	line.set_corner_radius_all(int(STAGE_RADIUS))
 	line.anti_aliasing = true
@@ -393,8 +396,8 @@ func _build_text(top: float) -> void:
 	var line_h := LINE_H * cap / TEXT_CAP
 	var y := top + (TEXT_H - line_h * ids.size()) * 0.5
 	for id in ids:
-		var caption := UI.label(_layer, id, Rect2(540.0 - TEXT_W * 0.5, y, TEXT_W, line_h), cap, UI.INK)
-		caption.material = ShopSkin.product_ink()
+		# Warm brown ink on the cream card (as the settings page).
+		UI.label(_layer, id, Rect2(540.0 - TEXT_W * 0.5, y, TEXT_W, line_h), cap, UI.INK)
 		y += line_h
 
 func _build_dots(top: float) -> void:
@@ -430,25 +433,21 @@ func _build_actions() -> void:
 		b.name = "Next" if step < STEPS - 1 else "Play"
 		_style_action(b)
 
-## Keep the original hit area, face and callbacks; replace only painted action content.
+## Keep the original hit area and callbacks; the face is the shop's green plate (ButtonKit) with a painted white word.
 func _style_action(button: Button) -> void:
+	var old_face := button.get_node_or_null("Face")
+	if old_face:
+		old_face.hide()
 	var content := button.get_node("Content")
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
-	var height := button.size.y * 100.0 / 176.0
-	var bounds := Rect2(32, (button.size.y - height) * 0.5, button.size.x - 64, height)
-	if button.name == "Play":
-		preload("res://game/chest_lettering.gd").word(content, "action.play", bounds)
-		return
-	var word: TextureRect
-	if button.name == "Next":
-		word = UiText.painted(content, "white_action_next", bounds)
-	else:
-		word = UiText.painted_label(content, "action.got_it", bounds)
-	var paint := ShaderMaterial.new()
-	paint.shader = preload("res://game/chest_play_word.gdshader")
-	word.material = paint
+	var face := ButtonKit.face(button, "green", Rect2(Vector2.ZERO, button.size))
+	button.move_child(face, 0)
+	button.button_down.connect(func(): face.modulate = ButtonKit.PRESSED)
+	button.button_up.connect(func(): face.modulate = Color.WHITE)
+	var word_id := "white_play" if button.name == "Play" else ("white_action_next" if button.name == "Next" else "action.got_it")
+	ButtonKit.word(content, word_id, button.size).name = "Word"
 
 ## ---------- scene helpers ----------
 

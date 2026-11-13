@@ -90,8 +90,8 @@ func _run() -> void:
 	check(draw.content.visible and action.disabled, "zero attempts after result")
 	check(draw.find_child("Prize2", true, false).get_node("PrizeArt").texture == Art.tex("icon_draw_mystery_single"), "accepted mystery sprite restored")
 	UiText.set_language("en")
-	check(draw.content.get_node("DrawHeading").texture == load("res://art/locale/en/island_words/title_lucky_spin.png"), "live English draw title")
-	check(action.get_node("Face").texture == Art.tex("btn_lucky_spin_action_en"), "live English draw action")
+	check(draw.content.get_node("TitleGroup").get_child(1).painted_id == "lettering_lucky_spin_title", "hanging sign draw title")
+	check(action.has_node("Kit/Face") and not action.get_node("Face").visible, "draw action wears the shop's green plate")
 	UiText.set_language("zh")
 	draw.find_child("Close", true, false).pressed.emit()
 	await create_timer(0.2).timeout

@@ -23,51 +23,31 @@ func _disposed(dialog: Control) -> void:
 		await process_frame
 	check(reference.get_ref() == null, "modal exit disposes all owned nodes")
 
+## The family wears the shop's style: home jungle backdrop, cream card (ButtonKit.PANEL), hanging sign title with
+## painted lettering, green ButtonKit actions inside the card.
 func _family(dialog: Control, expected_close: bool) -> void:
 	check(dialog.has_node("ForestBackground"), "independent jungle background")
-	check(dialog.content.get_node("Panel/Skin") is NinePatchRect, "forest panel preserves fixed corner material")
+	check(dialog.get_node("ForestBackground").texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").BACKGROUND_ART), "home jungle backdrop")
+	var skin: NinePatchRect = dialog.content.get_node("Panel/Skin")
+	check(skin.texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").CARD_ART), "the shop's cream card")
+	check(skin.self_modulate == Color.WHITE and dialog._dim.color.a == 0.0, "card and backdrop are not darkened or recolored")
 	check(dialog.content.has_node("Close") == expected_close, "original close semantics")
 	check(dialog.panel_rect.end.y <= 1920, "panel stays in design viewport")
-	check(dialog.get_node("ForestBackground").texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").BACKGROUND_ART), "same accepted bright Aviary forest background")
-	var skin: NinePatchRect = dialog.content.get_node("Panel/Skin")
-	var cartoon: GDScript = load("res://game/dialog_cartoon_skin.gd")
-	var reference: Control = cartoon.panel(dialog.content, dialog.panel_rect)
-	var reference_skin: NinePatchRect = reference.get_node("Skin")
-	check(skin.texture == reference_skin.texture, "same fixed independent cartoon border and inner field")
-	check(skin.texture.atlas == Art.tex(cartoon.PANEL_ART) and skin.texture.region == cartoon.PANEL_CONTENT, "self-reviewed independent panel and exact alpha region")
-	check(skin.scale == reference_skin.scale and skin.size == reference_skin.size, "same border scale and inner field extent at equal bounds")
-	check(Vector4(skin.patch_margin_left, skin.patch_margin_top, skin.patch_margin_right, skin.patch_margin_bottom) == Vector4(reference_skin.patch_margin_left, reference_skin.patch_margin_top, reference_skin.patch_margin_right, reference_skin.patch_margin_bottom), "same fixed edge and corner patches")
-	check(skin.self_modulate == Color.WHITE and dialog._dim.color.a == 0.0, "neither border, inner field nor forest is darkened or recolored")
-	reference.free()
-	check(not dialog.content.get_node("TitleGroup") is TextureRect, "localized transparent heading group")
+	var title: Control = dialog.content.get_node("TitleGroup")
+	check(title.has_node("Sign"), "hanging sign title")
+	check(title.size == load("res://game/family_dialog.gd").SIGN_RECT.size, "every sign has the same box")
 	check(dialog._title_number.is_empty(), "legacy Modal cannot recreate the wooden title on locale changes")
-	check(dialog.content.get_node("TitleGroup").size == Vector2(680, 112), "every heading has the same box")
 	for star in dialog.content.find_children("RatingStar*", "TextureRect", false, false):
 		var bounds: Rect2 = star.get_meta("visible_box")
 		check(bounds.size == Vector2.ONE * load("res://game/family_dialog.gd").STAR_SIZE, "every rating star has equal visible bounds")
+	var family: GDScript = load("res://game/family_dialog.gd")
 	for button in dialog.content.find_children("*", "Button", false, false):
 		if button.name == "Close":
 			continue
-		check(button.get_node("Face").texture == Art.tex("home_play_plate"), "every action has the accepted Home face")
-		var family: GDScript = load("res://game/family_dialog.gd")
 		check(button.size.is_equal_approx(family.SECONDARY if str(button.name) in ["Home", "Retry"] else family.PRIMARY), "same-role action size is exact in every state: %s %s" % [button.name, button.size])
-		check(button.position.y >= dialog.panel_rect.end.y + family.ACTION_CLEARANCE - 0.01, "all action rows are outside the frame with the canonical clear gap")
-		check(not button.get_rect().intersects(dialog.panel_rect), "action hit area does not overlap the panel")
-		check(button.get_child_count() == 2, "every action contains only its accepted face and painted word")
-		var word: TextureRect = button.get_child(1)
-		var word_bounds: Rect2 = word.get_meta("visible_ink") if word.has_meta("visible_ink") else word.get_rect()
-		check(word_bounds.get_center().distance_to(button.size * 0.5) < 1.0, "action word is centered by visible ink")
-		check(word_bounds.position.x >= 48 and word_bounds.end.x <= button.size.x - 48 + 0.01, "action word retains side clearance")
-		if button.name == "Retry":
-			check(word.name == "ReplayWord" and word.texture.atlas == Art.tex("label_dialog_replay_" + UiText.locale()), "Replay is the new independently painted localised word, never the icon")
-		elif button.name == "Home":
-			check(word.painted_id == "white_settings_home", "Home reuses the exact accepted localised white word")
-
-	var secondary: Vector2 = load("res://game/family_dialog.gd").SECONDARY
-	var primary: Vector2 = load("res://game/family_dialog.gd").PRIMARY
-	check(primary.x / secondary.x <= 1.25 and primary.y / secondary.y <= 1.25, "primary remains at most 1.25 times secondary")
-	if expected_close:
-		check(dialog.content.get_node("Close/Face").texture == Art.tex("btn_purchase_close"), "coin-shop close picture")
+		check(dialog.panel_rect.encloses(button.get_rect()), "actions sit inside the card")
+		check(button.has_node("Face") and button.has_node("Content/Word"), "green plate with a painted word")
+	check(family.PRIMARY.x / family.SECONDARY.x <= 1.25 and family.PRIMARY.y / family.SECONDARY.y <= 1.25, "primary remains at most 1.25 times secondary")
 	for button in dialog.content.find_children("*", "Button", true, false):
 		check(button.get_rect().end.y <= 1920, "action remains visible")
 
@@ -156,13 +136,13 @@ func _run() -> void:
 		UiText.set_language("zh" if language == "en" else "en")
 		await process_frame
 		check(translated.content.get_node("TitleGroup").has_node("TitleNumber"), "live locale change retains level ordinal")
-		check(translated.content.get_node("TitleGroup").get_child_count() == 2, "live locale change does not restore old title decorations")
+		check(translated.content.get_node("TitleGroup").get_child_count() == 3, "live locale change keeps only sign, word and ordinal")
 		translated.close()
 		await _disposed(translated)
 		UiText.set_language(language)
 		var friend: Control = popups.new_friend(main.popups, "berry", 25, on_action)
 		_family(friend, false)
-		check(friend.content.get_node("Reward/Number").value == "+25", "new friend reward quantity")
+		check(friend.content.get_node("Reward/Number").get_meta("value") == "+25", "new friend reward quantity")
 		for ability_language in ["en", "zh"]:
 			UiText.set_language(ability_language)
 			await process_frame
@@ -185,7 +165,7 @@ func _run() -> void:
 		for world in [1, 4, 10]:
 			var complete: Control = popups.world_complete(main.popups, world, 200, on_action)
 			_family(complete, false)
-			check(complete.content.get_node("Reward/Number").value == "+200", "world reward quantity")
+			check(complete.content.get_node("Reward/Number").get_meta("value") == "+200", "world reward quantity")
 			complete.close()
 			await _disposed(complete)
 			var unlock: Control = popups.world_unlock(main.popups, world, on_action)

@@ -2,8 +2,9 @@ class_name FamilyDialog
 extends RefCounted
 ## Opt-in presentation for non-gameplay celebrations and the level card.
 
-const PRIMARY := Vector2(520, 176)
-const SECONDARY := PRIMARY / 1.25
+## Actions use the shop's button family (ButtonKit): green plates, painted white words.
+const PRIMARY := Vector2(360, 136)     # ButtonKit.PRIMARY (literal: a const reference would cycle the scripts)
+const SECONDARY := PRIMARY / 1.25      # 288 x 108.8: Primary is at most 1.25 times its siblings
 const STAR_SIZE := 180.0
 const STAR_ROW := 224.0
 const STAR_GAP := 36.0
@@ -122,31 +123,58 @@ static func count(box: Number, amount: int, pattern: String, delay: float, durat
 	tween.tween_interval(delay)
 	tween.tween_method(func(value: float): box.set_value(pattern % roundi(value)), 0.0, float(amount), duration)
 
-static func decorate(dialog: Modal, external_actions := true) -> void:
+static func decorate(dialog: Modal, _external_actions := true) -> void:
 	# Keep Modal's content and total allocation, but end this opt-in frame before its actions.
-	var previous_actions_y: float = dialog.get_meta("actions_y")
-	if external_actions:
-		dialog.panel_rect.size.y = previous_actions_y - Modal.ACTION_DROP + Modal.BOTTOM - dialog.panel_rect.position.y
-		dialog.set_meta("actions_y", dialog.panel_rect.end.y + ACTION_CLEARANCE)
+	# Actions stay inside the card, as in the shop's purchase popups and the win panel.
 	DialogCartoonSkin.apply(dialog)
 	var old_title := dialog.content.get_node("TitleGroup")
 	dialog.content.remove_child(old_title)
 	old_title.queue_free()
-	var title := Heading.new()
-	title.name = "TitleGroup"
-	title.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	title.label_id = dialog._title_id
-	title.ordinal = dialog._title_number
-	# This opt-in header owns locale layout; Modal must not restore its old wooden plank.
+	# The hanging wooden sign of the shop and purchase popups, its lettering painted in the shop style.
+	var title := sign_title(dialog.content, dialog._title_id, dialog._title_number, dialog.panel_rect)
 	dialog._title_number = ""
-	UI.place(title, Rect2(200, dialog.panel_rect.position.y - 44, 680, 112))
-	dialog.content.add_child(title)
-	title.refresh()
 	dialog._title_layer = title
 	if dialog.content.has_node("Close"):
-		var close := MenuNavigation.replace_close(dialog)
-		close.position = Vector2(dialog.panel_rect.end.x - close.size.x,
-			dialog.panel_rect.position.y - ACTION_CLEARANCE - close.size.y)
+		var old := dialog.content.get_node("Close")
+		dialog.content.remove_child(old)
+		old.queue_free()
+		var at := Vector2(dialog.panel_rect.end.x - CLOSE_INSET.x - MenuNavigation.SIZE.x, dialog.panel_rect.position.y + CLOSE_INSET.y)
+		MenuNavigation.close(dialog.content, "Close", at, dialog.close)
+
+## The painted lettering id of a title label id: bird and booster names and world names reuse the shop's paintings.
+const BOOSTER_LETTERING := {"firefly": "firefly", "sapling": "sprout", "owl_eye": "owl_eye", "morning_bell": "wake_bell",
+	"scarecrow": "scarecrow", "spring_rain": "spring_rain"}
+
+static func lettering_key(label_id: String) -> String:
+	var parts := label_id.split(".")
+	if parts.size() == 3 and parts[0] == "bird" and parts[2] == "name":
+		return "bird_" + parts[1]
+	if parts.size() == 3 and parts[0] == "booster" and parts[2] == "name":
+		return "item_" + BOOSTER_LETTERING.get(parts[1], parts[1])
+	if parts.size() == 3 and parts[0] == "world" and parts[2] == "name":
+		return "world_" + parts[1]
+	return label_id.replace(".", "_")
+
+## The sign's box relative to the card top (640 wide so the corner Close never touches it).
+const SIGN_RECT := Rect2(220, -140, 640, 223)
+const CLOSE_INSET := Vector2(14, 22)   # Close from the card's top-right corner, inside the card
+
+## The sign straddles the card's top edge; an ordinal (the level number) follows the word in painted numerals.
+static func sign_title(parent: Control, label_id: String, ordinal: String, card: Rect2) -> Control:
+	var rect := SIGN_RECT
+	rect.position.y += card.position.y
+	if ordinal.is_empty():
+		return ButtonKit.sign(parent, lettering_key(label_id), rect)
+	var holder := ButtonKit.sign(parent, lettering_key(label_id), rect)
+	var face := Rect2(rect.size * ButtonKit.SIGN_FACE.position, rect.size * ButtonKit.SIGN_FACE.size)
+	var word: TextureRect = holder.get_child(1)
+	var digits_w := ButtonKit.number_width(ordinal, face.size.y * 0.62)
+	var word_box := Rect2(face.position, Vector2(face.size.x - digits_w - 24.0, face.size.y))
+	word.bounds = word_box
+	word.align = 1
+	UiText._fit_painted(word)
+	ButtonKit.number(holder, ordinal, Rect2(face.end.x - digits_w - 4.0, face.position.y + face.size.y * 0.19, digits_w, face.size.y * 0.62), -1).name = "TitleNumber"
+	return holder
 
 static func stars(parent: Control, y: float, filled: int, animate := false, delay := 0.0) -> void:
 	for i in 3:
@@ -164,24 +192,44 @@ static func stars(parent: Control, y: float, filled: int, animate := false, dela
 			tween.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 static func name_heading(parent: Node, id: String, y: float, height: float) -> void:
-	ShopSkin.product_heading(parent, id, Rect2(164, y + (height - 76) * 0.5, 752, 76))
+	ButtonKit.lettering(parent, lettering_key(id), Rect2(164, y + (height - 96) * 0.5, 752, 96))
 
-## Feather and painted amount have no bar, pill or backing image.
+## Feather and painted amount (ButtonKit numerals) have no bar, pill or backing image. "Number" carries "value".
 static func reward(parent: Control, bounds: Rect2, amount: int) -> Control:
 	var group := Control.new()
 	group.name = "Reward"
 	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(group, bounds)
 	parent.add_child(group)
-	var cap := bounds.size.y * 0.54
-	var icon := bounds.size.y * 0.76
-	var gap := 20.0
-	var width := minf(bounds.size.x - icon - gap, number_width("+%d" % amount, cap))
+	var cap := bounds.size.y * 0.56
+	var icon := bounds.size.y * 0.7
+	var gap := 18.0
+	var text := "+%d" % amount
+	var width := minf(bounds.size.x - icon - gap, ButtonKit.number_width(text, cap))
 	var start := (bounds.size.x - icon - gap - width) * 0.5
-	UI.art(group, "coin", Rect2(start, (bounds.size.y - icon) * 0.5, icon, icon)).name = "Feather"
-	number(group, "+%d" % amount, Rect2(start + icon + gap, (bounds.size.y - cap) * 0.5, width, cap)).name = "Number"
+	UI.image(group, "icon_purchase_feather", Rect2(start, (bounds.size.y - icon) * 0.5, icon, icon), true).name = "Feather"
+	digits(group, "Number", Rect2(start + icon + gap, (bounds.size.y - cap) * 0.5, width, cap), text)
 	group.set_meta("coin_center", bounds.position + Vector2(start + icon * 0.5, bounds.size.y * 0.5))
 	return group
+
+## A holder of ButtonKit numerals whose "value" meta is the shown text; set_digits replaces them.
+static func digits(parent: Control, n: String, rect: Rect2, text: String) -> Control:
+	var holder := Control.new()
+	holder.name = n
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	parent.add_child(holder)
+	set_digits(holder, text)
+	return holder
+
+static func set_digits(holder: Control, text: String) -> void:
+	if holder.get_meta("value", "") == text:
+		return
+	holder.set_meta("value", text)
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	ButtonKit.number(holder, text, Rect2(Vector2.ZERO, holder.size), 0)
 
 ## Keep the established primary/secondary sizes, ordering and callback lockout.
 static func actions_height(items: Array) -> float:
@@ -211,38 +259,10 @@ static func actions(dialog: Modal, items: Array) -> Array:
 			var callback: Callable = item[2]
 			var id: String = item[3] if item.size() > 3 else Modal.ACTION_WORDS.get(item[1], "action.ok")
 			var name: String = item[3] if item.size() > 3 else str(item[1]).capitalize()
-			var button := UI.hit_area(dialog.content, Rect2(Vector2(x, y), size), func():
-				Sound.play("ui_tap")
-				dialog.invoke(callback))
-			button.name = name
-			var face := Island.nine(button, "home_play_plate", Rect2(Vector2.ZERO, size), Vector4(220, 100, 220, 100))
-			face.name = "Face"
-			var scale := size.y / Art.tex("home_play_plate").get_height()
-			face.size = size / scale
-			face.pivot_offset = Vector2.ZERO
-			face.scale = Vector2.ONE * scale
-			var word_box := Rect2(48, (size.y - 100) * 0.5, size.x - 96, 100)
-			if id in ["action.play", "action.ok"]:
-				ChestWords.word(button, id, word_box)
-			else:
-				var word: TextureRect
-				if id == "action.replay":
-					var replay := ReplayWord.new()
-					replay.name = "ReplayWord"
-					replay.bounds = word_box
-					replay.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-					replay.stretch_mode = TextureRect.STRETCH_SCALE
-					replay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-					replay.refresh()
-					button.add_child(replay)
-					word = replay
-				else:
-					word = UiText.painted(button, "white_action_next" if id == "action.next" else "white_settings_home", word_box)
-				var paint := ShaderMaterial.new()
-				paint.shader = preload("res://game/chest_play_word.gdshader")
-				word.material = paint
-			button.button_down.connect(func(): button.modulate = Island.PRESSED)
-			button.button_up.connect(func(): button.modulate = Color.WHITE)
+			var button := ButtonKit.button(dialog.content, name, Rect2(Vector2(x, y), size), "green", func(): dialog.invoke(callback))
+			var word_id: String = {"action.play": "white_play", "action.ok": "white_action_ok", "action.next": "white_action_next",
+				"action.home": "white_settings_home"}.get(id, id)
+			ButtonKit.word(button.get_node("Content"), word_id, size).name = "Word"
 			buttons[i] = button
 			x += size.x + Modal.ACTION_GAP
 		y += size.y + Modal.ROW_STACK
@@ -258,7 +278,9 @@ class Ability extends Control:
 			remove_child(child)
 			child.queue_free()
 		var lead := 104.0 if not effect.is_empty() else 0.0
-		var word := ShopSkin.product_word(self, label_id, Rect2(0, 37, size.x - lead, 54))
+		# The shop's warm brown painted caption ("caption_bird_<id>_ability"), shown as painted.
+		var species := label_id.split(".")[1]
+		var word := UiText.painted(self, "caption_bird_%s_ability" % species, Rect2(0, 37, size.x - lead, 54))
 		var left := (size.x - word.size.x - lead) * 0.5
 		word.position.x = left + lead
 		word.bounds = Rect2(word.position, word.size)
@@ -279,12 +301,12 @@ static func ability(parent: Control, species: String, effect: String, y: float) 
 	parent.add_child(row)
 	row.refresh()
 
-static func stat(parent: Control, y: float, icon: String, value: String) -> Control:
+static func stat(parent: Control, y: float, _icon: String, value: String) -> Control:
 	var cap := 64.0
-	var width := number_width(value, cap)
-	var x := 540.0 - (100.0 + width) * 0.5
-	UI.icon(parent, icon, Vector2(x + 40.0, y + 50.0), 80.0, Color.WHITE)
-	return number(parent, value, Rect2(x + 100.0, y + 18.0, width, cap))
+	var width := ButtonKit.number_width(value, cap)
+	var x := 540.0 - (88.0 + width) * 0.5
+	UI.art(parent, "icon_star_budget_steps", Rect2(x, y + 14.0, 72.0, 72.0), Rect2(317, 217, 652, 801)).name = "MovesIcon"
+	return digits(parent, "Number", Rect2(x + 88.0, y + 18.0, width, cap), value)
 
 static func halo(parent: Control, bounds: Rect2, instant: bool) -> TextureRect:
 	var glow := UI.image(parent, "glow_soft", bounds.grow(bounds.size.x * 0.12))

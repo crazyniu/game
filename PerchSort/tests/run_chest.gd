@@ -44,9 +44,10 @@ func _run() -> void:
 		var open: Button = page.get_node("Content/OpenChest")
 		check(open.disabled == (stars < Progress.CHEST_STARS), "Open availability at %d stars" % stars)
 		check(open.size == page.get_node("Content/Play").size, "Open and Play keep equal sizes at %d stars" % stars)
-		var word := open.get_node("chest_open") as TextureRect
-		check(is_equal_approx(word.get_meta("visible_ink").size.y, 100.0), "Home-family action ink has consistent height at %d stars" % stars)
-		check(word.texture.resource_path.ends_with("label_chest_open_zh.png"), "Open uses the reviewed Home-family word")
+		# Actions wear the shop's green plate with a painted white word (ButtonKit), at ButtonKit.PRIMARY.
+		check(open.has_node("Kit/Face") and open.get_node("Kit").size == Vector2(360, 136), "Open wears the shop's primary plate at %d stars" % stars)
+		var word := open.get_node("Kit").get_child(1) as TextureRect
+		check(word.painted_id == "white_open", "Open uses the shop's painted white word")
 		check(page.has_node("Content/BadgeGreen") == (stars >= Progress.CHEST_STARS * 2), "ready badge at %d stars" % stars)
 		check(page.has_node("background_home_jungle"), "approved jungle background")
 		check(not page.has_node("Content/Panel"), "no enclosing chest card")
@@ -100,7 +101,7 @@ func _run() -> void:
 	check(Progress.chests_ready(main.profile) == 2, "remaining ready chests preserved")
 	page = main.popups.get_child(-1)
 	check(page.has_node("Content/ConfirmRewards"), "open shows reward result")
-	check(page.get_node("Content/ConfirmRewards/action_ok").texture.resource_path.ends_with("label_chest_confirm_zh.png"), "reward confirmation uses the reviewed Home-family word")
+	check(page.get_node("Content/ConfirmRewards/Kit").get_child(1).painted_id == "white_action_ok", "reward confirmation uses the shop's painted white word")
 	await capture("chest_actual_rewards")
 	await click(page.get_node("Content/ConfirmRewards"))
 	check(main.popups.get_child_count() == 0, "Confirm dismisses result")
@@ -129,14 +130,14 @@ func _run() -> void:
 		main.Popups.chest(main.popups, 18, 0, func(): pass, func(): pass, 99999)
 		await create_timer(0.3).timeout
 		var localized_page: Control = main.popups.get_child(-1)
-		var open_word: TextureRect = localized_page.get_node("Content/OpenChest/chest_open")
-		var play_word: TextureRect = localized_page.get_node("Content/Play/action_play")
-		check(open_word.texture.resource_path.ends_with("label_chest_open_" + locale + ".png"), "Open locale remains live")
-		check(play_word.texture.resource_path.ends_with("label_home_island_play_" + locale + ".png"), "Play reuses the accepted Home source")
+		var open_word: TextureRect = localized_page.get_node("Content/OpenChest/Kit").get_child(1)
+		var play_word: TextureRect = localized_page.get_node("Content/Play/Kit").get_child(1)
+		check(open_word.painted_id == "white_open" and play_word.painted_id == "white_play", "Open and Play use the shop's painted words")
+		var shown := open_word.texture
 		var other := "zh" if locale == "en" else "en"
 		UiText.set_language(other)
 		await process_frame
-		check(open_word.texture.resource_path.ends_with("label_chest_open_" + other + ".png"), "existing chest word updates after locale change")
+		check(open_word.texture != shown, "existing chest word updates after locale change")
 		UiText.set_language(locale)
 		await process_frame
 		await capture("chest_" + locale)

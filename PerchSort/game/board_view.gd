@@ -2009,16 +2009,16 @@ func _confetti_burst(origin: Vector2) -> void:
 	layer.name = "Celebration"
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.add_child(layer)
-	for i in 36:
+	for i in 56:
 		var piece := TextureRect.new()
 		piece.texture = Art.tex("confetti_%d" % (1 + i % 4))
 		piece.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		piece.size = Vector2.ONE * rng.randf_range(30.0, 48.0)
+		piece.size = Vector2.ONE * rng.randf_range(40.0, 62.0)
 		piece.pivot_offset = piece.size * 0.5
 		piece.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		layer.add_child(piece)
 		var angle := deg_to_rad(rng.randf_range(-170.0, -10.0))
-		var speed := rng.randf_range(520.0, 980.0)
+		var speed := rng.randf_range(620.0, 1240.0)
 		var velocity := Vector2(cos(angle), sin(angle)) * speed
 		var spin := rng.randf_range(300.0, 720.0) * (1.0 if i % 2 == 0 else -1.0)
 		var life := rng.randf_range(1.3, 1.8)
@@ -2038,7 +2038,7 @@ func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
 
-## Capture states: "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
+## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
 ## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
@@ -2048,6 +2048,13 @@ func granted(kind: int, count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "celebrate":   # level 12 at rest, then the win celebration on the board (frame sequences)
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board._play_celebration()
+		return
 	if state == "lifted_both_sides":   # one left and one right branch lifted: each flock looks across the board
 		var board := BoardView.new()
 		main.set_screen(board)

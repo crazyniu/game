@@ -75,8 +75,9 @@ func _run() -> void:
 				print("CLOSE ", close.size, " expected ", load("res://game/menu_navigation.gd").SIZE)
 				check(close.size.is_equal_approx(load("res://game/menu_navigation.gd").SIZE), "same-role Close hit size")
 				check(close.get_node("Face").texture == Art.tex("btn_purchase_close"), "same accepted Close image")
-				check(close.get_rect().end.y <= dialog.panel_rect.position.y - family.ACTION_CLEARANCE + 0.01, "Close fully outside panel")
-				check(is_equal_approx(close.get_rect().end.x, dialog.panel_rect.end.x), "Close aligns with panel right edge")
+				# As in the shop's purchase popups: the Close sits on the card's top-right corner, inside the card.
+				check(dialog.panel_rect.encloses(close.get_rect()), "Close sits inside the card corner")
+				check(close.get_rect().end.x > dialog.panel_rect.end.x - 180.0, "Close hugs the card's right edge")
 				check(close.position.x >= 0 and close.position.y >= 24 and close.get_rect().end.x <= 1080, "Close touch bounds on screen with top clearance")
 				check(not close.get_rect().intersects(title.get_rect()), "Close hit area never overlaps heading")
 				check(dialog.content.get_node("Play").disabled == not playable, "Play availability preserved")

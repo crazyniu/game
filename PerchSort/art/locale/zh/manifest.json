@@ -110,6 +110,51 @@
     }
   },
   "painted": {
+    "lettering_lucky_spin_title": {
+      "file": "island_words/lettering_lucky_spin_title.png"
+    },
+    "lettering_star_chest_title": {
+      "file": "island_words/lettering_star_chest_title.png"
+    },
+    "lettering_lesson_crow_title": {
+      "file": "island_words/lettering_lesson_crow_title.png"
+    },
+    "lettering_lesson_daynight_title": {
+      "file": "island_words/lettering_lesson_daynight_title.png"
+    },
+    "lettering_lesson_egg_title": {
+      "file": "island_words/lettering_lesson_egg_title.png"
+    },
+    "lettering_lesson_growing_title": {
+      "file": "island_words/lettering_lesson_growing_title.png"
+    },
+    "lettering_lesson_mama_title": {
+      "file": "island_words/lettering_lesson_mama_title.png"
+    },
+    "lettering_lesson_sleep_title": {
+      "file": "island_words/lettering_lesson_sleep_title.png"
+    },
+    "lettering_lesson_swivel_title": {
+      "file": "island_words/lettering_lesson_swivel_title.png"
+    },
+    "lettering_lesson_twig_title": {
+      "file": "island_words/lettering_lesson_twig_title.png"
+    },
+    "lettering_popup_level_title": {
+      "file": "island_words/lettering_popup_level_title.png"
+    },
+    "lettering_popup_new_friend_title": {
+      "file": "island_words/lettering_popup_new_friend_title.png"
+    },
+    "lettering_popup_world_complete_title": {
+      "file": "island_words/lettering_popup_world_complete_title.png"
+    },
+    "lettering_popup_world_unlock_title": {
+      "file": "island_words/lettering_popup_world_unlock_title.png"
+    },
+    "lettering_tutorial_title": {
+      "file": "island_words/lettering_tutorial_title.png"
+    },
     "cap_firefly": {
       "file": "island_words/cap_firefly.png"
     },

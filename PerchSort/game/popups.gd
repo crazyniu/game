@@ -325,6 +325,28 @@ const DRAW_PRIZE_KEYS := ["icon_draw_prize_forty", "icon_draw_prize_eighty", "ic
 # The original source crops relative to their measured prize wells. No source pixels are changed.
 const DRAW_PICTURES := [Rect2(41, 21, 176, 137), Rect2(32, 15, 203, 142), Rect2(29, 15, 195, 149), Rect2(7, 3, 234, 161), Rect2(4, -2, 240, 165), Rect2(18, -3, 221, 166), Rect2(7, 2, 226, 160), Rect2(9, 0, 222, 161)]
 
+const PAGE_SIGN := Rect2(240, 96, 600, 209)   # the page title sign (as the map's world page)
+
+## Re-dresses an existing action (hit area and callback unchanged) as the shop's green plate with a painted white word,
+## always at ButtonKit.PRIMARY on screen (`coordinate_scale`: the scale of the button's parent canvas).
+static func _kit_action(button: Control, word_id: String, coordinate_scale := 1.0) -> void:
+	for child in button.get_children():
+		if child is CanvasItem:
+			(child as CanvasItem).visible = false
+	var kit := Control.new()
+	kit.name = "Kit"
+	kit.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	kit.size = ButtonKit.PRIMARY
+	kit.scale = Vector2.ONE / coordinate_scale
+	kit.position = (button.size - ButtonKit.PRIMARY / coordinate_scale) * 0.5
+	kit.pivot_offset = ButtonKit.PRIMARY * 0.5
+	button.add_child(kit)
+	var face := ButtonKit.face(kit, "green", Rect2(Vector2.ZERO, ButtonKit.PRIMARY))
+	ButtonKit.word(kit, word_id, face.size).position += face.position
+	if button is BaseButton:
+		(button as BaseButton).button_down.connect(func(): kit.modulate = ButtonKit.PRESSED; kit.scale = Vector2.ONE * ButtonKit.SINK / coordinate_scale)
+		(button as BaseButton).button_up.connect(func(): kit.modulate = Color.WHITE; kit.scale = Vector2.ONE / coordinate_scale)
+
 static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) -> Control:
 	var instant := _instant(host)
 	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
@@ -338,7 +360,8 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	var background := DrawPurchaseArt.background(p)
 	p.move_child(background, 1)
 	var c := DrawPurchaseArt.canvas(p.content)
-	p._title_layer = DrawPurchaseArt.draw_heading(p.content)
+	# The hanging title sign of the shop and map pages, at the map's page position.
+	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
 	var close := MenuNavigation.close(c, "Close", Vector2(23, 52), p.close, DrawPurchaseArt.SCALE)
 	var stars := []
 	for i in slots:
@@ -353,7 +376,11 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 	board.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(board, DRAW_BOARD)
 	c.add_child(board)
-	DrawPurchaseArt.fit(board, "panel_draw_empty_board", Rect2(Vector2.ZERO, DRAW_BOARD.size))
+	# The shop's cream card holds the prizes, each in the game page's painted slot (no orange frame, no blue wells).
+	ButtonKit.panel(board, Rect2(Vector2.ZERO, DRAW_BOARD.size))
+	for i in 9:
+		var cell := Rect2(DRAW_ORIGIN + Vector2(i % 3, i / 3) * DRAW_STEP, DRAW_CELL)
+		UI.image(board, "hud_tool_slot", cell.grow(-4.0), true).name = "Slot%d" % i
 	var cursor := StyleBoxFlat.new()
 	cursor.bg_color = Color(1.0, 0.81, 0.22, 0.08)
 	cursor.border_color = Color8(255, 231, 117)
@@ -379,7 +406,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		lights.append(lit)
 		var prize: Array = Progress.DRAW_PRIZES[i]
 		UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i]).name = "PrizeArt"
-		DrawPurchaseArt.number(card, str(prize[0]) if prize[0] > 0 else "×%d" % prize[1], Rect2(14, 159, 212, 51))
+		FamilyDialog.digits(card, "Number", Rect2(14, 159, 212, 51), str(prize[0]) if prize[0] > 0 else "×%d" % prize[1])
 		cards.append(card)
 	var chest := DrawPurchaseArt.fit(board, "icon_draw_center_chest", Rect2(311, 305, 216, 224))
 	chest.name = "Chest"
@@ -394,6 +421,7 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		p._appearance.tween_property(p.content, "modulate:a", 1.0, 0.18)
 	var state := {"left": spins, "busy": false, "at": 0}
 	var go := DrawPurchaseArt.button(c, "Draw", "btn_draw_action", Rect2(182, 1366, 553, 202), func(): pass, true)
+	_kit_action(go, "white_spin", DrawPurchaseArt.SCALE)
 	UI.set_active(go, spins > 0)
 	var run := func() -> void:
 		if state["busy"] or state["left"] <= 0:
@@ -655,8 +683,7 @@ static func _chest_page(host: Control, balance: int, close_button: bool) -> Moda
 		old.queue_free()
 	var background := UI.image(p, "background_home_jungle", Rect2(0, 0, 1080, 1920), false)
 	p.move_child(background, 1)
-	p._title_layer = ShopSkin.word(p.content, "chest.title", Rect2(230, 230, 620, 170))
-	p._title_layer.name = "TitleGroup"
+	p._title_layer = ButtonKit.sign(p.content, "star_chest_title", PAGE_SIGN)
 	if close_button:
 		MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
 	if balance >= 0:
@@ -703,15 +730,12 @@ static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, c
 		Sound.play("ui_tap")
 		p.invoke(callback))
 	button.name = name
-	var face := Island.nine(button, "home_play_plate", Rect2(Vector2.ZERO, bounds.size), Vector4(220, 100, 220, 100))
+	# A hidden "Face" keeps the disabled-ink hook; the visible face is the shop's green plate.
+	var face := Control.new()
 	face.name = "Face"
-	var skin_scale := bounds.size.y / Art.tex("home_play_plate").get_height()
-	face.size = bounds.size / skin_scale
-	face.pivot_offset = Vector2.ZERO
-	face.scale = Vector2.ONE * skin_scale
-	ChestLettering.word(button, word, Rect2(48, 36, bounds.size.x - 96, 100))
-	button.button_down.connect(func(): button.modulate = Island.PRESSED)
-	button.button_up.connect(func(): button.modulate = Color.WHITE)
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(face)
+	_kit_action(button, {"chest.open": "white_open", "action.play": "white_play", "action.ok": "white_action_ok"}.get(word, word))
 	return button
 
 static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Callable, balance: int) -> Control:
@@ -740,7 +764,7 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		var art := _fit(prize, prizes[i][0], Rect2(8, 0, spacing - 16, 190), true)
 		if not _instant(host):
 			_breathe(art, i * 0.4)
-		UI.number(prize, "+%d" % prizes[i][1], Rect2(4, 204, spacing - 8, 56), Color.WHITE)
+		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
 	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(280, 1536, 520, 176), on_ok)
 	return p
 
@@ -794,7 +818,7 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 		var item := _fit(prize, prizes[i][0], Rect2(20, 0, spacing - 40, 170), true)
 		if live:
 			_breathe(item, i * 0.4)
-		FamilyDialog.number(prize, "+%d" % prizes[i][1], Rect2(8, 190, spacing - 16, 56))
+		FamilyDialog.digits(prize, "Number", Rect2(8, 190, spacing - 16, 56), "+%d" % prizes[i][1])
 	FamilyDialog.actions(p, [["green", "play", on_ok, "action.ok"]])
 	return p
 
@@ -826,7 +850,8 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	var background := DrawPurchaseArt.background(p)
 	p.move_child(background, 1)
 	var canvas := DrawPurchaseArt.canvas(p.content)
-	p._title_layer = DrawPurchaseArt.draw_heading(p.content)
+	# The hanging title sign of the shop and map pages, at the map's page position.
+	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
 	# Keep the existing direct Content/Close and Content/Confirm contracts for callers.
 	var close_at := Vector2(23, 50) * DrawPurchaseArt.SCALE + canvas.position
 	MenuNavigation.close(p.content, "Close", close_at, p.close)
@@ -865,11 +890,11 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 		if not instant:
 			rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
 			_breathe(art, i * 0.4)
-		DrawPurchaseArt.number(reward, "+%d" % prizes[i][1], Rect2(20, tile.y - 108, tile.x - 40, 80))
+		FamilyDialog.digits(reward, "Number", Rect2(20, tile.y - 108, tile.x - 40, 80), "+%d" % prizes[i][1])
 	var action_box := Rect2(Vector2(218, 1366) * DrawPurchaseArt.SCALE + canvas.position,
 		Vector2(480, 150) * DrawPurchaseArt.SCALE)
 	var action := ShopSkin.product_button(p.content, "Confirm", action_box, p.close, "green")
-	UiText.painted_label(action, "action.ok", Rect2(Vector2(48, 26) * DrawPurchaseArt.SCALE, Vector2(384, 98) * DrawPurchaseArt.SCALE))
+	_kit_action(action, "white_action_ok")
 	if not instant:
 		p.content.modulate.a = 0.0
 		p._appearance = p.create_tween()
@@ -908,7 +933,8 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 	var picture := _fit(c, "booster_%s_illus" % BOOSTER_ILLUS[booster], box.grow(-40.0), true)
 	if not _instant(host):
 		_breathe(picture, 0.0)
-	ShopSkin.product_word(c, "booster.%s.description" % BOOSTER_ID[booster], Rect2(132, ys[1] + (LINE - 54) * 0.5, 816, 54))
+	# The shop's deep green painted caption of the booster.
+	ButtonKit.lettering(c, "cap_" + FamilyDialog.BOOSTER_LETTERING[BOOSTER_ID[booster]], Rect2(132, ys[1] + (LINE - 64) * 0.5, 816, 64))
 	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
@@ -1073,7 +1099,7 @@ const ABILITY_H := 128.0
 ## Cream circle with a live bird and its ability badge at the lower right.
 static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
 	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
-	UI.art(c, "btn_home_icon_frame", r)
+	UI.art(c, "hud_tool_slot", r)   # the game page's painted slot
 	var inner := RING * 0.82
 	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
 	var effect: String = EFFECT.get(species, "")
