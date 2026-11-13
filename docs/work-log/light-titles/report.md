@@ -12,3 +12,14 @@
 - Pre-existing failures, identical on the unmodified head: run_draw_purchase (48, coin purchase simulation checks),
   run_draw_result (1, animated roll), run_purchase_close (double pointer).
 - Evidence: `evidence/runtime_all_pages.jpg` (12 pages, English and Chinese).
+
+## Board HUD follow-up
+
+- User feedback: the status capsule was too long (it touched the house) and its content sat off-centre; the undo slot
+  did not match the booster slots.
+- The capsule now hugs its content (`_status_width`: three stars, footprint, room for two digits) and ends at least
+  `STATUS_HOUSE_CLEAR` (48 px) left of the house; content centres on the capsule body below the leaf
+  (`CAPSULE_BODY`, `_capsule_mid`), not on the image box.
+- Undo uses a painted icon in the booster style (`island_icon_undo`), so all four slots share size, frame and style.
+- `tests/run_board_hud.gd` checks all of this in every world (198 checks, 0 failures).
+- Evidence: `evidence/board_hud.jpg`.
