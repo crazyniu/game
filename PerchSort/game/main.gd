@@ -217,7 +217,8 @@ func _play_next() -> void:
 	_start_level(level if level > 0 else Levels.COUNT)
 
 func _refresh_screen() -> void:
-	if screen and screen.has_method("setup") and not screen is BoardView:
+	# The coin page shows only a balance (set_balance), so it is not rebuilt from the profile.
+	if screen and screen.has_method("setup") and not screen is BoardView and not screen.has_method("set_balance"):
 		screen.setup(profile)
 	elif screen is BoardView:
 		screen.refresh_hud()
@@ -443,7 +444,15 @@ func open_coin_shop(balance: int) -> void:
 	# Keep the originating screen, overlay and confirmation mounted underneath this page.
 	add_child(view)
 	view.setup(balance)
-	view.purchase_requested.connect(view.show_preview_purchase)
+	view.purchase_requested.connect(func(pack: Dictionary):
+		view.show_purchase(pack, func(chosen: Dictionary):
+			PaymentService.purchase(chosen, func(bought: Dictionary):
+				profile.coins += int(bought["coins"])
+				save()
+				Sound.play("collect")
+				if is_instance_valid(view):
+					view.set_balance(profile.coins)
+				_refresh_screen())))
 	view.closed.connect(func():
 		remove_child(view)
 		view.queue_free()

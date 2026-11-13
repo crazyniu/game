@@ -1015,6 +1015,9 @@
     },
     "lettering_undo_more": {
       "file": "island_words/lettering_undo_more.png"
+    },
+    "lettering_coins_buy": {
+      "file": "island_words/lettering_coins_buy.png"
     }
   },
   "words": {

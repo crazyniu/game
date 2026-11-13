@@ -1,5 +1,5 @@
 extends Control
-## Six approved open-space package displays. Purchases remain an explicit simulation.
+## Six approved open-space package displays. A price opens the purchase card; paying goes through PaymentService.
 
 signal closed
 signal purchase_requested(pack: Dictionary)
@@ -27,7 +27,7 @@ func setup(balance: int) -> void:
 	var page := DrawPurchaseArt.canvas(self)
 	DrawPurchaseArt.button(page, "Close", "btn_purchase_close", Rect2(23, 50, 116, 119), func(): closed.emit())
 	DrawPurchaseArt.fit(page, "panel_purchase_balance", Rect2(619, 48, 270, 92)).name = "Balance"
-	DrawPurchaseArt.number(page, str(clampi(balance, 0, FeatherBar.DISPLAY_MAX)), Rect2(707, 73, 157, 44)).name = "BalanceNumber"
+	DrawPurchaseArt.number(page, str(clampi(balance, 0, FeatherBar.DISPLAY_MAX)), BALANCE_NUMBER).name = "BalanceNumber"
 	DrawPurchaseArt.localized(page, "label_purchase_title", Rect2(135, 115, 648, 199))
 	for i in PACKS.size():
 		var pack: Dictionary = PACKS[i]
@@ -44,19 +44,33 @@ func setup(balance: int) -> void:
 		modulate.a = 0.0
 		create_tween().tween_property(self, "modulate:a", 1.0, 0.18)
 
-## A labelled simulation result: no payment call, currency grant, or persisted state.
-func show_preview_purchase(pack: Dictionary) -> void:
+## The purchase card: pack picture, "+coins" and the pack's own price button. `on_confirm(pack)` runs on the price.
+func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 	if get_node_or_null("Popup") != null:
 		return
-	var modal := PurchaseDialog.open(self, "coins_preview", [300.0, 88.0], instant, ButtonKit.PRIMARY.y)
+	var modal := PurchaseDialog.open(self, "coins_buy", [300.0, 88.0], instant, CONFIRM_SIZE.y)
 	var ys: Array = modal.get_meta("ys")
 	var picture := Rect2(280, ys[0], 520, 300)
 	PurchaseDialog.glow(modal.content, picture)
 	DrawPurchaseArt.fit(modal.content, "icon_purchase_" + pack["id"], picture)
 	ButtonKit.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88)).name = "Number"
-	var confirm := ButtonKit.button(modal.content, "Confirm", Rect2(Vector2(540.0 - ButtonKit.PRIMARY.x * 0.5,
-		modal.panel_rect.end.y + Modal.ACTION_DROP), ButtonKit.PRIMARY), "green", modal.close)
-	ButtonKit.word(confirm.get_node("Content"), "action.ok", ButtonKit.PRIMARY)
+	var at := Vector2(540.0 - CONFIRM_SIZE.x * 0.5, modal.panel_rect.end.y + Modal.ACTION_DROP)
+	DrawPurchaseArt.button(modal.content, "Confirm", "btn_purchase_" + PRICE_KEYS[PACKS.find(pack)], Rect2(at, CONFIRM_SIZE),
+		func(): modal.invoke(on_confirm.bind(pack)))
+
+const BALANCE_NUMBER := Rect2(707, 73, 157, 44)
+const CONFIRM_SIZE := Vector2(348, 136)   # the pack's price picture at ButtonKit.PRIMARY height
+
+## The balance after a purchase.
+func set_balance(balance: int) -> void:
+	var page := get_node("ApprovedLayout")
+	var old := page.get_node("BalanceNumber")
+	var at := old.get_index()
+	page.remove_child(old)
+	old.queue_free()
+	var fresh := DrawPurchaseArt.number(page, str(clampi(balance, 0, FeatherBar.DISPLAY_MAX)), BALANCE_NUMBER)
+	fresh.name = "BalanceNumber"
+	page.move_child(fresh, at)
 
 ## Fake-data states use the canonical page and its purchase-request contract.
 static func preview(main: Control, state: String) -> void:
@@ -69,8 +83,11 @@ static func preview(main: Control, state: String) -> void:
 	elif state == "max_balance":
 		balance = FeatherBar.DISPLAY_MAX
 	view.setup(balance)
-	view.purchase_requested.connect(view.show_preview_purchase)
+	var paid := func(pack: Dictionary):
+		balance += int(pack["coins"])
+		view.set_balance(balance)
+	view.purchase_requested.connect(func(pack): view.show_purchase(pack, paid))
 	view.closed.connect(main.open_home)
 	Sound.music("bgm_menu")
 	if state == "purchase_preview":
-		view.show_preview_purchase(PACKS[2])
+		view.show_purchase(PACKS[2], paid)

@@ -121,7 +121,7 @@ func _run() -> void:
 		for pack in coin_script.PACKS:
 			coin_script.preview(main, "packages")
 			await process_frame
-			main.screen.show_preview_purchase(pack)
+			main.screen.show_purchase(pack, func(_bought): pass)
 			await process_frame
 			_verify(main.screen.get_node("Popup"), "preview_" + str(pack.id) + " " + language)
 	var path := baseline_file if record else result_file

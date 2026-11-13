@@ -98,7 +98,7 @@ func _coin_case(pack: Dictionary, language: String, edge := "center", capture :=
 	await process_frame
 	var page: Control = main.screen
 	var balance: String = str(page.get_node("ApprovedLayout/BalanceNumber").get_meta("value"))
-	page.show_preview_purchase(pack)
+	page.show_purchase(pack, func(_bought): pass)
 	await process_frame
 	await _close(page, page.get_node("Popup"), main.profile, "preview_" + str(pack.id) + " " + language + (" " + edge if edge != "center" else ""), edge, capture)
 	check(str(page.get_node("ApprovedLayout/BalanceNumber").get_meta("value")) == balance, "Preview close preserves displayed balance")
