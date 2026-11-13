@@ -171,6 +171,7 @@ func start_challenge() -> void:
 			board.suspend_input()
 			Popups.goal_info(popups, sp))
 		board.buy_requested.connect(func(kind): open_shop(0, true))
+		board.undo_more_requested.connect(_offer_undos.bind(board))
 		board.won.connect(func(_result: Dictionary):
 			profile.inventory = board.session.state.inventory.duplicate()
 			var got := Progress.complete_challenge(profile, Progress.today())
@@ -181,6 +182,25 @@ func start_challenge() -> void:
 				return
 			Popups.rewards(popups, "challenge.title", got["coins"], got["boosters"], open_home))
 		Sound.music("bgm_game"))
+
+## Undo pressed with none left: one more for coins (the coin shop opens when the balance is short) or for an ad.
+func _offer_undos(board: BoardView) -> void:
+	UndoOffer.open(popups, Progress.UNDO_PRICE, func():
+		if profile.coins < Progress.UNDO_PRICE:
+			Sound.play("error")
+			open_coin_shop(profile.coins)
+			return
+		profile.coins -= Progress.UNDO_PRICE
+		save()
+		Sound.play("collect")
+		if is_instance_valid(board):
+			board.granted_undos(1),
+	func():
+		AdService.show_rewarded(self, func():
+			if is_instance_valid(board):
+				Sound.play("reward")
+				board.granted_undos(1), instant()),
+	instant())
 
 func show_chest() -> void:
 	Popups.chest(popups, Progress.chest_progress(profile), Progress.chests_ready(profile), func():
@@ -303,6 +323,7 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		board.suspend_input()
 		Popups.goal_info(popups, sp))
 	board.buy_requested.connect(func(kind): open_shop(0, true))
+	board.undo_more_requested.connect(_offer_undos.bind(board))
 	board.won.connect(_on_won.bind(level_id))
 	Sound.music("bgm_game")
 	# First meetings and booster unlocks are shown after the entrance.

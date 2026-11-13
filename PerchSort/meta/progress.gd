@@ -8,6 +8,8 @@ const FIRST_CLEAR_COINS := [0, 50, 80, 120]
 const REPLAY_COINS := 20
 const IMPROVE_COINS := 30
 ## Star chest: one chest per this many stars; it holds coins and boosters.
+## One more undo in a level attempt once the free ones (GameSession.FREE_UNDOS) are used.
+const UNDO_PRICE := 30
 const CHEST_STARS := 30
 const CHEST_COINS := 300
 ## Test mode (set by the launcher, never saved): a chest is always ready, the lucky draw and check-in never run out and

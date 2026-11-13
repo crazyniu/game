@@ -5,6 +5,7 @@ extends Control
 signal won(result: Dictionary)          # {"session": GameSession}
 signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
+signal undo_more_requested               # undo was tapped with no undo left in this attempt
 signal goal_info_requested(species: String)
 signal profile_changed
 
@@ -1132,7 +1133,10 @@ func _build_tools() -> void:
 		x += TOOL_SIZE + gap
 		_tool_slots.append([kind, centre, kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
-			_restyle_tool(UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE), "undo")
+			var undo := UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE)
+			_restyle_tool(undo, "undo")
+			# Undos left in this attempt, "+" when none is left (pressing offers more, like an empty booster).
+			_tool_count(undo, str(session.undos_left) if session.undos_left > 0 else "+")
 			continue
 		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind), TOOL_SIZE)
 		_restyle_tool(b, TOOL_ICON_NAME[kind])
@@ -1454,7 +1458,13 @@ func _finish_action(playback: int) -> void:
 		_drain_taps()
 
 func _on_undo() -> void:
-	if busy or not session.undo():
+	if busy:
+		return
+	if session.can_undo() and session.undos_left <= 0:
+		suspend_input()
+		undo_more_requested.emit()
+		return
+	if not session.undo():
 		return
 	_cancel_playback()
 	sync_inventory()
@@ -2050,6 +2060,11 @@ func _confetti_burst(origin: Vector2) -> void:
 func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
+
+## Extra undos bought with coins or earned by an ad.
+func granted_undos(count: int) -> void:
+	session.grant_undos(count)
+	_build_tools()
 
 ## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
 ## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living

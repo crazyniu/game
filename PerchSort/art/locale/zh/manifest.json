@@ -1009,6 +1009,9 @@
     },
     "lettering_outfit_sunny_5": {
       "file": "island_words/lettering_outfit_sunny_5.png"
+    },
+    "lettering_undo_more": {
+      "file": "island_words/lettering_undo_more.png"
     }
   },
   "words": {
