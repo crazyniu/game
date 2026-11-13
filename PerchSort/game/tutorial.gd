@@ -59,7 +59,7 @@ const LESSON_BRANCHES := {
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
 const LESSON_DAY_LENGTH := 2
-const GOT_IT := Vector2(500, 188)    # ButtonKit.PRIMARY: the same size as every Play plate
+const GOT_IT := Vector2(430, 162)    # ButtonKit.PRIMARY: the same size as every Play plate
 const NIGHT_TINT := Color(0.70, 0.76, 0.98)   # board_view.gd moonlight
 const PHASE_RECT := Rect2(40, 36, 192, 104)    # board HUD day/night pill, in scene pixels
 

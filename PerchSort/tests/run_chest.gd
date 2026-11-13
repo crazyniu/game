@@ -45,7 +45,7 @@ func _run() -> void:
 		check(open.disabled == (stars < Progress.CHEST_STARS), "Open availability at %d stars" % stars)
 		check(open.size == page.get_node("Content/Play").size, "Open and Play keep equal sizes at %d stars" % stars)
 		# Actions wear the shop's green plate with a painted white word (ButtonKit), at ButtonKit.PRIMARY.
-		check(open.has_node("Kit/Face") and open.get_node("Kit").size == Vector2(500, 188), "Open wears the shop's primary plate at %d stars" % stars)
+		check(open.has_node("Kit/Face") and open.get_node("Kit").size == Vector2(430, 162), "Open wears the shop's primary plate at %d stars" % stars)
 		var word := open.get_node("Kit").get_child(1) as TextureRect
 		check(word.painted_id == "white_open", "Open uses the shop's painted white word")
 		check(page.has_node("Content/BadgeGreen") == (stars >= Progress.CHEST_STARS * 2), "ready badge at %d stars" % stars)

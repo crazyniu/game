@@ -52,8 +52,8 @@ piece has one size and one look in every state (disabled is dimmed, never smalle
 - Titles hang on a carved wooden plank from two twisted ropes with vines, hibiscus and plumeria at the ends.
 - Popups: orange wooden frame with a cream inner panel (960 wide), hibiscus and leaves at the corners, a shell at
   the bottom centre, a large rope sign (760 wide) with the gold title straddling the top edge and a cream close tile
-  at the top right. Actions sit inside the frame at the bottom: green primary pill 500 x 188 (the home Play size, user 2026-11-13), cream secondary pills
-  400 x 152 on the row under it. Hero pictures (bird, booster, chest) stand in a soft warm glow; abilities and
+  at the top right. Actions sit inside the frame at the bottom: green primary pill 430 x 162 (the home Play shape, one step smaller; user 2026-11-13), cream
+  secondary pills 346 x 130 on the row under it. Hero pictures (bird, booster, chest) stand in a soft warm glow; abilities and
   descriptions sit on cream row cards.
 - Settings: one cream row card per switch (picture, teal word, island toggle), then the language heading and one
   chip per installed language, each named in its own language; the current one is green. Any number of languages

@@ -56,7 +56,7 @@ const ARCH_FLOOR := 44.0
 ## Home (green key) in one row, the style of the shop and purchase popups (ButtonKit).
 const WIN_STATS_H := 96.0
 const WIN_STATS_CAP := 64.0
-const WIN_KEY := 152.0          # PRIMARY height 188 / 152 = 1.24 (at most 1.25)
+const WIN_KEY := 130.0          # PRIMARY height 162 / 130 = 1.246 (at most 1.25)
 const WIN_ROW_GAP := 28.0
 const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
 
@@ -1070,7 +1070,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 			rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(reward, "Number", Rect2(20, tile.y - 108, tile.x - 40, 80), "+%d" % prizes[i][1])
-	# The hit area holds the on-screen ButtonKit.PRIMARY plate (560 x 208 around 500 x 188).
+	# The hit area holds the on-screen ButtonKit.PRIMARY plate with room to spare.
 	var action_box := Rect2(Vector2(208, 1340) * DrawPurchaseArt.SCALE + canvas.position,
 		Vector2(500, 186) * DrawPurchaseArt.SCALE)
 	var action := ShopSkin.product_button(p.content, "Confirm", action_box, p.close, "green")

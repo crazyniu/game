@@ -4,21 +4,21 @@ extends RefCounted
 ## Faces are drawn at their native width / height ratio and only scaled uniformly; nothing is stretched.
 ##
 ## Size table (design pixels, 1080 x 1920):
-##   WIDE       560 x 188   the purchase action at the bottom of a purchase card (feather and price only)
-##   PRIMARY    500 x 188   the one main action of a page or popup (Play, OK): the home Play button's size
+##   WIDE       540 x 162   the purchase action at the bottom of a purchase card (feather and price only)
+##   PRIMARY    430 x 162   the one main action of a page or popup (Play, OK); the home Play's shape, one step smaller
 ##   SECONDARY  288 x 108   repeated actions inside list and shop cards (price, Equip); never beside a Primary
-##   KEY        152 x 152   square icon keys (minus, plus) beside a Primary or Wide: 188 / 152 = 1.24
+##   KEY        130 x 130   square icon keys (minus, plus) beside a Primary or Wide: 162 / 130 = 1.25
 ## Buttons that sit beside a Primary are at most 1.25 times smaller (FamilyDialog.SECONDARY, Modal.SECONDARY_PILL).
 ##   TAB        196 x 192   square category tabs
-##   FIELD      240 x 150   recessed value field (quantity); never pressable
+##   FIELD      210 x 128   recessed value field (quantity); never pressable
 ## Text inside a face is cap = 0.48 x its height.
 
-const WIDE := Vector2(560, 188)
-const PRIMARY := Vector2(500, 188)
+const WIDE := Vector2(540, 162)
+const PRIMARY := Vector2(430, 162)
 const SECONDARY := Vector2(288, 108)
-const KEY := Vector2(152, 152)
+const KEY := Vector2(130, 130)
 const TAB := Vector2(196, 192)
-const FIELD := Vector2(240, 150)
+const FIELD := Vector2(210, 128)
 const CAP := 0.48
 const PRESSED := Color(0.86, 0.86, 0.86)
 const SINK := 0.95

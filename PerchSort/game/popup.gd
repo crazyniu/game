@@ -159,7 +159,7 @@ func _appear() -> void:
 ## from the label id, else from the icon (ACTION_WORDS). Green pills are PLAY_SIZE and sit on the first row; the
 ## others are SECONDARY_PILL (1/1.25 of it) on a second row. By default pressing one closes the popup first.
 ## Returns the buttons in item order.
-const SECONDARY_PILL := Vector2(400.0, 152.0)   # UI.PLAY_SIZE 188 / 152 = 1.24 (at most 1.25)
+const SECONDARY_PILL := Vector2(346.0, 130.0)   # UI.PLAY_SIZE 162 / 130 = 1.246 (at most 1.25)
 const ROW_STACK := 28.0
 const ACTION_WORDS := {"play": "action.play", "check": "action.ok", "right": "action.next", "retry": "action.replay",
 	"home": "action.home", "buy": "action.buy"}
