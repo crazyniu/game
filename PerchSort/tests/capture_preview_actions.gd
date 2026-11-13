@@ -29,7 +29,7 @@ func _run() -> void:
 	for language in ["en", "zh"]:
 		UiText.set_language(language)
 		for pack in page.PACKS:
-			page.show_preview_purchase(pack)
+			page.show_purchase(pack, func(_bought): pass)
 			var modal: Control = page.get_node("Popup")
 			await RenderingServer.frame_post_draw
 			var image := root.get_texture().get_image()
@@ -40,7 +40,7 @@ func _run() -> void:
 			assert(not page.has_node("Popup") and JSON.stringify(main.profile.to_dict()) == before)
 			print("PREVIEW CAPTURE PASS ", pack.id, " ", language)
 	UiText.set_language("en")
-	page.show_preview_purchase(page.PACKS[2])
+	page.show_purchase(page.PACKS[2], func(_bought): pass)
 	var preview: Control = page.get_node("Popup")
 	print("PREVIEW POINTER READY: click outside-frame OK")
 	await preview.closed

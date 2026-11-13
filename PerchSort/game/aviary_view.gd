@@ -71,6 +71,9 @@ func setup(p: Profile, species := "") -> void:
 	_from_shop = not species.is_empty()
 	size = Vector2(1080, 1920)
 	_backdrop = UI.image(self, "background_aviary_forest", Rect2(0, 0, 1080, 1920))
+	var calm := ShaderMaterial.new()   # calmed like the board painting so the birds read first
+	calm.shader = preload("res://game/calm_backdrop.gdshader")
+	_backdrop.material = calm
 	_backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	if _from_shop:
 		_show_detail(species)
@@ -206,12 +209,18 @@ func _list_header(met: int, count: int) -> void:
 	ButtonKit.number(chip, "%d/%d" % [met, count], Rect2(80, 12, 152, 56)).name = "Count"
 
 func _title(label_id: String, bounds: Rect2) -> void:
-	var sign := UI.art(_page, "panel_aviary_title", bounds)
-	sign.name = "TitleGroup"
-	var word_bounds := Rect2(bounds.position + Vector2(bounds.size.x * 0.23, 26),
-		Vector2(bounds.size.x * 0.54, bounds.size.y - 52))
+	# The shared light-green title banner (ButtonKit), its lettering on the banner face.
+	# The banner is centred on the header line, level with Back / Close and the coin counter.
+	var h := bounds.size.y * (1.0 - ButtonKit.BANNER_TOP)
+	var group := Control.new()
+	group.name = "TitleGroup"
+	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(group, Rect2(bounds.position.x, HEADER_CENTER_Y - h * 0.5, bounds.size.x, h))
+	_page.add_child(group)
+	ButtonKit.banner(group, Rect2(Vector2.ZERO, group.size))
+	var face := Rect2(group.position + group.size * Vector2(0.12, 0.17), group.size * Vector2(0.76, 0.76))
 	var key := "aviary" if label_id == "aviary.title" else label_id.replace(".name", "").replace(".", "_")
-	ButtonKit.lettering(_page, key, word_bounds.grow(8.0)).name = "TitleWord"
+	ButtonKit.lettering(_page, key, face).name = "TitleWord"
 
 ## Transparent hit regions retain list dragging while the birds sit on independent leafy perches.
 func _card(id: String, at: Vector2) -> void:
@@ -566,6 +575,9 @@ static func preview(main: Control, state: String) -> void:
 		p.outfits = {"outfit.ember.5": true}
 		p.equipped = {"ember": "outfit.ember.5"}
 	var view: Control = load("res://game/aviary_view.gd").new()
+	if state == "detail_berry_flower":   # the flower costume, animated on itself
+		p.outfits = {"outfit.berry.5": true}
+		p.equipped = {"berry": "outfit.berry.5"}
 	view.instant = main.instant()
 	view.setup(p)
 	main.set_screen(view)
@@ -574,7 +586,7 @@ static func preview(main: Control, state: String) -> void:
 	match state:
 		"list_scrolled": view._set_scroll(1e6)
 		"detail_sunny": view._show_detail("sunny")
-		"detail_berry": view._show_detail("berry")
+		"detail_berry", "detail_berry_flower": view._show_detail("berry")
 		"detail_crow": view._show_detail("crow")
 		"detail_ember_skin":
 			view._show_detail("ember")

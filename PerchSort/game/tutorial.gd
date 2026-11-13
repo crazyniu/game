@@ -321,9 +321,11 @@ func _build_branches() -> void:
 		if kind[0] == Board.Kind.SWIVEL:
 			_knot = Sprite2D.new()
 			_knot.name = "Knot"
-			_knot.texture = Art.tex("swivel_knot")
-			_knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
-			_knot.position = Vector2(-150.0 if right else 150.0, 10.0 * BIRD_SCALE)
+			# The board's turn-around button: round green, on the branch tip (board_view.gd SWIVEL_*).
+			_knot.texture = Art.tex(BoardView.SWIVEL_ART)
+			_knot.scale = Vector2.ONE * BoardView.SWIVEL_SIDE * BIRD_SCALE / _knot.texture.get_width()
+			var reach := _length(b) * _branch_scale(b, kind[1]) - BoardView.SWIVEL_TIP_IN * BIRD_SCALE
+			_knot.position = Vector2(-reach if right else reach, BoardView.SWIVEL_DROP * BIRD_SCALE)
 			node.add_child(_knot)
 
 ## Width share of a branch painting that holds `seats` seats (board_view.gd _branch_width).

@@ -5,7 +5,7 @@ extends Control
 signal won(result: Dictionary)          # {"session": GameSession}
 signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
-signal goal_info_requested(species: String)
+signal undo_more_requested               # undo was tapped with no undo left in this attempt
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
@@ -63,7 +63,12 @@ const END_CLEAR := 125.0      # last seat centre to the branch tip (painted px):
 const SEAT_FIRST := 98.0      # seat 0 distance from the screen edge at density 1
 const SEAT_OUTWARD_SHIFT := 38.0  # screen pixels toward each branch's outer edge (keeps seat 3 off the tuft)
 const BIRD_SCALE := 1.10
-const PERCH_TOP := 660.0
+const CALM_BACKDROP := preload("res://game/calm_backdrop.gdshader")
+const SWIVEL_ART := "btn_swivel_green"
+const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
+const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
+const SWIVEL_DROP := -8.0     # its centre relative to the branch line
+const PERCH_TOP := 520.0   # the play area starts right under the hanging house
 const PERCH_BOTTOM := 1640.0
 const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
 const ROW_REFLOW_SECONDS := 0.45
@@ -74,7 +79,6 @@ var _rows := 2
 var _perch_step := 0.0
 var _perch_top := PERCH_TOP   # first perch line; the block of perches is centred in the play area
 var _house: Control
-var _goal_nodes := {}   # species -> Control
 var _status: Control          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
@@ -97,7 +101,6 @@ var _door_open: Control
 var _door_mask: Control
 var _resident: BirdView
 var _resident_species := -1
-var _goal_check := {}   # species -> check mark shown after delivery
 var _tool_slots: Array = []  # [kind, centre] per visible tool, for the stuck pointer
 var _bubble: Node2D
 var _bubble_tween: Tween
@@ -160,8 +163,6 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	for child in get_children():
 		child.queue_free()
 	_birds.clear()
-	_goal_nodes.clear()
-	_goal_check.clear()
 	_motes.clear()
 	_night_stars.clear()
 	_fireflies.clear()
@@ -242,8 +243,6 @@ func _cancel_playback() -> void:
 		_glow.scale = Vector2.ONE
 		if _door_open:
 			_door_open.modulate.a = 0.0
-		for goal in _goal_nodes.values():
-			goal.scale = Vector2.ONE
 	if _night_tween:
 		_night_tween.kill()
 		_night_tween = null
@@ -262,8 +261,16 @@ func _build_scene() -> void:
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
 	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	var scene_name := "board_w%d_open" % _world() if _world() in [1, 10] else "board_w%d" % _world()
-	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false)
+	# The painting is calmed behind play (calm_backdrop.gdshader) so the birds read first; the branches stay sharp.
+	var calm := ShaderMaterial.new()
+	calm.shader = CALM_BACKDROP
+	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false).material = calm
 	_night_bg = UI.image(self, scene_name + "_night_bg", Rect2(0, 0, 1080, 1920), false)
+	var calm_night := ShaderMaterial.new()   # night keeps its dark: a lighter, deep-blue wash
+	calm_night.shader = CALM_BACKDROP
+	calm_night.set_shader_parameter("wash", 0.22)
+	calm_night.set_shader_parameter("wash_color", Color(0.12, 0.16, 0.30))
+	_night_bg.material = calm_night
 	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
 	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
 	_air = Ambient.new()
@@ -380,9 +387,7 @@ func _phase_banner(night: bool) -> void:
 	var id := "board.night_falls" if night else "board.day_breaks"
 	var label_w := UI.label_width(id, BANNER_CAP)
 	var w := 40.0 + BANNER_ICON + 16.0 + label_w + 40.0
-	var top := 0.0
-	for goal in _goal_nodes.values():
-		top = maxf(top, goal.position.y + goal.size.y)
+	var top := _house_rect().end.y
 	var face := (BANNER_H - 8.0) * 0.5
 	var pill := UI.shape(_hud, Rect2(540.0 - w * 0.5, top + 32.0, w, BANNER_H), "cream", BANNER_H * 0.5, 8.0)
 	pill.name = "PhaseBanner"
@@ -502,12 +507,21 @@ func _layout_branches() -> void:
 		node.position = Vector2(edge, y + 20.0 * BIRD_SCALE)
 		_add_branch_art(node, slot, right, b, twig)
 		if s.kinds[b] == Board.Kind.SWIVEL:
+			# The turn-around button sits on the branch tip, clear of every seat, as a round green button that breathes.
 			var knot := Sprite2D.new()
-			knot.texture = Art.tex("swivel_knot")
-			knot.scale = Vector2.ONE * 0.5 * BIRD_SCALE
-			knot.position = Vector2((930.0 if right else 150.0) - edge, 10.0 * BIRD_SCALE)
+			knot.name = "SwivelButton"
+			knot.texture = Art.tex(SWIVEL_ART)
+			var side := SWIVEL_SIDE * BIRD_SCALE
+			knot.scale = Vector2.ONE * side / knot.texture.get_width()
+			var reach := _branch_width(b, s.capacity) - SWIVEL_TIP_IN * BIRD_SCALE
+			knot.position = Vector2(-reach if right else reach, SWIVEL_DROP * BIRD_SCALE)
 			node.add_child(knot)
-			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * 48.0, Vector2.ONE * 96.0), func(): _tap_swivel(b))
+			var rest := knot.scale
+			var pulse := knot.create_tween().set_loops()
+			pulse.tween_property(knot, "scale", rest * 1.07, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			pulse.tween_property(knot, "scale", rest, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			var hit := side + 24.0
+			UI.hit_area(node, Rect2(knot.position - Vector2.ONE * hit * 0.5, Vector2.ONE * hit), func(): _tap_swivel(b))
 		_branch_layer.add_child(node)
 		_branch_nodes.append(node)
 		if b >= before and before > 0 and not instant:
@@ -653,11 +667,6 @@ func _entrance(quick := false) -> void:
 		var rest_y: float = node.position.y
 		node.position.y -= 420.0
 		rise.tween_property(node, "position:y", rest_y, 0.7 * k).set_delay(ENTRANCE_HOUSE * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	var g := 0
-	for goal in _goal_nodes.values():
-		goal.scale = Vector2.ZERO
-		rise.tween_property(goal, "scale", Vector2.ONE, 0.35 * k).set_delay((ENTRANCE_HOUSE + 0.5 + 0.08 * g) * k).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		g += 1
 	var grow := _playback_tween().set_parallel()
 	for i in _branch_nodes.size():
 		var node: Node2D = _branch_nodes[i]
@@ -706,12 +715,8 @@ const STATUS_INSET := 46.0       # clear of the plank's leafy ends
 const STATUS_CAP := 52.0
 const STATUS_STAR := 56.0
 ## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
-const SHELF := "hud_goal_shelf"
-const SHELF_CAP := 170           # shelf source pixels kept at each end; the plain middle extends
-const SHELF_H := 60.0
-const STATUS_WOOD := Color(0.74, 0.56, 0.46)   # the status plates are a darker wood, so gold stars stand out
-const SHELF_LEDGE := 0.12        # the shelf's top ledge, as a share of its height
-const SHELF_ROPE_X := 64.0       # the two ropes hang from under the house, this far either side of the centre
+const CAPSULE := "hud_status_capsule"   # the light frosted-green status capsule, the title banner's family
+const CAPSULE_END := 260         # capsule source pixels kept at each end (round end, leaf sprig); the middle extends
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 56.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
@@ -745,9 +750,6 @@ const HOUSE_WIDTH := 220.0
 const HOUSE_TOP := 40.0
 const ROPE_WIDTH := 16.0
 const GOAL := 100.0
-const GOAL_PAD := 30.0           # shelf overhang past the outer goal faces
-const GOAL_GAP := 24.0
-const GOAL_TOP_GAP := 20.0
 const HUD_ICON := 64.0
 const BUBBLE_H := 112.0
 const BUBBLE_PAD := 32.0
@@ -819,7 +821,6 @@ func _build_hud() -> void:
 	gear_hit.name = "Settings"
 	gear_hit.button_down.connect(func(): gear.self_modulate = UI.PRESSED_TINT)
 	gear_hit.button_up.connect(func(): gear.self_modulate = Color.WHITE)
-	_build_goals()
 	_tool_bar = Control.new()
 	_tool_bar.name = "Tools"
 	_tool_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -924,39 +925,21 @@ func _refresh_status(with_phase := true) -> void:
 ## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
 ## its leafy ends keep their shape, only the plain middle extends.
 func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
-	var plank := _plank(parent, rect)
-	plank.name = "Plate"
-	plank.self_modulate = STATUS_WOOD
-	parent.move_child(plank, 0)
-	return plank
-
-func _plank(parent: Control, rect: Rect2) -> NinePatchRect:
-	var tex := Art.tex(SHELF)
+	var tex := Art.tex(CAPSULE)
 	var k := rect.size.y / tex.get_height()
-	var plank := NinePatchRect.new()
-	plank.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	plank.texture = tex
-	plank.patch_margin_left = SHELF_CAP
-	plank.patch_margin_right = SHELF_CAP
-	plank.position = rect.position
-	plank.size = rect.size / k
-	plank.scale = Vector2.ONE * k
-	parent.add_child(plank)
-	return plank
-
-## The wooden goal shelf, hung from under the house on two ropes; its leafy ends keep their shape.
-func _goal_shelf(parent: Control, rect: Rect2) -> void:
-	var house_bottom := _house_rect().end.y - 24.0
-	var rope_k := ROPE_WIDTH / 108.0
-	for side in [-1.0, 1.0]:
-		var rope := Control.new()
-		rope.name = "ShelfRope"
-		rope.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		rope.clip_contents = true
-		UI.place(rope, Rect2(540.0 + side * SHELF_ROPE_X - ROPE_WIDTH * 0.5, house_bottom, ROPE_WIDTH, rect.position.y + rect.size.y * 0.5 - house_bottom))
-		parent.add_child(rope)
-		UI.art(rope, "goal_rope_single", Rect2(0, 0, ROPE_WIDTH, 1260.0 * rope_k), Rect2(6, 0, 108, 1260))
-	_plank(parent, rect).name = "Shelf"
+	var plate := NinePatchRect.new()
+	plate.name = "Plate"
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.texture = tex
+	var end := mini(CAPSULE_END, int(rect.size.x / k * 0.5) - 1)
+	plate.patch_margin_left = end
+	plate.patch_margin_right = end
+	plate.position = rect.position
+	plate.size = rect.size / k
+	plate.scale = Vector2.ONE * k
+	parent.add_child(plate)
+	parent.move_child(plate, 0)
+	return plate
 
 ## A holder for the shop's painted numerals (white, dark-green outline), left aligned; _set_digits fills it.
 func _digits(parent: Control, rect: Rect2) -> Control:
@@ -1006,50 +989,9 @@ func _pulse(node: Control, pivot_x := 0.0) -> void:
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## Goal birds under the house: a cream circle with the face, then a check once delivered.
-func _build_goals() -> void:
-	var ids := Levels.species_ids(session.state)
-	var n := ids.size()
-	var size := GOAL
-	var gap := GOAL_GAP
-	if n * size + (n - 1) * gap > 984.0:
-		gap = 12.0
-		size = minf(GOAL, (984.0 - (n - 1) * gap) / maxf(1.0, n))
-	var top := _house_rect().end.y + GOAL_TOP_GAP
-	# A wide goal row moves below the status card instead of touching it.
-	var left := 540.0 - (n * 0.5) * size - (n - 1) * 0.5 * gap
-	var status := _status_rect()
-	if left < status.end.x + GOAL_GAP:
-		top = maxf(top, status.end.y + GOAL_TOP_GAP)
-	var tray := Control.new()
-	tray.name = "Goals"
-	tray.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_hud.add_child(tray)
-	# The faces stand on the shelf's ledge.
-	_goal_shelf(tray, Rect2(left - GOAL_PAD, top + size - SHELF_H * SHELF_LEDGE - 6.0, n * size + (n - 1) * gap + GOAL_PAD * 2.0, SHELF_H))
-	for i in n:
-		var sp: String = ids[i]
-		var cx := 540.0 + (i - (n - 1) * 0.5) * (size + gap)
-		var node := Control.new()
-		node.name = "Goal " + sp
-		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		UI.place(node, Rect2(Vector2(cx - size * 0.5, top), Vector2.ONE * size))
-		_hud.add_child(node)
-		UI.art(node, sp + "_face", Rect2(Vector2.ZERO, Vector2.ONE * size)).name = "Face"
-		var check := Island.check_badge(node, Vector2(size - 14.0, size - 14.0))
-		check.name = "Check"
-		_goal_check[sp] = check
-		check.visible = false
-		UI.hit_area(node, Rect2(Vector2.ZERO, Vector2.ONE * size), func(): goal_info_requested.emit(sp))
-		_goal_nodes[sp] = node
-
 func refresh_hud() -> void:
 	var s := session.state
 	_refresh_status()
-	for sp in _goal_nodes:
-		var home: bool = s.homed.has(Board.species_index(sp))
-		_goal_check[sp].visible = home
-		_goal_nodes[sp].get_node("Face").modulate = Color(1, 1, 1, 0.55) if home else Color.WHITE
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
@@ -1119,7 +1061,10 @@ func _build_tools() -> void:
 		x += TOOL_SIZE + gap
 		_tool_slots.append([kind, centre, kind < 0 or session.state.inventory[kind] == 0 or session.booster_has_effect(kind)])
 		if kind < 0:
-			_restyle_tool(UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE), "undo")
+			var undo := UI.button(_tool_bar, "Undo", centre, "cream", "undo", _on_undo, TOOL_SIZE)
+			_restyle_tool(undo, "undo")
+			# Undos left in this attempt, "+" when none is left (pressing offers more, like an empty booster).
+			_tool_count(undo, str(session.undos_left) if session.undos_left > 0 else "+")
 			continue
 		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind), TOOL_SIZE)
 		_restyle_tool(b, TOOL_ICON_NAME[kind])
@@ -1441,7 +1386,13 @@ func _finish_action(playback: int) -> void:
 		_drain_taps()
 
 func _on_undo() -> void:
-	if busy or not session.undo():
+	if busy:
+		return
+	if session.can_undo() and session.undos_left <= 0:
+		suspend_input()
+		undo_more_requested.emit()
+		return
+	if not session.undo():
 		return
 	_cancel_playback()
 	sync_inventory()
@@ -1840,7 +1791,6 @@ func _flock_home(e: Dictionary) -> void:
 		print("FLOCK_HOME species=%s chain=%d pitch=%.3f" % [e["species"], _home_chain, pitch])
 	Sound.vibrate(Sound.PULSE_HOME)
 	_set_resident(Board.species_index(e["species"]), true)
-	_goal_check[e["species"]].visible = true
 	_sparkle_burst(_door_point())
 	# The house bounces on its rope (pivot where the rope meets it) in the same 0.35 s as before.
 	_house.pivot_offset = Vector2(_house.size.x * 0.5, 0.0)
@@ -1857,11 +1807,6 @@ func _flock_home(e: Dictionary) -> void:
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE * 1.2, 0.3).from(Vector2.ONE * 0.9).set_ease(Tween.EASE_OUT)
 	glow.tween_property(_glow, "modulate:a", 0.0, 0.5).set_ease(Tween.EASE_IN)
 	glow.parallel().tween_property(_glow, "scale", Vector2.ONE, 0.5)
-	var goal: Control = _goal_nodes.get(e["species"])
-	if goal:
-		var pop := _playback_tween()
-		pop.tween_property(goal, "scale", Vector2.ONE * 1.25, 0.12)
-		pop.tween_property(goal, "scale", Vector2.ONE, 0.2)
 	await tw.finished
 	if playback != _playback_id:
 		return
@@ -1946,12 +1891,8 @@ func _gift(e: Dictionary) -> void:
 	coin.scale = Vector2.ONE * 0.2
 	_home_effects.add_child(coin)
 	Sound.play("collect")
-	var goal: Control = _goal_nodes.get(e["species"])
-	var target := coin.position
+	var target := coin.position + Vector2(0, -90)   # the gift rises out of the doorway, then fades
 	var small := 0.46 * GOAL / float(coin.texture.get_width())
-	if goal:
-		target = goal.position + goal.size * 0.8
-		small = 0.46 * goal.size.x / float(coin.texture.get_width())
 	var big := 0.8 * GOAL / float(coin.texture.get_width())
 	var tw := coin.create_tween()
 	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -1989,16 +1930,6 @@ func _play_celebration() -> void:
 	shine.tween_property(_glow, "modulate:a", 0.0, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	if _resident and is_instance_valid(_resident):
 		_resident.cheer()
-	var keys := _goal_nodes.values()
-	for i in keys.size():
-		var key: Control = keys[i]
-		key.pivot_offset = key.size * Vector2(0.5, 1.0)
-		var jump := key.create_tween()
-		jump.tween_interval(0.12 + i * 0.09)
-		jump.tween_property(key, "position:y", key.position.y - 26.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		jump.parallel().tween_property(key, "scale", Vector2.ONE * 1.12, 0.16)
-		jump.tween_property(key, "position:y", key.position.y, 0.24).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-		jump.parallel().tween_property(key, "scale", Vector2.ONE, 0.24)
 	_confetti_burst(_door_rect.get_center())
 
 ## Confetti pieces fly out of `origin` in a fan, then flutter down and fade.
@@ -2038,6 +1969,11 @@ func granted(kind: int, count: int) -> void:
 	session.grant_booster(kind, count)
 	refresh_hud()
 
+## Extra undos bought with coins or earned by an ad.
+func granted_undos(count: int) -> void:
+	session.grant_undos(count)
+	_build_tools()
+
 ## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself) and "stuck_hint" (no move left);
 ## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
@@ -2071,7 +2007,7 @@ static func preview(main: Control, state: String) -> void:
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.right(1)) * 10 - 5
+		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.trim_prefix("day_w").trim_prefix("night_w")) * 10 - 5
 		board.start(Levels.get_level(id), main.profile, false)
 		if state.begins_with("night_w"):
 			board.session.state.phase = Board.Phase.NIGHT

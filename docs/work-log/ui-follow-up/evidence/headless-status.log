@@ -1,4 +1,0 @@
-run_family_dialogs exit=0
-run_reward_quantities exit=0
-run_aviary_actions exit=0
-run_shop_cards exit=0

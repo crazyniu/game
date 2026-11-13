@@ -10,7 +10,7 @@ const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
 	9: "rainforest", 10: "wisteria"}
 const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
-	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "swivel_knot", "mama": "mama_bow"}
+	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "btn_swivel_green", "mama": "mama_bow"}
 
 ## Content sizes (design pixels).
 const STAR_SIDE := 190.0
@@ -52,21 +52,25 @@ const ARCH_FLOOR := 44.0
 # ---------------------------------------------------------------- popups
 
 ## Win: the shop's cream card with the hanging sign "Well done!", three live birds cheering above it, the stars,
-## moves and feather reward in painted numerals, booster drops, then Replay (green key), Next (green PRIMARY) and
-## Home (green key) in one row, the style of the shop and purchase popups (ButtonKit).
+## moves and feather reward in painted numerals, booster drops, then Next (green PRIMARY) with Replay and Home
+## (smaller green pills, white words like Next) on a row below; Next spans the row, the style of the shop and purchase popups (ButtonKit).
 const WIN_STATS_H := 96.0
 const WIN_STATS_CAP := 64.0
-const WIN_KEY := 130.0          # PRIMARY height 162 / 130 = 1.246 (at most 1.25)
-const WIN_ROW_GAP := 28.0
-const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
+const WIN_ROW_GAP := 22.0       # between the Next row and the Replay / Home row
+const WIN_PILL_GAP := 24.0      # between Replay and Home
+const WIN_ACTIONS_H := 162.0 + WIN_ROW_GAP + 130.0   # ButtonKit.PRIMARY.y + gap + FamilyDialog.SECONDARY.y
+const WIN_STAR_ARC := [Vector3(-1.0, 8.0, -12.0), Vector3(0.0, -14.0, 0.0), Vector3(1.0, 8.0, 12.0)]   # x side, drop, tilt
+const WIN_STAR_ROOM := 56.0     # extra height of the star row for the arc and the larger middle star
+const WIN_STAR_MIDDLE := 1.24   # the middle star is larger, the outer two tilt outwards on an arc
+const WIN_PERCH := 0.38         # the top edge of the title banner, as a share of the title box height
 
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
 		on_next: Callable, on_home: Callable, next_enabled: bool) -> Control:
 	var live := not _instant(host)
-	var heights := [FamilyDialog.STAR_ROW, WIN_STATS_H]
+	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := PurchaseDialog.open(host, "win_title", heights, not live, ButtonKit.PRIMARY.y)
+	var p := PurchaseDialog.open(host, "win_title", heights, not live, WIN_ACTIONS_H)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -97,7 +101,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
 		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
 		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
-	FamilyDialog.stars(c, ys[0], stars, live, 0.6)
+	_win_stars(c, ys[0], stars, live, 0.6)
 	# Moves and the feather reward share one row of painted numerals.
 	var cap := WIN_STATS_CAP
 	var icon := cap * 1.15
@@ -106,7 +110,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var reward_w := icon + 12.0 + ButtonKit.number_width(reward_text, cap) if reward > 0 else 0.0
 	var gap := 72.0 if reward > 0 else 0.0
 	var x := 540.0 - (moves_w + gap + reward_w) * 0.5
-	var mid: float = ys[1] + WIN_STATS_H * 0.5
+	var mid: float = ys[1] + (WIN_STATS_H) * 0.5
 	UI.art(c, "icon_star_budget_steps", Rect2(x, mid - icon * 0.5, icon, icon), Rect2(317, 217, 652, 801)).name = "MovesIcon"
 	var moves_box := _win_digits(c, "Moves", Rect2(x + icon + 12.0, mid - cap * 0.5, moves_w - icon - 12.0, cap))
 	if live:
@@ -128,22 +132,50 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 			_win_set(number, reward_text)
 	if not boosters.is_empty():
 		_drops(c, ys[-1], boosters, live, 1.5)
-	# Replay and Home are green keys either side of the green Next.
+	# Next leads; Replay and Home are the two equal SECONDARY pills under it (PRIMARY / SECONDARY = 1.25).
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP
-	var row_w := WIN_KEY * 2.0 + ButtonKit.PRIMARY.x + WIN_ROW_GAP * 2.0
-	var left := 540.0 - row_w * 0.5
-	var key_y := y + (ButtonKit.PRIMARY.y - WIN_KEY) * 0.5
-	var retry := ButtonKit.button(c, "Retry", Rect2(left, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_replay))
-	UI.art(retry.get_node("Content"), "pic_retry", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
-	var next := ButtonKit.button(c, "action_next", Rect2(left + WIN_KEY + WIN_ROW_GAP, y, ButtonKit.PRIMARY.x, ButtonKit.PRIMARY.y),
-		"green", func(): p.invoke(on_next))
-	ButtonKit.word(next.get_node("Content"), "white_action_next", ButtonKit.PRIMARY).name = "NextWord"
-	var home := ButtonKit.button(c, "Home", Rect2(left + row_w - WIN_KEY, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_home))
-	UI.art(home.get_node("Content"), "pic_home", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
+	# One block: Next spans exactly the Replay / Home row, so both rows share their left and right edges.
+	var pill := FamilyDialog.SECONDARY   # 346 x 130: PRIMARY 162 / 130 = 1.246
+	var block := pill.x * 2.0 + WIN_PILL_GAP
+	var left := 540.0 - block * 0.5
+	var next_size := Vector2(block, ButtonKit.PRIMARY.y)
+	var next := ButtonKit.button(c, "action_next", Rect2(Vector2(left, y), next_size), "wide", func(): p.invoke(on_next))
+	ButtonKit.word(next.get_node("Content"), "white_action_next", next_size).name = "NextWord"
+	var row_y := y + ButtonKit.PRIMARY.y + WIN_ROW_GAP
+	_win_pill(c, "Retry", Rect2(Vector2(left, row_y), pill), "white_action_replay", func(): p.invoke(on_replay))
+	_win_pill(c, "Home", Rect2(Vector2(left + pill.x + WIN_PILL_GAP, row_y), pill), "white_settings_home",
+		func(): p.invoke(on_home))
 	UI.set_active(next, next_enabled)
 	if live:
 		_confetti(p, 0.3)
 	return p
+
+## Three rating stars on an arc: the middle one larger and higher, the outer two lower and tilted outwards. Earned
+## stars pop in one after another with their chime.
+static func _win_stars(parent: Control, y: float, filled: int, animate: bool, delay: float) -> void:
+	var size := FamilyDialog.STAR_SIZE
+	for i in 3:
+		var arc: Vector3 = WIN_STAR_ARC[i]
+		var side := size * (WIN_STAR_MIDDLE if i == 1 else 1.0)
+		var center := Vector2(540.0 + arc.x * (size * 1.12 + FamilyDialog.STAR_GAP), y + (FamilyDialog.STAR_ROW + WIN_STAR_ROOM) * 0.5 + arc.y)
+		var bounds := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
+		var star := UI.art(parent, "island_star_full" if i < filled else "island_star_empty", bounds)
+		star.name = "RatingStar%d" % i
+		star.rotation_degrees = arc.z
+		star.set_meta("visible_box", bounds)
+		if animate and i < filled:
+			star.scale = Vector2.ZERO
+			var tween := star.create_tween()
+			tween.tween_interval(delay + 0.18 * i)
+			tween.tween_callback(Sound.play.bind("star_%d" % (i + 1)))
+			tween.tween_property(star, "scale", Vector2.ONE * 1.25, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+## A green pill smaller than Next with its white painted word, the same lettering as Next.
+static func _win_pill(parent: Control, n: String, rect: Rect2, word_id: String, action: Callable) -> Button:
+	var button := ButtonKit.button(parent, n, rect, "green", action)
+	ButtonKit.word(button.get_node("Content"), word_id, rect.size).name = "Word"
+	return button
 
 ## Painted numerals (ButtonKit, white with a dark-green outline) in a holder whose "value" meta is the text.
 static func _win_digits(parent: Control, n: String, rect: Rect2) -> Control:
@@ -271,16 +303,28 @@ static func document(host: Control, id: String) -> Control:
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
 		mechanics: Array[String], on_play: Callable, playable: bool) -> Control:
-	var per_row := 4
+	# A compact purchase-style card over the dimmed map (the player keeps seeing where they are), sized to its content,
+	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
+	var per_row := 4 if species.size() <= 8 else 5
+	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
 	var rows := ceili(species.size() / float(per_row))
 	var heights := [FamilyDialog.STAR_ROW, LINE]
 	if rows > 0:
-		heights.append(rows * RING + (rows - 1) * RING_GAP)
+		heights.append(rows * tile + (rows - 1) * LEVEL_TILE_GAP)
 	if not mechanics.is_empty():
-		heights.append(UI.COUNTER_H)
-	var p := Modal.open(host, "popup.level.title", heights, true, FamilyDialog.PRIMARY.y, 0.0, _instant(host), false, str(level))
-	FamilyDialog.decorate(p)
+		heights.append(LEVEL_MECHANIC)
+	var p := PurchaseDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), heights, _instant(host), LEVEL_PLAY.y, Modal.WIDTH)
+	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
+	# The sign carries the level number after the word, like every game dialog title.
+	var plain := p._title_layer
+	c.remove_child(plain)
+	plain.queue_free()
+	p._title_layer = FamilyDialog.sign_title(c, "popup.level.title", str(level), card)
+	var close: Control = c.get_node("Close")
+	c.move_child(p._title_layer, close.get_index())
+	# Close in the card corner exactly as in the other game dialogs, clear of the wider ordinal sign.
+	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y)
 	var ys: Array = p.get_meta("ys")
 	var g := 0
 	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
@@ -290,15 +334,39 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	g += 1
 	for i in species.size():
 		var in_row := mini(per_row, species.size() - (i / per_row) * per_row)
-		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (RING + RING_GAP),
-			ys[g] + RING * 0.5 + (i / per_row) * (RING + RING_GAP))
-		_ring(c, species[i], center, _instant(host))
+		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (tile + LEVEL_TILE_GAP),
+			ys[g] + tile * 0.5 + (i / per_row) * (tile + LEVEL_TILE_GAP))
+		_ring(c, species[i], center, _instant(host), tile)
 	if rows > 0:
 		g += 1
 	if not mechanics.is_empty():
-		_mechanic_strip(c, mechanics, ys[g])
-	UI.set_active(FamilyDialog.actions(p, [["green", "play", on_play]])[0], playable)
+		_mechanic_row(c, mechanics, ys[g])
+	var at := Vector2(540.0 - LEVEL_PLAY.x * 0.5, p.panel_rect.end.y + Modal.ACTION_DROP)
+	var play := UI.art_button(c, "Play", "btn_home_island_play_" + UiText.locale(), Rect2(at, LEVEL_PLAY), func(): p.invoke(on_play))
+	(play.get_node("Face") as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	UI.set_active(play, playable)
+	p.panel_rect = card
 	return p
+
+const LEVEL_TILE := 176.0
+const LEVEL_TILE_SMALL := 152.0
+const LEVEL_TILE_GAP := 20.0
+const LEVEL_MECHANIC := 96.0
+const LEVEL_PLAY := Vector2(500, 200)   # HomeView.PLAY.size: the home Play button
+
+## The level's mechanics as plain pictures in one centred row (no pill behind them).
+static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> void:
+	var side := 88.0
+	var gap := 44.0
+	var x := 540.0 - (mechanics.size() * side + (mechanics.size() - 1) * gap) * 0.5
+	for i in mechanics.size():
+		var art: String = MECHANIC_ART[mechanics[i]]
+		var t := _fit(c, art, Rect2(x + i * (side + gap), y + (LEVEL_MECHANIC - side) * 0.5, side, side), true)
+		t.name = "Mechanic_" + mechanics[i]
+		if art.begins_with("icon_"):
+			t.modulate = UI.INK
+		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
+			_breathe(t, i * 0.7)
 
 static func goal_info(host: Control, species: String) -> Control:
 	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, ABILITY_H], true, 0.0, 0.0, _instant(host))
@@ -433,9 +501,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		state["busy"] = true
 		UI.set_active(go, false)
 		UI.set_active(close, false)
-		state["left"] -= 1
-		var used: Control = stars[state["left"]]
-		(used as TextureRect).texture = Art.tex("star_draw_spent")
+		if not Progress.unlimited:   # the launcher's test mode keeps every star lit
+			state["left"] -= 1
+			var used: Control = stars[state["left"]]
+			(used as TextureRect).texture = Art.tex("star_draw_spent")
 		var highlight := func(at: int):
 			lights[state["at"]].modulate.a = 0.0
 			lights[at].modulate.a = 1.0
@@ -1277,31 +1346,15 @@ const ROW_W := 816.0
 const ABILITY_H := 128.0
 
 ## Cream circle with a live bird and its ability badge at the lower right.
-static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
-	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
+static func _ring(c: Control, species: String, center: Vector2, instant: bool, side := RING) -> void:
+	var r := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
 	UI.art(c, "hud_tool_slot", r)   # the game page's painted slot
-	var inner := RING * 0.82
+	var inner := side * 0.82
 	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
 	var effect: String = EFFECT.get(species, "")
 	if not effect.is_empty():
-		var b := RING * 0.42
+		var b := side * 0.42
 		UI.art(c, "gift_coin_" + effect, Rect2(r.end - Vector2(b, b) * 0.85, Vector2(b, b)))
-
-## Mechanics of the level as pictures in one cream pill, centred.
-static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> void:
-	var size := 64.0
-	var gap := 32.0
-	var w := 40.0 * 2.0 + mechanics.size() * size + (mechanics.size() - 1) * gap
-	var pill := Rect2(540.0 - w * 0.5, y, w, UI.COUNTER_H)
-	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0)
-	for i in mechanics.size():
-		var box := Rect2(pill.position.x + 40.0 + i * (size + gap), y + (UI.COUNTER_H - 8.0 - size) * 0.5, size, size)
-		var art: String = MECHANIC_ART[mechanics[i]]
-		var t := _fit(c, art, box, true)
-		if art.begins_with("icon_"):
-			t.modulate = UI.INK
-		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
-			_breathe(t, i * 0.7)
 
 
 ## Soft warm glow behind a hero picture, slowly pulsing.

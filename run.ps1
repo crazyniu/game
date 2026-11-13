@@ -1,5 +1,6 @@
 # One-click launcher for Perch Sort (Windows). Same behaviour as run.sh.
-#   .\run.ps1                 open all levels and top up to at least 50,000 coins
+#   .\run.ps1                 open all levels, top up to at least 50,000 coins, and test mode: the star chest,
+#                             daily reward and lucky draw never run out
 #   .\run.ps1 --level=12      start directly on level 12
 #   .\run.ps1 --reset         delete saved progress, then apply the launcher defaults
 #   .\run.ps1 --update        pull the latest main first (only if the checkout has no local changes)
@@ -59,7 +60,7 @@ foreach ($arg in $args) {
             }
         }
         { $_ -in '-h', '--help' } {
-            Get-Content (Join-Path $root 'run.ps1') -TotalCount 8 | Select-Object -Skip 1 | ForEach-Object { $_ -replace '^# ?', '' }
+            Get-Content (Join-Path $root 'run.ps1') -TotalCount 9 | Select-Object -Skip 1 | ForEach-Object { $_ -replace '^# ?', '' }
             exit 0
         }
         { $_ -like '--capture=*' -or $_ -like '--frames=*' -or $_ -like '--preview=*' -or $_ -like '--profile=*' -or $_ -in '--smoke', '--autoplay' } {
@@ -189,5 +190,6 @@ if ($boostProfile) {
 
 $engineFlags = @()
 if ($env:GODOT_FLAGS) { $engineFlags = $env:GODOT_FLAGS -split '\s+' | Where-Object { $_ } }
+if ($boostProfile) { $gameArgs.Add('--unlimited') }
 & $godot @engineFlags --path $project -- @($gameArgs)
 exit $LASTEXITCODE

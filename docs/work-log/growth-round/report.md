@@ -32,4 +32,4 @@ New save fields (camelCase in JSON): `musicMuted`, `levelGifts`, `chestsOpened`,
 
 ## Open
 
-See [the handoff](../../HANDOFF.md) for everything not done, including the pending kit-style decision.
+The open items listed at the time are tracked as GitHub issues.

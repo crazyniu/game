@@ -170,22 +170,33 @@ func _run() -> void:
 	main.set_screen(coins)
 	coins.setup(fake.coins)
 	for pack in coins.PACKS:
-		coins.show_preview_purchase(pack)
+		coins.show_purchase(pack, func(_bought): pass)
 		modal = coins.get_node("Popup")
 		_skin(modal, "feather " + pack.id)
-		coins.show_preview_purchase(pack)
+		coins.show_purchase(pack, func(_bought): pass)
 		check(coins.get_node("Popup") == modal, "repeated feather preview keeps one modal " + pack.id)
-		check(modal._title_id == "coins_preview" and modal.content.get_node("Number").get_meta("value") == "+%d" % pack.coins,
-			"feather preview labels simulation and exact amount " + pack.id)
+		check(modal._title_id == "coins_buy" and modal.content.get_node("Number").get_meta("value") == "+%d" % pack.coins,
+			"coin purchase card title and exact amount " + pack.id)
 		var confirm: Button = modal.content.get_node("Confirm")
 		check(confirm.position.y == modal.panel_rect.end.y + load("res://game/popup.gd").ACTION_DROP and not confirm.get_rect().intersects(modal.panel_rect),
 			"existing preview Confirm and hit area are wholly outside the frame " + pack.id)
-		check(confirm.size == load("res://game/button_kit.gd").PRIMARY and confirm.get_rect().end.y <= 1920,
-			"preview Confirm uses the primary button size and fits the viewport " + pack.id)
+		check(confirm.size == coins.CONFIRM_SIZE and confirm.get_rect().end.y <= 1920,
+			"Confirm is the pack price at the primary height and fits the viewport " + pack.id)
 		modal.content.get_node("Confirm").pressed.emit()
 		await _settle()
 		check(coins.get_node_or_null("Popup") == null and JSON.stringify(fake.to_dict()) == before,
-			"feather confirmation closes without charge or grant " + pack.id)
+			"confirm closes the card; paying is the caller's " + pack.id)
+	# Through the game: a price opens the card, Confirm pays through PaymentService and the coins arrive.
+	var before_coins: int = main.profile.coins
+	main.open_coin_shop(before_coins)
+	var shop: Control = main.get_node("CoinShop")
+	shop.get_node("ApprovedLayout/Pack_pouch/Buy_pouch").pressed.emit()
+	await _settle()
+	shop.get_node("Popup").content.get_node("Confirm").pressed.emit()
+	await _settle()
+	check(main.profile.coins == before_coins + 3600, "paying adds the pack's coins")
+	check(str(shop.get_node("ApprovedLayout/BalanceNumber").get_meta("value")) == str(mini(before_coins + 3600, load("res://game/feather_bar.gd").DISPLAY_MAX)),
+		"the page shows the new balance")
 	main.queue_free()
 	await process_frame
 	print("purchase dialog checks: %d checks, %d failures" % [checks, failures])

@@ -81,8 +81,10 @@ func _run() -> void:
 			var win: Control = popups.win(main.popups, earned, 12, 12, 120, [0, 3, 0], on_action, on_action, on_action, earned > 1)
 			# Win uses the purchase card of the shop (ButtonKit) under the same jungle backdrop as the family.
 			check(win.has_node("ForestBackground"), "independent jungle background")
-			check(win.content.get_node("Panel/Skin") is NinePatchRect, "cream card keeps fixed corners")
-			check(win.content.get_node("TitleGroup/Sign") != null, "hanging wooden title sign")
+			check(win.content.get_node("Panel/Skin") is NinePatchRect and win.content.get_node("Panel").visible, "the win stays a popup on the cream card")
+			var middle: Control = win.content.get_node("RatingStar1")
+			check(middle.get_meta("visible_box").size.x > win.content.get_node("RatingStar0").get_meta("visible_box").size.x and middle.get_meta("visible_box").position.y < win.content.get_node("RatingStar0").get_meta("visible_box").position.y, "the middle star is larger and higher")
+			check(win.content.get_node("TitleGroup/Sign") is NinePatchRect, "light-green title banner")
 			check(not win.content.has_node("Close"), "win has no close button")
 			var birds: Array[Node] = win.content.find_children("*", "BirdView", false, false)
 			check(birds.size() == 3, "win preserves all three animated birds")
@@ -97,18 +99,29 @@ func _run() -> void:
 				var front_ink: Rect2 = load("res://game/ui.gd").used_rect(bird.species + "_front")
 				var front_end: Vector2 = bird.position + (bird._sprite.offset + front_ink.end) * bird._body.scale
 				check(is_equal_approx(front_end.y, box.end.y), "actual front-frame ink lands on the designed footline")
+				var title_group: Control = win.content.get_node("TitleGroup")
+				var lettering: TextureRect = title_group.get_child(1)
+				var used: Rect2i = lettering.texture.get_image().get_used_rect()
+				var ink_top: float = title_group.position.y + lettering.position.y + used.position.y * lettering.size.y / lettering.texture.get_height()
 				var frames: Array = [bird._rest]
-				for sequence in bird._seqs.values():
-					frames.append_array(sequence)
+				for key in bird._seqs:
+					if not str(key).begins_with("flight"):   # flight frames are only shown in the air, while flying in
+						frames.append_array(bird._seqs[key])
 				for texture in frames:
 					var ink: Rect2i = texture.get_image().get_used_rect()
 					var end_y: float = bird.position.y + (bird._sprite.offset.y + ink.end.y) * bird._body.scale.y * 1.02
-					check(end_y < win.content.get_node("TitleGroup").position.y + win.content.get_node("TitleGroup").size.y * 0.3, "pose frames keep their feet on the branch, clear of the lettering")
+					check(end_y < ink_top, "perched frames keep their feet above the lettering")
 			centers.sort()
 			check(centers == [300.0, 540.0, 780.0], "bird centers are symmetric around the title")
 			var retry: Control = win.content.get_node("Retry")
 			var next: Control = win.content.get_node("action_next")
 			check(next.size.y <= retry.size.y * 1.25 + 0.01, "Next is at most 1.25 times its sibling keys")
+			var home: Control = win.content.get_node("Home")
+			check(is_equal_approx(next.position.x, retry.position.x) and is_equal_approx(next.position.x + next.size.x, home.position.x + home.size.x), "Next spans the Replay / Home row edge to edge")
+			check(retry.size == home.size, "Replay and Home are the same size")
+			check(retry.position.y > next.position.y + next.size.y and is_equal_approx(retry.position.y, home.position.y), "Replay and Home share a row under Next")
+			var card_rect: Rect2 = win.get_meta("card_rect")
+			check(card_rect.encloses(Rect2(retry.position, retry.size)) and card_rect.encloses(Rect2(home.position, home.size)) and card_rect.encloses(Rect2(next.position, next.size)), "the buttons stay inside the card")
 			check(retry.size == win.content.get_node("Home").size, "Replay and Home keys are identical")
 			var reward: Control = win.content.get_node("Reward")
 			check(reward.get_children().size() == 2, "feather reward has no backing")
@@ -125,7 +138,14 @@ func _run() -> void:
 		await _disposed(zero)
 		for playable in [false, true]:
 			var level: Control = popups.level_card(main.popups, Levels.COUNT, 3, 20, 12, species, mechanics, on_action, playable)
-			_family(level, true)
+			# The level card is a compact purchase-style card over the dimmed map with the home page's Play button.
+			check(not level.has_node("ForestBackground"), "level card keeps the map visible behind its shade")
+			check(level.content.get_node("Panel/Skin").texture == Art.tex("panel_card_cream"), "level card: the shop's cream card")
+			check(level.content.get_node("TitleGroup").has_node("Sign"), "level card: hanging sign title")
+			var play: Control = level.content.get_node("Play")
+			check(play.size == load("res://game/home_view.gd").PLAY.size, "level Play is the home Play size")
+			check(play.get_node("Face").texture == Art.tex("btn_home_island_play_" + UiText.locale()), "level Play is the home Play picture")
+			check(level.panel_rect.encloses(play.get_rect()), "Play sits inside the card")
 			check(level.content.get_node("Play").disabled == not playable, "level play availability")
 			var old := calls
 			level.content.get_node("Close").pressed.emit()

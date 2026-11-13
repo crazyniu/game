@@ -11,6 +11,11 @@ var last_move: Array = []
 var _initial: Board
 var _history: Array = []  # [Board, last_move]
 var _rules := Rules.new()
+## Undos still allowed in this attempt: FREE_UNDOS at the start, more bought with coins or earned by an ad.
+## Restart keeps the count, so restarting never refills it.
+var undos_left := FREE_UNDOS
+
+const FREE_UNDOS := 3
 
 ## Moves over par that still earn two stars.
 const TWO_STAR_SLACK := 3
@@ -100,6 +105,10 @@ func try_use_firefly(hint_move: Array) -> bool:
 	_rules.booster(state, Board.Booster.FIREFLY, true, events)
 	return true
 
+## Extra undos (bought or earned); they are not part of any snapshot.
+func grant_undos(count: int) -> void:
+	undos_left += count
+
 ## Purchases are economy transactions, not undoable actions: apply to every snapshot.
 func grant_booster(kind: int, count: int) -> void:
 	state.inventory[kind] += count
@@ -123,8 +132,9 @@ func add_branch() -> bool:
 
 func undo() -> bool:
 	_clear()
-	if _history.is_empty():
+	if _history.is_empty() or undos_left <= 0:
 		return false
+	undos_left -= 1
 	var snapshot: Array = _history.pop_back()
 	state = snapshot[0]
 	last_move = snapshot[1]

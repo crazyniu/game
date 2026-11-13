@@ -64,18 +64,39 @@ static func _wide(parent: Node, rect: Rect2) -> Control:
 	holder.add_child(skin)
 	return holder
 
-## The hanging wooden title sign (rope loops on a leafy branch) with a gold painted heading on its plank.
-const SIGN := "sign_hanging"
-const SIGN_FACE := Rect2(0.10, 0.37, 0.80, 0.60)   # plank face, as fractions of the sign
+## The title banner: one light leaf-green glossy banner with leaf sprigs at both ends (banner_title_green), used for
+## every page and popup title. Only its plain middle stretches; the leafy ends keep their painted shape. A title box
+## keeps the old sign proportions: the banner fills its lower part (from BANNER_TOP) and the lettering sits on it.
+const BANNER := "banner_title_green"
+const BANNER_END := 400          # source pixels kept at each end (rounded end and leaves)
+const BANNER_TOP := 0.30         # where the banner starts, as a share of the title box height
+const SIGN_FACE := Rect2(0.10, 0.42, 0.80, 0.56)   # lettering area on the banner face, as fractions of the title box
 static func sign(parent: Node, key: String, rect: Rect2) -> Control:
 	var holder := Control.new()
 	holder.name = "TitleGroup"
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	UI.place(holder, rect)
 	parent.add_child(holder)
-	UI.image(holder, SIGN, Rect2(Vector2.ZERO, rect.size), false).name = "Sign"
+	banner(holder, Rect2(0, rect.size.y * BANNER_TOP, rect.size.x, rect.size.y * (1.0 - BANNER_TOP)))
 	lettering(holder, key, Rect2(rect.size * SIGN_FACE.position, rect.size * SIGN_FACE.size))
 	return holder
+
+## The banner alone, fitted to `rect` by its height; named "Sign".
+static func banner(parent: Node, rect: Rect2) -> NinePatchRect:
+	var tex := Art.tex(BANNER)
+	var k := rect.size.y / tex.get_height()
+	var plate := NinePatchRect.new()
+	plate.name = "Sign"
+	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.texture = tex
+	var end := mini(BANNER_END, int(rect.size.x / k * 0.5) - 1)
+	plate.patch_margin_left = end
+	plate.patch_margin_right = end
+	plate.position = rect.position
+	plate.size = Vector2(rect.size.x / k, tex.get_height())
+	plate.scale = Vector2.ONE * k
+	parent.add_child(plate)
+	return plate
 
 ## AI-painted lettering, one style per role (titles and names: yellow with a dark-green outline; captions: deep
 ## green), shown exactly as painted. Painted id "lettering_<key>" per locale; a missing word fails loudly.

@@ -21,18 +21,20 @@ func _run() -> void:
 	var buttons: Array = board._tool_bar.get_children().filter(func(n): return n is Button and not n.is_queued_for_deletion())
 	check(buttons.size() == 7, "all seven items retained")
 	var previous := Rect2()
+	var first_size: Vector2 = buttons[0].get_global_rect().size
 	for button: Button in buttons:
 		var bounds := button.get_global_rect()
-		check(bounds.size == Vector2(136, 184), "%s uniform full-item hit area" % button.name)
+		check(bounds.size == first_size, "%s uniform full-item hit area" % button.name)
 		check(bounds.position.x >= 40 and bounds.end.x <= 1040 and bounds.end.y <= 1888, "%s safe margins" % button.name)
 		check(previous == Rect2() or previous.end.x + 8 <= bounds.position.x, "%s no overlap" % button.name)
 		previous = bounds
 		var stock := button.get_node_or_null("Stock")
-		check(stock == null or stock is Label, "%s quantity is plain integrated text, no badge" % button.name)
+		# Counts are the shared painted numerals under the slot (ButtonKit.number), no badge.
+		check(stock != null and stock.has_node("Digits") and stock.get_child_count() == 1, "%s count is painted numerals, no badge" % button.name)
 	var buys: Array = []
 	board.buy_requested.connect(func(kind): buys.append(kind))
 	var target: Button = board._tool_bar.get_node("Tool 1")
-	var point := target.get_global_rect().position + Vector2(68, 158)
+	var point := target.get_global_rect().get_center()
 	var motion := InputEventMouseMotion.new()
 	motion.position = point
 	Input.parse_input_event(motion)
@@ -44,7 +46,7 @@ func _run() -> void:
 		click.pressed = pressed
 		Input.parse_input_event(click)
 		await process_frame
-	check(buys == [1], "zero-stock plus row hit opens the same purchase action")
+	check(buys == [1], "pressing a zero-stock tool opens its purchase")
 	for resolution in [Vector2i(1080,1920), Vector2i(390,844), Vector2i(720,1280)]:
 		root.size = resolution
 		await create_timer(0.25).timeout

@@ -677,6 +677,9 @@
     "white_settings_home": {
       "file": "island_words/white_settings_home.png"
     },
+    "white_action_replay": {
+      "file": "island_words/white_action_replay.png"
+    },
     "gold_house_mushroom_name": {
       "file": "island_words/house_names.png",
       "region": [
@@ -872,6 +875,9 @@
     "lettering_coins_preview": {
       "file": "island_words/lettering_coins_preview.png"
     },
+    "lettering_coin_shop_title": {
+      "file": "island_words/lettering_coin_shop_title.png"
+    },
     "lettering_outfit_berry_1": {
       "file": "island_words/lettering_outfit_berry_1.png"
     },
@@ -1012,6 +1018,12 @@
     },
     "white_claim": {
       "file": "island_words/white_claim.png"
+    },
+    "lettering_undo_more": {
+      "file": "island_words/lettering_undo_more.png"
+    },
+    "lettering_coins_buy": {
+      "file": "island_words/lettering_coins_buy.png"
     }
   },
   "words": {

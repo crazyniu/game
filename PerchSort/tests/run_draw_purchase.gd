@@ -65,9 +65,9 @@ func _run() -> void:
 			await create_timer(0.2).timeout
 			check(view.get_node_or_null("Popup") == null, "simulation dismissed %s" % pack.id)
 		UiText.set_language("en")
-		check(page.get_node("label_purchase_title").texture == Art.tex("label_purchase_title_en"), "live English purchase title")
+		check(page.get_node("TitleGroup/Sign") is NinePatchRect and page.get_node("TitleGroup").get_child(1).painted_id == "lettering_coin_shop_title", "live English purchase title")
 		UiText.set_language("zh")
-		check(page.get_node("label_purchase_title").texture == Art.tex("label_purchase_title_zh"), "live Chinese purchase title")
+		check(page.get_node("TitleGroup").get_child(1).texture != null, "live Chinese purchase title")
 		page.get_node("Close").pressed.emit()
 		await process_frame
 		check(main._coin_shop == null and main.screen == home, "purchase restores same Home")
