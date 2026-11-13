@@ -2,6 +2,7 @@
 #   .\run.ps1                 open all levels, top up to at least 50,000 coins, and test mode: the star chest,
 #                             daily reward and lucky draw never run out
 #   .\run.ps1 --level=12      start directly on level 12
+#   .\run.ps1 --lab=1         open trial level 1 of 3 (the Dive talent); trial levels save nothing
 #   .\run.ps1 --reset         delete saved progress, then apply the launcher defaults
 #   .\run.ps1 --update        pull the latest main first (only if the checkout has no local changes)
 # The original save is backed up once as profile.before-launcher-access.json. No Python needed.

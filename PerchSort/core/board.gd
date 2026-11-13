@@ -25,6 +25,7 @@ var variant := "noon"
 var capacity := 4
 var species_count := 0
 var day_length := 0
+var dive_mask := 0   # bit per species index that has the Dive talent in this level (level field "talents")
 
 # Parallel branch arrays; items[b] is a PackedInt32Array of bird codes, bottom first.
 var items: Array[PackedInt32Array] = []
@@ -87,6 +88,23 @@ func is_asleep(code: int) -> bool:
 func free_slots(b: int) -> int:
 	return caps[b] - items[b].size()
 
+## Dive talent (species in dive_mask): the tip run of `from` may slip in under a single bird of another species
+## that sits directly on the mover's own kind. Neither that tip bird nor the bird under it may be an egg.
+func dive_target(from: int, to: int) -> bool:
+	if dive_mask == 0 or from == to or free_slots(to) <= 0 or run_count(from) == 0:
+		return false
+	var source := items[from]
+	var sp := species_of(source[source.size() - 1])
+	if (dive_mask & (1 << sp)) == 0:
+		return false
+	var target := items[to]
+	var n := target.size()
+	if n < 2:
+		return false
+	var tip := target[n - 1]
+	var under := target[n - 2]
+	return (tip & EGG) == 0 and species_of(tip) != sp and (under & EGG) == 0 and species_of(under) == sp
+
 func run_count(b: int) -> int:
 	var list := items[b]
 	var count := list.size()
@@ -119,7 +137,7 @@ func add_branch(capacity_value: int, right: bool, row: int, kind: int, birds: Pa
 func clone(copy_inventory := true) -> Board:
 	var c := Board.new()
 	c.level_id = level_id; c.world = world; c.variant = variant; c.capacity = capacity
-	c.species_count = species_count; c.day_length = day_length
+	c.species_count = species_count; c.day_length = day_length; c.dive_mask = dive_mask
 	for list in items:
 		c.items.append(list.duplicate())
 	c.caps = caps.duplicate(); c.kinds = kinds.duplicate(); c.rows = rows.duplicate(); c.rights = rights.duplicate()
