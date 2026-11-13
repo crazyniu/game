@@ -1027,6 +1027,9 @@
     },
     "lettering_coins_buy": {
       "file": "island_words/lettering_coins_buy.png"
+    },
+    "lettering_stuck": {
+      "file": "island_words/lettering_stuck.png"
     }
   },
   "words": {

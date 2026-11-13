@@ -16,6 +16,8 @@ var _rules := Rules.new()
 var undos_left := FREE_UNDOS
 
 const FREE_UNDOS := 3
+## The first stuck moment of an attempt is rescued for free (BoardView.rescue); later ones sell tools.
+var free_rescue_used := false
 
 ## Moves over par that still earn two stars.
 const TWO_STAR_SLACK := 3
@@ -140,7 +142,27 @@ func undo() -> bool:
 	last_move = snapshot[1]
 	return true
 
+## Earlier positions of this attempt, newest first: `back` 1 is the position before the last action.
+func history_size() -> int:
+	return _history.size()
+
+func history_state(back: int) -> Board:
+	return _history[_history.size() - back][0]
+
+## Steps `steps` actions back without spending the undo allowance (the stuck rescue).
+func rewind(steps: int) -> bool:
+	_clear()
+	if steps < 1 or steps > _history.size():
+		return false
+	var snapshot: Array = []
+	for i in steps:
+		snapshot = _history.pop_back()
+	state = snapshot[0]
+	last_move = snapshot[1]
+	return true
+
 func restart() -> void:
+	free_rescue_used = false
 	state = _initial.clone()
 	last_move = []
 	_history.clear()
