@@ -125,7 +125,14 @@ func _run() -> void:
 		await _disposed(zero)
 		for playable in [false, true]:
 			var level: Control = popups.level_card(main.popups, Levels.COUNT, 3, 20, 12, species, mechanics, on_action, playable)
-			_family(level, true)
+			# The level card is a compact purchase-style card over the dimmed map with the home page's Play button.
+			check(not level.has_node("ForestBackground"), "level card keeps the map visible behind its shade")
+			check(level.content.get_node("Panel/Skin").texture == Art.tex("panel_card_cream"), "level card: the shop's cream card")
+			check(level.content.get_node("TitleGroup").has_node("Sign"), "level card: hanging sign title")
+			var play: Control = level.content.get_node("Play")
+			check(play.size == load("res://game/home_view.gd").PLAY.size, "level Play is the home Play size")
+			check(play.get_node("Face").texture == Art.tex("btn_home_island_play_" + UiText.locale()), "level Play is the home Play picture")
+			check(level.panel_rect.encloses(play.get_rect()), "Play sits inside the card")
 			check(level.content.get_node("Play").disabled == not playable, "level play availability")
 			var old := calls
 			level.content.get_node("Close").pressed.emit()

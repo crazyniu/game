@@ -12,14 +12,14 @@ const ACTION_LIFT := 36.0
 ## `heights` are the content groups; `ys` metadata holds their tops. The caller puts its action pill at
 ## `panel_rect.end.y + Modal.ACTION_DROP` (inside the visible card); `action_height` reserves its room.
 static func open(host: Control, title_key: String, heights: Array, instant: bool,
-		action_height := 0.0) -> Modal:
+		action_height := 0.0, width := CARD_W) -> Modal:
 	var inner := 0.0
 	for h in heights:
 		inner += h
 	inner += GAP * maxf(0.0, heights.size() - 1)
 	var below := (ACTION_LIFT + action_height) if action_height > 0.0 else 0.0
 	var total := HEAD + inner + below + FOOT
-	var card := Rect2(Vector2((1080.0 - CARD_W) * 0.5, roundf((1920.0 - total) * 0.5 + 60.0)), Vector2(CARD_W, total))
+	var card := Rect2(Vector2((1080.0 - width) * 0.5, roundf((1920.0 - total) * 0.5 + 60.0)), Vector2(width, total))
 	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
 	dialog.panel_rect = card
 	dialog.content.pivot_offset = card.get_center()

@@ -271,16 +271,28 @@ static func document(host: Control, id: String) -> Control:
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
 		mechanics: Array[String], on_play: Callable, playable: bool) -> Control:
-	var per_row := 4
+	# A compact purchase-style card over the dimmed map (the player keeps seeing where they are), sized to its content,
+	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
+	var per_row := 4 if species.size() <= 8 else 5
+	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
 	var rows := ceili(species.size() / float(per_row))
 	var heights := [FamilyDialog.STAR_ROW, LINE]
 	if rows > 0:
-		heights.append(rows * RING + (rows - 1) * RING_GAP)
+		heights.append(rows * tile + (rows - 1) * LEVEL_TILE_GAP)
 	if not mechanics.is_empty():
-		heights.append(UI.COUNTER_H)
-	var p := Modal.open(host, "popup.level.title", heights, true, FamilyDialog.PRIMARY.y, 0.0, _instant(host), false, str(level))
-	FamilyDialog.decorate(p)
+		heights.append(LEVEL_MECHANIC)
+	var p := PurchaseDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), heights, _instant(host), LEVEL_PLAY.y, Modal.WIDTH)
+	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
+	# The sign carries the level number after the word, like every game dialog title.
+	var plain := p._title_layer
+	c.remove_child(plain)
+	plain.queue_free()
+	p._title_layer = FamilyDialog.sign_title(c, "popup.level.title", str(level), card)
+	var close: Control = c.get_node("Close")
+	c.move_child(p._title_layer, close.get_index())
+	# Close in the card corner exactly as in the other game dialogs, clear of the wider ordinal sign.
+	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y)
 	var ys: Array = p.get_meta("ys")
 	var g := 0
 	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
@@ -290,15 +302,39 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	g += 1
 	for i in species.size():
 		var in_row := mini(per_row, species.size() - (i / per_row) * per_row)
-		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (RING + RING_GAP),
-			ys[g] + RING * 0.5 + (i / per_row) * (RING + RING_GAP))
-		_ring(c, species[i], center, _instant(host))
+		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (tile + LEVEL_TILE_GAP),
+			ys[g] + tile * 0.5 + (i / per_row) * (tile + LEVEL_TILE_GAP))
+		_ring(c, species[i], center, _instant(host), tile)
 	if rows > 0:
 		g += 1
 	if not mechanics.is_empty():
-		_mechanic_strip(c, mechanics, ys[g])
-	UI.set_active(FamilyDialog.actions(p, [["green", "play", on_play]])[0], playable)
+		_mechanic_row(c, mechanics, ys[g])
+	var at := Vector2(540.0 - LEVEL_PLAY.x * 0.5, p.panel_rect.end.y + Modal.ACTION_DROP)
+	var play := UI.art_button(c, "Play", "btn_home_island_play_" + UiText.locale(), Rect2(at, LEVEL_PLAY), func(): p.invoke(on_play))
+	(play.get_node("Face") as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	UI.set_active(play, playable)
+	p.panel_rect = card
 	return p
+
+const LEVEL_TILE := 176.0
+const LEVEL_TILE_SMALL := 152.0
+const LEVEL_TILE_GAP := 20.0
+const LEVEL_MECHANIC := 96.0
+const LEVEL_PLAY := Vector2(500, 200)   # HomeView.PLAY.size: the home Play button
+
+## The level's mechanics as plain pictures in one centred row (no pill behind them).
+static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> void:
+	var side := 88.0
+	var gap := 44.0
+	var x := 540.0 - (mechanics.size() * side + (mechanics.size() - 1) * gap) * 0.5
+	for i in mechanics.size():
+		var art: String = MECHANIC_ART[mechanics[i]]
+		var t := _fit(c, art, Rect2(x + i * (side + gap), y + (LEVEL_MECHANIC - side) * 0.5, side, side), true)
+		t.name = "Mechanic_" + mechanics[i]
+		if art.begins_with("icon_"):
+			t.modulate = UI.INK
+		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
+			_breathe(t, i * 0.7)
 
 static func goal_info(host: Control, species: String) -> Control:
 	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, ABILITY_H], true, 0.0, 0.0, _instant(host))
@@ -1097,31 +1133,15 @@ const ROW_W := 816.0
 const ABILITY_H := 128.0
 
 ## Cream circle with a live bird and its ability badge at the lower right.
-static func _ring(c: Control, species: String, center: Vector2, instant: bool) -> void:
-	var r := Rect2(center - Vector2.ONE * RING * 0.5, Vector2.ONE * RING)
+static func _ring(c: Control, species: String, center: Vector2, instant: bool, side := RING) -> void:
+	var r := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
 	UI.art(c, "hud_tool_slot", r)   # the game page's painted slot
-	var inner := RING * 0.82
+	var inner := side * 0.82
 	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
 	var effect: String = EFFECT.get(species, "")
 	if not effect.is_empty():
-		var b := RING * 0.42
+		var b := side * 0.42
 		UI.art(c, "gift_coin_" + effect, Rect2(r.end - Vector2(b, b) * 0.85, Vector2(b, b)))
-
-## Mechanics of the level as pictures in one cream pill, centred.
-static func _mechanic_strip(c: Control, mechanics: Array[String], y: float) -> void:
-	var size := 64.0
-	var gap := 32.0
-	var w := 40.0 * 2.0 + mechanics.size() * size + (mechanics.size() - 1) * gap
-	var pill := Rect2(540.0 - w * 0.5, y, w, UI.COUNTER_H)
-	UI.shape(c, pill, "cream", UI.COUNTER_H * 0.5, 8.0)
-	for i in mechanics.size():
-		var box := Rect2(pill.position.x + 40.0 + i * (size + gap), y + (UI.COUNTER_H - 8.0 - size) * 0.5, size, size)
-		var art: String = MECHANIC_ART[mechanics[i]]
-		var t := _fit(c, art, box, true)
-		if art.begins_with("icon_"):
-			t.modulate = UI.INK
-		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
-			_breathe(t, i * 0.7)
 
 
 ## Soft warm glow behind a hero picture, slowly pulsing.
