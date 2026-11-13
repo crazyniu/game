@@ -69,8 +69,10 @@ every move, not only at homecoming. Rules common to all talents:
 - Deterministic, no randomness, fully undone by Undo.
 - A level lists the talents it uses; a species without a listed talent is an ordinary bird. Existing levels list
   none, so their solutions stay valid.
-- The existing homecoming gifts are unchanged during the pilot. Whether they are kept, moved onto talents or
-  retired is decided after the pilot is played.
+- The existing homecoming gifts are unchanged during the pilot. Recommendation: the game ends up with one skill
+  system, so a species that receives a talent loses its homecoming gift; confirmed after the pilot is played.
+- A talent must be used often enough to be felt: a level built around a talent needs at least three talent moves
+  on its stored solution, and its world may field two flocks of the star bird.
 
 ### 3.3 Making a talent visible
 
@@ -88,7 +90,9 @@ every move, not only at homecoming. Rules common to all talents:
 Each world owns four things; a mechanic is introduced in exactly one world and later worlds use it only as support.
 
 1. One **star bird** with a talent.
-2. One **environment rule** (candidates in 3.6).
+2. One **existing mechanic** as its setting (eggs, crows, mama birds, twigs, swivel branches, growing branches,
+   day and night). The seven mechanics already in the game are spread over the worlds, one each, instead of all
+   appearing in world 1. No new environment rules are invented until the talents are proven.
 3. About seven of its ten levels are built around its own star bird and rule.
 4. Level 10 of the world is a larger **finale** level; winning it moves the star bird into the aviary.
 
@@ -114,40 +118,57 @@ frustration of the genre (one wrong bird sitting on a nearly complete flock).
 
 ### 3.6 Candidates for later worlds (one line each; rules are fixed only after their own prototype)
 
-| World | Star bird | Talent candidate | Environment candidate |
+| World | Star bird | Talent candidate | Existing mechanic as the setting |
 | --- | --- | --- | --- |
-| 1 Green | the round flock | none | none |
-| 2 Bamboo | kingfisher | Dive (3.5) | none: the first talent stands alone |
-| 3 Autumn | woodpecker | Knock: on landing wakes every sleeper on that branch | falling leaves cover a seat for some moves |
-| 4 Snow | long-tailed tit | Huddle: lands on a full branch of its own kind as a fifth bird | frost: a frozen bird thaws when a neighbour lands |
-| 5 Blossom | parrot | Mimic: may land on any tip; keeps its own species for homecoming | none |
-| 6 Mushroom | cuckoo | Lays its egg on the branch it leaves | spores hide a bird's colour until uncovered |
-| 7 Lakeside | pelican | Carries the bird behind it along | tide: the lowest row is closed on some moves |
-| 8 Pine | magpie | Swap: trades places with the tip bird of the target | wind: every few moves tip birds shift one branch |
-| 9 Rainforest | owl | nocturnal (existing) | day and night (existing) |
-| 10 Wisteria | macaw | Call: all exposed birds of its kind fly to its branch | mixes earlier rules |
+| 1 Green | the round flock | none | sleepers |
+| 2 Bamboo | kingfisher | Dive (3.5) | eggs |
+| 3 Autumn | woodpecker | Knock: on landing wakes every sleeper on that branch | twigs |
+| 4 Snow | long-tailed tit | Huddle: lands on a full branch of its own kind as a fifth bird | growing branches |
+| 5 Blossom | parrot | Mimic: may land on any tip; keeps its own species for homecoming | mama birds |
+| 6 Mushroom | cuckoo | Lays its egg on the branch it leaves | crows |
+| 7 Lakeside | pelican | Carries the bird behind it along | swivel branches |
+| 8 Pine | magpie | Swap: trades places with the tip bird of the target | to be decided |
+| 9 Rainforest | owl | nocturnal (existing) | day and night |
+| 10 Wisteria | macaw | Call: all exposed birds of its kind fly to its branch | mixes earlier ones |
+
+Only worlds 2–4 are planned after the pilot; worlds 5–10 are a direction and are specified when reached.
 
 The species list in `tools/birds/world_designs/birds.tsv` stays as a reference for which real birds fit each
 world; its 81 paintings are not runtime art.
 
-## 4. Pilot scope
+## 4. Work in two steps
+
+### 4.1 Step one: dead ends on the real levels
+
+Small, certain and useful today, so it comes first and is not mixed into the talent trial.
+
+- Items 2 and 3 of 3.1 on all 100 levels: the notice as soon as a position is proven unwinnable, and the free
+  rewind (once per level, then the undo price). When the solver cannot prove a winnable earlier position within its
+  budget, the offer is a free restart instead.
+- The 14 levels with a losing move in the first three steps (list in the evidence table, `first_trap_step` 0–2)
+  are reported to the user with two options: regenerate just those levels now, or leave them until the worlds are
+  rebuilt. Changing levels needs the user's word.
+
+### 4.2 Step two: Dive pilot
 
 Three lab levels, played by the user, existing art only.
 
 | Lab level | Intent | Shape |
 | --- | --- | --- |
 | A "First dive" | teach: one dive wins | 3 species, 4 branches, target 4–6 moves, impossible without a dive |
-| B "Which first" | a choice: two dives are possible, only one order wins comfortably | 4 species, 6 branches, target 10–14 moves |
-| C "Deep water" | combine with sleepers and one egg | 5 species, 7 branches, target 16–22 moves |
+| B "Which first" | a choice: several dives are possible, the order matters | 4 species, 6 branches, target 10–14 moves, at least 3 dives |
+| C "Deep water" | combine with sleepers and one egg | 5 species, 7 branches, target 16–22 moves, at least 3 dives |
 
 - Lab levels are stored in `PerchSort/levels/lab.json`, opened only by a launcher argument (`--lab=<id>`), and are
   not part of the 100 levels, the map or the save.
-- Each lab level is generated or hand-authored, then accepted by tools: solvable without boosters; unsolvable when
-  the talent is switched off (A) or at least 30% longer (B, C); passes the generation rule of 3.1.
+- Each lab level is accepted by tools: solvable without boosters; unsolvable when the talent is switched off (A)
+  or at least 30% longer (B, C); passes the generation rule of 3.1.
 - Included: `Rules.can_transfer`/`transfer` for Dive, solver support through the same calls, selection preview and
-  badge, the hand in level A, the dead-end notice and free rewind of 3.1 (items 2 and 3) on lab levels.
-- Excluded: new bird art, changes to the 100 levels or their order, map/aviary/shop changes, environment rules,
-  other talents, retuning gifts.
+  badge, the hand in level A.
+- Excluded: new bird art, changes to the 100 levels or their order, map/aviary/shop changes, other talents,
+  retuning gifts.
+- Known limit: the stand-in bird with a badge will look plainer than a painted kingfisher; the pilot judges the
+  rule, not the look.
 
 ## 5. After the pilot (not authorised by this spec)
 
@@ -163,12 +184,14 @@ Three lab levels, played by the user, existing art only.
 - `bash scripts/run_tests.sh` passes; the 100 levels replay unchanged.
 - A core test covers Dive: legal and illegal targets, egg tip refused, undo restores the position, the solver
   solves A–C and proves A unsolvable without the talent.
-- Timed frame sequence of one dive (selection preview, flight, landing under the tip bird) and of the dead-end
-  notice with the free rewind.
+- Timed frame sequence of one dive (selection preview, flight, landing under the tip bird).
+- Step one has its own evidence: a timed frame sequence of the dead-end notice and the free rewind on a real level,
+  and a core test of the rewind.
 - The user plays the three lab levels on the Mac.
 
 ## 7. Open points for the user
 
 1. Is Dive acceptable as the first talent?
 2. Is one free rewind per level, then coins or an ad, the right price?
-3. Are the world themes in 3.6 acceptable as a candidate list (each is confirmed separately later)?
+3. Are the world themes in 3.6 acceptable as a direction (only worlds 2–4 are planned now)?
+4. The 14 levels with an early losing move: regenerate them now, or wait for the world rebuild?
