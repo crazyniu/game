@@ -27,6 +27,7 @@ func _ready() -> void:
 		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
 	if args.has("lang"):
 		TranslationServer.set_locale(args["lang"])   # captures: --lang=zh
+	Progress.unlimited = args.has("unlimited")   # the launcher's test mode: chest, check-in and draws never run out
 	profile = Profile.new() if sandboxed() else Profile.load_saved()
 	if args.has("profile"):
 		profile = Profile.from_dict(JSON.parse_string(args["profile"]))

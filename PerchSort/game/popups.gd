@@ -469,9 +469,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		state["busy"] = true
 		UI.set_active(go, false)
 		UI.set_active(close, false)
-		state["left"] -= 1
-		var used: Control = stars[state["left"]]
-		(used as TextureRect).texture = Art.tex("star_draw_used")
+		if not Progress.unlimited:   # the launcher's test mode keeps every star lit
+			state["left"] -= 1
+			var used: Control = stars[state["left"]]
+			(used as TextureRect).texture = Art.tex("star_draw_used")
 		var highlight := func(at: int):
 			lights[state["at"]].modulate.a = 0.0
 			lights[at].modulate.a = 1.0
