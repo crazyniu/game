@@ -336,7 +336,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		var in_row := mini(per_row, species.size() - (i / per_row) * per_row)
 		var center := Vector2(540.0 + (i % per_row - (in_row - 1) * 0.5) * (tile + LEVEL_TILE_GAP),
 			ys[g] + tile * 0.5 + (i / per_row) * (tile + LEVEL_TILE_GAP))
-		_ring(c, species[i], center, _instant(host), tile)
+		_ring(c, species[i], center, _instant(host), tile, Levels.world_of(Levels.get_level(level)))
 	if rows > 0:
 		g += 1
 	if not mechanics.is_empty():
@@ -1166,11 +1166,12 @@ const ROW_W := 816.0
 const ABILITY_H := 128.0
 
 ## Cream circle with a live bird and its ability badge at the lower right.
-static func _ring(c: Control, species: String, center: Vector2, instant: bool, side := RING) -> void:
+static func _ring(c: Control, species: String, center: Vector2, instant: bool, side := RING, world := 1) -> void:
 	var r := Rect2(center - Vector2.ONE * side * 0.5, Vector2.ONE * side)
 	UI.art(c, "hud_tool_slot", r)   # the game page's painted slot
 	var inner := side * 0.82
-	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0)
+	_bird_view(c, species, Rect2(center - Vector2.ONE * inner * 0.5 + Vector2(0, -6), Vector2.ONE * inner), instant, 0.0,
+		WorldBirds.look(species, world))
 	var effect: String = EFFECT.get(species, "")
 	if not effect.is_empty():
 		var b := side * 0.42
@@ -1314,15 +1315,15 @@ static func _canvas(stage: Control, name: String) -> TextureRect:
 	return t
 
 ## Full BirdView (breathing plus idle actions) whose front frame fits the box, feet on the box bottom.
-static func _bird_view(c: Control, species: String, box: Rect2, instant: bool, cheer_delay: float) -> BirdView:
-	var used := UI.used_rect(species + "_front")
+static func _bird_view(c: Control, species: String, box: Rect2, instant: bool, cheer_delay: float, look := "") -> BirdView:
+	var used := UI.used_rect((look if not look.is_empty() else species) + "_front")
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
 	var feet := Vector2(box.get_center().x - (used.get_center().x - BirdView.CANVAS * 0.5) * k,
 		box.end.y - (used.end.y - BirdView.FEET_Y) * k)
 	var bird := BirdView.new()
 	c.add_child(bird)
 	bird.position = feet
-	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY)
+	bird.setup(Board.bird(0, Board.species_index(species), 0), false, k * BirdView.CANVAS / BirdView.DISPLAY, look)
 	bird.quiet = instant
 	if cheer_delay > 0.0 and not instant:
 		var tw := bird.create_tween().set_loops()

@@ -496,7 +496,7 @@ func _set_birds(layout: Array) -> void:
 			var code := _code(b * 8 + i, str(layout[b][i]))
 			var asleep := (code & Board.ASLEEP) != 0 or (lesson == "daynight" and not _night
 				and Board.is_nocturnal(Board.species_of(code)))
-			bird.setup(code, asleep, BIRD_SCALE)
+			bird.setup(code, asleep, BIRD_SCALE, WorldBirds.look(Board.SPECIES[Board.species_of(code)], world))
 			bird.position = _seat(b, i)
 			_birds_layer.add_child(bird)
 			if instant:
@@ -541,7 +541,7 @@ func _set_resident(species: String) -> void:
 	if species.is_empty():
 		return
 	_resident = BirdView.new()
-	_resident.setup(Board.bird(0, Board.species_index(species), 0), false, 0.58)
+	_resident.setup(Board.bird(0, Board.species_index(species), 0), false, 0.58, WorldBirds.look(species, world))
 	_door_mask.add_child(_resident)
 	var feet := Vector2(_door_mask.size.x * 0.5, _door_mask.size.y * 0.97)
 	_resident.position = feet
