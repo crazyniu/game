@@ -167,9 +167,6 @@ func start_challenge() -> void:
 		board.start(def, profile, not instant())
 		board.profile_changed.connect(save)
 		board.settings_requested.connect(func(): show_settings(true))
-		board.goal_info_requested.connect(func(sp):
-			board.suspend_input()
-			Popups.goal_info(popups, sp))
 		board.buy_requested.connect(func(kind): open_shop(0, true))
 		board.undo_more_requested.connect(_offer_undos.bind(board))
 		board.won.connect(func(_result: Dictionary):
@@ -320,9 +317,6 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
-	board.goal_info_requested.connect(func(sp):
-		board.suspend_input()
-		Popups.goal_info(popups, sp))
 	board.buy_requested.connect(func(kind): open_shop(0, true))
 	board.undo_more_requested.connect(_offer_undos.bind(board))
 	board.won.connect(_on_won.bind(level_id))
