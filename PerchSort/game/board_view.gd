@@ -121,6 +121,8 @@ var _hint_level := -1
 var _shown_hint_key := PackedInt32Array()
 var _hint_pointer: Sprite2D
 var _hint_motion: Tween
+var _hint_mask: ColorRect
+var _hint_trail: Node2D
 var _hint_move: Array = []
 var _home_chain := 0        # homings in the current chain already played
 
@@ -1597,40 +1599,132 @@ func _apply_hint(move: Array) -> void:
 	refresh_hud()
 	show_hint(move)
 
-## Point to the next click: awake source first, then its landing seat; swivels target the knot.
+## A hint dims the board around the move's two branches (a soft spotlight with a pulsing rim) and a hand
+## shows the move: it taps the source birds, glides along a dotted arc to the landing seat and taps there,
+## then starts again. A swivel hint lights its branch and taps the turn-around button. Taps pass through.
+const HINT_SPOTLIGHT := preload("res://game/hint_spotlight.gdshader")
+const HINT_HAND_SCALE := 0.75
+const HINT_HOLE_PAD := 34.0
+const HINT_HOLE_HEAD := 190.0     # space above the perch for the standing birds
+const HINT_HOLE_FOOT := 70.0
+const HINT_DOTS := 9
+
 func show_hint(move: Array) -> void:
+	if _hint_move == move and is_instance_valid(_hint_mask):
+		return   # the same hint stays up (re-selecting its source does not restart the fade)
 	_hide_hint()
 	_hint_move = move.duplicate()
+	var s := session.state
+	var swivel: bool = move[1] < 0
+	var source := seat_point(move[0], s.items[move[0]].size() - 1) + Vector2(0, -60)
+	var target: Vector2
+	if swivel:
+		var reach := _branch_width(move[0], s.capacity) - SWIVEL_TIP_IN * BIRD_SCALE
+		var right := s.rights[move[0]] == 1
+		target = Vector2(1080.0 - reach if right else reach, perch_y(move[0]) + 20.0 * BIRD_SCALE + SWIVEL_DROP * BIRD_SCALE)
+	else:
+		target = seat_point(move[1], s.items[move[1]].size()) + Vector2(0, -60)
+	# Spotlight mask above the board and HUD; it never takes input.
+	var mask := ColorRect.new()
+	mask.name = "HintSpotlight"
+	mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mask.size = Vector2(1080, 1920)
+	var mat := ShaderMaterial.new()
+	mat.shader = HINT_SPOTLIGHT
+	mat.set_shader_parameter("hole_a", _hint_hole(move[0]))
+	mat.set_shader_parameter("hole_b", Vector4.ZERO if swivel else _hint_hole(move[1]))
+	mask.material = mat
+	add_child(mask)
+	_hint_mask = mask
+	# Dotted arc from source to target, revealed as the hand travels.
+	var control := (source + target) * 0.5 + Vector2(0, -minf(260.0, 90.0 + source.distance_to(target) * 0.35))
+	var trail := Node2D.new()
+	trail.name = "HintTrail"
+	trail.set_meta("shown", 0.0 if not instant else 1.0)
+	trail.set_meta("ripple", -1.0)   # 0..1 while a tap ring spreads from the fingertip, else -1
+	trail.set_meta("ripple_at", source)
+	trail.draw.connect(func():
+		var ripple: float = trail.get_meta("ripple")
+		if ripple >= 0.0:
+			var ring: Vector2 = trail.get_meta("ripple_at")
+			trail.draw_arc(ring, 26.0 + 58.0 * ripple, 0.0, TAU, 48, Color(1.0, 0.9, 0.5, 1.0 - ripple), 9.0 * (1.0 - ripple) + 2.0, true)
+		if swivel:
+			return
+		var shown: float = trail.get_meta("shown")
+		for i in HINT_DOTS:
+			var t := (i + 1.0) / (HINT_DOTS + 1.0)
+			if t > shown:
+				break
+			var at := source.lerp(control, t).lerp(control.lerp(target, t), t)
+			trail.draw_circle(at, 13.0, Color(0.36, 0.22, 0.05, 0.35))
+			trail.draw_circle(at, 9.0, Color(1.0, 0.93, 0.62)))
+	add_child(trail)
+	_hint_trail = trail
 	var hand := Sprite2D.new()
 	_hint_pointer = hand
 	hand.texture = Art.tex("hand_pointer")
-	hand.scale = Vector2.ONE * 0.45
+	hand.scale = Vector2.ONE * HINT_HAND_SCALE
 	hand.offset = Vector2(40, 60)
 	add_child(hand)
-	var target: Vector2
-	if move[1] < 0:
-		target = Vector2(930.0 if session.state.rights[move[0]] == 1 else 150.0, perch_y(move[0]) + 30.0 * BIRD_SCALE)
-	elif session.selected == move[0]:
-		target = seat_point(move[1], session.state.items[move[1]].size()) + Vector2(0, -60)
-	else:
-		target = seat_point(move[0], session.state.items[move[0]].size() - 1) + Vector2(0, -60)
-	hand.position = target
+	hand.position = target if swivel else source
 	if instant:
+		trail.queue_redraw()
 		return
+	mat.set_shader_parameter("fade", 0.0)
+	var fade_in := mask.create_tween()
+	fade_in.tween_method(func(v: float): mat.set_shader_parameter("fade", v), 0.0, 1.0, 0.3)
 	var tw := hand.create_tween().set_loops()
 	_hint_motion = tw
-	tw.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_property(hand, "position:y", target.y - 18.0, 0.4)
-	tw.tween_property(hand, "position:y", target.y, 0.4)
+	var rest := Vector2.ONE * HINT_HAND_SCALE
+	var press := rest * 0.82
+	if swivel:
+		_hint_tap(tw, hand, trail, target, rest, press)
+		tw.tween_interval(0.4)
+		return
+	tw.tween_callback(func():
+		hand.position = source
+		hand.modulate.a = 1.0
+		trail.set_meta("shown", 0.0)
+		trail.queue_redraw())
+	_hint_tap(tw, hand, trail, source, rest, press)
+	tw.tween_method(func(t: float):
+		hand.position = source.lerp(control, t).lerp(control.lerp(target, t), t)
+		trail.set_meta("shown", t)
+		trail.queue_redraw(), 0.0, 1.0, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_hint_tap(tw, hand, trail, target, rest, press)
+	tw.tween_interval(0.1)
+	tw.tween_property(hand, "modulate:a", 0.0, 0.2)
+	tw.tween_interval(0.15)
+
+## One tap of the hint hand: it presses in and springs back while a ring spreads from the fingertip.
+func _hint_tap(tw: Tween, hand: Sprite2D, trail: Node2D, at: Vector2, rest: Vector2, press: Vector2) -> void:
+	tw.tween_property(hand, "scale", press, 0.16).set_trans(Tween.TRANS_SINE)
+	tw.tween_callback(func(): trail.set_meta("ripple_at", at))
+	tw.tween_property(hand, "scale", rest, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_method(func(t: float):
+		trail.set_meta("ripple", t if t < 1.0 else -1.0)
+		trail.queue_redraw(), 0.0, 1.0, 0.45)
+	tw.tween_interval(0.25)
+
+## The spotlight hole of one branch: its seats and standing birds, from the screen edge to past the last seat.
+func _hint_hole(b: int) -> Vector4:
+	var s := session.state
+	var width := _branch_width(b, s.capacity) + HINT_HOLE_PAD
+	var y := perch_y(b)
+	var x := 1080.0 - width if s.rights[b] == 1 else -HINT_HOLE_PAD
+	return Vector4(x, y - HINT_HOLE_HEAD, width + HINT_HOLE_PAD, HINT_HOLE_HEAD + HINT_HOLE_FOOT)
 
 func _hide_hint() -> void:
 	_hint_move = []
 	if _hint_motion:
 		_hint_motion.kill()
 		_hint_motion = null
-	if _hint_pointer:
-		_hint_pointer.queue_free()
-		_hint_pointer = null
+	for node in [_hint_pointer, _hint_trail, _hint_mask]:
+		if is_instance_valid(node):
+			node.queue_free()
+	_hint_pointer = null
+	_hint_trail = null
+	_hint_mask = null
 
 ## ---------- event playback ----------
 
