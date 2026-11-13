@@ -710,19 +710,20 @@ func _entrance(quick := false) -> void:
 
 ## Exposed, aligned HUD: stars, footprint and remaining star-budget share one row.
 ## The budget hides on the last star; day/night information stays below without a backing panel.
-const STATUS_AT := Vector2(32, 48)
-const STATUS_H := 104.0
-const STATUS_W := 396.0          # ends left of the widest painted house (houses are 220 px wide, from x 430)
+const STATUS_AT := Vector2(28, 48)
+const STATUS_H := 92.0
+const STATUS_HOUSE_CLEAR := 48.0  # the capsule always ends at least this far left of the house
 const PHASE_W := 200.0
 const STATUS_GAP := 16.0         # between the two cards
-const STATUS_INSET := 46.0       # clear of the plank's leafy ends
-const STATUS_CAP := 52.0
-const STATUS_STAR := 56.0
+const STATUS_INSET := 30.0       # inside the capsule's round ends
+const STATUS_CAP := 44.0
+const STATUS_STAR := 46.0
 ## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
 const CAPSULE := "hud_status_capsule"   # the light frosted-green status capsule, the title banner's family
 const CAPSULE_END := 260         # capsule source pixels kept at each end (round end, leaf sprig); the middle extends
+const CAPSULE_BODY := Vector2(78.0 / 370.0, 1.0)   # the capsule body's top and bottom (the leaf rises above it), shares of its height
 const STATUS_STAR_GAP := 2.0
-const STATUS_ICON := 56.0
+const STATUS_ICON := 46.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
 const LABEL_BASELINE := 160.0
@@ -836,7 +837,16 @@ func _build_hud() -> void:
 ## Bottom of the status pills (the phase pill only on day/night levels).
 func _status_rect() -> Rect2:
 	var h := STATUS_H * 2.0 + STATUS_GAP if session.state.day_length > 0 else STATUS_H
-	return Rect2(STATUS_AT, Vector2(STATUS_W, h))
+	return Rect2(STATUS_AT, Vector2(_status_width(), h))
+
+## The capsule hugs its content: three stars, the footprint and room for a two-digit count.
+func _status_width() -> float:
+	return STATUS_INSET * 2.0 + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 14.0 + STATUS_ICON + 6.0 \
+		+ ButtonKit.number_width("88", STATUS_CAP)
+
+## The vertical centre of the capsule body (below the leaf sprig) in a plate of height h.
+static func _capsule_mid(h: float) -> float:
+	return h * (CAPSULE_BODY.x + CAPSULE_BODY.y) * 0.5
 
 ## A painted label whose baseline sits at `baseline`, at exactly `cap` cap height.
 func _place_label(parent: Node, id: String, x: float, baseline: float, cap: float) -> TextureRect:
@@ -867,20 +877,21 @@ func _set_stars(stars: Array, lit: int) -> void:
 		stars[i].texture = _star_texture(i < lit)
 
 func _build_status() -> void:
-	var face := (STATUS_H - 4.0) * 0.5   # visual centre of the painted bar
+	var face := _capsule_mid(STATUS_H)   # content centres on the capsule body, not on the leaf above it
+	var width := _status_width()
 	_status = Control.new()
 	_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(_status, Rect2(STATUS_AT, Vector2(STATUS_W, STATUS_H)))
+	UI.place(_status, Rect2(STATUS_AT, Vector2(width, STATUS_H)))
 	_hud.add_child(_status)
 	_status.name = "Status"
 	_hud_pill(_status, Rect2(Vector2.ZERO, _status.size))
 	_status_stars = _make_stars(_status, Vector2(STATUS_INSET, face - STATUS_STAR * 0.5), STATUS_STAR, STATUS_STAR_GAP)
-	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 16.0
+	var moves_x := STATUS_INSET + 3.0 * STATUS_STAR + 2.0 * STATUS_STAR_GAP + 14.0
 	_moves_icon = UI.art(_status, "icon_star_budget_steps", Rect2(moves_x, face - STATUS_ICON * 0.5, STATUS_ICON, STATUS_ICON), Rect2(317, 217, 652, 801))
 	_stars_centred = false
 	_shown_stars = -1
 	var number_x := moves_x + STATUS_ICON + 6.0
-	_moves_number = _digits(_status, Rect2(number_x, face - STATUS_CAP * 0.5, STATUS_W - STATUS_INSET - number_x, STATUS_CAP))
+	_moves_number = _digits(_status, Rect2(number_x, face - STATUS_CAP * 0.5, width - STATUS_INSET - number_x, STATUS_CAP))
 	_phase_chip = null
 	_phase_icons.clear()
 	_phase_number = null
@@ -1036,9 +1047,10 @@ func _restyle_tool(button: Button, icon_name: String) -> void:
 	if old_icon:
 		old_icon.name = "UnusedIcon"
 		old_icon.hide()
-	var picture: String = UI.PICTURES[icon_name]
+	# Undo is painted like the boosters (island_icon_undo), so all four slots share one style.
+	var picture: String = "island_icon_undo" if icon_name == "undo" else UI.PICTURES[icon_name]
 	var content: Rect2 = {
-		"undo": Rect2(30, 26, 201, 220), "bulb": Rect2(19, 11, 304, 371),
+		"undo": UI.used_rect("island_icon_undo"), "bulb": Rect2(19, 11, 304, 371),
 		"sapling": Rect2(16, 17, 333, 289), "eye": Rect2(17, 12, 366, 359),
 		"bell": Rect2(16, 17, 368, 335), "scarecrow": Rect2(16, 16, 387, 395),
 		"rain": Rect2(16, 17, 319, 386)
