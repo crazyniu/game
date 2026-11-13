@@ -52,12 +52,13 @@ const ARCH_FLOOR := 44.0
 # ---------------------------------------------------------------- popups
 
 ## Win: the shop's cream card with the hanging sign "Well done!", three live birds cheering above it, the stars,
-## moves and feather reward in painted numerals, booster drops, then Replay (green key), Next (green PRIMARY) and
-## Home (green key) in one row, the style of the shop and purchase popups (ButtonKit).
+## moves and feather reward in painted numerals, booster drops, then Next (green PRIMARY) with Replay and Home
+## (smaller green pills, white words like Next) on a row below, the style of the shop and purchase popups (ButtonKit).
 const WIN_STATS_H := 96.0
 const WIN_STATS_CAP := 64.0
-const WIN_KEY := 112.0          # PRIMARY height 136 / 112 = 1.21 (at most 1.25)
-const WIN_ROW_GAP := 28.0
+const WIN_ROW_GAP := 22.0       # between the Next row and the Replay / Home row
+const WIN_PILL_GAP := 28.0      # between Replay and Home
+const WIN_ACTIONS_H := 136.0 + WIN_ROW_GAP + 136.0 / 1.25   # ButtonKit PRIMARY.y + gap + pill height
 const WIN_PERCH := 0.13         # the top of the hanging sign's branch, as a share of the sign height
 
 static func win(host: Control, stars: int, moves: int, par: int, reward: int, boosters: Array, on_replay: Callable,
@@ -66,7 +67,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var heights := [FamilyDialog.STAR_ROW, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := PurchaseDialog.open(host, "win_title", heights, not live, ButtonKit.PRIMARY.y)
+	var p := PurchaseDialog.open(host, "win_title", heights, not live, WIN_ACTIONS_H)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -128,22 +129,27 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 			_win_set(number, reward_text)
 	if not boosters.is_empty():
 		_drops(c, ys[-1], boosters, live, 1.5)
-	# Replay and Home are green keys either side of the green Next.
+	# Next leads; Replay and Home are the two equal SECONDARY pills under it (PRIMARY / SECONDARY = 1.25).
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP
-	var row_w := WIN_KEY * 2.0 + ButtonKit.PRIMARY.x + WIN_ROW_GAP * 2.0
-	var left := 540.0 - row_w * 0.5
-	var key_y := y + (ButtonKit.PRIMARY.y - WIN_KEY) * 0.5
-	var retry := ButtonKit.button(c, "Retry", Rect2(left, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_replay))
-	UI.art(retry.get_node("Content"), "pic_retry", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
-	var next := ButtonKit.button(c, "action_next", Rect2(left + WIN_KEY + WIN_ROW_GAP, y, ButtonKit.PRIMARY.x, ButtonKit.PRIMARY.y),
-		"green", func(): p.invoke(on_next))
+	var next := ButtonKit.button(c, "action_next", Rect2(540.0 - ButtonKit.PRIMARY.x * 0.5, y, ButtonKit.PRIMARY.x,
+		ButtonKit.PRIMARY.y), "green", func(): p.invoke(on_next))
 	ButtonKit.word(next.get_node("Content"), "white_action_next", ButtonKit.PRIMARY).name = "NextWord"
-	var home := ButtonKit.button(c, "Home", Rect2(left + row_w - WIN_KEY, key_y, WIN_KEY, WIN_KEY), "key_green", func(): p.invoke(on_home))
-	UI.art(home.get_node("Content"), "pic_home", Rect2(Vector2.ONE * WIN_KEY * 0.18, Vector2.ONE * WIN_KEY * 0.64))
+	var pill := ButtonKit.PRIMARY / 1.25
+	var left := 540.0 - pill.x - WIN_PILL_GAP * 0.5
+	var row_y := y + ButtonKit.PRIMARY.y + WIN_ROW_GAP
+	_win_pill(c, "Retry", Rect2(Vector2(left, row_y), pill), "white_action_replay", func(): p.invoke(on_replay))
+	_win_pill(c, "Home", Rect2(Vector2(left + pill.x + WIN_PILL_GAP, row_y), pill), "white_settings_home",
+		func(): p.invoke(on_home))
 	UI.set_active(next, next_enabled)
 	if live:
 		_confetti(p, 0.3)
 	return p
+
+## A green pill smaller than Next with its white painted word, the same lettering as Next.
+static func _win_pill(parent: Control, n: String, rect: Rect2, word_id: String, action: Callable) -> Button:
+	var button := ButtonKit.button(parent, n, rect, "green", action)
+	ButtonKit.word(button.get_node("Content"), word_id, rect.size).name = "Word"
+	return button
 
 ## Painted numerals (ButtonKit, white with a dark-green outline) in a holder whose "value" meta is the text.
 static func _win_digits(parent: Control, n: String, rect: Rect2) -> Control:

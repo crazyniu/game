@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw5r0hylurp6h"
-path="res://.godot/imported/swivel_knot.png-29beb9da10bbddca7312f3a82f64a0e5.ctex"
+uid="uid://dsjvskyrtmqfb"
+path="res://.godot/imported/white_action_replay.png-5b08fdb54d38b2f6349554743af2e05a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/swivel_knot.png"
-dest_files=["res://.godot/imported/swivel_knot.png-29beb9da10bbddca7312f3a82f64a0e5.ctex"]
+source_file="res://art/locale/zh/island_words/white_action_replay.png"
+dest_files=["res://.godot/imported/white_action_replay.png-5b08fdb54d38b2f6349554743af2e05a.ctex"]
 
 [params]
 

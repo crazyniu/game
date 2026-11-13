@@ -680,6 +680,9 @@
     "white_settings_home": {
       "file": "island_words/white_settings_home.png"
     },
+    "white_action_replay": {
+      "file": "island_words/white_action_replay.png"
+    },
     "gold_house_mushroom_name": {
       "file": "island_words/house_names.png",
       "region": [
