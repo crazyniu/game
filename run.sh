@@ -3,6 +3,7 @@
 #   ./run.sh                 open all levels, top up to at least 50,000 coins, and test mode: the star chest,
 #                            daily reward and lucky draw never run out
 #   ./run.sh --level=12      start directly on level 12
+#   ./run.sh --lab=1         open trial level 1 of 3 (the Dive talent); trial levels save nothing
 #   ./run.sh --reset         delete saved progress, then apply the launcher defaults
 #   ./run.sh --update        pull the latest main first (only if the checkout has no local changes)
 # The original save is backed up once as profile.before-launcher-access.json. Requires Python 3.
@@ -42,7 +43,7 @@ for arg in "$@"; do
         git -C "$root" pull --ff-only origin main
       fi ;;
     -h|--help)
-      sed -n '2,9p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
+      sed -n '2,10p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'
       exit 0 ;;
     --capture=*|--frames=*|--preview=*|--smoke|--autoplay|--profile=*)
       boost_profile=false

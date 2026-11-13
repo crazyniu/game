@@ -626,7 +626,61 @@ func _make_bird(code: int, at: Vector2) -> BirdView:
 	if instant:
 		bird.freeze()
 	_birds[Board.id_of(code)] = bird
+	if (code & Board.EGG) == 0 and (session.state.dive_mask & (1 << Board.species_of(code))) != 0:
+		var badge := Sprite2D.new()
+		badge.name = "TalentBadge"
+		badge.texture = Art.tex("talent_dive")
+		badge.scale = Vector2.ONE * TALENT_BADGE / badge.texture.get_width()
+		badge.position = TALENT_BADGE_AT * BIRD_SCALE
+		bird.add_child(badge)
 	return bird
+
+## ---------- talents ----------
+
+## A bird with a talent wears its badge by the head. Selecting a Dive run lights every branch it can only reach by
+## diving: a glow on the seat it would take, and the bird it would pass bobs once.
+const TALENT_BADGE := 50.0
+const TALENT_BADGE_AT := Vector2(24, -134)   # from the bird's feet, before the board's bird scale
+const DIVE_GLOW := Color(0.1, 0.8, 1.0, 0.9)
+var _dive_marks: Array[Node] = []
+
+func _show_dive_targets(from: int) -> void:
+	_hide_dive_targets()
+	var s := session.state
+	for to in s.branch_count():
+		if to == from or Rules._lands_on_top(s, from, to) or not s.dive_target(from, to):
+			continue
+		var seat := s.items[to].size() - 1
+		var glow := Sprite2D.new()
+		glow.texture = Art.tex("glow_soft")
+		glow.modulate = DIVE_GLOW
+		glow.position = seat_point(to, seat) + Vector2(0, -70.0 * BIRD_SCALE)
+		var side := 290.0 * BIRD_SCALE
+		glow.scale = Vector2.ONE * side / glow.texture.get_width()
+		glow.set_meta("branch", to)
+		_bird_layer.add_child(glow)
+		_bird_layer.move_child(glow, 0)
+		_dive_marks.append(glow)
+		if instant:
+			continue
+		var base := glow.scale
+		var pulse := glow.create_tween().set_loops()
+		pulse.tween_method(func(t: float):
+			var wave := (1.0 - cos(t * TAU)) * 0.5
+			glow.modulate.a = 0.6 + 0.35 * wave
+			glow.scale = base * (0.9 + 0.2 * wave), 0.0, 1.0, 0.9)
+		var passed: BirdView = _birds.get(Board.id_of(s.items[to][seat]))
+		if passed:
+			var rest := passed.position
+			var bob := passed.create_tween()
+			bob.tween_property(passed, "position:y", rest.y - 16.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			bob.tween_property(passed, "position:y", rest.y, 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+
+func _hide_dive_targets() -> void:
+	for mark in _dive_marks:
+		if is_instance_valid(mark):
+			mark.queue_free()
+	_dive_marks.clear()
 
 ## Snap every bird to its seat (after undo/restart or as a safety net).
 func sync_birds() -> void:
@@ -1213,7 +1267,9 @@ func _lift(b: int, on: bool) -> void:
 		var bird: BirdView = _birds.get(Board.id_of(list[i]))
 		if bird:
 			bird.set_selected(on)
+	_hide_dive_targets()
 	if on:
+		_show_dive_targets(b)
 		for other in _birds.values():
 			if is_instance_valid(other) and not other.selected and randf() < 0.3:
 				other.look_at_x(seat_x(b, 0))
@@ -1855,6 +1911,10 @@ func _fly_group(e: Dictionary) -> void:
 		var ids: PackedInt32Array = e["ids"]
 		for k in ids.size():
 			flights.append([ids[k], e["to_seat"] + k])
+		# A dive: the bird that was passed hops outwards first and frees the seats under it.
+		var passed: BirdView = _birds.get(e.get("passed", -1))
+		if passed:
+			passed.hop_to(seat_point(to, e["to_seat"] + ids.size()), 0.28)
 	else:
 		for item in e["birds"]:
 			flights.append([item["id"], item["to_seat"]])
@@ -2158,6 +2218,20 @@ func granted_undos(count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "dive":   # the first lab level: the Dive run is selected (targets glow), then it dives (frame sequences)
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.lab(1), main.profile, false)
+		var s := board.session.state
+		for from in s.branch_count():
+			for to in s.branch_count():
+				if Rules.can_transfer(s, from, to) and not Rules._lands_on_top(s, from, to):
+					await main.get_tree().create_timer(1.0).timeout
+					board.tap_branch(from)
+					await main.get_tree().create_timer(1.5).timeout
+					board.tap_branch(to)
+					return
+		return
 	if state == "celebrate":   # level 12 at rest, then the win celebration on the board (frame sequences)
 		var board := BoardView.new()
 		main.set_screen(board)
