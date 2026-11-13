@@ -30,7 +30,7 @@ func _family(dialog: Control, expected_close: bool) -> void:
 	check(dialog.get_node("ForestBackground").texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").BACKGROUND_ART), "home jungle backdrop")
 	var skin: NinePatchRect = dialog.content.get_node("Panel/Skin")
 	check(skin.texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").CARD_ART), "the shop's cream card")
-	check(skin.self_modulate == Color.WHITE and dialog._dim.color.a == 0.0, "card and backdrop are not darkened or recolored")
+	check(skin.self_modulate == Color.WHITE and dialog._dim.color == dialog.POPUP_SHADE, "card is not recolored; the backdrop takes the shared popup shade")
 	check(dialog.content.has_node("Close") == expected_close, "original close semantics")
 	check(dialog.panel_rect.end.y <= 1920, "panel stays in design viewport")
 	var title: Control = dialog.content.get_node("TitleGroup")

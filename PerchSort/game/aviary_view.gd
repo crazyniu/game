@@ -496,6 +496,7 @@ func _equip(id: String, index: int) -> void:
 	Sound.play("ui_tap")
 	if Shop.equip(profile, id) != "":
 		return
+	Sound.play("equip")
 	profile_changed.emit()
 	_hero.queue_free()
 	_hero = _live_bird(_hero_display, _species, _outfit_key(_species), _hero_box)

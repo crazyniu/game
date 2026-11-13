@@ -76,7 +76,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	backdrop.name = "ForestBackground"
 	backdrop.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	p.move_child(backdrop, 0)
-	p._dim.color = Color(0, 0, 0, 0)
+	p._dim.color = Modal.POPUP_SHADE
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var card: Rect2 = p.get_meta("card_rect")

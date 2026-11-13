@@ -680,6 +680,7 @@ func _tap(it: Dictionary) -> void:
 		return
 	if _owned(it):
 		if not _equipped(it) and Shop.equip(profile, it["id"]) == "":
+			Sound.play("equip")
 			profile_changed.emit()
 			_refresh()
 		return

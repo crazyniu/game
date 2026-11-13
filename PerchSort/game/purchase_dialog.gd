@@ -23,7 +23,7 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
 	dialog.panel_rect = card
 	dialog.content.pivot_offset = card.get_center()
-	dialog._dim.color = Color(0.03, 0.14, 0.06, 0.32)
+	dialog._dim.color = Modal.POPUP_SHADE
 	var old := dialog.content.get_node("Panel")
 	dialog.content.remove_child(old)
 	old.queue_free()

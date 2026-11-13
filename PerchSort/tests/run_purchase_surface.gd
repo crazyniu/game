@@ -59,7 +59,7 @@ func _verify(modal: Control, key: String) -> void:
 		background.get_rect() == Rect2(0, 0, 1080, 1920) and
 		background.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_COVERED and
 		background.get_index() == 0, key + " unchanged forest art fills behind the dialog")
-	check(modal._dim.color.a == 0.0, key + " background is not darkened")
+	check(modal._dim.color == modal.POPUP_SHADE, key + " background takes the shared popup shade")
 	check(panel.mouse_filter == Control.MOUSE_FILTER_IGNORE and
 		skin.mouse_filter == Control.MOUSE_FILTER_IGNORE and
 		background.mouse_filter == Control.MOUSE_FILTER_IGNORE,

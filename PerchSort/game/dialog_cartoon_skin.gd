@@ -70,5 +70,5 @@ static func apply(dialog: Modal) -> Control:
 	background.name = "ForestBackground"
 	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	dialog.move_child(background, 0)
-	dialog._dim.color = Color(0, 0, 0, 0)
+	dialog._dim.color = Modal.POPUP_SHADE   # the backdrop is shaded so the card stands apart
 	return surface

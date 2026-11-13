@@ -38,7 +38,7 @@ func _run() -> void:
 				check(face.size.is_equal_approx(original_panel.size / skin.CARD_SCALE), "nine-patch scales only edges and center")
 				check(face.texture.get_size().x > face.patch_margin_left + face.patch_margin_right and face.texture.get_size().y > face.patch_margin_top + face.patch_margin_bottom, "nine-patch retains positive center area")
 				check(view.get_node("ForestBackground").texture == Art.tex(skin.BACKGROUND_ART), "accepted bright forest pixels reused")
-				check(view._dim.color.a == 0.0 and view._dim.mouse_filter == Control.MOUSE_FILTER_STOP, "bright background preserves modal input blocking")
+				check(view._dim.color == view.POPUP_SHADE and view._dim.mouse_filter == Control.MOUSE_FILTER_STOP, "bright background preserves modal input blocking")
 				check(surface.mouse_filter == Control.MOUSE_FILTER_IGNORE and face.mouse_filter == Control.MOUSE_FILTER_IGNORE, "new surface never intercepts caller controls")
 			view.free()
 	host.free()

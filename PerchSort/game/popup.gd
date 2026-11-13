@@ -19,6 +19,9 @@ const ACTION_GAP := 32.0
 const SIGN_W := 760.0            # the wooden title plank
 const SIGN_ABOVE := 250.0        # existing title reservation, kept for callers' vertical layout
 const DIM := Color(0.08, 0.09, 0.24, 0.68)   # dusk over the island, as in the designs
+## The shade outside every shop-style popup (dialogs, purchases, win): dark enough that the card stands apart from the
+## bright page behind it.
+const POPUP_SHADE := Color(0.02, 0.07, 0.03, 0.55)
 
 var content: Control
 var panel_rect: Rect2
