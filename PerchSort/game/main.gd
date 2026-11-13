@@ -177,6 +177,28 @@ func _offer_daily_reward() -> void:
 		show_daily_reward()
 
 ## Undo pressed with none left: one more for coins (the coin shop opens when the balance is short) or for an ad.
+## A tool tapped with none in stock: one more for its feather price or for an ad, without leaving the board.
+func _offer_tool(kind: int, board: BoardView) -> void:
+	var price := Progress.booster_price(kind)
+	var grant := func():
+		if is_instance_valid(board):
+			board.granted(kind, 1)
+			board.sync_inventory()
+	UndoOffer.open_item(popups, "item_" + load("res://game/shop_view.gd").BOOSTER_WORD[kind], UI.PICTURES[BoardView.TOOL_ICON_NAME[kind]], price, func():
+		if profile.coins < price:
+			Sound.play("error")
+			open_coin_shop(profile.coins)
+			return
+		profile.coins -= price
+		save()
+		Sound.play("collect")
+		grant.call(),
+	func():
+		AdService.show_rewarded(self, func():
+			Sound.play("reward")
+			grant.call(), instant()),
+	instant())
+
 func _offer_undos(board: BoardView) -> void:
 	UndoOffer.open(popups, Progress.UNDO_PRICE, func():
 		if profile.coins < Progress.UNDO_PRICE:
@@ -313,7 +335,10 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
-	board.buy_requested.connect(func(kind): open_shop(0, true))
+	board.buy_requested.connect(_offer_tool.bind(board))
+	board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
+		if is_instance_valid(board):
+			board.rescue(), instant()))
 	board.undo_more_requested.connect(_offer_undos.bind(board))
 	board.won.connect(_on_won.bind(level_id))
 	Sound.music("bgm_game")

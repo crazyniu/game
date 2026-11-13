@@ -6,6 +6,7 @@ signal won(result: Dictionary)          # {"session": GameSession}
 signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
 signal undo_more_requested               # undo was tapped with no undo left in this attempt
+signal rescue_requested                  # first proven dead end of the attempt: the free rewind is offered
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
@@ -113,6 +114,7 @@ var _hint_cancel: Array = [false]
 var _hint_task_key := PackedInt32Array()
 var _hint_moves := {}       # search_key -> move: winning routes and one-move fallbacks found in the background
 var _hint_failures := {}    # search_key -> status; cancelled work is never cached
+var _winnable := {}         # search_key -> true for positions on a found winning route
 var _hint_waiting := false  # the firefly was pressed before the background search finished
 var _hint_request_key := PackedInt32Array()
 var _hint_press_usec := 0
@@ -144,12 +146,14 @@ func _load_start_hints(id: int) -> void:
 		_hint_moves[key] = [int(entry[1][0]), int(entry[1][1])]
 
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
+	_rescue_declined = false
 	_cancel_playback()
 	_release_hint_task()
 	_hide_hint()
 	if int(level_def["id"]) != _hint_level:
 		_hint_moves.clear()
 		_hint_failures.clear()
+		_winnable.clear()
 		_load_start_hints(int(level_def["id"]))
 	_hint_level = int(level_def["id"])
 	_hint_waiting = false
@@ -1304,7 +1308,50 @@ func _watch_stuck() -> void:
 	var moves := session.move_count()
 	await get_tree().create_timer(STUCK_DELAY).timeout
 	if is_inside_tree() and not busy and session.state == s and session.move_count() == moves:
-		show_stuck_hint()
+		if session.free_rescue_used or _rescue_declined:
+			show_stuck_hint()
+		else:
+			_rescue_declined = true   # closing the offer leaves the pointer for the rest of the attempt
+			suspend_input()
+			show_stuck_hint()
+			rescue_requested.emit()
+
+var _rescue_declined := false
+
+## The free rescue: back to the latest position of this attempt that can still be won. Positions on a route the
+## background search already found are known; the others are searched on a worker thread, newest first. A position
+## over the search budget is skipped; the level's opening position always qualifies.
+const RESCUE_STATES := 60000
+const RESCUE_MS := 1500
+
+func rescue() -> void:
+	if busy or session.history_size() == 0:
+		return
+	busy = true
+	_hide_stuck()
+	_cancel_hint_request()
+	var snapshots: Array[Board] = []
+	for back in range(1, session.history_size() + 1):
+		snapshots.append(session.history_state(back).clone(false))
+	var known := _winnable.duplicate()
+	var thread := Thread.new()
+	thread.start(func() -> int:
+		for i in snapshots.size() - 1:
+			if known.has(snapshots[i].search_key(false)):
+				return i + 1
+			if Solver.hint(snapshots[i], [], RESCUE_STATES, RESCUE_MS)["status"] == Solver.Status.SOLVED:
+				return i + 1
+		return snapshots.size())
+	while thread.is_alive():
+		await get_tree().process_frame
+	var steps: int = thread.wait_to_finish()
+	if not is_inside_tree():
+		return
+	session.rewind(steps)
+	session.free_rescue_used = true
+	if OS.is_debug_build():
+		print("RESCUE level=%d steps=%d of=%d" % [session.state.level_id, steps, snapshots.size()])
+	await _after_rewind()
 
 func _dead_end(s: Board) -> bool:
 	return not Rules.has_legal_move(s) or _hint_failures.get(s.search_key(false), -1) == Solver.Status.UNSOLVABLE
@@ -1416,6 +1463,10 @@ func _on_undo() -> void:
 		return
 	if not session.undo():
 		return
+	await _after_rewind()
+
+## The board follows the session back to an earlier position (undo, rescue).
+func _after_rewind() -> void:
 	_cancel_playback()
 	sync_inventory()
 	_hide_hint()
@@ -1527,6 +1578,8 @@ func _poll_hint() -> void:
 		source = "cancelled"
 	elif found.get("status", -1) == Solver.Status.SOLVED and not found["moves"].is_empty():
 		_hint_moves.merge(found["continuation"], true)
+		for route_key in found["continuation"]:
+			_winnable[route_key] = true
 	elif not found.get("fallback", []).is_empty():
 		_hint_moves[_hint_task_key] = found["fallback"]
 		source = "fallback"

@@ -7,12 +7,18 @@ const PICTURE := 280.0
 const AMOUNT := 88.0
 
 static func open(host: Control, price: int, on_buy: Callable, on_ad: Callable, instant: bool) -> Modal:
-	var p := PurchaseDialog.open(host, "undo_more", [PICTURE, AMOUNT], instant, ButtonKit.PRIMARY.y, Modal.WIDTH)
+	return open_item(host, "undo_more", UI.PICTURES["undo"], price, on_buy, on_ad, instant)
+
+## The same card for one more of any tool: `title_key` is its painted name, `picture` its art. A tool tapped with
+## none in stock is offered here, on the board, instead of sending the player to the shop.
+static func open_item(host: Control, title_key: String, picture_art: String, price: int, on_buy: Callable,
+		on_ad: Callable, instant: bool) -> Modal:
+	var p := PurchaseDialog.open(host, title_key, [PICTURE, AMOUNT], instant, ButtonKit.PRIMARY.y, Modal.WIDTH)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
 	PurchaseDialog.glow(c, picture)
-	UI.art(c, UI.PICTURES["undo"], picture).name = "Picture"
+	UI.art(c, picture_art, picture).name = "Picture"
 	ButtonKit.number(c, "+1", Rect2(340, ys[1], 400, AMOUNT)).name = "Amount"
 	var size := ButtonKit.PRIMARY
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP
@@ -35,4 +41,7 @@ static func preview(main: Control, _state: String) -> void:
 	board.session.try_move(2, 3)
 	board.session.undos_left = 0
 	board.refresh_hud()
+	if _state == "tool":   # a tool tapped with none in stock
+		open_item(main.popups, "item_sprout", UI.PICTURES["sapling"], Progress.booster_price(Board.Booster.SAPLING), func(): pass, func(): pass, true)
+		return
 	open(main.popups, Progress.UNDO_PRICE, func(): pass, func(): AdService.show_rewarded(main, func(): pass), true)
