@@ -6,6 +6,8 @@ const INNER := Rect2(179, 86, 959, 429)
 const OUTER := Rect2(28, 84, 1714, 691)
 const CLOSED_ANGLE := -70.0
 const OPEN_ANGLE := 70.0
+const HINGE_Y := 515.0
+const RIM_THICKNESS := 14.0
 # Polygon follows the fixed front lock on the clean source, not a screenshot.
 const LOCK := [Vector2(561, 550), Vector2(620, 640), Vector2(720, 650),
 	Vector2(755, 700), Vector2(681, 750), Vector2(690, 860), Vector2(640, 903),
@@ -32,24 +34,29 @@ func _draw() -> void:
 	if inside == null or outside == null:
 		return
 	draw_texture_rect_region(inside, BODY, BODY)
-	# Two textured faces meet edge-on. No whole-image blend or discrete pose timer.
-	var openness := inverse_lerp(CLOSED_ANGLE, OPEN_ANGLE, angle)
 	var face := sin(deg_to_rad(angle)) / sin(deg_to_rad(OPEN_ANGLE))
-	var extent := absf(face)
-	var bottom := 515.0 + 125.0 * (1.0 - openness)
-	var height := (420.0 if face < 0.0 else INNER.size.y) * extent
-	var width := 959.0 + 32.0 * (1.0 - openness)
-	var left := 658.5 - width * 0.5
-	var inset := 24.0 * (1.0 - extent)
-	var polygon := PackedVector2Array([Vector2(left+inset,bottom-height),Vector2(left+width-inset,bottom-height),Vector2(left+width,bottom),Vector2(left,bottom)])
+	var polygon := projected_lid()
 	var ink := OUTER if face < 0.0 else INNER
 	var texture := outside if face < 0.0 else inside
 	var dims := texture.get_size()
 	var uv := PackedVector2Array([ink.position/dims,Vector2(ink.end.x,ink.position.y)/dims,ink.end/dims,Vector2(ink.position.x,ink.end.y)/dims])
-	if height > 0.1:
-		draw_polygon(polygon, PackedColorArray([Color.WHITE]), uv, texture)
+	draw_polygon(polygon, PackedColorArray([Color.WHITE]), uv, texture)
 	# The front star lock belongs to the fixed box, not the moving lid.
 	var lock_uv := PackedVector2Array()
 	for point in LOCK:
 		lock_uv.append(point / inside.get_size())
 	draw_polygon(PackedVector2Array(LOCK), PackedColorArray([Color.WHITE]), lock_uv, inside)
+
+func projected_lid() -> PackedVector2Array:
+	# Two textured faces meet edge-on. No whole-image blend or discrete pose timer.
+	var face := sin(deg_to_rad(angle)) / sin(deg_to_rad(OPEN_ANGLE))
+	var extent := absf(face)
+	# The inner face stays attached to the rear hinge throughout opening.
+	# The exterior front lip approaches that same hinge before changing face;
+	# it must not drift above the box while the texture passes edge-on.
+	var bottom := HINGE_Y + (125.0 * extent if face < 0.0 else 0.0)
+	var height := maxf(RIM_THICKNESS, (420.0 if face < 0.0 else INNER.size.y) * extent)
+	var width := 959.0 + (32.0 * extent if face < 0.0 else 0.0)
+	var left := 658.5 - width * 0.5
+	var inset := 24.0 * (1.0 - extent)
+	return PackedVector2Array([Vector2(left+inset,bottom-height),Vector2(left+width-inset,bottom-height),Vector2(left+width,bottom),Vector2(left,bottom)])
