@@ -160,8 +160,10 @@ const SIGN_RECT := Rect2(220, -140, 640, 223)
 const CLOSE_INSET := Vector2(MenuNavigation.DIALOG_RIGHT_PAD, 22)   # Close from the card's top-right corner, inside the card
 
 ## The sign straddles the card's top edge; an ordinal (the level number) follows the word in painted numerals.
-static func sign_title(parent: Control, label_id: String, ordinal: String, card: Rect2) -> Control:
+static func sign_title(parent: Control, label_id: String, ordinal: String, card: Rect2, width := SIGN_RECT.size.x) -> Control:
 	var rect := SIGN_RECT
+	rect.position.x += (rect.size.x - width) * 0.5
+	rect.size.x = width
 	rect.position.y += card.position.y
 	if ordinal.is_empty():
 		return ButtonKit.sign(parent, lettering_key(label_id), rect)
