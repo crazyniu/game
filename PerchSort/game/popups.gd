@@ -240,7 +240,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	Simple.card(c, box)
 	var words := Simple.Words.new()
 	words.place(c, "settings", "ink", Vector2(box.get_center().x, box.position.y + SET_PAD * 0.5 + SET_TITLE_H * 0.5), SET_TITLE_CAP, 0)
-	Simple.close_button(c, Vector2(box.end.x - MenuNavigation.DIALOG_RIGHT_PAD - Simple.CLOSE * 0.5, box.position.y + 20.0), p.close)
+	Simple.close_button(c, Vector2(box.end.x - MenuNavigation.DIALOG_RIGHT_PAD - Simple.CLOSE * 0.5, box.position.y + SET_PAD + Simple.CLOSE * 0.5), p.close)
 	var rows := [["pic_music", "music", music_on, func(v: bool): on["music"].call(v)],
 		["pic_sound_on", "sound", sound_on, func(v: bool): on["sound"].call(v)],
 		# Vibration: the state lives in Sound.vibration (profile.vibration).
@@ -444,18 +444,38 @@ const TRIGGER_H := 110.0
 const TRIGGER_FACE := 84.0
 const TRIGGER_HOUSE := 104.0
 
+const GOAL_CARD_W := 840.0
+const GOAL_HERO := 330.0
+const GOAL_HEAD := 100.0
+const GOAL_GAP := 24.0
+const GOAL_BOTTOM := 40.0
+const GOAL_ACTION_GAP := 40.0
+
 static func goal_info(host: Control, species: String, world := 1) -> Control:
 	var effect: String = EFFECT.get(species, "")
-	var heights := [FRIEND, ABILITY_H] if effect.is_empty() else [FRIEND, TRIGGER_H, ABILITY_H]
-	var p := Modal.open(host, "bird.%s.name" % species, heights, true, 0.0, 0.0, _instant(host))
+	var heights := [GOAL_HERO, ABILITY_H] if effect.is_empty() else [GOAL_HERO, TRIGGER_H, ABILITY_H]
+	# The title remains painted in the accepted skin; only this card's allocation is compacted.
+	var body_h := GOAL_HEAD + GOAL_BOTTOM + GOAL_GAP * (heights.size() - 1)
+	for height in heights:
+		body_h += float(height)
+	var total_h := PurchaseDialog.TITLE_ROOM + body_h + GOAL_ACTION_GAP + ButtonKit.PRIMARY.y
+	var surface_top := roundf((1920.0 - total_h) * 0.5)
+	var p := Modal.open(host, "bird.%s.name" % species, [], false, 0.0, 0.0, _instant(host))
+	p.panel_rect = Rect2((1080.0 - GOAL_CARD_W) * 0.5, surface_top + PurchaseDialog.TITLE_ROOM, GOAL_CARD_W, body_h)
+	p.content.pivot_offset = Vector2(540, 960)
 	FamilyDialog.decorate(p, false)
 	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0,
+	var y := p.panel_rect.position.y + GOAL_HEAD
+	_bird_view(c, species, Rect2(540.0 - GOAL_HERO * 0.5, y, GOAL_HERO, GOAL_HERO), _instant(host), 0.0,
 		WorldBirds.look(species, world))
+	y += GOAL_HERO + GOAL_GAP
 	if not effect.is_empty():
-		_trigger_row(c, species, world, ys[1])
-	FamilyDialog.ability(c, species, effect, ys[heights.size() - 1])
+		_trigger_row(c, species, world, y)
+		y += TRIGGER_H + GOAL_GAP
+	FamilyDialog.ability(c, species, effect, y)
+	var button := ButtonKit.button(c, "Confirm", Rect2(Vector2(540.0 - ButtonKit.PRIMARY.x * 0.5,
+		p.panel_rect.end.y + GOAL_ACTION_GAP), ButtonKit.PRIMARY), "green", p.close)
+	ButtonKit.word(button.get_node("Content"), "white_action_ok", ButtonKit.PRIMARY).name = "Word"
 	return p
 
 static func _trigger_row(c: Control, species: String, world: int, y: float) -> void:
@@ -1739,6 +1759,8 @@ static func preview(main: Control, state: String) -> void:
 			[Board.Booster.MORNING_BELL, Board.Booster.OWL_EYE, Board.Booster.SCARECROW, Board.Booster.SPRING_RAIN],
 			func(kind): return [0, 0, 2, 0, 5, 1][kind], func(_k, _r): pass)
 		"goal_info_berry": goal_info(host, "berry")
+		"goal_info_mint": goal_info(host, "mint")
+		"goal_info_crow": goal_info(host, "crow")
 		"goal_info_hoot": goal_info(host, "hoot")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
 		"lucky_draw": lucky_draw(host, 3, 5, func():
