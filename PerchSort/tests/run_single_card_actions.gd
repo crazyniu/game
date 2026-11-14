@@ -98,6 +98,11 @@ func _run() -> void:
 		await clear()
 		var rescue_script: GDScript = load("res://game/stuck_offer.gd")
 		var rescued := [0]
+		var background_taps := [0]
+		var underlay := Button.new()
+		underlay.size = Vector2(1080, 1920)
+		underlay.pressed.connect(func(): background_taps[0] += 1)
+		main.popups.add_child(underlay)
 		var before := JSON.stringify(main.profile.to_dict())
 		var rescue: Control = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
 		await process_frame
@@ -106,9 +111,7 @@ func _run() -> void:
 		check(rescue.panel_rect.size.x == 760, "rescue uses its compact frame only")
 		check(not action.has_node("Content/Icon"), "rescue does not repeat its illustration")
 		check(action.get_node("Content/Word").painted_id == "white_free_rewind", "rescue has localized explicit wording")
-		var close: Button = rescue.content.get_node("Close")
-		check(is_equal_approx(close.position.y - rescue.panel_rect.position.y, 48), "rescue close sits at title shoulder")
-		check(not close.get_rect().intersects(rescue.content.get_node("Picture").get_rect()), "rescue close clears illustration")
+		check(not rescue.content.has_node("Close"), "rescue has no redundant visible X")
 		var illustration: Control = rescue.content.get_node("Picture")
 		check(illustration.has_node("Perch") and illustration.has_node("PerchedBird0") and illustration.has_node("PerchedBird1"), "rescue uses native forest perch and two living birds")
 		check(illustration.size == Vector2(rescue_script.PERCH_WIDTH, rescue_script.PICTURE), "forest illustration stays compact")
@@ -116,12 +119,53 @@ func _run() -> void:
 		for name in ["PerchedBird0", "PerchedBird1"]:
 			var bird: Node2D = illustration.get_node(name)
 			check(bird.quiet and bird.scale.x > 0, "instant illustration is deterministic and never mirrored")
-		await tap_action(rescue, close, language == "zh")
+		var inside := InputEventMouseButton.new()
+		inside.button_index = MOUSE_BUTTON_LEFT
+		inside.pressed = true
+		inside.position = rescue.panel_rect.get_center()
+		rescue._dim.gui_input.emit(inside)
+		check(not rescue._closing, "panel taps do not dismiss rescue")
+		var shade := InputEventMouseButton.new()
+		shade.button_index = MOUSE_BUTTON_LEFT
+		shade.pressed = true
+		shade.position = Vector2(50, 1800)
+		var dismissals := [0]
+		rescue.closed.connect(func(): dismissals[0] += 1)
+		root.push_input(shade, true)
+		root.push_input(shade, true)
+		var shade_up := shade.duplicate()
+		shade_up.pressed = false
+		root.push_input(shade_up, true)
+		await create_timer(0.35).timeout
+		check(dismissals[0] == 1, "repeat shade taps dismiss only once")
+		check(background_taps[0] == 0, "shade taps never activate the underlying board")
+		check(not is_instance_valid(rescue), "outside shade dismisses without a close button")
 		check(rescued[0] == 0, "cancel does not perform rescue")
+		rescue = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
+		var touch := InputEventScreenTouch.new()
+		touch.position = Vector2(50, 1800)
+		touch.pressed = true
+		root.push_input(touch, true)
+		var touch_up := touch.duplicate()
+		touch_up.pressed = false
+		root.push_input(touch_up, true)
+		await create_timer(0.35).timeout
+		check(not is_instance_valid(rescue) and rescued[0] == 0, "touch shade also cancels without rescue")
 		rescue = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
 		await process_frame
 		await tap_action(rescue, rescue.content.get_node("Rescue"), language == "zh")
 		check(rescued[0] == 1, "free rewind dispatches once")
+		rescue = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
+		await process_frame
+		var touch_action := InputEventScreenTouch.new()
+		touch_action.position = rescue.content.get_node("Rescue").get_global_rect().get_center()
+		touch_action.pressed = true
+		root.push_input(touch_action, true)
+		var touch_action_up := touch_action.duplicate()
+		touch_action_up.pressed = false
+		root.push_input(touch_action_up, true)
+		await create_timer(0.35).timeout
+		check(rescued[0] == 2, "touch on external action invokes rescue, not shade cancellation")
 		check(JSON.stringify(main.profile.to_dict()) == before, "UI dismissal never changes profile")
 		await clear()
 		var shop_script: GDScript = load("res://game/shop_view.gd")

@@ -11,7 +11,7 @@ const CARD_WIDTH := 760.0
 const ACTION_GAP := 32.0
 
 static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
-	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, true, false, true, true, CARD_WIDTH)
+	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, false, false, true, true, CARD_WIDTH)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	# A small living perch belongs to the board's forest world; the action explains the rewind.
@@ -31,6 +31,13 @@ static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
 	# Explicit free rewind wording, without duplicating the body illustration.
 	ButtonKit.word(go.get_node("Content"), "white_free_rewind", size).name = "Word"
 	p.panel_rect = p.get_meta("card_rect")
+	# No redundant X: tapping the surrounding shade retains dismissal without using the rescue.
+	# The dim layer stops the event, so cancelling never taps the board behind the modal.
+	p._dim.gui_input.connect(func(event: InputEvent):
+		var pressed: bool = (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed) or (event is InputEventScreenTouch and event.pressed)
+		if pressed:
+			if not p.panel_rect.has_point(event.position):
+				p.close())
 	return p
 
 ## A level whose opening has moves that can never be recovered from (preview and tests).
