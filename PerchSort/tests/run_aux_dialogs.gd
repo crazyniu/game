@@ -11,6 +11,8 @@ func _initialize() -> void:
 func _run() -> void:
 	var main: Control = load("res://game/main.tscn").instantiate()
 	var fake := Profile.new()
+	fake.muted = true
+	fake.music_muted = true
 	main.args["profile"] = JSON.stringify(fake.to_dict())
 	main.args["preview"] = "coin_shop_view:normal"
 	root.add_child(main)
