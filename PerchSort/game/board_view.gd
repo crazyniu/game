@@ -51,13 +51,6 @@ var _branch_layer: Node2D
 var _bird_layer: Node2D
 var _hud: Control
 var _air: Ambient           # living air of the world painting: leaves, snow, mist, motes, sunlight
-var _night_bg: TextureRect   # the world's night painting over the day painting; alpha = night amount
-var _night_fx: Node2D        # twinkling stars and fireflies, visible at night
-var _night_amount := 0.0     # 0 day .. 1 night; drives the painting cross-fade, moonlight tint and night life
-var _night_tween: Tween
-var _night_stars: Array = []   # {node, at, period, offset, size}
-var _fireflies: Array = []     # {node, glow, at, reach, speed, offset}
-var _banner: Control
 var _birds := {}        # bird id -> BirdView
 var _branch_nodes: Array = []
 ## Trunk widths hidden off and visible at each screen edge, and how far a branch reaches under the trunk.
@@ -88,11 +81,7 @@ var _moves_icon: Control
 var _stars_centred := false
 var _stars_tween: Tween
 var _shown_stars := -1
-var _phase_chip: Control      # day/night levels: sun or moon and the moves until the switch
-var _phase_icons := {}       # Board.Phase -> painted sun or moon
-var _phase_number: Control
 var _shown_moves := -1
-var _shown_phase := ""
 var _tool_bar: Control
 var _sky: Node2D
 var _motes: Array = []  # ambient drifters: {node, kind, origin, period, offset, alpha, drift}
@@ -171,12 +160,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		child.queue_free()
 	_birds.clear()
 	_motes.clear()
-	_night_stars.clear()
-	_fireflies.clear()
-	_banner = null
-	_night_tween = null
 	_shown_moves = -1
-	_shown_phase = ""
 	_resident_species = -1
 	Engine.time_scale = 1.0
 	size = Vector2(1080, 1920)
@@ -230,9 +214,6 @@ func _cancel_playback() -> void:
 	_queued_taps.clear()
 	_cancel_hint_request()
 	_hide_bubble()
-	if is_instance_valid(_banner):
-		_banner.queue_free()
-		_banner = null
 	for tw in _playback_tweens:
 		tw.kill()
 	_playback_tweens.clear()
@@ -251,9 +232,6 @@ func _cancel_playback() -> void:
 		_glow.scale = Vector2.ONE
 		if _door_open:
 			_door_open.modulate.a = 0.0
-	if _night_tween:
-		_night_tween.kill()
-		_night_tween = null
 
 func _cancel_hint_request() -> void:
 	_hint_waiting = false
@@ -267,18 +245,11 @@ func _world() -> int:
 func _build_scene() -> void:
 	# One painting per world (docs/design/island-style.md): the branch-free scene, then each branch layer cut from the
 	# same painting (tools/scene/cut_branches.py), so every branch keeps the painting's light and softness.
-	# Night is the world's own night painting (same framing), cross-faded over the day painting.
 	var scene_name := "board_w%d_open" % _world() if _world() in [1, 10] else "board_w%d" % _world()
 	# The painting is calmed behind play (calm_backdrop.gdshader) so the birds read first; the branches stay sharp.
 	var calm := ShaderMaterial.new()
 	calm.shader = CALM_BACKDROP
 	UI.image(self, scene_name + "_bg", Rect2(0, 0, 1080, 1920), false).material = calm
-	_night_bg = UI.image(self, scene_name + "_night_bg", Rect2(0, 0, 1080, 1920), false)
-	var calm_night := ShaderMaterial.new()   # night keeps its dark: a lighter, deep-blue wash
-	calm_night.shader = CALM_BACKDROP
-	calm_night.set_shader_parameter("wash", 0.22)
-	calm_night.set_shader_parameter("wash_color", Color(0.12, 0.16, 0.30))
-	_night_bg.material = calm_night
 	# The painting breathes behind play: falling leaves, petals or snow, mist, motes and light chosen by the
 	# world and the level's weather variant (Ambient.for_level), below the branches and the birds.
 	_air = Ambient.new()
@@ -287,7 +258,6 @@ func _build_scene() -> void:
 	add_child(_air)
 	_slots = JSON.parse_string(FileAccess.get_file_as_string("res://world/scene/board_w%d_slots.json" % _world()))["slots"]
 	_build_ambient()
-	_build_night_fx()
 	_scene = Node2D.new()
 	_scene.name = "Scene"
 	add_child(_scene)
@@ -297,122 +267,6 @@ func _build_scene() -> void:
 	_bird_layer = Node2D.new()
 	_bird_layer.name = "Birds"
 	_scene.add_child(_bird_layer)
-	# The first frame already shows the level's phase.
-	_apply_night(1.0 if session.state.phase == Board.Phase.NIGHT else 0.0)
-
-## ---------- day and night ----------
-
-## Moonlight multiplies the branches and the birds on them; no dark overlay is drawn.
-const NIGHT_TINT := Color(0.70, 0.76, 0.98)
-const NIGHT_FADE := 0.8
-## Extra twinkling stars in the sky band, clear of the HUD card, the house and Settings.
-const NIGHT_STARS := [Vector2(712, 64), Vector2(846, 222), Vector2(1018, 318), Vector2(742, 372), Vector2(452, 336),
-	Vector2(318, 362), Vector2(96, 404), Vector2(958, 470), Vector2(630, 452), Vector2(214, 486), Vector2(866, 40)]
-const FIREFLY_COUNT := 9
-
-func _build_night_fx() -> void:
-	_night_fx = Node2D.new()
-	_night_fx.name = "NightLife"
-	add_child(_night_fx)
-	for i in NIGHT_STARS.size():
-		var star := Sprite2D.new()
-		star.texture = Art.tex("sparkle")
-		star.modulate = Color(1.0, 0.98, 0.86)
-		_night_fx.add_child(star)
-		_night_stars.append({"node": star, "at": NIGHT_STARS[i], "period": 1.6 + 0.37 * (i % 5),
-			"offset": fposmod(i * 0.618, 1.0), "size": 18.0 + 6.0 * ((i * 7) % 4)})
-	for i in FIREFLY_COUNT:
-		var fly := Node2D.new()
-		var glow := Sprite2D.new()
-		glow.texture = Art.tex("glow_soft")
-		glow.scale = Vector2.ONE * 0.16
-		glow.modulate = Color(1.0, 0.9, 0.4, 0.55)
-		fly.add_child(glow)
-		var body := Sprite2D.new()
-		body.texture = Art.tex("firefly")
-		body.scale = Vector2.ONE * 0.75
-		fly.add_child(body)
-		_night_fx.add_child(fly)
-		_fireflies.append({"node": fly, "glow": glow,
-			"at": Vector2(110.0 + fposmod(i * 389.0, 860.0), 600.0 + fposmod(i * 457.0, 1080.0)),
-			"reach": Vector2(70.0 + 15.0 * (i % 4), 40.0 + 12.0 * (i % 3)), "speed": 0.23 + 0.05 * (i % 5),
-			"offset": i * 1.7})
-	_tick_night()
-
-## Stars twinkle (alpha and size pulse at their own rates); fireflies wander on slow loops and blink.
-func _tick_night() -> void:
-	if _night_fx == null:
-		return
-	_night_fx.modulate.a = _night_amount
-	if _night_amount <= 0.001:
-		return
-	for s in _night_stars:
-		var u := fposmod(_clock / s["period"] + s["offset"], 1.0)
-		var wave := 0.5 - 0.5 * cos(u * TAU)
-		var node: Sprite2D = s["node"]
-		node.position = s["at"]
-		node.scale = Vector2.ONE * s["size"] * (0.75 + 0.35 * wave) / 50.0
-		node.modulate.a = 0.25 + 0.75 * wave * wave
-	for f in _fireflies:
-		var t: float = _clock * f["speed"] + f["offset"]
-		var reach: Vector2 = f["reach"]
-		var node: Node2D = f["node"]
-		node.position = f["at"] + Vector2(sin(t * 1.3) * reach.x, sin(t * 2.1 + 0.7) * reach.y - 20.0 * sin(t * 0.5))
-		var blink := 0.5 + 0.5 * sin(t * 4.7)
-		node.modulate.a = 0.35 + 0.65 * blink * blink
-		(f["glow"] as Sprite2D).scale = Vector2.ONE * (0.13 + 0.05 * blink)
-
-## 0 = day, 1 = night: night painting alpha, moonlight tint of branches and birds, night life alpha.
-func _apply_night(amount: float) -> void:
-	_night_amount = amount
-	_night_bg.modulate.a = amount
-	_night_bg.visible = amount > 0.001
-	_air.night = amount
-	var tint := Color.WHITE.lerp(NIGHT_TINT, amount)
-	_branch_layer.modulate = tint
-	_bird_layer.modulate = tint
-	_tick_night()
-
-func _fade_night(target: float, seconds := NIGHT_FADE) -> Tween:
-	if _night_tween:
-		_night_tween.kill()
-		_night_tween = null
-	if instant or absf(_night_amount - target) < 0.001:
-		_apply_night(target)
-		return null
-	_night_tween = create_tween()
-	_night_tween.tween_method(_apply_night, _night_amount, target, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	return _night_tween
-
-## A short painted word below the goals: "Night falls" or "Day breaks", fading in and out.
-const BANNER_H := 104.0
-const BANNER_CAP := 48.0
-const BANNER_ICON := 56.0
-
-func _phase_banner(night: bool) -> void:
-	if _banner and is_instance_valid(_banner):
-		_banner.queue_free()
-	var id := "board.night_falls" if night else "board.day_breaks"
-	var label_w := UI.label_width(id, BANNER_CAP)
-	var w := 40.0 + BANNER_ICON + 16.0 + label_w + 40.0
-	var top := _house_rect().end.y
-	var face := (BANNER_H - 8.0) * 0.5
-	var pill := UI.shape(_hud, Rect2(540.0 - w * 0.5, top + 32.0, w, BANNER_H), "cream", BANNER_H * 0.5, 8.0)
-	pill.name = "PhaseBanner"
-	UI.icon(pill, "moon" if night else "sun", Vector2(40.0 + BANNER_ICON * 0.5, face), BANNER_ICON, UI.INK)
-	_place_label(pill, id, 40.0 + BANNER_ICON + 16.0, face + BANNER_CAP * 0.5, BANNER_CAP)
-	_banner = pill
-	if instant:
-		return
-	pill.modulate.a = 0.0
-	pill.scale = Vector2.ONE * 0.7
-	var tw := pill.create_tween()
-	tw.tween_property(pill, "modulate:a", 1.0, 0.25)
-	tw.parallel().tween_property(pill, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_interval(1.0)
-	tw.tween_property(pill, "modulate:a", 0.0, 0.4)
-	tw.parallel().tween_property(pill, "position:y", pill.position.y - 16.0, 0.4).set_ease(Tween.EASE_IN)
-	tw.tween_callback(pill.queue_free)
 
 ## ---------- ambient ----------
 
@@ -436,7 +290,6 @@ func _add_mote(sprite: String, kind: String, origin: Vector2, size_px: Vector2, 
 func _process(delta: float) -> void:
 	_clock += delta
 	_tick_ambient()
-	_tick_night()
 	_poll_hint()
 	_tick_idle(delta)
 
@@ -658,8 +511,6 @@ func sync_birds() -> void:
 			if is_instance_valid(_birds[id]):
 				_birds[id].queue_free()
 			_birds.erase(id)
-	# Undo can return to the other phase: cross-fade without the banner.
-	_fade_night(1.0 if s.phase == Board.Phase.NIGHT else 0.0)
 	if glide:
 		await glide.finished
 
@@ -717,11 +568,10 @@ func _entrance(quick := false) -> void:
 ## ---------- HUD ----------
 
 ## Exposed, aligned HUD: stars, footprint and remaining star-budget share one row.
-## The budget hides on the last star; day/night information stays below without a backing panel.
+## The budget hides on the last star.
 const STATUS_AT := Vector2(28, 48)
 const STATUS_H := 92.0
 const STATUS_HOUSE_CLEAR := 48.0  # the capsule always ends at least this far left of the house
-const PHASE_W := 200.0
 const STATUS_GAP := 16.0         # between the two cards
 const STATUS_INSET := 30.0       # inside the capsule's round ends
 const STATUS_CAP := 44.0
@@ -842,10 +692,8 @@ func _build_hud() -> void:
 	_home_effects.name = "HomeEffects"
 	_hud.add_child(_home_effects)
 
-## Bottom of the status pills (the phase pill only on day/night levels).
 func _status_rect() -> Rect2:
-	var h := STATUS_H * 2.0 + STATUS_GAP if session.state.day_length > 0 else STATUS_H
-	return Rect2(STATUS_AT, Vector2(_status_width(), h))
+	return Rect2(STATUS_AT, Vector2(_status_width(), STATUS_H))
 
 ## The capsule hugs its content: three stars, the footprint and room for a two-digit count.
 func _status_width() -> float:
@@ -900,26 +748,8 @@ func _build_status() -> void:
 	_shown_stars = -1
 	var number_x := moves_x + STATUS_ICON + 6.0
 	_moves_number = _digits(_status, Rect2(number_x, face - STATUS_CAP * 0.5, width - STATUS_INSET - number_x, STATUS_CAP))
-	_phase_chip = null
-	_phase_icons.clear()
-	_phase_number = null
-	if session.state.day_length <= 0:
-		return
-	_phase_chip = Control.new()
-	_phase_chip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(_phase_chip, Rect2(STATUS_AT + Vector2(0, STATUS_H + STATUS_GAP), Vector2(PHASE_W, STATUS_H)))
-	_hud.add_child(_phase_chip)
-	_phase_chip.name = "Phase"
-	_hud_pill(_phase_chip, Rect2(Vector2.ZERO, _phase_chip.size))
-	for phase in [Board.Phase.DAY, Board.Phase.NIGHT]:
-		_phase_icons[phase] = UI.icon(_phase_chip, "sun" if phase == Board.Phase.DAY else "moon",
-			Vector2(STATUS_INSET + STATUS_ICON * 0.5, face), STATUS_ICON, UI.INK)
-	var phase_x := STATUS_INSET + STATUS_ICON + 16.0
-	_phase_number = _digits(_phase_chip, Rect2(phase_x, face - STATUS_CAP * 0.5, PHASE_W - STATUS_INSET - phase_x, STATUS_CAP))
 
-## `with_phase` false leaves the day/night pill for the phase_changed playback.
-func _refresh_status(with_phase := true) -> void:
-	var s := session.state
+func _refresh_status() -> void:
 	var moves := session.move_count()
 	var stars := GameSession.stars_for(moves, session.par)
 	var keep := GameSession.moves_left_for_star(moves, session.par)
@@ -934,16 +764,6 @@ func _refresh_status(with_phase := true) -> void:
 			_pulse(_status_stars[stars], _status_stars[stars].size.x * 0.5)
 	_shown_moves = moves
 	_shown_stars = stars
-	if _phase_number == null or not with_phase:
-		return
-	var left := str(s.day_length - s.phase_counter)
-	_set_digits(_phase_number, left)
-	for phase in _phase_icons:
-		_phase_icons[phase].visible = phase == s.phase
-	var shown := "%d:%s" % [s.phase, left]
-	if not _shown_phase.is_empty() and shown != _shown_phase:
-		_pulse(_phase_number)
-	_shown_phase = shown
 
 ## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
 ## its leafy ends keep their shape, only the plain middle extends.
@@ -1354,12 +1174,10 @@ func _sleeper_on(b: int) -> BirdView:
 			return _birds.get(Board.id_of(list[i]))
 	return null
 
-## Sleep cues distinguish waiting for night from a matching bird landing or a nearby flock's song.
+## Sleep cue: a matching bird landing or a nearby flock's song wakes the sleeper.
 func _show_bubble(bird: BirdView) -> void:
 	_hide_bubble()
 	var icons: Array[String] = []
-	if Board.is_nocturnal(Board.species_of(bird.code)) and session.state.nocturnal_day_sleep():
-		icons.append("moon")
 	if (bird.code & Board.ASLEEP) != 0:
 		icons.append(WorldBirds.face(bird.species, _world()))
 		icons.append("gift_coin_wake")
@@ -1378,10 +1196,7 @@ func _show_bubble(bird: BirdView) -> void:
 	UI.shape(holder, Rect2(Vector2(-14, -34), Vector2(28, 28)), "cream", 14.0, 4.0)
 	for i in n:
 		var c := Vector2(body.position.x + BUBBLE_PAD + HUD_ICON * 0.5 + i * (HUD_ICON + BUBBLE_ICON_GAP), body.position.y + (BUBBLE_H - 8.0) * 0.5)
-		if icons[i] == "moon":
-			UI.icon(holder, "moon", c, HUD_ICON, Color8(120, 130, 200))
-		else:
-			UI.art(holder, icons[i], Rect2(c - Vector2.ONE * HUD_ICON * 0.5, Vector2.ONE * HUD_ICON))
+		UI.art(holder, icons[i], Rect2(c - Vector2.ONE * HUD_ICON * 0.5, Vector2.ONE * HUD_ICON))
 	var tip := bird.position + Vector2(-10.0, -135.0 * bird.density)
 	tip.x = clampf(tip.x, 48.0 + BUBBLE_PAD + 8.0, 1032.0 - body_w + BUBBLE_PAD + 8.0)
 	_bubble.position = tip
@@ -1540,8 +1355,7 @@ func _do(action: Callable) -> void:
 	var ok: bool = action.call()
 	if ok:
 		_prefetch_hint()   # searches while the move plays and the player thinks
-		# Counts change with the move, not after its animation; a new phase shows when its cross-fade starts.
-		_refresh_status(not session.events.any(func(e): return e["type"] == "phase_changed"))
+		_refresh_status()   # counts change with the move, not after its animation
 		await play_events(session.events.duplicate())
 	if playback != _playback_id:
 		return
@@ -1947,14 +1761,6 @@ func play_events(events: Array) -> void:
 						_birds.erase(item["id"])
 						crow.fly_to(Vector2(crow.position.x + (600.0 if crow.position.x > 540 else -600.0), -200), 0.0, 0.8, true)
 				await get_tree().create_timer(0.8).timeout
-			"phase_changed":
-				var night: bool = e["phase"] == Board.Phase.NIGHT
-				_phase_banner(night)
-				_refresh_status()
-				var tw := _fade_night(1.0 if night else 0.0, NIGHT_FADE * 2.0 if e.get("cause", "") == "stuck" else NIGHT_FADE)
-				for bird in _birds.values():
-					if is_instance_valid(bird):
-						bird.set_sleep(session.state.is_asleep(bird.code))
 			"won":
 				pass
 
@@ -2167,7 +1973,7 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## What a homecoming gift is about to change, as points on the board: the birds it wakes, the eggs it reveals or
-## hatches, the crows it sends away, the branch it grows, the sun or moon it turns, the move counter it spares.
+## hatches, the crows it sends away, the branch it grows, the move counter it spares.
 const GIFT_REACH_MAX := 8
 
 func _gift_targets(events: Array, gift: Dictionary) -> Array[Vector2]:
@@ -2189,10 +1995,6 @@ func _gift_targets(events: Array, gift: Dictionary) -> Array[Vector2]:
 						points.append(crow.global_position - global_position + Vector2(0, -80.0 * BIRD_SCALE))
 			"branch_grew", "twig_upgraded":
 				points.append(seat_point(e["branch"], maxi(0, int(e["after"]) - 1)) + Vector2(0, -60.0))
-			"phase_changed":
-				var icon: Control = _phase_icons.get(e["phase"])
-				if is_instance_valid(icon):
-					points.append(icon.get_global_rect().get_center() - global_position)
 	if gift["species"] == "berry" and is_instance_valid(_moves_icon):   # the free step: the move counter
 		points.append(_moves_icon.get_global_rect().get_center() - global_position)
 	if points.size() > GIFT_REACH_MAX:
@@ -2320,10 +2122,10 @@ func granted_undos(count: int) -> void:
 
 ## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
 ## "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
-## "day_wN" / "night_wN" (a level of world N in each phase), "air_N" (level N as it opens, to watch the living
+## "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
-## "phase_change" / "day_break" (one real move on level 33 brings night or day), "hint_timing_N" / "hint_think_N" (press the
+## "hint_timing_N" / "hint_think_N" (press the
 ## firefly at once or after three seconds on level N and log the time to the hand) and "hint_all" (all 40
 ## levels: background search time and first press, then quit); "replay_N" / "next_N" (level N with the quick
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
@@ -2370,17 +2172,11 @@ static func preview(main: Control, state: String) -> void:
 		for b in sides.values():
 			board._lift(b, true)
 		return
-	if state.begins_with("day_w") or state.begins_with("night_w") or state.begins_with("air_"):
+	if state.begins_with("air_"):
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
-		var id := int(state.trim_prefix("air_")) if state.begins_with("air_") else int(state.trim_prefix("day_w").trim_prefix("night_w")) * 10 - 5
-		board.start(Levels.get_level(id), main.profile, false)
-		if state.begins_with("night_w"):
-			board.session.state.phase = Board.Phase.NIGHT
-			board._apply_night(1.0)
-			board.sync_birds()
-			board.refresh_hud()
+		board.start(Levels.get_level(int(state.trim_prefix("air_"))), main.profile, false)
 		return
 	if state.begins_with("hud_over_"):
 		var board := BoardView.new()
@@ -2399,37 +2195,7 @@ static func preview(main: Control, state: String) -> void:
 		main.set_screen(board)
 		board.start(Levels.get_level(36), main.profile, false)
 		board.session.state.counted_moves = 13
-		board.session.state.phase_counter = 1
 		board.refresh_hud()
-		return
-	if state in ["phase_change", "day_break"]:
-		var board := BoardView.new()
-		main.set_screen(board)
-		board.start(Levels.get_level(33), main.profile, false)
-		# Fake clock: one move before the change; a plain move (no flock flies home) keeps the sequence short.
-		var s := board.session.state
-		if state == "day_break":
-			s.phase = Board.Phase.NIGHT
-			board._apply_night(1.0)
-			board.sync_birds()
-		s.phase_counter = s.day_length - 1
-		board.refresh_hud()
-		await main.get_tree().create_timer(0.6).timeout
-		var pick := []
-		for from in s.branch_count():
-			for to in s.branch_count():
-				var events := []
-				var probe := s.clone()
-				if pick.is_empty() and from != to and Rules.can_transfer(s, from, to):
-					Rules.new().transfer(probe, from, to, events)
-					if not events.any(func(e): return e["type"] == "flock_home"):
-						pick = [from, to]
-		if pick.is_empty():
-			pick = Solver.best_move(s)
-		if pick.is_empty() or pick[1] < 0:
-			return
-		board.tap_branch(pick[0])
-		board.tap_branch(pick[1])
 		return
 	if state.begins_with("hint_timing_") or state.begins_with("hint_think_") or state == "hint_all":
 		var player: Profile = main.profile.duplicate_profile()
@@ -2569,7 +2335,7 @@ static func preview(main: Control, state: String) -> void:
 		main.set_screen(board)
 		board.start(Levels.get_level(int(state.trim_prefix("level_"))), main.profile, false)
 		return
-	var def := {"id": 99, "world": 1, "variant": "morning", "capacity": 4, "par": 12, "dayLength": 4, "branches": [
+	var def := {"id": 99, "world": 1, "variant": "morning", "capacity": 4, "par": 12, "branches": [
 		{"side": "L", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "hoot:sleep"]},
 		{"side": "R", "row": 0, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "sunny"]},
 		{"side": "L", "row": 1, "kind": "normal", "seats": 0, "birds": ["sunny", "sky", "hoot"]},

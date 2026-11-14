@@ -15,6 +15,7 @@ const INK := 8
 const HOOT := 9
 
 enum Kind { NORMAL, TWIG, GROWING, SWIVEL }
+## Retained only so stored enum numbers keep their meaning; levels no longer have a day or a night.
 enum Phase { DAY, NIGHT }
 enum Booster { FIREFLY, SAPLING, OWL_EYE, MORNING_BELL, SCARECROW, SPRING_RAIN }
 const BOOSTER_COUNT := 6
@@ -24,7 +25,6 @@ var world := 1
 var variant := "noon"
 var capacity := 4
 var species_count := 0
-var day_length := 0
 
 # Parallel branch arrays; items[b] is a PackedInt32Array of bird codes, bottom first.
 var items: Array[PackedInt32Array] = []
@@ -39,9 +39,6 @@ var counted_moves := 0
 var encore := false
 var added_branch := false
 var light_step := false
-var phase := Phase.DAY
-var phase_counter := 0
-var moonbeam_left := 0
 var chain := 0
 var chorus_coins := 0
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
@@ -65,24 +62,17 @@ static func with_flags(code: int, flags: int) -> int:
 static func species_index(name: String) -> int:
 	return SPECIES.find(name)
 
-static func is_nocturnal(species: int) -> bool:
-	return species == INK or species == HOOT
-
-
 func branch_count() -> int:
 	return items.size()
 
 func is_won() -> bool:
 	return homed.size() == species_count
 
-func nocturnal_day_sleep() -> bool:
-	return day_length > 0 and phase == Phase.DAY and moonbeam_left == 0
-
-## Effective sleep: authored sleep, or a nocturnal bird during day.
+## Effective sleep: a bird the level put to sleep.
 func is_asleep(code: int) -> bool:
 	if code & EGG:
 		return false
-	return (code & ASLEEP) != 0 or (is_nocturnal(species_of(code)) and nocturnal_day_sleep())
+	return (code & ASLEEP) != 0
 
 func free_slots(b: int) -> int:
 	return caps[b] - items[b].size()
@@ -119,13 +109,13 @@ func add_branch(capacity_value: int, right: bool, row: int, kind: int, birds: Pa
 func clone(copy_inventory := true) -> Board:
 	var c := Board.new()
 	c.level_id = level_id; c.world = world; c.variant = variant; c.capacity = capacity
-	c.species_count = species_count; c.day_length = day_length
+	c.species_count = species_count
 	for list in items:
 		c.items.append(list.duplicate())
 	c.caps = caps.duplicate(); c.kinds = kinds.duplicate(); c.rows = rows.duplicate(); c.rights = rights.duplicate()
 	c.homed = homed.duplicate()
 	c.moves = moves; c.counted_moves = counted_moves; c.encore = encore; c.added_branch = added_branch
-	c.light_step = light_step; c.phase = phase; c.phase_counter = phase_counter; c.moonbeam_left = moonbeam_left
+	c.light_step = light_step
 	c.chain = chain; c.chorus_coins = chorus_coins
 	c.inventory = inventory.duplicate() if copy_inventory else inventory
 	return c
@@ -133,7 +123,8 @@ func clone(copy_inventory := true) -> Board:
 ## Search key without bird ids, economy or move totals. preserve_order keeps homecoming order.
 func search_key(preserve_order: bool) -> PackedInt32Array:
 	var key := PackedInt32Array()
-	key.append(phase | (phase_counter << 1) | (moonbeam_left << 8) | (int(light_step) << 12) | (int(encore) << 13))
+	# Bits 0-11 once held the day/night phase; stored hints depend on this layout, so the flags keep their bits.
+	key.append((int(light_step) << 12) | (int(encore) << 13))
 	if preserve_order:
 		key.append(homed.size())
 		key.append_array(homed)

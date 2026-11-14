@@ -14,10 +14,6 @@ const AUTUMN_RED := Color(1.0, 0.46, 0.36)
 const WISTERIA := Color(0.82, 0.7, 1.0)
 
 var still := false               # captures: everything stays where it was seeded
-var night := 0.0:                # 0 day .. 1 night: the sun fades out and falling things take moonlight
-	set(value):
-		night = value
-		_apply(0.0)
 var _clock := 0.0
 var _beams: Array[TextureRect] = []
 var _glow: TextureRect
@@ -264,7 +260,7 @@ func _process(delta: float) -> void:
 func _apply(delta: float) -> void:
 	if _glow == null:
 		return
-	var sun := _sun_strength * (1.0 - night)
+	var sun := _sun_strength
 	# Sunbeams: two layers turn slowly in opposite directions and breathe out of step, so the light shimmers.
 	_beams[0].rotation = _clock * 0.05
 	_beams[1].rotation = -_clock * 0.08 + 0.4
@@ -273,7 +269,6 @@ func _apply(delta: float) -> void:
 	_glow.modulate.a = (0.09 + 0.05 * sin(_clock * 0.9 + 0.8)) * sun
 	_glow.scale = Vector2.ONE * (1.0 + 0.05 * sin(_clock * 0.9 + 0.8))
 	_glow.pivot_offset = _glow.size * 0.5
-	var moon := Color.WHITE.lerp(Color(0.7, 0.76, 0.98), night)
 	for leaf in _leaves:
 		var node: TextureRect = leaf["node"]
 		leaf["y"] += leaf["speed"] * delta
@@ -290,7 +285,6 @@ func _apply(delta: float) -> void:
 			# Tumbling: the leaf turns edge-on and back, a real change of pose rather than a flip of the picture.
 			squash = 0.45 + 0.55 * absf(cos(_clock * leaf["tumble"] + leaf["phase"]))
 		node.scale = Vector2(leaf["scale"], leaf["scale"] * squash)
-		node.modulate = moon
 		node.modulate.a = clampf(minf((leaf["y"] + 80.0) / 160.0, (1980.0 - leaf["y"]) / 160.0), 0.0, 0.95)
 	for band in _mists:
 		var node: TextureRect = band["node"]
@@ -300,7 +294,6 @@ func _apply(delta: float) -> void:
 		elif band["x"] < -node.size.x - 100.0:
 			band["x"] = 1180.0
 		node.position = Vector2(band["x"], band["y"] + 18.0 * sin(_clock * 0.25 + band["phase"]))
-		node.modulate = moon
 		node.modulate.a = band["alpha"] * (0.8 + 0.2 * sin(_clock * 0.4 + band["phase"]))
 	for m in _motes:
 		var node: TextureRect = m["node"]

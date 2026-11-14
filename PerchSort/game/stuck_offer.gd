@@ -23,7 +23,7 @@ static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
 	return p
 
 ## A level whose opening has moves that can never be recovered from (preview and tests).
-const DEAD_END_LEVEL := {"id": 41, "world": 5, "variant": "morning", "capacity": 4, "par": 12, "dayLength": 0, "branches": [{"side": "R", "row": 0, "seats": 0, "birds": ["sky", "berry", "sunny", "berry"]}, {"side": "L", "row": 0, "seats": 0, "birds": ["berry", "cocoa", "egg:cocoa", "cocoa"]}, {"side": "R", "row": 1, "seats": 0, "birds": ["sky", "sunny", "sunny"]}, {"side": "L", "row": 1, "seats": 0, "birds": ["sky", "sunny"]}, {"side": "R", "row": 2, "seats": 0, "birds": ["berry"]}, {"side": "L", "row": 2, "seats": 0, "birds": ["sky", "cocoa"]}]}
+const DEAD_END_LEVEL := {"id": 41, "world": 5, "variant": "morning", "capacity": 4, "par": 12, "branches": [{"side": "R", "row": 0, "seats": 0, "birds": ["sky", "berry", "sunny", "berry"]}, {"side": "L", "row": 0, "seats": 0, "birds": ["berry", "cocoa", "egg:cocoa", "cocoa"]}, {"side": "R", "row": 1, "seats": 0, "birds": ["sky", "sunny", "sunny"]}, {"side": "L", "row": 1, "seats": 0, "birds": ["sky", "sunny"]}, {"side": "R", "row": 2, "seats": 0, "birds": ["berry"]}, {"side": "L", "row": 2, "seats": 0, "birds": ["sky", "cocoa"]}]}
 
 ## Fake-data states for captures: "normal" (the offer over a board), "rescue" (DEAD_END_LEVEL after a losing opening move
 ## and one more; the offer opens, its action is pressed after a moment and the board steps back).

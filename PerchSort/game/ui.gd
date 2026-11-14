@@ -186,7 +186,7 @@ static func shape(parent: Node, r: Rect2, kind := "cream", radius := 56.0, edge 
 ## icon sits on cream or on a scene. White symbols remain only on solid green and red fills (play, check, close).
 const PICTURES := {"star": "island_star_full", "gear": "pic_gear", "home": "pic_home", "retry": "pic_retry", "undo": "pic_undo",
 	"back": "pic_back", "info": "pic_help", "help": "pic_help", "lock": "pic_lock", "check": "pic_check",
-	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves", "sun": "pic_sun", "moon": "pic_moon",
+	"hop": "pic_moves", "moves": "pic_moves", "footprint": "pic_moves",
 	"feather": "pic_feather", "shop": "pic_shop", "aviary": "pic_aviary", "sound_on": "pic_sound_on",
 	"sound_off": "pic_sound_off", "sparkle": "pic_sparkle", "bulb": "island_icon_firefly", "sapling": "island_icon_sprout",
 	"eye": "island_icon_owl_eye", "bell": "island_icon_bell", "scarecrow": "island_icon_scarecrow",
@@ -201,7 +201,7 @@ static func picture_of(name: String, color: Color) -> String:
 		return "island_star_empty"
 	return PICTURES[name]
 
-const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell", "sun", "moon"]
+const CONTROL_ICONS := ["left", "right", "check", "retry", "undo", "home", "play", "shop", "aviary", "gear", "hanger", "lock", "sound_on", "sound_off", "bulb", "eye", "bell"]
 
 static func icon_texture(name: String) -> Texture2D:
 	if name == "back":

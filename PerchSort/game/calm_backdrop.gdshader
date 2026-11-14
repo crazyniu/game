@@ -8,7 +8,7 @@ uniform vec4 wash_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform vec4 play_area = vec4(0.10, 0.16, 0.90, 0.90);   // x0, y0, x1, y1 (UV) where the wash is full
 uniform float feather = 0.14;         // width of the fade from full wash to none (UV)
 
-varying vec4 tint;   // the node's modulate (the night painting fades in by its alpha)
+varying vec4 tint;   // the node's modulate
 
 void vertex() {
 	tint = COLOR;

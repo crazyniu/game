@@ -68,7 +68,7 @@ func _run() -> void:
 			var species: Array[String] = []
 			species.assign(roster)
 			for playable in [false, true]:
-				var mechanics: Array[String] = ["sleep", "egg", "daynight"]
+				var mechanics: Array[String] = ["sleep", "egg"]
 				var dialog: Control = popups.level_card(main.popups, 100, 3, 20, 12, species, mechanics, func(): calls += 1, playable)
 				var close: Button = dialog.content.get_node("Close")
 				var title: Control = dialog.content.get_node("TitleGroup")

@@ -39,7 +39,6 @@ static func create_board(level: Dictionary, inventory := PackedInt32Array()) -> 
 	var variant: String = str(level.get("variant", ""))
 	board.variant = "noon" if variant.is_empty() else variant
 	board.capacity = capacity
-	board.day_length = int(level.get("dayLength", 0))
 	var counts := {}
 	var slots := {}
 	var next_id := 0

@@ -18,7 +18,7 @@ states=(
   aviary_view:list aviary_view:list_some_unmet aviary_view:list_scrolled
   aviary_view:detail_berry aviary_view:detail_crow aviary_view:detail_hoot aviary_view:detail_ember_skin aviary_view:buy_outfit aviary_view:buy_outfit_short aviary_view:bought_outfit
   tutorial:tutorial_1 tutorial:tutorial_2 tutorial:tutorial_3 tutorial:tutorial_4
-  tutorial:lesson_sleep tutorial:lesson_mama tutorial:lesson_egg tutorial:lesson_crow tutorial:lesson_twig tutorial:lesson_swivel tutorial:lesson_growing tutorial:lesson_daynight
+  tutorial:lesson_sleep tutorial:lesson_mama tutorial:lesson_egg tutorial:lesson_crow tutorial:lesson_twig tutorial:lesson_swivel tutorial:lesson_growing
 )
 failed=0
 for s in "${states[@]}"; do

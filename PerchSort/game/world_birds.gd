@@ -1,6 +1,6 @@
 class_name WorldBirds
 extends RefCounted
-## Every world has its own kind of bird. A species is a colour slot with its own rules (gift, sleep, nocturnal) in
+## Every world has its own kind of bird. A species is a colour slot with its own rules (gift, sleep) in
 ## every world; a world with a FAMILY shows each slot as that family's bird of the same colour, painted as a whole
 ## bird under the prefix "<species>_<family>" (tools/birds/world_birds). World 1 keeps the original birds. Outfits
 ## are worn only by the original birds. The crow is the same troublemaker everywhere.

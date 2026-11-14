@@ -40,7 +40,7 @@ const STAR_GAP := 20.0
 const STAR_CENTER := Vector2(540, 585)
 
 ## Mechanic lessons in the order a player meets them; level data decides where each one first appears.
-const LESSONS: Array[String] = ["sleep", "mama", "egg", "crow", "twig", "swivel", "growing", "daynight"]
+const LESSONS: Array[String] = ["sleep", "mama", "egg", "crow", "twig", "swivel", "growing"]
 ## Starting birds of each lesson per branch from the edge outwards (level tokens: "x:sleep", "egg:x", "x:mama").
 const LESSON_BIRDS := {
 	"sleep": [["berry", "berry", "berry:sleep"], ["sky", "berry"], ["sky", "sky"]],
@@ -50,7 +50,6 @@ const LESSON_BIRDS := {
 	"twig": [["sky", "sky", "berry", "berry"], [], ["sky", "sky"]],
 	"swivel": [["sky", "berry", "berry", "berry"], ["sky", "sky", "sky"], []],
 	"growing": [["mint", "mint", "mint"], ["berry", "berry"], ["mint"]],
-	"daynight": [["hoot", "hoot", "hoot", "sky"], ["sky", "sky"], ["hoot", "sky"]],
 }
 ## Special branches of a lesson: branch -> [kind, seats].
 const LESSON_BRANCHES := {
@@ -58,10 +57,7 @@ const LESSON_BRANCHES := {
 	"swivel": {0: [Board.Kind.SWIVEL, 4]},
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
-const LESSON_DAY_LENGTH := 2
 const GOT_IT := Vector2(430, 162)    # ButtonKit.PRIMARY: the same size as every Play plate
-const NIGHT_TINT := Color(0.70, 0.76, 0.98)   # board_view.gd moonlight
-const PHASE_RECT := Rect2(40, 36, 192, 104)    # board HUD day/night pill, in scene pixels
 
 var modal: Modal
 var step := 0
@@ -71,11 +67,7 @@ var world := WORLD
 var _art: Array = []          # per branch: the painted layer node, scaled for short branches
 var _kinds: Array = []        # per branch: [kind, seats]
 var _knot: Sprite2D
-var _night_paint: TextureRect
 var _branches: Node2D
-var _phase_icons: Array = []  # sun, moon
-var _phase_number: Control
-var _night := false
 var _layer: Control           # everything of the current step
 var _world: Control           # scene in board pixels, scaled into the card
 var _birds_layer: Node2D
@@ -147,8 +139,6 @@ static func mechanics_in(level_def: Dictionary) -> Array[String]:
 				found["mama"] = true
 			elif t == "crow":
 				found["crow"] = true
-	if int(level_def.get("dayLength", 0)) > 0:
-		found["daynight"] = true
 	var out: Array[String] = []
 	for m in LESSONS:
 		if found.has(m):
@@ -228,15 +218,6 @@ func _build_stage(r: Rect2) -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	bg.size = _world.size
 	_world.add_child(bg)
-	_night_paint = null
-	if lesson == "daynight":
-		var night := AtlasTexture.new()
-		night.atlas = Art.tex("board_w%d_night_bg" % world)
-		night.region = paint.region
-		_night_paint = bg.duplicate()
-		_night_paint.texture = night
-		_night_paint.modulate.a = 0.0
-		_world.add_child(_night_paint)
 	_build_house()
 	_branches = Node2D.new()
 	_branches.name = "Branches"
@@ -250,8 +231,6 @@ func _build_stage(r: Rect2) -> void:
 	_tap_glow.modulate = Color(1, 0.95, 0.7, 0.0)
 	_world.add_child(_tap_glow)
 	_stars = []
-	if lesson == "daynight":
-		_build_phase_chip()
 	if lesson.is_empty() and step == 3:
 		# Three earned stars pop in over a warm glow once every kind is home.
 		var halo := UI.art(_world, "glow_soft", Rect2(STAR_CENTER - Vector2(380, 190), Vector2(760, 380)))
@@ -290,7 +269,6 @@ func _build_stage(r: Rect2) -> void:
 	rim.add_theme_stylebox_override("panel", line)
 	UI.place(rim, r)
 	_layer.add_child(rim)
-	_night = false
 	_set_birds(_start_birds())
 
 ## Painted branch layers anchored at the screen edge (board_view.gd): a short branch (twig, growing) is the same
@@ -332,25 +310,6 @@ func _build_branches() -> void:
 func _branch_scale(b: int, seats: int) -> float:
 	var full := _length(b)
 	return minf(full, SEAT_FIRST * BIRD_SCALE + (maxi(seats, 2) - 1) * _pitch(b) + END_CLEAR) / full
-
-## The board's day/night pill: painted sun or moon and the moves until the switch.
-func _build_phase_chip() -> void:
-	var chip := UI.shape(_world, PHASE_RECT, "hud", PHASE_RECT.size.y * 0.5, 6.0)
-	chip.name = "Phase"
-	var face := (PHASE_RECT.size.y - 4.0) * 0.5
-	_phase_icons = []
-	for icon_name in ["sun", "moon"]:
-		_phase_icons.append(UI.icon(chip, icon_name, Vector2(34.0 + 28.0, face), 56.0, UI.INK))
-	var x := 34.0 + 56.0 + 16.0
-	var cap := BoardView.STATUS_CAP
-	_phase_number = UI.number(chip, str(LESSON_DAY_LENGTH), Rect2(x, face + cap * 0.5 - cap * BoardView.NUMBER_BASELINE,
-		PHASE_RECT.size.x - 34.0 - x, cap), Color.WHITE, -1)
-	_show_phase(false, LESSON_DAY_LENGTH)
-
-func _show_phase(night: bool, left: int) -> void:
-	_phase_icons[0].visible = not night
-	_phase_icons[1].visible = night
-	UI.set_number(_phase_number, str(left))
 
 ## The board's hanging house on its rope, with a round doorway mask for flights home and the resident.
 func _build_house() -> void:
@@ -494,8 +453,7 @@ func _set_birds(layout: Array) -> void:
 		for i in layout[b].size():
 			var bird := BirdView.new()
 			var code := _code(b * 8 + i, str(layout[b][i]))
-			var asleep := (code & Board.ASLEEP) != 0 or (lesson == "daynight" and not _night
-				and Board.is_nocturnal(Board.species_of(code)))
+			var asleep := (code & Board.ASLEEP) != 0
 			bird.setup(code, asleep, BIRD_SCALE, WorldBirds.look(Board.SPECIES[Board.species_of(code)], world))
 			bird.position = _seat(b, i)
 			_birds_layer.add_child(bird)
@@ -647,10 +605,7 @@ func _reset(run: int) -> void:
 	for s in _stars:
 		out.tween_property(s, "modulate:a", 0.0, 0.25)
 	out.tween_property(_hand, "position", HAND_REST, 0.4).set_trans(Tween.TRANS_SINE)
-	# Lessons return to their first scene: day again, a grown branch back to its seats.
-	if _night_paint:
-		out.tween_property(_night_paint, "modulate:a", 0.0, 0.4)
-		out.tween_property(_branches, "modulate", Color.WHITE, 0.4)
+	# Lessons return to their first scene: a grown branch back to its seats.
 	var special: Dictionary = LESSON_BRANCHES.get(lesson, {})
 	for b in special:
 		if _kinds[b][1] != special[b][1]:
@@ -658,10 +613,6 @@ func _reset(run: int) -> void:
 			out.tween_property(_art[b], "scale:x", _branch_scale(b, _kinds[b][1]), 0.4).set_trans(Tween.TRANS_SINE)
 	await out.finished
 	if not _alive(run): return
-	if _night_paint:
-		_night = false
-		_birds_layer.modulate = Color(1, 1, 1, 0)
-		_show_phase(false, LESSON_DAY_LENGTH)
 	_set_resident("")
 	_set_birds(_start_birds())
 	var back := _tw()
@@ -781,22 +732,6 @@ func _lesson_cycle(run: int) -> void:
 			await _fly_home(run, 0)
 			if not _alive(run): return
 			await _grow(run, 1)
-		"daynight":
-			# The pill counts the moves to night; owls sleep by day and wake when night falls.
-			await _move(run, 0, 1)
-			if not _alive(run): return
-			_count_down(LESSON_DAY_LENGTH - 1)
-			await _wait(0.4)
-			if not _alive(run): return
-			await _move(run, 2, 1)
-			if not _alive(run): return
-			await _fly_home(run, 1)
-			if not _alive(run): return
-			await _nightfall(run)
-			if not _alive(run): return
-			await _move(run, 2, 0)
-			if not _alive(run): return
-			await _fly_home(run, 0)
 	if not _alive(run): return
 	await _hand_to(HAND_REST, 0.5)
 	if not _alive(run): return
@@ -848,31 +783,6 @@ func _grow(run: int, b: int) -> void:
 	glow.tween_property(_tap_glow, "modulate:a", 0.0, 0.5)
 	await glow.finished
 
-func _count_down(left: int) -> void:
-	UI.set_number(_phase_number, str(left))
-	_phase_number.pivot_offset = _phase_number.size * 0.5
-	var tw := _tw()
-	tw.tween_property(_phase_number, "scale", Vector2.ONE * 1.3, 0.12)
-	tw.tween_property(_phase_number, "scale", Vector2.ONE, 0.2)
-
-## Night falls: the world's night painting cross-fades in under moonlight, the pill turns to the moon and the
-## owls wake.
-func _nightfall(run: int) -> void:
-	_night = true
-	var tw := _tw().set_parallel()
-	tw.tween_property(_night_paint, "modulate:a", 1.0, 0.8).set_trans(Tween.TRANS_SINE)
-	tw.tween_property(_branches, "modulate", NIGHT_TINT, 0.8).set_trans(Tween.TRANS_SINE)
-	tw.tween_property(_birds_layer, "modulate", NIGHT_TINT, 0.8).set_trans(Tween.TRANS_SINE)
-	_show_phase(true, LESSON_DAY_LENGTH)
-	_count_down(LESSON_DAY_LENGTH)
-	await tw.finished
-	if not _alive(run): return
-	for row in _birds:
-		for bird in row:
-			if bird.asleep and Board.is_nocturnal(Board.species_of(bird.code)):
-				bird.wake()
-	await _wait(0.7)
-
 func _stars_pop(run: int) -> void:
 	_tw().tween_property(_stars[0], "modulate:a", 0.9, 0.3)
 	for i in _stars.size() - 1:
@@ -916,7 +826,7 @@ func _select(b: int) -> void:
 
 func _pose_lesson() -> void:
 	match lesson:
-		"sleep", "egg", "daynight":
+		"sleep", "egg":
 			_select(1 if lesson == "sleep" else 0)
 			_hand.position = _point_at(0 if lesson == "sleep" else 1)
 		"mama":
