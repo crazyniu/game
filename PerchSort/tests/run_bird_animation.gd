@@ -30,7 +30,7 @@ func _run() -> void:
 	bird.wake()
 	await get_tree().create_timer(0.1).timeout
 	check(bird._nudge < 0.0, "wake cancels sleeper reaction immediately")
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.8).timeout   # the wake (bell, spring and landing) lasts about 0.8 s
 	check(not bird.acting and bird._nudge < 0.0, "wake stays awake without the old reaction resuming")
 	completions = 0
 	bird.cheer()

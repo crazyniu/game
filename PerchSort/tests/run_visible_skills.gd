@@ -25,7 +25,7 @@ func _run() -> void:
 	main.args["capture"] = "1"
 	await process_frame
 	var popups: GDScript = load("res://game/popups.gd")
-	# The card: trigger row (four faces, arrow, house) above the ability row, inside the panel, not overlapping.
+	# The card: trigger row (four faces, arrow, house, arrow, result cell) above the ability row, inside the panel, not overlapping.
 	var card: Control = popups.goal_info(main.popups, "berry")
 	var trigger: Control = card.content.get_node_or_null("Trigger")
 	check(trigger != null, "a bird with an effect shows the trigger row")
@@ -36,7 +36,9 @@ func _run() -> void:
 		check(card.panel_rect.encloses(house.get_rect()) and card.panel_rect.encloses(trigger.get_node("Face0").get_rect()), "trigger row inside the card")
 		check(house.get_rect().end.y <= ability.get_rect().position.y, "trigger row clear of the ability row")
 		var left: float = trigger.get_node("Face0").get_rect().position.x
-		check(absf((left + house.get_rect().end.x) * 0.5 - 540.0) < 0.6, "trigger row centred")
+		var cell: Control = trigger.get_node("Cell")
+		check(card.panel_rect.encloses(cell.get_rect()) and cell.get_rect().end.y <= ability.get_rect().position.y, "result cell inside the card")
+		check(absf((left + cell.get_rect().end.x) * 0.5 - 540.0) < 0.6, "trigger row centred")
 	card.queue_free()
 	var crow: Control = popups.goal_info(main.popups, "crow")
 	check(crow.content.get_node_or_null("Trigger") == null, "a bird without an effect has no trigger row")

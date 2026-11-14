@@ -429,7 +429,7 @@ static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> voi
 
 ## A bird's card: the bird, then "four of them go home" as pictures (faces, arrow, birdhouse) when its flock's
 ## homecoming has an effect, then that effect as its badge and painted caption.
-const TRIGGER_H := 110.0
+const TRIGGER_H := 140.0
 const TRIGGER_FACE := 84.0
 const TRIGGER_HOUSE := 104.0
 
@@ -459,7 +459,7 @@ static func goal_info(host: Control, species: String, world := 1) -> Control:
 		WorldBirds.look(species, world))
 	y += GOAL_HERO + GOAL_GAP
 	if not effect.is_empty():
-		_trigger_row(c, species, world, y)
+		_trigger_row(c, species, world, y, _instant(host))
 		y += TRIGGER_H + GOAL_GAP
 	FamilyDialog.ability(c, species, effect, y)
 	var action_size := ButtonKit.card_action_size(GOAL_CARD_W)
@@ -468,22 +468,196 @@ static func goal_info(host: Control, species: String, world := 1) -> Control:
 	ButtonKit.word(button.get_node("Content"), "white_action_ok", action_size).name = "Word"
 	return p
 
-static func _trigger_row(c: Control, species: String, world: int, y: float) -> void:
-	var gap := 6.0
-	var arrow := 64.0
-	var pad := 22.0
-	var width := 4 * TRIGGER_FACE + 3 * gap + pad + arrow + pad + TRIGGER_HOUSE
+## The trigger row plays the skill as a loop, so the card needs no reading: four faces hop and fly into the house, the
+## house bounces, the ability badge pops out and flies to the result cell, and the cell shows the effect (a sleeper
+## wakes, an egg shows its bird or hatches, a crow flies off, a branch grows, the undo slot or the move count gets
+## +1). Then everything comes back and it plays again. A capture (instant) shows the row at rest.
+const DEMO_FACE := 84.0
+const DEMO_GAP := 4.0
+const DEMO_ARROW := 48.0
+const DEMO_PAD := 14.0
+const DEMO_CELL := 124.0
+
+static func _trigger_row(c: Control, species: String, world: int, y: float, instant: bool) -> void:
+	var effect: String = EFFECT.get(species, "")
+	var width := 4 * DEMO_FACE + 3 * DEMO_GAP + 2 * (DEMO_PAD + DEMO_ARROW + DEMO_PAD) + TRIGGER_HOUSE + DEMO_CELL
 	var x := 540.0 - width * 0.5
 	var mid := y + TRIGGER_H * 0.5
 	var row := Control.new()
 	row.name = "Trigger"
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	c.add_child(row)
+	var faces: Array[TextureRect] = []
 	for i in 4:
-		UI.art(row, WorldBirds.face(species, world), Rect2(x + i * (TRIGGER_FACE + gap), mid - TRIGGER_FACE * 0.5, TRIGGER_FACE, TRIGGER_FACE)).name = "Face%d" % i
-	var after := x + 4 * TRIGGER_FACE + 3 * gap + pad
-	UI.icon(row, "right", Vector2(after + arrow * 0.5, mid), arrow, UI.FILL["orange"]).name = "Arrow"
-	UI.art(row, "house_default", Rect2(after + arrow + pad, mid - TRIGGER_HOUSE * 0.5, TRIGGER_HOUSE, TRIGGER_HOUSE)).name = "House"
+		var face := UI.art(row, WorldBirds.face(species, world), Rect2(x + i * (DEMO_FACE + DEMO_GAP), mid - DEMO_FACE * 0.5, DEMO_FACE, DEMO_FACE))
+		face.name = "Face%d" % i
+		face.pivot_offset = face.size * 0.5
+		faces.append(face)
+	var after := x + 4 * DEMO_FACE + 3 * DEMO_GAP + DEMO_PAD
+	UI.icon(row, "right", Vector2(after + DEMO_ARROW * 0.5, mid), DEMO_ARROW, UI.FILL["orange"]).name = "Arrow"
+	var house := UI.art(row, "house_default", Rect2(after + DEMO_ARROW + DEMO_PAD, mid - TRIGGER_HOUSE * 0.5, TRIGGER_HOUSE, TRIGGER_HOUSE))
+	house.name = "House"
+	house.pivot_offset = Vector2(house.size.x * 0.5, 0.0)
+	var after2 := house.position.x + TRIGGER_HOUSE + DEMO_PAD
+	UI.icon(row, "right", Vector2(after2 + DEMO_ARROW * 0.5, mid), DEMO_ARROW, UI.FILL["orange"]).name = "Arrow2"
+	var cell := Rect2(after2 + DEMO_ARROW + DEMO_PAD, mid - DEMO_CELL * 0.5, DEMO_CELL, DEMO_CELL)
+	var frame := Control.new()   # the result cell's box (layout only)
+	frame.name = "Cell"
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(frame, cell)
+	row.add_child(frame)
+	var result := Control.new()
+	result.name = "Result"
+	result.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	result.set_meta("world", world)
+	row.add_child(result)
+	_demo_result(result, effect, species, world, cell, true)
+	if instant:
+		return
+	var door := house.get_rect().get_center() + Vector2(0, 8)
+	var badge := UI.art(row, "gift_coin_" + effect, Rect2(door - Vector2.ONE * 32.0, Vector2.ONE * 64.0))
+	badge.name = "Badge"
+	badge.pivot_offset = badge.size * 0.5
+	badge.visible = false
+	var loop := row.create_tween().set_loops()
+	loop.tween_interval(0.5)
+	for i in 4:   # hop in turn
+		var face := faces[i]
+		loop.tween_property(face, "scale", Vector2(1.15, 0.85), 0.07)
+		loop.tween_property(face, "scale", Vector2(0.9, 1.15), 0.08)
+		loop.tween_property(face, "scale", Vector2.ONE, 0.08)
+	for i in 4:   # fly into the doorway, one after another
+		var face := faces[i]
+		var home := door - face.size * 0.5
+		(loop if i == 0 else loop.parallel()).tween_property(face, "position", home, 0.45).set_delay(0.1 + i * 0.09).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		loop.parallel().tween_property(face, "scale", Vector2.ONE * 0.35, 0.45).set_delay(0.1 + i * 0.09)
+		loop.parallel().tween_property(face, "modulate:a", 0.0, 0.12).set_delay(0.45 + i * 0.09)
+	loop.tween_interval(0.05)
+	loop.tween_property(house, "scale", Vector2(1.15, 0.88), 0.08)   # the house bounces as they arrive
+	loop.tween_property(house, "scale", Vector2(0.95, 1.08), 0.1)
+	loop.tween_property(house, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	loop.tween_callback(func():   # the badge pops out of the door
+		badge.position = door - badge.size * 0.5
+		badge.scale = Vector2.ONE * 0.2
+		badge.modulate.a = 1.0
+		badge.visible = true)
+	loop.tween_property(badge, "scale", Vector2.ONE * 1.3, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	loop.tween_interval(0.15)
+	var arc := func(t: float) -> void:
+		var a := door
+		var b := cell.get_center()
+		var top := (a + b) * 0.5 + Vector2(0, -90)
+		badge.position = a.lerp(top, t).lerp(top.lerp(b, t), t) - badge.size * 0.5
+		badge.scale = Vector2.ONE * lerpf(1.3, 0.8, t)
+	loop.tween_method(arc, 0.0, 1.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	loop.tween_callback(func():
+		badge.visible = false
+		_demo_play(result, effect, cell))
+	loop.tween_interval(1.4)
+	loop.tween_callback(func():   # everything back for the next round
+		for i in 4:
+			faces[i].position = Vector2(x + i * (DEMO_FACE + DEMO_GAP), mid - DEMO_FACE * 0.5)
+			faces[i].scale = Vector2.ONE
+		_demo_result(result, effect, species, world, cell, false))
+	for i in 4:
+		loop.parallel().tween_property(faces[i], "modulate:a", 1.0, 0.3)
+
+## The "before" picture of a skill's result cell. `first` builds it for the card; later rounds rebuild it.
+static func _demo_result(holder: Control, effect: String, species: String, world: int, cell: Rect2, first: bool) -> void:
+	for child in holder.get_children():
+		holder.remove_child(child)
+		child.queue_free()
+	var other := "sky" if species != "sky" else "sunny"
+	match effect:
+		"wake":
+			_demo_bird(holder, other, cell, Board.ASLEEP, true, world).name = "Sleeper"
+		"reveal", "hatch":
+			var egg := _demo_bird(holder, other, cell, Board.EGG, false, world)
+			egg.name = "Egg"
+		"scare":
+			_demo_bird(holder, "crow", cell, 0, false, world).name = "Crow"
+		"grow":
+			var sprout := UI.art(holder, UI.PICTURES["sapling"], cell.grow(-18.0))
+			sprout.name = "Sprout"
+			sprout.pivot_offset = Vector2(sprout.size.x * 0.5, sprout.size.y)
+			sprout.scale = Vector2.ONE * 0.55
+		"undo":
+			UI.art(holder, "island_icon_undo", cell.grow(-12.0), UI.used_rect("island_icon_undo")).name = "Undo"
+		"encore":
+			UI.art(holder, "icon_star_budget_steps", cell.grow(-12.0), Rect2(317, 217, 652, 801)).name = "Steps"
+
+## A live bird for the result cell (breathing like every bird), fitted into `box` by its visible body.
+static func _demo_bird(holder: Control, species: String, box: Rect2, flags: int, asleep: bool, world: int) -> BirdView:
+	var look := WorldBirds.look(species, world) if species != "crow" else ""
+	var used := UI.used_rect((look if not look.is_empty() else species) + "_front")
+	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y) * 0.9
+	var bird := BirdView.new()
+	holder.add_child(bird)
+	bird.position = Vector2(box.get_center().x - (used.get_center().x - BirdView.CANVAS * 0.5) * k,
+		box.end.y - (used.end.y - BirdView.FEET_Y) * k)
+	bird.setup(Board.bird(0, Board.species_index(species), flags), asleep, k * BirdView.CANVAS / BirdView.DISPLAY, look)
+	bird.quiet = true
+	return bird
+
+## The effect landing in the result cell, with a sparkle flash; a "+1" for the undo slot and the move count.
+static func _demo_play(holder: Control, effect: String, cell: Rect2) -> void:
+	var flash := UI.image(holder, "glow_soft", cell.grow(cell.size.x * 0.35))
+	flash.modulate = Color(1.0, 0.9, 0.45, 0.0)
+	var f := flash.create_tween()
+	f.tween_property(flash, "modulate:a", 0.95, 0.1)
+	f.tween_property(flash, "modulate:a", 0.0, 0.5)
+	match effect:
+		"wake":
+			var bird: BirdView = holder.get_node_or_null("Sleeper")
+			if bird:
+				bird.wake()
+				bird.get_tree().create_timer(0.4).timeout.connect(func(): if is_instance_valid(bird): bird.cheer())
+		"reveal":
+			var egg: BirdView = holder.get_node_or_null("Egg")
+			if egg:
+				egg.reveal()
+				var face := UI.art(holder, WorldBirds.face(Board.SPECIES[Board.species_of(egg.code)], holder.get_meta("world", 1)),
+					Rect2(cell.get_center() + Vector2(-28, -cell.size.y * 0.5 - 50), Vector2(56, 56)))
+				face.pivot_offset = face.size * 0.5
+				face.scale = Vector2.ONE * 0.2
+				face.create_tween().tween_property(face, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		"hatch":
+			var egg: BirdView = holder.get_node_or_null("Egg")
+			if egg:
+				egg.hatch()
+		"scare":
+			var crow: BirdView = holder.get_node_or_null("Crow")
+			if crow:
+				var tw := crow.create_tween()
+				tw.tween_property(crow, "position", crow.position + Vector2(150, -140), 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+				tw.parallel().tween_property(crow, "modulate:a", 0.0, 0.6)
+		"grow":
+			var sprout: Control = holder.get_node_or_null("Sprout")
+			if sprout:
+				var tw := sprout.create_tween()
+				tw.tween_property(sprout, "scale", Vector2.ONE * 1.15, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+				tw.tween_property(sprout, "scale", Vector2.ONE, 0.2)
+		"undo", "encore":
+			var icon: Control = holder.get_child(0) as Control
+			icon.pivot_offset = icon.size * 0.5
+			var tw := icon.create_tween()
+			tw.tween_property(icon, "scale", Vector2(1.3, 0.8), 0.08)
+			tw.tween_property(icon, "scale", Vector2(0.9, 1.15), 0.1)
+			tw.tween_property(icon, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+			var plus := Control.new()
+			plus.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			holder.add_child(plus)
+			var h := 60.0
+			plus.size = Vector2(ButtonKit.number_width("+1", h), h)
+			plus.position = Vector2(cell.get_center().x - plus.size.x * 0.5, cell.position.y - h - 4.0)
+			plus.pivot_offset = plus.size * 0.5
+			ButtonKit.number(plus, "+1", Rect2(Vector2.ZERO, plus.size))
+			plus.scale = Vector2.ONE * 0.3
+			var up := plus.create_tween()
+			up.tween_property(plus, "scale", Vector2.ONE * 1.2, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			up.tween_property(plus, "scale", Vector2.ONE, 0.12)
+			up.tween_property(plus, "position:y", plus.position.y - 30.0, 0.6)
+			up.parallel().tween_property(plus, "modulate:a", 0.0, 0.4).set_delay(0.3)
 
 ## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
 ## round the ring, slows down and stops on the prize (coins, or a booster with its count). The star row shows today's
@@ -1780,6 +1954,12 @@ static func preview(main: Control, state: String) -> void:
 		"goal_info_mint": goal_info(host, "mint")
 		"goal_info_crow": goal_info(host, "crow")
 		"goal_info_hoot": goal_info(host, "hoot")
+		"goal_info_sunny": goal_info(host, "sunny")
+		"goal_info_sky": goal_info(host, "sky")
+		"goal_info_cocoa": goal_info(host, "cocoa")
+		"goal_info_snow": goal_info(host, "snow")
+		"goal_info_ember": goal_info(host, "ember")
+		"goal_info_ink": goal_info(host, "ink")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
 		"lucky_draw": lucky_draw(host, 3, 5, func():
 			var cell := randi() % 8

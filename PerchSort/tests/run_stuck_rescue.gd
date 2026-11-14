@@ -59,7 +59,7 @@ func _check_performance(board: Control, gap: float, label: String) -> void:
 func _pointer_on(board: Control, kind: int) -> bool:
 	if not is_instance_valid(board._stuck):
 		return false
-	var glow: Control = board._stuck.get_child(0)
+	var glow: Control = board._stuck.get_node("Glow")
 	for slot in board._tool_slots:
 		if slot[0] == kind:
 			return glow.get_rect().get_center().distance_to(slot[1]) < 1.0
