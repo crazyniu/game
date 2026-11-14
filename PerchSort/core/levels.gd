@@ -23,15 +23,6 @@ static func get_level(id: int) -> Dictionary:
 	push_error("Unknown level %d" % id)
 	return {}
 
-## Lab levels: trial levels for rules that are not in the catalog yet. They are opened only by the launcher
-## argument --lab=<number>, and are not on the map or in the save. Returns {} past the last one.
-const LAB_PATH := "res://levels/lab.json"
-
-static func lab(number: int) -> Dictionary:
-	var data = JSON.parse_string(FileAccess.get_file_as_string(LAB_PATH))
-	var levels: Array = data["levels"]
-	return levels[number - 1] if number >= 1 and number <= levels.size() else {}
-
 static func world_of(level: Dictionary) -> int:
 	var w := int(level.get("world", 0))
 	return 1 if w == 0 else w
@@ -82,12 +73,6 @@ static func create_board(level: Dictionary, inventory := PackedInt32Array()) -> 
 		if c != capacity:
 			push_error("Each real species must have exactly capacity birds"); return null
 	board.species_count = counts.size()
-	var talents: Dictionary = level.get("talents", {})
-	for name in talents:
-		var index := Board.species_index(str(name))
-		if index < 0 or talents[name] != "dive":
-			push_error("Unknown talent: %s %s" % [name, talents[name]]); return null
-		board.dive_mask |= 1 << index
 	if inventory.size() == Board.BOOSTER_COUNT:
 		board.inventory = inventory.duplicate()
 	return board
