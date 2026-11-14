@@ -594,7 +594,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		card.add_child(lit)
 		lights.append(lit)
 		var prize: Array = Progress.DRAW_PRIZES[i]
-		UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i]).name = "PrizeArt"
+		var prize_art := UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i])
+		prize_art.name = "PrizeArt"
+		if DRAW_PRIZE_KEYS[i] == "icon_draw_prize_four_hundred":
+			prize_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		FamilyDialog.digits(card, "Number", Rect2(14, 159, 212, 51), str(prize[0]) if prize[0] > 0 else "×%d" % prize[1])
 		cards.append(card)
 	var chest := DrawPurchaseArt.fit(board, "icon_draw_center_chest", Rect2(311, 305, 216, 224))
@@ -818,6 +821,8 @@ static func _daily_card(parent: Control, day: int, r: Rect2, claimed: bool, toda
 	for k in items.size():
 		var art := _fit(body, items[k][0], Rect2(left + k * column + 10.0, 36.0, column - 20.0, art_h), true)
 		art.name = "Prize%d" % k
+		if items[k][0] == "icon_draw_prize_four_hundred":
+			art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		if today and not instant:
 			_breathe(art, k * 0.4)
 		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, 36.0 + art_h + 10.0, column, 58), items[k][1])
