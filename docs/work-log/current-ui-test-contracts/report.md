@@ -27,3 +27,8 @@ The final draw/purchase run reports an ObjectDB/resource cleanup warning at proc
 No auto-merge or deployment. Review should confirm these contracts reflect the accepted current product before adopting the tests.
 
 All-level node run: `map node checks: 127680 checks, 0 failures`.
+
+## Review correction: unapproved map glow
+The current yellow Glow conflicts with the owner's no-glow direction. Its presence must not be a positive regression contract. The test now reports this as a VISUAL REVIEW REQUIRED warning instead of requiring Glow on the current tile; all remaining geometry, localization, profile and navigation checks remain. A passing suite does not approve this known visual deviation. This test-only PR does not change product rendering. Counts below supersede the original map counts after removing that visual-presence assertion.
+
+Review rerun: graphical representative map nodes 3606 checks, 0 failures; headless all-210-level bilingual map nodes 118860 checks, 0 failures. Both explicitly report the unapproved Glow warning. git diff --check passes.

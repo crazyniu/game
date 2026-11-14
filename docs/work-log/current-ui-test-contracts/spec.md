@@ -11,3 +11,5 @@ Scope: repair nine demonstrably stale tests against main a14e30a, without modify
 - Wait for modal destruction rather than assuming a fixed renderer-dependent timer.
 
 Validation: rerun all nine under Godot 4.7.2 GL Compatibility at the native synthetic-input canvas; run naming, painted-word, smoke and 210-level core checks. Exercise map-node --all-levels. Missing purchase_surface historical geometry remains a documented untested boundary. No auto-merge or deployment.
+
+Unapproved current Glow is a visual deviation, not a canonical selection contract. Report it explicitly without enforcing its presence; a geometry pass is not visual acceptance.
