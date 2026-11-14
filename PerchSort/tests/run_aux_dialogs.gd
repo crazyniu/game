@@ -26,6 +26,11 @@ func _run() -> void:
 			check(word.texture != null, id + " existing painted localized title")
 			var clip: Control = p.content.get_node("Scroll")
 			check(clip.get_rect().end.y <= p.panel_rect.end.y - load("res://game/jungle_dialog.gd").FOOT, id + " readable body clears footer")
+			check(not p.content.has_node("Close"), id + " no duplicate corner exit")
+			var confirm: Button = p.content.get_node("Confirm")
+			check(confirm.position.y >= p.panel_rect.end.y + 48.0, id + " confirmation outside content")
+			check(confirm.get_rect().end.y < 1920.0, id + " confirmation remains on screen")
+			var button_rect := confirm.get_rect()
 			var drag := InputEventScreenDrag.new()
 			drag.relative.y = -100000
 			clip.gui_input.emit(drag)
@@ -34,8 +39,12 @@ func _run() -> void:
 			drag.relative.y = 100000
 			clip.gui_input.emit(drag)
 			check(is_zero_approx(page.position.y), id + " scrolling clamps to top")
-			p.queue_free()
-			await process_frame
+			check(confirm.get_rect() == button_rect, id + " scrolling does not move confirmation")
+			var weak: WeakRef = weakref(p)
+			confirm.pressed.emit()
+			confirm.pressed.emit()
+			await create_timer(0.25).timeout
+			check(weak.get_ref() == null, id + " repeated confirmation closes once")
 	print("AUX_DIALOGS checks=%d failures=%d" % [checks, failures])
 	main.queue_free()
 	quit(1 if failures else 0)

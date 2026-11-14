@@ -286,8 +286,8 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 static func document(host: Control, id: String) -> Control:
 	var page: Texture2D = UiText.document_texture(id)
 	var column := JungleDialog.WIDTH - 144.0
-	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
-	var p := JungleDialog.open(host, "", "", [view_h], _instant(host), 0.0, true)
+	var view_h := minf(1080.0, page.get_height() * column / float(page.get_width()) + 8.0)
+	var p := JungleDialog.open(host, "", "", [view_h], _instant(host), FamilyDialog.PRIMARY.y, false)
 	UiText.painted_label(p._title_layer, "doc.%s.title" % id, Rect2(64, 94, 512, 112), true)
 	var ys: Array = p.get_meta("ys")
 	var clip := Control.new()
@@ -311,6 +311,8 @@ static func document(host: Control, id: String) -> Control:
 		elif e is InputEventMouseButton and e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			dy = 80.0 if e.button_index == MOUSE_BUTTON_WHEEL_UP else -80.0
 		text.position.y = clampf(text.position.y + dy, -span, 0.0))
+	var confirm: Button = FamilyDialog.actions(p, [["green", "check", func(): pass]])[0]
+	confirm.name = "Confirm"
 	return p
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
@@ -1241,9 +1243,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	var canvas := DrawPurchaseArt.canvas(p.content)
 	# The hanging title sign of the shop and map pages, at the map's page position.
 	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
-	# Keep the existing direct Content/Close and Content/Confirm contracts for callers.
-	var close_at := Vector2(23, 50) * DrawPurchaseArt.SCALE + canvas.position
-	MenuNavigation.close(p.content, "Close", close_at, p.close)
+	# Completion is acknowledged by the reachable bottom action, not a duplicate corner exit.
 	var columns := maxi(1, mini(prizes.size(), 3))
 	var rows := maxi(1, ceili(prizes.size() / 3.0))
 	var tile := Vector2(260, 360) if columns > 1 else Vector2(500, 540)
@@ -1291,7 +1291,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	_kit_action(action, "white_action_ok")
 	if not instant:
 		p.appear_page(null, false)
-	# Both controls restore the board once, after the shared modal exit finishes.
+	# The bottom action restores the board once, after the shared modal exit finishes.
 	p.closed.connect(on_ok)
 	return p
 
