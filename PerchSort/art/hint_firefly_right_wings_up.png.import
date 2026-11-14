@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qwx6nnir663m"
-path="res://.godot/imported/hint_firefly_wings_down.png-601e824525aac270d8ca60befb06b75d.ctex"
+uid="uid://vl16idg75xh4"
+path="res://.godot/imported/hint_firefly_right_wings_up.png-35f4a082a3e9fd8ea114c43de70d29b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/hint_firefly_wings_down.png"
-dest_files=["res://.godot/imported/hint_firefly_wings_down.png-601e824525aac270d8ca60befb06b75d.ctex"]
+source_file="res://art/hint_firefly_right_wings_up.png"
+dest_files=["res://.godot/imported/hint_firefly_right_wings_up.png-35f4a082a3e9fd8ea114c43de70d29b8.ctex"]
 
 [params]
 

@@ -21,3 +21,11 @@ dotted arc. A dead end must actually guide the player to the rescuing tool.
   slot and circles it; for a dead end the whole board darkens except that slot.
 - Capture states: `popups:goal_info_<species>`, `board_view:wake_teach_move`, `wake_teach_key`, `stuck_guide`,
   `sleeper_tap` (was `sleeping_bubble`).
+
+## Follow-up (owner, same day)
+
+- The firefly flew backwards when heading left. It now has painted left-facing poses
+  (`art/hint_firefly_left_wings_up/down`, local Codex; the right set renamed `hint_firefly_right_wings_*`) and turns
+  with its heading; never a mirror.
+- The hint spotlight lit whole branches. It now lights only the birds that move and the seats they land on, plus the
+  matching bird they join (`_hint_seats`); the firefly hovers above the heads instead of covering the birds.

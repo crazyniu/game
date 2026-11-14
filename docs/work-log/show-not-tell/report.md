@@ -22,3 +22,9 @@ Frame sequences via `main.tscn -- --preview=<state> --frames=<dir> --wait=S --st
 Not played on a device; the wake_bell sound not judged by ear. `scripts/audio/analyze.py` was already stale (it
 expects 18 files, the folder has 24) and is not changed; the new row was measured and added to `MANIFEST.md` by hand.
 Not yet accepted by the owner.
+
+## Follow-up
+
+- `scripts/run_tests.sh` exit 0; visible skills 42/0, stuck rescue 40/0, tool guides 56/0.
+- `wake_teach_move` frames at 0.2 s: the lit holes are the one Berry that moves and the sleeping Berry with the empty
+  seat beside it; the firefly faces left at the source, in flight and at the target (the move goes left).

@@ -1896,13 +1896,26 @@ func show_hint(move: Array) -> void:
 	mask.size = Vector2(1080, 1920)
 	var mat := ShaderMaterial.new()
 	mat.shader = HINT_SPOTLIGHT
-	mat.set_shader_parameter("hole_a", _hint_hole(move[0]))
-	mat.set_shader_parameter("hole_b", Vector4.ZERO if swivel else _hint_hole(move[1]))
+	if swivel:
+		mat.set_shader_parameter("hole_a", _hint_hole(move[0]))
+		mat.set_shader_parameter("hole_b", Vector4.ZERO)
+	else:   # only the birds that move and the seats they land on stay lit
+		var count := mini(s.run_count(move[0]), s.free_slots(move[1]))
+		var from_size := s.items[move[0]].size()
+		mat.set_shader_parameter("hole_a", _hint_seats(move[0], from_size - count, count))
+		# The landing seats and the bird they join (the matching bird on top), so the pair reads "put it here".
+		var to_size := s.items[move[1]].size()
+		var join := 1 if to_size > 0 else 0
+		mat.set_shader_parameter("hole_b", _hint_seats(move[1], to_size - join, count + join))
+		mat.set_shader_parameter("radius", 44.0)
 	mask.material = mat
 	add_child(mask)
 	_hint_mask = mask
 	# The firefly from the hint jar flies the move: it hovers over the source birds, flies an arc to the landing seat
 	# leaving glowing specks, and hovers there; then it starts again. A swivel hint circles the turn-around button.
+	if not swivel:   # it hovers over the heads, never covering the birds it points at
+		source += Vector2(0, -HINT_FIREFLY_ABOVE)
+		target += Vector2(0, -HINT_FIREFLY_ABOVE)
 	var control := (source + target) * 0.5 + Vector2(0, -minf(260.0, 90.0 + source.distance_to(target) * 0.35))
 	var trail := Node2D.new()
 	trail.name = "HintTrail"
@@ -1923,6 +1936,7 @@ func show_hint(move: Array) -> void:
 		return
 	tw.tween_callback(func():
 		fly.position = source
+		fly.set_meta("left", target.x < source.x)
 		fly.modulate.a = 0.0)
 	tw.tween_property(fly, "modulate:a", 1.0, 0.2)
 	_firefly_hover(tw, fly, source, 0.6)
@@ -1934,7 +1948,8 @@ func show_hint(move: Array) -> void:
 ## ---------- the firefly guide (hints, tool pointers, stuck guidance) ----------
 
 ## The hint jar's firefly as a live sprite: wings beat between two painted poses, its tail glows and pulses, and it
-## bobs a little. It always faces right (never mirrored); in flight it only tilts.
+## bobs a little. It faces the way it flies with its own painted left and right poses (never a mirror); in flight it
+## also tilts with the climb. `fly.set_meta("left", ...)` turns it.
 const FIREFLY_SIZE := 140.0
 const FIREFLY_BEAT := 0.07
 const FIREFLY_TAIL := Vector2(-0.22, 0.28)   # tail centre as shares of the sprite size
@@ -1942,11 +1957,14 @@ const FIREFLY_TAIL := Vector2(-0.22, 0.28)   # tail centre as shares of the spri
 func _make_firefly(parent: Node) -> Node2D:
 	var fly := Node2D.new()
 	fly.name = "Firefly"
-	var up := Art.tex("hint_firefly_wings_up")
-	var down := Art.tex("hint_firefly_wings_down")
+	var poses := {false: [Art.tex("hint_firefly_right_wings_up"), Art.tex("hint_firefly_right_wings_down")],
+		true: [Art.tex("hint_firefly_left_wings_up"), Art.tex("hint_firefly_left_wings_down")]}
+	fly.set_meta("left", false)
+	var up: Texture2D = poses[false][0]
 	var glow := Sprite2D.new()
 	glow.texture = Art.tex("glow_soft")
 	glow.modulate = Color(1.0, 0.9, 0.35, 0.85)
+	glow.name = "Glow"
 	glow.position = FIREFLY_TAIL * FIREFLY_SIZE
 	glow.scale = Vector2.ONE * FIREFLY_SIZE * 1.4 / float(glow.texture.get_width())
 	fly.add_child(glow)
@@ -1959,9 +1977,13 @@ func _make_firefly(parent: Node) -> Node2D:
 	if instant:
 		return fly
 	var beat := body.create_tween().set_loops()
-	beat.tween_callback(func(): body.texture = down)
+	var pose := func(index: int) -> void:
+		var left: bool = fly.get_meta("left")
+		body.texture = poses[left][index]
+		glow.position = FIREFLY_TAIL * FIREFLY_SIZE * Vector2(-1.0 if left else 1.0, 1.0)   # the tail trails behind
+	beat.tween_callback(pose.bind(1))
 	beat.tween_interval(FIREFLY_BEAT)
-	beat.tween_callback(func(): body.texture = up)
+	beat.tween_callback(pose.bind(0))
 	beat.tween_interval(FIREFLY_BEAT)
 	var pulse := glow.create_tween().set_loops()
 	var big := glow.scale
@@ -1987,11 +2009,14 @@ func _firefly_flight(tw: Tween, fly: Node2D, trail: Node2D, from: Vector2, contr
 		var at := from.lerp(control, t).lerp(control.lerp(to, t), t)
 		var dir := (control.lerp(to, t) - from.lerp(control, t)).normalized()
 		fly.position = at
+		if absf(dir.x) > 0.2:   # turns only on a clear sideways heading, so a steep climb does not flicker
+			fly.set_meta("left", dir.x < 0.0)
 		fly.rotation = clampf(dir.y * 0.5, -0.45, 0.45) * (1.0 if dir.x >= 0.0 else -1.0)
 		var n := int(t * 16.0)
 		if n > last[0] and is_instance_valid(trail):
 			last[0] = n
-			_firefly_speck(trail, at + FIREFLY_TAIL * FIREFLY_SIZE)
+			var tail := FIREFLY_TAIL * FIREFLY_SIZE * Vector2(-1.0 if fly.get_meta("left") else 1.0, 1.0)
+			_firefly_speck(trail, at + tail)
 	tw.tween_method(step, 0.0, 1.0, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _firefly_speck(trail: Node2D, at: Vector2) -> void:
@@ -2056,6 +2081,19 @@ func _guide_to_slot(centre: Vector2, dim: bool) -> void:
 		glow.modulate.a = 0.12 + 0.2 * wave   # under the mask's rim: light, never hiding the picture
 		glow.scale = Vector2.ONE * (0.9 + 0.2 * wave)
 	shine.tween_method(wave_glow, 0.0, 1.0, 1.0)
+
+## The spotlight hole around `count` seats of branch `b` from seat `first`: the standing birds and a little air.
+const HINT_SEAT_PAD := 30.0
+const HINT_FIREFLY_ABOVE := 105.0
+
+func _hint_seats(b: int, first: int, count: int) -> Vector4:
+	var a := seat_point(b, first)
+	var z := seat_point(b, first + maxi(count, 1) - 1)
+	var half := _seat_step(b) * 0.5 + HINT_SEAT_PAD
+	var left := minf(a.x, z.x) - half
+	var right := maxf(a.x, z.x) + half
+	var y := perch_y(b)
+	return Vector4(left, y - HINT_HOLE_HEAD, right - left, HINT_HOLE_HEAD + HINT_HOLE_FOOT)
 
 ## The spotlight hole of one branch: its seats and standing birds, from the screen edge to past the last seat.
 func _hint_hole(b: int) -> Vector4:
