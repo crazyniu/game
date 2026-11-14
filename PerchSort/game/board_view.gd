@@ -2049,15 +2049,23 @@ func play_events(events: Array) -> void:
 					Sound.play("chirp_0%d" % (1 + randi() % 5))
 			"flock_home":
 				# The house celebration never holds the board: the next tap works while the flock still flies.
-				# Only the winning move waits, so the win popup follows the last homing.
-				if session.state.is_won():
-					await _flock_home(e)
-				else:
+				# Only the winning move waits, so the win popup follows the last homing. Within it a flock that is
+				# not the last one waits only until it is nearly at the doorway, so the next flock takes off then.
+				if not session.state.is_won():
 					_flock_home(e)
+				elif events.slice(events.find(e) + 1).any(func(x): return x["type"] == "flock_home"):
+					_flock_home(e)
+					await get_tree().create_timer(FLOCK_FLIGHT_SECONDS * FLOCK_OVERLAP).timeout
+				else:
+					await _flock_home(e)
 			"gift":
-				# The badge is shown reaching what it changes before those changes play.
+				# The badge is shown reaching what it changes before those changes play. In the winning move a later
+				# flock never waits for a badge: it takes off while the flock before it is still reaching the house.
 				var reach := _gift_targets(events, e)
-				if session.state.is_won() or not reach.is_empty():
+				var later_home := events.slice(events.find(e) + 1).any(func(x): return x["type"] == "flock_home")
+				if session.state.is_won() and later_home:
+					_gift(e)   # rises at the doorway: what it would reach is already taking off
+				elif session.state.is_won() or not reach.is_empty():
 					await _gift(e, reach)
 				else:
 					_gift(e, reach)
@@ -2208,10 +2216,13 @@ func _flock_home(e: Dictionary) -> void:
 	await tw.finished
 	if playback != _playback_id:
 		return
-	await _door(0.0, 0.25)
+	if _homing_birds.is_empty():   # another flock still on its way keeps the door open
+		await _door(0.0, 0.25)
 
 ## Every flock takes the same time to reach the house on every level, whatever the distance.
 const FLOCK_FLIGHT_SECONDS := 0.9
+## In the winning move the next flock takes off when the one before has flown this share of its flight.
+const FLOCK_OVERLAP := 0.7
 const HOME_PITCH_STEP := 2.0     # semitones per further homing in one chain
 const HOME_PITCH_MAX := 5
 const SPARKLES := 12
@@ -2617,7 +2628,7 @@ func granted_undos(count: int) -> void:
 	session.grant_undos(count)
 	_build_tools()
 
-## Capture states: "undo_gift" / "move_refund" (a Flurry / Berry flock goes home and its gift reaches the undo slot /
+## Capture states: "final_homings" (a winning move with two homings), "undo_gift" / "move_refund" (a Flurry / Berry flock goes home and its gift reaches the undo slot /
 ## the move counter), "celebrate" (the win
 ## celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
 ## "tool_guide" (a tool's guided first use), "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
@@ -2630,6 +2641,19 @@ func granted_undos(count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "final_homings":   # the winning move sends two flocks home: the second takes off before the first is in
+		var board := BoardView.new()
+		main.set_screen(board)
+		main.profile.set_tutorial("keys.shown")
+		board.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+			{"side": "L", "row": 0, "birds": ["sunny", "sunny", "sunny"]},
+			{"side": "R", "row": 0, "birds": ["sunny"]},
+			{"side": "L", "row": 1, "birds": ["sky", "sky", "sky", "sky:sleep"]}]}, main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(1)
+		await main.get_tree().create_timer(0.4).timeout
+		board.tap_branch(0)
+		return
 	if state == "undo_gift" or state == "move_refund":   # the gift of a Flurry / Berry flock flies to what it changes
 		var bird := "snow" if state == "undo_gift" else "berry"
 		var board := BoardView.new()
