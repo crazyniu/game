@@ -42,10 +42,6 @@ const GIFT_COINS := [Rect2(102, 395, 80, 99), Rect2(531, 409, 82, 95), Rect2(137
 const GIFT_SPARKS := [Rect2(110, 220, 72, 72), Rect2(50, 300, 64, 64), Rect2(540, 180, 64, 64), Rect2(600, 300, 72, 72)]
 const GATE_CONTENT := Rect2(82, 100, 855, 777)
 const DOOR_SWING := 80.0
-const ARCH_BIRDS := ["sunny", "sky", "berry"]
-const ARCH_BIRD_X := [-0.38, 0.0, 0.38]
-const ARCH_BIRD_H := 190.0
-const ARCH_FLOOR := 44.0
 
 
 # ---------------------------------------------------------------- popups
@@ -85,20 +81,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var card: Rect2 = p.get_meta("card_rect")
 	if live:
 		_rays(p, card.get_center())
-	# Feet sit on the upper green rim, clear of the painted title.
-	var footline := card.position.y + 28.0
-	var hero_box := Rect2(432, footline - 216.0, 216, 216)
-	var side_boxes := [Rect2(208, footline - 184.0, 184, 184), Rect2(688, footline - 184.0, 184, 184)]
-	var hero := _bird_view(c, "sunny", hero_box, not live, 1.6)
-	var sides := [_bird_view(c, "sky", side_boxes[0], not live, 2.0),
-		_bird_view(c, "berry", side_boxes[1], not live, 2.4)]
-	hero.set_meta("visible_box", hero_box)
-	for i in sides.size():
-		sides[i].set_meta("visible_box", side_boxes[i])
-	if live:
-		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
-		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
-		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
+	_celebration_birds(c, card, live)
 	_win_stars(c, ys[0], stars, live, 0.4)
 	# Moves and the feather reward share one row of painted numerals.
 	var cap := WIN_STATS_CAP
@@ -1343,26 +1326,32 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
+## Shared perched celebration: feet meet the frame, never empty doorway space.
+static func _celebration_birds(c: Control, card: Rect2, live: bool) -> void:
+	# Feet sit on the upper green rim, clear of the painted title.
+	var footline := card.position.y + 28.0
+	var hero_box := Rect2(432, footline - 216.0, 216, 216)
+	var side_boxes := [Rect2(208, footline - 184.0, 184, 184), Rect2(688, footline - 184.0, 184, 184)]
+	var hero := _bird_view(c, "sunny", hero_box, not live, 1.6)
+	var sides := [_bird_view(c, "sky", side_boxes[0], not live, 2.0),
+		_bird_view(c, "berry", side_boxes[1], not live, 2.4)]
+	hero.set_meta("visible_box", hero_box)
+	for i in sides.size():
+		sides[i].set_meta("visible_box", side_boxes[i])
+	if live:
+		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
+		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
+		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
+
 static func world_complete(host: Control, world: int, reward: int, on_ok: Callable) -> Control:
-	var arch_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
-	var p := JungleDialog.open(host, "popup_world_complete_title", "", [arch_h, FamilyDialog.STAR_ROW, REWARD_H],
-		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 960.0, 72.0)
+	var live := not _instant(host)
+	var p := JungleDialog.open(host, "popup_world_complete_title", "", [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, REWARD_H],
+		not live, FamilyDialog.PRIMARY.y, false, true, true, false, 880.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var live := not _instant(host)
-	FamilyDialog.stars(c, ys[1], 3, live, 0.5)
-	var arch := Rect2(540.0 - GATE_W * 0.5, ys[0], GATE_W, arch_h)
-	UI.art(c, "gate_arch", arch, GATE_CONTENT)
-	for i in 3:
-		var cx: float = 540.0 + ARCH_BIRD_X[i] * GATE_W
-		var box := Rect2(cx - ARCH_BIRD_H * 0.5, arch.end.y - ARCH_FLOOR - ARCH_BIRD_H, ARCH_BIRD_H, ARCH_BIRD_H)
-		var bird := _bird_view(c, ARCH_BIRDS[i], box, not live, 0.0)
-		if live:
-			var tw := bird.create_tween().set_loops()
-			tw.tween_interval(1.6 + i * 0.9)
-			tw.tween_callback(bird.cheer)
-			tw.tween_interval(2.6)
-	FamilyDialog.reward(c, Rect2(540.0 - REWARD_W * 0.5, ys[2], REWARD_W, REWARD_H), reward)
+	_celebration_birds(c, p.panel_rect, live)
+	_win_stars(c, ys[0], 3, live, 0.4)
+	FamilyDialog.reward(c, Rect2(540.0 - REWARD_W * 0.5, ys[1], REWARD_W, REWARD_H), reward)
 	FamilyDialog.actions(p, [["green", "check", on_ok]])
 	return p
 
@@ -1401,10 +1390,11 @@ static func world_unlock(host: Control, world: int, on_play: Callable) -> Contro
 		glow.tween_property(light, "modulate:a", 0.35, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		glow.tween_property(light, "modulate:a", 0.9, 1.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	var open := func(t: float):
-		left.scale.x = lerpf(1.0, 0.85, t)
-		left.position.x = lerpf(0.0, -247.0, t)
-		right.scale.x = lerpf(1.0, 0.85, t)
-		right.position.x = lerpf(0.0, 234.0, t)
+		# Perspective projection around fixed outer hinges, rather than sliding the doors apart.
+		var projection := cos(lerpf(0.0, deg_to_rad(82.0), t))
+		left.scale.x = projection
+		right.scale.x = projection
+		p.set_meta("gate_open_fraction", t)
 	if _instant(host):
 		open.call(1.0)
 	else:
@@ -1830,6 +1820,9 @@ static func preview(main: Control, state: String) -> void:
 		"unlock_spring_rain": unlock(host, 5, noop)
 		"unlock_owl_eye": unlock(host, 2, noop)
 		"unlock_sapling": unlock(host, 1, noop)
-		"world_complete_1": world_complete(host, 1, 200, noop)
+		"world_complete_1": world_complete(host, 1, 500, noop)
+		"world_complete_4": world_complete(host, 4, 500, noop)
+		"world_complete_10": world_complete(host, 10, 500, noop)
 		"world_unlock_2": world_unlock(host, 2, noop)
 		"world_unlock_4": world_unlock(host, 4, noop)
+		"world_unlock_10": world_unlock(host, 10, noop)

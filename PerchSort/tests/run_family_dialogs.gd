@@ -39,7 +39,10 @@ func _family(dialog: Control, expected_close: bool) -> void:
 	check(dialog._title_number.is_empty(), "legacy Modal cannot recreate the wooden title on locale changes")
 	for star in dialog.content.find_children("RatingStar*", "TextureRect", false, false):
 		var bounds: Rect2 = star.get_meta("visible_box")
-		check(bounds.size == Vector2.ONE * load("res://game/family_dialog.gd").STAR_SIZE, "every rating star has equal visible bounds")
+		var star_size: float = load("res://game/family_dialog.gd").STAR_SIZE
+		if dialog._title_id == "popup_world_complete_title" and star.name == "RatingStar1":
+			star_size *= load("res://game/popups.gd").WIN_STAR_MIDDLE
+		check(bounds.size == Vector2.ONE * star_size, "rating star matches its family role")
 	var family: GDScript = load("res://game/family_dialog.gd")
 	for button in dialog.content.find_children("*", "Button", false, false):
 		if button.name == "Close":
@@ -190,7 +193,7 @@ func _run() -> void:
 			await _disposed(complete)
 			var unlock: Control = popups.world_unlock(main.popups, world, on_action)
 			_family(unlock, false)
-			check(unlock.content.get_node("GateClip/Gate/gate_door_left").position.x == -247.0, "instant gate arrives fully open")
+			check(is_equal_approx(unlock.content.get_node("GateClip/Gate/gate_door_left").scale.x, cos(deg_to_rad(82.0))), "instant gate arrives fully open")
 			unlock.content.get_node("Play").pressed.emit()
 			await _disposed(unlock)
 		for boosters in [[], [0, 0, 1], [0, 1, 2, 3, 4, 5]]:
