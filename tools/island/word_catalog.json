@@ -571,13 +571,13 @@
   ],
   [
    "bird.ink.ability",
-   "Switches day and night",
-   "切换白天黑夜"
+   "One free move",
+   "免费走一步"
   ],
   [
    "bird.hoot.ability",
-   "Moonlit moves",
-   "月光下的额外步数"
+   "Wakes sleepers",
+   "唤醒睡着的鸟"
   ],
   [
    "bird.crow.ability",

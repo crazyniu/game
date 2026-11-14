@@ -11,7 +11,7 @@ signal rescue_requested                  # first proven dead end of the attempt:
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
-	"snow": "lightstep", "ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
+	"snow": "lightstep", "ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "owl_eye",
 	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
 ## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
