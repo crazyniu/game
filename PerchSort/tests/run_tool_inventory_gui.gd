@@ -1,5 +1,5 @@
 extends SceneTree
-## All seven items through the canonical toolbar, including zero-stock purchase input.
+## All seven items through the canonical toolbar and the zero-stock one-more offer.
 
 var failures := 0
 func check(ok: bool, message: String) -> void:
@@ -7,6 +7,8 @@ func check(ok: bool, message: String) -> void:
 	failures += 0 if ok else 1
 
 func _initialize() -> void:
+	root.content_scale_size = Vector2i(1080, 1920)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	_run.call_deferred()
 
 func _run() -> void:
@@ -46,7 +48,33 @@ func _run() -> void:
 		click.pressed = pressed
 		Input.parse_input_event(click)
 		await process_frame
-	check(buys == [1], "pressing a zero-stock tool opens its purchase")
+	check(buys == [Board.Booster.SAPLING], "zero-stock tool emits its one-more request")
+	# Exercise Main's production handler for that same request, not a substitute shop callback. Preview never saves.
+	var main: Control = load("res://game/main.tscn").instantiate()
+	main.args["profile"] = JSON.stringify(profile.to_dict())
+	main.args["preview"] = "coin_shop_view:normal"
+	root.add_child(main)
+	main.args["smoke"] = "1"
+	main.args["capture"] = "1"
+	await process_frame
+	var before := JSON.stringify(main.profile.to_dict())
+	main._offer_tool(Board.Booster.SAPLING, board)
+	await process_frame
+	var offer: Control = main.popups.get_node_or_null("Popup")
+	check(offer != null, "one-more offer opens without navigating to the shop")
+	if offer != null:
+		check(offer.content.has_node("Buy") and offer.content.has_node("WatchAd"), "one-more offer retains buy and ad choices")
+		check(offer.content.get_node("Buy/Content/FeatherPrice/Digits").get_meta("value") == str(Progress.booster_price(Board.Booster.SAPLING)), "one-more price uses the production price")
+		offer.content.get_node("Close").pressed.emit()
+		var deadline := Time.get_ticks_msec() + 2000
+		while is_instance_valid(offer) and Time.get_ticks_msec() < deadline:
+			await process_frame
+		check(not is_instance_valid(offer), "cancel finishes without a hanging modal")
+	check(JSON.stringify(main.profile.to_dict()) == before, "cancel does not spend currency or change inventory")
+	check(main._overlay == null, "zero-stock request does not open a shop overlay")
+	main.queue_free()
+	await process_frame
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://../build/board-recovery"))
 	for resolution in [Vector2i(1080,1920), Vector2i(390,844), Vector2i(720,1280)]:
 		root.size = resolution
 		await create_timer(0.25).timeout

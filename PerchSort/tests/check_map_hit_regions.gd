@@ -59,7 +59,7 @@ func run() -> void:
 		for level in levels:
 			var rect: Rect2 = regions[level]
 			await click_and_check(Vector2(rect.get_center().x, rect.end.y + 1.0), current, regions)
-	print("map hit regions: %d checks, %d failures; all100 current levels" % [checks, failures])
+	print("map hit regions: %d checks, %d failures; all%d current levels" % [checks, failures, Levels.COUNT])
 	main.queue_free()
 	await process_frame
 	quit.call_deferred(1 if failures else 0)

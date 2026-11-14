@@ -1,10 +1,9 @@
 extends SceneTree
-## The purchase material opt-in may replace only Panel/background, never the existing content geometry.
+## Purchase material contracts; compare historical geometry only when an explicit recorded baseline is supplied.
 
 const STATES := ["confirm_booster", "confirm_multiple", "confirm_maximum", "insufficient",
 	"confirm_nest", "confirm_nest_short", "confirm_outfit", "confirm_outfit_short"]
 var main: Control
-var skin_script: GDScript
 var baseline_file := ""
 var result_file := ""
 var record := false
@@ -42,28 +41,37 @@ func _verify(modal: Control, key: String) -> void:
 		return
 	var panel: Control = modal.content.get_node("Panel")
 	var skin: NinePatchRect = panel.get_node("Skin")
-	var background: TextureRect = modal.get_node("ForestBackground")
-	check(panel.get_rect() == modal.panel_rect and panel.get_index() == 0,
-		key + " replacement panel preserves bounds and content stacking")
-	check(skin.texture.atlas == Art.tex(skin_script.PANEL_ART) and
-		skin.texture.region == skin_script.PANEL_CONTENT,
-		key + " frozen cartoon panel texture and crop are exact")
-	check((skin.size * skin.scale).is_equal_approx(modal.panel_rect.size) and
-		skin.scale == Vector2.ONE * skin_script.CORNER_SCALE and
-		skin.patch_margin_left == int(skin_script.CORNERS.x) and
-		skin.patch_margin_top == int(skin_script.CORNERS.y) and
-		skin.patch_margin_right == int(skin_script.CORNERS.z) and
-		skin.patch_margin_bottom == int(skin_script.CORNERS.w),
-		key + " frozen nine-patch measurements are retained")
-	check(background.texture == Art.tex(skin_script.BACKGROUND_ART) and
-		background.get_rect() == Rect2(0, 0, 1080, 1920) and
-		background.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_COVERED and
-		background.get_index() == 0, key + " unchanged forest art fills behind the dialog")
-	check(modal._dim.color == modal.POPUP_SHADE, key + " background takes the shared popup shade")
-	check(panel.mouse_filter == Control.MOUSE_FILTER_IGNORE and
-		skin.mouse_filter == Control.MOUSE_FILTER_IGNORE and
-		background.mouse_filter == Control.MOUSE_FILTER_IGNORE,
-		key + " surface and background do not intercept pointer input")
+	var shared: GDScript = load("res://game/button_kit.gd")
+	var purchase: GDScript = load("res://game/purchase_dialog.gd")
+	var card: Rect2 = modal.get_meta("card_rect")
+	var toy := skin.texture is AtlasTexture
+	var painted: Rect2 = card if toy else card.grow_side(SIDE_TOP, purchase.TITLE_ROOM)
+	check(panel.get_rect() == painted and panel.get_index() == 0,
+		key + " purchase surface preserves its approved shell bounds")
+	var corner_scale: float = card.size.x / 1136.0 if toy else shared.PANEL_SCALE
+	var margin: int = 150 if toy else shared.PANEL_MARGIN
+	if toy:
+		check(skin.texture is AtlasTexture and skin.texture.atlas == Art.tex("panel_shop_toy_rim") and
+			skin.texture.region == Rect2(60, 80, 1136, 1100) and not skin.draw_center,
+			key + " shop uses the approved rigid toy rim")
+		var face: Control = panel.get_node("OpaqueFace")
+		check(face.mouse_filter == Control.MOUSE_FILTER_IGNORE and panel.get_rect().size.x > face.size.x,
+			key + " opaque inset retains a separate noninteractive face")
+	else:
+		check(skin.texture == Art.tex(shared.PANEL), key + " purchase uses the shared panel material")
+	check((skin.size * skin.scale).is_equal_approx(painted.size) and
+		skin.scale == Vector2.ONE * corner_scale and
+		skin.patch_margin_left == margin and skin.patch_margin_top == margin and
+		skin.patch_margin_right == margin and skin.patch_margin_bottom == margin,
+		key + " nine-patch preserves its shell dimensions and corner scale")
+	check(modal.get_node_or_null("ForestBackground") == null,
+		key + " purchase retains its host scenery rather than adding an obsolete full-screen backdrop")
+	check(modal._dim.color == modal.POPUP_SHADE and modal._dim.mouse_filter == Control.MOUSE_FILTER_STOP,
+		key + " shared popup shade blocks background input")
+	check(panel.mouse_filter == Control.MOUSE_FILTER_IGNORE and skin.mouse_filter == Control.MOUSE_FILTER_IGNORE,
+		key + " decorative surface does not intercept pointer input")
+	if baseline_file.is_empty():
+		return
 	check(baselines.has(key), key + " has recorded pre-material geometry")
 	if not baselines.has(key):
 		return
@@ -88,12 +96,19 @@ func _run() -> void:
 			result_file = arg.trim_prefix("--surface-result=")
 		elif arg == "--record-surface-baseline":
 			record = true
-	if baseline_file.is_empty():
-		push_error("Supply --surface-baseline for the recorded geometry")
+	if record and baseline_file.is_empty():
+		push_error("Supply --surface-baseline when recording geometry")
 		quit(1)
 		return
-	if not record:
-		baselines = JSON.parse_string(FileAccess.get_file_as_string(baseline_file))
+	if not record and not baseline_file.is_empty():
+		var loaded = JSON.parse_string(FileAccess.get_file_as_string(baseline_file))
+		if not loaded is Dictionary:
+			push_error("Geometry baseline must contain a JSON dictionary")
+			quit(1)
+			return
+		baselines = loaded
+	elif not record:
+		print("Surface contracts only; historical geometry comparison NOT RUN (no baseline supplied)")
 	main = load("res://game/main.tscn").instantiate()
 	var fake := Profile.new()
 	fake.muted = true
@@ -104,7 +119,6 @@ func _run() -> void:
 	main.args["capture"] = "1"
 	main.args["smoke"] = "1"
 	await process_frame
-	skin_script = load("res://game/dialog_cartoon_skin.gd")
 	var shop_script: GDScript = load("res://game/shop_view.gd")
 	var coin_script: GDScript = load("res://game/coin_shop_view.gd")
 	for language in ["en", "zh"]:

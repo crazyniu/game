@@ -4,7 +4,7 @@ extends SceneTree
 var failures := 0
 var main: Control
 var shots: Array[Dictionary] = []
-var evidence := ""
+var evidence := "res://../build/shop-check"
 
 func _initialize() -> void:
 	_run.call_deferred()
@@ -17,7 +17,7 @@ func _run() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--shop-evidence="):
 			evidence = arg.trim_prefix("--shop-evidence=")
-	DirAccess.make_dir_recursive_absolute(evidence)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(evidence))
 	main = load("res://game/main.tscn").instantiate()
 	var fake := Profile.new()
 	fake.coins = 50000
