@@ -1,6 +1,6 @@
 # Godot port: shared contract
 
-The game is rebuilt in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/` on branch `godot-port`. Rules, levels, art and the approved plush UI direction are unchanged; the former implementation lives only in Git history (reference copy for porting: `git show origin/main:PerchSort/Assets/Scripts/Game/<File>.cs`).
+The game runs in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/`. This contract describes the port architecture; current presentation is governed by the screen-specific documents in `docs/design/`, not the retired plush port target. Former implementations live only in Git history.
 
 ## Layout
 
@@ -33,6 +33,6 @@ The game is rebuilt in Godot 4.7.2 (GDScript, GL Compatibility) in `PerchSort/` 
 ## Verification
 
 - `scripts/capture.sh <out.png> --preview=<script>:<state>` (or `--level=N`) renders one silent 1080x1920 frame via xvfb; add `--motion --wait=S` to capture mid-animation.
-- Compare every state side by side with its mockup; elements within 20 px of the measured rect.
+- Compare every state with its current screen contract and approved runtime baseline; mockups guide style, not a retired 20 px coordinate tolerance.
 - Animation acceptance needs timed frame sequences (entrance 3.5-4.5 s, birds always breathing and idling).
-- Core: `tests/run_core.gd` solves all 40 levels; each shortest solution equals the level par.
+- Core: `tests/run_core.gd` replays all 100 levels through the session using their stored hint solutions.

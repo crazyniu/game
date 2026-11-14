@@ -1,6 +1,6 @@
-# Perch Sort v5 — complete game design (owner: Claude)
+# Perch Sort — gameplay design record
 
-2026-11-03 (v5.4: Song meter removed, see §7). Chinese summary for the user: [GAMEPLAY_CN.md](GAMEPLAY_CN.md) (the English page wins on any conflict). The user rejected the v2 runtime and the v4 document set as not fun and visually weak, and assigned all gameplay, UI, bird and animation decisions to Claude ("你来定玩法和 UI", "小鸟这块怎么创新、玩法怎么创新，都由你来定"), with same-genre screenshots as **style direction only**, and asked for innovation rather than copying the genre. This page is the single authority for the v5 runtime and all future v5 tasks. It supersedes `docs/spec/RULES.md` (v4), `docs/UI_SPEC.md`, `docs/MAP_PROGRESSION.md` and the v4 evidence process **for v5**; v2 code and the old docs stay untouched as history.
+This record preserves gameplay concepts. [CURRENT_GAME](CURRENT_GAME.md), canonical source and current accepted screen contracts govern implementation. It is not a separate version or authority to restore retired layouts. Chinese overview: [GAMEPLAY_CN](GAMEPLAY_CN.md).
 
 Originality: theme, bird characters, names, mechanics marked "ours", palette, layout numbers and text are ours. Do not copy any existing game's characters, logos, text, art, level layouts or exact numbers.
 
@@ -11,8 +11,8 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 1. **Calm but clever**: no timers, no lives, no fail screen. Puzzles get deep through planning, not pressure. Every level is solvable without boosters.
 2. **Birds are characters, not colors**: each species has a name, personality and its own idle quirk; special birds (eggs, sleepers, crows) are the level mechanics.
 3. **Home is the reward**: flocks flying into their birdhouse is the main payoff moment; chaining homecomings ("Chorus") is the skill expression.
-4. **Every level looks different**: four forest worlds, each with time-of-day and weather variants, its own branch, bush and birdhouse art.
-5. **Fair economy**: coins come from play only (no ads, no real money in v5). Shop sells cosmetics and convenience, never required progress.
+4. **Every level looks different**: ten forest worlds, each with time-of-day and weather variants, its own branch, bush and birdhouse art.
+5. **Fair economy**: coins come from play only (no ads or live real-money purchase integration). Shop sells cosmetics and convenience, never required progress.
 
 ## 0.1 What is genre convention vs. ours
 
@@ -44,24 +44,22 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - **Coins**: §8.
 - **Restart** and **sound mute** live in the settings panel.
 
-## 1.1 Rule clarifications (binding, from T32 review)
+## 1.1 Rule clarifications
 
-- 0. Yes, the T32 schema supersedes the old §12.
-- 1. Gifts and Chorus are always active engine-wide in every level, including L1 ("from level 3" is a level-design statement). In L1 sunny/sky gifts simply have no target. Keep the existing free AddBranch() as a compatibility wrapper: it performs the Sapling effect WITHOUT consuming inventory (the L1 HUD keeps using it until T34). UseBooster(Sapling) consumes inventory. Both share the one-per-level flag. Booster inventory is a session input (default empty) and output; L1 behaviour/tests unchanged.
+- 1. Gifts and Chorus are always active engine-wide in every level, including L1 ("from level 3" is a level-design statement). In L1 sunny/sky gifts simply have no target. Booster inventory is a session input (default empty) and output; L1 behaviour/tests unchanged.
 - 2. Initial phase = day. dayLength=0 means no day/night at all: nocturnal species behave as normal birds. With dayLength>0: a counter counts successful transfers and swivels; after the move has fully resolved (including the cascade) and the counter reaches dayLength, the phase toggles, the counter resets to 0, then run the cascade again (newly awake nocturnals may complete flocks; those homecomings belong to the same move). Nocturnal sleep is derived, not a flag: a nocturnal bird is asleep iff (phase==day && moonbeamMovesLeft==0) || it has the authored :sleep flag. Authored :sleep persists at night until woken. Wakes (sunny gift, Morning Bell, same-species landing, adjacent-row song) clear only the authored flag; they cannot make a nocturnal awake during day. Ink gift: toggles phase immediately and resets the counter to 0 (inside step 3; cascade continues). Hoot moonbeam: sets moonbeamMovesLeft=3, counting the next 3 moves, excluding the granting move; decremented after each later move fully resolves; it only overrides nocturnal day-sleep, the displayed phase is unchanged.
 - 3. Each wave: step 2 scans branches in index order, removes ALL currently complete flocks, then step 3 applies their gifts in the same order, then wake/growth effects. Same-species landing wakes are applied in step 3 of the transfer's first wave even when no flock goes home. Every wave rechecks exposed eggs on all branches. Initial exposed eggs / complete flocks are forbidden by the level validator; Core does not auto-resolve on load (they resolve after the first action).
 - 4. Light step: consumed only by the next successful transfer (even if that target was legal anyway); survives swivel, boosters and illegal attempts; still requires a free seat and never lands on an egg tip. Mama pulls only awake chicks; sleeping chicks stay.
-- 5. Chorus (v5.4 void parts: notes/payout): within a homecoming move each homed flock increments chain by 1. A transfer or swivel that homes nothing resets chain to 0 after resolution. Notes per flock: 1 base + 1 bonus if its chain step > 1. Meter overflow carries; every time it reaches 5 it pays out immediately (several payouts possible) and subtracts 5. Berry encore notes are added in step 3 in gift order and can trigger payout immediately. Win coin bonus = 5 x (number of flocks whose chain step > 1), accumulated in the session. Payout is deterministic, no RNG: pool = boosters unlocked at or before the current level id (unlock levels from §8.1, excluding Undo), in fixed order Firefly, Sapling, OwlEye, MorningBell, Scarecrow, SpringRain; pick pool[payoutCount mod pool.Count], payoutCount is part of the meter state (session input/output), increments per payout; undo reverts everything.
-- 6. Boosters cost no move and no phase tick and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps and notes). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
+- 5. Chorus tracks consecutive homecoming flocks and contributes the existing win bonus. There is no Song meter or free-booster payout; see §7.
+- 6. Boosters cost no move and no phase tick and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
 - EggWobbled: yes, add it.
-- Restart refunds boosters used in that attempt; purchased boosters are never undone or refunded; the next level starts with the inventory and Song meter of the winning attempt.
-- (a) Empty payout pool: no payout and nothing subtracted; the meter keeps its notes (it may exceed 5 and is displayed as full). At the first note event in a level whose pool is non-empty, pay out floor(notes/5) times in the usual rotation and keep the remainder.
+- Restart refunds boosters used in that attempt; purchased boosters are never undone or refunded; the next level starts with the inventory of the winning attempt.
 - (b) Per homecoming, in branch index order: [that flock's gift, then its adjacent-row song wake, then its growth +1]. Same-species landing wakes of the transfer are applied first in step 3 of the first wave, before any homecoming effects.
 - (c) Approved exactly as you propose: counter increments at move start; resolve all waves; toggle only if the surviving counter reaches dayLength; an ink gift that already flipped and reset to 0 prevents a second scheduled flip in that move.
 - (d) Yes: with dayLength=0 the ink and hoot gifts are no-ops that still emit the Gift event; phase stays Day, counter 0, moonbeam 0.
 - Default variant noon is correct.
 
-## 2. Level 1 ("First Flight") — implemented in T30
+## 2. Introductory puzzle design
 
 Purpose: teach tap-select, tap-move and the flock-home payoff in under 20 seconds.
 
@@ -74,7 +72,7 @@ Purpose: teach tap-select, tap-move and the flock-home payoff in under 20 second
 
 N=4, K=2 (`sunny`, `sky`), par=2. Intended line: B0→B1 (sky flock home), then B2→B0 (sunny flock home). Tutorial hand: pulse on B0, then on B1; after the first homecoming, pulse B2 then B0. Tutorial shows only on the first play of level 1 and only hands, no text.
 
-Level data lives in `PerchSort/Assets/Resources/Levels/levels.json`:
+Level data lives in `PerchSort/levels/levels.json`:
 
 ```json
 { "levels": [ { "id": 1, "capacity": 4, "par": 2,
@@ -85,33 +83,13 @@ Level data lives in `PerchSort/Assets/Resources/Levels/levels.json`:
     { "side": "R", "row": 1, "birds": [] } ] } ] }
 ```
 
-## 3.0 HUD v6 (decided 2026-11-03, supersedes the layout in the next table where they conflict)
+## 3. Screen layout
 
-The user chose the **cream-glass style (variant A)** from the T40 mockups ([art/v6/mock/level_k3_a.png](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/GAME_DESIGN_V5.md#L90), `level_k7.png`, `win.png`, `settings.png`, `unlock_card.png`, `map.png`, `level_card.png`, `icon_sheet.png`, measurements in [art/v6/mock/spec_notes.md](https://github.com/crazyniu/game/blob/cb438e87e67e6d66c97bdf00b77ef356ca161290/docs/GAME_DESIGN_V5.md#L90)). Rules: cream rounded-square buttons (radius 28, 3 px warm-brown outline, soft shadow), colored pictogram icons with dark-brown outline, no glossy orange wood; top row = coin chip left / leaf-shaped level badge centre / settings right, gaps >= 60; one **goal tray** (cream plank hanging from the canopy on two ropes) with one goal chip per species (tinted mini birdhouse, species face in the door, 4 progress dots, green check when home, 44 px gift badge top-right, long-press info card) replaces the big hanging birdhouses; bottom bar up to 4 buttons 116x116 at y=1745 (x = 225/435/645/855) with 40 px count badges; no Song meter; branches never touch (left tips at most x=510, right tips at least x=570); playable band y 420..1600. The full-size numbers of the old table (150 px buttons, 300 px houses, tracker pill, Song pill) are obsolete.
-
-## 3. Screen layout (v5.1, portrait, design canvas 1080x1920, origin top-left, y downward)
-
-Rules that apply to every screen: (1) **one button family**: every button is the rounded square `btn_square_wood` at one of two sizes, 150 (tools, settings, close, replay, home) or 200 (the single primary action, which alone uses `btn_square_green`); no round buttons, no purple. (2) **Disabled = the same button at 45% alpha with a 0.9 scale**, never a different color or style. (3) **Minimum 40 px clear gap between any two HUD elements**; text never overlaps art. (4) **Nothing floats**: the birdhouse hangs from a limb, branches grow from bushes at the edges. (5) Icons only on buttons; numbers only where needed.
-
-| Element | Placement |
-| --- | --- |
-| Background | full screen `bg_forest_day` |
-| Top limb | `limb_top` (1080x320, from the two top canopies, a thick tree limb crossing the top with a rope hook at x=540, y=235), drawn above the background, below HUD. Fills the gap between the canopies. |
-| Coin pill | top-left, 260x90, left edge x=48, center y=130 (below the safe-area top inset). Coin icon 64 + number, 24 px padding, number left-aligned after the icon. |
-| Settings | top-right, wood square 150x150, right edge x=1032 (center x=957), center y=130 |
-| Birdhouse | 300x340, hanging from the limb hook: rope loop top at (540, 235), so house center y=405, bottom y=575. Gentle sway animation +-2 degrees (4 s loop) pivoting on the hook. |
-| Flock tracker | one cream pill 380x96 centered at (540, 663) (40 px below the house bottom 575, so it spans y 615 to 711): [level badge] [species icon 64] [species icon 64]. Level badge is a 72x72 wood square with the level number (font 44) at the pill's left, then 28 px gap, icons 40 px apart. Species not yet home show their bird icon dimmed to 40% with a small lock-free outline; home shows full color plus a small green check at the corner. This replaces the old level pill and the loose dots. |
-| Board area | vertical band y 760 to 1560 (800 px). Rows are centered in the band: row pitch = min(300, 800 / rowCount); the group of rows is centered at y=1160. Level 1 (2 rows): y=1010 and y=1310. Left branches span x 0 to 600, right branches 480 to 1080, right rows offset +40 px in y as before. |
-| Bird slots | unchanged: bird 150x150, slot pitch 120, first slot 110 px from the screen edge, feet on the branch top line |
-| Bottom bar | tool buttons: wood squares 150x150 at x=300/540/780, center y=1760 (gap between buttons 90). Undo, Hint, Add Branch. Under each, nothing. Bar bottom edge 1835 stays inside the safe area. |
-
-**Win panel** (centered, scale from 0.6): `panel_win` 860x900 at (540, 1010); ribbon overlaps the top edge but its bottom must sit 40 px above the first star row; stars 3 x 150 in a row at y=870, 30 px apart; coin reward row at y=1060 (coin 64 + "+25" font 56, 20 px gap); buttons at y=1330: replay (wood 150) at x=305, **next (green 200) at x=540**, home (wood 150) at x=775, clear gaps 60. Dim overlay behind: black alpha 0.6.
-
-**Settings panel**: `panel_win` scaled to 700x520 centered at (540, 1010); sound toggle (wood 150) at x=400 and restart (wood 150) at x=680, both y=1040; close (wood 150) at the panel top-right corner, inset 24 px. No text.
+Use the current screen-specific [design contracts](design/) and canonical `PerchSort/game` views. Retired cream-glass HUD coordinates, four-tool layouts and disabled-state scaling are not current constraints.
 
 ## 4. Visual style and birds
 
-Bright, warm, plush "3D-rendered cartoon" look: soft fur texture, big glossy eyes, round chubby bodies, orange feet, gentle rim light; soft gradient skies; saturated foliage; chunky rounded UI with thick soft outlines, glossy highlights, warm wood and cream panels. Text font: Fredoka. All buttons are icons.
+Use the accepted bright forest cartoon assets and current painted lettering. Existing bird identities and animations remain intact. Presentation details belong to `docs/design/`, not this gameplay record.
 
 ### 4.1 Species (the Aviary)
 
@@ -140,9 +118,9 @@ Each species is an original character, distinct by silhouette AND color (must re
 
 Each species has 3 outfits (hat, scarf, glasses-or-flower), drawn as separate overlay sprites anchored to a per-species head/neck point so one overlay set works on every frame. Outfits never change silhouettes enough to hurt species recognition.
 
-## 5. Animation and feel (LitMotion, MIT, pinned commit 0b4c588)
+## 5. Animation and feel
 
-All motion uses LitMotion plus real frame swaps; no fixed image stands in for animation. Game state is committed first; animation only plays committed events. Input is locked only while birds are in the air; a tap during landing is queued for at most one action.
+Motion uses Godot Tweens plus real frame swaps; no fixed image stands in for animation. Game state is committed first; animation only plays committed events. Input is locked only while birds are in the air; a tap during landing is queued for at most one action.
 
 **Birds**
 - Idle: breathing scale 1→1.03 (1.6 s loop, random phase); blink every 2–5 s (0.12 s); species quirk every 6–12 s (random bird, never two neighbours at once).
@@ -227,12 +205,11 @@ Level design rule: from level 3 on every level must have at least one meaningful
 - **Nocturnal species** (`ink` and the owl `hoot`) are asleep during the day (cannot be selected, block birds behind them, still accept same-species landings) and awake at night. Day species stay awake at night.
 - Undo restores the phase and the counter. Hint and solver include the phase in the state.
 
-## 7. Chorus (ours, simplified in v5.4)
+## 7. Chorus
 
 - A **homecoming move** is a move that sends at least one flock home. Chorus chain = number of consecutive flocks sent home across consecutive homecoming moves; a transfer or swivel that homes nothing resets it to 0. Two flocks home in the same move count as +2.
 - Feedback: when the chain reaches x2 / x3 / x4+ a ribbon ("x2", "x3") pops near the goal tray.
 - Coin bonus: +5 coins per chain step beyond the first, paid on win.
-- **Removed in v5.4: thenote slots and the free booster payout** (the user judged it meaningless: no player decision depended on it). Section 1.1 items about notes, meter overflow, payout pools and off-bar payout previews are void.
 - Undo restores the chain to the pre-move state.
 
 ## 8. Boosters, coins and shop
@@ -249,25 +226,17 @@ Level design rule: from level 3 on every level must have at least one meaningful
 | Scarecrow | every crow on the board flies away for good | level 22 | 100 | 2 |
 | Spring Rain | every growing branch grows to full capacity N | level 32 | 100 | 2 |
 
-Rules: boosters are used from the bottom bar; using one is an undoable action (refunded on undo). The bottom bar shows Undo, Firefly, Sapling and the current world's booster (4 buttons, see §10). Each booster button shows its owned count in a small badge; at 0 it shows a "+" badge that opens the shop on that item. Every level is validated solvable without boosters (§12).
+Rules: boosters are used from the bottom bar; using one is an undoable action. The current toolbar composition and quantities belong to `game/board_view.gd`, not the retired four-slot layout. Unlocks come from `Progress.booster_unlock_level`; undo limits and refunds come from `GameSession`.
 
 ### 8.2 Coins
 
-| Source | Amount |
-| --- | --- |
-| Level win | 10 + 5 × stars (first clear); replays pay 5 |
-| Chorus | +5 per chain step beyond the first (on win) |
-| World complete (first time) | +200 |
-| Daily reward (seven-day login calendar, `Progress.DAILY_REWARDS`) | 50, 80, 120, 150, 200, 250, 500 by streak day, plus 1, 1, 2 and 3 random boosters on days 2, 4, 6 and 7 |
-| New species met (Aviary card) | 20 |
-
-No ads and no real-money purchases in v5 (store account pending, T14). The design leaves room for a future coin pack but does not depend on it.
+Current rewards, prices, draw limits and daily rewards are defined by `PerchSort/meta/progress.gd`; the older fixed payout table is removed to avoid contradicting those production constants. Keep persisted `coins` fields unchanged even where the UI uses feather artwork. The coin shop is a preview flow, not a live payment integration.
 
 ### 8.3 Shop (what it is for)
 
 The shop gives coins a purpose and gives long-term goals. Three tabs:
 1. **Boosters**: buy single boosters at the prices above, or a bundle of 3 at 2.5× price.
-2. **Outfits**: per-species cosmetic outfits (§4.3), 300 / 500 / 800 coins each; equipped outfits appear on that species everywhere (board, birdhouse arrivals, Aviary). Purely cosmetic.
+2. **Outfits**: per-species cosmetic outfits (§4.3), with prices from `Shop.OUTFIT_PRICES`; equipped outfits appear on that species everywhere (board, birdhouse arrivals, Aviary). Purely cosmetic.
 3. **Birdhouses**: alternative birdhouse styles (mushroom house, teapot, lantern, acorn), 600 coins each; cosmetic, applied to all birdhouses.
 Nothing in the shop is required to finish any level.
 
@@ -275,79 +244,20 @@ Nothing in the shop is required to finish any level.
 
 A page listing every species card: portrait, name, personality line (short, icon-first), the levels-home count, owned outfits with equip buttons. A species card unlocks with a short "new friend" pop-up (portrait + quirk animation) the first time it appears in a level.
 
-## 9. Worlds and scenes (every level looks different)
+## 9. Worlds and progression
 
-Four forest worlds × 10 levels = 40 levels for v5 release. All worlds are forests (user requirement); worlds unlock sequentially on the world map.
+The canonical catalog has 100 fixed levels in ten sequential forest worlds (`Levels.COUNT`, `WORLDS`, `PER_WORLD`). World names come from `Progress.WORLD_NAMES`; scene variants and puzzle contents come from `PerchSort/levels/levels.json`.
 
-| World | Levels | Scene kit (branch / bush / limb / birdhouse) | Variants (rotated per level) | Ambient | New mechanic | Booster |
-| --- | --- | --- | --- | --- | --- | --- |
-| W1 Spring Woods | 1–10 | oak branch, round leafy bush, oak limb, wooden house with moss roof | morning, noon, golden hour, light rain | petals, butterflies | homecoming gifts (L3), mystery egg (L6) | Owl Eye |
-| W2 Bamboo Grove | 11–20 | bamboo cane perches from bamboo clumps, bamboo limb, bamboo house with leaf roof | mist morning, noon, dusk lanterns, drizzle | mist, drifting bamboo leaves | sleepy bird (L11), mama and chicks (L15) | Morning Bell |
-| W3 Maple Autumn | 21–30 | maple branch with red leaves, maple bush, limb, red-roof cabin house | crisp morning, noon, sunset, windy | falling maple leaves | crow + twig (L21), swivel branch (L24) | Scarecrow |
-| W4 Snow Pine | 31–40 | snowy pine branch, pine bush, limb with snow, log house with snow cap | snowy morning, noon, blue hour, aurora night (L40) | snowfall, breath puffs | growing branch (L31), day and night (L33) | Spring Rain |
-
-Scene rule: each level JSON names `world` and `variant`; two consecutive levels never share a variant; every 10th level uses the world's special variant (light rain, dusk lanterns, sunset, aurora). Branch layout also changes per level (rows, which sides, twigs).
-
-Each world kit (art): 4 background variants (1080×1920), branch, twig, bush, top limb, birdhouse (per species tint band on the roof edge so the player sees which house is whose), ambient particle sprites.
+The [difficulty continuity contract](work-log/difficulty-continuity/spec.md) owns the reordered progression and save migration. Old four-world/40-level ranges, fixed debut levels and former task-numbered authoring gates are not current constraints. Read actual mechanic introductions from the current catalog and production helpers.
 
 ## 10. Screens and navigation
 
-1. **World map = level select = home screen** (v5.4): a vertical scrolling forest path, 10 nodes per world on a gentle S-curve, background and ambience change with the world being scrolled, a world gate (lock) between worlds opens when the previous world's level 10 is cleared. Node states: cleared (green disc + 1-3 small stars below), current (bird peeking, gentle bounce), unlocked-not-cleared (cream disc + number), locked (grey + small lock). Any unlocked level can be replayed or chosen. Tapping a node opens a **level card**: level number, best stars and best moves vs par, a row of the level's species faces (2-7), small icons of the mechanics present (egg, sleeper, crow, swivel knot, growing branch, night dial), and one large green play button (play icon only); tap outside to dismiss. Fixed chrome: coin chip top-left, settings top-right, bottom row of three buttons (shop, Aviary, settings) in the new HUD style. The app opens here and auto-scrolls to the current level; win panel Home returns here, Next enters the next level; pause/settings in a level also offer a return-to-map button. Replaying pays coins only when stars improve (5 per extra star).
-2. **Level**: layout §3, with changes for v5.2: the birdhouse area shows **one birdhouse per species** in a row hanging from the limb (house width = min(300, 900 / K) with 20 px gaps; tracker icons are replaced by the houses themselves: a house glows and shows a check when its flock is home; the level badge moves to a small wood sign hanging at the left end of the limb). The bottom bar has 4 wood buttons of 150: centers x = 225 / 435 / 645 / 855, y = 1760, each booster with a count badge (64 px circle, top-right corner).
-3. **Win**: §3 win panel plus Chorus bonus line.
-4. **Shop**, **Aviary**: full-screen panels over a blurred map, tabs as icon wood squares.
-5. **Settings**: sound toggle, music toggle, restart (in level only), close. No sliders.
+Home, world/level selection, gameplay, Shop, Aviary, Settings and reward/purchase overlays are separate canonical views coordinated by `PerchSort/game/main.gd`. Use [CODE_MAP](spec/CODE_MAP.md) and the screen contracts in [design](design/); do not restore the retired map-as-home S-curve layout or four-button HUD.
 
-Board density for bigger levels: rows = ceil(branches / 2); row pitch = min(300, 800 / rows); bird scale = clamp(pitch / 220, 0.72, 1); seat pitch scales with bird scale.
+## 11. Level authoring
 
-## 11. Level plan (40 levels)
-
-Roles: T = teach (one new thing, short), P = practice, C = challenge, R = rest (easy, satisfying). Flock size N = 4 everywhere. Branches = K + spare (spare = empty or partly empty branches/twigs).
-
-| Levels | K | Spare branches | Mechanics | Roles |
-| --- | --- | --- | --- | --- |
-| 1–2 | 2 | 1–2 | core | T, T (Firefly at 2) |
-| 3–5 | 3 | 2 | homecoming gifts (L3 T, using berry Encore); L4 teaches Sapling | T, P, P |
-| 6–10 | 3–4 | 2 | eggs (L6 T); L7 Owl Eye | T, P, C, R, C |
-| 11–15 | 4–5 | 2 | sleepy (L11 T); L12 Morning Bell; eggs mixed | T, P, P, R, T |
-| 16–20 | 5 | 2 | mama and chicks (L15 T), sleepy + eggs | P, C, R, C, C |
-| 21–25 | 5–6 | 2 + 1 twig | crow + twig (L21 T); L22 Scarecrow; swivel (L24 T) | T, P, P, T, C |
-| 26–30 | 6 | 2 + twig | swivel, crow, eggs, sleepy mixed | P, C, R, C, C |
-| 31–32 | 6 | 2 growing | growing branch (L31 T); L32 Spring Rain | T, P |
-| 33–40 | 6–7 | mixed | day and night (L33 T), then everything | T, P, R, C, P, C, R, C (L40 finale) |
-
-Difficulty gates (validated by tool, §12): T levels: random-play win rate ≥ 80%; P: 40–80%; C: 5–40% with at least one tempting dead end; R: ≥ 70% and ≤ 10 moves. Neighbouring levels must differ in layout or mechanic.
-
-### 11.1 Level authoring rules (binding, from T35 review)
-
-- (1) Yes: booster-introduction levels keep their own role gate (L4/7/12/22/32 are P with 40-80%); the <=6 moves / >=80% teach gate applies only to T levels. A booster intro level shows an optional, clearly useful booster opportunity while keeping a proven no-booster solution. Have the tool report the booster value: par with that one booster used at the best moment vs par without (for Owl Eye: the number of egg-dependent guesses avoided). Require booster value >= 2 moves for Sapling/Bell/Scarecrow/Rain levels.
-- (2) Mechanics are allowed mixes after their debut, not mandatory on every level. Within each §11 range, every listed mechanic must appear in at least 2 levels besides its teach level. Species: first appearance exactly on the listed debut level (the debut level must contain it), never earlier.
-- (3) Canonical variant ids: world 1: morning, noon, golden, rain. World 2: mist, noon, lanterns, drizzle. World 3: morning, noon, sunset, windy. World 4: morning, noon, bluehour, aurora. Specials (rain, lanterns, sunset, aurora) are used ONLY on levels 10, 20, 30, 40; the other levels rotate the remaining three with no two consecutive equal. L1 = noon.
-- (4) "Layout" = branch geometry (branch count, sides/rows, kinds). Neighbours must differ in branch geometry OR in mechanic set; bird arrangement alone does not count. The alternating sequence may start on L or R.
-- (5) Yes, use a reachable decision witness: from the start state or a state on an optimal line, two different next-homecoming species choices that are both reachable, where one leads to a strictly worse proven minimum or to a proven dead end. The same witness format is fine for C's tempting dead end; "tempting" = the losing line is reachable within <=3 moves of the start by legal moves, ideally through a homecoming move.
-- (6) Exact closure preferred. When it exceeds the budget, report a clearly labelled bound for dead-state share; acceptance needs par and the decision witness proven, plus the random-play win rate inside the role gate. Memory guard: cap the search at 4 GiB and report Unknown beyond it.
-- Exceptions (named in the validator): L4 and L5 are re-roled R (levels 1-5 can only use sunny/sky/berry, so K<=3 boards are inherently forgiving). SAPLING_INTRO_L4: the >=2-move Sapling saving is waived for L4 only; its intent is "Sapling is your safety net".
-- Top area for K houses: level sign + day/night dial in x 0..188 at the left end of the limb; houses fitted into x 210..1050 with 20 px gaps; hooks at y=245; each house hangs on its own rope from `limb_top_plain` (rope drawn from `rope_segment`); Song pill x 350..670, y 85..175; pending light-step feather at (985, 1595).
-- Bottom bar slot 4 shows the booster useful in this level: the world booster if its mechanic is present, else the first present of OwlEye (eggs), MorningBell (sleepers/nocturnals), Scarecrow (crows), SpringRain (growing); none present -> world booster disabled. A Song payout of a booster not on the bar previews its icon and +count over slot 4, then restores it.
-- (A) Count follow-on appearances within the same world after the debut, not per §11 row: each mechanic needs at least 2 levels besides its teach level, between its teach level and the end of its world (mama: L16-20; swivel: L25-30; growth: L32-40; the rest as before). Older mechanics may also appear in later worlds.
-- (B) Use the explicit reveal-count proxy, labelled as such: the number of still-covered egg identities exposed by Owl Eye at the best moment. No information-state proof is required. Owl Eye levels need proxy >= 2.
-
+Preserve the current catalog, hint routes and migrations unless gameplay/data changes are explicitly authorized. Validate through `scripts/run_tests.sh` and report the actual limits. A passing automated replay does not establish human playability or visual acceptance.
 
 ## 12. Data and validation
 
-`levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. Level 1 stays as in §2 (missing fields default: world 1, variant noon, dayLength 0, kind normal). Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.
-
-## 13. Development roadmap
-
-| Task | Owner | Content | Depends on |
-| --- | --- | --- | --- |
-| T31 | Codex + omp | v5.1 layout rework (in progress) | — |
-| T32 | omp | Core v5.2: eggs, sleepy, crow, twig, growing branch, rule order, Chorus, boosters as undoable actions, multi-birdhouse per species, schema; EditMode tests for every rule in §1, §6, §7, §8.1 | T31 |
-| T33 | Codex | Art: species 3–8 + crow full frame sets, egg/nest frames, sleep frames, outfits (3 per species), booster icons, count badge, W1 kit variants, per-species birdhouse roof bands | T31 |
-| T34 | omp | Animation polish per §5 (attention, branch flex, egg/sleep/crow/growth, Chorus, ambient particles, transitions) | T32, T33 |
-| T35 | omp + Claude review | 40 levels authored + `LevelTool` validation (Core sources compiled in .NET); Claude reviews every level's role | T32 |
-| T36 | Codex | W2–W4 scene kits and variants, map art, shop/Aviary UI art, alt birdhouses | T33 |
-| T37 | omp | Meta: world map, shop, Aviary, coins/daily gift, saves | T32, T36 |
-| T38 | Claude + Mac | Full playthrough on Mac, screenshots, tuning | all |
-
-Every task: spec in `tasks/`, GitHub issue, Mac test run (EditMode + PlayMode green, screenshots), Claude review before merge.
+`levels.json` level fields: `id, world, variant, capacity (N), par, dayLength (0 = no day/night)`; branch fields `side, row, kind (normal|twig|growing|swivel), seats (current capacity; growing only)`; bird tokens `"species"`, `"species:sleep"`, `"species:mama"`, `"species:chick"`, `"egg:species"`, `"crow"`. The current level data and `Levels.create_board` define accepted fields and defaults; the introductory example above is not a requirement to overwrite the catalog. Validator rules: species counts exactly N each (eggs included), no exposed egg and no complete flock at start, crows only with at least one twig.

@@ -2,7 +2,7 @@
 
 ## Identity and authority
 
-There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 100 fixed levels across ten sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. Rules are unchanged; the [hundred-level round](work-log/hundred-levels/report.md) extended and reordered the levels. Current [UI work](design/ui-system.md) improves complete localized labels, icons, spacing and readability. The user rejected broad recolouring and enclosing header/navigation cards; the original palette and independent controls are restored. English is the only authored locale. [UI polish](work-log/ui-polish/report.md) records the corrected scope, uniform board bird scale and pending user acceptance. Forest paintings and branch layers remain under `tools/scene`.
+There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 100 fixed levels across ten sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The [hundred-level round](work-log/hundred-levels/report.md) extended the catalog; subsequent gameplay changes are recorded below. Current presentation is documented in [the design directory](design/) and implemented in `PerchSort/game`. English and Chinese painted locale packs are installed. Runtime implementation is not proof of user visual acceptance. Forest paintings and branch layers remain under `tools/scene`.
 
 ## Canonical-edit policy
 
@@ -14,7 +14,7 @@ owns the current level order, hint allowances and save migration; the hundred-le
 - Task branches and PRs are temporary and merge into `main`; they are not permanent forks.
 - `python3 ci/check_current_game_names.py` must pass; it complements human review and runtime acceptance.
 
-[`art/approved_ui`](../art/approved_ui) holds the approved mockups (style direction). Visual acceptance is the user's approval of each clickable screen; approved runtime captures in `art/approved_runtime` are then the baseline. Layout comes from the UI system, not from measured mockup rects.
+[`art/approved_ui`](../art/approved_ui) holds the approved mockups (style direction). Visual acceptance is the user's approval of each clickable screen; approved runtime captures in `art/approved_runtime` are then the baseline. Use the current screen-specific contracts and canonical layout constants; do not restore superseded layouts.
 
 ## Read current behavior at its owner
 
@@ -23,7 +23,7 @@ owns the current level order, hint allowances and save migration; the hundred-le
 | Board model, moves, homecoming waves and gifts, eggs, sleep, crows, twigs, swivels, growing branches, day/night, chorus coins, boosters, undo, solver | [core](../PerchSort/core) |
 | Profile, unlocks, economy, map states, daily gift, shop, aviary | [meta](../PerchSort/meta) |
 | Board, HUD, birds, popups, map, shop, aviary, navigation, audio | [game](../PerchSort/game) |
-| Localized whole-label textures and numeric cells | [runtime renderer](../PerchSort/game/ui_text.gd), [English source catalog](../tools/kit/locales/en.json), [locale packs](../PerchSort/art/locale) |
+| Localized whole-label textures and numeric cells | [runtime renderer](../PerchSort/game/ui_text.gd), [English source catalog](../tools/kit/locales/en_docs.json), [locale packs](../PerchSort/art/locale) |
 | Design decisions | [design record](GAME_DESIGN.md) (later approved contracts supersede its old layouts) |
 | Source organization | [CODE_MAP](spec/CODE_MAP.md), [port contract](work-log/godot-port/spec.md) |
 

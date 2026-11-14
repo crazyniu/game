@@ -15,4 +15,4 @@ Retired implementation, old documents and superseded art were removed; Git retai
 
 ## Testing status
 
-`bash scripts/run_tests.sh` (naming guard, smoke test, 40-level core test) and `bash scripts/screenshots.sh` (silent captures of every screen state). Stills do not prove animation; timed claims need frame sequences and logs. CI runs the same tests on headless Godot and cannot establish GUI acceptance.
+`bash scripts/run_tests.sh` (naming guard, smoke test, 100-level core test) and `bash scripts/screenshots.sh` (silent captures of every screen state). Stills do not prove animation; timed claims need frame sequences and logs. CI runs the same tests on headless Godot and cannot establish GUI acceptance.
