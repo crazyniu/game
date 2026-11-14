@@ -96,7 +96,7 @@ func _run() -> void:
 		await create_timer(0.35).timeout
 		var canceled: Control = main.popups.get_child(-1)
 		tap(canceled.get_node("Content/OpenChest"))
-		await create_timer(0.2).timeout
+		await create_timer(ChestOpening.SHAKE + ChestOpening.SQUASH + 0.08).timeout   # the shake comes before the pop
 		check(Sound._last_play.has("crate_open") == destroy, "opening sound respects effects mute")
 		if destroy:
 			canceled.queue_free()
@@ -125,7 +125,7 @@ func _run() -> void:
 	var open: Button = page.get_node("Content/OpenChest")
 	tap(open)
 	tap(open)
-	await create_timer(0.25).timeout
+	await create_timer(ChestOpening.SHAKE + ChestOpening.SQUASH + ChestOpening.SWING * 0.1).timeout   # early in the swing (the lid overshoots open by 40%)
 	check(main.profile.chests_opened == 0, "no reward before opening finishes")
 	var angle: float = page.get_node("Content/ChestHero").angle
 	check(angle > ChestLid.CLOSED_ANGLE and angle < ChestLid.OPEN_ANGLE, "lid moves through real intermediate geometry, not image opacity")
