@@ -611,6 +611,8 @@ const DAILY_OUTLINE := Color8(63, 181, 43)   # the shop's selected green
 const DAILY_COIN_ART := [[400, "icon_draw_prize_four_hundred"], [200, "icon_draw_prize_two_hundred"],
 	[120, "icon_draw_prize_one_twenty"], [80, "icon_draw_prize_eighty"], [60, "icon_draw_prize_sixty"], [0, "icon_draw_prize_forty"]]
 
+const DAILY_SETTLE := 0.3   # the counter's bump after the last coin
+
 static func daily_reward(host: Control, today: int, available: bool, balance: int, claim: Callable) -> Control:
 	var instant := _instant(host)
 	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
@@ -663,13 +665,15 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 		_daily_stamp(tile, instant)
 		# The reward chime plays with the prizes in the rewards popup, not before it is on screen.
 		var total := balance + int(got["coins"])
+		var wait := 1.1   # the stamp alone
 		if instant or int(got["coins"]) <= 0:
 			bar.set_amount(total, true)
 		else:
-			coin_flight(p.content, tile.position + tile.size * 0.5, bar.position + Vector2(56, bar.size.y * 0.5), 0.2,
-				func(): bar.set_amount(total, true))
+			# The rewards card opens only after the last coin has landed and the counter has settled.
+			wait = coin_flight(p.content, tile.position + tile.size * 0.5, bar.position + Vector2(56, bar.size.y * 0.5), 0.2,
+				func(): bar.set_amount(total, true)) + DAILY_SETTLE
 		if not instant:
-			await p.get_tree().create_timer(1.1).timeout
+			await p.get_tree().create_timer(wait).timeout
 		if not is_instance_valid(p):
 			return
 		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
@@ -1543,23 +1547,30 @@ static func _sparkle_ring(prize: Control) -> void:
 		tw.tween_callback(spark.queue_free)
 
 ## Coins leave `from` in a fan and fly into `to` (a feather counter), each landing with a tick; positions are in
-## `layer`'s own coordinates. `on_land` runs as the first coin lands.
-static func coin_flight(layer: Control, from: Vector2, to: Vector2, delay := 0.0, on_land := Callable()) -> void:
-	for i in 9:
+## `layer`'s own coordinates. `on_land` runs as the first coin lands. Returns the seconds until the last coin has
+## landed, so a caller can wait for the whole flight before showing anything else.
+const COIN_FLIGHT_COINS := 9
+const COIN_FLIGHT_STAGGER := 0.05
+const COIN_FLIGHT_BURST := 0.26
+const COIN_FLIGHT_TRAVEL := 0.42
+
+static func coin_flight(layer: Control, from: Vector2, to: Vector2, delay := 0.0, on_land := Callable()) -> float:
+	for i in COIN_FLIGHT_COINS:
 		var coin := UI.image(layer, "coin", Rect2(from - Vector2(36, 36), Vector2(72, 72)))
 		coin.pivot_offset = coin.size * 0.5
 		coin.modulate.a = 0.0
 		var spread := from + Vector2.from_angle(TAU * i / 9.0) * (90.0 + 14.0 * (i % 3))
 		var tw := coin.create_tween()
-		tw.tween_interval(delay + i * 0.05)
+		tw.tween_interval(delay + i * COIN_FLIGHT_STAGGER)
 		tw.tween_property(coin, "modulate:a", 1.0, 0.06)
-		tw.parallel().tween_property(coin, "position", spread - coin.size * 0.5, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(coin, "position", to - coin.size * 0.5, 0.42).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		tw.parallel().tween_property(coin, "scale", Vector2.ONE * 0.6, 0.42)
+		tw.parallel().tween_property(coin, "position", spread - coin.size * 0.5, COIN_FLIGHT_BURST).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(coin, "position", to - coin.size * 0.5, COIN_FLIGHT_TRAVEL).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tw.parallel().tween_property(coin, "scale", Vector2.ONE * 0.6, COIN_FLIGHT_TRAVEL)
 		tw.tween_callback(Sound.play.bind("ui_tap", 1.5 + 0.05 * i))
 		if i == 0 and on_land.is_valid():
 			tw.tween_callback(on_land)
 		tw.tween_callback(coin.queue_free)
+	return delay + (COIN_FLIGHT_COINS - 1) * COIN_FLIGHT_STAGGER + COIN_FLIGHT_BURST + COIN_FLIGHT_TRAVEL
 
 ## Gentle squash at the feet, forever (props only; birds are BirdViews).
 static func _breathe(t: Control, phase: float) -> void:

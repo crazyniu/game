@@ -41,6 +41,20 @@ func _run() -> void:
 	main.args["smoke"] = "1"
 	main.args["capture"] = "1"
 	await process_frame
+	# The real view restart (it builds a new session): the allowance survives it.
+	var board: Control = load("res://game/board_view.gd").new()
+	board.instant = true
+	root.add_child(board)
+	var player := Profile.new()
+	board.start(Levels.get_level(1), player, false)
+	board.session.undos_left = 0
+	board.restart()
+	check(board.session.undos_left == 0 and board.session.move_count() == 0, "view restart keeps zero undos and resets the board")
+	board.session.undos_left = 7
+	board.restart()
+	check(board.session.undos_left == 7, "view restart keeps a purchased allowance above three")
+	board.queue_free()
+
 	var offers: GDScript = load("res://game/undo_offer.gd")
 	var ads: GDScript = load("res://game/ad_service.gd")
 	var kit: GDScript = load("res://game/button_kit.gd")

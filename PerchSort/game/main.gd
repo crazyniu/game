@@ -235,6 +235,9 @@ func _refresh_screen() -> void:
 		screen.setup(profile)
 	elif screen is BoardView:
 		screen.refresh_hud()
+	# A shop or aviary page stays mounted over the screen while feathers are bought: its balance follows too.
+	if _overlay != null and is_instance_valid(_overlay) and _overlay.has_method("refresh_balance"):
+		_overlay.refresh_balance()
 
 ## The mechanics a level uses (one detector, shared with the lessons in tutorial.gd).
 static func mechanics_of(level_def: Dictionary) -> Array[String]:
@@ -350,33 +353,46 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	for info in Progress.BOOSTERS:
 		var flag := "unlock.%s" % info[1]
 		if Progress.booster_unlock_level(info[0]) == level_id and not profile.has_tutorial(flag):
-			profile.set_tutorial(flag)
-			queue.append(func(done: Callable): Popups.unlock(popups, info[0], done))
+			queue.append(func(done: Callable):
+				_mark_seen(flag)
+				Popups.unlock(popups, info[0], done))
 	# The first open of level 1 ends with the how-to-play steps, shown once.
 	if level_id == 1 and not profile.has_tutorial(Tutorial.FLAG):
-		profile.set_tutorial(Tutorial.FLAG)
-		queue.append(func(done: Callable): Tutorial.open(popups, done, instant()))
+		queue.append(func(done: Callable):
+			_mark_seen(Tutorial.FLAG)
+			Tutorial.open(popups, done, instant()))
 	# A mechanic's first level then shows its one-step lesson, once per mechanic.
 	for mechanic in Tutorial.due_lessons(profile, def):
-		profile.set_tutorial(Tutorial.lesson_flag(mechanic))
-		queue.append(func(done: Callable): Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
+		queue.append(func(done: Callable):
+			_mark_seen(Tutorial.lesson_flag(mechanic))
+			Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
 	save()
 	if queue.is_empty() and point < 0:
 		return
 	while entrance and is_instance_valid(board) and board.busy:
 		await get_tree().process_frame
+	if not is_instance_valid(board) or screen != board:   # left the level during its entrance: its popups are dropped
+		return
 	_run_queue(queue, func():
 		if point >= 0 and is_instance_valid(board) and screen == board:
-			board.point_at_tool(point))
+			board.point_at_tool(point), board)
 
-## Shows popups one after another; each receives a `done` callable.
-func _run_queue(queue: Array[Callable], then := Callable()) -> void:
+## A lesson or unlock counts as seen when it is shown, not when it is queued: leaving the level first keeps it due.
+func _mark_seen(flag: String) -> void:
+	profile.set_tutorial(flag)
+	save()
+
+## Shows popups one after another; each receives a `done` callable. The queue belongs to `scope` (the level's board):
+## once that board is no longer the screen, the rest is dropped instead of opening on whatever page is shown now.
+func _run_queue(queue: Array[Callable], then := Callable(), scope = null) -> void:
+	if scope != null and (not is_instance_valid(scope) or screen != scope):
+		return
 	if queue.is_empty():
 		if then.is_valid():
 			then.call()
 		return
 	var next: Callable = queue.pop_front()
-	next.call(func(): _run_queue(queue, then))
+	next.call(func(): _run_queue(queue, then, scope))
 
 func _on_won(result: Dictionary, level_id: int) -> void:
 	var session: GameSession = result["session"]
