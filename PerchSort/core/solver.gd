@@ -86,6 +86,22 @@ static func hint(start: Board, previous_move: Array = [], max_states := 24000, m
 				_hint_push(frontier, Vector2i(depth + penalty + _hint_score(next), index))
 	return {"status": Status.UNSOLVABLE, "moves": []}
 
+## Stuck rescue: the first booster of `kinds` (tried in the given order) that has an effect on `start` and makes it
+## winnable, proven by hint() on a clone with the booster applied (no stock consumed). Returns the kind, or -1.
+static func rescue_booster(start: Board, kinds: Array, max_states := 20000, max_ms := 600, cancel: Array = []) -> int:
+	var rules := Rules.new()
+	rules.track_economy = false
+	for kind in kinds:
+		if not cancel.is_empty() and cancel[0]:
+			return -1
+		if kind == Board.Booster.FIREFLY or not Rules.booster_has_effect(start, kind):
+			continue
+		var probe := start.clone(false)
+		rules.booster(probe, kind, false, null)
+		if hint(probe, [], max_states, max_ms, cancel)["status"] == Status.SOLVED:
+			return kind
+	return -1
+
 ## One-move suggestion when no full route was found in budget: the legal move whose result has the best
 ## (lowest) hint score; a winning move first, and undoing the previous move only as a last resort.
 ## Returns [from, to] ([b, -1] for a swivel), or [] when no legal move exists.
