@@ -78,6 +78,7 @@ var _frame_names := {}    # Texture2D -> painted frame name, for outfit anchors
 var _wear_frames := {}    # frame name -> [tx, ty, sx_left, sx_right, sy, degrees, fit cost]
 var _wear_pivot := Vector2.ZERO
 var _blend_alpha := 0.0
+var _nudge_tween: Tween
 var _nudge := -1.0        # 0..1 while a tapped sleeper reacts, -1 otherwise
 var _rest: Texture2D
 var _blink: Array[Texture2D] = []
@@ -594,6 +595,7 @@ func _end_idle() -> void:
 	_next_idle = randf_range(1.0, 3.0)
 
 func _stop_idle() -> void:
+	_stop_nudge()
 	if _idle_tween:
 		_idle_tween.kill()
 		_idle_tween = null
@@ -777,6 +779,9 @@ func hop_to(target: Vector2, duration := 0.35) -> void:
 	finished.emit()
 
 func cheer() -> void:
+	# Decorative timers must not compete with travel, landing or a showcase.
+	if acting or showcasing or selected:
+		return
 	_stop_idle()
 	var frames: Array = _seqs.get("cheer", [])
 	if frames.is_empty():
@@ -855,8 +860,8 @@ func reveal() -> void:
 	finished.emit()
 
 func wake() -> void:
+	_stop_nudge()
 	asleep = false
-	_nudge = -1.0
 	code = Board.with_flags(code, Board.flags_of(code) & ~Board.ASLEEP)
 	_zzz.visible = false
 	var base := DISPLAY / CANVAS * density
@@ -877,6 +882,7 @@ func nudge_asleep() -> void:
 	if not asleep or is_egg or acting or _nudge >= 0.0:
 		return
 	var tw := create_tween()
+	_nudge_tween = tw
 	tw.tween_method(func(t: float):
 		_nudge = t
 		if _blink.size() > 2 and _blink[1]:
@@ -884,8 +890,15 @@ func nudge_asleep() -> void:
 		else:
 			_show_rest(), 0.0, 1.0, 0.7)
 	await tw.finished
+	_nudge_tween = null
 	_nudge = -1.0
 	_show_rest()
+
+func _stop_nudge() -> void:
+	if _nudge_tween:
+		_nudge_tween.kill()
+		_nudge_tween = null
+	_nudge = -1.0
 
 func set_sleep(value: bool) -> void:
 	asleep = value and not is_egg
