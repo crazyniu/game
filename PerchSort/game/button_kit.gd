@@ -109,6 +109,8 @@ static func banner(parent: Node, rect: Rect2) -> NinePatchRect:
 static func lettering(parent: Node, key: String, bounds: Rect2) -> TextureRect:
 	var word := UiText.painted(parent, "lettering_" + key, bounds)
 	word.material = null
+	if key == "lucky_spin_title":
+		word.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	return word
 
 ## A pressable button of one kind. Content goes into its child "Content" (same size as the button).
