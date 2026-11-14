@@ -10,6 +10,7 @@ python3 "$root/ci/test_launcher_recovery.py"
 "$godot" --headless --path "$root/PerchSort" --import >/dev/null 2>&1 || true
 "$godot" --headless --path "$root/PerchSort" --audio-driver Dummy -- --smoke
 "$godot" --headless --path "$root/PerchSort" -s res://tests/run_core.gd
+GODOT="$godot" python3 "$root/ci/test_save_recovery_ui.py"
 
 "$godot" --headless --path "$root/PerchSort" --audio-driver Dummy res://tests/run_bird_animation.tscn
 "$godot" --headless --path "$root/PerchSort" --audio-driver Dummy -s res://tests/run_goal.gd

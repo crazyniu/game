@@ -49,7 +49,7 @@ func setup(balance: int) -> void:
 func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 	if get_node_or_null("Popup") != null:
 		return
-	var modal := PurchaseDialog.open(self, "coins_buy", [300.0, 88.0], instant, CONFIRM_SIZE.y)
+	var modal := PurchaseDialog.open_shop(self, "coins_buy", [300.0, 88.0], instant, CONFIRM_SIZE.y)
 	var ys: Array = modal.get_meta("ys")
 	var picture := Rect2(280, ys[0], 520, 300)
 	PurchaseDialog.glow(modal.content, picture)

@@ -52,6 +52,9 @@ func _ready() -> void:
 	if args.has("smoke"):
 		load("res://tests/smoke.gd").run(self)
 		return
+	if profile.needs_recovery():
+		load("res://game/save_recovery.gd").open(self)
+		return
 	if args.has("preview"):
 		# --preview=<script basename>:<state>; the script's static preview(main, state) builds it with fake data.
 		var parts: PackedStringArray = args["preview"].split(":", true, 1)

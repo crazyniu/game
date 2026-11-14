@@ -518,7 +518,7 @@ func _equip(id: String, index: int) -> void:
 	_build_tiles()
 	_bump(_tiles.get_child(index))
 
-## One shared shop-style preview and numeric gold purchase action; insufficient funds dim it.
+## Shared jungle purchase shell and numeric feather-price action; insufficient funds dim it.
 func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	if get_node_or_null("Popup") != null:
 		return
@@ -526,7 +526,7 @@ func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	var it := Shop.item(id)
 	var quick := _is_instant()
 	var pic_side := 500.0
-	var modal := PurchaseDialog.open(self, id.replace(".", "_"), [pic_side], quick, ButtonKit.WIDE.y)
+	var modal := PurchaseDialog.open_shop(self, id.replace(".", "_"), [pic_side], quick, ButtonKit.WIDE.y)
 	var ys: Array = modal.get_meta("ys")
 	var pic := Rect2(540.0 - pic_side * 0.5, ys[0], pic_side, pic_side)
 	PurchaseDialog.glow(modal.content, pic)

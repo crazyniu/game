@@ -38,8 +38,11 @@ func _geometry(modal: Control, label: String) -> void:
 	var title := _title_ink(modal)
 	var logical_card: Rect2 = modal.get_meta("card_rect")
 	var card: Rect2 = modal.content.get_node("Panel").get_rect()
-	check(card == logical_card.grow_side(SIDE_TOP, load("res://game/purchase_dialog.gd").TITLE_ROOM), label + " painted surface reserves title room")
-	check(bounds.get_center().distance_to(Vector2(card.end.x - 150.0, card.position.y + 30.0) + bounds.size * 0.5) < 1.0, label + " Close sits inside the card's top-right corner")
+	var jungle: bool = modal.content.get_node("Panel/Skin").texture == Art.tex("panel_jungle_dialog")
+	var expected_card: Rect2 = logical_card if jungle else logical_card.grow_side(SIDE_TOP, load("res://game/purchase_dialog.gd").TITLE_ROOM)
+	check(card == expected_card, label + " painted surface follows its approved shell")
+	var close_at: Vector2 = Vector2(card.end.x - 132.0, card.position.y + 156.0) if jungle else Vector2(card.end.x - 150.0, card.position.y + 30.0)
+	check(bounds.position.distance_to(close_at) < 1.0, label + " Close sits at its shell's top-right shoulder")
 	check(card.encloses(bounds), label + " Close lies within the card")
 	check(Rect2(0, 0, 1080, 1920).encloses(bounds), label + " entire Close remains on screen")
 	check(bounds.size.is_equal_approx(navigation_script.SIZE), label + " accepted Close size preserved")
@@ -85,6 +88,8 @@ func _close(host: Control, modal: Control, profile: Profile, label: String, edge
 	_tap(point)
 	_tap(point)
 	await create_timer(0.20).timeout
+	if calls[0] != 1 or host.get_node_or_null("Popup") != null:
+		print("CLOSE_DIAGNOSTIC ", label, " edge=", edge, " calls=", calls[0], " closing=", modal._closing if is_instance_valid(modal) else false, " point=", point)
 	check(calls[0] == 1 and host.get_node_or_null("Popup") == null, label + " " + edge + " double pointer closes exactly once")
 	check(JSON.stringify(profile.to_dict()) == before, label + " Close changes no profile data")
 

@@ -1,0 +1,3 @@
+# Jungle purchase shell
+
+Apply the user-approved purchase mockup in art/approved_ui/purchase_jungle.png to the shop booster, bird outfit, house and aviary outfit confirmations only. Reuse the clean panel_jungle_dialog texture shared with the level/result shell; never extract the mockup. Keep painted titles, captions, actual item art, quantity editing/bounds, feather total-price action, closing and all callbacks. The price action sits outside the opaque panel. Other dialogs and purchase economy are unchanged. The subsequently approved restrained leaf-rim refinement reuses the coordinated clean leaf sprite without altering the base frame.

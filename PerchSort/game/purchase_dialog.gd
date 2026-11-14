@@ -51,6 +51,77 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	dialog.set_meta("card_rect", card)
 	return dialog
 
+## Approved shop-only shell: rigid painted header/footer and an exterior price action.
+## Other PurchaseDialog callers retain their established presentation.
+static func open_shop(host: Control, title_key: String, heights: Array, instant: bool,
+		action_height: float) -> Modal:
+	const WIDTH := 960.0
+	const HEADER := 236.0
+	const FOOTER := 168.0
+	var inner := GAP * maxf(0.0, heights.size() - 1)
+	for height in heights:
+		inner += height
+	var panel_h := HEADER + inner + FOOTER
+	var top := (1920.0 - panel_h - Modal.ACTION_DROP - action_height) * 0.5
+	var rect := Rect2((1080.0 - WIDTH) * 0.5, top, WIDTH, panel_h)
+	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
+	for name in ["Panel", "TitleGroup"]:
+		var old := dialog.content.get_node(name)
+		dialog.content.remove_child(old)
+		old.queue_free()
+	dialog.panel_rect = rect
+	dialog.content.pivot_offset = Vector2(540, top + panel_h * 0.5)
+	dialog._dim.color = Modal.POPUP_SHADE
+	var holder := Control.new()
+	holder.name = "Panel"
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(holder, rect)
+	dialog.content.add_child(holder)
+	var skin := NinePatchRect.new()
+	skin.name = "Skin"
+	skin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	skin.texture = Art.tex("panel_jungle_dialog")
+	var scale_art := WIDTH / skin.texture.get_width()
+	skin.size = rect.size / scale_art
+	skin.scale = Vector2.ONE * scale_art
+	skin.patch_margin_top = 330
+	skin.patch_margin_bottom = 210
+	holder.add_child(skin)
+	_leaves(dialog.content, rect)
+	dialog._title_layer = ButtonKit.sign(dialog.content, title_key, Rect2(220, top - 14, 640, 223))
+	dialog._title_id = title_key
+	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - 132, top + 156), dialog.close)
+	var ys := []
+	var y := top + HEADER
+	for height in heights:
+		ys.append(y)
+		y += height + GAP
+	dialog.set_meta("ys", ys)
+	dialog.set_meta("card_rect", rect)
+	dialog.set_meta("actions_y", rect.end.y + Modal.ACTION_DROP)
+	return dialog
+
+static func _leaves(parent: Control, rect: Rect2) -> void:
+	# Independent sprites stay proportional when the panel's quiet centre stretches.
+	var leaf := AtlasTexture.new()
+	leaf.atlas = Art.tex("decor_jungle_leaves")
+	leaf.region = Rect2(275, 110, 985, 755)
+	for item in [
+		["LeavesUpper", Rect2(rect.position + Vector2(24, 80), Vector2(160, 123)), false],
+		["LeavesLower", Rect2(rect.end - Vector2(146, 108), Vector2(106, 81)), true],
+	]:
+		var sprig := TextureRect.new()
+		sprig.name = item[0]
+		sprig.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		sprig.texture = leaf
+		sprig.position = item[1].position
+		sprig.size = item[1].size
+		sprig.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		sprig.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		sprig.flip_h = item[2]
+		sprig.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		parent.add_child(sprig)
+
 static func glow(parent: Control, picture: Rect2) -> void:
 	var glow := UI.image(parent, "glow_soft", picture.grow(picture.size.x * 0.22))
 	glow.name = "ProductGlow"
