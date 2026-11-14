@@ -70,7 +70,7 @@ const SWIVEL_ART := "btn_swivel_green"
 const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
 const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
 const SWIVEL_DROP := -8.0     # its centre relative to the branch line
-const PERCH_TOP := 520.0   # the play area starts right under the hanging house
+const PERCH_TOP := 600.0   # the play area starts under the hanging house and its row of bird keys
 const PERCH_BOTTOM := 1640.0
 const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
 const ROW_REFLOW_SECONDS := 0.45
@@ -182,6 +182,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	size = Vector2(1080, 1920)
 	_build_scene()
 	_build_hud()
+	_build_skill_row()
 	_layout_branches()
 	_spawn_birds()
 	refresh_hud()
@@ -1065,9 +1066,72 @@ func _pulse(node: Control, pivot_x := 0.0) -> void:
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+## ---------- bird keys under the house ----------
+
+## One key per kind of bird in the level, in a row under the hanging house: the bird's face, its homecoming
+## badge at the corner, and a check once its flock is home. Tapping a key opens that bird's card.
+const KEY := 88.0
+const KEY_SMALL := 74.0      # nine or more kinds
+const KEY_GAP := 14.0
+const KEY_DROP := 14.0       # under the house
+var _skill_row: Control
+var _skill_keys := {}        # species name -> key
+
+func _build_skill_row() -> void:
+	_skill_keys.clear()
+	var fresh := Levels.create_board(level)
+	var names: Array = Array(Levels.species_ids(fresh, true)) if fresh != null else []
+	names.sort_custom(func(a, b): return Board.SPECIES.find(a) < Board.SPECIES.find(b))
+	var side := KEY if names.size() <= 8 else KEY_SMALL
+	var width := names.size() * side + maxi(0, names.size() - 1) * KEY_GAP
+	_skill_row = Control.new()
+	_skill_row.name = "SkillRow"
+	_skill_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_skill_row, Rect2(540.0 - width * 0.5, _house_rect().end.y + KEY_DROP, width, side))
+	_hud.add_child(_skill_row)
+	for i in names.size():
+		var species: String = names[i]
+		var r := Rect2(i * (side + KEY_GAP), 0, side, side)
+		var key := Control.new()
+		key.name = "Key_" + species
+		key.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(key, r)
+		_skill_row.add_child(key)
+		UI.art(key, "hud_tool_slot", Rect2(Vector2.ZERO, r.size))
+		var inner := side * 0.78
+		UI.art(key, WorldBirds.face(species, _world()), Rect2((side - inner) * 0.5, (side - inner) * 0.5 - 2.0, inner, inner)).name = "Face"
+		if GIFT_COIN.has(species):
+			var b := side * 0.44
+			UI.art(key, "gift_coin_" + GIFT_COIN[species], Rect2(side - b * 0.8, side - b * 0.8, b, b)).name = "Badge"
+		var done := UI.art(key, UI.PICTURES["check"], Rect2(-side * 0.12, -side * 0.12, side * 0.42, side * 0.42))
+		done.name = "Home"
+		done.visible = false
+		var tap := UI.hit_area(key, Rect2(Vector2.ZERO, r.size), func():
+			if busy:
+				return
+			if session.selected >= 0:
+				_lift(session.selected, false)
+				session.cancel_selection()
+				_refresh_hint_selection()
+			suspend_input()
+			Sound.play("select")
+			bird_info_requested.emit(species))
+		tap.name = "Tap"
+		_skill_keys[species] = key
+
+func _refresh_skill_row() -> void:
+	for species in _skill_keys:
+		var key: Control = _skill_keys[species]
+		var home: bool = session.state.homed.has(Board.SPECIES.find(species))
+		var mark: Control = key.get_node("Home")
+		if home and not mark.visible:
+			_pulse(key, key.size.x * 0.5)
+		mark.visible = home
+
 func refresh_hud() -> void:
 	var s := session.state
 	_refresh_status()
+	_refresh_skill_row()
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
