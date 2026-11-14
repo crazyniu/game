@@ -3,10 +3,13 @@ extends RefCounted
 ## Move resolution. One instance per session or search; events go to `out` (null in search).
 ## Event dictionaries always carry "type"; see docs/work-log/godot-port/spec.md for fields.
 
+## Every gift acts at once, when its flock goes home; none waits for a later move.
+## MOVE_REFUND takes one move off the counted total. SPARE_UNDO adds one undo; the undo allowance belongs to the
+## session, so the session grants it from the gift event (GameSession.undo_gifts_paid).
 ## NIGHT_CALL and MOONBEAM are retired (no day or night) but keep their numbers.
-enum Gift { WAKE_UP_SONG, GENTLE_BREEZE, ENCORE, GARDENER, GRUMPY_STARE, LIGHT_STEP, WARM_GLOW, NIGHT_CALL, MOONBEAM }
-const GIFT_BY_SPECIES := {0: Gift.WAKE_UP_SONG, 1: Gift.GENTLE_BREEZE, 2: Gift.ENCORE, 3: Gift.GARDENER,
-	4: Gift.GRUMPY_STARE, 5: Gift.LIGHT_STEP, 6: Gift.WARM_GLOW, 8: Gift.ENCORE, 9: Gift.WAKE_UP_SONG}
+enum Gift { WAKE_UP_SONG, GENTLE_BREEZE, MOVE_REFUND, GARDENER, GRUMPY_STARE, SPARE_UNDO, WARM_GLOW, NIGHT_CALL, MOONBEAM }
+const GIFT_BY_SPECIES := {0: Gift.WAKE_UP_SONG, 1: Gift.GENTLE_BREEZE, 2: Gift.MOVE_REFUND, 3: Gift.GARDENER,
+	4: Gift.GRUMPY_STARE, 5: Gift.SPARE_UNDO, 6: Gift.WARM_GLOW, 8: Gift.MOVE_REFUND, 9: Gift.WAKE_UP_SONG}
 
 var track_economy := true
 var _homes: Array = []  # [branch, species] pairs of the current wave
@@ -23,7 +26,7 @@ static func can_transfer(s: Board, from: int, to: int) -> bool:
 		return true
 	var tip := target[target.size() - 1]
 	var source := s.items[from]
-	return (tip & Board.EGG) == 0 and (s.light_step or Board.species_of(tip) == Board.species_of(source[source.size() - 1]))
+	return (tip & Board.EGG) == 0 and Board.species_of(tip) == Board.species_of(source[source.size() - 1])
 
 static func can_swivel(s: Board, b: int) -> bool:
 	return not s.is_won() and b >= 0 and b < s.branch_count() and s.kinds[b] == Board.Kind.SWIVEL
@@ -64,7 +67,6 @@ func transfer(s: Board, from: int, to: int, out) -> void:
 		mama = mama or (code & Board.MAMA) != 0
 		ids.append(Board.id_of(code))
 	source.resize(start)
-	s.light_step = false
 	if out != null:
 		out.append({"type": "transferred", "from": from, "to": to, "from_seat": start, "to_seat": target_start, "ids": ids})
 	if mama:
@@ -102,9 +104,7 @@ func swivel(s: Board, b: int, out) -> void:
 
 func _begin_move(s: Board) -> void:
 	s.moves += 1
-	if not s.encore:
-		s.counted_moves += 1
-	s.encore = false
+	s.counted_moves += 1
 
 func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landing_bird: int, out) -> void:
 	_resolve(s, landing_branch, landing_bird, out)
@@ -212,7 +212,7 @@ func _apply_gift(s: Board, b: int, species: int, out) -> void:
 	match effect:
 		Gift.WAKE_UP_SONG: _wake_rows(s, 0, false, out)
 		Gift.GENTLE_BREEZE: _reveal_eggs(s, out)
-		Gift.ENCORE: s.encore = true
+		Gift.MOVE_REFUND: s.counted_moves = maxi(0, s.counted_moves - 1)
 		Gift.GARDENER:
 			_grow(s, false, out)
 			for t in s.branch_count():
@@ -225,7 +225,6 @@ func _apply_gift(s: Board, b: int, species: int, out) -> void:
 					out.append({"type": "twig_upgraded", "branch": t, "before": before, "after": s.capacity})
 				break
 		Gift.GRUMPY_STARE: _remove_crows(s, s.rows[b], true, out)
-		Gift.LIGHT_STEP: s.light_step = true
 		Gift.WARM_GLOW:
 			for t in s.branch_count():
 				for i in s.items[t].size():
