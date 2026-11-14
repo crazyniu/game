@@ -1,10 +1,24 @@
 # Non-gameplay dialog family
 
-## Current correction
+## Historical scope — superseded component prescription
+
+This page records an earlier correction, not the current FamilyDialog material
+or geometry contract. The later [dialog layout correction](dialog-layout.md)
+records rejection of this panel; the subsequent
+[dialog-family restyle report](../work-log/dialog-family-restyle/report.md)
+records another integrated composition. Do not reintroduce the old Shop panel,
+transparent heading, icon-only Home/Replay actions or fixed dimensions below
+merely to comply with this historical page.
+
+Preserve the interaction and data safeguards below. Current runtime code and
+later approved corrections establish the implementation baseline, not automatic
+owner visual acceptance; no new visual approval is asserted here.
+
+## Earlier correction
 
 The user rejected the mixed old flowered title plaque, shop field, action skins and text in the FamilyDialog screenshots. Reuse the established Home/Chest forest material family. Keep accepted source images unchanged; never replace a reference image or approved runtime baseline.
 
-## Components
+## Historical components
 
 - Full 1080 × 1920 background_shop_forest through DrawPurchaseArt.background, exactly the accepted Shop/Coin Shop forest and cover fit. Do not use the superseded dark Home background.
 - Forest panel: panel_shop_forest via ShopSkin.product_card, width 960 and fixed corner scale 0.35, exactly the Shop and purchase confirmation container. Source region (37, 37, 1312, 1052), patch margins 240/300/240/260 and unmodified colour. Content-driven height remains inside the canvas. Container style still awaits user confirmation; sharing a texture is evidence of source consistency, not proof of visual approval.
@@ -15,6 +29,6 @@ The user rejected the mixed old flowered title plaque, shop field, action skins 
 - Hero birds remain animated and centered. Win hero feet sit 62 px above the panel rim; two companions use symmetrical side positions. No mirrored animation.
 - Level-card Close uses MenuNavigation; celebration action-only dismissal remains unchanged.
 
-## Acceptance
+## Behavior and acceptance safeguards
 
 All seven functions keep their data, reward values, callback order, disabled state and duplicate-tap lockout. Validate both languages, zero/multiple/full rewards, level 100 and full roster, all unlock descriptions, repeated actions, close, and interrupted animation. Render actual 1080 × 1920 images and compare every state. User visual approval is still pending. No font rendering, gameplay changes, publication or source-image modifications.

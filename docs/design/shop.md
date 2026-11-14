@@ -1,14 +1,26 @@
 # Shop forest cards
 
-## Current direction and scope
+## Historical scope — superseded visual layout
 
-The current visual reference is `art/approved_ui/shop.png`: a bright forest setting with two columns of deep-teal cards, narrow honey-gold rattan edges and three icon-only category tabs. The earlier coastal three-column proposal and shelf presentation are superseded; they are not the implementation target.
+This page records the earlier forest-card implementation stage, not the current
+Shop layout contract. The later [shop shelf composition](shop-shelves.md) replaced
+its no-shelves requirement and product geometry. Current layout is owned by the
+canonical `shop_view.gd` and subsequent approved corrections; this historical
+page must not force all categories back to the old two-column grid. Runtime
+implementation alone is not evidence of new owner visual acceptance.
+
+The interaction/data-preservation requirements below remain applicable. The
+coordinates, materials and lettering below describe the earlier stage only.
+
+## Earlier direction and scope
+
+The visual reference for this earlier stage was `art/approved_ui/shop.png`: a bright forest setting with two columns of deep-teal cards, narrow honey-gold rattan edges and three icon-only category tabs. At that stage the coastal three-column proposal and shelf presentation were not the implementation target; the later shelf contract superseded this restriction.
 
 The user requested card grouping, improved product lettering and colors, navigation controls matching the coin shop, and completion of the confirmed non-gameplay UI without additional confirmation or code upload. The later report of missing tabs and content emerging below the navigation requires fixed visible tabs and a clipped item viewport. This authorizes the current implementation and self-checks; it does not claim a new owner acceptance of the runtime captures.
 
 The canonical implementation remains `PerchSort/game/shop_view.gd` for Boosters, Outfits and Nests. Purchase dialogs are handled by their separate task. Existing economics, item order, inventory, unlock rules, saved fields, quantity behavior and equip/navigation contracts remain unchanged.
 
-## Composition
+## Historical composition
 
 All measurements use the 1080 x 1920 design canvas.
 
@@ -25,7 +37,7 @@ Each category derives its scrollable height from its item count. Six boosters fi
 
 Switching categories resets to the top. Cards cannot render or receive item interaction through the clipped boundary into the fixed navigation area. Dragging does not trigger a purchase. Existing live outfit birds, locked/unmet states, owned/equipped states, item actions and return navigation remain supported.
 
-## Materials and lettering
+## Historical materials and lettering
 
 Reuse the existing clean standalone assets: `background_shop_forest`, `panel_shop_forest`, `btn_shop_gold`, `badge_shop_stock`, current booster/bird/house illustrations, category icons and localized painted words. The existing illustrations and accepted cutouts remain unchanged. The reference image is not cropped into runtime.
 
@@ -33,6 +45,6 @@ Product names use the Shop-only `shop_product_word.gdshader`: warm ivory faces r
 
 The six booster unit prices remain Firefly 30, Sprout 60, Owl Eye 80, Wake Bell 80, Scarecrow 100 and Spring Rain 100. Screenshots use illustrative profile data; production values continue to come from the existing Shop/Profile sources.
 
-## Evidence
+## Historical evidence
 
-Current implementation checks, screenshots, comparison images and limitations are recorded in `docs/work-log/shop-card-layout/report.md`. Validation results belong there rather than serving as an additional visual-approval claim in this specification. No protected Home, Settings or gameplay redesign is part of this Shop change.
+Implementation checks, screenshots, comparison images and limitations from that stage are recorded in `docs/work-log/shop-card-layout/report.md`. Validation results belong there rather than serving as an additional visual-approval claim in this specification. No protected Home, Settings or gameplay redesign is part of this Shop change.
