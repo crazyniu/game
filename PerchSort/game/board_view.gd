@@ -7,7 +7,8 @@ signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
 signal undo_more_requested               # undo was tapped with no undo left in this attempt
 signal bird_info_requested(species: String)   # a bird was held: its card explains what its flock's homecoming does
-signal rescue_requested                  # first proven dead end of the attempt: the free rewind is offered
+signal rescue_requested                  # first proven dead end of the attempt in the first forest: the free rewind is offered
+signal restart_offered(picture: String)  # first proven dead end later on: the rescuing tool is shown, restart offered
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
@@ -135,6 +136,7 @@ func _load_start_hints(id: int) -> void:
 
 func start(level_def: Dictionary, player: Profile, play_entrance := true) -> void:
 	_rescue_declined = false
+	_restart_card_due = false
 	_cancel_playback()
 	_release_hint_task()
 	_hide_hint()
@@ -1379,15 +1381,32 @@ func _watch_stuck() -> void:
 	var moves := session.move_count()
 	await get_tree().create_timer(STUCK_DELAY).timeout
 	if is_inside_tree() and not busy and session.state == s and session.move_count() == moves:
-		if session.free_rescue_used or _rescue_declined:
-			show_stuck_hint()
-		else:
+		var free_world := Levels.world_of(level) <= StuckOffer.FREE_REWIND_WORLD
+		if free_world and not session.free_rescue_used and not _rescue_declined:
 			_rescue_declined = true   # closing the offer leaves the pointer for the rest of the attempt
 			suspend_input()
 			show_stuck_hint(false)   # the card is the offer; later dead ends search for the rescuing tool
 			rescue_requested.emit()
+			return
+		if not free_world and not _rescue_declined:
+			# From the second forest on, no free rewind: the card names the rescuing tool (the pointer stands on it)
+			# and offers a free restart, which always works because every level is won from its opening.
+			_rescue_declined = true
+			_restart_card_due = true
+			suspend_input()
+		if not _restart_card_due:
+			show_stuck_hint()
+			return
+		# Whichever stuck check finishes its tool search first opens the card (a newer check drops an older search).
+		var search := _rescue_tool_search
+		await show_stuck_hint()
+		if not is_inside_tree() or search + 1 != _rescue_tool_search or not _restart_card_due:
+			return
+		_restart_card_due = false
+		restart_offered.emit(_stuck_picture())
 
 var _rescue_declined := false
+var _restart_card_due := false   # the second-forest-on card waits for its tool search
 
 ## The free rescue: back to the latest position of this attempt that can still be won. Positions on a route the
 ## background search already found are known; the others are searched on a worker thread, newest first. A position
@@ -1425,6 +1444,12 @@ func rescue() -> void:
 	if OS.is_debug_build():
 		print("RESCUE level=%d steps=%d of=%d" % [session.state.level_id, steps, snapshots.size()])
 	await _after_rewind()
+
+## The picture of the tool the stuck pointer stands on (undo when no tool rescues).
+func _stuck_picture() -> String:
+	if rescue_tool == NO_RESCUE or rescue_tool < 0:
+		return UI.PICTURES["undo"]
+	return UI.PICTURES[TOOL_ICON_NAME[rescue_tool]]
 
 func _dead_end(s: Board) -> bool:
 	return not Rules.has_legal_move(s) or _hint_failures.get(s.search_key(false), -1) == Solver.Status.UNSOLVABLE

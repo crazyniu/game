@@ -200,6 +200,45 @@ func _run() -> void:
 	check(only_sapling.session.state.inventory[sap] == 0 and only_sapling.session.state.added_branch, "tapping the pointed tool with stock uses it")
 	check(Solver.hint(only_sapling.session.state, [], 24000, 5000)["status"] == Solver.Status.SOLVED, "the Sapling's use is proven winnable")
 
+	# The free rewind belongs to the first forest; later forests offer the rescuing tool and a free restart.
+	for world in [1, 2]:
+		var def := SAPLING_ONLY.duplicate(true)
+		def["world"] = world
+		var gated: Control = load("res://game/board_view.gd").new()
+		main.set_screen(gated)
+		gated.start(def, main.profile, false)
+		var offers := []
+		gated.rescue_requested.connect(func(): offers.append("rewind"))
+		gated.restart_offered.connect(func(picture: String): offers.append(picture))
+		var opening_key: PackedInt32Array = gated.session.state.search_key(false)
+		gated.session.try_move(first[0], first[1])
+		await _settle(gated)
+		var waiting := [true]
+		var watch := func():
+			await gated._watch_stuck()
+			waiting[0] = false
+		watch.call()
+		var until := Time.get_ticks_msec() + 15000
+		while waiting[0] and Time.get_ticks_msec() < until:
+			await process_frame
+		if world == 1:
+			check(offers == ["rewind"], "first forest: the dead end offers the free rewind (%s)" % [offers])
+		else:
+			var sapling_picture: String = load("res://game/ui.gd").PICTURES[gated.TOOL_ICON_NAME[sap]]
+			check(offers == [sapling_picture], "later forest: the dead end names the Sapling and offers restart (%s)" % [offers])
+			var settle_until := Time.get_ticks_msec() + 5000
+			while not _pointer_on(gated, sap) and Time.get_ticks_msec() < settle_until:
+				await process_frame   # a second stuck check (after the background hint) may re-run the search
+			check(_pointer_on(gated, sap), "later forest: the pointer stands on the Sapling behind the card")
+			var card: Control = load("res://game/stuck_offer.gd").open_restart(main.popups, sapling_picture, func(): gated.restart(), true)
+			var again: Button = card.content.get_node("Restart")
+			check(again.size == load("res://game/button_kit.gd").WIDE, "restart action keeps the rescue action's size")
+			check(again.get_node("Content/Word").painted_id == "white_action_replay", "restart action has the replay word")
+			again.pressed.emit()
+			await create_timer(0.6).timeout
+			check(gated.session.state.search_key(false) == opening_key and gated.session.history_size() == 0, "restart returns to the opening")
+			check(gated.session.undos_left == GameSession.FREE_UNDOS, "restart keeps the undo allowance")
+
 	# A long search (the last level, nothing known winnable, every tool unlocked) still leaves every frame short.
 	var big: Control = load("res://game/board_view.gd").new()
 	main.set_screen(big)
