@@ -121,6 +121,7 @@ func _navigation_case(kind: String, language: String, edge: String) -> void:
 	var title: Rect2
 	if kind == "settings":
 		title = modal.content.get_node("Word_settings").get_global_rect()
+		check(card.encloses(close.get_rect()), "Settings close fully inside the card")
 	elif kind == "family":
 		title = _title_ink(modal)
 	else:
@@ -192,6 +193,9 @@ func _run() -> void:
 			var modal: Control = purchase_script.open(shop, title, [400.0], true, 132.0)
 			_geometry(modal, "title " + title + " " + language)
 			modal.free()
+			var compact: Control = purchase_script.open_shop(shop, title, [400.0], true, 162.0)
+			_geometry(compact, "compact title " + title + " " + language)
+			compact.free()
 	if not evidence.is_empty():
 		var file := FileAccess.open(evidence.path_join("close-results.json"), FileAccess.WRITE)
 		file.store_string(JSON.stringify({"checks": checks, "failures": failures, "outcomes": outcomes}, "\t"))

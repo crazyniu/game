@@ -39,9 +39,7 @@ var rights := PackedByteArray()
 var homed := PackedInt32Array()  # species indices in homecoming order
 var moves := 0
 var counted_moves := 0
-var encore := false
 var added_branch := false
-var light_step := false
 var chain := 0
 var chorus_coins := 0
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
@@ -127,8 +125,7 @@ func clone(copy_inventory := true) -> Board:
 		c.items.append(list.duplicate())
 	c.caps = caps.duplicate(); c.kinds = kinds.duplicate(); c.rows = rows.duplicate(); c.rights = rights.duplicate()
 	c.homed = homed.duplicate()
-	c.moves = moves; c.counted_moves = counted_moves; c.encore = encore; c.added_branch = added_branch
-	c.light_step = light_step
+	c.moves = moves; c.counted_moves = counted_moves; c.added_branch = added_branch
 	c.chain = chain; c.chorus_coins = chorus_coins
 	c.inventory = inventory.duplicate() if copy_inventory else inventory
 	return c
@@ -136,8 +133,6 @@ func clone(copy_inventory := true) -> Board:
 ## Search key without bird ids, economy or move totals. preserve_order keeps homecoming order.
 func search_key(preserve_order: bool) -> PackedInt32Array:
 	var key := PackedInt32Array()
-	# Bits 0-11 once held the day/night phase; stored hints depend on this layout, so the flags keep their bits.
-	key.append((int(light_step) << 12) | (int(encore) << 13))
 	if preserve_order:
 		key.append(homed.size())
 		key.append_array(homed)

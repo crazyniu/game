@@ -3,7 +3,7 @@ extends RefCounted
 ## Layout: docs/design/island-style.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
 ## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
-const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
+const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "undo",
 	"ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
@@ -69,7 +69,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true, true)
+	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true, true, false, 880.0, 72.0)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -240,7 +240,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	Simple.card(c, box)
 	var words := Simple.Words.new()
 	words.place(c, "settings", "ink", Vector2(box.get_center().x, box.position.y + SET_PAD * 0.5 + SET_TITLE_H * 0.5), SET_TITLE_CAP, 0)
-	Simple.close_button(c, Vector2(box.end.x - MenuNavigation.DIALOG_RIGHT_PAD - Simple.CLOSE * 0.5, box.position.y + 20.0), p.close)
+	Simple.close_button(c, Vector2(box.end.x - MenuNavigation.DIALOG_RIGHT_PAD - Simple.CLOSE * 0.5, box.position.y + SET_PAD + Simple.CLOSE * 0.5), p.close)
 	var rows := [["pic_music", "music", music_on, func(v: bool): on["music"].call(v)],
 		["pic_sound_on", "sound", sound_on, func(v: bool): on["sound"].call(v)],
 		# Vibration: the state lives in Sound.vibration (profile.vibration).
@@ -286,8 +286,8 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 static func document(host: Control, id: String) -> Control:
 	var page: Texture2D = UiText.document_texture(id)
 	var column := JungleDialog.WIDTH - 144.0
-	var view_h := minf(1180.0, page.get_height() * column / float(page.get_width()) + 8.0)
-	var p := JungleDialog.open(host, "", "", [view_h], _instant(host), 0.0, true)
+	var view_h := minf(1080.0, page.get_height() * column / float(page.get_width()) + 8.0)
+	var p := JungleDialog.open(host, "", "", [view_h], _instant(host), FamilyDialog.PRIMARY.y, false)
 	UiText.painted_label(p._title_layer, "doc.%s.title" % id, Rect2(64, 94, 512, 112), true)
 	var ys: Array = p.get_meta("ys")
 	var clip := Control.new()
@@ -311,6 +311,8 @@ static func document(host: Control, id: String) -> Control:
 		elif e is InputEventMouseButton and e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			dy = 80.0 if e.button_index == MOUSE_BUTTON_WHEEL_UP else -80.0
 		text.position.y = clampf(text.position.y + dy, -span, 0.0))
+	var confirm: Button = FamilyDialog.actions(p, [["green", "check", func(): pass]])[0]
+	confirm.name = "Confirm"
 	return p
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
@@ -448,18 +450,39 @@ const TRIGGER_H := 110.0
 const TRIGGER_FACE := 84.0
 const TRIGGER_HOUSE := 104.0
 
+const GOAL_CARD_W := 840.0
+const GOAL_HERO := 330.0
+const GOAL_HEAD := 100.0
+const GOAL_GAP := 24.0
+const GOAL_BOTTOM := 40.0
+const GOAL_ACTION_GAP := 40.0
+
 static func goal_info(host: Control, species: String, world := 1) -> Control:
 	var effect: String = EFFECT.get(species, "")
-	var heights := [FRIEND, ABILITY_H] if effect.is_empty() else [FRIEND, TRIGGER_H, ABILITY_H]
-	var p := Modal.open(host, "bird.%s.name" % species, heights, true, 0.0, 0.0, _instant(host))
+	var heights := [GOAL_HERO, ABILITY_H] if effect.is_empty() else [GOAL_HERO, TRIGGER_H, ABILITY_H]
+	# The title remains painted in the accepted skin; only this card's allocation is compacted.
+	var body_h := GOAL_HEAD + GOAL_BOTTOM + GOAL_GAP * (heights.size() - 1)
+	for height in heights:
+		body_h += float(height)
+	var total_h := PurchaseDialog.TITLE_ROOM + body_h + GOAL_ACTION_GAP + ButtonKit.PRIMARY.y
+	var surface_top := roundf((1920.0 - total_h) * 0.5)
+	var p := Modal.open(host, "bird.%s.name" % species, [], false, 0.0, 0.0, _instant(host))
+	p.panel_rect = Rect2((1080.0 - GOAL_CARD_W) * 0.5, surface_top + PurchaseDialog.TITLE_ROOM, GOAL_CARD_W, body_h)
+	p.content.pivot_offset = Vector2(540, 960)
 	FamilyDialog.decorate(p, false)
 	var c := p.content
-	var ys: Array = p.get_meta("ys")
-	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0,
+	var y := p.panel_rect.position.y + GOAL_HEAD
+	_bird_view(c, species, Rect2(540.0 - GOAL_HERO * 0.5, y, GOAL_HERO, GOAL_HERO), _instant(host), 0.0,
 		WorldBirds.look(species, world))
+	y += GOAL_HERO + GOAL_GAP
 	if not effect.is_empty():
-		_trigger_row(c, species, world, ys[1])
-	FamilyDialog.ability(c, species, effect, ys[heights.size() - 1])
+		_trigger_row(c, species, world, y)
+		y += TRIGGER_H + GOAL_GAP
+	FamilyDialog.ability(c, species, effect, y)
+	var action_size := ButtonKit.card_action_size(GOAL_CARD_W)
+	var button := ButtonKit.button(c, "Confirm", Rect2(Vector2(540.0 - action_size.x * 0.5,
+		p.panel_rect.end.y + GOAL_ACTION_GAP), action_size), "wide", p.close)
+	ButtonKit.word(button.get_node("Content"), "white_action_ok", action_size).name = "Word"
 	return p
 
 static func _trigger_row(c: Control, species: String, world: int, y: float) -> void:
@@ -575,7 +598,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 		card.add_child(lit)
 		lights.append(lit)
 		var prize: Array = Progress.DRAW_PRIZES[i]
-		UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i]).name = "PrizeArt"
+		var prize_art := UI.image(card, DRAW_PRIZE_KEYS[i], DRAW_PICTURES[i])
+		prize_art.name = "PrizeArt"
+		if DRAW_PRIZE_KEYS[i] == "icon_draw_prize_four_hundred":
+			prize_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		FamilyDialog.digits(card, "Number", Rect2(14, 159, 212, 51), str(prize[0]) if prize[0] > 0 else "×%d" % prize[1])
 		cards.append(card)
 	var chest := DrawPurchaseArt.fit(board, "icon_draw_center_chest", Rect2(311, 305, 216, 224))
@@ -799,6 +825,8 @@ static func _daily_card(parent: Control, day: int, r: Rect2, claimed: bool, toda
 	for k in items.size():
 		var art := _fit(body, items[k][0], Rect2(left + k * column + 10.0, 36.0, column - 20.0, art_h), true)
 		art.name = "Prize%d" % k
+		if items[k][0] == "icon_draw_prize_four_hundred":
+			art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		if today and not instant:
 			_breathe(art, k * 0.4)
 		FamilyDialog.digits(body, "Amount%d" % k, Rect2(left + k * column, 36.0 + art_h + 10.0, column, 58), items[k][1])
@@ -1157,7 +1185,8 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 	var hero_h := 320.0 if rows > 1 else ILLUS
 	var reward_h := REWARD_TILE * rows + 20.0 * maxf(0.0, rows - 1)
 	var p := JungleDialog.open(host, FamilyDialog.lettering_key(title_id), "",
-		[hero_h, reward_h] if not prizes.is_empty() else [hero_h], not live, FamilyDialog.PRIMARY.y, false)
+		[hero_h, reward_h] if not prizes.is_empty() else [hero_h], not live, FamilyDialog.PRIMARY.y, false, false, true, false,
+		880.0 if prizes.size() >= 3 else 840.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var hero := Rect2(540.0 - hero_h * 0.5, ys[0], hero_h, hero_h)
@@ -1223,9 +1252,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	var canvas := DrawPurchaseArt.canvas(p.content)
 	# The hanging title sign of the shop and map pages, at the map's page position.
 	p._title_layer = ButtonKit.sign(p.content, "lucky_spin_title", PAGE_SIGN)
-	# Keep the existing direct Content/Close and Content/Confirm contracts for callers.
-	var close_at := Vector2(23, 50) * DrawPurchaseArt.SCALE + canvas.position
-	MenuNavigation.close(p.content, "Close", close_at, p.close)
+	# Completion is acknowledged by the reachable bottom action, not a duplicate corner exit.
 	var columns := maxi(1, mini(prizes.size(), 3))
 	var rows := maxi(1, ceili(prizes.size() / 3.0))
 	var tile := Vector2(260, 360) if columns > 1 else Vector2(500, 540)
@@ -1273,13 +1300,13 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	_kit_action(action, "white_action_ok")
 	if not instant:
 		p.appear_page(null, false)
-	# Both controls restore the board once, after the shared modal exit finishes.
+	# The bottom action restores the board once, after the shared modal exit finishes.
 	p.closed.connect(on_ok)
 	return p
 
 static func new_friend(host: Control, species: String, reward: int, on_ok: Callable) -> Control:
 	var p := JungleDialog.open(host, "popup_new_friend_title", "", [FRIEND, NAME_CAP * 1.3, ABILITY_H, REWARD_H],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 880.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 30.0, ys[0] + 20.0, FRIEND - 60.0, FRIEND - 40.0), _instant(host), 1.2)
@@ -1290,7 +1317,7 @@ static func new_friend(host: Control, species: String, reward: int, on_ok: Calla
 	return p
 
 static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
-	var p := JungleDialog.open(host, FamilyDialog.lettering_key("booster.%s.name" % BOOSTER_ID[booster]), "", [ILLUS, LINE], _instant(host), FamilyDialog.PRIMARY.y, false)
+	var p := JungleDialog.open(host, FamilyDialog.lettering_key("booster.%s.name" % BOOSTER_ID[booster]), "", [ILLUS, LINE], _instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 900.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
@@ -1307,7 +1334,7 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 static func world_complete(host: Control, world: int, reward: int, on_ok: Callable) -> Control:
 	var arch_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
 	var p := JungleDialog.open(host, "popup_world_complete_title", "", [arch_h, FamilyDialog.STAR_ROW, REWARD_H],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 960.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var live := not _instant(host)
@@ -1330,7 +1357,7 @@ static func world_complete(host: Control, world: int, reward: int, on_ok: Callab
 static func world_unlock(host: Control, world: int, on_play: Callable) -> Control:
 	var gate_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
 	var p := JungleDialog.open(host, "popup_world_unlock_title", "", [gate_h, NAME_CAP * 1.3],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 960.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	# Keep the door swing and scene inside the gate row, clear of the title and actions.
@@ -1743,6 +1770,8 @@ static func preview(main: Control, state: String) -> void:
 			[Board.Booster.MORNING_BELL, Board.Booster.OWL_EYE, Board.Booster.SCARECROW, Board.Booster.SPRING_RAIN],
 			func(kind): return [0, 0, 2, 0, 5, 1][kind], func(_k, _r): pass)
 		"goal_info_berry": goal_info(host, "berry")
+		"goal_info_mint": goal_info(host, "mint")
+		"goal_info_crow": goal_info(host, "crow")
 		"goal_info_hoot": goal_info(host, "hoot")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
 		"lucky_draw": lucky_draw(host, 3, 5, func():

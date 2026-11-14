@@ -36,7 +36,7 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 - **Tap a branch** with a movable tip bird → select it: the run of same-species awake birds at the tip hops up (selected). Tap the same branch or empty space → cancel.
 - **Tap a target branch** → the run flies over if the target has a free seat and is empty or its tip bird is the same species (an awake bird or a sleeping bird of that species; see §6.2). Count = min(run, free seats). Illegal target → the selected birds shake their heads, selection cancels, nothing else changes.
 - **Flock home**: when a branch holds N awake birds of one species (N = the level's flock size, not the branch's current seat count), they cheer, then fly one by one into **their species' birdhouse** at the top. The branch stays and becomes an ordinary empty branch.
-- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) effects of each homecoming in branch index order: the species' homecoming gift (§6.5), then wake-ups (§6.2) and branch growth (§6.4), (4) **cascade**: if steps 1–3 changed anything (a hatch, wake, growth or twig upgrade), repeat steps 1–3 over all branches until nothing changes (homecomings from a cascade belong to the same move, so one move can send several flocks home), (5) Chorus update §7, (6) win check. Light step (snow gift) is granted in step 3 and only applies to the next action.
+- **After every move**, resolve in this fixed order: (1) hatch exposed eggs on the source branch, (2) flock home checks in branch index order, (3) effects of each homecoming in branch index order: the species' homecoming gift (§6.5), then wake-ups (§6.2) and branch growth (§6.4), (4) **cascade**: if steps 1–3 changed anything (a hatch, wake, growth or twig upgrade), repeat steps 1–3 over all branches until nothing changes (homecomings from a cascade belong to the same move, so one move can send several flocks home), (5) Chorus update §7, (6) win check.
 - **Win**: every species is home. **No lose state**: if no legal move exists, show a gentle "stuck" bubble pointing at Undo and the boosters.
 - **Moves**: each successful transfer = 1 move; a swivel (§6.7) = 1 move. Undo (with the allowance defined by `GameSession.FREE_UNDOS`) restores the full previous state including move count, Chorus and booster effects of that move (consumed boosters are refunded on undo of the booster action itself).
 - **Stars**: moves ≤ par → 3 stars; ≤ par+3 → 2; otherwise 1. Using boosters does not reduce stars (calm pillar). Best stars per level are saved.
@@ -47,7 +47,7 @@ Originality: theme, bird characters, names, mechanics marked "ours", palette, la
 
 - 1. Gifts and Chorus are always active engine-wide in every level, including L1 ("from level 3" is a level-design statement). In L1 sunny/sky gifts simply have no target. Booster inventory is a session input (default empty) and output; L1 behaviour/tests unchanged.
 - 3. Each wave: step 2 scans branches in index order, removes ALL currently complete flocks, then step 3 applies their gifts in the same order, then wake/growth effects. Same-species landing wakes are applied in step 3 of the transfer's first wave even when no flock goes home. Every wave rechecks exposed eggs on all branches. Initial exposed eggs / complete flocks are forbidden by the level validator; Core does not auto-resolve on load (they resolve after the first action).
-- 4. Light step: consumed only by the next successful transfer (even if that target was legal anyway); survives swivel, boosters and illegal attempts; still requires a free seat and never lands on an egg tip. Mama pulls only awake chicks; sleeping chicks stay.
+- 4. Mama pulls only awake chicks; sleeping chicks stay.
 - 5. Chorus tracks consecutive homecoming flocks and contributes the existing win bonus. There is no Song meter or free-booster payout; see §7.
 - 6. Boosters cost no move and do not reset the chain. Homecomings caused by a booster (e.g. Bell wakes a sleeper that completes a flock) resolve with the full cascade and continue the current chain (add chain steps). A booster with no effect is rejected: not consumed, no history entry (UI will disable it). Firefly consumes only when it returns a move; Unknown/no move -> not consumed. Sapling once per level.
 - EggWobbled: yes, add it.
@@ -172,12 +172,12 @@ Every species leaves one fixed gift the moment its flock gets home. The gift ico
 | --- | --- | --- |
 | sunny | Wake-up song | every sleeping bird on the board wakes |
 | sky | Gentle breeze | every egg on the board turns see-through: its species is shown (it still hatches only when exposed) |
-| berry | Encore | the next transfer or swivel does not count as a move (stars only) |
+| berry | Move refund | at once: the move that sent the flock home is taken off the counted moves (stars only); the badge flies to the move counter |
 | mint | Gardener | every growing branch +1 seat (on top of the normal +1), and the lowest-index twig becomes a full branch of capacity N (its birds stay) |
 | cocoa | Grumpy stare | every crow on the same row or an adjacent row of the branch the flock left flies away |
-| snow | Light step | the next transfer may land on **any** tip with a free seat (species rule ignored once); shown as a feather on the bottom bar until used; undo restores it |
+| snow | Spare undo | at once: one more undo for this attempt; the badge flies to the undo slot. Paid once per flock per level: going home again after an undo, rescue or restart pays nothing |
 | ember | Warm glow | every egg on the board hatches immediately (even if covered; the hatched bird keeps its seat) |
-| ink | Encore | the next transfer or swivel does not count as a move |
+| ink | Move refund | as berry |
 | hoot | Wake-up song | every sleeping bird on the board wakes |
 
 Level design rule: from level 3 on every level must have at least one meaningful ordering decision (the solver must find that a different completion order changes the minimum moves or solvability).
@@ -197,7 +197,7 @@ Level design rule: from level 3 on every level must have at least one meaningful
 
 ### 6.8 Current level timing
 
-The day/night switch was removed in [PR #224](https://github.com/crazyniu/game/pull/224). Every current level has `dayLength: 0`; Inky and Hoot have no time-of-day movement restriction. Authored sleeping birds still use the sleep mechanic in §6.2. Inky now grants Encore and Hoot grants Wake-up song, as defined by `Rules.GIFT_BY_SPECIES`.
+The day/night switch was removed in [PR #224](https://github.com/crazyniu/game/pull/224). Every current level has `dayLength: 0`; Inky and Hoot have no time-of-day movement restriction. Authored sleeping birds still use the sleep mechanic in §6.2. Inky now grants Move refund and Hoot grants Wake-up song, as defined by `Rules.GIFT_BY_SPECIES`.
 
 Retained phase fields and engine branches are compatibility/cleanup concerns, not authority to reintroduce the removed feature. See the [removal report](work-log/no-day-night/report.md) for changed puzzles, hints, reported checks and remaining limits.
 

@@ -11,7 +11,7 @@ signal rescue_requested                  # first proven dead end of the attempt:
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
-	"snow": "lightstep", "ember": "hatch", "ink": "encore", "hoot": "wake"}
+	"snow": "undo", "ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "owl_eye",
 	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
 ## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
@@ -147,10 +147,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		_winnable.clear()
 		_load_start_hints(int(level_def["id"]))
 	_hint_level = int(level_def["id"])
-	_light_glows = null
-	_key_pulse = null
-	_pulsing_key = null
-	_free_badge = null
+	_shown_undos = -1
 	_keys_hand = null
 	_keys_tween = null
 	_keys_wait = 0.0
@@ -203,10 +200,12 @@ func sync_inventory() -> void:
 ## Restart resets the board, not the allowance: start() builds a new session, so the undos left are carried over.
 func restart() -> void:
 	var undos := session.undos_left
+	var gifts := session.undo_gifts_paid
 	session.restart()
 	sync_inventory()
 	start(level, profile, false)
 	session.undos_left = undos
+	session.undo_gifts_paid = gifts
 	refresh_hud()
 
 ## Modals cancel deferred input and unpaid hint requests, not the move already playing.
@@ -794,7 +793,6 @@ func _refresh_status() -> void:
 			_pulse(_status_stars[stars], _status_stars[stars].size.x * 0.5)
 	_shown_moves = moves
 	_shown_stars = stars
-	_sync_cues()
 
 ## The jungle capsule keeps its rounded painted ends; only its plain middle extends.
 func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
@@ -933,76 +931,8 @@ func _build_skill_row() -> void:
 
 ## ---------- skill cues ----------
 
-## Flurry's light step: while `light_step` is set every branch with a free landing seat glows there and Flurry's key
-## pulses; both stop when the step is used. Berry's and Inky's free move: while `encore` is set a small painted badge
-## sits on the status capsule until the next move. Both show only while the board is at rest (not mid-move), so they
-## follow the gift's animation instead of racing it.
-var _light_glows: Node2D
-var _key_pulse: Tween
-var _pulsing_key: Control
-var _free_badge: TextureRect
 var _keys_hand: Sprite2D
 var _keys_tween: Tween
-const LIGHT_GLOW := 230.0
-const FREE_BADGE_AT := Vector2(1.0, 0.5)   # badge centre as shares of the status capsule: on its right end, clear of the count
-
-func _sync_cues() -> void:
-	if session == null or not is_instance_valid(_skill_row) or not is_instance_valid(_hud):
-		return
-	var s := session.state
-	var rest := not busy and not s.is_won()
-	_sync_light_step(rest and s.light_step)
-	var badge_on := rest and s.encore
-	if _free_badge == null or not is_instance_valid(_free_badge):
-		var side := STATUS_ICON * 1.1
-		var at := Vector2(_status.size.x * FREE_BADGE_AT.x, _status.size.y * FREE_BADGE_AT.y)
-		_free_badge = UI.art(_status, "gift_coin_encore", Rect2(at - Vector2.ONE * side * 0.5, Vector2.ONE * side))
-		_free_badge.name = "FreeBadge"
-		_free_badge.pivot_offset = _free_badge.size * 0.5
-		_free_badge.visible = false
-	if badge_on and not _free_badge.visible and not instant:
-		_free_badge.scale = Vector2.ONE * 0.2
-		_free_badge.create_tween().tween_property(_free_badge, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	_free_badge.visible = badge_on
-
-func _sync_light_step(on: bool) -> void:
-	if _light_glows != null and is_instance_valid(_light_glows):
-		_light_glows.queue_free()
-	_light_glows = null
-	if _key_pulse:
-		_key_pulse.kill()
-		_key_pulse = null
-	if is_instance_valid(_pulsing_key):
-		_pulsing_key.scale = Vector2.ONE
-	_pulsing_key = null
-	if not on:
-		return
-	var s := session.state
-	_light_glows = Node2D.new()
-	_light_glows.name = "LightStepGlows"
-	_scene.add_child(_light_glows)
-	_scene.move_child(_light_glows, _bird_layer.get_index())   # under the birds, over the branches
-	for b in s.branch_count():
-		if s.free_slots(b) <= 0 or (not s.items[b].is_empty() and (s.items[b][s.items[b].size() - 1] & Board.EGG) != 0):
-			continue
-		var glow := Sprite2D.new()
-		glow.name = "Glow_%d" % b
-		glow.texture = Art.tex("glow_soft")
-		glow.modulate = Color(1.0, 0.78, 0.2, 0.9)
-		glow.scale = Vector2.ONE * LIGHT_GLOW / float(glow.texture.get_width())
-		glow.position = seat_point(b, s.items[b].size()) + Vector2(0, -34)
-		_light_glows.add_child(glow)
-		if not instant:
-			glow.create_tween().set_loops().tween_method(func(t: float):
-				glow.modulate.a = 0.55 + 0.4 * (1.0 - cos(t * TAU)) * 0.5, 0.0, 1.0, 1.4)
-	for species in _skill_keys:
-		if GIFT_COIN.get(species, "") == "lightstep":
-			_pulsing_key = _skill_keys[species]
-	if _pulsing_key != null and not instant:
-		_pulsing_key.pivot_offset = _pulsing_key.size * 0.5
-		_key_pulse = _pulsing_key.create_tween().set_loops()
-		_key_pulse.tween_property(_pulsing_key, "scale", Vector2.ONE * 1.16, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		_key_pulse.tween_property(_pulsing_key, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 ## First time a level has a skilled bird: a hand taps the first key under the house for two cycles (no words) and
 ## stops on any tap. Once per profile (`keys.shown`). Waits for the entrance and for the level's popups to be done.
@@ -1154,6 +1084,16 @@ func _restyle_tool(button: Button, icon_name: String) -> void:
 	button.button_down.connect(func(): frame.modulate = ButtonKit.PRESSED; icon.modulate = ButtonKit.PRESSED)
 	button.button_up.connect(func(): frame.modulate = Color.WHITE; icon.modulate = Color.WHITE)
 
+## Undos shown on the undo slot at the last rebuild; -1 before the slot first shows.
+var _shown_undos := -1
+
+func _pulse_up(node: Control) -> void:
+	if instant:
+		return
+	var tw := node.create_tween()
+	tw.tween_property(node, "scale", Vector2.ONE * 1.5, 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(node, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
 func _build_tools() -> void:
 	_hint_button = null
 	for child in _tool_bar.get_children():
@@ -1174,6 +1114,11 @@ func _build_tools() -> void:
 			_restyle_tool(undo, "undo")
 			# Undos left in this attempt, "+" when none is left (pressing offers more, like an empty booster).
 			_tool_count(undo, str(session.undos_left) if session.undos_left > 0 else "+")
+			if _shown_undos >= 0 and session.undos_left > _shown_undos:   # a gift or a purchase added undos
+				var stock: Control = undo.get_node("Stock")
+				stock.pivot_offset = stock.size * 0.5
+				_pulse_up(stock)
+			_shown_undos = session.undos_left
 			continue
 		var b := UI.button(_tool_bar, "Tool %d" % kind, centre, "orange", TOOL_ICON_NAME[kind], func(): _on_tool(kind), TOOL_SIZE)
 		_restyle_tool(b, TOOL_ICON_NAME[kind])
@@ -1757,7 +1702,6 @@ func _finish_action(playback: int) -> void:
 	refresh_hud()
 	busy = false
 	_buffering_move = false
-	_sync_cues()   # refresh_hud ran while the move still counted as playing
 	if session.state.is_won():
 		_queued_taps.clear()
 		_celebrate()
@@ -2132,15 +2076,23 @@ func play_events(events: Array) -> void:
 					Sound.play("chirp_0%d" % (1 + randi() % 5))
 			"flock_home":
 				# The house celebration never holds the board: the next tap works while the flock still flies.
-				# Only the winning move waits, so the win popup follows the last homing.
-				if session.state.is_won():
-					await _flock_home(e)
-				else:
+				# Only the winning move waits, so the win popup follows the last homing. Within it a flock that is
+				# not the last one waits only until it is nearly at the doorway, so the next flock takes off then.
+				if not session.state.is_won():
 					_flock_home(e)
+				elif events.slice(events.find(e) + 1).any(func(x): return x["type"] == "flock_home"):
+					_flock_home(e)
+					await get_tree().create_timer(FLOCK_FLIGHT_SECONDS * FLOCK_OVERLAP).timeout
+				else:
+					await _flock_home(e)
 			"gift":
-				# The badge is shown reaching what it changes before those changes play.
+				# The badge is shown reaching what it changes before those changes play. In the winning move a later
+				# flock never waits for a badge: it takes off while the flock before it is still reaching the house.
 				var reach := _gift_targets(events, e)
-				if session.state.is_won() or not reach.is_empty():
+				var later_home := events.slice(events.find(e) + 1).any(func(x): return x["type"] == "flock_home")
+				if session.state.is_won() and later_home:
+					_gift(e)   # rises at the doorway: what it would reach is already taking off
+				elif session.state.is_won() or not reach.is_empty():
 					await _gift(e, reach)
 				else:
 					_gift(e, reach)
@@ -2291,10 +2243,13 @@ func _flock_home(e: Dictionary) -> void:
 	await tw.finished
 	if playback != _playback_id:
 		return
-	await _door(0.0, 0.25)
+	if _homing_birds.is_empty():   # another flock still on its way keeps the door open
+		await _door(0.0, 0.25)
 
 ## Every flock takes the same time to reach the house on every level, whatever the distance.
 const FLOCK_FLIGHT_SECONDS := 0.9
+## In the winning move the next flock takes off when the one before has flown this share of its flight.
+const FLOCK_OVERLAP := 0.7
 const HOME_PITCH_STEP := 2.0     # semitones per further homing in one chain
 const HOME_PITCH_MAX := 5
 const SPARKLES := 12
@@ -2365,7 +2320,7 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## What a homecoming gift is about to change, as points on the board: the birds it wakes, the eggs it reveals or
-## hatches, the crows it sends away, the branch it grows, the move counter it spares.
+## hatches, the crows it sends away, the branch it grows, the move counter it takes one off, the undo slot it fills.
 const GIFT_REACH_MAX := 8
 
 func _gift_targets(events: Array, gift: Dictionary) -> Array[Vector2]:
@@ -2387,16 +2342,28 @@ func _gift_targets(events: Array, gift: Dictionary) -> Array[Vector2]:
 						points.append(crow.global_position - global_position + Vector2(0, -80.0 * BIRD_SCALE))
 			"branch_grew", "twig_upgraded":
 				points.append(seat_point(e["branch"], maxi(0, int(e["after"]) - 1)) + Vector2(0, -60.0))
-	if gift["species"] == "berry" and is_instance_valid(_moves_icon):   # the free step: the move counter
-		points.append(_moves_icon.get_global_rect().get_center() - global_position)
+	match Rules.GIFT_BY_SPECIES.get(Board.SPECIES.find(gift["species"]), -1):
+		Rules.Gift.MOVE_REFUND:
+			if is_instance_valid(_moves_icon) and _moves_icon.visible:
+				points.append(_moves_icon.get_global_rect().get_center() - global_position)
+		Rules.Gift.SPARE_UNDO:
+			var undo := _tool_bar.get_node_or_null("Undo") as Control
+			if undo != null and not undo.is_queued_for_deletion():
+				points.append(undo.get_global_rect().get_center() - global_position)
 	if points.size() > GIFT_REACH_MAX:
 		points.resize(GIFT_REACH_MAX)
 	return points
 
 ## The ability badge of a delivered flock pops out of the doorway. With something to change it sends a small badge
-## to each thing it changes (returning when they arrive, so the change plays after its cause); otherwise it rises
-## and fades.
+## to each thing it changes (returning when they arrive, so the change plays after its cause), each landing in a
+## sparkle burst; otherwise it rises and fades. A gift that pays the player (an undo, a move off the count) is the big
+## reward: the badge bursts out large in a ring of light, flies on an arc to the undo slot or the move counter, and
+## lands with a flash, a sparkle ring, a squash of what it fills and a rising painted "+1".
 func _gift(e: Dictionary, reach: Array[Vector2] = []) -> void:
+	var effect: int = Rules.GIFT_BY_SPECIES.get(Board.SPECIES.find(e["species"]), -1)
+	if (effect == Rules.Gift.SPARE_UNDO or effect == Rules.Gift.MOVE_REFUND) and reach.size() == 1:
+		await _gift_reward(e, reach[0], effect)
+		return
 	var coin := Sprite2D.new()
 	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
 	coin.position = _door_point()
@@ -2426,9 +2393,11 @@ func _gift(e: Dictionary, reach: Array[Vector2] = []) -> void:
 		copy.position = coin.position
 		copy.scale = Vector2.ONE * small
 		_home_effects.add_child(copy)
+		var land := reach[k] - origin
 		var fly := copy.create_tween()
 		fly.tween_interval(k * GIFT_STAGGER)
-		fly.tween_property(copy, "position", reach[k] - origin, GIFT_FLIGHT).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		fly.tween_property(copy, "position", land, GIFT_FLIGHT).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		fly.tween_callback(func(): _sparkle_ring(land, 6, 70.0, 0.5))
 		fly.tween_property(copy, "scale", Vector2.ONE * small * 1.5, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		fly.tween_interval(0.25)
 		fly.tween_property(copy, "modulate:a", 0.0, 0.2)
@@ -2440,6 +2409,154 @@ func _gift(e: Dictionary, reach: Array[Vector2] = []) -> void:
 
 const GIFT_FLIGHT := 0.4
 const GIFT_STAGGER := 0.05
+## The paying gift: burst out (REWARD_POP), hover (REWARD_HOLD), fly on an arc (REWARD_FLIGHT), land. About 1.5 s in all.
+## Below the house, in open sky: the badge drops out of the doorway to REWARD_DROP and hovers there at REWARD_SIZE
+## times a goal key.
+const REWARD_POP := 0.32
+const REWARD_HOLD := 0.3
+const REWARD_FLIGHT := 0.55
+const REWARD_ARC := 220.0
+const REWARD_DROP := 300.0
+const REWARD_SIZE := 2.0
+
+func _gift_reward(e: Dictionary, target: Vector2, effect: int) -> void:
+	var origin := _home_effects.global_position - global_position
+	var land := target - origin
+	var door := _door_point()
+	var coin := Sprite2D.new()
+	coin.name = "RewardCoin"
+	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
+	var unit := GOAL / float(coin.texture.get_width())
+	coin.position = door
+	coin.scale = Vector2.ONE * 0.2 * unit
+	var halo := Sprite2D.new()   # a ring of light that swells behind the badge
+	halo.texture = Art.tex("glow_soft")
+	halo.modulate = Color(1.0, 0.85, 0.3, 0.0)
+	halo.position = door
+	halo.scale = Vector2.ONE * 0.2
+	_home_effects.add_child(halo)
+	_home_effects.add_child(coin)
+	Sound.play("collect", 1.1)
+	if instant:
+		coin.queue_free()
+		halo.queue_free()
+		return
+	var lift := door + Vector2(0, REWARD_DROP)
+	# A refund first shows the count with the homing move on it, so the badge visibly takes it back off on landing.
+	var refund_keep := -1
+	if effect == Rules.Gift.MOVE_REFUND:
+		refund_keep = GameSession.moves_left_for_star(session.move_count() + 1, session.par)
+		if refund_keep >= 0:
+			_set_digits(_moves_number, str(refund_keep))
+	var pop := coin.create_tween()
+	pop.tween_property(coin, "position", lift, REWARD_POP).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.parallel().tween_property(coin, "scale", Vector2.ONE * REWARD_SIZE * unit, REWARD_POP).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	pop.parallel().tween_property(coin, "rotation", TAU, REWARD_POP + REWARD_HOLD).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	var glow := halo.create_tween()
+	glow.tween_property(halo, "position", lift, REWARD_POP).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	glow.parallel().tween_property(halo, "scale", Vector2.ONE * 1.2, REWARD_POP).set_ease(Tween.EASE_OUT)
+	glow.parallel().tween_property(halo, "modulate:a", 0.95, REWARD_POP)
+	_sparkle_ring(lift, 16, 300.0, 0.75, REWARD_POP * 0.4, 1.4)
+	await pop.finished
+	if not is_instance_valid(coin):
+		return
+	var breathe := coin.create_tween()   # a little heartbeat while it hovers
+	breathe.tween_property(coin, "scale", Vector2.ONE * REWARD_SIZE * 0.88 * unit, REWARD_HOLD * 0.5).set_trans(Tween.TRANS_SINE)
+	breathe.tween_property(coin, "scale", Vector2.ONE * REWARD_SIZE * unit, REWARD_HOLD * 0.5).set_trans(Tween.TRANS_SINE)
+	await breathe.finished
+	if not is_instance_valid(coin):
+		return
+	halo.create_tween().tween_property(halo, "modulate:a", 0.0, 0.2)
+	# Arc from the hover point to the target, shrinking into it, with sparkles left behind.
+	# The arc bulges up toward a target below, sideways toward one above (the move counter), never off screen.
+	var control := (lift + land) * 0.5 + (Vector2(0, -REWARD_ARC) if land.y > lift.y else Vector2(REWARD_ARC, 0))
+	var trail := [0]
+	var step := func(t: float) -> void:
+		var a := lift.lerp(control, t)
+		var b := control.lerp(land, t)
+		coin.position = a.lerp(b, t)
+		coin.scale = Vector2.ONE * lerpf(REWARD_SIZE, 0.8, t) * unit
+		if int(t * 7.0) > trail[0]:
+			trail[0] = int(t * 7.0)
+			_sparkle_ring(coin.position, 3, 60.0, 0.5)
+	var fly := coin.create_tween()
+	fly.tween_method(step, 0.0, 1.0, REWARD_FLIGHT).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	await fly.finished
+	halo.queue_free()
+	if not is_instance_valid(coin):
+		return
+	coin.queue_free()
+	_reward_impact(land, effect)
+	if refund_keep >= 0:
+		var keep := GameSession.moves_left_for_star(session.move_count(), session.par)
+		_set_digits(_moves_number, str(maxi(keep, 0)))
+		_pulse(_moves_number)
+	await get_tree().create_timer(0.3).timeout   # the squash plays before the tool bar is rebuilt
+
+## The landing of a paying gift: a flash, a ring of sparkles, the filled thing squashes and a "+1" rises.
+func _reward_impact(at: Vector2, effect: int) -> void:
+	Sound.play("star_3", 1.15)
+	var flash := Sprite2D.new()
+	flash.texture = Art.tex("glow_soft")
+	flash.modulate = Color(1.0, 0.92, 0.5, 1.0)
+	flash.position = at
+	flash.scale = Vector2.ONE * 0.15
+	_home_effects.add_child(flash)
+	var f := flash.create_tween()
+	f.tween_property(flash, "scale", Vector2.ONE * 1.2, 0.35).set_ease(Tween.EASE_OUT)
+	f.parallel().tween_property(flash, "modulate:a", 0.0, 0.45).set_ease(Tween.EASE_IN)
+	f.tween_callback(flash.queue_free)
+	_sparkle_ring(at, 18, 240.0, 0.75, 0.0, 1.3)
+	var node: Control = _moves_icon if effect == Rules.Gift.MOVE_REFUND else _tool_bar.get_node_or_null("Undo") as Control
+	if node != null and is_instance_valid(node):
+		node.pivot_offset = node.size * 0.5
+		var squash := node.create_tween()
+		squash.tween_property(node, "scale", Vector2(1.4, 0.75), 0.08).set_ease(Tween.EASE_OUT)
+		squash.tween_property(node, "scale", Vector2(0.85, 1.25), 0.1).set_ease(Tween.EASE_OUT)
+		squash.tween_property(node, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	# "+1" in the painted numerals: pops large above the target, floats up and fades.
+	var plus := Control.new()
+	plus.name = "RewardPlus"
+	plus.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_hud.add_child(plus)
+	var h := 130.0
+	var w := ButtonKit.number_width("+1", h)
+	var high := at.y < 500.0   # near the top edge the "+1" shows under its target and rises less
+	var start := at + Vector2(0, 120 if high else -110)
+	plus.size = Vector2(w, h)
+	plus.position = start - plus.size * 0.5
+	plus.pivot_offset = plus.size * 0.5
+	ButtonKit.number(plus, "+1", Rect2(Vector2.ZERO, plus.size))
+	plus.scale = Vector2.ONE * 0.3
+	var up := plus.create_tween()
+	up.tween_property(plus, "scale", Vector2.ONE * 1.4, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	up.tween_property(plus, "scale", Vector2.ONE, 0.15)
+	up.tween_property(plus, "position:y", plus.position.y - (60.0 if high else 160.0), 0.85).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	up.parallel().tween_property(plus, "modulate:a", 0.0, 0.45).set_delay(0.35)
+	up.tween_callback(plus.queue_free)
+
+## Sparkles flung out from `at` in a ring, spinning and fading (HomeEffects coordinates).
+func _sparkle_ring(at: Vector2, count: int, radius: float, life: float, delay := 0.0, size_k := 1.0) -> void:
+	if instant:
+		return
+	for i in count:
+		var spark := Sprite2D.new()
+		spark.texture = Art.tex("sparkle")
+		spark.position = at
+		var size := randf_range(0.3, 0.55) * size_k
+		spark.scale = Vector2.ONE * 0.05
+		spark.modulate = Color(1.0, randf_range(0.85, 1.0), randf_range(0.45, 0.8), 1.0)
+		_home_effects.add_child(spark)
+		var angle := TAU * (float(i) + randf_range(-0.25, 0.25)) / float(count)
+		var end := at + Vector2(cos(angle), sin(angle)) * radius * randf_range(0.7, 1.1)
+		var tw := spark.create_tween()
+		if delay > 0.0:
+			tw.tween_interval(delay)
+		tw.tween_property(spark, "position", end, life).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw.parallel().tween_property(spark, "scale", Vector2.ONE * size, life * 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.parallel().tween_property(spark, "rotation", randf_range(-3.0, 3.0), life)
+		tw.parallel().tween_property(spark, "modulate:a", 0.0, life * 0.5).set_delay(life * 0.5)
+		tw.tween_callback(spark.queue_free)
 
 ## The board cheers before the win panel opens: the house bounces and glows, the goal keys hop one after another,
 ## confetti bursts from the doorway and the resident cheers in it (CELEBRATE seconds).
@@ -2538,7 +2655,8 @@ func granted_undos(count: int) -> void:
 	session.grant_undos(count)
 	_build_tools()
 
-## Capture states: "light_step" / "free_move" (the cue after a Flurry / Berry flock goes home), "celebrate" (the win
+## Capture states: "final_homings" (a winning move with two homings), "undo_gift" / "move_refund" (a Flurry / Berry flock goes home and its gift reaches the undo slot /
+## the move counter), "celebrate" (the win
 ## celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
 ## "tool_guide" (a tool's guided first use), "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
 ## "air_N" (level N as it opens, to watch the living
@@ -2550,8 +2668,21 @@ func granted_undos(count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
-	if state == "light_step" or state == "free_move":   # a Flurry / Berry flock goes home; the cue waits for the next move
-		var bird := "snow" if state == "light_step" else "berry"
+	if state == "final_homings":   # the winning move sends two flocks home: the second takes off before the first is in
+		var board := BoardView.new()
+		main.set_screen(board)
+		main.profile.set_tutorial("keys.shown")
+		board.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+			{"side": "L", "row": 0, "birds": ["sunny", "sunny", "sunny"]},
+			{"side": "R", "row": 0, "birds": ["sunny"]},
+			{"side": "L", "row": 1, "birds": ["sky", "sky", "sky", "sky:sleep"]}]}, main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(1)
+		await main.get_tree().create_timer(0.4).timeout
+		board.tap_branch(0)
+		return
+	if state == "undo_gift" or state == "move_refund":   # the gift of a Flurry / Berry flock flies to what it changes
+		var bird := "snow" if state == "undo_gift" else "berry"
 		var board := BoardView.new()
 		main.set_screen(board)
 		main.profile.set_tutorial("keys.shown")
@@ -2562,6 +2693,10 @@ static func preview(main: Control, state: String) -> void:
 			{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
 			{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
 		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(2)   # one plain move first, so the undo slot is on the bar when the gift flies
+		await main.get_tree().create_timer(0.4).timeout
+		board.tap_branch(4)
+		await main.get_tree().create_timer(1.2).timeout
 		board.tap_branch(1)
 		await main.get_tree().create_timer(0.4).timeout
 		board.tap_branch(0)

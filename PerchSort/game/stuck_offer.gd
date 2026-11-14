@@ -4,20 +4,21 @@ extends RefCounted
 ## picture and one green action that steps back to the latest position that can still be won, for free.
 ## Later stuck moments get the pointer at the rescuing tool instead (BoardView.show_stuck_hint).
 
-const PICTURE := 280.0
+const PICTURE := 192.0
+const CARD_WIDTH := 760.0
+const ACTION_GAP := 32.0
 
 static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
-	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, true)
+	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, true, false, true, true, CARD_WIDTH)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
 	UI.art(c, UI.PICTURES["undo"], picture).name = "Picture"
-	var size := ButtonKit.PRIMARY
-	var y := p.panel_rect.end.y + Modal.ACTION_DROP
-	var go := ButtonKit.button(c, "Rescue", Rect2(Vector2(540.0 - size.x * 0.5, y), size), "green", func(): p.invoke(on_rescue))
-	# The action wears the same undo picture: "go back", no words and no price.
-	var icon := size.y * 0.6
-	UI.art(go.get_node("Content"), UI.PICTURES["undo"], Rect2((size - Vector2.ONE * icon) * 0.5, Vector2.ONE * icon)).name = "Icon"
+	var size := ButtonKit.WIDE
+	var y := p.panel_rect.end.y + ACTION_GAP
+	var go := ButtonKit.button(c, "Rescue", Rect2(Vector2(540.0 - size.x * 0.5, y), size), "wide", func(): p.invoke(on_rescue))
+	# Explicit free rewind wording, without duplicating the body illustration.
+	ButtonKit.word(go.get_node("Content"), "white_free_rewind", size).name = "Word"
 	p.panel_rect = p.get_meta("card_rect")
 	return p
 

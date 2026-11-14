@@ -361,8 +361,6 @@ func _show_detail(id: String) -> void:
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_page.add_child(_tiles)
 		_build_tiles()
-		if not _from_shop:
-			ButtonKit.lettering(_page, "tab_outfits", Rect2(340, 832, 400, 88)).name = "OutfitsHeading"
 	var back := MenuNavigation.back(_page, "Back", CLOSE.position, _back)
 	_align_navigation(back)
 	_title("bird.%s.name" % id, DETAIL_TITLE_SIGN)
@@ -532,9 +530,10 @@ func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	PurchaseDialog.glow(modal.content, pic)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
-	var accept := ButtonKit.button(modal.content, "Buy", Rect2(Vector2(540.0 - ButtonKit.WIDE.x * 0.5,
-		modal.panel_rect.end.y + Modal.ACTION_DROP), ButtonKit.WIDE), "wide", func(): modal.invoke(func(): _buy_outfit(id, index)))
-	var line := ButtonKit.price(accept.get_node("Content"), ButtonKit.WIDE, it["price"])
+	var action_size := Vector2(680, 162)
+	var accept := ButtonKit.button(modal.content, "Buy", Rect2(Vector2(540.0 - action_size.x * 0.5,
+		float(modal.get_meta("actions_y"))), action_size), "wide", func(): modal.invoke(func(): _buy_outfit(id, index)))
+	var line := ButtonKit.price(accept.get_node("Content"), action_size, it["price"])
 	UI.set_active(accept, affordable)
 	if not affordable:
 		var origin_x := line.position.x

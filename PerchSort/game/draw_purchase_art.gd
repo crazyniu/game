@@ -78,7 +78,10 @@ static func background(parent: Node) -> TextureRect:
 	return image
 
 static func fit(parent: Node, key: String, bounds: Rect2) -> TextureRect:
-	return UI.art(parent, key, bounds, ink(key))
+	var image := UI.art(parent, key, bounds, ink(key))
+	if key == "icon_draw_prize_four_hundred":
+		image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	return image
 
 static func localized(parent: Node, prefix: String, bounds: Rect2) -> LocalizedSprite:
 	var image := LocalizedSprite.new()

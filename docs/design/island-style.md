@@ -114,3 +114,9 @@ User runtime acceptance is pending.
 ## Never
 Fonts for visible text, mirrored or flipped sprites for animation, pasted design images in the runtime, felt styling, a different feather counter look, commas in numbers. Every world keeps its own theme (bamboo,
 autumn, snow ...) with the same bright cartoon styling.
+
+### Settings and bird information spacing correction
+
+User request 2026-11-14: Settings keeps its existing design but the close disc sits fully inside the card, 48 px from its top with the existing right inset. Bird information removes its corner close and uses one centered, external green painted OK button, 40 px below the card. The bird card is 840 px wide, its hero group 330 px high and its content gaps 24 px. Species, abilities, world art and dismissal behavior stay unchanged. Runtime visual approval remains pending.
+
+Information-only acknowledgements use a reachable bottom action rather than a duplicate corner exit. Credits keeps its action outside its independently scrolling content; completed draw results retain the existing bottom OK. This does not apply to purchases, tutorial skip or active multi-action screens.

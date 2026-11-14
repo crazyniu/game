@@ -54,6 +54,7 @@ func run() -> void:
 			view._show_detail(id)
 			await process_frame
 			var tag: String = id + "_" + language
+			check(view._page.get_node_or_null("OutfitsHeading") == null, tag + " omits redundant outfit heading")
 			var title: Control = view._page.get_node("TitleGroup")
 			centered(title.position + title.size * 0.5, Vector2(540, script.HEADER_CENTER_Y), tag + " title banner")
 			var coins: Control = view._coins

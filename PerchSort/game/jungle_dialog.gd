@@ -10,17 +10,17 @@ const ENTRY_TITLE_WIDTH := 560.0
 const PANEL := "panel_jungle_dialog"
 
 static func open(host: Control, title: String, ordinal: String, heights: Array, instant: bool,
-		action_height: float, show_close: bool, birds_above := false, warm := true, compact_entry := false) -> Modal:
+		action_height: float, show_close: bool, birds_above := false, warm := true, compact_entry := false, card_width := WIDTH, footer := FOOT) -> Modal:
 	var inner := GAP * maxf(0.0, heights.size() - 1)
 	for height in heights:
 		inner += height
 	var head := 208.0 if compact_entry else HEAD
-	var foot := 72.0 if compact_entry else FOOT
+	var foot := 72.0 if compact_entry else footer
 	var panel_h := head + inner + foot
 	var above := 180.0 if birds_above else 0.0
 	var total := above + panel_h + Modal.ACTION_DROP + action_height
 	var top := maxf(32.0, (1920.0 - total) * 0.5) + above
-	var rect := Rect2((1080.0 - WIDTH) * 0.5, top, WIDTH, panel_h)
+	var rect := Rect2((1080.0 - card_width) * 0.5, top, card_width, panel_h)
 	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
 	for name in ["Panel", "TitleGroup"]:
 		var old := dialog.content.get_node(name)
@@ -38,7 +38,7 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		panel.texture = Art.tex(PANEL)
 		# Scale by width, then extend only the quiet middle: the title and footer never squash.
-		var k := WIDTH / panel.texture.get_width()
+		var k := card_width / panel.texture.get_width()
 		panel.position = rect.position
 		panel.size = rect.size / k
 		panel.scale = Vector2.ONE * k

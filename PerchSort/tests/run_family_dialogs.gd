@@ -44,7 +44,7 @@ func _family(dialog: Control, expected_close: bool) -> void:
 	for button in dialog.content.find_children("*", "Button", false, false):
 		if button.name == "Close":
 			continue
-		check(button.size.is_equal_approx(family.SECONDARY if str(button.name) in ["Home", "Retry"] else family.PRIMARY), "same-role action size is exact in every state: %s %s" % [button.name, button.size])
+		check(button.size.is_equal_approx(family.SECONDARY if str(button.name) in ["Home", "Retry"] else load("res://game/button_kit.gd").card_action_size(dialog.panel_rect.size.x, family.PRIMARY.y)), "same-role action size is exact in every state: %s %s" % [button.name, button.size])
 		check(button.position.y >= dialog.panel_rect.end.y + 40.0, "actions sit outside the frame")
 		check(button.has_node("Face") and button.has_node("Content/Word"), "green plate with a painted word")
 	check(family.PRIMARY.x / family.SECONDARY.x <= 1.25 and family.PRIMARY.y / family.SECONDARY.y <= 1.25, "primary remains at most 1.25 times secondary")
