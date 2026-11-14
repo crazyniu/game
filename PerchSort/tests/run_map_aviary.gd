@@ -78,6 +78,41 @@ func _run() -> void:
 	check(map._world == 2 and map._page == null, "swipe selects next forest without entry")
 	await click(map._play_button)
 	check(map._page != null and map._world == 2, "click after swipe opens chosen forest")
+	# World switching on the page itself: no trip back to the cards.
+	var previous: Button = map._page.get_node("WorldPrevious")
+	var next: Button = map._page.get_node("WorldNext")
+	check(previous.size == next.size and previous.size == map.WORLD_ARROW and not previous.disabled and not next.disabled,
+		"previous and next world are one size, enabled mid-list")
+	await click(next)
+	check(map._world == 3 and map._page.get_node_or_null("Level 21") != null, "Next opens the following world's levels")
+	await capture("map_trail_next")
+	await click(map._page.get_node("WorldPrevious"))
+	await click(map._page.get_node("WorldPrevious"))
+	check(map._world == 1 and map._page.get_node_or_null("Level 1") != null, "Previous steps back to the first world")
+	check(map._page.get_node("WorldPrevious").disabled and map._page.get_node("WorldPrevious").size == map.WORLD_ARROW,
+		"first world dims Previous without resizing it")
+	await click(map._page.get_node("Bar/Home") if map._page.has_node("Bar/Home") else map.get_node("Bar/Home"))
+	check(map._page == null and map._world == 1, "Back from a switched world lands on that world's card")
+	map.open_world(Levels.WORLDS)
+	check(map._page.get_node("WorldNext").disabled and not map._page.get_node("WorldPrevious").disabled, "last world dims Next only")
+	map.close_world()
+	await create_timer(0.1).timeout   # the closed page leaves the tree at frame end
+	# Tapping an open card enters it at once.
+	map.show_world(1, true)
+	await click_point(Vector2(540, 800))
+	check(map._page != null and map._world == 1, "tapping the centred open card opens its world")
+	map.close_world()
+	await create_timer(0.1).timeout
+	await click_point(Vector2(1000, 800))
+	check(map._page != null and map._world == 2, "tapping an open neighbour card opens that world")
+	# A closed next world does not open.
+	fake.highest_unlocked = 8
+	map.setup(fake)
+	map.open_world(1)
+	await click(map._page.get_node("WorldNext"))
+	check(map._world == 1 and map._page.get_node_or_null("Level 11") == null, "Next into a closed world stays put")
+	fake.highest_unlocked = Levels.COUNT
+	map.setup(fake)
 	map.close_world()
 	map.show_world(Levels.WORLDS, true)
 	UiText.set_language("en")

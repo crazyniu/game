@@ -66,9 +66,15 @@ See `docs/work-log/tree-canopy/report.md` for material provenance and route evid
 
 ## Interaction
 
-Card taps select and center only. Dragging chooses the nearest forest and release snaps it
+Tapping the centred card, or any open neighbour, opens that world at once; tapping a closed
+neighbour only brings it to the centre, and tapping the centred closed card answers like Play
+on a locked world. Dragging chooses the nearest forest and release snaps it
 into place over 0.3 seconds; wheel input moves one forest at a time. Play opens the selected
-unlocked world. Locked selection dims and disables the same Play control without resizing it.
+unlocked world. On a world page a green previous and next arrow (`WorldPrevious`, `WorldNext`,
+112 x 112, boxes at x 24 and 944, centre y 937 on the side edges, in the gap between tile rows 2 and 3) switch to the
+neighbouring world in place, so the cards are not needed to change worlds. An end dims its arrow
+without resizing it; Next into a closed world plays the error sound and emits `gate_tapped`.
+Back still lands on the card of the world last shown. Locked selection dims and disables the same Play control without resizing it.
 Back from a trail restores the same selected card; Back from the selector returns Home.
 Release outside the strip and application focus loss clear the drag state. Language rebuilding
 is deferred until the scene tree is safe and preserves selection, scroll and trail state.
