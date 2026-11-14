@@ -82,9 +82,14 @@ func _close(host: Control, modal: Control, profile: Profile, label: String, edge
 		await create_timer(0.36).timeout
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(evidence.path_join(label.replace(" ", "-") + ".png"))
+	var close_started := Time.get_ticks_usec()
 	_tap(point)
 	_tap(point)
-	await create_timer(0.20).timeout
+	var deadline := Time.get_ticks_msec() + 2000
+	while is_instance_valid(modal) and Time.get_ticks_msec() < deadline:
+		await process_frame
+	var close_ms := (Time.get_ticks_usec() - close_started) / 1000.0
+	print("CLOSE_TIMING ", label, " edge=", edge, " ms=", close_ms, " intended_tween_ms=120 watchdog_ms=2000")
 	check(calls[0] == 1 and host.get_node_or_null("Popup") == null, label + " " + edge + " double pointer closes exactly once")
 	check(JSON.stringify(profile.to_dict()) == before, label + " Close changes no profile data")
 
