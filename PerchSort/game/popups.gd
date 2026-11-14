@@ -1145,15 +1145,17 @@ static func chapters(host: Control, p: Profile, on_pick: Callable, page := -1) -
 	return m
 
 ## Approved jungle chest page: freestanding gold heading, wooden support and card-free prizes.
-const CHEST_SUPPORT := Rect2(145, 1070, 790, 214)
-const CHEST_HERO := Rect2(235, 680, 610, 480)
-const CHEST_READY_HERO := Rect2(235, 544, 610, 616)
-const CHEST_PROGRESS := Rect2(168, 1300, 744, 112)
+## The page sits CHEST_LIFT higher than first laid out, so phones with a tall bottom inset never cover the actions.
+const CHEST_LIFT := 120.0
+const CHEST_SUPPORT := Rect2(145, 1070 - CHEST_LIFT, 790, 214)
+const CHEST_HERO := Rect2(235, 680 - CHEST_LIFT, 610, 480)
+const CHEST_READY_HERO := Rect2(235, 544 - CHEST_LIFT, 610, 616)
+const CHEST_PROGRESS := Rect2(168, 1300 - CHEST_LIFT, 744, 112)
 const CHEST_PROGRESS_INSET := 9.0
-const CHEST_ACTION := Rect2(260, 1440, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
+const CHEST_ACTION := Rect2(260, 1440 - CHEST_LIFT, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
 const CHEST_RESULT_HERO := CHEST_HERO   # the opened chest keeps the closed chest's place and size
-const CHEST_MOUTH := Vector2(540, 830)   # where the opened chest's mouth is: the burst and the prizes leave from here
-const CHEST_PRIZE_Y := 1292.0   # the prize row stands in front of the chest, where the progress rail was
+const CHEST_MOUTH := Vector2(540, 830 - CHEST_LIFT)   # where the opened chest's mouth is: the burst and the prizes leave from here
+const CHEST_PRIZE_Y := 1292.0 - CHEST_LIFT   # the prize row stands in front of the chest, where the progress rail was
 const CHEST_RESULT_SUPPORT := CHEST_SUPPORT
 # Ignore invisible generation padding when positioning the original, unchanged RGBA pictures.
 const CHEST_CLOSED_INK := Rect2(33, 172, 1189, 933)
@@ -1186,7 +1188,7 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 		for angle in [3.0, -3.5, 2.5, -1.5, 0.0]:
 			idle.tween_property(hero, "rotation", deg_to_rad(angle), 0.08).set_trans(Tween.TRANS_SINE)
 		hero.set_meta("idle", idle)
-	var count := ChestLettering.number(p.content, str(maxi(0, ready)), Rect2(400, 552, 280, 104))
+	var count := ChestLettering.number(p.content, str(maxi(0, ready)), Rect2(400, 552 - CHEST_LIFT, 280, 104))
 	count.name = "ReadyCount"
 	var collected := clampi(progress, 0, Progress.CHEST_STARS)
 	_chest_progress(p.content, float(collected) / Progress.CHEST_STARS,
@@ -1211,7 +1213,7 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 		open.get_node("Face").material = disabled_ink
 		open.modulate = Color(0.76, 0.79, 0.75, 1.0)
 	if on_play.is_valid():
-		_chest_action(p, "Play", "action.play", Rect2(260, 1672, 560, 208), on_play)
+		_chest_action(p, "Play", "action.play", Rect2(260, 1672 - CHEST_LIFT, 560, 208), on_play)
 	return p
 
 ## The approved green rail uses its own slim rim; numbers reuse the homepage glyph family.
@@ -1364,7 +1366,7 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		shown.append(prize)
 	if not _instant(host):
 		_chest_prize_burst(p, shown)
-	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520, 560, 208), on_ok)
+	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520 - CHEST_LIFT, 560, 208), on_ok)
 	return p
 
 const REWARD_TILE := 250.0
