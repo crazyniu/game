@@ -48,7 +48,9 @@ $boostProfile = $true
 foreach ($arg in $args) {
     switch -Wildcard ($arg) {
         '--reset' {
-            Remove-Item -LiteralPath (Join-Path (Get-SaveDir) 'profile.json') -Force -ErrorAction SilentlyContinue
+            foreach ($name in 'profile.json', 'profile.json.bak', 'profile.json.tmp', 'profile.json.bak.tmp') {
+                Remove-Item -LiteralPath (Join-Path (Get-SaveDir) $name) -Force -ErrorAction SilentlyContinue
+            }
             Write-Host 'Saved progress deleted.'
         }
         '--update' {
@@ -107,6 +109,22 @@ if ($needImport) {
     if ($stamp) {
         New-Item -ItemType Directory -Force -Path (Split-Path $stampFile) | Out-Null
         Set-Content -LiteralPath $stampFile -Value $stamp -NoNewline
+    }
+}
+
+# Recovery must run before launcher boosting; do not mask a missing primary or parse a damaged one.
+if ($boostProfile) {
+    $checkPath = Join-Path (Get-SaveDir) 'profile.json'
+    if (Test-Path $checkPath) {
+        try {
+            $candidate = Get-Content -LiteralPath $checkPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            $boostProfile = $candidate -is [System.Management.Automation.PSCustomObject]
+        } catch { $boostProfile = $false }
+    } elseif (Test-Path ($checkPath + '.bak')) {
+        $boostProfile = $false
+    }
+    if (-not $boostProfile) {
+        [Console]::Error.WriteLine('Save recovery required; leaving saved files untouched for the game.')
     }
 }
 
