@@ -679,7 +679,7 @@ const DAILY_COIN_ART := [[400, "icon_draw_prize_four_hundred"], [200, "icon_draw
 
 const DAILY_SETTLE := 0.3   # the counter's bump after the last coin
 
-static func daily_reward(host: Control, today: int, available: bool, balance: int, claim: Callable) -> Control:
+static func daily_reward(host: Control, today: int, available: bool, balance: int, claim: Callable, read_balance := Callable()) -> Control:
 	var instant := _instant(host)
 	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
 	p.name = "DailyReward"
@@ -694,6 +694,10 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 	p._title_layer = ButtonKit.sign(p.content, "daily_reward_title", PAGE_SIGN)
 	MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
 	var bar := FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
+	# A live page reads the current profile after a top-up; previews retain their supplied balance.
+	p.set_meta("refresh_balance", func():
+		if read_balance.is_valid():
+			bar.set_amount(int(read_balance.call())))
 	var days := Progress.DAILY_REWARDS.size()
 	var rows := (days - 1) / 2 + 1
 	var card_h := (DAILY_AREA.size.y - DAILY_GAP * (rows - 1)) / rows
@@ -730,14 +734,14 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 		var tile: Control = tiles[int(got["day"]) - 1]
 		_daily_stamp(tile, instant)
 		# The reward chime plays with the prizes in the rewards popup, not before it is on screen.
-		var total := balance + int(got["coins"])
+		var total: int = int(read_balance.call()) if read_balance.is_valid() else balance + int(got["coins"])
 		var wait := 1.1   # the stamp alone
 		if instant or int(got["coins"]) <= 0:
 			bar.set_amount(total, true)
 		else:
 			# The rewards card opens only after the last coin has landed and the counter has settled.
 			wait = coin_flight(p.content, tile.position + tile.size * 0.5, bar.position + Vector2(56, bar.size.y * 0.5), 0.2,
-				func(): bar.set_amount(total, true)) + DAILY_SETTLE
+				func(): bar.set_amount(int(read_balance.call()) if read_balance.is_valid() else total, true)) + DAILY_SETTLE
 		if not instant:
 			await p.get_tree().create_timer(wait).timeout
 		if not is_instance_valid(p):
