@@ -16,9 +16,14 @@ Godot 4.7.2, isolated config/data directories.
 - `run_aux_dialogs.gd`: 10 checks, zero failures; existing resource-leak warning on shutdown remains.
 - `git diff --check`: PASS.
 
-## Explicitly pending
-Graphical/visual acceptance is NOT COMPLETE. Xvfb cannot establish its local listening sockets in this environment, including the approved escalation attempt. No new runtime screenshots could be captured; headless geometry/input passes are not visual approval. Review these changes in a usable graphical runtime before merge.
+## Graphical review
+The initial Xvfb attempt could not establish local sockets. This was resolved by launching Godot through the existing cloud desktop terminal (OpenGL/Mesa), not by substituting headless output.
 
+Captured and visually inspected 12 real screenshots: English/Chinese level 71, full-roster level entry, Settings, Credits, Chapters and Firefly purchase. The ten level/general-dialog captures are 1080×1920; the two purchase-window captures are 456×812. Close artwork has clear right spacing and no title collision; level 71 keeps its five birds on one row, mechanics/tools and exterior Play intact. Screenshots are delivered outside the repository. Owner visual confirmation is still pending; auto-merge is disabled.
+
+The graphical sweep also exposed an existing unrelated Chapters preview defect: the first row's Replay button is blank in both languages, logging a missing `action.replay` white painted-word mapping. This patch changes no chapter words or action construction; report it for separate repair rather than treating the whole Chapters page as visually clean.
+
+## Existing test limitation
 `run_gameplay_dialogs.gd` reports 8 failures from obsolete assertions requiring tutorial actions inside the frame. The exact unchanged main baseline also reports 68 checks / 8 failures; this patch does not change tutorial action placement. Keep the accepted exterior actions; track updating the legacy assertions separately.
 
 No images, gameplay, profile/save data, purchasing rules or deployment changed. Import-generated untracked UID files and local logs are excluded from the commit.
