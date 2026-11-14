@@ -14,7 +14,7 @@ func check(ok: bool, label: String) -> void:
 func _initialize() -> void:
 	_run.call_deferred()
 
-func inspect(dialog: Control, buttons: Array) -> void:
+func inspect(dialog: Control, buttons: Array, minimum_action_gap := 40.0) -> void:
 	check(dialog.content.get_node("Panel/Rim") is NinePatchRect, "jungle frame")
 	check(dialog.panel_rect.position.y >= 20, "frame on screen")
 	check(not dialog.content.has_node("ProductGlow"), "no decorative product glow")
@@ -22,7 +22,7 @@ func inspect(dialog: Control, buttons: Array) -> void:
 	for name in buttons:
 		var button: Control = name if name is Control else dialog.content.get_node(name)
 		var label := str(button.name)
-		check(button.position.y >= dialog.panel_rect.end.y + 40, label + " outside frame")
+		check(button.position.y >= dialog.panel_rect.end.y + minimum_action_gap, label + " outside frame")
 		check(button.get_rect().end.y <= 1900, label + " stays on screen")
 		check(absf(button.get_rect().get_center().x - 540) < 470, label + " horizontal bounds")
 
@@ -60,7 +60,9 @@ func _run() -> void:
 			button.pressed.emit()
 			await create_timer(0.2).timeout
 		var stuck: Control = load("res://game/stuck_offer.gd").open(main.popups, func(): calls += 1, true)
-		inspect(stuck, ["Rescue"])
+		# The compact rescue design explicitly keeps 32 px below its frame.
+		inspect(stuck, ["Rescue"], 32.0)
+		check(is_equal_approx(stuck.content.get_node("Rescue").position.y - stuck.panel_rect.end.y, 32.0), "compact rescue keeps its approved gap")
 		stuck.content.get_node("Rescue").pressed.emit()
 		stuck.content.get_node("Rescue").pressed.emit()
 		await create_timer(0.2).timeout
