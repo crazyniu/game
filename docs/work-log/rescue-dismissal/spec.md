@@ -1,0 +1,3 @@
+# Rescue dismissal
+
+The owner requested removal of the redundant X from the stuck/rescue modal. Keep the confirmed forest illustration, title and free-rewind action unchanged. Preserve the option to cancel without spending or triggering rescue by letting the player tap outside this particular card. Card interior taps must do nothing; the green action still performs the original free rescue. The shade continues blocking the underlying board. Support mouse and touchscreen input with the existing Modal closing guard against repeated dispatch. Do not change other modal behavior or introduce a global navigation policy.
