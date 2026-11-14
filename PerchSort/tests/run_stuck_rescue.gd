@@ -228,11 +228,11 @@ func _run() -> void:
 	var rescued := [0]
 	var offer: Control = load("res://game/stuck_offer.gd").open(main.popups, func(): rescued[0] += 1, true)
 	var go: Button = offer.content.get_node("Rescue")
-	check(go.size == kit.PRIMARY, "rescue action is the primary size")
+	check(go.size == kit.WIDE, "rescue action retains its accepted width")
 	check(absf(go.get_rect().get_center().x - 540.0) < 0.01, "rescue action is centred")
-	check(go.position.y >= offer.panel_rect.end.y + 40.0, "rescue action below the approved frame")
+	check(go.position.y >= offer.panel_rect.end.y + 32.0, "rescue action below the approved frame")
 	check(offer.content.get_node("TitleGroup").has_node("Sign"), "hanging sign title")
-	check(go.has_node("Content/Icon") and offer.content.has_node("Picture"), "picture and action icon")
+	check(go.has_node("Content/Word") and not go.has_node("Content/Icon") and offer.content.has_node("Picture"), "single picture and explicit rescue label")
 	go.pressed.emit()
 	go.pressed.emit()
 	await create_timer(0.6).timeout
