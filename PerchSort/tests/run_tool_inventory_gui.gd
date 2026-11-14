@@ -39,14 +39,15 @@ func _run() -> void:
 	var point := target.get_global_rect().get_center()
 	var motion := InputEventMouseMotion.new()
 	motion.position = point
-	Input.parse_input_event(motion)
+	# The hit point is in logical viewport coordinates, not the resized desktop window.
+	root.push_input(motion, true)
 	await process_frame
 	for pressed in [true, false]:
 		var click := InputEventMouseButton.new()
 		click.position = point
 		click.button_index = MOUSE_BUTTON_LEFT
 		click.pressed = pressed
-		Input.parse_input_event(click)
+		root.push_input(click, true)
 		await process_frame
 	check(buys == [Board.Booster.SAPLING], "zero-stock tool emits its one-more request")
 	# Exercise Main's production handler for that same request, not a substitute shop callback. Preview never saves.
