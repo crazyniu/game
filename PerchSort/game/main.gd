@@ -56,8 +56,6 @@ func _ready() -> void:
 		var parts: PackedStringArray = args["preview"].split(":", true, 1)
 		var script: GDScript = load("res://game/%s.gd" % parts[0])
 		script.call("preview", self, parts[1] if parts.size() > 1 else "")
-	elif args.has("lab"):
-		open_lab(int(args["lab"]))
 	elif args.has("level"):
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
@@ -322,38 +320,6 @@ func _notification(what: int) -> void:
 func _clear_popups() -> void:
 	for child in popups.get_children():
 		child.queue_free()
-
-## A lab level (Levels.lab): played on the real board with a copy of the profile, so nothing is saved and no
-## progress, drops or coins follow the win. The first lab level shows the hand on its opening move.
-func open_lab(number: int) -> void:
-	var def := Levels.lab(number)
-	if def.is_empty():
-		open_home()
-		return
-	_go(func():
-		var board := BoardView.new()
-		board.instant = instant()
-		set_screen(board)
-		board.start(def, Profile.from_dict(profile.to_dict()), not instant())
-		board.settings_requested.connect(func(): show_settings(true))
-		board.buy_requested.connect(_offer_tool.bind(board))
-		board.undo_more_requested.connect(_offer_undos.bind(board))
-		board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
-		board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
-			if is_instance_valid(board):
-				board.rescue(), instant()))
-		board.won.connect(func(result: Dictionary):
-			var session: GameSession = result["session"]
-			Popups.win(popups, session.stars(), session.move_count(), session.par, 0, [],
-				func(): open_lab(number), func(): open_lab(number + 1), open_home, not Levels.lab(number + 1).is_empty()))
-		Sound.music("bgm_game")
-		if number != 1:
-			return
-		while is_instance_valid(board) and board.busy:
-			await get_tree().process_frame
-		var opening := Solver.solve(board.session.state)
-		if is_instance_valid(board) and screen == board and opening["status"] == Solver.Status.SOLVED:
-			board.show_hint(opening["moves"][0]))
 
 func open_board(level_id: int, entrance := true) -> void:
 	_go(_open_board.bind(level_id, entrance))

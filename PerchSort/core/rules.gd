@@ -21,13 +21,6 @@ static func can_transfer(s: Board, from: int, to: int) -> bool:
 	var target := s.items[to]
 	if target.is_empty():
 		return true
-	return _lands_on_top(s, from, to) or s.dive_target(from, to)
-
-## The ordinary landing: beside the target's tip bird of the same species (any tip under a light step), never by an egg.
-static func _lands_on_top(s: Board, from: int, to: int) -> bool:
-	var target := s.items[to]
-	if target.is_empty():
-		return true
 	var tip := target[target.size() - 1]
 	var source := s.items[from]
 	return (tip & Board.EGG) == 0 and (s.light_step or Board.species_of(tip) == Board.species_of(source[source.size() - 1]))
@@ -58,9 +51,7 @@ func transfer(s: Board, from: int, to: int, out) -> void:
 	var target := s.items[to]
 	var count := mini(s.run_count(from), s.free_slots(to))
 	var start := source.size() - count
-	# A dive slips in under the target's tip bird; that bird stays the tip and moves outwards by the run's length.
-	var dive := not _lands_on_top(s, from, to) and s.dive_target(from, to)
-	var target_start := target.size() - 1 if dive else target.size()
+	var target_start := target.size()
 	var species := Board.species_of(source[start])
 	var landing_wake := -1
 	if target_start > 0 and Board.species_of(target[target_start - 1]) == species:
@@ -69,21 +60,14 @@ func transfer(s: Board, from: int, to: int, out) -> void:
 	var ids := PackedInt32Array()
 	for i in count:
 		var code := source[start + i]
-		if dive:
-			target.insert(target_start + i, code)
-		else:
-			target.append(code)
+		target.append(code)
 		mama = mama or (code & Board.MAMA) != 0
 		ids.append(Board.id_of(code))
 	source.resize(start)
-	if not dive:
-		s.light_step = false
+	s.light_step = false
 	if out != null:
-		var moved := {"type": "transferred", "from": from, "to": to, "from_seat": start, "to_seat": target_start, "ids": ids}
-		if dive:
-			moved["passed"] = Board.id_of(target[target.size() - 1])
-		out.append(moved)
-	if mama and not dive:   # chicks do not follow a dive: they would land on the bird that was passed
+		out.append({"type": "transferred", "from": from, "to": to, "from_seat": start, "to_seat": target_start, "ids": ids})
+	if mama:
 		var followers := []
 		var i := source.size() - 1
 		while i >= 0 and target.size() < s.caps[to]:

@@ -195,3 +195,14 @@ Three lab levels, played by the user, existing art only.
 2. Is one free rewind per level, then coins or an ad, the right price?
 3. Are the world themes in 3.6 acceptable as a direction (only worlds 2–4 are planned now)?
 4. The 14 levels with an early losing move: regenerate them now, or wait for the world rebuild?
+
+## 8. Outcome of the Dive pilot (user, 2026-11-14)
+
+The user tried the pilot and rejected it: "I do not understand what the diving bird means." The Dive rule, its
+badge, the three lab levels and the `--lab` launcher argument were removed from the tree (pilot: PR 219). What
+was learned:
+
+- A rule that changes where a bird may land is not readable from a badge and a glow alone.
+- The player's first need was to understand the skills the game already has; that is now served by the bird keys
+  under the house and the bird card ([visible skills](../visible-skills/report.md), [skill row](../skill-row/report.md)).
+- No new talent is prototyped until the user asks for one. Sections 3.5, 3.6 and 4.2 are history, not a plan.
