@@ -51,9 +51,9 @@ const ARCH_FLOOR := 44.0
 
 # ---------------------------------------------------------------- popups
 
-## Win: the shop's cream card with the hanging sign "Well done!", three live birds cheering above it, the stars,
+## Win: the approved green jungle frame and wooden title plaque, three live birds cheering above it, the stars,
 ## moves and feather reward in painted numerals, booster drops, then Next (green PRIMARY) with Replay and Home
-## (smaller green pills, white words like Next) on a row below; Next spans the row, the style of the shop and purchase popups (ButtonKit).
+## (equal wooden pills, existing white words) on a row below; Next alone is green and spans the row.
 const WIN_STATS_H := 96.0
 const WIN_STATS_CAP := 64.0
 const WIN_ROW_GAP := 22.0       # between the Next row and the Replay / Home row
@@ -70,7 +70,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := PurchaseDialog.open(host, "win_title", heights, not live, WIN_ACTIONS_H)
+	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -86,9 +86,8 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var card: Rect2 = p.get_meta("card_rect")
 	if live:
 		_rays(p, card.get_center())
-	# The three birds perch on the sign's leafy branch, in front of it.
-	var sign: Control = c.get_node("TitleGroup")
-	var footline := sign.position.y + sign.size.y * WIN_PERCH
+	# Feet sit on the upper green rim, clear of the painted title.
+	var footline := card.position.y + 28.0
 	var hero_box := Rect2(432, footline - 216.0, 216, 216)
 	var side_boxes := [Rect2(208, footline - 184.0, 184, 184), Rect2(688, footline - 184.0, 184, 184)]
 	var hero := _bird_view(c, "sunny", hero_box, not live, 1.6)
@@ -171,11 +170,9 @@ static func _win_stars(parent: Control, y: float, filled: int, animate: bool, de
 			tween.tween_property(star, "scale", Vector2.ONE * 1.25, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 			tween.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## A green pill smaller than Next with its white painted word, the same lettering as Next.
+## A wooden secondary pill with the existing painted white lettering.
 static func _win_pill(parent: Control, n: String, rect: Rect2, word_id: String, action: Callable) -> Button:
-	var button := ButtonKit.button(parent, n, rect, "green", action)
-	ButtonKit.word(button.get_node("Content"), word_id, rect.size).name = "Word"
-	return button
+	return JungleDialog.secondary(parent, n, rect, word_id, action)
 
 ## Painted numerals (ButtonKit, white with a dark-green outline) in a holder whose "value" meta is the text.
 static func _win_digits(parent: Control, n: String, rect: Rect2) -> Control:
@@ -304,7 +301,7 @@ static func document(host: Control, id: String) -> Control:
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
 		mechanics: Array[String], on_play: Callable, playable: bool, tools: Array = [], stock_of := Callable(),
 		on_tool := Callable()) -> Control:
-	# A compact purchase-style card over the dimmed map (the player keeps seeing where they are), sized to its content,
+	# The approved jungle frame over the dimmed map, sized to its actual content,
 	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
 	var per_row := 4 if species.size() <= 8 else 5
 	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
@@ -317,18 +314,10 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	tools = tools.slice(0, LEVEL_TOOLS_MAX)
 	if not tools.is_empty():
 		heights.append(LEVEL_TOOL_ROW)
-	var p := PurchaseDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), heights, _instant(host), LEVEL_PLAY.y, Modal.WIDTH)
+	var p := JungleDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), str(level), heights,
+		_instant(host), LEVEL_PLAY.y, true)
 	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
-	# The sign carries the level number after the word, like every game dialog title.
-	var plain := p._title_layer
-	c.remove_child(plain)
-	plain.queue_free()
-	p._title_layer = FamilyDialog.sign_title(c, "popup.level.title", str(level), card)
-	var close: Control = c.get_node("Close")
-	c.move_child(p._title_layer, close.get_index())
-	# Close in the card corner exactly as in the other game dialogs, clear of the wider ordinal sign.
-	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y - PurchaseDialog.TITLE_ROOM)
 	var ys: Array = p.get_meta("ys")
 	var g := 0
 	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
