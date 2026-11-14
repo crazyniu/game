@@ -2,6 +2,7 @@
 #   .\run.ps1                 open all levels, top up to at least 50,000 coins, and test mode: the star chest,
 #                             daily reward and lucky draw never run out
 #   .\run.ps1 --level=12      start directly on level 12
+#   .\run.ps1 --trial=1       play trial level 1 (levels/trial.json, 1 to 3) on a copy of the save; nothing is saved
 #   .\run.ps1 --reset         delete saved progress, then apply the launcher defaults
 #   .\run.ps1 --update        pull the latest main first (only if the checkout has no local changes)
 # The original save is backed up once as profile.before-launcher-access.json. No Python needed.
@@ -62,7 +63,7 @@ foreach ($arg in $args) {
             }
         }
         { $_ -in '-h', '--help' } {
-            Get-Content (Join-Path $root 'run.ps1') -TotalCount 9 | Select-Object -Skip 1 | ForEach-Object { $_ -replace '^# ?', '' }
+            Get-Content (Join-Path $root 'run.ps1') -TotalCount 10 | Select-Object -Skip 1 | ForEach-Object { $_ -replace '^# ?', '' }
             exit 0
         }
         { $_ -like '--capture=*' -or $_ -like '--frames=*' -or $_ -like '--preview=*' -or $_ -like '--profile=*' -or $_ -in '--smoke', '--autoplay' } {
