@@ -109,6 +109,13 @@ func _run() -> void:
 		var close: Button = rescue.content.get_node("Close")
 		check(is_equal_approx(close.position.y - rescue.panel_rect.position.y, 48), "rescue close sits at title shoulder")
 		check(not close.get_rect().intersects(rescue.content.get_node("Picture").get_rect()), "rescue close clears illustration")
+		var illustration: Control = rescue.content.get_node("Picture")
+		check(illustration.has_node("Perch") and illustration.has_node("PerchedBird0") and illustration.has_node("PerchedBird1"), "rescue uses native forest perch and two living birds")
+		check(illustration.size == Vector2(rescue_script.PERCH_WIDTH, rescue_script.PICTURE), "forest illustration stays compact")
+		check(illustration.mouse_filter == Control.MOUSE_FILTER_IGNORE, "illustration never steals input")
+		for name in ["PerchedBird0", "PerchedBird1"]:
+			var bird: Node2D = illustration.get_node(name)
+			check(bird.quiet and bird.scale.x > 0, "instant illustration is deterministic and never mirrored")
 		await tap_action(rescue, close, language == "zh")
 		check(rescued[0] == 0, "cancel does not perform rescue")
 		rescue = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
