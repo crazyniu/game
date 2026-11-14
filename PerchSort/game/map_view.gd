@@ -38,6 +38,9 @@ const BADGE := 140.0                     # the world number disc on the card's t
 const BADGE_Y := 12.0                    # badge centre below the card top
 const STAR_PROGRESS := Rect2(93, 620, 440, 96) # inside each painting, above its wooden name
 const PLAY := Rect2(220, 1424, 640, 216)  # one fixed action for the selected forest
+const WORLD_ARROW := Vector2(112, 112)   # previous / next world on a world page, on the side edges
+const WORLD_ARROW_X := 24.0              # distance from the screen edge
+const WORLD_ARROW_Y := 937.0             # centre line: the gap between tile rows 2 and 3, where the current bird never stands, far from Back
 const TAP_SLOP := 18.0
 const SCROLL_STEP := 112.0
 const TREE_ORIGIN := Vector2(-12.96, 308.0)
@@ -331,7 +334,12 @@ func _tap(at: Vector2) -> void:
 		if not box.has_point(at):
 			continue
 		Sound.play("ui_tap")
-		show_world(i + 1)
+		var world := i + 1
+		# An open forest opens at once; a closed one is first brought to the centre, then answers like Play.
+		var enter := world == _world or Progress.is_world_unlocked(profile, world)
+		show_world(world)
+		if enter:
+			_play(world)
 		return
 
 
@@ -352,6 +360,7 @@ func open_world(world: int) -> void:
 	add_child(_page)
 	move_child(_page, _bar.get_index())
 	ButtonKit.sign(_page, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), Rect2(240, 96, 600, 209)).name = "WorldName"
+	_build_world_arrows(world)
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
 	var w := UI.number_width(text, 44.0)
 	_star_progress(_page, world, Rect2(540.0 - (w + 140.0) * 0.5, 300.0, w + 140.0, 72.0))
@@ -364,6 +373,26 @@ func open_world(world: int) -> void:
 	if not _instant():
 		_page.modulate.a = 0.0
 		_page.create_tween().tween_property(_page, "modulate:a", 1.0, 0.2)
+
+## Previous / next world on the two side edges (away from Back in the corner), so worlds can be changed without going back to the cards. The ends dim
+## (never shrink); a closed next world answers like the shared Play on a locked card.
+func _build_world_arrows(world: int) -> void:
+	var at := {"WorldPrevious": [world - 1, WORLD_ARROW_X, "btn_world_previous"],
+		"WorldNext": [world + 1, 1080.0 - WORLD_ARROW_X - WORLD_ARROW.x, "btn_world_next"]}
+	for key in at:
+		var target: int = at[key][0]
+		var button := DrawPurchaseArt.button(_page, key, at[key][2],
+			Rect2(Vector2(at[key][1], WORLD_ARROW_Y - WORLD_ARROW.y * 0.5), WORLD_ARROW), func(): _step_world(target))
+		UI.set_active(button, target >= 1 and target <= Levels.WORLDS)
+
+func _step_world(world: int) -> void:
+	if world < 1 or world > Levels.WORLDS:
+		return
+	if Progress.is_world_unlocked(profile, world):
+		open_world(world)
+	else:
+		Sound.play("error")
+		gate_tapped.emit(world)
 
 func close_world() -> void:
 	if _page == null:
@@ -505,6 +534,7 @@ static func preview(main: Control, state: String) -> void:
 		"cards_locked": cleared = 7
 		"world_page": cleared = 7
 		"world_page_late": cleared = 34
+		"world_page_last": cleared = Levels.COUNT
 	for level in range(1, cleared + 1):
 		p.stars[level] = [3, 3, 2, 3, 1][(level - 1) % 5]
 	p.highest_unlocked = mini(Levels.COUNT, cleared + 1)
