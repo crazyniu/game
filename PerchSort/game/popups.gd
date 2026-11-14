@@ -4,7 +4,7 @@ extends RefCounted
 ## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
 const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
-	"ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
+	"ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",

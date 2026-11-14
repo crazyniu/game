@@ -24,7 +24,7 @@ Rules and solver live in `PerchSort/core`, profile and progression in `PerchSort
 ## Validation and tooling
 
 ```bash
-bash scripts/run_tests.sh       # naming guard, smoke test, 40-level core test (~5 min)
+bash scripts/run_tests.sh       # naming guard, smoke test, 100-level core test (~5 min)
 bash scripts/screenshots.sh     # silent captures of every screen state into build/screens/
 bash scripts/capture.sh /tmp/a.png --preview=popups:win_three_stars   # one state
 ```

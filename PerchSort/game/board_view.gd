@@ -11,7 +11,7 @@ signal rescue_requested                  # first proven dead end of the attempt:
 signal profile_changed
 
 const GIFT_COIN := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare",
-	"snow": "lightstep", "ember": "hatch", "ink": "nightcall", "hoot": "moonbeam"}
+	"snow": "lightstep", "ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_SOUND := {Board.Booster.FIREFLY: "hint", Board.Booster.SAPLING: "sapling", Board.Booster.OWL_EYE: "owl_eye",
 	Board.Booster.MORNING_BELL: "morning_bell", Board.Booster.SCARECROW: "scarecrow", Board.Booster.SPRING_RAIN: "spring_rain"}
 ## Entrance beats (seconds): houses drop in, branches grow, then birds fly in; ends about 3.9 s after the first frame.
@@ -70,7 +70,7 @@ const SWIVEL_ART := "btn_swivel_green"
 const SWIVEL_SIDE := 100.0    # turn-around button diameter at density 1
 const SWIVEL_TIP_IN := 20.0   # its centre this far inside the branch tip
 const SWIVEL_DROP := -8.0     # its centre relative to the branch line
-const PERCH_TOP := 520.0   # the play area starts right under the hanging house
+const PERCH_TOP := 600.0   # the play area starts under the hanging house and its row of bird keys
 const PERCH_BOTTOM := 1640.0
 const PERCH_STEP_MAX := 150.0   # the largest gap between neighbouring perch lines (the fullest boards use about 140)
 const ROW_REFLOW_SECONDS := 0.45
@@ -182,6 +182,7 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	size = Vector2(1080, 1920)
 	_build_scene()
 	_build_hud()
+	_build_skill_row()
 	_layout_branches()
 	_spawn_birds()
 	refresh_hud()
@@ -627,61 +628,7 @@ func _make_bird(code: int, at: Vector2) -> BirdView:
 	if instant:
 		bird.freeze()
 	_birds[Board.id_of(code)] = bird
-	if (code & Board.EGG) == 0 and (session.state.dive_mask & (1 << Board.species_of(code))) != 0:
-		var badge := Sprite2D.new()
-		badge.name = "TalentBadge"
-		badge.texture = Art.tex("talent_dive")
-		badge.scale = Vector2.ONE * TALENT_BADGE / badge.texture.get_width()
-		badge.position = TALENT_BADGE_AT * BIRD_SCALE
-		bird.add_child(badge)
 	return bird
-
-## ---------- talents ----------
-
-## A bird with a talent wears its badge by the head. Selecting a Dive run lights every branch it can only reach by
-## diving: a glow on the seat it would take, and the bird it would pass bobs once.
-const TALENT_BADGE := 50.0
-const TALENT_BADGE_AT := Vector2(24, -134)   # from the bird's feet, before the board's bird scale
-const DIVE_GLOW := Color(0.1, 0.8, 1.0, 0.9)
-var _dive_marks: Array[Node] = []
-
-func _show_dive_targets(from: int) -> void:
-	_hide_dive_targets()
-	var s := session.state
-	for to in s.branch_count():
-		if to == from or Rules._lands_on_top(s, from, to) or not s.dive_target(from, to):
-			continue
-		var seat := s.items[to].size() - 1
-		var glow := Sprite2D.new()
-		glow.texture = Art.tex("glow_soft")
-		glow.modulate = DIVE_GLOW
-		glow.position = seat_point(to, seat) + Vector2(0, -70.0 * BIRD_SCALE)
-		var side := 290.0 * BIRD_SCALE
-		glow.scale = Vector2.ONE * side / glow.texture.get_width()
-		glow.set_meta("branch", to)
-		_bird_layer.add_child(glow)
-		_bird_layer.move_child(glow, 0)
-		_dive_marks.append(glow)
-		if instant:
-			continue
-		var base := glow.scale
-		var pulse := glow.create_tween().set_loops()
-		pulse.tween_method(func(t: float):
-			var wave := (1.0 - cos(t * TAU)) * 0.5
-			glow.modulate.a = 0.6 + 0.35 * wave
-			glow.scale = base * (0.9 + 0.2 * wave), 0.0, 1.0, 0.9)
-		var passed: BirdView = _birds.get(Board.id_of(s.items[to][seat]))
-		if passed:
-			var rest := passed.position
-			var bob := passed.create_tween()
-			bob.tween_property(passed, "position:y", rest.y - 16.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			bob.tween_property(passed, "position:y", rest.y, 0.2).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
-
-func _hide_dive_targets() -> void:
-	for mark in _dive_marks:
-		if is_instance_valid(mark):
-			mark.queue_free()
-	_dive_marks.clear()
 
 ## Snap every bird to its seat (after undo/restart or as a safety net).
 func sync_birds() -> void:
@@ -1065,9 +1012,72 @@ func _pulse(node: Control, pivot_x := 0.0) -> void:
 	tw.tween_property(node, "scale", Vector2.ONE * 1.25, 0.1).set_ease(Tween.EASE_OUT)
 	tw.tween_property(node, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
+## ---------- bird keys under the house ----------
+
+## One key per kind of bird in the level, in a row under the hanging house: the bird's face, its homecoming
+## badge at the corner, and a check once its flock is home. Tapping a key opens that bird's card.
+const KEY := 88.0
+const KEY_SMALL := 74.0      # nine or more kinds
+const KEY_GAP := 14.0
+const KEY_DROP := 14.0       # under the house
+var _skill_row: Control
+var _skill_keys := {}        # species name -> key
+
+func _build_skill_row() -> void:
+	_skill_keys.clear()
+	var fresh := Levels.create_board(level)
+	var names: Array = Array(Levels.species_ids(fresh, true)) if fresh != null else []
+	names.sort_custom(func(a, b): return Board.SPECIES.find(a) < Board.SPECIES.find(b))
+	var side := KEY if names.size() <= 8 else KEY_SMALL
+	var width := names.size() * side + maxi(0, names.size() - 1) * KEY_GAP
+	_skill_row = Control.new()
+	_skill_row.name = "SkillRow"
+	_skill_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(_skill_row, Rect2(540.0 - width * 0.5, _house_rect().end.y + KEY_DROP, width, side))
+	_hud.add_child(_skill_row)
+	for i in names.size():
+		var species: String = names[i]
+		var r := Rect2(i * (side + KEY_GAP), 0, side, side)
+		var key := Control.new()
+		key.name = "Key_" + species
+		key.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(key, r)
+		_skill_row.add_child(key)
+		UI.art(key, "hud_tool_slot", Rect2(Vector2.ZERO, r.size))
+		var inner := side * 0.78
+		UI.art(key, WorldBirds.face(species, _world()), Rect2((side - inner) * 0.5, (side - inner) * 0.5 - 2.0, inner, inner)).name = "Face"
+		if GIFT_COIN.has(species):
+			var b := side * 0.44
+			UI.art(key, "gift_coin_" + GIFT_COIN[species], Rect2(side - b * 0.8, side - b * 0.8, b, b)).name = "Badge"
+		var done := UI.art(key, UI.PICTURES["check"], Rect2(-side * 0.12, -side * 0.12, side * 0.42, side * 0.42))
+		done.name = "Home"
+		done.visible = false
+		var tap := UI.hit_area(key, Rect2(Vector2.ZERO, r.size), func():
+			if busy:
+				return
+			if session.selected >= 0:
+				_lift(session.selected, false)
+				session.cancel_selection()
+				_refresh_hint_selection()
+			suspend_input()
+			Sound.play("select")
+			bird_info_requested.emit(species))
+		tap.name = "Tap"
+		_skill_keys[species] = key
+
+func _refresh_skill_row() -> void:
+	for species in _skill_keys:
+		var key: Control = _skill_keys[species]
+		var home: bool = session.state.homed.has(Board.SPECIES.find(species))
+		var mark: Control = key.get_node("Home")
+		if home and not mark.visible:
+			_pulse(key, key.size.x * 0.5)
+		mark.visible = home
+
 func refresh_hud() -> void:
 	var s := session.state
 	_refresh_status()
+	_refresh_skill_row()
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
@@ -1311,9 +1321,7 @@ func _lift(b: int, on: bool) -> void:
 		var bird: BirdView = _birds.get(Board.id_of(list[i]))
 		if bird:
 			bird.set_selected(on)
-	_hide_dive_targets()
 	if on:
-		_show_dive_targets(b)
 		for other in _birds.values():
 			if is_instance_valid(other) and not other.selected and randf() < 0.3:
 				other.look_at_x(seat_x(b, 0))
@@ -1957,10 +1965,6 @@ func _fly_group(e: Dictionary) -> void:
 		var ids: PackedInt32Array = e["ids"]
 		for k in ids.size():
 			flights.append([ids[k], e["to_seat"] + k])
-		# A dive: the bird that was passed hops outwards first and frees the seats under it.
-		var passed: BirdView = _birds.get(e.get("passed", -1))
-		if passed:
-			passed.hop_to(seat_point(to, e["to_seat"] + ids.size()), 0.28)
 	else:
 		for item in e["birds"]:
 			flights.append([item["id"], item["to_seat"]])
@@ -2346,20 +2350,6 @@ static func preview(main: Control, state: String) -> void:
 		await main.get_tree().create_timer(1.0).timeout
 		var bird: BirdView = board._birds.values()[0]
 		board._begin_hold(bird.global_position - board.global_position + Vector2(0, -60))
-		return
-	if state == "dive":   # the first lab level: the Dive run is selected (targets glow), then it dives (frame sequences)
-		var board := BoardView.new()
-		main.set_screen(board)
-		board.start(Levels.lab(1), main.profile, false)
-		var s := board.session.state
-		for from in s.branch_count():
-			for to in s.branch_count():
-				if Rules.can_transfer(s, from, to) and not Rules._lands_on_top(s, from, to):
-					await main.get_tree().create_timer(1.0).timeout
-					board.tap_branch(from)
-					await main.get_tree().create_timer(1.5).timeout
-					board.tap_branch(to)
-					return
 		return
 	if state == "celebrate":   # level 12 at rest, then the win celebration on the board (frame sequences)
 		var board := BoardView.new()

@@ -2,15 +2,6 @@
   "alphaThreshold": 40,
   "glyphs": [
     {
-      "name": "icon_aviary",
-      "canvasWidth": 256,
-      "canvasHeight": 256,
-      "x": 30,
-      "y": 33,
-      "width": 193,
-      "height": 186
-    },
-    {
       "name": "icon_basket",
       "canvasWidth": 256,
       "canvasHeight": 256,
@@ -18,15 +9,6 @@
       "y": 26,
       "width": 188,
       "height": 205
-    },
-    {
-      "name": "icon_bell",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 3,
-      "y": 5,
-      "width": 90,
-      "height": 86
     },
     {
       "name": "icon_branch_plus",
@@ -38,33 +20,6 @@
       "height": 79
     },
     {
-      "name": "icon_bulb",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 5,
-      "y": 2,
-      "width": 86,
-      "height": 92
-    },
-    {
-      "name": "icon_check",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 3,
-      "y": 13,
-      "width": 90,
-      "height": 69
-    },
-    {
-      "name": "icon_close",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 2,
-      "width": 92,
-      "height": 91
-    },
-    {
       "name": "icon_egg_eye",
       "canvasWidth": 96,
       "canvasHeight": 96,
@@ -74,24 +29,6 @@
       "height": 90
     },
     {
-      "name": "icon_gear",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 2,
-      "width": 91,
-      "height": 92
-    },
-    {
-      "name": "icon_home",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 5,
-      "width": 92,
-      "height": 86
-    },
-    {
       "name": "icon_next_arrow",
       "canvasWidth": 96,
       "canvasHeight": 96,
@@ -99,15 +36,6 @@
       "y": 8,
       "width": 90,
       "height": 79
-    },
-    {
-      "name": "icon_play",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 7,
-      "y": 2,
-      "width": 80,
-      "height": 92
     },
     {
       "name": "icon_rain_sprout",
@@ -135,33 +63,6 @@
       "y": 3,
       "width": 87,
       "height": 90
-    },
-    {
-      "name": "icon_sound_off",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 4,
-      "width": 92,
-      "height": 87
-    },
-    {
-      "name": "icon_sound_on",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 14,
-      "width": 92,
-      "height": 68
-    },
-    {
-      "name": "icon_undo",
-      "canvasWidth": 96,
-      "canvasHeight": 96,
-      "x": 2,
-      "y": 8,
-      "width": 92,
-      "height": 79
     },
     {
       "name": "tool_bell",

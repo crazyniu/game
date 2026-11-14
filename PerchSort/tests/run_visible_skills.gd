@@ -81,6 +81,19 @@ func _run() -> void:
 	board._hold_id += 1   # the finger lifted or moved
 	await create_timer(board.HOLD_SECONDS + 0.15).timeout
 	check(asked.size() == 1, "a short tap opens nothing")
+	# The row of bird keys under the house: one per kind, centred, clear of the house and of the top birds; a tap
+	# asks for that bird's card; a flock at home gets its check.
+	var row: Control = board._skill_row
+	check(row.get_child_count() == 2 and row.has_node("Key_sunny") and row.has_node("Key_berry"), "one key per kind of bird")
+	check(absf(row.get_rect().get_center().x - 540.0) < 0.6, "the row is centred")
+	check(row.get_rect().position.y >= board._house_rect().end.y + 8.0, "the row hangs clear of the house")
+	var top_bird := 1e9
+	for bird in board._birds.values():
+		top_bird = minf(top_bird, bird.global_position.y - board.global_position.y - 165.0 * board.BIRD_SCALE)
+	check(row.get_rect().end.y + 8.0 <= top_bird, "the row is clear of the highest birds: %.0f under %.0f" % [top_bird, row.get_rect().end.y])
+	check(row.get_node("Key_sunny").has_node("Badge") and not row.get_node("Key_sunny/Home").visible, "a key shows the badge, no check yet")
+	row.get_node("Key_berry/Tap").pressed.emit()
+	check(asked == ["sunny", "berry"], "a tapped key asks for its bird's card: %s" % [asked])
 	# The sunny flock goes home: its wake badge is aimed at both sleepers.
 	check(board.session.try_move(1, 0), "the flock completes")
 	var gift := {}
@@ -91,5 +104,7 @@ func _run() -> void:
 	if not gift.is_empty():
 		var reach: Array = board._gift_targets(board.session.events, gift)
 		check(reach.size() == 2, "the badge reaches both sleepers: %d" % reach.size())
+	board.refresh_hud()
+	check(row.get_node("Key_sunny/Home").visible and not row.get_node("Key_berry/Home").visible, "the flock at home gets its check")
 	print("visible skills: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures else 0)
