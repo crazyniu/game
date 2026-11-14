@@ -596,11 +596,12 @@ const STATUS_INSET := 30.0       # inside the capsule's round ends
 const STATUS_CAP := 44.0
 const STATUS_STAR := 46.0
 ## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
-const CAPSULE := "hud_status_cream"   # the cream status capsule, the bird keys and cards family
-const CAPSULE_END := 80          # capsule source pixels kept at each end (round end); the middle extends
+const CAPSULE := "panel_hud_jungle"  # the approved green rim and pale lime dialog family
+const CAPSULE_REGION := Rect2(0, 96, 2172, 532)  # exclude generated transparent padding
+const CAPSULE_END := 320          # capsule source pixels kept at each end (round end); the middle extends
 const CAPSULE_BODY := Vector2(0.0, 1.0)   # the capsule body fills the whole height
 const STATUS_STAR_GAP := 2.0
-const STATUS_SHADOW := Color(0.18, 0.12, 0.05, 0.38)   # warm dark, under the cream status capsule
+const STATUS_SHADOW := Color(0.18, 0.12, 0.05, 0.38)   # warm dark, under the status capsule
 const STATUS_SHADOW_OFFSET := Vector2(0, 6)
 const STATUS_ICON := 46.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
@@ -794,10 +795,11 @@ func _refresh_status() -> void:
 	_shown_stars = stars
 	_sync_cues()
 
-## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
-## its leafy ends keep their shape, only the plain middle extends.
+## The jungle capsule keeps its rounded painted ends; only its plain middle extends.
 func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
-	var tex := Art.tex(CAPSULE)
+	var tex := AtlasTexture.new()
+	tex.atlas = Art.tex(CAPSULE)
+	tex.region = CAPSULE_REGION
 	var k := rect.size.y / tex.get_height()
 	var plate := NinePatchRect.new()
 	plate.name = "Plate"
@@ -811,7 +813,7 @@ func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
 	plate.scale = Vector2.ONE * k
 	parent.add_child(plate)
 	parent.move_child(plate, 0)
-	# A soft shadow under the cream capsule keeps its edge clear against a pale sky.
+	# A soft shadow under the jungle capsule keeps its edge clear against a pale sky.
 	var shadow := plate.duplicate() as NinePatchRect
 	shadow.name = "Shadow"
 	shadow.position += STATUS_SHADOW_OFFSET
