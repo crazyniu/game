@@ -230,7 +230,7 @@ func _run() -> void:
 	var go: Button = offer.content.get_node("Rescue")
 	check(go.size == kit.PRIMARY, "rescue action is the primary size")
 	check(absf(go.get_rect().get_center().x - 540.0) < 0.01, "rescue action is centred")
-	check(offer.panel_rect.encloses(go.get_rect()), "rescue action inside the card")
+	check(go.position.y >= offer.panel_rect.end.y + 40.0, "rescue action below the approved frame")
 	check(offer.content.get_node("TitleGroup").has_node("Sign"), "hanging sign title")
 	check(go.has_node("Content/Icon") and offer.content.has_node("Picture"), "picture and action icon")
 	go.pressed.emit()

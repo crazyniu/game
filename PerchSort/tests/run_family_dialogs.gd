@@ -23,14 +23,14 @@ func _disposed(dialog: Control) -> void:
 		await process_frame
 	check(reference.get_ref() == null, "modal exit disposes all owned nodes")
 
-## The family wears the shop's style: home jungle backdrop, cream card (ButtonKit.PANEL), hanging sign title with
-## painted lettering, green ButtonKit actions inside the card.
+## The approved game-dialog family uses an opaque warm rim, painted title and exterior actions.
 func _family(dialog: Control, expected_close: bool) -> void:
-	check(dialog.has_node("ForestBackground"), "independent jungle background")
-	check(dialog.get_node("ForestBackground").texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").BACKGROUND_ART), "home jungle backdrop")
-	var skin: NinePatchRect = dialog.content.get_node("Panel/Skin")
-	check(skin.texture == Art.tex(load("res://game/dialog_cartoon_skin.gd").CARD_ART), "the shop's cream card")
-	check(skin.self_modulate == Color.WHITE and dialog._dim.color == dialog.POPUP_SHADE, "card is not recolored; the backdrop takes the shared popup shade")
+	check(not dialog.has_node("ForestBackground"), "family preserves the host scenery behind its shade")
+	var skin: NinePatchRect = dialog.content.get_node("Panel/Rim")
+	check(skin.texture is AtlasTexture and skin.texture.atlas == Art.tex("panel_warm_wood_rim"), "approved warm rim material")
+	check(not skin.draw_center and dialog.content.get_node("Panel/CleanFace").get_theme_stylebox("panel").bg_color.a == 1.0,
+		"opaque face is separate from the hollow rim")
+	check(skin.self_modulate == Color.WHITE and dialog._dim.color == dialog.POPUP_SHADE, "rim is not recolored; host takes the shared popup shade")
 	check(dialog.content.has_node("Close") == expected_close, "original close semantics")
 	check(dialog.panel_rect.end.y <= 1920, "panel stays in design viewport")
 	var title: Control = dialog.content.get_node("TitleGroup")
@@ -45,7 +45,7 @@ func _family(dialog: Control, expected_close: bool) -> void:
 		if button.name == "Close":
 			continue
 		check(button.size.is_equal_approx(family.SECONDARY if str(button.name) in ["Home", "Retry"] else family.PRIMARY), "same-role action size is exact in every state: %s %s" % [button.name, button.size])
-		check(dialog.panel_rect.encloses(button.get_rect()), "actions sit inside the card")
+		check(button.position.y >= dialog.panel_rect.end.y + 40.0, "actions sit outside the frame")
 		check(button.has_node("Face") and button.has_node("Content/Word"), "green plate with a painted word")
 	check(family.PRIMARY.x / family.SECONDARY.x <= 1.25 and family.PRIMARY.y / family.SECONDARY.y <= 1.25, "primary remains at most 1.25 times secondary")
 	for button in dialog.content.find_children("*", "Button", true, false):
@@ -79,9 +79,9 @@ func _run() -> void:
 		UiText.set_language(language)
 		for earned in range(1, 4):
 			var win: Control = popups.win(main.popups, earned, 12, 12, 120, [0, 3, 0], on_action, on_action, on_action, earned > 1)
-			# Win uses the purchase card of the shop (ButtonKit) under the same jungle backdrop as the family.
+			# Win retains its jungle backdrop and uses the approved warm game-dialog shell.
 			check(win.has_node("ForestBackground"), "independent jungle background")
-			check(win.content.get_node("Panel/Skin") is NinePatchRect and win.content.get_node("Panel").visible, "the win stays a popup on the cream card")
+			check(win.content.get_node("Panel/Rim") is NinePatchRect and win.content.get_node("Panel").visible, "win uses the warm game-dialog frame")
 			var middle: Control = win.content.get_node("RatingStar1")
 			check(middle.get_meta("visible_box").size.x > win.content.get_node("RatingStar0").get_meta("visible_box").size.x and middle.get_meta("visible_box").position.y < win.content.get_node("RatingStar0").get_meta("visible_box").position.y, "the middle star is larger and higher")
 			check(win.content.get_node("TitleGroup/Sign") is NinePatchRect, "light-green title banner")
@@ -93,7 +93,7 @@ func _run() -> void:
 				var box: Rect2 = bird.get_meta("visible_box")
 				centers.append(box.get_center().x)
 				var sign: Control = win.content.get_node("TitleGroup")
-				check(is_equal_approx(box.end.y, sign.position.y + sign.size.y * popups.WIN_PERCH), "all three birds stand on the sign's branch")
+				check(is_equal_approx(box.end.y, win.panel_rect.position.y + 28.0), "all three birds stand on the frame's upper perch")
 				check(box.position.y >= 0 and bird.get_index() > sign.get_index(), "birds stand in front of the sign")
 				check(bird._body.scale.x > 0 and bird._sprite.scale.x > 0, "existing live bird is not mirrored")
 				var front_ink: Rect2 = load("res://game/ui.gd").used_rect(bird.species + "_front")
@@ -121,7 +121,7 @@ func _run() -> void:
 			check(retry.size == home.size, "Replay and Home are the same size")
 			check(retry.position.y > next.position.y + next.size.y and is_equal_approx(retry.position.y, home.position.y), "Replay and Home share a row under Next")
 			var card_rect: Rect2 = win.get_meta("card_rect")
-			check(card_rect.encloses(Rect2(retry.position, retry.size)) and card_rect.encloses(Rect2(home.position, home.size)) and card_rect.encloses(Rect2(next.position, next.size)), "the buttons stay inside the card")
+			check(retry.position.y >= card_rect.end.y + 40.0 and home.position.y >= card_rect.end.y + 40.0 and next.position.y >= card_rect.end.y + 40.0, "all win actions stay outside the frame")
 			check(retry.size == win.content.get_node("Home").size, "Replay and Home keys are identical")
 			var reward: Control = win.content.get_node("Reward")
 			check(reward.get_children().size() == 2, "feather reward has no backing")
@@ -138,14 +138,14 @@ func _run() -> void:
 		await _disposed(zero)
 		for playable in [false, true]:
 			var level: Control = popups.level_card(main.popups, Levels.COUNT, 3, 20, 12, species, mechanics, on_action, playable)
-			# The level card is a compact purchase-style card over the dimmed map with the home page's Play button.
+			# Level entry uses the warm game-dialog frame over the dimmed map and the existing Play artwork.
 			check(not level.has_node("ForestBackground"), "level card keeps the map visible behind its shade")
-			check(level.content.get_node("Panel/Skin").texture == Art.tex("panel_card_cream"), "level card: the shop's cream card")
+			check(level.content.get_node("Panel/Rim").texture.atlas == Art.tex("panel_warm_wood_rim"), "level card uses the warm game-dialog frame")
 			check(level.content.get_node("TitleGroup").has_node("Sign"), "level card: hanging sign title")
 			var play: Control = level.content.get_node("Play")
 			check(play.size == load("res://game/home_view.gd").PLAY.size, "level Play is the home Play size")
 			check(play.get_node("Face").texture == Art.tex("btn_home_island_play_" + UiText.locale()), "level Play is the home Play picture")
-			check(level.panel_rect.encloses(play.get_rect()), "Play sits inside the card")
+			check(play.position.y >= level.panel_rect.end.y + 40.0, "Play sits outside the frame")
 			check(level.content.get_node("Play").disabled == not playable, "level play availability")
 			var old := calls
 			level.content.get_node("Close").pressed.emit()

@@ -99,9 +99,13 @@ func _run() -> void:
 	check(draw.content.get_node("TitleGroup").get_child(1).painted_id == "lettering_lucky_spin_title", "hanging sign draw title")
 	check(action.has_node("Kit/Face") and not action.get_node("Face").visible, "draw action wears the shop's green plate")
 	UiText.set_language("zh")
+	var close_started := Time.get_ticks_usec()
 	draw.find_child("Close", true, false).pressed.emit()
-	await create_timer(0.2).timeout
-	check(main.popups.get_child_count() == 0, "draw closes without leftover overlay")
+	var close_deadline := Time.get_ticks_msec() + 2000
+	while is_instance_valid(draw) and Time.get_ticks_msec() < close_deadline:
+		await process_frame
+	print("DRAW_CLOSE_TIMING ms=", (Time.get_ticks_usec() - close_started) / 1000.0, " intended_tween_ms=120 watchdog_ms=2000")
+	check(not is_instance_valid(draw) and main.popups.get_child_count() == 0, "draw closes without leftover overlay")
 	var empty: Control = popups_script.lucky_draw(main.popups, 0, Progress.DRAW_MAX_SPINS, func(): calls += 1; return {})
 	var empty_action := empty.find_child("Draw", true, false) as Button
 	check(empty_action.disabled, "no-attempt action disabled")
