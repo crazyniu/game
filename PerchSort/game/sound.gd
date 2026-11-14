@@ -71,6 +71,11 @@ func music(name: String) -> void:
 		_fade.tween_property(_old_music, "volume_db", -60.0, CROSSFADE)
 		_fade.chain().tween_callback(_old_music.stop)
 
+## Decode short effects before latency-sensitive animation callbacks, without playing them.
+func prepare_effects(names: Array[String]) -> void:
+	for name in names:
+		_stream(ALIASES.get(name, name))
+
 func play(name: String, pitch := 1.0, volume_db := 0.0) -> void:
 	if muted:
 		return
