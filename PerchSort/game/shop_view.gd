@@ -721,7 +721,7 @@ func _confirm(it: Dictionary) -> void:
 		caption.name = "Caption"
 		_quantity_row(c, ys[2])
 		_modal.closed.connect(_quantity_input.release_focus)
-	_purchase_button = ButtonKit.button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, _modal.panel_rect.end.y + Modal.ACTION_DROP), BUY_SIZE),
+	_purchase_button = ButtonKit.button(c, "Buy", Rect2(Vector2(540.0 - BUY_SIZE.x * 0.5, float(_modal.get_meta("actions_y"))), BUY_SIZE),
 		"wide", func(): _modal.invoke(func(): _buy(it, _quantity)))
 	_purchase_contents = _purchase_button.get_node("Content")
 	_update_purchase()

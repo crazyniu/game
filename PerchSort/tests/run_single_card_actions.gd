@@ -22,7 +22,7 @@ func verify(dialog: Control, button: Button, label: String, height := 162.0, wid
 		expected.x = width
 	check(button.size.is_equal_approx(expected), label + " width proportion and preserved height")
 	check(is_equal_approx(button.get_rect().get_center().x, 540.0), label + " horizontal center")
-	check(button.position.y >= dialog.panel_rect.end.y + 40, label + " outside frame")
+	check(button.position.y >= dialog.panel_rect.end.y + 32, label + " outside frame")
 	check(button.get_rect().end.y <= 1920, label + " viewport")
 	var face: Control = button.get_node("Face")
 	check(face.size.is_equal_approx(button.size), label + " visible face fills hit area")
@@ -106,7 +106,7 @@ func _run() -> void:
 			var shop: Control = main.screen
 			var host: Control = shop._outfit_page if state.begins_with("confirm_outfit") else shop
 			var modal: Control = host.get_node("Popup")
-			verify(modal, modal.content.get_node("Buy"), language + " " + state)
+			verify(modal, modal.content.get_node("Buy"), language + " " + state, 162, 680)
 		var coin_script: GDScript = load("res://game/coin_shop_view.gd")
 		for pack in coin_script.PACKS:
 			var shop: Control = coin_script.new()

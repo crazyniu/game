@@ -8,6 +8,7 @@ const HEAD := 120.0
 const FOOT := 56.0
 const GAP := 24.0
 const ACTION_LIFT := 36.0
+const SHOP_ACTION_GAP := 32.0
 ## The painted card reaches this far above the content's top so the title lettering sits inside the card, not
 ## across its edge; the whole card moves down by half of it to stay centred.
 const TITLE_ROOM := 96.0
@@ -55,15 +56,15 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 ## Other PurchaseDialog callers retain their established presentation.
 static func open_shop(host: Control, title_key: String, heights: Array, instant: bool,
 		action_height: float) -> Modal:
-	const WIDTH := 960.0
-	const HEADER := 236.0
-	const FOOTER := 168.0
+	var width := 880.0 if heights.size() >= 3 else 840.0
+	const HEADER := 220.0
+	var footer := 88.0 if heights.size() >= 3 else 72.0
 	var inner := GAP * maxf(0.0, heights.size() - 1)
 	for height in heights:
 		inner += height
-	var panel_h := HEADER + inner + FOOTER
-	var top := (1920.0 - panel_h - Modal.ACTION_DROP - action_height) * 0.5
-	var rect := Rect2((1080.0 - WIDTH) * 0.5, top, WIDTH, panel_h)
+	var panel_h := HEADER + inner + footer
+	var top := (1920.0 - panel_h - SHOP_ACTION_GAP - action_height) * 0.5
+	var rect := Rect2((1080.0 - width) * 0.5, top, width, panel_h)
 	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
 	for name in ["Panel", "TitleGroup"]:
 		var old := dialog.content.get_node(name)
@@ -73,7 +74,7 @@ static func open_shop(host: Control, title_key: String, heights: Array, instant:
 	dialog.content.pivot_offset = Vector2(540, top + panel_h * 0.5)
 	dialog._dim.color = Modal.POPUP_SHADE
 	toy_frame(dialog.content, rect)
-	dialog._title_layer = ButtonKit.sign(dialog.content, title_key, Rect2(220, top - 14, 640, 223))
+	dialog._title_layer = ButtonKit.sign(dialog.content, title_key, Rect2(270, top - 14, 540, 223))
 	dialog._title_id = title_key
 	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - MenuNavigation.SIZE.x - MenuNavigation.DIALOG_RIGHT_PAD, top + 48), dialog.close)
 	var ys := []
@@ -83,7 +84,7 @@ static func open_shop(host: Control, title_key: String, heights: Array, instant:
 		y += height + GAP
 	dialog.set_meta("ys", ys)
 	dialog.set_meta("card_rect", rect)
-	dialog.set_meta("actions_y", rect.end.y + Modal.ACTION_DROP)
+	dialog.set_meta("actions_y", rect.end.y + SHOP_ACTION_GAP)
 	return dialog
 
 static func _leaves(parent: Control, rect: Rect2) -> void:

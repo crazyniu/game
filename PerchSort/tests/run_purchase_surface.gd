@@ -51,6 +51,24 @@ func _verify(modal: Control, key: String) -> void:
 	var corner_scale: float = card.size.x / 1136.0 if toy else shared.PANEL_SCALE
 	var margin: int = 150 if toy else shared.PANEL_MARGIN
 	if toy:
+		var quantity := modal.content.get_node_or_null("Decrease") != null
+		var expected_width := 880.0 if quantity else 840.0
+		check(is_equal_approx(card.size.x, expected_width), key + " content-classified compact width")
+		check(is_equal_approx(card.get_center().x, 540), key + " compact shell remains centered")
+		var action: Control = modal.content.get_node_or_null("Buy")
+		if action == null:
+			action = modal.content.get_node("Confirm")
+		check(is_equal_approx(action.position.y - card.end.y, 32), key + " exterior action has compact breathing room")
+		check(action.get_rect().position.x >= card.position.x + 40 and action.get_rect().end.x <= card.end.x - 40,
+			key + " action remains inside horizontal card margins")
+		var footer := 88.0 if quantity else 72.0
+		# Purchase assets have explicit group heights; compare actual last-row controls where available.
+		if quantity:
+			var decrease: Control = modal.content.get_node("Decrease")
+			check(is_equal_approx(card.end.y - decrease.get_rect().end.y, footer), key + " quantity row keeps compact bottom inset")
+		elif modal.content.get_node_or_null("Number") != null:
+			var reward: Control = modal.content.get_node("Number")
+			check(is_equal_approx(card.end.y - reward.get_rect().end.y, footer), key + " currency reward keeps compact bottom inset")
 		check(skin.texture is AtlasTexture and skin.texture.atlas == Art.tex("panel_shop_toy_rim") and
 			skin.texture.region == Rect2(60, 80, 1136, 1100) and not skin.draw_center,
 			key + " shop uses the approved rigid toy rim")

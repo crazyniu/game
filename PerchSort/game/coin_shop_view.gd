@@ -55,7 +55,7 @@ func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 	PurchaseDialog.glow(modal.content, picture)
 	DrawPurchaseArt.fit(modal.content, "icon_purchase_" + pack["id"], picture)
 	ButtonKit.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88)).name = "Number"
-	var at := Vector2(540.0 - CONFIRM_SIZE.x * 0.5, modal.panel_rect.end.y + Modal.ACTION_DROP)
+	var at := Vector2(540.0 - CONFIRM_SIZE.x * 0.5, float(modal.get_meta("actions_y")))
 	var confirm := ButtonKit.button(modal.content, "Confirm", Rect2(at, CONFIRM_SIZE), "wide",
 		func(): modal.invoke(on_confirm.bind(pack)))
 	# Keep currency and price as painted glyphs, separate from the stretchable button face.
