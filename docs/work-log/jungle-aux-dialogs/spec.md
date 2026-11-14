@@ -1,0 +1,2 @@
+# Auxiliary jungle dialogs
+Reuse the approved opaque jungle shell for recharge confirmations and the existing credits document. Preserve pack prices, amounts, PaymentService callbacks, repeated-click protection, close behavior, scrolling and localization. Do not change approved aviary/bird information, star chest or draw surfaces. The dormant chapter chooser is excluded by coordinator decision because it has no production entry and contains obsolete content.

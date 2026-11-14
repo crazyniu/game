@@ -35,6 +35,9 @@ func _run() -> void:
 		var tag := "world %d" % world
 		var status: Control = board._status
 		var plate: NinePatchRect = status.get_node("Plate")
+		check(plate.texture is AtlasTexture, tag + " jungle capsule uses trimmed artwork")
+		check(plate.texture.atlas == Art.tex("panel_hud_jungle"), tag + " approved jungle material")
+		check(plate.texture.region == script.CAPSULE_REGION, tag + " transparent padding excluded")
 		var house: Rect2 = board._house_rect()
 		check(status.position.x + status.size.x <= house.position.x - script.STATUS_HOUSE_CLEAR + 0.5,
 			tag + " capsule ends clear of the house (%.0f vs house %.0f)" % [status.position.x + status.size.x, house.position.x])

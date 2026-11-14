@@ -29,6 +29,7 @@ var quick := false
 var _dim: ColorRect
 var _closing := false
 var _appearance: Tween
+var _page_motion := false
 var _title_layer: Control
 var _title_id := ""
 var _title_number := ""
@@ -146,13 +147,28 @@ func _notification(what: int) -> void:
 func _appear() -> void:
 	Sound.play("ui_tap")
 	_dim.modulate.a = 0.0
-	content.scale = Vector2.ONE * (0.92 if quick else 0.85)
+	content.scale = Vector2.ONE * (0.96 if quick else 0.92)
 	content.modulate.a = 0.0
 	_appearance = create_tween().set_parallel()
 	_appearance.tween_property(_dim, "modulate:a", 1.0, 0.2)
 	_appearance.tween_property(content, "modulate:a", 1.0, 0.15)
-	_appearance.tween_property(content, "scale", Vector2.ONE, 0.18 if quick else 0.3).set_trans(
-		Tween.TRANS_QUAD if quick else Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_appearance.tween_property(content, "scale", Vector2.ONE, 0.18 if quick else 0.24).set_trans(
+		Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+## Full-screen modal pages fade as a page, never shrink like a floating card.
+func appear_page(background: CanvasItem = null, play_sound := true) -> void:
+	_page_motion = true
+	if _appearance:
+		_appearance.kill()
+	if play_sound:
+		Sound.play("ui_tap")
+	content.scale = Vector2.ONE
+	content.modulate.a = 0.0
+	_appearance = create_tween().set_parallel()
+	_appearance.tween_property(content, "modulate:a", 1.0, 0.18)
+	if background:
+		background.modulate.a = 0.0
+		_appearance.tween_property(background, "modulate:a", 1.0, 0.18)
 
 ## Actions at the bottom inside the panel, every one a long pill with a word (no round buttons in popups). Each item:
 ## [kind ("green" primary, "orange" secondary), icon, callback] or [kind, icon, callback, label id]; the word comes
@@ -220,7 +236,9 @@ func close() -> void:
 	var t := 0.12
 	var tw := create_tween().set_parallel()
 	tw.tween_property(self, "modulate:a", 0.0, t)
-	tw.tween_property(content, "scale", Vector2.ONE * 0.9, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	if not _page_motion:
+		# Closing halfway through entry must recede from the current pose, not grow toward a fixed scale.
+		tw.tween_property(content, "scale", content.scale * 0.96, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	await tw.finished
 	closed.emit()
 	queue_free()

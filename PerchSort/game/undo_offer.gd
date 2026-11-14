@@ -13,11 +13,10 @@ static func open(host: Control, price: int, on_buy: Callable, on_ad: Callable, i
 ## none in stock is offered here, on the board, instead of sending the player to the shop.
 static func open_item(host: Control, title_key: String, picture_art: String, price: int, on_buy: Callable,
 		on_ad: Callable, instant: bool) -> Modal:
-	var p := PurchaseDialog.open(host, title_key, [PICTURE, AMOUNT], instant, ButtonKit.PRIMARY.y, Modal.WIDTH)
+	var p := JungleDialog.open(host, title_key, "", [PICTURE, AMOUNT], instant, ButtonKit.PRIMARY.y, true)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
-	PurchaseDialog.glow(c, picture)
 	UI.art(c, picture_art, picture).name = "Picture"
 	ButtonKit.number(c, "+1", Rect2(340, ys[1], 400, AMOUNT)).name = "Amount"
 	var size := ButtonKit.PRIMARY

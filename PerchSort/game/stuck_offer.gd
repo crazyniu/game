@@ -7,11 +7,10 @@ extends RefCounted
 const PICTURE := 280.0
 
 static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
-	var p := PurchaseDialog.open(host, "stuck", [PICTURE], instant, ButtonKit.PRIMARY.y, Modal.WIDTH)
+	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, true)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
-	PurchaseDialog.glow(c, picture)
 	UI.art(c, UI.PICTURES["undo"], picture).name = "Picture"
 	var size := ButtonKit.PRIMARY
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP

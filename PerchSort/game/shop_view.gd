@@ -696,8 +696,8 @@ func _tap(it: Dictionary) -> void:
 		return
 	_confirm(it)
 
-## The shared purchase card (PurchaseDialog): the item on a soft glow, a short caption, the quantity row and one
-## primary Buy button inside the card.
+## The approved jungle purchase shell: item, caption and editable quantity inside;
+## the existing feather-price action remains centered below the shell.
 func _confirm(it: Dictionary) -> void:
 	if is_instance_valid(_modal):
 		return
@@ -708,7 +708,7 @@ func _confirm(it: Dictionary) -> void:
 	_quantity_limit = maxi(1, profile.coins / int(it["price"])) if repeatable else 1
 	var pic_size := POPUP_PIC if repeatable else SINGLE_PIC
 	var heights := [pic_size, POPUP_CAPTION, STEP.y] if repeatable else [pic_size]
-	_modal = PurchaseDialog.open(self, _title_key(it), heights, instant, BUY_SIZE.y)
+	_modal = PurchaseDialog.open_shop(self, _title_key(it), heights, instant, BUY_SIZE.y)
 	_modal.closed.connect(func(): _modal = null)
 	var c := _modal.content
 	var ys: Array = _modal.get_meta("ys")

@@ -1012,6 +1012,9 @@
     },
     "lettering_stuck": {
       "file": "island_words/lettering_stuck.png"
+    },
+    "white_tutorial_next": {
+      "file": "island_words/white_tutorial_next.png"
     }
   },
   "words": {

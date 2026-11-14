@@ -44,17 +44,26 @@ func _verify(modal: Control, key: String) -> void:
 	var shared: GDScript = load("res://game/button_kit.gd")
 	var purchase: GDScript = load("res://game/purchase_dialog.gd")
 	var card: Rect2 = modal.get_meta("card_rect")
-	var painted: Rect2 = card.grow_side(SIDE_TOP, purchase.TITLE_ROOM)
+	var toy := skin.texture is AtlasTexture
+	var painted: Rect2 = card if toy else card.grow_side(SIDE_TOP, purchase.TITLE_ROOM)
 	check(panel.get_rect() == painted and panel.get_index() == 0,
-		key + " purchase surface preserves its full card and title-room bounds")
-	check(skin.texture == Art.tex(shared.PANEL), key + " purchase uses the shared panel material")
+		key + " purchase surface preserves its approved shell bounds")
+	var corner_scale: float = card.size.x / 1136.0 if toy else shared.PANEL_SCALE
+	var margin: int = 150 if toy else shared.PANEL_MARGIN
+	if toy:
+		check(skin.texture is AtlasTexture and skin.texture.atlas == Art.tex("panel_shop_toy_rim") and
+			skin.texture.region == Rect2(60, 80, 1136, 1100) and not skin.draw_center,
+			key + " shop uses the approved rigid toy rim")
+		var face: Control = panel.get_node("OpaqueFace")
+		check(face.mouse_filter == Control.MOUSE_FILTER_IGNORE and panel.get_rect().size.x > face.size.x,
+			key + " opaque inset retains a separate noninteractive face")
+	else:
+		check(skin.texture == Art.tex(shared.PANEL), key + " purchase uses the shared panel material")
 	check((skin.size * skin.scale).is_equal_approx(painted.size) and
-		skin.scale == Vector2.ONE * shared.PANEL_SCALE and
-		skin.patch_margin_left == shared.PANEL_MARGIN and
-		skin.patch_margin_top == shared.PANEL_MARGIN and
-		skin.patch_margin_right == shared.PANEL_MARGIN and
-		skin.patch_margin_bottom == shared.PANEL_MARGIN,
-		key + " shared nine-patch preserves its dimensions and corner scale")
+		skin.scale == Vector2.ONE * corner_scale and
+		skin.patch_margin_left == margin and skin.patch_margin_top == margin and
+		skin.patch_margin_right == margin and skin.patch_margin_bottom == margin,
+		key + " nine-patch preserves its shell dimensions and corner scale")
 	check(modal.get_node_or_null("ForestBackground") == null,
 		key + " purchase retains its host scenery rather than adding an obsolete full-screen backdrop")
 	check(modal._dim.color == modal.POPUP_SHADE and modal._dim.mouse_filter == Control.MOUSE_FILTER_STOP,

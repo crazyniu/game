@@ -57,6 +57,7 @@ const LESSON_BRANCHES := {
 	"swivel": {0: [Board.Kind.SWIVEL, 4]},
 	"growing": {1: [Board.Kind.GROWING, 2]},
 }
+const TUTORIAL_SHADE := Color(0.02, 0.07, 0.03, 0.82)
 const GOT_IT := Vector2(430, 162)    # ButtonKit.PRIMARY: the same size as every Play plate
 
 var modal: Modal
@@ -85,8 +86,9 @@ var _run := 0                 # bumps on every step change so old loops stop
 
 ## Opens the tutorial in `host` (the popup layer); `done` runs once after it closes by Play or by skipping.
 static func open(host: Control, done := Callable(), instant_motion := false) -> Control:
-	var m := Modal.open(host, "tutorial.title", [STAGE_SIZE.y, TEXT_H, DOTS_H], true, UI.PLAY_SIZE.y, 0.0, instant_motion)
-	FamilyDialog.decorate(m)
+	var m := JungleDialog.open(host, "tutorial_title", "", [STAGE_SIZE.y, TEXT_H, DOTS_H], instant_motion, UI.PLAY_SIZE.y, true)
+	# Stronger isolation keeps the underlying page's large Play action subordinate to tutorial navigation.
+	m._dim.color = TUTORIAL_SHADE
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Tutorial"
 	t.modal = m
@@ -103,8 +105,9 @@ static func open(host: Control, done := Callable(), instant_motion := false) -> 
 static func open_lesson(host: Control, mechanic: String, world_index: int, done := Callable(), instant_motion := false) -> Control:
 	if OS.get_cmdline_user_args().has("--autoplay"):
 		print("LESSON mechanic=%s" % mechanic)   # test driver log (main.gd --autoplay)
-	var m := Modal.open(host, "lesson.%s.title" % mechanic, [STAGE_SIZE.y, TEXT_H], false, GOT_IT.y, 0.0, instant_motion)
-	FamilyDialog.decorate(m)
+	var m := JungleDialog.open(host, "lesson_%s_title" % mechanic, "", [STAGE_SIZE.y, TEXT_H], instant_motion, GOT_IT.y, false)
+	# Stronger isolation keeps the underlying page's large Play action subordinate to tutorial navigation.
+	m._dim.color = TUTORIAL_SHADE
 	var t: Control = load("res://game/tutorial.gd").new()
 	t.name = "Lesson"
 	t.modal = m
@@ -190,8 +193,8 @@ func show_step(index: int) -> void:
 
 ## ---------- layout ----------
 
-const STAGE_CARD := Color("f6eed9")    # centre colour of ButtonKit.PANEL
-const STAGE_RIM := Color("e9b949")     # the card's gold rim
+const STAGE_CARD := Color("e4efaf")    # quiet leaf-green scene surround
+const STAGE_RIM := Color("66a438")     # a restrained leaf-green inner rim
 
 func _build_stage(r: Rect2) -> void:
 	# The card clips the scene to its rectangle (the doorway needs the only clip_children mask); a panel-coloured
@@ -250,7 +253,7 @@ func _build_stage(r: Rect2) -> void:
 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var corners := StyleBoxFlat.new()
 	corners.draw_center = false
-	corners.border_color = STAGE_CARD   # the cream card colour rounds the scene's corners
+	corners.border_color = STAGE_CARD   # the panel colour rounds the scene's corners
 	corners.set_border_width_all(24)
 	corners.set_expand_margin_all(24)
 	corners.set_corner_radius_all(int(STAGE_RADIUS) + 24)
@@ -407,7 +410,7 @@ func _style_action(button: Button) -> void:
 	button.move_child(face, 0)
 	button.button_down.connect(func(): face.modulate = ButtonKit.PRESSED)
 	button.button_up.connect(func(): face.modulate = Color.WHITE)
-	var word_id := "white_play" if button.name == "Play" else ("white_action_next" if button.name == "Next" else "action.got_it")
+	var word_id := "action.got_it" if not lesson.is_empty() else ("white_play" if step == STEPS - 1 else "white_tutorial_next")
 	ButtonKit.word(content, word_id, button.size).name = "Word"
 
 ## ---------- scene helpers ----------

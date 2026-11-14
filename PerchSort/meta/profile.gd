@@ -18,6 +18,11 @@ const LEVEL_SPREAD := {1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11, 7: 13, 8: 15, 9: 17,
 ## A damaged save without a valid backup must never be overwritten by a fresh fallback profile.
 var _blocked_save_path := ""
 
+## Runtime status only: never serialize a fallback as a new player save.
+func needs_recovery() -> bool:
+	return not _blocked_save_path.is_empty()
+
+
 var coins := 0
 var highest_unlocked := 1
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
