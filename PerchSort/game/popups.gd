@@ -996,13 +996,25 @@ const CHEST_BOOSTER_ART := ["firefly", "sprout", "owl_eye", "bell", "scarecrow",
 
 static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable(), balance := -1) -> Control:
 	var p := _chest_page(host, balance, true)
-	_chest_hero(p, ready > 0, ready > 0)
-	if ready > 1:
-		Island.badge(p.content, Vector2(842, 704), ready)
+	_chest_hero(p, false, ready > 0)
+	var count := ChestLettering.number(p.content, str(maxi(0, ready)), Rect2(400, 552, 280, 104))
+	count.name = "ReadyCount"
 	var collected := clampi(progress, 0, Progress.CHEST_STARS)
 	_chest_progress(p.content, float(collected) / Progress.CHEST_STARS,
 		"%d/%d" % [collected, Progress.CHEST_STARS])
-	var open := _chest_action(p, "OpenChest", "chest.open", CHEST_ACTION, on_open)
+	var open := _chest_action(p, "OpenChest", "chest.open", CHEST_ACTION, func():
+		if ready <= 0 or p.has_meta("opening"):
+			return
+		p.set_meta("opening", true)
+		for action_name in ["OpenChest", "Play"]:
+			var action := p.content.get_node_or_null(action_name) as Button
+			if action != null:
+				action.disabled = true
+		count.hide()
+		if _instant(host):
+			p.invoke(on_open)
+		else:
+			ChestOpening.play(p, CHEST_HERO.end.y, CHEST_HERO.size.x, func(): p.invoke(on_open)), false)
 	UI.set_active(open, ready > 0)
 	if ready <= 0:
 		var disabled_ink := ShaderMaterial.new()
@@ -1104,13 +1116,13 @@ static func _chest_hero(p: Modal, opened: bool, sparkling: bool, result := false
 			if live:
 				_twinkle(spark, i * 0.35)
 
-static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, callback: Callable) -> Button:
+static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, callback: Callable, closes := true) -> Button:
 	var button := UI.hit_area(p.content, bounds, func():
 		# An Open double-tap must not click through to the newly appearing reward confirmation.
 		if p.content.modulate.a < 0.99:
 			return
 		Sound.play("ui_tap")
-		p.invoke(callback))
+		p.invoke(callback, closes))
 	button.name = name
 	# A hidden "Face" keeps the disabled-ink hook; the visible face is the shop's green plate.
 	var face := Control.new()
