@@ -56,12 +56,19 @@ func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 	DrawPurchaseArt.fit(modal.content, "icon_purchase_" + pack["id"], picture)
 	ButtonKit.number(modal.content, "+%d" % pack["coins"], Rect2(280, ys[1], 520, 88)).name = "Number"
 	var at := Vector2(540.0 - CONFIRM_SIZE.x * 0.5, modal.panel_rect.end.y + Modal.ACTION_DROP)
-	DrawPurchaseArt.button(modal.content, "Confirm", "btn_purchase_" + PRICE_KEYS[PACKS.find(pack)], Rect2(at, CONFIRM_SIZE),
+	var confirm := ButtonKit.button(modal.content, "Confirm", Rect2(at, CONFIRM_SIZE), "wide",
 		func(): modal.invoke(on_confirm.bind(pack)))
+	# Keep currency and price as painted glyphs, separate from the stretchable button face.
+	var price := DrawPurchaseArt.number(confirm.get_node("Content"), "¥%d" % pack["yuan"],
+		Rect2(80, (CONFIRM_SIZE.y - 66.0) * 0.5, CONFIRM_SIZE.x - 160, 66))
+	var paint := ShaderMaterial.new()
+	paint.shader = preload("res://game/chest_play_word.gdshader")
+	for glyph in price.get_children():
+		glyph.material = paint
 
 const Popups := preload("res://game/popups.gd")
 const BALANCE_NUMBER := Rect2(707, 73, 157, 44)
-const CONFIRM_SIZE := Vector2(348, 136)   # the pack's price picture at ButtonKit.PRIMARY height
+const CONFIRM_SIZE := Vector2(758, 136)   # Standalone action under the 960-pixel purchase card.
 
 ## The balance after a purchase.
 func set_balance(balance: int) -> void:
