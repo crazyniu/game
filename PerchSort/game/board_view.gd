@@ -311,7 +311,7 @@ func _tick_idle(delta: float) -> void:
 	if instant or _idle_nudged or busy or session == null or session.state.is_won():
 		return
 	_idle_time += delta
-	if _idle_time < IDLE_NUDGE or is_instance_valid(_stuck):
+	if _idle_time < IDLE_NUDGE or is_instance_valid(_stuck) or is_instance_valid(_hint_mask):
 		return
 	if session.state.inventory[Board.Booster.FIREFLY] <= 0 or not get_tree().root.find_children("Popup", "", true, false).is_empty():
 		_idle_time = IDLE_NUDGE * 0.5   # look again a little later
@@ -938,7 +938,7 @@ func _tick_keys_pointer(delta: float) -> void:
 		return
 	var host := get_parent()
 	var popups: Node = host.get("popups") if host != null else null
-	if busy or _stuck != null or session.state.is_won() or (popups != null and popups.get_child_count() > 0):
+	if busy or _stuck != null or is_instance_valid(_hint_mask) or session.state.is_won() or (popups != null and popups.get_child_count() > 0):
 		_keys_wait = 0.0
 		return
 	_keys_wait += delta
@@ -1545,13 +1545,13 @@ func _find_rescue_tool() -> int:
 	return found
 
 ## The stuck guidance: the board darkens around the rescuing tool slot `pick` (index into _tool_slots) and the
-## firefly flies to it and circles it. Tapping the slot uses the tool, or offers more when it is out of stock.
+## a hand taps it. Tapping the slot uses the tool, or offers more when it is out of stock.
 func _point_stuck(pick: int) -> void:
 	if pick < 0:
 		return
 	_guide_to_slot(_tool_slots[pick][1], true)
 
-## The firefly circles one tool (a fitting booster at level start, or the hint after a long pause), until the player
+## A hand taps one tool (a fitting booster at level start, or the hint after a long pause), until the player
 ## acts.
 func point_at_tool(kind: int) -> void:
 	_hide_stuck()
@@ -1866,18 +1866,22 @@ func _apply_hint(move: Array) -> void:
 	refresh_hud()
 	show_hint(move)
 
-## A hint dims the board around the move's two branches (a soft spotlight with a pulsing rim) and the firefly shows
-## the move: it hovers over the source birds, flies an arc to the landing seat and hovers there, then starts again.
-## A swivel hint lights its branch and the firefly circles the turn-around button. Taps pass through.
+## A hint dims the board except the birds that move and the seats they land on (soft holes with a pulsing rim) and
+## a hand shows the move. A swivel hint lights its branch and taps the turn-around button. Taps pass through.
 const HINT_SPOTLIGHT := preload("res://game/hint_spotlight.gdshader")
 const HINT_HOLE_PAD := 34.0
-const HINT_HOLE_HEAD := 190.0     # space above the perch for the standing birds
-const HINT_HOLE_FOOT := 70.0
+const HINT_HOLE_HEAD := 165.0     # space above the perch for the standing birds
+const HINT_HOLE_FOOT := 30.0
+const HINT_HAND_SCALE := 0.75
+const HINT_DOTS := 9
+const HINT_EDGE := 14.0           # holes stay this far inside the screen
 
 func show_hint(move: Array) -> void:
 	if _hint_move == move and is_instance_valid(_hint_mask):
 		return   # the same hint stays up (re-selecting its source does not restart the fade)
 	_hide_hint()
+	_hide_stuck()   # one pointer at a time
+	_hide_keys_pointer()
 	_hint_move = move.duplicate()
 	var s := session.state
 	var swivel: bool = move[1] < 0
@@ -1911,127 +1915,81 @@ func show_hint(move: Array) -> void:
 	mask.material = mat
 	add_child(mask)
 	_hint_mask = mask
-	# The firefly from the hint jar flies the move: it hovers over the source birds, flies an arc to the landing seat
-	# leaving glowing specks, and hovers there; then it starts again. A swivel hint circles the turn-around button.
-	if not swivel:   # it hovers over the heads, never covering the birds it points at
-		source += Vector2(0, -HINT_FIREFLY_ABOVE)
-		target += Vector2(0, -HINT_FIREFLY_ABOVE)
+	# A hand shows the move: it taps the source birds, glides along a dotted arc (revealed as it travels) to the
+	# landing seat and taps there, then starts again. A swivel hint taps the turn-around button.
 	var control := (source + target) * 0.5 + Vector2(0, -minf(260.0, 90.0 + source.distance_to(target) * 0.35))
 	var trail := Node2D.new()
 	trail.name = "HintTrail"
+	trail.set_meta("shown", 0.0 if not instant else 1.0)
+	trail.set_meta("ripple", -1.0)   # 0..1 while a tap ring spreads from the fingertip, else -1
+	trail.set_meta("ripple_at", source)
+	trail.draw.connect(func():
+		var ripple: float = trail.get_meta("ripple")
+		if ripple >= 0.0:
+			var ring: Vector2 = trail.get_meta("ripple_at")
+			trail.draw_arc(ring, 26.0 + 58.0 * ripple, 0.0, TAU, 48, Color(1.0, 0.9, 0.5, 1.0 - ripple), 9.0 * (1.0 - ripple) + 2.0, true)
+		if swivel:
+			return
+		var shown: float = trail.get_meta("shown")
+		for k in HINT_DOTS:
+			var t := (k + 1.0) / (HINT_DOTS + 1.0)
+			if t > shown:
+				break
+			var at := source.lerp(control, t).lerp(control.lerp(target, t), t)
+			trail.draw_circle(at, 13.0, Color(0.36, 0.22, 0.05, 0.35))
+			trail.draw_circle(at, 9.0, Color(1.0, 0.93, 0.62)))
 	add_child(trail)
 	_hint_trail = trail
-	var fly := _make_firefly(self)
-	_hint_pointer = fly
-	fly.position = target if swivel else source
+	var hand := Sprite2D.new()
+	hand.name = "HintHand"
+	_hint_pointer = hand
+	hand.texture = Art.tex("hand_pointer")
+	hand.scale = Vector2.ONE * HINT_HAND_SCALE
+	hand.offset = Vector2(40, 60)
+	add_child(hand)
+	hand.position = target if swivel else source
 	if instant:
+		trail.queue_redraw()
 		return
 	mat.set_shader_parameter("fade", 0.0)
 	var fade_in := mask.create_tween()
 	fade_in.tween_method(func(v: float): mat.set_shader_parameter("fade", v), 0.0, 1.0, 0.3)
-	var tw := fly.create_tween().set_loops()
+	var tw := hand.create_tween().set_loops()
 	_hint_motion = tw
+	var rest := Vector2.ONE * HINT_HAND_SCALE
+	var press := rest * 0.82
 	if swivel:
-		_firefly_hover(tw, fly, target, 1.2)
+		_hint_tap(tw, hand, trail, target, rest, press)
+		tw.tween_interval(0.4)
 		return
 	tw.tween_callback(func():
-		fly.position = source
-		fly.set_meta("left", target.x < source.x)
-		fly.modulate.a = 0.0)
-	tw.tween_property(fly, "modulate:a", 1.0, 0.2)
-	_firefly_hover(tw, fly, source, 0.6)
-	_firefly_flight(tw, fly, trail, source, control, target, 1.0)
-	_firefly_hover(tw, fly, target, 0.9)
-	tw.tween_property(fly, "modulate:a", 0.0, 0.25)
+		hand.position = source
+		hand.modulate.a = 1.0
+		trail.set_meta("shown", 0.0)
+		trail.queue_redraw())
+	_hint_tap(tw, hand, trail, source, rest, press)
+	tw.tween_method(func(t: float):
+		hand.position = source.lerp(control, t).lerp(control.lerp(target, t), t)
+		trail.set_meta("shown", t)
+		trail.queue_redraw(), 0.0, 1.0, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_hint_tap(tw, hand, trail, target, rest, press)
+	tw.tween_interval(0.1)
+	tw.tween_property(hand, "modulate:a", 0.0, 0.2)
 	tw.tween_interval(0.15)
 
-## ---------- the firefly guide (hints, tool pointers, stuck guidance) ----------
+## One tap of the hint hand: it presses in and springs back while a ring spreads from the fingertip.
+func _hint_tap(tw: Tween, hand: Sprite2D, trail: Node2D, at: Vector2, rest: Vector2, press: Vector2) -> void:
+	tw.tween_property(hand, "scale", press, 0.16).set_trans(Tween.TRANS_SINE)
+	tw.tween_callback(func(): trail.set_meta("ripple_at", at))
+	tw.tween_property(hand, "scale", rest, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_method(func(t: float):
+		trail.set_meta("ripple", t if t < 1.0 else -1.0)
+		trail.queue_redraw(), 0.0, 1.0, 0.45)
+	tw.tween_interval(0.25)
 
-## The hint jar's firefly as a live sprite: wings beat between two painted poses, its tail glows and pulses, and it
-## bobs a little. It faces the way it flies with its own painted left and right poses (never a mirror); in flight it
-## also tilts with the climb. `fly.set_meta("left", ...)` turns it.
-const FIREFLY_SIZE := 140.0
-const FIREFLY_BEAT := 0.07
-const FIREFLY_TAIL := Vector2(-0.22, 0.28)   # tail centre as shares of the sprite size
+## ---------- the tool guide (tool pointers, stuck guidance) ----------
 
-func _make_firefly(parent: Node) -> Node2D:
-	var fly := Node2D.new()
-	fly.name = "Firefly"
-	var poses := {false: [Art.tex("hint_firefly_right_wings_up"), Art.tex("hint_firefly_right_wings_down")],
-		true: [Art.tex("hint_firefly_left_wings_up"), Art.tex("hint_firefly_left_wings_down")]}
-	fly.set_meta("left", false)
-	var up: Texture2D = poses[false][0]
-	var glow := Sprite2D.new()
-	glow.texture = Art.tex("glow_soft")
-	glow.modulate = Color(1.0, 0.9, 0.35, 0.85)
-	glow.name = "Glow"
-	glow.position = FIREFLY_TAIL * FIREFLY_SIZE
-	glow.scale = Vector2.ONE * FIREFLY_SIZE * 1.4 / float(glow.texture.get_width())
-	fly.add_child(glow)
-	var body := Sprite2D.new()
-	body.name = "Body"
-	body.texture = up
-	body.scale = Vector2.ONE * FIREFLY_SIZE / float(up.get_width())
-	fly.add_child(body)
-	parent.add_child(fly)
-	if instant:
-		return fly
-	var beat := body.create_tween().set_loops()
-	var pose := func(index: int) -> void:
-		var left: bool = fly.get_meta("left")
-		body.texture = poses[left][index]
-		glow.position = FIREFLY_TAIL * FIREFLY_SIZE * Vector2(-1.0 if left else 1.0, 1.0)   # the tail trails behind
-	beat.tween_callback(pose.bind(1))
-	beat.tween_interval(FIREFLY_BEAT)
-	beat.tween_callback(pose.bind(0))
-	beat.tween_interval(FIREFLY_BEAT)
-	var pulse := glow.create_tween().set_loops()
-	var big := glow.scale
-	pulse.tween_property(glow, "scale", big * 1.25, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	pulse.tween_property(glow, "scale", big, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	var bob := body.create_tween().set_loops()
-	bob.tween_property(body, "position:y", -6.0, 0.35).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	bob.tween_property(body, "position:y", 6.0, 0.35).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	return fly
-
-## Small loops around `at` (a firefly never holds still).
-func _firefly_hover(tw: Tween, fly: Node2D, at: Vector2, seconds: float) -> void:
-	var circle := func(t: float) -> void:
-		var a := t * TAU * seconds / 0.9
-		fly.position = at + Vector2(cos(a) * 16.0, sin(a * 2.0) * 9.0)
-		fly.rotation = 0.0
-	tw.tween_method(circle, 0.0, 1.0, seconds)
-
-## The flight on a curve from `from` over `control` to `to`, tilting with its climb and leaving glowing specks.
-func _firefly_flight(tw: Tween, fly: Node2D, trail: Node2D, from: Vector2, control: Vector2, to: Vector2, seconds: float) -> void:
-	var last := [0]
-	var step := func(t: float) -> void:
-		var at := from.lerp(control, t).lerp(control.lerp(to, t), t)
-		var dir := (control.lerp(to, t) - from.lerp(control, t)).normalized()
-		fly.position = at
-		if absf(dir.x) > 0.2:   # turns only on a clear sideways heading, so a steep climb does not flicker
-			fly.set_meta("left", dir.x < 0.0)
-		fly.rotation = clampf(dir.y * 0.5, -0.45, 0.45) * (1.0 if dir.x >= 0.0 else -1.0)
-		var n := int(t * 16.0)
-		if n > last[0] and is_instance_valid(trail):
-			last[0] = n
-			var tail := FIREFLY_TAIL * FIREFLY_SIZE * Vector2(-1.0 if fly.get_meta("left") else 1.0, 1.0)
-			_firefly_speck(trail, at + tail)
-	tw.tween_method(step, 0.0, 1.0, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
-func _firefly_speck(trail: Node2D, at: Vector2) -> void:
-	var speck := Sprite2D.new()
-	speck.texture = Art.tex("glow_soft")
-	speck.modulate = Color(1.0, 0.92, 0.45, 0.9)
-	speck.position = at
-	speck.scale = Vector2.ONE * 44.0 / float(speck.texture.get_width())
-	trail.add_child(speck)
-	var tw := speck.create_tween()
-	tw.tween_property(speck, "scale", speck.scale * 0.3, 0.7)
-	tw.parallel().tween_property(speck, "modulate:a", 0.0, 0.7)
-	tw.tween_callback(speck.queue_free)
-
-## The firefly guides to one tool slot: it flies in from the middle of the board and circles the slot, which glows.
+## A hand taps one tool slot, which glows.
 ## With `dim`, everything but the slot darkens (the stuck guidance); taps still pass through.
 func _guide_to_slot(centre: Vector2, dim: bool) -> void:
 	_stuck = Control.new()
@@ -2059,22 +2017,23 @@ func _guide_to_slot(centre: Vector2, dim: bool) -> void:
 	glow.name = "Glow"
 	glow.modulate = Color(1, 0.8, 0.3, 0.45)
 	glow.pivot_offset = glow.size * 0.5
-	var trail := Node2D.new()
-	holder.add_child(trail)
-	var fly := _make_firefly(holder)
-	var perch := centre + Vector2(UI.SECONDARY * 0.42, -UI.SECONDARY * 0.62)
-	fly.position = perch
+	var hand := Sprite2D.new()
+	hand.name = "Hand"
+	hand.texture = Art.tex("hand_pointer")
+	hand.scale = Vector2.ONE * HINT_HAND_SCALE
+	hand.offset = Vector2(40, 60)
+	var rest := centre + Vector2(6, -6)
+	hand.position = rest
+	holder.add_child(hand)
 	if instant:
 		return
-	var start := Vector2(540, 960)
-	var tw := fly.create_tween().set_loops()
-	tw.tween_callback(func():
-		fly.position = start
-		fly.modulate.a = 0.0)
-	tw.tween_property(fly, "modulate:a", 1.0, 0.2)
-	_firefly_flight(tw, fly, trail, start, (start + perch) * 0.5 + Vector2(-220, -60), perch, 1.0)
-	_firefly_hover(tw, fly, perch, 2.2)
-	tw.tween_property(fly, "modulate:a", 0.0, 0.25)
+	var tap := hand.create_tween().set_loops()
+	var size := Vector2.ONE * HINT_HAND_SCALE
+	tap.tween_property(hand, "scale", size * 0.82, 0.18).set_trans(Tween.TRANS_SINE)
+	tap.parallel().tween_property(hand, "position", rest + Vector2(10, 10), 0.18).set_trans(Tween.TRANS_SINE)
+	tap.tween_property(hand, "scale", size, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tap.parallel().tween_property(hand, "position", rest, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tap.tween_interval(0.5)
 	var shine := glow.create_tween().set_loops()
 	var wave_glow := func(t: float) -> void:
 		var wave := (1.0 - cos(t * TAU)) * 0.5
@@ -2084,14 +2043,13 @@ func _guide_to_slot(centre: Vector2, dim: bool) -> void:
 
 ## The spotlight hole around `count` seats of branch `b` from seat `first`: the standing birds and a little air.
 const HINT_SEAT_PAD := 30.0
-const HINT_FIREFLY_ABOVE := 105.0
 
 func _hint_seats(b: int, first: int, count: int) -> Vector4:
 	var a := seat_point(b, first)
 	var z := seat_point(b, first + maxi(count, 1) - 1)
 	var half := _seat_step(b) * 0.5 + HINT_SEAT_PAD
-	var left := minf(a.x, z.x) - half
-	var right := maxf(a.x, z.x) + half
+	var left := maxf(HINT_EDGE, minf(a.x, z.x) - half)
+	var right := minf(1080.0 - HINT_EDGE, maxf(a.x, z.x) + half)
 	var y := perch_y(b)
 	return Vector4(left, y - HINT_HOLE_HEAD, right - left, HINT_HOLE_HEAD + HINT_HOLE_FOOT)
 
@@ -2100,8 +2058,8 @@ func _hint_hole(b: int) -> Vector4:
 	var s := session.state
 	var width := _branch_width(b, s.capacity) + HINT_HOLE_PAD
 	var y := perch_y(b)
-	var x := 1080.0 - width if s.rights[b] == 1 else -HINT_HOLE_PAD
-	return Vector4(x, y - HINT_HOLE_HEAD, width + HINT_HOLE_PAD, HINT_HOLE_HEAD + HINT_HOLE_FOOT)
+	var x := 1080.0 - HINT_EDGE - width if s.rights[b] == 1 else HINT_EDGE
+	return Vector4(x, y - HINT_HOLE_HEAD, width, HINT_HOLE_HEAD + HINT_HOLE_FOOT)
 
 func _hide_hint() -> void:
 	_hint_move = []
@@ -2979,7 +2937,7 @@ static func preview(main: Control, state: String) -> void:
 				await main.get_tree().process_frame
 		return
 	if state == "dead_end" or state == "stuck_guide":   # one real shuffle inside a position that can never win
-		# "dead_end": the first time (the free rescue card); "stuck_guide": a later time, the firefly guides to the tool.
+		# "dead_end": the first time (the free rescue card); "stuck_guide": a later time, a hand guides to the tool.
 		var board := BoardView.new()
 		board.instant = main.instant()
 		main.set_screen(board)
