@@ -224,7 +224,6 @@ func show_chest() -> void:
 		var got := Progress.open_chest(profile)
 		if got.is_empty():
 			return
-		Sound.play("collect")
 		save()
 		Popups.rewards(popups, "chest.title", got["coins"], got["boosters"], _refresh_screen, "pic_chest_open", profile.coins),
 		_play_next if screen is HomeView else Callable(), profile.coins)
@@ -499,9 +498,10 @@ func open_coin_shop(balance: int) -> void:
 			PaymentService.purchase(chosen, func(bought: Dictionary):
 				profile.coins += int(bought["coins"])
 				save()
-				Sound.play("collect")
 				if is_instance_valid(view):
-					view.set_balance(profile.coins)
+					view.celebrate_purchase(profile.coins - int(bought["coins"]), profile.coins)
+				else:
+					Sound.play("collect")
 				_refresh_screen())))
 	view.closed.connect(func():
 		remove_child(view)
