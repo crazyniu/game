@@ -24,6 +24,9 @@ func _init() -> void:
 			continue
 		var session := GameSession.new(level)
 		for entry in routes[str(id)]:
+			# A legal route is not enough: the live hint cache indexes these exact state keys.
+			check(session.state.search_key(false) == PackedInt32Array(entry[0]),
+				"level %d hint key matches before action %d" % [id, session.state.moves + 1])
 			var move: Array = [int(entry[1][0]), int(entry[1][1])]
 			check(session.try_action(move), "level %d replay move %s" % [id, move])
 		check(session.state.is_won(), "level %d replay wins" % id)
