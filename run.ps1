@@ -130,7 +130,7 @@ if ($boostProfile) {
         else { $obj | Add-Member -NotePropertyName $name -NotePropertyValue $value }
     }
 
-    $levels = 100
+    $levels = 210
     # Older saves number their levels differently: move the records as the game would, before opening the levels.
     $profileSource = [IO.File]::ReadAllText((Join-Path $project 'meta\profile.gd'), $utf8)
     $currentSchema = [int][regex]::Match($profileSource, 'const SCHEMA_VERSION := (\d+)').Groups[1].Value
@@ -148,7 +148,7 @@ if ($boostProfile) {
     }
     $coins = if ($profile.PSObject.Properties['coins']) { [long]$profile.coins } else { 0 }
     Set-Field $profile 'coins' ([Math]::Max($coins, 50000))
-    foreach ($step in @(@(2, 'LEVEL_RENUMBER'), @(3, 'LEVEL_EXPANSION'), @(4, 'LEVEL_DIFFICULTY'))) {
+    foreach ($step in @(@(2, 'LEVEL_RENUMBER'), @(3, 'LEVEL_EXPANSION'), @(4, 'LEVEL_DIFFICULTY'), @(5, 'LEVEL_SPREAD'))) {
         if ($schema -ge $step[0]) { continue }
         $moves = Get-LevelTable $step[1]
         foreach ($field in 'bestStars', 'clearCounts', 'bestMoves') {
@@ -167,6 +167,10 @@ if ($boostProfile) {
             }
         }
         Set-Field $profile 'levelGifts' $gifts
+        if ($step[0] -eq 5) {
+            $last = if ($profile.PSObject.Properties['lastLevel']) { [int]$profile.lastLevel } else { 0 }
+            Set-Field $profile 'lastLevel' $(if ($moves.ContainsKey($last)) { $moves[$last] } else { 0 })
+        }
     }
     Set-Field $profile 'schemaVersion' $currentSchema
     Set-Field $profile 'highestUnlockedLevel' $levels

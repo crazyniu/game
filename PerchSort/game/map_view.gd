@@ -13,12 +13,13 @@ signal gate_tapped(world: int)
 
 const WORLD_NAMES := ["world.green.name", "world.bamboo.name", "world.autumn.name", "world.snow.name", "world.blossom.name",
 	"world.mushroom.name", "world.lakeside.name", "world.pine.name", "world.rainforest.name", "world.wisteria.name"]
-## World page: ten painted level tiles in a 2 x 5 grid, in reading order (1 2 / 3 4 / ...), tile centres in design px.
-const GRID_X := [370.0, 710.0]
-const GRID_TOP := 486.0
-const GRID_PITCH := 306.0
-const TILE := 184.0
-const STAR_DROP := 8.0   # gap between a tile and its row of stars
+## World page: twenty-one painted level tiles in a 3 x 7 grid, in reading order (1 2 3 / 4 5 6 / ...), tile centres
+## in design px.
+const GRID_X := [230.0, 540.0, 850.0]
+const GRID_TOP := 470.0
+const GRID_PITCH := 208.0
+const TILE := 124.0
+const STAR_DROP := 6.0   # gap between a tile and its row of stars
 
 ## Equal-sized forest cards; docs/design/map.md owns the horizontal layout.
 const BACK := Rect2(48, 48, 112, 112)
@@ -40,7 +41,7 @@ const STAR_PROGRESS := Rect2(93, 620, 440, 96) # inside each painting, above its
 const PLAY := Rect2(220, 1424, 640, 216)  # one fixed action for the selected forest
 const WORLD_ARROW := Vector2(112, 112)   # previous / next world on a world page, on the side edges
 const WORLD_ARROW_X := 24.0              # distance from the screen edge
-const WORLD_ARROW_Y := 937.0             # centre line: the gap between tile rows 2 and 3, where the current bird never stands, far from Back
+const WORLD_ARROW_Y := 262.0             # centre line: beside the world name, under Back and the balance, above the tiles
 const TAP_SLOP := 18.0
 const SCROLL_STEP := 112.0
 const TREE_ORIGIN := Vector2(-12.96, 308.0)
@@ -52,9 +53,9 @@ const NODE_CAP := 64.0
 const NODE_HIT_SIZE := Vector2(396, 298)
 const NODE_HIT_OFFSET := Vector2(198, 244)
 const PERCH_OFFSET := Vector2(0, -55.0 * TREE_SCALE)
-const STAR := 70.0
-const STAR_GAP := 6.0
-const BIRD_LIMIT := Vector2(250, 250)
+const STAR := 38.0
+const STAR_GAP := 4.0
+const BIRD_LIMIT := Vector2(128, 128)
 const BIRD_GEOMETRY_PATH := "res://layout/map_bird_geometry.json"
 static var _bird_geometry: Dictionary = {}
 
@@ -406,7 +407,7 @@ func close_world() -> void:
 
 func _base_node_pos(level: int) -> Vector2:
 	var n := (level - 1) % Levels.PER_WORLD
-	return Vector2(GRID_X[n % 2], GRID_TOP + (n / 2) * GRID_PITCH)
+	return Vector2(GRID_X[n % GRID_X.size()], GRID_TOP + (n / GRID_X.size()) * GRID_PITCH)
 
 func _node_pos(level: int) -> Vector2:
 	return _base_node_pos(level)
@@ -431,15 +432,15 @@ func _build_node(level: int) -> void:
 	landing.name = "Node"
 	if state == "locked":
 		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.32, TILE * 0.2), Vector2(TILE * 0.64, TILE * 0.4))).modulate = Color(1, 1, 1, 0.55)
-		UI.art(layer, "island_padlock", Rect2(c + Vector2(TILE * 0.22, -TILE * 0.62), Vector2(64, 64))).name = "Lock"
+		UI.art(layer, "island_padlock", Rect2(c + Vector2(TILE * 0.22, -TILE * 0.62), Vector2(46, 46))).name = "Lock"
 	else:
 		ButtonKit.number(layer, str(shown), Rect2(c - Vector2(TILE * 0.34, TILE * 0.25), Vector2(TILE * 0.68, TILE * 0.46))).name = "Number"
 	var perch := _bird_feet(c)
 	if state != "locked":
 		_node_stars(layer, perch, profile.best_stars(level) if state == "cleared" else 0)
 	if state == "current" and level == current_level:
-		var side := -1.0 if c.x < 540.0 else 1.0
-		_add_bird(layer, c + Vector2(side * (TILE * 0.5 + 100.0), TILE * 0.46), _level_species(level))
+		# The bird stands to the right of its tile, in the gap before the next column (or the screen edge).
+		_add_bird(layer, c + Vector2(TILE * 0.5 + BIRD_LIMIT.x * 0.5 + 14.0, TILE * 0.46), _level_species(level))
 	_hit(layer, c, level)
 
 ## Feet, locks and rating stars share the measured branch plane.
@@ -483,7 +484,7 @@ func _white_number(layer: Control, value: int, center: Vector2, cap: float) -> v
 
 ## Includes the full animated bird, landing and rating; adjacent tiers remain disjoint.
 func _hit_bounds(center: Vector2) -> Rect2:
-	return Rect2(center - Vector2(TILE * 0.5 + 20.0, TILE * 0.5 + 20.0), Vector2(TILE + 40.0, TILE + STAR_DROP + STAR + 30.0))
+	return Rect2(center - Vector2(TILE * 0.5 + 20.0, TILE * 0.5 + 14.0), Vector2(TILE + 40.0, TILE + STAR_DROP + STAR + 22.0))
 
 func _hit(layer: Control, center: Vector2, level: int) -> void:
 	var button := UI.hit_area(layer, _hit_bounds(center),

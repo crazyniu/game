@@ -27,7 +27,7 @@ func _init() -> void:
 			var move: Array = [int(entry[1][0]), int(entry[1][1])]
 			check(session.try_action(move), "level %d replay move %s" % [id, move])
 		check(session.state.is_won(), "level %d replay wins" % id)
-		var painted_rows: int = [4, 5, 6][mini((id - 1) / 10, 2)]
+		var painted_rows: int = [4, 5, 6][mini(Levels.world_of(level) - 1, 2)]
 		var used_rows := 1
 		for r in board.rows:
 			used_rows = maxi(used_rows, r + 1)
@@ -42,7 +42,7 @@ func _init() -> void:
 ## Save migration and the gift economy.
 func _check_meta() -> void:
 	# A schema 1 save: stars on old levels 1 and 9, best moves on old 9; both follow the full migration chain.
-	var nine: int = Profile.LEVEL_DIFFICULTY[Profile.LEVEL_EXPANSION[Profile.LEVEL_RENUMBER[9]]]
+	var nine: int = Profile.LEVEL_SPREAD[Profile.LEVEL_DIFFICULTY[Profile.LEVEL_EXPANSION[Profile.LEVEL_RENUMBER[9]]]]
 	var stars := []
 	stars.resize(41)
 	stars.fill(0)
@@ -51,18 +51,27 @@ func _check_meta() -> void:
 	var moves := stars.duplicate()
 	moves[9] = 7
 	var old := Profile.from_dict({"schemaVersion": 1, "bestStars": stars, "clearCounts": stars, "bestMoves": moves})
-	check(old.best_stars(1) == 3 and old.best_stars(nine) == 2 and old.best_stars(9) == 0, "schema 1 stars renumbered")
+	check(old.best_stars(1) == 3 and old.best_stars(nine) == 2 and old.total_stars() == 5, "schema 1 stars renumbered")
 	check(old.best_moves[nine] == 7, "schema 1 best moves renumbered")
 	var again := Profile.from_dict(old.to_dict())
-	check(again.best_stars(nine) == 2 and again.best_stars(9) == 0, "the current save keeps its numbering")
+	check(again.best_stars(nine) == 2 and again.total_stars() == 5, "the current save keeps its numbering")
 	# A schema 2 save: its forty levels move to their places in the hundred-level order.
 	var forty := []
 	forty.resize(41)
 	forty.fill(0)
 	forty[9] = 2
 	var moved := Profile.from_dict({"schemaVersion": 2, "bestStars": forty, "clearCounts": forty, "bestMoves": forty})
-	check(moved.best_stars(Profile.LEVEL_DIFFICULTY[Profile.LEVEL_EXPANSION[9]]) == 2 and moved.total_stars() == 2, "schema 2 stars follow their level")
-	var opened := Progress.is_level_unlocked(moved, Profile.LEVEL_DIFFICULTY[Profile.LEVEL_EXPANSION[9]])
+	var moved_nine: int = Profile.LEVEL_SPREAD[Profile.LEVEL_DIFFICULTY[Profile.LEVEL_EXPANSION[9]]]
+	check(moved.best_stars(moved_nine) == 2 and moved.total_stars() == 2, "schema 2 stars follow their level")
+	var opened := Progress.is_level_unlocked(moved, moved_nine)
+	# A schema 4 save (ten levels a world): level 12 was the second level of world 2 and stays the second old level there.
+	var hundred := []
+	hundred.resize(101)
+	hundred.fill(0)
+	hundred[12] = 3
+	var spread := Profile.from_dict({"schemaVersion": 4, "bestStars": hundred, "clearCounts": hundred, "bestMoves": hundred, "highestUnlockedLevel": 13, "lastLevel": 12})
+	check(spread.best_stars(24) == 3 and spread.total_stars() == 3 and spread.last_level == 24, "schema 4 stars move to the 21-level worlds")
+	check(spread.highest_unlocked == 26, "schema 4 progress moves with its levels: %d" % spread.highest_unlocked)
 	check(opened, "a migrated cleared level stays playable")
 	# Win drops: boosters on every first clear (more for three stars and every fifth level), favouring the next
 	# level's mechanic; a fitting held booster that was never used is pointed at.
@@ -72,7 +81,7 @@ func _check_meta() -> void:
 	rng.seed = 7
 	Progress.grant_starter_gifts(p)
 	var bells := p.inventory[Board.Booster.MORNING_BELL]
-	var won := Progress.on_win(p, 11, 3, 3, 0, Levels.get_level(11), rng)
+	var won := Progress.on_win(p, 11, 3, 3, 0, Levels.get_level(22), rng)
 	check(won["boosters"].size() == 2, "three-star first clear drops 2 boosters")
 	check(Board.Booster.MORNING_BELL in won["boosters"], "drops favour the next level's mechanic")
 	check(p.inventory[Board.Booster.MORNING_BELL] == bells + won["boosters"].count(Board.Booster.MORNING_BELL),
@@ -80,9 +89,9 @@ func _check_meta() -> void:
 	check(Progress.on_win(p, 15, 99, 3, 0, {}, rng)["boosters"].size() == Progress.DROP_MILESTONE_COUNT,
 		"every fifth level drops the milestone count")
 	check(Progress.on_win(p, 9, 99, 3, 0, {}, rng)["boosters"].size() == 1, "one-star first clear drops 1 booster")
-	check(Progress.booster_to_point_at(p, Levels.get_level(11)) == Board.Booster.MORNING_BELL, "fitting booster pointed at")
+	check(Progress.booster_to_point_at(p, Levels.get_level(22)) == Board.Booster.MORNING_BELL, "fitting booster pointed at")
 	p.set_tutorial(Progress.used_flag(Board.Booster.MORNING_BELL))
-	check(Progress.booster_to_point_at(p, Levels.get_level(11)) == -1, "a used booster is not pointed at again")
+	check(Progress.booster_to_point_at(p, Levels.get_level(22)) == -1, "a used booster is not pointed at again")
 	# Daily reward calendar, the login streak it keeps, and the draws that follow the streak.
 	var cal := Profile.new()
 	var cal_coins := 0
