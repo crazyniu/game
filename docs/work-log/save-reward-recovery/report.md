@@ -7,6 +7,8 @@ Baseline: main `a14e30a04a25aee2d51cdb1c6df26a08d56f7053`. Addresses #264 and #2
 - Draw allocation previously accepted any different device date, including an earlier one; the check-in rejection was converted into the current streak. Date rollback could reissue five chances, then restoring the date issued five again. Allocation now advances only, earlier dates cannot spend remaining chances, and the original date resumes them. Explicit unlimited preview behavior is retained.
 - Saves previously truncated the sole primary file directly, and invalid JSON loaded a new profile that could overwrite the damaged file. Writes now complete, flush and read-verify a temporary file, retain the previous parseable primary as `.bak`, then replace the primary. Missing/corrupt primary loads the backup. If neither is readable JSON, both originals are retained and automatic saving to that path is blocked with an error.
 
+- Unix and Windows launchers now defer damaged/missing-with-backup primary files to the engine without pre-launch boosting. Explicit reset removes the recovery backup and temporary siblings too, preventing deleted progress from reappearing. Healthy launch defaults are unchanged.
+
 ## Verification
 
 Godot 4.7.2; isolated OS temporary saves only. `tests/save_reward_recovery.gd` is called by the standard core suite. It covers exhausted and unspent draw rollback, date restoration, normal next-day allocation, explicit unlimited preview, initial/repeated save, truncated primary recovery, missing primary recovery, safe save after recovery, preservation of unrecoverable primary/both files, new-player path and a failed temporary-file write retaining the original primary.
@@ -23,3 +25,7 @@ Results: naming self-tests passed; naming guard zero violations; painted words z
 - JSON field-level corruption/schema incompatibility is not newly addressed. Existing deserialization compatibility remains unchanged.
 - Tests use explicit dates rather than modifying the system clock. A device clock jumped into the future remains a limitation of local-clock rewards; no trusted-time service is introduced.
 - No GUI, real-store, release, automatic merge or deployment acceptance is claimed.
+
+## Launcher follow-up validation
+
+`python3 ci/test_launcher_recovery.py` passes five Linux launcher scenarios with a mock engine and isolated temporary profile paths: truncated primary with backup, missing primary with backup, truncated primary without backup, reset with preview, and ordinary new-player boost. The standard runner includes this check (explicitly skips non-Linux platforms). `bash -n run.sh` passes. PowerShell changes received static review only; PowerShell/Windows execution is unavailable, so Windows recovery is not claimed runtime-verified.

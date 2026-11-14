@@ -33,7 +33,8 @@ boost_profile=true
 for arg in "$@"; do
   case "$arg" in
     --reset)
-      rm -f "$(save_dir)/profile.json"
+      rm -f "$(save_dir)/profile.json" "$(save_dir)/profile.json.bak" \
+        "$(save_dir)/profile.json.tmp" "$(save_dir)/profile.json.bak.tmp"
       echo "Saved progress deleted." ;;
     --update)
       if [[ -n "$(git -C "$root" status --porcelain)" ]]; then
@@ -64,6 +65,28 @@ if [[ -z "$stamp" || ! -f "$stamp_file" || "$(cat "$stamp_file")" != "$stamp" ]]
   echo "Importing assets (the first time takes about a minute)..."
   "$godot" --headless --path "$project" --import >/dev/null 2>&1 || true
   [[ -n "$stamp" ]] && echo "$stamp" > "$stamp_file"
+fi
+
+# Damaged/missing primaries with recovery data belong to Profile.load_saved(), not launcher boosting.
+# Leave both files untouched and let the engine recover (or block saving) for this launch.
+if [[ "$boost_profile" == true ]]; then
+  if ! python3 - "$(save_dir)/profile.json" <<'CHECK'
+import json
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+if not p.exists():
+    sys.exit(1 if Path(str(p) + ".bak").exists() else 0)
+try:
+    valid = isinstance(json.loads(p.read_text(encoding="utf-8")), dict)
+except (ValueError, OSError):
+    valid = False
+sys.exit(0 if valid else 1)
+CHECK
+  then
+    echo "Save recovery required; leaving saved files untouched for the game." >&2
+    boost_profile=false
+  fi
 fi
 
 if [[ "$boost_profile" == true ]]; then
