@@ -68,6 +68,6 @@ Keep `core/` and `meta/` independent of presentation. Inspect actual code and ob
 3. `bash scripts/screenshots.sh [filter]`: silent 1080x1920 captures of every screen state into `build/screens/` (xvfb). Compare with the mockups and the approved baseline. Stills do not prove animation.
 4. Timed evidence: `scripts/capture.sh` with `--motion --wait=S`, or `main.tscn -- --frames=<dir> --wait=S --step=0.25` for frame sequences; `--autoplay` plays a level through the real board and logs entrance and total timings.
 5. CI runs the naming guard, syntax checks and `scripts/run_tests.sh` on headless Godot. CI is not a substitute for GUI acceptance.
-6. Report exact commands, results, evidence paths and remaining boundaries. `build/` is ignored; commit only required evidence.
+6. Report exact commands, results, evidence paths and remaining boundaries. `build/` and `docs/work-log/*/evidence/` are ignored: captures, frame sheets and other test evidence stay local and are never committed or pushed (user, 2026-11-14).
 
 Do not expose network services or credentials. Production store identifiers and release package names still require user input.
