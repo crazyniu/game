@@ -138,7 +138,7 @@ static func decorate(dialog: Modal, _external_actions := true) -> void:
 		var old := dialog.content.get_node("Close")
 		dialog.content.remove_child(old)
 		old.queue_free()
-		var at := Vector2(dialog.panel_rect.end.x - CLOSE_INSET.x - MenuNavigation.SIZE.x, dialog.panel_rect.position.y + CLOSE_INSET.y)
+		var at := Vector2(dialog.panel_rect.end.x - CLOSE_INSET.x - MenuNavigation.SIZE.x, dialog.panel_rect.position.y + CLOSE_INSET.y - PurchaseDialog.TITLE_ROOM)
 		MenuNavigation.close(dialog.content, "Close", at, dialog.close)
 
 ## The painted lettering id of a title label id: bird and booster names and world names reuse the shop's paintings.

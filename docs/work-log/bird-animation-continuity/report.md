@@ -17,3 +17,6 @@ No asset, layout, gameplay, level, save or economy changes. Other reported issue
 
 ## Boundaries
 This is a focused animation fix, not acceptance of every animation in all 210 levels or every mobile device. Frame sequences are real graphical runtime captures, not proof of smooth real-device frame pacing. The entrance capture reports two ObjectDB instances / one resource at process exit; this is not claimed fixed. Read-only broader QA and difficulty findings remain separate. No merge or deployment was performed.
+
+## Integration refresh
+While preparing the draft, main advanced to `50a8c452e61048077b0764a521ee2f1acf8ebe8d` (#240). Merged that change without conflicts, preserving all six of its UI files. Re-ran the complete suite on the integrated tree: naming, painted words, smoke, 210 routes and all eight animation assertions pass (`suite-integrated.log`). No force-push or rewriting of remote history.
