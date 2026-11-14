@@ -166,7 +166,7 @@ func show_daily_reward() -> void:
 				return {}
 			save()
 			_refresh_screen()
-			return got)
+			return got, func(): return profile.coins)
 
 ## Never in the launcher's test mode, where a reward is always waiting (the tile still opens it).
 func _offer_daily_reward() -> void:
@@ -523,7 +523,11 @@ func open_coin_shop(balance: int) -> void:
 					view.celebrate_purchase(profile.coins - int(bought["coins"]), profile.coins)
 				else:
 					Sound.play("collect")
-				_refresh_screen())))
+				_refresh_screen()
+				# Keep reward pages mounted; only their balance changes after a top-up.
+				for popup in popups.get_children():
+					if popup.has_meta("refresh_balance") and not popup.is_queued_for_deletion():
+						popup.get_meta("refresh_balance").call())))
 	view.closed.connect(func():
 		remove_child(view)
 		view.queue_free()

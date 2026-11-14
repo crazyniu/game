@@ -370,6 +370,8 @@ func refresh_balance() -> void:
 	var keep := _scroll.scroll_vertical
 	_refresh(true)
 	_scroll.scroll_vertical = keep
+	if is_instance_valid(_outfit_page):
+		_outfit_page.refresh_balance()
 
 ## The compact balance leaves the floating heading and cards as the main focus.
 func _build_coins() -> void:
