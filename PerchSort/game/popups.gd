@@ -69,7 +69,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true, true)
+	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true, true, false, 880.0, 72.0)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -1174,7 +1174,8 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 	var hero_h := 320.0 if rows > 1 else ILLUS
 	var reward_h := REWARD_TILE * rows + 20.0 * maxf(0.0, rows - 1)
 	var p := JungleDialog.open(host, FamilyDialog.lettering_key(title_id), "",
-		[hero_h, reward_h] if not prizes.is_empty() else [hero_h], not live, FamilyDialog.PRIMARY.y, false)
+		[hero_h, reward_h] if not prizes.is_empty() else [hero_h], not live, FamilyDialog.PRIMARY.y, false, false, true, false,
+		880.0 if prizes.size() >= 3 else 840.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var hero := Rect2(540.0 - hero_h * 0.5, ys[0], hero_h, hero_h)
@@ -1296,7 +1297,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 
 static func new_friend(host: Control, species: String, reward: int, on_ok: Callable) -> Control:
 	var p := JungleDialog.open(host, "popup_new_friend_title", "", [FRIEND, NAME_CAP * 1.3, ABILITY_H, REWARD_H],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 880.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 30.0, ys[0] + 20.0, FRIEND - 60.0, FRIEND - 40.0), _instant(host), 1.2)
@@ -1307,7 +1308,7 @@ static func new_friend(host: Control, species: String, reward: int, on_ok: Calla
 	return p
 
 static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
-	var p := JungleDialog.open(host, FamilyDialog.lettering_key("booster.%s.name" % BOOSTER_ID[booster]), "", [ILLUS, LINE], _instant(host), FamilyDialog.PRIMARY.y, false)
+	var p := JungleDialog.open(host, FamilyDialog.lettering_key("booster.%s.name" % BOOSTER_ID[booster]), "", [ILLUS, LINE], _instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 900.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var box := Rect2(540.0 - ILLUS * 0.5, ys[0], ILLUS, ILLUS)
@@ -1324,7 +1325,7 @@ static func unlock(host: Control, booster: int, on_ok: Callable) -> Control:
 static func world_complete(host: Control, world: int, reward: int, on_ok: Callable) -> Control:
 	var arch_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
 	var p := JungleDialog.open(host, "popup_world_complete_title", "", [arch_h, FamilyDialog.STAR_ROW, REWARD_H],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 960.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	var live := not _instant(host)
@@ -1347,7 +1348,7 @@ static func world_complete(host: Control, world: int, reward: int, on_ok: Callab
 static func world_unlock(host: Control, world: int, on_play: Callable) -> Control:
 	var gate_h := GATE_W * GATE_CONTENT.size.y / GATE_CONTENT.size.x
 	var p := JungleDialog.open(host, "popup_world_unlock_title", "", [gate_h, NAME_CAP * 1.3],
-		_instant(host), FamilyDialog.PRIMARY.y, false)
+		_instant(host), FamilyDialog.PRIMARY.y, false, false, true, false, 960.0, 72.0)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
 	# Keep the door swing and scene inside the gate row, clear of the title and actions.
