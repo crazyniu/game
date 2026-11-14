@@ -96,8 +96,26 @@ func _run() -> void:
 		var lesson: Control = tutorial.open_lesson(main.popups, tutorial.LESSONS[0], 3, Callable(), true)
 		verify(lesson.modal, lesson._buttons[0], language + " lesson")
 		await clear()
-		var rescue: Control = load("res://game/stuck_offer.gd").open(main.popups, Callable(), true)
-		verify(rescue, rescue.content.get_node("Rescue"), language + " rescue", 162, 540)
+		var rescue_script: GDScript = load("res://game/stuck_offer.gd")
+		var rescued := [0]
+		var before := JSON.stringify(main.profile.to_dict())
+		var rescue: Control = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
+		await process_frame
+		var action: Button = rescue.content.get_node("Rescue")
+		verify(rescue, action, language + " rescue", 162, 540)
+		check(rescue.panel_rect.size.x == 760, "rescue uses its compact frame only")
+		check(not action.has_node("Content/Icon"), "rescue does not repeat its illustration")
+		check(action.get_node("Content/Word").painted_id == "white_free_rewind", "rescue has localized explicit wording")
+		var close: Button = rescue.content.get_node("Close")
+		check(is_equal_approx(close.position.y - rescue.panel_rect.position.y, 48), "rescue close sits at title shoulder")
+		check(not close.get_rect().intersects(rescue.content.get_node("Picture").get_rect()), "rescue close clears illustration")
+		await tap_action(rescue, close, language == "zh")
+		check(rescued[0] == 0, "cancel does not perform rescue")
+		rescue = rescue_script.open(main.popups, func(): rescued[0] += 1, true)
+		await process_frame
+		await tap_action(rescue, rescue.content.get_node("Rescue"), language == "zh")
+		check(rescued[0] == 1, "free rewind dispatches once")
+		check(JSON.stringify(main.profile.to_dict()) == before, "UI dismissal never changes profile")
 		await clear()
 		var shop_script: GDScript = load("res://game/shop_view.gd")
 		for state in ["confirm_booster", "confirm_nest", "confirm_outfit", "insufficient"]:
