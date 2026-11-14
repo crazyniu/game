@@ -1,5 +1,5 @@
 extends SceneTree
-## All 100 current-level states use real animation alpha unions, including live idle movement.
+## Current grid side-perches: every level and species, all pose alpha bounds and idle envelope.
 
 func _initialize() -> void:
 	run.call_deferred()
@@ -14,7 +14,8 @@ func run() -> void:
 		var level: int = trial / species_ids.size() + 1
 		map.current_level = level
 		var center: Vector2 = map._node_pos(level)
-		var feet: Vector2 = map._bird_feet(center)
+		var side := -1.0 if center.x > 540.0 else 1.0
+		var feet: Vector2 = center + Vector2(side * (map.TILE * 0.5 + map.BIRD_LIMIT.x * 0.5 + 14.0), map.TILE * 0.46)
 		var species: String = species_ids[trial % species_ids.size()]
 		if not cache.has(species):
 			var bird: Node2D = bird_script.new()
@@ -44,9 +45,7 @@ func run() -> void:
 		if bird.intersects(Rect2(350, 300, 380, 80)):
 			push_error("Bird intersects centred progress at level %d" % level)
 			failures += 1
-		if not map._hit_bounds(center).encloses(bird):
-			push_error("Live bird leaves its hit region at level %d: %s" % [level, bird])
-			failures += 1
+		# The bird is decorative and now beside its tile, not inside its hit area.
 		var world: int = Progress.world_of_level(level)
 		for other in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
 			if other == level:
@@ -58,6 +57,6 @@ func run() -> void:
 			if bird.intersects(marker) or bird.intersects(status):
 				push_error("Current bird %d intersects marker/status %d" % [level, other])
 				failures += 1
-	print("tree trail clearance: 100 current levels x %d species, %d failures" % [cache.size(), failures])
+	print("map bird clearance: %d current levels x %d species, %d failures" % [Levels.COUNT, cache.size(), failures])
 	map.free()
 	quit.call_deferred(1 if failures else 0)

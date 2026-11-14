@@ -3,7 +3,7 @@ extends SceneTree
 
 var failures := 0
 var view: Control
-var evidence := ""
+var evidence := "res://../build/shop-card-check"
 
 func _initialize() -> void:
 	_run.call_deferred()
@@ -16,7 +16,7 @@ func _run() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--shop-card-evidence="):
 			evidence = arg.trim_prefix("--shop-card-evidence=")
-	DirAccess.make_dir_recursive_absolute(evidence)
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(evidence))
 	var profile := Profile.new()
 	profile.coins = 50000
 	profile.highest_unlocked = Levels.COUNT
