@@ -18,13 +18,13 @@ func _settle() -> void:
 
 func _skin(modal: Control, label: String) -> void:
 	var skin: NinePatchRect = modal.content.get_node("Panel/Skin")
-	# Recharge and item confirmations share the approved jungle shell.
-	check(skin.texture == Art.tex("panel_jungle_dialog"), label + " uses its approved panel family")
+	# Recharge and item confirmations share the approved toy shell.
+	check(skin.texture is AtlasTexture and skin.texture.atlas == Art.tex("panel_shop_toy_rim"), label + " uses its approved panel family")
 	var card: Rect2 = modal.get_meta("card_rect")
 	var action_y: float = modal.get_meta("actions_y")
 	check(action_y >= card.end.y + load("res://game/popup.gd").ACTION_DROP, label + " price action stays outside the shell")
-	check(skin.patch_margin_top == 330 and skin.patch_margin_bottom == 210,
-		label + " painted header and footer retain their proportions")
+	check(skin.patch_margin_top == 150 and skin.patch_margin_bottom == 150 and not skin.draw_center,
+		label + " toy rim retains fixed corners without sampling its center")
 	var close: Button = modal.content.get_node("Close")
 	check(close.get_node("Face").texture == Art.tex("btn_purchase_close"), label + " uses coin-shop Close")
 	print("CLOSE_GEOMETRY actual=", close.size, " expected=", load("res://game/menu_navigation.gd").SIZE)

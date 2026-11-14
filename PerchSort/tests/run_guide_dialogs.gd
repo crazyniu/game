@@ -15,7 +15,7 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 func inspect(dialog: Control, buttons: Array) -> void:
-	check(dialog.content.get_node("Panel") is NinePatchRect, "jungle frame")
+	check(dialog.content.get_node("Panel/Rim") is NinePatchRect, "jungle frame")
 	check(dialog.panel_rect.position.y >= 20, "frame on screen")
 	check(not dialog.content.has_node("ProductGlow"), "no decorative product glow")
 	check(dialog.content.get_node("TitleGroup").get_child_count() >= 2, "painted title")

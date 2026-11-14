@@ -69,7 +69,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 	var heights := [FamilyDialog.STAR_ROW + WIN_STAR_ROOM, WIN_STATS_H]
 	if not boosters.is_empty():
 		heights.append(DROP_ROW)
-	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true)
+	var p := JungleDialog.open(host, "win_title", "", heights, not live, WIN_ACTIONS_H, false, true, true)
 	var close := p.content.get_node_or_null("Close")
 	if close:
 		p.content.remove_child(close)
@@ -99,7 +99,7 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		_fly_in(hero, Vector2(640, -1250), 0.45, 1.0)
 		_fly_in(sides[0], Vector2(-420, -120), 0.75, 0.8)
 		_fly_in(sides[1], Vector2(420, -120), 0.9, 0.8)
-	_win_stars(c, ys[0], stars, live, 0.6)
+	_win_stars(c, ys[0], stars, live, 0.4)
 	# Moves and the feather reward share one row of painted numerals.
 	var cap := WIN_STATS_CAP
 	var icon := cap * 1.15
@@ -124,12 +124,13 @@ static func win(host: Control, stars: int, moves: int, par: int, reward: int, bo
 		UI.image(group, "icon_purchase_feather", Rect2(0, 0, icon, icon), true).name = "Feather"
 		var number := _win_digits(group, "Number", Rect2(icon + 12.0, (icon - cap) * 0.5, reward_w - icon - 12.0, cap))
 		if live:
-			_win_count(number, reward, "+%d", 1.0, 0.7)
-			_coin_burst(p, group.position + Vector2(icon * 0.5, icon * 0.5), 1.0)
+			_win_count(number, reward, "+%d", 1.35, 0.65)
+			_reward_emphasis(group, 2.0)
+			_coin_burst(p, group.position + Vector2(icon * 0.5, icon * 0.5), 1.35)
 		else:
 			_win_set(number, reward_text)
 	if not boosters.is_empty():
-		_drops(c, ys[-1], boosters, live, 1.5)
+		_drops(c, ys[-1], boosters, live, 1.8)
 	# Next leads; Replay and Home are the two equal SECONDARY pills under it (PRIMARY / SECONDARY = 1.25).
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP
 	# One block: Next spans exactly the Replay / Home row, so both rows share their left and right edges.
@@ -162,12 +163,27 @@ static func _win_stars(parent: Control, y: float, filled: int, animate: bool, de
 		star.rotation_degrees = arc.z
 		star.set_meta("visible_box", bounds)
 		if animate and i < filled:
-			star.scale = Vector2.ZERO
+			var rest := star.position
+			star.position.y += 72.0
+			star.scale = Vector2.ONE * 0.25
+			star.modulate.a = 0.0
+			star.rotation_degrees = arc.z - 22.0
 			var tween := star.create_tween()
-			tween.tween_interval(delay + 0.18 * i)
+			tween.tween_interval(delay + 0.3 * i)
 			tween.tween_callback(Sound.play.bind("star_%d" % (i + 1)))
-			tween.tween_property(star, "scale", Vector2.ONE * 1.25, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			tween.tween_property(star, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			tween.tween_property(star, "scale", Vector2.ONE * 1.2, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(star, "position", rest, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(star, "rotation_degrees", arc.z, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tween.parallel().tween_property(star, "modulate:a", 1.0, 0.1)
+			tween.tween_property(star, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+## A single reward emphasis after counting completes; never changes hit areas or payout.
+static func _reward_emphasis(group: Control, delay: float) -> void:
+	group.pivot_offset = group.size * 0.5
+	var tween := group.create_tween()
+	tween.tween_interval(delay)
+	tween.tween_property(group, "scale", Vector2.ONE * 1.16, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(group, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 ## A wooden secondary pill with the existing painted white lettering.
 static func _win_pill(parent: Control, n: String, rect: Rect2, word_id: String, action: Callable) -> Button:
@@ -584,6 +600,10 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			(used as TextureRect).texture = Art.tex("star_draw_spent")
 		var highlight := func(at: int):
 			lights[state["at"]].modulate.a = 0.0
+			for i in cards.size():
+				cards[i].pivot_offset = cards[i].size * 0.5
+				cards[i].scale = Vector2.ONE * (1.06 if i == at else 1.0)
+				cards[i].modulate.a = 1.0 if i == at else 0.72
 			lights[at].modulate.a = 1.0
 			state["at"] = at
 		var reveal := func():
@@ -592,9 +612,12 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			if not instant:
 				var won := cards[target] as Control
 				won.pivot_offset = won.size * 0.5
+				var rest := won.position
 				var pop := won.create_tween()
-				pop.tween_property(won, "scale", Vector2.ONE * 1.16, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-				pop.tween_property(won, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				pop.tween_property(won, "scale", Vector2.ONE * 1.14, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				pop.parallel().tween_property(won, "position:y", rest.y - 22.0, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+				pop.tween_property(won, "scale", Vector2.ONE, 0.24).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+				pop.parallel().tween_property(won, "position", rest, 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			if got["booster"] >= 0:
 				var holder := cards[target] as Control
 				var old := holder.get_node("PrizeArt")
@@ -610,6 +633,9 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			p.content.hide()
 			var result := _draw_rewards(host, got["coins"], kinds, func():
 				p.content.show()
+				for card in cards:
+					card.scale = Vector2.ONE
+					card.modulate.a = 1.0
 				lights[target].modulate.a = 0.0
 				if got["booster"] >= 0:
 					var holder := cards[target] as Control
@@ -630,16 +656,16 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			return
 		# Binding the complete roll to the modal cancels it when the modal is removed.
 		var roll := p.create_tween()
-		var steps: int = 24 + posmod(target - int(state["at"]), 8)
+		var steps: int = 16 + posmod(target - int(state["at"]), 8)
 		var start: int = state["at"]
 		for n in steps:
 			var at := posmod(start + n + 1, 8)
 			roll.tween_callback(highlight.bind(at))
-			roll.tween_callback(Sound.play.bind("ui_tap", 1.0 + 0.03 * n if n < 24 else 1.7))
+			roll.tween_callback(Sound.play.bind("ui_tap", 1.0 + 0.03 * n))
 			var t := float(n) / float(steps - 1)
-			roll.tween_interval(0.045 + 0.3 * t * t * t)
+			roll.tween_interval(0.04 + 0.2 * t * t * t)
 		roll.tween_callback(reveal)
-		roll.tween_interval(0.7)
+		roll.tween_interval(0.55)
 		roll.tween_callback(finish)
 	(go as Button).pressed.connect(run)
 	return p
@@ -722,7 +748,7 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 				func(): bar.set_amount(int(read_balance.call()) if read_balance.is_valid() else total, true)) + DAILY_SETTLE
 		if not instant:
 			await p.get_tree().create_timer(wait).timeout
-		if not is_instance_valid(p):
+		if not is_instance_valid(p) or p.is_queued_for_deletion() or p._closing:
 			return
 		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
 	return p
@@ -1543,7 +1569,7 @@ static func _coin_burst(p: Control, center: Vector2, delay: float) -> void:
 ## Won prizes arrive instead of just standing there: one after another each pops out of nothing with the reward
 ## chime and a ring of sparkles, and its "+N" counts up from zero. `prizes` are the prize holders; each has a
 ## "Number" child (FamilyDialog.digits) and the meta "amount". Ends with confetti over the whole popup.
-const PRIZE_STAGGER := 0.22
+const PRIZE_STAGGER := 0.16
 
 static func _prize_entrance(p: Control, prizes: Array, delay: float) -> void:
 	for i in prizes.size():
@@ -1553,11 +1579,14 @@ static func _prize_entrance(p: Control, prizes: Array, delay: float) -> void:
 		FamilyDialog.set_digits(number, "+0")
 		prize.pivot_offset = prize.size * 0.5
 		prize.scale = Vector2.ZERO
+		var rest := prize.position
+		prize.position.y += 44.0
 		var tw := prize.create_tween()
 		tw.tween_interval(delay + i * PRIZE_STAGGER)
 		tw.tween_callback(Sound.play.bind("reward", 1.0 + 0.08 * i))
 		tw.tween_callback(_sparkle_ring.bind(prize))
-		tw.tween_property(prize, "scale", Vector2.ONE * 1.18, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(prize, "scale", Vector2.ONE * 1.18, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.parallel().tween_property(prize, "position", rest, 0.26).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(prize, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.parallel().tween_method(func(v: float): FamilyDialog.set_digits(number, "+%d" % roundi(v)), 0.0, float(amount), 0.5)
 	_confetti(p, delay + 0.1)
@@ -1588,10 +1617,10 @@ const COIN_FLIGHT_TRAVEL := 0.42
 
 static func coin_flight(layer: Control, from: Vector2, to: Vector2, delay := 0.0, on_land := Callable()) -> float:
 	for i in COIN_FLIGHT_COINS:
-		var coin := UI.image(layer, "coin", Rect2(from - Vector2(36, 36), Vector2(72, 72)))
+		var coin := UI.image(layer, "coin", Rect2(from - Vector2(48, 48), Vector2(96, 96)))
 		coin.pivot_offset = coin.size * 0.5
 		coin.modulate.a = 0.0
-		var spread := from + Vector2.from_angle(TAU * i / 9.0) * (90.0 + 14.0 * (i % 3))
+		var spread := from + Vector2.from_angle(TAU * i / 9.0) * (120.0 + 18.0 * (i % 3))
 		var tw := coin.create_tween()
 		tw.tween_interval(delay + i * COIN_FLIGHT_STAGGER)
 		tw.tween_property(coin, "modulate:a", 1.0, 0.06)

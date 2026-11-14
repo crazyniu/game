@@ -21,7 +21,7 @@ func _run() -> void:
 		load("res://game/ui_text.gd").set_language(language)
 		for id in ["credits"]:
 			var p = main.Popups.document(main.popups, id)
-			check(p.content.get_node("Panel") is NinePatchRect, id + " jungle shell")
+			check(p.content.get_node("Panel/Rim") is NinePatchRect, id + " jungle shell")
 			var word: TextureRect = p._title_layer.get_child(-1)
 			check(word.texture != null, id + " existing painted localized title")
 			var clip: Control = p.content.get_node("Scroll")

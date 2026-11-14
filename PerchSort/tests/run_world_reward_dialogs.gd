@@ -27,7 +27,7 @@ func _run() -> void:
 			popups.preview(main, state)
 			await process_frame
 			var p = main.popups.get_child(main.popups.get_child_count() - 1)
-			check(p.content.get_node("Panel") is NinePatchRect, state + " jungle shell")
+			check(p.content.get_node("Panel/Rim") is NinePatchRect, state + " jungle shell")
 			check(p.panel_rect.position.y >= 32, state + " top visible")
 			var action := "Play" if state.begins_with("world_unlock") else ("Check" if state.begins_with("world_complete") else "action_ok")
 			var button: Control = p.content.get_node(action)

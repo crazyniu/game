@@ -9,7 +9,7 @@ const WIDTH := 960.0
 const PANEL := "panel_jungle_dialog"
 
 static func open(host: Control, title: String, ordinal: String, heights: Array, instant: bool,
-		action_height: float, show_close: bool, birds_above := false) -> Modal:
+		action_height: float, show_close: bool, birds_above := false, warm := true) -> Modal:
 	var inner := GAP * maxf(0.0, heights.size() - 1)
 	for height in heights:
 		inner += height
@@ -26,19 +26,23 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 	dialog.panel_rect = rect
 	dialog.content.pivot_offset = Vector2(540, top + panel_h * 0.5)
 	dialog._dim.color = Modal.POPUP_SHADE
-	var panel := NinePatchRect.new()
-	panel.name = "Panel"
-	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel.texture = Art.tex(PANEL)
-	# Scale by width, then extend only the quiet middle: the title and footer never squash.
-	var k := WIDTH / panel.texture.get_width()
-	panel.position = rect.position
-	panel.size = rect.size / k
-	panel.scale = Vector2.ONE * k
-	panel.patch_margin_top = 330
-	panel.patch_margin_bottom = 210
-	dialog.content.add_child(panel)
-	decorate(dialog.content, rect)
+	if warm:
+		var panel := warm_frame(dialog.content, rect)
+		panel.name = "Panel"
+	else:
+		var panel := NinePatchRect.new()
+		panel.name = "Panel"
+		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.texture = Art.tex(PANEL)
+		# Scale by width, then extend only the quiet middle: the title and footer never squash.
+		var k := WIDTH / panel.texture.get_width()
+		panel.position = rect.position
+		panel.size = rect.size / k
+		panel.scale = Vector2.ONE * k
+		panel.patch_margin_top = 330
+		panel.patch_margin_bottom = 210
+		dialog.content.add_child(panel)
+		decorate(dialog.content, rect)
 	var sign: Control
 	if title.is_empty() and ordinal.is_empty():
 		sign = Control.new()
@@ -121,3 +125,45 @@ static func secondary(parent: Control, name: String, rect: Rect2, word: String, 
 		face.position.y = face_y
 		label.position.y = label_y)
 	return button
+
+## Warm wood rim is independent artwork. Only its clean border is sampled; the face is opaque.
+static func warm_frame(parent: Control, rect: Rect2) -> Control:
+	var frame := Control.new()
+	frame.name = "WarmFrame"
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.position = rect.position
+	frame.size = rect.size
+	parent.add_child(frame)
+	var k := rect.size.x / 1222.0
+	var backing := Panel.new()
+	backing.name = "OpaqueFace"
+	backing.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	backing.position = Vector2.ONE * 14.0 * rect.size.x / WIDTH
+	backing.size = rect.size - backing.position * 2.0
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("fff0c2")
+	style.set_corner_radius_all(roundi(70.0 * rect.size.x / WIDTH))
+	style.corner_detail = 16
+	backing.add_theme_stylebox_override("panel", style)
+	frame.add_child(backing)
+	var rim := NinePatchRect.new()
+	rim.name = "Rim"
+	rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var tex := AtlasTexture.new()
+	tex.atlas = Art.tex("panel_warm_wood_rim")
+	tex.region = Rect2(28, 28, 1222, 1174)
+	rim.texture = tex
+	rim.size = rect.size / k
+	rim.scale = Vector2.ONE * k
+	rim.patch_margin_left = 100
+	rim.patch_margin_right = 100
+	rim.patch_margin_top = 100
+	rim.patch_margin_bottom = 100
+	rim.draw_center = false
+	frame.add_child(rim)
+	var face := backing.duplicate()
+	face.name = "CleanFace"
+	face.position = Vector2.ONE * 26.0 * rect.size.x / WIDTH
+	face.size = rect.size - face.position * 2.0
+	frame.add_child(face)
+	return frame

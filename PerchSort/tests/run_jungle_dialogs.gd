@@ -31,13 +31,16 @@ func _run() -> void:
 			popups.preview(main, state)
 			await process_frame
 			var dialog: Control = main.popups.get_child(main.popups.get_child_count() - 1)
-			check(dialog.content.get_node("Panel") is NinePatchRect, locale + " " + state + " opts into new shell")
+			check(dialog.content.get_node("Panel/Rim") is NinePatchRect, locale + " " + state + " opts into new shell")
 			check(dialog.panel_rect.position.y >= 20.0, state + " frame stays below top edge")
-			for leaf_name in ["LeavesUpper", "LeavesLower"]:
-				var leaf: TextureRect = dialog.content.get_node(leaf_name)
-				check(leaf.size.x <= 160 and leaf.size.y <= 123, leaf_name + " restrained size")
-				check(leaf.mouse_filter == Control.MOUSE_FILTER_IGNORE, leaf_name + " never intercepts input")
-				check(Rect2(0, 0, 1080, 1920).encloses(leaf.get_rect()), leaf_name + " remains on screen")
+			var face: Panel = dialog.content.get_node("Panel/CleanFace")
+			var rim: NinePatchRect = dialog.content.get_node("Panel/Rim")
+			check(face.get_theme_stylebox("panel").bg_color.a == 1.0, "opaque warm face")
+			check(face.mouse_filter == Control.MOUSE_FILTER_IGNORE, "face never intercepts input")
+			check(rim.mouse_filter == Control.MOUSE_FILTER_IGNORE, "rim never intercepts input")
+			check(not rim.draw_center, "contaminated image center never drawn")
+			check(rim.patch_margin_left == rim.patch_margin_right, "balanced border margins")
+			check(not dialog.content.has_node("LeavesUpper"), "no old leafy frame ornaments")
 			var names := ["Play"] if state.begins_with("level_card") else ["action_next", "Retry", "Home"]
 			for n in names:
 				var button: Control = dialog.content.get_node(n)
@@ -72,7 +75,7 @@ func _run() -> void:
 		for species in Board.SPECIES:
 			var friend: Control = popups.new_friend(main.popups, species, 25, func(): calls += 1)
 			await process_frame
-			check(friend.content.get_node("Panel") is NinePatchRect, species + " uses jungle shell")
+			check(friend.content.get_node("Panel/Rim") is NinePatchRect, species + " uses jungle shell")
 			check(friend.content.has_node("Ability"), species + " retains ability")
 			var ok: Control = friend.content.get_node("Check")
 			check(ok.position.y >= friend.panel_rect.end.y + 40, "OK outside frame")

@@ -72,25 +72,10 @@ static func open_shop(host: Control, title_key: String, heights: Array, instant:
 	dialog.panel_rect = rect
 	dialog.content.pivot_offset = Vector2(540, top + panel_h * 0.5)
 	dialog._dim.color = Modal.POPUP_SHADE
-	var holder := Control.new()
-	holder.name = "Panel"
-	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	UI.place(holder, rect)
-	dialog.content.add_child(holder)
-	var skin := NinePatchRect.new()
-	skin.name = "Skin"
-	skin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	skin.texture = Art.tex("panel_jungle_dialog")
-	var scale_art := WIDTH / skin.texture.get_width()
-	skin.size = rect.size / scale_art
-	skin.scale = Vector2.ONE * scale_art
-	skin.patch_margin_top = 330
-	skin.patch_margin_bottom = 210
-	holder.add_child(skin)
-	_leaves(dialog.content, rect)
+	toy_frame(dialog.content, rect)
 	dialog._title_layer = ButtonKit.sign(dialog.content, title_key, Rect2(220, top - 14, 640, 223))
 	dialog._title_id = title_key
-	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - 132, top + 156), dialog.close)
+	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - 156, top + 48), dialog.close)
 	var ys := []
 	var y := top + HEADER
 	for height in heights:
@@ -126,3 +111,40 @@ static func glow(parent: Control, picture: Rect2) -> void:
 	var glow := UI.image(parent, "glow_soft", picture.grow(picture.size.x * 0.22))
 	glow.name = "ProductGlow"
 	glow.modulate = Color(0.55, 0.95, 0.30, 0.95)
+
+## Independent coral/turquoise toy rim; the opaque face is never taken from a mockup.
+static func toy_frame(parent: Control, rect: Rect2) -> Control:
+	var frame := Control.new()
+	frame.name = "Panel"
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	frame.position = rect.position
+	frame.size = rect.size
+	parent.add_child(frame)
+	var k := rect.size.x / 1136.0
+	var face := Panel.new()
+	face.name = "OpaqueFace"
+	face.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	face.position = Vector2.ONE * 24.0 * k
+	face.size = rect.size - face.position * 2.0
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color("fff0c2")
+	style.set_corner_radius_all(roundi(90.0 * k))
+	style.corner_detail = 16
+	face.add_theme_stylebox_override("panel", style)
+	frame.add_child(face)
+	var rim := NinePatchRect.new()
+	rim.name = "Skin"
+	rim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var texture := AtlasTexture.new()
+	texture.atlas = Art.tex("panel_shop_toy_rim")
+	texture.region = Rect2(60, 80, 1136, 1100)
+	rim.texture = texture
+	rim.size = rect.size / k
+	rim.scale = Vector2.ONE * k
+	rim.patch_margin_left = 150
+	rim.patch_margin_right = 150
+	rim.patch_margin_top = 150
+	rim.patch_margin_bottom = 150
+	rim.draw_center = false
+	frame.add_child(rim)
+	return frame
