@@ -1,10 +1,12 @@
 class_name StuckOffer
 extends RefCounted
-## "Stuck": shown once per level attempt when the position can never be won. The purchase card with the undo
-## picture and one green action that steps back to the latest position that can still be won, for free.
+## "Stuck": shown once per level attempt when the position can never be won. The purchase card with a forest
+## illustration and one green action that steps back to the latest position that can still be won, for free.
 ## Later stuck moments get the pointer at the rescuing tool instead (BoardView.show_stuck_hint).
 
-const PICTURE := 192.0
+const PICTURE := 180.0
+const PERCH_WIDTH := 320.0
+const PERCH_CONTACT_Y := 135.0
 const CARD_WIDTH := 760.0
 const ACTION_GAP := 32.0
 
@@ -12,8 +14,17 @@ static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
 	var p := JungleDialog.open(host, "stuck", "", [PICTURE], instant, ButtonKit.PRIMARY.y, true, false, true, true, CARD_WIDTH)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
-	UI.art(c, UI.PICTURES["undo"], picture).name = "Picture"
+	# A small living perch belongs to the board's forest world; the action explains the rewind.
+	var picture := Control.new()
+	picture.name = "Picture"
+	picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UI.place(picture, Rect2(540.0 - PERCH_WIDTH * 0.5, ys[0], PERCH_WIDTH, PICTURE))
+	c.add_child(picture)
+	var k := PERCH_WIDTH / Art.tex("branch_aviary_perch").get_width()
+	Island.piece(picture, "branch_aviary_perch", Vector2(0, PERCH_CONTACT_Y - 140.0 * k), PERCH_WIDTH).name = "Perch"
+	for i in 2:
+		var bird: Node2D = load("res://game/popups.gd")._bird_view(picture, ["sunny", "sky"][i], Rect2(38 + i * 132, 5, 112, 130), instant, 0.0)
+		bird.name = "PerchedBird%d" % i
 	var size := ButtonKit.WIDE
 	var y := p.panel_rect.end.y + ACTION_GAP
 	var go := ButtonKit.button(c, "Rescue", Rect2(Vector2(540.0 - size.x * 0.5, y), size), "wide", func(): p.invoke(on_rescue))
@@ -34,7 +45,7 @@ static func preview(main: Control, state: String) -> void:
 		board.start(Levels.get_level(12), main.profile, false)
 		board.session.try_move(2, 3)
 		board.refresh_hud()
-		open(main.popups, func(): board.rescue(), true)
+		open(main.popups, func(): board.rescue(), state != "motion")
 		return
 	board.start(DEAD_END_LEVEL, main.profile, false)
 	var made := 0
