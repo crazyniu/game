@@ -727,9 +727,9 @@ const STATUS_INSET := 30.0       # inside the capsule's round ends
 const STATUS_CAP := 44.0
 const STATUS_STAR := 46.0
 ## Painted HUD pieces (Codex): the wooden plank (goal shelf and status plates), the tool slot and the gear button.
-const CAPSULE := "hud_status_capsule"   # the light frosted-green status capsule, the title banner's family
-const CAPSULE_END := 260         # capsule source pixels kept at each end (round end, leaf sprig); the middle extends
-const CAPSULE_BODY := Vector2(78.0 / 370.0, 1.0)   # the capsule body's top and bottom (the leaf rises above it), shares of its height
+const CAPSULE := "hud_status_cream"   # the cream status capsule, the bird keys and cards family
+const CAPSULE_END := 80          # capsule source pixels kept at each end (round end); the middle extends
+const CAPSULE_BODY := Vector2(0.0, 1.0)   # the capsule body fills the whole height
 const STATUS_STAR_GAP := 2.0
 const STATUS_ICON := 46.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.

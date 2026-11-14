@@ -95,6 +95,7 @@ static func banner(parent: Node, rect: Rect2) -> NinePatchRect:
 	plate.position = rect.position
 	plate.size = Vector2(rect.size.x / k, tex.get_height())
 	plate.scale = Vector2.ONE * k
+	plate.visible = false   # titles are lettering alone: no plate behind them
 	parent.add_child(plate)
 	return plate
 
