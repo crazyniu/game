@@ -29,6 +29,7 @@ Repair chapter resets, hints exceeding the three-star allowance, and tools tied 
 
 ## Acceptance
 
-The user owns tests and runtime acceptance. Data authoring and source review are permitted; do not run tests,
-lint, builds, the game, screenshots, solver replays or temporary verification programs. A formula and an ordered
+For that difficulty-reordering task, the user retained testing and runtime acceptance; its delivery was limited
+to data authoring and source review without tests, builds, game runs, captures or solver replays. That historical
+verification boundary does not prohibit checks explicitly authorized for later tasks. A formula and an ordered
 catalog do not prove subjective player difficulty or visual acceptance.

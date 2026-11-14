@@ -2,13 +2,10 @@
 
 Recorded 2026-11-10 from the user's finished island homepage and their page designs (Shop, Aviary, Aviary detail,
 Lucky Spin, Settings, Star Chest). The designs are a style source, not a layout to copy: each screen is designed
-fresh in this style. The felt/plush UI and the forest look are retired; the birds keep their current fleece look.
+fresh in this style. The felt/plush UI is retired. Later forest-specific contracts supersede the original coastal setting.
 
 ## Setting and mood
-Bright tropical island, a sunny holiday game. Full-bleed painted scene behind every page (turquoise sea, white
-surf, sand, palms, a waterfall cliff and a thatched pier hut far away, red hibiscus and big green leaves
-framing the corners and bottom). Popups sit over a darker, blurred dusk version of the same island. Pages feel
-open and airy: content floats over the scene on its own cards; there is no big backing sheet.
+Bright tropical forest cartoon styling. Use the approved page-specific jungle/forest backdrop, not the retired sea, surf, beach or pier composition. Keep backgrounds vivid and controls readable. Current popup materials are specified in [Purchase dialogs](purchase-dialogs.md) and [Outside dialog actions](dialog-layout.md).
 
 ## Palette
 | Role | Colour |
@@ -98,13 +95,11 @@ User review covers the first, middle and last forest, locked Play, long localize
 balances, opening a forest and returning, swiping, and the purchase entry. Resolution, runtime appearance,
 input, motion, audio, accessibility and performance are not assessed by this source-only delivery.
 
-### Homepage connected title, perch and beach
+### Homepage forest composition
 
 The user approved one raised composition: the Bird Sort wordmark and compact teal birdhouse roof
 connect through a curved natural branch to an open perch with four live birds below. This fills the
-middle without a separate large house, dense flowers, extra signs or empty cards. Keep a calm sky,
-limited turquoise bay and broad sandy foreground matching the game's actual coastal art. Play
-remains on the lower beach. Root Home particles are removed; level ambience remains independent.
+middle without a separate large house, dense flowers, extra signs or empty cards. The backdrop is the approved `background_home_jungle` forest painting. Root Home particles are removed; level ambience remains independent.
 
 Seven Home entries use proportional standalone color icons with alpha contours and no cream
 backings. Bottom icons fit 132 px boxes, right activities 120 px, and Settings 96 px. Hit areas
@@ -117,6 +112,5 @@ art and existing frame animation are used; the flattened design is never a runti
 User runtime acceptance is pending.
 
 ## Never
-Fonts for visible text, mirrored or flipped sprites for animation, pasted design images in the runtime, forest or
-felt styling, a different feather counter look, commas in numbers. Every world keeps its own theme (bamboo,
-autumn, snow ...) but is painted as an island of the same bright tropical style.
+Fonts for visible text, mirrored or flipped sprites for animation, pasted design images in the runtime, felt styling, a different feather counter look, commas in numbers. Every world keeps its own theme (bamboo,
+autumn, snow ...) with the same bright cartoon styling.
