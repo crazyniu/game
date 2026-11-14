@@ -42,13 +42,19 @@ func _run() -> void:
 	check(home.get_node("DailyReward").size.is_equal_approx(home.get_node("LuckyDraw").size), "event siblings match")
 	# The UI system explicitly permits an elongated Play pill; its height remains restrained.
 	check(home.get_node("Play").size.y <= home.get_node("Map").size.y * 1.25 + 0.01, "primary height respects sibling limit")
-	check(home.get_node("Play/Face").size.x < home.get_node("Play").size.x, "visible Play retains a larger touch area")
+	check(home.get_node("Play/Face").size.is_equal_approx(home.PLAY.size), "complete Play picture uses the accepted footprint")
 	for name in ["Shop", "Aviary", "Chest"]:
 		check(home.get_node("Map").size.is_equal_approx(home.get_node(name).size), "navigation size: " + name)
 	for name in ["Map", "Shop", "Aviary", "Chest"]:
-		check(home.get_node(name).size.is_equal_approx(home.NAV_SIZE * home.REFERENCE_SCALE), "navigation touch area retained: " + name)
-		check(home.get_node(name + "/Face").size.is_equal_approx(home.NAV_FACE_SIZE * home.REFERENCE_SCALE), "compact navigation art: " + name)
-	check(home._birds.size() == 6, "six animated birds")
+		check(home.get_node(name).size.is_equal_approx(home.ICON_ENTRY_SIZE), "navigation touch area retained: " + name)
+		var face: TextureRect = home.get_node(name + "/Face")
+		var icon: String = {"Map": "pic_map", "Shop": "pic_shop", "Aviary": "pic_aviary", "Chest": "pic_chest"}[name]
+		var content: Rect2 = home.ICON_CONTENT[icon]
+		var scale: Vector2 = face.size / face.texture.get_size()
+		var ink := Rect2(face.position + content.position * scale, content.size * scale)
+		check(is_equal_approx(maxf(ink.size.x, ink.size.y), home.NAV_ICON_SIDE), "navigation visible art fits canonical slot: " + name)
+		check(ink.get_center().distance_to(home.ICON_ENTRY_SIZE * 0.5) < 0.01, "navigation visible art is centered: " + name)
+	check(home._birds.size() == 4, "four live birds on the shared perch")
 	for entry in home._birds:
 		var bird: AnimatedSprite2D = entry.view
 		check(bird.sprite_frames.get_frame_count("default") == 8, "eight drawn frames: " + str(entry.pivot.name))
@@ -89,7 +95,7 @@ func _run() -> void:
 	UiText.set_language("en")
 	await process_frame
 	check(home.get_node("Play/Face").texture.resource_path.ends_with("btn_home_island_play_en.png"), "English complete Play refreshes in place")
-	check(home.get_node("Play").size.is_equal_approx(home.PLAY_SIZE * home.REFERENCE_SCALE), "localized Play keeps its footprint")
+	check(home.get_node("Play").size.is_equal_approx(home.PLAY.size), "localized Play keeps its footprint")
 	for name in buttons:
 		main._open_home()
 		await create_timer(0.5).timeout
@@ -122,9 +128,9 @@ func _run() -> void:
 					await create_timer(0.1).timeout
 				check(not main.screen.busy, "board entrance finishes: " + name)
 			"DailyReward": check(main.popups.find_child("DailyReward", true, false) != null, "click opens Daily Reward page")
-			"LuckyDraw": check(_has_label("draw.title"), "click opens Lucky Draw popup")
-			"Chest": check(_has_label("chest.title"), "click opens Chest popup")
-			"Settings": check(_has_label("popup.settings.title"), "click opens Settings popup")
+			"LuckyDraw": check(main.popups.find_child("DailyDraw", true, false) != null, "click opens Lucky Draw popup")
+			"Chest": check(main.popups.find_child("StarChest", true, false) != null, "click opens Chest popup")
+			"Settings": check(main.popups.find_child("Word_settings", true, false) != null, "click opens Settings popup")
 		await _capture("entry_" + name.to_lower())
 	main._open_home()
 	await create_timer(0.5).timeout
@@ -142,9 +148,3 @@ func _capture(name: String) -> void:
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(evidence.path_join(name + ".png"))
 	print("CAPTURE %s elapsed_ms=%d" % [name, Time.get_ticks_msec()])
-
-func _has_label(id: String) -> bool:
-	for node in main.popups.find_children("*", "", true, false):
-		if node is UiText.LabelSprite and node.label_id == id:
-			return true
-	return false

@@ -20,6 +20,7 @@ func _run() -> void:
 		for height in [300.0, 500.0, 800.0, 1100.0]:
 			var view: Control = modal.open(host, "popup.level.title", [height], true, 176.0, 0, true, false, "100")
 			var original_panel: Rect2 = view.panel_rect
+			var painted_panel := original_panel.grow_side(SIDE_TOP, load("res://game/purchase_dialog.gd").TITLE_ROOM)
 			var original_title: Control = view.content.get_node("TitleGroup")
 			var original_close: Control = view.content.get_node("Close")
 			var title_position: Vector2 = original_title.position
@@ -32,10 +33,10 @@ func _run() -> void:
 				check(view.content.get_node("TitleGroup") == original_title and original_title.position == title_position, "title instance and geometry preserved")
 				check(view.content.get_node("Close") == original_close and original_close.get_rect() == close_bounds, "Close instance and geometry preserved")
 				check(original_close.get_signal_connection_list("pressed") == close_connections, "Close callback connections preserved")
-				check(surface.get_rect() == original_panel, "material fits exact caller panel")
+				check(surface.get_rect() == painted_panel, "material reserves the documented title room above caller content")
 				check(face.texture == Art.tex(skin.CARD_ART), "the shop's cream card material")
 				check(face.scale == Vector2.ONE * skin.CARD_SCALE, "one corner scale across all sizes")
-				check(face.size.is_equal_approx(original_panel.size / skin.CARD_SCALE), "nine-patch scales only edges and center")
+				check(face.size.is_equal_approx(painted_panel.size / skin.CARD_SCALE), "nine-patch scales only edges and center")
 				check(face.texture.get_size().x > face.patch_margin_left + face.patch_margin_right and face.texture.get_size().y > face.patch_margin_top + face.patch_margin_bottom, "nine-patch retains positive center area")
 				check(view.get_node("ForestBackground").texture == Art.tex(skin.BACKGROUND_ART), "accepted bright forest pixels reused")
 				check(view._dim.color == view.POPUP_SHADE and view._dim.mouse_filter == Control.MOUSE_FILTER_STOP, "bright background preserves modal input blocking")

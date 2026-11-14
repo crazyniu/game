@@ -113,6 +113,9 @@ func _run() -> void:
 	for prizes in [[0, 0, 2], [0, 1, 2], []]:
 		page = main.Popups.rewards(main.popups, "chest.title", Progress.CHEST_COINS, prizes, func(): pass, "pic_chest_open", 1580)
 		await create_timer(0.3).timeout
+		# Prize entrance adds transient sparkles; wait for them to finish before
+		# asserting that the settled reward contains only its art and quantity.
+		await create_timer(2.0).timeout
 		var items: Array[Node] = page.content.find_children("ChestPrize*", "Control", false, false)
 		var kinds := {}
 		for kind in prizes:
