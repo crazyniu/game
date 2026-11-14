@@ -530,9 +530,9 @@ func _confirm_outfit(id: String, index: int, _tile: Control) -> void:
 	PurchaseDialog.glow(modal.content, pic)
 	_live_bird(modal.content, _species, "%s_outfit_%d" % [_species, it["index"]], pic.grow(-16.0))
 	var affordable: bool = profile.coins >= it["price"]
-	var action_size := ButtonKit.card_action_size(modal.panel_rect.size.x)
+	var action_size := Vector2(680, 162)
 	var accept := ButtonKit.button(modal.content, "Buy", Rect2(Vector2(540.0 - action_size.x * 0.5,
-		modal.panel_rect.end.y + Modal.ACTION_DROP), action_size), "wide", func(): modal.invoke(func(): _buy_outfit(id, index)))
+		float(modal.get_meta("actions_y"))), action_size), "wide", func(): modal.invoke(func(): _buy_outfit(id, index)))
 	var line := ButtonKit.price(accept.get_node("Content"), action_size, it["price"])
 	UI.set_active(accept, affordable)
 	if not affordable:
