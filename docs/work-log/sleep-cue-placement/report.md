@@ -13,3 +13,8 @@ The compact level-entry heading overlapped the close hit rectangle by about 26 p
 The green silhouette behind the card action was the map Play button visible through the modal shade, not an animation residue. The level card now temporarily hides that underlying action and restores it when the card leaves the tree. The shared level action is 760x200 with a nine-patch existing plate and centered icon/localized painted word group. Text and rounded ends are not stretched. Chinese/English actual level-71 screenshots were rechecked; the underlying silhouette is absent.
 
 Added `run_level_card_action.gd`: 14/0 covering both locales, width, centering, outside-panel placement, enabled action, face/hit bounds, map action hiding and restoration. Whole-suite rerun passes, as do heading 7861/0 and jungle 531/0. The tool test initially caught its old assertion that level Play equals the home button size; that assertion is updated to the user-requested shared `LEVEL_PLAY` size, preserving its geometry check. Tool regression rerun: 26/0.
+
+## Latest-main integration
+
+Merged main 4e7b46a before the final review. Sleep cue placement (170), level action (14), level heading (7861), jungle dialogs (531), level tools (26) and standalone card actions all passed. Repeated real OpenGL capture of level 71 in English/Chinese and the top-row sleep cue: the single widened Play remains centered without an underlying duplicate, title and Close are separate, and the cue occupies the left gutter rather than the roster. No other workers' changes were overwritten.
+Full repository scripts/run_tests.sh also exited 0 on the merged revision.
