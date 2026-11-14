@@ -27,3 +27,7 @@ Captured 20 genuine Godot OpenGL screenshots on the cloud desktop, ten states pe
 Existing tutorial artwork sits close to its close control; this is outside the bounded action-width change and not represented as fixed. This pass does not claim visual coverage of every game page.
 
 Independent review found no blocking code issue; suggested currency glyph and edge callback assertions were added. Submit a regular PR for review, without merging or deployment.
+
+## Owner visual correction after PR #285
+
+PR #285 was merged by the repository before the owner feedback could be committed, so this correction is a separate branch/PR based on the new main. Re-reviewed all 20 English/Chinese runtime captures. Currency price-only actions are now 552 × 136, word/feather-price actions cap at 680 × 162, bird-information stays 664 × 162, and icon-only rescue is 540 × 162. Heights, colors, painted text sizes and payment callbacks are unchanged. Repeated the targeted suite: 436/0 and purchase surfaces: 196/0 (28 states). The latest targeted log had no exit cleanup warning; the earlier warning above remains recorded rather than claimed fixed. No real payment was attempted.
