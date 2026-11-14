@@ -9,6 +9,7 @@ There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatib
 The [gameplay repairs](work-log/gameplay-repairs/report.md) cover settlement, inventory, animation cancellation,
 input, hints, tools and navigation. The [difficulty continuity report](work-log/difficulty-continuity/report.md)
 owns the current level order, hint allowances and save migration; the hundred-level round above is historical.
+The [day/night removal](work-log/no-day-night/report.md) then set `dayLength` to 0 in all levels and changed Inky to Encore and Hoot to Wake-up song. Retained phase code is not an active catalog mechanic.
 
 - Maintain **one current game**, editing canonical files in place. Never create numbered parallel folders, files, classes, scenes or resource roots, or alternate implementation copies under any other name.
 - Task branches and PRs are temporary and merge into `main`; they are not permanent forks.
@@ -20,7 +21,7 @@ owns the current level order, hint allowances and save migration; the hundred-le
 
 | Concern | Source |
 | --- | --- |
-| Board model, moves, homecoming waves and gifts, eggs, sleep, crows, twigs, swivels, growing branches, day/night, chorus coins, boosters, undo, solver | [core](../PerchSort/core) |
+| Board model, moves, homecoming waves and gifts, eggs, sleep, crows, twigs, swivels, growing branches, chorus coins, boosters, undo, solver | [core](../PerchSort/core) |
 | Profile, unlocks, economy, map states, daily gift, shop, aviary | [meta](../PerchSort/meta) |
 | Board, HUD, birds, popups, map, shop, aviary, navigation, audio | [game](../PerchSort/game) |
 | Localized whole-label textures and numeric cells | [runtime renderer](../PerchSort/game/ui_text.gd), [English source catalog](../tools/kit/locales/en_docs.json), [locale packs](../PerchSort/art/locale) |

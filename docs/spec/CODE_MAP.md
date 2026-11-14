@@ -6,7 +6,7 @@ Source organization of the Godot game. Start at [CURRENT_GAME](../CURRENT_GAME.m
 | --- | --- | --- |
 | `core/board.gd` | `Board` | Packed board state: branches, birds, kinds, phases, boosters, inventory |
 | `core/levels.gd` | `Levels` | Reads `levels/levels.json`, builds boards, lists species |
-| `core/rules.gd` | `Rules` | Moves, transfers, homecoming waves, gifts, eggs, sleep, crows, day/night, booster effects; emits events |
+| `core/rules.gd` | `Rules` | Moves, transfers, homecoming waves, gifts, eggs, sleep, crows, booster effects; emits events |
 | `core/solver.gd` | `Solver` | Breadth-first search with hint preference (hints, level checks) |
 | `core/session.gd` | `GameSession` | Selection, undo, restart, move counting, boosters |
 | `meta/profile.gd` | `Profile` | Save JSON (original field names), stars, best moves, inventory, met species |
