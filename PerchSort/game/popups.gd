@@ -538,7 +538,14 @@ static func lucky_draw(host: Control, spins: int, slots: int, draw: Callable) ->
 			lights[at].modulate.a = 1.0
 			state["at"] = at
 		var reveal := func():
-			Sound.play("reward")
+			# The winning card jumps; the reward chime itself plays with the prize on the result page.
+			Sound.play("star_3")
+			if not instant:
+				var won := cards[target] as Control
+				won.pivot_offset = won.size * 0.5
+				var pop := won.create_tween()
+				pop.tween_property(won, "scale", Vector2.ONE * 1.16, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+				pop.tween_property(won, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			if got["booster"] >= 0:
 				var holder := cards[target] as Control
 				var old := holder.get_node("PrizeArt")
@@ -654,11 +661,15 @@ static func daily_reward(host: Control, today: int, available: bool, balance: in
 		UI.set_active(go, false)
 		var tile: Control = tiles[int(got["day"]) - 1]
 		_daily_stamp(tile, instant)
-		Sound.play("reward")
-		bar.set_amount(balance + int(got["coins"]), true)
+		# The reward chime plays with the prizes in the rewards popup, not before it is on screen.
+		var total := balance + int(got["coins"])
+		if instant or int(got["coins"]) <= 0:
+			bar.set_amount(total, true)
+		else:
+			coin_flight(p.content, tile.position + tile.size * 0.5, bar.position + Vector2(56, bar.size.y * 0.5), 0.2,
+				func(): bar.set_amount(total, true))
 		if not instant:
-			_coin_burst(p, tile.position + tile.size * 0.5, 0.15)
-			await p.get_tree().create_timer(0.9).timeout
+			await p.get_tree().create_timer(1.1).timeout
 		if not is_instance_valid(p):
 			return
 		rewards(host, "daily_reward.title", int(got["coins"]), got["boosters"], p.close, "pic_calendar"))
@@ -1024,6 +1035,7 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		counts[kind] = int(counts.get(kind, 0)) + 1
 	for kind in counts:
 		prizes.append(["island_icon_" + CHEST_BOOSTER_ART[kind], counts[kind]])
+	var shown := []
 	for i in prizes.size():
 		var spacing := minf(228.0, 912.0 / prizes.size())
 		var offset := i - (prizes.size() - 1) * 0.5
@@ -1040,6 +1052,9 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		if not _instant(host):
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
+		shown.append(prize)
+	if not _instant(host):
+		_prize_entrance(p, shown, 0.25)
 	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520, 560, 208), on_ok)
 	return p
 
@@ -1079,6 +1094,7 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 	if live:
 		rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
 		_breathe(art, 0.0)
+	var shown := []
 	for i in prizes.size():
 		var row: int = i / 3
 		var columns := mini(3, prizes.size() - row * 3)
@@ -1088,12 +1104,16 @@ static func rewards(host: Control, title_id: String, coins: int, boosters: Array
 		var prize := Control.new()
 		prize.name = "Reward%d" % i
 		prize.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		prize.set_meta("amount", prizes[i][1])
 		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, REWARD_TILE))
 		c.add_child(prize)
 		var item := _fit(prize, prizes[i][0], Rect2(20, 0, spacing - 40, 170), true)
 		if live:
 			_breathe(item, i * 0.4)
 		FamilyDialog.digits(prize, "Number", Rect2(8, 190, spacing - 16, 56), "+%d" % prizes[i][1])
+		shown.append(prize)
+	if live:
+		_prize_entrance(p, shown, 0.3)
 	FamilyDialog.actions(p, [["green", "play", on_ok, "action.ok"]])
 	return p
 
@@ -1136,6 +1156,7 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 	var gap := 24.0
 	var height := tile.y * rows + gap * (rows - 1)
 	var top := 870.0 - height * 0.5
+	var shown := []
 	for i in prizes.size():
 		var row := i / 3
 		var in_row := mini(3, prizes.size() - row * 3)
@@ -1166,6 +1187,9 @@ static func _draw_rewards(host: Control, coins: int, boosters: Array, on_ok: Cal
 			rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(reward, "Number", Rect2(20, tile.y - 108, tile.x - 40, 80), "+%d" % prizes[i][1])
+		shown.append(reward)
+	if not instant:
+		_prize_entrance(p, shown, 0.2)
 	# The hit area holds the on-screen ButtonKit.PRIMARY plate with room to spare.
 	var action_box := Rect2(Vector2(208, 1340) * DrawPurchaseArt.SCALE + canvas.position,
 		Vector2(500, 186) * DrawPurchaseArt.SCALE)
@@ -1478,6 +1502,63 @@ static func _coin_burst(p: Control, center: Vector2, delay: float) -> void:
 			coin.position = at - coin.size * 0.5
 			coin.scale = Vector2.ONE * lerpf(1.0, 0.55, t)
 			coin.modulate.a = minf(1.0, t * 10.0) * minf(1.0, (1.0 - t) * 6.0), 0.0, 1.0, 0.65)
+		tw.tween_callback(coin.queue_free)
+
+## Won prizes arrive instead of just standing there: one after another each pops out of nothing with the reward
+## chime and a ring of sparkles, and its "+N" counts up from zero. `prizes` are the prize holders; each has a
+## "Number" child (FamilyDialog.digits) and the meta "amount". Ends with confetti over the whole popup.
+const PRIZE_STAGGER := 0.22
+
+static func _prize_entrance(p: Control, prizes: Array, delay: float) -> void:
+	for i in prizes.size():
+		var prize: Control = prizes[i]
+		var number: Control = prize.get_node("Number")
+		var amount := int(prize.get_meta("amount"))
+		FamilyDialog.set_digits(number, "+0")
+		prize.pivot_offset = prize.size * 0.5
+		prize.scale = Vector2.ZERO
+		var tw := prize.create_tween()
+		tw.tween_interval(delay + i * PRIZE_STAGGER)
+		tw.tween_callback(Sound.play.bind("reward", 1.0 + 0.08 * i))
+		tw.tween_callback(_sparkle_ring.bind(prize))
+		tw.tween_property(prize, "scale", Vector2.ONE * 1.18, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(prize, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.parallel().tween_method(func(v: float): FamilyDialog.set_digits(number, "+%d" % roundi(v)), 0.0, float(amount), 0.5)
+	_confetti(p, delay + 0.1)
+
+## Eight sparkles fly out of a prize's middle and fade.
+static func _sparkle_ring(prize: Control) -> void:
+	var middle := Vector2(prize.size.x * 0.5, prize.size.y * 0.4)
+	var reach := prize.size.x * 0.62
+	for i in 8:
+		var spark := UI.image(prize, "sparkle", Rect2(middle - Vector2(28, 28), Vector2(56, 56)))
+		spark.pivot_offset = spark.size * 0.5
+		var way := Vector2.from_angle(TAU * i / 8.0 + 0.3)
+		var tw := spark.create_tween()
+		tw.tween_method(func(t: float):
+			spark.position = middle + way * reach * t - spark.size * 0.5
+			spark.scale = Vector2.ONE * lerpf(0.5, 1.2, sin(t * PI))
+			spark.rotation = t * 1.5
+			spark.modulate.a = minf(1.0, (1.0 - t) * 3.0), 0.0, 1.0, 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.tween_callback(spark.queue_free)
+
+## Coins leave `from` in a fan and fly into `to` (a feather counter), each landing with a tick; positions are in
+## `layer`'s own coordinates. `on_land` runs as the first coin lands.
+static func coin_flight(layer: Control, from: Vector2, to: Vector2, delay := 0.0, on_land := Callable()) -> void:
+	for i in 9:
+		var coin := UI.image(layer, "coin", Rect2(from - Vector2(36, 36), Vector2(72, 72)))
+		coin.pivot_offset = coin.size * 0.5
+		coin.modulate.a = 0.0
+		var spread := from + Vector2.from_angle(TAU * i / 9.0) * (90.0 + 14.0 * (i % 3))
+		var tw := coin.create_tween()
+		tw.tween_interval(delay + i * 0.05)
+		tw.tween_property(coin, "modulate:a", 1.0, 0.06)
+		tw.parallel().tween_property(coin, "position", spread - coin.size * 0.5, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(coin, "position", to - coin.size * 0.5, 0.42).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tw.parallel().tween_property(coin, "scale", Vector2.ONE * 0.6, 0.42)
+		tw.tween_callback(Sound.play.bind("ui_tap", 1.5 + 0.05 * i))
+		if i == 0 and on_land.is_valid():
+			tw.tween_callback(on_land)
 		tw.tween_callback(coin.queue_free)
 
 ## Gentle squash at the feet, forever (props only; birds are BirdViews).

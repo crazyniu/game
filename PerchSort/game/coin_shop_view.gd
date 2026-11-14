@@ -59,6 +59,7 @@ func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 	DrawPurchaseArt.button(modal.content, "Confirm", "btn_purchase_" + PRICE_KEYS[PACKS.find(pack)], Rect2(at, CONFIRM_SIZE),
 		func(): modal.invoke(on_confirm.bind(pack)))
 
+const Popups := preload("res://game/popups.gd")
 const BALANCE_NUMBER := Rect2(707, 73, 157, 44)
 const CONFIRM_SIZE := Vector2(348, 136)   # the pack's price picture at ButtonKit.PRIMARY height
 
@@ -73,6 +74,29 @@ func set_balance(balance: int) -> void:
 	fresh.name = "BalanceNumber"
 	page.move_child(fresh, at)
 
+## A pack was paid for: coins fan out of the middle of the page and fly into the balance, which counts up from
+## `before` to `after` and pops as they land.
+func celebrate_purchase(before: int, after: int) -> void:
+	if instant:
+		set_balance(after)
+		return
+	Sound.play("collect")
+	var page := get_node("ApprovedLayout") as Control
+	var counter := page.get_node("Balance") as Control
+	var layer := Control.new()
+	layer.name = "PurchaseCoins"
+	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	page.add_child(layer)
+	var target := counter.position + Vector2(counter.size.y * 0.5, counter.size.y * 0.5)
+	Popups.coin_flight(layer, page.size * 0.5, target, 0.25, func():
+		counter.pivot_offset = counter.size * 0.5
+		var pop := counter.create_tween()
+		pop.tween_property(counter, "scale", Vector2.ONE * 1.12, 0.12).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		pop.tween_property(counter, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		var count := create_tween()
+		count.tween_method(func(v: float): set_balance(roundi(v)), float(before), float(after), 0.7))
+	get_tree().create_timer(1.8).timeout.connect(layer.queue_free)
+
 ## Fake-data states use the canonical page and its purchase-request contract.
 static func preview(main: Control, state: String) -> void:
 	var view: Control = load("res://game/coin_shop_view.gd").new()
@@ -86,7 +110,7 @@ static func preview(main: Control, state: String) -> void:
 	view.setup(balance)
 	var paid := func(pack: Dictionary):
 		balance += int(pack["coins"])
-		view.set_balance(balance)
+		view.celebrate_purchase(balance - int(pack["coins"]), balance)
 	view.purchase_requested.connect(func(pack): view.show_purchase(pack, paid))
 	view.closed.connect(main.open_home)
 	Sound.music("bgm_menu")
