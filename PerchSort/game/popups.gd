@@ -1151,8 +1151,10 @@ const CHEST_READY_HERO := Rect2(235, 544, 610, 616)
 const CHEST_PROGRESS := Rect2(168, 1300, 744, 112)
 const CHEST_PROGRESS_INSET := 9.0
 const CHEST_ACTION := Rect2(260, 1440, 560, 208)   # hit area around the ButtonKit.PRIMARY plate
-const CHEST_RESULT_HERO := Rect2(270, 792, 540, 540)
-const CHEST_RESULT_SUPPORT := Rect2(145, 1242, 790, 214)
+const CHEST_RESULT_HERO := CHEST_HERO   # the opened chest keeps the closed chest's place and size
+const CHEST_MOUTH := Vector2(540, 830)   # where the opened chest's mouth is: the burst and the prizes leave from here
+const CHEST_PRIZE_Y := 1292.0   # the prize row stands in front of the chest, where the progress rail was
+const CHEST_RESULT_SUPPORT := CHEST_SUPPORT
 # Ignore invisible generation padding when positioning the original, unchanged RGBA pictures.
 const CHEST_CLOSED_INK := Rect2(33, 172, 1189, 933)
 const CHEST_OPEN_INK := Rect2(101, 90, 1031, 1012)
@@ -1177,6 +1179,13 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 	Art.tex("chest_star_open")
 	for reward_art in CHEST_BOOSTER_ART:
 		Art.tex("island_icon_" + reward_art)
+	if ready > 0 and not _instant(host):   # a ready chest jiggles now and then: it wants to be opened
+		var hero: Control = p.content.get_node("ChestHero")
+		var idle := hero.create_tween().set_loops()
+		idle.tween_interval(1.6)
+		for angle in [3.0, -3.5, 2.5, -1.5, 0.0]:
+			idle.tween_property(hero, "rotation", deg_to_rad(angle), 0.08).set_trans(Tween.TRANS_SINE)
+		hero.set_meta("idle", idle)
 	var count := ChestLettering.number(p.content, str(maxi(0, ready)), Rect2(400, 552, 280, 104))
 	count.name = "ReadyCount"
 	var collected := clampi(progress, 0, Progress.CHEST_STARS)
@@ -1340,25 +1349,62 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		var spacing := minf(228.0, 912.0 / prizes.size())
 		var offset := i - (prizes.size() - 1) * 0.5
 		var x := 540.0 + offset * spacing
-		var y := 486.0 + minf(1.0, absf(offset)) * 68.0
+		var y := CHEST_PRIZE_Y
 		var prize := Control.new()
 		prize.name = "ChestPrize%d" % i
 		prize.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		prize.set_meta("picture", prizes[i][0])
 		prize.set_meta("amount", prizes[i][1])
-		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, 250))
+		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, 210))
 		p.content.add_child(prize)
-		var art := _fit(prize, prizes[i][0], Rect2(8, 0, spacing - 16, 190), true, CHEST_REWARD_INK[prizes[i][0]])
+		var art := _fit(prize, prizes[i][0], Rect2(14, 0, spacing - 28, 150), true, CHEST_REWARD_INK[prizes[i][0]])
 		if not _instant(host):
 			_breathe(art, i * 0.4)
-		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
+		FamilyDialog.digits(prize, "Number", Rect2(4, 156, spacing - 8, 52), "+%d" % prizes[i][1])
 		shown.append(prize)
 	if not _instant(host):
-		_prize_entrance(p, shown, 0.25)
+		_chest_prize_burst(p, shown)
 	_chest_action(p, "ConfirmRewards", "action.ok", Rect2(260, 1520, 560, 208), on_ok)
 	return p
 
 const REWARD_TILE := 250.0
+
+## The prizes fly out of the open chest one after another: each leaves the mouth small, arcs high over the chest and
+## drops onto its place in the row, lands with a squash and a ring of sparkles, and its amount counts up.
+const CHEST_PRIZE_FLIGHT := 0.85
+const CHEST_PRIZE_STAGGER := 0.2
+
+static func _chest_prize_burst(p: Control, prizes: Array) -> void:
+	for i in prizes.size():
+		var prize: Control = prizes[i]
+		var number: Control = prize.get_node("Number")
+		var amount := int(prize.get_meta("amount"))
+		FamilyDialog.set_digits(number, "+0")
+		number.modulate.a = 0.0
+		prize.pivot_offset = prize.size * 0.5
+		var rest := prize.position
+		var from := CHEST_MOUTH - prize.size * 0.5
+		# A quadratic arc tops out halfway to its control point: this puts the apex well above the open lid (y ~380).
+		var peak := Vector2((from.x + rest.x) * 0.5, -250.0 + 40.0 * i)
+		prize.position = from
+		prize.scale = Vector2.ONE * 0.4
+		prize.modulate.a = 0.0
+		var arc := func(t: float) -> void:
+			prize.position = from.lerp(peak, t).lerp(peak.lerp(rest, t), t)
+			prize.scale = Vector2.ONE * lerpf(0.4, 1.15, minf(1.0, t * 1.4)) if t < 0.8 else Vector2.ONE * lerpf(1.15, 1.0, (t - 0.8) / 0.2)
+			prize.rotation = sin(t * PI) * (0.35 if rest.x >= from.x else -0.35)
+		var tw := prize.create_tween()
+		tw.tween_interval(0.12 + i * CHEST_PRIZE_STAGGER)
+		tw.tween_callback(Sound.play.bind("reward", 1.0 + 0.08 * i))
+		tw.tween_property(prize, "modulate:a", 1.0, 0.08)
+		tw.parallel().tween_method(arc, 0.0, 1.0, CHEST_PRIZE_FLIGHT).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_callback(_sparkle_ring.bind(prize))
+		tw.tween_property(prize, "scale", Vector2(1.25, 0.8), 0.07)   # the landing
+		tw.tween_property(prize, "scale", Vector2(0.92, 1.1), 0.1)
+		tw.tween_property(prize, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.parallel().tween_property(number, "modulate:a", 1.0, 0.12)
+		tw.parallel().tween_method(func(v: float): FamilyDialog.set_digits(number, "+%d" % roundi(v)), 0.0, float(amount), 0.5)
+	_confetti(p, 0.1)
 
 ## Coins and boosters form one celebration group with painted amounts; OK closes.
 ## `picture` stands in when no booster is won (coins only).
@@ -2005,6 +2051,14 @@ static func preview(main: Control, state: String) -> void:
 		"chest_ready": chest(host, Progress.CHEST_STARS, 1, func():
 			rewards(host, "chest.title", Progress.CHEST_COINS, [0, 3, 0], noop, "pic_chest_open", 1280 + Progress.CHEST_COINS),
 			noop, 1280)
+		"chest_opening":   # the ready chest; Open is pressed after a moment (frame sequences of the whole opening)
+			var page := chest(host, Progress.CHEST_STARS, 1, func():
+				rewards(host, "chest.title", Progress.CHEST_COINS, [0, 3, 0], noop, "pic_chest_open", 1280 + Progress.CHEST_COINS),
+				noop, 1280)
+			host.get_tree().create_timer(1.5).timeout.connect(func():
+				var open: Button = page.content.get_node_or_null("OpenChest")
+				if open != null:
+					open.pressed.emit())
 		"chest_multiple": chest(host, Progress.CHEST_STARS * 3 + 2, 3, func():
 			rewards(host, "chest.title", Progress.CHEST_COINS, [0, 2, 3], noop, "pic_chest_open", 99999), noop, 99999)
 		"rewards_daily": rewards(host, "daily_reward.title", 250, [0, 1], noop, "pic_calendar")
