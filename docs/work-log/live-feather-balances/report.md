@@ -12,7 +12,7 @@ The daily page exposes a scoped balance refresh callback and receives a live pro
 
 ## Validation
 - Godot 4.7.2, independent checkout and isolated XDG data; no user save.
-- `godot --headless --audio-driver Dummy --path PerchSort --script res://tests/run_live_feather_balances.gd`: 16 checks, zero failures. Covers success, cancel, page identity, claimed state, parent/child consistency and the display cap.
+- `godot --headless --audio-driver Dummy --path PerchSort --script res://tests/run_live_feather_balances.gd`: 22 checks, zero failures. Covers success, cancel, page identity, claimed state, parent/child consistency and the display cap. Non-instant cases additionally cover a top-up during reward flight, stale delayed landing prevention, and closing mid-flight with no orphan reward popup or lost/double reward.
 - `GODOT=<Godot 4.7.2> bash scripts/run_tests.sh`: passed naming self-test/guard, painted words, smoke (zero failures), all 210 cached core routes (zero failures).
 - `git diff --check`: passed.
 - Actual Xvfb/Mesa render through the production purchase signal and confirmation: daily 700, after claim 750, nested Sunny 1350. The two captured counters were visually inspected; layout is unchanged.

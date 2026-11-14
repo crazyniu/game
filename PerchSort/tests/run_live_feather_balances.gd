@@ -66,7 +66,35 @@ func _run() -> void:
 	await _purchase(bird._coins)
 	check(bird._coins.amount == main.profile.coins, "full balance is retained beyond display cap")
 	check(bird._coins.get_meta("display_value") == str(load("res://game/feather_bar.gd").DISPLAY_MAX), "display cap remains presentation-only")
+	await _animated_daily(false)
+	await _animated_daily(true)
 	main.queue_free()
 	await process_frame
 	print("Live feather balances: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures else 0)
+
+## Exercise the deferred coin landing with a top-up in flight, then closing before that landing.
+func _animated_daily(close_early: bool) -> void:
+	main._close_overlay(false)
+	main._clear_popups()
+	await process_frame
+	main.profile = load("res://meta/profile.gd").new()
+	main.profile.coins = 100
+	main.args["motion"] = "1"
+	main.show_daily_reward()
+	var daily: Control = main.popups.get_node("DailyReward")
+	var bar: Control = daily.content.get_node("Coins")
+	await create_timer(0.3).timeout
+	daily.content.get_node("Claim").pressed.emit()
+	var claimed: int = main.profile.coins
+	if close_early:
+		daily.close()
+		await create_timer(2.5).timeout
+		check(not is_instance_valid(daily), "daily can close during reward animation")
+		check(main.popups.get_child_count() == 0, "closing during flight creates no orphan rewards popup")
+		check(main.profile.coins == claimed, "closing during flight retains exactly the claimed reward")
+	else:
+		await _purchase(bar)
+		await create_timer(2.5).timeout
+		check(bar.amount == main.profile.coins, "late coin landing cannot overwrite an intervening top-up")
+		check(main.profile.coins == claimed + int(load("res://game/coin_shop_view.gd").PACKS[0]["coins"]), "animated claim and top-up credit once")
