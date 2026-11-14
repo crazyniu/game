@@ -257,7 +257,7 @@ static func checkin_day(p: Profile, today: String) -> int:
 static func begin_draw_day(p: Profile, today: String) -> void:
 	if unlimited and p.draws_left <= 0:
 		p.draws_left = DRAW_MAX_SPINS
-	if p.draws_date == today:
+	if today <= p.draws_date:
 		return
 	var day := checkin_day(p, today)
 	if day == 0:
@@ -266,13 +266,13 @@ static func begin_draw_day(p: Profile, today: String) -> void:
 	p.draws_left = mini(day, DRAW_MAX_SPINS)
 
 static func draws_available(p: Profile, today: String) -> bool:
-	return unlimited or p.draws_date != today or p.draws_left > 0
+	return unlimited or today > p.draws_date or (today == p.draws_date and p.draws_left > 0)
 
 ## One draw: {"cell", "coins", "booster", "count"} (the ring cell it stops on and what it paid; booster is -1 for a coin
 ## cell) or {} when none is left today.
 static func draw(p: Profile, today: String, rng := RandomNumberGenerator.new()) -> Dictionary:
 	begin_draw_day(p, today)
-	if p.draws_left <= 0:
+	if (not unlimited and today < p.draws_date) or p.draws_left <= 0:
 		return {}
 	if not unlimited:
 		p.draws_left -= 1
