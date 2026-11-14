@@ -16,3 +16,11 @@ The user approved `art/approved_ui/level_entry_jungle.png` and `win_result_jungl
 ## Acceptance states
 
 Both languages: first visit, locked entry, full roster, two/four tools; zero reward, one/two/three stars and repeated booster drop. Check all action callbacks, duplicate-press guard, disabled Next/Play, centered lettering, content clearance, rigid frame ends, and no off-screen actions. Capture actual Godot frames and compare the approved references; no screenshot is a gameplay substitute. Audio and physical-device acceptance are outside this local visual pass.
+
+### Leaf accents
+
+Approved follow-up adds two independent proportional leaf sprites on the rim, using
+`JungleDialog.decorate(parent, rect)`. The panel bitmap is unchanged. Upper accent is
+160×123, lower accent 106×81; both ignore mouse input. Atlas region excludes transparent
+padding but does not distort or repaint the sprite. Purchase dialogs may reuse the same
+asset/placement without adopting this shell's content layout.

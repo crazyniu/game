@@ -33,6 +33,11 @@ func _run() -> void:
 			var dialog: Control = main.popups.get_child(main.popups.get_child_count() - 1)
 			check(dialog.content.get_node("Panel") is NinePatchRect, locale + " " + state + " opts into new shell")
 			check(dialog.panel_rect.position.y >= 20.0, state + " frame stays below top edge")
+			for leaf_name in ["LeavesUpper", "LeavesLower"]:
+				var leaf: TextureRect = dialog.content.get_node(leaf_name)
+				check(leaf.size.x <= 160 and leaf.size.y <= 123, leaf_name + " restrained size")
+				check(leaf.mouse_filter == Control.MOUSE_FILTER_IGNORE, leaf_name + " never intercepts input")
+				check(Rect2(0, 0, 1080, 1920).encloses(leaf.get_rect()), leaf_name + " remains on screen")
 			var names := ["Play"] if state.begins_with("level_card") else ["action_next", "Retry", "Home"]
 			for n in names:
 				var button: Control = dialog.content.get_node(n)

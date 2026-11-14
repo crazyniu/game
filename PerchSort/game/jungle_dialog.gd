@@ -38,6 +38,7 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 	panel.patch_margin_top = 330
 	panel.patch_margin_bottom = 210
 	dialog.content.add_child(panel)
+	decorate(dialog.content, rect)
 	var sign: Control
 	if ordinal.is_empty():
 		sign = ButtonKit.sign(dialog.content, title, Rect2(220, top - 14, 640, 223))
@@ -67,6 +68,26 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 	dialog.set_meta("card_rect", rect)
 	dialog.set_meta("actions_y", rect.end.y + Modal.ACTION_DROP)
 	return dialog
+
+static func decorate(parent: Control, rect: Rect2) -> void:
+	# Independent sprites stay proportional when the panel's quiet centre stretches.
+	var leaf := AtlasTexture.new()
+	leaf.atlas = Art.tex("decor_jungle_leaves")
+	leaf.region = Rect2(275, 110, 985, 755)
+	for item in [
+		["LeavesUpper", Rect2(rect.position + Vector2(24, 80), Vector2(160, 123)), false],
+		["LeavesLower", Rect2(rect.end - Vector2(146, 108), Vector2(106, 81)), true],
+	]:
+		var sprig := TextureRect.new()
+		sprig.name = item[0]
+		sprig.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		sprig.texture = leaf
+		sprig.position = item[1].position
+		sprig.size = item[1].size
+		sprig.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		sprig.flip_h = item[2]
+		sprig.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		parent.add_child(sprig)
 
 static func secondary(parent: Control, name: String, rect: Rect2, word: String, action: Callable) -> Button:
 	var button := UI.art_button(parent, name, "btn_dialog_wood", rect, action)

@@ -23,3 +23,16 @@
 The user accepted the revised wooden secondary-button runtime screenshot. This PR stays draft for their branch testing and must not be merged automatically. Close button and characters intentionally retain game artwork rather than copying the mockup. Primary/secondary row width follows the latest user-approved composition. Other popup families and board HUD are outside this branch.
 
 The initial temporary disk filled during import; this worktree was moved to the larger workspace, its generated cache was rebuilt completely, and tracked import settings restored. Final captures had no parse or missing-resource errors.
+
+## Approved leaf-border follow-up
+
+The owner approved restrained leaf accents. Added an independently generated transparent
+leaf pair (`decor_jungle_leaves.png`), not pixels cut from the approval mockup.
+Two proportional overlays attach to the upper-left and lower-right rim; the existing
+panel, title, stars, content positions and buttons remain unchanged. The sprites ignore
+mouse input and do not participate in nine-patch stretching. Transparent compositing
+was inspected against a solid background: no visible bloom outside the leaf silhouette.
+
+Validation: 268 dialog checks pass across 10 states and both English/Chinese, including
+leaf size, screen bounds and input pass-through; actual Godot captures of both dialogs
+in both languages were inspected. Runtime captures remain ignored build evidence.
