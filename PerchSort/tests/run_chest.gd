@@ -16,6 +16,7 @@ func check(ok: bool, label: String) -> void:
 
 func _run() -> void:
 	var ChestOpening = load("res://game/chest_opening.gd")
+	var Sound = root.get_node("Sound")
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--chest-evidence="):
 			evidence = arg.trim_prefix("--chest-evidence=")
@@ -80,6 +81,8 @@ func _run() -> void:
 		check(JSON.stringify(main.profile.to_dict()) == before, "Close preserves all profile values")
 	# Cancel during opening and destroy the page during opening: neither commits a reward.
 	for destroy in [false, true]:
+		Sound.muted = not destroy
+		Sound._last_play.erase("crate_open")
 		_set_stars(Progress.CHEST_STARS)
 		var unchanged := JSON.stringify(main.profile.to_dict())
 		main.show_chest()
@@ -87,13 +90,15 @@ func _run() -> void:
 		var canceled: Control = main.popups.get_child(-1)
 		tap(canceled.get_node("Content/OpenChest"))
 		await create_timer(0.2).timeout
+		check(Sound._last_play.has("crate_open") == destroy, "opening sound respects effects mute")
 		if destroy:
 			canceled.queue_free()
 		else:
 			tap(canceled.get_node("Content/Close"))
-		await create_timer(ChestOpening.STEP * ChestOpening.FRAME_INK.size() + ChestOpening.HOLD + 0.3).timeout
+		await create_timer(ChestOpening.DURATION + 0.3).timeout
 		check(JSON.stringify(main.profile.to_dict()) == unchanged, "canceled opening preserves claim and profile")
 		check(Progress.chests_ready(main.profile) == 1, "canceled chest remains available")
+	Sound.muted = true
 	_set_stars(Progress.CHEST_STARS * 3 + 2)
 	main.show_chest()
 	await create_timer(0.35).timeout
@@ -114,7 +119,7 @@ func _run() -> void:
 	await create_timer(0.25).timeout
 	check(main.profile.chests_opened == 0, "no reward before opening finishes")
 	check(page.has_node("Content/ChestOpeningHero"), "distinct opening pose is visible")
-	await create_timer(ChestOpening.STEP * ChestOpening.FRAME_INK.size() + ChestOpening.HOLD + 0.25).timeout
+	await create_timer(ChestOpening.DURATION + 0.25).timeout
 	check(main.profile.chests_opened == 1, "repeated input opens exactly one chest")
 	check(main.profile.coins == before_coins + Progress.CHEST_COINS, "production coin reward preserved")
 	var inventory := 0
