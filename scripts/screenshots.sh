@@ -10,7 +10,7 @@ states=(
   popups:win_three_stars popups:win_two_stars popups:win_one_star popups:win_zero_reward
   popups:settings_sound_on popups:settings_muted popups:document_credits popups:level_card_first_visit popups:level_card_full_roster popups:level_card_locked
   popups:goal_info_berry popups:goal_info_hoot popups:win_milestone popups:lucky_draw popups:lucky_draw_none popups:lucky_draw_coins popups:chest_half popups:chest_ready popups:rewards_chest popups:daily_reward popups:daily_reward_first popups:daily_reward_week popups:daily_reward_claimed popups:rewards_daily popups:new_friend_berry
-  popups:unlock_owl_eye popups:unlock_sapling popups:world_complete_1 popups:world_unlock_2 popups:world_unlock_4
+  stuck_offer:normal stuck_offer:restart popups:unlock_owl_eye popups:unlock_sapling popups:world_complete_1 popups:world_unlock_2 popups:world_unlock_4
   home_view:home home_view:home_new
   map_view:cards map_view:cards_late map_view:cards_all map_view:world_page map_view:world_page_late map_view:world_page_last
   shop_view:boosters shop_view:outfits shop_view:outfits_some_unmet shop_view:bird_outfits shop_view:houses shop_view:confirm_booster shop_view:confirm_outfit shop_view:confirm_outfit_short shop_view:confirm_multiple

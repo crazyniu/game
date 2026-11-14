@@ -383,6 +383,9 @@ func open_trial(number: int) -> void:
 		board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
 			if is_instance_valid(board):
 				board.rescue(), instant()))
+		board.restart_offered.connect(func(picture: String): StuckOffer.open_restart(popups, picture, func():
+			if is_instance_valid(board):
+				board.restart(), instant()))
 		board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
 		board.won.connect(func(result: Dictionary):
 			var session: GameSession = result["session"]
@@ -423,6 +426,9 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
 		if is_instance_valid(board):
 			board.rescue(), instant()))
+	board.restart_offered.connect(func(picture: String): StuckOffer.open_restart(popups, picture, func():
+		if is_instance_valid(board):
+			board.restart(), instant()))
 	board.undo_more_requested.connect(_offer_undos.bind(board))
 	board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
 	board.won.connect(_on_won.bind(level_id))
