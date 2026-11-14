@@ -15,6 +15,9 @@ const BOOSTER_IDS: PackedStringArray = ["firefly", "sapling", "owlEye", "morning
 ## Schema 5: every world grew from 10 to 21 levels; an old level keeps its place among its world's odd numbers.
 const LEVEL_SPREAD := {1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11, 7: 13, 8: 15, 9: 17, 10: 19, 11: 22, 12: 24, 13: 26, 14: 28, 15: 30, 16: 32, 17: 34, 18: 36, 19: 38, 20: 40, 21: 43, 22: 45, 23: 47, 24: 49, 25: 51, 26: 53, 27: 55, 28: 57, 29: 59, 30: 61, 31: 64, 32: 66, 33: 68, 34: 70, 35: 72, 36: 74, 37: 76, 38: 78, 39: 80, 40: 82, 41: 85, 42: 87, 43: 89, 44: 91, 45: 93, 46: 95, 47: 97, 48: 99, 49: 101, 50: 103, 51: 106, 52: 108, 53: 110, 54: 112, 55: 114, 56: 116, 57: 118, 58: 120, 59: 122, 60: 124, 61: 127, 62: 129, 63: 131, 64: 133, 65: 135, 66: 137, 67: 139, 68: 141, 69: 143, 70: 145, 71: 148, 72: 150, 73: 152, 74: 154, 75: 156, 76: 158, 77: 160, 78: 162, 79: 164, 80: 166, 81: 169, 82: 171, 83: 173, 84: 175, 85: 177, 86: 179, 87: 181, 88: 183, 89: 185, 90: 187, 91: 190, 92: 192, 93: 194, 94: 196, 95: 198, 96: 200, 97: 202, 98: 204, 99: 206, 100: 208}
 
+## A damaged save without a valid backup must never be overwritten by a fresh fallback profile.
+var _blocked_save_path := ""
+
 var coins := 0
 var highest_unlocked := 1
 var inventory := PackedInt32Array([0, 0, 0, 0, 0, 0])
@@ -218,16 +221,59 @@ func total_stars() -> int:
 		n += stars[level]
 	return n
 
+## Write a complete temporary file before replacing the primary. Keep the previous valid primary as backup.
 func save(path := SAVE_PATH) -> void:
+	if path == _blocked_save_path:
+		push_error("Profile save blocked: preserve damaged save at " + path)
+		return
+	var text := JSON.stringify(to_dict())
+	if not _write_complete(path + ".tmp", text):
+		return
+	if FileAccess.file_exists(path):
+		var previous := FileAccess.get_file_as_string(path)
+		if _parse_save(previous) is Dictionary:
+			if not _write_complete(path + ".bak.tmp", previous):
+				return
+			if DirAccess.rename_absolute(path + ".bak.tmp", path + ".bak") != OK:
+				push_error("Could not replace profile backup: " + path)
+				return
+	if DirAccess.rename_absolute(path + ".tmp", path) != OK:
+		push_error("Could not replace profile: " + path)
+
+static func _write_complete(path: String, text: String) -> bool:
 	var file := FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		file.store_string(JSON.stringify(to_dict()))
+	if file == null:
+		push_error("Could not open profile temporary file: " + path)
+		return false
+	file.store_string(text)
+	file.flush()
+	var error := file.get_error()
+	file.close()
+	if error != OK or FileAccess.get_file_as_string(path) != text:
+		push_error("Incomplete profile write: " + path)
+		return false
+	return true
+
+## JSON.parse_string logs invalid JSON as an engine error; inspect parse status explicitly for recovery instead.
+static func _parse_save(text: String) -> Variant:
+	var json := JSON.new()
+	return json.data if json.parse(text) == OK and json.data is Dictionary else null
 
 static func load_saved(path := SAVE_PATH) -> Profile:
-	if not FileAccess.file_exists(path):
-		return Profile.new()
-	var data = JSON.parse_string(FileAccess.get_file_as_string(path))
-	return Profile.from_dict(data) if data is Dictionary else Profile.new()
+	if FileAccess.file_exists(path):
+		var data = _parse_save(FileAccess.get_file_as_string(path))
+		if data is Dictionary:
+			return Profile.from_dict(data)
+	if FileAccess.file_exists(path + ".bak"):
+		var backup = _parse_save(FileAccess.get_file_as_string(path + ".bak"))
+		if backup is Dictionary:
+			push_warning("Recovered previous profile from backup: " + path)
+			return Profile.from_dict(backup)
+	var p := Profile.new()
+	if FileAccess.file_exists(path) or FileAccess.file_exists(path + ".bak"):
+		p._blocked_save_path = path
+		push_error("Profile is damaged; originals preserved, automatic saving blocked: " + path)
+	return p
 
 static func _sorted(set: Dictionary) -> Array:
 	var keys := set.keys()

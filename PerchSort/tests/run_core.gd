@@ -33,6 +33,7 @@ func _init() -> void:
 			used_rows = maxi(used_rows, r + 1)
 		check(used_rows <= painted_rows, "level %d fits its painting" % id)
 		print("L%02d route=%d counted=%d par=%d" % [id, routes[str(id)].size(), session.move_count(), level["par"]])
+	load("res://tests/save_reward_recovery.gd").run(check)
 	_check_meta()
 	_check_dead_end()
 	_check_resume()
