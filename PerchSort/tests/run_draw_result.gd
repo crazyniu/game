@@ -52,7 +52,7 @@ func _run() -> void:
 			_check_result(result, popups.DRAW_PRIZE_KEYS[i], prize[0], locale)
 			if prize[0] == Progress.DRAW_PRIZES[-1][0]:
 				await capture("coins_" + locale)
-			await _dismiss(result, "Confirm" if i % 2 == 0 else "Close")
+			await _dismiss(result, "Confirm")
 		for kind in Board.Booster.size():
 			for count in [1, 2]:
 				var boosters := []
@@ -62,7 +62,7 @@ func _run() -> void:
 				_check_result(result, "island_icon_" + popups.DRAW_BOOSTER_ART[kind], count, locale)
 				if kind == Board.Booster.SAPLING:
 					await capture("booster_%d_%s" % [count, locale])
-				await _dismiss(result, "Close" if count == 1 else "Confirm")
+				await _dismiss(result, "Confirm")
 	# The rendering surface supports distinct entries without duplicating a repeated booster.
 	var mixed: Control = popups.rewards(main.popups, "draw.title", 120, [0, 1, 1], func(): restores += 1)
 	check(mixed.content.get_node("ApprovedLayout").find_children("Reward*", "Control", false, false).size() == 3, "mixed result combines repeated boosters")
@@ -97,7 +97,7 @@ func _run() -> void:
 		var after_grant := JSON.stringify(economy.to_dict())
 		await capture("actual_%d_left" % remaining)
 		var weak: WeakRef = weakref(result)
-		result.content.get_node("Close" if remaining else "Confirm").pressed.emit()
+		result.content.get_node("Confirm").pressed.emit()
 		result.content.get_node("Confirm").pressed.emit()
 		check(await _wait_gone(weak), "production result exit completes")
 		check(JSON.stringify(economy.to_dict()) == after_grant, "dismissal never grants again")
@@ -157,7 +157,7 @@ func _check_result(result: Control, picture: String, amount: int, locale: String
 	var reward: Control = canvas.get_node("Reward0")
 	check(result.get_node("ForestBackground").texture == Art.tex("background_shop_forest"), "approved jungle result background")
 	check(result.content.get_node("TitleGroup/Sign") != null and result.content.get_node("TitleGroup").get_child(1).painted_id == "lettering_lucky_spin_title", "hanging sign title %s" % locale)
-	check(result.content.get_node("Close/Face").texture == Art.tex("btn_purchase_close"), "coin shop Close sprite")
+	check(not result.content.has_node("Close"), "result has no duplicate corner exit")
 	check(reward.get_meta("picture") == picture and reward.get_node("PrizeArt").texture == Art.tex(picture), "actual prize art %s" % picture)
 	check(reward.get_meta("amount") == amount and reward.get_node("Number").get_meta("value") == "+%d" % amount, "exact painted amount %d" % amount)
 	check(not result.content.has_node("Panel"), "result has no generic modal frame")
@@ -174,7 +174,7 @@ func _dismiss(result: Control, control_name: String) -> void:
 	button.pressed.emit()
 	result.content.get_node("Confirm").pressed.emit()
 	check(await _wait_gone(weak), "result dismissal completes")
-	check(restores == before + 1, "Close and Confirm restore exactly once")
+	check(restores == before + 1, "Repeated confirmation restores exactly once")
 
 func capture(label: String) -> void:
 	if evidence.is_empty():

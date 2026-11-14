@@ -36,8 +36,8 @@ func verify(button: Button, picture: String, title: String) -> void:
 
 func close_modal(page: Control) -> void:
 	var ref: WeakRef = weakref(page)
-	page.content.get_node("Close").pressed.emit()
-	page.content.get_node("Close").pressed.emit()
+	page.content.get_node("Close" if page.content.has_node("Close") else "Confirm").pressed.emit()
+	page.content.get_node("Close" if page.content.has_node("Close") else "Confirm").pressed.emit()
 	check(await settled(func(): return ref.get_ref() == null), "repeated Close completes one modal exit")
 
 func _run() -> void:
@@ -95,10 +95,10 @@ func _run() -> void:
 		draw.find_child("Close", true, false).pressed.emit()
 		check(await settled(func(): return draw_ref.get_ref() == null), "Draw Close retains dismissal callback")
 		var result: Control = main.Popups.rewards(main.popups, "draw.title", 400, [], func(): pass)
-		verify(result.content.get_node("Close"), navigation.CLOSE_ART, language + " Draw result Close")
+		check(not result.content.has_node("Close") and result.content.has_node("Confirm"), language + " Draw result bottom confirmation")
 		await close_modal(result)
 		var document: Control = main.Popups.document(main.popups, "credits")
-		verify(document.content.get_node("Close"), navigation.CLOSE_ART, language + " document Close")
+		check(not document.content.has_node("Close") and document.content.has_node("Confirm"), language + " document bottom confirmation")
 		await close_modal(document)
 		var chapters: Control = main.Popups.chapters(main.popups, fake, func(_world): pass)
 		verify(chapters.content.get_node("Close"), navigation.CLOSE_ART, language + " chapter Close")
