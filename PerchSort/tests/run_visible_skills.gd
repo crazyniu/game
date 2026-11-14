@@ -106,5 +106,63 @@ func _run() -> void:
 		check(reach.size() == 2, "the badge reaches both sleepers: %d" % reach.size())
 	board.refresh_hud()
 	check(row.get_node("Key_sunny/Home").visible and not row.get_node("Key_berry/Home").visible, "the flock at home gets its check")
+	# Light step: while it is set, exactly the branches with a free landing seat glow and Flurry's key pulses.
+	var snow: Control = load("res://game/board_view.gd").new()
+	main.set_screen(snow)
+	snow.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+		{"side": "L", "row": 0, "birds": ["snow", "snow", "snow"]},
+		{"side": "R", "row": 0, "birds": ["snow"]},
+		{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
+		{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
+		{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
+	var ss: Board = snow.session.state
+	check(snow._light_glows == null and not snow._free_badge.visible, "no cues before any gift")
+	check(snow.session.try_move(1, 0) and ss.light_step, "the snow flock goes home and sets the light step")
+	snow.refresh_hud()
+	var expected := 0
+	for b in ss.branch_count():
+		if ss.free_slots(b) > 0:
+			expected += 1
+	check(is_instance_valid(snow._light_glows) and snow._light_glows.get_child_count() == expected and expected >= 2,
+		"a glow on exactly the branches with a free seat (%d)" % expected)
+	check(is_instance_valid(snow._pulsing_key) and snow._pulsing_key.name == "Key_snow", "Flurry's key pulses")
+	snow.busy = true
+	snow.refresh_hud()
+	check(snow._light_glows == null, "no glow while a move plays")
+	snow.busy = false
+	check(snow.session.try_move(2, 4) or snow.session.try_move(3, 4), "the step is used")
+	snow.refresh_hud()
+	check(not ss.light_step and snow._light_glows == null and snow._pulsing_key == null, "glow and pulse stop when the step is used")
+	# Free move: the badge shows while encore is set.
+	var berry: Control = load("res://game/board_view.gd").new()
+	main.set_screen(berry)
+	berry.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+		{"side": "L", "row": 0, "birds": ["berry", "berry", "berry"]},
+		{"side": "R", "row": 0, "birds": ["berry"]},
+		{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
+		{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
+		{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
+	check(not berry._free_badge.visible, "no badge before the gift")
+	check(berry.session.try_move(1, 0) and berry.session.state.encore, "the berry flock sets the free move")
+	berry.refresh_hud()
+	check(berry._free_badge.visible, "the free badge shows while the free move is waiting")
+	check(berry.session.try_move(2, 4) or berry.session.try_move(3, 4), "the free move is made")
+	berry.refresh_hud()
+	check(not berry.session.state.encore and not berry._free_badge.visible, "the badge goes with the move")
+	# The first pointer at the bird keys: once, after the popups are gone, stopped by any tap.
+	var fresh := Profile.new()
+	var pointed: Control = load("res://game/board_view.gd").new()
+	main.set_screen(pointed)
+	pointed.start(Levels.get_level(1), fresh, false)
+	pointed._tick_keys_pointer(0.4)
+	check(pointed._keys_hand == null, "the pointer waits a moment")
+	pointed._tick_keys_pointer(0.7)
+	check(is_instance_valid(pointed._keys_hand) and fresh.has_tutorial("keys.shown"), "the pointer shows and is remembered")
+	var tap := InputEventMouseButton.new()
+	tap.pressed = true
+	pointed._input(tap)
+	check(pointed._keys_hand == null, "any tap stops the pointer")
+	pointed._tick_keys_pointer(2.0)
+	check(pointed._keys_hand == null, "it does not come back")
 	print("visible skills: %d checks, %d failures" % [checks, failures])
 	quit(1 if failures else 0)
