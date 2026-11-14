@@ -18,3 +18,6 @@ Generated alpha is preserved; no forced crop or distorted stretch was used. Prod
 - Review caught two production paths bypassing DrawPurchaseArt.fit: the draw board constructs UI.image directly and daily cards use _fit. Both now set the mipmap filter locally only for the replacement coin key. Actual desktop draw-board and daily-reward captures were repeated after this correction; helper-only coverage in the first draft was insufficient.
 - Reward motion: 110 checks, zero failures; core suite exit 0. The draw/purchase suite retains a pre-existing one-resource exit warning without failed checks.
 - Screenshot/log evidence is in ignored local `build/texture-sampling`; no runtime captures committed.
+
+## Follow-up verification record
+The first PR was automatically merged at its original head before the two-node follow-up reached main. This follow-up therefore targets the merged main independently. The repeated OpenGL run passed draw/purchase 228 and draw-result 353 checks. One reward-motion run had 109 passes and one fixed-140ms daily-card-lift timing failure; an independent complete rerun then passed all 110 checks. No animation timing or test threshold was changed to hide that observation. Both logs remain in the local evidence directory (`reward-motion.log` and `motion-final.log`).
