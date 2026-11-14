@@ -13,8 +13,8 @@ func _run() -> void:
 	var main = load("res://game/main.tscn").instantiate()
 	main.args["profile"] = JSON.stringify(Profile.new().to_dict())
 	main.args["preview"] = "map_view:cards"
-	main.args["capture"] = "1"
 	root.add_child(main)
+	main.args["capture"] = "1"
 	await process_frame
 	main.args["smoke"] = "1"
 	var popups = load("res://game/popups.gd")
@@ -27,7 +27,7 @@ func _run() -> void:
 			var dialog = main.popups.get_child(main.popups.get_child_count() - 1)
 			var card: Rect2 = dialog.panel_rect
 			check(is_equal_approx(card.get_center().x, 540), state + " centered")
-			check(card.size.x <= 900 if not state.begins_with("world_") else card.size.x == 960, state + " content-specific width")
+			check(card.size.x <= 900 if not state.begins_with("world_unlock") else card.size.x == 960, state + " content-specific width")
 			check(card.position.y >= 0 and card.end.y <= 1920, state + " visible frame")
 			for child in dialog.content.get_children():
 				if child is Button and child.name != "Close":
