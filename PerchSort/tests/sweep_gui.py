@@ -15,6 +15,11 @@ import subprocess
 import time
 
 
+def failure_lines(contents):
+    """Recognize both count-before-label and key=value summaries without counting checks."""
+    return re.findall(r'^.*(?:SCRIPT ERROR:|^FAIL |\b[1-9][0-9]* failures\b(?!\s*=)|\bfailures\s*=\s*[1-9][0-9]*\b).*$', contents, re.MULTILINE)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--godot', default=os.environ.get('GODOT', 'godot'))
@@ -52,6 +57,9 @@ def main():
             env = os.environ.copy()
             env['XDG_DATA_HOME'] = str(output / 'userdata' / label)
             env['XDG_CONFIG_HOME'] = str(output / 'config' / label)
+            if path.stem == 'run_save_recovery_ui':
+                env['PERCH_RECOVERY_TEST'] = env['XDG_DATA_HOME']
+                env.pop('PERCH_RECOVERY_EXIT', None)
             start = time.monotonic()
             with log_path.open('w') as log:
                 try:
@@ -59,7 +67,7 @@ def main():
                 except subprocess.TimeoutExpired:
                     code = 124
             contents = log_path.read_text()
-            errors = re.findall(r'^.*(?:SCRIPT ERROR:|^FAIL |[1-9][0-9]* failures).*$' , contents, re.MULTILINE)
+            errors = failure_lines(contents)
             row = {'test': path.name, 'run': run, 'seconds': round(time.monotonic() - start, 2), 'exit_code': code,
                    'result': 'PASS' if code == 0 and not errors else 'FAIL', 'detail': errors[0] if errors else ('timeout' if code == 124 else '')}
             rows.append(row)

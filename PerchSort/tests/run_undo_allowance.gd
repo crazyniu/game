@@ -66,7 +66,7 @@ func _run() -> void:
 	var ad: Button = offer.content.get_node("WatchAd")
 	check(buy.size == kit.PRIMARY and ad.size == kit.PRIMARY, "both offer actions are the same size")
 	check(absf(buy.get_rect().get_center().y - ad.get_rect().get_center().y) < 0.01, "actions share one row")
-	check(offer.panel_rect.encloses(buy.get_rect()) and offer.panel_rect.encloses(ad.get_rect()), "actions inside the card")
+	check(buy.position.y >= offer.panel_rect.end.y + 40.0 and ad.position.y >= offer.panel_rect.end.y + 40.0, "actions below the approved frame")
 	check(buy.get_node("Content/FeatherPrice/Digits").get_meta("value") == str(Progress.UNDO_PRICE), "price on the buy action")
 	check(offer.content.get_node("TitleGroup").has_node("Sign"), "hanging sign title")
 	buy.pressed.emit()

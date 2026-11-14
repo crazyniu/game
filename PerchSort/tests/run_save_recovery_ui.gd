@@ -73,6 +73,19 @@ func run() -> void:
 	check(FileAccess.get_file_as_string(Profile.SAVE_PATH) == "{broken", "successful load does not silently rewrite primary")
 	dispose(main)
 	remove_fixtures()
+	write(Profile.SAVE_PATH, "{primary-only-broken")
+	main = start()
+	check(main.profile.needs_recovery() and not main._booted and main.screen == null,
+		"malformed primary without backup blocks normal play")
+	dispose(main)
+	main = start()
+	check(main.profile.needs_recovery() and not main._booted and main.screen == null,
+		"restarting with the same malformed primary remains blocked")
+	check(FileAccess.get_file_as_string(Profile.SAVE_PATH) == "{primary-only-broken" and
+		not FileAccess.file_exists(Profile.SAVE_PATH + ".bak"),
+		"restart preserves primary bytes without inventing a backup")
+	dispose(main)
+	remove_fixtures()
 	write(Profile.SAVE_PATH + ".bak", "bad backup")
 	main = start()
 	check(main.profile.needs_recovery() and main.screen == null, "missing primary plus bad backup blocks")

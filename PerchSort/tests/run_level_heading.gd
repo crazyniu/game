@@ -75,9 +75,9 @@ func _run() -> void:
 				print("CLOSE ", close.size, " expected ", load("res://game/menu_navigation.gd").SIZE)
 				check(close.size.is_equal_approx(load("res://game/menu_navigation.gd").SIZE), "same-role Close hit size")
 				check(close.get_node("Face").texture == Art.tex("btn_purchase_close"), "same accepted Close image")
-				# As in the shop's purchase popups: the Close sits on the card's top-right corner, inside the card.
+				# The approved jungle frame uses its complete bounds; the Close stays in its top-right corner.
 				var painted_panel: Rect2 = dialog.content.get_node("Panel").get_rect()
-				check(painted_panel == dialog.panel_rect.grow_side(SIDE_TOP, load("res://game/purchase_dialog.gd").TITLE_ROOM), "painted level card reserves title room")
+				check(painted_panel == dialog.panel_rect, "painted jungle frame matches the level card bounds")
 				check(painted_panel.encloses(close.get_rect()), "Close sits inside the painted card corner")
 				check(close.get_rect().end.x > dialog.panel_rect.end.x - 180.0, "Close hugs the card's right edge")
 				check(close.position.x >= 0 and close.position.y >= 24 and close.get_rect().end.x <= 1080, "Close touch bounds on screen with top clearance")
