@@ -44,7 +44,7 @@ func _verify(modal: Control, key: String) -> void:
 	var shared: GDScript = load("res://game/button_kit.gd")
 	var purchase: GDScript = load("res://game/purchase_dialog.gd")
 	var card: Rect2 = modal.get_meta("card_rect")
-	var toy := modal.has_meta("actions_y")
+	var toy := skin.texture is AtlasTexture
 	var painted: Rect2 = card if toy else card.grow_side(SIDE_TOP, purchase.TITLE_ROOM)
 	check(panel.get_rect() == painted and panel.get_index() == 0,
 		key + " purchase surface preserves its approved shell bounds")
