@@ -8,6 +8,9 @@ const HEAD := 120.0
 const FOOT := 56.0
 const GAP := 24.0
 const ACTION_LIFT := 36.0
+## The painted card reaches this far above the content's top so the title lettering sits inside the card, not
+## across its edge; the whole card moves down by half of it to stay centred.
+const TITLE_ROOM := 96.0
 
 ## `heights` are the content groups; `ys` metadata holds their tops. The caller puts its action pill at
 ## `panel_rect.end.y + Modal.ACTION_DROP` (inside the visible card); `action_height` reserves its room.
@@ -19,7 +22,7 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	inner += GAP * maxf(0.0, heights.size() - 1)
 	var below := (ACTION_LIFT + action_height) if action_height > 0.0 else 0.0
 	var total := HEAD + inner + below + FOOT
-	var card := Rect2(Vector2((1080.0 - width) * 0.5, roundf((1920.0 - total) * 0.5 + 60.0)), Vector2(width, total))
+	var card := Rect2(Vector2((1080.0 - width) * 0.5, roundf((1920.0 - total) * 0.5 + 60.0 + TITLE_ROOM * 0.5)), Vector2(width, total))
 	var dialog := Modal.open(host, "", [], false, 0.0, 0.0, instant, false, "", false)
 	dialog.panel_rect = card
 	dialog.content.pivot_offset = card.get_center()
@@ -27,7 +30,7 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	var old := dialog.content.get_node("Panel")
 	dialog.content.remove_child(old)
 	old.queue_free()
-	var surface := ButtonKit.panel(dialog.content, card)
+	var surface := ButtonKit.panel(dialog.content, card.grow_side(SIDE_TOP, TITLE_ROOM))
 	dialog.content.move_child(surface, 0)
 	dialog._title_id = title_key
 	var layer := dialog.content.get_node("TitleGroup")
@@ -35,7 +38,7 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	layer.queue_free()
 	var sign := ButtonKit.sign(dialog.content, title_key, Rect2(190, card.position.y - 150, 700, 244))
 	dialog._title_layer = sign
-	MenuNavigation.close(dialog.content, "Close", Vector2(card.end.x - 150, card.position.y + 30), dialog.close)
+	MenuNavigation.close(dialog.content, "Close", Vector2(card.end.x - 150, card.position.y + 30 - TITLE_ROOM), dialog.close)
 	var ys := []
 	var y := card.position.y + HEAD
 	for h in heights:
