@@ -361,8 +361,6 @@ func _show_detail(id: String) -> void:
 		_tiles.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_page.add_child(_tiles)
 		_build_tiles()
-		if not _from_shop:
-			ButtonKit.lettering(_page, "tab_outfits", Rect2(340, 832, 400, 88)).name = "OutfitsHeading"
 	var back := MenuNavigation.back(_page, "Back", CLOSE.position, _back)
 	_align_navigation(back)
 	_title("bird.%s.name" % id, DETAIL_TITLE_SIGN)

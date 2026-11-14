@@ -50,7 +50,12 @@ func _run() -> void:
 			var dialog: Control = popups.goal_info(main.popups, species)
 			var ability: Control = dialog.content.get_node("Ability")
 			check(ability.position.y + ability.size.y <= dialog.panel_rect.end.y, "ability inside panel")
-			dialog.content.get_node("Close").pressed.emit()
+			check(dialog.content.get_node_or_null("Close") == null, "bird card has no corner close")
+			var confirm: Button = dialog.content.get_node("Confirm")
+			check(confirm.position.y >= dialog.panel_rect.end.y + 40, "bird confirmation outside the frame")
+			check(confirm.get_rect().end.y <= 1920, "bird confirmation stays onscreen")
+			check(is_equal_approx(confirm.get_rect().get_center().x, 540.0), "bird confirmation centered")
+			confirm.pressed.emit()
 			await process_frame
 	check(calls == (tutorial.LESSONS.size() + 1) * 2, "all completion callbacks preserved")
 	check(JSON.stringify(main.profile.to_dict()) == before, "visual actions leave profile unchanged")

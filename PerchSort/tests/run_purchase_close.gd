@@ -121,6 +121,7 @@ func _navigation_case(kind: String, language: String, edge: String) -> void:
 	var title: Rect2
 	if kind == "settings":
 		title = modal.content.get_node("Word_settings").get_global_rect()
+		check(card.encloses(close.get_rect()), "Settings close fully inside the card")
 	elif kind == "family":
 		title = _title_ink(modal)
 	else:
