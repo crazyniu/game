@@ -581,6 +581,8 @@ const CAPSULE := "hud_status_cream"   # the cream status capsule, the bird keys 
 const CAPSULE_END := 80          # capsule source pixels kept at each end (round end); the middle extends
 const CAPSULE_BODY := Vector2(0.0, 1.0)   # the capsule body fills the whole height
 const STATUS_STAR_GAP := 2.0
+const STATUS_SHADOW := Color(0.18, 0.12, 0.05, 0.38)   # warm dark, under the cream status capsule
+const STATUS_SHADOW_OFFSET := Vector2(0, 6)
 const STATUS_ICON := 46.0
 ## Baked label metrics (tools/kit/locales/en.json): cap height, baseline and line height in texture pixels.
 const LABEL_CAP := 128.0
@@ -782,6 +784,13 @@ func _hud_pill(parent: Control, rect: Rect2) -> NinePatchRect:
 	plate.scale = Vector2.ONE * k
 	parent.add_child(plate)
 	parent.move_child(plate, 0)
+	# A soft shadow under the cream capsule keeps its edge clear against a pale sky.
+	var shadow := plate.duplicate() as NinePatchRect
+	shadow.name = "Shadow"
+	shadow.position += STATUS_SHADOW_OFFSET
+	shadow.modulate = STATUS_SHADOW
+	parent.add_child(shadow)
+	parent.move_child(shadow, 0)
 	return plate
 
 ## A holder for the shop's painted numerals (white, dark-green outline), left aligned; _set_digits fills it.

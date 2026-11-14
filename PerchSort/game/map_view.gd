@@ -32,6 +32,11 @@ const STRIDE := CARD.x + CARD_GAP
 const WINDOW := Rect2(24, 24, 578, 852)  # the painting fills the card inside its rim
 const WINDOW_RADIUS := 30.0
 const CARD_CLIP := preload("res://game/map_card_clip.gdshader")
+## The foot of each painting darkens softly (warm sand-shadow brown, clear at NAME_SHADE_TOP, NAME_SHADE_ALPHA at the
+## bottom) so the gold world name and star bar read on bright sand without a plate behind them.
+const NAME_SHADE_TOP := 0.55
+const NAME_SHADE_ALPHA := 0.55
+const NAME_SHADE_INK := Color(0.24, 0.12, 0.03)
 const PLAQUE := Vector2(520, 124)        # the light-green name banner over the card's lower part
 const PLAQUE_Y := 810.0                  # plank centre from the card top
 const PLAQUE_WORD := Rect2(0.16, 0.1, 0.68, 0.74)   # word area on the plank, shares of the plank box
@@ -211,6 +216,7 @@ func _build_card(world: int) -> Control:
 	mask.set_shader_parameter("image_offset", painting.position)
 	mask.set_shader_parameter("radius", WINDOW_RADIUS)
 	painting.material = mask
+	_name_shade(window)
 	_star_progress(card, world, STAR_PROGRESS)
 	var plaque := Rect2(Vector2(CARD.x * 0.5, PLAQUE_Y) - PLAQUE * 0.5, PLAQUE)
 	ButtonKit.banner(card, plaque).name = "Plaque"
@@ -523,6 +529,34 @@ func _add_bird(layer: Control, feet: Vector2, species: String) -> void:
 
 
 # ---------------------------------------------------------------- capture preview
+
+## A vertical gradient over the painting's lower part, clipped to the same rounded window.
+func _name_shade(window: Control) -> void:
+	var ramp := Gradient.new()
+	ramp.set_color(0, Color(NAME_SHADE_INK, 0.0))
+	ramp.set_color(1, Color(NAME_SHADE_INK, NAME_SHADE_ALPHA))
+	var fill := GradientTexture2D.new()
+	fill.gradient = ramp
+	fill.fill_from = Vector2(0, 0)
+	fill.fill_to = Vector2(0, 1)
+	fill.width = 4
+	fill.height = 128
+	var shade := TextureRect.new()
+	shade.name = "NameShade"
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	shade.texture = fill
+	shade.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	shade.stretch_mode = TextureRect.STRETCH_SCALE
+	var top := WINDOW.size.y * NAME_SHADE_TOP
+	UI.place(shade, Rect2(0, top, WINDOW.size.x, WINDOW.size.y - top))
+	var mask := ShaderMaterial.new()
+	mask.shader = CARD_CLIP
+	mask.set_shader_parameter("window_size", WINDOW.size)
+	mask.set_shader_parameter("image_size", shade.size)
+	mask.set_shader_parameter("image_offset", shade.position)
+	mask.set_shader_parameter("radius", WINDOW_RADIUS)
+	shade.material = mask
+	window.add_child(shade)
 
 static func preview(main: Control, state: String) -> void:
 	var p := Profile.new()

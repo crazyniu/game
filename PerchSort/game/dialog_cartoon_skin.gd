@@ -60,7 +60,7 @@ static func apply(dialog: Modal) -> Control:
 	var previous := dialog.content.get_node("Panel")
 	dialog.content.remove_child(previous)
 	previous.queue_free()
-	var surface := cream_card(dialog.content, dialog.panel_rect)
+	var surface := cream_card(dialog.content, dialog.panel_rect.grow_side(SIDE_TOP, PurchaseDialog.TITLE_ROOM))
 	dialog.content.move_child(surface, 0)
 	var previous_background := dialog.get_node_or_null("ForestBackground")
 	if previous_background != null:

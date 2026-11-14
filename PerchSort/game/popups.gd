@@ -324,7 +324,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	var close: Control = c.get_node("Close")
 	c.move_child(p._title_layer, close.get_index())
 	# Close in the card corner exactly as in the other game dialogs, clear of the wider ordinal sign.
-	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y)
+	close.position = Vector2(card.end.x - FamilyDialog.CLOSE_INSET.x - close.size.x, card.position.y + FamilyDialog.CLOSE_INSET.y - PurchaseDialog.TITLE_ROOM)
 	var ys: Array = p.get_meta("ys")
 	var g := 0
 	# Stars earned so far, then the move target for three stars (moves picture and number, no words).
