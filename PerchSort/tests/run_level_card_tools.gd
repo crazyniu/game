@@ -76,7 +76,7 @@ func _run() -> void:
 	check(global.position.y - above >= 16.0, "clear of the row above (%.0f px)" % (global.position.y - above))
 	var play: Control = card.content.get_node("Play")
 	check(play.get_rect().position.y - global.end.y >= 16.0, "clear of Play (%.0f px)" % (play.get_rect().position.y - global.end.y))
-	check(play.size == load("res://game/home_view.gd").PLAY.size, "Play keeps its size")
+	check(play.size == popups.LEVEL_PLAY, "Play keeps the shared wide level-card size")
 	# One tap opens the offer once; buying with feathers refreshes the stock.
 	var before: int = main.popups.get_child_count()
 	crow.pressed.emit()

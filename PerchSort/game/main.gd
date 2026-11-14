@@ -258,9 +258,16 @@ func show_level_card(level_id: int) -> void:
 	for kind in Progress.fitting_boosters(def) + [Board.Booster.FIREFLY]:
 		if Progress.is_booster_unlocked(profile, kind) and not tools.has(kind):
 			tools.append(kind)
-	Popups.level_card(popups, level_id, profile.best_stars(level_id), profile.best_moves[level_id], int(def["par"]), species,
+	var card: Control = Popups.level_card(popups, level_id, profile.best_stars(level_id), profile.best_moves[level_id], int(def["par"]), species,
 		mechanics_of(def), func(): _start_level(level_id), Progress.is_level_unlocked(profile, level_id),
 		tools, func(kind): return profile.inventory[kind], _offer_card_tool)
+	# Do not show the map's underlying Play through the dim layer behind the card's own action.
+	var map_play: Control = screen.get_node_or_null("Play") if screen.get_script() == load("res://game/map_view.gd") else null
+	if is_instance_valid(map_play):
+		map_play.hide()
+		card.tree_exiting.connect(func():
+			if is_instance_valid(map_play):
+				map_play.show())
 
 ## A tool tapped on the level card: the one-more offer over the card; the card's stock is re-read when it closes.
 func _offer_card_tool(kind: int, refresh: Callable) -> void:

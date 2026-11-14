@@ -319,7 +319,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		mechanics: Array[String], on_play: Callable, playable: bool, tools: Array = [], stock_of := Callable(),
 		on_tool := Callable()) -> Control:
 	# The approved jungle frame over the dimmed map, sized to its actual content,
-	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
+	# with a wide painted Play action proportional to the card, without stretching its lettering.
 	var per_row := 4 if species.size() <= 4 else 5
 	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
 	var rows := ceili(species.size() / float(per_row))
@@ -355,8 +355,12 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	if not tools.is_empty():
 		p.set_meta("refresh_tools", _tool_row(c, tools, stock_of, on_tool, ys[g]))
 	var at := Vector2(540.0 - LEVEL_PLAY.x * 0.5, p.panel_rect.end.y + Modal.ACTION_DROP)
-	var play := UI.art_button(c, "Play", "btn_home_island_play_" + UiText.locale(), Rect2(at, LEVEL_PLAY), func(): p.invoke(on_play))
-	(play.get_node("Face") as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	var play := ButtonKit.button(c, "Play", Rect2(at, LEVEL_PLAY), "wide", func(): p.invoke(on_play))
+	var content := play.get_node("Content")
+	var group_width := 420.0
+	var left := (LEVEL_PLAY.x - group_width) * 0.5
+	UI.icon(content, "play", Vector2(left + 42.0, LEVEL_PLAY.y * 0.5), 84.0, Color.WHITE)
+	UI.art(content, "label_home_island_play_" + UiText.locale(), Rect2(left + 108.0, (LEVEL_PLAY.y - 120.0) * 0.5, 312, 120))
 	UI.set_active(play, playable)
 	p.panel_rect = card
 	return p
@@ -365,7 +369,7 @@ const LEVEL_TILE := 176.0
 const LEVEL_TILE_SMALL := 152.0
 const LEVEL_TILE_GAP := 20.0
 const LEVEL_MECHANIC := 96.0
-const LEVEL_PLAY := Vector2(500, 200)   # HomeView.PLAY.size: the home Play button
+const LEVEL_PLAY := Vector2(760, 200)   # Wide standalone action under the 960-pixel card
 
 const LEVEL_TOOLS_MAX := 4
 const LEVEL_TOOL := 136.0                       # the board's tool slot (BoardView.TOOL_SIZE)

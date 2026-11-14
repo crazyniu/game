@@ -6,6 +6,7 @@ const HEAD := 236.0
 const FOOT := 168.0
 const GAP := 24.0
 const WIDTH := 960.0
+const ENTRY_TITLE_WIDTH := 560.0
 const PANEL := "panel_jungle_dialog"
 
 static func open(host: Control, title: String, ordinal: String, heights: Array, instant: bool,
@@ -56,7 +57,7 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 	elif ordinal.is_empty():
 		sign = ButtonKit.sign(dialog.content, title, Rect2(220, top - 14, 640, 223))
 	else:
-		sign = FamilyDialog.sign_title(dialog.content, "popup.level.title", ordinal, Rect2(60, top + 126, WIDTH, panel_h))
+		sign = FamilyDialog.sign_title(dialog.content, "popup.level.title", ordinal, Rect2(60, top + 126, WIDTH, panel_h), ENTRY_TITLE_WIDTH if compact_entry else FamilyDialog.SIGN_RECT.size.x)
 	if not ordinal.is_empty():
 		var word: TextureRect = sign.get_child(1)
 		var digits: Control = sign.get_node("TitleNumber")

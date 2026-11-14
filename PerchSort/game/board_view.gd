@@ -638,6 +638,7 @@ const HUD_ICON := 64.0
 const BUBBLE_H := 112.0
 const BUBBLE_PAD := 32.0
 const BUBBLE_ICON_GAP := 16.0
+const BUBBLE_TOP := 160.0
 
 var _door_rect := Rect2()
 
@@ -1345,6 +1346,7 @@ func _show_bubble(bird: BirdView) -> void:
 		UI.art(holder, icons[i], Rect2(c - Vector2.ONE * HUD_ICON * 0.5, Vector2.ONE * HUD_ICON))
 	var tip := bird.position + Vector2(-10.0, -135.0 * bird.density)
 	tip.x = clampf(tip.x, 48.0 + BUBBLE_PAD + 8.0, 1032.0 - body_w + BUBBLE_PAD + 8.0)
+	tip = _sleep_cue_tip(tip, body)
 	_bubble.position = tip
 	_scene.add_child(_bubble)
 	var node := _bubble
@@ -1356,6 +1358,31 @@ func _show_bubble(bird: BirdView) -> void:
 	_bubble_tween.tween_method(func(t: float): node.position.y = tip.y - 6.0 * sin(t * TAU), 0.0, 1.0, BUBBLE_SECONDS)
 	_bubble_tween.tween_property(node, "modulate:a", 0.0, 0.2)
 	_bubble_tween.tween_callback(_hide_bubble)
+
+## Keep the transient explanation out of the permanent species row, including its badges.
+func _sleep_cue_tip(tip: Vector2, body: Rect2) -> Vector2:
+	if not is_instance_valid(_skill_row):
+		return tip
+	var row := _skill_row.get_rect().grow(24.0)
+	var visible := Rect2(tip + body.position, body.size).grow(8.0)
+	if not visible.intersects(row):
+		return tip
+	var left := row.position.x - body.size.x - 8.0
+	var right := row.end.x + 8.0
+	var choices: Array[Vector2] = []
+	if left >= 48.0:
+		choices.append(Vector2(left, visible.position.y + 8.0))
+	if right + body.size.x <= 1032.0:
+		choices.append(Vector2(right, visible.position.y + 8.0))
+	# A full roster leaves no side gutter; the area above it and beside the house stays clear.
+	if choices.is_empty():
+		choices.append(Vector2(48.0, maxf(BUBBLE_TOP, row.position.y - body.size.y - 8.0)))
+		choices.append(Vector2(1032.0 - body.size.x, maxf(BUBBLE_TOP, row.position.y - body.size.y - 8.0)))
+	var nearest: Vector2 = choices[0]
+	for at in choices:
+		if at.distance_squared_to(visible.position) < nearest.distance_squared_to(visible.position):
+			nearest = at
+	return nearest - body.position
 
 func _hide_bubble() -> void:
 	if _bubble_tween:
