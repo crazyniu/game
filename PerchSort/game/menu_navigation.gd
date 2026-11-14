@@ -4,6 +4,7 @@ extends RefCounted
 
 const CLOSE_ART := "btn_purchase_close"
 const BACK_ART := "btn_forest_back"
+const DIALOG_RIGHT_PAD := 56.0
 const SIZE := Vector2(116, 119) * DrawPurchaseArt.SCALE
 
 static func close(parent: Node, name: String, at: Vector2, callback: Callable,

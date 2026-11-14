@@ -240,7 +240,7 @@ static func settings(host: Control, music_on: bool, sound_on: bool, on: Dictiona
 	Simple.card(c, box)
 	var words := Simple.Words.new()
 	words.place(c, "settings", "ink", Vector2(box.get_center().x, box.position.y + SET_PAD * 0.5 + SET_TITLE_H * 0.5), SET_TITLE_CAP, 0)
-	Simple.close_button(c, Vector2(box.end.x - 20.0, box.position.y + 20.0), p.close)
+	Simple.close_button(c, Vector2(box.end.x - MenuNavigation.DIALOG_RIGHT_PAD - Simple.CLOSE * 0.5, box.position.y + 20.0), p.close)
 	var rows := [["pic_music", "music", music_on, func(v: bool): on["music"].call(v)],
 		["pic_sound_on", "sound", sound_on, func(v: bool): on["sound"].call(v)],
 		# Vibration: the state lives in Sound.vibration (profile.vibration).
@@ -318,7 +318,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		on_tool := Callable()) -> Control:
 	# The approved jungle frame over the dimmed map, sized to its actual content,
 	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
-	var per_row := 4 if species.size() <= 8 else 5
+	var per_row := 4 if species.size() <= 4 else 5
 	var tile := LEVEL_TILE if per_row == 4 else LEVEL_TILE_SMALL
 	var rows := ceili(species.size() / float(per_row))
 	var heights := [FamilyDialog.STAR_ROW, LINE]
@@ -330,7 +330,7 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 	if not tools.is_empty():
 		heights.append(LEVEL_TOOL_ROW)
 	var p := JungleDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), str(level), heights,
-		_instant(host), LEVEL_PLAY.y, true)
+		_instant(host), LEVEL_PLAY.y, true, false, true, true)
 	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
 	var ys: Array = p.get_meta("ys")

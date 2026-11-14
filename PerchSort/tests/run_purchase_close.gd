@@ -42,7 +42,7 @@ func _geometry(modal: Control, label: String) -> void:
 	var toy: bool = skin is AtlasTexture and skin.atlas == Art.tex("panel_shop_toy_rim")
 	var expected_card: Rect2 = logical_card if toy else logical_card.grow_side(SIDE_TOP, load("res://game/purchase_dialog.gd").TITLE_ROOM)
 	check(card == expected_card, label + " painted surface follows its approved shell")
-	var close_at: Vector2 = Vector2(card.end.x - 156.0, card.position.y + 48.0) if toy else Vector2(card.end.x - 150.0, card.position.y + 30.0)
+	var close_at: Vector2 = Vector2(card.end.x - navigation_script.SIZE.x - navigation_script.DIALOG_RIGHT_PAD, card.position.y + 48.0) if toy else Vector2(card.end.x - navigation_script.SIZE.x - navigation_script.DIALOG_RIGHT_PAD, card.position.y + 30.0)
 	check(bounds.position.distance_to(close_at) < 1.0, label + " Close sits at its shell's top-right shoulder")
 	check(card.encloses(bounds), label + " Close lies within the card")
 	check(Rect2(0, 0, 1080, 1920).encloses(bounds), label + " entire Close remains on screen")
@@ -69,8 +69,9 @@ func _tap(point: Vector2) -> void:
 	up.pressed = false
 	root.push_input(up, true)
 
-func _close(host: Control, modal: Control, profile: Profile, label: String, edge := "center", capture := false) -> void:
-	_geometry(modal, label)
+func _close(host: Control, modal: Control, profile: Profile, label: String, edge := "center", capture := false, purchase_geometry := true) -> void:
+	if purchase_geometry:
+		_geometry(modal, label)
 	var close: Control = modal.content.get_node("Close")
 	var bounds := close.get_global_rect()
 	var point := bounds.get_center()
@@ -98,6 +99,34 @@ func _close(host: Control, modal: Control, profile: Profile, label: String, edge
 		print("CLOSE_DIAGNOSTIC ", label, " edge=", edge, " calls=", calls[0], " closing=", modal._closing if is_instance_valid(modal) else false, " point=", point)
 	check(calls[0] == 1 and host.get_node_or_null("Popup") == null, label + " " + edge + " double pointer closes exactly once")
 	check(JSON.stringify(profile.to_dict()) == before, label + " Close changes no profile data")
+
+func _navigation_case(kind: String, language: String, edge: String) -> void:
+	coin_script.preview(main, "normal")
+	await process_frame
+	var host: Control = main.popups
+	var modal: Control
+	if kind == "settings":
+		var popups: GDScript = load("res://game/popups.gd")
+		var noop := func(_v): pass
+		modal = popups.settings(host, true, true, {"music": noop, "sound": noop, "help": func(): pass}, false)
+	else:
+		modal = modal_script.open(host, "popup.level.title", [400.0], true, 0.0, 0.0, true)
+		if kind == "family":
+			load("res://game/family_dialog.gd").decorate(modal)
+	await process_frame
+	var close: Control = modal.content.get_node("Close")
+	var card: Rect2 = modal.content.get_node("Card").get_rect() if kind == "settings" else modal.panel_rect
+	check(is_equal_approx(card.end.x - close.get_rect().end.x, navigation_script.DIALOG_RIGHT_PAD), kind + " " + language + " right inset")
+	check(Rect2(0, 0, 1080, 1920).encloses(close.get_global_rect()), kind + " Close fully onscreen")
+	var title: Rect2
+	if kind == "settings":
+		title = modal.content.get_node("Word_settings").get_global_rect()
+	elif kind == "family":
+		title = _title_ink(modal)
+	else:
+		title = modal.content.get_node("TitleGroup/Title").get_global_rect()
+	check(not close.get_global_rect().intersects(title), kind + " " + language + " title clears Close")
+	await _close(host, modal, main.profile, kind + " " + language, edge, false, false)
 
 func _shop_case(state: String, language: String, edge := "center", capture := false) -> void:
 	shop_script.preview(main, state)
@@ -151,6 +180,9 @@ func _run() -> void:
 			for state in ["confirm_booster", "confirm_nest", "confirm_outfit"]:
 				await _shop_case(state, language, edge)
 			await _coin_case(coin_script.PACKS[5], language, edge)
+		for kind in ["modal", "family", "settings"]:
+			for edge in ["center", "left", "right", "top", "bottom"]:
+				await _navigation_case(kind, language, edge)
 		# Every existing item title goes through the canonical PurchaseDialog, not a mocked title renderer.
 		shop_script.preview(main, "boosters")
 		await process_frame

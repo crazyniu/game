@@ -94,7 +94,7 @@ func _build() -> void:
 	if not _title_id.is_empty() and _decorate_title:
 		_title()
 	if _has_close:
-		MenuNavigation.close(content, "Close", Vector2(panel_rect.end.x - 74.0, panel_rect.position.y - 38.0), close)
+		MenuNavigation.close(content, "Close", Vector2(panel_rect.end.x - MenuNavigation.SIZE.x - MenuNavigation.DIALOG_RIGHT_PAD, panel_rect.position.y - 38.0), close)
 
 ## Keep all frame art under Panel so page-specific modals can replace the complete surface.
 static func frame(parent: Control, bounds: Rect2) -> Control:
