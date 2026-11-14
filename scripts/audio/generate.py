@@ -202,9 +202,25 @@ def effects():
     save("ui_back", fade(np.sin(phase)*np.exp(-9*t), .008, .065))
 
 
+def wake_bell():
+    """A sleeper wakes: a little hand bell rings three times, then a bright rising chirp.
+
+    Uses no random numbers, so adding it leaves every other rendered file unchanged.
+    """
+    x = np.zeros((round(.7*SR), 2))
+    for j, (start, pitch, gain) in enumerate(((0, 96, .42), (.085, 100, .34), (.17, 96, .28))):
+        place(x, tone(pitch, .45, "bell"), start, gain, (-.25, .25, 0)[j])
+    t = np.arange(round(.2*SR))/SR
+    phase = TAU*np.cumsum(1500+1300*(t/.2)**1.6)/SR
+    chirp = fade((np.sin(phase)+.12*np.sin(2*phase))*np.sin(np.pi*t/.2), .01, .04)
+    place(x, chirp, .3, .22, .1)
+    save("wake_bell", room(x, False))
+
+
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     music("bgm_menu", 64, 16)
     music("bgm_game", 96, 36)
     chirps()
     effects()
+    wake_bell()

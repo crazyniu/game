@@ -859,6 +859,11 @@ func reveal() -> void:
 	await tw.finished
 	finished.emit()
 
+## Waking is loud on purpose: a hand bell pops over the head and rings (swings, with sparkles and the wake_bell
+## sound), and the bird springs up with its eyes opening, then lands with a squash. About 0.8 s.
+const WAKE_JUMP := 46.0
+const WAKE_BELL := 84.0
+
 func wake() -> void:
 	_stop_nudge()
 	asleep = false
@@ -867,15 +872,65 @@ func wake() -> void:
 	var base := DISPLAY / CANVAS * density
 	var closed := _sprite.texture
 	acting = true
+	if not quiet:
+		Sound.play("wake_bell")
+	_ring_bell()
+	var spring := func(t: float) -> void:   # crouch, spring up with the eyes opening, fall back
+		var crouch := 1.0 - smoothstep(0.0, 0.18, t) if t < 0.18 else 0.0
+		var air := sin(clampf((t - 0.15) / 0.6, 0.0, 1.0) * PI)
+		_body.position.y = -WAKE_JUMP * density * air
+		_body.scale = Vector2(1.0 + 0.12 * crouch - 0.05 * air, 1.0 - 0.12 * crouch + 0.12 * air) * base
+		_show(closed, _rest, smoothstep(0.15, 0.5, t))
 	var tw := create_tween()
-	tw.tween_method(func(t: float):
-		var w := sin(t * PI)
-		_body.scale = Vector2(1.0 - 0.06 * w, 1.0 + 0.1 * w) * base
-		_show(closed, _rest, smoothstep(0.2, 0.8, t)), 0.0, 1.0, 0.3)
+	tw.tween_method(spring, 0.0, 1.0, 0.55)
+	tw.tween_property(_body, "scale", Vector2(1.12, 0.88) * base, 0.07)   # the landing
+	tw.tween_property(_body, "scale", Vector2.ONE * base, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tw.finished
+	_body.position.y = 0.0
 	acting = false
 	_show_rest()
 	finished.emit()
+
+## The wake-up bell over the head: pops in, swings four times while sparkles fly off, then floats up and fades.
+func _ring_bell() -> void:
+	var tex := Art.tex("island_icon_bell")
+	if tex == null:
+		return
+	var bell := Sprite2D.new()
+	bell.name = "WakeBell"
+	bell.texture = tex
+	var side := WAKE_BELL * density
+	var unit := side / float(tex.get_width())
+	bell.offset = Vector2(0, tex.get_height() * 0.45)   # swings from the handle
+	bell.position = Vector2(0, -DISPLAY * density * 1.0 - side * 0.7)
+	bell.scale = Vector2.ONE * 0.2 * unit
+	add_child(bell)
+	var tw := bell.create_tween()
+	tw.tween_property(bell, "scale", Vector2.ONE * unit, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	for k in 4:
+		var angle := deg_to_rad(28.0 if k % 2 == 0 else -28.0) * (1.0 - k * 0.18)
+		tw.tween_property(bell, "rotation", angle, 0.09).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_property(bell, "rotation", 0.0, 0.08)
+	tw.tween_property(bell, "position:y", bell.position.y - 40.0 * density, 0.3).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_property(bell, "modulate:a", 0.0, 0.3)
+	tw.tween_callback(bell.queue_free)
+	var spark_tex := Art.tex("pic_sparkle")
+	if spark_tex == null:
+		return
+	var ring_at := bell.position + Vector2(0, side * 0.45)
+	for i in 6:   # rings of sound: sparkles thrown off both sides while it swings
+		var spark := Sprite2D.new()
+		spark.texture = spark_tex
+		spark.position = ring_at
+		spark.scale = Vector2.ONE * 0.05
+		add_child(spark)
+		var dir := Vector2(-1.0 if i % 2 == 0 else 1.0, -0.4 + 0.25 * float(i / 2)).normalized()
+		var st := spark.create_tween()
+		st.tween_interval(0.1 + 0.09 * float(i / 2))
+		st.tween_property(spark, "position", ring_at + dir * 95.0 * density, 0.35).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		st.parallel().tween_property(spark, "scale", Vector2.ONE * 34.0 * density / spark_tex.get_width(), 0.15)
+		st.parallel().tween_property(spark, "modulate:a", 0.0, 0.2).set_delay(0.18)
+		st.tween_callback(spark.queue_free)
 
 ## A tapped sleeper stirs: small bob, eyes half open, and a bigger Zzz pulse; then it dozes off again.
 func nudge_asleep() -> void:
