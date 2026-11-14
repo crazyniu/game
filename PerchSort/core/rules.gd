@@ -3,12 +3,12 @@ extends RefCounted
 ## Move resolution. One instance per session or search; events go to `out` (null in search).
 ## Event dictionaries always carry "type"; see docs/work-log/godot-port/spec.md for fields.
 
+## NIGHT_CALL and MOONBEAM are retired (no day or night) but keep their numbers.
 enum Gift { WAKE_UP_SONG, GENTLE_BREEZE, ENCORE, GARDENER, GRUMPY_STARE, LIGHT_STEP, WARM_GLOW, NIGHT_CALL, MOONBEAM }
 const GIFT_BY_SPECIES := {0: Gift.WAKE_UP_SONG, 1: Gift.GENTLE_BREEZE, 2: Gift.ENCORE, 3: Gift.GARDENER,
 	4: Gift.GRUMPY_STARE, 5: Gift.LIGHT_STEP, 6: Gift.WARM_GLOW, 8: Gift.ENCORE, 9: Gift.WAKE_UP_SONG}
 
 var track_economy := true
-var _moonbeam_granted := false
 var _homes: Array = []  # [branch, species] pairs of the current wave
 
 
@@ -101,22 +101,14 @@ func swivel(s: Board, b: int, out) -> void:
 	_finish(s, home_before, true, -1, -1, out)
 
 func _begin_move(s: Board) -> void:
-	_moonbeam_granted = false
 	s.moves += 1
 	if not s.encore:
 		s.counted_moves += 1
 	s.encore = false
-	if s.day_length > 0:
-		s.phase_counter += 1
 
 func _finish(s: Board, home_before: int, move: bool, landing_branch: int, landing_bird: int, out) -> void:
 	_resolve(s, landing_branch, landing_bird, out)
 	_auto_home(s, out)
-	if move and s.day_length > 0 and s.phase_counter >= s.day_length:
-		_toggle_phase(s, "clock", out)
-		_resolve(s, -1, -1, out)
-	if move and s.moonbeam_left > 0 and not _moonbeam_granted:
-		s.moonbeam_left -= 1
 	if move:
 		_rescue_deadlock(s, out)
 	if track_economy:
@@ -142,9 +134,6 @@ func _rescue_deadlock(s: Board, out) -> void:
 		_wake_rows(s, 0, false, out)
 		_resolve(s, -1, -1, out)
 		_auto_home(s, out)
-	if not s.is_won() and not has_legal_move(s) and s.nocturnal_day_sleep():
-		_toggle_phase(s, "stuck", out)
-		_resolve(s, -1, -1, out)
 
 ## When the only birds left are one full flock of a single kind (all awake, no eggs, no crows), they go home on
 ## their own: nothing is left to decide, so the player is not asked to tap. It costs no move.
@@ -242,16 +231,6 @@ func _apply_gift(s: Board, b: int, species: int, out) -> void:
 				for i in s.items[t].size():
 					if s.items[t][i] & Board.EGG:
 						_hatch(s, t, i, out)
-		Gift.NIGHT_CALL:
-			if s.day_length > 0:
-				_toggle_phase(s, "ink", out)
-		Gift.MOONBEAM:
-			if s.day_length > 0:
-				var was_sleeping := s.nocturnal_day_sleep()
-				s.moonbeam_left = 3
-				_moonbeam_granted = true
-				if was_sleeping:
-					_emit_nocturnal_wakes(s, out)
 
 func _hatch(s: Board, b: int, seat: int, out) -> void:
 	var code := s.items[b][seat]
@@ -311,24 +290,6 @@ func _remove_crows(s: Board, row: int, limited: bool, out) -> void:
 		if out != null and not departed.is_empty():
 			out.append({"type": "crows_left", "branch": b, "birds": departed})
 
-func _toggle_phase(s: Board, cause: String, out) -> void:
-	var was_sleeping := s.nocturnal_day_sleep()
-	s.phase = Board.Phase.NIGHT if s.phase == Board.Phase.DAY else Board.Phase.DAY
-	s.phase_counter = 0
-	if out != null:
-		out.append({"type": "phase_changed", "phase": s.phase, "cause": cause})
-	if was_sleeping and not s.nocturnal_day_sleep():
-		_emit_nocturnal_wakes(s, out)
-
-func _emit_nocturnal_wakes(s: Board, out) -> void:
-	if out == null:
-		return
-	for b in s.branch_count():
-		for i in s.items[b].size():
-			var code := s.items[b][i]
-			if not (code & Board.EGG) and not (code & Board.ASLEEP) and Board.is_nocturnal(Board.species_of(code)):
-				out.append({"type": "woke", "id": Board.id_of(code), "branch": b, "seat": i})
-
 
 static func booster_has_effect(s: Board, kind: int) -> bool:
 	if s.is_won():
@@ -346,7 +307,6 @@ static func booster_has_effect(s: Board, kind: int) -> bool:
 	return false
 
 func booster(s: Board, kind: int, consume: bool, out) -> void:
-	_moonbeam_granted = false
 	var home_before := s.homed.size()
 	if consume:
 		s.inventory[kind] -= 1

@@ -9,7 +9,7 @@ const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow
 const BOOSTER_ILLUS := ["hint", "sapling", "owl_eye", "bell", "scarecrow", "rain"]
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",
 	9: "rainforest", 10: "wisteria"}
-const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front", "daynight": "mechanic_day_night",
+const MECHANIC_ART := {"sleep": "hoot_sleep", "egg": "egg_idle", "crow": "crow_front",
 	"twig": "icon_sapling", "growing": "icon_sapling", "swivel": "btn_swivel_green", "mama": "mama_bow"}
 
 ## Content sizes (design pixels).
@@ -1644,7 +1644,7 @@ static func preview(main: Control, state: String) -> void:
 	var noop1 := func(_v): pass
 	var roster: Array[String] = ["sunny", "sky", "berry", "mint", "cocoa", "snow", "ember"]
 	var few: Array[String] = ["sunny", "sky", "berry"]
-	var mechanics: Array[String] = ["sleep", "egg", "daynight"]
+	var mechanics: Array[String] = ["sleep", "egg"]
 	var none: Array[String] = []
 	match state:
 		"leaf_transition":

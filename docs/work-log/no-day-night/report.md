@@ -39,7 +39,24 @@ User decision (2026-11-14): the day/night switch has no real meaning for the pla
 ## Boundaries
 
 - Levels 48 and 53 (worlds 5 and 6) are now 8 and 7 moves, short for their place; the level order was not changed.
-- The day/night engine code, the night paintings, the lesson and its words are still in the tree but can no
-  longer be reached; removing them is the next change.
+- The day/night engine code, the night paintings, the lesson and its words were left in the tree by this
+  change; they are removed under "Unreachable code removed" below.
 - Saved best move counts on these levels were made under the old rule and stay.
 - Not played by hand.
+
+## Unreachable code removed (issue 225)
+
+- Core: `Board.phase`, `phase_counter`, `day_length`, `moonbeam_left`, `is_nocturnal`, `nocturnal_day_sleep`,
+  `Rules._toggle_phase`, `_emit_nocturnal_wakes`, the NIGHT_CALL and MOONBEAM branches and the phase part of
+  `_rescue_deadlock`. `Board.Phase` and `Rules.Gift` keep their enum numbers; `Board.search_key` keeps its layout
+  (the flag bits stay at 12 and 13, bits 0-11 are now always zero), so stored hints still match. `Levels` no longer
+  reads `dayLength` (the key is still written as 0 in `levels.json`, which needs separate authority to change).
+- Board view: night painting cross-fade, night life, phase pill and banner, the moon cue in the sleep bubble and the
+  preview states `day_wN`, `night_wN`, `phase_change`, `day_break`. Ambient lost its `night` tint.
+- Tutorial: the daynight lesson. Popups: `MECHANIC_ART` entry. Test mechanic lists no longer name it.
+- Art: ten world night paintings (`board_wN_night_bg`, `board_w1_open`/`board_w10_open` included), `mechanic_day_night`,
+  `pic_sun`, `pic_moon`, the two control sun/moon SVGs, and the lesson and phase words in both locales with their manifest entries.
+- Checks: `scripts/run_tests.sh` (naming guard, smoke, core) 0 failures; `run_family_dialogs`, `run_level_heading`,
+  `run_board_hud`, `run_gameplay_dialogs`, `run_stuck_rescue`, `run_visible_skills`, `run_heading_composites`,
+  `run_map_aviary`, `run_menu_navigation` 0 failures; board and tutorial captures show no missing art.
+  `run_home` fails on `NAV_SIZE` both here and on main, so it is unrelated to this change.

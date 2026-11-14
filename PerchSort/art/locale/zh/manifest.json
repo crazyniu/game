@@ -119,9 +119,6 @@
     "lettering_lesson_crow_title": {
       "file": "island_words/lettering_lesson_crow_title.png"
     },
-    "lettering_lesson_daynight_title": {
-      "file": "island_words/lettering_lesson_daynight_title.png"
-    },
     "lettering_lesson_egg_title": {
       "file": "island_words/lettering_lesson_egg_title.png"
     },
@@ -539,9 +536,6 @@
     "gold_lesson_growing_title": {
       "file": "island_words/gold_lesson_growing_title.png"
     },
-    "gold_lesson_daynight_title": {
-      "file": "island_words/gold_lesson_daynight_title.png"
-    },
     "brown_action_replay": {
       "file": "island_words/brown_action_replay.png"
     },
@@ -592,12 +586,6 @@
     },
     "brown_chapter_levels": {
       "file": "island_words/brown_chapter_levels.png"
-    },
-    "brown_board_night_falls": {
-      "file": "island_words/brown_board_night_falls.png"
-    },
-    "brown_board_day_breaks": {
-      "file": "island_words/brown_board_day_breaks.png"
     },
     "caption_bird_sunny_ability": {
       "file": "island_words/caption_bird_sunny_ability.png"
@@ -652,9 +640,6 @@
     },
     "caption_lesson_growing_line": {
       "file": "island_words/caption_lesson_growing_line.png"
-    },
-    "caption_lesson_daynight_line": {
-      "file": "island_words/caption_lesson_daynight_line.png"
     },
     "caption_tutorial_pick": {
       "file": "island_words/caption_tutorial_pick.png"
@@ -1540,12 +1525,6 @@
         "cap": 80.0
       }
     },
-    "lesson.daynight.title": {
-      "gold": {
-        "file": "island_words/gold_lesson_daynight_title.png",
-        "cap": 80.0
-      }
-    },
     "action.replay": {
       "brown": {
         "file": "island_words/brown_action_replay.png",
@@ -1691,18 +1670,6 @@
         "cap": 80.0
       }
     },
-    "board.night_falls": {
-      "brown": {
-        "file": "island_words/brown_board_night_falls.png",
-        "cap": 80.0
-      }
-    },
-    "board.day_breaks": {
-      "brown": {
-        "file": "island_words/brown_board_day_breaks.png",
-        "cap": 80.0
-      }
-    },
     "bird.sunny.ability": {
       "caption": {
         "file": "island_words/caption_bird_sunny_ability.png",
@@ -1808,12 +1775,6 @@
     "lesson.growing.line": {
       "caption": {
         "file": "island_words/caption_lesson_growing_line.png",
-        "cap": 80.0
-      }
-    },
-    "lesson.daynight.line": {
-      "caption": {
-        "file": "island_words/caption_lesson_daynight_line.png",
         "cap": 80.0
       }
     },

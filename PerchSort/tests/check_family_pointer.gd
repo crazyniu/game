@@ -20,7 +20,7 @@ func _run() -> void:
 	UiText.set_language("en")
 	var popups: GDScript = load("res://game/popups.gd")
 	var species: Array[String] = ["sunny", "sky", "berry"]
-	var mechanics: Array[String] = ["sleep", "egg", "daynight"]
+	var mechanics: Array[String] = ["sleep", "egg"]
 	var dialog: Control = popups.level_card(main.popups, 12, 0, 0, 9, species, mechanics, func(): calls += 100, false)
 	print("POINTER READY: disabled Play then Close")
 	await dialog.closed

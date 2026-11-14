@@ -74,7 +74,7 @@ func _run() -> void:
 	shop = load("res://game/shop_skin.gd")
 	var on_action := func(): calls += 1
 	var species: Array[String] = ["sunny", "sky", "berry", "mint", "cocoa", "snow", "ember"]
-	var mechanics: Array[String] = ["sleep", "egg", "daynight"]
+	var mechanics: Array[String] = ["sleep", "egg"]
 	for language in ["en", "zh"]:
 		UiText.set_language(language)
 		for earned in range(1, 4):
