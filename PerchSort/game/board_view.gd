@@ -74,6 +74,7 @@ var _rows := 2
 var _perch_step := 0.0
 var _perch_top := PERCH_TOP   # first perch line; the block of perches is centred in the play area
 var _house: Control
+var _house_style := ""     # the equipped house this one was built for
 var _status: Control          # stars and move count
 var _status_stars: Array = []  # TextureRect per star
 var _moves_number: Control
@@ -189,10 +190,14 @@ func sync_inventory() -> void:
 	profile.inventory = session.state.inventory.duplicate()
 	profile_changed.emit()
 
+## Restart resets the board, not the allowance: start() builds a new session, so the undos left are carried over.
 func restart() -> void:
+	var undos := session.undos_left
 	session.restart()
 	sync_inventory()
 	start(level, profile, false)
+	session.undos_left = undos
+	refresh_hud()
 
 ## Modals cancel deferred input and unpaid hint requests, not the move already playing.
 func suspend_input() -> void:
@@ -467,15 +472,18 @@ func _spawn_birds() -> void:
 		for i in s.items[b].size():
 			_make_bird(s.items[b][i], seat_point(b, i))
 
-func _make_bird(code: int, at: Vector2) -> BirdView:
-	var bird := BirdView.new()
-	bird.sounds = true
+## A world with its own birds shows them (WorldBirds); only the original birds wear outfits.
+func _look_of(code: int) -> String:
 	var species: String = Board.SPECIES[Board.species_of(code)]
-	# A world with its own birds shows them (WorldBirds); only the original birds wear outfits.
 	var look := WorldBirds.look(species, _world())
 	if look.is_empty() and profile.equipped.has(species):
 		look = profile.equipped[species].replace("outfit.", "").replace(".", "_outfit_")
-	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, look)
+	return look
+
+func _make_bird(code: int, at: Vector2) -> BirdView:
+	var bird := BirdView.new()
+	bird.sounds = true
+	bird.setup(code, session.state.is_asleep(code), BIRD_SCALE, _look_of(code))
 	bird.position = at
 	_bird_layer.add_child(bird)
 	if instant:
@@ -636,7 +644,13 @@ func _build_hud() -> void:
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hud.size = Vector2(1080, 1920)
 	add_child(_hud)
-	# Rope and hanging house.
+	_build_house()
+	_build_status()
+	_build_hud_rest()
+
+## Rope, hanging house, its glow and doorway; rebuilt alone when another house is equipped.
+func _build_house() -> void:
+	_house_style = profile.equipped_house
 	var spec := _house_spec()
 	var content: Rect2 = spec[1]
 	var hr := _house_rect()
@@ -677,7 +691,8 @@ func _build_hud() -> void:
 	UI.place(_door_mask, opening)
 	_house.add_child(_door_mask)
 	_door_open = null
-	_build_status()
+
+func _build_hud_rest() -> void:
 	var gear := UI.art(_hud, "hud_gear_button", Rect2(GEAR - Vector2.ONE * GEAR_ICON * 0.5, Vector2.ONE * GEAR_ICON))
 	gear.name = "Gear"
 	var gear_hit := UI.hit_area(_hud, Rect2(GEAR - Vector2.ONE * 64.0, Vector2.ONE * 128.0), func():
@@ -905,11 +920,39 @@ func _refresh_skill_row() -> void:
 
 func refresh_hud() -> void:
 	var s := session.state
+	_sync_appearance()
 	_refresh_status()
 	_refresh_skill_row()
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
+
+## The shop can change the equipped house and bird outfits while the board is open: what is on screen follows the
+## profile when the player comes back. Positions, moves, undos and the flock's state stay as they are.
+func _sync_appearance() -> void:
+	if _house == null or not is_instance_valid(_house):
+		return
+	if profile.equipped_house != _house_style and not busy:
+		for node in [_glow, _rope, _house]:
+			node.queue_free()
+		_build_house()
+		_hud.move_child(_glow, 0)
+		_hud.move_child(_rope, 1)
+		_hud.move_child(_house, 2)
+		_resident_species = -1   # the resident is placed in the new doorway by the refresh below
+		_resident = null
+		_door_open = null
+	for id in _birds.keys():
+		var bird: BirdView = _birds[id]
+		if not is_instance_valid(bird) or bird.acting or bird.outfit == _look_of(bird.code):
+			continue
+		var index := bird.get_index()
+		var selected := bird.selected
+		var at := bird.position
+		bird.queue_free()
+		var fresh := _make_bird(bird.code, at)
+		_bird_layer.move_child(fresh, index)
+		fresh.set_selected(selected)
 
 func _visible_tools() -> Array:
 	var tools := []

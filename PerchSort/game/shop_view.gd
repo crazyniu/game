@@ -364,6 +364,13 @@ func _on_scroll_input(event: InputEvent) -> void:
 		if _drag_travel >= TAP_SLOP:
 			_scroll.scroll_vertical -= roundi(event.relative.y)
 
+## The profile's balance changed while this page stays open (a feather purchase): the counter and the cards that
+## depend on it follow, on the same page, at the same scroll position.
+func refresh_balance() -> void:
+	var keep := _scroll.scroll_vertical
+	_refresh(true)
+	_scroll.scroll_vertical = keep
+
 ## The compact balance leaves the floating heading and cards as the main focus.
 func _build_coins() -> void:
 	if _coins == null:

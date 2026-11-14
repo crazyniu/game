@@ -377,6 +377,11 @@ func _back() -> void:
 func _is_instant() -> bool:
 	return instant or (get_parent() != null and get_parent().has_method("instant") and get_parent().instant())
 
+## The balance changed while this page stays open (a feather purchase).
+func refresh_balance() -> void:
+	if _page != null:
+		_build_coins()
+
 ## Detail pages show the same compact balance counter, rebuilt after a purchase.
 func _build_coins() -> void:
 	if _coins and is_instance_valid(_coins):
