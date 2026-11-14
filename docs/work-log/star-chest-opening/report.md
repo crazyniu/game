@@ -7,3 +7,8 @@
   the same size and feet position in every frame, before and after the page change; shake, squash, pop with flash and
   star fountain; the three prizes arc above the lid and land in the row in turn; amounts count up to +300, +2, +1.
 - Not played on a device; sounds unchanged (crate_open at the pop, star_1 as the lid settles, reward per prize).
+
+## Follow-up
+
+Lifted 120 px: `scripts/run_tests.sh` exit 0, `run_chest.gd` 0 failures; stills of `chest_half` and the settled
+`chest_opening` reward page checked (count clear of the title sign, Play ends at y 1760, OK at 1400..1608).

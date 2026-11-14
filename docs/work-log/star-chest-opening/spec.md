@@ -13,3 +13,8 @@ Owner request (2026-11-14): the chest had a different size before and after open
   onto a row in front of the chest (`CHEST_PRIZE_Y`, where the progress rail was), land with a squash and sparkles,
   and their amounts count up; confetti as before. OK stays where it was.
 - Capture state `popups:chest_opening` presses Open after 1.5 s.
+
+## Follow-up (owner, same day)
+
+The whole page sits `CHEST_LIFT` (120 px) higher: count, chest, support, progress rail, Open and Play, and on the
+reward page the prize row and OK, so a tall bottom inset on some phones never covers the lower action.
