@@ -68,7 +68,7 @@ func show_purchase(pack: Dictionary, on_confirm: Callable) -> void:
 
 const Popups := preload("res://game/popups.gd")
 const BALANCE_NUMBER := Rect2(707, 73, 157, 44)
-const CONFIRM_SIZE := Vector2(758, 136)   # Standalone action under the 960-pixel purchase card.
+const CONFIRM_SIZE := Vector2(552, 136)   # Compact price-only action: 57.5% of the purchase card.
 
 ## The balance after a purchase.
 func set_balance(balance: int) -> void:

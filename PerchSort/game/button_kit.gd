@@ -33,7 +33,7 @@ const FACES := {
 
 ## Only standalone actions below a card use this width; paired actions and item tiles keep their sizes.
 static func card_action_size(card_width: float, height := PRIMARY.y) -> Vector2:
-	return Vector2(roundf(card_width * CARD_ACTION_RATIO), height)
+	return Vector2(minf(roundf(card_width * CARD_ACTION_RATIO), 680.0), height)
 
 ## A painted face fitted uniformly into `rect` (centred); returns the TextureRect.
 static func face(parent: Node, kind: String, rect: Rect2) -> Control:

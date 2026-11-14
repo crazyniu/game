@@ -2,7 +2,7 @@
 
 ## Change
 
-Owner-authorized UI-only adjustment: single primary actions below modal cards now occupy approximately 79% of the individual card width. A 960 px card uses 758 px; the 840 px bird info card uses 664 px. Existing heights, centered independent painted words, pressed hit geometry and callbacks remain unchanged. The currency confirmation keeps its 136 px height and original RMB amount; its painted price glyphs are separated from the nine-patch face to avoid stretching the text.
+Owner-authorized UI-only adjustment: single primary actions below modal cards are sized by content and card proportions. Word/feather-price actions use up to 79% with a 680 px cap; the 840 px bird info card uses 664 px. Following owner feedback on the long currency button, the short RMB action uses 552 px (between original 348 px and first-pass 758 px), and icon-only rescue uses 540 px. Existing heights, centered independent painted words, pressed hit geometry and callbacks remain unchanged. The currency confirmation keeps its 136 px height and original RMB amount; its painted price glyphs are separated from the nine-patch face to avoid stretching the text.
 
 Covered: bird information, new-bird introduction, unlock/reward families, shop booster/nest/outfit purchase confirmations, all six currency packs, tutorial Next/Play/Got it and stuck rescue. Global PRIMARY/SECONDARY, paired buttons, small shop item buttons and full-page actions are unchanged. Win Next already spans about 75%; level Play is handled by PR #282. No game rules, balances, payment integrations or persistence changed.
 

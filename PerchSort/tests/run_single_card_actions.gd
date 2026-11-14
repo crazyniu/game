@@ -16,8 +16,10 @@ func _initialize() -> void:
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	_run.call_deferred()
 
-func verify(dialog: Control, button: Button, label: String, height := 162.0) -> void:
+func verify(dialog: Control, button: Button, label: String, height := 162.0, width := 0.0) -> void:
 	var expected: Vector2 = kit.card_action_size(dialog.panel_rect.size.x, height)
+	if width > 0:
+		expected.x = width
 	check(button.size.is_equal_approx(expected), label + " width proportion and preserved height")
 	check(is_equal_approx(button.get_rect().get_center().x, 540.0), label + " horizontal center")
 	check(button.position.y >= dialog.panel_rect.end.y + 40, label + " outside frame")
@@ -95,7 +97,7 @@ func _run() -> void:
 		verify(lesson.modal, lesson._buttons[0], language + " lesson")
 		await clear()
 		var rescue: Control = load("res://game/stuck_offer.gd").open(main.popups, Callable(), true)
-		verify(rescue, rescue.content.get_node("Rescue"), language + " rescue")
+		verify(rescue, rescue.content.get_node("Rescue"), language + " rescue", 162, 540)
 		await clear()
 		var shop_script: GDScript = load("res://game/shop_view.gd")
 		for state in ["confirm_booster", "confirm_nest", "confirm_outfit", "insufficient"]:
@@ -116,7 +118,7 @@ func _run() -> void:
 				check(chosen.id == pack.id, "currency callback preserves selected pack"))
 			await process_frame
 			var modal: Control = shop.get_node("Popup")
-			verify(modal, modal.content.get_node("Confirm"), language + " currency " + pack.id, coin_script.CONFIRM_SIZE.y)
+			verify(modal, modal.content.get_node("Confirm"), language + " currency " + pack.id, coin_script.CONFIRM_SIZE.y, 552)
 			check(modal.content.get_node("Confirm/Content/Number").get_meta("value") == "¥%d" % pack.yuan, "currency amount preserved")
 			var confirm: Button = modal.content.get_node("Confirm")
 			var number: Control = confirm.get_node("Content/Number")
