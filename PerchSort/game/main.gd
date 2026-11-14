@@ -248,8 +248,35 @@ func show_level_card(level_id: int) -> void:
 	var board := Levels.create_board(def)
 	var species: Array[String] = []
 	species.assign(Array(Levels.species_ids(board)))
+	var tools: Array = []
+	for kind in Progress.fitting_boosters(def) + [Board.Booster.FIREFLY]:
+		if Progress.is_booster_unlocked(profile, kind) and not tools.has(kind):
+			tools.append(kind)
 	Popups.level_card(popups, level_id, profile.best_stars(level_id), profile.best_moves[level_id], int(def["par"]), species,
-		mechanics_of(def), func(): _start_level(level_id), Progress.is_level_unlocked(profile, level_id))
+		mechanics_of(def), func(): _start_level(level_id), Progress.is_level_unlocked(profile, level_id),
+		tools, func(kind): return profile.inventory[kind], _offer_card_tool)
+
+## A tool tapped on the level card: the one-more offer over the card; the card's stock is re-read when it closes.
+func _offer_card_tool(kind: int, refresh: Callable) -> void:
+	var price := Progress.booster_price(kind)
+	var grant := func():
+		profile.inventory[kind] += 1
+		save()
+		refresh.call()
+	var offer := UndoOffer.open_item(popups, "item_" + load("res://game/shop_view.gd").BOOSTER_WORD[kind], UI.PICTURES[BoardView.TOOL_ICON_NAME[kind]], price, func():
+		if profile.coins < price:
+			Sound.play("error")
+			open_coin_shop(profile.coins)
+			return
+		profile.coins -= price
+		Sound.play("collect")
+		grant.call(),
+	func():
+		AdService.show_rewarded(self, func():
+			Sound.play("reward")
+			grant.call(), instant()),
+	instant())
+	offer.closed.connect(refresh)
 
 func _start_level(level_id: int) -> void:
 	_go(func():

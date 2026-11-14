@@ -302,7 +302,8 @@ static func document(host: Control, id: String) -> Control:
 	return p
 
 static func level_card(host: Control, level: int, best_stars: int, best_moves: int, par: int, species: Array[String],
-		mechanics: Array[String], on_play: Callable, playable: bool) -> Control:
+		mechanics: Array[String], on_play: Callable, playable: bool, tools: Array = [], stock_of := Callable(),
+		on_tool := Callable()) -> Control:
 	# A compact purchase-style card over the dimmed map (the player keeps seeing where they are), sized to its content,
 	# with the home page's own Play button: the same role as Home's Play, so the same picture and size.
 	var per_row := 4 if species.size() <= 8 else 5
@@ -313,6 +314,9 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		heights.append(rows * tile + (rows - 1) * LEVEL_TILE_GAP)
 	if not mechanics.is_empty():
 		heights.append(LEVEL_MECHANIC)
+	tools = tools.slice(0, LEVEL_TOOLS_MAX)
+	if not tools.is_empty():
+		heights.append(LEVEL_TOOL_ROW)
 	var p := PurchaseDialog.open(host, FamilyDialog.lettering_key("popup.level.title"), heights, _instant(host), LEVEL_PLAY.y, Modal.WIDTH)
 	var card: Rect2 = p.get_meta("card_rect")
 	var c := p.content
@@ -341,6 +345,9 @@ static func level_card(host: Control, level: int, best_stars: int, best_moves: i
 		g += 1
 	if not mechanics.is_empty():
 		_mechanic_row(c, mechanics, ys[g])
+		g += 1
+	if not tools.is_empty():
+		p.set_meta("refresh_tools", _tool_row(c, tools, stock_of, on_tool, ys[g]))
 	var at := Vector2(540.0 - LEVEL_PLAY.x * 0.5, p.panel_rect.end.y + Modal.ACTION_DROP)
 	var play := UI.art_button(c, "Play", "btn_home_island_play_" + UiText.locale(), Rect2(at, LEVEL_PLAY), func(): p.invoke(on_play))
 	(play.get_node("Face") as TextureRect).stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -353,6 +360,65 @@ const LEVEL_TILE_SMALL := 152.0
 const LEVEL_TILE_GAP := 20.0
 const LEVEL_MECHANIC := 96.0
 const LEVEL_PLAY := Vector2(500, 200)   # HomeView.PLAY.size: the home Play button
+
+const LEVEL_TOOLS_MAX := 4
+const LEVEL_TOOL := 136.0                       # the board's tool slot (BoardView.TOOL_SIZE)
+const LEVEL_TOOL_ICON := 100.0                  # BoardView.TOOL_ICON_SIZE
+const LEVEL_TOOL_COUNT := 46.0                  # painted stock numerals under the slot (BoardView.TOOL_COUNT_H)
+const LEVEL_TOOL_COUNT_GAP := 6.0
+const LEVEL_TOOL_GAP := 44.0
+const LEVEL_TOOL_ROW := LEVEL_TOOL + LEVEL_TOOL_COUNT_GAP + LEVEL_TOOL_COUNT
+## Painted content of each tool picture, as the board's slots crop them (BoardView._restyle_tool).
+const LEVEL_TOOL_CONTENT := {"bulb": Rect2(19, 11, 304, 371), "sapling": Rect2(16, 17, 333, 289), "eye": Rect2(17, 12, 366, 359),
+	"bell": Rect2(16, 17, 368, 335), "scarecrow": Rect2(16, 16, 387, 395), "rain": Rect2(16, 17, 319, 386)}
+
+## The tools that fit the level as the board's tool slots in one centred row, each with its painted stock ("+" when
+## none). Tapping a slot calls `on_tool(kind, refresh)`; `refresh` re-reads every stock from `stock_of(kind)`.
+## Returns that refresh callable.
+static func _tool_row(c: Control, tools: Array, stock_of: Callable, on_tool: Callable, y: float) -> Callable:
+	var row := Control.new()
+	row.name = "Tools"
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var n := tools.size()
+	var width := n * LEVEL_TOOL + (n - 1) * LEVEL_TOOL_GAP
+	UI.place(row, Rect2(540.0 - width * 0.5, y, width, LEVEL_TOOL_ROW))
+	c.add_child(row)
+	var counts := {}
+	var refresh := func():
+		for kind in counts:
+			var holder: Control = counts[kind]
+			if not is_instance_valid(holder):
+				continue
+			for child in holder.get_children():
+				holder.remove_child(child)
+				child.queue_free()
+			var stock: int = stock_of.call(kind) if stock_of.is_valid() else 0
+			ButtonKit.number(holder, str(stock) if stock > 0 else "+", Rect2(Vector2.ZERO, holder.size))
+	for i in n:
+		var kind: int = tools[i]
+		var slot := Button.new()
+		slot.name = "Tool_%d" % kind
+		slot.flat = true
+		slot.focus_mode = Control.FOCUS_NONE
+		UI.place(slot, Rect2(i * (LEVEL_TOOL + LEVEL_TOOL_GAP), 0, LEVEL_TOOL, LEVEL_TOOL))
+		row.add_child(slot)
+		var frame := UI.image(slot, "hud_tool_slot", Rect2(0, 0, LEVEL_TOOL, LEVEL_TOOL), false)
+		frame.name = "Slot"
+		var icon_name: String = BoardView.TOOL_ICON_NAME[kind]
+		var bounds := Rect2(Vector2.ONE * (LEVEL_TOOL - LEVEL_TOOL_ICON) * 0.5, Vector2.ONE * LEVEL_TOOL_ICON)
+		var icon := UI.art(slot, UI.PICTURES[icon_name], bounds, LEVEL_TOOL_CONTENT[icon_name])
+		icon.name = "Icon"
+		slot.button_down.connect(func(): frame.modulate = ButtonKit.PRESSED; icon.modulate = ButtonKit.PRESSED)
+		slot.button_up.connect(func(): frame.modulate = Color.WHITE; icon.modulate = Color.WHITE)
+		var holder := Control.new()
+		holder.name = "Stock"
+		holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.place(holder, Rect2(0, LEVEL_TOOL + LEVEL_TOOL_COUNT_GAP, LEVEL_TOOL, LEVEL_TOOL_COUNT))
+		slot.add_child(holder)
+		counts[kind] = holder
+		slot.pressed.connect(func(): if on_tool.is_valid(): on_tool.call(kind, refresh))
+	refresh.call()
+	return refresh
 
 ## The level's mechanics as plain pictures in one centred row (no pill behind them).
 static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> void:
@@ -1672,6 +1738,11 @@ static func preview(main: Control, state: String) -> void:
 		"level_card_first_visit": level_card(host, 1, 0, 0, 6, few, none, noop, true)
 		"level_card_full_roster": level_card(host, Levels.COUNT, 3, 28, 12, roster, mechanics, noop, true)
 		"level_card_locked": level_card(host, 12, 0, 0, 9, few, mechanics, noop, false)
+		"level_card_tools_two": level_card(host, 12, 0, 0, 9, few, none, noop, true, [Board.Booster.OWL_EYE, Board.Booster.FIREFLY],
+			func(kind): return [0, 0, 3, 0, 0, 0][kind], func(_k, _r): pass)
+		"level_card_tools_four": level_card(host, 40, 0, 0, 9, few, mechanics, noop, true,
+			[Board.Booster.MORNING_BELL, Board.Booster.OWL_EYE, Board.Booster.SCARECROW, Board.Booster.SPRING_RAIN],
+			func(kind): return [0, 0, 2, 0, 5, 1][kind], func(_k, _r): pass)
 		"goal_info_berry": goal_info(host, "berry")
 		"goal_info_hoot": goal_info(host, "hoot")
 		"win_milestone": win(host, 3, 9, 9, 120, [Board.Booster.FIREFLY, Board.Booster.SCARECROW, Board.Booster.FIREFLY], noop, noop, noop, true)
