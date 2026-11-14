@@ -15,6 +15,8 @@ func check(ok: bool, label: String) -> void:
 	failures += 0 if ok else 1
 
 func _run() -> void:
+	var ChestOpening = load("res://game/chest_opening.gd")
+	var Sound = root.get_node("Sound")
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--chest-evidence="):
 			evidence = arg.trim_prefix("--chest-evidence=")
@@ -48,7 +50,10 @@ func _run() -> void:
 		check(open.has_node("Kit/Face") and open.get_node("Kit").size == Vector2(430, 162), "Open wears the shop's primary plate at %d stars" % stars)
 		var word := open.get_node("Kit").get_child(1) as TextureRect
 		check(word.painted_id == "white_open", "Open uses the shop's painted white word")
-		check(page.has_node("Content/BadgeGreen") == (stars >= Progress.CHEST_STARS * 2), "ready badge at %d stars" % stars)
+		check(not page.has_node("Content/BadgeGreen"), "no floating ready badge")
+		check(page.get_node("Content/ReadyCount").get_meta("value") == str(Progress.chests_ready(main.profile)), "plain available count")
+		check(page.get_node("Content/ReadyCount").get_rect().end.y < main.Popups.CHEST_HERO.position.y, "quantity above chest")
+		check(page.get_node("Content/ChestHero").texture.resource_path.ends_with("chest_star_closed.png"), "chest enters closed")
 		check(page.has_node("background_home_jungle"), "approved jungle background")
 		check(not page.has_node("Content/Panel"), "no enclosing chest card")
 		var progress: Control = page.get_node("Content/Progress")
@@ -74,6 +79,26 @@ func _run() -> void:
 		await click(page.get_node("Content/Close"))
 		check(main.popups.get_child_count() == 0, "Close dismisses chest")
 		check(JSON.stringify(main.profile.to_dict()) == before, "Close preserves all profile values")
+	# Cancel during opening and destroy the page during opening: neither commits a reward.
+	for destroy in [false, true]:
+		Sound.muted = not destroy
+		Sound._last_play.erase("crate_open")
+		_set_stars(Progress.CHEST_STARS)
+		var unchanged := JSON.stringify(main.profile.to_dict())
+		main.show_chest()
+		await create_timer(0.35).timeout
+		var canceled: Control = main.popups.get_child(-1)
+		tap(canceled.get_node("Content/OpenChest"))
+		await create_timer(0.2).timeout
+		check(Sound._last_play.has("crate_open") == destroy, "opening sound respects effects mute")
+		if destroy:
+			canceled.queue_free()
+		else:
+			tap(canceled.get_node("Content/Close"))
+		await create_timer(ChestOpening.DURATION + 0.3).timeout
+		check(JSON.stringify(main.profile.to_dict()) == unchanged, "canceled opening preserves claim and profile")
+		check(Progress.chests_ready(main.profile) == 1, "canceled chest remains available")
+	Sound.muted = true
 	_set_stars(Progress.CHEST_STARS * 3 + 2)
 	main.show_chest()
 	await create_timer(0.35).timeout
@@ -91,7 +116,10 @@ func _run() -> void:
 	var open: Button = page.get_node("Content/OpenChest")
 	tap(open)
 	tap(open)
-	await create_timer(0.4).timeout
+	await create_timer(0.25).timeout
+	check(main.profile.chests_opened == 0, "no reward before opening finishes")
+	check(page.has_node("Content/ChestOpeningHero"), "distinct opening pose is visible")
+	await create_timer(ChestOpening.DURATION + 0.25).timeout
 	check(main.profile.chests_opened == 1, "repeated input opens exactly one chest")
 	check(main.profile.coins == before_coins + Progress.CHEST_COINS, "production coin reward preserved")
 	var inventory := 0

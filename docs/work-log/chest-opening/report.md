@@ -1,0 +1,11 @@
+# Chest opening report
+
+Implemented against main 888c3b9. The existing ready page showed the open-chest asset immediately and invoked reward presentation on click. It now always enters closed, shows a plain painted count centered above the chest and plays distinct opening poses before the unchanged grant/save callback.
+
+Race contract: the opening flag is set before animation; Open and Play are disabled immediately. Close remains available. Closing or destroying the page before completion leaves the claim and profile unchanged. Successful completion calls the existing atomic reward callback once. No economy/save/level rules were modified.
+
+Art: built-in image generation, references existing `chest_star_closed.png` and `chest_star_open.png`; four equal atlas cells depicting hinged lid opening at progressively larger angles, fixed chest body/footline, transparent background, no text/scenery. New asset `PerchSort/art/island/chest_opening_frames.png`; original approved art is unchanged. Runtime regions frame the individual poses without resizing their lettering or replacing page scenery.
+
+`run_chest.gd` passes with zero failures, including 0/partial/1/multiple claimable counts, double tap, delayed grant, cancellation, scene destruction, remaining claims, production feather/booster values, reward confirmation, both language labels, balance purchase entry, music and Play navigation. Full repository `scripts/run_tests.sh` exited 0. Real cloud desktop OpenGL captures recorded closed entry and 12 timed opening/reward-transition frames in each locale at 1080×1920; count is centered above the chest, body remains grounded, and reward presentation follows the lid poses. Physical mobile-device verification remains unperformed.
+
+Follow-up animation request: added a 0.16-second anticipation tilt, subtle grounded settling between lid poses, and reused existing `crate_open` / `star_1` clips at reduced levels. Both route through Sound.play and honor effects mute without changing music settings. Headless mute tests cover both muted and audible requests. The desktop recording is video-only: physical output audibility was not personally verified. After merging main 4e7b46a, chest and texture-sampling tests both passed (21 sampling checks).
