@@ -41,7 +41,7 @@ const STAR_PROGRESS := Rect2(93, 620, 440, 96) # inside each painting, above its
 const PLAY := Rect2(220, 1424, 640, 216)  # one fixed action for the selected forest
 const WORLD_ARROW := Vector2(112, 112)   # previous / next world on a world page, on the side edges
 const WORLD_ARROW_X := 24.0              # distance from the screen edge
-const WORLD_ARROW_Y := 262.0             # centre line: beside the world name, under Back and the balance, above the tiles
+const WORLD_ARROW_Y := 990.0             # centre line: the middle of the screen, in the side margins beside the tile grid (between rows 3 and 4)
 const TAP_SLOP := 18.0
 const SCROLL_STEP := 112.0
 const TREE_ORIGIN := Vector2(-12.96, 308.0)
@@ -140,7 +140,19 @@ func _build_bar() -> void:
 	_bar.size = size
 	add_child(_bar)
 	_coins = ShopSkin.counter(_bar, profile)
-	MenuNavigation.back(_bar, "Home", BACK.position, _back)
+	_build_corner(false)
+
+## The corner button: a back arrow on the world cards (to the home page), a close cross on a world's page (back to
+## the cards). One button name, so the page and the cards share the same place and callback.
+func _build_corner(close: bool) -> void:
+	var old := _bar.get_node_or_null("Home")
+	if old != null:
+		old.name = "HomeLeaving"
+		old.queue_free()
+	if close:
+		MenuNavigation.close(_bar, "Home", BACK.position, _back)
+	else:
+		MenuNavigation.back(_bar, "Home", BACK.position, _back)
 
 ## Back arrow: from a world page to the cards, from the cards to the home page.
 func _back() -> void:
@@ -360,6 +372,10 @@ func open_world(world: int) -> void:
 	_page.size = size
 	add_child(_page)
 	move_child(_page, _bar.get_index())
+	# Every world's page stands in that world's own painting (the board's branch-free scene).
+	var scene := "board_w%d_open_bg" % world if world in [1, Levels.WORLDS] else "board_w%d_bg" % world
+	UI.image(_page, scene, Rect2(0, 0, 1080, 1920), false).name = "Backdrop"
+	_build_corner(true)
 	ButtonKit.sign(_page, WORLD_NAMES[world - 1].replace(".name", "").replace(".", "_"), Rect2(240, 96, 600, 209)).name = "WorldName"
 	_build_world_arrows(world)
 	var text := "%d/%d" % [_world_stars(world), Levels.PER_WORLD * 3]
@@ -401,6 +417,7 @@ func close_world() -> void:
 	_page.queue_free()
 	_page = null
 	_bird = null
+	_build_corner(false)
 	_strip.visible = true
 	_play_button.visible = true
 	show_world(_world, true)
@@ -439,8 +456,10 @@ func _build_node(level: int) -> void:
 	if state != "locked":
 		_node_stars(layer, perch, profile.best_stars(level) if state == "cleared" else 0)
 	if state == "current" and level == current_level:
-		# The bird stands to the right of its tile, in the gap before the next column (or the screen edge).
-		_add_bird(layer, c + Vector2(TILE * 0.5 + BIRD_LIMIT.x * 0.5 + 14.0, TILE * 0.46), _level_species(level))
+		# The bird stands in the gap beside its tile: to the right, or to the left of the last column, so the side
+		# margins stay free for the previous / next world arrows.
+		var side := -1.0 if c.x > 540.0 else 1.0
+		_add_bird(layer, c + Vector2(side * (TILE * 0.5 + BIRD_LIMIT.x * 0.5 + 14.0), TILE * 0.46), _level_species(level))
 	_hit(layer, c, level)
 
 ## Feet, locks and rating stars share the measured branch plane.
