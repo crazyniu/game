@@ -1231,7 +1231,7 @@ func _hide_bubble() -> void:
 ## ---------- stuck hint ----------
 
 ## With no legal move left, or only moves that can never win (the background search exhausted every position
-## reachable without boosters), a gold glow and a bobbing pointer mark the tool that helps (undo first).
+## reachable without boosters), a gold glow and a bobbing pointer mark the cheapest tool that rescues the position.
 func _watch_stuck() -> void:
 	_hide_stuck()
 	var s := session.state
@@ -1245,7 +1245,7 @@ func _watch_stuck() -> void:
 		else:
 			_rescue_declined = true   # closing the offer leaves the pointer for the rest of the attempt
 			suspend_input()
-			show_stuck_hint()
+			show_stuck_hint(false)   # the card is the offer; later dead ends search for the rescuing tool
 			rescue_requested.emit()
 
 var _rescue_declined := false
@@ -1281,6 +1281,8 @@ func rescue() -> void:
 		return
 	session.rewind(steps)
 	session.free_rescue_used = true
+	# Proven by the search (or the level's opening position): a later undo back here rescues the attempt.
+	_winnable[session.state.search_key(false)] = true
 	if OS.is_debug_build():
 		print("RESCUE level=%d steps=%d of=%d" % [session.state.level_id, steps, snapshots.size()])
 	await _after_rewind()
@@ -1288,12 +1290,98 @@ func rescue() -> void:
 func _dead_end(s: Board) -> bool:
 	return not Rules.has_legal_move(s) or _hint_failures.get(s.search_key(false), -1) == Solver.Status.UNSOLVABLE
 
-func show_stuck_hint() -> void:
+## The rescuing tool: every visible tool (undo and unlocked boosters, the Firefly excepted) is tried cheapest first on a
+## worker thread. A booster rescues when the board with its effect applied is proven winnable; undo rescues when an
+## earlier position of the attempt is known winnable or the position one step back is proven winnable. The pointer
+## goes to the first rescue; tapping that slot uses it, or offers one more when out of stock (the slot's own action).
+## With no rescue the pointer stays on undo. `search` false points at undo at once (behind the free-rescue card).
+const RESCUE_TOOL_STATES := 20000
+const RESCUE_TOOL_MS := 600
+const NO_RESCUE := -2
+var rescue_tool := NO_RESCUE      # last search result: -1 undo, a booster kind, or NO_RESCUE
+var rescue_tool_main_ms := 0.0    # longest main-thread slice of the last search (evidence: never a frame)
+var _rescue_tool_search := 0      # bumped by _hide_stuck: a search the player has moved past is dropped
+var _rescue_tool_cancel: Array = [false]
+
+func show_stuck_hint(search := true) -> void:
 	_hide_stuck()
 	var pick := -1
 	for i in _tool_slots.size():
 		if _tool_slots[i][2] and (pick < 0 or _tool_slots[i][0] < 0):
 			pick = i
+	if not search:
+		_point_stuck(pick)
+		return
+	var id := _rescue_tool_search
+	var found: int = await _find_rescue_tool()
+	if id != _rescue_tool_search or not is_inside_tree():
+		return
+	rescue_tool = found
+	for i in _tool_slots.size():
+		if found != NO_RESCUE and _tool_slots[i][0] == found:
+			pick = i
+	_point_stuck(pick)
+
+func _rescue_tool_candidates() -> Array:
+	var tools := []
+	for slot in _tool_slots:
+		var kind: int = slot[0]
+		if kind == Board.Booster.FIREFLY:
+			continue
+		var price: int = (0 if session.undos_left > 0 else Progress.UNDO_PRICE) if kind < 0 else Progress.booster_price(kind)
+		tools.append([price, tools.size(), kind])
+	tools.sort()   # price, then slot order
+	return tools.map(func(t: Array) -> int: return t[2])
+
+func _find_rescue_tool() -> int:
+	var t0 := Time.get_ticks_usec()
+	var kinds := _rescue_tool_candidates()
+	var board := session.state.clone(false)
+	var earlier: Array[PackedInt32Array] = []
+	for back in range(1, session.history_size() + 1):
+		earlier.append(session.history_state(back).search_key(false))
+	var previous: Board = session.history_state(1).clone(false) if session.history_size() > 0 else null
+	var known := _winnable.duplicate()
+	var cancel: Array = [false]
+	_rescue_tool_cancel = cancel
+	var result := {}
+	var thread := Thread.new()
+	thread.start(func():
+		var start := Time.get_ticks_usec()
+		result["kind"] = NO_RESCUE
+		for kind in kinds:
+			if cancel[0]:
+				break
+			var ok := false
+			if kind < 0:
+				ok = previous != null and (earlier.any(func(key): return known.has(key)) \
+					or Solver.hint(previous, [], RESCUE_TOOL_STATES, RESCUE_TOOL_MS, cancel)["status"] == Solver.Status.SOLVED)
+			else:
+				ok = Solver.rescue_booster(board, [kind], RESCUE_TOOL_STATES, RESCUE_TOOL_MS, cancel) == kind
+			if ok and not cancel[0]:
+				result["kind"] = kind
+				break
+		result["ms"] = (Time.get_ticks_usec() - start) / 1000.0)
+	var main_ms := (Time.get_ticks_usec() - t0) / 1000.0
+	while thread.is_alive():
+		if not is_inside_tree():
+			cancel[0] = true
+			break
+		await get_tree().process_frame
+	var t1 := Time.get_ticks_usec()
+	thread.wait_to_finish()
+	rescue_tool_main_ms = maxf(main_ms, (Time.get_ticks_usec() - t1) / 1000.0)
+	if cancel[0]:
+		return NO_RESCUE
+	var found: int = result["kind"]
+	if OS.is_debug_build():
+		var tool_name: String = "none" if found == NO_RESCUE else ("undo" if found < 0 else Progress.BOOSTERS[found][1])
+		print("RESCUE_TOOL level=%d tool=%s ms=%.1f main_ms=%.2f tried=%d" % [session.state.level_id, tool_name,
+			result["ms"], rescue_tool_main_ms, kinds.size()])
+	return found
+
+## Gold glow and a bobbing pointer over the tool slot `pick` (index into _tool_slots).
+func _point_stuck(pick: int) -> void:
 	if pick < 0:
 		return
 	var centre: Vector2 = _tool_slots[pick][1]
@@ -1310,10 +1398,11 @@ func show_stuck_hint() -> void:
 	arrow.rotation = PI * 0.5   # points down at the tool
 	if instant:
 		return
-	var tw := _stuck.create_tween().set_loops()
+	var holder := _stuck   # _hide_stuck clears _stuck before the queued node (and its tween) is gone
+	var tw := holder.create_tween().set_loops()
 	tw.tween_method(func(t: float):
 		var wave := (1.0 - cos(t * TAU)) * 0.5
-		_stuck.modulate.a = 0.7 + 0.3 * wave
+		holder.modulate.a = 0.7 + 0.3 * wave
 		arrow.position.y = base_y - wave * 12.0, 0.0, 1.0, 1.2)
 
 ## A glow and a tapping hand on one tool (a fitting booster at level start, or the hint after a long pause),
@@ -1351,6 +1440,8 @@ func point_at_tool(kind: int) -> void:
 		hand.position = rest + Vector2(14, 14) * wave, 0.0, 1.0, 1.0)
 
 func _hide_stuck() -> void:
+	_rescue_tool_search += 1
+	_rescue_tool_cancel[0] = true
 	if _stuck:
 		_stuck.queue_free()
 		_stuck = null
