@@ -147,6 +147,13 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 		_winnable.clear()
 		_load_start_hints(int(level_def["id"]))
 	_hint_level = int(level_def["id"])
+	_light_glows = null
+	_key_pulse = null
+	_pulsing_key = null
+	_free_badge = null
+	_keys_hand = null
+	_keys_tween = null
+	_keys_wait = 0.0
 	_guide_kind = -1
 	_guide_queue.clear()
 	_guide_mask = null
@@ -297,6 +304,7 @@ func _add_mote(sprite: String, kind: String, origin: Vector2, size_px: Vector2, 
 
 func _process(delta: float) -> void:
 	_clock += delta
+	_tick_keys_pointer(delta)
 	_tick_ambient()
 	_poll_hint()
 	_tick_idle(delta)
@@ -784,6 +792,7 @@ func _refresh_status() -> void:
 			_pulse(_status_stars[stars], _status_stars[stars].size.x * 0.5)
 	_shown_moves = moves
 	_shown_stars = stars
+	_sync_cues()
 
 ## The wooden plank of the goal shelf behind the parent's content (one wood family with the shelf and the signs);
 ## its leafy ends keep their shape, only the plain middle extends.
@@ -911,6 +920,132 @@ func _build_skill_row() -> void:
 			bird_info_requested.emit(species))
 		tap.name = "Tap"
 		_skill_keys[species] = key
+
+## ---------- skill cues ----------
+
+## Flurry's light step: while `light_step` is set every branch with a free landing seat glows there and Flurry's key
+## pulses; both stop when the step is used. Berry's and Inky's free move: while `encore` is set a small painted badge
+## sits on the status capsule until the next move. Both show only while the board is at rest (not mid-move), so they
+## follow the gift's animation instead of racing it.
+var _light_glows: Node2D
+var _key_pulse: Tween
+var _pulsing_key: Control
+var _free_badge: TextureRect
+var _keys_hand: Sprite2D
+var _keys_tween: Tween
+const LIGHT_GLOW := 230.0
+const FREE_BADGE_AT := Vector2(1.0, 0.5)   # badge centre as shares of the status capsule: on its right end, clear of the count
+
+func _sync_cues() -> void:
+	if session == null or not is_instance_valid(_skill_row) or not is_instance_valid(_hud):
+		return
+	var s := session.state
+	var rest := not busy and not s.is_won()
+	_sync_light_step(rest and s.light_step)
+	var badge_on := rest and s.encore
+	if _free_badge == null or not is_instance_valid(_free_badge):
+		var side := STATUS_ICON * 1.1
+		var at := Vector2(_status.size.x * FREE_BADGE_AT.x, _status.size.y * FREE_BADGE_AT.y)
+		_free_badge = UI.art(_status, "gift_coin_encore", Rect2(at - Vector2.ONE * side * 0.5, Vector2.ONE * side))
+		_free_badge.name = "FreeBadge"
+		_free_badge.pivot_offset = _free_badge.size * 0.5
+		_free_badge.visible = false
+	if badge_on and not _free_badge.visible and not instant:
+		_free_badge.scale = Vector2.ONE * 0.2
+		_free_badge.create_tween().tween_property(_free_badge, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_free_badge.visible = badge_on
+
+func _sync_light_step(on: bool) -> void:
+	if _light_glows != null and is_instance_valid(_light_glows):
+		_light_glows.queue_free()
+	_light_glows = null
+	if _key_pulse:
+		_key_pulse.kill()
+		_key_pulse = null
+	if is_instance_valid(_pulsing_key):
+		_pulsing_key.scale = Vector2.ONE
+	_pulsing_key = null
+	if not on:
+		return
+	var s := session.state
+	_light_glows = Node2D.new()
+	_light_glows.name = "LightStepGlows"
+	_scene.add_child(_light_glows)
+	_scene.move_child(_light_glows, _bird_layer.get_index())   # under the birds, over the branches
+	for b in s.branch_count():
+		if s.free_slots(b) <= 0 or (not s.items[b].is_empty() and (s.items[b][s.items[b].size() - 1] & Board.EGG) != 0):
+			continue
+		var glow := Sprite2D.new()
+		glow.name = "Glow_%d" % b
+		glow.texture = Art.tex("glow_soft")
+		glow.modulate = Color(1.0, 0.78, 0.2, 0.9)
+		glow.scale = Vector2.ONE * LIGHT_GLOW / float(glow.texture.get_width())
+		glow.position = seat_point(b, s.items[b].size()) + Vector2(0, -34)
+		_light_glows.add_child(glow)
+		if not instant:
+			glow.create_tween().set_loops().tween_method(func(t: float):
+				glow.modulate.a = 0.55 + 0.4 * (1.0 - cos(t * TAU)) * 0.5, 0.0, 1.0, 1.4)
+	for species in _skill_keys:
+		if GIFT_COIN.get(species, "") == "lightstep":
+			_pulsing_key = _skill_keys[species]
+	if _pulsing_key != null and not instant:
+		_pulsing_key.pivot_offset = _pulsing_key.size * 0.5
+		_key_pulse = _pulsing_key.create_tween().set_loops()
+		_key_pulse.tween_property(_pulsing_key, "scale", Vector2.ONE * 1.16, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		_key_pulse.tween_property(_pulsing_key, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+## First time a level has a skilled bird: a hand taps the first key under the house for two cycles (no words) and
+## stops on any tap. Once per profile (`keys.shown`). Waits for the entrance and for the level's popups to be done.
+const KEYS_TAPS := 2
+var _keys_wait := 0.0
+
+func _tick_keys_pointer(delta: float) -> void:
+	if instant or session == null or profile.has_tutorial("keys.shown") or _keys_hand != null or _skill_keys.is_empty():
+		return
+	var host := get_parent()
+	var popups: Node = host.get("popups") if host != null else null
+	if busy or _stuck != null or session.state.is_won() or (popups != null and popups.get_child_count() > 0):
+		_keys_wait = 0.0
+		return
+	_keys_wait += delta
+	if _keys_wait < 1.0:
+		return
+	_show_keys_pointer()
+
+func _show_keys_pointer() -> void:
+	var first: Control = null
+	for key in _skill_row.get_children():
+		if first == null or key.position.x < first.position.x:
+			first = key
+	if first == null:
+		return
+	profile.set_tutorial("keys.shown")
+	profile_changed.emit()
+	_keys_hand = Sprite2D.new()
+	_keys_hand.name = "KeysPointer"
+	_keys_hand.texture = Art.tex("hand_pointer")
+	_keys_hand.scale = Vector2.ONE * 0.62
+	_keys_hand.offset = Vector2(40, 60)
+	var rest := _skill_row.position + first.position + first.size * 0.5
+	_keys_hand.position = rest
+	_hud.add_child(_keys_hand)
+	_keys_tween = _keys_hand.create_tween().set_loops(KEYS_TAPS)
+	_keys_tween.tween_property(_keys_hand, "scale", Vector2.ONE * 0.5, 0.18).set_trans(Tween.TRANS_SINE)
+	_keys_tween.tween_property(_keys_hand, "scale", Vector2.ONE * 0.62, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_keys_tween.tween_interval(0.5)
+	_keys_tween.finished.connect(_hide_keys_pointer)
+
+func _hide_keys_pointer() -> void:
+	if _keys_tween:
+		_keys_tween.kill()
+		_keys_tween = null
+	if is_instance_valid(_keys_hand):
+		_keys_hand.queue_free()
+	_keys_hand = null
+
+func _input(event: InputEvent) -> void:
+	if _keys_hand != null and ((event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed)):
+		_hide_keys_pointer()
 
 func _refresh_skill_row() -> void:
 	for species in _skill_keys:
@@ -1495,6 +1630,7 @@ func _finish_action(playback: int) -> void:
 	refresh_hud()
 	busy = false
 	_buffering_move = false
+	_sync_cues()   # refresh_hud ran while the move still counted as playing
 	if session.state.is_won():
 		_queued_taps.clear()
 		_celebrate()
@@ -2249,7 +2385,8 @@ func granted_undos(count: int) -> void:
 	session.grant_undos(count)
 	_build_tools()
 
-## Capture states: "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
+## Capture states: "light_step" / "free_move" (the cue after a Flurry / Berry flock goes home), "celebrate" (the win
+## celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
 ## "tool_guide" (a tool's guided first use), "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
 ## "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
@@ -2260,6 +2397,22 @@ func granted_undos(count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "light_step" or state == "free_move":   # a Flurry / Berry flock goes home; the cue waits for the next move
+		var bird := "snow" if state == "light_step" else "berry"
+		var board := BoardView.new()
+		main.set_screen(board)
+		main.profile.set_tutorial("keys.shown")
+		board.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+			{"side": "L", "row": 0, "birds": [bird, bird, bird]},
+			{"side": "R", "row": 0, "birds": [bird]},
+			{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
+			{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
+			{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(1)
+		await main.get_tree().create_timer(0.4).timeout
+		board.tap_branch(0)
+		return
 	if state == "tool_guide":   # Sapling at its unlock level: spotlight and hand, the player presses it, the branch grows
 		var board := BoardView.new()
 		main.set_screen(board)
