@@ -168,13 +168,41 @@ static func sign_title(parent: Control, label_id: String, ordinal: String, card:
 	var holder := ButtonKit.sign(parent, lettering_key(label_id), rect)
 	var face := Rect2(rect.size * ButtonKit.SIGN_FACE.position, rect.size * ButtonKit.SIGN_FACE.size)
 	var word: TextureRect = holder.get_child(1)
-	var digits_w := ButtonKit.number_width(ordinal, face.size.y * 0.62)
-	var word_box := Rect2(face.position, Vector2(face.size.x - digits_w - 24.0, face.size.y))
+	var digit_h := face.size.y * TITLE_DIGIT_HEIGHT
+	var digits_w := title_number_width(ordinal, digit_h)
+	var word_box := Rect2(face.position, Vector2(face.size.x - digits_w - 16.0, face.size.y))
 	word.bounds = word_box
 	word.align = 1
 	UiText._fit_painted(word)
-	ButtonKit.number(holder, ordinal, Rect2(face.end.x - digits_w - 4.0, face.position.y + face.size.y * 0.19, digits_w, face.size.y * 0.62), -1).name = "TitleNumber"
+	title_number(holder, ordinal, Rect2(face.end.x - digits_w, face.get_center().y - digit_h * 0.5, digits_w, digit_h)).name = "TitleNumber"
 	return holder
+
+## Title numerals: the gold, green-outlined digits painted in the title lettering's style (digit_title_0..9), so a
+## number beside a title word reads as part of it.
+const TITLE_DIGIT := "digit_title_"
+const TITLE_DIGIT_HEIGHT := 0.92   # share of the title face height, level with the word's capitals
+const TITLE_DIGIT_OVERLAP := 0.06  # neighbouring digits tuck their outlines together, as the letters do
+
+static func title_number_width(text: String, height: float) -> float:
+	var w := 0.0
+	for c in text:
+		var t := Art.tex(TITLE_DIGIT + c)
+		w += t.get_width() * height / t.get_height() - height * TITLE_DIGIT_OVERLAP
+	return maxf(0.0, w + height * TITLE_DIGIT_OVERLAP)
+
+static func title_number(parent: Node, text: String, rect: Rect2) -> Control:
+	var box := Control.new()
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.set_meta("value", text)
+	UI.place(box, rect)
+	parent.add_child(box)
+	var x := 0.0
+	for c in text:
+		var t := Art.tex(TITLE_DIGIT + c)
+		var w := t.get_width() * rect.size.y / t.get_height()
+		UI.image(box, TITLE_DIGIT + c, Rect2(x, 0, w, rect.size.y), false)
+		x += w - rect.size.y * TITLE_DIGIT_OVERLAP
+	return box
 
 static func stars(parent: Control, y: float, filled: int, animate := false, delay := 0.0) -> void:
 	for i in 3:
