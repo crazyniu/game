@@ -334,6 +334,13 @@ func _open_board(level_id: int, entrance: bool) -> void:
 	profile.last_level = level_id   # saved below: the next launch's Play continues here
 	# A held booster that helps here and was never used gets a pointing hand once the popups are done.
 	var point := Progress.booster_to_point_at(profile, def)
+	# The tools that unlock here are each walked through once, with a free unit (board_view.gd guide_tool).
+	var guides: Array[int] = []
+	if not instant():
+		for info in Progress.BOOSTERS:
+			if Progress.booster_unlock_level(info[0]) == level_id and not profile.has_tutorial(Progress.guided_flag(info[0])):
+				guides.append(info[0])
+				Progress.guide_unit(profile, info[0])
 	board.start(def, profile, entrance)
 	board.profile_changed.connect(save)
 	board.settings_requested.connect(func(): show_settings(true))
@@ -367,14 +374,19 @@ func _open_board(level_id: int, entrance: bool) -> void:
 			_mark_seen(Tutorial.lesson_flag(mechanic))
 			Tutorial.open_lesson(popups, mechanic, Levels.world_of(def), done, instant()))
 	save()
-	if queue.is_empty() and point < 0:
+	if queue.is_empty() and point < 0 and guides.is_empty():
 		return
 	while entrance and is_instance_valid(board) and board.busy:
 		await get_tree().process_frame
 	if not is_instance_valid(board) or screen != board:   # left the level during its entrance: its popups are dropped
 		return
 	_run_queue(queue, func():
-		if point >= 0 and is_instance_valid(board) and screen == board:
+		if not is_instance_valid(board) or screen != board:
+			return
+		if not guides.is_empty():
+			for kind in guides:
+				board.guide_tool(kind)
+		elif point >= 0:
 			board.point_at_tool(point), board)
 
 ## A lesson or unlock counts as seen when it is shown, not when it is queued: leaving the level first keeps it due.
