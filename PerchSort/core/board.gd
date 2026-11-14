@@ -25,6 +25,9 @@ var world := 1
 var variant := "noon"
 var capacity := 4
 var species_count := 0
+## Partial goal (level field "goal"): bit s set when species s must go home; 0 means every flock must go home.
+## A constant of the level, so it is not part of search_key.
+var goal_mask := 0
 
 # Parallel branch arrays; items[b] is a PackedInt32Array of bird codes, bottom first.
 var items: Array[PackedInt32Array] = []
@@ -66,7 +69,16 @@ func branch_count() -> int:
 	return items.size()
 
 func is_won() -> bool:
-	return homed.size() == species_count
+	if goal_mask == 0:
+		return homed.size() == species_count
+	var mask := 0
+	for sp in homed:
+		mask |= 1 << sp
+	return (mask & goal_mask) == goal_mask
+
+## True when species s must go home for the win (every real kind on a level without a goal).
+func in_goal(s: int) -> bool:
+	return goal_mask == 0 or (goal_mask & (1 << s)) != 0
 
 ## Effective sleep: a bird the level put to sleep.
 func is_asleep(code: int) -> bool:
@@ -110,6 +122,7 @@ func clone(copy_inventory := true) -> Board:
 	var c := Board.new()
 	c.level_id = level_id; c.world = world; c.variant = variant; c.capacity = capacity
 	c.species_count = species_count
+	c.goal_mask = goal_mask
 	for list in items:
 		c.items.append(list.duplicate())
 	c.caps = caps.duplicate(); c.kinds = kinds.duplicate(); c.rows = rows.duplicate(); c.rights = rights.duplicate()

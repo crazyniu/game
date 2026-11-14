@@ -2,6 +2,7 @@ extends Control
 ## Root: owns the profile, switches screens and hosts popups.
 ## Capture: godot --path PerchSort -- --capture=<file.png> [--level=N | --preview=<script>:<state>] [--wait=S] [--motion]
 ## Tests: -- --smoke (tests/smoke.gd), -- --autoplay --level=N, -- --frames=<dir> --wait=S
+## Trial levels (not in the catalog): -- --trial=N opens levels/trial.json level N on a copy of the profile
 
 var profile: Profile
 var screen: Control
@@ -56,6 +57,8 @@ func _ready() -> void:
 		var parts: PackedStringArray = args["preview"].split(":", true, 1)
 		var script: GDScript = load("res://game/%s.gd" % parts[0])
 		script.call("preview", self, parts[1] if parts.size() > 1 else "")
+	elif args.has("trial"):
+		open_trial(int(args["trial"]))
 	elif args.has("level"):
 		open_board(int(args["level"]), not args.has("capture"))
 	else:
@@ -349,6 +352,41 @@ func _notification(what: int) -> void:
 func _clear_popups() -> void:
 	for child in popups.get_children():
 		child.queue_free()
+
+## A trial level (Levels.trial): played on the real board with a copy of the profile, so nothing is saved and no
+## progress, drops or coins follow the win; the win panel leads to the next trial level. The first trial level
+## shows the hand on its opening move.
+func open_trial(number: int) -> void:
+	var def := Levels.trial(number)
+	if def.is_empty():
+		open_home()
+		return
+	_go(func():
+		_clear_popups()
+		var board := BoardView.new()
+		board.instant = instant()
+		set_screen(board)
+		board.start(def, Profile.from_dict(profile.to_dict()), not instant())
+		board.settings_requested.connect(func(): show_settings(true))
+		board.buy_requested.connect(_offer_tool.bind(board))
+		board.undo_more_requested.connect(_offer_undos.bind(board))
+		board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
+			if is_instance_valid(board):
+				board.rescue(), instant()))
+		board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
+		board.won.connect(func(result: Dictionary):
+			var session: GameSession = result["session"]
+			var has_next := not Levels.trial(number + 1).is_empty()
+			Popups.win(popups, session.stars(), session.move_count(), session.par, 0, [],
+				func(): open_trial(number), func(): open_trial(number + 1 if has_next else number), open_home, has_next))
+		Sound.music("bgm_game")
+		if number != 1 or instant():
+			return
+		while is_instance_valid(board) and board.busy:
+			await get_tree().process_frame
+		var opening := Solver.solve(board.session.state)
+		if is_instance_valid(board) and screen == board and opening["status"] == Solver.Status.SOLVED:
+			board.show_hint(opening["moves"][0]))
 
 func open_board(level_id: int, entrance := true) -> void:
 	_go(_open_board.bind(level_id, entrance))

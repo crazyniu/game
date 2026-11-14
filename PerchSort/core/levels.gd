@@ -23,6 +23,19 @@ static func get_level(id: int) -> Dictionary:
 	push_error("Unknown level %d" % id)
 	return {}
 
+## Trial levels: levels for rules that are not in the catalog yet, opened only by the launcher argument
+## --trial=<number>; not on the map or in the save. Returns {} past the last one.
+const TRIAL_PATH := "res://levels/trial.json"
+
+static func trial(number: int) -> Dictionary:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(TRIAL_PATH))
+	var levels: Array = data["levels"]
+	return levels[number - 1] if number >= 1 and number <= levels.size() else {}
+
+static func trial_count() -> int:
+	var data = JSON.parse_string(FileAccess.get_file_as_string(TRIAL_PATH))
+	return data["levels"].size()
+
 static func world_of(level: Dictionary) -> int:
 	var w := int(level.get("world", 0))
 	return 1 if w == 0 else w
@@ -68,8 +81,15 @@ static func create_board(level: Dictionary, inventory := PackedInt32Array()) -> 
 		board.add_branch(seats, side == "R", row, kind, birds)
 	if counts.is_empty():
 		push_error("A level needs a real species"); return null
-	for c in counts.values():
-		if c != capacity:
+	# A partial goal names the flocks that must go home; the other kinds may be leftovers of fewer birds.
+	var goal: Array = level.get("goal", [])
+	for name in goal:
+		var index := Board.species_index(str(name))
+		if index < 0 or index == Board.CROW or not counts.has(index) or (board.goal_mask & (1 << index)) != 0:
+			push_error("Invalid goal species: %s" % name); return null
+		board.goal_mask |= 1 << index
+	for sp in counts:
+		if counts[sp] > capacity or (counts[sp] != capacity and board.in_goal(sp)):
 			push_error("Each real species must have exactly capacity birds"); return null
 	board.species_count = counts.size()
 	if inventory.size() == Board.BOOSTER_COUNT:

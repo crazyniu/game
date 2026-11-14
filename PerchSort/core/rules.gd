@@ -138,7 +138,7 @@ func _rescue_deadlock(s: Board, out) -> void:
 ## When the only birds left are one full flock of a single kind (all awake, no eggs, no crows), they go home on
 ## their own: nothing is left to decide, so the player is not asked to tap. It costs no move.
 func _auto_home(s: Board, out) -> bool:
-	if s.homed.size() != s.species_count - 1:
+	if s.is_won() or s.homed.size() != s.species_count - 1:
 		return false
 	var species := -1
 	var count := 0

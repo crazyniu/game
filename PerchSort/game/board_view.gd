@@ -872,6 +872,8 @@ func _pulse(node: Control, pivot_x := 0.0) -> void:
 
 ## One key per kind of bird in the level, in a row under the hanging house: the bird's face, its homecoming
 ## badge at the corner, and a check once its flock is home. Tapping a key opens that bird's card.
+## On a level with a partial goal (Board.goal_mask) the row is the to-do list: only the named kinds get a key, each
+## with an empty ring at the corner that the check fills when that flock is home; leftover kinds get no key.
 const KEY := 88.0
 const KEY_SMALL := 74.0      # nine or more kinds
 const KEY_GAP := 14.0
@@ -883,6 +885,9 @@ func _build_skill_row() -> void:
 	_skill_keys.clear()
 	var fresh := Levels.create_board(level)
 	var names: Array = Array(Levels.species_ids(fresh, true)) if fresh != null else []
+	var goal := fresh != null and fresh.goal_mask != 0
+	if goal:
+		names = names.filter(func(name): return fresh.in_goal(Board.SPECIES.find(name)))
 	names.sort_custom(func(a, b): return Board.SPECIES.find(a) < Board.SPECIES.find(b))
 	var side := KEY if names.size() <= 8 else KEY_SMALL
 	var width := names.size() * side + maxi(0, names.size() - 1) * KEY_GAP
@@ -905,6 +910,8 @@ func _build_skill_row() -> void:
 		if GIFT_COIN.has(species):
 			var b := side * 0.44
 			UI.art(key, "gift_coin_" + GIFT_COIN[species], Rect2(side - b * 0.8, side - b * 0.8, b, b)).name = "Badge"
+		if goal:
+			UI.art(key, "pic_check_ring", Rect2(-side * 0.12, -side * 0.12, side * 0.42, side * 0.42)).name = "Ring"
 		var done := UI.art(key, UI.PICTURES["check"], Rect2(-side * 0.12, -side * 0.12, side * 0.42, side * 0.42))
 		done.name = "Home"
 		done.visible = false
@@ -2413,6 +2420,10 @@ func _celebrate() -> void:
 	var playback := _playback_id
 	busy = true
 	_last_won = int(level["id"])
+	if not instant and _fly_off_leftovers():
+		await get_tree().create_timer(LEFTOVER_FLIGHT + LEFTOVER_STAGGER_MAX).timeout
+		if playback != _playback_id:
+			return
 	Sound.play("win_fanfare")
 	if not instant:
 		_play_celebration()
@@ -2420,6 +2431,28 @@ func _celebrate() -> void:
 	if playback != _playback_id:
 		return
 	won.emit({"session": session})
+
+## A partial-goal win: the birds still on the board (leftovers that can never go home) take off, one after another,
+## over the nearest screen edge before the celebration. Returns false when the board is already empty.
+const LEFTOVER_FLIGHT := 0.9
+const LEFTOVER_STAGGER := 0.05
+const LEFTOVER_STAGGER_MAX := 0.3
+
+func _fly_off_leftovers() -> bool:
+	var s := session.state
+	var k := 0
+	for b in s.branch_count():
+		for i in range(s.items[b].size() - 1, -1, -1):
+			var bird: BirdView = _birds.get(Board.id_of(s.items[b][i]))
+			if bird == null or not is_instance_valid(bird):
+				continue
+			var out := 700.0 if bird.position.x > 540.0 else -700.0
+			bird.fly_to(Vector2(bird.position.x + out, bird.position.y - 520.0), minf(k * LEFTOVER_STAGGER, LEFTOVER_STAGGER_MAX),
+				LEFTOVER_FLIGHT - BirdView.TAKEOFF_SECONDS, true)
+			k += 1
+	if k > 0:
+		Sound.play("flutter")
+	return k > 0
 
 func _play_celebration() -> void:
 	_house.pivot_offset = Vector2(_house.size.x * 0.5, _house.size.y)
@@ -2542,6 +2575,19 @@ static func preview(main: Control, state: String) -> void:
 		board.start(Levels.get_level(12), main.profile, false)
 		await main.get_tree().create_timer(1.0).timeout
 		board._play_celebration()
+		return
+	if state == "goal_win":   # trial level 1 one move from its goal: the last mint lands, its ring fills, the leftovers fly off, the celebration
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.trial(1), main.profile, false)
+		var route: Array = Solver.solve(board.session.state)["moves"]
+		for i in route.size() - 1:
+			board.session.try_action(route[i])
+		board.sync_birds()
+		board.refresh_hud()
+		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(route[route.size() - 1][0])
+		board.tap_branch(route[route.size() - 1][1])
 		return
 	if state == "lifted_both_sides":   # one left and one right branch lifted: each flock looks across the board
 		var board := BoardView.new()

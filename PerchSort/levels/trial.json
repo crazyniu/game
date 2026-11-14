@@ -1,0 +1,5 @@
+{"levels": [
+{"id":9001,"world":1,"variant":"noon","capacity":4,"par":6,"goal":["mint"],"branches":[{"side":"L","row":0,"birds":["mint","sunny"]},{"side":"R","row":0,"birds":["mint","cocoa"]},{"side":"L","row":1,"birds":["cocoa"]},{"side":"R","row":1,"birds":["ember","sky","mint","sunny"]},{"side":"L","row":2,"birds":["mint"]}]},
+{"id":9002,"world":1,"variant":"noon","capacity":4,"par":11,"goal":["mint","cocoa"],"branches":[{"birds":[],"row":0,"side":"L"},{"birds":["mint"],"row":0,"side":"R"},{"birds":["cocoa","sunny","mint","cocoa"],"row":1,"side":"L"},{"birds":["cocoa","sky","sunny","sky"],"row":1,"side":"R"},{"birds":["cocoa","mint","snow"],"row":2,"side":"L"},{"birds":["mint"],"row":2,"side":"R"}]},
+{"id":9003,"world":1,"variant":"noon","capacity":4,"par":12,"goal":["cocoa"],"branches":[{"birds":["cocoa","berry"],"row":0,"side":"L"},{"birds":["mint","sky","snow","ink"],"row":0,"side":"R"},{"birds":["cocoa","ink","ember"],"row":1,"side":"L"},{"birds":["cocoa:sleep","berry","sunny"],"row":1,"side":"R"},{"birds":[],"row":2,"side":"L"},{"birds":["egg:cocoa","sunny","ember","snow"],"row":2,"side":"R"},{"birds":[],"row":3,"side":"L"}]}
+]}
