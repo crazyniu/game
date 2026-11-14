@@ -23,3 +23,6 @@ PerchSort/.godot/
 
 __pycache__/
 *.pyc
+
+# Test evidence (captures, frame sheets) stays local; never committed
+docs/work-log/*/evidence/
