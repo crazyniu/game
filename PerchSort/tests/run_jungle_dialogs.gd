@@ -25,6 +25,7 @@ func _run() -> void:
 	main.args["capture"] = "1"
 	await process_frame
 	var popups: GDScript = load("res://game/popups.gd")
+	var navigation: GDScript = load("res://game/menu_navigation.gd")
 	for locale in ["en", "zh"]:
 		TranslationServer.set_locale(locale)
 		for state in ["level_card_first_visit", "level_card_full_roster", "level_card_locked", "level_card_tools_two", "level_card_tools_four", "win_three_stars", "win_two_stars", "win_one_star", "win_zero_reward", "win_milestone"]:
@@ -41,6 +42,12 @@ func _run() -> void:
 			check(not rim.draw_center, "contaminated image center never drawn")
 			check(rim.patch_margin_left == rim.patch_margin_right, "balanced border margins")
 			check(not dialog.content.has_node("LeavesUpper"), "no old leafy frame ornaments")
+			if state.begins_with("level_card"):
+				var close: Control = dialog.content.get_node("Close")
+				check(is_equal_approx(dialog.panel_rect.end.x - close.get_rect().end.x, navigation.DIALOG_RIGHT_PAD), state + " Close has 56px right inset")
+				check(close.position.y == dialog.panel_rect.position.y + 48.0, state + " Close sits in header")
+				check(dialog.panel_rect.encloses(close.get_rect()), state + " entire Close hit area inside frame")
+				check(close.get_rect().end.y < float(dialog.get_meta("ys")[0]), state + " Close clears stars")
 			var names := ["Play"] if state.begins_with("level_card") else ["action_next", "Retry", "Home"]
 			for n in names:
 				var button: Control = dialog.content.get_node(n)
@@ -99,6 +106,35 @@ func _run() -> void:
 	level.content.get_node("Play").pressed.emit()
 	await create_timer(0.2).timeout
 	check(calls == 4, "Play retains its callback")
+	for locale in ["en", "zh"]:
+		TranslationServer.set_locale(locale)
+		main.show_level_card(71)
+		await process_frame
+		var entry: Control = main.popups.get_child(main.popups.get_child_count() - 1)
+		check(entry.panel_rect.size.y <= 1200.0, locale + " actual level 71 entry fits a compact card")
+		var sign: Control = entry.content.get_node("TitleGroup")
+		var close: Control = entry.content.get_node("Close")
+		var word: TextureRect = sign.get_child(1)
+		var ink := Rect2(word.texture.get_image().get_used_rect())
+		var visible := word.get_global_transform() * Rect2(ink.position * word.size / word.texture.get_size(), ink.size * word.size / word.texture.get_size())
+		check(not visible.intersects(close.get_global_rect()), locale + " entry title clears Close")
+		check(not sign.get_node("TitleNumber").get_global_rect().intersects(close.get_global_rect()), locale + " entry ordinal clears Close")
+		entry.queue_free()
+		await process_frame
+	for count in range(5, 9):
+		var species: Array[String] = []
+		for i in count:
+			species.append(Board.SPECIES[i])
+		var entry: Control = popups.level_card(main.popups, 71, 1, 16, 16, species, [] as Array[String], func(): pass, true)
+		var birds: Array[Node] = entry.content.find_children("Bird_*", "Button", false, false)
+		check(birds.size() == count, "compact roster preserves all %d bird actions" % count)
+		for i in birds.size():
+			var bounds: Rect2 = birds[i].get_rect()
+			check(entry.panel_rect.encloses(bounds), "compact bird tile stays within frame")
+			for j in range(i):
+				check(not bounds.intersects(birds[j].get_rect()), "compact bird tiles do not overlap")
+		entry.queue_free()
+		await process_frame
 	print("JUNGLE_DIALOGS checks=%d failures=%d" % [checks, failures])
 	main.queue_free()
 	await process_frame

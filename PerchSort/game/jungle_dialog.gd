@@ -9,11 +9,13 @@ const WIDTH := 960.0
 const PANEL := "panel_jungle_dialog"
 
 static func open(host: Control, title: String, ordinal: String, heights: Array, instant: bool,
-		action_height: float, show_close: bool, birds_above := false, warm := true) -> Modal:
+		action_height: float, show_close: bool, birds_above := false, warm := true, compact_entry := false) -> Modal:
 	var inner := GAP * maxf(0.0, heights.size() - 1)
 	for height in heights:
 		inner += height
-	var panel_h := HEAD + inner + FOOT
+	var head := 208.0 if compact_entry else HEAD
+	var foot := 72.0 if compact_entry else FOOT
+	var panel_h := head + inner + foot
 	var above := 180.0 if birds_above else 0.0
 	var total := above + panel_h + Modal.ACTION_DROP + action_height
 	var top := maxf(32.0, (1920.0 - total) * 0.5) + above
@@ -69,9 +71,9 @@ static func open(host: Control, title: String, ordinal: String, heights: Array, 
 	dialog._title_layer = sign
 	dialog._title_id = title
 	if show_close:
-		MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - 132, top + 156), dialog.close)
+		MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - MenuNavigation.SIZE.x - MenuNavigation.DIALOG_RIGHT_PAD, top + (48.0 if compact_entry else 156.0)), dialog.close)
 	var ys := []
-	var y := top + HEAD
+	var y := top + head
 	for height in heights:
 		ys.append(y)
 		y += height + GAP

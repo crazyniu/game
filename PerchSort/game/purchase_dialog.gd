@@ -36,9 +36,9 @@ static func open(host: Control, title_key: String, heights: Array, instant: bool
 	var layer := dialog.content.get_node("TitleGroup")
 	dialog.content.remove_child(layer)
 	layer.queue_free()
-	var sign := ButtonKit.sign(dialog.content, title_key, Rect2(190, card.position.y - 150, 700, 244))
+	var sign := ButtonKit.sign(dialog.content, title_key, Rect2(220, card.position.y - 150, 640, 244))
 	dialog._title_layer = sign
-	MenuNavigation.close(dialog.content, "Close", Vector2(card.end.x - 150, card.position.y + 30 - TITLE_ROOM), dialog.close)
+	MenuNavigation.close(dialog.content, "Close", Vector2(card.end.x - MenuNavigation.SIZE.x - MenuNavigation.DIALOG_RIGHT_PAD, card.position.y + 30 - TITLE_ROOM), dialog.close)
 	var ys := []
 	var y := card.position.y + HEAD
 	for h in heights:
@@ -75,7 +75,7 @@ static func open_shop(host: Control, title_key: String, heights: Array, instant:
 	toy_frame(dialog.content, rect)
 	dialog._title_layer = ButtonKit.sign(dialog.content, title_key, Rect2(220, top - 14, 640, 223))
 	dialog._title_id = title_key
-	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - 156, top + 48), dialog.close)
+	MenuNavigation.close(dialog.content, "Close", Vector2(rect.end.x - MenuNavigation.SIZE.x - MenuNavigation.DIALOG_RIGHT_PAD, top + 48), dialog.close)
 	var ys := []
 	var y := top + HEADER
 	for height in heights:

@@ -157,7 +157,7 @@ static func lettering_key(label_id: String) -> String:
 
 ## The sign's box relative to the card top (640 wide so the corner Close never touches it).
 const SIGN_RECT := Rect2(220, -140, 640, 223)
-const CLOSE_INSET := Vector2(14, 22)   # Close from the card's top-right corner, inside the card
+const CLOSE_INSET := Vector2(MenuNavigation.DIALOG_RIGHT_PAD, 22)   # Close from the card's top-right corner, inside the card
 
 ## The sign straddles the card's top edge; an ordinal (the level number) follows the word in painted numerals.
 static func sign_title(parent: Control, label_id: String, ordinal: String, card: Rect2) -> Control:
