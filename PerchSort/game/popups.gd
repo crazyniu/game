@@ -989,6 +989,11 @@ const CHEST_BOOSTER_ART := ["firefly", "sprout", "owl_eye", "bell", "scarecrow",
 static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable(), balance := -1) -> Control:
 	var p := _chest_page(host, balance, true)
 	_chest_hero(p, false, ready > 0)
+	ChestOpening.prepare(p, CHEST_HERO.end.y, CHEST_HERO.size.x)
+	# Random reward art must not decode in the opening-complete callback.
+	Art.tex("chest_star_open")
+	for reward_art in CHEST_BOOSTER_ART:
+		Art.tex("island_icon_" + reward_art)
 	var count := ChestLettering.number(p.content, str(maxi(0, ready)), Rect2(400, 552, 280, 104))
 	count.name = "ReadyCount"
 	var collected := clampi(progress, 0, Progress.CHEST_STARS)
@@ -1006,7 +1011,7 @@ static func chest(host: Control, progress: int, ready: int, on_open: Callable, o
 		if _instant(host):
 			p.invoke(on_open)
 		else:
-			ChestOpening.play(p, CHEST_HERO.end.y, CHEST_HERO.size.x, func(): p.invoke(on_open)), false)
+			ChestOpening.play(p, func(): p.invoke(on_open)), false)
 	UI.set_active(open, ready > 0)
 	if ready <= 0:
 		var disabled_ink := ShaderMaterial.new()

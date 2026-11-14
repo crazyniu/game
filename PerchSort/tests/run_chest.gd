@@ -43,6 +43,8 @@ func _run() -> void:
 		main.show_chest()
 		await create_timer(0.35).timeout
 		var page: Control = main.popups.get_child(-1)
+		check(page.get_node("Content/ChestOpeningHero").get_child_count() == 4, "all opening poses are prepared before click")
+		check(Sound._cache.has("crate_open") and Sound._cache.has("star_1"), "opening sounds are decoded before click")
 		var open: Button = page.get_node("Content/OpenChest")
 		check(open.disabled == (stars < Progress.CHEST_STARS), "Open availability at %d stars" % stars)
 		check(open.size == page.get_node("Content/Play").size, "Open and Play keep equal sizes at %d stars" % stars)
@@ -113,12 +115,16 @@ func _run() -> void:
 	var before_inventory := 0
 	for count in main.profile.inventory:
 		before_inventory += count
+	check(page.get_node("Content/ChestOpeningHero").get_child_count() == 4, "all opening poses are prepared before click")
+	check(Sound._cache.has("crate_open") and Sound._cache.has("star_1"), "opening sounds are decoded before click")
 	var open: Button = page.get_node("Content/OpenChest")
 	tap(open)
 	tap(open)
 	await create_timer(0.25).timeout
 	check(main.profile.chests_opened == 0, "no reward before opening finishes")
 	check(page.has_node("Content/ChestOpeningHero"), "distinct opening pose is visible")
+	var blend: float = page.get_node("Content/ChestOpeningHero").get_child(0).modulate.a
+	check(blend > 0.0 and blend < 1.0, "opening has continuous intermediate opacity, not a held hard cut")
 	await create_timer(ChestOpening.DURATION + 0.25).timeout
 	check(main.profile.chests_opened == 1, "repeated input opens exactly one chest")
 	check(main.profile.coins == before_coins + Progress.CHEST_COINS, "production coin reward preserved")
