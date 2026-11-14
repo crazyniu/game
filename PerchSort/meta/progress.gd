@@ -174,6 +174,16 @@ static func booster_to_point_at(p: Profile, def: Dictionary) -> int:
 static func used_flag(kind: int) -> String:
 	return "used.%s" % BOOSTERS[kind][1]
 
+## Tutorial flag set when the guided first use of a tool (board.gd guide_tool) has been done.
+static func guided_flag(kind: int) -> String:
+	return "guided.%s" % BOOSTERS[kind][1]
+
+## The guided first use needs a unit in hand: the starter stock if it is due, and at least one unit whatever happened.
+static func guide_unit(p: Profile, kind: int) -> void:
+	grant_starter_gifts(p)
+	if p.inventory[kind] <= 0:
+		p.inventory[kind] = 1
+
 ## Unlocked boosters, for random rewards.
 static func unlocked_boosters(p: Profile) -> Array:
 	var out := []

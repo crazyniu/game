@@ -154,6 +154,9 @@ func start(level_def: Dictionary, player: Profile, play_entrance := true) -> voi
 	_keys_hand = null
 	_keys_tween = null
 	_keys_wait = 0.0
+	_guide_kind = -1
+	_guide_queue.clear()
+	_guide_mask = null
 	_hint_waiting = false
 	_shown_hint_key = PackedInt32Array()
 	busy = false
@@ -1061,6 +1064,8 @@ func refresh_hud() -> void:
 	_set_resident(s.homed[s.homed.size() - 1] if not s.homed.is_empty() else -1)
 	_hide_stuck()
 	_build_tools()
+	if _guide_kind >= 0:
+		point_at_tool(_guide_kind)   # the hand follows the rebuilt tool bar
 
 ## The shop can change the equipped house and bird outfits while the board is open: what is on screen follows the
 ## profile when the player comes back. Positions, moves, undos and the flock's state stay as they are.
@@ -1248,7 +1253,7 @@ func branch_at(p: Vector2) -> int:
 	return best
 
 func tap_branch(b: int) -> void:
-	if session.state.is_won():
+	if session.state.is_won() or _guide_kind >= 0:
 		return
 	if busy:
 		_queue_tap(b, false)
@@ -1290,7 +1295,7 @@ func tap_branch(b: int) -> void:
 		_refresh_hint_selection()
 
 func _tap_swivel(b: int) -> void:
-	if session.state.is_won():
+	if session.state.is_won() or _guide_kind >= 0:
 		return
 	if busy:
 		_queue_tap(b, true)
@@ -1533,6 +1538,75 @@ func _hide_stuck() -> void:
 		_stuck.queue_free()
 		_stuck = null
 
+## ---------- guided first use of a tool ----------
+
+## At a tool's unlock level the board dims except that tool, a hand taps it and board taps are ignored until the
+## player presses it (its free unit is used and its normal effect plays). A tool with no effect yet waits: the guide
+## starts after the move that gives it one. One tool at a time; the flag `guided.<id>` ends it for good.
+var _guide_kind := -1                 # the tool being guided now
+var _guide_queue: Array[int] = []     # tools waiting for their turn or for an effect
+var _guide_mask: ColorRect
+const GUIDE_HOLE_PAD := 20.0
+
+func guiding() -> bool:
+	return _guide_kind >= 0
+
+func guide_tool(kind: int) -> void:
+	if instant or session == null or profile.has_tutorial(Progress.guided_flag(kind)) or _guide_queue.has(kind) or _guide_kind == kind:
+		return
+	_guide_queue.append(kind)
+	_try_guide()
+
+func _try_guide() -> void:
+	if _guide_kind >= 0 or busy or session.state.is_won() or not is_instance_valid(_hud):
+		return
+	for kind in _guide_queue:
+		if session.state.inventory[kind] > 0 and session.booster_has_effect(kind) and _slot_of(kind) >= 0:
+			_guide_queue.erase(kind)
+			_start_guide(kind)
+			return
+
+func _slot_of(kind: int) -> int:
+	for i in _tool_slots.size():
+		if _tool_slots[i][0] == kind:
+			return i
+	return -1
+
+func _start_guide(kind: int) -> void:
+	_guide_kind = kind
+	_hide_hint()
+	_hide_bubble()
+	if session.selected >= 0:
+		_lift(session.selected, false)
+		session.selected = -1
+	var centre: Vector2 = _tool_slots[_slot_of(kind)][1]
+	_guide_mask = ColorRect.new()
+	_guide_mask.name = "GuideSpotlight"
+	_guide_mask.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_guide_mask.size = Vector2(1080, 1920)
+	var mat := ShaderMaterial.new()
+	mat.shader = HINT_SPOTLIGHT
+	var side := TOOL_SIZE + GUIDE_HOLE_PAD * 2.0
+	mat.set_shader_parameter("hole_a", Vector4(centre.x - side * 0.5, centre.y - side * 0.5, side, side))
+	_guide_mask.material = mat
+	_hud.add_child(_guide_mask)
+	point_at_tool(kind)   # glow and hand, above the mask
+	mat.set_shader_parameter("fade", 0.0)
+	var fade := _guide_mask.create_tween()
+	fade.tween_method(func(v: float): mat.set_shader_parameter("fade", v), 0.0, 1.0, 0.3)
+
+## The tool was used: the dimming and the hand go, and the lesson counts as done.
+func _end_guide(kind: int) -> void:
+	if _guide_kind != kind:
+		return
+	_guide_kind = -1
+	if is_instance_valid(_guide_mask):
+		_guide_mask.queue_free()
+	_guide_mask = null
+	_hide_stuck()
+	profile.set_tutorial(Progress.guided_flag(kind))
+	profile_changed.emit()
+
 func _do(action: Callable) -> void:
 	_cancel_hint_request()
 	_hide_hint()
@@ -1563,9 +1637,10 @@ func _finish_action(playback: int) -> void:
 	else:
 		_watch_stuck()
 		_drain_taps()
+		_try_guide()
 
 func _on_undo() -> void:
-	if busy:
+	if busy or _guide_kind >= 0:
 		return
 	if session.can_undo() and session.undos_left <= 0:
 		suspend_input()
@@ -1587,7 +1662,7 @@ func _after_rewind() -> void:
 	await _finish_action(_playback_id)
 
 func _on_tool(kind: int) -> void:
-	if busy:
+	if busy or (_guide_kind >= 0 and kind != _guide_kind):
 		return
 	if kind == Board.Booster.FIREFLY:
 		_hint()
@@ -1604,6 +1679,7 @@ func _on_tool(kind: int) -> void:
 	var result := session.use_booster(kind)
 	if result.get("applied", false):
 		profile.set_tutorial(Progress.used_flag(kind))
+		_end_guide(kind)
 		sync_inventory()
 		_prefetch_hint()
 		Sound.play(BOOSTER_SOUND[kind])
@@ -1757,6 +1833,7 @@ func _apply_hint(move: Array) -> void:
 		return
 	_shown_hint_key = session.state.search_key(false)
 	profile.set_tutorial(Progress.used_flag(Board.Booster.FIREFLY))
+	_end_guide(Board.Booster.FIREFLY)
 	sync_inventory()
 	Sound.play("hint")
 	refresh_hud()
@@ -2308,8 +2385,9 @@ func granted_undos(count: int) -> void:
 	session.grant_undos(count)
 	_build_tools()
 
-## Capture states: "light_step" / "free_move" (the cue after a Flurry / Berry flock goes home), "celebrate" (the win celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
-## "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
+## Capture states: "light_step" / "free_move" (the cue after a Flurry / Berry flock goes home), "celebrate" (the win
+## celebration on the board), "sleeping_bubble" (a tapped sleeping owl explains itself),
+## "tool_guide" (a tool's guided first use), "stuck_hint" (no move left) and "dead_end" (a shuffle inside a position that can never win; the pointer appears by itself);
 ## "air_N" (level N as it opens, to watch the living
 ## air of its world and weather variant), "hud_progress" (two stars already lost), "hud_over_A_B..." (level 12 at par+A moves,
 ## then par+B after a pause, and so on; values may be negative),
@@ -2334,6 +2412,16 @@ static func preview(main: Control, state: String) -> void:
 		board.tap_branch(1)
 		await main.get_tree().create_timer(0.4).timeout
 		board.tap_branch(0)
+		return
+	if state == "tool_guide":   # Sapling at its unlock level: spotlight and hand, the player presses it, the branch grows
+		var board := BoardView.new()
+		main.set_screen(board)
+		main.profile.inventory[Board.Booster.SAPLING] = 1
+		board.start(Levels.get_level(Progress.booster_unlock_level(Board.Booster.SAPLING)), main.profile, false)
+		await main.get_tree().create_timer(0.6).timeout
+		board.guide_tool(Board.Booster.SAPLING)
+		await main.get_tree().create_timer(3.0).timeout
+		board._on_tool(Board.Booster.SAPLING)
 		return
 	if state == "gift_reach":   # a sunny flock goes home: its wake badge flies to both sleepers, then they wake
 		var board := BoardView.new()
