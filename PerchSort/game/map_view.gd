@@ -447,10 +447,6 @@ func _build_node(level: int) -> void:
 	layer.name = "Level %d" % level
 	layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page.add_child(layer)
-	if state == "current" and level == current_level:
-		var glow := UI.image(layer, "glow_soft", _landing_bounds(c).grow(TILE * 0.32))
-		glow.name = "Glow"
-		glow.modulate = Color(1.0, 0.92, 0.45, 0.9)
 	var landing := UI.image(layer, "level_tile_locked" if state == "locked" else "level_tile_open", _landing_bounds(c), false)
 	landing.name = "Node"
 	if state == "locked":
