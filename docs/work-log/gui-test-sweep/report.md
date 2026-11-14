@@ -95,3 +95,7 @@ Baseline: **38/43 pass**, five known test/precondition failures. After: **42/42 
 | `run_purchase_surface.gd` | 8.04, 6.94, 7.46 | PASS,PASS,PASS |
 
 Final close telemetry: 180 double-pointer cases, minimum 20.19ms, median 120.81ms, maximum 256.06ms from tap to freed modal. Production close tween is 120ms; measured end-to-end includes scheduling and queued deletion. No case approached the 2000ms watchdog. These are software-rendered cloud observations, not mobile frame-rate certification.
+
+## Pre-merge compatibility follow-up
+
+Integrated main `2ddbbd4` (#278). Preserved #277's new shell-specific Close geometry and diagnostics alongside the lifecycle wait, and made the surface test explicitly validate both established shared-card and approved toy-rim contracts. An actual isolated merge of #277 exposed the same-file overlap; it was resolved without dropping either test's assertions. Both current-main and combined-dialog GUI Close and Surface checks pass; the combined aggregate `scripts/run_tests.sh` exits 0. Current Close: 14.95s; integrated Close: 14.47s; final surface: 7.17s on current-main and 6.45s on the combined tree. The first attempt used inherited actions metadata to identify the shell; that failed on the legacy shell and was corrected to inspect the actual texture type, then both cases were rerun successfully. Evidence remains in `build/test-sweep/*compat*` in the respective isolated worktrees. The same actual Godot 4.6.3 / software renderer boundary applies.
