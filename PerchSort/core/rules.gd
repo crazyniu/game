@@ -5,7 +5,7 @@ extends RefCounted
 
 enum Gift { WAKE_UP_SONG, GENTLE_BREEZE, ENCORE, GARDENER, GRUMPY_STARE, LIGHT_STEP, WARM_GLOW, NIGHT_CALL, MOONBEAM }
 const GIFT_BY_SPECIES := {0: Gift.WAKE_UP_SONG, 1: Gift.GENTLE_BREEZE, 2: Gift.ENCORE, 3: Gift.GARDENER,
-	4: Gift.GRUMPY_STARE, 5: Gift.LIGHT_STEP, 6: Gift.WARM_GLOW, 8: Gift.NIGHT_CALL, 9: Gift.MOONBEAM}
+	4: Gift.GRUMPY_STARE, 5: Gift.LIGHT_STEP, 6: Gift.WARM_GLOW, 8: Gift.ENCORE, 9: Gift.WAKE_UP_SONG}
 
 var track_economy := true
 var _moonbeam_granted := false
