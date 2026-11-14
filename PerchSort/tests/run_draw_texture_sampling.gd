@@ -35,6 +35,25 @@ func _run() -> void:
 	check(icon.texture_filter == CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, "coin filters minification")
 	check(icon.size.x < source.get_width(), "no enlargement of the cutout")
 	icon.queue_free()
+	var popups = load("res://game/popups.gd")
+	var draw = popups.lucky_draw(main.popups, 3, 5, func(): return {})
+	var selected := 0
+	for i in 8:
+		var tile = draw.find_child("Prize%d" % i, true, false)
+		var image = tile.get_node("PrizeArt")
+		var is_selected: bool = popups.DRAW_PRIZE_KEYS[i] == "icon_draw_prize_four_hundred"
+		selected += int(is_selected)
+		check(image.texture_filter == (CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if is_selected else CanvasItem.TEXTURE_FILTER_PARENT_NODE), "actual draw tile %d uses only its intended filter" % i)
+	check(selected == 1, "main draw exercises the high-resolution prize")
+	draw.queue_free()
+	await process_frame
+	var daily = popups.daily_reward(main.popups, 7, true, 100, func(): return {})
+	for day in [1, 7]:
+		var tile = daily.find_child("Day%d" % day, true, false)
+		var image = tile.get_node("Body/Prize0")
+		check(image.texture_filter == (CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if day == 7 else CanvasItem.TEXTURE_FILTER_PARENT_NODE), "actual daily day %d uses only its intended filter" % day)
+	daily.queue_free()
+	await process_frame
 	main.queue_free()
 	await process_frame
 	print("Draw texture sampling: %d checks, %d failures" % [checks, failures])
