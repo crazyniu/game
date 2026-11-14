@@ -46,7 +46,7 @@ piece has one size and one look in every state (disabled is dimmed, never smalle
 - Primary button: long green pill, one calm fill, one soft shine, white painted word. Secondary: cream pill.
 - Cards and rows: cream with a soft rim; the selected one has a bright green outline; icons may overhang the
   top edge a little so they feel alive.
-- Titles hang on a carved wooden plank from two twisted ropes with vines, hibiscus and plumeria at the ends.
+- Page and popup titles use painted lettering without a visible backing after PR #231 (`5d62178`). The older rope-hung wooden plank and later light-green banner requirements are historical; do not restore them from this document. Preserve independently scoped Home and Settings designs.
 - Popups: orange wooden frame with a cream inner panel (960 wide), hibiscus and leaves at the corners, a shell at
   the bottom centre, a large rope sign (760 wide) with the gold title straddling the top edge and a cream close tile
   at the top right. Actions sit inside the frame at the bottom: green primary pill 430 x 162 (the home Play shape, one step smaller; user 2026-11-13), cream

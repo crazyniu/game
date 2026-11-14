@@ -1,5 +1,23 @@
 # Light titles
 
+## Historical scope — title and status materials superseded
+
+This records the 2026-11-13 light-title task, not a requirement to restore its
+backplates. PR #231 (`5d62178`) subsequently hid the title banner through
+`ButtonKit.banner`, leaving the painted lettering visible, and changed the
+board status plate to `hud_status_cream`. Level-card title numbers now use the
+matching gold `digit_title_*` images through `FamilyDialog`. The banner and
+frosted-green status instructions below describe the earlier implementation only.
+The retained banner helper still reads its texture for geometry; this change does
+not make that texture safe to delete.
+
+The Settings/Home scope exclusions and the original feedback remain historical
+constraints of this task; this note grants no new UI redesign or visual acceptance.
+Earlier review images are historical evidence, not current runtime baselines, and
+test captures stay local under the current repository verification rules.
+
+## Original task
+
 User feedback (2026-11-13): the wooden signs and planks are inconsistent (several kinds of wood), too dark, and too
 heavy; in the bamboo world they do not fit. The user chose style B (light leaf-green) from the mockups in
 `evidence/style_*`.
