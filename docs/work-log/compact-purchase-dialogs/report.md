@@ -17,7 +17,7 @@ The owner identified excessive width and empty space below the coin reward. The 
 Godot 4.7.2:
 
 - `run_purchase_surface.gd`: 328 checks, 0 failures, 28 states. Added content-classified card widths, card centers, action spacing/margins and footer clearance checks. Includes all currency packs, maximum/multiple quantity and insufficient balances in both locales.
-- `run_purchase_close.gd`: 1836 checks, 0 failures. Real pointer dispatch at center and four edges, single-close semantics and visible title clearance. The first narrower-shell run exposed 16 long-English-title collisions; those were corrected by the title bounds change and the entire suite rerun.
+- `run_purchase_close.gd`: 2892 checks, 0 failures. Real pointer dispatch at center and four edges, single-close semantics and visible title clearance. Every catalog title is additionally checked against the narrower shop shell in both locales. The first narrower-shell run exposed 16 long-English-title collisions; those were corrected by the title bounds change and the entire suite rerun.
 - `run_single_card_actions.gd`: 436 checks, 0 failures. Painted-word/price centering, unchanged action heights, new-edge pointer dispatch and mock currency callback identity. No real payment attempted.
 - `scripts/run_tests.sh`: exit 0, including smoke/core/goal and naming/painted-word guards. Expected negative-test diagnostic errors are present in core logs; no failed checks.
 - Naming self-test: 5 passed; source scan: 176 files, 0 violations.
@@ -26,3 +26,5 @@ Godot 4.7.2:
 Captured and inspected 18 actual cloud-desktop OpenGL screenshots, nine purchase states in each of English and Chinese, including insufficient, multiple and maximum states. Checked currency, outfit, nest and booster screenshots at full size in addition to contact sheets. Content and buttons are centered, narrower frames retain all quantities/descriptions, and bottom whitespace is reduced without cropping. Capture/log paths: ignored `build/compact-purchases/`; no evidence binaries are committed.
 
 No merge or deployment performed by this worker. This is purchase-family coverage, not a claim that all dialogs in the game have been resized or fully reviewed.
+
+Independent reviewer checked d8065c6 and actual English quantity/nest captures; no blocking issue found and no file conflict with the parallel result-dialog change.
