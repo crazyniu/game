@@ -2,7 +2,7 @@
 
 ## Change
 
-Owner-authorized UI-only adjustment: single primary actions below modal cards now occupy approximately 79% of the individual card width. A 960 px card uses 758 px; the 840 px bird info card uses 664 px. Existing heights, centered independent painted words, pressed hit geometry and callbacks remain unchanged. The currency confirmation keeps its 136 px height and original RMB amount; its painted price glyphs are separated from the nine-patch face to avoid stretching the text.
+Owner-authorized UI-only adjustment: single primary actions below modal cards are sized by content and card proportions. Word/feather-price actions use up to 79% with a 680 px cap; the 840 px bird info card uses 664 px. Following owner feedback on the long currency button, the short RMB action uses 552 px (between original 348 px and first-pass 758 px), and icon-only rescue uses 540 px. Existing heights, centered independent painted words, pressed hit geometry and callbacks remain unchanged. The currency confirmation keeps its 136 px height and original RMB amount; its painted price glyphs are separated from the nine-patch face to avoid stretching the text.
 
 Covered: bird information, new-bird introduction, unlock/reward families, shop booster/nest/outfit purchase confirmations, all six currency packs, tutorial Next/Play/Got it and stuck rescue. Global PRIMARY/SECONDARY, paired buttons, small shop item buttons and full-page actions are unchanged. Win Next already spans about 75%; level Play is handled by PR #282. No game rules, balances, payment integrations or persistence changed.
 
@@ -27,3 +27,7 @@ Captured 20 genuine Godot OpenGL screenshots on the cloud desktop, ten states pe
 Existing tutorial artwork sits close to its close control; this is outside the bounded action-width change and not represented as fixed. This pass does not claim visual coverage of every game page.
 
 Independent review found no blocking code issue; suggested currency glyph and edge callback assertions were added. Submit a regular PR for review, without merging or deployment.
+
+## Owner visual correction after PR #285
+
+PR #285 was merged by the repository before the owner feedback could be committed, so this correction is a separate branch/PR based on the new main. Re-reviewed all 20 English/Chinese runtime captures. Currency price-only actions are now 552 × 136, word/feather-price actions cap at 680 × 162, bird-information stays 664 × 162, and icon-only rescue is 540 × 162. Heights, colors, painted text sizes and payment callbacks are unchanged. Repeated the targeted suite: 436/0 and purchase surfaces: 196/0 (28 states). The latest targeted log had no exit cleanup warning; the earlier warning above remains recorded rather than claimed fixed. No real payment was attempted.
