@@ -19,21 +19,19 @@ func _recolour(token: String, map: Dictionary) -> String:
 	return ("egg:" + map[sp]) if token.begins_with("egg:") else token.replace(sp, map[sp])
 
 func _tokens_ok(level: Dictionary) -> bool:
-	for b in level["branches"]:
-		var birds: Array = b["birds"]
-		if birds.is_empty():
-			continue
-		if str(birds[birds.size() - 1]).begins_with("egg:"):
+	var board := Levels.create_board(level)
+	if board == null:
+		return false
+	for branch in board.branch_count():
+		var birds: PackedInt32Array = board.items[branch]
+		if not birds.is_empty() and (birds[birds.size() - 1] & Board.EGG):
 			return false
-		if birds.size() == int(level["capacity"]):
-			var same := true
-			for t in birds:
-				same = same and _species_of(str(t)) == _species_of(str(birds[0]))
-			if same and _species_of(str(birds[0])) != "crow":
-				return false
+		# Sleeping full flocks are not home-ready; keep the teaching structures that rely on them.
+		if Rules.can_home(board, branch):
+			return false
 	return true
 
-## Route length, or -1 when unsolved or a move beside the first three steps can never be recovered from.
+## Route length, or -1 unless a win is proven for every alternative beside the first three steps.
 func _judge(level: Dictionary, rules: Rules) -> int:
 	var board: Board = Levels.create_board(level)
 	if board == null:
@@ -57,7 +55,7 @@ func _judge(level: Dictionary, rules: Rules) -> int:
 				var nx := cur.clone(false)
 				if sw: rules.swivel(nx, from, null)
 				else: rules.transfer(nx, from, to, null)
-				if Solver.hint(nx, [], 6000, 250)["status"] == Solver.Status.UNSOLVABLE:
+				if Solver.hint(nx, [], 60000, 2000)["status"] != Solver.Status.SOLVED:
 					return -1
 		if rt == -1: rules.swivel(cur, rf, null)
 		else: rules.transfer(cur, rf, rt, null)
@@ -76,7 +74,7 @@ func _init() -> void:
 		var origin: Dictionary = Levels.get_level(id)
 		var old_len: int = routes[str(id)].size()
 		var low := old_len if old_len <= 4 else int(ceil(old_len * 0.8))
-		var high := maxi(old_len + 1, int(floor(old_len * 1.25)))
+		var high := maxi(old_len, int(floor(old_len * 1.25)))
 		rng.seed = id * 104729 + take * 7919
 		var species := []
 		for b in origin["branches"]:
@@ -125,7 +123,7 @@ func _init() -> void:
 				best_len = length
 			if gap == 0:
 				break
-		if best.is_empty():
+		if best.is_empty() or best_gap != 0:
 			print("NONE,%d,%d" % [id, take])
 		else:
 			print("SIBLING,%d,%d,%d,%d,%s" % [id, take, best_len, old_len, JSON.stringify(best)])
