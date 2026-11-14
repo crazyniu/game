@@ -74,7 +74,7 @@ import re
 import sys
 import tempfile
 
-LEVELS = 100
+LEVELS = 210
 save_directory = Path(sys.argv[1])
 profile_source = Path(sys.argv[2]).read_text(encoding="utf-8")
 current_schema = int(re.search(r"const SCHEMA_VERSION := (\d+)", profile_source).group(1))
@@ -97,7 +97,7 @@ def table(name):
 
 schema = int(profile.get("schemaVersion", 1)) if profile else current_schema
 profile["coins"] = max(profile.get("coins", 0), 50000)
-for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION"), (4, "LEVEL_DIFFICULTY")):
+for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION"), (4, "LEVEL_DIFFICULTY"), (5, "LEVEL_SPREAD")):
     if schema < step:
         moves = table(name)
         for field in ("bestStars", "clearCounts", "bestMoves"):
@@ -108,6 +108,8 @@ for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION"), (4, "LEVEL_DIF
                     new[target] = old[source]
             profile[field] = new
         profile["levelGifts"] = [moves[int(level)] for level in profile.get("levelGifts", []) if int(level) in moves]
+        if step == 5:
+            profile["lastLevel"] = moves.get(int(profile.get("lastLevel", 0)), 0)
 profile["schemaVersion"] = current_schema
 profile["highestUnlockedLevel"] = LEVELS
 # The game's existing unlock rule requires a star on each preceding level.

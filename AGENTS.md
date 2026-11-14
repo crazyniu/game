@@ -4,7 +4,7 @@ Follow [CONVENTIONS](docs/CONVENTIONS.md).
 
 ## Current execution contract
 
-Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 100 fixed levels across ten sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
+Perch Sort has one game: Godot **4.7.2** (standard build, GDScript, GL Compatibility), portrait 1080x1920, 210 fixed levels (21 per world) across ten sequential forest worlds. Open the `PerchSort/` project; the main scene is `game/main.tscn`. Start with [README](README.md), [current game](docs/CURRENT_GAME.md), [code map](docs/spec/CODE_MAP.md) and [the port contract](docs/work-log/godot-port/spec.md).
 
 - Return questions and reports to the coordinator who assigned the task. AGENTS.md and CLAUDE.md must remain identical.
 - Decompose features into parallel tasks with non-overlapping file ownership and one shared contract; the coordinator integrates and reviews. Bounded workers must not spawn workers.
@@ -58,7 +58,7 @@ Keep `core/` and `meta/` independent of presentation. Inspect actual code and ob
 
 - Chinese with the user. Agent instructions, task specs/reports, comments and commits are English. No emoji in deliveries.
 - [CURRENT_GAME](docs/CURRENT_GAME.md) routes current source/design evidence. [GAME_DESIGN](docs/GAME_DESIGN.md) preserves design decisions; approved visual contracts and actual source resolve superseded prose.
-- Preserve 100 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
+- Preserve 210 fixed levels, forest-only sequential worlds, approved forest visuals, icon-only controls where clear, regular button shapes and minimal mute-only sound settings. New assets are derived, never overwrite retained originals. Do not generate or edit artwork unless the task authorizes it.
 - Each feature gets `docs/work-log/<topic>/spec.md` and `report.md` named by subject, no version or task numbers.
 
 ## Verification

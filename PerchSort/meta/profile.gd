@@ -2,7 +2,7 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 ## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
 ## records move from the old level number (key) to the new one (value) on load.
 const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
@@ -12,6 +12,8 @@ const LEVEL_EXPANSION := {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 10, 9: 35
 const LEVEL_DIFFICULTY := {1: 1, 2: 2, 3: 4, 4: 5, 5: 6, 6: 12, 7: 13, 8: 19, 9: 26, 10: 27, 11: 7, 12: 14, 13: 18, 14: 17, 15: 16, 16: 25, 17: 22, 18: 23, 19: 28, 20: 24, 21: 3, 22: 15, 23: 32, 24: 33, 25: 29, 26: 35, 27: 34, 28: 43, 29: 39, 30: 36, 31: 8, 32: 37, 33: 30, 34: 20, 35: 41, 36: 45, 37: 42, 38: 40, 39: 46, 40: 50, 41: 11, 42: 21, 43: 38, 44: 31, 45: 44, 46: 47, 47: 55, 48: 49, 49: 54, 50: 56, 51: 9, 52: 52, 53: 51, 54: 59, 55: 61, 56: 57, 57: 65, 58: 62, 59: 66, 60: 67, 61: 10, 62: 53, 63: 60, 64: 48, 65: 58, 66: 73, 67: 64, 68: 70, 69: 68, 70: 76, 71: 63, 72: 69, 73: 71, 74: 72, 75: 74, 76: 75, 77: 81, 78: 78, 79: 84, 80: 86, 81: 80, 82: 77, 83: 88, 84: 85, 85: 83, 86: 87, 87: 94, 88: 82, 89: 91, 90: 93, 91: 97, 92: 79, 93: 95, 94: 89, 95: 90, 96: 92, 97: 98, 98: 99, 99: 96, 100: 100}
 const SAVE_PATH := "user://profile.json"
 const BOOSTER_IDS: PackedStringArray = ["firefly", "sapling", "owlEye", "morningBell", "scarecrow", "springRain"]
+## Schema 5: every world grew from 10 to 21 levels; an old level keeps its place among its world's odd numbers.
+const LEVEL_SPREAD := {1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11, 7: 13, 8: 15, 9: 17, 10: 19, 11: 22, 12: 24, 13: 26, 14: 28, 15: 30, 16: 32, 17: 34, 18: 36, 19: 38, 20: 40, 21: 43, 22: 45, 23: 47, 24: 49, 25: 51, 26: 53, 27: 55, 28: 57, 29: 59, 30: 61, 31: 64, 32: 66, 33: 68, 34: 70, 35: 72, 36: 74, 37: 76, 38: 78, 39: 80, 40: 82, 41: 85, 42: 87, 43: 89, 44: 91, 45: 93, 46: 95, 47: 97, 48: 99, 49: 101, 50: 103, 51: 106, 52: 108, 53: 110, 54: 112, 55: 114, 56: 116, 57: 118, 58: 120, 59: 122, 60: 124, 61: 127, 62: 129, 63: 131, 64: 133, 65: 135, 66: 137, 67: 139, 68: 141, 69: 143, 70: 145, 71: 148, 72: 150, 73: 152, 74: 154, 75: 156, 76: 158, 77: 160, 78: 162, 79: 164, 80: 166, 81: 169, 82: 171, 83: 173, 84: 175, 85: 177, 86: 179, 87: 181, 88: 183, 89: 185, 90: 187, 91: 190, 92: 192, 93: 194, 94: 196, 95: 198, 96: 200, 97: 202, 98: 204, 99: 206, 100: 208}
 
 var coins := 0
 var highest_unlocked := 1
@@ -124,7 +126,7 @@ static func from_dict(data: Dictionary) -> Profile:
 	var moves_source: Array = data.get("bestMoves", [])
 	var gift_list: Array = data.get("levelGifts", [])
 	var schema := int(data.get("schemaVersion", 1))
-	for step in [[2, LEVEL_RENUMBER], [3, LEVEL_EXPANSION], [4, LEVEL_DIFFICULTY]]:
+	for step in [[2, LEVEL_RENUMBER], [3, LEVEL_EXPANSION], [4, LEVEL_DIFFICULTY], [5, LEVEL_SPREAD]]:
 		if schema < step[0]:
 			star_list = _renumbered(star_list, step[1])
 			clear_list = _renumbered(clear_list, step[1])
@@ -188,7 +190,8 @@ static func from_dict(data: Dictionary) -> Profile:
 	p.draws_date = str(data.get("drawDate", ""))
 	p.draws_left = clampi(int(data.get("drawsLeft", 0)), 0, 99)
 	p.challenge_date = str(data.get("challengeDate", ""))
-	p.last_level = clampi(int(data.get("lastLevel", 0)), 0, Levels.COUNT)
+	var last := int(data.get("lastLevel", 0))
+	p.last_level = clampi(LEVEL_SPREAD.get(last, 0) if schema < 5 else last, 0, Levels.COUNT)
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= Levels.WORLDS:
 			p.rewarded_worlds[int(w)] = true

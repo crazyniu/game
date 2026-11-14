@@ -2,7 +2,7 @@
 
 ## Identity and authority
 
-There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 100 fixed levels across ten sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The [hundred-level round](work-log/hundred-levels/report.md) extended the catalog; subsequent gameplay changes are recorded below. Current presentation is documented in [the design directory](design/) and implemented in `PerchSort/game`. English and Chinese painted locale packs are installed. Runtime implementation is not proof of user visual acceptance. Forest paintings and branch layers remain under `tools/scene`.
+There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 210 fixed levels (21 per world) across ten sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The [hundred-level round](work-log/hundred-levels/report.md) extended the catalog; subsequent gameplay changes are recorded below. Current presentation is documented in [the design directory](design/) and implemented in `PerchSort/game`. English and Chinese painted locale packs are installed. Runtime implementation is not proof of user visual acceptance. Forest paintings and branch layers remain under `tools/scene`.
 
 ## Canonical-edit policy
 

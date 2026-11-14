@@ -84,7 +84,7 @@ func _run() -> void:
 	check(previous.size == next.size and previous.size == map.WORLD_ARROW and not previous.disabled and not next.disabled,
 		"previous and next world are one size, enabled mid-list")
 	await click(next)
-	check(map._world == 3 and map._page.get_node_or_null("Level 21") != null, "Next opens the following world's levels")
+	check(map._world == 3 and map._page.get_node_or_null("Level %d" % (2 * Levels.PER_WORLD + 1)) != null, "Next opens the following world's levels")
 	await capture("map_trail_next")
 	await click(map._page.get_node("WorldPrevious"))
 	await click(map._page.get_node("WorldPrevious"))
@@ -110,7 +110,7 @@ func _run() -> void:
 	map.setup(fake)
 	map.open_world(1)
 	await click(map._page.get_node("WorldNext"))
-	check(map._world == 1 and map._page.get_node_or_null("Level 11") == null, "Next into a closed world stays put")
+	check(map._world == 1 and map._page.get_node_or_null("Level %d" % (Levels.PER_WORLD + 1)) == null, "Next into a closed world stays put")
 	fake.highest_unlocked = Levels.COUNT
 	map.setup(fake)
 	map.close_world()
