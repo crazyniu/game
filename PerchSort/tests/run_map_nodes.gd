@@ -52,7 +52,7 @@ func run() -> void:
 	for language in ["zh", "en"]:
 		UiText.set_language(language)
 		await process_frame
-		var cases: Array = range(1, 101) if all_levels else ([1, 8, 100] if compact else [1, 8, 10, 12, 25, 35, 45, 55, 65, 75, 85, 95, 100])
+		var cases: Array = range(1, Levels.COUNT + 1) if all_levels else ([1, 8, Levels.COUNT] if compact else [1, 8, Levels.PER_WORLD, Levels.PER_WORLD + 1, Levels.COUNT - Levels.PER_WORLD, Levels.COUNT])
 		for current in cases:
 			var p := Profile.new()
 			p.language = language
@@ -65,25 +65,26 @@ func run() -> void:
 			var world := Progress.world_of_level(current)
 			map.open_world(world)
 			await process_frame
-			var tree: TextureRect = map._page.get_node("BranchTree")
-			check(tree.position == map.TREE_ORIGIN and tree.size == map.TREE_SOURCE * map.TREE_SCALE, "Tree natural aspect and position")
-			check(map._page.get_node_or_null("Painting") == null, "No road painting in tree page")
-			var tree_ink := Rect2(map.TREE_ORIGIN + map.TREE_CONTENT.position * map.TREE_SCALE, map.TREE_CONTENT.size * map.TREE_SCALE)
-			check(Rect2(0, 0, 1080, 1920).encloses(tree_ink), "Full tree roots and leaves inside screen")
+			var backdrop: TextureRect = map._page.get_node("Backdrop")
+			var scene := "board_w%d_open_bg" % world if world in [1, Levels.WORLDS] else "board_w%d_bg" % world
+			check(backdrop.texture == Art.tex(scene), "Each world retains its own full-screen scenery")
+			check(backdrop.get_rect() == Rect2(0, 0, 1080, 1920), "Backdrop covers the portrait canvas")
+			check(map._page.get_node_or_null("BranchTree") == null, "Retired common route is absent")
 			for level in range((world - 1) * Levels.PER_WORLD + 1, world * Levels.PER_WORLD + 1):
 				var layer: Control = map._page.get_node("Level %d" % level)
 				var node: Control = layer.get_node("Node")
 				var ink := node.get_global_rect()
-				check(is_equal_approx(ink.size.x, map.NODE), "Same branch landing width %d" % level)
+				check(is_equal_approx(ink.size.x, map.TILE), "Same branch landing width %d" % level)
 				check(ink.end.y < 1920.0, "Complete landing inside screen %d" % level)
-				check(layer.get_node("Tap").size.is_equal_approx(map.NODE_HIT_SIZE), "Same full marker hit area %d" % level)
-				var number: Control = layer.get_node("Number")
+				check(layer.get_node("Tap").get_rect() == map._hit_bounds(map._node_pos(level)), "Same full marker hit area %d" % level)
+				var number: Control = layer.get_node("Digits" if level > current else "Number")
+				check(number.get_meta("value") == str((level - 1) % Levels.PER_WORLD + 1), "World-local ordinal %d" % level)
 				var number_ink := Rect2()
 				for glyph in number.get_children():
 					var used := visible_rect(glyph)
 					number_ink = used if number_ink.size == Vector2.ZERO else number_ink.merge(used)
-				check(number_ink.get_center().distance_to(map._node_pos(level)) < 0.01, "Actual numeral ink centred %d" % level)
-				check(layer.get_node_or_null("glow_soft") == null, "No marker glow %d" % level)
+				check(absf(number_ink.get_center().x - map._node_pos(level).x) < 0.1 and absf(number_ink.get_center().y - map._node_pos(level).y) < map.TILE * 0.06, "Actual numeral ink centred %d" % level)
+				check(layer.has_node("Glow") == (level == current), "Only the current level has selection emphasis %d" % level)
 				check(layer.z_index == 0, "Node does not escape modal layer %d" % level)
 				if level < current:
 					var previous := Rect2()
@@ -104,9 +105,12 @@ func run() -> void:
 			var bird: Node2D = map._bird
 			var used := Rect2(bird._sprite.texture.get_image().get_used_rect())
 			var bird_center: Vector2 = bird.global_position + (used.get_center() + bird._sprite.offset) * bird._body.scale
-			check(absf(bird_center.x - map._node_pos(current).x) < 0.5, "Actual bird ink is centred %d" % current)
+			var c: Vector2 = map._node_pos(current)
+			var side := -1.0 if c.x > 540.0 else 1.0
+			var expected_feet: Vector2 = c + Vector2(side * (map.TILE * 0.5 + map.BIRD_LIMIT.x * 0.5 + 14.0), map.TILE * 0.46)
+			check(absf(bird_center.x - expected_feet.x) < 0.5, "Current bird stays beside its tile %d" % current)
 			var feet: Vector2 = bird.global_position + Vector2(used.get_center().x + bird._sprite.offset.x, used.end.y + bird._sprite.offset.y) * bird._body.scale
-			check(feet.distance_to(map._bird_feet(map._node_pos(current))) < 0.5, "Actual feet meet wood plane %d" % current)
+			check(feet.distance_to(expected_feet) < 0.5, "Actual feet match the side perch %d" % current)
 			check(JSON.stringify(p.to_dict()) == before, "Layout does not mutate profile")
 			await capture("trail_%d_%s" % [current, language])
 			map.close_world()

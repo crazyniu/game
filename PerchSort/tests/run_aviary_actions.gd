@@ -56,7 +56,7 @@ func run() -> void:
 					var face: Control = tile.get_node("Status" if owned else "Price")
 					check(face.get_rect() == view.SHOP_TILE_ACTION, "One action box %s/%s/%d" % [species, state, index])
 					check(tile.get_node("Equip" if owned else "Locked").get_rect().encloses(face.get_rect()), "Whole action face is clickable")
-					check(face.get_child(0).texture.atlas.resource_path.ends_with("island_pill_green.png" if owned else "btn_shop_gold.png"), "Shared accepted action skin")
+					check(face.get_node("Face").texture == Art.tex("btn_plate_green"), "Shared accepted action skin")
 					check(tile.has_node("Equipped") == selected, "Existing equipped check state")
 					check(tile.has_node("Lock") == not owned, "Existing lock state")
 					if owned:
@@ -64,12 +64,12 @@ func run() -> void:
 						check(label.texture != null and label.size.x > 0, "Explicit localized owned state")
 						check(tile.get_node("Equip").disabled == selected, "Existing equipped lockout")
 					else:
-						check(face.has_node("Coin") and face.has_node("Amount"), "Currency plus canonical price")
+						check(face.has_node("FeatherPrice/Feather") and face.has_node("FeatherPrice/Digits"), "Currency plus canonical price")
 						var price := str(Shop.item("outfit.%s.%d" % [species, index])["price"])
-						var amount: Control = face.get_node("Amount")
+						var amount: Control = face.get_node("FeatherPrice/Digits")
 						check(amount.get_child_count() == price.length(), "Exact price digit count")
 						for digit in price.length():
-							check(amount.get_child(digit).texture == Art.tex(island.DIGIT + price[digit]), "Exact canonical price digit")
+							check(amount.get_child(digit).texture == Art.tex("digit_ui_" + price[digit]), "Exact canonical price digit")
 						check(Rect2(Vector2.ZERO, face.size).encloses(amount.get_rect()), "Price remains within its face")
 						check(not tile.get_node("Locked").disabled, "Purchasable tile still opens confirmation")
 				check(JSON.stringify(p.to_dict()) == before, "Presentation does not mutate account data")

@@ -35,7 +35,7 @@ func _run() -> void:
 	main.args["capture"] = "1"
 	await create_timer(0.3).timeout
 	var home: Control = main.screen
-	var before := JSON.stringify(main.profile.to_dict())
+	var expected_profile: Dictionary = main.profile.to_dict()
 	var popups_script: GDScript = load("res://game/popups.gd")
 	var display_max: int = load("res://game/feather_bar.gd").DISPLAY_MAX
 	for balance in [0, 1280, display_max, display_max + 1]:
@@ -58,12 +58,18 @@ func _run() -> void:
 			button.pressed.emit()
 			await create_timer(0.03).timeout
 			var modal := view.get_node("Popup") as Control
-			check(modal._title_id == "coins.preview", "explicit simulation %s" % pack.id)
+			check(modal._title_id == "coins_buy", "purchase confirmation %s" % pack.id)
 			check(modal.content.get_node("Number").get_meta("value") == "+%d" % pack.coins, "simulation amount %s" % pack.id)
-			check(JSON.stringify(main.profile.to_dict()) == before, "no profile mutation %s" % pack.id)
-			modal.content.get_node("Confirm" if i % 2 == 0 else "Close").pressed.emit()
-			await create_timer(0.2).timeout
-			check(view.get_node_or_null("Popup") == null, "simulation dismissed %s" % pack.id)
+			check(main.profile.to_dict() == expected_profile, "no profile mutation %s" % pack.id)
+			var modal_ref: WeakRef = weakref(modal)
+			var action: Button = modal.content.get_node("Confirm" if i % 2 == 0 else "Close")
+			action.pressed.emit()
+			action.pressed.emit()
+			if i % 2 == 0:
+				expected_profile["coins"] = int(expected_profile["coins"]) + int(pack.coins)
+			check(await _wait_until(func(): return modal_ref.get_ref() == null, 2000), "confirmation exit completes")
+			check(view.get_node_or_null("Popup") == null, "confirmation dismissed %s" % pack.id)
+			check(main.profile.to_dict() == expected_profile, "confirm credits exactly once; cancel never credits %s" % pack.id)
 		UiText.set_language("en")
 		check(page.get_node("TitleGroup/Sign") is NinePatchRect and page.get_node("TitleGroup").get_child(1).painted_id == "lettering_coin_shop_title", "live English purchase title")
 		UiText.set_language("zh")
@@ -111,7 +117,7 @@ func _run() -> void:
 	interrupted.queue_free()
 	await create_timer(0.4).timeout
 	check(main.popups.get_child_count() == 0, "removed draw cancels animated callbacks")
-	check(JSON.stringify(main.profile.to_dict()) == before, "all fake flows preserve profile")
+	check(main.profile.to_dict() == expected_profile, "only confirmed placeholder purchases change profile")
 	main.queue_free()
 	await process_frame
 	print("draw/purchase checks: %d checks, %d failures" % [checks, failures])

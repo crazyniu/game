@@ -39,12 +39,12 @@ func run() -> void:
 	var fake := Profile.new()
 	fake.coins = 1280
 	fake.language = "en"
-	fake.highest_unlocked = 100
+	fake.highest_unlocked = Levels.COUNT
 	UiText.set_language("en")
 	await process_frame
 	map.setup(fake)
 	var before := JSON.stringify(fake.to_dict())
-	for world in range(1, 11):
+	for world in range(1, Progress.world_of_level(Levels.COUNT) + 1):
 		map.show_world(world, true)
 		await process_frame
 		var card: Control = map._cards[world - 1]
