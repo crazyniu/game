@@ -3,7 +3,7 @@ extends RefCounted
 ## Layout: docs/design/island-style.md. One cream panel, a localized title, content groups stacked 32 apart, actions in a
 ## row under the panel. Words are complete locale textures, numbers are glyphs, and controls use the shared icon family.
 
-const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "lightstep",
+const EFFECT := {"sunny": "wake", "sky": "reveal", "berry": "encore", "mint": "grow", "cocoa": "scare", "snow": "undo",
 	"ember": "hatch", "ink": "encore", "hoot": "wake"}
 const BOOSTER_ID := ["firefly", "sapling", "owl_eye", "morning_bell", "scarecrow", "spring_rain"]
 const WORLD_ID := {1: "green", 2: "bamboo", 3: "autumn", 4: "snow", 5: "blossom", 6: "mushroom", 7: "lakeside", 8: "pine",

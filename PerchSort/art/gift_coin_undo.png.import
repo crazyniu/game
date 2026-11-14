@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwcflsl8ukxhq"
-path="res://.godot/imported/gift_coin_lightstep.png-33b0504419e8df803d0e5853b9abaed8.ctex"
+uid="uid://dh1ielk4gxfcg"
+path="res://.godot/imported/gift_coin_undo.png-e203fafd33eff6b1947f469eea96e2de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/gift_coin_lightstep.png"
-dest_files=["res://.godot/imported/gift_coin_lightstep.png-33b0504419e8df803d0e5853b9abaed8.ctex"]
+source_file="res://art/gift_coin_undo.png"
+dest_files=["res://.godot/imported/gift_coin_undo.png-e203fafd33eff6b1947f469eea96e2de.ctex"]
 
 [params]
 

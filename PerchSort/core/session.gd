@@ -18,6 +18,9 @@ var undos_left := FREE_UNDOS
 const FREE_UNDOS := 3
 ## The first stuck moment of an attempt is rescued for free (BoardView.rescue); later ones sell tools.
 var free_rescue_used := false
+## SPARE_UNDO gifts already paid: the most such flocks ever at home at once in this level. A flock that goes home
+## again after an undo, rewind or restart pays nothing, so the gift cannot be farmed. Restart carries it over.
+var undo_gifts_paid := 0
 
 ## Moves over par that still earn two stars.
 const TWO_STAR_SLACK := 3
@@ -64,6 +67,7 @@ func try_move(from: int, to: int) -> bool:
 		return false
 	_push()
 	_rules.transfer(state, from, to, events)
+	_pay_undo_gifts()
 	last_move = [from, to]
 	return true
 
@@ -73,6 +77,7 @@ func swivel(b: int) -> bool:
 		return false
 	_push()
 	_rules.swivel(state, b, events)
+	_pay_undo_gifts()
 	last_move = [b, -1]
 	return true
 
@@ -93,6 +98,7 @@ func use_booster(kind: int, max_states := 100000, max_ms := 3000) -> Dictionary:
 		return {"applied": false}
 	_push()
 	_rules.booster(state, kind, true, events)
+	_pay_undo_gifts()
 	return {"applied": true, "hint": hint}
 
 ## Commits a Firefly whose hint was computed off-thread on a snapshot.
@@ -105,6 +111,7 @@ func try_use_firefly(hint_move: Array) -> bool:
 		return false
 	_push()
 	_rules.booster(state, Board.Booster.FIREFLY, true, events)
+	_pay_undo_gifts()
 	return true
 
 ## Extra undos (bought or earned); they are not part of any snapshot.
@@ -130,6 +137,7 @@ func add_branch() -> bool:
 		return false
 	_push()
 	_rules.booster(state, Board.Booster.SAPLING, false, events)
+	_pay_undo_gifts()
 	return true
 
 func undo() -> bool:
@@ -167,6 +175,15 @@ func restart() -> void:
 	last_move = []
 	_history.clear()
 	_clear()
+
+func _pay_undo_gifts() -> void:
+	var home := 0
+	for species in state.homed:
+		if Rules.GIFT_BY_SPECIES.get(species, -1) == Rules.Gift.SPARE_UNDO:
+			home += 1
+	if home > undo_gifts_paid:
+		undos_left += home - undo_gifts_paid
+		undo_gifts_paid = home
 
 func _push() -> void:
 	_history.append([state.clone(), last_move])

@@ -106,7 +106,7 @@ func _run() -> void:
 		check(reach.size() == 2, "the badge reaches both sleepers: %d" % reach.size())
 	board.refresh_hud()
 	check(row.get_node("Key_sunny/Home").visible and not row.get_node("Key_berry/Home").visible, "the flock at home gets its check")
-	# Light step: while it is set, exactly the branches with a free landing seat glow and Flurry's key pulses.
+	# Flurry's gift: one more undo at once, aimed at the undo slot; a flock that goes home again pays nothing.
 	var snow: Control = load("res://game/board_view.gd").new()
 	main.set_screen(snow)
 	snow.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
@@ -115,40 +115,44 @@ func _run() -> void:
 		{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
 		{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
 		{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
-	var ss: Board = snow.session.state
-	check(snow._light_glows == null and not snow._free_badge.visible, "no cues before any gift")
-	check(snow.session.try_move(1, 0) and ss.light_step, "the snow flock goes home and sets the light step")
+	var undos: int = snow.session.undos_left
+	check(snow.session.try_move(2, 4), "a plain move first")
 	snow.refresh_hud()
-	var expected := 0
-	for b in ss.branch_count():
-		if ss.free_slots(b) > 0:
-			expected += 1
-	check(is_instance_valid(snow._light_glows) and snow._light_glows.get_child_count() == expected and expected >= 2,
-		"a glow on exactly the branches with a free seat (%d)" % expected)
-	check(is_instance_valid(snow._pulsing_key) and snow._pulsing_key.name == "Key_snow", "Flurry's key pulses")
-	snow.busy = true
-	snow.refresh_hud()
-	check(snow._light_glows == null, "no glow while a move plays")
-	snow.busy = false
-	check(snow.session.try_move(2, 4) or snow.session.try_move(3, 4), "the step is used")
-	snow.refresh_hud()
-	check(not ss.light_step and snow._light_glows == null and snow._pulsing_key == null, "glow and pulse stop when the step is used")
-	# Free move: the badge shows while encore is set.
-	var berry: Control = load("res://game/board_view.gd").new()
-	main.set_screen(berry)
-	berry.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
-		{"side": "L", "row": 0, "birds": ["berry", "berry", "berry"]},
-		{"side": "R", "row": 0, "birds": ["berry"]},
-		{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
-		{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
-		{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
-	check(not berry._free_badge.visible, "no badge before the gift")
-	check(berry.session.try_move(1, 0) and berry.session.state.encore, "the berry flock sets the free move")
-	berry.refresh_hud()
-	check(berry._free_badge.visible, "the free badge shows while the free move is waiting")
-	check(berry.session.try_move(2, 4) or berry.session.try_move(3, 4), "the free move is made")
-	berry.refresh_hud()
-	check(not berry.session.state.encore and not berry._free_badge.visible, "the badge goes with the move")
+	check(snow.session.try_move(1, 0) and snow.session.undos_left == undos + 1, "the snow flock goes home and adds one undo")
+	var snow_gift := {}
+	for e in snow.session.events:
+		if e["type"] == "gift":
+			snow_gift = e
+	var undo_slot: Control = snow._tool_bar.get_node_or_null("Undo")
+	check(undo_slot != null, "the undo slot is on the bar")
+	if not snow_gift.is_empty() and undo_slot != null:
+		var reach: Array = snow._gift_targets(snow.session.events, snow_gift)
+		var centre: Vector2 = undo_slot.get_global_rect().get_center() - snow.global_position
+		check(reach.size() == 1 and reach[0].distance_to(centre) < 1.0, "the badge flies to the undo slot")
+	check(snow.session.undo() and snow.session.undos_left == undos, "undo spends one")
+	check(snow.session.try_move(1, 0) and snow.session.undos_left == undos, "going home again pays nothing")
+	snow.restart()
+	check(snow.session.try_move(1, 0) and snow.session.undos_left == undos, "nor after a restart")
+	# Berry's (and Inky's) gift: the homing move is taken off the count at once, aimed at the move counter.
+	for kind in ["berry", "ink"]:
+		var refund: Control = load("res://game/board_view.gd").new()
+		main.set_screen(refund)
+		refund.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+			{"side": "L", "row": 0, "birds": [kind, kind, kind]},
+			{"side": "R", "row": 0, "birds": [kind]},
+			{"side": "L", "row": 1, "birds": ["sunny", "sunny", "sunny", "sky"]},
+			{"side": "R", "row": 1, "birds": ["sky", "sky", "sky", "sunny"]},
+			{"side": "L", "row": 2, "birds": []}]}, main.profile, false)
+		check(refund.session.try_move(2, 4) and refund.session.move_count() == 1, "%s: a plain move counts" % kind)
+		check(refund.session.try_move(1, 0) and refund.session.move_count() == 1, "%s: the homing move is refunded" % kind)
+		var refund_gift := {}
+		for e in refund.session.events:
+			if e["type"] == "gift":
+				refund_gift = e
+		var reach: Array = refund._gift_targets(refund.session.events, refund_gift)
+		var counter: Vector2 = refund._moves_icon.get_global_rect().get_center() - refund.global_position
+		check(reach.size() == 1 and reach[0].distance_to(counter) < 1.0, "%s: the badge flies to the move counter" % kind)
+		check(refund.session.try_move(3, 2) and refund.session.move_count() == 2, "%s: the next move counts again" % kind)
 	# The first pointer at the bird keys: once, after the popups are gone, stopped by any tap.
 	var fresh := Profile.new()
 	var pointed: Control = load("res://game/board_view.gd").new()

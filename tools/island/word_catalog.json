@@ -546,8 +546,8 @@
   ],
   [
    "bird.berry.ability",
-   "One free move",
-   "免费走一步"
+   "Refunds a move",
+   "步数减一"
   ],
   [
    "bird.mint.ability",
@@ -556,13 +556,13 @@
   ],
   [
    "bird.cocoa.ability",
-   "Sends crows away",
-   "赶走乌鸦"
+   "Scares nearby crows",
+   "赶走附近乌鸦"
   ],
   [
    "bird.snow.ability",
-   "Land anywhere",
-   "可落在任何位置"
+   "Gives an undo",
+   "送一次撤销"
   ],
   [
    "bird.ember.ability",
@@ -571,8 +571,8 @@
   ],
   [
    "bird.ink.ability",
-   "One free move",
-   "免费走一步"
+   "Refunds a move",
+   "步数减一"
   ],
   [
    "bird.hoot.ability",
