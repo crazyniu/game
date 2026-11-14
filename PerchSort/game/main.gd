@@ -338,6 +338,7 @@ func open_lab(number: int) -> void:
 		board.settings_requested.connect(func(): show_settings(true))
 		board.buy_requested.connect(_offer_tool.bind(board))
 		board.undo_more_requested.connect(_offer_undos.bind(board))
+		board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
 		board.rescue_requested.connect(func(): StuckOffer.open(popups, func():
 			if is_instance_valid(board):
 				board.rescue(), instant()))
@@ -373,6 +374,7 @@ func _open_board(level_id: int, entrance: bool) -> void:
 		if is_instance_valid(board):
 			board.rescue(), instant()))
 	board.undo_more_requested.connect(_offer_undos.bind(board))
+	board.bird_info_requested.connect(func(species: String): Popups.goal_info(popups, species, Levels.world_of(def)))
 	board.won.connect(_on_won.bind(level_id))
 	Sound.music("bgm_game")
 	# First meetings and booster unlocks are shown after the entrance.

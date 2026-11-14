@@ -6,6 +6,7 @@ signal won(result: Dictionary)          # {"session": GameSession}
 signal settings_requested
 signal buy_requested(kind: int)          # booster with zero stock was tapped
 signal undo_more_requested               # undo was tapped with no undo left in this attempt
+signal bird_info_requested(species: String)   # a bird was held: its card explains what its flock's homecoming does
 signal rescue_requested                  # first proven dead end of the attempt: the free rewind is offered
 signal profile_changed
 
@@ -1171,6 +1172,49 @@ func _gui_input(event: InputEvent) -> void:
 		if b >= 0:
 			tap_branch(b)
 			accept_event()
+		_begin_hold(event.position)
+	elif (event is InputEventMouseButton and not event.pressed) \
+			or (event is InputEventMouseMotion and event.position.distance_to(_hold_at) > HOLD_SLOP):
+		_hold_id += 1
+
+## Holding a finger on a bird for HOLD_SECONDS opens its card. The press itself still selects as usual; the hold
+## then drops that selection. A move started by the press, an egg or a moved finger cancels it.
+const HOLD_SECONDS := 0.45
+const HOLD_SLOP := 24.0
+var _hold_id := 0
+var _hold_at := Vector2.ZERO
+
+func bird_at(p: Vector2) -> BirdView:
+	var best: BirdView = null
+	var best_d := 80.0 * BIRD_SCALE
+	for bird in _birds.values():
+		if not is_instance_valid(bird):
+			continue
+		var at: Vector2 = bird.global_position - global_position
+		var dx := absf(p.x - at.x)
+		if dx < best_d and p.y < at.y + 10.0 and p.y > at.y - 175.0 * BIRD_SCALE:
+			best = bird
+			best_d = dx
+	return best
+
+func _begin_hold(p: Vector2) -> void:
+	_hold_id += 1
+	_hold_at = p
+	var id := _hold_id
+	var bird := bird_at(p)
+	if bird == null or (bird.code & Board.EGG) != 0:
+		return
+	await get_tree().create_timer(HOLD_SECONDS).timeout
+	if id != _hold_id or busy or not is_inside_tree() or not is_instance_valid(bird):
+		return
+	_hold_id += 1
+	if session.selected >= 0:
+		_lift(session.selected, false)
+		session.cancel_selection()
+		_refresh_hint_selection()
+	suspend_input()
+	Sound.play("select")
+	bird_info_requested.emit(Board.SPECIES[Board.species_of(bird.code)])
 
 func branch_at(p: Vector2) -> int:
 	var s := session.state
@@ -1880,10 +1924,12 @@ func play_events(events: Array) -> void:
 				else:
 					_flock_home(e)
 			"gift":
-				if session.state.is_won():
-					await _gift(e)
+				# The badge is shown reaching what it changes before those changes play.
+				var reach := _gift_targets(events, e)
+				if session.state.is_won() or not reach.is_empty():
+					await _gift(e, reach)
 				else:
-					_gift(e)
+					_gift(e, reach)
 			"branch_grew", "twig_upgraded":
 				_layout_branches()
 			"crows_left":
@@ -2116,25 +2162,86 @@ func _set_resident(species_index: int, rise := false) -> void:
 		_resident.position.y = feet.y + 90.0
 		_resident.create_tween().tween_property(_resident, "position:y", feet.y, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-## The ability badge of a delivered flock flies from the doorway to its goal circle (never over the birds below).
-func _gift(e: Dictionary) -> void:
+## What a homecoming gift is about to change, as points on the board: the birds it wakes, the eggs it reveals or
+## hatches, the crows it sends away, the branch it grows, the sun or moon it turns, the move counter it spares.
+const GIFT_REACH_MAX := 8
+
+func _gift_targets(events: Array, gift: Dictionary) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	var at := events.find(gift)
+	for i in range(at + 1, events.size()):
+		var e: Dictionary = events[i]
+		match e["type"]:
+			"gift", "flock_home", "transferred", "swivelled", "wave":
+				break
+			"woke", "hatched", "egg_revealed":
+				var bird: BirdView = _birds.get(e["id"])
+				if bird:
+					points.append(bird.global_position - global_position + Vector2(0, -80.0 * BIRD_SCALE))
+			"crows_left":
+				for item in e["birds"]:
+					var crow: BirdView = _birds.get(item["id"])
+					if crow:
+						points.append(crow.global_position - global_position + Vector2(0, -80.0 * BIRD_SCALE))
+			"branch_grew", "twig_upgraded":
+				points.append(seat_point(e["branch"], maxi(0, int(e["after"]) - 1)) + Vector2(0, -60.0))
+			"phase_changed":
+				var icon: Control = _phase_icons.get(e["phase"])
+				if is_instance_valid(icon):
+					points.append(icon.get_global_rect().get_center() - global_position)
+	if gift["species"] == "berry" and is_instance_valid(_moves_icon):   # the free step: the move counter
+		points.append(_moves_icon.get_global_rect().get_center() - global_position)
+	if points.size() > GIFT_REACH_MAX:
+		points.resize(GIFT_REACH_MAX)
+	return points
+
+## The ability badge of a delivered flock pops out of the doorway. With something to change it sends a small badge
+## to each thing it changes (returning when they arrive, so the change plays after its cause); otherwise it rises
+## and fades.
+func _gift(e: Dictionary, reach: Array[Vector2] = []) -> void:
 	var coin := Sprite2D.new()
 	coin.texture = Art.tex("gift_coin_" + GIFT_COIN.get(e["species"], "wake"))
 	coin.position = _door_point()
 	coin.scale = Vector2.ONE * 0.2
 	_home_effects.add_child(coin)
 	Sound.play("collect")
-	var target := coin.position + Vector2(0, -90)   # the gift rises out of the doorway, then fades
 	var small := 0.46 * GOAL / float(coin.texture.get_width())
 	var big := 0.8 * GOAL / float(coin.texture.get_width())
 	var tw := coin.create_tween()
 	tw.tween_property(coin, "scale", Vector2.ONE * big, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_interval(0.15)
-	tw.tween_property(coin, "position", target, 0.3).set_ease(Tween.EASE_IN_OUT)
-	tw.parallel().tween_property(coin, "scale", Vector2.ONE * small, 0.3)
-	tw.tween_property(coin, "modulate:a", 0.0, 0.15)
+	if reach.is_empty():
+		var target := coin.position + Vector2(0, -90)
+		tw.tween_property(coin, "position", target, 0.3).set_ease(Tween.EASE_IN_OUT)
+		tw.parallel().tween_property(coin, "scale", Vector2.ONE * small, 0.3)
+		tw.tween_property(coin, "modulate:a", 0.0, 0.15)
+		await tw.finished
+		coin.queue_free()
+		return
 	await tw.finished
-	coin.queue_free()
+	if not is_instance_valid(coin):
+		return
+	var origin := _home_effects.global_position - global_position
+	for k in reach.size():
+		var copy := Sprite2D.new()
+		copy.texture = coin.texture
+		copy.position = coin.position
+		copy.scale = Vector2.ONE * small
+		_home_effects.add_child(copy)
+		var fly := copy.create_tween()
+		fly.tween_interval(k * GIFT_STAGGER)
+		fly.tween_property(copy, "position", reach[k] - origin, GIFT_FLIGHT).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		fly.tween_property(copy, "scale", Vector2.ONE * small * 1.5, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		fly.tween_interval(0.25)
+		fly.tween_property(copy, "modulate:a", 0.0, 0.2)
+		fly.tween_callback(copy.queue_free)
+	var fade := coin.create_tween()
+	fade.tween_property(coin, "modulate:a", 0.0, 0.25)
+	fade.tween_callback(coin.queue_free)
+	await get_tree().create_timer(GIFT_FLIGHT + (reach.size() - 1) * GIFT_STAGGER + 0.1).timeout
+
+const GIFT_FLIGHT := 0.4
+const GIFT_STAGGER := 0.05
 
 ## The board cheers before the win panel opens: the house bounces and glows, the goal keys hop one after another,
 ## confetti bursts from the doorway and the resident cheers in it (CELEBRATE seconds).
@@ -2218,6 +2325,28 @@ func granted_undos(count: int) -> void:
 ## entrance), "flock_home" (two flocks home in a row) and "landing" (two plain landings); "_slow" runs them at a
 ## fifth of the speed for frame sequences.
 static func preview(main: Control, state: String) -> void:
+	if state == "gift_reach":   # a sunny flock goes home: its wake badge flies to both sleepers, then they wake
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start({"id": 1, "capacity": 4, "par": 3, "world": 1, "variant": "noon", "branches": [
+			{"side": "L", "row": 0, "birds": ["sunny", "sunny", "sunny"]},
+			{"side": "R", "row": 0, "birds": ["berry:sleep", "sunny"]},
+			{"side": "L", "row": 1, "birds": ["berry", "berry:sleep"]},
+			{"side": "R", "row": 1, "birds": ["berry"]}]}, main.profile, false)
+		await main.get_tree().create_timer(1.0).timeout
+		board.tap_branch(1)
+		await main.get_tree().create_timer(0.6).timeout
+		board.tap_branch(0)
+		return
+	if state == "hold_bird":   # a finger held on a bird opens its card
+		var board := BoardView.new()
+		main.set_screen(board)
+		board.start(Levels.get_level(12), main.profile, false)
+		board.bird_info_requested.connect(func(species: String): load("res://game/popups.gd").goal_info(main.popups, species))
+		await main.get_tree().create_timer(1.0).timeout
+		var bird: BirdView = board._birds.values()[0]
+		board._begin_hold(bird.global_position - board.global_position + Vector2(0, -60))
+		return
 	if state == "dive":   # the first lab level: the Dive run is selected (targets glow), then it dives (frame sequences)
 		var board := BoardView.new()
 		main.set_screen(board)

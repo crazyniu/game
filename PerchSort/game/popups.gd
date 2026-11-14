@@ -368,14 +368,42 @@ static func _mechanic_row(c: Control, mechanics: Array[String], y: float) -> voi
 		if mechanics[i] in ["sleep", "egg", "crow", "mama"]:
 			_breathe(t, i * 0.7)
 
-static func goal_info(host: Control, species: String) -> Control:
-	var p := Modal.open(host, "bird.%s.name" % species, [FRIEND, ABILITY_H], true, 0.0, 0.0, _instant(host))
+## A bird's card: the bird, then "four of them go home" as pictures (faces, arrow, birdhouse) when its flock's
+## homecoming has an effect, then that effect as its badge and painted caption.
+const TRIGGER_H := 110.0
+const TRIGGER_FACE := 84.0
+const TRIGGER_HOUSE := 104.0
+
+static func goal_info(host: Control, species: String, world := 1) -> Control:
+	var effect: String = EFFECT.get(species, "")
+	var heights := [FRIEND, ABILITY_H] if effect.is_empty() else [FRIEND, TRIGGER_H, ABILITY_H]
+	var p := Modal.open(host, "bird.%s.name" % species, heights, true, 0.0, 0.0, _instant(host))
 	FamilyDialog.decorate(p, false)
 	var c := p.content
 	var ys: Array = p.get_meta("ys")
-	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0)
-	FamilyDialog.ability(c, species, EFFECT.get(species, ""), ys[1])
+	_bird_view(c, species, Rect2(540.0 - FRIEND * 0.5 + 40.0, ys[0] + 30.0, FRIEND - 80.0, FRIEND - 60.0), _instant(host), 0.0,
+		WorldBirds.look(species, world))
+	if not effect.is_empty():
+		_trigger_row(c, species, world, ys[1])
+	FamilyDialog.ability(c, species, effect, ys[heights.size() - 1])
 	return p
+
+static func _trigger_row(c: Control, species: String, world: int, y: float) -> void:
+	var gap := 6.0
+	var arrow := 64.0
+	var pad := 22.0
+	var width := 4 * TRIGGER_FACE + 3 * gap + pad + arrow + pad + TRIGGER_HOUSE
+	var x := 540.0 - width * 0.5
+	var mid := y + TRIGGER_H * 0.5
+	var row := Control.new()
+	row.name = "Trigger"
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.add_child(row)
+	for i in 4:
+		UI.art(row, WorldBirds.face(species, world), Rect2(x + i * (TRIGGER_FACE + gap), mid - TRIGGER_FACE * 0.5, TRIGGER_FACE, TRIGGER_FACE)).name = "Face%d" % i
+	var after := x + 4 * TRIGGER_FACE + 3 * gap + pad
+	UI.icon(row, "right", Vector2(after + arrow * 0.5, mid), arrow, UI.FILL["orange"]).name = "Arrow"
+	UI.art(row, "house_default", Rect2(after + arrow + pad, mid - TRIGGER_HOUSE * 0.5, TRIGGER_HOUSE, TRIGGER_HOUSE)).name = "House"
 
 ## Daily lucky draw: a 3x3 board whose eight outer cells hold prizes and whose centre is the gold chest. A light runs
 ## round the ring, slows down and stops on the prize (coins, or a booster with its count). The star row shows today's
@@ -1355,6 +1383,9 @@ static func _ring(c: Control, species: String, center: Vector2, instant: bool, s
 	if not effect.is_empty():
 		var b := side * 0.42
 		UI.art(c, "gift_coin_" + effect, Rect2(r.end - Vector2(b, b) * 0.85, Vector2(b, b)))
+	# Tapping a ring opens that bird's card over the level card.
+	var tap := UI.hit_area(c, r, func(): goal_info(c.get_parent().get_parent(), species, world))
+	tap.name = "Bird_" + species
 
 
 ## Soft warm glow behind a hero picture, slowly pulsing.
