@@ -29,3 +29,9 @@ Results: naming self-tests passed; naming guard zero violations; painted words z
 ## Launcher follow-up validation
 
 `python3 ci/test_launcher_recovery.py` passes five Linux launcher scenarios with a mock engine and isolated temporary profile paths: truncated primary with backup, missing primary with backup, truncated primary without backup, reset with preview, and ordinary new-player boost. The standard runner includes this check (explicitly skips non-Linux platforms). `bash -n run.sh` passes. PowerShell changes received static review only; PowerShell/Windows execution is unavailable, so Windows recovery is not claimed runtime-verified.
+
+## CI clean-checkout fixture correction
+
+Actions run 43566346511 failed before any Godot tests: the mocked engine did not create `.godot` during import, so the launcher could not write `run_import_stamp` on a fresh checkout. An existing local import cache had masked the test-fixture defect. Reproduced locally with an empty fixture: `run.sh:67: .../.godot/run_import_stamp: No such file or directory`.
+
+The launcher check now always copies the launcher and profile source into a fresh temporary checkout, simulates the import cache-directory side effect in its mock, and includes child stdout/stderr in failures. No assertions were removed and no production behavior changed. Removing that mock side effect reproduces the failure again; with it all five scenarios pass. Local Python is 3.12; hosted Python 3.14 acceptance is delegated to the new CI run, not claimed from local testing.

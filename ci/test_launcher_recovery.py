@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import sys
+import shutil
 
 if sys.platform != "linux":
     print("launcher recovery: Linux mock-launcher check skipped on this platform")
@@ -13,8 +14,24 @@ if sys.platform != "linux":
 root = Path(__file__).resolve().parents[1]
 with tempfile.TemporaryDirectory(prefix="perch-launcher-check-") as temp:
     base = Path(temp)
+    # A fresh project for every invocation: never borrow the developer checkout's import cache.
+    fixture = base / "checkout"
+    (fixture / "PerchSort/meta").mkdir(parents=True)
+    shutil.copyfile(root / "run.sh", fixture / "run.sh")
+    shutil.copyfile(root / "PerchSort/meta/profile.gd", fixture / "PerchSort/meta/profile.gd")
     stub = base / "godot"
-    stub.write_text('#!/bin/sh\nif [ "$1" = "--version" ]; then echo 4.7.2; fi\nprintf "%s\\n" "$*" >> "$LAUNCH_LOG"\n')
+    stub.write_text("""#!/bin/sh
+if [ "$1" = "--version" ]; then echo 4.7.2; fi
+printf "%s\\n" "$*" >> "$LAUNCH_LOG"
+# The real engine creates its cache during --import; reproduce that required side effect.
+case " $* " in
+  *" --import "*)
+    while [ "$#" -gt 0 ]; do
+      if [ "$1" = "--path" ]; then shift; mkdir -p "$1/.godot"; break; fi
+      shift
+    done ;;
+esac
+""")
     stub.chmod(0o755)
     env = dict(os.environ, HOME=str(base), GODOT=str(stub), XDG_DATA_HOME=str(base / "data"), LAUNCH_LOG=str(base / "launch.log"))
     directory = base / "data/godot/app_userdata/Perch Sort"
@@ -25,7 +42,8 @@ with tempfile.TemporaryDirectory(prefix="perch-launcher-check-") as temp:
 
     def launch(*args):
         (base / "launch.log").write_text("")
-        subprocess.run(["bash", str(root / "run.sh"), *args], env=env, check=True, capture_output=True, text=True)
+        result = subprocess.run(["bash", str(fixture / "run.sh"), *args], env=env, capture_output=True, text=True)
+        assert result.returncode == 0, f"launcher exited {result.returncode}\n{result.stdout}\n{result.stderr}"
         return (base / "launch.log").read_text()
 
     primary.write_text("broken")
