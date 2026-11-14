@@ -1159,11 +1159,20 @@ const CHEST_OPEN_INK := Rect2(101, 90, 1031, 1012)
 const CHEST_SUPPORT_INK := Rect2(43, 112, 2082, 559)
 const ChestLettering := preload("res://game/chest_lettering.gd")
 const CHEST_BOOSTER_ART := ["firefly", "sprout", "owl_eye", "bell", "scarecrow", "rain"]
+## Source-alpha bounds, verified against source PNGs in the chest regression (no GPU readback at reward time).
+const CHEST_REWARD_INK := {
+	"coin": Rect2(3, 2, 90, 92),
+	"island_icon_firefly": Rect2(17, 11, 307, 371),
+	"island_icon_sprout": Rect2(16, 17, 333, 289),
+	"island_icon_owl_eye": Rect2(17, 12, 367, 359),
+	"island_icon_bell": Rect2(16, 17, 368, 335),
+	"island_icon_scarecrow": Rect2(16, 16, 387, 395),
+	"island_icon_rain": Rect2(16, 17, 319, 386)}
 
 static func chest(host: Control, progress: int, ready: int, on_open: Callable, on_play := Callable(), balance := -1) -> Control:
 	var p := _chest_page(host, balance, true)
 	_chest_hero(p, false, ready > 0)
-	ChestOpening.prepare(p, CHEST_HERO.end.y, CHEST_HERO.size.x)
+	ChestOpening.prepare()
 	# Random reward art must not decode in the opening-complete callback.
 	Art.tex("chest_star_open")
 	for reward_art in CHEST_BOOSTER_ART:
@@ -1242,7 +1251,7 @@ static func _chest_capsule(parent: Node, key: String, ink: Rect2, bounds: Rect2)
 	return capsule
 
 ## Keep the background fixed while the controls fade; modal ownership still blocks the page underneath.
-static func _chest_page(host: Control, balance: int, close_button: bool) -> Modal:
+static func _chest_page(host: Control, balance: int, close_button: bool, animate := true) -> Modal:
 	var p := Modal.open(host, "", [], false, 0.0, 0.0, true)
 	p.name = "StarChest"
 	p.panel_rect = Rect2(0, 0, 1080, 1920)
@@ -1258,7 +1267,7 @@ static func _chest_page(host: Control, balance: int, close_button: bool) -> Moda
 		MenuNavigation.close(p.content, "Close", Vector2(48, 48), p.close)
 	if balance >= 0:
 		FeatherBar.create_right(p.content, Vector2(1032, 48), balance, ShopSkin.COUNTER_INK)
-	if not _instant(host):
+	if animate and not _instant(host):
 		p.appear_page(background)
 	return p
 
@@ -1269,17 +1278,20 @@ static func _chest_hero(p: Modal, opened: bool, sparkling: bool, result := false
 	rays.modulate.a = 0.52 if sparkling else 0.3
 	var glow := UI.image(p.content, "glow_soft", hero.grow(80.0))
 	glow.modulate = Color(1.0, 0.86, 0.4, 0.55)
-	UI.art(p.content, "chest_islet_support", CHEST_RESULT_SUPPORT if result else CHEST_SUPPORT, CHEST_SUPPORT_INK)
-	var content := CHEST_OPEN_INK if opened else CHEST_CLOSED_INK
-	var scale := minf(hero.size.x / content.size.x, hero.size.y / content.size.y)
-	var shown := content.size * scale
-	var bounds := Rect2(Vector2(hero.get_center().x - shown.x * 0.5, hero.end.y - shown.y), shown)
-	var art := UI.art(p.content, "chest_star_open" if opened else "chest_star_closed", bounds, content)
+	var support := UI.art(p.content, "chest_islet_support", CHEST_RESULT_SUPPORT if result else CHEST_SUPPORT, CHEST_SUPPORT_INK)
+	support.name = "ChestSupport"
+	var art := ChestLid.new()
 	art.name = "ChestHero"
-	art.pivot_offset = Vector2(bounds.get_center().x, bounds.end.y) - art.position
+	p.content.add_child(art)
+	art.setup(hero.end.y, hero.size.x)
+	art.angle = ChestLid.OPEN_ANGLE if opened else ChestLid.CLOSED_ANGLE
 	if live:
 		rays.create_tween().set_loops().tween_property(rays, "rotation", TAU, 28.0).from(0.0)
-		_breathe(art, 0.0)
+		var rest := art.scale
+		var breath := art.create_tween().set_loops()
+		breath.tween_property(art, "scale", rest * Vector2(0.99, 1.025), 1.3).set_trans(Tween.TRANS_SINE)
+		breath.tween_property(art, "scale", rest, 1.3).set_trans(Tween.TRANS_SINE)
+		art.set_meta("breath", breath)
 	if sparkling:
 		var sparks := [Vector2(-320, -180), Vector2(300, -140), Vector2(280, 140), Vector2(-300, 160)]
 		for i in sparks.size():
@@ -1290,7 +1302,7 @@ static func _chest_hero(p: Modal, opened: bool, sparkling: bool, result := false
 static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, callback: Callable, closes := true) -> Button:
 	var button := UI.hit_area(p.content, bounds, func():
 		# An Open double-tap must not click through to the newly appearing reward confirmation.
-		if p.content.modulate.a < 0.99:
+		if p.content.modulate.a < 0.99 or Time.get_ticks_msec() < int(p.get_meta("actions_ready_at", 0)):
 			return
 		Sound.play("ui_tap")
 		p.invoke(callback, closes))
@@ -1304,7 +1316,16 @@ static func _chest_action(p: Modal, name: String, word: String, bounds: Rect2, c
 	return button
 
 static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Callable, balance: int) -> Control:
-	var p := _chest_page(host, balance, false)
+	var previous: Modal = null
+	for child in host.get_children():
+		if child is Modal and child.get_meta("chest_landed", false):
+			previous = child
+	var p := _chest_page(host, balance, false, previous == null)
+	# A new confirmation cannot receive the tap burst that opened the chest.
+	p.set_meta("actions_ready_at", Time.get_ticks_msec() + 300)
+	if previous != null:
+		# The transaction already ran. Replace the finished page without two forests/rays fading over each other.
+		previous.hide()
 	_chest_hero(p, true, true, true)
 	var prizes: Array = []
 	if coins > 0:
@@ -1327,7 +1348,7 @@ static func _chest_rewards(host: Control, coins: int, boosters: Array, on_ok: Ca
 		prize.set_meta("amount", prizes[i][1])
 		UI.place(prize, Rect2(x - spacing * 0.5, y, spacing, 250))
 		p.content.add_child(prize)
-		var art := _fit(prize, prizes[i][0], Rect2(8, 0, spacing - 16, 190), true)
+		var art := _fit(prize, prizes[i][0], Rect2(8, 0, spacing - 16, 190), true, CHEST_REWARD_INK[prizes[i][0]])
 		if not _instant(host):
 			_breathe(art, i * 0.4)
 		FamilyDialog.digits(prize, "Number", Rect2(4, 204, spacing - 8, 56), "+%d" % prizes[i][1])
@@ -1870,12 +1891,12 @@ static func _instant(host: Node) -> bool:
 	return main != null and main.has_method("instant") and main.instant()
 
 ## Visible pixels contained in the box, uniform scale, centred (or bottom-aligned with a feet pivot).
-static func _fit(parent: Node, name: String, box: Rect2, bottom := false) -> TextureRect:
-	var used := UI.used_rect(name)
+static func _fit(parent: Node, name: String, box: Rect2, bottom := false, source_ink := Rect2()) -> TextureRect:
+	var used := source_ink if source_ink.size != Vector2.ZERO else UI.used_rect(name)
 	var k := minf(box.size.x / used.size.x, box.size.y / used.size.y)
 	var size := used.size * k
 	var at := box.position + Vector2((box.size.x - size.x) * 0.5, (box.size.y - size.y) if bottom else (box.size.y - size.y) * 0.5)
-	var t := UI.art(parent, name, Rect2(at, size))
+	var t := UI.art(parent, name, Rect2(at, size), used)
 	if bottom:
 		t.pivot_offset = at + Vector2(size.x * 0.5, size.y) - t.position
 	return t

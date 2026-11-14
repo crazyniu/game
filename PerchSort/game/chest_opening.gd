@@ -1,55 +1,39 @@
 class_name ChestOpening
 extends RefCounted
-## Prepare art/audio on page entry, then blend authored poses on rendered frames.
-const FRAME_INK := [Rect2(76, 169, 480, 392), Rect2(684, 152, 500, 409), Rect2(73, 716, 487, 446), Rect2(694, 685, 495, 477)]
-const STEP := 0.18
-const HOLD := 0.32
+## Every rendered frame projects the lid around its hinge; the box never morphs.
 const ANTICIPATION := 0.16
-const DURATION := ANTICIPATION + STEP * 4 + HOLD
+const SWING := 0.68
+const SETTLE := 0.28
+const LAND := 0.28
+const DURATION := ANTICIPATION + SWING + SETTLE + LAND
 
-static func prepare(dialog: Modal, footline: float, width: float) -> void:
-	var hero := Control.new()
-	hero.name = "ChestOpeningHero"
-	hero.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	dialog.content.add_child(hero)
-	var atlas := Art.tex("chest_opening_frames")
-	for ink in FRAME_INK:
-		var pose := TextureRect.new()
-		pose.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		pose.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		pose.stretch_mode = TextureRect.STRETCH_SCALE
-		var frame := AtlasTexture.new()
-		frame.atlas = atlas
-		frame.region = ink
-		pose.texture = frame
-		pose.size = Vector2(width, ink.size.y * width / ink.size.x)
-		pose.position = Vector2(540.0 - width * 0.5, footline - pose.size.y)
-		pose.modulate.a = 0.0
-		hero.add_child(pose)
+static func prepare() -> void:
 	Sound.prepare_effects(["crate_open", "star_1"])
 
 static func play(dialog: Modal, finished: Callable) -> void:
-	var original: Control = dialog.content.get_node("ChestHero")
-	original.pivot_offset = original.size * Vector2(0.5, 1.0)
-	var hero: Control = dialog.content.get_node("ChestOpeningHero")
+	var layout = load("res://game/popups.gd")
+	var hero: ChestLid = dialog.content.get_node("ChestHero")
+	if hero.has_meta("breath"):
+		(hero.get_meta("breath") as Tween).kill()
+	hero.setup(layout.CHEST_HERO.end.y, layout.CHEST_HERO.size.x)
 	var motion := dialog.create_tween()
-	motion.tween_property(original, "rotation_degrees", -2.5, ANTICIPATION * 0.5).set_trans(Tween.TRANS_SINE)
-	motion.tween_property(original, "rotation_degrees", 0.0, ANTICIPATION * 0.5).set_trans(Tween.TRANS_SINE)
-	for i in FRAME_INK.size():
-		var previous: Control = original if i == 0 else hero.get_child(i - 1)
-		var pose: Control = hero.get_child(i)
-		motion.tween_callback(func():
-			if dialog._closing:
-				return
-			hero.set_meta("pose", i)
-			if i == 0:
-				Sound.play("crate_open", 1.0, -4.0)
-			elif i == FRAME_INK.size() - 1:
-				Sound.play("star_1", 1.1, -8.0))
-		# Incoming ink replaces the preceding pose continuously; no timer-held hard cuts.
-		motion.tween_property(pose, "modulate:a", 1.0, STEP).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		motion.parallel().tween_property(previous, "modulate:a", 0.0, STEP).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	motion.tween_interval(HOLD)
+	motion.tween_property(hero, "angle", ChestLid.CLOSED_ANGLE - 3.0, ANTICIPATION * 0.5).set_trans(Tween.TRANS_SINE)
+	motion.tween_property(hero, "angle", ChestLid.CLOSED_ANGLE, ANTICIPATION * 0.5).set_trans(Tween.TRANS_SINE)
 	motion.tween_callback(func():
 		if not dialog._closing:
+			Sound.play("crate_open", 1.0, -4.0))
+	motion.tween_property(hero, "angle", ChestLid.OPEN_ANGLE + 3.0, SWING).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	motion.tween_callback(func():
+		if not dialog._closing:
+			Sound.play("star_1", 1.1, -8.0))
+	motion.tween_property(hero, "angle", ChestLid.OPEN_ANGLE, SETTLE).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	var support: Control = dialog.content.get_node("ChestSupport")
+	var support_start := support.position
+	motion.tween_method(func(t: float):
+		hero.setup(lerpf(layout.CHEST_HERO.end.y, layout.CHEST_RESULT_HERO.end.y, t), lerpf(layout.CHEST_HERO.size.x, layout.CHEST_RESULT_HERO.size.x, t))
+		support.position = support_start + Vector2(0, layout.CHEST_RESULT_SUPPORT.position.y - layout.CHEST_SUPPORT.position.y) * t,
+		0.0, 1.0, LAND).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	motion.tween_callback(func():
+		if not dialog._closing:
+			dialog.set_meta("chest_landed", true)
 			finished.call())

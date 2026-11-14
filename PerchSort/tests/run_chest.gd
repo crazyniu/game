@@ -15,6 +15,8 @@ func check(ok: bool, label: String) -> void:
 	failures += 0 if ok else 1
 
 func _run() -> void:
+	var UI = load("res://game/ui.gd")
+	var ChestLid = load("res://game/chest_lid.gd")
 	var ChestOpening = load("res://game/chest_opening.gd")
 	var Sound = root.get_node("Sound")
 	for arg in OS.get_cmdline_user_args():
@@ -43,7 +45,7 @@ func _run() -> void:
 		main.show_chest()
 		await create_timer(0.35).timeout
 		var page: Control = main.popups.get_child(-1)
-		check(page.get_node("Content/ChestOpeningHero").get_child_count() == 4, "all opening poses are prepared before click")
+		check(page.get_node("Content/ChestHero").get_script() == ChestLid, "continuous two-sided lid is prepared before click")
 		check(Sound._cache.has("crate_open") and Sound._cache.has("star_1"), "opening sounds are decoded before click")
 		var open: Button = page.get_node("Content/OpenChest")
 		check(open.disabled == (stars < Progress.CHEST_STARS), "Open availability at %d stars" % stars)
@@ -55,7 +57,10 @@ func _run() -> void:
 		check(not page.has_node("Content/BadgeGreen"), "no floating ready badge")
 		check(page.get_node("Content/ReadyCount").get_meta("value") == str(Progress.chests_ready(main.profile)), "plain available count")
 		check(page.get_node("Content/ReadyCount").get_rect().end.y < main.Popups.CHEST_HERO.position.y, "quantity above chest")
-		check(page.get_node("Content/ChestHero").texture.resource_path.ends_with("chest_star_closed.png"), "chest enters closed")
+		check(is_equal_approx(page.get_node("Content/ChestHero").angle, ChestLid.CLOSED_ANGLE), "chest enters closed")
+		var chest: Control = page.get_node("Content/ChestHero")
+		var feet := chest.get_transform() * Vector2(614.5, 1090.0)
+		check(feet.distance_to(Vector2(540.0, main.Popups.CHEST_HERO.end.y)) < 0.1, "closed chest feet stay centered despite pivot/breathing")
 		check(page.has_node("background_home_jungle"), "approved jungle background")
 		check(not page.has_node("Content/Panel"), "no enclosing chest card")
 		var progress: Control = page.get_node("Content/Progress")
@@ -115,17 +120,28 @@ func _run() -> void:
 	var before_inventory := 0
 	for count in main.profile.inventory:
 		before_inventory += count
-	check(page.get_node("Content/ChestOpeningHero").get_child_count() == 4, "all opening poses are prepared before click")
+	check(page.get_node("Content/ChestHero").get_script() == ChestLid, "continuous two-sided lid is prepared before click")
 	check(Sound._cache.has("crate_open") and Sound._cache.has("star_1"), "opening sounds are decoded before click")
 	var open: Button = page.get_node("Content/OpenChest")
 	tap(open)
 	tap(open)
 	await create_timer(0.25).timeout
 	check(main.profile.chests_opened == 0, "no reward before opening finishes")
-	check(page.has_node("Content/ChestOpeningHero"), "distinct opening pose is visible")
-	var blend: float = page.get_node("Content/ChestOpeningHero").get_child(0).modulate.a
-	check(blend > 0.0 and blend < 1.0, "opening has continuous intermediate opacity, not a held hard cut")
-	await create_timer(ChestOpening.DURATION + 0.25).timeout
+	var angle: float = page.get_node("Content/ChestHero").angle
+	check(angle > ChestLid.CLOSED_ANGLE and angle < ChestLid.OPEN_ANGLE, "lid moves through real intermediate geometry, not image opacity")
+	check(page.get_node("Content/ChestHero").modulate.a == 1.0, "moving lid stays opaque")
+	# Continue tapping through the exact old-page/new-page boundary.
+	var deadline := Time.get_ticks_msec() + int((ChestOpening.DURATION + 1.0) * 1000)
+	while not main.popups.get_child(-1).content.has_node("ConfirmRewards") and Time.get_ticks_msec() < deadline:
+		tap(open)
+		await process_frame
+	var fresh: Control = main.popups.get_child(-1)
+	check(fresh.content.has_node("ConfirmRewards"), "reward becomes visible after continuous Open taps")
+	for ignored in range(2):
+		tap(fresh.get_node("Content/ConfirmRewards"))
+		await create_timer(0.05).timeout
+	check(not fresh._closing, "boundary tap burst cannot dismiss the just-shown reward")
+	await create_timer(0.25).timeout
 	check(main.profile.chests_opened == 1, "repeated input opens exactly one chest")
 	check(main.profile.coins == before_coins + Progress.CHEST_COINS, "production coin reward preserved")
 	var inventory := 0
@@ -135,6 +151,9 @@ func _run() -> void:
 	check(Progress.chests_ready(main.profile) == 2, "remaining ready chests preserved")
 	page = main.popups.get_child(-1)
 	check(page.has_node("Content/ConfirmRewards"), "open shows reward result")
+	var landed: Control = page.get_node("Content/ChestHero")
+	var reward_feet := landed.get_transform() * Vector2(614.5, 1090.0)
+	check(reward_feet.distance_to(Vector2(540.0, main.Popups.CHEST_RESULT_HERO.end.y)) < 0.1, "reward chest lands at the same centered final anchor")
 	check(page.get_node("Content/ConfirmRewards/Kit").get_child(1).painted_id == "white_action_ok", "reward confirmation uses the shop's painted white word")
 	await capture("chest_actual_rewards")
 	await click(page.get_node("Content/ConfirmRewards"))
@@ -144,6 +163,11 @@ func _run() -> void:
 	page = main.popups.get_child(-1)
 	check(not page.get_node("Content/OpenChest").disabled, "chest can reopen with remaining rewards")
 	await click(page.get_node("Content/Close"))
+	for picture in main.Popups.CHEST_REWARD_INK:
+		var path: String = "res://art/" + ("island/" if picture.begins_with("island_icon_") else "") + picture + ".png"
+		var source := Image.load_from_file(path)
+		check(Rect2(source.get_used_rect()) == main.Popups.CHEST_REWARD_INK[picture], "reward ink metadata matches source pixels: " + picture)
+		UI._used.erase(picture)
 	for prizes in [[0, 0, 2], [0, 1, 2], []]:
 		page = main.Popups.rewards(main.popups, "chest.title", Progress.CHEST_COINS, prizes, func(): pass, "pic_chest_open", 1580)
 		await create_timer(0.3).timeout
@@ -155,6 +179,8 @@ func _run() -> void:
 		for kind in prizes:
 			kinds[kind] = int(kinds.get(kind, 0)) + 1
 		check(items.size() == kinds.size() + 1, "duplicate boosters combine in one object")
+		for picture in main.Popups.CHEST_REWARD_INK:
+			check(not UI._used.has(picture), "reward path avoids live texture readback: " + picture)
 		for item in items:
 			check(item.get_child_count() == 2, "prize consists only of an icon and painted amount")
 		check(items[0].get_meta("picture") == "coin" and items[0].get_meta("amount") == Progress.CHEST_COINS, "card-free feather reward keeps exact amount")
