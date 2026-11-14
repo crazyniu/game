@@ -2,7 +2,7 @@
 
 ## Scope
 
-Isolated `warm-dialog-redesign` worktree based on preserved integration commit `1466792`. No commit or push performed. No pricing, gameplay, profile schema, probability or payout-table changes.
+Integrated on `warm-dialog-redesign` from preserved integration commit `1466792`, rebased onto main `6d696bf`. No pricing, gameplay, profile schema, probability or payout-table changes.
 
 - Game dialog family: independent warm-gold wood rim, opaque face, existing localized painted titles and original content/action geometry. Applies to level details, win, new bird, world rewards/unlock, daily reward result, tool unlock, tutorial/lesson, undo/stuck, save recovery and Credits.
 - Shop confirmation family: independent coral/turquoise toy rim matching the selected reference, original item content and exterior price action. Close uses the original artwork/hit size, placed inside its new upper-right corner. Booster quantities, outfit/nest purchases and recharge callbacks are unchanged.
@@ -58,4 +58,4 @@ Second independent serial Close rerun: 1,676 checks, zero failures, same 0.20-se
 
 Actual trigger captures completed: 50 frames each for `lucky_draw_spin`, `daily_reward_claim` and `win_three_stars` (150 frames). Reviewed `live-motion/review.jpg`: highlight reaches selected draw tile before result; claimed-day flight finishes before reward card; win birds land above the border, stars appear sequentially, and reward numerals reach exact final values. Capture slows execution and is not used for latency measurements. Bilingual static family/shop captures (34 PNGs) were reviewed for title placement, border continuity, button outside placement and word centering. Final shop contact sheet is `contact-shop.jpg`; game Chinese sheet is `contact-zh.jpg`.
 
-All changes remain local/uncommitted for coordinator review. Prior integrated commit is preserved in its original worktree.
+Prior integrated commit is preserved in its original worktree. Physical-device and real-payment acceptance remain outstanding.
