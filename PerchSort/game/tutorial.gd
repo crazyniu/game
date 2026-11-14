@@ -397,16 +397,21 @@ func _build_actions() -> void:
 		b.name = "Next" if step < STEPS - 1 else "Play"
 		_style_action(b)
 
-## Keep the original hit area and callbacks; the face is the shop's green plate (ButtonKit) with a painted white word.
+## Extend the standalone action and its hit area together; keep callbacks and independently painted words.
 func _style_action(button: Button) -> void:
+	button.size = ButtonKit.card_action_size(modal.panel_rect.size.x, button.size.y)
+	button.position.x = (1080.0 - button.size.x) * 0.5
 	var old_face := button.get_node_or_null("Face")
 	if old_face:
 		old_face.hide()
+		old_face.name = "BaseFace"
 	var content := button.get_node("Content")
+	content.size = button.size
+	content.pivot_offset = button.size * 0.5
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
-	var face := ButtonKit.face(button, "green", Rect2(Vector2.ZERO, button.size))
+	var face := ButtonKit.face(button, "wide", Rect2(Vector2.ZERO, button.size))
 	button.move_child(face, 0)
 	button.button_down.connect(func(): face.modulate = ButtonKit.PRESSED)
 	button.button_up.connect(func(): face.modulate = Color.WHITE)

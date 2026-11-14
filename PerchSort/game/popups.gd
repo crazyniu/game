@@ -473,9 +473,10 @@ static func goal_info(host: Control, species: String, world := 1) -> Control:
 		_trigger_row(c, species, world, y)
 		y += TRIGGER_H + GOAL_GAP
 	FamilyDialog.ability(c, species, effect, y)
-	var button := ButtonKit.button(c, "Confirm", Rect2(Vector2(540.0 - ButtonKit.PRIMARY.x * 0.5,
-		p.panel_rect.end.y + GOAL_ACTION_GAP), ButtonKit.PRIMARY), "green", p.close)
-	ButtonKit.word(button.get_node("Content"), "white_action_ok", ButtonKit.PRIMARY).name = "Word"
+	var action_size := ButtonKit.card_action_size(GOAL_CARD_W)
+	var button := ButtonKit.button(c, "Confirm", Rect2(Vector2(540.0 - action_size.x * 0.5,
+		p.panel_rect.end.y + GOAL_ACTION_GAP), action_size), "wide", p.close)
+	ButtonKit.word(button.get_node("Content"), "white_action_ok", action_size).name = "Word"
 	return p
 
 static func _trigger_row(c: Control, species: String, world: int, y: float) -> void:

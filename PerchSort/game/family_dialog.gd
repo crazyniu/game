@@ -280,6 +280,8 @@ static func actions(dialog: Modal, items: Array) -> Array:
 			continue
 		var primary: bool = items[row[0]][0] == "green"
 		var size: Vector2 = PRIMARY if primary else SECONDARY
+		if primary and items.size() == 1:
+			size = ButtonKit.card_action_size(dialog.panel_rect.size.x, size.y)
 		var width: float = size.x * row.size() + Modal.ACTION_GAP * (row.size() - 1)
 		var x: float = 540.0 - width * 0.5
 		for i in row:
@@ -287,7 +289,7 @@ static func actions(dialog: Modal, items: Array) -> Array:
 			var callback: Callable = item[2]
 			var id: String = item[3] if item.size() > 3 else Modal.ACTION_WORDS.get(item[1], "action.ok")
 			var name: String = item[3] if item.size() > 3 else str(item[1]).capitalize()
-			var button := ButtonKit.button(dialog.content, name, Rect2(Vector2(x, y), size), "green", func(): dialog.invoke(callback))
+			var button := ButtonKit.button(dialog.content, name, Rect2(Vector2(x, y), size), "wide" if primary and items.size() == 1 else "green", func(): dialog.invoke(callback))
 			var word_id: String = {"action.play": "white_play", "action.ok": "white_action_ok", "action.next": "white_action_next",
 				"action.home": "white_settings_home"}.get(id, id)
 			ButtonKit.word(button.get_node("Content"), word_id, size).name = "Word"

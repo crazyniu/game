@@ -19,6 +19,7 @@ const SECONDARY := Vector2(288, 108)
 const KEY := Vector2(130, 130)
 const TAB := Vector2(196, 192)
 const FIELD := Vector2(210, 128)
+const CARD_ACTION_RATIO := 0.79
 const CAP := 0.48
 const PRESSED := Color(0.86, 0.86, 0.86)
 const SINK := 0.95
@@ -29,6 +30,10 @@ const FACES := {
 	"key_cream": "btn_key_cream",
 	"field": "field_quantity",
 }
+
+## Only standalone actions below a card use this width; paired actions and item tiles keep their sizes.
+static func card_action_size(card_width: float, height := PRIMARY.y) -> Vector2:
+	return Vector2(roundf(card_width * CARD_ACTION_RATIO), height)
 
 ## A painted face fitted uniformly into `rect` (centred); returns the TextureRect.
 static func face(parent: Node, kind: String, rect: Rect2) -> Control:

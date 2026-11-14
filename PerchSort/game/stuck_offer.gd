@@ -12,9 +12,9 @@ static func open(host: Control, on_rescue: Callable, instant: bool) -> Modal:
 	var ys: Array = p.get_meta("ys")
 	var picture := Rect2(540.0 - PICTURE * 0.5, ys[0], PICTURE, PICTURE)
 	UI.art(c, UI.PICTURES["undo"], picture).name = "Picture"
-	var size := ButtonKit.PRIMARY
+	var size := ButtonKit.card_action_size(p.panel_rect.size.x)
 	var y := p.panel_rect.end.y + Modal.ACTION_DROP
-	var go := ButtonKit.button(c, "Rescue", Rect2(Vector2(540.0 - size.x * 0.5, y), size), "green", func(): p.invoke(on_rescue))
+	var go := ButtonKit.button(c, "Rescue", Rect2(Vector2(540.0 - size.x * 0.5, y), size), "wide", func(): p.invoke(on_rescue))
 	# The action wears the same undo picture: "go back", no words and no price.
 	var icon := size.y * 0.6
 	UI.art(go.get_node("Content"), UI.PICTURES["undo"], Rect2((size - Vector2.ONE * icon) * 0.5, Vector2.ONE * icon)).name = "Icon"
