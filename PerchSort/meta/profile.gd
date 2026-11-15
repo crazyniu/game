@@ -2,7 +2,10 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 5
+const SCHEMA_VERSION := 6
+## Schema 6 keeps the tools a player has earned (earnedBoosters), so a catalog change that moves a tool's unlock level
+## never takes it away. Older saves earned each tool at these levels (Progress.booster_unlock_level before schema 6).
+const OLD_BOOSTER_LEVELS := [2, 4, 11, 5, 15, 17]
 ## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
 ## records move from the old level number (key) to the new one (value) on load.
 const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
@@ -38,6 +41,7 @@ var homes := {}                     # species id -> count
 var last_daily_gift := ""
 var tutorials := {}
 var starters := {}                  # booster index -> true
+var earned_boosters := {}           # booster index -> true: unlocked once, kept when unlock levels move
 var rewarded_worlds := {}           # world -> true
 var muted := false                  # sound effects off
 var music_muted := false            # background music off
@@ -96,10 +100,13 @@ func duplicate_profile() -> Profile:
 func to_dict() -> Dictionary:
 	var boosters := {}
 	var starter_ids := []
+	var earned_ids := []
 	for i in BOOSTER_IDS.size():
 		boosters[BOOSTER_IDS[i]] = inventory[i]
 		if starters.has(i):
 			starter_ids.append(BOOSTER_IDS[i])
+		if earned_boosters.has(i) or Progress.is_booster_unlocked(self, i):
+			earned_ids.append(BOOSTER_IDS[i])
 	var worlds := []
 	for w in range(1, Levels.WORLDS + 1):
 		if rewarded_worlds.has(w):
@@ -110,7 +117,7 @@ func to_dict() -> Dictionary:
 		"ownedOutfits": _sorted(outfits), "equippedOutfits": equipped.duplicate(),
 		"ownedBirdhouseStyles": _sorted(houses), "equippedBirdhouseStyle": equipped_house,
 		"speciesMet": _sorted(met), "flocksHome": homes.duplicate(), "lastDailyGiftDate": last_daily_gift,
-		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids,
+		"tutorialFlags": _sorted(tutorials), "starterGiftsGranted": starter_ids, "earnedBoosters": earned_ids,
 		"worldRewardsGranted": worlds, "muted": muted, "musicMuted": music_muted,
 		"levelGifts": _sorted_levels(level_gifts), "chestsOpened": chests_opened, "checkinStreak": checkin_streak, "drawDate": draws_date, "drawsLeft": draws_left, "challengeDate": challenge_date,
 		"vibration": vibration, "language": language, "lastLevel": last_level,
@@ -203,6 +210,16 @@ static func from_dict(data: Dictionary) -> Profile:
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= Levels.WORLDS:
 			p.rewarded_worlds[int(w)] = true
+	# Earned tools: listed from schema 6 on; older saves earned a tool by its old unlock level, a starter gift or stock.
+	var earned: Variant = data.get("earnedBoosters", [])
+	for id in (earned if earned is Array else []):
+		var kind := BOOSTER_IDS.find(str(id))
+		if kind >= 0:
+			p.earned_boosters[kind] = true
+	if schema < 6:
+		for kind in BOOSTER_IDS.size():
+			if p.highest_unlocked >= OLD_BOOSTER_LEVELS[kind] or p.starters.has(kind) or p.inventory[kind] > 0:
+				p.earned_boosters[kind] = true
 	return p
 
 ## Move a per-level list (index = level) through one catalog migration.
