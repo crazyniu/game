@@ -2,10 +2,12 @@ extends SceneTree
 ## Deals a sibling for a catalog level: the same branches and the same kinds of birds, but mirrored left to right,
 ## with the colours handed round among the level's own species and every bird dealt again. A sibling is kept when
 ## it is solvable without tools, has no losing move beside its first three solution steps, its route is within a
-## quarter of the original's (never shorter than the original for short levels) and it does not start like the
-## original.
-## godot --headless --path PerchSort -s ../tools/levels/deal_siblings.gd -- <level id>[@<take>] ...
-## Prints SIBLING,<origin id>,<take>,<route>,<origin route>,<level json> or NONE,<origin id>,<take>.
+## band set by its neighbours (never easier than its original, not beyond the next original where achievable, and
+## within 0.67 to 1.5 times its original's route when that fits inside the band).
+## godot --headless --path PerchSort -s ../tools/levels/deal_siblings.gd -- <level id>[@<take>[@light|full[@<salt>]]] ...
+## The sibling of origin 2k-1 is level 2k (take 1); level 21 is take 2 of level 19 and must not be easier than level 20.
+## Prints SIBLING,<origin id>,<take>,<route>,<origin route>,<level json>,<tier> (tier TIGHT: inside the band and the
+## ratio; BAND: inside the band only) or NONE,<origin id>,<take>: a candidate outside the band is never returned.
 
 const STEPS := 3
 
@@ -72,12 +74,26 @@ func _init() -> void:
 		var id := int(str(arg).get_slice("@", 0))
 		var take := int(str(arg).get_slice("@", 1)) if "@" in str(arg) else 1   # a second sibling: <id>@2
 		# <id>@<take>@light: nearly sorted teaching levels keep their order and only trade a few pairs of birds.
-		var light := str(arg).get_slice_count("@") > 2
+		var light := str(arg).get_slice("@", 2) == "light"
+		var salt := int(str(arg).get_slice("@", 3)) if str(arg).get_slice_count("@") > 3 else 0   # another run of the same level
 		var origin: Dictionary = Levels.get_level(id)
 		var old_len: int = routes[str(id)].size()
-		var low := old_len if old_len <= 4 else int(ceil(old_len * 0.8))
-		var high := maxi(old_len + 1, int(floor(old_len * 1.25)))
-		rng.seed = id * 104729 + take * 7919
+		var target := id + take
+		var base_low := old_len
+		var base_high: int
+		if take == 2:
+			base_low = maxi(old_len, routes[str(target - 1)].size())
+			base_high = maxi(base_low + 2, int(ceil(old_len * 1.5)))
+		elif target % 21 == 20:
+			base_high = old_len + 2
+		else:
+			base_high = maxi(routes[str(id + 2)].size(), old_len + 2)
+		var tight_low := maxi(base_low, int(ceil(old_len * 0.67)))
+		var tight_high := mini(base_high, int(floor(old_len * 1.5)))
+		var tight_ok := tight_high >= tight_low
+		var low := base_low
+		var high := base_high
+		rng.seed = id * 104729 + take * 7919 + salt * 31337
 		var species := []
 		for b in origin["branches"]:
 			for t in b["birds"]:
@@ -85,8 +101,8 @@ func _init() -> void:
 				if sp != "crow" and not species.has(sp):
 					species.append(sp)
 		var best := {}
-		var best_gap := 1000
 		var best_len := 0
+		var tier := "BAND"
 		for attempt in 400:
 			var cand: Dictionary = origin.duplicate(true)
 			# Colours handed round (a rotation, so no species keeps its role when there are two or more).
@@ -118,15 +134,15 @@ func _init() -> void:
 			var length := _judge(cand, rules)
 			if length < 0:
 				continue
-			var gap := 0 if length >= low and length <= high else mini(absi(length - low), absi(length - high))
-			if gap < best_gap:
-				best_gap = gap
-				best = cand
-				best_len = length
-			if gap == 0:
+			if length < low or length > high:
+				continue
+			if tight_ok and length >= tight_low and length <= tight_high:
+				best = cand; best_len = length; tier = "TIGHT"
 				break
+			if best.is_empty():
+				best = cand; best_len = length
 		if best.is_empty():
 			print("NONE,%d,%d" % [id, take])
 		else:
-			print("SIBLING,%d,%d,%d,%d,%s" % [id, take, best_len, old_len, JSON.stringify(best)])
+			print("SIBLING,%d,%d,%d,%d,%s,%s" % [id, take, best_len, old_len, JSON.stringify(best["branches"]), tier])
 	quit(0)

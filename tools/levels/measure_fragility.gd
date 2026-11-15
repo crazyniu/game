@@ -1,4 +1,5 @@
 extends SceneTree
+## Usage: -- <first id> <last id> [<shortest states> <shortest ms>]. Last column: shortest actions or empty.
 ## Measures how punishing each level is: trap moves beside the stored route, and random-play outcomes.
 func _init() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -64,5 +65,10 @@ func _init() -> void:
 			if not done:
 				var st2: int = Solver.hint(b, [], 6000, 250)["status"]
 				if st2 == Solver.Status.UNSOLVABLE: lost += 1
-		print("ROW,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d" % [id, int(level["world"]), int(level["par"]), routes[str(id)].size(), alts, traps, unknown, first_trap, plays, wins, dead, lost])
+		# shortest action count by breadth-first search (empty when the budget is exceeded); budget from the arguments.
+		var s_states := int(args[2]) if args.size() > 2 else 50000
+		var s_ms := int(args[3]) if args.size() > 3 else 500
+		var solved := Solver.solve(board, [], s_states, s_ms)
+		var shortest := str(solved["moves"].size()) if solved["status"] == Solver.Status.SOLVED else ""
+		print("ROW,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s" % [id, int(level["world"]), int(level["par"]), routes[str(id)].size(), alts, traps, unknown, first_trap, plays, wins, dead, lost, shortest])
 	quit(0)
