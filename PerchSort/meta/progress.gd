@@ -64,7 +64,7 @@ static func is_world_complete(p: Profile, world: int) -> bool:
 	return true
 
 static func is_booster_unlocked(p: Profile, kind: int) -> bool:
-	return p.starters.has(kind) or p.inventory[kind] > 0 or p.highest_unlocked >= booster_unlock_level(kind)
+	return not p.needs_recovery() and (p.legacy_booster_qualifications.has(kind) or p.starters.has(kind) or p.inventory[kind] > 0 or p.highest_unlocked >= booster_unlock_level(kind))
 
 ## Grants each unlocked booster's starter stock once. Returns the granted booster indices.
 static func grant_starter_gifts(p: Profile) -> Array:

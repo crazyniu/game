@@ -120,6 +120,15 @@ if ($boostProfile) {
         try {
             $candidate = Get-Content -LiteralPath $checkPath -Raw -Encoding UTF8 | ConvertFrom-Json
             $boostProfile = $candidate -is [System.Management.Automation.PSCustomObject]
+            if ($boostProfile -and [int]$candidate.schemaVersion -ge 6) {
+                $ids = $candidate.legacyBoosterQualifications
+                $boostProfile = [int]$candidate.schemaVersion -eq 6 -and $ids -is [array]
+                $seen = @{}
+                foreach ($id in @($ids)) {
+                    if ($id -is [bool] -or $id -is [string] -or $null -eq $id -or [double]$id -lt 0 -or [double]$id -gt 5 -or [double]$id -ne [Math]::Floor([double]$id) -or $seen.ContainsKey([int]$id)) { $boostProfile = $false; break }
+                    $seen[[int]$id] = $true
+                }
+            }
         } catch { $boostProfile = $false }
     } elseif (Test-Path ($checkPath + '.bak')) {
         $boostProfile = $false
@@ -191,6 +200,8 @@ if ($boostProfile) {
             Set-Field $profile 'lastLevel' $(if ($moves.ContainsKey($last)) { $moves[$last] } else { 0 })
         }
     }
+    # Explicit developer access, not an automatic reward or starter-gift claim.
+    Set-Field $profile 'legacyBoosterQualifications' @(0,1,2,3,4,5)
     Set-Field $profile 'schemaVersion' $currentSchema
     Set-Field $profile 'highestUnlockedLevel' $levels
     # The game's existing unlock rule requires a star on each preceding level.

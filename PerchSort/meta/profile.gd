@@ -2,7 +2,9 @@ class_name Profile
 extends RefCounted
 ## Player progression and economy state. JSON field names match the original profile schema.
 
-const SCHEMA_VERSION := 5
+const SCHEMA_VERSION := 6
+# Frozen before world-mechanics replacement; never derive legacy rights from the new catalog.
+const LEGACY_BOOSTER_GATES := [2, 4, 11, 5, 15, 17]
 ## Schema 2 put each world's levels in order of difficulty (opening level first). A schema 1 save's per-level
 ## records move from the old level number (key) to the new one (value) on load.
 const LEVEL_RENUMBER := {1: 1, 2: 2, 3: 3, 4: 6, 5: 7, 6: 5, 7: 10, 8: 8, 9: 4, 10: 9, 11: 11, 12: 17, 13: 16, 14: 13, 15: 12, 16: 14, 17: 18, 18: 15, 19: 20, 20: 19, 21: 21, 22: 25, 23: 24, 24: 22, 25: 27, 26: 26, 27: 28, 28: 23, 29: 29, 30: 30, 31: 31, 32: 35, 33: 32, 34: 36, 35: 33, 36: 38, 37: 37, 38: 40, 39: 34, 40: 39}
@@ -37,6 +39,7 @@ var met := {}                       # species id -> true
 var homes := {}                     # species id -> count
 var last_daily_gift := ""
 var tutorials := {}
+var legacy_booster_qualifications := {} # booster index -> true; eligibility, not paid gifts
 var starters := {}                  # booster index -> true
 var rewarded_worlds := {}           # world -> true
 var muted := false                  # sound effects off
@@ -94,6 +97,13 @@ func duplicate_profile() -> Profile:
 
 
 func to_dict() -> Dictionary:
+	# Persist eligibility earned under this catalog too, so a compatibility-first
+	# rollout cannot lose rights when the catalog changes in a later release.
+	var qualifications := legacy_booster_qualifications.duplicate()
+	if not needs_recovery():
+		for kind in BOOSTER_IDS.size():
+			if Progress.is_booster_unlocked(self, kind):
+				qualifications[kind] = true
 	var boosters := {}
 	var starter_ids := []
 	for i in BOOSTER_IDS.size():
@@ -105,6 +115,7 @@ func to_dict() -> Dictionary:
 		if rewarded_worlds.has(w):
 			worlds.append(w)
 	return {
+		"legacyBoosterQualifications": _sorted_levels(qualifications),
 		"schemaVersion": SCHEMA_VERSION, "coins": coins, "highestUnlockedLevel": highest_unlocked,
 		"boosters": boosters, "bestStars": Array(stars), "clearCounts": Array(clears), "bestMoves": Array(best_moves),
 		"ownedOutfits": _sorted(outfits), "equippedOutfits": equipped.duplicate(),
@@ -203,6 +214,20 @@ static func from_dict(data: Dictionary) -> Profile:
 	for w in data.get("worldRewardsGranted", []):
 		if int(w) >= 1 and int(w) <= Levels.WORLDS:
 			p.rewarded_worlds[int(w)] = true
+	if schema < 6:
+		for kind in BOOSTER_IDS.size():
+			if p.highest_unlocked >= LEGACY_BOOSTER_GATES[kind] or p.starters.has(kind) or p.inventory[kind] > 0:
+				p.legacy_booster_qualifications[kind] = true
+	else:
+		var qualified: Variant = data.get("legacyBoosterQualifications")
+		if schema != SCHEMA_VERSION or not qualified is Array:
+			p._blocked_save_path = SAVE_PATH
+			return p
+		for kind in qualified:
+			if not (kind is int or kind is float) or not is_finite(float(kind)) or float(kind) != floor(float(kind)) or int(kind) < 0 or int(kind) >= BOOSTER_IDS.size() or p.legacy_booster_qualifications.has(int(kind)):
+				p._blocked_save_path = SAVE_PATH
+				return p
+			p.legacy_booster_qualifications[int(kind)] = true
 	return p
 
 ## Move a per-level list (index = level) through one catalog migration.
@@ -268,12 +293,16 @@ static func load_saved(path := SAVE_PATH) -> Profile:
 	if FileAccess.file_exists(path):
 		var data = _parse_save(FileAccess.get_file_as_string(path))
 		if data is Dictionary:
-			return Profile.from_dict(data)
+			var loaded := Profile.from_dict(data)
+			if not loaded.needs_recovery():
+				return loaded
 	if FileAccess.file_exists(path + ".bak"):
 		var backup = _parse_save(FileAccess.get_file_as_string(path + ".bak"))
 		if backup is Dictionary:
-			push_warning("Recovered previous profile from backup: " + path)
-			return Profile.from_dict(backup)
+			var loaded := Profile.from_dict(backup)
+			if not loaded.needs_recovery():
+				push_warning("Recovered previous profile from backup: " + path)
+				return loaded
 	var p := Profile.new()
 	if FileAccess.file_exists(path) or FileAccess.file_exists(path + ".bak"):
 		p._blocked_save_path = path

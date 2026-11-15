@@ -79,8 +79,14 @@ p = Path(sys.argv[1])
 if not p.exists():
     sys.exit(1 if Path(str(p) + ".bak").exists() else 0)
 try:
-    valid = isinstance(json.loads(p.read_text(encoding="utf-8")), dict)
-except (ValueError, OSError):
+    data = json.loads(p.read_text(encoding="utf-8"))
+    valid = isinstance(data, dict)
+    if valid and int(data.get("schemaVersion", 1)) >= 6:
+        ids = data.get("legacyBoosterQualifications")
+        valid = (data.get("schemaVersion") == 6 and isinstance(ids, list)
+                 and all(type(i) is int and 0 <= i < 6 for i in ids)
+                 and len(ids) == len(set(ids)))
+except (ValueError, OSError, TypeError, OverflowError):
     valid = False
 sys.exit(0 if valid else 1)
 CHECK
@@ -134,6 +140,8 @@ for step, name in ((2, "LEVEL_RENUMBER"), (3, "LEVEL_EXPANSION"), (4, "LEVEL_DIF
         profile["levelGifts"] = [moves[int(level)] for level in profile.get("levelGifts", []) if int(level) in moves]
         if step == 5:
             profile["lastLevel"] = moves.get(int(profile.get("lastLevel", 0)), 0)
+# Explicit developer all-level access also includes all tool eligibility, never inventory or paid-gift flags.
+profile["legacyBoosterQualifications"] = list(range(6))
 profile["schemaVersion"] = current_schema
 profile["highestUnlockedLevel"] = LEVELS
 # The game's existing unlock rule requires a star on each preceding level.
