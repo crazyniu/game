@@ -57,6 +57,21 @@ func _check_meta() -> void:
 	var old := Profile.from_dict({"schemaVersion": 1, "bestStars": stars, "clearCounts": stars, "bestMoves": moves})
 	check(old.best_stars(1) == 3 and old.best_stars(nine) == 2 and old.total_stars() == 5, "schema 1 stars renumbered")
 	check(old.best_moves[nine] == 7, "schema 1 best moves renumbered")
+	# Earned tools: the old unlock levels still match the catalog; a schema 5 save keeps its tools when levels move.
+	for kind in Profile.BOOSTER_IDS.size():
+		check(Progress.booster_unlock_level(kind) == Profile.OLD_BOOSTER_LEVELS[kind], "tool %d unlocks at its old level" % kind)
+	var five := Profile.from_dict({"schemaVersion": 5, "highestUnlockedLevel": 12})
+	check(five.earned_boosters.keys().size() == 4 and five.inventory == PackedInt32Array([0, 0, 0, 0, 0, 0]),
+		"schema 5 save earns the tools of its old levels and no stock")
+	var catalog_levels := Progress._booster_levels
+	Progress._booster_levels = PackedInt32Array([2, 4, 30, 5, 40, 50])
+	var reloaded := Profile.from_dict(JSON.parse_string(JSON.stringify(five.to_dict())))
+	check(Progress.is_booster_unlocked(reloaded, 2), "an earned tool stays after its unlock level moves later")
+	check(not Progress.is_booster_unlocked(Profile.from_dict({"schemaVersion": 6, "highestUnlockedLevel": 12}), 2),
+		"a new save follows the current unlock levels")
+	check(Profile.from_dict({"schemaVersion": 6, "earnedBoosters": [3, "nope", null]}).earned_boosters.is_empty(),
+		"invalid earned tools are dropped, not fatal")
+	Progress._booster_levels = catalog_levels
 	var again := Profile.from_dict(old.to_dict())
 	check(again.best_stars(nine) == 2 and again.total_stars() == 5, "the current save keeps its numbering")
 	# A schema 2 save: its forty levels move to their places in the hundred-level order.
