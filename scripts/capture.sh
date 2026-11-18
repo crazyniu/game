@@ -99,7 +99,12 @@ def call(*command):
 
 def evaluate(expression):
     result = call('eval', '--page', page, '--expression', expression)['result']
-    return json.loads(result) if isinstance(result, str) else result
+    if not isinstance(result, str):
+        return result
+    try:
+        return json.loads(result)
+    except ValueError:
+        return result   # a plain string such as the canvas data URL
 
 
 query = {'test': 'capture', 'fresh': '1', 'lang': args.lang, 'page': args.page}
