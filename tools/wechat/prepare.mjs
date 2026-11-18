@@ -1,0 +1,16 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
+const config=JSON.parse(await fs.readFile(path.join(root,'PerchSort/build-config/wechatgame.json'),'utf8'));
+const appid=process.env.WECHAT_APPID||'touristappid';
+const server=process.env.WECHAT_ASSET_URL||config.server;
+if(appid!=='touristappid'&&!/^wx[0-9a-f]{16}$/i.test(appid))throw new Error('WECHAT_APPID must be your WeChat game AppID.');
+const url=new URL(server);
+if(url.protocol!=='https:'&&!(url.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(url.hostname)))throw new Error('WECHAT_ASSET_URL must use HTTPS, or localhost HTTP for local preview.');
+if(url.search||url.hash)throw new Error('WECHAT_ASSET_URL must be a directory URL without a query or fragment.');
+config.server=url.href.replace(/\/?$/,'/');
+config.packages.wechatgame.appid=appid;
+await fs.mkdir(path.join(root,'build'),{recursive:true});
+await fs.writeFile(path.join(root,'build/wechat-build-config.json'),JSON.stringify(config,null,2)+'\n');
+console.log('Prepared WeChat package configuration ('+(appid==='touristappid'?'local tourist project':'own AppID')+').');

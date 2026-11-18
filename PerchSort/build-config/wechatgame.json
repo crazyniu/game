@@ -1,0 +1,52 @@
+{
+  "name": "Perch Sort",
+  "debug": false,
+  "md5Cache": true,
+  "buildPath": "project://build",
+  "startScene": "68777eb2-9149-4254-a5b9-1ffccfc6b362",
+  "scenes": [
+    {
+      "url": "db://assets/scenes/main.scene",
+      "uuid": "68777eb2-9149-4254-a5b9-1ffccfc6b362"
+    }
+  ],
+  "platform": "wechatgame",
+  "outputName": "wechatgame",
+  "packages": {
+    "wechatgame": {
+      "appid": "touristappid",
+      "orientation": "portrait",
+      "separateEngine": false,
+      "buildOpenDataContextTemplate": false
+    }
+  },
+  "server": "http://127.0.0.1:8766/",
+  "mainBundleCompressionType": "merge_all_json",
+  "bundleConfigs": [
+    {
+      "root": "db://assets/resources",
+      "name": "resources",
+      "isRemote": true,
+      "compressionType": "merge_all_json",
+      "output": true
+    }
+  ],
+  "sourceMaps": false,
+  "moveRemoteBundleScript": true,
+  "includeModules": [
+    "2d",
+    "affine-transform",
+    "animation",
+    "audio",
+    "base",
+    "custom-pipeline",
+    "gfx-webgl",
+    "gfx-webgl2",
+    "graphics",
+    "mask",
+    "profiler",
+    "tween",
+    "ui",
+    "ui-skew"
+  ]
+}

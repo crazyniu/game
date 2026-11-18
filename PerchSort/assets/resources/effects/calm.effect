@@ -1,0 +1,99 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: sprite-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        calmParams: { value: [0.0009765625, 0.0006510417, 3.0, 0.38] }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+    color = a_color;
+
+    return pos;
+  }
+}%
+
+CCProgram sprite-fs %{
+  precision highp float;
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+
+  #if USE_TEXTURE
+    in vec2 uv0;
+    #pragma builtin(local)
+    layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+  #endif
+
+  uniform Calm { vec4 calmParams; };
+  vec4 frag () {
+    vec2 stepUV = calmParams.xy * calmParams.z;
+    vec3 sum = vec3(0.0);
+    float total = 0.0;
+    for (int x = -2; x <= 2; x++) {
+      for (int y = -2; y <= 2; y++) {
+        float w = exp(-float(x*x+y*y)/4.5);
+        sum += texture(cc_spriteTexture,uv0+vec2(float(x),float(y))*stepUV).rgb*w;
+        total += w;
+      }
+    }
+    vec3 c = sum/total;
+    float grey = dot(c,vec3(0.299,0.587,0.114));
+    c = mix(c,vec3(grey),0.25);
+    float mx = smoothstep(-0.04,0.10,uv0.x)*(1.0-smoothstep(0.90,1.04,uv0.x));
+    float my = smoothstep(0.02,0.16,uv0.y)*(1.0-smoothstep(0.90,1.04,uv0.y));
+    vec4 o = vec4(mix(c,vec3(1.0),calmParams.w*mx*my),1.0);
+    o *= color;
+    ALPHA_TEST(o);
+    return o;
+  }
+}%

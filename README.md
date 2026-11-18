@@ -1,32 +1,63 @@
 # Perch Sort · 小鸟归巢
 
-A portrait bird-sorting puzzle game built with Godot **4.7.2** (standard build, GDScript): **210 fixed levels** (21 per world) across ten sequential forest worlds (Green, Bamboo, Autumn, Snow, Blossom, Mushroom, Lakeside, Misty Pine, Rainforest, Wisteria), in a clean cartoon style: one painted scene per world, a code-drawn UI kit and painted lettering (see docs/design/island-style.md).
+A portrait bird-sorting puzzle game built with **Cocos Creator 3.8.8** and TypeScript. The game keeps its painted forest UI and **210 fixed levels**: 21 levels in each of ten sequential worlds—Green, Bamboo, Autumn, Snow, Blossom, Mushroom, Lakeside, Misty Pine, Rainforest, and Wisteria. The design canvas is 1080x1920. There is no day/night gameplay.
 
 ## Open the game
 
-One click: `./run.sh` (finds Godot 4.7.2 via `$GODOT`, `godot` on PATH or `/Applications/Godot.app`, imports assets on the first run, then starts the game). Options: `./run.sh --level=12` starts on a level, `--reset` deletes the saved progress, `--update` pulls the latest main first, `--help` lists them. On Windows use `run.bat` (or `.\run.ps1`) with the same options; Godot is found via `$env:GODOT`, `godot.exe` on PATH or common install folders. Or open `PerchSort/project.godot` in Godot 4.7.2 and press Play (main scene `game/main.tscn`).
+Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repository:
 
-Normal launcher runs, including `--level`, make all 210 levels playable and top up coins to at least 50,000. This requires Python 3 and records at least one star and one clear for levels 1–99 under the existing unlock rules; higher records, level 100, and other saved fields are preserved. Before the first adjustment, the existing save is copied once to `profile.before-launcher-access.json` beside `profile.json`; that backup is never overwritten. `--reset` still deletes progress before applying these defaults. Capture, frame, preview, smoke, autoplay, and explicit `--profile` runs skip the adjustment.
+```bash
+./run.sh                         # build, serve on localhost, and open the game
+./run.sh play --level=12          # preview a level without changing normal progress
+./run.sh serve                   # use the existing web build
+./run.sh editor                  # open PerchSort/ in Cocos Creator
+./run.sh build                   # build only
+./run.sh test                    # run the pure core/meta test suite
+```
 
-The desktop window defaults to 936 x 1664. To inspect individual UI pages with example data and without saving progress, run `./run.sh --preview=aviary_view:detail_hoot`, `./run.sh --preview=shop_view:boosters`, `./run.sh --preview=map_view:forest_trail` or `./run.sh --preview=popups:win_three_stars`. Close an old game window and relaunch to load source/asset changes.
+The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator` by default. Set `COCOS_CREATOR` to another installation path. `WEB_PORT` changes the default local port, 8765; `NO_OPEN=1` suppresses automatic browser opening. The generated web build is in `PerchSort/build/web-mobile`.
 
-UI words are hand-painted pictures, one set per language (`PerchSort/art/locale/<lang>/island_words`, registered under `words` in each pack's `manifest.json`), and numbers are painted glyphs in three colours. No font is used at runtime. Word lists live in `tools/island/word_catalog.json`; generated sheets are cut and installed with `tools/island/install_painted_words.py` and `tools/island/install_numbers.py`.
+To open manually in Creator, select the `PerchSort/` project, identified by its `package.json`. The entry scene is `assets/scenes/main.scene`; the root component is `assets/scripts/Boot.ts`.
+
+Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, `scripts/serve.py` makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
+
+The local game has no connected payment or rewarded-ad provider. Store confirmations and ad rewards cannot grant items without a confirmed provider callback. This is not a store release.
+
+## Project structure
 
 | Need | Entry |
 | --- | --- |
-| Project conventions | [CONVENTIONS](docs/CONVENTIONS.md) |
-| AI instructions | [AGENTS](AGENTS.md) (identical to CLAUDE.md) |
-| Current behavior, source and evidence | [CURRENT_GAME](docs/CURRENT_GAME.md) · [CODE_MAP](docs/spec/CODE_MAP.md) |
-| Framework contract | [Godot port contract](docs/work-log/godot-port/spec.md) |
-| Documentation status / historical research | [docs router](docs/README.md) |
+| Conventions and agent instructions | [CONVENTIONS](docs/CONVENTIONS.md), [AGENTS](AGENTS.md) |
+| Current source and acceptance status | [CURRENT_GAME](docs/CURRENT_GAME.md), [CODE_MAP](docs/spec/CODE_MAP.md) |
+| Cocos migration contract | [Migration specification](docs/work-log/cocos-port/spec.md) |
+| UI contracts and approved references | [Design directory](docs/design/), `art/approved_ui`, `art/approved_runtime` |
+| Historical documentation | [Documentation router](docs/README.md) |
 
-Rules and solver live in `PerchSort/core`, profile and progression in `PerchSort/meta`, screens and animation in `PerchSort/game`. Assets load by bare name from `PerchSort/{art,birds,world}`; levels come from `PerchSort/levels/levels.json`. Mockups (style direction) live in `art/approved_ui`; captures of user-approved screens in `art/approved_runtime` are the visual acceptance baseline.
-## Validation and tooling
+Rules and solver live in `PerchSort/assets/scripts/core`; profiles and progression in `assets/scripts/meta`; screens, animation, and audio in `assets/scripts/game`. Runtime images, audio, layouts, and the level catalog live in `assets/resources`. Existing artwork is reused, with English and Chinese painted locale packs under `assets/resources/art/locale`. Player-visible text and numbers use artwork, not fonts.
+
+## Verification
+
+Testing and acceptance belong to the user by default. The Cocos migration request explicitly authorizes self-testing; that authorization does not change the default for later tasks.
 
 ```bash
-bash scripts/run_tests.sh       # naming guard, smoke test, 210-level core test (~5 min)
-bash scripts/screenshots.sh     # silent captures of every screen state into build/screens/
-bash scripts/capture.sh /tmp/a.png --preview=popups:win_three_stars   # one state
+npm --prefix PerchSort test
+npm --prefix PerchSort run typecheck
+./run.sh build
 ```
 
-Captures run under xvfb and use instant motion unless `--motion --wait=S` is given; stills are not animation proof. Timed frame sequences: `godot --path PerchSort -- --frames=/tmp/frames --wait=5 --level=3`. CI runs the naming guard, syntax checks and `scripts/run_tests.sh` on headless Godot.
+These commands cover pure rules and profile/economy behavior, stored solutions for all 210 levels, TypeScript, and the real Creator build. They do not prove browser, device, visual, or audio acceptance. Runtime verification is still in progress; consult the migration work log for the coordinator's final evidence and remaining limits. Keep captures and timed frame evidence local under `build/` or the feature's ignored `evidence/` directory.
+
+## Package the game
+
+Run `./package.sh` from the repository root and enter a platform number. The iOS and Android menus then ask which local artifact to produce.
+
+| Number | Platform | Output choices |
+| --- | --- | --- |
+| 1 | WeChat Mini Game | WeChat Developer Tools project |
+| 2 | iOS | Xcode project, simulator app, unsigned device app or signed IPA |
+| 3 | Android | Debug APK, release AAB or Gradle project |
+| 4 | Web | Web-mobile build |
+
+Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. Use `PERCH_ANDROID_PACKAGE` for the release application ID and configure release signing locally for distribution. Generated files stay in the build directories. None of these commands upload a build.
+
+For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.

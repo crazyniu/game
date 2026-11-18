@@ -1,6 +1,6 @@
 """Import level-map paintings: python3 tools/map/import_maps.py <world> [<world> ...]
 
-tools/map/map_world_wN_raw.png (1024x1536) -> PerchSort/art/map_world_wN.png (1080x1620, RGBA). The top 120 rows fade in
+tools/map/map_world_wN_raw.png (1024x1536) -> PerchSort/assets/resources/art/map_world_wN.png (1080x1620, RGBA). The top 120 rows fade in
 (smoothstep alpha), so each painting blends over the world above it on the scrolling map.
 """
 import os

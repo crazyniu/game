@@ -121,7 +121,7 @@ def reorder(levels_path, hints_path, curve_path, out_dir, report_dir):
 
 def assemble(metrics_path, cand_dir, redeal_dir, out_dir):
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    with open(os.path.join(root, "PerchSort/levels/levels.json"), encoding="utf-8") as source:
+    with open(os.path.join(root, "PerchSort/assets/resources/levels/levels.json"), encoding="utf-8") as source:
         authored = {int(level["id"]): level for level in json.load(source)["levels"]}
     with open(metrics_path, encoding="utf-8") as source:
         measurements = json.load(source)

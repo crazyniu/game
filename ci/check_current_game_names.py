@@ -14,9 +14,9 @@ import sys
 # hashes, world IDs, level IDs or third-party module names.
 NUMBERED = re.compile(r"(?<![a-z0-9])(?i:v|ui|final)[0-9]+|(?:V|UI|Ui|Final)[0-9]+|(?<![A-Z])T[0-9]+[A-Za-z]?")
 NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+|T[0-9]+[A-Za-z]?", re.IGNORECASE)
-SOURCE_SUFFIXES = {".gd", ".tscn", ".tres", ".godot", ".cfg", ".py", ".sh", ".yml", ".yaml"}
+SOURCE_SUFFIXES = {".cfg", ".py", ".sh", ".yml", ".yaml", ".ts", ".tsx", ".scene", ".prefab", ".effect", ".ps1", ".bat"}
 # Data roots whose JSON is authored game content.
-JSON_ROOTS = ("PerchSort/levels/", "PerchSort/layout/", "ci/")
+JSON_ROOTS = ("PerchSort/assets/resources/levels/", "PerchSort/assets/resources/layout/", "ci/")
 LOCK_NAMES = {"package-lock.json", "yarn.lock", "pnpm-lock.yaml", "poetry.lock", "uv.lock"}
 
 
@@ -40,7 +40,10 @@ def exempt(path):
 def path_violations(path):
     if exempt(path):
         return
-    for part in PurePosixPath(path).parts:
+    for index, part in enumerate(PurePosixPath(path).parts):
+        # Creator owns this exact settings schema directory, not a game version.
+        if index == 2 and PurePosixPath(path).parts[:3] == ("PerchSort", "settings", "v" + "2"):
+            continue
         if NUMBERED_PATH.search(part):
             yield f"{path}:1: numbered game path component {part!r}; use a canonical name"
 
@@ -55,6 +58,7 @@ def content_violations(path, text):
         return
     for number, line in enumerate(text.splitlines(), 1):
         checked = re.sub(r"(?<=\d{4}-\d{2}-\d{2})T(?=\d{2}:)", " ", line)  # ISO date-times
+        checked = re.sub(r"([\"'])T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:Z|[+-][0-9]{2}:[0-9]{2})?\1", _blank, checked)  # ISO time suffix
         checked = re.sub(r"(?<=uses: )[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+@[^\s]+", _blank, checked)  # pinned actions
         checked = re.sub(r"https?://[^\s\"'<>]+", _blank, checked)
         checked = re.sub(r"(?<=gh release download )v[0-9.]+(?= .*--repo [A-Za-z0-9_.-]+/)", _blank, checked)
@@ -67,6 +71,7 @@ def content_violations(path, text):
 def check(root):
     errors = []
     inspected = 0
+    deleted = set(git(root, "diff", "--name-only", "--diff-filter=D", "-z").decode().split("\0"))
     # Index blob IDs also cover sparse-checkout files; present working files are
     # read instead so unstaged authored changes cannot evade the check.
     for entry in git(root, "ls-files", "--stage", "-z").split(b"\0"):
@@ -75,6 +80,8 @@ def check(root):
         metadata, raw_path = entry.split(b"\t", 1)
         mode, oid, stage = metadata.decode("ascii").split()
         path = raw_path.decode("utf-8")
+        if path in deleted:
+            continue
         if stage != "0":
             errors.append(f"{path}:1: unresolved Git index conflict")
             continue
@@ -93,9 +100,22 @@ def check(root):
             continue
         inspected += 1
         errors.extend(content_violations(path, text))
+    # Newly authored Cocos files must be checked before staging as well.
+    for raw_path in git(root, "ls-files", "--others", "--exclude-standard", "-z").split(b"\0"):
+        if not raw_path:
+            continue
+        path = raw_path.decode("utf-8")
+        errors.extend(path_violations(path))
+        if exempt(path) or not is_source(path):
+            continue
+        source = root / path
+        if not source.is_file():
+            continue
+        inspected += 1
+        errors.extend(content_violations(path, source.read_text(encoding="utf-8-sig")))
     for error in errors:
         print(error, file=sys.stderr)
-    print(f"Current game naming: {inspected} tracked source files inspected; {len(errors)} violation(s).")
+    print(f"Current game naming: {inspected} current source files inspected; {len(errors)} violation(s).")
     return 1 if errors else 0
 
 

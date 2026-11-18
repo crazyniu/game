@@ -3,7 +3,7 @@
 
 Registers the painting to the plain species front frame (scale and shift fitted on the feet and lower body, which
 no costume changes), keeps only the pixels the costume changed (never the eyes, so blinks stay plain), and writes
-PerchSort/birds/<species>_outfit_<n>_front_overlay.png, <species>_outfit_<n>_front.png and the two front blinks as
+PerchSort/assets/resources/birds/<species>_outfit_<n>_front_overlay.png, <species>_outfit_<n>_front.png and the two front blinks as
 exactly plain frame + overlay.  Usage: make_overlay.py <species> <n> [--sheet DIR]
 """
 import os, sys

@@ -1,24 +1,35 @@
 # Current implementation map
 
-Source organization of the Godot game. Start at [CURRENT_GAME](../CURRENT_GAME.md); the framework rules are in the [port contract](../work-log/godot-port/spec.md).
+The single runtime is Cocos Creator 3.8.8 with TypeScript. Start at [CURRENT_GAME](../CURRENT_GAME.md) and [the Cocos migration contract](../work-log/cocos-port/spec.md). Paths below are relative to `PerchSort/` unless stated otherwise.
 
-| Path under `PerchSort/` | Principal symbols | Responsibility |
+| Path | Principal symbols | Responsibility |
 | --- | --- | --- |
-| `core/board.gd` | `Board` | Packed board state: branches, birds, kinds, phases, boosters, inventory |
-| `core/levels.gd` | `Levels` | Reads `levels/levels.json`, builds boards, lists species |
-| `core/rules.gd` | `Rules` | Moves, transfers, homecoming waves, gifts, eggs, sleep, crows, booster effects; emits events |
-| `core/solver.gd` | `Solver` | Breadth-first search with hint preference (hints, level checks) |
-| `core/session.gd` | `GameSession` | Selection, undo, restart, move counting, boosters |
-| `meta/profile.gd` | `Profile` | Save JSON (original field names), stars, best moves, inventory, met species |
-| `meta/progress.gd` | `Progress` | Unlocks, payouts, world rewards, map node states, daily gift |
-| `meta/shop.gd`, `meta/aviary.gd` | `Shop`, `Aviary` | Catalog, purchase/equip; species roster, first meetings, flocks home |
-| `game/main.gd` | root | Profile ownership, navigation, popup queue, capture/test modes |
-| `game/board_view.gd` | `BoardView` | Board scene (world painting, cut branch layers, birds on measured perches), HUD, tools, entrance, event playback |
-| `game/bird_view.gd` | `BirdView` | Bird frame animation: breathing, blinks, idles, hops, flights, sleep, eggs |
-| `game/popups.gd` | static functions | Win, settings, level card, goal info, daily gift, new friend, booster unlock, world complete/unlock |
-| `game/map_view.gd`, `shop_view.gd`, `aviary_view.gd` | screens | Level map, shop tabs and confirm, aviary list and detail |
-| `game/ui.gd`, `popup.gd`, `art.gd`, `sound.gd` | UI kit | Code-drawn shapes, buttons, counters and badges, white icons, painted words and numbers (`ui_text.gd`, `art/locale`), modal frame, asset lookup, audio (autoload `Sound`) |
-| `tools/kit`, `tools/scene` | Art pipeline | Icon and lettering sheets cut into sprites, word sprites built from the letters, world paintings cut into a background and branch layers with measured perch lines |
-| `tests/smoke.gd`, `tests/run_core.gd` | headless tests | Every script loads and every level builds; every level replays along its stored solution |
+| `package.json`, `assets/scenes/main.scene` | Creator project, entry scene | Project identity, pinned Creator version, and scene entry |
+| `assets/scripts/Boot.ts` | `Boot` | Canvas, startup, profile ownership/import, navigation, popup queue, isolated development test modes |
+| `assets/scripts/core/Board.ts` | `Board` | Packed birds, branches, kinds, goals, deliveries, boosters, inventory; stable enum values |
+| `assets/scripts/core/Levels.ts` | `Levels` | Configures level data, builds boards, lists species; 210 fixed levels |
+| `assets/scripts/core/Rules.ts` | `Rules` | Transfers, homecoming waves/gifts, eggs, sleep, crows, branch mechanics, booster effects, events |
+| `assets/scripts/core/Solver.ts` | `Solver` | Search, hints, and solvability analysis |
+| `assets/scripts/core/GameSession.ts` | `GameSession` | Selection, undo, restart, counted moves, boosters, replayable attempt state |
+| `assets/scripts/meta/Profile.ts` | `Profile` | Original JSON fields and migrations, records, inventory, cosmetics, met species; injected storage |
+| `assets/scripts/meta/Progress.ts` | `Progress` | Sequential unlocks, rewards, world completion, stars/chests, daily calendar, lucky draw, starter tools |
+| `assets/scripts/meta/Shop.ts`, `Aviary.ts` | `Shop`, `Aviary` | Catalog and transactions, equip state, species roster, first meetings, flocks home |
+| `assets/scripts/game/HomeView.ts`, `MapView.ts` | `HomeView`, `MapView` | Forest home, world navigation, level tiles, counters and entries |
+| `assets/scripts/game/BoardView.ts` | `BoardView` | Measured world/perch layout, goal houses, HUD, tools, entrance, input, event playback |
+| `assets/scripts/game/BirdView.ts` | `BirdView` | Drawn poses, breathing, idle actions, flights, sleep, eggs, costumes |
+| `assets/scripts/game/ShopView.ts`, `AviaryView.ts` | `ShopView`, `AviaryView` | Shop categories and quantity purchases; collection, bird detail, outfit purchase/equip |
+| `assets/scripts/game/Popups.ts` | `Popups`, `Kit` | Modal families, settings, level cards, tool offers, results, rewards, calendar, draw, chest, coin-shop UI |
+| `assets/scripts/game/Tutorial.ts` | `Tutorial` | Canonical how-to-play and mechanic lessons, fake-data demonstrations |
+| `assets/scripts/game/UI.ts`, `Art.ts` | `UI`, `Art` | Top-left design-coordinate helpers, Cocos sprites/graphics, slicing, input, scroll, painted words/glyphs, resource lookup |
+| `assets/scripts/game/Sound.ts` | `Sound` | Music and sound playback, saved controls, focus/input behavior |
+| `assets/resources/{art,birds,world,audio,layout}` | Existing runtime assets | Painted artwork, drawn animation sequences, measured scene data, audio, English/Chinese locale packs |
+| `assets/resources/levels/{levels,hints}.json` | Catalog and solutions | Fixed puzzle definitions and stored solutions; no day/night gameplay |
+| `assets/resources/manifest.json` | Resource manifest | Asset paths, image dimensions/ink bounds, data and audio lookup |
+| `tests/core.test.ts` | Node/tsx tests | Pure rules and meta behavior, profile migrations, all stored level solutions |
+| `build-config/web-mobile.json` | Creator build configuration | Actual web-mobile output at `build/web-mobile` |
+| Repository `run.sh`, `scripts/serve.py` | Launcher and local server | Build/play/serve/editor/test commands; localhost-only prior-profile import |
+| Repository `tools/cocos-assets.mjs`, `tools/cocos-meta.py` | Resource tooling | Manifest and Creator metadata preparation |
 
-Every screen script provides `static func preview(main, state)` used by `scripts/capture.sh --preview=<script>:<state>` and `scripts/screenshots.sh`.
+Core and meta modules do not import Cocos. Screens use callbacks to the root and share presentation helpers; player-visible text uses painted sprites. Screen previews use the canonical classes rather than alternate demo implementations.
+
+Run checks only when authorized: `npm --prefix PerchSort test`, `npm --prefix PerchSort run typecheck`, and `./run.sh build`. Runtime and visual acceptance require the actual built game; documentation and type checking are not acceptance evidence. Historical Godot work logs remain intact for their decisions and provenance, but do not describe a second runnable game.

@@ -1,0 +1,8 @@
+{
+  "name": "perch-sort",
+  "uuid": "9a21e085-c160-43cc-b108-f67df530e04d",
+  "creator": {"version": "3.8.8"},
+  "private": true,
+  "scripts": {"test": "tsx --test tests/core.test.ts", "typecheck": "tsc --noEmit", "assets": "node ../tools/cocos-assets.mjs"},
+  "devDependencies": {"typescript": "5.9.3", "tsx": "4.23.15", "@types/node": "24.19.2", "sharp": "0.34.5"}
+}

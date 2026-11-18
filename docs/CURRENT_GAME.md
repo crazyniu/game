@@ -2,51 +2,55 @@
 
 ## Identity and authority
 
-There is one Perch Sort game: Godot 4.7.2 (standard build, GDScript, GL Compatibility), portrait 1080x1920 design canvas, 210 fixed levels (21 per world) across ten sequential forest worlds. Open `PerchSort/project.godot`; the main scene is `game/main.tscn`. The [hundred-level round](work-log/hundred-levels/report.md) extended the catalog; subsequent gameplay changes are recorded below. Current presentation is documented in [the design directory](design/) and implemented in `PerchSort/game`. English and Chinese painted locale packs are installed. Runtime implementation is not proof of user visual acceptance. Forest paintings and branch layers remain under `tools/scene`.
+Perch Sort is one **Cocos Creator 3.8.8** game written in TypeScript, using a 1080x1920 portrait canvas and **210 fixed levels**, 21 in each of ten sequential forest worlds. There is no day/night gameplay. Open `PerchSort/` in Creator; its identity is in `package.json` and its entry scene is `assets/scenes/main.scene`.
 
-## Canonical-edit policy
+The user requested the Cocos migration on 2026-11-18 with unchanged UI, permission to correct demonstrated gameplay problems, and explicit self-testing. The [migration contract](work-log/cocos-port/spec.md) defines the current work. Existing art and screen contracts remain authoritative; the migration does not authorize redesign or new artwork. Runtime validation is in progress and must not be described as completed merely because source files or a build exist.
 
-The [gameplay repairs](work-log/gameplay-repairs/report.md) cover settlement, inventory, animation cancellation,
-input, hints, tools and navigation. The [difficulty continuity report](work-log/difficulty-continuity/report.md)
-owns the current level order, hint allowances and save migration; the hundred-level round above is historical.
-The [day/night removal](work-log/no-day-night/report.md) then set `dayLength` to 0 in all levels and changed Inky to Encore and Hoot to Wake-up song. The unused phase code was removed afterwards.
+Current presentation lives in `PerchSort/assets/scripts/game` and is governed by [the design directory](design/). English and Chinese painted locale packs remain under `assets/resources/art/locale`. [`art/approved_ui`](../art/approved_ui) contains style references; [`art/approved_runtime`](../art/approved_runtime) contains approved runtime baselines. Only the user's explicit screen approval establishes visual acceptance.
 
-Gameplay additions since then, each with its own work log:
+## Source ownership
 
-| Feature | Record |
+| Concern | Current source |
 | --- | --- |
-| Free rescue from a dead end and the one-more tool offer on the board | [stuck-rescue](work-log/stuck-rescue/report.md) |
-| Pointer to the cheapest tool that rescues a dead end | [rescue-tool](work-log/rescue-tool/report.md) |
-| Early losing moves repaired in 14 levels | [early-traps](work-log/early-traps/report.md) |
-| Bird skills shown on the level card, by tapping a bird key and as a badge flight | [visible-skills](work-log/visible-skills/report.md), [skill-row](work-log/skill-row/report.md), [skill-cues](work-log/skill-cues/report.md) |
-| 210 levels, 21 per world, three tiles per row on the world page | [twenty-one-per-world](work-log/twenty-one-per-world/report.md) |
-| Level card sells the fitting tools; guided first use of every tool | [level-card-tools](work-log/level-card-tools/report.md), [tool-guides](work-log/tool-guides/report.md) |
-| Partial goal (only the named flocks go home): three trial levels behind `--trial=N`, not in the catalog | [goal-variety](work-log/goal-variety/spec.md), [goal-trial](work-log/goal-trial/report.md) |
+| Startup, profile loading, navigation, popup queue | [Boot.ts](../PerchSort/assets/scripts/Boot.ts) |
+| Board, moves, homecoming gifts, eggs, sleep, crows, branches, boosters, undo, solver | [core](../PerchSort/assets/scripts/core) |
+| Profile migrations, unlocks, economy, rewards, shop, aviary | [meta](../PerchSort/assets/scripts/meta) |
+| Home/map/board/shop/aviary, tutorials, popups, birds, audio | [game](../PerchSort/assets/scripts/game) |
+| Asset lookup and painted text | [Art.ts](../PerchSort/assets/scripts/game/Art.ts), [UI.ts](../PerchSort/assets/scripts/game/UI.ts), [locale packs](../PerchSort/assets/resources/art/locale) |
+| Level catalog and stored solutions | [levels](../PerchSort/assets/resources/levels) |
+| Local browser server and prior-save import | [serve.py](../scripts/serve.py) |
+| Source organization | [CODE_MAP](spec/CODE_MAP.md) |
 
-The direction and the business goal behind these are in [gameplay-depth](work-log/gameplay-depth/spec.md). None of
-this has been played on a device or accepted by the user. Open work is tracked in GitHub issue 255.
+Keep one canonical implementation. Do not recreate retired engine trees, parallel scenes, alternate resource roots, or numbered copies. Pure core/meta code stays independent of Cocos and presentation.
 
-- Maintain **one current game**, editing canonical files in place. Never create numbered parallel folders, files, classes, scenes or resource roots, or alternate implementation copies under any other name.
-- Task branches and PRs are temporary and merge into `main`; they are not permanent forks.
-- `python3 ci/check_current_game_names.py` must pass; it complements human review and runtime acceptance.
+## Persistence and services
 
-[`art/approved_ui`](../art/approved_ui) holds the approved mockups (style direction). Visual acceptance is the user's approval of each clickable screen; approved runtime captures in `art/approved_runtime` are then the baseline. Use the current screen-specific contracts and canonical layout constants; do not restore superseded layouts.
+`Profile.ts` retains the original JSON field names, including `coins`, `highestUnlockedLevel`, `boosters`, `bestStars`, `clearCounts`, `bestMoves`, `ownedOutfits`, and `equippedOutfits`, with `schemaVersion` and existing migrations. Schema 4 reorders prior puzzle records through `LEVEL_DIFFICULTY`; schema 5 spreads the former 100-level records across the 210-level catalog through `LEVEL_SPREAD`. Board enum values remain stable.
 
-## Read current behavior at its owner
+The browser save key is `perch-sort.profile`. On localhost, when that key is absent, `Boot.ts` can read the prior Godot profile through `scripts/serve.py` and migrate it once into browser storage. The original file is never modified. The launcher uses real progress: no automatic top-ups, fabricated clears, or level unlocks. Test profiles use separate storage.
 
-| Concern | Source |
+Payment and rewarded-ad providers are not connected. The UI cannot grant paid currency or ad rewards without a confirmed provider callback. This local playable migration does not constitute a store integration or release.
+
+## Historical gameplay decisions
+
+These records explain retained mechanics and data decisions. Their Godot-era paths and commands are historical, not current execution instructions:
+
+| Decision | Record |
 | --- | --- |
-| Board model, moves, homecoming waves and gifts, eggs, sleep, crows, twigs, swivels, growing branches, chorus coins, boosters, undo, solver | [core](../PerchSort/core) |
-| Profile, unlocks, economy, map states, daily gift, shop, aviary | [meta](../PerchSort/meta) |
-| Board, HUD, birds, popups, map, shop, aviary, navigation, audio | [game](../PerchSort/game) |
-| Localized whole-label textures and numeric cells | [runtime renderer](../PerchSort/game/ui_text.gd), [English source catalog](../tools/kit/locales/en_docs.json), [locale packs](../PerchSort/art/locale) |
-| Design decisions | [design record](GAME_DESIGN.md) (later approved contracts supersede its old layouts) |
-| Source organization | [CODE_MAP](spec/CODE_MAP.md), [port contract](work-log/godot-port/spec.md) |
+| Settlement, inventory, hints, tools, and navigation repairs | [gameplay-repairs](work-log/gameplay-repairs/report.md) |
+| Continuous level order and save migration | [difficulty-continuity](work-log/difficulty-continuity/report.md) |
+| Removal of day/night; Inky's Encore and Hoot's Wake-up song | [no-day-night](work-log/no-day-night/report.md) |
+| Dead-end rescue and rescuing-tool indication | [stuck-rescue](work-log/stuck-rescue/report.md), [rescue-tool](work-log/rescue-tool/report.md) |
+| Early losing-move repairs | [early-traps](work-log/early-traps/report.md) |
+| Visible bird skills | [visible-skills](work-log/visible-skills/report.md), [skill-row](work-log/skill-row/report.md), [skill-cues](work-log/skill-cues/report.md) |
+| 210 levels and 21 levels per world | [twenty-one-per-world](work-log/twenty-one-per-world/report.md) |
+| Level-card tools and guided tool use | [level-card-tools](work-log/level-card-tools/report.md), [tool-guides](work-log/tool-guides/report.md) |
+| Partial-goal trials outside the fixed catalog | [goal-variety](work-log/goal-variety/spec.md), [goal-trial](work-log/goal-trial/report.md) |
 
-## Persistence
+The [game design record](GAME_DESIGN.md) and [gameplay-depth specification](work-log/gameplay-depth/spec.md) preserve earlier decisions; current contracts and actual source resolve superseded prose.
 
-The profile is one JSON file, `user://profile.json`, written by `meta/profile.gd` with the original field names (`coins`, `highestUnlockedLevel`, `boosters`, `bestStars`, `clearCounts`, `bestMoves`, `ownedOutfits`, `equippedOutfits`, ...) and `schemaVersion`. Keep field names and enum numeric orders stable and retain all existing migrations. Schema 4 moves per-puzzle records into the continuous difficulty order through `LEVEL_DIFFICULTY`; schema 5 spreads the old 100 levels over the 210-level catalog through `LEVEL_SPREAD`. Both launchers apply the same mappings.
+## Validation status
 
-## Validation
+Testing belongs to the user by default; the current migration explicitly authorizes self-tests. Available commands are `npm --prefix PerchSort test`, `npm --prefix PerchSort run typecheck`, and `./run.sh build`. The core suite includes stored-solution replay for all 210 levels. These checks do not prove browser, device, visual, or audio acceptance.
 
-`bash scripts/run_tests.sh` runs the naming guard, the smoke test (every script loads, every level builds on the real board) and the core test (every level replayed through a session along its stored solution). `bash scripts/screenshots.sh` writes silent captures of every screen state to `build/screens/`. Stills do not prove animation; animation and audio claims need timed frame sequences (`--frames`) and logs (`--autoplay`). CI runs the same tests on headless Godot and does not replace GUI acceptance.
+The coordinator owns the migration report and final runtime evidence. Until that report records the actual outcome, runtime validation remains pending. Keep screenshots and timed frame evidence local under `build/` or the feature's ignored `evidence/` directory. Never commit or push them.

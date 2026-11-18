@@ -1,0 +1,45 @@
+import { JsonAsset, resources, SpriteFrame, Rect as CocosRect, Size, Vec2, Texture2D } from 'cc';
+import type { Rect } from './UI';
+
+type ImageEntry = {path:string;size:[number,number];ink:Rect};
+type Manifest = {images:Record<string,ImageEntry>;aliases:Record<string,string>;data:Record<string,any>;sounds:Record<string,string>};
+export class Art {
+  static manifest:Manifest;
+  static locale='en';
+  static pending = new Map<string,Promise<SpriteFrame>>();
+  static cache = new Map<string,SpriteFrame>();
+  static errors:string[]=[];
+  static async init():Promise<void> {
+    this.manifest=await new Promise((resolve,reject)=>resources.load('manifest',JsonAsset,(e,a)=>e?reject(e):resolve(a.json as Manifest)));
+  }
+  static key(name:string):string { return this.manifest.images[name]?name:this.manifest.aliases[name]; }
+  static has(name:string):boolean { return !!this.key(name); }
+  static entry(name:string):ImageEntry { const key=this.key(name);if(!key)throw new Error(`Missing artwork: ${name}`);return this.manifest.images[key]; }
+  static size(name:string):[number,number] { return this.entry(name).size; }
+  static ink(name:string):Rect { return this.entry(name).ink; }
+  static data(path:string):any { return this.manifest.data[path.replace(/^res:\/\//,'').replace(/\.json$/,'')]; }
+  static frames(prefix:string):string[] {const out:string[]=[];for(let i=1;this.has(`${prefix}_${String(i).padStart(2,'0')}`);i++)out.push(`${prefix}_${String(i).padStart(2,'0')}`);return out;}
+  static setLocale(code:string):void {this.locale=code.startsWith('zh')?'zh':'en';}
+  static pack():any{return this.data(`art/locale/${this.locale}/manifest`);}
+  static load(name:string):Promise<SpriteFrame> {
+    const key=this.entry(name).path;
+    if(this.cache.has(key))return Promise.resolve(this.cache.get(key)!);
+    if(this.pending.has(key))return this.pending.get(key)!;
+    const promise=new Promise<SpriteFrame>((resolve,reject)=>resources.load(key+'/spriteFrame',SpriteFrame,(error,frame)=>{
+      if(error){this.errors.push(`${key}: ${error.message}`);reject(error);return;}
+      frame.addRef();this.cache.set(key,frame);resolve(frame);
+    })).finally(()=>this.pending.delete(key));this.pending.set(key,promise);return promise;
+  }
+  static async preload(names:string[]):Promise<void>{await Promise.all(Array.from(new Set(names)).map(n=>this.load(n)));}
+  static async waitPending():Promise<void>{while(this.pending.size)await Promise.all(Array.from(this.pending.values()));}
+  static region(source:SpriteFrame, region:Rect):SpriteFrame {
+    const sf=new SpriteFrame();sf.texture=source.texture;sf.rect=new CocosRect(...region);sf.originalSize=new Size(region[2],region[3]);sf.offset=new Vec2(0,0);sf.packable=false;return sf;
+  }
+  static painted(id:string):{name:string;region?:Rect}{const e=this.pack().painted[id];if(!e)throw new Error(`Missing painted word ${this.locale}:${id}`);return {name:`art/locale/${this.locale}/${e.file.replace(/\.png$/,'')}`,region:e.region};}
+  static word(id:string,style='brown'):{name:string;region?:Rect}{
+    const variants=this.pack().words[id];
+    if(!variants)throw new Error(`Missing word ${this.locale}:${id}`);
+    const e=variants[style]??variants.caption??variants.brown??variants.white??variants.gold;
+    return e.painted_id?this.painted(e.painted_id):{name:`art/locale/${this.locale}/${e.file.replace(/\.png$/,'')}`};
+  }
+}

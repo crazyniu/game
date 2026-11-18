@@ -4,7 +4,7 @@ python3 tools/scene/cut_branches.py <world> [--preview]
 
 Inputs (tools/scene): board_wN_raw.png (the approved painting, 1024x1536, screen = centred 9:16 area) and
 board_wN_empty.png (the same painting with every branch painted out). Branch heights are detected in the painting; guide_wN.json gives the expected count per side.
-Outputs: PerchSort/world/scene/board_wN_bg.png (1080x1920), board_wN_branch_{L|R}{row}.png and
+Outputs: PerchSort/assets/resources/world/scene/board_wN_bg.png (1080x1920), board_wN_branch_{L|R}{row}.png and
 board_wN_slots.json: for each slot the layer offset, the perch line (top surface over the seats, screen y),
 the root x (screen edge) and the tip x. The board places birds on the measured perch line.
 """

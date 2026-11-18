@@ -4,7 +4,7 @@
 A world bird is <species>_<family> (sunny_budgie): the bird that stands in a species slot in one world. It needs
 src/<bird>_reference.png (its front design, 1024). Every frame of the plain species is repainted as the new bird
 in the same pose (paint.sh); frames that are not one connected bird of plausible size are retried. Finished birds
-are aligned to the plain frames (feet and lower-body centre) and written to PerchSort/birds/<bird>_<frame>.png.
+are aligned to the plain frames (feet and lower-body centre) and written to PerchSort/assets/resources/birds/<bird>_<frame>.png.
 Resumable. Reuses the checks of tools/birds/painted_skins.
 """
 import argparse, os, subprocess, sys, threading, queue

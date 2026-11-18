@@ -2,7 +2,7 @@
 """Bake the settings documents (terms, credits, contact) into painted text pages.
 
 uv run --no-project --isolated --with pillow tools/kit/build_documents.py [locale]
-Source: tools/kit/locales/<locale>_docs.json ({id: {title, body}}). Output: PerchSort/art/locale/<locale>/doc_<id>.png,
+Source: tools/kit/locales/<locale>_docs.json ({id: {title, body}}). Output: PerchSort/assets/resources/art/locale/<locale>/doc_<id>.png,
 white text on transparency (the game tints it ink), body text in the game lettering faces (Lilita One, ZCOOL KuaiLe) wrapped to WIDTH px, plus
 doc_<id>_title.png in the display face. Words are baked offline; the game never renders a font.
 """
@@ -52,7 +52,7 @@ def wrap(draw, text, font, by_character=False):
 def main():
     locale = sys.argv[1] if len(sys.argv) > 1 else "en"
     docs = json.loads((ROOT / "tools/kit/locales" / f"{locale}_docs.json").read_text(encoding="utf-8"))
-    out = ROOT / "PerchSort/art/locale" / locale
+    out = ROOT / "PerchSort/assets/resources/art/locale" / locale
     chinese = locale == "zh"
     body = ImageFont.truetype(str(ROOT / "tools/kit/fonts" / ("noto_sans_sc_bold.otf" if chinese else "lilita_one.ttf")), SIZE,
                               layout_engine=ImageFont.Layout.RAQM)
