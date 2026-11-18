@@ -23,9 +23,11 @@ for (const [platform,width,height] of platforms) {
 }
 const iconFolder=join(output,'icon');
 await mkdir(iconFolder,{recursive:true});
-for (const name of ['app_store','google_play','wechat']) {
+for (const name of ['app_store','google_play']) {
   await copyFile(join(root,'build/native-art/store',name+'.png'),join(iconFolder,name+'.png'));
 }
+
+await sharp(join(masters,'wechat_avatar.png')).resize(144,144).png().toFile(join(iconFolder,'wechat.png'));
 
 const tiles=[];
 for (const [row,locale] of ['en','zh_CN'].entries()) {

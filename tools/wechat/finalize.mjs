@@ -7,8 +7,8 @@ const config=JSON.parse(await fs.readFile(path.join(root,'build/wechat-build-con
 const projectPath=path.join(output,'project.config.json');
 const project=JSON.parse(await fs.readFile(projectPath,'utf8'));
 project.appid=config.packages.wechatgame.appid;
-project.projectname='Perch Sort';
-project.description='Perch Sort - Cocos Creator portrait bird-sorting game';
+project.projectname=config.name;
+project.description=config.name;
 project.setting.urlCheck=config.server.startsWith('https:');
 project.packOptions??={};
 project.packOptions.ignore=[...(project.packOptions.ignore??[]).filter(entry=>entry.value!=='remote'),{type:'folder',value:'remote'}];
@@ -41,7 +41,7 @@ const all=await files(output),main=all.filter(f=>!f.path.startsWith('remote/')),
 const sum=list=>list.reduce((total,file)=>total+file.bytes,0);
 const mainBytes=sum(main),remoteBytes=sum(remote),limit=4*1024*1024;
 if(remote.some(file=>file.path.endsWith('.js')))throw new Error('WeChat cannot download executable scripts remotely.');
-const report={platform:'wechatgame',project:'Perch Sort',appIdConfigured:project.appid!=='touristappid',assetServer:config.server,localPreview:!project.setting.urlCheck,mainBytes,mainLimitBytes:limit,mainWithinLimit:mainBytes<=limit,remoteBytes,mainFiles:main.length,remoteFiles:remote.length,largestMainFiles:main.toSorted((a,b)=>b.bytes-a.bytes).slice(0,10),remoteDirectory:'PerchSort/build/wechatgame/remote',published:false};
+const report={platform:'wechatgame',project:config.name,appIdConfigured:project.appid!=='touristappid',assetServer:config.server,localPreview:!project.setting.urlCheck,mainBytes,mainLimitBytes:limit,mainWithinLimit:mainBytes<=limit,remoteBytes,mainFiles:main.length,remoteFiles:remote.length,largestMainFiles:main.toSorted((a,b)=>b.bytes-a.bytes).slice(0,10),remoteDirectory:'PerchSort/build/wechatgame/remote',published:false};
 await fs.writeFile(path.join(root,'build/wechat-package-report.json'),JSON.stringify(report,null,2)+'\n');
 console.log(`WeChat project: ${output}`);
 console.log(`Main package: ${(mainBytes/1024/1024).toFixed(2)} MiB / 4.00 MiB`);

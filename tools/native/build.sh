@@ -32,6 +32,7 @@ if [[ "$status" != 36 && "$status" != 0 ]]; then tail -45 "build/cocos-$platform
 out="$project/build/$platform"
 if [[ ! -d "$out/proj" ]]; then echo "Creator did not generate $out/proj. See build/cocos-$platform.log." >&2; exit 1; fi
 node tools/native/icons.mjs
+python3 tools/native/display-names.py "$platform"
 if [[ "$platform" == android ]]; then
   [[ "$mode" != project ]] || { echo "$out/proj"; exit 0; }
   [[ -f "$out/proj/gradlew" ]] || { echo "No Gradle wrapper in $out/proj." >&2; exit 1; }

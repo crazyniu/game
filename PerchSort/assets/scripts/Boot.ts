@@ -50,7 +50,7 @@ export class Boot extends Component{
    UI.cover(waiting,'background_home_jungle',[0,0,1080,1920]);
    UI.art(waiting,'island_padlock',[420,840,240,240]);
    const title=document.title;
-   document.title=sys.language.startsWith('zh')?'请关闭另一个游戏标签页 · Perch Sort':'Close the other game tab · Perch Sort';
+   document.title=sys.language.startsWith('zh')?'请关闭另一个游戏标签页 · 枝头小分队':'Close the other game tab · Fly Home';
    await navigator.locks.request(lockName,async()=>{
     document.title=title;
     waiting.destroy();
@@ -90,6 +90,7 @@ export class Boot extends Component{
   this.profile=Profile.load_saved(this.storage,this.saveKey);
   if(this.testMode&&this.args.has('unlock')){this.profile.highest_unlocked=210;this.profile.coins=50000;this.profile.inventory=[10,10,10,10,10,10];for(const [species] of Aviary.SPECIES)this.profile.met[species]=true;}
   Art.setLocale(this.args.get('lang')??(this.profile.language||sys.language));
+  this.updateWindowTitle();
   this.sound=new Sound(this.node);this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
   this.popups=new Popups(this.popupHost,this.profile,{save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
   if(this.profile.needs_recovery()){this.saveRecovery();await Art.waitPending();this.loading.destroy();return;}
@@ -233,6 +234,7 @@ export class Boot extends Component{
   const leave=Kit.button(d.content,'Exit',[564,d.actionY,420,150],'',()=>{this.sound.pause();game.end();});word(leave,3,[65,30,290,90]);
  }
  private applySound():void{this.sound.set_muted(this.profile.muted);this.sound.set_music_muted(this.profile.music_muted);this.sound.vibration=this.profile.vibration;}
- private refreshLanguage():void{if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof MapView){const world=this.screen.world,page=this.screen.page;this.screen.destroy();this.screen=new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant);if(page)this.screen.open_world(world);}else if(this.screen instanceof BoardView)this.screen.refresh_hud();}
+ private updateWindowTitle():void{if(sys.isBrowser)document.title=Art.locale==='zh'?'枝头小分队':'Fly Home';}
+ private refreshLanguage():void{this.updateWindowTitle();if(this.screen instanceof HomeView)this.screen.refresh();else if(this.screen instanceof MapView){const world=this.screen.world,page=this.screen.page;this.screen.destroy();this.screen=new MapView(this.screenHost,this.profile,{home:()=>this.open_home(),level:n=>this.popups.level_card(n),gate:()=>this.sound.play('error'),coins:()=>this.coinShop()},world,this.instant);if(page)this.screen.open_world(world);}else if(this.screen instanceof BoardView)this.screen.refresh_hud();}
  private until(predicate:()=>boolean):Promise<void>{return new Promise(resolve=>{const check=()=>{if(predicate())resolve();else this.scheduleOnce(check,.05);};check();});}
 }

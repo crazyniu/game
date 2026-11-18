@@ -12,7 +12,9 @@ export class HomeView{
  node:Node;private birds:HomeBird[]=[];private clock=0;private lastIdle=-1;
  constructor(host:Node,private profile:Profile,private callbacks:HomeCallbacks,private instant=false){this.node=UI.group(host,'Home');this.build();this.node.addComponent(HomeMotion).view=this;}
  private build():void{
-  const p=this.node;UI.image(p,'background_home_jungle',[0,0,1080,1920]);const [w,h]=Art.size('panel_home_title_sign');UI.image(p,'panel_home_title_sign',[94,-30,w,h]);
+  const p=this.node;UI.image(p,'background_home_jungle',[0,0,1080,1920]);const title='panel_home_title_sign_'+Art.locale;
+  const [w,h]=Art.size(title);
+  UI.image(p,title,[(1080-w)/2,-30,w,h]);
   this.addBird('macaw',330,228,4);this.addBird('yellow_chick',500,176,0);this.addBird('blue_chick',665,178,2);this.addBird('green_parrot',830,184,4);
   const size=Art.size('panel_home_perch_branch');UI.image(p,'panel_home_perch_branch',[-74,760,...size]);UI.feather_bar(p,[48,48],this.profile.coins,this.callbacks.coins);
   this.icon('Settings','pic_gear',976,104,96,0,this.callbacks.settings);

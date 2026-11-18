@@ -20,7 +20,8 @@ async function put(file, data) {
 const portrait = await sharp(sunny).trim().resize(860,860,{fit:'inside'}).png().toBuffer();
 const icon = await sharp(forest).resize(1024,1024,{fit:'cover'}).composite([{input:portrait,gravity:'center'}]).flatten().png().toBuffer();
 for(const [name,size] of [['app_store',1024],['google_play',512],['wechat',144]]) {
-  await put(resolve(out,'store',name+'.png'),await sharp(icon).resize(size,size).png().toBuffer());
+  const source=name==='wechat' ? resolve(root,'store/masters/wechat_avatar.png') : icon;
+  await put(resolve(out,'store',name+'.png'),await sharp(source).resize(size,size).png().toBuffer());
 }
 const sizes = [29,40,57,58,60,80,87,114,120,180,1024];
 const iosPath=resolve(engine,'ios/Images.xcassets/AppIcon.appiconset');
