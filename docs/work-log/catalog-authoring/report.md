@@ -5,8 +5,8 @@
 Based on merged main `da2f3e5e03b60264c948c9ad0aa3eaf893cb12fb` (Cocos migration #314), the surviving Python
 reorder tool now handles 210 levels and 21 positions per world. It requires the catalog, hints and measurement
 JSON to cover each current ID exactly once before output is written. Every route is remapped; authored pars
-remain unchanged. Cached route action counts and supplied counted-move measurements are separate, and input
-proof flags are retained without implying a new search.
+remain unchanged. Measured `actions`, `cached_actions` and supplied counted-move measurements are separate.
+An exact claim must include its measured action count; input proof flags are retained without implying a new search.
 
 The old expansion/candidate mode was removed. It was built to fill a smaller historical catalog and could
 replace current unmeasured puzzles silently. The README now describes the remaining command as an

@@ -81,7 +81,8 @@ def build_catalog(entries, slots):
         catalog.append(level)
         renumber[entry["origin"]] = number
         curve.append({"level": number, "chapter": chapter + 1, "source": entry["origin"], "score": entry["score"],
-                      "fragmentation": fragmentation(level), "actions": metrics["actions"], "counted": metrics["counted"],
+                      "fragmentation": fragmentation(level), "actions": metrics["actions"],
+                      "cached_actions": metrics["cached_actions"], "counted": metrics["counted"],
                       "known_counted": metrics.get("known_counted", metrics["counted"]), "par": level["par"],
                       "species": metrics["species"], "branches": len(level["branches"]),
                       "win": metrics["win_rate"], "exact": metrics["exact"], "mechanics": metrics["mechanics"]})
@@ -103,9 +104,11 @@ def reorder(levels_path, hints_path, curve_path, out_dir, report_dir):
     for level in levels:
         source_id = int(level["id"])
         row = curve[source_id]
+        if row.get("exact", False) and "actions" not in row:
+            raise ValueError(f"Exact measurement for level {source_id} must include its measured actions")
         # Hint key[0] is a homed-species mask. It cannot reconstruct counted moves after gift refunds.
         metrics = {"species": row["species"], "win_rate": row["win"], "mechanics": row["mechanics"],
-                   "actions": len(hints[str(source_id)]), "counted": row["counted"],
+                   "actions": row.get("actions"), "cached_actions": len(hints[str(source_id)]), "counted": row["counted"],
                    "known_counted": row.get("known_counted", row["counted"]), "exact": row.get("exact", False)}
         entries.append({"level": level, "metrics": metrics, "score": score(level, metrics), "origin": source_id})
     catalog, curve, renumber = build_catalog(entries, levels)

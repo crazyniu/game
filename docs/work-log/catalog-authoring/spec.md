@@ -22,7 +22,8 @@ to replace puzzles, select world mechanics, reorder the shipped catalog, change 
 
 Keep one proposal-only reorder command, set the current 210/21 dimensions, require complete unique input
 IDs before any writes, retain all hints and authored pars, and distinguish cached actions from supplied
-counted-move measurements. Preserve supplied proof flags without claiming new proof. Retire expansion mode.
+counted-move measurements. Keep measured `actions` separate from `cached_actions`; require a measured
+action count for an exact claim. Preserve supplied proof flags without claiming new proof. Retire expansion mode.
 Document the active Cocos paths and catalog decision/dependency boundaries.
 
 ## Ownership and verification
