@@ -1,0 +1,38 @@
+{
+  "name": "PerchSort",
+  "debug": false,
+  "md5Cache": false,
+  "buildPath": "project://build",
+  "startScene": "68777eb2-9149-4254-a5b9-1ffccfc6b362",
+  "scenes": [
+    {
+      "url": "db://assets/scenes/main.scene",
+      "uuid": "68777eb2-9149-4254-a5b9-1ffccfc6b362"
+    }
+  ],
+  "platform": "android",
+  "outputName": "android",
+  "packages": {
+    "android": {
+      "packageName": "local.perchsort.preview",
+      "orientation": {
+        "portrait": true,
+        "upsideDown": false,
+        "landscapeRight": false,
+        "landscapeLeft": false
+      },
+      "apiLevel": 35,
+      "appABIs": [
+        "arm64-v8a",
+        "armeabi-v7a"
+      ],
+      "useDebugKeystore": true,
+      "appBundle": false,
+      "renderBackEnd": {
+        "vulkan": false,
+        "gles3": true,
+        "gles2": false
+      }
+    }
+  }
+}

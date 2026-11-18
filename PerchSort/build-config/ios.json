@@ -1,0 +1,33 @@
+{
+  "name": "PerchSort",
+  "debug": false,
+  "md5Cache": false,
+  "buildPath": "project://build",
+  "startScene": "68777eb2-9149-4254-a5b9-1ffccfc6b362",
+  "scenes": [
+    {
+      "url": "db://assets/scenes/main.scene",
+      "uuid": "68777eb2-9149-4254-a5b9-1ffccfc6b362"
+    }
+  ],
+  "platform": "ios",
+  "outputName": "ios",
+  "packages": {
+    "ios": {
+      "packageName": "local.perchsort.preview",
+      "orientation": {
+        "portrait": true,
+        "upsideDown": false,
+        "landscapeRight": false,
+        "landscapeLeft": false
+      },
+      "osTarget": {
+        "iphoneos": true,
+        "simulator": true
+      },
+      "targetVersion": "15.0",
+      "developerTeam": "",
+      "skipUpdateXcodeProject": false
+    }
+  }
+}

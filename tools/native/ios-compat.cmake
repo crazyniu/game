@@ -1,0 +1,10 @@
+# Cocos Creator 3.8.8's bundled headers and archive predate Apple's new linker.
+foreach(target cocos_engine ${EXECUTABLE_NAME})
+    if(TARGET ${target})
+        target_compile_options(${target} PRIVATE -Wno-invalid-specialization)
+    endif()
+endforeach()
+set(local_webp "${CMAKE_CURRENT_LIST_DIR}/../../PerchSort/build/ios/libwebp/libwebp.a")
+if(TARGET webp AND EXISTS "${local_webp}")
+    set_target_properties(webp PROPERTIES IMPORTED_LOCATION "${local_webp}")
+endif()
