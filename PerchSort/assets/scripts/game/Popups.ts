@@ -91,12 +91,12 @@ export class Kit {
   static stop(node:Node):void { Tween.stopAllByTarget(node); const opacity=node.getComponent(UIOpacity); if(opacity) Tween.stopAllByTarget(opacity); node.children.forEach(Kit.stop); }
   static destroy(node:Node):void { if(!isValid(node,true))return;Kit.stop(node); node.removeFromParent(); node.destroy(); }
   static after(node:Node,seconds:number,action:()=>void):void { tween(node).delay(Kit.instant?0:seconds).call(action).start(); }
-  static pop(node:Node,delay=0):void { if(Kit.instant)return;queueMicrotask(()=>Art.waitPending().then(()=>{if(!node.isValid)return;const rest=node.position.clone(),r=UI.rect(node);node.setScale(.94,.94,1);node.setPosition(rest.x+r[2]*.03,rest.y-r[3]*.03,rest.z);tween(node).delay(delay).to(.26,{scale:new Vec3(1,1,1),position:rest},{easing:'backOut'}).start();})); }
+  static pop(node:Node,delay=0):void { if(Kit.instant)return;void Promise.resolve().then(()=>Art.waitPending()).then(()=>{if(!node.isValid)return;const rest=node.position.clone(),r=UI.rect(node);node.setScale(.94,.94,1);node.setPosition(rest.x+r[2]*.03,rest.y-r[3]*.03,rest.z);tween(node).delay(delay).to(.26,{scale:new Vec3(1,1,1),position:rest},{easing:'backOut'}).start();}); }
   static breathe(node:Node,delay=0):void { if(Kit.instant)return; tween(node).delay(delay).repeatForever(tween().to(1.4,{scale:new Vec3(.992,1.02,1)},{easing:'sineInOut'}).to(1.4,{scale:new Vec3(1,1,1)},{easing:'sineInOut'})).start(); }
   static layer(host:Node,name:string,onClose?:()=>void,page=false,background='background_home_jungle'):Dialog {
     const node=UI.group(host,name), block=UI.group(node,'InputBlock'); block.addComponent(BlockInputEvents);
     if(page) UI.cover(node,background,[0,0,1080,1920]); else UI.fill(node,'Dim',[0,0,1080,1920],'#0512088c');
-    const content=UI.group(node,'Content'); UI.opacity(content,0);queueMicrotask(()=>Art.waitPending().then(()=>{if(content.isValid)UI.opacity(content,1);}));let closed=false;
+    const content=UI.group(node,'Content'); UI.opacity(content,0);void Promise.resolve().then(()=>Art.waitPending()).then(()=>{if(content.isValid)UI.opacity(content,1);});let closed=false;
     const close=()=>{ if(closed)return; closed=true; Kit.destroy(node); onClose?.(); };
     return {node,content,rect:[0,0,1080,1920],ys:[],actionY:0,close,invoke(action){close();action();}};
   }
