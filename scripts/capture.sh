@@ -88,7 +88,10 @@ def call(*command):
     completed = subprocess.run([cli, *command, '--json'], text=True, capture_output=True, cwd=root, timeout=60)
     if completed.returncode:
         raise RuntimeError(completed.stderr.strip() or completed.stdout.strip())
-    response = json.loads(completed.stdout)
+    try:
+        response = json.loads(completed.stdout)
+    except ValueError:
+        raise RuntimeError('%s returned no JSON: %r' % (command[0], completed.stdout[:200]))
     if response.get('ok') is False:
         raise RuntimeError(json.dumps(response['error']))
     return response['result']
