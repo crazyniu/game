@@ -27,6 +27,14 @@
 - `BirdView`: `buildPart`/`updatePart` for the propeller; whole-bird skins (also ember_outfit_5) no longer draw the aura and particles.
 - Typecheck needs the Creator declarations, so it has to run on the Mac. Nothing was built or run in the game.
 
+## Verified on the Mac (2026-11-18)
+- Branch `owl-propeller-skin` in a separate worktree `/Users/apple/Documents/projects/game-owl-skin` (the main Mac checkout has the user's own
+  uncommitted work and is not touched). `npm --prefix PerchSort ci`, `./run.sh build` and `npm --prefix PerchSort run typecheck`: exit 0, no type errors.
+- `bash scripts/capture.sh /tmp/owl/aviary.png --page aviary --unlock --outfit cocoa.4 --motion --wait 3 --frames 24 --step 0.25 --url http://127.0.0.1:8771/`:
+  24 real framebuffers. The owl card shows the beanie on the head in every frame, the propeller turns (different blade angle in each
+  frame, blur copies visible) and follows the cap through the preen and look-up poses. During a cross-fade two caps overlap briefly (the existing frame blend).
+- Not checked: the board, the outfit confirm popup and the shop tile with the skin, audio, other languages, a phone.
+
 ## Open
 - User review of the pilot. Not integrated into `BirdView`; no game art or code changed.
 - Not checked in the game or on the Mac.
