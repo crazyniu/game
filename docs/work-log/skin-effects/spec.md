@@ -1,5 +1,7 @@
 # Skin effects
 
+> Retired 2026-11-18: the aura and the particles around the bird are removed. A skin is worn on the body only (see `skin-redesign`).
+
 ## Problem
 Advanced costumes read almost the same as the plain bird (user, 2026-11-09). A costume must look alive and different.
 

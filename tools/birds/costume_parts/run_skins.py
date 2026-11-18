@@ -2,7 +2,7 @@
 """run_skins.py [--workers N] <species_slot>...: paint, repaint and align whole skins one after another.
 
 For each skin: paint_skin.py until every frame exists (up to 4 passes), align.py, then delete the paintings of frames flagged
-"check" and paint those again (up to 2 rounds). Progress lines go to out/run_skins.status. Resumable. Run from the repository root.
+"check" and paint those again (up to 2 rounds). Progress lines go to out/run_skins.status. Keys listed in out/skip.txt are skipped (another machine paints them). Resumable. Run from the repository root.
 """
 import json, os, subprocess, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -31,6 +31,9 @@ workers = "12"
 if "--workers" in args:
     i = args.index("--workers"); workers = args[i + 1]; del args[i:i + 2]
 for key in args:
+    skip = open(HERE + "/out/skip.txt").read().split() if os.path.exists(HERE + "/out/skip.txt") else []
+    if key in skip:
+        log("skip " + key); continue
     species, slot = key.split("_")
     log("start " + key)
     for rnd in range(3):

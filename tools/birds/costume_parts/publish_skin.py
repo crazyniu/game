@@ -30,6 +30,6 @@ for key in sys.argv[1:]:
         os.remove(old)
     for f in frames:
         frame = os.path.basename(f)[len(species) + len(slot) + 2:-4]
-        Image.open(f).convert("RGBA").save("%s/%s_%s.webp" % (BIRDS, skin, frame), "WEBP", quality=85, method=6)
+        Image.open(f).convert("RGBA").save("%s/%s_%s.webp" % (BIRDS, skin, frame), "WEBP", quality=85, method=4)
     drop_key("outfit_anchors.json", skin); drop_key("outfit_parts.json", skin)
     print("published", skin, len(frames), "frames")

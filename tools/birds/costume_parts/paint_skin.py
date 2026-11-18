@@ -7,6 +7,13 @@ Run from the repository root.
 """
 import glob, os, shutil, subprocess, sys, threading, queue
 from PIL import Image
+
+
+def run_codex(cmd, **kw):
+    try:
+        subprocess.run(cmd, timeout=1500, **kw)
+    except subprocess.TimeoutExpired:
+        pass
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from paint_frames import frames_of, BIRDS, D, ROOT
 from refs import skins
@@ -51,7 +58,7 @@ def main():
                 return
             log = out[:-4] + ".log"
             with open(log, "w") as fh:
-                subprocess.run(["timeout", "1500", "codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
+                run_codex(["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
                                 "-C", ROOT, "-i", src, "-i", ref, "--", HEAD + "Costume %s: %s. Palette: %s." % (spec["name"], spec["text"], spec["palette"])],
                                stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT)
             sid = next((l.split()[2] for l in open(log, errors="ignore") if l.startswith("session id:")), "")

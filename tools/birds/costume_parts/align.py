@@ -36,24 +36,27 @@ def job(args):
     ys, xs = np.nonzero(pa > 0.5)
     top, bot = ys.min(), ys.max()
     keep = np.zeros((C, C), bool); keep[int(top + 0.52 * (bot - top)):, :] = True
-    big = raw.resize((C, C), Image.LANCZOS)
+    # coarse search at half resolution (a quarter of the work), then refine at full resolution
+    H = C // 2
+    pa2 = pa.reshape(H, 2, H, 2).mean((1, 3)); keep2 = keep.reshape(H, 2, H, 2).all((1, 3))
     best = None
     for s in np.arange(0.90, 1.101, 0.01):
-        size = round(C * s); wa = alpha(raw, size)
-        for dy in range(-14, 15, 2):
-            for dx in range(-14, 15, 2):
-                w = place(wa, size, round((C - size) / 2) + dx, round((C - size) / 2) + dy)
-                cost = float(np.abs(w - pa)[keep].mean())
+        size = round(H * s); wa = alpha(raw, size)
+        for dy in range(-7, 8):
+            for dx in range(-7, 8):
+                w = place(wa, size, round((H - size) / 2) + dx, round((H - size) / 2) + dy, H)
+                cost = float(np.abs(w - pa2)[keep2].mean())
                 if best is None or cost < best[0]:
-                    best = (cost, s, dx, dy)
+                    best = (cost, s, dx * 2, dy * 2)
     _, s0, dx0, dy0 = best
+    best = None
     for s in np.arange(s0 - 0.01, s0 + 0.0101, 0.005):
         size = round(C * s); wa = alpha(raw, size)
         for dy in range(dy0 - 2, dy0 + 3):
             for dx in range(dx0 - 2, dx0 + 3):
                 w = place(wa, size, round((C - size) / 2) + dx, round((C - size) / 2) + dy)
                 cost = float(np.abs(w - pa)[keep].mean())
-                if cost < best[0]:
+                if best is None or cost < best[0]:
                     best = (cost, s, dx, dy)
     cost, s, dx, dy = best
     size = round(C * s)

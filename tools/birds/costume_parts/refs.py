@@ -7,6 +7,13 @@ out/ref_<species>_<slot>.png. Resumable: finished references are skipped. Run fr
 import glob, os, re, shutil, subprocess, sys, threading, queue
 from PIL import Image
 
+
+def run_codex(cmd, **kw):
+    try:
+        subprocess.run(cmd, timeout=1500, **kw)
+    except subprocess.TimeoutExpired:
+        pass
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 D = os.path.join(ROOT, "tools/birds/costume_parts")
 BIRDS = os.path.join(ROOT, "PerchSort/assets/resources/birds")
@@ -55,7 +62,7 @@ def main():
                 return
             log = out[:-4] + ".log"
             with open(log, "w") as fh:
-                subprocess.run(["timeout", "1500", "codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
+                run_codex(["codex", "exec", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox",
                                 "-C", ROOT, "-i", src, "--", prompt], stdin=subprocess.DEVNULL, stdout=fh, stderr=subprocess.STDOUT)
             sid = next((l.split()[2] for l in open(log, errors="ignore") if l.startswith("session id:")), "")
             imgs = sorted(glob.glob(os.path.expanduser("~/.codex/generated_images/%s/*.png" % sid)), key=os.path.getmtime)
