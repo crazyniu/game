@@ -89,6 +89,7 @@ export class Boot extends Component{
   }
   this.profile=Profile.load_saved(this.storage,this.saveKey);
   if(this.testMode&&this.args.has('unlock')){this.profile.highest_unlocked=210;this.profile.coins=50000;this.profile.inventory=[10,10,10,10,10,10];for(const [species] of Aviary.SPECIES)this.profile.met[species]=true;}
+  if(this.testMode&&this.args.has('outfit'))for(const id of this.args.get('outfit')!.split(',')){this.profile.outfits['outfit.'+id]=true;this.profile.equipped[id.split('.')[0]]='outfit.'+id;}
   Art.setLocale(this.args.get('lang')??(this.profile.language||sys.language));
   this.sound=new Sound(this.node);this.sound.init().then(()=>{this.applySound();this.sound.music(this.page==='board'?'bgm_game':'bgm_menu');}).catch(e=>console.error('Audio load failed',e));this.applySound();UI.onTap=()=>{this.sound.resume();this.sound.play('ui_tap');};
   this.popups=new Popups(this.popupHost,this.profile,{save:()=>this.save(),play:n=>this.open_board(n),replay:()=>{if(this.screen instanceof BoardView){if(this.screen.session.state.is_won()){if(this.trial)this.open_trial(this.trial);else this.open_board(this.screen.level.id);}else this.screen.restart();}},home:()=>this.open_home(),language:()=>this.refreshLanguage(),mute:()=>this.applySound(),sound:n=>this.sound.play(n),coins:()=>this.coinShop(),help:()=>Tutorial.open(this.popupHost,()=>{},this.instant)});
