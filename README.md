@@ -47,18 +47,17 @@ npm --prefix PerchSort run typecheck
 
 These commands cover pure rules and profile/economy behavior, stored solutions for all 210 levels, TypeScript, and the real Creator build. They do not prove browser, device, visual, or audio acceptance. Runtime verification is still in progress; consult the migration work log for the coordinator's final evidence and remaining limits. Keep captures and timed frame evidence local under `build/` or the feature's ignored `evidence/` directory.
 
-## Mobile builds
+## Package the game
 
-| Command | Local output |
-| --- | --- |
-| `./run.sh wechat-build` | WeChat Developer Tools project |
-| `./run.sh ios-build` | Xcode project under `PerchSort/build/ios/proj/` |
-| `./run.sh ios-build sim` / `dev` | Simulator app / unsigned device build |
-| `./run.sh ios-build ipa` | Signed archive and local IPA export |
-| `./run.sh android-build project` | Gradle project under `PerchSort/build/android/proj/` |
-| `./run.sh android-build apk` / `aab` | Debug APK / release Android App Bundle |
-| `./run.sh native-apply` / `native-icons` | Resolve native build settings / generate icons and launch artwork from this game's assets |
+Run `./package.sh` from the repository root and enter a platform number. The iOS and Android menus then ask which local artifact to produce.
+
+| Number | Platform | Output choices |
+| --- | --- | --- |
+| 1 | WeChat Mini Game | WeChat Developer Tools project |
+| 2 | iOS | Xcode project, simulator app, unsigned device app or signed IPA |
+| 3 | Android | Debug APK, release AAB or Gradle project |
+| 4 | Web | Web-mobile build |
 
 Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. Use `PERCH_ANDROID_PACKAGE` for the release application ID and configure release signing locally for distribution. Generated files stay in the build directories. None of these commands upload a build.
 
-For a local WeChat preview, run `./run.sh wechat-build`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.
+For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.

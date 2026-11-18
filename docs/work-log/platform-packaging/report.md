@@ -4,3 +4,5 @@
 - iOS: Creator exported PerchSort.xcodeproj and Xcode built an arm64 simulator application containing a Mach-O executable. The launcher fixes the generated simulator target architecture and rearchives the appropriate Creator WebP objects for the Apple linker. No installed simulator runtime, signed IPA or device acceptance was used.
 - Android: APK/AAB and project export commands are wired. Creator stopped at the Android plugin's missing SDK/NDK path check. No Android project, APK or AAB was produced on this machine.
 - Local simulator builds, native configuration, package reports and WeChat remote assets are excluded from the PR. No signing credentials or production app IDs from fishsort were copied.
+
+Mobile exports now start from the numbered menu in package.sh. The Web option and the play launcher call the same web build helper. No new platform build was requested or run for this entry-point change.

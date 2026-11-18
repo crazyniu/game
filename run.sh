@@ -10,15 +10,10 @@ case "$command" in
     cat <<'HELP'
 ./run.sh [play|serve] [--level=N]       Build/play, or serve an existing web build
 ./run.sh build | editor | test          Build web, open Creator, or run core tests
-./run.sh wechat-build                   Create a WeChat Developer Tools project
-./run.sh ios-build [sim|dev|ipa]        Export Xcode, simulator, device or signed IPA
-./run.sh android-build [project|apk|aab] Export Gradle, debug APK or release bundle
+./package.sh                            交互式选择打包平台
 ./run.sh native-apply | native-icons    Prepare native platform settings or artwork
 HELP
     exit 0 ;;
-  ios-build) shift; exec bash tools/native/build.sh ios "$@" ;;
-  android-build) shift; exec bash tools/native/build.sh android "$@" ;;
-  wechat-build) shift; exec bash tools/wechat/build.sh "$@" ;;
   native-apply) shift; exec node tools/native/apply.mjs "$@" ;;
   native-icons) shift; exec node tools/native/icons.mjs "$@" ;;
   editor) exec "$creator" --project "$PWD/PerchSort" ;;
@@ -27,12 +22,7 @@ HELP
   *) echo "Unknown command: $command. See ./run.sh help." >&2; exit 2 ;;
 esac
 if [[ "$command" != serve ]]; then
-  [[ -d PerchSort/node_modules ]] || npm --prefix PerchSort install --no-audit --no-fund
-  python3 tools/cocos-meta.py
-  mkdir -p build
-  code=0
-  "$creator" --project "$PWD/PerchSort" --build "configPath=$PWD/PerchSort/build-config/web-mobile.json" > build/cocos-build.log 2>&1 || code=$?
-  if [[ "$code" != 36 && "$code" != 0 ]]; then tail -60 build/cocos-build.log; exit "$code"; fi
+  bash scripts/build_web.sh
 fi
 [[ "$command" != build ]] || exit 0
 query=''

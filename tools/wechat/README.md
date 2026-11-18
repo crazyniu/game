@@ -5,9 +5,7 @@ This route uses the Cocos Creator workflow from the adjacent Fishsort project, w
 ## Build
 
 ```bash
-./run.sh wechat-build
-# Equivalent packaging entry:
-bash tools/wechat/build.sh
+./package.sh   # select 1 for WeChat
 ```
 
 Output: `PerchSort/build/wechatgame`. Import that directory into WeChat Developer Tools as a mini game. `build/wechat-package-report.json` records main-package and remote-resource sizes. The build command fails if the main package exceeds 4 MiB.
@@ -25,7 +23,7 @@ This server binds only to localhost. A phone cannot use the Mac's localhost addr
 ```bash
 WECHAT_APPID=your_own_appid \
 WECHAT_ASSET_URL=https://your_asset_host/perch-sort/ \
-./run.sh wechat-build
+./package.sh
 ```
 
 The environment values are written into generated build configuration, not into the tracked source profile. The HTTPS host must be configured as a WeChat download domain. Place the generated `remote/` directory below that URL, preserving its complete directory structure and hashed filenames. For example, the resources bundle configuration is requested as `<WECHAT_ASSET_URL>remote/resources/config.<hash>.json`.
