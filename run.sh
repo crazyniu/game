@@ -9,6 +9,7 @@ case "$command" in
   --help|help)
     cat <<'HELP'
 ./run.sh [play|serve] [--level=N]       Build/play, or serve an existing web build
+./run.sh [play|serve] --trial=1          Open partial-goal trial 1 (trials 1–3)
 ./run.sh build | editor | test          Build web, open Creator, or run core tests
 ./package.sh                            交互式选择打包平台
 ./run.sh native-apply | native-icons    Prepare native platform settings or artwork
@@ -18,7 +19,7 @@ HELP
   native-icons) shift; exec node tools/native/icons.mjs "$@" ;;
   editor) exec "$creator" --project "$PWD/PerchSort" ;;
   test) npm --prefix PerchSort test; exit ;;
-  play|serve|build|--level=*) ;;
+  play|serve|build|--level=*|--trial=*) ;;
   *) echo "Unknown command: $command. See ./run.sh help." >&2; exit 2 ;;
 esac
 if [[ "$command" != serve ]]; then
@@ -26,8 +27,13 @@ if [[ "$command" != serve ]]; then
 fi
 [[ "$command" != build ]] || exit 0
 query=''
-for arg in "$@"; do case "$arg" in --level=*) query="?level=${arg#--level=}";; esac; done
-url="http://127.0.0.1:$port/$query"
+for arg in "$@"; do
+  case "$arg" in
+    --level=*) query="${query}${query:+&}level=${arg#--level=}" ;;
+    --trial=*) query="${query}${query:+&}trial=${arg#--trial=}" ;;
+  esac
+done
+url="http://127.0.0.1:$port/${query:+?}$query"
 if curl --silent --fail "http://127.0.0.1:$port/__profile" >/dev/null; then
   echo "$url"
 else

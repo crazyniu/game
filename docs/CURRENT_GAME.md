@@ -45,7 +45,7 @@ These records explain retained mechanics and data decisions. Their Godot-era pat
 | Visible bird skills | [visible-skills](work-log/visible-skills/report.md), [skill-row](work-log/skill-row/report.md), [skill-cues](work-log/skill-cues/report.md) |
 | 210 levels and 21 levels per world | [twenty-one-per-world](work-log/twenty-one-per-world/report.md) |
 | Level-card tools and guided tool use | [level-card-tools](work-log/level-card-tools/report.md), [tool-guides](work-log/tool-guides/report.md) |
-| Partial-goal trials outside the fixed catalog | [goal-variety](work-log/goal-variety/spec.md), [goal-trial](work-log/goal-trial/report.md) |
+| Partial-goal trials outside the fixed catalog | [goal-variety](work-log/goal-variety/spec.md), [original trial](work-log/goal-trial/report.md), [Cocos trial route](work-log/trial-route/report.md) |
 
 The [game design record](GAME_DESIGN.md) and [gameplay-depth specification](work-log/gameplay-depth/spec.md) preserve earlier decisions; current contracts and actual source resolve superseded prose.
 

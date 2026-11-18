@@ -9,6 +9,7 @@ Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repos
 ```bash
 ./run.sh                         # build, serve on localhost, and open the game
 ./run.sh play --level=12          # preview a level without changing normal progress
+./run.sh --trial=1                # open partial-goal trial 1 (three trials total)
 ./run.sh serve                   # use the existing web build
 ./run.sh editor                  # open PerchSort/ in Cocos Creator
 ./run.sh build                   # build only
@@ -20,6 +21,8 @@ The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/M
 To open manually in Creator, select the `PerchSort/` project, identified by its `package.json`. The entry scene is `assets/scenes/main.scene`; the root component is `assets/scripts/Boot.ts`.
 
 Normal play uses real saved progress. Starting the launcher does not grant coins, unlock levels, or reset records. Browser storage uses `perch-sort.profile`. On the first localhost run without that browser key, `scripts/serve.py` makes the prior Godot `profile.json` available for a one-time import. The original file is read only and is never modified. Subsequent saves remain in browser storage; the existing schema migrations and JSON field names are preserved. Use the same localhost address and browser profile to retain access to that save.
+
+The three partial-goal trials open with `--trial=1`, `--trial=2`, or `--trial=3` (Windows: `.\run.ps1 -Trial 1`). They use copied board profiles: no trial progress, rewards or consumed stock is saved. Explicitly buying a tool or extra undo still spends real feathers through the normal price confirmation. The trial tab therefore holds the normal save lock. Next advances through the trials; they never appear on the map. The [trial route report](docs/work-log/trial-route/report.md) records the remaining user-play decision.
 
 The local game has no connected payment or rewarded-ad provider. Store confirmations and ad rewards cannot grant items without a confirmed provider callback. This is not a store release.
 
