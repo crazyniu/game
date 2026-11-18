@@ -48,21 +48,26 @@ scheme="$(basename "$xcode" .xcodeproj)-mobile"
 cmake="$project/native/engine/ios/CMakeLists.txt"
 hook='include("${CMAKE_CURRENT_LIST_DIR}/../../../../tools/native/ios-compat.cmake")'
 if ! grep -Fqx "$hook" "$cmake"; then printf '\n%s\n' "$hook" >> "$cmake"; fi
+cmake_bin="$(dirname "$(dirname "$creator")")/Resources/tools/cmake/bin/cmake"
+"$cmake_bin" -S "$project/native/engine/ios" -B "$out/proj"
 webp="$(dirname "$(dirname "$creator")")/Resources/resources/3d/engine/native/external/ios/libs/libwebp.a"
-mkdir -p "$out/libwebp"
-if [[ ! -f "$out/libwebp/libwebp.a" || "$webp" -nt "$out/libwebp/libwebp.a" ]]; then
-  xcrun libtool -static -o "$out/libwebp/libwebp.a" "$webp"
-fi
+python3 tools/native/ios-webp.py "$webp" "$out/libwebp/device.a"
+python3 tools/native/ios-webp.py "${webp%/ios/libs/libwebp.a}/ios-m1-simulator/libs/libwebp.a" "$out/libwebp/simulator.a"
+python3 tools/native/ios-project.py "$xcode"
 case "$mode" in
   project) echo "$xcode";;
   sim)
-    xcodebuild -project "$xcode" -scheme "$scheme" -sdk iphonesimulator -configuration Debug \
+    xcodebuild -project "$xcode" -scheme "$scheme" -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug \
       -derivedDataPath "$out/simulator" ARCHS="$(uname -m)" ONLY_ACTIVE_ARCH=YES CODE_SIGNING_ALLOWED=NO build
-    echo "$out/simulator/Build/Products/Debug-iphonesimulator";;
+    bundle="$out/proj/Debug-iphonesimulator/$scheme.app"
+    test -x "$bundle/$scheme" || { echo "Simulator build has no executable: $bundle" >&2; exit 1; }
+    echo "$bundle";;
   dev)
     xcodebuild -project "$xcode" -scheme "$scheme" -sdk iphoneos -configuration Release \
       -derivedDataPath "$out/device" CODE_SIGNING_ALLOWED=NO build
-    echo "$out/device/Build/Products/Release-iphoneos";;
+    bundle="$out/proj/Release-iphoneos/$scheme.app"
+    test -x "$bundle/$scheme" || { echo "Device build has no executable: $bundle" >&2; exit 1; }
+    echo "$bundle";;
   ipa)
     export_dir="$out/export"
     mkdir -p "$export_dir"

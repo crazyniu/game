@@ -14,12 +14,33 @@ project.packOptions??={};
 project.packOptions.ignore=[...(project.packOptions.ignore??[]).filter(entry=>entry.value!=='remote'),{type:'folder',value:'remote'}];
 await fs.writeFile(projectPath,JSON.stringify(project,null,2)+'\n');
 const runtime=await fs.readFile(path.join(output,'game.js'),'utf8');
-if(!runtime.includes("require('./perch-platform')")&&!runtime.includes('require("./perch-platform")'))throw new Error('The WeChat entry did not include the project platform adapter.');
-await fs.copyFile(path.join(root,'PerchSort/build-templates/wechatgame/perch-platform.js'),path.join(output,'perch-platform.js'));
+const adapter=runtime.match(/require\(['"](\.\/perch-platform(?:\.[0-9a-f]+)?\.js)['"]\)/);
+if(!adapter)throw new Error('The WeChat entry did not include the project platform adapter.');
+await fs.access(path.join(output,adapter[1]));
+const {existsSync}=await import('node:fs');
+const localResources=path.join(output,'assets/resources');
+const remoteResources=path.join(output,'remote/resources');
+if(existsSync(localResources)){
+  await fs.mkdir(path.join(output,'remote'),{recursive:true});
+  await fs.rename(localResources,remoteResources);
+  const script=(await fs.readdir(remoteResources)).find(name=>/^index(?:\.[0-9a-f]+)?\.js$/.test(name));
+  if(!script)throw new Error('Resource bundle entry script is missing.');
+  const localScripts=path.join(output,'src/bundle-scripts/resources');
+  await fs.mkdir(localScripts,{recursive:true});
+  await fs.rename(path.join(remoteResources,script),path.join(localScripts,script));
+}
+const settingsName=(await fs.readdir(path.join(output,'src'))).find(name=>/^settings(?:\.[0-9a-f]+)?\.json$/.test(name));
+if(!settingsName)throw new Error('Cocos runtime settings are missing.');
+const settingsPath=path.join(output,'src',settingsName);
+const settings=JSON.parse(await fs.readFile(settingsPath,'utf8'));
+settings.assets.remoteBundles=Array.from(new Set([...settings.assets.remoteBundles,'resources']));
+settings.assets.server=config.server;
+await fs.writeFile(settingsPath,JSON.stringify(settings));
 async function files(folder){const result=[];for(const entry of await fs.readdir(folder,{withFileTypes:true})){const file=path.join(folder,entry.name);if(entry.isDirectory())result.push(...await files(file));else if(entry.isFile())result.push({path:path.relative(output,file).replaceAll(path.sep,'/'),bytes:(await fs.stat(file)).size});}return result;}
 const all=await files(output),main=all.filter(f=>!f.path.startsWith('remote/')),remote=all.filter(f=>f.path.startsWith('remote/'));
 const sum=list=>list.reduce((total,file)=>total+file.bytes,0);
 const mainBytes=sum(main),remoteBytes=sum(remote),limit=4*1024*1024;
+if(remote.some(file=>file.path.endsWith('.js')))throw new Error('WeChat cannot download executable scripts remotely.');
 const report={platform:'wechatgame',project:'Perch Sort',appIdConfigured:project.appid!=='touristappid',assetServer:config.server,localPreview:!project.setting.urlCheck,mainBytes,mainLimitBytes:limit,mainWithinLimit:mainBytes<=limit,remoteBytes,mainFiles:main.length,remoteFiles:remote.length,largestMainFiles:main.toSorted((a,b)=>b.bytes-a.bytes).slice(0,10),remoteDirectory:'PerchSort/build/wechatgame/remote',published:false};
 await fs.writeFile(path.join(root,'build/wechat-package-report.json'),JSON.stringify(report,null,2)+'\n');
 console.log(`WeChat project: ${output}`);

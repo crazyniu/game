@@ -32,5 +32,21 @@
     }
   ],
   "sourceMaps": false,
-  "moveRemoteBundleScript": true
+  "moveRemoteBundleScript": true,
+  "includeModules": [
+    "2d",
+    "affine-transform",
+    "animation",
+    "audio",
+    "base",
+    "custom-pipeline",
+    "gfx-webgl",
+    "gfx-webgl2",
+    "graphics",
+    "mask",
+    "profiler",
+    "tween",
+    "ui",
+    "ui-skew"
+  ]
 }
