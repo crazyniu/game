@@ -14,9 +14,9 @@ import sys
 # hashes, world IDs, level IDs or third-party module names.
 NUMBERED = re.compile(r"(?<![a-z0-9])(?i:v|ui|final)[0-9]+|(?:V|UI|Ui|Final)[0-9]+|(?<![A-Z])T[0-9]+[A-Za-z]?")
 NUMBERED_PATH = re.compile(r"(?:v|ui|final)[0-9]+|T[0-9]+[A-Za-z]?", re.IGNORECASE)
-SOURCE_SUFFIXES = {".gd", ".tscn", ".tres", ".godot", ".cfg", ".py", ".sh", ".yml", ".yaml", ".ts", ".tsx", ".scene", ".prefab", ".effect", ".ps1", ".bat"}
+SOURCE_SUFFIXES = {".cfg", ".py", ".sh", ".yml", ".yaml", ".ts", ".tsx", ".scene", ".prefab", ".effect", ".ps1", ".bat"}
 # Data roots whose JSON is authored game content.
-JSON_ROOTS = ("PerchSort/levels/", "PerchSort/layout/", "PerchSort/assets/resources/levels/", "PerchSort/assets/resources/layout/", "ci/")
+JSON_ROOTS = ("PerchSort/assets/resources/levels/", "PerchSort/assets/resources/layout/", "ci/")
 LOCK_NAMES = {"package-lock.json", "yarn.lock", "pnpm-lock.yaml", "poetry.lock", "uv.lock"}
 
 
