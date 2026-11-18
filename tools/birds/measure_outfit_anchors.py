@@ -13,7 +13,7 @@ transform therefore scales the two halves of the overlay (left and right of its 
   with s(p) = sx_left when p.x < pivot.x, else sx_right.
 BirdView draws the overlay as a six-vertex textured polygon with exactly this mapping.
 
-Output: PerchSort/birds/outfit_anchors.json
+Output: PerchSort/assets/resources/birds/outfit_anchors.json
   {"<species>_outfit_<n>": {"pivot": [x, y], "frames": {"<frame>": [tx, ty, sx_left, sx_right, sy, degrees, cost]}}}
 
 Usage: python3 tools/birds/measure_outfit_anchors.py [--sheet DIR] [--only berry_outfit_1 ...] [--sheets-only] [--repair]

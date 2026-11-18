@@ -44,7 +44,7 @@
         108,
         110
       ],
-      "destination": "PerchSort/art/island/btn_purchase_close.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_close.png"
     },
     "label_purchase_title_zh": {
       "name": "recharge_title",
@@ -88,7 +88,7 @@
         629,
         194
       ],
-      "destination": "PerchSort/art/island/label_purchase_title_zh.png"
+      "destination": "PerchSort/assets/resources/art/island/label_purchase_title_zh.png"
     },
     "icon_purchase_stack": {
       "name": "recharge_stack",
@@ -132,7 +132,7 @@
         224,
         158
       ],
-      "destination": "PerchSort/art/island/icon_purchase_stack.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_stack.png"
     },
     "icon_purchase_cluster": {
       "name": "recharge_cluster",
@@ -176,7 +176,7 @@
         260,
         168
       ],
-      "destination": "PerchSort/art/island/icon_purchase_cluster.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_cluster.png"
     },
     "icon_purchase_pouch": {
       "name": "recharge_pouch",
@@ -220,7 +220,7 @@
         254,
         227
       ],
-      "destination": "PerchSort/art/island/icon_purchase_pouch.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_pouch.png"
     },
     "icon_purchase_basket": {
       "name": "recharge_basket",
@@ -264,7 +264,7 @@
         271,
         225
       ],
-      "destination": "PerchSort/art/island/icon_purchase_basket.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_basket.png"
     },
     "icon_purchase_chest": {
       "name": "recharge_chest",
@@ -308,7 +308,7 @@
         253,
         238
       ],
-      "destination": "PerchSort/art/island/icon_purchase_chest.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_chest.png"
     },
     "icon_purchase_hoard": {
       "name": "recharge_hoard",
@@ -352,7 +352,7 @@
         315,
         258
       ],
-      "destination": "PerchSort/art/island/icon_purchase_hoard.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_purchase_hoard.png"
     },
     "btn_purchase_six": {
       "name": "recharge_price_six",
@@ -396,7 +396,7 @@
         268,
         98
       ],
-      "destination": "PerchSort/art/island/btn_purchase_six.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_six.png"
     },
     "btn_purchase_eighteen": {
       "name": "recharge_price_eighteen",
@@ -440,7 +440,7 @@
         271,
         99
       ],
-      "destination": "PerchSort/art/island/btn_purchase_eighteen.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_eighteen.png"
     },
     "btn_purchase_thirty": {
       "name": "recharge_price_thirty",
@@ -484,7 +484,7 @@
         268,
         101
       ],
-      "destination": "PerchSort/art/island/btn_purchase_thirty.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_thirty.png"
     },
     "btn_purchase_sixty_eight": {
       "name": "recharge_price_sixty_eight",
@@ -528,7 +528,7 @@
         271,
         101
       ],
-      "destination": "PerchSort/art/island/btn_purchase_sixty_eight.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_sixty_eight.png"
     },
     "btn_purchase_one_twenty_eight": {
       "name": "recharge_price_one_twenty_eight",
@@ -572,7 +572,7 @@
         268,
         101
       ],
-      "destination": "PerchSort/art/island/btn_purchase_one_twenty_eight.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_one_twenty_eight.png"
     },
     "btn_purchase_one_ninety_eight": {
       "name": "recharge_price_one_ninety_eight",
@@ -616,7 +616,7 @@
         271,
         101
       ],
-      "destination": "PerchSort/art/island/btn_purchase_one_ninety_eight.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_purchase_one_ninety_eight.png"
     },
     "label_draw_title_zh": {
       "name": "lottery_title",
@@ -660,7 +660,7 @@
         655,
         204
       ],
-      "destination": "PerchSort/art/island/label_draw_title_zh.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_title_zh.png"
     },
     "btn_draw_close": {
       "name": "lottery_close",
@@ -704,7 +704,7 @@
         108,
         108
       ],
-      "destination": "PerchSort/art/island/btn_draw_close.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_draw_close.png"
     },
     "icon_draw_prize_forty": {
       "name": "lottery_prize_forty",
@@ -748,7 +748,7 @@
         146,
         131
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_forty.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_forty.png"
     },
     "icon_draw_prize_eighty": {
       "name": "lottery_prize_eighty",
@@ -792,7 +792,7 @@
         176,
         132
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_eighty.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_eighty.png"
     },
     "icon_draw_mystery_single": {
       "name": "lottery_mystery_single",
@@ -836,7 +836,7 @@
         186,
         138
       ],
-      "destination": "PerchSort/art/island/icon_draw_mystery_single.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_mystery_single.png"
     },
     "icon_draw_prize_four_hundred": {
       "name": "lottery_prize_four_hundred",
@@ -880,7 +880,7 @@
         204,
         154
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_four_hundred.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_four_hundred.png"
     },
     "icon_draw_prize_one_twenty": {
       "name": "lottery_prize_one_twenty",
@@ -924,7 +924,7 @@
         216,
         141
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_one_twenty.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_one_twenty.png"
     },
     "icon_draw_prize_sixty": {
       "name": "lottery_prize_sixty",
@@ -968,7 +968,7 @@
         201,
         150
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_sixty.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_sixty.png"
     },
     "icon_draw_mystery_double": {
       "name": "lottery_mystery_double",
@@ -1012,7 +1012,7 @@
         194,
         160
       ],
-      "destination": "PerchSort/art/island/icon_draw_mystery_double.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_mystery_double.png"
     },
     "icon_draw_prize_two_hundred": {
       "name": "lottery_prize_two_hundred",
@@ -1056,7 +1056,7 @@
         222,
         162
       ],
-      "destination": "PerchSort/art/island/icon_draw_prize_two_hundred.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_prize_two_hundred.png"
     },
     "btn_draw_action_zh": {
       "name": "lottery_draw_action",
@@ -1100,7 +1100,7 @@
         541,
         194
       ],
-      "destination": "PerchSort/art/island/btn_draw_action_zh.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_draw_action_zh.png"
     },
     "panel_draw_empty_board": {
       "name": "lottery_empty_board",
@@ -1131,7 +1131,7 @@
       "acceptance": "User accepted supplemental board, center chest and both stars.",
       "kind": "accepted_generated_missing",
       "source_name": "lottery_empty_board",
-      "destination": "PerchSort/art/island/panel_draw_empty_board.png"
+      "destination": "PerchSort/assets/resources/art/island/panel_draw_empty_board.png"
     },
     "icon_draw_center_chest": {
       "name": "lottery_center_chest",
@@ -1162,7 +1162,7 @@
       "acceptance": "User accepted supplemental board, center chest and both stars.",
       "kind": "accepted_generated_missing",
       "source_name": "lottery_center_chest",
-      "destination": "PerchSort/art/island/icon_draw_center_chest.png"
+      "destination": "PerchSort/assets/resources/art/island/icon_draw_center_chest.png"
     },
     "star_draw_available": {
       "name": "lottery_attempt_available",
@@ -1193,7 +1193,7 @@
       "acceptance": "User accepted supplemental board, center chest and both stars.",
       "kind": "accepted_generated_missing",
       "source_name": "lottery_attempt_available",
-      "destination": "PerchSort/art/island/star_draw_available.png"
+      "destination": "PerchSort/assets/resources/art/island/star_draw_available.png"
     },
     "star_draw_used": {
       "name": "lottery_attempt_used",
@@ -1224,7 +1224,7 @@
       "acceptance": "User accepted supplemental board, center chest and both stars.",
       "kind": "accepted_generated_missing",
       "source_name": "lottery_attempt_used",
-      "destination": "PerchSort/art/island/star_draw_used.png"
+      "destination": "PerchSort/assets/resources/art/island/star_draw_used.png"
     },
     "panel_purchase_balance": {
       "name": "balance_empty",
@@ -1246,7 +1246,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "balance_empty",
-      "destination": "PerchSort/art/island/panel_purchase_balance.png"
+      "destination": "PerchSort/assets/resources/art/island/panel_purchase_balance.png"
     },
     "label_draw_title_en": {
       "name": "lottery_title_en",
@@ -1268,7 +1268,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "lottery_title_en",
-      "destination": "PerchSort/art/island/label_draw_title_en.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_title_en.png"
     },
     "label_purchase_title_en": {
       "name": "purchase_title_en",
@@ -1290,7 +1290,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "purchase_title_en",
-      "destination": "PerchSort/art/island/label_purchase_title_en.png"
+      "destination": "PerchSort/assets/resources/art/island/label_purchase_title_en.png"
     },
     "btn_draw_action_en": {
       "name": "lottery_action_en",
@@ -1312,7 +1312,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "lottery_action_en",
-      "destination": "PerchSort/art/island/btn_draw_action_en.png"
+      "destination": "PerchSort/assets/resources/art/island/btn_draw_action_en.png"
     },
     "label_draw_purchase_zero": {
       "name": "glyph_0",
@@ -1339,7 +1339,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_0",
-      "destination": "PerchSort/art/island/label_draw_purchase_zero.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_zero.png"
     },
     "label_draw_purchase_one": {
       "name": "glyph_1",
@@ -1366,7 +1366,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_1",
-      "destination": "PerchSort/art/island/label_draw_purchase_one.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_one.png"
     },
     "label_draw_purchase_two": {
       "name": "glyph_2",
@@ -1393,7 +1393,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_2",
-      "destination": "PerchSort/art/island/label_draw_purchase_two.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_two.png"
     },
     "label_draw_purchase_three": {
       "name": "glyph_3",
@@ -1420,7 +1420,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_3",
-      "destination": "PerchSort/art/island/label_draw_purchase_three.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_three.png"
     },
     "label_draw_purchase_four": {
       "name": "glyph_4",
@@ -1447,7 +1447,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_4",
-      "destination": "PerchSort/art/island/label_draw_purchase_four.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_four.png"
     },
     "label_draw_purchase_five": {
       "name": "glyph_5",
@@ -1474,7 +1474,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_5",
-      "destination": "PerchSort/art/island/label_draw_purchase_five.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_five.png"
     },
     "label_draw_purchase_six": {
       "name": "glyph_6",
@@ -1501,7 +1501,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_6",
-      "destination": "PerchSort/art/island/label_draw_purchase_six.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_six.png"
     },
     "label_draw_purchase_seven": {
       "name": "glyph_7",
@@ -1528,7 +1528,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_7",
-      "destination": "PerchSort/art/island/label_draw_purchase_seven.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_seven.png"
     },
     "label_draw_purchase_eight": {
       "name": "glyph_8",
@@ -1555,7 +1555,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_8",
-      "destination": "PerchSort/art/island/label_draw_purchase_eight.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_eight.png"
     },
     "label_draw_purchase_nine": {
       "name": "glyph_9",
@@ -1582,7 +1582,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_9",
-      "destination": "PerchSort/art/island/label_draw_purchase_nine.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_nine.png"
     },
     "label_draw_purchase_plus": {
       "name": "glyph_plus",
@@ -1609,7 +1609,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_plus",
-      "destination": "PerchSort/art/island/label_draw_purchase_plus.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_plus.png"
     },
     "label_draw_purchase_multiply": {
       "name": "glyph_multiply",
@@ -1636,7 +1636,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_multiply",
-      "destination": "PerchSort/art/island/label_draw_purchase_multiply.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_multiply.png"
     },
     "label_draw_purchase_yuan": {
       "name": "glyph_yuan",
@@ -1663,7 +1663,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_yuan",
-      "destination": "PerchSort/art/island/label_draw_purchase_yuan.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_yuan.png"
     },
     "label_draw_purchase_slash": {
       "name": "glyph_slash",
@@ -1690,7 +1690,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_slash",
-      "destination": "PerchSort/art/island/label_draw_purchase_slash.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_slash.png"
     },
     "label_draw_purchase_minus": {
       "name": "glyph_minus",
@@ -1717,7 +1717,7 @@
       "edge_check": "True alpha, complete silhouette; no alpha >=128 touches canvas boundary. Reviewed on dark and white composites. Integer crop only, no painted-pixel alterations.",
       "kind": "self_accepted_generated_missing",
       "source_name": "glyph_minus",
-      "destination": "PerchSort/art/island/label_draw_purchase_minus.png"
+      "destination": "PerchSort/assets/resources/art/island/label_draw_purchase_minus.png"
     }
   }
 }

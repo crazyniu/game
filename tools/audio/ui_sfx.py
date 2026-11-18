@@ -2,7 +2,7 @@
 """Soft, musical UI and reward effects (original synthesis, numpy only).
 
 uv run --no-project --with numpy python tools/audio/ui_sfx.py
-Writes PerchSort/audio/{ui_tap,ui_back,undo,sapling_grow,reward,egg_hatch}.wav (44.1 kHz mono 16-bit).
+Writes PerchSort/assets/resources/audio/{ui_tap,ui_back,undo,sapling_grow,reward,egg_hatch}.wav (44.1 kHz mono 16-bit).
 - ui_tap: a soft felted wood tap (every button press, restart, home).
 - ui_back: the same tap a fourth lower and softer (close, back).
 - undo: a short rewind swish into two falling marimba notes.

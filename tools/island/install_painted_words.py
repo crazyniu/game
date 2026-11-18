@@ -11,7 +11,7 @@ are only registered under their catalog id.
 
 Every sheet is scaled by one factor so the letters of all words have the same height (the typical body height of the
 sheet's lines becomes the style's cap height), cropped line by line and written to
-PerchSort/art/locale/<lang>/island_words/<style>_<id>.png. The pack manifest gets
+PerchSort/assets/resources/art/locale/<lang>/island_words/<style>_<id>.png. The pack manifest gets
 "words": {label id: {style: {"file": ..., "cap": ...}}}; the runtime scales a word by cap / its recorded cap.
 """
 import json

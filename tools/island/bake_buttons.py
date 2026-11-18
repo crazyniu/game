@@ -4,7 +4,7 @@ base, its picture, and the font-baked word (tools/island/bake_labels.py), centre
 box, whose bottom lip and shadow would push the word up). The game shows each button as that single picture.
 
 python3 tools/island/bake_buttons.py
-Output: PerchSort/art/buttons/btn_<open|equip>_<lang>.png.
+Output: PerchSort/assets/resources/art/buttons/btn_<open|equip>_<lang>.png.
 """
 import os
 

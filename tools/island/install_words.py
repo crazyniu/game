@@ -3,7 +3,7 @@
 
 python3 tools/island/install_words.py <stage_dir>
 
-Files in <stage_dir> are named <lang>__<id>.png. Each is copied to PerchSort/art/locale/<lang>/island_words/<id>.png and
+Files in <stage_dir> are named <lang>__<id>.png. Each is copied to PerchSort/assets/resources/art/locale/<lang>/island_words/<id>.png and
 listed under "painted" in that locale's manifest.json (id -> {"file": ...}). Painted words keep their own colours and
 are placed with UiText.painted(); the tint and outline shader of the older white labels are not applied.
 """

@@ -4,7 +4,7 @@ Chinese), so every word on a screen has the same letter shapes, weight and colou
 font is rendered at runtime.
 
 python3 tools/island/bake_labels.py
-Output: PerchSort/art/labels/label_<id>_<style>_<lang>.png, one line box per font (same height and baseline for every
+Output: PerchSort/assets/resources/art/labels/label_<id>_<style>_<lang>.png, one line box per font (same height and baseline for every
 word), built at CAP px.
 Styles: ink (warm brown on cream), soft (lighter brown, captions), title (white, brown outline) and white (white with a soft green-dark shadow, for green buttons).
 """

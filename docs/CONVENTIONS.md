@@ -1,56 +1,71 @@
 # Perch Sort conventions
 
-One game, one version. Godot 4.7.2 (GDScript), portrait, 100 levels in ten forest worlds. These rules apply to every contributor, human or agent. When a rule here conflicts with an older document, this file wins.
+One game, one current implementation: Cocos Creator 3.8.8 with TypeScript, portrait 1080x1920, 210 fixed levels in ten sequential forest worlds, 21 levels per world. No day/night gameplay. These conventions supersede historical engine instructions; explicit current user instructions take precedence.
 
-## 1. Names
-1. Name everything by what it is or does: files, folders, classes, methods, tests, assets, scenes, docs, evidence, branches, PRs. Examples: `MusicTests`, `bird-frame-sequences`, `map-viewport`.
-2. Never put a version number (a letter v or V followed by digits, a ui prefix followed by a digit, suffixes such as final2) or a task number (a capital T followed by digits and optionally a letter) in any name. There is exactly one version; history lives in git and PR titles. Never create archive folders of old versions or copies of the current game.
-3. Allowed numerals: domain ordinals that are part of the game (world `w1`..`w10`, level numbers, animation frame index `NN`), dates `YYYY-MM-DD_` in dated records, third-party package names, exact existing storage keys. Nothing else.
-4. GDScript: snake_case files, functions and variables, PascalCase `class_name` (never one that hides a native Godot class), private members start with `_`, static typing where it helps. Tests are named after the behaviour, never after a task.
-5. Assets (lowercase snake_case, no spaces): UI sprites `PerchSort/art/<role>_<name>` with a role prefix (`icon_`, `btn_`, `house_`, `gate_`, `gift_`, `panel_`, `ribbon_`, `star_`, `node_`, `map_`, `booster_`, `badge_`, `leaf_`, `confetti_`); birds `PerchSort/birds/<species>_<pose>` for stills and `<species>_<anim>_<NN>` for drawn frame sequences (NN two digits from 01); worlds `PerchSort/world/<role>_<name>_w<N>`; audio `bgm_<page>`, `sfx_<event>` or the existing event names.
-6. Branches are temporary and follow rule 1 (for example `bird-idle`, `popup-layering`); delete them after merge. Commits and PR titles say what changed in plain words.
+## Names
 
-## 2. Repository layout
-- `PerchSort/` Godot project: `core/` pure rules and solver, `meta/` profile/economy policies, `game/` screens, animation, navigation and audio, `art/ birds/ world/ audio/` assets, `levels/levels.json`, `tests/`. `game/main.tscn` is the only scene.
-- `art/approved_ui/` approved mockups and measured layout: the style direction. Originals are never edited; derived files are new files.
-- `art/approved_runtime/` runtime captures of user-approved UI screens: the visual acceptance baseline.
-- `docs/` documentation (`docs/work-log/<topic>/{spec.md,report.md,evidence/}` for every feature, one directory per subject, no numbering); `ci/`, `scripts/`, `tools/` automation. `build/` is generated output and is never committed.
-- Logic and presentation stay separate: `core/` and `meta/` never reference nodes or screens; `game/` reads state and animates, it never decides rules.
+1. Name files, folders, classes, methods, assets, scenes, docs, evidence, branches, and tests by their purpose.
+2. Do not add version-number or task-number identities, numbered final copies, archive folders, or alternate runnable implementations. History belongs in Git.
+3. Allowed numerals include domain ordinals (worlds, levels, animation frames), dates, third-party package identifiers, and exact existing storage keys.
+4. TypeScript class modules use their class names. Preserve existing core/meta snake_case API names and persisted field names. Follow neighboring code for other identifiers; tests are named after behavior.
+5. Asset names stay lowercase snake_case, without spaces. UI assets keep role prefixes such as `icon_`, `btn_`, `panel_`, `house_`, or `gift_`; bird sequences use `<species>_<action>_<NN>`. Resource moves must preserve the artwork and identifiers.
+6. Keep Cocos `.meta` identifiers stable. Task branches are temporary; commits and PR titles explain the actual change in plain English.
 
-## 3. Code
-1. Write code that reads like the surrounding code: same naming, comment density and idioms. Comments explain why, in English.
-2. Do not change persisted keys, enum numeric order or save schema. Existing storage identifiers are compatibility values, not names to copy.
-3. Honour the `instant` capture mode (no motion) in every animation. Cancel every tween and callback when its owner is hidden or destroyed.
-4. Do not edit files you do not own in a parallel task; request the change instead.
+## Repository layout
 
-## 4. UI standards
-1. UI first, logic second. A screen is built as a clickable UI shell in the canonical views with a fake data source that covers every state (locked, empty and maximum values, disabled, every popup; on the board select, fly, invalid move, delivery, win). The user approves the shell; then its captures go to `art/approved_runtime/` and logic is wired in. Mockups in `art/approved_ui/` set the style direction only and are never diffed against runtime.
-2. Controls: round honey-wood discs with gold rims (white glyphs with a dark-brown outline); green only for primary actions. Icon only where clear (accessible names are not visible labels). All buttons of the same role have identical size in every state; disabled means dimmed (alpha), never smaller. A primary action is at most 1.25 times the size of its sibling buttons.
-   Approved images in `art/approved_ui` show the earlier purple discs and are superseded for that detail only.
-3. The shared FeatherBar uses the current feather artwork and painted digits; 99999 must fit with margin. Preserve its display-only cap and purchase entry.
-4. Modals: the dim layer and panel are above every board, map and bird object; the scene darkens to about 55-60 % brightness (dim alpha 0.72); all controls are visible from the first frame; Settings has no per-control animation, only one panel fade and scale of 0.18 s in and 0.12 s out.
-5. Map: the scroll viewport ends above the bottom bar and starts below the top bar; the current node and its chick are always fully visible; nothing is hidden under the bars.
-6. Top goal houses: empty dark doorway at level start; a coloured bird appears only after its species is delivered; undo empties it again.
+- `PerchSort/` is the only Creator project. `package.json` identifies it; `assets/scenes/main.scene` is its entry scene; `assets/scripts/Boot.ts` owns startup and navigation.
+- `assets/scripts/core/` owns rules and solver; `assets/scripts/meta/` owns persistence and economy; both are independent of Cocos. `assets/scripts/game/` owns presentation and audio.
+- `assets/resources/` holds `art/`, `birds/`, `world/`, `audio/`, `layout/`, and `levels/`. `levels/levels.json` is the 210-level catalog; `levels/hints.json` holds stored solutions.
+- `art/approved_ui/` holds design references; `art/approved_runtime/` holds user-approved runtime baselines. Design specifications live only in `docs/design/`.
+- Each feature uses `docs/work-log/<topic>/{spec.md,report.md}`. Historical work logs remain intact, but old source paths and commands are not current execution instructions.
+- `build/`, `PerchSort/build/`, Creator caches, and feature `evidence/` directories are generated local output, never committed.
 
-## 5. Animation standards
-1. A bird action is a sequence of different drawn frames. Scale, rotation, shake and mirroring of a single still are never an action. Only breathing (scale y 1.000-1.020, x 1.000-0.992, period 2.4-3.2 s) and a 0.10 s landing squash are allowed as transforms. Mirroring (negative scale.x) is forbidden for birds and for any animation or action. Static scenery (tree trunks, crowns, branches, transition curtains) may reuse mirrored art.
-2. Perched birds always breathe and perform random actions 1.0-3.0 s apart; at most three birds of a branch act at once; neighbours never start the same action within 0.6 s. Exact weights, frame rates and durations live in `PerchSort/game/bird_view.gd`. Missing sequences are removed from the draw, never faked.
-3. Level entrance: 3.5-4.5 s from tap to playable; houses, then branches, then birds; a tap skips; input unlocks at the end.
-4. Win panel: panel scale-in with overshoot, ribbon drop, stars one after another 0.18 s apart, counters counting up, rays rotating, confetti about 3 s, side and hero birds fly in and then keep animating until the panel closes.
-5. Godot tweens only; no fixed image presented as finished animation.
+## Code and data
 
-## 6. Audio
-Menu and map page play `bgm_menu`, level page plays `bgm_game`, loop, 1 s crossfade, never restart on popups, follow the single mute control (mute only, no sliders), pause on focus loss, retry on first user input.
+1. Avoid defensive programming, unnecessary abstraction, and redundant comments. Comments explain non-obvious reasons in English.
+2. Keep rules and presentation separate. Views show state and emit actions; core/meta code never imports scene nodes or screens.
+3. Preserve `Profile.ts` JSON keys, schema migrations, and `Board.ts` numeric enum order. Browser storage uses `perch-sort.profile`.
+4. The local launcher may import the prior Godot profile once when browser storage is empty. It must not modify the original file, reset records, grant coins, or silently unlock levels. Test profiles must be isolated.
+5. Cancel Cocos tweens, callbacks, and frame updates when their owner is removed or inactive. Honor the development-only instant mode without presenting it as animation evidence.
+6. Payment and rewarded-ad providers are not wired. Grant purchased currency or ad rewards only after a confirmed provider callback; mock confirmations are restricted to explicitly authorized testing.
+7. Respect parallel ownership. Request changes in another worker's files rather than editing them.
 
-## 7. Verification and evidence
-1. Run `bash scripts/run_tests.sh` (naming guard, smoke test, core test of every level) and report its results. Never skip, weaken or delete a test to get green; report failures as failures.
-2. Static screenshots do not prove animation. Motion and audio need timed evidence: contact sheets of real game frames (`-- --frames=<dir>`) at fixed intervals (0.1 s for entrances and popups, 0.25 s for idle), or timestamped audio logs, committed as small JPEGs under the feature's `evidence/` directory.
-3. A test that asserts a number must read it from the production constant where one exists.
-4. Report honestly: what ran, what did not, limits (no device or listening test counts as not done).
+## UI standards
 
-## 8. Working with agents and git
-1. Features are split into parallel tasks with non-overlapping file ownership and one shared written contract. The coordinator writes requirements in concrete numbers, names owned files, and verifies delivered work by looking at real screenshots and frame sequences, not by trusting reports.
-2. Subagents do not spawn workers, do not merge, do not touch `main`, and do not invent features beyond the spec.
-3. Work happens in isolated worktrees. Close a worktree as soon as its work is merged; keep the primary checkouts untouched while the user tests.
-4. Pull requests merge by squash only, after CI passes. Never force-push. Never use admin bypass for branch protection.
-5. Talk to the user in Chinese; everything written for agents and the repository is English.
+1. Preserve the current screen contracts and approved runtime baselines. A new or changed layout first becomes a clickable animated shell in its canonical screen class, using fake data through the real view interface. User approval precedes logic wiring. The Cocos migration preserves existing UI and does not authorize redesign.
+2. Mockups establish structure, proportions, scale, materials, and mood. Never crop mockup pixels into runtime assets or embed a design screenshot in the game. Use existing clean assets or authorized newly generated pieces.
+3. Words and numbers are painted sprites. Fit visible ink into the intended boxes; preserve English and Chinese packs. Invisible input text must stay invisible. Do not add redundant explanations or small helper copy.
+4. Reuse the current control family. Same-role controls have identical sizes across states; disabled means dimmed and non-interactive. A primary action is at most 1.25 times the size of sibling actions.
+5. The shared feather counter retains its artwork, purchase entry, and display-only 99999 cap. Never clamp the actual stored balance to that display limit.
+6. Modal input blocking, shade, panel, and controls sit above the entire underlying scene. Preserve each modal family's current shade and layout. Settings use one panel transition, not independent control entrances.
+7. Map content stays between the top and bottom bars, with the current node and bird fully visible.
+8. Goal houses start with empty doorways. Residents appear only after delivery and disappear again when the delivery is undone.
+
+## Animation and audio
+
+1. Bird actions use distinct drawn frames. Never mirror a bird or substitute transforms of one still for turning, hopping, or flight. Breathing and a brief landing squash accompany frame animation.
+2. Perched birds breathe continuously and perform frequent idles. Preserve the cadence and neighbor coordination defined in `BirdView.ts`; missing sequences are omitted, not faked.
+3. Entrance takes 3.5–4.5 seconds, in houses/branches/birds order, and can be skipped by a tap. Input unlocks only after the entrance completes.
+4. Preserve the win celebration: frame-based bird entrances and idles, sequential stars, counting rewards, rotating rays, and brief confetti.
+5. Use Cocos animation and tween ownership. A fixed image is not an animation.
+6. Menu/map pages play `bgm_menu`; the board plays `bgm_game`, with looping and page crossfades. Popups do not restart music. Preserve the current saved music, sound, and vibration settings. Pause on focus loss and resume through user input where browser policy requires it.
+
+## Verification and evidence
+
+Testing and acceptance belong to the user unless explicitly requested. Do not automatically write or run tests, lint, verification builds, screenshots, UI automation, or temporary validation programs. Explicit build/package/release requests authorize only their necessary steps. The 2026-11-18 migration request explicitly authorizes self-testing for that task.
+
+When authorized:
+
+- Run relevant checks with `npm --prefix PerchSort test`, `npm --prefix PerchSort run typecheck`, and `./run.sh build` as appropriate.
+- Exercise the real built Cocos game for runtime claims. Tests and build success do not establish UI or device acceptance.
+- Compare captures with current contracts and approved baselines. Motion/audio require timed evidence; static screenshots prove neither.
+- Do not weaken or delete checks to make them pass. Use production constants where appropriate and avoid unnecessary repeated tests.
+- Report commands, results, evidence paths, and unchecked boundaries honestly. Captures and frame sheets stay local and are never committed or pushed.
+
+## Collaboration and delivery
+
+1. Use non-overlapping ownership and one shared contract for parallel tasks. Bounded workers do not spawn workers or expand their scope.
+2. The coordinator integrates and reviews concrete results. A worker's report is not runtime acceptance.
+3. Preserve the user's checkout, unrelated edits, local configuration, and save data. Use isolated worktrees when appropriate; do not silently switch the user's working branch.
+4. Never force-push, deploy, or release without explicit authority. Do not bypass branch protection.
+5. Speak Chinese with the user; write agent instructions, specs, reports, comments, and commits in English. No emoji in deliveries.

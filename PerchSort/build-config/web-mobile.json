@@ -1,0 +1,21 @@
+{
+  "name": "Perch Sort",
+  "debug": true,
+  "md5Cache": false,
+  "buildPath": "project://build",
+  "startScene": "68777eb2-9149-4254-a5b9-1ffccfc6b362",
+  "scenes": [
+    {
+      "url": "db://assets/scenes/main.scene",
+      "uuid": "68777eb2-9149-4254-a5b9-1ffccfc6b362"
+    }
+  ],
+  "platform": "web-mobile",
+  "outputName": "web-mobile",
+  "packages": {
+    "web-mobile": {
+      "orientation": "portrait",
+      "embedWebDebugger": false
+    }
+  }
+}

@@ -3,7 +3,7 @@
 python3 tools/scene/import_night.py <world> [<world> ...]
 
 tools/scene/night/board_wN_night.png (1024x1536 painting, screen = centred 9:16 area) ->
-PerchSort/world/scene/board_wN_night_bg.png (1080x1920), cropped and scaled exactly like the day background.
+PerchSort/assets/resources/world/scene/board_wN_night_bg.png (1080x1920), cropped and scaled exactly like the day background.
 """
 import os
 import sys

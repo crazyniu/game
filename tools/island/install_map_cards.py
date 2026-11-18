@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Installs the world-card art of the map carousel from a Codex job directory:
-card_w<N>.png (scenic painting per world) -> PerchSort/world/card_scene_w<N>.png (768 x 1152, cover crop),
+card_w<N>.png (scenic painting per world) -> PerchSort/assets/resources/world/card_scene_w<N>.png (768 x 1152, cover crop),
 plank.png -> art/island/island_name_plank.png, gold_badge.png -> art/island/island_badge_gold.png (both trimmed to
 their visible pixels), backdrop.png -> art/island/island_map_backdrop.png (1080 x 1920, cover crop).
 

@@ -17,30 +17,26 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-      - name: Enforce single current game naming
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: PerchSort/package-lock.json
+      - name: Install TypeScript test tools
+        run: npm --prefix PerchSort ci --no-audit --no-fund
+      - name: Check shell and level-data syntax
         run: |
-          python3 ci/check_current_game_names.py --self-test
-          python3 ci/check_current_game_names.py
-      - name: Check scripts and data syntax
-        run: |
-          for f in scripts/*.sh; do bash -n "$f"; done
-          python3 -c "import json,glob; [json.load(open(p)) for p in glob.glob('PerchSort/levels/*.json') + glob.glob('PerchSort/layout/*.json')]"
-      - name: Install Godot
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GODOT_RELEASE: 4.7.2-stable
-        run: |
-          build="Godot_v${GODOT_RELEASE}_linux.x86_64"
-          gh release download "$GODOT_RELEASE" --repo godotengine/godot-builds --pattern "$build.zip" --dir "$RUNNER_TEMP"
-          unzip -q "$RUNNER_TEMP/$build.zip" -d "$RUNNER_TEMP"
-          echo "GODOT=$RUNNER_TEMP/$build" >> "$GITHUB_ENV"
-      - name: Smoke and core tests
+          for file in scripts/*.sh; do bash -n "$file"; done
+          python3 -c "import json,pathlib; [json.loads(p.read_text()) for folder in ('levels','layout') for p in pathlib.Path('PerchSort/assets/resources',folder).glob('*.json')]"
+      - name: Check names, painted words, core types, and every stored solution
         run: bash scripts/run_tests.sh
+      - name: Record engine validation boundary
+        run: echo 'This runner has no Cocos Creator installation. Creator compilation, browser play, visual acceptance, motion, and audio are not verified by this job.' >> "$GITHUB_STEP_SUMMARY"
       - name: Validate Actions workflows
         env:
           GH_TOKEN: ${{ github.token }}

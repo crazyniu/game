@@ -11,7 +11,7 @@ from pathlib import Path
 
 from PIL import Image
 
-ART = Path(__file__).resolve().parents[2] / "PerchSort" / "art" / "island"
+ART = Path(__file__).resolve().parents[2] / "PerchSort" / "assets" / "resources" / "art" / "island"
 TOP = (255, 232, 104)
 BOTTOM = (246, 172, 24)
 
