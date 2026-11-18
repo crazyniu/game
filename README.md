@@ -7,7 +7,7 @@ A portrait bird-sorting puzzle game built with **Cocos Creator 3.8.8** and TypeS
 Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repository:
 
 ```bash
-./run.sh                         # build, serve on localhost, and open the game
+./run.sh                         # build and open a dedicated portrait game window
 ./run.sh play --level=12          # preview a level without changing normal progress
 ./run.sh --trial=1                # open partial-goal trial 1 (three trials total)
 ./run.sh serve                   # use the existing web build
@@ -16,7 +16,9 @@ Install Cocos Creator 3.8.8, Node.js/npm, and Python 3, then run from this repos
 ./run.sh test                    # run the pure core/meta test suite
 ```
 
-The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator` by default. Set `COCOS_CREATOR` to another installation path. `WEB_PORT` changes the default local port, 8765; `NO_OPEN=1` suppresses automatic browser opening. The generated web build is in `PerchSort/build/web-mobile`.
+On macOS, `run.sh` opens the game in a 450×832 Chrome app window. Chromium and Edge are also supported. Set `PERCH_PLAYER_BROWSER` to use a particular executable. The launcher stores its dedicated profile in `~/Library/Application Support/Perch Sort/Player` so progress persists across launches. Saves from an earlier browser session stay in that browser profile. To use an existing Chromium user data directory, set `PERCH_PLAYER_PROFILE` and keep the same browser and port.
+
+The launcher uses `/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator` by default. Set `COCOS_CREATOR` to another installation path. `WEB_PORT` changes the default local port of 8765. Use `NO_OPEN=1` to start just the server. The generated web build is in `PerchSort/build/web-mobile`.
 
 To open manually in Creator, select the `PerchSort/` project, identified by its `package.json`. The entry scene is `assets/scenes/main.scene`; the root component is `assets/scripts/Boot.ts`.
 
@@ -64,3 +66,5 @@ Run `./package.sh` from the repository root and enter a platform number. The iOS
 Use Creator 3.8.8, or point `COCOS_CREATOR` at its executable. iOS compilation needs Xcode on macOS. IPA export uses `PERCH_IOS_BUNDLE_ID`, `PERCH_IOS_TEAM`, and locally configured signing. Android compilation needs a compatible JDK, SDK and NDK. Use `PERCH_ANDROID_PACKAGE` for the release application ID and configure release signing locally for distribution. Generated files stay in the build directories. None of these commands upload a build.
 
 For a local WeChat preview, select **1** in `./package.sh`, start `python3 tools/wechat/serve.py`, and import `PerchSort/build/wechatgame` in WeChat Developer Tools. The preview uses a tourist project and a loopback resource server. For a device or release configuration, supply `WECHAT_APPID` and `WECHAT_ASSET_URL` before building. The latter must point to the HTTPS location serving the generated remote bundle. The build command does not provision that host or upload content.
+
+Store listing artwork, language variants and platform dimensions are listed in [the store artwork guide](store/listing.md).
