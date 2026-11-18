@@ -104,7 +104,7 @@ def reorder(levels_path, hints_path, curve_path, out_dir, report_dir):
     for level in levels:
         source_id = int(level["id"])
         row = curve[source_id]
-        if row.get("exact", False) and "actions" not in row:
+        if row.get("exact", False) and row.get("actions") is None:
             raise ValueError(f"Exact measurement for level {source_id} must include its measured actions")
         # Hint key[0] is a homed-species mask. It cannot reconstruct counted moves after gift refunds.
         metrics = {"species": row["species"], "win_rate": row["win"], "mechanics": row["mechanics"],

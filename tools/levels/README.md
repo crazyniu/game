@@ -20,14 +20,16 @@ python3 tools/levels/assemble_levels.py --reorder \
 
 The catalog, hints and measurement table must each cover IDs 1 through 210 exactly once. The measurement
 input is a JSON array with `level`, `species`, `win`, `mechanics` and `counted`; `known_counted`, `actions`
-and `exact` are optional. An `exact: true` entry must include its measured `actions`. Measurements must describe the supplied puzzles under the current rules. The historical
+and `exact` are optional. An `exact: true` entry must include its measured `actions`. Measurements must
+describe the supplied puzzles under the current rules. The historical
 100-level `difficulty-continuity/curve.json` is not a current input. `catalog-measure/fragility.csv` is a
 historical measurement record, not this command's JSON input format.
 
 The proposal retains puzzle bodies, authored pars and every cached route. It assigns 21 positions per world,
 preserves destination variant metadata and writes `levels.json`, `hints.json`, `curve.json` and `renumber.json`.
 `cached_actions` is the cached route length; `actions` retains the supplied measured action count (or null
-when absent). `counted` also comes from the supplied measurements because homecoming gifts can refund scored moves. Neither a cached route nor the old heuristic is a shortest-action proof. The tool
+when absent). `counted` also comes from the supplied measurements because homecoming gifts can refund
+scored moves. Neither a cached route nor the old heuristic is a shortest-action proof. The tool
 preserves the input `exact` flag but performs no new proof or replay.
 
 The former expansion/candidate assembly mode is retired: the game already has its fixed 210 puzzles. A
