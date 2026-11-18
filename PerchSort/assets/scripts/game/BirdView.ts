@@ -12,11 +12,9 @@ const FAMILY:Record<string,Record<string,number[]>> = {
   sunny:{idle:[104,140,165,244,0],tilt_left:[94,164,165,244,-20],tilt_right:[121,124,165,244,20]},
   sky:{idle:[215,123,163,243,0],tilt_left:[193,112,163,243,-20],tilt_right:[232,142,163,243,20],quirk2:[224,136,163,243,15],look_down:[215,140,163,243,0],preen:[198,132,179,255,8]},
 };
-const AURA:Record<string,string>={ember:'#ff6a28',berry:'#ff8cc4',cocoa:'#e0a868',hoot:'#ffd75a',ink:'#7a68ff',mint:'#6cf0a0',sky:'#7cc8ff',snow:'#b8e4ff',sunny:'#ffd23a'};
 interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean; }
 interface Wear { group:Node;left:Node;right:Node;pivot:Point;frames:Record<string,number[]>; }
 interface Part { group:Node;rotors:Node[];hubs:Record<string,number[]>;turns:number;spin:number; }
-interface SkinParticle { node:Node;mode:string;phase:number;speed:number;seed:number;size:number; }
 export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean; }
 
 @ccclass('BirdAnimator')
@@ -45,9 +43,6 @@ export class BirdView {
   private fluff:Node;
   private zzz:Node;
   private effects:Node;
-  private aura:Node|null=null;
-  private particles:SkinParticle[]=[];
-  private grade=0;
   private wear:Wear|null=null;
   private part:Part|null=null;
   private prefix:string;
@@ -86,7 +81,6 @@ export class BirdView {
     this.body=UI.group(this.node,'Body',[this.bodyBase[0],this.bodyBase[1],0,0]);
     this.prefix=this.outfit&&Art.has(this.outfit+'_hop_01')?this.outfit:species;
     this.rest=Art.has(this.prefix+'_front')?this.prefix+'_front':this.prefix+'_idle';
-    this.buildSkin();
     const pictureRect:Rect=[-160*this.kx,-300*this.ky,320*this.kx,320*this.ky];
     this.picture=UI.image(this.body,this.code&1?'egg_idle':this.rest,pictureRect);this.sprite=this.picture.getComponent(Sprite)!;
     this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);
@@ -95,7 +89,6 @@ export class BirdView {
     this.fluff=UI.image(this.body,'chick_fluff',[0,0,88*this.kx,88*this.ky]);
     this.zzz=UI.image(this.body,'zzz',[(90-38.4)*this.kx,(-230-38.4)*this.ky,76.8*this.kx,76.8*this.ky]);
     this.effects=UI.group(this.node,'BirdEffects');
-    for(const particle of this.particles)particle.node.setSiblingIndex(this.body.children.length-1);
     this.syncOverlays();this.zzz.active=this.asleep;
     const preload=[this.rest,...Object.values(this.sequences).flat(),...POSES.map(p=>this.prefix+'_'+p).filter(p=>Art.has(p)),
       'egg_idle','egg_crack','egg_shell','egg_wobble_l','egg_wobble_r'];
@@ -192,8 +185,6 @@ export class BirdView {
         UI.place(wear.right,[0,-wear.pivot[1]*value[4]*this.ky,(320-wear.pivot[0])*value[3]*this.kx,320*value[4]*this.ky]);
       }
     }
-    if(this.aura)this.aura.active=!egg&&!this.asleep;
-    for(const particle of this.particles)particle.node.active=!egg&&!this.asleep;
   }
   private run(seconds:number,step:(t:number)=>void):Promise<void> {
     if(this.instant){step(1);return Promise.resolve();}
@@ -258,7 +249,7 @@ export class BirdView {
   update(dt:number):void {
     if(!this.ready)return;
     if(this.instant){this.show(this.restFrame());return;}
-    this.clock+=dt;this.updateSkin();this.updatePart(dt);
+    this.clock+=dt;this.updatePart(dt);
     if(this.asleep){const phase=this.clock%2.4/2.4;UI.move(this.zzz,(90-38.4)*this.kx,(-230-38.4-40*phase)*this.ky);UI.opacity(this.zzz,1-phase);}
     if(this.acting)return;
     let rise=0;
@@ -398,44 +389,6 @@ export class BirdView {
       this.show(t>.2&&t<.6?half:closed);this.zzz.setScale(1+.7*pulse,1+.7*pulse,1);UI.opacity(this.zzz,1);
     });
     if(this.current(generation)){this.acting=false;this.show(closed);this.zzz.setScale(1,1,1);}
-  }
-  private buildSkin():void {
-    this.grade=Number(this.outfit.split('_outfit_')[1]??0);if(this.grade<3||this.outfit==='berry_outfit_5'||this.prefix===this.outfit)return;
-    const color=AURA[this.species]??'#ffd23a';
-    this.aura=UI.image(this.body,'glow_soft',[-160*this.kx,-285*this.ky,320*this.kx,320*this.ky]);UI.tint(this.aura,color);
-    type Spec=[string,string,string,number,number];
-    const specs:Record<string,[Spec,Spec]>={
-      ember:[['rise','firefly','#ff8a3c',8,.8],['rise','sparkle','#ff5a22',11,.38]],
-      berry:[['fall','fall_petal_pink','#ffffff',6,.26],['fall','fall_petal_pink','#ffd0e8',9,.3]],
-      cocoa:[['rise','glow_soft','#f4dcc0',6,.12],['twinkle','sparkle','#ffd58a',9,.34]],
-      hoot:[['fall','fall_leaf_gold','#ffffff',6,.24],['orbit','sparkle','#ffe27a',7,.32]],
-      ink:[['twinkle','sparkle','#b79cff',8,.34],['orbit','sparkle','#8fa6ff',8,.34]],
-      mint:[['rise','firefly','#9bff9b',8,.8],['fall','fall_leaf_green','#ffffff',9,.24]],
-      sky:[['fall','fall_petal_cream','#e8f6ff',6,.26],['orbit','sparkle','#9fdcff',8,.34]],
-      snow:[['fall','sparkle','#ffffff',9,.26],['fall','sparkle','#cfeaff',13,.32]],
-      sunny:[['rise','sparkle','#ffe066',8,.3],['orbit','sparkle','#ffd23a',8,.36]],
-    };
-    const selected:Spec[]=this.grade===3?[['twinkle','sparkle',color,3,.26]]:[specs[this.species][this.grade===4?0:1]];
-    if(this.grade>=5&&selected[0][0]!=='orbit')selected.push(['orbit','sparkle',color,4,.3]);
-    for(const [mode,picture,tint,count,size]of selected)for(let i=0;i<count;i++){
-      const side=size*2.3*128,node=UI.image(this.body,picture,[0,0,side*this.kx,side*this.ky]);UI.tint(node,tint);
-      this.particles.push({node,mode,phase:(i*.618+this.seed)%1,speed:.7+(i%7)*.1,seed:i*2.399+this.seed,size:side});
-    }
-  }
-  private updateSkin():void {
-    if(!this.aura||this.asleep||this.code&1)return;
-    const pulse=.5+.5*Math.sin(this.clock*(this.grade>=5?1.6:1.1));
-    UI.opacity(this.aura,this.grade===3?.16+.10*pulse:this.grade===4?.22+.12*pulse:.50+.22*pulse);
-    const auraSize=(.62+.10*pulse)*(this.grade>=5?1.2:1),center:Point=[0,-125*this.ky];
-    UI.place(this.aura,[center[0]-160*this.kx*auraSize,center[1]-160*this.ky*auraSize,320*this.kx*auraSize,320*this.ky*auraSize]);
-    for(const p of this.particles){
-      const phase=(p.phase+this.clock*.22*p.speed)%1,fade=Math.sin(phase*Math.PI),sign=Math.sign(Math.sin(p.seed));let x=0,y=0,scale=1,alpha=fade;
-      if(p.mode==='rise'){x=sign*(62+30*Math.abs(Math.cos(p.seed*3)))+Math.sin(this.clock*1.7+p.seed)*14;y=-20-phase*250;scale=1-.5*phase;alpha=fade*.95;}
-      if(p.mode==='fall'){x=sign*(72+30*Math.abs(Math.cos(p.seed*3)))+Math.sin(this.clock*1.3+p.seed*2)*22;y=-290+phase*290;p.node.angle=-(this.clock*.9*p.speed+p.seed)*180/Math.PI;alpha=fade*.9;}
-      if(p.mode==='twinkle'){x=Math.sign(Math.cos(p.seed))*(88+24*Math.abs(Math.sin(p.seed*2)));y=-125+Math.sin(p.seed*1.7)*125;scale=.3+.9*fade*fade;alpha=fade*fade;p.node.angle=-(this.clock*.8+p.seed)*180/Math.PI;}
-      if(p.mode==='orbit'){const a=p.seed+this.clock*1.3*p.speed;x=Math.cos(a)*112;y=-155+Math.sin(a)*46+Math.sin(this.clock*2+p.seed)*10;scale=.75+.35*Math.sin(this.clock*4+p.seed);alpha=Math.sin(a)<0?.95:0;p.node.angle=-this.clock*1.5*180/Math.PI;}
-      UI.place(p.node,[(x-p.size*scale/2)*this.kx,(y-p.size*scale/2)*this.ky,p.size*scale*this.kx,p.size*scale*this.ky]);UI.opacity(p.node,alpha);
-    }
   }
   get debug():object {return {species:this.species,frame:this.frame,acting:this.acting,asleep:this.asleep,clock:this.clock,selected:this.selected};}
 }
