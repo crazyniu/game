@@ -8,6 +8,13 @@ Resumable: frames with an output are skipped. Run from the repository root.
 import glob, os, shutil, subprocess, sys, threading, queue
 from PIL import Image
 
+
+def run_codex(cmd, **kw):
+    try:
+        subprocess.run(cmd, timeout=1500, **kw)
+    except subprocess.TimeoutExpired:
+        pass
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 D = os.path.join(ROOT, "tools/birds/costume_parts")
 BIRDS = os.path.join(ROOT, "PerchSort/assets/resources/birds")

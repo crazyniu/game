@@ -1,5 +1,7 @@
 # Whole-bird skins
 
+> Extended 2026-11-18: new skins are whole-bird paintings; 24 of 45 are done. The overlay path and `outfit_anchors.json` stay only for the 21 skins not repainted yet. See `skin-redesign`.
+
 ## Problem
 Outfits are a painted overlay (`<outfit>_front_overlay`, a hood with the face cut out) laid over the plain species
 frames by measured anchors. The overlay is one fixed picture: when the bird turns, blinks or hops, the face and eyes

@@ -12,7 +12,7 @@ const images={}, data={}, sounds={};
 let pixels=0;
 for(const p of paths){
  const relative=path.relative(root,p).replaceAll(path.sep,'/'), key=relative.replace(/\.[^.]+$/,'');
- if(p.endsWith('.png')){
+ if(/\.(png|webp)$/.test(p)){
   const {data:raw,info}=await sharp(p).ensureAlpha().raw().toBuffer({resolveWithObject:true});
   let left=info.width,top=info.height,right=-1,bottom=-1;
   for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++)if(raw[(y*info.width+x)*4+3]>0){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}
