@@ -1,5 +1,5 @@
 import {sys} from 'cc';
-import { _decorator, Component, Node, Sprite, UITransform, Tween, tween } from 'cc';
+import { _decorator, Component, EffectAsset, Material, Node, Sprite, UITransform, Tween, Vec4, resources, tween } from 'cc';
 import { Art } from './Art';
 import { UI, Rect, Point } from './UI';
 
@@ -13,6 +13,7 @@ const FAMILY:Record<string,Record<string,number[]>> = {
   sky:{idle:[215,123,163,243,0],tilt_left:[193,112,163,243,-20],tilt_right:[232,142,163,243,20],quirk2:[224,136,163,243,15],look_down:[215,140,163,243,0],preen:[198,132,179,255,8]},
 };
 interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean; }
+interface Wear { group:Node;left:Node;right:Node;pivot:Point;frames:Record<string,number[]>; }
 interface Part { group:Node;rotors:Node[];hubs:Record<string,number[]>;turns:number;spin:number; }
 export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean; }
 
@@ -42,6 +43,7 @@ export class BirdView {
   private fluff:Node;
   private zzz:Node;
   private effects:Node;
+  private wear:Wear|null=null;
   private part:Part|null=null;
   private prefix:string;
   private rest:string;
@@ -82,7 +84,7 @@ export class BirdView {
     const pictureRect:Rect=[-160*this.kx,-300*this.ky,320*this.kx,320*this.ky];
     this.picture=UI.image(this.body,this.code&1?'egg_idle':this.rest,pictureRect);this.sprite=this.picture.getComponent(Sprite)!;
     this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);
-    this.loadFrames();this.buildPart();
+    this.loadFrames();this.buildWear();this.buildPart();
     this.bow=UI.image(this.body,'mama_bow',[0,0,72*this.kx,72*this.ky]);
     this.fluff=UI.image(this.body,'chick_fluff',[0,0,88*this.kx,88*this.ky]);
     this.zzz=UI.image(this.body,'zzz',[(90-38.4)*this.kx,(-230-38.4)*this.ky,76.8*this.kx,76.8*this.ky]);
@@ -100,6 +102,39 @@ export class BirdView {
       frames.forEach((name,i)=>this.frameNames.set(name,`${action}_${String(i+1).padStart(2,'0')}`));
     }
     for(const pose of POSES)if(Art.has(this.prefix+'_'+pose))this.frameNames.set(this.prefix+'_'+pose,pose);
+    if(!this.outfit||this.prefix!==this.species)return;
+    const table=Art.data('birds/outfit_anchors')?.[this.outfit];
+    if(table){
+      const bad=new Set<string>(table.repaired.map((name:string)=>name.split(':')[0]));
+      for(const name of ['turn_left','turn_right']){
+        const frames=this.sequences[name]??[],cut=frames.findIndex(frame=>bad.has(this.frameNames.get(frame)!));
+        if(cut>=0)this.sequences[name]=frames.slice(0,cut);
+      }
+      for(const name of ['flap','hop']){
+        const frames=this.sequences[name]??[],good=frames.filter(frame=>!bad.has(this.frameNames.get(frame)!));
+        if(good.length) this.sequences[name]=frames.map((frame,i)=>bad.has(this.frameNames.get(frame)!)?frames.reduce((best,candidate,j)=>!bad.has(this.frameNames.get(candidate)!)&&Math.abs(j-i)<Math.abs(frames.indexOf(best)-i)?candidate:best,good[0]):frame);
+      }
+      this.sequences.preen=[];
+      for(const pose of POSES)if(bad.has(pose))this.frameNames.delete(this.prefix+'_'+pose);
+    }
+    for(const action of ['cheer','turn_left','turn_right']){
+      const painted=Art.frames(this.outfit+'_'+action);
+      if(painted.length>=(action==='cheer'?1:4))this.sequences[action]=painted;
+    }
+  }
+  private buildWear():void {
+    if(!this.outfit||this.prefix!==this.species||!Art.has(this.outfit+'_front_overlay'))return;
+    const table=Art.data('birds/outfit_anchors')[this.outfit],pivot:Point=table.pivot;
+    const group=UI.group(this.body,'Outfit',[0,0,0,0]),name=this.outfit+'_front_overlay';
+    const left=UI.image_region(group,name,[0,0,pivot[0],320],[0,0,pivot[0]*this.kx,320*this.ky]);
+    const right=UI.image_region(group,name,[pivot[0],0,320-pivot[0],320],[0,0,(320-pivot[0])*this.kx,320*this.ky]);
+    this.wear={group,left,right,pivot,frames:table.frames};
+    if(this.outfit==='berry_outfit_5')resources.load('effects/costume_alive',EffectAsset,(error,effect)=>{
+      if(error)throw error;if(!group.isValid)return;
+      const material=new Material();material.initialize({effectAsset:effect,defines:{USE_TEXTURE:true}});
+      material.setProperty('costume',new Vec4(.48,.56,.20,this.seed));
+      left.getComponent(Sprite)!.customMaterial=material;right.getComponent(Sprite)!.customMaterial=material;
+    });
   }
   /** A costume's moving piece (a propeller) is a painted picture turning in a plane squashed to the view, hung on the button of the painted costume in every frame. */
   private buildPart():void {
@@ -138,6 +173,18 @@ export class BirdView {
     const from=this.poseAnchor(this.frame),to=this.poseAnchor(this.nextFrame||this.frame),p=from.map((n,i)=>lerp(n,to[i],this.blendAmount));
     UI.move(this.bow,(p[0]-160-36)*this.kx,(p[1]-300-36)*this.ky);this.bow.angle=-p[4];
     UI.move(this.fluff,(p[2]-160-44)*this.kx,(p[3]-300-44)*this.ky);
+    if(this.wear){
+      const wear=this.wear,fromName=this.frameNames.get(this.frame),toName=this.frameNames.get(this.nextFrame||this.frame);
+      const a=fromName?wear.frames[fromName]??[0,0,1,1,1,0]:null,b=toName?wear.frames[toName]??[0,0,1,1,1,0]:null;
+      wear.group.active=!egg&&!!(a||b);
+      if(a||b){
+        const value=a&&b?a.map((n,i)=>lerp(n,b[i],this.blendAmount)):(a??b)!;
+        UI.opacity(wear.group,a&&b?1:a?1-this.blendAmount:this.blendAmount);
+        UI.move(wear.group,(wear.pivot[0]+value[0]-160)*this.kx,(wear.pivot[1]+value[1]-300)*this.ky);wear.group.angle=-value[5];
+        UI.place(wear.left,[-wear.pivot[0]*value[2]*this.kx,-wear.pivot[1]*value[4]*this.ky,wear.pivot[0]*value[2]*this.kx,320*value[4]*this.ky]);
+        UI.place(wear.right,[0,-wear.pivot[1]*value[4]*this.ky,(320-wear.pivot[0])*value[3]*this.kx,320*value[4]*this.ky]);
+      }
+    }
   }
   private run(seconds:number,step:(t:number)=>void):Promise<void> {
     if(this.instant){step(1);return Promise.resolve();}

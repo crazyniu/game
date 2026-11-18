@@ -1,6 +1,6 @@
 # Whole-bird skins
 
-> Extended 2026-11-18: every skin is now a whole-bird painting; the overlay path and `outfit_anchors.json` are removed. See `skin-redesign`.
+> Extended 2026-11-18: new skins are whole-bird paintings; 24 of 45 are done. The overlay path and `outfit_anchors.json` stay only for the 21 skins not repainted yet. See `skin-redesign`.
 
 ## Problem
 Outfits are a painted overlay (`<outfit>_front_overlay`, a hood with the face cut out) laid over the plain species
