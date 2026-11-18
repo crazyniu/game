@@ -15,6 +15,7 @@ const FAMILY:Record<string,Record<string,number[]>> = {
 const AURA:Record<string,string>={ember:'#ff6a28',berry:'#ff8cc4',cocoa:'#e0a868',hoot:'#ffd75a',ink:'#7a68ff',mint:'#6cf0a0',sky:'#7cc8ff',snow:'#b8e4ff',sunny:'#ffd23a'};
 interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean; }
 interface Wear { group:Node;left:Node;right:Node;pivot:Point;frames:Record<string,number[]>; }
+interface Part { group:Node;rotors:Node[];hubs:Record<string,number[]>;turns:number;spin:number; }
 interface SkinParticle { node:Node;mode:string;phase:number;speed:number;seed:number;size:number; }
 export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean; }
 
@@ -48,6 +49,7 @@ export class BirdView {
   private particles:SkinParticle[]=[];
   private grade=0;
   private wear:Wear|null=null;
+  private part:Part|null=null;
   private prefix:string;
   private rest:string;
   private frame='';
@@ -88,7 +90,7 @@ export class BirdView {
     const pictureRect:Rect=[-160*this.kx,-300*this.ky,320*this.kx,320*this.ky];
     this.picture=UI.image(this.body,this.code&1?'egg_idle':this.rest,pictureRect);this.sprite=this.picture.getComponent(Sprite)!;
     this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);
-    this.loadFrames();this.buildWear();
+    this.loadFrames();this.buildWear();this.buildPart();
     this.bow=UI.image(this.body,'mama_bow',[0,0,72*this.kx,72*this.ky]);
     this.fluff=UI.image(this.body,'chick_fluff',[0,0,88*this.kx,88*this.ky]);
     this.zzz=UI.image(this.body,'zzz',[(90-38.4)*this.kx,(-230-38.4)*this.ky,76.8*this.kx,76.8*this.ky]);
@@ -140,6 +142,23 @@ export class BirdView {
       material.setProperty('costume',new Vec4(.48,.56,.20,this.seed));
       left.getComponent(Sprite)!.customMaterial=material;right.getComponent(Sprite)!.customMaterial=material;
     });
+  }
+  /** A costume's moving piece (a propeller) is a painted picture turning in a plane squashed to the view, hung on the button of the painted costume in every frame. */
+  private buildPart():void {
+    const spec=Art.data('birds/outfit_parts')?.[this.outfit];
+    if(!this.outfit||!spec||this.prefix!==this.outfit)return;
+    const group=UI.group(this.body,'Part',[0,0,0,0]);group.setScale(1,spec.squash,1);
+    const side=spec.width*this.kx,height=spec.width*this.ky,rotors:Node[]=[];
+    for(const alpha of [.27,.47,1]){const rotor=UI.group(group,'Rotor',[0,0,0,0]);UI.image(rotor,spec.image,[-side/2,-height/2,side,height]);UI.opacity(rotor,alpha);rotors.push(rotor);}
+    this.part={group,rotors,hubs:spec.hubs,turns:spec.turns,spin:0};
+  }
+  private updatePart(dt:number):void {
+    const part=this.part;if(!part)return;
+    const a=part.hubs[this.frameNames.get(this.frame)??'front'],b=part.hubs[this.frameNames.get(this.nextFrame||this.frame)??'front']??a;
+    part.group.active=!(this.code&1)&&!!a;if(!a)return;
+    UI.move(part.group,(lerp(a[0],b[0],this.blendAmount)-160)*this.kx,(lerp(a[1],b[1],this.blendAmount)-6-300)*this.ky);
+    if(!this.asleep)part.spin=(part.spin+dt*360*part.turns)%360;
+    part.rotors.forEach((rotor,i)=>{rotor.angle=part.spin-(2-i)*26;});
   }
   private restFrame():string {if(this.code&1)return 'egg_idle';return this.asleep?(this.sequences.front_blink?.at(-1)??this.rest):this.rest;}
   private cached(name:string):ReturnType<typeof Art.cache.get> {return Art.cache.get(Art.entry(name).path);}
@@ -239,7 +258,7 @@ export class BirdView {
   update(dt:number):void {
     if(!this.ready)return;
     if(this.instant){this.show(this.restFrame());return;}
-    this.clock+=dt;this.updateSkin();
+    this.clock+=dt;this.updateSkin();this.updatePart(dt);
     if(this.asleep){const phase=this.clock%2.4/2.4;UI.move(this.zzz,(90-38.4)*this.kx,(-230-38.4-40*phase)*this.ky);UI.opacity(this.zzz,1-phase);}
     if(this.acting)return;
     let rise=0;
@@ -381,7 +400,7 @@ export class BirdView {
     if(this.current(generation)){this.acting=false;this.show(closed);this.zzz.setScale(1,1,1);}
   }
   private buildSkin():void {
-    this.grade=Number(this.outfit.split('_outfit_')[1]??0);if(this.grade<3||this.outfit==='berry_outfit_5')return;
+    this.grade=Number(this.outfit.split('_outfit_')[1]??0);if(this.grade<3||this.outfit==='berry_outfit_5'||this.prefix===this.outfit)return;
     const color=AURA[this.species]??'#ffd23a';
     this.aura=UI.image(this.body,'glow_soft',[-160*this.kx,-285*this.ky,320*this.kx,320*this.ky]);UI.tint(this.aura,color);
     type Spec=[string,string,string,number,number];
