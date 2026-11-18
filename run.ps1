@@ -1,6 +1,8 @@
-param([string]$Command = 'play', [int]$Level = 0)
+param([string]$Command = 'play', [int]$Level = 0, [int]$Trial = 0)
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
+if ($Command -like '--trial=*') { $Trial = [int]($Command -replace '^--trial=', ''); $Command = 'play' }
+if ($Command -like '--level=*') { $Level = [int]($Command -replace '^--level=', ''); $Command = 'play' }
 $creator = $env:COCOS_CREATOR
 if (-not $creator) { $creator = 'C:\ProgramData\Cocos\editors\Creator\3.8.8\CocosCreator.exe' }
 if ($Command -eq 'editor') { & $creator --project "$PSScriptRoot\PerchSort"; exit }
@@ -15,5 +17,6 @@ if ($Command -eq 'build') { exit }
 $port = if ($env:WEB_PORT) { $env:WEB_PORT } else { '8765' }
 Start-Process python -ArgumentList @('scripts/serve.py','--port',$port) -WorkingDirectory $PSScriptRoot
 $url = "http://127.0.0.1:$port/"
-if ($Level -gt 0) { $url += "?level=$Level" }
+if ($Trial -gt 0) { $url += "?trial=$Trial" }
+elseif ($Level -gt 0) { $url += "?level=$Level" }
 Start-Process $url
