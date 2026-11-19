@@ -37,10 +37,19 @@ MIRRORED = ['flight_flap_%02d' % i for i in range(1, 7)] + ['flight_takeoff_%02d
 FRAME_SETS = {'skin': SKIN_FRAMES, 'world': WORLD_FRAMES}
 
 
+def plain_image(species, frame):
+    """The plain frame of a bird as RGBA, whichever of PNG or WebP the resources hold."""
+    for ext in (".png", ".webp"):
+        path = os.path.join(BIRDS, "%s_%s%s" % (species, frame, ext))
+        if os.path.exists(path):
+            return Image.open(path).convert("RGBA")
+    raise FileNotFoundError("no frame %s_%s" % (species, frame))
+
+
 def frames_of(species):
     names = []
-    for f in sorted(glob.glob(os.path.join(BIRDS, species + "_*.png"))):
-        n = os.path.basename(f)[len(species) + 1:-4]
+    for f in sorted(glob.glob(os.path.join(BIRDS, species + "_*.png")) + glob.glob(os.path.join(BIRDS, species + "_*.webp"))):
+        n = os.path.splitext(os.path.basename(f))[0][len(species) + 1:]
         if "outfit" in n or n in ("face", "fluff", "idle") or n.endswith("overlay"):
             continue
         names.append(n)
@@ -63,7 +72,7 @@ def main():
             continue
         src = "%s/src/frames/%s_%s.png" % (D, species, f)
         if not os.path.exists(src):
-            Image.open("%s/%s_%s.png" % (BIRDS, species, f)).convert("RGBA").resize((1024, 1024), Image.LANCZOS).save(src)
+            plain_image(species, f).resize((1024, 1024), Image.LANCZOS).save(src)
         jobs.put((f, src, out))
     print("jobs", jobs.qsize(), flush=True)
 

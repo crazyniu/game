@@ -79,7 +79,7 @@ export class BirdView {
     this.body=UI.group(this.node,'Body',[this.bodyBase[0],this.bodyBase[1],0,0]);
     this.prefix=this.outfit&&Art.has(this.outfit+'_flight_flap_01')?this.outfit:species;
     this.rest=Art.has(this.prefix+'_front')?this.prefix+'_front':this.prefix+'_idle';
-    const pictureRect:Rect=[-160*this.kx,-300*this.ky,320*this.kx,320*this.ky];
+    const pictureRect:Rect=[-160*this.kx,-Art.feet(species)*this.ky,320*this.kx,320*this.ky];
     this.picture=UI.image(this.body,this.code&1?'egg_idle':this.rest,pictureRect);this.sprite=this.picture.getComponent(Sprite)!;
     this.blend=UI.image(this.body,this.rest,pictureRect);this.blendSprite=this.blend.getComponent(Sprite)!;UI.opacity(this.blend,0);
     this.loadFrames();this.buildPart();

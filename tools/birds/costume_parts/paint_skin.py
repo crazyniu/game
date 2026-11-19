@@ -15,7 +15,7 @@ def run_codex(cmd, **kw):
     except subprocess.TimeoutExpired:
         pass
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from paint_frames import SKIN_FRAMES, BIRDS, D, ROOT
+from paint_frames import SKIN_FRAMES, BIRDS, D, ROOT, plain_image
 from refs import skins
 
 HEAD = ("Edit the first input image: one frame of a cartoon plush bird. The second input image shows the same bird from the front "
@@ -46,7 +46,7 @@ def main():
             continue
         src = "%s/src/frames/%s_%s.png" % (D, species, f)
         if not os.path.exists(src):
-            Image.open("%s/%s_%s.png" % (BIRDS, species, f)).convert("RGBA").resize((1024, 1024), Image.LANCZOS).save(src)
+            plain_image(species, f).resize((1024, 1024), Image.LANCZOS).save(src)
         jobs.put((f, src, out))
     print("jobs", jobs.qsize(), flush=True)
 

@@ -12,7 +12,7 @@ rows = (len(names) + cols - 1) // cols
 sh = Image.new("RGB", (cols * T, rows * (2 * T + 14)), (225, 225, 225)); dr = ImageDraw.Draw(sh)
 for i, n in enumerate(names):
     r, c = divmod(i, cols)
-    for k, path in enumerate(("%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, n), "%s/%s_%s.png" % (BIRDS, species, n))):
+    for k, path in enumerate(("%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, n), (BIRDS + "/%s_%s.png" % (species, n)))):
         im = Image.open(path).convert("RGBA").resize((T, T), Image.LANCZOS)
         sh.paste(im, (c * T, r * (2 * T + 14) + 14 + k * T), im)
     dr.text((c * T + 3, r * (2 * T + 14) + 1), n + ("" if table[n]["status"] == "ok" else " CHECK"), fill=(200, 0, 0) if table[n]["status"] != "ok" else (0, 0, 0))

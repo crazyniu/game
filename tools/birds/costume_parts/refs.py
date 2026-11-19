@@ -17,7 +17,7 @@ def run_codex(cmd, **kw):
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 D = os.path.join(ROOT, "tools/birds/costume_parts")
 BIRDS = os.path.join(ROOT, "PerchSort/assets/resources/birds")
-SPEC = os.path.join(ROOT, "docs/work-log/skin-redesign/spec.md")
+SPECS = [os.path.join(ROOT, "docs/work-log/skin-redesign/spec.md"), os.path.join(ROOT, "docs/work-log/world-birds/skins.md")]
 HEAD = ("Edit the input image: the front view of a cartoon plush bird. Use your image generation tool once to paint the SAME bird "
         "in exactly the same pose, position, size, framing, face, eyes, eyelids, beak, wings and feet as the input, now wearing the "
         "costume below. The costume is worn on the body only: it sits on the head, face frame, chest and back of the bird and follows its "
@@ -28,10 +28,11 @@ HEAD = ("Edit the input image: the front view of a cartoon plush bird. Use your 
 
 def skins():
     rows = []
-    for line in open(SPEC):
-        c = [x.strip() for x in line.strip().strip("|").split("|")]
-        if len(c) == 6 and c[1].isdigit():
-            rows.append(dict(species=c[0], slot=int(c[1]), name=c[2], cls=c[3], text=c[4], palette=c[5]))
+    for spec in SPECS:
+        for line in open(spec):
+            c = [x.strip() for x in line.strip().strip("|").split("|")]
+            if len(c) == 6 and c[1].isdigit():
+                rows.append(dict(species=c[0], slot=int(c[1]), name=c[2], cls=c[3], text=c[4], palette=c[5]))
     return rows
 
 
@@ -50,7 +51,8 @@ def main():
             continue
         src = "%s/src/frames/%s_front.png" % (D, s["species"])
         if not os.path.exists(src):
-            Image.open("%s/%s_front.png" % (BIRDS, s["species"])).convert("RGBA").resize((1024, 1024), Image.LANCZOS).save(src)
+            from paint_frames import plain_image
+            plain_image(s["species"], "front").resize((1024, 1024), Image.LANCZOS).save(src)
         jobs.put((key, src, out, HEAD + "Costume %s (%s): %s. Palette: %s." % (s["name"], s["cls"], s["text"], s["palette"])))
     print("jobs", jobs.qsize(), flush=True)
 

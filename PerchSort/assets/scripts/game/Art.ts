@@ -17,6 +17,8 @@ export class Art {
   static entry(name:string):ImageEntry { const key=this.key(name);if(!key)throw new Error(`Missing artwork: ${name}`);return this.manifest.images[key]; }
   static size(name:string):[number,number] { return this.entry(name).size; }
   static ink(name:string):Rect { return this.entry(name).ink; }
+  /** The row of a bird's feet in its 320 pictures: 300 for the plain birds; a world bird that has a hanging tail or a crest records its own (birds/feet.json). */
+  static feet(bird:string):number { return this.data('birds/feet')?.[bird]??300; }
   static data(path:string):any { return this.manifest.data[path.replace(/^res:\/\//,'').replace(/\.json$/,'')]; }
   static frames(prefix:string):string[] {const out:string[]=[];for(let i=1;this.has(`${prefix}_${String(i).padStart(2,'0')}`);i++)out.push(`${prefix}_${String(i).padStart(2,'0')}`);return out;}
   static setLocale(code:string):void {this.locale=code.startsWith('zh')?'zh':'en';}

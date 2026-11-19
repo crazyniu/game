@@ -1021,6 +1021,33 @@
     },
     "white_tutorial_next": {
       "file": "island_words/white_action_next.png"
+    },
+    "lettering_bird_oriole": {
+      "file": "island_words/lettering_bird_oriole.png"
+    },
+    "lettering_bird_magpie": {
+      "file": "island_words/lettering_bird_magpie.png"
+    },
+    "lettering_bird_hoopoe": {
+      "file": "island_words/lettering_bird_hoopoe.png"
+    },
+    "lettering_bird_whiteeye": {
+      "file": "island_words/lettering_bird_whiteeye.png"
+    },
+    "lettering_bird_laughingthrush": {
+      "file": "island_words/lettering_bird_laughingthrush.png"
+    },
+    "lettering_bird_longtailedtit": {
+      "file": "island_words/lettering_bird_longtailedtit.png"
+    },
+    "lettering_bird_pheasant": {
+      "file": "island_words/lettering_bird_pheasant.png"
+    },
+    "lettering_bird_scopsowl": {
+      "file": "island_words/lettering_bird_scopsowl.png"
+    },
+    "lettering_bird_woodowl": {
+      "file": "island_words/lettering_bird_woodowl.png"
     }
   },
   "words": {
@@ -2037,6 +2064,60 @@
       "gold": {
         "file": "island_words/lettering_daily_reward_title.png",
         "cap": 163.0
+      }
+    },
+    "bird.oriole.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_oriole.png",
+        "cap": 96.0
+      }
+    },
+    "bird.magpie.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_magpie.png",
+        "cap": 96.0
+      }
+    },
+    "bird.hoopoe.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_hoopoe.png",
+        "cap": 96.0
+      }
+    },
+    "bird.whiteeye.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_whiteeye.png",
+        "cap": 96.0
+      }
+    },
+    "bird.laughingthrush.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_laughingthrush.png",
+        "cap": 96.0
+      }
+    },
+    "bird.longtailedtit.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_longtailedtit.png",
+        "cap": 96.0
+      }
+    },
+    "bird.pheasant.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_pheasant.png",
+        "cap": 96.0
+      }
+    },
+    "bird.scopsowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_scopsowl.png",
+        "cap": 96.0
+      }
+    },
+    "bird.woodowl.name": {
+      "gold": {
+        "file": "island_words/lettering_bird_woodowl.png",
+        "cap": 96.0
       }
     }
   }
