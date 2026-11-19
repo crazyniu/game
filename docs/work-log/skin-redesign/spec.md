@@ -75,10 +75,17 @@ Slot 1-3 are the cheaper tiers, 4 and 5 the premium ones (prices unchanged).
 
 Cocoa slot 4 and its propeller are already built; every other row is new art, including the rows that reuse an earlier concept.
 
+## Frame set of a skin (owner decision, 2026-11-19)
+A skin keeps only the actions the match game uses: standing, blinking (also the sleeping eyes) and wing flapping in flight.
+- Painted: `front`, `front_blink_01`, `front_blink_02`, `flight_flap_01..06` (9 frames, right-facing).
+- Derived: `flight_flap_l_01..06` are the right-facing flap frames mirrored left-right by `align.py` (owner accepted mirroring for flight).
+- Not painted: take-off, landing, hop, cheer, turns, preening and the nine small poses. `BirdView` uses the flap frames for take-off, landing and cheering
+  and a bounce of the standing frame for hops; a skin counts as a whole-bird skin when it has `flight_flap_01`.
+- The 23 skins painted earlier with the full 70 frames keep them.
+- Costumes avoid left-right asymmetric details (single badges, slanted hats) because of the mirroring.
+
 ## Production
 1. One reference painting per skin (the costumed bird from the front), approved before any frames are painted.
-2. 70 frames per skin painted by local Codex from the plain frames (the pipeline in `tools/birds/costume_parts`), 12 in parallel on each
-   of two machines.
-3. Per-frame alignment and continuity checks (silhouette, feet, eyes, colour); a frame that fails is repainted.
-4. Published into `PerchSort/assets/resources/birds/` as `<species>_outfit_<slot>_<frame>.png`; old overlay art and anchors removed.
-5. Pilot first: one skin (`sunny_outfit_1`) is painted fully and reviewed by the owner before the rest.
+2. The 9 frames of each skin painted by local Codex from the plain frames (`tools/birds/costume_parts`), 12-15 in parallel.
+3. Per-frame alignment and continuity checks (silhouette, feet, eyes); a frame that fails is repainted; the mirrored frames are written.
+4. Installed into `PerchSort/assets/resources/birds/` as `<species>_outfit_<slot>_<frame>.webp`.

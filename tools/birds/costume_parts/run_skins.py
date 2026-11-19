@@ -8,7 +8,7 @@ import json, os, subprocess, sys, time
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "../../.."))
 sys.path.insert(0, HERE)
-from paint_frames import frames_of
+from paint_frames import SKIN_FRAMES
 PY = [sys.executable]
 
 
@@ -19,7 +19,7 @@ def log(msg):
 
 
 def missing(species, slot):
-    return [f for f in frames_of(species) if not os.path.exists("%s/out/%s_%s_%s_worn.png" % (HERE, species, slot, f))]
+    return [f for f in SKIN_FRAMES if not os.path.exists("%s/out/%s_%s_%s_worn.png" % (HERE, species, slot, f))]
 
 
 def run(script, *args):

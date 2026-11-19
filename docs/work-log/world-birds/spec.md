@@ -176,3 +176,11 @@ five would cut the last item to 17,253 frames (about 36 h).
 2. Skins per world bird: 5 (like today) or fewer.
 3. Game logic for world birds: one collection per world or one per slot, how the aviary and shop list 90 birds, how the profile stores them.
 
+
+## Revised production plan (owner, 2026-11-19)
+The painted frame count is cut to what the match game uses (see `skin-redesign`, "Frame set of a skin"):
+- A world bird: 25 painted frames (standing, blinking x2, hop x6, cheer x6, flight flap x6, take-off x3, landing x3) plus the left-facing flight
+  frames (12) mirrored; the decorative idle actions (turns, preening, nine small poses) and the unused `fly_up`/`fly_down` are not painted.
+- A skin: 9 painted frames plus 6 mirrored.
+- Totals: 81 birds x 25 = 2,025, 405 skins x 9 = 3,645, about 5,700 paintings instead of about 34,500 (one Codex usage window is about 2,000 paintings).
+- Still open: skins per world bird (1, 3 or 5) and the game logic for 90 birds.
