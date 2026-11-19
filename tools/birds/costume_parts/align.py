@@ -29,7 +29,7 @@ def place(wa, size, ox, oy, out=C):
 
 
 def job(args):
-    species, slot, frame = args
+    species, slot, frame, kind = args
     plain = Image.open("%s/%s_%s.png" % (BIRDS, species, frame)).convert("RGBA")
     raw = Image.open("%s/out/%s_%s_%s_worn.png" % (HERE, species, slot, frame)).convert("RGBA")
     pa = np.asarray(plain, np.float32)[..., 3] / 255.0
@@ -70,7 +70,7 @@ def job(args):
     lab, n = ndimage.label(wa > 0.5)
     sizes = sorted((lab == i).sum() for i in range(1, n + 1))[::-1] if n else []
     stray = len(sizes) > 1 and sizes[1] > 0.04 * sizes[0]
-    flag = "ok" if (low > 0.86 and inter / union > 0.74 and not stray) else "check"
+    flag = "ok" if (low > (0.86 if kind == "skin" else 0.72) and inter / union > (0.74 if kind == "skin" else 0.62) and not stray) else "check"
     px = np.asarray(canvas).copy()
     px[px[..., 3] <= 24] = 0   # faint alpha specks would inflate the ink box recorded in the manifest
     canvas = Image.fromarray(px, "RGBA")
@@ -78,24 +78,24 @@ def job(args):
     return frame, {"scale": round(float(s), 3), "shift": [dx, dy], "lower_iou": round(float(low), 3), "iou": round(float(inter / union), 3), "stray": bool(stray), "status": flag}
 
 
-def main(species, slot):
+def main(species, slot, kind='skin'):
     os.makedirs(HERE + "/out/skin", exist_ok=True)
     pre = "%s/out/%s_%s_" % (HERE, species, slot)
     sys.path.insert(0, HERE)
-    from paint_frames import SKIN_FRAMES
-    frames = [f for f in SKIN_FRAMES if os.path.exists("%s%s_worn.png" % (pre, f))]
+    from paint_frames import FRAME_SETS, MIRRORED
+    frames = [f for f in FRAME_SETS[kind] if os.path.exists("%s%s_worn.png" % (pre, f))]
     with ProcessPoolExecutor(4) as pool:
-        table = dict(pool.map(job, [(species, slot, f) for f in frames]))
+        table = dict(pool.map(job, [(species, slot, f, kind) for f in frames]))
     # the left-facing flight frames are the right-facing ones mirrored
-    for i in range(1, 7):
-        right = "flight_flap_%02d" % i
+    for right in MIRRORED:
         if right in table:
+            left = right.replace("flight_flap_", "flight_flap_l_").replace("flight_takeoff_", "flight_takeoff_l_").replace("flight_land_", "flight_land_l_")
             Image.open("%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, right)).transpose(Image.FLIP_LEFT_RIGHT).save(
-                "%s/out/skin/%s_%s_flight_flap_l_%02d.png" % (HERE, species, slot, i))
+                "%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, left))
     json.dump(table, open("%s/out/skin/%s_%s.json" % (HERE, species, slot), "w"), indent=0)
     bad = [f for f, v in table.items() if v["status"] != "ok"]
     print("%s_%s: %d frames, %d to check: %s" % (species, slot, len(table), len(bad), " ".join(bad)))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else 'skin')
