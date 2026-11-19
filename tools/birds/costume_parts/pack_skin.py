@@ -12,7 +12,7 @@ os.makedirs(HERE + "/out/pack", exist_ok=True)
 for key in sys.argv[1:]:
     species, slot = key.split("_")
     frames = sorted(glob.glob("%s/out/skin/%s_%s_*.png" % (HERE, species, slot)))
-    assert len(frames) >= 60, "%s: only %d frames" % (key, len(frames))
+    assert len(frames) >= 15, "%s: only %d frames" % (key, len(frames))
     with zipfile.ZipFile("%s/out/pack/%s.zip" % (HERE, key), "w", zipfile.ZIP_STORED) as z:
         for f in frames:
             frame = os.path.basename(f)[len(species) + len(slot) + 2:-4]

@@ -15,7 +15,7 @@ def run_codex(cmd, **kw):
     except subprocess.TimeoutExpired:
         pass
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from paint_frames import frames_of, BIRDS, D, ROOT
+from paint_frames import SKIN_FRAMES, BIRDS, D, ROOT
 from refs import skins
 
 HEAD = ("Edit the first input image: one frame of a cartoon plush bird. The second input image shows the same bird from the front "
@@ -40,7 +40,7 @@ def main():
     assert os.path.exists(ref), "no approved reference " + ref
     os.makedirs(D + "/src/frames", exist_ok=True)
     jobs = queue.Queue()
-    for f in only or frames_of(species):
+    for f in only or SKIN_FRAMES:
         out = "%s/out/%s_%s_%s_worn.png" % (D, species, slot, f)
         if os.path.exists(out):
             continue

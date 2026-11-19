@@ -4,7 +4,7 @@
 Each out/<species>_<slot>_<frame>_worn.png is scaled and shifted (one scale, one shift per frame) so that the lower body
 (wings, belly, feet: the part a costume changes least) lies on the plain frame's lower body; the bird keeps the plain
 animation's size and position and neighbouring frames cannot drift apart. Writes out/skin/<species>_<slot>_<frame>.png
-(320x320) and out/skin/<species>_<slot>.json with a per-frame report; frames flagged "check" should be repainted.
+(320x320, plus the mirrored flight_flap_l frames) and out/skin/<species>_<slot>.json with a per-frame report; frames flagged "check" should be repainted.
 """
 import glob, json, os, sys
 import numpy as np
@@ -78,9 +78,17 @@ def job(args):
 def main(species, slot):
     os.makedirs(HERE + "/out/skin", exist_ok=True)
     pre = "%s/out/%s_%s_" % (HERE, species, slot)
-    frames = sorted(f[len(pre):-len("_worn.png")] for f in glob.glob(pre + "*_worn.png"))
+    sys.path.insert(0, HERE)
+    from paint_frames import SKIN_FRAMES
+    frames = [f for f in SKIN_FRAMES if os.path.exists("%s%s_worn.png" % (pre, f))]
     with ProcessPoolExecutor(4) as pool:
         table = dict(pool.map(job, [(species, slot, f) for f in frames]))
+    # the left-facing flight frames are the right-facing ones mirrored
+    for i in range(1, 7):
+        right = "flight_flap_%02d" % i
+        if right in table:
+            Image.open("%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, right)).transpose(Image.FLIP_LEFT_RIGHT).save(
+                "%s/out/skin/%s_%s_flight_flap_l_%02d.png" % (HERE, species, slot, i))
     json.dump(table, open("%s/out/skin/%s_%s.json" % (HERE, species, slot), "w"), indent=0)
     bad = [f for f, v in table.items() if v["status"] != "ok"]
     print("%s_%s: %d frames, %d to check: %s" % (species, slot, len(table), len(bad), " ".join(bad)))

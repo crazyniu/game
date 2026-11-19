@@ -3,7 +3,7 @@
 
 Takes out/skin/<species>_<slot>_<frame>.png (aligned, 320x320), writes PerchSort/assets/resources/birds/<species>_outfit_<slot>_<frame>.webp
 at quality 85, removes every older file of that skin (overlay art, icons, other formats and their .meta) and its entries in
-outfit_anchors.json and outfit_parts.json. Afterwards run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`.
+outfit_parts.json. Afterwards run `node tools/cocos-assets.mjs` and `python3 tools/cocos-meta.py`.
 """
 import glob, json, os, sys
 from PIL import Image
@@ -25,11 +25,11 @@ for key in sys.argv[1:]:
     species, slot = key.split("_")
     skin = "%s_outfit_%s" % (species, slot)
     frames = sorted(glob.glob("%s/out/skin/%s_%s_*.png" % (HERE, species, slot)))
-    assert len(frames) >= 60, "%s: only %d frames" % (key, len(frames))
+    assert len(frames) >= 15, "%s: only %d frames" % (key, len(frames))
     for old in glob.glob("%s/%s.*" % (BIRDS, skin)) + glob.glob("%s/%s_*" % (BIRDS, skin)):
         os.remove(old)
     for f in frames:
         frame = os.path.basename(f)[len(species) + len(slot) + 2:-4]
         Image.open(f).convert("RGBA").save("%s/%s_%s.webp" % (BIRDS, skin, frame), "WEBP", quality=85, method=4)
-    drop_key("outfit_anchors.json", skin); drop_key("outfit_parts.json", skin)
+    drop_key("outfit_parts.json", skin)
     print("published", skin, len(frames), "frames")

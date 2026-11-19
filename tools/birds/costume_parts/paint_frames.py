@@ -28,6 +28,9 @@ HEAD = ("Edit the first input image: one frame of a cartoon plush bird. The seco
         "props. Keep the whole bird inside the picture with margin, fully transparent background, nothing else added. ")
 
 
+SKIN_FRAMES = ['front', 'front_blink_01', 'front_blink_02'] + ['flight_flap_%02d' % i for i in range(1, 7)]
+
+
 def frames_of(species):
     names = []
     for f in sorted(glob.glob(os.path.join(BIRDS, species + "_*.png"))):

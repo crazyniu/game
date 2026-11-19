@@ -2,11 +2,10 @@
 
 ## Done
 - Skin particles and the glow aura are removed from `BirdView`: a skin is worn on the body only.
-- 23 of the 45 skins are repainted as whole-bird skins and installed (sunny 1-5, cocoa 1, 2, 3, 5, berry 1-3, mint 1-5, hoot 3-5,
-  ink 4-5; the owl propeller beanie, `cocoa_outfit_4`, was already whole-bird), plus the older unapproved trial `ember_outfit_5`.
-- 21 skins are still the old overlay skins (berry 4-5, snow 1-5, sky 1-5, ember 1-4, hoot 1-2, ink 1-3), so the overlay path
-  (`front_overlay`, `outfit_anchors.json`, the `costume_alive` effect) stays in `BirdView` until they are repainted. Their new designs
-  are in `spec.md` and their front references are painted (kept locally in `tools/birds/costume_parts/out`).
+- All 45 skins are whole-bird skins now (the owl propeller beanie, `cocoa_outfit_4`, was already one): 23 with the full 70 frames, 22 with the
+  reduced set of 9 painted frames plus 6 mirrored (see `spec.md`, "Frame set of a skin"). The overlay path (`front_overlay`,
+  `outfit_anchors.json`, the `costume_alive` effect, the measurement tools) is removed. The front references stay local in
+  `tools/birds/costume_parts/out`.
 - 45 new skins specified (`spec.md`), all references painted and reviewed (colour families re-checked: berry 1, mint 3 and 5 replaced).
 - Pipeline in `tools/birds/costume_parts`: `refs.py` (front references), `paint_skin.py` (70 frames per skin), `align.py` (registration
   to the plain frame and a continuity check), `run_skins.py` (batch with repaint of flagged frames), `pack_skin.py` / `install_skin.py`
@@ -16,15 +15,12 @@
 
 ## Numbers
 - A skin is 69-70 frames of 320x320, about 0.9 MB as WebP.
+- The reduced skin set was the owner's answer to the cost: 22 skins took about 40 minutes and 198 paintings.
 - Painting speed on two machines with 12-25 Codex sessions each: 10-13 frames per minute when the service is healthy.
 - The Codex account has a 24 hour usage limit; one window held about 2,000 frames and 45 references. All painting stopped at
   20:28 until the limit reset at 23:50.
 
-## Stopped
-The owner stopped painting on 2026-11-18 after the Codex usage limit was reached (about 1,460 frames were left for the 22 unfinished skins).
-
 ## Open
-- Repaint the 22 unfinished skins (about 1,460 frames, one Codex usage window) and then retire the overlay path.
 - Owner review of the painted skins on device (frame continuity, costume shapes).
-- A few frames of berry_1 and berry_2 failed repeatedly and are missing; the game falls back to a neighbouring frame of the sequence.
-- Plain frames still PNG; converting `birds/` to WebP waits until the last skin has been aligned (the alignment reads the PNG frames).
+- berry_1 and berry_2 miss a few non-essential frames of the full set (the 15 files every skin needs are present).
+- The plain frames, `cocoa_outfit_4` and the other bird art are still PNG; `tools/birds/to_webp.py` converts them (the painting tools read the PNG plain frames).
