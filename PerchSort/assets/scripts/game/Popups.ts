@@ -136,7 +136,13 @@ export class Kit {
     for(let i=0;i<3;i++){const side=i===1?223.2:180;const star=UI.art(parent,i<filled?'island_star_full':'island_star_empty',[540+(i-1)*237.6-side/2,y+140+(i===1?-14:8)-side/2,side,side]);Kit.centerPivot(star);star.angle=(i-1)*-12;if(animate&&i<filled&&!Kit.instant){star.setScale(.25,.25,1);tween(star).delay(.4+i*.18).to(.26,{scale:new Vec3(1.2,1.2,1)},{easing:'quadOut'}).to(.18,{scale:new Vec3(1,1,1)},{easing:'sineInOut'}).start();}}
   }
   static perch(parent:Node,contact:Point,width:number):Node { return UI.piece(parent,'branch_aviary_perch',[contact[0]-width/2,contact[1]-140*width/Art.size('branch_aviary_perch')[0]],width); }
-  static liveBird(parent:Node,species:string,rect:Rect,outfit=''):BirdView { const front=outfit&&Art.has(outfit+'_front')?outfit+'_front':species+'_front', ink=Art.ink(front),size=Art.size(front),feet=size[1]*300/320,k=Math.min(rect[2]/ink[2],rect[3]/(feet-ink[1])); return BirdView.create(parent,species,[rect[0]+rect[2]/2-(ink[0]+ink[2]/2)*k,rect[1]+rect[3]-feet*k,size[0]*k,size[1]*k],{outfit,instant:Kit.instant}); }
+  static liveBird(parent:Node,species:string,rect:Rect,outfit=''):BirdView {
+    // One scale and one anchor for the plain bird and all its skins, taken from the largest of their pictures, so a skin with a tall hat does not shrink the body.
+    const inks=[species+'_front',...[1,2,3,4,5].map(i=>`${species}_outfit_${i}_front`)].filter(name=>Art.has(name)).map(name=>Art.ink(name)),
+      left=Math.min(...inks.map(ink=>ink[0])),top=Math.min(...inks.map(ink=>ink[1])),right=Math.max(...inks.map(ink=>ink[0]+ink[2])),
+      size=Art.size(species+'_front'),feet=size[1]*300/320,k=Math.min(rect[2]/(right-left),rect[3]/(feet-top));
+    return BirdView.create(parent,species,[rect[0]+rect[2]/2-(left+right)/2*k,rect[1]+rect[3]-feet*k,size[0]*k,size[1]*k],{outfit,instant:Kit.instant,lazy:true});
+  }
   static titleKey(label:string):string { return label.startsWith('bird.')?'bird_'+label.split('.')[1]:label.replace(/\./g,'_'); }
   static prizes(parent:Node,coins:number,boosters:number[],y:number,columns=3):Node[] {
     const counts=new Map<number,number>(); boosters.forEach(k=>counts.set(k,(counts.get(k)||0)+1));
