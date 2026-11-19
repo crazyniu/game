@@ -39,7 +39,7 @@ export class AviaryView {
       const card=UI.group(scroll.content,'Card_'+id,[i%2*496,Math.floor(i/2)*500,464,468]);const known=this.profile.has_met(id);
       Kit.perch(card,[232,364],416);
       if(known){Kit.liveBird(card,id,[52,8,360,356],this.outfit(id));Kit.lettering(card,'bird_'+id,[38,400,388,80]);
-        if(this.world===1)UI.hit_area(card,'Select',[0,0,464,468],()=>{this.listScroll=scroll.scroll.getScrollOffset().y;this.show_detail(id);});
+        UI.hit_area(card,'Select',[0,0,464,468],()=>{this.listScroll=scroll.scroll.getScrollOffset().y;this.show_detail(id);});
       }else{
         const sil=UI.art(card,id+'_front',[52,8,360,356]);UI.silhouette(sil);Kit.breathe(sil);
         UI.art(card,'icon_aviary_question',[180,154,104,116]);UI.piece_fit(card,'island_padlock',[232,450],[72,80]);
@@ -65,9 +65,9 @@ export class AviaryView {
   show_detail(id:string):void {
     this.species=id;this.reset();Kit.glow(this.page,[232,204,616,472]);Kit.perch(this.page,[540,644],640);
     this.hero=Kit.liveBird(this.page,id,[336,212,408,432],this.outfit(id));UI.hit_area(this.page,'Showcase',[336,212,408,432],()=>this.hero?.showcase());
-    UI.art(this.page,'panel_aviary_ability',[232,714,616,104]);const ability=UI.paint(this.page,Art.word('bird.'+id+'.ability'),[304,740,472,52]);UI.effect(ability,'ability_ink');
+    UI.art(this.page,'panel_aviary_ability',[232,714,616,104]);const ability=UI.paint(this.page,Art.word('bird.'+Worlds.slot_of(id)+'.ability'),[304,740,472,52]);UI.effect(ability,'ability_ink');
     this.navigation(true,()=>this.fromShop?this.callbacks.close():this.show_list());this.title('bird_'+id,[308,32,464,174]);this.refresh_balance();
-    if(id!=='crow'){this.tiles=UI.group(this.page,'Outfits');this.buildTiles();}
+    if(id!=='crow'&&Worlds.world_of(id)===1){this.tiles=UI.group(this.page,'Outfits');this.buildTiles();}
   }
   refresh_balance():void { if(!this.species)return;if(this.coins)Kit.destroy(this.coins);this.coins=UI.feather_bar(this.page,[760,65],this.profile.coins,this.callbacks.coins); }
   private buildTiles():void {

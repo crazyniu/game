@@ -102,7 +102,7 @@ export class Profile {
     for (const [species, id] of Object.entries<string>(data.equippedOutfits ?? {})) if (p.owns_outfit(id) && Shop.item(id)?.species === species) p.equipped[species] = id;
     for (const style of data.ownedBirdhouseStyles ?? []) if (Shop.HOUSE_STYLES.includes(style)) p.houses[style] = true;
     if (p.owns_house(data.equippedBirdhouseStyle)) p.equipped_house = data.equippedBirdhouseStyle;
-    for (const id of data.speciesMet ?? []) if (Aviary.has_species(id)) p.met[id] = true;
+    for (const id of data.speciesMet ?? []) if (Aviary.has_bird(id)) p.met[id] = true;
     for (const [id, count] of Object.entries(data.flocksHome ?? {})) if (Aviary.has_species(id) && id !== 'crow' && int(count) > 0) p.homes[id] = int(count);
     const daily = String(data.lastDailyGiftDate ?? ''); if (/^\d{4}-\d{2}-\d{2}$/.test(daily)) p.last_daily_gift = daily;
     for (const flag of data.tutorialFlags ?? []) if (String(flag)) p.tutorials[String(flag)] = true;
