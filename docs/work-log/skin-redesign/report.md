@@ -13,6 +13,14 @@
   (the same on the Mac, results go through the LAN transfer gateway).
 - Skin frames are WebP (about 13 KB each instead of 80-90 KB); the asset tools accept WebP.
 
+## Found on the first device test (2026-11-19)
+- Opening the aviary took 1-2 seconds: the screen waited for every frame of ten birds (about 700 images). Decorative birds (`BirdOptions.lazy`,
+  used by `Kit.liveBird`) now load the standing and blink frames first and the rest in small batches afterwards (`Art.defer`). Measured on the
+  same build with the old behaviour switched on: waiting for images 6.4 s -> 0.8 s warm, 33.5 s -> 5.1 s cold (a slow headless browser).
+- Skins looked smaller than plain birds: 40 of 54 skin fronts had nearly transparent specks (alpha 1-24) that inflated the manifest ink box, and the
+  aviary fits that box to the tile. `tools/birds/clean_alpha.py` zeroed them (skin WebP and the owl beanie PNG; `align.py` does it for new frames) and
+  `liveBird` now scales a plain bird and all its skins by the largest of their pictures, so one species keeps one body size in every tile.
+
 ## Numbers
 - A skin is 69-70 frames of 320x320, about 0.9 MB as WebP.
 - The reduced skin set was the owner's answer to the cost: 22 skins took about 40 minutes and 198 paintings.
