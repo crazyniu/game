@@ -8,7 +8,7 @@ out/<slot>_<bird>_<frame>_worn.png. Resumable. Run from the repository root.
 import glob, os, shutil, subprocess, sys, threading, queue
 from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from paint_frames import WORLD_FRAMES, BIRDS, D, ROOT
+from paint_frames import WORLD_FRAMES, BIRDS, D, ROOT, plain_image
 
 DESIGNS = os.path.join(ROOT, "tools/birds/world_designs")
 
@@ -51,7 +51,7 @@ def main():
             continue
         src = "%s/src/frames/%s_%s.png" % (D, slot, f)
         if not os.path.exists(src):
-            Image.open("%s/%s_%s.png" % (BIRDS, slot, f)).convert("RGBA").resize((1024, 1024), Image.LANCZOS).save(src)
+            plain_image(slot, f).resize((1024, 1024), Image.LANCZOS).save(src)
         jobs.put((f, src, out))
     print("jobs", jobs.qsize(), flush=True)
 

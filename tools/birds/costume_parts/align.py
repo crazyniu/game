@@ -2,7 +2,7 @@
 """align.py <species> <slot>: register the painted frames of a skin to the plain frames and check them.
 
 Each out/<species>_<slot>_<frame>_worn.png is scaled and shifted (one scale, one shift per frame) so that the lower body
-(wings, belly, feet: the part a costume changes least) lies on the plain frame's lower body; the bird keeps the plain
+(for a skin the wings, belly and feet, which a costume changes least; for a world bird the torso and wings, because its crest, tail and feet differ) lies on the plain frame's lower body; the bird keeps the plain
 animation's size and position and neighbouring frames cannot drift apart. Writes out/skin/<species>_<slot>_<frame>.png
 (320x320, plus the mirrored flight_flap_l frames) and out/skin/<species>_<slot>.json with a per-frame report; frames flagged "check" should be repainted.
 """
@@ -30,12 +30,18 @@ def place(wa, size, ox, oy, out=C):
 
 def job(args):
     species, slot, frame, kind = args
-    plain = Image.open("%s/%s_%s.png" % (BIRDS, species, frame)).convert("RGBA")
+    sys.path.insert(0, HERE)
+    from paint_frames import plain_image
+    plain = plain_image(species, frame)
     raw = Image.open("%s/out/%s_%s_%s_worn.png" % (HERE, species, slot, frame)).convert("RGBA")
     pa = np.asarray(plain, np.float32)[..., 3] / 255.0
     ys, xs = np.nonzero(pa > 0.5)
     top, bot = ys.min(), ys.max()
-    keep = np.zeros((C, C), bool); keep[int(top + 0.52 * (bot - top)):, :] = True
+    keep = np.zeros((C, C), bool)
+    if kind == "skin":
+        keep[int(top + 0.52 * (bot - top)):, :] = True      # the lower body: a costume changes it least
+    else:
+        keep[int(top + 0.30 * (bot - top)):int(top + 0.75 * (bot - top)), :] = True   # torso and wings: a world bird's crest, tail and feet differ
     # coarse search at half resolution (a quarter of the work), then refine at full resolution
     H = C // 2
     pa2 = pa.reshape(H, 2, H, 2).mean((1, 3)); keep2 = keep.reshape(H, 2, H, 2).all((1, 3))
@@ -60,6 +66,14 @@ def job(args):
                     best = (cost, s, dx, dy)
     cost, s, dx, dy = best
     size = round(C * s)
+    if kind != "skin":
+        # a world bird's tail may hang below its feet: put the feet (the lowest rows as wide as a foot pair) on the plain bird's feet line
+        def feet_row(mask):
+            width = (mask > 0.5).sum(axis=1)
+            rows = np.nonzero(width >= 0.18 * width.max())[0]
+            return int(rows.max())
+        placed = place(alpha(raw, size), size, round((C - size) / 2) + dx, round((C - size) / 2) + dy)
+        dy += feet_row(pa) - feet_row(placed)
     canvas = Image.new("RGBA", (C, C), (0, 0, 0, 0))
     canvas.paste(raw.resize((size, size), Image.LANCZOS), (round((C - size) / 2) + dx, round((C - size) / 2) + dy))
     wa = np.asarray(canvas, np.float32)[..., 3] / 255.0

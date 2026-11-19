@@ -4,6 +4,7 @@ import { Art } from './Art';
 import { BirdView } from './BirdView';
 import { Profile } from '../meta/Profile';
 import { Aviary } from '../meta/Aviary';
+import { Worlds } from '../meta/Worlds';
 import { Shop } from '../meta/Shop';
 import { Kit, PageCallbacks } from './Popups';
 
@@ -14,6 +15,7 @@ export class AviaryView {
   private species='';
   private readonly fromShop:boolean;
   private listScroll=0;
+  private world=1;
   private hero?:BirdView;
   private coins?:Node;
   private tiles?:Node;
@@ -29,23 +31,37 @@ export class AviaryView {
   private title(key:string,rect:Rect):void { const h=rect[3]*.7,y=119-h/2;Kit.lettering(this.page,key,[rect[0]+rect[2]*.12,y+h*.17,rect[2]*.76,h*.76]); }
   show_list():void {
     this.species='';this.reset();
-    const height=Math.ceil(Aviary.SPECIES.length/2)*500-32+64;
-    const scroll=UI.scroll(this.page,'Scroll',[48,232,960,1592],height);
+    const ids=this.world_ids(this.world),top=360,view=1824-top;
+    const height=Math.ceil(ids.length/2)*500-32+64;
+    const scroll=UI.scroll(this.page,'Scroll',[48,top,960,view],height);
     scroll.scroll.scrollToOffset(new Vec2(0,this.listScroll),0);
-    Aviary.SPECIES.forEach(([id],i)=>{
+    ids.forEach((id,i)=>{
       const card=UI.group(scroll.content,'Card_'+id,[i%2*496,Math.floor(i/2)*500,464,468]);const known=this.profile.has_met(id);
       Kit.perch(card,[232,364],416);
       if(known){Kit.liveBird(card,id,[52,8,360,356],this.outfit(id));Kit.lettering(card,'bird_'+id,[38,400,388,80]);
-        UI.hit_area(card,'Select',[0,0,464,468],()=>{this.listScroll=scroll.scroll.getScrollOffset().y;this.show_detail(id);});
+        if(this.world===1)UI.hit_area(card,'Select',[0,0,464,468],()=>{this.listScroll=scroll.scroll.getScrollOffset().y;this.show_detail(id);});
       }else{
         const sil=UI.art(card,id+'_front',[52,8,360,356]);UI.silhouette(sil);Kit.breathe(sil);
         UI.art(card,'icon_aviary_question',[180,154,104,116]);UI.piece_fit(card,'island_padlock',[232,450],[72,80]);
       }
     });
-    const max=Math.max(0,height-1592);if(max>0){const track=UI.fill(this.page,'Track',[1036,232,18,1528],'#fff7c7e6',9);UI.fill(track,'Rail',[3,3,12,1522],'#21a68c80',6);const thumb=UI.fill(this.page,'Thumb',[1029,232,32,96],'#fff7c7e6',16);UI.fill(thumb,'Fill',[3,3,26,90],'#ffc322',13);scroll.node.on('scrolling',()=>UI.move(thumb,1029,232+1432*Math.max(0,scroll.scroll.getScrollOffset().y)/max));}
+    const max=Math.max(0,height-view);if(max>0){const track=UI.fill(this.page,'Track',[1036,top,18,view-64],'#fff7c7e6',9);UI.fill(track,'Rail',[3,3,12,view-70],'#21a68c80',6);const thumb=UI.fill(this.page,'Thumb',[1029,top,32,96],'#fff7c7e6',16);UI.fill(thumb,'Fill',[3,3,26,90],'#ffc322',13);scroll.node.on('scrolling',()=>UI.move(thumb,1029,top+(view-160)*Math.max(0,scroll.scroll.getScrollOffset().y)/max));}
     this.navigation(false,this.callbacks.close);this.title('aviary',[300,32,480,174]);
-    const chip=UI.group(this.page,'MetCounter',[784,79,248,80]);const rail=Art.data('art/kit/kit').hud_bar;UI.nine(chip,'kit/hud_bar',[0,0,248,80],rail.margins,80/rail.size[1]);UI.art(chip,'fall_leaf_green',[0,0,80,80]);Kit.number(chip,Aviary.SPECIES.filter(([id])=>this.profile.has_met(id)).length+'/'+Aviary.SPECIES.length,[80,12,152,56]);
+    const header=UI.group(this.page,'WorldSwitch',[48,226,960,120]),last=this.last_world();
+    const previous=UI.button(header,'WorldPrevious','btn_world_previous',[0,4,112,112],()=>this.switch_world(-1));
+    const next=UI.button(header,'WorldNext','btn_world_next',[848,4,112,112],()=>this.switch_world(1));
+    Kit.lettering(header,'world_'+Worlds.NAMES[this.world-1],[216,22,528,76]);
+    UI.enabled(previous,this.world>1);UI.enabled(next,this.world<last);
+    const chip=UI.group(this.page,'MetCounter',[784,79,248,80]);const rail=Art.data('art/kit/kit').hud_bar;UI.nine(chip,'kit/hud_bar',[0,0,248,80],rail.margins,80/rail.size[1]);UI.art(chip,'fall_leaf_green',[0,0,80,80]);Kit.number(chip,ids.filter(id=>this.profile.has_met(id)).length+'/'+ids.length,[80,12,152,56]);
   }
+  private world_ids(world:number):string[] { return world===1?Aviary.SPECIES.map(([id])=>id):Worlds.birds(world); }
+  /** The last world whose birds all have their pictures and painted names; worlds beyond it are not offered. */
+  private last_world():number {
+    let last=1;
+    for(let world=2;world<=Worlds.COUNT;world++){if(Worlds.birds(world).every(id=>Art.has(id+'_front')&&!!Art.pack().painted['lettering_bird_'+id]))last=world;else break;}
+    return last;
+  }
+  private switch_world(step:number):void { this.world=Math.max(1,Math.min(this.last_world(),this.world+step));this.listScroll=0;this.show_list(); }
   show_detail(id:string):void {
     this.species=id;this.reset();Kit.glow(this.page,[232,204,616,472]);Kit.perch(this.page,[540,644],640);
     this.hero=Kit.liveBird(this.page,id,[336,212,408,432],this.outfit(id));UI.hit_area(this.page,'Showcase',[336,212,408,432],()=>this.hero?.showcase());
@@ -78,6 +94,7 @@ export class AviaryView {
     if(state==='buy_outfit_short')p.coins=120;
     const id=state.includes('berry')?'berry':state.includes('ember')?'ember':state.includes('crow')?'crow':state.includes('sunny')?'sunny':'hoot';
     if(state.includes('bought')||state==='detail_berry'){p.outfits[`outfit.${id}.1`]=true;p.equipped[id]=`outfit.${id}.1`;}
-    const v=new AviaryView(host,p,callbacks);if(!state.startsWith('list'))v.show_detail(id);if(state.startsWith('buy_outfit'))v.confirm_outfit(`outfit.${id}.1`);return v;
+    if(state==='list_world_2')Worlds.birds(2).slice(0,4).forEach(bird=>p.met[bird]=true);
+    const v=new AviaryView(host,p,callbacks);if(state==='list_world_2'){v.world=2;v.show_list();}else if(!state.startsWith('list'))v.show_detail(id);if(state.startsWith('buy_outfit'))v.confirm_outfit(`outfit.${id}.1`);return v;
   }
 }

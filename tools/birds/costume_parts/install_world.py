@@ -22,8 +22,8 @@ for key in sys.argv[1:]:
     a = np.asarray(front.getchannel("A")) > 24
     ys, xs = np.nonzero(a)
     top, bottom, left, right = ys.min(), ys.max(), xs.min(), xs.max()
-    side = int((bottom - top) * 0.62)
+    side = int(max((bottom - top) * 0.8, (right - left) * 0.95))
     cx = (left + right) // 2
-    face = front.crop((cx - side // 2, top, cx + side // 2 + side % 2, top + side)).resize((160, 160), Image.LANCZOS)
+    face = front.crop((cx - side // 2, top - 8, cx + side // 2 + side % 2, top - 8 + side)).resize((160, 160), Image.LANCZOS)
     face.save("%s/%s_face.webp" % (BIRDS, bird), "WEBP", quality=85, method=4)
     print("installed", bird, len(frames), "frames + face")
