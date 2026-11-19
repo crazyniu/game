@@ -178,9 +178,32 @@ five would cut the last item to 17,253 frames (about 36 h).
 
 
 ## Revised production plan (owner, 2026-11-19)
-The painted frame count is cut to what the match game uses (see `skin-redesign`, "Frame set of a skin"):
-- A world bird: 25 painted frames (standing, blinking x2, hop x6, cheer x6, flight flap x6, take-off x3, landing x3) plus the left-facing flight
-  frames (12) mirrored; the decorative idle actions (turns, preening, nine small poses) and the unused `fly_up`/`fly_down` are not painted.
-- A skin: 9 painted frames plus 6 mirrored.
-- Totals: 81 birds x 25 = 2,025, 405 skins x 9 = 3,645, about 5,700 paintings instead of about 34,500 (one Codex usage window is about 2,000 paintings).
-- Still open: skins per world bird (1, 3 or 5) and the game logic for 90 birds.
+The painted frame count is cut to what the match game uses (see `skin-redesign`, "Frame set of a skin"). The owner left the arrangement to the
+assistant on 2026-11-19 and accepted: 3 skins per world bird, the slot-per-world arrangement below, and mirroring for left-facing flight.
+
+### Art
+- A world bird: **27 painted frames** (`front`, `front_blink_01-02`, `hop_01-06`, `cheer_01-06`, `flight_flap_01-06`, `flight_takeoff_01-03`,
+  `flight_land_01-03`) plus 12 left-facing flight frames mirrored by `align.py`, plus a 160x160 `face` cut from the front frame. Not painted:
+  turns, preening, the nine small poses, `fly_up`, `fly_down`.
+- Each frame is painted from the plain frame of the slot species (the pose) and the bird's design (`tools/birds/world_designs`), so a world bird
+  moves exactly like the slot bird. `paint_world.py`, `align.py --set world`, `install_world.py`, `run_skins.py --set world`.
+- A skin of a world bird: 9 painted frames plus 6 mirrored, 3 skins per world bird (tiers 1-3 of the outfit prices).
+- Painted name labels: 81 bird names x 2 languages. The abilities reuse the slot's ability labels.
+- Totals: 81 x 27 = 2,187 + 243 skins x 9 = 2,187, about **4,400 paintings** plus 162 name labels (the first estimate said 25 frames; 27 is right).
+  One Codex usage window is about 2,000 paintings, so about 2.5 days.
+- Pilot: world 2 (Bamboo, 9 birds), then the owner looks at continuity and style before worlds 3-10.
+
+### Game logic (design, not built)
+- **The core does not change.** A bird's ability and when it is met come from its slot species (`Board.SPECIES`, `Rules.GIFT_BY_SPECIES`); a world only
+  changes how the slot bird looks. Levels, stored solutions and the numeric enum order stay valid.
+- New `meta/Worlds.ts` (no Cocos): `Worlds.bird(world, slot)` returns the world's bird for a slot species, `Worlds.slot_of(bird)`, `Worlds.world_of(bird)`,
+  `Worlds.all()` (90 birds and the crow), `Worlds.skins(bird)` (5 for the nine world-1 birds, 3 for the others). World 1 ids are the current species ids.
+- **Save data keeps its schema.** `met`, `homes`, `outfits` (`outfit.<bird>.<n>`) and `equipped` are keyed by bird id; every existing key is a world-1 id
+  and stays valid. A world bird is met when a level of its world that uses its slot starts (the 20 feathers for a new friend apply as today).
+  Nothing is reset or topped up.
+- **Display**: where `Board.SPECIES[...]` is turned into art (`BoardView`, `Tutorial`, home flock, popups) the id goes through `Worlds.bird(world, slot)`;
+  skins are looked up by the bird id.
+- **Aviary and shop**: the aviary lists one world at a time with a world switch, nine cards per world (the crow card stays in world 1); the shop's skin
+  tab picks a bird the same way. A bird of a world the player has not reached stays hidden as it is today.
+- **Needs the owner's approval before logic**: the aviary world switch as a clickable shell with fake data (`AviaryView.preview`).
+

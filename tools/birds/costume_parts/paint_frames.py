@@ -30,6 +30,12 @@ HEAD = ("Edit the first input image: one frame of a cartoon plush bird. The seco
 
 SKIN_FRAMES = ['front', 'front_blink_01', 'front_blink_02'] + ['flight_flap_%02d' % i for i in range(1, 7)]
 
+# A world bird keeps the actions the match game uses: standing, blinking, hopping, cheering, flying (the left-facing flight frames are mirrored).
+WORLD_FRAMES = (['front', 'front_blink_01', 'front_blink_02'] + ['hop_%02d' % i for i in range(1, 7)] + ['cheer_%02d' % i for i in range(1, 7)]
+                + ['flight_flap_%02d' % i for i in range(1, 7)] + ['flight_takeoff_%02d' % i for i in range(1, 4)] + ['flight_land_%02d' % i for i in range(1, 4)])
+MIRRORED = ['flight_flap_%02d' % i for i in range(1, 7)] + ['flight_takeoff_%02d' % i for i in range(1, 4)] + ['flight_land_%02d' % i for i in range(1, 4)]
+FRAME_SETS = {'skin': SKIN_FRAMES, 'world': WORLD_FRAMES}
+
 
 def frames_of(species):
     names = []
