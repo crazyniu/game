@@ -31,7 +31,7 @@ export class AviaryView {
   private title(key:string,rect:Rect):void { const h=rect[3]*.7,y=119-h/2;Kit.lettering(this.page,key,[rect[0]+rect[2]*.12,y+h*.17,rect[2]*.76,h*.76]); }
   show_list():void {
     this.species='';this.reset();
-    const ids=this.world_ids(this.world),top=360,view=1824-top;
+    const ids=this.world_ids(this.world),top=232,view=1696-top;
     const height=Math.ceil(ids.length/2)*500-32+64;
     const scroll=UI.scroll(this.page,'Scroll',[48,top,960,view],height);
     scroll.scroll.scrollToOffset(new Vec2(0,this.listScroll),0);
@@ -47,10 +47,10 @@ export class AviaryView {
     });
     const max=Math.max(0,height-view);if(max>0){const track=UI.fill(this.page,'Track',[1036,top,18,view-64],'#fff7c7e6',9);UI.fill(track,'Rail',[3,3,12,view-70],'#21a68c80',6);const thumb=UI.fill(this.page,'Thumb',[1029,top,32,96],'#fff7c7e6',16);UI.fill(thumb,'Fill',[3,3,26,90],'#ffc322',13);scroll.node.on('scrolling',()=>UI.move(thumb,1029,top+(view-160)*Math.max(0,scroll.scroll.getScrollOffset().y)/max));}
     this.navigation(false,this.callbacks.close);this.title('aviary',[300,32,480,174]);
-    const header=UI.group(this.page,'WorldSwitch',[48,226,960,120]),last=this.last_world();
-    const previous=UI.button(header,'WorldPrevious','btn_world_previous',[0,4,112,112],()=>this.switch_world(-1));
-    const next=UI.button(header,'WorldNext','btn_world_next',[848,4,112,112],()=>this.switch_world(1));
-    Kit.lettering(header,'world_'+Worlds.NAMES[this.world-1],[216,22,528,76]);
+    const header=UI.group(this.page,'WorldSwitch',[48,1716,960,120]),last=this.last_world();
+    const previous=UI.button(header,'WorldPrevious','btn_world_previous',[160,4,112,112],()=>this.switch_world(-1));
+    const next=UI.button(header,'WorldNext','btn_world_next',[688,4,112,112],()=>this.switch_world(1));
+    Kit.lettering(header,'world_'+Worlds.NAMES[this.world-1],[284,22,392,76]);
     UI.enabled(previous,this.world>1);UI.enabled(next,this.world<last);
     const chip=UI.group(this.page,'MetCounter',[784,79,248,80]);const rail=Art.data('art/kit/kit').hud_bar;UI.nine(chip,'kit/hud_bar',[0,0,248,80],rail.margins,80/rail.size[1]);UI.art(chip,'fall_leaf_green',[0,0,80,80]);Kit.number(chip,ids.filter(id=>this.profile.has_met(id)).length+'/'+ids.length,[80,12,152,56]);
   }
