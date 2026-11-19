@@ -2,6 +2,7 @@ import {sys} from 'cc';
 import { _decorator, Component, Color, EffectAsset, EventTouch, Graphics, Mask, Material, Node, Sprite, Tween, UITransform, Vec3, Vec4, resources, tween } from 'cc';
 import { Board, Booster, GameEvent, Kind, Move } from '../core/Board';
 import { LevelDefinition, Levels } from '../core/Levels';
+import { Worlds } from '../meta/Worlds';
 import { GameSession } from '../core/GameSession';
 import { Rules } from '../core/Rules';
 import { Solver } from '../core/Solver';
@@ -269,7 +270,7 @@ export class BoardView {
       if (outfit === entry.outfit) continue;
       const rect = UI.rect(entry.bird.node), selected = entry.bird.selected;
       entry.bird.destroy();
-      const bird = BirdView.create(this.birdLayer, Board.SPECIES[Board.species_of(entry.code)], rect,
+      const bird = BirdView.create(this.birdLayer, this.bird_id(entry.code), rect,
         { instant: this.instant, code: entry.code, asleep: this.state.is_asleep(entry.code), outfit, seed: id });
       bird.setSelected(selected); this.birds.set(id, { bird, code: entry.code, outfit });
     }
@@ -353,12 +354,13 @@ export class BoardView {
     }
     return selected;
   }
+  private bird_id(code: number): string { return Worlds.look(this.state.world, Board.SPECIES[Board.species_of(code)]); }
   private look(code: number): string {
-    const species = Board.SPECIES[Board.species_of(code)], outfit = this.profile.equipped[species];
+    const outfit = this.profile.equipped[this.bird_id(code)];
     return outfit ? outfit.replace('outfit.','').replace('.','_outfit_') : '';
   }
   private makeBird(code: number, feet: Point): BirdEntry {
-    const outfit = this.look(code), bird = BirdView.create(this.birdLayer,Board.SPECIES[Board.species_of(code)],this.birdRect(feet),
+    const outfit = this.look(code), bird = BirdView.create(this.birdLayer,this.bird_id(code),this.birdRect(feet),
       { instant:this.instant,code,asleep:this.state.is_asleep(code),outfit,seed:Board.id_of(code) });
     const entry = { bird,code,outfit }; this.birds.set(Board.id_of(code),entry); return entry;
   }
@@ -415,7 +417,7 @@ export class BoardView {
     this.residentSpecies=species; this.resident?.destroy(); this.resident=null;
     if(species<0) return;
     const rect=UI.rect(this.doorway), side=170*.58;
-    this.resident=BirdView.create(this.doorway,Board.SPECIES[species],this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant});
+    this.resident=BirdView.create(this.doorway,Worlds.look(this.state.world,Board.SPECIES[species]),this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant});
   }
   private doorPoint(): Point { return [this.doorRect[0]+this.doorRect[2]/2,this.doorRect[1]+this.doorRect[3]/2]; }
   private glyph(character: string): string { return `digit_ui_${({'+':'plus','/':'slash','×':'x'} as Record<string,string>)[character] || character}`; }
