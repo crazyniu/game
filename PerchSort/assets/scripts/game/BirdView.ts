@@ -14,7 +14,7 @@ const FAMILY:Record<string,Record<string,number[]>> = {
 };
 interface Idle { key:string;time:number;duration:number;hold:number;twice:boolean; }
 interface Part { group:Node;rotors:Node[];hubs:Record<string,number[]>;turns:number;spin:number; }
-export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean; }
+export interface BirdOptions { instant?:boolean;pose?:string;seed?:number;outfit?:string;code?:number;asleep?:boolean;lazy?:boolean; }
 
 @ccclass('BirdAnimator')
 class BirdAnimator extends Component {
@@ -90,7 +90,9 @@ export class BirdView {
     this.syncOverlays();this.zzz.active=this.asleep;
     const preload=[this.rest,...Object.values(this.sequences).flat(),...POSES.map(p=>this.prefix+'_'+p).filter(p=>Art.has(p)),
       'egg_idle','egg_crack','egg_shell','egg_wobble_l','egg_wobble_r'];
-    void Art.preload(preload).then(()=>{if(this.node.isValid){this.ready=true;this.show(this.restFrame());if(options.pose)this.setPose(options.pose);}});
+    const first=options.lazy?[this.rest,...(this.sequences.front_blink??[]),'egg_idle']:preload;
+    if(options.lazy)Art.defer(preload);
+    void Art.preload(first).then(()=>{if(this.node.isValid){this.ready=true;this.show(this.restFrame());if(options.pose)this.setPose(options.pose);}});
     this.node.addComponent(BirdAnimator).bird=this;
   }
   private loadFrames():void {
@@ -286,6 +288,7 @@ export class BirdView {
   async cheer():Promise<void> {
     if(this.acting||this.selected||this.asleep||this.code&1)return;
     const frames=this.sequences.cheer??this.sequences.flight_flap;if(!frames?.length)return;
+    await Art.preload(frames);if(!this.node.isValid)return;
     this.stop();this.acting=true;const generation=this.generation;
     await this.run((frames.length+1)/10,t=>this.play([this.rest,...frames,this.rest],(frames.length+1)*lerp(t,smooth(0,1,t),.6)));
     if(this.current(generation)){this.acting=false;this.show(this.restFrame());this.due=this.clock+1;}

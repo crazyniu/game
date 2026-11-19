@@ -71,6 +71,9 @@ def job(args):
     sizes = sorted((lab == i).sum() for i in range(1, n + 1))[::-1] if n else []
     stray = len(sizes) > 1 and sizes[1] > 0.04 * sizes[0]
     flag = "ok" if (low > 0.86 and inter / union > 0.74 and not stray) else "check"
+    px = np.asarray(canvas).copy()
+    px[px[..., 3] <= 24] = 0   # faint alpha specks would inflate the ink box recorded in the manifest
+    canvas = Image.fromarray(px, "RGBA")
     canvas.save("%s/out/skin/%s_%s_%s.png" % (HERE, species, slot, frame))
     return frame, {"scale": round(float(s), 3), "shift": [dx, dy], "lower_iou": round(float(low), 3), "iou": round(float(inter / union), 3), "stray": bool(stray), "status": flag}
 

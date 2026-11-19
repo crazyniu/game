@@ -32,6 +32,21 @@ export class Art {
   }
   static async preload(names:string[]):Promise<void>{await Promise.all(Array.from(new Set(names)).map(n=>this.load(n)));}
   static async waitPending():Promise<void>{while(this.pending.size)await Promise.all(Array.from(this.pending.values()));}
+  private static deferred:string[]=[];
+  private static draining=false;
+  /** Loads frames a screen does not need to open, a few at a time once nothing else is loading, so opening a page never waits for them. */
+  static defer(names:string[]):void {
+    for(const name of names)if(!this.cache.has(this.entry(name).path)&&!this.deferred.includes(name))this.deferred.push(name);
+    if(!this.draining){this.draining=true;this.drain();}
+  }
+  private static drain():void {
+    setTimeout(()=>{
+      if(this.pending.size){this.drain();return;}
+      const batch=this.deferred.splice(0,6);
+      if(!batch.length){this.draining=false;return;}
+      void Promise.all(batch.map(name=>this.load(name))).finally(()=>this.drain());
+    },30);
+  }
   static region(source:SpriteFrame, region:Rect):SpriteFrame {
     const sf=new SpriteFrame();sf.texture=source.texture;sf.rect=new CocosRect(...region);sf.originalSize=new Size(region[2],region[3]);sf.offset=new Vec2(0,0);sf.packable=false;return sf;
   }
