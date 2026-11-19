@@ -28,8 +28,27 @@ def place(wa, size, ox, oy, out=C):
     return w
 
 
+def feet_bottom(mask):
+    """The lowest row that holds a pair of feet: two runs of opaque pixels left and right of the body centre (a tail is one run in the middle)."""
+    ys, xs = np.nonzero(mask)
+    top, bot = ys.min(), ys.max()
+    centre = np.nonzero(mask[int(top + 0.4 * (bot - top)):int(top + 0.8 * (bot - top))])[1].mean()
+    for r in range(bot, int(top + 0.6 * (bot - top)), -1):
+        cols = np.nonzero(mask[r])[0]
+        if len(cols) < 6:
+            continue
+        runs = np.split(cols, np.nonzero(np.diff(cols) > 1)[0] + 1)
+        runs = [(x[0] + x[-1]) / 2 for x in runs if len(x) >= 5]
+        left = [c for c in runs if c < centre - 8]
+        right = [c for c in runs if c > centre + 8]
+        if left and right:
+            return r
+    width = mask.sum(axis=1)
+    return int(np.nonzero(width >= 0.18 * width.max())[0].max())
+
+
 def job(args):
-    species, slot, frame, kind = args
+    species, slot, frame, kind, extra = args
     sys.path.insert(0, HERE)
     from paint_frames import plain_image
     plain = plain_image(species, frame)
@@ -66,14 +85,7 @@ def job(args):
                     best = (cost, s, dx, dy)
     cost, s, dx, dy = best
     size = round(C * s)
-    if kind != "skin":
-        # a world bird's tail may hang below its feet: put the feet (the lowest rows as wide as a foot pair) on the plain bird's feet line
-        def feet_row(mask):
-            width = (mask > 0.5).sum(axis=1)
-            rows = np.nonzero(width >= 0.18 * width.max())[0]
-            return int(rows.max())
-        placed = place(alpha(raw, size), size, round((C - size) / 2) + dx, round((C - size) / 2) + dy)
-        dy += feet_row(pa) - feet_row(placed)
+    dy += extra
     canvas = Image.new("RGBA", (C, C), (0, 0, 0, 0))
     canvas.paste(raw.resize((size, size), Image.LANCZOS), (round((C - size) / 2) + dx, round((C - size) / 2) + dy))
     wa = np.asarray(canvas, np.float32)[..., 3] / 255.0
@@ -98,8 +110,19 @@ def main(species, slot, kind='skin'):
     sys.path.insert(0, HERE)
     from paint_frames import FRAME_SETS, MIRRORED
     frames = [f for f in FRAME_SETS[kind] if os.path.exists("%s%s_worn.png" % (pre, f))]
+    extra = 0
+    if kind != "skin" and "front" in frames:
+        # a world bird's feet are not where the plain bird's are (a tail may hang below them): record the row of its feet after the shift,
+        # which the game uses to stand the bird on its branch (birds/feet.json)
+        job((species, slot, "front", kind, 0))
+        placed = np.asarray(Image.open("%s/out/skin/%s_%s_front.png" % (HERE, species, slot)).convert("RGBA"))[..., 3] > 128
+        # stand the bird's feet on the plain bird's feet line, but keep the whole bird (a hanging tail, a crest) inside the picture
+        rows = np.nonzero(placed.any(axis=1))[0]
+        feet = feet_bottom(placed)
+        extra = max(-int(rows.min()), min(C - 1 - int(rows.max()), 300 - feet))
+        open("%s/out/skin/%s_%s.feet" % (HERE, species, slot), "w").write(str(feet + extra))
     with ProcessPoolExecutor(4) as pool:
-        table = dict(pool.map(job, [(species, slot, f, kind) for f in frames]))
+        table = dict(pool.map(job, [(species, slot, f, kind, extra) for f in frames]))
     # the left-facing flight frames are the right-facing ones mirrored
     for right in MIRRORED:
         if right in table:

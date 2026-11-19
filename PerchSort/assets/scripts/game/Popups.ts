@@ -140,8 +140,8 @@ export class Kit {
     // One scale and one anchor for the plain bird and all its skins, taken from the largest of their pictures, so a skin with a tall hat does not shrink the body.
     const inks=[species+'_front',...[1,2,3,4,5].map(i=>`${species}_outfit_${i}_front`)].filter(name=>Art.has(name)).map(name=>Art.ink(name)),
       left=Math.min(...inks.map(ink=>ink[0])),top=Math.min(...inks.map(ink=>ink[1])),right=Math.max(...inks.map(ink=>ink[0]+ink[2])),
-      size=Art.size(species+'_front'),feet=size[1]*300/320,k=Math.min(rect[2]/(right-left),rect[3]/(feet-top));
-    return BirdView.create(parent,species,[rect[0]+rect[2]/2-(left+right)/2*k,rect[1]+rect[3]-feet*k,size[0]*k,size[1]*k],{outfit,instant:Kit.instant,lazy:true});
+      size=Art.size(species+'_front'),k=Math.min(rect[2]/(right-left),rect[3]/(Art.feet(species)-top));
+    return BirdView.create(parent,species,[rect[0]+rect[2]/2-(left+right)/2*k,rect[1]+rect[3]-size[1]*300/320*k,size[0]*k,size[1]*k],{outfit,instant:Kit.instant,lazy:true});
   }
   static titleKey(label:string):string { return label.startsWith('bird.')?'bird_'+label.split('.')[1]:label.replace(/\./g,'_'); }
   static prizes(parent:Node,coins:number,boosters:number[],y:number,columns=3):Node[] {
