@@ -23,6 +23,7 @@ elif [[ -z "${ANDROID_HOME:-}" && -d "${HOME}/Library/Android/sdk" ]]; then
   export ANDROID_HOME="${HOME}/Library/Android/sdk"
 fi
 cd "$root"
+[[ -d PerchSort/node_modules ]] || npm --prefix PerchSort ci --no-audit --no-fund
 node tools/native/apply.mjs "$platform" "$mode"
 python3 tools/cocos-meta.py
 mkdir -p build

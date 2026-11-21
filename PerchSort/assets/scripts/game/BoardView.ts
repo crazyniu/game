@@ -135,7 +135,8 @@ export class BoardView {
   private timers = new Map<ReturnType<typeof setTimeout>, () => void>();
   private animations = new Map<Tween<any>, () => void>();
   private ambient: AmbientPiece[] = [];
-  private spotlightEffect!: EffectAsset;
+  /** Absent when its download failed; hints and guides then show without the dimmed surround. */
+  private spotlightEffect?: EffectAsset;
   private spotlightReady: Promise<void>;
   private holdId = 0;
   private held = false;
@@ -148,8 +149,8 @@ export class BoardView {
     this.instant = options.instant ?? false;
     this.session = new GameSession(this.level, profile.inventory);
     this.node = UI.group(host, 'Board');
-    this.spotlightReady = new Promise((resolve, reject) => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
-      if (error) { reject(error); return; } this.spotlightEffect = asset; resolve();
+    this.spotlightReady = new Promise(resolve => resources.load('effects/hint_spotlight', EffectAsset, (error, asset) => {
+      if (error) console.error('Hint spotlight failed to load', error); else this.spotlightEffect = asset; resolve();
     }));
     const ticker = this.node.addComponent(BoardTicker); ticker.owner = this;
     this.slots = Art.data(`world/scene/board_w${this.session.state.world}_slots`).slots;
@@ -355,8 +356,9 @@ export class BoardView {
     return selected;
   }
   private bird_id(code: number): string { return Worlds.look(this.state.world, Board.SPECIES[Board.species_of(code)]); }
-  private look(code: number): string {
-    const outfit = this.profile.equipped[this.bird_id(code)];
+  private look(code: number): string { return this.outfitOf(this.bird_id(code)); }
+  private outfitOf(bird: string): string {
+    const outfit = this.profile.equipped[bird];
     return outfit ? outfit.replace('outfit.','').replace('.','_outfit_') : '';
   }
   private makeBird(code: number, feet: Point): BirdEntry {
@@ -416,8 +418,8 @@ export class BoardView {
     if(species===this.residentSpecies) return;
     this.residentSpecies=species; this.resident?.destroy(); this.resident=null;
     if(species<0) return;
-    const rect=UI.rect(this.doorway), side=170*.58;
-    this.resident=BirdView.create(this.doorway,Worlds.look(this.state.world,Board.SPECIES[species]),this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant});
+    const rect=UI.rect(this.doorway), side=170*.58, bird=Worlds.look(this.state.world,Board.SPECIES[species]);
+    this.resident=BirdView.create(this.doorway,bird,this.birdRect([rect[2]/2,rect[3]*.97],side),{instant:this.instant,outfit:this.outfitOf(bird)});
   }
   private doorPoint(): Point { return [this.doorRect[0]+this.doorRect[2]/2,this.doorRect[1]+this.doorRect[3]/2]; }
   private glyph(character: string): string { return `digit_ui_${({'+':'plus','/':'slash','×':'x'} as Record<string,string>)[character] || character}`; }
@@ -642,6 +644,7 @@ export class BoardView {
     return [x,y-BoardView.HINT_HOLE_HEAD,width,BoardView.HINT_HOLE_HEAD+BoardView.HINT_HOLE_FOOT];
   }
   private spotlight(parent:Node,holes:Rect[]):void {
+    if(!this.spotlightEffect)return;
     const size=Art.size('glow_soft');
     const node=UI.image_region(parent,'glow_soft',[0,0,size[0],size[1]],[0,0,1080,1920]);
     node.name='Spotlight';
@@ -775,10 +778,12 @@ export class BoardView {
   async rescue():Promise<void> {
     if(this.busy||!this.session.history_size())return;
     this.suspended=false;this.busy=true;this.hideGuide();const generation=this.generation;
-    let steps=this.session.history_size();
+    // The whole search shares one time budget; past it the rescue returns to the start, which is always solvable.
+    let steps=this.session.history_size();const deadline=sys.now()+4000;
     for(let back=1;back<this.session.history_size();back++){
-      const snapshot=this.session.history_state(back);
-      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,1500)).status===Solver.Status.SOLVED){steps=back;break;}
+      const snapshot=this.session.history_state(back),left=deadline-sys.now();
+      if(left<=0)break;
+      if(this.winnable.has(snapshot.search_key().join(','))||(await Solver.hint_async(snapshot,[],60000,Math.min(1500,left))).status===Solver.Status.SOLVED){steps=back;break;}
       if(!this.valid(generation))return;
     }
     if(!this.valid(generation))return;
