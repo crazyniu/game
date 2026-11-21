@@ -139,13 +139,21 @@ export class Profile {
     if (primary !== null || backup !== null) profile.blocked_save_key = key;
     return profile;
   }
-  /** A saved value counts only when it carries a schema version, the progress fields every schema has written, and its fields restore a profile; anything else is damaged. */
+  /** A saved value counts only when it is complete for its schema and its fields restore a profile; anything else is damaged.
+   *  The current schema writes every field and one progress entry per level (a new field or a catalog change must raise the schema);
+   *  older schemas must still carry coins, the unlocked level and star records. */
+  private static complete(value: ProfileData): boolean {
+    const schema = value.schemaVersion;
+    if (!Number.isInteger(schema) || schema < 1 || typeof value.coins !== 'number' || typeof value.highestUnlockedLevel !== 'number' || !Array.isArray(value.bestStars) || !value.bestStars.length) return false;
+    if (schema < this.SCHEMA_VERSION) return true;
+    return Object.keys(new Profile().to_dict()).every(key => key in value)
+      && ['bestStars', 'clearCounts', 'bestMoves'].every(key => Array.isArray(value[key]) && value[key].length === Levels.COUNT + 1);
+  }
   private static read(text: string | null): Profile | null {
     if (text === null) return null;
     try {
       const value = JSON.parse(text);
-      return value && typeof value === 'object' && !Array.isArray(value) && Number.isInteger(value.schemaVersion) && value.schemaVersion >= 1
-        && typeof value.coins === 'number' && typeof value.highestUnlockedLevel === 'number' && Array.isArray(value.bestStars) ? this.from_dict(value) : null;
+      return value && typeof value === 'object' && !Array.isArray(value) && this.complete(value) ? this.from_dict(value) : null;
     } catch { return null; }
   }
 }
