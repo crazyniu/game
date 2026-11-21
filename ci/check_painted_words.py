@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Validate Cocos painted locale resources and reject visible font rendering.
+"""Validate Cocos painted locale resources and keep font rendering in one place.
 
-The one transparent EditBox label in Popups.tool_purchase is input plumbing;
-its actual number is drawn with painted sprites. All other Label/RichText sites
-are rejected. Static word references are inspected with TypeScript's parser.
+Screen words are drawn in the game font by game/Flat.ts (Flat.text), the only place allowed to create a Label; the
+transparent EditBox label in Popups.tool_purchase is input plumbing. Every other Label/RichText site is rejected.
+Static word references are inspected with TypeScript's parser.
 """
 import json
 from pathlib import Path
@@ -97,7 +97,7 @@ function inspect(file) {
     if(ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)) {
       const owner=node.expression.expression.getText(source),member=node.expression.name.text;
       if(member==='addComponent' && node.arguments.length && ['Label','RichText'].includes(aliases.get(node.arguments[0].getText(source)))) {
-        if(aliases.get(node.arguments[0].getText(source))!=='Label'||!transparentQuantity(node)) findings.push(location(node)+': visible font component is forbidden');
+        if(!file.endsWith(path.join('game','Flat.ts'))&&(aliases.get(node.arguments[0].getText(source))!=='Label'||!transparentQuantity(node))) findings.push(location(node)+': a font component outside Flat.text is forbidden');
       }
       if(['fillText','strokeText'].includes(member)) findings.push(location(node)+': canvas font rendering is forbidden');
       let kind=null,index=1;
