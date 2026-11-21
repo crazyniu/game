@@ -1,43 +1,83 @@
-import {_decorator, Component, Node, Sprite} from 'cc';
-import {UI,Rect} from './UI';
-import {Art} from './Art';
-import {Kit} from './Popups';
-import {Profile} from '../meta/Profile';
-import {Progress} from '../meta/Progress';
-const {ccclass}=_decorator;
-interface HomeCallbacks{play:(level:number)=>void;map:()=>void;shop:()=>void;aviary:()=>void;settings:()=>void;daily:()=>void;draw:()=>void;chest:()=>void;coins:()=>void;}
-interface HomeBird{node:Node;picture:Node;frames:string[];rest:number;phase:number;due:number;frame:number;time:number;scale:number;feet:number[];}
-@ccclass('HomeMotion')
-class HomeMotion extends Component{view!:HomeView;update(dt:number):void{this.view.update(dt);}}
-export class HomeView{
- node:Node;private birds:HomeBird[]=[];private clock=0;private lastIdle=-1;
- constructor(host:Node,private profile:Profile,private callbacks:HomeCallbacks,private instant=false){this.node=UI.group(host,'Home');this.build();this.node.addComponent(HomeMotion).view=this;}
- private build():void{
-  const p=this.node;UI.image(p,'background_home_jungle',[0,0,1080,1920]);const [w,h]=Art.size('panel_home_title_sign');UI.image(p,'panel_home_title_sign',[94,-30,w,h]);
-  this.addBird('macaw',330,228,4);this.addBird('yellow_chick',500,176,0);this.addBird('blue_chick',665,178,2);this.addBird('green_parrot',830,184,4);
-  const size=Art.size('panel_home_perch_branch');UI.image(p,'panel_home_perch_branch',[-74,760,...size]);UI.feather_bar(p,[48,48],this.profile.coins,this.callbacks.coins);
-  this.icon('Settings','pic_gear',976,104,96,0,this.callbacks.settings);
-  const play=Kit.button(p,'Play',[290,1360,500,Kit.PLAY_H],'white_play',()=>this.callbacks.play(Progress.resume_level(this.profile)));
-  const daily=this.icon('DailyReward','pic_calendar',960,1230,120,184,this.callbacks.daily),draw=this.icon('LuckyDraw','icon_home_draw',960,1450,120,184,this.callbacks.draw);
-  if(Progress.daily_reward_available(this.profile,Progress.today()))this.badge(daily,1);
-  if(Progress.draws_available(this.profile,Progress.today()))this.badge(draw,1);
-  const entries:[string,string,()=>void][]=[['Map','pic_map',this.callbacks.map],['Shop','pic_shop',this.callbacks.shop],['Aviary','pic_aviary',this.callbacks.aviary],['Chest','pic_chest',this.callbacks.chest]];
-  entries.forEach(([name,asset,action],i)=>{const n=this.icon(name,asset,174+244*i,1760,132,204,action);if(name==='Chest'&&Progress.chests_ready(this.profile)>0)this.badge(n,Progress.chests_ready(this.profile));});
- }
- private icon(name:string,asset:string,x:number,y:number,side:number,back:number,action:()=>void):Node{
-  const content:Record<string,Rect>={pic_gear:[21,28,203,202],pic_calendar:[49,39,154,194],icon_home_draw:[175,75,958,972],pic_map:[18,36,226,177],pic_shop:[18,17,196,221],pic_aviary:[21,49,200,164],pic_chest:[36,50,185,170]};
-  const n=UI.hit_area(this.node,name,[x-80,y-80,160,160],action);if(back){const frame=UI.image(n,'btn_home_icon_frame',[(160-back)/2,(160-back)/2,back,back],true);UI.opacity(frame,.88);}
-  const face=UI.art(n,asset,[(160-side)/2,(160-side)/2,side,side],content[asset]);UI.outline(face);return n;
- }
- private badge(n:Node,count:number):void{const b=UI.badge(n,[144,20],count,true)!;b.setScale(48/66,48/66,1);b.setPosition(120,-4);}
- private addBird(kind:string,x:number,height:number,rest:number):void{
-  const frames=Art.frames(`home_island_${kind}_idle`),feet=kind==='macaw'||kind==='green_parrot'?330:470,c=Art.ink(frames[rest]),scale=height/(feet-c[1]),size=Art.size(frames[rest]);
-  const contact:Record<string,number[]>={macaw:[320,324,323,328,324,323,323,322],green_parrot:[326,328,325,331,327,326,328,327]};
-  const n=UI.group(this.node,`Bird_${kind}`,[x,950,0,0]),picture=UI.image(n,frames[rest],[-256*scale,-(contact[kind]?.[rest]??feet)*scale,size[0]*scale,size[1]*scale]);
-  Art.preload(frames);this.birds.push({node:n,picture,frames,rest,phase:this.birds.length*.91,due:.45+(this.birds.length%4)*.65,frame:rest,time:-1,scale,feet:contact[kind]??Array(8).fill(feet)});
- }
- update(dt:number):void{if(this.instant)return;this.clock+=dt;for(const b of this.birds){const breath=(Math.sin(this.clock*Math.PI*2/2.8+b.phase)+1)/2;b.node.setScale(1-.008*breath,1+.02*breath,1);if(b.time<0&&this.clock>=b.due&&this.clock-this.lastIdle>=.62){b.time=0;this.lastIdle=this.clock;}if(b.time>=0){b.time+=dt;const frame=Math.floor(b.time*8);if(frame>=8){b.time=-1;b.due=this.clock+1+Math.random()*2;}const f=frame>=8?b.rest:frame;if(f!==b.frame){b.frame=f;const sprite=Art.cache.get(Art.key(b.frames[f]));if(sprite)b.picture.getComponent(Sprite)!.spriteFrame=sprite;const r=UI.rect(b.picture);UI.move(b.picture,r[0],-b.feet[f]*b.scale);}}}}
- refresh():void{UI.clear(this.node);this.birds=[];this.build();}
- destroy():void{this.node.destroy();}
- static preview(host:Node,profile:Profile,callbacks:HomeCallbacks,state='home'):HomeView{const p=profile.duplicate_profile();p.coins=state==='home_new'?0:50270;return new HomeView(host,p,callbacks,true);}
+import { Node, Vec3, tween } from 'cc';
+import { UI, Rect } from './UI';
+import { Kit } from './Popups';
+import { Flat, ON_LIGHT, onTone } from './Flat';
+import { tr } from './I18n';
+import { Profile } from '../meta/Profile';
+import { Progress } from '../meta/Progress';
+import { Worlds } from '../meta/Worlds';
+import { Tasks } from '../meta/Tasks';
+import { Levels } from '../core/Levels';
+
+export interface HomeCallbacks { play: (level: number) => void; map: () => void; shop: () => void; aviary: () => void; settings: () => void; daily: () => void; draw: () => void; tasks: () => void; chest: () => void; coins: () => void; freeCoins: () => boolean }
+
+/**
+ * Home in fishsort's flat style: the feather capsule on top, the Bird Sort sign, daily things down the left (check-in, lucky draw, star
+ * chest) and standing systems down the right (shop, album, tasks), each a glass tile with a blue label plate, one branch with three birds
+ * of the world being played between the columns; Settings, Play (with the level) and Levels along the bottom. Entries pop in one after another.
+ */
+export class HomeView {
+  node: Node;
+  constructor(host: Node, private profile: Profile, private callbacks: HomeCallbacks, private instant = false) { this.node = UI.group(host, 'Home'); this.build(); }
+  private build(): void {
+    const p = this.node, level = Progress.resume_level(this.profile), world = Levels.world_of(Levels.get_level(level)), today = Progress.today();
+    UI.image(p, `board_w${world}${world === 1 || world === 10 ? '_open' : ''}_bg`, [0, 0, 1080, 1920]);
+    const left: [string, string, Rect | undefined, string, () => void, boolean][] = [
+      ['DailyReward', 'pic_calendar', [49, 39, 154, 194], 'H_FEAT_SIGNIN', this.callbacks.daily, Progress.daily_reward_available(this.profile, today)],
+      ['LuckyDraw', 'icon_home_draw', [175, 75, 958, 972], 'H_DRAW', this.callbacks.draw, Progress.draws_available(this.profile, today)],
+      ['Chest', 'pic_chest', [36, 50, 185, 170], 'H_CHEST', this.callbacks.chest, Progress.chests_ready(this.profile) > 0],
+    ];
+    const right: typeof left = [
+      ['Shop', 'pic_shop', [18, 17, 196, 221], 'UI_TAB_SHOP', this.callbacks.shop, false],
+      ['Aviary', 'pic_aviary', [21, 49, 200, 164], 'H_ALBUM', this.callbacks.aviary, false],
+      ['Tasks', 'pic_tasks', undefined, 'UI_TAB_TASKS', this.callbacks.tasks, Tasks.ready(this.profile, today) > 0],
+    ];
+    UI.image(p, 'panel_home_title_sign', [220, 120, 640, 476]);
+    this.capsule();
+    this.birds(world);
+    left.forEach((e, i) => this.entry(e, 122, 380 + i * 270, i * .08));
+    right.forEach((e, i) => this.entry(e, 958, 380 + i * 270, .04 + i * .08));
+    this.bottom(level);
+  }
+  private capsule(): void { Flat.capsule(this.node, [32, 64, 320, 88], this.profile.coins, this.callbacks.freeCoins() ? this.callbacks.coins : undefined); }
+  private entry([name, icon, content, word, action, dot]: [string, string, Rect | undefined, string, () => void, boolean], cx: number, top: number, delay: number): void {
+    const n = UI.hit_area(this.node, name, [cx - 90, top, 180, 194], action);
+    Flat.image(n, 'f_card_glass', [10, 0, 161, 161]);
+    UI.art(n, icon, [25, 8, 130, 130], content);
+    const plate = UI.group(n, 'Label', [0, 136, 180, 58]);
+    Flat.plateIn(plate, 'f_plate_blue', [0, 0, 180, 58]);
+    Flat.text(plate, tr(word), [10, Flat.face(58) - 25, 160, 50], 35, onTone('plate'));
+    if (dot) Flat.dot(n, 164, 8);
+    Kit.pop(n, delay);
+  }
+  /** One branch between the entry columns with three birds of the world being played (with their skins); a tap makes one perform. */
+  private birds(world: number): void {
+    Kit.perch(this.node, [540, 1290], 720);
+    (['sky', 'sunny', 'berry'] as const).forEach((slot, i) => {
+      const species = Worlds.look(world, slot), worn = this.profile.equipped[species], r: Rect = [222 + i * 212, 1010, 212, 280];
+      const bird = Kit.liveBird(this.node, species, r, worn ? `${species}_outfit_${worn.split('.')[2]}` : '');
+      UI.hit_area(this.node, 'Bird_' + slot, r, () => bird.showcase());
+    });
+  }
+  private bottom(level: number): void {
+    const y = 1920 - 72 - 225, h = 225;
+    this.key('Settings', [34, y, 202, h], 'f_g_gear', 'UI_SETTINGS', this.callbacks.settings);
+    const holder = UI.group(this.node, 'PlayPivot', [540, y + h / 2, 0, 0]);
+    const play = Flat.button(holder, 'Play', [-281, -h / 2, 562, h], 'green', '', () => this.callbacks.play(level));
+    const face = Flat.face(h);
+    Flat.text(play, tr('UI_PLAY'), [40, face - 32 - 60, 482, 120], 95, onTone('green'));
+    Flat.text(play, tr('UI_LEVEL', level), [40, face + 55 - 30, 482, 60], 43, { color: '#E9FFE0', depth: '#268F1B' });
+    if (!this.instant) tween(holder).repeatForever(tween().to(1.2, { scale: new Vec3(1.03, 1.03, 1) }, { easing: 'sineInOut' }).to(1.2, { scale: new Vec3(1, 1, 1) }, { easing: 'sineInOut' })).start();
+    this.key('Levels', [844, y, 202, h], 'pic_map', 'H_FEAT_LEVELS', this.callbacks.map);
+  }
+  /** A blue key with a picture above its word. */
+  private key(name: string, r: Rect, icon: string, word: string, action: () => void): void {
+    const n = Flat.button(this.node, name, r, 'blue', '', action);
+    if (icon.startsWith('f_g_')) Flat.image(n, icon, [r[2] / 2 - 52, 22, 104, 104]);
+    else UI.art(n, icon, [r[2] / 2 - 62, 14, 124, 116], [18, 36, 226, 177]);
+    Flat.text(n, tr(word), [10, 132, r[2] - 20, 56], 35, onTone('blue'));
+  }
+  refresh(): void { UI.clear(this.node); this.build(); }
+  destroy(): void { this.node.destroy(); }
+  static preview(host: Node, profile: Profile, callbacks: HomeCallbacks, state = 'home'): HomeView { const p = profile.duplicate_profile(); p.coins = state === 'home_new' ? 0 : 50270; return new HomeView(host, p, callbacks, true); }
 }

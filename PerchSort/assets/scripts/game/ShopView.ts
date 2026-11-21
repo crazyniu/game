@@ -8,6 +8,8 @@ import { Levels } from '../core/Levels';
 import { AviaryView } from './AviaryView';
 import { Worlds } from '../meta/Worlds';
 import { BOOSTER_ART, BOOSTER_WORD, Kit, PageCallbacks, Popups } from './Popups';
+import { Flat } from './Flat';
+import { word } from './I18n';
 
 type CatalogItem=NonNullable<ReturnType<typeof Shop.item>>;
 export interface ShopCallbacks extends PageCallbacks { boosterPurchased?: (kind:number,count:number)=>void }
@@ -33,9 +35,9 @@ export class ShopView {
   owned_outfits(species:string):number {return 1+Shop.catalog().filter(it=>it.kind===Shop.OUTFIT&&it.species===species&&this.profile.owns_outfit(it.id)).length;}
   private build():void {
     if(this.page)Kit.destroy(this.page);this.page=UI.group(this.node,'Page');UI.image(this.page,'background_home_jungle',[0,0,1080,1920]);
-    Kit.close(this.page,[48,48],this.callbacks.close);Kit.lettering(this.page,'tab_'+['boosters','outfits','nests'][this.tab],[284,232,512,132]);UI.feather_bar(this.page,[736,48],this.profile.coins,this.callbacks.coins);
+    Kit.close(this.page,[32,Flat.HEAD_Y-64,128,128],this.callbacks.close,true);Flat.title(this.page,word('tab_'+['boosters','outfits','nests'][this.tab]),540,Flat.HEAD_Y,115,520);UI.feather_bar(this.page,[728,48],this.profile.coins,this.callbacks.coins);
     const outfits=this.tab===Shop.OUTFIT,count=outfits?Worlds.birds(this.world).length:this.items().length;
-    const top=outfits?504:384,view=1668-top,height=Math.max(view,this.tab===Shop.BOOSTER?count*256-20+8:Math.ceil(count/2)*432-20+8);
+    const top=outfits?380:240,view=1668-top,height=Math.max(view,this.tab===Shop.BOOSTER?count*256-20+8:Math.ceil(count/2)*432-20+8);
     this.scroll=UI.scroll(this.page,'Scroll',[48,top,984,view],height);
     if(outfits){Worlds.birds(this.world).forEach((id,i)=>this.kindTile(id,[i%2*502,Math.floor(i/2)*432,482,412],i));this.worldSwitch();}
     else this.items().forEach((it,i)=>this.itemTile(it,this.tab===Shop.BOOSTER?[0,i*256,984,236]:[i%2*502,Math.floor(i/2)*432,482,412],i));
@@ -43,7 +45,7 @@ export class ShopView {
   }
   /** The skin tab lists one world's birds at a time, switched like the aviary. */
   private worldSwitch():void {
-    const header=UI.group(this.page,'WorldSwitch',[60,380,960,120]),last=AviaryView.last_world();
+    const header=UI.group(this.page,'WorldSwitch',[60,240,960,120]),last=AviaryView.last_world();
     const previous=UI.button(header,'WorldPrevious','btn_world_previous',[160,4,112,112],()=>{this.world=Math.max(1,this.world-1);this.build();});
     const next=UI.button(header,'WorldNext','btn_world_next',[688,4,112,112],()=>{this.world=Math.min(last,this.world+1);this.build();});
     Kit.lettering(header,'world_'+Worlds.NAMES[this.world-1],[284,22,392,76]);

@@ -41,3 +41,4 @@ PerchSort/native/engine/common/localCfg.cmake
 
 # world design working output
 tools/birds/world_designs/out/
+tools/island/out/

@@ -20,7 +20,7 @@ Perch Sort is one Cocos Creator **3.8.8** game written in TypeScript: portrait 1
 - Mockups in `art/approved_ui` establish layout, proportions, scale, colour, material, and mood. They are references, not pixels to extract. Never place a design image in the runtime or crop its artwork into game assets. Reuse clean game assets; generate separate pieces only when the task authorizes artwork changes.
 - Approved runtime captures in `art/approved_runtime` are the acceptance baseline for approved screens. Later visible changes must match that baseline or receive renewed approval. Implementation, compilation, and test results do not establish visual acceptance.
 - UI specifications live only in `docs/design/`; the primary specification is `docs/design/island-style.md`. Design images live only in `art/approved_ui/`. Replace revisions in place; retain superseded work in Git only.
-- Player-visible words are painted label sprites and numbers are painted glyphs. Never substitute font-rendered words or numbers. Invisible native text used solely for input must remain invisible.
+- The UI follows fishsort's flat style (owner, 2026-11-21): `game/Flat.ts` builds buttons, plates, cards and popups, and words are drawn at runtime in the one game font (KN Maiyuan, `tools/ui/font_subset.py`; Korean has its own) from `i18n/strings.csv` in twelve languages (`game/I18n.ts`). Never use a system font or a second font. Screens not yet rebuilt still show the earlier painted English and Chinese words until they move to the flat kit.
 - Same-role buttons keep identical sizes across every state. Disabled controls are dimmed and non-interactive, never smaller. Primary actions are at most 1.25 times the size of sibling actions.
 - Preserve current forest visuals, minimal controls, existing settings layout, and icon-only actions where clear. Do not add unnecessary instructions or features.
 
@@ -28,7 +28,7 @@ Perch Sort is one Cocos Creator **3.8.8** game written in TypeScript: portrait 1
 
 1. Read the screen's structure and current contract before placing assets. Do not restore retired mockup coordinates.
 2. Every shipped picture is an existing clean asset or an authorized newly generated piece. Retained originals are never overwritten. Keep one reusable source and consistent light direction for each role.
-3. Painted words have one set per supported language. Check generated spelling letter by letter; fit visible ink into fixed layout boxes. English and Chinese packs must stay coherent.
+3. Every screen word is a key in `i18n/strings.csv` with all twelve languages; after editing it run `python3 tools/ui/strings.py` and `tools/ui/font_subset.py` so the font keeps every character. Long words shrink to fit their box (`Flat.fit`); shorten the copy rather than let it shrink far.
 4. Bird actions use different drawn frames. Never fake turning, hopping, or flying by mirroring, rotating, or shaking one still. Continuous breathing and a brief landing squash accompany the drawn sequences.
 5. Birds in popups, houses, and on branches stay alive through breathing and frequent idle actions. Cancel tweens, callbacks, and frame updates when their owner is removed or inactive.
 6. Level entrance lasts **3.5–4.5 seconds**, ordered houses, branches, then birds. A tap may skip it; board input unlocks at completion.

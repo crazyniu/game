@@ -1264,6 +1264,30 @@
     },
     "lettering_bird_eagleowl": {
       "file": "island_words/lettering_bird_eagleowl.png"
+    },
+    "lettering_tasks_title": {
+      "file": "island_words/lettering_tasks_title.png"
+    },
+    "caption_task_levels": {
+      "file": "island_words/caption_task_levels.png"
+    },
+    "caption_task_flocks": {
+      "file": "island_words/caption_task_flocks.png"
+    },
+    "caption_task_combos": {
+      "file": "island_words/caption_task_combos.png"
+    },
+    "caption_task_tools": {
+      "file": "island_words/caption_task_tools.png"
+    },
+    "caption_task_draw": {
+      "file": "island_words/caption_task_draw.png"
+    },
+    "caption_task_today": {
+      "file": "island_words/caption_task_today.png"
+    },
+    "caption_task_week": {
+      "file": "island_words/caption_task_week.png"
     }
   },
   "words": {
@@ -2765,6 +2789,54 @@
     "bird.eagleowl.name": {
       "gold": {
         "file": "island_words/lettering_bird_eagleowl.png",
+        "cap": 96.0
+      }
+    },
+    "tasks_title": {
+      "gold": {
+        "file": "island_words/lettering_tasks_title.png",
+        "cap": 96.0
+      }
+    },
+    "task_levels": {
+      "caption": {
+        "file": "island_words/caption_task_levels.png",
+        "cap": 96.0
+      }
+    },
+    "task_flocks": {
+      "caption": {
+        "file": "island_words/caption_task_flocks.png",
+        "cap": 96.0
+      }
+    },
+    "task_combos": {
+      "caption": {
+        "file": "island_words/caption_task_combos.png",
+        "cap": 96.0
+      }
+    },
+    "task_tools": {
+      "caption": {
+        "file": "island_words/caption_task_tools.png",
+        "cap": 96.0
+      }
+    },
+    "task_draw": {
+      "caption": {
+        "file": "island_words/caption_task_draw.png",
+        "cap": 96.0
+      }
+    },
+    "task_today": {
+      "caption": {
+        "file": "island_words/caption_task_today.png",
+        "cap": 96.0
+      }
+    },
+    "task_week": {
+      "caption": {
+        "file": "island_words/caption_task_week.png",
         "cap": 96.0
       }
     }
